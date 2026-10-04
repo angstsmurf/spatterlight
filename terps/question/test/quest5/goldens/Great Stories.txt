@@ -1,0 +1,303 @@
+Welcome to Phosiar. In this game there are features that are not shown as actions. Looking at your surroundings for example.
+There are objects you can look at by typing in "look at -objects name-"
+The command "look at surroundings" should allways give a response. There are many objects in the game, which will not be shown in the description. The only way to notice their presence is to carefully examine the location.
+Maybe you will discover a mystery. Most characters got more to say than just one phrase. Make them talk to you more than once.
+For information about fights, read the book "Fighting".
+
+My home. Nothing more, nothing less.
+You can see a Desk.
+You can go west.
+> look at desk
+
+> look at desk
+This is just an old wooden desk.
+On the desk is the Book:  THE EMPIRE RISES - VOL I, the Magic Box of wisdom, a Book: Fighting and an Apple.
+> take fighting
+
+> take fighting
+You pick it up.
+> read fighting
+
+> read fighting
+Fighting
+
+by Quentin
+
+Did you ever faced an enemy in a real combat? If your answer is NO, then read this book.
+
+While in a fight, you allways should know your way out. You dont know anything about your opponent, maybe he will kill you with the next punch?
+But in case your enemy is weaker than you, running away could be a bad decision.
+
+-- Gameplay, you hit your enemy everytime you chose "fight". And your enemy will try to kill you.
+
+The enemy will never be able to kill you instantly. Except your health is low.
+But most enemies are tougher than you, keep that in mind.
+Sometimes you just hit the weak spot of an enemy by pure luck.
+
+You will not get informed about your enemies status. Allways remember: do NOT expect your opponent is going to show you how to kill it, just keep on fighting till the very end!
+
+After you killed your opponent, you can chose to ignore it. That means, You will not be able to interact with it anymore.
+> take empire
+
+> take empire
+You pick it up.
+> read empire
+
+> read empire
+THE EMPIRE RISES
+
+The Klern-Dynasty
+
+By Genorus Horkun
+
+In the year 1, the Empire was just a small piece of Land, in a place that is known today as "Fallen Blookwind". Vinius Klern I. was crowned 3 years later, after the battle of fallen blookwind.
+Yes, honored reader of this book: Vinius Klern I. -and his private army called "the phosiors"- was fighting against the King of Fallen Blookwind, and his army, for 3 Years. When the King was killed, Vinius Klern has destroyed every single record about the King.
+There are no records about what happened before the "YEAR ONE". Because all records have been destroyed. The "first" record has been created by Vinius Klern I. in the year 6. It was about his own war against the King. In this script, Vinius mentioned the Name of the King: Marcios.
+This is the only script, in which you can find the name of the King.
+
+Yr. 8
+Vinius Klern I. conquers Heiring. "The phosiors" grow up to a count of 500 men.
+Vinius Klern I. married Clira Gario. Their son, Vinius Klern II., was born in Yr. 10.
+
+Yr. 22
+Vinius Klern I. has conquered various cities in the area around Heiring and Fallen Blookwind. There are no specific records about this time.
+
+Yr. 31
+Vinius Klern I. was killed by an unknown individual. There were no traces of how he was killed. Vinius Klern II. takes the crown 15 days later.
+The Empire is now under control of its second ruler. Vinius Klern II. supported the economy more.
+
+Yr. 60
+The Empire is strong, the phosiors count more than 2000 men. The Empire expands to the south, down to the Nulo-lake.
+
+Yr. 76
+Vinius Klern II. gives the crown to his 21 year old son: Jiloz Klern I. by the age of 66 years. Jiloz Klern I. is ruling the Empire without any war for 43 years.
+
+Yr. 119
+Jiloz Klern I. was forced to warfare by the age of 64. He was killed in the battle of Glemholf Hold. But the Empire won the war 3 years later.
+
+Yr. 121
+Living without a Ruler, "Klav´r al Hzul" has won the voting for the Ruler of the Empire. Being crowned, his name was changed to "Vinius Klern III."
+He was the first "Klern" without any relation to the Klern-dynasty. That was the End of the Klern-dynasty.
+
+The Year 122 started the new Hzul-dynasty, because Klav´r al Hzul never accepted to change his name.
+
+> w
+
+> w
+
+This is the Market in Lynothic. The enconomic center of the city, and your place.
+You can see an old man.
+You can go east, northeast, north, west or south.
+> n
+
+> n
+
+This is the trader in Lynothic. There is an Letter on the door...
+You can see Clarius Vacano.
+You can go south.
+> read letter
+
+> read letter
+It says
+>>  Dear customers,
+       In respectful gratitude to our King Vinius Klern VI. and his new taxation system, I was forced to raise my prices. I thank you for your comprehension.
+
+Clarius Vacano, official Trader of Lynothic
+> ask clarius about the letter
+
+> ask clarius about the letter
+He does not reply.
+> s
+
+> s
+
+This is the Market in Lynothic. The enconomic center of the city, and your place.
+You can see an old man.
+You can go east, northeast, north, west or south.
+> s
+
+> s
+
+This is the Temple. Its a beautiful, peaceful and calm place. You feel like you should stay for a while and meditate about life.
+You can see Paren, a shrine of Bareth and a shelf.
+You can go north.
+> n
+
+> n
+
+This is the Market in Lynothic. The enconomic center of the city, and your place.
+You can see an old man.
+You can go east, northeast, north, west or south.
+> ne
+
+> ne
+
+Thats the blacksmith. The place where Avolar, the blacksmith, can be found. If you are looking for some high quality armour or weapons, he is the man to talk to.
+You can see the Book: smithing   A guide for beginners and Avolar Génor.
+You can go southwest.
+> take smithing
+
+> take smithing
+You pick it up.
+> read smithing
+
+> read smithing
+Smithing - a how to guide for beginners
+
+by Avolar Génor
+
+So you want to get into blacksmithing? Of course you do, thats why you bought this book!
+So how you start creating a weapon?
+
+You need the material your new weapon is made of.
+
+Now the fire: This is an important step! So be careful!
+If the fire is too hot, you will destroy your blade as soon as you take it out of the fire! But on the other side, as You may gussed, if it is too cold, Your blade will deform like a piece of butter.
+
+So take a few blades to make sure the temperature is perfect.
+Now you lay the blade right into the fire, but not just on the coals! The full blade must be covered by the flames.
+Let the blade rest in the fire until it is as hot as the forge. Do not touch the blade with your bare hands!
+
+Now take the blade out of the forge and give it the right shape on the anvil. I guess you know how to handle a hammer.
+If the metal cools down too fast, just heat it up again in the forge, then go back to the anvil.
+Repeat that until your blade has the shape you wish.
+
+Then put it into the forge for the final time, make sure the forge has the perfect temperature, because this time, it is highly important. When the blade is hot, "freeze" it in water.
+That shock will make the metal even harder and more resistant to impacts.
+
+But the blade still is not sharp, so You have to fix this. Sharpen the blade to give it its ultimate power.
+ Of course, this is just a litte help for beginners, it takes years of experience to make a powerful blade. But by reading this book. You just made a first step on the long way to become the best blacksmith in the world.
+
+> sw
+
+> sw
+
+This is the Market in Lynothic. The enconomic center of the city, and your place.
+You can see an old man.
+You can go east, northeast, north, west or south.
+> w
+
+> w
+
+This is one of the roads in Lynothic. On the west, it is the way to the city gates.
+The north leads to the Inn called "Vurcalo Inn" and to the east, there is the market.
+You can see a Guard.
+You can go east, north or west.
+> n
+
+> n
+
+This is the Vurcalo Inn. A place where people come in to drink, eat and sleep. Right in the other side of the room, there is the owner: Vurcalo Voliar.
+You can see a Vurcalo Voliar.
+You can go south.
+> s
+
+> s
+
+This is one of the roads in Lynothic. On the west, it is the way to the city gates.
+The north leads to the Inn called "Vurcalo Inn" and to the east, there is the market.
+You can see a Guard.
+You can go east, north or west.
+> w
+
+> w
+
+Here are the Citygates of Lynothic, leading west. From here this road leads to the Dunkenforrest. A dark and dangerous place...
+You can see two guards.
+You can go east or west.
+> w
+
+> w
+
+This is outside of Lynothic city gates.  The gates are to the east. A Guard stands right in front of the gates.
+You can see a Guard, a chair and a table.
+You can go east, north or west.
+> look at table
+
+> look at table
+Just a simple table, place right next to the chair.
+on which there is a mead.
+> take mead
+
+> take mead
+You pick it up.
+> n
+
+> n
+
+The 40 stairs go up to the watchtower on the hill. You got a good view from here already, as you look south, to the gates.
+
+You can go south or north.
+> n
+
+> n
+
+This is the watchtower. As you look around you see that it is completely empty.
+
+You can go south, down or up.
+> up
+
+> up
+
+You are now on the Top of the watchtower. The wind is pretty tough up here.
+You can see a chest and a key.
+You can go down.
+> take key
+
+> take key
+You pick it up.
+> unlock chest
+
+> unlock chest
+Unlocked.
+You open it.
+It contains unfinished royal documents, an inkpot and a quill.
+> open chest
+
+> open chest
+It is already open.
+> look at chest
+
+> look at chest
+An dirty chest. Dirty like everything else in this tower. You can see the royal emblem on its lock.
+It contains unfinished royal documents, an inkpot and a quill.
+> take documents
+
+> take documents
+You pick it up.
+> read documents
+
+> read documents
+Commander Heraf Lenowiv
+
+According to your letter of last week I have to admid that two of our guards have been killed while checking out the (the letter ends here)...
+> take quill
+
+> take quill
+You pick it up.
+> take inkpot
+
+> take inkpot
+You pick it up.
+> down
+
+> down
+
+This is the watchtower. As you look around you see that it is completely empty.
+
+You can go south, down or up.
+> s
+
+> s
+
+The 40 stairs go up to the watchtower on the hill. You got a good view from here already, as you look south, to the gates.
+
+You can go south or north.
+> s
+
+> s
+
+This is outside of Lynothic city gates.  The gates are to the east. A Guard stands right in front of the gates.
+You can see a Guard, a chair and a table.
+You can go east, north or west.
+[state=Running]

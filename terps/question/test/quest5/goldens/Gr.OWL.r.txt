@@ -1,0 +1,301 @@
+Gr.OWL.r
+The Great Owl Rescue
+
+by Kevin MacMillan
+
+ You are standing on the  Street  .
+
+You can see a Mailbox.
+
+You can go into the Driveway by going south.
+
+> open mailbox
+
+> open mailbox
+
+You see an old silver key and a scrap of paper inside the mailbox.
+ a Silver Key and a Scrap of paper.
+> take silver key
+
+> take silver key
+
+You put the silver key in your pocket.
+> s
+
+> s
+
+You are in a Driveway.
+
+You can see a Basketball Hoop.
+
+You can go back to the street by going   north, into the Front Yard by going  west, southeast, southwest or south.
+
+> se
+
+> se
+
+ Side of the House.
+
+Next to some really smell trash cans, you can see a chain-linked fence and a gate that leads into the backyard.  The gate, however, looks to be secured by a silver lock.
+
+You can see a Gate and a Garbage Cans.
+
+You can go northwest or south.
+
+> open gate
+
+> open gate
+
+Unlocked. The path to the spooky backyard is now open.
+You open it.
+> s
+
+> s
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set, a Grill and Pinky.
+
+You can go southwest, south, north or northeast.
+
+> southwest
+
+> southwest
+
+You are standing in front of  a Shed.
+
+The back corner of the grounds hides an old shed.  Long, lost, and forgotten, it doesn't seem to have had any visitors in some time.  There is a bronze lock holding the door shut.
+
+You can see a Shed Door.
+
+You can go northeast.
+
+> northeast
+
+> northeast
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set, a Grill and Pinky.
+
+You can go southwest, south, north or northeast.
+
+> south
+
+> south
+
+You are standing at a Fire Pit.
+
+You can see a Big Tree and a Fire Pit.
+
+You can go north or southeast.
+
+> southeast
+
+> southeast
+
+You are in a Wooded area.
+
+You can see a Woodpile and a bridge.
+
+You can go north.
+
+> north
+
+> north
+
+You are standing at a Fire Pit.
+
+You can see a Big Tree and a Fire Pit.
+
+You can go north or southeast.
+
+> north
+
+> north
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set, a Grill and Pinky.
+
+You can go southwest, south, north or northeast.
+
+> ne
+
+> ne
+
+ Side of the House.
+
+Next to some really smell trash cans, you can see a chain-linked fence and a gate that leads into the backyard.  The gate, however, looks to be secured by a silver lock.
+
+You can see a Gate and a Garbage Cans.
+
+You can go northwest or south.
+
+> nw
+
+> nw
+
+You are in a Driveway.
+
+You can see a Basketball Hoop.
+
+You can go back to the street by going   north, into the Front Yard by going  west, southeast, southwest or south.
+
+> sw
+
+> sw
+
+You are in You are standing at the Front Door.
+
+You can see a Welcome Mat, a Wiener Dog Sign and a Front Door.
+
+You can go north, northeast, south or east.
+
+> move welcome mat
+
+> move welcome mat
+
+You move the mat with your feet, and catch a glimpse of light reflected by something hidden underneath.
+You are in You are standing at the Front Door.
+
+You can see a Welcome Mat, a Wiener Dog Sign, a Front Door Key and a Front Door.
+
+You can go north, northeast, south or east.
+
+> take front door key
+
+> take front door key
+
+You pick it up.
+> open front door
+
+> open front door
+
+Unlocked.
+You open it.
+> s
+
+> s
+
+You are in a Hallway.
+
+You can see an Upstairs, a Coat Closet and a Cabinets.
+
+You can go south, east or north.
+
+> x coat closet
+
+> x coat closet
+
+Nothing out of the ordinary.
+> open coat closet
+
+> open coat closet
+
+You open it.
+You open up the coat closet.  Out pops the shockingly-evil villian, Megavolt.  He narrowly misses you with an electric bolt.
+It contains a MegaVolt.
+> x cabinets
+
+> x cabinets
+
+Nothing out of the ordinary.
+It contains a Drawers.
+> x upstairs
+
+> x upstairs
+
+Nothing out of the ordinary.
+It contains a Light Switch and a Security Panel.
+> south
+
+> south
+
+You are in a Kitchen.
+
+You can see a Refrigerator, a Pantry, a Counter, a Trash Can and a Knife Block.
+
+You can go south, east, north or west.
+
+> east
+
+> east
+
+You are in a Dining Room.
+
+You can see a Dining Room Table.
+
+You can go west, north or east.
+
+> north
+
+> north
+
+You are in a Family Room.
+
+You can see a Cage, an Entertainment Center, a Lounge Chair and a Coffee Table.
+
+You can go south or west.
+
+> south
+
+> south
+
+You are in a Dining Room.
+
+You can see a Dining Room Table.
+
+You can go west, north or east.
+
+> east
+
+> east
+
+You are  Inside the Garage.
+
+You can see a Baseball Bat, Paint Thinner, some Boxes, a Workbench, an Outdoor Light Switch, a Recycling Bin and a Board with nails.
+
+You can go north or west.
+
+> north
+
+> north
+
+ You are standing in front of the  Garage.
+
+You can see a Garage Door and a Keypad.
+
+You can go north or west.
+
+> south
+
+> south
+
+You can't go there.
+> west
+
+> west
+
+You are in You are standing at the Front Door.
+
+You can see a Welcome Mat, a Wiener Dog Sign and a Front Door.
+
+You can go north, northeast, south or east.
+
+> west
+
+> west
+
+You can't go there.
+> north
+
+> north
+
+You are in a Front Yard.
+
+You can see a Big Tree, a Dog Statue, an Apple and a Big Stick.
+
+You can go east, south or southwest.
+
+[state=Running]

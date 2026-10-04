@@ -1,0 +1,160 @@
+Fighting Sim
+
+by A Chicken, or is it?
+
+You are in a home base.
+You can see a character booster packs, character list, a gold converter, an upgrading system, a crafting table, a chest and a ship yard.
+You can go east.
+> x character booster packs
+
+> x character booster packs
+You can use this to get new characters. Each pull costs 1 diamond.
+> use character booster packs
+
+> use character booster packs
+You got soulreaver scythe (UR)!
+> x character list
+
+> x character list
+Which character will you look at?
+1: soulreaver scythe
+> 1
+soulreaver scythe details:
+Rarity: UR
+Current level: 1
+ATK: 820
+DEF: 380
+Health: 6500
+Skill: Harvest Souls (Blast)
+> x gold converter
+
+> x gold converter
+Converts every 1500 gold to 1 diamond.
+> use gold converter
+
+> use gold converter
+You don't have enough gold (1500).
+> x upgrading system
+
+> x upgrading system
+You can use this to upgrade characters, improving their ATK, DEF, and health!
+> use upgrading system
+
+> use upgrading system
+See which character?
+1: soulreaver scythe
+> 1
+To what level?
+> 2
+You don't have enough gold (1500).
+> x crafting table
+
+> x crafting table
+Nothing out of the ordinary.
+> use crafting table
+
+> use crafting table
+Which category?
+1: Fishing
+2: Shipbuilding
+> 1
+What will you craft?
+1: Fish Crate
+2: Basic Fishing Rod
+3: Basic Fishing Bait
+4: Reinforced Fishing Rod
+5: Reinforced Fishing Bait
+6: Expert Fishing Rod
+7: Expert Fishing Bait
+> 2
+You don't have enough of the ingredients needed.
+> use crafting table
+
+> use crafting table
+Which category?
+1: Fishing
+2: Shipbuilding
+> 2
+What will you craft?
+1: Raft
+2: Rowboat
+3: Sailboat
+4: Ironclad
+> 1
+You crafted a Raft
+> x ship yard
+
+> x ship yard
+It's your ship yard. It will contain all the ships that you have currently.
+> e
+
+> e
+Which character will you fight as?
+1: soulreaver scythe
+> 1
+
+You are in a resting area.
+You can see a bed.
+You can go east or west.
+> x bed
+
+> x bed
+Nothing out of the ordinary.
+> e
+
+> e
+
+You are in an exploration.
+You can go west, east or south.
+> e
+
+> e
+This hasn't been fully setup yet, but for now, you're able to cross the water.
+
+You are in an exploration.
+You can go west, east or south.
+> e
+
+> e
+You dismounted from your ship onto land.
+
+You are in an exploration.
+You can go west, east or south.
+> e
+
+> e
+
+You are in an exploration.
+You can go west, east or south.
+> w
+
+> w
+
+You are in an exploration.
+You can go west, east or south.
+> w
+
+> w
+This hasn't been fully setup yet, but for now, you're able to cross the water.
+
+You are in an exploration.
+You can go west, east or south.
+> w
+
+> w
+You dismounted from your ship onto land.
+
+You are in an exploration.
+You can go west, east or south.
+> w
+
+> w
+
+You are in a resting area.
+You can see a bed.
+You can go east or west.
+> i
+
+> i
+You are not carrying anything.
+[state=Running]

@@ -1,0 +1,128 @@
+Fantastic Dungeon Extender for American Audiences (TM)
+
+TRANSLATION and CRACK provided by MIRKK-MEN
+
+Your name is Tanelye of the Falonde clan, and you are currently on a quest... A quest that every first child of every Falonde family must make.  The last person to survive the lineage quest was your Great Grandmother, who, in her old age, had little information of use for you.
+
+You are currently adorned in a set of Leather Armor, which frames your slightly heavier form well- years of labor in both the fields and the woods surrounding this accursed dungeon has given you a layer of muscle that would put some of the wealthier men in your village to shame, along with a slightly tanned complexion, which contrasts against your vibrant pink hair.  You have also been given the same Magic Dagger that your Great Grandmother utilized during her quest- rumors say the dagger is enhanced with Fae Magick, although these reports have never been verified. You were guided to the top of Formithlond, the local mountain that has been the center of many rumors.  A large boulder had blocked the entrance to a cave, which was moved and then replaced once you were inside.  Luckily for you, your race has always had exceptional vision in the dark- no torches needed.
+You are in a Small Cave.
+
+You can see a Stairway.
+
+> enter the dungeon stairway
+
+> enter the dungeon stairway
+
+As you adjust to the darker vision, you glance around the room surrounding you.  There isn't much to look at, other than a small pouch in the corner.  You pick it up and are delighted to find three small coins of a denomination that you don't recognize.  Your journey is already off to a great start!  You clasp the small pouch to your waist just in case.
+
+You make your way down forward to a winding, crumbling stone staircase, which you begin to descend- only to find that the steps end as you tumble down, sliding arms first down a long slope of dirt into a large empty cavern.
+
+You suppose... You're now in...
+
+THE FANTASTIC DUNGEON...
+
+EXTENDER...
+
+FOR AMERICAN AUDIENCES (TM)
+
+You are in a Main Dungeon Entrance.
+
+You can see a Skip Intro Button.
+
+You can go west, east or south.
+
+> look
+
+> look
+
+You are in a Main Dungeon Entrance.
+
+You can see a Skip Intro Button.
+
+You can go west, east or south.
+
+> i
+
+> i
+
+You are carrying a Leather Armor, a Magic Dagger and a Coin Pouch.
+> west
+
+> west
+
+You are in Death Chambers.
+
+You can see a Skull Monster.
+
+You can go east.
+
+A dank, miserable room.  Shackles hang from the walls, holding rancid skeletons.  You hear a small shuffling noise from the back of the room... Do you dare investigate?  In a room as decrepit as this, you should be wary of whatever lurks within...
+> look
+
+> look
+
+You are in Death Chambers.
+
+You can see a Skull Monster.
+
+You can go east.
+
+> east
+
+> east
+
+You are in a Main Dungeon Entrance.
+
+You can see a Skip Intro Button.
+
+You can go west, east or south.
+
+> east
+
+> east
+
+You are in Sewers.
+
+You can see a Slime Monster.
+
+You can go west.
+
+The first thing you notice when you enter this room is the smell.  It assaults you like a thousand punches straight to the nose. The second thing you notice is the dampness that hangs in the air- it feels like the farmlands after a storm that's lasted several days.  You glance around- several drains are mounted into the walls, allowing trickles of brackish smelling fluid to run down into the gutters that circle the room.  It's apparent that this is a run off sewage system for one of the castles that line the area around the mountain.
+
+There's a bizarre gurgling noise coming from somewhere further within the room...  Dare you investigate?
+> look
+
+> look
+
+You are in Sewers.
+
+You can see a Slime Monster.
+
+You can go west.
+
+> west
+
+> west
+
+You are in a Main Dungeon Entrance.
+
+You can see a Skip Intro Button.
+
+You can go west, east or south.
+
+> south
+
+> south
+
+Whatever lies beyond this door is simply unseeable.  Literally.  When you attempt to gaze into the room, you are blinded by a glistening light that is too bright to handle.
+> look
+
+> look
+
+You are in a Main Dungeon Entrance.
+
+You can see a Skip Intro Button.
+
+You can go west, east or south.
+
+[state=Running]

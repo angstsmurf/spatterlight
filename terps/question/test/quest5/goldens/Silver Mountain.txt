@@ -1,0 +1,747 @@
+Mystery of Silver Mountain
+====================
+
+Clustered in small vilages at the foot of Silver Mountain, the Sylvani were once peaceful and prosperous, governed by a wise Council of Elders.  All who knew of the Sylvani knew also of the Stone of Destiny.  The Stone gave a King or Queen the power to direct a person's destiny.
+
+In the reign of Queen Pari Sylvan, a vicious Grarg army arrived intent on seizing the Stone.  Along with them came a powerful wizard, Magrarg.
+
+Queen Pari and the Council used the Stone.  She entered the Silver Chamber and, placing her hands around the Stone, cried the magic words which would unlock its power.  A great thunderclap echoed as Magrarg joined in mental conflict with the Queen and the Elders.  One of the Elders collapsed under the strain and Magrarg howled in triumph.
+
+Since then, the Sylvani have lived in terror as slaves of a merciless overlord, Grarg Obgan.  He uses the Stone to wreak destruction on the families and friends who dare oppose him.
+
+Queen Pari, murdered by the Grarg left a baby son, Kylar.  He was raised by a wise hermit, his identity a closely guarded secret.  Before she died, Pari had locked in the mind of Kylar a secret: certain magic objects whose combined powers would overcome any evil force controlling the Stone of Destiny.
+
+Kylar, all grown up, searched for these objects but to no avail.  One day, he was slain by a Grarg who coveted a brooch he wore -  a present from the Hermit.
+
+Since then, the Elders cry out to anyone who will find these objects and stop the tyranny once and for all!
+Press a key to continue
+You are at a crossroads.
+You can go west or east.
+> e
+You are on a winding road.
+You can go west, north or east.
+> e
+You are in a village of rustic houses.
+You can go north, west or in.
+> in
+You are in a white cottage.
+You can see a pot and some bread.
+You can go up or out.
+> x pot
+Nothing out of the ordinary.
+It contains some coins.
+> take coins
+You pick them up.
+> take bread
+You pick it up.
+> up
+You are in an attic bedroom.
+You can see a bed and a cupboard.
+You can go down.
+> x bed
+A small comfortable bed.
+> take sheet
+You pick it up.
+> open cupboard
+You open the cupboard.
+> in
+You are in a cupboard in a corner.
+You can see a pair of boots.
+You can go out.
+> take boots
+You pick them up.
+> wear boots
+The boots make you invisble.
+> out
+You are in an attic bedroom.
+You can see a bed and a cupboard.
+You can go down or in.
+> down
+You are in a white cottage.
+You can see a pot.
+You can go up or out.
+> out
+You are in a village of rustic houses.
+You can go north, west or in.
+> w
+You are on a winding road.
+You can go west, north or east.
+> w
+You are at a crossroads.
+You can go west or east.
+> w
+You are at the end of a bridge.
+You can see a Troll.
+You can go east or west.
+> give coins to troll
+He lets you cross the bridge.
+You are at the end of a bridge.
+You can see a Troll.
+You can go north, west or east.
+> w
+You are in an orchard.
+You can see a trees.
+You can go west or east.
+> x trees
+Apple trees.
+> take apples
+You pick them up.
+> w
+You are near a burnt-out campfire.
+You can go west, north or east.
+A Grarg patrol approaches.
+> n
+You are in a Woodman's hut.
+You can see an axe.
+You can go north, south or east.
+> take axe
+You pick it up.
+> s
+You are near a burnt-out campfire.
+You can go west, north or east.
+A Grarg patrol approaches.
+> w
+You are the the top of a deep well.
+You can see a bucket and a well.
+You can go east.
+> take bucket
+You pick it up.
+> e
+You are near a burnt-out campfire.
+You can go west, north or east.
+A Grarg patrol approaches.
+> n
+You are in a Woodman's hut.
+You can go north, south or east.
+> n
+You are on a pitted track.
+You can go north, west or south.
+> w
+You are at the edge of an icy lake.
+You can see a boat.
+You can go west or east.
+> take boat
+You pick it up.
+> use sheet on boat
+You attach the sheet to the boat to make a sail.
+> w
+You are in the middle of the lake.
+You can go north or east.
+> n
+You are on some rough water.
+You can go north or south.
+> n
+You are on an island shore.
+You can go north, east or south.
+> drop boat
+You drop it.
+> n
+You are at an old kiln.
+You can see an old kiln.
+You can go north or south.
+> x kiln
+It's now a ruin.
+> take jug
+You pick it up.
+> n
+You are on a marshy inlet.
+You can see some reeds.
+You can go south.
+> take reeds
+You pick them up.
+> s
+You are at an old kiln.
+You can see an old kiln.
+You can go north or south.
+> s
+You are on an island shore.
+You can see a boat.
+You can go north, east or south.
+> e
+You are at a beached ketch.
+You can see a ketch.
+You can go west.
+> x ketch
+A boat with a hole in it.
+> take net
+You pick it up.
+> w
+You are on an island shore.
+You can see a boat.
+You can go north, east or south.
+> take boat
+You pick it up.
+> s
+You are on some rough water.
+You can go north or south.
+> use bucket on water
+You bail out the water and manage to stay afloat.
+> s
+You are in the middle of the lake.
+You can go north or east.
+> e
+You are at the edge of an icy lake.
+You can go west or east.
+> drop boat
+You drop it.
+> e
+You are on a pitted track.
+You can go north, west or south.
+> n
+You are outside a windmill.
+You can go north, west, in or south.
+> in
+You are on the lower floor of the mill.
+You can go up or out.
+> up
+You are near some sacks on the upper floor.
+You can see some sacks.
+You can go down.
+> x sacks
+Full of seeds.
+> take seeds
+You pick them up.
+> down
+You are on the lower floor of the mill.
+You can go up or out.
+> out
+You are outside a windmill.
+You can go north, west, in or south.
+> n
+You are in a barren countryside.
+You can see Ogban's boar.
+You can go north or south.
+> use net on boar
+You catch the boar in the net.
+> n
+You are at a disused waterwheel.
+You can go north, west or south.
+> n
+You are in the Gamekeeper's cottage.
+You can see a lamp.
+You can go south or east.
+> take lamp
+You pick it up.
+> e
+You are at a misty pool.
+You can see a pool.
+You can go west or south.
+> s
+You are at the sluice gates.
+You can see some sluice gates.
+You can go north.
+> x sluice gates
+It holds the water in the pool.
+> turn handle
+You drain the pool.
+> n
+You are at a misty pool.
+You can see a pool.
+You can go west or south.
+> x pool
+You find something!
+> take shield
+You pick it up.
+> w
+You are in the Gamekeeper's cottage.
+You can go south or east.
+> s
+You are at a disused waterwheel.
+You can go north, west or south.
+> s
+You are in a barren countryside.
+You can go north or south.
+> s
+You are outside a windmill.
+You can go north, west, in or south.
+> s
+You are on a pitted track.
+You can go north, west or south.
+> s
+You are in a Woodman's hut.
+You can go north, south or east.
+> e
+You are by the side of a wooded valley.
+You can see the Hermit.
+You can go west or east.
+> e
+You are by a stream in a valley bottom.
+You can see a stream.
+You can go west or south.
+> use jug on stream
+You fill the jug with water.
+> s
+You are at the end of a bridge.
+You can see a Troll.
+You can go north, west or east.
+> give coins to troll
+He lets you cross the bridge.
+You are at the end of a bridge.
+You can see a Troll.
+You can go east or west.
+> e
+You are at a crossroads.
+You can go west or east.
+> e
+You are on a winding road.
+You can go west, north or east.
+> n
+You are in an ancient stone circle.
+You can see a stone circle.
+You can go west, south or east.
+> w
+You are in a shady hollow.
+You can go west or east.
+> w
+You are in a deep dark wood.
+You can go north or east.
+> n
+You are by a huge fallen oak.
+You can see the Goblin Guardian.
+You can go north or south.
+> blow reeds
+The Ghost of the Goblin Guardian is free!
+> n
+You are on a scree slope.
+You can go north or south.
+> n
+You are in a mountain hut.
+You can see a hut.
+You can go west or south.
+> x hut
+A dirty wooden hut.
+> take planks
+You pick them up.
+> w
+You are at a frozen pond.
+You can go north, up or east.
+> drop planks
+You drop them.
+> up
+You are on an icy path.
+You can go down or up.
+> up
+You are above a glacier.
+You can go down or west.
+> w
+You are atop a high pinnacle.
+You can see a rope.
+You can go east.
+> take rope
+You pick it up.
+> e
+You are above a glacier.
+You can go down or west.
+> down
+You are on an icy path.
+You can go down or up.
+> down
+You are at a frozen pond.
+You can see some planks.
+You can go north, up or east.
+> n
+You are in a gap between some boulders.
+You can go north, east or south.
+> n
+You are in a high-walled garden.
+You can go south.
+> plant seeds
+You plant the seeds.
+> use jug on seeds
+A vine magically grows!
+> climb vine
+You climb up the vine.
+You are in an inscribed cavern.
+You can see an inscription and a vine.
+You can go north.
+> n
+You are in a vaulted cavern.
+You can go east, south or west.
+> w
+You are in a maze of tunnels.
+You can go west or east.
+> w
+You are by some stalactites and stalagmites.
+You can see a rubble.
+You can go west or east.
+> move rubble
+You move the rubble to make a path.
+> w
+You are in a hollow tomb.
+You can go west or east.
+> w
+You are at the goblin graveyard.
+You can see a bone.
+You can go west, south or east.
+> take bone
+You pick it up.
+> e
+You are in a hollow tomb.
+You can go west or east.
+> e
+You are by some stalactites and stalagmites.
+You can see a rubble.
+You can go west or east.
+> e
+You are in a maze of tunnels.
+You can go west or east.
+> e
+You are in a vaulted cavern.
+You can go east, south or west.
+> e
+You are near the high glass gates.
+You can see a hound.
+You can go west, south or east.
+> give bone to hound
+You give her the bone and she is distracted.
+> e
+You are at the entrance hall to the palace.
+You can go south or east.
+> e
+You are at a Grarg sentry post.
+You can go west or east.
+The Grarg guards will see you.
+> e
+You are in a guard room.
+You can see a sword.
+You can go west or south.
+> take sword
+You pick it up.
+> s
+You are in the kitchens of the palace.
+You can see a cupboard.
+You can go north, west or south.
+> open cupboard
+You open it.
+It contains a phial.
+> take phial
+You pick it up.
+> s
+You are on the palace battlements.
+You can see a brooch.
+You can go north.
+> take brooch
+You pick it up.
+> n
+You are in the kitchens of the palace.
+You can see a cupboard.
+You can go north, west or south.
+> w
+You are in a long gallery.
+You can go east or south.
+> s
+You are in a banqueting hall.
+You can see some Grargs.
+You can go north or south.
+> s
+You are in a hall of tapestries.
+You can go north or south.
+The boots run out and vanish.
+> n
+You are in a banqueting hall.
+You can see some Grargs.
+You can go north or south.
+> x grargs
+Grargs are sleeping.
+> steal uniform
+You steal the uniform.
+> wear uniform
+You're disguised as a Grarg.
+> x uniform
+A Grarg's uniform.
+You're wearing it.
+> n
+You are in a long gallery.
+You can go east or south.
+> e
+You are in the kitchens of the palace.
+You can see a cupboard.
+You can go north, west or south.
+> n
+You are in a guard room.
+You can go west or south.
+> w
+You are at a Grarg sentry post.
+You can go west or east.
+The Grarg guards will see you.
+> w
+You are at the entrance hall to the palace.
+You can go south or east.
+> s
+You are in a dank corridor.
+You can see a dungeon door.
+You can go north or south.
+> use axe on dungeon door
+You swing the axe and break down the door.
+> s
+You are in the dungeons of the palace.
+You can go north or south.
+> s
+You are in a wine cellar.
+You can go north or west.
+> use matches on lamp
+The lamp is now lit.
+> w
+You are by a row of casks.
+You can see some casks and some rats.
+You can go east.
+> give bread to rats
+They scurry off with the bread.
+> push cask
+A hidden exit is revealed.
+> w
+You are in a shady hollow.
+You can go west or east.
+> e
+You are in an ancient stone circle.
+You can see a stone circle.
+You can go west, south or east.
+> e
+You are in a stable.
+You can see a stable door.
+You can go west or south.
+> x stable door
+A sturdy oak door.
+> use matches on stable door
+You burn the door to ash.
+> take horseshoe
+You pick it up.
+> s
+You are in a village of rustic houses.
+You can go north, west or in.
+> w
+You are on a winding road.
+You can go west, north or east.
+> w
+You are at a crossroads.
+You can go west or east.
+> w
+You are at the end of a bridge.
+You can see a Troll.
+You can go east or west.
+> give coin to troll
+He lets you cross the bridge.
+You are at the end of a bridge.
+You can see a Troll.
+You can go north, west or east.
+> w
+You are in an orchard.
+You can see a trees.
+You can go west or east.
+> w
+You are near a burnt-out campfire.
+You can go west, north or east.
+A Grarg patrol approaches.
+> w
+You are the the top of a deep well.
+You can see a well.
+You can go east.
+> use rope on well
+You tie the rope to the well and drop it down.
+> climb rope
+Down we go.  Oops the rope snapped!
+You are in a damp well bottom.
+You can see a brick wall.
+> use axe on wall
+You swing the axe and make a hole.
+> n
+You are in a narrow passage.
+You can go east.
+> e
+You are in a cave.
+You can see a ring.
+You can go west or out.
+> take ring
+You pick it up.
+> out
+You are the the top of a deep well.
+You can see a well.
+You can go east.
+> e
+You are near a burnt-out campfire.
+You can go west, north or east.
+A Grarg patrol approaches.
+> n
+You are in a Woodman's hut.
+You can go north, south or east.
+> e
+You are by the side of a wooded valley.
+You can see the Hermit.
+You can go west or east.
+> give brooch to Hermit
+He takes it and says 8 rings are needed.
+> w
+You are in a Woodman's hut.
+You can go north, south or east.
+> n
+You are on a pitted track.
+You can go north, west or south.
+> n
+You are outside a windmill.
+You can go north, west, in or south.
+> n
+You are in a barren countryside.
+You can go north or south.
+> n
+You are at a disused waterwheel.
+You can go north, west or south.
+> w
+You are on an overgrown track.
+You can see a pony.
+You can go east.
+> give apples to pony
+He leads you north.
+You are at some rusty gates.
+You can go north.
+> n
+You are at the goblin graveyard.
+You can go west, south or east.
+> e
+You are in a hollow tomb.
+You can go west or east.
+> e
+You are by some stalactites and stalagmites.
+You can see a rubble.
+You can go west or east.
+> e
+You are in a maze of tunnels.
+You can go west or east.
+> e
+You are in a vaulted cavern.
+You can go east, south or west.
+> s
+You are in an inscribed cavern.
+You can see an inscription and a vine.
+You can go north.
+> climb vine
+You climb down the vine.
+You are in a high-walled garden.
+You can see a vine.
+You can go south.
+> s
+You are in a gap between some boulders.
+You can go north, east or south.
+> e
+You are on a perilous path.
+You can go west or east.
+> e
+You are by a silver bell in the rock.
+You can go west.
+> ring bell
+How many times?
+A rock door opens.
+> e
+You are in the dungeons of the palace.
+You can go north or south.
+> n
+You are in a dank corridor.
+You can go north or south.
+> n
+You are at the entrance hall to the palace.
+You can go south or east.
+> e
+You are at a Grarg sentry post.
+You can go west or east.
+The Grarg guards will see you.
+> e
+You are in a guard room.
+You can go west or south.
+> s
+You are in the kitchens of the palace.
+You can see a cupboard.
+You can go north, west or south.
+> w
+You are in a long gallery.
+You can go east or south.
+> s
+You are in a banqueting hall.
+You can see some Grargs.
+You can go north or south.
+> s
+You are in a hall of tapestries.
+You can go north or south.
+> s
+You are in a mosaic-floored hall.
+You can see some wine.
+You can go north, east or south.
+> use phial on wine
+You poison the wine.
+> n
+You are in a hall of tapestries.
+You can go north or south.
+> s
+You are in a mosaic-floored hall.
+You can go north, east or south.
+> e
+You are in a silver throne room.
+You can see a silver plate.
+You can go north or west.
+> take plate
+You pick it up.
+> n
+You are in a dusty library.
+You can see a book.
+You can go south.
+> read book
+Magic words lie at the crossroads, the fountain and the high pinnacle.
+> s
+You are in a silver throne room.
+You can go north or west.
+> w
+You are in a mosaic-floored hall.
+You can go north, east or south.
+> s
+You are by a safe in Ogban's chamber.
+You can see Ogban and a safe.
+You can go north or west.
+> w
+You are in a cobwebby room.
+You can see some webs.
+You can go north, west or east.
+> use sword on webs
+You clear the webs.
+> w
+You are in a turret room with a slot machine.
+You can see a slot machine.
+You can go east.
+> use coin on slot machine
+A number appears - 246.
+> e
+You are in a cobwebby room.
+You can see some webs.
+You can go north, west or east.
+> e
+You are by a safe in Ogban's chamber.
+You can see Ogban and a safe.
+You can go north or west.
+> open safe
+What is the combination?
+The safe opens.
+> take key
+You pick it up.
+> w
+You are in a cobwebby room.
+You can see some webs.
+You can go north, west or east.
+> n
+You are in the Wizard's lair.
+You can see Magrarg and a silver door.
+You can go west or south.
+> use plate on Magrarg
+You reflected his gaze.
+> unlock silver door
+Unlocked.
+You open it.
+> w
+You are in the silver chamber.
+You can see the Stone of Destiny.
+You can go east.
+> say awake
+The mountain rumbles!
+> say guide
+Towers fall down!
+> say lead
+Hooooorrrrrraaaaayyyyyy!
+
+You have succeeded in your quest and brought peace to the land.
+[state=Finished]

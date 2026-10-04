@@ -1,0 +1,372 @@
+The Story of MLJesus
+The MLG adventure
+
+by X Cross-Overs
+
+Please give a name for your character.
+> Jesus
+Please assign points to attributes (you have 10 points still to spend)
+
+strength:  0 >
+intelligence:  0 >
+agility:  0 >
+stamina:  0 >
+
+Done
+
+Your character is defined by four statistics:
+STAMINA: Used to determine the total hit points.
+STRENGTH: Determines the maximum armour that can be worn, also a bonus to attack and damage rolls.
+AGILITY: A bonus to attack rolls and to your defence. Also determines your sneaking ability.
+INTELLIGENCE: Used to determine the maximum spell level you can learn.
+> Inc strength
+
+> Inc strength
+Please assign points to attributes (you have 9 points still to spend)
+
+strength:  1 >
+intelligence:  0 >
+agility:  0 >
+stamina:  0 >
+
+Done
+
+Your character is defined by four statistics:
+STAMINA: Used to determine the total hit points.
+STRENGTH: Determines the maximum armour that can be worn, also a bonus to attack and damage rolls.
+AGILITY: A bonus to attack rolls and to your defence. Also determines your sneaking ability.
+INTELLIGENCE: Used to determine the maximum spell level you can learn.
+> Inc strength
+
+> Inc strength
+Please assign points to attributes (you have 8 points still to spend)
+
+strength:  2 >
+intelligence:  0 >
+agility:  0 >
+stamina:  0 >
+
+Done
+
+Your character is defined by four statistics:
+STAMINA: Used to determine the total hit points.
+STRENGTH: Determines the maximum armour that can be worn, also a bonus to attack and damage rolls.
+AGILITY: A bonus to attack rolls and to your defence. Also determines your sneaking ability.
+INTELLIGENCE: Used to determine the maximum spell level you can learn.
+> Inc strength
+
+> Inc strength
+Please assign points to attributes (you have 7 points still to spend)
+
+strength:  3 >
+intelligence:  0 >
+agility:  0 >
+stamina:  0 >
+
+Done
+
+Your character is defined by four statistics:
+STAMINA: Used to determine the total hit points.
+STRENGTH: Determines the maximum armour that can be worn, also a bonus to attack and damage rolls.
+AGILITY: A bonus to attack rolls and to your defence. Also determines your sneaking ability.
+INTELLIGENCE: Used to determine the maximum spell level you can learn.
+> Inc stamina
+
+> Inc stamina
+Please assign points to attributes (you have 6 points still to spend)
+
+strength:  3 >
+intelligence:  0 >
+agility:  0 >
+stamina:  1 >
+
+Done
+
+Your character is defined by four statistics:
+STAMINA: Used to determine the total hit points.
+STRENGTH: Determines the maximum armour that can be worn, also a bonus to attack and damage rolls.
+AGILITY: A bonus to attack rolls and to your defence. Also determines your sneaking ability.
+INTELLIGENCE: Used to determine the maximum spell level you can learn.
+> Inc stamina
+
+> Inc stamina
+Please assign points to attributes (you have 5 points still to spend)
+
+strength:  3 >
+intelligence:  0 >
+agility:  0 >
+stamina:  2 >
+
+Done
+
+Your character is defined by four statistics:
+STAMINA: Used to determine the total hit points.
+STRENGTH: Determines the maximum armour that can be worn, also a bonus to attack and damage rolls.
+AGILITY: A bonus to attack rolls and to your defence. Also determines your sneaking ability.
+INTELLIGENCE: Used to determine the maximum spell level you can learn.
+> Inc stamina
+
+> Inc stamina
+Please assign points to attributes (you have 4 points still to spend)
+
+strength:  3 >
+intelligence:  0 >
+agility:  0 >
+stamina:  3 >
+
+Done
+
+Your character is defined by four statistics:
+STAMINA: Used to determine the total hit points.
+STRENGTH: Determines the maximum armour that can be worn, also a bonus to attack and damage rolls.
+AGILITY: A bonus to attack rolls and to your defence. Also determines your sneaking ability.
+INTELLIGENCE: Used to determine the maximum spell level you can learn.
+> Inc agility
+
+> Inc agility
+Please assign points to attributes (you have 3 points still to spend)
+
+strength:  3 >
+intelligence:  0 >
+agility:  1 >
+stamina:  3 >
+
+Done
+
+Your character is defined by four statistics:
+STAMINA: Used to determine the total hit points.
+STRENGTH: Determines the maximum armour that can be worn, also a bonus to attack and damage rolls.
+AGILITY: A bonus to attack rolls and to your defence. Also determines your sneaking ability.
+INTELLIGENCE: Used to determine the maximum spell level you can learn.
+> Inc agility
+
+> Inc agility
+Please assign points to attributes (you have 2 points still to spend)
+
+strength:  3 >
+intelligence:  0 >
+agility:  2 >
+stamina:  3 >
+
+Done
+
+Your character is defined by four statistics:
+STAMINA: Used to determine the total hit points.
+STRENGTH: Determines the maximum armour that can be worn, also a bonus to attack and damage rolls.
+AGILITY: A bonus to attack rolls and to your defence. Also determines your sneaking ability.
+INTELLIGENCE: Used to determine the maximum spell level you can learn.
+> Inc intelligence
+
+> Inc intelligence
+Please assign points to attributes (you have 1 points still to spend)
+
+strength:  3 >
+intelligence:  1 >
+agility:  2 >
+stamina:  3 >
+
+Done
+
+Your character is defined by four statistics:
+STAMINA: Used to determine the total hit points.
+STRENGTH: Determines the maximum armour that can be worn, also a bonus to attack and damage rolls.
+AGILITY: A bonus to attack rolls and to your defence. Also determines your sneaking ability.
+INTELLIGENCE: Used to determine the maximum spell level you can learn.
+> Levelling Done
+
+> Levelling Done
+You are in your basement, the PSBOX420 is on. You can hear your mom snoring upstairs. The room is dimly lit, and you smell like shit.
+
+On the table next to you there is a Bag of Doritos and a Can Of Mountain Dew Pitch Black
+
+You can go upstairs
+> take doritos
+
+> take doritos
+You Got a bag of dorito's disaster averted :D
+> take dew
+
+> take dew
+Now you can Dew The Dew dude.
+> i
+
+> i
+You are carrying a Bag of Doritos and a Can Of Mountain Dew Pitch Black.
+> up
+
+> up
+
+You walk into the living room and look around. Your house is pretty small so it's not hard to find the things you are looking for.
+
+In the living room there is a Cabinet, and under your bed there is a bin maybe you should check the Refrigerator before leaving.
+
+You see the front door to the north and your garage door to the west
+> open cabinet
+
+> open cabinet
+You open up the Cabinet it creeks loudly and you peer inside.
+Inside you find several cassette tapes and cd's scattered about along with a Plastic Shield.
+> take plastic shield
+
+> take plastic shield
+You take the Plastic shield, this could be useful.
+> wear plastic shield
+
+> wear plastic shield
+You can't wear it.
+> open refrigerator
+
+> open refrigerator
+You open the fridge and feel a cold breeze.
+Inside you find some moldy Bimbo bread, old cheese, cartons of milk, and  a Slice of Cold Leftover Pizza.
+> take pizza
+
+> take pizza
+You take the cold pizza
+> x bin
+
+> x bin
+you can see the bin just barely peeking out from under your bed.
+> look under bed
+
+> look under bed
+I don't understand your command.
+> i
+
+> i
+You are carrying a Bag of Doritos, a Can Of Mountain Dew Pitch Black, a Plastic Shield and a Slice of Cold Leftover Pizza.
+> west
+
+> west
+
+You enter the garage. There are beer cans scattered all across floor. There is an old couch. An old TV is playing an episode of "Saturday Night Live".
+
+You can See your abusive Father and his pet Rottweiler
+
+The garage door is open to the North and your house door is to the East
+
+Your father yells "HEY Jesus FUCK YOU!"
+
+Father has seen you, and is going to attack!
+Father swings at you and misses.
+> attack father
+
+> attack father
+You swing your fist and miss.
+Father swings at you and hits, doing 2 points of damage.
+> attack father
+
+> attack father
+You swing your fist and hit, doing 4 points of damage (8 hits left). Your father calls you a faggot, and lunges at you
+Father swings at you and misses.
+> attack father
+
+> attack father
+You swing your fist and hit, doing 4 points of damage (4 hits left). Your father calls you a faggot, and lunges at you
+Father swings at you and misses.
+> attack father
+
+> attack father
+You swing your fist and miss.
+Father swings at you and hits, doing 3 points of damage.
+> attack father
+
+> attack father
+You swing your fist and hit, doing 3 points of damage (1 hits left). Your father calls you a faggot, and lunges at you
+Father swings at you and misses.
+> attack father
+
+> attack father
+You swing your fist and miss.
+Father swings at you and misses.
+> attack father
+
+> attack father
+You swing your fist and miss.
+Father swings at you and misses.
+> attack father
+
+> attack father
+You swing your fist and miss.
+Father swings at you and hits, doing 4 points of damage.
+> attack father
+
+> attack father
+You swing your fist and hit, doing 3 points of damage. you killed your father, he was such a dickhead.
+> look
+
+> look
+You enter the garage. There are beer cans scattered all across floor. There is an old couch. An old TV is playing an episode of "Saturday Night Live".
+
+You can See your abusive Father (dead) and his pet Rottweiler
+
+The garage door is open to the North and your house door is to the East
+
+> x rottweiler
+
+> x rottweiler
+Your fathers flea-bitten rotweiler, it is trying to bite you, but its chained to the wall. Its almost as much of an asshole as your dad.
+> i
+
+> i
+You are carrying a Bag of Doritos, a Can Of Mountain Dew Pitch Black, a Plastic Shield and a Slice of Cold Leftover Pizza.
+> north
+
+> north
+
+You walk onto the lawn and are reminded just how shitty your house is. Your lawn is very ghetto looking, with bikes and rocks all over the place, the newspaper is still laying in the driveway, and There is a pile of dog shit at the corner of your driveway, and you can see your abusive fathers blood seeping out from under the garage door. Your mailbox is empty.
+
+There is a Bicycle Helmet on the lawn, and you can see an old Stick of Gum by the road.
+
+Your garage is open to the south and there is a save-a-lot to the east, and the road continues west
+> look
+
+> look
+ Your lawn is very ghetto looking, with bikes and rocks all over the place, the newspaper is still laying in the driveway, and There is a pile of dog shit at the corner of your driveway,  Your mailbox is empty.
+
+There is a Bicycle Helmet on the lawn, and you can see an old Stick of Gum by the road.
+
+Your garage is open to the south and there is a save-a-lot to the east, and the road continues west
+> take bicycle helmet
+
+> take bicycle helmet
+You pick up the helmet, you might look like a retard wearing this, but then again dead men tell no tales.
+> wear bicycle helmet
+
+> wear bicycle helmet
+You  quickly put on Bicycle Helmet.
+> take gum
+
+> take gum
+You pick up the stick of gum, it looks like it was already open, TEN SECOND RULE!
+> east
+
+> east
+
+This is the first time you have ever been to this Save-A-Lot. There are about 10 isles with products ranging from makeup and tampons to electronics. You are standing in front of the service desk. This Save-A-Lot smells like shit.
+
+You can talk to the clerk.
+
+The street goes  west to your house and further east to the Slums.
+> look
+
+> look
+ There are about 10 isles with products ranging from makeup and tampons to electronics. You are standing in front of the service desk.
+
+You can talk to the clerk.
+
+The street goes  west to your house and further east to the Slums.
+> west
+
+> west
+
+ Your lawn is very ghetto looking, with bikes and rocks all over the place, the newspaper is still laying in the driveway, and There is a pile of dog shit at the corner of your driveway,  Your mailbox is empty.
+
+There is a Bicycle Helmet on the lawn, and you can see an old Stick of Gum by the road.
+
+Your garage is open to the south and there is a save-a-lot to the east, and the road continues west
+> i
+
+> i
+You are carrying a Bag of Doritos, a Can Of Mountain Dew Pitch Black, a Plastic Shield, a Slice of Cold Leftover Pizza, a Bicycle Helmet and a Stick of Gum.
+[state=Running]

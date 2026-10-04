@@ -1,0 +1,487 @@
+The echoes of the revolt ring in your ears as visions of your sister fighting along side you play behind your eyes. You hid under the stair case amongst shadows as your group's efforts to escape this mysterious prison and the smugglers were met with brute force. You were looking for your belongings. Perhaps your sister escaped...or worse.
+
+Find your belongings and signs of your sister, then plan your next move.
+You are in the lower floor of a tower.
+You can go up or west.
+A dim light comes through a slotted window. Years of dust cling to the staircase that disappears up into the darkness. You cough with the stale air.
+You feel groggy and get to your feet with shaky limbs.
+> up
+
+> up
+You stumble up the stairs, catching your foot on the uneven stone. The ground is cold on your hands as you climb back to your feet and continue up.
+
+ You are in the upper floor of a tower.
+You can see a layer of frost, a nude woman and a blanket.
+You can go down.
+The stone is beginning to crumble but you can see for miles into the ocean. Leaning over the stone wall it appears you're on an island. A brisk wind blows over the balcony. You shiver. Maybe you should go back inside.
+> take blanket
+
+> take blanket
+You pick it up.
+> use blanket on woman
+
+> use blanket on woman
+You sombrely cover her with the blanket and with regret wish her farewell. As you cover her you can't help but pray your sister has not suffered a similar fate.
+> down
+
+> down
+
+You are in the lower floor of a tower.
+You can go up or west.
+A dim light comes through a slotted window. Years of dust cling to the staircase that disappears up into the darkness. You cough with the stale air.
+> w
+
+> w
+
+You are in a devastated great hall.
+You can see an overturned chair, a crooked painting, a giant flipped table, an abandoned axe and a curled dirty rug.
+You can go east, north, west or south.
+Any grandeur that had once graced this great hall has been stolen or blown away by time.
+Your sister was hiding in the kitchen the last you saw her. Maybe she's still there. But you better check every room on the way. The kitchen was just past the great hall.
+> x rug
+
+> x rug
+The rug is stained by years of abandonment. Boot prints stain the rug in a multitude of patterns. It looks as if multiple people ran across the rug. There is a paper stuck under it.
+Underneath there is a scrap paper.
+> take scrap paper
+
+> take scrap paper
+Just incase.
+> n
+
+> n
+
+You are in a back hall exit.
+You can see a smashed vase, a functional bench, a blood smear and a frozen finger.
+You can go south or north.
+> x bench
+
+> x bench
+Nothing out of the ordinary.
+It contains a scrap paper.
+> take scrap paper
+
+> take scrap paper
+Please choose which 'scrap paper' you mean:
+1: scrap paper
+2: scrap paper
+> s
+
+> s
+
+You are in a devastated great hall.
+You can see an overturned chair, a crooked painting, a giant flipped table, an abandoned axe and a curled dirty rug.
+You can go east, north, west or south.
+Any grandeur that had once graced this great hall has been stolen or blown away by time.
+> w
+
+> w
+You sister and you split up from here to look for your belongings. The smugglers had taken them away but you knew they would be somewhere in this castle. You were going to meet at the front hall from here with the others, but you never made it. Look for clues.
+
+ You are in a once grand kitchen.
+You can see a large hearth, a beaten prep table, a pile of bent pots and a shelving unit.
+You can go east, west or south.
+> x shelving unit
+
+> x shelving unit
+A simple shelf thats basically empty. But you feel drawn to it.
+It contains a jar with painted flame and a rotten orange.
+> open jar
+
+> open jar
+You open it.
+It contains a locket.
+> take locket
+
+> take locket
+To bring to your sister.
+> x prep table
+
+> x prep table
+The large table must have once been used to make glorious feasts but now its stained with blood and age.
+It contains a kitchen knife and an empty knife slot.
+> take kitchen knife
+
+> take kitchen knife
+You can't take it.
+> w
+
+> w
+
+You are in a small servants kitchen.
+You can see a pile of prisoner clothing, a pile of chamber pots, a pile of bowls, a pile of dry food, a pile of prisoner blankets, a pile of rope, a pile of blindfolds, a pile of hand binds and a pile of damaged kitchen equipment.
+You can go east or north.
+The smugglers must have been using this room as storage. Your sister and you came from the courtyard into the kitchen. From there you split up, you went east to the great hall so she must have come this way. But you don't know if she retraced her steps or not.
+
+Look for clues.
+> n
+
+> n
+
+You are in a sad servants quarters.
+You can see a made bed, a toppled bunk bed, an unmade bed, a broken bed, a bunk bed, a soiled bed and a frozen shut wardrobe.
+You can go south.
+The square of fabric must be here, unless she took it with her. Search thoroughly, you have a good feeling about this room. It feels colder than the rest.
+> use fire blast on frozen shut wardrobe
+
+> use fire blast on frozen shut wardrobe
+You melt the ice magic left by your sister. The wardrobe thaws and opens.
+> look
+
+> look
+You are in a sad servants quarters.
+You can see a made bed, a toppled bunk bed, an unmade bed, a broken bed, a bunk bed, an opened wardrobe and a soiled bed.
+You can go south.
+The square of fabric must be here, unless she took it with her. Search thoroughly, you have a good feeling about this room. It feels colder than the rest.
+> x opened wardrobe
+
+> x opened wardrobe
+The wardrobe's doors are unfrozen.
+> take square
+
+> take square
+I can't see that.
+> open opened wardrobe
+
+> open opened wardrobe
+Eek! How could she leave you this mess.
+It contains a dead smuggler and a square of torn blanket.
+> x dead smuggler
+
+> x dead smuggler
+The dead smuggler has various knife cuts, but you think it was magic that killed him. But not just your sister, there is other magic here. A knife sticks out of his arm. You should leave him frozen in his new coffin.
+> take square of torn blanket
+
+> take square of torn blanket
+You pick it up.
+> x square of torn blanket
+
+> x square of torn blanket
+The square of torn blanket is tucked in the dead smuggler's collar. On it in a red ink is a note. It reads, "Ash, I've hit a dead end. I am here with other prisoners. We will go quietly. There are too many. They will not kill us yet. We hear them talk about losing bounty on dead prisoners. I left my necklace in a jar in the kitchen. I hope you have escaped or hidden long enough. Please come find me. We hear them talk of boats, far off lands, and kings. We also hear them talk about blocking the stolen equipment in the bedrooms. Good luck. With Love, Eira."
+> s
+
+> s
+
+You are in a small servants kitchen.
+You can see a pile of prisoner clothing, a pile of chamber pots, a pile of bowls, a pile of dry food, a pile of prisoner blankets, a pile of rope, a pile of blindfolds, a pile of hand binds and a pile of damaged kitchen equipment.
+You can go east or north.
+The smugglers must have been using this room as storage. Your sister and you came from the courtyard into the kitchen. From there you split up, you went east to the great hall so she must have come this way. But you don't know if she retraced her steps or not.
+
+Look for clues.
+> e
+
+> e
+
+ You are in a once grand kitchen.
+You can see a large hearth, a beaten prep table (on which there is a kitchen knife and an empty knife slot), a pile of bent pots and a shelving unit (on which there is a jar with painted flame and a rotten orange).
+You can go east, west or south.
+> s
+
+> s
+
+You are in a desolate courtyard.
+You can see a persistant tree, an empty flower beds and a damaged statue.
+You can go east, north, south or west.
+> x tree
+
+> x tree
+A very persistent tree springs through the ground a testament to time.
+> x statue
+
+> x statue
+A nymph like figure stands holding an orb. The orb seems to have inscriptions of the elements. That is a strange figure. What type of castle is this...
+> e
+
+> e
+
+You are in a desolate courtyard.
+You can see an overbearing fountain.
+You can go north, east, south or west.
+> e
+
+> e
+
+You are in the You are in the plundered royal quarters.
+You can see a stack of paintings, a chair, a pile of books, a case of empty ale bottles, a navigation map and a desk.
+You can go south, northeast, east, southeast or west.
+The original fixtures of this room have been removed and replaced with some sort of base camp for operations. A chair sits near the eastern doors as if some sort of guard post. This area of the castle must hold something important.
+> x desk
+
+> x desk
+A rather plain desk but functional.
+It contains a paper, an inkwell and a pen.
+> x navigation map
+
+> x navigation map
+Stuck to the wall and marked with all the various islands the smugglers have visited. Some are marked with yellow and some with red. Your own island seems to be south east from here and is marked red. Some of the farther islands are marked yellow.
+> take navigation map
+
+> take navigation map
+You might need this. But you have a pretty good memory.
+> x pile of books
+
+> x pile of books
+Sits next to the guard chair. Various titles.
+> x stack of paintings
+
+> x stack of paintings
+It looks to hold valuable pieces of art from the castle and beyond. They're massively heavy and cumbersome.
+> ne
+
+> ne
+
+You are in an .
+You can see a pile of armour, another pile of armour, a fourth pile of armour and a third pile of armour.
+You can go southwest.
+This room is being used to hold prisoner's armour. That means yours must be here as well.
+> x pile of armour
+
+> x pile of armour
+A pile of prisoner armour of various sizes and kinds.
+> open pile of armour
+
+> open pile of armour
+You open it.
+It contains a cape, a shirt and bracers.
+> take cape
+
+> take cape
+You put your cape on. You begin to feel like yourself.
+> take shirt
+
+> take shirt
+You put on your shirt and begin to feel more like yourself.
+> take bracers
+
+> take bracers
+You put on your bracers and begin to feel more like yourself.
+> x another pile of armour
+
+> x another pile of armour
+A pile of prisoner armour of various sizes and kinds.
+> x third pile of armour
+
+> x third pile of armour
+A pile of prisoner armour of various sizes and kinds.
+> x fourth pile of armour
+
+> x fourth pile of armour
+A pile of prisoner armour of various sizes and kinds.
+> sw
+
+> sw
+
+You are in the You are in the plundered royal quarters.
+You can see a stack of paintings, a chair, a pile of books, a case of empty ale bottles and a desk (on which there is a paper, an inkwell and a pen).
+You can go south, northeast, east, southeast or west.
+The original fixtures of this room have been removed and replaced with some sort of base camp for operations. A chair sits near the eastern doors as if some sort of guard post. This area of the castle must hold something important.
+> e
+
+> e
+
+You are in a second bedroom.
+You can see a pile of weapons, another pile of weapons and a third pile of weapons.
+You can go west.
+> x pile of weapons
+
+> x pile of weapons
+A pile of prisoners discarded weapons from various parts of the map.
+> open pile of weapons
+
+> open pile of weapons
+You open it.
+It contains a knife.
+> take knife
+
+> take knife
+You put your knife around your leg and feel more like yourself.
+> x another pile of weapons
+
+> x another pile of weapons
+A pile of prisoners discarded weapons from various parts of the map.
+> x third pile of weapons
+
+> x third pile of weapons
+A pile of prisoners discarded weapons from various parts of the map.
+> w
+
+> w
+
+You are in the You are in the plundered royal quarters.
+You can see a stack of paintings, a chair, a pile of books, a case of empty ale bottles and a desk (on which there is a paper, an inkwell and a pen).
+You can go south, northeast, east, southeast or west.
+The original fixtures of this room have been removed and replaced with some sort of base camp for operations. A chair sits near the eastern doors as if some sort of guard post. This area of the castle must hold something important.
+> se
+
+> se
+
+You are in a third bedroom.
+You can see a pile of charms.
+You can go northwest.
+> x pile of charms
+
+> x pile of charms
+There is a very limited pile of charms. Charms are very rare and even the best elementalists have to travel far and wide to find or create a charm to increase their power. Most do not bother because of the growing fear against elementalists and they're need to hide, or a general lack of knowledge. Your sister and you were trained by your father and sent into the mountains to find the proper stones to create your charms. Your sisters was a necklace and yours a charmed phoenix.
+> open pile of charms
+
+> open pile of charms
+Your charm is not here. Your sister's had not been taken away because it was mistaken for a religious necklace.
+> nw
+
+> nw
+
+You are in the You are in the plundered royal quarters.
+You can see a stack of paintings, a chair, a pile of books, a case of empty ale bottles and a desk (on which there is a paper, an inkwell and a pen).
+You can go south, northeast, east, southeast or west.
+The original fixtures of this room have been removed and replaced with some sort of base camp for operations. A chair sits near the eastern doors as if some sort of guard post. This area of the castle must hold something important.
+> s
+
+> s
+
+You are in a mildew filled baths.
+You can see a large drained pool and a discarded towel.
+You can go north.
+A once luxurious bath room, now left abandoned to fill with mildew and mould.
+> x discarded towel
+
+> x discarded towel
+You don't even want to look at this crusty towel. Who knows how long its been here.
+> n
+
+> n
+
+You are in the You are in the plundered royal quarters.
+You can see a stack of paintings, a chair, a pile of books, a case of empty ale bottles and a desk (on which there is a paper, an inkwell and a pen).
+You can go south, northeast, east, southeast or west.
+The original fixtures of this room have been removed and replaced with some sort of base camp for operations. A chair sits near the eastern doors as if some sort of guard post. This area of the castle must hold something important.
+> w
+
+> w
+
+You are in a desolate courtyard.
+You can see an overbearing fountain.
+You can go north, east, south or west.
+> w
+
+> w
+
+You are in a desolate courtyard.
+You can see a persistant tree, an empty flower beds and a damaged statue.
+You can go east, north, south or west.
+> w
+
+> w
+
+You are in an understocked library.
+You can see a fire pit, pillows, chairs, a book cases, a pile of singed books, a book with page torn out, a pile of wood and a cauldron.
+You can go west, south or east.
+The library is no longer being used as a library for the most part.
+> w
+
+> w
+
+You are in a long hallway.
+You can see a wall of cages, an occupied cage and an imprisoned smuggler woman.
+You can go east or north.
+You remember this hallway from the escape. Turns your stomach every time.
+A ruckus occurs in one of the cages. A woman yells for your help, "Please! Please let me out! They've trapped me here!"
+
+She appears to be a smuggler.
+> look
+
+> look
+You are in a long hallway.
+You can see a wall of cages, an occupied cage and an imprisoned smuggler woman.
+You can go east or north.
+You remember this hallway from the escape. Turns your stomach every time.
+> x wall of cages
+
+> x wall of cages
+The entire wall has stacked cages that are certainly not for animals. Your stomach turns at the thought of people being served through the bars.
+> x imprisoned smuggler woman
+
+> x imprisoned smuggler woman
+She looks beaten and sore. You look at her wary, it could be a trap.
+> ask smuggler woman about sister
+
+> ask smuggler woman about sister
+The smugglers will go to the smuggler island just past the mainland. They will decide how many and whom to hand over to the crown for profit and who can be kept for their own uses. The smugglers mean to be granted immunity, so to speak, in their not so legal endeavours.
+> open occupied cage
+
+> open occupied cage
+You open it.
+The smuggler woman thanks you for letting her out drops a manual at your feet from her jacket. "You might want this smuggler manual." She runs off before you can change your mind.
+> x smuggler manual
+
+> x smuggler manual
+This manual holds tons of information on the smugglers, including inventory lists, logs and maps.
+It contains maps, inventory lists and logs.
+> take smuggler manual
+
+> take smuggler manual
+You pick it up.
+> read smuggler manual
+
+> read smuggler manual
+You can't read it.
+> x smuggler manual
+
+> x smuggler manual
+This manual holds tons of information on the smugglers, including inventory lists, logs and maps.
+It contains maps, inventory lists and logs.
+> n
+
+> n
+The door is blown clean off.
+
+You are in an empty barracks.
+You can see wall chains, a chamber pot, a chamber pot, a pile of used bowls, discarded blindfolds and discarded hand binds.
+You can go south.
+This is where you and your sister were being kept with a handful of other people. There were not very many of  you when your group broke down the door as an attempt to escape.
+> x wall chains
+
+> x wall chains
+You had been formerly bound to the wall chain, next to your sister. Everyone was quiet in this room and people came to relieve you, feed you, change you, bath you. Not always nicely. All while blindfolded.
+> x chamber pot
+
+> x chamber pot
+Please choose which 'chamber pot' you mean:
+1: chamber pot
+2: chamber pot
+> s
+
+> s
+
+You are in a long hallway.
+You can see a wall of cages and an empty cage.
+You can go east or north.
+You remember this hallway from the escape. Turns your stomach every time.
+> e
+
+> e
+
+You are in an understocked library.
+You can see a fire pit, pillows, chairs, a book cases, a pile of singed books, a book with page torn out, a pile of wood and a cauldron.
+You can go west, south or east.
+The library is no longer being used as a library for the most part.
+> x fire pit
+
+> x fire pit
+The fire pit is cold. It hasn't been cooked on in a while.
+> x book with page torn out
+
+> x book with page torn out
+It sits next to a pillow off to the side and has a very clear page torn out. You wonder about this page.
+> x pile of singed books
+
+> x pile of singed books
+The smugglers have been using these books as fuel for their fires. Shame.
+> x cauldron
+
+> x cauldron
+The smugglers must have cleaned the cauldron after their last meal. It looks brand new.
+> i
+
+> i
+You are carrying a prisoner outfit, a scrap paper, a locket, a square of torn blanket, a navigation map, a cape, a shirt, bracers, a knife and a smuggler manual (containing maps, inventory lists and logs).
+[state=Running]

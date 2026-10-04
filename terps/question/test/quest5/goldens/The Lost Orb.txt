@@ -1,0 +1,953 @@
+The Lost Orb
+By Craig Dutton (c) 2015
+
+You are a servant to Altrobus, wizard in residence for the City of Port Hammerfall in West Farland.
+
+However, the evil Captain Bloodbeard had sent his men to steal the Orb of Dragons, created by Altrobus. This orb can control those fiery beasts found at the Dragonclaw Mountains in East Farland.
+
+Luckily, Altrobus found out about the theft before it was too late and sent a fireball directly at their ship, the Fire and Brimstone, as they left the city harbour. All the crew jumped overboard and were all accounted for except for Captain Bloodbeard. Drowned, perhaps?
+
+Since Altrobus blamed you for not being vigilant enough, he had ordered you to go and retrieve it from the bottom of the Restless Sea. He had given you permission to use his spellbook to help you in your mission.
+
+Good luck, you'll need it!
+
+Wizard's Chamber
+You can go out or up.
+A round chamber with steps leading up to the roof.
+You can see a bed, a stand (on which there is the spellbook) and Altrobus the Wizard.
+> x legs
+
+Uneven.
+Underneath one of the legs is a piece of paper.
+> take paper
+
+You pick it up.
+> unfold paper
+
+You unfold the paper. It's a torn out page from the spellbook!
+> read page
+
+The Breathing Underwater potion requires 3 ingredients:
+1) The Feather from a Firebird.
+2) The Bone of a Fish.
+3) The Blue Pearl of Wisdom.
+Mix well and serve cold.
+> x bed
+
+The wizard's bed.
+It contains the Amulet of Translation.
+> take amulet
+
+You pick it up.
+> wear amulet
+
+You wear it.
+> x stand
+
+A mahogany stand with wobbly legs.
+> read spellbook
+
+You look up the 'Breathing Underwater' spell but find the page has been torn out!
+> out
+
+Outside Wizard's Tower
+You can go south or in.
+You are standing outside the tall and round Wizard's Tower, home to Altrobus.
+> south
+
+Crossroads
+You can go east, north, south or west.
+The centre of the harbour district. Some of these houses are in need of repair. Various streets lead south, east and west. The Wizard's Tower lies to the north.
+You can see a poster, a Juggler, a scaffolding (on which there is a Builder), a dog, a Washerwoman and a Tailor.
+> take poster
+
+You pick it up.
+> east
+
+Rose Street
+You can go east, in or west.
+The Guild of Thieves resides on this street where even the unscrupulous look after their own. A fountain lies to the east and a crossroads to the west.
+> east
+
+Fountain
+You can go west.
+An ornate fountain built over ten years ago. The way west leads to Rose Street.
+> x fountain
+
+An ornate stone fountain.
+It contains some water.
+> x water
+
+Dirty.
+It contains a gold coin.
+> take coin
+
+You pick it up.
+> west
+
+Rose Street
+You can go east, in or west.
+The Guild of Thieves resides on this street where even the unscrupulous look after their own. A fountain lies to the east and a crossroads to the west.
+> west
+
+Crossroads
+You can go east, north, south or west.
+The centre of the harbour district. Some of these houses are in need of repair. Various streets lead south, east and west. The Wizard's Tower lies to the north.
+You can see a Juggler, a scaffolding (on which there is a Builder), a dog, a Washerwoman and a Tailor.
+> south
+
+Herring Street
+You can go north, south or east.
+A quiet street with a crossroads to the north and the City Cemetery to the east. Eel Wharf is situated to the south.
+You can see a City Guard.
+> south
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+You can see Jorek the Musician.
+> east
+
+Public Gardens
+You can go west, in or east.
+A pleasant garden and quite the contrast to the rest of the city. Full of exotic plants from around the world. You are outside the studio of Laslo the Artist and a courtyard lies to the east. Eel Wharf is away to the west.
+You can see an oak tree.
+> in
+
+Studio of Laslo the Artist
+You can go out.
+A single room full of paints and brushes and half-painted canvases.
+You can see Laslo the Artist.
+> give poster to laslo
+
+'I see, you want me to paint a fake of the Minor Loser.' he smiles, 'Well it'll cost you one gold coin. Come back later and it will be ready for you.'
+> out
+
+Public Gardens
+You can go west, in or east.
+A pleasant garden and quite the contrast to the rest of the city. Full of exotic plants from around the world. You are outside the studio of Laslo the Artist and a courtyard lies to the east. Eel Wharf is away to the west.
+You can see an oak tree.
+> west
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+You can see Jorek the Musician.
+> talk to jorek
+
+'It was a rum deal for Captain Bloodbeard and his crew when that fireball hit their ship.' he sighs, 'It sank down to Davy Jones' locker for sure. All the crew survived from what I've heard but there's been no sign of Bloodbeard! I did see his first mate, One-Eyed John go into the Public Gardens earlier. I never took him for a tree hugger.'
+> east
+
+Public Gardens
+You can go west, in or east.
+A pleasant garden and quite the contrast to the rest of the city. Full of exotic plants from around the world. You are outside the studio of Laslo the Artist and a courtyard lies to the east. Eel Wharf is away to the west.
+You can see an oak tree and One-Eyed John.
+
+One-Eyed John jumps when he sees you and quickly leaves west. He was hovering around the old oak tree?!
+> dig roots
+
+You dig up a silver key hidden in the roots.
+> take silver key
+
+You pick it up.
+> in
+
+Studio of Laslo the Artist
+You can go out.
+A single room full of paints and brushes and half-painted canvases.
+You can see Laslo the Artist.
+> x laslo
+
+A tall man with a pencil moustache and covered in paint.
+> look
+
+Studio of Laslo the Artist
+You can go out.
+A single room full of paints and brushes and half-painted canvases.
+You can see Laslo the Artist.
+> give coin to laslo
+
+'The portrait is all yours but don't let the City Guard catch you with it or it'll be prison for you.' he warns.
+> take portrait
+
+You pick it up.
+> out
+
+Public Gardens
+You can go west, in or east.
+A pleasant garden and quite the contrast to the rest of the city. Full of exotic plants from around the world. You are outside the studio of Laslo the Artist and a courtyard lies to the east. Eel Wharf is away to the west.
+You can see an oak tree.
+> west
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+You can see Jorek the Musician.
+> west
+
+Shadow Alley
+You can go in or east.
+A dark, narrow alley with the Dancing Octopus Tavern situated at one end.
+You can see a cat.
+> in
+
+Dancing Octopus Tavern
+You can go out.
+A dingy place with a dirty floor and little decor.
+You can see a table and One-Eyed John.
+> push table
+
+You push the table to one side and find a grille in the floor.
+> use portrait on grille
+
+You easily shove it down the grille and into the sewers below.
+> out
+
+Shadow Alley
+You can go in or east.
+A dark, narrow alley with the Dancing Octopus Tavern situated at one end.
+You can see a cat.
+> east
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+You can see Jorek the Musician.
+> give poster to jorek
+
+'I haven't been there, yet. I'll go there now.' smiles Jorek and leaves.
+> west
+
+Shadow Alley
+You can go in or east.
+A dark, narrow alley with the Dancing Octopus Tavern situated at one end.
+You can see a cat.
+> take cat
+
+You pick her up.
+> east
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+> north
+
+Herring Street
+You can go north, south or east.
+A quiet street with a crossroads to the north and the City Cemetery to the east. Eel Wharf is situated to the south.
+You can see a City Guard.
+> north
+
+Crossroads
+You can go east, north, south or west.
+The centre of the harbour district. Some of these houses are in need of repair. Various streets lead south, east and west. The Wizard's Tower lies to the north.
+You can see a Juggler, a scaffolding (on which there is a Builder), a dog, a Washerwoman and a Tailor.
+> give cat to dog
+
+The dog tries to bite the cat but the puss jumps out of your hands and flees down Herring Street with the dog after it. The dog knocks into the juggler whose oranges fly into the air, hitting the washerwoman on the head. She drops her soap and the Tailor steps on it and slips backwards knocking into the scaffolding. The scaffolding collapses bringing the poor builder crashing down on top of it. The builder doesn't move.
+
+Suddenly, DEATH himself appears and stands over the builder's body. Everybody leaves quickly giving you a funny look and taking everything with them.
+> step on robe
+
+As you step on his robe DEATH moves towards the builder and the robe is pulled taught making him fall backwards on his bony behind. He drops the scythe next to him.
+
+'Hold on, mate!' cries DEATH, 'I'm not the real Grim Reaper. I'm going to a fancy dress party.'
+
+He takes off his DEATH mask and reveals the spotty face of a lanky teenager. Digruntled he leaves. Suddenly the builder wakes up with a sore head and goes home.
+> take scythe
+
+You pick it up.
+> south
+
+Herring Street
+You can go north, south or east.
+A quiet street with a crossroads to the north and the City Cemetery to the east. Eel Wharf is situated to the south.
+You can see a City Guard.
+> east
+
+City Cemetery
+You can go west or in.
+An old place full of faded tombstones overgrown with tall grass. A large crypt stands before you. This is Lord Cod's crypt. He was the founder of the city.
+You can see an iron gate.
+> use scythe on grass
+
+You give the grass a quick trim and find an iron key.
+> take iron key
+
+You pick it up.
+> unlock gate
+
+Unlocked with the iron key.
+> open gate
+
+You open it.
+> in
+
+Lord Cod's Crypt
+You can go out.
+A dark and creepy crypt with a low ceiling and a tiled floor.
+You can see an alcove.
+> out
+
+City Cemetery
+You can go west or in.
+An old place full of faded tombstones overgrown with tall grass. A large crypt stands before you. This is Lord Cod's crypt. He was the founder of the city.
+You can see an iron gate.
+> west
+
+Herring Street
+You can go north, south or east.
+A quiet street with a crossroads to the north and the City Cemetery to the east. Eel Wharf is situated to the south.
+You can see a City Guard.
+> south
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+> west
+
+Shadow Alley
+You can go in or east.
+A dark, narrow alley with the Dancing Octopus Tavern situated at one end.
+You can see a cat.
+> take cat
+
+You pick her up.
+> east
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+> north
+
+Herring Street
+You can go north, south or east.
+A quiet street with a crossroads to the north and the City Cemetery to the east. Eel Wharf is situated to the south.
+You can see a City Guard.
+> east
+
+City Cemetery
+You can go west or in.
+An old place full of faded tombstones overgrown with tall grass. A large crypt stands before you. This is Lord Cod's crypt. He was the founder of the city.
+You can see an iron gate.
+> in
+
+Lord Cod's Crypt
+You can go out.
+A dark and creepy crypt with a low ceiling and a tiled floor.
+You can see an alcove.
+> drop cat
+
+You drop her.
+Suddenly the dog appears and attacks the cat again. The cat escapes and the dog stops short, wagging his tail. He sniffs around the crypt and starts pawing at the tiles. In no time at all he digs up a few loose tiles. After a while he leaves looking for the cat.
+> x loose tiles
+
+What the dog dug up!
+You've found a hole!
+> x hole
+
+A deep dark hole.
+It contains a bone.
+> take bone
+
+You pick it up.
+> out
+
+City Cemetery
+You can go west or in.
+An old place full of faded tombstones overgrown with tall grass. A large crypt stands before you. This is Lord Cod's crypt. He was the founder of the city.
+You can see an iron gate.
+> west
+
+Herring Street
+You can go north, south or east.
+A quiet street with a crossroads to the north and the City Cemetery to the east. Eel Wharf is situated to the south.
+You can see a City Guard.
+> north
+
+Crossroads
+You can go east, north, south or west.
+The centre of the harbour district. Some of these houses are in need of repair. Various streets lead south, east and west. The Wizard's Tower lies to the north.
+You can see a scaffolding.
+> west
+
+Serpent Lane
+You can go east or in.
+The lane stops short here outside Bogel's Museum, a place full of over-expensive curios. A crossroads lies east.
+You can see a broken cart (on which there is a pile of hay).
+> move cart
+
+You move the cart out of the way even with one wheel and find a manhole cover.
+> open manhole cover
+
+You open it.
+> in
+
+Bogel's Museum
+You can go out.
+A single room full of interesting curios Bogel has collected over the years.
+You can see the Minor Loser portrait, Bogel the Curator, a music box and Jorek the Musician.
+> open music box
+
+It plays a dainty tune.
+'This tune reminds me of the one my old mother used to sing to me as a baby. Talking of remembering things, I did see One-Eyed John enter the sewers this morning outside and down the manhole.'
+> out
+
+Serpent Lane
+You can go east, down or in.
+The lane stops short here outside Bogel's Museum, a place full of over-expensive curios. A crossroads lies east.
+You can see a broken cart (on which there is a pile of hay) and a manhole cover.
+> down
+
+Sewers
+You can go up or south.
+A dark, smelly tunnel leading south. Up lies fresh air.
+You can see some refuse.
+> x refuse
+
+Disgusting garbage.
+It contains a casket.
+> x casket
+
+Small, silver-plated with fish engraved on it.
+> unlock casket
+
+Unlocked with the silver key.
+> open casket
+
+You open it.
+It contains the blue pearl of wisdom.
+> take pearl
+
+You pick it up.
+> south
+
+End of Tunnel
+You can go north.
+You have come to an abrupt end.
+You can see a grille and a fake Minor Loser portrait.
+> take portrait
+
+You pick it up.
+> north
+
+Sewers
+You can go up or south.
+A dark, smelly tunnel leading south. Up lies fresh air.
+You can see some refuse (on which there is a casket).
+> up
+
+Serpent Lane
+You can go east, down or in.
+The lane stops short here outside Bogel's Museum, a place full of over-expensive curios. A crossroads lies east.
+You can see a broken cart (on which there is a pile of hay) and a manhole cover.
+> east
+
+Crossroads
+You can go east, north, south or west.
+The centre of the harbour district. Some of these houses are in need of repair. Various streets lead south, east and west. The Wizard's Tower lies to the north.
+You can see a scaffolding.
+> east
+
+Rose Street
+You can go east, in or west.
+The Guild of Thieves resides on this street where even the unscrupulous look after their own. A fountain lies to the east and a crossroads to the west.
+> in
+
+Thieves' Guild
+You can go out.
+A small place with a few pillars holding up the domed roof.
+You can see Ramone the Cat Burglar.
+> give portrait to ramone
+
+He looks at the portrait.
+
+'Wait a minute.' he requests and leaves for quite a while. He returns smiling. 'You had me fooled for a moment but that's a fake. I've justed been to the museum. Probably done by Laslo. Excellent work but worthless.'
+> give portrait to ramone
+
+He looks at the portrait again.
+
+'Ok, I'll take it off your hands since it's a good fake. I think I know a few of my clients who wouldn't know the difference. Here, take this key as payment. It will get you into Zix's house. I'm sure he has something of valuable you'll need.' grins Ramone.
+> out
+
+Rose Street
+You can go east, in or west.
+The Guild of Thieves resides on this street where even the unscrupulous look after their own. A fountain lies to the east and a crossroads to the west.
+> west
+
+Crossroads
+You can go east, north, south or west.
+The centre of the harbour district. Some of these houses are in need of repair. Various streets lead south, east and west. The Wizard's Tower lies to the north.
+You can see a scaffolding.
+> south
+
+Herring Street
+You can go north, south or east.
+A quiet street with a crossroads to the north and the City Cemetery to the east. Eel Wharf is situated to the south.
+You can see a City Guard.
+> south
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+> east
+
+Public Gardens
+You can go west, in or east.
+A pleasant garden and quite the contrast to the rest of the city. Full of exotic plants from around the world. You are outside the studio of Laslo the Artist and a courtyard lies to the east. Eel Wharf is away to the west.
+You can see an oak tree.
+> east
+
+Courtyard
+You can go west or in.
+A small square courtyard leading to a smart-looking house. The Public Gardens lie to the west.
+You can see a front door and a sign.
+> knock on door
+
+The door is answered by a small man with a 'beak' for a nose. His hands are burnt.
+
+'I can't receive visitors at the moment,' he snaps, 'I'm having, er... issues with my new pet.'
+
+He slams the door in your face and locks it.
+> unlock door
+
+Unlocked with brass key.
+> open door
+
+You open it.
+> in
+
+Inside Mr Zix's House
+You can go out.
+A small house with paintings of birds hanging around the room.
+You can see Mr Zix.
+> talk to zix
+
+'How did you get into my house? Never mind that right now I have to go and do something. Don't touch anything while I'm gone!' squawks Mr. Zix.
+> push talons
+
+'CLICK' and a hidden exit opens to the south.
+> south
+
+Secret Aviary
+You can go north.
+A small enclosed room with scorch marks on the wall.
+You can see a Firebird.
+> say chillify
+
+The spell works and the poor Firebird starts to shiver with cold.
+> pluck firebird
+
+You pluck a feather.
+> north
+
+Inside Mr Zix's House
+You can go out or south.
+A small house with paintings of birds hanging around the room.
+You can see a wooden plinth (on which there is a stuffed Golden Eagle).
+> out
+
+Courtyard
+You can go west or in.
+A small square courtyard leading to a smart-looking house. The Public Gardens lie to the west.
+You can see a front door and a sign.
+> west
+
+Public Gardens
+You can go west, in or east.
+A pleasant garden and quite the contrast to the rest of the city. Full of exotic plants from around the world. You are outside the studio of Laslo the Artist and a courtyard lies to the east. Eel Wharf is away to the west.
+You can see an oak tree.
+> west
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+> north
+
+Herring Street
+You can go north, south or east.
+A quiet street with a crossroads to the north and the City Cemetery to the east. Eel Wharf is situated to the south.
+You can see a City Guard.
+> north
+
+Crossroads
+You can go east, north, south or west.
+The centre of the harbour district. Some of these houses are in need of repair. Various streets lead south, east and west. The Wizard's Tower lies to the north.
+You can see a scaffolding.
+> north
+
+Outside Wizard's Tower
+You can go south or in.
+You are standing outside the tall and round Wizard's Tower, home to Altrobus.
+> in
+
+Wizard's Chamber
+You can go out or up.
+A round chamber with steps leading up to the roof.
+You can see a bed, a stand (on which there is the spellbook) and Altrobus the Wizard.
+> give feather to altrobus
+
+He takes it for the 'Breathing Underwater' potion.
+> give bone to altrobus
+
+He takes it for the 'Breathing Underwater' potion.
+> give pearl to altrobus
+
+He takes it for the 'Breathing Underwater' potion.
+
+Altrobus, with the three ingredients you gave him, makes the 'Breathing Underwater' potion for you.
+> take potion
+
+You pick it up.
+> drink potion
+
+As you gulp down the disgusting liquid you start to feel strange. Moments later you have grown some gills.
+
+Once you are under the sea you will breathe like a fish. However, as soon as you come back to the surface the gills will vanish. Therefore, if you have anything else to do here, do it now before you go under the sea. You only have one chance!
+> out
+
+Outside Wizard's Tower
+You can go south or in.
+You are standing outside the tall and round Wizard's Tower, home to Altrobus.
+> south
+
+Crossroads
+You can go east, north, south or west.
+The centre of the harbour district. Some of these houses are in need of repair. Various streets lead south, east and west. The Wizard's Tower lies to the north.
+You can see a scaffolding.
+> south
+
+Herring Street
+You can go north, south or east.
+A quiet street with a crossroads to the north and the City Cemetery to the east. Eel Wharf is situated to the south.
+You can see a City Guard.
+> south
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+> down
+
+You dive into the sea and reach the sea floor.
+
+Sea Floor
+You can go up, southwest or south.
+An expanse of sand stretches out before you.
+> southwest
+
+Coral Reef
+You can go northeast, west or south.
+The large coral structure had been built up for years by colonies of tiny animals. Another part of the reef extends to the west.
+You can see a shoal of fish.
+> west
+
+Sea Anemones
+You can go east.
+These anemones are actually animals and attach to the reef by an adhesive foot, called a basal disc, with a column-shaped body ending in an oral disc.
+> x anemones
+
+A potentially aggressive and venomous sea creature.
+You find a conch shell.
+> take conch shell
+
+You pick it up.
+> east
+
+Coral Reef
+You can go northeast, west or south.
+The large coral structure had been built up for years by colonies of tiny animals. Another part of the reef extends to the west.
+You can see a shoal of fish.
+> south
+
+Sunken Courtyard
+You can go north, in, south or southeast.
+As you look around the courtyard you wonder if an island had sunk years ago as a small cathedral stands before you. The history books never mentioned this place. The reef lies north while a 'forest' of seaweed lies south. The southeast exit leads into a grotto.
+> in
+
+Sunken Cathedral
+You can go out.
+A small columned cathedral with a stone altar.
+> x altar
+
+A stone altar with an inscription on it and a small hole underneath.
+> read inscription
+
+'THE BLACK BIRD FLIES NORTH,
+THEN EAST AGAINST THE WIND,
+OVER CRIMSON, OVER FIRE,
+PAST THE HOUSE OF ROCK,
+THE BLEACHED DEAD WHISPER NEAR BY,
+THIS PLACE WILL HELP YOU FIND WHAT YOU SEEK!'
+> reach hole
+
+You reach into the hole and pull, out of the darkness, a small firestone.
+> take firestone
+
+You pick it up.
+> out
+
+Sunken Courtyard
+You can go north, in, south or southeast.
+As you look around the courtyard you wonder if an island had sunk years ago as a small cathedral stands before you. The history books never mentioned this place. The reef lies north while a 'forest' of seaweed lies south. The southeast exit leads into a grotto.
+> southeast
+
+Grotto
+You can go northwest, south or east.
+A sea cave that was originally part of the unknown sunken island.
+> south
+
+Rocky Chamber
+You can go north.
+A small rock-filled chamber.
+You can see a cage (containing Princess Flounder) and a Water Elemental.
+> use firestone on water elemental
+
+The firestone blasts the Water Elemental who boils away into nothing.
+> x rockpile
+
+A small pile of rocks.
+You find a key!
+> take ebony key
+
+You pick it up.
+> unlock cage
+
+Unlocked with the ebony key.
+> open cage
+
+You open it.
+> talk to princess
+
+'Thank you. You are very brave. I will tell my Father of your heroism.' she smiles and swims away home.
+> north
+
+Grotto
+You can go northwest, south or east.
+A sea cave that was originally part of the unknown sunken island.
+> northwest
+
+Sunken Courtyard
+You can go north, in, south or southeast.
+As you look around the courtyard you wonder if an island had sunk years ago as a small cathedral stands before you. The history books never mentioned this place. The reef lies north while a 'forest' of seaweed lies south. The southeast exit leads into a grotto.
+> south
+
+Seaweed Trees
+You can go north or southwest.
+These seaweed trees look like an underwater forest. A strange structure lies to the southwest while the courtyard lies to the north.
+> south
+
+Outside Palace
+You can go northeast or in.
+This is the palace of King Neptunus, ruler of the oceans. You read about this place in books but never thought you would see it for yourself. The structure is a combination of rock and coral formed together to create a spectacular building.
+> in
+
+Palatial Hall
+You can go out.
+A palatial hall formed from coral with tall pillars and open windows looking out across the vast sea floor. A throne stands at the far end.
+You can see King Neptunus.
+> talk to king
+
+'Thank you for rescuing my daughter. The orb you seek is in the possession of the Sea Hag. She ordered the Giant Octopus to retrieve it for her. I'm not sure how you can get it back so I'll let you borrow my magic trident. It will return to me when it believes it has helped you enough.' he smiles.
+> take trident
+
+You pick it up.
+> out
+
+Outside Palace
+You can go northeast or in.
+This is the palace of King Neptunus, ruler of the oceans. You read about this place in books but never thought you would see it for yourself. The structure is a combination of rock and coral formed together to create a spectacular building.
+> northeast
+
+Seaweed Trees
+You can go north or southwest.
+These seaweed trees look like an underwater forest. A strange structure lies to the southwest while the courtyard lies to the north.
+> north
+
+Sunken Courtyard
+You can go north, in, south or southeast.
+As you look around the courtyard you wonder if an island had sunk years ago as a small cathedral stands before you. The history books never mentioned this place. The reef lies north while a 'forest' of seaweed lies south. The southeast exit leads into a grotto.
+> southeast
+
+Grotto
+You can go northwest, south or east.
+A sea cave that was originally part of the unknown sunken island.
+> east
+
+Gorge
+You can go west.
+A tall enclosed valley of rocks that hang precariously above you.
+You can see a Giant Octopus.
+> use trident on rocks
+
+You throw the trident at the rocks and dislodge a few heavy ones. They crash down upon the Octopus who swims away forever. Well, until he gets bored and comes back looking for trouble!
+
+The trident, being magical, feels it has helped you enough and speeds back home to King Neptunus.
+
+You find something!
+> take crystal
+
+You pick it up.
+> west
+
+Grotto
+You can go northwest, south or east.
+A sea cave that was originally part of the unknown sunken island.
+> northwest
+
+Sunken Courtyard
+You can go north, in, south or southeast.
+As you look around the courtyard you wonder if an island had sunk years ago as a small cathedral stands before you. The history books never mentioned this place. The reef lies north while a 'forest' of seaweed lies south. The southeast exit leads into a grotto.
+> north
+
+Coral Reef
+You can go northeast, west or south.
+The large coral structure had been built up for years by colonies of tiny animals. Another part of the reef extends to the west.
+You can see a shoal of fish.
+> northeast
+
+Sea Floor
+You can go up, southwest or south.
+An expanse of sand stretches out before you.
+> south
+
+Sunken Ship
+You can go north, in or down.
+Captain Bloodbeard's sunken ship resting at the bottom of the sea floor. You still see the scorch marks from the fireball that hit it.
+You can see a trapdoor.
+> open trapdoor
+
+You open it.
+> down
+
+Treasure Hold
+You can go up.
+A small hold with an unstable hull.
+You can see an oak chest.
+> open oak chest
+
+You open it.
+The Orb of Dragons has gone!
+> x hull
+
+Find some loose boards.
+> x loose boards
+
+Loose.
+> move loose boards
+
+You make an exit in the side of the hull.
+> east
+
+Top of Chasm
+You can go west or down.
+The sunken ship lies on the edge of the chasm. It's a huge distance down to the bottom and plunges the water into darkness.
+> down
+
+Bottom of Chasm
+You can go up or in.
+The light is faint down here but you spot a cave nearby.
+> in
+
+Cave
+You can go out.
+A dark but large abode for the Sea hag.
+You can see a Sea Hag.
+> use crystal on sea hag
+
+The crystal turns the Sea Hag into stone. You find something.
+> x sea hag
+
+A stone witch.
+> blow conch shell
+
+You blow the shell like a horn and a few moments later a Giant Seahorse swims towards you.
+> ride seahorse
+
+The seahorse doesn't trust you and starts to panic. In the confined space of the cave she knocks the stone plinth over and destroys it. Luckily, the Orb of Dragons rolls out of harms way. You get off and she calms down.
+> take orb
+
+You pick it up.
+> out
+
+Bottom of Chasm
+You can go up or in.
+The light is faint down here but you spot a cave nearby.
+> up
+
+Top of Chasm
+You can go west or down.
+The sunken ship lies on the edge of the chasm. It's a huge distance down to the bottom and plunges the water into darkness.
+> west
+
+Treasure Hold
+You can go up or east.
+A small hold with an unstable hull.
+You can see an oak chest and some loose boards.
+> up
+
+Sunken Ship
+You can go north, in or down.
+Captain Bloodbeard's sunken ship resting at the bottom of the sea floor. You still see the scorch marks from the fireball that hit it.
+You can see a trapdoor.
+> north
+
+Sea Floor
+You can go up, southwest or south.
+An expanse of sand stretches out before you.
+> up
+
+You swim back to the surface. Your gills disappear as the potion wears off.
+
+Eel Wharf
+You can go north, west, east or down.
+As you look out across the harbour towards the Restless Sea, you know somewhere in its depths is Captain Bloodbeard's recently sunk ship. Steps lead down into the sea.
+> north
+
+Herring Street
+You can go north, south or east.
+A quiet street with a crossroads to the north and the City Cemetery to the east. Eel Wharf is situated to the south.
+You can see a City Guard.
+> north
+
+Crossroads
+You can go east, north, south or west.
+The centre of the harbour district. Some of these houses are in need of repair. Various streets lead south, east and west. The Wizard's Tower lies to the north.
+You can see a scaffolding.
+> north
+
+Outside Wizard's Tower
+You can go south or in.
+You are standing outside the tall and round Wizard's Tower, home to Altrobus.
+> in
+
+Wizard's Chamber
+You can go out or up.
+A round chamber with steps leading up to the roof.
+You can see a bed, a stand (on which there is the spellbook) and a ransom note.
+> up
+
+Top of Tower
+You can go down.
+A turreted roof with a magnificent view of the harbour district and beyond.
+You can see a telescope.
+> call dragon
+
+You clutch the orb tight as you concentrate in your mind and call for a dragon from the Dragonclaw Mountains.
+
+In less than half an hour, a huge Red Dragon lands on the roof beside you. It stares at you intently and you feel very small!
+> ride red dragon
+
+You clamber aboard the huge red beast and it launches into the air. You spot Altrobus, your master, with Captain Bloodbeard next to the fountain and ask the dragon to attack the dreaded pirate.
+
+With one swoop the dragon grabs Captain Bloodbeard in its claws and flies high into the air. As the wind rushes through your hair the dragon drops the Captain into the Restless Sea, disappearing into the watery depths. Were they tentacles?
+
+You return to the top of the tower and jump off as Altrobus joins you. As the dragon sets off home, Altrobus pats you on the shoulder.
+
+'This time I'll let you off but be more vigilant next time or find yourself another job.' grins Altrobus.
+
+You both stand in silence as the distant red blur finally disappears.
+
+Congratulations! You have succeeded in returning the Orb of Dragons to its rightful place. Time for a well earned rest... No! Wait! You're a servant and Altrobus is hungry. Oh, well! No rest for the wicked.
+
+The End
+[state=Finished]

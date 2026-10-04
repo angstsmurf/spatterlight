@@ -483,6 +483,15 @@ One native/oracle disagreement is permanent:
   uncharted-room arrivals): those are the only diffs `../run_replays.sh` is
   expected to show.
 
+One more expected row, not a #2189 case: *Rogues Adventure*. Its DoomQuest IV
+Konami-code route (`wwssadadba`) enters the `void` room, whose `msg` is a
+deliberately glitched dump of the game's own source. The text is not a valid
+expression, so QuestViva (and the oracle) report one script error
+(`Invalid token in expression at position (1:1)`; the golden's `errors=1`),
+while the native engine prints the dump as text. The golden is the oracle's
+verbatim output, so `../run_replays.sh "Rogues Adventure"` shows three hunks
+(54 diff lines), all inside the dump; any other diff on that row is a regression.
+
 The two *Xanadu* games (*In the Compound — Revenge*, *The World's Only Hope*)
 used to fail here too, and were long mislabelled "RNG-stream and wait-echo
 placement differences". Neither was RNG (every random pick before the

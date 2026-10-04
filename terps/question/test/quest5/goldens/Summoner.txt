@@ -1,0 +1,450 @@
+You find yourself by the deathbed of a powerful wizard who you have been the apprentice of for some time. As a reward for your years of study and for keeping him company in his final moments, he wants to bequeath you some of his magic.
+
+        He offers you one of three scrolls. The scroll of rock, the scroll of paper, and the scroll of scissors. Take the one you would like.
+
+Maybe you should look them over first.
+You are in the top of the tower.
+You can see a Scroll Of Rock, a Scroll Of Paper and a Scroll Of Scissors.
+You can go down the staircase.
+
+There is a cabinet with a lock on it, and of course the bed and the old man.  A window faces north, and there is a staircase that will take you to the base of the tower.
+> take scroll of rock
+> take scroll of rock
+You take the scroll of rock. As soon as you do, the wizard moves his fingers slightly and the scroll of paper and scroll of scissors suddenly disappear. Damn.
+> use scroll of rock
+> use scroll of rock
+You read the scroll of rock and suddenly your mind rushes with the knowledge of impossible magics. They center around summoning rocks to throw at things. I didn't say they were impressive impossible magics.
+
+As you do the scroll rolls up into nothingness.
+> speak to old man
+> speak to old man
+It says nothing.
+> down
+> down
+As soon as you make it downstairs you hear a huge explosion and see a consuming blue light come from the room upstairs! More smaller explosions of light continue to emanate from the room.
+You are in the base of the tower.
+You can go up the staircase or east to the wizard's courtyard.
+
+In the base of the tower there is little to look at. The most interesting thing to see is the scaffolding for the stairs that lead up to old man's room.
+> e
+> e
+You are in the  courtyard.
+You can go west through the door to the wizard's foyer, east to the southeast district of the town hamlet. or north to south hamlet forest.
+
+You are just outside of the wizard's tower in a little cobblestone courtyard. There is a cliff to the south that leads to a beach far beneath. You don't have the tools to climb down it though.
+An owl flies down to greet you as you leave the tower. The owl explains that those explosions were the seals holding back the demon princes breaking, and all of the wizard's summoning scrolls disbursing throughout the world. The task of collecting the magic once again and resealing the demon princes falls to you.
+
+He then does not provide you with a pokedex, even though it is customary for this kind of quest..
+
+You start making some excellent puns about how owls make a sound reminiscent of the word "who" and the owl flies away in disgust. Some people just have terrible taste.
+> west
+> west
+You are in the base of the tower.
+You can go up the staircase or east to the wizard's courtyard.
+
+In the base of the tower there is little to look at. The most interesting thing to see is the scaffolding for the stairs that lead up to old man's room.
+> up
+> up
+The cabinet has burst open and scrolls of all kinds and colours are flying out of it and through the window! After ten or so seconds of just standing in awe, there are no more scrolls, and the cabinet repairs itself. The old man now lays dead, but smiling.
+You are in the top of the tower.
+You can go down the staircase.
+
+There is a cabinet with a lock on it, and of course the bed and the old man.  A window faces north, and there is a staircase that will take you to the base of the tower.
+> up
+> up
+Huh! You pull on a small loup in the ceiling and you find a ladder that leads up to a very small attic.
+You are in the attic..
+You can see a Lockpick.
+You can go down.
+
+Man, you must be pretty smart to have found this place.
+> down
+> down
+You are in the top of the tower.
+You can go down the staircase.
+
+There is a cabinet with a lock on it, and of course the bed and the old man.  A window faces north, and there is a staircase that will take you to the base of the tower.
+> down
+> down
+You are in the base of the tower.
+You can go up the staircase or east to the wizard's courtyard.
+
+In the base of the tower there is little to look at. The most interesting thing to see is the scaffolding for the stairs that lead up to old man's room.
+> east
+> east
+You are in the  courtyard.
+You can go west through the door to the wizard's foyer, east to the southeast district of the town hamlet. or north to south hamlet forest.
+
+You are just outside of the wizard's tower in a little cobblestone courtyard. There is a cliff to the south that leads to a beach far beneath. You don't have the tools to climb down it though.
+> east
+> east
+You are in Southwest hamlet.
+You can go west to the wizard's courtyard., east to the south district of hamlet or north to north-west hamlet.
+
+In the southwest part of hamlet you've got a bakery and some residential buildings. It isn't that big of a town. Oh, and the bakery is closed because it is sunday. You see a cute old couple sitting on a park bench. Probably best not to disturb them.
+
+There is also a crazy old lady that is trying to get your attention. Try not to look in her direction.
+> east
+> east
+You are in South hamlet.
+You can see Swarm of Cockroaches.
+You can go west to the southwest district of hamlet, east to the southeast district of hamlet. or north to north hamlet.
+
+This part of town is normally occupied by a fountain which is surrounded by a farmers market and bazaar type thing. But everyone sort of cleared out when that swarm of cockroaches moved in.
+> east
+> east
+You are in Southeast hamlet.
+You can see a shady man.
+You can go west to the south district of hamlet, east to south hamlet field or north to north-east hamllet.
+
+This district of town houses a weapons shop that is closed for sunday, a similarly shut antiques shop, and a shady looking man standing under an unlit streetlamp.
+> east
+> east
+You are in South Hamlet Field.
+You can go west to the southeast district of hamlet., east to the dagon waterfall. or north to central hamlet field.
+
+This field is remarkably unremarkable. The ocean to the south is pretty at least. Few people come here for reasons other than getting to the waterfall in the east.
+> east
+> east
+You are in Dagon Waterfall.
+You can see a Giant Sponge.
+You can go west to east hamlet field or north to south dagon river.
+
+Ah, beautiful Dagon waterfall. Looking off of the edge you can see the water falling right into the ocean off of the edge. Such a rare and beautiful natural occurrence. If you are thinking "boy, the shape of this place must be pretty weird to allow what seems like the highest point to have a waterfall going off of it" and yes it is shaped weird smartass. The river is an indent in the land that is pretty shallow, and upriver is slightly higher, so get off my back.
+> north
+> north
+You are in a South dagon river.
+You can go south to dagon waterfall, west to central hamlet field or north South-central Dagon River.
+
+This is just a peaceful little section of the riverbank. If you had some kind of picknick basket, here would be a great place for a picknick. You listen to the rushing waters roll over the stones of the riverbed as they rush south towards Dagon waterfall.
+> west
+> west
+You are in a Central hamlet field.
+You can see a veil of ignorance.
+You can go west to east hamlet, south to south hamlet field, east or north to southeast marshland.
+
+This field just by the river is housing some smelly looking protestors. I wouldn't go near them. There is also some mostly unnotable clothing scattered on the ground. Probably related to the protestors
+> west
+> west
+You are in a North-east hamlet.
+You can see a Dress shop.
+You can go in to the dress shop, east to central hamlet field, north to southwest marshland, west to north hamlet or south to south-east hamelt.
+
+This section of the street is mostly pretty empty. There are a couple of people walking around, attending to their business, and amid a number of closed clothing shops there is one dress shop that appears to be open. Cool!
+> in
+> in
+You are in a Dress shop.
+You can see a bored woman.
+You can go out to northeast hamlet.
+
+This beautiful shop is just full of garments of every fabric you can imagine, all expertly stitched into evening gowns, cocktail dresses, summer dresses, and ball gowns. There is a bored looking woman sitting in behind the counter.
+> out
+> out
+You are in a North-east hamlet.
+You can see a Dress shop.
+You can go in to the dress shop, east to central hamlet field, north to southwest marshland, west to north hamlet or south to south-east hamelt.
+
+This section of the street is mostly pretty empty. There are a couple of people walking around, attending to their business, and amid a number of closed clothing shops there is one dress shop that appears to be open. Cool!
+> north
+> north
+You are in a Southwest marshland.
+You can go west to pauper's trail (south hamlet leg), east to southeast marshland field or south to north-east hamlet .
+
+This marsh is pretty marshy alright. Not very busy though. You hear the sounds of frogs and crickets. They are very boring. Go somewhere cooler!
+> west
+> west
+You are in a Pauper's trail (hamlet leg south).
+You can go west to east hamlet forest, east to southwest marshland or south to north hamlet.
+
+There isn't much that goes on on pauper's trail. Isn't it strange to think that the one part of the wilderness that is dominated by the most industrious of creatures appears to be the most peaceful? I mean, there is all kinds of crazy crap going on right beside it. Stray off of this trail, and you'll more than likely find yourself some trouble.
+> west
+> west
+You are in an east hamlet forest.
+You can see a The Devil.
+You can go west to the heart of hamlet forest, east to pauper's trail (south hamlet leg) or south to southeast hamlet field.
+
+This section of the forest looks a little darker than the others. There are all sorts of pentagrams carved into the tree bark, and the room smells faintly of sulfer. You look around, but you can't see any sort of president, so you have to wonder where it is coming form...
+> west
+> west
+You are in a the heart of hamlet forest.
+You can see a sad trent.
+You can go west to west hamlet forest , east to east hamlet forest or south to south hamlet forest.
+
+The heart of hamlet forest is a magnificently beautiful place, with streams and flowers and brightly coloured foliage abounding. The trees sway gently in the breeze. All but one, that is.
+> west
+> west
+You are in a west hamlet forest.
+You can go west to forest ridge field, east to the heart of hamlet forest or south to southwest hamlet forest.
+
+This area of the forest is kind of hilly. It would be a great place to go mountain biking if your parents had gotten you that mountain bike for christmas instead of forgetting about it, promising to buy you something, then forgetting to buy you anything and calling you a liar and grounding you when you brought it up. Man, you had shitty parents.
+> west
+> west
+You are in a forest ridge field.
+You can see a boulder and an .
+You can go west to west trailside field, east to west hamlet forest, south To northeast middle-of-nowhere field or down into the cave.
+
+This is a pretty normal field, except for the unusual rock formation in the centre. It looks less like a pile of rubble, and more like the entryway to a cave of some kind. But, there is a boulder obstructing the entrance. You'll have to find some way of getting rid of it if you want in.
+> west
+> west
+You are in a West trailside field.
+You can see a Weapon master.
+You can go west to pauper's trail (west leg east), east to forest ridge field or south to north middle-of-nowhere field.
+
+This is a pretty normal looking field, except for this woman wearing easily sixty pounds of armour and carrying ten or so different weapons. I wonder what she is up to.
+> west
+> west
+You are in a Pauper's trail (west leg east).
+You can see a Lesser acolyte.
+You can go west to pauper's trail (central west leg), east to west trailside field or south to northeast middle-of-nowhere field.
+
+West leg east of pauper's trail is pretty normal as roads go. There is this demony looking lady standing on the road though. She looks sad.
+> west
+> west
+You are in a Pauper's trail (central west leg).
+You can go west to pauper's trail (west leg west), east to pauper's trail (west leg east) or south to north westbeach field.
+
+Central west leg is famous for being a brief reprieve from the crazy names of the two stretches of road around it. It is a sunday, so there isn't much trafic.
+> west
+> west
+You are in a Pauper's trail (west leg west).
+You can see a Gunslinger and a Scroll of gun.
+You can go west to pauper's trail (townville leg south), east to pauper's trail (central west leg) or south to east midfield.
+
+This section of the road is almost exactly like every other section, except for the fact that there are fields on either side of it, and it is incredibly confusingly named. West leg west? Who comes up with this stuff?
+> take scroll of gun
+> take scroll of gun
+You pick it up.
+> use scroll of gun
+> use scroll of gun
+You read the scroll of the gun, and suddenly your mind races with firearms trivia, and hundreds of thousands of hours of combat training. You could shoot a pea out from one hundred mattresses now. But more importantly, you can summon a gun to shoot with.
+
+As you do the scroll rolls up into nothingness.
+> west
+> west
+You are in a Pauper's trail (townville leg south).
+You can go west to north-west midfield, east to pauper's trail (west leg west) or south to midfield.
+
+Ah. The old townville south. It is pretty empty right now. Even for a sunday.
+> west
+> west
+You are in a north-west midfield.
+You can see an Ancient Red Dragon and a Scroll of dragon.
+You can go west to south-central west beach, east to pauper's trail (townville leg south) or south to west midfield.
+
+This field is filled with billowing flames surrounding what looks to be a nest, with fallen scales all over it. Much of the rest of the field is similarly charred and torn.
+> take scroll of dragon
+> take scroll of dragon
+You pick it up.
+> use scroll of dragon
+> use scroll of dragon
+You read the words written on the enchanted dragon scroll, and your mind rushes with the arcane artistry of scaled sorcery. There is also a cool little supplement in the corner of the scroll about magical aliteration. Neat! You can summon dragons now.
+
+As you do the scroll rolls up into nothingness.
+> west
+> west
+You are in a South-central westbeach.
+You can see a lamp.
+You can go east to north-west midfield or south to south westbeach.
+
+This section of the beach has a mysterious looking panther head coming out of the sand, about twenty feet tall! It would have taken a kid a long time to build that. There is also an old looking oil lamp on the ground in front of it.
+> south
+> south
+You are in South west-beach.
+You can go south to the southernmost and westernmost portion of the beach, east to west midfield or north to South-central westbeach.
+
+There isn't much going on here. You see the remnants of a sandcastle that a child built, probably a few days ago. Otherwise just your standard beech, with some grass poking through the sand near the top of it and short waves rolling in from the bottom.
+> south
+> south
+You are in Southernmost West Beach.
+You can see an Alien.
+You can go east to the midwestern beach or north to the south part of east beach.
+
+This part of the beach is all irradiated. I wonder who's fault that is.
+> east
+> east
+You are in Midwestern beach.
+You can see a Giant Glass Ball.
+You can go west to the far southernmost and easternmost portion of east beach, east to the south-central portion of the beach or north to west midfield.
+
+This is another peaceful beach. If you weren't busy, you'd probably be taking in the atmosphere for a few minutes. But saving the world or whatever doesn't leave you with that kind of time.
+
+To the south there is still the ocean.
+> east
+> east
+You are in South-central beach.
+You can go west to the midwestern portion of the beach, east to the south-eastern portion of the beach or north midfield.
+
+There is nothing going on on this area of the beach. It is remarkably peaceful here. Just you, some assorted mollusks, and the sound of the surf washing against the beach.
+> west
+> west
+You are in Midwestern beach.
+You can see a Giant Glass Ball.
+You can go west to the far southernmost and easternmost portion of east beach, east to the south-central portion of the beach or north to west midfield.
+
+This is another peaceful beach. If you weren't busy, you'd probably be taking in the atmosphere for a few minutes. But saving the world or whatever doesn't leave you with that kind of time.
+
+To the south there is still the ocean.
+> west
+> west
+You are in Southernmost West Beach.
+You can see an Alien.
+You can go east to the midwestern beach or north to the south part of east beach.
+
+This part of the beach is all irradiated. I wonder who's fault that is.
+> north
+> north
+You are in South west-beach.
+You can go south to the southernmost and westernmost portion of the beach, east to west midfield or north to South-central westbeach.
+
+There isn't much going on here. You see the remnants of a sandcastle that a child built, probably a few days ago. Otherwise just your standard beech, with some grass poking through the sand near the top of it and short waves rolling in from the bottom.
+> north
+> north
+You are in a South-central westbeach.
+You can see a lamp.
+You can go east to north-west midfield or south to south westbeach.
+
+This section of the beach has a mysterious looking panther head coming out of the sand, about twenty feet tall! It would have taken a kid a long time to build that. There is also an old looking oil lamp on the ground in front of it.
+> east
+> east
+You are in a north-west midfield.
+You can see an Ancient Red Dragon.
+You can go west to south-central west beach, east to pauper's trail (townville leg south) or south to west midfield.
+
+This field is filled with billowing flames surrounding what looks to be a nest, with fallen scales all over it. Much of the rest of the field is similarly charred and torn.
+> east
+> east
+You are in a Pauper's trail (townville leg south).
+You can go west to north-west midfield, east to pauper's trail (west leg west) or south to midfield.
+
+Ah. The old townville south. It is pretty empty right now. Even for a sunday.
+> east
+> east
+You are in a Pauper's trail (west leg west).
+You can see a Gunslinger.
+You can go west to pauper's trail (townville leg south), east to pauper's trail (central west leg) or south to east midfield.
+
+This section of the road is almost exactly like every other section, except for the fact that there are fields on either side of it, and it is incredibly confusingly named. West leg west? Who comes up with this stuff?
+> east
+> east
+You are in a Pauper's trail (central west leg).
+You can go west to pauper's trail (west leg west), east to pauper's trail (west leg east) or south to north westbeach field.
+
+Central west leg is famous for being a brief reprieve from the crazy names of the two stretches of road around it. It is a sunday, so there isn't much trafic.
+> east
+> east
+You are in a Pauper's trail (west leg east).
+You can see a Lesser acolyte.
+You can go west to pauper's trail (central west leg), east to west trailside field or south to northeast middle-of-nowhere field.
+
+West leg east of pauper's trail is pretty normal as roads go. There is this demony looking lady standing on the road though. She looks sad.
+> east
+> east
+You are in a West trailside field.
+You can see a Weapon master.
+You can go west to pauper's trail (west leg east), east to forest ridge field or south to north middle-of-nowhere field.
+
+This is a pretty normal looking field, except for this woman wearing easily sixty pounds of armour and carrying ten or so different weapons. I wonder what she is up to.
+> east
+> east
+You are in a forest ridge field.
+You can see a boulder and an .
+You can go west to west trailside field, east to west hamlet forest, south To northeast middle-of-nowhere field or down into the cave.
+
+This is a pretty normal field, except for the unusual rock formation in the centre. It looks less like a pile of rubble, and more like the entryway to a cave of some kind. But, there is a boulder obstructing the entrance. You'll have to find some way of getting rid of it if you want in.
+> east
+> east
+You are in a west hamlet forest.
+You can go west to forest ridge field, east to the heart of hamlet forest or south to southwest hamlet forest.
+
+This area of the forest is kind of hilly. It would be a great place to go mountain biking if your parents had gotten you that mountain bike for christmas instead of forgetting about it, promising to buy you something, then forgetting to buy you anything and calling you a liar and grounding you when you brought it up. Man, you had shitty parents.
+> east
+> east
+You are in a the heart of hamlet forest.
+You can see a sad trent.
+You can go west to west hamlet forest , east to east hamlet forest or south to south hamlet forest.
+
+The heart of hamlet forest is a magnificently beautiful place, with streams and flowers and brightly coloured foliage abounding. The trees sway gently in the breeze. All but one, that is.
+> east
+> east
+You are in an east hamlet forest.
+You can see a The Devil.
+You can go west to the heart of hamlet forest, east to pauper's trail (south hamlet leg) or south to southeast hamlet field.
+
+This section of the forest looks a little darker than the others. There are all sorts of pentagrams carved into the tree bark, and the room smells faintly of sulfer. You look around, but you can't see any sort of president, so you have to wonder where it is coming form...
+> east
+> east
+You are in a Pauper's trail (hamlet leg south).
+You can go west to east hamlet forest, east to southwest marshland or south to north hamlet.
+
+There isn't much that goes on on pauper's trail. Isn't it strange to think that the one part of the wilderness that is dominated by the most industrious of creatures appears to be the most peaceful? I mean, there is all kinds of crazy crap going on right beside it. Stray off of this trail, and you'll more than likely find yourself some trouble.
+> east
+> east
+You are in a Southwest marshland.
+You can go west to pauper's trail (south hamlet leg), east to southeast marshland field or south to north-east hamlet .
+
+This marsh is pretty marshy alright. Not very busy though. You hear the sounds of frogs and crickets. They are very boring. Go somewhere cooler!
+> south
+> south
+You are in a North-east hamlet.
+You can see a Dress shop.
+You can go in to the dress shop, east to central hamlet field, north to southwest marshland, west to north hamlet or south to south-east hamelt.
+
+This section of the street is mostly pretty empty. There are a couple of people walking around, attending to their business, and amid a number of closed clothing shops there is one dress shop that appears to be open. Cool!
+> east
+> east
+You are in a Central hamlet field.
+You can see a veil of ignorance.
+You can go west to east hamlet, south to south hamlet field, east or north to southeast marshland.
+
+This field just by the river is housing some smelly looking protestors. I wouldn't go near them. There is also some mostly unnotable clothing scattered on the ground. Probably related to the protestors
+> east
+> east
+You are in a South dagon river.
+You can go south to dagon waterfall, west to central hamlet field or north South-central Dagon River.
+
+This is just a peaceful little section of the riverbank. If you had some kind of picknick basket, here would be a great place for a picknick. You listen to the rushing waters roll over the stones of the riverbed as they rush south towards Dagon waterfall.
+> south
+> south
+You are in Dagon Waterfall.
+You can see a Giant Sponge.
+You can go west to east hamlet field or north to south dagon river.
+
+Ah, beautiful Dagon waterfall. Looking off of the edge you can see the water falling right into the ocean off of the edge. Such a rare and beautiful natural occurrence. If you are thinking "boy, the shape of this place must be pretty weird to allow what seems like the highest point to have a waterfall going off of it" and yes it is shaped weird smartass. The river is an indent in the land that is pretty shallow, and upriver is slightly higher, so get off my back.
+> west
+> west
+You are in South Hamlet Field.
+You can go west to the southeast district of hamlet., east to the dagon waterfall. or north to central hamlet field.
+
+This field is remarkably unremarkable. The ocean to the south is pretty at least. Few people come here for reasons other than getting to the waterfall in the east.
+> west
+> west
+You are in Southeast hamlet.
+You can see a shady man.
+You can go west to the south district of hamlet, east to south hamlet field or north to north-east hamllet.
+
+This district of town houses a weapons shop that is closed for sunday, a similarly shut antiques shop, and a shady looking man standing under an unlit streetlamp.
+> west
+> west
+You are in South hamlet.
+You can see Swarm of Cockroaches.
+You can go west to the southwest district of hamlet, east to the southeast district of hamlet. or north to north hamlet.
+
+This part of town is normally occupied by a fountain which is surrounded by a farmers market and bazaar type thing. But everyone sort of cleared out when that swarm of cockroaches moved in.
+> west
+> west
+You are in Southwest hamlet.
+You can go west to the wizard's courtyard., east to the south district of hamlet or north to north-west hamlet.
+
+In the southwest part of hamlet you've got a bakery and some residential buildings. It isn't that big of a town. Oh, and the bakery is closed because it is sunday. You see a cute old couple sitting on a park bench. Probably best not to disturb them.
+
+There is also a crazy old lady that is trying to get your attention. Try not to look in her direction.
+> west
+> west
+You are in the  courtyard.
+You can go west through the door to the wizard's foyer, east to the southeast district of the town hamlet. or north to south hamlet forest.
+
+You are just outside of the wizard's tower in a little cobblestone courtyard. There is a cliff to the south that leads to a beach far beneath. You don't have the tools to climb down it though.
+> i
+> i
+You are carrying a Rock magic, a Gun Magic and a Dragon Magic.
+[state=Running]

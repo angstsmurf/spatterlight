@@ -1,0 +1,276 @@
+Labyrinth
+The Game of Rooms
+
+by Jacob Wilkus and Tim Huffman
+
+ Menu.
+Select One: Level One and Credits.
+You must complete the previous level in order to advance to the next.
+To select a level, take or play the level. To learn about the level, and what it contains, look at it.
+(If coordinates are active in the level you are playing, they will be listed next to the Room in a (x, y) format)
+> take level one
+
+> take level one
+You pick it up.
+You've selected level one!
+
+You are in the Starting Room (7, 2).
+You can see a Locked Door.
+You can go west, north or east.
+There are three open exits to your north, east, and west. To your south there is a locked door.
+> north
+
+> north
+
+You are in a Room (7, 3).
+You can go south or north.
+> north
+
+> north
+
+You are in a Room (7, 4).
+You can go south or north.
+> north
+
+> north
+
+You are in a Room (7, 5).
+You can go south, west or east.
+> east
+
+> east
+
+You are in a Room (8, 5).
+You can go west or east.
+> east
+
+> east
+
+You are in a Room (9, 5).
+You can go south, west or north.
+> north
+
+> north
+
+You are in a Room (9, 6).
+You can go south or north.
+> north
+
+> north
+
+You are at a Crossroads (9, 7).
+You can go south, west, north or east.
+> north
+
+> north
+
+You are in a Room (9, 8).
+You can go south or north.
+> north
+
+> north
+
+You are in a Room (9, 9).
+You can go south, west or north.
+> north
+
+> north
+
+You are in a Room (9, 10).
+You can go south or east.
+> east
+
+> east
+
+You are in a Room (10, 10).
+You can go west, east or north.
+> north
+
+> north
+
+You are in a Room (10, 11).
+You can go south, north or east.
+> north
+
+> north
+
+You are in a Room (10, 12).
+You can go south, west, north or east.
+> north
+
+> north
+
+You are in a Room (10, 13).
+You can go south or north.
+> north
+
+> north
+
+You are in a Room (10, 14).
+You can go south, west or north.
+> north
+
+> north
+
+You are in a Room (10, 15).
+You can go south or east.
+> east
+
+> east
+
+You are in a Room (11, 15).
+You can go south or west.
+> south
+
+> south
+
+You are in a Room (11, 14).
+You can go south or north.
+> south
+
+> south
+
+You've hit a Dead End (11, 13).
+You can see a Chest.
+You can go north.
+> open chest
+
+> open chest
+You open the chest.
+It contains a Key.
+> take key
+
+> take key
+You take the small key and slide it into your pocket.
+> north
+
+> north
+
+You are in a Room (11, 14).
+You can go south or north.
+> north
+
+> north
+
+You are in a Room (11, 15).
+You can go south or west.
+> west
+
+> west
+
+You are in a Room (10, 15).
+You can go south or east.
+> south
+
+> south
+
+You are in a Room (10, 14).
+You can go south, west or north.
+> south
+
+> south
+
+You are in a Room (10, 13).
+You can go south or north.
+> south
+
+> south
+
+You are in a Room (10, 12).
+You can go south, west, north or east.
+> south
+
+> south
+
+You are in a Room (10, 11).
+You can go south, north or east.
+> south
+
+> south
+
+You are in a Room (10, 10).
+You can go west, east or north.
+> west
+
+> west
+
+You are in a Room (9, 10).
+You can go south or east.
+> south
+
+> south
+
+You are in a Room (9, 9).
+You can go south, west or north.
+> south
+
+> south
+
+You are in a Room (9, 8).
+You can go south or north.
+> south
+
+> south
+
+You are at a Crossroads (9, 7).
+You can go south, west, north or east.
+> south
+
+> south
+
+You are in a Room (9, 6).
+You can go south or north.
+> south
+
+> south
+
+You are in a Room (9, 5).
+You can go south, west or north.
+> west
+
+> west
+
+You are in a Room (8, 5).
+You can go west or east.
+> west
+
+> west
+
+You are in a Room (7, 5).
+You can go south, west or east.
+> south
+
+> south
+
+You are in a Room (7, 4).
+You can go south or north.
+> south
+
+> south
+
+You are in a Room (7, 3).
+You can go south or north.
+> south
+
+> south
+
+You are in the Starting Room (7, 2).
+You can see a Locked Door.
+You can go west, north or east.
+There are three open exits to your north, east, and west. To your south there is a locked door.
+> use key on door
+
+> use key on door
+You put the slim key into the key hole, turn the key, and unlock it.
+> open door
+
+> open door
+You open the door and a bright light floods the room. As you walk out the door you realize you are in a forest. Around you, you see large, tall trees. Birds are chirping. You are free.
+Loading Menu...
+
+ Menu.
+Select One: Credits and Level One.
+You must complete the previous level in order to advance to the next.
+To select a level, take or play the level. To learn about the level, and what it contains, look at it.
+(If coordinates are active in the level you are playing, they will be listed next to the Room in a (x, y) format)
+[state=Running]

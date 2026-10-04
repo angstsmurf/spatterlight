@@ -1,0 +1,300 @@
+Rise of Death
+- a World of Warcraft story
+
+by Enceladus
+
+Watery Cave
+You can go south.
+
+Suddenly you think.
+
+And therefore you are.
+
+You are small, you can figure that out. After all, you can even make out the grain of your individual cells!
+
+Your senses are primitive, as basic as you are young. You can get a general sense of direction, and light as well. It's easy for you to determine that you are in water, and the... things drifting over you are food particles. The water around you trembles, but it's hard to make out the size of your world. Could be infinite for all you know, and that thought... excites you.
+
+Well. No time like the present! Time to explore this infinite world and see what it has to offer. Surely there's more than just neverending water in all directions.
+> help
+
+HELP
+
+Enter 's' to view your Stats. In Stats, enter 'b' to return.
+
+Enter 'u' to view your Upgrades. In Upgrades, enter 'b' to return.
+
+While not in a fight, enter 'd' to drain molecules. This will heal you for 10% of your maximum Health, and give you 10% of your current Health in Unspent Mass.
+
+While in a fight, you can observe both yourself and the enemy without advancing the turn. Entering one of the available Moves will cause something to happen.
+
+Fights are won when the enemy reaches 0 Health. Fights are lost when you reach 0 Health.
+
+Good luck!
+> go south
+
+Watery Cave
+You can go south.
+
+As you drift around, overpowering the water currents with your feeble flagella, you decide that it might be in your best interests to see what state you came into this world. You feel intact, just on first glance, but there's a... hollow feeling inside your body, where there could be, should be something, but there isn't, to say nothing of the unused material bouncing around your body.
+
+Right. Before you go on, you need to get a firm grasp of, if not your surroundings, then at least your body.
+
+(Enter 's' to check your current status)
+> s
+
+Inner Focus
+More status to the  east or south.
+
+Enter 'b' to return.
+
+Your name is ... well, nothing yet. You'll figure out something eventually.
+
+You have 50/50 Health!
+
+You have 0/0 Mana!
+
+You have 5 Unspent Mass!
+
+Strength: 5
+
+Magical Power: 0
+
+Physical damage done to you is multiplied by 1.
+
+Magical damage done to you is multiplied by 1.
+
+> b
+
+Watery Cave
+You can go south.
+
+As you drift around, overpowering the water currents with your feeble flagella, you decide that it might be in your best interests to see what state you came into this world. You feel intact, just on first glance, but there's a... hollow feeling inside your body, where there could be, should be something, but there isn't, to say nothing of the unused material bouncing around your body.
+
+Right. Before you go on, you need to get a firm grasp of, if not your surroundings, then at least your body.
+
+(Enter 's' to check your current status)
+> go south
+
+Watery Cave
+You can go south.
+
+You feel well enough, though that gap in your being is still bothering you. Bothering you almost as much as the fact that there has yet to be any indication there's more to this world than just water.
+
+You navigate further, swimming against the tides. The material bouncing around inside your body has gotten tremendously bothersome. That does it. You have to do something about that. If not expell it, then at least put it to good use!
+
+(Enter 'u' to bring up the Upgrades menu)
+> u
+
+Inner Focus
+More upgrades to the east.
+
+(Enter 'b' to return)
+
+Unspent Mass: 5
+
+Tier 0 Upgrades
+
+Lashing Tendrils: 'Q' attack. Basic Melee Attack.
+Cost: 5 Unspent Mass
+Enter '1' to purchase this upgrade.
+
+> 1
+
+EmptyRoom
+
+Inner Focus
+More upgrades to the east.
+
+(Enter 'b' to return)
+
+Unspent Mass: 0
+
+Tier 0 Upgrades
+
+Lashing Tendrils: 'Q' attack. Basic Melee Attack.
+Cost: 5 Unspent Mass
+Enter '1' to purchase this upgrade.
+ PURCHASED!
+> b
+
+Watery Cave
+You can go south.
+
+You feel well enough, though that gap in your being is still bothering you. Bothering you almost as much as the fact that there has yet to be any indication there's more to this world than just water.
+
+You navigate further, swimming against the tides. It feels good, yet odd to have changed yourself like this. In addition to your propulsion flagella, you have thicker arms that wave about, and you can direct them to grab and slash as need be. Fascinating.
+
+(Enter 'u' to bring up the Upgrades menu)
+> go south
+
+Battle!
+You can check your Opponent and Yourself.
+
+You encountered a Squirming Mass!
+
+For more detailed information on either You or your Opponent, just Look At the desired target!
+
+ENEMY
+30/30 Health.
+
+0/0 Mana.
+
+YOU
+
+50/50 Health.
+
+0/0 Mana.
+
+MOVES
+
+'Q': Tendril Lash
+
+'W': Empty
+
+'E': Empty
+
+'R': Empty
+
+'O': Pass your turn.
+> q
+
+A Fight Happens
+
+You lash at your enemy with your tendrils! 10 physical damage!
+
+ The Squirming Mass strikes you with its own tendrils! 6 physical damage!
+
+Enter 'C' to continue.
+> c
+
+Battle!
+You can check your Opponent and Yourself.
+
+You encountered a Squirming Mass!
+
+ENEMY
+20/30 Health.
+
+0/0 Mana.
+
+YOU
+
+44/50 Health.
+
+0/0 Mana.
+
+MOVES
+
+'Q': Tendril Lash
+
+'W': Empty
+
+'E': Empty
+
+'R': Empty
+
+'O': Pass your turn.
+> q
+
+A Fight Happens
+
+You lash at your enemy with your tendrils! 10 physical damage!
+
+ The Squirming Mass strikes you with its own tendrils! 6 physical damage!
+
+Enter 'C' to continue.
+> c
+
+Battle!
+You can check your Opponent and Yourself.
+
+You encountered a Squirming Mass!
+
+ENEMY
+10/30 Health.
+
+0/0 Mana.
+
+YOU
+
+38/50 Health.
+
+0/0 Mana.
+
+MOVES
+
+'Q': Tendril Lash
+
+'W': Empty
+
+'E': Empty
+
+'R': Empty
+
+'O': Pass your turn.
+> q
+
+A Fight Happens
+
+You lash at your enemy with your tendrils! 10 physical damage!
+
+ The Squirming Mass struggles a little more, then goes still and drifts away. You win!
+
+Enter 'C' to continue.
+> c
+
+Watery Cave
+You can go south.
+
+That thing just tried to kill you!
+
+You'd killed it first, obviously. Thank goodness you decided to repurpose your excess material when you did. But still! You hadn't done anything to it. Was there any reason to its attack at all?!
+
+Maybe. Maybe not.
+
+Well, in the end it hardly mattered. The one you struck down resembled you closely, but was practically half your size. If you come across another such creature that's larger than you...
+
+... you'd better start figuring out how to fight.
+
+For starters though, your body is heavily damaged. Ectoplasm is leaking from your walls and one of your many tendrils hangs limply. The ocean around you is brimming with food though. Brimming with raw materials. It'd be prudent to absorb those and use the molecules to heal yourself.
+
+(Enter 'd' to drain the nearby ocean. This restores your health and gives you Unspent Mass to spend on upgrades.)
+
+(New upgrades are available)
+
+(You can type in Help at any time to review commands.)
+> go south
+
+Watery Cave
+You can go east or south.
+
+Water and food molecules drift around. Your sensor cannot penetrate far into this environment, though there is a rockwall to the north and west. You grab onto it, taking a rest from swimming for the time being. The rocks are black and cruel, extending south and east, and so sharp you have to remain absolutely still to avoid lacerating yourself. If you focus, you swear you can hear distant rumbling through them.
+
+On second thought, maybe swimming isn't so tiring...
+
+> look
+Watery Cave
+You can go east or south.
+
+Water and food molecules drift around. Your sensor cannot penetrate far into this environment, though there is a rockwall to the north and west. You grab onto it, taking a rest from swimming for the time being. The rocks are black and cruel, extending south and east, and so sharp you have to remain absolutely still to avoid lacerating yourself. If you focus, you swear you can hear distant rumbling through them.
+
+On second thought, maybe swimming isn't so tiring...
+
+> go south
+
+Watery Cave
+You can go east, north or south.
+
+Water and food molecules drift around. Your sensor cannot penetrate far into this environment, though there is a rockwall to the west. You grab onto it, taking a rest from swimming for the time being. The rocks are black and cruel, and so sharp you have to remain absolutely still to avoid lacerating yourself. If you focus, you swear you can hear distant rumbling through them. They extend far above and below, to the north and south.
+
+Though on second thought, maybe swimming isn't so tiring...
+
+> look
+Watery Cave
+You can go east, north or south.
+
+Water and food molecules drift around. Your sensor cannot penetrate far into this environment, though there is a rockwall to the west. You grab onto it, taking a rest from swimming for the time being. The rocks are black and cruel, and so sharp you have to remain absolutely still to avoid lacerating yourself. If you focus, you swear you can hear distant rumbling through them. They extend far above and below, to the north and south.
+
+Though on second thought, maybe swimming isn't so tiring...
+
+[state=Running]

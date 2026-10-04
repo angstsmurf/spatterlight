@@ -1,0 +1,153 @@
+Spook Slayer 600
+A Ballad of Blood
+
+by Farley Sweet
+
+"You've found yourself tangled in a nasty part of the web, have you not? Tell me--what is your name?"
+ENTER NAME
+> Slayer
+My name is Slayer
+The Slayer
+You can go in.
+> in
+
+> in
+"And go on.
+We shall meet again, Slayer
+Remain careful."
+
+Your Quest Begins
+You can go out.
+> out
+
+> out
+The road was long to get here but your true destination has yet to be reached. You've come far enough to be in the domain of danger. Your mission to destroy the spooky evil that has long haunted these lands will come with many trials. You would do well to listen to the mysterious voice's advise.
+
+Meme Street
+You can see a Poster.
+The blue stone street is empty with a thin layer of mist moving about it an inch off of the ground. The lamp posts that run down the street are either broken or have gone unfueled. Small, wooden shops corner one another under the sparkling night sky as the smell of overgrown grass sneaks throughout the air.
+You can go southeast, southwest, northwest, northeast, east or north.
+> x poster
+
+> x poster
+On the wooden wall is a poster with big writing at the top reading 'LAWS OF FRIGHTSIDE.'
+1. JILL IS GOD AND SHALL BE WORSHIPED AS SUCH NO LESS THAN FIVE TIMES A DAY
+2. KING DICKLES' WORD IS ABSOLUTE AND MUST NEVER BE DISOBEYED
+3. ONE THIRD OF ALL PROFITS MUST BE GIVEN TO NSGM
+4. SHAKRE MAY TAKE WHOMEVER SHE PLEASES AT NIGHT WITHOUT QUESTION
+5. NEVER ATTACK A MEMBER OF NSGM
+> southeast
+
+> southeast
+
+Comic Book Store
+You can see an Employee, Neckbeard, a mannequin, posters and a Chest.
+Colorful comic books fill bins along the wall with old posters pinned above them. A life sized mannequin of C-3PO rests in one corner with a couch in the opposite corner. Behind the counter sits an androgynous goth employee who doesn't look like they want to be there.
+You can go northwest.
+> northwest
+
+> northwest
+"You could've at least bought something," the employee complains.
+
+Meme Street
+You can see a Poster.
+The blue stone street is empty with a thin layer of mist moving about it an inch off of the ground. The lamp posts that run down the street are either broken or have gone unfueled. Small, wooden shops corner one another under the sparkling night sky as the smell of overgrown grass sneaks throughout the air.
+You can go southeast, southwest, northwest, northeast, east or north.
+> southwest
+
+> southwest
+
+Pub
+You can see a Bartender, a Drunkard, an Old Man, a Fireplace and a Statue.
+The pub is smokey and solemn. On one side is a fireplace with an older man sitting by it and on the other side is bar complete with a bartender and a drunkard. At the far end of the room is a statue of a baby warlord wearing glasses.
+You can go northeast.
+> northeast
+
+> northeast
+
+Meme Street
+You can see a Poster.
+The blue stone street is empty with a thin layer of mist moving about it an inch off of the ground. The lamp posts that run down the street are either broken or have gone unfueled. Small, wooden shops corner one another under the sparkling night sky as the smell of overgrown grass sneaks throughout the air.
+You can go southeast, southwest, northwest, northeast, east or north.
+> northwest
+
+> northwest
+
+Trade Shop
+You can see the Venetian and Hanging Banners.
+Textiles of all kinds are laid out around the room. Jars and vases are kept on shelves and a few sacks of food rot in the back. Sewing an orange and purple banner in te middle of the room is the Venetian owner of the shop.
+You can go southeast or up.
+> up
+
+> up
+"Hey-ah, come down from there! That is my-a room!"
+
+Venetian Bedroom
+There is a bed draped in rich blue with copper coins all over the floor. Posted on the walls are oil paintings of women with oversized large breast, all signed by Issac Giovanni Pizzano Hapsburg.
+You can go down or east.
+> east
+
+> east
+
+Balcony
+You can see a Distant Castle.
+The balcony gives you a grand view of the empty street below you while anyone from the ground level wouldn't be able to get a clear look of you. The stars seem closer and even more comforting. Down the street you can see a flashy building up on the hill while all around the town you can only see dark forest.
+You can go west.
+Walking out onto the balcony you nearly bump into a man with blue hair. You step back and realize that this is the man known as Farley Sweet. "Oh Shit! Already!?" Farley cries before jumping off the balcony. You hear a cat hiss and a trash can spill over before Farely's footsteps fade out.
+Already your foes lurk around every corner.
+> west
+
+> west
+
+Venetian Bedroom
+There is a bed draped in rich blue with copper coins all over the floor. Posted on the walls are oil paintings of women with oversized large breast, all signed by Issac Giovanni Pizzano Hapsburg.
+You can go down or east.
+> down
+
+> down
+
+Trade Shop
+You can see the Venetian and Hanging Banners.
+Textiles of all kinds are laid out around the room. Jars and vases are kept on shelves and a few sacks of food rot in the back. Sewing an orange and purple banner in te middle of the room is the Venetian owner of the shop.
+You can go southeast or up.
+> southeast
+
+> southeast
+
+Meme Street
+You can see a Poster.
+The blue stone street is empty with a thin layer of mist moving about it an inch off of the ground. The lamp posts that run down the street are either broken or have gone unfueled. Small, wooden shops corner one another under the sparkling night sky as the smell of overgrown grass sneaks throughout the air.
+You can go southeast, southwest, northwest, northeast, east or north.
+> northeast
+
+> northeast
+
+Laundromat
+You can see an Asian Woman, a Slurpie Machine and a Poster.
+White and black washing machies form a number of short rows inside the room. The flickering light gives an ambient hum. For whatever the reason there is a slurpie machine in the back. Behind the counter is a short, middle aged Asian woman.
+You can go southwest or south.
+> south
+
+> south
+
+Alley
+You can see a Sick Hobo and some Graffiti.
+The alleyway is dark and dusty and against a dumpster a homeless man lays.
+You can go west or north.
+> north
+
+> north
+
+Laundromat
+You can see an Asian Woman, a Slurpie Machine and a Poster.
+White and black washing machies form a number of short rows inside the room. The flickering light gives an ambient hum. For whatever the reason there is a slurpie machine in the back. Behind the counter is a short, middle aged Asian woman.
+You can go southwest or south.
+> southwest
+
+> southwest
+
+Meme Street
+You can see a Poster.
+The blue stone street is empty with a thin layer of mist moving about it an inch off of the ground. The lamp posts that run down the street are either broken or have gone unfueled. Small, wooden shops corner one another under the sparkling night sky as the smell of overgrown grass sneaks throughout the air.
+You can go southeast, southwest, northwest, northeast, east or north.
+[state=Running]

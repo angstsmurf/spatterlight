@@ -1,0 +1,220 @@
+A Pirate's Quest for Treasure
+By Craig Dutton (c) 2012
+
+You are Captain Jacob Diablo, dreaded pirate and scourge of the Western Seas. A challenge has been made by your rival Captain Ichabod Bloodaxe, scourge of the Eastern Seas and small furry animals.  Rumour has it that you're not so 'hot' anymore as a blood-thirsty pirate and he bets you to sail around the Inland Sea and find as much treasure worth 1500 gold coins or more. There's no time limit!
+
+Challenge accepted! Can you defeat the mighty Cyclops? Successfully gamble in the pits of Port Clam? Fight wizards and defeat witches? Let's find out...
+
+Also, each time you get some treasure put it in your strong-hold on your ship for safe-keeping. This will add to your Treasure Value. Any gold coins you acquire are recorded separately but are included in your total value of treasure.
+
+If you lose, you become Bloodaxe's Cabin-boy for the rest of your days and vice versa.
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to captains cabin
+
+> go to captains cabin
+
+The Captain's cabin
+Ah, home-sweet-home. There have been many times when a bit of wine and song could past the tedious hours of sailing from one continent to the other!
+You can go to the main deck.
+You can see a map, a cutlass and a compass.
+> take cutlass
+
+> take cutlass
+You pick it up.
+> go to main deck
+
+> go to main deck
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall or to Blackskull Island.
+You can see the ship's wheel and the Helmsman.
+> go to Port Goldrock
+
+> go to Port Goldrock
+
+A jetty
+Port Goldrock is a small town that had recently befallen a disaster. A freak fire burned down most of the buildings by the former founder of the town, Martha Goldrock and no one knows why.
+You can go north or to the Dancing Devil.
+> look
+
+> look
+A jetty
+Port Goldrock is a small town that had recently befallen a disaster. A freak fire burned down most of the buildings by the former founder of the town, Martha Goldrock and no one knows why.
+You can go north or to the Dancing Devil.
+> north
+
+> north
+
+The town square
+A small square surrounded by burnt out buildings. A graveyard lies to the west.
+You can go south, west, east or north.
+> east
+
+> east
+
+A burnt house
+This was Martha's house and is now a burnt-out ruin.
+You can go west.
+You can see a fallen beam.
+> push fallen beam
+
+> push fallen beam
+You push the beam to one side and find a small key.
+> take small key
+
+> take small key
+You pick it up.
+> west
+
+> west
+
+The town square
+A small square surrounded by burnt out buildings. A graveyard lies to the west.
+You can go south, west, east or north.
+> west
+
+> west
+
+A graveyard
+The town graveyard is occupied mainly by those who died in the fire. Since most of the townsfolk were out on a fishing trip that day, then only Martha Goldrock's grave lies before you.
+You can go east.
+You can see a grave and a headstone.
+> look at headstone
+
+> look at headstone
+Made of solid marble with an inscription on it.
+You find a shovel leaning behind the headstone.
+> take shovel
+
+> take shovel
+You pick it up.
+> east
+
+> east
+
+The town square
+A small square surrounded by burnt out buildings. A graveyard lies to the west.
+You can go south, west, east or north.
+> north
+
+> north
+
+A burnt tavern
+This used to be the Swordfish Tavern until Martha burnt it all down. Now it's just a pile of burnt wood.
+You can go south.
+You can see a pile of charcoal.
+> use shovel on pile of charcoal
+
+> use shovel on pile of charcoal
+You dig down into the charcoal and find a trapdoor.
+> open trapdoor
+
+> open trapdoor
+You open it.
+> down
+
+> down
+
+A tavern cellar
+A dark and dingy cellar.
+You can go up.
+You can see a casket and a corkscrew.
+> look at casket
+
+> look at casket
+A small box for valuables.
+> unlock casket
+
+> unlock casket
+Unlocked with the small key.
+> open casket
+
+> open casket
+You open it.
+It contains some gold coins.
+> take gold coins
+
+> take gold coins
+Added them to your gold tally.
+> take corkscrew
+
+> take corkscrew
+You pick it up.
+> up
+
+> up
+
+A burnt tavern
+This used to be the Swordfish Tavern until Martha burnt it all down. Now it's just a pile of burnt wood.
+You can go south or down.
+You can see a pile of charcoal and a trapdoor.
+> south
+
+> south
+
+The town square
+A small square surrounded by burnt out buildings. A graveyard lies to the west.
+You can go south, west, east or north.
+> south
+
+> south
+
+A jetty
+Port Goldrock is a small town that had recently befallen a disaster. A freak fire burned down most of the buildings by the former founder of the town, Martha Goldrock and no one knows why.
+You can go north or to the Dancing Devil.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall or to Blackskull Island.
+You can see the ship's wheel and the Helmsman.
+> go to Port Clam
+
+> go to Port Clam
+
+A jetty
+Welcome to the Inland Sea's den of iniquity: Port Clam the gambler's paradise.
+You can go to the Dancing Devil or north.
+> look
+
+> look
+A jetty
+Welcome to the Inland Sea's den of iniquity: Port Clam the gambler's paradise.
+You can go to the Dancing Devil or north.
+> north
+
+> north
+
+A wharf
+To the east is the infamous Rat Tail Tavern where anyone infamous hangs out. To the northeast the Gambling Halls are located and to the west is the Fighting Pit.
+You can go south, east, west or northeast.
+> look
+
+> look
+A wharf
+To the east is the infamous Rat Tail Tavern where anyone infamous hangs out. To the northeast the Gambling Halls are located and to the west is the Fighting Pit.
+You can go south, east, west or northeast.
+[state=Running]

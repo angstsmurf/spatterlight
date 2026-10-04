@@ -1,0 +1,677 @@
+By Atomic Brainworks
+
+You are a documentarian of the occult. But unlike others, you pride yourself in not just looking at the surface. Instead you infiltrate  these clandestine activities and reveal their innermost secrets. It can be dangerous and you have had several close calls. But in the process not only have you made some revealing documentaries, you have also had the opportunity to even save some innocent lives.
+
+Your latest adventure takes you to the city of New Orleans. The topic is Voodoo. The African religion migrated to Haiti and then, after a slave revolt in the late 1700's, made it's way to the American city. True to your nature, you will not be satisfied at writing about the local tourist attractions like Marie Laveau's house of Voodoo. Instead you immediatly make your way to the New Orlean's underground. As you suspected there was much more then meets the eye. You discover a dark, veiled Voodoo culture that is still very active. After interacting with many shady characters and spending your money on more than a few bribes you learn of a location. The Riverfront Expressway. The very little known tunnel was built in the 60's right under downtown New Orleans. It was to handle six lanes of traffic from multiple points in the East all the way to the West bank. Due to much opposition from the French Quarter it never opened. Now you have a lead that some of the complex beneath is being used for other purposes. With anticipation you head towards the location, not realizing this would be your most dangerous adventure yet and the life you would have to save would be your own.
+
+You wait until dusk. In the darkness you slip into a part of the tunnel that is being used for private valet parking. You go much further into the unused, long abandoned areas. You begin to question the reliablity of your source, the man who took your money in exchange for a crudely drawn map. You have gotten turned around many times and are unsure of what direction you are going in anymore. The only source of light is your cell phone. The condition of the walls and floor of the unused tunnel have deteriorated considerably. This footing is treacherous but you are too stubborn to go back. Suddenly a piece of the floor collapses and you tumble into darkness. It seems like you fall forever before hitting the ground with a sickening thud. Everything goes black.
+You awake, not sure how long  you were lying there unconscious. You are in a candlelit chamber. The first thing you notice is a human skull lying on a small wooden table. Your cell phone is lying on the floor. It is smashed and useless.
+
+You are in a Chamber.
+You can see a table (on which there is a skull).
+You can go east, west, north or south.
+The walls and floor are made of rough hewn stone blocks. There is a large hole in the ceiling that you fell through. An old light fixture provides a dim yellow light which reveals  intricate designs painted on the walls.
+> w
+
+> w
+
+You are in a Living Area.
+You can go east, south or west.
+A large room with a sofa and a lounge chair. A reading lamp sits next to the lounge chair. A small table is near the center of the room.
+
+> x table
+
+> x table
+This is a small wooden table.
+On the table is a vase (containing a rose).
+> take vase
+
+> take vase
+You pick it up.
+> x vase
+
+> x vase
+A small vase made out of green tinted glass.
+> take rose
+
+> take rose
+You pick it up.
+> w
+
+> w
+
+You are in a Storage Room.
+You can go east or up.
+This room appears to be used for storage. There are a few cardboard boxes stacked on the floor. Old discarded clothes are scattered about.
+> x clothes
+
+> x clothes
+You sort through the clothes but they are threadbare and useless.
+Underneath the clothes you find a staff.
+> take staff
+
+> take staff
+You take the walking staff. Now if you grow a long beard you can look like Gandalf.
+> e
+
+> e
+
+You are in a Living Area.
+You can go east, south or west.
+A large room with a sofa and a lounge chair. A reading lamp sits next to the lounge chair. A small table is near the center of the room.
+
+> s
+
+> s
+
+You are in a Kitchen.
+You can go north.
+This room appears to have been used as a kitchen, although you wouldn't want to eat anything that came from here. There is a filthy counter and the place smells of rotting food. An old refrigerator hums in the corner.
+> open drawer
+
+> open drawer
+The drawer seems to be out of alignment with the cabinet but with some effort you tug it open.
+
+It contains a knife.
+> take knife
+
+> take knife
+You pick it up.
+> x counter
+
+> x counter
+The counter top looks like someone's science experiment. It's dirty and moldy, definitely gross. On top lies a mortar and pestle. Underneath is a drawer.
+> take mortar
+
+> take mortar
+You pick it up.
+> use knife on staff
+
+> use knife on staff
+You start to whittle away at the end of the staff with the small but sharp paring knife. Finally ending up with, for all intents and purposes, a pointed wooden spear.
+> i
+
+> i
+You are carrying a vase, a rose, a knife, a mortar and a wooden spear.
+> n
+
+> n
+
+You are in a Living Area.
+You can go east, south or west.
+A large room with a sofa and a lounge chair. A reading lamp sits next to the lounge chair. A small table is near the center of the room.
+
+> e
+
+> e
+
+You are in a Chamber.
+You can see a table (on which there is a skull).
+You can go east, west, north or south.
+The walls and floor are made of rough hewn stone blocks. There is a large hole in the ceiling that you fell through. An old light fixture provides a dim yellow light which reveals  intricate designs painted on the walls.
+> take skull
+
+> take skull
+Two heads are better than one! You pick up the skull.
+> s
+
+> s
+
+You are in a Hallway.
+You can go north, south or east.
+A large hallway. The lighting is very bad. You can barely make out the passage to the east and to the south.
+> s
+
+> s
+
+You are in a Corridor.
+You can go south, east or north.
+A long, dimly lit corridor. A black snake wriggles along the floor.
+> use spear on snake
+
+> use spear on snake
+The snake writhes and coils up as you stab it with the wooden spear. The weak wooden shaft splinters and breaks, rendering it useless. But it got the job done. The snake is dead.
+> use knife on snake
+
+> use knife on snake
+You do a little minor surgery on the dead snake, CAREFULLY removing the venom gland without scratching yourself. That would be a good way to take a permanent dirt nap.
+> s
+
+> s
+
+You are in a Corridor.
+You can go north, west or east.
+A long, dimly lit corridor. Some loose rubble litters the floor.
+> x rubble
+
+> x rubble
+Some of the stone pieces from the deteriorating walls and ceiling lie on the floor.
+It contains a brick.
+> take brick
+
+> take brick
+You pick it up.
+> use brick on skull
+
+> use brick on skull
+You bring down the brick with enough force to shatter the skull, leaving it in fragments.
+> take bone fragments
+
+> take bone fragments
+You are already carrying it.
+> use mortar on rose
+
+> use mortar on rose
+You use the pestle and mortar to grind the dried rose into a course powder.
+> use mortar on bone fragments
+
+> use mortar on bone fragments
+You use the pestle and mortar to grind the bone fragments into a course powder.
+> w
+
+> w
+
+You are in a Library.
+You can go east.
+Dusty wooden shelves line the walls. Most are empty but there is still a pile of books in one. A large desk and chair are in the center of the room.
+> x books
+
+> x books
+Most of the books are tattered and in poor shape. One in particular catches your eye. It has no name but only a voodoo symbol on the cover.
+> take voodoo book
+
+> take voodoo book
+You pick it up.
+> open voodoo book
+
+> open voodoo book
+You open the book and notice that it has a hollowed out compartment.
+It contains a scroll.
+> take scroll
+
+> take scroll
+You pick it up.
+> read scroll
+
+> read scroll
+This appears to be some sort of recipe for a voodoo potion. It has a drawing of an all seeing eye and is labelled "vision." It lists the following ingredients: Dead rose petals, human bone, and rain water. An incantation is written on the scroll as well, intended to enchant the potion. It looks tricky to pronounce  but might be doable.
+> x desk
+
+> x desk
+A large wooden desk. It's pretty run down, like most of the other items in this room. The drawers have been removed.
+It contains a vinyl record.
+> take vinyl record
+
+> take vinyl record
+You pick it up.
+> e
+
+> e
+
+You are in a Corridor.
+You can go north, west or east.
+A long, dimly lit corridor. Some loose rubble litters the floor.
+> n
+
+> n
+
+You are in a Corridor.
+You can go south, east or north.
+A long, dimly lit corridor.
+> n
+
+> n
+
+You are in a Hallway.
+You can go north, south or east.
+A large hallway. The lighting is very bad. You can barely make out the passage to the east and to the south.
+> n
+
+> n
+
+You are in a Chamber.
+You can see a table.
+You can go east, west, north or south.
+The walls and floor are made of rough hewn stone blocks. There is a large hole in the ceiling that you fell through. An old light fixture provides a dim yellow light which reveals  intricate designs painted on the walls.
+> n
+
+> n
+
+You are in a Hallway.
+You can go south or up.
+The long, damp hallway is slick with moss. A small hole in the ceiling must run all the way to the surface as rain water drips down to the floor.
+> use vase on rainwater
+
+> use vase on rainwater
+You place the empty vase under the hole in the ceiling, capturing the rainwater.
+> i
+
+> i
+You are carrying a vase (containing rainwater), a knife, a mortar, a venom gland, a brick, a ground rose, a ground bone, a scroll and a vinyl record.
+> use ground rose on rainwater
+
+> use ground rose on rainwater
+You stir the ground rose petals into the rainwater.
+> use ground bone on rainwater rose combo
+
+> use ground bone on rainwater rose combo
+You stir the ground up bits of human skull to the rainwater and rose mixture.
+> speak enchantment scroll
+
+> speak enchantment scroll
+You open the scroll and begin to say the incantation out loud. You aren't too sure of pronunciation but you do your best. As you reach the end you feel a chill down your spine and you could swear the lighting goes dimmer. You jump as the scroll turns to ash in your hands, accompanied by the stench of brimstone. The mixture begins to swirl and bubble. The vision potion is complete.
+> i
+
+> i
+You are carrying a vase, a knife, a mortar, a venom gland, a brick, a vinyl record and a vision potion.
+> drink vision potion
+
+> drink vision potion
+With much reservation you drink the potion. It's not the best tasting stuff but you force it down. Immediately you are overcome by an overpowering drowsiness. The last thing you remember is dropping the vase, shattering it.
+You come to in a mist filled graveyard. You trudge ahead in the mud as headstones materialize out of the thick fog. You lose track of time as you wander, deeper and deeper into the cemetary.
+Eventually you come to an old mausolium. In front of it stands a huge man, wearing a tuxedo jacket and tophat. His face is painted white, resembling a bare skull and a lit cigar potrudes from his sinister smile. You stand still, frozen in fear. He approaches you and bends down to one knee, extending  his hand. He begins drawing in the mud.  You notice a ring with two serpents intertwined around his finger. When he is finished, a symbol is engraved deep in the soil. He stands and backs away, the wicked smile never leaving his face. You lose track of him in the mist but you hear him chuckle, the hair on the back of your neck standing up.
+You look at the symbol as the drowsiness returns. You collapse to the misty graveyard floor.
+You awaken back in the underground complex. You think it was a hallucination and that you never left, until you notice your pants and shoes, covered in the graveyard mud. It has already dried. How long were you out? You are terrified of the man you saw and the symbol he drew is etched in your memory.
+> take graveyard soil
+
+> take graveyard soil
+You gather as much of the graveyard soil as you can.
+> s
+
+> s
+
+You are in a Chamber.
+You can see a table.
+You can go east, west, north or south.
+The walls and floor are made of rough hewn stone blocks. There is a large hole in the ceiling that you fell through. An old light fixture provides a dim yellow light which reveals  intricate designs painted on the walls.
+> w
+
+> w
+
+You are in a Living Area.
+You can go east, south or west.
+A large room with a sofa and a lounge chair. A reading lamp sits next to the lounge chair. A small table is near the center of the room.
+
+> w
+
+> w
+
+You are in a Storage Room.
+You can go east or up.
+This room appears to be used for storage. There are a few cardboard boxes stacked on the floor. Old discarded clothes are scattered about.
+> up
+
+> up
+
+You are in an Arched Doorway.
+You can go down or north.
+A stone archway. It leads to a set of double iron doors.
+> take quill
+
+> take quill
+You pick up the quill which is dripping putrid blood. This isn't something you probably want to carry around for long.
+> use quill on iron doors
+
+> use quill on iron doors
+You put the tip of the bloody quill to the blank door panel. Without thinking you begin to draw the symbol that is now burned into your brain from the graveyard. When you complete the symbol in blood a loud "klank" echoes through the room. You step aside as the iron doors swing open on their own. A little grateful and a little disturbed, you cast aside the quill.
+> n
+
+> n
+
+You are in an Artifact Room.
+You can go south, north or west.
+The high ceiling in this room has been braced with wooden beams, making you question how safe you are standing here.  Voodoo artifacts  in various condition litter the room. A large painting hangs on the north wall.
+> x artifacts
+
+> x artifacts
+You sift through the various artifacts littering the room. They are in terrible condition and appear to be worthless junk.
+However one item does catch your attention. An idol. an idol.
+> take idol
+
+> take idol
+You tuck the idol away. Seem like an odd thing to take. If you survive this hopefully it gets along with your Ken doll.
+> use brick on idol
+
+> use brick on idol
+You bring the brick down on the idol with enough force to smash it. This is why we can't have nice things! Hidden inside the idol is a key.
+> take key
+
+> take key
+You pick it up.
+> x painting
+
+> x painting
+Your heart jumps as you notice the painting is of the man from the graveyard. He wears the tophat and has the skull painted on his face. The painting even captures his wicked smile. On the bottom of the frame, on a tarnished brass plate, it says "Baron Samedi."
+> take painting
+
+> take painting
+You take it off the wall and immediately realize it's much too large to carry around. However you notice writing on the back of the canvas. It appears to be some sort of voodoo summoning spell. There is too much to the spell to commit to memory.
+> use knife on painting
+
+> use knife on painting
+You use the knife to cut out the section of canvas that the spell is written on. Hopefully no one was too attached to this painting.
+> n
+
+> n
+
+You are in a Main Entrance.
+You can go east, south or north.
+This is a great room constructed of stone. It has a tall, vaulted ceiling with huge double doors to the west. Tattered rugs lie on the floor. An alcove is located to the north.
+> n
+
+> n
+
+You are in an Alcove.
+You can go south.
+This is a small stone recess.  A shrine is set up for a figurine that is labelled "Joboo." A cigar hangs out of its mouth and a shot of rum  sits in front of it in tribute.
+ It's a little sacred spot set up for Joboo.
+> take cigar
+
+> take cigar
+You take the cigar from Joboo's mouth.
+> use knife on cigar
+
+> use knife on cigar
+You cut open the cigar, removing the tobacco.
+> s
+
+> s
+
+You are in a Main Entrance.
+You can go east, south or north.
+This is a great room constructed of stone. It has a tall, vaulted ceiling with huge double doors to the west. Tattered rugs lie on the floor. An alcove is located to the north.
+> s
+
+> s
+
+You are in an Artifact Room.
+You can go south, north or west.
+The high ceiling in this room has been braced with wooden beams, making you question how safe you are standing here.  Voodoo artifacts  in various condition litter the room. A large painting hangs on the north wall.
+> s
+
+> s
+
+You are in an Arched Doorway.
+You can go down or north.
+A stone archway. It leads to a set of double iron doors.
+> d
+
+> d
+
+You are in a Storage Room.
+You can go east or up.
+This room appears to be used for storage. There are a few cardboard boxes stacked on the floor. Old discarded clothes are scattered about.
+> e
+
+> e
+
+You are in a Living Area.
+You can go east, south or west.
+A large room with a sofa and a lounge chair. A reading lamp sits next to the lounge chair. A small table is near the center of the room.
+
+> e
+
+> e
+
+You are in a Chamber.
+You can see a table.
+You can go east, west, north or south.
+The walls and floor are made of rough hewn stone blocks. There is a large hole in the ceiling that you fell through. An old light fixture provides a dim yellow light which reveals  intricate designs painted on the walls.
+> s
+
+> s
+
+You are in a Hallway.
+You can go north, south or east.
+A large hallway. The lighting is very bad. You can barely make out the passage to the east and to the south.
+> s
+
+> s
+
+You are in a Corridor.
+You can go south, east or north.
+A long, dimly lit corridor.
+> e
+
+> e
+
+You are in a Bunk.
+You can go west.
+A small, dingy room that appears to be used as a makeshift bedroom. A single cot is against the west wall. A metal lock box is on the floor near the south wall.
+> use key on lock box
+
+> use key on lock box
+You insert the key and open the lock box.
+It contains a voodoo doll.
+> take voodoo doll
+
+> take voodoo doll
+You pick it up.
+> x voodoo doll
+
+> x voodoo doll
+A creepy voodoo doll made out of wood. It has human hair on it's head and a pictue attached to it.
+> w
+
+> w
+
+You are in a Corridor.
+You can go south, east or north.
+A long, dimly lit corridor.
+> n
+
+> n
+
+You are in a Hallway.
+You can go north, south or east.
+A large hallway. The lighting is very bad. You can barely make out the passage to the east and to the south.
+> n
+
+> n
+
+You are in a Chamber.
+You can see a table.
+You can go east, west, north or south.
+The walls and floor are made of rough hewn stone blocks. There is a large hole in the ceiling that you fell through. An old light fixture provides a dim yellow light which reveals  intricate designs painted on the walls.
+> n
+
+> n
+
+You are in a Hallway.
+You can go south or up.
+The long, damp hallway is slick with moss. A small hole in the ceiling must run all the way to the surface as rain water drips down to the floor.
+> up
+
+> up
+
+You are in a Vaulted Archway.
+You can go down or north.
+A stone archway looms high above your head. A flame burns against the west wall of the room. You see a menacing figure standing to the north.
+> use voodoo doll on flame
+
+> use voodoo doll on flame
+You toss the voodoo doll into the flame. The dry doll immediatly catches fire. The sentinel howls in pain as he burst into flame as well. He is unable to leave the magic circle and burns until he collapses to the ground, motionless. As the doll continues to burn away the sentinel turns to ash, leaving nothing behind but his javelin.
+> i
+
+> i
+You are carrying a knife, a mortar, a venom gland, a brick, a vinyl record, a graveyard soil, a summoning spell and a tobacco.
+> look
+
+> look
+You are in a Vaulted Archway.
+You can go down or north.
+A stone archway looms high above your head. A flame burns against the west wall of the room.
+> take javelin
+
+> take javelin
+You pick it up.
+> n
+
+> n
+
+You are in a Common Room.
+You can go south, east, north or down.
+This is a large room which appears to be set up as a type of lounge or meeting place. In it are several folding tables and folding chairs. A projector sits towards the center of the room. All of it is in a state of disarray.
+> n
+
+> n
+
+You are in a Bathroom.
+You can go south.
+A small bathroom. A throw rug is on the floor. Keeping with the motif of the place it's a real mess.
+> x bathtub
+
+> x bathtub
+An old clawfoot bathtub. The porcelain has chipped away in a few areas, revealing the cast iron beneath. It is filled with murky, rancid water.
+It contains a chain.
+> pull chain
+
+> pull chain
+You tug on the chain and you feel the stopper inside the tub come loose. The fetid water drains out of the tub, revealing a square key at the bottom.
+> take square key
+
+> take square key
+You pick it up.
+> s
+
+> s
+
+You are in a Common Room.
+You can go south, east, north or down.
+This is a large room which appears to be set up as a type of lounge or meeting place. In it are several folding tables and folding chairs. A projector sits towards the center of the room. All of it is in a state of disarray.
+> s
+
+> s
+
+You are in a Vaulted Archway.
+You can go down or north.
+A stone archway looms high above your head. A flame burns against the west wall of the room.
+> use square key on flame
+
+> use square key on flame
+You insert the square key into the indentation. It fits perfectly and you turn the gas off, extinguishing the flame. Behind where the flame was is a red key.
+> take red key
+
+> take red key
+You pick it up.
+> n
+
+> n
+
+You are in a Common Room.
+You can go south, east, north or down.
+This is a large room which appears to be set up as a type of lounge or meeting place. In it are several folding tables and folding chairs. A projector sits towards the center of the room. All of it is in a state of disarray.
+> use red key
+
+> use red key
+You insert the red key into the lock and unlock the door.
+> e
+
+> e
+
+You are in a Redrum.
+You can go north, east or west.
+This is the only room that you have been in so far that has been painted. It is blood red on all four walls, the ceiling, and the floor. Even the door is red. Rusty cages of various size are scattered around.  Feathers and bones litter the whole room. Against the south wall a large throne made entirely of human bones sits menacingly.
+> e
+
+> e
+
+You are in a Gated Chamber.
+You can go west, down or up.
+This is a great stone chamber with a very high ceiling. A huge steel cage separates the west entrance from the staircases to the east and south. Thrashing around in the cage is a diabolical creature like nothing you've ever seen.
+> use venom gland on javelin
+
+> use venom gland on javelin
+You pierce the venom gland with the tip of the javelin. Deadly black mamba venom oozes out and you coat the entire metal tip with it.
+> use poison javelin on beast
+
+> use poison javelin on beast
+This time you go for broke and stab at the beast with everything you have. It cuts into him and he slashes at you furiously, breaking the shaft of the javelin. You watch as he slams against the cage in fury. You start to wonder if the iron bars will hold. After several minutes pass it is obvious that the black mamba venom is taking effect. He slows and starts to stumble. You wait patiently until he lies motionless on the floor.
+> up
+
+> up
+
+You are on a Landing.
+You can go down or east.
+It is a large platform looking down on a pit to the east. A pile of junk litters the floor of the north side. Shambling back and forth across the the pit are dozens of zombies.
+> cut knife
+
+> cut knife
+You cut into the palm of your hand with the sharp knife. You wince as fresh blood oozes out of the wound.
+> i
+
+> i
+You are carrying a knife, a mortar, a brick, a vinyl record, a graveyard soil, a summoning spell, a tobacco and a blood.
+> take sand
+
+> take sand
+You pick it up.
+> x junk
+
+> x junk
+Most of the junk is useless trash but you find a phonograph.
+> take phonograph
+
+> take phonograph
+You can't take it.
+> read summoning spell
+
+> read summoning spell
+To summon Baron Samedi. It shows a diagram of a magic circle to be drawn in sand. The material components of blood, tobacco, and graveyard soil must be placed in the center. Then the voice of Papa Justify's ritual must be played.
+> use sand
+
+> use sand
+As instructed by the summoning spell, you use the sand to build a magic circle. You complete all the symbols and writing. When you are done it is virtually identical to the one illustrated.
+> use blood on tobacco
+
+> use blood on tobacco
+You mix your blood with the tobacco.
+> use graveyard soil on blood tobacco mix
+
+> use graveyard soil on blood tobacco mix
+You combine the graveyard soil in with the blood and tobacco mix.
+> i
+
+> i
+You are carrying a knife, a mortar, a brick, a vinyl record, a summoning spell and a blood tobacco graveyard soil mixture.
+> use blood tobacco graveyard soil mixture on magic circle
+
+> use blood tobacco graveyard soil mixture on magic circle
+You place the spell components in the center of the magic circle.
+> use vinyl record on phonograph
+
+> use vinyl record on phonograph
+The old vinyl record begins to crackle to life under the phonograph needle. A deep male voice begins speaking, "It is time, Lord...from the dry dust...out of these chains...from the Devil's house. It is time, Lord... to take me from the dry dust. Break me from these chains. Bring me from the Devil's house. "A low lying fog begins to fill the room. It feels like the tempurature in the room dropped, making you shiver. Out of the fog looms Baron Samedi. You recognize him from the graveyard and the painting. His chuckle fills you with fear.
+This time he speaks, with an accent of Hatian and Creole French. "So you need my help again." He flashes you the wicked smile. "I help you, but not for free. At a time of my choosing I will call upon you to do something for me."
+With a wave of his hand all the zombies in the pit collapse to the ground. Every last one lies motionless. "You are free to leave this place. I will see you again."
+The fog billows up, engulfing Baron Samedi. When it disipates he is gone.
+> look
+
+> look
+You are on a Landing.
+You can go down or east.
+It is a large platform looking down on a pit to the east. A pile of junk litters the floor of the north side. Dozens of zombies lie motionless on the floor.
+> east
+
+> east
+
+You are in The pit.
+You can go east or west.
+This is a large pit, below the landing to the west. To the east is a hole in the stone wall leading into the sewer system. You aren't sure what smells worse, the zombies or the open sewer.
+> east
+
+> east
+
+You are in a Sewer.
+You can go west or north.
+You have finally made it out of the voodoo labyrinth. The stench of the sewer system almost doesn't bother you at the thought of escape. To the north is a ladder leading up to a manhole cover.
+> north
+
+> north
+
+You are in a Manhole.
+You can go south.
+You climb the metal ladder and with all your strength push aside the steel manhole cover. You emerge from the sewer almost right in front of Harrah's Casino in dowtown New Orleans. You inhale deeply, drawing in as much fresh air as possible. It's almost hard to tell it's night time because of all the lights. Once you get oriented you realize many people are staring at you. Of course they just watched you emerge from a sewer. You must look a mess and smell even worse.
+You make your way to your hotel room, relieved to still be alive. You flop down on the bed, exhausted. You close your eyes and try to sleep but instead thoughts run through your head. You want to tell your story, but who will believe? Yes you survived but when will Baron Samedi come calling? What will he want from you?
+
+[state=Finished]

@@ -1,0 +1,232 @@
+Sword Warrior Adventure
+
+Armour is unequipped.
+Weapon is unequipped.
+You are in a Your Room.
+You can see a Serpent Sword, an Eagle Shield, a Bed and a Portal.
+You can go south, north or west.
+> take serpent sword
+
+> take serpent sword
+You pick it up.
+> take eagle shield
+
+> take eagle shield
+You pick it up.
+> i
+
+> i
+You are carrying a menu, a Serpent Sword and an Eagle Shield.
+> south
+
+> south
+Portals: 1
+
+You are in a Forge Room.
+You can see a Blacksmith, a Stove and a Flask of water.
+You can go north.
+> north
+
+> north
+
+You are in a Your Room.
+You can see a Bed and a Portal.
+You can go south, north or west.
+> north
+
+> north
+
+You are in a Grasslands.
+You can see a Vile Snakes, a Toxic Rabbit and a Samurai Master.
+You can go south, east or west.
+> east
+
+> east
+
+You are in a House.
+You can see a Santa girl, a Sack of gold and a Candles.
+You can go west, east, north or south.
+> east
+
+> east
+
+You are in a Church.
+You can see a Bishop and a Worshipper.
+You can go west or northeast.
+> northeast
+
+> northeast
+
+You are in a Bush Road.
+You can see a Hooded Dragon.
+You can go southwest or north.
+> north
+
+> north
+
+You are in a Bush Road.
+You can go south, east or north.
+> east
+
+> east
+
+You are in a Bush Road.
+You can see a Metalsmith and a Dragonoid.
+You can go west or southeast.
+> southeast
+
+> southeast
+
+You are in a Bush Road.
+You can see a Health Potion and an Old Man.
+You can go northwest or east.
+> east
+
+> east
+
+You are in a Swamp.
+You can see a Lizard King.
+You can go west or east.
+The black tar pulls you into the unending prison.
+> east
+
+> east
+
+You are in a Swamp.
+You can see a Black Tiger.
+You can go west or east.
+> east
+
+> east
+
+You are in a Swamp.
+You can see a Witch Hut.
+You can go west or east.
+> east
+
+> east
+
+You are in a Swamp.
+You can see a Matchstick.
+You can go west.
+
+You are in a Bush Road.
+You can see a Metalsmith and a Dragonoid.
+You can go west or southeast.
+You got pushed by the swamp tide.
+> west
+
+> west
+
+You are in a Bush Road.
+You can go south, east or north.
+> west
+
+> west
+You can't go there.
+> west
+
+> west
+You can't go there.
+> north
+
+> north
+
+You are in a Grass Patch.
+You can go south or west.
+> west
+
+> west
+
+You are in a Cabin inside the Woods.
+You can go east.
+> east
+
+> east
+
+You are in a Grass Patch.
+You can go south or west.
+> south
+
+> south
+
+You are in a Bush Road.
+You can go south, east or north.
+> west
+
+> west
+You can't go there.
+> northwest
+
+> northwest
+You can't go there.
+> west
+
+> west
+You can't go there.
+> north
+
+> north
+
+You are in a Grass Patch.
+You can go south or west.
+> west
+
+> west
+
+You are in a Cabin inside the Woods.
+You can go east.
+A pair of angel's wings blessed you, you leveled up. You are now level 1
+You have 1 attribute points left.
+> east
+
+> east
+
+You are in a Grass Patch.
+You can go south or west.
+> south
+
+> south
+
+You are in a Bush Road.
+You can go south, east or north.
+A pair of angel's wings blessed you, you leveled up. You are now level 2
+You have 2 attribute points left.
+> south
+
+> south
+
+You are in a Bush Road.
+You can see a Hooded Dragon.
+You can go southwest or north.
+> southwest
+
+> southwest
+
+You are in a Church.
+You can see a Bishop and a Worshipper.
+You can go west or northeast.
+> west
+
+> west
+
+You are in a House.
+You can see a Santa girl, a Sack of gold and a Candles.
+You can go west, east, north or south.
+A pair of angel's wings blessed you, you leveled up. You are now level 3
+You have 3 attribute points left.
+> west
+
+> west
+
+You are in a Grasslands.
+You can see a Vile Snakes, a Toxic Rabbit and a Samurai Master.
+You can go south, east or west.
+> south
+
+> south
+
+You are in a Your Room.
+You can see a Bed and a Portal.
+You can go south, north or west.
+[state=Running]

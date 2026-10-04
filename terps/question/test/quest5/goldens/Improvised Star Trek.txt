@@ -1,0 +1,83 @@
+Improvised Star Trek
+Ambassado's and don'ts
+
+Greeting Ambassador !@#$%.  As one of the Federation's most respected diplomats,  you've been dispatched to negotiate a peace in the wartorn Macguffin system. A once-in-a-lifetime opportunity has presented itself to end centuries of war. The fate of two planets(and a half dozen moons) lies in the balance.
+
+To deliver you, Starfleet has assigned the USS Sisyphus. You were unfamiliar with the ship, but beamed aboard from Starbase 82 an hour ago.
+
+Standard procedure on these missions is to brief the senior crew of the mission details, so you've headed to the conference lounge on the command deck. However, no one seems to have arrived at the briefing...
+A Conference Room
+In your many years of diplomacy, you've seen many like it.  A window looks aft, a large table fills the center of the room, a viewscreen is mounted on a wall.
+You can go northwest.
+You can see  a conference table (on which there is a box and a PADD) and a Bridge Door.
+> nw
+
+> nw
+
+A Bridge
+The bridge of a federation starship! This is where the magic happens. Figuratively, of course.  There's no such thing as magic.
+
+You can go southwest, northwest or southeast.
+You can see Ensign Greg, Ensign Lackey, a Tactical Console, a viewer and a Ready Room.
+In the center of the bridge is a captains chair, behind a tactical and communications console.  In the front you got your Conn and your Ops, both manned.  And some general console around the sides. Science?
+
+A view screen takes up the front of the room.
+> x greg
+
+> x greg
+Ensign Greg is adorable.  Any effort to compare him to other adorable things you've seen is quickly derailed by how adorable he is.  His face is like a buh...his face is like his own.  His wings are like a butter...no, his wings are like Greg's wings. His tummy is like the idea tummy.
+> sw
+
+> sw
+
+A Turbolift
+The air seems fresher as you step into the turbolift. Where to?
+Using the panel, you go to  Bridge, Deck 2, Deck 3, Deck 4, Deck 5, Deck 6, Deck 7, Deck 8, Deck 9, Deck 10, Deck 12, Deck 13, Deck 14, Deck 15 or Deck 11.
+You can see a control panel.
+> go to deck 9
+
+> go to deck 9
+
+A Deck 9
+You are in a corridor.  To the fore is the main shuttlebay, to the aft is main engineering. To starboard is Starboards'.
+You can go west, east, north, south, up or down.
+You can see a Starboards, a Shuttlebay and an Engineering.
+> s
+
+> s
+
+An Engineering
+The heart of any starship, panels cover the walls showing energy flows around the ship.  A Master System Display appears on one wall. A large console sits in the middle of the room with a glass bottle on it.  To the aft you see the warp core, its soft thrumming filling the room.
+You can go north, south or east.
+You can see a Master Console (on which there is a bottle of wine), a Master System Display, a Warp Core and a Hall of Presidents.
+> take bottle of wine
+
+> take bottle of wine
+you lodge in your antlers
+> s
+
+> s
+
+A Warp Core
+You can go north, up or down.
+You can see a warpcore assembly.
+> x warpcore assembly
+
+> x warpcore assembly
+you know, the middle bit.
+> open warpcore assembly
+
+> open warpcore assembly
+You open it.
+you sure?
+> close warpcore assembly
+
+> close warpcore assembly
+You close it.
+> open warpcore assembly
+
+> open warpcore assembly
+You open it.
+You have died. Let's hope you over-estimated your importance to the peace process, or about a dozen billion will join you soon.
+a blast of pure energy destroys you, and the starship Sisyphus. You have killed yourself and 200 crew aboard.
+[state=Finished]

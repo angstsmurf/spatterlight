@@ -1,0 +1,93 @@
+I want to Isekai
+
+by Phurr
+
+You used to love video games and isekai anime. So when truck-kun came for you... You tried to dodge out of the way of course. In the ensuing screams and sounds of crashing, twisting metal you have no idea if you dodged the truck or not. You just know when you wake up you're lying on a freshly dug grave in the forest. Spooky.
+
+Could it be, though? Have you been transported to another world? You glance around. Trees! And so many! You've only ever seen those in fantasy stories. It must be true! Okay. Maybe that's not quite enough evidence. But you choose to believe it is until reality reasserts itself. As long as that doesn't happen you should be fine. Time to look around.
+You are somewhere in the forest.
+
+You can go east or south.
+
+You stand in a small clearing in the forest. A cursory glance of your surroundings reveals precisely zero trucks or debris caused by a truck barreling through. You see a small grave in the center. No name, but it's freshly dug.
+
+ You also see a house not far through the trees. A house means trucks! Or people! Should probably look for people.
+> look
+
+> look
+
+You are somewhere in the forest.
+
+You can go east or south.
+
+You stand in a small clearing in the forest. A cursory glance of your surroundings reveals precisely zero trucks or debris caused by a truck barreling through. You see a small grave in the center. No name, but it's freshly dug.
+
+> x grave
+
+> x grave
+
+A small grave has been dug here. It feels rude to be thankful it's not yours, but you really can't help feeling thankful it's not yours.
+> x house
+
+> x house
+
+You see a house in the distance. Your extensive knowledge of video games and anime kicks in to provide exactly no help whatsoever. It's somewhat medieval. Made of wood. You're not an architect.
+> e
+
+> e
+
+You are Outside Solace's house.
+
+You can go west, in or north.
+
+A small field surrounded by forest. You can see Solace's house as well as a training dummy. There's a gate to the north.
+
+"Ah. I wondered whose grave that was," A voice stops you as you approach the house. "So. The prophecy has begun anew. You are the chosen one sent to save the world!"
+
+An odd man in a blue robe stands before you spouting dramatic exposition. "Ah. Forgive me. You're probably quite confused. My name is Solace. If you'll follow me I'll explain." He drags you back the way you came.
+You are somewhere in the forest.
+
+You can go east or south.
+
+You stand in a small clearing in the forest. A cursory glance of your surroundings reveals precisely zero trucks or debris caused by a truck barreling through. You see a small grave in the center. No name, but it's freshly dug.
+
+> e
+
+> e
+
+"I told you I'd explain over here."
+> talk to solace
+
+> talk to solace
+
+What are you curious about?
+1: What is the grave?
+2: I don't care about any of that. Just teach me magic.
+> 1
+Ah. The grave of the chosen one. When a chosen one appears in this world they appear on their own grave. They are blessed with infinite mana. It doesn't mean you're dead. Probably. It's more just something that appears when you do.
+> talk to solace
+
+> talk to solace
+
+What are you curious about?
+1: What is the grave?
+2: Wait. Mana?
+3: I don't care about any of that. Just teach me magic.
+> 2
+Mana is the life force of living things. By channeling it into special scrolls people can cast magic. As the chosen one you are blessed with infinite life force. Which is really just a fancy way of saying you can't die of old age. You can however cast an infinite number of spells. That should aid you well in saving the world.
+> look
+
+> look
+
+You are somewhere in the forest.
+
+You can go east or south.
+
+You stand in a small clearing in the forest. A cursory glance of your surroundings reveals precisely zero trucks or debris caused by a truck barreling through. You see a small grave in the center. No name, but it's freshly dug.
+
+> i
+
+> i
+
+You are not carrying anything.
+[state=Running]

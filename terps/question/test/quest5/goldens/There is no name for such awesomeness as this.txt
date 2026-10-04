@@ -1,0 +1,436 @@
+There is no name for such awesomeness as this
+
+by another one of those nerds
+
+you are the Alchemist's apprentice. You live in Jolly Olde Great Britain. Your relationship with the Alchemist is strained, and as he does not make any money, you have decided to try your hand at Alchemy yourself. To keep the old man from discovering, you have drugged his food; he'll sleep for days! Try and make some precious substance, for then your moneypouch shall grow! (well, you don't have a real moneypouch, but you know what i mean.)
+
+P.S. For the elements, instead of typing bottle of x, you can just say x. hope that helps. otherwise comment on the comment section, alex didn't just program that place for reviews without stars, you morons.
+
+Good luck and good riddance! and Good Bye!
+
+The alchemist's room
+You can see a wardrobe, a drawer and a goblin head.
+you aren't supposed to be here, but the alchemist is sleeping...
+You can go west or east.
+> look
+
+> look
+The alchemist's room
+You can see a wardrobe, a drawer and a goblin head.
+you aren't supposed to be here, but the alchemist is sleeping...
+You can go west or east.
+> x wardrobe
+
+> x wardrobe
+a large wooden wardrobe with carvings of lions, dragons, and unicorns. The alchemist said he inherited it from an uncle or someone like that.
+It contains Robin Robin, a robe, a helmet, a crown, a wig and a spectacles.
+> west
+
+> west
+
+The hallway
+You can see a painting.
+the hallway is, well, how should i say this: a hallway!
+
+You can go south, northwest, up, east or north.
+> x painting
+
+> x painting
+a painting of the King, William Henry George the VIIIII.
+our sovereign leader looks mighty plump, doesn't he?
+> south
+
+> south
+
+The laboratory
+You can see the alchemist, a cauldron and a closet.
+The laboratory is where the alchemist mixes elements.
+You can go north or in.
+> in
+
+> in
+
+A closet
+You can see a box, a sandwich, a shelf and a note.
+the closet is, well, a closet for storing alchemical supplies! you see, the alchemist you are working for is organized and doesn't leave much things on the floor.
+You can go out.
+> out
+
+> out
+
+The laboratory
+You can see the alchemist, a cauldron and a closet.
+The laboratory is where the alchemist mixes elements.
+You can go north or in.
+> north
+
+> north
+
+The hallway
+You can see a painting.
+the hallway is, well, how should i say this: a hallway!
+
+You can go south, northwest, up, east or north.
+> northwest
+
+> northwest
+
+The kitchen
+You can see a knife, a frying pan, a pot and a cupboard.
+the kitchen is where you can make some lunch for yourself. It is also where the only "weapons" in the cottage are.
+You can go southeast.
+> take frying pan
+
+> take frying pan
+you take the pan.
+> x frying pan
+
+> x frying pan
+a frying pan, used to make scrambled eggs or bacon.
+> southeast
+
+> southeast
+
+The hallway
+You can see a painting.
+the hallway is, well, how should i say this: a hallway!
+
+You can go south, northwest, up, east or north.
+> up
+
+> up
+
+The attic
+You can see a hay pile, a rat and a wooden board.
+this is where you sleep.
+You can go down.
+> down
+
+> down
+
+The hallway
+You can see a painting.
+the hallway is, well, how should i say this: a hallway!
+
+You can go south, northwest, up, east or north.
+> north
+
+> north
+
+The garden
+You can see a bee, some flowers, an oak tree, a statue, some apples, a pond and a Well.
+You can go south or west.
+> west
+
+> west
+
+Road dat goes on an on an on
+You can see Geoffrey, Norman, Egbert and Karlof.
+This dusty road is well frequented by travelers, and fortunately the alchemist's house is right next to it.
+
+As one wise hobbit once said:
+The Road goes ever on and on
+Down from the door where it began.
+Now far ahead the Road has gone,
+And I must follow, if I can,
+Pursuing it with eager feet,
+Until it joins some larger way
+Where many paths and errands meet.
+And whither then? I cannot say.
+
+You can go east, south or northwest.
+> south
+
+> south
+
+More Road dat goes on an on
+A bunch of road.
+You can go north or south.
+> south
+
+> south
+
+More an more of Road dat goes on an on
+Yay. More road.
+You can go north or south.
+> south
+
+> south
+
+End of Road dat apparently doesnt go on an on
+Apparently old Bilbo was wrong.
+Or maybe this isn't Middlearth.
+Anyhoo, it appears that the Road has ended but there's a harbor to the southwest. So yeah.
+You can go north or southwest.
+> southwest
+
+> southwest
+
+Harbor
+You can see Orc.
+This bustling harbor normally has plenty of fishing boats and trader's skiffs, but today there seems to be a lot of enemy warships instead. Hmmmm...
+THERE's AN ORC WITH A BATTERING RAM!!!
+THE ORC LOOKS LIKE HE'S GOING TO KEEELL YOU!!!!
+You can go northeast, east, west, north or south.
+> east
+
+> east
+
+An Extreme Warship
+You can see Barbarian Pirate, Barbarian Warrior, a Dragon, a Barrel Launcher and a Bomb Case.
+This amazing warship has technology like:
+-sliced bread for the crew
+-barrel launchers
+-cases of bombs
+and last but not least:
+-The SECRET WEAPON!!!!
+Which is a DRAGONN!!!!
+
+You can go west.
+> west
+
+> west
+
+Harbor
+You can see Orc.
+This bustling harbor normally has plenty of fishing boats and trader's skiffs, but today there seems to be a lot of enemy warships instead. Hmmmm...
+THERE's AN ORC WITH A BATTERING RAM!!!
+THE ORC LOOKS LIKE HE'S GOING TO KEEELL YOU!!!!
+You can go northeast, east, west, north or south.
+> west
+
+> west
+
+A Super Awesome Warship
+You can see a Stacks of Posters and a Troll.
+The super awesome warship carries all of the super awesome propaganda that the Vestigians will spread, as well as quite a few troops.
+You can go east.
+> east
+
+> east
+
+Harbor
+You can see Orc.
+This bustling harbor normally has plenty of fishing boats and trader's skiffs, but today there seems to be a lot of enemy warships instead. Hmmmm...
+THERE's AN ORC WITH A BATTERING RAM!!!
+THE ORC LOOKS LIKE HE'S GOING TO KEEELL YOU!!!!
+You can go northeast, east, west, north or south.
+> north
+
+> north
+
+The ONE Warship to rule them all
+You can see a small rowboat, King Bulge, a Rocket Launcher, a Bottle of Poison Gas and a Rocket.
+King Bulge's flagship, this Warship is the pride of the kingdom.
+Its defenses are rocket launchers, poison gas, hooks, cannon, and fart bomb.
+You can go south.
+> south
+
+> south
+
+Harbor
+You can see Orc.
+This bustling harbor normally has plenty of fishing boats and trader's skiffs, but today there seems to be a lot of enemy warships instead. Hmmmm...
+THERE's AN ORC WITH A BATTERING RAM!!!
+THE ORC LOOKS LIKE HE'S GOING TO KEEELL YOU!!!!
+You can go northeast, east, west, north or south.
+> south
+
+> south
+
+A Pretty Savage Warship
+You can see Goblin, a Cannon and an Iron Spike.
+This warship has all the advanced technologies of the Vestigians.
+Cannon, gunpowder, iron spikes, masts with elevators, and purple sails!
+The warship is full of enemy soldiers.
+You can go north.
+> north
+
+> north
+
+Harbor
+You can see Orc.
+This bustling harbor normally has plenty of fishing boats and trader's skiffs, but today there seems to be a lot of enemy warships instead. Hmmmm...
+THERE's AN ORC WITH A BATTERING RAM!!!
+THE ORC LOOKS LIKE HE'S GOING TO KEEELL YOU!!!!
+You can go northeast, east, west, north or south.
+> northeast
+
+> northeast
+
+End of Road dat apparently doesnt go on an on
+Apparently old Bilbo was wrong.
+Or maybe this isn't Middlearth.
+Anyhoo, it appears that the Road has ended but there's a harbor to the southwest. So yeah.
+You can go north or southwest.
+> north
+
+> north
+
+More an more of Road dat goes on an on
+Yay. More road.
+You can go north or south.
+> north
+
+> north
+
+More Road dat goes on an on
+A bunch of road.
+You can go north or south.
+> north
+
+> north
+
+Road dat goes on an on an on
+You can see Geoffrey, Norman, Egbert and Karlof.
+This dusty road is well frequented by travelers, and fortunately the alchemist's house is right next to it.
+
+As one wise hobbit once said:
+The Road goes ever on and on
+Down from the door where it began.
+Now far ahead the Road has gone,
+And I must follow, if I can,
+Pursuing it with eager feet,
+Until it joins some larger way
+Where many paths and errands meet.
+And whither then? I cannot say.
+
+You can go east, south or northwest.
+> northwest
+
+> northwest
+
+A Path of justice
+You can see Justice.
+Why is this dusty little side-path called the "path of justice"? the author couldn't think of any better name.
+You can go southeast or north.
+> x justice
+
+> x justice
+Don't worry about it, it is non-existent.
+> north
+
+> north
+
+Village Square
+You can see Cedric, Dog and a Broom.
+The village square is actually slightly rectangular, but who cares.
+Other than that observation, its just the center of the village.
+You can go south or north.
+> x cedric
+
+> x cedric
+The peddler paces around the square, advertising his wares.
+Which, from his cries, include:
+
+> speak to cedric
+
+> speak to cedric
+He says nothing.
+> north
+
+> north
+
+Drawbridge
+The creaky drawbridge is formed of several planks of wood, hung above the stinky moat by two chains.
+Unfortunately you cannot enter the Castle right now...
+You can go south or north.
+> south
+
+> south
+
+Village Square
+You can see Cedric, Dog and a Broom.
+The village square is actually slightly rectangular, but who cares.
+Other than that observation, its just the center of the village.
+You can go south or north.
+> south
+
+> south
+
+A Path of justice
+You can see Justice.
+Why is this dusty little side-path called the "path of justice"? the author couldn't think of any better name.
+You can go southeast or north.
+> southeast
+
+> southeast
+
+Road dat goes on an on an on
+You can see Geoffrey, Norman, Egbert and Karlof.
+This dusty road is well frequented by travelers, and fortunately the alchemist's house is right next to it.
+
+As one wise hobbit once said:
+The Road goes ever on and on
+Down from the door where it began.
+Now far ahead the Road has gone,
+And I must follow, if I can,
+Pursuing it with eager feet,
+Until it joins some larger way
+Where many paths and errands meet.
+And whither then? I cannot say.
+
+You can go east, south or northwest.
+> east
+
+> east
+
+The garden
+You can see a bee, some flowers, an oak tree, a statue, some apples, a pond and a Well.
+You can go south or west.
+> south
+
+> south
+
+The hallway
+You can see a painting.
+the hallway is, well, how should i say this: a hallway!
+
+You can go south, northwest, up, east or north.
+> east
+
+> east
+
+The alchemist's room
+You can see a wardrobe (containing Robin Robin, a robe, a helmet, a crown, a wig and a spectacles), a drawer and a goblin head.
+you aren't supposed to be here, but the alchemist is sleeping...
+You can go west or east.
+> east
+
+> east
+
+The library
+You can see a bookshelf, a globe, a telescope and an astrolabe.
+You can go west.
+> west
+
+> west
+
+The alchemist's room
+You can see a wardrobe (containing Robin Robin, a robe, a helmet, a crown, a wig and a spectacles), a drawer and a goblin head.
+you aren't supposed to be here, but the alchemist is sleeping...
+You can go west or east.
+> w
+
+> w
+
+The hallway
+You can see a painting.
+the hallway is, well, how should i say this: a hallway!
+
+You can go south, northwest, up, east or north.
+> s
+
+> s
+
+The laboratory
+You can see the alchemist, a cauldron and a closet.
+The laboratory is where the alchemist mixes elements.
+You can go north or in.
+> use frying pan on alchemist
+
+> use frying pan on alchemist
+you killed the alchemist. A few days later, the King's guards investigate what happened to him and they find you burying his dead body. You spend the rest of your life in a dungeon.
+GAME
+OVER
+[state=Finished]

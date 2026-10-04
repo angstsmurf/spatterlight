@@ -1,0 +1,2317 @@
+What would you do? If you found yourself confronted with life altering choices, after being woken up
+violently from a nightmare, that you couldn't recall, having to solve a mystery about a strange mirror
+that has appeared in your bedroom. And a sinister humanoid spectre at the foot of your bed.
+
+(Take the journey of all journeys, and resolve enigma's of each strange location!)
+(May your intuition and courage never fail, for everything, may never be as it seems. )
+( Hit a Key )
+
+Remembering the nightmare was a losing battle, and the memory of it rapidly faded. Sitting up for a
+few moments helped to shake off the night terrors. And after casting off the quilt, you head for the
+switch on the wall. Turning on the light you see that the ambience has altered very little, all the
+room is still very gloomy. The furniture in the room looks the same, but everything is surreal.
+
+(Well, this is what's happened to me. I don't know who I am or where I am)
+(Please I ask you, whoever you are to help me find the answers I seek)
+
+( Hit a Key )
+.....A light streams in through the window casting an eerie glow
+round the bedroom walls, and spreading shadows all across the
+furniture. I think this is my bedroom, but I'm not quite certain. It's
+just that this place is very familiar.
+
+> look
+> look
+.....A light streams in through the window casting an eerie glow
+round the bedroom walls, and spreading shadows all across the
+furniture. I think this is my bedroom, but I'm not quite certain. It's
+just that this place is very familiar.
+
+> look chair
+> look chair
+.....Found something.
+           Clothes.
+> get clothes
+> get clothes
+.....Ok!
+
+.....It's a good job that I'm neat and tidy, and keep all my
+stuff together! Now all I need is some footwear to put on.
+> wear clothes
+> wear clothes
+.....That's better, thanks
+> look under chair
+> look under chair
+.....Found something.
+           Pumps.
+> get shoes
+> get shoes
+.....Ta, these will keep my feet warm.
+> wear shoes
+> wear shoes
+.....OK!
+> open wardrobe
+> open wardrobe
+.....The wardrobe door is open now.
+.....I've just remembered,  that I've always had a fear of open wardrobes.
+     Ever since I was a kid, I could imagine some horrible thing making
+     it's way out towards me when I was asleep. So, I know it's daft but I
+     have always closed the wardrobe afterwards! Oh! Good, that is one
+     memory returned, I'm hoping it will all come flooding back soon. Still
+     I feel that the more I find out, the more my memories will return.
+> close wardrobe
+> close wardrobe
+.....Ok, the wardobe door is closed.
+
+.....That's strange, I think.. no!  In fact I know, I've just heard a weird
+sort of click and gears being moved. The sound came from inside
+of the wardrobe.
+> open wardrobe
+> open wardrobe
+.....The wardrobe door is open now.
+> close wardrobe
+> close wardrobe
+.....Ok, the wardobe door is closed.
+
+.....There! I'm sure I've just heard two clicks then, and the sound of
+gears rotating, along with something being dragged. Once again
+the sound seems to be emanating from inside the robe.
+> open wardrobe
+> open wardrobe
+.....The wardrobe door is open now.
+> look in wardrobe
+> look in wardrobe
+.....Oh my God, the whole back of the wardrobe has swivelled
+fully open and there is an opening large enough to go through.
+> go opening
+> go opening
+.....The dark interior of the wardrobe is made of oak panels
+all receding down the entire length to a light that streams in
+here along with a blast of wind from outside. In here seems
+to be larger than the outside of the wardrobe.
+    Exits :-  west or east.
+
+> e
+> e
+I've entered into a clearing that hosts a huge tree in the centre. Its towering structure,
+is reminiscent of a large broad oak. It's absolutely massive with seven thick trunk-like
+limbs stretching outwards on an horizontal plain. From each trunk hangs barbed tendrils
+flowing down to the ground. They look poisonous to me, I'll be carefull not to touch them.
+( Press any Key)
+
+.....I'm standing here looking up at this monstrosity, as it towers above me
+like a gargantuan mechanoid swaying in motion. Huge branches spread
+horizontally across the dull blue skies. It lacks foliage and bares its limbs
+to the elemental forces that ravaged it. Barbed tendrils droop from every
+branch directly to the forest floor. In the breeze the tree groans under its
+own ominous weight, as its soulless groans reverberate throughout my
+very essence.
+
+     This reminds me of the symbolic tree of the Kabbalah, where the roots
+     are in heaven and the branches, which symbolize mankind, are on this
+     earthly plain of existence.
+     But where does that leave me, standing here in between the two?
+     Entrance :-  west.
+
+> go opening
+> go opening
+.....OK! just a mo!
+.....Ok! I am at the opening to the tree. Looking round I can
+see the clearing the tree stands in. There's a staircase here
+leading up into the huge tree itself!
+    Directions :-  west or up.
+
+> look
+> look
+.....Ok! I am at the opening to the tree. Looking round I can
+see the clearing the tree stands in. There's a staircase here
+leading up into the huge tree itself!
+    Directions :-  west or up.
+
+> u
+> u
+.....I'm at the top of the tree, and boy, what a sight.
+I seem to be standing in a shallow hollow of a sort,
+with all the branches spreading outwards. I see all
+of the forest from up here.
+    Exits:-  down.
+
+> look
+> look
+.....I'm at the top of the tree, and boy, what a sight.
+I seem to be standing in a shallow hollow of a sort,
+with all the branches spreading outwards. I see all
+of the forest from up here.
+    Exits:-  down.
+
+> hint
+> hint
+       Look mushrooms.
+> look mushrooms
+> look mushrooms
+.....Ok.
+                         (Press any Key)
+
+.....Aaaaargh! cough, cough splutter.Damn! One of those
+mushrooms has erupted all over me, the smell is awful.
+God I stink like something putrid!
+> look mushrooms
+> look mushrooms
+.....I am a little reluctant to after the last time. Although they
+seem a lot more dormant,  now the damage has been done.
+> d
+> d
+.....Ok! I am at the opening to the tree. Looking round I can
+see the clearing the tree stands in. There's a staircase here
+leading up into the huge tree itself!
+    Directions :-  west or up.
+
+> w
+> w
+.....I'm standing here looking up at this monstrosity, as it towers above me
+like a gargantuan mechanoid swaying in motion. Huge branches spread
+horizontally across the dull blue skies. It lacks foliage and bares its limbs
+to the elemental forces that ravaged it. Barbed tendrils droop from every
+branch directly to the forest floor. In the breeze the tree groans under its
+own ominous weight, as its soulless groans reverberate throughout my
+very essence.
+     Entrance :-  west.
+
+> w
+> w
+.....The dark interior of the wardrobe is made of oak panels
+all receding down the entire length to a light that streams in
+here along with a blast of wind from outside. In here seems
+to be larger than the outside of the wardrobe.
+    Exits :-  west or east.
+
+> w
+> w
+..... Oh! I'm back in the bedroom again and that figure is back. It's
+hovering at the bottom of my bed. Damn! It's noticed me and has
+darted for the mirror, it has gone right through it. Why does it keep
+going for the mirror?
+--------------------------------------------------------------------------------------------
+A light streams in through the window from outside casting an eerie
+glow all around the bedroom walls  and casting shadows over the
+furniture I think this is my bedroom, but I'm not certain. It's just that
+this place is very familiar..
+
+> touch mirror
+> touch mirror
+.....Aaaaargh!
+           (Press any Key)
+.....Suddenly barbed tendrils  lash out at me from the surface of the mirror
+grabbing my arms and legs and one tendril snaking around the back of my
+neck, pulling me into itself. It feels cold and fluidic and it's gripping me fast.
+Can't move at all. I feel sick and I feel as though I'm passing out. Nooo!
+
+(Press any Key)
+The tendrils have tenderly lowered me back down to the floor. Relinquishing their grasp,
+one after another away from my body. They have retreated back into the mirror leaving
+no trace what-so-ever. It's like it never happened, But I know it did, and my mind is
+frantically trying to understand it, but I know that this has happened for a reason.
+I'm calming down a lot now, and I must get a grip to find out what's going on!
+
+"Press any Key"
+
+Looking around I find myself in a dimly lit corridor, the walls are draped by
+tapestries hanging on either side from the  ceiling. The floor is covered in
+wooden parquet tiles, creating a  herring bone pattern running the entire
+length. It feels extremely claustrophobic and the atmosphere is chilling to
+the bone. The mirror is attached to the wall once again, it makes me feel
+nervous. There is a light at the far end of the tunnel.
+    Direction -  east.
+
+> look
+> look
+Looking around I find myself in a dimly lit corridor, the walls are draped by
+tapestries hanging on either side from the  ceiling. The floor is covered in
+wooden parquet tiles, creating a  herring bone pattern running the entire
+length. It feels extremely claustrophobic and the atmosphere is chilling to
+the bone. The mirror is attached to the wall once again, it makes me feel
+nervous. There is a light at the far end of the tunnel.
+    Direction -  east.
+
+> search rubble
+> search rubble
+
+     Found something!
+           (Visible Items) :- a Brick.
+> get brick
+> get brick
+.....Ok.
+> e
+> e
+.....It is a lot brighter here, but there seems to be a fair bit of a draft
+coming from the large oak door which is barring my way. Although
+old, it's a solid door.  The walls down here are covered by the same
+tapestries hanging vertically on either side from the ceiling.
+    Direction :-  west.
+        (Visible Items) :- a Broom and a Coat.
+> get broom
+> get broom
+.....A new broom and all that jazz?
+> w
+> w
+.....Ok.
+Looking around I find myself in a dimly lit corridor, the walls are draped by
+tapestries hanging on either side from the  ceiling. The floor is covered in
+wooden parquet tiles, creating a  herring bone pattern running the entire
+length. It feels extremely claustrophobic and the atmosphere is chilling to
+the bone. The mirror is attached to the wall once again, it makes me feel
+nervous. There is a light at the far end of the tunnel.
+    Direction -  east.
+
+> sweep rubble
+> sweep rubble
+.....I've swept the rubble out of the way into the corner.
+           And I've found something else.
+        (Visible Items) :- an Iron Bar.
+> get bar
+> get bar
+.....OK.
+> e
+> e
+.....It is a lot brighter here, but there seems to be a fair bit of a draft
+coming from the large oak door which is barring my way. Although
+old, it's a solid door.  The walls down here are covered by the same
+tapestries hanging vertically on either side from the ceiling.
+    Direction :-  west.
+        (Visible Items) :- a Coat.
+> pry door
+> pry door
+..... I've placed the bar into the gap and heaved with all my might.
+     (Press any Key)
+          ..... BANG .....
+.....The door has been pried off it's hinges and is sprawled across
+the exit, although it's partially blocking the exit I can see a really
+bright light on the other side, it's almost blinding, making me squint
+my eyes.
+> drop all
+> drop all
+Brick: .....Ok!
+(Visible Items) :- a Coat and a Brick.
+Broom: .....Ok!
+Iron Bar: .....Ok!
+(Visible Items) :- a Coat, a Brick, a Broom and an Iron Bar.
+> get coat
+> get coat
+.....It would be nice to wear this?
+> wear coat
+> wear coat
+.....Oooh that's mucher warmer. Thanks!
+> climb over door
+> climb over door
+
+              As I climb over the fallen door, the bright light surrounds me
+                  to a point that everywhere becomes incandescent. I just
+                             can't see anything, it's all a total whiteout.
+                                                       (Press any Key)
+I'm at my mothers funeral. Just what am I doing here, all my mom's  family
+and friends are here, but this was long time ago, when I was younger. This
+is not possible, surely. I feel like I'm dreaming, and yet this feels real, in fact
+too real.  The same cold January morning, the weather was freezing, and
+this coat. Now I recall it I wore it on that day! That's why it looked so
+familiar. This is one memory that needed to stay forgotten.
+
+(Press a Key)
+
+What's happened, I was at my mother's funeral just, and now I'm here,
+wherever here is? I remember a sudden gust of wind spiralling around
+me, then hazy vision, feeling giddy and now, here. Please give me
+a sec, to get my faculties together. I'm feeling very unsettled.
+
+Phew! That's better, I needed some time to come round.
+
+(Press any Key)
+.....I'm in an immense round observation tower room, which encircles 360 degrees in
+a perfect circumference. On the surrounding wall each major point of the compass
+boasts a magnificent arched observation portal, revealing the various scapes below.
+There is a sturdy high polished oak rail that circumnavigates  just below the windows
+attached every metre or so by a wooden scroll bracket fixed to the walls.
+The roof is constructed of arched oak beams all culminating at the apex of it's centre.
+It is superbly reminiscent of the early saxon churches. In the middle of the tower stands
+a helical staircase leading down, cloaked by a solid oak balustrade.
+
+        Where the hell's my coat gone?
+    Exits:-  down.
+
+> d
+> d
+.....Here at this section on the stairs, the orbicular mezzanine, opens
+out to reveal a spacious area. There is a beautiful ivory statue of the
+goddess Aphrodite herself, flanked on either side by tall exotic plants.
+Adjacent to the staircase reclines an antique Queen Anne Chair. The
+floor is made up of the same tile pattern as in the corridoor, creating a
+herring bone pattern!  Although they seem a little more worn here!
+    Exits:-  up or down.
+
+> d
+> d
+.....You are at the foot of the helical staircase. Looking
+up you realise how steep and treacherous it was. Now
+feeling pleased with yourself you know it's time to move
+on. There is another plant here just like those upstairs.
+    Exits:-  up or out.
+        (Visible Items) :- a Cloth.
+> get cloth
+> get cloth
+.....OK.
+> out
+> out
+...At the centre of the circular courtyard boasts a magnificent round fountain.
+With a statue of three dolphins leaping  from the water with their tails back to
+back. Rising from it's centre is a  fluted tapering column spewing out water in
+a mushroom formation over the backs of the dolphins. Around the perimeter,
+tall columns stretch majestically upwards, holding aloft a protective glass dome.
+Roses playfully trail in and around the columns supported by an ornate trellis.
+All showing off the grandeur of this garden.
+    Exits:-  east, west or north.
+
+> go back of trellis
+> go back of trellis
+....Ok so I'm behind the trellis, It's a little tight back here.
+The horseshoe shaped alleyway hides a stone obelisk
+here at the end, rising up from the floor it stands around
+head height.
+    Exits:-  out.
+
+> turn wheel
+> turn wheel
+.....Ok, done.
+> out
+> out
+...At the centre of the circular courtyard boasts a magnificent round fountain.
+With a statue of three dolphins leaping  from the water with their tails back to
+back. Rising from it's centre is a  fluted tapering column spewing out water in
+a mushroom formation over the backs of the dolphins. Around the perimeter,
+tall columns stretch majestically upwards, holding aloft a protective glass dome.
+Roses playfully trail in and around the columns supported by an ornate trellis.
+All showing off the grandeur of this garden.
+    Exits:-  east, west or north.
+
+> go in fountain
+> go in fountain
+.....Ok,
+.....I'm standing in the centre of the fountain. It's a proud
+monument to the artisans who built it. The dolphins look
+more beautiful from here, you can see the grandeur of the
+statue and the splendour it represents..
+The water is dribbling from a hole in the centre.
+    Exits:-  out.
+        (Visible Items) :- a Cog.
+> get cog
+> get cog
+.....OK.
+> out
+> out
+...At the centre of the circular courtyard boasts a magnificent round fountain.
+With a statue of three dolphins leaping  from the water with their tails back to
+back. Rising from it's centre is a  fluted tapering column spewing out water in
+a mushroom formation over the backs of the dolphins. Around the perimeter,
+tall columns stretch majestically upwards, holding aloft a protective glass dome.
+Roses playfully trail in and around the columns supported by an ornate trellis.
+All showing off the grandeur of this garden.
+    Exits:-  east, west or north.
+
+> go to mechanism
+> go to mechanism
+.....OK! hang on.
+.....I'm here at the mechanism next to the attrium doors.
+The disk shaped object incorporates a handle.
+Looking at the courtyard from here brings beauty
+beyond recognition to the eyes of the beholder.
+    Exits:-  Courtyard.
+
+> replace cog
+> replace cog
+.....OK! just a min.
+           (Press any Key)
+
+.....That was a struggle, just about placed it in. must
+have warped a little. Should be working now.
+> turn handle
+> turn handle
+.....OK! I've turned the handle, and both the glass doors
+have swung open slowly and together. It  is really poetry
+in motion to watch!
+> go courtyard
+> go courtyard
+...At the centre of the circular courtyard boasts a magnificent round fountain.
+With a statue of three dolphins leaping  from the water with their tails back to
+back. Rising from it's centre is a  fluted tapering column spewing out water in
+a mushroom formation over the backs of the dolphins. Around the perimeter,
+tall columns stretch majestically upwards, holding aloft a protective glass dome.
+Roses playfully trail in and around the columns supported by an ornate trellis.
+All showing off the grandeur of this garden.
+    Exits:-  east, west or north.
+
+> w
+> w
+....I'm standing in a glass attrium besides a plinth showing a floor
+map of this place. It really is an astonishing sight, I do not know
+where to begin. I've never seen it's like before. You know what
+they say people who live in glass houses shouldn't throw stones.
+    Exits :-  east.
+
+> go statue
+> go statue
+.....Ok, I'm here standing in the shadow of Athena herself. She is
+really impressive in height and width as she dominates this entire
+area. The two semi circular benches seem to guard her flank as
+they remain prone by her side. Nothing guards her back.
+    Views :-  Lift or Entrance.
+
+> sit down
+> sit down
+.....Aaaah that's better!
+        Oh, someone's left some matches here.
+> get matches
+> get matches
+.....OK.
+> get up
+> get up
+.....Oooh ! Ok.
+> go back of statue
+> go back of statue
+.....Ok, I seem to be at the back of a statue, it's really tall and
+overwhelming standing this close to it. Although looking up at
+this behemoth leaves me a little awe inspired at the work that
+someone has done to create this magnificent structure.
+    Exits :-  Front of Statue.
+
+> open door
+> open door
+.....OK!
+> go door
+> go door
+.....I'm at the start or maybe at the end of a dark, dank earthen
+tunnel. The soil in here in hard and rocky and the musty odour
+is over powering. The sooner I move on, the better I will feel. I
+can see a dim light coming from the other end. There are some
+steps going up.
+    Exits :-  up or east.
+
+> e
+> e
+.....I'm in a mid area of the tunnel, it's cold, dank and the smell of
+damp hangs heavy in the air.  Glancing up and down the tunnel
+the ceiling is slung low, however I am only 5' 6" so I can saunter
+ through without having to bend.
+    Exits :-  west or east.
+
+> e
+> e
+.....I'm here at the end of the tunnel, or is it the begining? Oh well
+I'm here anyway. It's just as dark and dank as the other end, and
+just as musty.  The hard and rocky soil must run the entire length
+of the tunnel, at least I think so?. The way to the east is blocked
+with planks all boarded up horizontally across the mouth.
+    Exits :-  west.
+
+> kick planks
+> kick planks
+.....Ouch that jarred my leg, but I have managed to kick out
+the planks. The east is clear, and the tunnel's a lot brighter.
+Exits :-  west or east.
+> e
+> e
+.....I've come to a crossroads, maybe in my life, who knows? However,
+the scenery in this place is awe inspiring and the creativity within one's
+reality must accept the choices that face us all. At each moment within
+our lives bring about choices for oneself. Never-the-less choices are for
+those whose bravery can have an adverse affect on future directions.
+
+    To the south stands a glass building.
+       There is an opening to the west.
+        To the east lies a wooden hut.
+        And a path heads northwards.
+
+> go east
+> go east
+.....Ok, so I'm standing here at the front of a wooden hut. It's
+slightly off the beaten track so I should envisage that not too
+many people visit this uninteresting place.The door to the hut
+is open leading the way clear to go in.
+    Exits:-  west.
+
+> go in hut
+> go in hut
+.....I'm in an archway to this building, in front of me is a
+sort of a walkway bridge made safe by railings on either
+side,leading to wall on the other side. To my left is some
+steps leading down. It is constructed of vertical boards
+all nicely sanded but not yet varnished.
+    Exits:-  out or walkway.
+
+> go out
+> go out
+.....Ok, so I'm standing here at the front of a wooden hut. It's
+slightly off the beaten track so I should envisage that not too
+many people visit this uninteresting place.The door to the hut
+is open leading the way clear to go in.
+    Exits:-  west.
+
+> go side of hut
+> go side of hut
+.....Well well! there's another wheel here connected to
+the side of the building just like at the back of the trellis
+in the courtyard.Mmmmm? Looking round I can see only
+forests and hillsides.
+    Exits :-  out.
+
+> turn wheel
+> turn wheel
+.....Ok.
+> go out
+> go out
+.....Ok, so I'm standing here at the front of a wooden hut. It's
+slightly off the beaten track so I should envisage that not too
+many people visit this uninteresting place.The door to the hut
+is open leading the way clear to go in.
+    Exits:-  west.
+
+> go in hut
+> go in hut
+.....I'm in an archway to this building, in front of me is a
+sort of a walkway bridge made safe by railings on either
+side,leading to wall on the other side. To my left is some
+steps leading down. It is constructed of vertical boards
+all nicely sanded but not yet varnished.
+    Exits:-  out or walkway.
+
+> go down the stairs
+> go down the stairs
+.....Ok I'll make my way down, gingerly.
+           (Press any Key)
+.....I'm at the bottom of the hut, it's pretty gloomy here.
+The floor swirls round into the centre creating a very
+shallow bowl of a sorts, and there is a small hole in the
+centre. I suppose it's how the water drains out.
+    Exits:-  up.
+
+> turn valve
+> turn valve
+.....Ok, that's done.
+> go up
+> go up
+.....I'm in an archway to this building, in front of me is a
+sort of a walkway bridge made safe by railings on either
+side,leading to wall on the other side. To my left is some
+steps leading down. It is constructed of vertical boards
+all nicely sanded but not yet varnished.
+    Exits:-  out or walkway.
+
+> go out
+> go out
+.....Ok, so I'm standing here at the front of a wooden hut. It's
+slightly off the beaten track so I should envisage that not too
+many people visit this uninteresting place.The door to the hut
+is open leading the way clear to go in.
+    Exits:-  west.
+
+> go side of hut
+> go side of hut
+.....Well well! there's another wheel here connected to
+the side of the building just like at the back of the trellis
+in the courtyard.Mmmmm? Looking round I can see only
+forests and hillsides.
+    Exits :-  out.
+
+> turn wheel
+> turn wheel
+.....Ok.
+> go out
+> go out
+.....Ok, so I'm standing here at the front of a wooden hut. It's
+slightly off the beaten track so I should envisage that not too
+many people visit this uninteresting place.The door to the hut
+is open leading the way clear to go in.
+    Exits:-  west.
+
+> go in hut
+> go in hut
+.....I'm in an archway to this building, in front of me is a
+sort of a walkway bridge made safe by railings on either
+side,leading to wall on the other side. To my left is some
+steps leading down. It is constructed of vertical boards
+all nicely sanded but not yet varnished.
+    Exits:-  out or walkway.
+
+> go walkway
+> go walkway
+.....I am here at the end of the walkway. Oooh! It's a long way
+back across there, and a long way down, as well I see. It is a
+good thing the rail is solid. Hello there's a long chain here firmly
+attached to the wall. And on the end of the long chain is a key.
+      Exits:- back
+
+> look down
+> look down
+.....I see that the water is up to the top, and that the chest is
+floating by the hole in the railing. I should be able to reach it
+from here. Oh right! I see closing that tap stopped the water
+flowing back into the chest sealing it off and making it float.
+> get key
+> get key
+.....Ok I'm holding the key attached to the chain.
+> unlock chest
+> unlock chest
+..........Ok, I've manage to unlock the chest.
+> open chest
+> open chest
+.....OK!
+> look in chest
+> look in chest
+.....I've found something?
+(Visible Items) :- a Ticket.
+> get ticket
+> get ticket
+.....Ok.
+> go walkway
+> go walkway
+.....Hang on I'll have to put the key down first,
+it won't just stretch as far as the entrance.
+           (Press any Key)
+.....I'm in an archway to this building, in front of me is a
+sort of a walkway bridge made safe by railings on either
+side,leading to wall on the other side. To my left is some
+steps leading down. It is constructed of vertical boards
+all nicely sanded but not yet varnished.
+    Exits:-  out or walkway.
+
+> go out
+> go out
+.....Ok, so I'm standing here at the front of a wooden hut. It's
+slightly off the beaten track so I should envisage that not too
+many people visit this uninteresting place.The door to the hut
+is open leading the way clear to go in.
+    Exits:-  west.
+
+> w
+> w
+.....I've come to a crossroads, maybe in my life, who knows? However,
+the scenery in this place is awe inspiring and the creativity within one's
+reality must accept the choices that face us all. At each moment within
+our lives bring about choices for oneself. Never-the-less choices are for
+those whose bravery can have an adverse affect on future directions.
+
+    To the south stands a glass building.
+       There is an opening to the west.
+        To the east lies a wooden hut.
+        And a path heads northwards.
+
+> n
+> n
+.....I'm at the base of some stone steps that lead up a steep
+rocky crag to top of the hill. The steps look as though they
+have been hewn out of sand stone by primitive implements
+and as a consequence they are  fragile and dangerous.
+    Directions :-  north, south or up.
+
+> n
+> n
+.....I'm standing by some overgrown hedges. The brambles are
+extremely high, I just can't see over, or around them. They are
+really prickly,someone has not  trimmed them for a long time.
+    Directions :-  north or south.
+
+> n
+> n
+.....I'm outside of a cinema theatre, The frontage looks vibrant and
+grandiose to say the least. An entrance beckons and tantalizes the
+passsing crowds and the imagination of the people who seek flights
+of fancy in fictional realms. Bright lights chase each other around the
+tall signs illuminating the titles of the films now showing.
+    Directions :-  north, south or in.
+
+> in
+> in
+.....I am in the foyer of a small plush cinema with a thick red floral carpet
+running throughout. It smells of roses, and the scent is divine, it reminds
+me of my first date with my first boyfriend. And strangely, this place does
+look familiar. There are some stairs leading up on both sides in a sleepy
+meandering fashion, no doubt to coalesce on the next floor. Seats, hug
+the walls here and there, allowing some rest, for those who are awaiting
+to enter the main cinema. Ahead is a counter filled with, by the looks of
+it, various goodies.
+    Exits :-  out.
+
+> go kiosk
+> go kiosk
+.....I'm at the front of the counter, there are various machines
+here on the top, vending cold drinks and dispensing hotdogs.
+Residing inside the kiosk lies hot popcorn waiting for people
+to partake of it's culinary temptation. A lady has just appeared
+and is waiting to serve me, no doubt?
+    Exits :-  Foyer.
+
+> speak to lady
+> speak to lady
+
+.....Hello, says the lady with a warm smile, behind the counter ,
+      we've been waiting patiently for you a long time, angel,
+      She takes my gold ticket, ripped it in half and gave me
+      half of the ticket back. We are so pleased that you've
+      managed to get here for the showing. I know it's been
+      a struggle for you, but you've shown the strength and
+      courage to make it this far, she says, so this is for you
+      to understand a little more. Please follow me!
+         As the lady walked into the cinema she
+         beckoned for me to follow her.
+           (Press any Key)
+.....I'm in a small empty cinema, capacity about fifty seats, arranged in
+a five rows of ten seats per row configuration. Low yellow lights adorn
+the sides of the two walls, throwing a warm yellow glow along the floor
+of the two side aisles, allowing people to walk down to the front easily.
+The screen covers the entire front wall. The lady has disappeared?.
+    Exits :-  out.
+
+> sit down
+> sit down
+.....I think this should be interesting, wonder what film it will
+be? The lights are dimming and the curtains are opening.
+            Yawn! Mmmm.
+          (Press any Key)
+The yellow lamps hang high, on both sides of the wall. The only light  in this god forsaken
+alleyway as my heart pounds deep in my chest and lungs gasp for every precious breath
+that I force into my pain racked body. Legs aching, muscles burning,windows fly by as
+I dash along the narrow passage, with my gun held at arms stretch. However I'm not
+running away from anything or anyone, but quite the opposite. As footsteps resound
+throughout the souless night, in the passageway I recall chasing someone firing
+my gun into the crisp night air. and shouting "Stop or I will fire". Then without
+warning a shot echoes through my mind, and a searing white hot pain
+manifests itself in my right side. I hit the floor with a bone shattering
+crunch as my forehead bounced off the hard concrete, and
+oblivion took hold and peace overwhelmed my faculties.
+
+(Press any Key)
+
+I am suddenly wrenched violently from the alleyway as I sit upright on the cinema
+seat. My heart is racing my breath is rapid and I'm shaking like a leaf. Wiping the
+sweat away from my forehead with a quivering hand. I instinctively reach for the
+pain that was my side only to realise it's no longer present. "God! That was a
+hell of a nightmare" I thought "It seemed so real" I told myself. Then why
+did it feel so familiar to me. Although now the dream is fading fast.
+
+(Press any Key)
+
+.....I'm in a small empty cinema, capacity about fifty seats, arranged in
+a five rows of ten seats per row configuration. Low yellow lights adorn
+the sides of the two walls, throwing a warm yellow glow along the floor
+of the two side aisles, allowing people to walk down to the front easily.
+The screen covers the entire front wall. The lady has disappeared?.
+.....God I feel shaken up at the moment, don't want another like
+that! Didn't even realise that I had fallen asleep. Now what? Oh
+the cinema lights are on and it's everywhere is empty.
+    Exits :-  out.
+
+> stand up
+> stand up
+.....Ok!
+> go out
+> go out
+.....I'm at the front of the counter, there are various machines
+here on the top, vending cold drinks and dispensing hotdogs.
+Residing inside the kiosk lies hot popcorn waiting for people
+to partake of it's culinary temptation. The counter at this time
+is empty and no one is around
+    Exits :-  Foyer.
+
+> go foyer
+> go foyer
+.....I am in the foyer of a small plush cinema with a thick red floral carpet
+running throughout. It smells of roses, and the scent is divine, it reminds
+me of my first date with my first boyfriend. And strangely, this place does
+look familiar. There are some stairs leading up on both sides in a sleepy
+meandering fashion, no doubt to coalesce on the next floor. Seats, hug
+the walls here and there, allowing some rest, for those who are awaiting
+to enter the main cinema. Ahead is a counter filled with, by the looks of
+it, various goodies.
+    Exits :-  out.
+
+> out
+> out
+.....I'm outside of a cinema theatre, The frontage looks vibrant and
+grandiose to say the least. An entrance beckons and tantalizes the
+passsing crowds and the imagination of the people who seek flights
+of fancy in fictional realms. Bright lights chase each other around the
+tall signs illuminating the titles of the films now showing.
+    Directions :-  north, south or in.
+
+> s
+> s
+.....I'm standing by some overgrown hedges. The brambles are
+extremely high, I just can't see over, or around them. They are
+really prickly,someone has not  trimmed them for a long time.
+    Directions :-  north or south.
+
+> s
+> s
+.....I'm at the base of some stone steps that lead up a steep
+rocky crag to top of the hill. The steps look as though they
+have been hewn out of sand stone by primitive implements
+and as a consequence they are  fragile and dangerous.
+    Directions :-  north, south or up.
+
+> s
+> s
+.....I've come to a crossroads, maybe in my life, who knows? However,
+the scenery in this place is awe inspiring and the creativity within one's
+reality must accept the choices that face us all. At each moment within
+our lives bring about choices for oneself. Never-the-less choices are for
+those whose bravery can have an adverse affect on future directions.
+
+    To the south stands a glass building.
+       There is an opening to the west.
+        To the east lies a wooden hut.
+        And a path heads northwards.
+
+> s
+> s
+.....I'm in an terraced entrance to the courtyard, enclosed in by metre
+high brick walls on either side capped off with green potted plants to
+warmly welcome the visitors as they pass through the approach into
+the garden. An overhead canopy secures shelter to the porch. There
+is a push button fixed on the side of the building.
+    Exits :-  south or north.
+
+> push button
+> push button
+.....Oh great, the glass panel has slid across into a recessed wall
+at the side of me and has give me access to the courtyard again.
+Now that, that is done I will be able to walk around more freely.
+> s
+> s
+...At the centre of the circular courtyard boasts a magnificent round fountain.
+With a statue of three dolphins leaping  from the water with their tails back to
+back. Rising from it's centre is a  fluted tapering column spewing out water in
+a mushroom formation over the backs of the dolphins. Around the perimeter,
+tall columns stretch majestically upwards, holding aloft a protective glass dome.
+Roses playfully trail in and around the columns supported by an ornate trellis.
+All showing off the grandeur of this garden.
+    Exits:-  east, west or north.
+
+> w
+> w
+....I'm standing in a glass attrium besides a plinth showing a floor
+map of this place. It really is an astonishing sight, I do not know
+where to begin. I've never seen it's like before. You know what
+they say people who live in glass houses shouldn't throw stones.
+    Exits :-  east.
+
+> go lift
+> go lift
+....I am standing here at the lift on the bottom floor I see that at
+the side of the door is a panel with two round buttons encased
+into it's membranic structure. One button is labelled Ground, the
+other labelled Top. There are some stairs close by.
+    Views :-  Statue, Stairs, Mirror or Entrance.
+
+> go stairs
+> go stairs
+I'm standing at the base of some stairs that lead up to a higher
+level. The spiral stairs lend an anticlockwise feel to this attrium.
+It almost seems as though the stairs are leaning over slightly. I
+know that they're not, but it feels that way. There's a lift nearby.
+    Views:-  Lift, Entrance or up.
+
+> up
+> up
+.....I'm at the top of the stairs. There is a lift close by. Next to that I
+see a vending machine. Hello, there is an office here and the door
+is open.
+    Exits :-  Downstairs, Office or Booth.
+
+> go office
+> go office
+.....I am in a clean white office,there is a man here sitting in a chair
+leaning over his desk, he is engrossed in the work he has at hand.
+He has not noticed me, yet. Looking round, I see it is comfortably
+furnished with shelves neatly stacked with files and folders. Homely
+adorned with various plants in several places. A coffee machine in
+the corner is bubbling sedately giving off a wonderful aroma of,,, if I
+remember correctly, the same blend of beans my mother used to
+brew. God, the smell of it all takes me way, way back.
+    Exits:-  out.
+
+> look desk
+> look desk
+.......It's a sumptuous highly varnished oak veneered desk, with
+several writing implements scattered over its glossy surface. Oh
+hello what's this then.
+Found a  Pencil.
+> get pencil
+> get pencil
+.....OK.
+.....The man seems a little agitated!
+> out
+> out
+.....I'm at the top of the stairs. There is a lift close by. Next to that I
+see a vending machine. Hello, there is an office here and the door
+is open.
+    Exits :-  Downstairs, Office or Booth.
+
+> go booth
+> go booth
+.....I'm standing by what I thought was a vending machine,
+But it's fortune telling booth. He, he, not much difference is
+there? But I've got to say, it's in a fabulous condition for an
+antique cabinet. Mmmm wonder if it works?
+    Exits :-  Office, Stairs or Lift.
+
+> go ladder
+> go ladder
+.....I'm at the foot of a vertical metal ladder leading upwards.
+The ladder is constructed of metal rungs each fixed about a
+foot apart in between two upright metal rails.
+    Exits:-  Booth or up.
+
+> look rung
+> look rung
+.....Looking closely I see that there is a loose rung here.
+> look loose rung
+> look loose rung
+.....This bottom rung is pretty loose, I should
+be able to get hold of this.
+> get rung
+> get rung
+
+.....Phew! That was not that loose but I've got it now.
+> d
+> d
+.....Can't go there!
+> out
+> out
+.....Can't go there!
+> go booth
+> go booth
+.....I'm standing by what I thought was a vending machine,
+But it's fortune telling booth. He, he, not much difference is
+there? But I've got to say, it's in a fabulous condition for an
+antique cabinet. Mmmm wonder if it works?
+    Exits :-  Office, Stairs or Lift.
+
+> go stairs
+> go stairs
+.....I'm at the top of the stairs. There is a lift close by. Next to that I
+see a vending machine. Hello, there is an office here and the door
+is open.
+    Exits :-  Downstairs, Office or Booth.
+
+> go downstairs
+> go downstairs
+I'm standing at the base of some stairs that lead up to a higher
+level. The spiral stairs lend an anticlockwise feel to this attrium.
+It almost seems as though the stairs are leaning over slightly. I
+know that they're not, but it feels that way. There's a lift nearby.
+    Views:-  Lift, Entrance or up.
+
+> go entrance
+> go entrance
+....I'm standing in a glass attrium besides a plinth showing a floor
+map of this place. It really is an astonishing sight, I do not know
+where to begin. I've never seen it's like before. You know what
+they say people who live in glass houses shouldn't throw stones.
+    Exits :-  east.
+
+> e
+> e
+...At the centre of the circular courtyard boasts a magnificent round fountain.
+With a statue of three dolphins leaping  from the water with their tails back to
+back. Rising from it's centre is a  fluted tapering column spewing out water in
+a mushroom formation over the backs of the dolphins. Around the perimeter,
+tall columns stretch majestically upwards, holding aloft a protective glass dome.
+Roses playfully trail in and around the columns supported by an ornate trellis.
+All showing off the grandeur of this garden.
+    Exits:-  east, west or north.
+
+> n
+> n
+.....I'm in an terraced entrance to the courtyard, enclosed in by metre
+high brick walls on either side capped off with green potted plants to
+warmly welcome the visitors as they pass through the approach into
+the garden. An overhead canopy secures shelter to the porch. There
+is a push button fixed on the side of the building.
+    Exits :-  south or north.
+
+> n
+> n
+.....I've come to a crossroads, maybe in my life, who knows? However,
+the scenery in this place is awe inspiring and the creativity within one's
+reality must accept the choices that face us all. At each moment within
+our lives bring about choices for oneself. Never-the-less choices are for
+those whose bravery can have an adverse affect on future directions.
+
+    To the south stands a glass building.
+       There is an opening to the west.
+        To the east lies a wooden hut.
+        And a path heads northwards.
+
+> n
+> n
+.....I'm at the base of some stone steps that lead up a steep
+rocky crag to top of the hill. The steps look as though they
+have been hewn out of sand stone by primitive implements
+and as a consequence they are  fragile and dangerous.
+    Directions :-  north, south or up.
+
+> n
+> n
+.....I'm standing by some overgrown hedges. The brambles are
+extremely high, I just can't see over, or around them. They are
+really prickly,someone has not  trimmed them for a long time.
+    Directions :-  north or south.
+
+> n
+> n
+.....I'm outside of a cinema theatre, The frontage looks vibrant and
+grandiose to say the least. An entrance beckons and tantalizes the
+passsing crowds and the imagination of the people who seek flights
+of fancy in fictional realms. Bright lights chase each other around the
+tall signs illuminating the titles of the films now showing.
+    Directions :-  north, south or in.
+
+> n
+> n
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+    Directions :-  south or north.
+
+> n
+> n
+.....I'm standing outside of a tall wooden silo. It's about thirty
+metres in height and around five metres wide. It's all painted
+black and the colour is degraded and flaking.
+    Exits :-  south or north.
+
+> n
+> n
+.....I'm standing outside a blacksmiths shop. This building is very
+large and the roof joins together at the front into a point. Under
+the front apex is a window type opening and the wooden sides
+have been painted black. The two barn doors are wide open.
+    Directions :-  north, in or south.
+
+> n
+> n
+.....I'm in a small cemetery, there are several rows of graves
+that span out in various directions. A tall spiked black railing
+circumnavigates the ominous graveyard. Keeping vandals out
+and who knows what else in! It's a bright sunny day so I dare
+say that, that's a plus, it could have been in the dead of night.
+    Exits :-  south.
+
+> look headstone
+> look headstone
+
+                        What the bloody hell!
+           (Press any Key)
+
+.....There are loads of headstones here, but on the
+one at the open grave is a picture of me, along with
+different death dates carved into the headstone.
+
+                  Here lies Jayne Smith
+                       In peace at last.
+                  Born 1982 - Died 2013
+                  Born 1982 - Died 2032
+                  Born 1982 - Died 2049
+                  Born 1982 - Died 2053
+                   Memories linger but
+                     journeys continue
+
+.....What the bloody hell is happening here? That's looks like my face
+on that headstone. But then surely, that means that I am Jayne Smith.
+However that doesn't tell me what the hell's going on, or why the four
+different dates for dying. This is insanity, I can't be dead because I'm
+standing here looking at the tombstone. Nothing is making sense at all.
+Why can't I remember who the hell I am? This is someone's perverted
+frigging joke the bastard! That can't be me, I mean if that is so it should
+have brought a memory back, shouldn't it? And to top it all the grave's
+empty.
+> look grave
+> look grave
+.....There's a fresh grave here accompanied by a small headstone
+prepared and ready for some occupant's final resting place.
+.....It must have been excavated recently, because there's a spade
+still here thrust upright into the soft soil up to the top of the blade.
+> get spade
+> get spade
+.....OK.
+> s
+> s
+.....I'm standing outside a blacksmiths shop. This building is very
+large and the roof joins together at the front into a point. Under
+the front apex is a window type opening and the wooden sides
+have been painted black. The two barn doors are wide open.
+    Directions :-  north, in or south.
+
+> drop cloth
+> drop cloth
+.....Ok!
+> drop torn ticket
+> drop torn ticket
+.....Ok!
+> in
+> in
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels bleak and damp and the
+forge has not been used in some time. Damp straw is strewn across the
+floor and the stall.
+    Exits :-  out.
+        (Visible Items) :- a Empty Bucket.
+> look bricks
+> look bricks
+.....Although all the house bricks have been
+cemented together, There's one that is loose.
+> get brick
+> get brick
+.....Ok.
+> out
+> out
+.....I'm standing outside a blacksmiths shop. This building is very
+large and the roof joins together at the front into a point. Under
+the front apex is a window type opening and the wooden sides
+have been painted black. The two barn doors are wide open.
+    Directions :-  north, in or south.
+        (Visible Items) :- a Cloth and a Torn Ticket.
+> s
+> s
+.....I'm standing outside of a tall wooden silo. It's about thirty
+metres in height and around five metres wide. It's all painted
+black and the colour is degraded and flaking.
+    Exits :-  south or north.
+
+> s
+> s
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+    Directions :-  south or north.
+
+> kick in glass
+> kick in glass
+.....Ok, I'll try that. Here goes.
+           (Press any Key)
+                Done that and moved the broken glass out of the way!
+> crawl in store
+> crawl in store
+.....Ok so I've broken into this hardware store, and I'm
+standing by the counter, it's a good thing that no-one
+is here to impede my actions.
+    Exits :-  out.
+        (Visible Items) :- some Shears.
+> drop pencil
+> drop pencil
+.....Ok!
+> drop spade
+> drop spade
+.....Ok!
+> smash counter
+> smash counter
+.....Ok, in one word or less. What with?
+> brick
+          Ok i've hit the glass counter with the brick and
+          the force has shattered the glass everywhere.
+> get hammer
+> get hammer
+.....Ok!
+> go aisle
+> go aisle
+.....I'm in an aisle, on both sides of me are various shelves
+concealing all sorts of trinkets, from the odd screws and
+bolts, right up to gardening equipment. At the end here
+is a selection of brooms.
+    Exits :-  out.
+        (Visible Items) :- a few Nails.
+> get nails
+> get nails
+.....OK.
+> look shelf
+> look shelf
+.....There are rows of shelving here on either side,
+all containing varied items from small objects right
+through to larger items.
+.....Found a  Glove.
+> get glove
+> get glove
+.....OK.
+> wear glove
+> wear glove
+.....Ok, I'll wear it.
+> drop nails
+> drop nails
+.....Ok!
+> out
+> out
+.....Ok so I've broken into this hardware store, and I'm
+standing by the counter, it's a good thing that no-one
+is here to impede my actions.
+    Exits :-  out.
+        (Visible Items) :- some Shears, Pencil and a Spade.
+> out
+> out
+.....I'll just crawl out again
+           (Press any Key)
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+    Directions :-  south or north.
+
+> n
+> n
+.....I'm standing outside of a tall wooden silo. It's about thirty
+metres in height and around five metres wide. It's all painted
+black and the colour is degraded and flaking.
+    Exits :-  south or north.
+
+> n
+> n
+.....I'm standing outside a blacksmiths shop. This building is very
+large and the roof joins together at the front into a point. Under
+the front apex is a window type opening and the wooden sides
+have been painted black. The two barn doors are wide open.
+    Directions :-  north, in or south.
+        (Visible Items) :- a Cloth and a Torn Ticket.
+> in
+> in
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels bleak and damp and the
+forge has not been used in some time. Damp straw is strewn across the
+floor and the stall.
+    Exits :-  out.
+        (Visible Items) :- a Empty Bucket.
+> get bucket
+> get bucket
+.....OK.
+> out
+> out
+.....I'm standing outside a blacksmiths shop. This building is very
+large and the roof joins together at the front into a point. Under
+the front apex is a window type opening and the wooden sides
+have been painted black. The two barn doors are wide open.
+    Directions :-  north, in or south.
+        (Visible Items) :- a Cloth and a Torn Ticket.
+> s
+> s
+.....I'm standing outside of a tall wooden silo. It's about thirty
+metres in height and around five metres wide. It's all painted
+black and the colour is degraded and flaking.
+    Exits :-  south or north.
+
+> s
+> s
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+    Directions :-  south or north.
+
+> s
+> s
+.....I'm outside of a cinema theatre, The frontage looks vibrant and
+grandiose to say the least. An entrance beckons and tantalizes the
+passsing crowds and the imagination of the people who seek flights
+of fancy in fictional realms. Bright lights chase each other around the
+tall signs illuminating the titles of the films now showing.
+    Directions :-  north, south or in.
+
+> s
+> s
+.....I'm standing by some overgrown hedges. The brambles are
+extremely high, I just can't see over, or around them. They are
+really prickly,someone has not  trimmed them for a long time.
+    Directions :-  north or south.
+
+> s
+> s
+.....I'm at the base of some stone steps that lead up a steep
+rocky crag to top of the hill. The steps look as though they
+have been hewn out of sand stone by primitive implements
+and as a consequence they are  fragile and dangerous.
+    Directions :-  north, south or up.
+
+> s
+> s
+.....I've come to a crossroads, maybe in my life, who knows? However,
+the scenery in this place is awe inspiring and the creativity within one's
+reality must accept the choices that face us all. At each moment within
+our lives bring about choices for oneself. Never-the-less choices are for
+those whose bravery can have an adverse affect on future directions.
+
+    To the south stands a glass building.
+       There is an opening to the west.
+        To the east lies a wooden hut.
+        And a path heads northwards.
+
+> e
+> e
+.....Ok, so I'm standing here at the front of a wooden hut. It's
+slightly off the beaten track so I should envisage that not too
+many people visit this uninteresting place.The door to the hut
+is open leading the way clear to go in.
+    Exits:-  west.
+
+> go in hut
+> go in hut
+.....I'm in an archway to this building, in front of me is a
+sort of a walkway bridge made safe by railings on either
+side,leading to wall on the other side. To my left is some
+steps leading down. It is constructed of vertical boards
+all nicely sanded but not yet varnished.
+    Exits:-  out or walkway.
+
+> fill bucket
+> fill bucket
+.....I'll fill the bucket up. I just hope I haven't got to carry
+this around too much. Just give me a minute and I'll put
+this bucket outside. I do not want this getting in the way
+of anything.
+           (Press any Key)
+        Ok, I'm back, now what?
+> go out
+> go out
+.....Ok, so I'm standing here at the front of a wooden hut. It's
+slightly off the beaten track so I should envisage that not too
+many people visit this uninteresting place.The door to the hut
+is open leading the way clear to go in.
+    Exits:-  west.
+        (Visible Items) :- a Full bucket of water.
+> get bucket
+> get bucket
+.....OK.
+> w
+> w
+.....I've come to a crossroads, maybe in my life, who knows? However,
+the scenery in this place is awe inspiring and the creativity within one's
+reality must accept the choices that face us all. At each moment within
+our lives bring about choices for oneself. Never-the-less choices are for
+those whose bravery can have an adverse affect on future directions.
+
+    To the south stands a glass building.
+       There is an opening to the west.
+        To the east lies a wooden hut.
+        And a path heads northwards.
+
+> n
+> n
+.....I'm at the base of some stone steps that lead up a steep
+rocky crag to top of the hill. The steps look as though they
+have been hewn out of sand stone by primitive implements
+and as a consequence they are  fragile and dangerous.
+    Directions :-  north, south or up.
+
+> n
+> n
+.....I'm standing by some overgrown hedges. The brambles are
+extremely high, I just can't see over, or around them. They are
+really prickly,someone has not  trimmed them for a long time.
+    Directions :-  north or south.
+
+> n
+> n
+.....I'm outside of a cinema theatre, The frontage looks vibrant and
+grandiose to say the least. An entrance beckons and tantalizes the
+passsing crowds and the imagination of the people who seek flights
+of fancy in fictional realms. Bright lights chase each other around the
+tall signs illuminating the titles of the films now showing.
+    Directions :-  north, south or in.
+
+> n
+> n
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+    Directions :-  south or north.
+
+> n
+> n
+.....I'm standing outside of a tall wooden silo. It's about thirty
+metres in height and around five metres wide. It's all painted
+black and the colour is degraded and flaking.
+    Exits :-  south or north.
+
+> n
+> n
+.....I'm standing outside a blacksmiths shop. This building is very
+large and the roof joins together at the front into a point. Under
+the front apex is a window type opening and the wooden sides
+have been painted black. The two barn doors are wide open.
+    Directions :-  north, in or south.
+        (Visible Items) :- a Cloth and a Torn Ticket.
+> in
+> in
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels bleak and damp and the
+forge has not been used in some time. Damp straw is strewn across the
+floor and the stall.
+
+.....There, I'd better put the full bucket of water
+down on the floor, before I start anything in here.
+    Exits :-  out.
+        (Visible Items) :- a Full bucket of water.
+> light forge
+> light forge
+.....Ok, now I can light the forge, and shape the rung.
+I'll gather some straw together and put it in the coals.
+           (Press any Key)
+                There now I've done that and the coal is catching fire.
+                But I still need to bring the forge up to a hot temperature.
+> pump bellows
+> pump bellows
+.....The forge is just warm at the moment.
+> pump bellows
+> pump bellows
+.....Pumping the bellows again has forced more air into the
+forge and it is now hotter, but not quite hot enough yet!
+> pump bellows
+> pump bellows
+.....That's great the forge is at the correct temperature and
+the glowing coal and the roaring flames are giving off a lot
+of heat. Now all I need is some metal too re-shape?
+> place rung in forge
+> place rung in forge
+.....Ok, I'll do that.
+> look
+> look
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels warm and inviting now the
+forge is lit.
+    Exits :-  out.
+        (Visible Items) :- a Full bucket of water and a (Rung in the forge).
+> look
+> look
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels warm and inviting now the
+forge is lit.
+    Exits :-  out.
+        (Visible Items) :- a Full bucket of water and a (Rung in the forge).
+> look
+> look
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels warm and inviting now the
+forge is lit.
+    Exits :-  out.
+        (Visible Items) :- a Full bucket of water and a (Rung in the forge).
+> look
+> look
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels warm and inviting now the
+forge is lit.
+    Exits :-  out.
+        (Visible Items) :- a Full bucket of water and a (Rung in the forge).
+> look
+> look
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels warm and inviting now the
+forge is lit.
+    Exits :-  out.
+        (Visible Items) :- a Full bucket of water and a (Rung in the forge).
+> look
+> look
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels warm and inviting now the
+forge is lit.
+    Exits :-  out.
+        (Visible Items) :- a Full bucket of water and a (Rung in the forge).
+> look
+> look
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels warm and inviting now the
+forge is lit.
+    Exits :-  out.
+        (Visible Items) :- a Full bucket of water and a (Rung in the forge).
+            The metal rung is at the right temperature.
+> look
+> look
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels warm and inviting now the
+forge is lit.
+    Exits :-  out.
+        (Visible Items) :- a Full bucket of water and a (Rung in the forge).
+> look
+> look
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. An old rusted anvil sits in residence, which has not been
+used in a long while. All around the shop feels warm and inviting now the
+forge is lit.
+    Exits :-  out.
+        (Visible Items) :- a Full bucket of water and a (Rung in the forge).
+> get rung
+> get rung
+.....Ok it's ready now for shaping on the anvil
+            Please press a key
+
+I've laid the rung on the flat of the anvil and I am holding it with some tongs I found
+at the side. (What's the matter with the horse, it's rearing up on it's front legs and
+neighing?) Hammering the steel is gradually flattening the rung out. (The horse
+is getting worse). I must keep the measurements correct and keep constantly
+turning it to form a keystone for that slot by the cogwheel. Whew! There
+that's done, I must say it doesn't look too bad at all. Now then I'll
+douse flame in the forge to keep it safe.
+
+Press a Key
+
+Oh great, now the bloody horse has bolted out of the stable and
+out of the blacksmiths shop. I think that the heat of the forge
+and the noise of the hammering on the anvil to create the
+keystone has frightened him off. Good riddance I say.
+
+Press a Key
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. All the shop feels cold and damp again now and the forge
+is not lit. Straw is strewn across the floor and the stable is empty. Where
+the hell have most of the tools gone.
+    Exits :-  out.
+        (Visible Items) :- a Key stone.
+> get key stone
+> get key stone
+.....OK.
+> go stall
+> go stall
+.....I'm in a stable it measures about 10ft by 4ft. The large
+horse has bolted from here, I think that the heat from the
+forge and the noise of the hammering from working on the
+anvil has frightened off the horse. So now it's empty.
+    Exits :-  out.
+        (Visible Items) :- an Iron Bar.
+> get iron bar
+> get iron bar
+.....OK.
+> out
+> out
+.....I'm in a blacksmiths shop with bellows connected to a forge situated
+against a wall. All the shop feels cold and damp again now and the forge
+is not lit. Straw is strewn across the floor and the stable is empty. Where
+the hell have most of the tools gone.
+    Exits :-  out.
+
+> out
+> out
+.....I'm standing outside a blacksmiths shop. This building is very
+large and the roof joins together at the front into a point. Under
+the front apex is a window type opening and the wooden sides
+have been painted black. The two barn doors are wide open.
+    Directions :-  north, in or south.
+        (Visible Items) :- a Cloth and a Torn Ticket.
+> s
+> s
+.....I'm standing outside of a tall wooden silo. It's about thirty
+metres in height and around five metres wide. It's all painted
+black and the colour is degraded and flaking.
+    Exits :-  south or north.
+
+> s
+> s
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+    Directions :-  south or north.
+
+> crawl in store
+> crawl in store
+.....Ok so I've broken into this hardware store, and I'm
+standing by the counter, it's a good thing that no-one
+is here to impede my actions.
+    Exits :-  out.
+        (Visible Items) :- some Shears, Pencil and a Spade.
+> get shears
+> get shears
+.....Ok.
+> out
+> out
+.....I'll just crawl out again
+           (Press any Key)
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+    Directions :-  south or north.
+
+> s
+> s
+.....I'm outside of a cinema theatre, The frontage looks vibrant and
+grandiose to say the least. An entrance beckons and tantalizes the
+passsing crowds and the imagination of the people who seek flights
+of fancy in fictional realms. Bright lights chase each other around the
+tall signs illuminating the titles of the films now showing.
+    Directions :-  north, south or in.
+
+> s
+> s
+.....I'm standing by some overgrown hedges. The brambles are
+extremely high, I just can't see over, or around them. They are
+really prickly,someone has not  trimmed them for a long time.
+    Directions :-  north or south.
+
+> cut hedge
+> cut hedge
+
+                    A woman's work is never done hey,
+                 ok let's see what it looks like trimmed.
+           (Press any Key)
+                                        Well I never!
+     Well there is one thing for certain, I don't think I'll need
+the sheers now will I? So I'll just drop them here for now. If
+    I do need them later, I can always come back for them
+                      further on down the line, can't I?
+(Visible Items) :- some Shears.
+> go behind hedge
+> go behind hedge
+..... From the top of the waterfall the steep hillside falls away as the
+water cascades in a thunderous roar down over the craggy rocks,
+tumbling and careening as it descends and plunges into a vast pool
+below. The torrential deluge churns the water into a frenzied chaotic
+explosion of mists and sprays, blanketing most of the surrounding area.
+Observing from this distance creates a peaceful coexistance as the
+now gentle tongues of the ripples lap along the edge of the lagoon.
+    Exits :-  Front of Hedge.
+
+> go front of hedge
+> go front of hedge
+.....I'm standing by some extremely prickly hedges which have been
+sheared and looks very tidy now that someone (ahem) yours truly has
+taken the care and time to cut them back and shape them. Good job
+I did too, because it has revealed a path going behind the hedge.
+Good idea of yours though, I must admit.
+    Directions :-  north or south.
+        (Visible Items) :- some Shears.
+> n
+> n
+.....I'm outside of a cinema theatre, The frontage looks vibrant and
+grandiose to say the least. An entrance beckons and tantalizes the
+passsing crowds and the imagination of the people who seek flights
+of fancy in fictional realms. Bright lights chase each other around the
+tall signs illuminating the titles of the films now showing.
+    Directions :-  north, south or in.
+
+> n
+> n
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+    Directions :-  south or north.
+
+> n
+> n
+.....I'm standing outside of a tall wooden silo. It's about thirty
+metres in height and around five metres wide. It's all painted
+black and the colour is degraded and flaking.
+    Exits :-  south or north.
+
+> open door
+> open door
+.....Ok the door is opening.
+Exits :-  south, north or east.
+> e
+> e
+.....Bloody hell! This is totally different to what I expected, there is no grain
+here but a configuration completely alien to the usual interior of any other
+silo. In fact I'm standing in the centre of what looks like the hub of a wheel,
+with hallways leading off in all eight directions. Although well lit it makes me
+a little apprehensive about this eerie place.
+    Exits :-  north, northwest, west, southwest,
+            east, northeast, south or southeast.
+
+> se
+> se
+.....I'm standing in a part of a hallway of some sorts in front
+of a gilt edged mirror, albeit on a smaller rate to the one in
+my bedroom, but none-the-less beautiful.
+    Exits :-  north, south or northwest.
+
+> go mirror
+> go mirror
+
+.....I know you're crazy,
+          but it does feel like I
+                could just step into it.
+                        Press any Key
+I'm standing in the kitchen where I used to live with my mom. My dog's lying at the end of the
+kitchen fast asleep again, of that I don't doubt. It's great to be here, but how is it possible?
+I've just tried to hug my mom but I've gone right through her, I can't touch her at all. And
+the more I try calling to her the more I'm getting upset. Even Honey hasn't seen or
+heard me. I'm begining to feel that I'm the one who's dead, not the other way
+around. But I know that I'm definitely not so what the hell is going on.
+The kitchen is getting misty and has began to spin, it's making me giddy.
+
+Press any Key
+
+.....I'm standing in a part of a hallway of some sorts in front
+of a gilt edged mirror, albeit on a smaller rate to the one in
+my bedroom, but none-the-less beautiful.
+..... I've just stepped back out of the mirror and my dog, Honey
+came through with me. Although it's fantastic to see her again
+this shouldn't be happening, she passed on a couple of years
+ago. Walking in and out of mirrors is just not physically possible.
+I know that I'm not dreaming, so what the hell is going on?
+    Exits :-  north, south or northwest.
+
+> nw
+> nw
+.....I'm standing in the centre of what is similar to the hub of a wheel,
+with hallways leading off in all of the eight directions. Although well
+lit it makes me a little apprehensive about this eerie place.
+    Exits :-  north, northwest, west, southwest,
+            east, northeast, south or southeast.
+
+> w
+> w
+.....I'm standing outside of a tall wooden silo. It's about thirty
+metres in height and around five metres wide. It's all painted
+black and the colour is degraded and flaking.
+
+.....How wonderful, Honey has followed me out here.
+    Exits :-  south, north or east.
+
+> s
+> s
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+
+.....Honey has followed me here.
+    Directions :-  south or north.
+
+> s
+> s
+.....I'm outside of a cinema theatre, The frontage looks vibrant and
+grandiose to say the least. An entrance beckons and tantalizes the
+passsing crowds and the imagination of the people who seek flights
+of fancy in fictional realms. Bright lights chase each other around the
+tall signs illuminating the titles of the films now showing.
+
+.....Honey has followed me here. Oh hang on where's she
+gone to. She's run off, she used to do that now and again.
+Well that's ok.
+    Directions :-  north, south or in.
+
+> s
+> s
+.....I'm standing by some extremely prickly hedges which have been
+sheared and looks very tidy now that someone (ahem) yours truly has
+taken the care and time to cut them back and shape them. Good job
+I did too, because it has revealed a path going behind the hedge.
+Good idea of yours though, I must admit.
+
+.....Oh there she is, she's digging a hole by the side of the
+hedge. I suppose she's looking for bones again, oh well!
+           Press any Key
+    Directions :-  north or south.
+        (Visible Items) :- some Shears.
+.....Honey's looking at me wagging her tail. I know she's found
+something, she always does. But now what's going on? She is
+starting to fade away, and I can see right through her. Honey's
+totally vanished. but I can hear a faint bark, and now it's gone.
+I feel so lonely and sad right now. What the hell is going on.
+> look hole
+> look hole
+.....Oh look, I've found something?
+        (Visible Items) :- some Shears and a Gold Dubloon.
+> get dubloon
+> get dubloon
+.....OK.
+> s
+> s
+.....I'm at the base of some stone steps that lead up a steep
+rocky crag to top of the hill. The steps look as though they
+have been hewn out of sand stone by primitive implements
+and as a consequence they are  fragile and dangerous.
+    Directions :-  north, south or up.
+
+> up
+> up
+.....Ok, so I'm at the top of the steps, that was a bit of a climb.
+The ground has levelled out a great deal to an open area of
+grassland and shrubbery.
+    Exits :-  down, east or west.
+
+> e
+> e
+.....Here at the top of the waterfall, there are boulders guarding the edge
+of a deep pool. Bushes adorn the surroundings with their heads bowed
+in humbleness drinking from the water's edge. It's a glorious day with the
+sun beating down on the water as its reflection sparkles off the surface.
+    Exits :-  west.
+
+> roll rock
+> roll rock
+.....I have managed to dislodge a large rock off of the mound
+and the downhill momentum has carreened it across the grass
+and crashed it into a concrete channel, blocking off the flow
+of water.
+> roll rock
+> roll rock
+.....I have managed to dislodge another large rock and the
+downhill momentum has carreened it across the grass and
+crashed it into another  concrete channel, cutting off more
+of the flow of water.
+> roll rock
+> roll rock
+.....There that's all the channels completely blocked now
+and that should have stopped the water cascading down
+to the pool.
+> go pool
+> go pool
+.....I'm standing in the middle of the pond. up to my ankles in
+slushy muddy water. The edges of the pond consist of the
+same bushes and rocks.
+    Exits :-  out.
+
+> pry boulder
+> pry boulder
+.....I'll just jamb this iron bar under the boulder and lever up
+with my shoulder blade and........Heave!
+           (Press any )
+
+.....Whew that was a bloody good work out. I don't think
+but I shifted it and it has rolled over the edge and into the
+pond below with an horrendous crash.
+> out
+> out
+.....Here at the top of the waterfall, there are boulders guarding the edge
+of a deep pool. Bushes adorn the surroundings with their heads bowed
+in humbleness drinking from the water's edge. It's a glorious day with the
+sun beating down on the water as its reflection sparkles off the surface.
+    Exits :-  west.
+
+> w
+> w
+.....Ok, so I'm at the top of the steps, that was a bit of a climb.
+The ground has levelled out a great deal to an open area of
+grassland and shrubbery.
+    Exits :-  down, east or west.
+
+> down
+> down
+.....I'm at the base of some stone steps that lead up a steep
+rocky crag to top of the hill. The steps look as though they
+have been hewn out of sand stone by primitive implements
+and as a consequence they are  fragile and dangerous.
+    Directions :-  north, south or up.
+
+> n
+> n
+.....I'm standing by some extremely prickly hedges which have been
+sheared and looks very tidy now that someone (ahem) yours truly has
+taken the care and time to cut them back and shape them. Good job
+I did too, because it has revealed a path going behind the hedge.
+Good idea of yours though, I must admit.
+    Directions :-  north or south.
+        (Visible Items) :- some Shears.
+> go behind hedge
+> go behind hedge
+.....The steep arid hillside exposes all the craggy surface of the rocks
+and bushes that make up the facade of the cliffside. The once pretty
+lagoon has been totally destroyed by that fallen rock and all the water
+has been forcibly ejected from it, leaving a dry and barren bed. I can
+see a mouth of a cave on the other side of the dry lake bed.
+    Exits :-  Front of Hedge.
+
+> go cave
+> go cave
+.....I'm standing in a cave, there is plenty of light all around due to
+the angle of the sun's rays that permeate in here completely. The
+interior of the cavern is really spacious, and the rough stone walls
+are cold to the feel. The craggy inner cave has evidence of some
+mining activity.
+    Exits :-  out.
+        (Visible Items) :- a Wooden Crate.
+> hit lock
+> hit lock
+.....The lock wasn't that rusty, it took a bit of hammering!
+> open crate
+> open crate
+.....Ok!
+> look in crate
+> look in crate
+.....Found some dynamite inside!
+> drop hammer
+> drop hammer
+.....Ok.
+> drop iron bar
+> drop iron bar
+.....Ok!
+(Visible Items) :- a Wooden Crate, a Stick of dynamite, a Hammer and an Iron Bar.
+> out
+> out
+.....The steep arid hillside exposes all the craggy surface of the rocks
+and bushes that make up the facade of the cliffside. The once pretty
+lagoon has been totally destroyed by that fallen rock and all the water
+has been forcibly ejected from it, leaving a dry and barren bed. I can
+see a mouth of a cave on the other side of the dry lake bed.
+    Exits :-  Front of Hedge.
+
+> go front of hedge
+> go front of hedge
+.....I'm standing by some extremely prickly hedges which have been
+sheared and looks very tidy now that someone (ahem) yours truly has
+taken the care and time to cut them back and shape them. Good job
+I did too, because it has revealed a path going behind the hedge.
+Good idea of yours though, I must admit.
+    Directions :-  north or south.
+        (Visible Items) :- some Shears.
+> n
+> n
+.....I'm outside of a cinema theatre, The frontage looks vibrant and
+grandiose to say the least. An entrance beckons and tantalizes the
+passsing crowds and the imagination of the people who seek flights
+of fancy in fictional realms. Bright lights chase each other around the
+tall signs illuminating the titles of the films now showing.
+    Directions :-  north, south or in.
+
+> n
+> n
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+    Directions :-  south or north.
+
+> crawl in store
+> crawl in store
+.....Ok so I've broken into this hardware store, and I'm
+standing by the counter, it's a good thing that no-one
+is here to impede my actions.
+    Exits :-  out.
+        (Visible Items) :- Pencil and a Spade.
+> get spade
+> get spade
+.....OK.
+> out
+> out
+.....I'll just crawl out again
+           (Press any Key)
+.....Right well I'm here outside of an hardware store with a sign fixed
+above the shop doorway. The door consists of twin panes of glass,
+one above the other, separated by an recumbent wood panel.  To
+the side is the main window with script written on the glass in white.
+    Directions :-  south or north.
+
+> s
+> s
+.....I'm outside of a cinema theatre, The frontage looks vibrant and
+grandiose to say the least. An entrance beckons and tantalizes the
+passsing crowds and the imagination of the people who seek flights
+of fancy in fictional realms. Bright lights chase each other around the
+tall signs illuminating the titles of the films now showing.
+    Directions :-  north, south or in.
+
+> s
+> s
+.....I'm standing by some extremely prickly hedges which have been
+sheared and looks very tidy now that someone (ahem) yours truly has
+taken the care and time to cut them back and shape them. Good job
+I did too, because it has revealed a path going behind the hedge.
+Good idea of yours though, I must admit.
+    Directions :-  north or south.
+        (Visible Items) :- some Shears.
+> s
+> s
+.....I'm at the base of some stone steps that lead up a steep
+rocky crag to top of the hill. The steps look as though they
+have been hewn out of sand stone by primitive implements
+and as a consequence they are  fragile and dangerous.
+    Directions :-  north, south or up.
+
+> s
+> s
+.....I've come to a crossroads, maybe in my life, who knows? However,
+the scenery in this place is awe inspiring and the creativity within one's
+reality must accept the choices that face us all. At each moment within
+our lives bring about choices for oneself. Never-the-less choices are for
+those whose bravery can have an adverse affect on future directions.
+
+    To the south stands a glass building.
+       There is an opening to the west.
+        To the east lies a wooden hut.
+        And a path heads northwards.
+
+> w
+> w
+I'm standing here on this hard and rocky soil at the end of  the
+tunnel or maybe it's the begining I'm not quite sure. But it's light
+now as the way is clear to the east.
+    Exits :-  west or east.
+        (Visible Items) :- some  Planks.
+> w
+> w
+.....I'm in a mid area of the tunnel, it's cold, dank and the smell of
+damp hangs heavy in the air.  Glancing up and down the tunnel
+the ceiling is slung low, however I am only 5' 6" so I can saunter
+ through without having to bend.
+    Exits :-  west or east.
+
+> dig soil
+> dig soil
+.....The soil was fairly soft, it didn't take too long. I have
+dug a shallow hole, but I have found nothing as of yet!
+> dig soil
+> dig soil
+.....Aaargh!
+           (Press any Key)
+.....I'm standing in an large oval chamber with thick ice covering the
+walls, ceilng and the floor. Stalactites hang down in profusion, ever
+reaching in agony as the centuries of wait, form the smallest of water
+droplets on the points of the frozen sculptures. I know it's chilly.
+---------------------------------------------------------------------------------------------------
+What the?... I must have fallen through the ceiling, digging down like
+that. Well that shouldn't have happened however, considering all that
+is going on I shouldn't be surprised at all. No bones broken, could be a
+little sore later on. I'm lucky really, anything could have happened.
+
+> go ramp
+> go ramp
+.....I'm in a mid area of the tunnel, it's cold, dank and the smell of
+damp hangs heavy in the air.  Glancing up and down the tunnel
+the ceiling is slung low, however I am only 5' 6" so I can saunter
+ through without having to bend. There's a large hole in the soil.
+    Exits :-  west, east or down.
+        (Visible Items) :- a Spade.
+> e
+> e
+I'm standing here on this hard and rocky soil at the end of  the
+tunnel or maybe it's the begining I'm not quite sure. But it's light
+now as the way is clear to the east.
+    Exits :-  west or east.
+        (Visible Items) :- some  Planks.
+> e
+> e
+.....I've come to a crossroads, maybe in my life, who knows? However,
+the scenery in this place is awe inspiring and the creativity within one's
+reality must accept the choices that face us all. At each moment within
+our lives bring about choices for oneself. Never-the-less choices are for
+those whose bravery can have an adverse affect on future directions.
+
+    To the south stands a glass building.
+       There is an opening to the west.
+        To the east lies a wooden hut.
+        And a path heads northwards.
+
+> n
+> n
+.....I'm at the base of some stone steps that lead up a steep
+rocky crag to top of the hill. The steps look as though they
+have been hewn out of sand stone by primitive implements
+and as a consequence they are  fragile and dangerous.
+    Directions :-  north, south or up.
+
+> n
+> n
+.....I'm standing by some extremely prickly hedges which have been
+sheared and looks very tidy now that someone (ahem) yours truly has
+taken the care and time to cut them back and shape them. Good job
+I did too, because it has revealed a path going behind the hedge.
+Good idea of yours though, I must admit.
+    Directions :-  north or south.
+        (Visible Items) :- some Shears.
+> go behind hedge
+> go behind hedge
+.....The steep arid hillside exposes all the craggy surface of the rocks
+and bushes that make up the facade of the cliffside. The once pretty
+lagoon has been totally destroyed by that fallen rock and all the water
+has been forcibly ejected from it, leaving a dry and barren bed. I can
+see a mouth of a cave on the other side of the dry lake bed.
+    Exits :-  Front of Hedge.
+
+> go cave
+> go cave
+.....I'm standing in a cave, there is plenty of light all around due to
+the angle of the sun's rays that permeate in here completely. The
+interior of the cavern is really spacious, and the rough stone walls
+are cold to the feel. The craggy inner cave has evidence of some
+mining activity.
+    Exits :-  out.
+        (Visible Items) :- a Wooden Crate, a Stick of dynamite, a Hammer and an Iron Bar.
+> get dynamite
+> get dynamite
+.....OK.
+> out
+> out
+.....The steep arid hillside exposes all the craggy surface of the rocks
+and bushes that make up the facade of the cliffside. The once pretty
+lagoon has been totally destroyed by that fallen rock and all the water
+has been forcibly ejected from it, leaving a dry and barren bed. I can
+see a mouth of a cave on the other side of the dry lake bed.
+    Exits :-  Front of Hedge.
+
+> go front of hedge
+> go front of hedge
+.....I'm standing by some extremely prickly hedges which have been
+sheared and looks very tidy now that someone (ahem) yours truly has
+taken the care and time to cut them back and shape them. Good job
+I did too, because it has revealed a path going behind the hedge.
+Good idea of yours though, I must admit.
+    Directions :-  north or south.
+        (Visible Items) :- some Shears.
+> s
+> s
+.....I'm at the base of some stone steps that lead up a steep
+rocky crag to top of the hill. The steps look as though they
+have been hewn out of sand stone by primitive implements
+and as a consequence they are  fragile and dangerous.
+    Directions :-  north, south or up.
+
+> s
+> s
+.....I've come to a crossroads, maybe in my life, who knows? However,
+the scenery in this place is awe inspiring and the creativity within one's
+reality must accept the choices that face us all. At each moment within
+our lives bring about choices for oneself. Never-the-less choices are for
+those whose bravery can have an adverse affect on future directions.
+
+    To the south stands a glass building.
+       There is an opening to the west.
+        To the east lies a wooden hut.
+        And a path heads northwards.
+
+> w
+> w
+I'm standing here on this hard and rocky soil at the end of  the
+tunnel or maybe it's the begining I'm not quite sure. But it's light
+now as the way is clear to the east.
+    Exits :-  west or east.
+        (Visible Items) :- some  Planks.
+> w
+> w
+.....I'm in a mid area of the tunnel, it's cold, dank and the smell of
+damp hangs heavy in the air.  Glancing up and down the tunnel
+the ceiling is slung low, however I am only 5' 6" so I can saunter
+ through without having to bend. There's a large hole in the soil.
+    Exits :-  west, east or down.
+        (Visible Items) :- a Spade.
+> go hole
+> go hole
+.....I'm standing in an large oval chamber with thick ice covering the
+walls, ceilng and the floor. Stalactites hang down in profusion, ever
+reaching in agony as the centuries of wait, form the smallest of water
+droplets on the points of the frozen sculptures. I know it's chilly.
+
+> go doors
+> go doors
+
+.....Ok, let me make my way up the stone steps.
+                              Press a Key
+
+Wow these steps really are something else and those blue doors are magnificent.
+Although walking up them is a little dangerous. Mind you I must look at the
+rope at the side of the right hand door, it looks intriguing?
+
+Press a Key
+
+.....I am here standing in front of these mammoth size doors, They tower up
+about 30ft in height and 8ft across. They have intricate patterns carved into
+and through them, allowing a blueish light to shine through, illuminating  the
+entire chamber. It's almost as if there was a second skin behind the doors.
+    Exits :-  south.
+
+> turn handle
+> turn handle
+.....Ok, I'm turning the handle and the rope is winding itself around the large
+cogwheel, and in turn it is travelling vertically downwards from a large pulley
+wheel directly overhead, which in turn is running horizontally across the top
+of the doors to another large pulley wheel which eventually runs downwards
+pulling out a square bolt that's holding the doors in place.
+           (Press any Key)
+       Ok I've done that, what's the very next thing you want me to do?
+> place key stone in slot
+
+                           Ok, I've done that and it's locked the cogwheel in
+                     place and now the doors are permanently unbolted.
+> open doors
+> open doors
+
+.....Whew! Ok, they're open now, that was a mammoth task.
+
+Exits :-  south or north.
+> go north
+> go north
+.....I'm in a dark place tunneled out from the earth, the ceiling's low, so even
+I will have to crouch a little to get through. This area feels damp and the vile
+mildewed smell is pungent throughout. The walls are of a craggy nature with
+sharp rocks protruding here and there.
+    Exits :-  west or east.
+
+> e
+> e
+.....Ok.
+       Aaargh, damn it. There is a colony of bats in that cave and
+       as I tried to go there they swooped down on me and one of
+       the bats actually got tangled in my hair. I loathe and detest
+       them. The bloody flying rats make my skin crawl.
+> light fuse
+> light fuse
+..... I'll do that, and then I'll just throw the dynamite into the cave,
+it should scare them off. The only problem is that if they all fly this
+way, I will be no better off will I. Oh well in for a penny and all that
+jazz.
+           (Press any Key)
+              BOOM!
+           (Press any Key)
+    That's startled them, they're all flying out of the other opening.
+> e
+> e
+.....I'm in an empty cave, I'm glad to be rid of the bats. Otherwise I
+would not be in here. However, now that I am in the cavern, I see
+that it's not quite that large, in fact it's small. And the atmosphere in
+this place, is depressing and overburdening. I'll be glad to move on.
+    Exits :-  west or east.
+
+> e
+> e
+.....Leaving the cave of bats far behind, and after walking for a long time
+in this narrow cavern I've come to a river's edge. God, there is a cloaked
+figure here standing in a boat, leaning on a raised oar that descends into
+the murky waters. He holds his bony hand out to me, palm up?
+    Exits :-  west.
+
+> pay ferryman
+> pay ferryman
+.....Ok.
+> go boat
+> go boat
+.....Ok, the boat is swaying a little, but here goes.
+           Press any Key)
+As I leave the shore, the boat cleaves through the murky warters, steered only by the ferryman
+at the helm. I am in a state of excitement, yet trepidation as I look forward to the answers that
+that await my presence, and yet I feel that deep inside me there are many more recollections
+that will claw and grasp their way through the quagmire of dark secrets to the surface of my
+mind that has held me sway in this realm.
+
+..........To Be Continued..........
+
+(Press any Key)
+
+I wish to humbly thank Richard Bach for his kind
+permision to use a couple of his quotes
+out of his wonderful inspiring book.
+
+.....Illusions.....
+
+The Adventures of a Reluctant Messiah
+
+(Watch out for the conclusion)
+
+Dark Mirrors II Caverns of the Mind.
+[state=Finished]

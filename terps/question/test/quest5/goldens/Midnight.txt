@@ -1,0 +1,137 @@
+Midnight
+Midnight is coming
+
+by Logan Peters
+
+You are in a Bedroom.
+You can see a bed, a Clock, a desk, a lamp, a note and a dresser.
+You can go east.
+
+You wake up in your room, its raining and thundering outside, your room is dark, hardly can see anything but you can make out some objects, there's a bed, a Clock, a dresser, a desk, and a lamp. Your door is closed, as the flashing of the thunder give a bit of light in your room.
+> look
+
+> look
+You are in a Bedroom.
+You can see a bed, a Clock, a desk, a lamp, a note and a dresser.
+You can go east.
+
+You wake up in your room, its raining and thundering outside, your room is dark, hardly can see anything but you can make out some objects, there's a bed, a Clock, a dresser, a desk, and a lamp. Your door is closed, as the flashing of the thunder give a bit of light in your room.
+> x clock
+
+> x clock
+The clock shows 12:00, its seems like there was a outage sometime in the night. You begin to wonder what time it really is.
+> x note
+
+> x note
+The note lies on top of the desk, there seems to being some writing on it.
+> read note
+
+> read note
+You need light to read this note.
+> x dresser
+
+> x dresser
+The flashing of the thunder shows a figure close to the wall, it appears to look like your dresser.
+> x desk
+
+> x desk
+You usually did your homework here, there seems to be a note on the top of the desk, maybe the light will make it more visible.
+> e
+
+> e
+You open the door of your bedroom, and walk out into the hall.
+
+You are in a Hallway.
+You can go west, north, east or down.
+
+You enter into a dark hallway, your bedroom is to the west, your brothers room is to the north, the stairs are to the south, the hallway continues to the east.
+You leave the door open behind you, as you gaze out into the dark hallway.
+> look
+
+> look
+You are in a Hallway.
+You can go west, north, east or down.
+
+You enter into a dark hallway, your bedroom is to the west, your brothers room is to the north, the stairs are to the south, the hallway continues to the east.
+> n
+
+> n
+You open your brothers bedroom door, and walk into his dark room.
+
+You are in an AlexsBedroom.
+You can see a bed, a desk, a LooseFloorBoard, a lamp and a note.
+You can go south.
+
+Alex's room, your brother, he never wants you in his room, but you must find out if he is still here or not with the strange note you found in your room, makes you wonder if anyone is even in the house. You can see bed, desk, lamp, and a LooseFloorBoard.
+You leave the door open, there is nothing but darkness all around the thunder makes little light shadows of certain objects will appear every so often.
+> look
+
+> look
+You are in an AlexsBedroom.
+You can see a bed, a desk, a LooseFloorBoard, a lamp and a note.
+You can go south.
+
+Alex's room, your brother, he never wants you in his room, but you must find out if he is still here or not with the strange note you found in your room, makes you wonder if anyone is even in the house. You can see bed, desk, lamp, and a LooseFloorBoard.
+> s
+
+> s
+
+You are in a Hallway.
+You can go west, north, east or down.
+
+You enter into a dark hallway, your bedroom is to the west, your brothers room is to the north, the stairs are to the south, the hallway continues to the east.
+> e
+
+> e
+You walk down the hall some more, you start to hear footsteps.
+
+You are in a Hallway1.
+You can go west, north, south or east.
+
+Your are half way in the dark hallway, The hallway continues east, and west, Your sister's bedroom is to the north, and the master bedroom, or your parents room to the south.
+The footsteps fade, and you run into a figure, you jump a bit, the figure disappears, you look around, its too dark to tell what it was.
+> look
+
+> look
+You are in a Hallway1.
+You can go west, north, south or east.
+
+Your are half way in the dark hallway, The hallway continues east, and west, Your sister's bedroom is to the north, and the master bedroom, or your parents room to the south.
+> e
+
+> e
+You have a chill go down your spine again, you don't know what to do, or know if anyone else is in the house, you really need to pee, you should go to the bathroom.
+
+You are in a hallway2.
+You can go west, east or up.
+
+You are now in the last part of the dark hallway. The hallway continues west. The bathroom is to the east. Up above is the attic, with a string that can't be reached, you need something to help you reach the string.
+The bathroom is just up ahead.
+> look
+
+> look
+You are in a hallway2.
+You can go west, east or up.
+
+You are now in the last part of the dark hallway. The hallway continues west. The bathroom is to the east. Up above is the attic, with a string that can't be reached, you need something to help you reach the string.
+> w
+
+> w
+
+You are in a Hallway1.
+You can go west, north, south or east.
+
+Your are half way in the dark hallway, The hallway continues east, and west, Your sister's bedroom is to the north, and the master bedroom, or your parents room to the south.
+> w
+
+> w
+
+You are in a Hallway.
+You can go west, north, east or down.
+
+You enter into a dark hallway, your bedroom is to the west, your brothers room is to the north, the stairs are to the south, the hallway continues to the east.
+> d
+
+> d
+You can't go down stairs till you find out if your parents, brother or sister are in the house.
+[state=Running]

@@ -1,0 +1,153 @@
+The Quest for the Golden Egg
+Redlands Egg Hunt
+
+by Redlands Sky
+
+You awaken in a deserted amphitheater, confused and unsure of how you arrived here.
+You look around, and nothing is familiar. You do not even know your own name.
+Are you male or female?
+ - Male
+That's right. You're a Male. How could you have forgotten?
+You are in an Amphitheater.
+You can see a Lamp.
+You can go northeast or southwest.
+This is a seemingly old, abandoned amphitheater with rows of stone benches facing the stage.
+> take lamp
+
+> take lamp
+You reach down and retrieve the lamp, on the ground beside you.
+How convenient. You are not a fan stealing, or at least you don't believe that you are, so you glance around to see if you can find the lamp's owner, but there is no one here. So you take the lamp... and after all, it might just as well have been your lamp to being with--you can't remember.
+Cat enters.
+> northeast
+
+> northeast
+
+You are in a Forest Glade.
+You can see a Statue of Old Woman and a Female Villager.
+You can go southwest or northeast.
+Beside the Amphitheater, you find a pleasant Forest Glade-- just a little grassy clearing within a small collection of trees, and it seems to be safe here, which is good, because you like safe. At the edge of the Glade is a statue of an old woman.
+
+Female Villager leaves.
+> northeast
+
+> northeast
+
+You are in a Fountain Meadow.
+You can see a Right Fountain, a Left Fountain, a Small Building, a Statue of the fallen king, a Statue of a mother and her child , a Large Building and a Female Villager.
+You can go southwest, in, northwest or southeast.
+You come into a Fountain Meadow. On one side of the meadow, there are two fountains just in front of a small ornate building; across from the fountains is a great building of some kind; and there are two statues--one is at the entrance to the meadow, a statue of a serious-faced man, and the other statue is of a mother with her child.
+> southeast
+
+> southeast
+
+You are outside of a Brick Chapel.
+You can see a Chapel Fountain.
+You can go east or northwest.
+This old brick chapel is just beautiful with its lofty bell tower and stained glass windows.
+> x fountain
+
+> x fountain
+A delicate fountain, affixed to the exterior of the old chapel.
+> east
+
+> east
+
+You are on the Box Street Road.
+You can go northwest, southeast, west, Tooth Doctor Shop, Grand Kingdom Day Spa or northeast.
+A narrow road with tall stately palm trees on either side.
+> west
+
+> west
+
+You are outside of a Brick Chapel.
+You can see a Chapel Fountain.
+You can go east or northwest.
+This old brick chapel is just beautiful with its lofty bell tower and stained glass windows.
+> northwest
+
+> northwest
+
+You are in a Fountain Meadow.
+You can see a Right Fountain, a Left Fountain, a Small Building, a Statue of the fallen king, a Statue of a mother and her child , a Large Building and a Bottle.
+You can go southwest, in, northwest or southeast.
+You come into a Fountain Meadow. On one side of the meadow, there are two fountains just in front of a small ornate building; across from the fountains is a great building of some kind; and there are two statues--one is at the entrance to the meadow, a statue of a serious-faced man, and the other statue is of a mother with her child.
+Cat enters.
+> northwest
+
+> northwest
+
+You are at the Hall of Learning Entrance.
+You can see a Statue of the two brothers.
+You can go southeast, in or northeast.
+A giant brick structure, engraved into a stone archway above the main door are the words, "The Hall of Learning."
+> in
+
+> in
+You close the door behind you.
+
+You are in the Hall of Learning.
+You can go out.
+It is too dark to make anything out.
+> out
+
+> out
+
+You are at the Hall of Learning Entrance.
+You can see a Statue of the two brothers.
+You can go southeast, in or northeast.
+A giant brick structure, engraved into a stone archway above the main door are the words, "The Hall of Learning."
+> northeast
+
+> northeast
+
+You are in a Glen of Tall Trees.
+You can see a Statue of a Lady Holding Birds and a Dry Fountain.
+You can go southwest, northeast, southeast, northwest or north.
+The glen is located in a massive steep-walled stone canyon, that is slightly intimidating. Inside the glen there is a dry fountain, and a statue of a lady holding birds.
+> northeast
+
+> northeast
+
+You are in a Town Center.
+You can go southwest, seedshop, north, Thrifty Boat Book Store, Ice Cream Parlor, The Armoury of Sir Jack, west, Melted Jewelry Studio, southeast, northwest or Side Street Coffeehouse.
+The village Town Center is filled with people, and shops selling their goods. What an exciting place.
+> go to seedshop
+
+> go to seedshop
+
+You are in a Seed Shop.
+You can see a Female Villager.
+You can go out.
+This quaint little shop has every variation of seed you could want.
+> out
+
+> out
+
+You are in a Town Center.
+You can go southwest, seedshop, north, Thrifty Boat Book Store, Ice Cream Parlor, The Armoury of Sir Jack, west, Melted Jewelry Studio, southeast, northwest or Side Street Coffeehouse.
+The village Town Center is filled with people, and shops selling their goods. What an exciting place.
+> southwest
+
+> southwest
+
+You are in a Glen of Tall Trees.
+You can see a Statue of a Lady Holding Birds, a Dry Fountain, a Feathers, a stick, a Torch, a stick, a stick, a stick, a stick, a stick and a stick.
+You can go southwest, northeast, southeast, northwest or north.
+The glen is located in a massive steep-walled stone canyon, that is slightly intimidating. Inside the glen there is a dry fountain, and a statue of a lady holding birds.
+> southwest
+
+> southwest
+
+You are at the Hall of Learning Entrance.
+You can see a Statue of the two brothers.
+You can go southeast, in or northeast.
+A giant brick structure, engraved into a stone archway above the main door are the words, "The Hall of Learning."
+> southeast
+
+> southeast
+
+You are in a Fountain Meadow.
+You can see a Right Fountain, a Left Fountain, a Small Building, a Statue of the fallen king, a Statue of a mother and her child , a Large Building and a Bottle.
+You can go southwest, in, northwest or southeast.
+You come into a Fountain Meadow. On one side of the meadow, there are two fountains just in front of a small ornate building; across from the fountains is a great building of some kind; and there are two statues--one is at the entrance to the meadow, a statue of a serious-faced man, and the other statue is of a mother with her child.
+[state=Running]

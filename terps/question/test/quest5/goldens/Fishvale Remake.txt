@@ -1,0 +1,380 @@
+Fishvale Remake
+
+You are in a Camping Zone.
+You can see a Girly Backpack, an Eraser and a Grass Patches.
+You can go east, west, north or south.
+> take eraser
+
+> take eraser
+You pick it up.
+> x eraser
+
+> x eraser
+Nothing out of the ordinary.
+> east
+
+> east
+
+You are in a Significant River.
+You can go west, north, south or east.
+> north
+
+> north
+
+You are in a Tent.
+You can see a Mills and a wallet.
+You can go south.
+> speak to mills
+
+> speak to mills
+It saies nothing.
+> take wallet
+
+> take wallet
+You pick it up.
+> x wallet
+
+> x wallet
+Nothing out of the ordinary.
+> south
+
+> south
+
+You are in a Significant River.
+You can go west, north, south or east.
+> south
+
+> south
+
+You are in a Tiny Forest.
+You can see a Twigs and a Goat.
+You can go north.
+The whistle of the wind alarms the prey.
+> speak to goat
+
+> speak to goat
+It saies nothing.
+> north
+
+> north
+
+You are in a Significant River.
+You can go west, north, south or east.
+> east
+
+> east
+
+You are in a Coloured Stones Pathway.
+You can see a Sally.
+You can go west or east.
+> speak to sally
+
+> speak to sally
+Sally: My wallet disappeared, I want to find it and the thief, could you help me?
+> east
+
+> east
+
+You are in a Metal Fence.
+You can see a Guardroom.
+You can go west or east.
+> east
+
+> east
+
+You are in a Dome Barrier.
+You can see a Chris.
+You can go west, south, north or east.
+> speak to chris
+
+> speak to chris
+Chris: This is strange, I forgot what happened the past few days.
+You: Me too,
+Passing through the mysterious blue bubble seems to muddle people's memories.
+> south
+
+> south
+
+You are in a Black Swamp.
+You can see a Log Wood.
+You can go north or south.
+> south
+
+> south
+
+You are in a Flowers Creek.
+You can see a Water Well.
+You can go north or south.
+> south
+
+> south
+
+You are in a Coffee Shop.
+You can go north or south.
+This place gives an eerie vibe, you can see many chairs and tables but not a single person.
+> south
+
+> south
+
+You are in an Aqueduct.
+You can see a Crane.
+You can go north or west.
+> west
+
+> west
+
+You are in a Sewerage.
+You can see a Poop and a Quest.
+You can go east, north or west.
+> north
+
+> north
+
+You are in a Pipeline.
+You can go south.
+> south
+
+> south
+
+You are in a Sewerage.
+You can see a Poop and a Quest.
+You can go east, north or west.
+> west
+
+> west
+
+You are in an Aqueduct.
+You can see a Crane.
+You can go east or west.
+> west
+
+> west
+
+You are in a Shattered Bridge.
+You can see a Quest.
+You can go east or west.
+> west
+
+> west
+
+You are in a Jeju Quick Express.
+You can see a Twister Fountain and a Red Cat Pet.
+You can go north, down or east.
+> north
+
+> north
+
+You are in a Mermaid Shop.
+You can see a Hermione, a Mermaid Cosplay, a Bed, a Jacket and a Cocktail.
+You can go north or south.
+> speak to hermione
+
+> speak to hermione
+People like the outdoors, I like the air con. What about you?
+> x mermaid cosplay
+
+> x mermaid cosplay
+Nothing out of the ordinary.
+> north
+
+> north
+
+You are in a 1.5 km Pathway.
+You can go north, south or west.
+> west
+
+> west
+
+You are in a Tent.
+You can see a Nia and a Red Oak.
+You can go east.
+> east
+
+> east
+
+You are in a 1.5 km Pathway.
+You can go north, south or west.
+> south
+
+> south
+
+You are in a Mermaid Shop.
+You can see a Hermione, a Mermaid Cosplay, a Bed, a Jacket and a Cocktail.
+You can go north or south.
+> south
+
+> south
+
+You are in a Jeju Quick Express.
+You can see a Twister Fountain and a Red Cat Pet.
+You can go north, down or east.
+> east
+
+> east
+
+You are in a Shattered Bridge.
+You can see a Quest.
+You can go east or west.
+> east
+
+> east
+
+You are in an Aqueduct.
+You can see a Crane.
+You can go east or west.
+> east
+
+> east
+
+You are in a Sewerage.
+You can see a Poop and a Quest.
+You can go east, north or west.
+> east
+
+> east
+
+You are in an Aqueduct.
+You can see a Crane.
+You can go north or west.
+> north
+
+> north
+
+You are in a Coffee Shop.
+You can go north or south.
+This place gives an eerie vibe, you can see many chairs and tables but not a single person.
+> north
+
+> north
+
+You are in a Flowers Creek.
+You can see a Water Well.
+You can go north or south.
+> north
+
+> north
+
+You are in a Black Swamp.
+You can see a Log Wood.
+You can go north or south.
+> north
+
+> north
+
+You are in a Dome Barrier.
+You can see a Chris.
+You can go west, south, north or east.
+> north
+
+> north
+
+You are in a Mountain Tracks.
+You can see a Torn apart Human and a Backpack.
+You can go south, west or north.
+> x torn apart human
+
+> x torn apart human
+Nothing out of the ordinary.
+> west
+
+> west
+
+You are in a Deer Tracks Pathway.
+You can see a Hare.
+You can go east.
+> east
+
+> east
+
+You are in a Mountain Tracks.
+You can see a Torn apart Human and a Backpack.
+You can go south, west or north.
+> north
+
+> north
+
+You are in an Eerie Bamboo Forest.
+You can go south or north.
+> north
+
+> north
+
+You are in an Eerie Bamboo Forest.
+You can go south or north.
+You got caught by Slender Man.
+> north
+
+> north
+
+You are in a Hilltop Tree.
+You can see a Hanging Straw Basket House.
+You can go south, east or northwest.
+> east
+
+> east
+
+You are in a Meditative Stone Path.
+You can go east or west.
+> west
+
+> west
+
+You are in a Hilltop Tree.
+You can see a Hanging Straw Basket House.
+You can go south, east or northwest.
+> south
+
+> south
+
+You are in an Eerie Bamboo Forest.
+You can go south or north.
+You got caught by Slender Man.
+> south
+
+> south
+Eerie Bamboo Forest1
+
+You are in an Eerie Bamboo Forest.
+You can go south or north.
+> south
+
+> south
+
+You are in a Mountain Tracks.
+You can see a Torn apart Human and a Backpack.
+You can go south, west or north.
+> south
+
+> south
+
+You are in a Dome Barrier.
+You can see a Chris.
+You can go west, south, north or east.
+> west
+
+> west
+
+You are in a Metal Fence.
+You can see a Guardroom.
+You can go west or east.
+> west
+
+> west
+
+You are in a Coloured Stones Pathway.
+You can see a Sally.
+You can go west or east.
+> west
+
+> west
+
+You are in a Significant River.
+You can go west, north, south or east.
+> west
+
+> west
+
+You are in a Camping Zone.
+You can see a Girly Backpack and a Grass Patches.
+You can go east, west, north or south.
+[state=Running]

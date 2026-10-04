@@ -1,0 +1,261 @@
+Geocaching in the park
+
+by nikib42
+
+You are standing at the west entrance.
+This is one of several entrances to the park. You can see a large ornate gate standing open.
+
+You clutch a piece of paper. It is a printout of the instructions you found online.
+You can go north into the trees, northeast along a path or southeast along a path.
+> se
+
+> se
+You follow the path towards a junction.
+
+You are at a crossroads on a gravel path.
+It crunches underfoot.
+You can go southeast along a path, northeast along a path, northwest back towards the west gate, southwest towards a track or south through a gate.
+> se
+
+> se
+You follow the path.
+
+You are on a gravel path.
+It really is very pretty here. You hear birds singing above you.
+You can go southeast along a path, northwest along a path, north to a tree, in to a children's play area or east towards a round building.
+> e
+
+> e
+You head off the main path.
+
+You are next to a dovecot.
+You are standing beside a cylindrical brick building with a sloping pointed roof and a solid wooden door. There are holes near the top of the brick work, and holes in a small turret at the apex of the roof, for birds to enter. You see a bird emerge from one of the holes and fly away into the trees. It probably has one of many nests inside.
+You can go west back to the path.
+> x door
+
+> x door
+A solid door, securely fastened. A set of keys are in the key hole.
+> take key
+
+> take key
+They are stuck. You pull a little harder. SNAP! The key in the door has snapped off. However, there is another key on the ring.
+> w
+
+> w
+You head back onto the path.
+
+You are on a gravel path.
+It crunches underfoot. A bird flies away as you arrive.
+You can go southeast along a path, northwest along a path, north to a tree, in to a children's play area or east towards a round building.
+> nw
+
+> nw
+You follow the path towards a junction.
+
+You are at a crossroads on a gravel path.
+You appreciate the beautiful park. A bird flies away as you arrive.
+You can go southeast along a path, northeast along a path, northwest back towards the west gate, southwest towards a track or south through a gate.
+> sw
+
+> sw
+You head off the paved path.
+
+You are on a dirt track.
+The surface is uneven and covered in leaf litter. There are patches of mud and dry twigs. You have disturbed an animal nearby. You hear it crashing through the undergrowth as it runs away, unseen.
+You can go northeast towards a path, south along a track or north into the sunshine.
+> s
+
+> s
+You continue deeper into the trees.
+
+You are on a dirt track.
+It's rather muddy. You have disturbed an animal nearby. You hear it crashing through the undergrowth as it runs away, unseen.
+You can go north along a track or south along a track.
+You can see a tool shed door.
+> unlock tool shed door with key
+
+> unlock tool shed door with key
+That doesn't work.
+> open tool shed door
+
+> open tool shed door
+Unlocked.
+You open it.
+> in
+
+> in
+You struggle to open it wide enough but you eventually manage to get inside.
+
+You are in a tool shed.
+Nature has been reclaiming this building for many years now. The concrete floor is cracked, and weeds grow in every corner. Light from the door allows you to see a wide variety of old tools lining the walls. You hear a squeak and shuffling somewhere out of sight (probably a mouse).
+
+You can go out of the shed.
+> take rope
+
+> take rope
+These long coils of strong rope might be useful.
+> out
+
+> out
+You struggle to close the old door behind you.
+
+You are on a dirt track.
+You whistle to yourself, quietly. There is a rustling sound. A bird is turning over leaves, searching for grubs. It is not bothered by your presence, and eventually moves off into the woods at its own pace.
+You can go north along a track, south along a track or in to a tool shed.
+> n
+
+> n
+You head back towards the main path.
+
+You are on a dirt track.
+Squelch, squelch. You have disturbed an animal nearby. You hear it crashing through the undergrowth as it runs away, unseen.
+You can go northeast towards a path, south along a track or north into the sunshine.
+> ne
+
+> ne
+You head back onto the main path.
+
+You are at a crossroads on a gravel path.
+You appreciate the beautiful park. You hear squirrels above you in the trees.
+You can go southeast along a path, northeast along a path, northwest back towards the west gate, southwest towards a track or south through a gate.
+> se
+
+> se
+You follow the path.
+
+You are on a gravel path.
+Is that dog poo? No. Just mud.
+You can go southeast along a path, northwest along a path, north to a tree, in to a children's play area or east towards a round building.
+> se
+
+> se
+You follow the path.
+
+You are on a gravel path.
+Crunch, crunch. A squirrel runs across your path.
+You can go northeast along a path, northwest along a path or southwest towards a track.
+> ne
+
+> ne
+You follow the path.
+
+You are on a gravel path.
+Crunch, crunch. A warm breeze skitters leaves across your path.
+You can go southeast along a path, southwest along a path, north to a clearing or south to a meadow.
+> se
+
+> se
+You follow the path.
+
+You are on a gravel path.
+It crunches underfoot. You hear birds singing above you.
+You can go northeast along a path, northwest along a path or east towards a road.
+> ne
+
+> ne
+You follow the path.
+
+You are on a gravel path.
+Is that dog poo? No. Just mud.
+You can go northeast along a path, southwest along a path, north towards a statue or east into the trees.
+> e
+
+> e
+You head off the main path.
+
+You are in some woodland.
+You are in the surrounding trees. You are aware that the birds and squirrels have disappeared as you crash through the undergrowth.
+You can go west back onto the path or east into the woods.
+> e
+
+> e
+You head further into the woods.
+
+You are in some woodland.
+You are deeper in the surrounding trees. You find yourself up to your ankles in mud, surrounded by dry twigs and leaves.
+You can go southeast into the woods.
+> se
+
+> se
+You head further into the woods.
+
+You are in some woodland.
+You are deep in the surrounding trees. You can hear the squirrels screeching above you as you find yourself in ankle-deep mud.
+You can go north into the woods or west into the woods.
+> n
+
+> n
+You head further into the woods.
+
+You are in some woodland.
+You are deep in the surrounding trees and ankle-deep in mud. There is a large wooden box secured high above you.
+You can go northwest into the woods.
+You can see a box.
+> nw
+
+> nw
+You head further into the woods.
+
+You are in some woodland.
+You are in the surrounding trees. You are aware that the birds and squirrels have disappeared as you crash through the undergrowth.
+You can go northeast into the woods or southwest into a bush.
+> ne
+
+> ne
+You head further into the woods.
+
+You are in some woodland.
+You are in the surrounding trees. You find yourself up to your ankles in mud, surrounded by dry twigs and leaves.
+You can go southwest into the woods or south into the woods.
+> s
+
+> s
+You head further into the woods.
+
+You are in some woodland.
+You are deeper in the surrounding trees and ankle-deep in mud. You can see a structure ahead of you. It is an old well.
+You can go north into the woods.
+> x old well
+
+> x old well
+The well has a little sloped roof and the circular brick walls of a traditional well. The hole is covered with an access hatch that is locked shut with a padlock.
+> open padlock
+
+> open padlock
+It is a combination lock. You need three numbers in the correct order.
+Want to try?
+1: Yes
+2: No
+Okay, what's the combination?
+> 345
+The padlock clicks and springs open. You open the hatch and peer down into the well.
+> down
+
+> down
+You securely tie your rope to a nearby tree and drop the rest into the hole. You clamber over the side and into the well, holding tightly onto the rope. You lower yourself down carefully, hand over hand, until you reach the bottom.
+
+You are in a well.
+A dark and dank well. The walls are wet and there are ferns growing between the stone blocks that line the walls.
+You can go up.
+You can see an ammo box.
+> x ammo box
+
+> x ammo box
+The box is the size of a shoe box. The lid is clipped shut.
+> open ammo box
+
+> open ammo box
+You unlatch the lid and lift it up.
+It contains a log sheet, a pencil and a shell.
+> sign log
+
+> sign log
+If you sign the log, the game will end. Are you sure?
+1: Yes
+2: No
+You write your geocaching name, the date and a comment.
+What is the code for the real-life geocache? e.g. GC12345
+> GC8ZY9P
+You turn over the log book. There's a set of numbers on the back: 53.423218 -2.311581.
+You feel a wonderful glowing warmth spread through you. Congratulations! You've completed the game!
+[state=Finished]

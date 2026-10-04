@@ -1,0 +1,1312 @@
+I have to keep running, or I will die.
+
+Something is chasing me.
+
+I'm ahead of it now, but it's getting closer and closer all the time.
+
+I can’t stop running. If I stop running, I will die.
+
+Passageway
+I am in a long, narrow passageway. There is a path up ahead, to the north, and one to the south, where I came from.
+> north
+
+> north
+It’s dark, almost pitch black. There are no stars. The air is stale. The ground is smooth and hard.
+
+I don’t know how I got here. I don’t know what happened to the others.
+
+I need to keep running, or I will die.
+
+Second Passageway
+Another passageway, exactly like the first. Again, a path to the north, and a path to the south.
+> north
+
+> north
+My tail swings wildly as I run.
+
+My fur stands on end.
+
+As my feet tread uncertainly on this unfamiliar surface, I am more afraid than I have ever been in my life.
+
+I don't know what it is that's chasing me. I cannot hear it. I cannot smell it. But I feel its presence everywhere I go.
+
+I need to keep running.
+
+Third Passageway
+Exits lead to the north and south, again. Does this tunnel ever end?
+> north
+
+> north
+I’ve been running for a long time. But the thing that’s been chasing me is never far behind.
+
+Eventually, I reach a wall, as smooth and cold as the ground.
+
+There are pathways to the east and west. I can only choose one. I need to be sure.
+
+I perk up my whiskers. My nose wrinkles.
+
+Forked Path
+East or west? How can I be sure?
+> smell east path
+
+> smell east path
+I lean forward and take a good whiff... I can smell something… It smells like fresh air. Like the outdoors. It’s coming from the east pathway. It may be a way out.
+> east
+
+> east
+There used to be others.
+
+They were my family. They were taken from me, but I don’t know why.
+
+I can only guess that they were killed by the same creature that pursues me now. I hope that I will find them again.
+
+But mine is not a great hope.
+
+Branching Paths
+I have come across another set of branching paths. This time there are three, to the north, east and south.
+> listen south path
+
+> listen south path
+I tilt my head towards the south, and I can hear... yes! I can hear the wind! I can hear the wind blowing! Escape may be possible.
+> south
+
+> south
+I need to hurry.
+
+I can feel it gaining on me.
+
+I increase my pace through the southern tunnel, only to arrive at a...
+
+Dead End
+This doesn't look good. There are no obvious paths out of here. At the far end there is a solid wall. I need to find a way through. I have to.
+> touch south wall
+
+> touch south wall
+I brush up against the wall with my whiskers. Here, on the left side... It's different. I've found a soft part of the wall.
+> dig soft part of the wall
+
+> dig soft part of the wall
+I stand on my hind legs and dig through the soft part of the south wall. It falls apart quickly and easily. After a moment, there is an opening large enough for me to enter through! I can go south now. I pray this is the end.
+> south
+
+> south
+My heart sinks. It's...
+
+Another Dead End
+I can’t afford to keep being slowed down like this.
+
+This is my last chance. I can feel it. There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+
+If I can't make it out of this room...
+
+It will get me.
+
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+I can feel it coming closer. I am running out of time.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+It is almost here. One of these walls must be the key...
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+No more mistakes. This is it. I can sense it approaching. This is my last chance.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+> look
+
+> look
+Another Dead End
+There are four walls around me, to the north, east, south and west. The path backwards is to the north.
+It’s no use.
+
+There is no path. No hidden exit. Just solid walls with no way through.
+
+I have lost my home. I have lost the others.
+
+I am lost.
+
+Whatever it is that’s been chasing me is going to catch up now. And it is going to take me too.
+
+And there is nothing left for me to do but wait.
+
+Wait.
+
+Wait.
+
+Wait.
+
+I open my eyes.
+
+I was dreaming.
+
+It was only a nightmare.
+
+But what was it that was chasing me? It felt so real…
+
+I sit up and smell the air to examine my surroundings.
+
+I’m outside. I slept on a cool patch of grass, underneath a small shrub. It smells like it rained last night, but today I can feel hot, humid air in my face.
+
+The others are still gone. Of course they are. I haven’t seen them in weeks… and yet, somehow I still expect them to be nearby each time I wake up.
+
+My back itches. I rub against the shrub for some temporary relief.
+
+I am lonely. And I am hungry.
+
+I can see a building up ahead, with a roof and a door. There may be people inside. They may have food. And I need a place to stay.
+
+I hope they like rats.
+
+Stone Shelter
+In front of me is a large shelter made from stone. There are smaller wooden shelters next to it on either side.
+> look
+
+> look
+Stone Shelter
+In front of me is a large shelter made from stone. There are smaller wooden shelters next to it on either side.
+> go behind stone shelter
+
+> go behind stone shelter
+
+Livestock Pen
+Now I know where that smell was coming from. There are some animals here, and a closed door which should lead inside. Next to it is a pile of hay and a bucket of water.
+> dig pile of hay
+
+> dig pile of hay
+I dig through the pile of hay, pushing it aside. An opening has been revealed that leads underneath the house! I can follow it to get inside.
+> smell hole
+
+> smell hole
+Doesn't smell like anything but dirt and moisture. It should be safe to go inside.
+> enter hole
+
+> enter hole
+
+Underground Passage
+The pathway is very narrow. It leads ahead, to the south. There is a twig buried in the dirt nearby.
+> dig dirt
+
+> dig dirt
+I dig the twig out of the soft dirt. It only takes a second.
+> take twig
+
+> take twig
+I take hold of the twig with my mouth. I am carrying it.
+> south
+
+> south
+
+Second Underground Passage
+This path leads upward, to a pile of rocks and dirt clods. Behind me, to the north, is the way back.
+> use twig on pile of rocks
+
+> use twig on pile of rocks
+Carefully, I hold the twig in my mouth and push away the rocks.
+
+The debris falls past me. I can see light shining through from the other side.
+
+I hurry through the opening. As I do, I can hear the earth collapsing behind me.
+
+I won't be going back through there again.
+
+I emerge from the hole next to a cabinet and sniff around. I’ve made it inside! The underground passage led me to a room in the southeast part of the building.
+
+And there's someone here! A large, stout woman stands in front of a wooden table.
+
+Maybe she’ll want to be my friend?
+
+I am considering this when a sound comes from the west, where I believe the door is that I saw earlier. What emerges into the room shortly after is the most frightening thing that I have ever seen.
+
+It has the height and stature of a man, but its body is cloaked entirely in a thick, black robe. On its hands are silky black gloves. A black brimmed hat casts a shadow over its face. But it is not the face of man. Instead, I can see the terrifying visage of a fierce white bird.
+
+Its beak, long and pointed, makes me tremble. Its eyes appear to have sunken in to its skull. No pupils are visible, and yet I get the feeling that it is carefully observing my every movement. I feel as if it can read my thoughts. As if I will never be safe again.
+
+I am paralyzed with fear. And then… it speaks. It speaks with a man’s voice, cold and sterile.
+
+“It's been a long day, Matild.” The Man with the Face of a Bird towers over everything in the room. I shrink back into the shadows.
+
+“Start working on supper. I’ll be in the back. Do not disturb me unless it is extremely important. I will not be taking visitors.”
+The woman nods but does not look up to meet his gaze. “Aye, Doctor.”
+
+“How are things out there today?” the woman asks.
+He sighs as if greatly irritated. “More helpless people coming to me for help. Poor, desperate fools.”
+
+The Man with the Face of a Bird retreats from the room, back the way he came, and northward, into a different room. I cannot get the image of him out of my mind. It takes me several minutes to calm down. I convince myself that he is gone, and that he will not be returning for a long time. Perhaps this woman will help me if I approach her.
+
+Entering this shelter may have been a terrible mistake.
+
+But I am here.
+
+So I will try to make the best of it.
+
+Kitchen
+There is a cauldron over some firewood, a table and a large oak cabinet. A huge decorative tapestry hangs on the north wall, over the cauldron. The woman sits in the center of the room, cooking. I should approach her.
+> touch tapestry
+
+> touch tapestry
+There's a loose thread coming off the corner of the tapestry.
+> take loose thread
+
+> take loose thread
+I pull the end of the thread out easily and hold it in my mouth.
+> behind tapestry
+
+> behind tapestry
+I move behind the tapestry and discover a small hole in the wall. Inside is a large ball of wax. This must be what I was smelling.
+
+Rathole
+This is a very small space with very little in it, besides myself and a ball of wax. There's an exit to the south, and a blocked off exit to the north. From in front of the south exit I can see the back of the tapestry hanging.
+> use string on hanging wire
+
+> use string on hanging wire
+I put the thread through the hanging wire, so that it hangs with both ends at an even length.
+> pull string
+
+> pull string
+As I pull the thread, the hanging wire strains. I pull harder, and...
+
+The tapestry falls from the wall! From its positioning I can tell that it has put out the fire.
+
+The woman gasps and stands up, shocked. Now is my chance! I need to approach her now and introduce myself!
+
+Kitchen
+A simple room with only a few items: a cauldron over some firewood, a table and a large oak cabinet. The woman is distracted, trying to hang the tapestry on the wall again.
+> approach woman
+
+> approach woman
+"What the devil! Bloody thing..."
+The woman pushes the tapestry to the side. Before she has a chance to light a new fire, I run into view.
+
+"A rat! Get out of here you damn pest!"
+She shouts at me. She stands and stomps her feet. She goes for the broom.
+
+What did I do wrong? Why is she so upset? Why won't she give me a chance?
+
+I panic.
+
+Without realizing what I'm doing, I run up the woman's leg and onto her shoulder.
+
+Now she's flailing and grunting and trying to shake me off. I panic again.
+
+I bite her arm.
+
+She throws me to the ground. I run as fast as I can into the hole in the wall where the tapestry used to be.
+
+This is a disaster.
+
+I wait inside the hole for a while. I don't think she saw me go in here, as she made no attempts to find me. It may be too small for her to notice.
+
+A few hours go by. I hear her voice again. She is speaking with the Man.
+
+"A rat got in here today, Doctor. I managed to chase it away but not before the little bastard took a bite out of me."
+The Man sounds tense and nervous. "A rat? Are you certain? What did it look like? What color was it? Where did it go?"
+
+"I... I don't remember. It was black, I think. Not too big. It was only a rat though. I expect it got in from the back door."
+"Rats are filthy. They carry disease. With the Pestilence about, we can't afford not to take any precautions. Next time you see a rat, come to me immediately. I'll kill it."
+"Aye, Sir."
+
+"You said it bit you. Where?"
+"Here, on my upper arm. Doesn't hurt. I'm sure it'll be fine in a day or two."
+
+From inside the wall, the Man just sounds just like... a man. His appearance confuses me. But regardless, I detect something unkind about him. About this whole place.
+
+It isn't long before their voices fade, and I drift into sleep.
+
+I'm back in a familiar place. It's the room from last night. The dead end. The one that I couldn't escape from.
+
+Already I can feel its presence. It's coming for me yet again.
+
+There is still no way out. Everything is exactly the same. Except...
+
+On the ground, in the center of the room, there is a green thread.
+
+I can't imagine what good it will do me.
+
+Dead End
+The room is just as dark as before. There is an exit to the north, and a string on the ground.
+> take loose thread
+
+> take loose thread
+I grab the end of the string with my hands and pull gently.
+
+More string comes loose. I keep pulling, and more string keeps coming.
+
+More pulling, more string, more pulling, more string...
+
+Then, something pulls back.
+
+I try to hold myself steady, but it's hopeless. The string is being sucked back into the ground, and the entire room is going with it.
+
+My surroundings are turning in on themselves like a whirlpool. I'm sinking rapidly. The sensation is unnerving to say the least.
+
+I'm knocked onto my back, circling an invisible drain, circling the darkness. The room with the dead end disappears. I fall a short way and land with a soft thud. When I come to, I find myself in a familiar place.
+
+Forest Clearing
+This is where we used to live. A small, grassy clearing in the woods. It is quiet here. Some of the others are nearby. There are no obvious paths, save for one leading away from here to the west.
+> smell west path
+
+> smell west path
+There are definite signs of owls, not far from here. They'll be out tonight in search of food. I should not take this path. Perhaps the others can suggest an alternative.
+> speak others
+
+> speak others
+I try to wake them. To get them to show me another way out of the clearing. But they won't move. They sleep on endlessly.
+
+I can sense something out of the corner of my eye.
+
+A light... Coming from the west...
+
+Something is glowing... pulsing... from the west... What could it be?
+> west
+
+> west
+This is foolish. I know that this is wrong. The path is unsafe. But that light... I must know what it is. I head down the west path with a terrible feeling in the pit of my stomach.
+
+I run down the west path... Only that is inaccurate... It feels more like I glide down it...
+
+I somehow manage to avoid meeting any predators as the light comes closer and closer...
+
+Lake
+I've reached a vast lake. The light is coming from the edge of the water. I have to find it.
+> dive lake
+
+> dive lake
+I dive into the lake headfirst.
+
+My fur is drenched, weighed down by the lakewater coating my body. I move slowly toward my goal.
+
+I do not breathe. I do not hold my breath. All that concerns me is the light.
+
+I continue to swim downwards, into the deceptive depth of the water. Closer and closer to the light.
+
+But then the light starts to change... Or rather, something is changing within it. A shape begins to form from inside its glow. A vision... A face...
+
+It's the Man. The Man from the shelter. I have to turn around. I want to turn around. I want so badly to stop diving and return to the surface.
+
+The vision becomes clearer. His pointed beak takes shape... Then his sunken eyes...
+
+He is not enjoying this. He does not take pleasure in torturing me. It is simply something he must do. Something he will do.
+
+These are the thoughts that consume me as I drift into the abyss.
+
+No.
+
+I find myself back in the hole in the wall where I fell asleep.
+
+My dream still troubles me. But my present waking situation is just as concerning.
+
+There is no longer a tapestry covering the south exit. It sounds like that room is empty.
+
+This is my chance to explore the building. I wonder if anything has changed.
+
+Rathole
+This is a very small space with very little in it, besides myself and a ball of wax. There's an exit to the south, and a blocked off exit to the north.
+> south
+
+> south
+
+Kitchen
+A simple room. There is a cauldron over some firewood, a table and stool, and a large oak cabinet. Exits lead to the north and west.
+> west
+
+> west
+
+Den
+ This room is roughly the same size as the first. There is a small table and a bench at the center of the room. Other rooms lie to the north and east. At the south is the front door.
+> take needle
+
+> take needle
+I grab the needle in my mouth.
+> north
+
+> north
+
+Bedroom
+A simple room without decoration. There is a bed of straw in the northwest corner. In the northeast is a small shelf. And in the southwest corner is a chest.
+> dig bed
+
+> dig bed
+Digging through the hay, I find a rectangular stone about my size.
+> use needle on stone
+
+> use needle on stone
+I rub the needle against the stone. It gradually wears away at the needle, honing it to a fine, sharp point. Now it should be more effective as a cutting tool.
+> south
+
+> south
+
+Den
+ There is a small table and a bench at the center of the room. Other rooms lie to the north and east. At the south is the front door.
+> east
+
+> east
+
+Kitchen
+A simple room. There is a cauldron over some firewood, a table and stool, and a large oak cabinet. Exits lead to the north and west.
+> use needle on wrapping
+
+> use needle on wrapping
+Using the sharpened needle, I cut through the wrapping and reveal the fish underneath.
+I drop the needle to the side. I won't need it anymore.
+> take fish
+
+> take fish
+I tear off a small piece of the fish.
+> north
+
+> north
+
+Rathole
+This is a very small space with very little in it, besides myself and a ball of wax. There's an exit to the south, and a blocked off exit to the north.
+> drop fish
+
+> drop fish
+I drop the fish just outside the blocked up exit to the next room. Its smell is strong enough that it should carry through to the other side.
+
+Sure enough, after a few seconds I can hear the cat stirring. It brushes up against the blocked up wall, frustrated.
+
+"Mraowr! Merow! Mrowr!"
+It can't break through. It doesn't understand.
+
+"Meow! Mrow! Merowww!"
+"Silence, cat!" The man stomps his foot. "I'm trying to concentrate!"
+
+A half a moment passes.
+
+"Mreooowrr...!"
+"I'll never get any work done like this. Let's go, cat."
+
+I hear a final, stifled meow as the man lifts the cat off the floor. The front door opens and he lets the cat outside, free to hunt for his own supper. Then, the man walks back to his desk in the other room.
+
+I eat the fish.
+
+It tastes good.
+
+> south
+
+> south
+
+Kitchen
+A simple room. There is a cauldron over some firewood, a table and stool, and a large oak cabinet. Exits lead to the north and west.
+> west
+
+> west
+
+Den
+ There is a small table and a bench at the center of the room. Other rooms lie to the north and east. At the south is the front door.
+> north
+
+> north
+
+Bedroom
+A simple room without decoration. There is a bed of straw in the northwest corner. In the northeast is a small shelf. And in the southwest corner is a chest.
+> east
+
+> east
+There's someone in this last room. A man.
+
+He is hunched over a desk, working with a quill and ink at a furious pace.
+
+What is he doing here? How is he related to the others?
+
+I don't have much choice. I've got to take a chance on him.
+
+Workshop
+A dank, musty space. Wooden crates line the back wall where some tools hang overhead. A lantern sits on the ground. There is an exit to the south. There is also a man is working at a desk. I've got to approach him.
+> approach man
+
+> approach man
+With the cat gone, nothing is stopping me from getting the man's attention!
+
+Maybe he'll help me. Feed me. Or at least let me outside.
+
+I run up the side of the table and make myself known by standing directly on the man's parchment.
+
+He shrieks.
+
+He throws his quill and is knocked backward on his stool, surprised and confused.
+
+I panic.
+
+As he loses his balance, I attach myself to his hand, and... take a bite.
+
+I am not proud of my actions.
+
+He flings me off his body and I head out of the room to hide as quickly as possible.
+
+Later, from my hiding place in the wall, I can hear their voices.
+
+The Man with the Face of a Bird has returned home.
+
+"Tell me again, Simon. Are you sure it wasn't-"
+"I'm sure. I thought so at first. Its markings were so similar..."
+
+"Where is Matild? She should have been in today to deal with it."
+"I'm... sorry, Doctor. She was feeling ill this morning. I thought you were informed."
+
+"The rat bit her yesterday as well."
+"But she couldn't have been..."
+"It's possible. Matild is a strong-willed one. I can't be certain she was following my instructions."
+"A shame..."
+
+"It is of no relevance. Our little houseguest is a coincidental annoyance, nothing more. Tell me, how is the formula coming along?"
+"Just as we'd hoped, Sir. We should be able to manufacture it at a much faster pace this time. Tomorrow, I'll-"
+"Tomorrow, don't bother coming in. I am meeting with our... friend, from the Tower of London. He likes his privacy."
+"Of course, Doctor."
+
+I don't like it here very much. But I'm sure I'll find a way out tomorrow.
+
+I eat some more of the fish before falling asleep.
+
+I open my eyes.
+
+I am washed up on the shore of the lake.
+
+The lake... Why was I here? I can't remember.
+
+I should leave. I should return to the others.
+
+Lake
+I am at the lake again. To the east is the path back to the clearing, where the others are resting.
+> east
+
+> east
+The way back from the lake still feels unsafe... but it is the most direct route.
+
+If I stay close to the bushes and keep moving, I might pass through unnoticed.
+
+When I came down this way before, it felt as if I were gliding, moving on pure instinct.
+
+This time, I am hyper aware of my surroundings. Every falling leaf, every rustling in the grass... I have a feeling something is wrong.
+
+I am correct.
+
+Upon reaching the clearing safely, I discover that the others are gone. Every single one of them, missing.
+
+This is my fault. I should never have left. If I had stayed I might have been able to warn them, to help... Instead, I am here. And they've been taken. Taken by...
+
+Whatever it is that's been chasing me.
+
+I can feel it again now. Stronger than before. I thought I'd lost it, but... It never left.
+
+A way out. There's got to be a way out.
+
+Forest Clearing
+The clearing where the others once rested. This time, a set of paths have been revealed, to the north, south and east. The lake is to the west.
+> north
+
+> north
+I head north. The forest is incredibly dense here. It's difficult for me to see where I'm going.
+
+Where could they have been taken? Are they nearby? How long was I asleep?
+
+A loud "HISS" startles me from up ahead. I smell the air. It's the cat.
+
+It looks different this time. Its fur mangled, ears torn, eyes wild and seething with madness.
+
+It pounces.
+
+I jump.
+
+This time, it grabs me by the tail.
+
+I manage to get away, but not before it takes a piece of me with it.
+
+I am bleeding. My tail is injured. Somehow, I make it back to the clearing. I need to choose a new path, and quickly.
+
+> east
+
+> east
+This time, I take the north path. The woods are no less dense here.
+
+The shooting pain in my tail is distracting. But smelling my way through the forest, I can't detect any more cats.
+
+What is this thing that's chasing me? What does it want? If it has the others already, why does it still need me?
+
+It is getting darker at an alarming rate. The night is swallowing my vision completely.
+
+No... I am lost... All I can see is blackness... The thick, soft blackness...
+
+Of a cloak.
+
+The Man turns to face me. Still, I sense nothing from him. Neither malice nor glee.
+
+One gnarled, gloved hand holds something high above his head. I catch a glint of metal in the darkness just before it hits me. I'm knocked to my side by something... something sharp.
+
+I get up. I get to my feet. I breathe. I can do nothing but turn around and run back the other way. The Man observes, but makes no attempt to stop me. He knows I can't escape.
+
+I do not know how much longer I can keep up this pace. But I only have one path left to try.
+
+> south
+
+> south
+I am rapidly running out of options. I take the north path. My final hope.
+
+This time, I can feel it coming before it even happens.
+
+But it isn't the cat. Or any other animal. Or even the Man.
+
+I don't know what it is. I don't know why it wants me. Why it's the only thing that wants me. I only know that it has me.
+
+It has me.
+
+It has me.
+
+Enough. I am awake again. Back in the wall. Secure. For now.
+
+I am beginning to feel... stressed.
+
+My back is itching again. I think it's getting worse. It is occasionally painful.
+
+My encounters in this shelter have thus far not been positive.
+
+In spite of that, I remain hopeful. Someone will help me. Someone will trust me.
+
+Someone will want me.
+
+Rathole
+This is a very small space with very little in it, besides myself and a ball of wax. There's an exit to the south, and a blocked off exit to the north.
+> south
+
+> south
+
+Kitchen
+A simple room. There is a cauldron over some firewood, a table and stool, and a large oak cabinet. Exits lead to the north and west.
+> west
+
+> west
+There is an unfamiliar face in this room today. A man in fine, soft garments. He is sitting directly across from the Man with the Face of a Bird.
+
+I resist the urge to cower and hide and listen from the other room.
+
+"Enough pleasantries, Doctor Osbertus. How goes our little project? Everything according to plan, I expect? I'd expect no less from a man of your talents."
+"Yes, yes. Everything is fine. What about your end of the arrangement?"
+
+"Of course, Edward doesn't suspect a thing. No one does! I'm quite practiced at keeping secrets. When this is all over with, we'll both have exactly what we want."
+"Good, good. I'm pleased."
+
+"I must admit though, Osbertus... It's more... your end, that I'm concerned with. What's this I hear about your housemaid taking ill? I always thought she was a strange one, you know-"
+"Enough! You have no reason to doubt my abilities. This formula worked one thousand years ago, and it will work again shortly in our favor. Did you arrange this meeting purely to check up on me?"
+
+"Now, Doctor. One mustn't lose one's temper." The unfamiliar man holds up a flask and tips it over. A small drop of dark liquid spills out onto the ground. "Afraid I've been dry for a few days now. Think you could help a fellow out?"
+"Fine. If there's nothing more you need to say, then wait here. I'll fill this up for you."
+"Don't hurry on my account, Doctor! I told them I'd be gone for a while. Have to make things appear... ordinary, you know. I'll just make myself comfortable."
+
+The Man with the Face of a Bird mutters something under his breath and lumbers out of the room with the flask in his hand. Meanwhile, the new man relaxes in his chair and closes his eyes.
+
+If he's in league with the Bird Man, I have no reason to believe approaching him will result in anything different from the other two.
+
+But I have to try.
+
+Den
+The unfamiliar man lies on a bench at the center of the room, in front of a small table. Other rooms lie to the north and east. At the south is the front door.
+> take thimble
+
+> take thimble
+I take the thimble.
+> north
+
+> north
+
+Bedroom
+A simple room without decoration. There is a bed of straw in the northwest corner. In the northeast is a small shelf. And in the southwest corner is a chest.
+> use thimble on powder
+
+> use thimble on powder
+I dip the thimble into the powder. It's about half full now.
+> use thimble on cream
+
+> use thimble on cream
+I mix the cream into the thimble with the powder. I wonder what the thimble smells like now that I've mixed the two together.
+> smell thimble
+
+> smell thimble
+I bury my nose in the thimble and take a big whiff. The mixture of the powder and cream is not unpleasant, but still very powerful. This should block out any harmful smells for a while. I toss the thimble away, as I won't need it anymore.
+> take knife
+
+> take knife
+The knife is small enough for me to be able to carry it. I pick it up carefully.
+> south
+
+> south
+
+Den
+The unfamiliar man lies on a bench at the center of the room, in front of a small table. Other rooms lie to the north and east. At the south is the front door.
+> east
+
+> east
+
+Kitchen
+A simple room. There is a cauldron over some firewood, a table and stool, and a large oak cabinet. Exits lead to the north and west.
+> north
+
+> north
+
+Rathole
+This is a very small space with very little in it, besides myself and a ball of wax. There's an exit to the south, and a blocked off exit to the north.
+> use knife on rocks
+
+> use knife on rocks
+The knife is small, but sharp enough for me to chip away at the rocks that were blocking up this hole in the wall. It doesn't take long for them to give way, leaving an opening even larger than the one on the other side. I toss the knife away, no longer needing it.
+> push ball of wax
+
+> push ball of wax
+I roll the heavy ball of wax through the now widened north opening, into the next room.
+
+Workshop
+A dank, musty space. There are boxes of various items all across the back wall, as well as some tools hanging from hooks. A lantern sits on the ground. There is an exit to the south. The ball of wax is nearby.
+> use ball of wax on lantern
+
+> use ball of wax on lantern
+I roll the ball of wax right next to the lantern. The flame heats the wax, making it softer, more malleable.
+> dig ball of wax
+
+> dig ball of wax
+I dig some warm wax out of the ball and plug my ears with it. I can still hear, but that should effectively muffle any unwanted noises nearby. Finished with the ball of wax, I roll it back into the hole.
+> west
+
+> west
+
+Bedroom
+A simple room without decoration. There is a bed of straw in the northwest corner. In the northeast is a small shelf. And in the southwest corner is a chest.
+> south
+
+> south
+
+Den
+The unfamiliar man lies on a bench at the center of the room, in front of a small table. Other rooms lie to the north and east. At the south is the front door.
+> approach man
+
+> approach man
+Disoriented, I eventually make my way to the man. I climb up the side of the chair and onto his lap.
+
+He doesn't see me. He appears to be napping. I climb to his shoulder to get his attention.
+
+He notices me.
+
+His sits up straight and forces me off his shoulder, to the side of the chair.
+
+The wax comes loose. I can hear the ticking again, much louder than before. It is maddening.
+
+The man raises his arm again to knock me off the chair completely.
+
+This time, I don't panic.
+
+I move to his leg and sink my teeth in as deep as I can get them. If I bite hard enough the ticking will stop. If I bite hard enough I will stop him.
+
+He curses, stands up and shakes me to the ground. I run from his cries, back to my hiding place.
+
+"Osbertus! Osbertus! We have a real problem! Get up here now!"
+Footsteps down from the other side of the building.
+"A rat, Osbertus! A filthy little rat! It came right up to me and it bit me! It bit my leg! You're going to have to kill that thing! You're going to have to kill it! I knew something was wrong! I knew this wouldn't work out!"
+
+"Calm down! I assure you, everything will be fine. Just take this, return to your duties, and leave the rest to me."
+"I don't know if this is going to work out, Osbertus. I'm worried. I'm very worried. First Matild takes ill, and now this... this loose rat business."
+
+"Trust me, my friend. Trust me. I will take care of everything. A few months from now, we'll own this entire country. You have only to trust in me."
+
+"...All right. I can give you another chance. But I'd advise you to avoid any future problems. For starters, you could get rid of that damn rat."
+"Believe me. It's on the agenda."
+
+One of them leaves out the front door. The other... reappears in the room to the north, right in front of me.
+
+I can only see his feet, but I know it is him. The Man with the Face of a Bird lifts a box off the ground and begins rummaging through it.
+
+I can smell something... cheese. The Man is taking pieces of cheese from the box and placing them all around the room.
+
+Each piece of cheese is on a small piece of wood, with a metal latch on it...
+
+Traps.
+
+He does intend to kill me.
+
+He puts at least a dozen of the traps out all over the ground. But it is what he does next that surprises me.
+
+He lifts the carpet at the center of the room and puts it to one side. In the spot where the carpet once was is a hidden doorway.
+
+He lifts the cover up, sets it aside, and descends down a secret set of stairs.
+
+The last thing that I want to do is follow him.
+
+But I still have yet to find a way out of this place. And this underground passage may lead to an opening to the outside.
+
+Rathole
+This is a very small space with very little in it, besides myself and a ball of wax. Exits lead north and south.
+
+Rathole
+This is a very small space with very little in it, besides myself and a ball of wax. Exits lead north and south.
+> push ball of wax
+
+> push ball of wax
+Please choose which 'ball of wax' you mean:
+1: Ball of Wax
+2: Ball of Wax
+> 2
+I push the ball of wax northward. As it rolls, it catches several of the traps that were in my way before! There's a clear path for me now.
+I run carefully down the steps that the Man took only moments before.
+
+I ponder the fact that he made no effort to hide his actions from me. I could clearly see the layout of his traps. He didn't even bother to cover up his secret entrance.
+
+Perhaps he underestimates me.
+
+I reach the bottom of the stairs and find myself in front of a large stone door.
+
+The door opens.
+
+The Man with the Face of a Bird steps out and... and he is spraying something at me! I don't have time to get away!
+
+A strange gas fills my lungs.
+
+The ends of his black cloak are the last thing I see before I drift off...
+
+No.
+
+Not again.
+
+I'm back here again... the dark, narrow passageway.
+
+I have to keep running forward.
+
+If I do not stop running, I will die.
+
+Passageway
+The first passageway. There is an exit to the north. I have no choice but to take it.
+> north
+
+> north
+I am tired of running.
+
+I am tired of trying to make new friends.
+
+I am tired.
+
+Second Passageway
+Another passageway, exactly like the first. A path to the north, and a path to the south.
+> north
+
+> north
+Is this going to keep repeating forever? Am I stuck in a loop?
+
+The thing that is chasing me will catch up. It is inevitable.
+
+Third Passageway
+Exits lead to the north and south, again.
+> north
+
+> north
+Here it is, my set of branching paths.
+
+I remember where they take me. I don't need to inspect them. The east path is the correct one.
+
+Branching Paths
+Four pathways, to the north, east, south and west.
+> east
+
+> east
+I take the east pathway and find myself...
+
+Back in the same room again? This isn't right. How is this possible? Could I be remembering wrong?
+
+> east
+
+> east
+Again, the path leads me right back to where I started.
+
+I don't know what to do. How can I keep going? Why should I even bother?
+
+It's all over. I need to accept that.
+
+> east
+
+> east
+I'm tired of running. Why should I take that path? Or any path? I may as well wait here and accept my fate.
+
+I can feel it coming for me like always.
+
+I'd like to say I'm not afraid anymore... but it isn't true. I'm terrified.
+
+This thing that has hunted the others and me so relentlessly... What could it be?
+
+I am about to find out.
+
+Its presence is coming increasingly closer.
+
+Closer.
+
+Closer.
+
+It charges into the room. It envelops me. It is everywhere at once.
+
+I can see what it is now. It is...
+
+It is nothing.
+
+Not a man, or a beast. It is simply emptiness. Emptiness that surrounds me completely. I can feel it in my fur, my skin, my bones, my soul...
+
+I am empty.
+
+I am nothing.
+
+I am alone.
+
+I am...
+
+...Where am I?
+
+I don't recognize this place... But I don't think this is a dream.
+
+Everything is incredibly bright. White ground, high white walls... Very narrow...
+
+I can't... I'm trapped... I don't know how to get out of here... I don't know where to go...
+
+Why am I here... How did I get here...
+
+I'm frightened... I'm losing... control...
+
+I can't...
+
+I need to...
+
+I need to br...
+> breathe
+...I exhale slowly... and inhale... and exhale...
+
+I can smell... I can smell something from just outside wherever I am...
+
+It smells familiar... It smells like home...
+
+Maze
+A narrow passageway with exits to the west, east and south.
+> east
+
+> east
+
+Maze
+A light is flickering from outside the wall here. There are exits to the west, south and northwest.
+> northwest
+
+> northwest
+
+Maze
+There are exits to the north, east and west.
+> north
+
+> north
+
+Maze
+Something feels off in this passage. There is an exit to the south.
+> smell
+
+> smell
+There's a terrible stench coming from just outside this wall. It makes me feel sick.
+
+I look up. Something is moving just outside the wall.
+
+I can't make it out. A flash of black. The glint of metal. And all the while that smell...
+
+It smells like death.
+
+It smells like suffering.
+
+> south
+
+> south
+
+Maze
+There are exits to the north, east and west.
+> east
+
+> east
+
+Maze
+A light is flickering from outside the wall here. There are exits to the west, south and northwest.
+> south
+
+> south
+
+Maze
+There are exits to the north and west.
+> west
+
+> west
+
+Maze
+There are exits to the west, north and east.
+> west
+
+> west
+
+Maze
+I can feel a draft coming through here. It gives me hope. There is an exit to the east.
+> push wall
+
+> push wall
+The wall is weaker here than anywhere else in the maze. But my strength has not yet returned to me. I can't knock it down in the state I'm in.
+> east
+
+> east
+
+Maze
+There are exits to the west, north and east.
+> north
+
+> north
+
+Maze
+A narrow passageway with exits to the west, east and south.
+I'm going in circles. I don't think this maze has an exit. I really need to use all my sense to find a way out of here.
+> east
+
+> east
+
+Maze
+A light is flickering from outside the wall here. There are exits to the west, south and northwest.
+The flickering light is overcome by a shadow.
+
+A huge figure moves over to my position. It must be the Man.
+
+I cannot see his face. His long, cloaked arm reaches over me. I can only guess at his intentions.
+
+His arm backs away again and he walks away. As he does so, I can smell something new in the maze... The Man has put some food somewhere in here.
+
+> west
+
+> west
+
+Maze
+A narrow passageway with exits to the west, east and south.
+I'm going in circles. I don't think this maze has an exit. I really need to use all my sense to find a way out of here.
+> west
+
+> west
+
+Maze
+A small block of cheese lies in the center of the passage, left here by the Man. There are exits to the north and east.
+> eat cheese
+
+> eat cheese
+I can't be sure that this cheese isn't another trap... But I am far too desperate to be selective now.
+
+I scarf the cheese down greedily. I can feel some of my strength returning to me.
+
+> east
+
+> east
+
+Maze
+A narrow passageway with exits to the west, east and south.
+I'm going in circles. I don't think this maze has an exit. I really need to use all my sense to find a way out of here.
+> south
+
+> south
+
+Maze
+There are exits to the west, north and east.
+> west
+
+> west
+
+Maze
+I can feel a draft coming through here. It gives me hope. There is an exit to the east.
+> push wall
+
+> push wall
+With a little food in my stomach I have strength enough to push against the wall... and break it down.
+
+On the other side is a sight I thought I would never lay eyes on again.
+
+The others... my family... all of them. They're here. They were taken. They were taken... by the Man.
+
+I can't bring myself to feel good about finding them in such a dire situation. The others are all packed inside a cage, barely big enough to hold them all.
+
+I need to free them. I need to get us out of here.
+
+A Basement
+A spacious underground room. I'm on top of a table, between the maze I just exited and a cage holding the others. Across the room, the Man with the Face of a Bird is working. Nearby is a chalkboard and a second table.
+> take handkerchief
+
+> take handkerchief
+I climb up and take the folded up handkerchief, taking care not to be seen. Then, I return to the table with the cage.
+> north
+
+> north
+
+Behind The Maze
+There is a dead rat here, the smell I detected while in the maze. It lies open... torn apart... dissected. It makes me sick. A syringe lies not far behind it. A south exit leads back to the other side of the maze.
+> use handkerchief on dead rat corpse
+
+> use handkerchief on dead rat corpse
+I toss the handkerchief over the body. It does nothing for the smell. But it's enough for me to be able to get past it calmly.
+> take syringe
+
+> take syringe
+I take the syringe. I shudder thinking of what it might have been used for.
+> south
+
+> south
+
+A Basement
+A spacious underground room. I'm on top of a table, between the maze I just exited and a cage holding the others. Across the room, the Man with the Face of a Bird is working. Nearby is a chalkboard and a second table.
+> use syringe on latch
+
+> use syringe on latch
+I insert the syringe into the latch. The thin needle loosens the lock from the inside, and the cage door creaks open slowly.
+
+The others begin to stir, as a sound comes from behind me. The Man with the Face of the Bird has taken notice of my actions.
+
+My vision is weak, and the bright light in this room makes it even harder to see. The Man is a blur of darkness crossing the room to our location. He leans a tall cane against the table and leans forward.
+
+But he does not get the chance to shout, to close the cage door, or to make sense of what has happened.
+
+The others pour out of the cage in a frenzy, eager to greet the man who put them there.
+
+One leaps at his throat. Another, his face. Still more cling to his sides.
+
+The Man loses his balance. He falls to the ground. As he does so, he knocks the large bottle of dark liquid onto the ground.
+
+The others surround the man on the ground as the liquid spills over them all.
+
+They soon silence his soft, terrified screams. His body convulses in agony.
+
+Part of me wishes I could join them.
+
+Part of me is relieved that I cannot.
+
+When the others have finished, the Man's body lies still. I climb down the side of the table to join them.
+
+In his left hand he is holding what was once his face... A mask. Nothing more.
+
+I stare into those sunken eyes one final time. They no longer frighten me. Instead I feel... pity.
+
+The others begin to lap up the dark liquid from the ground, desperately thirsty. I join them, and we are revitalized.
+
+We run up the stairs to the upper level and discover the front door to be wide open. Through the legs of a figure whose identity I did not care enough to determine.
+
+Outside. Free. Together. At last.
+
+Two Weeks Later
+Things are looking up. I feel healthier. My back has stopped itching. The others and I have found our clearing in the forest once again. But in truth, I do not belong here anymore.
+
+Their time in the cage has made them... wild. They are prone to violence. I have seen them fighting amongst themselves. I can no longer relate to them as I once did.
+
+This isn't a home for me anymore.
+
+I lay down on the ground.
+
+I close my eyes.
+
+A familiar dream. I still find this place in my sleep. I am still alone. The emptiness is still here.
+
+It does not hunt me, and I do not run. We simply coexist.
+
+There is a sense of calm in it, a serenity that I have come to appreciate. For now, I am content in knowing myself, in simply being who I am.
+
+But I'll go out and try again soon.
+
+Pest
+Written and Designed by
+Jonathan Estis
+
+Cover Art by
+Neel Sawhney
+
+Playtested by
+Will Keeler
+Neel Sawhney
+
+Special Thanks to
+Will Keeler (for help with developing ending puzzles)
+Alex Warren (for creating Quest)
+Google (for allowing me to research and create a 100% perfectly accurate representation of 1300s England)
+Rats (off to ya)
+And You (for playing this game!)
+Kill The Lights
+
+[state=Finished]

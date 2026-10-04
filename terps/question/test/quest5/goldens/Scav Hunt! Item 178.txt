@@ -1,0 +1,116 @@
+Scav Hunt! Item 178.
+
+by The Judgely Judges of Your Fate
+
+You are on the top of a small hill with a cairn beside you. There seems to be some sort of paper underneath the top stone. Mountains loom before you to the north and you can hear the ocean crashing against the shore behind you to the south.
+A dirt path goes north and south from here.
+> look
+
+> look
+You are on the top of a small hill with a cairn beside you. There seems to be some sort of paper underneath the top stone. Mountains loom before you to the north and you can hear the ocean crashing against the shore behind you to the south.
+A dirt path goes north and south from here.
+> read scav list
+
+> read scav list
+Hello! Welcome to your very own Computer-Aided Scav Training Rest-Associated Technological Estate, also known as CASTRATE! You’ll have Four Days here to do as you please, so please enjoy, explore, and procrastinate on whatever might concern you out there in meatspace.
+
+As you explore the area, you may find objects that have a point value, which you should collect if you want those points after the Four Days. But better yet, the hidden corners of the CASTRATE island may hold secrets befitting your own Scavvy interest. Or maybe not. More likely yet, the hidden corners of the CASTRATE island may just hold some unfinished whole roast ham and squirrel poo. Lucky you will get to find out. We won’t talk about what happens to unlucky you.
+> x cairn
+
+> x cairn
+The cairn is a large pile of rocks, stacked around four feet tall.
+> north
+
+> north
+
+You continue up the dirt path towards the mountains, passing by a flat area that seems to be filled with rabbits. Rabbits rabbits rabbits. Hundreds of them, it looks like. Lots of little-rabbit holes dot the area. One rabbit hole is particularly large, and you might be able to crawl into it. To the east you can see what looks like a castle and to the south you can hear the ocean.
+The dirt path goes east and south.
+> east
+
+> east
+
+From here you can see the ocean stretch out behind you to the south. What originally appeared to be a large castle looms ahead of you, but now you can see that it’s actually more of a lighthouse a hundred feet high that’s surrounded by smooth, stone walls. The tops of trees can be seen just inside of the walls before the lighthouse. The path continues north towards the lighthouse or west towards the rabbit plain.
+> north
+
+> north
+
+The path leads right up the mountain, ending against the smooth stone walls of the lighthouse complex in front of a large gate. Barred windows dot the sides of the walls, but little can be seen in through the foggy windowpanes. A rugged goat path continues to the west and east along the side of the wall. There is also a path leading south towards the ocean.
+> west
+
+> west
+
+The path turns to the north and continues along the western wall of the lighthouse complex. Securely barred windows line the walls here. Here the goat path continues either north along the wall or splits off to the west towards an ominous-looking rainforest. The path also turns around the southern corner to the east.
+> north
+
+> north
+
+To the north, you can see that the mountains continue beyond this one that the lighthouse complex is on. Barred windows dot the sides of the wall of the complex, with one basement-level set of window bars appearing particularly rusted. The path continues along the wall to the east and west.
+> east
+
+> east
+
+The goat path continues along the east side of the stone wall heading north and continues along the north side of the building. The path also goes south back towards the gate. Securely barred windows line the walls here. There is a rusted knife here.
+> north
+
+> north
+
+To the north, you can see that the mountains continue beyond this one that the lighthouse complex is on. Barred windows dot the sides of the wall of the complex, with one basement-level set of window bars appearing particularly rusted. The path continues along the wall to the east and west.
+> west
+
+> west
+
+The path turns to the north and continues along the western wall of the lighthouse complex. Securely barred windows line the walls here. Here the goat path continues either north along the wall or splits off to the west towards an ominous-looking rainforest. The path also turns around the southern corner to the east.
+> south
+
+> south
+
+The path leads right up the mountain, ending against the smooth stone walls of the lighthouse complex in front of a large gate. Barred windows dot the sides of the walls, but little can be seen in through the foggy windowpanes. A rugged goat path continues to the west and east along the side of the wall. There is also a path leading south towards the ocean.
+> south
+
+> south
+
+From here you can see the ocean stretch out behind you to the south. What originally appeared to be a large castle looms ahead of you, but now you can see that it’s actually more of a lighthouse a hundred feet high that’s surrounded by smooth, stone walls. The tops of trees can be seen just inside of the walls before the lighthouse. The path continues north towards the lighthouse or west towards the rabbit plain.
+> west
+
+> west
+
+You continue up the dirt path towards the mountains, passing by a flat area that seems to be filled with rabbits. Rabbits rabbits rabbits. Hundreds of them, it looks like. Lots of little-rabbit holes dot the area. One rabbit hole is particularly large, and you might be able to crawl into it. To the east you can see what looks like a castle and to the south you can hear the ocean.
+The dirt path goes east and south.
+> south
+
+> south
+
+You are on the top of a small hill with a cairn beside you. There seems to be some sort of paper underneath the top stone. Mountains loom before you to the north and you can hear the ocean crashing against the shore behind you to the south.
+A dirt path goes north and south from here.
+> south
+
+> south
+
+You are at the edge of a cliff facing the sea to the south.You can see what looks like a castle to the north near the mountains. A path goes along the cliff edge from east to west. Another path goes north up a hill towards a cairn and to the castle beyond.
+> west
+
+> west
+
+You are at the end of the western cliff path on a rocky point along the cliff. Below you, you can see a small beach that looks like it's been decorated for a wedding of some kind. I wonder how you get down there... The path you are on goes east along the cliff.
+> east
+
+> east
+
+You are at the edge of a cliff facing the sea to the south.You can see what looks like a castle to the north near the mountains. A path goes along the cliff edge from east to west. Another path goes north up a hill towards a cairn and to the castle beyond.
+> east
+
+> east
+
+You are on the eastern cliff path, where you can see the sea to the south. The path you are on continues to the northeast and west. You can see a small grove of trees ahead of you to the northeast along the path.
+> west
+
+> west
+
+You are at the edge of a cliff facing the sea to the south.You can see what looks like a castle to the north near the mountains. A path goes along the cliff edge from east to west. Another path goes north up a hill towards a cairn and to the castle beyond.
+> north
+
+> north
+
+You are on the top of a small hill with a cairn beside you. There seems to be some sort of paper underneath the top stone. Mountains loom before you to the north and you can hear the ocean crashing against the shore behind you to the south.
+A dirt path goes north and south from here.
+[state=Running]

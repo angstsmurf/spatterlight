@@ -1,0 +1,937 @@
+Rogues Adventure
+
+by Four Suits Co
+
+You are sitting in your room in front of your computer. Your desk is miraculously less cluttered than you remember it being.
+You sigh and boot up that game. After a moment to load, its simple text begins scrolling across the screen until it finally prompts you to create a username.
+Please create a username:
+> alex
+Then it whirs forward and asks you to choose a password.
+Please choose a password:
+> hunter2
+Finally, after a short pause, the screen dissolves and you step into the game.
+
+You are in a shadowy hallway in an old mansion. Dark, discolored carpet runs the length, and the dim light of flickering faux-candles reveals wallpaper dotted with specks of mold and dirt. Behind you stands a full-length mirror, as wide and tall as the hallway. The mirror is miraculously clean, given the state of the rest of the place. At the end of the hall is a large set of double doors. To your left and right are smaller side doors.
+You can go west, east or north.
+> look
+
+> look
+You are in a shadowy hallway in an old mansion. Dark, discolored carpet runs the length, and the dim light of flickering faux-candles reveals wallpaper dotted with specks of mold and dirt. Behind you stands a full-length mirror, as wide and tall as the hallway. The mirror is miraculously clean, given the state of the rest of the place. At the end of the hall is a large set of double doors. To your left and right are smaller side doors.
+You can go west, east or north.
+> e
+
+> e
+
+As soon as you enter you have to stifle a sneeze, each step you take raising a cloud of dust. In the center of the room is an empty marble pedestal spotlit by harsh fluorescent lights. Once your eyes adjust to the stark shadows and reflections you realize the rest of the room is full of animal skeletons and taxidermies in grotesque poses: an owl about to pluck a field mouse out of an artificial tuft of grass; a mountain lion with its teeth bared, tongue dangling;  a chimpanzee holding what appears to a ragged, stained neck tie; two green snakes writhing, tightly wrapped around one another; a group of vole skeletons arranged in a group, as if in discussion. There are entire cabinets filled with spiders and insects of every variety pinned in perfect rows. As far as you look, the displays continue, showing every animal you can think of. For as full as the room is, and lifelike as the animals are, it is oppressively still.
+You can go west.
+> x pedestal
+
+> x pedestal
+
+Made of cold marble streaked with dark veins, the pedestal stands isolated from the animals around it. Carved into the side are the following words:
+
+I lie at the side of popes, queens, and kings,
+even my turned tail is part of the royal lining,
+and during winter I'm pure like a dove's wings.
+Who am I?
+
+Would you like to try to solve the riddle?
+
+> ermine
+As you speak the word into the silent room, the skeleton of an ermine resolves into existence on the pedestal, posed rearing back onto its hind legs, one front paw extended. The forearm and paw glow suddenly and fiercely, and then fuse into black obsidian key, which falls to the floor.
+> take obsidian key
+
+> take obsidian key
+You pick it up.
+> w
+
+> w
+
+You are in a shadowy hallway in an old mansion. Dark, discolored carpet runs the length, and the dim light of flickering faux-candles reveals wallpaper dotted with specks of mold and dirt. Behind you stands a full-length mirror, as wide and tall as the hallway. The mirror is miraculously clean, given the state of the rest of the place. At the end of the hall is a large set of double doors. To your left and right are smaller side doors.
+You can go west, east or north.
+> w
+
+> w
+
+You step into what appears to be an arboretum, full of saplings of all varieties. Three stories high, with exterior walls and roof made of solid glass, this room is washed by thin moonlight. In the center of the room is a worktable with a folded letter on it, and beside the table is a large pot filled with soil. Behind you, lining the one non-glass wall, are hundreds and hundreds of small drawers, each labeled in Latin with its species name. A large rolling ladder sits in one corner.
+You can go east.
+> x letter
+
+> x letter
+
+A note printed in small, neat letters reads, "Please identify this specimen and plant a seed sample in the pot next to the table."
+> take acer rubrum
+
+> take acer rubrum
+You search the drawers for a few moments before coming to Acer rubrum. The ladder squeaks loudly as you roll it over to the appropriate drawer, but eventually you get it into position and succeed in retrieving a small handful of the seeds.
+> plant acer rubrum
+
+> plant acer rubrum
+You take one of the delicate, rosy seeds and press it into the soil in the pot. After a moment of silence, a tiny tendril of green shoots out of the dirt and bursts into a small halo of leaves. One branch thickens and sags, where with a sudden CRACK it splits from the trunk and falls to the table, now resembling a key with an knotted stem and glistening emerald teeth.
+> take emerald key
+
+> take emerald key
+You pick it up.
+> e
+
+> e
+
+You are in a shadowy hallway in an old mansion. Dark, discolored carpet runs the length, and the dim light of flickering faux-candles reveals wallpaper dotted with specks of mold and dirt. Behind you stands a full-length mirror, as wide and tall as the hallway. The mirror is miraculously clean, given the state of the rest of the place. At the end of the hall is a large set of double doors. To your left and right are smaller side doors.
+You can go west, east or north.
+> n
+
+> n
+
+You step into a wide ballroom. A chandelier heavy with cobwebs swings gently above you. Tattered curtains on the windows allow a little moonlight to sift in, but most of the illumination comes from wall sconces pointing at an imposing family portrait. Behind you are the double doors leading to the hallway. On your left and right are heavy, carved wooden doors with the faint smell of smoke wafting from the west door, and in the corner is a set of stone stairs leading downwards. In front of you is a single, simple door with five identical keyholes. Above this north door are written the words, "All living things with life’s bright spark, one day will fade to lonesome dark, be they clad now in scale or bark."
+You can go south, west, east, down or north.
+> w
+
+> w
+
+You step into what appears to be a smoking lounge. A fire crackles in the large fireplace and soot has slowly stained the velvet wallpaper around it. The rest of the walls are covered in heavy wooden shelves stacked deep with books, and in the corner stands a brass telescope.  By the fire there are two soft leather chairs on either side of a small antique cherrywood table. Inlaid into the table is a chess set, with pieces carved from obsidian and amber, apparently in the middle of a game. A note is stuck between two adjacent black pawns. Next to the board are a glass of whiskey and a large cigar, ember still faintly glowing.
+You can go east.
+> move chess pieces
+
+> move chess pieces
+Please enter, in correct algebraic notation, your moves, and black's responses. (ex: 1. Qf4+ Kxf4 2. Bf5+)
+> 1. Qh8 Kh5 2. Bf5#
+As you slide the final piece into place the black king crumbles to a fine dust, revealing a ruby key in its place. "I hope they don't mind that I ruined their chess set!" you think to yourself.
+> take ruby key
+
+> take ruby key
+You pick it up.
+> e
+
+> e
+
+You step into a wide ballroom. A chandelier heavy with cobwebs swings gently above you. Tattered curtains on the windows allow a little moonlight to sift in, but most of the illumination comes from wall sconces pointing at an imposing family portrait. Behind you are the double doors leading to the hallway. On your left and right are heavy, carved wooden doors, and in the corner is a set of stone stairs leading downwards. In front of you is a single, simple door with five identical keyholes. Above this north door are written the words, "All living things with life’s bright spark, one day will fade to lonesome dark, be they clad now in scale or bark."
+You can go south, west, east, down or north.
+> d
+
+> d
+
+You descend a few stone steps and open an unadorned wooden door to reveal a small water closet. Set into the lintel are the words, "Pietate munditia proxima est", and inside are a toilet, sink, and soap dish. A bare bulb on the ceiling sends a sharp light over the stone walls that, upon closer inspection, are flecked with tiny fossils. The outlines of miniscule trilobites and other tiny sea creatures are spread across the room.
+You can go up.
+> wash hands with soap
+
+> wash hands with soap
+You turn the water on and begin gently scrubbing your hands with the soap. After a few moments you hear a strange rattling sound that grows louder and louder until finally, from out of the faucet, comes bouncing a Sapphire Key. You finish washing your hands only to realize there are no washcloths for drying. Oh well.
+> take sapphire key
+
+> take sapphire key
+You pick it up.
+> up
+
+> up
+
+You step into a wide ballroom. A chandelier heavy with cobwebs swings gently above you. Tattered curtains on the windows allow a little moonlight to sift in, but most of the illumination comes from wall sconces pointing at an imposing family portrait. Behind you are the double doors leading to the hallway. On your left and right are heavy, carved wooden doors, and in the corner is a set of stone stairs leading downwards. In front of you is a single, simple door with five identical keyholes. Above this north door are written the words, "All living things with life’s bright spark, one day will fade to lonesome dark, be they clad now in scale or bark."
+You can go south, west, east, down or north.
+> e
+
+> e
+
+As you step into this room you feel warm for the first time, and, though the room is empty, you hear the echoes of laughter and raucous conversation all around you. Bright candelabras illuminate a table covered in a brilliant white tablecloth, ornately set for a meal of altogether too many courses. Three settings are on each side, and one at each end of the table. Large paintings are hung around the room, depicting scenes of all kinds, from the mundane to the baroque. The chairs are upholstered with lustrous white satin embroidered with the finest silver thread. On the table is a note.
+You can go west.
+> x note
+
+> x note
+The note reads, "The table is set for the captain’s dinner since the Lord is here inspecting the ship, and he’s invited his corporal, the boatswain, three ensigns, and that cheeky stowaway! But I need your help setting the name cards. The captain always sits at one end of the table and the ensigns must sit at the corners. The Lord refuses to sit next to an ensign or a stowaway. The corporal hates attention, so he asked to sit between two ensigns and not at the head of the table. Who should I seat at the other end of the table opposite the captain?”
+Next to the note are seven name cards: three ensigns, the corporal, the Lord, the boatswain, and the stowaway. Would you like to try and place one at the end of the table opposite the captain?
+> yes
+Which name card would you put there, the corporal, the Lord, the boatswain, or the stowaway?
+> the stowaway
+"Yes," you think to yourself, "that seems right." A moment later, the fork at the end setting starts smoking and sputtering and morphs before your eyes into a crystal key.
+> take crystal key
+
+> take crystal key
+You pick it up.
+> w
+
+> w
+
+You step into a wide ballroom. A chandelier heavy with cobwebs swings gently above you. Tattered curtains on the windows allow a little moonlight to sift in, but most of the illumination comes from wall sconces pointing at an imposing family portrait. Behind you are the double doors leading to the hallway. On your left and right are heavy, carved wooden doors, and in the corner is a set of stone stairs leading downwards. In front of you is a single, simple door with five identical keyholes. Above this north door are written the words, "All living things with life’s bright spark, one day will fade to lonesome dark, be they clad now in scale or bark."
+You can go south, west, east, down or north.
+> x north door
+
+> x north door
+It is a simple wooden door with five identical keyholes arranged horizontally. Above the door are the words, "All living things with life’s bright spark, one day will fade to lonesome dark, be they clad now in scale or bark." It is currently locked. Would you like to try and unlock it?
+> yes
+Please enter the order in which you insert the keys. For example (in alphabetical order): "Crystal Emerald Obsidian Ruby Sapphire"
+> Crystal Ruby Obsidian Sapphire Emerald
+You insert the keys one by one and instantly the keyholes shine with a searing light. The key stems smoke and hiss as they fuse to the door. When the smoke clears the door swings open, unlocked.
+> n
+
+> n
+
+The room appears to be an old music room. One wall has a rack of guitars, many missing strings. The opposite wall has a torn painting of one of the identical twins holding a clarinet. In the corner is a victrola with a record on it, and in the center of the room is a  dusty grand piano with moldering sheet music propped up atop it. "I should make sure to save my progress; these old games can be so buggy," you think to yourself.
+You can go south.
+> play piano
+
+> play piano
+You play your fingers along the keys for a moment and listen to the sound echo. You are again surprised, this time by the acoustics of the room. Would you like to play something specific?
+> C G E
+As the notes fade, you hear a loud creaking sound, and then the wall begins to shift. Previously imperceptible seams in the wallpaper appear as a secret doorway swings open to reveal a flight of stairs leading down into some kind of basement. A long line of bare incandescent bulbs set into the ceiling of the stairway flick on one by one.
+> d
+
+> d
+
+After stepping through the secret door you descend a long flight of steps. At first the walls are rough stone, but the deeper you go the more evidence of human construction you see. After one bend a metal handrail begins. Around another you see a pipe emerge from the rock, spewing not liquid but a thick bundle of cables that snakes along the ceiling. Eventually you come to a landing where the rock tunnel is capped by a steel wall, punctuated by a 10-foot vault door that juts forward from it.
+You can go south or up.
+> x service panel
+
+> x service panel
+You swing the panel open and what appears to be some kind of diagram falls out. Inside the panel you see switches, labeled 1 through 5, with a tangle of wires disappearing behind them into the door mechanism.
+Would you like to flip some of the switches?
+> yes
+Switches can be on (1) or off (0). Currently they are all off (00000). Please enter the switch state you wish to try.
+> 11100
+11100
+You flick the switches and hear a powerful hum from inside the walls. Finally, the door groans and begins to swing into a recess in the wall, revealing a shadowy room beyond.
+
+You can go up or south.
+> s
+
+> s
+
+You are in a large concrete basement room. One wall is covered with open metal shelves filled with mechanical and electronic components in various states of assembly. Crates stuffed with more parts sprout wires. The bundle of cables from the stairway splits out across the ceiling, routing into banks of servers stacked in one corner, other branches running to three archaic desktop computers, one green, one blue, and one red, all sitting on a central desk. There is an office door off to the east side, with a nameplate reading "Dr. W. Eliza, MD".
+You can go north or east.
+> x red computer
+
+> x red computer
+You look down at the computer and scratch your head. It looks like a Commodore 64, but it has far too many wires disappearing into its back. The screen has a blinking command prompt. Would you like to use it?
+> yes
+DoomQuest IV
+
+Welcome alex
+
+Loading last save file...
+...
+...
+Save file loaded. Level 6: The Test, part 2
+
+“Excellent work you two, you have defeated the spirit and separated it from its totem.”
+
+In your mind you pause, considering how you took the spirit down almost single-handedly, but you do not speak up. After all, Alifain did try and help. At least at the end…
+
+“But that is not the end of the Test,” the Preceptor continued. “To be considered a member of the Wizards’ Tower you must transport that spirit and totem out of this cavern. The fastest students will be considered for the highest honors. But it will not be time alone on which you are judged; we shall also consider the amount and variety of treasure you return with. I have here two pouches of magic gems. One gem grants your spells greater potency and the other increase the speed of your spellcasting."
+"Tell me alex, do you believe your greatest asset is your strength or your speed?"
+What do you say?
+1: speed
+2: strength
+> 1
+“Excellent, then your treasure shall be the gems of speed, to aid you in that.”
+
+“Before you continue, though, you may choose to share half of your gems with each other. As I said, the Order values students returning with a variety in treasure as well as sheer quantity, so a mix is beneficial, but you must each make your choice separately, and without discussion. If one of you chooses to share and the other does not you cannot change your mind or take back your decision, so think carefully now whether you wish to do.”
+What do you do?
+1: share
+2: keep
+> 1
+The Preceptor draws a glyph in the air and you and Alifain are compelled to speak simultaneously. To your and Alifain’s relief you both blurt out, “share,” though he does look a little sick to part with his gems. “Excellent choice,” he assures you both.
+“Since students are not permitted to wear money belts, your two gem pouches will be kept here, in a communal backpack, so that you may each watch over it as you journey forward.”
+
+“Yeah, real secure,” you think to yourself. “Either of us left alone for more than a minute could shift some gems from one pouch to the other.”
+Before you can contrive a way to protect your gems or make an arrangement with Alifain the Preceptor whisks you forward.
+
+"To exit this cavern, you must cross to the northern shore of the River Yuiger. alex, you will be the rower. But you must both make it to the other side, with all your cargo, to complete this trial. See you on the other side," and with a twinkle of his eye the Preceptor vanishes.
+
+Looking in front of you, you see a single small dinghy, just large enough for one rower and a single piece of cargo or passenger.
+
+“Dammit,” you think to yourself. You both know that you can’t leave the spirit alone with the totem or it will rebind itself and you’ll have to fight it all over again. But you aren’t even sure Alifain could keep the spirit at bay if he didn’t have the totem with him as protection anyway. “I guess it’s time to get creative,” you think.
+
+Pick up an item to load it in the boat, and drop an item to unload it. You can cross the river as many times as you need to, but remember, time is of the essence!
+
+You are on the south side of the River Yuiger. The following objects are currently on this side of the river:
+Alifain
+the spirit
+the totem
+the gems
+You can go north.
+> take spirit
+
+> take spirit
+You load it into the boat.
+> n
+
+> n
+
+You row across to the north bank of the  River Yuiger. The following objects are currently on this side of the river:
+the spirit
+You can go south.
+> drop spirit
+
+> drop spirit
+You drop it onto the riverbank.
+> s
+
+> s
+
+You are on the south side of the River Yuiger. The following objects are currently on this side of the river:
+Alifain
+the totem
+the gems
+You can go north.
+> take alifain
+
+> take alifain
+You help him into the boat.
+> n
+
+> n
+
+You row across to the north bank of the  River Yuiger. The following objects are currently on this side of the river:
+Alifain
+the spirit
+You can go south.
+> drop alifain
+
+> drop alifain
+Alifain clambers out onto the shore.
+> take spirit
+
+> take spirit
+You load it into the boat.
+> s
+
+> s
+
+You are on the south side of the River Yuiger. The following objects are currently on this side of the river:
+the spirit
+the totem
+the gems
+You can go north.
+> drop spirit
+
+> drop spirit
+You drop it onto the riverbank.
+> take totem
+
+> take totem
+You load it into the boat.
+> n
+
+> n
+
+You row across to the north bank of the  River Yuiger. The following objects are currently on this side of the river:
+Alifain
+the totem
+You can go south.
+> drop totem
+
+> drop totem
+You drop it onto the riverbank.
+> s
+
+> s
+
+You are on the south side of the River Yuiger. The following objects are currently on this side of the river:
+the spirit
+the gems
+You can go north.
+> take gems
+
+> take gems
+You load it into the boat.
+> n
+
+> n
+
+You row across to the north bank of the  River Yuiger. The following objects are currently on this side of the river:
+Alifain
+the totem
+the gems
+You can go south.
+> drop gems
+
+> drop gems
+You drop it onto the riverbank.
+> s
+
+> s
+
+You are on the south side of the River Yuiger. The following objects are currently on this side of the river:
+the spirit
+You can go north.
+> take spirit
+
+> take spirit
+You load it into the boat.
+> n
+
+> n
+
+Finally you and Alifain struggle up the river bank to the waiting group of Preceptors.
+
+"Congratulations students, you have defeated the spirit and brought it to us! You will be accepted as full members. But to determine your place in the Order we must look at your time and your treasure."
+"Luckily, you made excellent time! As for treasure, you both seem to have quite the abundance and range of trinkets. Well done! Overall, we grant you both our highest honors. You will each receive a staff of your choice upon return to the Tower. Welcome to the Order."
+
+Achievement Code: alex947437hunter2
+What do you do?
+1: restart
+2: exit
+> 2
+
+You are in a large concrete basement room. One wall is covered with open metal shelves filled with mechanical and electronic components in various states of assembly. Crates stuffed with more parts sprout wires. The bundle of cables from the stairway splits out across the ceiling, routing into banks of servers stacked in one corner, other branches running to three archaic desktop computers, one green, one blue, and one red, all sitting on a central desk. There is an office door off to the east side, with a nameplate reading "Dr. W. Eliza, MD".
+You can go north or east.
+> x green computer
+
+> x green computer
+You look down at the computer and scratch your head. It looks like a Commodore 64, but it has far too many wires disappearing into its back. The screen has a blinking command prompt. Would you like to use it?
+> yes
+DoomQuest VII
+
+Welcome alex
+
+Loading last save file...
+...
+...
+
+Save file loaded. Level 9: The Darkness
+
+After a career of adventure and conquest you have finally settled down with your wife. The two of you care for your small farm, and slowly your great sword, Gamganel the Time Key, gathers dust over the fireplace.
+Months go by, and you begin hearing rumors of a Darkness that stalks the land. It marks people with a sigil on their forehead, and places them in a deep, magical slumber. Then, inevitably, in a month, or six, or twelve, they die. No cure has been found, no spell has been effective, and no one has been able to confront, let alone challenge, the Darkness. There are rumors of an artifact that can save those affected, but no reliable reports can confirm its location or existence for sure. Your heart goes out to those who are marked, and their loved ones, but this is not your fight. Not until you return from your field one day to find your wife collapsed on the ground, the dreaded sigil upon her forehead.
+You wail and drop to your knees, but then your adventurer's spirit returns and you steel yourself.
+
+You can stay and care for her, ensuring her final days are comfortable and dignified, and pray for a miracle.
+You can pick up your sword and contend with this beast directly, using all the magic and cunning at your disposal to try and vanquish it.
+You can search for the artifact, tracking down the clues and rumors, and hopefully find it in time to save her.
+
+What do you do?
+1: care
+2: fight
+3: search
+> 1
+
+Every day you care for your wife. You bathe her, give her what sustenance you can, and watch her slowly wither. At first you try to keep the farm in good shape, doing the chores, tending the gardens. But as the weeks turn to months, the farm slowly falls into disrepair. Your neighbors come by from time to time, and although you were not close with them, they offer what little support they can, before eventually disappearing themselves.
+
+Finally, eight months after the dark sigil first appeared on her forehead, your wife passes. You sit by her bed unmoving for longer than you know how to bear, full of emotion and empty.
+
+You can go try and fight the monster, exacting some form of revenge on it, justly attempting to spare others from this tragedy.
+You can accept this ending to your story.
+You can reload from last save file.
+
+What do you do?
+1: fight
+2: accept
+3: load last save
+> 2
+You look out at the oak tree by your barn and see it has just started budding. "Time to plant," you think to yourself.
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+You are in a large concrete basement room. One wall is covered with open metal shelves filled with mechanical and electronic components in various states of assembly. Crates stuffed with more parts sprout wires. The bundle of cables from the stairway splits out across the ceiling, routing into banks of servers stacked in one corner, other branches running to three archaic desktop computers, one green, one blue, and one red, all sitting on a central desk. There is an office door off to the east side, with a nameplate reading "Dr. W. Eliza, MD".
+You can go north or east.
+> i
+
+> i
+You are carrying an Acer rubrum.
+> x blue computer
+
+> x blue computer
+You look down at the computer and scratch your head. It looks like a Commodore 64, but it has far too many wires disappearing into its back. The screen has a blinking command prompt. Would you like to use it?
+> yes
+DoomQuest IV
+
+Welcome alex
+
+Loading last save file...
+...
+...
+
+Save file loaded. Chapter 5: The Arachana
+
+It has been eight days since your ship, the Egret, chased down and defeated the Spider Queen’s flagship in battle. Though your crew has worked around the clock on repairs your ship is still badly damaged, and at the present rate at least six days from land and the port of Maru Maru. The fresh water should last, if just. For the third day in a row a light fog has surrounded you, and though the wind has picked up slightly, you are filled with a sense of unease.
+“Sail ho, 75 degrees to port!” your watchman exclaims.
+“What flag?” you replay.
+Even before they can answer the fog clears just enough for you to see through your telescope the listing outline of an imperial frigate. Though you have your doubts about the Sun King’s plans for the enchanted sword Gamganel if the war is won, you cannot begrudge the assistance his soldiers have provided, nor fault their bravery in the face of the Spider Queen’s forces. The ship is already listing precariously, and you can see the sails are nearly in tatters. The signet is that of the Northfleet, and the flag of mercy hangs just below it. You hope dearly that whatever put it in that state is long gone. They are a good five-hour sail off your present course.
+
+You can change course for the frigate.
+You can maintain course to port.
+
+What do you do?
+
+maintain course
+change course
+
+> wwssadadba
+
+Shit.
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+    As you step into this room you feel warm for the first time, and, though the room is empty, you hear the echoes of laughter and raucous conversation all around you. Bright candelabras illuminate a table covered in a brilliant white tablecloth, ornately set for a meal of all together too many courses. Three settings are on each side, and one at each end of the table. Large paintings are hung around the room, depicting scenes of all kinds, from the mundane to the baroque. The chairs are upholstered with lustrous white satin embroidered with the finest silver thread. On the table is a note.
+
+      false
+      The stem of the key is the spiraling clear crystal of the fork's handle, and the teeth are its tines.
+
+        SetObjectFlagOn (player, "white key")
+
+        SetObjectFlagOff (player, "white key")
+
+      You walk over to one of the paintings and look closely at the incredible detail. This one shows a family sitting in a comfortable living room, fire crackling in the woodstove, each reading their own book as a light snow falls outside the dark window.
+      Each tapestry is fastened high on the wall, well out of your reach.
+
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+Error running script: Error evaluating expression '"(<br/>      }<br/>      if (not ListContains(ScopeReachable(), spirit)) {<br/>        if (not ListContains(ScopeReachable(), totem)) {<br/>          if (ListContains(ScopeReachable(), bob)) {<br/>            MoveObject (player, DQ2 lost)<br/>            msg (\The spirit and the totem have been left unguarded. A sound like an entire ocean being sucked down a massive drain slowly surges until you are lost in the sound. The spirit is released.<br/><br/>\\Damn,\\ you think, \\no way we are finishing fast enough now.\\<br/><br/>You have lost.<br/><br/>You can restart the level.<br/>You can exit the game.\)<br/>            options = Split(\restart;exit\, \;\)<br/>            ShowMenu (\What do you do?\, options, false) {<br/>              switch (result) {<br/>                case (\exit\) {<br/>                  EnableTimer (DQ2 quit)<br/>                  set (player, \River\, 0)<br/>                  set (bob, \opportunity\, 0)<br/>                  set (bob, \defect\, 0)<br/>                  set (DQ2 south bank, \first\, true)<br/>                  MoveObject (bob, DQ2 south bank)<br/>                  MoveObject (money, DQ2 south bank)<br/>                  MoveObject (spirit, DQ2 south bank)<br/>                  MoveObject (totem, DQ2 south bank)<br/>                  set (DQ2 north bank, \complete\, false)<br/>                }<br/>                case (\restart\) {<br/>                  MoveObject (player, DoomQuest II)<br/>                  set (player, \River\, 0)<br/>                  set (bob, \opportunity\, 0)<br/>                  set (bob, \defect\, 0)<br/>                  set (DQ2 south bank, \first\, true)<br/>                 MoveObject (bob, DQ2 south bank)<br/>                  MoveObject (money, DQ2 south bank)<br/>                  MoveObject (spirit, DQ2 south bank)<br/>                  MoveObject (totem, DQ2 south bank)<br/>                  set (DQ2 north bank, \complete\, false)<br/>                }<br/>              })"': Invalid token in expression at position (1:1)
+> i
+
+> i
+You are carrying an Acer rubrum.
+You drop the thimble
+
+you Drp the thimble
+
+you fpo the thimble
+
+you fdrop the thimble
+
+tyou rop the thible you drop the timble you drop the thimble you drop the thimble
+you drop the thible
+
+the thimble thimb thimble thimble thimble thiemble thimble thikmble thimble thikmble thienble drop -
+
+thei thimbel you drop
+
+you drop the timble drooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+> i
+
+> i
+You are carrying an Acer rubrum.
+else {
+          msg ("Command not found. Try again.")
+          MoveObject (player, DQ4 main 1)
+        }
+      }
+    ]]>
+
+    Sea Rogue is in port and ready to sail when you arrive then it might just make it here in time. Might. You hate to think what will happen to them, stranded there, but you know it is better than if they were captured by the Spider Queen's troops. The wail of their cries as you sail away echoes across the waves and seems to get trapped in your sails.
+
+Two days later a freak storm strikes, and you are forced to batten down and wait it out. In the gale it is impossible to make out anything more than 100 yards away, but as the rain slowly dies down you see the looming shadow of the Arachana, one of the Spider Queen’s fiercest ships. Too close to run, you order all hands to battle stations, or what is left of them. Slowly, the Arachana’s spindled masts turn in your direction, and the ship approaches. As it nears you see the flags they hang on their side as trophies of those vanquished, and you see the Northfleet’s signet is the final one in the row. “Spirits help us,” you whisper.
+
+Though you and your crew fight bravely, you are in no shape to resist such a force. Your ship is ruined and the battle is lost. The Spider Queen’s forces do not take prisoners.
+
+You lose.
+
+You can load from the last save.
+You can quit the game.
+")
+          options = Split("load last save;quit", ";")
+          ShowMenu ("What do you do?", options, false) {
+            switch (result) {
+              case ("quit") {
+                EnableTimer (DQ4 quit)
+              }
+              case ("load last save") {
+                MoveObject (player, DQ4 main 1)
+              }
+            }
+          }
+        }
+        else if ( result = "^^vv<><>ba") {
+          MoveObject (player, void)
+        }
+        else if (result = "wwssadadba") {
+          MoveObject (player, void)
+        }
+        else {
+          msg ("Command not found. Try again.")
+          MoveObject (player, DQ4 course 1)
+        }
+      }
+    ]]>
+> i
+
+> i
+You are carrying an Acer rubrum.
+Loading...
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+...
+
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+...
+
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+...
+
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+...
+
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+...
+
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+You are sitting in your room in front of your computer. Your desk is miraculously less cluttered than you remember it being.
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+“Weird, DoomQuest must have glitched out,” you think. “I could have sworn you had to use that code to beat the level.”
+
+You take a few seconds to come back to yourself as the game fades from your mind. You sit for a moment thinking about nothing. “I should drink some water.”
+
+You stand to get yourself a drink, but as you do something feels wrong. At first you think it is just anxiety from those unanswered emails, but you know it’s something more. You take a sip of the water. It tastes wrong.
+
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+As you walk back to your computer your heart stutters and you stumble for a moment, sure you were about to stub your toe on a crate of old circuit boards sprouting bundles of cables, but when you look down again there is nothing there.
+
+When you sit down at your computer your phone buzzes. A notification pops up, but you know you don’t care what it says before you even read the text. When you look back up your computer is asleep. In the black screen you think you can see the reflection of a large vault door, recessed into a concrete wall behind you. You touch the mouse and the image is gone.
+
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+You are about to begrudgingly open your email when you hear another "ding".
+> i
+
+> i
+You are carrying an Acer rubrum.
+“Ok, what the hell was that?”
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+An error message appears on your screen.
+
+1: yes
+2: no
+> 1
+
+1: yes
+2: no
+> i
+> i
+> 1
+
+1: yes
+2: no
+> i
+> i
+> 1
+
+1: yes
+2: no
+> 1
+
+1: yes
+2: no
+> 1
+
+1: yes
+2: no
+> 1
+
+1: yes
+2: no
+> i
+> i
+> i
+> 1
+
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+1: yes
+2: no
+> i
+> 1
+
+1: yes
+2: no
+> 1
+
+1: yes
+2: no
+> 1
+
+1: yes
+2: no
+> 1
+
+1: yes
+2: no
+> i
+> i
+> 1
+
+1: yes
+2: no
+> 2
+
+1: yes
+2: no
+> 1
+
+1: yes
+2: no
+> 1
+
+1: reboot
+> i
+> i
+> 1
+As soon as you hit "reboot" a static starts to fill your ears. For a moment you see a mirror, a door, a hallway, then you feel yourself already wrapped in a perfectly snug cocoon and the world goes black.
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+When your vision clears you are standing in a long hallway.
+
+Drab carpet with a tangled pattern stretches out in front of you. Overhead, old fluorescent lights snap and hum. Things no longer feel like a game.
+You can go north, east or south.
+> i
+
+> i
+You are carrying an Acer rubrum.
+> s
+
+> s
+
+Drab carpet with a tangled pattern stretches out in front of you. Overhead, old fluorescent lights snap and hum.
+You can go north, east or south.
+> s
+
+> s
+
+Drab carpet with a tangled pattern stretches out in front of you. Overhead, old fluorescent lights snap and hum.
+You can go north, east or south.
+> s
+
+> s
+
+Drab carpet with a tangled pattern stretches out in front of you. Overhead, old fluorescent lights snap and hum. The corridor turns a corner, and there is an old bank of elevators off to the side.
+You can go north or east.
+> e
+
+> e
+
+Drab carpet with a tangled pattern stretches out in front of you. Overhead, old fluorescent lights snap and hum.
+You can go west, north or east.
+> e
+
+> e
+
+Drab carpet with a tangled pattern stretches out in front of you. Overhead, old fluorescent lights snap and hum.
+You can go west, south or east.
+> e
+
+> e
+
+Drab carpet with a tangled pattern stretches out in front of you. Overhead, old fluorescent lights snap and hum.
+You can go west, south or east.
+> e
+
+> e
+
+Drab carpet with a tangled pattern stretches out in front of you. Overhead, old fluorescent lights snap and hum.
+You can go west, north, south or east.
+> n
+
+> n
+
+Though from the hallway this appeared to be an open rooftop patio with tables and chairs for relaxing, as you step in you find yourself in yet another drab corporate conference room, though the décor and style don’t match the others you’ve seen.
+
+At the podium a man with a Scottish accent and a name badge reading “Rob Marks” is speaking to a silent audience about “a feeling of self-assurance arising from one’s appreciation of one’s own abilities or qualities.” Haven't you seen him on TV before? Later, he will be followed by a man showing his collection of stealing machines.
+
+As his talk comes to an end he poses a question to the crowd:
+"What is my business? I even presented it in 3D."
+
+Would you like to answer?
+
+> deception
+
+"Very good," he says. "Don't forget, the easiest person to take for a ride is someone who thinks they know all the tricks."
+
+Suddenly the room dissolves around you.
+
+You are in an open rooftop patio with tables and chairs for relaxing. In the distance you can see the Eiffel Tower... and the Space Needle?
+You can go south.
+> s
+
+> s
+
+Drab carpet with a tangled pattern stretches out in front of you. Overhead, old fluorescent lights snap and hum.
+You can go west, north, south or east.
+> s
+
+> s
+
+You see a deck of cards on a green felt-topped table.
+Around the table are six people playing poker. As you walk in the dealer gives you a glance. There is an open seat.
+You can go north.
+> sit down
+
+> sit down
+
+As you sit down the other players give you a nod. Though the dealer looks familiar you can’t place their face. When you look down at the table you see a stack of chips in front of you.
+
+“The game is No Limit Hold’em, and you’re just in time for the big blind,” the dealer says, and when you look up the room has changed. Gone are the sterile false wall dividers and conference center carpeting. Now you find yourself in a dimly lit room, dark wood paneling wrapping around the walls, and a hint of smoke wafting over from the cigar clamped firmly in the teeth of one of the players. Although the conversation is light the play is serious. These are no amateurs, and they will put you to the test; there are no do-overs in poker.
+
+“Blinds are $100, $200,” the dealer reminds you. You count your chips and find $35,000. You slide two $100 chips forward and the dealer sails cards smooth and low out over the table until two rest in front of each player.
+
+The first player looks at his cards. Without hesitation he slides forward a bet of $700. He is the one with the cigar in his mouth, and as he sits back the ember grows.
+
+In turn each of the other five players look to their cards and fold. Finally, the action comes to you and only now, when your reaction can give nothing else away, do you look at your cards: the nine and ten of hearts.
+
+What approximate pot odds are you getting to make this call?
+1: 4:1
+2: 3:1
+3: 2:1
+4: 1:1
+> 3
+“Suited connectors, and not even low ones? That's an easy big blind defense at two to one odds.” You make the call.
+
+The dealer pulls the bets into the middle and the pot now stands at $1,500. You listen to the whisper of the cards across the felt as the flop hits the table. The eight of hearts, nine of spades, four of hearts. You’ve hit a pair and are four to the flush. You smile without moving a single muscle in your face and check to the pre-flop aggressor.
+
+The glowing butt of the cigar bobs in the air for a moment, then he announces a bet: “$900,” and a puff of smoke. Instinctively you recheck the board.
+
+“No paint on the flop and still a bet,” you think. But whose range is this flop more likely to have connected with?
+1: his
+2: yours
+> 2
+“Let’s see,” you think. “He had to act first since he was under the gun, so he’s much more likely to have a premium pair or just a big ace than he is to connect with this flop. More likely he is just continuation betting to try and scare me off, and with my pair and flush draw I have more than enough to see the turn.”
+
+Again you call, and you watch the chips slide across the felt away from you.
+
+Snap. The burn card. Snap. The turn. The ace of spades.
+
+“Not a heart,” you groan internally.
+
+What are the approximate odds you hit your flush on the river?
+1:
+2: 15%
+3: 20%
+4: 25%
+5: 30%
+6: 35%
+7: 35%')">>35%
+> 3
+
+“Well, there are nine hearts unaccounted for, and 52 cards in a deck, plus the two non-hearts I can see on the board, so that’s about 20%. And at least it’s less likely he has an ace now that one quarter of them are accounted for. But he could still have a big pocket pair like tens, jacks, queens, or kings. Even if my nine is beat my flush draw is probably good, or I could hit two pair on the river. Let’s see how his pocket jacks like calling with an ace on the board.”
+
+Silently you slide $2,500 forward, a little over two thirds of the pot, and stare directly at the cloud of smoke, which only thickens in the long moment after the dealer declares the bet.
+
+“Call,” the ember says, and it burns just a little bit brighter.
+
+The river lands like a brick: the deuce of diamonds.
+
+“Well, what could he have,” you think. “He could have the ace, but under the gun he would have folded most small ones, so it’s more likely he has a big pocket pair. He could also have two big hearts or spades and be on a missed flush draw. If he has the pair my only chance is to keep repping the ace and get him to fold, and if he has anything else my nine is probably ahead.”
+
+“$7,000,” you announce, spreading the large stack of chips.
+
+There is a long, long pause. There is no clock in the room, so you cannot tell how long. You cannot bear to look at the cigar, so you stare intently at a tiny imperfection in the felt table top.
+> i
+
+> i
+You are carrying an Acer rubrum.
+> i
+
+> i
+You are carrying an Acer rubrum.
+
+“All in,” the cigar puffs, and it’s almost as you can hear him add, “I know you can’t call.”
+
+Almost.
+
+He has more chips than you, so to call would be all in: your remaining $23,900 to win a pot of just under $40,000.
+
+“Crap,” you think. “He could be turning a pocket pair into a bluff trying to get me to fold an ace. He knows I called the flop and then led the turn, so that must give him pause. Maybe he put me on a flush draw and/or a weak pair and is bluffing to take it down with high card no pair, even his own missed flush draw. He knows that if he shoves with an ace he’s usually only getting called by better, and if he really had a big ace there’s a good chance he’d have raised me on the turn in case I was on a flush draw. Then again, he could have flopped a set of eights or nines, or even aces, and I was always beat. Can’t tell if he’s leveling me or I’m leveling myself.”
+
+The dealer looks at you. The other players look at you. The cigar burns.
+
+What do you do?
+1: call
+2: fold
+> i
+> i
+> i
+> 1
+You roll a $5,000 chip in your hand for one final moment, then, firmly, “I call.”
+The dealer points to the last aggressor and slowly the cigar lowers his cards. “I didn’t think you had the ace, and I didn’t think you could call with anything else,” he sighs. “It ain’t much, but I don’t have much, but they are pretty.” He tables the king and the queen of spades. Nothing but a missed flush.
+
+“You’re right,” you reply, “I didn’t have the ace,” and you let your nine of hearts fall face up on the felt. His wry laugh disappears into the clatter of chips as the dealer pushes your pot to you. You pick a $5,000 chip and flip it into the air, watching the crossed arrows on it turn and turn. From somewhere deep in your memory a quote comes to you:
+
+“The passion for play is probably as old, and will be as enduring, as the race of man. Some of us are too timid to risk a dollar, but the percentage of people…who would not enjoy winning one is very small. The passion culminates in the professional. He would rather play than eat. Winning is not his sole delight. Someone has remarked that there is but one pleasure in life greater than winning, that is, in making the hazard.” – S.W. Erdnase, Expert at the Card Table (1902)
+
+To be a rogue is to follow your hazard as far as it will carry you. So here is to finding yours.
+
+Achievement Code: alex246603hunter2
+
+~Fin~
+[state=Finished]

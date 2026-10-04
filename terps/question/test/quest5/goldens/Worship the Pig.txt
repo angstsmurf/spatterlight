@@ -1,0 +1,68 @@
+Worship the Pig
+An Entry in QuestComp 2013
+Copyright (c) 2013 by Heal Butcher
+Version 1.0
+Created with Quest 5.4
+Comments and bug reports can be forwarded to healbutcher@live.com
+
+The Edge of the Desert
+The city at the edge of the clay desert held a strange bazaar.
+     From the outside the city is simply a gargantuan stone cube.  A white cobblestone path of fifty paces emerges from the main gate and lies like a languid snake in the simmering heat.
+> look
+
+> look
+The Edge of the Desert
+The city at the edge of the clay desert held a strange bazaar.
+     From the outside the city is simply a gargantuan stone cube.  A white cobblestone path of fifty paces emerges from the main gate and lies like a languid snake in the simmering heat.
+> walk on white cobblestone path
+
+> walk on white cobblestone path
+One step onto the white cobblestone path.  Then another.
+     Vague familiarity.  Curious.
+       Twenty-five paces later, you encounter...
+
+A Mosaic on the White Cobblestone Path
+A mosaic depicting an aquatic scene lies at the halfway point of the white cobblestone path.
+> x mosaic
+
+> x mosaic
+In the mosaic, a rather hideous-looking fish, with a multitude of eyes, appears to be staring at you intently.
+> continue on white cobblestone path
+
+> continue on white cobblestone path
+You approach the main gate.
+
+Main Gate
+Standing at the end of the white cobblestone path, the main gate is composed entirely of smooth grey stone, with solid double doors and an imposing, pointed arch.
+> approach main gate
+
+> approach main gate
+The double doors of the main gate rumble ponderously open as you approach closer.  As you step past the threshold, the doors begin to close.  You have the distinct feeling that these doors won't be opening again once they close behind you.
+
+The Grand Foyer
+This foyer is high-ceilinged and carapaced in dark marble, with a grand horseshoe arch every ten metres along its length, which is difficult to asertain as it stretches unfathomably ahead into the distance.  Paper lanterns along the ceiling emanate a rouge glow.
+> move ahead
+
+> move ahead
+An indeterminable amount of time has passed when the end is finally reached...
+
+Atrium
+This enormous octagonal space gives rise to imposing opaline walls, which gradually curve inward to a high domed ceiling.  Milky blue light suffuses the space from an unseen source.
+     A formidable tower of improbably stacked bodies -- dead bodies, apparently -- rises from the center of the atrium:  the bodies are stacked one on top of the other, as if they were beads placed on a dangling piece of string.
+     A man of average height -- presumably it's a man -- stands nearby wearing a black-and-white suit and a rubber pig's head.  The mask's porcine eyes stare dully ahead, while the entire head nods slightly as if to some remembered melody.  The Pig does not appear to have noticed you.
+> look
+
+> look
+Atrium
+This enormous octagonal space gives rise to imposing opaline walls, which gradually curve inward to a high domed ceiling.  Milky blue light suffuses the space from an unseen source.
+     A formidable tower of improbably stacked bodies -- dead bodies, apparently -- rises from the center of the atrium:  the bodies are stacked one on top of the other, as if they were beads placed on a dangling piece of string.
+     A man of average height -- presumably it's a man -- stands nearby wearing a black-and-white suit and a rubber pig's head.  The mask's porcine eyes stare dully ahead, while the entire head nods slightly as if to some remembered melody.  The Pig does not appear to have noticed you.
+> speak to the pig
+
+> speak to the pig
+The Pig abruptly turns to face you while giving a surprised shout.
+     "Where did you come from?" he says in a muffled voice.  "Why is this one making noises at me?  And is it lunchtime yet?"  He produces an odd-looking metallic device and points it at you.
+     You are abruptly dead.
+
+END
+[state=Finished]

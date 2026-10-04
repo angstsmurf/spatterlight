@@ -1,0 +1,159 @@
+The Order of the Swan
+
+by Nomad
+
+Yina woke up, not at once realising where she was. She was about to drift off back into the world of sleep when she realised that something was in fact wrong. She really didn't know where she was. She got up slowly from the creaky bed. It was completely unlike the luxurious bed she had slept in for every other day of her fifteen years.
+
+Then she remembered. She had been alive. And then she'd died. Where was she? Why had she been sent back to this world and not to the underworld?
+
+The Wooden Hut
+Yina could not quite be sure who the wooden hut belonged to. It seemed too wealthy to be a yellow-gown's, yet too rustic to belong to a higher-caste member.
+
+There was a bed here and not much else.
+
+Yina could go out to the edge of the village, and to the south was a wood shed.
+> look under bed
+
+> look under bed
+Yina found her trusty flute under the bed. She picked it up.
+> play flute
+
+> play flute
+A scroll flew out of the flute and landed at Yina's feet. She picked it up. Yina also heard a click from the front door.
+> s
+
+> s
+
+The Wood Shed
+Whoever owned this hut was clearly well prepared for the winter. Apart from the massive pile of wood which lay along the furthest wall, there was nothing here.
+
+To the north was the wooden hut.
+> search wood
+
+> search wood
+Yina found an axe in the wood pile. She slung it over her shoulder.
+> n
+
+> n
+
+The Wooden Hut
+Yina could not quite be sure who the wooden hut belonged to. It seemed too wealthy to be a yellow-gown's, yet too rustic to belong to a higher-caste member.
+
+There was a bed here and not much else.
+
+Yina could go out to the edge of the village, and to the south was a wood shed.
+> out
+
+> out
+
+The Edge of the Village
+The village began here. There was a sign welcoming visitors to Saranga, although the houses apparently did not begin for a while yet. Just one hut was visible from here. The area was pleasantly wooded, exactly the sort of place bandits resided.
+
+Yina could go into the hut. The forest was to the southwest, and to the east were the first huts in the village. To the northwest was a large and seemingly endless field.
+
+The highway to the west was much too dangerous to contemplate taking.
+> east
+
+> east
+
+Western Saranga
+There was a cluster of yellow-gown huts here. Bored, desolate faces stared from beyond the dirty panes of glass. The road was litter-strewn, and the walls of the huts were covered in inane graffiti that made even less sense than it did in Yina's village.
+
+The edge of the village was to the west, the square to the east, and the station was to the south.
+> east
+
+> east
+
+The Village Square
+Boarded-up shops surrounded the village square on all sides. Apart from that, it was completely abandoned.
+
+To the west and south were yellow-gown huts, to the north were blue-gown houses, and to the east was a stable.
+> north
+
+> north
+
+Northern Saranga
+This was where the blue-gowns lived, although in reality, their houses were barely less shoddy than those in the yellow-gown parts of the village.
+
+To the south was the village square. The bridge out of town was to the northeast.
+> south
+
+> south
+
+The Village Square
+Boarded-up shops surrounded the village square on all sides. Apart from that, it was completely abandoned.
+
+To the west and south were yellow-gown huts, to the north were blue-gown houses, and to the east was a stable.
+> east
+
+> east
+
+The Stables
+There were about ten berths in the stables, but eight of them looked like they'd never been occupied. Each berth contained a small amount of hay here.
+
+The western exit led to the village square. There were no other exits.
+
+Yina could also see some salt lick here.
+> west
+
+> west
+
+The Village Square
+Boarded-up shops surrounded the village square on all sides. Apart from that, it was completely abandoned.
+
+To the west and south were yellow-gown huts, to the north were blue-gown houses, and to the east was a stable.
+> south
+
+> south
+
+Southern Saranga
+Yina found herself in a muddy field surrounded by a few yellow-gown huts. The door to one of the huts was slightly ajar.
+
+Some children were here. They appeared to be banging on a frying pan.
+
+Yina could go north to the village square, or into the hut.
+> north
+
+> north
+
+The Village Square
+Boarded-up shops surrounded the village square on all sides. Apart from that, it was completely abandoned.
+
+To the west and south were yellow-gown huts, to the north were blue-gown houses, and to the east was a stable.
+> west
+
+> west
+
+Western Saranga
+There was a cluster of yellow-gown huts here. Bored, desolate faces stared from beyond the dirty panes of glass. The road was litter-strewn, and the walls of the huts were covered in inane graffiti that made even less sense than it did in Yina's village.
+
+The edge of the village was to the west, the square to the east, and the station was to the south.
+> south
+
+> south
+
+Saranga Station
+Yina had grown up on a small island without stagecoaches, but she could sense this place was even more depressing than stations usually were. A timetable informed her that the coach to Maranga had departed a couple of days earlier, and there would not be another until the following Monday.
+
+The western part of the village was to the north and there were no other exits.
+
+Yina could see a magician here.
+> north
+
+> north
+
+Western Saranga
+There was a cluster of yellow-gown huts here. Bored, desolate faces stared from beyond the dirty panes of glass. The road was litter-strewn, and the walls of the huts were covered in inane graffiti that made even less sense than it did in Yina's village.
+
+The edge of the village was to the west, the square to the east, and the station was to the south.
+> west
+
+> west
+
+The Edge of the Village
+The village began here. There was a sign welcoming visitors to Saranga, although the houses apparently did not begin for a while yet. Just one hut was visible from here. The area was pleasantly wooded, exactly the sort of place bandits resided.
+
+Yina could go into the hut. The forest was to the southwest, and to the east were the first huts in the village. To the northwest was a large and seemingly endless field.
+
+The highway to the west was much too dangerous to contemplate taking.
+[state=Running]

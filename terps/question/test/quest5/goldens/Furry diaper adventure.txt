@@ -1,0 +1,181 @@
+What is your name?
+> Sam
+HiSam
+You are in a cloudy like room.
+You can see a GenderPick (on which there is a boy orb and a girl orb).
+> touch boy orb
+
+> touch boy orb
+Thanks you are a good boy
+> touch wolf image
+
+> touch wolf image
+You touch the image and watch as you turn in to a wolf
+> touch gray fur color
+
+> touch gray fur color
+You touch the fur color and you watch as your fur become gray
+> out
+
+> out
+You wake up after having a strange dream and get out of bed with a crinkle from your diaper.
+After getting up you look outside your window to see that it's raining.
+You grab your shorts and slip them on over your legs and diaper then grab your small bag of pearls
+
+You are in a your bedroom.
+You can see a your bed and a your desk (on which there is a your computer and a Book of notes).
+You can go closet west or hall south.
+> west
+
+> west
+
+You are in a closet.
+You can go your room east.
+> east
+
+> east
+
+You are in a your bedroom.
+You can see a your bed and a your desk (on which there is a your computer and a Book of notes).
+You can go closet west or hall south.
+> south
+
+> south
+
+You are in a hallway.
+You can go your room north, bath room east or living room west.
+As you walk out of your room you look around the hall at the doors to the other bed rooms and wounder what it would be like if there where others living with you.
+> east
+
+> east
+As you walk into the bathroom you look around and see that it's a bit messy but other then that it's still good
+
+You are in a bathroom.
+You can see a bathroom counter (on which there is a bathroom sink), a bath tub, a bath supplies basket, a diaper mat and a your umbrella.
+You can go hall west.
+> west
+
+> west
+
+You are in a hallway.
+You can go your room north, bath room east or living room west.
+> west
+
+> west
+As you walk into your living room you spot your back pack and walk over and pick it up then look though it to find your house keys
+
+You are in a living room.
+You can see a toy chest, a couch, a coffie table and a TV.
+You can go hall east, kitchen west, front door south or movie room north.
+> west
+
+> west
+
+You are in a kitchen.
+You can see a refrigerator and a kitchen counter (on which there is a kitchen sink).
+You can go living room east or back yard north.
+> north
+
+> north
+
+You are in a back yard.
+You can go kitchen south or shed east.
+> east
+
+> east
+
+You are in a treasure shed.
+You can see a sea map table and a treasure case (containing an Achievement b).
+You can go back yard west.
+> west
+
+> west
+
+You are in a back yard.
+You can go kitchen south or shed east.
+> south
+
+> south
+
+You are in a kitchen.
+You can see a refrigerator and a kitchen counter (on which there is a kitchen sink).
+You can go living room east or back yard north.
+> east
+
+> east
+
+You are in a living room.
+You can see a toy chest, a couch, a coffie table and a TV.
+You can go hall east, kitchen west, front door south or movie room north.
+> south
+
+> south
+With how raining it is it be best to go back inside to look for your umbrella.
+
+You are in a front porch.
+You can see a porch light.
+You can go Front steps south or front door north.
+the cover is keeping you dry from the rain
+> north
+
+> north
+
+You are in a living room.
+You can see a toy chest, a couch, a coffie table and a TV.
+You can go hall east, kitchen west, front door south or movie room north.
+> north
+
+> north
+
+You are in a movie room.
+You can go living room south or bathroom east.
+> east
+
+> east
+
+You are in a bathroom.
+You can go movie room west.
+> west
+
+> west
+
+You are in a movie room.
+You can go living room south or bathroom east.
+> south
+
+> south
+
+You are in a living room.
+You can see a toy chest, a couch, a coffie table and a TV.
+You can go hall east, kitchen west, front door south or movie room north.
+> east
+
+> east
+
+You are in a hallway.
+You can go your room north, bath room east or living room west.
+> north
+
+> north
+
+You are in a your bedroom.
+You can see a your bed and a your desk (on which there is a your computer and a Book of notes).
+You can go closet west or hall south.
+> x book of notes
+
+> x book of notes
+Nothing out of the ordinary.
+> x your computer
+
+> x your computer
+A laptop you got as a birthday gift
+> x your desk
+
+> x your desk
+A wooden desk that you use for when you want to write, draw, or go on your computer
+It contains a your computer and a Book of notes.
+> i
+
+> i
+You are carrying a super thick diaper (worn), a tan shorts (worn), a pearl bag, a backpack and a house key.
+[state=Running]

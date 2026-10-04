@@ -1,0 +1,1022 @@
+Once there was an old King who had three children. The eldest was a boy, brave and handsome, and of him the King was very proud. The next child was a girl, and the King was no less proud of her, for she was clever and resourceful and skilled in many arts. But the youngest child seemed to have no talents of any kind, and idled away long days in reading the ancient Bestiaries, which were full of strange stories about incredible animals living in far-away places. His youngest child was the despair of the old King.
+
+One year, a terrible blight struck the land. The corn went rotten in the fields, the cattle fell sick and died, and even the fish in the sea dwindled in number. The King's Chancellor called the wise men of the country together, and they scratched their heads and read all the books they could find, but not one of them could say why the Blight had come, nor how it could be brought to an end. The King grew angry, and would have had all the wise men put to death, but the Chancellor pleaded with him, saying: "These men are not to blame; perhaps the answer to the Blight is not to be found within our country, so how should we expect these men, who have lived all their lives here, to find it?" And at last the King agreed with him.
+
+...
+
+Then the King's eldest child spoke. "If the answer to the Blight lies outside our country, then I shall go out and search for it, and I shall not rest until I have found it or perished in the attempt." The King was very pleased, and gave him a horse with a golden bridle to carry him in his travels. And all the people of the city gathered to watch him as he rode through the streets and set out on his journey. But the days passed, and the weeks, and the months, and still he did not return.
+
+Then the King's second child said: "I too shall go and search for an answer to the Blight, since my brother has been unsuccessful." And the King was very pleased and gave her a fur-lined cloak to protect her. Once again the people of the city gathered to watch her as she set out on her journey. But the days passed, and the weeks, and the months, and still she did not return.
+
+Then the King's youngest child said: "My brother and my sister have been unlucky, it seems. But tomorrow I shall set out to follow them, and surely I shall find an answer to the Blight." At this the King did not know whether to laugh or to cry. How could the hopeless one succeed where the better had failed? But at last he gave his consent.
+
+...
+
+The youngest child stood in the audience chamber of the palace, expecting a gift such as the King had given the others. But the King only said: "You already have a small hunting knife; that can be your weapon. I gave you a copper penny yesterday; that will be your cash. And your own two legs will, I think, be more then able to carry you for all the distance you are likely to get, my little one." And with that, the King and the Chancellor went out of the chamber, leaving the youngest child alone...
+
+In this game, you play the youngest child of the King, and your aim is to find an answer to the Blight and return to the city.
+Type HELP at any time for guidance on how to play the game.
+
+The great audience chamber of the palace is light and airy with huge stone-silled windows in the north, east and west walls offering a panoramic view of the surrounding country. In the middle of the south wall are tall double doors of polished oak
+You can see the east window, the west window and the north window.
+> s
+
+> s
+
+You come to the entrance hall of the palace where soldiers on guard snap to attention and salute as you pass by. To the west a doorway leads out into the city, and a staircase leads up to your bed chamber.
+> u
+
+> u
+
+In the tiny garret-room immediately beneath the roof, standing amongst the familiar clutter, you wonder if you will ever return from your journey.
+You can see a knife and a penny.
+> take knife
+
+> take knife
+You pick it up.
+> take penny
+
+> take penny
+You pick it up.
+> d
+
+> d
+
+You come to the entrance hall of the palace where soldiers on guard snap to attention and salute as you pass by. To the west a doorway leads out into the city, and a staircase leads up to your bed chamber.
+> w
+
+> w
+
+Walking down the main street of the city, you remember how the people crowded here to watch as your brother and sister set out on their way. No one has come to see you go, however; the street is empty except for an old blind beggarwoman.
+You can see a beggarwoman.
+> give penny to beggarwoman
+
+> give penny to beggarwoman
+The beggarwoman thanks you and says that you should ask the help of the Witch of the Northern Forest.
+> w
+
+> w
+
+You are standing outside the city gate. From here, roads run west towards the mountains, north into the fields, and south towards the sea.
+> n
+
+> n
+
+Walking through the pastures, you see that the few cattle here are small and sickly. Paths lead north towards the forest, east through the fields, west towards the hills, and south towards the city.
+> e
+
+> e
+
+You come to a field of corn, much of it already going mouldy. A path leads west.
+In the field stands a lonely sheaf of corn.
+You can see a cornsheaf.
+> x cornsheaf
+
+> x cornsheaf
+Amonst the corn stalks, you find a dead fieldmouse.
+> take mouse
+
+> take mouse
+You pick it up.
+> w
+
+> w
+
+Walking through the pastures, you see that the few cattle here are small and sickly. Paths lead north towards the forest, east through the fields, west towards the hills, and south towards the city.
+> n
+
+> n
+
+You are at the edge of the Northern Forest. Paths lead north and north-west into the Forest and south through the fields.
+You can see a cat.
+The large black cat is sitting in the shadows, watching you very intently.
+> n
+
+> n
+
+In the dim light of the Forest, you stumble over a concealed tree root and tumble down a slope into a thicket. You manage to free yourself from the thorns, but only after much pain and trouble.
+Your health is damaged.
+> wait
+
+> wait
+You wait.
+> wait
+
+> wait
+You wait.
+> wait
+
+> wait
+You wait.
+> wait
+
+> wait
+You wait.
+> nw
+
+> nw
+
+You have lost your bearings in the thicket, so you do not know which way you are going.
+
+You are wandering in the forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead.
+> n
+
+> n
+
+You are wandering in the Forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead. Near you is a tall pine tree.
+You can see an owl.
+The owl is sitting on a low branch, staring at you sleepily.
+> give mouse to owl
+
+> give mouse to owl
+The owl flies down from its perch and snatches the dead fieldmouse from your hand.
+It swoops back to land on your shoulder, where it swallows up the mouse and gives your ear a friendly nip.
+It seems happy to stay on your shoulder as you walk.
+> e
+
+> e
+
+You are wandering in the forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead.
+You can see some tracks on the ground.
+> e
+
+> e
+
+You are in a clearing in the Forest, in the centre of which stands a small stone cottage. A thin column of smoke rises from the chimney, and you can see a light burning in the window.
+> in
+
+> in
+
+You push the door open and enter the cottage.
+You can see the Witch of the Northern Forest.
+She is squatting beside the fire and looks up expectantly as you come in.
+> ask witch about blight
+
+> ask witch about blight
+The Witch does not know how to stop the Blight, but suggests that you ask the Eastern Sage.
+> ask witch about eastern sage
+
+> ask witch about eastern sage
+The Witch says that the Eastern Sage lives in a land across the ocean, in a long valley beside a blue lake.
+She gives you a bell with which to call him when you reach his home.
+The Witch says that she can make you a talisman which will transport you across the ocean. But to charm the talisman she needs a unicorn and the skin of a serpent.
+> ask witch about talisman
+
+> ask witch about talisman
+The Witch says that she can make you a talisman which will transport you across the ocean. But to charm the talisman she needs a unicorn and the skin of a serpent.
+> out
+
+> out
+
+You are in a clearing in the Forest, in the centre of which stands a small stone cottage. A thin column of smoke rises from the chimney, and you can see a light burning in the window.
+> w
+
+> w
+
+You are wandering in the forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead.
+You can see some tracks on the ground.
+> sw
+
+> sw
+
+You are wandering in the forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead.
+> w
+
+> w
+
+At the edge of the Western Mountains, you stand before a tall gaping crack in the cliff face to your west.
+You can see a serpent.
+The serpent is slowly weaving its way across the hard and stony ground, looking very old and tired.
+> wait
+
+> wait
+You wait.
+> wait
+
+> wait
+You wait.
+While you watch, the serpent crawls laboriously westwards into the crack in the cliff face.
+> wait
+
+> wait
+You wait.
+> w
+
+> w
+
+Inside the cave, it is pitch dark and you cannot see a thing.
+The owl, however, can see quite well and guides you safely through the cave, tugging your left or right ear to tell you which way to go...
+
+You come to a small rock chamber, lit by a shaft of daylight coming through a wide crack in the roof.
+Here you see the serpent, which has just finished shedding its skin. Now young and lively again, it wriggles its way out of the cave.
+You can see the serpent's skin.
+> take skin
+
+> take skin
+You pick it up.
+> i
+
+> i
+You are carrying a knife, an owl, a bell and the serpent's skin.
+> e
+
+> e
+
+Inside the cave, it is pitch dark and you cannot see a thing.
+The owl, however, can see quite well and guides you safely through the cave, tugging your left or right ear to tell you which way to go...
+
+At the edge of the Western Mountains, you stand before a tall gaping crack in the cliff face to your west.
+As you re-emerge into the light, the owl blinks, then opens its wings and flaps away.
+> s
+
+> s
+
+You are in the foothills of the Western Mountains. The terrain is too steep and rocky to go west from here, but paths lead north, east and south.
+You can see a dead knight and a dead horse.
+> x horse
+
+> x horse
+The horse has died from the bite of a serpent.
+It is wearing a golden bridle.
+> take bridle
+
+> take bridle
+You pick it up.
+> e
+
+> e
+
+Walking through the pastures, you see that the few cattle here are small and sickly. Paths lead north towards the forest, east through the fields, west towards the hills, and south towards the city.
+> n
+
+> n
+
+You are at the edge of the Northern Forest. Paths lead north and north-west into the Forest and south through the fields.
+You can see a cat.
+The large black cat is sitting in the shadows, watching you very intently.
+> nw
+
+> nw
+
+You are wandering in the forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead.
+> ne
+
+> ne
+
+You are wandering in the forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead.
+You can see some tracks on the ground.
+> se
+
+> se
+
+You are by the bank of a river. There are some tracks in the mud here.
+You can see some  tracks and a river.
+> listen to river
+
+> listen to river
+You wait motionless by the river, listening to the rippling of the water and the soft murmuring of the forest.
+As you wait and watch, a tall elegant unicorn steps out of the trees and walks down to the water to drink. Seeing you, it shows no fear but trots straight over and rests its head in your lap.
+> use bridle on unicorn
+
+> use bridle on unicorn
+The unicorn does not protest as you slip the golden bridle over its head. It seems quite happy to be led by you as you walk.
+> i
+
+> i
+You are carrying a knife, a bell, the serpent's skin and an unicorn.
+> nw
+
+> nw
+
+You are wandering in the forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead.
+You can see some tracks on the ground.
+> e
+
+> e
+
+You are in a clearing in the Forest, in the centre of which stands a small stone cottage. A thin column of smoke rises from the chimney, and you can see a light burning in the window.
+> in
+
+> in
+
+You push the door open and enter the cottage.
+You can see the Witch of the Northern Forest.
+She is squatting beside the fire and looks up expectantly as you come in.
+The Witch takes the unicorn from you.
+The Witch says that she still needs the skin of a serpent in order to charm your talisman.
+> give skin to witch
+
+> give skin to witch
+You give the serpent's skin to the Witch.
+The Witch lays the serpent's skin in a circle, then puts the talisman in the centre and touches it with the unicorn's horn, while chanting in a strange language.
+You can see the Witch of the Northern Forest and a talisman.
+> look
+
+> look
+You push the door open and enter the cottage.
+You can see the Witch of the Northern Forest and a talisman.
+> take talisman
+
+> take talisman
+You pick it up.
+The Witch advises you not to use the talisman until you need to return from the Eastern continent.
+> i
+
+> i
+You are carrying a knife, a bell and a talisman.
+> out
+
+> out
+
+You are in a clearing in the Forest, in the centre of which stands a small stone cottage. A thin column of smoke rises from the chimney, and you can see a light burning in the window.
+> w
+
+> w
+
+You are wandering in the forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead.
+You can see some tracks on the ground.
+> sw
+
+> sw
+
+You are wandering in the forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead.
+> se
+
+> se
+
+You are at the edge of the Northern Forest. Paths lead north and north-west into the Forest and south through the fields.
+You can see a cat.
+The large black cat is sitting in the shadows, watching you very intently.
+> s
+
+> s
+
+Walking through the pastures, you see that the few cattle here are small and sickly. Paths lead north towards the forest, east through the fields, west towards the hills, and south towards the city.
+> s
+
+> s
+
+You are standing outside the city gate. From here, roads run west towards the mountains, north into the fields, and south towards the sea.
+> s
+
+> s
+
+Instead of being busy with fishing boats, the place is deserted. The empty quay extends to the east, and a road runs north back to the city.
+> e
+
+> e
+
+You stand at the end of the quay, where the water laps rhythmically against the sea wall.
+You can see your boat.
+> enter boat
+
+> enter boat
+You climb into your boat.
+You are ready to depart.
+The wind and tide are perfect for leaving the harbour. Before you to the east lies the Great Ocean.
+
+For six days you sail across the ocean. On the seventh day a violent storm arises. Driven before the wind, your boat is dashed against rocks and wrecked. More dead than alive, you are cast up on the shore of a strange land.
+
+You are on a sandy beach. A gentle breeze blows form the sea, and the bright sunshine is pleasantly hot. The coastline runs east-west, and to the south lies a tropical rain forest.
+> e
+
+> e
+
+You are on a sandy beach, which curves round to the west and to the north. To the south lies a tropical rain forest.
+You can see a sea horse and the sea.
+The sea horse is repeatedly diving and coming up again in the shallow water just off shore.
+> n
+
+> n
+
+You are on a sandy beach near the mouth of a river. The river flows from the east and its water is an unusual blue.
+> e
+
+> e
+
+You are in a riverside meadow full of small brightly coloured flowers. The blue river runs west, and to the north there is a bridge. A tree-covered hill lies to the east, and to the south is a rain forest.
+> n
+
+> n
+
+You arrive at the south end of a rickety wooden bridge, the blue river flowing fast beneath you.
+You can see the bridge.
+> jump across bridge
+
+> jump across bridge
+You jump across the unsafe middle section of the bridge.
+
+You arrive at the north end of the river bridge. A path leads east towards the mountain.
+You can see the bridge and a bucket.
+> e
+
+> e
+
+The mountain path leads you through a long valley and around the edge of a clear blue lake. Birdsong comes from the lakeside trees. This is a peaceful place.
+> ring bell
+
+> ring bell
+You strike the bell. It gives out a pure, sonorous note. You listen to the sound as it slowly dies away, returning your awareness to the centre of your being.
+
+Out of nowhere, the Eastern Sage appears, sitting cross-legged on a many-coloured cloud and smiling serenely.
+You can see the Eastern Sage.
+> ask sage about blight
+
+> ask sage about blight
+The Sage does not know how to stop the Blight, but suggests that you ask the Cloud Dragon.
+> ask sage about dragon
+
+> ask sage about dragon
+The Sage says that the Dragon's name is Shuei Lung, and he lives in the rain clouds on the top of this mountain. To summon the clouds and the dragon with them, you will have to learn how to make rain.
+The Sage gives you a scroll on which is written a magic spell to enable you to breathe underwater.
+> ask sage about rain
+
+> ask sage about rain
+The Sage says that you can learn how to make rain from the Sorcerer of the South.
+> ask sage about sorcerer
+
+> ask sage about sorcerer
+The Sage does not know exactly where the Sorcerer of the South lives, except that it is on the other side of the rain forest.
+> w
+
+> w
+
+You arrive at the north end of the river bridge. A path leads east towards the mountain.
+You can see the bridge and a bucket.
+> take bucket
+
+> take bucket
+You pick it up.
+> jump across bridge
+
+> jump across bridge
+You jump across the unsafe middle section of the bridge.
+
+You arrive at the south end of a rickety wooden bridge, the blue river flowing fast beneath you.
+You can see the bridge.
+> s
+
+> s
+
+You are in a riverside meadow full of small brightly coloured flowers. The blue river runs west, and to the north there is a bridge. A tree-covered hill lies to the east, and to the south is a rain forest.
+> w
+
+> w
+
+You are on a sandy beach near the mouth of a river. The river flows from the east and its water is an unusual blue.
+> s
+
+> s
+
+You are on a sandy beach, which curves round to the west and to the north. To the south lies a tropical rain forest.
+You can see a sea horse and the sea.
+The sea horse is repeatedly diving and coming up again in the shallow water just off shore.
+> down
+
+> down
+You dive into the water.
+
+Protected by the magic scroll, you take your time to examine the sea bed.
+You can see a glass ball.
+The glass ball is lying in the sand of the sea bed. It is what has been attacting the sea horse.
+> take ball
+
+> take ball
+You pick it up.
+> up
+
+> up
+
+You are on a sandy beach, which curves round to the west and to the north. To the south lies a tropical rain forest.
+You can see a sea horse and the sea.
+> n
+
+> n
+
+You are on a sandy beach near the mouth of a river. The river flows from the east and its water is an unusual blue.
+> e
+
+> e
+
+You are in a riverside meadow full of small brightly coloured flowers. The blue river runs west, and to the north there is a bridge. A tree-covered hill lies to the east, and to the south is a rain forest.
+> e
+
+> e
+
+You are on a wooded hillside, following an east-west path.
+You can see a tiger.
+The tiger stands ahead of you, crouched ready to spring. It watches you fixedly, growling softly in its throat.
+> drop ball
+
+> drop ball
+You drop it.
+The ball rolls down the hillside, towards the meadow.
+The tiger sees its reflection in the shiny surface of the ball, and is fascinated.
+It runs after it, following it down the hill.
+> wait
+
+> wait
+You wait.
+> w
+
+> w
+
+You are in a riverside meadow full of small brightly coloured flowers. The blue river runs west, and to the north there is a bridge. A tree-covered hill lies to the east, and to the south is a rain forest.
+You can see a glass ball.
+> take ball
+
+> take ball
+You pick it up.
+> e
+
+> e
+
+You are on a wooded hillside, following an east-west path.
+> e
+
+> e
+
+The path ends at a clearing in the wood, where there is an abandoned bullock cart.
+You can see a bullock cart.
+> x cart
+
+> x cart
+Inside the cart you find a strange-looking belt.
+> take belt
+
+> take belt
+You pick it up.
+> wear belt
+
+> wear belt
+You tie the black belt around your waist.
+> w
+
+> w
+
+You are on a wooded hillside, following an east-west path.
+> w
+
+> w
+
+You are in a riverside meadow full of small brightly coloured flowers. The blue river runs west, and to the north there is a bridge. A tree-covered hill lies to the east, and to the south is a rain forest.
+> s
+
+> s
+
+You are at the edge of the rain forest. A track leads north towards a river, east into open bushland, and west back into the forest.
+> e
+
+> e
+
+You are in an area of open bushland. The tropical rain forest lies to the west, and a track leads away to the south.
+You can see a lion.
+The lion is enormous, and it shakes its mane as it roars horribly.
+> x lion
+
+> x lion
+From close up, the lion seems to be roaring from pain rather than anger. Something is wrong with one of its front paws.
+> x paw
+
+> x paw
+There is a large thorn in the paw.
+> take thorn
+
+> take thorn
+As soon as you remove the thorn, the lion stops roaring and starts licking you in gratitude. It insists on following you.
+> i
+
+> i
+You are carrying a knife, a bell, a talisman, the scroll, a bucket, a glass ball, the belt and a lion.
+> w
+
+> w
+
+You are at the edge of the rain forest. A track leads north towards a river, east into open bushland, and west back into the forest.
+> w
+
+> w
+
+Pushing through the tangle of branches, creepers and dark heavy leaves, you come to a tree where a small monkey sits, chattering excitedly.
+You can see the monkey.
+Suddenly the monkey leaps down, steals the bell, and runs up the tree again.
+> s
+
+> s
+
+You are at the edge of the rain forest. A track leads south across the savanna and north into the forest.
+> s
+
+> s
+
+Following a rough track, you cross the broad plains of the savanna. Amongst the long grass, you come across the dead body of a knight.
+You can see a dead knight.
+> x knight
+
+> x knight
+The dead knight is your elder sister. Her body carries the bite and claw marks of some large and vicious beast.
+She is still carrying her cloak.
+> take cloak
+
+> take cloak
+You pick it up.
+> wear cloak
+
+> wear cloak
+You wrap the cloak around yourself.
+> n
+
+> n
+
+You are at the edge of the rain forest. A track leads south across the savanna and north into the forest.
+> n
+
+> n
+
+Pushing through the tangle of branches, creepers and dark heavy leaves, you come to a tree where a small monkey sits, chattering excitedly.
+You can see the monkey.
+Suddenly the monkey leaps down, steals the glass ball, and runs up the tree again.
+> drop scroll
+
+> drop scroll
+You drop it.
+The monkey imitates you and throws down the glass ball. It lands on the ground.
+Fortunately, the glass does not break.
+> take ball
+
+> take ball
+You pick it up.
+> take scroll
+
+> take scroll
+You pick it up.
+> e
+
+> e
+
+You are at the edge of the rain forest. A track leads north towards a river, east into open bushland, and west back into the forest.
+> drop ball
+
+> drop ball
+You drop it.
+> drop knife
+
+> drop knife
+You drop it.
+> drop talisman
+
+> drop talisman
+You drop it.
+> e
+
+> e
+
+You are in an area of open bushland. The tropical rain forest lies to the west, and a track leads away to the south.
+> s
+
+> s
+
+As you travel south across the scrubland, the climate quickly gets colder.
+> s
+
+> s
+
+You are approaching the Southern Wasteland, a desolate place of ice and snow. It is now VERY cold.
+> s
+
+> s
+
+You are wandering in the snow-covered plains of the Southern Wasteland. A bitter wind blows in your ears.
+You can see a penguin and snow.
+The penguin greets you, whistling and waving its flippers in a friendly way. It then waddles off to the south-west.
+> sw
+
+> sw
+
+You are wandering in the snow-covered plains of the Southern Wasteland. A bitter wind blows in your ears.
+You can see snow and a penguin.
+The penguin has been waiting for you. It now starts excitedly jumping up and down in the snow.
+> dig
+
+> dig
+Buried in the snow, you find a grotesque wooden mask.
+> take mask
+
+> take mask
+You pick it up.
+> nw
+
+> nw
+
+You are wandering in the snow-covered plains of the Southern Wasteland. A bitter wind blows in your ears.
+You can see snow.
+> nw
+
+> nw
+
+As you travel north across the scrubland, the climate quickly gets hotter.
+> n
+
+> n
+
+You are in an area of open bushland. The tropical rain forest lies to the west, and a track leads away to the south.
+> w
+
+> w
+
+You are at the edge of the rain forest. A track leads north towards a river, east into open bushland, and west back into the forest.
+You can see a glass ball, a knife and a talisman.
+> w
+
+> w
+
+Pushing through the tangle of branches, creepers and dark heavy leaves, you come to a tree where a small monkey sits, chattering excitedly.
+You can see the monkey.
+> s
+
+> s
+
+You are at the edge of the rain forest. A track leads south across the savanna and north into the forest.
+> s
+
+> s
+
+Following a rough track, you cross the broad plains of the savanna. Amongst the long grass, you come across the dead body of a knight.
+You can see a dead knight.
+> s
+
+> s
+
+You come to a rocky outcrop in the middle of the bushland.
+You can see a gryphon.
+The gryphon stepping out from among the rocks is a fearsome creature with the hindquarters of a lion and the head and claws of an eagle.
+Giving a terrible scream, the gryphon attacks you.
+But the lion leaps to your defence and chases the gryphon away.
+> s
+
+> s
+
+You enter a tribal village. In the middle of the circle of grass huts stands the Sorcerer of the South with his hands on his hips, eyeing you questioningly.
+You can see the Sorcerer.
+> give mask to sorcerer
+
+> give mask to sorcerer
+The Sorcerer gratefully takes the mask and gives you a fly whisk in exchange.
+> ask sorcerer about rain
+
+> ask sorcerer about rain
+The Sorcerer says he will tell you the secret of how to make rain, but only if you find his magic mask, which was lost in the Southern Wasteland.
+> i
+
+> i
+You are carrying a bucket, the belt, the cloak, the scroll and the fly whisk.
+> n
+
+> n
+
+You come to a rocky outcrop in the middle of the bushland.
+> n
+
+> n
+
+Following a rough track, you cross the broad plains of the savanna. Amongst the long grass, you come across the dead body of a knight.
+You can see a dead knight.
+> n
+
+> n
+
+You are at the edge of the rain forest. A track leads south across the savanna and north into the forest.
+> n
+
+> n
+
+Pushing through the tangle of branches, creepers and dark heavy leaves, you come to a tree where a small monkey sits, chattering excitedly.
+You can see the monkey.
+> e
+
+> e
+
+You are at the edge of the rain forest. A track leads north towards a river, east into open bushland, and west back into the forest.
+You can see a glass ball, a knife and a talisman.
+> take ball
+
+> take ball
+You pick it up.
+> take knife
+
+> take knife
+You pick it up.
+> take talisman
+
+> take talisman
+You pick it up.
+> n
+
+> n
+
+You are in a riverside meadow full of small brightly coloured flowers. The blue river runs west, and to the north there is a bridge. A tree-covered hill lies to the east, and to the south is a rain forest.
+> n
+
+> n
+
+You arrive at the south end of a rickety wooden bridge, the blue river flowing fast beneath you.
+You can see the bridge.
+> jump across bridge
+
+> jump across bridge
+You jump across the unsafe middle section of the bridge.
+
+You arrive at the north end of the river bridge. A path leads east towards the mountain.
+You can see the bridge.
+> fill bucket
+
+> fill bucket
+You fill the bucket with water.
+> e
+
+> e
+
+The mountain path leads you through a long valley and around the edge of a clear blue lake. Birdsong comes from the lakeside trees. This is a peaceful place.
+> e
+
+> e
+
+The mountain path leads through a bamboo grove. On every side the tall, thin stems rise up from  the ground in thick clumps.
+You can see a panda.
+The giant panda sits beneath the trees, calmly chewing a fistful of bamboo shoots.
+> e
+
+> e
+With a snarl, the panda rears up and attacks you.
+But when it sees you have a black belt in the martial arts, it assumes you are the better fighter, and it runs away into the trees.
+> e
+
+> e
+
+The mountain path here is very steep, making the climb both difficult and tiring.
+> up
+
+> up
+
+You are at the top of the mountain.
+You can see for miles in every direction, from the Great Ocean to the Southern Wasteland.
+
+You can see an altar.
+> use whisk
+
+> use whisk
+You use the fly whisk to sprinkle water onto the ground.
+> say shuei lung
+
+> say shuei lung
+You say "shuei lung".
+The spell works! Storm clouds gather and it starts to rain.
+Shuei Lung the Cloud Dragon appears. He is rather contemptuous of you as a human, and refuses to speak with you until you can answer this riddle: "from ashes of the old arises the young."
+> speak dragon
+
+> speak dragon
+Type one word, as your answer to the Cloud Dragon's riddle.
+> phoenix
+Your answer is correct! It is the Dragon's answer to you too: you must go to the Phoenix of the Western Desert.
+With a tremendous clap of thunder, the Dragon disappears. Something falls to the ground!
+You can see an altar and a dragon scale.
+> look
+
+> look
+You are at the top of the mountain.
+You can see for miles in every direction, from the Great Ocean to the Southern Wasteland.
+
+You can see an altar and a dragon scale.
+> take scale
+
+> take scale
+You pick it up.
+> rub talisman
+
+> rub talisman
+You rub the talisman.
+Suddenly you are hurtling through the air, scarcely able to draw breath for the rush of wind. In your panic, the talisman slips from your hand and is lost.
+Falling to the ground, you are surprised to find yourself unhurt - and even more surprised to find yourself in your home country again, near to the city.
+
+You are standing outside the city gate. From here, roads run west towards the mountains, north into the fields, and south towards the sea.
+> w
+
+> w
+
+A few scraggy sheep are all that remain of the vast flocks which used to cover these hillsides. From here a road runs east towards the city and west towards a mountain pass, and there is a path learning north through the hills.
+> w
+
+> w
+
+You are in a mountain pass, a narrow valley winding amongst the snow-covered peaks. At the east end is the road to the city and at the other end is the Western Desert.
+> w
+
+> w
+
+As you enter the Western Desert, the heat strikes you like the blast from an oven. West of here there is nothing but sand.
+> w
+
+> w
+
+You are wandering in the Western Desert. The sun's fierce rays beat down on you from above.
+You are incredibly thirsty, and you doubt whether you can go any further into the desert.
+> drop scale
+
+> drop scale
+You drop it.
+As soon as the scale hits the sand, it begins to grow and become liquid. In a matter of moments it has turned into a great lake hundreds of metres long.
+> drink lake
+
+> drink lake
+Please choose which 'lake' you mean:
+1: the magic lake
+2: water (in the lake)
+> 1
+You take a long drink from the cool, clear lake water.
+You will be able to continue now.
+> w
+
+> w
+
+You have reached the centre of the Western Desert.
+You can see a funeral pyre and the Phoenix of the Western Desert.
+The Phoenix says he will tell you the answer to the Blight if you light his funeral pyre for him.
+> use ball
+
+> use ball
+Using the ball as a burning glass, you soon have the wood alight. As the Phoenix starts to burn, he cries: "The King is dying! Let there be a new ruler, and the Blight will cease!"
+> e
+
+> e
+
+You are wandering in the Western Desert. The sun's fierce rays beat down on you from above.
+You can see the magic lake (and water (in the lake)).
+> e
+
+> e
+
+As you leave the sands of the Western Desert, the heat reduces rapidly.
+> e
+
+> e
+
+You are in a mountain pass, a narrow valley winding amongst the snow-covered peaks. At the east end is the road to the city and at the other end is the Western Desert.
+> e
+
+> e
+
+A few scraggy sheep are all that remain of the vast flocks which used to cover these hillsides. From here a road runs east towards the city and west towards a mountain pass, and there is a path learning north through the hills.
+> e
+
+> e
+
+You are standing outside the city gate. From here, roads run west towards the mountains, north into the fields, and south towards the sea.
+
+The gate is open for you!
+> e
+
+> e
+
+At long last you re-enter the city. This time the main street is crowded with people watching you, but they are all strangely solemn.
+> e
+
+> e
+
+At the entrance to the palace you see your father the King. He is lying on a litter and evidently not far from death. He asks you to tell him the story of your adventure.
+You can see the King.
+> speak king
+
+> speak king
+Choking back your tears, you tell your story to the King and the crowd, reliving it once again.
+You are at the edge of the Northern Forest.
+A large black cat is sitting in the shadows, watching you very intently.
+You are wandering in the Forest. On every side, you can see nothing but trees, their leafy branches forming a dense canopy overhead. Near you is a tall pine tree.
+On a low branch sits a small owl, staring at you sleepily.
+At the edge of the Western Mountains, you stand before a tall gaping crack in the cliff face to your west.
+An old and tired-looking serpent is weaving its way across the hard and stony ground.
+You are by the bank of a river. There are some tracks in the mud here.
+As you wait and watch, a tall elegant unicorn steps out of the trees and walks down to the water to drink. Seeing you, it shows no fear but trots straight over and rests its head in your lap.
+You are on a sandy beach, which curves round to the west and to the north.
+In the shallow water just off shore, a sea horse is repeatedly diving down and coming up again.
+Pushing through the tangle of branches, creepers and dark heavy leaves, you come to a tree where a small monkey sits, chattering excitedly.
+You are in an area of open bushland.
+To the east, you see an enormous lion, shaking its mane and roaring horribly.
+You come to a rocky outcrop in the middle of the bushland.
+To your horror, out from among the rocks steps a gryphon: a fearsome creature with the hindquarters of a lion and the head and claws of an eagle.
+You are wandering in the snow-covered plains of the Southern Wasteland. A bitter wind blows in your ears.
+You are greeted by a very friendly penguin, which whistles and waves its flippers at you in greeting, then waddles off to the south-west.
+You are on a wooded hillside, following an east-west path.
+Ahead of you stands a tiger, crouched ready to spring. It watches you fixedly, growling softly in its throat.
+The mountain path leads through a bamboo grove. On every side the tall, thin stems rise up from  the ground in thick clumps.
+Beneath the trees sits a giant panda, calmly chewing a fistful of bamboo shoots.
+Shuei Lung the Cloud Dragon appears. He is rather contemptuous of you as a human, and refuses to speak with you until you can answer this riddle: "from ashes of the old arises the young."
+In the middle of the Western Desert you find the Phoenix, standing on his funeral pyre.
+The Phoenix says he will tell you the answer to the Blight if you light the pyre for him.
+Using the ball as a burning glass, you soon have the wood alight. As the Phoenix starts to burn, he cries: "The King is dying! Let there be a new ruler, and the Blight will cease!"
+When you have finished, the King raises his hand to you in blessing, and dies. The Chancellor takes the Crown and places it on your head.
+The people give a great cheer. The words of the Phoenix have been fulfilled: there is a new ruler, and the Blight is over!
+
+In the years after you take the throne, no more animals fall sick and the harvests are good. And when at last you become old, you write a Bestiary of your own, to tell of all the strange and wonderful beasts which you met on your travels.
+
+THE END
+[state=Finished]

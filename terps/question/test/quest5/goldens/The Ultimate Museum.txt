@@ -1,0 +1,598 @@
+You have just walked inside the Ultimate Museum.
+You're here on a class assignment, but you'd rather not be. This doesn't seem like the most well put together museum in the world.
+In fact, considering the name, it seems downright awful. There aren't many other people around, and all the rooms are just a little too dark for your liking.
+Your plan is to take care of all the items on your assignment sheet and get out of this place as quickly as possible.
+
+(Press any key to continue)
+You are in the Lobby.
+This is the main lobby of the Ultimate Museum. It is rather an unassuming location. There is a man who looks like he's in his sixties behind the main desk. There are also some maps next to him.
+You can see a Man and some Maps.
+You can go southwest, southeast, west, east or south.
+> give wallet to ticket taker
+> give wallet to ticket taker
+You show the man your school ID from inside your wallet.
+"Hey, that's a student ID! Guess you get in for free today! Lucky you!"
+He hands you your ticket. Lucky you.
+> w
+> w
+You are in the Paintings Exhibit.
+This room features no more than six paintings scattered about the walls. There doesn't seem to be any particular logic to their order, style, time period, or... anything. They all seem pretty famous though. The only wall text you can see features basic information about the paintings. It's not very informative.
+You can see the Mona Lisa, the Starry Night, the Last Supper, the Persistence of Memory, Water Lilies, Composition in Black and White, with Double Lines, a Bench and a Huge Guard.
+You can go east or north.
+> use camera on mona lisa
+> use camera on mona lisa
+You ready your camera to take a picture of the fake Mona Lisa, when a voice shouts at you from the other side of the room.
+"Hey! Put that camera away! The flash could ruin the art!"
+Apparently photography is frowned upon here.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+The guard leaves the room and heads up to Sculptures.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> use camera on mona lisa
+> use camera on mona lisa
+Now that the guard is out, you can snap a quick photo of the Mona Lisa. Looks good! One goal accomplished.
+> n
+> n
+You are in the Sculptures Exhibit.
+There are five sculptures in total: One in the center, and four more in each corner of the room. Sometimes less is more. Sometimes less is just less.
+You can see The Thinker, the Apollo Belvedere, the Winged Victory of Samothrace, a Moai, David, a Woman and a Huge Guard.
+You can go south, west or east.
+> use notebook on thinker
+> use notebook on thinker
+You try to write down some thoughts on the Thinker in your notebook, but you don't know anything about its background. The wall text isn't helpful either. Reading it only confuses you more. Who writes this stuff?
+> ask woman about wall text
+> ask woman about wall text
+You ask her if she knows what the wall text is actually saying.
+"Oh, you don't understand it? I think I can help."
+After a few minutes of pretentious prattling you think you actually have a better handle on what the wall text is saying about The Thinker. You're probably ready to write a quick analysis.
+The guard walks back into the Paintings exhibit.
+> use notebook on thinker
+> use notebook on thinker
+That woman actually helped you out! Now that you get the gist of the wall text, you feel comfortable jotting down some notes concerning the sculpture. Assignment complete.
+> e
+> e
+You are in the Museums Exhibit.
+You can see a Guggenheim Model, a Louvre Model, a Museum of Modern Art Model, a Vatican Museum Model, a Hermitage Museum Model, a British Museum Model, a Menacing Guard and a Light Switch.
+You can go west, east or north.
+The museum has a room for museums. How swell. You can see six different models of famous museums in the center of the room. It's even darker in here than in the rest of the building.
+> use notebook on guggenheim
+> use notebook on guggenheim
+The lighting in here is abysmal. It's too dark to see what you're drawing!
+> w
+> w
+You are in the Sculptures Exhibit.
+There are five sculptures in total: One in the center, and four more in each corner of the room. Sometimes less is more. Sometimes less is just less.
+You can see The Thinker, the Apollo Belvedere, the Winged Victory of Samothrace, a Moai, David and a Woman.
+You can go south, west or east.
+> s
+> s
+You are in the Paintings Exhibit.
+This room features no more than six paintings scattered about the walls. There doesn't seem to be any particular logic to their order, style, time period, or... anything. They all seem pretty famous though. The only wall text you can see features basic information about the paintings. It's not very informative.
+You can see the Mona Lisa, the Starry Night, the Last Supper, the Persistence of Memory, Water Lilies, Composition in Black and White, with Double Lines, a Bench and a Huge Guard.
+You can go east or north.
+> e
+> e
+You are in the Lobby.
+This is the main lobby of the Ultimate Museum. It is rather an unassuming location. There is a man who looks like he's in his sixties behind the main desk. There are also some maps next to him.
+You can see a Man and some Maps.
+You can go southwest, southeast, west, east or south.
+> sw
+> sw
+You are in the Restroom.
+It's a small, unisex restroom. Looks like there's a fuse box on the back wall. Other than that, it's pretty standard.
+You can see a Sink, a Stall and a Fusebox.
+You can go north.
+> open fusebox
+> open fusebox
+You carefully open the cover. Inside you can see a row of switches, each one labled as "museums switch", "paintings switch", "history switch", etc.
+> use switch
+> use switch
+You switch the museums switch to a different position. From somewhere else in the building you think you can hear some lights turning on.
+> n
+> n
+You are in the Lobby.
+This is the main lobby of the Ultimate Museum. It is rather an unassuming location. There is a man who looks like he's in his sixties behind the main desk. There are also some maps next to him.
+You can see a Man and some Maps.
+You can go southwest, southeast, west, east or south.
+> w
+> w
+You are in the Paintings Exhibit.
+This room features no more than six paintings scattered about the walls. There doesn't seem to be any particular logic to their order, style, time period, or... anything. They all seem pretty famous though. The only wall text you can see features basic information about the paintings. It's not very informative.
+You can see the Mona Lisa, the Starry Night, the Last Supper, the Persistence of Memory, Water Lilies, Composition in Black and White, with Double Lines, a Bench and a Huge Guard.
+You can go east or north.
+> n
+> n
+You are in the Sculptures Exhibit.
+There are five sculptures in total: One in the center, and four more in each corner of the room. Sometimes less is more. Sometimes less is just less.
+You can see The Thinker, the Apollo Belvedere, the Winged Victory of Samothrace, a Moai, David and a Woman.
+You can go south, west or east.
+> e
+> e
+You are in the Museums Exhibit.
+You can see a Guggenheim Model, a Louvre Model, a Museum of Modern Art Model, a Vatican Museum Model, a Hermitage Museum Model, a British Museum Model, a Menacing Guard and a Light Switch.
+You can go west, east or north.
+The museum has a room for museums. How swell. It's brighter now that you messed with the fuse box.
+> use notebook on guggenheim
+> use notebook on guggenheim
+You can see clearly now! You draw the Guggenheim in your notebook. Looks pretty... adequate.
+> e
+> e
+You are in the Science Exhibit.
+This is the science exhibit. Various scientific labs and demonstrations are on display here, including a live rabbit. It's all very... half-baked.
+You can see a Volcano Experiment, a Lightbulb, a Telephone, a Solar System Model, a Lab Table, a Rabbit Cage (containing a Rabbit) and a Group of kids.
+You can go west or south.
+> use camera on rabbit cage
+> use camera on rabbit cage
+There's a huge group of kids swarming around the rabbit, gawking at it. You try to shoo them out of the way, but it's not working. You'll never get a good photo of the thing at this rate. If only you had something to distract them with. What do kids like...?
+> w
+> w
+You are in the Museums Exhibit.
+You can see a Guggenheim Model, a Louvre Model, a Museum of Modern Art Model, a Vatican Museum Model, a Hermitage Museum Model, a British Museum Model, a Menacing Guard and a Light Switch.
+You can go west, east or north.
+The museum has a room for museums. How swell. It's brighter now that you messed with the fuse box.
+> w
+> w
+You are in the Sculptures Exhibit.
+There are five sculptures in total: One in the center, and four more in each corner of the room. Sometimes less is more. Sometimes less is just less.
+You can see The Thinker, the Apollo Belvedere, the Winged Victory of Samothrace, a Moai, David and a Woman.
+You can go south, west or east.
+> w
+> w
+You are in the Cafe.
+This is the museum cafe. There's a few tables to eat at, and a counter to order food at. Surely their prices are reasonable.
+You can see a Cashier and a Menu.
+You can go east.
+> buy cookie
+> buy cookie
+The cashier hands you your cookie in exchange for eight dollars and 95 cents. It is roughly the size of a quarter.
+"Enjoy." The cashier smiles.
+> e
+> e
+You are in the Sculptures Exhibit.
+There are five sculptures in total: One in the center, and four more in each corner of the room. Sometimes less is more. Sometimes less is just less.
+You can see The Thinker, the Apollo Belvedere, the Winged Victory of Samothrace, a Moai, David and a Woman.
+You can go south, west or east.
+> e
+> e
+You are in the Museums Exhibit.
+You can see a Guggenheim Model, a Louvre Model, a Museum of Modern Art Model, a Vatican Museum Model, a Hermitage Museum Model, a British Museum Model, a Menacing Guard and a Light Switch.
+You can go west, east or north.
+The museum has a room for museums. How swell. It's brighter now that you messed with the fuse box.
+> e
+> e
+You are in the Science Exhibit.
+This is the science exhibit. Various scientific labs and demonstrations are on display here, including a live rabbit. It's all very... half-baked.
+You can see a Volcano Experiment, a Lightbulb, a Telephone, a Solar System Model, a Lab Table, a Rabbit Cage (containing a Rabbit) and a Group of kids.
+You can go west or south.
+> use cookie on group of kids
+> use cookie on group of kids
+You yell to the kids and throw the cookie in their direction. Distracted, they all rush to grab it. They are now fighting in the corner, desperately trying to get the cookie for themselves. The rabbit cage is free.
+> use camera on rabbit cage
+> use camera on rabbit cage
+Smile for the camera, Mr. Rabbit! You take a glorious picture of the little lagomorph.
+> s
+> s
+You are in the History Exhibit.
+This is the history exhibit. It attempts to relay the history of the entire planet in the span of two murals and a row of five unrelated objects. It fails.
+You can see a Evolution of Man Mural, a Timeline Mural, the Declaration of Independence, the Rosetta Stone, a Sarcophagus of Tutankhamun, the Holy Grail, a Dinosaur Egg, a Pudgy Guard and a Touch Screen.
+You can go west or north.
+> use touch screen
+> use touch screen
+You touch the screen to try to bring it to life, but... It does nothing. It seems dead. Maybe the batteries ran out...?
+> w
+> w
+You are in the Lobby.
+This is the main lobby of the Ultimate Museum. It is rather an unassuming location. There is a man who looks like he's in his sixties behind the main desk. There are also some maps next to him.
+You can see a Man and some Maps.
+You can go southwest, southeast, west, east or south.
+> se
+> se
+You are in the Gift Shop.
+The museum gift shop is a little smaller than most you've been inside. There are the usual knick knacks and curiosities for sale on a table nearby. Next to that is a bookshelf. Probably nothing of any real value, though.
+You can see a Cashier, a Table and a Bookshelf.
+You can go north.
+> x table
+> x table
+Sitting on the table are a few assorted gift items for sale.
+On it surface are some Batteries, a Mug, a Rabbit Toy and a Dinosaur Puzzle.
+> buy batteries
+> buy batteries
+You reluctantly fork over the cash in exchange for the stupid batteries. This trip is costing you a lot more than just your Saturday afternoon.
+> n
+> n
+You are in the Lobby.
+This is the main lobby of the Ultimate Museum. It is rather an unassuming location. There is a man who looks like he's in his sixties behind the main desk. There are also some maps next to him.
+You can see a Man and some Maps.
+You can go southwest, southeast, west, east or south.
+> e
+> e
+You are in the History Exhibit.
+This is the history exhibit. It attempts to relay the history of the entire planet in the span of two murals and a row of five unrelated objects. It fails.
+You can see a Evolution of Man Mural, a Timeline Mural, the Declaration of Independence, the Rosetta Stone, a Sarcophagus of Tutankhamun, the Holy Grail, a Dinosaur Egg, a Pudgy Guard and a Touch Screen.
+You can go west or north.
+> use batteries on touch screen
+> use batteries on touch screen
+You carefully slide the batteries into the back of the touch screen. Success! It hums and buzzes to life just like you always dreamed it would.
+> use touch screen
+> use touch screen
+You seek through the clumsy menus to find the information you're looking for.... A-ha! Looks like the stupid "Holy Grail" was the most recent item that the museum acquired to put on display.
+> use notebook on holy grail
+> use notebook on holy grail
+You take notes on the stupid grail, which you know now is the museum's newest piece of junk.
+> n
+> n
+You are in the Science Exhibit.
+This is the science exhibit. Various scientific labs and demonstrations are on display here, including a live rabbit. It's all very... half-baked.
+You can see a Volcano Experiment, a Lightbulb, a Telephone, a Solar System Model, a Lab Table, a Rabbit Cage (containing a Rabbit) and a Group of kids.
+You can go west or south.
+> w
+> w
+You are in the Museums Exhibit.
+You can see a Guggenheim Model, a Louvre Model, a Museum of Modern Art Model, a Vatican Museum Model, a Hermitage Museum Model, a British Museum Model, a Menacing Guard and a Light Switch.
+You can go west, east or north.
+The museum has a room for museums. How swell. It's brighter now that you messed with the fuse box.
+Hey, that guard is gone! Now's your chance to sneak into the new exhibit so you can get out of here!
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> look
+> look
+You are in the Museums Exhibit.
+You can see a Guggenheim Model, a Louvre Model, a Museum of Modern Art Model, a Vatican Museum Model, a Hermitage Museum Model, a British Museum Model and a Light Switch.
+You can go west, east or north.
+> n
+> n
+You are in the New Exhibit Room.
+This should be the last stop on your journey. You just have to take some quick notes on the new exhibit here, but... Where is it? The only thing you can see is a five foot high, white pedestal at the far end of the room. There's a small chest on top of it.
+You can see a Chest and a Pedestal.
+You can go south.
+> open chest
+> open chest
+You open it.
+Slowly, carefully, you push back the lid of the chest. It is unlocked. There is silence, until...
+
+The lights flicker. Thunder sounds. You close your eyes and cower in fear as a whirlwind of evil emerges from the chest.
+
+What have you done? What have you done? You don't know what you've done...
+
+Darkness consumes you...
+
+(Press any key to continue)
+You are in the Chest Room.
+You can see a Chest, a Pedestal and a Camera.
+You can go south.
+....Slowly, you regain consciousness. Everything is dark. You feel nauseous. Looking around, you realize that you are still inside the New Exhibit room, but it looks... different. It feels... colder. You check your pockets and find that most of your belongings are missing. The chest sits open behind you where you left it.
+> take camera
+> take camera
+You pick your camera up off the ground and inspect it carefully. It still turns on... But it looks like all your pictures are ruined. Now they're all... blurry.
+> s
+> s
+You are in the Museums Exhibit.
+You thought it was dark before, but now it's just about pitch black. The six models of famous museums stand in ruins.
+You can see a Guggenheim Model, a Museum of Modern Art Model, a Vatican Museum Model, a Hermitage Museum Model, a British Museum Model and a Louvre Model.
+You can go north, west or east.
+> break louvre
+> break louvre
+You break open the Louvre model. A map falls out onto the floor.
+> take map
+> take map
+You pick it up.
+> x map
+> x map
+You study the map to find that... ...it has the same layout as before? That's odd. Guess you can head out safely now.
+> w
+> w
+You are in the Sculptures Exhibit.
+Did the sculptures always look this way? You don't think so. You're having trouble remembering...
+You can see the Thinker, the Apollo Belvedere, the Winged Victory of Samothrace, a Moai and the David.
+You can go east, south or west.
+> s
+> s
+You are in the Paintings Exhibit.
+The paintings in this exhibit look different, distorted somehow. There is a strange creature in the corner of the room.
+You can see the Mona Lisa, the Starry Night, The Last Supper, The Persistence of Memory, a Water Lilies, a Composition in Black and White, with Double Lines, a Watchful Monster and a Bench.
+You can go east or north.
+> e
+> e
+You are in the Lobby.
+The lobby is completely empty. It's also dark and filthy, just like the rest of the museum.
+You can go southwest, southeast, east or west.
+> e
+> e
+You are in the History Exhibit.
+The History Exhibit. Everything seems strangely... normal in here.
+You can see a Evolution Mural, a Timeline Mural, the Declaration of Independence, the Rosetta Stone, a Sarcophagus of Tutankhamun, the Holy Grail, a Dinosaur Egg and a Touch Screen.
+You can go west or north.
+> x rosetta stone
+> x rosetta stone
+The Rosetta Stone. It helped people learn things. Good stuff.
+
+Hey... is that your notebook stuck to the front of it?!
+> take notebook
+> take notebook
+You pick it up.
+> x notebook
+> x notebook
+The notebook contains a translation key for a strange alien language! You can understand them wherever they may appear now.
+> w
+> w
+You are in the Lobby.
+The lobby is completely empty. It's also dark and filthy, just like the rest of the museum.
+You can go southwest, southeast, east or west.
+> se
+> se
+You are in the Gift Shop.
+The gift shop looks more or less unchanged. A few more cobwebs, perhaps.
+You can see a Table and a Bookshelf.
+You can go north.
+> x bookshelf
+> x bookshelf
+There are only a few books on the bookshelf now, one black, one white, and one that's all torn up. You wonder what happened to the rest of them...
+> x black book
+> x black book
+You flip through the book when an image of King Tut stops you. You decipher the text... It seems that the yellow shard is hidden inside the sarcophagus.
+> x table
+> x table
+Sitting on the table are a few assorted gift items for sale... At least they would be for sale if anyone was in here selling them.
+On its surface are a Dinosaur Puzzle, a Rabbit Toy and a Mug.
+> take rabbit toy
+> take rabbit toy
+This rabbit toy might come in handy somewhere...
+> take mug
+> take mug
+You can always use a mug, right?
+> n
+> n
+You are in the Lobby.
+The lobby is completely empty. It's also dark and filthy, just like the rest of the museum.
+You can go southwest, southeast, east or west.
+> sw
+> sw
+You are in the Restroom.
+The bathroom walls are covered with grafitti. The sink is clogged. Water is seeping out from the stall. Nice place.
+You can see a Sink, a Stall and a Fusebox.
+You can go north.
+> use mug on sink
+> use mug on sink
+You fill the mug with water from the sink.
+> open stall
+> open stall
+You open it.
+Inside is a Blanket.
+> x stall
+> x stall
+Water is oozing out from the inside... Gross.
+Inside is a Blanket.
+> take blanket
+> take blanket
+You fold the blanket up and take it with you.
+> n
+> n
+You are in the Lobby.
+The lobby is completely empty. It's also dark and filthy, just like the rest of the museum.
+You can go southwest, southeast, east or west.
+> w
+> w
+You are in the Paintings Exhibit.
+The paintings in this exhibit look different, distorted somehow. There is a strange creature in the corner of the room.
+You can see the Mona Lisa, the Starry Night, The Last Supper, The Persistence of Memory, a Water Lilies, a Composition in Black and White, with Double Lines, a Watchful Monster and a Bench.
+You can go east or north.
+> x watchful monster
+> x watchful monster
+The monster is draped in shadows, so you can't see its body clearly. Only it's bright red, glowing eye, watching your every step.
+> use blanket on watchful monster
+> use blanket on watchful monster
+You throw the blanket over the monster's hideous eye. It snarls angrily for a second before calming down again. It can't see a thing.
+> x persistence of memory
+> x persistence of memory
+Melting clocks have been replaced by melting human faces. They stare out from the confines of the painting. You feel as if they are staring at you, pleading with you.
+
+There is a faint red glow at the center of the painting.
+> move persistence of memory
+> move persistence of memory
+Carefully, slowly, you remove the painting from its place on the wall. The monster shuffles a bit, but then quiets down. A red shard falls to the floor.
+> take red shard
+> take red shard
+You pick it up.
+> n
+> n
+You are in the Sculptures Exhibit.
+Did the sculptures always look this way? You don't think so. You're having trouble remembering...
+You can see the Thinker, the Apollo Belvedere, the Winged Victory of Samothrace, a Moai and the David.
+You can go east, south or west.
+> w
+> w
+You are in the Cafe.
+Tables are flipped, chairs are scattered. Smells like spoiled food.
+You can see a Meat and a Scrap of Paper.
+You can go east.
+> take meat
+> take meat
+You're not sure why you're doing this, but you do it anyway. You now have rancid meat in your pocket.
+> take scrap of paper
+> take scrap of paper
+You slip the scrap of paper into your pocket.
+> x scrap of paper
+> x scrap of paper
+It looks like someone scrawled a note on this piece of paper. It's barely legible.
+
+"There... ...four shards....
+
+...form the key...
+
+... red, blue, yellow, green...
+
+...hidden throughout...
+
+...do not let him rise."
+> use meat on rabbit toy
+> use meat on rabbit toy
+You rip open the stuffed rabbit and shove the meat from the Cafe inside. Voila, a bonafide monster lure.
+> e
+> e
+You are in the Sculptures Exhibit.
+Did the sculptures always look this way? You don't think so. You're having trouble remembering...
+You can see the Thinker, the Apollo Belvedere, the Winged Victory of Samothrace, a Moai and the David.
+You can go east, south or west.
+> e
+> e
+You are in the Museums Exhibit.
+You thought it was dark before, but now it's just about pitch black. The six models of famous museums stand in ruins.
+You can see a Guggenheim Model, a Museum of Modern Art Model, a Vatican Museum Model, a Hermitage Museum Model, a British Museum Model and a Louvre Model.
+You can go north, west or east.
+> e
+> e
+You are in the Science Exhibit.
+The science exhibit is a mess. Looks like a bomb went off in here. A flying monster is shrieking incessantly.
+You can see a Volcano Experiment, a Lightbulb, a Telephone, a Solar System Model, a Lab Table, a Rabbit Cage (containing a Rabbit and a Blue Shard) and a Flying Monster.
+You can go west or south.
+> use meat rabbit on flying monster
+> use meat rabbit on flying monster
+You throw the meat rabbit on the ground. The monster takes the bait! Now he's circling around it off in the opposite corner of the room. The rabbit cage is free!
+> open rabbit cage
+> open rabbit cage
+You open it.
+You open the cage. Inside are the relieved looking rabbit and a shiny blue shard.
+It contains a Rabbit and a Blue Shard.
+"SCREEEEEEEEEEEEEEEE!" The flying monster shrieks.
+> take blue shard
+> take blue shard
+You pick it up.
+> take rabbit
+> take rabbit
+You pick the rabbit up in your arms and tuck it safely away in your jacket pocket. The little guy should be okay for now.
+> x lab table
+> x lab table
+The lab table remains in place with its collection of items, useless as before...
+On its surface lies a Beaker, a Bunsen Burner and a Microscope.
+"SCREEEEEEEEEEEEEEEE!" The flying monster shrieks.
+> use mug on beaker
+> use mug on beaker
+You pour the water into the beaker. The acid simmers a bit. Should be safer now.
+> take beaker
+> take beaker
+You take the beaker of acid. It's still pretty dangerous, but at least you can carry it around without hurting yourself now.
+> w
+> w
+You are in the Museums Exhibit.
+You thought it was dark before, but now it's just about pitch black. The six models of famous museums stand in ruins.
+You can see a Guggenheim Model, a Museum of Modern Art Model, a Vatican Museum Model, a Hermitage Museum Model, a British Museum Model and a Louvre Model.
+You can go north, west or east.
+> w
+> w
+You are in the Sculptures Exhibit.
+Did the sculptures always look this way? You don't think so. You're having trouble remembering...
+You can see the Thinker, the Apollo Belvedere, the Winged Victory of Samothrace, a Moai and the David.
+You can go east, south or west.
+> use beaker on winged victory
+> use beaker on winged victory
+You pour acid on the statue. It melts away, revealing a shiny green shard.
+> take green shard
+> take green shard
+You pick it up.
+> s
+> s
+You are in the Paintings Exhibit.
+The paintings in this exhibit look different, distorted somehow. There is a strange creature in the corner of the room.
+You can see the Mona Lisa, the Starry Night, The Last Supper, The Persistence of Memory, a Water Lilies, a Composition in Black and White, with Double Lines, a Watchful Monster, a Bench and a Blanket.
+You can go east or north.
+> e
+> e
+You are in the Lobby.
+The lobby is completely empty. It's also dark and filthy, just like the rest of the museum.
+You can go southwest, southeast, east or west.
+> e
+> e
+You are in the History Exhibit.
+The History Exhibit. Everything seems strangely... normal in here.
+You can see a Evolution Mural, a Timeline Mural, the Declaration of Independence, the Rosetta Stone, a Sarcophagus of Tutankhamun, the Holy Grail, a Dinosaur Egg and a Touch Screen.
+You can go west or north.
+> open king tut
+> open king tut
+You open Tut up, revealing a yellow shard inside.
+> take yellow shard
+> take yellow shard
+You pick it up.
+As you pick up the shard, something else slides out of Tut's coffin. It's a hideous slime monster! It's coming toward you slowly. Better get out of there.
+> w
+> w
+You are in the Lobby.
+The lobby is completely empty. It's also dark and filthy, just like the rest of the museum.
+You can go southwest, southeast, east or west.
+> w
+> w
+You are in the Paintings Exhibit.
+The paintings in this exhibit look different, distorted somehow. There is a strange creature in the corner of the room.
+You can see the Mona Lisa, the Starry Night, The Last Supper, The Persistence of Memory, a Water Lilies, a Composition in Black and White, with Double Lines, a Watchful Monster, a Bench and a Blanket.
+You can go east or north.
+> n
+> n
+You are in the Sculptures Exhibit.
+Did the sculptures always look this way? You don't think so. You're having trouble remembering...
+You can see the Thinker, the Apollo Belvedere, the Winged Victory of Samothrace, a Moai and the David.
+You can go east, south or west.
+> e
+> e
+You are in the Museums Exhibit.
+You thought it was dark before, but now it's just about pitch black. The six models of famous museums stand in ruins.
+You can see a Guggenheim Model, a Museum of Modern Art Model, a Vatican Museum Model, a Hermitage Museum Model, a British Museum Model and a Louvre Model.
+You can go north, west or east.
+> use red shard on blue shard
+> use red shard on blue shard
+As you move the shards closer together, all four of them begin to react. They join and form one colorful master key.
+> i
+> i
+You are carrying a Wallet, a Ticket, a Camera, a Map, a Notebook, a Mug, a Scrap of Paper, a Rabbit, a Beaker and a Master Key.
+> n
+> n
+You are in the Chest Room.
+You can see a Chest and a Pedestal.
+You can go south.
+A grotesque monster suddenly appears in the room! It kneels before the chest and begins chanting in another language...
+> use camera on grotesque monster
+> use camera on grotesque monster
+You take out your camera and flash a picture at the monster. The flash startles it! *snap* *snap* *snap* You continue taking pictures until the creature snarls and crawls out of the room. You did it!
+> use master key on chest
+> use master key on chest
+You close the lid of the chest, and insert the master key to lock it. Then, you wait.
+
+...The chest shakes.
+
+It rumbles...
+
+Then it's still. Bright light fills the room. You can't see anything...
+
+...Suddenly, you find yourself outside the museum. It's still light out. You think... Everything is back to normal again. You don't know exactly what happened in there. Maybe you never will. But you made it.
+
+You put your hand in your pocket and feel something nuzzling against it. It's the rabbit! You decide it would be happier coming home with you than staying in the museum.
+
+The End.
+
+Written and designed by Jonathan Estis
+
+Testers:
+Gregory Everitt
+James Huffman
+Will Keeler
+[state=Finished]

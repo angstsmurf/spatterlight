@@ -1,0 +1,58 @@
+You are in a Foyer.
+You can go south or west.
+> look
+
+> look
+You are in a Foyer.
+You can go south or west.
+> i
+
+> i
+You are carrying a cloak.
+> w
+
+> w
+
+You are in a Cloakroom.
+You can see a hook.
+You can go east.
+> look
+
+> look
+You are in a Cloakroom.
+You can see a hook.
+You can go east.
+> drop cloak
+
+> drop cloak
+You drop it.
+> i
+
+> i
+You are not carrying anything.
+> e
+
+> e
+
+You are in a Foyer.
+You can go south or west.
+> s
+
+> s
+
+You are in a Bar.
+It's dark. Better not walk around too much; you might break something!
+> look
+
+> look
+You are in a Bar.
+It's dark. Better not walk around too much; you might break something!
+> x message
+
+> x message
+I can't see that.
+> n
+
+> n
+You can't go there.
+[state=Running]

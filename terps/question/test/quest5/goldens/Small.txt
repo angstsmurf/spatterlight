@@ -1,0 +1,721 @@
+Small.
+Some days things go from the mundane to the ridiculous . You have a feeling that today is one of those days.
+
+by Father thyme
+
+The best mushroom field you know of is just west of The  Wierwoods. It's quite a walk ,but well worth it. It's midday ,you've reached the middle of the woods. Only another two miles to go to be out of this forbidding place. You glance to your right as a blackbird flies past screeching his alarm call. You can see a narrow strip of white wall, a doorpost  and part of a door just north of you. There seems to be no reason why the rest of the house is not visible. In fact there shouldn't be a house here at all. Very strange!
+The forest track
+This narrow East West track is quite well known to you.
+You can see a Door.
+You can go west, east, south or north.
+> n
+
+> n
+You approach the strange slice of building. Halfway to it you experience a weird tingling sensation.  The rest of the building suddenly appears. You almost expected to hear the swish of  invisible theatre curtains, but all is silent. Even the birds and insects seem to have lost their voices.
+
+The front of the house
+You are a few yards from a door set in the plain white wall of a small house. There are no windows on this side.
+You can go northwest, northeast, south or north.
+Looking behind, below, above and beside you you see nothing at all . The track, forest, sky and even the grass underfoot have faded into a grey nothingness. Even the narrow gap you passed through has gone. You push on the nothingness , it is soft and impossible to move through.
+> n
+
+> n
+
+A The front door
+You are standing in front of the front door. At its centre is a large knocker in the shape of a demon.
+You can see a Door and a Knocker.
+You can go south or north.
+> speak to knocker
+
+> speak to knocker
+"Hello knocker" you say ,feeling a bit of a fool for talking to a brass knocker.
+"Greetings mortal " the knocker replies , much to your amazement. " I trust that you have not come here to annoy me with inane comments. If you have you are advised to clear off." The knocker makes a rude gesture with a bony green hand.
+> speak to knocker
+
+> speak to knocker
+" I thought I told you to clear off!" shrieks the knocker "Now look what you made me do!"
+Its green brass arm shoots out , a long finger points, releasing a bright blue spark. Everything  begins to spin. You are being sucked toward the demons mouth, the demon grows bigger and bigger, you lose consciousness.
+You recover your wits to find yourself in a strange place. You are no longer outside the white house. The air smells musty and the light has a strange greenish tint to it. You are obviously outdoors but your instincts seem to tell you that you are not. Surfaces around you have a strange coarse texture like objects viewed through a magnifying glass.
+
+An alley
+You are in a narrow north south alley between two houses. To the north are trees. South lies a harbour.
+You can go north or south.
+> s
+
+> s
+You emerge from the alley to be confronted by a large ship. It is under full sail despite being only a short distance from the harbour wall. A dangerous manoeuvre you think, then notice that despite the billowing sails it is not moving at all.
+
+Wharf
+You are on a narrow east west wharf. North of you is an alley between two houses.
+You can see Houses, A ship. and a pile of barrels..
+You can go north, west or east.
+> x barrels
+
+> x barrels
+These are  just lengths  of thick round wood glued together in a pile, painted with black bands and fixed to the wharf. They are not barrels at all. They seem to have been put here as some kind of scenery. Beside them steps lead down to the water.
+> e
+
+> e
+
+Outside the church
+A church complete with tower stands here. It seems to be carved of solid wood and painted grey. There is even realistic ivy fixed on the walls.
+You can see A skeleton.
+You can go west.
+> climb ivy
+
+> climb ivy
+You climb up the ivy ,being careful not to look down.
+
+On the tower
+You are on top of the tower. There  no way you are going to stay up here long it's a long way down. A tall flagstaff stands in the centre of the tower. It is capped with a small gilt lion figure. There is no flag.
+You can see a bandolier .
+You can go down.
+> open bandolier
+
+> open bandolier
+You search the pouches to see what the bandolier might contain.
+It contains a Grenade.
+> take grenade
+
+> take grenade
+You pick it up.
+> take bandolier
+
+> take bandolier
+You pick it up.
+> d
+
+> d
+You scramble down the tower. It's lucky this is not real ivy. This kind seems to support your weight very well.
+
+Outside the church
+A church complete with tower stands here. It seems to be carved of solid wood and painted grey. There is even realistic ivy fixed on the walls.
+You can see A skeleton.
+You can go west.
+> w
+
+> w
+
+Wharf
+You are on a narrow east west wharf. North of you is an alley between two houses.
+You can see Houses, A ship., Steps and a pile of barrels..
+You can go north, down, west or east.
+> d
+
+> d
+You make your way down the steps. They are too big for comfort and seem out of scale. The sea below is not water , it's a.hard painted surface.
+
+Below the wharf
+You are standing at the bottom of the steps on a rough blue and green painted surface that smells of putty.
+You can go up or south.
+> s
+
+> s
+
+Beside the ship
+You are standing by the stern of the ship which appears to be glued to the sea. A very large moulded wave reaches almost to the gunwales on this side.
+You can go north, south, west or east.
+> climb wave
+
+> climb wave
+You scramble up the wave and climb aboard.
+
+The stern
+This is the stern of the ship. You are beside the short mizzen mast. There are signs that a flag was once glued to it but apart from a few shreds it has gone.
+You can see The mizzen mast..
+You can go down or west.
+> w
+
+> w
+
+Amidships
+You are under the main mast. There is a large hatch here.
+You can see a Hatch and a The main mast..
+You can go east, up or west.
+> climb main mast
+
+> climb main mast
+You climb the rigging to the top.
+You carefully climb the rigging. The ratlines are set too far apart for comfortable climbing but it's just about possible to get up there.
+
+Crows nest
+The crows nest is a wooden tub on top of the mast with raised sides crudely hollowed out on the inside, a flagstaff rises from the centre of it.
+You can see a Flagstaff.
+You can go down.
+From up here you can clearly see that you are in a gigantic square bottle. Far to the west you see it narrow to a bottle neck, east you see the huge shape of the base of this huge glass world rising from the putty sea.
+> take flagstaff
+
+> take flagstaff
+You pull the flagstaff from its socket. The weight of the flag pulls it out of your hands. The whole thing flips over and crashes down the mast . The flag rips away and flutters into the distance.
+> d
+
+> d
+
+Amidships
+You are under the main mast. There is a large hatch here.
+You can see a Hatch, a The main mast. and a Flagstaff.
+You can go east, up or west.
+> take flagstaff
+
+> take flagstaff
+You pick up the flagstaff, it's quite light without the flag.
+> w
+
+> w
+You move toward the foreword part of the ship.
+
+The bows
+You are at the bows of the ship. Someone has made a crude shelter here using one of the ships thick paper flags as a tent stretched between the bulwarks. The flag is thick, stiff and heavy and makes a substantial dwelling.
+You can see a The foremast..
+You can go east or in.
+> in
+
+> in
+
+A Shelter
+This space looks as if someone once slept here but has now moved out taking most of their possessions with them.
+You can see a musket.
+You can go out.
+> take musket
+
+> take musket
+You pick it up.
+> out
+
+> out
+
+The bows
+You are at the bows of the ship. Someone has made a crude shelter here using one of the ships thick paper flags as a tent stretched between the bulwarks. The flag is thick, stiff and heavy and makes a substantial dwelling.
+You can see a The foremast..
+You can go east or in.
+> e
+
+> e
+
+Amidships
+You are under the main mast. There is a large hatch here.
+You can see a Hatch and a The main mast..
+You can go east, up or west.
+> e
+
+> e
+
+The stern
+This is the stern of the ship. You are beside the short mizzen mast. There are signs that a flag was once glued to it but apart from a few shreds it has gone.
+You can see The mizzen mast..
+You can go down or west.
+> d
+
+> d
+
+Beside the ship
+You are standing by the stern of the ship which appears to be glued to the sea. A very large moulded wave reaches almost to the gunwales on this side.
+You can go north, south, west or east.
+> n
+
+> n
+
+Below the wharf
+You are standing at the bottom of the steps on a rough blue and green painted surface that smells of putty.
+You can go up or south.
+> u
+
+> u
+
+Wharf
+You are on a narrow east west wharf. North of you is an alley between two houses.
+You can see Houses, A ship., Steps and a pile of barrels..
+You can go north, down, west or east.
+> w
+
+> w
+
+By the inn
+An inn stands here, the door and windows are painted on in black. A sign hangs high up on the wall.
+You can see a Sign.
+You can go east, north or west.
+> n
+
+> n
+
+Behind the inn.
+Behind the inn the air seems quite damp. Condensation is running down the glass above.
+You can see Plants.
+You can go south.
+> eat plants
+
+> eat plants
+The plants taste very bland and damp they are disgusting.
+  However are good for quenching your thirst. As you pull some of them up you see a deep crack leading down below the ground beside the wall.
+> d
+
+> d
+You climb down into the crack in the ground . It does not seem to lead anywhere.
+
+In the crack
+You are in a deep crack in the floor. It is half full of bones.
+You can see Bones.
+You can go up.
+> x bones
+
+> x bones
+There must be the bones of at least a dozen people down here. It looks as if someone has thrown them down here out of sight. There are pieces of ragged clothing still clinging to some of them.
+> take rags
+
+> take rags
+The rags are not worth taking, you throw them into the depths of the crack, but beneath  them is a sack.
+> take sack
+
+> take sack
+You pick it up.
+> open sack
+
+> open sack
+You open the sack.
+It contains A set of bagpipes..
+> take bagpipes
+
+> take bagpipes
+You take the bagpipes
+> u
+
+> u
+
+Behind the inn.
+Behind the inn the air seems quite damp. Condensation is running down the glass above.
+You can see Plants and Crack.
+You can go south or down.
+> s
+
+> s
+
+By the inn
+An inn stands here, the door and windows are painted on in black. A sign hangs high up on the wall.
+You can see a Sign.
+You can go east, north or west.
+> w
+
+> w
+The rough surface of the wharf ends here to be replaced by a surface of glass. It rises very steeply  in front of you.
+
+A glass slope
+You are at the bottom of a steep glass slope.
+You can see a Metal container.
+You can go east or up.
+> use flagstaff on glass slope
+
+> use flagstaff on glass slope
+You lay the flagstaff on the glass slope , jamming the bottom into a handy crack in the wharf. It reaches right to the top of the slope.
+> u
+
+> u
+You scramble up the pole
+
+The bottle neck.
+This is the neck of the bottle. A huge curved tunnel of glass.
+You can see a rope.
+You can go down or west.
+> w
+
+> w
+
+The bottle mouth
+This is the mouth of the bottle a curved world of glass. A wall of cork rises to the west. The floor is littered with fragments of cork.
+You can see a Tunnel.
+You can go east.
+> x tunnel
+
+> x tunnel
+A tunnel has been dug into the cork.
+> w
+
+> w
+
+Inside the cork
+You are inside a large space hollowed out from the cork.
+You can see a Red wall and a corpse.
+You can go east.
+> x corpse
+
+> x corpse
+A body lying on the floor.  He has been dead some time. In the dry conditions of the cork he has  mummified to skin and bones.
+A dagger is buried in his chest.
+> take dagger
+
+> take dagger
+You take the dagger.
+> use musket on grenade
+
+> use musket on grenade
+You pull the trigger. A spray of sparks ignite the fuse of the grenade. You place the grenade against the wall and run for your life.
+
+The bottle neck.
+This is the neck of the bottle. A huge curved tunnel of glass.
+You can see a rope.
+You can go down or west.
+BOOM!   Smoke and pieces of cork erupt from the cork.
+> cut rope
+
+> cut rope
+You cut the rope away and pick it up.
+> w
+
+> w
+
+The bottle mouth
+This is the mouth of the bottle a curved world of glass. A wall of cork rises to the west. The floor is littered with fragments of cork.
+You can see a Tunnel.
+You can go east or west.
+> w
+
+> w
+
+Inside the cork
+You are inside a large space hollowed out from the cork. A large hole has been blown in the red wall. The room is misty with smoke and reeks of gunpowder.
+You can see a Red wall, a corpse and A hole.
+You can go east or down.
+> use rope on hole
+
+> use rope on hole
+You tie the rope to the musket . You push the musket deep into the cork floor till it disappears, then throw the rope out of the hole.
+> d
+
+> d
+You climb down the rope.
+
+The shelf
+You are on a giant shelf, the bottle looms over you. Your rope hangs from its neck. You find it difficult to look beyond your wooden world. The room around you is so vast you cannot pick out details. It is difficult to see so far.
+You can go up, east or west.
+> w
+
+> w
+
+The shelf (west)
+You can see a  giant cobweb, a spider and a  seed.
+You can go east or up.
+> play bagpipes
+
+> play bagpipes
+You are not a musician but you try your best. Unfortunately your best effort sounds like fifty tomcats being strangled. The noise is horrendous . It can in no way be classed as music.
+The effect on the spider is surprising. It scuttles sideways off the web hissing angrily and with a last malevolent  glance swings itself under the shelf and disappears.
+> u
+
+> u
+
+An On the web
+The web is not so sticky as you thought it might be. You are easily able to climb it.
+You can see a seed and The cobweb.
+You can go south.
+> take seed
+
+> take seed
+You pull the seed clear of the cobweb  . It weighs practically nothing . The huge feathery parasol catches a vagrant breeze and pulls you off the web. You drop the bagpipes and drive the dagger into the web, but it is pulled from your hand. You hang on grimly to the seed, drifting up and away from the shelf then dropping slowly. After what seems an age you land clumsily on another wooden surface.  You and the seed part company. It drifts off over another steep drop.
+
+A tabletop.
+There is a strong draught blowing  across the table. You must be careful, the seed you floated on has gone over the edge. You could be next.
+You can go west or east.
+> e
+
+> e
+
+Tabletop east.
+On the tabletop at this end is  a dice the size of a house. To see such a familiar item from such a viewpoint amazes you .
+ You feel nervous about moving too close to the table edges. The smallest breeze could sweep you to your doom.
+You can see a  dice.
+You can go west.
+> x dice
+
+> x dice
+You can see six  dark spots on the dice, each the height of a tall man. . One of the lower spots seems to be a hole in the dice and not painted on it like the rest. A set of steps lead up to the hole.
+> climb steps
+
+> climb steps
+You climb the steps.
+You are amazed to enter an impressively decorated entrance foyer or hallway. It is impossibly big. Larger than the whole dice, this despite the fact that there are obviously other rooms inside as well, but after being inside a ship in a bottle the amazing seems quite commonplace.
+
+An ornate hall
+A staircase sweeps up in an impressive curve to an upper floor.
+You can see a staircase.
+You can go out, up, west or east.
+> u
+
+> u
+You climb the stairs and find yourself on a landing.
+
+A landing
+The landing is as sumptuous as the foyer below it.
+You can go down, west or east.
+> w
+
+> w
+
+A bedroom
+A magnificent bedroom finer than any you have ever seen or imagined.
+You can see a bed.
+You can go east.
+> take bedding
+
+> take bedding
+You have no wish to be weighed down with bedding.
+You decide to have a closer look anyway, you rummage around in the bed, under the pillow is a key. You pick it up. You think something else fell out of the bed while you were looking.
+> e
+
+> e
+
+A landing
+The landing is as sumptuous as the foyer below it.
+You can go down, west or east.
+> unlock yellow door with key
+
+> unlock yellow door with key
+You unlock the yellow door.
+> e
+
+> e
+
+A yellow room.
+A room completely yellow , floor, walls and ceiling. The only things not yellow are a few coloured pads on one wall.
+You can see a Green pad, a Blue pad and a White pad.
+You can go west.
+> press white pad
+
+> press white pad
+You feel a strange tingling sensation, the room changes before your eyes.
+
+A small white room
+This is more like a closet than a room, the ceiling is low, there is barely room to move. The walls and door are plain white wood. A white pad is fixed on one wall.
+You can see a White pad.
+You can go out.
+> out
+
+> out
+You have a strange feeling that the world is expanding in size.
+
+A large room
+This large room is very sparsely furnished and not ornamented in any way.
+You can see a shelf and a Table.
+You can go west.
+> x table
+
+> x table
+A heavy oak table.
+On it is a penny and a dice.
+> take penny
+
+> take penny
+You pick it up.
+> w
+
+> w
+
+A small white room
+This is more like a closet than a room, the ceiling is low, there is barely room to move. The walls and door are plain white wood. A white pad is fixed on one wall.
+You can see a White pad.
+You can go out.
+> press white pad
+
+> press white pad
+A familiar tingling sensation. The room shifts strangely then changes.
+
+A yellow room.
+A room completely yellow , floor, walls and ceiling. The only things not yellow are a few coloured pads on one wall.
+You can see a Green pad, a Blue pad and a White pad.
+You can go west.
+> w
+
+> w
+
+A landing
+The landing is as sumptuous as the foyer below it.
+You can go down, west or east.
+> d
+
+> d
+
+An ornate hall
+A staircase sweeps up in an impressive curve to an upper floor.
+You can see a staircase.
+You can go out, up, west or east.
+> w
+
+> w
+You enter a dust covered room, strangely different to the splendour outside. Some decaying furniture is piled in one corner, but your eye is drawn to a strange statue in another.
+
+A dusty room
+A bare and dusty room, obviously long neglected.
+You can see a Statue.
+You can go east.
+> use penny on slot
+
+> use penny on slot
+You place the penny in the slot, there is a whirring sound. The mouth of the figure opens, a small card flies out into your hand. The mouth snaps shut.
+> read card
+
+> read card
+The card reads.
+IF J A S O N BEGINS  SEVEN, EIGHT, NINE, TEN AND  ELEVEN.
+THE WORD  IS  TWELVE, TEN,  TEN, AND THREE.
+
+> e
+
+> e
+
+An ornate hall
+A staircase sweeps up in an impressive curve to an upper floor.
+You can see a staircase.
+You can go out, up, west or east.
+> e
+
+> e
+
+Antechamber
+You can see a painting.
+You can go west.
+As you enter the room fiery letters form in  the air in front of you.
+
+The letters grow smaller and vanish into the painting that covers one wall.
+A voice echoes round the room.
+"THE WORD! WHAT IS THE WORD!"
+> doom
+
+> doom
+DOOM!
+
+The door on the painting opens with a screech of hinges. Your mind screams at you " It's a painted door, it's not happening!" The painting swoops forward and you find yourself passing between the painted door posts into another room.
+
+A study
+You are in a large dimly lit study, the furniture is massive, well worn and mellowed with age. The room seems deserted.
+You can see a Glass jar, a chair, a desk and a key rack.
+> x key rack
+
+> x key rack
+Just below a small wooden shelf on the wall is a key rack . There are spaces for several keys.
+ You can see no keys on it however.
+> x shelf
+
+> x shelf
+It's a small shelf.
+On it is a Leather case.
+> open case
+
+> open case
+You open it.
+It contains a pair of spectacles.
+> wear spectacles
+
+> wear spectacles
+You put on the glasses. Your eyesight was quite good before,  but now you can see things in incredible detail.
+> x key rack
+
+> x key rack
+Just below a small wooden shelf on the wall is a key rack . There are spaces for several keys.
+Hanging on it is a glass key.
+> take glass key
+
+> take glass key
+You pick it up.
+> x desk
+
+> x desk
+The desk is  very large and is stained with ink and burned by
+various chemicals. It has one drawer .
+> unlock drawer
+
+> unlock drawer
+Unlocked.
+You open it.
+It contains a stone axe.
+> take stone axe
+
+> take stone axe
+You pick it up.
+> use axe on glass jar
+
+> use axe on glass jar
+You swing the axe  over your head and bring it down on the glass jar.
+
+CRACK!
+
+The glass glazes over with small fissures then collapses into dust.
+The smoke swirls and dissipates leaving a large group of bewildered looking men and a few women. You recognise pedlars, a travelling piper, knife grinders  and travelling sales men of all kinds. One is a soldier, you cannot see his face clearly. All the people have a strange mistiness about them.
+A blinding light  shines out over a broad shining staircase. A bearded man in a white robe appears. He ushers the crowd up the staircase into the care of several men in blue robes. They vanish into the brightness above where you think you can see huge golden gates through the mist.
+The bearded man reaches out and gently takes the axe.
+"You have done well" he says quietly " The axe of Cain has been recovered and redeemed. It has been passed down the path of evil for forty thousand years. It is returned to the path of light"
+The man and his staircase fade away. You wonder if it was ever there at all.
+
+You pause to catch your breath.
+A loud buzzing fills the air followed by a single musical chime.
+A small demon barely three feet tall has appeared in the centre of a pentacle that has just become visible on the floor. The creature looks around in horror.
+" You have released the souls! " it screams " The Master must feed, he needs the force of many souls to live forever.  Do you realise mortal, how long it takes to capture, amass, ripen by despair and move posthumous souls into the spirit jar?  Even the spirit jar must be replaced, a rare and costly item. I go now to fetch the mighty Cain, he will not be pleased. Fear the man who invented murder and tremble! "
+
+The creature  steps back onto the centre of the pentacle draws out a shiny metal device and presses a stud. The musical note and buzzing is repeated, the demon vanishes.
+
+> move chair
+
+> move chair
+With much effort you  manage to move the chair  to the centre of the pentacle. All you can do now is wait behind the desk.
+
+Impatient with waiting you start to move but are interrupted by the buzzing and musical chime.
+A figure appears in the centre of the pentacle.
+
+You catch a glimpse of an evil looking man dressed in animal skins. He has a leather hat marked with runes. The chair seems to occupy the same space as his lower body.
+Suddenly a brilliant white light erupts from the pentagram . You drop down behind the desk.
+
+BOOM!
+
+A vast concussion hits the desk , pushing it and you back several feet.  You lie stunned for a time then stagger to your feet.
+
+Devastation
+The study has been almost completely destroyed. A great blackened patch marks the area of the explosion. The glowing lines of the pentacle are strangely still there.
+You can see a Pentacle and a Desk.
+You can go west.
+> take desk
+
+> take desk
+You attempt to move the desk. It creaks alarmingly and threatens to fall to pieces. You desist in your efforts.
+Something falls on the floor with a faint tinkle.
+> look through piece of glass
+
+> look through piece of glass
+You look through the piece of glass peering around the room as you do so
+In a dark corner you spot a metal device.
+> x device
+
+> x device
+A small metal oval that seems designed to fit in the hand, it has a stud at one end. The device is dented and the casing is melted in places. You saw the small demon use one earlier.
+> w
+
+> w
+You enter the pentacle and walk to its centre
+
+In the pentacle
+The pentacle glows on the blackened floor. You can see very little beyond it . The rest of the room seems faint beyond its influence .
+You can go east.
+> press stud
+
+> press stud
+A musical note sounds , there is a faint buzzing.
+The air shimmers, the world becomes hazy. You find yourself in a huge forest of grass leaves and stems hundreds of feet high.
+The grass rapidly becomes smaller, you find yourself shooting up through it . You are standing in a forest glade. The grass is now only a few inches tall.
+
+A forest glade.
+You are just a few yards from the forest track. You can see a faint glow beneath your feet. You recognise the lines of the pentacle beneath the grass.
+You can go south, north, east or west.
+You wonder if you should try using the device again.
+> n
+
+> n
+As you move off you see the figure of a man approaching. He is dressed in black and has short horns on his forehead. He smells strongly of sulphur.  He looks very annoyed.
+"You!" he rages " You have destroyed my finest servant. Forty thousand years I have trained and increased his power, and you a puny mortal have prevailed. You can only hope that when you lie upon your deathbed that the one who comes to lead you away will not be one of mine."
+He is about to continue his ranting when a blazing white
+light shines on him. He cowers and retreats hastily into the trees
+
+The man in white you saw earlier appears
+" Take no notice" he says kindly " He is full of empty threats. You have done well, a demon prince  has been eliminated. The oldest dark wizard of them all."
+He hands you a basket of mushrooms.
+" Not many can say that they have eaten mushrooms picked by an Archangel " he chuckles." They would never believe you anyway"
+You would have thanked him but he is no longer there.
+
+Perhaps it's  time to go home.
+
+[state=Finished]

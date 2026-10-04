@@ -1,0 +1,509 @@
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+ Title Room.
+
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+It all started innocently enough...
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+...you went with Straussberger, a friend and American military hero, to search an abandoned terrorist compound for clues.
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+You arrived on location.
+
+But... you were attacked before you arrived at the compound.
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+Your car exploded.  You awoke on a cliff's edge, left for dead.  Alone...
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+Somehow you survived and managed to defend your life against the pursuing Dingo henchmen and get into the compound safely.
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+You thought you were safe, but when you arrived at the compound you found it occupied.  You were captured by Dr. Dingo - who turned out being your old friend.
+
+Or so you thought...
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+You escaped your cell and met a creature named Blerk who became your only trusted companion.
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+The two of you discovered that Dr. Dingo had an imposter that presented himself as your friend, Straussberger.  It was time to discover who the real Dr. Dingo was.
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+In your adventure, you and Blerk traversed the compound overcoming seemingly insurmountable obstacles.  Finally, you discovered the real Dr. Dingo.
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+To your surprise, you found the real Dr. Dingo was actually a female.  An alluring woman.  Beautiful.  Red hair.  Shapely.  Dangerous.
+
+Despite her beauty, it was dangerous.  You had to leave.
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+Against all odds...
+
+You found the real Straussberger.  You befriended Blerk.  You made plans for the three of you to escape.
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+After escaping, you collapsed.... fatigued in the hot desert.
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+You wake up...
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+...in a strange hut in an unknown village.  A lady is asking you questions about who you are, why you are here, and why dangerous looking people have come looking for you.
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+But... you remember nothing...
+
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+Your adventure begins.
+
+Please press any key to continue.
+
+You are in a well-kept hut.
+
+You are inside a crudely-made hut.
+
+Children are scurrying around, running into and out of the hut, shrieking with delight as they do so.  Despite their joy, they are giving you quite a headache.  There is a large, colorfully dressed woman working on the other side of the hut.  Her back is turned toward you, but she occassionally glances over her shoulder at you and offers a smile.
+
+You can go north.
+
+div#txtCommandDiv {border:none; font-size:12pt; font-family:Georgia, serif; } input#txtCommand { outline:none; border:none; font-size:16px; margin:0; padding:0; }
+
+        div#txtCommandDiv {
+            border: none;
+            background: no-repeat;
+          }
+          input#txtCommand {
+            outline:none;
+            border: none;
+            margin:0;
+            padding:0;
+            max-width: 1000px;
+          }
+          #status { display: none !important; visibility: hidden !important; }
+
+> ask calista about water
+
+> ask calista about water
+"Yes, right away, good sir."
+
+Calista exits the hut and within a few moments she returns with a brown cup.  She walks over to the chickens and grabs a few items, grinds them up and sprinkles them in the cup.  She walks towards you and shoves the big drink into your hands.  "Drink up, sir," she says with a smile.
+
+The squealing of the children compound your headache!  JUST BE QUIET you think.
+
+The room brightens a bit and warmth begins to return to the air.
+The children seem to have returned to the hut to play their games.
+
+A terrible chewing and scuttling noise can be heard from beyond the outermost wall.
+> drink drink
+
+> drink drink
+You look over at the friendly lady and she smiles and offers an encouraging nod.  You raise the concoction to your lips and tip it back.
+
+*Gulp... gulp, gulp, gulp*
+
+It goes down a lot easier than you expected.  Almost immediately you begin to feel a little better!
+
+Calista smiles.  "Good, yes?"  She returns her attention to the chickens.
+> n
+
+> n
+With renewed strength you head out of the hut.
+
+You are in the village outskirts.
+
+All things considered, the hut to your south looks quite welcoming.  Similar looking, but less kempt huts line the dirt path that heads off to the northeast.  The open desert from which you stumbled into this village stretches out in all other directions.
+
+You can go south or northeast.
+
+> ne
+
+> ne
+
+You are on a dirt path.
+
+You are on the dirt path.  To your south is a shanty.  To the north is another hut that is falling apart.  The path runs southwest to northeast.
+
+You can go southwest, south or northeast.
+
+> ne
+
+> ne
+
+You are on a dirt path.
+
+You are on the dirt path.  To your south is a lean-to whose name seems fitting.  Where there is normally a front yard, you see an enclosed animal pen.  The path runs southwest to northeast.
+
+You can go southwest, south or northeast.
+
+> x goat
+
+> x goat
+There is one goat inside the pen.  She seems annoyed by the eager chicks bouncing around her feet and the mass of long hair hanging from her plump body.
+> ne
+
+> ne
+
+You are on a dirt path.
+
+You are on a dirt path.  To your north is a partially enclosed cemetery walled with stone. There seems to be a bit of a small crowd gathered to the east.
+
+To the southeast is an interesting looking shack.
+
+You can go southwest, north, east or southeast.
+
+> look
+
+> look
+You are on a dirt path.
+
+You are on a dirt path.  To your north is a partially enclosed cemetery walled with stone. There seems to be a bit of a small crowd gathered to the east.
+
+To the southeast is an interesting looking shack.
+
+You can go southwest, north, east or southeast.
+
+> n
+
+> n
+
+You are in a cemetery.
+
+You are in a small cemetery with about twenty-five or thirty roughly etched grave markers.  A high, man-made stone wall can be seen bordering the cemetery.  It opens, allowing passage out of the cemetery to the south and disappears behind an eye-catching, large tombstone to the north.
+
+You can go south.
+
+> look
+
+> look
+You are in a cemetery.
+
+You are in a small cemetery with about twenty-five or thirty roughly etched grave markers.  A high, man-made stone wall can be seen bordering the cemetery.  It opens, allowing passage out of the cemetery to the south and disappears behind an eye-catching, large tombstone to the north.
+
+You can go south.
+
+> s
+
+> s
+
+You are on a dirt path.
+
+You are on a dirt path.  To your north is a partially enclosed cemetery walled with stone. There seems to be a bit of a small crowd gathered to the east.
+
+To the southeast is an interesting looking shack.
+
+You can go southwest, north, east or southeast.
+
+> e
+
+> e
+
+You are in a market.
+
+The pre-morning market place is slowly filling with villagers.  Currently, the sellers - the trinket vendor, clother, jeweler, wheat grinder, and textile merchant - have recently opened up shop.
+
+The dirt path runs west to northeast.  A simple church stands to the north and lapping water can be heard to the south.
+
+You can go west, north, southeast, south or northeast.
+
+> x trinket vendor
+
+> x trinket vendor
+The trinket merchant looks to be about one-hundred twenty years old.  A small wooden table sits on wobbly legs in front of her and she moves around behind it with legs much more reliable.  From here, it looks like she peddles odds and ends.  For a closer look, look at table or talk to vendor.
+> n
+
+> n
+
+You are in a church.
+
+The church is quite small but is well maintained.  The people in this village must take their religion seriously as all seems to be in great order and in good care.  Five rows of narrow pews line the left and right side of the church.  The open center path leads to an altar.  Since there is only one small window here and little natural light comes in, three small candles are mounted on each side of the church to illuminate this place of worship.
+
+You can go south.
+
+> look
+
+> look
+You are in a church.
+
+The church is quite small but is well maintained.  The people in this village must take their religion seriously as all seems to be in great order and in good care.  Five rows of narrow pews line the left and right side of the church.  The open center path leads to an altar.  Since there is only one small window here and little natural light comes in, three small candles are mounted on each side of the church to illuminate this place of worship.
+
+You can go south.
+
+The incessant gnawing and flapping outside have subsided for now.
+
+Even being inside, you can tell that the morning sun has risen in the sky.  The air in here is noticeably warmer.
+> x altar
+
+> x altar
+It is a finely carved block of wood and is draped in a colorful cloth.  Behind the alter, you notice a closed, hinged door.
+> s
+
+> s
+
+You are in a market.
+
+The market place is incredibly busy.  Just passing through requires you to rub shoulders with the villagers.  There are five merchants set up here to trade and sell their goods.  In a circle of the market place you see a trinket vendor, a clother, the jeweler, the wheat grinder, and textile merchant.
+
+The dirt path runs west to northeast.  A simple church stands to the north and lapping water can be heard to the south.
+
+You can go west, north, southeast, south or northeast.
+
+> ne
+
+> ne
+
+You are on a dirt path.
+
+This is a widened and well-travelled dirt path.  The ground seems slightly less used to the northeast and heavy traffic seems to come and go toward the southwest.
+
+You can go southwest or northeast.
+
+> sw
+
+> sw
+
+You are in a market.
+
+The market place is incredibly busy.  Just passing through requires you to rub shoulders with the villagers.  There are five merchants set up here to trade and sell their goods.  In a circle of the market place you see a trinket vendor, a clother, the jeweler, the wheat grinder, and textile merchant.
+
+The dirt path runs west to northeast.  A simple church stands to the north and lapping water can be heard to the south.
+
+You can go west, north, southeast, south or northeast.
+
+> w
+
+> w
+
+You are on a dirt path.
+
+You are on a dirt path.  To your north is a partially enclosed cemetery walled with stone. There seems to be a bit of a small crowd gathered to the east.
+
+To the southeast is an interesting looking shack.
+
+You can go southwest, north, east or southeast.
+
+[state=Running]

@@ -1,0 +1,56 @@
+You are in  a condo living room.
+You can see a window.
+You can go north.
+You are alone.
+
+> look
+
+> look
+You are in  a condo living room.
+You can see a window.
+You can go north.
+You are alone.
+
+> x window
+
+> x window
+The window looks out of the condo into a neighbouring condo. The neighbouring condo is very close. The neighbouring condo is empty. You shield your eyes as something shines from the neighbouring window like a watch in the sunlight.
+> north
+
+> north
+
+You are in a bedroom for child.
+You can see a chair, a mirror, a window, a small bed (on which there is a teddy bear), a box and a crayon drawing.
+You can go north.
+It is your bedroom.
+> look
+
+> look
+You are in a bedroom for child.
+You can see a chair, a mirror, a window, a small bed (on which there is a teddy bear), a box and a crayon drawing.
+You can go north.
+It is your bedroom.
+> x chair
+
+> x chair
+It is a plain chair painted pink.
+> x mirror
+
+> x mirror
+You see yourself. You are a young girl. You are wearing a yellow shirt.
+> x box
+
+> x box
+The box is painted white. It has a unicorn painted on it.
+> north
+
+> north
+Are you sure you want to proceed without protection? There may be monsters through that door.
+> look
+
+> look
+You are in a bedroom for child.
+You can see a chair, a mirror, a window, a small bed (on which there is a teddy bear), a box and a crayon drawing.
+You can go north.
+It is your bedroom.
+[state=Running]

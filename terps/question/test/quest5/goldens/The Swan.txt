@@ -1,0 +1,131 @@
+The Swan
+Part I - The Descendant of the Swan
+
+by Nomad
+
+One lazy morning, two girls sat upon a bridge. One was fishing, the other sunbathed, if such a thing was possible on so gloomy a day.
+
+"Mara, I just don't understand what your problem is," said the girl with the fishing rod in her hands.
+
+"Loya, you will do!" replied the other girl.
+
+At sixteen summers, Mara was one year older than Loya. The girls were talking about future grooms. Loya had no reason to think about such things yet, but seventeen was the traditional age at which yellow-gown girls got married. Loya, though, was not a traditional yellow-gown.
+
+"The only reason yellow-gown girls have always got married when they're seventeen is that they've always got married when they're seventeen. Honestly, I'm never going to get married. I'm going to see the caves of Kantara, the cliffs of Eaht, and the peaks of Nara," said Loya.
+
+"Yeah, right!" said Mara. "Yellow-gown boys can become farmers in their villages, and we can marry a farmer from our village. We've got no other options."
+"You're all dog ugly anyway," came a voice. Loya turned. A blue-gown boy called Vin was now on the bridge. Loya stood up. He might have been from a higher caste, but how dare he speak to her like that. Loya had never understood why the blue-gowns had rights the yellow-gowns didn't!
+
+"Get out of my way worm!" he exclaimed. With that, he shoved Loya. She stumbled into Mara, knocking her friend off the bridge in the river. Loya's fishing line also flew into the river and drifted away almost as quickly as her friend did. The boy sauntered off to the west, his hands in his pockets and with no concern for that yellow-gown girl who was now being swept out to sea.
+
+Loya wondered what to do. Should she dive into the river to save her friend, who could not swim, or should she try to teach the boy a lesson? Her rage told her the latter option was the better!
+
+The Old Bridge
+The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
+
+Loya could go west to the forest, east to the Forbidden Hill, southwest to the grassy bank or north to the grasslands.
+> west
+
+> west
+
+The Forest
+There were, unsurprisingly, trees absolutely everywhere.
+
+Loya could go further into the forest to the north. To the east was the old bridge, to the south the dusty lane, and to the west the muddy lane.
+
+Loya could see the stick and Vin.
+> east
+
+> east
+
+The Old Bridge
+The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
+
+Loya could go west to the forest, east to the Forbidden Hill, southwest to the grassy bank or north to the grasslands.
+> east
+
+> east
+
+As Loya approached the eastern edge of the bridge, a powerful forced repelled her.
+> southeast
+
+> southeast
+
+Loya could not go there.
+> in
+
+> in
+
+Loya could not go there.
+> south
+
+> south
+
+The Grassy Bank
+Loya came here often to contemplate life. There was a shady tree here under which she could sit and hide from the summer heat listening to the burble of the river by the tree.
+
+Loya could go northeast to the old bridge, west to the dusty lane, or southwest to the potholed road. A steep hill south led to the embankment.
+> east
+
+> east
+
+Loya could not go there.
+> west
+
+> west
+
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+> north
+
+> north
+
+The Forest
+There were, unsurprisingly, trees absolutely everywhere.
+
+Loya could go further into the forest to the north. To the east was the old bridge, to the south the dusty lane, and to the west the muddy lane.
+
+Loya could see the stick and Vin.
+> east
+
+> east
+
+The Old Bridge
+The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
+
+Loya could go west to the forest, east to the Forbidden Hill, southwest to the grassy bank or north to the grasslands.
+> west
+
+> west
+
+The Forest
+There were, unsurprisingly, trees absolutely everywhere.
+
+Loya could go further into the forest to the north. To the east was the old bridge, to the south the dusty lane, and to the west the muddy lane.
+
+Loya could see the stick and Vin.
+> out
+
+> out
+
+Loya could not go there.
+> northwest
+
+> northwest
+
+Loya could not go there.
+> west
+
+> west
+
+The Top of the Muddy Lane
+Whatever time of year, and no matter how much rain had fallen here, thick mud always caked Loya's feet. That was precisely what the mud was doing right now.
+
+There were a few yellow-gown huts here, one of which belonged to Loya's best friend, Mara.
+
+The lane continued to the south where the mud was even grimier, and to the north where it turned into a trail leading through the forest. Loya could also go east to the forest or into Mara's hut.
+
+A brambleweed colony was blocking the route north, though.
+[state=Running]

@@ -1,0 +1,356 @@
+D E T E C T I V E
+Por Scott Greig y Mauricio Díaz
+
+ 1. Juego Básico
+
+ 2. Juego Personalizado
+
+ 3. Revisar Instrucciones
+
+Basado en el juego de 1983 por Eric N. Miller.  Realizado con permiso del autor.
+Imagen por Sam Kabo Ashwell.
+> 1
+
+> 1
+
+MODO DE JUEGO
+1: Clásico - Comandos de Texto
+2: Moderno - Hipervínculos
+> 1
+Es una noche oscura y tormentosa.
+
+Un crimen está siendo cometido...
+Isaac Slocombe fue víctima de un brutal asesinato hace tan solo unas horas.  El cuerpo fue removido de la escena del crimen por personas desconocidas.  Ahora estás de pie en la puerta delantera de la mansión Slocombe. La puerta está abierta.
+
+El Pórtico
+
+Estás de pie en el pórtico.  Está cayendo una fuerte tormenta aquí afuera.  Puedes entrar a la mansión al norte.
+
+> n
+
+> n
+
+El Pasillo Principal
+
+Estás caminando por el pasillo principal.  Las paredes están cubiertas con una variedad de pinturas antiguas.  Hay algunos escalones que se dirigen arriba al 2do Piso.  Una entrada al oeste conduce a la sala de estar.  Puedes ver la entrada al conservatorio al este.  El pasillo continua al norte y la puerta de entrada está al sur.
+
+> arriba
+
+> arriba
+
+El Pasillo Superior
+
+Estás caminando por el pasillo de arriba.  Discretos murales de seda ornamental decoran las paredes. Hay aquí algunos escalones que se dirigen abajo al 1er piso.  La puerta oeste conduce al cuarto de huéspedes.  La puerta este lleva al estudio.  El pasillo continua al norte.
+
+> n
+
+> n
+
+El Pasillo Superior
+
+Estás caminando por el pasillo de arriba.  Discretos murales de seda ornamental decoran las paredes.  Una puerta al oeste conduce a la biblioteca.  El pasillo continua al norte y sur.
+
+> n
+
+> n
+
+El Pasillo Superior
+
+Estás caminando por el pasillo de arriba.  Discretos murales de seda ornamental decoran las paredes.  Puedes ver la entrada al baño al oeste y la entrada al dormitorio principal al este.  El pasillo continua al sur.
+
+> o
+
+> o
+
+El Baño Principal
+
+Estás de pie en el baño principal.  accesorios en mármol adornan la habitación.  La salida está al este.
+ Un espejo incrustado de joyas yace a los pies de la cama. Una lupa yace sobre el piso.
+> coger lupa
+
+> coger lupa
+
+Ahora llevas la lupa.
+> e
+
+> e
+
+El Pasillo Superior
+
+Estás caminando por el pasillo de arriba.  Discretos murales de seda ornamental decoran las paredes.  Puedes ver la entrada al baño al oeste y la entrada al dormitorio principal al este.  El pasillo continua al sur.
+
+> s
+
+> s
+
+El Pasillo Superior
+
+Estás caminando por el pasillo de arriba.  Discretos murales de seda ornamental decoran las paredes.  Una puerta al oeste conduce a la biblioteca.  El pasillo continua al norte y sur.
+
+> s
+
+> s
+
+El Pasillo Superior
+
+Estás caminando por el pasillo de arriba.  Discretos murales de seda ornamental decoran las paredes. Hay aquí algunos escalones que se dirigen abajo al 1er piso.  La puerta oeste conduce al cuarto de huéspedes.  La puerta este lleva al estudio.  El pasillo continua al norte.
+
+> abajo
+
+> abajo
+
+El Pasillo Principal
+
+Estás caminando por el pasillo principal.  Las paredes están cubiertas con una variedad de pinturas antiguas.  Hay algunos escalones que se dirigen arriba al 2do Piso.  Una entrada al oeste conduce a la sala de estar.  Puedes ver la entrada al conservatorio al este.  El pasillo continua al norte y la puerta de entrada está al sur.
+
+> n
+
+> n
+
+El Pasillo Principal
+
+Estás caminando por el pasillo principal.  Las paredes están cubiertas con una variedad de pinturas antiguas.   Una entrada al oeste conduce al comedor.  La puerta al este lleva a la cocina.  El pasillo continua al sur.
+
+> e
+
+> e
+
+La Cocina
+
+Estás en una espaciosa cocina.  Una enorme mesa de carnicero se encuentra en medio de la habitación. Las paredes están llenas con brillantes sartenes y ollas de latón.  La entrada a la despensa está al este.  La salida está al oeste.
+ Un adornado reloj de arena en un pesado marco de plato se encuentra sobre la mesita de café.
+> e
+
+> e
+
+La Bodega
+
+Estás de pie en la despensa.  Los estantes están llenos de una deslumbrante variedad de manjares importados.  La salida está al oeste.
+ Un frasco de caviar se encuentra en el estante superior.
+> interroga Maude
+
+> interroga Maude
+
+Maude se encoge de hombros con indiferencia y dice,"Gerald y yo pasamos toda la tarde junt@s en la Bodega. Supongo que esta cosa es un buen lío, ¿no es así, detective?  ¿Pero no considera que debería apresurarse? Le sugiero que haga una pequeña revisión de la historia de Earl.  Debo decirle que justo antes del homicidio vi a Earl entrar a el Baño Principal, hablando sobre la placa de bronce con Isaac."
+> o
+
+> o
+
+La Cocina
+
+Estás en una espaciosa cocina.  Una enorme mesa de carnicero se encuentra en medio de la habitación. Las paredes están llenas con brillantes sartenes y ollas de latón.  La entrada a la despensa está al este.  La salida está al oeste.
+ Un adornado reloj de arena en un pesado marco de plato se encuentra sobre la mesita de café.
+Esther Brisbane está haciendo un sandwich.
+> interroga Esther
+
+> interroga Esther
+
+Esther te voltea a ver y contesta,"Pasé toda la tarde sol@ en el Comedor. Ya sé que no tiene nada de coartada, pero debe creerme cuando digo que no tengo ninguna razón para matar a Isaac. Ninguna razón en absoluto.  Por cierto, poco antes del homicidio vi a Earl colarse en el Conservatorio,  discutiendo por el espejo con Isaac."
+> o
+
+> o
+
+El Pasillo Principal
+
+Estás caminando por el pasillo principal.  Las paredes están cubiertas con una variedad de pinturas antiguas.   Una entrada al oeste conduce al comedor.  La puerta al este lleva a la cocina.  El pasillo continua al sur.
+
+> o
+
+> o
+
+El Comedor
+
+Ahora estás en el comedor.  Una larga mesa de roble domina la sala. Un juego de utensilios está colocado en una mesa más pequeña en una esquina de la habitación.  Puedes salir al este.
+ Una garrafa de cristal se encuentra en un extremo de la mesa.
+Gerald Esterhazy te mira desde abajo de la mesa.
+> interroga Gerald
+
+> interroga Gerald
+
+Gerald se encoge de hombros con indiferencia y dice,"Pasé toda la tarde con Maude en la Bodega. Y debo decirle que ambos estábamos mortificados al escuchar de la muerte de Isaac.  Todos se llevaban tan bien.  Simplemente no puedo imaginar quien habría querido ver morir a Isaac dead.  Debería agregar que más temprano vi a Esther merodear por el Dormitorio Principal, peleando por el joyero con Isaac."
+> e
+
+> e
+
+El Pasillo Principal
+
+Estás caminando por el pasillo principal.  Las paredes están cubiertas con una variedad de pinturas antiguas.   Una entrada al oeste conduce al comedor.  La puerta al este lleva a la cocina.  El pasillo continua al sur.
+
+> s
+
+> s
+
+El Pasillo Principal
+
+Estás caminando por el pasillo principal.  Las paredes están cubiertas con una variedad de pinturas antiguas.  Hay algunos escalones que se dirigen arriba al 2do Piso.  Una entrada al oeste conduce a la sala de estar.  Puedes ver la entrada al conservatorio al este.  El pasillo continua al norte y la puerta de entrada está al sur.
+
+> o
+
+> o
+
+La Sala de Estar
+
+Has entrado en la sala de estar. Un enorme diván se encuentra en medio de la habitación.  Muchas sillas están dispuestas alrededor de la sala.  Puedes salir al  este.
+ Un dulcero de plata de plata esterlina se encuentra en la mesa junto al diván.
+Margaret Crawford está sentad@ en una silla leyendo 'La Ratonera'.
+> interroga Margaret
+
+> interroga Margaret
+
+Margaret se ríe ligeramente y responde,"Pasé toda la tarde con Earl en el Baño Principal. Lamento decepcionarlo, mi coartada es hermética.  Y estoy enferm@ y cansad@ de intentar probar mi inocencia a todos en esta casa.  Claro que despreciaba a Isaac, pero no soy del tipo asesino.  No estoy insinuando nada pero vi a Maude merodear por el Pasadizo Secreto,  discutiendo por la garrafa de cristal con Isaac."
+> mirar piso
+
+> mirar piso
+
+No ves nada inusual en este piso.
+> e
+
+> e
+
+El Pasillo Principal
+
+Estás caminando por el pasillo principal.  Las paredes están cubiertas con una variedad de pinturas antiguas.  Hay algunos escalones que se dirigen arriba al 2do Piso.  Una entrada al oeste conduce a la sala de estar.  Puedes ver la entrada al conservatorio al este.  El pasillo continua al norte y la puerta de entrada está al sur.
+
+Earl Winston va y viene por el pasillo.
+> e
+
+> e
+
+El Conservatorio
+
+Este es el conservatorio.  Un piano de cola está colocado sobre una alfombra de mink.  La salida está al oeste.
+ Un oboe yace sobre la alfombra.
+> mirar piso
+
+> mirar piso
+
+No ves nada inusual en este piso.
+> o
+
+> o
+
+El Pasillo Principal
+
+Estás caminando por el pasillo principal.  Las paredes están cubiertas con una variedad de pinturas antiguas.  Hay algunos escalones que se dirigen arriba al 2do Piso.  Una entrada al oeste conduce a la sala de estar.  Puedes ver la entrada al conservatorio al este.  El pasillo continua al norte y la puerta de entrada está al sur.
+
+> n
+
+> n
+
+El Pasillo Principal
+
+Estás caminando por el pasillo principal.  Las paredes están cubiertas con una variedad de pinturas antiguas.   Una entrada al oeste conduce al comedor.  La puerta al este lleva a la cocina.  El pasillo continua al sur.
+
+Earl Winston inclina la cabeza al pasar, para saludarte.
+> e
+
+> e
+
+La Cocina
+
+Estás en una espaciosa cocina.  Una enorme mesa de carnicero se encuentra en medio de la habitación. Las paredes están llenas con brillantes sartenes y ollas de latón.  La entrada a la despensa está al este.  La salida está al oeste.
+ Un adornado reloj de arena en un pesado marco de plato se encuentra sobre la mesita de café.
+Esther Brisbane parece sorprenderse al verte.
+> mirar piso
+
+> mirar piso
+
+¡Hay manchas de sangre en el piso! Esta debe ser la escena del crimen!
+
+> o
+
+> o
+
+El Pasillo Principal
+
+Estás caminando por el pasillo principal.  Las paredes están cubiertas con una variedad de pinturas antiguas.   Una entrada al oeste conduce al comedor.  La puerta al este lleva a la cocina.  El pasillo continua al sur.
+
+Earl Winston estaba admirando las pinturas.
+
+¡El asesino ha empezado a sospechar de tu investigación!
+> interroga Earl
+
+> interroga Earl
+
+Earl se acerca y susurra,"Pasé toda la tarde con John en la Biblioteca. Así que, es seguro que no puedo ayudarlo con su investigación.  Quizás desee echarle un vistazo a Gerald, sin embargo. Esa es una persona que tenía todo para ganar con la muerte prematura de  Isaac.  Ahora que recuerdo vi a Gerald entrar a el Cuarto de Huéspedes, hablando sobre el reloj de arena con Isaac."
+
+¡El asesino te esta siguiendo desde una distancia prudencial!
+> e
+
+> e
+
+La Cocina
+
+Estás en una espaciosa cocina.  Una enorme mesa de carnicero se encuentra en medio de la habitación. Las paredes están llenas con brillantes sartenes y ollas de latón.  La entrada a la despensa está al este.  La salida está al oeste.
+ Un adornado reloj de arena en un pesado marco de plato se encuentra sobre la mesita de café.
+Esther Brisbane está arreglando un bocadillo.
+> e
+
+> e
+
+La Bodega
+
+Estás de pie en la despensa.  Los estantes están llenos de una deslumbrante variedad de manjares importados.  La salida está al oeste.
+ Un frasco de caviar se encuentra en el estante superior.
+Maude Donleavy está descansando en la esquina más alejada de la habitación.
+> ver con lupa caviar
+
+> ver con lupa caviar
+
+Tiene rastros de sangre! Esta debe ser el arma homicida!!
+
+Con la lupa logras ver unas huellas dactilares: (((c))).
+> coger caviar
+
+> coger caviar
+
+No es muy decoroso robarle cosas a tus anfitriones.  Además, ¿no deberías estar buscando el arma homicida?
+> o
+
+> o
+
+La Cocina
+
+Estás en una espaciosa cocina.  Una enorme mesa de carnicero se encuentra en medio de la habitación. Las paredes están llenas con brillantes sartenes y ollas de latón.  La entrada a la despensa está al este.  La salida está al oeste.
+ Un adornado reloj de arena en un pesado marco de plato se encuentra sobre la mesita de café.
+Esther Brisbane está arreglando un bocadillo.
+> reune
+
+> reune
+
+¡Pero ni siquiera has encontrado el arma homicida!
+
+> examinar libreta
+
+> examinar libreta
+
+Lista de sospechosos en la mansión:
+
+John Humpries
+Earl Winston
+Gerald Esterhazy
+Esther Brisbane
+Margaret Crawford
+Maude Donleavy
+
+Maude Donleavy
+Coartada: estaba con Gerald, en la Bodega.
+Pistas: Vió a Earl Winston en el Baño Principal con la placa de bronce.
+
+Esther Brisbane
+Coartada: Ninguna, estaba en el Comedor.
+Pistas: vió a Earl Winston en el Conservatorio con el espejo.
+
+Gerald Esterhazy
+Coartada: estaba con Maude, en la Bodega.
+Pistas: Vió a Esther Brisbane en el Dormitorio Principal con el joyero.
+
+Margaret Crawford
+Coartada: estaba con Earl, en el Baño Principal.
+Pistas: Vió a Maude Donleavy en el Pasadizo Secreto con la garrafa de cristal.
+
+Earl Winston
+Coartada: estaba con John, en la Biblioteca.
+Pistas: Vió a Gerald Esterhazy en el Cuarto de Huéspedes con el reloj de arena.
+
+[state=Running]

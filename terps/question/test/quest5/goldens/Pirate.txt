@@ -1,0 +1,346 @@
+Pirate
+
+Your head is throbbing; the stone floor you're laying on is unreasonably cold. You sit up and your eyes focus to see only a single torch lighting the prison cell you're in.
+You are stuck in a Cell.
+
+A damp, cold, dark prison cell. There's an uncomfortable cot in the corner and a small wooden table and chair.
+
+You notice a Table (and on on it is a Document and a Tray), a Cell Door and a Cot.
+
+You can go west.
+
+> x table
+
+An old wooden table; every time you touch it you get three or four splinters.
+It contains a Document and a Tray.
+> x tray
+
+A standard prison food tray; on it is a rotten apple, a weird white mush, and a bowl of brown liquid.
+holding  a Rotten Apple, a White Mush and a Bowl of Brown Soup (on which there is a Spoon).
+> eat white mush
+
+You dip your hand into the white mush-but you feel a hard object inside. You pull it out, and in your hands is a small iron key covered in mashed potatoes.
+> take spoon
+
+You pick up the spoon; but you feel a ridge on the bottom of the handle. You flip it over, and there is a long metal needle along the back of the spoon. You take the needle, and the spoon.
+> use cell key on cell door
+
+You push the key into the lock on the outisde, which forces you to put your arm into a weird and uncomfortable position. You turn the key, and the lock clicks. The door slowly swings open.
+> w
+
+You are in a Cell Block B.
+
+You can see a Trap Door.
+
+You can go east, west, up or south.
+
+Oooh a daring escape. How exciting.
+> w
+
+You are in a Cell.
+
+You can see a Table (on which there is a Folder).
+
+You can go east.
+
+> x table
+
+Dude stop looking at boring things. I mean, there's cool things on the table, but the table is not that interesting.
+It contains a Folder.
+> x folder
+
+Nothing out of the ordinary.
+It contains a Document and a Silver Key.
+> take silver key
+
+You pick it up.
+> e
+
+You are in a Cell Block B.
+
+You can see a Trap Door.
+
+You can go east, west, up or south.
+
+> use silver key on trap door
+
+You slide the key into the trap door's keyhole, and it clicks. The door swings open.
+> up
+
+You are in an Officer's Quarters.
+
+There's a desk, a dresser. Lotta things.
+
+You can see a Desk and a Dresser.
+
+You can go down.
+
+> open desk
+
+You open it.
+It contains a Gameboy and a Bronze Key.
+> take bronze key
+
+You pick it up.
+> d
+
+You are in a Cell Block B.
+
+You can see a Trap Door.
+
+You can go east, west, up or south.
+
+> s
+
+You are in a Hallway.
+
+You can go north or east.
+
+> e
+
+You are in a Hallway.
+
+You can go west, north, east or down.
+
+> d
+
+You are in a Prison Basement.
+
+You can see a Trap Door.
+
+You can go out or up.
+
+> use bronze key on trap door
+
+You use the Bronze Key on the Trap Door, and you unlock it.
+> out
+
+You climb down a ladder and the sunlight hits your eyes, as well as the DANK smell of seawater. You stroll along the pier, hop into a dinghy and start rowing. A few hours later, a storm rolls over you in the middle of the sea; the waves are high and mighty, and suddenly, a fish comes flying from the water, hitting you straight in your pirate face, knocking you out cold.
+
+You wake up on a strange beach.
+You are in a Beach.
+
+The sand on the beach is a pale yellow, and there's a low valley to the north.
+
+You can go north.
+
+> n
+
+You are in a Valley.
+
+The walk down to the valley was rigorous, but worth it. The area is misty and rocky.
+
+You can see a Maze Troll and a Gate.
+
+You can go south, north or west.
+
+> n
+
+You are in a Maze.
+
+You can go north, west, south or east.
+
+> e
+
+You are in a Maze.
+
+You can go west, north or south.
+
+> s
+
+You are in a Maze.
+
+You can go north, south or east.
+
+> s
+
+You are in a Maze.
+
+You can go north, south or east.
+
+> e
+
+You are in a Maze.
+
+You can go west or east.
+
+> e
+
+You are in a Maze.
+
+You can go west or north.
+
+> n
+
+You are in a Maze.
+
+You can go north or south.
+
+> n
+
+You are in a Maze.
+
+You can go north, west or south.
+
+> n
+
+You are in a Maze.
+
+You can go north, west or south.
+
+> n
+
+You are in a Maze.
+
+You can go west, north, east or south.
+
+> w
+
+You are in a Maze.
+
+You can go east or north.
+
+> n
+
+You are in a Maze.
+
+You can go south, north or west.
+
+> w
+
+You are in a Maze.
+
+You can go east, north or west.
+
+> n
+
+You are in a Maze.
+
+You can go south or west.
+
+> w
+
+You are in a Maze.
+
+You can see a Troll Eyes.
+
+You can go east.
+
+> take troll eyes
+
+You pick them up.
+> e
+
+You are in a Maze.
+
+You can go south or west.
+
+> s
+
+You are in a Maze.
+
+You can go east, north or west.
+
+> e
+
+You are in a Maze.
+
+You can go south, north or west.
+
+> s
+
+You are in a Maze.
+
+You can go east or north.
+
+> e
+
+You are in a Maze.
+
+You can go west, north, east or south.
+
+> s
+
+You are in a Maze.
+
+You can go north, west or south.
+
+> s
+
+You are in a Maze.
+
+You can go north, west or south.
+
+> s
+
+You are in a Maze.
+
+You can go north or south.
+
+> s
+
+You are in a Maze.
+
+You can go west or north.
+
+> w
+
+You are in a Maze.
+
+You can go west or east.
+
+> w
+
+You are in a Maze.
+
+You can go north, south or east.
+
+> n
+
+You are in a Maze.
+
+You can go north, south or east.
+
+> n
+
+You are in a Maze.
+
+You can go west, north or south.
+
+> w
+
+You are in a Maze.
+
+You can go north, west, south or east.
+
+> s
+
+You are in a Valley.
+
+The walk down to the valley was rigorous, but worth it. The area is misty and rocky.
+
+You can see a Maze Troll and a Gate.
+
+You can go south, north or west.
+
+> ask troll about gate
+
+"The path behind the gate leads to the Dragon's Cave; believe it or not, there's actually no dragon's there. So, you'll be fine if you go up there. The gate is locked though, and I have the key; but I can't unlock it for you because I can't see, so. Bit of a problem."
+> give troll eyes to maze troll
+
+"Oh...oh, hey! My eyes are back! Now I'm mentally stable enough to give you the key to the gate."
+
+The troll reaches into the front of his loin cloth and pulls out a small key.
+
+Got Dragon Key.
+> use dragon key on gate
+
+You slide the dragon key into the lock on the gate, and it clicks and falls to the ground. The gate's slide open automatically, revealing a narrow dirt path.
+> w
+
+You are in a Dragons Cave.
+
+You can go east.
+
+You step into the dragon's cave, and end the first part of your piratey adventure.
+[state=Finished]

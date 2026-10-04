@@ -1,0 +1,81 @@
+Enter The Double Dare
+Reliving that Fated Day
+
+ a Warning Intro.
+WARNING!
+
+This game has been modified to be Rated 15-17 (Rated T for Teen)
+
+But can quickly become its original intent as 18+ if you do not follow the Game's Directions and Advice.
+
+RATED M FOR MATURE
+
+Enter at your own risk.
+
+Viewer Discretion is Advised.
+
+   ...   should preface.
+You're not leaving here alive.
+
+ The Door to Dare.
+
+The start to your harrowing journey.
+
+Yet somehow you feel like you've been here before.
+
+Maybe it can wait until after you went inside.
+
+All you can do now is wait. Those doors have to open someday.
+> look
+
+> look
+ The Door to Dare.
+
+The start to your harrowing journey.
+
+Yet somehow you feel like you've been here before.
+
+Maybe it can wait until after you went inside.
+
+All you can do now is wait. Those doors have to open someday.
+> i
+
+> i
+You are not carrying anything.
+> help
+
+> help
+Quick Help
+
+- Objects:  Try LOOK AT..., SPEAK TO..., TAKE..., DROP..., OPEN..., GIVE... TO..., USE... ON/WITH...
+
+- Inventory:  See which items you are carrying by typing I, INV or INVENTORY.
+
+- Moving around:  Press the compass buttons, or type GO NORTH, SOUTH, E, GO TO...
+
+- Shortcuts:  Press the up arrow and down arrow to scroll through commands you have already typed in. Try X... as a shortcut for LOOK AT...
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> look
+
+> look
+ The Door to Dare.
+
+The start to your harrowing journey.
+
+Yet somehow you feel like you've been here before.
+
+Maybe it can wait until after you went inside.
+
+All you can do now is wait. Those doors have to open someday.
+[state=Running]

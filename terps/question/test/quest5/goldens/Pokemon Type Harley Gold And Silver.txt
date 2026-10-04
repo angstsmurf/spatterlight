@@ -1,0 +1,211 @@
+Pokemon Type Harley Gold And Silver
+The Harley Game; Pokemon Type Harley Gold And Silver
+
+by jnsucker12 & DragonButtero'PKMN
+
+Error running script: Error evaluating expression 'obj': Unknown object or variable 'obj'
+Error running script: Error evaluating expression 'obj': Unknown object or variable 'obj'
+Error running script: Error evaluating expression 'obj': Unknown object or variable 'obj'
+Error running script: Error evaluating expression 'obj': Unknown object or variable 'obj'
+You are in a Starting Room.
+
+Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii!!!
+....
+Righto.
+
+Now, the Pokémon... They are... magical creatures. Sometimes they are animals, and sometimes they are objects (such as Pokéballs) that come to life.
+
+Commands you should know; Heal Oran Berry me, Heal Sitrus Berry me, Rest me, Access object, Egress object, Look at object, x object, Check object, Scan object
+
+Equip Pokemon.
+Save often. I recommend saving every 30 minutes.
+What's your name? Please type your answer as soon as possible.
+What's your name?
+Help
+Skip and use default settings
+
+> look
+Is that so? Okay, then.
+
+You are in your room.
+
+You can see a Hat, a Computer, a Closet, a Bookshelf, a Small TV and a Clock.
+You can go down.
+Now, the Pokémon... They are... magical creatures. Sometimes they are animals, and sometimes they are objects (such as Pokéballs) that come to life.
+
+You are.... um... in your room.
+Commands you should know; Heal Oran Berry me, Heal Sitrus Berry me, Rest me, Access object, Egress object, Look at object, x object, Check object, Scan object
+
+Equip Pokemon.
+Save often. I recommend saving every 30 minutes.
+
+Do you need any other help?
+Pokémon Information
+1: Pokemon
+2: The Game
+3: The Anime
+4: Card Game
+5: Combat
+6: Items
+7: Finish Game
+8: Item Limit
+9: Pokemon Morality
+Help
+Call mrangel! He's on Facebook!
+
+> x hat
+
+> x hat
+The most important item in this game or any game, ever.
+You can give the hat to other people for money.
+> take hat
+
+> take hat
+You pick it up. You look fabulous.
+> down
+
+> down
+
+You are in your house.
+
+You can see Mom and a TV.
+You can go up or out.
+You are now downstairs. You see your mom.
+
+Your mom rushes to you and hands you a book.
+"You should read this before you go!
+Please go to Silver's house, too! Silver came looking for you a little while ago. I don't know what it was about, but he said it was an emergency!"
+Please note: when the game is updated, your save game will not be updated. You might have to start again, if you wish.
+Go to Silver's House.
+> out
+
+> out
+
+You are in New Bark Town.
+
+You can go west, north, northwest, northeast or east.
+You are outside.
+
+> west
+
+> west
+
+You are in Silver's House.
+
+You can see Ariana, an HDD TV and Silver.
+You can go east or up.
+It's Silver's House.
+
+Silver runs into you.
+
+THUD!
+
+"...
+...What?
+Oh, hey, Gold!
+Hey, I'm going to the lake! You come too! We're getting Pokemon!"
+
+Silver runs away.
+Go to Silver. East. North. West. Follow Silver.
+> look
+
+> look
+You are in Silver's House.
+
+You can see Ariana and an HDD TV.
+You can go east or up.
+It's Silver's House.
+
+> talk to silver
+
+> talk to silver
+I can't see that. (silver)
+> x silver
+
+> x silver
+I can't see that.
+> east
+
+> east
+
+You are in New Bark Town.
+
+You can go west, north, northwest, northeast or east.
+You are outside.
+
+> northeast
+
+> northeast
+
+You are in The Lab.
+
+You can see a Healing Machine, a Professor Elm, a Teleport Machine, Lab Assistant, Lab Assistant and a PC.
+You can go southwest.
+
+Professsor Elm is gone. His assistants are too busy to talk at the moment.
+> look
+
+> look
+You are in The Lab.
+
+You can see a Healing Machine, a Professor Elm, a Teleport Machine, Lab Assistant, Lab Assistant and a PC.
+You can go southwest.
+
+> talk to professor elm
+
+> talk to professor elm
+He's busy.
+> x healing machine
+
+> x healing machine
+Used to heal Pokemon.
+> southwest
+
+> southwest
+
+You are in New Bark Town.
+
+You can go west, north, northwest, northeast or east.
+You are outside.
+
+> north
+
+> north
+
+You are in Route 23.
+
+You can see Silver.
+You can go south, east or west.
+
+Silver speaks "Professor Elm dropped Pokemon at Lake of Rage! This is our chance! Come on Slowpoke, follow me!"
+> look
+
+> look
+You are in Route 23.
+
+You can go south, east or west.
+
+> west
+
+> west
+
+You are in the  Lake of Memories Grassy Front.
+
+You can see a Pokemon Bag, a Professor Elm and Silver.
+You can go east or north.
+
+Professor Elm's glasses fell off, then he stuttered and muttered quietly. He tried to find them. His eyes were vulnerable and seemingly naïve, yet his expression was serious. He picked up his glasses as fast as possible, and put them back on.
+Professor Elm speaks "Sure. Go ahead and take a Pokémon. Only one though!"
+> look
+
+> look
+You are in the  Lake of Memories Grassy Front.
+
+You can see a Pokemon Bag, a Professor Elm and Silver.
+You can go east or north.
+
+> i
+
+> i
+You are carrying a Hat, a Command Book, a Pokegear and a Pokeball Case.
+[state=Running]

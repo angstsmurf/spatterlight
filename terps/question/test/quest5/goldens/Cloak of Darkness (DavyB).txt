@@ -1,0 +1,53 @@
+Cloak of Darkness (Another Version)
+[Type HELP for Guidance]
+
+by DavyB
+
+You are in the gloomy Foyer of the Opera House. The room is empty and there is nobody else around. There are large entrance doors to the north, with smaller doors to the south and west.
+> look
+
+> look
+You are in the gloomy Foyer of the Opera House. The room is empty and there is nobody else around. There are large entrance doors to the north, with smaller doors to the south and west.
+> w
+
+> w
+You are in the gloomy Cloakroom of the Opera House. To the east is the door leading back to the Foyer.
+You can see a small brass hook on one wall.
+> look
+
+> look
+You are in the gloomy Cloakroom of the Opera House. To the east is the door leading back to the Foyer.
+You can see a small brass hook on one wall.
+> take off cloak
+
+> take off cloak
+You take off the cloak and put it over your shoulder. The room seems to have become less gloomy.
+> use cloak on small brass hook
+
+> use cloak on small brass hook
+You hang it up on the brass hook.
+> i
+
+> i
+You are not carrying anything.
+> e
+
+> e
+You are in the brightly lit Foyer of the Opera House. The room is empty and there is nobody else around. There are large entrance doors to the north, with smaller doors to the south and west.
+> s
+
+> s
+You are in the brightly lit Bar of the Opera House.
+You can see damp sawdust on the floor.
+> x sawdust
+
+> x sawdust
+You can see damp sawdust all over the floor.
+In the sawdust, someone has scratched a message.
+> x message
+
+> x message
+It says: You have won.
+
+THAT'S ALL FOLKS!
+[state=Finished]

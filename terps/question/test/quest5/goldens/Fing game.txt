@@ -1,0 +1,87 @@
+Fing game
+U Will Die
+
+What difficulty do you want?
+What difficulty do you want? Normal? (Normal) Or Hard? (Less Ammo, no buying potions)
+ - Normal
+You are in Under A Bridge.
+You can see a Spade, a Pistol and a Potion Bag.
+You can go south.
+Adult RPG please.
+Hey guys. I had PTSD. I made a random game.
+Not real, real, PTSD. But traumatic enough I had several nightmares afterwards. And lots of depression.
+Anyways... I originally  made this to practice a combat code. Then I thought maybe the people who watch 'Harmful Opinions' (Gamergate figure, Twitch) would like it, but long story short, that isn't happening. So I just thought I could upload it in the adult section.
+
+You're in Hell. First circle. Maybe the outer ring, I don't know.
+
+Note: I'm changing a few elements of the game. I am changing room names, and moving a few rooms around. I just came up with a few neat ideas recently.
+You are freshly dead. You are new to hell. You remember exactly how you died, and you can remember the memories of your llife like they were yesterday.
+You just want to have a good time. Killing Satan sounds like fun!
+It's all up to you.
+In this game, you are a working class citizen in hell. The game represents the contant struggles of the average citizen in their life, such as survival, politics, work, alcohol, and sin. No, I did not just make that up. Otherwise Hillary Clinton would not be a harpy.
+Each enemy has their own unique color.
+
+Please equip the Spade or the Pistol.
+Equip weapons with "equip".
+Save with "save".
+Please save after 30 minutes of play, if possible.
+Type "heal potion player" or "heal potion me" to heal.
+Bathe in the Blood Springs.
+> take all
+
+> take all
+Spade: You pick it up.
+Pistol: You pick it up.
+Potion Bag: You pick it up.
+> equip pistol
+
+> equip pistol
+You equip your Pistol.
+> i
+
+> i
+You are carrying a Spade, a Pistol (equipped) and a Potion Bag.
+> south
+
+> south
+
+You are in Limbo.
+You can go north or south.
+Darkness and depression fill my soul
+And it feels good
+It wakes me up
+YEAAHHHHH YOU DON'T UNDERSTAND, MY PAIN!
+WHY I WOULD HURT MYSELF
+JUST TO GET BYYYYY
+YEAH-AH-AH........
+> south
+
+> south
+
+You are in Limbo.
+You can go north or south.
+
+You are in a Battle Room.
+You can see a Decomposing Stallin.
+> south
+
+> south
+You can't go there.
+> attack stallin
+
+> attack stallin
+You shot the pistol at Decomposing Stallin (1 hits).
+Decomposing Stallin slashes their talons down on you and gets a critical (18 hits).
+Hits points now 92
+> attack stallin
+
+> attack stallin
+You shot the pistol at Decomposing Stallin (1 hits).
+Decomposing Stallin swings their talons at you and hits (7 hits).
+Hits points now 85
+> attack stallin
+
+> attack stallin
+You shot the pistol at Decomposing Stallin (1 hits).
+Decomposing Stallin swings wildly and entirely misses you.
+[state=Running]

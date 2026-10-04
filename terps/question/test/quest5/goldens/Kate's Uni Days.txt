@@ -1,0 +1,308 @@
+Kate's Uni Days
+
+Please note that is based in a British setting so sizes and measurement will be set accordingly.
+This is your room. It could be tidier but you are a student and by that standard, it's actually fairly well kept. You feel like you've done fairly well out of the student accomodation as the room is fairly big and nicely decorated.
+> open wardrobe
+
+> open wardrobe
+You open it.
+It contains a Jogging Bottoms, a Jacket and a Waterproof Coat.
+> search jacket
+
+> search jacket
+You find your Debit Card! That's where it was!
+> s
+
+> s
+> w
+
+> w
+> d
+
+> d
+> n
+
+> n
+The Quad, so called because it's a square. It's surrounded by accomodation and to the north is the Redstone Campus Building
+> n
+
+> n
+This is the campus' main building. It has all the things a student might need close by. There's a shop, the canteen, a bar upstairs and also a computer room.
+> e
+
+> e
+There are rows of computers in here, all waiting to be used to get a university log on.
+> search modules computer
+
+> search modules computer
+Once, you've sorted your university log in, you spend some time looking through the optional modules since you've got one free module to assign for this semester. You're allowed to take a module from any department, which is pretty nice. However, that makes choosing a little difficult.
+
+After a while you settle on three options: Culinary, Physics or Spanish. You'd love to learn to cook, space has always fascinated you and you've always regretted not taking Spanish at school.
+
+Which one do you choose? You'll need to do so before heading down to the University to confirm your modules later.
+> take physics
+
+> take physics
+You go with the Physics module. Space. The final frontier. You've never been that good at the mathematical side of science but this space module says it's more essay based so you feel like it's a good choice.
+> w
+
+> w
+This is the campus' main building. It has all the things a student might need close by. There's a shop, the canteen, a bar upstairs and also a computer room.
+> n
+
+> n
+The campus canteen, where you can go to get a cheap meal or if you've signed up to the meal plan, as many meals as you like.
+> speak to janice
+
+> speak to janice
+"Hello! Are you interested in signing up for the Redstone Campus Meal Plan?"
+> use debit card on janice
+
+> use debit card on janice
+"Ah yes! So you are Kate Jones, Flat D2 and just put your debit cards details in there... and you're all signed up!"
+
+You put your debit card safely away.
+> s
+
+> s
+This is the campus' main building. It has all the things a student might need close by. There's a shop, the canteen, a bar upstairs and also a computer room.
+> w
+
+> w
+It's the campus shop. It has everything you might want to buy, from stationary to snacks. You don't need anything at the moment though.
+> buy jumper
+
+> buy jumper
+The jumper just looks far too comfortable to pass up the opportunity to buy one before they sell out, so you do.
+> e
+
+> e
+This is the campus' main building. It has all the things a student might need close by. There's a shop, the canteen, a bar upstairs and also a computer room.
+> s
+
+> s
+The Quad, so called because it's a square. It's surrounded by accomodation and to the north is the Redstone Campus Building
+> s
+
+> s
+> u
+
+> u
+> e
+
+> e
+> n
+
+> n
+This is your room. It could be tidier but you are a student and by that standard, it's actually fairly well kept. You feel like you've done fairly well out of the student accomodation as the room is fairly big and nicely decorated.
+> use jumper on wardrobe
+
+> use jumper on wardrobe
+You've put the jumper away for now.
+> s
+
+> s
+> w
+
+> w
+> d
+
+> d
+> n
+
+> n
+The Quad, so called because it's a square. It's surrounded by accomodation and to the north is the Redstone Campus Building
+> e
+
+> e
+You're at the University sign up event. Literaly almost everyone is here filling in their optional modules.
+You have successfully signed up for the physics module. Somewhat fitting considering the Star Wars shirt you're wearing. Somewhat fitting also seems to a valid description of said shirt you realise as you tug it down once again.
+You should probably head back now.
+> look
+
+> look
+You're at the University sign up event. Literaly almost everyone is here filling in their optional modules.
+> out
+
+> out
+It's your room. You're all packed to go home for Christmas, but you take a moment to look around at your room one last time before heading off.
+> s
+
+> s
+> open wardrobe
+
+> open wardrobe
+You open it.
+> x wardrobe
+
+> x wardrobe
+Nothing out of the ordinary.
+> take christmas gift
+
+> take christmas gift
+You pick it up.
+> wear jumper
+
+> wear jumper
+Your trusty big jumper. Still nowhere near filling this one up.
+> wear jeans
+
+> wear jeans
+Please choose which 'jeans' you mean:
+1: Size 10 Jeans
+2: Size 12 Jeans
+> 2
+Your new jeans. They just fine... for now, but they're starting to get a tad tight.
+> i
+
+> i
+You are carrying a Christmas Gift, a Large University Jumper and a Size 12 Jeans.
+> s
+
+> s
+> e
+
+> e
+> search bed
+
+> search bed
+Please choose which 'bed' you mean:
+1: Teresa's Bed
+2: Bedside Table
+> 1
+Oh hey, Teresa's phone.
+> take phone
+
+> take phone
+You pick it up.
+> give phone to teresa
+
+> give phone to teresa
+"Oh you found it! Thanks! See you downstairs!"
+> w
+
+> w
+> down
+
+> down
+> answer front door
+
+> answer front door
+You open the door and outside, is Lily, your best friend from school. She's a big girl, always has been. Last time you spoke she revealed she was nearing 250lbs. You suspect she might be there now, but then again, you've been on an upward trajectory too recently and you must admit she's always been incredibly attractive in spite of her size... because of her size? You're not sure what the correct phrasing is but either way, she's definitely attractive... Almost raven black hair and piercing green eyes, giving her an almost ethereal quality.
+
+"Hey! Merry Christmas! Come on in...!"
+> give christmas gift to lily
+
+> give christmas gift to lily
+"Ooh! What did you get me? It's a bracelet. Aww, it's got a penguin on it! I love it! Here, open mine!"
+
+She gives you her gift and you open it.
+It's an astronomy book.
+
+"I know you've finished your module, but you seemed really interested in it, so I'm hoping there's stuff in this that you haven't learned about already!"
+"Anyway, I'd better get back to the madhouse! Have a good Christmas, Kate. I'll see you soon!"
+> s
+
+> s
+> w
+
+> w
+> speak to mum
+
+> speak to mum
+"Has Lily gone? Oh, I missed her. Well, I think I can leave this for now. Time for presents, then...!"
+"It's time to open presents..."
+> speak to dad
+
+> speak to dad
+"Have you all done with Lily? I think your Mum here is okay to leave this to cook now, so I'll see you in the living room".
+"It's time to open presents..."
+> e
+
+> e
+> n
+
+> n
+> open presents christmas presents
+
+> open presents christmas presents
+Everyone opens their presents. There's a mixture of clothes (that you fear may have been bought at a time that you weren't this heavy), chocolates and sweets (that are not going to help) and Blu-Rays for your favourite shows for you.
+
+"Now, dinner should be ready! Everyone at the table! Come on!" Your mum announces once the last present is open.
+> eat christmas dinner
+
+> eat christmas dinner
+It's absolutely delicious. Your mother has outdone herself this year. You stack your plate full of everything: turkey, roast potatoes, stuffing... no sprouts, you're not a madwoman, but literally everything else.
+"Anyone want more?" Your Mum asks. You look down, you're stuffed but your jumper is doing a great job at hiding it. You figure, it's Christmas after all. You can probably get away with seconds.
+> eat seconds
+
+> eat seconds
+You continue to eat. You don't know why you haven't stopped yet, you're beyond full already but still here you are, giving in to your fatty urges. Something deep down is registering this experience as pleasurable as you rub your almost comically round belly under your jumper. It's a good thing you wore the jumper to dinner because no shirt you own is containing the sphere lurking under it.
+
+After a period of digesting for everyone, you return to your room to rest for a bit.
+> nap bed
+
+> nap bed
+You figure a nap could be useful. Who knew you could get tired from eating? It'll also help digest some of this, hopefully.
+
+You get a nice couple of hours before your Mum calls you back down to play some games as a family. That's how the rest of your break goes, eating a bit too much, playing games and spots of revision as the christmas break progresses. You meet up with Lily and a bunch of other old school friends for New Years and before you know it, the break is over and it's time to go back to Uni...
+
+You're starting Semester 2 at...
+180lbs
+This is your room. It could be tidier but you are a student and by that standard, it's actually fairly well kept. You feel like you've done fairly well out of the student accomodation as the room is fairly big and nicely decorated.
+> s
+
+> s
+> w
+
+> w
+> d
+
+> d
+> n
+
+> n
+The Quad, so called because it's a square. It's surrounded by accomodation and to the north is the Redstone Campus Building
+> s
+
+> s
+> u
+
+> u
+> e
+
+> e
+> n
+
+> n
+This is your room. It could be tidier but you are a student and by that standard, it's actually fairly well kept. You feel like you've done fairly well out of the student accomodation as the room is fairly big and nicely decorated.
+> take talking points
+
+> take talking points
+You pick up the list of talking points for the meeting later today. There's plenty of time before the meeting is scheduled to begin, however. There's probably a few things you should check out before heading off to the Meeting. [4TH WALL BREAK: TO GET TO MEETING, IT IS WEST OFF THE QUAD. IT WILL TRIGGER END OF SECTION. DO THAT LAST]
+> s
+
+> s
+> w
+
+> w
+> d
+
+> d
+> n
+
+> n
+The Quad, so called because it's a square. It's surrounded by accomodation and to the north is the Redstone Campus Building
+> w
+
+> w
+The meeting was kind of boring. There was talk of security and various other administrational things related to being a "Community Voice". However, things got interesting when the meeting turned to being about organising events.
+
+Still, that's an hour and half of your life you're not getting back.
+> look
+
+> look
+> s
+
+> s
+[state=Finished]

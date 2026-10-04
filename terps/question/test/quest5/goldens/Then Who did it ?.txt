@@ -1,0 +1,1455 @@
+Then Who did it ?
+
+You are in a your Bedroom.
+You can see a Computer and a Study Table.
+You can go to the Hallway.
+An ordinary bedroom with band and video game like Fallout 4, Deus Ex, Borderlands posters up on the wall, a 6 years old PC you use sometimes to play Rocket League.
+> go to the hallway
+
+> go to the hallway
+
+You are in a the hallway.
+You can go to your Bedroom, to Brother's Bedroom or to the stairs.
+This hallway connects all the bedrooms in the house
+> go to the stairs
+
+> go to the stairs
+
+You are in the upper floor.
+You can go to the Entrance of the house, to the Hallway or to Parent's bedroom.
+> go to the Entrance of the house
+
+> go to the Entrance of the house
+
+You are in the entrance of the house.
+You can go upstairs , to the Lounge or outside your house.
+You see shoerack and a door leading outside and hallway to the back of your house.
+> go to the Lounge
+
+> go to the Lounge
+
+You are in Lounge.
+You can see a TV.
+You can go to the Entrance or to the Kitchen.
+It's an ordinary lounge, with TV, sofa and a table.
+> go to the Kitchen
+
+> go to the Kitchen
+
+You are in Kitchen.
+You can see Mom.
+You can go to the Lounge.
+You see an ordinary kitchen with mom cooking breakfast.
+Your mother sees you and says "Go to school, you'll be late !"
+> speak to mom
+
+> speak to mom
+"Not now sweetie, I'm a bit busy here"
+> go to the Lounge
+
+> go to the Lounge
+
+You are in Lounge.
+You can see a TV.
+You can go to the Entrance or to the Kitchen.
+It's an ordinary lounge, with TV, sofa and a table.
+> go to the Entrance
+
+> go to the Entrance
+
+You are in the entrance of the house.
+You can go upstairs , to the Lounge or outside your house.
+You see shoerack and a door leading outside and hallway to the back of your house.
+> go outside your house
+
+> go outside your house
+
+You are in your Neighbourhood.
+You can go to the Entrance of your house or outside your neighbourhood.
+It's a quiet neighbourhood and you see people going to work, jogging, collecting newspaper etc.
+> go outside your neighbourhood
+
+> go outside your neighbourhood
+
+You are outside your Neighbourhood.
+You can go to your Neighbourhood, outside your School or to the Roundabout.
+You are outside your neighbourhood. You see buses, carpools, and people walking to stores, offices, schools. A typical busy morning.
+> go outside your School
+
+> go outside your School
+
+You are outside your School.
+You can go to outside your neighbourhood, to School or to the Roundabout.
+You see many students walking inside the school. And you start moving along with the crowd towards your school.
+> go to School
+
+> go to School
+
+You are in School.
+You can go to your class or outside your school.
+It's the lower floor of the school.
+You see the principal of the school walking around and checking on students. Teachers entering their classrooms and staff offices and students heading for the locker room and waiting for their friends.
+> go to your class
+
+> go to your class
+
+You are in Class.
+You can see Richard, Jenna and Your Desk.
+You can go to the lower floor.
+It's an ordinary classroom, with students talking to each other, playing etc.
+You enter your class and see your friend Richard waving at you.
+> talk to richard
+
+> talk to richard
+Talk to Richard about...
+1: Hey
+> 1
+You say "Hey !"
+Hey, how are you ?!
+> talk to richard
+
+> talk to richard
+Talk to Richard about...
+1: I am good ! what is your plan for today ?
+> 1
+Today, I'll just do the class and run home, but you sir...are gonna have to stay late ! haha
+The club president wants to see you after class..
+> talk to richard
+
+> talk to richard
+Talk to Richard about...
+1: Noooo *you hold your head and sigh* why today...nevermind, any news around ? hope it is a good news...
+> 1
+Nothing much, some students say Ms. Peckerton broke her leg so she won't be coming today. But it's a rumour, I'm pretty sure of that.
+> talk to richard
+
+> talk to richard
+Talk to Richard about...
+1: oh finally, I hope that is true !
+> 1
+Speaking of rumours, have you heard about the girl who drowned ?
+> talk to richard
+
+> talk to richard
+Talk to Richard about...
+1: What ?! Tell me about it !
+> 1
+There's a rumour going around, that a girl named Athena drowned in a lake nearby the park. But it's just a rumour.
+> talk to richard
+
+> talk to richard
+Talk to Richard about...
+1: .....oh
+> 1
+hey...is something wrong ?
+> talk to richard
+
+> talk to richard
+Talk to Richard about...
+1: She used to be close friend of mine long time ago...
+> 1
+Then I really hope this is a rumour..
+> sit on your desk
+
+> sit on your desk
+
+You sit on your desk and attend the class. And the rumour of Ms.Peckerton breaking her leg turned out to be true.
+> go to the lower floor
+
+> go to the lower floor
+
+You are in School.
+You can go to your class or outside your school.
+It's the lower floor of the school.
+You had to do lot of school and club work and so now it's evening time. You see empty classrooms and hallways of your school, and except for one or two students everyone has left.
+> go outside your school
+
+> go outside your school
+
+You are Outside the School.
+You can go to the School or to the Roundabout.
+You see teachers leaving and few janitors chatting out side school. All the students have left.
+> go to the Roundabout
+
+> go to the Roundabout
+
+You are in Roundabout.
+You can go to outside your school or to the Park.
+You like to take the long way home since it's evening and there are children playing around, couples walking, teenage boys and girls are chatting, playing etc. But then you spot the park. And you suddenly remember about the rumour Richard was talking about, about Athena drowning in the lake. So you decide to go and give that place a visit, just in case you might find something..
+> go to the Park
+
+> go to the Park
+
+You are in Park.
+You can go to the roundabout or to the lake entrance.
+You see lot of children playing in the park. But your mind is on Athena.
+> go to the lake entrance
+
+> go to the lake entrance
+
+You are in Entrance of the lake.
+You can go to the park or to the stairs.
+You reach the entrance of the lake, and you look down to spot Jenna from school, looking around the lake. After waiting and watching her for a while, she notices you and yells at you "You're not really good at stalking you know !"
+> go to the stairs
+
+> go to the stairs
+
+You are in the stairs.
+You can go to South side of the lake.
+> go to South side of the lake
+
+> go to South side of the lake
+
+You are in South side of the lake.
+You can see Jenna.
+You can go to the stairs, to east side of the lake or to west side of the lake.
+It's evening time around and most people leave this lake by 5...wonder why..
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: What are you doing here ?
+> 1
+Why should I answer you ?
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: Looking for Athena I guess ?
+> 1
+...What does that have to do with you ?
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: I knew her, but did not believe the rumours to be true, so came here to check. But since you are here, that means it must be true.
+> 1
+I don't know if it's true or not, but how did she know you ?
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: She was a childhood friend of mine.
+> 1
+Then what happened ?
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: Then we got separated, I went to a different school, she went to another, She got a new life of her own, I got a new one of mine.
+> 1
+....oh
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: And now may I ask why are you here ?
+> 1
+She and I were close friends, until few days back she stopped calling, so I thought she might have gone somewhere. Until I heard the rumour today and came here rushing.
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: Then we should start looking for her.
+> 1
+Right ! Meet me on the other side of the lake and tell me if you found something, I'll go the opposite way and see if I can find something.
+Jenna says "I'm going west side, you go east side", you give her a firm nod and go east.
+> go to east side of the lake
+
+> go to east side of the lake
+
+You are in East side of the lake.
+You can go to North side of the lake or to South side of the lake.
+You look around everywhere but no clues on Athena's whereabouts
+> go to North side of the lake
+
+> go to North side of the lake
+
+You are in North side of the lake.
+You can see Jenna.
+You can go to west side of the lake or to east side of the lake.
+You come to the North Side of the lake and still no signs of Athena
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: So, did you find anything ?
+> 1
+No, did you ?
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: ...So, now what ?
+> 1
+I don't know...
+*she looks away*
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: Jenna, are you..
+> 1
+*She looks back at you with teary eyes*
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: All hope is NOT lost yet, we will go check her house tomorrow, okay ?
+> 1
+*She nods as a drop of tear falls from her right eye* What if...it's true ?  *she asks in a shaky voice*
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: *Give her a hug*
+2: Then R.I.P Athena I guess..
+3: *Wipe tears off her face* We WILL find her, there is no reason for her to drown in the lake.
+> 3
+How can y-you *sniffs* b-be so sure ?
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: *Give her a hug*
+2: Then R.I.P Athena I guess..
+3: Because she used to learn swimming, as far as I knew...
+> 3
+Then this doesn't makes sense !
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: *Give her a hug*
+2: Then R.I.P Athena I guess..
+3: I know right ? Unless...
+> 3
+*Jenna looks to the lake* No...that can't be true... *Jenna's voice quivers as she looks up to you*
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: *Give her a hug*
+2: Then R.I.P Athena I guess..
+3: Our last resort is to go to her place..
+> 3
+We go there right now !
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: *Give her a hug*
+2: Then R.I.P Athena I guess..
+3: No, her place is in far part of the town, by the time we come back, it will be night. Both of our parents will not be pleased to see that..
+> 3
+*she mutters something under her breath*
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: *Give her a hug*
+2: Then R.I.P Athena I guess..
+3: What did you say ?
+4: We go to her place tomorrow, and you worry not, we WILL find her, okay ?
+> 4
+Yeah..*she looks at you and she lightly smiles at you* I really hope we do !
+> go to east side of the lake
+
+> go to east side of the lake
+
+You are in East side of the lake.
+You can go to North side of the lake or to South side of the lake.
+You look around everywhere but no clues on Athena's whereabouts
+> go to South side of the lake
+
+> go to South side of the lake
+
+You are in South side of the lake.
+You can go to the stairs, to east side of the lake or to west side of the lake.
+It's evening time around and most people leave this lake by 5...wonder why..
+> go to the stairs
+
+> go to the stairs
+
+You are in the stairs.
+You can go to South side of the lake or to outside neighbourhood.
+You start to wonder how did this happen to Athena or maybe...is there someone else involved ?
+> go to outside neighbourhood
+
+> go to outside neighbourhood
+
+You are Outside Neighbourhood Evening.
+You can go to your neighbourhood.
+You were so lost in thought that you didn't notice anything around you before and now you realized you are outside your neighbourhood. You see people returning from work, kids going home and buses dropping off people.
+> go to your neighbourhood
+
+> go to your neighbourhood
+
+You are in your neighbourhood.
+You can go to outside neighbourhood or to entrance of your house.
+You see adults chatting outside their homes, people and kids going home. Your mom is chatting with a neighbour.
+> go to entrance of your house
+
+> go to entrance of your house
+
+You are in the entrance of the house.
+ Cellphone.
+You can go to your neighbourhood.
+You feel your cellphone vibrating as you enter the house..
+> talk to cellphone
+
+> talk to cellphone
+Talk to Cellphone about...
+1: *picks up the phone* Hello ?
+> 1
+GET TO THE LAKE NOW !!
+> talk to cellphone
+
+> talk to cellphone
+Talk to Cellphone about...
+1: Who is this ?
+> 1
+JENNA IS DROWNING, COME TO THE LAKE PLEASE !
+> go to your neighbourhood
+
+> go to your neighbourhood
+You hear your mom screan "Hey ! Where do you think you are going ?!" But you don't have any time to lose.
+
+You are in your Neighbourhood.
+You can go to your house or to outside the neighbourhood.
+As you run down the street, people wonder who are still outside wonder why are you running, but you don't have time to notice them !
+> go to outside the neighbourhood
+
+> go to outside the neighbourhood
+
+You are Outside the Neighbourhood.
+You can go to your neighbourhood or to the roundabout.
+Outside your neighbourhood is relatively quiet and you see few cars going by.
+> go to the roundabout
+
+> go to the roundabout
+
+You are in Roundabout.
+You can go home or to the park.
+The roundabout is empty and you see a few cars in the distance. The orange streetlight glows all around the roundabout along with the fountain in the middle which is glowing white and yellow.
+> go to the park
+
+> go to the park
+
+You are in Park.
+You can go to the roundabout or to the entrance of the lake.
+It's quite dark around, with only foot path lights glowing and you hear sounds from outside, the road and....someone splashing in the lake...
+> go to the entrance of the lake
+
+> go to the entrance of the lake
+
+You are in the Entrance of the lake.
+You can go to the park, to the stairs or to southside of the lake.
+The path lights around the lake glows and you see the splashing noise come right in front of you. So you quickly rush down to save them..
+> go to the stairs
+
+> go to the stairs
+
+You are in the stairs.
+You can go to entrance of the lake or to south side of the lake.
+You rush down the stairs, leaping like a deer on the steps..
+> go to south side of the lake
+
+> go to south side of the lake
+
+You are in South side of the lake.
+You can see Jenna's Friend.
+You can go in the water.
+It's fairly misty and dark around, along with few pathway lights around the lake. You see a girl standing there look at you and crying..
+> talk to jenna's friend
+
+> talk to jenna's friend
+Talk to Jenna's Friend about...
+1: Has she drowned ?!
+> 1
+NO, TAKE THE ROPE AND PULL IT !
+> go in the water
+
+> go in the water
+
+You are in the shallow part of the lake.
+You can see a Rope.
+You can go back to footpath.
+You enter the icy cold water and you put your hands in the water to look for a rope, fortunately you find one.
+> pull rope
+
+> pull rope
+You pull the rope hard along with Jenna's friend. After a while Jenna's body comes ashore and you and Jenna's friend quickly rushes to her body.
+> go back to footpath
+
+> go back to footpath
+
+You are in south side of the lake.
+You can see Jenna and Jenna's Friend..
+You can go to east side of the lake.
+After pulling Jenna up from the lake, you remember from all those health and safety class from school, that you have to perform CPR on Jenna to save her life, otherwise her heart will stop working and eventually she'll be no more..
+> look
+
+> look
+You are in south side of the lake.
+You can see Jenna and Jenna's Friend..
+You can go to east side of the lake.
+After pulling Jenna up from the lake, you remember from all those health and safety class from school, that you have to perform CPR on Jenna to save her life, otherwise her heart will stop working and eventually she'll be no more..
+> perform cpr jenna
+
+> perform cpr jenna
+You perform CPR on her. But nothing happens.
+> perform cpr jenna
+
+> perform cpr jenna
+You perform CPR on her again. But nothing happens and you hear Jenna's friend whimper.
+> perform cpr jenna
+
+> perform cpr jenna
+You tell Jenna's friend to breath in Jenna's mouth, while you press the chest. But still nothing happens and you hear Jenna's friend sniff.
+> perform cpr jenna
+
+> perform cpr jenna
+Jenna's friend breaths in harder than before and you press Jenna's chest hard, yet, so sign of breathing. Jenna's friend breaks down to tears and looks at you.
+In fit of rage, you punch Jenna's chest and suddenly you see Jenna coughing up water.
+> talk to jenna's friend
+
+> talk to jenna's friend
+Talk to Jenna's Friend. about...
+1: *bring out cellphone to call ambulance*
+> 1
+Give me your cellphone, I'll call an ambulance now !
+> talk to jenna's friend
+
+> talk to jenna's friend
+Talk to Jenna's Friend. about...
+1: Here *you give her your cellphone*
+> 1
+Alright, I'll call the ambulance in a second ! *starts dialing the number*
+*after calling the ambulance*Here.....oh wait ! *she quickly dials a number*
+"Hello ? Hey this is Audrey, your daughter Jenna had nearly drowned but she now seems to be breathing. I'm taking her to the hospital. Get there as soon as you can !"
+> go to east side of the lake
+
+> go to east side of the lake
+You hear Audrey yell : "Hey where are you going ?!", you turned around and yell "I'll be back in a second !"
+
+You are in East side of the lake.
+You can go to south side of the lake or to north side of the lake.
+You run to the east side of the lake to see if there's anyone around, but there's not a soul around and all you can hear is Audrey's sniffing from south side of the lake.
+> go to north side of the lake
+
+> go to north side of the lake
+
+You are in North side of the lake.
+You can go to east side of the lake or to west side of the lake.
+You get to the north side of the lake as fast as you can to spot anyone, yet no luck..
+> go to west side of the lake
+
+> go to west side of the lake
+
+You are in West side of the lake.
+You can go to north side of the lake or to south side of the lake.
+You get to the west side and look around the treatment plants to spot anyone, but you find the control room locked and you hear a low humming sound of the machines in the room along with Audrey's sniffing sound.
+> go to south side of the lake
+
+> go to south side of the lake
+
+You are in South side of the lake.
+You can see Audrey.
+You can go to west side of the lake or outside the park.
+You come back and don't see any signs of anyone else around here. So you get back to Audrey and Jenna and wait for the ambulance while keeping an eye out for anyone else. You can hear Audrey breathing heavily after all what had happened.
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: Who...
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: Who...
+> 1
+I called her home, her parents weren't there so I left a voicemail.
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: Why did not you stop her from going inside the lake ?
+> 1
+I couldn't ! She's stubborn and wouldn't listen to me ! So she called me to meet me at the lake urgently and when I arrived here, she tied her hand to this rope and handed
+me the other end. Then she just told me to pull her up when she pulls down and she jumped to the lake without explaining anything !
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: ...oh
+> 1
+I thought she was going to kill herself ! Thank god you arrived !
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: But how did you get my number ?
+> 1
+That...uh...that's different story...and a long one too...
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: *squint* hmm ?
+> 1
+...by the way, did you know anything about this ? about this girl going crazy and jumping in the lake ?
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: Yeah I do, but you would not know any girl named Athena, would you ?
+> 1
+...don't tell me she followed the rumour and jumped into the lake to find her !
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: That is exactly what she did.
+> 1
+THIS BITCH ! *smacks Jenna's face*
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: WOAH ! Calm down !
+> 1
+Do you realize what she did ?! She tried to prove herself to him by risking her like for someone else , she tried 'playing the hero' !
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: Prove herself ? to who ?
+> 1
+To her father ! There's a fight going on in her house, between her and her father, her father apparently called her 'Worthless' and this crushed her and now she's been
+trying to prove her father by doing this...
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: ...but she told me she knew Athena ?
+> 1
+She did ? How come I don't know about it...? I thought I knew everything about Jenna !
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: She also started tearing up when we could not find Athena this evening.
+> 1
+What ?! You went for a search with her ? And she didn't even call me ?
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: Maybe this is a bit personal for her...
+> 1
+You don't understand...we do everything together, TOGETHER !
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: Maybe she thought you would be burden on her..
+2: Fine, but we also came to a conclusion that this could be a potential murder, because I know Athena knew how to swim...
+> 2
+You knew Athena ?
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: Maybe she thought you would be burden on her..
+2: We were very close childhood friends..
+> 2
+Oh...I'm sorry...
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey about...
+1: Maybe she thought you would be burden on her..
+2: We were planning on going to her place tomorrow...
+> 2
+But looks like that's out of option for now...
+You hear some people rushing to the entrance and then you see Paramedics on the entrance of the lake trying to look for the victim, so you shout "Hey !" and wave your hand as Audrey shouts "Over here !"
+They come down through the stairs and get to you. You and Audrey help the Paramedics put Jenna on the stretcher and Audrey rushes to the Ambulance with them.
+> look
+
+> look
+You are in South side of the lake.
+You can go to west side of the lake or outside the park.
+You come back and don't see any signs of anyone else around here. So you get back to Audrey and Jenna and wait for the ambulance while keeping an eye out for anyone else. You can hear Audrey breathing heavily after all what had happened.
+> go outside the park
+
+> go outside the park
+
+rYou are in Roundabout.
+You can go towards hospital or to south side of the lake.
+You reach the roundabout with the paramedics and Audrey. You see a whimpering Audrey waiting in front of ambulance watching Jenna get carried inside the ambulance. You and Audrey wonder if this might be the last time you see Jenna.
+> go towards hospital
+
+> go towards hospital
+
+You are in Silver Fox Avenue.
+You can go to outside hospital.
+You have no other ways of getting to the Hospital, so you run. You keep running till you see the road that leads to the Hospital.
+> go to outside hospital
+
+> go to outside hospital
+
+You are  Outside the Hospital.
+You can go to Silver Fox Avenue or to Hospital.
+You rush towards the hospital and you see Jenna's ambulance has already reached and is parked in a corner.
+> go to hospital
+
+> go to hospital
+
+You are in Ground floor of the hospital.
+You can see the Receptionist.
+You can go to outside the hospital or to Jenna's Room.
+You push the door open and run up to the reception.
+> talk to receptionist
+
+> talk to receptionist
+Talk to the Receptionist about...
+1: Hey ! *you tap the desk* I need..
+> 1
+*on the phone* Hold on one second, *turns to you* What do you need ? Make it quick !
+> talk to receptionist
+
+> talk to receptionist
+Talk to the Receptionist about...
+1: I am looking for a girl named Jenna, she arrived few minutes ago due to drowning..
+> 1
+Uhm..*looks up something on her computer* upper floor to the right *gets back on the phone* yeah, I'm back..
+> go to jenna's room
+
+> go to jenna's room
+
+You are in Upper Hallway.
+You can see Jenna's Father.
+You can go Hospital ground floor, to Jenna's Room or to Waiting Room.
+Jenna's Father is already waiting out side her room, where she's lying unconcious. Jenna's Father notices you.
+Jenna's Father shouts at you "HEY YOU THERE ! COME HERE NOW !"
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Me ?
+> 1
+YES YOU ! COME HERE !
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: *you go near him* Yes ?
+> 1
+How on earth this happened ?!
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: *look at Jenna* She heard a rumour about a girl drowning in the lake, so she went to investigate.
+> 1
+Then how did you get invovled ? Did you tell her about the rumour ?
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: She heard it from the grapevine, just like I did...
+> 1
+Also did you go with her to the lake in the evening to investigate ?
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Not exactly go, we...
+> 1
+*Grabs your collar* DID YOU ENCOURAGE HER ?! YOU ENCOURAGED HER TO INVESTIGATE DIDN'T YOU ?!
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: WOAH WOAH WOAH ! WE MET AT THE LAKE BUT I WENT ALONE !
+2: *stare at him*
+3: LEAVE.MY.COLLAR.NOW.
+> 3
+And if I don't ?!
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: WOAH WOAH WOAH ! WE MET AT THE LAKE BUT I WENT ALONE !
+2: Touch me and I will make sure you end up beside Jenna.
+3: *stare at him*
+> 3
+What ?! You encouraged her didn't you ?! *glares at you*
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: WOAH WOAH WOAH ! WE MET AT THE LAKE BUT I WENT ALONE !
+2: Touch me and I will make sure you end up beside Jenna.
+3: ....when I saw you, I thought you were a respected gentleman...not a child abuser...
+> 3
+*pokes finger on your chest* If you didn't want her in, then why didn't you warn her ? Why didn't you stop her ?!
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: WOAH WOAH WOAH ! WE MET AT THE LAKE BUT I WENT ALONE !
+2: Touch me and I will make sure you end up beside Jenna.
+3: Like she asked me before going. And besides, you are responsible for her, not me...
+> 3
+*sighs* If I had any control over her, we wouldn't be in this situation in the first place !
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: WOAH WOAH WOAH ! WE MET AT THE LAKE BUT I WENT ALONE !
+2: Touch me and I will make sure you end up beside Jenna.
+3: Try not to call your daughter worthless next time...
+> 3
+*looks at you* how...
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: WOAH WOAH WOAH ! WE MET AT THE LAKE BUT I WENT ALONE !
+2: Touch me and I will make sure you end up beside Jenna.
+3: Yeah, Audrey told me everything too...
+> 3
+Look I didn't mean to..
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: WOAH WOAH WOAH ! WE MET AT THE LAKE BUT I WENT ALONE !
+2: Touch me and I will make sure you end up beside Jenna.
+3: There is no point in explaining, the effect has already happened...
+> 3
+*looks down morosefully* I really wish I hadn't said that...
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: WOAH WOAH WOAH ! WE MET AT THE LAKE BUT I WENT ALONE !
+2: Touch me and I will make sure you end up beside Jenna.
+3: You wanna go to the waiting room and talk about it ?
+> 3
+*Jenna's dad gives you a nod and walks to the waiting room*
+> go to waiting room
+
+> go to waiting room
+
+You are in Waiting Room.
+You can see Jenna's Father.
+You can go to Hallway.
+> look
+
+> look
+You are in Waiting Room.
+You can see Jenna's Father.
+You can go to Hallway.
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Now tell me what happened between you two ?
+> 1
+I..she..well *looks at you* Her grades were falling, I gave her tasks to do and she never listened or did any of them. One day when I came home from a long and hard day, her mother was out and the entire house was a mess, plates from breakfast and lunch weren't cleaned and started to stink, and the stench from the kitchen trash filled the entire house, and she was blaring the TV in loud volume. So I just snapped. I pulled the plug of the TV and yelled every single thing that came to my mind to her. She started wailing and went to her room and locked the door. That time I didn't even remotely care if she was hurt, I didn't care anything at all, I just went to my bedroom, locked the doors and drifted to sleep.
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: your wife did not say anything about this ?
+> 1
+Yeah...next morning the entire house cleaned and my wife was sleeping in the couch, so I went and prepared the breakfast before waking her up. When she woke up, she didn't need an explanation and she was very angry at Jenna too. And we decided to call a private tutor, arrange a babysitter and everything. Things which she absolutely hates. But I never in my nightmares thought all of that would lead up to this.
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: I am not blaming this on you two, what you did was only fair.
+> 1
+You think ?
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Yeah, I really do. But she did not tell me anything about this, she told me she was a friend of Athena.
+> 1
+....Athena ?
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Yeah, she told me she was very close to her and even started tearing up when we did not find her this evening.
+> 1
+....odd...very odd
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Do you know anything about Athena and her relation with Jenna ?
+> 1
+No...all I know that Athena was filed under Missing Children list but there's been no report of her death. And the detective who was handling her case dropped it because he had no clue about her case..
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: And what about her relation with Jenna ?
+> 1
+Look, I don't believe any of this, but she did know Jenna well, and they were good friends as far as I know...
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: so what is there not to believe ?
+> 1
+what I don't believe are the things she told me few days ago, she told me and her mom that she is having these really strange nightmares, she told me it was Athena who was doing this, because she could hear her voices.
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: *lean in closer* ...what ?
+> 1
+I know it might sound like a nonsense, but that's exactly what she told me. Her therapist told me it was because she couldn't deal with the possible death of an old friend, that's why she's getting those nightmares..
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Maybe the therapist is right...
+> 1
+Yeah, I mean...how could dream and reality be related, right ?
+"Hmmm..." you say while nodding..
+Then you hear someone running in the hallway, and stand all of a sudden. You notice the panic in the face of Jenna's Father and so you both quickly rush to the hallway.
+> go to hallway
+
+> go to hallway
+
+You are in Upper hallway .
+You can see Jenna's Mother.
+You can go to Jenna's Room.
+You and Jenna's Father dash to the hallway to see is if the doctors have arrived, but you two are relieved to see it's Jenna's Mother.
+> talk to jenna's mother
+
+> talk to jenna's mother
+Talk to Jenna's Mother about...
+1: The doctors..
+> 1
+You there ! Are you the boy who was with Jenna this evening ?!
+> talk to jenna's mother
+
+> talk to jenna's mother
+Talk to Jenna's Mother about...
+1: Uh..*you think to yourself ^Oh no...not again^ *, actuallly yeah but I did not..
+> 1
+*Gives you a tight hug* thank you sooo much for saving my daughters life !!
+> talk to jenna's mother
+
+> talk to jenna's mother
+Talk to Jenna's Mother about...
+1: Yeah..*you let out a muffled sound* you are welcome..
+> 1
+*She lets you go and turns to Jenna's Father, who is looking at Jenna, her face turns from gleeful to serious in a second*
+> talk to jenna's mother
+
+> talk to jenna's mother
+Talk to Jenna's Mother about...
+1: She is breathing, paramedics told me she will get better soon
+> 1
+*she looks back at you* I NEED to see her, and besides...people usually wake up  by now if they drown, it's been almost an hour... *She pushes the door to Jenna's Room*
+> talk to jenna's mother
+
+> talk to jenna's mother
+Talk to Jenna's Mother about...
+1: We should not be going inside
+> 1
+*Jenna's Father joins you* He's right, we should let her rest and don't forget...this happened because of us
+ *Jenna's Mom replies* That's exactly why I'm going in ! *she angrily rushes in*
+> go to jenna's room
+
+> go to jenna's room
+
+You are in Jenna's Room.
+You can see Jenna.
+You can go to the Hallway.
+You see Jenna, lying unconcious in there. Her heart monitor seems stable so you feel relieved.
+> look at jenna
+
+> look at jenna
+All her colors have fade away. What you see in front of you is not the pretty, young and cheerful girl from class but a pale and glum body of Jenna.
+You see some strange marks on her left leg.
+> inspect closely strange marks
+
+> inspect closely strange marks
+You get closer to it and suddenly you see some strange vision, a strange vison in which you are under water and you hear someone's muffled scream under water, then you realize you are in the dark depths of the lake in which Jenna drowned because when you turn your head in that vision towards the muffled scream, you see Jenna fighting something, she's desparately trying to free herself from something. Then you swim towards her to save her, but what you see is a dark hand, grabbing Jenna's left leg. You turn your head to see whose hand is it, you find yourself being stared at by a red glowing pair of eyes...
+You see that and you start breathing fast, so you get out for some fresh air.
+> go to the hallway
+
+> go to the hallway
+Jenna's Father notices you leaving in a hurry, so he follows you outside.
+
+You are in Upper Hallway.
+You can see Jenna's Father.
+You can go to the ground floor of the hospital.
+You can not believe what you just saw, you are hyperventilating and wondering "What on earth was that ?!". Jenna's Father comes out of the room too, looking suspiciously at you.
+Jenna's dad goes up to you and asks "Hey, what happened to you ?"
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Those nightmares...
+> 1
+What about those nightmares ?
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: I think they are true..
+> 1
+That's impossible, it's superstitious..
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: But I just saw them !
+> 1
+What exactly did you see ?
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: I saw Jenna getting pulled in the lake by something
+> 1
+*looks away worriedly* No...that can't be...*whispers* possible
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Do not tell me this is what she saw...
+> 1
+*looks at you and nods lightly and while looking nervous*
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: I AM going there !
+> 1
+What..where...NO ! YOU WILL NOT GO THERE ! I'M NOT LETTING YOU !
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: If you do not believe me, go check the left leg of Jenna, there are marks..
+> 1
+What ?! *rushes in Jenna's Room*
+*You take this opportunity to slip away*
+> go to the ground floor of the hospital
+
+> go to the ground floor of the hospital
+
+You are in Ground floor of the Hospital.
+You can go to outside the hospital.
+You run past all the nurses and everyone you encounter as fast as a blizzard and everyone looks back at you in confusion.
+> go to outside the hospital
+
+> go to outside the hospital
+
+You are in Outside the hospital.
+You can go to Silver Fox Avenue.
+As you exit the hospital the security guard gets up to confront you in suspicion and yells "HEY, NO RUNNING WAIT STAY THER.." but you evade him and run outside, you have no time on your hands and must get to the park as fast as possible !
+> go to Silver Fox Avenue
+
+> go to Silver Fox Avenue
+
+You are in Silver Fox Avenue.
+You can go to the Roundabout.
+You reach Silver Fox Avenue and see the distance ahead of you. It's a long way, but you must do this for Athena.
+> go to the Roundabout
+
+> go to the Roundabout
+
+You are in Roundabout.
+You can go to Park.
+You run all the way to the roundabout, you are running out of breath but you're very close to the lake so you keep running. The roundabout has gotten fairly foggy by midnight and there are no cars or people anywhere as far as the eyes can go.
+> go to Park
+
+> go to Park
+
+You are in Park.
+You can go to Entrance of the lake.
+You reach the park. The park is foggy and dark, with few foot path lights glowing white. You can see the lake entrance very close to you so you don't stop running.
+> go to Entrance of the lake
+
+> go to Entrance of the lake
+
+You are in Lake Entrance.
+You can go to Stairs.
+You finally reach the lake entrance. But you can't see anyone or anything because of the fog. What used to be a haven for people to walk in, during the morning, is now giving you goosebumps from fear, at night. But you made it all the way to the lake, so you're not going to let another minute go waste.
+> go to Stairs
+
+> go to Stairs
+
+You are in the stairs .
+You can go to south side of the lake.
+You leap down the stairs, taking 3 steps at a time.
+> go to south side of the lake
+
+> go to south side of the lake
+
+You are in South side of the lake.
+You can go to East side of the lake, to West side of the lake or inside the lake.
+You have reached the lake. The lights from the foot path aren't bright enough to show the lake. You feel like you've entered a whole new realm, a dark realm. The lake has grown darker than usual too. Something must be up..
+> go inside the lake
+
+> go inside the lake
+
+You are in South side underwater.
+You can go to center of the lake under water, to east side underwater, to west side underwater or up.
+You reach the south side of the lake underwater. You find your hand touching a few plants but you are not looking for plants, you are looking for Athena...
+> go to west side underwater
+
+> go to west side underwater
+
+You are in West side underwater.
+You can go to center of the lake underwater, to south side underwater, to north side underwater or up.
+You reach the west side of the lake, under the water. You hope to find at least someting, but you can't even feel any plants around, just sand and rocks.
+> go up
+
+> go up
+
+You are  Above the lake.
+You can go underwater.
+You get out of the water and take a deep breath before going in.
+> go underwater
+
+> go underwater
+
+You are in West side underwater.
+You can go towards a tunnel.
+As you come down under water, you're running out of places to look into...all of a sudden, you feel a pull...someone's pulling your right leg....and it's pulling you backwards, you look back to see who it is...but you don't see anyone...and so you look forwards and AGAIN IT'S THERE ! The pull ! now it's pulling you back even more force fully than before ! You don't move and just turn your head to see who it is...and at a distance a small dark tunnel under the faint shine of the moon light, you swim forward to check if it's there and there it is ! Right in front of you is a tunnel and it's big enough for you to fit right in, so you proceed to swim inside and see where it leads..
+> go towards a tunnel
+
+> go towards a tunnel
+
+You are in Tunnel.
+You can go forward.
+It's a small, narrow and there's algae all around the tunnel walls so you can't really grip anything to move forward, and you can't even properly spread your arms around for swimming but you have to keep moving forward to see where it leads too. Some how using your nails on the tunnel walls and by contracting and relaxing your arms and legs, you go manage to go forward and soon you find the end of the tunnel and you grip the ending edges and pull your self out of the tunnel. Then you see something that sends shivers down your spine...
+> go forward
+
+> go forward
+
+You are in some unknown place.
+You can go forward.
+As you exit the tunnel, you realized that you are in a pitch dark place. It could be small room, a water tank, or a giant water storage place. But you can't see anything, and you are swimming forward, even if you know this is a horrible idea, you keep swimming forward, because you have come too far too quit now.. But then you are running you are running out of breath, so you try going up. No luck, you've hit the wall above you. You try not to panic, and you accept your fate that you are going to die here. But you know that you are going to save that last few dying breaths for the purpose you came for in here, in search of that girl, Athena.
+> go forward
+
+> go forward
+
+You are in Water tank.
+You can go back, left or right.
+You keep moving forward, and in your mind, you are tracking where you are relative to the surface, so if the tunnels were as long as the distance from the lake to the footpath, then that means, after moving forward...you must be under the water treatment plant and after moving a little forward, your hand hits a pipe. You follow that pipe and then you feel it going into the walls above you, so you go down to see if you can feel any dead body. You are suffocating so much you can feel your heart beat in your brain right now, so you desparately go above to find a hole, no matter how small, just to give you extra 10 seconds of life. And while running your fingers against the walls above you, you finally feel a hole, an open end of a pipe that runs into the walls like the rest. But this pipe is open, so you might find that extra few seconds of life you were looking for. So you stick your nose in the pipe and a deep breath. And you feel those extra 10 seconds like it's adding a 100 years to your body, it feels so re-energizing. Then you get back to your hunt, you remember where the hole was, just incase you might need another 10 seconds.
+> go left
+
+> go left
+
+You are in Water tank.
+You can go back to tunnel.
+You move left and right and you are hitting pipes everywhere then you hit a series of small pipes. You run your finger across them, hopeless to find her. Then your fingers hit something soft and pointy...a finger. You grab the finger lightly, and then you keep moving your fingers forward and find a palm, then a hand but then you don't feel a shoulder. Your fingers hit the wall. And before moving any forward, you fell the hammering again. You rush back to the place where the open end of the pipe was, but your fingers can't seem to find it. So you come down, and you start to look around when all of a sudden you see a faint light. A hole.. then you realize it's the same tunnel through which you came in here. And after seeing that, you gun for it..with every remaining strength in your body. You eventually make it to the tunnel but the hammering inside your head just keeps getting worse.
+> go back to tunnel
+
+> go back to tunnel
+
+You are in Tunnel.
+You can go to west side underwater.
+You feel the hammering getting stronger and stronger with each move you make...you find yourself back in that same position, fingers can't grip the walls, no room for movement for arms and legs but this time you have no breath left. You contract and relax you  arms and legs, trying to push as much water as you can. By the end of the tunnel, your vision starts to get blurry and you can feel little droplets of water enter your nose. Your heart beat is all time high and then you feel your last thought pop in your head 'Is this how my life ends ?'.....
+> go to west side underwater
+
+> go to west side underwater
+
+You are in West side underwater.
+You can go to footpath.
+After your arms feel the end of the tunnel, you try to pull yourself but your arms have little to no strength left in them...but you don't give up, pulling with whatever strenght you have left, eventually you see the blurry moon light which you mistake for the light of death, from under the water as your head gets out the tunnel and you feel your body getting out of the tunnel little by little. You then proceed to move upwards, you make it half way out but then your nose hits the toll and you feel all the water in the lake getting inside you, and in your mind you think 'This is it...I'm out...'
+
+Then you feel an enormous force tug on the back of your shirt...
+> go to footpath
+
+> go to footpath
+
+You are  Outside the lake.
+You can go wake up.
+You feel your head hit the hard concrete of the footpath. You don't open your eyes because you feel so tired and you want to sleep.. Then you feel few tight slaps on your cheeks, first right and then left...
+> go wake up
+
+> go wake up
+
+You are on footpath.
+You can see Jenna's Father.
+You can go outside the park.
+After feeling those slaps, you open your eyes slowly and see a shadowy head above you. You hear that person scream "Wake up !"
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: H-hey..
+> 1
+Wake up !! Are you alright ?!
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: N-n-no..t-there is...
+> 1
+You bloody idiot, you shouldn't have gone in there ! Were you out of your mind ?!
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: N-no...listen there is...*you tap the back of your hand on the footpath*
+> 1
+*Jenna's Father turns around and shouts to the Paramedics* HEY !! This guy woke up ! Take him to the ER !
+*You see 3 Paramedics come rushing down with a stretcher to pick you up, you try to get up but Jenna's Father stops you* "Lie down and let them take you."
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Listen...*breathing heavily* there is s-someone... *you turn to left side and keep hitting the footpath and then you throw up*
+> 1
+*Jenna's Father helps you get up and the paramedics come to assit you to the ambulance*
+> go outside the park
+
+> go outside the park
+
+You are  Outside the park.
+You can go to the ER.
+You are taken outside the park and there you sit inside the ambulance. In the ambulance, you groggily open your eyes to see around and then you again you feel yourself drifting back to sleep as the ambulance starts moving..
+> go to the ER
+
+> go to the ER
+
+You are in ER.
+You can see Jenna's Father.
+You can go to ground floor of the hospital.
+You wake up few hours later in the ER..alive and breathing..
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: H-hey,.. how is Jenna ? Did she wake up ?
+> 1
+Yeah, she did. Thank god she did.
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: and...*you rub your eyes* d-did you look in t-there ?
+> 1
+Yeah...I did..
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: And ?! *you sit back up and get anxious*
+> 1
+*Jenna's Father puts his hands on your head and pushes it down to bed* Don't worry...I found her....I found Athena..but the doctors say it'll be long before Athena sees the light of the day..
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: *sighs* Are the parents of Athena here ?
+> 1
+No, strangely I went to her place to inform them but they weren't home. And speaking of parents, I did inform your parents that you nearly drowned, so they should be here any moment now.
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: ...why did you tell them that ? Mom must have been crying hysterically....
+> 1
+No she wasn't ! I told them that you saved a missing girl from drowning AND you are alive and doing well.
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Ah..thank you for that ! Speaking of drowning, how did Athena managed to stay alive for so long..?
+> 1
+Her case is a miraculous one. She must have floated in the water storage tank when the tide was low, into the water storage unit, which was built to prevent overflowing of water and destroying the park. And there are holes in that water storage unit, to check the water level and pump out the extra water level which were closed. But her body drifted onto the stairs on the side of the tank and stayed there. Her head was out of the water, but rest of the body was in the water. Athena's was in coma, and she was able to breath for so 3 days straight before death by dehydration kicked in. The people from park management didn't check it because they check the tank every Sunday, and Athena went missing on Tuesday. She must have some sort of guardian angel watching her back haha !
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: ...and about the dreams..
+> 1
+I can't speak for the dreams, I have no idea how they occured...IF they really did..
+*Jenna's father turns to the doors* Hey, I'm going to get some food, if you feel better then you can go and meet Jenna and Audrey upstairs but your parents will be here soon so make sure you do meet them !
+> talk to jenna's father
+
+> talk to jenna's father
+Talk to Jenna's Father about...
+1: Sure !
+> 1
+And hey *Jenna's father turns to you* Thanks for saving my daughter !
+*You nod and smile at him as he exits the ER room*
+> go to ground floor of the hospital
+
+> go to ground floor of the hospital
+
+You are in Ground Floor of the Hospital.
+You can go to stairs.
+After resting for an hour or so, you go outside and check the time, it's morning 5'o clock and it's fairly busy around. You see the exit and see the morning sun rays outside the doors of the hospital
+> go to stairs
+
+> go to stairs
+
+You are in Stairs.
+You can go to Ground Floor of the Hospital or to upper level hallway.
+You find nurses and doctors going up and down the stairs.
+> go to upper level hallway
+
+> go to upper level hallway
+
+You are in Hallway.
+You can go to stairs  or to Jenna's Room.
+You enter the hallway and remember the last night's fight with Jenna's Father, you are so glad that it didn't turn out ugly, otherwise you wouldn't be here today..
+> go to Jenna's room
+
+> go to Jenna's room
+
+You are in Jenna's Room.
+You can see Jenna.
+You can go to Hallway or to Athena's bed.
+You see Jenna in her bed smiling at you and Audrey and Jenna's mom look gleeful as they turn their head to see you enter the room.
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: How are you ? *you ask her smiling*
+> 1
+I feel a lot better now...thank you !
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: Did you see Athena ?
+> 1
+....she's right there *looks behind you* behind those curtains, I saw her when she was being brought here by the nurses and doctors. My God, can you believe what she's been through ? surviving for 3 days in a water tank ?
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: Yeah, you looked just like her, same ghastly blue, could not even tell if you were alive or dead...
+> 1
+At least all of this is over...
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: *you see her mom kissing Audrey and thanking her* Awww, where are my kisses ?
+> 1
+*Jenna looks to them and back at you, and giggles*
+> talk to jenna
+
+> talk to jenna
+Talk to Jenna about...
+1: I am going to check over Athena, after all I seeing her after a long time..
+> 1
+Sure go ahead !
+> go to Athena's bed
+
+> go to Athena's bed
+
+You are Near Athena's bed.
+You can see Athena.
+You can go back to Jenna's bed.
+> look at athena
+
+> look at athena
+You see her ghastly, bluish, frail body lying in front of you and you hear the reassuring sound of the health monitor going *beep beep beep* indicating that she's still alive and right in front you..
+> go back to Jenna's bed
+
+> go back to Jenna's bed
+
+You are in near Jenna's bed.
+You can see Audrey and Jenna.
+You see Jenna's Mom finishing her talk with Audrey as she walks out the door and she waves back at you, Jenna and Audrey, leaving happily
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey and Jenna about...
+1: So, it is all over now, huh ?
+> 1
+Audrey : Yeah.. *looks at Jenna and holds her hand*
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey and Jenna about...
+1: *You turn to Jenna* Hey, does you face hurts...like you got hit or something ?
+> 1
+Jenna : Now that you asked, yeah I do actually feel like that, why ? Did I get hit or something ?
+*Audrey glares at you with wide eyes, you see her mouthing "What the hell ?! NO !"*
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey and Jenna about...
+1: Well, that is how we saved you from drowning, we smacked your face and you coughed the water that was stopping you from breathing !
+> 1
+Jenna : Oh ! Thank goodness the smacking worked I guess...ha ha
+*You look at Audrey who looks relieved, as you give a sly smirk*
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey and Jenna about...
+1: By the way Jenna, you never told me about those nightmares you had...?
+> 1
+Jenna : Dad told you, didn't he ? I thought everyone would believe that I'm crazy, that's why I kept it to my self..
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey and Jenna about...
+1: I had the same nightmares too, I saw you getting pulled under the lake..
+> 1
+Jenna : You did ?! OH MY GOD !
+*Audrey gets intruiged*
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey and Jenna about...
+1: Yeah, that is how I learned where Athena is, I stayed underwater and felt where the pull was coming from, which lead me to the tunnels !
+> 1
+Jenna : And there I thought someone was trying to kill me, so I resisted and that's why I nearly drowned !
+*you can see extreme confusion in Audrey's face*
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey and Jenna about...
+1: And I started getting those visions after I saw the marks on your leg *you check your own leg* Oh I have got mine too here ! *you show them your right leg*
+> 1
+Jenna : That is unbelievable !
+Audrey : Slow down you two ! Can anyone please explain to me what happened right from the beginning ?!
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey and Jenna about...
+1: Well, remember when Jenna was getting pulled under the lake ? She was actually being pointed towards where Athena was, but she resisted and that is why she nearly drowned, and when I asked her dad about the relation between Jenna and Athena, her dad told me she used to have visions about Athena, and after that when I came in her room and saw the marks, I had the same visions so I realized it was the ghost of Athena who was trying to pull us to her actual location of the body, so that we can rescue her !
+> 1
+*Audrey looks flabbergasted* Ghost of Athena ?! No way !
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey and Jenna about...
+1: I know this might sound crazy, but this is exactly how I found Athena !
+> 1
+Jenna: He is right, Athena was trying to pull us to her location...
+Audrey : No..that's not what I have a problem with...
+> talk to audrey
+
+> talk to audrey
+Talk to Audrey and Jenna about...
+1: Then what is it ?
+> 1
+Audrey : Look, I like reading paranormal and stuff, so I know a thing or two about them. What my problem here is, Athena can't do that. No human ever can. Once a soul escapes a body and becomes a ghost, it can never return back to their own body ! Humans can get out of their using Astral Projections, but  no astral projection or what so ever can touch someone's leg and grip it so tight and pull it AND return back to their own bodies ! No human can ever do that, you hear me ?! So the real question is, if it was not Athena who pulled both of your legs...
+*all three say together in unison*
+THEN WHO DID IT ?!
+[state=Finished]

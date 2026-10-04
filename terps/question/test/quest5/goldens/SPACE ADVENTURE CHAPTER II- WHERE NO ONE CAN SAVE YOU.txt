@@ -1,0 +1,191 @@
+SPACE ADVENTURE CHAPTER II: WHERE NO ONE CAN SAVE YOU
+SLANG'S VENGEANCE
+
+by METALMARIO991
+
+You are in a Space Pod.
+This is the Space Pod given to you by the Confederation. Its purpose was to take you to Balanga and then back to Velos following your vacation. It is rather small and possess two single beds. A computer monitor is nearby and Ken sits in the cockpit.
+You can see a Ken, a Computer Monitor and a Beds.
+> look
+
+> look
+You are in a Space Pod.
+This is the Space Pod given to you by the Confederation. Its purpose was to take you to Balanga and then back to Velos following your vacation. It is rather small and possess two single beds. A computer monitor is nearby and Ken sits in the cockpit.
+You can see a Ken, a Computer Monitor and a Beds.
+> x ken
+
+> x ken
+Ken sits leisurely in the cockpit.
+
+> x computer monitor
+
+> x computer monitor
+The monitor reads the status of the pod.
+
+> read magazine
+
+> read magazine
+Say here is an interesting article!
+VISIT THE LUCIOUS SPACE RESORT; CALATINA
+SOUTHEAST OF NORTOINA IV, SOUTHWEST OF THE ASTEROID BELT AND WEST OF THE YAMA NEBULA.
+> look
+
+> look
+You are in a Space Pod.
+This is the Space Pod given to you by the Confederation. Its purpose was to take you to Balanga and then back to Velos following your vacation. It is rather small and possess two single beds. A computer monitor is nearby and Ken sits in the cockpit.
+You can see a Ken, a Computer Monitor and a Beds.
+> look
+
+> look
+You are in a Space Pod.
+This is the Space Pod given to you by the Confederation. Its purpose was to take you to Balanga and then back to Velos following your vacation. It is rather small and possess two single beds. A computer monitor is nearby and Ken sits in the cockpit.
+You can see a Ken, a Computer Monitor and a Beds.
+> look
+
+> look
+You are in a Space Pod.
+This is the Space Pod given to you by the Confederation. Its purpose was to take you to Balanga and then back to Velos following your vacation. It is rather small and possess two single beds. A computer monitor is nearby and Ken sits in the cockpit.
+You can see a Ken, a Computer Monitor and a Beds.
+> look
+
+> look
+You are in a Space Pod.
+This is the Space Pod given to you by the Confederation. Its purpose was to take you to Balanga and then back to Velos following your vacation. It is rather small and possess two single beds. A computer monitor is nearby and Ken sits in the cockpit.
+You can see a Ken, a Computer Monitor and a Beds.
+> look
+
+> look
+You are in a Space Pod.
+This is the Space Pod given to you by the Confederation. Its purpose was to take you to Balanga and then back to Velos following your vacation. It is rather small and possess two single beds. A computer monitor is nearby and Ken sits in the cockpit.
+You can see a Ken, a Computer Monitor and a Beds.
+Suddenly, a shuttle shows up on view. It gets extremely close to your ship and proceeds to extend a long, silver pole-like object into the ship!
+"What the h...." Kens protest is cut short due to crazy, purple knockout gas blown into the ship.
+TIME PASSED...
+You wake up with a nasty headache. Your vision is slurred and you feel like you are drunk. The first thing you see is Ken who appears to have difficult time staying up. Its then you noticed your hands are tied together. Your eyes manage to dial in seeing a disgusting figure!
+A unfamiliar face sits before you. Presumably, he is a fat, bald man with a huge melted-like blob where his legs should be. He speaks in a rather deep and chilling voice.
+"Finally, you've waken Mr. Winstein. It took me a LONG time to get you up as your friend was much more cooperative. My name is Dr....Slang Victoria Zealus. I am....WAS one of the greatest scientific minds of Velos and probably the best of the Confederation. I used to be a humble man until IT happened....You see despite my amazing inventions and theroies I was ridiculed by my fellow men, even when I helped design the Xeslovs blueprints a decade or two ago...Around that time when a prototype was finished I was taunted by the fellow scientists to test it even though I said it wasn't ready they used force on me to do it. The device exploded killing 5 crewmen and injuring 47 as well as melting my body below my waist. Despite, it was clearly their fault I WAS the one court martialed by the Confederation. They stripped me (literally per Confederation tradition) of my rank of scientist and banished me from the science community altogether. Since then I've sworn that one day I'll absolutely DESTROY the Confederation and become supreme leader of the NEBULA! My most recent plan involved paying the most dasterdly race in the nebula; Jaglins 2,500 Jacoins ($1,000,000.75 in Veloian money) to steal the finished Xeslovs device aboard the Arvaid II and use it to destroy Velos and the Confederation. It was the perfect plan....UNTIL YOU TWO NUMBSKULLS CAME AND SCREWED IT ALL UP!!! ARRRGH!!!" He then proceeds to rearrange a nearby monitor. Following this he wipes some sweat off his head with a handkerchief and regains his composure. "Sorry, about that I have a bit of a temper. Now for my new plan against the confederation is this!"
+He turns behind and suddenly you see a rather huge ray gun!
+"This is the BlasterX4. Once it makes contact with Velos it will cause an implosion that will suck the entire nebula in to parallel dimension 67. I'll revenge on those who wronged me!!!! HA HA HA!"
+"Anyway, my plan for you morons his simple, You will be forced to work in my Gem Mines on the ferocious jungle planet of Hrkalis. A planet full of killer fauna and flora so its safe to say..ITS WHERE NO ONE CAN SAVE YOU!!! TAKE THEM AWAY!"
+A small injection renders your body useless. You and Ken are dragged aboard separate ships... utter despair sets in as you blackout.
+
+MEANWHILE....
+Your slurry vision makes out that you are now on a landing dock in the middle of a dense jungle. You notice George isn't around but you barley have a chance to think of this when... "MOVE IT BLONDE!" You are thrown onto a small hovercraft. Your hands are then promptly tied by two surly looking guards as the craft heads to a small clearing in front of a cave presumably leading to the mines. You are untied and tossed off as one guard yells "WATCH 'IM JOHY! I GOT TO GO PICK UP THE RED ONE!" With that he hovers away.
+You are  at the Mine Entrance.
+You find yourself in front of a large cave in a small clearing surrounded by a dense jungle. A cooler rests nearby.
+You can see a Guard and a Cooler.
+You can go in.
+> look
+
+> look
+You are  at the Mine Entrance.
+You find yourself in front of a large cave in a small clearing surrounded by a dense jungle. A cooler rests nearby.
+You can see a Guard and a Cooler.
+You can go in.
+> x guard
+
+> x guard
+The rather lazy guard sits on a spiffy chair and smokes a strange cigar. Judging by his orangish skin he appears to be a Zulian from Klsenax CLVIII.
+
+> x cooler
+
+> x cooler
+It is a small white model with a reddish lid.
+
+> open cooler
+
+> open cooler
+You open it.
+"HEY! DON'T TOUCH THE COOLER BLONDE!" "OK, don't get mad at me man!"
+You close the cooler.
+> take brandy
+
+> take brandy
+I can't see that.
+> take lighter
+
+> take lighter
+I can't see that.
+> i
+
+> i
+You are not carrying anything.
+> in
+
+> in
+
+You are in a Mine Elevator.
+The Mine Elevator appears to be made of rickety metal suspended by large rope. Five Buttons grace a small console.
+You can see a TOP Button, a F3 Button, a F2 Button, a F1 Button and a Strange Button.
+You can go out.
+> push f1 button
+
+> push f1 button
+The elevator makes many creaking sounds as it descends.
+
+You are in a Mine Elevator.
+The Mine Elevator appears to be made of rickety metal suspended by large rope. Five Buttons grace a small console.
+You can see a TOP Button, a F3 Button, a F2 Button, a F1 Button and a Strange Button.
+You can go out.
+> look
+
+> look
+You are in a Mine Elevator.
+The Mine Elevator appears to be made of rickety metal suspended by large rope. Five Buttons grace a small console.
+You can see a TOP Button, a F3 Button, a F2 Button, a F1 Button and a Strange Button.
+You can go out.
+> out
+
+> out
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go in, northwest or northeast.
+> look
+
+> look
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go in, northwest or northeast.
+> northwest
+
+> northwest
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go southeast or northeast.
+> look
+
+> look
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go southeast or northeast.
+> northeast
+
+> northeast
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can see a Sign and a Value.
+You can go southwest or southeast.
+> look
+
+> look
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can see a Sign and a Value.
+You can go southwest or southeast.
+> southeast
+
+> southeast
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go northwest or southwest.
+> look
+
+> look
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go northwest or southwest.
+[state=Running]

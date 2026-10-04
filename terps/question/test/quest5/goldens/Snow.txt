@@ -1,0 +1,280 @@
+Snow
+
+by Nick Miller
+
+You've just woken up, your roommate Brian is scrambling around and looks panicked.
+What is your name?
+> Sam
+Hello, Sam.
+Your Inventory, Status, Places and Objects, and the Compass are on your right.
+To move between Rooms, Click on the Arrows in the Compass or Type where you want to go.
+To interact with people and objects, Click on the Red Hyperlinks or Type what you want to do.
+
+You are in your Apartment .
+
+You can go south, north, northeast, east or west.
+
+You can see a Lamp, a Couch, a TV, your Bathroom, Brian's Bedroom, your Bedroom, Brian, a Pizza Box, a Can of Mountain Dew, your Kitchen, a Lightswitch and a Phone.
+
+This place sucks.
+> e
+
+> e
+
+You are in your Bedroom.
+Well, this place is a fucking mess.
+
+You can go west.
+
+You can see a Bed, your Desk (on which there is an Apartment Keys, a Flashlight and a Pen) and a Lightswitch.
+
+> x desk
+
+> x desk
+
+It's a mess of homework and books and random shit.
+> take apartment keys
+
+> take apartment keys
+
+You can take this, but it doesn't do any but take up inventory space.
+> take flashlight
+
+> take flashlight
+
+You pick it up.
+Well now you can light the way with a torch that looks like Spiderman, congrats.
+> w
+
+> w
+
+You are in your Apartment .
+
+You can go south, north, northeast, east or west.
+
+You can see a Lamp, a Couch, a TV, your Bathroom, Brian's Bedroom, your Bedroom, Brian, a Pizza Box, a Can of Mountain Dew, your Kitchen, a Lightswitch and a Phone.
+
+This place sucks.
+> s
+
+> s
+
+You are in the 2nd floor hall way.
+The tacky blue wallpaper makes this hallway nauseating.
+
+You can go north, northeast, northwest or east.
+
+You can see your Apartment , the Apartment No.1 , the Apartment No.3 and the 2nd floor stairwell.
+
+> e
+
+> e
+
+You are in the 2nd floor stairwell.
+This is the stairwell connecting the three floors of the building. Its relatively clean but has a funky smell.
+
+You can go west, up or down.
+
+> d
+
+> d
+
+You are in the 1st floor stairwell.
+This is the stairwell connecting the three floors of the building. Its relatively clean but has a funky smell.
+
+You can go up or west.
+
+> w
+
+> w
+
+You are in the 1st floor hall way.
+Cleanest hallway in the whole building, still has ugly brown wallpaper.
+
+You can go east, southeast, northeast, north, west or northwest.
+
+You can see the Laundry Room, the Lobby, the Office, the Storage Room, the Power Room and the 1st floor stairwell.
+
+> n
+
+> n
+
+You are in the Office.
+
+You can go south.
+
+You can see a Cabinet, a Desk (on which there is an Apartment Master Keys, a Flashlight and a Matches) and a Lightswitch.
+
+> take apartment master keys
+
+> take apartment master keys
+
+You pick it up.
+> take matches
+
+> take matches
+
+You pick it up.
+> open cabinet
+
+> open cabinet
+
+You open it.
+It contains a Storage Room Keys, a Pump Room Keys and a Power Room Keys.
+> take storage room keys
+
+> take storage room keys
+
+You pick it up.
+> s
+
+> s
+
+You are in the 1st floor hall way.
+Cleanest hallway in the whole building, still has ugly brown wallpaper.
+
+You can go east, southeast, northeast, north, west or northwest.
+
+You can see the Laundry Room, the Lobby, the Office, the Storage Room, the Power Room and the 1st floor stairwell.
+
+> ne
+
+> ne
+
+The Storage Room unlocks.
+You are in the Storage Room.
+
+You can go southwest.
+
+You can see a Snow Salt, a Blanket, a Tool Box (containing an Old Dirty Keys), a Box of Lightbulbs and a Lightswitch.
+
+> x tool box
+
+> x tool box
+
+Rusty and covered in dust.
+> open tool box
+
+> open tool box
+
+It is already open.
+> take old dirty keys
+
+> take old dirty keys
+
+You pick it up.
+> sw
+
+> sw
+
+You are in the 1st floor hall way.
+Cleanest hallway in the whole building, still has ugly brown wallpaper.
+
+You can go east, southeast, northeast, north, west or northwest.
+
+You can see the Laundry Room, the Lobby, the Office, the Storage Room, the Power Room and the 1st floor stairwell.
+
+> e
+
+> e
+
+You are in the 1st floor stairwell.
+This is the stairwell connecting the three floors of the building. Its relatively clean but has a funky smell.
+
+You can go up or west.
+
+> up
+
+> up
+
+You are in the 2nd floor stairwell.
+This is the stairwell connecting the three floors of the building. Its relatively clean but has a funky smell.
+
+You can go west, up or down.
+
+> w
+
+> w
+
+You are in the 2nd floor hall way.
+The tacky blue wallpaper makes this hallway nauseating.
+
+You can go north, northeast, northwest or east.
+
+You can see your Apartment , the Apartment No.1 , the Apartment No.3 and the 2nd floor stairwell.
+
+> ne
+
+> ne
+
+The apartment door unlocks with a loud screech.
+You've never considered entering this apartment.
+You are in the Apartment No.1 .
+It is incredibly dark to the point where you can't see anything.
+
+You can go south, northeast, west or east.
+
+You know nobody has lived here for years but you feel uncomfortable, like someone is in here with you.
+
+> w
+
+> w
+
+You are in the Kitchen.
+This room is surprisingly clean.
+
+You can go east or west.
+
+You can see a Refrigerator and a Lightswitch.
+
+> w
+
+> w
+
+The Refrigerator opens with a hiss and a puff of icy air.
+You are in a Refrigerator.
+It is too dark to make anything out.
+
+You can go east.
+
+> turn on flashlight
+
+> turn on flashlight
+
+You switch it on.
+> set alight candle
+
+> set alight candle
+
+You light the candle, you can truly see the immensity of the room, and the creepy symbols drawn on the floor.
+> x box
+
+> x box
+
+It's old and dirty with a button to open it on the top. Feels cold.
+> open box
+
+> open box
+
+A massive gust of wind comes towards you, sending snow and shards of ice right into your face. It hurts...a lot.
+> look
+
+> look
+
+You are in a Refrigerator.
+You crawl through the small opening into a huge cave like room. It's proportions are massive and the possibility of it fitting between two apartments defies the laws of physics. Its chilly and there is a layer of frost on the floor.
+
+You can go east.
+
+You can see a Candle, a Box and a Cloaked Figure.
+
+> speak to cloaked figure
+
+> speak to cloaked figure
+
+'Who are you?' you ask.
+
+"I am the future,' the figure says in a chilly voice, 'I am the bringer of a new age, a revelation. I am the beginning. I am the snow.'
+After speaking to you the figure opens his cloak, snow piles out and the room turns to ice. You slowly start to freeze and become ice. Right as your head is about to be sealed in ice the room lights up and you see a large round silhouette.
+'Not if I have anything to say about it,' your Landlord says calmly.
+[state=Finished]

@@ -1,0 +1,998 @@
+SPACE ADVENTURE CHAPTER I: THE DASTERDLY JAGLINS
+THE TRIAL OF THE NEBULA'S GREATEST LOSER!
+
+by metalmario991
+
+You are in a Locker Room.
+You can see a Flashlight.
+WOWZERS! ITS SO DARK YOU CAN'T SEE ANYTHING!
+You've just woken up from a comfortable off-duty nap in your employee locker (the only place to slack in peace) It wasn't very nice as you heard sounds of soft screams and pulseray fire. Odd, you notice that it is completely dark and it is eerily quiet!
+> take flashlight
+
+> take flashlight
+Done.
+> turn on flashlight
+
+> turn on flashlight
+Fliping the switch you turn on the flashlight.
+> open locker
+
+> open locker
+You randomly open a random locker chosen by random.
+It contains a Deodorizer and a Jock Strap.
+> take jock strap
+
+> take jock strap
+You disgustingly pocket the strap.
+> south
+
+> south
+
+You are in a Hallway.
+You can see a Janitor's Closet.
+You can go north, east or west.
+This is one of the many hallways aboard the USS Arvaid II. This is a simple one on the 4F. Nearby is a small janitor's closet.
+You hear pacing in the hallway to the west.
+Upon, entering the hallway a voice speaks from the intercom. It infroms the Arvaid II has been hijacked by some rogue ailens and the Xesolvs device has been stolen warning any survivors that they are still on board. The voice is suddenly cut-off.
+> open closet
+
+> open closet
+Apparently, this automatic door is not working properly so you decide to open the door.
+You are unsurprisied to find your pal Ken inside the closet. "George! Thank god! When those Ailens came on board I bailed from my shift and hid here in the closet. I also opened a panel and ripped out a wire so the door wouldn't automatically open for them but as you can see I didn't think this through. Come on we need to get out of here!" (Ken joins you!)
+> search closet
+
+> search closet
+Searching, the closet you find many useless cleaning supplies but oddly find the janitor's communications watch. You are reluctant to pocket it but return to your normal self and jam it in your pocket.
+> east
+
+> east
+
+You are in a Hallway.
+You can see a Pile of Debris, a Totally Dead Guy and an Elevator.
+You can go west.
+Another typical hallway. Strangly, you notice holes in the wall and scorch marks on the floor. Debris presumably from the hole in the ceiling blocks the entrance to the food court. An elevator is near.
+> search dead guy
+
+> search dead guy
+You search the dead carcass. On his person you find a purple magnetic code card which you promptly pocket.
+> enter elevator
+
+> enter elevator
+
+You are in an Elevator.
+You can see a CQ Button, a BRIDGE Button, a F3 Button, a F2 Button, a F1 Button and a BF Button.
+You can go out.
+This is a nice elevator with sleak titanium everything. A panel is nearby and a screen which displays you are on F3.
+> press cq button
+
+> press cq button
+
+You are in an Elevator.
+You can see a CQ Button, a BRIDGE Button, a F3 Button, a F2 Button, a F1 Button and a BF Button.
+You can go out.
+This is a nice elevator with sleak titanium everything. A panel is nearby and a screen which displays you are at the Captain's Quarters.
+> out
+
+> out
+
+You are in a quarters.
+You can see a CD-ROM, a CD-ROM Informational viewing device, a Dead Body, a Computer Console, a Computer Screen, an Elevator and a Renewal Form.
+These quarters belong to the amazing Captain Leu III. Looks like this room wasn't even safe from the Jaglins.
+> take cd-rom
+
+> take cd-rom
+You remove the CD-ROM from the rotting corpse.
+> take renewal form
+
+> take renewal form
+OK.
+> press buttons on computer console
+
+> press buttons on computer console
+You press random buttons on the computer console. A message flashes on the computer screen. 'ESCAPE PODS REACTIVATED' Wow! What dumb luck!
+> enter elevator
+
+> enter elevator
+
+You are in an Elevator.
+You can see a CQ Button, a BRIDGE Button, a F3 Button, a F2 Button, a F1 Button and a BF Button.
+You can go out.
+This is a nice elevator with sleak titanium everything. A panel is nearby and a screen which displays you are at the Captain's Quarters.
+> press bf button
+
+> press bf button
+
+You are in an Elevator.
+You can see a CQ Button, a BRIDGE Button, a F3 Button, a F2 Button, a F1 Button and a BF Button.
+You can go out.
+This is a nice elevator with sleak titanium everything. A panel is nearby and a screen which displays you are on BF.
+> out
+
+> out
+
+You are in an Airlock.
+You can see an Elevator, a Slot and a Console.
+You can go east.
+The Airlock makes sure no one is sucked out and suffocates in space. A console is on the south wall and a code card slot is on the northeast wall near the airlock door.
+> insert code card with slot
+
+> insert code card with slot
+You insert the code card in the slot. Suddenly, part of the wall slides in revealing EVA suits.
+> take eva suits
+
+> take eva suits
+You and Ken put on the suits. It is quite an uncomfortable piece of clothing!
+> press button on console
+
+> press button on console
+> east
+
+> east
+
+You are in a Shuttle Bay.
+You can see an Escape Pods.
+You can go west.
+This is the shuttle bay of the Arvaid II mainly used for lost space travelers and supply deliveries. Escape pods are on the south wall. The bay doors are north.
+> get in escape pods
+
+> get in escape pods
+You step in front of the pod and the door opens. You pop inside and the doors seal behind you. No turning back!
+
+You are in an Escape Pod.
+You can see a Red Button, a Green Button, a Yellow Button and a throttle.
+This is a luxurious escape pod built for 5 people. Their are many buttons around. You notice nothing else so get on with the game!
+> press green button
+
+> press green button
+You press the button and turn the engines on.
+> pull throttle
+
+> pull throttle
+You buckle your seatbelt and (nervously) pull (weakly) the throttle.
+The escape pod then slowly deploys out the Arvaid II.
+Congratulations! George you have managed to avoid the dreaded Jaglins aboard the ruined ship and dogged an explosive death. You should be proud! Now, you can re- "George? Where are we going?" You then realize horribly that you are now hurtling aimlessly in space.
+> press yellow button
+
+> press yellow button
+After a few seconds, a hologram image appears;
+CLOSEST PLANET: KAROSINE
+AVERAGE TEMPERATURE: 47 degrees Celsius
+AVERAGE PERCIPIATION: 0.1 inches
+ENVIROMENTS: 100% Desert
+SETTLEMENTS: RUMORED TO BE ONE KNOWN AILEN SETTLEMENT.
+Uh oh! This doesn't sound like a good place to land but unfortunately the pod has already locked-on!
+*CRASSSSH!*
+Slowly, you regain your vision following the intense crash. Looking, over you notice Ken is vomiting. Looks like his space sickness is acting up again.
+> out
+
+> out
+
+You are in a Desert.
+You can go in, north, southwest, east or west.
+You appear to be in a endless desert. The desert does not seem to end in all directions except west where you can see some mountains.
+*KABOOOOOM!*
+You startled to hear the escape pod explode into tiny titanium bits. Suddenly, a kit falss from the sky and falls to the ground relatively intact.
+> open survival kit
+
+> open survival kit
+Though it burns you bravely open the kit.
+It contains a Can of Artificial Water and a Switch-Blade.
+> take can of artificial water
+
+> take can of artificial water
+OK.
+> take switch-blade
+
+> take switch-blade
+You pick up the Switch-Blade.
+> west
+
+> west
+
+You are in a Mountain Side.
+You can see a Pebbles and a Hole.
+You can go east or west.
+You appear to be at the side of the very tall mountain. Rocks litter all of the area. A hole is on one of the cliff sides. West is the mountain base.
+> take pebbles
+
+> take pebbles
+You stuff the pebbles in your pants. (Ow!)
+> use pebbles on jock strap
+
+> use pebbles on jock strap
+You carefully place the small grey pebbles into the soiled yellow jock strap.
+> west
+
+> west
+
+You are at a Mountain Base.
+You can see a Purple Creature.
+You can go north, east, west or up.
+The base of the mountain is pretty slanted. The ground appears to be made of a very hard dirt-rock substance. A steep path leads upward. A small clearing is north. East leads to a more open area.
+> up
+
+> up
+
+You are in a Mountain Trail.
+You can go down, northwest or up.
+You are on a rather flat surface compared to the incredibly steep slopes. To the northwest is a strange rock formation while you spot a unfortunate steep slope upward northeast.
+> up
+
+> up
+
+You are in a Mountain Trail.
+You can go down or up.
+You are on a small flat ledge connecting two paths. One going steeply up and one going down.
+> up
+
+> up
+
+You are in a Mountain Trail.
+You can go down, northeast or up.
+You appear to be at another split path. Northeast is another strange rock formation while upward is more of the mountain trail.
+> up
+
+> up
+
+You are in a Mountain Trail.
+You can go down or up.
+Once again, you found a comfortable place to stop climbing the ridiculously steep trails. Upward you finally see the mountain top!
+> up
+
+> up
+
+You are in a Mountain Top.
+You can see a Rock Formation.
+You can go down.
+You have finally reached the top of the mountain. Compared, to everyother part of the mountain it is quite flat. A final stone formation is here and the only thing here on the top.
+> press red button on formation
+
+> press red button on formation
+You press the button suddenly the ground shifts right and you and Ken fall in. You are surprised to find you are being sucked through a travel tube! Eventually, you crash into a floor! You regain composure and discover where you came out of the ceiling is gone and  it seems you are now in a cave.
+
+You are in a Mysterious Cavern.
+You can go south or northwest.
+The cavern appears to have nice interior of rocks and stalactites. The only visible exits are northwest and south.
+> south
+
+> south
+
+You are in a Clearing.
+You can see a Rotisserie and a Strange Meat.
+You can go south or north.
+This is small clearing surrounded by rock cliffs to the east and west. Unlike, the other grounds it seems heavy in sand. You notice north is the entrance to a dark cave.
+> take strange meat
+
+> take strange meat
+OK.
+> south
+
+> south
+
+You are at a Mountain Base.
+You can see a Purple Creature.
+You can go north, east, west or up.
+The base of the mountain is pretty slanted. The ground appears to be made of a very hard dirt-rock substance. A steep path leads upward. A small clearing is north. East leads to a more open area.
+> west
+
+> west
+
+You are in a Cave Entrance.
+You can go east or west.
+You have come to a semi-dead end. You are surrounded to the north and south by rocky cliffs. A cave entrance is unmistakable to the west. You feel a nasty smell hit your nostril areas.
+> west
+
+> west
+
+You are in a Baloix's Cave.
+You can see a Baloix.
+You can go east.
+OH NO! BALOIX IS HEADING TOWARDS YOU! ACT QUICKLY!
+> throw strange meat with baloix
+
+> throw strange meat with baloix
+You nervously throw the odd meat at the strange creature. He catches it in his mouth and swallows it. Suddenly, he gives a cry of pain and explodes. As, you know Baloixians are the ONLY native creature on Karosine that can't stomach Tentacle Sleenpig. A piece of liver then lands on the ground.
+> take liver piece
+
+> take liver piece
+Picking up the piece of liver makes you sick!
+> east
+
+> east
+
+You are in a Cave Entrance.
+You can go east or west.
+You have come to a semi-dead end. You are surrounded to the north and south by rocky cliffs. A cave entrance is unmistakable to the west. You feel a nasty smell hit your nostril areas.
+> east
+
+> east
+
+You are at a Mountain Base.
+You can see a Purple Creature.
+You can go north, east, west or up.
+The base of the mountain is pretty slanted. The ground appears to be made of a very hard dirt-rock substance. A steep path leads upward. A small clearing is north. East leads to a more open area.
+> north
+
+> north
+
+You are in a Clearing.
+You can see a Rotisserie.
+You can go south or north.
+This is small clearing surrounded by rock cliffs to the east and west. Unlike, the other grounds it seems heavy in sand. You notice north is the entrance to a dark cave.
+> north
+
+> north
+
+You are in a Mysterious Cavern.
+You can go south or northwest.
+The cavern appears to have nice interior of rocks and stalactites. The only visible exits are northwest and south.
+> northwest
+
+> northwest
+
+You are in a Mysterious Cavern.
+You can see an Odd Hole.
+You can go southeast.
+The cavern walls seem to get closer and closer. You feel quite clastrophobic. Oddly, a hole is in the middle of the floor.
+> use watch on odd hole
+
+> use watch on odd hole
+You place the watch into the hole. Suddenly, the wall to the north opens up.
+> north
+
+> north
+
+You are near an Underground Lake.
+You can see a Lake.
+You can go south or northwest.
+Wow! You are at the shore of an subterranean lake that stretches far beyond to the northeast, north, east and southeast. A path goes to the northwest.
+> northwest
+
+> northwest
+
+You are next to a Chasm.
+You can see a Chasm and a Dangerous, Unsturdy, Semi-broken bridge.
+You can go southeast.
+This room is pretty large with a huge chasm in the middle. A unstrudy looking bridge spans across the chasm.
+> cross bridge
+
+> cross bridge
+Bravely, (and nervously) you cross the bridge. To you and Ken's astonishment it doesn't break.
+
+You are in a Strange Entrance.
+You can see a Dangerous, unsturdy, semi-broken bridge.
+You can go north.
+You find yourself beside an entrance further into a cavern. Nothing but pure darkness can be seen.
+> north
+
+> north
+
+You are in a ???.
+You can go south.
+?
+You enter a darkness like no other. Even the flashlight doesn't work. You wonder aimlessly in the darkness until suddenly a strange white ailen with sandy eyes wearing a black robe appears in front of you. Ken screams.
+"Hello good sirs, you look to be from far away. We've been monitoring your progress since you crash landed here. You need some of our help do you not? But first you must help us first. You see, we've been stuck here under the surface due to the beast Baloix. He has been devouring our people going up to harvest our crops. We would be pleasured if you would go 'take care of him'. If you do we'll provide destination to Planet Eeraock where you can make further travel arrangements. We will now send you to the surface to deal with him. He lives in a cavern by the mountain. Fare thee well!"
+Suddenly, you feel your atoms deassemble. You black out. When you awake you find yourself at the Mountain Side.
+
+You are in a Mountain Side.
+You can see a Hole.
+You can go east or west.
+You appear to be at the side of the very tall mountain. Rocks litter all of the area. A hole is on one of the cliff sides. West is the mountain base.
+> west
+
+> west
+
+You are at a Mountain Base.
+You can see a Purple Creature.
+You can go north, east, west or up.
+The base of the mountain is pretty slanted. The ground appears to be made of a very hard dirt-rock substance. A steep path leads upward. A small clearing is north. East leads to a more open area.
+> north
+
+> north
+
+You are in a Clearing.
+You can see a Rotisserie.
+You can go south or north.
+This is small clearing surrounded by rock cliffs to the east and west. Unlike, the other grounds it seems heavy in sand. You notice north is the entrance to a dark cave.
+> north
+
+> north
+
+You are in a Mysterious Cavern.
+You can go south or northwest.
+The cavern appears to have nice interior of rocks and stalactites. The only visible exits are northwest and south.
+> northwest
+
+> northwest
+
+You are in a Mysterious Cavern.
+You can see an Odd Hole.
+You can go north or southeast.
+The cavern walls seem to get closer and closer. You feel quite clastrophobic. Oddly, a hole is in the middle of the floor.
+> north
+
+> north
+
+You are near an Underground Lake.
+You can see a Lake.
+You can go south or northwest.
+Wow! You are at the shore of an subterranean lake that stretches far beyond to the northeast, north, east and southeast. A path goes to the northwest.
+> northwest
+
+> northwest
+
+You are next to a Chasm.
+You can see a Chasm and a Dangerous, Unsturdy, Semi-broken bridge.
+You can go southeast.
+This room is pretty large with a huge chasm in the middle. A unstrudy looking bridge spans across the chasm.
+> cross bridge
+
+> cross bridge
+Bravely, (and nervously) you cross the bridge. To you and Ken's astonishment it doesn't break.
+
+You are in a Strange Entrance.
+You can see a Dangerous, unsturdy, semi-broken bridge.
+You can go north.
+You find yourself beside an entrance further into a cavern. Nothing but pure darkness can be seen.
+> north
+
+> north
+
+You are in a ???.
+You can go south.
+?
+You take out the piece of liver and throw it on the ground.
+A voice says "Good."
+Suddenly, a growing light blinds you! Then you find yourself in a whole new area!
+
+You are in an Engine Room.
+You can see a Rocket, a Computer Console and a Steam Engine.
+At least you guess from the giant steam engine. Nothing else is at all really interesting.
+"Hello, welcome to our engineering area. This steam engine powers all 3 of our cities. Here we have an experimental pocket rocket. The rocket will take you to the settlement Gabon on planet Eeraock where you can make further travel arrangements. Good Luck, pink ones." With that he disappeared!
+> insert cd-rom with computer console
+
+> insert cd-rom with computer console
+As, you insert the CD-ROM it makes a loud wearing sound as it loads the information.
+Text appears on screen.
+MY NAME IS PROFESSOR EAGLIESS Q. CHARLES III. I WAS ONE OF THE MAIN SCIENTISTS WORKING ON THE XELOVS DEVICE. I HAVE BEEN GIVEN THREATS AND WARNINGS BY THE JAGLINS TO HAND OVER THE TECHNOLOGY OF THE DEVICE. I HAVE REFUSED ALL THEIR DEMANDS AND NOW HAVE SUSPICION THAT THEY ARE PLANNING TO STEAL THE THING THEMSELVES.
+TO WHOM IT MAY CONCERN YOU MUST STOP THEM! IF THEY HAVE IT THEY'LL BECOME THE MOST FEARED RACE IN THE UNIVERSE! TO STOP THEM I HAVE PUT A SECRET SELF-DESTRUCT MECHANICSM IN THE DEVICE. SIMPLY INSERT THE CD-ROM WITHIN THE SECRET SLOT ON THE BACK AND YOU'LL HAVE 2 MINUTES TO ESCAPE AT LEAST 6.644678753 MILES FROM THE DEVICE OR YOU TO WILL BE DESTROYED.
+ALL OF VELOS RIDE ON YOUR SHOULDER.
+SCHEMATICS FOR A NEW DEVICE ARE BELOW.
+You cannot decipher the schematics so you don't care about them.
+> get in rocket
+
+> get in rocket
+You and Ken (try) to fit into the rocket. You two barley fit inside as the door closes. The ceiling then opens up revealing the desert sky. The rocket then rumbles up into the wild orange sky.
+Time passed....
+More Time passed....
+"George, could you get off my...."
+Suddenly a voice says "ENTERING ORBIT OF EERAOCK. ABOUT TO LAND ON SETTLEMENT OF GABON. LOCATED AT 45N, 67W."
+The Rocket touches down on the surface of Gabon. You get out of the rocket.
+
+You are in a Bar Entrance.
+You can see a Force Field Generation Device.
+You can go east, southeast or west.
+You are in front of the town bar which in reality is just one of a billion and five sleazeholes in the known universe. West is the Truley Honest Honduran's Ship Dealership. Southeast is the back of the bar. Passage to the north is blocked by docked ships. South is blocked by force fields.
+"Ooh! a bar! See ya!" Ken excitedly runs into the bar.
+> east
+
+> east
+
+You are in a Bar.
+You can see a Bar Patrons, a Bartender, a Band, a Slot Machine and a Ken.
+You can go west.
+This is your average run-of-the-mill bar. A group of patrons crowd the counter and a band plays on a platform upon the north wall. A strange slot machine is backed near the east wall. Odd...no one is playing it.
+When you enter the bar a wave of cigar smoke hits you in the face. The Bar patrons are of various different species and the bar band adds a small amount of atmosphere. A few of the bigger patrons eye you ominously. You break out in a cold sweat.
+> speak to bartender
+
+> speak to bartender
+You decide to ask the bartender about the drinks. "My top drinks are Eeraockian Whiskey, 3891 Newberry Wine from Velos and Keroian Ale." You decide to order some whiskey. "Okay! here you go! Don't worry about paying the first drink is always free!"
+> drink whiskey
+
+> drink whiskey
+As you guzzle down the unappetizing alcohol beverage, you overhear a conversation at the bar counter. "Did you here about the Jaglins? I recently heard they stole the Xeslovs device and are on their way to Velos to use it!" "I heard they are currently in the Z2 quadrant and advancing fast!" "You babies! Its just a rumor!" "...I guess" "Yeah..."
+> west
+
+> west
+
+You are in a Bar Entrance.
+You can see a Force Field Generation Device and a Rocket.
+You can go east, southeast or west.
+You are in front of the town bar which in reality is just one of a billion and five sleazeholes in the known universe. West is the Truley Honest Honduran's Ship Dealership. Southeast is the back of the bar. Passage to the north is blocked by docked ships. South is blocked by force fields.
+> southeast
+
+> southeast
+
+You are at  a Back of the Bar.
+You can see a Graffiti.
+You can go northwest or north.
+This is the back of the bar. Various graffiti is written on the wall. North is SuperStorePlus entrance.
+> north
+
+> north
+
+You are in a SuperStorePlus Entrance.
+You can go south or north.
+This is the front entrance to the SuperStorePlus, a side-store to SuperStore Interprises. One of the 5.5 billion establishments in the known universe. Passage to the west is blocked by docked ships.
+> north
+
+> north
+
+You are in a SuperStorePlus.
+You can see a Crowd, a Clerk and a Poster.
+You can go south.
+SuperStorePlus's purpose is to sell many electronic devices and kitchen tools since the regular SuperStore doesn't sell them due to the Great Employee Riot of 2627 A.D.
+> give renewal form to clerk
+
+> give renewal form to clerk
+You hand the form over to the clerk. He clearly is freaked out seeing your form covered in blood. Nonetheless, he takes it and hands you a free copy of the latest Spaceman Magazine.
+What's this? While flipping through the magazine you find a dollar wedged in the crease. Some dope must have used it as a bookmark or something. You take it from the crease.
+You flip through the magazine somemore and find it incredibly boring so you discard it in a nearby trash bin.
+> south
+
+> south
+
+You are in a SuperStorePlus Entrance.
+You can go south or north.
+This is the front entrance to the SuperStorePlus, a side-store to SuperStore Interprises. One of the 5.5 billion establishments in the known universe. Passage to the west is blocked by docked ships.
+> south
+
+> south
+
+You are at  a Back of the Bar.
+You can see a Graffiti.
+You can go northwest or north.
+This is the back of the bar. Various graffiti is written on the wall. North is SuperStorePlus entrance.
+> northwest
+
+> northwest
+
+You are in a Bar Entrance.
+You can see a Force Field Generation Device and a Rocket.
+You can go east, southeast or west.
+You are in front of the town bar which in reality is just one of a billion and five sleazeholes in the known universe. West is the Truley Honest Honduran's Ship Dealership. Southeast is the back of the bar. Passage to the north is blocked by docked ships. South is blocked by force fields.
+> east
+
+> east
+
+You are in a Bar.
+You can see a Bar Patrons, a Bartender, a Band, a Slot Machine and a Ken.
+You can go west.
+This is your average run-of-the-mill bar. A group of patrons crowd the counter and a band plays on a platform upon the north wall. A strange slot machine is backed near the east wall. Odd...no one is playing it.
+> play slot machine
+
+> play slot machine
+You insert the dollar bill into the machine. You pull the switch but nothing happened! "HEY! IT ATE MY MONEY!"
+> hit slot machine
+
+> hit slot machine
+You promptly hit the slot machine bruiseing your hand. Suddenly, the slot machine makes some odd sounds....
+*KABOOOOOOOM!*
+Looks like it was one of those slot machines made of explodium. Looking, on the floor you find a pile of money! Secretly, you pocket it. "HEY!" the bartender yells. "THAT WAS SPECIAL PROPERTY OF THE GAOLIZOD COMPANY! THEY PAY'D ME TO PUT IT IN HERE! YOU'RE IN TROUBLE NOW!"
+You ignore him.
+> west
+
+> west
+
+You are in a Bar Entrance.
+You can see a Force Field Generation Device and a Rocket.
+You can go east, southeast or west.
+You are in front of the town bar which in reality is just one of a billion and five sleazeholes in the known universe. West is the Truley Honest Honduran's Ship Dealership. Southeast is the back of the bar. Passage to the north is blocked by docked ships. South is blocked by force fields.
+> southeast
+
+> southeast
+
+You are at  a Back of the Bar.
+You can see a Graffiti.
+You can go northwest or north.
+This is the back of the bar. Various graffiti is written on the wall. North is SuperStorePlus entrance.
+> north
+
+> north
+
+You are in a SuperStorePlus Entrance.
+You can go south or north.
+This is the front entrance to the SuperStorePlus, a side-store to SuperStore Interprises. One of the 5.5 billion establishments in the known universe. Passage to the west is blocked by docked ships.
+> north
+
+> north
+
+You are in a SuperStorePlus.
+You can see a Crowd, a Clerk and a Poster.
+You can go south.
+SuperStorePlus's purpose is to sell many electronic devices and kitchen tools since the regular SuperStore doesn't sell them due to the Great Employee Riot of 2627 A.D.
+> give $255 to clerk
+
+> give $255 to clerk
+You kindly peel off one hundred dollar bills and give them to the clerk. "Thank you sir! Here is your Locksmith9000 enjoy it please also..NO RETURNS!"
+> south
+
+> south
+
+You are in a SuperStorePlus Entrance.
+You can go south or north.
+This is the front entrance to the SuperStorePlus, a side-store to SuperStore Interprises. One of the 5.5 billion establishments in the known universe. Passage to the west is blocked by docked ships.
+> south
+
+> south
+
+You are at  a Back of the Bar.
+You can see a Graffiti.
+You can go northwest or north.
+This is the back of the bar. Various graffiti is written on the wall. North is SuperStorePlus entrance.
+> northwest
+
+> northwest
+
+You are in a Bar Entrance.
+You can see a Force Field Generation Device and a Rocket.
+You can go east, southeast or west.
+You are in front of the town bar which in reality is just one of a billion and five sleazeholes in the known universe. West is the Truley Honest Honduran's Ship Dealership. Southeast is the back of the bar. Passage to the north is blocked by docked ships. South is blocked by force fields.
+> west
+
+> west
+
+You are in a Truley Honest Honduran's Spaceship Dealership.
+You can see a Honduran, an Odd Ship and a Pink Ship.
+You can go east or north.
+This your typical seedy dealership. The stench of cheapness and liars is everywhere. Various ships lay across the area but only a few you are interested in. North is another part of the dealership.
+Suddenly, a very fat and slick humanoid walks up to you. "Good day mister! My name is Honduran Carolina Xavier III! But ma friends call me Honest Honduran! I can supply you with the fastest ships on this side of the nebula! I'll show you off some of the ships so take your time!"
+> north
+
+> north
+
+You are in a Truley Honest Honduran's Spaceship dealership.
+You can see a Slick Ship, a Bird-Like Ship and an Amazing Ship.
+You can go south or in.
+This is the northern area of Honduran's dealership. More ships lay around this area. Passage to the east is blocked by docked ships.
+> buy amazing ship
+
+> buy amazing ship
+"That was probably the best decision you've made! The ship is yours now, I'm gonna go close down shop so have a nice day!" You now have ship. Now what are you going to do?
+> in
+
+> in
+
+You are in a Titanium Eagle.
+You can see a Red Button, a Dial, a Navigational Stick, a Monitor, a Keypad and a Cabinet.
+You can go out.
+The Titanuim Eagle is a quite luxurious ship  if cramped. Many buttons and settings are all around. A hatch leads outside.
+> press red button
+
+> press red button
+*BEEP BLOOP*
+"POWER ACTIVATED"
+> turn dial
+
+> turn dial
+You switch the dial to VT.
+> pull navigational stick
+
+> pull navigational stick
+You pull the stick for a long time. Eventually, the monitor flashes that you have Eeraocks atmosphere and are now in deep space. Way to go George! You've finally gotten off that sleazy planet full of slick, annoying business men and sour booze. But the game is still not over. You still have to find the Jaglins and the Xeslovs device!
+> open cabinet
+
+> open cabinet
+You open it.
+It contains a Zero-G Boots.
+> take boots
+
+> take boots
+You pick it up.
+> wear boots
+
+> wear boots
+You slip on the sleek boots.
+> use keypad
+
+> use keypad
+You enter the Z2 quadrant into the keypad.
+'CAPTAIN, FREE OR AUTOPILOT?'
+"Autopilot"
+'OKAY WE WILL APPROACH DESTITANTION IN T-MINUS 4.7589 SECONDS USING LIGHT SPEED. HOLD ON!'
+You expect really fast motion but the ship only moves for a second then stops.
+'WARNING! APPROACING HALRIS! JAGLIN MOTHERSHIP!'
+You instruct the ship to find an airlock and dock next to it so you can hop inside.
+'GOOD LUCK SIRRRR! I SEE YOU DON'T VALUE YOUR LIFE...'
+You feel the ship bank. It is time to board the Jaglin vessel!
+> get out
+
+> get out
+You tell the Computer to make a rendezvous in the shuttle bay of the Halris and schedule a course back to Eeraock to pick up Ken and then to Velos. Finally, you head on out.
+
+You are in a The Side of the Halris.
+You can see an Airlock Lock.
+You can go in.
+You are on the outside of the fearsome UFO, the most feared cruiser in 7899 quadrants; Halris; Jaglin mothership
+> use locksmith9000 on airlock lock
+
+> use locksmith9000 on airlock lock
+Cleverly, you insert the Locksmith9000 into the lock. After a few weering sounds and bloops a voice emits 'LOCK UNLOCKED' The lock falls off and drifts away, never to be used again.
+> in
+
+> in
+
+You are in an Airlock.
+You can go out or north.
+Compared to the Airlock on the USS Arvaid II this is nothing but a small green room with an exit to the north.
+> north
+
+> north
+
+You are in a Laundry Room.
+You can see a Washing Machine and a Drying Machine.
+You can go south or east.
+Due, to the washer and dryer you think this is the laundry room. You consider it odd that it is connected to a airlock. Maybe it is for dumping out unfit armor.
+> open washing machine
+
+> open washing machine
+You open it.
+It contains an Armor.
+> take armor
+
+> take armor
+You place the armor in your pocket. (Amazing huh?)
+> wear armor
+
+> wear armor
+Quickly, you change into the armor and leave your old EVA suit in the washer. (Finally this gives you a chance to drop the useless junk you've been carrying)
+> east
+
+> east
+
+You are in a Hallway.
+You can go west, east or up.
+This hallway remind you of the Starship 54 that your great-grandfather used to live on before he died. It seems to be void of mostly everything. East is another hallway and a small platform that raises you to the next floor.
+As, soon as you enter the room a Jaglin comes marching in.
+He then marches off. Looks like your disguise fooled them.
+> east
+
+> east
+
+You are in a Hallway.
+You can see a Big Burly Guard.
+You can go west or east.
+This hallway looks different from the other ones you've encountered. The walls are a thick black and it looks like a big room is towards the east.
+> sling jock strap with guard
+
+> sling jock strap with guard
+Smart! You swing the strap containing pebbles around and around. "HEY GORD BREATH EAT THIS!" Before he can react the guard is quickly knocked out with after the strap makes serious contact with his head.
+Having surved its purpose you abandon the strap.
+> east
+
+> east
+
+You are in a Xeslovs Room.
+You can see a REALLY Burly Guard and a Xeslovs Device.
+You can go west.
+You call it that because this is where the Jaglins hold the Xeslovs device. It is a big room with the said device on a small platform.
+> west
+
+> west
+
+You are in a Hallway.
+You can go west or east.
+This hallway looks different from the other ones you've encountered. The walls are a thick black and it looks like a big room is towards the east.
+> west
+
+> west
+
+You are in a Hallway.
+You can go west, east or up.
+This hallway remind you of the Starship 54 that your great-grandfather used to live on before he died. It seems to be void of mostly everything. East is another hallway and a small platform that raises you to the next floor.
+> up
+
+> up
+
+You are in a Hallway.
+You can see a Jaglin.
+You can go down, east, up or west.
+You imagine this is just an average hallway. Nothing else seems interesting.
+> west
+
+> west
+
+You are in a Hallway.
+You can go east or west.
+This is the end of the hallway except for a room onward to the west.
+> west
+
+> west
+
+You are in a Storage.
+You can see an Orange Box.
+You can go east.
+The storage is full of many uninteresting crates probably full of weapons. You notice an out-of-place small orange box.
+> use switch-blade on orange box
+
+> use switch-blade on orange box
+You place the switch-blade under the lid and force it up. Yes! The lid comes loose which you remove. Having being bent beyond its original shape you toss the now useless blade. You find a license in the box which you take then you kick the box away.
+> east
+
+> east
+
+You are in a Hallway.
+You can go east or west.
+This is the end of the hallway except for a room onward to the west.
+> east
+
+> east
+
+You are in a Hallway.
+You can see a Jaglin.
+You can go down, east, up or west.
+You imagine this is just an average hallway. Nothing else seems interesting.
+> east
+
+> east
+
+You are in a Hallway.
+You can go west or east.
+This Hallway is usual looking. Sorry, but its hard making up descriptions for plain old hallways.
+> east
+
+> east
+
+You are on a Catwalk.
+You can go west or east.
+You are on a small catwalk spanning across a wide room. Down below you see the Xeslovs Devife!
+> east
+
+> east
+
+You are in a Hallway.
+You can go west, north or northeast.
+This particular hallway leads to more rooms than the others.
+> north
+
+> north
+
+You are in a Weapons Room.
+You can see a Droid.
+You can go south.
+This room is where all the ailens on board retrieve their weapons which handed out to the respective leveled Jaglins
+> give license to droid
+
+> give license to droid
+"Excuse, me could I please have a Pulse Ray?"
+"SURRRRRRRE PLEEEEEEASE SHHHHHHOW IDDDDDDD"
+You whip out the License and flash it in the droid's face.
+"LEVVVVVVEL ONE RECIEVEEEEEE YOOOOOOOUR PULLLLLLLSE RAAAAAAAY!"
+You place the Pulse Ray in your armored pants.
+> south
+
+> south
+
+You are in a Hallway.
+You can go west, north or northeast.
+This particular hallway leads to more rooms than the others.
+> west
+
+> west
+
+You are on a Catwalk.
+You can go west or east.
+You are on a small catwalk spanning across a wide room. Down below you see the Xeslovs Devife!
+> west
+
+> west
+
+You are in a Hallway.
+You can go west or east.
+This Hallway is usual looking. Sorry, but its hard making up descriptions for plain old hallways.
+> west
+
+> west
+
+You are in a Hallway.
+You can see a Jaglin.
+You can go down, east, up or west.
+You imagine this is just an average hallway. Nothing else seems interesting.
+> down
+
+> down
+
+You are in a Hallway.
+You can go west, east or up.
+This hallway remind you of the Starship 54 that your great-grandfather used to live on before he died. It seems to be void of mostly everything. East is another hallway and a small platform that raises you to the next floor.
+> east
+
+> east
+
+You are in a Hallway.
+You can go west or east.
+This hallway looks different from the other ones you've encountered. The walls are a thick black and it looks like a big room is towards the east.
+> east
+
+> east
+
+You are in a Xeslovs Room.
+You can see a REALLY Burly Guard and a Xeslovs Device.
+You can go west.
+You call it that because this is where the Jaglins hold the Xeslovs device. It is a big room with the said device on a small platform.
+> use pulse ray on really burly guard
+
+> use pulse ray on really burly guard
+Making, sure no one else is around you shout "FOR.......ME!" you shoot the guard between the eyes before he can even react! What great aim! and this also was a case were Jaglins are as dumb as they dress!
+> use cd-rom on xeslovs device
+
+> use cd-rom on xeslovs device
+You insert the CD-ROM into the slot on the back of the device. Suddenly, a high beep followed by a cheering voice saying 'SELF-DESTRUCT IN 2 MINUTES'
+Uh, oh! You better get out of here!
+Wisely, you keep the CD-ROM with you.
+> west
+
+> west
+
+You are in a Hallway.
+You can go west or east.
+This hallway looks different from the other ones you've encountered. The walls are a thick black and it looks like a big room is towards the east.
+> west
+
+> west
+
+You are in a Hallway.
+You can go west, east or up.
+This hallway remind you of the Starship 54 that your great-grandfather used to live on before he died. It seems to be void of mostly everything. East is another hallway and a small platform that raises you to the next floor.
+> up
+
+> up
+
+You are in a Hallway.
+You can see a Jaglin.
+You can go down, east, up or west.
+You imagine this is just an average hallway. Nothing else seems interesting.
+> east
+
+> east
+
+You are in a Hallway.
+You can go west or east.
+This Hallway is usual looking. Sorry, but its hard making up descriptions for plain old hallways.
+> east
+
+> east
+
+You are on a Catwalk.
+You can go west or east.
+You are on a small catwalk spanning across a wide room. Down below you see the Xeslovs Devife!
+> east
+
+> east
+
+You are in a Hallway.
+You can go west, north or northeast.
+This particular hallway leads to more rooms than the others.
+> northeast
+
+> northeast
+
+You are in an Entrance Area.
+You can see a Slot, a Security Cameras and a Console.
+You can go southwest or east.
+This is the entrance area to the shuttle bay. You need proper clearance to access the Shuttle Bay. This room has much technical features all uninteresting to you. You feel incredibly nervous.
+> use license on slot
+
+> use license on slot
+The Guard, having bailed on his duty allows you to slip the shiny, license into the slot. The Shuttle Bay doors open.
+> east
+
+> east
+
+You are in a Shuttle Bay.
+You can see an Amazing Ship.
+You can go west.
+This is the Shuttle Bay. The only thing of interest here is your ship.
+You enter the ship and quickly blast out of the Halris.
+As, you head through the vast space you look back and see the might explosion of the Halris.
+*KABOOOOOOM!*
+Following, a visit to Eeraock to recover Ken you return back to Velos and the Cosmo Confederation. You are greeted as a hero and a ceremony is now going on in your honor.
+Captain Jeluis of the USS Deltus hands you a solid gold trophy labeled 'HERO OF VELOS; GEORGE O. WINSTEIN'
+
+"Congratulations, for saving our people Mr. Winstein. It looks that big promotion you wanted is finally going to happen!"
+You stand proudly with the trophy as a crowd of people cheer your name.
+Congratulations, on completeing Space Adventure I! You braved the horrible planets and saved billions of lives. The Feedback of your experience will help improve the series with the next story; SPACE ADVENTURE CHAPTER II: Where No one can save you... coming soon!
+Until, then so long George, see ya next time.
+By the way did you get 345 out of 345 points?
+
+[state=Finished]

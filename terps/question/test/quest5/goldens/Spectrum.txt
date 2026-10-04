@@ -1,0 +1,1955 @@
+Spectrum
+A guide to the colours of Quest
+
+by Havelocked
+
+Error running script: Error evaluating expression '(Grid_GetGridCoordinateForPlayer(playerobject, exit, "x") - exit.to.grid_width) - exit.grid_length': Property 'grid_width' not found on ''
+Error running script: Error evaluating expression 'not GetBoolean(room, "genvisited")': Value cannot be null. (Parameter 'obj')
+You are in a White.
+You can go northwest, north, northeast, east, southeast, west, south or southwest.
+> northwest
+
+> northwest
+
+You are in a Reds.
+You can go southeast, east, south, west, north, northwest, northeast or southwest.
+> east
+
+> east
+
+You are in a Coral.
+You can go west.
+> west
+
+> west
+
+You are in a Reds.
+You can go southeast, east, south, west, north, northwest, northeast or southwest.
+> south
+
+> south
+
+You are in a Crimson.
+You can go north.
+> north
+
+> north
+
+You are in a Reds.
+You can go southeast, east, south, west, north, northwest, northeast or southwest.
+> west
+
+> west
+
+You are in a DarkRed.
+You can go east.
+> east
+
+> east
+
+You are in a Reds.
+You can go southeast, east, south, west, north, northwest, northeast or southwest.
+> north
+
+> north
+
+You are in a DarkSalmon.
+You can go south.
+> south
+
+> south
+
+You are in a Reds.
+You can go southeast, east, south, west, north, northwest, northeast or southwest.
+> northwest
+
+> northwest
+
+You are in a Red 2.
+You can go southeast, east, northeast, north, west, south, southwest or northwest.
+> east
+
+> east
+
+You are in a HotPink.
+You can go west.
+> west
+
+> west
+
+You are in a Red 2.
+You can go southeast, east, northeast, north, west, south, southwest or northwest.
+> northeast
+
+> northeast
+
+You are in a LightCoral.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Red 2.
+You can go southeast, east, northeast, north, west, south, southwest or northwest.
+> north
+
+> north
+
+You are in a LightPink.
+You can go south.
+> south
+
+> south
+
+You are in a Red 2.
+You can go southeast, east, northeast, north, west, south, southwest or northwest.
+> west
+
+> west
+
+You are in a LightSalmon.
+You can go east.
+> east
+
+> east
+
+You are in a Red 2.
+You can go southeast, east, northeast, north, west, south, southwest or northwest.
+> south
+
+> south
+
+You are in a Maroon.
+You can go north.
+> north
+
+> north
+
+You are in a Red 2.
+You can go southeast, east, northeast, north, west, south, southwest or northwest.
+> southwest
+
+> southwest
+
+You are in a MistyRose.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Red 2.
+You can go southeast, east, northeast, north, west, south, southwest or northwest.
+> northwest
+
+> northwest
+
+You are in a Red 3.
+You can go southeast, east, northeast, north or south.
+> east
+
+> east
+
+You are in a Pink.
+You can go west.
+> west
+
+> west
+
+You are in a Red 3.
+You can go southeast, east, northeast, north or south.
+> northeast
+
+> northeast
+
+You are in a Salmon.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Red 3.
+You can go southeast, east, northeast, north or south.
+> north
+
+> north
+
+You are in a SeaShell.
+You can go south.
+> south
+
+> south
+
+You are in a Red 3.
+You can go southeast, east, northeast, north or south.
+> south
+
+> south
+
+You are in a Tomato.
+You can go north.
+> north
+
+> north
+
+You are in a Red 3.
+You can go southeast, east, northeast, north or south.
+> southeast
+
+> southeast
+
+You are in a Red 2.
+You can go southeast, east, northeast, north, west, south, southwest or northwest.
+> southeast
+
+> southeast
+
+You are in a Reds.
+You can go southeast, east, south, west, north, northwest, northeast or southwest.
+> northeast
+
+> northeast
+
+You are in a DeepPink.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Reds.
+You can go southeast, east, south, west, north, northwest, northeast or southwest.
+> southwest
+
+> southwest
+
+You are in an IndianRed.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Reds.
+You can go southeast, east, south, west, north, northwest, northeast or southwest.
+> southeast
+
+> southeast
+
+You are in a White.
+You can go northwest, north, northeast, east, southeast, west, south or southwest.
+> north
+
+> north
+
+You are in an Oranges.
+You can go south, southwest, west, northwest or northeast.
+> southwest
+
+> southwest
+
+You are in a DarkOrange.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in an Oranges.
+You can go south, southwest, west, northwest or northeast.
+> west
+
+> west
+
+You are in an OrangeRed.
+You can go east.
+> east
+
+> east
+
+You are in an Oranges.
+You can go south, southwest, west, northwest or northeast.
+> northwest
+
+> northwest
+
+You are in a PapayaWhip.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in an Oranges.
+You can go south, southwest, west, northwest or northeast.
+> northeast
+
+> northeast
+
+You are in a PeachPuff.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in an Oranges.
+You can go south, southwest, west, northwest or northeast.
+> south
+
+> south
+
+You are in a White.
+You can go northwest, north, northeast, east, southeast, west, south or southwest.
+> northeast
+
+> northeast
+
+You are in a Yellows.
+You can go southwest, west, northwest, north, south, southeast, east or northeast.
+> west
+
+> west
+
+You are in a Cornsilk.
+You can go east.
+> east
+
+> east
+
+You are in a Yellows.
+You can go southwest, west, northwest, north, south, southeast, east or northeast.
+> northwest
+
+> northwest
+
+You are in a DarkGoldenrod.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Yellows.
+You can go southwest, west, northwest, north, south, southeast, east or northeast.
+> north
+
+> north
+
+You are in a Gold.
+You can go south.
+> south
+
+> south
+
+You are in a Yellows.
+You can go southwest, west, northwest, north, south, southeast, east or northeast.
+> south
+
+> south
+
+You are in a GoldenRod.
+You can go north.
+> north
+
+> north
+
+You are in a Yellows.
+You can go southwest, west, northwest, north, south, southeast, east or northeast.
+> southeast
+
+> southeast
+
+You are in a LemmonChiffon.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Yellows.
+You can go southwest, west, northwest, north, south, southeast, east or northeast.
+> east
+
+> east
+
+You are in a LightGoldenRodYellow.
+You can go west.
+> west
+
+> west
+
+You are in a Yellows.
+You can go southwest, west, northwest, north, south, southeast, east or northeast.
+> northeast
+
+> northeast
+
+You are in a Yellows 2.
+You can go southwest, west, northwest, north or south.
+> west
+
+> west
+
+You are in a LightYellow.
+You can go east.
+> east
+
+> east
+
+You are in a Yellows 2.
+You can go southwest, west, northwest, north or south.
+> northwest
+
+> northwest
+
+You are in a PaleGoldenRod.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Yellows 2.
+You can go southwest, west, northwest, north or south.
+> north
+
+> north
+
+You are in a Wheat.
+You can go south.
+> south
+
+> south
+
+You are in a Yellows 2.
+You can go southwest, west, northwest, north or south.
+> south
+
+> south
+
+You are in a YellowGreen.
+You can go north.
+> north
+
+> north
+
+You are in a Yellows 2.
+You can go southwest, west, northwest, north or south.
+> southwest
+
+> southwest
+
+You are in a Yellows.
+You can go southwest, west, northwest, north, south, southeast, east or northeast.
+> southwest
+
+> southwest
+
+You are in a White.
+You can go northwest, north, northeast, east, southeast, west, south or southwest.
+> east
+
+> east
+
+You are in a Greens.
+You can go west, northwest, southwest, south, southeast, east, north or northeast.
+> northwest
+
+> northwest
+
+You are in a Chartreuse.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Greens.
+You can go west, northwest, southwest, south, southeast, east, north or northeast.
+> southwest
+
+> southwest
+
+You are in a DarkGreen.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Greens.
+You can go west, northwest, southwest, south, southeast, east, north or northeast.
+> south
+
+> south
+
+You are in a DarkKhaki.
+You can go north.
+> north
+
+> north
+
+You are in a Greens.
+You can go west, northwest, southwest, south, southeast, east, north or northeast.
+> southeast
+
+> southeast
+
+You are in a DarkOliveGreen.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Greens.
+You can go west, northwest, southwest, south, southeast, east, north or northeast.
+> east
+
+> east
+
+You are in a Green 2.
+You can go west, northwest, north, northeast, southwest, south, southeast or east.
+> northwest
+
+> northwest
+
+You are in a GreenYellow.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Green 2.
+You can go west, northwest, north, northeast, southwest, south, southeast or east.
+> north
+
+> north
+
+You are in a HoneyDew.
+You can go south.
+> south
+
+> south
+
+You are in a Green 2.
+You can go west, northwest, north, northeast, southwest, south, southeast or east.
+> northeast
+
+> northeast
+
+You are in a Kakhi.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Green 2.
+You can go west, northwest, north, northeast, southwest, south, southeast or east.
+> southwest
+
+> southwest
+
+You are in a LawnGreen.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Green 2.
+You can go west, northwest, north, northeast, southwest, south, southeast or east.
+> south
+
+> south
+
+You are in a LightGreen.
+You can go north.
+> north
+
+> north
+
+You are in a Green 2.
+You can go west, northwest, north, northeast, southwest, south, southeast or east.
+> southeast
+
+> southeast
+
+You are in a LightSeaGreen.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Green 2.
+You can go west, northwest, north, northeast, southwest, south, southeast or east.
+> east
+
+> east
+
+You are in a Greens 3.
+You can go west, northwest, north, northeast, southeast, southwest, south or east.
+> northwest
+
+> northwest
+
+You are in a Lime.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Greens 3.
+You can go west, northwest, north, northeast, southeast, southwest, south or east.
+> north
+
+> north
+
+You are in a LimeGreen.
+You can go south.
+> south
+
+> south
+
+You are in a Greens 3.
+You can go west, northwest, north, northeast, southeast, southwest, south or east.
+> northeast
+
+> northeast
+
+You are in a MediumSeaGreen.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Greens 3.
+You can go west, northwest, north, northeast, southeast, southwest, south or east.
+> southeast
+
+> southeast
+
+You are in a MediumSpringGreen.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Greens 3.
+You can go west, northwest, north, northeast, southeast, southwest, south or east.
+> southwest
+
+> southwest
+
+You are in a MintCream.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Greens 3.
+You can go west, northwest, north, northeast, southeast, southwest, south or east.
+> south
+
+> south
+
+You are in an Olive.
+You can go north.
+> north
+
+> north
+
+You are in a Greens 3.
+You can go west, northwest, north, northeast, southeast, southwest, south or east.
+> east
+
+> east
+
+You are in a greens 4.
+You can go west, southwest, northwest, south or north.
+> southwest
+
+> southwest
+
+You are in an OliveDrab.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a greens 4.
+You can go west, southwest, northwest, south or north.
+> northwest
+
+> northwest
+
+You are in a PaleGreen.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a greens 4.
+You can go west, southwest, northwest, south or north.
+> south
+
+> south
+
+You are in a SeaGreen.
+You can go north.
+> north
+
+> north
+
+You are in a greens 4.
+You can go west, southwest, northwest, south or north.
+> north
+
+> north
+
+You are in a SpringGreen.
+You can go south.
+> south
+
+> south
+
+You are in a greens 4.
+You can go west, southwest, northwest, south or north.
+> west
+
+> west
+
+You are in a Greens 3.
+You can go west, northwest, north, northeast, southeast, southwest, south or east.
+> west
+
+> west
+
+You are in a Green 2.
+You can go west, northwest, north, northeast, southwest, south, southeast or east.
+> west
+
+> west
+
+You are in a Greens.
+You can go west, northwest, southwest, south, southeast, east, north or northeast.
+> north
+
+> north
+
+You are in a DarkSeaGreen.
+You can go south.
+> south
+
+> south
+
+You are in a Greens.
+You can go west, northwest, southwest, south, southeast, east, north or northeast.
+> northeast
+
+> northeast
+
+You are in a ForestGreen.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Greens.
+You can go west, northwest, southwest, south, southeast, east, north or northeast.
+> west
+
+> west
+
+You are in a White.
+You can go northwest, north, northeast, east, southeast, west, south or southwest.
+> southeast
+
+> southeast
+
+You are in a Blues.
+You can go northwest, north, northeast, east, west, southeast, southwest or south.
+> north
+
+> north
+
+You are in an AliceBlue.
+You can go south.
+> south
+
+> south
+
+You are in a Blues.
+You can go northwest, north, northeast, east, west, southeast, southwest or south.
+> northeast
+
+> northeast
+
+You are in an Aqua.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Blues.
+You can go northwest, north, northeast, east, west, southeast, southwest or south.
+> east
+
+> east
+
+You are in an Aquamarine.
+You can go west.
+> west
+
+> west
+
+You are in a Blues.
+You can go northwest, north, northeast, east, west, southeast, southwest or south.
+> west
+
+> west
+
+You are in an Azure.
+You can go east.
+> east
+
+> east
+
+You are in a Blues.
+You can go northwest, north, northeast, east, west, southeast, southwest or south.
+> southeast
+
+> southeast
+
+You are in a Blue 2.
+You can go northwest, north, west, northeast, southwest, south, east or southeast.
+> north
+
+> north
+
+You are in a Cyan.
+You can go south.
+> south
+
+> south
+
+You are in a Blue 2.
+You can go northwest, north, west, northeast, southwest, south, east or southeast.
+> west
+
+> west
+
+You are in a DarkBlue.
+You can go east.
+> east
+
+> east
+
+You are in a Blue 2.
+You can go northwest, north, west, northeast, southwest, south, east or southeast.
+> northeast
+
+> northeast
+
+You are in a DarkCyan.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Blue 2.
+You can go northwest, north, west, northeast, southwest, south, east or southeast.
+> southwest
+
+> southwest
+
+You are in a DarkSlateBlue.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Blue 2.
+You can go northwest, north, west, northeast, southwest, south, east or southeast.
+> south
+
+> south
+
+You are in a DarkTurquoise.
+You can go north.
+> north
+
+> north
+
+You are in a Blue 2.
+You can go northwest, north, west, northeast, southwest, south, east or southeast.
+> east
+
+> east
+
+You are in a DeepSkyBlue.
+You can go west.
+> west
+
+> west
+
+You are in a Blue 2.
+You can go northwest, north, west, northeast, southwest, south, east or southeast.
+> southeast
+
+> southeast
+
+You are in a Blues 3.
+You can go northwest, north, northeast, west, southwest, south, southeast or east.
+> north
+
+> north
+
+You are in a DodgerBlue.
+You can go south.
+> south
+
+> south
+
+You are in a Blues 3.
+You can go northwest, north, northeast, west, southwest, south, southeast or east.
+> northeast
+
+> northeast
+
+You are in an Indigo.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Blues 3.
+You can go northwest, north, northeast, west, southwest, south, southeast or east.
+> west
+
+> west
+
+You are in a LightBlue.
+You can go east.
+> east
+
+> east
+
+You are in a Blues 3.
+You can go northwest, north, northeast, west, southwest, south, southeast or east.
+> southwest
+
+> southwest
+
+You are in a LightCyan.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Blues 3.
+You can go northwest, north, northeast, west, southwest, south, southeast or east.
+> south
+
+> south
+
+You are in a LightSkyBlue.
+You can go north.
+> north
+
+> north
+
+You are in a Blues 3.
+You can go northwest, north, northeast, west, southwest, south, southeast or east.
+> southeast
+
+> southeast
+
+You are in a Blues 4.
+You can go northwest, north, northeast, west, east, southwest, south or southeast.
+> north
+
+> north
+
+You are in a MediumAquaMarine.
+You can go south.
+> south
+
+> south
+
+You are in a Blues 4.
+You can go northwest, north, northeast, west, east, southwest, south or southeast.
+> northeast
+
+> northeast
+
+You are in a MediumBlue.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Blues 4.
+You can go northwest, north, northeast, west, east, southwest, south or southeast.
+> west
+
+> west
+
+You are in a MediumSlateBlue.
+You can go east.
+> east
+
+> east
+
+You are in a Blues 4.
+You can go northwest, north, northeast, west, east, southwest, south or southeast.
+> east
+
+> east
+
+You are in a MediumTurquoise.
+You can go west.
+> west
+
+> west
+
+You are in a Blues 4.
+You can go northwest, north, northeast, west, east, southwest, south or southeast.
+> southwest
+
+> southwest
+
+You are in a MidnightBlue.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Blues 4.
+You can go northwest, north, northeast, west, east, southwest, south or southeast.
+> south
+
+> south
+
+You are in a Navy.
+You can go north.
+> north
+
+> north
+
+You are in a Blues 4.
+You can go northwest, north, northeast, west, east, southwest, south or southeast.
+> southeast
+
+> southeast
+
+You are in a Blues 5.
+You can go northwest, north, west, southwest, northeast, south, east or southeast.
+> north
+
+> north
+
+You are in a PaleTurquoise.
+You can go south.
+> south
+
+> south
+
+You are in a Blues 5.
+You can go northwest, north, west, southwest, northeast, south, east or southeast.
+> west
+
+> west
+
+You are in a PowderBlue.
+You can go east.
+> east
+
+> east
+
+You are in a Blues 5.
+You can go northwest, north, west, southwest, northeast, south, east or southeast.
+> southwest
+
+> southwest
+
+You are in a RoyalBlue.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Blues 5.
+You can go northwest, north, west, southwest, northeast, south, east or southeast.
+> northeast
+
+> northeast
+
+You are in a SkyBlue.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Blues 5.
+You can go northwest, north, west, southwest, northeast, south, east or southeast.
+> south
+
+> south
+
+You are in a SlateBlue.
+You can go north.
+> north
+
+> north
+
+You are in a Blues 5.
+You can go northwest, north, west, southwest, northeast, south, east or southeast.
+> east
+
+> east
+
+You are in a SteelBlue.
+You can go west.
+> west
+
+> west
+
+You are in a Blues 5.
+You can go northwest, north, west, southwest, northeast, south, east or southeast.
+> southeast
+
+> southeast
+
+You are in a Blues 6.
+You can go northwest, north or northeast.
+> north
+
+> north
+
+You are in a Teal.
+You can go south.
+> south
+
+> south
+
+You are in a Blues 6.
+You can go northwest, north or northeast.
+> northeast
+
+> northeast
+
+You are in a Turquoise.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Blues 6.
+You can go northwest, north or northeast.
+> northwest
+
+> northwest
+
+You are in a Blues 5.
+You can go northwest, north, west, southwest, northeast, south, east or southeast.
+> northwest
+
+> northwest
+
+You are in a Blues 4.
+You can go northwest, north, northeast, west, east, southwest, south or southeast.
+> northwest
+
+> northwest
+
+You are in a Blues 3.
+You can go northwest, north, northeast, west, southwest, south, southeast or east.
+> east
+
+> east
+
+You are in a LightSteelBlue.
+You can go west.
+> west
+
+> west
+
+You are in a Blues 3.
+You can go northwest, north, northeast, west, southwest, south, southeast or east.
+> northwest
+
+> northwest
+
+You are in a Blue 2.
+You can go northwest, north, west, northeast, southwest, south, east or southeast.
+> northwest
+
+> northwest
+
+You are in a Blues.
+You can go northwest, north, northeast, east, west, southeast, southwest or south.
+> southwest
+
+> southwest
+
+You are in a CadetBlue.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Blues.
+You can go northwest, north, northeast, east, west, southeast, southwest or south.
+> south
+
+> south
+
+You are in a CornflowerBlue.
+You can go north.
+> north
+
+> north
+
+You are in a Blues.
+You can go northwest, north, northeast, east, west, southeast, southwest or south.
+> northwest
+
+> northwest
+
+You are in a White.
+You can go northwest, north, northeast, east, southeast, west, south or southwest.
+> west
+
+> west
+
+You are in a Greys.
+You can go east, northeast, north, northwest, southeast, south, west or southwest.
+> northeast
+
+> northeast
+
+You are in a Black.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Greys.
+You can go east, northeast, north, northwest, southeast, south, west or southwest.
+> north
+
+> north
+
+You are in a DarkGray.
+You can go south.
+> south
+
+> south
+
+You are in a Greys.
+You can go east, northeast, north, northwest, southeast, south, west or southwest.
+> northwest
+
+> northwest
+
+You are in a DarkGrey.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Greys.
+You can go east, northeast, north, northwest, southeast, south, west or southwest.
+> southeast
+
+> southeast
+
+You are in a DarkSlateGray.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Greys.
+You can go east, northeast, north, northwest, southeast, south, west or southwest.
+> south
+
+> south
+
+You are in a DarkSlateGrey.
+You can go north.
+> north
+
+> north
+
+You are in a Greys.
+You can go east, northeast, north, northwest, southeast, south, west or southwest.
+> west
+
+> west
+
+You are in a Greys 2.
+You can go east, northeast, north, northwest, southeast, south or west.
+> northeast
+
+> northeast
+
+You are in a DimGray.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Greys 2.
+You can go east, northeast, north, northwest, southeast, south or west.
+> north
+
+> north
+
+You are in a DimGrey.
+You can go south.
+> south
+
+> south
+
+You are in a Greys 2.
+You can go east, northeast, north, northwest, southeast, south or west.
+> northwest
+
+> northwest
+
+You are in a GhostWhite.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Greys 2.
+You can go east, northeast, north, northwest, southeast, south or west.
+> southeast
+
+> southeast
+
+You are in a LightGray.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Greys 2.
+You can go east, northeast, north, northwest, southeast, south or west.
+> south
+
+> south
+
+You are in a LightGrey.
+You can go north.
+> north
+
+> north
+
+You are in a Greys 2.
+You can go east, northeast, north, northwest, southeast, south or west.
+> west
+
+> west
+
+You are in a Greys 3.
+You can go east, northeast, north, southeast, south, southwest, northwest or west.
+> northeast
+
+> northeast
+
+You are in a LightSlateGray.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Greys 3.
+You can go east, northeast, north, southeast, south, southwest, northwest or west.
+> north
+
+> north
+
+You are in a LightSlateGrey.
+You can go south.
+> south
+
+> south
+
+You are in a Greys 3.
+You can go east, northeast, north, southeast, south, southwest, northwest or west.
+> southeast
+
+> southeast
+
+You are in a Silver.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Greys 3.
+You can go east, northeast, north, southeast, south, southwest, northwest or west.
+> south
+
+> south
+
+You are in a Slate Gray.
+You can go north.
+> north
+
+> north
+
+You are in a Greys 3.
+You can go east, northeast, north, southeast, south, southwest, northwest or west.
+> southwest
+
+> southwest
+
+You are in a SlateGrey.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Greys 3.
+You can go east, northeast, north, southeast, south, southwest, northwest or west.
+> northwest
+
+> northwest
+
+You are in a Snow.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Greys 3.
+You can go east, northeast, north, southeast, south, southwest, northwest or west.
+> west
+
+> west
+Error running script: Error evaluating expression '(Grid_GetGridCoordinateForPlayer(playerobject, exit, "x") - exit.to.grid_width) - exit.grid_length': Property 'grid_width' not found on ''
+
+You are in a WhiteSmoke.
+You can go northwest or east.
+> east
+
+> east
+
+You are in a Greys 3.
+You can go east, northeast, north, southeast, south, southwest, northwest or west.
+> east
+
+> east
+
+You are in a Greys 2.
+You can go east, northeast, north, northwest, southeast, south or west.
+> east
+
+> east
+
+You are in a Greys.
+You can go east, northeast, north, northwest, southeast, south, west or southwest.
+> southwest
+
+> southwest
+
+You are in a Gainsboro.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Greys.
+You can go east, northeast, north, northwest, southeast, south, west or southwest.
+> east
+
+> east
+
+You are in a White.
+You can go northwest, north, northeast, east, southeast, west, south or southwest.
+> south
+
+> south
+
+You are in a Purples.
+You can go north, northeast, east, northwest, west, southwest, south or southeast.
+> northeast
+
+> northeast
+
+You are in a BlueViolet.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Purples.
+You can go north, northeast, east, northwest, west, southwest, south or southeast.
+> east
+
+> east
+
+You are in a DarkOrchid.
+You can go west.
+> west
+
+> west
+
+You are in a Purples.
+You can go north, northeast, east, northwest, west, southwest, south or southeast.
+> northwest
+
+> northwest
+
+You are in a DarkViolet.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Purples.
+You can go north, northeast, east, northwest, west, southwest, south or southeast.
+> west
+
+> west
+
+You are in a DarkMagenta.
+You can go east.
+> east
+
+> east
+
+You are in a Purples.
+You can go north, northeast, east, northwest, west, southwest, south or southeast.
+> southwest
+
+> southwest
+
+You are in a Magenta.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Purples.
+You can go north, northeast, east, northwest, west, southwest, south or southeast.
+> south
+
+> south
+
+You are in a Purples 2.
+You can go north, northwest, west, northeast, east, southwest, southeast or south.
+> northwest
+
+> northwest
+
+You are in a Lavender.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Purples 2.
+You can go north, northwest, west, northeast, east, southwest, southeast or south.
+> west
+
+> west
+
+You are in a LavenderBlush.
+You can go east.
+> east
+
+> east
+
+You are in a Purples 2.
+You can go north, northwest, west, northeast, east, southwest, southeast or south.
+> northeast
+
+> northeast
+
+You are in a MediumOrchid.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Purples 2.
+You can go north, northwest, west, northeast, east, southwest, southeast or south.
+> east
+
+> east
+
+You are in a MediumPurple.
+You can go west.
+> west
+
+> west
+
+You are in a Purples 2.
+You can go north, northwest, west, northeast, east, southwest, southeast or south.
+> southwest
+
+> southwest
+
+You are in a MediumVioletRed.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Purples 2.
+You can go north, northwest, west, northeast, east, southwest, southeast or south.
+> southeast
+
+> southeast
+
+You are in an Orchid.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Purples 2.
+You can go north, northwest, west, northeast, east, southwest, southeast or south.
+> south
+
+> south
+
+You are in a Purples 3.
+You can go north, northwest, northeast, east or west.
+> northwest
+
+> northwest
+
+You are in a PaleVioletRed.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Purples 3.
+You can go north, northwest, northeast, east or west.
+> northeast
+
+> northeast
+
+You are in a Plum.
+You can go southwest.
+> southwest
+
+> southwest
+
+You are in a Purples 3.
+You can go north, northwest, northeast, east or west.
+> east
+
+> east
+
+You are in a Thistle.
+You can go west.
+> west
+
+> west
+
+You are in a Purples 3.
+You can go north, northwest, northeast, east or west.
+> west
+
+> west
+
+You are in a Violet.
+You can go east.
+> east
+
+> east
+
+You are in a Purples 3.
+You can go north, northwest, northeast, east or west.
+> north
+
+> north
+
+You are in a Purples 2.
+You can go north, northwest, west, northeast, east, southwest, southeast or south.
+> north
+
+> north
+
+You are in a Purples.
+You can go north, northeast, east, northwest, west, southwest, south or southeast.
+> southeast
+
+> southeast
+
+You are in a Fuchsia.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Purples.
+You can go north, northeast, east, northwest, west, southwest, south or southeast.
+> north
+
+> north
+
+You are in a White.
+You can go northwest, north, northeast, east, southeast, west, south or southwest.
+> southwest
+
+> southwest
+
+You are in a Browns.
+You can go northeast, north, northwest, west, east, southeast, southwest or south.
+> north
+
+> north
+
+You are in an AntiqueWhite.
+You can go south.
+> south
+
+> south
+
+You are in a Browns.
+You can go northeast, north, northwest, west, east, southeast, southwest or south.
+> northwest
+
+> northwest
+
+You are in a Beige.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Browns.
+You can go northeast, north, northwest, west, east, southeast, southwest or south.
+> west
+
+> west
+
+You are in a Bisque.
+You can go east.
+> east
+
+> east
+
+You are in a Browns.
+You can go northeast, north, northwest, west, east, southeast, southwest or south.
+> east
+
+> east
+
+You are in a BlanchedAlmond.
+You can go west.
+> west
+
+> west
+
+You are in a Browns.
+You can go northeast, north, northwest, west, east, southeast, southwest or south.
+> southeast
+
+> southeast
+
+You are in a BurlyWood.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Browns.
+You can go northeast, north, northwest, west, east, southeast, southwest or south.
+> southwest
+
+> southwest
+
+You are in a Brown 2.
+You can go northeast, north, northwest, west, south, southeast, east or southwest.
+> north
+
+> north
+
+You are in a Firebrick.
+You can go south.
+> south
+
+> south
+
+You are in a Brown 2.
+You can go northeast, north, northwest, west, south, southeast, east or southwest.
+> northwest
+
+> northwest
+
+You are in a FloralWhite.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Brown 2.
+You can go northeast, north, northwest, west, south, southeast, east or southwest.
+> west
+
+> west
+
+You are in an Ivory.
+You can go east.
+> east
+
+> east
+
+You are in a Brown 2.
+You can go northeast, north, northwest, west, south, southeast, east or southwest.
+> south
+
+> south
+
+You are in a Linen.
+You can go north.
+> north
+
+> north
+
+You are in a Brown 2.
+You can go northeast, north, northwest, west, south, southeast, east or southwest.
+> southeast
+
+> southeast
+
+You are in a Moccasin.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Brown 2.
+You can go northeast, north, northwest, west, south, southeast, east or southwest.
+> east
+
+> east
+
+You are in an OldLace.
+You can go west.
+> west
+
+> west
+
+You are in a Brown 2.
+You can go northeast, north, northwest, west, south, southeast, east or southwest.
+> southwest
+
+> southwest
+
+You are in a Brown 3.
+You can go northeast, north, northwest, east, southeast, west, south or southwest.
+> north
+
+> north
+
+You are in a Peru.
+You can go south.
+> south
+
+> south
+
+You are in a Brown 3.
+You can go northeast, north, northwest, east, southeast, west, south or southwest.
+> northwest
+
+> northwest
+
+You are in a RosyBrown.
+You can go southeast.
+> southeast
+
+> southeast
+
+You are in a Brown 3.
+You can go northeast, north, northwest, east, southeast, west, south or southwest.
+> east
+
+> east
+
+You are in a SaddleBrown.
+You can go west.
+> west
+
+> west
+
+You are in a Brown 3.
+You can go northeast, north, northwest, east, southeast, west, south or southwest.
+> southeast
+
+> southeast
+
+You are in a SandyBrown.
+You can go northwest.
+> northwest
+
+> northwest
+
+You are in a Brown 3.
+You can go northeast, north, northwest, east, southeast, west, south or southwest.
+> west
+
+> west
+
+You are in a Sienna.
+You can go east.
+> east
+
+> east
+
+You are in a Brown 3.
+You can go northeast, north, northwest, east, southeast, west, south or southwest.
+> south
+
+> south
+
+You are in a Tan.
+You can go north.
+> north
+
+> north
+
+You are in a Brown 3.
+You can go northeast, north, northwest, east, southeast, west, south or southwest.
+> southwest
+
+> southwest
+
+You are in a NavajoWhite.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in a Brown 3.
+You can go northeast, north, northwest, east, southeast, west, south or southwest.
+> northeast
+
+> northeast
+
+You are in a Brown 2.
+You can go northeast, north, northwest, west, south, southeast, east or southwest.
+> northeast
+
+> northeast
+
+You are in a Browns.
+You can go northeast, north, northwest, west, east, southeast, southwest or south.
+> south
+
+> south
+
+You are in a Chocolate.
+You can go north.
+> north
+
+> north
+
+You are in a Browns.
+You can go northeast, north, northwest, west, east, southeast, southwest or south.
+> northeast
+
+> northeast
+
+You are in a White.
+You can go northwest, north, northeast, east, southeast, west, south or southwest.
+[state=Running]

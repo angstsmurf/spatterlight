@@ -1,0 +1,172 @@
+A Tiny Furry In A Huge World
+
+As always, your alarm rings at precisely 7:00AM. And, as always, you are totally not ready to go to college. You were up way too late last night playing the latest Wolf Warrior game, and this morning, you are clearly going to pay for being irresponsible. You blame your parents for being so strict with their 9:00PM curfew back at home. Now that you're living by yourself, you have the freedom to stay up whenever you like, and man, is that freedom way too much for you sometimes. If only they'd have let you be more irresponsible, then you might be used to only getting three hours of sleep.
+
+Regardless, you can't miss another day at class. Your attendance rate is already pretty damn low, you almost flunked your last test, and if you keep going at this rate, then, frankly, you're going to fail. With a truly titantic amount of effort, you push your duvet off of yourself and blearily slip on a plain green t-shirt, black jeans, and a pair of old trainers that should've been in the trash long, long ago. Grunting, you stretch your arms high above your head and let out a big, loud, yawn. There isn't any time for breakfast - the bus is here in twenty minutes - so you get your fuzzy butt right out of the door and head straight out of your dorm, going straight to the stop outside.
+
+At the bus stop, you can barely keep your eyes open. On the bus, the gentle rumble of the engine almost puts you to sleep. Fortunately, you manage to stay awake. Pushing yourself through the grounds of the college, you finally make it to your lecture. You figure that you should sit up front so that your teacher actually knows that you came to class this time, but since you got here late, the only seat available is all the way in the corner of the lecture hall. The nice, cozy corner. The lights are even dimmer over there.
+
+Shit. You're definitely going to fall asleep. Resigning yourself to your fate, you slump over toward the corner of class and park your butt down on the seat, leaning forward and setting your eyes upon your teacher. Ms. Matthews. She's a petite, white bunny, a svelte, mature and well spoken woman. Honestly, she's not really your type. You prefer the more buxom kind of lady, so you're not even going to be able to keep yourself awake by getting your horn on.
+
+As her voice drones on and on, you find your eyes beginning to droop. There's only so many times you can shake your head or pinch your hip before you finally succumb to a sweet, blissful nap.
+
+When you wake up, the world has changed massively. Literally.
+
+Everything is now huge. You're on top of your desk, all of you. your now tiny body prone against the cheap, chipped wood. Grunting, you push yourself up into a seat, and take view of the now enormous lecture hall around you. By your own estimations, you're now about one, perhaps an inch and a half tall. What were simple seats and tables now look like distant buildings. The ceiling is now leagues above you, spread across the top of the halll like it's the very sky itself, seemingly stretching into infinity. Your pencil and notebook lay to the side of you, your notebook like a plot of land, and your pencil like one of the logs that you might use to build the house that you could put atop of this.
+
+Swallowing nervously, you inch your way across to the edge of the table. Peering over it, you see a drop that's most definitely going to kill you. The legs of the table are too wide and smooth to be able to climb down.
+
+You pinch yourself. This has to be a dumb dream, right? This is what you get for eating cheese in the middle of the night, right? As your claws scrape against your flesh, you feel a pang of pain. No. This is definitely real.
+
+How on earth are you going to get yourself out of this? And furthermore, who did this to you? You guess it's time to find out.
+You are atop of your desk.
+On the desk, there's a staple and a piece of string.
+You can go down.
+
+Well, it's your desk. There's not much to note here, aside from the fact that, of course, it's collosal. You're fairly certain that your dorm building could easily be plopped on top of it, if it were at the same scale as you, anyway. The furrows that have been scratched into the surface of it over the year by student's claws are now legitimate tripping hazards, meaning that you have to cautiously hop over shallow trenches as you move around it.
+
+There's a few odds and ends on your desk, including a staple and length of string that could likely be fashioned into some kind of grappling hook. Considering that there's no way that you can safely hop down from here, such a tool might come in handy. By your side, your notebook rests, your pen tossed to the side of it. The paper is completely blank. You weren't taking notes in your sleep, after all.
+
+You are atop of your desk.
+On the desk, there's a staple and a piece of string.
+You can go down.
+
+Well, it's your desk. There's not much to note here, aside from the fact that, of course, it's collosal. You're fairly certain that your dorm building could easily be plopped on top of it, if it were at the same scale as you, anyway. The furrows that have been scratched into the surface of it over the year by student's claws are now legitimate tripping hazards, meaning that you have to cautiously hop over shallow trenches as you move around it.
+
+There's a few odds and ends on your desk, including a staple and length of string that could likely be fashioned into some kind of grappling hook. Considering that there's no way that you can safely hop down from here, such a tool might come in handy. By your side, your notebook rests, your pen tossed to the side of it. The paper is completely blank. You weren't taking notes in your sleep, after all.
+> take staple
+
+> take staple
+You scoop up the staple and shove it into your pocket. There's just enough room in there.
+> take string
+
+> take string
+You roll the string up into a little ball, and shove the bundle into your pocket. It's a good job that you wore your jeans with roomy pockets today.
+
+Hey, wait a minute ...
+
+You could probably combine the string with the staple to make a nifty climbing tool. If you remember your console commands correctly, then you'd probably have to type something like 'use string on staple.'
+> use staple on a piece of string
+
+> use staple on a piece of string
+You craftily combine the string and the staple, making a handy climbing tool. Nice. You can probably get down from your desk using this.
+> down
+
+> down
+
+The staple and string climbing tool is a little awkward, but you manage to use it well enough. The journey downward takes you a good fifteen minutes. First, you make your way down to your seat, and then, you make your way to the floor by nimbly clambering down it's metal leg. Phew. By the time you reach the bottom, you are pretty exhausted. Still. At least you aren't miles, or, well, inches above the ground now, at least. Gingerly, you tap your feet against the ground, letting out a happy little sigh. This is good, this is progress.
+
+You are in a The Lecture Hall.
+You can see your desk, a list of optional commands and the credits.
+You can go north or south.
+
+You are at the base of your desk in the enormous lecture hall. It seems that everyone has cleared out already. You must have slept all the way through class. One person remains inside of the lecture hall, and that's your teacher.
+
+To the north is Ms. Matthews desk. You can't see what the bunny is doing, but it appears that she's slumped over her desk. Fortunately for you, it should be relatively easy to get there. Rather than have stairs toward the teacher's podium, the college was forward thinking enough to have installed a ramp instead, meaning that you won't need to clamber down anything.
+
+Directly opposite the teacher's desk, to the south, is a door that leads toward the East Wing Corridor.
+
+By your desk, there seems to be a list of optional commands scrawled onto the floor in black sharpie. You could probably toggle these on or off somehow. Maybe it'd be a good idea to take a closer look at them.
+
+There's also a list of names written to the side of it. You'd think that it might be the credits for a game, or something, but you're not supposed to be aware that you're really in one.
+> look
+
+> look
+You are in a The Lecture Hall.
+You can see your desk, a list of optional commands and the credits.
+You can go north or south.
+
+You are at the base of your desk in the enormous lecture hall. It seems that everyone has cleared out already. You must have slept all the way through class. One person remains inside of the lecture hall, and that's your teacher.
+
+To the north is Ms. Matthews desk. You can't see what the bunny is doing, but it appears that she's slumped over her desk. Fortunately for you, it should be relatively easy to get there. Rather than have stairs toward the teacher's podium, the college was forward thinking enough to have installed a ramp instead, meaning that you won't need to clamber down anything.
+
+Directly opposite the teacher's desk, to the south, is a door that leads toward the East Wing Corridor.
+
+By your desk, there seems to be a list of optional commands scrawled onto the floor in black sharpie. You could probably toggle these on or off somehow. Maybe it'd be a good idea to take a closer look at them.
+
+There's also a list of names written to the side of it. You'd think that it might be the credits for a game, or something, but you're not supposed to be aware that you're really in one.
+> south
+
+> south
+
+You decide against the idea of attempting to wake up your teacher, for now, at least. Frankly, you'd rather try to find somebody who's a little more ... conscious. While the lecture hall door is closed, there's a tiny gap underneath it. Considering that you're tiny, you're easily able to make it through said gap. Dropping onto your tummy, you combat crawl underneath the door toward the corridor outside. Fortunately for you, the corridor itself seems nice and empty, meaning that you won't be trod upon. Not out here, anyway.
+
+You are standing in the East Wing Corridor.
+You can go north, south, east or west.
+
+The good ol' East Wing Corridor. You remember being intimidated by this long, winding corridor on your first day of college. Now, you're intimidated by it for an entirely different reason. Traversing this thing is going to take a while, and if anyone ever pops out of one of these doors, then it's very likely that you're going to be trampled on.
+
+For now, however, the place is completely empty. You're very alone, tiny, and stood on top of a cold, marble floor. Much like in the lecture hall, fluorescent lighting surrounds you from every angle. On the wall, high above you, are pictures of the college's students stood on campus. The largest is one of the dean himself, an aged old wolf. You met him once. He seemed like a nice guy.
+
+Directly across from the lecture hall, to the south, is a door that leads toward the library. The door is slightly ajar, meaning there's just enough room for you to be able to squeeze through the gap and enter.
+
+You can wander further down the corridor to the east. You're pretty sure that there's some kind of computer lab down there. You figure that your best chance of getting out of this is finding some geek who might know about this crap.
+
+Finally, to the west, you could make your way out of the corridor and toward the college's lobby. You'd be able to access the exit to the building from there, as well as a few other places.
+> look
+
+> look
+You are standing in the East Wing Corridor.
+You can go north, south, east or west.
+
+The good ol' East Wing Corridor. You remember being intimidated by this long, winding corridor on your first day of college. Now, you're intimidated by it for an entirely different reason. Traversing this thing is going to take a while, and if anyone ever pops out of one of these doors, then it's very likely that you're going to be trampled on.
+
+For now, however, the place is completely empty. You're very alone, tiny, and stood on top of a cold, marble floor. Much like in the lecture hall, fluorescent lighting surrounds you from every angle. On the wall, high above you, are pictures of the college's students stood on campus. The largest is one of the dean himself, an aged old wolf. You met him once. He seemed like a nice guy.
+
+Directly across from the lecture hall, to the south, is a door that leads toward the library. The door is slightly ajar, meaning there's just enough room for you to be able to squeeze through the gap and enter.
+
+You can wander further down the corridor to the east. You're pretty sure that there's some kind of computer lab down there. You figure that your best chance of getting out of this is finding some geek who might know about this crap.
+
+Finally, to the west, you could make your way out of the corridor and toward the college's lobby. You'd be able to access the exit to the building from there, as well as a few other places.
+> north
+
+> north
+
+You are in a The Lecture Hall.
+You can see your desk, a list of optional commands and the credits.
+You can go north or south.
+
+You are at the base of your desk in the enormous lecture hall. It seems that everyone has cleared out already. You must have slept all the way through class. One person remains inside of the lecture hall, and that's your teacher.
+
+To the north is Ms. Matthews desk. You can't see what the bunny is doing, but it appears that she's slumped over her desk. Fortunately for you, it should be relatively easy to get there. Rather than have stairs toward the teacher's podium, the college was forward thinking enough to have installed a ramp instead, meaning that you won't need to clamber down anything.
+
+Directly opposite the teacher's desk, to the south, is a door that leads toward the East Wing Corridor.
+
+By your desk, there seems to be a list of optional commands scrawled onto the floor in black sharpie. You could probably toggle these on or off somehow. Maybe it'd be a good idea to take a closer look at them.
+
+There's also a list of names written to the side of it. You'd think that it might be the credits for a game, or something, but you're not supposed to be aware that you're really in one.
+> north
+
+> north
+Carefully, you make your way across the empty lecture hall toward Ms. Matthew's desk, making your way down the rubbery ramp that leads to the front of the classroom. As you get closer, you hear a distant rumbling, much like rolling thunder. By the time you're by the base of her desk, you realise that it's ... hey! It's the sound of Ms Matthew's snoring away.
+
+Guess you weren't the only one up late playing Wolf Warrior last night.
+
+There wasn't much chance that she'd be able to hear you yelling from down here anyway, but now that you know that she's asleep, it's truly a hopeless task. You'll have to figure out a way to wake her up before you can get her attention, and hopefully, her help!
+
+You are at the a foot of Ms Matthew's desk.
+You can see an a pair of foot filled shoes.
+You can go south or up.
+
+Finally, you make it to Ms. Matthews desk.
+
+Unlike the student's desks, the towering legs are made of a smooth, slippery metal that you won't be able to climb, even with your tool. It seems like your only choice is to go underneath and attempt to climb your giantess of a teacher. With that terrifying thought in mind, you make haste underneath her desk. taking cover from the bright, fluourescent lights above you. Sweat begins to drip down your back as you approach the pair of enormous clogs. One tiny flinch from her, and you could be ground into a bloody smear on the floor.
+
+Above the dangerous clogs lay legs that are covered in fine suit pants. They're quite clearly made of a nice fabric. Even though there isn't much light underneath the desk, the surface of them shimmers slightly. You've never really noticed it before, and perhaps, it's because of your smaller height ... but damn,  does Ms Matthew's have a nice pair of pins. If the circumstances were different, you'd consider yourself lucky to be so close to them.
+
+You have a few options in front of you. Climb your teacher's shoes, and ... slip within them. That doesn't sound like a great idea. Alternatively, you could climb her shoes, and then, climb the leg of her pants and up onto her lap. Alternatively, you could make a tactical retreat, cut your losses, and get the hell out of here.
+> look
+
+> look
+You are at the a foot of Ms Matthew's desk.
+You can see an a pair of foot filled shoes.
+You can go south or up.
+
+Finally, you make it to Ms. Matthews desk.
+
+Unlike the student's desks, the towering legs are made of a smooth, slippery metal that you won't be able to climb, even with your tool. It seems like your only choice is to go underneath and attempt to climb your giantess of a teacher. With that terrifying thought in mind, you make haste underneath her desk. taking cover from the bright, fluourescent lights above you. Sweat begins to drip down your back as you approach the pair of enormous clogs. One tiny flinch from her, and you could be ground into a bloody smear on the floor.
+
+Above the dangerous clogs lay legs that are covered in fine suit pants. They're quite clearly made of a nice fabric. Even though there isn't much light underneath the desk, the surface of them shimmers slightly. You've never really noticed it before, and perhaps, it's because of your smaller height ... but damn,  does Ms Matthew's have a nice pair of pins. If the circumstances were different, you'd consider yourself lucky to be so close to them.
+
+You have a few options in front of you. Climb your teacher's shoes, and ... slip within them. That doesn't sound like a great idea. Alternatively, you could climb her shoes, and then, climb the leg of her pants and up onto her lap. Alternatively, you could make a tactical retreat, cut your losses, and get the hell out of here.
+[state=Running]

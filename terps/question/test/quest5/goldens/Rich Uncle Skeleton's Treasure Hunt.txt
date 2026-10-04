@@ -1,0 +1,148 @@
+Rich Uncle Skeleton's Treasure Hunt
+The Demo
+
+by Callum West
+
+You are in the Foyer.
+The front door closes behind you.
+
+There is an impressive staircase on either side of the room leading to the floor above. You notice the paintings hanging on the wall, all portraits of members of the Skeleton family, spanning many generations past. The marble floor is so shiny not only can you see your face in it, but the detail of the ceiling mural also.
+
+You suddenly remember the reason you are here, to pay your respects to your recently passed Rich Uncle Skeleton. How a skeleton can die is beyond me, but you should probably go and look for the family graveyard.
+
+The main hallway is to the north
+The sitting room is to the east
+The dining room is to the west
+> n
+
+> n
+You are in the Main hallway.
+The room appears to be an extension to the foyer to connect the rest of the rooms on this floor to each other. More paintings cover the walls and a very expensive-looking chandelier hangs from the ceiling.
+
+The conservatory is to the north
+The east hallway is to the east
+There is a coat closet to the west
+The foyer is to the south
+> n
+
+> n
+You are in the Conservatory.
+The glass walls and ceiling allow the natural light to create a very refreshing atmosphere. You remember how Rich Uncle Skeleton would sit in here, read the paper and drink his morning coffee. The couch was regularly cleaned.
+
+The backyard is to the north
+The games room is to the east
+The pantry is to the west
+The main hallway is to the south
+> e
+
+> e
+You are in the Games room.
+Many attractions fill the room such as a billiards table, a darts board, a card table, a jukebox and several arcade machines. You fondly remember the childhood memories of your Rich Uncle Skeleton teaching you how to play blackjack at the age of 6.
+
+The conservatory is to the west
+The east hallway is to the south
+> search billiard table
+
+> search billiard table
+You search the pockets of the billiard table until you find a key in one of them.
+
+You take the key.
+> w
+
+> w
+You are in the Conservatory.
+The backyard is to the north
+The games room is to the east
+The pantry is to the west
+The main hallway is to the south
+> n
+
+> n
+You are in the Backyard.
+The chilling breeze blows past as you observe the mansion's beautiful and well-kept garden. The flowers sway gently in the cold breeze, which reminds you that you should probably have worn a jacket today or something.
+
+The family graveyard is to the west
+The conservatory is to the south
+> w
+
+> w
+You are in the Graveyard.
+Rich Uncle Skeleton's grave stands in the middle of the graveyard, towering over the graves of other deceased members of the Skeleton family.
+
+You notice a note sitting below Rich Uncle Skeleton's gravestone.
+
+The backyard is to the east
+> take note
+
+> take note
+You take the note.
+> read note
+
+> read note
+It reads:
+
+Dear Nephew,
+
+If you are reading this then your old Rich Uncle Skeleton has kicked the bucket. I know I didn't leave you much inheritance, but you were always my favourite nephew, so I wanted you to have something that no one else can know about. I have a secret safe hidden somewhere in the mansion containing millions of dollars worth of money, jewellery and treasure. It's not going to be easy to find, but I'm confident that you are smart enough to solve my clues and riddles. The first clue can be found behind my portrait hanging on the wall of the upstairs landing. Good luck.
+
+Your loving and filthy rich uncle,
+Rich Uncle Skeleton
+
+A gust of wind blows the note out of your hand as you read the last word.
+> e
+
+> e
+You are in the Backyard.
+The family graveyard is to the west
+The conservatory is to the south
+> s
+
+> s
+You are in the Conservatory.
+The backyard is to the north
+The games room is to the east
+The pantry is to the west
+The main hallway is to the south
+> s
+
+> s
+You are in the Main hallway.
+The conservatory is to the north
+The east hallway is to the east
+There is a coat closet to the west
+The foyer is to the south
+> s
+
+> s
+You are in the Foyer.
+The main hallway is to the north
+The sitting room is to the east
+The dining room is to the west
+The second floor is upwards
+> up
+
+> up
+You are in the Landing.
+A large portrait of Rich Uncle Skeleton himself hangs center on the wall infront of you. From up here you have a bird's eye view of the foyer below.
+
+The upper east hallway is to the east
+The upper west hallway is to the west
+The first floor is downwards
+> e
+
+> e
+You unlock the door between the landing and the upper east hallway.
+
+You are in the Upper east hallway.
+
+Congratulations!
+You have finished the demo!
+
+Thank you for taking the time to play this demo of an unfinished game. I hope you enjoyed it and are as excited as I am for this game to get finished.
+
+If you found any bugs, spelling errors, or anything weird in general then please let me know in a review or comment.
+
+Rich Uncle Skeleton's Treasure Hunt
+
+Coming Soon(ish?)
+[state=Finished]

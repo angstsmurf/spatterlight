@@ -1,0 +1,336 @@
+Why Now The Brown House?
+
+by Anjan Chakrabarti
+
+ On Wooden Bench.
+You can go  Stone Pathway.
+You sit on a wooden bench, read, and set down one newspaper after another.  Reading material is endless from where you are. You shift uneasily and wonder why you were. As the day approaches dusk, a monstrous fog emerges stealing away all the remaining light. You clutch your head to your knees and again wonder why you were.  As the morning approaches, the fog lifts and hopefully so do you.  Welcome to the adventure. Your objectives are two-fold. The first one being to explore as much of the house as you can. The second being to find the three pillars of achievment: the gold, silver, and bronze medals placed  somewhere in the house. Bring all medals to the  Center of the  Living Room.  Your first task is to find a way to get into the house.  Last but not least,  if examining is not giving you enough clues, try searching instead. GOOD LUCK!!!
+> go to stone pathway
+
+> go to stone pathway
+
+ Stone Pathway.
+You can go   Grassy Area or At Front Door.
+You are at the beginning of a stone pathway.
+> go to grassy area
+
+> go to grassy area
+You take a tumble in the luscious , green grass and wind up next to the bough of a giant elm tree.
+
+ Grassy Area.
+You can go   Stone Pathway.
+You are standing next to the bough of a giant elm tree. Grass surrounds you at all sides. Planted on the grass is a small picnic table.
+> search under picnic table
+
+> search under picnic table
+This time you actually crawl under the table and see a set of front door keys!!!
+> take ring of front door keys
+
+> take ring of front door keys
+You pick it up.
+> go to stone pathway
+
+> go to stone pathway
+
+ Stone Pathway.
+You can go   Grassy Area or At Front Door.
+You are at the beginning of a stone pathway.
+> go to at front door
+
+> go to at front door
+
+ At Front Door.
+You can go Stone Pathway.
+Scampering up three steps leads you nose to nose with the Front Door.
+> open front door
+
+> open front door
+Your keys unlock the Front Door, as you enter the Grand Foyer.
+
+You are in Grand Foyer.
+You can see a square photo and a rectangular photo.
+You can go At Front Door or Grand Entrance Area.
+You are stepping on a floor of solid granite. Behind you is the front door surrounded by two oval windows covered by venetian blinds.  There are various hard plastic bric-a-brac foot tables strewn about randomly stacked and unstacked. Each table top has four legs tht may be equally detached and attached.  On the side wall are the left, middle, and right dimmer switches which may be turned on and off.
+> drop ring of front door keys
+
+> drop ring of front door keys
+You drop it.
+> go to grand foyer
+
+> go to grand foyer
+You can't go there.
+> switch on left dimmer switch
+
+> switch on left dimmer switch
+The left circular light above you illuminates. The drone of a fly begins.
+> rotate left dimmer switch
+
+> rotate left dimmer switch
+The light above you intensifies.
+> rotate left dimmer switch
+
+> rotate left dimmer switch
+The light above you intensifies.
+> rotate left dimmer switch
+
+> rotate left dimmer switch
+The light above you intensifies.
+> rotate left dimmer switch
+
+> rotate left dimmer switch
+The light above you intensifies.
+> rotate left dimmer switch
+
+> rotate left dimmer switch
+The light above you intensifies.
+> switch on middle dimmer switch
+
+> switch on middle dimmer switch
+The moddle circular light abouve you is currently lit.
+> rotate middle dimmer switch
+
+> rotate middle dimmer switch
+The light above you intensifies.
+> rotate middle dimmer switch
+
+> rotate middle dimmer switch
+The light above you intensifies.
+> rotate middle dimmer switch
+
+> rotate middle dimmer switch
+The light above you intensifies.
+> switch on right dimmer switch
+
+> switch on right dimmer switch
+The right circular light above you is currently on.
+> rotate right dimmer switch
+
+> rotate right dimmer switch
+The light above you intensifies.
+> rotate right dimmer switch
+
+> rotate right dimmer switch
+The light above you intensifies.
+> rotate right dimmer switch
+
+> rotate right dimmer switch
+The light above you intensifies.
+> rotate right dimmer switch
+
+> rotate right dimmer switch
+The light above you intensifies.
+You hear a metallic clunk somewhere in the viicinity.
+> search plastic tables
+
+> search plastic tables
+You search through the tables one by one and pull out one of the legs and lo and behold find a  Gold Medal attached to one!!! You take it right away.
+> take gold medal
+
+> take gold medal
+You are already carrying it.
+> go to grand entrance area
+
+> go to grand entrance area
+
+You are in a Grand Entrance Area.
+You can go Grand Foyer, Long Passageway, Huge Closet or Down Staircase.
+You have arrived under  a cathedral ceiling marked by a hanging crystal chandalier. To one side of you is a partial wall that is showcasing a rectangular opening through which you can see the entire Living Room. There is a iron-mesh bench with orange cushions and a dehumidifier delineating both sides of the opening.  On the other side of the opening is a  wide staircase leading downstairs and next to that a huge closet with brown fold-in doors.
+> go to long passageway
+
+> go to long passageway
+
+You are in a Long Passageway.
+You can go Grand Entrance Area, Dining Room, Junction or Opposite Junction.
+The passageway starts at the junction of the Living Room and stairs to the second floor. It continues past the Dining Room entrance in front of you, divides the TV Room and Kitchen areas and finally ends at a weather-stripped door leading outside.
+> go to junction
+
+> go to junction
+
+You are in a Junction.
+You can go Long Passageway, up or Living Room Left.
+You are at the junction of the Living Room and a stairway leading up to the top floor.
+> up
+
+> up
+
+ On Stairway.
+You can go down or up.
+You can see the Living Room from outside the stairs and between the stair planks.
+> up
+
+> up
+
+You are in a Top Floor Landing.
+You can go down, End of Hallway or Another End of Hallway.
+You are in a hallway which begins at a junction of two opposite rooms, continues on past the stairs where you are ,  passes one door and finally ends at an even larger door.
+> go to top floor landing
+
+> go to top floor landing
+You can't go there.
+> go to end of hallway
+
+> go to end of hallway
+
+You are in an End of Hallway.
+You can go Top Floor Landing, Bedroom of Ajoy or Music Room.
+You are at one end of the hallway. Facing you are two opposite rooms.
+> go to bedroom of ajoy
+
+> go to bedroom of ajoy
+
+You are in a Bedroom of Ajoy.
+You can go End of Hallway.
+A bed bisects the middle of the bedroom. On one side are wooden shelves  and desk and the other side is a sliding glass door. On one side of the lighted closet is a woooden  bureau.
+> look at wooden bureau
+
+> look at wooden bureau
+The wooden bureau is decorated with tennis trophies.
+It contains a small lamp.
+> take small lamp
+
+> take small lamp
+You approach the lamp.
+As you lift the lamp, you find a Bronze Medal!!!
+> take bronze medal
+
+> take bronze medal
+You pick it up.
+> drop small lamp
+
+> drop small lamp
+You drop it.
+> go to end of hallway
+
+> go to end of hallway
+
+You are in an End of Hallway.
+You can go Top Floor Landing, Bedroom of Ajoy or Music Room.
+You are at one end of the hallway. Facing you are two opposite rooms.
+> go to top floor landing
+
+> go to top floor landing
+
+You are in a Top Floor Landing.
+You can go down, End of Hallway or Another End of Hallway.
+You are in a hallway which begins at a junction of two opposite rooms, continues on past the stairs where you are ,  passes one door and finally ends at an even larger door.
+> down
+
+> down
+
+ On Stairway.
+You can go down or up.
+You can see the Living Room from outside the stairs and between the stair planks.
+> down
+
+> down
+
+You are in a Junction.
+You can go Long Passageway, up or Living Room Left.
+You are at the junction of the Living Room and a stairway leading up to the top floor.
+> go to living room left
+
+> go to living room left
+
+You are in a Living Room Left.
+You can go Junction or Living Room Center.
+You are in a very busy corner of the Living Room. A maroon and white couch is placed on the other side of the partial wall mentioned in the Grand Entrance Area.  A few inches in front of the couch is a solid wood supporter on which is a rectangular slab of solid glass. You are standing on one end of an Oriental Rug.
+> go to living room center
+
+> go to living room center
+
+You are in a Living Room Center.
+You can go Living Room Left, Short Hallway or Living Room Right.
+You are now in the center of the oriental rug. Enormous bay windows occupy your front view. Behind you,  is the entrance to a short hallway.
+You stand on the rug and present a Bronze Medal.
+You stand on the rug and present a Gold Medal.
+> go to short hallway
+
+> go to short hallway
+
+You are in a Short Hallway.
+You can go Underneath the Stairs, Living Room Center or Continued Short Hallway.
+You are in a short hallway.
+> go to continued short hallway
+
+> go to continued short hallway
+
+You are in a Continued Short Hallway.
+You can go Short Hallway, Guest Bathroom or Bedroom of Lungu.
+The hallway continues onward. You come upon the Guest Bathroom door to your right and head on to the Bedroom of Anjan.
+> go to bedroom of lungu
+
+> go to bedroom of lungu
+
+You are in a Bedroom of Lungu.
+You can go Continued Short Hallway or Bathroom of Lungu.
+Looking straight ahead, you see a large bed. One side is a small five-drawer dresser next to the bathroom door. On the other side a large two drawer dresser on top of which is a portable tape player and clock radio. Looking away from the bed, is a wide and deep three-tiered bookshelf built to hold libraries of books. One block of space has been cordoned off to hold a pc junior computer and the keyboard is housed on an adjacent desk. The only item of interest is the desk.
+> search shelves
+
+> search shelves
+Your large hand clamps on the the wooden shelf. Where should you begin.
+
+Your hands are in: a BookPile.
+Your hands proceed : f2, f4 or f8.
+A random assortment of books and magazines. Nothing of intererst.
+> go to f8
+
+> go to f8
+
+Your hands are in: a BookPile.
+You feel what might have been an imaginary shock, you remove your hands and place it in a random location.
+
+Your hands are in: a BookPile.
+Your hands procede: f18.
+A random assortment of books and magazines. Nothing of intererst.
+> go to f18
+
+> go to f18
+
+Your hands are in: a BookPile.
+Your hands procede: f13.
+A random assortment of books and magazines. Nothing of intererst.
+> go to f13
+
+> go to f13
+
+Your hands are in: a BookPile.
+You can go Bedroom of Lungu.
+A random assortment of books and magazines.
+You have found a SILVER MEDAL!!!
+> take silver medal
+
+> take silver medal
+You pick it up.
+> go to bedroom of lungu
+
+> go to bedroom of lungu
+
+You are in a Bedroom of Lungu.
+You can go Continued Short Hallway or Bathroom of Lungu.
+Looking straight ahead, you see a large bed. One side is a small five-drawer dresser next to the bathroom door. On the other side a large two drawer dresser on top of which is a portable tape player and clock radio. Looking away from the bed, is a wide and deep three-tiered bookshelf built to hold libraries of books. One block of space has been cordoned off to hold a pc junior computer and the keyboard is housed on an adjacent desk. The only item of interest is the desk.
+> go to continued short hallway
+
+> go to continued short hallway
+
+You are in a Continued Short Hallway.
+You can go Short Hallway, Guest Bathroom or Bedroom of Lungu.
+The hallway continues onward. You come upon the Guest Bathroom door to your right and head on to the Bedroom of Anjan.
+> go to short hallway
+
+> go to short hallway
+
+You are in a Short Hallway.
+You can go Underneath the Stairs, Living Room Center or Continued Short Hallway.
+You are in a short hallway.
+> go to living room center
+
+> go to living room center
+
+You are in a Living Room Center.
+You can go Living Room Left, Short Hallway or Living Room Right.
+You are now in the center of the oriental rug. Enormous bay windows occupy your front view. Behind you,  is the entrance to a short hallway.
+You stand on the rug and present a Bronze Medal.
+You stand on the rug and present a Silver Medal.
+You stand on the rug and present a Gold Medal.
+Good job, you have found all three medals. Now explore the rest of the house if you wish.
+[state=Running]

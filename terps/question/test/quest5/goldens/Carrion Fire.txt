@@ -1,0 +1,3782 @@
+Written & Programmed by Sean Koch
+Title, Background & Ideas by Amanda Esler
+
+Additional UI Programming & Playtesting by Jon Costa
+
+New Game
+
+> new game
+
+"I'm at the fire station near Sunset Heights... Please, help me!"
+
+That was the last thing she said to you before the phone went dead.
+
+You loaded your gun with its last magazine and sped off into the night. But only a short distance away from the fire station, a blockade of zombies surrounded and overturned your vehicle. Somehow you managed to escape, finding refuge in the foyer of a nearby restaurant. You're safe, but not for long.
+
+You must travel the rest of the way on foot.
+
+You must rescue her.
+
+Continue...
+
+> Continue...
+
+Restaurant - Foyer
+The room glows softly with the light of the flames from the wreckage outside. A bloody handprint is smeared on the wall next to the men's restroom.
+
+North is the men's room. East is the ladies' room.
+South is the dining room. West is the street.
+
+A battery rests on a nearby counter.
+
+> n
+
+Restaurant - Men's Room
+A police officer lies eviscerated on the floor, contrasting the otherwise pristine marble sinks and walls.
+
+South is the foyer.
+
+A stray handgun magazine is next to the body.
+
+> take handgun magazine
+Restaurant - Men's Room
+A police officer lies eviscerated on the floor, contrasting the otherwise pristine marble sinks and walls.
+
+South is the foyer.
+
+You take the handgun magazine.
+> s
+
+Restaurant - Foyer
+The room glows softly with the light of the flames from the wreckage outside. A bloody handprint is smeared on the wall next to the men's restroom.
+
+North is the men's room. East is the ladies' room.
+South is the dining room. West is the street.
+
+A battery rests on a nearby counter.
+
+> take battery
+Restaurant - Foyer
+The room glows softly with the light of the flames from the wreckage outside. A bloody handprint is smeared on the wall next to the men's restroom.
+
+North is the men's room. East is the ladies' room.
+South is the dining room. West is the street.
+
+You take the battery.
+> e
+
+Restaurant - Ladies' Room
+Bits of wet, viscous flesh sit in a pool of blood.
+
+West is the foyer.
+
+Beside one of the stalls is the dining room key.
+
+A zombie in a torn waitress uniform stands between you and the key.
+
+> handgun zombie
+Restaurant - Ladies' Room
+Bits of wet, viscous flesh sit in a pool of blood.
+
+West is the foyer.
+
+Beside one of the stalls is the dining room key.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> take dining room key
+Restaurant - Ladies' Room
+Bits of wet, viscous flesh sit in a pool of blood.
+
+West is the foyer.
+
+You take the dining room key.
+> w
+
+Restaurant - Foyer
+The room glows softly with the light of the flames from the wreckage outside. A bloody handprint is smeared on the wall next to the men's restroom.
+
+North is the men's room. East is the ladies' room.
+South is the dining room. West is the street.
+
+> use dining room key
+Restaurant - Foyer
+The room glows softly with the light of the flames from the wreckage outside. A bloody handprint is smeared on the wall next to the men's restroom.
+
+North is the men's room. East is the ladies' room.
+South is the dining room. West is the street.
+
+You have used the dining room key.
+> s
+
+Restaurant - Dining Room
+The tables are overturned, and corpses are strewn about the room. It's as if the people here were taken by surprise.
+
+North is the foyer. East is the kitchen.
+
+A zombie blocks the way to the kitchen.
+
+A zombie drags itself across the floor, its legs broken.
+
+> handgun zombie
+Please choose which 'zombie' you mean:
+1: zombie
+2: zombie
+> 1
+Restaurant - Dining Room
+The tables are overturned, and corpses are strewn about the room. It's as if the people here were taken by surprise.
+
+North is the foyer. East is the kitchen.
+
+A zombie drags itself across the floor, its legs broken.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> handgun zombie
+Restaurant - Dining Room
+The tables are overturned, and corpses are strewn about the room. It's as if the people here were taken by surprise.
+
+North is the foyer. East is the kitchen.
+
+You shoot the zombie, and it slumps over, twitching.
+> look
+Restaurant - Dining Room
+The tables are overturned, and corpses are strewn about the room. It's as if the people here were taken by surprise.
+
+North is the foyer. East is the kitchen.
+
+> e
+
+Restaurant - Kitchen
+A sharp, sour odor wafts through the air, and a worrisome fire rises up from one of the burners.
+
+North is the storage room. East is an alley.
+West is the dining room.
+
+A loose bandage hangs off the side of the stove.
+
+A zombie bangs on the door to the storage room.
+
+> take bandage
+Restaurant - Kitchen
+A sharp, sour odor wafts through the air, and a worrisome fire rises up from one of the burners.
+
+North is the storage room. East is an alley.
+West is the dining room.
+
+A zombie bangs on the door to the storage room.
+
+You take the bandage.
+> i
+You are carrying a combat knife, a battery and a bandage.
+> status
+Nothing happened.
+> i
+You are carrying a combat knife, a battery and a bandage.
+> e
+
+Back Alley
+The street lights to the north are out. Power to the city seems to have been cut. The shadows of the dead roam in the distance.
+
+North is an empty lot. The alley continues East and South.
+West is the kitchen.
+
+One corner of a newspaper flaps in the wind amid piles of trash.
+
+> s
+
+Back Alley
+The alley splits in two directions. Flies swarm a nearby dumpster, and something skitters along the dirty brick walls.
+
+The alley continues North and South.
+West is the alley behind the Sunset Heights Apartments.
+
+A zombie blocks the way west.
+
+> handgun zombie
+Back Alley
+The alley splits in two directions. Flies swarm a nearby dumpster, and something skitters along the dirty brick walls.
+
+The alley continues North and South.
+West is the alley behind the Sunset Heights Apartments.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> w
+
+Behind Sunset Heights
+The alley is empty, and the apartment windows show no signs of life. A man in a ripped white polo shirt and black dress pants is face-down on the pavement. He's wearing a name tag that reads: "Jeff Dabbs - Asst. Manager."
+
+East is an intersecting alley.
+
+Next to the body is a small key, engraved with the words: "R. Storage."
+
+> take restaurant storage key
+Nothing happened.
+> i
+You are carrying a combat knife, a battery and a bandage.
+> take R. Storage Key
+Behind Sunset Heights
+The alley is empty, and the apartment windows show no signs of life. A man in a ripped white polo shirt and black dress pants is face-down on the pavement. He's wearing a name tag that reads: "Jeff Dabbs - Asst. Manager."
+
+East is an intersecting alley.
+
+You take the restaurant storage key.
+> e
+
+Back Alley
+The alley splits in two directions. Flies swarm a nearby dumpster, and something skitters along the dirty brick walls.
+
+The alley continues North and South.
+West is the alley behind the Sunset Heights Apartments.
+
+> n
+
+Back Alley
+The street lights to the north are out. Power to the city seems to have been cut. The shadows of the dead roam in the distance.
+
+North is an empty lot. The alley continues East and South.
+West is the kitchen.
+
+One corner of a newspaper flaps in the wind amid piles of trash.
+
+> n
+
+Empty Lot
+Men and women with skinless faces and rotted fingers claw at you from behind a chain link fence.
+
+South is the alley.
+
+There's a siphon pump on the ground, uncomfortably close to wet, bloody fingers poking through a fence.
+
+A zombie stands between you and the siphon pump.
+
+> w
+You can't go there.
+> use R. Storage Key
+Empty Lot
+Men and women with skinless faces and rotted fingers claw at you from behind a chain link fence.
+
+South is the alley.
+
+There's a siphon pump on the ground, uncomfortably close to wet, bloody fingers poking through a fence.
+
+A zombie stands between you and the siphon pump.
+
+You can't use that here.
+> n
+You can't go there.
+> take aptA4Key
+Nothing happened.
+> s
+
+Back Alley
+The street lights to the north are out. Power to the city seems to have been cut. The shadows of the dead roam in the distance.
+
+North is an empty lot. The alley continues East and South.
+West is the kitchen.
+
+One corner of a newspaper flaps in the wind amid piles of trash.
+
+> w
+
+Restaurant - Kitchen
+A sharp, sour odor wafts through the air, and a worrisome fire rises up from one of the burners.
+
+North is the storage room. East is an alley.
+West is the dining room.
+
+A zombie bangs on the door to the storage room.
+
+> n
+Restaurant - Kitchen
+A sharp, sour odor wafts through the air, and a worrisome fire rises up from one of the burners.
+
+North is the storage room. East is an alley.
+West is the dining room.
+
+The zombie vomits acidic bile!
+You throw your hands up to protect your face!
+
+> use R. Storage Key
+Restaurant - Kitchen
+A sharp, sour odor wafts through the air, and a worrisome fire rises up from one of the burners.
+
+North is the storage room. East is an alley.
+West is the dining room.
+
+The zombie vomits acidic bile!
+You throw your hands up to protect your face!
+
+> take apt A4 key
+Nothing happened.
+> handgun zombie
+Restaurant - Kitchen
+A sharp, sour odor wafts through the air, and a worrisome fire rises up from one of the burners.
+
+North is the storage room. East is an alley.
+West is the dining room.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> n
+Restaurant - Kitchen
+A sharp, sour odor wafts through the air, and a worrisome fire rises up from one of the burners.
+
+North is the storage room. East is an alley.
+West is the dining room.
+
+The door is locked.
+> use R. Storage Key
+Restaurant - Kitchen
+A sharp, sour odor wafts through the air, and a worrisome fire rises up from one of the burners.
+
+North is the storage room. East is an alley.
+West is the dining room.
+
+You have used the restaurant storage key.
+> take apt A4 key
+Nothing happened.
+> n
+
+Restaurant - Storage
+The bare, windowless room is made almost entirely of concrete. The corpse of a woman in a business suit lies collapsed in the corner beneath a wooden shelf.
+
+South is the kitchen.
+
+There's a key next to her purse labeled: "Apt. A-4."
+
+> take A4 Key
+Nothing happened.
+> take Apt. A-4 Key
+Restaurant - Storage
+The bare, windowless room is made almost entirely of concrete. The corpse of a woman in a business suit lies collapsed in the corner beneath a wooden shelf.
+
+South is the kitchen.
+
+You take the key to apartment A-4.
+> s
+
+Restaurant - Kitchen
+A sharp, sour odor wafts through the air, and a worrisome fire rises up from one of the burners.
+
+North is the storage room. East is an alley.
+West is the dining room.
+
+> e
+
+Back Alley
+The street lights to the north are out. Power to the city seems to have been cut. The shadows of the dead roam in the distance.
+
+North is an empty lot. The alley continues East and South.
+West is the kitchen.
+
+One corner of a newspaper flaps in the wind amid piles of trash.
+
+> s
+
+Back Alley
+The alley splits in two directions. Flies swarm a nearby dumpster, and something skitters along the dirty brick walls.
+
+The alley continues North and South.
+West is the alley behind the Sunset Heights Apartments.
+
+> s
+
+Back Alley
+The dead body of a derelict is sprawled out on a pile of trash. To the east is a door with a crooked sign that reads: "KEEP OUT! Authorized Personnel Only."
+
+The alley continues North. East is the pharmacy.
+South is Walnut Street.
+
+A zombie stands in the middle of the alley, swaying, blocking the way south.
+
+> handgun zombie
+Back Alley
+The dead body of a derelict is sprawled out on a pile of trash. To the east is a door with a crooked sign that reads: "KEEP OUT! Authorized Personnel Only."
+
+The alley continues North. East is the pharmacy.
+South is Walnut Street.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> s
+
+Walnut Street - Sidewalk
+A splatter of fresh crimson stains the sidewalk. Bloody footprints lead away from it, traveling east, becoming lighter until they disappear.
+
+North is an alley. The sidewalk continues East.
+South is a burning car.
+
+A bloody key is on the sidewalk, seemingly discarded.
+
+> look
+Walnut Street - Sidewalk
+A splatter of fresh crimson stains the sidewalk. Bloody footprints lead away from it, traveling east, becoming lighter until they disappear.
+
+North is an alley. The sidewalk continues East.
+South is a burning car.
+
+A bloody key is on the sidewalk, seemingly discarded.
+
+> take tool shop key
+Walnut Street - Sidewalk
+A splatter of fresh crimson stains the sidewalk. Bloody footprints lead away from it, traveling east, becoming lighter until they disappear.
+
+North is an alley. The sidewalk continues East.
+South is a burning car.
+
+You take the key to Allen's Hardware.
+> e
+
+Corner of Walnut and Main Street
+A woman sits hunched over a bench, blood pouring from the bullet wound in her skull. Her arms and shoulders twitch as if she's still alive, but her face is blank with a white-eyed stare.
+
+North is Main Street. Walnut Street is West and South.
+
+> s
+
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+A key is on the ground.
+
+> take rental office key
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+You take the rental office key.
+> e
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> s
+
+Subway - Entrance
+The metal stairs make it impossible to walk quietly, each step booming in the hollow passage. At the bottom of the stairway, the corpse of a bearded man sits limply with his back pressed against a blood-soaked wall, a small light emanating from his hand.
+
+North is Walnut Street. South is the turnstile.
+
+> take Cell Phone
+You can't take it.
+> s
+
+Subway - Turnstile
+The turnstiles are revolving doors with thick steel bars that make them impenetrable without a token. Luckily, they're mechanical and don't need electricity. They should still work.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+A fire extinguisher is attached to a wall.
+
+> take fire extinguisher
+Subway - Turnstile
+The turnstiles are revolving doors with thick steel bars that make them impenetrable without a token. Luckily, they're mechanical and don't need electricity. They should still work.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+A fire extinguisher is attached to a wall.
+
+You can't carry any more.
+> i
+You are carrying a combat knife, a battery, a bandage, an Apt. A-4 Key, a tool shop key and a rental office key.
+> drop combat knife
+Subway - Turnstile
+The turnstiles are revolving doors with thick steel bars that make them impenetrable without a token. Luckily, they're mechanical and don't need electricity. They should still work.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+A fire extinguisher is attached to a wall.
+
+You drop the knife.
+> take fire extinguisher
+Subway - Turnstile
+The turnstiles are revolving doors with thick steel bars that make them impenetrable without a token. Luckily, they're mechanical and don't need electricity. They should still work.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+You take the fire extinguisher.
+> n
+
+Subway - Entrance
+The metal stairs make it impossible to walk quietly, each step booming in the hollow passage. At the bottom of the stairway, the corpse of a bearded man sits limply with his back pressed against a blood-soaked wall, a small light emanating from his hand.
+
+North is Walnut Street. South is the turnstile.
+
+> n
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> w
+
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+> w
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+The blaze makes it impossible to pass.
+> n
+
+Corner of Walnut and Main Street
+A woman sits hunched over a bench, blood pouring from the bullet wound in her skull. Her arms and shoulders twitch as if she's still alive, but her face is blank with a white-eyed stare.
+
+North is Main Street. Walnut Street is West and South.
+
+> w
+
+Walnut Street - Sidewalk
+A splatter of fresh crimson stains the sidewalk. Bloody footprints lead away from it, traveling east, becoming lighter until they disappear.
+
+North is an alley. The sidewalk continues East.
+South is a burning car.
+
+> s
+
+Walnut Street - Burning Car
+In the driver's seat, a body is engulfed in flames. The fire appears to have started in the cabin.
+
+The sidewalk is North.
+
+It's impossible to search the car for supplies without extinguishing the fire first.
+
+There's a gas can on the ground beside the car.
+
+> use fire extinguisher
+Walnut Street - Car
+The fire has been put out, leaving a thick fog of smoke and the scent of burnt flesh and leather in its wake. A man's blackened remains sit in the driver's seat.
+
+The sidewalk is North.
+
+After dousing the fire with the fire extinguisher, you search the car and notice that the glove box latch is loose.
+
+There's a gas can on the ground beside the car.
+
+> search glove box
+Walnut Street - Car
+The fire has been put out, leaving a thick fog of smoke and the scent of burnt flesh and leather in its wake. A man's blackened remains sit in the driver's seat.
+
+The sidewalk is North.
+
+The glove box latch is loose.
+
+There's a gas can on the ground beside the car.
+
+Walnut Street - Car
+The fire has been put out, leaving a thick fog of smoke and the scent of burnt flesh and leather in its wake. A man's blackened remains sit in the driver's seat.
+
+The sidewalk is North.
+
+There's a key in the glove box.
+
+There's a gas can on the ground beside the car.
+
+> take janitor's closet key
+Walnut Street - Car
+The fire has been put out, leaving a thick fog of smoke and the scent of burnt flesh and leather in its wake. A man's blackened remains sit in the driver's seat.
+
+The sidewalk is North.
+
+There's a gas can on the ground beside the car.
+
+You take the janitor's key.
+> take gas can
+Walnut Street - Car
+The fire has been put out, leaving a thick fog of smoke and the scent of burnt flesh and leather in its wake. A man's blackened remains sit in the driver's seat.
+
+The sidewalk is North.
+
+There's a gas can on the ground beside the car.
+
+You can't carry any more.
+> i
+You are carrying a battery, a bandage, an Apt. A-4 Key, a tool shop key, a rental office key and a janitor's closet key.
+> n
+
+Walnut Street - Sidewalk
+A splatter of fresh crimson stains the sidewalk. Bloody footprints lead away from it, traveling east, becoming lighter until they disappear.
+
+North is an alley. The sidewalk continues East.
+South is a car.
+
+> n
+
+Back Alley
+The dead body of a derelict is sprawled out on a pile of trash. To the east is a door with a crooked sign that reads: "KEEP OUT! Authorized Personnel Only."
+
+The alley continues North. East is the pharmacy.
+South is Walnut Street.
+
+> n
+
+Back Alley
+The alley splits in two directions. Flies swarm a nearby dumpster, and something skitters along the dirty brick walls.
+
+The alley continues North and South.
+West is the alley behind the Sunset Heights Apartments.
+
+> n
+
+Back Alley
+The street lights to the north are out. Power to the city seems to have been cut. The shadows of the dead roam in the distance.
+
+North is an empty lot. The alley continues East and South.
+West is the kitchen.
+
+One corner of a newspaper flaps in the wind amid piles of trash.
+
+> e
+
+Back Alley
+The concrete is painted with the gruesome remains of numerous victims.
+
+South is a storage locker. The alley continues East and West.
+
+There's a number pad next to the storage locker.
+
+A zombie stands in front of the storage locker.
+
+> handgun zombie
+Back Alley
+The concrete is painted with the gruesome remains of numerous victims.
+
+South is a storage locker. The alley continues East and West.
+
+There's a number pad next to the storage locker.
+
+A zombie stands in front of the storage locker.
+
+You're out of ammo!
+> e
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> take battery
+Please choose which 'battery' you mean:
+1: battery
+2: battery
+> 1
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+You can't carry any more.
+> e
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> e
+
+Main Street
+The air is thick with the acrid smell of smoke and death. Beyond the mess of twisted and mangled metal is the fire station, unlit and lifeless.
+
+Sidewalks are to the East and West.
+
+A key with a tag that reads, "S. Locker #3347," is on the ground in a puddle.
+
+A zombie wanders aimlessly in front of the wreckage. He's too close to the key.
+
+> e
+
+Main Street - Sidewalk
+The wreckage to the north is eerily still, save for the dancing fire. Not even the dead could have survived a crash of such magnitude.
+
+The sidewalk continues South. The street can be crossed by going West.
+East is Allen's Hardware.
+
+> e
+Main Street - Sidewalk
+The wreckage to the north is eerily still, save for the dancing fire. Not even the dead could have survived a crash of such magnitude.
+
+The sidewalk continues South. The street can be crossed by going West.
+East is Allen's Hardware.
+
+The door is locked.
+> use tool shop key
+Main Street - Sidewalk
+The wreckage to the north is eerily still, save for the dancing fire. Not even the dead could have survived a crash of such magnitude.
+
+The sidewalk continues South. The street can be crossed by going West.
+East is Allen's Hardware.
+
+You have used the key to Allen's Hardware.
+> e
+
+Allen's Hardware - Storefront
+The wooden floorboards are stained with a trail of blood that leads to the back room.
+
+East is the back room. West is Main Street.
+
+A battery is on the floor next to its torn packaging.
+
+A hammer hangs from one of the shelves.
+
+> look
+Allen's Hardware - Storefront
+The wooden floorboards are stained with a trail of blood that leads to the back room.
+
+East is the back room. West is Main Street.
+
+A battery is on the floor next to its torn packaging.
+
+A hammer hangs from one of the shelves.
+
+> take hammer
+Allen's Hardware - Storefront
+The wooden floorboards are stained with a trail of blood that leads to the back room.
+
+East is the back room. West is Main Street.
+
+A battery is on the floor next to its torn packaging.
+
+You take the hammer.
+> e
+
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+A crowbar, still in its packaging, rests on a nearby wooden table.
+
+A zombie stands between you and the crowbar.
+
+> take knife
+Nothing happened.
+> knife zombie
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+A crowbar, still in its packaging, rests on a nearby wooden table.
+
+A zombie stands between you and the crowbar.
+
+You don't have the knife!
+> use battery
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+A crowbar, still in its packaging, rests on a nearby wooden table.
+
+A zombie stands between you and the crowbar.
+
+You load the battery into the flashlight.
+> drop rental office key
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+A crowbar, still in its packaging, rests on a nearby wooden table.
+
+A zombie stands between you and the crowbar.
+
+You drop the rental office key.
+> w
+
+Allen's Hardware - Storefront
+The wooden floorboards are stained with a trail of blood that leads to the back room.
+
+East is the back room. West is Main Street.
+
+A battery is on the floor next to its torn packaging.
+
+> take battery
+Allen's Hardware - Storefront
+The wooden floorboards are stained with a trail of blood that leads to the back room.
+
+East is the back room. West is Main Street.
+
+You take the battery.
+> w
+
+Main Street - Sidewalk
+The wreckage to the north is eerily still, save for the dancing fire. Not even the dead could have survived a crash of such magnitude.
+
+The sidewalk continues South. The street can be crossed by going West.
+East is Allen's Hardware.
+
+> w
+
+Main Street
+The air is thick with the acrid smell of smoke and death. Beyond the mess of twisted and mangled metal is the fire station, unlit and lifeless.
+
+Sidewalks are to the East and West.
+
+A key with a tag that reads, "S. Locker #3347," is on the ground in a puddle.
+
+A zombie wanders aimlessly in front of the wreckage. He's too close to the key.
+
+> w
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> w
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> w
+
+Back Alley
+The concrete is painted with the gruesome remains of numerous victims.
+
+South is a storage locker. The alley continues East and West.
+
+There's a number pad next to the storage locker.
+
+A zombie stands in front of the storage locker.
+
+> w
+
+Back Alley
+The street lights to the north are out. Power to the city seems to have been cut. The shadows of the dead roam in the distance.
+
+North is an empty lot. The alley continues East and South.
+West is the kitchen.
+
+One corner of a newspaper flaps in the wind amid piles of trash.
+
+> s
+
+Back Alley
+The alley splits in two directions. Flies swarm a nearby dumpster, and something skitters along the dirty brick walls.
+
+The alley continues North and South.
+West is the alley behind the Sunset Heights Apartments.
+
+> s
+
+Back Alley
+The dead body of a derelict is sprawled out on a pile of trash. To the east is a door with a crooked sign that reads: "KEEP OUT! Authorized Personnel Only."
+
+The alley continues North. East is the pharmacy.
+South is Walnut Street.
+
+> s
+
+Walnut Street - Sidewalk
+A splatter of fresh crimson stains the sidewalk. Bloody footprints lead away from it, traveling east, becoming lighter until they disappear.
+
+North is an alley. The sidewalk continues East.
+South is a car.
+
+> e
+
+Corner of Walnut and Main Street
+A woman sits hunched over a bench, blood pouring from the bullet wound in her skull. Her arms and shoulders twitch as if she's still alive, but her face is blank with a white-eyed stare.
+
+North is Main Street. Walnut Street is West and South.
+
+> s
+
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+> e
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> s
+
+Subway - Entrance
+The metal stairs make it impossible to walk quietly, each step booming in the hollow passage. At the bottom of the stairway, the corpse of a bearded man sits limply with his back pressed against a blood-soaked wall, a small light emanating from his hand.
+
+North is Walnut Street. South is the turnstile.
+
+> s
+
+Subway - Turnstile
+The turnstiles are revolving doors with thick steel bars that make them impenetrable without a token. Luckily, they're mechanical and don't need electricity. They should still work.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+> take combat knife
+Subway - Turnstile
+The turnstiles are revolving doors with thick steel bars that make them impenetrable without a token. Luckily, they're mechanical and don't need electricity. They should still work.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+You take the knife.
+> n
+
+Subway - Entrance
+The metal stairs make it impossible to walk quietly, each step booming in the hollow passage. At the bottom of the stairway, the corpse of a bearded man sits limply with his back pressed against a blood-soaked wall, a small light emanating from his hand.
+
+North is Walnut Street. South is the turnstile.
+
+> n
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> e
+
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloated zombie blocks the way northeast.
+
+A bloody zombie blocks the way north.
+
+A female zombie blocks the way southeast.
+
+> i
+You are carrying a bandage, an Apt. A-4 Key, a janitor's closet key, a hammer, a battery and a combat knife.
+> w
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> w
+
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+> n
+
+Corner of Walnut and Main Street
+A woman sits hunched over a bench, blood pouring from the bullet wound in her skull. Her arms and shoulders twitch as if she's still alive, but her face is blank with a white-eyed stare.
+
+North is Main Street. Walnut Street is West and South.
+
+> w
+
+Walnut Street - Sidewalk
+A splatter of fresh crimson stains the sidewalk. Bloody footprints lead away from it, traveling east, becoming lighter until they disappear.
+
+North is an alley. The sidewalk continues East.
+South is a car.
+
+> n
+
+Back Alley
+The dead body of a derelict is sprawled out on a pile of trash. To the east is a door with a crooked sign that reads: "KEEP OUT! Authorized Personnel Only."
+
+The alley continues North. East is the pharmacy.
+South is Walnut Street.
+
+> n
+
+Back Alley
+The alley splits in two directions. Flies swarm a nearby dumpster, and something skitters along the dirty brick walls.
+
+The alley continues North and South.
+West is the alley behind the Sunset Heights Apartments.
+
+> n
+
+Back Alley
+The street lights to the north are out. Power to the city seems to have been cut. The shadows of the dead roam in the distance.
+
+North is an empty lot. The alley continues East and South.
+West is the kitchen.
+
+One corner of a newspaper flaps in the wind amid piles of trash.
+
+> e
+
+Back Alley
+The concrete is painted with the gruesome remains of numerous victims.
+
+South is a storage locker. The alley continues East and West.
+
+There's a number pad next to the storage locker.
+
+A zombie stands in front of the storage locker.
+
+> e
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> e
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> s
+
+Main Street - Sidewalk
+To the west, a car has crashed into a building, its front end buried beneath a pile of rubble.
+
+The sidewalk continues North and South. West is a crashed car.
+
+A zombie blocks the way south.
+
+> w
+
+Crashed Car
+The driver's side is pressed against the building, broken bricks cascading onto its hood. A man's corpse sits in the driver's seat. He's still wearing his seatbelt. The fresh blood trickling down his face indicates that his death was recent.
+
+East is Main Street.
+
+There's a set of keys in the ignition, but the door is jammed.
+
+> use hammer
+Crashed Car
+The driver's side is pressed against the building, broken bricks cascading onto its hood. A man's corpse sits in the driver's seat. He's still wearing his seatbelt. The fresh blood trickling down his face indicates that his death was recent.
+
+East is Main Street.
+
+Glass splinters in all directions as you smash the driver's side window with the hammer. A set of keys is in the ignition. One of them is labeled: "Apt. A-3."
+
+> take key to apartment A-3
+Crashed Car
+The driver's side is pressed against the building, broken bricks cascading onto its hood. A man's corpse sits in the driver's seat. He's still wearing his seatbelt. The fresh blood trickling down his face indicates that his death was recent.
+
+East is Main Street.
+
+You take the key to apartment A-3.
+> i
+You are carrying a bandage, an Apt. A-4 Key, a janitor's closet key, a battery, a combat knife and a key to apartment A-3.
+> drop janitor's closet key
+Crashed Car
+The driver's side is pressed against the building, broken bricks cascading onto its hood. A man's corpse sits in the driver's seat. He's still wearing his seatbelt. The fresh blood trickling down his face indicates that his death was recent.
+
+East is Main Street.
+
+You drop the janitor's key.
+> e
+
+Main Street - Sidewalk
+To the west, a car has crashed into a building, its front end buried beneath a pile of rubble.
+
+The sidewalk continues North and South. West is a crashed car.
+
+A zombie blocks the way south.
+
+> n
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> e
+
+Main Street
+The air is thick with the acrid smell of smoke and death. Beyond the mess of twisted and mangled metal is the fire station, unlit and lifeless.
+
+Sidewalks are to the East and West.
+
+A key with a tag that reads, "S. Locker #3347," is on the ground in a puddle.
+
+A zombie wanders aimlessly in front of the wreckage. He's too close to the key.
+
+> take storage locker c key
+Main Street
+The air is thick with the acrid smell of smoke and death. Beyond the mess of twisted and mangled metal is the fire station, unlit and lifeless.
+
+Sidewalks are to the East and West.
+
+A key with a tag that reads, "S. Locker #3347," is on the ground in a puddle.
+
+The zombie vomits acidic bile!
+You throw your hands up to protect your face!
+
+> knife zombie
+Main Street
+The air is thick with the acrid smell of smoke and death. Beyond the mess of twisted and mangled metal is the fire station, unlit and lifeless.
+
+Sidewalks are to the East and West.
+
+A key with a tag that reads, "S. Locker #3347," is on the ground in a puddle.
+
+You ram the combat knife into the zombie's skull.
+After a struggle, it falls to the ground, dead.
+> take storage locker c key
+Main Street
+The air is thick with the acrid smell of smoke and death. Beyond the mess of twisted and mangled metal is the fire station, unlit and lifeless.
+
+Sidewalks are to the East and West.
+
+You take the key to storage locker #3347.
+> e
+
+Main Street - Sidewalk
+The wreckage to the north is eerily still, save for the dancing fire. Not even the dead could have survived a crash of such magnitude.
+
+The sidewalk continues South. The street can be crossed by going West.
+East is Allen's Hardware.
+
+> e
+
+Allen's Hardware - Storefront
+The wooden floorboards are stained with a trail of blood that leads to the back room.
+
+East is the back room. West is Main Street.
+
+> e
+
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+A crowbar, still in its packaging, rests on a nearby wooden table.
+
+A zombie stands between you and the crowbar.
+
+> knife zombie
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+A crowbar, still in its packaging, rests on a nearby wooden table.
+
+You ram the combat knife into the zombie's skull.
+After a struggle, it falls to the ground, dead.
+> s
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+A crowbar, still in its packaging, rests on a nearby wooden table.
+
+You have unlocked it.
+> s
+
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+A zombie blocks the way east.
+
+> look
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+A zombie blocks the way east.
+
+> use bandage
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+A zombie blocks the way east.
+
+You have wrapped up the wound and stopped any bleeding.
+> knife zombie
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+You ram the combat knife into the zombie's skull.
+After a struggle, it falls to the ground, dead.
+> e
+
+Apartment Parking Lot
+A little boy lies dead on the concrete between two cars, his sneaker a few feet away. He must have tripped while running from the horde. Poor thing couldn't have been older than eight.
+
+The alleys are to the South and West.
+
+A key is on the ground. The tag reads: "Iron Sights."
+
+> drop battery
+Apartment Parking Lot
+A little boy lies dead on the concrete between two cars, his sneaker a few feet away. He must have tripped while running from the horde. Poor thing couldn't have been older than eight.
+
+The alleys are to the South and West.
+
+A key is on the ground. The tag reads: "Iron Sights."
+
+You drop the battery.
+> take gun shop key
+Apartment Parking Lot
+A little boy lies dead on the concrete between two cars, his sneaker a few feet away. He must have tripped while running from the horde. Poor thing couldn't have been older than eight.
+
+The alleys are to the South and West.
+
+You take the gun shop key.
+> s
+
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+> s
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+It's locked with a thick steel padlock.
+> e
+
+Apartments - Rear Entrance
+The room is strangely untouched. The chairs and desks are unmoved and perfectly clean. A fireplace is at the far end of the room; it hasn't been used in a while.
+
+North is the main hall. West is the alley.
+
+> n
+
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+> use key to apartment A-3
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+You have used the key to apartment A-3.
+> use Apt. A-4 Key
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+You have used the key to apartment A-4.
+> ne
+
+Apartments - Apt. A-3
+A chipped, bloody baseball bat is in the middle of the floor, next to some toppled over beer cans and an old recliner. On the far side of the room a window is broken.
+
+Southwest is the main hall.
+
+A cell phone charger has been left on the counter next to the refrigerator.
+
+> take cell charger
+Apartments - Apt. A-3
+A chipped, bloody baseball bat is in the middle of the floor, next to some toppled over beer cans and an old recliner. On the far side of the room a window is broken.
+
+Southwest is the main hall.
+
+You take the charger.
+> s
+
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+> se
+
+Apartments - Apt. A-4
+There's a twin-sized bed on either side of the room with a desk in-between them, textbooks neatly stacked on top of one another next to a small laptop. A note has been stickied to the refrigerator not a dozen feet from one of the beds. There's no sign of any struggle, not even an overturned coffee cup. It's oddly peaceful here.
+
+Northwest is the main hall.
+
+A cell phone is on one of the beds.
+
+> take dead cell phone
+Apartments - Apt. A-4
+There's a twin-sized bed on either side of the room with a desk in-between them, textbooks neatly stacked on top of one another next to a small laptop. A note has been stickied to the refrigerator not a dozen feet from one of the beds. There's no sign of any struggle, not even an overturned coffee cup. It's oddly peaceful here.
+
+Northwest is the main hall.
+
+You take the cell phone.
+> nw
+
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+> s
+
+Apartments - Rear Entrance
+The room is strangely untouched. The chairs and desks are unmoved and perfectly clean. A fireplace is at the far end of the room; it hasn't been used in a while.
+
+North is the main hall. West is the alley.
+
+> w
+
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+> w
+
+Back Alley
+A woman in torn jean shorts and a dirty crop top is lying on the asphalt, shot in the back. This wasn't survival - it was murder.
+
+The alley continues North and East. West is the Iron Sights gun shop.
+
+> n
+
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+> w
+
+Back Alley
+A rusted metal gate creaks, swinging softly on its hinges in the gentle wind.
+
+West is the Main Street sidewalk. The alley continues East.
+
+Beyond the gate, a fire hose is coiled up and secured to a brick wall with a chain and padlock.
+
+> w
+
+Main Street - Sidewalk
+The dark street is set against a background of fire and destruction. Plastic bags and other debris blow by in the wind. Stores have been broken into, their windows and doors smashed to pieces.
+
+The sidewalk continues North and South. East is an alley.
+
+A zombie that was once a police officer blocks the way north.
+
+A female zombie stands in the middle of the street. She's easily avoidable.
+
+> s
+
+Main Street - Sidewalk
+A faded street sign marks the intersection of Main and Walnut. Something wet and sticky fills the potholes in the ground.
+
+The sidewalk continues North. The street can be crossed by going West.
+South is Walnut Street.
+
+A zombie blocks the way west.
+
+> s
+
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloated zombie blocks the way west.
+
+A bloody zombie stands in the middle of the sidewalk. He's easily avoidable.
+
+The female zombie meanders in the street. She's easily avoidable.
+
+> use gun shop key
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloated zombie blocks the way west.
+
+A bloody zombie is standing in the middle of the sidewalk. He's easily avoidable.
+
+The female zombie meanders in the street. She's easily avoidable.
+
+You have used the gun shop key.
+> ne
+
+Iron Sights - Storefront
+The place has been picked clean. Even the display models that were hanging from the ceiling have been stolen. All that's left is a rack of T-shirts that say things like: "Laws don't protect people. Guns do."
+
+North is the back room. Southwest is Walnut Street.
+
+There's a battery on the counter.
+
+There's a full handgun magazine on the counter.
+
+> take handgun magazine
+Iron Sights - Storefront
+The place has been picked clean. Even the display models that were hanging from the ceiling have been stolen. All that's left is a rack of T-shirts that say things like: "Laws don't protect people. Guns do."
+
+North is the back room. Southwest is Walnut Street.
+
+There's a battery on the counter.
+
+You take the handgun magazine.
+> i
+You are carrying a combat knife, a storage locker c key, a cell charger and a dead cell phone.
+> n
+
+Iron Sights - Back Room
+A headless body lies in front of an open closet. The walls have been sprayed with blood, thin red lines trailing down to the floor. Several shell casings are on the ground, as if someone panicked and went ballistic.
+
+South is the storefront. East is an alley.
+
+There's a subway token on a table in the corner.
+
+A zombie stands between you and the subway token.
+
+> handgun zombie
+Iron Sights - Back Room
+A headless body lies in front of an open closet. The walls have been sprayed with blood, thin red lines trailing down to the floor. Several shell casings are on the ground, as if someone panicked and went ballistic.
+
+South is the storefront. East is an alley.
+
+There's a subway token on a table in the corner.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> take subway token
+Iron Sights - Back Room
+A headless body lies in front of an open closet. The walls have been sprayed with blood, thin red lines trailing down to the floor. Several shell casings are on the ground, as if someone panicked and went ballistic.
+
+South is the storefront. East is an alley.
+
+You take the subway token.
+> s
+
+Iron Sights - Storefront
+The place has been picked clean. Even the display models that were hanging from the ceiling have been stolen. All that's left is a rack of T-shirts that say things like: "Laws don't protect people. Guns do."
+
+North is the back room. Southwest is Walnut Street.
+
+There's a battery on the counter.
+
+> take battery
+Iron Sights - Storefront
+The place has been picked clean. Even the display models that were hanging from the ceiling have been stolen. All that's left is a rack of T-shirts that say things like: "Laws don't protect people. Guns do."
+
+North is the back room. Southwest is Walnut Street.
+
+You take the battery.
+> sw
+
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloated zombie blocks the way west.
+
+A bloody zombie blocks the way north.
+
+A female zombie blocks the way southeast.
+
+> se
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloated zombie blocks the way west.
+
+A bloody zombie blocks the way north.
+
+The female zombie vomits acidic bile!
+You throw your hands up to protect your face!
+
+> handgun zombie
+Please choose which 'zombie' you mean:
+1: zombie
+2: zombie
+3: zombie
+> 3
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloated zombie blocks the way west.
+
+A bloody zombie blocks the way north.
+
+You shoot the female zombie, and it collapses with a tortured wail.
+> se
+
+Back Alley
+The alley is home to a broken skateboard, numerous cigarette butts, and a weathered basketball net. It must have been a place where teenagers hung out. Someone spray-painted the words "HELP US" on one building, and "WHY ARE WE STILL HERE" on another.
+
+Northwest is Walnut Street. East is an abandoned car.
+South is a storage locker with a metal plate that reads: 3347.
+
+A zombie blocks the way east.
+
+> use storage locker c key
+Back Alley
+The alley is home to a broken skateboard, numerous cigarette butts, and a weathered basketball net. It must have been a place where teenagers hung out. Someone spray-painted the words "HELP US" on one building, and "WHY ARE WE STILL HERE" on another.
+
+Northwest is Walnut Street. East is an abandoned car.
+South is a storage locker with a metal plate that reads: 3347.
+
+A zombie blocks the way east.
+
+You have used the key to storage locker #3347.
+> s
+
+Storage Locker
+The shutter is almost loud enough to alert the dead. There are only a large Victorian chest and a wooden chair in the center of the room, but something reeks. Badly.
+
+North is the alley.
+
+There's a handgun magazine lying on the floor next to the chair.
+
+> take handgun magazine
+Storage Locker
+The shutter is almost loud enough to alert the dead. There are only a large Victorian chest and a wooden chair in the center of the room, but something reeks. Badly.
+
+North is the alley.
+
+You take the handgun magazine.
+> n
+
+Back Alley
+The alley is home to a broken skateboard, numerous cigarette butts, and a weathered basketball net. It must have been a place where teenagers hung out. Someone spray-painted the words "HELP US" on one building, and "WHY ARE WE STILL HERE" on another.
+
+Northwest is Walnut Street. East is an abandoned car.
+South is a storage locker with a metal plate that reads: 3347.
+
+A zombie blocks the way east.
+
+> handgun zombie
+Back Alley
+The alley is home to a broken skateboard, numerous cigarette butts, and a weathered basketball net. It must have been a place where teenagers hung out. Someone spray-painted the words "HELP US" on one building, and "WHY ARE WE STILL HERE" on another.
+
+Northwest is Walnut Street. East is an abandoned car.
+South is a storage locker with a metal plate that reads: 3347.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> e
+
+Abandoned Car
+The driver's side door is wide open, and upon closer inspection, the hood is warm. Someone was driving this car very recently. It looks like they had to leave in a hurry, and they took the keys with them. Otherwise, it would be driveable.
+
+The alley continues West.
+
+There's a battery in the backseat.
+
+> use battery
+Please choose which 'battery' you mean:
+1: battery
+2: battery
+> take battery
+Please choose which 'battery' you mean:
+1: battery
+2: battery
+> i
+You are carrying a combat knife, a cell charger, a dead cell phone, a subway token and a battery.
+> 1
+Nothing happened.
+> i
+You are carrying a combat knife, a cell charger, a dead cell phone, a subway token and a battery.
+> use battery
+Please choose which 'battery' you mean:
+1: battery
+2: battery
+> 1
+Abandoned Car
+The driver's side door is wide open, and upon closer inspection, the hood is warm. Someone was driving this car very recently. It looks like they had to leave in a hurry, and they took the keys with them. Otherwise, it would be driveable.
+
+The alley continues West.
+
+You load the battery into the flashlight.
+> i
+You are carrying a combat knife, a cell charger, a dead cell phone, a subway token and a battery.
+> drop subway token
+Abandoned Car
+The driver's side door is wide open, and upon closer inspection, the hood is warm. Someone was driving this car very recently. It looks like they had to leave in a hurry, and they took the keys with them. Otherwise, it would be driveable.
+
+The alley continues West.
+
+You drop the subway token.
+> drop battery
+Abandoned Car
+The driver's side door is wide open, and upon closer inspection, the hood is warm. Someone was driving this car very recently. It looks like they had to leave in a hurry, and they took the keys with them. Otherwise, it would be driveable.
+
+The alley continues West.
+
+You drop the battery.
+> w
+
+Back Alley
+The alley is home to a broken skateboard, numerous cigarette butts, and a weathered basketball net. It must have been a place where teenagers hung out. Someone spray-painted the words "HELP US" on one building, and "WHY ARE WE STILL HERE" on another.
+
+Northwest is Walnut Street. East is an abandoned car.
+South is a storage locker with a metal plate that reads: 3347.
+
+> nw
+
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloated zombie blocks the way west.
+
+A bloody zombie stands in the middle of the sidewalk. He's easily avoidable.
+
+> handgun zombie
+Please choose which 'zombie' you mean:
+1: zombie
+2: zombie
+> 1
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloody zombie is standing in the middle of the sidewalk. He's easily avoidable.
+
+You shoot the bloated zombie, and it collapses with a tortured wail.
+> w
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> w
+
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+> n
+
+Corner of Walnut and Main Street
+A woman sits hunched over a bench, blood pouring from the bullet wound in her skull. Her arms and shoulders twitch as if she's still alive, but her face is blank with a white-eyed stare.
+
+North is Main Street. Walnut Street is West and South.
+
+> w
+
+Walnut Street - Sidewalk
+A splatter of fresh crimson stains the sidewalk. Bloody footprints lead away from it, traveling east, becoming lighter until they disappear.
+
+North is an alley. The sidewalk continues East.
+South is a car.
+
+> s
+
+Walnut Street - Car
+The fire has been put out, leaving a thick fog of smoke and the scent of burnt flesh and leather in its wake. A man's blackened remains sit in the driver's seat.
+
+The sidewalk is North.
+
+There's a gas can on the ground beside the car.
+
+> take gas can
+Walnut Street - Car
+The fire has been put out, leaving a thick fog of smoke and the scent of burnt flesh and leather in its wake. A man's blackened remains sit in the driver's seat.
+
+The sidewalk is North.
+
+You take the gas can.
+> n
+
+Walnut Street - Sidewalk
+A splatter of fresh crimson stains the sidewalk. Bloody footprints lead away from it, traveling east, becoming lighter until they disappear.
+
+North is an alley. The sidewalk continues East.
+South is a car.
+
+> n
+
+Back Alley
+The dead body of a derelict is sprawled out on a pile of trash. To the east is a door with a crooked sign that reads: "KEEP OUT! Authorized Personnel Only."
+
+The alley continues North. East is the pharmacy.
+South is Walnut Street.
+
+> n
+
+Back Alley
+The alley splits in two directions. Flies swarm a nearby dumpster, and something skitters along the dirty brick walls.
+
+The alley continues North and South.
+West is the alley behind the Sunset Heights Apartments.
+
+> n
+
+Back Alley
+The street lights to the north are out. Power to the city seems to have been cut. The shadows of the dead roam in the distance.
+
+North is an empty lot. The alley continues East and South.
+West is the kitchen.
+
+One corner of a newspaper flaps in the wind amid piles of trash.
+
+> n
+
+Empty Lot
+Men and women with skinless faces and rotted fingers claw at you from behind a chain link fence.
+
+South is the alley.
+
+There's a siphon pump on the ground, uncomfortably close to wet, bloody fingers poking through a fence.
+
+A zombie stands between you and the siphon pump.
+
+> handgun zombie
+Empty Lot
+Men and women with skinless faces and rotted fingers claw at you from behind a chain link fence.
+
+South is the alley.
+
+There's a siphon pump on the ground, uncomfortably close to wet, bloody fingers poking through a fence.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> take siphon pump
+Empty Lot
+Men and women with skinless faces and rotted fingers claw at you from behind a chain link fence.
+
+South is the alley.
+
+You take the siphon pump.
+> i
+You are carrying a combat knife, a cell charger, a dead cell phone, a gas can and a siphon pump.
+> s
+
+Back Alley
+The street lights to the north are out. Power to the city seems to have been cut. The shadows of the dead roam in the distance.
+
+North is an empty lot. The alley continues East and South.
+West is the kitchen.
+
+One corner of a newspaper flaps in the wind amid piles of trash.
+
+> s
+
+Back Alley
+The alley splits in two directions. Flies swarm a nearby dumpster, and something skitters along the dirty brick walls.
+
+The alley continues North and South.
+West is the alley behind the Sunset Heights Apartments.
+
+> s
+
+Back Alley
+The dead body of a derelict is sprawled out on a pile of trash. To the east is a door with a crooked sign that reads: "KEEP OUT! Authorized Personnel Only."
+
+The alley continues North. East is the pharmacy.
+South is Walnut Street.
+
+> s
+
+Walnut Street - Sidewalk
+A splatter of fresh crimson stains the sidewalk. Bloody footprints lead away from it, traveling east, becoming lighter until they disappear.
+
+North is an alley. The sidewalk continues East.
+South is a car.
+
+> e
+
+Corner of Walnut and Main Street
+A woman sits hunched over a bench, blood pouring from the bullet wound in her skull. Her arms and shoulders twitch as if she's still alive, but her face is blank with a white-eyed stare.
+
+North is Main Street. Walnut Street is West and South.
+
+> s
+
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+> e
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> e
+
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloody zombie blocks the way north.
+
+> se
+
+Back Alley
+The alley is home to a broken skateboard, numerous cigarette butts, and a weathered basketball net. It must have been a place where teenagers hung out. Someone spray-painted the words "HELP US" on one building, and "WHY ARE WE STILL HERE" on another.
+
+Northwest is Walnut Street. East is an abandoned car.
+South is a storage locker with a metal plate that reads: 3347.
+
+> e
+
+Abandoned Car
+The driver's side door is wide open, and upon closer inspection, the hood is warm. Someone was driving this car very recently. It looks like they had to leave in a hurry, and they took the keys with them. Otherwise, it would be driveable.
+
+The alley continues West.
+
+> use siphon pump
+Abandoned Car
+The driver's side door is wide open, and upon closer inspection, the hood is warm. Someone was driving this car very recently. It looks like they had to leave in a hurry, and they took the keys with them. Otherwise, it would be driveable.
+
+The alley continues West.
+
+You siphon the fuel into the gas can.
+> drop siphon pump
+Nothing happened.
+> take subway token
+Abandoned Car
+The driver's side door is wide open, and upon closer inspection, the hood is warm. Someone was driving this car very recently. It looks like they had to leave in a hurry, and they took the keys with them. Otherwise, it would be driveable.
+
+The alley continues West.
+
+You take the subway token.
+> w
+
+Back Alley
+The alley is home to a broken skateboard, numerous cigarette butts, and a weathered basketball net. It must have been a place where teenagers hung out. Someone spray-painted the words "HELP US" on one building, and "WHY ARE WE STILL HERE" on another.
+
+Northwest is Walnut Street. East is an abandoned car.
+South is a storage locker with a metal plate that reads: 3347.
+
+> nw
+
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloody zombie stands in the middle of the sidewalk. He's easily avoidable.
+
+> w
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> w
+
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+> n
+
+Corner of Walnut and Main Street
+A woman sits hunched over a bench, blood pouring from the bullet wound in her skull. Her arms and shoulders twitch as if she's still alive, but her face is blank with a white-eyed stare.
+
+North is Main Street. Walnut Street is West and South.
+
+> n
+
+Main Street - Sidewalk
+Wooden boards have been nailed over the pharmacy's shattered windows. Broken glass covers the sidewalk, crackling with every step.
+
+The sidewalk continues North. The street can be crossed by going East.
+South is the corner of Walnut and Main. West is the pharmacy storefront.
+
+A zombie stands in front of the pharmacy's entrance.
+
+> n
+
+Main Street - Sidewalk
+To the west, a car has crashed into a building, its front end buried beneath a pile of rubble.
+
+The sidewalk continues North and South. West is a crashed car.
+
+A zombie blocks the way north.
+
+> e
+You can't go there.
+> e
+You can't go there.
+> n
+Main Street - Sidewalk
+To the west, a car has crashed into a building, its front end buried beneath a pile of rubble.
+
+The sidewalk continues North and South. West is a crashed car.
+
+The zombie grabs you, scratching you with his bony fingers!
+You shove it away!
+
+> i
+You are carrying a combat knife, a cell charger, a dead cell phone, a gas can and a subway token.
+> handgun zombie
+Main Street - Sidewalk
+To the west, a car has crashed into a building, its front end buried beneath a pile of rubble.
+
+The sidewalk continues North and South. West is a crashed car.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> n
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> w
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> n
+
+Locked Fence
+The fire station is beyond this fence, but it's locked by a double padlock and impossible to climb over, with thick lengths of barbed wire coiling around the top.
+
+North is a parking lot. The alley continues South.
+
+A key glimmers faintly on top of a nearby trash can.
+
+> take pharmacy key
+Locked Fence
+The fire station is beyond this fence, but it's locked by a double padlock and impossible to climb over, with thick lengths of barbed wire coiling around the top.
+
+North is a parking lot. The alley continues South.
+
+You take the pharmacy key.
+> s
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> e
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> s
+
+Main Street - Sidewalk
+To the west, a car has crashed into a building, its front end buried beneath a pile of rubble.
+
+The sidewalk continues North and South. West is a crashed car.
+
+> s
+
+Main Street - Sidewalk
+Wooden boards have been nailed over the pharmacy's shattered windows. Broken glass covers the sidewalk, crackling with every step.
+
+The sidewalk continues North. The street can be crossed by going East.
+South is the corner of Walnut and Main. West is the pharmacy storefront.
+
+A zombie stands in front of the pharmacy's entrance.
+
+> handgun zombie
+Main Street - Sidewalk
+Wooden boards have been nailed over the pharmacy's shattered windows. Broken glass covers the sidewalk, crackling with every step.
+
+The sidewalk continues North. The street can be crossed by going East.
+South is the corner of Walnut and Main. West is the pharmacy storefront.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> use pharmacy key
+Main Street - Sidewalk
+Wooden boards have been nailed over the pharmacy's shattered windows. Broken glass covers the sidewalk, crackling with every step.
+
+The sidewalk continues North. The street can be crossed by going East.
+South is the corner of Walnut and Main. West is the pharmacy storefront.
+
+You have used the pharmacy key.
+> w
+
+Pharmacy - Storefront
+It looks like the place has been looted. The shelves are empty, and pill bottles, magazines, and other miscellaneous items are scattered about the floor.
+
+Northwest is the back room. East is Main Street.
+
+A thin roll of bandages sits on the counter.
+
+> take bandage
+Pharmacy - Storefront
+It looks like the place has been looted. The shelves are empty, and pill bottles, magazines, and other miscellaneous items are scattered about the floor.
+
+Northwest is the back room. East is Main Street.
+
+You take the bandage.
+> nw
+
+Pharmacy - Back Room
+A small power generator sits idle next to a desk that someone seems to have thoroughly and frantically searched.
+
+West is the alley. Southeast is the pharmacy storefront.
+
+There's a battery under the desk.
+
+There's a small backup generator in the corner of the room. It needs fuel.
+
+> w
+Pharmacy - Back Room
+A small power generator sits idle next to a desk that someone seems to have thoroughly and frantically searched.
+
+West is the alley. Southeast is the pharmacy storefront.
+
+There's a battery under the desk.
+
+There's a small backup generator in the corner of the room. It needs fuel.
+
+You have unlocked it.
+> use gas can
+Pharmacy - Back Room
+A small power generator sits idle next to a desk that someone seems to have thoroughly and frantically searched.
+
+West is the alley. Southeast is the pharmacy storefront.
+
+There's a battery under the desk.
+
+You have poured the fuel into the backup generator. It's ready for use.
+
+> use cell charger
+Pharmacy - Back Room
+A small power generator sits idle next to a desk that someone seems to have thoroughly and frantically searched.
+
+West is the alley. Southeast is the pharmacy storefront.
+
+There's a battery under the desk.
+
+The backup generator is now working.
+
+You plug the charger into the backup generator and use it to power the cell phone.
+> use dead cell phone
+You can't use it.
+> look at cell phone
+Pharmacy - Back Room
+A small power generator sits idle next to a desk that someone seems to have thoroughly and frantically searched.
+
+West is the alley. Southeast is the pharmacy storefront.
+
+There's a battery under the desk.
+
+The backup generator is now working.
+
+The phone lights up to a conversation between a mother and daughter.
+
+JeniseRose: Caroline, I won't be home until late tonight. Can you lock the fence for me?
+CaroCaro17: Yeah, wheres the key???
+JenisRose: In the storage locker where it always is.
+CaroCaro17: Whats the code
+JeniseRose: 1586
+> i
+You are carrying a combat knife, a dead cell phone, a subway token and a bandage.
+> drop dead cell phone
+Pharmacy - Back Room
+A small power generator sits idle next to a desk that someone seems to have thoroughly and frantically searched.
+
+West is the alley. Southeast is the pharmacy storefront.
+
+There's a battery under the desk.
+
+The backup generator is now working.
+
+You drop the cell phone.
+> take battery
+Pharmacy - Back Room
+A small power generator sits idle next to a desk that someone seems to have thoroughly and frantically searched.
+
+West is the alley. Southeast is the pharmacy storefront.
+
+The backup generator is now working.
+
+You take the battery.
+> w
+
+Back Alley
+The dead body of a derelict is sprawled out on a pile of trash. To the east is a door with a crooked sign that reads: "KEEP OUT! Authorized Personnel Only."
+
+The alley continues North. East is the pharmacy.
+South is Walnut Street.
+
+> n
+
+Back Alley
+The alley splits in two directions. Flies swarm a nearby dumpster, and something skitters along the dirty brick walls.
+
+The alley continues North and South.
+West is the alley behind the Sunset Heights Apartments.
+
+> n
+
+Back Alley
+The street lights to the north are out. Power to the city seems to have been cut. The shadows of the dead roam in the distance.
+
+North is an empty lot. The alley continues East and South.
+West is the kitchen.
+
+One corner of a newspaper flaps in the wind amid piles of trash.
+
+> e
+
+Back Alley
+The concrete is painted with the gruesome remains of numerous victims.
+
+South is a storage locker. The alley continues East and West.
+
+There's a number pad next to the storage locker.
+
+A zombie stands in front of the storage locker.
+
+> handgun zombie
+Back Alley
+The concrete is painted with the gruesome remains of numerous victims.
+
+South is a storage locker. The alley continues East and West.
+
+There's a number pad next to the storage locker.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> input code number pad
+Back Alley
+The concrete is painted with the gruesome remains of numerous victims.
+
+South is a storage locker. The alley continues East and West.
+
+There's a number pad next to the storage locker.
+
+You punch in the code 1586 and raise the shutter.
+> s
+
+Storage Locker
+The rickety shutter opens up to an aluminum box with a concrete floor. There isn't much in here besides a desk and some office supplies.
+
+North is the alley.
+
+Hanging on the wall is a key with the letter "L" on it.
+
+> take fence key A
+Storage Locker
+The rickety shutter opens up to an aluminum box with a concrete floor. There isn't much in here besides a desk and some office supplies.
+
+North is the alley.
+
+You take the fence key.
+> i
+You are carrying a combat knife, a subway token, a bandage, a battery and a fence key A.
+> n
+
+Back Alley
+The concrete is painted with the gruesome remains of numerous victims.
+
+South is a storage locker. The alley continues East and West.
+
+There's a number pad next to the storage locker.
+
+> e
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> e
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> n
+You can't go there.
+> use fence key A
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+You can't use that here.
+> w
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> n
+
+Locked Fence
+The fire station is beyond this fence, but it's locked by a double padlock and impossible to climb over, with thick lengths of barbed wire coiling around the top.
+
+North is a parking lot. The alley continues South.
+
+> use fence key A
+Locked Fence
+The fire station is beyond this fence, but one more key is needed to open it.
+
+North is a parking lot. The alley continues South.
+
+You have used the fence key.
+> s
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> e
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> s
+
+Main Street - Sidewalk
+To the west, a car has crashed into a building, its front end buried beneath a pile of rubble.
+
+The sidewalk continues North and South. West is a crashed car.
+
+> w
+
+Crashed Car
+The driver's side is pressed against the building, broken bricks cascading onto its hood. A man's corpse sits in the driver's seat. He's still wearing his seatbelt. The fresh blood trickling down his face indicates that his death was recent.
+
+East is Main Street.
+
+> take janitor's closet key
+Crashed Car
+The driver's side is pressed against the building, broken bricks cascading onto its hood. A man's corpse sits in the driver's seat. He's still wearing his seatbelt. The fresh blood trickling down his face indicates that his death was recent.
+
+East is Main Street.
+
+You take the janitor's key.
+> e
+
+Main Street - Sidewalk
+To the west, a car has crashed into a building, its front end buried beneath a pile of rubble.
+
+The sidewalk continues North and South. West is a crashed car.
+
+> s
+
+Main Street - Sidewalk
+Wooden boards have been nailed over the pharmacy's shattered windows. Broken glass covers the sidewalk, crackling with every step.
+
+The sidewalk continues North. The street can be crossed by going East.
+South is the corner of Walnut and Main. West is the pharmacy storefront.
+
+> s
+
+Corner of Walnut and Main Street
+A woman sits hunched over a bench, blood pouring from the bullet wound in her skull. Her arms and shoulders twitch as if she's still alive, but her face is blank with a white-eyed stare.
+
+North is Main Street. Walnut Street is West and South.
+
+> s
+
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+> e
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> s
+
+Subway - Entrance
+The metal stairs make it impossible to walk quietly, each step booming in the hollow passage. At the bottom of the stairway, the corpse of a bearded man sits limply with his back pressed against a blood-soaked wall, a small light emanating from his hand.
+
+North is Walnut Street. South is the turnstile.
+
+> s
+
+Subway - Turnstile
+The turnstiles are revolving doors with thick steel bars that make them impenetrable without a token. Luckily, they're mechanical and don't need electricity. They should still work.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+> use subway token
+Subway - Turnstile
+The turnstile seems to have broken down, making passage through the revolving bars possible without a token.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+You have used the subway token.
+> s
+
+Subway - Platform
+The sounds of clumsy footsteps and distant, helpless cries echo throughout the tunnel.
+
+The stairs leading up to the turnstile are North. East is the janitor's closet.
+
+A zombie sways silently in front of the janitor's closet.
+
+A zombie claws at the floor, dragging itself forward.
+
+> handgun zombie
+Please choose which 'zombie' you mean:
+1: zombie
+2: zombie
+> 1
+Subway - Platform
+The sounds of clumsy footsteps and distant, helpless cries echo throughout the tunnel.
+
+The stairs leading up to the turnstile are North. East is the janitor's closet.
+
+A zombie claws at the floor, dragging itself forward.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> handgun zombie
+Subway - Platform
+The sounds of clumsy footsteps and distant, helpless cries echo throughout the tunnel.
+
+The stairs leading up to the turnstile are North. East is the janitor's closet.
+
+You shoot the zombie, and it slumps over, twitching.
+> use janitor's closet key
+Subway - Platform
+The sounds of clumsy footsteps and distant, helpless cries echo throughout the tunnel.
+
+The stairs leading up to the turnstile are North. East is the janitor's closet.
+
+You have used the janitor's key.
+> e
+
+Subway - Janitor's Closet
+Maggoty corpses have been piled on top of one another in the cramped, poorly ventilated room, causing it to stink with a mixture of gasoline, burnt flesh, and what smells like a stomach-churning case of bad breath.
+
+The subway platform is West.
+
+Hanging on the wall is a set of keys. One of them is labeled: "Ticket Office."
+
+There's a handgun magazine on one of the bodies.
+
+> i
+You are carrying a combat knife, a bandage and a battery.
+> take ticket office key
+Subway - Janitor's Closet
+Maggoty corpses have been piled on top of one another in the cramped, poorly ventilated room, causing it to stink with a mixture of gasoline, burnt flesh, and what smells like a stomach-churning case of bad breath.
+
+The subway platform is West.
+
+There's a handgun magazine on one of the bodies.
+
+You take the key to the ticket office.
+> take handgun magazine
+Subway - Janitor's Closet
+Maggoty corpses have been piled on top of one another in the cramped, poorly ventilated room, causing it to stink with a mixture of gasoline, burnt flesh, and what smells like a stomach-churning case of bad breath.
+
+The subway platform is West.
+
+You take the handgun magazine.
+> w
+
+Subway - Platform
+The sounds of clumsy footsteps and distant, helpless cries echo throughout the tunnel.
+
+The stairs leading up to the turnstile are North. East is the janitor's closet.
+
+> n
+
+Subway - Turnstile
+The turnstile seems to have broken down, making passage through the revolving bars possible without a token.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+> use ticket office key
+Subway - Turnstile
+The turnstile seems to have broken down, making passage through the revolving bars possible without a token.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+You have used the key to the ticket office.
+> w
+
+Subway - Ticket Office
+Post-it notes dot the walls, and records of some kind are stacked up on desks. The corpse of a young, light-haired woman in a navy blue blazer and skirt lies in the corner, still bleeding from her stomach.
+
+The turnstiles are to the East.
+
+There's a battery on top of a stack of papers.
+
+Next to a bloody purse is the key to apartment A-1.
+
+A zombie who was once a cashier stands between you and the key.
+
+> handgun zombie
+Subway - Ticket Office
+Post-it notes dot the walls, and records of some kind are stacked up on desks. The corpse of a young, light-haired woman in a navy blue blazer and skirt lies in the corner, still bleeding from her stomach.
+
+The turnstiles are to the East.
+
+There's a battery on top of a stack of papers.
+
+Next to a bloody purse is the key to apartment A-1.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> take key to apartment A-1
+Subway - Ticket Office
+Post-it notes dot the walls, and records of some kind are stacked up on desks. The corpse of a young, light-haired woman in a navy blue blazer and skirt lies in the corner, still bleeding from her stomach.
+
+The turnstiles are to the East.
+
+There's a battery on top of a stack of papers.
+
+You take the key to apartment A-1.
+> take battery
+Please choose which 'battery' you mean:
+1: battery
+2: battery
+> i
+You are carrying a combat knife, a bandage, a battery and a key to apartment A-1.
+> e
+
+Subway - Turnstile
+The turnstile seems to have broken down, making passage through the revolving bars possible without a token.
+
+North is the subway entrance. South is the subway platform.
+West is the ticket office.
+
+> n
+
+Subway - Entrance
+The metal stairs make it impossible to walk quietly, each step booming in the hollow passage. At the bottom of the stairway, the corpse of a bearded man sits limply with his back pressed against a blood-soaked wall, a small light emanating from his hand.
+
+North is Walnut Street. South is the turnstile.
+
+> n
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> e
+
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloody zombie blocks the way north.
+
+> use bandage
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+A bloody zombie blocks the way north.
+
+You have wrapped up the wound and stopped any bleeding.
+> handgun zombie
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+You shoot the bloody zombie, and it collapses with a tortured wail.
+> n
+
+Main Street - Sidewalk
+A faded street sign marks the intersection of Main and Walnut. Something wet and sticky fills the potholes in the ground.
+
+The sidewalk continues North. The street can be crossed by going West.
+South is Walnut Street.
+
+A zombie blocks the way west.
+
+> n
+
+Main Street - Sidewalk
+The dark street is set against a background of fire and destruction. Plastic bags and other debris blow by in the wind. Stores have been broken into, their windows and doors smashed to pieces.
+
+The sidewalk continues North and South. East is an alley.
+
+A zombie that was once a police officer blocks the way north.
+
+A female zombie stands in the middle of the street. She's easily avoidable.
+
+> e
+
+Back Alley
+A rusted metal gate creaks, swinging softly on its hinges in the gentle wind.
+
+West is the Main Street sidewalk. The alley continues East.
+
+Beyond the gate, a fire hose is coiled up and secured to a brick wall with a chain and padlock.
+
+> e
+
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+> s
+
+Back Alley
+A woman in torn jean shorts and a dirty crop top is lying on the asphalt, shot in the back. This wasn't survival - it was murder.
+
+The alley continues North and East. West is the Iron Sights gun shop.
+
+> e
+
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+> use battery
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+You load the battery into the flashlight.
+> e
+
+Apartments - Rear Entrance
+The room is strangely untouched. The chairs and desks are unmoved and perfectly clean. A fireplace is at the far end of the room; it hasn't been used in a while.
+
+North is the main hall. West is the alley.
+
+> n
+
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+> use key to apartment A-1
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+You have used the key to apartment A-1.
+> nw
+
+Apartments - Apt. A-1
+Soda cans and half-empty bags of chips have been thrown around haphazardly. There's a tall glass of iced tea on the coffee table, a layer of mold floating at the top. It's difficult to tell if this mess was caused by the disaster or by the people who once lived here.
+
+Southeast is the main hall.
+
+There's a battery on the couch.
+
+A key with a tag that reads, "S. Locker #2457," is on the counter.
+
+> take storage locker b key
+Apartments - Apt. A-1
+Soda cans and half-empty bags of chips have been thrown around haphazardly. There's a tall glass of iced tea on the coffee table, a layer of mold floating at the top. It's difficult to tell if this mess was caused by the disaster or by the people who once lived here.
+
+Southeast is the main hall.
+
+There's a battery on the couch.
+
+You take the key to storage locker #2457.
+> take battery
+Apartments - Apt. A-1
+Soda cans and half-empty bags of chips have been thrown around haphazardly. There's a tall glass of iced tea on the coffee table, a layer of mold floating at the top. It's difficult to tell if this mess was caused by the disaster or by the people who once lived here.
+
+Southeast is the main hall.
+
+You take the battery.
+> i
+You are carrying a combat knife, a storage locker b key and a battery.
+> se
+
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+> s
+
+Apartments - Rear Entrance
+The room is strangely untouched. The chairs and desks are unmoved and perfectly clean. A fireplace is at the far end of the room; it hasn't been used in a while.
+
+North is the main hall. West is the alley.
+
+> w
+
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+> use storage locker b key
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+You have used the key to storage locker #2457.
+> s
+
+Storage Locker
+The locker is packed with wooden chairs, tables, bed frames, and other things. It probably once belonged to a big family.
+
+North is the alley.
+
+An old battery is resting on a mattress.
+
+There is a key sitting on a suitcase.
+
+> take fence key A
+Storage Locker
+The locker is packed with wooden chairs, tables, bed frames, and other things. It probably once belonged to a big family.
+
+North is the alley.
+
+An old battery is resting on a mattress.
+
+You take the fence key.
+> take battery
+Please choose which 'battery' you mean:
+1: battery
+2: battery
+> i
+You are carrying a combat knife, a battery and a fence key A.
+> 1
+Nothing happened.
+> i
+You are carrying a combat knife, a battery and a fence key A.
+> n
+
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+> w
+
+Back Alley
+A woman in torn jean shorts and a dirty crop top is lying on the asphalt, shot in the back. This wasn't survival - it was murder.
+
+The alley continues North and East. West is the Iron Sights gun shop.
+
+> n
+
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+> n
+
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+A crowbar, still in its packaging, rests on a nearby wooden table.
+
+> w
+
+Allen's Hardware - Storefront
+The wooden floorboards are stained with a trail of blood that leads to the back room.
+
+East is the back room. West is Main Street.
+
+> w
+
+Main Street - Sidewalk
+The wreckage to the north is eerily still, save for the dancing fire. Not even the dead could have survived a crash of such magnitude.
+
+The sidewalk continues South. The street can be crossed by going West.
+East is Allen's Hardware.
+
+> w
+
+Main Street
+The air is thick with the acrid smell of smoke and death. Beyond the mess of twisted and mangled metal is the fire station, unlit and lifeless.
+
+Sidewalks are to the East and West.
+
+> w
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> w
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> n
+
+Locked Fence
+The fire station is beyond this fence, but one more key is needed to open it.
+
+North is a parking lot. The alley continues South.
+
+> use fence key A
+Fence
+The fire station is just beyond this fence.
+
+North is a parking lot. The alley continues South.
+
+You have used the fence key.
+> n
+
+Parking Lot
+Abandoned police cars surround a bonfire that was once used to burn the bodies of the dead. Only a few corpses are left, mostly those of fallen police officers.
+
+North is the fence surrounding the fire station. South is the alley.
+
+There's a partially used handgun magazine next to one of the squad cars.
+
+> take handgun magazine
+Parking Lot
+Abandoned police cars surround a bonfire that was once used to burn the bodies of the dead. Only a few corpses are left, mostly those of fallen police officers.
+
+North is the fence surrounding the fire station. South is the alley.
+
+You take the handgun magazine.
+> s
+
+Fence
+The fire station is just beyond this fence.
+
+North is a parking lot. The alley continues South.
+
+> s
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> e
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> e
+
+Main Street
+The air is thick with the acrid smell of smoke and death. Beyond the mess of twisted and mangled metal is the fire station, unlit and lifeless.
+
+Sidewalks are to the East and West.
+
+> e
+
+Main Street - Sidewalk
+The wreckage to the north is eerily still, save for the dancing fire. Not even the dead could have survived a crash of such magnitude.
+
+The sidewalk continues South. The street can be crossed by going West.
+East is Allen's Hardware.
+
+> e
+
+Allen's Hardware - Storefront
+The wooden floorboards are stained with a trail of blood that leads to the back room.
+
+East is the back room. West is Main Street.
+
+> e
+
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+A crowbar, still in its packaging, rests on a nearby wooden table.
+
+> take crowbar
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+You rip open the packaging and take the crowbar.
+> i
+You are carrying a combat knife, a battery and a crowbar.
+> s
+
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+> w
+
+Back Alley
+A rusted metal gate creaks, swinging softly on its hinges in the gentle wind.
+
+West is the Main Street sidewalk. The alley continues East.
+
+Beyond the gate, a fire hose is coiled up and secured to a brick wall with a chain and padlock.
+
+> w
+
+Main Street - Sidewalk
+The dark street is set against a background of fire and destruction. Plastic bags and other debris blow by in the wind. Stores have been broken into, their windows and doors smashed to pieces.
+
+The sidewalk continues North and South. East is an alley.
+
+A zombie that was once a police officer blocks the way north.
+
+A female zombie stands in the middle of the street. She's easily avoidable.
+
+> s
+
+Main Street - Sidewalk
+A faded street sign marks the intersection of Main and Walnut. Something wet and sticky fills the potholes in the ground.
+
+The sidewalk continues North. The street can be crossed by going West.
+South is Walnut Street.
+
+A zombie blocks the way west.
+
+> handgun zombie
+Main Street - Sidewalk
+A faded street sign marks the intersection of Main and Walnut. Something wet and sticky fills the potholes in the ground.
+
+The sidewalk continues North. The street can be crossed by going West.
+South is Walnut Street.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> w
+
+Main Street
+Immediately to the south is a wrecked bus with a colorful ad on the side for a prescription medication. The doors are sealed. Something is needed to pry them open.
+
+South is a wrecked bus. Sidewalks are to the East and West.
+
+A zombie lies on the ground in front of the bus doors.
+
+> handgun zombie
+Main Street
+Immediately to the south is a wrecked bus with a colorful ad on the side for a prescription medication. The doors are sealed. Something is needed to pry them open.
+
+South is a wrecked bus. Sidewalks are to the East and West.
+
+You shoot the zombie, and it slumps over, twitching.
+> use crowbar
+Main Street
+Immediately to the south is a wrecked bus with a colorful ad on the side for a prescription medication. The doors have been pried open.
+
+South is a wrecked bus. Sidewalks are to the East and West.
+
+You pry the bus doors open with the crowbar, releasing a terrible odor.
+> s
+
+Wrecked Bus
+On one side, a middle-aged woman is frozen in time, shielding her child. On the other, the corpse of a businessman is spread out across a seat, his briefcase on the floor beside him.
+
+North is Main Street.
+
+A set of keys is in the mother's hand. One of them reads: "Apt. A-2."
+
+> take key to apartment A-2
+Wrecked Bus
+On one side, a middle-aged woman is frozen in time, shielding her child. On the other, the corpse of a businessman is spread out across a seat, his briefcase on the floor beside him.
+
+North is Main Street.
+
+You take the key to apartment A-2.
+> n
+
+Main Street
+Immediately to the south is a wrecked bus with a colorful ad on the side for a prescription medication. The doors have been pried open.
+
+South is a wrecked bus. Sidewalks are to the East and West.
+
+> e
+
+Main Street - Sidewalk
+A faded street sign marks the intersection of Main and Walnut. Something wet and sticky fills the potholes in the ground.
+
+The sidewalk continues North. The street can be crossed by going West.
+South is Walnut Street.
+
+> n
+
+Main Street - Sidewalk
+The dark street is set against a background of fire and destruction. Plastic bags and other debris blow by in the wind. Stores have been broken into, their windows and doors smashed to pieces.
+
+The sidewalk continues North and South. East is an alley.
+
+A zombie that was once a police officer blocks the way north.
+
+A female zombie stands in the middle of the street. She's easily avoidable.
+
+> e
+
+Back Alley
+A rusted metal gate creaks, swinging softly on its hinges in the gentle wind.
+
+West is the Main Street sidewalk. The alley continues East.
+
+Beyond the gate, a fire hose is coiled up and secured to a brick wall with a chain and padlock.
+
+> e
+
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+> s
+
+Back Alley
+A woman in torn jean shorts and a dirty crop top is lying on the asphalt, shot in the back. This wasn't survival - it was murder.
+
+The alley continues North and East. West is the Iron Sights gun shop.
+
+> e
+
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+> e
+
+Apartments - Rear Entrance
+The room is strangely untouched. The chairs and desks are unmoved and perfectly clean. A fireplace is at the far end of the room; it hasn't been used in a while.
+
+North is the main hall. West is the alley.
+
+> n
+
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+> use key to apartment A-2
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+You have used the key to apartment A-2.
+> sw
+
+Apartments - Apt. A-2
+The place has been ransacked. Dresser drawers have been ripped out and tossed across the room, a mattress is on its side, and the refrigerator is still open. There's a long, black gun case on the counter, a single red shotgun shell left inside.
+
+Northeast is the main hall.
+
+A small key hangs from a ring on the wall next to the refrigerator. It has a tag with the fire station's red logo on it.
+
+> take fire hose key
+Apartments - Apt. A-2
+The place has been ransacked. Dresser drawers have been ripped out and tossed across the room, a mattress is on its side, and the refrigerator is still open. There's a long, black gun case on the counter, a single red shotgun shell left inside.
+
+Northeast is the main hall.
+
+You take the key to the fire hose.
+> i
+You are carrying a combat knife, a battery and a fire hose key.
+> ne
+
+Apartments - Main Hall
+The hall is dark and narrow, evoking a sense of claustrophobia. Droplets of blood stain the hunter green carpet.
+
+North is the rental office. South is the rear entrance.
+Northwest is Apt. A-1. Northeast is Apt. A-3.
+Southwest is Apt. A-2. Southeast is Apt. A-4.
+
+> s
+
+Apartments - Rear Entrance
+The room is strangely untouched. The chairs and desks are unmoved and perfectly clean. A fireplace is at the far end of the room; it hasn't been used in a while.
+
+North is the main hall. West is the alley.
+
+> w
+
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+> w
+
+Back Alley
+A woman in torn jean shorts and a dirty crop top is lying on the asphalt, shot in the back. This wasn't survival - it was murder.
+
+The alley continues North and East. West is the Iron Sights gun shop.
+
+> w
+Back Alley
+A woman in torn jean shorts and a dirty crop top is lying on the asphalt, shot in the back. This wasn't survival - it was murder.
+
+The alley continues North and East. West is the Iron Sights gun shop.
+
+The door is locked from the other side.
+> n
+
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+> n
+
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+> s
+
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+> w
+
+Back Alley
+A rusted metal gate creaks, swinging softly on its hinges in the gentle wind.
+
+West is the Main Street sidewalk. The alley continues East.
+
+Beyond the gate, a fire hose is coiled up and secured to a brick wall with a chain and padlock.
+
+> use fire hose key
+Back Alley
+A rusted metal gate creaks, swinging softly on its hinges in the gentle wind.
+
+West is the Main Street sidewalk. The alley continues East.
+
+You have used the key to the fire hose. The fire hose hangs from a metal rung on the side of a building.
+
+> take fire hose
+Back Alley
+A rusted metal gate creaks, swinging softly on its hinges in the gentle wind.
+
+West is the Main Street sidewalk. The alley continues East.
+
+You take the fire hose.
+> i
+You are carrying a combat knife, a battery and a fire hose.
+> w
+
+Main Street - Sidewalk
+The dark street is set against a background of fire and destruction. Plastic bags and other debris blow by in the wind. Stores have been broken into, their windows and doors smashed to pieces.
+
+The sidewalk continues North and South. East is an alley.
+
+A zombie that was once a police officer blocks the way north.
+
+A female zombie stands in the middle of the street. She's easily avoidable.
+
+> s
+
+Main Street - Sidewalk
+A faded street sign marks the intersection of Main and Walnut. Something wet and sticky fills the potholes in the ground.
+
+The sidewalk continues North. The street can be crossed by going West.
+South is Walnut Street.
+
+> s
+
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+> w
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> w
+
+Walnut Street
+The way west is blocked by a large blaze coming from the back of a tractor-trailer. It'll take more than a mere fire extinguisher to get this situation under control.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+At the edge of the sidewalk is an undisturbed fire hydrant.
+
+> use fire hose
+Walnut Street
+Puffs of smoke rise into the night sky from the back of the tractor-trailer.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+You have hooked the fire hose up to the hydrant and put out the tanker fire.
+> w
+
+Walnut Street - Downed Tractor-Trailer
+The scent of charred flesh fills the air. Beyond the smoke is the body of a fireman, his skin scorched and almost leathery, his face unrecognizable. A little ways away is a helmet with the words "Fire Chief" emblazoned on the front.
+
+Walnut Street continues East.
+
+A battery is on the ground.
+
+There's a key on the body.
+
+> take fire station key
+Walnut Street - Downed Tractor-Trailer
+The scent of charred flesh fills the air. Beyond the smoke is the body of a fireman, his skin scorched and almost leathery, his face unrecognizable. A little ways away is a helmet with the words "Fire Chief" emblazoned on the front.
+
+Walnut Street continues East.
+
+A battery is on the ground.
+
+You take the fire station key.
+> i
+You are carrying a combat knife, a battery and a fire station key.
+> use battery
+Please choose which 'battery' you mean:
+1: battery
+2: battery
+> 1
+Walnut Street - Downed Tractor-Trailer
+The scent of charred flesh fills the air. Beyond the smoke is the body of a fireman, his skin scorched and almost leathery, his face unrecognizable. A little ways away is a helmet with the words "Fire Chief" emblazoned on the front.
+
+Walnut Street continues East.
+
+You load the battery into the flashlight.
+> take battery
+
+> i
+You are carrying a combat knife, a battery and a fire station key.
+> e
+
+Walnut Street
+Puffs of smoke rise into the night sky from the back of the tractor-trailer.
+
+North is the sidewalk. Walnut Street continues East.
+West is a burning tractor-trailer.
+
+> e
+
+Walnut Street
+The windows of the towering buildings across the street are pitch-black. A howling wind blows in from the west, chilling the air and carrying with it the tormented moans of the infected.
+
+Walnut Street continues West. East is the sidewalk.
+South is the subway entrance.
+
+> n
+You can't go there.
+> n
+You can't go there.
+> e
+
+Walnut Street
+The croaking, animalistic moans of the dead are all around. To the northeast is a dilapidated gun shop with a prominent sign that reads: "Iron Sights."
+
+North is the Main Street sidewalk. The street continues West.
+Northeast is the Iron Sights gun shop. Southeast is an alley.
+
+> e
+You can't go there.
+> e
+You can't go there.
+> n
+
+Main Street - Sidewalk
+A faded street sign marks the intersection of Main and Walnut. Something wet and sticky fills the potholes in the ground.
+
+The sidewalk continues North. The street can be crossed by going West.
+South is Walnut Street.
+
+> n
+
+Main Street - Sidewalk
+The dark street is set against a background of fire and destruction. Plastic bags and other debris blow by in the wind. Stores have been broken into, their windows and doors smashed to pieces.
+
+The sidewalk continues North and South. East is an alley.
+
+A zombie that was once a police officer blocks the way north.
+
+A female zombie stands in the middle of the street. She's easily avoidable.
+
+> e
+
+Back Alley
+A rusted metal gate creaks, swinging softly on its hinges in the gentle wind.
+
+West is the Main Street sidewalk. The alley continues East.
+
+> e
+
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+> e
+
+Apartment Parking Lot
+A little boy lies dead on the concrete between two cars, his sneaker a few feet away. He must have tripped while running from the horde. Poor thing couldn't have been older than eight.
+
+The alleys are to the South and West.
+
+> s
+
+Back Alley
+In front of the storage locker is half of a white-furred dog, its entrails pouring out of its body.
+
+There's a storage locker to the south with a metal plate above it that reads: #2457.
+
+North is a parking lot. East is the rear entrance to the apartments.
+South is a storage locker with a metal plate that reads: 2457.
+The alley continues West.
+
+> w
+
+Back Alley
+A woman in torn jean shorts and a dirty crop top is lying on the asphalt, shot in the back. This wasn't survival - it was murder.
+
+The alley continues North and East. West is the Iron Sights gun shop.
+
+> n
+
+Back Alley
+A bicycle is on its side next to a dumpster as if it's trash. Its wheels are still spinning.
+
+North is Allen's Hardware. East is a parking lot.
+The alley continues South and West.
+
+> n
+
+Allen's Hardware - Back Room
+The body of a husky, chestnut-haired man lies face-down across a desk in a pool of his own blood. A knife is sticking out of his back, and his eyes are bluish white swirls. Someone must have put him down before he had the chance to stand up.
+
+South is an alley. West is the storefront.
+
+> w
+
+Allen's Hardware - Storefront
+The wooden floorboards are stained with a trail of blood that leads to the back room.
+
+East is the back room. West is Main Street.
+
+> w
+
+Main Street - Sidewalk
+The wreckage to the north is eerily still, save for the dancing fire. Not even the dead could have survived a crash of such magnitude.
+
+The sidewalk continues South. The street can be crossed by going West.
+East is Allen's Hardware.
+
+> w
+
+Main Street
+The air is thick with the acrid smell of smoke and death. Beyond the mess of twisted and mangled metal is the fire station, unlit and lifeless.
+
+Sidewalks are to the East and West.
+
+> w
+
+Main Street - Sidewalk
+A fiery pileup creates a permanent roadblock to the north. It's a ghastly scene of men, women, and children slumped over the hoods of cars and lying in the street. Some are still in their vehicles, having been trapped and burned alive.
+
+The sidewalk continues South. The street can be crossed by going East.
+West is the alley.
+
+> w
+
+Back Alley
+Yellowed missing person signs plaster the walls of the surrounding buildings. One of them shows a picture of a dog, scrawled in pink crayon, that reads, "Please help find Shiba."
+
+The alley continues North and West. East is Main Street.
+
+A battery is on the ground.
+
+> n
+
+Fence
+The fire station is just beyond this fence.
+
+North is a parking lot. The alley continues South.
+
+> n
+
+Parking Lot
+Abandoned police cars surround a bonfire that was once used to burn the bodies of the dead. Only a few corpses are left, mostly those of fallen police officers.
+
+North is the fence surrounding the fire station. South is the alley.
+
+> n
+
+Fire Station - Fence
+The fence has been pushed in, twisted and torn down by what had to have been several dozens of infected.
+
+Northeast is a basketball court. South is the parking lot.
+
+A zombie blocks the way northeast.
+
+> handgun zombie
+Fire Station - Fence
+The fence has been pushed in, twisted and torn down by what had to have been several dozens of infected.
+
+Northeast is a basketball court. South is the parking lot.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> ne
+Fire Station - Fence
+The fence has been pushed in, twisted and torn down by what had to have been several dozens of infected.
+
+Northeast is a basketball court. South is the parking lot.
+
+Fire Station - Basketball Court
+The place is a blood-soaked warzone. Shell casings are everywhere, crowd control barricades are overturned, and countless bodies lie on the blacktop, either shredded or gunned down.
+
+Northeast is the patio. Southwest is the fence surrounding the fire station.
+
+A zombie blocks the way northeast.
+
+A zombie lies on the concrete, crying out loudly.
+
+> handgun zombie
+Please choose which 'zombie' you mean:
+1: zombie
+2: zombie
+> 1
+Fire Station - Basketball Court
+The place is a blood-soaked warzone. Shell casings are everywhere, crowd control barricades are overturned, and countless bodies lie on the blacktop, either shredded or gunned down.
+
+Northeast is the patio. Southwest is the fence surrounding the fire station.
+
+A zombie lies on the concrete, crying out loudly.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> look
+Fire Station - Basketball Court
+The place is a blood-soaked warzone. Shell casings are everywhere, crowd control barricades are overturned, and countless bodies lie on the blacktop, either shredded or gunned down.
+
+Northeast is the patio. Southwest is the fence surrounding the fire station.
+
+A zombie lies on the concrete, crying out loudly.
+
+> ne
+Fire Station - Basketball Court
+The place is a blood-soaked warzone. Shell casings are everywhere, crowd control barricades are overturned, and countless bodies lie on the blacktop, either shredded or gunned down.
+
+Northeast is the patio. Southwest is the fence surrounding the fire station.
+
+A zombie lies on the concrete, crying out loudly.
+
+Fire Station - Patio
+A trail of blood leads up and around to the back of the fire station, stopping at the backdoor.
+
+South is the fire station rear entrance. Southwest is the basketball court.
+
+> use fire station key
+Fire Station - Patio
+A trail of blood leads up and around to the back of the fire station, stopping at the backdoor.
+
+South is the fire station rear entrance. Southwest is the basketball court.
+
+You have used the fire station key.
+> s
+
+Fire Station - Hall
+It's quiet and dark. There are no signs of the refugees.
+
+North is the patio. South is the garage.
+Northeast is the locker room. Northwest is the day room.
+Southeast is the communications room. Southwest is an office.
+
+> nw
+
+Fire Station - Day Room
+The door has been ripped off its hinges, and the TV has been shot out - literally. A heated argument must have occurred here.
+
+Southeast is the hall.
+
+A set of keys is on the TV stand.
+
+> take fire truck keys
+Fire Station - Day Room
+The door has been ripped off its hinges, and the TV has been shot out - literally. A heated argument must have occurred here.
+
+Southeast is the hall.
+
+You take the fire truck keys.
+> se
+
+Fire Station - Hall
+It's quiet and dark. There are no signs of the refugees.
+
+North is the patio. South is the garage.
+Northeast is the locker room. Northwest is the day room.
+Southeast is the communications room. Southwest is an office.
+
+> sw
+
+Fire Station - Office
+Light from the parking lot bonfire shines dimly through a boarded up window, and a telephone receiver dangles silently off the side of a desk.
+
+Northeast is the hall.
+
+On the floor is a golden key.
+
+A zombie stands between you and the key.
+
+> handgun zombie
+Fire Station - Office
+Light from the parking lot bonfire shines dimly through a boarded up window, and a telephone receiver dangles silently off the side of a desk.
+
+Northeast is the hall.
+
+On the floor is a golden key.
+
+You shoot the zombie, and it collapses with a tortured wail.
+> take comm. room key
+Fire Station - Office
+Light from the parking lot bonfire shines dimly through a boarded up window, and a telephone receiver dangles silently off the side of a desk.
+
+Northeast is the hall.
+
+You take the key to the communications room.
+> ne
+
+Fire Station - Hall
+It's quiet and dark. There are no signs of the refugees.
+
+North is the patio. South is the garage.
+Northeast is the locker room. Northwest is the day room.
+Southeast is the communications room. Southwest is an office.
+
+> use comm. room key
+Fire Station - Hall
+It's quiet and dark. There are no signs of the refugees.
+
+North is the patio. South is the garage.
+Northeast is the locker room. Northwest is the day room.
+Southeast is the communications room. Southwest is an office.
+
+You have used the key to the communications room.
+> se
+
+Fire Station - Communications Room
+She's here!
+
+But she's alone, sitting on the floor and huddled up in the corner. Her eyes look blank and glazed over, and as you approach her, you notice that her skin is pale. She shows you her arm. She's been bitten.
+
+You know the implications of this, but you promise to get her out of the city and to a hospital as soon as you can.
+
+Maybe the fire truck in the garage...
+
+Northwest is the hall.
+
+There's a key on a nearby desk.
+
+> take tool storage key
+Fire Station - Communications Room
+She sits in the corner patiently, shivering.
+
+Maybe the fire truck in the garage...
+
+Northwest is the hall.
+
+You take the tool storage key.
+> nw
+
+Fire Station - Hall
+It's quiet and dark. There are no signs of the refugees.
+
+North is the patio. South is the garage.
+Northeast is the locker room. Northwest is the day room.
+Southeast is the communications room. Southwest is an office.
+
+> s
+
+Fire Station - Garage
+The last remaining fire truck sits dormant in the middle of the large, empty concrete room. The engine seems to be missing some spark plugs.
+
+North is the hall. East is tool storage.
+
+> use tool storage key
+Fire Station - Garage
+The last remaining fire truck sits dormant in the middle of the large, empty concrete room. The engine seems to be missing some spark plugs.
+
+North is the hall. East is tool storage.
+
+You have used the tool storage key.
+> e
+
+Fire Station - Tool Storage
+The dead body of a relief worker rests against a workbench, hunched over, a gaping, bloody wound in the back of his skull, and a revolver on the floor next to his limp hand.
+
+West is the garage.
+
+There's a set of spark plugs on one of the workbenches.
+
+> take spark plugs
+Fire Station - Tool Storage
+The dead body of a relief worker rests against a workbench, hunched over, a gaping, bloody wound in the back of his skull, and a revolver on the floor next to his limp hand.
+
+West is the garage.
+
+You take the spark plugs.
+> w
+
+Fire Station - Garage
+The last remaining fire truck sits dormant in the middle of the large, empty concrete room. The engine seems to be missing some spark plugs.
+
+North is the hall. East is tool storage.
+
+> use fire truck keys
+Fire Station - Garage
+The last remaining fire truck sits dormant in the middle of the large, empty concrete room. The engine seems to be missing some spark plugs.
+
+North is the hall. East is tool storage.
+
+The fire truck still needs some spark plugs.
+> use spark plugs
+Fire Station - Garage
+The last remaining fire truck sits dormant in the middle of the large, empty concrete room. The engine seems to be missing some spark plugs.
+
+North is the hall. East is tool storage.
+
+You have installed the spark plugs. The engine is ready to be started.
+> use fire truck keys
+Fire Station - Garage
+The last remaining fire truck sits dormant in the middle of the large, empty concrete room. The engine seems to be missing some spark plugs.
+
+North is the hall. East is tool storage.
+
+You have started the engine. All that's left is to move her into the fire truck and escape.
+> n
+
+Fire Station - Hall
+It's quiet and dark. There are no signs of the refugees.
+
+North is the patio. South is the garage.
+Northeast is the locker room. Northwest is the day room.
+Southeast is the communications room. Southwest is an office.
+
+> se
+
+You return to the room, but she's no longer where you left her. You hear a rustling sound close by and swing your flashlight around, shining it on the furious, animalistic face of the woman you once knew. She opens her mouth, baring her teeth, and lets out an agonized cry.
+
+There is no hesitation. You level your gun at her head and pull the trigger, her brains splattering on the wall behind her.
+
+You turn your back to her corpse and holster your gun, a new feeling of numbness coming over you as you walk out of the room and into the garage.
+
+Silently, you push a button to raise the shutters and step into the fire truck. You drive off, alone, slamming into one of the dead on your way out.
+
+You couldn't save her.
+
+You weren't her knight in shining armor.
+
+You had another purpose all along.
+
+You are the angel of death, reaping souls with your gun.
+
+Every bullet you fire grants one more victim a merciful release from this disaster.
+
+The End
+
+[state=Running]

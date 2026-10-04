@@ -1,0 +1,150 @@
+Omega
+
+Por Miguel Ángel Cabo Galguera
+
+"El universo no tiene obligación de tener sentido para ti" - Neil deGrasse Tyson
+Estás en una cámara de criostasis.
+
+¿Recuerdas algo antes de este momento?
+
+>login:
+>contraseña:
+>login fallido. Por favor, indique su nombre a continuación.
+> Alex
+>login: Alex
+>contraseña: ******
+>Por favor, realiza una prueba de voz:
+1: ¿Dónde estoy?
+2: ¿Qué está pasando?
+> 1
+
+Estás en la sala de criostasis 3-B-alfa.
+Al despertar, notas tu cuerpo entumecido. La cabeza te da vueltas y las náuseas, aunque pasajeras, te hacen sentir débil y a punto de vomitar. Al lado de la cámara de la que acabas de salir, hay una mochila con tu nombre. La recoges.
+A tu alrededor, las paredes de metal reflejan la luz mortecina de los fluorescentes que iluminan la sala, extendiéndose por todo el techo. Algunos de los tubos fallan, parpadeando débilmente con un zumbido que se une a los ruidos de las máquinas, inundando la sala.
+Puedes ver un NODO, una cámara de criostasis, una taquilla y una mesa.
+Puedes ir al noreste.
+> mirar
+
+> mirar
+Estás en la sala de criostasis 3-B-alfa.
+
+A tu alrededor, las paredes de metal reflejan la luz mortecina de los fluorescentes que iluminan la sala, extendiéndose por todo el techo. Algunos de los tubos fallan, parpadeando débilmente con un zumbido que se une a los ruidos de las máquinas, inundando la sala.
+Puedes ver un NODO, una cámara de criostasis, una taquilla y una mesa.
+Puedes ir al noreste.
+> inventario
+
+> inventario
+Llevas una mochila, unas armas y una ropa.
+> examinar taquilla
+
+> examinar taquilla
+Una taquilla sencilla, hecha en metal, incrustada en la pared junto a la puerta. Debe de ser donde los encargados de mantenimiento guardan sus cosas. No tiene candado.
+> examinar mesa
+
+> examinar mesa
+La mesa de la que has recogido tu mochila, situada al lado de la cámara de la que has salido. En ella, grabadas sobre el metal, están las palabras "no eres uno de los nuestros".
+> examinar nodo
+
+> examinar nodo
+Un terminal de ordenador brilla en una esquina, encendido. Incluye un teclado y una pantalla de baja resolución. En el lateral, se puede ver la inscripción "ShinerCorp", así como "N.O.D.O. (Network Operative Database for Omega)"
+> noreste
+
+> noreste
+
+Estás en el corredor de acceso secundario, ala colonial nivel 3-B.
+Es un pasillo sencillo, sin muchos detalles. Algunas tuberías recorren el techo, y hay franjas de colores repartidas por las paredes, que llevan de unas puertas a otras. El suelo, de metal laminado, parece hueco, indicando que hay un piso inferior bajo tus pies.
+Puedes ver una franjas de colores.
+Puedes ir al suroeste, al sureste, al norte, al oeste o al este.
+> sureste
+
+> sureste
+
+Estás en la sala de criostasis 3-B-Beta.
+Esta sala es prácticamente idéntica a la sala en la que has despertado. Es posible que la nave tenga una estructura redundante.
+La sala está ligeramente oscura, y hay abolladuras y golpes por todas las paredes. Algunos de los tubos fluroescentes están rotos. Entre todas las cámaras de criostasis, puedes ver unas cuantas abiertas, y vacías.
+Puedes ver un NODO, una tarjeta de acceso y unos cristales rotos.
+Puedes ir al noroeste.
+> coger tarjeta de acceso
+
+> coger tarjeta de acceso
+La coges.
+> noroeste
+
+> noroeste
+
+Estás en el corredor de acceso secundario, ala colonial nivel 3-B.
+Es un pasillo sencillo, sin muchos detalles. Algunas tuberías recorren el techo, y hay franjas de colores repartidas por las paredes, que llevan de unas puertas a otras. El suelo, de metal laminado, parece hueco, indicando que hay un piso inferior bajo tus pies.
+Puedes ver una franjas de colores.
+Puedes ir al suroeste, al sureste, al norte, al oeste o al este.
+> norte
+
+> norte
+
+Estás en el corredor de acceso principal, ala colonial nivel 3-B.
+El corredor es alargado, menos cubierto que las salas de criostasis. La maquinaria y el andamiaje que lo rodean son más visibles, pegados a las paredes. A duras penas, puedes distinguir las líneas de colores que guían a los pasajeros en la nave. Alguien se ha esforzado en borrarlas. En la puerta oeste del corredor, casi descolgado, hay un cartel que dice: "PELIGRO: RADIACIÓN ALTA".
+Puedes ir al sur, al suroeste, al sureste, al este o al norte.
+> mirar
+
+> mirar
+Estás en el corredor de acceso principal, ala colonial nivel 3-B.
+El corredor es alargado, menos cubierto que las salas de criostasis. La maquinaria y el andamiaje que lo rodean son más visibles, pegados a las paredes. A duras penas, puedes distinguir las líneas de colores que guían a los pasajeros en la nave. Alguien se ha esforzado en borrarlas. En la puerta oeste del corredor, casi descolgado, hay un cartel que dice: "PELIGRO: RADIACIÓN ALTA".
+Puedes ir al sur, al suroeste, al sureste, al este o al norte.
+> norte
+
+> norte
+Tu nivel de acceso no es suficiente para esta puerta.
+> mirar
+
+> mirar
+Estás en el corredor de acceso principal, ala colonial nivel 3-B.
+El corredor es alargado, menos cubierto que las salas de criostasis. La maquinaria y el andamiaje que lo rodean son más visibles, pegados a las paredes. A duras penas, puedes distinguir las líneas de colores que guían a los pasajeros en la nave. Alguien se ha esforzado en borrarlas. En la puerta oeste del corredor, casi descolgado, hay un cartel que dice: "PELIGRO: RADIACIÓN ALTA".
+Puedes ir al sur, al suroeste, al sureste, al este o al norte.
+> sur
+
+> sur
+
+Estás en el corredor de acceso secundario, ala colonial nivel 3-B.
+Es un pasillo sencillo, sin muchos detalles. Algunas tuberías recorren el techo, y hay franjas de colores repartidas por las paredes, que llevan de unas puertas a otras. El suelo, de metal laminado, parece hueco, indicando que hay un piso inferior bajo tus pies.
+Puedes ver una franjas de colores.
+Puedes ir al suroeste, al sureste, al norte, al oeste o al este.
+> este
+
+> este
+
+Estás en los sistemas de criostasis 3-B-Beta.
+La sala está en buen estado. Uno de los tubos fluorescentes no funciona, pero la luz sigue siento brillante y rebota con las paredes blancas. Un banco de servidores ocupa casi toda la sala, convirtiéndola en un laberinto.
+Puedes ver un ordenador.
+Puedes ir al oeste.
+> mirar
+
+> mirar
+Estás en los sistemas de criostasis 3-B-Beta.
+La sala está en buen estado. Uno de los tubos fluorescentes no funciona, pero la luz sigue siento brillante y rebota con las paredes blancas. Un banco de servidores ocupa casi toda la sala, convirtiéndola en un laberinto.
+Puedes ver un ordenador.
+Puedes ir al oeste.
+> oeste
+
+> oeste
+
+Estás en el corredor de acceso secundario, ala colonial nivel 3-B.
+Es un pasillo sencillo, sin muchos detalles. Algunas tuberías recorren el techo, y hay franjas de colores repartidas por las paredes, que llevan de unas puertas a otras. El suelo, de metal laminado, parece hueco, indicando que hay un piso inferior bajo tus pies.
+Puedes ver una franjas de colores.
+Puedes ir al suroeste, al sureste, al norte, al oeste o al este.
+> sureste
+
+> sureste
+
+Estás en la sala de criostasis 3-B-Beta.
+
+La sala está ligeramente oscura, y hay abolladuras y golpes por todas las paredes. Algunos de los tubos fluroescentes están rotos. Entre todas las cámaras de criostasis, puedes ver unas cuantas abiertas, y vacías.
+Puedes ver un NODO y unos cristales rotos.
+Puedes ir al noroeste.
+> mirar
+
+> mirar
+Estás en la sala de criostasis 3-B-Beta.
+
+La sala está ligeramente oscura, y hay abolladuras y golpes por todas las paredes. Algunos de los tubos fluroescentes están rotos. Entre todas las cámaras de criostasis, puedes ver unas cuantas abiertas, y vacías.
+Puedes ver un NODO y unos cristales rotos.
+Puedes ir al noroeste.
+[state=Running]

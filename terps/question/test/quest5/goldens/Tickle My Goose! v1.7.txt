@@ -1,0 +1,84 @@
+Tickle My Goose! v1.7
+Staring Dave Crowe
+
+by Jon Bardi
+
+Partly inspired by the great adventures of the Spectrum era, "Hampstead" and "How to be a complete bastard", this game casts you in the role of Mr Dave Crowe, unemployed slob, who must overcome not having any discernible skill or trade whatsoever - in order to climb the pillars of society and earn the respect of his peers.
+Remember, the aim of the game is to ATTAIN Benidorm, not just to reach it!
+AND MOST IMPORTANTLY... Do you need a website? If you do please visit www.cayennepepperdesign.com Our prices can't be beat! Special deal if you quote "Tickle My Goose"
+PRESS ANY KEY TO START
+Living Room
+
+Your name is Dave Crow, and you are busy relaxing on your sofa at home. It is 2.45pm on a Monday afternoon and Jeremy Kyle is on the TV . You are home early today because your boss has just given you the sack from your job as a street sweeper.
+You scratch your arse and push your glasses up your nose. A half eaten pot noodle rests by your side. You take a fork full. It is cold, but it is all you have to eat. You really need to go to the shops for more supplies..
+Some stairs lead up, horrible smells eminate from the open kitchen door, and a battered front door opens out onto the street.
+> look
+
+Living Room
+
+You are in your living room. The tv blasts early afternoon crap. Some stairs lead up, horrible smells eminate from the open kitchen door, and a battered front door opens out onto the street.
+A half eaten pot noodle is on the floor.
+> x pot noodle
+
+Beef and tomato flavour.
+> go to hallway
+
+Hallway
+
+You are on the hallway. Stairs lead down to your living room and there is a door that leads into the bathroom.
+
+You can see a pair of Y fronts.
+> go to enter bathroom
+
+Bathroom
+
+You are in your bathroom. There is a putrid stench in here. The washbasin is cracked and falling to pieces. A half-shattered mirror  hangs over it. Bits of mould cover the tiles around the bath. There is a small window above the toilet. A door leads out onto the hall.
+
+ There is a dirty unwashed tracksuit on the floor.
+
+ Your Move Dave Boy: leave bathroom.
+> x mirror
+
+Looking good, Dave! Those teeth are looking a bit yellow though!
+> go to leave bathroom
+
+Hallway
+
+You are on the hallway. Stairs lead down to your living room and there is a door that leads into the bathroom.
+
+You can see a pair of Y fronts.
+> go to walk downstairs
+
+Living Room
+
+You are in your living room. The tv blasts early afternoon crap. Some stairs lead up, horrible smells eminate from the open kitchen door, and a battered front door opens out onto the street.
+A half eaten pot noodle is on the floor.
+> go to kitchen
+
+Kitchen
+
+You are in your kitchen. Needless to say, it's a right mess. There is a back door here that leads to the garden. A mouldy banana sits on a stool. An overflowing ashtray sits on the table top, surrounded by dirty, mouldy plates. You can also see some bleach.
+
+ Your Move Dave Boy: Living Room.
+> go to garden
+
+Garden
+
+You are in your garden. Not so much a garden actually, more like a square piece of paved land just big enough to swing a cat in. If that cat was very a kitten without limbs. There is a little gate here. There is a run down, delapadated garden shed here.
+You can see a potato.
+
+ Your Move Dave Boy: go back in kitchen.
+> go to go back in kitchen
+
+Kitchen
+
+You are in your kitchen. Needless to say, it's a right mess. There is a back door here that leads to the garden. A mouldy banana sits on a stool. An overflowing ashtray sits on the table top, surrounded by dirty, mouldy plates. You can also see some bleach.
+
+ Your Move Dave Boy: Living Room.
+> go to Living Room
+
+Living Room
+
+You are in your living room. The tv blasts early afternoon crap. Some stairs lead up, horrible smells eminate from the open kitchen door, and a battered front door opens out onto the street.
+A half eaten pot noodle is on the floor.
+[state=Running]

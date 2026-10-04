@@ -1,0 +1,150 @@
+Blech: Kogasux edition
+Blech. become the best Blech Characterrrrrrrr!   Version 1.8
+
+by Traumatizing Penguin
+
+Error running script: No parameters passed to MakeObjectVisible function - expected 1 parameters
+You are in a My Room.
+You can see a Bed and a window.
+You can go north.
+a bed a window
+> x bed
+
+> x bed
+sleep?
+> x window
+
+> x window
+seems that the window is high enough for one to jump out and seriously injure themselves
+> n
+
+> n
+
+You are in a Street.
+You can see a Lamp Post, a Fire and Uryu Ishida.
+You can go west, east, south or north.
+> x lamp post
+
+> x lamp post
+Nothing out of the ordinary.
+> x uryu ishida
+
+> x uryu ishida
+he's playing Clash Royale against Ichigo. I wonder where Ichigo is... He also has mobile data.
+> e
+
+> e
+
+You are in a School.
+You can see a Pencil, a Torch and Orihime.
+You can go west or south.
+> take pencil
+
+> take pencil
+Just a regular Pencil
+> x orihime
+
+> x orihime
+she doesn't look back.
+> x torch
+
+> x torch
+Nothing out of the ordinary.
+> w
+
+> w
+
+You are in a Street.
+You can see a Lamp Post, a Fire and Uryu Ishida.
+You can go west, east, south or north.
+> w
+
+> w
+
+You are in an Urahara Shop.
+You can see Kisuke Urahara, Tessai Tsukabishi, Jinta, Ururu and a Yoruichi.
+You can go east or down.
+> ask kisuke about kon
+
+> ask kisuke about kon
+I left him in Byakuya's Mansion. Retrieve him if you like. but there is no reward.
+> x yoruichi
+
+> x yoruichi
+Its Yoruichi, she is now in Kisuke's shop!!! (also her brother is a trap)
+> d
+
+> d
+
+You are in an Under Urahara Shop.
+You can go up or down.
+> d
+
+> d
+
+You are in a Soul Society.
+You can see a Grass and Hanataro Yamada.
+You can go up, down, west, in, southeast, out or north.
+> look
+
+> look
+You are in a Soul Society.
+You can see a Grass and Hanataro Yamada.
+You can go up, down, west, in, southeast, out or north.
+> x hanataro
+
+> x hanataro
+Wow, look at Hanataro. He looks just as stupid as he always was
+> x grass
+
+> x grass
+Nothing out of the ordinary.
+> w
+
+> w
+
+You are in the a Kuchiki Manor.
+You can see Byakuya Kuchiki, Rukia Kuchiki and Kon Kon Kon.
+You can go east.
+A teddy bear is lying in a corner
+> look
+
+> look
+You are in the a Kuchiki Manor.
+You can see Byakuya Kuchiki, Rukia Kuchiki and Kon Kon Kon.
+You can go east.
+A teddy bear is lying in a corner
+> x rukia
+
+> x rukia
+she looks back.
+> x byakuya
+
+> x byakuya
+he doesn't seem to notice you. he is busy working on calligraphy
+> x kon
+
+> x kon
+That's just a teddy bear. I wonder why the Kuchiki's have a teddy bear? Maybe it used to be Rukia's?
+> take kon
+
+> take kon
+You pick him up.
+> i
+
+> i
+You are carrying a Pencil and Kon Kon Kon.
+> e
+
+> e
+
+You are in a Soul Society.
+You can see a Grass and Hanataro Yamada.
+You can go up, down, west, in, southeast, out or north.
+> look
+
+> look
+You are in a Soul Society.
+You can see a Grass and Hanataro Yamada.
+You can go up, down, west, in, southeast, out or north.
+[state=Running]

@@ -1,0 +1,592 @@
+SPY GAMES
+I - First Assignment
+
+Devised and created by Hugo Anthony
+Copyright (C) 2013
+Release 1.0
+
+= = = = =
+
+Please enter your FIRST name.
+> John
+You name, should you be asked, is Smith. John Smith.
+
+= = = = =
+
+Welcome to The Department, agent Smith.
+
+This is your first assignment. It is, of course, pretty straightforward. If you succeed, we should have some more challenging missions for you.
+
+- -
+
+A notorious spy named Kline is in town, and he's at the centre of something big. We don't know what. That's what we want to find out. We believe he has documents with him pertaining to his organisation and their plans.
+
+He is staying at the City Hotel. You will go there, find out which room Kline is in and find those documents. You must not steal them however, that would send off alarm bells in their organisation. You will take a camera and photograph whatever you find.
+
+- -
+
+Kline is a slim, blonde man. We can't tell you any more than this - it's all we know.
+
+As per your training, you will be automatically making notes of relevent points as you come across them in your notebook. Make sure you look at it if you need to remind yourself of anything you've discovered.
+
+Good luck Smith.
+
+= = = = =
+
+Outside the Hotel
+You are standing on a busy street in the heart of the city, outside the City Hotel. It's a modern 6 storey building. The revolving doors of the entrance are to the north. You can enter the hotel or go to headquarters from here.
+> n
+
+> n
+
+Hotel Lobby
+You are in the sleek, modern hotel lobby. The reception desk is over to the east, and a lounge area to the west, beyond which is the hotel bar. To the north is a decorative contemporary fountain, into which guests and visitors over the years have thrown coins. To the south is the exit onto the street.
+> n
+
+> n
+You can't go there.
+> w
+
+> w
+
+Hotel Lobby Lounge
+You are in the hotel lounge. There are some comfortable looking sofas here with coffee tables and some magazines. The hotel entrance lobby is to the east and the bar to the west. To the north there is a small corridor above which is a sign saying "Toilets".
+> w
+
+> w
+
+Hotel Bar
+You are in the hotel bar. It looks like it has around 20 or so tables, but only two of which are occupied. The exit to the lounge is to the east, and a long, sleek bar runs along the north wall.
+You can see a bearded man, a young man and a young woman.
+> n
+
+> n
+
+At The Bar
+You are standing at the bar, with it's well stocked shelves and churlish looking bartender.
+There are a few stools, one of which is being taken by a beautiful blonde woman nursing an empty cocktail glass.
+You can see a bartender and a blonde woman.
+> ask bartender about vodka
+
+> ask bartender about vodka
+"You want a whole bottle?"
+1: Yes
+2: No
+> 1
+"Sure thing buddy. That'll be 60 Euro."
+You pay the bartender and take the bottle of vodka.
+> s
+
+> s
+
+Hotel Bar
+You are in the hotel bar. It looks like it has around 20 or so tables, but only two of which are occupied. The exit to the lounge is to the east, and a long, sleek bar runs along the north wall.
+You can see a bearded man, a young man and a young woman.
+> e
+
+> e
+
+Hotel Lobby Lounge
+You are in the hotel lounge. There are some comfortable looking sofas here with coffee tables and some magazines. The hotel entrance lobby is to the east and the bar to the west. To the north there is a small corridor above which is a sign saying "Toilets".
+> e
+
+> e
+
+Hotel Lobby
+You are in the sleek, modern hotel lobby. The reception desk is over to the east, and a lounge area to the west, beyond which is the hotel bar. To the north is a decorative contemporary fountain, into which guests and visitors over the years have thrown coins. To the south is the exit onto the street.
+> e
+
+> e
+
+Hotel Reception
+You are at the hotel reception. It is a high marble counter running the full width of the lobby, behind which is a pretty young receptionist.
+You can see a receptionist.
+> n
+
+> n
+
+Ground Floor Lift Lobby
+You are in the ground floor lift lobby. There is a lift here. There is a door to the east which has a sign on it that says 'Stair', and a door to the north which has a sign on it that reads 'Staff Only'. Next to this door there is a keypad.
+You can see a  lift and a keypad.
+> e
+
+> e
+
+Staircase (GF)
+You are on the staircase landing on the ground floor. There is a door west, a fire exit door east, and the stairs go up.
+> up
+
+> up
+You walk up the stairs.
+
+Staircase (1F)
+You are on the staircase landing on the first floor. There is a door west, and the stairs continue up and down.
+> up
+
+> up
+You walk up the stairs.
+
+Staircase (2F)
+You are on the staircase landing on the second floor. There is a door west, and the stairs continue up and down.
+> up
+
+> up
+You walk up the stairs.
+
+Staircase (3F)
+You are on the staircase landing on the third floor. There is a door west, and the stairs continue up and down.
+You can see a cardkey to 406.
+> up
+
+> up
+You walk up the stairs.
+
+Staircase (4F)
+You are on the staircase landing on the fourth floor. There is a door west, and the stairs continue up and down.
+> up
+
+> up
+You walk up the stairs.
+
+Staircase (5F)
+You are on the staircase landing on the fifth floor. There is a door west, and the stairs continue up and down.
+> up
+
+> up
+You walk up the stairs.
+
+Staircase (Roof)
+You're on the top landing of the staircase, at roof level. There is a door out onto the roof.
+> out
+
+> out
+
+A Roof
+Your on the roof of the hotel, looking out over the city. The view is fantastic.
+In the middle of the roof is a man sitting on a plastic chair. He is singing and swaying from side to side.
+You can see a drunken man.
+> give vodka to drunken man
+
+> give vodka to drunken man
+He thanks you profusely.
+> ask drunken man about code
+
+> ask drunken man about code
+You ask about the door code.
+"Ah, the code, the code. Sure thing. It's...erm... 6654. No! Wait, no it's 5664! Or maybe 4656. Something like that anyway."
+> in
+
+> in
+
+Staircase (Roof)
+You're on the top landing of the staircase, at roof level. There is a door out onto the roof.
+> down
+
+> down
+
+Staircase (5F)
+You are on the staircase landing on the fifth floor. There is a door west, and the stairs continue up and down.
+> down
+
+> down
+You walk down the stairs.
+
+Staircase (4F)
+You are on the staircase landing on the fourth floor. There is a door west, and the stairs continue up and down.
+> down
+
+> down
+You walk down the stairs.
+
+Staircase (3F)
+You are on the staircase landing on the third floor. There is a door west, and the stairs continue up and down.
+You can see a cardkey to 406.
+> down
+
+> down
+You walk down the stairs.
+
+Staircase (2F)
+You are on the staircase landing on the second floor. There is a door west, and the stairs continue up and down.
+> down
+
+> down
+You walk down the stairs.
+
+Staircase (1F)
+You are on the staircase landing on the first floor. There is a door west, and the stairs continue up and down.
+> down
+
+> down
+You walk down the stairs.
+
+Staircase (GF)
+You are on the staircase landing on the ground floor. There is a door west, a fire exit door east, and the stairs go up.
+> w
+
+> w
+
+Ground Floor Lift Lobby
+You are in the ground floor lift lobby. There is a lift here. There is a door to the east which has a sign on it that says 'Stair', and a door to the north which has a sign on it that reads 'Staff Only'. Next to this door there is a keypad.
+You can see a  lift and a keypad.
+> use keypad
+
+> use keypad
+Please enter security code:
+> 5646
+The door is now unlocked.
+> n
+
+> n
+
+A Corridor
+You are in a back of house corridor. There is a door to the north marked 'Kitchen', and another unmarked to the south. The corridor continues east and west.
+> w
+
+> w
+
+A Corridor
+You are in a back of house corridor. There in a door to the north marked 'Manager'. The corridor continues east and west.
+> n
+
+> n
+
+Managers Office
+You are in the manager's office. The manager is sat behind his desk, busily typing into his laptop.
+You can see a manager and a desk.
+> ask manager about job vacancy
+
+> ask manager about job vacancy
+You ask the manager about the job vacancy.
+"Ah, you're the new guy", he says. "Here's your locker key. Go get changed and report to the kitchen."
+He throws a locker key onto the desk.
+> take locker key
+
+> take locker key
+You pick it up.
+> s
+
+> s
+
+A Corridor
+You are in a back of house corridor. There in a door to the north marked 'Manager'. The corridor continues east and west.
+> w
+
+> w
+
+A Corridor
+You are in a back of house corridor. There is an unmarked door to the south. The corridor continues east and north.
+> n
+
+> n
+
+A Corridor
+You are in a back of house corridor. There is a door to the west marked 'Staff Room'. The corridor continues south.
+> w
+
+> w
+
+Staff Room
+You are in the staff room. There is a kitchen counter along one wall with a kettle and toaster and a refrigerator, a dining table with some chairs, and a couple of sofas. There is a door in the west wall and an archway in the south wall through which you can see the changing room.
+> s
+
+> s
+
+Staff Changing Room
+You are in the staff changing room. There are some benches and a row of lockers. Through an archway to the north you can see the staff room.
+You can see your locker.
+> open locker
+
+> open locker
+Unlocked.
+You open it.
+It contains an uniform and a master cardkey to 1F.
+> take master cardkey
+
+> take master cardkey
+You pick up the 1F master cardkey. Attached to the keycard is a regular looking key with a label that says 'Pass Key'.
+> n
+
+> n
+
+Staff Room
+You are in the staff room. There is a kitchen counter along one wall with a kettle and toaster and a refrigerator, a dining table with some chairs, and a couple of sofas. There is a door in the west wall and an archway in the south wall through which you can see the changing room.
+> e
+
+> e
+
+A Corridor
+You are in a back of house corridor. There is a door to the west marked 'Staff Room'. The corridor continues south.
+> s
+
+> s
+
+A Corridor
+You are in a back of house corridor. There is an unmarked door to the south. The corridor continues east and north.
+> e
+
+> e
+
+A Corridor
+You are in a back of house corridor. There in a door to the north marked 'Manager'. The corridor continues east and west.
+> e
+
+> e
+
+A Corridor
+You are in a back of house corridor. There is a door to the north marked 'Kitchen', and another unmarked to the south. The corridor continues east and west.
+> s
+
+> s
+
+Ground Floor Lift Lobby
+You are in the ground floor lift lobby. There is a lift here. There is a door to the east which has a sign on it that says 'Stair', and a door to the north which has a sign on it that reads 'Staff Only'. Next to this door there is a keypad.
+You can see a  lift and a keypad.
+> s
+
+> s
+
+Hotel Reception
+You are at the hotel reception. It is a high marble counter running the full width of the lobby, behind which is a pretty young receptionist.
+You can see a receptionist.
+> w
+
+> w
+
+Hotel Lobby
+You are in the sleek, modern hotel lobby. The reception desk is over to the east, and a lounge area to the west, beyond which is the hotel bar. To the north is a decorative contemporary fountain, into which guests and visitors over the years have thrown coins. To the south is the exit onto the street.
+> w
+
+> w
+
+Hotel Lobby Lounge
+You are in the hotel lounge. There are some comfortable looking sofas here with coffee tables and some magazines. The hotel entrance lobby is to the east and the bar to the west. To the north there is a small corridor above which is a sign saying "Toilets".
+> w
+
+> w
+
+Hotel Bar
+You are in the hotel bar. It looks like it has around 20 or so tables, but only two of which are occupied. The exit to the lounge is to the east, and a long, sleek bar runs along the north wall.
+You can see a bearded man, a young man and a young woman.
+> n
+
+> n
+
+At The Bar
+You are standing at the bar, with it's well stocked shelves and churlish looking bartender.
+There are a few stools, one of which is being taken by a beautiful blonde woman nursing an empty cocktail glass.
+You can see a bartender and a blonde woman.
+> buy a drink for blonde woman
+
+> buy a drink for blonde woman
+You nod to the bartender and he fixes her another cocktail.
+"You're a genlteman," she says, and downs the cocktail in one.
+> buy a drink for blonde woman
+
+> buy a drink for blonde woman
+You sigh and get the bartender to line up another one.
+"Now we're getting somewhere," she slurs, and tips the cocktail into her mouth.
+> buy a drink for blonde woman
+
+> buy a drink for blonde woman
+You signal for one more, and the bartender does his thing.
+"Oooo thank you," she says, "I might manage a smile in a minute." She quickly sips the cocktail till it's gone.
+> buy a drink for blonde woman
+
+> buy a drink for blonde woman
+The bartender sighs and mixes another cocktail.
+"Thanksh," she slurs, before downing it.
+
+Then she wobbles on her stool and says, "I fink I'z just about has enough. Will you take me to my room please."
+She stares at you.
+The bartender shrugs.
+You decide it probably best to escort her to her room.
+
+She leads you out into the lobby, up in the lift to the fourth floor, and sways along the corridor to room 408, which she opens with a cardkey from her purse. She lurches into the room and collapses onto the bed, dropping her purse as she does so. Within seconds she's asleep.
+
+Room 408
+You are in a hotel bedroom. It is simply if smartly furnished with a double bed, a wardrobe and a small desk and chair. There is a full height window to the south looking out over the street. The way out is to the north.
+You can see a wardrobe, a bed, a desk, a blonde woman and a purse.
+> n
+
+> n
+
+Room 408 Lobby
+You are in a small hotel room lobby. To the south is the bedroom itself, to the east is a door to the ensuite bathroom. The room door to the corridor is to the north. There is a connecting door to the adjacent room to the west.
+> w
+
+> w
+You use the pass key on the master keycard to let yourself through the door.
+
+Suite 407 Lobby
+You are in a small hotel suite lobby. To the south is the lounge area, and the room door to the corridor is to the north. There is a connecting door to the adjacent room to the east.
+> s
+
+> s
+
+Suite 407 Lounge
+You are in a hotel suite lounge. It is expensively furnished, with a sofa, a coffee table, a sideboard, and a large desk with a comfortable looking chair. There is a full height glazing to the south looking out over the street. The room lobby is to the north, and double doors lead through to the bedroom area to the west.
+You can see a sofa, a coffee table, a sideboard and a desk.
+> w
+
+> w
+
+Suite 407 Bedroom
+You are in a hotel suite bedroom. It is lavishly furnished with a king sized bed, a dressing table, two wing backed chairs and a wardrobe. There is a full height glazing to the south and west looking out over the street. There is a door to the ensuite bathroom to the north, and double doors lead through to the lounge area to the east.
+You can see a wardrobe, a bed and a dressing table.
+> open wardrobe
+
+> open wardrobe
+You open it.
+Inside are some clothes and a safe.
+> use dial
+
+> use dial
+Please enter the combination in the format xx-xx-xx, where xx represents each of the three numbers (e.g. 77-88-99).
+
+> 40-07-74
+You enter the correct code, and the safe door clicks and swings open.
+> x safe
+
+> x safe
+It is a good sized safe, with a combination dial that is used to unlock it.
+The safe door is open.
+It contains some secret documents.
+> open safe
+
+> open safe
+It is already open.
+> photograph documents
+
+> photograph documents
+You quickly lay out the documents and photograph them, before returning them to the safe. Good job. Now all you need to do is get out of here undetected, without leaving any traces...
+> close safe
+
+> close safe
+The safe door closes and clicks.
+> e
+
+> e
+
+Suite 407 Lounge
+You are in a hotel suite lounge. It is expensively furnished, with a sofa, a coffee table, a sideboard, and a large desk with a comfortable looking chair. There is a full height glazing to the south looking out over the street. The room lobby is to the north, and double doors lead through to the bedroom area to the west.
+You can see a sofa, a coffee table, a sideboard and a desk.
+> n
+
+> n
+
+Suite 407 Lobby
+You are in a small hotel suite lobby. To the south is the lounge area, and the room door to the corridor is to the north. There is a connecting door to the adjacent room to the east.
+> e
+
+> e
+You use the pass key on the master keycard to let yourself through the door.
+
+Room 408 Lobby
+You are in a small hotel room lobby. To the south is the bedroom itself, to the east is a door to the ensuite bathroom. The room door to the corridor is to the north. There is a connecting door to the adjacent room to the west.
+> n
+
+> n
+
+Fourth Floor Corridor
+You are in a hotel corridor, which runs east and west from here. To your south is the door to 408.
+> e
+
+> e
+
+Fourth Floor Corridor
+You are in a hotel corridor, which runs east and west from here. To your south is the door to 409.
+> e
+
+> e
+
+Fourth Floor Corridor
+You are in a hotel corridor, which runs west from here. You can see the lift lobby to the north.  To your south is the door to 410.
+> n
+
+> n
+
+Fourth Floor Lift Lobby
+You are in a lift lobby. There is a lift, with a large stainless steel number '4' next to it. You can see the corridors to the hotel rooms to the north and south, and a door east which has a sign on it saying 'Stair'.
+You can see a  lift.
+> e
+
+> e
+
+Staircase (4F)
+You are on the staircase landing on the fourth floor. There is a door west, and the stairs continue up and down.
+> down
+
+> down
+You walk down the stairs.
+
+Staircase (3F)
+You are on the staircase landing on the third floor. There is a door west, and the stairs continue up and down.
+You can see a cardkey to 406.
+> down
+
+> down
+You walk down the stairs.
+
+Staircase (2F)
+You are on the staircase landing on the second floor. There is a door west, and the stairs continue up and down.
+> down
+
+> down
+You walk down the stairs.
+
+Staircase (1F)
+You are on the staircase landing on the first floor. There is a door west, and the stairs continue up and down.
+> down
+
+> down
+You walk down the stairs.
+
+Staircase (GF)
+You are on the staircase landing on the ground floor. There is a door west, a fire exit door east, and the stairs go up.
+> w
+
+> w
+
+Ground Floor Lift Lobby
+You are in the ground floor lift lobby. There is a lift here. There is a door to the east which has a sign on it that says 'Stair', and a door to the north which has a sign on it that reads 'Staff Only'. Next to this door there is a keypad.
+You can see a  lift and a keypad.
+> s
+
+> s
+
+Hotel Reception
+You are at the hotel reception. It is a high marble counter running the full width of the lobby, behind which is a pretty young receptionist.
+You can see a receptionist.
+> w
+
+> w
+
+Hotel Lobby
+You are in the sleek, modern hotel lobby. The reception desk is over to the east, and a lounge area to the west, beyond which is the hotel bar. To the north is a decorative contemporary fountain, into which guests and visitors over the years have thrown coins. To the south is the exit onto the street.
+> s
+
+> s
+
+Outside the Hotel
+You are standing on a busy street in the heart of the city, outside the City Hotel. It's a modern 6 storey building. The revolving doors of the entrance are to the north. You can enter the hotel or go to headquarters from here.
+> go to headquarters
+
+> go to headquarters
+
+Headquarters
+
+= = = = =
+
+You return to headquarters with the photographs.
+
+MISSION SUCCESSFUL.
+
+Congratulations, Agent Smith. You have done well. Once we have decyphered and analysed the documents we will decide what steps to take next, and we will know who to assign the mission to.
+
+Agent John Smith, your code for this mission is 854146. IT IS IMPORTANT THAT YOU REMEMBER THIS CODE. You will need it for the next mission...
+
+= = = = =
+
+THE END
+[state=Finished]

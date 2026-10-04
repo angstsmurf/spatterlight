@@ -1,0 +1,270 @@
+Ghost Town
+By Craig Dutton (c) 2017
+
+Devil's Reach
+Population: Unknown
+
+That seems to be the mystery of Devil's Reach as you enter this 1875 Wild West town. There is no one about. Where have all the Townspeople gone?
+
+You have a bad feeling about this but curiosity gets the better of you and you need to find answers.
+
+There are 3 endings to the game.
+
+You are on Main street.
+The cemetery lies southwest while the corral house lies northwest. Main street carries on east while Mine street heads north.
+> look
+
+> look
+You are on Main street.
+The cemetery lies southwest while the corral house lies northwest. Main street carries on east while Mine street heads north.
+> e
+
+> e
+
+You are on Main street.
+The barbers lie to the north while Main street leads both to the east and west.
+> e
+
+> e
+
+You are on Main street.
+The bank lies to the north and the Aces High saloon to the south. Main street leads east and west.
+> e
+
+> e
+
+You are on Main street.
+The general store is found north and the Pony Express to the south. Main street continues to the east and west.
+> n
+
+> n
+
+You are in the general store.
+A store which sells most things but not everything. South lies main street.
+You can see some apples, a jar of honey, a bible, a blanket, some bootlaces, a broom, some barbed wire, a crowbar, some eggs, a shovel, some flour, a loaf of bread, a mirror, some salt and a candle.
+> take shovel
+
+> take shovel
+You pick it up.
+> s
+
+> s
+
+You are on Main street.
+The general store is found north and the Pony Express to the south. Main street continues to the east and west.
+> e
+
+> e
+
+You are on Main street.
+An alley heads north and the Sheriff's office lies south. Main street lies east and west.
+> e
+
+> e
+
+You are on Main street.
+The Hotel Grande lies north and the Doctor's office lies south. Main street leads to the west.
+> s
+
+> s
+
+You are in the Doctor's office.
+Main street lies north.
+You can see a desk and an eye chart on the wall.
+> x desk
+
+> x desk
+A carved oak desk.
+It contains a death certificate.
+> take death certificate
+
+> take death certificate
+You pick it up.
+> read death certificate
+
+> read death certificate
+It's for a Thomas Smith, an outlaw who was shot in the back a week ago.
+> n
+
+> n
+
+You are on Main street.
+The Hotel Grande lies north and the Doctor's office lies south. Main street leads to the west.
+> n
+
+> n
+
+You are in the Hotel Grande.
+Thers is a room upstairs. South leads to Main street.
+You can see a crack in the wall and a candelabra.
+> up
+
+> up
+
+You are in the hotel room.
+Stairs leads downstairs.
+You can see a double bed.
+> x double bed
+
+> x double bed
+Reasonally clean and comfy.
+It contains a pillow.
+> look under pillow
+
+> look under pillow
+You find a gun.
+> take gun
+
+> take gun
+You pick it up.
+> d
+
+> d
+
+You are in the Hotel Grande.
+Thers is a room upstairs. South leads to Main street.
+You can see a crack in the wall and a candelabra.
+> s
+
+> s
+
+You are on Main street.
+The Hotel Grande lies north and the Doctor's office lies south. Main street leads to the west.
+> w
+
+> w
+
+You are on Main street.
+An alley heads north and the Sheriff's office lies south. Main street lies east and west.
+> w
+
+> w
+
+You are on Main street.
+The general store is found north and the Pony Express to the south. Main street continues to the east and west.
+> w
+
+> w
+
+You are on Main street.
+The bank lies to the north and the Aces High saloon to the south. Main street leads east and west.
+> w
+
+> w
+
+You are on Main street.
+The barbers lie to the north while Main street leads both to the east and west.
+> w
+
+> w
+
+You are on Main street.
+The cemetery lies southwest while the corral house lies northwest. Main street carries on east while Mine street heads north.
+> sw
+
+> sw
+
+You are in the cemetery.
+A quiet and creepy place. Main street can be seen to the northeast.
+You can see some tombstones.
+> read tombstones
+
+> read tombstones
+You find Thomas Smith's grave.
+> x grave
+
+> x grave
+Thomas Smith's grave.
+> dig grave
+
+> dig grave
+You dig up a coffin.
+> open coffin
+
+> open coffin
+You open it.
+It contains a corpse.
+> x coffin
+
+> x coffin
+A simple oak coffin.
+It contains a corpse.
+> x corpse
+
+> x corpse
+A stiff. Shot in the back.
+He contains a waistcoat.
+> x waistcoat
+
+> x waistcoat
+Bloody with a pocket.
+It contains a pocket.
+> x pocket
+
+> x pocket
+Part of the waistcoat.
+> open pocket
+
+> open pocket
+You open it.
+It contains a bullet.
+> take bullet
+
+> take bullet
+You pick it up.
+> i
+
+> i
+You are carrying a shovel, a death certificate, a Colt revolver and a bullet.
+> put bullet in colt revolver
+
+> put bullet in colt revolver
+Done.
+> ne
+
+> ne
+
+You are on Main street.
+The cemetery lies southwest while the corral house lies northwest. Main street carries on east while Mine street heads north.
+> n
+
+> n
+
+You are on Mine street.
+A narrow road leading off Main street to the south. It continues north passing the cafe to the east.
+> n
+
+> n
+
+You are on Mine street.
+The narrow road leads north to the gold mine and south towards the main part of town. The chapel lies east while the Assayer's office lies west.
+> e
+
+> e
+
+You are in the chapel.
+A humble place of worship. West lies Mine street.
+You can see a row of wooden benches, a lectern and a Wendigo.
+> look
+
+> look
+You are in the chapel.
+A humble place of worship. West lies Mine street.
+You can see a row of wooden benches, a lectern and a Wendigo.
+> x wendigo
+
+> x wendigo
+A canabalistic monster who was once a human. Such embodiment of human greed, it was punished and turned into a monster.
+
+It's emancipated, has pallid skin, and razor sharp teeth and claws for hunting. It's in a state of semi-hibernation but hunts well at night feasting on human flesh; never satisfying it's eternal hunger.
+
+Now you know why the Townspeople have all vanished. They were all eaten!!! This creature must be destroyed.
+> shoot wendigo
+
+> shoot wendigo
+You shoot it in the chest.
+
+It wakes up screaming in agony as it clutches the thick black blood spewing from the wound. It staggers out and leaves town. Even though it escaped, the wound will kill it eventually or it will prevent the beast from hunting and it will starve to death.
+
+Well done! You have completed the game.
+[state=Running]

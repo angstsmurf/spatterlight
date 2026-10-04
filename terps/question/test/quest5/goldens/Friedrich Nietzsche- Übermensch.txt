@@ -1,0 +1,84 @@
+Friedrich Nietzsche: Übermensch
+
+When you open your eyes it feels as if they are burning.
+Bright light fills the room. Coming from the window.
+You are lying in your bed. The air feels heavy and your head is humming.
+> look
+
+> look
+You are in your Bedroom.
+You can go Window.
+The room is filled with blinding white light. It's hard to recognize anything at all.
+> get up
+You are getting up
+It is hard to stand straight. There is a weight upon you that you have never felt before. Your head is spinning. Strange noises are coming from outside the window.
+> go to window
+
+> go to window
+
+You are stumbling towards the window and cover your eyes. Through the light suddenly shapes are becoming clearer.
+You cannot believe your eyes though. Just outside the window, down in the garden are hundreds of animals. Lions and lambs. Sleeping together on the lawn.
+But this it not where the light comes from. A sudden...
+"FRIEDRICH NIETZSCHE! KNOW THAT I AM THE LORD, YOUR GOD!"
+You room is trembling, the noise fills your head, the animals are getting up and starting to growl.
+"YOU HAVE DONE TERRIBLE THINGS, FRIEDRICH. YOU HAVE DISOWNED ME!"
+Now you can see it. Just outside the window, on the old oak tree, atop a glowing nest, sits a white dove. It glows in brightest light and it speaks.
+"STOP THIS MADNESS, FRIEDRICH OR YOU WILL BE DOOMED. ACCEPT ME AS YOUR SAVOIR AND SPREAD MY WORD!"
+The animals get into a wild frenzy. The bird flies away in a swirl of light. His glowing feathers falling to the ground and burning eveything they touch.
+The earth shakes and the sun darkens. Fire rises from below.
+The room collapses. Darkness.
+
+You awake screaming.
+Slowly but surely your senses come back to you. You are here in the small guest house of Richard Wagner in the tiny village of Bayreuth. It is a quiet and peaceful morning.
+You had feverdreams before. But this one was different. You can still feel the light and the heat all over your body. The room seems to be the same but everything looks different now.
+Maybe it was just a dream. Maybe. But then again... maybe not.
+You are back in your bedroom.
+You are back in your bedroom.
+> look
+
+> look
+You are in your Bedroom.
+You can see a Desk, a Nightstand and a Cane.
+You can go to the Eastern Window.
+It's your old room in the city of Bayreuth. After the big dispute with Wagner years ago you came back here to collect your personal belongings.
+> x desk
+
+> x desk
+Your trusty old desk where you have written so many of your manuscripts. Inspired by this peaceful little town and the define music of your old master Richard Wagner.
+It contains a Stack of Books, a Drawer and a Letter.
+> x nightstand
+
+> x nightstand
+An old wooden nightstand.
+It contains a Candle.
+> x cane
+
+> x cane
+It's an elegant cane that you use to walk around when your back starts aching again.
+> take cane
+
+> take cane
+You pick it up.
+> go to eastern window
+
+> go to eastern window
+You look out of the eastern window. The window is the same but there are no lions and lambs... and there is no god. Only an old tree is glaring at you. Still it is a strange feeling to be here.
+
+You are at the eastern window.
+> look
+
+> look
+You are at an Eastern Window.
+You can see a Tree.
+You can go back to the Bedroom.
+It's a beautiful, sunny day.
+> x tree
+
+> x tree
+A huge old oak in the backyard. Just like in your dream.
+It contains a Nest.
+> i
+
+> i
+You are carrying a Cane.
+[state=Running]

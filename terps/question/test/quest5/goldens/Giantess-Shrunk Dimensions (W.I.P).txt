@@ -1,0 +1,275 @@
+Giantess/Shrunk Dimensions (W.I.P)
+
+by BuzzKill
+
+You are in Waiting room.
+You can see Lady, a Poster, a NOTICE and a NEW POLL!!!.
+You can go through dimensional door 1, dimensional door 2 or dimensional door 3.
+You can re-enter this room after you have left with the object in your inventory.
+
+> speak to lady
+
+> speak to lady
+"Please enter a room!"
+> read notice
+
+> read notice
+This will be the last major update for a while, :(  but i will be working on a new textadventure that is labeled project ani (mainly because i couldn't think of any name for it yet.)
+> read new poll
+
+> read new poll
+This poll is on my new texadventure project!
+
+https://forms.gle/iFGKDYDFQJUCZacC7
+
+Just copy this link into a new tab!
+> n
+
+> n
+
+You are in a Door 2.
+Will you awaken.
+As you enter door 2 you realize you are in an 15th century style cabin you take in your surroundings to your left is a collection of dolls and to your right is a hallway leading to what you assume to be the bedrooms, however before you could look to the front of the room your body begins rapidly convulsing and you black out.
+> go to awaken
+
+> go to awaken
+
+ an Awaken2.
+You can go in.
+As you awake you find yourself...
+Shrunk?!
+You deduct yourself to be about a centimeter tall. Lets hope this cabin is abandoned.
+> in
+
+> in
+
+You are in a Cabin entrance.
+You can see a Massive Dolls.
+You can go northwest, south or east.
+As you look around massive cobwebs speckle the entryway. Maybe it is abandoned?
+> x massive dolls
+
+> x massive dolls
+Nothing out of the ordinary.
+> e
+
+> e
+
+You are in a Hallway.
+You can go west, north, northeast or south.
+The hallway is relatively clean, and is void of anything notable.
+> look
+
+> look
+You are in a Hallway.
+You can go west, north, northeast or south.
+The hallway is relatively clean, and is void of anything notable.
+> w
+
+> w
+
+You are in a Cabin entrance.
+You can see a Massive Dolls.
+You can go northwest, south or east.
+As you look around massive cobwebs speckle the entryway. Maybe it is abandoned?
+> nw
+
+> nw
+
+You are in a The corner.
+You can see a Strange girl and a WARNING (PLEASE READ FIRST).
+You can go southeast.
+You see a neko girl in the corner.
+> look
+
+> look
+You are in a The corner.
+You can see a Strange girl and a WARNING (PLEASE READ FIRST).
+You can go southeast.
+You see a neko girl in the corner.
+> se
+
+> se
+
+You are in a Cabin entrance.
+You can see a Massive Dolls.
+You can go northwest, south or east.
+As you look around massive cobwebs speckle the entryway. Maybe it is abandoned?
+> s
+
+> s
+
+You are in an Outside.
+You can see a Large Hole.
+You can go north or south.
+After you sneak under the door you find yourself in the great outoors.
+> x large hole
+
+> x large hole
+It is a hole
+> s
+
+> s
+
+You are in a Pathway.
+You can go north, west or east.
+You exit the house of nekos and make it to a pathway that leads to various buildings that streches out east and west.
+> w
+
+> w
+
+You are in a Pathway West.
+You can go east, south or north.
+As you continue west you see two buildings each located north and south from you.
+> look
+
+> look
+You are in a Pathway West.
+You can go east, south or north.
+As you continue west you see two buildings each located north and south from you.
+> s
+
+> s
+
+You are in a House.
+You can see a Cobweb.
+You can go north.
+As you walk toward the building you see a sign saying "No Trespassers" and being the upstanding person you are you decide to promptly ignore this and walk inside the cabin instead.
+
+Once inside you noticed alot of food which probably meant either the residents were rich or they were bandits.
+> look
+
+> look
+You are in a House.
+You can see a Cobweb.
+You can go north.
+As you walk toward the building you see a sign saying "No Trespassers" and being the upstanding person you are you decide to promptly ignore this and walk inside the cabin instead.
+
+Once inside you noticed alot of food which probably meant either the residents were rich or they were bandits.
+> n
+
+> n
+
+You are in a Pathway West.
+You can go east, south or north.
+As you continue west you see two buildings each located north and south from you.
+> n
+
+> n
+
+You are in a Storage Facility.
+You can see a Large box, a Large bag of food and a Masked Person.
+You can go south.
+You see a building labeled "Storage" and the curiosity of what's inside gets the best of you and you decide to enter the rickety shack.
+> look
+
+> look
+You are in a Storage Facility.
+You can see a Large box, a Large bag of food and a Masked Person.
+You can go south.
+You see a building labeled "Storage" and the curiosity of what's inside gets the best of you and you decide to enter the rickety shack.
+> n
+
+> n
+You can't go there.
+> look
+
+> look
+You are in a Storage Facility.
+You can see a Large box, a Large bag of food and a Masked Person.
+You can go south.
+You see a building labeled "Storage" and the curiosity of what's inside gets the best of you and you decide to enter the rickety shack.
+> s
+
+> s
+
+You are in a Pathway West.
+You can go east, south or north.
+As you continue west you see two buildings each located north and south from you.
+> e
+
+> e
+
+You are in a Pathway.
+You can go north, west or east.
+You exit the house of nekos and make it to a pathway that leads to various buildings that streches out east and west.
+> e
+
+> e
+
+You are in a Pathway East.
+You can go west, south, north or east.
+As you continue east you see two buildings each located north and south from you.
+> look
+
+> look
+You are in a Pathway East.
+You can go west, south, north or east.
+As you continue east you see two buildings each located north and south from you.
+> n
+
+> n
+
+You are in a Bakery.
+You can see a Table.
+You can go south or north.
+You see a building labeled "Bakery" and promptly decide to enter with food on your mind.
+> look
+
+> look
+You are in a Bakery.
+You can see a Table.
+You can go south or north.
+You see a building labeled "Bakery" and promptly decide to enter with food on your mind.
+> n
+
+> n
+
+You are in a Bakery kitchen.
+You can see an Oven and a Female Baker.
+You can go south.
+You decide to go further in as you can smell freshly baked bread in the kitchen.
+> look
+
+> look
+You are in a Bakery kitchen.
+You can see an Oven and a Female Baker.
+You can go south.
+You decide to go further in as you can smell freshly baked bread in the kitchen.
+> s
+
+> s
+
+You are in a Bakery.
+You can see a Table.
+You can go south or north.
+You see a building labeled "Bakery" and promptly decide to enter with food on your mind.
+> s
+
+> s
+
+You are in a Pathway East.
+You can go west, south, north or east.
+As you continue east you see two buildings each located north and south from you.
+> s
+
+> s
+
+You are in a Mysterious storefront.
+You can go north.
+You walk up to the building and are blocked by an invisible magic barrier.
+
+ (You should probably search for an item that could get you in.)
+
+[Hint: you need a specific card before entering]
+
+You are in a Pathway East.
+You can go west, south, north or east.
+As you continue east you see two buildings each located north and south from you.
+> look
+
+> look
+You are in a Pathway East.
+You can go west, south, north or east.
+As you continue east you see two buildings each located north and south from you.
+[state=Running]

@@ -1,0 +1,143 @@
+Giantess Shrinking
+Tiny Day
+
+by bluegman2002
+
+To day is tiny day, when you turn 18 you are shrunken down and forced to survive the day, unfortunately for you just turned 18 and the rest of the people at your institute are a bit sadistic. The only way to win is to figure out what each girl wants and satisfy them. Good luck, after all many don't survive.
+You are in a room.
+
+You can go in.
+
+Click in to start the game
+> look
+
+> look
+You are in a room.
+
+You can go in.
+
+> in
+
+> in
+
+You are in Your Dorm room.
+
+You are in your dorm room, the walls are a pale white with a shaggy carpet, if you were a little smaller you could get lost in the carpet easily.
+
+You can see a Bed, a Desk and a Tv.
+
+You can go out.
+
+You wake in your dorm room, shrunken, you climb down a small ladder to the floor and set out to survive the day
+You enter your dorm room
+> look
+
+> look
+You are in Your Dorm room.
+
+You are in your dorm room, the walls are a pale white with a shaggy carpet, if you were a little smaller you could get lost in the carpet easily.
+
+You can see a Bed, a Desk and a Tv.
+
+You can go out.
+
+> x bed
+
+> x bed
+Nothing out of the ordinary.
+> x desk
+
+> x desk
+Nothing out of the ordinary.
+> x tv
+
+> x tv
+Nothing good is on
+> out
+
+> out
+
+You are in a Dorm Hall.
+
+The long dorm hall stretches out before you
+
+You can go in, south, east, west, north or northeast.
+
+You enter the dorm hall
+> w
+
+> w
+
+You are in a floor staircase 2.
+
+The top floor staircase, you should be careful the stairs are dangerous at night...
+
+You can go east, down or up.
+
+> d
+
+> d
+
+You are in a Bottom floor staircase.
+
+Also dangerous at night bet you couldn't guess that.
+
+You can go up, west, east or down.
+
+> w
+
+> w
+
+You are in a Small hole.
+
+A strange hole in the wall with a shaggy red carpet and dark brown walls.
+
+You can see an Odd clock, a Moon Key and a Sun Key.
+
+You can go east.
+
+> look
+
+> look
+You are in a Small hole.
+
+A strange hole in the wall with a shaggy red carpet and dark brown walls.
+
+You can see an Odd clock and a Sun Key.
+
+You can go east.
+
+> e
+
+> e
+
+You are in a Bottom floor staircase.
+
+Also dangerous at night bet you couldn't guess that.
+
+You can go up, west, east or down.
+
+> e
+
+> e
+
+You are in a Classroom Hallway.
+
+The classroom hallway the exit is just south, so close, and maybe if you could find someone to open it you could get out.
+
+You can see a Tiny Door.
+
+You can go west, south, north or northeast.
+
+> look
+
+> look
+You are in a Classroom Hallway.
+
+The classroom hallway the exit is just south, so close, and maybe if you could find someone to open it you could get out.
+
+You can see a Tiny Door.
+
+You can go west, south, north or northeast.
+
+[state=Running]

@@ -1,0 +1,1334 @@
+Under Shadows
+
+by Caleb Eno
+
+PLAY
+> go to PLAY
+
+> go to PLAY
+
+Through the fog of his waking moments, Byron hears an undistinguishable noise sounding repeatedly, as if from a distance.  Groggily, he opens his eyes.  The sound, now recognizable as knocking coming from the apartment door, is insistent.
+
+Byron:  “Why would anyone be knocking on my door?  The sign outside should indicate that this is my sleep rotation.”
+
+As if in response, a particularly aggressive rap hits the door.
+
+Byron:  “I’d better find out what this is all about.”
+
+Byron is in his bedroom.  It is a small space, dimly illuminated by Byron’s Citizen ID Cuff.  A Bed, dresser, and desk occupy the room with a Closet in the east wall.  Above the head of the bed is a Painting.  A door to the north leads to the Living Room.
+
+A distant knocking sound comes from the living room.
+> enter living room
+
+> enter living room
+
+Byron walks into the living room.  Motion sensors detect his entry and automatically turn on the lights.  He staggers slightly at the onslaught of the rays.
+
+The living room is furnished with a comfy looking Couch, a Chair next to a Light Fixture, and a TV.  Covering the center of the room's floor is a soft looking Rug.  A Window on the west wall is covered by a window screen.  On the south wall are two doors, one to Byron’s Bedroom and the other to the Bathroom.  In the east wall is the door to the Kitchen.
+
+The Knocking can be heard loudly here, clearly coming from the Door to the apartment.
+> open door
+
+> open door
+
+Byron:  "Let's see what this is all about."
+
+Byron reaches for the door and turns the handle.
+
+The instant the latch is lifted, a controlled force throws the door open.  Byron barely dodges a flurry of raven hair as the assailant whips through the opening.  The unidentified figure swiftly replaces the door to its closed position and turns to face Byron.  Byron, having barely prevented himself from falling backwards over the reading chair, steadies himself to get a clear look at the intruder.
+
+Through the girl’s messy, teased strands of hair, Byron, still slightly in shock, recognizes her.
+
+Byron:  "Danyel?"
+
+She nods as she holds a finger to her mouth.  They stand there a few moments in near silence.  Then, apparently satisfied she had avoided whatever danger pursued her, she pulls herself from the door and gestures towards the couch.
+
+Danyel:  "May I sit?"
+
+Byron, still recovering from his early and eventful awakening, nods.
+
+Danyel drops into a corner of the couch and pulls her knees up to her chest.  She looks up over them at Byron who is fumbling to find the edge of the chair, his eyes focused on her.  He shifts uneasily into the seat.
+
+Danyel:  “Sorry for barging in on you like this.  I needed help.”
+
+What are you doing here?
+I haven’t seen you in five years
+Help with what?
+> 2
+Byron:  “Danyel, I haven’t seen you in five years.”
+
+She smiles slightly.
+
+Danyel:  “Yeah, it’s been a long time since the Com-Pod.”  Her smile fades, “And since you went incognito.”
+
+What are you doing here?
+“Incognito”?
+Help with what?
+> 1
+Byron:  “Danyel, what are you doing here?  Why were you knocking on my door?”
+
+Danyel:  “I was in trouble.  I had some… people after me.  I needed some place to hide, and I thought you’d help.”
+
+Byron:  “You couldn’t report it to the Elites?”
+
+Danyel’s eyes darken.
+
+Danyel:  “It’s not a situation I want them involved in.  Will you help, or should I just leave now?”
+
+“Incognito”?
+What kind of help do you need?
+> 1
+Byron:  “What do you mean ‘incognito’?  I just felt it was time to move on.  Get my own place.  You know I didn’t enjoy living in such a small place with so many other people.”
+
+Danyel:  “Same excuse you gave back then.  Well, after you went off to ‘get your own place,’ they assigned us a new roommate.  And thus we got Blaine.  Stupid, immature Blaine.  You have no idea how awful that was.  But that’s not important right now.”
+
+What kind of help do you need?
+> 1
+Byron:  “How can I help?”
+
+Danyel:  “Like I said, there are some people after me.  Bad people.  I need a way out of here that’s not the front door.  I’m sure they’re watching that way.”
+
+I need to know more first
+I’ll see what I can do
+> 2
+Byron:  “Alright.  I’ll help.  There might be a way.  Let me think for a minute.”
+
+Danyel:  “Okay, but please hurry.  I don’t think either of us is safe as long as I’m here.”
+
+Return to Living Room
+> 1
+
+The living room is furnished with a comfy looking Couch, a Chair, and a TV next to a Light Fixture.  Covering the center of the room's floor is a soft looking Rug.  A Window on the west wall is covered by a window screen.  On the south wall are two doors, one to Byron’s Bedroom and the other to the Bathroom.  In the east wall is the door to the Kitchen.
+
+Danyel sits on the couch with her knees pulled up to her chest.
+> enter kitchen
+
+> enter kitchen
+
+The lights flash on as Byron enters the kitchen.  It's a modest space roughly twice the size of the bedroom.
+A refrigerator and stove stand next to the doorway.  The east wall is lined by Cupboards and a Counter.  A small rectangular table with three chairs is pushed up against the back corner.  The door to the west leads back to the Living Room.
+> search cupboards
+
+> search cupboards
+Byron:  “Let’s see what we have in here...”
+
+Byron searches through the cupboards.
+
+Byron:  “Wait, what is this?”
+
+Byron pulls out a coiled length of synth-rope.
+
+Byron:  “Hold on, what’s this?  A note?”
+
+“Never know when you’ll need it. – Stel”
+
+Byron:  “I remember this.  Stel gave it to me as a joke gift a few years ago.  It’s synth-rope, so it should more than hold her weight.  I’ll need to find something sturdy to tie this to.  The only downside is that the strands of synth-rope could tear Danyel’s hands when it’s under tension.  I’d better find something to protect her.”
+
+Byron puts the Synth-Rope in his inventory.
+> enter living room
+
+> enter living room
+
+The living room is furnished with a comfy looking Couch, a Chair, and a TV next to a Light Fixture.  Covering the center of the room's floor is a soft looking Rug.  A Window on the west wall is covered by a window screen.  On the south wall are two doors, one to Byron’s Bedroom and the other to the Bathroom.  In the east wall is the door to the Kitchen.
+
+Danyel sits on the couch with her knees pulled up to her chest.
+> open window
+
+> open window
+Byron:  “Time to get the window open.  I’d better dim the lights first.”
+
+Byron waves his hand over the motion sensor to dim the lights.  As he rolls up the window screen, the image of his peaceful, grassy pond fades.  He unlocks the window and slides it open.  A gentle breeze – which always runs through these underground city streets to promote air circulation – blows across Byron’s face.  After a mile in either direction, the view fades into the eternally present black fog.  The street below is illuminated by lights extending from the street ceiling and sides of buildings.
+> use synth-rope on light fixture
+
+> use synth-rope on light fixture
+Byron:  “My old nemesis, the very fixed light fixture.  That could be the perfect base to attach the rope to.”
+
+Byron uncoils the rope, loops it around the pole of the light fixture, and ties a knot.
+
+Byron:  “That should do it.”
+> enter bedroom
+
+> enter bedroom
+
+Byron is in his bedroom.  It is a small space, dimly illuminated by Byron’s Citizen ID Cuff.  A Bed, dresser, and desk occupy the room with a Closet in the east wall.  Above the head of the bed is a Painting.  A door to the north leads to the Living Room.
+> search closet
+
+> search closet
+Byron:  “Let’s see if I have anything in here.”
+
+Byron sifts through his closet.
+
+Byron:  “My jacket, shirts...nothing I really want to use... Towels!  I have some small towels that might do the trick.”
+
+Byron places the Towels in his inventory.
+
+Byron:  “Alright, I’ve got the rope tied onto the light fixture, some towels for Danyel’s hands, and the window is open.  I think that’s everything.  I should talk to Danyel to see if she’s ready for this.”
+> enter living room
+
+> enter living room
+
+In the low lighting it is difficult for Byron to see the living room clearly.  The room is furnished with a comfy looking Couch, a Chair, and a TV next to a Light Fixture.  Covering the center of the room’s floor is a soft looking Rug.  A Window on the west wall is open.  On the south wall are two doors, one to Byron’s Bedroom and the other to the Bathroom.  In the east wall is the door to the Kitchen.
+
+Danyel sits on the couch with her knees pulled up to her chest.
+> talk with danyel
+
+> talk with danyel
+
+Danyel looks up at Byron inquisitively.
+
+I think I have a way for you to get out
+Return to Living Room
+> 1
+Byron, escape rope in hand, approaches Danyel.  She looks up at him and traces the rope from his hands to the light fixture.
+
+Danyel:  “That’s your plan?”
+
+Byron:  “Well, unless you’ve got a better one, this will have to do.  You’re the one who came barging in here during my sleep rotation running from unknown assailants.  This is what I’ve got.”
+
+She ponders for a moment.
+
+Danyel:  “Will it hold me?”
+
+Byron:  “It’s  solid synth-rope.  Should hold far more than your weight.  And I can guarantee that light fixture won’t budge.”
+
+Danyel:  “You just happen to have snyth-rope lying around your apartment?”
+
+Byron:  “I got it from one of my co-workers.  He’s always spending his paycheck on crazy stuff and then gifting them for birthdays and such.  It came with this card:  ‘Never know when you’ll need it.’  This wasn’t exactly the situation I expected, though.”
+
+Danyel:  “What about my hands?  Snyth-rope isn’t usually very kind to raw flesh.”
+
+Byron:  “I’ve got some towels here.  Wrap your hands in them.”
+
+Danyel wraps her hands tightly.
+
+Byron:  “That’s about the best I can do.  Are you ready to try this, Danyel?”
+
+She looks at the rope for a moment before answering.
+
+Danyel:  “It’s not the craziest thing I’ve ever done.  Let’s do it.”
+
+Byron tosses the whole length out the window.  “I’ll hold on up here.”
+
+Danyel climbs over the window sill and swings out her legs.  She half turns back towards him.
+
+Danyel:  “Bryon, thanks.”
+
+Byron:  “You’re welcome, though I wish I knew more about what was going on.”
+
+She regards Byron intensely.
+
+Danyel:  “Tell you what:  come by Sandy’s Hideaways in the Warf District during first rotation.  We might be able to talk more.”
+
+She turns to climb, takes a deep breath. and starts to lower herself down.  Byron pulls on the rope as he feels it take her weight.  A second later, her explosion of wild, jet hair pops back up over the window sill.
+
+Danyel:  “And don’t you breathe a word of this to anyone!”
+
+Her head vanishes in a poof of locks.
+
+A couple of long moments later, the weight from the rope lifts.  Byron fumbles to the floor for the second time this rotation.  Recovering, he runs to the window and leans out.  Far below he sees a small figure waving a hand wildly at him before running off into the quiet streets.  Exhausted from these strange events, Byron gathers up the snyth-rope.  He closes the window, draws over the window screen, and heads to his bedroom, motioning for the lights to turn off as he does so.  As he crawls into bed, he glances at his Citizen’s ID.  The display reads 2:5:43.
+
+Byron:  “Only about two hours left before third rotation.  I wonder what that was all about.  I hope she’ll be okay.”
+
+Byron drifts off to an unsteady sleep.  His alarm wakes him two hours later.
+
+Head to Work
+> 1
+
+With the night’s events hovering in his mind like a vivid dream, Byron rolls out of bed.  He takes a fast shower, eats some toast, and spends a few minutes watching the news.  The routine calms him.  A few minutes later, Byron puts on his Jacket and Citizen’s Cuff and leaves the apartment.  Byron joins other third rotation workers as they walk down the hall towards the elevator.
+
+Byron’s heart beats heavily against his breast as he scans his neighbors’ faces.  A few offer salutations, but nothing to indicate curiosity over the previous rotation’s events.  By the time Byron arrives at the apartment lobby, his breathing has returned to normal.
+
+He steps out through the spinning doors onto the street.
+
+Byron stands on the corner of the street outside his apartment complex.  There is an echoing rumble in the high ceilinged street-tunnels of the Under City as masses of people switch rotations.  White lights mounted in the ceiling and at street level attempt to push back the black fog which eternally shrouds the city.  Even so, visibility looking in any direction is no more than a few hundred yards.
+
+A throng of people moves along T-91, a north-south running street.  Byron readies himself to enter the flow south to get to the subway station.
+> follow T-91
+
+> follow T-91
+
+As Byron begins to step out onto the street, a hand grips his shoulder and pulls him back.
+
+Voice:  “Hey!  Where do you think you’re going?”
+
+Byron turns rapidly to face the voice.  A man in a grey uniform and hat stands before him bearing an intimidating frown.  Byron’s heart sinks upon seeing the small double yellow bars on the hat.  An Elite Enforcer.
+
+Enforcer:  “I said, where are you going?  We’ve got an investigation in progress.  No one leaves till they’ve been interviewed.”
+
+Byron notes several other Enforcers questioning those who were in the elevator with him.  Byron had been greatly relieved by his neighbors’ lack of interest in last night’s activities.  In his relief, he had completely missed seeing the Elites.
+
+Apologize
+Say nothing
+> 1
+Byron:  “I’m sorry, Enforcer.  I was so focused on getting to work that I did not notice your investigation.  I did not mean to cause offense.”
+
+The Enforcer takes a placated, commanding tone.
+
+Enforcer:  “Present your Citizen’s ID.”
+
+Byron raises his cuff.  The Enforcer holds a miniaturized, slim terminal over the cuff.  As an employee of the Tech Center, Byron recognizes the design of the device.  It is a special issue terminal for official Tower Ministry business.
+
+Byron’s personal data displays on the Enforcer’s terminal.  The Enforcer looks over the information.
+
+Enforcer:  “Byron Madigan, age 29.  Marino District Tech Center Employee number 45-64.  Current Status: Tier 1 Clerk.  Resident of apartment 505 in this facility.  Second Rotation is your sleep rotation.  Is this information correct?”
+
+It is correct
+> 1
+Byron:  “Yes, Enforcer.  That information is accurate.”
+
+Enforcer:  “Were you in your apartment all of last rotation?”
+
+I was
+No, I was out late
+> 1
+Byron:  “That is correct.  I arrived home just before second rotation and was in my apartment until leaving just now.”
+
+Enforcer:  “During this past second rotation, did you see, hear, or otherwise notice any activity which you would describe as out of the ordinary?”
+
+I did not
+There might be something
+> 1
+Byron:  “I didn’t notice anything out of the ordinary.  I was home during most of first rotation reading and watching television.  When second rotation came around, I went to bed.  My alarm went off just before third rotation; I got ready and left for work. ”
+
+Enforcer:  “And you didn’t see anyone acting strangely through any of that time?”
+
+Byron:  “Nothing at all.”
+
+Enforcer:  “Very well.  Thank you for your time.  Have a pleasant rotation.”
+
+Byron inclines his head in a respectful gesture and then turns to proceed down the street.
+
+Only his pounding heart betrays his outward peace.
+
+Proceed down the Street
+> 1
+
+Byron, grateful with each step to be farther from the Enforcer, contemplates recent events.  Never before had he done anything as reckless as helping Danyel.  Replay after replay of the previous night and his conversation with the Enforcer run continually through his mind as he walks.  Try as he might, he'd been unable to come up with any suitable reason for his actions other than that it seemed like the right thing to do at the time.  Maybe that was enough of a reason.
+
+As if in response to his disobedient thoughts, Byron passes under the large stone reliefs of the Three Laws etched into the wall next to the entrance to the subway.
+
+OBEY
+
+HONOR
+
+REMAIN
+
+Byron, carrying a renewed sense of guilt, slumps down the stairs as the three stone words gaze condemningly upon him.
+
+He passes his ID over the sensor monotonously as he moves through the line for the subway.  The train arrives in moments, exactly on time.  Byron, having missed the subway rush due to the interview, claims a seat in the back corner.
+
+As the subway begins its slow, rhythmic passage through the district, Byron recalls the Ages Meditation Prayer.  He hadn’t used it much since turning sixteen at his Age of Understanding when he became a formal citizen of The City under the Three Laws.  The comfort of the memorized lines comes flowing back from the decade past.
+
+He closes his eyes and begins to recite the prayer internally.
+
+Gather Thoughts.
+Gather Feelings.
+Consider those gone before.
+Consider those to come.
+Who survives without the stability of The Law?
+
+Meditate on the First Law
+> 1
+Obey,
+Obedience,
+Unswerving Loyalty.
+On this, the First Law,
+all others stand.
+
+Why do we obey?
+How do we obey?
+Have I been obedient?
+> 1
+Byron:  “We obey because disobedience breeds chaos, and chaos causes death.  Death to The City is death to us all.”
+
+How do we obey?
+Have I been obedient?
+> 1
+Byron:  “We obey by following the Tenets of the Judges.  They show us the path, and we walk in it.  By this path The City lives.  As The City lives, so do we.”
+
+Have I been obedient?
+> 1
+Byron considers the past few hours.  He truly did not intend to break the laws.  Disobedience by ignorance is the allowance made for all those under 16 before they reach the Age of Understanding.  Perhaps Byron’s own actions were purely out of ignorance.
+
+Byron commits his mind to this reasoning and recites the Oath of Obedience.
+
+Byron:  “I am a Citizen of the City.  I claim the Law as my own, and I am obedient to it.”
+
+Byron completes the meditation on the First Law.
+
+Meditate on the Second Law
+> 1
+Honor,
+Reverence,
+Humble Gratitude.
+On this, the Second Law,
+authority is respected.
+
+Why do we honor?
+Whom do we honor?
+Have I held others in reverence?
+> 1
+Byron:  “To honor is to build a community of peace.  In peace, all may play their part.”
+
+Whom do we honor?
+Have I held others in reverence?
+> 1
+Byron:  “We honor those whose status is above ours.  We honor the Elites who guard the Laws.  We honor the Laws.”
+
+Have I held others in reverence?
+> 1
+Byron, sure of his conviction of obedience, declares the Oath of Honor.
+
+Byron:  “As an obedient citizen, I honor those above me.  I honor the Elites.  I honor the Law.”
+
+Byron completes the meditation on the Second Law.
+
+Meditate on the Third Law
+> 1
+Remain,
+Persistence,
+Constant Diligence.
+On this, the Third Law,
+our City flourishes.
+
+Why do we remain?
+Where do we remain?
+Have I remained constantly diligent?
+> 1
+Byron:  “To remain gives life to The City.  The City lives through the citizens.  To leave is death for me, death for you, and death for The City.”
+
+Where do we remain?
+Have I remained constantly diligent?
+> 1
+Byron:  “We remain in our jobs.  We remain in our rotations.  We remain where the Tower calls us.  We remain dedicated in all things.”
+
+Have I remained constantly diligent?
+> 1
+Byron, confident in his commitment to remaining, recites the Oath of Diligence.
+
+Byron:  “To honor and obey, I remain constantly diligent in the pursuit of my work.”
+
+Byron completes the meditation on the Third Law.
+
+Conclude Meditation
+> 1
+The subway arrives at Byron’s stop.
+
+Byron, renewed by his meditation, exits the subway and follows the flow of people up and out into the main thoroughfare of Marino District.  The wide street runs through the heart of the district, fading into darkness in either direction.
+
+He takes the road north for a brief time before arriving at the entrance of the Marino District Tech Center.  Making sure his work uniform is adjusted appropriately, Byron enters the Tech Center.
+
+Enter Tech Center
+> 1
+
+Byron passes through the main entrance of the Marino District Tech Center.  Inside he is met with the dazzling illumination of bright,
+white lights, flashing television screens, the murmur of customers, and the myriad of sounds that accompany various displays littered throughout the First Floor.  Immediately in front of him rests the wide, semicircular desk of the Tech Masters.  Behind the Tech Masters in two quarter-circle segments sit the Customer Service desks.  Beyond Customer Service is the back wall of the store where the restrooms and access doors to the First Floor Service Corridor reside.  The eastern side of the store showcases the Main Display Area while the western side has three additional display areas:  Games, Shows, and Status items.  Two large Escalators take customers between the first and second floor.
+> enter service corridor
+
+> enter service corridor
+
+Byron enters the First Floor Service Corridor.  It is a wide hallway that runs the length of the store.  Stacks of boxes and various merchandise line the walls.  On the west end of the hallway is the Service Elevator.  To the east is the Employee Break Room.  A door leads onto the main floor of the Tech Center.
+> enter break room
+
+> enter break room
+
+Byron pushes aside the swinging door to the employee break room.  Horrace and Veronicca, Clerks from second rotation, look up from a card game.
+
+Horrace:  “There he is!  Byron, what’s up?  Porto’s already been in here twice to see if you’d come through yet.”
+
+Byron:  “Hey, Horrace.  Sorry, I had a bad night.”
+
+Veronicca chuckles.
+
+Veronicca:  “What was her name?”
+
+Horrace:  “Now, now, Veronicca.  Don’t be like that.  Can’t you see the man’s exhausted?  I’m sure he put up a good fight.”
+
+Byron glares.
+
+Horrace:  “Oh, by the way Byron, on a serious note, the glitch up in Game Room 3 has turned into a full-blown melt-down.  Looks like a Tech Master’s job.  Just advanced warning for whoever’s going to come down your throat this rotation.”
+
+Byron:  “And Klyne’s heading out today, too.  The Masters will probably be backed up.”
+
+Horrace:  “That’s right, Klyne’s last day.  Bad luck.  But a possible opportunity for you.”
+
+Byron’s face betrays a smile.
+
+Veronicaa:  “Alright you two, enough chatting.  Byron’s got a job to get to, and you’ve got a hand to play.”
+
+They return to their card game.
+
+Byron stands in the Employee Break Room.
+The space, illuminated by soft glowing white panels on the ceiling, is sparse.  Two long Tables with benches occupy the center of the floor.  Hooks on which hang various employee personal Items line one wall.  A Water Tank and a Food Dispenser stand next to the door.  On the wall opposite the door are three Terminals.  A door leads back into the Service Corridor.
+
+Horrace and Veronicaa sit at a table playing a card game.
+> sign in terminals
+
+> sign in terminals
+Byron waves his Citizen’s Cuff over the terminal’s sensor.
+
+Terminal:  Welcome Employee Byron Madigan, 45-64.
+Your current sign-in status is:  Late, Minor Infraction.
+Please notify Manager Porto of the circumstances of your Infraction.
+
+!!!-----------------ALERT-----------------!!!
+
+Immediate attention required at the Customer Service Desk.
+Help line is behind schedule.
+Current number of customers on hold:  3
+Primary Customer Concerns:
+Troubleshooting Product:  Advanced Citizen’s Cuff X9 by Teleo Manufacturing
+
+!!!-----------------ALERT-----------------!!!
+
+Byron:  “Well, now I know why Stel was looking a little green.  I’d better get out there and help.”
+> enter service corridor
+
+> enter service corridor
+
+Byron, heeding the Terminal’s warning about getting to the Customer Service desk quickly, exits the Employee Break Room.  He halts abruptly at the sight of the wide face of Manager Porto eyeing him curiously.  Porto, mug in hand, looks Byron up and down.
+
+Porto:  “Clerk Madigan.  I see you finally managed to join us.”
+
+Byron’s hand twitches nervously at his side.  His future at the Tech Center is riding on today’s work.
+
+Porto:  “Care to offer an explanation for your tardiness?”
+
+The Elites
+The Truth
+Say Nothing
+> 3
+Byron looks sheepishly at the floor.  Porto clears his throat.
+
+Porto:  “Well Byron, do you have anything to say?”
+
+Byron:  “No, Manager, I have no excuse.”
+
+Porto:  “Right.  Well then...”  Porto shifts his weight.  “I suppose you have your reasons then.  You have a good record, so,” he pauses awkwardly, avoiding Byron’s gaze.  “I’ll ignore this infraction for now.  Carry on.”
+
+Go to Customer Service Desk
+> 1
+Porto:  “Oh, Byron!  You’ve still got your jacket on.  I know it’s a company jacket, but the handbook is strict about proper attire.  I’ll take that for you and put it up on a hanger in the Employee Break Room.  Now hurry to the Customer Service Desk.”
+
+Go to Customer Service Desk
+> 1
+
+Stel beckons Byron over and thrusts a headset into his hands.  Byron positions himself in front of a Customer Service Terminal.  The terminal has text displayed:
+
+!!!-----------------ALERT-----------------!!!
+
+Help line is behind schedule.
+Current number of customers on hold:  3
+Primary Customer Concerns:
+Troubleshooting Product:  Advanced Citizen’s Cuff X9 by Teleo Manufacturing
+
+!!!-----------------ALERT-----------------!!!
+
+Accept Incoming Call
+> 1
+Byron pushes the key to activate the next customer call.
+
+Byron:  “Thank you for calling Marino Tech Center Customer Service.  My name is Byron.  How may I serve you today?”
+
+A coarse male voice replies.
+
+Customer:  “Hmm.  Yes, my name is Patricke.  I recently purchased a Teleo Advanced Cuff from your Center.  I figured this rotation would be a good time to set it up.  However, I seem to be having an issue getting the device to turn on.  Could you help me with this?”
+
+I have a few suggestions
+Let me check the manual
+Bring it in for the Tech Masters
+> 1
+Byron:  “Yes, absolutely, that’s what we’re trained here to do.  Let me walk you through this.”
+
+Try turning the Power On
+Let’s check the Battery
+Look at the Biometric Plate
+Input this Code
+Bring it in for the Tech Masters
+> 3
+Byron:  “Sir, have you made sure to remove all of the safety guards on the cuff.  It is especially important to remove the ones from the Biometric Plate.”
+
+Customer:  “That’s ridiculous, of course I’ve...”  A brief pause fills the headset.  “Well, I’ll be.  I missed one.  And now it’s powering on.  It’s no wonder though.  They practically make these things as difficult to get into as a safe.”
+
+Glad I could help
+> 1
+Byron:  “I’m glad that I could help you solve the problem.  Please call us again if you have any further issues with this or any other of our products.”
+
+The call ends.
+
+Customer Report
+> 1
+Customer Report:
+Topic:  New Item Issue
+Product:  Advanced Citizen’s Cuff X9 by Teleo Manufacturing
+Issue:  Device Not Activating
+
+Customer Satisfaction:
+Very Satisfied
+
+Byron:  “That’s right!  Who needs manuals?”
+
+Accept Incoming Call
+> 1
+Byron pushes the key to activate the next customer call.
+
+Byron:  “Thank you for calling Marino Tech Center Customer Service.  My name is Byron.  How may I serve you today?”
+
+A young female’s voice replies.
+
+Customer:  “Hello, Byron.  I’m Abbie.  I was actually at the center just a few rotations ago.  I just got a new promotion, and my first paycheck came in.  I thought the best thing was to come get a new Cuff since mine was a little out of date.  One of your sales people told me about this new Teleo cuff, and I thought, ‘why not get it.’”
+
+Byron:  “We’re glad you came by.  Are you satisfied with your cuff?”
+
+Customer:  “Well, yes, I would be.  Except I’m having an issue.  The cuff turned on just fine.  It seemed to connect, and it downloaded my settings.  But now, no matter what I do, I can’t seem to get it to access The City Network for any further actions even though it still says it’s connected.  Do you know what the problem might be?”
+
+I have some ideas
+Let me check the manual
+Bring it to the Tech Masters
+> 1
+Byron:  “Yes, Abbie, I think I might know how to fix your problem.”
+
+Check Connection
+Install Diagnostic Application
+Reset Device
+Bring it to the Tech Masters
+> 2
+Byron:  “The best thing to do for this sort of issue is to install the Teleo Diagnostic application.  It should be built into the cuff; you’ll just need to install it.  Can you do that?”
+
+Customer:  “Already working on it.  ...  There we go!  Installed.  What next?”
+
+Bring it to the Tech Masters
+Read Error List
+Check Registration Status
+> 3
+Byron:  “We should check your registration status.  Could you run the registration diagnostic?”
+
+Customer:  “Ok.  This is what it says:  “Error.  Registration is currently invalid.  Please contact...  Wait!  What?  Registration invalid!?  What does that mean!?  Byron, what’s going on?  Why is my registration invalid?”
+
+Come to the Tech Center
+Go to Centrino District
+> 2
+Byron:  “It’s okay, Abbie.  Calm down.  You’re going to be okay.”
+
+Customer:  “But I don’t understand.  How could my registration be invalid?”
+
+Byron:  “I don’t know.  It’s not a very common error.  But I’m sure that everything is going to be just fine.  Now, what you need to do is head over to the Centrino District Citizen Registration Facility.  They’ll be able to handle your registration errors and get everything worked out on their end.”
+
+Customer:  “Are you sure?”
+
+Byron:  “Yes, I’m sure.  It’s just an error; they’ll work everything out.  They are professionals and can manage any registration issue.  Once it’s fixed, your cuff should be fully functional, no problem.”
+
+Customer:  “Alright, that sounds like a good idea.  I’ll head over there right away.  Thanks, Byron.”
+
+Glad I could help
+> 1
+Byron:  “I’m glad that I could help, Abbie.  Please call us again if you have any further issues with this or any other of our products.”
+
+Customer:  “Thank you very much!”
+
+The call ends.
+
+Customer Report
+> 1
+Customer Report:
+Topic:  New Item Issue
+Product:  Advanced Citizen’s Cuff X9 by Teleo Manufacturing
+Issue:  Device Not Connecting to The City Network
+
+Customer Satisfaction:
+Very Satisfied
+
+Byron:  “Easy fix!  But I hope she’s okay.  An issue with registration isn't common.”
+
+!!!-----------------ALERT-----------------!!!
+
+Help line is behind schedule.
+Current number of customers on hold:  1
+Primary Customer Concerns:  Unknown
+Troubleshooting Product:  Unknown
+
+!!!-----------------ALERT-----------------!!!
+
+Accept Incoming Call
+> 1
+Byron pushes the key to activate the next customer call.
+
+Byron:  “Thank you for calling Marino Tech Center Customer Service.  My name is...”
+
+An older woman’s voice cuts him off.
+
+Customer:  “I don’t care what your name is.  Do you realize how long I have been on hold?”
+
+Byron:  “I’m sorry for the wait ma’am...”
+
+Customer:  “Don’t interrupt me!  I have been waiting for this line to free up for over half an hour.  HALF AN HOUR!  Do you understand what I could have done in half an hour?  Half an hour of my precious life, whisked away by poor customer service.  The entire City could crumble into chaos in so little time were it not for myself and the other Arbiters.  What do you have to say for yourself?”
+
+I’m sorry for the wait.  What can I help you with?
+We’re doing the best we can
+Hang up
+> 1
+Byron:  “I’m sorry for the delay.  We have been swamped with calls this rotation.  What can I help you with?”
+
+Customer:  “Minor excuses do not sweep away the time lost.  As for my technical issues, it doesn’t matter.  Once I saw that your service was so poor, I just knew I had to remain till I could make you understand.  I hope you make the necessary adjustments so that such an event never occurs again.”
+
+Can I get your name?
+Hang up
+> 1
+Byron:  “Could I have your name on record as being the one who made such an important recommendation to our Tech Center?”
+
+Customer:  “But of course!  I am Madam Bristé Illundo, Arbiter of Marino Prime Bank.  Your superiors will know how to contact me for further recommendations.”
+
+Byron:  “Thank you for your call.”
+
+Customer:  “My pleasure!”
+
+The call ends.
+
+Customer Report
+> 1
+Customer Report:
+Topic:  General Complaint
+Product:  Unknown
+Issue:  Unknown
+
+Customer Satisfaction:
+Poor
+
+Correction made for impossible situation:
+Employee Response:
+Satisfactory
+
+Byron:  “There’s just no good way to handle those calls.”
+
+-----------------On Schedule-----------------
+
+Help line is on schedule.
+Current number of customers on hold:  0
+Primary Customer Concerns:
+Troubleshooting Product:
+
+-----------------On Schedule-----------------
+
+Current Employee: Byron Madigan, 45-64
+Overall Customer Satisfaction Rating:
+Satisfactory
+
+Byron:  “Well, that’s finally over.”
+
+Manager Porto’s voice comes over the headset.
+
+Porto:  “Clerk Madigan!  I just saw that the help desk is back on schedule.  Excellent.  See, once you get to work, everything just falls into place.”
+
+Byron sighs.
+
+Porto:  “Anyway, now that things are cleared up at the Customer Service Desk, I need you to head up to the Dock and collect a new shipment of items.  Just collect them and stock the store as usual.”
+
+Byron removes the headset and motions to Stel.
+
+Byron:  “Hey Stel, you should have things under control here now.  Porto wants me to go grab some new stock from upstairs.”
+
+Stel:  “You got it, boss.  Thanks for the assist.”
+
+Byron turns to walk away.
+
+Stel:  “Oh, Byron!  When you get a minute later on there was something I wanted to tell you.”
+
+Go to Tech Center Entrance
+> 1
+
+Byron stands in the main entrance lobby of the Marino District Tech Center.  The space is brightly lit by
+white lights, flashing television screens, the murmur of customers, and the myriad of sounds that accompany various displays littered throughout the First Floor.  Immediately in front of him rests the wide, semicircular desk of the Tech Masters.  Behind the Tech Masters in two quarter-circle segments sit the Customer Service desks.  Beyond Customer Service is the back wall of the store where the restrooms and access doors to the First Floor Service Corridor reside.  The eastern side of the store showcases the Main Display Area while the western side has three additional display areas:  Games, Shows, and Status items.  Two large Escalators take customers between the first and second floor.
+> enter service corridor
+
+> enter service corridor
+
+Byron enters the First Floor Service Corridor.  It is a wide hallway that runs the length of the store.  Stacks of boxes and various merchandise line the walls.  On the west end of the hallway is the Service Elevator.  To the east is the Employee Break Room.  A door leads onto the main floor of the Tech Center.
+> floor 3 service elevator
+
+> floor 3 service elevator
+
+The wide hall of the third floor service corridor runs east-west along the back of the building.  On the east end of the hallway is a large access door to the Storage Area.  To the west is another set of large doors that leads to the Upper Loading Dock next to the Service Elevator.  A door leads out to the third floor Battle Arena.
+
+A large rolling Cart sits to the side of the hall.
+> take cart
+
+> take cart
+Byron:  “Alright, time to take this to the dock.”
+> enter upper loading dock
+
+> enter upper loading dock
+
+Byron enters the loading dock.  The dock is a wide space connected to the back side of the stores on this block.  Large platforms rise and lower on hydraulic networks.  Within view are several Surface Transports being unloaded.  The air is much cooler in the dock than on the street or in the Tech Center.  High above, beyond the visibility allowed by the black fog, lies the Upper City.  Byron stands nervously near the door back into the Tech Center Service Corridor.
+
+The Dock Manager is standing near a shipment labeled for the Tech Center.
+> approach dock manager
+
+> approach dock manager
+Dock Manager:  “You there!  You from the Tech Center?”
+
+Byron:  “Clerk Madigan.  I heard there was a shipment?”
+
+Dock Manager:  “Indeed.  We’ve got it here.  I’ll have my boys get it on your cart for you.”
+
+He gestures for several workers to load the boxes onto Byron’s cart.
+
+Byron:  “Always good to see a new face.  Promotion?”
+
+Dock Manager:  “Yeah.  I just got done with a tour in the Warf District.  Suppose I’ll be seeing a lot of you then, eh?”
+
+Byron:  “Probably not.  I’m expecting a promotion myself today.  If I get it I’ll not be up here again.”
+
+Dock Manager  “Ah, well best to you then.  Looks like the cart's all good to go.”
+
+A loud bang rings out through the dock.
+
+Dock Manager:  “Watch it!  Be careful with that!”  The Manager runs off.
+
+Byron reclaims the now loaded cart.
+> enter service corridor
+
+> enter service corridor
+
+The wide hall of the third floor service corridor runs east-west along the back of the building.  On the east end of the hallway is a large access door to the Storage Area.  To the west is another set of large doors that leads to the Upper Loading Dock next to the Service Elevator.  A door leads out to the third floor Battle Arena.
+
+> floor 1 service elevator
+
+> floor 1 service elevator
+
+Byron enters the First Floor Service Corridor.  It is a wide hallway that runs the length of the store.  Stacks of boxes and various merchandise line the walls.  On the west end of the hallway is the Service Elevator.  To the east is the Employee Break Room.  A door leads onto the main floor of the Tech Center.
+> enter tech center
+
+> enter tech center
+
+As Byron enters the main lobby of the Tech Center, a cold chill runs down his spine.  Five Elite Wakers stand towering in a “V” formation in front of the Tech Master’s desk.  They are garbed in blue-trimmed, floor-length black robes with hoods concealing their faces.  It is rare to see an Elite of the Waker Order roaming the streets.
+
+The lead Waker draws out a hand and beckons towards Klyne.  With measured confidence, Klyne steps out from behind the desk.  The Waker places his hand on Klyne’s shoulder.
+
+In that manner, the party leaves the Tech Center.  The Sales Associates return to their pitches, and the general buzz of the Center resumes.  But Byron can’t help but notice that there is far less chatter from the Tech Master’s desk than usual.
+
+Byron stands in the main entrance lobby of the Marino District Tech Center.  The space is brightly lit by
+white lights, flashing television screens, the murmur of customers, and the myriad of sounds that accompany various displays littered throughout the First Floor.  Immediately in front of him rests the wide, semicircular desk of the Tech Masters.  Behind the Tech Masters in two quarter-circle segments sit the Customer Service desks.  Beyond Customer Service is the back wall of the store where the restrooms and access doors to the First Floor Service Corridor reside.  The eastern side of the store showcases the Main Display Area while the western side has three additional display areas:  Games, Shows, and Status items.  Two large Escalators take customers between the first and second floor.
+> approach games
+
+> approach games
+
+Byron enters the game display area near the back wall of the Tech Center.  Covering the wall are rows of animated images advertising popular Video Games.  The games represented range from those intended for simple Personal Terminal devices to the competitive, full-body motion titles of the Extreme Games series.  Several tables display elaborate Miniature-Based Games.  Tables set up near the corner of the store showcase the latest expansions to a popular card game called Xyzzy.  Nearby are the displays for popular Shows and special Status items.  To the east is the Tech Center Entrance .
+> use box of game miniatures on miniature game table
+
+> use box of game miniatures on miniature game table
+Byron:  “Awesome, this is a tactical miniature game where you use a small strike team to infiltrate enemy bases.  This will be fun to set up.”
+
+Byron clears off the older miniature set and places the new one deftly on the table, making sure each piece is right where he wants it.
+> approach tech center entrance
+
+> approach tech center entrance
+
+Byron stands in the main entrance lobby of the Marino District Tech Center.  The space is brightly lit by
+white lights, flashing television screens, the murmur of customers, and the myriad of sounds that accompany various displays littered throughout the First Floor.  Immediately in front of him rests the wide, semicircular desk of the Tech Masters.  Behind the Tech Masters in two quarter-circle segments sit the Customer Service desks.  Beyond Customer Service is the back wall of the store where the restrooms and access doors to the First Floor Service Corridor reside.  The eastern side of the store showcases the Main Display Area while the western side has three additional display areas:  Games, Shows, and Status items.  Two large Escalators take customers between the first and second floor.
+> approach status
+
+> approach status
+
+Byron walks over to the Status Display.  Each piece has been painstakingly set out with small lights illuminating every feature.  The items presented here on pedestals are special customizations available to those of the required status.  Byron notes several golden and jeweled Cuffs.  Along the northern wall is the Games display area and the Shows area along the western wall.  To the east is the Tech Center Entrance.
+> use box of status-locked accessories on pedestals
+
+> use box of status-locked accessories on pedestals
+Byron:  “These are the new designs from the Marino Craftsmen.  Each piece is delicately put together so that no two are alike.  It’s no wonder they are kept in reserve for only those of the highest tier of status.”
+
+Byron carefully arranges the accessories on the pedestals.
+> approach tech center entrance
+
+> approach tech center entrance
+
+Byron stands in the main entrance lobby of the Marino District Tech Center.  The space is brightly lit by
+white lights, flashing television screens, the murmur of customers, and the myriad of sounds that accompany various displays littered throughout the First Floor.  Immediately in front of him rests the wide, semicircular desk of the Tech Masters.  Behind the Tech Masters in two quarter-circle segments sit the Customer Service desks.  Beyond Customer Service is the back wall of the store where the restrooms and access doors to the First Floor Service Corridor reside.  The eastern side of the store showcases the Main Display Area while the western side has three additional display areas:  Games, Shows, and Status items.  Two large Escalators take customers between the first and second floor.
+> enter service corridor
+
+> enter service corridor
+
+Byron enters the First Floor Service Corridor.  It is a wide hallway that runs the length of the store.  Stacks of boxes and various merchandise line the walls.  On the west end of the hallway is the Service Elevator.  To the east is the Employee Break Room.  A door leads onto the main floor of the Tech Center.
+> floor 2 service elevator
+
+> floor 2 service elevator
+
+The second floor service corridor serves a similar purpose to those on the first and third floors.  Various stacks of boxes and merchandise line the walls of the wide hall.  A Service Elevator on the west end of the hall takes employees between floors and up to the loading dock above the building.  At the east end of the hall is the door to the Manager’s Office.  Another door leads to the second floor Landing.
+
+Sitting near the door to the second floor landing is a Box of Tools.
+> approach landing
+
+> approach landing
+
+Byron stands on the landing of the Second Floor of the Tech Center.  While the first floor contains the main display areas, the second floor is stocked with general merchandise.  It is also the location of the in-store Café.  The Café occupies the northwestern corner of the floor.  The Cuff Display lies to the southwest.  The northeast corner is home to the Terminal Display, the southeast is the Accessories Display.  To the south of the landing is the Television Display.  In the center of the room, between the Escalators, are four quarter-circle Customer Service.  Doors on either side of the restrooms lead into the second floor Service Corridor to the north.
+> approach terminal display
+
+> approach terminal display
+
+Byron enters the Terminal Display area.  Terminals sit at a comfortable height on several long, thin tables.  Unlike other displays in the Tech Center, the terminals are divided into sections based on occupation as well as status.  To the south is the Accessories Display and to the west is the second floor Landing.  A set of doors to the north leads into the second floor Service Corridor.
+> use box of terminals on tables
+
+> use box of terminals on tables
+Byron:  “The display models still look in good condition.  I’ll just store these under the tables.”
+
+Byron stores the Terminal boxes under the tables.
+> approach accessories display
+
+> approach accessories display
+
+Byron wanders between the low aisles of the Accessories Display area.  Colored cuff attachments, TV casings, window screen downloads, and a plethora of other customizable Accessories fill the shelves.  To the north is the Terminal Display.  To the west is the second floor Landing and the Television Display.
+> use box of accessories on shelves
+
+> use box of accessories on shelves
+Byron:  “This is the most tedious job.  I have to make sure all of the colors and sizes are in the correct spots.”
+
+Byron removes the accessories from the box and places them meticulously on the shelves.
+> approach television display
+
+> approach television display
+
+Byron looks over the TV display wall.  As opposed to the shows display on the first floor, this section helps customers to compare the quality of various TVs.  On one wall hang the latest models, which a Sales Associate can use to help customers compare.  Some of the TVs display Custom Exteriors.  Along another wall are Window Screen displays.  The Landing of floor two is to the north.  To the west is the Cuff Display and to the east is the Accessories Display.
+> approach cuff display
+
+> approach cuff display
+
+Byron stands in the Cuff Display area.  Many versions of the Citizen’s ID Cuff are arranged on small pedestals.  On a central pedestal, displayed with a subtle light, sits a Verge Mighty Cuff LV.  The Café is to the north, and to the east is the TV Display and the second floor Landing.
+> use box of cuffs on pedestals
+
+> use box of cuffs on pedestals
+Byron:  “I wish we didn’t have to stock more Teleo X9s, but I don’t really have any choice.”
+
+Byron arranges the cuffs on the pedestals.
+
+Byron:  “That’s everything.  I’ll need to take this back up to the third floor Service Corridor.”
+> approach landing
+
+> approach landing
+
+Byron stands on the landing of the Second Floor of the Tech Center.  While the first floor contains the main display areas, the second floor is stocked with general merchandise.  It is also the location of the in-store Café.  The Café occupies the northwestern corner of the floor.  The Cuff Display lies to the southwest.  The northeast corner is home to the Terminal Display, the southeast is the Accessories Display.  To the south of the landing is the Television Display.  In the center of the room, between the Escalators, are four quarter-circle Customer Service.  Doors on either side of the restrooms lead into the second floor Service Corridor to the north.
+> enter service corridor
+
+> enter service corridor
+
+The second floor service corridor serves a similar purpose to those on the first and third floors.  Various stacks of boxes and merchandise line the walls of the wide hall.  A Service Elevator on the west end of the hall takes employees between floors and up to the loading dock above the building.  At the east end of the hall is the door to the Manager’s Office.  Another door leads to the second floor Landing.
+
+Sitting near the door to the second floor landing is a Box of Tools.
+> take box of tools
+
+> take box of tools
+Byron:  “I’ll take this with me.”
+> floor 3 service elevator
+
+> floor 3 service elevator
+
+The wide hall of the third floor service corridor runs east-west along the back of the building.  On the east end of the hallway is a large access door to the Storage Area.  To the west is another set of large doors that leads to the Upper Loading Dock next to the Service Elevator.  A door leads out to the third floor Battle Arena.
+
+> use cart on hallway
+
+> use cart on hallway
+Byron:  "I'll leave this here for the next person who needs it.  Now maybe I can slip down to the Break Room for a breather."
+> floor 1 service elevator
+
+> floor 1 service elevator
+
+As Byron turns to leave, Ewey, a Tier 2 Clerk at the Tech Center, arrives in the Service Corridor.  She notices Byron.
+
+Ewey:  “Oh!  Byron!  Porto said I’d find you here.”
+
+Porto sent you?
+> 1
+Byron:  “Porto sent you?”
+
+Ewey:  “Only after a fashion.  We have a scheduled event this rotation in the Battle Arena.  You and I are supposed to set it up together.”
+
+Byron:  “Sounds simple enough.  What’s the setup?”
+
+Ewey:  “Later.  First there’s probably something else you should take care of.  On my way up I passed the Arcade.  It looks like one of the game platforms went offline.  I hate asking the Tech Masters to fix those, especially with Klyne gone and Game Room 3 down.  You’re the best at repairing them otherwise.  Could you go take care of that?
+
+Byron:  “Yeah, I can handle it.  I could take a look at the Game Room, too.”
+
+Ewey:  “I wouldn’t if I were you.  The word from last rotation was that it was beyond normal maintenance issues.  We’ll have to let the Masters look at it.”
+
+Byron:  “Alright, thanks for letting me know.”
+
+Ewey:  “No problem.  It looks like you've already got the toolbox which you'll need to fix it.  Anyway, I’ll be in Storage getting the stuff together for the Arena.  Meet me there when you're done.”
+
+Go to Service Corridor
+> 1
+
+The wide hall of the third floor service corridor runs east-west along the back of the building.  On the east end of the hallway is a large access door to the Storage Area.  To the west is another set of large doors that leads to the Upper Loading Dock next to the Service Elevator.  A door leads out to the third floor Battle Arena.
+
+A large rolling Cart sits to the side of the hall.
+> enter battle arena
+
+> enter battle arena
+
+Byron stands on the outskirts of the Marino Tech Center Battle Arena.  The arena is composed of a raised, flat, rectangular platform Stage with bleachers along the long sides.  As opposed to the other floors of the Tech Center, which are brightly lit by white wall panels, this floor is dimly lit, with the primary lighting centered on the stage.  Orange floor safety lights provide guides to the Escalators, Restrooms, and Concession Stand.  An Arcade takes up the east side of the third floor.  To the west are three Game Rooms.  A softly illuminated door on the north wall leads to the third floor Service Corridor.
+> approach arcade
+
+> approach arcade
+
+Byron wanders through the Tech Center Arcade.  Game Platforms of various sizes are arranged throughout the space.  The area maintains the same low lighting quality as the main Battle Arena to the west.
+
+One of the Game Platforms is displaying a holographic “Out of Order” sign.
+> use box of tools on out of order game platform
+
+> use box of tools on out of order game platform
+Byron walks over to the disabled game platform.
+
+Byron:  “Alright, let’s see what the issue is.”
+
+Byron pulls out the debugger from the tool box.  He opens the side panel, connects the debugger, and begins running some tests.  In a moment a code flashes on the screen.
+
+Byron:  “Ah, looks like the sensor grid is misaligned.  Kids come in here and bang on the platform when they get excited.  It jiggles the whole grid loose.”
+
+Byron retrieves the sensor alignment tool from the box.  He runs the program and, line by line, manually adjusts each sensor bar.
+
+Byron:  “Alright, there we go.  Should be good as new.  I’ll input the reset codes.  No one in third Rotation’s as good as I am at this stuff.  I’ve got this Tech Master job in the bag.”
+
+Byron taps a few of the controls on the game platform to assure they are functional and then packs up the Tool Box.
+> approach battle arena
+
+> approach battle arena
+
+Byron stands on the outskirts of the Marino Tech Center Battle Arena.  The arena is composed of a raised, flat, rectangular platform Stage with bleachers along the long sides.  As opposed to the other floors of the Tech Center, which are brightly lit by white wall panels, this floor is dimly lit, with the primary lighting centered on the stage.  Orange floor safety lights provide guides to the Escalators, Restrooms, and Concession Stand.  An Arcade takes up the east side of the third floor.  To the west are three Game Rooms.  A softly illuminated door on the north wall leads to the third floor Service Corridor.
+> approach service corridor
+
+> approach service corridor
+
+The wide hall of the third floor service corridor runs east-west along the back of the building.  On the east end of the hallway is a large access door to the Storage Area.  To the west is another set of large doors that leads to the Upper Loading Dock next to the Service Elevator.  A door leads out to the third floor Battle Arena.
+
+A large rolling Cart sits to the side of the hall.
+> use box of tools on hallway
+
+> use box of tools on hallway
+Byron:  "I'll leave this right here, where it's supposed to be."
+> enter storage area
+
+> enter storage area
+
+Byron enters the open door of the Storage Area.  Ewey is stacking boxes onto the cart.
+
+Byron:  “So, what’s the setup?”
+
+Ewey:  “It’s a standard First-Person two-team scenario.  I believe it’s a local battle of pre-Age kids.  We can expect most of their parents to show up.”
+
+Byron grabs one of the dedicated Arena terminals and places it on the cart with the others.
+
+Byron:  “Who’s on for the concession stand?”
+
+Ewey:  “I think it’s Marty’s Munchies on request by the teams.  Apparently it’s a favorite.  Not that it’s really our department.  ‘Course, setting up the arena at all is very nearly not your department anymore anyway.”
+
+Byron’s heart quickens.
+
+What have you heard?
+> 1
+Byron:  “Have you heard anything?”
+
+Ewey:  “I don’t need to.  It’s a little obvious isn’t it?  You’re the best clerk with the tech.  Porto’s got to be crazy not to promote you to Tech Master.  Which doesn’t bother me any since I’m expecting to get your job.”
+
+Byron:  “Stel?”
+
+Ewey:  “Are you kidding me?  Stel’s a looney.”
+
+Byron frowns unapprovingly.
+
+Ewey:  “Yeah, yeah.  I know you two are best buddies and all.  But let’s face it.  There are two Tier 2 Clerks, Stel and me.  I’m far more responsible and experienced.  Who would you pick?”
+
+Byron turns to get another terminal.
+
+Ewey:  “See what I mean?  Besides, if he stays a Tier 2 he’ll be at the Customer Service desk, and you can chat him up any time.”
+
+Hey now
+> 1
+Byron turns to reply when the storage area door swings open.  Manager Porto, mug in hand, waltzes into the room.
+
+Porto:  “There you are!  Byron thank you for fixing that game platform for me.  The Tech Masters are swamped now that Klyne is gone.  You’ve really shown your worth, as usual.”
+
+Byron:  “Thank you, Manager Porto.”
+
+Ewey glances matter-of-factly at Byron.  Byron beams.
+
+Porto:  “Such occurrences are why I’m glad to keep you around.  And, with all the commotion downstairs, this is also the perfect time for my announcement.  I was going to wait till the end of the rotation, but we need the help downstairs right away.”
+
+Porto takes a long draft from his mug.
+
+Byron’s heart beats wildly in his chest.
+
+Porto finishes and focuses on Ewey.
+
+Porto:  “Ewey, as Rotation Manager of this Marino Tech Center, I hereby promote you to Tech Master.”
+
+Ewey’s mouth drops open.
+
+Byron’s smile freezes on his face.
+
+Porto continues to speak, but to Byron the words sound faint and from a distance like echoes down a long tunnel.
+
+Porto:  “Congratulations... Report immediately... Good job... Byron... Byron?”
+
+Byron looks at Porto.  Ewey is no longer in the room.
+
+Porto:  “Byron, please finish getting the Arena set up.  I need it in order in the next half an hour.  You can manage that I’m sure.
+
+Porto walks out of the storage area, only to lean his head back in.
+
+Porto:  “Oh, and do be sure to congratulate Ewey on her promotion.  You seemed to fade out there for a moment.”
+
+Byron, his mind immobilized by the event, mechanically begins assembling the setup for the Battle Arena event.  The remainder of the work day passes in a blur, as if the ever present black fog of The City has thickened around him.
+
+Stel:  “Byron?  Byron!”
+
+Respond
+> 1
+Byron becomes suddenly aware of his surroundings.  He sits on the cart in the storage area.  All of the equipment from the Arena is already put away.
+
+Byron:  “Stel?”
+
+Stel:  “Dude, Byron.  Are you okay, man?”
+
+Byron looks down at his hands.
+
+Byron:  “You heard?”
+
+Stel:  “‘You heard?’  Of course I’ve heard!  Everyone’s heard.  We’re all shocked by it, Ewey certainly not least of all.  Man, she’s had it rough, too.  The Tech Masters were railing on her for not knowing anything.  I had to listen to it for the past several hours.  And when the end of the rotation hit and you were nowhere to be found, I figured I’d better come find you.  You don’t look so good.”
+
+Byron:  “I... I think I need to go home.”
+
+Stel:  “I get that.  But you know you don’t need to be alone.  I’m meeting some friends at the Eternal Casino in the Albino district.  Why don’t you come along?  It’d be good for you.”
+
+Byron:  “Thanks Stel.  But I think I really just need to be alone right now.”
+
+Stel:  “Alright.  I get it.  But the offer’s still open.  We’ll be there all rotation if you change your mind.”
+
+Byron: “Thanks.”
+
+Stel leaves.
+
+Slowly, Byron gets to his feet.  He closes and locks the door to the storage unit, replacing the cart in the Service Corridor on his way to the elevator.  On the first floor he signs out of the break room terminal.  It prints out his pay stub, indicating a deposit of 2200 credits.  He pockets the stub, dawns his jacket, and walks silently out of the Tech Center.
+
+Go to street outside Tech Center
+> 1
+
+Byron wanders aimlessly through the streets of Marino District.  People flow in various directions in a mass of comings and goings.  Byron lets the flow carry him.  Eventually his legs tire, and he finds a bench to pause at.
+
+People continue to pass him by as Byron’s thoughts turn towards Porto’s decision.
+
+Byron:  “I don’t understand.  Everyone expected me to get it.  I’m the most capable.  I know how to fix tons of equipment.  I’ve been a Tier 1 Clerk for five years.  Everything pointed to me getting it.  So why Ewey?”
+
+Voice:  “Bad day, huh?”
+
+Byron, startled to hear a response to his musings, turns to find an elderly bearded man wearing a flat cap and faded plaid coat sitting beside him on the bench.  Byron’s mind, running parallel to his alarmed emotions, notes that the look is quite fashionable on the old man.
+
+Who are you?
+> 1
+Byron:  “Who are you?”
+
+The old man lets out a warm chuckle.
+
+Old Man:  “Startled you did I?  Sorry about that.  I don’t always know when it’s appropriate to interrupt one’s thoughts.  Don’t mind me.  Please think on.”
+
+Byron stares at the old man in bewilderment.
+
+Old Man: “Oh!  I’m sorry, you asked me a question.  ‘Who am I?’  Well, that’s a remarkably personal question for two who only just met.  I’m not entirely sure how best to answer it.  Ah, I know.  Who do you think I am?”
+
+An old man
+Crazy
+An Elite
+> 1
+Byron:  “Just a random old man.”
+
+This elicits a hearty, but not unkind, laugh from the bearded fellow.
+
+Old Man:  “Well, I suppose I am a bit old.  Though not altogether in the grave.  You’ll get there someday, too.”
+
+Old Man:  “Your answer amused me.  Why don’t you give it another try?”
+
+Crazy
+An Elite
+> 1
+Byron:  “You’re a looney.”
+
+Old Man:  “And proud of it!  I’ve worked quite hard to achieve that status if I do say so myself.  Remember what they say, ‘Work hard, and you’ll accomplish anything you desire.’”
+
+Byron grunts disapprovingly at this.
+
+Old Man:  “Yeah, I never trusted them much either on that one.”
+
+Old Man:  “Any other thoughts as to my personage?”
+
+An Elite
+> 1
+Byron:  “You’re an undercover Elite come to spy on me.”
+
+Old Man:  “Ah, yes, an aged Elite, probably a Guardian, sent on a secret mission to infiltrate the little life of bench-sitting-man so as to gain your trust and test your loyalty.  So how about it?  Does your loyalty need to be tested?
+
+Of course not
+I’m not sure
+> 2
+Byron:  “Honestly?  I’m not really sure.  I did something that I thought was right at the time.  But now I think I was just ignorant of the truth.”
+
+Old Man:  “The truth being?”
+
+Byron:  “That maybe I really did do the wrong thing.”
+
+The old man places a hand gently on Byron’s shoulder and looks him squarely in the eye.
+
+Old Man:  “If I really were an Elite, that might not have been the wisest thing to say.”
+
+He removes his hand and sits back with a smile.
+
+Old Man:  “Alright.  Well done.  Good answers.  Now, since you had a couple of shots, I shall have a go at who you are.  You are a man with a choice to make.”
+
+Byron looks at him, waiting for the rest of the man’s analysis.
+
+Byron:  “What, that’s it?”
+
+Old Man:  “Yes.”
+
+Byron:  “What’s that even mean?”
+
+Old Man:  “Well, in my experience, which to be fair includes a lot more years than yours, all men have a choice to make.  Would you agree?”
+
+Byron:  “What kind of choice?”
+
+Old Man:  “The simplest kind of choice there is:  To open a door or to shut a door.”
+
+I’d like to be alone
+> 1
+Byron:  “Look, I appreciate what you’re trying to do, cheering me up and all.  But, honestly, I’d really like to be alone.”
+
+Old Man:  “Well, pardon me for saying it, but if you really wanted to be alone, sitting on a bench along a busy street isn’t exactly ideal.”
+
+Byron:  “Yes, especially when eccentric old men sit down and start a conversation.”
+
+Old Man:  “Fair enough.  I had just seen you sitting here looking for all the world like a lost puppy who needed a friend.  I’ll leave you alone with your thoughts.”
+
+The old man stands up and makes ready to enter the flow of pedestrians.
+
+Byron:  “Wait.”
+
+The old man turns.
+
+Byron:  “What’s your name?”
+
+Old Man:  “What’s yours?”
+
+Byron:  “Byron.”
+
+Old Man:  “Nice to meet you, Byron.”
+
+With that, the old man turns and disappears into the crowd.
+
+Byron sits on the bench for a moment in silence before getting up and heading for the nearest subway station.
+
+Head to the subway
+> 1
+
+Byron, bewildered by the amount of unusual events surrounding his life, heads for the subway.
+
+Byron:  “I need to go home and immerse myself in a depressing book.”
+
+That moment, a man is physically thrown out of a doorway just in front of Byron.  Byron freezes in stunned shock.
+
+Voice:  “Filthy scum!”
+
+A large, muscular man wearing a bloodied apron stomps out of the doorway.  Byron, seeing the blood, nearly turns to flee for his life before catching sight of the sign above the door:  Riggo’s Butchery.
+
+The butcher, presumably Riggo, towers over the man.
+
+Riggo:  “How dare you?  I lent you that money under your assurance that you’d pay me back, in full, by this rotation.  So where’s my money?”
+
+The man gets to his knees.  By this time a crowd has begun to form, cutting off Byron’s chance of moving on.
+
+Man:  “Please, Riggo.  It’s not my fault.  I just misjudged a bit.  You’ll get your money soon, I swear!”
+
+A woman behind Byron calls for an Enforcer on her cuff.
+
+Riggo:  “No more promises.  You’ve broken the first one.  By rights you owe me my money, in full, immediately.”
+
+The man tries to stammer out another plea, but Riggo’s attention turns to the Elite Enforcer who has just parted the crowd to survey the scene.  Unlike Byron in his earlier encounter, Riggo seems completely composed in the scrutinizing gaze of the Enforcer.
+
+Riggo:  “Good!  Enforcer, this man was under a lender’s contract with me and has breached the outlined agreements.  He is to pay me two thousand credits, in full, this moment, or he is in violation of the Second Law.”
+
+Two thousand credits.  Suddenly, the figure on Byron’s paystub comes to mind.  He pulls out his paystub.  He could cover the man’s debt to Riggo.  However, helping this man would severely cut into Byron’s savings.  The Enforcer begins to move towards the man.  It is now or never.
+
+Help the man
+Stay with the crowd
+> 1
+Byron steps out from the crowd.
+
+Byron:  “Hold a moment.”
+
+Everyone in the scene pauses to look at the interruption.  Byron, far too keenly aware of the eyes on him, addresses Riggo.
+
+Byron: “I believe I can settle this man’s debt to you.”
+
+Riggo’s face turns red.  The man, still on his knees before Riggo, stares at Byron, mouth hanging slightly open.
+
+Riggo:  “Stay out of this.”
+
+Enforcer:  “You are willing to pay the debt?”
+
+Riggo turns to protest but stops at a hand raise from the Enforcer.
+
+Byron swallows.
+
+Byron:  “Yes, see, here is my paystub from only a few hours ago.  I can cover his debt.”
+
+The Enforcer turns to the man.
+
+Enforcer:  “Do you accept?”
+
+The man struggles to find his words.
+
+Man:  “Yes, yes I do.”
+
+Enforcer:  “Very well.  By the Judges, I declare the debt on this man settled by proxy.  Please present your cuffs.”
+
+Byron extends his cuff.  The Elite scans it and then scans Riggo’s, completing the transfer.
+
+Enforcer:  “Be about your business!”
+
+The crowd disperses.  Riggo, still unsatisfied with the outcome, marches back into his store.  The man, desperate to leave the area, gives Byron a groveling “thanks” and then runs off.  The Enforcer turns to Byron.
+
+Enforcer:  “That was extremely honorable.  If you ever consider it, the Elites would benefit from having you in their ranks.  Good rotation.”
+
+Byron, feeling oddly calm, continues on his way to the station.
+
+To the Subway Station
+> 1
+
+Bryon finally finds himself in the subway station.  People move briskly to catch a train.  Byron begins to go for the train to return to his apartment when a face flashes before his memory.  A woman’s face, partially covered by long, teased black hair.
+
+Byron:  “Danyel.”
+
+So much has happened since their encounter.
+
+Byron:  “Now what was it that she said?”
+
+He searches for her words.
+
+Danyel:  “Tell you what, come by Sandy’s Hideaways in the Warf District during first rotation.  We might be able to talk more.”
+
+Byron:  “The Warf District.  That’s only one district over.  It shouldn’t take me too long to get to, though I’ve no idea where Sandy’s Hideaways is.”
+
+Stel’s voice comes to Byron’s mind.
+
+Stel:  “I’m meeting some friends at the Eternal Casino in the Albino district.  Why don’t you come along?  It’d be good for you.”
+
+Byron: “I guess I could go meet up with Stel in the Albino District, too.  Maybe I’ll find out where he gets all of his money from.  It might be best to leave the whole thing with Danyel behind.”
+
+Byron:  “Then again, what that Enforcer said intrigued me.  My job’s a dead end now.  I could go try out for the Elites in Centrino District.  It’d be a long process, but maybe a change would suite me well.”
+
+Travel to Warf District
+Travel to Albino District
+Travel to Centrino District
+> 3
+
+Byron boards the train for the Centrino District, headquarters of the Elites and the upper echelons of The City’s government.  As the train takes him to his destination, Byron wonders at his future.  With Klyne’s position given to Ewey, there would be no room for advancement at the Tech Center for years.  But was joining the Elites a good option?  How much freedom would Byron have to act as he chose?  Would they even accept him?
+
+These and many other questions run through Byron’s mind.  What choices lie before him?  What doors remain to be opened or closed?
+
+For now, your part in Byron’s life is over.  This door has closed.  His journey and your journey walked parallel for a time.  Now you have your own choices to make.  Go find doors.
+
+– Caleb Eno, Veepry Media
+[state=Running]

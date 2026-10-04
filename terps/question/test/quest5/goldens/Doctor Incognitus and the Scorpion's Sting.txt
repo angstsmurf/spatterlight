@@ -1,0 +1,943 @@
+Doctor Incognitus and the Scorpion's Sting
+By Craig Dutton (c) 2013
+
+You are Cornelius Veermundy, Private Detective. The year is 1888. The place is London and Queen Victoria rules her Empire. Jack the Ripper is on his murderous spree and you are determined to catch him whatever the cost.
+
+On a cold late November evening a tip-off leads you to the River Thames and the discovery of a mutilated body of another prostitute. Another one of Jack's victims, no doubt! You feel that somewhere in the fog and shadows lurks the killer you are determined to stop.
+
+However, the killer in question will lead you on a hunt for a maniac far greater than you have ever imagined...
+You are on wharf by the River Thames.
+The cold night smog billows around you like a smokey blanket as the small lapping sound of the tide hits the side of the crumbling wharf. Distant voices of sailors on barges breaks the eerie silence and poor street lighting reveals an alley leading off into the darkness.
+You can go northeast.
+> ne
+> ne
+You are in alley outside a run-down warehouse.
+A dark, narrow alley with a stench of decay fills your nostrils. The distant singing of drunken sailors seems a far cry to the devastation that lies before you.
+You can go southwest or in.
+You can see a dead prostitute.
+> x dead prostitute
+> x dead prostitute
+She was young and attractive. She has been mutilated and some of her organs have been removed. You recognize Jack the Ripper's work anywhere!
+
+Suddenly, in the corner of your eye a shadowy figure outling the entrance to the warehouse disappears from view. Was that Jack himself?
+> in
+> in
+You are at the bottom of a stairwell in an abandoned warehouse.
+A dark staircase rises up and round to the first floor of this abandoned warehouse.
+You can go out or up.
+> up
+> up
+You are in a loft.
+The loft is dark and is decorated with many pigeon droppings. The floorboards underneath are starting to rot away and a cold wind blows in through the broken windows to chill your bones.
+You can go down.
+You can see Jack the Ripper.
+> jump
+> jump
+Noticing that the floorboards are rotting away, you have a mad plan. You start jumping on the spot and Jack's expression doesn't change. He seems indifferent to your action. Since both of you are of a heavier build the whole floor eventually gives way and you both plummet to the floor below...
+
+You wake up with a few bruises but discover that Jack is not so fortunate as a large piece of masonry is sitting upon his chest.
+You are in collapsed room surrounded by debris.
+The room is a bit bigger now since the ceiling that was above is now the broken floor underneath you. A small open doorway leads out into the street.
+You can go out.
+You can see Jack the Ripper.
+> x jack the ripper
+> x jack the ripper
+A large piece of stone sits upon Jack's chest. However, that is not what is alarming! You look at his face and discover that he doesn't have one. Actually, a mask has fallen from his face to reveal the inner workings of a clockwork mechanism. Jack the Ripper isn't human, he's a clockwork man! An automaton! Who on earth could have built such a mechanical monster?
+> out
+> out
+You are on a narrow street.
+A dark, badly lit street with slums and abandoned buildings all around you.
+You can go in.
+
+Suddenly a horse and carriage approaches you and two burly men in dark suits jump out, grab you and knock you unconscious.  Darkness descends...
+
+You wake up with a sore head and no clue as to where you are?
+You are in a secret meeting room.
+A long room with a long oak table in the centre with many chairs around it. A bookshelf hangs off one wall and a portrait of Queen Victoria hangs at the head of the table.
+> x books
+> x books
+A wooden shelf.
+It contains some books.
+> read books
+> read books
+Very boring. However, one of them is fake!
+> pull fake book
+> pull fake book
+You pull the fake book and it reveals a secret opening.
+> x secret opening
+> x secret opening
+A secret hole in the bookshelf.
+It contains a flintlock pistol and a knife.
+> take pistol
+> take pistol
+You pick it up.
+> hit pistol
+> hit pistol
+You hit the pistol on a hard surface and a lead bullet drops out on to the floor.
+> take bullet
+> take bullet
+You pick it up.
+> take knife
+> take knife
+You pick it up.
+> look at portrait
+> look at portrait
+A regal likeness of her majesty.
+
+Suddenly a secret hidden door opens and a man you instantly recognize walks in. It's the Prime Minister, the Marquis of Salisbury. He beckons you to sit down and addresses you most sincerely.
+
+'Mr Veermundy, I apologize for the way you had been brought here but it's of the most urgency that I explain to you what has happened tonight.' he coughs and continues, 'The British government and her majesty, Queen Victoria, wishes that your discretion and help in this matter will be most forthcoming.
+
+'A person of out late-employ, Doctor Erasmus Incognitus, a scientist and engineering genius, was asked to build an army based on his mechancial clockwork creations. Human automatons, programmed with a type of crystal memory that could be used to fight out enemies without a single drop of British blood spilt. His first creation was Jack the Ripper, although it was called Project Genesis initially. He claimed the machine was out of control, a memory crystal malfuction, but now we don't think so. We have been trying to capture it ever since. Fortunately, you had captured it for us and we are most grateful.'
+'Unfortunately, we soon discovered that he was selling his clockwork creations to our enemies. Before we could arrest him he had disappeared. That was six months ago. We recieved a communication from him earlier this week claiming that if we don't pay him one million pounds sterling he will destroy London with one of his explosive creations. We British don't surrender to terrorists and we refuse outright to pay him. However, for Queen and country, and that most of the other ministers are concerned of the destruction that will ensue, we ask you Mr Veermundy if you could help us track him down before it's too late. Talking of lateness. It's one o'clock in the morning and I'm sure you're tired. I will fully brief you at say 8 o'clock. My men will escort you home.'
+
+You are blindfolded and taken back to the carriage. As you journey through the cobbled streets of London the carriage comes to a sudden halt and you feel the two men leave the carriage. You hear scuffles and screams and silence. You pull off the blindfold and sit alone in the dark. What has happened?
+You are in the carriage.
+A leather-seated Hansom Cab. You're all alone in the dark.
+You can go out.
+> out
+> out
+You are on a street.
+A dimly-lit street next to a park. It looks like Hyde Park.
+You can go in.
+You can see a two dead men and Ironclaw.
+
+As you step out of the carriage an Indian wearing a turban and sporting an iron-clawed arm looks at you with disdain. He wants to kill you!
+> use knife on ironclaw
+> use knife on ironclaw
+As you defend yourself you hear a police whistle echoing through the fog. Ironclaw turns towards the sound, turns back and bows before running off into the mist.
+
+You don't wish to try to explain the two dead men with the Police and you run off too into the fog and don't stop until you reach your home.
+You are on street in front of your house.
+A small semi-detached house with a blue door and a broken front step.
+You can go in.
+You can see a front door.
+> x step
+> x step
+It is cracked in the middle.
+You find your old clay pot.
+> move pot
+> move pot
+You find your front door key underneath the pot.
+> take brass key
+> take brass key
+You pick it up.
+> unlock front door
+> unlock front door
+Unlocked.
+> open front door
+> open front door
+You open it.
+> in
+> in
+You are in a hall.
+A small entrance hall with narrow stairs leading up to the next floor.
+You can go out, west, east, up or north.
+> w
+> w
+You are in a study.
+This is your place of business. The place where you think and try to solve the cases you are on.
+You can go east.
+You can see a desk.
+> x desk
+> x desk
+A small oak desk.
+It contains a gas lamp.
+> take lamp
+> take lamp
+You pick it up.
+> e
+> e
+You are in a hall.
+A small entrance hall with narrow stairs leading up to the next floor.
+You can go out, west, east, up or north.
+> e
+> e
+You are in a parlour.
+Small and simple furnishings fill this room with a carved fireplace on the east side.
+You can go west.
+> x mantelpiece
+> x mantelpiece
+A shelf across the top of the fireplace.
+It contains a small clock.
+> move clock
+> move clock
+You find a box of matches hidden behind the clock.
+> take matches
+> take matches
+You pick them up.
+> w
+> w
+You are in a hall.
+A small entrance hall with narrow stairs leading up to the next floor.
+You can go out, west, east, up or north.
+> n
+> n
+You are in a kitchen.
+A small room with steps leading down to the cellar.
+You can go south or down.
+You can see a cupboard.
+> turn on lamp
+> turn on lamp
+You switch it on.
+You turn the handle and the gas hisses out.
+> use matches on gas lamp
+> use matches on gas lamp
+You light the lamp.
+> d
+> d
+You are in a cellar.
+A small, dingy coal cellar.
+You can go up.
+You can see a shovel and a pile of coal.
+> take shovel
+> take shovel
+You pick it up.
+> u
+> u
+You are in a kitchen.
+A small room with steps leading down to the cellar.
+You can go south or down.
+You can see a cupboard.
+> s
+> s
+You are in a hall.
+A small entrance hall with narrow stairs leading up to the next floor.
+You can go out, west, east, up or north.
+> u
+> u
+You are in a landing.
+Narrow stairs lead down and another flight of stairs lead up into the attic. Your bedroom is to the north.
+You can go down, north or up.
+> n
+> n
+You are in a bedroom.
+A small room with a single bed, thick curtains and a rug on the floor.
+You can go south.
+> close curtains
+> close curtains
+You close the curtains.
+
+You are shocked to find that attached to one of the curtains is a large mechancial spider. It jumps off the curtain and on to the floor. It pincers are probably poisonous. Another one of Doctor Incognitus' creations. The spider is ready to attack!
+> throw gas lamp
+> throw gas lamp
+You have no other option and you throw the lamp at the spider. It bursts into flames and so does the rest of the room. The fire is getting out of control and you escape the house quickly.
+
+As you watch your home burn down to the ground you feel a sharp pain on the back of your head.  Ironclaw drags your unconscious body to an awaiting carriage... what's going to happen now?
+You are in a cell.
+A dark and dingy cell with no windows.
+You can go south.
+You can see a cell door.
+> x me
+> x me
+The bottom of your shoes are covered in oil.
+> use oil on rusty hinges
+> use oil on rusty hinges
+You lubricate the hinges.
+> remove rusty hinges
+> remove rusty hinges
+You remove the hinges which unlocks the door.
+> open cell door
+> open cell door
+You open the door.
+> s
+> s
+You are in the sewers.
+The London sewers are dark and dirty and look the same.
+You can go north, southwest or southeast.
+> sw
+> sw
+You are in the sewers.
+The London sewers are dark and dirty and look the same.
+You can go northeast, south or west.
+> w
+> w
+You are in the sewers.
+The London sewers are dark and dirty and look the same.
+You can go east or south.
+> s
+> s
+You are in a small room.
+It is a featureless room. It smells of dead rat!
+You can go north.
+You can see a flintlock pistol, a bullet, a knife, a brass key, a box of matches and a shovel.
+> take all
+> take all
+flintlock pistol: You pick it up.
+bullet: You pick it up.
+knife: You pick it up.
+brass key: You pick it up.
+matches: You pick them up.
+shovel: You pick it up.
+> drop pistol
+> drop pistol
+You drop it.
+> drop brass key
+> drop brass key
+You drop it.
+> drop matches
+> drop matches
+You drop them.
+> n
+> n
+You are in the sewers.
+The London sewers are dark and dirty and look the same.
+You can go east or south.
+> e
+> e
+You are in the sewers.
+The London sewers are dark and dirty and look the same.
+You can go northeast, south or west.
+> s
+> s
+You are at the top of a flight of steps.
+A flight of stone steps going down.
+You can go north or down.
+> d
+> d
+You are in an open chamber.
+This chamber is more decorative than the sewers. Blue and white mosaic-floored tiles lie underfoot with a domed ceiling above.
+You can go east, south, west or up.
+> e
+> e
+You are in a living area.
+A large open living area with lavish furnishings and a magificent statue of the Indian God Shiva, creator and destroyer, in the centre of the room.
+You can go west.
+> push shiva statue
+> push shiva statue
+You move the statue to reveal a recess in the floor.
+> x recess
+> x recess
+A small hole in the ground.
+It contains a journal.
+> take journal
+> take journal
+You pick it up.
+> read journal
+> read journal
+It's full of political hatred toward the government and Queen Victoria's Empire. He feels that he should become Emperor and take over the world. He praises himself over his clockwork creations of man and animal descent. However, he seems concerned over the 'memory crystals' overloading too often and causing his clockwork 'solidiers' to go beserk.
+
+There is a mention of a jungle island where he has built his army of mechanical marvels and a vague description of a device called the 'S-01'. It's ready to destroy London if the government weasels don't pay his ransom.
+The number 5646 appears scribbled on the back page.
+> w
+> w
+You are in an open chamber.
+This chamber is more decorative than the sewers. Blue and white mosaic-floored tiles lie underfoot with a domed ceiling above.
+You can go east, south, west or up.
+> s
+> s
+You are in a workshop.
+A medium-sized workshop with a wooden bench.
+You can go north.
+> x bench
+> x bench
+A wooden bench.
+It contains a mechanical head.
+> open mechanical head
+> open mechanical head
+You open it.
+> take burnt crystal
+> take burnt crystal
+You pick it up.
+> n
+> n
+You are in an open chamber.
+This chamber is more decorative than the sewers. Blue and white mosaic-floored tiles lie underfoot with a domed ceiling above.
+You can go east, south, west or up.
+> w
+> w
+You are in a tunnel.
+A wide tunnel with blue and white mosaic-floored tiles and red brick walls.
+You can go east, south or west.
+> w
+> w
+You are in a store room.
+A small storage room.
+You can go east.
+You can see a crate.
+> open crate
+> open crate
+You open it.
+It contains a brass tube.
+> take brass tube
+> take brass tube
+You pick it up.
+> e
+> e
+You are in a tunnel.
+A wide tunnel with blue and white mosaic-floored tiles and red brick walls.
+You can go east, south or west.
+> e
+> e
+You are in an open chamber.
+This chamber is more decorative than the sewers. Blue and white mosaic-floored tiles lie underfoot with a domed ceiling above.
+You can go east, south, west or up.
+> u
+> u
+You are at the top of a flight of steps.
+A flight of stone steps going down.
+You can go north or down.
+> n
+> n
+You are in the sewers.
+The London sewers are dark and dirty and look the same.
+You can go northeast, south or west.
+> ne
+> ne
+You are in the sewers.
+The London sewers are dark and dirty and look the same.
+You can go north, southwest or southeast.
+> se
+> se
+You are in the sewers.
+The London sewers are dark and dirty and look the same.
+You can go northwest, northeast or east.
+> e
+> e
+You are in the sewers.
+The London sewers are dark and dirty and look the same.
+You can go west or south.
+> s
+> s
+You are in a sewer tunnel.
+A dark and dingy place.
+You can go north or south.
+You can see a grating.
+> x grating
+> x grating
+A large metal grating blocking the way south.
+> pull lever
+> pull lever
+You pull the lever and the grating opens.
+> s
+> s
+You are in an antechamber.
+A round chamber with a metal door and a high ceiling.
+You can go north or southwest.
+You can see a clockwork man and an ornate door.
+> open clockwork man's head
+> open clockwork man's head
+You open it.
+> use burnt crystal on clockwork man's head
+> use burnt crystal on clockwork man's head
+You place the burnt crystal inside the clockwork man's head. Suddenly it goes beserk and conveniently smashes open the ornate door with its arms. It eventually ceases as the crystal explodes.
+> sw
+> sw
+You are in a palatial chamber.
+The chamber is huge with a large oak desk standing upon a marble dais. A gigantic pipe-organ stands behind it. Marble columns hold up the decorated vaulted ceiling and a lush red carpet spans the centre of the room from the entrance to the dais. A huge portrait of Doctor Incognitus hangs from the wall.
+You can go northeast.
+> play organ
+> play organ
+
+You press a few keys and it makes a loud sound.
+
+Two men rush into the room. Comparing his portrait to the man in front and knowing the other one quite well, Doctor Incognitus and Ironclaw catch you red-handed.
+
+'So, Mr Veermundy, we meet at last.' smirks Dr Incognitus. Ironclaw just glares at you and you wonder if he can talk at all? He grabs you by the arms and Dr Incognitus continues.
+
+'I have decided not to kill you for the moment. I wish you to witness my greatest achievement. We are all going on a long journey. Pack your toothbrush, Mr Veermundy, Queen Victoria's Empire is gaining a new ruler!' he laughs.
+
+You are taken to the underground hangar and a rope ladder is waiting for all to ascend into the airship's gondola. The ceiling opens to reveal daylight. You've lost track of time but you guess it's early morning.
+
+The great airship rises like a Phoenix from the flames into the brilliant sunshine. You scan the area and marvel that you have emerged from the heart of Hyde Park. Who would of thought a secret lair was underneath it.
+
+What seems like days travelling across land and oceans you spot a volcanic island through the clouds. As the airship starts its descent you make a break for it and escape out of the gondola and dive into the sea below. Thinking you probably drowned they continue their landing.
+
+You swim to the island's sandy beach.
+You are on a beach.
+A soft sandy beach with a large palm tree shading you from the sun.
+You can go in or north.
+> look
+> look
+You are on a beach.
+A soft sandy beach with a large palm tree shading you from the sun.
+You can go in or north.
+> use shovel on sand
+> use shovel on sand
+You dig a deep hole in the sand.
+> climb palm tree
+> climb palm tree
+You climb up the palm tree.
+You are up a palm tree.
+At the top of the palm tree with its leaves getting in your way.
+You can see some palm leaves and a coconut.
+> take leaves
+> take leaves
+You pick them up.
+> take coconut
+> take coconut
+You pick it up.
+> climb tree
+> climb tree
+You climb down the palm tree.
+You are on a beach.
+A soft sandy beach with a large palm tree shading you from the sun.
+You can go in or north.
+You can see a deep hole.
+> use leaves on deep hole
+> use leaves on deep hole
+You cover the hole with the palm leaves and a some sand to hide it. You've got yourself a trap!
+> n
+> n
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before.
+You can go south, northwest or northeast.
+You can see a giant mechanical scorpion.
+> use shovel on scorpion
+> use shovel on scorpion
+CLANG! The shovel snapped in two. Well that's annoyed it. It chases you across the beach and up the palm tree!
+You are up a palm tree.
+At the top of the palm tree with its leaves getting in your way.
+
+The scorpion falls down your trap!
+> climb tree
+> climb tree
+You climb down the palm tree.
+You are on a beach.
+A soft sandy beach with a large palm tree shading you from the sun.
+You can go in or north.
+You can see a deep hole and a giant mechanical scorpion.
+> n
+> n
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before.
+You can go south, northwest or northeast.
+> nw
+> nw
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before. Running water can be heard to the southwest.
+You can go southeast, southwest or north.
+> sw
+> sw
+You are by a stream.
+A small flowing stream that comes down from the hills to the shore. Golden flecks can be seen now and again on the stream bed.
+You can go northeast.
+> x stream
+> x stream
+A slow current.
+> use brass tube on stream
+> use brass tube on stream
+You place the tube in the stream and the filter collects some gold for you.
+> take gold
+> take gold
+You pick it up.
+> ne
+> ne
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before. Running water can be heard to the southwest.
+You can go southeast, southwest or north.
+> se
+> se
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before.
+You can go south, northwest or northeast.
+> ne
+> ne
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before. A clearing to the east reveals wooden structures.
+You can go southwest, east, northeast or north.
+> e
+> e
+You are in a village.
+Small wooden huts with human heads on spikes. This village is home to cannibals!
+You can go west.
+You can see a cannibal.
+> look
+> look
+You are in a village.
+Small wooden huts with human heads on spikes. This village is home to cannibals!
+You can go west.
+You can see a cannibal.
+> give gold to cannibal
+> give gold to cannibal
+He likes shiny things and trades it for a banana. You feel cheated!
+> take banana
+> take banana
+You pick it up.
+> w
+> w
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before. A clearing to the east reveals wooden structures.
+You can go southwest, east, northeast or north.
+> sw
+> sw
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before.
+You can go south, northwest or northeast.
+> nw
+> nw
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before. Running water can be heard to the southwest.
+You can go southeast, southwest or north.
+> go north
+> go north
+You are in a wooded valley.
+A small valley with hills either side of you.
+You can go south or northwest.
+> nw
+> nw
+You are in a swamp.
+A deep thick muddy swamp with strange insects buzzing around you.
+You can go southeast or west.
+> w
+> w
+You are in a ruined temple.
+The ruined structure is covered in ivy and moss. Thick jungle surrounds you.
+You can go east.
+You can see a monkey.
+> look
+> look
+You are in a ruined temple.
+The ruined structure is covered in ivy and moss. Thick jungle surrounds you.
+You can go east.
+You can see a monkey.
+> give banana to monkey
+> give banana to monkey
+The monkey takes it gladly and runs off into the jungle.
+> x plinth
+> x plinth
+A small stone plinth.
+It contains a jade idol.
+> throw coconut
+> throw coconut
+You throw the coconut at the idol. It falls off and a poisonous dart whizzes past missing you completely.
+> take coconut
+> take coconut
+You pick it up.
+> take idol
+> take idol
+You pick it up.
+> use knife on idol
+> use knife on idol
+You prise open the idol and a small stone rod falls out.
+> take rod
+> take rod
+You pick it up.
+> e
+> e
+You are in a swamp.
+A deep thick muddy swamp with strange insects buzzing around you.
+You can go southeast or west.
+> se
+> se
+You are in a wooded valley.
+A small valley with hills either side of you.
+You can go south or northwest.
+> s
+> s
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before. Running water can be heard to the southwest.
+You can go southeast, southwest or north.
+> se
+> se
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before.
+You can go south, northwest or northeast.
+> ne
+> ne
+You are in a jungle.
+In the midst of a heavy jungle with various exotic plants and trees you have never seen before. A clearing to the east reveals wooden structures.
+You can go southwest, east, northeast or north.
+> ne
+> ne
+You are by the side of the volcano.
+An active volcano with smoke billowing out of the top of it. You see a small square hole in the side of the volcano. The airship is moored here and a rope ladder goes up to the gondola.
+You can go southwest.
+> look
+> look
+You are by the side of the volcano.
+An active volcano with smoke billowing out of the top of it. You see a small square hole in the side of the volcano. The airship is moored here and a rope ladder goes up to the gondola.
+You can go southwest.
+> climb ladder
+> climb ladder
+You climb up the ladder into the gondola.
+You are in the airship gondola.
+Inside the airship gondola with a set of controls to fly the airship.
+You can go down.
+> fly airship
+> fly airship
+You don't know how to?
+> d
+> d
+You are by the side of the volcano.
+An active volcano with smoke billowing out of the top of it. You see a small square hole in the side of the volcano. The airship is moored here and a rope ladder goes up to the gondola.
+You can go southwest.
+> use stone rod on square hole
+> use stone rod on square hole
+You insert the rod and a secret door opens.
+> n
+> n
+The secret door closes behind you. There's no way back that way!
+You are in an anteroom.
+A small rocky room with an iron door and brass tumblers set into it.
+You can go out or north.
+> look
+> look
+You are in an anteroom.
+A small rocky room with an iron door and brass tumblers set into it.
+You can go out or north.
+> use brass tumblers
+> use brass tumblers
+What is the combinaton?
+> 5646
+The door unlocks.
+> open iron door
+> open iron door
+You open the door.
+> n
+> n
+You are in a crystal cave.
+A large cave completely crystalized and stalagtites hanging precariously above you.
+You can go south or north.
+> n
+> n
+You are at a crossroads.
+A crossing of passages cut out of the rock.
+You can go south, west, east or north.
+You can see an oak door.
+> look
+> look
+You are at a crossroads.
+A crossing of passages cut out of the rock.
+You can go south, west, east or north.
+You can see an oak door.
+> n
+> n
+You are on a catwalk.
+The metal catwalk spans across the centre of the volcano from the edge to a platform. The intense heat from the molten lava below makes you light headed.
+You can go south or north.
+> n
+> n
+You are on a platform.
+The metal platform houses a control panel overshadowed by a huge silver rocket to the east. Underneath the platform the molten lava bubbles away.
+You can go south or east.
+You can see Ironclaw.
+> look
+> look
+You are on a platform.
+The metal platform houses a control panel overshadowed by a huge silver rocket to the east. Underneath the platform the molten lava bubbles away.
+You can go south or east.
+You can see Ironclaw.
+> throw coconut
+> throw coconut
+You throw it squarely in his face. He staggers slightly before he falls off the platform and into the molten lava.
+> take silver key
+> take silver key
+You pick it up.
+> s
+> s
+You are on a catwalk.
+The metal catwalk spans across the centre of the volcano from the edge to a platform. The intense heat from the molten lava below makes you light headed.
+You can go south or north.
+> s
+> s
+You are at a crossroads.
+A crossing of passages cut out of the rock.
+You can go south, west, east or north.
+You can see an oak door.
+> unlock oak door
+> unlock oak door
+Unlocked.
+> open oak door
+> open oak door
+You open it.
+> e
+> e
+You are in a small hall.
+A small marble-pillared hall with octagonal floored tiles.
+You can go west, north, east or southeast.
+> look
+> look
+You are in a small hall.
+A small marble-pillared hall with octagonal floored tiles.
+You can go west, north, east or southeast.
+> se
+> se
+You are in a library.
+A small number of shelves.
+You can go northwest.
+> x shelves
+> x shelves
+Hundreds of books rest upon them.
+They contain some books and a manual.
+> take manual
+> take manual
+You pick it up.
+> read manual
+> read manual
+You read the manual and work out the basics of flying an airship.
+> nw
+> nw
+You are in a small hall.
+A small marble-pillared hall with octagonal floored tiles.
+You can go west, north, east or southeast.
+> e
+> e
+You are in some living quarters.
+A large bed and fine furnishings greet you as you enter.
+You can go west.
+> x bed
+> x bed
+A comfortable-looking bed.
+It contains a pillow.
+> take pillow
+> take pillow
+You pick it up.
+> use knife on pillow
+> use knife on pillow
+You cut the pillow and find a gold key inside it.
+> take gold key
+> take gold key
+You pick it up.
+> look
+> look
+You are in some living quarters.
+A large bed and fine furnishings greet you as you enter.
+You can go west.
+> w
+> w
+You are in a small hall.
+A small marble-pillared hall with octagonal floored tiles.
+You can go west, north, east or southeast.
+> n
+> n
+You are in a laboratory.
+A table full of experiments and a large free-standing cupboard occupies this room.
+You can go south.
+> look
+> look
+You are in a laboratory.
+A table full of experiments and a large free-standing cupboard occupies this room.
+You can go south.
+> unlock cupboard
+> unlock cupboard
+Unlocked.
+> open cupboard
+> open cupboard
+You open it.
+It contains a bottle of acid and a bag of salt.
+> take bottle of acid
+> take bottle of acid
+You pick it up.
+> i
+> i
+You are carrying a bullet, a knife, a journal, a brass tube, a jade idol, a stone rod, a silver key, a manual, a gold key and a bottle of acid.
+> s
+> s
+You are in a small hall.
+A small marble-pillared hall with octagonal floored tiles.
+You can go west, north, east or southeast.
+> w
+> w
+You are at a crossroads.
+A crossing of passages cut out of the rock.
+You can go south, west, east or north.
+You can see an oak door.
+> n
+> n
+You are on a catwalk.
+The metal catwalk spans across the centre of the volcano from the edge to a platform. The intense heat from the molten lava below makes you light headed.
+You can go south or north.
+You can see the Leviathan armour (containing Doctor Incognitus).
+> look
+> look
+You are on a catwalk.
+The metal catwalk spans across the centre of the volcano from the edge to a platform. The intense heat from the molten lava below makes you light headed.
+You can go south or north.
+You can see the Leviathan armour (containing Doctor Incognitus).
+> roll bullet
+> roll bullet
+You roll the bullet under one of the Leviathan's feet. Being huge it slips on the bullet sending it and Doctor Incognitus into the lava below. You have stopped him. Now to stop the rocket.
+> look
+> look
+You are on a catwalk.
+The metal catwalk spans across the centre of the volcano from the edge to a platform. The intense heat from the molten lava below makes you light headed.
+You can go south or north.
+> n
+> n
+You are on a platform.
+The metal platform houses a control panel overshadowed by a huge silver rocket to the east. Underneath the platform the molten lava bubbles away.
+You can go south or east.
+You can see a coconut.
+> e
+> e
+You are on a launch pad.
+A huge gleaming-silver rocket stands in the launch pad.
+You can go west.
+> look
+> look
+You are on a launch pad.
+A huge gleaming-silver rocket stands in the launch pad.
+You can go west.
+> use acid on clamps
+> use acid on clamps
+The acid melts the clamps and will stop the rocket from taking off.
+> w
+> w
+You are on a platform.
+The metal platform houses a control panel overshadowed by a huge silver rocket to the east. Underneath the platform the molten lava bubbles away.
+You can go south or east.
+You can see a coconut.
+> s
+> s
+You are on a catwalk.
+The metal catwalk spans across the centre of the volcano from the edge to a platform. The intense heat from the molten lava below makes you light headed.
+You can go south or north.
+> s
+> s
+You are at a crossroads.
+A crossing of passages cut out of the rock.
+You can go south, west, east or north.
+You can see an oak door.
+> s
+> s
+You are in a crystal cave.
+A large cave completely crystalized and stalagtites hanging precariously above you.
+You can go south or north.
+> s
+> s
+You are in an anteroom.
+A small rocky room with an iron door and brass tumblers set into it.
+You can go out or north.
+> out
+> out
+You are by a skull-shaped cave entrance.
+The cave entrance which goes into the volcano is in the form of a giant skull and rises up the side of it.
+You can go south or in.
+> look
+> look
+You are by a skull-shaped cave entrance.
+The cave entrance which goes into the volcano is in the form of a giant skull and rises up the side of it.
+You can go south or in.
+> climb skull cave entrance
+> climb skull cave entrance
+You find a few footholds and climb up and across the side of the volcano.
+You are by the side of the volcano.
+An active volcano with smoke billowing out of the top of it. You see a small square hole in the side of the volcano. The airship is moored here and a rope ladder goes up to the gondola.
+You can go southwest.
+> look
+> look
+You are by the side of the volcano.
+An active volcano with smoke billowing out of the top of it. You see a small square hole in the side of the volcano. The airship is moored here and a rope ladder goes up to the gondola.
+You can go southwest.
+> climb ladder
+> climb ladder
+You climb up the ladder into the gondola.
+You are in the airship gondola.
+Inside the airship gondola with a set of controls to fly the airship.
+You can go down.
+> fly airship
+> fly airship
+CONGRATULATIONS!
+
+You undo the moorings, start the airship engines and fly off back to London the best you can - it's your first time flying anything!
+
+When you eventually arrive back home you are well compensated by the Prime Minister, given a new home and another medal by Queen Victoria.
+
+As you ponder your past few days you wonder how close London got to witnessing a new dawn in warfare?  Perhaps they're not ready, just yet.
+
+The secret lair under Hyde Park was destroyed and the island was lost without trace.  As for Incognitus' plans and creations you probably suspect that they have been stored in a deep, dark vault somewhere in Westminster just in case another meglomaniac wants to invade Britain, Europe and the rest of the world. Therefore, they would use his weapons of mass destruction for their own devious ends. Wars are not won or lost only to be repeated with the same mistakes.
+
+It's time for a good earned rest!
+The End
+[state=Finished]

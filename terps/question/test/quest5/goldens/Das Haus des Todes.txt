@@ -1,0 +1,1417 @@
+Das Haus des Todes
+Der Höllenbaron
+
+von Martin Katzenberger, Music by Eric Matyas  www.soundimage.org
+
+Du bist ein neugieriger Reporter, der schon lange hinter der ganz großen Story her ist. Und da bietet es sich doch geradezu an, das Geheimnis des alten Landhauses am Rande der Stadt zu ergründen, ließe sich mit einer Geschichte über das alte Gemäuer, in dem sich seinerzeit Ritualmorde zugetragen haben, doch sicher gut Geld machen. Du hast erfahren, dass der neue Besitzer dieses Hauses kein geringerer als der letzte männliche Angehörige derer von Meckensen, eines alten Adelsgeschlechtes ist. Und du weißt auch, dass das Gerücht herum geht, dass sich noch immer schauerliche Dinge in diesem Haus ereignen sollen.
+Doch du willst selbst herausfinden, was es mit diesen Erzählungen auf sich hat und beschließt, beim Baron vorstellig zu werden, um ihn zu all dem zu befragen.
+So machst du dich also auf und fährst zum alten Landhaus. Dort angekommen empfängt dich zunächst ein Diener, der dich in die Eingangshalle des Hauses geleitet und dich höflich bittet, auf einer Couch Platz zu nehmen. Der Baron wolle dich sogleich willkommen heißen. Der Diener verschwindet alsbald, um dich seinem Herrn zu melden und dir derweil etwas zu trinken zu besorgen. Als er sich rumdreht, ist dir so, als ob er dich auslacht. Du hörst ein leises "wir werden ihn töten" - das glaubst du zumindest gehört zu haben.
+Dir ist klar - sobald der Diener verschwunden ist, willst du das Haus auf eigene Faust erkunden. Vielleicht lässt sich ja ein gute Story finden, wer weiß was sich in den Zimmern dieser Residenz so alles verbirgt...
+(mit 'hilfe' kannst du dir während des Spiels jederzeit eine kurze Spielanleitung anzeigen lassen)
+
+Du bist hier: Eingangshalle.
+
+Die Eingangshalle ist spartanisch, aber stilvoll eingerichtet:
+Gemälde an beiden Seiten der Halle - ein flüchtiger Blick identifiziert sie als Portraits in Ölfarben - , ein großer, runder Eichentisch in der Mitte der Halle mit entsprechenden Stühlen sowie die Ledercouch, auf der du gerade Platz genommen hast.
+Nach Westen gelangt man in das Billardzimmer des Hauses, nach Osten geht es zur Bibliothek. Im Norden liegt eine Treppe, die hinauf auf die Galerie führt.
+Im Süden liegt die schwere Eingangstür, durch die du gekommen bist.
+Der höfliche Diener hat dir bedeutet, auf den Herrn des Hauses zu warten, während er dir etwas zu trinken besorgen möchte.
+Die Zeit verrinnt - passieren tut indes wenig - Zeit zu handeln!
+
+Du siehst Gemälde, einen Eichentisch, Stühle, Sitzkissen, eine Couch, ein Kissen und eine Eingangstür.
+
+Mögliche Ausgänge: nach Westen, nach Osten oder hoch.
+
+> schau
+
+> schau
+Du bist hier: Eingangshalle.
+
+Die Eingangshalle ist spartanisch, aber stilvoll eingerichtet:
+Gemälde an beiden Seiten der Halle - ein flüchtiger Blick identifiziert sie als Portraits in Ölfarben - , ein großer, runder Eichentisch in der Mitte der Halle mit entsprechenden Stühlen sowie die Ledercouch, auf der du gerade Platz genommen hast.
+Nach Westen gelangt man in das Billardzimmer des Hauses, nach Osten geht es zur Bibliothek. Im Norden liegt eine Treppe, die hinauf auf die Galerie führt.
+Im Süden liegt die schwere Eingangstür, durch die du gekommen bist.
+Der höfliche Diener hat dir bedeutet, auf den Herrn des Hauses zu warten, während er dir etwas zu trinken besorgen möchte.
+Die Zeit verrinnt - passieren tut indes wenig - Zeit zu handeln!
+
+Du siehst Gemälde, einen Eichentisch, Stühle, Sitzkissen, eine Couch, ein Kissen und eine Eingangstür.
+
+Mögliche Ausgänge: nach Westen, nach Osten oder hoch.
+
+> untersuche Baroness Hedda
+
+> untersuche Baroness Hedda
+Die Baroness schaut den Betrachter mit einem Blick an, der - nunja, etwas traurig anmutet. Der Kopf ist leicht gesenkt und das Gesicht mutet leicht blass an. Sie steht auf dem Bild in einem langen rötlichen Kleid direkt neben einem Spiegel und hält in der einen Hand einen Papierfächer, in der anderen - einen Schlüssel. Was das nun wieder bedeuten mag?
+> nimm Hedda ab
+
+> nimm Hedda ab
+Ich kann das hier nicht sehen.
+> ziehe Hedda
+
+> ziehe Hedda
+Das kannst Du nicht machen.
+> untersuche Hedwig
+
+> untersuche Hedwig
+Die Baroness ist als einzige Vertreterin ihrer Familie als Gesichtsprofil dargestellt - sie scheint durchaus eine Schönheit in ihren jungen Jahren gewesen zu sein: Strahlend blaue Augen, eine kleine, dünne und wohlgeformte Nase sowie volle Lippen, die leicht geöffnet zu sein scheinen.
+Moment - war da nicht gerade ein Lufthauch, den du gespürt hast? Du drehst dich herum, kannst aber nichts entdecken...
+> ziehe Hedwig
+
+> ziehe Hedwig
+Das kannst Du nicht machen.
+> untersuche Gitter
+
+> untersuche Gitter
+Das Gitter ist jeweils an den Seiten mit zwei großen Schlitzschrauben befestigt. Eigentlich dürfte es nicht schwer sein, diese zu lösen.
+> untersuche Schrauben
+
+> untersuche Schrauben
+Nichts besonderes an den Schrauben zu erkennen.
+> nimm Hedwig
+
+> nimm Hedwig
+Du möchtest das Bild abnehmen, um dahinter zu schauen? Na gut, also Hau Ruck, und... Ja was ist denn das? Tatsächlich ist hinter dem Bild ein schmaler Luftschacht mit einem Gitter davor.
+> schiebe Hedwig
+
+> schiebe Hedwig
+Du möchtest das Bild abnehmen, um dahinter zu schauen? Na gut, also Hau Ruck, und... Ja was ist denn das? Tatsächlich ist hinter dem Bild ein schmaler Luftschacht mit einem Gitter davor.
+> nimm Hedda
+
+> nimm Hedda
+Auf was für Ideen du kommst - du möchtest also das Bild abnehmen und dahinter schauen. Also gut - tatsächlich lässt sich das Bild abnehmen. Dahinter verbirgt sich ein kleiner, rechteckiger Wandsafe - Chapeau!
+> schiebe Hedda
+
+> schiebe Hedda
+Auf was für Ideen du kommst - du möchtest also das Bild abnehmen und dahinter schauen. Also gut - tatsächlich lässt sich das Bild abnehmen. Dahinter verbirgt sich ein kleiner, rechteckiger Wandsafe - Chapeau!
+> schraube Schrauben mit Münze
+
+> schraube Schrauben mit Münze
+Ich kann das hier nicht sehen. (Münze)
+> löse Schrauben mit Münze
+
+> löse Schrauben mit Münze
+Ich kann das hier nicht sehen. (Münze)
+> löse Gitter mit Münze
+
+> löse Gitter mit Münze
+Ich kann das hier nicht sehen. (Münze)
+> benutze Münze mit Schrauben
+
+> benutze Münze mit Schrauben
+Ich kann das hier nicht sehen. (Münze)
+> nimm Schlüsselchen
+
+> nimm Schlüsselchen
+Ich kann das hier nicht sehen.
+> benutze Schlüsselchen mit Safe
+
+> benutze Schlüsselchen mit Safe
+Ich kann das hier nicht sehen. (Schlüsselchen)
+> nimm Zettel
+
+> nimm Zettel
+Ich kann das hier nicht sehen.
+> untersuche Zettel
+
+> untersuche Zettel
+Ich kann das hier nicht sehen.
+> untersuche Geldbeutel
+
+> untersuche Geldbeutel
+Dein Geldbeutel ist wieder mal leer, da du notorisch pleite bist. Eine läppische Münze hast du dir gesichert - man braucht ja mal einen Einkaufswagen. Was man dann da reinlegt, ist eine andere Frage...
+> schraube Schrauben mit Münze
+
+> schraube Schrauben mit Münze
+Das kannst Du nicht machen.
+> nimm Schlüsselchen
+
+> nimm Schlüsselchen
+Ich kann das hier nicht sehen.
+> schließe Wandsafe mit Schlüsselchen auf
+
+> schließe Wandsafe mit Schlüsselchen auf
+Ich kann das hier nicht sehen. (Wandsafe mit Schlüsselchen)
+> öffne Wandsafe
+
+> öffne Wandsafe
+Er ist verschlossen.
+> nimm Zettel
+
+> nimm Zettel
+Ich kann das hier nicht sehen.
+> untersuche Zettel
+
+> untersuche Zettel
+Ich kann das hier nicht sehen.
+> benutze Münze mit Schrauben
+
+> benutze Münze mit Schrauben
+Ja, damit müsste es gehen. Tatsächlich, nach einigem Schrauben löst du ebendiese. Der Gegenstand hinter dem Gitter ist tatsächlich ein Schlüsselchen.
+> nimm Schlüsselchen
+
+> nimm Schlüsselchen
+Du nimmst es an dich.
+> benutze Schlüsselchen mit Safe
+
+> benutze Schlüsselchen mit Safe
+Du kannst es so nicht benutzen.
+> untersuche Safe
+
+> untersuche Safe
+Der Wandsafe ist klein und rechteckig und besitzt ein kleines Schloss. Optimalerweise hält man hierfür ein ebensolches Schlüsselchen parat, welches einen in die Lage versetzen sollte, das Schloss zu öffnen und - mit einigem Glück - auf einen sagenumwobenen Schatz zu stoßen.
+> nimm Zettel
+
+> nimm Zettel
+Ich kann das hier nicht sehen.
+> untersuche Zettel
+
+> untersuche Zettel
+Ich kann das hier nicht sehen.
+> i
+
+> i
+Du trägst einen Geldbeutel, ein Messer, ein Feuerzeug, eine Münze und ein Schlüsselchen.
+> w
+
+> w
+
+Du bist hier: Billardzimmer.
+
+Das hier ist das Billardzimmer des Hauses. In der Mitte des Raumes befindet sich ein handelsüblicher Poolbillardtisch, auf dem ein Set Billardkugeln liegt.
+An der Nordseite des Raumes befindet sich unter dem Bild des "Armen Poeten" ein Ständer mit allerlei Billardstöcken.
+In der Nordwest- und der Nordostecke steht jeweils ein einfacher Holzstuhl.
+In der Westwand befindet sich ein großes Fenster, welches jedoch durch ein Gitter von außen versperrt ist.
+Hmm - ein Billardzimmer ist ja geradezu prädestiniert für Geheimnisse - vielleicht lässt sich der Tisch umklappen und führt zu einem Geheimgang? Oder muss eine der Kugeln vielleicht in ein Loch geworfen werden? Es gibt ja so viele Möglichkeiten...
+
+Du siehst Billardkugeln, ein Dreieck, Billardstöcke, eine Kreide, einen Billardtisch, ein Bild, ein Fenster, einen Ständer und einen Holzstuhl.
+
+Mögliche Ausgänge: nach Osten.
+
+> nimm Kreide
+
+> nimm Kreide
+Du nimmst sie an dich.
+> o
+
+> o
+
+Du bist hier: Eingangshalle.
+
+Die Eingangshalle ist spartanisch, aber stilvoll eingerichtet:
+Gemälde an beiden Seiten der Halle - ein flüchtiger Blick identifiziert sie als Portraits in Ölfarben - , ein großer, runder Eichentisch in der Mitte der Halle mit entsprechenden Stühlen sowie die Ledercouch, auf der du gerade Platz genommen hast.
+Nach Westen gelangt man in das Billardzimmer des Hauses, nach Osten geht es zur Bibliothek. Im Norden liegt eine Treppe, die hinauf auf die Galerie führt.
+Im Süden liegt die schwere Eingangstür, durch die du gekommen bist.
+Der höfliche Diener hat dir bedeutet, auf den Herrn des Hauses zu warten, während er dir etwas zu trinken besorgen möchte.
+Die Zeit verrinnt - passieren tut indes wenig - Zeit zu handeln!
+
+Du siehst Gemälde, einen Eichentisch, Stühle, Sitzkissen, eine Couch, ein Kissen und eine Eingangstür.
+
+Mögliche Ausgänge: nach Westen, nach Osten oder hoch.
+
+> o
+
+> o
+
+Du bist hier: Bibliothek.
+
+Die Bibliothek des Hauses - ein Raum, der das Herz eines jeden begeisterten Lesers höher schlagen lässt. Hier sind auf allen vier Seiten des Raumes hölzerne Regale aufgestellt, in denen sich neben den literarischen Werken der Großmeister ihres Faches sowie Büchern, die ein jeder Haushalt besitzen sollte, auch eher alternative Literatur finden lässt. So sind hier Werke aus den Gebieten "Okkultismus", "Mystik" und "Kabbala" ebenso vertreten wie Bände über die "Heilige Inquisition", "Dämonologie" und "Spiritualismus".
+Im Norden des Raumes befindet sich ein größerer rechteckiger Tisch samt Stuhl. Auf dem Tisch steht eine Leselampe.
+Neben dem Tisch befindet sich ein Stehpult, auf dem ein aufgeschlagenes Buch steht.
+Das augenscheinlichste Merkmal dieses Zimmers ist jedoch ein großes Pentagramm, welches auf dem Boden mit weißer Kreide gezeichnet wurde.
+Leider weißt du sehr wenig über solche Dinge, aber selbst dir ist klar, dass es sich bei dem Pentagramm mit großer Wahrscheinlichkeit um ein Instrument zur Dämonenbeschwörung handeln dürfte.
+Du schaust dich hastig um - waren da nicht gerade Schritte zu hören?
+
+Du siehst ein Stehpult, eine Schrift, Regale, einen Tisch, eine Leselampe, ein Pentagramm, Bücher, einen Stuhl und eine Schublade.
+
+Mögliche Ausgänge: nach Westen.
+
+> schau
+
+> schau
+Du bist hier: Bibliothek.
+
+Die Bibliothek des Hauses - ein Raum, der das Herz eines jeden begeisterten Lesers höher schlagen lässt. Hier sind auf allen vier Seiten des Raumes hölzerne Regale aufgestellt, in denen sich neben den literarischen Werken der Großmeister ihres Faches sowie Büchern, die ein jeder Haushalt besitzen sollte, auch eher alternative Literatur finden lässt. So sind hier Werke aus den Gebieten "Okkultismus", "Mystik" und "Kabbala" ebenso vertreten wie Bände über die "Heilige Inquisition", "Dämonologie" und "Spiritualismus".
+Im Norden des Raumes befindet sich ein größerer rechteckiger Tisch samt Stuhl. Auf dem Tisch steht eine Leselampe.
+Neben dem Tisch befindet sich ein Stehpult, auf dem ein aufgeschlagenes Buch steht.
+Das augenscheinlichste Merkmal dieses Zimmers ist jedoch ein großes Pentagramm, welches auf dem Boden mit weißer Kreide gezeichnet wurde.
+Leider weißt du sehr wenig über solche Dinge, aber selbst dir ist klar, dass es sich bei dem Pentagramm mit großer Wahrscheinlichkeit um ein Instrument zur Dämonenbeschwörung handeln dürfte.
+Du schaust dich hastig um - waren da nicht gerade Schritte zu hören?
+
+Du siehst ein Stehpult, eine Schrift, Regale, einen Tisch, eine Leselampe, ein Pentagramm, Bücher, einen Stuhl und eine Schublade.
+
+Mögliche Ausgänge: nach Westen.
+
+> untersuche Tisch
+
+> untersuche Tisch
+Ein größerer, länglicher Buchentisch. Der Tisch besitzt eine Schublade.
+> öffne Schublade
+
+> öffne Schublade
+Du öffnest sie.
+Sie enthält ein Teelicht.
+> untersuche Schublade
+
+> untersuche Schublade
+Eine gewöhnliche Holzschublade.
+Sie enthält ein Teelicht.
+> nimm Teelicht
+
+> nimm Teelicht
+Du nimmst es an dich.
+> nimm Leselampe
+
+> nimm Leselampe
+Du nimmst sie an dich.
+> untersuche Stehpult
+
+> untersuche Stehpult
+Ein hölzernes Stehpult - wohl zum Studieren der hiesigen Schriften. Auf dem Pult befindet sich eine solche.
+> untersuche Pult
+
+> untersuche Pult
+Ein hölzernes Stehpult - wohl zum Studieren der hiesigen Schriften. Auf dem Pult befindet sich eine solche.
+> w
+
+> w
+
+Du bist hier: Eingangshalle.
+
+Die Eingangshalle ist spartanisch, aber stilvoll eingerichtet:
+Gemälde an beiden Seiten der Halle - ein flüchtiger Blick identifiziert sie als Portraits in Ölfarben - , ein großer, runder Eichentisch in der Mitte der Halle mit entsprechenden Stühlen sowie die Ledercouch, auf der du gerade Platz genommen hast.
+Nach Westen gelangt man in das Billardzimmer des Hauses, nach Osten geht es zur Bibliothek. Im Norden liegt eine Treppe, die hinauf auf die Galerie führt.
+Im Süden liegt die schwere Eingangstür, durch die du gekommen bist.
+Der höfliche Diener hat dir bedeutet, auf den Herrn des Hauses zu warten, während er dir etwas zu trinken besorgen möchte.
+Die Zeit verrinnt - passieren tut indes wenig - Zeit zu handeln!
+
+Du siehst Gemälde, einen Eichentisch, Stühle, Sitzkissen, eine Couch, ein Kissen und eine Eingangstür.
+
+Mögliche Ausgänge: nach Westen, nach Osten oder hoch.
+
+> drehe Linker Dämon
+
+> drehe Linker Dämon
+Von irgendwo in der Wand ertönt ein leises Klicken.
+> untersuche Wand
+
+> untersuche Wand
+Also was soll an der Wand schon besonderes sein? Oh, da hat sich tatsächlich ein kleiner Spalt neben der Treppe aufgetan.
+> untersuche Spalt
+
+> untersuche Spalt
+Es ist lediglich ein kleiner Spalt - aber groß genug, um deine Hand hineinzustrecken und - eine Geheimtüre zu öffnen! Eine Treppe führt abwärts...ins Verderben?
+> runter
+
+> runter
+
+Du bist hier: ein Gerümpelkeller.
+
+Der Gerümpelkeller macht seinem Namen alle Ehre - zahllose Kisten und Kartons stapeln sich hier übereinander.
+Die Nordseite macht ein großes Regal mit Weinflaschen aus, an der Südseite steht hier ein alter Flipperautomat.
+Vor der Westwand türmen sich alte Zeitungen und im Osten steht eine alte Modelleisenbahnanlage auf einem Holztisch.
+Und komm bitte nicht auf die Idee, hier Ordnung reinbringen zu wollen!
+
+Du siehst Kisten, Kartons, ein Regal, Weinflaschen, einen Flipperautomat, eine Eisenbahn und einen Holztisch.
+
+Mögliche Ausgänge: hoch.
+
+> untersuche Jahrgang 1896
+
+> untersuche Jahrgang 1896
+Tatsache - woher wußtest du denn, dass hier eine solche Flasche lagert? Unseren Respekt!
+Du nimmst die besagte Flasche aus dem Regal und stellst fest, dass sie leer ist. Moment, leer bis auf eine kleine dünne Kerze, die du aus dem Flaschenhals ziehen kannst. Wer steckt denn eine Kerze in eine Weinflasche?
+> spiele flipper
+
+> spiele flipper
+Nach dem ersten Level ist bereits Schluss - tja, vielleicht ist die Eisenbahn ja eher etwas für dich.
+> spiele flipper
+
+> spiele flipper
+Du scheiterst leider schon in Level 3. Du hättest früher mehr zocken sollen!
+> spiele flipper
+
+> spiele flipper
+Du scheiterst leider schon in Level 3. Du hättest früher mehr zocken sollen!
+> spiele flipper
+
+> spiele flipper
+Du erreichst immerhin Level 5 - Glückwunsch!
+> spiele flipper
+
+> spiele flipper
+Du erreichst immerhin Level 5 - Glückwunsch!
+> spiele flipper
+
+> spiele flipper
+So langsam kommst du richtig in Fahrt! ...Und schon wieder bis ins zehnte Level gekommen - dieses Mal landest du in der Highscore-Liste auf Platz 1. Nanu, du hörst ein Rumpeln im Automaten. Du schaust nach und findest ein altes Geldstück, wohl noch aus D-Mark-Zeiten.
+> i
+
+> i
+Du trägst einen Geldbeutel, ein Messer, ein Feuerzeug, eine Münze, ein Schlüsselchen, eine Kreide, ein Teelicht, eine Leselampe und ein Geldstück.
+> nimm Kerze
+
+> nimm Kerze
+Das trägst du bereits.
+> i
+
+> i
+Du trägst einen Geldbeutel, ein Messer, ein Feuerzeug, eine Münze, ein Schlüsselchen, eine Kreide, ein Teelicht, eine Leselampe und ein Geldstück.
+> hoch
+
+> hoch
+
+Du bist hier: Eingangshalle.
+
+Die Eingangshalle ist spartanisch, aber stilvoll eingerichtet:
+Gemälde an beiden Seiten der Halle - ein flüchtiger Blick identifiziert sie als Portraits in Ölfarben - , ein großer, runder Eichentisch in der Mitte der Halle mit entsprechenden Stühlen sowie die Ledercouch, auf der du gerade Platz genommen hast.
+Nach Westen gelangt man in das Billardzimmer des Hauses, nach Osten geht es zur Bibliothek. Im Norden liegt eine Treppe, die hinauf auf die Galerie führt.
+Im Süden liegt die schwere Eingangstür, durch die du gekommen bist.
+Der höfliche Diener hat dir bedeutet, auf den Herrn des Hauses zu warten, während er dir etwas zu trinken besorgen möchte.
+Die Zeit verrinnt - passieren tut indes wenig - Zeit zu handeln!
+
+Du siehst Gemälde, einen Eichentisch, Stühle, Sitzkissen, eine Couch, ein Kissen und eine Eingangstür.
+
+Mögliche Ausgänge: nach Westen, runter, nach Osten oder hoch.
+
+> hoch
+
+> hoch
+
+Du bist hier: Auf der Galerie.
+
+Hier befindest du dich am Treppenabsatz auf einer Galerie im ersten Stock.
+Das Treppengeländer schließt hier nicht mit zwei Figuren, sondern zwei gewöhnlichen Knaufen ab.
+Galerie wird dieser längliche Gang vor allem wegen der vielen Türen genannt, die sich im Westen und Osten des Ganges befinden.
+Im Norden ist eine Tür zum Speisezimmer, im Osten und Westen geht es weiter die Galerie entlang.
+Runter geht es die Treppe entlang zur Eingangshalle.
+
+Du siehst ein Geländer, eine Tür und einen Treppenabsatz.
+
+Mögliche Ausgänge: runter, nach Osten oder nach Westen.
+
+> öffne Tür
+
+> öffne Tür
+Die Tür öffnet sich zum Speisezimmer.
+> n
+
+> n
+
+Du bist hier: ein Speisezimmer.
+
+Du stehst hier im Speisezimmer des Landhauses. Kennzeichnend hierfür ist die längliche Speisetafel, die hier einige Meter durch den Raum verläuft. Gedeckt ist sie mit einem riesigen länglichen Tischtuch, auf dem in regelmäßigen Abständen Kerzenhalter stehen. Seltsamerweise befinden sich in den Haltern keine dazu passenden Kerzen.
+Es scheint bereits für zwei Personen gedeckt zu sein: Es stehen jeweils ein Teller mit Besteck sowie ein Weinglas am jeweiligen Kopfende des Tisches.
+Zudem befindet sich eine Flasche Weißwein auf dem Tisch.
+An den seitlichen Wänden befindet sich jeweils eine große Jagdszene, am Kopfende hängt ein großes Hirschgeweih.
+
+Du siehst eine Speisetafel, ein Tischtuch, Kerzenhalter, Teller, ein Weinglas, eine Flasche, Jagdszenen, ein Hirschgeweih, eine Tür und Stühle.
+
+Mögliche Ausgänge: nach Süden.
+
+> drücke Hirschgeweih
+
+> drücke Hirschgeweih
+Das kannst Du nicht machen.
+> s
+
+> s
+
+Du bist hier: Auf der Galerie.
+
+Hier befindest du dich am Treppenabsatz auf einer Galerie im ersten Stock.
+Das Treppengeländer schließt hier nicht mit zwei Figuren, sondern zwei gewöhnlichen Knaufen ab.
+Galerie wird dieser längliche Gang vor allem wegen der vielen Türen genannt, die sich im Westen und Osten des Ganges befinden.
+Im Norden ist eine Tür zum Speisezimmer, im Osten und Westen geht es weiter die Galerie entlang.
+Runter geht es die Treppe entlang zur Eingangshalle.
+
+Du siehst ein Geländer, eine Tür und einen Treppenabsatz.
+
+Mögliche Ausgänge: runter, nach Norden, nach Osten oder nach Westen.
+
+> o
+
+> o
+
+Du bist hier: Galerie Küche.
+
+Du stehst hier vor einer weiteren Tür - der Tür zur Küche des Hauses.
+Nach Westen kannst du die Galerie entlang gehen und kommst zum Treppenabsatz.
+Nach Osten kommst du zum Kopfende der Galerie. Im Süden führt eine Balustrade die Galerie entlang.
+
+Du siehst eine Tür und eine Balustrade.
+
+Mögliche Ausgänge: nach Westen oder nach Osten.
+
+> öffne Tür
+
+> öffne Tür
+Du öffnest die Tür zur Küche.
+> n
+
+> n
+
+Du bist hier: Küche.
+
+Dies ist die Küche des Hauses. In der Mitte des Raumes steht ein großer Tisch, über dem einige Töpfe und Pfannen hängen. Im Tisch integriert ist ein Herd sowie ein Ceran Kochfeld. Ein Kühlschrank steht in der Nordwestecke des Raumes. An der nördlichen Wand ist ein Regal mit allerlei Gewürzen. An der östlichen Wand hängen einige Küchenmesser unterschiedlicher Größe und Beschaffenheit. In der westlichen Wand ist ein kleiner Kamin eingelassen.
+Eine Schwingtür führt von hier weiter nach Norden in den Vorratsraum.
+Irgendwie liegt ein eigentümlicher Geruch in der Luft - ja, es riecht hier eindeutig nach Verwesung - der Geruch kommt eindeutig vom Herd. Vielleicht solltest du mal nachschauen.
+
+Du siehst einen Herd, Töpfe, Pfannen, ein Kochfeld, einen Kühlschrank, einen Tisch, ein Regal, einen Kamin, eine Schwingtür und eine Tür.
+
+Mögliche Ausgänge: nach Süden oder nach Norden.
+
+> untersuche Herd
+
+> untersuche Herd
+Der Herd selbst ist modern und sicher nicht zu beanstanden. Was immer aber dort gerade zu brutzeln scheint, es stinkt bestialisch.
+> betrete Kamin
+
+> betrete Kamin
+Hmm - du versuchst dich in den Kamin zu zwängen - tatsächlich, es funktioniert.
+
+Du bist hier: Im Kamin.
+
+Du bist hier in einem Kamin - es ist hier ziemlich düster, daher siehst du nicht sehr viel...
+
+Mögliche Ausgänge: nach Osten.
+
+> entzünde Kerze mit Feuerzeug
+
+> entzünde Kerze mit Feuerzeug
+Die Kerze brennt nun!
+> untersuche Jagdhorn
+
+> untersuche Jagdhorn
+Ich kann das hier nicht sehen.
+> blase Jagdhorn
+
+> blase Jagdhorn
+Ich kann das hier nicht sehen. (Jagdhorn)
+> o
+
+> o
+
+Du bist hier: Küche.
+
+Dies ist die Küche des Hauses. In der Mitte des Raumes steht ein großer Tisch, über dem einige Töpfe und Pfannen hängen. Im Tisch integriert ist ein Herd sowie ein Ceran Kochfeld. Ein Kühlschrank steht in der Nordwestecke des Raumes. An der nördlichen Wand ist ein Regal mit allerlei Gewürzen. An der östlichen Wand hängen einige Küchenmesser unterschiedlicher Größe und Beschaffenheit. In der westlichen Wand ist ein kleiner Kamin eingelassen.
+Eine Schwingtür führt von hier weiter nach Norden in den Vorratsraum.
+Irgendwie liegt ein eigentümlicher Geruch in der Luft - ja, es riecht hier eindeutig nach Verwesung - der Geruch kommt eindeutig vom Herd. Vielleicht solltest du mal nachschauen.
+
+Du siehst einen Herd, Töpfe, Pfannen, ein Kochfeld, einen Kühlschrank, einen Tisch, ein Regal, einen Kamin, eine Schwingtür und eine Tür.
+
+Mögliche Ausgänge: nach Süden, nach Westen oder nach Norden.
+
+> s
+
+> s
+
+Du bist hier: Galerie Küche.
+
+Du stehst hier vor einer weiteren Tür - der Tür zur Küche des Hauses.
+Nach Westen kannst du die Galerie entlang gehen und kommst zum Treppenabsatz.
+Nach Osten kommst du zum Kopfende der Galerie. Im Süden führt eine Balustrade die Galerie entlang.
+
+Du siehst eine Tür und eine Balustrade.
+
+Mögliche Ausgänge: nach Norden, nach Westen oder nach Osten.
+
+> w
+
+> w
+
+Du bist hier: Auf der Galerie.
+
+Hier befindest du dich am Treppenabsatz auf einer Galerie im ersten Stock.
+Das Treppengeländer schließt hier nicht mit zwei Figuren, sondern zwei gewöhnlichen Knaufen ab.
+Galerie wird dieser längliche Gang vor allem wegen der vielen Türen genannt, die sich im Westen und Osten des Ganges befinden.
+Im Norden ist eine Tür zum Speisezimmer, im Osten und Westen geht es weiter die Galerie entlang.
+Runter geht es die Treppe entlang zur Eingangshalle.
+
+Du siehst ein Geländer, eine Tür und einen Treppenabsatz.
+
+Mögliche Ausgänge: runter, nach Norden, nach Osten oder nach Westen.
+
+> w
+
+> w
+
+Du bist hier: Westende der Galerie.
+
+Dies ist das Westende der Galerie. Von hier aus führt eine Treppe gen Westen hoch auf den Dachboden. Im Norden und Süden ist jeweils eine Tür.
+
+Du siehst eine Nordtür und eine Südtür.
+
+Mögliche Ausgänge: nach Osten oder hoch.
+
+> n
+
+> n
+Du kannst nicht dahin gehen.
+> drehe Hirschgeweih
+
+> drehe Hirschgeweih
+Ich kann das hier nicht sehen. (Hirschgeweih)
+> hoch
+
+> hoch
+
+Du bist hier: ein Dachboden.
+
+Du befindest dich auf dem Dachboden des Hauses. Hauptattraktion ist hier ein großer Tisch, auf dem ein Modell des Landhauses mit detailgetreuer Nachbildung steht.
+Du erkennst es auf den ersten Blick wieder - auch wenn du momentan lieber nicht daran erinnert werden möchtest.
+In den Ecken des Raumes stehen einige Kisten und Truhen - vielleicht lagern ja hier die Schätze des Hauses?
+
+Du siehst einen Tisch, ein Modell, Kisten und Truhen.
+
+Mögliche Ausgänge: runter.
+
+> untersuche Kisten
+
+> untersuche Kisten
+Die Holzkisten sind zum größten Teil leer.
+Darin befindet sich:  eine Modellfigur.
+> nimm Modellfigur
+
+> nimm Modellfigur
+Du nimmst sie an dich.
+> untersuche Holztruhe
+
+> untersuche Holztruhe
+Eine alte, geräumige Holztruhe, bei der der Deckel fehlt.
+Darin befinden sich: Nadeln.
+> nimm Nadeln
+
+> nimm Nadeln
+Du nimmst sie an dich.
+> runter
+
+> runter
+
+Du bist hier: Westende der Galerie.
+
+Dies ist das Westende der Galerie. Von hier aus führt eine Treppe gen Westen hoch auf den Dachboden. Im Norden und Süden ist jeweils eine Tür.
+
+Du siehst eine Nordtür und eine Südtür.
+
+Mögliche Ausgänge: nach Osten oder hoch.
+
+> öffne Südtür
+
+> öffne Südtür
+Du öffnest die Tür zum Andachtsraum.
+> s
+
+> s
+
+Du bist hier: ein Andachtsraum.
+
+Dies ist ein sehr kleiner, dunkler Raum, an dessen Südwand ein weiß lackierter Holztisch steht. Auf dem Holztisch steht ein dreigeteiltes Bild, also eine Art Triptychon, in dessen Mitte eine Frau abgebildet ist, die dir irgendwie bekannt vorkommt. Auf der linken Seite ist Jesus abgebildet, auf der rechten Seite ein gehörnter Dämon - da wollen wir den Blick mal lieber von abwenden, das Bild sieht irgendwie beängstigend aus.
+
+Du siehst eine Tür, einen Holztisch und ein Bild.
+
+Mögliche Ausgänge: nach Norden.
+
+> untersuche Holztisch
+
+> untersuche Holztisch
+Auf dem weiß lackierten Holztisch steht ein dreigeteiltes Bild, also eine Art Triptychon, in dessen Mitte eine Frau abgebildet ist, die dir irgendwie bekannt vorkommt. Auf der linken Seite ist Jesus abgebildet, auf der rechten Seite ein gehörter Dämon - da wollen wir den Blick mal lieber von abwenden, das Bild sieht irgendwie beängstigend aus.
+
+Darauf befindet sich eine Halskette.
+> untersuche Bild
+
+> untersuche Bild
+Ein dreigeteiltes Bild, also eine Art Triptychon, in dessen Mitte eine Frau abgebildet ist, die dir irgendwie bekannt vorkommt. Auf der linken Seite ist Jesus abgebildet, auf der rechten Seite ein gehörter Dämon.
+> untersuche Triptychon
+
+> untersuche Triptychon
+Ein dreigeteiltes Bild, also eine Art Triptychon, in dessen Mitte eine Frau abgebildet ist, die dir irgendwie bekannt vorkommt. Auf der linken Seite ist Jesus abgebildet, auf der rechten Seite ein gehörter Dämon.
+> nimm Halskette
+
+> nimm Halskette
+Du nimmst sie an dich.
+> trage Halskette
+
+> trage Halskette
+Du kannst sie nicht anziehen.
+> n
+
+> n
+
+Du bist hier: Westende der Galerie.
+
+Dies ist das Westende der Galerie. Von hier aus führt eine Treppe gen Westen hoch auf den Dachboden. Im Norden und Süden ist jeweils eine Tür.
+
+Du siehst eine Nordtür und eine Südtür.
+
+Mögliche Ausgänge: nach Osten, nach Süden oder hoch.
+
+> o
+
+> o
+
+Du bist hier: Auf der Galerie.
+
+Hier befindest du dich am Treppenabsatz auf einer Galerie im ersten Stock.
+Das Treppengeländer schließt hier nicht mit zwei Figuren, sondern zwei gewöhnlichen Knaufen ab.
+Galerie wird dieser längliche Gang vor allem wegen der vielen Türen genannt, die sich im Westen und Osten des Ganges befinden.
+Im Norden ist eine Tür zum Speisezimmer, im Osten und Westen geht es weiter die Galerie entlang.
+Runter geht es die Treppe entlang zur Eingangshalle.
+
+Du siehst ein Geländer, eine Tür und einen Treppenabsatz.
+
+Mögliche Ausgänge: runter, nach Norden, nach Osten oder nach Westen.
+
+> o
+
+> o
+
+Du bist hier: Galerie Küche.
+
+Du stehst hier vor einer weiteren Tür - der Tür zur Küche des Hauses.
+Nach Westen kannst du die Galerie entlang gehen und kommst zum Treppenabsatz.
+Nach Osten kommst du zum Kopfende der Galerie. Im Süden führt eine Balustrade die Galerie entlang.
+
+Du siehst eine Tür und eine Balustrade.
+
+Mögliche Ausgänge: nach Norden, nach Westen oder nach Osten.
+
+> öffne Osttür
+
+> öffne Osttür
+Ich kann das hier nicht sehen.
+> o
+
+> o
+
+Du bist hier: Kopfende der Galerie.
+
+Dies ist das Kopfende der Galerie. Hier knarzen die alten Holzdielen unter dir ganz besonders. Im Süden, Norden sowie Osten befindet sich jeweils eine Tür (falls du eine der Türen öffnen möchtest, versuche es z.B. mit öffne Südtür).
+
+Du siehst eine Osttür, eine Nordtür und eine Südtür.
+
+Mögliche Ausgänge: nach Westen.
+
+> schau unter Himmelbett
+
+> schau unter Himmelbett
+Ich kann das hier nicht sehen. (Himmelbett)
+> öffne Kleiderschrank
+
+> öffne Kleiderschrank
+Ich kann das hier nicht sehen.
+> untersuche Geldkassette
+
+> untersuche Geldkassette
+Ich kann das hier nicht sehen.
+> benutze Halskette
+
+> benutze Halskette
+Ok, wenn du unbedingt willst - du trägst nun die Halskette.
+> öffne Osttür
+
+> öffne Osttür
+Du öffnest die Tür zum Schlafzimmer.
+> o
+
+> o
+
+Du bist hier: ein Schlafzimmer.
+
+Eines der hiesigen Schlafzimmer - du bist über die Inneneinrichtung durchaus erstaunt:
+Am Ostende des Raumes steht ein großes Himmelbett, welches als Doppelbett ausgelegt ist. Ein entsprechendes Stofftuch als Himmel ist zwischen den vier Bettpfosten gespannt. Die Bettwäsche hat als Motiv den Sternenhimmel, wobei die Sterne als gelbe Punkte vor blauem Hintergrund angedeutet sind - es macht somit fast den Eindruck eines Kinderbettes.
+An der Südwand befindet sich ein großer, hölzerner Kleiderschrank.
+
+Du siehst einen Kleiderschrank, eine Tür und ein Himmelbett.
+
+Mögliche Ausgänge: nach Westen.
+
+> schau unter Himmelbett
+
+> schau unter Himmelbett
+Tatsächlich - respekt! Da ist wirklich noch etwas unter dem Bett. Schauen wir mal, momentchen. Hau ruck. Ja, es ist eine große Blechschachtel. Was da wohl drin ist?
+> untersuche Blechschachtel
+
+> untersuche Blechschachtel
+Eine große bzw. breite Blechschachtel.
+> öffne Blechschachtel
+
+> öffne Blechschachtel
+Du öffnest die Blechschachtel.
+
+Sie enthält eine Alufolie.
+> öffne Kleiderschrank
+
+> öffne Kleiderschrank
+Du öffnest ihn.
+> untersuche Geldkassette
+
+> untersuche Geldkassette
+Es ist eine metallene Geldkassette mit Münzeinwurf - hmm...
+> nimm Alufolie
+
+> nimm Alufolie
+> benutze Alufolie
+
+> benutze Alufolie
+Nagut, du wickelst etwas von der Folie um deine Hüfte - in deinen Augen ist das zwar alles Aberglaube, aber was soll's? Ein bisschen Folie wird dich wohl nicht in deiner Bewegungsfreiheit einschränken...
+> benutze Geldstück mit Geldkassette
+
+> benutze Geldstück mit Geldkassette
+Hmm - na gut, das 2 DM-Stück wirst du ja sowieso nicht vermissen. Du wirfst es in die Geldkassette. Plötzlich hörst du ein Klicken in der Kassette, und sie springt auf...
+> untersuche Geldkassette
+
+> untersuche Geldkassette
+Da ist ein kleines blaues Knicklicht drin - Wofür das nun wieder gut sein soll? Und wo ist das 2 DM-Stück geblieben? Seltsamer Mechanismus...
+> nimm Knicklicht
+
+> nimm Knicklicht
+Du hast das Knicklicht genommen.
+> knicke Knicklicht
+
+> knicke Knicklicht
+Es ist ein blaues Licht - nun leuchtet es blau.
+> w
+
+> w
+
+Du bist hier: Kopfende der Galerie.
+
+Dies ist das Kopfende der Galerie. Hier knarzen die alten Holzdielen unter dir ganz besonders. Im Süden, Norden sowie Osten befindet sich jeweils eine Tür (falls du eine der Türen öffnen möchtest, versuche es z.B. mit öffne Südtür).
+
+Du siehst eine Osttür, eine Nordtür und eine Südtür.
+
+Mögliche Ausgänge: nach Westen oder nach Osten.
+
+> öffne Nordtür
+
+> öffne Nordtür
+Du öffnest die Tür zum Badezimmer.
+> n
+
+> n
+
+Du bist hier: ein Badezimmer.
+
+Unverkennbar handelt es sich bei diesem Raum um das geräumige Badezimmer des Hauses: Eine große emaillierte Stahlwanne steht in der Mitte des Raumes, ringsum umgeben von einem geschlossenen Badevorhang aus Stoff. Der Vorhang hat ein auffälliges Muster, welches aus einer Vielzahl von ineinander verschlungenen, verschieden roten Dreiecken besteht. In der Nordwestecke des Raumes sind zwei Emaille-Waschbecken angebracht, in der Nordostecke steht die Toilette. Daneben steht ein mannshoher Spiegel. Du erkennst verschiedene Körperpflegeutensilien auf dem Rand des Waschbeckens.
+Was mag sich nur hinter dem Vorhang der Badewanne verbergen? Ist es eine Leiche, ein Zombie der dich attackieren will oder etwa eine Mumie namens Ted? Wenn du der Versuchung widerstehen kannst, brauchst du den Vorhang nicht zu öffnen. Wenn jedoch nicht...
+
+Du siehst eine Tür, einen Vorhang, eine Badewanne, ein Waschbecken, einen Spiegel und eine Toilette.
+
+Mögliche Ausgänge: nach Süden.
+
+> öffne Vorhang
+
+> öffne Vorhang
+Du ziehst den Vorhang auf.
+> nimm Kelle
+
+> nimm Kelle
+Ich kann das hier nicht sehen.
+> s
+
+> s
+
+Du bist hier: Kopfende der Galerie.
+
+Dies ist das Kopfende der Galerie. Hier knarzen die alten Holzdielen unter dir ganz besonders. Im Süden, Norden sowie Osten befindet sich jeweils eine Tür (falls du eine der Türen öffnen möchtest, versuche es z.B. mit öffne Südtür).
+
+Du siehst eine Osttür, eine Nordtür und eine Südtür.
+
+Mögliche Ausgänge: nach Westen, nach Norden oder nach Osten.
+
+> w
+
+> w
+
+Du bist hier: Galerie Küche.
+
+Du stehst hier vor einer weiteren Tür - der Tür zur Küche des Hauses.
+Nach Westen kannst du die Galerie entlang gehen und kommst zum Treppenabsatz.
+Nach Osten kommst du zum Kopfende der Galerie. Im Süden führt eine Balustrade die Galerie entlang.
+
+Du siehst eine Tür und eine Balustrade.
+
+Mögliche Ausgänge: nach Norden, nach Westen oder nach Osten.
+
+> n
+
+> n
+
+Du bist hier: Küche.
+
+Dies ist die Küche des Hauses. In der Mitte des Raumes steht ein großer Tisch, über dem einige Töpfe und Pfannen hängen. Im Tisch integriert ist ein Herd sowie ein Ceran Kochfeld. Ein Kühlschrank steht in der Nordwestecke des Raumes. An der nördlichen Wand ist ein Regal mit allerlei Gewürzen. An der östlichen Wand hängen einige Küchenmesser unterschiedlicher Größe und Beschaffenheit. In der westlichen Wand ist ein kleiner Kamin eingelassen.
+Eine Schwingtür führt von hier weiter nach Norden in den Vorratsraum.
+Irgendwie liegt ein eigentümlicher Geruch in der Luft - ja, es riecht hier eindeutig nach Verwesung - der Geruch kommt eindeutig vom Herd. Vielleicht solltest du mal nachschauen.
+
+Du siehst einen Herd, Töpfe, Pfannen, ein Kochfeld, einen Kühlschrank, einen Tisch, ein Regal, einen Kamin, eine Schwingtür und eine Tür.
+
+Mögliche Ausgänge: nach Süden, nach Westen oder nach Norden.
+
+> untersuche Kühlschrank
+
+> untersuche Kühlschrank
+Der Kühlschrank ist sehr groß, in silber-metallic gehalten und fasst sicher 400 l.
+Hmm - also Hunger hättest du schon. Trotz des abstoßenden Geruchs, der vom Herd verströmt wird. Vielleicht lässt sich ja etwas Essbares im Kühlschrank finden.
+> untersuche Regal
+
+> untersuche Regal
+Es ist ein altes Holzregal mit allerlei Gewürzen.
+Darauf befindet sich eine Knoblauchknolle.
+> n
+
+> n
+
+Du bist hier: ein Vorratsraum.
+
+Dies ist der Vorratsraum des Hauses. Hier stapeln sich bergeweise Lebensmittel, wie Kisten mit Kartoffeln oder Zwiebeln, verschiedene weitere Gemüsesorten, wie Sellerie, Kohl, ...
+Eigenartigerweise ist hier keinerlei Verwahrung für Fleisch zu sehen - es gibt hier keine Tiefkühlmöglichkeit. Handelt es sich bei dem Herrn des Hauses etwa um einen Vegetarier?
+In einer Ecke des Raumes stehen Säcke mit Mehl, Zucker und Salz.
+Ein Tisch steht an der Nordwand der Vorratskammer.
+An der Ostwand ist ein großer Schrank.
+
+Du siehst Kisten, einen Schrank, Gemüse, Säcke und einen Tisch.
+
+Mögliche Ausgänge: nach Süden.
+
+> untersuche Tisch
+
+> untersuche Tisch
+Es handelt sich um einen gewöhnlichen einfachen Holztisch. Bei genauerem Hinsehen sind einige eingetrocknete Blutflecken zu sehen. Außerdem findest du ein paar Fleischreste auf dem Tisch - du hoffst, dass es sich nicht um Menschenfleisch handelt. Zumindest weißt du nun, dass es sich bei dem Hausherrn wohl doch nicht um einen Vegetarier handeln dürfte.
+Darauf befindet sich ein Schlachterbeil.
+> untersuche Säcke
+
+> untersuche Säcke
+Säcke mit Mehl, Zucker, Salz. Irgendwas lugt da zwischen den Säcken hervor...
+> schiebe Säcke
+
+> schiebe Säcke
+Hmm - willst du wirklich Säcke hier durch die Gegend schieben? Na gut, wir verrücken mal einen für dich. Hau ruck...
+Oh, da liegt noch eine alte hölzerne Schöpfkelle hinter dem Sack.
+> nimm Kelle
+
+> nimm Kelle
+Du nimmst sie an dich.
+> öffne Schrank
+
+> öffne Schrank
+Du öffnest den Schrank.
+Oh, Gott - dir bleibt fast das Herz stehen, als dich ein Totenschädel aus dunklen Höhlen heraus anstarrt.
+Im nächsten Moment aber beruhigst du dich etwas, es ist nur ein Tierschädel. Dennoch, was hat ein Schädel hier im Schrank zu suchen?
+> nimm Laterne
+
+> nimm Laterne
+Du hast die Laterne genommen.
+> schalte Laterne an
+
+> schalte Laterne an
+Du kannst sie nicht anschalten.
+> s
+
+> s
+
+Du bist hier: Küche.
+
+Dies ist die Küche des Hauses. In der Mitte des Raumes steht ein großer Tisch, über dem einige Töpfe und Pfannen hängen. Im Tisch integriert ist ein Herd sowie ein Ceran Kochfeld. Ein Kühlschrank steht in der Nordwestecke des Raumes. An der nördlichen Wand ist ein Regal mit allerlei Gewürzen. An der östlichen Wand hängen einige Küchenmesser unterschiedlicher Größe und Beschaffenheit. In der westlichen Wand ist ein kleiner Kamin eingelassen.
+Eine Schwingtür führt von hier weiter nach Norden in den Vorratsraum.
+Irgendwie liegt ein eigentümlicher Geruch in der Luft - ja, es riecht hier eindeutig nach Verwesung - der Geruch kommt eindeutig vom Herd. Vielleicht solltest du mal nachschauen.
+
+Du siehst einen Herd, Töpfe, Pfannen, ein Kochfeld, einen Kühlschrank, einen Tisch, ein Regal (darauf siehst du eine Knoblauchknolle), einen Kamin, eine Schwingtür und eine Tür.
+
+Mögliche Ausgänge: nach Süden, nach Westen oder nach Norden.
+
+> nimm Knoblauchknolle
+
+> nimm Knoblauchknolle
+Du nimmst sie an dich.
+> benutze Halskette mit Knoblauchknolle
+
+> benutze Halskette mit Knoblauchknolle
+Was soll das denn? Eine Knoblauchknolle an einer Halskette? Na gut, was solls - du wirst schon wissen, was du machst, oder? Die Knolle hängt nun an dem Haken der Kette.
+> s
+
+> s
+
+Du bist hier: Galerie Küche.
+
+Du stehst hier vor einer weiteren Tür - der Tür zur Küche des Hauses.
+Nach Westen kannst du die Galerie entlang gehen und kommst zum Treppenabsatz.
+Nach Osten kommst du zum Kopfende der Galerie. Im Süden führt eine Balustrade die Galerie entlang.
+
+Du siehst eine Tür und eine Balustrade.
+
+Mögliche Ausgänge: nach Norden, nach Westen oder nach Osten.
+
+> w
+
+> w
+
+Du bist hier: Auf der Galerie.
+
+Hier befindest du dich am Treppenabsatz auf einer Galerie im ersten Stock.
+Das Treppengeländer schließt hier nicht mit zwei Figuren, sondern zwei gewöhnlichen Knaufen ab.
+Galerie wird dieser längliche Gang vor allem wegen der vielen Türen genannt, die sich im Westen und Osten des Ganges befinden.
+Im Norden ist eine Tür zum Speisezimmer, im Osten und Westen geht es weiter die Galerie entlang.
+Runter geht es die Treppe entlang zur Eingangshalle.
+
+Du siehst ein Geländer, eine Tür und einen Treppenabsatz.
+
+Mögliche Ausgänge: runter, nach Norden, nach Osten oder nach Westen.
+
+> n
+
+> n
+
+Du bist hier: ein Speisezimmer.
+
+Du stehst hier im Speisezimmer des Landhauses. Kennzeichnend hierfür ist die längliche Speisetafel, die hier einige Meter durch den Raum verläuft. Gedeckt ist sie mit einem riesigen länglichen Tischtuch, auf dem in regelmäßigen Abständen Kerzenhalter stehen. Seltsamerweise befinden sich in den Haltern keine dazu passenden Kerzen.
+Es scheint bereits für zwei Personen gedeckt zu sein: Es stehen jeweils ein Teller mit Besteck sowie ein Weinglas am jeweiligen Kopfende des Tisches.
+Zudem befindet sich eine Flasche Weißwein auf dem Tisch.
+An den seitlichen Wänden befindet sich jeweils eine große Jagdszene, am Kopfende hängt ein großes Hirschgeweih.
+
+Du siehst eine Speisetafel, ein Tischtuch, Kerzenhalter, Teller, ein Weinglas, eine Flasche, Jagdszenen, ein Hirschgeweih, eine Tür und Stühle.
+
+Mögliche Ausgänge: nach Süden.
+
+> schiebe Hirschgeweih
+
+> schiebe Hirschgeweih
+Irgendwo im Haus macht es vernehmbar laut Klick.
+> s
+
+> s
+
+Du bist hier: Auf der Galerie.
+
+Hier befindest du dich am Treppenabsatz auf einer Galerie im ersten Stock.
+Das Treppengeländer schließt hier nicht mit zwei Figuren, sondern zwei gewöhnlichen Knaufen ab.
+Galerie wird dieser längliche Gang vor allem wegen der vielen Türen genannt, die sich im Westen und Osten des Ganges befinden.
+Im Norden ist eine Tür zum Speisezimmer, im Osten und Westen geht es weiter die Galerie entlang.
+Runter geht es die Treppe entlang zur Eingangshalle.
+
+Du siehst ein Geländer, eine Tür und einen Treppenabsatz.
+
+Mögliche Ausgänge: runter, nach Norden, nach Osten oder nach Westen.
+
+> o
+
+> o
+
+Du bist hier: Galerie Küche.
+
+Du stehst hier vor einer weiteren Tür - der Tür zur Küche des Hauses.
+Nach Westen kannst du die Galerie entlang gehen und kommst zum Treppenabsatz.
+Nach Osten kommst du zum Kopfende der Galerie. Im Süden führt eine Balustrade die Galerie entlang.
+
+Du siehst eine Tür und eine Balustrade.
+
+Mögliche Ausgänge: nach Norden, nach Westen oder nach Osten.
+
+> n
+
+> n
+
+Du bist hier: Küche.
+
+Dies ist die Küche des Hauses. In der Mitte des Raumes steht ein großer Tisch, über dem einige Töpfe und Pfannen hängen. Im Tisch integriert ist ein Herd sowie ein Ceran Kochfeld. Ein Kühlschrank steht in der Nordwestecke des Raumes. An der nördlichen Wand ist ein Regal mit allerlei Gewürzen. An der östlichen Wand hängen einige Küchenmesser unterschiedlicher Größe und Beschaffenheit. In der westlichen Wand ist ein kleiner Kamin eingelassen.
+Eine Schwingtür führt von hier weiter nach Norden in den Vorratsraum.
+Irgendwie liegt ein eigentümlicher Geruch in der Luft - ja, es riecht hier eindeutig nach Verwesung - der Geruch kommt eindeutig vom Herd. Vielleicht solltest du mal nachschauen.
+
+Du siehst einen Herd, Töpfe, Pfannen, ein Kochfeld, einen Kühlschrank, einen Tisch, ein Regal, einen Kamin, eine Schwingtür und eine Tür.
+
+Mögliche Ausgänge: nach Süden, nach Westen oder nach Norden.
+
+> betrete Kamin
+
+> betrete Kamin
+Hmm - du versuchst dich in den Kamin zu zwängen - tatsächlich, es funktioniert.
+
+Du bist hier: Im Kamin.
+
+Du bist hier in einem Kamin - hier gibt es nicht viel, mit Ausnahme eines Jagdhorns, welches an einer Innenseite des Kamins befestigt ist - ein Jagdhorn in einem Kamin? Wer kommt denn auf diese Idee?
+
+Du siehst ein Jagdhorn.
+
+Mögliche Ausgänge: nach Osten.
+
+> schau
+
+> schau
+Du bist hier: Im Kamin.
+
+Du bist hier in einem Kamin - hier gibt es nicht viel, mit Ausnahme eines Jagdhorns, welches an einer Innenseite des Kamins befestigt ist - ein Jagdhorn in einem Kamin? Wer kommt denn auf diese Idee?
+
+Du siehst ein Jagdhorn.
+
+Mögliche Ausgänge: nach Osten.
+
+> blase Jagdhorn
+
+> blase Jagdhorn
+Du trötest vorsichtig in das Jagdhorn - willst du eigentlich, dass dich das ganze Haus hört? Nun gut, der Kamin nimmt den Schall auf, sodass er sich sicherlich nicht durch das Haus verbreitet.
+Kaum hast du in das Horn geblasen, scheint sich der Kamin zu drehen - und mit ihm auch du! Falls du wieder in die Küche zurück möchtest, es ist zu spät! Der Kamin dreht sich langsam weiter, bis er plötzlich stehen bleibt. Nach deinen Überlegungen bist du nun irgendwo im Mauerwerk zwischen Küche und Speisezimmer.
+
+Du bist hier: Im Mauerwerk.
+
+Du befindest dich hier an einem ziemlich mysteriösen Ort - irgendwo zwischen der Küche und dem Speisezimmer im Mauerwerk. Dementsprechend wenig Platz hast du hier auch.
+Eine sehr enge und schmale Stiege führt von hier aus abwärts.
+
+Du siehst ein Jagdhorn.
+
+Mögliche Ausgänge: runter.
+
+> runter
+
+> runter
+
+Du bist hier: Im Gewölbekeller.
+
+Nachdem du eine lange Stiege runter gegangen bist, befindest du dich hier im Gewölbekeller unterhalb des Hauses. Hier unten ist der Raum wieder breiter. Rechts und links bist du von Betonwänden umgeben, nach Norden führt ein schmaler Gang weiter.
+
+Du siehst Betonwände.
+
+Mögliche Ausgänge: hoch oder nach Norden.
+
+> n
+
+> n
+
+Du bist hier: ein Zellentrakt.
+
+Nachdem der Keller eine kurze Biegung nach Osten gemacht hat, stehst du plötzlich vor drei Zellen, die jeweils durch eine Gittertür versperrt sind. In einer davon steht ein alter Mann mit einem Rauschebart und wallendem weißen Haar. Du bist sichtlich erschrocken, als du erkennst, dass es sich offenbar um einen Gefangenen handelt. Der Mann mustert dich argwöhnisch, sagt aber nichts, auch dann nicht, als du ihn behutsam ansprichst: "Was ist mit Ihnen geschehen? Was tun Sie hier?" Keine Antwort. Stur bleibt er auf seinem Holzschemel in seiner Zelle sitzen. Erneutes Ansprechen zeitigt denselbem Misserfolg.
+Du schaust dich kurz um: In den Zellen befindet sich jeweils dieselbe Ausstattung: Ein Holzschemel sowie eine hölzerne Pritsche. Neben dem alten Mann befindet sich zudem ein Eimer mit Wasser. Neben dem Gitter seiner Zelle ist ein digitales Zahlenschloss angebracht, mit dem man offensichtlich die Zellentür öffnen kann.
+Eins scheint spätestens jetzt klar zu sein: Du musst versuchen, hier zu verschwinden, und zwar zusammen mit dem alten Mann - du kannst ihn schlecht hier lassen.
+Hmm - dir scheint, als solltest du versuchen, den alten Mann zum reden zu bringen.
+
+Du siehst Alter Mann, ein Zahlenschloss und Zellen.
+
+Mögliche Ausgänge: nach Süden.
+
+> frage Alter Mann nach Nikodemus
+
+> frage Alter Mann nach Nikodemus
+'Du kennst meinen Namen? Du bist keiner von denen?' Erst jetzt sprudelt alles aus ihm heraus: Er erzählt dir, dass er sich als Landstreicher vor einigen Jahren hierhin verirrt und um eine Übernachtungsmöglichkeit gebeten hat. Zunächst sei man überaus freundlich und höflich zu ihm gewesen, aber dann habe man ihn gefangen genommen und hält ihn hier als Sklaven. Er erzählt dir weiter, dass der Herr des Hauses, Baron Janus von Meckensen, vor einigen Jahren eine Reise nach New Orleans angetreten hat, von der er verändert wiederkam. Es lastet ein Fluch auf ihm, den er bereits versucht hat, mit allen möglichen Mitteln zu bekämpfen. Seit dieser Zeit beschäftigte sich der Baron zunehmend mit dem Voodoo-Kult und dessen Riten und Bräuchen sowie der Beschwörung von Dämonen und dunklen Mächten. Es scheint, als habe der Fluch im Laufe der Zeit vollständig Besitz von ihm ergriffen und aus ihm eine Art Hohepriester der Finsternis gemacht. Hin und wieder verirren sich Fremde hierhin - wem jedoch dem Baron nicht beliebt, der wird hier gefangen gehalten oder geopfert. 'Wir müssen dem dunklen Treiben des Barons Einhalt gebieten!' - 'Aber wie?' fragst du, noch völlig verdutzt von dieser erschreckenden Geschichte. 'Es ist Vollmond! Heute beschwört der Herr wieder die dunklen Kräfte! Du musst zur Bibliothek und dort der Beschwörung Einhalt gebieten. Du musst die Beschwörung umkehren - nur so kann es dir gelingen!' Du willst gerade nachfragen, was du dazu zu tun hast, als er fortfährt: 'Er wird versuchen, dich zu töten - lass dich nicht von seinem bösen Blick oder seinen PSI-Strahlen beeinflussen - zeige ihm, dass du dagegen gefeit bist, es gibt für beides ein Gegenmittel' Böser Blick, PSI-Strahlen? Du bist dir spätestens jetzt sicher, dass der alte Mann hier verrückt geworden ist. 'Der Baron ist verrückt - er glaubt, fest daran, dass er übernatürliche Kräfte hat. Wenn du ihm zeigst, dass du die Angriffe abwehren kannst, drehe den Spieß um, und drohe mit Voodoo - davor hat er am meisten Angst.
+Wenn du bereit bist, so rufe einfach meinen Namen, ich werde dir helfen, sofern diese Zellentür für mich offen steht!'
+Du hörst Schritte. Du solltest dich langsam beeilen!
+> gib ein Zahlenschloss mit drei fünf fünf null null
+
+> gib ein Zahlenschloss mit drei fünf fünf null null
+Die Zellentür springt auf und der alte Mann ist frei! Anstelle einer Regung bleibt der Mann jedoch völlig unbekümmert auf seinem Holzschemel sitzen!
+> s
+
+> s
+
+Du bist hier: Im Gewölbekeller.
+
+Nachdem du eine lange Stiege runter gegangen bist, befindest du dich hier im Gewölbekeller unterhalb des Hauses. Hier unten ist der Raum wieder breiter. Rechts und links bist du von Betonwänden umgeben, nach Norden führt ein schmaler Gang weiter.
+
+Du siehst Betonwände.
+
+Mögliche Ausgänge: hoch oder nach Norden.
+
+> hoch
+
+> hoch
+
+Du bist hier: Im Mauerwerk.
+
+Du befindest dich hier an einem ziemlich mysteriösen Ort - irgendwo zwischen der Küche und dem Speisezimmer im Mauerwerk. Dementsprechend wenig Platz hast du hier auch.
+Eine sehr enge und schmale Stiege führt von hier aus abwärts.
+
+Du siehst ein Jagdhorn.
+
+Mögliche Ausgänge: runter.
+
+> blase Jagdhorn
+
+> blase Jagdhorn
+Du bläst erneut vorsichtig in das Jagdhorn - der Mechanismus wird erneut ausgelöst und du merkst, wie sich das Mauerstück dreht. Du befindest dich wieder im Kamin.
+
+Du bist hier: Im Kamin.
+
+Du bist hier in einem Kamin - hier gibt es nicht viel, mit Ausnahme eines Jagdhorns, welches an einer Innenseite des Kamins befestigt ist - ein Jagdhorn in einem Kamin? Wer kommt denn auf diese Idee?
+
+Du siehst ein Jagdhorn.
+
+Mögliche Ausgänge: nach Osten.
+
+> o
+
+> o
+
+Du bist hier: Küche.
+
+Dies ist die Küche des Hauses. In der Mitte des Raumes steht ein großer Tisch, über dem einige Töpfe und Pfannen hängen. Im Tisch integriert ist ein Herd sowie ein Ceran Kochfeld. Ein Kühlschrank steht in der Nordwestecke des Raumes. An der nördlichen Wand ist ein Regal mit allerlei Gewürzen. An der östlichen Wand hängen einige Küchenmesser unterschiedlicher Größe und Beschaffenheit. In der westlichen Wand ist ein kleiner Kamin eingelassen.
+Eine Schwingtür führt von hier weiter nach Norden in den Vorratsraum.
+Irgendwie liegt ein eigentümlicher Geruch in der Luft - ja, es riecht hier eindeutig nach Verwesung - der Geruch kommt eindeutig vom Herd. Vielleicht solltest du mal nachschauen.
+
+Du siehst einen Herd, Töpfe, Pfannen, ein Kochfeld, einen Kühlschrank, einen Tisch, ein Regal, einen Kamin, eine Schwingtür und eine Tür.
+
+Mögliche Ausgänge: nach Süden, nach Westen oder nach Norden.
+
+> s
+
+> s
+
+Du bist hier: Galerie Küche.
+
+Du stehst hier vor einer weiteren Tür - der Tür zur Küche des Hauses.
+Nach Westen kannst du die Galerie entlang gehen und kommst zum Treppenabsatz.
+Nach Osten kommst du zum Kopfende der Galerie. Im Süden führt eine Balustrade die Galerie entlang.
+
+Du siehst eine Tür und eine Balustrade.
+
+Mögliche Ausgänge: nach Norden, nach Westen oder nach Osten.
+
+> o
+
+> o
+
+Du bist hier: Kopfende der Galerie.
+
+Dies ist das Kopfende der Galerie. Hier knarzen die alten Holzdielen unter dir ganz besonders. Im Süden, Norden sowie Osten befindet sich jeweils eine Tür (falls du eine der Türen öffnen möchtest, versuche es z.B. mit öffne Südtür).
+
+Du siehst eine Osttür, eine Nordtür und eine Südtür.
+
+Mögliche Ausgänge: nach Westen, nach Norden oder nach Osten.
+
+> o
+
+> o
+
+Du bist hier: ein Schlafzimmer.
+
+Eines der hiesigen Schlafzimmer - du bist über die Inneneinrichtung durchaus erstaunt:
+Am Ostende des Raumes steht ein großes Himmelbett, welches als Doppelbett ausgelegt ist. Ein entsprechendes Stofftuch als Himmel ist zwischen den vier Bettpfosten gespannt. Die Bettwäsche hat als Motiv den Sternenhimmel, wobei die Sterne als gelbe Punkte vor blauem Hintergrund angedeutet sind - es macht somit fast den Eindruck eines Kinderbettes.
+An der Südwand befindet sich ein großer, hölzerner Kleiderschrank.
+
+Du siehst einen Kleiderschrank, eine Tür und ein Himmelbett.
+
+Mögliche Ausgänge: nach Westen.
+
+> n
+
+> n
+Du kannst nicht dahin gehen.
+> benutze Kelle mit Blut
+
+> benutze Kelle mit Blut
+Ich kann das hier nicht sehen. (Blut)
+> s
+
+> s
+Du kannst nicht dahin gehen.
+> w
+
+> w
+
+Du bist hier: Kopfende der Galerie.
+
+Dies ist das Kopfende der Galerie. Hier knarzen die alten Holzdielen unter dir ganz besonders. Im Süden, Norden sowie Osten befindet sich jeweils eine Tür (falls du eine der Türen öffnen möchtest, versuche es z.B. mit öffne Südtür).
+
+Du siehst eine Osttür, eine Nordtür und eine Südtür.
+
+Mögliche Ausgänge: nach Westen, nach Norden oder nach Osten.
+
+> w
+
+> w
+
+Du bist hier: Galerie Küche.
+
+Du stehst hier vor einer weiteren Tür - der Tür zur Küche des Hauses.
+Nach Westen kannst du die Galerie entlang gehen und kommst zum Treppenabsatz.
+Nach Osten kommst du zum Kopfende der Galerie. Im Süden führt eine Balustrade die Galerie entlang.
+
+Du siehst eine Tür und eine Balustrade.
+
+Mögliche Ausgänge: nach Norden, nach Westen oder nach Osten.
+
+> runter
+
+> runter
+Du kannst nicht dahin gehen.
+> o
+
+> o
+
+Du bist hier: Kopfende der Galerie.
+
+Dies ist das Kopfende der Galerie. Hier knarzen die alten Holzdielen unter dir ganz besonders. Im Süden, Norden sowie Osten befindet sich jeweils eine Tür (falls du eine der Türen öffnen möchtest, versuche es z.B. mit öffne Südtür).
+
+Du siehst eine Osttür, eine Nordtür und eine Südtür.
+
+Mögliche Ausgänge: nach Westen, nach Norden oder nach Osten.
+
+> schalte Laterne ein
+
+> schalte Laterne ein
+Ich verstehe nicht, was du meinst.
+> entzünde Teelicht mit Feuerzeug
+
+> entzünde Teelicht mit Feuerzeug
+Das Teelicht brennt nun.
+> entzünde Leselampe mit Feuerzeug
+
+> entzünde Leselampe mit Feuerzeug
+Die Leselampe leuchtet nun - sie verbreitet einen schwachen Schein.
+> n
+
+> n
+
+Du bist hier: ein Badezimmer.
+
+Unverkennbar handelt es sich bei diesem Raum um das geräumige Badezimmer des Hauses: Eine große emaillierte Stahlwanne steht in der Mitte des Raumes, ringsum umgeben von einem geschlossenen Badevorhang aus Stoff. Der Vorhang hat ein auffälliges Muster, welches aus einer Vielzahl von ineinander verschlungenen, verschieden roten Dreiecken besteht. In der Nordwestecke des Raumes sind zwei Emaille-Waschbecken angebracht, in der Nordostecke steht die Toilette. Daneben steht ein mannshoher Spiegel. Du erkennst verschiedene Körperpflegeutensilien auf dem Rand des Waschbeckens.
+Was mag sich nur hinter dem Vorhang der Badewanne verbergen? Ist es eine Leiche, ein Zombie der dich attackieren will oder etwa eine Mumie namens Ted? Wenn du der Versuchung widerstehen kannst, brauchst du den Vorhang nicht zu öffnen. Wenn jedoch nicht...
+
+Du siehst eine Tür, einen Vorhang, eine Badewanne, ein Waschbecken, einen Spiegel und eine Toilette.
+
+Mögliche Ausgänge: nach Süden.
+
+> benutze Kelle mit Blut
+
+> benutze Kelle mit Blut
+Hmm - wir hoffen, dass du weißt, was du tust - du schöpfst mit der Kelle etwas von dem Blut. Die Kelle ist nun voll mit Blut.
+> s
+
+> s
+
+Du bist hier: Kopfende der Galerie.
+
+Dies ist das Kopfende der Galerie. Hier knarzen die alten Holzdielen unter dir ganz besonders. Im Süden, Norden sowie Osten befindet sich jeweils eine Tür (falls du eine der Türen öffnen möchtest, versuche es z.B. mit öffne Südtür).
+
+Du siehst eine Osttür, eine Nordtür und eine Südtür.
+
+Mögliche Ausgänge: nach Westen, nach Norden oder nach Osten.
+
+> w
+
+> w
+
+Du bist hier: Galerie Küche.
+
+Du stehst hier vor einer weiteren Tür - der Tür zur Küche des Hauses.
+Nach Westen kannst du die Galerie entlang gehen und kommst zum Treppenabsatz.
+Nach Osten kommst du zum Kopfende der Galerie. Im Süden führt eine Balustrade die Galerie entlang.
+
+Du siehst eine Tür und eine Balustrade.
+
+Mögliche Ausgänge: nach Norden, nach Westen oder nach Osten.
+
+> w
+
+> w
+
+Du bist hier: Auf der Galerie.
+
+Hier befindest du dich am Treppenabsatz auf einer Galerie im ersten Stock.
+Das Treppengeländer schließt hier nicht mit zwei Figuren, sondern zwei gewöhnlichen Knaufen ab.
+Galerie wird dieser längliche Gang vor allem wegen der vielen Türen genannt, die sich im Westen und Osten des Ganges befinden.
+Im Norden ist eine Tür zum Speisezimmer, im Osten und Westen geht es weiter die Galerie entlang.
+Runter geht es die Treppe entlang zur Eingangshalle.
+
+Du siehst ein Geländer, eine Tür und einen Treppenabsatz.
+
+Mögliche Ausgänge: runter, nach Norden, nach Osten oder nach Westen.
+
+> runter
+
+> runter
+
+Du bist hier: Eingangshalle.
+
+Die Eingangshalle ist spartanisch, aber stilvoll eingerichtet:
+Gemälde an beiden Seiten der Halle - ein flüchtiger Blick identifiziert sie als Portraits in Ölfarben - , ein großer, runder Eichentisch in der Mitte der Halle mit entsprechenden Stühlen sowie die Ledercouch, auf der du gerade Platz genommen hast.
+Nach Westen gelangt man in das Billardzimmer des Hauses, nach Osten geht es zur Bibliothek. Im Norden liegt eine Treppe, die hinauf auf die Galerie führt.
+Im Süden liegt die schwere Eingangstür, durch die du gekommen bist.
+Der höfliche Diener hat dir bedeutet, auf den Herrn des Hauses zu warten, während er dir etwas zu trinken besorgen möchte.
+Die Zeit verrinnt - passieren tut indes wenig - Zeit zu handeln!
+
+Du siehst Gemälde, einen Eichentisch, Stühle, Sitzkissen, eine Couch, ein Kissen und eine Eingangstür.
+
+Mögliche Ausgänge: nach Westen, runter, nach Osten oder hoch.
+
+> o
+
+> o
+
+Du bist hier: Bibliothek.
+
+Die Bibliothek des Hauses - ein Raum, der das Herz eines jeden begeisterten Lesers höher schlagen lässt. Hier sind auf allen vier Seiten des Raumes hölzerne Regale aufgestellt, in denen sich neben den literarischen Werken der Großmeister ihres Faches sowie Büchern, die ein jeder Haushalt besitzen sollte, auch eher alternative Literatur finden lässt. So sind hier Werke aus den Gebieten "Okkultismus", "Mystik" und "Kabbala" ebenso vertreten wie Bände über die "Heilige Inquisition", "Dämonologie" und "Spiritualismus".
+Im Norden des Raumes befindet sich ein größerer rechteckiger Tisch samt Stuhl. Auf dem Tisch steht eine Leselampe.
+Neben dem Tisch befindet sich ein Stehpult, auf dem ein aufgeschlagenes Buch steht.
+Das augenscheinlichste Merkmal dieses Zimmers ist jedoch ein großes Pentagramm, welches auf dem Boden mit weißer Kreide gezeichnet wurde.
+Leider weißt du sehr wenig über solche Dinge, aber selbst dir ist klar, dass es sich bei dem Pentagramm mit großer Wahrscheinlichkeit um ein Instrument zur Dämonenbeschwörung handeln dürfte.
+Du schaust dich hastig um - waren da nicht gerade Schritte zu hören?
+
+Du siehst ein Stehpult, eine Schrift, Regale, einen Tisch, ein Pentagramm, Bücher, einen Stuhl und eine Schublade.
+
+Mögliche Ausgänge: nach Westen.
+
+> rufe Nikodemus
+
+> rufe Nikodemus
+Nikodemus kommt eilig herbei. 'Es kann beginnen! Hast du herausgefunden, wie du die Beschwörungsprozedur umkehren kannst? Ich weiß nur noch, dass es drei Schritte sind, die es zu tun gilt. Los, wir haben nicht mehr viel Zeit!'
+> schalte Laterne an
+
+> schalte Laterne an
+Du kannst sie nicht anschalten.
+> benutze Kelle mit Mitte
+
+> benutze Kelle mit Mitte
+Ok, du schüttest etwas von dem Blut auf den Boden. Oh, Mann, du kannst es nicht glauben dass du wirklich diesen Hokus Pokus mitmachst!
+> entzünde Laterne mit Feuerzeug
+
+> entzünde Laterne mit Feuerzeug
+Das kannst Du nicht machen.
+> benutze Laterne
+
+> benutze Laterne
+Du kannst das nicht benutzen.
+> schalte an Laterne
+
+> schalte an Laterne
+Die Laterne ist nun eingeschaltet.
+> schalte ein Laterne
+
+> schalte ein Laterne
+Die Laterne ist nun eingeschaltet.
+> benutze Kerze mit Ecke
+
+> benutze Kerze mit Ecke
+Ok, stellen wir die Kerze mal hier in eine freie Ecke des Pentagramms.
+> benutze Teelicht mit Ecke
+
+> benutze Teelicht mit Ecke
+Ok, stellen wir das Teelicht mal hier in eine freie Ecke des Pentagramms.
+> benutze Leselampe mit Ecke
+
+> benutze Leselampe mit Ecke
+Ok, stellen wir die Funzel mal hier in eine freie Ecke des Pentagramms.
+> benutze Laterne mit Ecke
+
+> benutze Laterne mit Ecke
+Ok, stellen wir die Laterne mal hier in eine freie Ecke des Pentagramms.
+> benutze Knicklicht mit Ecke
+
+> benutze Knicklicht mit Ecke
+Ok, legen wir das Knicklicht mal hier in eine freie Ecke des Pentagramms.
+> benutze Kreide mit Pentagramm
+
+> benutze Kreide mit Pentagramm
+Du erinnerst dich an die Worte in dem Buch: Als erstes sollte ein Pentagramm gezeichnet werden. Also musst du es als letztes machen! Du zeichnest exakt das vorhandene Pentagramm nach.
+Kaum hast du diese aufwändige Prozedur hinter dich gebracht, schreckst du plötzlich hoch - du weichst automatisch einen Schritt zurück, als du siehst, dass zwei Gestalten im Türrahmen erschienen sind. Es handelt sich bei der einen um den Diener des Hauses, der dich in Empfang genommen hat, bei der anderen um eine Gestalt in einem seltsamen Kapuzenumhang. Sie sieht dich mit einem finsteren Blick an und spricht: 'Du hast es also bis hierher geschafft und mein finsteres Geheimnis gelüftet. Jetzt aber werde ich dich töten!' Dies ist also der Baron, offensichtlich im Begriff, dich irgendwie anzugreifen. Er starrt dich förmlich an, bewegt sich aber nicht.
+Als der Baron deine Halskette mit der Knoblauchknolle erkennt, wird er sichtlich nervös. 'Wenn ich dich nicht mit meinem Blick töten kann, dann mit meinen elektromagnetischen Strahlen.'
+Der Baron begreift erst jetzt, dass seine Strahlen dir - nach seinem Glauben - auch nichts anhaben können, da du die Alufolie trägst. Zeit für dich, ihn anzugreifen! Aber womit?
+> benutze Nadeln mit Modellfigur
+
+> benutze Nadeln mit Modellfigur
+Kaum hast die Nadeln in der Hand und die Figur in der anderen, verzieht sich das Gesicht des Barons. Er stößt einen Schrei aus und ist im nächsten Moment mitsamt Diener aus der Tür zur Bibliothek verschwunden.
+Du hast es geschafft und den Baron in die Flucht geschlagen! Er taumelt aus dem Raum und wirft dir dabei noch einen Fluch an den Hals - da du für solche Dinge nun mal nicht empfänglich bist, und auch durch dieses Abenteuer nicht vom Gegenteil überzeugt wurdest, verhallt der Fluch. Dir ist klar: Du musst die Gelegenheit nutzen und zusammen mit Nikodemus entkommen. Aber am Besten nicht durch die Eingangshalle, da dort der Baron hin geflüchtet ist - und du willst nicht riskieren, dass er sich wieder erholt und sich dir erneut in den Weg stellt. "Durch welche TÜR sollen wir FLIEHEN?' fragt dich Nikodemus erwartungsvoll.
+> fliehe durch hintertür
+
+> fliehe durch hintertür
+Du fragst Nikodemus nach der Hintertür. Er schaut dich wissend an. Es gibt hier einen verborgenen Mechanismus - er drückt auf einen im Lesepult verborgenen Knopf und es ertönt einen leises Klicken. Er drückt darauf hin mit seinen Händen auf die Bücherwand im Norden des Raumes und bedeutet dir, ihm zu folgen. Kurze Zeit später steht ihr im Freien. Ihr nehmt die Beine in die Hand und lauft so schnell ihr könnt - ihr seid dem Baron und seinem Diener noch einmal entronnen.
+Doch da tauchen schon zwei dunkle Schatten hinter euch auf - lauft, lauft...
+Du hast den ersten Teil vom Haus des Todes erfolgreich abgeschlossen!
+Herzlichen Glückwunsch! Deine Punktzahl ist: 90  von 130
+[state=Finished]

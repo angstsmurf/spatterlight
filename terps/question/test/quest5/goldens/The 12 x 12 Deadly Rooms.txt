@@ -1,0 +1,812 @@
+The 12 x 12 Deadly Rooms
+A Birthday Treasure Maze
+
+You are in a room.
+You can go east.
+Welcome to the 12 x 12 Deadly Rooms...
+Scattered throughout the maze are clues that must by unravelled.
+Use the arrows on the compass to navigate the labrynth..
+> east
+
+> east
+
+You are in a Room 1.
+You can go east, west or north.
+> east
+
+> east
+
+You are in a Room 2.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 3.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 4.
+You can go west or south.
+> south
+
+> south
+
+You are in a Room 5.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 6.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 7.
+You can go north, east or south.
+> east
+
+> east
+
+You are in a Room 25.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 26.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 27.
+You can go west or north.
+> north
+
+> north
+
+You are in a Room 28.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 29.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 30.
+You can go south, east or west.
+> east
+
+> east
+
+You are in a Room 31.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 32.
+You can see a Clue engraved on wall of Room 32.
+You can go west.
+> look at clue engraved on wall of room 32
+
+> look at clue engraved on wall of room 32
+You read the clue engraved on the wall and it says "To find your present you musn't whine. All you need to do is climb, climb climb"
+> west
+
+> west
+
+You are in a Room 31.
+You can go west or east.
+> west
+
+> west
+
+You are in a Room 30.
+You can go south, east or west.
+> west
+
+> west
+
+You are in a Room 33.
+You can go east or north.
+> north
+
+> north
+
+You are in a Room 34.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 35.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 36.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 37.
+You can go south, east or west.
+> west
+
+> west
+
+You are in a Room 40.
+You can go east or west.
+> west
+
+> west
+
+You are in a Room 41.
+You can see a Blue Key.
+You can go east.
+> take blue key
+
+> take blue key
+You pick it up.
+> east
+
+> east
+
+You are in a Room 40.
+You can go east or west.
+> east
+
+> east
+
+You are in a Room 37.
+You can go south, east or west.
+> south
+
+> south
+
+You are in a Room 36.
+You can go south or north.
+> south
+
+> south
+
+You are in a Room 35.
+You can go south or north.
+> south
+
+> south
+
+You are in a Room 34.
+You can go south or north.
+> south
+
+> south
+
+You are in a Room 33.
+You can go east or north.
+> east
+
+> east
+
+You are in a Room 30.
+You can go south, east or west.
+> south
+
+> south
+
+You are in a Room 29.
+You can go south or north.
+> south
+
+> south
+
+You are in a Room 28.
+You can go south or north.
+> south
+
+> south
+
+You are in a Room 27.
+You can go west or north.
+> west
+
+> west
+
+You are in a Room 26.
+You can go west or east.
+> west
+
+> west
+
+You are in a Room 25.
+You can go west or east.
+> west
+
+> west
+
+You are in a Room 7.
+You can go north, east or south.
+> south
+
+> south
+
+You are in a Room 8.
+You can go north or west.
+> west
+
+> west
+
+You are in a Room 9.
+You can go east or west.
+> west
+
+> west
+
+You are in a Room 10.
+You can go east or west.
+> west
+
+> west
+
+You are in a Room 11.
+You can go east, south or west.
+> south
+
+> south
+
+You are in a Room 23.
+You can see a Blue Lock.
+You can go north or south.
+> unlock blue lock with blue key
+
+> unlock blue lock with blue key
+You unlocked the Blue Lock
+> south
+
+> south
+
+You are in a Room 24.
+You can see a Clue engraved on wall.
+You can go north.
+> look at clue engraved on wall
+
+> look at clue engraved on wall
+You read the clue engraved on the wall and it says "To find your prize you must know the trick, and find the plant who is a real prick"
+> north
+
+> north
+
+You are in a Room 23.
+You can see a Blue Lock.
+You can go north or south.
+> north
+
+> north
+
+You are in a Room 11.
+You can go east, south or west.
+> west
+
+> west
+
+You are in a Room 12.
+You can go east or north.
+> north
+
+> north
+
+You are in a Room 13.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 14.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 15.
+You can go south or west.
+> west
+
+> west
+
+You are in a Room 16.
+You can go east or north.
+> north
+
+> north
+
+You are in a Room 17.
+You can go south, north or west.
+> west
+
+> west
+
+You are in a Room 53.
+You can go east or west.
+> west
+
+> west
+
+You are in a Room 54.
+You can go east or west.
+> west
+
+> west
+
+You are in a Room 55.
+You can go east or north.
+> north
+
+> north
+
+You are in a Room 56.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 57.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 58.
+You can go south or west.
+> west
+
+> west
+
+You are in a Room 59.
+You can go east or west.
+> west
+
+> west
+
+You are in a Room 60.
+You can go east, north or west.
+> north
+
+> north
+
+You are in a Room 61.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 62.
+You can go south or north.
+> north
+
+> north
+
+You are in a Room 63.
+You can see a Clue engraved on wall.
+You can go south.
+> look at clue engraved on wall
+
+> look at clue engraved on wall
+You read the clue engraved on the wall and it says "The treasure you want to own, can be found amongst the food that is grown"
+> south
+
+> south
+
+You are in a Room 62.
+You can go south or north.
+> south
+
+> south
+
+You are in a Room 61.
+You can go south or north.
+> south
+
+> south
+
+You are in a Room 60.
+You can go east, north or west.
+> west
+
+> west
+
+You are in a Room 64.
+You can go east, west or south.
+> south
+
+> south
+
+You are in a Room 66.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 67.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 68.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 69.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 70.
+You can go north, south or east.
+> east
+
+> east
+
+You are in a Room 74.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 75.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 76.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 77.
+You can go west or south.
+> south
+
+> south
+
+You are in a Room 78.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 79.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 80.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 81.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 82.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 83.
+You can go north, south or east.
+> south
+
+> south
+
+You are in a Room 84.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 85.
+You can go north, south or west.
+> south
+
+> south
+
+You are in a Room 86.
+You can go north or east.
+> east
+
+> east
+
+You are in a Room 96.
+You can go west or south.
+> south
+
+> south
+
+You are in a Room 97.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 98.
+You can go north or west.
+> west
+
+> west
+
+You are in a Room 99.
+You can go east or west.
+> west
+
+> west
+
+You are in a Room 100.
+You can go east or west.
+> west
+
+> west
+
+You are in a Room 101.
+You can go east or south.
+> south
+
+> south
+
+You are in a Room 102.
+You can go north or west.
+> west
+
+> west
+
+You are in a Room 103.
+You can see a Clue engraved on wall.
+You can go east or west.
+> look at clue engraved on wall
+
+> look at clue engraved on wall
+You read the clue engraved on the wall and it says "Too find your loot you must do some thinking, its in a glass in your room that is not used for drinking."
+> east
+
+> east
+
+You are in a Room 102.
+You can go north or west.
+> north
+
+> north
+
+You are in a Room 101.
+You can go east or south.
+> east
+
+> east
+
+You are in a Room 100.
+You can go east or west.
+> east
+
+> east
+
+You are in a Room 99.
+You can go east or west.
+> east
+
+> east
+
+You are in a Room 98.
+You can go north or west.
+> north
+
+> north
+
+You are in a Room 97.
+You can go north or south.
+> north
+
+> north
+
+You are in a Room 96.
+You can go west or south.
+> west
+
+> west
+
+You are in a Room 86.
+You can go north or east.
+> north
+
+> north
+
+You are in a Room 85.
+You can go north, south or west.
+> north
+
+> north
+
+You are in a Room 84.
+You can go north or south.
+> north
+
+> north
+
+You are in a Room 83.
+You can go north, south or east.
+> east
+
+> east
+
+You are in a Room 87.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 88.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 89.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 90.
+You can go west, east or south.
+> south
+
+> south
+
+You are in a Room 109.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 110.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 111.
+You can go north, west, south or east.
+> south
+
+> south
+
+You are in a Room 112.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 113.
+You can see a Clue engraved on wall of Room 113.
+You can go north.
+> look at clue engraved on wall of room 113
+
+> look at clue engraved on wall of room 113
+You read the clue engraved on the wall and it says "The prize you seek is where Dad's left hand you can beat"
+> north
+
+> north
+
+You are in a Room 112.
+You can go north or south.
+> north
+
+> north
+
+You are in a Room 111.
+You can go north, west, south or east.
+> east
+
+> east
+
+You are in a Room 115.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 116.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 117.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 118.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 119.
+You can go west, east, south or north.
+> east
+
+> east
+
+You are in a Room 120.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 121.
+You can go west or east.
+> east
+
+> east
+
+You are in a Room 122.
+You can go west, east or south.
+> south
+
+> south
+
+You are in a Room 140.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 141.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 142.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 143.
+You can go north or south.
+> south
+
+> south
+
+You are in a Room 144.
+You can see a Clue engraved on wall of Room 144.
+You can go north.
+> look at clue engraved on wall of room 144
+
+> look at clue engraved on wall of room 144
+You read the clue engraved on the wall and it says "Your next clue for this Treasure Hunt.. You will surely find the target as long as you are not blunt"
+[state=Running]

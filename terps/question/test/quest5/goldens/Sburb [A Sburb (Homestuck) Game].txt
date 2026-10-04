@@ -1,0 +1,486 @@
+Sburb [A Sburb (Homestuck) Game]
+A Sburb simulation
+
+by retroPacifist
+
+A young child lies, sleeping in their bedroom. It just so happens that today is this young child's birthday. Though it was thirteen years ago they were given life, it is only today they will be given a name!
+
+What will the name of this human child be?
+> Sam
+Happy birthday, Sam. And what is this 13 year olds' gender?
+Options:
+1: Male
+2: Female
+3: Genderless
+You are in a Bedroom.
+
+This is your bedroom. You put up the wallpaper yourself, and it's your favourite colour. You have a round carpet in the middle of the room. This room is on the highest floor of the house.
+You can see a Bed, a Computer, a Chair, a Chest, Peter, a Wardrobe and a Strife Portfolio.
+You can go south.
+Happy birthday, Sam. And what is this 13 year olds' gender?
+Options:
+1: Male
+2: Female
+3: Genderless
+> 1
+And what about their class?
+Options:
+1: Rogue
+2: Thief
+3: Heir
+4: Maid
+5: Page
+6: Knight
+7: Seer
+8: Mage
+9: Sylph
+10: Witch
+11: Bard
+12: Prince
+> 1
+And their aspect?
+Options:
+1: Time
+2: Space
+3: Void
+4: Light
+5: Mind
+6: Heart
+7: Rage
+8: Hope
+9: Doom
+10: Life
+11: Blood
+12: Breath
+> 1
+
+Your name is Sam. You are male and you're the Rogue of Time.
+
+Press any key to begin your quest.
+Wake up Sam. You have a game to play.
+(Try Wake Up)
+> open chest
+
+> open chest
+You open it.
+It contains an Axe, a Plush Cow, a Pile of Books and a Sburb Beta Discs.
+> take axe
+
+> take axe
+You pick up your choice blade.
+> take sburb beta discs
+
+> take sburb beta discs
+You finally pick up the discs.
+> open pesterchum computer
+
+> open pesterchum computer
+You open up your pesterchum account and log in. You look at your chumhandle and grin. You're glad you got this name before anyone else did. What is your chumhandle?
+What's the first half?
+1: canine
+2:  reptilian
+3:  slimy
+4:  hairy
+5:  sloppy
+6:  soft
+7:  long
+8:  undead
+9:  feline
+10:  retro
+11:  Ghosty
+12:  Ectoplasmic
+13:  turntech
+14:  garden
+15:  fantastic
+16:  apocalyptic
+17:  departing
+18:  tainted
+19:  cancerous
+20:  arsenic
+21:  grim
+22:  glad
+23:  spindly
+24:  equestrian
+25:  terminal
+26:  medieval
+27:  fishy
+28:  mysterious
+29:  gutsy
+30:  tipsy
+31:  timely
+32:  deadly
+33:  uranian
+34:  undying
+35:  awesome
+36:  imperial
+37:  dignified
+38:
+> 1
+And what about the other half?
+1: Brewer
+2:  Strategist
+3:  Builder
+4:  Animal
+5:  Chef
+6:  Pillow
+7:  Branch
+8:  Magician
+9:  Hunter
+10:  Pacifier
+11:  Trickster
+12:  Biologist
+13:  Godhead
+14:  Gnostic
+15:  Piper
+16:  Rhythm
+17:  Bullfighter
+18:  Destruction
+19:  Geneticist
+20:  Catnip
+21:  Parent
+22:  Calibration
+23:  Grip
+24:  Balls
+25:  Fun
+26:  Aquarium
+27:  Killer
+28:  Mystery
+29:  Detective
+30:  Nostalgic
+31:  Testimony
+32:  Terror
+33:  Eclipse
+34:  Joke
+35:  Griller
+36:  Leader
+37:  Creation
+38:
+> 1
+And what are the Pesterchum initials you would like to use?
+> SQ
+Logged into pesterchum account caninebrewer[SQ]
+
+None of your friends are online. They don't need to be. You all live in the same neighbourhood.
+
+> use sburb beta discs on computer
+
+> use sburb beta discs on computer
+Sburb Successfully installed.
+> s
+
+> s
+
+You are in a Hall.
+
+A hall from which multiple rooms come off of.
+You can see a Painting and a Cruxtruder.
+You can go north, east, up or down.
+> hit cruxtruder
+
+> hit cruxtruder
+A Cruxite Dowel shoots out of the top, as well as a Kernelsprite. You catch the Cruxite Dowel and captchalogue it.
+> prototype sprite axe
+
+> prototype sprite axe
+With which object?
+1: Computer
+2: Pre Punched Card
+3: Cruxite Dowel
+4: Painting
+5: Cruxtruder
+6: Sprite
+> 6
+You hurl your best axe into your guide. The guide takes on a new form.
+> d
+
+> d
+
+You are in a Living Room.
+
+A cozy interior where you have spent many hours.
+You can see a TV, a Couch, a Table, a Lamp and a Totem Lathe.
+You can go up, east, north or northeast.
+Your sprite follows you into the room, glowing brightly.
+> insert pre punched card
+
+> insert pre punched card
+With which object?
+1: Computer
+2: Cruxite Dowel
+3: TV
+4: Couch
+5: Table
+6: Lamp
+7: Totem Lathe
+8: Axesprite
+> 7
+You insert the card and an array of tools come out of the top of the machine, awaiting a Cruxite Dowel.
+> insert cruxite dowel
+
+> insert cruxite dowel
+With which object?
+1: Computer
+2: TV
+3: Couch
+4: Table
+5: Lamp
+6: Axesprite
+7: Totem Lathe
+> 7
+The many tools lower and carve the totem into a Cruxite Totem.
+> u
+
+> u
+
+You are in a Hall.
+
+A hall from which multiple rooms come off of.
+You can see a Painting and a Cruxtruder.
+You can go north, east, up or down.
+Your sprite follows you into the room, glowing brightly.
+> u
+
+> u
+
+You are on a Roof.
+
+The sky looms overhead.
+You can see an Alchemiter.
+You can go down, north, east or northeast.
+Your sprite follows you into the room, glowing brightly.
+> insert cruxite totem
+
+> insert cruxite totem
+With which object?
+1: Computer
+2: Alchemiter
+3: Axesprite
+> 2
+The Alchemiter makes a crystalline artifact, and you swiftly pick it up.
+> interact cruxite artifact
+
+> interact cruxite artifact
+You interact with the artifact in the desired way, and you are transported to a strange new land.
+> d
+
+> d
+
+You are in a Hall.
+
+A hall from which multiple rooms come off of.
+You can see a Painting and a Cruxtruder.
+You can go north, east, up or down.
+Your sprite follows you into the room, glowing brightly.
+> d
+
+> d
+
+You are in a Living Room.
+
+A cozy interior where you have spent many hours.
+You can see a TV, a Couch, a Table, a Lamp and a Totem Lathe.
+You can go up, east, north, northeast or out.
+Your sprite follows you into the room, glowing brightly.
+> out
+
+> out
+
+        .
+
+This is your planet. You look around, taking in the scenery. What things do you see?
+What do you see?
+1: pranks
+2: education
+3: gods
+4: knowledge
+5: music
+6: beats
+7: cows
+8: explosions
+9: music
+10: clocks
+11: cats
+12: wisdom
+13: perfection
+14: hands
+15: spheres
+16: fun
+17: water
+18: murder
+19: mysteries
+20: magnifying Glasses
+21: darkness
+22: books
+23: mouths
+24: moons
+25: jokes
+26: fire
+27: gold
+28: riches
+29: wind
+30: shade
+31: light
+32: rain
+33: heat
+34: clockwork
+35: frost
+36: crypts
+37: helium
+38: tombs
+39: gemstones
+40: pyramids
+41: neon
+42: mounds
+43: mail
+44: quartz
+45: melody
+46: sand
+47: clouds
+48: brains
+49: technology
+50: pulse
+51: haze
+52: little Cubes
+53: Tea
+54: rays
+55: thought
+56: flow
+57: maps
+58: treasure
+59: caves
+60: silence
+61: tents
+62: mirth
+63: wrath
+64: angels
+65: dew
+66: glass
+67: colours
+68: mayhem
+69: trees
+70: dice
+71: souls
+72: olives
+73: Ice
+74: swords
+75: Lawns
+76: crevices
+77:
+ in.
+Your sprite follows you into the room, glowing brightly.
+> 1
+What else do you see on this new planet?
+What do you see?
+1: pranks
+2: education
+3: gods
+4: knowledge
+5: music
+6: beats
+7: cows
+8: explosions
+9: music
+10: clocks
+11: cats
+12: wisdom
+13: perfection
+14: hands
+15: spheres
+16: fun
+17: water
+18: murder
+19: mysteries
+20: magnifying Glasses
+21: darkness
+22: books
+23: mouths
+24: moons
+25: jokes
+26: fire
+27: gold
+28: riches
+29: wind
+30: shade
+31: light
+32: rain
+33: heat
+34: clockwork
+35: frost
+36: crypts
+37: helium
+38: tombs
+39: gemstones
+40: pyramids
+41: neon
+42: mounds
+43: mail
+44: quartz
+45: melody
+46: sand
+47: clouds
+48: brains
+49: technology
+50: pulse
+51: haze
+52: little Cubes
+53: Tea
+54: rays
+55: thought
+56: flow
+57: maps
+58: treasure
+59: caves
+60: silence
+61: tents
+62: mirth
+63: wrath
+64: angels
+65: dew
+66: glass
+67: colours
+68: mayhem
+69: trees
+70: dice
+71: souls
+72: olives
+73: Ice
+74: swords
+75: Lawns
+76: crevices
+77:
+> 1
+THE LAND OF PRANKS AND PRANKS
+You hear someone messaging you on Pesterchum. Better see what's up.
+You take out the laptop and notice it's battery is quite low, better plug it in.
+
+You down and plug in your laptop to your portable charger. Pesterchum opens and you read the messages left by your friend.
+
+skatingHeliophile [SH] began pestering
+canineBrewer [SQ]
+
+SH: Hey yo you entered the medium?
+SH: Dang you’re fast, yo
+SH: But, anyways, I got some poppin’ news
+SH: My sprite is like, mondo bogart, but he loves skateboard tricks, yo
+SH: So in exchange for a show, he promised me some ace information
+SH: The dope airhead gave me some valuable words, yo
+SH: You’re a player of
+Time
+, right?"
+SH: Haha yo you have a bangin’ job
+SH: All you gotta do is go into that boss portal above your house, yo
+SH: I’ll build it up wicked high for you, yo
+SH: I’ll meet you at my place, homie
+SH: Laters, yo
+
+skatingHeliophile [SH] ceased pestering
+canineBrewer [SQ]
+> look
+
+> look
+        .
+
+THE LAND OF PRANKS AND PRANKS
+ an Axesprite.
+ in.
+[state=Running]

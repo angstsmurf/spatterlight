@@ -1,0 +1,107 @@
+Shadowed
+
+by Team Cubed
+
+You groan, and begin to open your eyes. Your vision is blurry at first, and you feel something wet on your face. You push yourself up on your hands and knees, and blink your eyes repeatedly to clear your vision. You see a face in front of you. It is your reflection in a puddle on the ground. You shake your head, and look down at your familiar face. It looks a little sunken in, and tired. You sigh, and stand up.
+Once standing you notice a piece of paper in your hand. Confused, you uncrumple the paper and read the words with the help of the moonlight coming from the nearby window:
+
+One against four, the battle goes on.
+The one with the sword must take the pawn.
+Follow the trail, of blood, sweat and tears;
+For if you shall stray, you’ll realize your fears.
+Noise is dangerous, and the darkness is loud.
+To travel in it, will only for so long be allowed.
+To find the exit: serve the bird,
+To do so the creature’s wrath must be incurred.
+
+You are in a prison cell. You are standing in a shallow puddle. You can see your reflection.
+You can go north, east, south or west.
+> look
+
+> look
+You are in a prison cell. You are standing in a shallow puddle. You can see your reflection.
+You can go north, east, south or west.
+> i
+
+> i
+You are not carrying anything.
+
+(Time is paused. Enter any command to continue.)
+(Type HELP for gameplay help.)
+> n
+
+> n
+
+You can see out of the window, moonlight is shining in. Outside the window is a steep cliff, with jagged rocks, and crashing waves at the bottom. You would not survive the fall.
+You can go east or south.
+> e
+
+> e
+
+You are in a prison cell. There is a wall in front of you. You are in a corner of the cell.
+You can go south or west.
+> s
+
+> s
+
+You are in a prison cell. You see the cell bars a couple steps in front of you.
+You can go west, south or north.
+> e
+
+> e
+You can't go there.
+> n
+
+> n
+
+You are in a prison cell. There is a wall in front of you. You are in a corner of the cell.
+You can go south or west.
+> w
+
+> w
+
+You are in a prison cell. You see a chair in front of you, there is nothing of interest on it.
+You can go east or south.
+> w
+
+> w
+You can't go there.
+> s
+
+> s
+
+You are in a prison cell. You are standing in a shallow puddle. You can see your reflection. You can see the cell door a few steps in front of you.
+You can go north, east, south or west.
+> s
+
+> s
+
+You are in a prison cell. The cell door is directly in front of you, it is open. You see a table beyond the door.
+You can go west, south, east or north.
+> s
+
+> s
+
+You are in the dungeon hallway. You are facing a table.
+You can go west, east or north.
+> w
+
+> w
+
+You are in the dungeon hallway. You are facing a wall.
+You can go east.
+> n
+
+> n
+You can't go there.
+> e
+
+> e
+
+You are in the dungeon hallway. There is a table directly to the south of you.
+You can go west, east or north.
+> i
+
+> i
+You are not carrying anything.
+[state=Running]

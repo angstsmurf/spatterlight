@@ -1,0 +1,293 @@
+Fishvale
+
+You are in a Tent.
+You can see many Stacks of woods and a Backpack.
+You can go south, east, north or west.
+Your green grassy tent looks small on the outside, but the space inside is big and wide.
+This is a simple fishing game.
+Gold: 20
+Fishing Level: 0
+Fishing Rod: None
+Fishing Rod power: 0
+> south
+
+> south
+
+You are in a Fishvale shop.
+You can see a TV, a Hagrid and a Tall Table.
+You can go north, south or west.
+This is a nice and cozy room with many chairs, the floor is filled with red and black carpets.
+A handful of fashionable tourists struts around as if they are advertising their clothes' brands.
+> south
+
+> south
+
+You are in a Train Station - Fishvale.
+You can see a Small vendors, a Patrol Police and an Advertisement.
+You can go north, east, down or west.
+People are like buzzing bees, walking in and out of the transit.
+> east
+
+> east
+
+You are in a Coffee Shop.
+You can see a Foreigners and a Food Stall.
+You can go west or east.
+There are many seatings here, you can pause for a rest.
+> east
+
+> east
+
+You are in a Flower Garden.
+You can see the Parsleys, Onions, Lavenders, Tulips and the Roses.
+You can go west or north.
+Your mind calms down.
+You feel energised.
+You found some bamboo and pine wood.
+You now have 10 bamboo wood.
+You now have 100 pine wood.
+> north
+
+> north
+
+You are at the Swamp Fields.
+You can go south or north.
+You are walking on a bridge above the swamp.
+This place is smelly and the water is muddy. You raised your fishing rod and started to fish.
+
+> north
+
+> north
+
+You are at the Mountain Tracks.
+You can see a Guardhouse and a few Foreigners.
+You can go south, west, north or east.
+This is the entrance to Fishvale.
+The trees are frozen solid, you recall a long ago memory, when you were still young.
+Fishing Level: 0
+Fishing Rod: None
+Fishing Rod power: 0
+> west
+
+> west
+
+You are in a Fairystones path.
+You can see a Sally, a Safety Camera and a Golf Club.
+You can go west or east.
+There are colorful and bright big stones, most probably painted by vandalisers.
+> west
+
+> west
+
+You are at a Riverbank.
+You can see a Sign Post.
+You can go west or east.
+There are pebbles and stones guiding the riverway.
+It is a perfect sunny day to fish, your raised your rod and started to fish. Please wait.
+
+> east
+
+> east
+
+You are in a Fairystones path.
+You can see a Sally, a Safety Camera and a Golf Club.
+You can go west or east.
+There are colorful and bright big stones, most probably painted by vandalisers.
+> east
+
+> east
+
+You are at the Mountain Tracks.
+You can see a Guardhouse and a few Foreigners.
+You can go south, west, north or east.
+This is the entrance to Fishvale.
+The trees are frozen solid, you recall a long ago memory, when you were still young.
+Fishing Level: 0
+Fishing Rod: None
+Fishing Rod power: 0
+> south
+
+> south
+
+You are at the Swamp Fields.
+You can go south or north.
+You are walking on a bridge above the swamp.
+This place is smelly and the water is muddy. You raised your fishing rod and started to fish.
+
+> south
+
+> south
+
+You are in a Flower Garden.
+You can see the Parsleys, Onions, Lavenders, Tulips and the Roses.
+You can go west or north.
+Your mind calms down.
+You feel energised.
+> west
+
+> west
+
+You are in a Coffee Shop.
+You can see a Foreigners and a Food Stall.
+You can go west or east.
+There are many seatings here, you can pause for a rest.
+> west
+
+> west
+
+You are in a Train Station - Fishvale.
+You can see a Small vendors, a Patrol Police and an Advertisement.
+You can go north, east, down or west.
+People are like buzzing bees, walking in and out of the transit.
+> down
+
+> down
+
+You are in a Train Station - Simcity.
+You can go north, east, up or down.
+> north
+
+> north
+
+You are in a Quiet Park.
+You can see a Shrink Ray.
+You can go south or north.
+> north
+
+> north
+
+You are in a Dense forest.
+You can go south, east or north.
+> east
+
+> east
+
+You are nearby a Hope Prison.
+You can go west or east.
+> east
+
+> east
+
+You are nearby a Happy psychology dormitory.
+You can see a Big Clock.
+You can go west or south.
+> south
+
+> south
+
+You are in a carpark.
+You can go north or south.
+> south
+
+> south
+
+You are at a Corner food stall.
+You can see a Masked Granny.
+You can go north or west.
+> west
+
+> west
+
+You are in a road.
+You can go east, west or south.
+> south
+
+> south
+
+You are in a road.
+You can see a Krish Clements.
+You can go north.
+> north
+
+> north
+
+You are in a road.
+You can go east, west or south.
+> east
+
+> east
+
+You are at a Corner food stall.
+You can see a Masked Granny.
+You can go north or west.
+> north
+
+> north
+
+You are in a carpark.
+You can go north or south.
+The cold chilly air spikes your blood pressure, you can feel a blanket of cold air lingering upon your head.
+> north
+
+> north
+
+You are nearby a Happy psychology dormitory.
+You can see a Big Clock.
+You can go west or south.
+> west
+
+> west
+
+You are nearby a Hope Prison.
+You can go west or east.
+> west
+
+> west
+
+You are in a Dense forest.
+You can go south, east or north.
+> north
+
+> north
+
+You are in a Dense forest.
+You can go south.
+> south
+
+> south
+
+You are in a Dense forest.
+You can go south, east or north.
+> south
+
+> south
+
+You are in a Quiet Park.
+You can see a Shrink Ray.
+You can go south or north.
+The sun shines through the fog, the flowers scent lingering in your nose.
+> south
+
+> south
+
+You are in a Train Station - Simcity.
+You can go north, east, up or down.
+> up
+
+> up
+
+You are in a Train Station - Fishvale.
+You can see a Small vendors, a Patrol Police and an Advertisement.
+You can go north, east, down or west.
+People are like buzzing bees, walking in and out of the transit.
+> north
+
+> north
+
+You are in a Fishvale shop.
+You can see a TV, a Hagrid and a Tall Table.
+You can go north, south or west.
+This is a nice and cozy room with many chairs, the floor is filled with red and black carpets.
+> north
+
+> north
+
+You are in a Tent.
+You can see many Stacks of woods and a Backpack.
+You can go south, east, north or west.
+Your green grassy tent looks small on the outside, but the space inside is big and wide.
+Gold: 20
+Fishing Level: 0
+Fishing Rod: None
+Fishing Rod power: 0
+[state=Running]

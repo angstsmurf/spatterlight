@@ -1,0 +1,95 @@
+The Lost Princess
+
+by 15565
+
+Before starting...
+Would you like to play as a male or female character?
+> female
+
+> female
+
+You breathe in the cold night air as you look at the stars. A simple fireplace in the cabin is the only light in the dark night. It seems to beckon you back inside. But you hold your cloak tighter against the wind, remembering the first time that Father brought you here. He and Mother would come up here to trade with the roaming gypsies, with Mother's kin. Now you are the only one left to carry on the family trade, even though the people in the village think that thirteen is a bit young to be a real merchant. "Age doesn't matter," you say to yourself. You stopped being a child when you lost your family two years ago.
+
+A crack in the west breaks your reverie. You look towards it, but see nothing in the moonlight. It might be someone lost in the cold. Or it could be a bear. You've never seen one, but the pelts you buy from the gypsies are large enough to worry you.
+
+Outside the cabin
+There is a thin layer of snow all around outside. Your tiny cabin is the only building in the area. A warm fireplace inside beckons you through the window. The forest lies west of here.
+
+> x cabin
+
+> x cabin
+
+Your grandfather's father built this cabin to establish trade with the gypsies many years ago. It's a small wooden cabin, only one room, but quite cozy. You have many happy childhood memories here with your family. In fact, this is where your parents met: father being a trader and mother a gypsy.
+> in
+
+> in
+
+Frightened, and rightfully so, you go back inside your little cabin and lock the door. Traveling up here alone was a bad idea. Maybe you are too young for this sort of thing, but after Father died... What choice did you have?
+
+Shaking your head, you look around the cabin for something to protect yourself from...whatever is out there.
+
+In the cabin
+The one-room cabin is small, but cozy. There is a fire burning to keep the place warm. You also see a bed, a small table for cooking, a barrel full of seashells, and some boxes with food to last the winter. There is just one door to the outside.
+You can see a hatchet and a lantern.
+> x hatchet
+
+> x hatchet
+
+An old hatchet you use to chop firewood. It's not terribly sharp, but it might make a bear think twice.
+> take hatchet
+
+> take hatchet
+
+You pick it up.
+As you grab the hatchet, you hear the footsteps right outside your door. You steel yourself for a growl, but the noise that comes next surprises you: a knock. You're about a day away from the nearest town, but no one knows that there's a cabin here, and the gypsy caravan you usually trade with left about a week ago. You can't imagine who it would be.
+
+An authoritative voice says, "Open now! In the name of the King." You hesitate, and the tone of the voice changes. "Please," a man implores. "It's a matter of life and death."
+> x lantern
+
+> x lantern
+
+A simple, oil-burning lantern.
+> open door
+
+> open door
+
+You remove the wooden slab holding the door locked, and then open the door. On the other side stands a man wearing a dark cloak and carrying a bundle of some sort with a lantern hanging on his arm. And then you notice a small hand falling out of the bundle and you gasp. A baby!
+
+"I see you are only a child yourself, but you must, please, help me," says the man, breathing heavily.
+
+"What do you need, sir?" you ask, hesitant.
+
+"You must protect the child." He holds out the infant to you, letting the blankets fall to the ground. "They're going to kill her. Please, you're my last hope."
+> look
+
+> look
+
+In the cabin
+The one-room cabin is small, but cozy. There is a fire burning to keep the place warm. You also see a bed, a small table for cooking, a barrel full of seashells, and some boxes with food to last the winter. There is just one door to the outside.
+You can see a lantern and a strange man.
+> i
+
+> i
+
+You are carrying a hatchet.
+> x strange man
+
+> x strange man
+
+An older, bearded man wearing a thick winter cloak and carrying a small baby.
+> take baby
+
+> take baby
+
+ You'll have to accept the strange man's request first.
+> x baby
+
+> x baby
+
+The baby girl has a simple nightgown, but even in the dim light the fabric seems expensive, especially the necklace. She appears to be in a very deep sleep.
+> i
+
+> i
+
+You are carrying a hatchet.
+[state=Running]

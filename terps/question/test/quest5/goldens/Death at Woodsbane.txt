@@ -1,0 +1,985 @@
+Death at Woodsbane
+
+By Craig Dutton (c) 2015
+
+News of Jerimiah Quill's murder had come as a shock. Not only was he the town of Woodsbane's Magistrate but his body was found with the head cleaved off!
+
+The Devil had danced last night, that's for certain!
+
+As the newly assigned Magistrate it's your job to find the culprit. His body lies locked in the courthouse cell for safe-keeping. The body was originally found in the Town Square early this morning.
+
+Good hunting!
+
+Town Square
+The square almost lies quiet as the faint sound of crows are heard far away. A stone monument stands roughly in the centre of the square. The Town Gate lies to the south, the graveyard of a small church lies west while an almost hidden path lies to the southwest. Moon lane runs to the east and you can go into the Courthouse from here.
+You can go south, southwest, west, in or east.
+You can see Terrig Grune.
+> speak to terrig grune
+
+> speak to terrig grune
+'I witnessed the whole thing, Magistrate. A headless spectre chopped off Jerimiah's head clean off. It's the devil's work!'
+> sw
+
+> sw
+
+Private Garden
+A small, beautiful garden with red rose bushes all around. A large house belonging to Atticus Marland, a scholar, can be entered here while a stone sundial sits in the centre of the lawn.
+You can go northeast or in.
+> turn sundial
+
+> turn sundial
+Your turn the sundial on its axis.
+> turn sundial
+
+> turn sundial
+Your turn the sundial on its axis.
+> turn sundial
+
+> turn sundial
+A secret recess opens in the sundial.
+> x recess
+
+> x recess
+A small recess in the sundial.
+It contains a skull.
+> take skull
+
+> take skull
+You pick it up.
+> in
+
+> in
+
+Marland's House
+A humble abode with a few furnishings and many tools of learning scattering the floor. There are exits to other rooms but Marland won't let you into any of them. You can leave by going out.
+You can go out.
+You can see Atticus Marland.
+> speak to atticus marland
+
+> speak to atticus marland
+He doesn't know anything about the Magistrate's murder.
+
+'My sister Esmrie has gone missing! She is an actress at the Merlin Theatre. She is sweet and innocent. Please find her!' he sobs.
+> out
+
+> out
+
+Private Garden
+A small, beautiful garden with red rose bushes all around. A large house belonging to Atticus Marland, a scholar, can be entered here while a stone sundial sits in the centre of the lawn.
+You can go northeast or in.
+You can see a recess.
+> ne
+
+> ne
+
+Town Square
+The square almost lies quiet as the faint sound of crows are heard far away. A stone monument stands roughly in the centre of the square. The Town Gate lies to the south, the graveyard of a small church lies west while an almost hidden path lies to the southwest. Moon lane runs to the east and you can go into the Courthouse from here.
+You can go south, southwest, west, in or east.
+You can see Terrig Grune.
+> e
+
+> e
+
+Moon Lane
+The Merlin Theatre stands before you on the lane while to the northeast lies the formidable Tymus Tower. To the west lies the Town Square.
+You can go west, in or northeast.
+> in
+
+> in
+
+Merlin Theatre
+Rows of long wooden benches lead up to the small stage. The walls are flaking away from the red paint adorning it and the floor is muddy from the townspeople's footprints.
+You can go out or east.
+> e
+
+> e
+
+Stage
+A small wooden stage with the backstage to the south. Heavy curtains hang down from a rusty rail and newly painted scenery stands near the back of the stage.
+You can go west or south.
+> s
+
+> s
+
+Backstage
+A small dark area with a dressing room to the west and the stage to the north. Wooden stairs lead down.
+You can go north, west or down.
+> w
+
+> w
+
+Dressing Room
+A small dingy room with a dressing table and little else. A mirror is attached to the table and an old poster peels away from the wall.
+You can go east.
+You can see a wooden table.
+> x wooden table
+
+> x wooden table
+A small wooden table with an upright mirror to it.
+It contains a red rose, a flint and a letter.
+> take red rose
+
+> take red rose
+You pick it up.
+> take letter
+
+> take letter
+You pick it up.
+> read letter
+
+> read letter
+Dear Esmrie,
+
+I never thought I could feel this way. My heart aches when we are apart. My brother thinks I am suffering from the 'madness' and doesn't know about us. My love knows no barriers. I know it is wrong but my heart sings a different song.
+
+Yours forever,
+
+S.
+> e
+
+> e
+
+Backstage
+A small dark area with a dressing room to the west and the stage to the north. Wooden stairs lead down.
+You can go north, west or down.
+> d
+
+> d
+
+Cellar
+A dark cold chamber with wooden stairs leading back up. A smell of sewage fills the air.
+You can go up.
+You can see a laundry basket.
+> move basket
+
+> move basket
+You move the basket to one side and find a crumbling wall.
+> x crumbling wall
+
+> x crumbling wall
+The wall has crumbled with age.
+> x bricks
+
+> x bricks
+They could collapse any moment.
+> push bricks
+
+> push bricks
+You push the bricks and they collapse making an exit to the south.
+> s
+
+> s
+
+Sewers
+A dark and smelly tunnel with exits all around.
+You can go north, east, west or south.
+> w
+
+> w
+
+Sewers
+A dark and smelly tunnel with exits to the south and east.
+You can go east or south.
+> s
+
+> s
+
+Temple of the Risen
+The Temple of the Risen is a place of Satanic worship. You had heard rumours of this place but thought it was nonsense. It seems you were wrong!
+You can go north.
+You can see a large altar.
+> x large altar
+
+> x large altar
+A large stone altar.
+It contains a brass key and a candle.
+> take brass key
+
+> take brass key
+You pick it up.
+> n
+
+> n
+
+Sewers
+A dark and smelly tunnel with exits to the south and east.
+You can go east or south.
+> e
+
+> e
+
+Sewers
+A dark and smelly tunnel with exits all around.
+You can go north, east, west or south.
+> e
+
+> e
+
+Sewers
+A dark and smelly tunnel with exits to the northeast and west.
+You can go west or northeast.
+> ne
+
+> ne
+
+Dead End
+The tunnel comes to an abrupt end here.
+You can go southwest.
+You can see a pile of rubble.
+> x rubble
+
+> x rubble
+A pile of stones and debris.
+You find something!
+> move rubble
+
+> move rubble
+You move a few rocks and find a shovel.
+> take shovel
+
+> take shovel
+You pick it up.
+> sw
+
+> sw
+
+Sewers
+A dark and smelly tunnel with exits to the northeast and west.
+You can go west or northeast.
+> w
+
+> w
+
+Sewers
+A dark and smelly tunnel with exits all around.
+You can go north, east, west or south.
+> n
+
+> n
+
+Cellar
+A dark cold chamber with wooden stairs leading back up. A smell of sewage fills the air.
+You can go up or south.
+You can see a laundry basket and a crumbling wall.
+> n
+
+> n
+You can't go there.
+> u
+
+> u
+
+Backstage
+A small dark area with a dressing room to the west and the stage to the north. Wooden stairs lead down.
+You can go north, west or down.
+> n
+
+> n
+
+Stage
+A small wooden stage with the backstage to the south. Heavy curtains hang down from a rusty rail and newly painted scenery stands near the back of the stage.
+You can go west or south.
+> w
+
+> w
+
+Merlin Theatre
+Rows of long wooden benches lead up to the small stage. The walls are flaking away from the red paint adorning it and the floor is muddy from the townspeople's footprints.
+You can go out or east.
+> out
+
+> out
+
+Moon Lane
+The Merlin Theatre stands before you on the lane while to the northeast lies the formidable Tymus Tower. To the west lies the Town Square.
+You can go west, in or northeast.
+> ne
+
+> ne
+
+Tymus Tower
+A large grey stone tower stands before you with a strong iron door. Lord Vinciville Tymus is a very rich nobleman and built his tower to show off his wealth.
+You can go southwest or in.
+You can see an iron door.
+> unlock iron door
+
+> unlock iron door
+Unlocked with the brass key.
+> open iron door
+
+> open iron door
+You open it.
+> in
+
+> in
+
+Bottom of Steps
+Stone steps spiral upwards to the first floor landing.
+You can go out or up.
+> u
+
+> u
+
+Landing
+The first floor landing has a small chamber to the east and a kitchen to the west. Steps lead up and down.
+You can go down, west, east or up.
+> w
+
+> w
+
+Kitchen
+A small kitchen with dirty walls and floor.
+You can go east.
+You can see a cupboard.
+> x cupboard
+
+> x cupboard
+An old wooden cupboard.
+> open cupboard
+
+> open cupboard
+You open it.
+It contains a bottle of wine.
+> x cupboard
+
+> x cupboard
+An old wooden cupboard.
+It contains a bottle of wine.
+> take bottle of wine
+
+> take bottle of wine
+You pick it up.
+> e
+
+> e
+
+Landing
+The first floor landing has a small chamber to the east and a kitchen to the west. Steps lead up and down.
+You can go down, west, east or up.
+> e
+
+> e
+
+Chamber of Statues
+A large chamber filled with many stone statues.
+You can go west.
+You can see a statues.
+> turn statues
+
+> turn statues
+You turn one of them on its axis and it triggers a secret opening to the east.
+> e
+
+> e
+
+Secret Study
+A small secret room with a single desk.
+You can go west.
+You can see a desk.
+> x desk
+
+> x desk
+A large oak desk.
+It contains a piece of paper.
+> take piece of paper
+
+> take piece of paper
+You pick it up.
+> w
+
+> w
+
+Chamber of Statues
+A large chamber filled with many stone statues.
+You can go west or east.
+You can see a statues.
+> w
+
+> w
+
+Landing
+The first floor landing has a small chamber to the east and a kitchen to the west. Steps lead up and down.
+You can go down, west, east or up.
+> u
+
+> u
+
+Landing
+The second floor landing has a gallery to the east and a small dank chamber to the west. Steps lead up and down.
+You can go down, up, west or east.
+> u
+
+> u
+
+Landing
+The third floor landing has a laboratory to the east and an unusual room to the west. A sanctum lies to the north. Steps lead up to the crow's roost and down to the landing below.
+You can go down, west, east, up or north.
+You can see a sanctum door.
+> e
+
+> e
+
+Laboratory
+A single wooden bench, a myriad of strange chemicals and a few unusual scientific instruments fill this lab.
+You can go west.
+You can see a bench.
+> x bench
+
+> x bench
+A large wooden bench table.
+It contains a lodestone, a myriad of chemicals and a plethora of scientific instruments.
+> take lodestone
+
+> take lodestone
+You pick it up.
+> w
+
+> w
+
+Landing
+The third floor landing has a laboratory to the east and an unusual room to the west. A sanctum lies to the north. Steps lead up to the crow's roost and down to the landing below.
+You can go down, west, east, up or north.
+You can see a sanctum door.
+> w
+
+> w
+
+Map Room
+A strange room with a replica model of the town resting on a wooden base.
+You can go east.
+You can see a map.
+> use lodestone on tymus tower
+
+> use lodestone on tymus tower
+A small 'click' from the tower and the lodestone triggers the opening of a secret drawer hidden in the base.
+> x secret drawer
+
+> x secret drawer
+A wooden drawer protruding from the base of the map.
+It contains a golden key.
+> take golden key
+
+> take golden key
+You pick it up.
+> use piece of paper on map
+
+> use piece of paper on map
+Please choose which 'map' you mean:
+1: map
+2: piece of paper
+> e
+
+> e
+
+Landing
+The third floor landing has a laboratory to the east and an unusual room to the west. A sanctum lies to the north. Steps lead up to the crow's roost and down to the landing below.
+You can go down, west, east, up or north.
+You can see a sanctum door.
+> unlock sanctum door
+
+> unlock sanctum door
+Unlocked with the golden key.
+> open sanctum door
+
+> open sanctum door
+You open it.
+> n
+
+> n
+
+Sanctum
+A large chamber full of books, plush furnishings, decadence and greed greet you as you enter.
+You can go south.
+You can see Lord Vinciville Tymus.
+> speak to lord vinciville tymus
+
+> speak to lord vinciville tymus
+He cowers from you.
+
+'I didn't want the Magistrate dead.' he whimpers, 'I just wanted him to stop harassing me and my fellow Brethren. Our religion is our affair and should not be judged!
+
+'We were going to be hanged so we summoned the Headless Hunstman. Grune had heard of him when he was a child. A Huntsman who murdered his family and was beheaded by the locals. His ghost sometimes haunted Woodsbane but never in flesh. We found his skull and my witch made him undead. On our Master's order, Jerimiah Quill lost his head. Now our Master can order the Headless Huntsman to kill anyone he chooses.'
+
+You ask who his 'Master' is? He falls silent and speaks no more.
+> s
+
+> s
+
+Landing
+The third floor landing has a laboratory to the east and an unusual room to the west. A sanctum lies to the north. Steps lead up to the crow's roost and down to the landing below.
+You can go down, west, east, up or north.
+You can see a sanctum door.
+> w
+
+> w
+
+Map Room
+A strange room with a replica model of the town resting on a wooden base.
+You can go east.
+You can see a map and a secret drawer.
+> use piece of paper on map
+
+> use piece of paper on map
+Please choose which 'map' you mean:
+1: map
+2: piece of paper
+> 1
+The 'X' marked on the paper seems to indicate an area northwest of the abbey?
+> read piece of paper
+
+> read piece of paper
+It's a map of Woodsbane and the surrounding area. Very crude, but an 'X' is marked upon it outside the town. There are no names to indicate where.
+> e
+
+> e
+
+Landing
+The third floor landing has a laboratory to the east and an unusual room to the west. A sanctum lies to the north. Steps lead up to the crow's roost and down to the landing below.
+You can go down, west, east, up or north.
+You can see a sanctum door.
+> d
+
+> d
+
+Landing
+The second floor landing has a gallery to the east and a small dank chamber to the west. Steps lead up and down.
+You can go down, up, west or east.
+> d
+
+> d
+
+Landing
+The first floor landing has a small chamber to the east and a kitchen to the west. Steps lead up and down.
+You can go down, west, east or up.
+> d
+
+> d
+
+Bottom of Steps
+Stone steps spiral upwards to the first floor landing.
+You can go out or up.
+> out
+
+> out
+
+Tymus Tower
+A large grey stone tower stands before you with a strong iron door. Lord Vinciville Tymus is a very rich nobleman and built his tower to show off his wealth.
+You can go southwest or in.
+You can see an iron door.
+> sw
+
+> sw
+
+Moon Lane
+The Merlin Theatre stands before you on the lane while to the northeast lies the formidable Tymus Tower. To the west lies the Town Square.
+You can go west, in or northeast.
+> w
+
+> w
+
+Town Square
+The square almost lies quiet as the faint sound of crows are heard far away. A stone monument stands roughly in the centre of the square. The Town Gate lies to the south, the graveyard of a small church lies west while an almost hidden path lies to the southwest. Moon lane runs to the east and you can go into the Courthouse from here.
+You can go south, southwest, west, in or east.
+You can see Terrig Grune.
+> s
+
+> s
+
+Woodsbane Gate
+A strong wooden gate stands open before you attached to a high brick wall surrounding the town's border. The Town Square lies to the north while the Dark Forest and beyond lies to the south.
+You can go north or south.
+> s
+
+> s
+
+Fork
+In the chilly air, the creaking of iron swings back and forth from a large oak tree. The gate of the small town of Woodsbane lies to the north and the Dark Forest lies to the southwest. A small overgrown path leads to the southeast.
+You can go north, southwest or southeast.
+You can see a gibbet irons.
+> se
+
+> se
+
+Circus Entrance
+In a large field the 'Dreams of Fire' circus has come to town. The Bigtop lies to the east and a smaller tent to the south.
+You can go northwest, south or east.
+> e
+
+> e
+
+Outside Big Top
+You are outside a large black and red striped tent. A small entrance leads into the Big Top while a smaller tent lies to the south.
+You can go west, in or south.
+> in
+
+> in
+
+Circus Ring
+The black and red striped canvas tent looked smaller than it did on the outside and a sand-filled circle - the ring - lies in the centre of it.
+You can go out.
+You can see Robu the Clown.
+> give wine to robu the clown
+
+> give wine to robu the clown
+Robu snatches the bottle from you and gulps it down like there's no tomorrow. After a while his lips loosen and confesses what he saw last night.
+
+'I saw a dark cloaked fella place something under a moon-shaped stone at the cottage ruins. I was just 'resting' under a tree when I saw him do it.'
+
+He says no more.
+> out
+
+> out
+
+Outside Big Top
+You are outside a large black and red striped tent. A small entrance leads into the Big Top while a smaller tent lies to the south.
+You can go west, in or south.
+> w
+
+> w
+
+Circus Entrance
+In a large field the 'Dreams of Fire' circus has come to town. The Bigtop lies to the east and a smaller tent to the south.
+You can go northwest, south or east.
+> nw
+
+> nw
+
+Fork
+In the chilly air, the creaking of iron swings back and forth from a large oak tree. The gate of the small town of Woodsbane lies to the north and the Dark Forest lies to the southwest. A small overgrown path leads to the southeast.
+You can go north, southwest or southeast.
+You can see a gibbet irons.
+> sw
+
+> sw
+
+Dark Forest
+Large twisting trees tower over you as you make your way through the Dark Forest. Exits lead in many directions.
+You can go northeast, south or west.
+> s
+
+> s
+
+Copse
+A small clearing in the forest outside a thatched cottage with white-washed walls. A river can be seen to the southeast.
+You can go north, in or southeast.
+> se
+
+> se
+
+River Bank
+On the north side of a fast-flowing river. A wooden barge is moored here.
+You can go northwest or Barge.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge to the other side.
+
+River Bank
+On the south side of a fast-flowing river. An overgrown crypt can be seen to the east and the ruins of a castle to the west. A thicket of trees lie southwest.
+You can go east, southwest or west.
+You can see a bridge.
+> sw
+
+> sw
+
+Thicket of Trees
+A thick set of trees peter out to the south as you see Brabury Abbey. An overgrown path leads to the west.
+You can go northeast, west or south.
+> w
+
+> w
+
+Cottage Ruins
+The cottage had been burnt-out years ago and only a few rocks remain.
+You can go east.
+You can see a grave.
+> x rocks
+
+> x rocks
+Rocky remains of the cottage.
+You find a crescent-shaped stone like the one described by Robu the Clown.
+> x crescent stone
+
+> x crescent stone
+A large crescent-shaped stone.
+> lift crescent stone
+
+> lift crescent stone
+You find a pearl necklace hidden underneath it!
+> take pearl necklace
+
+> take pearl necklace
+You pick it up.
+> dig grave
+
+> dig grave
+You dig up the grave.
+> x grave
+
+> x grave
+An open grave.
+It contains a headless skeleton and a severed head.
+> put skull in grave
+
+> put skull in grave
+Done.
+> bury grave
+
+> bury grave
+You cover up the grave.
+> e
+
+> e
+
+Thicket of Trees
+A thick set of trees peter out to the south as you see Brabury Abbey. An overgrown path leads to the west.
+You can go northeast, west or south.
+> s
+
+> s
+
+Outside Brabury Abbey
+A small abbey hidden away in a thicket of trees. The monks that reside here are good men and are always welcoming.
+You can go north or in.
+> in
+
+> in
+
+Cloister
+A small open courtyard with walkways surrounding it. The Abbot's room lies south and the chapel to the southeast.
+You can go out, south or southeast.
+> se
+
+> se
+
+Chapel
+A small place of worship with a large wooden crucifix fixed to the wall.
+You can go northwest.
+You can see Brother Raphael.
+> speak to brother raphael
+
+> speak to brother raphael
+He had heard of the grave news about the Magistrate.
+
+'The only thing I noticed was on the day before he died, Esmrie Marland was speaking to a cloaked man. I couldn't see his face but they were arguing strongly. She said "I don't love you, only your brother!" and "How can we, anyway? It's not allowed in the eyes of God!" They departed soon afterwards.'
+> nw
+
+> nw
+
+Cloister
+A small open courtyard with walkways surrounding it. The Abbot's room lies south and the chapel to the southeast.
+You can go out, south or southeast.
+> out
+
+> out
+
+Outside Brabury Abbey
+A small abbey hidden away in a thicket of trees. The monks that reside here are good men and are always welcoming.
+You can go north or in.
+> n
+
+> n
+
+Thicket of Trees
+A thick set of trees peter out to the south as you see Brabury Abbey. An overgrown path leads to the west.
+You can go northeast, west or south.
+> ne
+
+> ne
+
+River Bank
+On the south side of a fast-flowing river. An overgrown crypt can be seen to the east and the ruins of a castle to the west. A thicket of trees lie southwest.
+You can go east, southwest or west.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge to the other side.
+
+River Bank
+On the north side of a fast-flowing river. A wooden barge is moored here.
+You can go northwest or Barge.
+You can see a bridge.
+> nw
+
+> nw
+
+Copse
+A small clearing in the forest outside a thatched cottage with white-washed walls. A river can be seen to the southeast.
+You can go north, in or southeast.
+> in
+
+> in
+
+Thatched Cottage
+This is home to Madam Zimm the fortune teller. It's dark and creepy and her black cat stares at you menacingly.
+You can go out.
+You can see Madam Zimm.
+> give pearl necklace to madam zimm
+
+> give pearl necklace to madam zimm
+She holds the necklace tightly.
+
+'Evil has marked this necklace. He will rise again... she lost her own life to love... blood stains the black feather.' she groans and snaps out of her trance.
+> out
+
+> out
+
+Copse
+A small clearing in the forest outside a thatched cottage with white-washed walls. A river can be seen to the southeast.
+You can go north, in or southeast.
+> n
+
+> n
+
+Dark Forest
+Large twisting trees tower over you as you make your way through the Dark Forest. Exits lead in many directions.
+You can go northeast, south or west.
+> ne
+
+> ne
+
+Fork
+In the chilly air, the creaking of iron swings back and forth from a large oak tree. The gate of the small town of Woodsbane lies to the north and the Dark Forest lies to the southwest. A small overgrown path leads to the southeast.
+You can go north, southwest or southeast.
+You can see a gibbet irons.
+> n
+
+> n
+
+Woodsbane Gate
+A strong wooden gate stands open before you attached to a high brick wall surrounding the town's border. The Town Square lies to the north while the Dark Forest and beyond lies to the south.
+You can go north or south.
+> n
+
+> n
+
+Town Square
+The square almost lies quiet as the faint sound of crows are heard far away. A stone monument stands roughly in the centre of the square. The Town Gate lies to the south, the graveyard of a small church lies west while an almost hidden path lies to the southwest. Moon lane runs to the east and you can go into the Courthouse from here.
+You can go south, southwest, west, in or east.
+You can see Terrig Grune.
+> sw
+
+> sw
+
+Private Garden
+A small, beautiful garden with red rose bushes all around. A large house belonging to Atticus Marland, a scholar, can be entered here while a stone sundial sits in the centre of the lawn.
+You can go northeast or in.
+You can see a recess.
+> in
+
+> in
+
+Marland's House
+A humble abode with a few furnishings and many tools of learning scattering the floor. There are exits to other rooms but Marland won't let you into any of them. You can leave by going out.
+You can go out.
+You can see Atticus Marland.
+> give pearl necklace to atticus marland
+
+> give pearl necklace to atticus marland
+He looks at it in shock when you show him the necklace.
+
+'That's my sister, Esmrie's necklace. Where did you find it?' he begs.
+
+You tell him Robu's story and where you found it.
+
+'I don't understand? Why hide it in the old Huntsman's cottage!' he ponders.
+> out
+
+> out
+
+Private Garden
+A small, beautiful garden with red rose bushes all around. A large house belonging to Atticus Marland, a scholar, can be entered here while a stone sundial sits in the centre of the lawn.
+You can go northeast or in.
+You can see a recess.
+> ne
+
+> ne
+
+Town Square
+The square almost lies quiet as the faint sound of crows are heard far away. A stone monument stands roughly in the centre of the square. The Town Gate lies to the south, the graveyard of a small church lies west while an almost hidden path lies to the southwest. Moon lane runs to the east and you can go into the Courthouse from here.
+You can go south, southwest, west, in or east.
+You can see Terrig Grune.
+> e
+
+> e
+
+Moon Lane
+The Merlin Theatre stands before you on the lane while to the northeast lies the formidable Tymus Tower. To the west lies the Town Square.
+You can go west, in or northeast.
+> in
+
+> in
+
+Merlin Theatre
+Rows of long wooden benches lead up to the small stage. The walls are flaking away from the red paint adorning it and the floor is muddy from the townspeople's footprints.
+You can go out or east.
+> e
+
+> e
+
+Stage
+A small wooden stage with the backstage to the south. Heavy curtains hang down from a rusty rail and newly painted scenery stands near the back of the stage.
+You can go west or south.
+You can see the Ghost of Esmrie Marland.
+> speak to ghost
+
+> speak to ghost
+'It was Father Sable who murdered Jerimiah. Sable was Jerimiah's brother. Sable was infatuated with me.
+
+'I was in love with Jerimiah but there was something about Sable. But because he belonged to God it could never be. Sable's jealousy and short temper killed his brother with the help of witchcraft. On hearing of Jerimiah's death I knew it was by Sable's hand and I killed myself.
+
+'Supernatural evil is still abroad! The Headless Huntsman is still being controlled by Sable and now he has ordered your demise. You'll find Sable in the Temple of the Risen.
+
+'However, stop the Huntsman first by finding his skull and returning it to his grave before he sends you to yours. Where is his grave? I do not know.'
+
+She fades away.
+> s
+
+> s
+
+Backstage
+A small dark area with a dressing room to the west and the stage to the north. Wooden stairs lead down.
+You can go north, west or down.
+> d
+
+> d
+
+Cellar
+A dark cold chamber with wooden stairs leading back up. A smell of sewage fills the air.
+You can go up or south.
+You can see a laundry basket and a crumbling wall.
+> s
+
+> s
+
+Sewers
+A dark and smelly tunnel with exits all around.
+You can go north, east, west or south.
+> w
+
+> w
+
+Sewers
+A dark and smelly tunnel with exits to the south and east.
+You can go east or south.
+> s
+
+> s
+
+Temple of the Risen
+The Temple of the Risen is a place of Satanic worship. You had heard rumours of this place but thought it was nonsense. It seems you were wrong!
+You can go north.
+You can see a large altar (on which there is a candle), Sable Quill, Lord Vinciville Tymus and Terrig Grune.
+> break red rose
+
+> break red rose
+Sable screams at you for destroying Esmrie's rose. He falls to his knees and becomes a broken man. Now sobbing, clutching the broken petals, he remembers the love of his life he has now lost.
+
+You arrest all three without resistance and they will soon be tried and hanged. The witch vanished without a trace!
+
+Congratulations! You have solved the murder and saved yourself from a supernatural spectre.
+
+The End
+[state=Finished]

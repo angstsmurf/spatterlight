@@ -1,0 +1,116 @@
+So fun to be a Scientist
+
+by Tiger189a
+
+You can see a Bed and a Wardrobe.
+
+This is my bedroom!
+
+To the west is the hallway.
+To the east is my bathroom.
+
+Ugh, my head!
+Where are my pills?
+> east
+
+> east
+
+You can see a Toilet, a Bathtub, a Sink and a Shaving cream.
+
+My bathroom!
+I don't want to talk about the stuff I've gone through in here!
+
+To the west is my bedroom!
+> x sink
+
+> x sink
+Yay, a sink!
+
+There are my Pills!
+> eat pills
+
+> eat pills
+My head feels better now!
+> west
+
+> west
+
+You can see a Bed and a Wardrobe.
+
+This is my bedroom!
+
+To the west is the hallway.
+To the east is my bathroom.
+> west
+
+> west
+
+I'm in the hallway of my apartment!
+
+To the east is my bedroom.
+To the west is my kitchen.
+To the south is the staircase.
+To the north is my lab.
+
+> west
+
+> west
+
+You can see a Fridge.
+
+The kitchen!
+It's were I get my Doritos and Mountain dews! (#NotSponsored)
+
+To the east is the hallway.
+> east
+
+> east
+
+I'm in the hallway of my apartment!
+
+To the east is my bedroom.
+To the west is my kitchen.
+To the south is the staircase.
+To the north is my lab.
+
+> north
+
+> north
+
+You can see a Tube, a Tube, a Tube and a Pedestal.
+
+It's my lab.
+
+To the west is my testing room.
+To the south is my hallway.
+> west
+
+> west
+
+You can see a Person.
+
+It's my testing room.
+
+To the east is my lab.
+> east
+
+> east
+
+You can see a Tube, a Tube, a Tube and a Pedestal.
+
+It's my lab.
+
+To the west is my testing room.
+To the south is my hallway.
+> south
+
+> south
+
+I'm in the hallway of my apartment!
+
+To the east is my bedroom.
+To the west is my kitchen.
+To the south is the staircase.
+To the north is my lab.
+
+[state=Running]

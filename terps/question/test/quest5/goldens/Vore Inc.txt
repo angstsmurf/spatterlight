@@ -1,0 +1,42 @@
+Vore Inc
+
+You stand before Vore Inc, the largest skyscraper in the world. Do you dare go in?
+> in
+
+> in
+
+There is a Bell on the counter. A Bull Boy is in the corner next to the Lobby couch. Behind the counter is an Employee Door with a sign that says 'Do not enter'. There is also a Staircase leading upward.
+> west
+
+> west
+
+> look
+
+> look
+> east
+
+> east
+
+There is a Bell on the counter.  Behind the counter is an Employee Door with a sign that says 'Do not enter'. There is also a Staircase leading upward.
+> east
+
+> east
+
+> look
+
+> look
+> north
+
+> north
+
+The restroom is huge. One one wall is a row of stalls with toilets in them. One of the doors is closed. On the other wall are more stalls, but these have showers in them. Along the wall with the entrance are several sinks and mirrors. A cow minigiantess stands in front of one of the sinks, checking her reflection.
+> south
+
+> south
+
+> west
+
+> west
+
+There is a Bell on the counter.  Behind the counter is an Employee Door with a sign that says 'Do not enter'. There is also a Staircase leading upward.
+[state=Running]

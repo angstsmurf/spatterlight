@@ -1,0 +1,989 @@
+Romancing the Throne: King's Quest II for Text
+
+Please let me know if something doesn't work!
+This is a remake of the classic Sierra adventure game Kings Quest II, Romancing the Throne.
+
+To the Hardcore Sierra Players:
+
+I have made some slight changes.  A couple of rooms are missing, to make the mapping (slightly) more straightforward.  I also tweaked the point system a touch, to fit with the text adaptation.  Everything vital to the story is here.  I have simplified a bit in some places (because I don't know how to require 2 objects to make something happen) but everything you needed before you still need now.
+
+I have added Hagatha and the Enchanter, but I have not yet figured out how to work in the Dwarf, the Wolf, or the Fairy.  If you know how to do this, please let me know!
+
+Most of the descriptions are the same as what is given in the game.  I was working off my memory and a slightly buggy (but still awesome!) version on sarien.net , so if there is something you loved in the game, and is missing in my adaptation, please let me know and I will try to work it in!
+To Everyone Else:
+
+Enjoy your taste of the Sierra Classic!
+
+Thanks to Steve Lingle for creating King's Quest V for text.  You inspired me!
+Sir Graham is now King of Daventry.  Under his wise rule, Daventry is prosperous and he is loved by his people.  However, loneliness had come upon the good king.  He searched high and low for the right maiden, but he remained alone.
+
+One day, as King Graham sat upon his throne, an idea came to him.  He went to the magic mirror that hung on the wall and looked into its depths.
+
+The mirror clouded and then cleared, revealing a vision of a tall quartz tower.  To reach it, he knew he must pass through a magic door in the nearby land of Kolyma.
+
+The scene suddenly changed to show a beautiful girl locked within the tower!  Graham now knew what he had to do.  Swapping his golden crown for his old adventurer's cap, he set off to find the land of Kolyma and the beautiful maiden.
+You are standing on a beach.  The glittering white sand feels warm from the sun.  To the west, the azure water of the ocean looks inviting.  The beach stretches to the north and south, while a sandy path leads away to the east.
+You can go south, north or east.
+> n
+
+> n
+
+The beach resumes to the north and south.  There are all sorts of interesting rock formations in the water, but you see nothing special about them.
+You can go north, south or east.
+> n
+
+> n
+
+You are standing in a meadow with the ocean to the west.  The grass is soft underfoot.
+You can go north, south or east.
+You can see a trident.
+> take trident
+
+> take trident
+You pick it up.
+> s
+
+> s
+
+The beach resumes to the north and south.  There are all sorts of interesting rock formations in the water, but you see nothing special about them.
+You can go north, south or east.
+> s
+
+> s
+
+You are standing on a beach.  The glittering white sand feels warm from the sun.  To the west, the azure water of the ocean looks inviting.  The beach stretches to the north and south, while a sandy path leads away to the east.
+You can go south, north or east.
+> e
+
+> e
+
+You are standing in a lovely meadow dotted with wildflowers.  Several trees shade your way.  The sandy path coming from the west has faded into the soft grass.  To the east, you can see a lovely white picket fence.
+You can go west, south, north or east.
+You can see Little Red Riding Hood.
+> e
+
+> e
+
+A cozy cottage is located in the thick wood.  A patio shades the front entrance and flowers adorn a window box.  In front of the cottage stands a mailbox.  The front door of the cottage is closed.
+You can go west, in, south, north or east.
+You can see a mailbox.
+> open mailbox
+
+> open mailbox
+Lo and behold, when you open the mailbox you see a basket of goodies!  You take them and close the mailbox again.
+> w
+
+> w
+
+You are standing in a lovely meadow dotted with wildflowers.  Several trees shade your way.  The sandy path coming from the west has faded into the soft grass.  To the east, you can see a lovely white picket fence.
+You can go west, south, north or east.
+You can see Little Red Riding Hood.
+> give basket of goodies to little red riding hood
+
+> give basket of goodies to little red riding hood
+Gratefully, Little Red Riding Hood accepts the basket of goodies.  In return, she gives you her bouquet of flowers.  She skips away happily into the woods.
+> w
+
+> w
+
+You are standing on a beach.  The glittering white sand feels warm from the sun.  To the west, the azure water of the ocean looks inviting.  The beach stretches to the north and south, while a sandy path leads away to the east.
+You can go south, north or east.
+> s
+
+> s
+
+The ocean is to the west.  The beach stretches on to the north and south.  There is a grassy meadow to the east.  A few palm trees dot the beach, swaying in the breeze.
+You can go north, south or east.
+> s
+
+> s
+
+The ocean is to the west, and the beach continues to the north and south.  There is a large rock in the ocean a short way from the shore.  The ground rises in a slight hill to the east.
+You can go north, south or east.
+You can see a large rock and a mermaid.
+> give bouquet of flowers to mermaid
+
+> give bouquet of flowers to mermaid
+You graciously offer the beautiful bouquet of wildflowers to the mermaid.  She loves the flowers!  She then summons forth a magic seahorse.  Maybe you could ride it.
+> ride seahorse
+
+> ride seahorse
+Quick as a flash, it glides under the water with you on its back!
+You swiftly glide along underwater.  You pass sharks, curious coral formations, and schools of fish.  You even see a starfish!
+You pass a giant skeleton of what you believe to be a whale before you glide to a stop finally.  The bottom of the sea is teeming with fish and plant life.  King Neptune rules this mighty underwater empire.
+
+You can see King Neptune.
+> give trident to king neptune
+
+> give trident to king neptune
+Reverently, King Neptune accepts his lost trident from you.  He gives you an old glass bottle, then waves the trident in front of the huge clam, which opens and reveals... a large golden key!
+> take golden key
+
+> take golden key
+You pick it up.
+You pick up the golden key.  You nod to King Neptune, and the seahorse carries you back the way you came.
+
+The ocean is to the west, and the beach continues to the north and south.  There is a large rock in the ocean a short way from the shore.  The ground rises in a slight hill to the east.
+You can go north, south or east.
+You can see a large rock.
+> look in bottle
+
+> look in bottle
+There is a large cloth in the glass bottle.  You manage to nab it with the ends of your fingers and pull it out.
+> take cloth
+
+> take cloth
+You are already carrying it.
+> s
+
+> s
+
+The beach continues north and south.  There are a few palm trees swaying in the wind, and a meadow is to the east.
+You can go north, south or east.
+You can see a clamshell.
+> take clamshell
+
+> take clamshell
+You pick it up.
+When you pick up the clamshell, you see that there was a sparkling sapphire and diamond bracelet under it!
+> take sapphire bracelet
+
+> take sapphire bracelet
+You pick it up.
+> e
+
+> e
+
+There are several trees here, and some underbrush.  It is a heavily wooded area, and it would be easy to get lost among the trees.
+You can go north, west, south or east.
+You can see a stake.
+> take stake
+
+> take stake
+You pick it up.
+> s
+
+> s
+
+There are many trees here that shade your journey through the land of Kolyma.  The meadow continues to the south and west, while the trees become denser to the east.
+You can go west, north, south or east.
+> s
+
+> s
+
+There is a lovely little lake here.  It looks clean and fresh.  It stretches to the east, where you can see an unclimbable cliff rising in the distance.  The meadow continues to the north, south, and west.
+You can go west, north, south or east.
+> e
+
+> e
+
+Many trees shade your journey through the land of Kolyma.  There is a lovely little lake here.  Its sparkling water looks so clean and fresh.
+You can go north, west, east or south.
+You can see an old hollow log.
+> look in log
+
+> look in log
+You see a sparkling necklace inside the log!  You quickly pick it up.
+> e
+
+> e
+
+There are many trees here that shade your journey in the land of Kolyma.  The woods are sparse, and carry on in all directions.
+You can go west, south, north or east.
+> e
+
+> e
+
+There are several tall trees here.  One seems to have a hole in it!
+You can go north, west, south or east.
+You can see a Tree.
+> look in tree
+
+> look in tree
+You see a mallet inside the hole, which you pick up.
+> w
+
+> w
+
+There are many trees here that shade your journey in the land of Kolyma.  The woods are sparse, and carry on in all directions.
+You can go west, south, north or east.
+> s
+
+> s
+
+There are many shady trees here.  A door is set into a tree.
+You can go south, west, north or east.
+You can see a door.
+> open door
+
+> open door
+It swings open easily.
+> in
+
+> in
+The door swings open easily and you step inside.
+
+This is a room inside the hollowed-out trunk of a large tree.  A door to the west goes outside.  You are in a musty underground passageway.
+You can go out or down.
+> d
+
+> d
+
+It seems you have entered the underground home of the little dwarf.  It is cozy, with a fire crackling in the hearth.  A little table and two stumps for chairs take up the most of the room, while a chest is tucked away in the corner.
+You can go up.
+You can see a chest and a pot of soup.
+> open chest
+
+> open chest
+
+You open the chest.  Inside are a pair of earrings, which you pick up, before closing the chest carefully.
+> take earrings
+
+> take earrings
+You are already carrying them.
+> take pot of soup
+
+> take pot of soup
+You pick it up.
+> u
+
+> u
+The door swings open easily and you step inside.
+
+This is a room inside the hollowed-out trunk of a large tree.  A door to the west goes outside.  You are in a musty underground passageway.
+You can go out or down.
+> out
+
+> out
+
+There are many shady trees here.  A door is set into a tree.
+You can go south, west, in, north or east.
+You can see a door.
+> s
+
+> s
+
+Many trees shade your way through the land of Kolyma.  There are little patches of wildflowers between the tall shady trees.  To the west you can see a little white picket fence.
+You can go west, south, north or east.
+> w
+
+> w
+
+A cozy cottage is located in the thick wood.  A patio shades the front entrance and flowers adorn a window box.  In front of the cottage stands a mailbox.  The front door of the cottage is closed.
+You can go west, in, south, north or east.
+You can see a mailbox.
+> in
+
+> in
+
+This is the home of Grandma.  It is comfortably furnished.  Frilly curtains cover the windows.  Flowers are in vases.
+You can go out.
+You can see Grandma.
+> give pot of soup to grandma
+
+> give pot of soup to grandma
+You feed the hot chicken soup to ailing Grandma.  "I feel much better," she says.  "In return for your kindness, I have something for you.  Look under the bed."  You drop to your hands and knees and peer under the bed.  A large ruby ring and a black cloak are hidden there.  You take them into your possession.
+> wear ring
+
+> wear ring
+You slip the ring onto your finger.
+> wear cloak
+
+> wear cloak
+You swirl the cloak over your shoulders.
+> out
+
+> out
+
+A cozy cottage is located in the thick wood.  A patio shades the front entrance and flowers adorn a window box.  In front of the cottage stands a mailbox.  The front door of the cottage is closed.
+You can go west, in, south, north or east.
+You can see a mailbox.
+> e
+
+> e
+
+Many trees shade your way through the land of Kolyma.  There are little patches of wildflowers between the tall shady trees.  To the west you can see a little white picket fence.
+You can go west, south, north or east.
+> e
+
+> e
+
+You are standing outside an old monastery.  The monks living here often help travellers in need.
+You can go north, west, south or east.
+You can see a monastery.
+> e
+
+> e
+
+This is the east end of the an old monastery.  The monks living here often help travellers in need.  The door is standing open for any to enter.
+You can go north, west, in, south or east.
+You can see a monastery.
+> in
+
+> in
+
+The chapel of the monastery is plain and unadorned.  A monk in simple clothing is bent in prayer toward the cross on the altar.
+You can go out.
+You can see a monk.
+> pray with monk
+
+> pray with monk
+You kneel beside the altar and pray.  The plump monk lifts his head from prayer and seems to notice you for the first time.
+> speak to monk
+
+> speak to monk
+The kindly monk explains that he has heard of you and your quest.
+
+"Here is my cross.  It will protect you from evil," he says.  He removes a chain with a silver cross from around his neck and gives it to you.  The monk then resumes his prayers.
+> wear silver cross
+
+> wear silver cross
+You place the silver cross and chain around your neck and wear it as a necklace.
+> out
+
+> out
+
+This is the east end of the an old monastery.  The monks living here often help travellers in need.  The door is standing open for any to enter.
+You can go north, west, in, south or east.
+You can see a monastery.
+> s
+
+> s
+
+There is a pretty little pond set among the trees.  A group of boulders are reflected in the clear water.
+You can go north, west, south or east.
+You can see a boulder.
+> look in boulder
+
+> look in boulder
+You see a brooch nestled in the opening, which you quickly pick up.
+> take brooch
+
+> take brooch
+You are already carrying it.
+> n
+
+> n
+
+This is the east end of the an old monastery.  The monks living here often help travellers in need.  The door is standing open for any to enter.
+You can go north, west, in, south or east.
+You can see a monastery.
+> w
+
+> w
+
+You are standing outside an old monastery.  The monks living here often help travellers in need.
+You can go north, west, south or east.
+You can see a monastery.
+> w
+
+> w
+
+Many trees shade your way through the land of Kolyma.  There are little patches of wildflowers between the tall shady trees.  To the west you can see a little white picket fence.
+You can go west, south, north or east.
+> w
+
+> w
+
+A cozy cottage is located in the thick wood.  A patio shades the front entrance and flowers adorn a window box.  In front of the cottage stands a mailbox.  The front door of the cottage is closed.
+You can go west, in, south, north or east.
+You can see a mailbox.
+> w
+
+> w
+
+You are standing in a lovely meadow dotted with wildflowers.  Several trees shade your way.  The sandy path coming from the west has faded into the soft grass.  To the east, you can see a lovely white picket fence.
+You can go west, south, north or east.
+> n
+
+> n
+
+You can see a forbidding cave, the home of Hagatha, the wicked old hag.  There are human skulls on stakes at the entrance.  This is not a reassuring sign.  The skulls probably belong to unfortunate travellers who fell into Hagatha's clutches.  She has a taste for human flesh, you know.
+You can go north, west, south, east or in.
+> in
+
+> in
+
+You look around this dreary cave.  Fear grips you as you notice human skulls lining the wall.  Hagatha herself is busily stirring her brew and muttering to herself.  As she has very bad eyesight, she hasn't noticed you yet.
+You can go out.
+You can see a cauldron, a nightingale and Hagatha.
+> use cloth on nightingale
+
+> use cloth on nightingale
+You drape the cloth over the nightingale's cage.
+> take nightingale
+
+> take nightingale
+Quietly you pick up the covered birdcage. To your relief, the bird remains silent.
+> out
+
+> out
+
+You can see a forbidding cave, the home of Hagatha, the wicked old hag.  There are human skulls on stakes at the entrance.  This is not a reassuring sign.  The skulls probably belong to unfortunate travellers who fell into Hagatha's clutches.  She has a taste for human flesh, you know.
+You can go north, west, south, east or in.
+> s
+
+> s
+
+You are standing in a lovely meadow dotted with wildflowers.  Several trees shade your way.  The sandy path coming from the west has faded into the soft grass.  To the east, you can see a lovely white picket fence.
+You can go west, south, north or east.
+> e
+
+> e
+
+A cozy cottage is located in the thick wood.  A patio shades the front entrance and flowers adorn a window box.  In front of the cottage stands a mailbox.  The front door of the cottage is closed.
+You can go west, in, south, north or east.
+You can see a mailbox.
+> e
+
+> e
+
+Many trees shade your way through the land of Kolyma.  There are little patches of wildflowers between the tall shady trees.  To the west you can see a little white picket fence.
+You can go west, south, north or east.
+> e
+
+> e
+
+You are standing outside an old monastery.  The monks living here often help travellers in need.
+You can go north, west, south or east.
+You can see a monastery.
+> e
+
+> e
+
+This is the east end of the an old monastery.  The monks living here often help travellers in need.  The door is standing open for any to enter.
+You can go north, west, in, south or east.
+You can see a monastery.
+> n
+
+> n
+
+There is a bridge spanning the chasm, but it seems to be unstable and tottery.   Are you entertaining thoughts of crossing it?
+You can go north, west or south.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+
+You are standing in a meadow.  A cliff blocks you to the east and the chasm to the west.
+You can go north.
+You can see a Bridge.
+> n
+
+> n
+
+You are at the edge of the forest.  There is a deep chasm to the west and north and a towering cliff to the east.  In front of you stands a door.
+You can go south.
+You can see a Brown Door.
+> use golden key on brown door
+
+> use golden key on brown door
+The key to the door fits easily into the keyhole.  You turn the key and, PRESTO, the door opens and the key disappears... revealing a second door with ANOTHER inscription!
+> s
+
+> s
+
+You are standing in a meadow.  A cliff blocks you to the east and the chasm to the west.
+You can go north.
+You can see a Bridge.
+> cross bridge
+
+> cross bridge
+
+There is a bridge spanning the chasm, but it seems to be unstable and tottery.   Are you entertaining thoughts of crossing it?
+You can go north, west or south.
+You can see a bridge.
+> s
+
+> s
+
+This is the east end of the an old monastery.  The monks living here often help travellers in need.  The door is standing open for any to enter.
+You can go north, west, in, south or east.
+You can see a monastery.
+> s
+
+> s
+
+There is a pretty little pond set among the trees.  A group of boulders are reflected in the clear water.
+You can go north, west, south or east.
+You can see a boulder.
+> s
+
+> s
+
+There is a quaint little antique shop.
+You can go north, in, south, west or east.
+You can see a shop.
+> in
+
+> in
+
+You are inside a cute little antique shop.  Old furniture and knickknacks clutter the place.  Against a wall, a glass display holds many small items.  A little old lady asks if she can help you.
+You can go out.
+You can see an old lady.
+> give nightingale to old lady
+
+> give nightingale to old lady
+You hand the birdcage with the nightingale to the little old lady.  "My precious!" she exclaims.  In gratitude, she gives you the oil lamp.  "Good luck," she says.  She hastens you out and closes up shop.
+
+There is a quaint little antique shop.
+You can go north, in, south, west or east.
+You can see a shop.
+> n
+
+> n
+
+There is a pretty little pond set among the trees.  A group of boulders are reflected in the clear water.
+You can go north, west, south or east.
+You can see a boulder.
+> rub lamp
+
+> rub lamp
+When you run the tarnished brass lamp, you hear a POOOOFF and a genie appears!  "Master," he says, "I leave a gift for you.  A magic carpet!"  The genie then poofs back into the lamp.
+> rub lamp
+
+> rub lamp
+When you run the tarnished brass lamp, you hear a POOOOFF and a genie appears!  "Master," he says, "I leave a gift for you.  A beautiful sword!"  The genie then disappears in a puff of smoke.
+> rub lamp
+
+> rub lamp
+Using your sleeve as a cloth you rub the lamp, causing the genie to appear again.  "Master," he says, "I leave a gift for you.  A leather bridle!"  The genie then pops back into the lamp.
+The lamp disappears in a puff of smoke.
+> ride magic carpet
+
+> ride magic carpet
+You sit on the carpet and it rises into the air.  It carries you through the skies and the clouds.
+
+There are steep cliffs on three sides of this mountain top.  Don't get too near the edge!  You can see the kingdom of Kolyma far down in the distance.
+You can go east.
+The carpet lands you gently on a mountaintop and rolls back up so you can carry it easily.
+> e
+
+> e
+
+You are walking on a narrow mountain top with steep cliffs on two sides.  A coiled viper blocks your path to the east!  To the east lies a deep cave.
+You can go west or east.
+You can see a viper.
+> throw bridle
+
+> throw bridle
+You toss the leather bridle onto the coiled snake.  Instantly, there stands before you not a snake, but a beautiful winged horse wearing the bridle!
+> speak to winged horse
+
+> speak to winged horse
+"Thank you, kind sir, for saving me.  An evil enchanter turned me into a snake when I refused to be his steed.  To repay you, here is a magic sugar cube that will guard against poisonous brambles."
+
+The horse rises into the air and flies away, leaving a magic sugar cube in your hand.
+> eat sugar cube
+
+> eat sugar cube
+You eat the sugar cube.  You get a feeling of invincibility.
+> e
+
+> e
+
+You are standing in a damp cave.  You can see a large silver key lying on a rock in the cave!
+You can go west.
+You can see a silver key.
+> take silver key
+
+> take silver key
+You pick it up.
+> w
+
+> w
+
+You are walking on a narrow mountain top with steep cliffs on two sides.  To the east lies a deep cave.
+You can go west or east.
+> w
+
+> w
+
+There are steep cliffs on three sides of this mountain top.  Don't get too near the edge!  You can see the kingdom of Kolyma far down in the distance.
+You can go east.
+> ride magic carpet
+
+> ride magic carpet
+You sit on the carpet and it rises into the air.  It carries you through the skies and the clouds.
+
+There is a quaint little antique shop.
+You can go north, in, south, west or east.
+You can see a shop.
+The carpet lands you gently outside the shop and disappears in a puff of smoke.
+> n
+
+> n
+
+There is a pretty little pond set among the trees.  A group of boulders are reflected in the clear water.
+You can go north, west, south or east.
+You can see a boulder.
+> n
+
+> n
+
+This is the east end of the an old monastery.  The monks living here often help travellers in need.  The door is standing open for any to enter.
+You can go north, west, in, south or east.
+You can see a monastery.
+> n
+
+> n
+
+There is a bridge spanning the chasm, but it seems to be unstable and tottery.   Are you entertaining thoughts of crossing it?
+You can go north, west or south.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+
+You are standing in a meadow.  A cliff blocks you to the east and the chasm to the west.
+You can go north.
+You can see a Bridge.
+> n
+
+> n
+
+You are at the edge of the forest.  There is a deep chasm to the west and north and a towering cliff to the east.  In front of you stands a door.
+You can go south.
+You can see a Blue Door.
+> use silver key on blue door
+
+> use silver key on blue door
+The key to the door fits easily into the keyhole.  You turn the key and, SHAZAM, the door opens and the silver key disappears... revealing a third door with yet another inscription!
+> read green door
+
+> read green door
+Whosoever chooses to seek the last key must have a stout heart.
+> s
+
+> s
+
+You are standing in a meadow.  A cliff blocks you to the east and the chasm to the west.
+You can go north.
+You can see a Bridge.
+> cross bridge
+
+> cross bridge
+
+There is a bridge spanning the chasm, but it seems to be unstable and tottery.   Are you entertaining thoughts of crossing it?
+You can go north, west or south.
+You can see a bridge.
+> s
+
+> s
+
+This is the east end of the an old monastery.  The monks living here often help travellers in need.  The door is standing open for any to enter.
+You can go north, west, in, south or east.
+You can see a monastery.
+> w
+
+> w
+
+You are standing outside an old monastery.  The monks living here often help travellers in need.
+You can go north, west, south or east.
+You can see a monastery.
+> n
+
+> n
+
+Many trees shade your way.  The woods stretch on all sides of you.
+You can go north, west, south or east.
+> w
+
+> w
+
+There are many shady trees here.  A door is set into a tree.
+You can go south, west, in, north or east.
+You can see a door.
+> n
+
+> n
+
+There are many trees here that shade your journey in the land of Kolyma.  The woods are sparse, and carry on in all directions.
+You can go west, south, north or east.
+> n
+
+> n
+
+There is a foul and stinking lake blocking your path to the north.  All vegetation looks dead around it.  There is a desolate island with a dreary-looking castle in the middle of the poisoned lake.  You are standing on what looks to be a boat landing area, although you cannot imagine who would want to cross the lake.
+You can go south, west or east.
+You can see a ghoul and a boat.
+> get in boat
+
+> get in boat
+The shrouded ghoul looks at the black cloak around your neck.  He motions for you to enter the boat, which you do.
+You must have fooled him into thinking you were someone else.  He rows you across the poisoned lake.
+
+You are standing on the shore of the island.  The castle looks cold and forbidding.  Two dark towers rise on either side of it.  The castle is surrounded by deadly thorns and brambles.  If you attempt to continue to the north, you will surely be pricked by the thorns and die unless you have protected yourself.
+You can go north.
+> n
+
+> n
+The brambles catch at you, but you are impervious to their poison.  You pass them by easily.
+
+Two spirits swoop down towards you.  This doesn't look good!  The spirits are fooled by the large ruby ring you are wearing.  They slowly float away... maybe you remind them of someone else.
+You can go south or north.
+You can see a ghosts.
+> n
+
+> n
+
+This castle is really creepy!   Cracks cover the walls, cobwebs fill the corners.  A chilly draft runs through the halls.
+You can go up, south or east.
+You can see a Lamp.
+> u
+
+> u
+
+You are standing in a long-disused bedroom.  An old mattress stands in one corner.  There is a dilapidated dresser against the wall.
+You can go down.
+You can see a dresser.
+> open dresser
+
+> open dresser
+You open the dusty dresser and find an old beeswax candle inside, which you pick up.
+> d
+
+> d
+
+This castle is really creepy!   Cracks cover the walls, cobwebs fill the corners.  A chilly draft runs through the halls.
+You can go up, south or east.
+You can see a Lamp.
+> use candle on lamp
+
+> use candle on lamp
+You hold your candle to the blazing lamp.  Your candle is now lit!
+> e
+
+> e
+
+This is the dingy dining room of the drafty old castle.  Ants crawl among old bits of food.  Dust covers a dilapidated table top.  There is a stairway spiraling up to the north, and another leading down into the cellar to the east.
+You can go west, up or down.
+You can see a ham.
+> take ham
+
+> take ham
+You pick it up.
+> d
+
+> d
+
+You stand on the stairs.  You can see some chains hanging off the walls, and rats scurry frantically around your feet.
+You can go up or west.
+> w
+
+> w
+
+You are in the cellar of the castle.  A glistening black coffin sits closed in the middle of the floor.
+You can go east.
+You can see a coffin.
+> open coffin
+
+> open coffin
+With trepidation, you lift the heavy lid of the beautifully carved coffin.  Your heart beats wildly as you see a vampire within it!  It must be the C.D. of the ring!  Count Dracula!  The noise of you lifting the lid has woken him.
+Dracula hesitates.  He can sense your silver cross!  Now is your chance!
+> use mallet on stake
+
+> use mallet on stake
+You place the pointed stake on Count Dracula's chest.  Quickly, using the mallet, you pound the stake through his heart.  The Count disintegrates into a pile of dust.  A tiny key is left behind, nestled on a silk cushion.
+> take tiny key
+
+> take tiny key
+You pick it up.
+> take silk cushion
+
+> take silk cushion
+You remove the silk cushion from the coffin.  Lo and behold, a large bronze key was underneath!
+> take bronze key
+
+> take bronze key
+You pick it up.
+> e
+
+> e
+
+You stand on the stairs.  You can see some chains hanging off the walls, and rats scurry frantically around your feet.
+You can go up or west.
+> u
+
+> u
+
+This is the dingy dining room of the drafty old castle.  Ants crawl among old bits of food.  Dust covers a dilapidated table top.  There is a stairway spiraling up to the north, and another leading down into the cellar to the east.
+You can go west, up or down.
+> w
+
+> w
+
+This castle is really creepy!   Cracks cover the walls, cobwebs fill the corners.  A chilly draft runs through the halls.
+You can go up, south or east.
+You can see a Lamp.
+> s
+
+> s
+
+Two spirits swoop down towards you.  This doesn't look good!  The spirits are fooled by the large ruby ring you are wearing.  They slowly float away... maybe you remind them of someone else.
+You can go south or north.
+You can see a ghosts.
+> s
+
+> s
+
+You are standing on the shore of the island.  The castle looks cold and forbidding.  Two dark towers rise on either side of it.  The castle is surrounded by deadly thorns and brambles.  If you attempt to continue to the north, you will surely be pricked by the thorns and die unless you have protected yourself.
+You can go north.
+You can see a ghoul and a boat.
+> get in boat
+
+> get in boat
+You climb into the decrepit rowboat and the shrouded fiend paddles across the toxic lake to the shore.
+The ghoul drops you off on the shore and paddles away.  It seems he has done his duty.
+
+There is a foul and stinking lake blocking your path to the north.  All vegetation looks dead around it.  There is a desolate island with a dreary-looking castle in the middle of the poisoned lake.  You are standing on what looks to be a boat landing area, although you cannot imagine who would want to cross the lake.
+You can go south, west or east.
+> s
+
+> s
+
+There are many trees here that shade your journey in the land of Kolyma.  The woods are sparse, and carry on in all directions.
+You can go west, south, north or east.
+> s
+
+> s
+
+There are many shady trees here.  A door is set into a tree.
+You can go south, west, in, north or east.
+You can see a door.
+> e
+
+> e
+
+Many trees shade your way.  The woods stretch on all sides of you.
+You can go north, west, south or east.
+> e
+
+> e
+
+There is a bridge spanning the chasm, but it seems to be unstable and tottery.   Are you entertaining thoughts of crossing it?
+You can go north, west or south.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+
+You are standing in a meadow.  A cliff blocks you to the east and the chasm to the west.
+You can go north.
+You can see a Bridge.
+> n
+
+> n
+
+You are at the edge of the forest.  There is a deep chasm to the west and north and a towering cliff to the east.  In front of you stands a door.
+You can go south.
+You can see a Green Door.
+> unlock green door with bronze key
+
+> unlock green door with bronze key
+The key to the third door fits easily into the keyhole.  You turn the key and, PRESTO, the door opens and the bronze key disappears... revealing a world unlike any you have ever seen before!
+
+You are standing on bright blue sand, while a magenta sea laps against the shore to the east and the south.  A turquoise cliff rises abruptly to your west.  The sky is a curious peach colour.  What strange land is this?
+You can go north.
+> n
+
+> n
+
+You are standing on bright blue sand, while a magenta sea laps against the shore to the east.  A turquoise cliff rises abruptly to your west, while a stunning waterfall blocks your path to the north.  The sky is a curious peach colour.
+You can go south.
+You can see a fishing net.
+> take fishing net
+
+> take fishing net
+You pick it up.
+> s
+
+> s
+
+You are standing on bright blue sand, while a magenta sea laps against the shore to the east and the south.  A turquoise cliff rises abruptly to your west.  The sky is a curious peach colour.  What strange land is this?
+You can go north.
+> use fishing net
+
+> use fishing net
+You cast the fishing net into the wild sea.  Upon retrieving it, you see you have caught a large golden fish!  It falls from the net and flops helplessly on the beach.
+> take fish
+
+> take fish
+You grab the flopping fish.  Its mouth is wide open and its gills are extended.  With difficulty, you hold the fish as it twists and turns in your hands.
+> throw fish
+
+> throw fish
+You throw the poor gasping fish back into the iridescent water.  Gratefully it calls to you, "In return for saving my life, I wish to offer you a ride across this ocean."
+> ride fish
+
+> ride fish
+You slide onto the fish's back and he takes off across the sea.
+The fish rapidly veers off abruptly as a shore suddenly appears in front of you.  The abrupt movement throws you off the fish's back and you fly through the air to land heavily on the shore.
+
+You can see that the island is really quite small.  The foliage is remarkable though.  Plants and flowers have overgrown it, some growing very large in contrast to the tiny island.  The beach stretches south and north, while you can see a path through the undergrowth to the east.
+You can go south, north or east.
+> n
+
+> n
+
+The beach stretches to the east and south.  A few curious shrubs are scattered on this part of the island.
+You can go east or south.
+> e
+
+> e
+
+A glint of metal catches your eye.  You look toward the direction of the glint and see an amulet lying on the ground!
+You can go east, west or south.
+You can see an amulet.
+> take amulet
+
+> take amulet
+You pick it up.
+> s
+
+> s
+
+There is a tower built of creamy, opaque quartz blocks.  You see a tiny window near the top.  A delicate hand, waving a hanky, appears from the window.  There is a door set into the base of the tower.
+You can go west, south, north or east.
+You can see a Door.
+> open door
+
+> open door
+You open the door.
+> in
+
+> in
+
+Narrow steps spiral up the white quartz tower.  The entrance to the tower is at the bottom of the steps.
+You can go up.
+> u
+
+> u
+
+You are at the top of the wooden steps in the quartz tower.  A door leads to the north.  A huge, ferocious lion lies tied to a ring in the wall guarding the door.  Better not get too close!
+You can go down.
+You can see a lion.
+> give ham to lion
+
+> give ham to lion
+You toss it to the lion.  Hungrily, the lion gobbles down the smoked ham and then falls fast asleep.
+> in
+
+> in
+
+The room at the top of the tower is very tiny.  You are angered at the thought of Valanice having been imprisoned in this small room.
+You can go out.
+You can see Valanice.
+You have found her!  The girl from the magic mirror!  She is even more beautiful than you had imagined!
+> kiss valanice
+
+> kiss valanice
+You tentatively embrace the beautiful girl.  Your lips meet hers and you are both in ecstasy.  This was well worth playing the game for!
+> home
+
+> home
+You murmur the word home.  A tingling sensation envelopes your body.  You black out for a second.... when you come to, you see you are somewhere else!
+You are back in Daventry!  The monk declares you man and wife in the lovely chapel, and you take Valanice to your castle.
+
+Congratulations, King Graham!  You have won the hand of the beautiful Valanice.  May you two live happily ever after!
+[state=Finished]

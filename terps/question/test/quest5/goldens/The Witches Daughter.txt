@@ -1,0 +1,78 @@
+The Witches Daughter
+
+by Sarah Smith
+
+The watery light of the false dawn creeps across the medieval country-side, touching dew-laden spiderwebs on hedegrows, and fruit trees, and sparking spring birds to start their morning calls.  Over barrows, over churches, over fields and over rivers the light of the new day comes.
+
+Now over the tree tops, daylight touches the tent-tops of a Norman army encampment, hundreds of men strong, dozens of horses breath steaming in morning chaff bags, armour polished shining in the rays of dawn.  Men waking in their tents are grim-faced, knowing they are soon for battle.
+
+Then onward stretches the new days light touching a humble cottage just a few days march north from the encampment.  Your home.  But the first thoughts in your head as you stretch and come down from your bed is "Morning? For me another day of chores!"
+
+A cottage
+
+The single room of Blaine Cottage is home, so familiar. A very old and comfortable rocking chair sits near the fireplace. Brónach, is here. A ladder  leads up to the loft. In the long south wall is a door leading out. A small table stands beside the rocking chair. A simple oil lamp stands on the table.
+
+> up
+
+> up
+You climb up the wooden ladder to the loft.
+
+A loft
+
+Standing in this loft, you must stoop and duck your head to clear the rafters of the cottage roof.  The boards of the raised floor creak beneath your feet. To the left is Siobhán's bed; a burlap mattress stuffed with rags and straw. In the corner where the roof is lowest is a battered old copper chamber pot. A chest made of painted canvas and a wooden frame is beside the bed.
+
+> down
+
+> down
+You climb down the ladder from the loft.
+
+A cottage
+
+The single room of Blaine Cottage is home, so familiar. A very old and comfortable rocking chair sits near the fireplace. Brónach, is here. A ladder  leads up to the loft. In the long south wall is a door leading out. A small table stands beside the rocking chair. A simple oil lamp stands on the table.
+
+> out
+
+> out
+Opening the front door, you walk out to the small-holding.
+
+A smallholding
+
+A tiny plot of land, its perhaps twice in area the cottage it adjoins but supports half-a-dozen kinds of farm produce.  The small-holding makes enough for Bronach and Siobhan; and some to sell at the markets besides.
+
+From the small-holding you can see a some distance up the lane.  Peering through the fruit trees you can see a mob of townsfolk walking down the lane toward the cottage.  They're shouting and carrying flaming torches!  At the head of them you can make out Callum Boyle.  They'll be here any minute!
+
+ A path crosses the yard: it widens into a lane beyond the fruit trees  to the west, dwindles to a muddy track to the east.
+
+ There's a small grove of fruit trees by the cottage.
+
+> west
+
+> west
+
+A lane
+
+This narrow winding country lane runs between hedgerows and stone walls.  To the west is the High Road; and to the east is Blaine Cottage. There's a fierce mob of villagers some looking nervous, others brandishing torches and shouting angrily!
+
+ Jezabel Leary the barmaid from the Dire Goose is right behind Callum. Alice the pastor's wife is hiding behind Jezabel, looking out nervously. Callum Boyle the village elder, holds a paper before him and brandishes his staff as he leads the mob. The stout farmer Rónán Tierney. Flanking the group, distancing himself somewhat from it is Fergus Mac Iver the blacksmith. At the back of the mob is the tall dour figure of Cormac Molloy.
+
+> east
+
+> east
+
+A smallholding
+
+From the small-holding you can see a some distance up the lane.  They're shouting and carrying flaming torches!  At the head of them you can make out Callum Boyle.  They'll be here any minute!
+
+ A path crosses the yard: it widens into a lane beyond the fruit trees  to the west, dwindles to a muddy track to the east.
+
+ There's a small grove of fruit trees by the cottage.
+
+> in
+
+> in
+
+A cottage
+
+The single room of Blaine Cottage is home, so familiar. A very old and comfortable rocking chair sits near the fireplace. Brónach, is here. A ladder  leads up to the loft. In the long south wall is a door leading out. A small table stands beside the rocking chair. A simple oil lamp stands on the table.
+
+[state=Running]

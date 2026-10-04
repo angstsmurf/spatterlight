@@ -1,0 +1,1055 @@
+Fatalonia
+
+Welcome to the Kingdom of Fatalonia!
+
+Here I will go over some of the basic tools you will need to employ to succeed here.
+
+Firstly and most importantly, the main tool in your arsenal is your "Perception Magic". You can use this to find out about a variety of pertinent objects. Feel free to try it on the test object here. To use it simply type "Use Perception Magic on _ " where the underscore is the object or room you wish to potentially find out more about.
+
+Please note that "Use Magic" and "Use Skill" also work and will save you time. (Also doesn't need to be capitalised, that's just aesthetically pleasing for me to read here).
+
+You are also equipped with an "Attribute Stone", which will quickly show you your OWN stats, thus bypassing the need for you to type that out on yourself. It will show you your current Strength, Charisma, Dexterity and Intelligence levels. In this Concept build there are no tasks that require you to have a certain level of anything, however. As you perform tasks, you will gain EXP. For every 10 EXP you can use the Attribute Stone to convert into a Skill Point. These Skill Points can be used at any Skill trading point. The only one currently in the game is the Bookcase in Your Quarters.
+
+You also have a "Coin Purse" which will show you your current... currency.
+
+Finally, your "Note Pocket" is where you find any active quests. Once completed, they will be moved to your "Journal" in Your Quarters, so as to not clutter your "Note Pocket". As we are in the starting room, there are no Notes in your pocket, naturally.
+
+Your Bag is where any regular items go (it's where you'll find the Attribute Stone).
+
+Your Equipment is where any item actually physically equipped to you goes (like clothes and weapons). You may equip a weapon (when they are available) at any time, but your Throwing Knives are always equipped regardless and may have uses in certain situations.
+
+FINALLY AND IMPORTANTLY. You can "lose" the game. If you break your clothes and you do not have the means to fix them, you will be transported to the nearest Tailor. If you do not have the money to fix them, you are essentially trapped. Also, if you cannot wear the clothes even if fixed because you are too fat, you will not be able to go back into public, and thus "lose". You can increase the size of your clothes, however, at the Tailors or if you pick up the Sewing Kit and get some extra material for whatever "class" of clothing you are wearing. At the moment there is only one attire, and you cannot get fat enough to break it in this build, but it is something to pay attention to.
+
+You are also currently naked, incidentally and will need to equip the Guild Attire from your Wardrobe, firstly.
+
+Once you are happy with the mechanics, please proceed to click "Out", to begin.
+You are in a Starting Room.
+You can see a Test Object.
+You can go out.
+> use perception magic on test object
+
+> use perception magic on test object
+Yup, that's how you do it.
+> out
+
+> out
+
+You are in a Your Quarters.
+You can see a Bed, a Wardrobe, a Bookshelf, a Mirror and a Journal.
+You can go north.
+> open wardrobe
+
+> open wardrobe
+You open it.
+> wear guild attire
+
+> wear guild attire
+You put your guild attire on with no problems.
+> n
+
+> n
+
+You are in a Guild East Corridor.
+You can go west, south, east, north, southeast, northeast or southwest.
+> w
+
+> w
+
+You are in a Guild Headquarters.
+You can see LaFaye, Gradius, Mattrock, Leith and an Intel Desk.
+You can go north, west, east, down or south.
+> s
+
+> s
+
+You are in a Guild South Corridor.
+You can go north or south.
+> s
+
+> s
+
+You are in a Guild Square.
+You can see a Signpost.
+You can go north, west or east.
+> w
+
+> w
+
+You are in a Market Square.
+You can see a Signpost, Rolf, Talia, Pop and Mathias.
+You can go east, west, north or south.
+> w
+
+> w
+
+You are in a Palace Square.
+You can see a Signpost.
+You can go east, north or west.
+> n
+
+> n
+
+You are in a Palace Gates.
+You can go south or north.
+> n
+
+> n
+
+You are in a Palace South Corridor.
+You can go south, north, west or east.
+> n
+
+> n
+
+You are in a Palace Central Chamber.
+You can go south, east, west or north.
+> w
+
+> w
+
+You are in a Palace West Corridor.
+You can go east, west, north or south.
+> s
+
+> s
+
+You are in a Princess Junos Chambers.
+You can see Juno, a Junos Bed and a Junos Desk (on which there is an A Guide to Creatures of South Fatalonia and a The Customs of Adipos).
+You can go north.
+> look
+
+> look
+You are in a Princess Junos Chambers.
+You can see Juno, a Junos Bed and a Junos Desk (on which there is an A Guide to Creatures of South Fatalonia and a The Customs of Adipos).
+You can go north.
+> speak to juno
+
+> speak to juno
+"Hey Elena, it's good to see you! How are you?" The Princess asks, putting down her snacks.
+
+"I am fine, thank you for asking. You are looking well, your Highness," You reply. Juno blushes, knowing what you meant by "well".
+
+"You know you can just call me Juno,"
+
+"I know, but I also like winding you up every time... Your Highness," you tease.
+
+"One of these days you'll make me do something absolutely not befitting of a princess," she warns, playfully.
+
+"I look forward to that day," She blushes again, you're aware of the attraction between you and to be honest, you believe it would be fun to act on it, but you also know Juno is not ready for that. Maybe at some point...
+
+"Anyway, Elena. Whilst you're here, could you do me a favour?" She says, changing the subject.
+
+"Anything for you, my dear."
+
+"I'm done reading those books on my desk over there, would you mind running those over to the Library?"
+
+"Sure!"
+> look
+
+> look
+You are in a Princess Junos Chambers.
+You can see Juno, a Junos Bed and a Junos Desk (on which there is an A Guide to Creatures of South Fatalonia and a The Customs of Adipos).
+You can go north.
+> take books
+
+> take books
+Please choose which 'books' you mean:
+1: A Guide to Creatures of South Fatalonia
+2: The Customs of Adipos
+> 1
+> take books
+
+> take books
+> open bag
+
+> open bag
+You open it.
+> n
+
+> n
+
+You are in a Palace West Corridor.
+You can go east, west, north or south.
+> e
+
+> e
+
+You are in a Palace Central Chamber.
+You can go south, east, west or north.
+> s
+
+> s
+
+You are in a Palace South Corridor.
+You can go south, north, west or east.
+> s
+
+> s
+
+You are in a Palace Gates.
+You can go south or north.
+> s
+
+> s
+
+You are in a Palace Square.
+You can see a Signpost.
+You can go east, north or west.
+> w
+
+> w
+
+You are in a West Street 3.
+You can go north, south or east.
+> n
+
+> n
+
+You are in a West Square.
+You can see a Signpost.
+You can go north or south.
+> n
+
+> n
+
+You are in a West Street 2.
+You can see Lyne.
+You can go north, south or east.
+> n
+
+> n
+
+You are in a West Street 1.
+You can go north or south.
+> n
+
+> n
+
+You are in a North West Square.
+You can see a Signpost.
+You can go east or south.
+> e
+
+> e
+
+You are in a North Street 1.
+You can go east or west.
+> e
+
+> e
+
+You are in a North Street 2.
+You can see an Auciel.
+You can go east, west or south.
+> e
+
+> e
+
+You are in a North Square.
+You can see a Signpost.
+You can go east, west or south.
+> s
+
+> s
+
+You are in a Mage Guild Entrance.
+You can go north or south.
+> s
+
+> s
+
+You are in a Mage Guild Hall.
+You can go north or east.
+> e
+
+> e
+
+You are in a Grand Library.
+You can see Maseon and Keela.
+You can go west or up.
+> give creatures of south fatalonia to maseon
+
+> give creatures of south fatalonia to maseon
+"Ah! The Princess sent you, did she? She gets lazier by the day. No matter, I have the books she wanted. I guess you'll just have to take them back to her instead".
+> w
+
+> w
+
+You are in a Mage Guild Hall.
+You can go north or east.
+> n
+
+> n
+
+You are in a Mage Guild Entrance.
+You can go north or south.
+> n
+
+> n
+
+You are in a North Square.
+You can see a Signpost.
+You can go east, west or south.
+> w
+
+> w
+
+You are in a North Street 2.
+You can see an Auciel.
+You can go east, west or south.
+> w
+
+> w
+
+You are in a North Street 1.
+You can go east or west.
+> w
+
+> w
+
+You are in a North West Square.
+You can see a Signpost.
+You can go east or south.
+> s
+
+> s
+
+You are in a West Street 1.
+You can go north or south.
+> s
+
+> s
+
+You are in a West Street 2.
+You can see Lyne.
+You can go north, south or east.
+> s
+
+> s
+
+You are in a West Square.
+You can see a Signpost.
+You can go north or south.
+> s
+
+> s
+
+You are in a West Street 3.
+You can go north, south or east.
+> e
+
+> e
+
+You are in a Palace Square.
+You can see a Signpost.
+You can go east, north or west.
+> n
+
+> n
+
+You are in a Palace Gates.
+You can go south or north.
+> n
+
+> n
+
+You are in a Palace South Corridor.
+You can go south, north, west or east.
+> n
+
+> n
+
+You are in a Palace Central Chamber.
+You can go south, east, west or north.
+> w
+
+> w
+
+You are in a Palace West Corridor.
+You can go east, west, north or south.
+> s
+
+> s
+
+You are in a Princess Junos Chambers.
+You can see Juno, a Junos Bed and a Junos Desk.
+You can go north.
+> give strange tales of fatalan to juno
+
+> give strange tales of fatalan to juno
+"Thank you for doing that for me. Feel free to peruse them yourself if you would like".
+> look
+
+> look
+You are in a Princess Junos Chambers.
+You can see Juno, a Junos Bed, a Junos Desk, an A Beginners Guide to Sewing and a Strange Tales of Fatalan.
+You can go north.
+> read strange tales of fatalan
+
+> read strange tales of fatalan
+Your eyes are drawn to an entry talking about  a secret underground temple. Conspiracy theory? Maybe. Maybe not.
+> n
+
+> n
+
+You are in a Palace West Corridor.
+You can go east, west, north or south.
+> e
+
+> e
+
+You are in a Palace Central Chamber.
+You can go south, east, west or north.
+> s
+
+> s
+
+You are in a Palace South Corridor.
+You can go south, north, west or east.
+> s
+
+> s
+
+You are in a Palace Gates.
+You can go south or north.
+> s
+
+> s
+
+You are in a Palace Square.
+You can see a Signpost.
+You can go east, north or west.
+> w
+
+> w
+
+You are in a West Street 3.
+You can go north, south or east.
+> n
+
+> n
+
+You are in a West Square.
+You can see a Signpost.
+You can go north or south.
+> n
+
+> n
+
+You are in a West Street 2.
+You can see Lyne.
+You can go north, south or east.
+> n
+
+> n
+
+You are in a West Street 1.
+You can go north or south.
+> n
+
+> n
+
+You are in a North West Square.
+You can see a Signpost.
+You can go east or south.
+> e
+
+> e
+
+You are in a North Street 1.
+You can go east or west.
+> e
+
+> e
+
+You are in a North Street 2.
+You can see an Auciel.
+You can go east, west or south.
+> e
+
+> e
+
+You are in a North Square.
+You can see a Signpost.
+You can go east, west or south.
+> s
+
+> s
+
+You are in a Mage Guild Entrance.
+You can go north or south.
+> s
+
+> s
+
+You are in a Mage Guild Hall.
+You can go north or east.
+> e
+
+> e
+
+You are in a Grand Library.
+You can see Maseon and Keela.
+You can go west or up.
+> up
+
+> up
+
+You are in a Grand Library Second Floor.
+You can go down or up.
+> up
+
+> up
+
+You are in a Grand Library Third Floor.
+You can see Rael.
+You can go down.
+There is something different about the room. You can sense it...
+> use perception magic
+
+> use perception magic
+Because you sense something is different with the room, you decide to use your perception magic on it. By doing so, you reveal a new staircase in what previously looked like a bare brick wall.
+
+There's been a secret floor here all along.
+> up
+
+> up
+
+You are in a Grand Library Secret Floor.
+You can see Proteas.
+You can go down.
+> speak to proteas
+
+> speak to proteas
+"Ah, hello my dear! I've been expecting you. I've been watching you for a long time and I finally believe you are ready," he beams. You are completely befuddled.
+
+"Who are you? You've been watching me? Ready for what?" You rattle off.
+
+"Sorry sorry, let me introduce myself. My name is Proteas, you may have heard of me..." You have, Proteas was once the Mage Guild's master but that was before you were even born, but he only looks old enough to be your father now, and he was middle aged when he disappeared... you conclude magic is at work here, "I have been waiting for someone to entrust my knowledge to and I believe you are the one, hence I have been keeping an eye on you. You are the strongest user of perception magic in a long while, perhaps even stronger than I am but you are yet to reach your full potential. I also sense other untapped potential in you, your magic goes beyond purely bending what people can see, I sense that you could, with practice, bend what people are."
+
+"Wait, are you saying...?"
+
+"Yes, dear Elena. I believe you could actually physically change both your appearance and others with magic. Of course, that is dangerous and most aspects are forbidden but there are some situations where even forbidden magic is necessary."
+
+"If you have been watching, then you'd know I'm the Spymaster, I can't just go breaking the rules," you reason.
+
+"True, like I said, sometimes it is necessary, and what I've seen, your gut instinct is strong," explains Proteas. He's right, there have been times you've been willing to overlook certain transgressions for the sake of your morality. Nothing majorly criminal of course, things like thefts to feed a family.
+
+"Okay, you have my attention," you relent.
+
+"Good! Now of course, I am going to need you to prove yourself first. I need to be sure, I only revealed the entrance to my floor because I felt you were ready to learn, but also because you'd found out about the Secret Temple," he says.
+
+"The Temple! So it is real? How do I get in?" You ask.
+
+"That's all part of the test. I shall give you one clue. You may be a Master, you may have magic, but the entrance has been underneath you this whole time," Proteas cryptically announces.
+> speak to proteas
+
+> speak to proteas
+"Is there anything I can help you with?"
+> down
+
+> down
+
+You are in a Grand Library Third Floor.
+You can see Rael.
+You can go down or up.
+There is something different about the room. You can sense it...
+> down
+
+> down
+
+You are in a Grand Library Second Floor.
+You can go down or up.
+> down
+
+> down
+
+You are in a Grand Library.
+You can see Maseon and Keela.
+You can go west or up.
+> w
+
+> w
+
+You are in a Mage Guild Hall.
+You can go north or east.
+> n
+
+> n
+
+You are in a Mage Guild Entrance.
+You can go north or south.
+> n
+
+> n
+
+You are in a North Square.
+You can see a Signpost.
+You can go east, west or south.
+> e
+
+> e
+
+You are in a North Street 3.
+You can see an Eulis.
+You can go east, west or south.
+> e
+
+> e
+
+You are in a North Street 4.
+You can go east or west.
+> e
+
+> e
+
+You are in a North East Square.
+You can see a Signpost.
+You can go south or west.
+> s
+
+> s
+
+You are in an East Street 1.
+You can go south or north.
+> s
+
+> s
+
+You are in an East Street 2.
+You can go south or north.
+> s
+
+> s
+
+You are in an East Square.
+You can see a Signpost.
+You can go south, north or west.
+> s
+
+> s
+
+You are in an East Street 3.
+You can go south, north or west.
+> w
+
+> w
+
+You are in a Guild Square.
+You can see a Signpost.
+You can go north, west or east.
+> n
+
+> n
+
+You are in a Guild South Corridor.
+You can go north or south.
+> n
+
+> n
+
+You are in a Guild Headquarters.
+You can see LaFaye, Gradius, Mattrock, Leith and an Intel Desk.
+You can go north, west, east, down or south.
+> down
+
+> down
+
+You are in a Guild Dungeon.
+You can see Harald.
+You can go up, north, east or west.
+> e
+
+> e
+
+You are in a Guild Cell Three.
+You can go west.
+> use perception magic
+
+> use perception magic
+Ah ha! A lever reveals itself to you. There was some serious magic concealing that from you. The entrance was really underneath you all this time... incredible!
+> down
+
+> down
+
+You are in a Secret Temple Entrance.
+You can go up or north.
+> n
+
+> n
+
+You are in a Secret Temple Chamber One.
+You can see a Lever, a Lever, a Lever and a Lever.
+You can go south or north.
+> look
+
+> look
+You are in a Secret Temple Chamber One.
+You can see a Lever, a Lever, a Lever and a Lever.
+You can go south or north.
+> pull lever
+
+> pull lever
+Please choose which 'lever' you mean:
+1: Lever
+2: Lever
+3: Lever
+4: Lever
+> 4
+You hear a clunk and the first of the four rocks above the door starting glowing with magical energy.
+> pull lever
+
+> pull lever
+Please choose which 'lever' you mean:
+1: Lever
+2: Lever
+3: Lever
+4: Lever
+> 2
+You hear a clunk and the second of the four rocks above the door starting glowing with magical energy.
+> pull lever
+
+> pull lever
+Please choose which 'lever' you mean:
+1: Lever
+2: Lever
+3: Lever
+4: Lever
+> 3
+You hear a clunk and the third of the four rocks above the door starting glowing with magical energy.
+> pull lever
+
+> pull lever
+Please choose which 'lever' you mean:
+1: Lever
+2: Lever
+3: Lever
+4: Lever
+> 1
+You hear a clunk and the last of the four rocks above the door starting glowing with magical energy.
+
+The door opens.
+> n
+
+> n
+
+You are in a Secret Temple Chamber Two.
+You can see a Left Panel (containing a Black Stone and a Black Stone), a Right Panel (containing a Black Stone, a White Stone and a White Stone), a Central Panel (containing a Black Stone, a Black Stone, a White Stone, a White Stone, a White Stone, a White Stone and a White Stone) and a Lever.
+You can go south or north.
+> look
+
+> look
+You are in a Secret Temple Chamber Two.
+You can see a Left Panel (containing a Black Stone and a Black Stone), a Right Panel (containing a Black Stone, a White Stone and a White Stone), a Central Panel (containing a Black Stone, a Black Stone, a White Stone, a White Stone, a White Stone, a White Stone and a White Stone) and a Lever.
+You can go south or north.
+> left black stone
+
+> left black stone
+Please choose which 'black stone' you mean:
+1: Black Stone
+2: Black Stone
+3: Black Stone
+4: Black Stone
+5: Black Stone
+> 4
+You move the black stone to the left panel.
+> right black stone
+
+> right black stone
+Please choose which 'black stone' you mean:
+1: Black Stone
+2: Black Stone
+3: Black Stone
+4: Black Stone
+5: Black Stone
+> 5
+You move the black stone to the right panel.
+> left white stone
+
+> left white stone
+Please choose which 'white stone' you mean:
+1: White Stone
+2: White Stone
+3: White Stone
+4: White Stone
+5: White Stone
+6: White Stone
+7: White Stone
+> 3
+You move the white stone to the left panel.
+> right white stone
+
+> right white stone
+Please choose which 'white stone' you mean:
+1: White Stone
+2: White Stone
+3: White Stone
+4: White Stone
+5: White Stone
+6: White Stone
+7: White Stone
+> 4
+You move the white stone to the right panel.
+> right white stone
+
+> right white stone
+Please choose which 'white stone' you mean:
+1: White Stone
+2: White Stone
+3: White Stone
+4: White Stone
+5: White Stone
+6: White Stone
+7: White Stone
+> 5
+You move the white stone to the right panel.
+> right white stone
+
+> right white stone
+Please choose which 'white stone' you mean:
+1: White Stone
+2: White Stone
+3: White Stone
+4: White Stone
+5: White Stone
+6: White Stone
+7: White Stone
+> 6
+You move the white stone to the right panel.
+> right white stone
+
+> right white stone
+Please choose which 'white stone' you mean:
+1: White Stone
+2: White Stone
+3: White Stone
+4: White Stone
+5: White Stone
+6: White Stone
+7: White Stone
+> 7
+You move the white stone to the right panel.
+> x central panel
+
+> x central panel
+Currently holding: 0 lbs.
+> x left panel
+
+> x left panel
+Currently holding: 16 lbs.
+> x right panel
+
+> x right panel
+Currently holding: 16 lbs.
+> pull lever
+
+> pull lever
+With another clunk, the second door opens.
+> n
+
+> n
+
+You are in a Secret Temple Chamber Three.
+You can see a Chest.
+You can go south.
+> open chest
+
+> open chest
+You open it.
+> take mysterious rune
+
+> take mysterious rune
+> take gold
+
+> take gold
+You add the gold to your purse.
+> s
+
+> s
+
+You are in a Secret Temple Chamber Two.
+You can see a Left Panel (containing a Black Stone, a Black Stone, a Black Stone and a White Stone), a Right Panel (containing a Black Stone, a White Stone, a White Stone, a Black Stone, a White Stone, a White Stone, a White Stone and a White Stone), a Central Panel and a Lever.
+You can go south or north.
+> s
+
+> s
+
+You are in a Secret Temple Chamber One.
+You can see a Lever, a Lever, a Lever and a Lever.
+You can go south or north.
+> s
+
+> s
+
+You are in a Secret Temple Entrance.
+You can go up or north.
+> up
+
+> up
+
+You are in a Guild Cell Three.
+You can go west or down.
+> w
+
+> w
+
+You are in a Guild Dungeon.
+You can see Harald.
+You can go up, north, east or west.
+> up
+
+> up
+
+You are in a Guild Headquarters.
+You can see LaFaye, Gradius, Mattrock, Leith and an Intel Desk.
+You can go north, west, east, down or south.
+> s
+
+> s
+
+You are in a Guild South Corridor.
+You can go north or south.
+> s
+
+> s
+
+You are in a Guild Square.
+You can see a Signpost.
+You can go north, west or east.
+> e
+
+> e
+
+You are in an East Street 3.
+You can go south, north or west.
+> n
+
+> n
+
+You are in an East Square.
+You can see a Signpost.
+You can go south, north or west.
+> n
+
+> n
+
+You are in an East Street 2.
+You can go south or north.
+> n
+
+> n
+
+You are in an East Street 1.
+You can go south or north.
+> n
+
+> n
+
+You are in a North East Square.
+You can see a Signpost.
+You can go south or west.
+> w
+
+> w
+
+You are in a North Street 4.
+You can go east or west.
+> w
+
+> w
+
+You are in a North Street 3.
+You can see an Eulis.
+You can go east, west or south.
+> w
+
+> w
+
+You are in a North Square.
+You can see a Signpost.
+You can go east, west or south.
+> s
+
+> s
+
+You are in a Mage Guild Entrance.
+You can go north or south.
+> s
+
+> s
+
+You are in a Mage Guild Hall.
+You can go north or east.
+> e
+
+> e
+
+You are in a Grand Library.
+You can see Maseon and Keela.
+You can go west or up.
+> up
+
+> up
+
+You are in a Grand Library Second Floor.
+You can go down or up.
+> up
+
+> up
+
+You are in a Grand Library Third Floor.
+You can see Rael.
+You can go down or up.
+There is something different about the room. You can sense it...
+> up
+
+> up
+
+You are in a Grand Library Secret Floor.
+You can see Proteas.
+You can go down.
+> give mysterious rune to proteas
+
+> give mysterious rune to proteas
+"Ah hah! You did it!" exclaims Proteas, "and you have the Rune!"
+
+"The Rune? What is it?"
+
+"It is The Rune of Adiposal Transference," he explains, unhelpfully.
+
+"The what now?" You ask again.
+
+"In short, it's known at the Fat Rune," Okay, you think, that makes a little more sense.
+
+"What does it do?" You still need answers.
+
+"At the moment it is devoid of energy, but it has the power to store almost limitless volumes of energy," he expands, "of course, energy cannot simply be created... it must be transferred..."
+
+"... from fat," you finish, the function dawning on you.
+
+"Yes, in your line of work, I have seen many good spies, even Spymasters fall afoul of Fat Magic."
+
+He pauses.
+"Be especially careful, there are those that will do so deliberately because of who you are".
+He pauses again.
+
+"Anyway, with that you will be able to convert any extra fat from you into energy stored in that Rune. Now, that energy doesn't go anywhere and most importantly that energy can only ever be converted back into fat. However, the Rune does not discriminate. The Rune will be able to both give and take fat from other people if you so wish to, but as we both know Fat Magic is forbidden, so I must stress that unless there is absolutely no other choice that you do not use it on anyone else. I trust you, but I still need to say that. The other reason I'm trusting you with this is because your natural magic is capable of hiding whatever size you actually are from the public and so no one can see you change size, but we both know that what the public sees does not affect your physical ability to carry out task. If you got too fat for a doorway, for instance, your magic won't help that. This would."
+
+"That's a lot to take in, sir," you attempt to gather yourself after that barrage of information. Proteas laughs.
+
+"Firstly, call me Proteas. Secondly, you'll be fine. And finally, that's all you need to know so you may carry on with your business. If you find any other artefacts or think I may have any answers to your questions, please feel free to come back and see me."
+> open bag
+
+> open bag
+It is already open.
+> x fat rune
+
+> x fat rune
+A rune that can take your (or others') fat and store it as energy and vice versa. This counts as Fat Magic and thus is outlawed magic, so you shouldn't really use it on other unless there is no other choice. Using it on yourself to maintain your physical abilities may be necessary.
+> look
+
+> look
+You are in a Grand Library Secret Floor.
+You can see Proteas.
+You can go down.
+[state=Running]

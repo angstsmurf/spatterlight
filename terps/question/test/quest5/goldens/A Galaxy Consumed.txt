@@ -1,0 +1,201 @@
+A Galaxy Consumed
+
+by Io
+
+IT IS RECOMMENDED TO SAVE OFTEN IN THIS GAME, AND KEEP MULTIPLE SAVES IF POSSIBLE; YOU NEVER KNOW WHEN A FIGHT WILL TURN SOUR!
+
+Do you want to go over the backstory, or get right into making your character?
+1: Backstory
+2: No Backstory
+> 2
+
+HUMANS: Humans are 2 meter tall, bipedal mammalians hailing from the world Earth, in orbit of the star Sol, within the Orion Arm. Diverse and proud of their accomplishments, they were the founding members of the Conjoined Species. They are also the only known species with a nudity taboo. In ancient times humans were persistence hunters, and even today their mechanical bodies are designed to be long-lasting.
+Humans have +5% Maximum Energy.
+
+MIDARIANS: Midarians are ~2 meter tall avians, covered in colorful feathers and with four eyes, hailing from the world Eerawiks, in orbit of the star Aerish, within the Perseus Arm. Their wings are broad but flightless, with flexible feathers that can double as fingers. Flighty and fierce, they joined the Conjoined Species after humans founded it. Midarians were ambush predators in prehistory, and even today their mechanical bodies have powerful springs and advanced threat-assessment calculators.
+Midarians have +5% Speed.
+
+TURLACS: Turlacs are ~3 meter long fish, though they more closely resemble crimson, three-eyed dolphins from Earth and possess poisonous flesh. They hail from the world of Calano, in orbit of the star Ora, within the Carina-Sagittarius Arm. Broad and strong, the Turlacs suffered a civil war when they found the Conjoined Species, and it was only after the war's resolution that they formally joined. To move among other species they use mechanical, water-filled suits around their bodies, lending them an extra layer of protection.
+Turlacs have +5% Health.
+
+UNLIKE MOST THINGS, YOUR SPECIES CANNOT BE CHANGED
+
+Select your character's species!
+1: Human
+2: Midarian
+3: Turlac
+4: Randomize Everything
+> 1
+Choose your character's Sex.
+
+1: Male
+2: Female
+> 1
+Choose your character's Eye Color.
+
+1: Purple
+2: Indigo
+3: Blue
+4: Green
+5: Yellow
+6: Orange
+7: Red
+8: Brown
+9: Hazel
+10: Pink
+11: Silver
+12: Gray
+> 3
+Humans have hair on top of their heads. Decide your character's Hair Color.
+
+1: Blonde
+2: Dirty Blonde
+3: Red
+4: Auburn
+5: Brown
+6: Black
+7: Purple
+8: Indigo
+9: Blue
+10: Green
+11: Yellow
+12: Orange
+13: Silver
+14: Pink
+15: Gray
+> 6
+Humans have hair on top of their heads. Decide your character's Hair Length.
+
+1: Bald
+2: Short
+3: Neck-Length
+4: Back-Length
+5: Leg-Length
+6: Floor-Length
+> 2
+Humans have bare skin covering most of their bodies. Decide your character's Skin Color.
+
+1: Pale
+2: Fair
+3: Olive
+4: Dark
+> 1
+Decide your character's Height compared to other men of their species.
+
+1: Short
+2: Average
+3: Large
+> 2
+Do you want to input your character's First Name, or generate one randomly?
+
+UNLIKE MOST THINGS, YOUR NAME CANNOT BE CHANGED
+
+1: Custom Name
+2: Random Name
+> 1
+
+Enter your desired First Name.
+> Alex
+Your First Name is Alex. Is this your final choice?
+
+1: Yes
+2: No
+> 1
+Do you want to input your character's Last Name, or generate one randomly?
+
+UNLIKE MOST THINGS, YOUR NAME CANNOT BE CHANGED
+
+1: Custom Name
+2: Random Name
+> 1
+
+Enter your desired Last Name.
+> Vale
+Your Last Name is Vale. Is this your final choice?
+
+1: Yes
+2: No
+> 1
+You are Alex Vale, a human man. You have two blue eyes, and are 185 cm tall.
+
+Over your pale skin you're wearing a regular set of clothes for the time period; a gray jumpsuit engraved with patterns of rainbow swirls. Your short hair is black.
+
+Is this correct?
+
+1: Yes, Bring Me To My Ship!
+2: No
+> 1
+
+Your ship's bridge is located near the front of the vessel, which is shaped like a pleasingly rounded saucer. All along one end of the white room is a window to the outside. Seats designed for all species dot the area, and hidden beneath the gleaming metal are countless vital systems.
+
+This is where you can command your ship's navigational systems to travel across space.
+
+Enter 'S' to view your stats. You can do this at nearly any time.
+
+Drift around and explore the sights! When you are ready to begin the main story, head to the Messages section of the internet, accessible from your private quarters!
+> east
+
+This is an intersection of your ship's many hallways. The walls are white and lined with streaks of lights. You can go west to the Bridge, south to an Elevator, east to the Engine Core, or north to the various living quarters.
+> north
+
+This is a hallway in your ship, going by your living quarters. The walls are white and lined with streaks of lights. You can go south to an intersection, continue north up the corridor, go west to your Private Quarters, or east to an unoccupied guest room.
+> west
+
+These are your private quarters. The cylindrical walls are green, and smooth down to the atomic level. A circle patterned into the ceiling provides ample amounts of golden light. There's a bed pushed against one of the sides, large and circular with ample amounts of fabricated cushions, pillows and sheets. A mirror across from it stretched from floor to walls, hiding a variety of appliances to change your appearance.
+
+There's also an internet terminal to access the web, and a panel where you can alter your ship's name and color. Lastly, there's a shelf where you keep memorabilia from years past.
+> access internet terminal
+
+You're in the central hub of the internet's search engine. It takes, for you, the form of a vast white chamber, glowing with otherworldly light. If you ever want, you can go out to disconnect from the internet.
+
+You can 'move' your avatar north to a domain where you can check your incoming messages, west to play your assortment of games, south to view your assortment of literature, or east to the raw knowledge stored in the internet.
+> north
+
+You're in your email folder. Whenever you have new messages, you can take a look at them in here!
+
+You can also go back south to the main internet hub and, from there, out to the real world.
+
+Drifting by is an ad for a natural park on the midarian homeworld, Eerawiks, in the Aerish system.
+> look
+You're in your email folder. Whenever you have new messages, you can take a look at them in here!
+
+You can also go back south to the main internet hub and, from there, out to the real world.
+
+Drifting by is an ad for a natural park on the midarian homeworld, Eerawiks, in the Aerish system.
+> messages new messages
+
+Message: This message is in video form. You turn it on and it shows the face of a human woman with dark skin and intense gray eyes staring into the camera infront of a black backdrop. Her silver, back-length  hair frames her face as it cascades down her back.
+
+"Hello, my name is Siara Smithers. This is a request for someone with access to a two-plus person FTL vehicle to provide transportation," she says in a honeyed voice. "I require access to the Eta Carina science station, more details will be provided for those interested. As Eta Carina is off the warp gate network, I am prepared to purchase a warp drive for ships lacking one.
+
+"For those who are interested, contact me in my apartment on Ra, Floor 37, room B-Z-Z. Payment will be 1500 credits for delivering me to the Eta Carina station, on top of warp drive purchasing. Thank you in advance." The message cuts out.
+
+You have an FTL-capable vehicle. It's good for 8 people, too. You could do this if you want. 1500 credits is nothing to scoff at.
+
+Accept? Note that accepting this will start the main storyline.
+1: Yes
+2: No
+> 1
+
+You'll do this! You just need to head on over to Ra, on floor 37, to meet with Siara and get more details.
+> 1
+I don't understand your command.
+> south
+
+You're in the central hub of the internet's search engine. It takes, for you, the form of a vast white chamber, glowing with otherworldly light. If you ever want, you can go out to disconnect from the internet.
+
+You can 'move' your avatar north to a domain where you can check your incoming messages, west to play your assortment of games, south to view your assortment of literature, or east to the raw knowledge stored in the internet.
+> look
+You're in the central hub of the internet's search engine. It takes, for you, the form of a vast white chamber, glowing with otherworldly light. If you ever want, you can go out to disconnect from the internet.
+
+You can 'move' your avatar north to a domain where you can check your incoming messages, west to play your assortment of games, south to view your assortment of literature, or east to the raw knowledge stored in the internet.
+> out
+
+These are your private quarters. The cylindrical walls are green, and smooth down to the atomic level. A circle patterned into the ceiling provides ample amounts of golden light. There's a bed pushed against one of the sides, large and circular with ample amounts of fabricated cushions, pillows and sheets. A mirror across from it stretched from floor to walls, hiding a variety of appliances to change your appearance.
+
+There's also an internet terminal to access the web, and a panel where you can alter your ship's name and color. Lastly, there's a shelf where you keep memorabilia from years past.
+> look
+These are your private quarters. The cylindrical walls are green, and smooth down to the atomic level. A circle patterned into the ceiling provides ample amounts of golden light. There's a bed pushed against one of the sides, large and circular with ample amounts of fabricated cushions, pillows and sheets. A mirror across from it stretched from floor to walls, hiding a variety of appliances to change your appearance.
+
+There's also an internet terminal to access the web, and a panel where you can alter your ship's name and color. Lastly, there's a shelf where you keep memorabilia from years past.
+[state=Running]

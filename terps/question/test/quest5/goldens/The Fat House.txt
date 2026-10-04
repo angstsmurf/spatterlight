@@ -1,0 +1,161 @@
+The Fat House
+
+Welcome to the Fat House.
+
+It was bequethed to you from your eccentric uncle: Roderick Ford. He felt it should stay in the Ford name and since he had no children, the honour is now yours.
+
+Of course, you're new to this. He wasn't the most successful Fat House owner but the basics are all there.
+
+Good luck!
+
+You are in the Introduction.
+You can see a Button.
+> continue button
+
+> continue button
+
+You are in a Master Suite.
+You can go south.
+> s
+
+> s
+
+You are in a Hub Top.
+You can go down, north or east.
+> e
+
+> e
+
+You are in a Secretary Office.
+You can go west or north.
+> n
+
+> n
+
+You are in a Your Office.
+You can see a Computer Terminal.
+You can go south.
+> x computer
+
+> x computer
+Nothing out of the ordinary.
+> s
+
+> s
+
+You are in a Secretary Office.
+You can go west or north.
+> w
+
+> w
+
+You are in a Hub Top.
+You can go down, north or east.
+> d
+
+> d
+
+You are in a Hub Room.
+You can go up, north, southeast, west or east.
+> n
+
+> n
+
+You are in a Pen Hub.
+You can see an Information Board.
+You can go south, southwest or west.
+> x information board
+
+> x information board
+Pen 1: Candy
+You can buy more Pens and Girls from your computer upstairs.
+> sw
+
+> sw
+
+You are in Pen 1.
+You can see a Food Terminal, a Statistics, a Work Schedule, a Social Schedule, a Sales, a Stim Cabinet, a Pen Management and a Candy.
+You can go northeast.
+> look
+
+> look
+You are in Pen 1.
+You can see a Food Terminal, a Statistics, a Work Schedule, a Social Schedule, a Sales, a Stim Cabinet, a Pen Management and a Candy.
+You can go northeast.
+> ne
+
+> ne
+
+You are in a Pen Hub.
+You can see an Information Board.
+You can go south, southwest or west.
+> s
+
+> s
+
+You are in a Hub Room.
+You can go up, north, southeast, west or east.
+> e
+
+> e
+
+You are in a Kitchen.
+You can see an Information Board.
+You can go west.
+> x information board
+
+> x information board
+Your Kitchenl
+Kitchenl Level: 1
+Kitchen Exp: 0/5000
+
+Assigned to Kitchen:
+> w
+
+> w
+
+You are in a Hub Room.
+You can go up, north, southeast, west or east.
+> w
+
+> w
+
+You are in a Garden.
+You can see an Information Board.
+You can go east.
+> x information board
+
+> x information board
+Your Garden
+Garden Level: 1
+Garden Exp: 0/5000
+
+Assigned to Garden:
+> e
+
+> e
+
+You are in a Hub Room.
+You can go up, north, southeast, west or east.
+> se
+
+> se
+
+You are in a Brothel.
+You can see an Information Board.
+You can go northwest.
+> x information board
+
+> x information board
+Your Brothel
+Brothel Level: 1
+Brothel Exp: 0/5000
+
+Assigned to Brothel:
+> nw
+
+> nw
+
+You are in a Hub Room.
+You can go up, north, southeast, west or east.
+[state=Running]

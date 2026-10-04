@@ -1,0 +1,432 @@
+What Dragons Need
+
+by Io
+
+Character Select
+
+Choose what race you wish to play as.
+
+Human: Nobody really knows humanity's relation to the other mortals. The progenitors? An offshoot of one of the others? Sharing an ancestor? The answer is buried by history. Regardless, over the years humanity has shown its worth time and time again, and while they're nothing special in ability and temperament, they have come farther than would be expected for a race who only began recording history 8,000 years ago. Humans gain a minor bonus to experience gain.
+
+Elf: While elves no longer have the ancient and vast empires that brought them glory, they are still a widely spread people covering all corners of the world. While it's no longer in practice today, a past history of internal eugenics means that the elves tend to be more magically inclined than their fellow races, for better or worse. Elves gain a minor magic bonus.
+
+Orc: In ancient times, orcs formed many small tribes, barbarous and cruel, known for their ferocious strength and skill in battle. Those days are past now, and they live - mostly - in peace with the other races of the realm. While history is sprinkled with anti-orc sentiment, those days too are gone, and the orcish people live every day striving to show they are not their ancestors. Orcs gain a minor strength bonus.
+
+Enter 'H' to select a human.
+
+Enter 'E' to select an elf.
+
+Enter 'O' to select an orc.
+
+WARNING! THIS DECISION IS PERMANENT! BE VERY CERTAIN OF YOUR CHOICE!
+> H
+Gender Select
+
+You have selected Human!
+
+Are you a man or a woman?
+
+Enter 'M' to select male.
+
+Enter 'F' to select female.
+
+WARNING! THIS DECISION IS PERMANENT! BE VERY CERTAIN OF YOUR CHOICE!
+> M
+Name Select
+
+You have selected Male!
+
+Enter letters, one at a time, to fill in your name. Your options are A-Z in the English alphabet and nothing more.
+
+Current Name:
+
+Enter '0' to reset your name.
+
+Enter '1' to lock in your name and continue. Your name must be longer than 0 characters!
+
+Enter '2' to have us choose a name for you based on species and gender.
+
+Be very certain about this name, it cannot be changed later on.
+> K
+Null
+Name Select
+
+You have selected Male!
+
+Enter letters, one at a time, to fill in your name. Your options are A-Z in the English alphabet and nothing more.
+
+Current Name: K
+
+Enter '0' to reset your name.
+
+Enter '1' to lock in your name and continue.
+
+Enter '2' to have us choose a name for you based on species and gender.
+
+Be very certain about this name, it cannot be changed later on.
+> a
+Null
+Name Select
+
+You have selected Male!
+
+Enter letters, one at a time, to fill in your name. Your options are A-Z in the English alphabet and nothing more.
+
+Current Name: Ka
+
+Enter '0' to reset your name.
+
+Enter '1' to lock in your name and continue.
+
+Enter '2' to have us choose a name for you based on species and gender.
+
+Be very certain about this name, it cannot be changed later on.
+> i
+Null
+Name Select
+
+You have selected Male!
+
+Enter letters, one at a time, to fill in your name. Your options are A-Z in the English alphabet and nothing more.
+
+Current Name: Kai
+
+Enter '0' to reset your name.
+
+Enter '1' to lock in your name and continue.
+
+Enter '2' to have us choose a name for you based on species and gender.
+
+Be very certain about this name, it cannot be changed later on.
+> 1
+Stats Select
+
+Your name is Kai Trinnal!
+
+You have 6 stat points to spend!
+
+Stamina: Each point of Stamina increases your Maximum Health. You currently have 10 Stamina.
+
+Intellect: Each point of Intellect increases your Maximum Mana. You currently have 10 Intellect.
+
+Constitution: Each point of Constitution reduces physical damage taken. You currently have 10 Constitution.
+
+Willpower: Each point of Willpower reduces magical damage taken. You currently have 10 Willpower.
+
+Enter 'S' to gain 1 Stamina.
+
+Enter 'I' to gain 1 Intellect.
+
+Enter 'C' to gain 1 Constitution.
+
+Enter 'W' to gain 1 Willpower.
+
+Enter 'R' to reset your stats.
+
+Enter 'D' when done. This will start the game.
+> S
+Null
+Stats Select
+
+Your name is Kai Trinnal!
+
+You have 5 stat points to spend!
+
+Stamina: Each point of Stamina increases your Maximum Health. You currently have 11 Stamina.
+
+Intellect: Each point of Intellect increases your Maximum Mana. You currently have 10 Intellect.
+
+Constitution: Each point of Constitution reduces physical damage taken. You currently have 10 Constitution.
+
+Willpower: Each point of Willpower reduces magical damage taken. You currently have 10 Willpower.
+
+Enter 'S' to gain 1 Stamina.
+
+Enter 'I' to gain 1 Intellect.
+
+Enter 'C' to gain 1 Constitution.
+
+Enter 'W' to gain 1 Willpower.
+
+Enter 'R' to reset your stats.
+
+Enter 'D' when done. This will start the game.
+> S
+Null
+Stats Select
+
+Your name is Kai Trinnal!
+
+You have 4 stat points to spend!
+
+Stamina: Each point of Stamina increases your Maximum Health. You currently have 12 Stamina.
+
+Intellect: Each point of Intellect increases your Maximum Mana. You currently have 10 Intellect.
+
+Constitution: Each point of Constitution reduces physical damage taken. You currently have 10 Constitution.
+
+Willpower: Each point of Willpower reduces magical damage taken. You currently have 10 Willpower.
+
+Enter 'S' to gain 1 Stamina.
+
+Enter 'I' to gain 1 Intellect.
+
+Enter 'C' to gain 1 Constitution.
+
+Enter 'W' to gain 1 Willpower.
+
+Enter 'R' to reset your stats.
+
+Enter 'D' when done. This will start the game.
+> C
+Null
+Stats Select
+
+Your name is Kai Trinnal!
+
+You have 3 stat points to spend!
+
+Stamina: Each point of Stamina increases your Maximum Health. You currently have 12 Stamina.
+
+Intellect: Each point of Intellect increases your Maximum Mana. You currently have 10 Intellect.
+
+Constitution: Each point of Constitution reduces physical damage taken. You currently have 11 Constitution.
+
+Willpower: Each point of Willpower reduces magical damage taken. You currently have 10 Willpower.
+
+Enter 'S' to gain 1 Stamina.
+
+Enter 'I' to gain 1 Intellect.
+
+Enter 'C' to gain 1 Constitution.
+
+Enter 'W' to gain 1 Willpower.
+
+Enter 'R' to reset your stats.
+
+Enter 'D' when done. This will start the game.
+> C
+Null
+Stats Select
+
+Your name is Kai Trinnal!
+
+You have 2 stat points to spend!
+
+Stamina: Each point of Stamina increases your Maximum Health. You currently have 12 Stamina.
+
+Intellect: Each point of Intellect increases your Maximum Mana. You currently have 10 Intellect.
+
+Constitution: Each point of Constitution reduces physical damage taken. You currently have 12 Constitution.
+
+Willpower: Each point of Willpower reduces magical damage taken. You currently have 10 Willpower.
+
+Enter 'S' to gain 1 Stamina.
+
+Enter 'I' to gain 1 Intellect.
+
+Enter 'C' to gain 1 Constitution.
+
+Enter 'W' to gain 1 Willpower.
+
+Enter 'R' to reset your stats.
+
+Enter 'D' when done. This will start the game.
+> W
+Null
+Stats Select
+
+Your name is Kai Trinnal!
+
+You have 1 stat point to spend!
+
+Stamina: Each point of Stamina increases your Maximum Health. You currently have 12 Stamina.
+
+Intellect: Each point of Intellect increases your Maximum Mana. You currently have 10 Intellect.
+
+Constitution: Each point of Constitution reduces physical damage taken. You currently have 12 Constitution.
+
+Willpower: Each point of Willpower reduces magical damage taken. You currently have 11 Willpower.
+
+Enter 'S' to gain 1 Stamina.
+
+Enter 'I' to gain 1 Intellect.
+
+Enter 'C' to gain 1 Constitution.
+
+Enter 'W' to gain 1 Willpower.
+
+Enter 'R' to reset your stats.
+
+Enter 'D' when done. This will start the game.
+> I
+Null
+Stats Select
+
+Your name is Kai Trinnal!
+
+You have 0 stat points to spend!
+
+Stamina: Each point of Stamina increases your Maximum Health. You currently have 12 Stamina.
+
+Intellect: Each point of Intellect increases your Maximum Mana. You currently have 11 Intellect.
+
+Constitution: Each point of Constitution reduces physical damage taken. You currently have 12 Constitution.
+
+Willpower: Each point of Willpower reduces magical damage taken. You currently have 11 Willpower.
+
+Enter 'S' to gain 1 Stamina.
+
+Enter 'I' to gain 1 Intellect.
+
+Enter 'C' to gain 1 Constitution.
+
+Enter 'W' to gain 1 Willpower.
+
+Enter 'R' to reset your stats.
+
+Enter 'D' when done. This will start the game.
+> D
+Second Floor
+You can see your Bed, a Nightstand and a Closet.
+You can go down.
+
+This is your bedroom. People always say that it's not much, but you can't see what they mean. The brown wood is cozy. It's got a bed, a nightstand, and a closet holding your clothes. What more could you want? The door swings open to reveal a set of wooden stairs that go downstairs. Honestly, it's perfect.
+
+Enter 'S' to view your stats.
+> x bed
+
+It's your bed! A little on the small side for a Human such as yourself, but it's yours and that's what matters. The frame is made of a pale wood you can never remember the name of, there is hay covering, and a white, feathery pillow. Currently the brown hand-woven sheet your mother gave you as a child is crumpled up in a ball. Making the bed is for the weak.
+> go down
+First Floor
+In your house is a Dining Table and a Cupboard.
+You can go up or north.
+
+The first floor of your house is a little more elaborate than the second floor, but not by much. There's a dining table, but currently you've got all the seats pushed in. Cupboards line the walls. Unlit candles stand on the table, unneeded since brilliant sunlight is streaming in through your windows, casting everything in toasty yellow warmth. You can go up the stairs to your bedroom, or go out into town.
+
+You've probably got work to do outside anyway.
+> x cupboard
+
+Dusty cupboards made of dark brown wood. They can open and close, but the hinges are a bit rusty.
+> open cupboard
+You open the cupboard. Maybe there's something inside?
+Inside the cupboard you find an Apple.
+> take apple
+You grab the apple.
+> eat apple
+
+You eat the apple. Delicious! You're ready to face the day.
+> go north
+Streets of Tut'rial
+You can go south, east or west.
+
+You step outside your house and take a deep breath of the humid daytime air. The town of Tut'rial isn't very active on the best of days, and today is no exception. Still, there are a few crowds milling about.
+
+In the center of town is a block of buildings, and around it is the main street. This results in a sort of 'ring' that people can traverse around.
+
+From here, you can see your neighbors. To the west, someone is painting someone else's house. To the east is your workplace, the local smithy.
+> go east
+Streets of Tut'rial
+You can go west, north or southeast.
+
+The town of Tut'rial isn't very active on the best of days, and today is no exception. Still, there are a few crowds milling about.
+
+In the center of town is a block of buildings, and around it is the main street. This results in a sort of 'ring' that people can traverse around.
+
+To the west is your house, the door currently locked. To the north is the local eye doctor's residence. A more general practice doctor can be found way out in the fields, but she's not as specialized. From here, you can see your workplace, which you proudly call 'Ironing Out the Details'.
+> go southeast
+Ironing Out the Details
+You can go northwest.
+
+Your workplace. It's just like you left it, with the forge quiet, the cooling table humid. All your tools are in their place, and your stock iron is safely stowed away lest some idiot kids poke their eyes out with them. The air is filled with the comforting smell of iron and sweat, and lanterns provide you all the light you'll need.
+
+You've got a lot to do today. May as well get started.
+
+Enter 'C' to continue, starting your work day.
+> go northwest
+Streets of Tut'rial
+You can go west, north or southeast.
+
+The town of Tut'rial isn't very active on the best of days, and today is no exception. Still, there are a few crowds milling about.
+
+In the center of town is a block of buildings, and around it is the main street. This results in a sort of 'ring' that people can traverse around.
+
+To the west is your house, the door currently locked. To the north is the local eye doctor's residence. A more general practice doctor can be found way out in the fields, but she's not as specialized. From here, you can see your workplace, which you proudly call 'Ironing Out the Details'.
+> go north
+Streets of Tut'rial
+Sitting behind her stall is Ms. Havenshrine.
+You can go south or north.
+
+The town of Tut'rial isn't very active on the best of days, and today is no exception. Still, there are a few crowds milling about.
+
+In the center of town is a block of buildings, and around it is the main street. This results in a sort of 'ring' that people can traverse around.
+
+To the south is your workplace, and to the north a block of residential buildings. Around you right now is Ms. Havenshrine's clinic, complete with a stall outside for her to harass people about negelcting their eyesight. She's doing it right now to a group of teenage humans.
+> go north
+Streets of Tut'rial
+You can go south or west.
+
+The town of Tut'rial isn't very active on the best of days, and today is no exception. Still, there are a few crowds milling about.
+
+In the center of town is a block of buildings, and around it is the main street. This results in a sort of 'ring' that people can traverse around.
+
+To the south is Ms. Havenshrine's clinic, and to the west the road leads towards the town gate, through which you can leave Tut'rial. Around you are residential buildings, complete with clothes drying on strings, dogs barking and playing with children, and adults sitting in chairs talking with each other.
+> go west
+Streets of Tut'rial
+You can go east, west or north.
+
+The town of Tut'rial isn't very active on the best of days, and today is no exception. Still, there are a few crowds milling about.
+
+In the center of town is a block of buildings, and around it is the main street. This results in a sort of 'ring' that people can traverse around.
+
+Just north of you is the gate through which you can leave Tut'rial. Around you are various inns and taverns, for the scant few people passing through. To the east is a block of residential houses, and to the west is the town library.
+> go west
+Streets of Tut'rial
+You can go east, south or northwest.
+
+You continue to walk along the streets, humming to yourself quietly. To the southeast is a block of buildings, blocking off all passage. The road turns here, but on the outside of the 'ring' you can see the town library. It's a tall building, two stories and an attic, though only the first two are open to the public. A sign hangs outside a window, saying 'Open 24/7'.
+
+To the east is the gate that leads out of town, and to the south is your favorite restaurant.
+> go north
+Library's Lower Floor
+Two books catch your eye, a Blue Tome and a Red Tome.
+You can go up or southeast.
+
+The library's lower floor smells of dust and of old books, which coincidentally smell like dust. Shelves line the walls, lit by chandeliers on the wooden ceiling. Behind a desk, an elven woman sits and flips through a book in boredom. As you walk around she glances at you occasionally, but beyond that remains part of the background.
+
+There aren't just shelves and a bored worker, though. There are tables and chairs for people to sit, signs explaining how to take out a book, which books cannot be taken out and are there for in-library use only, and so on. The doors lead outside to the rest of Tut'rial, and a winding stairwell disappears into the ceiling.
+> x blue tome
+
+It's a thick blue book with the title 'Elementary Magic Principles' written on the front in golden font. Looks like a schoolbook of some kind.
+> go up
+Library Second Floor
+Your attention is drawn to a Thin Yellow Book.
+You can go down.
+
+The library's upper floor smells of dust and of old books, which coincidentally smell like dust. Shelves line the walls, lit by chandeliers on the wooden ceiling. There are windows here, letting you look down upon the rest of the town.
+
+There aren't just bookshelves around, though. There are tables and chairs for people to sit and glance out the windows, signs explaining how to take out a book, which books cannot be taken out and are there for in-library use only, and so on. A winding stairwell disappears into the floor.
+> look
+Library Second Floor
+Your attention is drawn to a Thin Yellow Book.
+You can go down.
+
+The library's upper floor smells of dust and of old books, which coincidentally smell like dust. Shelves line the walls, lit by chandeliers on the wooden ceiling. There are windows here, letting you look down upon the rest of the town.
+
+There aren't just bookshelves around, though. There are tables and chairs for people to sit and glance out the windows, signs explaining how to take out a book, which books cannot be taken out and are there for in-library use only, and so on. A winding stairwell disappears into the floor.
+> go down
+Library's Lower Floor
+Two books catch your eye, a Blue Tome and a Red Tome.
+You can go up or southeast.
+
+The library's lower floor smells of dust and of old books, which coincidentally smell like dust. Shelves line the walls, lit by chandeliers on the wooden ceiling. Behind a desk, an elven woman sits and flips through a book in boredom. As you walk around she glances at you occasionally, but beyond that remains part of the background.
+
+There aren't just shelves and a bored worker, though. There are tables and chairs for people to sit, signs explaining how to take out a book, which books cannot be taken out and are there for in-library use only, and so on. The doors lead outside to the rest of Tut'rial, and a winding stairwell disappears into the ceiling.
+> go southeast
+Streets of Tut'rial
+You can go east, south or northwest.
+
+You continue to walk along the streets, humming to yourself quietly. To the southeast is a block of buildings, blocking off all passage. The road turns here, but on the outside of the 'ring' you can see the town library. It's a tall building, two stories and an attic, though only the first two are open to the public. A sign hangs outside a window, saying 'Open 24/7'.
+
+To the east is the gate that leads out of town, and to the south is your favorite restaurant.
+[state=Running]
