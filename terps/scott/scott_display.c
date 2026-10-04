@@ -374,6 +374,8 @@ void DrawRoomImage(void)
                 DrawImage(SAVAGE_BEAR_IMAGE);
             }
         }
+    if (Game->type == GREMLINS_VARIANT)
+        GremlinsKeepBlenderFrame();
 }
 
 static void WriteToRoomDescriptionStream(const char *fmt, ...)

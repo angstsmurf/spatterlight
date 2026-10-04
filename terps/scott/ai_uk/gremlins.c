@@ -14,8 +14,49 @@
 
 #define GREMLINS_ANIMATION_RATE 670
 
+#define KITCHEN 3
+
+/* The original only redraws a picture when something in the room changes, so
+   a blender that is switched off keeps the frame it happened to stop on until
+   then. We redraw on every turn, and have to put that frame back. */
+static int blender_frame = 0; /* The blender frame on screen, 0 if none */
+static int kitchen_contents = -1; /* What was in the kitchen when it stopped */
+
+static int KitchenContents(void)
+{
+    unsigned hash = 0;
+    for (int ct = 0; ct <= GameHeader.NumItems; ct++)
+        if (Items[ct].Location == KITCHEN)
+            hash = hash * 31 + ct + 1;
+    return hash & 0x7fffffff;
+}
+
+/* Called after the room and its items have been drawn */
+void GremlinsKeepBlenderFrame(void)
+{
+    if (MyLoc != KITCHEN) {
+        blender_frame = 0;
+        return;
+    }
+    if (Counters[2] == 2) { /* Blender is on */
+        kitchen_contents = -1;
+        return;
+    }
+    if (blender_frame == 0)
+        return;
+    int contents = KitchenContents();
+    if (kitchen_contents == -1)
+        kitchen_contents = contents;
+    if (contents == kitchen_contents)
+        DrawImage(blender_frame);
+    else
+        blender_frame = 0;
+}
+
 void UpdateGremlinsAnimations(void)
 {
+    if (MyLoc != KITCHEN)
+        blender_frame = 0;
     if (Rooms[MyLoc].Image == 255) {
         glk_request_timer_events(0);
         return;
@@ -102,14 +143,15 @@ void UpdateGremlinsAnimations(void)
             }
         }
         break;
-    case 3: /* Kitchen */
+    case KITCHEN:
         if (Counters[2] == 2) /* Blender is on */
         {
             if (AnimationFlag) {
-                DrawImage(56); /* Blended Gremlin */
+                blender_frame = 56; /* Blended Gremlin */
             } else {
-                DrawImage(12); /* Blended Gremlin flipped */
+                blender_frame = 12; /* Blended Gremlin flipped */
             }
+            DrawImage(blender_frame);
         }
         break;
     default:

@@ -10,6 +10,7 @@
 
 void UpdateGremlinsAnimations(void);
 void GremlinsLook(void);
+void GremlinsKeepBlenderFrame(void);
 void GremlinsAction(void);
 void LoadExtraGermanGremlinsData(void);
 void LoadExtraGermanGremlinsC64Data(void);
