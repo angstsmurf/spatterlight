@@ -111,7 +111,7 @@ OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
 	  scnpcs.o scbattle.o scobjcts.o sctasks.o screstrs.o scgamest.o scserial.o\
 	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o
 HEADERS	= scarier.h scprotos.h scgamest.h $(RUNDIR)/scrunner.h	\
-	  $(LIBDIR)/sclibrar.h $(LIBDIR)/sclibrar_internal.h
+	  $(LIBDIR)/sclibrar.h $(LIBDIR)/sclibrar_internal.h sessrec.h
 
 # The map pane: scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the ADRIFT 5
 # one, and both draw into the engine-neutral rasteriser in mapdraw.cpp.  Only
@@ -141,7 +141,8 @@ A5HEADERS = $(A5DIR)/a5blorb.h $(A5DIR)/a5deobf.h $(A5DIR)/a5xml.h	\
 	  $(A5DIR)/a5model.h $(A5DIR)/a5state.h $(A5DIR)/a5restr.h	\
 	  $(A5DIR)/a5expr.h $(A5DIR)/a5sexpr.h $(A5DIR)/a5text.h	\
 	  $(A5DIR)/a5parse.h $(A5DIR)/a5rand.h $(A5DIR)/a5sb.h		\
-	  $(A5DIR)/a5run.h $(A5DIR)/a5run_internal.h $(A5DIR)/a5map.h
+	  $(A5DIR)/a5run.h $(A5DIR)/a5run_internal.h $(A5DIR)/a5map.h	\
+	  sessrec.h
 
 # Default make target is the basic ANSI interpreter.
 all:	scarier

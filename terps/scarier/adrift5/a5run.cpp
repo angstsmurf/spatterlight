@@ -57,6 +57,7 @@
 #include "a5sb.h"
 #include "a5sexpr.h"
 #include "a5text.h"
+#include "../sessrec.h"
 
 int a5run_trace = 0;
 
@@ -4011,20 +4012,9 @@ a5run_input_pending (a5_run_t *run)
 }
 
 /* The cross-turn parser continuation as a byte string, for the Spatterlight
-   autosave (see a5run.h).  A run of "<key> <length>\n<bytes>\n" records, the
-   framing scrunner's session state uses; unknown keys are skipped on the way
-   back, so records can be added without invalidating an older autosave. */
-static void
-pending_put (std::string &out, const char *key, const std::string &value)
-{
-  out += key;
-  out += ' ';
-  out += std::to_string ((unsigned long) value.size ());
-  out += '\n';
-  out += value;
-  out += '\n';
-}
-
+   autosave (see a5run.h).  A run of session records (sessrec.h), the framing
+   scrunner's session state uses; unknown keys are skipped on the way back,
+   so records can be added without invalidating an older autosave. */
 char *
 a5run_pending_save (a5_run_t *run, size_t *out_len)
 {
@@ -4034,18 +4024,18 @@ a5run_pending_save (a5_run_t *run, size_t *out_len)
     return NULL;
   if (run->amb_active)
     {
-      pending_put (out, "amb_task", std::to_string ((long) run->amb_task_index));
-      pending_put (out, "amb_command",
+      sessrec_put (out, "amb_task", std::to_string ((long) run->amb_task_index));
+      sessrec_put (out, "amb_command",
                    std::to_string ((long) run->amb_command_index));
-      pending_put (out, "amb_input", run->amb_input);
-      pending_put (out, "amb_ref_name", run->amb_ref_name);
-      pending_put (out, "amb_ref_type", std::string (1, run->amb_ref_type));
-      pending_put (out, "amb_word", run->amb_word);
+      sessrec_put (out, "amb_input", run->amb_input);
+      sessrec_put (out, "amb_ref_name", run->amb_ref_name);
+      sessrec_put (out, "amb_ref_type", std::string (1, run->amb_ref_type));
+      sessrec_put (out, "amb_word", run->amb_word);
       for (const std::string &key : run->amb_keys)
-        pending_put (out, "amb_key", key);
+        sessrec_put (out, "amb_key", key);
     }
   if (!run->remembered_verb.empty ())
-    pending_put (out, "remembered_verb", run->remembered_verb);
+    sessrec_put (out, "remembered_verb", run->remembered_verb);
 
   char *blob = (char *) malloc (out.size () + 1);
   if (blob == NULL)
@@ -4072,21 +4062,10 @@ a5run_pending_restore (a5_run_t *run, const char *data, size_t len)
     return 0;
   while (pos < state.size ())
     {
-      const size_t space = state.find (' ', pos);
-      const size_t eol = (space == std::string::npos)
-                         ? space : state.find ('\n', space);
-      unsigned long length;
+      std::string key, value;
 
-      if (eol == std::string::npos || state.size () - eol < 2)
+      if (!sessrec_next (state, &pos, &key, &value))
         return 0;
-      length = strtoul (state.c_str () + space + 1, NULL, 10);
-      if (length > state.size () - eol - 2
-          || state[eol + 1 + length] != '\n')
-        return 0;
-
-      const std::string key (state, pos, space - pos);
-      const std::string value (state, eol + 1, length);
-      pos = eol + 1 + length + 1;
 
       if (key == "amb_task")
         task = strtol (value.c_str (), NULL, 10), has_amb = 1;

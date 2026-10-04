@@ -37,6 +37,7 @@
 #include "scprotos.h"
 #include "scgamest.h"
 #include "scrunner.h"
+#include "sessrec.h"
 
 
 
@@ -166,23 +167,12 @@ run_notify_score_change (scr_gameref_t game)
  *   - the name and gender typed at the startup prompts, which live in the
  *     property bundle.
  *
- * The encoding is a run of "<key> <length>\n<bytes>\n" records.  The reader
- * skips keys it does not know and keeps the current value of any it does not
- * find, so records can be added without breaking an older autosave; only
- * broken framing fails the restore.
+ * The encoding is a run of session records (sessrec.h), the framing the
+ * ADRIFT 5 engine's parser continuation shares.  The reader skips keys it
+ * does not know and keeps the current value of any it does not find, so
+ * records can be added without breaking an older autosave; only broken
+ * framing fails the restore.
  */
-static void
-run_session_put (std::string &out, const scr_char *key,
-                 const std::string &value)
-{
-  out += key;
-  out += ' ';
-  out += std::to_string ((unsigned long) value.size ());
-  out += '\n';
-  out += value;
-  out += '\n';
-}
-
 static std::string
 run_session_join (const std::vector<scr_int> &values)
 {
@@ -264,32 +254,30 @@ run_session_state (scr_gameref_t game)
   std::vector<scr_int> candidates, offered_list;
   scr_bool is_pending, offered, used, definite;
 
-  run_session_put (out, "name",
-                   prop_get_global_string (bundle, "PlayerName"));
-  run_session_put (out, "gender",
-                   std::to_string ((long) prop_get_global_integer
-                                   (bundle, "PlayerGender")));
-  run_session_put (out, "settings",
-                   run_session_join ({game->verbose,
-                                      game->notify_score_change,
-                                      game->waitturns}));
+  sessrec_put (out, "name", prop_get_global_string (bundle, "PlayerName"));
+  sessrec_put (out, "gender",
+               std::to_string ((long) prop_get_global_integer
+                               (bundle, "PlayerGender")));
+  sessrec_put (out, "settings",
+               run_session_join ({game->verbose,
+                                  game->notify_score_change,
+                                  game->waitturns}));
 
-  run_session_put (out, "pronouns", run_session_pronouns (game));
+  sessrec_put (out, "pronouns", run_session_pronouns (game));
   if (game->undo_available)
-    run_session_put (out, "undo_pronouns",
-                     run_session_pronouns (game->undo));
+    sessrec_put (out, "undo_pronouns", run_session_pronouns (game->undo));
   uip_get_pronoun_flags (&used, &definite);
-  run_session_put (out, "pronoun_flags", run_session_join ({used, definite}));
+  sessrec_put (out, "pronoun_flags", run_session_join ({used, definite}));
 
-  run_session_put (out, "printed", pf_get_printed (gs_get_filter (game)));
+  sessrec_put (out, "printed", pf_get_printed (gs_get_filter (game)));
   if (game->undo_available)
-    run_session_put (out, "undo_text", run_undo_text);
+    sessrec_put (out, "undo_text", run_undo_text);
   for (scr_int index_ = 0; index_ < memo_get_undo_count (memento); index_++)
-    run_session_put (out, "ring_text", memo_get_undo_text (memento, index_));
+    sessrec_put (out, "ring_text", memo_get_undo_text (memento, index_));
 
-  run_session_put (out, "again", run_prior_element);
-  run_session_put (out, "typed_line", run_typed_line);
-  run_session_put (out, "previous_typed_line", run_previous_typed_line);
+  sessrec_put (out, "again", run_prior_element);
+  sessrec_put (out, "typed_line", run_typed_line);
+  sessrec_put (out, "previous_typed_line", run_previous_typed_line);
   memo_first_command (memento);
   while (memo_more_commands (memento))
     {
@@ -297,29 +285,28 @@ run_session_state (scr_gameref_t game)
       scr_int sequence, timestamp, turns;
 
       memo_next_command (memento, &entry, &sequence, &timestamp, &turns);
-      run_session_put (out, "history",
-                       run_session_join ({sequence, timestamp, turns})
-                       + ' ' + entry);
+      sessrec_put (out, "history",
+                   run_session_join ({sequence, timestamp, turns})
+                   + ' ' + entry);
     }
 
   lib_co_400_get_question (&is_pending, &term, &command, &candidates,
                            &offered, &offered_list);
   if (is_pending)
     {
-      run_session_put (out, "which_term", term);
-      run_session_put (out, "which_command", command);
-      run_session_put (out, "which_candidates",
-                       run_session_join (candidates));
+      sessrec_put (out, "which_term", term);
+      sessrec_put (out, "which_command", command);
+      sessrec_put (out, "which_candidates", run_session_join (candidates));
     }
   /* The list the last prompt offered outlives the question: a line that
      ties on it again gets "That is still ambiguous!", not the prompt. */
   if (offered)
-    run_session_put (out, "which_offered", run_session_join (offered_list));
+    sessrec_put (out, "which_offered", run_session_join (offered_list));
   lib_battle_who_get_prefix (&prefix, &prefix_at_line);
-  run_session_put (out, "prefix", prefix);
-  run_session_put (out, "prefix_at_line", prefix_at_line);
+  sessrec_put (out, "prefix", prefix);
+  sessrec_put (out, "prefix_at_line", prefix_at_line);
   lib_with_prefix_390_get (&with_prefix);
-  run_session_put (out, "with_prefix", with_prefix);
+  sessrec_put (out, "with_prefix", with_prefix);
   return out;
 }
 
@@ -339,23 +326,13 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
   vt_key[0].string = "Globals";
   while (pos < state.size ())
     {
-      const size_t space = state.find (' ', pos);
-      const size_t eol = (space == std::string::npos)
-                         ? space : state.find ('\n', space);
-      unsigned long length;
+      std::string key, value;
 
-      if (eol == std::string::npos || state.size () - eol < 2)
-        return FALSE;
-      length = strtoul (state.c_str () + space + 1, NULL, 10);
-      if (length > state.size () - eol - 2
-          || state[eol + 1 + length] != '\n')
+      if (!sessrec_next (state, &pos, &key, &value))
         return FALSE;
 
-      const std::string key (state, pos, space - pos);
-      const std::string value (state, eol + 1, length);
       const std::vector<scr_int> numbers
           (run_session_split (value, (size_t) -1, NULL));
-      pos = eol + 1 + length + 1;
 
       if (key == "name")
         {
@@ -388,8 +365,8 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
         run_undo_text = value;
       else if (key == "ring_text")
         memo_set_undo_text (memento, ring_text++, value.c_str ());
-      else if (key == "again" && length < LINE_BUFFER_SIZE)
-        memcpy (run_prior_element, value.c_str (), length + 1);
+      else if (key == "again" && value.size () < LINE_BUFFER_SIZE)
+        memcpy (run_prior_element, value.c_str (), value.size () + 1);
       else if (key == "typed_line")
         run_typed_line = value;
       else if (key == "previous_typed_line")
