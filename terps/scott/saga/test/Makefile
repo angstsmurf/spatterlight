@@ -248,11 +248,12 @@ c64a8test: build/c64a8test
 # SagaGraphicsSetup) into a golden dir. zxtest.c unity-includes irmak.c, supplies
 # the PutPixel/RectFill sinks, links palette.c for Remap/pal, and byte-compares
 # the rendered grid to a golden decoded from a real ZX screenshot (same
-# C64R1/C64C2 pipeline + decoder as the C64/Atari tests).
+# C64R1/C64C2 pipeline + decoder as the C64/Atari tests), or to a SCREEN$ dump
+# (.scr) written by zx_capture.lua.
 ZX_SRCS := zxtest.c $(TERPS)/aiukgraphics/palette.c
-ZX_GOLDENS := $(wildcard groundtruth_zx/*/*.zx)
+ZX_GOLDENS := $(wildcard groundtruth_zx/*/*.zx groundtruth_zx/*/*.scr)
 
-build/zxtest: $(ZX_SRCS)
+build/zxtest: $(ZX_SRCS) $(TERPS)/aiukgraphics/irmak.c
 	@mkdir -p build
 	$(CC) $(CFLAGS) -include stddef.h -o $@ $(ZX_SRCS)
 
@@ -298,7 +299,8 @@ zxtest: build/zxtest build/zxvectortest
 # Same loader object set as extract_images_c64 (whose unp64 objects are reused),
 # plus the Taylor picture renderer and the real random number generator. The
 # interpreter sources are built with -include scene_glk.h, which redirects their
-# Glk window/event calls to the fake window layer in scenetest.c.
+# Glk window/event calls to the fake window layer in scenetest.c, and with
+# AUTOWIN, so that a scene can walk past Seas of Blood's dice battles.
 SCENE_CSRCS := $(filter-out extract_images.c,$(C64X_CSRCS)) \
   $(TERPS)/aiukgraphics/taylordraw.c $(TERPS)/common_utils/randomness.c
 SCENES := $(wildcard groundtruth_scene/*/*.scene)
@@ -307,7 +309,7 @@ build/scenetest: scenetest.c scene_glk.h $(SCENE_CSRCS) build/extract_images_c64
 	@mkdir -p build/sceneobj
 	@echo "compiling scene harness..."; objs=""; for f in $(SCENE_CSRCS); do \
 	  o="build/sceneobj/$$(echo $$f | tr '/.' '__').o"; \
-	  $(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -DSAGA_REAL_C64_DECRUNCH -DSAGA_SCENE_HARNESS \
+	  $(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -DSAGA_REAL_C64_DECRUNCH -DSAGA_SCENE_HARNESS -DAUTOWIN \
 	    -include stddef.h -include scene_glk.h $(EXTRACT_INC) -I$(TERPS)/taylor -I$(UNP64) -c "$$f" -o "$$o" || exit 1; \
 	  objs="$$objs $$o"; done; \
 	$(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT $(EXTRACT_INC) -c scenetest.c -o build/sceneobj/scenetest.o || exit 1; \

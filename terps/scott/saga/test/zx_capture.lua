@@ -19,6 +19,11 @@
 --   !terp <line>      ignored (input only the interpreter needs)
 --   !check <name>     dump the screen to <name> once it has settled
 --   !hwwait <frames>  just let the game run
+--   !hwpoke <addr>=<bytes>[*<n>]
+--                     write hex bytes to memory, in memory order, n times in a
+--                     row: `!hwpoke a7ec=23af*37` fills a table of 37 words.
+--                     For pictures no script can walk to — point the game's
+--                     picture table, or its room number, somewhere else
 --   !hwnext           let it run until the picture has changed and come to
 --                     rest again: the next frame of a slow animation
 --   !dump <name>      dump the screen right now, settled or not; a later
@@ -39,6 +44,7 @@ for line in io.lines(scene) do
     local check = line:match("^!check%s+(%S+)")
     local dump = line:match("^!dump%s+(%S+)")
     local wait = line:match("^!hwwait%s+(%d+)")
+    local addr, bytes, times = line:match("^!hwpoke%s+(%x+)=(%x+)%*?(%d*)")
     if check then
         if check:match("%.scr$") and not dumped[check] then
             steps[#steps + 1] = { dump = check, settle = true }
@@ -48,6 +54,9 @@ for line in io.lines(scene) do
         steps[#steps + 1] = { dump = dump }
     elseif wait then
         steps[#steps + 1] = { wait = tonumber(wait) }
+    elseif addr then
+        bytes = bytes:gsub("%x%x", function(byte) return string.char(tonumber(byte, 16)) end)
+        steps[#steps + 1] = { poke = tonumber(addr, 16), bytes = bytes:rep(tonumber(times) or 1) }
     elseif line == "!hwnext" then
         steps[#steps + 1] = { next = true }
     elseif line == "!hw" or line:match("^!hw ") then
@@ -169,6 +178,10 @@ local function frame()
         timer = timer + 1
         if timer < s.wait then return end
         timer = 0
+    elseif s.poke then
+        for i = 1, #s.bytes do
+            mem:write_u8(s.poke + i - 1, s.bytes:byte(i))
+        end
     elseif s.next then
         local pic = picture_area(screen())
         s.from = s.from or pic

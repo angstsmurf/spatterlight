@@ -225,6 +225,9 @@ static void draw_border(winid_t win)
     glui32 width, height;
     glk_stream_set_current(glk_window_get_stream(win));
     glk_window_get_size(win, &width, &height);
+    // Too small for a border (and the unsigned sizes below would wrap around)
+    if (width < 2 || height < 1)
+        return;
     height--;
     width -= 2;
     glk_window_move_cursor(win, 0, 0);

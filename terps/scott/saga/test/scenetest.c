@@ -39,11 +39,15 @@
 // Timer events are also delivered whenever the game waits with no input request
 // pending (timed pauses, lightning flashes).
 //
+// Seas of Blood is built with AUTOWIN (see the Makefile): its battles are won
+// without a dice roll, and take no input but the <HIT ENTER> before and after.
+//
 // The same script drives the original game when the goldens are captured
 // (zx_capture.lua, a MAME autoboot script, for the Spectrum; c64_capture.py,
 // which drives VICE, for the C64): plain lines are typed there too and every
 // `!check` dumps the screen. Lines for the original only — `!hw <keys>`,
-// `!hwkey <keys>`, `!hwwait <n>`, `!hwnext`, `!dump <file>` — are ignored here.
+// `!hwkey <keys>`, `!hwwait <n>`, `!hwnext`, `!hwpoke <addr>=<bytes>`,
+// `!dump <file>` — are ignored here.
 // An animated picture is dumped frame by frame there (`!hwnext`, `!dump`) and
 // stepped through here with `!tick` and a `!check` of each dump.
 //
@@ -238,7 +242,9 @@ winid_t scene_window_get_parent(winid_t w)
 
 void scene_window_set_arrangement(winid_t w, glui32 method, glui32 size, winid_t key)
 {
-    (void)w; (void)method; (void)size; (void)key;
+    (void)w;
+    if (key && (method & winmethod_Fixed))
+        ((scene_window *)key)->size = size;
 }
 
 strid_t scene_window_get_stream(winid_t w)

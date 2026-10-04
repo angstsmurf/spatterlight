@@ -37,6 +37,14 @@ interpreter ships. See `scott-image-format-tests` memory note for full context.
         from MAME `spectrum -snapshot <game.z80>`, decoded with the ZXOPT palette
         (`/tmp/zx_decode.py`). Used Gremlins' full-screen death scene (no item
         overlays). See groundtruth_zx/README.md.
+      - `zxtest cmp` also takes a raw `SCREEN$` (`.scr`) as golden, so a
+        picture can be captured with `zx_capture.lua` and no decoding step.
+        Five such goldens pin the direct-overlay rule (after a command with
+        ADD_128: +128 in versions 3–4, not in 0–2) for the old versions: Hulk
+        pictures 14 and 40 (v0), Claymorgue 2 (v1), Spider-Man 2 and 20 (v2) —
+        the only v0–2 pictures that have the case. No script walks to them;
+        `!hwpoke` lines in each `capture.scene` point the original's picture
+        table at them instead.
 
 - [x] **ZX Spectrum Howarth/vector** (`ai_uk/line_drawing.c`,
       `DrawHowarthVectorPicture`) — harness built (`zxvectortest`) + `zxextract`
@@ -90,6 +98,11 @@ interpreter ships. See `scott-image-format-tests` memory note for full context.
       - Found and fixed on the way: Irmak v3 direct overlays ignored the
         128-tile bank bit (`irmak.c`), and Robin's cave waterfall was drawn in
         inverted colours (`robin_of_sherwood.c`).
+      - `seas_zx/cave.scene`: the same direct-overlay case in v4 (the
+        underwater cave). The original is poked there (`!hwpoke`); the
+        interpreter walks, which takes three battles — the scene build defines
+        `AUTOWIN`. That walk found `draw_border()` looping four billion times
+        on a battle window without rows (fixed).
 - [ ] Not covered yet: the Gremlins gang animations (square, road), German and
       Spanish Gremlins, Super Gran, Savage Island, C64 animations
       (`c64_capture.py` has no `!hwnext`).

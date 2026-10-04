@@ -6,7 +6,11 @@
 // pixel's displayed colour into a 256x96 RGB grid (the ZX picture area is
 // 32x12 tiles). That grid is byte-compared against a golden decoded from a real
 // ZX Spectrum screenshot, reusing the same C64R1 grid / C64C2 golden format and
-// offset-search decoder as the C64/Atari tests (c64a8_decode_png.py).
+// offset-search decoder as the C64/Atari tests (c64a8_decode_png.py) — or
+// against a raw SCREEN$ dump (.scr, 6912 bytes, as zx_capture.lua writes them),
+// whose colours are looked up in the renderer's own pal[]. Only the pixels the
+// renderer plots are compared, so the dump may show the picture as an overlay
+// on another one.
 //
 // The ZX graphics never reach USImages (they live in the separate aiukgraphics
 // subsystem), so this is the one renderer whose data can't come from
@@ -20,7 +24,8 @@
 //   usage:
 //     zxtest dump <dir>                 ASCII-art the rendered picture
 //     zxtest grid <dir> <out.grid>      write the raw RGB grid (C64R1)
-//     zxtest cmp  <dir> <golden.zx>     render + byte-compare to golden (C64C2)
+//     zxtest cmp  <dir> <golden>        render + byte-compare to golden (C64C2
+//                                       .zx, or SCREEN$ .scr)
 
 #include <stdio.h>
 #include <stdint.h>
@@ -164,9 +169,38 @@ static void write_grid(const char *out) {
     printf("wrote %s (%dx%d)\n", out, w, h);
 }
 
+// Compare with a SCREEN$ dump: 6144 bytes of bitmap, whose lines are stored
+// with the three bit fields of y shuffled, then 768 attribute bytes.
+static int compare_scr(const uint8_t *scr) {
+    int match = 0, total = 0, firstx = -1, firsty = -1;
+    for (int y = 0; y < ZX_H; y++)
+        for (int x = 0; x < ZX_W; x++) {
+            if (grid[y][x] == UNSET) continue;
+            total++;
+            int addr = ((y & 0xc0) << 5) | ((y & 0x07) << 8) | ((y & 0x38) << 2) | (x >> 3);
+            uint8_t attr = scr[6144 + (y >> 3) * 32 + (x >> 3)];
+            int set = (scr[addr] >> (7 - (x & 7))) & 1;
+            int colour = (set ? (attr & 7) : ((attr >> 3) & 7)) + ((attr & 0x40) ? 8 : 0);
+            if (grid[y][x] == (pal[colour] & 0xffffff)) match++;
+            else if (firstx < 0) { firstx = x; firsty = y; }
+        }
+    int ok = (total > 0 && match == total);
+    printf("zx     %-12s %6d/%6d px match (%.2f%%)%s\n", "render",
+           match, total, 100.0 * match / (total ? total : 1), ok ? "  PASS" : "  FAIL");
+    if (!ok && firstx >= 0)
+        fprintf(stderr, "  first diff at (%d,%d): got #%06x\n", firstx, firsty, grid[firsty][firstx]);
+    return ok ? 0 : 1;
+}
+
 static int compare_golden(const char *goldenpath) {
     size_t sz = 0;
     uint8_t *gold = read_file(goldenpath, &sz);
+    const char *ext = strrchr(goldenpath, '.');
+    if (gold && sz == 6912 && ext && strcmp(ext, ".scr") == 0) {
+        int result = compare_scr(gold);
+        free(gold);
+        return result;
+    }
     if (!gold || sz < 17 || memcmp(gold, "C64C2", 5) != 0) { fprintf(stderr, "bad golden\n"); return 2; }
     int32_t gw, gh, npal;
     memcpy(&gw, gold + 5, 4); memcpy(&gh, gold + 9, 4); memcpy(&npal, gold + 13, 4);
