@@ -39,7 +39,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
     
     if (!magic_word_found(story_file))
     {
-        ASSERT_OUTPUT_SIZE(5);
+        ASSERT_OUTPUT_SIZE(6);
         strncpy(output, "ALAN-", sizeof("ALAN-"));
         return INCOMPLETE_REPLY_RV;
     }
@@ -60,27 +60,29 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
             if (j<extent)
             {
                 i+=7;
-                ASSERT_OUTPUT_SIZE(j-i);
+                ASSERT_OUTPUT_SIZE(j-i+1);
                 for(k=0;k<j-i;k++)
-                    output[k]=toupper(((char *)story_file)[i+k]);
+                    output[k]=toupper(((unsigned char *)story_file)[i+k]);
                 output[j-i]=0;
                 return VALID_STORY_FILE_RV;
             }
         }
-        ASSERT_OUTPUT_SIZE(5);
+        ASSERT_OUTPUT_SIZE(6);
         strncpy(output, "ALAN-", sizeof("ALAN-"));
         return INCOMPLETE_REPLY_RV;
     }
 }
 
 
-static bool crc_is_correct(byte *story_file, int32 size_in_awords) {
+static bool crc_is_correct(byte *story_file, int32 extent_in_bytes, uint32 size_in_awords) {
     /* Size of AcodeHeader is 50 Awords = 200 bytes */
-    if (size_in_awords > 100000000) return false;
+    /* The header's size is not to be trusted: a file shorter than it
+       claims to be cannot have the right checksum */
+    if (size_in_awords > (uint32) extent_in_bytes/4) return false;
     int32 calculated_crc = 0;
     int32 crc_in_file = read_alan_int_at(story_file+46*4);
     
-    for (int i=50*4;i<(size_in_awords*4);i++)
+    for (uint32 i=50*4;i<(size_in_awords*4);i++)
         calculated_crc+=story_file[i];
     
     /* Some Alan 3 games seem to have added 284 to their internal checksum */
@@ -123,9 +125,13 @@ static int32 claim_story_file(void *story_file, int32 extent_in_bytes)
     }
     else
     { /* Identify Alan 3 */
+        if (extent_in_bytes < 50*4)
+        /* File is shorter than the Alan 3 header */
+            return INVALID_STORY_FILE_RV;
+
         size_in_awords=read_alan_int_at(sf+3*4); /* hdr.size @ 3 */
         
-        if (!crc_is_correct(sf, size_in_awords))
+        if (!crc_is_correct(sf, extent_in_bytes, size_in_awords))
         {
             switch (read_alan_int_at(sf+46*4))
             {

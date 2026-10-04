@@ -55,7 +55,7 @@
 #include <ctype.h>
 #include "md5.h"
 
-void *my_malloc(int, char *);
+void *my_malloc(uint32, char *);
 
 struct babel_handler
 {
@@ -75,27 +75,56 @@ static struct babel_handler default_ctx;
 extern TREATY treaty_registry[];
 extern TREATY container_registry[];
 
-static char *deeper_babel_init(char *story_name, void *bhp)
+/* Does the comma-separated extension list contain exactly this extension?
+ * (A plain strstr would let ".d" or "." match ".dat".)
+ */
+static int extension_listed(const char *list, const char *ext)
+{
+    size_t l=strlen(ext);
+    const char *p;
+
+    for(p=list;(p=strstr(p,ext))!=NULL;p+=l)
+        if ((p==list || p[-1]==',') && (p[l]==0 || p[l]==','))
+            return 1;
+    return 0;
+}
+
+/* buffer must hold TREATY_MINIMUM_EXTENT bytes; on success the format name
+ * is written there and buffer is returned.
+ */
+static char *deeper_babel_init(char *story_name, void *bhp, char *buffer)
 {
     struct babel_handler *bh=(struct babel_handler *) bhp;
     int i;
     char *ext;
+    char extbuf[32];
 
-    static char buffer[TREATY_MINIMUM_EXTENT];
     int best_candidate;
     char buffert[TREATY_MINIMUM_EXTENT];
 
+    ext=NULL;
     if (story_name)
     {
-        ext=strrchr(story_name,'.');
-        if (ext) for(i=0;ext[i];i++) ext[i]=tolower(ext[i]);
+        /* Work on a lowercased copy of the extension: the name belongs to
+           the caller.  Only the last path component can have one.
+         */
+        char *base=story_name, *dot;
+        for(dot=story_name;*dot;dot++)
+            if (*dot=='/' || *dot=='\\') base=dot+1;
+        dot=strrchr(base,'.');
+        if (dot && dot[1] && strlen(dot)<sizeof(extbuf))
+        {
+            for(i=0;dot[i];i++) extbuf[i]=tolower((unsigned char) dot[i]);
+            extbuf[i]=0;
+            ext=extbuf;
+        }
     }
-    else ext=NULL;
     best_candidate=-1;
+    i=0;
     if (ext) /* pass 1: try best candidates */
         for(i=0;container_registry[i];i++)
             if (container_registry[i](GET_FILE_EXTENSIONS_SEL,NULL,0,buffer,TREATY_MINIMUM_EXTENT) >=0 &&
-                strstr(buffer,ext) &&
+                extension_listed(buffer,ext) &&
                 container_registry[i](CLAIM_STORY_FILE_SEL,bh->story_file,bh->story_file_extent,NULL,0)>=NO_REPLY_RV)
                 break;
     if (!ext || !container_registry[i]) /* pass 2: try all candidates */
@@ -113,14 +142,20 @@ static char *deeper_babel_init(char *story_name, void *bhp)
     if (container_registry[i])
     {
         char buffer2[TREATY_MINIMUM_EXTENT];
+        int32 blorbed_extent;
 
         bh->treaty_handler=container_registry[i];
         container_registry[i](GET_FORMAT_NAME_SEL,NULL,0,buffert,TREATY_MINIMUM_EXTENT);
         bh->blorb_mode=1;
 
-        bh->story_file_blorbed_extent=container_registry[i](CONTAINER_GET_STORY_EXTENT_SEL,bh->story_file,bh->story_file_extent,NULL,0);
-        if (bh->story_file_blorbed_extent>0) bh->story_file_blorbed=my_malloc(bh->story_file_blorbed_extent, "contained story file");
-        if (bh->story_file_blorbed_extent<=0 ||
+        /* Keep the reply signed until it is known not to be an error code */
+        blorbed_extent=container_registry[i](CONTAINER_GET_STORY_EXTENT_SEL,bh->story_file,bh->story_file_extent,NULL,0);
+        if (blorbed_extent>0)
+        {
+            bh->story_file_blorbed_extent=blorbed_extent;
+            bh->story_file_blorbed=my_malloc(bh->story_file_blorbed_extent, "contained story file");
+        }
+        if (blorbed_extent<=0 ||
             container_registry[i](CONTAINER_GET_STORY_FORMAT_SEL,bh->story_file,bh->story_file_extent,buffer2,TREATY_MINIMUM_EXTENT)<0 ||
             container_registry[i](CONTAINER_GET_STORY_FILE_SEL,bh->story_file,bh->story_file_extent,bh->story_file_blorbed,bh->story_file_blorbed_extent)<=0
             )
@@ -134,7 +169,7 @@ static char *deeper_babel_init(char *story_name, void *bhp)
         if (!treaty_registry[i])
             return NULL;
         bh->treaty_backup=treaty_registry[i];
-        snprintf(buffer,sizeof(buffer),"%sed %s",buffert,buffer2);
+        snprintf(buffer,TREATY_MINIMUM_EXTENT,"%.200sed %.200s",buffert,buffer2);
         return buffer;
     }
 
@@ -144,7 +179,7 @@ static char *deeper_babel_init(char *story_name, void *bhp)
     if (ext) /* pass 1: try best candidates */
         for(i=0;treaty_registry[i];i++)
             if (treaty_registry[i](GET_FILE_EXTENSIONS_SEL,NULL,0,buffer,TREATY_MINIMUM_EXTENT) >=0 &&
-                strstr(buffer,ext) &&
+                extension_listed(buffer,ext) &&
                 treaty_registry[i](CLAIM_STORY_FILE_SEL,bh->story_file,bh->story_file_extent,NULL,0)>=NO_REPLY_RV)
                 break;
     if (!ext || !treaty_registry[i]) /* pass 2: try all candidates */
@@ -160,7 +195,7 @@ static char *deeper_babel_init(char *story_name, void *bhp)
         }
     }
     if (!treaty_registry[i]) {
-        if (best_candidate>0) { i=best_candidate; bh->auth=0; }
+        if (best_candidate>=0) { i=best_candidate; bh->auth=0; }
         else return NULL;
     }
     bh->treaty_handler=treaty_registry[i];
@@ -172,10 +207,11 @@ static char *deeper_babel_init(char *story_name, void *bhp)
 
 }
 
-static char *deep_babel_init(char *story_name, void *bhp)
+static char *deep_babel_init(char *story_name, void *bhp, char *buffer)
 {
     struct babel_handler *bh=(struct babel_handler *) bhp;
     FILE *file;
+    long length;
 
     bh->treaty_handler=NULL;
     bh->treaty_backup=NULL;
@@ -186,24 +222,35 @@ static char *deep_babel_init(char *story_name, void *bhp)
     bh->format_name=NULL;
     file=fopen(story_name, "rb");
     if (!file) return NULL;
-    fseek(file,0,SEEK_END);
-    bh->story_file_extent=ftell(file);
-    fseek(file,0,SEEK_SET);
+    /* The treaty measures files in int32s, so anything we cannot size (a
+       directory, say) or that is too big for one is not a story file.
+     */
+    if (fseek(file,0,SEEK_END)!=0 || (length=ftell(file))<0 ||
+        length>0x7FFFFFFFL || fseek(file,0,SEEK_SET)!=0)
+    {
+        fclose(file);
+        return NULL;
+    }
     bh->auth=1;
-    bh->story_file=my_malloc(bh->story_file_extent,"story file storage");
-    fread(bh->story_file,1,bh->story_file_extent,file);
+    bh->story_file=my_malloc(length,"story file storage");
+    /* A short read leaves the true size as the extent */
+    bh->story_file_extent=fread(bh->story_file,1,length,file);
     fclose(file);
 
-    return deeper_babel_init(story_name, bhp);
+    return deeper_babel_init(story_name, bhp, buffer);
 }
 
 char *babel_init_ctx(char *sf, void *bhp)
 {
     struct babel_handler *bh=(struct babel_handler *) bhp;
+    char buffer[TREATY_MINIMUM_EXTENT];
     char *b;
-    b=deep_babel_init(sf,bh);
+    /* The name is handed back from the context, not from shared static
+       storage, so that contexts on different threads cannot clobber it.
+     */
+    b=deep_babel_init(sf,bh,buffer);
     if (b) bh->format_name=strdup(b);
-    return b;
+    return bh->format_name;
 }
 char *babel_init(char *sf)
 {
@@ -213,6 +260,7 @@ char *babel_init(char *sf)
 char *babel_init_raw_ctx(void *sf, int32 extent, void *bhp)
 {
     struct babel_handler *bh=(struct babel_handler *) bhp;
+    char buffer[TREATY_MINIMUM_EXTENT];
     char *b;
     bh->treaty_handler=NULL;
     bh->treaty_backup=NULL;
@@ -226,9 +274,9 @@ char *babel_init_raw_ctx(void *sf, int32 extent, void *bhp)
     bh->story_file=my_malloc(bh->story_file_extent,"story file storage");
     memcpy(bh->story_file,sf,extent);
 
-    b=deeper_babel_init(NULL, bhp);
+    b=deeper_babel_init(NULL, bhp, buffer);
     if (b) bh->format_name=strdup(b);
-    return b;
+    return bh->format_name;
 }
 char *babel_init_raw(void *sf, int32 extent)
 {

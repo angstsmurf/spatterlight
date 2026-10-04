@@ -18,6 +18,7 @@
 #define FORMAT_EXT ".quest,.aslx"
 
 #include "treaty_builder.h"
+#include "ifiction.h"
 #include "md5.h"
 #include <ctype.h>
 #include <stdbool.h>
@@ -124,7 +125,10 @@ static bool zip_find_entry(const unsigned char *zip, int32 extent,
 
     int count = (int) rd16(eocd + 10);
     uint32_t cd_off = rd32(eocd + 16);
+    if (cd_off > (uint32_t) extent)
+        return false;
     const unsigned char *p = zip + cd_off;
+    const unsigned char *end = zip + extent;
     size_t namelen = strlen(name);
 
     const unsigned char *ci_p = NULL; /* case-insensitive fallback */
@@ -132,7 +136,7 @@ static bool zip_find_entry(const unsigned char *zip, int32 extent,
     int32 ci_comp = 0, ci_raw = 0;
     uint32_t ci_local = 0;
 
-    for (int e = 0; e < count && p + 46 <= zip + extent; ++e) {
+    for (int e = 0; e < count && end - p >= 46; ++e) {
         if (!(p[0] == 'P' && p[1] == 'K' && p[2] == 1 && p[3] == 2))
             break;
         int m = (int) rd16(p + 10);
@@ -143,6 +147,10 @@ static bool zip_find_entry(const unsigned char *zip, int32 extent,
         int cl = (int) rd16(p + 32);
         uint32_t local = rd32(p + 42);
         const unsigned char *ename = p + 46;
+
+        /* The whole directory entry has to lie within the file. */
+        if (end - ename < nl + el + cl)
+            break;
 
         bool exact = (size_t) nl == namelen &&
                      memcmp(ename, name, namelen) == 0;
@@ -156,17 +164,18 @@ static bool zip_find_entry(const unsigned char *zip, int32 extent,
                 }
         }
 
-        if (exact || ci) {
+        /* Sizes too large for an int32 cannot fit in the file either. */
+        if ((exact || ci) && c >= 0 && r >= 0 && extent >= 30 &&
+            local <= (uint32_t) extent - 30) {
             /* The local header repeats name/extra with a possibly different
              * extra length, so the payload offset comes from it. */
             const unsigned char *lh = zip + local;
-            if (lh + 30 <= zip + extent && lh[0] == 'P' && lh[1] == 'K' &&
-                lh[2] == 3 && lh[3] == 4) {
-                int32 payload = (int32) (lh - zip) + 30 +
-                                (int32) rd16(lh + 26) + (int32) rd16(lh + 28);
+            if (lh[0] == 'P' && lh[1] == 'K' && lh[2] == 3 && lh[3] == 4) {
+                int64_t payload = (int64_t) local + 30 + rd16(lh + 26) +
+                                  rd16(lh + 28);
                 if (payload + c <= extent) {
                     if (exact) {
-                        *off = payload;
+                        *off = (int32) payload;
                         *comp = c;
                         *raw = r;
                         *method = m;
@@ -195,11 +204,17 @@ static bool zip_find_entry(const unsigned char *zip, int32 extent,
     return false;
 }
 
-/* Inflate a raw DEFLATE payload; caller frees the returned buffer. */
+/* Inflate a raw DEFLATE payload; caller frees the returned buffer.  *outlen
+ * gets the number of bytes actually inflated, which is less than rawlen if
+ * the directory overstates it. */
 static unsigned char *inflate_raw(const unsigned char *src, int32 srclen,
-                                  int32 rawlen)
+                                  int32 rawlen, int32 *outlen)
 {
-    if (rawlen <= 0)
+    if (rawlen <= 0 || srclen <= 0)
+        return NULL;
+    /* DEFLATE cannot expand by more than a factor of 1032, so a size beyond
+     * that is not worth allocating. */
+    if ((int64_t) rawlen > (int64_t) srclen * 1032 + 64)
         return NULL;
     unsigned char *out = malloc((size_t) rawlen);
     if (!out)
@@ -216,8 +231,10 @@ static unsigned char *inflate_raw(const unsigned char *src, int32 srclen,
     zs.avail_out = (uInt) rawlen;
     int r = inflate(&zs, Z_FINISH);
     inflateEnd(&zs);
-    if (r == Z_STREAM_END || (r == Z_OK && zs.avail_out == 0))
+    if (r == Z_STREAM_END || (r == Z_OK && zs.avail_out == 0)) {
+        *outlen = rawlen - (int32) zs.avail_out;
         return out;
+    }
     free(out);
     return NULL;
 }
@@ -231,6 +248,8 @@ static unsigned char *zip_extract(const unsigned char *zip, int32 extent,
     if (!zip_find_entry(zip, extent, name, &off, &comp, &raw, &method))
         return NULL;
     if (method == 0) { /* stored */
+        if (raw > comp) /* stored data is as long as it is in the file */
+            raw = comp;
         unsigned char *out = malloc((size_t) raw + 1);
         if (!out)
             return NULL;
@@ -239,10 +258,7 @@ static unsigned char *zip_extract(const unsigned char *zip, int32 extent,
         return out;
     }
     if (method == 8) { /* deflate */
-        unsigned char *out = inflate_raw(zip + off, comp, raw);
-        if (out)
-            *outlen = raw;
-        return out;
+        return inflate_raw(zip + off, comp, raw, outlen);
     }
     return NULL;
 }
@@ -402,14 +418,19 @@ static void decode_entities(char *s)
                 else if (strcmp(ent, "quot") == 0) code = '"';
                 else if (strcmp(ent, "apos") == 0) code = '\'';
                 else if (strcmp(ent, "nbsp") == 0) code = ' ';
-                if (code > 0) {
+                if (code > 0 && code <= 0x10FFFF) {
                     if (code < 0x80) {
                         *w++ = (char) code;
                     } else if (code < 0x800) {
                         *w++ = (char) (0xC0 | (code >> 6));
                         *w++ = (char) (0x80 | (code & 0x3F));
-                    } else {
+                    } else if (code < 0x10000) {
                         *w++ = (char) (0xE0 | (code >> 12));
+                        *w++ = (char) (0x80 | ((code >> 6) & 0x3F));
+                        *w++ = (char) (0x80 | (code & 0x3F));
+                    } else {
+                        *w++ = (char) (0xF0 | ((code >> 18) & 0x07));
+                        *w++ = (char) (0x80 | ((code >> 12) & 0x3F));
                         *w++ = (char) (0x80 | ((code >> 6) & 0x3F));
                         *w++ = (char) (0x80 | (code & 0x3F));
                     }
@@ -799,8 +820,14 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
     if (claim_story_file(storyvp, extent) != VALID_STORY_FILE_RV)
         return INVALID_STORY_FILE_RV;
 
-    /* The <gameid> GUID is the real IFID.  Raw .aslx keeps it in plaintext; a
-     * package needs game.aslx inflated first. */
+    /* An explicit IFID wins. New-style packages carry one in the zip comment,
+     * so the whole file is searched, not just game.aslx. */
+    int32 rv = find_uuid_ifid_marker(storyvp, extent, output, output_extent);
+    if (rv == VALID_STORY_FILE_RV || rv == INVALID_USAGE_RV)
+        return rv;
+
+    /* Otherwise the <gameid> GUID is the IFID.  Raw .aslx keeps it in
+     * plaintext; a package needs game.aslx inflated first. */
     char *atext = NULL;
     unsigned char *search = storyvp;
     int32 search_len = extent;
@@ -813,7 +840,6 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
         }
     }
 
-    int32 rv = INCOMPLETE_REPLY_RV;
     unsigned char *p = find_string(search, search_len, "<gameid>", 8);
     if (p != NULL) {
         char guid[64];
@@ -825,16 +851,19 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
             n++;
         }
         guid[n] = 0;
-        if (n == 36 && (n < left && p[n] == '<')) {
+        /* Quest writes a GUID here, but any hex id of a sensible length that
+         * fills the whole tag is taken, as in babel-tool. */
+        if (n >= 8 && (n < left && p[n] == '<')) {
+            free(atext);
             ASSERT_OUTPUT_SIZE(n + 1);
             memcpy(output, guid, (size_t) (n + 1));
-            free(atext);
-            return 1;
+            return VALID_STORY_FILE_RV;
         }
     }
 
     free(atext);
-    ASSERT_OUTPUT_SIZE(1);
-    output[0] = '\0';
-    return rv;
+    /* No id in the file: the handler appends the MD5 of the file */
+    ASSERT_OUTPUT_SIZE(7);
+    strcpy(output, "QUEST-");
+    return INCOMPLETE_REPLY_RV;
 }

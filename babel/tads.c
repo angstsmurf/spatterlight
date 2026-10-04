@@ -87,6 +87,8 @@ static int t2_find_res(const void *story_file, int32 story_len,
                        const char *resname, resinfo *info);
 static int t3_find_res(const void *story_file, int32 story_len,
                        const char *resname, resinfo *info);
+static int set_resinfo(resinfo *info, const char *base, const char *endp,
+                       unsigned long ofs, unsigned long siz);
 static valinfo *find_by_key(valinfo *list_head, const char *key);
 static void delete_valinfo_list(valinfo *head);
 static int32 generate_md5_ifid(void *story_file, int32 extent,
@@ -122,7 +124,11 @@ int32 tads_get_story_file_IFID(void *story_file, int32 extent,
             char *p;
             
             /* copy the output as a null-terminated string */
-            ASSERT_OUTPUT_SIZE((int32)val->val_len + 1);
+            if (val->val_len >= (size_t)(output_extent < 0 ? 0 : output_extent))
+            {
+                delete_valinfo_list(vals);
+                return INVALID_USAGE_RV;
+            }
             memcpy(output, val->val, val->val_len);
             output[val->val_len] = '\0';
 
@@ -365,14 +371,14 @@ static void nextc(const char **p, int32 *len)
     }
 }
 
-/* skip to the previous utf-8 character */
-static void prevc(const char **p, int32 *len)
+/* skip to the previous utf-8 character, going no further back than start */
+static void prevc(const char **p, int32 *len, const char *start)
 {
     /* move back one byte */
     --*p; ++*len;
 
     /* keep skipping as long as we're looking at continuation characters */
-    while ((**p & 0xC0) == 0x80)
+    while (*p > start && (**p & 0xC0) == 0x80)
     {
         --*p;
         ++*len;
@@ -395,14 +401,14 @@ static void skip_newline(const char **p, int32 *rem)
     case '\n':
         /* skip \n or \n\r */
         nextc(p, rem);
-        if (**p == '\r')
+        if (*rem != 0 && **p == '\r')
             nextc(p, rem);
         break;
 
     case '\r':
         /* skip \r or \r\n */
         nextc(p, rem);
-        if (**p == '\n')
+        if (*rem != 0 && **p == '\n')
             nextc(p, rem);
         break;
 
@@ -1249,7 +1255,7 @@ static valinfo *parse_game_info(const char *ptr, int32 len)
         while (p > val_start)
         {
             /* move back one character */
-            prevc(&p, &rem);
+            prevc(&p, &rem, val_start);
 
             /* 
              *   if it's a newline, keep going; otherwise, keep this
@@ -1271,6 +1277,8 @@ static valinfo *parse_game_info(const char *ptr, int32 len)
          *   continuation lines. 
          */
         val = (valinfo *)malloc(sizeof(valinfo) + (p - val_start));
+        if (val == 0)
+            break;
 
         /* link it into our list */
         val->nxt = val_head;
@@ -1479,6 +1487,25 @@ static int find_resource(const void *story_file, int32 story_len,
     return FALSE;
 }
 
+/*
+ *   Fill in a resinfo from a resource's position and size, as read from a
+ *   resource index.  'base' is the location the offset is relative to.
+ *   Returns FALSE if the resource doesn't lie entirely within the story
+ *   file, as it won't in a truncated or corrupted file.
+ */
+static int set_resinfo(resinfo *info, const char *base, const char *endp,
+                       unsigned long ofs, unsigned long siz)
+{
+    if (base > endp
+        || ofs > (unsigned long)(endp - base)
+        || siz > (unsigned long)(endp - base) - ofs)
+        return FALSE;
+
+    info->ptr = base + ofs;
+    info->len = (int32)siz;
+    return TRUE;
+}
+
 /* ------------------------------------------------------------------------ */
 /*
  *   Find a resource in a tads 2 game file 
@@ -1499,6 +1526,8 @@ static int t2_find_res(const void *story_file, int32 story_len,
      *   bytes for the version header, 2 bytes for the flags, 26 bytes for
      *   the timestamp) 
      */
+    if (story_len < 13 + 7 + 2 + 26)
+        return FALSE;
     p = basep + 13 + 7 + 2 + 26;
 
     /* 
@@ -1508,6 +1537,7 @@ static int t2_find_res(const void *story_file, int32 story_len,
     while (p < endp)
     {
         unsigned long endofs;
+        const char *secp = p;
 
         /*
          *   We're pointing to a section block header, which looks like this:
@@ -1517,18 +1547,27 @@ static int t2_find_res(const void *story_file, int32 story_len,
          *.    <uint32> next-section-address
          */
 
+        /* make sure the whole section header is there */
+        if ((unsigned long)(endp - p) < 1 + osrp1(p) + 4)
+            return FALSE;
+
         /* read the ending offset */
         endofs = osrp4(p + 1 + osrp1(p));
 
         /* check the type */
         if (p[0] == 7 && memcmp(p + 1, "HTMLRES", 7) == 0)
         {
-            unsigned long found_ofs;
+            unsigned long found_ofs = 0;
+            unsigned long found_siz = 0;
             int found;
             unsigned long entry_cnt;
 
             /* we haven't found the resource yet */
             found = FALSE;
+
+            /* make sure the index table header is there */
+            if (endp - p < 12 + 8)
+                return FALSE;
 
             /* 
              *   It's a multimedia resource block.  Skip the section block
@@ -1557,10 +1596,14 @@ static int t2_find_res(const void *story_file, int32 story_len,
                  *.    <uint2> name-length
                  *.    <byte * name-length> name
                  */
+                if (endp - p < 10)
+                    return FALSE;
                 res_ofs = osrp4(p);
                 res_siz = osrp4(p + 4);
                 name_len = osrp2(p + 8);
                 p += 10;
+                if (name_len > (size_t)(endp - p))
+                    return FALSE;
 
                 /* check for a match to the name we're looking for */
                 if (name_len == resname_len
@@ -1574,7 +1617,7 @@ static int t2_find_res(const void *story_file, int32 story_len,
                      */
                     found = TRUE;
                     found_ofs = res_ofs;
-                    info->len = res_siz;
+                    found_siz = res_siz;
                 }
 
                 /* skip this one's name */
@@ -1589,11 +1632,11 @@ static int t2_find_res(const void *story_file, int32 story_len,
              */
             if (found)
             {
-                /* fix up the offset with the actual file location */
-                info->ptr = p + found_ofs;
-
-                /* tell the caller we found it */
-                return TRUE;
+                /* 
+                 *   fix up the offset with the actual file location, and
+                 *   tell the caller whether we found it 
+                 */
+                return set_resinfo(info, p, endp, found_ofs, found_siz);
             }
         }
         else if (p[0] == 4 && memcmp(p + 1, "$EOF", 4) == 0)
@@ -1605,7 +1648,13 @@ static int t2_find_res(const void *story_file, int32 story_len,
             return FALSE;
         }
 
-        /* move to the next section */
+        /* 
+         *   move to the next section, which must be further on in the file,
+         *   or else we would go round in circles 
+         */
+        if (endofs <= (unsigned long)(secp - basep)
+            || endofs > (unsigned long)story_len)
+            return FALSE;
         p = basep + endofs;
     }
 
@@ -1635,12 +1684,18 @@ static int t3_find_res(const void *story_file, int32 story_len,
      *   skip the file header - 11 bytes for the signature, 2 bytes for the
      *   format version, 32 reserved bytes, and 24 bytes for the timestamp 
      */
+    if (story_len < 11 + 2 + 32 + 24)
+        return FALSE;
     p = basep + 11 + 2 + 32 + 24;
 
     /* scan the data blocks */
     while (p < endp)
     {
         unsigned long siz;
+
+        /* make sure the whole block header is there */
+        if (endp - p < 10)
+            return FALSE;
 
         /*
          *   We're at the next block header, which looks like this:
@@ -1670,6 +1725,10 @@ static int t3_find_res(const void *story_file, int32 story_len,
              */
             blockp = p;
 
+            /* the block, with its entry count, must fit in the file */
+            if (siz > (unsigned long)(endp - blockp) || endp - p < 2)
+                return FALSE;
+
             /* the first thing in the table is the number of entries */
             entry_cnt = osrp2(p);
             p += 2;
@@ -1692,14 +1751,21 @@ static int t3_find_res(const void *story_file, int32 story_len,
                  *.    <uint8> name-length
                  *.    <byte * name-length> name (all bytes XORed with 0xFF)
                  */
+                if (endp - p < 9)
+                    return FALSE;
                 entry_ofs = osrp4(p);
                 entry_siz = osrp4(p + 4);
                 entry_name_len = (unsigned char)p[8];
+                if (entry_name_len > (size_t)(endp - p - 9))
+                    return FALSE;
 
-                /* unmask the name */
-                memcpy(namebuf, p + 9, resname_len);
-                for (xi = resname_len, xp = namebuf ; xi != 0 ; --xi)
-                    *xp++ ^= 0xFF;
+                /* if the name is the right length, unmask and compare it */
+                if (entry_name_len == resname_len)
+                {
+                    memcpy(namebuf, p + 9, entry_name_len);
+                    for (xi = entry_name_len, xp = namebuf ; xi != 0 ; --xi)
+                        *xp++ ^= 0xFF;
+                }
 
                 /* if this is the one we're looking for, return it */
                 if (entry_name_len == resname_len
@@ -1711,11 +1777,8 @@ static int t3_find_res(const void *story_file, int32 story_len,
                      *   block's starting location, so fix this up to an
                      *   absolute seek location for the return value 
                      */
-                    info->ptr = blockp + entry_ofs;
-                    info->len = entry_siz;
-
-                    /* return success */
-                    return TRUE;
+                    return set_resinfo(info, blockp, endp,
+                                       entry_ofs, entry_siz);
                 }
 
                 /* skip this entry (header + name length) */
@@ -1745,6 +1808,8 @@ static int t3_find_res(const void *story_file, int32 story_len,
              *   block header and then past the block's contents, using the
              *   size given the in block header 
              */
+            if (siz > (unsigned long)(endp - p) - 10)
+                return FALSE;
             p += siz + 10;
         }
     }
@@ -1768,6 +1833,8 @@ static int get_jpeg_dim(const void *img, int32 extent,
     const unsigned char *ep=dp+extent;
     unsigned int t1, t2, w, h;
 
+    if (extent < 2)
+        return FALSE;
     t1 = *dp++;
     t2 = *dp++;
     if (t1 != 0xff || t2 != 0xD8)
@@ -1775,21 +1842,16 @@ static int get_jpeg_dim(const void *img, int32 extent,
 
     while(1)
     {
-        if (dp>ep) return FALSE;
-        for(t1=*(dp++);t1!=0xff;t1=*(dp++)) if (dp>ep) return FALSE;
-        do { t1=*(dp++); if (dp>ep) return FALSE;} while (t1 == 0xff);
+        if (dp>=ep) return FALSE;
+        for(t1=*(dp++);t1!=0xff;t1=*(dp++)) if (dp>=ep) return FALSE;
+        do { if (dp>=ep) return FALSE; t1=*(dp++); } while (t1 == 0xff);
 
         if ((t1 & 0xF0) == 0xC0 && !(t1==0xC4 || t1==0xC8 || t1==0xCC))
         {
+            if (ep-dp < 7) return FALSE;
             dp+=3;
-            if (dp>ep) return FALSE;
-            h=*(dp++) << 8;
-            if (dp>ep) return FALSE;
-            h|=*(dp++);
-            if (dp>ep) return FALSE;
-            w=*(dp++) << 8;
-            if (dp>ep) return FALSE;
-            w|=*(dp);
+            h=dp[0] << 8 | dp[1];
+            w=dp[2] << 8 | dp[3];
 
             *xout = w;
             *yout = h;
@@ -1801,13 +1863,12 @@ static int get_jpeg_dim(const void *img, int32 extent,
         {
             int l;
 
-            if (dp>ep) return FALSE;
-            l=*(dp++) << 8;
-            if (dp>ep) return FALSE;
-            l|= *(dp++);
+            if (ep-dp < 2) return FALSE;
+            l=dp[0] << 8 | dp[1];
+            dp+=2;
             l-=2;
+            if (l > ep-dp) return FALSE;
             dp+=l;
-            if (dp>ep) return FALSE;
         }
     }
     return FALSE;

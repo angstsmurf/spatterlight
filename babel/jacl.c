@@ -19,30 +19,31 @@ static int extract_ifid(unsigned char *text, int32 offset, int32 extent, char *o
     int ct=0;
     char temp[100];
     do {
-        c = text[offset++];
-        if (encrypted && c != '\n')
-            c = c ^ 255;
-    } while(offset < extent && (c == '"' || c == ':' || isspace(c)));
-
-    temp[ct++] = c;
-
-    do
-    {
-        c = text[offset++];
-        if (encrypted && c != '\n')
-            c = c ^ 255;
         if(offset >= extent)
         {
             return INVALID_STORY_FILE_RV;
         }
+        c = text[offset++];
+        if (encrypted && c != '\n')
+            c = c ^ 255;
+    } while(c == '"' || c == ':' || isspace(c));
+
+    temp[ct++] = c;
+
+    /* The IFID runs to the next quote or whitespace, or to the end of the
+       file. Anything too long to be an IFID is cut short. */
+    while (offset < extent && ct < (int)sizeof(temp) - 1)
+    {
+        c = text[offset++];
+        if (encrypted && c != '\n')
+            c = c ^ 255;
         if (c == '"' || isspace(c))
         {
             break;
         }
 
         temp[ct++] = c;
-
-    } while (offset < extent);
+    }
 
     temp[ct++] = '\0';
 
@@ -79,15 +80,18 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
         unsigned char f = 'f' ^ 255;
         unsigned char d = 'd' ^ 255;
         bool encrypted = false;
+        bool found = false;
 
         for(j = 0; j < extent - 7; j++) {
             if (memcmp((char *)story_file + j,"#ifid:",6) == 0) {
                 j += 6;
+                found = true;
                 break;
             };
             if (j + 14 < extent && (memcmp((char *)story_file + j,"constant ifid",13) == 0 ||
                                     memcmp((char *)story_file + j,"constant\tifid",13) == 0)) {
                 j += 13;
+                found = true;
                 break;
             }
             if (story_file[j] == i &&
@@ -96,11 +100,14 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
                 story_file[j + 3] == d) {
                 encrypted = true;
                 j += 4;
+                found = true;
                 break;
             }
 
         }
-        if (j < extent) /* Found explicit IFID */ {
+        /* Falling out of the loop leaves j inside the file as well, so j
+           cannot say whether anything matched. */
+        if (found) /* Found explicit IFID */ {
             return extract_ifid(story_file, j, extent, output, output_extent, encrypted);
         } else {
             ASSERT_OUTPUT_SIZE(1);

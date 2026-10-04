@@ -131,7 +131,12 @@ static int read_next_number(unsigned char *text, int32_t extent, int32_t *offset
     int i;
     bool number_found = false;
 
-    char c = text[*offset];
+    if (*offset >= extent) {
+        *failure = true;
+        return 0;
+    }
+
+    unsigned char c = text[*offset];
     if (c == ',')
         *offset = *offset + 1;
     for (i = 0; i < extent - *offset && i < 99; i++) {
@@ -152,7 +157,8 @@ static int read_next_number(unsigned char *text, int32_t extent, int32_t *offset
         *failure = true;
         return 0;
     }
-    numstring[i+1] = '\0';
+    /* i is either at the delimiter or one past the last character read */
+    numstring[i] = '\0';
     *offset += i;
     int result = atoi(numstring);
     if (result > INT16_MAX || result < INT16_MIN)
@@ -166,14 +172,22 @@ static int read_string(unsigned char *text, int32_t extent, int32_t *offset, boo
     int c,nc;
     int ct=0;
     do {
+        if(*offset >= extent) {
+            *failure = true;
+            return 0;
+        }
         c=text[(*offset)++];
-    } while(*offset < extent && isspace(c));
+    } while(isspace(c));
     
     if(c!='"') {
         *failure = true;
         return 0;
     }
     do {
+        if(*offset >= extent) {
+            *failure = true;
+            return 0;
+        }
         c=text[(*offset)++];
         if(*offset >= extent) {
             *failure = true;
@@ -208,6 +222,14 @@ static uint16_t checksum(unsigned char *sf, int32 extent)
     for(int i = 0; i < extent; i++)
         c+=sf[i];
     return c;
+}
+
+/* Compares an id string to the quoted string that read_string() has just
+   read from the very start of the file, leaving offset after the closing quote. */
+static bool title_matches(unsigned char *sf, int32 offset, const char *id)
+{
+    size_t length = strlen(id);
+    return (offset >= 2 && length == (size_t)(offset - 2) && memcmp(sf + 1, id, length) == 0);
 }
 
 static int32 find_dskimg_in_database(unsigned char *sf, int32 extent, char **ifid) {
@@ -247,15 +269,11 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     if (failure == true)
         return INVALID_STORY_FILE_RV;
 
-    char title[offset];
     if (offset < 2)
         return INVALID_STORY_FILE_RV;
 
-    memcpy(title, sf + 1, offset);
-    title[offset - 2] = 0;
-
     for (int i = 0; plus_registry[i].id != NO_ID_STRING; i++) {
-        if (strcmp(idstrings[plus_registry[i].id], title) == 0 ) {
+        if (title_matches(sf, offset, idstrings[plus_registry[i].id])) {
             if (ifid != NULL) {
                 size_t length = strlen(ifids[plus_registry[i].ifid]);
                 strncpy(*ifid, ifids[plus_registry[i].ifid], length);
@@ -282,21 +300,17 @@ static int32 detect_sagaplus(unsigned char *storystring, int32 extent) {
     if (failure == true)
         return INVALID_STORY_FILE_RV;
 
-    char title[offset];
     if (offset < 2)
         return INVALID_STORY_FILE_RV;
 
-    memcpy(title, storystring + 1, offset);
-    title[offset - 2] = 0;
-
     int found = 0;
     for (int i = 1; i < 5; i++)
-        if (strcmp(idstrings[i], title) == 0)
+        if (title_matches(storystring, offset, idstrings[i]))
             found = 1;
 
     if (found == 0) {
 #ifdef DEBUG
-        fprintf(stderr, "title: \"%s\"\n", title);
+        fprintf(stderr, "title: \"%.*s\"\n", offset - 2, storystring + 1);
 #endif
         return INVALID_STORY_FILE_RV;
     }

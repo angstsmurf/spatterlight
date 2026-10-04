@@ -25,9 +25,8 @@
 #define  VB_RAND2      0x00C39EC3
 #define  VB_RAND3      0x00FFFFFF
 #define  VB_INIT       0x00A09E86
-static int64_t vbr_state;
 
-void *my_malloc(int32, char *);
+void *my_malloc(uint32, char *);
 int32 ifiction_get_IFID(char *, char *, int32);
 
 /* Searches case-insensitively for the string str in the story file.
@@ -55,18 +54,19 @@ static int32 find_text_in_file(void *story_file, int32 extent, int32 startat, ch
 
 /*
   Unobfuscates one byte from a taf file. This should be called on each byte
-  in order, as the ADRIFT obfuscation function is stately.
+  in order, as the ADRIFT obfuscation function is stately. The caller owns
+  the state, which starts out as VB_INIT.
 
   The de-obfuscation algorithm works by xoring the byte with the next
   byte in the sequence produced by the Visual Basic pseudorandom number
   generator, which is simulated here.
 */
-static unsigned char taf_translate (unsigned char c)
+static unsigned char taf_translate (int64_t *vbr_state, unsigned char c)
 {
     int32 r;
 
-    vbr_state = (vbr_state*VB_RAND1+VB_RAND2) & VB_RAND3;
-    r=UCHAR_MAX * (unsigned) vbr_state;
+    *vbr_state = (*vbr_state*VB_RAND1+VB_RAND2) & VB_RAND3;
+    r=UCHAR_MAX * (unsigned) *vbr_state;
     r/=((unsigned) VB_RAND3)+1;
     return r^c;
 }
@@ -77,7 +77,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
     int adv;
     unsigned char buf[4];
     unsigned char *sf=(unsigned char *)story_file;
-    vbr_state=VB_INIT;
+    int64_t vbr_state=VB_INIT;
 
     if (extent <12) return INVALID_STORY_FILE_RV;
 
@@ -99,12 +99,12 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
     
     buf[3]=0;
     /* Burn the first 8 bytes of translation */
-    for(adv=0;adv<8;adv++) taf_translate(0);
+    for(adv=0;adv<8;adv++) taf_translate(&vbr_state, 0);
     /* Bytes 8-11 contain the Adrift version number in the formay N.NN */
-    buf[0]=taf_translate(sf[8]);
-    taf_translate(0);
-    buf[1]=taf_translate(sf[10]);
-    buf[2]=taf_translate(sf[11]);
+    buf[0]=taf_translate(&vbr_state, sf[8]);
+    taf_translate(&vbr_state, 0);
+    buf[1]=taf_translate(&vbr_state, sf[10]);
+    buf[2]=taf_translate(&vbr_state, sf[11]);
     adv=atoi((char *) buf);
     ASSERT_OUTPUT_SIZE(12);
     sprintf(output,"ADRIFT-%03d-",adv);
@@ -122,10 +122,10 @@ static int32 claim_story_file(void *story_file, int32 extent)
     unsigned char buf[8];
     int i;
     unsigned char *sf=(unsigned char *)story_file;
+    int64_t vbr_state=VB_INIT;
     buf[7]=0;
-    vbr_state=VB_INIT;
     if (extent<12) return INVALID_STORY_FILE_RV;
-    for(i=0;i<7;i++) buf[i]=taf_translate(sf[i]);
+    for(i=0;i<7;i++) buf[i]=taf_translate(&vbr_state, sf[i]);
     if (strcmp((char *)buf,"Version")) return INVALID_STORY_FILE_RV;
     return VALID_STORY_FILE_RV;
 

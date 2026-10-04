@@ -234,7 +234,13 @@ static int tzx_is_quill(const unsigned char *sf, int32 extent)
         case 0x31: if (pos + 1 < extent) pos += 2 + sf[pos+1]; continue;
         case 0x32: if (pos + 1 < extent) { int32 l = sf[pos] | (sf[pos+1]<<8); pos += 2 + l; } continue;
         case 0x33: if (pos < extent) pos += 1 + sf[pos] * 3; continue;
-        case 0x35: if (pos + 20 <= extent) { int32 l = sf[pos+16]|(sf[pos+17]<<8)|(sf[pos+18]<<16)|(sf[pos+19]<<24); pos += 20 + l; } continue;
+        case 0x35:
+            if (pos + 20 <= extent) {
+                uint32 l = sf[pos+16] | (sf[pos+17]<<8) | (sf[pos+18]<<16) | ((uint32)sf[pos+19]<<24);
+                if (l > (uint32)(extent - pos - 20)) return 0;
+                pos += 20 + l;
+            }
+            continue;
         default: return 0;
         }
 
@@ -242,7 +248,7 @@ static int tzx_is_quill(const unsigned char *sf, int32 extent)
 
         if (dlen >= 12) { /* scan entire block for Quill colour table */
             int32 n;
-            for (n = 0; n + 10 <= dlen; n++) {
+            for (n = 0; n + 10 < dlen; n++) {
                 if (data[n]   == 0x10 && data[n+2]  == 0x11 &&
                     data[n+4] == 0x12 && data[n+6]  == 0x13 &&
                     data[n+8] == 0x14 && data[n+10] == 0x15)

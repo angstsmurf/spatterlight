@@ -14,6 +14,7 @@
 
 #include "treaty_builder.h"
 #include "babel_handler.h"
+#include "ifiction.h"
 #include <stdbool.h>
 
 
@@ -82,9 +83,14 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
 {
     if (claim_story_file(storyvp, extent) == VALID_STORY_FILE_RV)
     {
-        /* Construct IFID */
-        ASSERT_OUTPUT_SIZE(1);
-        output[0] = '\0';
+        /* A file can carry an explicit IFID */
+        int32 rv = find_uuid_ifid_marker(storyvp, extent, output, output_extent);
+        if (rv == VALID_STORY_FILE_RV || rv == INVALID_USAGE_RV)
+            return rv;
+
+        /* Construct IFID: the handler appends the MD5 of the file */
+        ASSERT_OUTPUT_SIZE(7);
+        strcpy(output, "QUEST-");
         return INCOMPLETE_REPLY_RV;
     }
     return INVALID_STORY_FILE_RV;

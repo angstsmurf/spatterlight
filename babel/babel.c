@@ -33,7 +33,7 @@ extern "C" {
 char *fn;
 
 /* checked malloc function */
-void *my_malloc(int, char *);
+void *my_malloc(uint32, char *);
 
 /* babel performs several fundamental operations, which are specified
    by command-line objects. Each of these functions corresponds to

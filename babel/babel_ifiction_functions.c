@@ -25,7 +25,7 @@
 #define IFICTION_EXT ".ifi"
 #endif
 
-void *my_malloc(int, char *);
+void *my_malloc(uint32, char *);
 
 struct IFiction_Info
 {

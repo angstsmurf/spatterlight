@@ -44,7 +44,7 @@ static char *TranslateExec[] = {
     NULL, NULL
 };
 
-void *my_malloc(int32, char *);
+void *my_malloc(uint32, char *);
 int32 ifiction_get_IFID(char *, char *, int32);
 
 static uint32 read_int(void *inp)
@@ -61,17 +61,22 @@ static uint32 read_int(void *inp)
 static int32 blorb_get_chunk(void *blorb_file, int32 extent, char *id, uint32 *begin, uint32 *output_extent)
 {
     uint32 i=12, j;
+    if (extent<20) return NO_REPLY_RV;
     while(i<(uint32) extent-8)
     {
+        j=read_int((char *)blorb_file+i+4);
+        /* A chunk that claims to run past the end of the file is damaged.
+           Stopping here also keeps a huge length from wrapping i around,
+           which would walk the same chunks forever.
+         */
+        if (j > (uint32) extent-i-8) return NO_REPLY_RV;
         if (memcmp(((char *)blorb_file)+i,id,4)==0)
         {
-            *output_extent=read_int((char *)blorb_file+i+4);
-            if (*output_extent > (uint32) extent) return NO_REPLY_RV;
+            *output_extent=j;
             *begin=i+8;
             return 1;
         }
 
-        j=read_int((char *)blorb_file+i+4);
         if (j%2) j++;
         i+=j+8;
 
@@ -80,24 +85,29 @@ static int32 blorb_get_chunk(void *blorb_file, int32 extent, char *id, uint32 *b
 }
 static int32 blorb_get_resource(void *blorb_file, int32 extent, char *rid, int32 nnumber, uint32 *begin, uint32 *output_extent)
 {
-    uint32 ridx_len;
+    uint32 ridx_len, chunk_len;
     uint32 i,j;
     uint32 number=(uint32) nnumber;
     void *ridx;
-    if (blorb_get_chunk(blorb_file, extent,"RIdx",&i,&ridx_len)==NO_REPLY_RV)
+    if (blorb_get_chunk(blorb_file, extent,"RIdx",&i,&chunk_len)==NO_REPLY_RV)
         return NO_REPLY_RV;
+    if (chunk_len<4) return NO_REPLY_RV;
 
     ridx=(char *)blorb_file+i+4;
     ridx_len=read_int((char *)blorb_file+i);
+    /* The index cannot hold more entries than fit in its chunk */
+    if (ridx_len > (chunk_len-4)/12) ridx_len=(chunk_len-4)/12;
     for(i=0;i<ridx_len;i++)
     {
         if (memcmp((char *)ridx+(i*12),rid,4)==0 && read_int((char *)ridx+(i*12)+4)==number)
         {
             j=i;
             i=read_int((char *)ridx+(j*12)+8);
+            /* The resource's chunk header and data must lie within the file */
+            if (i > (uint32) extent-8) return NO_REPLY_RV;
             *begin=i+8;
             *output_extent=read_int((char *)blorb_file+i+4);
-            if (*begin > extent || *begin + *output_extent > extent)
+            if (*output_extent > (uint32) extent - *begin)
                 return NO_REPLY_RV;
             return 1;
         }
@@ -136,35 +146,50 @@ static int32 get_story_file(void *blorb_file, int32 extent, void *output, int32 
 
 }
 
-char *blorb_chunk_for_name(char *name)
+/* Writes the chunk type for a babel format name to buffer: the listed
+   translation if there is one, otherwise the first four letters of the
+   name in upper case, padded with spaces ("hugo" -> "HUGO", "agt" -> "AGT ").
+ */
+static char *chunk_for_name(char *name, char *buffer)
 {
-    static char buffer[5];
     int j;
     for(j=0;TranslateExec[j];j+=2)
-        if (strcmp(name,TranslateExec[j+1])==0) return TranslateExec[j];
-    for(j=0;j<4 && name[j];j++) buffer[j]=toupper(buffer[j]);
+        if (strcmp(name,TranslateExec[j+1])==0)
+        {
+            memcpy(buffer,TranslateExec[j],5);
+            return buffer;
+        }
+    for(j=0;j<4 && name[j];j++) buffer[j]=toupper((unsigned char) name[j]);
     while(j<4) buffer[j++]=' ';
     buffer[4]=0;
     return buffer;
-
 }
-static char *blorb_get_story_format(void *blorb_file, int32 extent)
+
+char *blorb_chunk_for_name(char *name)
+{
+    static char buffer[5];
+    return chunk_for_name(name,buffer);
+}
+
+/* fn must hold TREATY_MINIMUM_EXTENT bytes */
+static char *blorb_get_story_format(void *blorb_file, int32 extent, char *fn)
 {
     uint32 i, j;
 
     for(j=0;treaty_registry[j];j++)
     {
-        static char fn[512];
-        treaty_registry[j](GET_FORMAT_NAME_SEL,NULL,0,fn,512);
-        if (blorb_get_chunk(blorb_file,extent,blorb_chunk_for_name(fn),&i, &i)) return fn;
+        char chunk[5];
+        if (treaty_registry[j](GET_FORMAT_NAME_SEL,NULL,0,fn,TREATY_MINIMUM_EXTENT)<0) continue;
+        if (blorb_get_chunk(blorb_file,extent,chunk_for_name(fn,chunk),&i, &i)) return fn;
     }
     return NULL;
 }
 
 static int32 get_story_format(void *blorb_file, int32 extent, char *output, int32 output_extent)
 {
+    char fn[TREATY_MINIMUM_EXTENT];
     char *o;
-    o=blorb_get_story_format(blorb_file, extent);
+    o=blorb_get_story_format(blorb_file, extent, fn);
     if (!o) return NO_REPLY_RV;
     ASSERT_OUTPUT_SIZE((signed) strlen(o)+1);
     memcpy(output, o, strlen(o) + 1);
@@ -214,7 +239,7 @@ static int32 get_story_file_IFID(void *b, int32 e, char *output, int32 output_ex
     if (j<=0) return NO_REPLY_RV;
     md=(char *)my_malloc(j, "Metadata buffer");
     j=get_story_file_metadata(b,e,md,j);
-    if (j<=0) return NO_REPLY_RV;
+    if (j<=0) { free(md); return NO_REPLY_RV; }
 
     j=ifiction_get_IFID(md,output,output_extent);
     free(md);

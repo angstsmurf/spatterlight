@@ -18,6 +18,7 @@
 #define MIN_LENGTH 24
 
 #include "treaty_builder.h"
+#include "ifiction.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -71,8 +72,10 @@ static const struct zrec z6_registry[] = {
     { 0, 0, NO_IFID }
 };
 
-static int iswoz(void *story_file) {
+static int iswoz(void *story_file, int32 extent) {
     uint8_t *chars = (uint8_t *)story_file;
+    if (extent < 3)
+        return 0;
     return (chars[0] == 'W' && chars[1] == 'O' && chars[2] == 'Z');
 }
 
@@ -84,7 +87,7 @@ static uint16_t checksum(unsigned char *sf, int32 extent)
     return c;
 }
 
-static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
+static int32 find_in_database(unsigned char *sf, int32 extent, char *ifid, int32 output_extent) {
 #ifdef DEBUG
     fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(sf, extent));
 #endif
@@ -103,8 +106,8 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
             if (chksum == z6_registry[i].chk) {
                 size_t length = strlen(ifids[z6_registry[i].ifid]);
                 if (ifid != NULL) {
-                    strncpy(*ifid, ifids[z6_registry[i].ifid], length);
-                    (*ifid)[length] = 0;
+                    ASSERT_OUTPUT_SIZE((int32) length + 1);
+                    memcpy(ifid, ifids[z6_registry[i].ifid], length + 1);
                 }
                 return VALID_STORY_FILE_RV;
             }
@@ -114,7 +117,7 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
 }
 
 static int32 get_woz_IFID(void *story_file, int32 extent, char *output, int32 output_extent) {
-    return find_in_database(story_file, extent, &output);
+    return find_in_database(story_file, extent, output, output_extent);
 }
 
 
@@ -126,7 +129,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
 
     if (extent<0x1D) return INVALID_STORY_FILE_RV;
 
-    if (iswoz(story_file))
+    if (iswoz(story_file, extent))
         return get_woz_IFID(story_file, extent, output, output_extent);
 
     memcpy(ser, (char *) story_file+0x12, 6);
@@ -135,28 +138,19 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
     if (!(ser[0]=='8' || ser[0]=='9' ||
           (ser[0]=='0' && ser[1]>='0' && ser[1]<='5')))
     {
-        for(i=0;i<(uint32) extent-7;i++) if (memcmp((char *)story_file+i,"UUID://",7)==0) break;
-        if (i<(uint32) extent) /* Found explicit IFID */
-        {
-            for(j=i+7;j<(uint32)extent && ((char *)story_file)[j]!='/';j++);
-            if (j<(uint32) extent)
-            {
-                i+=7;
-                ASSERT_OUTPUT_SIZE((int32) (j-i));
-                memcpy(output,(char *)story_file+i,j-i);
-                output[j-i]=0;
-                return 1;
-            }
-        }
+        /* Look for an explicit IFID */
+        int32 rv = find_uuid_ifid_marker(story_file, extent, output, output_extent);
+        if (rv == VALID_STORY_FILE_RV || rv == INVALID_USAGE_RV)
+            return rv;
     }
     /* Did not find intact IFID.  Build one */
     i=((unsigned char *)story_file)[2] << 8 |((unsigned char *)story_file)[3];
     for(j=0;j<6;j++)
-        if (!isalnum(ser[j])) ser[j]='-';
+        if (!isalnum((unsigned char) ser[j])) ser[j]='-';
 
     j=((unsigned char *)story_file)[0x1C] << 8 |((unsigned char *)story_file)[0x1D];
 
-    if (strcmp(ser,"000000") && isdigit(ser[0]) && ser[0]!='8')
+    if (strcmp(ser,"000000") && isdigit((unsigned char) ser[0]) && ser[0]!='8')
         snprintf(buffer, 32, "ZCODE-%d-%s-%04X",i,ser,j);
     else
         snprintf(buffer, 32, "ZCODE-%d-%s",i,ser);
@@ -173,13 +167,13 @@ static uint32 read_zint(unsigned char *sf)
 }
 
 static int32 claim_woz_story_file(void *story_file, int32 extent) {
-    return find_in_database(story_file, extent, NULL);
+    return find_in_database(story_file, extent, NULL, 0);
 }
 
 
 static int32 claim_story_file(void *story_file, int32 extent)
 {
-    if (iswoz(story_file)) {
+    if (iswoz(story_file, extent)) {
         return claim_woz_story_file(story_file, extent);
     }
 
@@ -203,6 +197,12 @@ static int32 get_story_file_extension(void *sf, int32 extent, char *out, int32 o
 {
     int v;
     if (!extent) return INVALID_STORY_FILE_RV;
+    if (iswoz(sf, extent))
+    {
+        ASSERT_OUTPUT_SIZE(5);
+        strcpy(out,".woz");
+        return 4;
+    }
     v= ((char *) sf)[0];
     if (v>9) ASSERT_OUTPUT_SIZE(5);
     else ASSERT_OUTPUT_SIZE(4);

@@ -14,6 +14,7 @@
 #define NO_COVER
 
 #include "treaty_builder.h"
+#include "ifiction.h"
 #include <ctype.h>
 #include <stdio.h>
 
@@ -36,19 +37,9 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
 
 
  if (extent<256) return INVALID_STORY_FILE_RV;
- for(i=0;i<extent-7;i++) if (memcmp((char *)story_file+i,"UUID://",7)==0) break;
- if (i<extent) /* Found explicit IFID */
-  {
-   for(j=i+7;j<extent && ((char *)story_file)[j]!='/';j++);
-   if (j<extent)
-   {
-    i+=7;
-    ASSERT_OUTPUT_SIZE(j-i);
-    memcpy(output,(char *)story_file+i,j-i);
-    output[j-i]=0;
-    return 1;
-   }
-  }
+ /* Look for an explicit IFID */
+ i=find_uuid_ifid_marker(story_file, extent, output, output_extent);
+ if (i==VALID_STORY_FILE_RV || i==INVALID_USAGE_RV) return i;
 
  /* Did not find intact IFID.  Build one */
 
@@ -57,10 +48,11 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
  if (memcmp((char *)story_file+36,"Info",4)==0)
  { /* Inform generated */
   char *bb=(char *)story_file+52;
-  k= (int) bb[0]<<8 | (int) bb[1];
+  /* bb is signed, and the sign extension is part of the IFIDs in use */
+  k= (int32) ((uint32) bb[0]<<8) | (int) bb[1];
   memcpy(ser,bb+2,6);
   ser[6]=0;
-  for(i=0;i<6;i++) if (!isalnum(ser[i])) ser[i]='-';
+  for(i=0;i<6;i++) if (!isalnum((unsigned char) ser[i])) ser[i]='-';
   snprintf(buffer,sizeof(buffer),"GLULX-%u-%s-%04X",k,ser,j);
  }
  else

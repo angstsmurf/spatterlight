@@ -409,7 +409,7 @@ static int32 read_l9_int(unsigned char *sf)
 static int v2_recognition (unsigned char *sf, int32 extent, int32 *l, unsigned char *c)
 {
     int32 i, j;
-    for (i=0;i<extent-0x1c;i++)
+    for (i=0;i<extent-0x1d;i++)
         if ((read_l9_int(sf+i+4) == 0x0020) &&
             (read_l9_int(sf+i+0x0a) == 0x8000) &&
             (read_l9_int(sf+i+0x14) == read_l9_int(sf+i+0x16)))
@@ -418,7 +418,9 @@ static int v2_recognition (unsigned char *sf, int32 extent, int32 *l, unsigned c
             if (*l && *l+i <=extent)
             {
                 *c=0;
-                for(j=0;j<=*l;j++)
+                /* The sum runs one byte past the data, which is past the end
+                   of the file when the data is the last thing in it */
+                for(j=0;j<=*l && i+j<extent;j++)
                     *c+=sf[i+j];
                 return 2;
             }
@@ -503,7 +505,7 @@ static int v3_recognition_phase (int phase,unsigned char *sf, int32 extent, int3
              * address table, then a 0x2a/0x2c opcode followed by three zeroes. */
             int32 w2 = read_l9_int(sf+i+2), w4 = read_l9_int(sf+i+4);
             int32 w6 = read_l9_int(sf+i+6);
-            if (extent > 0x0fd0 && end <= extent
+            if (extent > 0x0fd0 && end <= extent && i + 21 < extent
                 && w2 != 0 && w4 != 0 && w2 + w4 == w6
                 && w6 + read_l9_int(sf+i+8) == read_l9_int(sf+i+10)
                 && (sf[i+18] == 0x2a || sf[i+18] == 0x2c)
@@ -522,9 +524,11 @@ static int v3_recognition_phase (int phase,unsigned char *sf, int32 extent, int3
         else
         {
             /* Confirm the a-code's 8-bit checksum closes to zero. */
+            /* The checksum byte is past the end of the file when the data
+               is the last thing in it; count it as zero then. */
             char checksum = 0;
-            *c = sf[end];
-            for (j = i; j <= end; j++)
+            *c = end < extent ? sf[end] : 0;
+            for (j = i; j <= end && j < extent; j++)
                 checksum += sf[j];
             found = (checksum == 0);
         }
@@ -564,7 +568,9 @@ static const struct l9filerec *get_l9_file_rec(unsigned char *sf, int32 extent)
         if (extent != l9_file_registry[i].length) continue;
         if (!computed) {
             chk = l9_file_sum16(sf, extent);
+#ifdef DEBUG
             fprintf(stderr, "Checksum is 0x%x\n", chk);
+#endif
             computed = 1;
         }
         if (chk == l9_file_registry[i].file_chk) return &l9_file_registry[i];

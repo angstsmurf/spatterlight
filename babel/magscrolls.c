@@ -110,6 +110,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
             memcpy(output, manifest[i].ifid, strlen(manifest[i].ifid) + 1);
             return 1;
         }
+    ASSERT_OUTPUT_SIZE(10);
     strncpy(output, "MAGNETIC-", sizeof("MAGNETIC-"));
     return INCOMPLETE_REPLY_RV;
 }

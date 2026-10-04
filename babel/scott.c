@@ -585,22 +585,18 @@ static int SanityCheckHeader(int ni, int na, int nw, int nr)
     return 1;
 }
 
-static int header[15];
-
-static uint8_t *ReadHeader(uint8_t *ptr)
+static void ReadHeader(uint8_t *ptr, int header[15])
 {
-    int i, value;
-    for (i = 0; i < 15; i++) {
-        value = *ptr + 256 * *(ptr + 1);
-        header[i] = value;
+    for (int i = 0; i < 15; i++) {
+        header[i] = ptr[0] + 256 * ptr[1];
         ptr += 2;
     }
-    return ptr - 1;
 }
 
 static int detect_atari(unsigned char *sf, int32 extent) {
     if (extent == 0x16810 && find_code("\x96\x02\x80\x16\x80\x00", 6, sf, 7) != -1) {
-        ReadHeader(&sf[0x04f9]);
+        int header[15];
+        ReadHeader(&sf[0x04f9], header);
         int ni = header[3];
         int na = header[2];
         int nw = header[1];
@@ -616,7 +612,7 @@ static int read_next_number(unsigned char *text, int32_t extent, int32_t *offset
     int i;
     bool number_found = false;
     for (i = 0; i < extent - *offset && i < 99; i++) {
-        char c = text[*offset + i];
+        unsigned char c = text[*offset + i];
         numstring[i] = c;
         if (isspace(c)) {
             if (number_found == true)
@@ -633,7 +629,8 @@ static int read_next_number(unsigned char *text, int32_t extent, int32_t *offset
         *failure = true;
         return 0;
     }
-    numstring[i+1] = '\0';
+    /* i is either at the delimiter or one past the last character read */
+    numstring[i] = '\0';
     *offset += i;
     int result = atoi(numstring);
     if (result > INT16_MAX || result < INT16_MIN)
@@ -647,14 +644,22 @@ static int read_string(unsigned char *text, int32_t extent, int32_t *offset, boo
     int c,nc;
     int ct=0;
     do {
+        if(*offset >= extent) {
+            *failure = true;
+            return 0;
+        }
         c=text[(*offset)++];
-    } while(*offset < extent && isspace(c));
+    } while(isspace(c));
     
     if(c!='"') {
         *failure = true;
         return 0;
     }
     do {
+        if(*offset >= extent) {
+            *failure = true;
+            return 0;
+        }
         c=text[(*offset)++];
         if(*offset >= extent) {
             *failure = true;
@@ -777,7 +782,7 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
         /* Calculate checksum using 3 Kb after the title screen */
         int checksum_length = MIN(3072, extent - title_screen_offset);
 
-        int sum = checksum(storyvp + title_screen_offset, checksum_length);
+        int sum = checksum(storystring + title_screen_offset, checksum_length);
         if (find_in_TI994Adatabase(sum, &output) == VALID_STORY_FILE_RV) {
             return VALID_STORY_FILE_RV;
         }

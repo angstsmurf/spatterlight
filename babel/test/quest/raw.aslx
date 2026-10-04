@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<asl version="550">
+  <game name="Babel Quest Fixture">
+    <gameid>1974a053-7db0-4103-93a1-767c1382c0b7</gameid>
+    <author>Test Author</author>
+    <subtitle>A Headline</subtitle>
+    <category>Fantasy</category>
+    <firstpublished>2026</firstpublished>
+    <description>A &lt;b&gt;short&lt;/b&gt; description.</description>
+    <version>1.0</version>
+    <cover>cover.png</cover>
+  </game>
+</asl>

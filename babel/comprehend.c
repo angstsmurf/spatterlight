@@ -132,7 +132,9 @@ static int32 claim_story_file(void *story_file, int32 extent)
             if (strcmp(hexdigest, comprehend_dos_exe_md5s[i]) == 0)
                 return VALID_STORY_FILE_RV;
         }
+#ifdef DEBUG
         fprintf(stderr, "hexdigest for this file: %s\n", hexdigest);
+#endif
         return INVALID_STORY_FILE_RV;
     }
 

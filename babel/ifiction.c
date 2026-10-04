@@ -27,6 +27,11 @@
  * it strictly checks the ifiction record against the Treaty of Babel
  * requirements
  *
+ * int32 find_uuid_ifid_marker(void *sf, int32 extent, char *output, int32 output_extent)
+ * Search a memory block for a "UUID://...//" string, being careful about
+ * the format. Returns VALID_STORY_FILE_RV if found, INVALID_STORY_FILE_RV
+ * if not found, INVALID_USAGE_RV if the output_extent is too short.
+ *
  */
 
 #include "ifiction.h"
@@ -35,7 +40,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-void *my_malloc(int, char *);
+void *my_malloc(uint32, char *);
 extern char *format_registry[];
 
 
@@ -84,7 +89,7 @@ int32 ifiction_get_IFID(char *metadata, char *output, int32 output_extent)
         *output=',';
         output++;
     }
-    if (*(output-1)==',') *(output-1)=0;
+    if (j>0 && *(output-1)==',') *(output-1)=0;
     return j;
 }
 
@@ -546,4 +551,42 @@ char *ifiction_get_tag(char *md, char *p, char *t, char *from)
     ifiction_parse(md,ifiction_find_value,&gt,ifiction_null_eh,NULL);
     if (gt.target){ if (gt.output) free(gt.output); return NULL; }
     return gt.output;
+}
+
+/* An IFID is made of digits, capital letters and hyphens (Treaty of Babel
+   2.2.2.1), and the marker has to be closed by a second "//". Anything else
+   that happens to follow "UUID://" in a story file is not an IFID.
+
+   One deliberate difference from babel-tool, which rejects small letters:
+   they are accepted here and capitalised. A number of published Z-code games
+   carry a lowercase UUID, and IFDB lists them under that UUID, not under the
+   ZCODE- IFID that rejecting the marker would produce. */
+int32 find_uuid_ifid_marker(void *sf, int32 extent, char *output, int32 output_extent)
+{
+    unsigned char *mem = (unsigned char *)sf;
+    int32 i, j, k;
+
+    for (i=0; i<extent-7; i++) {
+        if (memcmp(mem+i, "UUID://", 7)==0) {
+            for (j=i+7; j<extent; j++) {
+                int ch = mem[j];
+                if (!((ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'Z') ||
+                      (ch >= 'a' && ch <= 'z') || ch == '-'))
+                    break;
+            }
+            if (j+1 < extent && mem[j] == '/' && mem[j+1] == '/') {
+                int32 len = j-(i+7);
+                if (len+1 > output_extent)
+                    return INVALID_USAGE_RV;
+                for (k=0; k<len; k++) {
+                    int ch = mem[i+7+k];
+                    output[k] = (ch >= 'a' && ch <= 'z') ? ch - 'a' + 'A' : ch;
+                }
+                output[len] = 0;
+                return VALID_STORY_FILE_RV;
+            }
+        }
+    }
+
+    return INVALID_STORY_FILE_RV;
 }

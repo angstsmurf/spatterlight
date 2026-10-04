@@ -27,7 +27,7 @@ static int32 read_agt_short(unsigned char *sf)
 }
 static int32 read_agt_int(unsigned char *sf)
 {
-    return (read_agt_short(sf+2) << 16) | read_agt_short(sf);
+    return (int32) ((uint32) read_agt_short(sf+2) << 16) | read_agt_short(sf);
 
 }
 
@@ -38,7 +38,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
 
     /* Read the position of the game desciption block */
     l=read_agt_int(sf+32);
-    if (extent<l+6) return INVALID_STORY_FILE_RV;
+    if (l<0 || l>extent-6) return INVALID_STORY_FILE_RV;
     game_version = read_agt_short(sf+l);
     game_sig=read_agt_int(sf+l+2);
     ASSERT_OUTPUT_SIZE(19);
