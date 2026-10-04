@@ -53,11 +53,19 @@ SavedState *SaveCurrentState(void)
     return s;
 }
 
+void FreeSavedState(SavedState *state)
+{
+    if (state == NULL)
+        return;
+    free(state->ItemLocations);
+    free(state);
+}
+
 void RecoverFromBadRestore(SavedState *state)
 {
     Output(sys[BAD_DATA]);
     RestoreState(state);
-    free(state);
+    FreeSavedState(state);
 }
 
 void RestoreState(SavedState *state)
@@ -105,8 +113,7 @@ void SaveUndo(void)
         struct SavedState *oldest = oldest_undo;
         oldest_undo = oldest_undo->nextState;
         oldest_undo->previousState = NULL;
-        free(oldest->ItemLocations);
-        free(oldest);
+        FreeSavedState(oldest);
     } else {
         number_of_undos++;
     }
@@ -128,18 +135,13 @@ void RestoreUndo(void)
         oldest_undo = last_undo;
     RestoreState(last_undo);
     Output(sys[MOVE_UNDONE]);
-    free(current->ItemLocations);
-    free(current);
+    FreeSavedState(current);
     number_of_undos--;
 }
 
 void RamSave(void)
 {
-    if (ramsave != NULL) {
-        free(ramsave->ItemLocations);
-        free(ramsave);
-    }
-
+    FreeSavedState(ramsave);
     ramsave = SaveCurrentState();
     Output(sys[STATE_SAVED]);
 }

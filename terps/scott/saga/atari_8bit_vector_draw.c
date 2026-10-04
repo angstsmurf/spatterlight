@@ -909,6 +909,10 @@ uint8_t *DrawAtari8BitVectorImage(USImage *img) {
         // the current room image
         DrawAtari8bitImageFromScreenmem();
         init_a8_vector_draw_session(img);
+    } else if (bytes_to_write == NULL) {
+        // No room image is being drawn or shown (it is dark, or graphics
+        // are off), so there is no session to add this object to.
+        return NULL;
     }
 
     uint16_t offset = 0;

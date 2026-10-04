@@ -429,7 +429,11 @@ static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasi
         return 0;
 
     size_t newsize = MAX(dest + bytestomove, datasize);
-    uint8_t *megabuf = MemAlloc(newsize);
+    /* Zero-filled, as dest may lie beyond the end of the original data,
+       and the gap in between must not be left as random heap contents.
+       (SagaGraphicsSetup() looks for zeroed image headers there in order to
+       detect the Claymorgue release with missing pictures.) */
+    uint8_t *megabuf = MemCalloc(newsize);
     memcpy(megabuf, *data, datasize);
     memcpy(megabuf + dest, *data + source, bytestomove);
     free(*data);

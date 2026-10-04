@@ -406,9 +406,11 @@ void FreeDatabase(void)
 {
     if (Actions != NULL)
         free(Actions);
+    /* A database that failed to load halfway will have unset (NULL)
+       strings in its arrays. */
     if (Items != NULL) {
         for (int i = 0; i <= GameHeader.NumItems; i++) {
-            if (Items[i].Text[0] != '.') {
+            if (Items[i].Text != NULL && Items[i].Text[0] != '.') {
                 free(Items[i].Text);
             }
         }
@@ -416,7 +418,7 @@ void FreeDatabase(void)
     }
     if (Rooms != NULL) {
         for (int i = 0; i <= GameHeader.NumRooms; i++) {
-            if (Rooms[i].Text[0] != '.') {
+            if (Rooms[i].Text != NULL && Rooms[i].Text[0] != '.') {
                 free(Rooms[i].Text);
             }
         }
@@ -424,7 +426,7 @@ void FreeDatabase(void)
     }
     if (Nouns != NULL) {
         for (int i = 0; i <= GameHeader.NumWords; i++) {
-            if (Nouns[i][0] != '.') {
+            if (Nouns[i] != NULL && Nouns[i][0] != '.') {
                 free(Nouns[i]);
             }
         }
@@ -432,15 +434,15 @@ void FreeDatabase(void)
     }
     if (Verbs != NULL) {
         for (int i = 0; i <= GameHeader.NumWords; i++) {
-            if (Verbs[i][0] != '.') {
+            if (Verbs[i] != NULL && Verbs[i][0] != '.') {
                 free(Verbs[i]);
             }
         }
         free(Verbs);
     }
     if (Messages != NULL) {
-        for (int i = 0; i < GameHeader.NumMessages; i++) {
-            if (Messages[i][0] != '.') {
+        for (int i = 0; i <= GameHeader.NumMessages; i++) {
+            if (Messages[i] != NULL && Messages[i][0] != '.') {
                 free(Messages[i]);
             }
         }
@@ -481,6 +483,17 @@ GameIDType LoadDatabase(FILE *f, int loud)
             debug_print("Invalid database(bad header)\n");
         return UNKNOWN_GAME;
     }
+    /* The counts size the game arrays, and the player is placed in
+       PlayerRoom without further checks */
+    if (GameHeader.NumItems < 0 || GameHeader.NumActions < 0
+        || GameHeader.NumWords < 0 || GameHeader.NumRooms < 0
+        || GameHeader.NumMessages < 0 || GameHeader.WordLength < 1
+        || GameHeader.PlayerRoom < 0
+        || GameHeader.PlayerRoom > GameHeader.NumRooms) {
+        if (loud)
+            debug_print("Invalid database(header values out of range)\n");
+        return UNKNOWN_GAME;
+    }
     LightRefill = GameHeader.LightTime;
     AllocateGameData();
 
@@ -513,7 +526,7 @@ GameIDType LoadDatabase(FILE *f, int loud)
                 &Actions[ct].Opcode[0],
                 &Actions[ct].Opcode[1])
             != 8) {
-            fprintf(stderr, "Bad action line (%d)\n", ct);
+            debug_print("Bad action line (%d)\n", ct);
             FreeDatabase();
             return UNKNOWN_GAME;
         }
@@ -612,12 +625,14 @@ GameIDType LoadDatabase(FILE *f, int loud)
     if (loud)
         debug_print("%d.\nLoad Complete.\n\n", val);
     /* Extra value in at least Hulk */
-    if (!fscanf(f, "%d", &val)) {
+    int extra = 0;
+    if (fscanf(f, "%d", &extra) != 1) {
         debug_print("No extra value in file. This is not Hulk.\n");
+        extra = 0;
     }
 
     fclose(f);
-    if (val == HULK_DOS_ID && LoadDOSImages()) {
+    if (extra == HULK_DOS_ID && LoadDOSImages()) {
         CurrentSys = SYS_MSDOS;
         ImageWidth = HULK_DOS_WIDTH;
         ImageHeight = HULK_DOS_HEIGHT;
@@ -916,7 +931,7 @@ Distributed under the GNU software license\n\n");
             Output(sys[YOU_CANT_DO_THAT_YET]);
             // Failed actions should interrupt chains of commands
             // but not TAKE ALL and DROP ALL
-            if (!CurrentCommand->allflag)
+            if (CurrentCommand == NULL || !CurrentCommand->allflag)
                 FreeCommands();
             break;
         default:

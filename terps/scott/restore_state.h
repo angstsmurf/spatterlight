@@ -30,6 +30,7 @@ void RamSave(void);
 void RamRestore(void);
 SavedState *SaveCurrentState(void);
 void RestoreState(SavedState *state);
+void FreeSavedState(SavedState *state);
 void RecoverFromBadRestore(SavedState *state);
 
 #endif /* restore_state_h */

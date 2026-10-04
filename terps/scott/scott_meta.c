@@ -61,6 +61,56 @@ void SaveGame(void)
     Output(sys[SAVED]);
 }
 
+/* Read a saved game from an open stream straight into the live game
+   state, validating every value against the current database limits.
+   Returns 0 as soon as anything is missing or out of range, in which
+   case the game state is left partially overwritten. */
+static int ReadSavedGame(strid_t file)
+{
+    char buf[128];
+    int ct;
+    short lo;
+    short DarkFlag;
+
+    int PreviousAutoInventory = AutoInventory;
+
+    for (ct = 0; ct < NUM_COUNTERS; ct++) {
+        if (glk_get_line_stream(file, buf, sizeof buf) == 0
+            || sscanf(buf, "%d %d", &Counters[ct], &RoomSaved[ct]) != 2
+            || RoomSaved[ct] < 0 || RoomSaved[ct] > GameHeader.NumRooms)
+            return 0;
+    }
+
+    if (glk_get_line_stream(file, buf, sizeof buf) == 0)
+        return 0;
+    int result = sscanf(buf, "%ld %hd %hd %d %d %hd %d\n", &BitFlags, &DarkFlag,
+        &MyLoc, &CurrentCounter, &SavedRoom, &GameHeader.LightTime,
+        &AutoInventory);
+    /* Older saves have no AutoInventory field */
+    if (result == 6)
+        AutoInventory = PreviousAutoInventory;
+    if ((result != 7 && result != 6) || MyLoc > GameHeader.NumRooms || MyLoc < 1
+        || SavedRoom < 0 || SavedRoom > GameHeader.NumRooms)
+        return 0;
+
+    /* Backward compatibility */
+    if (DarkFlag)
+        SetBitFlag(DARKBIT);
+
+    for (ct = 0; ct <= GameHeader.NumItems; ct++) {
+        if (glk_get_line_stream(file, buf, sizeof buf) == 0
+            || sscanf(buf, "%hd\n", &lo) != 1
+            || lo < 0 || (lo > GameHeader.NumRooms && lo != CARRIED))
+            return 0;
+        Items[ct].Location = (unsigned char)lo;
+    }
+
+    /* There should be nothing left in the file */
+    glui32 position = glk_stream_get_position(file);
+    glk_stream_set_position(file, 0, seekmode_End);
+    return glk_stream_get_position(file) == position;
+}
+
 /* Load a saved game state from a file via Glk file prompts.
    Validates all loaded values against the current database limits
    and rolls back to a snapshot if any value is out of range. */
@@ -68,12 +118,6 @@ void LoadGame(void)
 {
     strid_t file;
     frefid_t ref;
-    char buf[128];
-    int ct = 0;
-    short lo;
-    short DarkFlag;
-
-    int PreviousAutoInventory = AutoInventory;
 
     ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_SavedGame,
         filemode_Read, 0);
@@ -87,47 +131,15 @@ void LoadGame(void)
 
     SavedState *state = SaveCurrentState();
 
-    int result;
+    int success = ReadSavedGame(file);
+    glk_stream_close(file, NULL);
 
-    for (ct = 0; ct < NUM_COUNTERS; ct++) {
-        glk_get_line_stream(file, buf, sizeof buf);
-        result = sscanf(buf, "%d %d", &Counters[ct], &RoomSaved[ct]);
-        if (result != 2 || RoomSaved[ct] > GameHeader.NumRooms) {
-            RecoverFromBadRestore(state);
-            return;
-        }
-    }
-    glk_get_line_stream(file, buf, sizeof buf);
-    result = sscanf(buf, "%ld %hd %hd %d %d %hd %d\n", &BitFlags, &DarkFlag,
-        &MyLoc, &CurrentCounter, &SavedRoom, &GameHeader.LightTime,
-        &AutoInventory);
-    if (result == 6)
-        AutoInventory = PreviousAutoInventory;
-    if ((result != 7 && result != 6) || MyLoc > GameHeader.NumRooms || MyLoc < 1 || SavedRoom > GameHeader.NumRooms) {
+    if (!success) {
         RecoverFromBadRestore(state);
         return;
     }
 
-    /* Backward compatibility */
-    if (DarkFlag)
-        SetBitFlag(DARKBIT);
-    for (ct = 0; ct <= GameHeader.NumItems; ct++) {
-        glk_get_line_stream(file, buf, sizeof buf);
-        result = sscanf(buf, "%hd\n", &lo);
-        Items[ct].Location = (unsigned char)lo;
-        if (result != 1 || (Items[ct].Location > GameHeader.NumRooms && Items[ct].Location != CARRIED)) {
-            RecoverFromBadRestore(state);
-            return;
-        }
-    }
-
-    glui32 position = glk_stream_get_position(file);
-    glk_stream_set_position(file, 0, seekmode_End);
-    glui32 end = glk_stream_get_position(file);
-    if (end != position) {
-        RecoverFromBadRestore(state);
-        return;
-    }
+    FreeSavedState(state);
 
     SaveUndo();
     JustStarted = 0;
@@ -222,6 +234,7 @@ static void FlickerOff(void)
     } else {
         Output("Flicker is already off.");
     }
+    Output("\n");
     Options &= ~FLICKER_ON;
 }
 
@@ -345,7 +358,7 @@ int YesOrNo(void)
             if ((glsi32)ev.val1 > ' ') {
                 glk_put_char_stream_uni(glk_window_get_stream(Bottom), ev.val1);
             }
-            const char reply = tolower((char)ev.val1);
+            const char reply = ev.val1 < 0x100 ? tolower((int)ev.val1) : 0;
             if (reply == y) {
                 result = 1;
             } else if (reply == n) {

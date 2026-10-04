@@ -122,9 +122,7 @@ static int DecodeRTPIColors(uint8_t *ptr, USImage *image) {
     uint8_t *origcolptr = ptr;
     uint8_t *end = origptr + image->datasize;
 
-    uint16_t write_offset;
-restart:
-    write_offset = 0;
+    uint16_t write_offset = 0;
 
     while (ptr < end && write_offset < RTPI_IMAGE_SIZE) {
         uint8_t draw_op = *ptr++;

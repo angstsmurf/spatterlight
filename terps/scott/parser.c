@@ -299,7 +299,7 @@ static void CreateErrorMessage(const char *fchar, glui32 *second, const char *tc
     glui32 *third = ToUnicode(tchar);
     glui32 buffer[MAX_BUFFER];
     int i, j = 0, k = 0;
-    for (i = 0; first[i] != 0 && i < MAX_BUFFER; i++)
+    for (i = 0; first != NULL && first[i] != 0 && i < MAX_BUFFER; i++)
         buffer[i] = first[i];
     if (second != NULL) {
         for (j = 0; second[j] != 0 && i + j < MAX_BUFFER; j++)
@@ -403,8 +403,9 @@ static glui32 *FoldGermanSequences(const glui32 *in, size_t in_len,
                 continue;
             }
             else if (cp == 'U' && next == 'E') {
-                out[write_pos++] = 0xdc; // Ü
+                out[write_pos++] = 0x00DC; /* Ü */
                 ++i;
+                continue;
             }
             else if (cp == 'o' && next == 'e') {
                 out[write_pos++] = 0x00F6; /* ö */
@@ -950,7 +951,7 @@ static Command *CommandFromStrings(int index, Command *previous);
 /* Check for unrecognized trailing words after a verb+noun pair.
    Skips filler words and synonyms of the current noun. Returns 1
    and sets an error message if an invalid word is found. */
-static int FindExtaneousWords(int *index, int noun)
+static int FindExtraneousWords(int *index, int noun)
 {
     int original_index = *index;
     if (*index >= WordsInInput) {
@@ -1044,7 +1045,7 @@ static Command *CommandFromStrings(int index, Command *previous)
 
     if (list == Directions) {
         /* It is a direction */
-        if (verb == 0 || FindExtaneousWords(&i, 0) != 0)
+        if (verb == 0 || FindExtraneousWords(&i, 0) != 0)
             return NULL;
         return CreateCommandStruct(GO, verb, 0, i, previous);
     }
@@ -1067,7 +1068,7 @@ static Command *CommandFromStrings(int index, Command *previous)
             } else {
                 verbindex = previous->verbwordindex;
             }
-            if (FindExtaneousWords(&i, verb) != 0)
+            if (FindExtraneousWords(&i, verb) != 0)
                 return NULL;
 
             return CreateCommandStruct(lastverb, verb, verbindex, i, previous);
@@ -1112,7 +1113,7 @@ static Command *CommandFromStrings(int index, Command *previous)
             except = WhichWord(CharWords[i], ExtraCommands, stringlength,
                 NUMBER_OF_EXTRA_COMMANDS);
         }
-        if (ExtraCommandsKey[except] != EXCEPT && FindExtaneousWords(&i, noun) != 0)
+        if (ExtraCommandsKey[except] != EXCEPT && FindExtraneousWords(&i, noun) != 0)
             return NULL;
         /* If we found a noun where a verb was expected, check
            again to see if it matches a verb as well */
@@ -1144,7 +1145,7 @@ static Command *CommandFromStrings(int index, Command *previous)
             except = WhichWord(CharWords[i], ExtraCommands, stringlength,
                 NUMBER_OF_EXTRA_COMMANDS);
         }
-        if (ExtraCommandsKey[except] != EXCEPT && FindExtaneousWords(&i, 0) != 0)
+        if (ExtraCommandsKey[except] != EXCEPT && FindExtraneousWords(&i, 0) != 0)
             return NULL;
         return CreateCommandStruct(noun, verb, i - 1, i, previous);
     }
@@ -1173,7 +1174,7 @@ static int CreateAllCommands(Command *command)
     /* Check if the ALL command is followed by EXCEPT */
     while (next && next->verb == GameHeader.NumWords + EXCEPT) {
         for (int i = 0; i <= GameHeader.NumItems; i++) {
-            if (Items[i].AutoGet && xstrncasecmp(Items[i].AutoGet, CharWords[next->nounwordindex], GameHeader.WordLength) == 0) {
+            if (exceptioncount < MAX_ITEM_LIMIT && Items[i].AutoGet && xstrncasecmp(Items[i].AutoGet, CharWords[next->nounwordindex], GameHeader.WordLength) == 0) {
                 exceptions[exceptioncount++] = i;
             }
         }

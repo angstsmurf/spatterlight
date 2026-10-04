@@ -246,10 +246,12 @@ void PlayerIsDead(void)
 static void PrintTakenOrDropped(int index)
 {
     Output(sys[index]);
-    int length = strlen(sys[index]);
-    char last = sys[index][length - 1];
-    if (last == '\n' || last == '\r')
-        return;
+    size_t length = strlen(sys[index]);
+    if (length > 0) {
+        char last = sys[index][length - 1];
+        if (last == '\n' || last == '\r')
+            return;
+    }
     Output(" ");
     if ((!(CurrentCommand->allflag & LASTALL))
         || split_screen == 0) {
@@ -278,8 +280,10 @@ int PrintScore(void)
             n++;
         i++;
     }
+    /* Guard against division by zero in games that define no treasures */
+    int percent = GameHeader.Treasures ? (n * 100) / GameHeader.Treasures : 0;
     Display(Bottom, "%s %d %s%s %d.\n", sys[IVE_STORED], n, sys[TREASURES],
-        sys[ON_A_SCALE_THAT_RATES], (n * 100) / GameHeader.Treasures);
+        sys[ON_A_SCALE_THAT_RATES], percent);
     if (n == GameHeader.Treasures) {
         Output(sys[YOUVE_SOLVED_IT]);
         if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
@@ -723,7 +727,6 @@ static ActionResultType PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
                     debug_print("Action OP_GAME_SPECIFIC, parameter %d\n", param[pptr]);
 #endif
-                    fprintf(stderr, "Action OP_GAME_SPECIFIC, parameter %d\n", param[pptr]);
                     /* Some SAGA releases use this opcode (89) to show room image 80:
                        - Close-up of the genie in Adventureland
                        - Map sailing animation in Pirate Adventure
@@ -732,7 +735,6 @@ static ActionResultType PerformLine(int ct)
                     /*  Unlike the Adventure Internation UK interpreters, in these games
                         opcode 89 does NOT take an argument, so we must watch out for this. */
                     if (Game->type == US_VARIANT) {
-                        fprintf(stderr, "Opcode 89 called in US game, do NOT read parameter!\n");
                         ShowUSCloseup(US_CLOSEUP_IMAGE, 0);
                     } else {
                         p = param[pptr++];
@@ -870,18 +872,15 @@ ExplicitResultType PerformActions(int vb, int no)
                     AdventurelandShowImageOnExamineUS(no);
                 break;
             case PIRATE_US:
-                fprintf(stderr, "vb:%d no:%d\n", vb, no);
                 if (vb == PIRATE_EXAMINE_VERB) {
                     PirateShowImageOnExamineUS(no);
                 }
                 break;
             case SECRET_MISSION_US:
-                fprintf(stderr, "vb:%d no:%d\n", vb, no);
                 if (vb == MISSION_EXAMINE_VERB)
                     MissionShowImageOnExamineUS(no);
                 break;
             case STRANGE_ODYSSEY_US:
-                fprintf(stderr, "vb:%d no:%d\n", vb, no);
                 if (vb == STRANGE_EXAMINE_VERB)
                     StrangeShowImageOnExamineUS(no);
                 break;

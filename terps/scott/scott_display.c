@@ -516,7 +516,7 @@ void Look(void)
     while (ct <= GameHeader.NumItems) {
         if (Items[ct].Location == MyLoc) {
             if (Items[ct].Text[0] == 0) {
-                fprintf(stderr, "Invisible item in room: %d\n", ct);
+                debug_print("Invisible item in room: %d\n", ct);
                 ct++;
                 continue;
             }
@@ -588,7 +588,7 @@ void ListInventory(int upper)
     while (i <= GameHeader.NumItems) {
         if (Items[i].Location == CARRIED) {
             if (Items[i].Text[0] == 0) {
-                fprintf(stderr, "Invisible item in inventory: %d\n", i);
+                debug_print("Invisible item in inventory: %d\n", i);
                 i++;
                 continue;
             }

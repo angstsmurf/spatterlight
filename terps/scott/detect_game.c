@@ -74,7 +74,7 @@ int FindCode(const uint8_t *data, size_t dataLen, const char *pattern, int patte
         return -1;
     const uint8_t *cursor = data;
     const uint8_t *lastPossibleStart = data + dataLen - patternLen;
-    while (cursor < lastPossibleStart) {
+    while (cursor <= lastPossibleStart) {
         if (memcmp(cursor, pattern, patternLen) == 0) {
             return (int)(cursor - data);
         }
@@ -90,8 +90,9 @@ int FindCode(const uint8_t *data, size_t dataLen, const char *pattern, int patte
 DictionaryType GetId(const uint8_t *data, size_t dataLen, size_t *offset)
 {
     for (int i = 0; dictKeys[i].dict != NOT_A_GAME; i++) {
-        *offset = FindCode(data, dataLen, dictKeys[i].signature, dictKeys[i].len);
-        if (*offset != -1) {
+        int found = FindCode(data, dataLen, dictKeys[i].signature, dictKeys[i].len);
+        if (found != -1) {
+            *offset = found;
             switch (dictKeys[i].dict) {
             case GERMAN_C64:
             case GERMAN:
@@ -435,12 +436,6 @@ void PrintHeaderInfo(int *h, int num_items, int num_actions, int num_words,
 #endif
 }
 
-typedef struct {
-    uint8_t *imagedata;
-    uint8_t background_colour;
-    size_t size;
-} LineImage;
-
 /* Load Mysterious Adventures-format line-drawing vector image data. Each image starts
    with 0xFF followed by a background colour byte, then drawing commands
    until the next 0xFF. Truncated images are patched out with Image=255. */
@@ -480,8 +475,6 @@ void LoadVectorData(const GameInfo *info, uint8_t *ptr)
         LineImages[ct].size = ptr - LineImages[ct].data;
     }
 }
-
-struct LineImage *lineImages = NULL;
 
 /* Validate a parsed header against the expected GameInfo values and
    populate the global GameHeader. Returns 0 on any mismatch. */
@@ -853,7 +846,17 @@ static GameIDType TryLoadingOld(const GameInfo *info, int dict_start)
     if (SeekIfNeeded(info->start_of_system_messages, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ReadTerminatedStrings(&ptr, system_messages, 40, "\x83\xc9");
+    /* The lone '"' message is followed by two bytes of interpreter workspace.
+       These are zero in a pristine image, but can be anything in a snapshot
+       taken during play, so step over them rather than letting them be
+       mistaken for the end of the table. */
+    const int quote_index = 20;
+    int count = ReadTerminatedStrings(&ptr, system_messages, quote_index + 1, "\x83\xc9");
+    if (count == quote_index + 1) {
+        if (strcmp(system_messages[quote_index], "\"") == 0)
+            ptr += 2;
+        ReadTerminatedStrings(&ptr, system_messages + count, 40 - count, "\x83\xc9");
+    }
 
     if (SeekIfNeeded(info->start_of_directions, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
