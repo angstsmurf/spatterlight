@@ -892,9 +892,9 @@ pass_character (a5_state_t *st, a5_restr_t *r)
             /* Effective membership = static <Member>s plus runtime adds minus
                removes; scan every object so runtime-added members (e.g. a lit
                flashlight in LightSources) count too. */
-            for (int oi = 0; oi < st->adv->n_objects; oi++)
-              if (a5state_object_in_group (st, k2, st->adv->objects[oi].key)
-                  && a5state_object_visible_at_location (st, oi, cloc, 0))
+            for (int mi = 0; mi < st->adv->n_objects; mi++)
+              if (a5state_object_in_group (st, k2, st->adv->objects[mi].key)
+                  && a5state_object_visible_at_location (st, mi, cloc, 0))
                 return 1;
             return 0;
           }
@@ -1461,6 +1461,21 @@ is_variable_enum_op (const char *op)
  * (%Player%-relative weight/bulk sums) is not yet computed, so the restriction
  * passes (the lenient default, matching the previous always-pass stub).
  */
+/* Cut the next space-delimited token out of *pp in place, terminating it and
+   leaving *pp just past it; the token is empty at the end of the string. */
+static char *
+next_token (char **pp)
+{
+  char *p = *pp, *tok;
+
+  while (*p == ' ') p++;
+  tok = p;
+  while (*p && *p != ' ') p++;
+  if (*p) *p++ = '\0';
+  *pp = p;
+  return tok;
+}
+
 static int
 pass_property (a5_state_t *st, a5_restr_t *r)
 {
@@ -1470,17 +1485,13 @@ pass_property (a5_state_t *st, a5_restr_t *r)
   int must_not, rr;
   const char *itemkey, *pv;
 
-#define NEXT_TOK(dst)                                                          \
-  do { while (*p == ' ') p++; (dst) = p;                                       \
-       while (*p && *p != ' ') p++; if (*p) *p++ = '\0'; } while (0)
-  NEXT_TOK (propkey);
-  NEXT_TOK (item);
-  NEXT_TOK (musttok);
-  NEXT_TOK (op);
+  propkey = next_token (&p);
+  item = next_token (&p);
+  musttok = next_token (&p);
+  op = next_token (&p);
   opstart = op;
   while (*p == ' ') p++;
   value = p;
-#undef NEXT_TOK
 
   /* The comparison operator is optional: the runner tests element 3 against
      the VariableEnum names and, when it is none of them, defaults the operator

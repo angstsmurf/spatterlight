@@ -2167,13 +2167,13 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           if (ci_eq (name, "objects") && st->n_ref_items > 1)
             {
               sb_t sb; sb_init (&sb);
-              for (int i = 0; i < st->n_ref_items; i++)
+              for (int ri = 0; ri < st->n_ref_items; ri++)
                 {
-                  const a5_object_t *o = a5model_object (st->adv, st->ref_items[i]);
+                  const a5_object_t *o = a5model_object (st->adv, st->ref_items[ri]);
                   char *nm = o ? a5text_object_name (st, o, A5_ART_NONE)
-                               : strdup (st->ref_items[i]);
-                  if (i > 0)
-                    sb_puts (&sb, (i == st->n_ref_items - 1) ? " and " : ", ");
+                               : strdup (st->ref_items[ri]);
+                  if (ri > 0)
+                    sb_puts (&sb, (ri == st->n_ref_items - 1) ? " and " : ", ");
                   sb_puts (&sb, nm);
                   free (nm);
                 }

@@ -757,7 +757,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
 
   /* ---- single item ---- */
   if (ctx.keys.empty ()) { *ok = 0; return ""; }
-  const std::string key = ctx.keys[0];
+  std::string key = ctx.keys[0];
   char kind = item_kind (st, key.c_str ());
 
   if (kind == 'o')

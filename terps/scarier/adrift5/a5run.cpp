@@ -1221,7 +1221,9 @@ finish_turn (a5_run_t *run, sb_t *out)
     n--;
   if (n > 0)
     {
-      fin = (char *) realloc (fin, n + 2);
+      char *trimmed = (char *) realloc (fin, n + 2);
+      if (trimmed != NULL)
+        fin = trimmed;          /* else the old, larger block serves */
       fin[n] = '\n';
       fin[n + 1] = '\0';
     }

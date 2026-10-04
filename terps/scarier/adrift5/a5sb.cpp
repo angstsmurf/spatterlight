@@ -31,6 +31,28 @@
 void
 sb_init (sb_t *b) { b->p = NULL; b->len = b->cap = 0; }
 
+/* Make room for `need` bytes in all (text plus terminator), doubling the
+   capacity from 128.  The one place the buffer grows.  When realloc fails the
+   old block, its text and its capacity are kept, and 0 is returned so the
+   caller leaves the buffer as it was rather than writing through NULL. */
+static int
+sb_grow (sb_t *b, size_t need)
+{
+  size_t cap;
+  char *grown;
+
+  if (need <= b->cap)
+    return 1;
+  cap = b->cap ? b->cap : 128;
+  while (cap < need) cap *= 2;
+  grown = (char *) realloc (b->p, cap);
+  if (grown == NULL)
+    return 0;
+  b->p = grown;
+  b->cap = cap;
+  return 1;
+}
+
 /* Grow the backing store to at least `cap` bytes up front (a size hint from
    the caller -- e.g. the previous turn's snapshot length), sparing the
    double-and-copy ladder sb_putn would otherwise climb. */
@@ -39,26 +61,18 @@ sb_reserve (sb_t *b, size_t cap)
 {
   if (cap <= b->cap)
     return;
-  b->p = (char *) realloc (b->p, cap);
-  b->cap = cap;
-  if (b->p != NULL)
+  if (sb_grow (b, cap))
     b->p[b->len] = '\0';
 }
 
-/* Append the n-byte span [s, s+n) verbatim.  The one place the buffer grows;
-   sb_puts/sb_putc are length-computing wrappers around it. */
+/* Append the n-byte span [s, s+n) verbatim; sb_puts/sb_putc are
+   length-computing wrappers around it. */
 void
 sb_putn (sb_t *b, const char *s, size_t n)
 {
   if (s == NULL) return;
-  if (b->len + n + 1 > b->cap)
-    {
-      size_t cap = b->cap ? b->cap : 128;
-      while (cap < b->len + n + 1) cap *= 2;
-      b->p = (char *) realloc (b->p, cap);
-      b->cap = cap;
-    }
-  if (b->p == NULL) return;
+  if (!sb_grow (b, b->len + n + 1))
+    return;
   memcpy (b->p + b->len, s, n);
   b->len += n;
   b->p[b->len] = '\0';
@@ -261,17 +275,8 @@ sb_splice (sb_t *b, size_t off, size_t oldn, const char *s)
   size_t n = s != NULL ? strlen (s) : 0;
   if (b->p == NULL || off > b->len || off + oldn > b->len)
     return;
-  if (n > oldn)
-    {
-      size_t grow = n - oldn;
-      if (b->len + grow + 1 > b->cap)
-        {
-          size_t cap = b->cap ? b->cap : 128;
-          while (cap < b->len + grow + 1) cap *= 2;
-          b->p = (char *) realloc (b->p, cap);
-          b->cap = cap;
-        }
-    }
+  if (n > oldn && !sb_grow (b, b->len + (n - oldn) + 1))
+    return;
   memmove (b->p + off + n, b->p + off + oldn, b->len - (off + oldn) + 1);
   if (n > 0)
     memcpy (b->p + off, s, n);
