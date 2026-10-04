@@ -165,10 +165,11 @@ static void animate_waterfall(int stage)
 
 /* Animate the waterfall visible from inside the cave (room 79).
    Same downward-scrolling technique as animate_waterfall, but only
-   a single column wide (8 pixels) at the right edge of the image. */
+   a single column wide (8 pixels) at the right edge of the image,
+   and with the colours the other way around: white water on blue. */
 static void animate_waterfall_cave(int stage)
 {
-    RectFill(248, 24, 8, 64, white_colour);
+    RectFill(248, 24, 8, 64, blue_colour);
     for (int line = 3; line < 11; line++) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -176,7 +177,7 @@ static void animate_waterfall_cave(int stage)
                     int ypos = line * 8 + i + stage;
                     if (ypos > 87)
                         ypos = ypos - 64;
-                    PutPixel(248 + j, ypos, blue_colour);
+                    PutPixel(248 + j, ypos, white_colour);
                 }
             }
         }

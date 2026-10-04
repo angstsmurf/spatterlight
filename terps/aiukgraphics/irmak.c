@@ -331,7 +331,7 @@ static void PerformTileTransformations(IrmakImgContext *ctx)
                 while (1) {
                     if (data2 < COMMAND_BIT) {
                         /* Direct overlay: tile index without transformation */
-                        if (image_version == 4 && (previous & ADD_128_BIT))
+                        if (image_version >= 3 && (previous & ADD_128_BIT))
                             data2 += 128;
                         for (int i = 0; i < count; ++i)
                             Transform(data2, previous & OVERLAY_BITS, offset + i);
