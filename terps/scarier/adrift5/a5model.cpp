@@ -1470,17 +1470,25 @@ static void
 upgrade_apply_cb (a5_xml_node_t *bs, void *ctx)
 {
   a5_adventure_t *a = (a5_adventure_t *) ctx;
+  char **grown;
   char *fixed = correct_bracket_sequence (bs->text, &a->upgrade_count);
   if (fixed == NULL)
     return;
   /* The parse is in situ (node text aliases the file buffer) and the corrected
      sequence is longer, so repoint the node at an owned copy and remember it
-     for a5model_free. */
-  bs->text = fixed;
-  a->upgrade_owned = (char **) realloc (a->upgrade_owned,
-                                        (size_t) (a->n_upgrade_owned + 1)
-                                        * sizeof *a->upgrade_owned);
+     for a5model_free.  With nowhere to remember it, the node keeps the
+     sequence it had. */
+  grown = (char **) realloc (a->upgrade_owned,
+                             (size_t) (a->n_upgrade_owned + 1)
+                             * sizeof *a->upgrade_owned);
+  if (grown == NULL)
+    {
+      free (fixed);
+      return;
+    }
+  a->upgrade_owned = grown;
   a->upgrade_owned[a->n_upgrade_owned++] = fixed;
+  bs->text = fixed;
 }
 
 int

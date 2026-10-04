@@ -466,9 +466,13 @@ a5state_push_look (a5_state_t *st, const char *loc_key, const char *text,
 {
   if (st->n_looks == st->cap_looks)
     {
-      st->cap_looks = st->cap_looks ? st->cap_looks * 2 : 4;
-      st->looks = (a5_looktext_t *)
-        realloc (st->looks, (size_t) st->cap_looks * sizeof *st->looks);
+      int nc = st->cap_looks ? st->cap_looks * 2 : 4;
+      a5_looktext_t *grown = (a5_looktext_t *)
+        realloc (st->looks, (size_t) nc * sizeof *st->looks);
+      if (grown == NULL)
+        return;
+      st->looks = grown;
+      st->cap_looks = nc;
     }
   st->looks[st->n_looks].loc_key   = strdup (loc_key ? loc_key : "");
   st->looks[st->n_looks].text      = strdup (text ? text : "");
@@ -526,8 +530,11 @@ a5state_disp_once_mark (a5_state_t *st, const void *node)
   if (st->n_disp_once >= st->cap_disp_once)
     {
       int nc = st->cap_disp_once ? st->cap_disp_once * 2 : 8;
-      st->disp_once = (const void **) realloc (st->disp_once,
-                                               (size_t) nc * sizeof *st->disp_once);
+      const void **grown = (const void **) realloc (st->disp_once,
+                                                    (size_t) nc * sizeof *st->disp_once);
+      if (grown == NULL)
+        return;
+      st->disp_once = grown;
       st->cap_disp_once = nc;
     }
   st->disp_once[st->n_disp_once++] = node;
@@ -709,7 +716,11 @@ a5state_group_add_member (a5_state_t *st, const char *grpkey, const char *key)
   if (st->n_gm >= st->cap_gm)
     {
       int nc = st->cap_gm ? st->cap_gm * 2 : 16;
-      st->gm = (a5_grpmem_t *) realloc (st->gm, (size_t) nc * sizeof *st->gm);
+      a5_grpmem_t *grown = (a5_grpmem_t *) realloc (st->gm,
+                                                    (size_t) nc * sizeof *st->gm);
+      if (grown == NULL)
+        return;
+      st->gm = grown;
       st->cap_gm = nc;
     }
   st->gm[st->n_gm].grp = strdup (grpkey);
@@ -849,7 +860,11 @@ a5state_set_prop (a5_state_t *st, const char *entkey, const char *propkey,
   if (st->n_ov >= st->cap_ov)
     {
       int nc = st->cap_ov ? st->cap_ov * 2 : 8;
-      st->ov = (a5_prop_ov_t *) realloc (st->ov, (size_t) nc * sizeof *st->ov);
+      a5_prop_ov_t *grown = (a5_prop_ov_t *) realloc (st->ov,
+                                                      (size_t) nc * sizeof *st->ov);
+      if (grown == NULL)
+        return;
+      st->ov = grown;
       st->cap_ov = nc;
     }
   st->ov[st->n_ov].entity = strdup (entkey);
