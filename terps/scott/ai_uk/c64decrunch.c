@@ -205,6 +205,7 @@ static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
                 free(c64file);
             }
         }
+        free(d64);
     }
     return file;
 }
@@ -588,33 +589,48 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
                 uint8_t *appendix = NULL;
                 size_t appendixlen = 0;
 
+                if (largest_file == NULL)
+                    return UNKNOWN_GAME;
+
                 if (c64_registry[i].appendfile != NULL) {
                     appendix = di_get_file_named(*sf, *extent, &appendixlen,
                         c64_registry[i].appendfile);
-                    if (appendix == NULL)
+                    /* The companion file begins with a two-byte load address,
+                       which is skipped. If the file is missing or too short,
+                       carry on with the main file alone. */
+                    if (appendix == NULL || appendixlen < 2) {
                         fprintf(stderr, "SCOTT: DetectC64() Appending file failed!\n");
-                    appendixlen -= 2;
+                        free(appendix);
+                        appendix = NULL;
+                        appendixlen = 0;
+                    } else {
+                        appendixlen -= 2;
+                    }
                 }
 
+                /* The companion file is placed relative to the end of the main
+                   file. A negative parameter means that the two overlap. */
+                long appendpos = (long)newlength + c64_registry[i].parameter;
                 size_t buflen = newlength + appendixlen;
-                if (buflen <= 0 || buflen > MAX_LENGTH)
+                if (appendix != NULL && appendpos > newlength)
+                    buflen = appendpos + appendixlen;
+                if (buflen == 0 || buflen > MAX_LENGTH || (appendix != NULL && appendpos < 0)) {
+                    free(largest_file);
+                    free(appendix);
                     return UNKNOWN_GAME;
+                }
 
-                uint8_t *megabuf = MemAlloc(buflen);
+                /* Zero-filled, as the overlap leaves the end of the buffer unwritten */
+                uint8_t *megabuf = MemCalloc(buflen);
                 memcpy(megabuf, largest_file, newlength);
-                if (appendix != NULL) {
-                    memcpy(megabuf + newlength + c64_registry[i].parameter, appendix + 2,
-                        appendixlen);
-                    newlength = buflen;
-                }
+                if (appendix != NULL)
+                    memcpy(megabuf + appendpos, appendix + 2, appendixlen);
+                free(largest_file);
+                free(appendix);
 
-                if (largest_file) {
-                    free(*sf);
-                    *sf = MemAlloc(newlength);
-                    memcpy(*sf, megabuf, newlength);
-                    *extent = newlength;
-                }
-                free(megabuf);
+                free(*sf);
+                *sf = megabuf;
+                *extent = buflen;
 
             /* T64 tape image: parse the directory header to find and extract
                the first file record (2-byte load address + program data) */
@@ -744,8 +760,7 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
     /* Look up the full GameInfo entry in the master games[] table */
     for (int i = 0; games[i].Title != NULL; i++) {
         if (games[i].gameID == record.id) {
-            free(Game);
-            Game = &games[i];
+            *Game = games[i];
             break;
         }
     }

@@ -10,7 +10,7 @@
 
 #include "scott_defines.h"
 
-extern GameInfo games[];
+extern const GameInfo games[];
 extern const char *sysdict[];
 extern const char *sysdict_i_am[];
 extern const char *sysdict_zx[];

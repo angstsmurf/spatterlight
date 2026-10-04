@@ -195,6 +195,11 @@ void SagaGraphicsSetup(size_t imgoffset)
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
     pos = SeekToPos(tiles_start);
+    if (pos == NULL) {
+        fprintf(stderr, "SagaSetup: tile data is outside the file. Entering text-only mode.\n");
+        Game->number_of_pictures = 0;
+        return;
+    }
 
     /* Read the 256-entry tile font (each tile is 8 bytes: one byte
        per row of 8 pixels, MSB = leftmost pixel). */
@@ -204,10 +209,15 @@ void SagaGraphicsSetup(size_t imgoffset)
         }
     }
 
+    pos = SeekToPos(offset_table_start);
+    if (version > 0 && (pos == NULL || EndOfGraphicsData - pos < numgraphics * 2)) {
+        fprintf(stderr, "SagaSetup: image offset table is outside the file. Entering text-only mode.\n");
+        Game->number_of_pictures = 0;
+        return;
+    }
+
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
-
-    pos = SeekToPos(offset_table_start);
 
     int broken_claymorgue_pictures_c64 = 0;
     int broken_claymorgue_pictures_zx = 0;

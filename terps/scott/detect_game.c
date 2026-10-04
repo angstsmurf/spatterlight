@@ -1332,8 +1332,7 @@ GameIDType DetectZXSpectrum(void)
         if (games[i].dictionary == dict_type) {
             detectedGame = TryLoading(entire_file, file_length, &games[i], dict_offset);
             if (detectedGame != UNKNOWN_GAME) {
-                free(Game);
-                Game = &games[i];
+                *Game = games[i];
                 break;
             }
         }
@@ -1364,8 +1363,7 @@ GameIDType DetectZXSpectrum(void)
             for (int i = 0; games[i].Title != NULL; i++) {
                 if (games[i].dictionary == dict_type) {
                     if (TryLoading(entire_file, file_length, &games[i], dict_offset)) {
-                        free(Game);
-                        Game = &games[i];
+                        *Game = games[i];
                         detectedGame = Game->gameID;
                         break;
                     }
