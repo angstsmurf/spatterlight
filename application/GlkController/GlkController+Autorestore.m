@@ -177,6 +177,14 @@
                     [self.quoteBoxes addObject:quotebox];
                     quotebox.glkctl = self;
                     quotebox.quoteboxParent = ((GlkTextBufferWindow *)win).textview.enclosingScrollView;
+                    // Our own count of prints and clears starts over (and
+                    // already includes the scrollback the interpreter replayed
+                    // while restoring), so a count stamped on the box by the
+                    // previous session means nothing here. Zero makes the next
+                    // NEXTEVENT stamp it afresh; otherwise the box would fade
+                    // at once or outstay its turn, depending on which count
+                    // happened to be higher.
+                    quotebox.quoteboxAddedOnPAC = 0;
                 }
             }
 

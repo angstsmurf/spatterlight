@@ -584,8 +584,16 @@
 // A game that prints its own non-breaking space in column 0 of a non-blank row
 // gets it turned back into an ordinary space, which renders identically. Rows
 // whose font has no U+00A0 glyph at all are left alone; see below.
+//
+// A quote box needs this as much as the grid it was cut out of: its padding
+// rows are blank reverse video, and they come out of the *middle* of a grid
+// row, so whatever protected that row is not part of them. Its rows are not
+// cols wide, either -- setFrame: only estimates cols from the box's frame, and
+// a merged side-by-side box may have rows of different lengths -- so there we
+// go by the newlines that quotebox: put at the end of every row.
 - (void)fixCollapsingSpaceRows {
-    if (cols == 0 || _bufferTextStorage.length == 0)
+    BOOL isQuoteBox = (_quoteboxSize.width > 0);
+    if ((cols == 0 && !isQuoteBox) || _bufferTextStorage.length == 0)
         return;
 
     static NSCharacterSet *nonSpace = nil;
@@ -601,10 +609,24 @@
     NSString *string = _bufferTextStorage.string;
     NSUInteger length = string.length;
 
-    for (NSUInteger start = 0; start < length; start += cols + 1) {
-        NSRange row = NSMakeRange(start, MIN(cols, length - start));
-        if (row.length == 0)
-            break;
+    NSUInteger next;
+    for (NSUInteger start = 0; start < length; start = next) {
+        NSRange row;
+        if (isQuoteBox) {
+            NSRange newline = [string rangeOfString:@"\n"
+                                            options:0
+                                              range:NSMakeRange(start, length - start)];
+            NSUInteger end = (newline.location == NSNotFound) ? length : newline.location;
+            row = NSMakeRange(start, end - start);
+            next = end + 1;
+            if (row.length == 0)
+                continue;
+        } else {
+            row = NSMakeRange(start, MIN(cols, length - start));
+            next = start + cols + 1;
+            if (row.length == 0)
+                break;
+        }
 
         BOOL blank = ([string rangeOfCharacterFromSet:nonSpace
                                               options:0
@@ -1891,9 +1913,15 @@
     GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)textView.delegate;
     NSSize boxSize = NSMakeSize(ceil(self.theme.gridMarginX * 2 + (_quoteboxSize.width + 1) * self.theme.cellWidth), ceil(self.theme.gridMarginY * 2 + _quoteboxSize.height * self.theme.cellHeight));
 
+    // The buffer window defers its frame changes until it is flushed, and
+    // nothing is flushed while we are autorestoring. Centre the box in the
+    // frame the window is about to get, or the box shows up hanging off the
+    // left edge of a window that is still zero points wide.
+    CGFloat bufWinWidth = bufWin.framePending ? NSWidth(bufWin.pendingFrame) : NSWidth(bufWin.frame);
+
     NSRect frame = self.frame;
     frame.size = boxSize;
-    frame.origin.x = ceil((bufWin.frame.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (glkctl.gameID != kGameIsTrinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
+    frame.origin.x = ceil((bufWinWidth - boxSize.width) / 2) - self.theme.cellWidth * (2 * (glkctl.gameID != kGameIsTrinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
     frame.origin.y = ceil(quoteboxParent.contentView.frame.origin.y +
                           (CGFloat)(_quoteboxVerticalOffset + 2 * (glkctl.gameID == kGameIsCurses)) * self.theme.cellHeight);
 
@@ -1913,7 +1941,10 @@
         }
     }
     self.frame = frame;
-    self.bufferTextStorage = nil;
+    // setFrame: has just laid out a blank grid in the buffer. Throw that away
+    // and have flushDisplay work on the text quotebox: gave us instead, so
+    // that the blank rows of the box are kept from collapsing.
+    _bufferTextStorage = [textstorage mutableCopy];
     [self flushDisplay];
 
     [quoteboxParent addFloatingSubview:self forAxis:NSEventGestureAxisVertical];
