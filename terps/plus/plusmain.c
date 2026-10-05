@@ -1467,6 +1467,57 @@ void SetCountersFromInput(void) {
     Noun2Counter = CurrentNoun2;
 }
 
+/* The decoded operands of one action command. Operands below 64 also
+   carry the value of the counter with that number (ca1..ca3). */
+typedef struct {
+    int16_t arg1, arg2, arg3;
+    int16_t ca1, ca2, ca3;
+    int object;
+    int plus_one_arg;
+} CommandArgs;
+
+/* Reads up to three operand bytes following the opcode at commands[cc - 1].
+   A high bit on the first operand makes it a 15-bit value, consuming the
+   second byte as well. Operands 998 and 999 refer to the current nouns. */
+static CommandArgs DecodeCommandArgs(const uint8_t *commands, int cc, int length)
+{
+    CommandArgs a = { 0 };
+
+    if (cc > length)
+        return a;
+
+    a.arg1 = commands[cc];
+    a.object = a.arg1;
+    if (cc + 1 <= length) {
+        a.arg2 = commands[cc + 1];
+        if (cc + 2 <= length)
+            a.arg3 = commands[cc + 2];
+    }
+
+    if (a.arg1 < 64)
+        a.ca1 = Counters[a.arg1];
+    if (a.arg2 < 64)
+        a.ca2 = Counters[a.arg2];
+    if (a.arg3 < 64)
+        a.ca3 = Counters[a.arg3];
+
+    if (a.arg1 & 128) {
+        a.arg1 = (a.arg1 & 127) * 256 + a.arg2;
+        a.arg2 = a.arg3;
+        a.plus_one_arg = 1;
+    }
+    if (a.arg1 == 998) {
+        a.arg1 = CurrentNoun;
+        a.object = NounObject;
+    } else if (a.arg1 == 999) {
+        a.arg1 = CurrentNoun2;
+        a.object = Noun2Object;
+    } else if (a.arg1 == 997) {
+        Fatal("With list unimplemented");
+    }
+    return a;
+}
+
 /* Execute a single action table entry: test its conditions, then run
    its command sequence. Commands include item manipulation, player
    movement, counter arithmetic, message printing, image drawing, loops,
@@ -1500,44 +1551,11 @@ static ActionResultType PerformLine(int ct)
     int length = Actions[ct].CommandLength;
     while (cc <= length) {
         int cmd = commands[cc++];
-        int16_t arg1 = 0, arg2 = 0, arg3 = 0,
-                ca1 = 0, ca2 = 0, ca3 = 0;
-
-        int object = 0;
-        int plus_one_arg = 0;
-
-        if (cc <= length) {
-            arg1 = commands[cc];
-            object = arg1;
-            if (cc + 1 <= length) {
-                arg2 = commands[cc + 1];
-                if (cc + 2 <= length) {
-                    arg3 = commands[cc + 2];
-                }
-            }
-
-            if (arg1 < 64)
-                ca1 = Counters[arg1];
-            if (arg2 < 64)
-                ca2 = Counters[arg2];
-            if (arg3 < 64)
-                ca3 = Counters[arg3];
-
-            if (arg1 & 128) {
-                arg1 = (arg1 & 127) * 256 + arg2;
-                arg2 = arg3;
-                plus_one_arg = 1;
-            }
-            if (arg1 == 998) {
-                arg1 = CurrentNoun;
-                object = NounObject;
-            } else if (arg1 == 999) {
-                arg1 = CurrentNoun2;
-                object = Noun2Object;
-            } else if (arg1 == 997) {
-                Fatal("With list unimplemented");
-            }
-        }
+        CommandArgs args = DecodeCommandArgs(commands, cc, length);
+        int16_t arg1 = args.arg1, arg2 = args.arg2, arg3 = args.arg3,
+                ca1 = args.ca1, ca2 = args.ca2, ca3 = args.ca3;
+        int object = args.object;
+        int plus_one_arg = args.plus_one_arg;
 
         debug_print("\nPerforming command %d: ", cmd);
         if (cmd >= 1 && cmd < 52) {
