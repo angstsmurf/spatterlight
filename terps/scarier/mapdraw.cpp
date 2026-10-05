@@ -54,7 +54,7 @@ const int map_dir_dy[MAP_N_DIRS] = { -1, 0, 1, 0, 0, 0, 0, 0, -1, 1, 1, -1 };
 /* Map.vb:33-39 paints a fixed pastel palette.  We colour the map from the
    host's text style instead, so the pane matches the story text in any theme.
    The host passes the two colours in (map_set_palette); until it does, black
-   on white.  Only the badge accents are fixed.
+   on white.  Badges are paper discs with an ink rim and mark.
 
    Paper and ink seed a small hierarchy:
 
@@ -83,13 +83,6 @@ static unsigned int map_stub = 0x000000;
 static int map_link_alpha = 100;        /* connectors on the player's level */
 static int map_link_alpha_far = 30;     /* ... and on another level */
 static int map_palette_ready = 0;
-
-/* The badge discs, one hue per way out of a room, and the mark on them. */
-#define ICON_IN        0x00A000
-#define ICON_OUT       0xE06090
-#define ICON_UP        0xFEBC2E     /* the Finder window's yellow button */
-#define ICON_DOWN      0x4060D0
-#define ICON_MARK      0xFFFFFF
 
 static int
 rgb_chan (unsigned int rgb, int shift)
@@ -446,6 +439,28 @@ fill_circle (map_surface_t *s, int cx, int cy, int r, unsigned int rgb,
              int alpha)
 {
   rgbsurf_fill_circle (s, cx, cy, r, rgb, alpha);
+}
+
+/* The one-pixel rim of the disc fill_circle paints. */
+static void
+stroke_circle (map_surface_t *s, int cx, int cy, int r, unsigned int rgb,
+               int alpha)
+{
+  int dx, dy, inner;
+
+  if (r < 1)
+    {
+      blend (s, cx, cy, rgb, alpha);
+      return;
+    }
+  inner = (r - 1) * (r - 1);
+  for (dy = -r; dy <= r; dy++)
+    for (dx = -r; dx <= r; dx++)
+      {
+        int d2 = dx * dx + dy * dy;
+        if (d2 <= r * r && d2 > inner)
+          blend (s, cx + dx, cy + dy, rgb, alpha);
+      }
 }
 
 /* Pixel-centre barycentric fill.  These triangles are a handful of pixels
@@ -1587,50 +1602,38 @@ draw_io_letter (map_surface_t *s, int cx, int cy, int r, char letter,
 }
 
 /* The IN / OUT / UP / DOWN bubble on a node edge (DrawInOutIcon, Map.vb:1530;
-   Form29.doicon for ADRIFT 4 Up/Down), at badge site `site`: a disc in the
-   direction's colour, marked in white with an I, an O or an arrow.  The
-   arrows are there because a U and a D are hard to tell apart, and from an
-   O, at the size of a badge.
+   Form29.doicon for ADRIFT 4 Up/Down), at badge site `site`: a paper disc
+   with an ink rim, marked in ink with an I, an O or an arrow.  The arrows
+   are there because a U and a D are hard to tell apart, and from an O, at
+   the size of a badge.
 
    `alpha` fades the whole badge with its card.  `dim` is the badge for a way
-   that leads somewhere not yet seen: the disc washed out toward the paper,
-   and its mark fainter.  It is washed out rather than made see-through
-   because the badges are drawn over the room's name, which at small scales
-   runs underneath them. */
+   that leads somewhere not yet seen: the disc stays opaque and only its mark
+   is fainter.  The disc is never see-through because the badges are drawn
+   over the room's name, which at small scales runs underneath them. */
 static void
 draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
                     int dir, int site, int alpha, int dim)
 {
   double x, y;
-  unsigned int rgb;
-  int cx, cy, mark_alpha = alpha;
+  int cx, cy, mark_alpha = dim ? alpha / 2 : alpha;
   /* Half a map unit, but no smaller than a disc that can still carry its
      mark: below MAP_SCALE_MIN the badges stop shrinking with the rooms. */
   int r = p->cam->scale / 2 < 4 ? 4 : p->cam->scale / 2;
 
-  switch (dir)
-    {
-    case DIR_IN:   rgb = ICON_IN;   break;
-    case DIR_OUT:  rgb = ICON_OUT;  break;
-    case DIR_UP:   rgb = ICON_UP;   break;
-    case DIR_DOWN: rgb = ICON_DOWN; break;
-    default: return;
-    }
-  if (dim)
-    {
-      rgb = mix_rgb (rgb, map_bg, 0.5);
-      mark_alpha /= 2;
-    }
+  if (!map_is_badge_dir (dir))
+    return;
 
   badge_site_point (p, n, site, &x, &y);
   cx = (int) x;
   cy = (int) y;
-  fill_circle (s, cx, cy, r, rgb, alpha);
+  fill_circle (s, cx, cy, r, map_bg, alpha);
+  stroke_circle (s, cx, cy, r, map_fg, alpha);
   if (dir == DIR_IN || dir == DIR_OUT)
-    draw_io_letter (s, cx, cy, r, dir == DIR_IN ? 'I' : 'O', ICON_MARK,
+    draw_io_letter (s, cx, cy, r, dir == DIR_IN ? 'I' : 'O', map_fg,
                     mark_alpha);
   else
-    fill_ud_triangle (s, cx, cy, r, dir == DIR_UP, ICON_MARK, mark_alpha);
+    fill_ud_triangle (s, cx, cy, r, dir == DIR_UP, map_fg, mark_alpha);
 }
 
 /* The ADRIFT 4 runner had two pictures per icon: the normal one when the
