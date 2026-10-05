@@ -97,6 +97,10 @@ class question_implementation : public QuestionRunner
   /* Most recently referenced object, used to resolve pronouns ("it", etc.).
    * Mutable because object resolution happens in const helpers. */
   mutable std::string last_object;
+  /* A pronoun in this command had nothing to stand for and BadPronoun has
+   * been printed: the command is answered, whatever else it was going to
+   * say.  Cleared by try_match. */
+  mutable bool pronoun_refused_ = false;
   /* Support for the "oops <correction>" command: the command currently being
    * processed, and the split of the last command that failed on an unrecognised
    * object word (the parts before/after that word), set in the const

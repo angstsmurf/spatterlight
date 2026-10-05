@@ -1,0 +1,102 @@
+
+badpronoun
+
+You are in r.
+There is rock, box, Bob and Ann here.
+You can go north.
+A room.
+
+> look at it
+I don't know what 'it' you are referring to.
+
+> look at him
+I don't know what 'him' you are referring to.
+
+> look at rock
+A rock.
+
+> look at it
+A rock.
+
+> look at that
+A rock.
+
+> look at him
+I don't know what 'him' you are referring to.
+
+> look at her
+I don't know what 'her' you are referring to.
+
+> look at bob
+A man.
+
+> look at him
+A man.
+
+> look at it
+I don't know what 'it' you are referring to.
+
+> look at her
+I don't know what 'her' you are referring to.
+
+> look at ann
+A woman.
+
+> look at her
+A woman.
+
+> take it
+I don't know what 'it' you are referring to.
+
+> look at box
+A box.
+
+> north
+You are in r2.
+You can go south.
+Another room.
+
+> look at it
+I don't know what 'it' you are referring to.
+
+> south
+You are in r.
+There is rock, box, Bob and Ann here.
+You can go north.
+A room.
+
+> look at it
+I don't know what 'it' you are referring to.
+
+> take rock
+You pick it up.
+
+> north
+You are in r2.
+You can go south.
+Another room.
+
+> look at it
+I don't know what 'it' you are referring to.
+
+> look at rock
+A rock.
+
+> south
+You are in r.
+There is box, Bob and Ann here.
+You can go north.
+A room.
+
+> look at it
+I don't know what 'it' you are referring to.
+
+> look at they
+I can't see that here.
+
+> use it on him
+I don't know what 'it' you are referring to.
+
+> give it to her
+I don't know what 'it' you are referring to.
+[runner] turns=28 leftover=0 running=true

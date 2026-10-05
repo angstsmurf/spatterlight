@@ -644,7 +644,10 @@ bool question_implementation::dereference_vars (vector<match_binding> &bindings,
 	 * stdverbs.lib is built entirely out of that: every one of its verb
 	 * responses is "You can't <verb> #(quest.lastobject):article#.". */
 	const_cast<question_implementation *> (this)->set_svar ("quest.lastobject", "");
-	bool is_pronoun = lc == "it" || lc == "them" || lc == "they" ||
+	/* Disambiguate's pronouns, and the three kinds it sorts them into
+	 * (V4Game.cs:4653-4695). */
+	bool is_pronoun = lc == "it" || lc == "them" || lc == "this" ||
+			  lc == "those" || lc == "these" || lc == "that" ||
 			  lc == "him" || lc == "her";
 	/* A DELIBERATE deviation: an object in scope that is itself called by
 	 * the pronoun wins over the pronoun.  Disambiguate tests for "it",
@@ -679,13 +682,57 @@ bool question_implementation::dereference_vars (vector<match_binding> &bindings,
 	    if (found != 1)
 	      named = "";
 	  }
+	bool bad_pronoun = false;
 	if (named != "")
 	  obj_name = named;
-	else if (last_object != "" && is_pronoun)
-	  obj_name = last_object;
+	else if (is_pronoun)
+	  {
+	    /* A pronoun stands for the last object only while that object is
+	     * still in scope and of the pronoun's kind -- "him" for an object
+	     * whose article is him, "her" likewise, everything else for the
+	     * rest (V4Game.cs:4773-4791).  Otherwise the answer is BadPronoun,
+	     * "I don't know what 'it' you are referring to.", and nothing
+	     * more: Disambiguate returns -2, which its callers take as "already
+	     * answered" (V4Game.cs:4653-4695). */
+	    const_cast<question_implementation *> (this)
+	      ->set_svar ("quest.error.pronoun", lc);
+	    bool ok = last_object != "" &&
+		      !has_obj_property (last_object, "hidden");
+	    if (ok)
+	      {
+		string article, parent;
+		get_obj_property (last_object, "article", article);
+		string kind = lcase (trim (article));
+		if (kind != "him" && kind != "her")
+		  kind = "it";
+		ok = kind == (lc == "him" || lc == "her" ? lc : string ("it"));
+		bool here = false;
+		for (const auto &o: state.objs)
+		  if (ci_equal (o.name, last_object))
+		    for (const string &loc: where)
+		      if (loc == "game" || ci_equal (o.parent, loc))
+			here = true;
+		ok = ok && here;
+	      }
+	    if (ok)
+	      obj_name = last_object;
+	    else
+	      {
+		/* Said once, and even to a caller that words its own
+		 * refusals: those check pronoun_refused_ and say no more. */
+		bad_pronoun = true;
+		if (!pronoun_refused_)
+		  const_cast<question_implementation *> (this)
+		    ->display_error ("badpronoun");
+		pronoun_refused_ = true;
+		rv = false;
+	      }
+	  }
 	else
 	  obj_name = get_obj_name (binding.var_text, where, is_internal);
-	if (obj_name == "!")
+	if (bad_pronoun)
+	  ;
+	else if (obj_name == "!")
 	  {
 	    /* Disambiguate's failure path stores the unresolved noun in
 	     * quest.error.object (V4Game.cs:4859-4860).  const_cast because
@@ -988,6 +1035,8 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
 {
   string tok;
   match_rv match;
+
+  pronoun_refused_ = false;
 
   if (!is_normal)
     {
@@ -1315,11 +1364,15 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
       vector<string> inv_only (1, "inventory"), room_only (1, state.location);
       if (!dereference_vars (item_b, inv_only, is_internal, true))
 	{
+	  if (pronoun_refused_)
+	    return true;
 	  display_error ("noitem", item_b[0].var_text);
 	  return true;
 	}
       if (!dereference_vars (char_b, room_only, is_internal, true))
 	{
+	  if (pronoun_refused_)
+	    return true;
 	  display_error ("badcharacter", char_b[0].var_text);
 	  return true;
 	}
@@ -1429,6 +1482,8 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
       vector<string> inv_only (1, "inventory");
       if (!dereference_vars (item_b, inv_only, is_internal, true))
 	{
+	  if (pronoun_refused_)
+	    return true;
 	  display_error ("noitem", item_b[0].var_text);
 	  return true;
 	}
@@ -1436,10 +1491,21 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
       {
 	vector<string> room_only (1, state.location);
 	second = get_obj_name (target_b[0].var_text, room_only, is_internal);
-	if (second == "!")
+	string tlc = lcase (trim (target_b[0].var_text));
+	if (tlc == "it" || tlc == "them" || tlc == "this" || tlc == "those" ||
+	    tlc == "these" || tlc == "that" || tlc == "him" || tlc == "her")
+	  {
+	    /* A pronoun is resolved over both scopes at once. */
+	    if (!dereference_vars (target_b, is_internal))
+	      return true;
+	    second = target_b[0].var_text;
+	  }
+	else if (second == "!")
 	  {
 	    if (!dereference_vars (target_b, inv_only, is_internal, true))
 	      {
+		if (pronoun_refused_)
+		  return true;
 		display_error ("badthing", target_b[0].var_text);
 		return true;
 	      }
@@ -1490,6 +1556,8 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
       vector<string> inv_only (1, "inventory");
       if (!dereference_vars (match.bindings, inv_only, is_internal, true))
 	{
+	  if (pronoun_refused_)
+	    return true;
 	  display_error ("noitem", match.bindings[0].var_text);
 	  return true;
 	}
@@ -1633,6 +1701,8 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
       vector<string> room_only (1, state.location);
       if (!dereference_vars (match.bindings, room_only, is_internal, true))
 	{
+	  if (pronoun_refused_)
+	    return true;
 	  string noun = match.bindings[0].var_text;
 	  vector<match_binding> inv_b (match.bindings);
 	  vector<string> inv_only (1, "inventory");
@@ -1779,6 +1849,8 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
       vector<string> inv_only (1, "inventory");
       if (!dereference_vars (match.bindings, inv_only, is_internal, true))
 	{
+	  if (pronoun_refused_)
+	    return true;
 	  display_error (asl_version_ >= 391 ? "noitem" : "baddrop",
 			 match.bindings[0].var_text);
 	  return true;
@@ -1874,6 +1946,12 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
 
   if (cmd == "exit" || cmd == "out" || cmd == "go out")
     {
+      /* From 4.10 a movement command forgets what "it" was.  Quest clears
+       * its referent for every version (V4Game.Part2.cs:4282-4388), but
+       * below 4.10 the end of the turn puts it straight back (ibid.
+       * 4624-4629); measured against the real runner at 2.80 to 4.10. */
+      if (asl_version_ >= 410)
+	last_object = "";
       /* "out" is the one direction Quest stores as both a destination and a
        * script: before 4.10 the room parser fills Out.Text from the parameter
        * *and* Out.Script from whatever follows the '>'
@@ -1963,6 +2041,8 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
 	cmd == short_dir_names[i] || cmd == "go " + short_dir_names[i])
       {
 	bool is_script = false;
+	if (asl_version_ >= 410)
+	  last_object = "";   /* as for "out" above */
 	if ((tok = exit_dest (state.location, dir_names[i], &is_script)) == "")
 	  {
 	    /* PlayerError.BadPlace in both eras: GoDirection's final else
@@ -1998,6 +2078,8 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
       (match = match_command (cmd, "go #@room#")))
     {
       if (match.bindings.size() != 1) { report_unsupported ("unexpected binding count for 'go to' command"); return true; }
+      if (asl_version_ >= 410)
+	last_object = "";   /* as for "out" above */
       string destination = match.bindings[0].var_text;
       /* Quest also strips a leading "the " and retries (GoToPlace). */
       string alt = destination;

@@ -4736,6 +4736,32 @@ alone: an object that carries both a `take` tag and a type with
 `action <take>` takes by whichever comes last in Quest and by the action in
 Question; no corpus game has the pair.
 
+### 84. A pronoun with nothing to stand for is a bad pronoun
+
+`Disambiguate` treats *it, them, this, that, these, those, him* and *her* as
+pronouns before it looks at any object (`V4Game.cs:4653-4695`).  The pronoun
+stands for the last object the player referred to only while that object is
+still in scope and is the pronoun's kind — *him* for an object whose
+`article` is `him`, *her* likewise, the rest for everything else
+(`V4Game.cs:4773-4791`).  Otherwise the answer is `BadPronoun`, "I don't know
+what 'it' you are referring to.", and the command is over: `Disambiguate`
+returns -2, which every caller takes as already answered.
+
+Question kept one last object with no kind and no scope test, gave it to any
+pronoun (and to *they*, which Quest does not know), and with no last object
+at all looked for a thing called "it" and answered `BadThing`.  It now follows
+Quest: the kind and scope tests, the eight pronouns, one `BadPronoun` and
+nothing after it from take, drop, use or give, and — from 4.10 only, as
+measured against the real runner at 2.80, 3.11, 3.50, 3.91, 4.00 and 4.10 —
+a movement command forgets the referent.
+
+`fixtures/badpronoun.asl` is identical in Quest.  No corpus transcript moved.
+The deliberate deviation of finding 81 stands: an object in scope that is
+itself called by the pronoun still wins.
+
+Left alone: below 4.10 `use it on him` with a bad *him* prints the message
+twice in Quest (the target is looked up in two scopes) and once here.
+
 ## Direction uncertain
 
 ### `<ERROR>` is not produced at load time
