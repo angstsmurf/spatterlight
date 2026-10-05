@@ -1,0 +1,26 @@
+TimeRift (untitled game block; QDK Lite 4.02, ASL 400)
+- raw command script for question_walkthrough_runner.
+Game system: Quest 4.  Marker: "farewell, traveler".
+
+A true win: fetch the Spear from the Dungeon and the Radio from the RadioRoom,
+kill the Zombie in the ZombieHut and USE RADIO ON PEDESTAL OF TIME in the room
+called "?", which is the playerwin.  The marker is from "define text <win>".
+
+  * The game block is "define game <>", so the game has no name at all.
+  * USE SPEAR ON ZOMBIE prints "You killed the Zombie!!!" and then
+    "You killed the Zombie!!" as well: its test, "if action <Spear; use on
+    'OTHER OBJECT NAME'>", is QDK's unfilled placeholder and always false, so
+    the else branch runs and the Zombie is never hidden.
+  * Killing the Zombie is not needed to pass it (the intro admits as much);
+    the script does it because the author asks.  TAKE ZOMBIE is a playerlose.
+
+Start:
+take spear
+east
+north
+take radio
+south
+south
+use spear on zombie
+east
+use radio on pedestal of time

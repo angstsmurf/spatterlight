@@ -1,0 +1,60 @@
+Sam
+open dresser
+take knife
+northwest
+take balloon
+north
+take water
+look behind couch
+take comic
+use balloon on water
+south
+down
+take bone
+up
+west
+speak to mum
+east
+south
+west
+speak to bob
+1
+use knife on teacher
+north
+give comic to teacher
+pull lever
+east
+east
+read writing
+use bottle on teacher
+use knife on teacher
+west
+examine keypad
+north
+give bone to rotwiler
+use water on robot
+east
+south
+2
+2
+use gun on teacher
+north
+north
+east
+east
+use gun on teachers
+use water on cauldrons
+drink holy water
+2
+out
+west
+use comic on teacher
+push panel
+take broom
+use gun on door
+use broom on cat
+north
+west
+use bottle on teacher
+use gun on headmaster
+use holy water on pot

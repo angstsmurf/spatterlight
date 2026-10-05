@@ -1,0 +1,7 @@
+look at bomb
+take bomb
+set bomb
+3
+look at bomb
+look at bomb
+look at bomb

@@ -1,0 +1,993 @@
+
+Darkness Falls | CJ
+
+You are a private detective.  You have recently heard that your friend, Henry Casey, has gone missing.  Reports show that he was recently investigating some disturbances in a run down motel in a quiet part of the country.
+
+You drive your car, to the motel and pull up into the car park.
+press a key
+
+You are in the Car Park.
+There is a Car, a Jeep and a raised tile here.
+You can go north.
+The motel car park is silent, maybe because it is so far from the main road.
+There appears to be only two cars here, your own car, and a rather sinister looking black Jeep.
+
+> open boot
+You open it.
+The boot is a large space at the rear of the car.
+It contains a small hand gun.
+
+> take gun
+(first removing it from boot)
+Done.
+
+You pick it up.
+
+> examine gun
+You have a quick look in the chamber.  There are 6 bullets in there.
+
+> n
+You are in the Garden.
+There is a fountain here.
+You can go north, south or east.
+You are standing in small walled garden area.  To the south is the car park where you have left your car.  To the east there is the main courtyard for the motel.  To the north, the outline of the main house looms high above you.
+The garden itself is paved, with a large fountain as it's centrepiece.
+
+> e
+You are in a courtyard.
+There is a kennel and a raised tile here.
+You can go north, south, east or west.
+You are standing in a paved courtyard that leads to the main areas of the Motel.  To the north there is a small hut with a door marked 'Office'.  To the east and south you can see motel rooms, one called the Sunshine Suite and the other, the Moonlight Suite, and both of which show no signs of life.
+In the courtyard there is a kennel and a small raised tile cemented into the ground, just like the one in the car park.
+
+> n
+You are in the Motel's Office.
+There is a wild dog here.
+You can go south.
+The motel office is bleak and grey.  There is only a small desk and a computer terminal in here.
+As you enter the room, you hear a growling coming from somewhere near the back.
+As you venture in, a dog jumps out from behind a table and stands growling at you.
+
+> shoot wild dog
+You raise your gun and aim at the dog.  One bullet goes in but it still approaches.
+You fire a second bullet, and this time the dog falls down in front of you.
+
+> examine dead dog
+There is a black collar around it's neck.
+
+> take collar
+You pick it up.
+
+> examine desk
+You quickly search the desk, but all you can find is an old newspaper.
+
+> take newspaper
+You pick it up.
+
+> s
+You are in a courtyard.
+There is a kennel and a raised tile here.
+You can go north, south, east or west.
+You are standing in a paved courtyard that leads to the main areas of the Motel.  To the north there is a small hut with a door marked 'Office'.  To the east and south you can see motel rooms, one called the Sunshine Suite and the other, the Moonlight Suite, and both of which show no signs of life.
+In the courtyard there is a kennel and a small raised tile cemented into the ground, just like the one in the car park.
+
+> examine kennel
+As you approach the door of the kennel, a small beep is heard and the light above the kennel door flashes green.  Suddenly the door of the kennel slides open.
+
+Inside the kennel, you find a cardkey.
+
+> take cardkey
+You pick it up.
+
+> e
+The door to the Sunshine Suite is locked.  There is a slot in the door which is obviously meant for an electronic cardkey.
+
+You place the cardkey into the slot.  There is a tiny click in the door and it opens.
+
+You are in the Sunshine Suite.
+There is a Bed and a wardrobe here.
+You can go north or west.
+The motel room is sparsely furnished, with only a bed and wardrobe of note.  There is a small window by the west door which lets in very little light. There is also a door to the north.
+
+> examine bed
+You examine the bed quickly.  You find nothing under the blanket or pillows, however a leather briefcase has been slid under the bed.
+
+> open wardrobe
+You open it.
+It contains a leather Jacket.
+
+> examine jacket
+You quickly search the pockets of the jacket.  You find nothing that identifies who owns it, but in one pocket you do find a small black remote control.
+
+> open briefcase
+There is a combination lock on the briefcase.
+Do you wish to enter a combination?
+1) Yes
+2) No
+[choice] yes
+Enter your four digit code now.
+You put in the code 4155 as you saw on the number plate of the jeep.
+
+The latch clicks.  You have unlocked the case.
+
+> open briefcase
+You open it.
+The briefcase is sturdy and covered in brown leather.  There is an inscription on the case.  It says  "Betsy".
+It contains a lighter.
+
+> take lighter
+(first removing it from briefcase)
+Done.
+
+You pick it up.
+
+> w
+You are in a courtyard.
+There is a kennel and a raised tile here.
+You can go north, south, east or west.
+You are standing in a paved courtyard that leads to the main areas of the Motel.  To the north there is a small hut with a door marked 'Office'.  To the east and south you can see motel rooms, one called the Sunshine Suite and the other, the Moonlight Suite, and both of which show no signs of life.
+In the courtyard there is a kennel and a small raised tile cemented into the ground, just like the one in the car park.
+
+> w
+You are in the Garden.
+There is a fountain here.
+You can go north, south or east.
+You are standing in small walled garden area.  To the south is the car park where you have left your car.  To the east there is the main courtyard for the motel.  To the north, the outline of the main house looms high above you.
+The garden itself is paved, with a large fountain as it's centrepiece.
+
+> s
+You are in the Car Park.
+There is a Car, a Jeep and a raised tile here.
+You can go north.
+The motel car park is silent, maybe because it is so far from the main road.
+There appears to be only two cars here, your own car, and a rather sinister looking black Jeep.
+
+> use remote control on jeep
+You point the remote control at the jeep and press the button,  There is a load beep and the indicator lights flash.
+
+Taking the opportunity to check the jeep, the only thing you find of interest is a petrol can, which was in the boot.
+
+You lock the car.
+
+> take petrol can
+You take the petrol can
+
+> n
+You are in the Garden.
+There is a fountain here.
+You can go north, south or east.
+You are standing in small walled garden area.  To the south is the car park where you have left your car.  To the east there is the main courtyard for the motel.  To the north, the outline of the main house looms high above you.
+The garden itself is paved, with a large fountain as it's centrepiece.
+
+> e
+You are in a courtyard.
+There is a kennel and a raised tile here.
+You can go north, south, east or west.
+You are standing in a paved courtyard that leads to the main areas of the Motel.  To the north there is a small hut with a door marked 'Office'.  To the east and south you can see motel rooms, one called the Sunshine Suite and the other, the Moonlight Suite, and both of which show no signs of life.
+In the courtyard there is a kennel and a small raised tile cemented into the ground, just like the one in the car park.
+
+> n
+You are in the Motel's Office.
+There is the dead dog, a desk and a computer terminal here.
+You can go north or south.
+The motel office is bleak and grey.  There is only a small desk and a computer terminal in here.
+
+> n
+You are in a Store room.
+There is a generator here.
+You can go south.
+There is a small store room at the back of the office.  There is a large generator here.
+
+> use petrol can on generator
+You pour some of the petrol into the generator.
+
+> turn on generator
+You turn the generator on and with a shudder it starts to work.
+
+> s
+You are in the Motel's Office.
+There is the dead dog, a desk and a computer terminal here.
+You can go north or south.
+The motel office is bleak and grey.  There is only a small desk and a computer terminal in here.
+
+> turn on computer
+You turn the computer on.
+
+> look at computer
+On the screen there is a message flashing
+...
+...
+...
+...
+ENTER PASSWORD
+Do you want to enter a password?
+1) Yes
+2) No
+[choice] yes
+Enter password now
+PASSWORD ACCEPTED
+
+
+LOADING .........
+....................
+SYSTEM ACCESS:
+
+WHICH DO YOU WANT TO ACCESS?
+
+1 - SECURITY
+2 - EMAIL
+3 - TURN OFF
+
+ENTER CHOICE NOW
+
+
+
+SECURITY SYSTEM OPERATION
+
+
+SECURITY SYSTEM ENABLED
+
+DISABLE SYSTEM?  (Y/N)
+Do you wish to disable the security system?
+1) Yes
+2) No
+[choice] yes
+PROCESSING...
+
+
+SECURITY SYSTEM NOW DISABLED.
+
+
+From somewhere outside you can here a load metallic clanking sound.
+
+WHAT WOULD YOU LIKE TO ACCESS
+
+1 - EMAIL
+2- LOGOFF
+
+CHOOSE OPTION 1 OR 2.
+SYSTEM LOGGING OFF
+...
+...
+..
+PLEASE WAIT..
+..
+..
+
+
+...
+...
+...
+SYSTEM HAS NOW LOGGED OFF.
+
+> use petrol can on newspaper
+You spinkle a bit of the petrol onto the paper.  It is now petrol soaked.
+
+> s
+You are in a courtyard.
+There is a kennel and a raised tile here.
+You can go north, south, east or west.
+You are standing in a paved courtyard that leads to the main areas of the Motel.  To the north there is a small hut with a door marked 'Office'.  To the east and south you can see motel rooms, one called the Sunshine Suite and the other, the Moonlight Suite, and both of which show no signs of life.
+In the courtyard there is a kennel and a small raised tile cemented into the ground, just like the one in the car park.
+
+> w
+You are in the Garden.
+There is a fountain here.
+You can go north, south or east.
+You are standing in small walled garden area.  To the south is the car park where you have left your car.  To the east there is the main courtyard for the motel.  To the north, the outline of the main house looms high above you.
+The garden itself is paved, with a large fountain as it's centrepiece.
+
+> n
+You are in the path.
+There is a tile here.
+You can go north, south or west.
+The main path leads north and south.  The north leads to the front porch of the house, whereas the south leads back to the paved garden and the fountain.   There is a rusty iron gate the leads throught to an orchard.  
+There is another one of the tiles set into the pathway.
+
+> w
+You are in an orchard.
+There is a tree, a hedge and a large heavy shovel here.
+You can go east.
+The orchard is quite large with several trees dotted around the area.  It is bordere to the south and west by a hedge.  To the north is a wall and to the east is a fance with a gate.  IN the centre of the orchard there stands a very old tree.
+
+> look at tree
+There is a large tree standing in the centre of the orchard, but it appears to be dead.  It's branches are bare and in a certain light, looks like skeletal hands reaching up to the sky.
+There is a noose hanging from one of the upper branches of the tree
+
+> shoot noose
+You aim your gun at the noose and fire a shot.... Miss!
+
+You try again,  and manage to hit the top of the rope.  It drops from the branch and lands on the ground.
+
+> take rope
+You pick it up.
+
+> e
+You are in the path.
+There is a tile here.
+You can go north, south or west.
+The main path leads north and south.  The north leads to the front porch of the house, whereas the south leads back to the paved garden and the fountain.   There is a rusty iron gate the leads throught to an orchard.  
+There is another one of the tiles set into the pathway.
+
+> n
+You are in the Front Door.
+There is the front Door here.
+You can go south or west.
+
+> w
+You are in an alley.
+There is a Trap door and a window here.
+You can go east.
+The alley leads round the front of the house for a short distance and ends abruptly at a wall.  You can see a small trapdoor, slightly raised at an angle protruding from the ground.
+
+> look at window
+The window looks into a bare room inside the house.  However you can't gain access to the house here seeing as the window is barred.
+
+> use rope on bars
+You hook the rope over the broken bar on the window.
+
+
+> lift trap door
+You lift the trap door open.  From beneath it you can see a dark space below.
+The rope falls down the trap .
+The rope drops through the open trap door and creates a way down into the dark space beneath.
+
+> d
+You are in a dark space.
+You can go up.
+There is no light in this area apart from a this stream of moonlight pouring from the open trap door.
+
+> use lighter
+You flip the lighter lid open and a small flame appears.  Now there is just enough light to see in the darkness.  A quick scan reveals that you are in some kind of coal cellar. 
+You hunt around and find a lamp which you light.
+
+You are in a coal cellar.
+There is a pile of coal, a Bucket and a lamp here.
+You can go north.
+You are in a dark coal cellar underneath the house.  It is dimly lit by a small lamp that you found.
+
+> take bucket
+You take the bucket
+
+> use bucket on pile of coal
+You fill the bucket up with coal
+
+> n
+You are in wine cellar.
+There is a wine rack here.
+You can go south or up.
+You are in a small narrow wine cellar.  There is a wine rack here.  To the south is the coal cellar and there is a small spiral staricase leading up to a door above.
+The wine cellar is damp and cold.  The air inside is very still, almost musty.
+
+> u
+You are in cellar stairs.
+There is a Closet here.
+You can go south or down.
+You are in a small room at the top of the staircase.  There is a small spiral staircase leading down into a wine cellar.  To the South there is a doorway that leads to the main hallway of the house.
+
+> open closet
+You open it.
+The closet is small and wooden, nestled snugy above the stairs that lead down.
+It contains strimmer.
+
+> use petrol can on strimmer
+You pour some of the petrol into the tank on the strimmer.
+
+> s
+You are in Hall.
+There is a bronze statue here.
+You can go north, south, east or west.
+You are in a large marble hallway ornately decorated with statues and pieces of art.  In the centre of the hallway is a large bronze statue
+
+> pull arm
+You pull the arm of the statue.  It drops down with ease and slowlyraises again.  Somewhere in the distance you can hear a grinding sound, as if a door was opening.
+
+> e
+You are in a Lounge.
+There is a fireplace here.
+You can go north or west.
+You are in a dimly lit lounge.  There are several chairs arranged around a fireplace.
+
+> use bucket on fireplace
+You tip the coal into the fireplace
+
+> use newspaper on fireplace
+You place the petrol soaked paper onto the fireplace.  That will help the fire go up.
+
+> use lighter on fireplace
+You light the paper on the fire and soon the fire is blazing.
+As the flames rise up the chimney, you  hear a squawk and a rush of feathers.  Suddenly a loud clunk is heard as something falls down the chimney into the fireplace
+
+> w
+You are in Hall.
+There is a bronze statue here.
+You can go north, south, east or west.
+You are in a large marble hallway ornately decorated with statues and pieces of art.  In the centre of the hallway is a large bronze statue
+
+> s
+You unlock the main door to the house.  You can now access the from path from here
+You are in the Front Door.
+There is the front Door here.
+You can go north, south or west.
+
+> w
+You are in an alley.
+There is a Trap door, a window, bars and a length of rope here.
+You can go east or down.
+The alley leads round the front of the house for a short distance and ends abruptly at a wall.  You can see a small trapdoor, slightly raised at an angle protruding from the ground.
+
+> take rope
+Now that you have unlocked the main door you decide it is safe to take the rope again.
+
+> e
+You are in the Front Door.
+There is the front Door here.
+You can go north, south or west.
+
+> s
+You are in the path.
+There is a tile here.
+You can go north, south or west.
+The main path leads north and south.  The north leads to the front porch of the house, whereas the south leads back to the paved garden and the fountain.   There is a rusty iron gate the leads throught to an orchard.  
+There is another one of the tiles set into the pathway.
+
+> w
+You are in an orchard.
+There is a tree, a hedge and a large heavy shovel here.
+You can go east.
+The orchard is quite large with several trees dotted around the area.  It is bordere to the south and west by a hedge.  To the north is a wall and to the east is a fance with a gate.  IN the centre of the orchard there stands a very old tree.
+
+> drop bucket
+You drop it.
+
+> drop rope
+You drop it.
+
+> drop petrol can
+You drop it.
+
+> e
+You are in the path.
+There is a tile here.
+You can go north, south or west.
+The main path leads north and south.  The north leads to the front porch of the house, whereas the south leads back to the paved garden and the fountain.   There is a rusty iron gate the leads throught to an orchard.  
+There is another one of the tiles set into the pathway.
+
+> n
+You are in the Front Door.
+There is the front Door here.
+You can go north, south or west.
+
+> n
+You are in Hall.
+There is a bronze statue here.
+You can go north, south, east or west.
+You are in a large marble hallway ornately decorated with statues and pieces of art.  In the centre of the hallway is a large bronze statue
+
+> n
+You are in cellar stairs.
+There is a Closet and strimmer here.
+You can go south or down.
+You are in a small room at the top of the staircase.  There is a small spiral staircase leading down into a wine cellar.  To the South there is a doorway that leads to the main hallway of the house.
+
+> take strimmer
+The strimmer is quite hefty and you will need to drop other large items to carry it.
+
+You pick up the strimmer
+
+> d
+You are in wine cellar.
+There is a wine rack here.
+You can go south or up.
+You are in a small narrow wine cellar.  There is a wine rack here.  To the south is the coal cellar and there is a small spiral staricase leading up to a door above.
+There appears to be a draft coming from somewhere in this room.  It wasn't there before.
+
+> look at rack
+The wine rack has  moved slightly from against the wall, revealng a tiny hole behind it.
+
+
+> examine hole
+You reach your arm into the dark hole.  You have a feel around and pull out a small package.
+
+> unwrap linen package
+You unwrap the package and inside the rag you find a tiny black chess piece.  The knight!
+
+> u
+You are in cellar stairs.
+There is a Closet here.
+You can go south or down.
+You are in a small room at the top of the staircase.  There is a small spiral staircase leading down into a wine cellar.  To the South there is a doorway that leads to the main hallway of the house.
+
+> s
+You are in Hall.
+There is a bronze statue here.
+You can go north, south, east or west.
+You are in a large marble hallway ornately decorated with statues and pieces of art.  In the centre of the hallway is a large bronze statue
+
+> s
+You are in the Front Door.
+There is the front Door here.
+You can go north, south or west.
+
+> s
+You are in the path.
+There is a tile here.
+You can go north, south or west.
+The main path leads north and south.  The north leads to the front porch of the house, whereas the south leads back to the paved garden and the fountain.   There is a rusty iron gate the leads throught to an orchard.  
+There is another one of the tiles set into the pathway.
+
+> w
+You are in an orchard.
+There is a petrol can, a tree, a hedge, a large heavy shovel, a rope and a Bucket here.
+You can go east.
+The orchard is quite large with several trees dotted around the area.  It is bordere to the south and west by a hedge.  To the north is a wall and to the east is a fance with a gate.  IN the centre of the orchard there stands a very old tree.
+
+> use strimmer on hedge
+You turn the strimmer on and attack the hedge.  After a while you manage to trim enough of the hedge back to reveal a further bit of garden to the south.
+However, the dense hedge has taken it's toll on the strimmer and you notice that the blades have broken.  You decide to drop it.
+
+> take bucket
+You take the bucket
+
+> take rope
+You pick up the rope
+
+> take petrol can
+You take the petrol can
+
+> s
+You are in well garden.
+There is a wishing well, a handle and Grass here.
+You can go north.
+
+> use rope on wishing well
+You attach the rope to the bar across the well.  By turning the handle you are able to wind the coil around the bar.
+
+> use bucket on rope
+You attach the bucket onto the rope.
+
+> turn handle
+You turn the handle
+
+The rope lowers and rises from the well
+As the bucket comes out of the well, you notice that it is now full of water.
+
+> take bucket of water
+You pick it up.
+
+> examine grass
+A quick examination of the grass reveals a raised tile in the earth.
+
+> n
+You are in an orchard.
+There is a tree, broken strimmer and a large heavy shovel here.
+You can go south or east.
+The orchard is quite large with several trees dotted around the area.  It is bordere to the south and west by a hedge.  To the north is a wall and to the east is a fance with a gate.  IN the centre of the orchard there stands a very old tree.
+
+> e
+You are in the path.
+There is a tile here.
+You can go north, south or west.
+The main path leads north and south.  The north leads to the front porch of the house, whereas the south leads back to the paved garden and the fountain.   There is a rusty iron gate the leads throught to an orchard.  
+There is another one of the tiles set into the pathway.
+
+> n
+You are in the Front Door.
+There is the front Door here.
+You can go north, south or west.
+
+> n
+You are in Hall.
+There is a bronze statue here.
+You can go north, south, east or west.
+You are in a large marble hallway ornately decorated with statues and pieces of art.  In the centre of the hallway is a large bronze statue
+
+> e
+You are in a Lounge.
+There is a fireplace here.
+You can go north or west.
+You are in a dimly lit lounge.  There are several chairs arranged around a fireplace.
+
+> use bucket of water on fireplace
+You decide to throw the water over the fire.
+
+As you do so, the flames hiss and eventually the fire goes out.  You can now see something shining in the grate.
+
+> take silver key
+You pick it up.
+
+> w
+You are in Hall.
+There is a bronze statue here.
+You can go north, south, east or west.
+You are in a large marble hallway ornately decorated with statues and pieces of art.  In the centre of the hallway is a large bronze statue
+
+> w
+You are in the dining room.
+There is a large oil painting and a large dining table here.
+You can go north or east.
+You are in a long ornate dining room.  The centrepiece of which is a large table surrounded by chairs.  Overlooking the dining table is a large oil painting.
+
+> lift painting
+As you lift the painting slightly, it reveals a safe behind it.
+
+> look at safe
+The safe has a combination lock.  It needs 4 digits. 
+Do you wish to try the combination?
+1) Yes
+2) No
+[choice] yes
+ type in the four digit number now 
+The safe opens revealing a thin long paddle type object.  It is a small hand held metal detector.
+
+> take metal detector
+You pick it up.
+
+> n
+You use the silver key tomunlock the door, leaving the key in the lock as you do.
+You are in kitchen.
+There is a table, a corpse and the kitchen sink here.
+You can go south or east.
+
+> examine kitchen sink
+You slowly dip your hand into the water and have a root around.  Your fingers touch something sharp and you pull out a knife.
+
+> take knife
+You pick it up.
+
+> use knife on hand
+You use the knife and cut into the fingers to get them to move.  Eventually with some hard work you manage to release the item clutched within it's grasp.  It appears to be a small casette.
+
+> take casette
+You pick it up.
+
+> e
+You unbolt the door to the east and head into the study
+You are in study.
+There is a chess board and a large bookcase here.
+You can go south or west.
+
+> examine bookcase
+A further search of the bookcase reveals a small dictaphone hidden on top of some of the books
+
+> take dictaphone
+You pick it up.
+
+> open drawer
+You open it.
+The drawer is set into the chess board.
+It contains a scrappy Note and a black pawn.
+
+> take pawn
+You take the chess piece
+
+> use knife on remote control
+You prise open the back panel of the remote control and remove a pair of batteries.
+
+In doing so you have damaged the remote control beyond use.
+
+> use batteries on dictaphone
+You place the batteries into the dictaphone
+
+> use casette on dictaphone
+With power in the dictaphone, you manage to play the casette.
+
+
+..... This is Henry Casey..... I have to make this quick..... They're after me..... I know what is going on...... There are creatures beneath the house..infect.... must find help... If I don't survive... whoever finds this.... I have buried something under the tree....
+And the tape stops.
+
+> s
+You are in a Lounge.
+There is a fireplace here.
+You can go north or west.
+You are in a dimly lit lounge.  There are several chairs arranged around a fireplace.
+
+> w
+You are in Hall.
+There is a bronze statue here.
+You can go north, south, east or west.
+You are in a large marble hallway ornately decorated with statues and pieces of art.  In the centre of the hallway is a large bronze statue
+
+> s
+You are in the Front Door.
+There is the front Door here.
+You can go north, south or west.
+
+> s
+You are in the path.
+There is a tile here.
+You can go north, south or west.
+The main path leads north and south.  The north leads to the front porch of the house, whereas the south leads back to the paved garden and the fountain.   There is a rusty iron gate the leads throught to an orchard.  
+There is another one of the tiles set into the pathway.
+
+> use pawn on tile
+You place the pawn into the tile.
+
+> w
+You are in an orchard.
+There is a tree, broken strimmer and a large heavy shovel here.
+You can go south or east.
+The orchard is quite large with several trees dotted around the area.  It is bordere to the south and west by a hedge.  To the north is a wall and to the east is a fance with a gate.  IN the centre of the orchard there stands a very old tree.
+
+> take shovel
+You pick it up.
+
+> use shovel on tree
+You follow the instructions that you heard on the tape and dig underneath the tree.  After a while you unearth a small leather bag.
+
+> open bag
+You open it.
+It contains a brass telescope and a cardkey.
+
+> take telescope
+(first removing it from bag)
+Done.
+
+You pick it up.
+
+> take cardkey
+(first removing it from bag)
+Done.
+
+You pick it up.
+
+> s
+You are in well garden.
+There is a wishing well, a handle, a tile, Grass and the rope attached to the well here.
+You can go north.
+
+> use bucket on rope
+You attach the bucket onto the rope.
+
+> turn handle
+You turn the handle
+
+The rope lowers and rises from the well
+As the bucket comes out of the well, you notice that it is now full of water.
+
+> take bucket of water
+You pick it up.
+
+> n
+You are in an orchard.
+There is a tree, broken strimmer and a small leather bag here.
+You can go south or east.
+The orchard is quite large with several trees dotted around the area.  It is bordere to the south and west by a hedge.  To the north is a wall and to the east is a fance with a gate.  IN the centre of the orchard there stands a very old tree.
+
+> e
+You are in the path.
+There is a tile and a black pawn here.
+You can go north, south or west.
+The main path leads north and south.  The north leads to the front porch of the house, whereas the south leads back to the paved garden and the fountain.   There is a rusty iron gate the leads throught to an orchard.  
+There is another one of the tiles set into the pathway.
+On leaving the Orchard you decide to leave the shovel resting against the tree where you found it.  It is far too large for you to carry around with you
+
+> n
+You are in the Front Door.
+There is the front Door here.
+You can go north, south or west.
+
+> n
+You are in Hall.
+There is a bronze statue here.
+You can go north, south, east or west.
+You are in a large marble hallway ornately decorated with statues and pieces of art.  In the centre of the hallway is a large bronze statue
+
+> use telescope on bronze statue
+You place the brass telescope into the hands of the statue.  As you do so there is a little click and a small object drops from the base of the statue
+
+> take king
+You take the chess piece.
+
+> s
+You are in the Front Door.
+There is the front Door here.
+You can go north, south or west.
+
+> s
+You are in the path.
+There is a tile and a black pawn here.
+You can go north, south or west.
+The main path leads north and south.  The north leads to the front porch of the house, whereas the south leads back to the paved garden and the fountain.   There is a rusty iron gate the leads throught to an orchard.  
+There is another one of the tiles set into the pathway.
+
+> w
+You are in an orchard.
+There is a tree, broken strimmer, a large heavy shovel and a small leather bag here.
+You can go south or east.
+The orchard is quite large with several trees dotted around the area.  It is bordere to the south and west by a hedge.  To the north is a wall and to the east is a fance with a gate.  IN the centre of the orchard there stands a very old tree.
+
+> s
+You are in well garden.
+There is a wishing well, a handle, a tile, Grass and the rope attached to the well here.
+You can go north.
+
+> use king on tile
+You place the king into the tile
+
+> n
+You are in an orchard.
+There is a tree, broken strimmer, a large heavy shovel and a small leather bag here.
+You can go south or east.
+The orchard is quite large with several trees dotted around the area.  It is bordere to the south and west by a hedge.  To the north is a wall and to the east is a fance with a gate.  IN the centre of the orchard there stands a very old tree.
+
+> e
+You are in the path.
+There is a tile and a black pawn here.
+You can go north, south or west.
+The main path leads north and south.  The north leads to the front porch of the house, whereas the south leads back to the paved garden and the fountain.   There is a rusty iron gate the leads throught to an orchard.  
+There is another one of the tiles set into the pathway.
+
+> s
+You are in the Garden.
+There is a fountain here.
+You can go north, south or east.
+You are standing in small walled garden area.  To the south is the car park where you have left your car.  To the east there is the main courtyard for the motel.  To the north, the outline of the main house looms high above you.
+The garden itself is paved, with a large fountain as it's centrepiece.
+
+> e
+You are in a courtyard.
+There is a kennel and a raised tile here.
+You can go north, south, east or west.
+You are standing in a paved courtyard that leads to the main areas of the Motel.  To the north there is a small hut with a door marked 'Office'.  To the east and south you can see motel rooms, one called the Sunshine Suite and the other, the Moonlight Suite, and both of which show no signs of life.
+In the courtyard there is a kennel and a small raised tile cemented into the ground, just like the one in the car park.
+
+> use knight on tile
+You place the knight into the tile
+
+> s
+The door to the Moonlight Suite is locked.  There is a slot in the door which is obviously meant for an electronic cardkey.
+You place the moonlight suite card into the slot.  It beeps and takes the card.
+The door is now unlocked and you enter the suite.
+You are in the Moonlight Suite.
+There is a large double bed, a large wardrobe and a bedside cabinet here.
+You can go north.
+
+> open cabinet
+You open it.
+It contains a Diary.
+
+> take diary
+(first removing it from cabinet)
+Done.
+
+You pick it up.
+
+> use metal detector on diary
+You wave the metal detector over the book.  It beeps wildly.  There must be something hidden in the spine.  
+
+> use knife on diary
+After waving the metal detector over the diary, you are aware of something hidden inside.  Using the knife, you split open the spine and remove a small object.  It is a chess piece.
+
+> take bishop
+You take the chess piece
+
+> n
+You are in a courtyard.
+There is a kennel, a raised tile and a black knight here.
+You can go north, south, east or west.
+You are standing in a paved courtyard that leads to the main areas of the Motel.  To the north there is a small hut with a door marked 'Office'.  To the east and south you can see motel rooms, one called the Sunshine Suite and the other, the Moonlight Suite, and both of which show no signs of life.
+In the courtyard there is a kennel and a small raised tile cemented into the ground, just like the one in the car park.
+
+> n
+You are in the Motel's Office.
+There is the dead dog, a desk and a computer terminal here.
+You can go north or south.
+The motel office is bleak and grey.  There is only a small desk and a computer terminal in here.
+
+> use metal detector on dead dog
+You remember reading that the dog had perhaps eaten something it shouldn't have, so on a hunch you pass the metal detector over the dog.  It beeps loudly.  There is something metal inside there.
+
+> use knife on dead dog
+You slice open the stomach of the dead dog.  Rummaging around it's intestines you find something hard and metallic.  It is a key.
+
+> take iron key
+You pick it up.
+
+> s
+You are in a courtyard.
+There is a kennel, a raised tile and a black knight here.
+You can go north, south, east or west.
+You are standing in a paved courtyard that leads to the main areas of the Motel.  To the north there is a small hut with a door marked 'Office'.  To the east and south you can see motel rooms, one called the Sunshine Suite and the other, the Moonlight Suite, and both of which show no signs of life.
+In the courtyard there is a kennel and a small raised tile cemented into the ground, just like the one in the car park.
+
+> w
+You are in the Garden.
+There is a fountain here.
+You can go north, south or east.
+You are standing in small walled garden area.  To the south is the car park where you have left your car.  To the east there is the main courtyard for the motel.  To the north, the outline of the main house looms high above you.
+The garden itself is paved, with a large fountain as it's centrepiece.
+
+> s
+You are in the Car Park.
+There is a Car, a Jeep and a raised tile here.
+You can go north.
+The motel car park is silent, maybe because it is so far from the main road.
+There appears to be only two cars here, your own car, and a rather sinister looking black Jeep.
+
+> use bishop on tile
+You place the bishop in the tile
+As you place the last piece in, you hear a noise.  The chess pieces and tile sink into the ground.
+
+You hear a grinding noise from the fountain.
+
+> n
+You are in the Garden.
+There is a fountain here.
+You can go north, south or east.
+You are standing in small walled garden area.  To the south is the car park where you have left your car.  To the east there is the main courtyard for the motel.  To the north, the outline of the main house looms high above you.
+The garden itself is paved, with a large fountain as it's centrepiece.
+
+> use bucket of water on fountain
+You tip the water into the fountain.
+The water fills the fountain.  As it does, the fountain turn slowly and with a grating noise.  You notice that a small opening has been formed leading to a small tunnel underneath.
+
+> d
+You are in underground tunnel.
+You can go north or up.
+As you creep down into the tunnel under the fountain you hear a loud scream coming from the north. 
+
+> n
+You are in a laboratory.
+There is a large holding cage, a set of gas cylinders, lab equipment, a large iron gate, Betsy and a pile of dead bodies here.
+You can go south.
+You are standing in a large underground laboratory, which has been sectioned off into two parts.  The section you are in houses the equipment   Halfway across the room is a large iron cage, holding several bodies.
+
+> examine equipment
+Searching among the equipment you see an empty glass flask which may be useful.
+
+> take glass flask
+You pick it up.
+
+> use petrol can on glass flask
+You pour the rest of the petrol into the flask
+
+> use rag on glass flask
+You place the rag into the flask and make a crude Molatov Cocktail
+
+> speak to betsy
+You speak to Betsy
+"Quickly, you have got to get me out!  These things are alive.  I've seen the move!  You got to destroy them.  They mustn't be allowed to escape and spread their infection.
+
+Help me"
+
+
+Suddenly the bodies start to move and get up.  They are attacking Betsy.
+"Forget about me.  Just make sure you destroy these things."
+
+> use iron key on iron gate
+You quickly unlock the cage and release Betsy.  She thanks you and heads off.  "Lock that cage and get out of here"
+
+You lock the gate back up
+
+> turn on gas cylinders
+You turn on the gas cylinders and the room starts filling with gas.
+
+> s
+You are in underground tunnel.
+You can go north or up.
+You are in a dark tunnel
+
+> use lighter on molatov cocktail
+You light the rag.  The flaming bottle is ready to throw. 
+
+> throw molatov cocktail
+Standing in the tunnel, you throw the bomb northwards into the gas-filled room and you leg it up out of the tunnel.
+press a key
+
+You are in the Garden.
+There is a fountain here.
+You can go north, south, east or down.
+You are standing in small walled garden area.  To the south is the car park where you have left your car.  To the east there is the main courtyard for the motel.  To the north, the outline of the main house looms high above you.
+The garden itself is paved, with a large fountain as it's centrepiece.
+You dive behind the relative safety of the fountain as the chambers beneath you explode in a fit of flames.
+
+press a key
+
+
+As the dust settles you realise what you have done.....
+You have managed to save Betsy from the clutches of the evil zombies.
+
+As you sit and ponder Betsy approaches you "What you have done is the right thing."  She kisses you and thanks you.
+CONGRATULATIONS: YOU HAVE WON
+[runner] turns=182 leftover=0 running=false WON=YES

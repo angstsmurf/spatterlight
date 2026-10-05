@@ -1,0 +1,18 @@
+read sign
+pet dog
+smile dog
+kiss biff
+n
+look at rocking chair
+1
+n
+take bead
+look at bead
+w
+look at stove
+e
+e
+look at hot tub
+w
+up
+look at bed

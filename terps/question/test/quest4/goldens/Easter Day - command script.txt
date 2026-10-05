@@ -1,0 +1,12 @@
+s
+w
+take key
+e
+e
+use key on case
+take map
+open little box
+take another key
+w
+use another key on outside door
+nw

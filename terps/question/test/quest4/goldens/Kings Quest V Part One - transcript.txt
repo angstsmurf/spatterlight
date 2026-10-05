@@ -1,0 +1,1510 @@
+
+King's Quest V - text adventure, v1.0 | Steve Lingle
+
+King's Quest V
+
+Absence Makes The Heart Go Yonder
+
+The Text Adventure
+
+Disclaimer
+
+King's Quest V and the entire original King's Quest Series were created and produced by Roberta Williams and Sierra OnLine of whom I give special thanks.  This game was translated and adapted into a text adventure game for free distribution only.  I claim no copyright holdings with this game or any part within due to my designing this text version solely from memory of the original game.  Certain aspects of the game may be different from the original, yet the storyline and main puzzles are intact as they were taken from the original 3D version of the game.  You can find a full collection of the King's Quest series for sale online at various outlets including popular auction websites.
+
+For game hints, you can search the internet for King's Quest V hints.  For any other questions regarding the gameplay of this text adventure, you may email me directly at stevethemagicguy@yahoo.com.  Thank you.
+
+press any key
+
+===================
+I would also like to give special thanks to Computer Whizz for helping tremendously on the desert portion of this game.  He put together an awe-inspiring code that I would not have been able to create on my own.  Using this code provided an entertaining and realistic experience.  There were many others in the Quest forums that played a helpful role (small or large) including Al "MaDbRiT", and "I think I'm Dead" and even Alex, the Quest creator himself.
+
+A gameplay warning, you will receive the occasional reminder to save the game before a challenging part (including the desert).  I advise you to save often because this game was closely modeled after the original whereas, you tend to be killed if you make the wrong mistake...
+I did take the liberty of minimizing the amount of ways that you as the player can be killed so it won't be too bad.
+In the desert if it becomes too challenging, type 'desert' and view the map I have created for you.
+press any key
+
+************************
+
+When talking to characters in the game, I have taken the extra steps to allow easier game control.  If you are talking to the toy shop owner, for example, you can simply say "talk to man".
+In certain areas, there may be similarly named characters.  For example, there is a room where there is a busy clerk and a sales clerk.  If you say "talk to clerk", it will give you a menu of whom you'd like to address.
+You will discover that long-named objects are for looks mostly.  For convenience, you can pick up the "silver coin" by typing "get coin" (or variations thereof).
+This is PART ONE of this game.  It should last you a good while.  In the meantime, I will continue creating the rest of the game in a timely manner (hopefully!)
+With that being said, enjoy!
+press any key
+
+
+Have you played this game before?
+1) Yes
+2) No
+[choice] look
+After a lengthy discussion with the great wizard, Crispinopher (Crispin for short), Graham learns more about the evil wizard, Mordack.  
+Crispin is unable to answer the obvious question, "Why?" but is almost as determined as Graham to find out.
+
+And so...Graham sets off on his quest to find his family.  Accompanying him is Cedric, the wise-cracking owl, who will guide you occasionally.  Graham was given only two items by Crispin, a worn out magic wand and a bite of magical white snake (that he's already eaten) which helps him to understand the language of nature and animals.
+
+"Good luck, King Graham!" says Crispin and shuts the front door behind Graham as he steps outside...
+press any key
+
+
+
+
+You are in front of Crispin's house.
+
+To the south you can almost make out a small town.  To the west is a dark path that winds into the forest beyond.
+
+> s
+You are on the town path.
+
+A single stream of sunlight parts the branches and barely illuminates the dirt path before you.  You come upon a dirt road intersection that goes in different directions.  To the west, is another path that winds into the forest.  To the south, you can definitely make out the activity of the town.  To the east, a path leads up into the mountains but a rattlesnake seems to be blocking your path.
+A rattlesnake blocks the passage east into the mountains.
+
+"Look out for that snake, Graham!"
+says Cedric as he lands on a nearby tree branch.
+
+> s
+You are at the town entrance.
+
+Smoke rises from chimney tops as you approach the town.  The sounds of everyday life are evident.  A cow is in a pen eating from a trough.  The stream flows busily alongside of the town blocking any further passage south.  To the east is the town itself.  To the west, Graham can see smoke coming from a single chimney.
+
+> e
+"I think I'll just stay out here until you get back, Graham.  I had a nasty run-in with a dog last time."
+press any key
+
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+A man is working on a wagon at the entrance to the alley.
+
+> examine barrel
+Graham looks into the barrel and discovers an old rotten fish.
+
+
+> take old fish
+Graham reaches deep into the barrel and retrieves the old rotten fish.
+
+> w
+You are at the town entrance.
+
+Smoke rises from chimney tops as you approach the town.  The sounds of everyday life are evident.  A cow is in a pen eating from a trough.  The stream flows busily alongside of the town blocking any further passage south.  To the east is the town itself.  To the west, Graham can see smoke coming from a single chimney.
+
+> e
+"I think I'll just stay out here until you get back, Graham.  I had a nasty run-in with a dog last time."
+press any key
+
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+
+> take silver coin
+Graham picks up the silver coin.
+
+> w
+You are at the town entrance.
+
+Smoke rises from chimney tops as you approach the town.  The sounds of everyday life are evident.  A cow is in a pen eating from a trough.  The stream flows busily alongside of the town blocking any further passage south.  To the east is the town itself.  To the west, Graham can see smoke coming from a single chimney.
+
+> w
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> enter
+"I will wait for you out here, Graham."
+press any key
+
+You are in the small cottage.
+
+Inside the small cottage, you can see a variety of baked goods.  The smell of fresh bread hits your nose as soon as you walk in.  On the front counter, a freshly baked custard pie sits and the aroma is quite tempting.
+A baker in the back room can be heard clanging dishes and scurrying back and forth cooking the next batch of bread.  The head baker is behind the counter near the custard pies.
+A cat sitting in one corner of the shop seems to not like Graham very much.
+
+
+> buy pie
+Graham requests the custard pie from the baker.
+
+"I'd like to buy that custard pie, good man."
+
+
+press any key
+
+"Of course, that will be one silver coin."
+
+press any key
+
+Graham hands the baker his silver coin.
+
+
+press any key
+
+"Very good.  Now enjoy your pie."
+
+
+> out
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> w
+You are in front of a small country inn.
+
+The main path continues on east and west in front of a small country inn.  In the back, you see a small barn with a large haystack sitting in front of it.  A worn path winds its way north between the barn and the inn.
+To the east is a small cottage.  To the west is a more barren area with an old rotting tree.  To the north you can make out a small house built into the bottom of a tree.
+
+> w
+You are at the path's end.
+
+The path and the river come to a short end here.  An old rotting tree looms spookily over the end of the main path.  Bees are buzzing noisily around a huge gaping hole in the tree trunk. 
+To the north, a dusty trail leads near what looks like a sand castle.  To the east is a small country inn.  To the west is nothing but desert.
+Even further north, you can see a wagon.
+A large black bear is attacking the beehive built into the rotting tree.
+
+A stick from the old rotting tree lies near the path.
+
+
+> throw fish to bear
+Graham throws the rotting fish towards the bear and it turns its attention away from the bees, grabs the fish in its mouth and wanders off.
+press any key
+
+A large bee wearing a crown flies out of the old rotten tree to address Graham.
+"Thank you, kind sir, for chasing away that bear.  My name is Queen Beetrice.  Who are you?"
+press any key
+
+"You're very welcome.  My name is King Graham of Daventry in search of my family and castle.  They have been taken from me by an evil wizard, Mordack."
+press any key
+
+"King Graham, we are just a small colony of bees but to thank you for your kindness, please take a honey comb from our tree.  I wish you well on your quest."
+
+> take honey comb
+Graham reaches into the old rotting tree and pulls out a large sticky honey comb and puts it in a protective sheet and tucks it away in his pack.
+
+> take stick
+Graham picks up the fallen stick.
+
+> n
+You are near a sand castle.
+
+A tall sand castle towers over the nearby shrubs.  Upon closer examination, Graham can see ants running all through and around the castle.   To the east is a house built into a tree.  To the west is nothing but desert.
+Further north, a wagon can be seen.
+A large dog is digging into the castle-shaped ant hill.
+
+> throw stick to dog
+Graham throws the stick to distract the large dog from the ant hill.
+"Here boy!"
+press any key
+
+The dog grabs the stick in its mouth and runs away into the woods.
+press any key
+
+A large ant wearing a crown appears from the castle-shaped ant hill and addresses Graham,
+"I am King Antony.  Thank you for getting rid of that dog."
+press any key
+
+"Not at all.  I'm happy to help.  My name is King Graham.  I am on a quest to find my family who has been taken from me."
+press any key
+
+"If there is anything we can do, we surely will do our best to help you when the time comes."
+The ant abruptly disappears back into the castle as quickly as he had appeared.
+
+> s
+You are at the path's end.
+
+The path and the river come to a short end here.  An old rotting tree looms spookily over the end of the main path.  Bees are buzzing noisily around a huge gaping hole in the tree trunk. 
+To the north, a dusty trail leads near what looks like a sand castle.  To the east is a small country inn.  To the west is nothing but desert.
+Even further north, you can see a wagon.
+
+> w
+"You're going into the desert?  Be careful, Graham.  I'll wait for you to come back!"
+press any key
+
+You are at the end of the forest.
+
+At the edge of the forest, the desert sands strangle what remaining grass tries to grow.  Further west is nothing but desert sand as far as you can see.
+WARNING! (advisory)  It is well advised that you save your game before entering the desert.  Will you save the game?
+1) Yes
+2) No
+[choice] 2
+You were warned.  Be careful.
+When you find an oasis, type 'drink' or 'drink water' to keep from dying of thirst.
+
+> w
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> w
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> w
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> w
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> w
+The heat of the desert sun is taking a toll on Graham.  He is beginning to feel dehydrated.  He needs to find an oasis soon.
+You are at the oasis.
+
+You've reached the oasis.  What a pleasant relief to find among the desert sands.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> w
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> w
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> n
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> n
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+press any key
+
+The sound of horses approaching from the west grows louder.
+
+Hide quickly!
+
+
+
+> hide
+Graham hears the approaching horses and decides to hide behind the boulder.
+
+
+
+> look
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+
+> look
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+Two bandits riding horses approach the opening in the cliff wall.
+
+
+press any key
+
+Luckily, they do not see Graham hidden behind the boulder and ride towards the stone temple.
+
+
+press any key
+
+From where Graham is standing, he can see the bandits ride up to the huge stone door of the temple.
+
+press any key
+
+One holding a staff unmounts his horse and approaches the door on foot.
+
+press any key
+
+Waving the staff in the air, the bandit yells "Open Sesame!"
+
+
+press any key
+
+Astonishingly, the entire stone door vaporizes and the bandit walks inside carrying a small bag of jewels.  After a few moments, he returns without the bag and the door returns to normal.
+
+The two bandits mount their horses and ride off toward the southwest.
+
+press any key
+
+After they leave, Graham steps out from behind the boulder.
+
+> look
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> w
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> w
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> s
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> s
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> s
+The heat of the desert sun is taking a toll on Graham.  He is beginning to feel dehydrated.  He needs to find an oasis soon.
+You are at the oasis.
+
+You've reached the oasis.  What a pleasant relief to find among the desert sands.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> w
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> s
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> s
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> s
+You are near two tents.
+
+Two tents sit next to each other in this area of the desert.  One larger tent seems to be more lively.  Graham can see drunken men shouting at a dancing harem girl.  They are apparently rejoicing over a recent plundering.
+The smaller tent seems to be vacant at the moment but it is hard to tell from out here.
+A large jug of water sits in front of the tents.
+
+
+> go to the small tent
+You are in the small tent.
+
+Inside the small tent, a bandit wearing a turban is sleeping on a mat.  A few small odds and ends decorate the tent but you need to get out of there quick before the man wakes up.
+A long staff with a green emerald leans up against the back of the small tent.
+
+> take staff
+Graham takes the staff.
+
+> out
+You are near two tents.
+
+Two tents sit next to each other in this area of the desert.  One larger tent seems to be more lively.  Graham can see drunken men shouting at a dancing harem girl.  They are apparently rejoicing over a recent plundering.
+The smaller tent seems to be vacant at the moment but it is hard to tell from out here.
+A large jug of water sits in front of the tents.
+
+
+> drink
+Using the ladle in the jug, Graham reaches in and has a refreshing sip of water.
+
+> e
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> n
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> n
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> n
+You are at the oasis.
+
+You've reached the oasis.  What a pleasant relief to find among the desert sands.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> e
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> e
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> e
+Graham is still wandering through the desert, however, he has stumbled upon a traveler who obviously did not find an oasis in time.  A skeleton ages old lies partially buried in the sand.
+An old worn shoe lies in the sand nearby.
+
+> take shoe
+Graham takes the shoe.
+
+> w
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> n
+The heat of the desert sun is taking a toll on Graham.  He is beginning to feel dehydrated.  He needs to find an oasis soon.
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> n
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> n
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> n
+You are in front of the temple.
+
+This temple is carved directly into the face of the cliff!
+
+A single huge door towers above you but is sealed shut.
+
+> wave staff
+Graham waves the staff and bangs it against the large door.  "Open Sesame!"
+
+
+press any key
+
+The staff shatters to pieces but the large stone door seemingly vaporizes creating an entrance into the stone temple.
+
+
+press any key
+
+
+> enter
+You are in the temple.
+
+Graham is suddenly overwhelmed by the sight before him.  Mountains of gold coins and treasure boxes.  Jewelry strewn about everywhere.
+A gold coin is lying near the exit.
+A large lamp is lying near the exit.
+
+
+> take coin
+Graham takes the gold coin.
+
+> take large lamp
+Graham takes the lamp.
+
+> out
+Graham leaps out of the temple just as the stone door solidifies back.  That was a close one!
+
+
+
+press any key
+
+You are in front of the temple.
+
+This temple is carved directly into the face of the cliff!
+
+A single huge door towers above you but is sealed shut.
+
+> s
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> e
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> e
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> s
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> s
+You are at the oasis.
+
+You've reached the oasis.  What a pleasant relief to find among the desert sands.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> e
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> e
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> e
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> e
+You are in the desert.
+Endless sand in all directions.
+
+You can move north, south, east or west.
+
+> e
+The heat of the desert sun is taking a toll on Graham.  He is beginning to feel dehydrated.  He needs to find an oasis soon.
+You are at the end of the forest.
+
+At the edge of the forest, the desert sands strangle what remaining grass tries to grow.  Further west is nothing but desert sand as far as you can see.
+
+> e
+You are at the path's end.
+
+The path and the river come to a short end here.  An old rotting tree looms spookily over the end of the main path.  Bees are buzzing noisily around a huge gaping hole in the tree trunk. 
+To the north, a dusty trail leads near what looks like a sand castle.  To the east is a small country inn.  To the west is nothing but desert.
+Even further north, you can see a wagon.
+"Oh, there you are, Graham!  I was starting to get worried."
+
+> n
+You are near a sand castle.
+
+A tall sand castle towers over the nearby shrubs.  Upon closer examination, Graham can see ants running all through and around the castle.   To the east is a house built into a tree.  To the west is nothing but desert.
+Further north, a wagon can be seen.
+
+> n
+You are in the northwestern clearing.
+
+In the clearing of the woods, the trees are sparse and it leads into desert sands to the west.
+A gypsy wagon is set up near the trees.  A gypsy is sitting in a rocker next to the wagon eyeing you cautiously.
+
+> give coin to gypsy
+Graham approaches the gypsy.
+press any key
+
+"Good day, sir.  Here is a gold coin.  May I see Madam Mushka?"
+press any key
+
+The gypsy looks at the gold coin and says, "You may see Madam Mushka now."
+press any key
+
+WARNING! (advisory)  The following sequence contians clues to the completion of this game.  If you wish to skip it, be sure to note any new items in your inventory.  Do you wish to skip?
+1) Yes
+2) No
+[choice] 1
+After a talk with the gypsy fortune-teller, Graham steps out of the wagon.
+
+
+
+> wear amulet
+Graham puts on the amulet and the jewel begins to glow so he tucks it away in his tunic.
+
+> s
+You are near a sand castle.
+
+A tall sand castle towers over the nearby shrubs.  Upon closer examination, Graham can see ants running all through and around the castle.   To the east is a house built into a tree.  To the west is nothing but desert.
+Further north, a wagon can be seen.
+
+> s
+You are at the path's end.
+
+The path and the river come to a short end here.  An old rotting tree looms spookily over the end of the main path.  Bees are buzzing noisily around a huge gaping hole in the tree trunk. 
+To the north, a dusty trail leads near what looks like a sand castle.  To the east is a small country inn.  To the west is nothing but desert.
+Even further north, you can see a wagon.
+
+> e
+You are in front of a small country inn.
+
+The main path continues on east and west in front of a small country inn.  In the back, you see a small barn with a large haystack sitting in front of it.  A worn path winds its way north between the barn and the inn.
+To the east is a small cottage.  To the west is a more barren area with an old rotting tree.  To the north you can make out a small house built into the bottom of a tree.
+
+> take haystack
+Graham reaches into the hay stack but is startled by a long strand of ants marching up to it.
+
+After several moments, the ants march back out of the hay stack and King Antony steps forward to address Graham,
+"Hello King Graham.  As promised, we provided our help the best way that we could and have found a golden needle that we will give to you.  Use it wisely and thanks again."
+After handing you the golden needle, King Antony follows his ants away from the hay stack.
+
+> e
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> n
+As Graham walks further down the path, he hears a loud squeal and turns to see a cat chasing a rat down the path.
+
+
+> throw shoe at cat
+In desperation, Graham throws the old shoe at the cat chasing the rat...
+
+
+press any key
+
+The shoe strikes the path very close to the cat frightening him away instantly.
+
+The rat runs up to Graham.
+
+
+press any key
+
+Thank you for helping me kind sir.  My poor children would have been left all alone if that cat had caught me.
+If there is something I can do for you in the future, I will certainly help you...
+press any key
+
+Graham watches as the rat scurries back down the path and disappears near the small country inn further away.
+
+
+> n
+You are in the clearing.
+
+In the lighted clearing, it is more apparent that the forest contains wildlife.  A tree with a hollowed area on the trunk is inadvertantly creating a bath for a blue bird.  The bird is minding its own business and chirping away as it splashes around in the makeshift bathtub.  
+To the east is an intersection in the path.  To the north is a dark area of the forest.  To the west is a small house built into the bottom of a tree.  To the south is a small cottage with light puffs of smoke rising slowly from the stone chimney.
+A prince sits nearby on a log sobbing.
+
+
+> n
+You are at the dark forest entrance.
+
+East of Crispin's house is an entrance to a very dark part of the forest.  The entrance is to the north.  You also see a sign that very clearly states "Enter at Your Own Risk".  You think it might be your imagination, but it seems as if pairs of eyes are watching you from within the forest.
+The path continues to the west where you can see a broad ray of sunshine illuminating a weeping willow tree.  To the south, the path leads into a lighted clearing.
+
+> n
+"Oh, Graham!  I'm not going in there!  I'll wait out here for you!", Cedric shivers his feathers.
+
+press any key
+
+"Ok Cedric, but I think there might be something important in here so I am going to check it out."
+press any key
+
+You are in the dark forest.
+Graham walks into the dark forest and is surprised at how quickly it grows dark.  The trees are so thick that they block out most of the sunlight shining through the canopy above.  Creatures make noises in the bushes all around.
+
+You can move south, east or west.
+WARNING! (advisory)  It is well advised that you save your game before entering the dark forest.  Will you save the game?
+1) Yes
+2) No
+[choice] 2
+You were warned.  Be careful.
+
+> e
+You are in the dark forest.
+The forest trees and plant life are thick.  The path is almost covered.
+
+You can move north or west.
+Suddenly, a nasty old witch appears in a puff of smoke and screams, "Get out of my forest!"
+She waves her hands together and a beam of magical light flies towards Graham...
+press any key
+
+Luckily, the amulet that Graham is wearing deflected the ball of magic and it did not affect him.
+
+> give large lamp to old witch
+Graham gives the lamp to the forest witch.  She takes it and eyes it with a look of curiousness.
+
+press any key
+
+"What's this?"...
+
+The witch opens the lid to the lamp...
+
+A large genii comes from within the lamp in a cloud of smoke.  He notices the witch near the lamp.
+
+press any key
+
+Now you spend the next 500 years in that lamp!
+press any key
+
+
+The genii claps his hands and the witch disappears in a cloud of smoke and is instanteously transported into the genii's bottle.
+
+
+press any key
+
+The genii claps again and he and the bottle disappear in a magical puff of smoke leaving Graham alone in the forest.
+
+
+
+> look
+You are in the dark forest.
+The forest trees and plant life are thick.  The path is almost covered.
+
+You can move north or west.
+
+> n
+In this part of the forest, a large tree sits off the path.  A small door is built directly into the trunk.
+
+> w
+At this part of the forest, a dreary crude house can be seen across a rickety bridge to the north.  The moat surrounding the house is filled with molten lava and the light cast from the lava creates and eerie display against the castle walls.
+
+> n
+Graham walks carefully over the rickety bridge and enters the small dreary castle.
+
+You are in the  witch's crude house.
+Inside the witch's house feels extremely cramped to Graham.  Many small pieces of furniture and other objects decorate the area in this room.  A small staircase leads further on but the opening is too small for Graham to fit through.  Seemingly, a tree has grown into the wall of the house and Graham can see a small dresser built directly into the tree.
+On the back wall of the room, a window-like crack in the wall sits above an interesting chest.  A skull hanging from the ceiling swings silently near the staircase.
+
+You can see the chest, the dresser, the window and the skull here.
+
+You can move south.
+
+> open chest
+Graham opens the chest by the wall and sees a small spinning wheel.
+
+
+> take spinning wheel
+Graham takes the spinning wheel and closes the chest.
+
+
+> open drawer
+Graham opens the drawer in the dresser built into the trunk of the tree and sees a small brown pouch.
+
+
+
+> take brown pouch
+Graham takes the brown pouch from the dresser and closes the drawer.
+
+
+> examine skull
+Graham sees a small golden key inside of the hanging skull.
+
+
+
+> take small key
+Graham takes the golden key from the hanging skull.
+
+> open pouch
+Graham opens the pouch and finds three emeralds.
+
+
+> out
+At this part of the forest, a dreary crude house can be seen across a rickety bridge to the north.  The moat surrounding the house is filled with molten lava and the light cast from the lava creates and eerie display against the castle walls.
+
+
+> e
+In this part of the forest, a large tree sits off the path.  A small door is built directly into the trunk.
+
+> open door
+Graham fits the small gold key into the keyhole of the small door and it opens.  Inside, Graham can see a heart made of gold.
+
+
+> take gold heart
+Graham takes the golden heart from the tree and closes the small door.
+
+
+> w
+At this part of the forest, a dreary crude house can be seen across a rickety bridge to the north.  The moat surrounding the house is filled with molten lava and the light cast from the lava creates and eerie display against the castle walls.
+
+> w
+The forest trees and plant life are thick.  The path is almost covered.  There seems to be a path to the west but it is blocked by a large rock-shaped creature.  Many pairs of eyes are watching you from within the forest plants.
+
+> drop emerald
+Graham throws an emerald out onto the path a few feet in front of him.
+
+Out of the bushes, a small elf scurries onto the path, grabs the emerald and runs back into the bushes.
+
+
+
+> drop emerald
+Graham throws another emerald out onto the path a few feet in front of him but not as far as the first time.
+
+Out of the bushes, the small elf scurries onto the path as before, grabs the emerald and runs back into the bushes.
+
+
+
+> squeeze honey comb
+Graham thinks of a clever plan and squeezes all of the honey from the honeycomb onto the middle of the path.
+
+With the wax that remained, he rolled into a ball and put it back in his pocket.
+
+
+> drop emerald
+Graham throws the last emerald out onto the path right in front of him.
+
+Out of the bushes, the small elf scurries onto the path as before, grabs the emerald and Graham makes a grab for him...
+
+press any key
+
+The elf, stuck in the honey, cannot run away allowing Graham to snatch him up.
+
+press any key
+
+"Put me down!" the angry and frightened little elf cries.
+
+press any key
+
+"Now why should I do that?  You're just going to run away."
+
+"I promise I won't if you just let me down.  I will show you how to get out of this forest."
+
+"It's against my better judgement...but ok."
+press any key
+
+Graham sets the elf back on the ground.
+
+press any key
+
+"Move over, Rocky!"
+Suddenly, the large rock-like creature blocking the western path begins to move...
+
+press any key
+
+"Uhhh, sorry..."
+The creature moves off the path and Graham can see it leading further west.
+
+
+
+> w
+You are in the elves' cavern.
+
+The elves' cavern is huge.  There are only two exits.  One from which Graham came (up the ladder) and a tunnel leading south.
+Graham followed the elf into the cavern.
+
+press any key
+
+"Kind sir, since you kept your word and let me go, I would like to offer you this finely crafted pair of elf shoes."
+The elf hands Graham a pair of beautifully crafted shoes with gold buckles.
+
+press any key
+
+"These are amazing!  Thank you so much.  Now how do I get out of this confounded forest?"
+press any key
+
+"Oh yes.  Just follow that tunnel to the south and you will find your way out soon enough!  Good luck, sir!"
+Before Graham has a chance to say anything further, the little elf turned and ran into the shadows.
+
+
+> s
+Graham follows the tunnel.
+
+Above the surface, Cedric is minding his own business when a fallen log begins to shudder and finally roll to one side.
+
+Out of the hole in the ground appears Graham after finding his way through the elves' tunnel.
+
+press any key
+
+You are at the dark forest entrance.
+
+East of Crispin's house is an entrance to a very dark part of the forest.  The entrance is to the north.  You also see a sign that very clearly states "Enter at Your Own Risk".  You think it might be your imagination, but it seems as if pairs of eyes are watching you from within the forest.
+The path continues to the west where you can see a broad ray of sunshine illuminating a weeping willow tree.  To the south, the path leads into a lighted clearing.
+press any key
+
+"I was starting to get worried, Graham!"
+press any key
+
+"I'm just glad I found my way out of that enchanted forest in one piece!"
+
+> w
+You are at the north pond.
+
+A pond in a dark part of the woods sits alone with no plant life growing near the edges.  
+
+A weeping willow tree stands in the center of the pond.  Oddly, it has a face and arms and continously plays a sad tune on a harp.
+
+
+> give gold heart to weeping willow
+Graham gives the golden heart to the weeping willow tree.
+
+press any key
+
+"Oh my goodness!  Is that my heart!?"
+
+The tree reaches out for the heart and takes it from Graham.  She puts it in a hole in her trunk and magically begins to change into a human woman.
+
+press any key
+
+Coincidentally, as the tree changes back into a princess, her prince comes strolling up the path.
+
+press any key
+
+"Darling, is that really you?"
+press any key
+
+"Yes, my dear.  I'm perfectly fine now.  Let's leave this place and go to our own land."
+press any key
+
+"Yes, lets."
+press any key
+
+"I won't be needing this thing anymore."
+The princess tosses the harp aside and she and the prince walk away into the forest leaving Graham and Cedric behind.
+
+
+
+> take harp
+Graham picks up the harp.
+
+
+> w
+You are in the northwestern clearing.
+
+In the clearing of the woods, the trees are sparse and it leads into desert sands to the west.
+A small tambourine sits alone in the middle this clearing.  Apparently, the owner left it behind.
+
+
+> take tambourine
+Graham picks up the tambourine.
+
+
+> e
+You are at the north pond.
+
+A pond in a dark part of the woods sits alone with no plant life growing near the edges.  
+
+
+> s
+You are in front of a tree house.
+
+In a small clearing of the forest, you find a very small house built into the bottom of an aging oak tree.  By the size of the door, it seems no human could possibly fit through it.   To the east is a clearing in the forest.  To the west is what appears to be a sand castle.  To the south is a small country inn.
+
+In front, sits an old gnome smoking a pipe.  A small child is sitting nearby playing with a marionette.
+
+> give spinning wheel to old gnome
+Graham approaches the old gnome smoking his pipe...
+
+press any key
+
+"Sir, I found this spinning wheel and thought you might be interested in it.
+"
+press any key
+
+"My spinning wheel!  Where did you find it?"
+press any key
+
+I found it in the witch's house in the dark forest.
+
+press any key
+
+"I thought that old hag had something to do with it.  She never could figure out how it worked.  That spinning wheel is no ordinary wheel.  It makes strands of pure gold.
+Now hand that over, son."
+press any key
+
+"Hold on just a moment.  I went through a lot of trouble to come by this spinning wheel.  Don't you think that little boy's marionette would be an even trade?"
+press any key
+
+The old gnome thought for a moment and stroked his beard...
+
+"I suppose your right.  Give the man your marionette.  I can make you another one."
+
+press any key
+
+The boy obeyed and gave his marionette to Graham.
+
+Graham gave the spinning wheel to the old gnome and both the gnome and the boy walked away and disappeared down the path.
+
+
+
+> s
+You are in front of a small country inn.
+
+The main path continues on east and west in front of a small country inn.  In the back, you see a small barn with a large haystack sitting in front of it.  A worn path winds its way north between the barn and the inn.
+To the east is a small cottage.  To the west is a more barren area with an old rotting tree.  To the north you can make out a small house built into the bottom of a tree.
+
+> e
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> e
+You are at the town entrance.
+
+Smoke rises from chimney tops as you approach the town.  The sounds of everyday life are evident.  A cow is in a pen eating from a trough.  The stream flows busily alongside of the town blocking any further passage south.  To the east is the town itself.  To the west, Graham can see smoke coming from a single chimney.
+
+> e
+"I think I'll just stay out here until you get back, Graham.  I had a nasty run-in with a dog last time."
+press any key
+
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+
+> go to the Tailor's Shop
+You are in the tailor's shop.
+
+Inside the shop, you first notice the sales clerk behind the counter measuring pieces of fabric.  In the back, a noisy customer complains about the garments that he is trying on in the dressing room.  Another busy clerk does his best to assist him.
+The sales clerk notices you,
+"Hello there, how fare you today?"
+
+> give golden needle to sales clerk
+Graham approaches the sales clerk.
+press any key
+
+"Good day, sir.  Would you take this golden needle as payment for the cloak?"
+press any key
+
+The sales clerk's eyes widen with excitement upon seeing the golden needle, "Heavens!  I have never seen such a beautiful golden needle.  Of course you can have the cloak."
+press any key
+
+The sales clerk walks to the blue cloak on display and hands it to you.  I hope this bides you well on your quest.
+press any key
+
+Thank you, sir.  I'm sure it will indeed.
+
+
+> out
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+
+> go to the Toy Shop
+You are in the toy shop.
+
+The toy shop is filled with a variety of toys.  The shop owner seems to be an older fellow with a full gray beard and small spectacles.  He is standing behind the counter watching a small boy playing with a broken toy train.
+The shop owner notices you walking into his shop,
+"Good day.  Please let me know if you need assistance."
+
+> give marionette to toy shop owner
+Graham approaches the toy shop owner...
+
+press any key
+
+"Good day, sir.  I have come upon this fine crafted marionette that I thought you might be interested in."
+press any key
+
+Graham takes out the marionette and shows it to the toy shop owner.
+
+press any key
+
+"Young man!  Where did you get such a finely crafted marionette?"
+press any key
+
+"It was given to me actually but I have no need for such a toy.  Do you think it would be enough of a trade for that sled you have on the wall?"
+press any key
+
+"Of course.  Please take it and enjoy."
+press any key
+
+Graham takes the small sled and tucks it into his belongings.  The toy shop owner gets back to his business.
+
+
+
+> out
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+
+> go to the shoemaker's shop
+You are in the shoemaker's shop.
+
+In the shoemaker's shoe repair shop, it is quite noticable that no shoes are on the shelves.  There's nothing much of interest at all.
+
+Graham can see the shoe maker hammering the sole of a single shoe.  The old shoe maker's wife sweeps the floor around the shop while their rather skinny dog sits in a corner.
+
+> give nice shoes to shoemaker
+Graham holds out the shiny shoes to the shoe maker and his wife.
+
+press any key
+
+"What's that you've got there son.  Martha, get those from the young man."
+press any key
+
+The shoe maker's wife takes the shoes from Graham and brings them to her husband.
+
+press any key
+
+"Look at these!  They are flawless.  Perfectly cut and sewn.  And the gold buckles!  I could sell these and retire!
+How can I ever repay you?"
+press any key
+
+"Your happiness is all that I need."
+press any key
+
+"Well, that's very kind of you.  Come on, Martha, let's go home.
+I guess I won't be needing this anymore.  Here, young man, if you can use a hammer, it's all yours."
+press any key
+
+The old shoe maker hands Graham the hammer and then he and his wife walk out the door.  Their dog wakes up and follows them out leaving Graham alone in the shoe shop.
+
+
+
+> out
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+
+> w
+You are at the town entrance.
+
+Smoke rises from chimney tops as you approach the town.  The sounds of everyday life are evident.  A cow is in a pen eating from a trough.  The stream flows busily alongside of the town blocking any further passage south.  To the east is the town itself.  To the west, Graham can see smoke coming from a single chimney.
+
+> w
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> w
+You are in front of a small country inn.
+
+The main path continues on east and west in front of a small country inn.  In the back, you see a small barn with a large haystack sitting in front of it.  A worn path winds its way north between the barn and the inn.
+To the east is a small cottage.  To the west is a more barren area with an old rotting tree.  To the north you can make out a small house built into the bottom of a tree.
+
+> enter inn
+Which door is Graham going to enter?
+1) front door
+2) side door
+[choice] 1
+"I think I'll just stay out here until you get back, Graham.  That place is a little too rough for me."
+press any key
+
+WARNING ADVISORY!  There is a chance you could die in the inn.  There's also a chance you could get 'stuck' if certain measure have not already been taken.  It is advised that you save your game here if you wish to explore the inn.  Will you save now?
+1) Yes
+2) No
+[choice] 2
+
+You were warned!
+
+
+press any key
+
+You are in the small country inn.
+
+
+You can see the innkeeper and men here.
+
+You can go out to small country inn -outdoors.
+The inn is rather empty aside from the rough looking clerk behind the counter.  He is having a conversation with two other roughly dressed men.  They are just out of earshot so Graham can't hear what they are saying.
+
+
+> listen to men
+Graham walks further into the lobby of the inn and overhears the men talking.
+
+press any key
+
+"So where did you hide the money from that job we pulled the other day?"
+press any key
+
+"Don't worry, it's in a safe place where no one will find it..."
+press any key
+
+"Hey, where did you come from?"
+The innkeeper notices Graham nearby.
+press any key
+
+"I was just looking for a place to stay the night."
+press any key
+
+The innkeeper walks out from behind the counter.
+
+"I think you were eavesdropping on us."
+press any key
+
+"What should we do wid him boss?"
+press any key
+
+"Rub 'im out!"
+press any key
+
+Graham feels a sharp pain on the back of his head.
+
+A while later, he finds himself tied very tight with rope in the bottom of what appears to be the basement of the inn.
+
+press any key
+
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+press any key
+
+Struggle as he might, Graham cannot free himself from the rope.
+
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+While Graham continues to struggle, the rat that he saved comes out from the mouse hole.
+
+It starts biting the rope and finally, the ropes loosen from Graham and fall to the floor.
+
+press any key
+
+"I'm glad I was able to help you.  Good luck on your journey.
+Oh, that is my children calling for me now.  I must go."
+press any key
+
+The rat turns and disappears into the mouse hole.
+
+Graham is now free to move around.  The rope is lying nearby.
+
+> take rope
+Graham takes the rope.
+
+
+> break lock
+Graham hits the lock on the basement door with the hammer and it breaks free.
+
+
+> n
+You are inside the inn's kitchen.
+
+The kitchen in this part of the small country inn contains several pieces of kitchen furnishings.  There is a pantry in one corner and other odds and ends.  There is a doorway leading to another part of the inn.  There is a door to the west that is currently closed.
+
+> open pantry
+Graham opens the pantry and sees a full leg of lamb.
+
+
+> take lamb
+Graham takes the leg of lamb and closes the door to the pantry.
+
+> w
+Graham opens the door and walks outside.
+
+You are in front of a small country inn.
+
+The main path continues on east and west in front of a small country inn.  In the back, you see a small barn with a large haystack sitting in front of it.  A worn path winds its way north between the barn and the inn.
+To the east is a small cottage.  To the west is a more barren area with an old rotting tree.  To the north you can make out a small house built into the bottom of a tree.
+
+> e
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> n
+You are in the clearing.
+
+In the lighted clearing, it is more apparent that the forest contains wildlife.  A tree with a hollowed area on the trunk is inadvertantly creating a bath for a blue bird.  The bird is minding its own business and chirping away as it splashes around in the makeshift bathtub.  
+To the east is an intersection in the path.  To the north is a dark area of the forest.  To the west is a small house built into the bottom of a tree.  To the south is a small cottage with light puffs of smoke rising slowly from the stone chimney.
+
+> e
+You are on the town path.
+
+A single stream of sunlight parts the branches and barely illuminates the dirt path before you.  You come upon a dirt road intersection that goes in different directions.  To the west, is another path that winds into the forest.  To the south, you can definitely make out the activity of the town.  To the east, a path leads up into the mountains but a rattlesnake seems to be blocking your path.
+A rattlesnake blocks the passage east into the mountains.
+
+
+> scare snake
+Graham rattles the tambourine scaring the snake.
+
+It uncoils and turns away writhing off the path.
+
+
+> e
+You are in the mountain.
+There is not much too see up in this part of the snow peaked mountains.  The path leads on to the north.
+
+You can move north or west.
+
+> wear cloak
+Graham puts on the blue cloak and feels much warmer.
+
+> n
+You are in the mountain.
+There is not much too see up in this part of the snow peaked mountains.  The path ends abruptly at the edge of the mountain.
+Above on the side of a cliff, Graham can see a tree branch protruding from the snow covered plateau and a bit of rock jutting outwardly a few feet from the tree branch.
+Just above these seems to be a sturdy place to stand if there were only some way to reach it.
+
+You can see the branch, the rock and the cliff here.
+
+You can move south or up.
+
+> look
+You are in the mountain.
+There is not much too see up in this part of the snow peaked mountains.  The path ends abruptly at the edge of the mountain.
+Above on the side of a cliff, Graham can see a tree branch protruding from the snow covered plateau and a bit of rock jutting outwardly a few feet from the tree branch.
+Just above these seems to be a sturdy place to stand if there were only some way to reach it.
+
+You can see the branch, the rock and the cliff here.
+
+You can move south or up.
+The height in altitude causes Graham to feel extreme hunger.  He better find something to eat soon.
+
+
+> eat lamb
+Graham eats half of the leg of lamb but decides to save the other half for later.
+
+> throw rope
+Where should Graham throw the rope?
+1) branch
+2) rock
+[choice] 2
+Graham ties a loop on the end of the rope and hurls it up towards the rock.
+
+The loop of the rope lands its mark on the end of the rock and Graham gives it a yank tightening the end.
+
+The rope is now ready to climb.
+
+
+
+> climb rope
+Graham climbs the rope and pulls himself up onto the ledge above.
+
+You are in the mountain.
+There is not much too see up in this part of the snow peaked mountains.  The path leads on to the north.
+
+You can move north or west.
+Cedric lands on a nearby rock and says, "Watch out for that gap, Graham!"
+
+press any key
+
+At this point in the game, the next challenge would be to cross the gap without falling.  But for now....
+
+You have successfully completed Part One of a total of Two Parts.  I hope you enjoyed yourself.  Part Two will be out as soon as possible.
+
+In the meantime, please go back and play my first original game, "Get Out of The House."  (sorry, had to give a shameless plug)
+
+[runner] turns=189 leftover=0 running=false WON=YES

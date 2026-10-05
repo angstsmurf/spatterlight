@@ -1,0 +1,18 @@
+go your gun
+east
+west
+south
+give the gangster
+north
+north
+look at gun
+shoot your gun
+shoot with your gun
+talk baseball field
+take child to your house baseball field
+look at child
+speak to child
+north
+west
+pick up lady
+kill lady

@@ -1,0 +1,40 @@
+
+Holes the game. | liemojamie
+
+You are Stanley Yelnats. You have been convited of braking the law but it wasn't you . Are you ready to go to camp green lake?
+
+You are in Underpass.
+There is a Pair of sneakers and a Car here.
+
+> take pair of sneakers
+ou take the sneakers. Suddenly you see a cop car pulling up beside you.
+You are in court.
+There is The Judge, Sneakers and The Jury here.
+
+> speak to judge
+Judge:You have been convicted of Theft.
+How do you pleed?
+
+You:Not guilty.
+
+Judge:You have stole a pair of sneaker that were donated to the poor.What have you to say for yourself?
+
+You: Hmm They fell form the sky. I was walking and then they fell onto me.
+
+Judge: Can the speaker of the jury please stand.Do you find the Convicted guilty or not guilty?
+
+Jury speaker: Guilty your honer.
+
+Judge: Well you have 2 options go to camp green lake or Jail?
+Were do you wonna go?
+1) Camp green lake.
+2) jail
+[choice] 1
+You are in Camp-green-lake tent..
+There is a Bed, Zigzag, magnet, Zero, X-Ray and Mr pendanski. here.
+You can go south or west.
+You have chosen to go to camp green lake. Officer Take him away.
+
+> sleep on bed
+you lie down. you become very sleepy then you wake up next morning.
+[runner] turns=3 leftover=0 running=true WON=YES

@@ -1,0 +1,295 @@
+
+take shape
+use paper clip on handcuffs
+
+take cot
+take fork
+use fork on grille
+use cot on laser forcefield
+west
+take cot
+use cot on laser forcefield
+speak to cell door
+
+north
+take machine gun
+east
+north
+west
+take pruning shears
+take knife
+east
+south
+west
+use pruning shears on dead guard
+east
+north
+use severed finger on fingerprint scanner
+east
+south
+south
+take report
+examine report
+take manual
+examine manual
+take motherboard
+east
+take ram
+take blank card
+use machine gun on locker
+examine locker
+1
+west
+north
+north
+west
+examine card table
+east
+north
+take test card
+south
+use processor on motherboard
+use ram on motherboard
+use motherboard on computer case
+use hard drive on computer case
+take panel
+use panel on computer case
+examine computer
+1
+2
+use test card on computer
+east
+north
+take flask
+east
+take red chemical
+take yellow chemical
+take blue chemical
+use yellow chemical on flask
+use red chemical on flask
+use blue chemical on flask
+west
+south
+south
+take disk
+take gpt
+use flask on plasma reactor
+north
+west
+south
+south
+use flask on security door
+west
+use disk on ventilation computer
+east
+use blue chemical on flask
+use red chemical on flask
+use yellow chemical on flask
+use gpt
+use flask on hydroscope
+take booth
+take gpt
+north
+north
+north
+north
+use flask on fire
+take briefcase
+use knife on briefcase
+use blue chemical on flask
+use yellow chemical on flask
+use red chemical on flask
+south
+south
+east
+south
+use flask on plasma reactor
+north
+use magnetic encoder on security computer
+
+1
+use blank card on magnetic encoder
+east
+east
+use disk on ventilation computer
+west
+south
+use security card on freight elevator
+examine freight elevator
+1
+west
+west
+use flask on sentry robot
+examine generator
+1
+south
+south
+east
+examine safe
+8
+3
+2
+9
+examine safe
+1
+west
+south
+south
+examine security locker
+13
+7
+1
+3
+examine security locker
+1
+east
+east
+north
+use machine gun on dog
+examine crane arm
+1
+south
+west
+west
+use battery on electrolysis machine
+east
+east
+north
+use battery on crane arm
+north
+south
+examine crane arm
+1
+south
+east
+east
+use yellow chemical on flask
+use blue chemical on flask
+use red chemical on flask
+use gpt
+use flask on plasma reactor
+use flask
+use blue chemical on flask
+use red chemical on flask
+use yellow chemical on flask
+use flask on plasma reactor
+take booth
+take gpt
+use machine gun on target
+east
+use dvd-rom on console
+west
+west
+west
+examine container
+1
+east
+down
+use flask on motorbike
+use key on motorbike
+north
+take crucifix
+north
+up
+take platform
+down
+take rope
+south
+use key on motorbike
+southeast
+north
+take driftwood
+south
+use key on motorbike
+west
+northeast
+use driftwood on rowboat
+use blue chemical on flask
+use yellow chemical on flask
+use red chemical on flask
+use gpt
+use flask on plasma reactor
+take booth
+take gpt
+use flask on rowboat
+use crucifix on rowboat
+use rope on rowboat
+southwest
+use key on motorbike
+east
+east
+
+up
+take plant
+north
+examine cupboard
+1
+examine sink
+1
+use plant on sink
+east
+take fossil
+west
+south
+east
+use fossil on fireplace
+west
+up
+take flying ducks
+north
+take cigarette lighter
+south
+down
+down
+drop flying duck
+up
+south
+drop candle
+use cigarette lighter on candle
+north
+up
+east
+speak to uncle
+
+1
+west
+down
+west
+up
+north
+take rag
+east
+take chair leg
+west
+south
+up
+take cigarette lighter
+east
+take dead seagull
+west
+north
+use chair leg on puddle
+south
+down
+east
+use chair leg on fireplace
+use cigarette lighter on fireplace
+use severed finger on fireplace
+west
+south
+take bottle of vodka
+take sheet
+use rag on bottle of vodka
+use cigarette lighter on bottle of vodka
+drop flaming bottle
+north
+down
+drop dead seagull
+up
+west
+use key on motorbike
+west
+northeast
+use sheet on rowboat
+take rowboat
+take rowboat

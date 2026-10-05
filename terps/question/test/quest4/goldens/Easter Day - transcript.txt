@@ -1,0 +1,55 @@
+
+Easter Day | Sarah
+
+You are in Your room.
+There is Bed and Old furniture here.
+You can go south.
+
+> s
+You are in Hallway.
+There is Bathroom door and Outside door here.
+You can go north, south, east or west.
+
+> w
+You are in Your parents room.
+There is Key here.
+You can go east.
+
+> take key
+You take the key.
+
+> e
+You are in Hallway.
+There is Bathroom door and Outside door here.
+You can go north, south, east or west.
+
+> e
+You are in Dining room.
+There is Table and Case here.
+You can go west.
+
+> use key on case
+You open the case. There's a map.
+
+> take map
+You take the map.
+Look! There's a little box!
+
+> open little box
+There's a key!
+
+> take another key
+You take the key.
+
+> w
+You are in Hallway.
+There is Bathroom door and Outside door here.
+You can go north, south, east or west.
+
+> use another key on outside door
+You open the door.
+
+> nw
+You are in Outside.
+You made it! Now you can go and see the bunny! When you'll come back, your parents wont be happy thou...
+[runner] turns=12 leftover=0 running=false WON=YES

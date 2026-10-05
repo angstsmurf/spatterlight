@@ -1,0 +1,26 @@
+Latrix War Forever V1.0 (QDK Lite 4.1.1, ASL 410)
+- raw command script for question_walkthrough_runner.
+Game system: Quest 4.  Marker: "You can't go there.".
+
+NOT A WIN -- an abandoned opening.  Two rooms are defined (Labrinth of Destiny
+and Team Legends Base); the Labrinth's other nine exits name rooms that do not
+exist.  No playerwin, no score.
+
+The game is almost silent, in real Quest as well: the author wrote "speak" where
+"msg" was meant ("description speak <...>", "gain speak <...>", "look give
+<...>"), and "speak" is not a script command, so neither room prints a
+description, LOOK prints nothing, and the swords' pick-up speeches never appear.
+All a transcript can show is the two default "You pick it up." lines and the
+inventory.
+
+So the script takes the sword and the shield, lists them, goes UP to Team
+Legends Base (the only real destination) and then tries NORTH.  The Labrinth has
+an exit in all ten directions, so "You can't go there." can only be printed in
+Team Legends Base: it is the proof that UP worked, and the marker.
+
+Start:
+take black bitter
+take aegis
+inventory
+up
+north

@@ -1,0 +1,115 @@
+
+Sandbox Samurai, v0.1 | David Revelle
+
+You cheer as your favorite anime hero valiantly defeats his evil rival with one slash of his blade, pumping your fist into the air as your hero strikes his victory pose.  You could care less that the swordsman you're cheering on doesn't actually exist; after all, you're only nine years old.
+
+Your name is Michael, though you'd prefer it if your friends called you Muhashi (that's your super-awesome swordsman name, after all).  To your dismay, however, your parents only call you by your full name.
+
+As you sit back down and watch the preview for next week's episode, you get the urge to become Muhashi and vanquish some evildoers!  But every swordsman needs good equipment...  you need some awesome weapons!  With that, you decide to set off and search through your home---I mean, the Secret Village Sushiki---for tools of destruction suitable for such a powerful warrior as yourself.
+
+You are in Living Room.
+There is your TV and the DVD Player here.
+You can go out to the Back Yard. You can go east, northwest, southwest or up.
+Your living room (or in your mind, the Sushiki Village Square).  Several couches and chairs are around the television, all of which look amazingly comfortable.  The walls are a basic (~cough~boring~cough~) beige, and the carpet is a slightly darker shade of beige.  Whoopdydoo.  The stairs lead up to your mother's room.
+
+> open dvd player
+You open it.
+Your shiny DVD player.
+It contains a DVD.
+
+> take dvd
+(first removing it from DVD Player)
+Done.
+
+You pick it up.
+
+> sw
+You are in your Sister's Room.
+There is your sister's PC, your sister's Bed and your sister's computer mouse here.
+You can go northeast.
+Ugh, your sister's room.  Luckily she's out with her boyfriend. She's always going out with new boyfriends. She says that things just never work out.  Everything's so...girly...
+
+> look under bed
+You look under your sister's bed and you find her Scrapbooking Kit and her Diary.  You take both.
+
+> take mouse
+You unplug the mouse and spin it around with style; you've found the mousechuk!!!
+
+> open scrapbooking kit
+You open it.
+A big blue box filled with materials and tools for scrapbooking.
+It contains a pair of scissors and some tape.
+
+> cut dvd with scissors
+You cut the DVD into a makeshift throwingstar!  Now you've got yourself a weapon fit for a warrior.
+
+> ne
+You are in Living Room.
+There is your TV and the DVD Player here.
+You can go out to the Back Yard. You can go east, northwest, southwest or up.
+Your living room (or in your mind, the Sushiki Village Square).  Several couches and chairs are around the television, all of which look amazingly comfortable.  The walls are a basic (~cough~boring~cough~) beige, and the carpet is a slightly darker shade of beige.  Whoopdydoo.  The stairs lead up to your mother's room.
+
+> nw
+You are in Bathroom.
+There is the sink, the toilet and the bathtub here.
+You can go southeast.
+Your bathroom.  It's really small, and everything is porcelain...
+
+> turn on sink
+You turn the water all the way on, and the water begins to flow into the bowl.
+
+> turn on bathtub
+You turn the water on, and the tub begins to fill.
+The bathroom is flooded!  You yell for your mom and she rushes down to see what's the matter.  After giving you a scolding look, she goes off and returns with a mop and bucket.
+
+(Now's your chance to snoop around in her room!)
+
+> se
+You are in Living Room.
+There is your TV and the DVD Player here.
+You can go out to the Back Yard. You can go east, northwest, southwest or up.
+Your living room (or in your mind, the Sushiki Village Square).  Several couches and chairs are around the television, all of which look amazingly comfortable.  The walls are a basic (~cough~boring~cough~) beige, and the carpet is a slightly darker shade of beige.  Whoopdydoo.  The stairs lead up to your mother's room.
+
+> up
+You are in your Mom's Bedroom.
+You can go down.
+Your mother's room.  She's had the room to herself ever since she left dad with the help of her good friend Max. At least you think they're good friends.  What else could "fuck-buddies" mean?  
+
+This room is as boring as the living room and as dsgusting as your sister's.   The walls are maroon, as is the rug, and there's a dense smell of perfume in the air.
+
+> open drawer
+You slide the drawer open.
+Mom's special drawer in her nightstand.  You never get to look in there...
+It contains a long, cylindrical object.
+
+> take object
+(first removing it from drawer)
+Done.
+
+You take the object and pocket it.
+
+> down
+You are in Living Room.
+There is your TV and the DVD Player here.
+You can go out to the Back Yard. You can go east, northwest, southwest or up.
+Your living room (or in your mind, the Sushiki Village Square).  Several couches and chairs are around the television, all of which look amazingly comfortable.  The walls are a basic (~cough~boring~cough~) beige, and the carpet is a slightly darker shade of beige.  Whoopdydoo.  The stairs lead up to your mother's room.
+
+> east
+You are in your Back Yard.
+There is your sandbox and a short fallen twig here.
+You can go west.
+Your yard.  It's rather large, and the fresh air is wonderful.
+
+
+Yeah right.  You live in the city!  No fresh air for you.  Your yard is big, though.
+
+> take twig
+You pick it up.
+
+> tape twig to object
+You've made a cool little Wakazashi now!  Alright.
+
+> use sandbox
+Now you can have some fun!  You get lost in your imaginary world and become an awesome warrior with the help of all your great weapons.  Congrats!
+
+[runner] turns=20 leftover=0 running=false WON=YES

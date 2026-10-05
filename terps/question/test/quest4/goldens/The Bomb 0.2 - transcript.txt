@@ -1,0 +1,39 @@
+
+The Bomb, vBeta 0.2 | Marc Andersen
+
+Welcome to
+THE BOMB!!
+
+You are in The Bomb Room.
+There is a Bomb here.
+This is the bomb room.
+
+> look at bomb
+This is a bomb.
+It is currently not counting down.
+
+> take bomb
+You take the bomb.
+
+> set bomb
+Type number of seconds:
+The bomb is armed to 3 seconds!
+
+> look at bomb
+This is a bomb.
+It is currently counting down. The display reads: 3.
+2
+
+> look at bomb
+This is a bomb.
+It is currently counting down. The display reads: 2.
+1
+
+> look at bomb
+This is a bomb.
+It is currently counting down. The display reads: 1.
+0
+The bomb has exploded!
+I am sorry, you got hit by the bomb, and lost the game!
+
+[runner] turns=6 leftover=0 running=false WON=YES

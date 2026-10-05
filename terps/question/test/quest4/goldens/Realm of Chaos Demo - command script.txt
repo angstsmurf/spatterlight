@@ -1,0 +1,102 @@
+1
+Hrok
+male
+s
+take axe
+use axe on fire wood
+n
+n
+w
+take cow food
+take pig food
+use pig food on pigs
+e
+use cow food on cows
+n
+n
+speak to butcher
+s
+s
+s
+take small sword
+wield small sword
+kill king of darkness
+speak to guildmaster
+n
+speak to training instructor
+kill rat
+wear trainee platemail
+kill dummy
+n
+take trainee helmet
+take trainee leg plates
+take trainee longsword
+wear trainee helmet
+wear trainee leg plates
+wield trainee longsword
+kill thorn
+kill doombringer
+kill bloodbath
+speak to training instructor
+out
+s
+give guild pass to guildmaster
+s
+s
+use axe on couch
+take medallion
+wear medallion
+examine medallion
+n
+sw
+speak to kid
+w
+kill teacher
+se
+take case of weapons
+nw
+e
+give case of weapons to kid
+w
+s
+kill teacher guard
+w
+s
+w
+push button
+w
+kill headmaster
+take key
+give key to kid
+ne
+speak to trader
+s
+kill andrew
+n
+speak to trader
+e
+speak to teller
+2
+kill guard
+take vault key
+use vault key on vault door
+take orb of knowledge
+lightning
+go to woods
+examine tree
+speak to thief
+gold
+gold
+speak to thief lord
+give orb of knowledge to thief lord
+out
+out
+go to swamp
+3
+4
+4
+3
+use axe on mirror
+use axe on swamp lord
+w
+go to castle chaos

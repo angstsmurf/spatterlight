@@ -1,0 +1,30 @@
+
+Motorbike Keyfinder, v1.2 | Chandresh
+
+Welcome to Motorbike Keyfinder  Game with a lot of adventures.
+You are well-dressed and going for a long drive.But Suddenly when you leave
+the guest room and go to the motorbike,you find that your key is missing.
+ Now your aim is to find the  key by searching through each rooms.
+
+You are in a Guestroom.
+There is a table, sofa, newspaper and keyhanger here.
+You can go north, south or west.
+The guest room is being cool and clumsy for rest.
+
+> n
+You are in Studyroom.
+There is computertable, letterbox and almirah here.
+You can go south or east.
+The studyroom has lighting lamp and a fan. 
+
+> look at computertable
+It contains  books, pens and a cloth.
+
+> take cloth
+It contains some sharp nail thing which is Copper brown.
+
+
+> open nail
+Congratulations...You have found your Motorbike key.
+   Now go for a LONG DRIVE. 
+[runner] turns=4 leftover=0 running=true WON=YES

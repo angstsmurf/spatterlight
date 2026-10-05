@@ -1,0 +1,2408 @@
+
+City of Blood, v1 | Craig Dutton
+
+City of Blood
+By Craig Dutton (c) 2012
+
+Port Silvermoon is a den of thieves and murderers and ruled by Prince Velmaht, a tyrant who is rumoured to deal in the dark arts.  
+
+After a long arduous journey you arrive at your friend's house in the Garden District.  You have known Meridam Trax all your life.  He raised you up when your parents were killed by Brigands in the Ballas Foothills, southeast of the city.  He is more than just a father-figure, he's your mentor and friend.
+
+After breakfast the next day, you both talk about your adventures in his study.  In mid-conversation about the morals of gambling a gust of wind blows the curtains high up into the air and when they settle the sight is shocking!  Meridam lies slumped dead at his desk.  He has been murdered!
+
+You look out from the window and see no sign of the murderer.  Who did this and why?  Your mission is to discover the reason and avenge Meridam's death.
+
+The City of Blood might have claimed another victim but the truth will out or you will die trying!
+
+Press a key to play
+
+
+You are in the Study.
+You can go east.
+You can see an oak desk and Meridam Trax.
+The walls are oak-panelled and a large oak desk sits in the corner by a large window while a clock ticks away on an ornate table.
+
+> look desk
+An oak desk with the body of your friend slumped upon it.
+You find something.
+
+> take journal
+You pick it up.
+
+> look meridam trax
+You find a wooden dart in Meridam's neck.
+
+> take dart
+You pick it up.
+
+> e
+You are in the Entrance Hall.
+You can go out, east, west or up.
+A small entrance hall with rich drapes and a plush carpet.  Painting hang from the oak-panelled walls and the front door to the south leads outside.  A narrow staircase leads up to the next floor.
+
+> e
+You are in Dining Room.
+You can go north or west.
+A long mahogany table stands in the centre of the room with the Kitchen to the north and the Entrance Hall to the west.
+
+> n
+You are in the Kitchen.
+You can go south.
+You can see a cupboard.
+White tiles decorate the floor and walls and a black stove stands to the west.  A small oak table sits in the centre and a sink lies to the north.
+
+> open cupboard
+You open it.
+A wooden cupboard hanging from the wall.
+It contains a piece of meat.
+
+> take meat
+(first removing it from cupboard)
+Done.
+
+You pick it up.
+
+> s
+You are in Dining Room.
+You can go north or west.
+A long mahogany table stands in the centre of the room with the Kitchen to the north and the Entrance Hall to the west.
+
+> w
+You are in the Entrance Hall.
+You can go out, east, west or up.
+A small entrance hall with rich drapes and a plush carpet.  Painting hang from the oak-panelled walls and the front door to the south leads outside.  A narrow staircase leads up to the next floor.
+
+> out
+You are on Goose Street.
+You can go north, south or east.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the north lies Meridam Trax's house and to the east resides a Herbalists.
+
+> s
+You are on Goose Street.
+You can go north, south, east or west.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the west lies a jewellers.
+
+> s
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> sw
+You are in the Public Gardens.
+You can go west or northeast.
+This horticultural wilderness is a far cry from the stone houses surrounding it.  Stories have been told of dangerous creatures or plants residing in these gardens taking hapless victims into the wild undergrowth never to be seen again!
+
+> w
+You are on Needle Street.
+You can go south, east or west.
+A Blacksmiths leads off to the southwest while the west side of the city will end at Field Gate.
+
+> w
+You are on Needle Street.
+You can go north, east or west.
+The Tailors lie to the north while Monument Square lies to the west.
+
+> w
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> look fountain
+The fountain is simple and empty of any water.  A single gold coin lies in the bottom of it, ignored by all except you.
+
+> take gold coin
+You pick it up.
+
+> sw
+You are at Field Gate.
+You can go south, west or northeast.
+You can see a cart and a cartwheel.
+This is the western side of the city and opens out towards the coastline and to the southern Kingdom of Lauratia.
+
+> take cartwheel
+You pick it up.
+
+> ne
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> e
+You are on Needle Street.
+You can go north, east or west.
+The Tailors lie to the north while Monument Square lies to the west.
+
+> e
+You are on Needle Street.
+You can go south, east or west.
+A Blacksmiths leads off to the southwest while the west side of the city will end at Field Gate.
+
+> s
+You are in the Blacksmiths Forge.
+You can go out.
+You can see Samus the Blacksmith.
+It is very hot in here as the Blacksmith is busy fixing metal objects from his fiery forge.
+
+> give cartwheel to samus the blacksmith
+He takes the wheel and fixes it for you.  However, he requires payment if you want it back!
+
+> give gold coin to samus the blacksmith
+He hands you back the newly-fixed wheel and takes the coin.
+
+> out
+You are on Needle Street.
+You can go south, east or west.
+A Blacksmiths leads off to the southwest while the west side of the city will end at Field Gate.
+
+> w
+You are on Needle Street.
+You can go north, east or west.
+The Tailors lie to the north while Monument Square lies to the west.
+
+> w
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> sw
+You are at Field Gate.
+You can go south, west or northeast.
+You can see a cart.
+This is the western side of the city and opens out towards the coastline and to the southern Kingdom of Lauratia.
+
+> use cartwheel on cart
+You fix the wheel onto the cart and it is now ready to roll.
+
+> push cart
+You push the cart out of the way.
+
+> ne
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> e
+You are on Needle Street.
+You can go north, east or west.
+The Tailors lie to the north while Monument Square lies to the west.
+
+> e
+You are on Needle Street.
+You can go south, east or west.
+A Blacksmiths leads off to the southwest while the west side of the city will end at Field Gate.
+
+> e
+You are in the Public Gardens.
+You can go west or northeast.
+This horticultural wilderness is a far cry from the stone houses surrounding it.  Stories have been told of dangerous creatures or plants residing in these gardens taking hapless victims into the wild undergrowth never to be seen again!
+
+> ne
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> n
+You are on Goose Street.
+You can go north, south, east or west.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the west lies a jewellers.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> sw
+You are in the City Graveyard.
+You can go northeast or down.
+You can see a blue root and an iron gate.
+This dreary place of forgotten souls lies broken and unkempt.  A small crypt lies nearby amongst broken headstones and overgrown weeds.
+
+> look headstones
+You find an iron key behind one of the headstones.
+
+> take iron key
+You pick it up.
+
+> use iron key on iron gate
+You unlock the gate with the key.
+
+> open iron gate
+The gate opens.
+
+> down
+You are in the Crypt.
+You can go up.
+You can see a dead body and a blowpipe.
+A small, square room full of dust and long-forgotten citizens.
+
+> take blowpipe
+You pick it up.
+
+> lift dead body
+Underneath the body you find something.
+
+> take silver ring
+You pick it up.
+
+> use dart on blowpipe
+You insert the dart into the blowpipe.
+
+> up
+You are in the City Graveyard.
+You can go northeast or down.
+You can see a blue root.
+This dreary place of forgotten souls lies broken and unkempt.  A small crypt lies nearby amongst broken headstones and overgrown weeds.
+
+> ne
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> s
+You are in the Undertakers.
+You can go out.
+You can see a coffin and a catafalque.
+A morbid but peaceful place with rich velvet drapes hanging around the walls and a corner of the room is occupied with a catafalque.
+
+> look catafalque
+A raised stand for the coffin to rest on.  You find something.
+
+> take candle
+You pick it up.
+
+> out
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> e
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> e
+You are in the Goblin's Head Tavern.
+You can go out.
+You can see a box of matches.
+This sizeable tavern is quite busy today with drunken punters and rabble-rousers from Dwarves to Goblins with the odd Orc and Dark Elf lurking in the shadows.
+
+> take box of matches
+You pick it up.
+
+> out
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> use box of matches on candle
+You light the candle with a match.
+
+> ne
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> n
+You are in the Temple of the Seven Moons.
+You can go out.
+You can see a candelabrum.
+This Temple is one of the most revered places of worship in the City.  The belief is that the 'moons' represent our soul and there are seven elements that make up the soul: Wisdom, Intelligence, Hope, Fear, Light, Darkness and Death.  Once you understand and embrace each 'moon' element can you fully understand life.  It takes a lifetime to achieve this hence why the last one to achieve will be your last - Death.
+
+> use candle on candelabrum
+A Priest appears behind you and thanks you for the Ritual of Rememberance - the placing of a lit candle on the Candelabrum of the Dead.  He gives you a silver talisman for your kindness.
+
+> out
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> sw
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> w
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> n
+You are in City Morgue.
+You can go out.
+You can see a corpse.
+This unkempt and cold building is stinking with rotten corpses waiting to be buried or worse?!  Many stone slabs sit around the room laden with the festering dead.
+
+> look corpse
+Suddenly the corpse comes to life - it's a Vampire!
+
+> use talisman on vampire
+The vampire hisses at the talisman and runs outside.  Unfortunately, sunlight disagrees with him and he bursts into flames.
+
+> take rod
+You pick it up.
+
+> out
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> e
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> ne
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> e
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> ne
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> s
+You are in Catfish Tavern.
+You can go out.
+You can see a goblet.
+This is where all the sailors and a few pirates hang out.  This a rough place and has been many times the scene of drunken brawls started over the smallest quarrels.
+
+> take goblet
+You pick it up.
+
+> out
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> n
+You are on Lobster Lane.
+You can go south, west or northeast.
+You can see Rango the Beggar.
+You can see a ship has been docked to the northwest off the Swordfish Wharf.  To the west lies the Sailmakers.
+
+> give silver ring to rango the beggar
+'That's one of those Thieves' Guild rings, that is,' he replies with surprise, 'Don't let any one of 'em catch you with it or yer will be sliced!  Better speak to Malako Stormchaser, Guild Leader about it first.'
+
+> s
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> sw
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> s
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> w
+You are in Guild of Thieves.
+You can go out.
+You can see Malako Stormchaser.
+This is the infamous Guild of Thieves where your membership is determined by trials and luck.  The Guild also has members including beggars and street artists and they're used as eyes and ears for potential rich-pickings.  This is the only establishment Prince Velmaht hasn't any control over because of the rumours that the current Guild Leader, Malako Stormchaser did a favour for a local unknown wizard and a powerful protection spell was cast over the Guild and its members.
+
+> give silver ring to malako stormchaser
+He takes the ring and examines it carefully.
+'This is my ring I lost in a card game to Conas Wretch the Animal Trader.  He constantly waves it in my face to rub it in that I lost to him.  He would never part with it.  Where did you get it?'
+You tell him of the dead body in the crypt and of your friend Meridam.
+'Sounds like your friend got in too deep with someone and Conas is involved somehow.  If I can be of further help, don't hestiate to ask for it.'
+
+> out
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> n
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> w
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> sw
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> w
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> w
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> w
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> s
+You are on the Wailing Bridge.
+You can go north or south.
+The strong wooden bridge gets its name from the strong currents of the Blood River pushing the bridge's foundations constantly causing loud creaking noises.  It's even worse if a strong gale is blowing in from the coast.
+
+> s
+You are by the River Bank.
+You can go north or south.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> s
+You are in the Market Square.
+You can go north, south, east, west or southeast.
+You can see a noticeboard.
+The market is closed today with no stalls selling wonderful and exotic goods as it usually does.  This is the very centre of the Merchant District with many businesses doing good trade.  The Orc's Tooth Tavern lies to the west and Wretch's Animal Yard to the southeast.
+
+> w
+You are in the Orc's Tooth Tavern.
+You can go out or west.
+You can see Famak the Landlord and a poster.
+A dark and dreary establishment with barrels for seats and planks for tables.  The makeshift bar stands in the northwest corner with a small, dark exit leading to another room to the west.
+
+> use box of matches on poster
+You secretly set the poster alight and watch it take hold.  Famak sees the fire and rips the poster off the wall, runs outside and stamps on it to try and put it out.
+
+> w
+You are in back room.
+You can go east.
+You can see a crowbar.
+This is a small candle-lit room with better decore and proper wooden benches and tables for the more richer client.
+
+> take crowbar
+You pick it up.
+
+> e
+You are in the Orc's Tooth Tavern.
+You can go out or west.
+A dark and dreary establishment with barrels for seats and planks for tables.  The makeshift bar stands in the northwest corner with a small, dark exit leading to another room to the west.
+
+> out
+You are in the Market Square.
+You can go north, south, east, west or southeast.
+You can see a noticeboard and Famak the Landlord.
+The market is closed today with no stalls selling wonderful and exotic goods as it usually does.  This is the very centre of the Merchant District with many businesses doing good trade.  The Orc's Tooth Tavern lies to the west and Wretch's Animal Yard to the southeast.
+
+> se
+You are in Wretch's Animal Yard.
+You can go northwest.
+You can see a cage.
+This yard has played host to many strange and wonderful beasts.  If the proprietor Conas Wretch hasn't got the animal you want, he'll go out of his way to get it for you - obviously at quite a high price!  He is also by 'royal appointment' ever since he acquired a baby red dragon for Prince Velmaht two years ago.  Questions are still being asked today since red dragons have been extinct for over a century.
+
+> look cage
+A large animal cage with iron bars on wheels.
+It contains a Sabre-Cat.
+
+> give meat to sabre-cat
+You throw the meat into the cage and the Sabre-Cat chews on it joyfully, calming it down slightly.
+
+> push cage
+You push the cage to one side and reveal a manhole underneath.
+
+> open manhole
+You open it to reveal a tremendous stench.
+
+> down
+You are by the Ladder.
+You can go south or up.
+This is a long, rusty ladder that leads up to the Animal Yard.  A dirty and smelly tunnel leads further into the city sewers to the south.
+
+> s
+You are in the Sewers.
+You can go north, east or southwest.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> e
+You are in the Sewers.
+You can go south, east or west.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> s
+You are in the Sewers.
+You can go north, southwest or southeast.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> se
+You are in the Sewers.
+You can go north or northwest.
+You can see Conas Wretch.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> speak to conas wretch
+'I'm dying.  A robed man in red robbed me and left me here to die.  I was only down here looking for Giant Rats for a client.' he chokes and dies.
+
+> lift conas wretch
+You find something.
+
+> take dagger
+You pick it up.
+
+> nw
+You are in the Sewers.
+You can go north, southwest or southeast.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> n
+You are in the Sewers.
+You can go south, east or west.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> w
+You are in the Sewers.
+You can go north, east or southwest.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> n
+You are by the Ladder.
+You can go south or up.
+This is a long, rusty ladder that leads up to the Animal Yard.  A dirty and smelly tunnel leads further into the city sewers to the south.
+
+> up
+You are in Wretch's Animal Yard.
+You can go northwest or down.
+This yard has played host to many strange and wonderful beasts.  If the proprietor Conas Wretch hasn't got the animal you want, he'll go out of his way to get it for you - obviously at quite a high price!  He is also by 'royal appointment' ever since he acquired a baby red dragon for Prince Velmaht two years ago.  Questions are still being asked today since red dragons have been extinct for over a century.
+
+> nw
+You are in the Market Square.
+You can go north, south, east, west or southeast.
+You can see a noticeboard and Famak the Landlord.
+The market is closed today with no stalls selling wonderful and exotic goods as it usually does.  This is the very centre of the Merchant District with many businesses doing good trade.  The Orc's Tooth Tavern lies to the west and Wretch's Animal Yard to the southeast.
+
+> n
+You are by the River Bank.
+You can go north or south.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> n
+You are on the Wailing Bridge.
+You can go north or south.
+The strong wooden bridge gets its name from the strong currents of the Blood River pushing the bridge's foundations constantly causing loud creaking noises.  It's even worse if a strong gale is blowing in from the coast.
+
+> n
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> w
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> w
+You are on Goose Street.
+You can go north, south, east or west.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the west lies a jewellers.
+
+> s
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> sw
+You are in the Public Gardens.
+You can go west or northeast.
+This horticultural wilderness is a far cry from the stone houses surrounding it.  Stories have been told of dangerous creatures or plants residing in these gardens taking hapless victims into the wild undergrowth never to be seen again!
+
+> w
+You are on Needle Street.
+You can go south, east or west.
+A Blacksmiths leads off to the southwest while the west side of the city will end at Field Gate.
+
+> w
+You are on Needle Street.
+You can go north, east or west.
+The Tailors lie to the north while Monument Square lies to the west.
+
+> w
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> sw
+You are at Field Gate.
+You can go south, west or northeast.
+This is the western side of the city and opens out towards the coastline and to the southern Kingdom of Lauratia.
+
+> w
+You are in the Hayfield.
+You can go north or east.
+Large haystacks scatter the large field with the Field Gate to the east.  A road leads off to the south towards Lauratia as it hugs the western coastline.  But your destiny does not lie that way.
+
+> n
+You are by the Brook.
+You can go south, northwest or northeast.
+A babbling brook that can easily be crossed lies before you.  The barn lies to the northeast and the ruins to the northwest.  The hayfield lies south.
+
+> use dagger on water
+You wash the blood off in the water.
+
+> s
+You are in the Hayfield.
+You can go north or east.
+Large haystacks scatter the large field with the Field Gate to the east.  A road leads off to the south towards Lauratia as it hugs the western coastline.  But your destiny does not lie that way.
+
+> e
+You are at Field Gate.
+You can go south, west or northeast.
+This is the western side of the city and opens out towards the coastline and to the southern Kingdom of Lauratia.
+
+> ne
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> n
+You are in the Wine Sellers.
+You can go out.
+You can see a wooden barrel.
+Large wine casks and smaller ones lie against the walls.
+
+> use goblet on barrel
+You fill the goblet with wine when no one is looking.
+
+> out
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> e
+You are on Needle Street.
+You can go north, east or west.
+The Tailors lie to the north while Monument Square lies to the west.
+
+> e
+You are on Needle Street.
+You can go south, east or west.
+A Blacksmiths leads off to the southwest while the west side of the city will end at Field Gate.
+
+> e
+You are in the Public Gardens.
+You can go west or northeast.
+This horticultural wilderness is a far cry from the stone houses surrounding it.  Stories have been told of dangerous creatures or plants residing in these gardens taking hapless victims into the wild undergrowth never to be seen again!
+
+> ne
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> n
+You are on Goose Street.
+You can go north, south, east or west.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the west lies a jewellers.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> e
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> ne
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> e
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> s
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> se
+You are outside the Palace Gates.
+You can go south, east, west or northwest.
+This is the new Royal District built over 10 years ago by Prince Velmaht, self-appointed Lord of Port Silvermoon.  He resides in his palace to the west.  He rules the city with an iron-hand and some say he dabbles in the occult.
+
+> e
+You are on Queen Street.
+You can go north, west or southeast.
+This is more of an alley than a street.  To the north is the Armourers and to the southeast is the King's Sceptre Inn.
+
+> n
+You are in the Armourers.
+You can go out.
+You can see Vandos the Armourer.
+This workshop houses many weapons from spears to dagger, shields to maces and even an iron-maiden sits in the far corner.
+
+> give dagger to vandos the armourer
+He takes the dagger and examines it closely.
+'This belongs to a member of the Cult of Skaarah.  A bunch of snake-demon worshippers believed to reside down in the City Sewers.  They have a secret mark in the shape of a coiled serpent.'
+
+> out
+You are on Queen Street.
+You can go north, west or southeast.
+This is more of an alley than a street.  To the north is the Armourers and to the southeast is the King's Sceptre Inn.
+
+> w
+You are outside the Palace Gates.
+You can go south, east, west or northwest.
+This is the new Royal District built over 10 years ago by Prince Velmaht, self-appointed Lord of Port Silvermoon.  He resides in his palace to the west.  He rules the city with an iron-hand and some say he dabbles in the occult.
+
+> s
+You are on Straw Street.
+You can go north, south or southwest.
+This narrow street leads to the Royal Stables to the south.
+
+> s
+You are in the Royal Stables.
+You can go out.
+You can see a horse.
+The Royal Stables aren't primarily to house the Prince's horses.  In fact it's rumoured that Prince Velmaht doesn't even like horses - the stables were built as a status symbol of wealth.  They're for anyone who can afford to rent out a stall - the monthly cost of one equates to the average Royal Guard's wage for a year!
+
+> look horse
+You find a saddle.
+
+> lift saddle
+Underneath the saddle you find a leather pouch.
+
+> take pouch
+You pick it up.
+
+> open pouch
+You open it.
+A small leather pouch for carrying things in it.
+It contains sleeping powder.
+
+> take sleeping powder
+You already have that.
+
+> use sleeping powder on goblet
+You empty the powder into the goblet of wine.
+
+> out
+You are on Straw Street.
+You can go north, south or southwest.
+This narrow street leads to the Royal Stables to the south.
+
+> n
+You are outside the Palace Gates.
+You can go south, east, west or northwest.
+This is the new Royal District built over 10 years ago by Prince Velmaht, self-appointed Lord of Port Silvermoon.  He resides in his palace to the west.  He rules the city with an iron-hand and some say he dabbles in the occult.
+
+> e
+You are on Queen Street.
+You can go north, west or southeast.
+This is more of an alley than a street.  To the north is the Armourers and to the southeast is the King's Sceptre Inn.
+
+> se
+You are in the King's Sceptre Inn.
+You can go out.
+You can see Captain Eomark.
+This is a richly decorated establishment with mahogany tables and benches.  This place is usually frequented by the Royal Guards from the palace and not for riff-raff.
+
+> give goblet to captain eomark
+The Captain quaffs the wine in a few short gulps.  Suddenly he falls unconscious on the table.
+
+> lift captain eomark
+You find something he was sitting on.
+
+> take crystal key
+You pick it up.
+
+> out
+You are on Queen Street.
+You can go north, west or southeast.
+This is more of an alley than a street.  To the north is the Armourers and to the southeast is the King's Sceptre Inn.
+
+> w
+You are outside the Palace Gates.
+You can go south, east, west or northwest.
+This is the new Royal District built over 10 years ago by Prince Velmaht, self-appointed Lord of Port Silvermoon.  He resides in his palace to the west.  He rules the city with an iron-hand and some say he dabbles in the occult.
+
+> nw
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> n
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> ne
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> e
+You are in the Warehouse.
+You can go out.
+You can see a wooden crate.
+This large warehouse houses many crates which contains all manner of goods from the mundane to the odd bit of livestock.
+
+> use crowbar on crate
+You open the crate with the crowbar.
+
+> look crate
+A large crate of oak.
+It contains a porcelain bust.
+
+> take bust
+(first removing it from wooden crate)
+Done.
+
+You pick it up.
+
+> out
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> sw
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> w
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> sw
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> w
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> w
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> w
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> s
+You are on the Wailing Bridge.
+You can go north or south.
+The strong wooden bridge gets its name from the strong currents of the Blood River pushing the bridge's foundations constantly causing loud creaking noises.  It's even worse if a strong gale is blowing in from the coast.
+
+> s
+You are by the River Bank.
+You can go north or south.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> s
+You are in the Market Square.
+You can go north, south, east, west or southeast.
+You can see a noticeboard and Famak the Landlord.
+The market is closed today with no stalls selling wonderful and exotic goods as it usually does.  This is the very centre of the Merchant District with many businesses doing good trade.  The Orc's Tooth Tavern lies to the west and Wretch's Animal Yard to the southeast.
+
+> s
+You are on Key Street.
+You can go north, south or west.
+The street is narrow with dirty cobbles and old worn-out shops standing at all sides.  A Locksmiths lies to the south while 'Draco's Emporium' resides to the west.  To the north leads to the Market Square.
+
+> w
+You are in Draco's Emporium.
+You can go out.
+You can see Draco the Merchant.
+This shop is full of bric-a-brac and exotic goods from all over the world.  Strange herbs and spices line one shelf while horns, claws and feet from strange beasts sit upon another shelf.  There are many shelves like these offering a variety of strange and expensive merchandise.
+
+> give bust to draco the merchant
+He looks at the bust.  'I'll offer you this flagon of rum, some noseplugs and a pot of glue.' he smiles.
+
+> take noseplugs
+You pick them up.
+
+> take glue
+You pick it up.
+
+> take flagon of rum
+You pick it up.
+
+> use noseplugs
+You shove them up your nostrils.
+
+> use glue on rod
+You glue the two pieces together and fix the rod.
+
+> out
+You are on Key Street.
+You can go north, south or west.
+The street is narrow with dirty cobbles and old worn-out shops standing at all sides.  A Locksmiths lies to the south while 'Draco's Emporium' resides to the west.  To the north leads to the Market Square.
+
+> n
+You are in the Market Square.
+You can go north, south, east, west or southeast.
+You can see a noticeboard and Famak the Landlord.
+The market is closed today with no stalls selling wonderful and exotic goods as it usually does.  This is the very centre of the Merchant District with many businesses doing good trade.  The Orc's Tooth Tavern lies to the west and Wretch's Animal Yard to the southeast.
+
+> se
+You are in Wretch's Animal Yard.
+You can go northwest or down.
+This yard has played host to many strange and wonderful beasts.  If the proprietor Conas Wretch hasn't got the animal you want, he'll go out of his way to get it for you - obviously at quite a high price!  He is also by 'royal appointment' ever since he acquired a baby red dragon for Prince Velmaht two years ago.  Questions are still being asked today since red dragons have been extinct for over a century.
+
+> down
+You are by the Ladder.
+You can go south or up.
+This is a long, rusty ladder that leads up to the Animal Yard.  A dirty and smelly tunnel leads further into the city sewers to the south.
+
+> s
+You are in the Sewers.
+You can go north, east or southwest.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> sw
+You are in the Sewers.
+You can go south, west or northeast.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> s
+You are in the Sewers.
+You can go north, south or east.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> s
+You are in the Sewers.
+You can go north or northwest.
+You can see a mark on the wall.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> knock mark
+As soon as you stop tapping a secret door opens in the wall.
+
+> e
+You are in the Temple of Skaarah.
+You can go west.
+You can see a Red Priest.
+This evil temple is home to the worshippers of the snake-god Skaarah.  A two-headed serpent who punishes all sinners by eating them alive.
+
+> use dagger on red priest
+You fight to the death and win.  However during the struggle the dagger breaks in two.
+
+> take staff
+You pick it up.
+
+> w
+You are in the Sewers.
+You can go north, northwest or east.
+You can see a mark on the wall.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> n
+You are in the Sewers.
+You can go north, south or east.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> n
+You are in the Sewers.
+You can go south, west or northeast.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> ne
+You are in the Sewers.
+You can go north, east or southwest.
+You are knee-deep in sewage as you wander round the city sewers.
+
+> n
+You are by the Ladder.
+You can go south or up.
+This is a long, rusty ladder that leads up to the Animal Yard.  A dirty and smelly tunnel leads further into the city sewers to the south.
+
+> up
+You are in Wretch's Animal Yard.
+You can go northwest or down.
+This yard has played host to many strange and wonderful beasts.  If the proprietor Conas Wretch hasn't got the animal you want, he'll go out of his way to get it for you - obviously at quite a high price!  He is also by 'royal appointment' ever since he acquired a baby red dragon for Prince Velmaht two years ago.  Questions are still being asked today since red dragons have been extinct for over a century.
+
+> nw
+You are in the Market Square.
+You can go north, south, east, west or southeast.
+You can see a noticeboard and Famak the Landlord.
+The market is closed today with no stalls selling wonderful and exotic goods as it usually does.  This is the very centre of the Merchant District with many businesses doing good trade.  The Orc's Tooth Tavern lies to the west and Wretch's Animal Yard to the southeast.
+
+> n
+You are by the River Bank.
+You can go north or south.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> n
+You are on the Wailing Bridge.
+You can go north or south.
+The strong wooden bridge gets its name from the strong currents of the Blood River pushing the bridge's foundations constantly causing loud creaking noises.  It's even worse if a strong gale is blowing in from the coast.
+
+> n
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> e
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> ne
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> e
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> s
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> sw
+You are outside the White Tower.
+You can go south or northeast.
+You can see an oak door.
+This tower has been here for as long as anyone can remember but not many people know who lives here?!
+
+> use staff on oak door
+As you touch the oak door with the staff the red ruby glows and the door swings open.
+
+> s
+You are at the Bottom of the Tower.
+You can go out or up.
+Stone white steps wind up to a tower room above.
+
+> up
+You are in the Ornate Room.
+You can go up or down.
+You can see a rug, a blue box and an oak trunk.
+This richly-decorated and ornate room has been ransacked.  Tables and chairs are broken and toppled over.  The drapes from the windows have been ripped down and books and scrolls have been burnt or torn.  Someone was looking for something!
+
+> lift rug
+Hidden underneath the rug you find a scroll.
+
+> take scroll
+You pick it up.
+
+> up
+You are in the Observatory.
+You can go down.
+A large brass telescope stands in the centre of this glass-domed roof.  You can see the city on all sides with the Palace to the southeast, the Bluepeak Mountains far to the east, the coastline of the Western Sea to the north and west and even the southern borders of the nearby kingdom of Lauratia.
+
+> open telescope
+You open it.
+A large brass telescope.
+It contains a page.
+
+> take page
+(first removing it from telescope)
+Done.
+
+You pick it up.
+
+> read page
+
+OBLITERATION SPELL
+
+A Black Lotus Flower
+The feather from a Phoenix
+A Dragon's tooth
+
+Mix well and serve cold.
+
+> down
+You are in the Ornate Room.
+You can go up or down.
+You can see a rug, a blue box and an oak trunk.
+This richly-decorated and ornate room has been ransacked.  Tables and chairs are broken and toppled over.  The drapes from the windows have been ripped down and books and scrolls have been burnt or torn.  Someone was looking for something!
+
+> down
+You are at the Bottom of the Tower.
+You can go out or up.
+Stone white steps wind up to a tower room above.
+
+> out
+You are outside the White Tower.
+You can go south or northeast.
+This tower has been here for as long as anyone can remember but not many people know who lives here?!
+
+> ne
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> n
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> ne
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> n
+You are on Lobster Lane.
+You can go south, west or northeast.
+You can see Rango the Beggar.
+You can see a ship has been docked to the northwest off the Swordfish Wharf.  To the west lies the Sailmakers.
+
+> give scroll to rango the beggar
+'This is grave news indeed.  Meridam told me something was to happen soon regarding Velmaht.  Alkazar will of been taken to the City Prison and will be well guarded.  Be careful, my friend.' replies a concerned Rango.
+
+> ne
+You are on the Swordfish Wharf.
+You can go east, west, southwest or to the Ship's Deck.
+You can see Jong the Sailor and some casks.
+The 'Dancing Mermaid' is in dock in front of you and the Harbourmaster's office lies to the west.  The Boatyard lies to the east.
+
+> give flagon of rum to jong the sailor
+He looks around and snatches the rum off you.  'Welcome aboard, shipmate!'
+
+> go to ship's deck
+You are on the Ship's Deck.
+You can go down, to the Swordfish Wharf, to the Fo'c'sle or to the Poop Deck.
+The 'Dancing Mermaid' belongs to Captain Bloodaxe, Prince Velmaht's number one Privateer.  A hatch leads down below deck.
+
+> down
+You are Below Deck.
+You can go up, down, to the Galley or to Crew's Quarters.
+The Crew's Quarters, the Galley and stairs lead in all directions.
+
+> down
+You are in the Cargo Hold.
+You can go up.
+You can see a dead rat.
+Crates fill this hold as well as a small amount of seawater.
+
+> take dead rat
+You pick her up.
+
+> up
+You are Below Deck.
+You can go up, down, to the Galley or to Crew's Quarters.
+The Crew's Quarters, the Galley and stairs lead in all directions.
+
+> up
+You are on the Ship's Deck.
+You can go down, to the Swordfish Wharf, to the Fo'c'sle or to the Poop Deck.
+The 'Dancing Mermaid' belongs to Captain Bloodaxe, Prince Velmaht's number one Privateer.  A hatch leads down below deck.
+
+> go to swordfish wharf
+You are on the Swordfish Wharf.
+You can go east, west, southwest or to the Ship's Deck.
+You can see Jong the Sailor and some casks.
+The 'Dancing Mermaid' is in dock in front of you and the Harbourmaster's office lies to the west.  The Boatyard lies to the east.
+
+> sw
+You are on Lobster Lane.
+You can go south, west or northeast.
+You can see Rango the Beggar.
+You can see a ship has been docked to the northwest off the Swordfish Wharf.  To the west lies the Sailmakers.
+
+> s
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> sw
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> s
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> w
+You are in Guild of Thieves.
+You can go out.
+You can see Malako Stormchaser.
+This is the infamous Guild of Thieves where your membership is determined by trials and luck.  The Guild also has members including beggars and street artists and they're used as eyes and ears for potential rich-pickings.  This is the only establishment Prince Velmaht hasn't any control over because of the rumours that the current Guild Leader, Malako Stormchaser did a favour for a local unknown wizard and a powerful protection spell was cast over the Guild and its members.
+
+> speak to malako stormchaser
+'What do you want?' he snaps.
+'Alkazar is in prison.  He discovered a conspiracy regarding Prince Velmaht.  I need to rescue him.' you shout.
+'This will open any prison cell door in there.' smiles Malako and hands you a golden key, 'Good luck!'
+
+> out
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> n
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> w
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> sw
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> w
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> nw
+You are in the City Prison.
+You can go out.
+You can see Bellam the Jailer.
+This is a dark and dank place of hell.  Screams and groans of 'innocent' voices cry out from the dingy cells.
+
+> use blowpipe on bellam the jailer
+You blow the dart at Bellam and he slaps the back of his neck.  He falls down unconscious.  He'll be out for hours.
+
+> use golden key on cell door
+You unlock the door with the key.
+
+> open cell door
+The cell door opens.
+
+> n
+You are in the Prison Cell.
+You can go south.
+You can see Alkazar the Wizard.
+There is a small, straw-filled cell with a single dirty mattress on a makeshift bed and a single slit in the wall high above you filters through the only daylight.
+
+> give staff to alkazar the wizard
+'Ah, excellent,' he smiles as he takes it off you.  'I cannot help you as Velmaht has protective spells specifically against me.  However, he will not be expecting you.  You will need the instructions to make the obliteration potion.  It is in my tower in the blue box, I think?  I'm off to Lauratia to warn the King.  Find Caracus the Hermit, he'll help you make the potion once you have the ingredients.  Good luck, my friend.'
+With a wave of his staff he vanishes in a puff of smoke.
+
+> look mattress
+You find something hidden inside.
+
+> take silver key
+You pick it up.
+
+> s
+You are in the City Prison.
+You can go out or north.
+You can see Bellam the Jailer.
+This is a dark and dank place of hell.  Screams and groans of 'innocent' voices cry out from the dingy cells.
+
+> out
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> e
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> ne
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> e
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> s
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> sw
+You are outside the White Tower.
+You can go south or northeast.
+This tower has been here for as long as anyone can remember but not many people know who lives here?!
+
+> s
+You are at the Bottom of the Tower.
+You can go out or up.
+Stone white steps wind up to a tower room above.
+
+> up
+You are in the Ornate Room.
+You can go up or down.
+You can see a rug, a blue box and an oak trunk.
+This richly-decorated and ornate room has been ransacked.  Tables and chairs are broken and toppled over.  The drapes from the windows have been ripped down and books and scrolls have been burnt or torn.  Someone was looking for something!
+
+> use silver key on oak trunk
+You unlock the trunk with the key.
+
+> open oak trunk
+You open it.
+
+> look oak trunk
+A small oak trunk.
+It contains a rope and grapnel.
+
+> take rope and grapnel
+(first removing it from oak trunk)
+Done.
+
+You pick it up.
+
+> down
+You are at the Bottom of the Tower.
+You can go out or up.
+Stone white steps wind up to a tower room above.
+
+> out
+You are outside the White Tower.
+You can go south or northeast.
+This tower has been here for as long as anyone can remember but not many people know who lives here?!
+
+> ne
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> n
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> w
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> sw
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> se
+You are in the Alley of Knives.
+You can go northwest.
+You can see a drain.
+This infamous alley holds the record of the most murders in one year, over 150.  I wouldn't hang around here for too long!
+
+> use rope and grapnel on drain
+Using the end of the grapnel you lower the rope and hook onto a copper necklace.
+
+> take copper necklace
+You pick it up.
+
+> nw
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> ne
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> e
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> ne
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> n
+You are on Lobster Lane.
+You can go south, west or northeast.
+You can see Rango the Beggar.
+You can see a ship has been docked to the northwest off the Swordfish Wharf.  To the west lies the Sailmakers.
+
+> w
+You are in the Sailmakers.
+You can go out.
+You can see Yobi the Fisherman.
+If your sails or nets need mending then this is the place to come.
+
+> give copper necklace to yobi the fisherman
+He swaps the necklace for a fishing net.
+
+> out
+You are on Lobster Lane.
+You can go south, west or northeast.
+You can see Rango the Beggar.
+You can see a ship has been docked to the northwest off the Swordfish Wharf.  To the west lies the Sailmakers.
+
+> s
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> sw
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> w
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> sw
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> w
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> w
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> w
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> s
+You are on the Wailing Bridge.
+You can go north or south.
+The strong wooden bridge gets its name from the strong currents of the Blood River pushing the bridge's foundations constantly causing loud creaking noises.  It's even worse if a strong gale is blowing in from the coast.
+
+> s
+You are by the River Bank.
+You can go north or south.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> s
+You are in the Market Square.
+You can go north, south, east, west or southeast.
+You can see a noticeboard and Famak the Landlord.
+The market is closed today with no stalls selling wonderful and exotic goods as it usually does.  This is the very centre of the Merchant District with many businesses doing good trade.  The Orc's Tooth Tavern lies to the west and Wretch's Animal Yard to the southeast.
+
+> e
+You are on Clock Lane.
+You can go north, east or west.
+It has a wide lane with dirty cobbles and a smell that only an undertaker could identify for sure.  To the north stands the Clockmakers and to the east is Marjel's Flower Shop.  To the west the lane leads back to the Market Square.
+
+> e
+You are in Marjel's Flower Shop.
+You can go out.
+You can see a Fly-Trapper and Marjel the Flowerseller.
+The wonderful scents of exotic flowers fill your nostrils as you enter this botanical paradise.  A dangerous-looking Fly-Trapper plant sits near the front door acting as a unique 'watchdog'.
+
+> speak to marjel the flowerseller
+'Can I help you, young man?' she says with a toothless grin.
+'Do you have any Black Lotus Flowers?'
+'Oh no, sir.  They are too dangrous to keep in my shop as they have a deadly aroma.  However, you can see one for yourself in the Public Gardens, but be careful.' she warns.
+
+> out
+You are on Clock Lane.
+You can go north, east or west.
+It has a wide lane with dirty cobbles and a smell that only an undertaker could identify for sure.  To the north stands the Clockmakers and to the east is Marjel's Flower Shop.  To the west the lane leads back to the Market Square.
+
+> w
+You are in the Market Square.
+You can go north, south, east, west or southeast.
+You can see a noticeboard and Famak the Landlord.
+The market is closed today with no stalls selling wonderful and exotic goods as it usually does.  This is the very centre of the Merchant District with many businesses doing good trade.  The Orc's Tooth Tavern lies to the west and Wretch's Animal Yard to the southeast.
+
+> n
+You are by the River Bank.
+You can go north or south.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> n
+You are on the Wailing Bridge.
+You can go north or south.
+The strong wooden bridge gets its name from the strong currents of the Blood River pushing the bridge's foundations constantly causing loud creaking noises.  It's even worse if a strong gale is blowing in from the coast.
+
+> n
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> w
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> w
+You are on Goose Street.
+You can go north, south, east or west.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the west lies a jewellers.
+
+> s
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> e
+You are in the Museum of Death.
+You can go out.
+You can see a guillotine.
+This macabre museum boasts a wonderfully morbid collection of torture devices, weapons and various historical 'claims' on previous residents of the city and their muderous exploits.
+
+> use dead rat on guillotine
+You slice open the rat on the blade and find a key inside its stomach!
+
+> out
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> sw
+You are in the Public Gardens.
+You can go west or northeast.
+You can see a black lotus flower.
+This horticultural wilderness is a far cry from the stone houses surrounding it.  Stories have been told of dangerous creatures or plants residing in these gardens taking hapless victims into the wild undergrowth never to be seen again!
+
+> take black lotus flower
+You pick it up.
+
+> ne
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> n
+You are on Goose Street.
+You can go north, south, east or west.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the west lies a jewellers.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> e
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> ne
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> e
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> ne
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> n
+You are on Lobster Lane.
+You can go south, west or northeast.
+You can see Rango the Beggar.
+You can see a ship has been docked to the northwest off the Swordfish Wharf.  To the west lies the Sailmakers.
+
+> ne
+You are on the Swordfish Wharf.
+You can go east, west, southwest or to the Ship's Deck.
+You can see Jong the Sailor and some casks.
+The 'Dancing Mermaid' is in dock in front of you and the Harbourmaster's office lies to the west.  The Boatyard lies to the east.
+
+> push casks
+When no one is looking you push over the casks and they split pouring ale all over the wharf.
+'What the hell was that?' comes a scream from the Harbourmaster's Office.
+
+> w
+You are in the Harbourmaster's Office.
+You can go out.
+You can see a metal safe.
+This a small office with an oak desk.
+
+> use small key on safe
+You unlock the safe with the key.
+
+> open safe
+You open it.
+
+> look metal safe
+A small metal floor safe.
+It contains a gold ingot and a deed.
+
+> take deed
+(first removing it from metal safe)
+Done.
+
+You pick it up.
+
+> out
+You are on the Swordfish Wharf.
+You can go east, west, southwest or to the Ship's Deck.
+You can see Jong the Sailor and Shantah the Harbourmistress.
+The 'Dancing Mermaid' is in dock in front of you and the Harbourmaster's office lies to the west.  The Boatyard lies to the east.
+
+> sw
+You are on Lobster Lane.
+You can go south, west or northeast.
+You can see Rango the Beggar.
+You can see a ship has been docked to the northwest off the Swordfish Wharf.  To the west lies the Sailmakers.
+
+> s
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> sw
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> w
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> sw
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> w
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> w
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> w
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> w
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> w
+You are on Goose Street.
+You can go north, south, east or west.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the west lies a jewellers.
+
+> s
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> sw
+You are in the Public Gardens.
+You can go west or northeast.
+This horticultural wilderness is a far cry from the stone houses surrounding it.  Stories have been told of dangerous creatures or plants residing in these gardens taking hapless victims into the wild undergrowth never to be seen again!
+
+> w
+You are on Needle Street.
+You can go south, east or west.
+A Blacksmiths leads off to the southwest while the west side of the city will end at Field Gate.
+
+> w
+You are on Needle Street.
+You can go north, east or west.
+The Tailors lie to the north while Monument Square lies to the west.
+
+> w
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> s
+You are in Rose Cottage.
+You can go out.
+You can see Tannith Shantah.
+The picturesque cottage on the outside is a far cry from the inside.  The furnishing are bare and minimal and the floors and walls are encrusted with dirt.
+
+> give deed to tannith shantah
+Her eyes beam with delight and she takes the deed.  She shuffles to a drawer in a nearby desk and takes out a large golden egg and gives it to you in exchange.  'It's the least I could do.' she beams.
+
+> out
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> e
+You are on Needle Street.
+You can go north, east or west.
+The Tailors lie to the north while Monument Square lies to the west.
+
+> e
+You are on Needle Street.
+You can go south, east or west.
+A Blacksmiths leads off to the southwest while the west side of the city will end at Field Gate.
+
+> e
+You are in the Public Gardens.
+You can go west or northeast.
+This horticultural wilderness is a far cry from the stone houses surrounding it.  Stories have been told of dangerous creatures or plants residing in these gardens taking hapless victims into the wild undergrowth never to be seen again!
+
+> ne
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> n
+You are on Goose Street.
+You can go north, south, east or west.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the west lies a jewellers.
+
+> n
+You are on Goose Street.
+You can go north, south or east.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the north lies Meridam Trax's house and to the east resides a Herbalists.
+
+> n
+You are in the Entrance Hall.
+You can go out, east, west or up.
+A small entrance hall with rich drapes and a plush carpet.  Painting hang from the oak-panelled walls and the front door to the south leads outside.  A narrow staircase leads up to the next floor.
+
+> up
+You are on the Landing.
+You can go west or down.
+A narrow staircase leads down to the Entrance Hall and the bedroom lies west.  The windows are dirty and difficult to see out of them.
+
+> w
+You are in the Bedroom.
+You can go east.
+You can see a fireplace and a coalpile.
+A large four-posted bed stands by the west wall while a few dressers complete the only decor in the room.
+
+> use box of matches on coalpile
+You light the coalpile with the matches and a fire burns brightly.
+
+> use egg on burning fire
+As soon as the flames engulfs the egg it hatches into a wonderous Phoenix.
+
+> use fishing net on phoenix
+You throw the net over the Phoenix and now she is caught.
+
+> take phoenix
+You pick her up.
+
+> pluck phoenix
+You pluck a feather from the bird's tail.  Surprisingly she makes no sound.
+
+> e
+You are on the Landing.
+You can go west or down.
+A narrow staircase leads down to the Entrance Hall and the bedroom lies west.  The windows are dirty and difficult to see out of them.
+
+> down
+You are in the Entrance Hall.
+You can go out, east, west or up.
+A small entrance hall with rich drapes and a plush carpet.  Painting hang from the oak-panelled walls and the front door to the south leads outside.  A narrow staircase leads up to the next floor.
+
+> out
+You are on Goose Street.
+You can go north, south or east.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the north lies Meridam Trax's house and to the east resides a Herbalists.
+
+> s
+You are on Goose Street.
+You can go north, south, east or west.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the west lies a jewellers.
+
+> s
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> sw
+You are in the Public Gardens.
+You can go west or northeast.
+This horticultural wilderness is a far cry from the stone houses surrounding it.  Stories have been told of dangerous creatures or plants residing in these gardens taking hapless victims into the wild undergrowth never to be seen again!
+
+> w
+You are on Needle Street.
+You can go south, east or west.
+A Blacksmiths leads off to the southwest while the west side of the city will end at Field Gate.
+
+> w
+You are on Needle Street.
+You can go north, east or west.
+The Tailors lie to the north while Monument Square lies to the west.
+
+> w
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> sw
+You are at Field Gate.
+You can go south, west or northeast.
+This is the western side of the city and opens out towards the coastline and to the southern Kingdom of Lauratia.
+
+> w
+You are in the Hayfield.
+You can go north or east.
+Large haystacks scatter the large field with the Field Gate to the east.  A road leads off to the south towards Lauratia as it hugs the western coastline.  But your destiny does not lie that way.
+
+> n
+You are by the Brook.
+You can go south, northwest or northeast.
+A babbling brook that can easily be crossed lies before you.  The barn lies to the northeast and the ruins to the northwest.  The hayfield lies south.
+
+> ne
+You are in the Barn.
+You can go out.
+This small barn is filled with hay, strange noises come from the rafters and the smell of livestock means it's still in use.
+
+> use rod on rafters
+With the end of the rod you push out the piece of paper from the rafters.
+
+> take map
+You pick it up.
+
+> out
+You are by the Brook.
+You can go south, northwest or northeast.
+A babbling brook that can easily be crossed lies before you.  The barn lies to the northeast and the ruins to the northwest.  The hayfield lies south.
+
+> s
+You are in the Hayfield.
+You can go north or east.
+Large haystacks scatter the large field with the Field Gate to the east.  A road leads off to the south towards Lauratia as it hugs the western coastline.  But your destiny does not lie that way.
+
+> e
+You are at Field Gate.
+You can go south, west or northeast.
+This is the western side of the city and opens out towards the coastline and to the southern Kingdom of Lauratia.
+
+> ne
+You are at Monument Square.
+You can go north, south, east or southwest.
+A large marble fountain stands in the centre as passers-by ignore you in this busy square.  A small picturesque cottage with red and yellow roses around the front door lies to the south.
+
+> e
+You are on Needle Street.
+You can go north, east or west.
+The Tailors lie to the north while Monument Square lies to the west.
+
+> e
+You are on Needle Street.
+You can go south, east or west.
+A Blacksmiths leads off to the southwest while the west side of the city will end at Field Gate.
+
+> e
+You are in the Public Gardens.
+You can go west or northeast.
+This horticultural wilderness is a far cry from the stone houses surrounding it.  Stories have been told of dangerous creatures or plants residing in these gardens taking hapless victims into the wild undergrowth never to be seen again!
+
+> ne
+You are on Garden Lane.
+You can go north, east or southwest.
+This is a pleasant area of the city where the affluent citizens live.  The Public Gardens lie to the southwest and the strange and macabre 'Museum of Death' resides to the east.
+
+> n
+You are on Goose Street.
+You can go north, south, east or west.
+The residents around the Garden District are the richest and yet hardly any crime is reported to the City Guard.  Rumours of magic and protective spells are rife.  To the west lies a jewellers.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> e
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> ne
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> w
+You are in Cartographers.
+You can go out.
+You can see Savlori the Cartographer.
+This shop holds many maps from around the world.  Many detailed and some quite simple dependent on need and price.
+
+> give map to savlori the cartographer
+His eyes light up as you hand it to him.  He composes himself.  'Not a great value, I'm afraid.  However, I need to get my spectacles to have a better look at it.' he stammers and runs into the back room.  A few seconds later a back door slams.  I'm guessing you'll never see this guy again!
+
+> take ink
+You pick it up.
+
+> use ink on feather
+You dip the end of the feather into the ink.
+
+> out
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> sw
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> w
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> w
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> w
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> s
+You are on the Wailing Bridge.
+You can go north or south.
+The strong wooden bridge gets its name from the strong currents of the Blood River pushing the bridge's foundations constantly causing loud creaking noises.  It's even worse if a strong gale is blowing in from the coast.
+
+> s
+You are by the River Bank.
+You can go north or south.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> s
+You are in the Market Square.
+You can go north, south, east, west or southeast.
+You can see a noticeboard and Famak the Landlord.
+The market is closed today with no stalls selling wonderful and exotic goods as it usually does.  This is the very centre of the Merchant District with many businesses doing good trade.  The Orc's Tooth Tavern lies to the west and Wretch's Animal Yard to the southeast.
+
+> look noticeboard
+It tells you what is going on in the City today.  You spy a strange petition.
+
+> use feather on petition
+You sign your name on the petition and a young woman with wild hair and dirty clothes appears smiling at you.  'Thanks for your support, mate.' she spits and shoves a placard into your hand.
+
+> use crowbar on placard
+The two pieces of wood are being a bit stubborn and you end up breaking the wood in useless pieces.  All you're left with is a single nail that held them together.
+
+> n
+You are by the River Bank.
+You can go north or south.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> n
+You are on the Wailing Bridge.
+You can go north or south.
+The strong wooden bridge gets its name from the strong currents of the Blood River pushing the bridge's foundations constantly causing loud creaking noises.  It's even worse if a strong gale is blowing in from the coast.
+
+> n
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> e
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> ne
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> e
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> ne
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> n
+You are on Lobster Lane.
+You can go south, west or northeast.
+You can see Rango the Beggar.
+You can see a ship has been docked to the northwest off the Swordfish Wharf.  To the west lies the Sailmakers.
+
+> ne
+You are on the Swordfish Wharf.
+You can go east, west, southwest or to the Ship's Deck.
+You can see Jong the Sailor and Shantah the Harbourmistress.
+The 'Dancing Mermaid' is in dock in front of you and the Harbourmaster's office lies to the west.  The Boatyard lies to the east.
+
+> e
+You are in the Boatyard.
+You can go west.
+You can see Ivano the Boatbuilder.
+'Boats for Hire and Repair' is the sign that greets you in this busy yard.
+
+> give nail to ivano the boatbuilder
+'Thanks, son.' he beams and gives you a silver amulet he found and doesn't want it - a bit creepy.
+
+> w
+You are on the Swordfish Wharf.
+You can go east, west, southwest or to the Ship's Deck.
+You can see Jong the Sailor and Shantah the Harbourmistress.
+The 'Dancing Mermaid' is in dock in front of you and the Harbourmaster's office lies to the west.  The Boatyard lies to the east.
+
+> go to ship's deck
+You are on the Ship's Deck.
+You can go down, to the Swordfish Wharf, to the Fo'c'sle or to the Poop Deck.
+The 'Dancing Mermaid' belongs to Captain Bloodaxe, Prince Velmaht's number one Privateer.  A hatch leads down below deck.
+
+> go to poop deck
+You are on the Poop Deck.
+You can go down or to the Ship's Deck.
+This is where the ship's wheel resides.  A hatch leads down to the Captain's Cabin.
+
+> down
+You are in the Captain's Cabin.
+You can go up.
+You can see Captain Bloodaxe.
+This cabin is plush and decorated with rich furnishings.  A large chart lies on the table and a huge paperweight made from an actual human skull holds it down.
+
+> give silver amulet to captain bloodaxe
+'Ooh, that looks nice.' he squeals, 'Fancy a trade.' and before you can answer he grabs the amulet and offers you a large tooth.
+
+> take dragon's tooth
+You pick it up.
+
+> up
+You are on the Poop Deck.
+You can go down or to the Ship's Deck.
+This is where the ship's wheel resides.  A hatch leads down to the Captain's Cabin.
+
+> go to ship's deck
+You are on the Ship's Deck.
+You can go down, to the Swordfish Wharf, to the Fo'c'sle or to the Poop Deck.
+The 'Dancing Mermaid' belongs to Captain Bloodaxe, Prince Velmaht's number one Privateer.  A hatch leads down below deck.
+
+> go to swordfish wharf
+You are on the Swordfish Wharf.
+You can go east, west, southwest or to the Ship's Deck.
+You can see Jong the Sailor and Shantah the Harbourmistress.
+The 'Dancing Mermaid' is in dock in front of you and the Harbourmaster's office lies to the west.  The Boatyard lies to the east.
+
+> sw
+You are on Lobster Lane.
+You can go south, west or northeast.
+You can see Rango the Beggar.
+You can see a ship has been docked to the northwest off the Swordfish Wharf.  To the west lies the Sailmakers.
+
+> s
+You are on Lobster Lane.
+You can go north, south, east, southwest or southeast.
+This is the Harbour District with the harbour itself somewhere off to the north.  To the south lies the Catfish Tavern and a Tattooists lies to the southeast.  Warehouses are located all around you but are mainly locked up.
+
+> sw
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> w
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> sw
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> w
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> w
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> w
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> s
+You are on the Wailing Bridge.
+You can go north or south.
+The strong wooden bridge gets its name from the strong currents of the Blood River pushing the bridge's foundations constantly causing loud creaking noises.  It's even worse if a strong gale is blowing in from the coast.
+
+> look bridge
+A secret ladder leads down to the sandbank below.
+
+> climb secret ladder
+You climb down the ladder.
+You are under the bridge.
+You can go south.
+You can see a black door.
+A ladder leads up to the top of the bridge and a small black door leads into the bank.
+
+> open black door
+You open it.
+
+> s
+You are in the hovel.
+You can go north.
+You can see Caracus the Hermit.
+This small abode is full of old discarded items, probably scavenged from the river.
+
+> give black lotus flower to caracus the hermit
+He takes the flower from you.
+
+> give feather to caracus the hermit
+He takes the feather from you.
+
+> give dragon's tooth to caracus the hermit
+He takes the tooth from you.
+Caracus makes the potion for you.
+
+> n
+You are under the bridge.
+You can go south.
+You can see a black door.
+A ladder leads up to the top of the bridge and a small black door leads into the bank.
+
+> climb ladder
+You climb up the ladder.
+You are on the Wailing Bridge.
+You can go north or south.
+You can see a secret ladder.
+The strong wooden bridge gets its name from the strong currents of the Blood River pushing the bridge's foundations constantly causing loud creaking noises.  It's even worse if a strong gale is blowing in from the coast.
+
+> n
+You are on the River Bank.
+You can go south, east or west.
+Port Silvermoon's Blood river is where the city gets its nickname: City of Blood.  Although with many murders unsolved these past number of years, its nickname is morbidly apt.  The river flows from the far east on the Bluepeak Mountains, through to the city here and all the the way to the Western Sea.  Port Silvermoon stands on the northwest corner of the land so the harbour lies on the northside of the city.
+
+> e
+You are on Water Street.
+You can go east or west.
+A small narrow street that runs by Blood River.  The houses around here are derelict because the noise of the Wailing Bridge was too great for anyone to bear.
+
+> e
+You are on Gallow's Hill Square.
+You can go north, south, east, west, northwest or southwest.
+This large city square is home to the hangman's noose and usually gathers a good crowd every tuesday.  The residents of the noose lie at the City Prison to the northwest while the City Morgue and Undertakers reside to the north and south respectively.  The City Graveyard lies to the southwest.
+
+> e
+You are on Axe Street.
+You can go east, west, northeast or southeast.
+The winding street passes the Goblin's Head Tavern lying to the east and the infamous Alley of Knives lies to the southeast.  Gallow's Hill Square lies to the west.
+
+> ne
+You are on Candle Street.
+You can go north, east, west or southwest.
+On this wide street you spot a Cartographers to the west and the Temple of the Sevens Moons to the north.
+
+> e
+You are on Candle Street.
+You can go south, east, west or northeast.
+A waft of sea-air blows in from the northeast and the sound of gulls indicate the City Harbour District.  The Temple of Langra lies to the east.
+
+> s
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> se
+You are outside the Palace Gates.
+You can go south, east, west or northwest.
+This is the new Royal District built over 10 years ago by Prince Velmaht, self-appointed Lord of Port Silvermoon.  He resides in his palace to the west.  He rules the city with an iron-hand and some say he dabbles in the occult.
+
+> s
+You are on Straw Street.
+You can go north, south or southwest.
+This narrow street leads to the Royal Stables to the south.
+
+> sw
+You are in a narrow alley.
+You can go northeast.
+The alley wall on the northside belongs to the Palace while the other wall is from an unknown building.
+
+> use rope and grapnel on rooftop
+You throw the grapnel a few times before it hooks on to the edge of the rooftop.
+
+> climb rope
+You climb up to the rooftop.
+You are on a rooftop.
+You can go down.
+The rooftop looks over to the higher wall where a solitary window and ledge resides opposite you across the alley.
+
+> jump alley
+You make a running jump and reach the ledge across the alley.
+You are on the window ledge.
+You can go to the Balcony.
+The ledge is narrow and a very long drop lies before you into the alley below.
+
+> use crowbar on window
+You break open the window with the crowbar.
+
+> go to balcony
+You are on the Balcony.
+You can go down or to the window ledge.
+The wooden balcony looks over the Palace Courtyard below.
+
+> down
+You are in the Courtyard.
+You can go north, east, west or up.
+The Palace Courtyard is quiet at the moment but loud voices come from a building to the north.  The locked gates lie to the east and the Throne Room to the west.
+
+> w
+You are in the Throne Room.
+You can go east.
+This is a magnificent columned hall with a crystal throne standing upon a marble dais by the west wall.
+
+> use crystal key on throne
+A secret door opens in the west wall behind the throne.
+
+> go to velmaht's sanctum
+You are in Velmaht's Sanctum.
+You can go east.
+You can see Prince Velmaht.
+This room is full of occult and dark magical artifacts.  Skulls, dead animals, potions, spellbooks and a large cauldron fill this chamber.
+
+> use obliteration potion on prince velmaht
+You throw the potion over Velmaht and he explodes into a thousand pieces.  He has been defeated and vengeance is yours.
+
+> e
+You are in the Throne Room.
+You can go east or to Velmaht's Sanctum.
+This is a magnificent columned hall with a crystal throne standing upon a marble dais by the west wall.
+
+> e
+You are in the Courtyard.
+You can go north, east, west or up.
+The Palace Courtyard is quiet at the moment but loud voices come from a building to the north.  The locked gates lie to the east and the Throne Room to the west.
+
+> e
+You are outside the Palace Gates.
+You can go south, east, west or northwest.
+This is the new Royal District built over 10 years ago by Prince Velmaht, self-appointed Lord of Port Silvermoon.  He resides in his palace to the west.  He rules the city with an iron-hand and some say he dabbles in the occult.
+
+> nw
+You are on Candle Street.
+You can go north, south, west, southwest or southeast.
+The Guild of Thieves lies to the west and the newly built (well nearly over 10 years old) Royal District lies to the southeast.  A large white tower stands high above all the other building to the southwest while the Blue Frog Tavern stands to the south.
+
+> s
+You are in Blue Frog Tavern.
+You can go out.
+You can see Alkazar the Wizard.
+This is one of the oldest establishments to exist since the city was founded over 100 years ago.
+
+> speak to alkazar the wizard
+Ask me a question.
+1) Who was the assassin I found in the crypt?
+2) The hawk ring I found led me to Conas Wretch what was his involvement?
+3) Why didn't Velmaht try to kill you?
+4) Why did you tell me the spell was in the blue box when it was in the telescope?
+5) Being a powerful wizard why didn't you kill Velmaht yourself?
+6) Wasn't he aware of my plans to destroy him?
+7) What happens now without a leader to rule the City?
+[choice] 7
+'A few of the City Elders and myself will start proceedings for a democratic vote for a new City Leader.  Each Citizen will be allowed to vote for whom they want and everything will be fair.  Fancy a new career?'
+You both laugh and you buy Alkazar a drink.
+
+The End
+
+You win the game, congratulations!
+
+[runner] turns=498 leftover=0 running=false WON=YES

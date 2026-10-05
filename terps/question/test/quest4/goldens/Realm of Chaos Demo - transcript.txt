@@ -1,0 +1,630 @@
+
+realm of chaos, v1.0
+
+Select an option.
+1) new game
+2) load game
+3) quit game
+[choice] 1
+Enter your name.
+Are you male or female.
+You groan as you wake up. You have to do all the chores today! nooooo!
+
+You are in farmhouse.
+There is chore list here.
+You can go north or south.
+This is the farmhouse where you live. A list of chores is bluetacked to the wall.
+
+
+> s
+You are in back yard.
+There is the fire wood and an axe here.
+You can go north.
+This is the back yard.
+
+> take axe
+You pick it up.
+
+> use axe on fire wood
+You chop the wood.
+
+> n
+You are in farmhouse.
+There is chore list here.
+You can go north or south.
+This is the farmhouse where you live. A list of chores is bluetacked to the wall.
+
+
+> n
+You are in farm yard.
+There is the cows here.
+You can go north, south or west.
+This is the farm yard. The cows are here.
+
+> w
+You are in the barn.
+There is the cow food, pig food and the pigs here.
+You can go east.
+This is the barn.
+
+> take cow food
+You pick it up.
+
+> take pig food
+You pick it up.
+
+> use pig food on pigs
+You feed the pigs.
+
+> e
+You are in farm yard.
+There is the cows here.
+You can go north, south or west.
+This is the farm yard. The cows are here.
+
+> use cow food on cows
+You feed the cows.
+
+> n
+You are in the street.
+You can go north or south.
+This is the street.
+
+> n
+You are in the butchers store.
+There is the butcher and meat here.
+You can go south.
+This is the butchers store.
+
+> speak to butcher
+"Ok here's the meat!"
+
+> s
+You are in the street.
+You can go north or south.
+This is the street.
+
+> s
+You are in farm yard.
+There is the cows here.
+You can go north, south or west.
+This is the farm yard. The cows are here.
+
+> s
+You are in farmhouse.
+There is chore list here.
+You can go north or south.
+This is the farmhouse where you live. A list of chores is bluetacked to the wall.
+You enter your home. You remember your mom's gone on holiday. Suddenly a scream of agony comes from outside! Your babysitter has been chopped in half! You begin to run . An arrow smashes through the window ripping the chore list from the wall and smashing through the back window.
+ "Get him" is yelled from outside and a hail of arrows fly over your head. You run out back and see your village on fire! You vault the side gate and run into the village. There is the legiondary king of darkness.
+
+PRESS A KEY TO CONTINUE!
+
+
+ "well well well time to die."
+"I'll kill you!" you yell charging towards a small sword on the ground.
+You are in burning village.
+There is king of darkness and small sword here.
+
+> take small sword
+You pick it up.
+
+> wield small sword
+You wield the small sword.
+
+> kill king of darkness
+You leap at the king. Before you can even come close a beam of pure shadow bursts from the king's hand and you are thrown backwards unconcious. You wake up a few seconds later the king leaning over you. another beam of shadow hits you and this time you are truely knocked out. However there is a flash of a blade as someone leaps over you. The king dissappearing. A scream of agony and the street turning red.
+
+PRESS A KEY TO CONTINUE!
+
+
+You wake up in a small room. You get up and walk down a small flight of stairs. You suddenly realise where you are due to the fact that there is a sign on the wall reading "welcome to the legend's guild! If you are a recruit talk to guildmaster."
+You are in the guild of legends.
+There is guildmaster here.
+You can go north or south.
+This is the legiondary guild of legends. The greatest warriors w3ere trained here. The guildmaster stands here.
+
+> speak to guildmaster
+"Hi Hrok. It seems you attacked king of darkness?"
+"Uh yeah."
+"You actually came close to him and you somehow have survived his shadow beams. How?"
+"I have no idea" you reply.
+ "You are clearly the chosen one to defeat him. With the right blade and the right armor and the knowledge of where the dark castle is you could probably defeat him."
+"uh ok. How do I even do this?"
+"I will show you. 1st however you must be accepted into the guild of legends. To do this you must train and become a true member of the guild."
+"How do I start?"
+"Go out back and talk to the training instructor. When you complete all his tasks come to me and give me the guild pass he'll give you."
+"ok."
+
+> n
+You are in the training grounds.
+There is the training instructor here.
+You can go north or south.
+This is the training grounds.
+
+> speak to training instructor
+"Oh so you're the new recruit? What's your name?"
+"Hrok" you reply.
+ "Ok name let's start you off with a small enemy. How about this rat."
+ He drops a rat to the ground. Kill it!
+
+> kill rat
+It tries to get away from you!
+
+You hit rat for 11
+rat hits you for 1
+The rat is dead!
+You recieve 4 experience!
+The rat is now dead!
+ "Awsome! Take some trainee platemail for this next one! It's an enchanted dummy. This one has more hp!"
+
+> wear trainee platemail
+You put on the platemail.
+The rat is now dead!
+ "Awsome! Take some trainee platemail for this next one! It's an enchanted dummy. This one has more hp!"
+
+> kill dummy
+It leaps for you!
+The rat is now dead!
+ "Awsome! Take some trainee platemail for this next one! It's an enchanted dummy. This one has more hp!"
+
+You hit dummy for 11
+dummy hits you for 8
+
+You hit dummy for 11
+dummy hits you for 8
+
+You hit dummy for 11
+dummy hits you for 8
+The dummy is dead!
+You recieve 20 experience!
+You gain a level!
+You gain 10 hp!
+You gain 5 attack points!
+
+> n
+You are in the arena.
+There is thorn, doombringer, bloodbath, training instructor, a trainee helmet, trainee leg plates and a trainee longsword here.
+You can go out to training grounds.
+This is the arena. You must fight all the challengers!
+
+> take trainee helmet
+You pick it up.
+
+> take trainee leg plates
+You pick it up.
+
+> take trainee longsword
+You pick it up.
+
+> wear trainee helmet
+You put it on.
+
+> wear trainee leg plates
+You put them on.
+
+> wield trainee longsword
+You wield the longsword.
+
+> kill thorn
+You leap towards him!
+
+You hit thorn for 31
+thorn hits you for 7
+The thorn is dead!
+You recieve 24 experience!
+You gain a level!
+You gain 10 hp!
+You gain 5 attack points!
+
+> kill doombringer
+He charges at you!
+
+You hit doombringer for 36
+doombringer hits you for 10
+The doombringer is dead!
+You recieve 40 experience!
+
+> kill bloodbath
+He leaps at you!
+
+You hit bloodbath for 36
+bloodbath hits you for 20
+
+You hit bloodbath for 36
+bloodbath hits you for 20
+The bloodbath is dead!
+You recieve 100 experience!
+You gain a level!
+You gain 10 hp!
+You gain 5 attack points!
+
+> speak to training instructor
+"Awsome! Here's your reward.
+
+You get 500 gold!
+You get 200 experience!
+You gain a level!
+You gain 10 hp!
+You gain 5 attack points!
+
+> out
+You are in the training grounds.
+There is the training instructor here.
+You can go north or south.
+This is the training grounds.
+
+> s
+You are in the guild of legends.
+There is guildmaster here.
+You can go north or south.
+This is the legiondary guild of legends. The greatest warriors w3ere trained here. The guildmaster stands here.
+
+> give guild pass to guildmaster
+"Oh awsome! You've completed training! Welcome to the guild! What you 1st have to do is find the key head. It's made out of pure darkness and is like a spear. When you find this come back to me. Apparently it's somewhere in the castle of chaos. Good luck!"
+
+> s
+You are in village.
+There is a trader here.
+You can go out to world map. You can go north, south, east or southwest.
+
+> s
+You are in the hotel lobby.
+There is andrew and couch here.
+You can go north.
+This is the hotel lobby.
+
+> use axe on couch
+You chop into the couch and find a medallion.
+
+> take medallion
+You pick it up.
+
+> wear medallion
+You put it on.
+
+> examine medallion
+On the back is written something.
+ "og ot teh wdoso. psaowrd glod."
+
+Written below that is
+ "Den of thieves. STop them!"
+
+> n
+You are in village.
+There is a trader here.
+You can go out to world map. You can go north, south, east or southwest.
+
+> sw
+You are in school gates.
+There is a kid here.
+You can go west or northeast.
+
+> speak to kid
+"We desperately need help. The teachers at this school are brainwashing us. The 1st thing we need you to do is to steal a case of weapons from the bike shed (supply room). Hurry!"
+
+> w
+You vault the fence.
+You are in the playground.
+There is a teacher here.
+You can go south, east or southeast.
+This is the school playground. A teacher is patrolling the playground! Kill him!
+
+> kill teacher
+He points a brainwashing machine at you!
+
+You hit teacher for 46
+teacher hits you for 15
+The teacher is dead!
+You recieve 5 experience!
+You gain a level!
+You gain 10 hp!
+You gain 5 attack points!
+
+> se
+You are in bike shed.
+There is case of weapons here.
+You can go northwest.
+This is the bike shed.
+
+> take case of weapons
+You pick it up.
+
+> nw
+You are in the playground.
+You can go south, east or southeast.
+This is the school playground. A teacher is patrolling the playground! Kill him!
+
+> e
+You are in school gates.
+There is a kid here.
+You can go west or northeast.
+
+> give case of weapons to kid
+"Awsome! Now I need you to kill the head teacher! We'll cause a distraction!"
+
+> w
+You vault the fence.
+You are in the playground.
+You can go south, east or southeast.
+This is the school playground. A teacher is patrolling the playground! Kill him!
+
+> s
+You are in the school hallway.
+There is a teacher guard here.
+You can go north or west.
+This is the school hallway. A teacher is standing next to a door marke "science hallway."
+
+> kill teacher guard
+He leaps at you!
+
+You hit teacher guard for 51
+teacher guard hits you for 30
+
+You hit teacher guard for 51
+teacher guard hits you for 30
+The teacher guard is dead!
+You recieve 120 experience!
+
+> w
+You are lost in the science hallway. Smoke fills the hallway and you can't see anything.
+
+
+> s
+This is a smoke filled science hallway. You have to find the way through!
+
+> w
+You are in the smoke filled science hallway. You can hear burning fires all arround you. You can dimly make out a small button on the wall.
+
+> push button
+You punch the small circle rock on the wall which triggers a weird contraption. The smoke is cleared!
+You are in clear hallway.
+You can go west.
+This is the science hallway. There seems to be nothing here. To the east the hallway is still filled with smoke. To the west is your final destination the head teacher!
+
+> w
+You are in the head teachers office.
+There is the headmaster and a key here.
+You can go east.
+You have finally made it! Fight!
+
+> kill headmaster
+He leaps at you!
+
+You hit headmaster for 51
+headmaster hits you for 40
+
+You hit headmaster for 51
+headmaster hits you for 40
+
+You hit headmaster for 51
+headmaster hits you for 40
+
+You hit headmaster for 51
+headmaster hits you for 40
+
+You hit headmaster for 51
+headmaster hits you for 40
+The headmaster is dead!
+You recieve 1000 experience!
+You gain a level!
+You gain 10 hp!
+You gain 5 attack points!
+
+> take key
+You grab the key and run back to the gate.
+You are in school gates.
+There is a kid here.
+You can go west or northeast.
+
+> give key to kid
+"Awsome! You did it! Here have this 1000 gold and this 2000 experience! Thanks! You've saved all of us! Oh also take this 300 wood!"
+You gain a level!
+You gain 10 hp!
+You gain 5 attack points!
+
+> ne
+You are in village.
+There is a trader here.
+You can go out to world map. You can go north, south, east or southwest.
+
+> speak to trader
+"Can you kill andreqw? He's a thief."
+
+> s
+You are in the hotel lobby.
+There is andrew and couch here.
+You can go north.
+This is the hotel lobby.
+
+> kill andrew
+He leaps away from you desperately trying to escape.
+
+You hit andrew for 61
+andrew hits you for 40
+
+You hit andrew for 61
+andrew hits you for 40
+
+You hit andrew for 61
+andrew hits you for 40
+The andrew is dead!
+You recieve 346 experience!
+You gain a level!
+You gain 10 hp!
+You gain 5 attack points!
+
+> n
+You are in village.
+There is a trader here.
+You can go out to world map. You can go north, south, east or southwest.
+
+> speak to trader
+"Awsome you killed him! Here have 200 gold and this 300 experience. He gives you the money and runs off.
+
+> e
+You are in the bank.
+There is a bank teller and a desk here.
+You can go west.
+This is the village bank. A teller is here.
+
+> speak to teller
+"What will you say?"
+1) "Give me all your money!"
+2) "I want to rent a safety deposit box"
+3) nothing
+[choice] 2
+"Ok."
+ 2 guards escort you to a safety deposit box hallway.
+This is oblivion. NOthing is arround nothing is anywhere!1 You begin to panic. Will you  ever get out? Suddenly the ball of knowledge begins to glow and a voice booms out "Yu must answer this riddle to escape the void. You have infanate chance of getting it right and if you keep getting it wrong you will remain in the void forever!"
+
+I am in a thunder storm,
+can electricute you and you will either die or won't die,
+I can strike at any time and
+metal is my home.
+
+What is your guess?
+
+> kill guard
+You leap at him!
+
+You hit guard for 66
+guard hits you for 70
+
+You hit guard for 66
+guard hits you for 70
+
+You hit guard for 66
+guard hits you for 70
+
+You hit guard for 66
+guard hits you for 70
+The guard is dead!
+You recieve 500 experience!
+You find the vault key on his corpse.
+
+> take vault key
+You pick it up.
+You find the vault key on his corpse.
+
+> use vault key on vault door
+You unlock the door and run through.
+You are in vault.
+There is the orb of knowledge here.
+This is the vault. The orb of knowledge is here.
+You find the vault key on his corpse.
+
+> take orb of knowledge
+As your hand closes around the orb you are teleported to the void!
+A voice booms out.
+
+"ypte lgthign"
+
+
+> lightning
+There is the sound of a thunderstorm. and You find yourself in the world map!
+You are in world map.
+You can go to village or woods.
+
+> go to woods
+You are in the woods.
+There is a tree here.
+You can go out to world map.
+This is the woods. A huge tree is standing here.
+
+> examine tree
+You look at the tree closely. You see that one of the roots has been sliced off. A thief jumps from the hole!
+
+> speak to thief
+"If you guess the wrong password you will die! What is the password?"
+"Ok welcome to den of thieves!"
+You are in the den of thieves 1.
+There is the thief lord here.
+You can go out to woods.
+This is the legiondary den of thieves!
+
+> speak to thief lord
+"Oh it's you Hrok. What are you looking for?"
+"Castle chaos" you reply.
+ "I don't actually know where that is but I know a place where someone there will know. If you want to get the key head  you must complete a quest for me."
+"What quest?"
+"In a safety deposit box in the village lies a valuable artifact known as the orb of knowledge. If you can retrieve this I'll show you the next location on the map."
+"Ok sure."
+
+> give orb of knowledge to thief lord
+"Awsome you got it! Have this 5000 gold and 6000 experience! Here's the next area."
+He pulls out a map and points to a small swamp in the middle of nowhere.
+
+You gain a level!
+You gain 10 hp!
+You gain 5 attack points!
+
+> out
+You are in the woods.
+There is a tree and thief here.
+You can go out to world map.
+This is the woods. A huge tree is standing here.
+
+> out
+You are in world map.
+You can go to village, woods or swamp.
+
+> go to swamp
+are being in terogated!Someone punches you in the stomach! You are grabbed, kicked in the stomach 3 more times, then smashed over the head with a club.
+
+PRESS A KEY TO CONTINUE!
+
+
+You wake in a room that seems to be blank. On the wall is written interogation.
+You are in interigation.
+There is a mirror here.
+You are being interogated!
+"What is your name?"
+1) "Hrok"
+2) "thief lord"
+3) "I'm hrok a wandering trader"
+4) nothing
+[choice] 3
+"hmm. Why are you wandering around the swamp then?"
+
+1) "a thieff stole my goods and ran into the swamp"
+2) "Because I felt like it."
+3) "I was sent by king of darkness to kill you!"
+4) "I was trying to get through the swamps to reach the village."
+[choice] 4
+"If that's so where did you come from?"
+
+1) "the shadowlands"
+2) "atlantis"
+3) "the void"
+4) "hroloch"
+[choice] 4
+"Ok then How did you possibly get all the way from hroloch to here?"
+
+1) "I walked"
+2) "I flew"
+3) "I rode on a horse"
+4) "None of your buisness! Die!"
+[choice] 3
+"It must of taken ages! Now you will stay here until you die!"
+The interagator walks off and a secret door closes behind him.
+
+> use axe on mirror
+You smash the mirror revealing a room on the other side. You run through.
+You are in the swamp lord's laire.
+There is the swamp lord here.
+You can go west.
+This is the legiondary swamp lord's laire.
+
+> use axe on swamp lord
+You crouch down on the other side of the mirror. As the lord leaps at you you hurl the axe decapitating it!
+
+> w
+You run out of the laire. Suddenly you see a huge map of the entire world! You see castle chaos on it!
+You are in world map.
+You can go to village, woods, swamp or castle chaos.
+
+> go to castle chaos
+You are in castle chaos.
+You have completed the demo!
+[runner] turns=92 leftover=0 running=false WON=YES

@@ -1,0 +1,956 @@
+
+Sim Political Career, v1.0 | Aidan Neal
+
+You are in Sim Political Career.
+
+You are a 10-year old hoping to make a career for yourself in the politics of the Democrat Party. Ready to test how far you can climb up the ladder? Think you can climb the ladder, rung by rung, from tuck shop supervisor to Prime Minister? Good.
+
+What's your first name?
+
+What is your surname?
+
+And are you a little boy or a little girl?
+Press any key to begin your career
+
+
+You begin your career as a member of the Democrat Kidz Klub earning 1PP/turn.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+2001 - Your local Democrat Kidz Klub has appointed you to be its tuck shop supervisor. You receive 4PP bonus and will earn 2PP/quarter.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The Democrat Party won the majority of the seats in the 2003 local elections.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The National Party won the majority of your country's seats in the 2004 European Parliament election.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+2005 - Your local Democrat Kidz Klub has appointed you to be its games cupboard captain. You receive a 6PP bonus and will earn 3PP/quarter.
+
+2005 - Your local Democrat Kidz Klub has appointed you to be its trips and events officer. You receive an 8PP bonus and will earn 4PP/quarter.
+
+Stephen Bojangles's Democrat Party has won the 2005 General Election, taking 333 seats to the National Party's 267 seats.
+
+Florence Perceval has successfully challenged Henry Champion for the leadership of the National Party, winning by 173 votes to 93.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+2006 - Your local Democrat Kidz Klub has appointed you to be its chair. You receive a 10PP bonus and will earn 5PP/quarter.
+
+2006 - You leave school and begin college. You are now a college student activist earning 10PP/quarter.
+
+The Democrat Party won the majority of the seats in the 2006 local elections.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+2008 - You have done well enough at college to go to university, which would give you an opportunity to dive head-first into the world of student politics. On the other hand, you could get a job whilst dedicating your spare time to volunteering for your local constituency party. Which path will you choose?
+
+1) university
+2) work
+[choice] 1
+
+You are now a university student activist earning 15PP/quarter.
+
+The Democrat Party won the majority of your country's seats in the 2008 European Parliament election.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The Democrat Party won the majority of the seats in the 2009 local elections.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Stephen Bojangles's Democrat Party has won the 2010 General Election, taking 333 seats to the National Party's 267 seats.
+
+Henry Champion has successfully challenged Florence Perceval for the leadership of the National Party, winning by 190 votes to 76. 
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+You have finished studying for your university degree, and greatly impressed your tutors with your aptitude. Now you must consider whether to study for a doctorate, which would allow you to continue your career in student politics. On the other hand, you could get a job and spend your spare time volunteering for your local constituency association.
+
+1) work
+2) doctorate
+[choice] 1
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Your local constituency party is holding its 2012 Annual General Meeting. Are you interested in running for any of the following positions, which all serve for a year? Next to each position is listed the percentage chance you estimate you have of being able to win it.
+
+Youth Officer - enter 1   (78.2) 
+Treasurer -      enter 2   (64.2)  
+Secretary -       enter 3   (59.0)
+Vice-chair -      enter 4   (47.3)
+Chair -              enter 5   (26.4)
+
+Alternatively, you could challenge for the more powerful party positions below, which each serve for a year...
+
+Regional Executive Committee member - enter 6 (15.2)
+National Executive Committee member -  enter 7 (3.4)
+
+
+The Democrat Party won the majority of the seats in the 2012 local elections.
+
+The Democrat Party won the majority of your country's seats in the 2012 European Parliament election.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Your local constituency party is holding its 2013 Annual General Meeting. Are you interested in running for any of the following positions, which all serve for a year? Next to each position is listed the percentage chance you estimate you have of being able to win it.
+
+Youth Officer - enter 1   (79.1) 
+Treasurer -      enter 2   (65.5)  
+Secretary -       enter 3   (60.3)
+Vice-chair -      enter 4   (48.7)
+Chair -              enter 5   (27.5)
+
+Alternatively, you could challenge for the more powerful party positions below, which each serve for a year...
+
+Regional Executive Committee member - enter 6 (15.9)
+National Executive Committee member -  enter 7 (3.6)
+
+
+Democrat Party members have elected you to serve as a national executive committee member. You receive a 2000PP bonus and will earn 1000PP/quarter.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Your local constituency party is holding its 2014 Annual General Meeting. Are you interested in running for any of the following positions, which all serve for a year? Next to each position is listed the percentage chance you estimate you have of being able to win it.
+
+Youth Officer - enter 1   (98.4) 
+Treasurer -      enter 2   (96.9)  
+Secretary -       enter 3   (96.2)
+Vice-chair -      enter 4   (94.1)
+Chair -              enter 5   (86.4)
+
+Alternatively, you could challenge for the more powerful party positions below, which each serve for a year...
+
+Regional Executive Committee member - enter 6 (76.1)
+National Executive Committee member -  enter 7 (38.9)
+
+
+Democrat Party members have elected you to serve as a national executive committee member. You receive a 2000PP bonus and will earn 1000PP/quarter.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Your local constituency party is holding its 2015 Annual General Meeting. Are you interested in running for any of the following positions, which all serve for a year? Next to each position is listed the percentage chance you estimate you have of being able to win it.
+
+Youth Officer - enter 1   (99.1) 
+Treasurer -      enter 2   (98.4)  
+Secretary -       enter 3   (98.0)
+Vice-chair -      enter 4   (96.8)
+Chair -              enter 5   (92.5)
+
+Alternatively, you could challenge for the more powerful party positions below, which each serve for a year...
+
+Regional Executive Committee member - enter 6 (86.0)
+National Executive Committee member -  enter 7 (55.3)
+
+
+Your local constituency party has offered to select you as a candidate for the council elections. If you are successful, you will be expected to give a 3 year commitment to the role during which you will not apply for other political offices. Do you accept the invitation?
+
+1) Yes
+2) No
+[choice] 2
+
+
+The Democrat Party won the majority of the seats in the 2015 local elections.
+
+Stephen Bojangles's Democrat Party has won the 2015 General Election, taking 303 seats to the National Party's 297 seats.
+
+Florence Perceval has successfully challenged Henry Champion for the leadership of the National Party, winning by 209 votes to 87.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Your local constituency party is holding its 2016 Annual General Meeting. Are you interested in running for any of the following positions, which all serve for a year? Next to each position is listed the percentage chance you estimate you have of being able to win it.
+
+Youth Officer - enter 1   (0) 
+Treasurer -      enter 2   (98.4)  
+Secretary -       enter 3   (98.0)
+Vice-chair -      enter 4   (96.8)
+Chair -              enter 5   (92.5)
+
+Alternatively, you could challenge for the more powerful party positions below, which each serve for a year...
+
+Regional Executive Committee member - enter 6 (86.1)
+National Executive Committee member -  enter 7 (55.3)
+
+
+Your regional party has offered to select you as a candidate for elections to the European Parliament. If successful, you will be expected to give a 4 year commitment during which you will not apply for other political offices. Do you accept the invitation?
+
+1) Yes
+2) No
+[choice] 1
+Congratulations! You are now a Member of the European Parliament (MEP). You receive a 2000PP bonus and will earn 1000PP/quarter. 
+
+The National Party won the majority of your country's seats in the 2016 European Parliament election.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The Democrat Party won the majority of the seats in the 2018 local elections.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Your regional party has invited you to stand again for your European Parliament seat. Do you accept? As with last time, if you are successful, you will be expected to commit for 4 years during which you will not apply for other political offices. Do you accept the invitation, or do you stand down in hope of achieving greater things? You estimate your percentage chance of being selected as a General Election candidate at 19.8.
+
+1) Yes
+2) No
+[choice] 1
+Congratulations! You have been re-elected as a Member of the European Parliament (MEP). You receive a bonus of 2000PP.
+
+The Democrat Party won the majority of your country's seats in the 2020 European Parliament election.
+
+Stephen Bojangles's Democrat Party has won the 2020 General Election, taking 309 seats to the National Party's 291 seats.
+
+Following her General Election defeat, Florence Perceval fended off a leadership challenge from Henry Champion. In a ballot of the parliamentary National Party she won 170 votes to Champion's 120.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The Democrat Party won the majority of the seats in the 2021 local elections.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+2022 - You have fallen in love with a woman. She has political connections, and a marriage to her would boost your political career by 2020PP as well as giving you the chance to have children and build a political dynasty. Do you offer to marry her, or do you repress your romantic urges in order to hold out for the prospect of a more politically beneficial marriage in the future?
+
+1) yes
+2) no
+[choice] 2
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+2023 - The Democrat Party in the European Parliament has appointed you as its European Party Leader. You receive a 4000PP bonus and will earn 2000PP/quarter. 
+
+2023 - The European Democrats group in the European Parliament, to which your Democrat Party is affiliated, has appointed you as its European Group Leader. You receive a 10000PP bonus and will earn 5000PP/quarter.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The Democrat Party won the majority of the seats in the 2024 local elections.
+
+Your regional party has invited you to stand again for your European Parliament seat. Do you accept? As with last time, if you are successful, you will be expected to commit for 4 years during which you will not apply for other political offices. Do you accept the invitation, or do you stand down in hope of achieving greater things? You estimate your percentage chance of being selected as a General Election candidate at 39.3.
+
+1) Yes
+2) No
+[choice] 2
+
+You stand down as an MEP and return to being a constituency activist earning 5PP/quarter.
+
+The Democrat Party won the majority of your country's seats in the 2024 European Parliament election.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Your local constituency party is holding its 2025 Annual General Meeting. Are you interested in running for any of the following positions, which all serve for a year? Next to each position is listed the percentage chance you estimate you have of being able to win it.
+
+Youth Officer - enter 1   (0) 
+Treasurer -      enter 2   (99.7)  
+Secretary -       enter 3   (99.6)
+Vice-chair -      enter 4   (99.4)
+Chair -              enter 5   (98.7)
+
+Alternatively, you could challenge for the more powerful party positions below, which each serve for a year...
+
+Regional Executive Committee member - enter 6 (97.5)
+National Executive Committee member -  enter 7 (88.6)
+
+
+Your constituency party has offered to select you as a candidate for election to the House of Commons. If successful, you will be expected to give a 5 year commitment during which you will not apply for other political offices. Do you accept the invitation?
+
+1) Yes
+2) No
+[choice] 1
+Congratulations! You are now a Member of Parliament (MP). You receive a 10000PP bonus and will earn 5000PP/quarter. 
+
+Florence Perceval's National Party has won the 2025 General Election, taking 309 seats to the Democrat Party's 291 seats.
+
+Following your party's General Election defeat, there will now be a leadership contest. As a Democrat MP you must choose whether to support Bojangles, O'Connor or give an appearance of neutrality whilst keeping your vote a secret.  This choice will affect how your allegiances are perceived, and will influence your prospects of climbing up the frontbench promotion ladder under whoever is in control of the party after this election is over.
+
+1) Bojangles
+2) O'Connor
+3) stay neutral
+[choice] 1
+
+Stephen Bojangles warmly welcomes you aboard his campaign team and hints you will have a great political career ahead of you under his leadership.
+
+Stephen Bojangles defeated Michael O'Connor by 206 to 84 votes.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The National Party won the majority of the seats in the 2027 local elections.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Opposition leader Stephen Bojangles has offered you an opportunity to become an  opposition whip. Do you accept the offer?
+
+1) yes
+2) no
+[choice] 1
+
+You are now an opposition whip. You receive a 14000PP bonus and will earn 7000PP/quarter.
+
+The National Party won the majority of your country's seats in the 2028 European Parliament election.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+2029 - You have fallen in love with a woman. She has political connections, and a marriage to her would boost your political career by 9521PP as well as giving you the chance to have children and build a political dynasty. Do you offer to marry her, or do you repress your romantic urges in order to hold out for the prospect of a more politically beneficial marriage in the future?
+
+1) yes
+2) no
+[choice] 1
+
+Congratulations, you are now a married man!
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The Democrat Party won the majority of the seats in the 2030 local elections.
+
+Your constituency party has invited you to stand again for your House of Commons seat. Do you accept? As with last time, if you are successful you will be expected to commit for 4 years during which you will not apply for other political offices.
+
+
+1) Yes
+2) No
+[choice] 1
+Congratulations! You have been re-elected as a Member of Parliament (MP). You receive a bonus of 10000PP.
+
+Stephen Bojangles's Democrat Party has won the 2030 General Election, taking 303 seats to the National Party's 297 seats.
+
+Henry Champion has successfully challenged Florence Perceval for the leadership of the National Party, winning by 181 votes to 115. 
+
+Your party has won the election, so your previous opposition job is now redundant. Perhaps you can win a place in the new government?
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+2031 - You have been appointed chair of an all-party group of parliamentary colleagues. You receive a 20000PP bonus and will earn 10000PP/quarter.
+
+Prime Minister Stephen Bojangles has offered you an opportunity to become a  parliamentary private secretary. Do you accept the offer?
+
+1) yes
+2) no
+[choice] 1
+
+You are now a parliamentary private secretary. You receive a 14000PP bonus and will earn 7000PP/quarter.
+
+Prime Minister Stephen Bojangles has offered you an opportunity to become a  government whip. Do you accept the offer?
+
+1) yes
+2) no
+[choice] 2
+
+
+2031 - Congratulations! You have had a baby boy. What should his first name be?
+
+Your boy's full name is Mr Sam Smith. You are enormously proud of him and will raise him to be as fine a politician as yourself.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Prime Minister Stephen Bojangles has offered you an opportunity to become a  government whip. Do you accept the offer?
+
+1) yes
+2) no
+[choice] 1
+
+You are now a government whip. You receive a 20000PP bonus and will earn 10000PP/quarter.
+
+Prime Minister Stephen Bojangles has offered you an opportunity to become a  parliamentary under-secretary. Do you accept the offer?
+
+1) yes
+2) no
+[choice] 1
+
+You are now a parliamentary under-secretary. You receive a 200000PP bonus and will earn 100000PP/quarter.
+
+The National Party won the majority of your country's seats in the 2032 European Parliament election.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Prime Minister Stephen Bojangles has offered you an opportunity to become a  minister of state. Do you accept the offer?
+
+1) yes
+2) no
+[choice] 1
+
+You are now a minister of state. You receive a 400000PP bonus and will earn 200000PP/quarter.
+
+The National Party won the majority of the seats in the 2033 local elections.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Your constituency party has invited you to stand again for your House of Commons seat. Do you accept? As with last time, if you are successful you will be expected to commit for 4 years during which you will not apply for other political offices.
+
+
+1) Yes
+2) No
+[choice] 1
+Congratulations! You have been re-elected as a Member of Parliament (MP). You receive a bonus of 10000PP.
+
+Stephen Bojangles's Democrat Party has won the 2035 General Election, taking 333 seats to the National Party's 267 seats.
+
+Following his General Election defeat, Henry Champion has fended off a leadership challenge from Florence Perceval. In a ballot of the parliamentary National Party he won 162 votes to Perceval's 104.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The National Party won the majority of the seats in the 2036 local elections.
+
+The National Party won the majority of your country's seats in the 2036 European Parliament election.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The Democrat Party won the majority of the seats in the 2039 local elections.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The Democrat Party won the majority of your country's seats in the 2040 European Parliament election.
+
+Your constituency party has invited you to stand again for your House of Commons seat. Do you accept? As with last time, if you are successful you will be expected to commit for 4 years during which you will not apply for other political offices.
+
+
+1) Yes
+2) No
+[choice] 1
+Congratulations! You have been re-elected as a Member of Parliament (MP). You receive a bonus of 10000PP.
+
+Stephen Bojangles's Democrat Party has won the 2040 General Election, taking 327 seats to the National Party's 273 seats.
+
+Following his General Election defeat, Henry Champion has fended off a leadership challenge from Florence Perceval. In a ballot of the parliamentary National Party he won 140 votes to Perceval's 132.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The National Party won the majority of the seats in the 2042 local elections.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The Democrat Party won the majority of your country's seats in the 2044 European Parliament election.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+The Democrat Party won the majority of the seats in the 2045 local elections.
+
+Your constituency party has invited you to stand again for your House of Commons seat. Do you accept? As with last time, if you are successful you will be expected to commit for 4 years during which you will not apply for other political offices.
+
+
+1) Yes
+2) No
+[choice] 1
+Congratulations! You have been re-elected as a Member of Parliament (MP). You receive a bonus of 10000PP.
+
+Stephen Bojangles's Democrat Party has won the 2045 General Election, taking 315 seats to the National Party's 285 seats.
+
+Following his General Election defeat, Henry Champion has fended off a leadership challenge from Florence Perceval. In a ballot of the parliamentary National Party he won 143 votes to Perceval's 141.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Prime Minister Stephen Bojangles has appointed you Defence Secretary. You receive a 4,200,000PP bonus and will earn 2,100,000PP/per quarter.
+
+Prime Minister Stephen Bojangles has appointed you Foreign Secretary. You receive a 50,000,000PP bonus and will earn 25,000,000PP/per quarter.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+> look
+You are in Sim Political Career.
+
+Prime Minister Stephen Bojangles has decided, after years of public service, to stand down from office. Michael O'Connor considered running for office to replace him, but the tide of popularity was so heavily in your favour that in the end you were crowned Prime Minister without a contest.
+
+Congratulations, you have made it to the top - the very top! I could let you carry on playing, but as the saying goes, "All political careers end in failure" - so it's best to end the game here and celebrate your achievement.
+
+Once again, congratulations, Prime Minister The Rt. Hon. Alex Smith MP!
+[runner] turns=193 leftover=0 running=false WON=YES

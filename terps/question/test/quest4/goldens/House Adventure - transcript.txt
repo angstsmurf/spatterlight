@@ -1,0 +1,109 @@
+
+House Adventure, v1
+
+You are in Living Room.
+There is TV, HIFI, Lamp and Computer here.
+You can go north, south or east.
+You are in your Living Room.
+
+You can see a TV set, a HIFI, lamp, and a computer
+
+> look at tv
+It has a power on switch
+
+> press power switch tv
+The TV now shows a News Channel
+
+> press power on hifi
+The radio jumps to life
+
+> scan hifi
+The radio scans and stoppes at a classic radio station
+
+> press power switch on computer
+I can't see that here.
+
+> type 122 computer
+the computer is now logged on
+
+> take lamp
+taken
+
+> turn on lamp
+the lamp turns on
+
+> north
+You are in Kitchen.
+There is fridge and blender here.
+You can go south.
+This is a kitchen.
+
+there is a fridge and a blender here
+
+> open fridge
+you open the fridge revealing nothing
+
+> close fridge
+you close the fridge
+
+> take blender
+you take the blender
+
+> press blend on blender
+the blender blends destroying whatever is in it
+
+> south
+You are in Living Room.
+There is TV, HIFI, Lamp and Computer here.
+You can go north, south or east.
+You are in your Living Room.
+
+You can see a TV set, a HIFI, lamp, and a computer
+
+> south
+You are in Bedroom.
+There is Bed and radio here.
+You can go north.
+This is your bedroom.
+
+There is a bed here and a radio
+
+> lay on bed
+I can't see that here.
+
+> press power on radio
+the radio starts up
+
+> press scan on radio
+the radio scan's untill it comes to a classical radio station
+
+> north
+You are in Living Room.
+There is TV, HIFI, Lamp and Computer here.
+You can go north, south or east.
+You are in your Living Room.
+
+You can see a TV set, a HIFI, lamp, and a computer
+
+> east
+You are in Bathroom.
+There is Toilet, sink and bath here.
+You can go west.
+You are in your bathroom.
+There is a toilet, a sink, and a bath here.
+
+> use toilet
+you don't need to
+
+> flush toilet
+the toilet flushes with a loud ssssssss!
+
+> turn tap on sink
+the hot water comes on
+
+> turn tap on bath
+the hot water comes on
+
+> get in bath
+you get in the bath
+[runner] turns=25 leftover=0 running=true WON=YES

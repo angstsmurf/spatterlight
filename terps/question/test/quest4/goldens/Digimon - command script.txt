@@ -1,0 +1,10 @@
+take blue card
+s
+e
+down
+down
+speak to animal
+take digivice
+ne
+use blue card on digivice
+finish

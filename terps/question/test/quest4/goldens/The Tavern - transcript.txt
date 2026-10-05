@@ -1,0 +1,69 @@
+
+The Tavern, v1.0 | Gamer!
+
+Welcome to this game.
+In this game you will have to escape a tavern.
+It might be a bit easy.
+
+Just remember get out of the tavern!
+
+You have just come off a ship and book yourself into a tavern. You go up to your room. As you are about to fall asleep you suddenly hear the key turning in your bedroom door! You'r trapped in your bedroom!
+
+You are in your bedroom. You can't get out of it. You should try anyway.
+There is bed, bedside table, bookshelf, book and door here.
+Your bedroom is tiny! There is only a bed, a dresser, a bedside table and a bookshelf.
+
+> punch bookshelf
+Please select which bookshelf you mean:
+1) a bookshelf
+2) a bookshelf
+[choice] 2
+You punch the bookshelf and the book falls on the floor.
+
+> take book
+You take the book.
+
+> use book on door
+You hurl the book at the door. The door explodes. The book was a bomb! Suddenly your eyes widen in horror as the floor falls away and you fall into a store room!
+You are in a store room. It's the emptiest room you've ever sceen!
+There is door 2 here.
+You can go down.
+
+> down
+You are in a basement. There is loads of helpful stuff hear. You can rumage to your heart's content.
+There is pistol and cardboard box here.
+You can go up.
+
+> search box
+You rumage in the box and find a key!
+
+> take pistol
+You take the pistol and put it in your pocket. Not such a gould idea but you don't die!
+
+> up
+You are in a store room. It's the emptiest room you've ever sceen!
+There is door 2 here.
+You can go down.
+
+> use key on door
+You use the key on the door and it swings open. You walk into the tavern and see the pirate who locked you in the room.
+"I knew you would make it."
+"Is that a good thing or a bad thing" You say.
+"bad because your going to die."
+You are in Tavern.
+There is pirate here.
+
+> use gun on pirate
+You shoot the pirate. He slumps over a table. You run from the tavern into the cool night air.
+You run down the street. You find your crue.
+"we heard a pistol shot."
+"Yah I shot a mad pirate who locked me in my hotel room."
+"You shot the pirate assassin?"
+"who's the pirate assassin?"
+"He locks people in there rooms with bombs."
+"Yah I shot him."
+
+ You and your crue sail to your hometown's. You all become famous. You become a hero.
+
+You win!!!
+[runner] turns=9 leftover=0 running=false WON=YES

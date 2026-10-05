@@ -1,0 +1,290 @@
+
+Doctor Who's 50th Birthday Cake
+
+The Doctor's 50th birthday cake has gone missing, as has the Doctor.  As an agent for the United Nations Intellgence Taskforce, under the Brigadier, you have been assigned the task of finding the cake and the Doctor, so he can enjoy his 50th with friends in the U.N.I.T. conservatory.  A hint:  look at things more than once, and check out scenery objects, in case they contain hidden truths.  Have a good old rummage about...
+
+You are in your conservatory.
+There is a silver pen here.
+You can go south.
+The southern window shows your well-tended garden, undulating lawns leading down to the shrubbery you cherish so much.  The Persian rug, with its purple centre and spinning amber diamonds, has both beauty and function.  Your rocking-chair is here, by the coffee-table at which you do the Sunday crossword.  Your faithful radiogram skulks in the corner.
+
+> take silver pen
+(first removing it from coffee table)
+Done.
+
+You pick it up.
+
+> s
+You are on the lawn.
+There is a lanky oak and a trowel here.
+You can go north, south, west, up or down.
+Let's face it, this lawn takes a lot of looking after, but it's worth it.  High-maintenance, yes, but lush as a dew-clad duvet in Kermit-green.  The well here has always intrigued you, coming, as it did, with the house.  The lanky oak reaches up, its upper branches fidgeting on high.
+
+> w
+You are at the checkpoint.
+There is Sergeant Benton here.
+You can go east or west.
+This is a high-security area, through which only authorised persons can pass.  There is a monitor on the wall, a desk, and a rather attractive turnstile.  The floor is checkered, like your past.
+
+> speak to sergeant benton
+He says, 'Before I can let you pass, I must ask a security question.  What does the acronym U.N.I.T. stand for?'
+
+> say united nations intelligence taskforce
+Benton is satisfied.  You may pass.  And he pops off across the training-ground for a fag behind the lab.
+
+> w
+You are in the training ground.
+There is an unpleasant Sea Devil here.
+You can go north, south, east or west.
+Gravel-floored, this training-ground is state-of-the-art, at least it was in 1972.  To your east, the checkpoint, your west, the U.N.I.T. laboratory, your south, the U.N.I.T. assault course, and to your north, the Brigadier's quarters.  The gritty ground is scuffed about, implying a tussle, and it looks as if someone, or something, was dragged away, in the general direction of the Brig's place.
+
+> n
+You are in the Brigadier's maisonette.
+There is a bar of caramac, a houseplant and a quality bed here.
+You can go south.
+A charming spot for a senior military man to relax and contemplate tactics.  A Welsh dresser, to honour his Scottish heritage, looms in oak.  A proud houseplant is in full leaf on the windowsill.  A firm-mattressed bed is tucked under the window, the leafs of the houseplant drooping from above.  There is a framed picture on the wall.
+You fancy you hear the voice of Tony Robinson, not so far away.  Could it be that the Time Team will play a part in your adventure?
+
+> take bar of caramac
+(first removing it from Welsh dresser)
+Done.
+
+You take up the golden caramac.
+
+> open cupboard
+The cupboard creaks open.
+
+> take cube of carrot cake
+(first removing it from cupboard)
+Done.
+
+You are now the owner of a cube of carrot cake, nicely iced.
+
+> s
+You are in the training ground.
+There is an unpleasant Sea Devil here.
+You can go north, south, east or west.
+Gravel-floored, this training-ground is state-of-the-art, at least it was in 1972.  To your east, the checkpoint, your west, the U.N.I.T. laboratory, your south, the U.N.I.T. assault course, and to your north, the Brigadier's quarters.  The gritty ground is scuffed about, implying a tussle, and it looks as if someone, or something, was dragged away, in the general direction of the Brig's place.
+
+> e
+You are at the checkpoint.
+You can go east or west.
+This is a high-security area, through which only authorised persons can pass.  There is a monitor on the wall, a desk, and a rather attractive turnstile.  The floor is checkered, like your past.
+
+> e
+Don't forget to look around carefully, kiss things, enter things, kill things, and get to the Tea Room of Doom.
+You are on the lawn.
+There is a lanky oak and a trowel here.
+You can go north, south, west, up or down.
+Let's face it, this lawn takes a lot of looking after, but it's worth it.  High-maintenance, yes, but lush as a dew-clad duvet in Kermit-green.  The well here has always intrigued you, coming, as it did, with the house.  The lanky oak reaches up, its upper branches fidgeting on high.
+
+> d
+You are at the bottom of the well.
+There is a skull and some furry lichen here.
+You can go east or up.
+Brickwork encircles you.  Beneath your feet, soft, dark mud, with crunchy bits in.  The ladder, almost disintegrating with rust, reaches up to the dim disc of light above you.  Furry lichen clings in patches to the jagged, circular wall.
+
+> e
+You are in Penelope's room.
+There is a quilt and a Waterstone's diary here.
+You can go east or west.
+Deep maroon walls, moss-flecked, and undulating, oozing carpet envelop you, with a ceiling above dripping deep blue peardrops, quivering, then dropping upon and around you, like medicinal stalagtites onto the soft, dank carpet.  Otherwise, quite a nice room.  There is a bed and a bedside-cabinet here, and strange hieroglyphs on the burgundy brickwork.
+Your observance in realising the pen is an umbrella has won you safe passage into, and through, the boudoir of the elusive Penelope.
+
+> e
+You are in the tunnel of rats.
+There is a gargoyle and a giant rat here.
+You can go east or west.
+Gloopy dank puddles have formed on the slippy, lichen-clad cobble.  The muffled rustling of rodents seems to echo about you.  West, the charming Penelope's room, east, unknown horrors await.  A gargoyle gargles brackish juice, a scowling reminder that we all erode in time, his granite eyes staring blindly into the gloom, yet seeming to see.
+
+> sing to giant rat
+The glastly rodent's whiskers begin to droop, as do his ridged'n'filthy eyelids, and within moments he's slumping into the brackish muck.  But then, as if fighting the opening images of a dream, he stirs, and dashes off into the darkness, squawking like an unemployed parrot.
+
+> e
+You are in the sewer sluice.
+You can go north, south or west.
+The floor beneath your feet is thick with stinking matter, with a strange dark green weed seeming to flourish in the filth.  You can see daylight to your north, and a dark dead-end to your south.
+
+> s
+You are in the cripple's cell.
+There is a dangling chain here.
+You can go north.
+A horrid nook, with damp straw strewn.  A corroded chain hangs from the wall, its end severed.  Marks in the wall look like someone's, or something's, attempt at graffiti.  There is a smell of stale savaloy.
+
+> pull chain
+You tug at the rusty links and, as you do, the floor beneath you falls away, as do you.  You tumble blindly down into an almost pitch-black chamber - I could say room, but chamber sounds more ominous.
+You are in Sutekh's chamber.
+There is a throne, a grimacing sarcophagus, a golden savaloy, Sutekh and some diamonds here.
+Alone in the centre of the room, a throne of pure jet, charcoal-like in finish.  It is Sutekh's wheelless wheelchair, that keeps him pedalling maniacally merely to stay at a standstill in the bounds of the whirling continuum.  It comes flat-pack, or preassembled on delivery, for a little extra.  There is a scanner on the cobweb-clad wall, dim diamonds glinting as an image of the upper-world lights the gloam.  There is a sacrophagus leaning dustily against the wall, it's scowling face seeming to move in the gloom.
+
+> open golden savaloy
+You unscrew the savaloy.
+A sacred relic from the time of Sutekh, this savaloy is said to contain a sacred key, a key that can lead to a mystery, a key that can lead to cake, perhaps.
+It contains a sacred key.
+
+> take sacred key
+(first removing it from golden savaloy)
+Done.
+
+The glinting chubb is yours.
+
+> enter sarcophagus
+Lid to one side, curiosity draws you into the darkness within the cask.  Your feet float beneath you, as if held up by repellant magnets.  You stagger into the void, and slowly, as you proceed, lights appear before and around you, spiralling, golden, red, swimming, blues, yellow, iridescent green, and then, as you stumble at the heart of the vortex, you are vomitted forth into the much-vaunted Tea Room Of Doom.
+You are in the much-vaunted Tea Room Of Doom.
+There is a stout Sontaran and a moist banana muffin here.
+You can go to the copse of the living corpse.
+A dainty tea room indeed, with a smattering of seersucker tablecloths all about, and chairs that look genuinely high class, even better than Robert Dyas Cluedo range.  The rug is like the one in your conservatory.
+
+> go to copse of the living corpse
+You are in the copse of the living corpse.
+There is an autocoracle and a Peter Alice endorsed putter here.
+You can go to the much-vaunted Tea Room Of Doom.
+A popular spot for a walk, this copse was landscaped by the Brigadier on a free weekend.  There is a small statue here, a reedy lake, a leafy island at its centre, a pagoda designed for user-relaxation, and a rolling lawn, with a putting-hole on.  It is so popular, it even has its own tea room, a vision in pebbledash to the north.
+
+> enter pagoda
+Yes, by entering the time pagoda, you are returned to your conservatory by means of pagoda transmat technology, copyright Robert Dyas.
+You are in your conservatory.
+You can go south.
+The southern window shows your well-tended garden, undulating lawns leading down to the shrubbery you cherish so much.  The Persian rug, with its purple centre and spinning amber diamonds, has both beauty and function.  Your rocking-chair is here, by the coffee-table at which you do the Sunday crossword.  Your faithful radiogram skulks in the corner.
+
+> s
+You are on the lawn.
+There is a lanky oak, a trowel and a giant rat here.
+You can go north, south, west, up or down.
+Let's face it, this lawn takes a lot of looking after, but it's worth it.  High-maintenance, yes, but lush as a dew-clad duvet in Kermit-green.  The well here has always intrigued you, coming, as it did, with the house.  The lanky oak reaches up, its upper branches fidgeting on high.
+
+> s
+You are in the well-tended shrubbery.
+There is a leaflet here.
+You can go north or south.
+The low, mossy soil is sumptuous 'neath your feet.  A rhododendron bush in full, glossy, dark-leafed bloom, seems to surround a space within, the kind of place Just William would set up camp.  The statue of Bowen is here, an edifice of the comedian and Bullseye presenter who proved something of an oracle in the game Sutekh Is Hiding In Your Priory.  There is a soggy spring here, emitting a gentle bubbling trickle.  There are also some shrubs here, arcing like nurses around the bench, in the shady nook you value so much.
+
+> enter bush
+You stumble into the foliage, but before you can establish yourself, you are tumbling blind into a trap left there many years ago as part of a U.N.I.T. exercise...serves you right for house-sharing with a military outfit, some might say.
+You are in the pit of all malevolence.
+There is a clump of roots here.
+Twelve-feet deep, six-feet wide, and seemingly impossible to escape, roots poke in from the sides of the pit, and above, the dark shroud of the rhododendron bush that betrayed you so badly, its leaves a taunting dome in deepest green.  What look like characters have been scratched into the earth.
+
+> eat roots
+Yes, you were quite right to ingest the magic rhododendron roots, although don't try this at home.  They have astral-travelled you to another part of your adventure.  I'm sure you'll get your bearings in time.
+You are in the cavernous school kitchen.
+There is a sliver of gallifrey gateau, a dumb waiter and a clump of broccoli here.
+You can go south.
+The high-ceilinged kitchen looks very industrious, even when empty.  A long bench for assembling casseroles stretches out before you, an oven, a fridge, and a dumb-waiter adorn one wall, and shelves opposite, with many a jug, jar, and packet on.  There is also a big industrial dishwasher, and a hatch, with a stack of plates by it, looking out into the silent dining-room.  I think any school-inspector would give this kitchen a high grade.
+
+> take broccoli
+The clump is yours.
+
+> climb in dumb waiter
+You curl up in the little wooden cubicle, and you are lifted up, up into the dark shaft of the dumb waiter.  Then, with a clunk, you are tipped out into a scoop, which, coiling back, releases you, and catapults you over the playground wall, and with a clatter into the doorway of the Tea Room Of Doom.
+You are in the much-vaunted Tea Room Of Doom.
+There is a stout Sontaran and a moist banana muffin here.
+You can go to the copse of the living corpse.
+A dainty tea room indeed, with a smattering of seersucker tablecloths all about, and chairs that look genuinely high class, even better than Robert Dyas Cluedo range.  The rug is like the one in your conservatory.
+
+> use broccoli on sontaran
+You hold out the clump and it's clear within a moment that the lower portion of the Sontaran's space-suit has darkened.  Embarrassed, he shields the patch with his mittens and runs away like a child from a bully.
+
+> take banana muffin
+The muffin is as good as yours.
+
+> go to copse of the living corpse
+You are in the copse of the living corpse.
+There is an autocoracle and a Peter Alice endorsed putter here.
+You can go to the much-vaunted Tea Room Of Doom.
+A popular spot for a walk, this copse was landscaped by the Brigadier on a free weekend.  There is a small statue here, a reedy lake, a leafy island at its centre, a pagoda designed for user-relaxation, and a rolling lawn, with a putting-hole on.  It is so popular, it even has its own tea room, a vision in pebbledash to the north.
+
+> enter pagoda
+Yes, by entering the time pagoda, you are returned to your conservatory by means of pagoda transmat technology, copyright Robert Dyas.
+You are in your conservatory.
+You can go south.
+The southern window shows your well-tended garden, undulating lawns leading down to the shrubbery you cherish so much.  The Persian rug, with its purple centre and spinning amber diamonds, has both beauty and function.  Your rocking-chair is here, by the coffee-table at which you do the Sunday crossword.  Your faithful radiogram skulks in the corner.
+
+> s
+You are on the lawn.
+There is a lanky oak, a trowel and a giant rat here.
+You can go north, south, west, up or down.
+Let's face it, this lawn takes a lot of looking after, but it's worth it.  High-maintenance, yes, but lush as a dew-clad duvet in Kermit-green.  The well here has always intrigued you, coming, as it did, with the house.  The lanky oak reaches up, its upper branches fidgeting on high.
+
+> s
+You hear the Doctor, as if speaking from another realm, saying, 'Throw it over the eystalk, throw it...'  And his voice fades into the firmament.
+You are in the well-tended shrubbery.
+There is a leaflet here.
+You can go north or south.
+The low, mossy soil is sumptuous 'neath your feet.  A rhododendron bush in full, glossy, dark-leafed bloom, seems to surround a space within, the kind of place Just William would set up camp.  The statue of Bowen is here, an edifice of the comedian and Bullseye presenter who proved something of an oracle in the game Sutekh Is Hiding In Your Priory.  There is a soggy spring here, emitting a gentle bubbling trickle.  There are also some shrubs here, arcing like nurses around the bench, in the shady nook you value so much.
+
+> s
+You are on a rustic path.
+There is a scrap of newspaper here.
+You can go north or south.
+Landscaped by Captain Yates during a sabbatical, this rustic path is top-drawer.  The muddy contours of the path beneath your feet are a pleasure to see, flecked with the odd pebble, and bordered with weeds, dandelions, and larger bushes.  Yatesy should be proud of his work, and the digging and heaving he had to do to finalise the project.
+
+> s
+You hear a sepulchral voice growling in your ear.  Is it Sutekh, the Doctor, Tony Robinson?  It says, 'Six cakes in the game, but only one for the Doctor...'
+You are at the bandstand.
+There is Tony Robinson and an ancient hillock here.
+You can go north or south.
+Hexagonal and classic in design, this bandstand has been the venue for many a U.N.I.T. concert over the years, with Sergeant Benton on tuba, Captain Yates on trumpet, and the Brigadier on trombone, with occasional cameos from Jo Grant on flute.  There is a bench with a dedication on it, and a little hillock, reminiscent of an Anglo-Saxon barrow, as seen on Time Team.
+
+> s
+You are in the Kroton's enclosure.
+There is a corroded Kroton here.
+You can go north or south.
+A pen devised by the Brigadier to house the volatile Kroton, captured shoplifting in Crawley in 1973.  The ground is marked with its malevolent tracks, and there is an air of pent-up frustration, the frustration of a Kroton.
+
+> give banana muffin to kroton
+You hand the Kroton the muffin, and his pincer reaches forth to probe.  Realising its ingredients, his clockwork eyes begins to spin, his ferrule ears begin to steam, and he slides off in a panic towards the rustic path.
+
+> s
+You are at the river.
+There is Jo Grant and a jaunty hat here.
+You can go north or south.
+Yes, you at the riverbank, where U.N.I.T. rather irresponsibly dispose of unwanted equipment, and aborted experiments.  The bank is dank, the river forlorn to see, with an improvised bridge leading south to what looks like London.
+You will need to deploy the caramac when you've crossed the river.
+
+> take hat
+The jaunty hat is yours.
+
+> s
+You are on the bridge.
+There is a Dalek here.
+You can go north or south.
+Beneath you, brown waters babble by, like unset coffee blancmange.  The long, but rickety bridge, stretches north-south, swaying and creaking as you stand upon it.  The hole in the dome of St Paul's looks like a wound a spoon might inflict on a boiled egg.  A barge bobs in its mooring.
+
+> throw hat
+Like a quoits champion, you chuck the hat at the Dalek's eyestalk, bewildering it considerably.  It swivels in panic, yelling 'Help, my vision is impaired.  Help, I cannot see...'  And the metallic menace slides off the edge of the bridge, and splashes into the water, sinking like a dustbin, heavy with trash, still yelling and cursing you, as the hat floats off.
+
+> s
+You are in the precincts of St Paul's Cathedral.
+There is Arnold and Gerald here.
+You can go north or south.
+Tragic to behold what someone, or something, has done to that dome, with a gaping hole as bit as a house.  Steps leading up to the cathedral are a little litter-strewn, and a kiosk nearby looks abandoned.
+
+> give bar of caramac to arnold
+You present Arnold with the caramac.  It seems to him to be gold, glinting lethally in your hand as you approach.  Terrified you're going to shove it in his chest-cavity, and asphyxiate him, he lurches away without a qualm.
+
+> s
+You are in the derelict cathedral.
+There is a tomb here.
+You can go north or to the charming coffee-shop.
+Grand and high-vaulted, albeit with a hole in the ceiling, the interior of this once magnificent edifice is still not to be jeered at.  Pews in rows extend into the distance, where an altar of pure MDF awaits the worshipper.  A little coffee-shop in the corner offers basic refreshments.  The stained-glass windows show depictions from the life of Jim Bowen, and I would say are worth a look.
+
+> unlock tomb
+You slot the sacred key into the sacred slot.  The whole tomb begins to glow a kind of futuristic mandarin-orange, clashing slightly with the TARDIS blue of the marble.  And then, as the key gets sucked into the hole, the top fades to reveal a sleeping figure in a long velvet coat, and scarved, a chaos of dark brown curls framing a solemn, high-cheeked visage.  Suddenly, the eyes open wide, white as pearl, and the eyeballs swivel to face you.  'Hello, I'm the Doctor,' he declares with a drowsy glee.
+
+> give cube of carrot cake to doctor
+The Doctor's eyes widen, both of them, and his curly hair seems to crackle with static.  His grin displays saliva-clad teeth, impatient to sink into the Brigadier's special carrot cake.  But just as he's about to sample it, you are both taken up in kaleidoscopic whirlwinds, oranges, purples, hexagons and Tetris shapes you'd only dream of...and then, with a thud, you're deposited back in your conservatory, friends from U.N.I.T. all about you.  Your rug is glowing, a pulse like a neon bruise at its centre, mauve, indigo, pomegranate, and so on...
+You are in your conservatory.
+There is the Brigadier, Sarah Jane Smith and the Doctor here.
+You can go south.
+The southern window shows your well-tended garden, undulating lawns leading down to the shrubbery you cherish so much.  The Persian rug, with its purple centre and spinning amber diamonds, has both beauty and function.  Your rocking-chair is here, by the coffee-table at which you do the Sunday crossword.  Your faithful radiogram skulks in the corner.
+Maybe you'd like to have a quick look around, speak to a few guests...then all you need to do is meditate on the rug, and it will transport you away, somewhere, somewhen, to another adventure perhaps...
+
+> speak to doctor
+'You know,' says the Doctor, 'I want to thank you for all the hard work you've gone to, risking life and limb in this strange distorted version of Earth, combatting Sea Devils, Cybermen, Daleks and Krotons, not to mention Sutekh, just to bring me my favourite kind of cake.  I might have slept for centuries in that tomb if it wasn't for you.  Thank you, my friend, thank you.  And you did it all without dragging the Brigadier about with you.  What independence of spirit!'
+
+> meditate on persian rug
+You assume a cross-legged position at the pulsing centre of the rug.  The Doctor and his guests turn to watch as you are encased in a really quite pleasant blue dome, sparking flecks all about it, like fizzing squibs of Vimto.  And then, as the room becomes dim around you, you slip into the continuum...
+Well done, you've completed your assignment, for which thanks, and I hope we'll meet again for another adventure soon...
+
+[runner] turns=52 leftover=0 running=false WON=YES

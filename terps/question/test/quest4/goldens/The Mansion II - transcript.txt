@@ -1,0 +1,1501 @@
+
+The Mansion II, v1.0 | Nick Dablin
+
+The Mansion II
+------------------
+
+After your uncle's untimely death, you explored his empty mansion to find the truth about his demise. You learned that your uncle's scientific skills were being abused by a sinister corporation developing an untraceable toxin for assassinations, and that when your uncle tried to destroy his work, he was silenced.
+You were confronted by the corporation's agents, but fought back, killing one. Unfortunately you were struck by a tazer before you could escape from the mansion. Unconsciousness took you and you remember nothing until now. You have awoken in darkness, a bag on your head and handcuffs on your wrists...
+
+For frequently asked questions, type FAQ and hit enter.
+Press any key when ready...
+
+
+
+You are in total darkness.
+There is a shape here.
+You can hear a faint roaring sound but the bag on your head is muffling sound. Your hands are bound but you can feel the seat you are in.
+
+> take shape
+You slip the object into your palm. Now that you can feel it in your hand, you can tell it is definitely a paper clip.
+
+> use paper clip on handcuffs
+You slot the paper clip into the narrow lock on the handcuffs. After some wriggling, you feel it catch. The handcuffs loosen, then swing open. You are free. You are about to tear the hood from your head when someone else does it for you. You realise you are in a helicopter! You could be anywhere! Solidly built men man-handle you out of the craft and across a small hangar. Before you know it, you have been deposited in a dull prison cell with little hope of rescue. Still, at least you're free from your handcuffs...
+Press any key when ready.
+
+You are in a dank, bare prison cell.
+There is a cot, your dinner, a fork and a high-tech Laser Forcefield here.
+You can go north.
+This drab grey cell has no windows and no light, save for the glow given off from a laser forcefield and a thin sliver of light shining through a barred slot in the heavy iron door.
+
+> take cot
+You pick up the flimsy metal-framed bed. It'll be too big to take out of the room but you can lug it around in here all you want. Moving the cot revealing a small grille in the wall...
+
+> take fork
+You pick up the one halfway useful part of your dinner.
+
+> use fork on grille
+You very carefully use the fork handle to prise the screws loose. Soon you have removed the grille and can see into the next cell through a small duct.
+
+You can now crawl WEST into the next cell.
+
+> use cot on laser forcefield
+You lean the relatively heavy cot on the forcefield. This obviously puts some strain on the forcefield as the humming increases significantly.
+The cot is straining the forcefield, but not enough to break it.
+
+> west
+You are in the cell to the west of your own.
+There is a high-tech Laser Forcefield and a cot here.
+You can go north or east.
+This cell is much the same as your own. The paint is peeling slightly less, and this cell isn't occupied, but those are the only differences.
+
+> take cot
+You pick up the metal-framed bed. It'll be too big to take out of the room but you can lug it around in here all you want.
+
+> use cot on laser forcefield
+You lean the relatively heavy cot on the forcefield. This obviously puts some strain on the forcefield as the humming increases significantly.
+The combined force of both cots leaning on the laser forcefield causes it to short out with a small bang. That's state of the art for you.
+
+> speak to cell door
+You shout to the guard but he doesn't respond. After some more shouting, he turns to you and cocks his gun. You start to wonder if continuing to shout might not be such a good idea. Just as you shut up however, a different sound starts up - a loud alarm starts blaring. The guard looks around worried. He gets on the radio and asks what the hell's going on. Before he can get a reply, you can see the faint haze of gas shimmering into the room. The guard's look of angry bewilderment dissolves into pain and terror and he clutches ineffectually at his throat. After barely three seconds, he keels over; his eyes roll back in his skull.
+Press any key when ready...
+
+You stare at the guard's corpse, and panic momentarily that you're next. But no gas comes. The cells must be on a different air purificaton system. Given the security issue, it probably wouldn't be in the building's schematics to have air vents leading from prison cells out into the corridor. Presently, a white cloud of gas sprays from the ceiling, presumably to cleanse the corridor. After the gas has cleared, something you really werent expecting happens - with a buzz, the cell door swings  open.
+
+> north
+You are standing at the end of a short Corridor.
+There is the Dead guard and a Machine Gun here.
+You can go south or east.
+The floor here is checked tiles. Several are missing, revealing the dull concrete beneath. A fluorescent flickers overhead.
+
+South lies a prison cell, now open. To the east the corridor continues.
+
+> take machine gun
+You lift the surprisingly light machine gun. It's fully loaded.
+
+> east
+You are standing in a short Corridor.
+You can go north or west.
+The floor here is checked tiles. Several are missing, revealing the dull concrete beneath. A fluorescent flickers overhead.
+
+South lies your prison cell. The corridor runs to it's end west of here. A door lies north.
+
+> north
+You are in a lived-in Guardhouse.
+There is a Fingerprint Scanner, Card Table and a copy of Security Map 001 here.
+You can go south, east or west.
+A game of cards is spread across the room's one table. A vending machine hums in the corner. This is a room of basic needs
+
+> west
+You are in a grubby Interrogation Chamber.
+There is a pair of Pruning Shears, the Torture Chair and a Knife here.
+You can go east.
+This room has obviously seen a lot of suffering. A large chair is bolted to the floor in the centre of the room. It has leather straps on the arms and legs and one at the top of the chair. Blood spots mar the floor and evil instruments of torture line the walls.
+
+> take pruning shears
+You gingerly pick up the evil instrument of torture.
+
+> take knife
+You pick up the blood-stained knife.
+
+> east
+You are in a lived-in Guardhouse.
+There is a Fingerprint Scanner, Card Table and a copy of Security Map 001 here.
+You can go south, east or west.
+A game of cards is spread across the room's one table. A vending machine hums in the corner. This is a room of basic needs
+
+> south
+You are standing in a short Corridor.
+You can go north or west.
+The floor here is checked tiles. Several are missing, revealing the dull concrete beneath. A fluorescent flickers overhead.
+
+South lies your prison cell. The corridor runs to it's end west of here. A door lies north.
+
+> west
+You are standing at the end of a short Corridor.
+There is the Dead guard here.
+You can go south or east.
+The floor here is checked tiles. Several are missing, revealing the dull concrete beneath. A fluorescent flickers overhead.
+
+South lies a prison cell, now open. To the east the corridor continues.
+
+> use pruning shears on dead guard
+You deftly snip the finger from the guard's right hand. This may come in handy.
+
+> east
+You are standing in a short Corridor.
+You can go north or west.
+The floor here is checked tiles. Several are missing, revealing the dull concrete beneath. A fluorescent flickers overhead.
+
+South lies your prison cell. The corridor runs to it's end west of here. A door lies north.
+
+> north
+You are in a lived-in Guardhouse.
+There is a Fingerprint Scanner, Card Table and a copy of Security Map 001 here.
+You can go south, east or west.
+A game of cards is spread across the room's one table. A vending machine hums in the corner. This is a room of basic needs
+
+> use severed finger on fingerprint scanner
+You press the severed digit to the pad of the scanner. The scanner flashes across the print, processes the data, then turns green and unlocks the large metal door to the east.
+
+> east
+You find yourself in a small Hangar.
+There is an empty Computer Case and a Panel here.
+You can go north, south, east or west.
+The roof of this cave is a huge pair of sliding doors to allow a helicopter to fly down into the room. The centre of the room contains a large helipad. There is no helicopter occupying it at the present.
+
+> south
+You are standing in a straight Long corridor.
+You can go north or south.
+This corridor ran straight south for quite a way. A sign on the wall gives directions: the Hangar is north, the Technical Department is south.
+
+> south
+You are in the Technical department's Workshop.
+There is a Report, a Manual, a Motherboard and a Security Door here.
+You can go north, east or west.
+This room has bright fluorescent lights hung low on chains over several messy desks. Various computer components lie strewn about the place and there is a faint smell of burning.
+
+> take report
+You pick up the report.
+
+> examine report
+You read the report:
+
+Security Computer B Repair Report
+---
+The damaged security card has shorted out most of the internal components. Luckily the Hard Drive and all software is undamaged, but the motherboard, processor and RAM all need replacing. I'll replace the components after lunch.
+
+Note to self: boot in safe mode to test security scanner without the need for a valid card. Oh, and I've left the Hard Drive with Bill, the security guard in the detention centre, for safe keeping.
+
+> take manual
+You pick up the manual. This could be useful.
+
+> examine manual
+Installation of components
+---
+
+Processor - Install this first. Lift up the clip on the motherboard (see Diagram A). Slot the processor in place, ensuring that the rounded corner lines up with the corresponding corner on the motherboard. Carefully push into place and secure with the clip.
+
+RAM - Once the processor is installed, slot the RAM into the spaces marked in diagram B. The RAM will only fit one way round, so ensure that the clips are able to clip firmly into place.
+
+Case Installation - Now screw the motherboard into the case and connect the power supply and fans as shown in diagram C.
+
+Hard Drive - Screw the Hard Drive into the correct slot in your case, then connect the IDE cable to the corresponding Master slot on the motherboard (See diagram D).
+
+> take motherboard
+You pick up the board.
+
+> east
+This is the workshop Store Room.
+There is two sticks of RAM, a Locker and a Blank Card here.
+You can go west.
+Boxes of computer components are stacked high on the shelves of this small store room. A few boxes seem to have been recently opened.
+
+> take ram
+You pick up the two sticks of memory and pocket them.
+
+> take blank card
+You pick up the blank card.
+
+> use machine gun on locker
+You take aim, and very briefly pull the trigger. With a loud crack, the weapon discharges and blows the lock away. The door swings forlornly open. Who says violence never solves anything?
+
+> examine locker
+Do you wish to take a processor?
+1) Yes
+2) No
+[choice] 1
+You remove a processor from the cupboard and put it in your pocket.
+
+> west
+You are in the Technical department's Workshop.
+There is a Security Door here.
+You can go north, east or west.
+This room has bright fluorescent lights hung low on chains over several messy desks. Various computer components lie strewn about the place and there is a faint smell of burning.
+
+> north
+You are standing in a straight Long corridor.
+You can go north or south.
+This corridor ran straight south for quite a way. A sign on the wall gives directions: the Hangar is north, the Technical Department is south.
+
+> north
+You find yourself in a small Hangar.
+There is an empty Computer Case and a Panel here.
+You can go north, south, east or west.
+The roof of this cave is a huge pair of sliding doors to allow a helicopter to fly down into the room. The centre of the room contains a large helipad. There is no helicopter occupying it at the present.
+
+> west
+You are in a lived-in Guardhouse.
+There is a Fingerprint Scanner, Card Table and a copy of Security Map 001 here.
+You can go south, east or west.
+A game of cards is spread across the room's one table. A vending machine hums in the corner. This is a room of basic needs
+
+> examine card table
+You search the pockets of the guards. One of them is carrying a Hard Drive! You take it off him; he won't be needing it.
+
+> east
+You find yourself in a small Hangar.
+There is an empty Computer Case and a Panel here.
+You can go north, south, east or west.
+The roof of this cave is a huge pair of sliding doors to allow a helicopter to fly down into the room. The centre of the room contains a large helipad. There is no helicopter occupying it at the present.
+
+> north
+You are in a brightly lit Cafeteria.
+There is a Corpse and a Test Card here.
+You can go north or south.
+This room appears to be where the corporation's employees enjoy their lunch. An extremely obese man is lying dead with his face in a plate of spaghetti bolognaise.
+
+> take test card
+You pocket the security card.
+
+> south
+You find yourself in a small Hangar.
+There is an empty Computer Case and a Panel here.
+You can go north, south, east or west.
+The roof of this cave is a huge pair of sliding doors to allow a helicopter to fly down into the room. The centre of the room contains a large helipad. There is no helicopter occupying it at the present.
+
+> use processor on motherboard
+You carefully slot the processor chip into the correct slot on the motherboard.
+
+> use ram on motherboard
+You slot the two sticks of RAM into the motherboard correctly.
+
+> use motherboard on computer case
+You clip the motherboard into place in the case, connect the power supply and fans and wire up the power switch.
+
+> use hard drive on computer case
+You wire up the Hard Drive correctly and slide it into place.
+
+> take panel
+You pick up the metal panel.
+
+> use panel on computer case
+You slot the case panel back into place after wiring the Security scanner up to the internal components.
+
+> examine computer
+Do you wish to switch the computer on?
+1) Yes
+2) No
+[choice] 1
+You turn on the computer. It starts booting up...
+How do you wish to boot the computer?
+1) Normally
+2) Safe Mode
+[choice] 2
+You select to boot up in safe mode. The computer takes a bit longer to load up, but eventually the security card reader turns on.
+
+> use test card on computer
+You slide the test card through the card reader. In safe mode, the computer recognises the test card and scans it successfully. The east door slides open with a mechanical rumble.
+
+> east
+You are in a room used for Reception.
+There is the Reception Desk, a Security Monitor and a Security Computer here.
+You can go north, south, east or west.
+This plush office reception boasts a shiny round reception desk and several pot plants. A receptionist is slumped dead over her keyboard.
+
+> north
+You find yourself in a high-tech Laboratory.
+There is some Chemical Notes and a Flask here.
+You can go south or east.
+This room has several benches covered in bunsen burners, strange chemicals and other scientific equipment.
+
+> take flask
+You pick up the flask.
+
+> east
+You are in a large, walk-in Refrigerator.
+There is a vial of Red Chemical, a vial of Yellow Chemical, a vial of Blue Chemical and a Dead Scientist here.
+You can go west.
+It's cold in here. Various frost-encrusted shelves line the room. The fridge appears almost empty.
+
+> take red chemical
+You pick up the vial of liquid.
+
+> take yellow chemical
+You pick up the vial of liquid.
+
+> take blue chemical
+You pick up the vial of liquid.
+
+> use yellow chemical on flask
+You tip some of the yellow chemical into the beaker.
+
+> use red chemical on flask
+You tip some of the red chemical into the beaker.
+
+> use blue chemical on flask
+You tip some of the blue chemical into the beaker.
+
+> west
+You find yourself in a high-tech Laboratory.
+There is some Chemical Notes here.
+You can go south or east.
+This room has several benches covered in bunsen burners, strange chemicals and other scientific equipment.
+
+> south
+You are in a room used for Reception.
+There is the Reception Desk, a Security Monitor and a Security Computer here.
+You can go north, south, east or west.
+This plush office reception boasts a shiny round reception desk and several pot plants. A receptionist is slumped dead over her keyboard.
+
+> south
+You find yourself in a high-tech Laboratory.
+There is the Hydroscope, the Plasma Reactor, a Disk, a Blackboard, a Booth and a GPT here.
+You can go north.
+This room has several benches covered in bunsen burners, strange chemicals and other scientific equipment. It also features two large machines of unknown purpose.
+
+> take disk
+You pick up the blank disk.
+
+> take gpt
+You pick up the transporter.
+
+> use flask on plasma reactor
+You place the flask of liquid onto the plasma reactor's plate and switch it on. The ray-gun arm leans over the liquid and emits a bright beam of purplish energy into it. The liquid bubbles slightly and takes on a purplish hue. Once the machine has finished, you pick it up.
+
+> north
+You are in a room used for Reception.
+There is the Reception Desk, a Security Monitor and a Security Computer here.
+You can go north, south, east or west.
+This plush office reception boasts a shiny round reception desk and several pot plants. A receptionist is slumped dead over her keyboard.
+
+> west
+You find yourself in a small Hangar.
+There is a Computer here.
+You can go north, south, east or west.
+The roof of this cave is a huge pair of sliding doors to allow a helicopter to fly down into the room. The centre of the room contains a large helipad. There is no helicopter occupying it at the present.
+
+> south
+You are standing in a straight Long corridor.
+You can go north or south.
+This corridor ran straight south for quite a way. A sign on the wall gives directions: the Hangar is north, the Technical Department is south.
+
+> south
+You are in the Technical department's Workshop.
+There is a Security Door here.
+You can go north, east or west.
+This room has bright fluorescent lights hung low on chains over several messy desks. Various computer components lie strewn about the place and there is a faint smell of burning.
+
+> use flask on security door
+You throw the volatile cocktail across the room at the security door. Upon impact, the liquid explodes in a small but ferociously powerful fireball. A heat wave washes over you, and you see that the security door has been blown into shreds.
+
+> west
+A large sign on the wall proclaims this to be Area C Control Room.
+There is the Ventilation Computer here.
+You can go east.
+This room has metal panels all over the walls, and a huge computer system built around three quarters of the room.
+
+> use disk on ventilation computer
+You insert the backup disk and hit OK on the backup software. The disk whirrs as the disk drive starts to write information to it. Eventually a message appears onscreen to say the backup completed successfully. The disk ejects and you pick it up.
+
+> east
+You are in the Technical department's Workshop.
+You can go north, east or west.
+This room has bright fluorescent lights hung low on chains over several messy desks. Various computer components lie strewn about the place and there is a faint smell of burning.
+
+> use blue chemical on flask
+You tip some of the blue chemical into the beaker.
+
+> use red chemical on flask
+You tip some of the red chemical into the beaker.
+
+> use yellow chemical on flask
+You tip some of the yellow chemical into the beaker.
+
+> use gpt
+You place the GPT on the floor and use it to teleport back to the laboratory. With a swish noise, you are whisked away and find yourself instantly reappearing inside the teleport booth in the laboratory. You step out, slightly disoriented.
+You find yourself in a high-tech Laboratory.
+There is the Hydroscope, the Plasma Reactor, a Blackboard and a Booth here.
+You can go north.
+This room has several benches covered in bunsen burners, strange chemicals and other scientific equipment. It also features two large machines of unknown purpose.
+
+> use flask on hydroscope
+You slot the flask of liquid into the hydroscope. The machine sucks it in, whirrs and shakes somewhat, and eventually spits out a new flask of liquid. You pick it up.
+
+> take booth
+You step into the booth and press the Transport button. With a shuddering noise, you are catapulted across space and time to arrive right on top of the GPT.
+You are in the Technical department's Workshop.
+There is a GPT here.
+You can go north, east or west.
+This room has bright fluorescent lights hung low on chains over several messy desks. Various computer components lie strewn about the place and there is a faint smell of burning.
+
+> take gpt
+You pick up the transporter.
+
+> north
+You are standing in a straight Long corridor.
+You can go north or south.
+This corridor ran straight south for quite a way. A sign on the wall gives directions: the Hangar is north, the Technical Department is south.
+
+> north
+You find yourself in a small Hangar.
+There is a Computer here.
+You can go north, south, east or west.
+The roof of this cave is a huge pair of sliding doors to allow a helicopter to fly down into the room. The centre of the room contains a large helipad. There is no helicopter occupying it at the present.
+
+> north
+You are in a brightly lit Cafeteria.
+There is a Corpse here.
+You can go north or south.
+This room appears to be where the corporation's employees enjoy their lunch. An extremely obese man is lying dead with his face in a plate of spaghetti bolognaise.
+
+> north
+You are in a hot, smoky Kitchen.
+There is the Chef and a Fire here.
+You can go south.
+This kitchen was recently used to cook sub-standard burgers. A dead chef lies slumped in the corner.
+
+> use flask on fire
+You throw the super-cool liquid onto the fire. With a hiss, the liquid covers the oil and very quickly douses the flames. The room cools slightly and you can get to the hob to turn it off. It's also splashed all over the briefcase and put out the fire there.
+
+> take briefcase
+You pick up the metal briefcase.
+
+> use knife on briefcase
+You slide the blade of the blunt knife into the crack of the briefcase and lever the briefcase open. It takes quite a lot of effort to prise the case open, but eventually the lock snaps and the case springs apart. Some kind of device falls out and you pick it up. It is a magnetic encoder.
+
+> use blue chemical on flask
+You tip some of the blue chemical into the beaker.
+
+> use yellow chemical on flask
+You tip some of the yellow chemical into the beaker.
+
+> use red chemical on flask
+You tip some of the red chemical into the beaker.
+
+> south
+You are in a brightly lit Cafeteria.
+There is a Corpse here.
+You can go north or south.
+This room appears to be where the corporation's employees enjoy their lunch. An extremely obese man is lying dead with his face in a plate of spaghetti bolognaise.
+
+> south
+You find yourself in a small Hangar.
+There is a Computer here.
+You can go north, south, east or west.
+The roof of this cave is a huge pair of sliding doors to allow a helicopter to fly down into the room. The centre of the room contains a large helipad. There is no helicopter occupying it at the present.
+
+> east
+You are in a room used for Reception.
+There is the Reception Desk, a Security Monitor and a Security Computer here.
+You can go north, south, east or west.
+This plush office reception boasts a shiny round reception desk and several pot plants. A receptionist is slumped dead over her keyboard.
+
+> south
+You find yourself in a high-tech Laboratory.
+There is the Hydroscope, the Plasma Reactor, a Blackboard and a Booth here.
+You can go north.
+This room has several benches covered in bunsen burners, strange chemicals and other scientific equipment. It also features two large machines of unknown purpose.
+
+> use flask on plasma reactor
+You place the flask of liquid onto the plasma reactor's plate and switch it on. The ray-gun arm leans over the liquid and emits a bright beam of purplish energy into it. The liquid bubbles slightly and takes on a purplish hue. Once the machine has finished, you pick it up.
+
+> north
+You are in a room used for Reception.
+There is the Reception Desk, a Security Monitor and a Security Computer here.
+You can go north, south, east or west.
+This plush office reception boasts a shiny round reception desk and several pot plants. A receptionist is slumped dead over her keyboard.
+
+> use magnetic encoder on security computer
+You plug the magnetic encoder into the electromagnetic burner on the computer. The computer automatically loads the software and gives you some options.
+Press any key...
+
+What do you wish to do?
+1) Create a New Security Clearance
+2) Load An Existing Security Clearance
+3) Eject Magnetic Encoder
+[choice] 1
+You select the option to create a new Security clearance of the highest level. The machine buzzes and whirrs and eventually ejects the magnetic encoder, having written the security data to it.
+
+> use blank card on magnetic encoder
+You insert the blank card into the magnetic encoder and write the security data to it. You now have a high-clearance security card.
+
+> east
+You are in a short Hallway.
+You can go south, east or west.
+A sign proclaims that the laboratory and detention area is Area C. This room seems to be a nexus between Area C and another area of the base.
+
+> east
+This room is the Area B Control Room.
+There is a Ventilation Computer here.
+You can go west.
+This room is fairly small and houses the computer system that controls ventilation for Area B.
+
+> use disk on ventilation computer
+You insert the backup disk and restore the Ventilation system software. Once it is operational, a warning flashes up and the ventilation systems activate. Presently a message flashes up saying that air levels in Area B are safe.
+
+> west
+You are in a short Hallway.
+You can go south, east or west.
+A sign proclaims that the laboratory and detention area is Area C. This room seems to be a nexus between Area C and another area of the base.
+
+> south
+You are in a cavernous Warehouse.
+There is a Freight Elevator here.
+You can go north or east.
+This room is so large that the walls and ceiling are simply hewn from the rock. It is stacked high with assorted boxes and large crates. A few fluorescents have been driven into the ceiling to dimly illuminate the cave.
+
+> use security card on freight elevator
+You swipe the lift controls with the security card. The machine processes the data then blips. The light on the lift controls turns green and it activates.
+
+> examine freight elevator
+Do you wish to ride the elevator to the top?
+1) Yes
+2) No
+[choice] 1
+You enter the lift and press the Up button. The lift rattles to the top and you step out.
+This is a Delivery Bay.
+There is a Freight Elevator and a Container here.
+You can go south, east or west.
+This barn-like building seems to house deliveries before they are taken down the freight elevator to be stored in the warehouse. A row of windows runs around the room at ceiling height, way above your head.
+
+> west
+You are in a non-descript east-west Hallway.
+You can go east or west.
+This short corridor runs east to west. There's nothing interesting about it except for some small windows which are so covered in dirt that they barely let the sunlight in, let alone let you look out.
+
+> west
+You are in a stone Generator Room.
+There is a Sentry Robot and a Generator here.
+You can go south or east.
+This bare stone room houses a sizeable power generator. Presumably this is what's giving electricity to the place.
+
+> use flask on sentry robot
+You tip the sticky solution onto the floor in the furthest corner of the robot's patrol route. Presently the robot circles round and gets stuck fast. It's now glued to the floor facing the corner!
+
+> examine generator
+Do you wish to reset the power for Area A?
+1) Yes
+2) No
+[choice] 1
+You pull the generator's main power lever and the lights dim and fade out. In the dim light from the high windows, you can just about see what you are doing as you push the lever back up. The generator begins to hum and presently all the lights fade on. All systems have been reset to their default settings.
+
+> south
+You are in a non-descript north-south Hallway.
+You can go north or south.
+This short corridor runs north to south. There's nothing interesting about it except for some small windows which are so covered in dirt that they barely let the sunlight in, let alone let you look out.
+
+> south
+You make your way into a Waiting Room.
+There is a Newsletter here.
+You can go north, south or east.
+This part of the corrridor curves outwards into a semi-circular waiting area, presumably for the office to the east.
+
+> east
+You have entered a large, plush Office.
+There is a Safe here.
+You can go west.
+This office obviously belongs to someone in a position of power. High quality antiques make up the furniture. A large bay window looks out on a courtyard to the east.
+
+> examine safe
+What is the first digit?
+1) 0
+2) 1
+3) 2
+4) 3
+5) 4
+6) 5
+7) 6
+8) 7
+9) 8
+10) 9
+[choice] 8
+What is the second digit?
+1) 0
+2) 1
+3) 2
+4) 3
+5) 4
+6) 5
+7) 6
+8) 7
+9) 8
+10) 9
+[choice] 3
+What is the third digit?
+1) 0
+2) 1
+3) 2
+4) 3
+5) 4
+6) 5
+7) 6
+8) 7
+9) 8
+10) 9
+[choice] 2
+What is the fourth digit?
+1) 0
+2) 1
+3) 2
+4) 3
+5) 4
+6) 5
+7) 6
+8) 7
+9) 8
+10) 9
+[choice] 9
+You turn the last number to 8, and the lock clicks then releases. The safe swings open.
+
+> examine safe
+Do you wish to take the contents of the safe?
+1) Yes
+2) No
+[choice] 1
+You look inside the safe. You retrieve a blank DVD ROM disc.
+
+> west
+You make your way into a Waiting Room.
+There is a Newsletter here.
+You can go north, south or east.
+This part of the corrridor curves outwards into a semi-circular waiting area, presumably for the office to the east.
+
+> south
+You are in a non-descript north-south Hallway.
+You can go north or south.
+This short corridor runs north to south. There's nothing interesting about it except for some small windows which are so covered in dirt that they barely let the sunlight in, let alone let you look out.
+
+> south
+You are in a high-tech Medical Facility.
+There is a Security Locker and an Electrolysis Machine here.
+You can go north or east.
+This room is clearly used for treating injuries. Several simple cots line the walls, each one with an attached monitor and medical equipment. An antiseptic smell pervades the air.
+
+> examine security locker
+What number will you choose for hearts?
+1) 1
+2) 2
+3) 3
+4) 4
+5) 5
+6) 6
+7) 7
+8) 8
+9) 9
+10) 10
+11) 11
+12) 12
+13) 13
+[choice] 13
+What number will you choose for spades?
+1) 1
+2) 2
+3) 3
+4) 4
+5) 5
+6) 6
+7) 7
+8) 8
+9) 9
+10) 10
+11) 11
+12) 12
+13) 13
+[choice] 7
+What number will you choose for clubs?
+1) 1
+2) 2
+3) 3
+4) 4
+5) 5
+6) 6
+7) 7
+8) 8
+9) 9
+10) 10
+11) 11
+12) 12
+13) 13
+[choice] 1
+What number will you enter for diamonds?
+1) 1
+2) 2
+3) 3
+4) 4
+5) 5
+6) 6
+7) 7
+8) 8
+9) 9
+10) 10
+11) 11
+12) 12
+13) 13
+[choice] 3
+You set the last digit to 3, and the electronic lock beeps, then buzzes as the locker door slides open.
+
+> examine security locker
+Do you wish to take the key from the locker?
+1) Yes
+2) No
+[choice] 1
+You pick up the small key and pocket it.
+
+> east
+You are in a non-descript east-west Hallway.
+You can go east or west.
+This short corridor runs east to west. There's nothing interesting about it except for some small windows which are so covered in dirt that they barely let the sunlight in, let alone let you look out.
+
+> east
+This is the entrance hall. It's spacious and clean. The outer door to the south is locked but there seems to be a way into the courtyard to the north.
+
+> north
+You are in Courtyard.
+There is a Crane Arm and a Dog here.
+You can go north or south.
+You are in a wide irregular-shaped courtyard in the middle of the surrounding building. It is cold out here. It's not snowing but there is ice on the ground and the sky is a gloomy light grey.
+
+> use machine gun on dog
+You take aim, and hope no animal lovers are around, before pumping a few rounds into the canine creature. It whines, then slumps back dead as your last bullet sprays the back of it's head everywhere.
+
+> examine crane arm
+Do you wish to remove the flat battery?
+1) Yes
+2) No
+[choice] 1
+You unclip the large industrial battery from the crane arm.
+
+> south
+This is the entrance hall. It's spacious and clean. The outer door to the south is locked but there seems to be a way into the courtyard to the north.
+
+> west
+You are in a non-descript east-west Hallway.
+You can go east or west.
+This short corridor runs east to west. There's nothing interesting about it except for some small windows which are so covered in dirt that they barely let the sunlight in, let alone let you look out.
+
+> west
+You are in a high-tech Medical Facility.
+There is an Electrolysis Machine and a Security Locker here.
+You can go north or east.
+This room is clearly used for treating injuries. Several simple cots line the walls, each one with an attached monitor and medical equipment. An antiseptic smell pervades the air.
+
+> use battery on electrolysis machine
+You put the flat battery on the drawer and switch the machine on. The drawer slides into the machine and blue bolts of electricity start shooting through the machine. Presently, the machine finishes it's cycle and ejects the battery, fully charged.
+
+> east
+You are in a non-descript east-west Hallway.
+You can go east or west.
+This short corridor runs east to west. There's nothing interesting about it except for some small windows which are so covered in dirt that they barely let the sunlight in, let alone let you look out.
+
+> east
+This is the entrance hall. It's spacious and clean. The outer door to the south is locked but there seems to be a way into the courtyard to the north.
+
+> north
+You are in Courtyard.
+There is a Crane Arm and a Dog here.
+You can go north or south.
+You are in a wide irregular-shaped courtyard in the middle of the surrounding building. It is cold out here. It's not snowing but there is ice on the ground and the sky is a gloomy light grey.
+
+> use battery on crane arm
+You slot the fully charged battery into the machine and switch on the power. The arm moves slightly with a whirring sound, and the console screen turns on.
+
+> north
+You open the Delivery Bay shutter doors to the North.
+This is a Delivery Bay.
+There is a Freight Elevator and a Container here.
+You can go south, east or west.
+This barn-like building seems to house deliveries before they are taken down the freight elevator to be stored in the warehouse. A row of windows runs around the room at ceiling height, way above your head.
+
+> south
+You are in Courtyard.
+There is a Crane Arm and a Dog here.
+You can go north or south.
+You are in a wide irregular-shaped courtyard in the middle of the surrounding building. It is cold out here. It's not snowing but there is ice on the ground and the sky is a gloomy light grey.
+
+> examine crane arm
+Do you wish to activate the crane?
+1) Yes
+2) No
+[choice] 1
+You activate the crane arm and use the controls to swing it around into the Delivery Bay. You attempt to grab hold of the metal container and get a slightly lop-sided grip on it. You then swing the container back out into the courtyard. The arm is a little over-responsive and you push the right control too far. The steel container crashes into the wall of the entrance hall, knocking bricks and plaster flying. Before you can stop it, the container slides out of the arm's grip, falls over onto the inside wall of the entrance hall and smashes a hole in the ceiling. You gingerly step away from the controls.
+
+> south
+This is the entrance hall. A large metal container has destroyed most of one wall and half the ceiling. A cold wind is now blowing a few papers about the place.
+
+> east
+You are in a non-descript east-west Hallway.
+You can go east or west.
+This short corridor runs east to west. There's nothing interesting about it except for some small windows which are so covered in dirt that they barely let the sunlight in, let alone let you look out.
+
+> east
+You are standing at one end of a long Target Range.
+There is a Target here.
+You can go north, east or west.
+This room houses a series of long ranges, each one with a target of a different distance. Spent bullet casings litter the floor.
+
+> use yellow chemical on flask
+You tip some of the yellow chemical into the beaker.
+
+> use blue chemical on flask
+You tip some of the blue chemical into the beaker.
+
+> use red chemical on flask
+You tip some of the red chemical into the beaker.
+
+> use gpt
+You place the GPT on the floor and use it to teleport back to the laboratory. With a swish noise, you are whisked away and find yourself instantly reappearing inside the teleport booth in the laboratory. You step out, slightly disoriented.
+You find yourself in a high-tech Laboratory.
+There is the Hydroscope, the Plasma Reactor, a Blackboard and a Booth here.
+You can go north.
+This room has several benches covered in bunsen burners, strange chemicals and other scientific equipment. It also features two large machines of unknown purpose.
+
+> use flask on plasma reactor
+You place the flask of liquid onto the plasma reactor's plate and switch it on. The ray-gun arm leans over the liquid and emits a bright beam of purplish energy into it. The liquid bubbles slightly and takes on a purplish hue. Once the machine has finished, you pick it up.
+
+> use flask
+You drink the strange liquid. It feels cold and smooth as you swallow it. After a moment, you feel your muscles start to tense. You suddenly find that all your movements are much more precise and you have total control over your body movements. If you hold out your hand there is no movement or shaking, it is totally steady.
+
+> use blue chemical on flask
+You tip some of the blue chemical into the beaker.
+
+> use red chemical on flask
+You tip some of the red chemical into the beaker.
+
+> use yellow chemical on flask
+You tip some of the yellow chemical into the beaker.
+
+> use flask on plasma reactor
+You place the flask of liquid onto the plasma reactor's plate and switch it on. The ray-gun arm leans over the liquid and emits a bright beam of purplish energy into it. The liquid bubbles slightly and takes on a purplish hue. Once the machine has finished, you pick it up.
+
+> take booth
+You step into the booth and press the Transport button. With a shuddering noise, you are catapulted across space and time to arrive right on top of the GPT.
+You are standing at one end of a long Target Range.
+There is a GPT and a Target here.
+You can go north, east or west.
+This room houses a series of long ranges, each one with a target of a different distance. Spent bullet casings litter the floor.
+
+> take gpt
+You pick up the transporter.
+
+> use machine gun on target
+You take careful aim and pull the trigger. The chemical coursing through your blood has turned your muscles to stone and the bullet follows an exact path to the centre of the bullseye. The metal button clicks loudly and the whole room starts to shake. The floor of the pit thirty feet below slowly flips over and then moves up a set of rails to be in line with the floor. The targets on the range flip up and disappear into the ceiling.
+
+> east
+You have climbed over the target range stalls into a large Operations Room.
+There is a Console here.
+You can go west.
+This room houses many large computers. A keyboard and monitor at one end control the huge server database. This room came out of the floor of the target range.
+
+> use dvd-rom on console
+You put the blank DVD into the console's DVD burner drive and use the default burning software to write as much information to the disc as possible. You now have a DVD crammed full of incriminating evidence against the corporation.
+
+> west
+You are standing at one end of a long Target Range.
+You can go north, east or west.
+This room houses a series of long ranges, each one with a target of a different distance. Spent bullet casings litter the floor.
+
+> west
+You are in a non-descript east-west Hallway.
+You can go east or west.
+This short corridor runs east to west. There's nothing interesting about it except for some small windows which are so covered in dirt that they barely let the sunlight in, let alone let you look out.
+
+> west
+This is the entrance hall. A large metal container has destroyed most of one wall and half the ceiling. A cold wind is now blowing a few papers about the place.
+
+> examine container
+Do you wish to climb up the container to the roof?
+1) Yes
+2) No
+[choice] 1
+You clamber up the sides of the metal container and out onto the roof.
+You have clambered onto the Roof.
+You can go to the entrance hall.
+You can go east or down.
+It's cold and windy up here. You can see around you for miles. For the first time, you can try and get your bearings. You are on a small island. A haze of fog almost covers the far side but you can just make out a lighthouse and what might be another building. This facility is built on the cliff-top and you can now hear the sea below.
+
+You can go east along the roof. The gaping hole in the roof blocks your route west.
+
+> east
+You have clambered onto the Roof.
+There is a Ladder here.
+You can go west or down.
+This section of the roof seems unstable now the container has smashed half a wall down. It wouldn't be a good idea to follow the roof any further.
+
+You can go west back along the roof. A ladder leads down to the ground outside.
+
+> down
+You on outside the Corporation's facility, on a wide Paved Area.
+There is a Ladder and a Motorbike here.
+You can go northeast or up.
+The front of the Corporation building looms over you here, although the front door is firmly locked. Neat paving slabs make up a large square in the front of the building. Faded white paint vaguely outlines car parking spaces. It's very cold and the ground is icy in patches.
+
+A ladder leads to the roof.
+
+> use flask on motorbike
+You pour some of the hot liquid over the motorbike lock and it instantly desfrosts with a hiss of steam.
+
+> use key on motorbike
+You insert the key into the ignition and start the engine.
+You climb onto the motorbike.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can drive all over the island using the motorbike.
+
+The corporation building is to the SOUTHWEST of the island.
+The SOUTHEAST of the island sports a wide, sandy beach.
+There is an abandoned house at the EAST edge of the island.
+The highest point of the island is to the NORTH, where you can see a lighthouse.
+A dockhouse stands near a wooden dock that leads out into the ocean in the WEST.
+
+> north
+You are outside the lighthouse, atop the Northern Cliffs.
+There is a Motorbike and a Crucifix here.
+You can go north or south.
+The wind is fierce and cold here. The ground slopes gradually upwards to the cliff edge. A series of rocky pinnacles lead out into the sea, and an old lighthouse is built close to the drop.
+
+> take crucifix
+You wrench the wooden crucifix from the ground.
+
+> north
+You are at the bottom of an old Lighthouse.
+There is the lighthouse's Generator and a Tattered Map here.
+You can go south or up.
+This is the base of the old lighthouse. The lighthouse is shut down and the broken and rusted generator for it sits forlornly in the corner. A flight of rickety stairs leads to the top of the lighthouse, where the light is located.
+
+> up
+You have climbed to the top of the Lighthouse.
+There is the Light and a Platform here.
+You can go down.
+You are on the top floor of the lighthouse. A huge dead light is the central feature of this room. It has rusted into place and is completely useless.
+
+> take platform
+You pull on the rope, but the lift has not been used in ages, and the rusty pulley rips out of the flaking ceiling and the entire contraption plummets to the floor far below.
+
+> down
+You are at the bottom of an old Lighthouse.
+There is the lighthouse's Generator, a Tattered Map, a length of Rope and a Platform here.
+You can go south or up.
+This is the base of the old lighthouse. The lighthouse is shut down and the broken and rusted generator for it sits forlornly in the corner. A flight of rickety stairs leads to the top of the lighthouse, where the light is located.
+
+> take rope
+You pick up the rope - it'll almost certainly prove useful.
+
+> south
+You are outside the lighthouse, atop the Northern Cliffs.
+There is a Motorbike here.
+You can go north or south.
+The wind is fierce and cold here. The ground slopes gradually upwards to the cliff edge. A series of rocky pinnacles lead out into the sea, and an old lighthouse is built close to the drop.
+
+> use key on motorbike
+You insert the key into the ignition and start the engine.
+You climb onto the motorbike.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can drive all over the island using the motorbike.
+
+The corporation building is to the SOUTHWEST of the island.
+The SOUTHEAST of the island sports a wide, sandy beach.
+There is an abandoned house at the EAST edge of the island.
+The highest point of the island is to the NORTH, where you can see a lighthouse.
+A dockhouse stands near a wooden dock that leads out into the ocean in the WEST.
+
+> southeast
+You are on a wide, sandy Beach.
+There is a Motorbike here.
+You can go north, south, east, northeast, northwest, southeast or southwest.
+The scrubby grass on the island gives way to a sandy beach here. The tide is currently out and the sand stretches out serenely in front of you. A cave opens in the cliff to the north.
+
+> north
+This is a dark and craggy Cave.
+There is some Driftwood here.
+You can go south.
+This cave doesn't stretch very far into the cliff but it is dark and probably provides a home to bats.
+
+> take driftwood
+You pick up the driftwood pieces.
+
+> south
+You are on a wide, sandy Beach.
+There is a Motorbike here.
+You can go north, south, east, northeast, northwest, southeast or southwest.
+The scrubby grass on the island gives way to a sandy beach here. The tide is currently out and the sand stretches out serenely in front of you. A cave opens in the cliff to the north.
+
+> use key on motorbike
+You insert the key into the ignition and start the engine.
+You climb onto the motorbike.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can drive all over the island using the motorbike.
+
+The corporation building is to the SOUTHWEST of the island.
+The SOUTHEAST of the island sports a wide, sandy beach.
+There is an abandoned house at the EAST edge of the island.
+The highest point of the island is to the NORTH, where you can see a lighthouse.
+A dockhouse stands near a wooden dock that leads out into the ocean in the WEST.
+
+> west
+You are on a creaky Wooden Dock.
+There is a Motorbike here.
+You can go east or northeast.
+You are standing on a solid wooden dock that stretches out into the sea. No boats are tied up although the dock looks in good shape and may well have been used recently.
+
+> northeast
+This is a small, rickety Dockhouse.
+There is a Rowboat here.
+You can go southwest.
+This cramped wooden building houses boats when they're not in use. It's been disused for a long time.
+
+> use driftwood on rowboat
+You jam the pieces of wood into place to cover the hole in the boat. But they won't stay like that - they need fixing to the boat properly somehow.
+
+> use blue chemical on flask
+You tip some of the blue chemical into the beaker.
+
+> use yellow chemical on flask
+You tip some of the yellow chemical into the beaker.
+
+> use red chemical on flask
+You tip some of the red chemical into the beaker.
+
+> use gpt
+You place the GPT on the floor and use it to teleport back to the laboratory. With a swish noise, you are whisked away and find yourself instantly reappearing inside the teleport booth in the laboratory. You step out, slightly disoriented.
+You find yourself in a high-tech Laboratory.
+There is the Hydroscope, the Plasma Reactor, a Blackboard and a Booth here.
+You can go north.
+This room has several benches covered in bunsen burners, strange chemicals and other scientific equipment. It also features two large machines of unknown purpose.
+
+> use flask on plasma reactor
+You place the flask of liquid onto the plasma reactor's plate and switch it on. The ray-gun arm leans over the liquid and emits a bright beam of purplish energy into it. The liquid bubbles slightly and takes on a purplish hue. Once the machine has finished, you pick it up.
+
+> take booth
+You step into the booth and press the Transport button. With a shuddering noise, you are catapulted across space and time to arrive right on top of the GPT.
+This is a small, rickety Dockhouse.
+There is a GPT and a Rowboat here.
+You can go southwest.
+This cramped wooden building houses boats when they're not in use. It's been disused for a long time.
+
+> take gpt
+You pick up the transporter.
+
+> use flask on rowboat
+You pour the sticky liquid over the driftwood. The glue-like substance soon sticks the driftwood firmly over the hole, plugs the boat up and makes it watertight.
+
+> use crucifix on rowboat
+You lodge the crucifix in the boat as a make-shift mast. It won't hold like that though.
+
+> use rope on rowboat
+You lash the mast to the boat with the length of rope and make sure it is securely fastened.
+
+> southwest
+You are on a creaky Wooden Dock.
+There is a Motorbike here.
+You can go east or northeast.
+You are standing on a solid wooden dock that stretches out into the sea. No boats are tied up although the dock looks in good shape and may well have been used recently.
+
+> use key on motorbike
+You insert the key into the ignition and start the engine.
+You climb onto the motorbike.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can drive all over the island using the motorbike.
+
+The corporation building is to the SOUTHWEST of the island.
+The SOUTHEAST of the island sports a wide, sandy beach.
+There is an abandoned house at the EAST edge of the island.
+The highest point of the island is to the NORTH, where you can see a lighthouse.
+A dockhouse stands near a wooden dock that leads out into the ocean in the WEST.
+
+> east
+You find yourself in an Overgrown Garden.
+There is a Motorbike here.
+You can go east or west.
+This garden is overgrown with all manner of plants and is virtually unrecognisable as a garden, save for the fence around it. The gate is nowhere to be seen. A damp, abandoned house sits at the end of a weed-covered path to the east.
+
+> east
+You walk up the overgrown path. A sudden feeling of deja vu washes over you. As you reach the front door, the hairs stand up on the back of your neck. You realise that this house was your uncle's first house, before his inventions made him rich enough to afford his mansion. Your memory is flaky but you can vaguely remember spending whole summers here as a young child. The corporation must have built it's base on the same island. With a smile, you realise that you now know where you are. The mainland is about 50 miles to the north!
+Press any key to continue...
+
+You push open the old rusty front door and step into the long abandoned cottage. You begin to wonder what secrets your uncle might have left here, when suddenly the rotten floorboards give way under your feet and you plummet into the basement. You crack your head hard on the stairs and feel blood start to trickle down your face. The world fades to white...
+You are in a dingy basement. Blood is clouding your vision...
+You awaken slowly and focus on the room. Warm light fills your vision and you stand up. This is your uncle's cottage as you remember it - warm and cosy. Nautical memorabilia hangs from the walls along with some old-fashioned electronic lights. Your uncle's writing desk is positioned against the wall.
+
+Wooden stairs lead up into the house.
+
+> up
+You are in a warm, narrow Hallway.
+There is a Plant here.
+You can go north, south, east, west, up or down.
+You are in the hall of your uncle's house. Warm sunlight plays across the floor. You can hear birds singing in the garden to the west.
+
+Stairs lead down into the basement, and another set leads upstairs.
+
+> take plant
+You pick up the plant pot.
+
+> north
+You are in your uncle's sparse Kitchen.
+There is a Cupboard and the Sink here.
+You can go south or east.
+The worktops are clean and unused. Your uncle was never one for cooking. All the appliances are here, exactly as you remember them.
+
+> examine cupboard
+Do you wish to take the candle from the cupboard?
+1) Yes
+2) No
+[choice] 1
+You pick up the candle.
+
+> examine sink
+Do you wish to turn the tap on?
+1) Yes
+2) No
+[choice] 1
+You turn the tap on and water flows out of it and down the plughole.
+
+> use plant on sink
+You place the plant under the running tap.
+
+> east
+You make your way into the Dining Room.
+There is a Fossil here.
+You can go west.
+This room features an elegant long dining table that your uncle later took to his mansion. A fruit bowl adorns the cabinet in the corner.
+
+> take fossil
+You pick up the fossil.
+
+> west
+You are in your uncle's sparse Kitchen.
+There is a Cupboard and the Sink here.
+You can go south or east.
+The worktops are clean and unused. Your uncle was never one for cooking. All the appliances are here, exactly as you remember them.
+
+> south
+You are in a warm, narrow Hallway.
+You can go north, south, east, west, up or down.
+You are in the hall of your uncle's house. Warm sunlight plays across the floor. You can hear birds singing in the garden to the west.
+
+Stairs lead down into the basement, and another set leads upstairs.
+
+> east
+You are in your uncle's Living Room.
+There is the Fireplace here.
+You can go west.
+This room is larger than the others in the house, and sports two comfy sofas. A fire is blazing in the fireplace.
+
+> use fossil on fireplace
+You place the fossil on the hearth in front of the roaring flames.
+
+> west
+You are in a warm, narrow Hallway.
+You can go north, south, east, west, up or down.
+You are in the hall of your uncle's house. Warm sunlight plays across the floor. You can hear birds singing in the garden to the west.
+
+Stairs lead down into the basement, and another set leads upstairs.
+
+> up
+You are at the top of the stairs, on the Landing.
+There is a set of Flying Ducks here.
+You can go north, east or down.
+This landing is small and gives way to two doors. The stair rail ends in an elegant wooden post.
+
+> take flying ducks
+You prise the loose duck from the wall.
+
+> north
+This is your uncle's Guest Bedroom.
+There is a Cigarette Lighter here.
+You can go south.
+The decor is very plain and tasteful in here. This used to be where you slept when you came to visit your uncle.
+
+> take cigarette lighter
+You grab the lighter.
+
+> south
+You are at the top of the stairs, on the Landing.
+There is a set of Flying Ducks here.
+You can go north, east or down.
+This landing is small and gives way to two doors. The stair rail ends in an elegant wooden post.
+
+> down
+You are in a warm, narrow Hallway.
+You can go north, south, east, west, up or down.
+You are in the hall of your uncle's house. Warm sunlight plays across the floor. You can hear birds singing in the garden to the west.
+
+Stairs lead down into the basement, and another set leads upstairs.
+
+> down
+You find yourself in the cosy basement of your uncle's cottage. Various nautical memorabilia decorates the bare stone walls. Your uncle's writing desk sits against one wall. Old electric lamps light the room - their wires run around the walls. 
+
+Wooden stairs lead up into the house.
+
+> drop flying duck
+You place the plaster duck on the ground in the basement.
+
+> up
+You are in a warm, narrow Hallway.
+You can go north, south, east, west, up or down.
+You are in the hall of your uncle's house. Warm sunlight plays across the floor. You can hear birds singing in the garden to the west.
+
+Stairs lead down into the basement, and another set leads upstairs.
+
+> south
+This is the small Bathroom.
+You can go north.
+This functional bathroom features a bath with a shower attachment, a sink and a small window, as well as the toilet of course. There are no windows and it is dark in here.
+
+> drop candle
+You place the candle on the ground.
+
+> use cigarette lighter on candle
+You carefully click the lighter on and hold the flame to the candle wick. It lights quickly and throws a dim light about the dark bathroom.
+
+> north
+You are in a warm, narrow Hallway.
+You can go north, south, east, west, up or down.
+You are in the hall of your uncle's house. Warm sunlight plays across the floor. You can hear birds singing in the garden to the west.
+
+Stairs lead down into the basement, and another set leads upstairs.
+
+> up
+You are at the top of the stairs, on the Landing.
+There is a set of Flying Ducks here.
+You can go north, east or down.
+This landing is small and gives way to two doors. The stair rail ends in an elegant wooden post.
+
+> east
+You are in your uncle's Master Bedroom.
+You can go west.
+This is your uncle's bedroom. It has a large unmade four-poster bed in it and has a great view out over the ocean.
+As you enter your uncle's bedroom, you are startled by the figure of your uncle himself, sitting on the bedside.
+
+> speak to uncle
+'Uncle,' you begin, and your uncle looks up at you.
+
+'Ah my child,' he says with a sad smile, 'It is good to see you again.'
+
+'I've missed you uncle,' you say and move towards him.
+
+He puts out a hand to stop you and you do so, confused.
+
+'I was murdered,' he says, 'Murdered by a corporation so greedy they wanted to develop a chemical for use in assassinating their rivals, politicians, powerful businessmen and the like. With the power to kill someone and leave no evidence, they could gain control of everything. You must avenge my death. You must bring the corporation to justice. It's up to you, you're the only one who knows. Will you help me find peace?'
+Press any key to continue...
+
+Will you bring down the corporation?
+1) Yes
+2) No
+[choice] 1
+Your uncle smiles, relieved.
+
+'Thank you, my child. Now go, leave this place, and do your utmost to bring the corporation to justice and avenge me.'
+
+You smile as your uncle fades into nothing.
+
+> west
+You are at the top of the stairs, on the Landing.
+There is a set of Flying Ducks here.
+You can go north, east or down.
+This landing is small and gives way to two doors. The stair rail ends in an elegant wooden post.
+
+> down
+You are in a warm, narrow Hallway.
+You can go north, south, east, west, up or down.
+You are in the hall of your uncle's house. Warm sunlight plays across the floor. You can hear birds singing in the garden to the west.
+
+Stairs lead down into the basement, and another set leads upstairs.
+
+> west
+You are in the midst of a bright, white Light.
+All around you is so brightly lit it is white. Slowly, the light fades and you find yourself in the darkness of the basement.
+
+Your uncle's voice whispers in the air... 'Avenge me!'
+You are in the dingy basement of your uncle's old cottage. The only light is coming from sunlight seeping down the stairwell and through the hole where you fell down here. The whole place smells of damp and rot. Your possessions have fallen all over the floor here.
+
+> up
+You have entered a rotted Hallway.
+There is a Bedroll here.
+You can go north, south, east, west, up or down.
+The walls are black with mould and the floorboards are mossy and weak. The weakest part has already given way beneath you, leaving a large hole in the floor. Rickety stairs lead up and down and several rotten doorways, long since bereft of doors, lead out of here.
+It's cold in the hallway.
+
+> north
+You are in a dilapidated Kitchen.
+There is a Rag and a Sink here.
+You can go south or east.
+This kitchen has seen better days. Most of the appliances are missing and the cupboards are hanging off their hinges. Muck and dirt cover the floor.
+
+> take rag
+You take the cotton rag.
+
+> east
+You find yourself in a rotted Dining Room.
+There is a Chair Leg and some Ivy here.
+You can go west.
+The walls here are as damp as the rest of the house. Some form of creeping ivy has worked it's way in through a crack in the window and covered most of the floor. A broken chair lies forlornly in the corner.
+
+> take chair leg
+You pick up the broken chair leg.
+
+> west
+You are in a dilapidated Kitchen.
+There is a Sink here.
+You can go south or east.
+This kitchen has seen better days. Most of the appliances are missing and the cupboards are hanging off their hinges. Muck and dirt cover the floor.
+
+> south
+You have entered a rotted Hallway.
+There is a Bedroll here.
+You can go north, south, east, west, up or down.
+The walls are black with mould and the floorboards are mossy and weak. The weakest part has already given way beneath you, leaving a large hole in the floor. Rickety stairs lead up and down and several rotten doorways, long since bereft of doors, lead out of here.
+It's cold in the hallway.
+
+> up
+You have entered a dingy Landing.
+There is a Cigarette Lighter here.
+You can go north, east or down.
+The wallpaper is hanging off the walls, revealing bare grey plaster behind. Mildew covers every surface and there are many dents and holes in the plaster. At least the floorboards up here seem a bit more solid.
+
+> take cigarette lighter
+You grab the lighter.
+
+> east
+You are in a dark, musty Master Bedroom.
+There is a Dead Seagull here.
+You can go west.
+This bedroom once sported a nice view, but the window has been boarded up. Thin shafts of light can barely be bothered to creep into the room between the nailed-up planks.
+
+> take dead seagull
+You gingerly pick up the vile corpse.
+
+> west
+You have entered a dingy Landing.
+You can go north, east or down.
+The wallpaper is hanging off the walls, revealing bare grey plaster behind. Mildew covers every surface and there are many dents and holes in the plaster. At least the floorboards up here seem a bit more solid.
+
+> north
+You are in a forlorn and run-down Guest Bedroom.
+There is a Puddle here.
+You can go south.
+The walls are covered with mould in here, and a trickle of water is slowly working it's way down from the roof in a thin line and collecting in a puddle on the cracked tiles of the floor. Dirty newspaper has been squashed into the floor with the dampness of the place.
+
+> use chair leg on puddle
+You use the chair leg to beat the floor under the puddle. In no time at all, your blows knock a great chunk of the tiled floor down into the dining room below, and water starts trickling through the gap.
+
+> south
+You have entered a dingy Landing.
+You can go north, east or down.
+The wallpaper is hanging off the walls, revealing bare grey plaster behind. Mildew covers every surface and there are many dents and holes in the plaster. At least the floorboards up here seem a bit more solid.
+
+> down
+You have entered a rotted Hallway.
+There is a Bedroll here.
+You can go north, south, east, west, up or down.
+The walls are black with mould and the floorboards are mossy and weak. The weakest part has already given way beneath you, leaving a large hole in the floor. Rickety stairs lead up and down and several rotten doorways, long since bereft of doors, lead out of here.
+It's cold in the hallway.
+
+> east
+You are the remains of a Living Room.
+There is a Fireplace here.
+You can go west.
+This room is empty save for a large blackened fireplace. It is dark and dingy in here, and mould is growing on the walls.
+
+> use chair leg on fireplace
+You put the chair leg in the fireplace.
+
+> use cigarette lighter on fireplace
+You flick the lighter on and carefully set fire to the chairleg. You find more bits of debris from around the room and soon have a small fire going.
+
+> use severed finger on fireplace
+You place the severed finger on the hearth right by the flames.
+
+> west
+You have entered a rotted Hallway.
+There is a Bedroll here.
+You can go north, south, east, west, up or down.
+The walls are black with mould and the floorboards are mossy and weak. The weakest part has already given way beneath you, leaving a large hole in the floor. Rickety stairs lead up and down and several rotten doorways, long since bereft of doors, lead out of here.
+It's cold in the hallway.
+
+> south
+You are in a dark Bathroom.
+There is a Bottle of Vodka and a Sheet here.
+You can go north.
+It's almost pitch black in here. You can just see that everything's broken and there is no water coming to any of the fittings.
+
+> take bottle of vodka
+You pick up the bottle.
+
+> take sheet
+You pick up the folded sheet.
+
+> use rag on bottle of vodka
+You soak the rag in vodka then insert it into the bottle.
+
+> use cigarette lighter on bottle of vodka
+You easily set fire to the cotton rag and make yourself a volatile and dangerous light source.
+
+> drop flaming bottle
+You place the flaming bottle on the floor.
+
+> north
+You have entered a rotted Hallway.
+There is a Bedroll here.
+You can go north, south, east, west, up or down.
+The walls are black with mould and the floorboards are mossy and weak. The weakest part has already given way beneath you, leaving a large hole in the floor. Rickety stairs lead up and down and several rotten doorways, long since bereft of doors, lead out of here.
+It's cold in the hallway.
+
+> down
+You are in the dingy basement of your uncle's old cottage. The only light is coming from sunlight seeping down the stairwell and through the hole where you fell down here. The whole place smells of damp and rot. Your possessions have fallen all over the floor here.
+
+> drop dead seagull
+You place the squishy bird corpse on the floor.
+
+> up
+You have entered a rotted Hallway.
+There is a Bedroll here.
+You can go north, south, east, west, up or down.
+The walls are black with mould and the floorboards are mossy and weak. The weakest part has already given way beneath you, leaving a large hole in the floor. Rickety stairs lead up and down and several rotten doorways, long since bereft of doors, lead out of here.
+It's cold in the hallway.
+
+> west
+With a breath of wind that sounds like a sigh, the door clicks open and you emerge into the daylight.
+You find yourself in an Overgrown Garden.
+There is a GPT and a Motorbike here.
+You can go east or west.
+This garden is overgrown with all manner of plants and is virtually unrecognisable as a garden, save for the fence around it. The gate is nowhere to be seen. A damp, abandoned house sits at the end of a weed-covered path to the east.
+
+> use key on motorbike
+You insert the key into the ignition and start the engine.
+You climb onto the motorbike.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can drive all over the island using the motorbike.
+
+The corporation building is to the SOUTHWEST of the island.
+The SOUTHEAST of the island sports a wide, sandy beach.
+There is an abandoned house at the EAST edge of the island.
+The highest point of the island is to the NORTH, where you can see a lighthouse.
+A dockhouse stands near a wooden dock that leads out into the ocean in the WEST.
+
+> west
+You are on a creaky Wooden Dock.
+There is a Motorbike here.
+You can go east or northeast.
+You are standing on a solid wooden dock that stretches out into the sea. No boats are tied up although the dock looks in good shape and may well have been used recently.
+
+> northeast
+This is a small, rickety Dockhouse.
+There is a Rowboat here.
+You can go southwest.
+This cramped wooden building houses boats when they're not in use. It's been disused for a long time.
+
+> use sheet on rowboat
+You firmly tie the white sheet around the spar of the crucifix to create a sail. The remaining rope is useful to tie up or down the sail as needed.
+
+> take rowboat
+You drag the old rowing boat out of the boathouse and onto the dock.
+You are on a creaky Wooden Dock.
+There is a Motorbike and a Rowboat here.
+You can go east or northeast.
+You are standing on a solid wooden dock that stretches out into the sea. No boats are tied up although the dock looks in good shape and may well have been used recently.
+
+> take rowboat
+This is the big, blue Ocean.
+You are sailing across the ocean towards the mainland.
+You launch your small sailing boat into the water and head for the mainland. The wind picks up and soon you are leaving that godforsaken island behind. Suddenly, a huge bang erupts behind you. You turn in time to feel a blastwave of heat. A huge fireball is rising over the Corporation facility. In horror, you realise that if you had left ten minutes later, you would be dead. The base must have had some sort of self-destruct mechanism in order to destroy any evidence.
+
+Then you smile to yourself, knowing that you have a disk full of incriminating evidence against the corporation, and nothing will stop you bringing the corporation to justice.
+
+You feel a sudden rush of cold air, and there, on the edge of hearing, might just be a whisper:
+
+'Thank you...'
+
+THE END
+----------
+
+[runner] turns=267 leftover=0 running=false WON=YES

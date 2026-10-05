@@ -1,0 +1,20 @@
+open dvd player
+take dvd
+sw
+look under bed
+take mouse
+open scrapbooking kit
+cut dvd with scissors
+ne
+nw
+turn on sink
+turn on bathtub
+se
+up
+open drawer
+take object
+down
+east
+take twig
+tape twig to object
+use sandbox

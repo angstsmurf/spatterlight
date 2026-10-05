@@ -1,0 +1,191 @@
+open boot
+take gun
+examine gun
+n
+e
+n
+shoot wild dog
+examine dead dog
+take collar
+examine desk
+take newspaper
+s
+examine kennel
+take cardkey
+e
+examine bed
+open wardrobe
+examine jacket
+open briefcase
+yes
+4155
+open briefcase
+take lighter
+w
+w
+s
+use remote control on jeep
+take petrol can
+n
+e
+n
+n
+use petrol can on generator
+turn on generator
+s
+turn on computer
+look at computer
+yes
+xerxes
+1
+yes
+2
+use petrol can on newspaper
+s
+w
+n
+w
+look at tree
+shoot noose
+take rope
+e
+n
+w
+look at window
+use rope on bars
+lift trap door
+d
+use lighter
+take bucket
+use bucket on pile of coal
+n
+u
+open closet
+use petrol can on strimmer
+s
+pull arm
+e
+use bucket on fireplace
+use newspaper on fireplace
+use lighter on fireplace
+w
+s
+w
+take rope
+e
+s
+w
+drop bucket
+drop rope
+drop petrol can
+e
+n
+n
+n
+take strimmer
+d
+look at rack
+examine hole
+unwrap linen package
+u
+s
+s
+s
+w
+use strimmer on hedge
+take bucket
+take rope
+take petrol can
+s
+use rope on wishing well
+use bucket on rope
+turn handle
+take bucket of water
+examine grass
+n
+e
+n
+n
+e
+use bucket of water on fireplace
+take silver key
+w
+w
+lift painting
+look at safe
+yes
+1498
+take metal detector
+n
+examine kitchen sink
+take knife
+use knife on hand
+take casette
+e
+examine bookcase
+take dictaphone
+open drawer
+take pawn
+use knife on remote control
+use batteries on dictaphone
+use casette on dictaphone
+s
+w
+s
+s
+use pawn on tile
+w
+take shovel
+use shovel on tree
+open bag
+take telescope
+take cardkey
+s
+use bucket on rope
+turn handle
+take bucket of water
+n
+e
+n
+n
+use telescope on bronze statue
+take king
+s
+s
+w
+s
+use king on tile
+n
+e
+s
+e
+use knight on tile
+s
+open cabinet
+take diary
+use metal detector on diary
+use knife on diary
+take bishop
+n
+n
+use metal detector on dead dog
+use knife on dead dog
+take iron key
+s
+w
+s
+use bishop on tile
+n
+use bucket of water on fountain
+d
+n
+examine equipment
+take glass flask
+use petrol can on glass flask
+use rag on glass flask
+speak to betsy
+use iron key on iron gate
+turn on gas cylinders
+s
+use lighter on molatov cocktail
+throw molatov cocktail

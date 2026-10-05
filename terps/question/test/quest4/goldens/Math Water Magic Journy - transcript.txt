@@ -1,0 +1,49 @@
+
+Math Water Magic Journy | Luke Eveland, Max Frank, Momo mosomething And Mailk
+
+The Totaly Rad Water Game
+Made by selected awesome individuals and LUKE EVELAND.
+You can type, Fun fact, for a fact that is fun!
+Press any key to start
+
+
+You awaken in your room. On the floor there are clothes from three days ago. You need to take a shower and use the bathroom.  There are two doors one to the bathroom and one to the hallway. 
+
+
+
+> go to bathroom
+
+You enter the bathroom and marvle at the horrendous stench of your never washed towels. Yummy eh? You should take a shower and wash your hands, AND YOU HAVE TO USE THE TOILET!!!! But do that last.
+
+> use shower
+
+You take a ten minute shower.  when you get out you realize you just used 30 gallons of water to take that shower! Imagine how much water you would use if every one in your class took a shower that morning!  If there are 20 kids in your class how much water did all of you use together? well do the math! okay, I'll do it  for you...30x20=500.  That's a lot of water!
+
+> use sink
+
+you wash your hands and face.  You somehow realize that you used 8 cups of water!  Wow you're some kinda genius or something... anyway... if you wash your hands 12 times a day how many cups of water would you use? Just multiply it, it's easy.  I'll start it for you 8x12=?.
+
+> 96
+
+Hey you got it right! You enter the bathroom and marvle at the horrendous stench of your never washed towels. Yummy eh?  YOU HAVE TO USE THE TOILET!!!! But do that now.
+
+> use toilet
+
+Ahhh... thats better
+Now that you are clean you proceed downstairs to aquire nutrients. Your mom says that you eat too much and now you must fast. Your mom is a evil woman. Practicly a zombie. So she funnles 3 gallons of water down your throat. Some how you manage to swallow it, hehe you swallow. 3 gallons is how many quarts?
+
+> 12
+
+Now you are almost ready for your day. You brush your teeth with a spoon because your mom gave it to a homeless man. I guess he needed it more. you use 5 cups of water because you forgot to turn off the facet made of gold. Bacuase your mom has it made. How much water do you use? ( ill hate you no matter what you say)
+
+
+Hey you got it right! You leave your house with a smile on your face, dispite your awfull morning. You take the hose in your yard and place in your garden. You water your beutiful flowers and they smile back at you. Thats freaking creepy. I wonder what was in that tooth paste. You used 15 galoons whilst watering said plants. You can go to school
+
+> go to school
+
+Later that day you arrive at school and you are doing water project. You and your friends have decicded to make a etxt based adventure game. The first line stated....
+
+You awaken in your room. On the floor there are clothes from three days ago. You need to take a shower and use the bathroom.  There are two doors one to the bathroom and one to the hallway. 
+
+
+[runner] turns=7 leftover=0 running=true WON=YES

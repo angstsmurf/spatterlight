@@ -1,0 +1,52 @@
+take silver pen
+s
+w
+speak to sergeant benton
+say united nations intelligence taskforce
+w
+n
+take bar of caramac
+open cupboard
+take cube of carrot cake
+s
+e
+e
+d
+e
+e
+sing to giant rat
+e
+s
+pull chain
+open golden savaloy
+take sacred key
+enter sarcophagus
+go to copse of the living corpse
+enter pagoda
+s
+s
+enter bush
+eat roots
+take broccoli
+climb in dumb waiter
+use broccoli on sontaran
+take banana muffin
+go to copse of the living corpse
+enter pagoda
+s
+s
+s
+s
+s
+give banana muffin to kroton
+s
+take hat
+s
+throw hat
+s
+give bar of caramac to arnold
+s
+unlock tomb
+give cube of carrot cake to doctor
+speak to doctor
+meditate on persian rug

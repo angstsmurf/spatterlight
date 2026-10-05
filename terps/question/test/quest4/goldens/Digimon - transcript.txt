@@ -1,0 +1,52 @@
+
+digimon | brandon stevens
+
+You are in tent.
+There is watch and blue card here.
+You can go to campsite.
+You can go south.
+
+> take blue card
+taken
+
+> s
+You are in campsite.
+There is tylenol here.
+You can go north or east.
+it is a campground in which you and your friends are staying.
+there is a tylenol on top of your tent.
+you see the temple to the east. and other tents around yours.
+
+> e
+You are in temple.
+You can go west or down.
+
+> down
+You are in dark hole.
+You can go south, up or down.
+a dark hole that you find interesting
+to find out what is down there "go down"
+
+> down
+You are in digital world.
+There is animal and digivice here.
+You can go northeast.
+a wierd place there is a little round animal that wants to talk to you and has something you might like.
+
+> speak to animal
+"there is an evil digimon in the arena i need your help please help me digivolve you will need a blue card and use it on this." pointing to the digivice he put on the ground for you.
+
+> take digivice
+taken
+
+> ne
+You are in arena.
+You can go southwest.
+a dark digimon is starting to attack you digivolve your digimon quick!
+
+> use blue card on digivice
+you killed the evil digimon :)))
+now just type finish to end game
+
+> finish
+[runner] turns=10 leftover=0 running=false WON=YES

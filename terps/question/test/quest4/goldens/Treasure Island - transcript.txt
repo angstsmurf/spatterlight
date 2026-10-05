@@ -1,0 +1,104 @@
+
+Treasure Island | Happy Grace
+
+You are a player in a giant co-ordinates game.
+You must try and find the treasure located on one of the squares. But beware, there are perils on your route. As well as hindrances, there are helps, but if you lose all 15 lives, the game is over,  and you are dead. Good luck!
+You are in A,1.
+There is Ham sandwich and Jam sandwich here.
+You can go south or east.
+There are two sandwiches on this square. You pick them up.
+
+> east
+You are in B,1.
+You can go south, east or west.
+Nothing on this square.
+
+> east
+You are in C,1.
+You can go south, east or west.
+Nothing on this square.
+
+> east
+You are in D,1.
+You can go south, east or west.
+Nothing on this square.
+
+> east
+You are in E,1.
+You can go south or west.
+Nothing on this square.
+
+> south
+You are in E,2.
+You can go north, south or west.
+Nothing on this square.
+
+> south
+You are in E,3.
+You can go north, south, east or west.
+Nothing on this square.
+
+> east
+You are in F,3.
+You can go north, south, east or west.
+There is a white monster blocking your path.
+What do you give the white monster?
+1) Give Jam sandwhich to white monster.
+2) Give Ham sandwich to white monster.
+3) Don't give the white monster a sandwich.
+[choice] 1
+
+> east
+You are in G,3.
+You can go north, south, east or west.
+Nothing on this square. To the east is a cow. It looks dangerous, but looks can be decieving...
+
+> south
+You are in G,4.
+You can go north, south, east or west.
+Nothing on this square.
+
+> south
+You are in G,5.
+You can go north, south, east or west.
+There is a health here. You pick it up, and gain another life.
+You lose a life. If you have 0 lives, please type 'die'
+(sorry I couldn't make it automatic)
+
+> south
+You are in G,6.
+You can go north, south, east or west.
+Nothing on this square.
+
+> south
+You are in G,7.
+You can go north, south, east or west.
+Nothing on this square.
+
+> east
+You are in H,7.
+You can go east or west.
+Nothing on this square.
+
+> east
+You are in I,7.
+You can go north, south, east or west.
+Nothing on this square.
+
+> south
+You are in I,8.
+You can go north, south, east or west.
+There is a black monster blocking your path.
+What do you feed the black monster?
+1) Give black monster Jam sandwich
+2) Give black monster Ham sandwich.
+3) Don't give the black monster a sandwich.
+[choice] 2
+The black monster eats the sandwich, and steps out of your way.
+
+> south
+You are in I,9.
+There is Portal (out) here.
+You can go north, south, east or west.
+Nothing on this square. This is where you come out of a portal.
+[runner] turns=16 leftover=0 running=true WON=YES

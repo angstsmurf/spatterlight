@@ -1,0 +1,225 @@
+
+The Bomb, vBeta 0.1 | Marc Andersen
+
+Welcome to
+THE BOMB!!
+
+This is the bomb room.
+The large bomb is here.
+Type arm bomb to arm it.
+
+> look at bomb
+This is a large bomb.
+It is currently not counting down.
+
+> arm bomb
+Type number of seconds:
+The bomb is armed to 3 seconds!
+
+> look at bomb
+This is a large bomb.
+It is currently counting down from 3 seconds.
+Be careful!
+
+> go to escape room
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+The bomb exploded!
+You were not near the bomb, so nothing happened.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> look
+You are in Escape Room.
+You can go to the Bomb Room.
+This room is used to escape the large bomb.
+If you stay here and it explodes, you will not be hurt.
+
+> go to bomb room
+This is the bomb room.
+Suddenly, a new bomb comes out of nowhere!
+
+> look at bomb
+This is a large bomb.
+It is currently not counting down.
+[runner] turns=37 leftover=0 running=true WON=YES

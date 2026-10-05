@@ -1,0 +1,108 @@
+
+Enterprise | Ben Nelson
+
+You are on the U.S.S Enterprise you are a passenger and have just woken up from a good night sleep. Your ship is on route to sector 6. Where it will has caught in the cross-fire  in a very large battle. You have a feeling that you and other passengers will not make it through the battle, but your captin refuses to listen.
+*For a better effect play in full screen* 
+Gender
+1) Male
+2) Female
+3) HELP
+[choice] 1
+Class
+1) Soldier
+2) Scout
+3) Sniper
+4) Pilot
+5) Computor Programmer
+6) Assassin
+7) Theif
+8) Help
+[choice] 6
+Black T-shirt.....
+You put it on.
+
+black pants.....
+You put them on.
+
+Welcome to a game where you can do almost anything. You may explore the world and do as you wish. This game has not rules or and real goals.
+
+
+*THIS GAME IS RATED "M+" FOR EXTREAM VIOLENCE"
+
+You are in Quarters.
+There is a pair of Shoes here.
+You can go to hall hall.
+Your quarters are small and cramp with a bed and a night stand
+
+> go to hall
+You are in hall.
+There is Billy Dot here.
+You can go to Quarters, Room "1", Room "2", Turbolift or storage.
+A small hall way
+
+> go to turbolift
+You are in Turbolift.
+You can go to hall, Engineering, Galley, Bridge, Hospital, Captains Quarters, Hollow Deck, Ready room or Escape pods.
+
+> go to ready room
+You are in Ready room.
+There is Lt. Arch here.
+You can go to Armory or Turbolift.
+You enter the room and find many of the crew getting ready for battle. Many of them wearing heavy armor that only the most powerful shot can penatrate. In each one of there hads is a large 45 cal. auto rifle.
+
+> speak to lt. arch
+"Gald to see you! We are short haned. What do you say about joining the force?"
+Do you join?
+1) Yes
+2) No
+[choice] 1
+"Glad to have you!"
+"He pushes you next to an empty locker and hands you a heavy black armored suit. You get dressed into the heavy suit. It feels like you are carrying a hippo! Lt. Arch pushes you in a large line to get a weapon. You are handed a 45 cal. auto rifle.You can barly lift it. You then got throught a brefing. "
+Lt. Arch stand looking very relaxed. "Your mission is to kill all the bloody people you can!" he yells. There are several shouts from the men around you.
+
+
+You are then led to a transport ship.
+You take them off.
+
+You take it off.
+
+You are in Transport Ship.
+Military Armor.....
+You put it on.
+
+
+Just as the Transport ship takes off a missle gose right into the docking bay where your ship was held.The trans port ship speeds off un damaged. You head full speed toward a large ship,which is 20 imes the size of the ship you were just on.The transport ship flys right into an open docking bay. You here the sounds of heavy gun fire. Lt. Arch stands up and yells,"Lets go!"
+You are in Docking Bay.
+You can go south.
+A large Docking Bay with lots of small fighter ships.
+Just then the Transport door opens and bullets fly in. Lt. Arch gets hit right in the face causing his brains to splatter all over you face. several other men are shot. Your shoulder gets grazed!
+
+> s
+You are in Hall way.
+There is Fighter here.
+You can go north, south, east or west.
+A long and well lighted hall way.
+
+> use 45 cal. rifle on fighter
+You open firer on the man sending him backwords.
+You EXP. has increased!
+
+> s
+You are in Crew Quarters.
+You can go north.
+You are in a narrow hall way which has been bloocked off by boxes. Before you see it coming bullets start to fly at you from cracks in the boxes you are hit bad.
+You lost health!
+You fall to the ground.
+You are in Starnge room.
+There is Captin and Guard here.
+You are in a large well funished room with a large bed, a desk and three chairs.
+
+You wake up and find your self in
+
+> speak to captin
+"It appears you are trying to destroy my great army.......HA HA HA HA HA HA....What a fool. Guard show him to his sell."
+You are in Cell Block One.
+There is In-mate here.
+You sit in your small cramped cell looking though the bars you see several other cells but all are empty.
+
+[runner] turns=8 leftover=0 running=true WON=YES

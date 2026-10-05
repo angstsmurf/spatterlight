@@ -1,0 +1,117 @@
+
+Lands of unknown, v1.0 | Jaret Martens
+
+
+
+You are in Waking point.
+You can go east or west.
+You have woken up in a strange room. You can not remember who you are or where you came from. The walls and floor are covered in blood. There is a door to your right and a door to the left.
+
+> west
+You are in Left door of the unknown.
+You can go west.
+You are now in a room that is just white. The door behind you vanishes and one to the left appears.
+
+> west
+You are in Portal of doom.
+You can go to Hill side.
+You can go east.
+You enter the room. In front of you there is a picture of a hilly grass side. You touch it and realize that it is a portal.
+
+> go to hill side
+You are in Hill side.
+You can go north, east or west.
+You have come to a hill side. You can see an ocean to the North, Dessert to the West and a forest to the East.
+
+> north
+You are in Ocean part 1.
+You can go south or west.
+You arrive at the beach of an ocean. Waves are coming in. You can feel the water on your ankles. You look to the left and see a ship that has been crashed.
+
+> west
+You are in Ocean ship wreck.
+There is Crate here.
+You can go to broken ship.
+You can go east.
+You go closer to the ship wreck. You wonder if somebody is hurt. Some of the ship is still intact. There is a crate on the beach. It is made of metal.
+
+> go to broken ship
+You are in broken ship.
+You can go to Ocean ship wreck.
+You can go east or west.
+You enter the ship. Everything has been smashed around. There are dead bodies everywhere. There is a door to your left and a door to your right.
+
+> west
+You are in left broken.
+There is Key and Dagger here.
+You can go east.
+You go left. There is a small key laying on the floor. There is also a dagger.
+
+> take key
+You got the key. I wonder where I could use this?
+
+> east
+You are in broken ship.
+You can go to Ocean ship wreck.
+You can go east or west.
+You enter the ship. Everything has been smashed around. There are dead bodies everywhere. There is a door to your left and a door to your right.
+
+> go to ocean ship wreck
+You are in Ocean ship wreck.
+There is Crate here.
+You can go to broken ship.
+You can go east.
+You go closer to the ship wreck. You wonder if somebody is hurt. Some of the ship is still intact. There is a crate on the beach. It is made of metal.
+
+> use key on crate
+You use the key on the crate. A girl jumps out! She says to you," Thank you for saving me! To show my appreciation, I am giving you this pendant." She then runs off.
+
+> east
+You are in Ocean part 1.
+You can go south or west.
+You arrive at the beach of an ocean. Waves are coming in. You can feel the water on your ankles. You look to the left and see a ship that has been crashed.
+
+> south
+You are in Hill side.
+You can go north, east or west.
+You have come to a hill side. You can see an ocean to the North, Dessert to the West and a forest to the East.
+
+> east
+You are in Forest.
+There is patch of dirt here.
+You can go north, east or west.
+You enter the forest. The forest is not very thick but you can see it getting thicker to the North. You probably can't get through. To the east is a volcano. It looks as if it could erupt at any second. The dirt around you looks a little different than any you've seen before.
+
+> east
+You are in Volcano hot stream.
+There is Volcano stream here.
+You can go west.
+You come to a volcano. There is a lava stream blocking your way.
+
+> use blue pendant on volcano stream
+The blue pendant freezes the Lava. You can now cross.
+
+> east
+You are in Volcano Pathway.
+You can go northeast or northwest.
+You continue to make your way up the volcano. You reach the summit. The volcano erupts! Lava starts flowing out everywhere. The lava hits you and you are not harmed. The blue pendant protects you. After the lava passes you, the blue pendant dissapears. You cannot go back the way you came because the lava has melted the frozen stream. All of the land is burnt. The path now splits in two.
+
+> northwest
+You are in A familliar face.
+You can go east.
+You follow the path. You arrive in a burnt field. You see the girl from the crate. "Hi" she says. You ask where she's from. She doesn't answer. She gives you a kiss on the cheek, then runs away. You can't go back the way you came because the path crumbled on the way down.
+
+> east
+You are in A dragon's welcome.
+There is Skeleton, rock and Dragon here.
+You can go west.
+You continue down the trail. A dragon flies overhead. It has the girl! It swoops down and knocks you down. You get up. You need to shoot it down with something. There is a pile of rocks and a dead skeleton.
+
+> examine skeleton
+It is just an old skeleton. Wait a minute...
+
+> use gun on dragon
+"Cawwww" The dragon falls down dead. The girl runs to you and gives you a big hug. "Come this way", she leads you to a small part of the ocean. There is a raft. "Let's get off this island." A month later, you and the girl get married (If you are a girl then the girl is a boy.). Your wedding is in Canada.
+
+
+[runner] turns=21 leftover=0 running=false WON=YES

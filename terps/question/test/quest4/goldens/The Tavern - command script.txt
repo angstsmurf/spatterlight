@@ -1,0 +1,30 @@
+The Tavern v1.0 by Gamer! (QDK Pro 4.02, ASL 400)
+- raw command script for question_walkthrough_runner.
+Game system: Quest 4.  Marker: "You become a hero".
+
+A true win: knock the book off the bookshelf, throw it at the door (it is a
+bomb), fall into the store room, fetch the key and the pistol from the
+basement, unlock the store room door and shoot the pirate.  The Victory! room's
+description script is the playerwin.
+
+  * PUNCH BOOKSHELF raises a disambiguation menu, because the bedside table is
+    also given "alt <bookshelf>" and the same "detail <a bookshelf>": the two
+    options read identically.  The "2" line answers it -- option 1 is the
+    bedside table ("You can't punch that."), option 2 the real bookshelf.
+  * The book is visible from the start, so the punch (and TAKE BOOK, and TAKE
+    PISTOL) are not enforced: USE BOOK ON DOOR and USE GUN ON PIRATE are verbs
+    on the door and the pirate that test nothing.  The script plays it as told.
+  * The key is "invisible" and handed over by SEARCH BOX's "give <key>".
+  * The startscript ends in "wait <>", which consumes no script line.
+
+Start:
+punch bookshelf
+2
+take book
+use book on door
+down
+search box
+take pistol
+up
+use key on door
+use gun on pirate

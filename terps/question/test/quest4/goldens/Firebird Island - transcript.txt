@@ -1,0 +1,79 @@
+
+Firebird Island | Matteus
+
+ Welcome to Firebird Island! 
+
+You are Outside a log cabin.
+There is A Sign made of driftwood and a large grey Irish wolfhound here.
+You can go north.
+You are stood before a solid looking cabin of pine logs. A wisp of smoke rises from its chimney. All around the trees rustle in a gentle breeze.
+
+> read sign
+The sign reads 'Welcome to Crael and Tazlillys log cabin'.
+
+> pet dog
+Biff wags his tail more vigorously.
+
+> smile dog
+You smile encouragingly.
+
+> kiss biff
+You give a loving kiss.
+
+> n
+Your on the Porch of a log cabin.
+There is a Rocking Chair made of maple and a Rocking chair made of pine here.
+You can go north or south.
+
+> look at rocking chair
+Please select which rocking chair you mean:
+1) a Rocking Chair
+2) a Rocking chair
+[choice] 1
+Nothing out of the ordinary.
+
+> n
+You are Inside a cosy living room.
+There is a comfy Sofa and a glass bead etched with a golden a phoenix here.
+You can go south, east, west or up.
+
+> take bead
+You pick it up.
+
+> look at bead
+The bead is finely wrought in blue glass with a tiny golden phoenix.
+
+> w
+You are in the Rustic kitchen of a log cabin.
+There is a Stove here.
+You can go east.
+
+> look at stove
+It is clean but obviously sees much use.
+
+> e
+You are Inside a cosy living room.
+There is a comfy Sofa here.
+You can go south, east, west or up.
+
+> e
+You are in the Bathroom of a log cabin.
+There is a large circular Hot tub here.
+You can go west.
+
+> look at hot tub
+It can hold two people comfortably.
+
+> w
+You are Inside a cosy living room.
+There is a comfy Sofa here.
+You can go south, east, west or up.
+
+> up
+You are on the Snug bed platform of a log cabin.
+There is a four-poster Bed made of oak here.
+You can go down.
+
+> look at bed
+The bed is an elegant oak construction with white curtains between the posts.
+[runner] turns=17 leftover=0 running=true WON=YES

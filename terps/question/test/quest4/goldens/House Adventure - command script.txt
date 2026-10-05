@@ -1,0 +1,45 @@
+House Adventure v1 (QDK Lite 4.02, ASL 400)
+- raw command script for question_walkthrough_runner.
+Game system: Quest 4.  Marker: "you get in the bath".
+
+NOT A WIN -- a four-room sandbox (living room, kitchen, bedroom, bathroom) with
+no goal, no score, no playerwin and no playerlose.  All there is to do is try
+the appliances, each of which answers a custom verb through a property
+("verb <flush>" in the game block + "properties <flush=...>" on the toilet).
+The script is a tour that fires every such verb once and ends in the bathroom;
+the marker is the bath's GET IN reply, the last thing on the tour.
+
+Two lines deliberately show the game's own bugs, and print
+"I can't see that here." in real Quest too:
+
+  * PRESS POWER SWITCH ON COMPUTER -- the game also declares the shorter verb
+    "press power switch" (for the TV), which is matched first and leaves
+    "on computer" as the object name.
+  * LAY ON BED -- likewise shadowed by the shorter verb "lay".
+
+Start:
+look at tv
+press power switch tv
+press power on hifi
+scan hifi
+press power switch on computer
+type 122 computer
+take lamp
+turn on lamp
+north
+open fridge
+close fridge
+take blender
+press blend on blender
+south
+south
+lay on bed
+press power on radio
+press scan on radio
+north
+east
+use toilet
+flush toilet
+turn tap on sink
+turn tap on bath
+get in bath

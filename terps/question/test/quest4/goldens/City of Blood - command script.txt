@@ -1,0 +1,500 @@
+
+look desk
+take journal
+look meridam trax
+take dart
+e
+e
+n
+open cupboard
+take meat
+s
+w
+out
+s
+s
+sw
+w
+w
+w
+look fountain
+take gold coin
+sw
+take cartwheel
+ne
+e
+e
+s
+give cartwheel to samus the blacksmith
+give gold coin to samus the blacksmith
+out
+w
+w
+sw
+use cartwheel on cart
+push cart
+ne
+e
+e
+e
+ne
+n
+e
+e
+e
+e
+sw
+look headstones
+take iron key
+use iron key on iron gate
+open iron gate
+down
+take blowpipe
+lift dead body
+take silver ring
+use dart on blowpipe
+up
+ne
+s
+look catafalque
+take candle
+out
+e
+e
+take box of matches
+out
+use box of matches on candle
+ne
+n
+use candle on candelabrum
+out
+sw
+w
+n
+look corpse
+use talisman on vampire
+take rod
+out
+e
+ne
+e
+ne
+s
+take goblet
+out
+n
+give silver ring to rango the beggar
+s
+sw
+s
+w
+give silver ring to malako stormchaser
+out
+n
+w
+sw
+w
+w
+w
+s
+s
+s
+w
+use box of matches on poster
+w
+take crowbar
+e
+out
+se
+look cage
+give meat to sabre-cat
+push cage
+open manhole
+down
+s
+e
+s
+se
+speak to conas wretch
+lift conas wretch
+take dagger
+nw
+n
+w
+n
+up
+nw
+n
+n
+n
+w
+w
+s
+sw
+w
+w
+w
+sw
+w
+n
+use dagger on water
+s
+e
+ne
+n
+use goblet on barrel
+out
+e
+e
+e
+ne
+n
+e
+e
+e
+e
+e
+ne
+e
+s
+se
+e
+n
+give dagger to vandos the armourer
+out
+w
+s
+s
+look horse
+lift saddle
+take pouch
+open pouch
+take sleeping powder
+use sleeping powder on goblet
+out
+n
+e
+se
+give goblet to captain eomark
+lift captain eomark
+take crystal key
+out
+w
+nw
+n
+ne
+e
+use crowbar on crate
+look crate
+take bust
+out
+sw
+w
+sw
+w
+w
+w
+s
+s
+s
+s
+w
+give bust to draco the merchant
+take noseplugs
+take glue
+take flagon of rum
+use noseplugs
+use glue on rod
+out
+n
+se
+down
+s
+sw
+s
+s
+knock mark
+e
+use dagger on red priest
+take staff
+w
+n
+n
+ne
+n
+up
+nw
+n
+n
+n
+e
+e
+e
+ne
+e
+s
+sw
+use staff on oak door
+s
+up
+lift rug
+take scroll
+up
+open telescope
+take page
+read page
+down
+down
+out
+ne
+n
+ne
+n
+give scroll to rango the beggar
+ne
+give flagon of rum to jong the sailor
+go to ship's deck
+down
+down
+take dead rat
+up
+up
+go to swordfish wharf
+sw
+s
+sw
+s
+w
+speak to malako stormchaser
+out
+n
+w
+sw
+w
+nw
+use blowpipe on bellam the jailer
+use golden key on cell door
+open cell door
+n
+give staff to alkazar the wizard
+look mattress
+take silver key
+s
+out
+e
+ne
+e
+s
+sw
+s
+up
+use silver key on oak trunk
+open oak trunk
+look oak trunk
+take rope and grapnel
+down
+out
+ne
+n
+w
+sw
+se
+use rope and grapnel on drain
+take copper necklace
+nw
+ne
+e
+ne
+n
+w
+give copper necklace to yobi the fisherman
+out
+s
+sw
+w
+sw
+w
+w
+w
+s
+s
+s
+e
+e
+speak to marjel the flowerseller
+out
+w
+n
+n
+n
+w
+w
+s
+e
+use dead rat on guillotine
+out
+sw
+take black lotus flower
+ne
+n
+e
+e
+e
+e
+e
+ne
+e
+ne
+n
+ne
+push casks
+w
+use small key on safe
+open safe
+look metal safe
+take deed
+out
+sw
+s
+sw
+w
+sw
+w
+w
+w
+w
+w
+s
+sw
+w
+w
+w
+s
+give deed to tannith shantah
+out
+e
+e
+e
+ne
+n
+n
+n
+up
+w
+use box of matches on coalpile
+use egg on burning fire
+use fishing net on phoenix
+take phoenix
+pluck phoenix
+e
+down
+out
+s
+s
+sw
+w
+w
+w
+sw
+w
+n
+ne
+use rod on rafters
+take map
+out
+s
+e
+ne
+e
+e
+e
+ne
+n
+e
+e
+e
+e
+e
+ne
+w
+give map to savlori the cartographer
+take ink
+use ink on feather
+out
+sw
+w
+w
+w
+s
+s
+s
+look noticeboard
+use feather on petition
+use crowbar on placard
+n
+n
+n
+e
+e
+e
+ne
+e
+ne
+n
+ne
+e
+give nail to ivano the boatbuilder
+w
+go to ship's deck
+go to poop deck
+down
+give silver amulet to captain bloodaxe
+take dragon's tooth
+up
+go to ship's deck
+go to swordfish wharf
+sw
+s
+sw
+w
+sw
+w
+w
+w
+s
+look bridge
+climb secret ladder
+open black door
+s
+give black lotus flower to caracus the hermit
+give feather to caracus the hermit
+give dragon's tooth to caracus the hermit
+n
+climb ladder
+n
+e
+e
+e
+ne
+e
+s
+se
+s
+sw
+use rope and grapnel on rooftop
+climb rope
+jump alley
+use crowbar on window
+go to balcony
+down
+w
+use crystal key on throne
+go to velmaht's sanctum
+use obliteration potion on prince velmaht
+e
+e
+e
+nw
+s
+speak to alkazar the wizard
+7

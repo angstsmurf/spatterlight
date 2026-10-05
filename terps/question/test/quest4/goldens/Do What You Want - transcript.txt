@@ -1,0 +1,110 @@
+
+Do what you want, v1.0 | Gamer
+
+You wake up in bed. A butler comes in.
+There is butler here.
+You can go to Your bedroom.
+
+> speak to butler
+He gives you your toast whitch you eat hungrily. Suddenly you feel pain in your stomach. You have food poisoning!
+
+> go to your bedroom
+It's your bedroom.
+You can go to The upstairs hallway.
+
+> go to the upstairs hallway
+You walk out of yor room and see two men fighting. You recognize them. There names are dan and nick.
+There is Dan and Nick here.
+You can go to The guest bedroom.
+You can go down.
+Nick wins the fight!
+
+> speak to nick
+"What were you fighting about?"
+ "He put the salmonella in your toast."
+
+ "Yah but stil you didn't have to hit him in the groin."
+ "sorry sir what shal I do with him."
+ "change his job from a cook to a window cleaner."
+ "right away sir."
+
+> down
+You walk down the stairs. Your hallway is bare as usual. There is a leter on the doormat.
+There is Letter here.
+You can go to The living room, The front yard, dining room or The kitchen.
+You can go up.
+
+> take letter
+You take the leter. You should definately read it!
+
+> read letter
+The letter says:
+
+"Mr andrue's I,m sorry to say that you've been fired from your job at the car dealership. I'm so sorry.
+
+ You gasp.
+ "noooooooooooooooooooooooooooooooooooooooooooooooo" You say.
+
+> go to the front yard
+This is the front yard. Someone wrote "pooooooo" on your fence.
+You can go to limo or The downstairs hallway.
+
+> go to limo
+You get in your limo. Your shofer says "where would you like to go?"
+You can go to The front yard, The pub, The mafia club, The car dealdership, The beach, The garage or Police station.
+
+> go to police station
+The police station is old and smells like generations of cigar smoke. Sitting behind his desk is a police man.
+There is Reseption oficer and Sergeant here.
+You can go to limo.
+
+> speak to reseption oficer
+"would you like to join the police?"
+1) Yes
+2) no
+[choice] 1
+We are very happy that you've joined the police. Find oficer jenings. He wil tell you what to do.
+
+> speak to sergeant
+"I see that you are new to the police force. I'll give you an easy job. A man gave a rich man food poisoning. That man was you. I'm sure you'll want to get revenge."
+"Oh and don't go anywhere near the mafia club."
+
+> go to limo
+You get in your limo. Your shofer says "where would you like to go?"
+You can go to The front yard, The pub, The mafia club, The car dealdership, The beach, The garage or Police station.
+
+> go to the mafia club
+You go into the mafia club. People point guns at you!
+There is killer Killer killer and dan moved here.
+You can go to limo.
+
+> arrest dan
+You grab him and put him hand cuffed into your limo. He is take to the police station and sentenced 2 years in jail.
+The sergeant smiles at you.
+"You did a gould job. Now to arrest the leader of the mafia."
+The police station is old and smells like generations of cigar smoke. Sitting behind his desk is a police man.
+There is Reseption oficer and Sergeant here.
+You can go to limo.
+
+> go to limo
+You get in your limo. Your shofer says "where would you like to go?"
+You can go to The front yard, The pub, The mafia club, The car dealdership, The beach, The garage or Police station.
+
+> go to the mafia club
+You go into the mafia club. People point guns at you!
+There is killer Killer killer here.
+You can go to limo.
+
+> arrest killer
+You charge at killer. He fires but misses. You kick him in the groin and he doubles over in agony. You have time to take the pistol from his pocket befor he leeps up and kicks you in the stomach. You roll around dodging his kicks. He suddenly grabbs the pistol. You cling onto the pistol. You are lifted off the ground. You suddenly fall and the pistol flies from the man's hand. He slumps over. He is grabbed by alot of policemen and locked in the back of a police car.
+You've done the only mission in the game!
+It's not the end of the game though.
+The police station is old and smells like generations of cigar smoke. Sitting behind his desk is a police man.
+There is Reseption oficer and Sergeant here.
+You can go to limo.
+"well done" says the sergeant. Hear's 2000000 pounds."
+You take the 2000000 dollars.
+"thanks."
+
+You can now do what you want!
+[runner] turns=18 leftover=0 running=true WON=YES

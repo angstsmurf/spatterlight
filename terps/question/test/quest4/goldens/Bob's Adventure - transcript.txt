@@ -1,0 +1,59 @@
+
+Bob's Adventure | Bob
+
+Hello Bob! Welcome to your adventure.
+
+> go your gun
+It's your gun. Use wisely
+
+> east
+
+> west
+
+> south
+
+> give the gangster
+The bitch walks away happy
+
+> north
+
+> north
+
+> look at gun
+Here is your gun! Use it wisely.
+
+> shoot your gun
+Gun! Use it wisely
+
+> shoot with your gun
+Gun! Use it wisely.
+
+> talk baseball field
+Kill him
+Take the job
+Take the job and kill all the kids
+ignore him, he is an asshole walk away
+
+
+> take child to your house baseball field
+No sir please don't hurt me...
+You: Don't worry it will only hurt for a second
+Child: Don't kill me!
+All of a sudden you here police sirens coming your way. You quickly put the child in the trunk of your car, and arrive at your house!
+
+> look at child
+take child to your house
+
+> speak to child
+Please don't hurt me mister.
+
+> north
+
+> west
+
+> pick up lady
+That bitch didn't want you, she just stole all your money. You should of killed her.
+
+> kill lady
+BOOM...... You shot her. Suddenly you her cops coming. You quickly drive away.
+[runner] turns=18 leftover=0 running=true WON=YES

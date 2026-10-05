@@ -1,0 +1,19 @@
+
+Latrix War Forever, vV1.0
+
+
+> take black bitter
+You pick it up.
+
+> take aegis
+You pick it up.
+
+> inventory
+You are carrying:
+Magical Sword- Black Bitter and Magical Sheild- Aegis.
+
+> up
+
+> north
+You can't go there.
+[runner] turns=5 leftover=0 running=true WON=YES

@@ -1,0 +1,16 @@
+Incident of the Undead Part 2 v2.0 (QDK 4.1.4, ASL 410)
+- raw command script for question_walkthrough_runner.
+Game system: Quest 4.  Marker: "Time to nut up or shut up".
+
+NOT A WIN -- there is no playerwin.  The whole game is one room, Wolverine,
+whose description is a seven-way quiz answered by "command <A>" .. "command <G>".
+Six answers print a death in prose ("THE END / Type another option.", not
+playerlose); C, the Master Sword, is the surviving one and ends with
+'type "win" to win'.  WIN is a command whose entire body is a playmp3, so it
+prints nothing and ends nothing: the marker is the last line of the C branch,
+the last text the game can print.  The second room, The Down Town Market, is
+empty and unreachable.
+
+Start:
+c
+win

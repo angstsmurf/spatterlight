@@ -922,6 +922,347 @@ play MetalSonicsQuest    "MSQ.asl"                     "Metal Sonic's Quest - co
 # `playerwin' anywhere -- the marker is the congratulation `choose <octoberiffic>'
 # prints in its `finalscene' branch after you press SEND on the last MSN message.
 play SomethingBoutAHex   "something 'bout a hex.cas"   "Something 'Bout A Hex - command script.txt"                "completed BOOK TWO of Something 'Bout a Hex" --tick
+# Kings Quest V Part One is the earlier release of the game above, and it does
+# have a `playerwin': the room script of the ledge the rope leads to, which is
+# where the full release carries on with `cross gap'.  The script is the first 194
+# lines of the full one with two extra `look's, each for a real difference in the
+# source: the rat timer is `interval <22>' here against 20, so `take rope' lands
+# while Graham is still tied up; and `hungry' is only set by the mountain room's
+# `afterturn', which does not run on the turn you walk in, so an immediate
+# `eat lamb' is refused and he starves.  --tick is mandatory (the rat).
+play KingsQuestVPartOne  "KQ5_PartOne.asl"             "Kings Quest V Part One - command script.txt"               "successfully completed Part One" --tick --seed 1
+# Doctor Who's 50th Birthday Cake: a custom `command <say #speech#>' with
+# `select case', some thirty game-level verbs with per-object `action' and
+# `properties <verb = text>' overrides, `unlock <room; dir>', and a
+# beforeturn/afterturn turn counter.  Nearly every wrong verb is a `playerlose'.
+# The sacred key is taken straight out of the open savaloy, never by way of
+# carrying the savaloy.
+play DoctorWho50         "Doctor Who's 50th Birthday Cake.asl" "Doctor Who's 50th Birthday Cake - command script.txt" "you've completed your assignment"
+# Gaiaonline Q&A is not a game but an FAQ: six rooms and 187 global
+# `command <question> msg <answer>' lines, no objects, no state and no
+# `playerwin', so the script is a tour ending on the author's sign-off question.
+# It is here for the literal matching of patterns full of `?', `!', `,', `'',
+# `/', `.' and `&', for the one question Quest cannot answer -- `command <How do
+# I get a MC? >', a lone pattern whose trailing space Quest keeps and so never
+# matches, and which Question trims and answers ON PURPOSE (a `deliberate:' row
+# in the oracle sweep; fixtures/cmdspace.asl) -- for exits that lead back to their own room, for two exits to a room the game never defines (the
+# player stays put and nothing is printed), and for a `verb' in the game block
+# attached to no object, which is never matched.
+play GaiaonlineQA        "QA.asl"                      "Gaiaonline Q&A - command script.txt"                       "one of the developers of this feature"
+# Cabin Fever: one room, ten jigsaw pieces, and all progress modelled by
+# hide/show of numbered variants of the same object (Fireplace 1-4, Puzzle 1-5).
+# Line 1 answers the opening four-way menu.  Portable things stay hidden until
+# their container is looked at.  The marker is the last `msg' before the only
+# `playerwin'.
+play CabinFever          "cabinfever.cas"              "Cabin Fever - command script.txt"                          "only to take his place yourself"
+# As Darkness Falls (the game block says "Darkness Falls") precedes Ghost Light
+# above and shares its EXAMINE-is-not-LOOK-AT split.  The marker is in the good
+# branch of the ending only; "YOU HAVE WON" is printed by both.  Three
+# `enter <var>' prompts behind `if ask', a nested `enter' menu chain on the
+# office computer, four objects aliased `rope' of which only one is ever
+# visible, and a chess puzzle whose flags are set as `NP' and tested as `np'.
+# The `zombie' timer is dead code -- nothing turns it on -- so no --tick.
+play AsDarknessFalls     "as darkness falls.cas"       "As Darkness Falls - command script.txt"                    "She kisses you and thanks you"
+# City of Blood: about a hundred rooms and 498 turns.  The four `look <container>'
+# lines are not padding.  The game opens its crate, trunk and safe with a scripted
+# `open <obj>', which unlike the player's own OPEN does not look at the container
+# (DoOpenClose with showLook false, V4Game.Part2.cs:586), so it is open but not
+# "seen" and its contents stay out of reach; `take bust' answers "That doesn't
+# work." in Quest too.  Also `afterturn' running `doaction', `create exit' in both
+# forms, a script-valued exit, and `speak' into a `choose' whose seventh choice is
+# the only `playerwin'.
+play CityOfBlood         "City of Blood.cas"           "City of Blood - command script.txt"                        "buy Alkazar a drink"
+# The Mansion II, the sequel to Mansion above.  Driven by `choose' menus on
+# `examine': the safe is four chained ten-way menus, the locker four chained
+# thirteen-way ones.  28 objects all aliased `Flask' are swapped by hide/show, so
+# exactly one must be visible at a time.  The teleporter and the dream candle
+# both depend on `lose' dropping the object in the current room (ASL >= 280)
+# rather than removing it.  The last room is `if got <DVD-ROM2> then playerwin
+# else playerlose'.
+play Mansion2            "mansion2.asl"                "The Mansion II - command script.txt"                       "disk full of incriminating evidence"
+
+# Sim Political Career: a timer-only life simulation with no rooms, objects or
+# commands.  The start script takes three `enter' answers (first name, surname,
+# `boy'), then five timers (intervals 1/4/12/16/20) run everything, so --tick is
+# mandatory and each `look' is a filler turn advancing one quarter-year.  `choose'
+# menus and `enter' prompts fired from timer scripts consume script lines mid-turn
+# (menu numbers, AGM position numbers, one child name).  The only win is being
+# made Prime Minister (MP with political power >= 100,000,000 under a Democrat
+# government), after which the game stops its timers.  Every promotion and
+# election is a `$rand(1;100)$' test, so the script is tuned to seed 1 and to the
+# engine's draw and timer order, not a general strategy.  Exercises float numeric
+# variables (age steps by 0.25, with `%age% = 18' tests), `onchange' on a numeric,
+# and a user-defined `round' built on `$instr$'/`$left$'/`$mid$'.
+play SimPoliticalCareer  "Sim Political Career.asl"    "Sim Political Career - command script.txt"                 "congratulations, Prime Minister" --tick --seed 1
+
+# Dog Catcher (Alexander L. Nielsen, 2009, ASL 400): find the dog Sofus in the
+# garden of a house of about 30 rooms.  Open the office cupboard (which reveals
+# the biscuits), take them -- an implicit "(first removing them from cupboard)" --
+# walk out through the scullery to the flagpole lawn and use the biscuits on the
+# dog.  The other win, leash on dog while holding biscuits, is a `$rand(0;4)$ < 3'
+# test that otherwise loses, so the script takes the deterministic route.
+play DogCatcher          "Dog Catcher.cas"             "Dog Catcher - command script.txt"                          "You've found my dog"
+
+# Caravan Chaos (ASL 400, no author): one caravan room plus a snowstorm maze,
+# panes off and a `description' script, so no object or exit lists.  A strictly
+# ordered chain: bowl from the cupboard; `examine' bowl / window / memory card
+# hand over the coin, card and battery through per-object `action <examine>'
+# scripts behind a game-level `verb <examine>'; coin on valve fills the bowl
+# (without the bowl held it floods the caravan and loses); `look under bed' is a
+# game-level command revealing the box; bowl on box gives the magnet, magnet on
+# bed the keys; `out' is gated on the keys.  The maze is e, w, n -- any other step
+# reaches `cliff', whose description script is playerlose.  Battery on the engine's
+# wires does `goto <roof>', where `wires' resolves to a second object of that
+# alias and the coin wins.  The intro's `|w' waits consume no script line.
+play CaravanChaos        "caravanchaos.cas"            "Caravan Chaos - command script.txt"                        "Awesome!"
+
+# A Hitmans Life (QDK Lite 4.04, four rooms): fetch the hand gun from the weapons
+# room and use it on the Presadent; the Ak47 is playerlose.  The gun object is
+# named `Hand gun.' with a trailing full stop: `take hand gun.' works, but `use
+# hand gun. on presadent' is refused in Quest and here alike, so the script uses
+# the dotless form.  The marker "you shoot holamoladola" is the win's own line,
+# distinct from the Ak47's "you shoot at Mr holamoladola".
+play AHitmansLife        "a hitmans life.asl"          "A Hitmans Life - command script.txt"                       "you shoot holamoladola"
+
+# The Bomb (bomb.asl, beta 0.1) -- NOT a win: a two-room timer toy with no
+# playerwin, whose only ending is playerlose (standing in the Bomb Room at
+# detonation).  The script runs the whole survivable cycle: arm the bomb (the
+# `enter' prompt takes `3', which `set interval <Timer; #time#>' turns into the
+# fuse), `go to escape room' (movement is by `place'), sit out the explosion, wait
+# for the 30-second New Bomb timer and go back to look at the fresh bomb.  The 31
+# `look's are the turns that timer needs, not padding.  --tick is mandatory.
+play TheBomb             "bomb.asl"                    "The Bomb - command script.txt"                             "a new bomb comes out of nowhere" --tick --seed 1
+
+# The Bomb 0.2 -- NOT a win, and it ends in playerlose.  In 0.2 you must carry
+# the bomb to arm it, and dropping an armed bomb is `$rand(0; 1)$' with 1 fatal;
+# at seed 1 that draw is 1 in Quest and here, and nothing else draws, so
+# surviving is out of reach at this seed.  The script takes the seed-independent
+# ending instead: take, `set bomb' (a `define synonyms' for arm), answer 3, and
+# hold through the 2, 1, 0 countdown to the `lose' text.  --tick is mandatory.
+play TheBomb02           "The Bomb 0.2.asl"            "The Bomb 0.2 - command script.txt"                         "you got hit by the bomb" --tick --seed 1
+
+# Digimon (QDK Lite 4.02, six rooms) -- no playerwin; the author's ending is the
+# arena's room-level command `use blue card on digivice', then `finish', which
+# runs `stop'.  That command matches the literal text and checks no inventory, so
+# the card and digivice pickups are story, not requirements.
+play Digimon             "digimon.asl"                 "Digimon - command script.txt"                              "you killed the evil digimon"
+
+# Easter Day -- no playerwin; the final room `Outside' prints "You made it!" and
+# runs `stop'.  Key from the parents' room, `use key on case' shows the Map,
+# taking it shows the Little box, opening that shows Another key, and `use another
+# key on outside door' does `create exit northwest <Hallway; Outside>'.  Leans on
+# objects parented in closed containers, an `action <take>' overriding the
+# game-level `verb <take>', an `open' script, and a runtime-created exit.
+play EasterDay           "Easter Day.asl"              "Easter Day - command script.txt"                           "You made it!"
+
+# Firebird Island -- NOT a win: a six-room QuestNet scenery sandbox (it includes
+# the absent net.lib and loads without it) with no ending of any kind.  The
+# script is a full tour: every room, all four custom verbs (property-as-verb
+# `Read=' / `pet=', game-level `smile' and `kiss'), `alt' names, and the one
+# takeable object, ending on the bed description that only the last room prints.
+# The porch has two objects aliased "Rocking Chair", so `look at rocking chair'
+# raises a disambiguation menu, which script line 7 (`1') answers.
+#
+# Fenom Online, the other QuestNet game in the corpus, has no script: five empty
+# rooms with no exits, objects or commands, and no playerwin, playerlose or stop.
+play FirebirdIsland      "firebirdisland.asl"          "Firebird Island - command script.txt"                      "elegant oak construction"
+
+# Do What You Want -- NOT a win: a sandbox with one "mission" and no playerwin
+# (only playerlose).  The script ends at the last scripted event, arresting
+# Killer, where the game says "You've done the only mission in the game!" and,
+# after a `wait', the marker.  Every exit but up/down is a `place' exit, so
+# movement is `go to <alias>' with the room's article ("go to your bedroom");
+# "go to bedroom" fails.  Joining the police is a `choose' menu on `speak'
+# (option 1); the arrests are custom-verb `action <arrest>' scripts that `goto'
+# the station.  No step is flag-gated -- they are kept so the script follows the
+# story.
+play DoWhatYouWant       "do what you want.asl"        "Do What You Want - command script.txt"                     "You can now do what you want"
+
+# Sandbox Samurai: collect the DVD shuriken, the mousechuk and the wakazashi,
+# then `use sandbox'.  `open scrapbooking kit' is essential: the kit, scissors
+# and tape live in a dummy room `objroom', `look under bed' hands over only the
+# kit, and the scissors and tape can never be taken -- but once the held kit is
+# open, `cut dvd with scissors' works and `if got <tape>' is true (the container
+# rule; real Quest agrees).  Mom leaves her room only after both the sink and the
+# bathtub are turned on; the DVD is `hidden' inside the closed player until
+# `open'.
+play SandboxSamurai      "sandboxsamurai.asl"          "Sandbox Samurai - command script.txt"                      "Congrats"
+
+# Lands of Unknown (ASL 350): many rooms run `script playerlose' on entry.  The
+# one winning route is left door, portal (`go to hill side'), key from the ship,
+# `use key on crate' (Blue pendant), `use blue pendant on volcano stream'
+# (`create exit east'), north-west, east, `examine skeleton' (the gun), `use gun
+# on dragon'.  The gun also carries `use on anything' ("no more ammo"), but the
+# dragon's own `use <gun>' takes precedence.  Spending the key on the forest
+# chest instead of the crate makes the game unwinnable.
+play LandsOfUnknown      "Lands of unknown.asl"        "Lands of Unknown - command script.txt"                     "Your wedding is in Canada"
+
+# Treasure Island (treasure hunt quest grace.asl; not the corpus's "Treasure
+# Hunt") -- NOT a win, and unwinnable by a game bug: the only playerwin is the
+# room script of `F,10', and no exit or goto anywhere leads there.  The script
+# solves both monster puzzles on the 10x10 coordinate grid -- jam sandwich to the
+# white monster at F,3 (menu option 1), ham sandwich to the black monster at I,8
+# (option 2) -- and steps south through the unlocked exit into I,9, whose
+# description is the marker.  The monster rooms run `choose' from the room script
+# and lock/unlock exits.  The `Lives' variable's `onchange' fires on any change,
+# so the health pickup at G,5 (`inc <lives>') prints "You lose a life." in Quest
+# and here alike.
+play TreasureIsland      "treasure hunt quest grace.asl" "Treasure Island - command script.txt"                    "This is where you come out of a portal"
+
+# The Battle (battle.cas): script line 1, "Sam", answers the start script's
+# `enter <name>'.  The balloon is filled with `use balloon on water' -- the
+# handler is on the water, so the reverse order is refused.  Bob's `ask' takes
+# `1'.  The `east' exit of `main hallway a' is a script that, with the lab key,
+# does `create exit east', so `east' is typed twice.  `drink holy water' opens a
+# menu (option 2 swaps holy water 1 for 2); once the vial is held "water" is
+# ambiguous, so the script says `use bottle on teacher'.  Menus: riddles 2 and 2,
+# god of death 2.  A non-numeric line at a menu is read as option 1.  No --tick:
+# timer `dog' is never enabled and `timeron <school yard>' names no timer.
+play TheBattle           "battle.cas"                  "The Battle - command script.txt"                           "Now go tell all your friends"
+
+# Nearco 3 (Jhames, 2009, Spanish, ASL 400) -- the sequel to Nearco, and unlike
+# it fully winnable: being ASL 400 rather than 410, the `create exit' rule that
+# walls off Nearco 1 does not apply, and both `create exit's here add a direction
+# the room never declared.  The script is CP1252, like Nearco's (`examine señora',
+# `use arco on jabalí').  A long fetch chain: the beach's "objeto raro" appears
+# only after the path has been visited; `poner bolsitas' works only at the temple
+# entrance; `use trenza de cabellos on rama' makes the bow (the rama declares the
+# `use'); the old man appears only when you carry the colmillos and wants
+# colmillos, carta, then the object; `take barca' with the machine wins.  The safe
+# is `gira combinacion 1 a la derecha' / 5 left / 9 right, through a synonym table
+# mapping `a' to `to'.  Seed-dependent: the brothel's room script draws
+# `$rand(1;2)$' on each entry while Meretricia is there, and the safe refuses to
+# work until a 1 takes her away -- at seed 1 that is the second re-entry, hence
+# `e'/`w' twice.  Four `wait's consume no line.
+play Nearco3             "Nearco3.cas"                 "Nearco 3 - command script.txt"                             "Has terminado Nearco 3" --seed 1
+
+# Holes the Game -- NOT a win: an unfinished fragment with no playerwin.  Taking
+# the sneakers does `goto <court>'; `speak to judge' raises a `choose' menu and
+# `1' picks Camp green lake, whose choice runs `goto' before `msg', so the tent
+# description prints before "You have chosen...".  The marker is the camp's only
+# scripted event, `sleep on bed'.  The Jail branch dead-ends in a playerlose.
+play HolesTheGame        "holes the game.asl"          "Holes the Game - command script.txt"                       "wake up next morning"
+
+# House Adventure -- NOT a win: a four-room sandbox with no goal.  The script
+# tours every custom verb once (each a game-block `verb <x>' answered by an
+# object `properties <x=text>') and ends on the bath's `get in' reply.  Two lines
+# deliberately show game bugs, refused in Quest and here alike: `press power
+# switch on computer' and `lay on bed' are shadowed by the shorter verbs `press
+# power switch' and `lay'.
+play HouseAdventure      "house adventure.asl"         "House Adventure - command script.txt"                      "you get in the bath"
+
+# Incident of the Undead Part 2 -- NOT a win: one room, a seven-way quiz answered
+# by `command <A>'..`command <G>', with no playerwin.  Six answers are prose
+# deaths; C survives and says `type "win" to win', but `command <win>' is only a
+# `playmp3' and prints nothing.  The marker is the last line of the C branch.
+play IncidentUndead2     "Incident of the Undead Part 2.asl" "Incident of the Undead Part 2 - command script.txt"  "Time to nut up or shut up"
+
+# Incident of the Undead Part 3: three rooms of multiple choice by `command',
+# every wrong answer a playerlose; `b' in the last room is playerwin.  `g' runs
+# msg / wait / playwav / msg / wait / wait / goto in one turn (the waits consume
+# no line).  In Your Old House the question is only printed by `down', so the
+# script types that first.
+play IncidentUndead3     "Incident Of the Undead Part 3.asl" "Incident of the Undead Part 3 - command script.txt"  "drift asleep"
+
+# Latrix War Forever -- NOT a win: an abandoned opening with two defined rooms;
+# the Labrinth's other nine exits name rooms that do not exist.  The game is
+# almost silent, in Quest too: the author wrote `speak' where `msg' was meant
+# (`description speak <...>'), so no room prints a description.  The marker is a
+# stock string and weak, but it proves location: the Labrinth has exits in all ten
+# directions, so "You can't go there." can only come from Team Legends Base.
+play LatrixWarForever    "Latrix War Forever!.asl"     "Latrix War Forever - command script.txt"                   "You can't go there."
+
+# TimeRift: `define game <>', so no title and no banner.  A real playerwin (`use
+# radio on pedestal of time'), but ungated -- the Zombie can be walked past, and
+# `use spear on zombie' prints two "You killed the Zombie" lines without hiding
+# it, its test being an unfilled QDK placeholder (`use on 'OTHER OBJECT NAME'').
+# The script kills it only because the intro asks.  It avoids the picture `look's.
+play TimeRift            "TimeRift.asl"                "TimeRift - command script.txt"                             "farewell, traveler"
+
+# The Tavern: the Victory! room's description script is playerwin.  `punch
+# bookshelf' raises a disambiguation menu with two identical "a bookshelf"
+# options, the bedside table carrying `alt <bookshelf>' too; `2' picks the real
+# one.  Nothing is gated -- `use book on door' and `use gun on pirate' test
+# nothing -- but the script plays the intended sequence.  The key is `invisible'
+# and arrives by `give <key>' in `search box'.
+play Tavern              "the tavern.asl"              "The Tavern - command script.txt"                           "You become a hero"
+
+# On Time (ontime.asl, ~90 rooms): a bride wakes hungover on her wedding day and
+# must reach the chapel.  No playerwin: every ending is a `msg <...YOU WIN!>' or
+# `<...YOU LOSE!>', a score line, a credits prompt and `stop'.  The script reaches
+# the "early" biker ending.  --tick is mandatory: `get up' starts chained timers
+# (`early' 540s, `on time' 120s, `late' 120s) that pick the ending, `drink' starts
+# `hungover' then `fallover' (a loss, cancelled by `eat cake'), and a 20s `bus'
+# timer fires an `enter' prompt mid-turn in `main road'.  So the filler counts are
+# exact: 17 `look's wait for "A bus arrives. Get on it?" and 21 for "Get off at
+# next stop?"; changing the turn count before the main road means re-tuning the
+# first.  Other lines eaten by prompts: `2' (elf menu), `yes', `3' (dress), `left',
+# `yes', the bike chase `right' / `straight on' x3, and `yes' for the credits.
+# The script never takes the mobile phone or enters the lounge, whose timers would
+# inject prompts of their own.
+play OnTime              "ontime.asl"                  "On Time - command script.txt"                              "YOU WIN!" --tick --seed 1
+
+# Bob's Adventure -- NOT a win: a six-room sandbox with no ending.  The game
+# block's `description font <WP Phonetic>' is a global room-description script
+# that only sets a font, so no room ever prints a description and movement and
+# `look' are silent, in Quest too.  Custom verbs take the form `<verb> <object>'
+# (`go your gun', `pick up lady').  The script tours the six rooms, fires every
+# verb that works in real Quest and ends on `kill lady'.  It avoids the objects
+# named `him' and `Her' (Quest reads those as pronouns), the Airport's `place'
+# exits (shadowed by the game's own `Go to' verb), and the gangster's `Waste the '
+# property with its trailing space.
+play BobsAdventure       "bobsadventure.asl"           "Bob's Adventure - command script.txt"                      "Suddenly you her cops coming"
+
+# Lost Jasmine: a chain of hidden objects revealed by `show' -- `open sirap' shows
+# Yago, `speak to yago' the Stable, `look at stable' the Key -- and Key is a
+# `container' whose `open' script is playerwin.  The Hazrat / policemen branch is
+# optional and ends in playerlose.
+play LostJasmine         "lostJasmine.asl"             "Lost Jasmine - command script.txt"                         "she is ready to go with you"
+
+# Motorbike Keyfinder -- no playerwin, but the intended ending: `look at
+# computertable' shows the cloth, `take cloth' is an `action <take>' that shows
+# the hidden nail instead of taking anything, and the nail is a `container' whose
+# `open' script prints the congratulations.  The game keeps running afterwards.
+play MotorbikeKeyfinder  "Motorbike Keyfinder1.2.asl"  "Motorbike Keyfinder - command script.txt"                  "You have found your Motorbike key"
+
+# Math Water Magic Journy (Water-venture.cas, a school project) -- NOT a win: the
+# game is a loop, the last room (School) printing its text, `wait', then `goto
+# <Your room>'.  The marker is the School text.  The maths answers are synonyms
+# (`96 = go to bathroom2', `12', `28'), and the exits they use are made at run
+# time by `create exit', so `use sink' must come before `96'.  Every room has
+# `beforeturn clear'; `wait' + `clear' + `goto' in description scripts consume no
+# line.
+play MathWaterMagicJourny "Water-venture.cas"          "Math Water Magic Journy - command script.txt"              "make a etxt based adventure game"
+
+# Hungry Goblin (ASL 350) -- a real playerwin, but only through a game bug.
+# Numeric `tummy' starts at 95, `afterturn' adds 1 a turn, playerlose at 100 and
+# playerwin below 0, and all the food together is worth 98, so it cannot be won
+# honestly (the intended tavern ending is an empty room).  Eating the venison only
+# does `hide <venison>' while it stays held, and `examine campfire' always does
+# `show <venison>', so the pair repeats for a net 28.  The worm must be eaten
+# within the first four turns.  `eat #@food#' is a custom command.
+play HungryGoblin        "hungry goblin.cas"           "Hungry Goblin - command script.txt"                        "You are finally full"
+
+# Beyond Manage: a true win (playerwin at the end of Stage 1, Lay Vega Room 10;
+# the Venus Rogue rooms are empty stubs).  Needs --tick: the tutorial is gated
+# by two timers.  The filler turns are `look at ...', not `look', because the
+# room description calls timeron again and would restart the timer.
+play BeyondManage "beyondmanage.asl" "Beyond Manage - command script.txt" "end of Stage 1" --tick --seed 1
+# Dungeon (ASL 350): NOT a win, the game is unwinnable as written.  The first
+# Maze room has no west exit although the map says to go west, so everything
+# beyond it, the playerwin room included, is unreachable.  The script stops at
+# the last reachable scripted event, the map hint.  Needs --tick: the Dungeon
+# Master only appears after 20 turns in the exitless cell.
+play Dungeon "dungeon.asl" "Dungeon - command script.txt" "The map says you should go west" --tick --seed 1
+# Realm of Chaos Demo: no playerwin; the demo ends with "You have completed the
+# demo!" and a stop.  The thief's speak script has a stray second `enter', so
+# the password line appears twice.
+play RealmOfChaosDemo "realm of chaos 1.0 demo.asl" "Realm of Chaos Demo - command script.txt" "You have completed the demo" --seed 1
+# Enterprise (ASL 350): NOT a win, a sandbox with no goal and no playerwin.  The
+# script follows the one scripted storyline to its end, a cell with no exits.
+# The game includes q3ext.qlb, which is bundled (FINDINGS 83); its clothing and
+# room descriptions are the library's.
+play Enterprise "enterprise.asl" "Enterprise - command script.txt" "you see several other cells" --seed 1
 
 if [ -n "$only" ] && [ "$matched" -eq 0 ]; then
     echo "no game label matches --only '$only'"; exit 1

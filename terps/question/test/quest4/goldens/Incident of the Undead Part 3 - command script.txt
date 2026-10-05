@@ -1,0 +1,19 @@
+Incident of the Undead Part 3 v3.0 (QDK 4.1.4, ASL 410)
+- raw command script for question_walkthrough_runner.
+Game system: Quest 4.  Marker: "drift asleep".
+
+A true win: three rooms of multiple choice answered by "command <...>"
+handlers, where every wrong answer is a playerlose.  The surviving answers are
+NUT UP, G, DOWN and B; B is the playerwin.
+
+  * G runs msg / wait / msg / wait / wait / goto, so that one turn prints two
+    "Press any key to Continue...." prompts and the next room.  The waits
+    consume no script lines.
+  * In Your Old House, A and B are live from the start, but the question they
+    answer is only printed by DOWN, so the script types DOWN first.
+
+Start:
+nut up
+g
+down
+b

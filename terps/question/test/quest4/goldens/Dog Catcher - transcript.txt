@@ -1,0 +1,75 @@
+
+Dog catcher, v1.0 | Alexander L. Nielsen
+
+Hey and wellcome to my first quest game.
+In this game you are playing me, and your job is to find my dog (he's name is Sofus).
+
+HAVE FUN!
+
+You are in your bedroom.
+There is your old, gray computer, bed and a long desk here.
+You can go east.
+You are standing in your bedroom in your house. There is a window and a bed to the north, a door to the east and a desk with a computer to the west.
+
+> e
+You are in a short corridor.
+There is a large chest of drawers standing in a corner here.
+You can go north, south, east or west.
+You are now in a short corridor with three doores.
+
+> e
+You are in the office.
+There is white cupboard here.
+You can go west.
+You are in the office. There is a cupboard and a desk with two computers and a phone.
+
+> open cupboard
+You open the cupboard, and find som dog biscuits.
+It's a white cupboard.
+It contains some small dog biscuits.
+
+> take dog biscuits
+(first removing them from cupboard)
+Done.
+
+You grab the biscuits and put them into your pocket.
+
+> w
+You are in a short corridor.
+There is a large chest of drawers standing in a corner here.
+You can go north, south, east or west.
+You are now in a short corridor with three doores.
+
+> s
+You are in a short corridor.
+There is a plastic dog basket with a white blanket here.
+You can go north, east or west.
+You are standing in a short corridor. To the east is a closed door, to the west is the scullery and to the south is a dog basket...
+
+> w
+You are in the scullery.
+You can go south, east, west or up.
+It is the scullery. There is a mirror to the north and a washing machine to the west. To the south is the front door. to the east is a corridor, and over your head, in the ceiling, is a hatch to the loft.
+
+> s
+You are in the drive.
+You can go north, west, northeast or southeast.
+You are in the drive. To the north is the house, and to the east is the garage and a car port.
+
+> w
+You are in the outer part of the drive.
+There is a gray car here.
+You can go north or east.
+You are now standing on the outer part of the drive. There is a car here, but you won't examine it, you have other things to do...
+
+> n
+You are in a little section of the garden.
+There is a high flagpole without a flag and a little black and white dog without leash and collar here.
+You can go north or south.
+You are standing in a little section of your garden. A flagpole is standing in the middle of the lawn. To the north, there is a track leading east, around the northwest corner of the house. To the east is the house, and to the south is an other part of the drive.
+
+> use dog biscuits on dog
+The dog eats the biscuits gladly...
+CONGRATULATION! You've found my dog! Thank you!!!
+
+[runner] turns=11 leftover=0 running=false WON=YES

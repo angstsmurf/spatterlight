@@ -1,0 +1,429 @@
+
+On Time, v1.0 beta! | Letta
+
+Dedication:
+---
+For my friends: May true love find you, and happiness follow :-) Though not necessarily in that order :-)
+For my parents: Thanks for this neat laptop- it's getting plenty of use! :-)
+And for me and all who play this: May my programming skills improve by the time this thing has a real, working, complete version!
+---
+Here beginneth On Time!
+
+You are in bed.
+You are awakened by music. You have a hell of a headache and don't really want to move, only, you're going to a wedding today and it might be a bit of a disappointment if the bride doesn't show. So, get up, this is the happiest day of your life!
+
+> get up
+You stand up with sudden enthusiasm that is dampened by an equally sudden sharp pain in your head and a general feeling of wanting to pass out as the room spins around you.
+You are in your bedroom.
+There is a bedside table here.
+You can go north, south or west.
+
+> drink
+It is water! Stale, flat, but water! You down it in delight, before the glass slides out of your hand and transforms itself into a thousand tiny stars twinkling in the midnight blue of your carpet. Feeling better?
+
+> south
+You are in the passageway.
+There is paintings here.
+You can go north, west, southwest or down.
+There are paintings on the walls, doors in the walls and a staircase at one end.
+
+> down
+As you make your way downstairs you notice that there are little pieces of white stuff here and there.
+You are in the hallway.
+You can go out to the front garden. You can go north, west, northwest or up.
+
+> west
+You are in the kitchen.
+There is a sink, a cooker, a fridge, a table, a wine rack and a cupboard here.
+You can go north or east.
+
+> open cupboard
+You open it, revealing a loaf of bread, a jar of jam and a cake. Not a wedding cake, obviously, but it looks pretty good!
+
+> eat cake
+Oooooh! This is goooood! But now it's all gone!
+
+> examine fridge
+There is a magnet on the fridge. It seems to be some kind of animal, but for some reason, it has bright blue fur!
+
+> take magnet
+Something blue!
+
+> examine wine rack
+You come closer. In one slot there are three roses bound together with a cord of pure white silk. Awww.
+
+> take roses
+You pick them up. They smell as beautiful as they look.
+
+> east
+You are in the hallway.
+You can go out to the front garden. You can go north, west, northwest or up.
+
+> out
+You are in the the front garden.
+You can go out to the back garden. You can go east or west.
+Your front garden consists of a lawn and some bushes.
+
+> east
+You are in your street.
+You can go south, west or northwest.
+This is a pretty street of multicoloured houses. Yours is predominantly blue. A row of blossom trees gaurd both sides of the street. There is a pub on the corner.
+
+> south
+You are in your street.
+You can go north, south, east or west.
+This is the newer end of the street. You are not sure that you like the new houses.
+
+> south
+You are in your street.
+You can go north, south or east.
+This part of the street is under construction. Don't walk under the ladders!
+
+> south
+You walk under them anyway. Nothing happens. Must be your lucky day!
+You are in the woods.
+You can go north, south, southeast, southwest or up.
+Trees, trees, as far as the eye sees. See trees, trees, trees!
+
+> southeast
+You are in the woods.
+You can go east, west, northwest or up.
+Trees, trees, as far as the eye sees. See trees, trees, trees!
+
+> east
+You are in the woods.
+There is wishing well here.
+You can go southeast or up.
+Trees, trees, as far as the eye sees. See trees, trees, trees!
+
+> southeast
+You are in a clearing.
+There is an elf here.
+You can go south or northwest.
+No trees here! But they are all around, oh yes. Lots of trees. Lots and lots of trees.
+
+> speak to elf
+You start to speak, but the urgent look in his eyes stops you. "Mae govannan! I am Glorfindel. I am looking for a halfling and a ranger. Have you seen them? I think I am lost. Which way is Imladris?"
+
+> reply
+Your reply:
+1) To the point: "I haven't seen them, they are dead."
+2) A bit more sympathetic: "I'm very sorry, they are gone."
+3) Out-right lie: "They passed this way, the day before yesterday."
+[choice] 2
+You continue: "And this is the last remnant of Imladris. But the war is over and the orcs are no more! Your side won!" 
+
+Glorfindel looks around, touches a tree. His grey eyes sad and moist, but then a slow smile shows the light of the Eldar within him. "Sauron is defeated" he whispers. Then he looks at you and offers to do your hair. Accept?
+He tells you to sit on a rock. You do so, and he combs and plaits your hair. When he has finished, he gives you his cloak. "I want this back when you are finished!"
+
+> south
+You are in the woods.
+You can go north, southeast or up.
+Trees, trees, as far as the eye sees. See trees, trees, trees!
+
+> southeast
+You have come to the main road. There is now a mobile forest of metal ahead of you.
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+
+> look
+The road runs roughly southwest-northeast and the pavement ends here.
+There is bus stop here.
+You can go northwest.
+A bus arrives. Get on it?
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+You are going to be so late.
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+You are going to be so late.
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+You are going to be so late.
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+> look
+You are in a bus.
+There is a number of vacant seats here.
+It is quite an old bus. The windows need cleaning and seem to filter out the brightness of the sun, giving you a mere shadow of real daylight. Well, get comfortable. You have a long journey ahead of you!
+
+You are going to be so late.
+The bus slows. Get off at next stop?
+You are in a bus shelter.
+You can go north, south, east or west.
+
+> north
+You are in the south end of the high street.
+You can go north, south or east.
+Everywhere looks closed.
+
+> east
+You are in the entrance to the bridal shop.
+You can go west.
+Well, this is the local store for wedding dresses. There are some beautiful ones in the window which would be perfect. Unfortunately, it is closed.
+
+> east
+You vandal! That is called breaking and entering! There are laws against that sort of thing!
+You are in the shop.
+There is dresses here.
+You are now inside. If you don't hurry, you'll probably be inside somewhere else very shortly. Right, what do you want to do?
+
+> take dress
+There are seven dresses that would fit you nicely here. Will it be dress 1, 2, 3, 4, 5, 6 or 7?
+You thief!
+
+> run
+You run to the doorway and look around. There is a light flashing on the bridal shop and it is only a matter of time before the police arrive. You look around in panic. Which way will it be, left, or right?
+You run down the high street. Perhaps you were thinking of catching a bus, but one never comes when you are in a hurry! There are bad vibes coming from the movie theatre and you can hear very disturbing laughter, so you carry on running. You run right through the craft fair, which actually looks very nice and would be a good place to hide, but you haven't got time for hiding! You run on and come to the stadium.
+You are in the football stadium- stands.
+The match has nearly finished. The good news is that your team is winning. It is quite crowded in here, and oddly there seems to be very little security, but you can't hang about here thinking about that, you must keep running! Left or right?
+
+> right
+You run down towards the pitch, fighting your way through the home support. At the same time, fighting his way through the away support, is a man. You run on to the pitch at about the same time, you in your dress, and him in, well, not very much!
+You are in the stadium- on the pitch.
+The presence of a bride and a streaker on the pitch causes a certain amount of confusion, and then, as the ball rebounds off your arm (hey, gotta keep it clean), a goal. This leads to some fighting and a bewildered referee. Time to get out of here! Left or right?
+
+> right
+You are in the changing rooms.
+I wouldn't hang around here too long! Left or right?
+
+> right
+You are in the bus bay.
+There is team bus here.
+You have found your way out! And- look- there is transport!
+
+> get on bus
+You are in the team bus.
+You shut the doors. But the key is not in the ignition. Bummer.
+
+> open doors
+You reach for the switch, but before you get to it you hear the doors open and as you turn around, you see a guy leaning on the doorway, smiling at you.
+
+> speak to guy
+You say hello, to which he replies "Hello? Is that all you can say?!" and starts laughing. "I'm sorry if my act frightened you a little last night, and i'm sorry for what happened to your dress. I guess it didn't fit me very well huh?" An image comes to your mind, a memory of a stripper in, or rather coming out of, your wedding dress. "But I see you found a new dress, and may I say it looks stunning. It wouldn't be stolen, would it? C'mon now, yes or no?"
+"You know the police are after you, but, I feel I owe you one so, c'mon...." He leads you around the other side of the stadium to where there are a number of motorbikes. He kicks one to life and tells you to hold on tight.
+You are in a whole heap of trouble.
+And so you, the prime, and in fact, only suspect in the 'bridal break-in' case, race away from the stadium on the back of a motorcycle driven madly by a stripper who is a streaker in his spare time. The security that was absent from the stands has now mysteriously materialised mounted on myriad mares and motorcycles. They all wear police uniforms and serious expressions. Fans have emerged from the stadium too, and both sides are chanting for you- even some of the players are! This seems to annoy a small faction of the law, who stay behind to deal with them. The rest of the cops follow you.
+
+You hang on tight and hope that your driver's towel doesn't fall off as he shouts back to you and asks for directions.
+"Left or right?!"
+"You got it!" The bike makes a slightly uncomfortable right turn. You pass several fields and on another day with more time and a slower driver you might admire the view, which just for today includes several police officers displaying their horsemanship. "Now where? Left, right or straight on?"
+You ride on. You attract some stares from the firefighters hanging outside their station. The police are a long way behind, and fall back even further after you go over a level crossing just before the 5.15 to Glasgow. Your kind driver gives a shout of defiance and asks you for further directions "You're up sweetheart! Left, right or straight on again?"
+Your ride continues. Your driver looks around. "I think we lost them! And the chapel is near, I know this area! But is it left or straight on?" You see a park, you see trees and you know you are close, so close. But you can't remember which way to go either! You knew you should have paid more attention going to the rehearsal! "Which way?! Left or straight on?!" he shouts again.
+You made it! The police are gone, and....
+You are in the chapel gardens.
+You can go east.
+
+> east
+You are in the chapel.
+You can go west.
+The stripper congratulates you in advance and speeds away before anyone sees him! You are early! You wait. Naturally he is late. The priest keeps checking the time and coming over to speak to you. You play chess for a while and lose. Your bridesmaids, sober and, well, less high, tell you not to worry. The priest goes to the toilet. Your mother is in tears, but isn't fighting with your soon to be father-in-law anymore, so that's good. Suddenly, one of your bridesmaids gives a shout as the groom finally arrives outside. The priest reappears and looks very relieved, if you'll pardon the expression. 
+Quite unexpectedly your carefully constructed, lovingly thought-out, personally written vows have been used as a scorecard for someone's game of mah-jong, and then, equally unexpectedly, by the resident cat as litter. You want to cry, but your bridesmaids lead you away, and the groom enters.
+He wears a gorgeous suit, shoes that go with it perfectly, and hay in his hair which does not go with anything, except stables. There are also some small cuts on his face and hands. Still, he looks more wonderful to you now than ever before.
+It is a beautiful ceremony, despite your failure to remember your carefully constructed, lovingly thought-out, personally written vows that is matched by the failure of the groom to remember his carefully constructed, lovingly thought-out, personally written vows as well. You both end up laughing, which sets off your bridesmaids and the best man as well. The priest smiles.
+Finally, you are married and leave the chapel, and if you hurry, you might make the boat on time!
+YOU WIN!
+You have been 80 percent successful!
+Lucky for you, your wedding ring fell through a wormhole into your palm at the opportune moment!
+Read credits? Yes/No?
+
+Characters I stole! 
+Glorfindel (From The Lord Of The Rings, By J.R.R Tolkien)
+Yoda (Created By George Lucas. Physically created by Stuart Freeborn.)
+Spock (Created by Gene Roddenberry)
+'The Man Who Liked Movies' (From Swan Song By Robert R. McCammon)
+Special Agents Fox William Mulder and Dana Katharine Scully (Created by Chris Carter)
+God and Satan. Anyone want to claim ownership?
+
+Original characters created by me (quinnmallory@sraf.org) although the cops are based on those from Law & Order: Criminal Intent, created by Dick Wolf.
+Any resemblance to any persons, real or fictional, living or dead is purely coincidental except for when it is on purpose. See above.
+Game coded for Quest in ASL using Notepad! 
+Please visit www.axeuk.com/quest for the Quest interpreter, ASL ref and Development Kit!
+(And for lots of cool games, of course!)
+
+Begun: August 2nd 2004
+Beta completed: September 29th 2004
+Thank You for playing! Feedback appreciated so can improve it!
+Go easy on me, it's my first attempt!
+Thanks to my beta tester ;-)!
+[runner] turns=74 leftover=0 running=false WON=YES

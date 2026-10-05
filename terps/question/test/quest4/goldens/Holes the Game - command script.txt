@@ -1,0 +1,20 @@
+Holes the game. by liemojamie (QDK Lite 4.04, ASL 400)
+- raw command script for question_walkthrough_runner.
+Game system: Quest 4.  Marker: "wake up next morning".
+
+NOT A WIN -- the game is an unfinished fragment of the novel "Holes".  There is
+no playerwin and no score.  Taking the sneakers moves you to the court, talking
+to the Judge raises a two-way "choose" menu (camp or jail), and the camp is
+three connected rooms of scenery whose only scripted event is SLEEP ON BED.
+That line is the marker.  The other menu branch, Jail, is a dead end whose one
+action (EAT FOOD) is a playerlose.
+
+  * The "1" line is the answer to the Judge's menu (1 = Camp green lake.).
+  * The camp choice runs "goto" before its "msg", so the tent's description
+    is printed before "You have chosen to go to camp green lake."
+
+Start:
+take pair of sneakers
+speak to judge
+1
+sleep on bed

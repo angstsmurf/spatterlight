@@ -1,0 +1,11 @@
+e
+e
+open cupboard
+take dog biscuits
+w
+s
+w
+s
+w
+n
+use dog biscuits on dog

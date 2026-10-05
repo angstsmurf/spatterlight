@@ -1,0 +1,90 @@
+
+Incident of the Undead Part 3, v3.0
+
+You are in Road.
+"There is a Box of Swiss Cake Rolls in that store-"
+"Oh Shit....."
+"Not just any box, the LAST box that anyone will enjoy, in the whole UNIVERSE."
+(Damn it buck! Your gonna get me sued so fucking badly......)
+"Time To Nut up or Shut up."
+
+What will you do?
+
+Nut Up
+
+Shut Up
+
+> nut up
+Good.
+
+You enter the store.
+You are in The Downtown Market.
+"Let's go."
+"Hey Buck?"
+"Yeah?"
+"Do you have a banjo?"
+"Does it look like I have a Fuckin' Banjo to you?"
+"No...." (Thank GOD, my ass is safe! for now...)
+"Now lets go see my Grandma."
+"What?!"
+"I call her "Little Debbie.""
+"Really?"
+"....Yeah."
+"This is stupid, lets go."
+"Alright."
+
+(You two enter the store)
+
+"Alright, swiss cake rolls....."
+"Shit! Zombie!"
+
+Kill the Zombie! With.......
+A:Stab
+B:Slash
+C:Spin attack
+D:Horizontal Slash
+E:Vertical Slash
+F:Jump attack
+G:Just be a Badass
+
+> g
+You Go Bad ass on the zombie. 
+Press any key to Continue....
+
+The Explosion of awesomeness blasts you and Buck out of the Store!!!
+Press any key to Continue....
+
+
+You are in Your Old House.
+"We're alive!"
+"But....The Swiss Cake Rolls!"
+
+Something lands on your head! You look....
+Up 1
+Up 2
+Down
+---------------------------------------------------------------------
+NOTE: Do NOT type A,B,C, type the command.
+Just saying.
+
+And enjoy a Taco at least 1 night a week.
+
+> down
+"Swiss Cake Rolls? Awesome!"
+"It's Raining Little Debbie! It's a Miracle!"
+
+You and Buck enjoy the snacks, and pack a lot of them up. you walk in the house you'll hold up in, and find no zombies there. You blockade the house, and enjoy sugary sweet snack cakes and vulgar jokes with Buck.
+
+"This Apocalypse Might not be such a bad thing after all", you think. "I must be dreaming."
+
+What Happens?
+
+A: It's Fake and In wake up
+B:It's real and i fall asleep 
+
+
+> b
+"Na, Just go with it Langone.....Just......YAWN.....go with it..."
+
+You hear something as you drift asleep...
+[runner] turns=4 leftover=0 running=false WON=YES

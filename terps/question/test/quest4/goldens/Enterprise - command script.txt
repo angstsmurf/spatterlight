@@ -1,0 +1,11 @@
+1
+6
+go to hall
+go to turbolift
+go to ready room
+speak to lt. arch
+1
+s
+use 45 cal. rifle on fighter
+s
+speak to captin

@@ -1,0 +1,21 @@
+west
+west
+go to hill side
+north
+west
+go to broken ship
+west
+take key
+east
+go to ocean ship wreck
+use key on crate
+east
+south
+east
+east
+use blue pendant on volcano stream
+east
+northwest
+east
+examine skeleton
+use gun on dragon

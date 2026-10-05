@@ -1,0 +1,33 @@
+Petter
+n
+n
+take gold
+take tin
+n
+look at green bomb
+look at green bomb
+look at green bomb
+look at green bomb
+look at green bomb
+look at green bomb
+n
+look at medical kit
+look at medical kit
+look at medical kit
+look at medical kit
+look at medical kit
+look at medical kit
+look at medical kit
+look at medical kit
+look at medical kit
+look at medical kit
+look at medical kit
+1
+nw
+ne
+se
+s
+e
+s
+se
+ne

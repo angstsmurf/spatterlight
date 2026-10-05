@@ -1,0 +1,51 @@
+YOU HAVE BEEN SENT ON A MISSION TO REPAIR THE SPACE-TIME-CONTINUM(TimeRift) BECAUSE SOME LUNATIC WENT BACK TO THE 70S AND STOPPED TIME AND DESTROYED EVERY RADIO IN EXISTENCE EXCEPT ONE. THAT ONE IS CONTAINED IN Extrapilatia, WHERE YOU HAVE BEEN TELEPORTED. GOOD LUCK, TRAVELER (due to a minor glitch i cannot fix, you are able to walk past the zombie w/o killing it. please dont use this as an opportuniity to cheat. play the game through.!)
+
+You are in Dungeon.
+There is Bonepile and Spear here.
+You can go east.
+A nasty, wretched Dungeon.
+
+> take spear
+You pick it up.
+
+> east
+You are in Hallway of Existence.
+There is map here.
+You can go north, south or west.
+A hall way with pictures of 2 people you admire. one is a time traveler, as are you. Docor Who is one. the other one is a kid named DJ who made a game called TimeRift for his mom. that has nothing to do with you, so you move on.
+
+> north
+You are in RadioRoom.
+There is Radio here.
+You can go south.
+a room with the last radio in existence
+
+> take radio
+You pick it up.
+
+> south
+You are in Hallway of Existence.
+There is map here.
+You can go north, south or west.
+A hall way with pictures of 2 people you admire. one is a time traveler, as are you. Docor Who is one. the other one is a kid named DJ who made a game called TimeRift for his mom. that has nothing to do with you, so you move on.
+
+> south
+You are in ZombieHut.
+There is Zombie here.
+You can go north or east.
+Title says all
+
+> use spear on zombie
+You killed the Zombie!!!
+You killed the Zombie!!
+
+> east
+You are in ?.
+There is THe Pedestal Of Time here.
+You can go west.
+what the heck is this?
+
+> use radio on pedestal of time
+you successfully put the time field around the last radio! your next mission: Find the Ocarina of Timeand Space! (OoTaS) OoTaS coming soon! farewell, traveler!!!
+
+[runner] turns=9 leftover=0 running=false WON=YES

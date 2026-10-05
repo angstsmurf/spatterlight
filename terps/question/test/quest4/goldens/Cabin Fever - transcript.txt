@@ -1,0 +1,244 @@
+
+Cabin Fever | Michael "Dr.Froth" Millsap
+
+
+
+Please choose one of the following options by typing the number and pressing enter.
+
+1.) About Cabin Fever
+
+2.) About Dr. Froth
+
+3.) How to Play (first time folks please check this out)
+
+4.) Play the game
+
+> 4
+
+Thirteen long months of hard labor had finally been realized and your company was awarded the contract with Nivenum.  In reward for your long hours and unwavering dedication your boss was generous enough to give you two weeks off without pay.  What a nice guy.  You were hoping to find a place to escape the madness of your corporate lifestyle.  You desperately needed to find somewhere to relax and find your center.  You needed sanctuary.
+
+These small cabins, deep in the Rocky Mountains, seemed like the perfect weekend retreat for you.  In fact, when you arrived yesterday evening, after your six hour drive, you were pleased to note that your cell phone could not even pick up a signal out here.  It seemed perfect.  So tired that you could barley keep your eyes open, you unloaded your car and went right to sleep.
+
+Somewhere in the minutes right after you lost consciousness the blizzard must have started.  By noon today, when you finally open your eyes again, two feet of snow has already fallen and there is no sign of it stopping anytime soon.  By five the snow is getting closer to three feet deep, effectively blocking in your car.  It is a good thing that you have plenty of time before you have to be back… you are not going anywhere anytime soon.
+
+
+press any key to continue
+
+
+
+
+
+
+
+C A B I N   F E V E R
+
+By:
+Michael "Dr.Froth" Millsap
+press any key to continue
+
+
+Cabin
+The interior of the cabin is small, yet fraught with rustic charm.  Designed with the weekend retreat in mind, this cabin, number 13 to be exact, is really only one large room.  A simple fireplace and mantle fill up one corner. A makeshift kitchen, along the same wall but in the other corner, sports a fridge, a sink, an electric stove, and a small pantry.  Thankfully there is still electricity and you are not afraid of your food supplies spoiling.  Across the cabin, near the bed and dresser, is the bathroom.  A privacy curtain barricades it off from the rest of the room.  A comfortable couch with a matching end table is pushed up against the wooden wall of the cabin, underneath the window.
+
+You are starting to get bored.  All of your activities involved outdoor plans such as hiking or fishing.  You had not planned to stay inside the cabin for a long period of time.  There is a closet by the door… perhaps someone left something in there that might help you whittle away a few hours.
+
+
+> hint
+The closet might have something interesting in it.
+
+> open closet
+You open up the closet and look at the contents.  On a shelf near the bottom is a dust covered cardboard box roughly the size of a thick, coffee table style book.
+
+> take puzzle box
+You lift the box up from the closet shelf and blow the dust away from the top as you close the door.  You smile at the thought of a brief distraction from your dilemma of being cooped up in the tiny cabin.  This is exactly what you were hoping to find.  You wonder what the contents could be.
+
+> open puzzle box
+Carefully, unsure of what treasures might be waiting for you inside, you remove the flimsy lid to the cardboard box.  A small smile crosses your lips as you ponder the discovery of the contents.  “A jigsaw puzzle” you say aloud, more to yourself than anything else.  There are a multitude of small, colored puzzle pieces in the box.  The realization comes to you that with the picture on the box no longer present, that solving this puzzle could take quite a bit of time.  Of course you have more time than anything else right now and solving a puzzle seems like the perfect distraction.
+
+press any key to continue
+
+You start walking across the room back toward the couch when your feet suddenly fail you and your body plummets downward to the floor.  Inadvertently you fling the box away from you in an effort to free your arms in hopes of grabbing something to save yourself with.  There is nothing to grab and you slam into the wooden floor of the cabin hard.  Out of breath, but unhurt, you survey the mess around you.  Puzzle pieces have been strewn everywhere.  It is an amazing mess.
+
+The next few minutes are spent gathering up as many of the puzzle pieces as you can find.  You think you have them all.  You hope you have them all.  Deciding that the only way to find out for sure is to try and solve the puzzle you lay out the pieces on the floor and dig in.
+
+press any key to continue
+
+It takes three hours but you are able to assemble the puzzle into a recognizable form.  There is something eerily familiar about it.  It is hard to be certain, however, because the centermost section is missing.  You do not wish to abandon your work, especially when you have nothing better to do.  It feels like something is compelling you.  You feel that you must finish this puzzle.  Perhaps if you search a little harder you will find the missing pieces you need.
+
+
+> x puzzle
+Most of the center portion of the puzzle is missing, though you find that many of the border elements almost resemble a room very similar to the cabin itself.
+
+> push sofa
+You push against the side of the couch and easily slide it down the wall a few feet.  The newly exposed floor is a treasure trove of unusually large dust balls and streaks of dirt.  Resting among the filth, however, is one of the scattered puzzle pieces.  Reaching down, you quickly retrieve your prize, shove the couch back into its original position, and hurriedly return to the puzzle to examine your acquisition.
+
+
+You hover over the puzzle for a moment and try to fit the piece in a few different places in the missing center mass.  After turning it around another ninety degrees you snap it into place.  The piece appears to form the end legs of a couch.
+
+
+> look under mattress
+It is dark and difficult to see things under the bed but you squint try to study things carefully.  Just as you are about to abandon your search and check elsewhere a small object catches your attention.  It is too far to reach with your arms so you turn around and stick your legs under the bed.  Using your feet like a rake you drag forward and bring the object into view.  It is one of the missing puzzle pieces.  With glee you take it over to where you have been working the puzzle on the floor in front of the couch and try to fit it in.
+
+
+The direction that the puzzle seems to be taking is beginning to have an unnerving effect on you.  You find the appropriate spot for the piece very quickly.  You can see more of the wall and the edge of a window.  You begin to feel a slight bit of déjà vu as you gaze down upon it.
+
+
+> look out window
+As you gaze out at the steadily falling snow outside you wonder how long nature will be able to keep up its fevered pace.  Your gaze drifts down to the window ledge and that is when you see it.  Somehow one of the pieces to the puzzle landed on the windowsill.  You pick it up and take it over to where you are working on the puzzle and try to find a place for it to go.
+
+
+The piece takes a little more patience to fit into the puzzle and you are almost prepared to set it aside for now and try to put it in when you have found more of the missing parts.  But right before you reach that point the piece snaps into place and gives you a better view something that looks like the edge of a fireplace.
+
+
+
+> look at boots
+You pick up one of your boots and shake it a few times.  “Could it be” you wonder, “could one of the pieces miraculously have landed in my boot?”  You do not hear anything rattling around inside but you reach your hand into the boot just to be sure.  As your fingers close around a small, cardboard object you know that you have found what you are looking for.  Quickly you drop your boot next to its match and rush over to the puzzle to see if you can find a place for this new piece.
+
+
+As you snap the forth missing piece into place the hair on the back of your neck begins to stir uncomfortably.  “What kind of puzzle is this?” you mutter under your breath as you glance over your shoulder nervously.  The piece has completed the floor of the room pictured in the puzzle and you can now see what looks like an unfinished puzzle in the picture.  You had figured out a while ago that this puzzle was made from a photograph of the cabin itself.  You can even find it amusing that they have made a puzzle out of someone working a puzzle in this very cabin.  The strange coincidence that bothers you is that the creators have their puzzle being worked in the exact same location on the floor as you.
+
+press any key to continue
+
+The whole thing is strange, and yet you find yourself unable to think about anything other than completing the puzzle.  As you stand up from your work on the floor you pace around the cabin, trying to think of where the rest of the pieces might have ended up.  As you step over one of the cracks in the floor you look down and think you see something underneath.
+
+
+> look at sink
+The metal sink and its fixtures are one of the few things in this cabin that do not show many signs of age.  The entire thing was probably replaced sometime in the last ten years.  At least the sink is clean.  Someone has left a small coil of fishing line next to the sink.
+
+> take fishing line
+You take the fishing line.
+
+> eat gum
+You open the wrapper on your last stick of “Milkcud” gum and gaze at it lovingly.  “For Moolie,” you shout as you toss the stick into your mouth and begin to chew with much fervor.  The taste is not unlike a bowl of milk that has been left out all morning.
+
+> attach gum to line
+You pull the sopping wet, sticky mush out of your mouth and wrap it around the end of the fishing line.  This will be handy if you drop your car keys through one of the cracks in the floor or something.
+
+> use fishing line
+You slowly lower the end of the fishing line with gum attached down through the crack in the floor.  Steadily you attempt to pick up the small puzzle piece, though you find it to be a more difficult task than you had first envisioned.  Finally, the stubborn cardboard vagabond yields to your endeavors and you are able to slowly lift it up to the floorboards themselves.  With great care you slide it over just enough to grasp it with your fingertips and pull it free of the hole.  So pleased are you with the success of your venture that you lose your grip on the fishing line and allow it to fall down through the crack.  It comes to rest under the floor to the side of the crack, out of view.  This does not concern you in the slightest as you rush over to the puzzle and begin to work.
+
+press any key to continue
+
+It does not take you long at all to find the appropriate place for your new piece to fit into.  As you look at the puzzle more of the picture has now come into focus.  You can see clearly the black, leather looking shoes of someone who must be sitting on the floor working the puzzle in the puzzle.  You are staring at the picture with equal amounts of curiosity and a strange sense of uneasiness when a sound cuts through the silence of the room.  At first you can not believe your ears, but then you hear it again.  It sounds like a gentle tapping at the front door of the cabin.  A knocking so faint that you think you hear it but are not entirely convinced that it is not a product of your imagination and frayed nerves.
+
+
+> open door
+Fear grips you tightly as you slowly turn the knob on the front door of the cabin and pull it slightly inward.  You have only moved the door less than half an inch when a gust of snowy wind blows the door open with a malevolent force that pushes you back into room.  The storm has grown to abnormal proportions outside and it is impossible to see further than five or six feet outward due to the blustering downpour of snow and ice.  You can see nothing to attribute the knocking sound to that you had heard prior and so you begin to push the door closed.  Just prior to getting it completely shut, the strong, gale force winds blow a softball sized chunk of ice into the cabin with you.
+
+With a final shove you get the door closed and this time you latch it behind you.
+
+
+> take snowball
+You take the ball of ice.
+
+> drop snowball
+The cabin is cold enough that just setting the ball of ice down is not going to be sufficient to melt it.  You will need a warm fire.
+
+> look at dresser
+This is the one piece of furniture that does not quite match the rest of the décor.  There are three drawers set into a black painted wooden frame.  Resting on the top is a tattered book of matches.
+
+> take matchbook
+You take the matchbook.
+
+> take firewood
+You pick up some of the wood from the top of the stack and lay it in neat rows inside the fireplace.  After a few moments you feel that you succeeded in making a perfect layout for a beautiful fire.  All you are missing is the means to ignite it.
+
+> start a fire
+You strike the single match that remains and carefully go about setting the nice, dry wood on fire.  Within a few moments the entire fireplace erupts into a warm, flickering glow.
+
+> drop snowball
+You set the ice chunk next to the roaring fire and sit back to wait for it to melt.  Precipitation begins almost instantly as the ice begins to sweat itself into oblivion.  Fifteen minutes or so later the consistency of the icy snowball is soupy enough for you to pry it the rest of the way apart and examine the trapped object within.  It is a puzzle piece.  With grave curiosity that almost boarders on alarm you pick up the piece and take it over to the puzzle on the floor.
+
+Many strange questions run through your mind as you turn the puzzle piece several different ways, knowing that eventually you will find the correct placement for it and bring yourself one step closer…to what?  You wonder if you are dreaming, if at any moment you will awaken from this strange predicament.  As the puzzle piece snaps into place you feel the entire cabin give a small shudder, like a very weak earthquake has rocked it.  More of the picture is visible now and you can see someone wearing brown slacks working the puzzle.
+
+press any key to continue
+
+As you stand up, bewildered from the strangeness around you, you notice a piece of the puzzle in the corner by the kitchen that you had somehow missed in your search.  Before you can grab it, however, a small gray mouse scuttles from underneath the fridge and grabs the piece in its mouth.  You stare in irritation as the tiny creature scrambles away and into a small hole in the wall that had previously escaped your notice.  You are going to need that piece to the puzzle.
+
+
+> look at stove
+The range top on this stove is covered in a variety of interesting stains.  The age of the appliance makes you glad that it is electric and not gas.  You open the oven portion and are pleased to see that nothing was left behind by the last guest.  Someone has left a tube of Cheez Whizz by the stove.
+
+> take tube
+You take the tube of Cheez Whizz.
+
+> open pantry
+The cupboard is bare.  Well, it is not completely bare.  Dust lingers on the faded and peeling contact paper that someone pasted down over the barren shelves.  There is an ancient box of wheat crackers that have been here for what could have been a very long time.  
+
+> take crackers
+You take the crackers off of the shelf in the pantry and seeing nothing of further use you close the door.
+
+> give crackers to mouse
+You set one of the stale crackers in front of the mouse hole but the mouse does not seem to be interested.  Perhaps you will need a way to make the food a little more appetizing.  
+
+> use tube
+You squeeze a nice circle of cheese onto one of the crackers and wonder if it will be enough to suppress your gag reflex on the off chance you actually try to eat one of these.
+
+> give cracker to mouse
+You set the cheese coated cracker down in front of the mouse hole and wait patiently out of view of the opening.   It does not take long for the little gray beast to poke his head out of the niche, sniffing the air intently.  Finally he edges his entire body out of the hole and approaches the cracker.  As the creature begins to nibble you leap forward from the side of the wall and bellow like a constipated buffalo.  The mouse scurries away from you in fear toward the center of the cabin and you take that moment to kneel down and retrieve the puzzle piece from his home.  You step into the kitchen and allow the frightened animal to compose itself, take up the cracker and reenter his hole.  You almost feel bad for the little guy… that cracker probably tastes worse than the cardboard puzzle piece.
+
+press any key to continue
+
+You set the puzzle piece into place in the work in progress on the floor.  There are only two pieces missing now.  The overhead light flickers a couple of times as you stare in wonderment and mild loathing at the picture.  It is without a doubt a man working a puzzle in the exact cabin that you are in now.  Though as you study him you can not help but feel secretly relieved that the person is not you.  The man in the picture is dressed quite differently than you, though a hole remains where his head should be.  You will still have to find that piece.  Something about the other open space is bothering you though.  There appears to be the toe of a boot in the picture and the boot greatly resembles the ones you just bought.  The ones that are sitting next to the bed.  You will have to find another piece to be sure.
+
+Suddenly the fireplace erupts into an inferno of gigantic green flames that burst forth into the cabin before quickly receding back into the fireplace.  You begin to doubt your sanity, but from what you can tell the fire is now glowing a florescent green.
+
+
+> look at end table
+This table is small, only a couple of feet tall, and designed with the same wood motif as the rest of the décor in the cabin.  Someone has left an empty plastic pitcher on the table.
+
+> take pitcher
+You take the empty plastic pitcher.
+
+> open toilet
+The toilet is empty.  Perhaps the water tank might be more useful.
+
+> open toilet tank
+You take the tank off of the toilet and notice that it is full of water that has not been frozen.  The water is cold… but it is not ice.
+
+> take water
+You scoop up a good quantity of water with the plastic pitcher.
+
+> open drawers
+You open the drawers and begin to rummage through them.  The only thing that you can find is a bottle of something called “Heavenow.”  Thinking that it might come in handy you take it with you.  Finding nothing further you close the drawers.
+
+> drink medicine
+You are not sick right now.
+
+> use pitcher
+You toss the contents of the plastic pitcher onto the sick, green flames and watch as they are instantly doused.  The steam that arises smells acrid and unnatural.  With nothing barring your ability to do so any longer you reach into the fireplace and grab the puzzle piece.  Surprisingly, it is cool to the touch.  You hurry over to the puzzle for its placement.
+
+press any key to continue
+
+You place the piece into the puzzle and are immediately overcome with horror.  There is no mistaking the facts now.  For reasons that you can not explain, the puzzle has a picture of your boot in front of its rendition of the cabin bed.  The only piece that is missing is the one that goes into the hole where the head of the individual working the puzzle should be.  With the placement of the next to last segment of the jigsaw puzzle many strange occurrences begin to manifest themselves.  The walls of the cabin begin to weep blood that runs down in tiny rivulets toward the floor.  You suddenly feel very sick to your stomach.
+
+
+> drink medicine
+You are feeling terrible.  It is like a frightened puffer fish has taken up residence inside of your belly.  You open up the bottle of Heavenow and take a mighty swig of the foul liquid.  It tastes like a chalky watermelon, but you choke it down anyway.
+
+Moments later you are bolting toward the toilet with as much speed as humanly possible.  Unable to contain it any longer you vomit violently into the white, porcelain bowl.  As you wipe your mouth and stand up, feeling much better, you begin to choke on something.  With a strong hack you bring the object forth and spit it out into your hands.  You begin to tremble as you realize that you are staring at the final puzzle piece.
+
+press any key to continue
+
+
+You fit the final piece of the puzzle into place and stare at the finished picture.  The man working the puzzle does not resemble anything like you at all.  His face seems to be burnt in with the lines of someone who has lived a hard and unprivileged life.  He looks angry…very angry.  And suddenly he is looking at you.  Impossibly, the figure in the picture has turned his head and is now staring directly into your eyes.  You are so petrified with fear that you can not even move.  The man in the puzzle grins malevolently, and suddenly you feel very light, like you are in a dream.
+
+press any key to continue
+
+A few moments later the feeling passes but now things are very different.  You are still looking at the man but now it feels like you are staring up a tunnel at him.  He grins once more and then turns around and opens the cabin door.  The blizzard is over.  In fact, from what you can see, there is no trace of snow outside at all.  The man laughs evilly and walks through the doorway, closing the cabin door behind him.
+
+It is then that you realize that you are no longer in the cabin but somewhere else.  Blackness is all around you, the only source of light is the tunnel whose view opens up into the cabin.  It is at that moment that you recognize your fate.
+
+Somehow, someway you have freed the person or thing inside the puzzle…
+only to take his place yourself.
+
+THE END
+
+
+
+
+
+Hey…thanks for playing Cabin Fever.  If you have any comments please send them my way at:
+smellmynadsnow@yahoo.com.
+
+[runner] turns=39 leftover=0 running=false WON=YES

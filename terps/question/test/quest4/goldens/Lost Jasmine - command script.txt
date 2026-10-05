@@ -1,0 +1,6 @@
+s
+ne
+open sirap
+speak to yago
+look at stable
+open key

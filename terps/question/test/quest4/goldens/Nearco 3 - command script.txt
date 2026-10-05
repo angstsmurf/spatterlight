@@ -1,0 +1,93 @@
+n
+s
+examine arena
+take objeto raro
+n
+e
+n
+n
+w
+take vasija
+take flecha
+w
+examine señora
+e
+w
+e
+w
+gira combinacion 1 a la derecha
+gira combinacion 5 a la izquierda
+gira combinacion 9 a la derecha
+take cajita
+take bolsitas
+examine cajita
+e
+e
+e
+poner bolsitas
+e
+examine ofrendas
+take trenza de cabellos
+examine sacerdotisa
+w
+w
+n
+e
+examine tablones
+take tablones
+w
+w
+take rama
+use trenza de cabellos on rama
+nw
+use tablones on puente
+nw
+n
+ne
+e
+take hojas de sauce
+w
+sw
+s
+se
+se
+e
+s
+s
+e
+give vasija to tabernero
+give hojas de sauce to tabernero
+w
+s
+e
+give vasija con persiaspirina to anahita
+w
+n
+n
+n
+w
+nw
+nw
+s
+w
+use arco on jabalí
+n
+examine jabalí muerto
+take colmillos
+s
+e
+n
+se
+se
+e
+s
+s
+w
+give colmillos to anciano
+give carta to anciano
+give objeto raro to anciano
+e
+n
+n
+e
+take barca

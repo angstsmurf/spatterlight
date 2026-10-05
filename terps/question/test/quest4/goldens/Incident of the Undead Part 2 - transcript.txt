@@ -1,0 +1,48 @@
+
+Incident of the Undead Part 2, v2.0
+
+"So Buck, I think we should raid the town market here, and then sleep in the house down that street. I actually used to live there."
+"That's nice."
+"Yeah, well, actually it's not. We didn't have a washing machine or a dryer, so we had to go to the laundromat all the time. We also had a bathroom the size of a box."
+"Did it flush?"
+"Well......let's not go there. It brings back....HORRIBLE memories."
+"Okay....."
+"Well, what do you have for weapons?"
+(he opens the trunk)
+"Holy Schembechler!"
+"HEY! Just cuz it's the apocalypse is no reason to be usin that sorta language, mister!"
+"Oh, fuck, i'm sorry!"
+"You'd better be! Fuckin karma'll have your ass eaten by a zombie for that."
+"Right....I guess ill take the ak 47-"
+"The ak is MINE dammit"
+"ok then....i'll have tar 21-"
+"no you wont."
+"Fine.....then.......wait, what's that?"
+..........................................................................
+Well, what is it?
+A: A pack of grenades
+B: a flamethrower
+C: The Master Sword
+D: a machete
+E: A Nazi Symbol
+F: a baseball bat
+G: an uzi
+
+
+> c
+"Is that......the master sword?"
+"Yeah, you want it?"
+"Fuck yeah!"
+"Here you go."
+
+"We're gonna need food if we want to survive the zombie apocalypse. And if we want to have tastyness, swiss cake rolls."
+"Oh god no"
+"You don't like swiss cake rolls?"
+"Oh, no, i love em, but you're still gonna get me sued."
+"What the fuck ever! We're talkin about mutha fuckin SWISS CAKE ROLLS!!!!!!!!"
+"Yeah....oh crap....."
+"Time to nut up or shut up!"
+type "win" to win
+
+> win
+[runner] turns=2 leftover=0 running=true WON=YES

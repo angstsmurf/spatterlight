@@ -1,0 +1,7 @@
+go to bathroom
+use shower
+use sink
+96
+use toilet
+12
+go to school

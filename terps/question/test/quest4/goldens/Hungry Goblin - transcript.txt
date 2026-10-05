@@ -1,0 +1,53 @@
+
+Hungry Goblin, v1 | Boze
+
+You're starving.
+
+You are in your little den.
+There is a wiggly worm here.
+You can go east or up.
+A strong and comforting stench of goblin pervades your little cave. This is home.
+
+> take worm
+The little worm wriggles and struggles, but you grasp it tightly.  "Please let me go."  His big eyes blink hopefully.
+
+> eat worm
+yummy yum...burp.
+
+> e
+You are in a narrow tunnel.
+There is a pointy stick here.
+You can go east, west, up or down.
+There is a faint smell of goblin here.  The tunnel slopes up to the east, where there is a small glimmer of light, and down to the west, where it gets dimmer.
+
+> take stick
+You pick it up.
+
+> e
+You are in a cave entrance, by a swamp.
+There is a fearless dragon-slayer and a campfire here.
+You can go east, west or down.
+
+> examine campfire
+The dragon-slayer is roasting a haunch of venison over the fire!  Yummy yum!
+
+> use stick on venison
+Good thinking, little goblin!  You poke the meat and swipe it from the fire while the knight is busy with his own nosh.
+
+> eat venison
+Very yummy indeed.  Juicy and greasy, just how a goblin likes it.
+
+> examine campfire
+A campfire.  Good for cooking on.
+
+> eat venison
+Very yummy indeed.  Juicy and greasy, just how a goblin likes it.
+
+> examine campfire
+A campfire.  Good for cooking on.
+
+> eat venison
+Very yummy indeed.  Juicy and greasy, just how a goblin likes it.
+You are finally full!  Well done, little goblin.
+
+[runner] turns=12 leftover=0 running=false WON=YES

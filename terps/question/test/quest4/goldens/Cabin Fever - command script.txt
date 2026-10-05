@@ -1,0 +1,39 @@
+4
+hint
+open closet
+take puzzle box
+open puzzle box
+x puzzle
+push sofa
+look under mattress
+look out window
+look at boots
+look at sink
+take fishing line
+eat gum
+attach gum to line
+use fishing line
+open door
+take snowball
+drop snowball
+look at dresser
+take matchbook
+take firewood
+start a fire
+drop snowball
+look at stove
+take tube
+open pantry
+take crackers
+give crackers to mouse
+use tube
+give cracker to mouse
+look at end table
+take pitcher
+open toilet
+open toilet tank
+take water
+open drawers
+drink medicine
+use pitcher
+drink medicine

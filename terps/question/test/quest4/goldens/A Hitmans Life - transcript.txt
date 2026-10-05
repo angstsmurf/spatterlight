@@ -1,0 +1,31 @@
+
+A Hitmans life | liljamie
+
+Your missions is to kill Mr Holamolladola. You MUST kill him.
+You can look,speak to tv.
+you can look,sit on couch.
+
+You are in home.
+There is a TV, a couch, a Table with a gun on it. and a body lying on the table. here.
+You can go south, east, west, northeast, northwest, southeast or southwest.
+
+> w
+You are in weapons room.
+There is a Hand gun. and Ak47 here.
+You can go east.
+
+> take hand gun.
+
+> e
+You are in home.
+There is a TV, a couch, a Table with a gun on it. and a body lying on the table. here.
+You can go south, east, west, northeast, northwest, southeast or southwest.
+
+> s
+You are in presadents office.
+There is the Presadent and a note pad here.
+You can go north.
+
+> use hand gun on presadent
+you shoot holamoladola.
+[runner] turns=5 leftover=0 running=false WON=YES

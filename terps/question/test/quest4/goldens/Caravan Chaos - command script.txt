@@ -1,0 +1,16 @@
+open cupboard
+take bowl
+examine bowl
+examine window
+examine memory card
+use coin on valve
+look under bed
+use bowl on box
+use magnet on bed
+out
+e
+w
+n
+open engine
+use battery on wires
+use coin on wires

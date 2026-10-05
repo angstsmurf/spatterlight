@@ -1,0 +1,19 @@
+speak to butler
+go to your bedroom
+go to the upstairs hallway
+speak to nick
+down
+take letter
+read letter
+go to the front yard
+go to limo
+go to police station
+speak to reseption oficer
+1
+speak to sergeant
+go to limo
+go to the mafia club
+arrest dan
+go to limo
+go to the mafia club
+arrest killer

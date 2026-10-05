@@ -1,0 +1,51 @@
+look at bread
+look at salt
+look at hay
+look at me
+scream
+sniff
+sniff
+sniff
+sniff
+sniff
+sniff
+sniff
+sniff
+sniff
+sniff
+sniff
+sniff
+sniff
+sniff
+sniff
+speak to dungeon master
+push dungeon master
+take keys
+w
+nw
+take bread
+take hay
+take dagger
+take salt
+se
+s
+u
+e
+take book
+u
+give book to merlin
+use spellbook
+d
+w
+u
+use salt on door
+n
+use dagger on map
+s
+d
+d
+n
+e
+sw
+frotz
+n

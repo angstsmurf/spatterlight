@@ -1,0 +1,677 @@
+
+N E A R C O   3, v1.0 | Jhames
+
+
+
+
+
+
+
+P E R S I A
+Año 327 AC
+
+
+
+
+
+
+
+
+“Largo tiempo durará mi viaje.
+Anhelante por regresar a mi patria.
+Custodiaré tu recuerdo en mi corazón.
+Recordaré eternamente nuestra amistad.
+Incesantemente. Amigo mío”
+(Nearco a Pomponio. 328 AC)
+
+¿Nearco?
+¿Quién es Nearco?
+Ah... Sí...
+Ya vas recordando.
+Eres uno de los generales de Alejandro Magno.
+Te ha enviado a una misión por tierras persas.
+El jefe supremo de Macedonia confía en ti.
+No puedes defraudar a tu comandante.
+De modo que te olvidas de tu cansancio y...
+Y decides. 
+Decides seguir adelante...
+Que los dioses te bendigan, Nearco.
+
+Pulsa una tecla...
+
+
+INSTRUCCIONES PARA JUGAR NEARCO 3
+-------------------------------------------------------------
+Recomendaciones útiles para jugar Nearco:
+- Teclea N,S,E,O,NE,NO, etc para moverte en el mundo de Nearco.
+- También puedes utilizar Norte, Sur, Este, etc.
+- Para examinar un objeto puedes teclear x, ex, examina o examinar objeto.
+Por ejemplo "x casco", examina el casco de Nearco.
+- Para ver la descripción de la localidad actual teclea: m o mirar
+- Para saber qué llevas encima teclea: i
+- He deshabilitado la opción ayuda. Lo siento, soy así de cafre.
+- Para hablar con otros personajes teclea: decir "lo que sea" a/al "personaje".
+Por ejemplo: "di ayuda al muchacho" o "decir ayuda al muchacho". Pedir; pide es sinónimo de decir.
+También te recomiendo que insultes a los personajes. (Para liberar adrenalina)
+- Si quieres que los personajes te den información de otros personajes teclea:
+"Pregunta a/al personaje1 por personaje2". Por ejemplo:
+"Pregunta al muchacho por el tabernero". (Sin las comillas)
+- Si te molesta la música: Musica Off.
+- Si te molesta Jhames, llama a la benemérita.
+- Para dar un objeto a un personaje: da objeto a personaje.
+- Examínalo todo. Pruébalo todo. Si necesitas ayuda, nos vemos en www.caad.es
+- Se pueden guardar y restaurar partidas salvadas con "Salvar" y "Restaurar". Pero teniendo en cuenta, que nunca antes de que el juego se inicie en la playa.
+Y de momento... eso es todo. Suerte con Nearco 3.
+
+Pulsa una tecla ...
+
+
+
+
+
+Cansado, después de varios días de aventuras, llegas a esta playa.
+Ahora la contemplas y, por unos instantes, piensas qué te deparará el futuro.
+Ahora, ya no hay marcha atrás. 
+Debes continuar y encontrar lo que Alejandro te mandó a buscar.
+
+Estás en la playa.
+Puedes ir al north.
+
+> n
+Estás en un camino lleno de chinarros y arena.
+Tienes la impresión de haber olvidado algo. Seguramente no encontrarás nada de valor, pero antes de iniciar una aventura, quieres asegurarte de que no dejas ningún cabo suelto.
+De modo, que un sexto sentido, te parece indicar que no debes continuar todavía.
+Y tú, como buen general, le haces mucho caso a tu sexto sentido...
+Puedes ir al south. 
+
+
+> s
+Estás en la playa.
+La suave arena de la playa acaricia tus sandalias. Al fondo, sobre el mar, ves como el Sol se va elevando en el horizonte, mientras una gaviota despliega sus alas para rendirle homenaje como "Gran Príncipe de los Cielos."
+Puedes ir al north.
+
+
+> examine arena
+Caramba, rebuscando entre la arena parece que...
+parece que...
+Sí. 
+¡¡¡ Has encontrado algo !!!
+Semienterrado en la arena, hay un objeto muy raro.
+
+> take objeto raro
+Coges el objeto raro
+
+> n
+Estás en un camino.
+El camino está lleno de chinarros y de arena. Estás acostumbrado a andar por este tipo de suelos. Tus sandalias son fuertes y resisten todas tus caminatas. 
+Desde aquí puedes ver la playa al Sur y un pequeño poblado costero al Este.
+Puedes ir al south or east. 
+
+
+> e
+Estás en la zona sur del poblado.
+Es la parte meridional de una pequeña aldea costera. Al este ves una casa de piedra. El resto de construcciones están realizadas mayoritariamente en madera. A lo lejos ves gente transitando por las callejuelas del poblado, realizando sus tareas cotidianas. 
+Puedes ir al north, east or west.
+
+
+> n
+Estás en la zona centro del poblado.
+Es el centro de la pequeña aldea costera. Al este ves una taberna, está vacía excepto por su propietario, al que ves limpiar los vasos esperando la clientela. Al oeste, hay una casa, más bien una pequeña chabola que debe de pertenecer a un anciano porque en la puerta, que está abierta, hay un cartel que dice (en persa, por supuesto): "Casa del anciano". Al norte, continúa el poblado y el sur es el camino por el que has llegado hasta aquí.
+Puedes ir al north, south, east or west.
+
+
+> n
+Estás en la zona norte del poblado.
+Es la zona septentrional del poblado. Al este puedes ver un gran templo, que hace gala de una floreciente arquitectura persa. El templo está custodiado por un guardián en la puerta que observa a todos los habitantes que intentan entrar en el recinto. Al oeste, el bullicio del mercado te recuerda el viejo dicho "Dos mujeres, un mercado". Rememoras la de veces que has estado en la cama con un mercado. Ufff... qué recuerdos. Al norte, distingues el camino que va hacia las afueras de la aldea y hacia el sur se va al corazón del poblado.
+Puedes ir al north, south, east or west.
+
+
+> w
+Estás en el mercado.
+¡¡¡ Hey... Esto está lleno de tías !!!
+¡¡¡ Es el paraíso !!!
+Pero bueno, dejémonos de frivolidades y  mientras una agradable musiquilla oriental acaricia tus oídos, pasemos a la descripción.
+Es un mercadillo no muy grande, porque la aldea es pequeña, con varios puestos. En ellos se vende de todo, perfumes, especias, comestibles e incluso armas.
+Aquí hay una vasija and una flecha.
+Puedes ir al east or west.
+
+> take vasija
+Coges la vasija.
+
+> take flecha
+Coges la flecha.
+
+> w
+Estás en un lupanar
+No entraré en detalles sobre la descripción de un lupanar.
+¿Quién de vosotros no conoce uno?
+¿Quién de vosotras no ha deseado estar en uno?
+(Aunque sólo sea para verlo por dentro).
+Aquí hay una caja fuerte and una señora.
+Puedes ir hacia el east.
+
+> examine señora
+Sólo ves sus... sus... sus... enormes...
+En fin... que podrías ordeñarla y PULEVA no tendría suficiente dinero para pagar toda su producción láctea.
+
+Enterrada en su escote, ves una llave.
+Escuchas a alguien que desde la calle, le dice: "Adiós Meretricia. Mañana a ver si nos vemos y probamos una nueva postura que he visto en la sección de pago del Canal + persa".
+
+> e
+Estás en el mercado.
+Es pequeño como la aldea. Ves varios puestos donde venden perfumes, especias, comestibles e incluso armas.
+Puedes ir al east or west.
+
+
+> w
+Estás en un lupanar
+Está decorado al estilo de la capital, Persépolis. Lo más "chic" del momento.
+Aquí hay una caja fuerte, una llave and Meretricia.
+Puedes ir hacia el east.
+Al cabo de un rato, Meretricia se desespera porque no entra ningún cliente con el que deleitarse, y tú no estás por la labor.
+
+> e
+Estás en el mercado.
+Es pequeño como la aldea. Ves varios puestos donde venden perfumes, especias, comestibles e incluso armas.
+Puedes ir al east or west.
+
+
+> w
+Estás en un lupanar
+Está decorado al estilo de la capital, Persépolis. Lo más "chic" del momento.
+Aquí hay una caja fuerte, una llave and Meretricia.
+Puedes ir hacia el east.
+Sin previo aviso, un cliente habitual entra en el lupanar. 
+Le enseña una pequeña bolsita de oro a Meretricia, y sin mediar palabra los dos desaparecen tras una cortina. Al ratito empiezas a escuchar unos gemidos. Ese sonido te excita, pero prefieres aprovechar el tiempo en cosas más útiles.
+
+> gira combinacion 1 a la derecha
+Giras la combinación hacia la derecha hasta llegar al número 1.
+
+> gira combinacion 5 a la izquierda
+Giras la combinación hacia la izquierda hasta llegar al número 5.
+
+> gira combinacion 9 a la derecha
+Giras la combinación hacia la derecha hasta llegar al número 9.
+Escuchas un suave clic.
+
+¡¡¡ Enhorabuena !!!
+Has conseguido abrir la caja fuerte.
+
+¡¡ Hurra !!
+Dentro de la caja fuerte hay una cajita y dos bolsitas
+
+> take cajita
+Coges la cajita.
+
+> take bolsitas
+Coges las bolsitas.
+
+> examine cajita
+Es una cajita de madera. Rudimentariamente tallada. Pero debe de tener un gran valor sentimental porque está llena de besos de carmín. Está abierta. 
+Contiene una carta.
+Sacas la carta de la cajita y te la guardas.
+
+> e
+Estás en el mercado.
+Es pequeño como la aldea. Ves varios puestos donde venden perfumes, especias, comestibles e incluso armas.
+Puedes ir al east or west.
+
+
+> e
+Estás en la zona norte del poblado.
+Desde donde estás puedes ver el templo de la aldea, el mercado y la calle que va de norte a sur.
+Puedes ir al north, south, east or west.
+
+
+> e
+Estás en la entrada del templo.
+La entrada al templo consta de una ancha escalinata de tres escalones más o menos. En la parte más alta, hay un vigilante que observa detenidamente a las personas que quieren entrar en el recinto sagrado. Desde lo alto de la escalinata, tienes una bella vista del mercado, al otro extremo de la calle y más allá ves una casa que por las lucecitas rojas que ves en los faroles encendidos, adivinas que debe de ser un lupanar.
+Aquí hay un vigilante.
+Puedes ir al east or west.
+
+
+> poner bolsitas
+Te pones las bolsitas por encima de las sandalias.
+
+> e
+El vigilante se acerca a ti.
+Te mira a los ojos.
+Después, mira tus pies y ve que tienes puestas las bolsitas, de modo que cuando pises el suelo sagrado del templo no lo harás con la suela de las sandalias, sino con las bolsitas de tela.
+Luego te dice:
+"Puedes pasar dentro, forastero, observas la regla. Ji, ji, ji."
+Das unos pasos y ...
+Entras dentro del Templo...
+Pulsa una tecla... 
+
+
+Estás en el Templo.
+Aquí hay una sacerdotisa and un dios.
+Puedes ir al oeste.
+El templo es un lugar sagrado. Todos los fieles entran descalzos o con bolsitas de tela en los pies para cubrir el calzado. 
+Te sobrecoge la semipenumbra del local. Al fondo de la estancia ves un altar con una colosal figura del gran dios persa "Ahura Mazda". Junto a ella, ves a una bellísima mujer persa que por los movimientos que realiza parece ser la sacerdotisa.
+
+
+> examine ofrendas
+Son las ofrendas de los habitantes del poblado a su dios Ahura Mazda.
+Entre ellas, hay una melena trenzada de cabellos.
+
+> take trenza de cabellos
+Aprovechando un descuido de todos los presentes, deslizas la trenza de cabellos a uno de tus bolsillos. Espero que el dios Ahura Mazda no te castigue por tal sacrilegio.
+
+> examine sacerdotisa
+Es una bellísima mujer. Va vestida como gran sacerdotisa del templo, con un vestido de gasa blanco que deja adivinar sus femeninas curvas.
+Sus brillantes ojos verdes te cautivan de tal manera que no te importaría intentar aumentar la población de este pequeño poblado, para que realmente fuese un poblado inmenso.
+Verdaderamente es hermosa.
+Al verte te dice:
+"Me llamo Anahita. Soy la gran sacerdotisa de Ahura Mazda y podría leerte el futuro valeroso soldado, ya que ese don, me ha sido concedido. 
+Pero... me duele terriblemente la cabeza... este dolor... me está matando... Lo siento... me marcho a casa."
+Y diciendo esto, Anahita se marcha del recinto, dejándote con la boca abierta.
+
+> w
+Al salir del templo te quitas las bolsitas y las guardas cuidadosamente, ya que si caminases con ellas sobre el suelo de piedras y tierra de la aldea, podrían romperse.
+Estás en la entrada del templo.
+Hay una escalinata de aproximadamente unos tres escalones que sube hasta el templo. Desde la zona más alta, tienes una bonita panorámica de la calle que va al mercado.
+Aquí hay un vigilante.
+Puedes ir al east or west.
+
+> w
+Estás en la zona norte del poblado.
+Desde donde estás puedes ver el templo de la aldea, el mercado y la calle que va de norte a sur.
+Puedes ir al north, south, east or west.
+
+> n
+Estás en el camino del norte del poblado.
+Llegaste a este camino desde el norte del poblado, por lo tanto la aldea se encuentra al sur, hacia el este puedes dirigirte hacia el embarcadero y hacia el oeste ves un camino que lleva hacia el bosque donde seguro que los aldeanos cazan pequeños animales para celebrar sus banquetes.
+Puedes ir al south, east or west
+
+
+> e
+Estás en el embarcadero.
+Es el viejo embarcadero del poblado construido a base de postes y tablones de madera.
+Hasta aquí llegan los botes de los pescadores, la mayoría de las veces cargados de pescado para alimentar a los habitantes de la pequeña aldea. Te quedas observando la única barca amarrada que hay y te preguntas si te serviría para llegar hasta tu próximo destino: Egipto.
+Aquí hay un muchacho, una barca, unas redes and un perrito.
+Puedes ir al west
+
+
+> examine tablones
+La pasarela del embarcadero está formada por tablones, para poder subir desde ellos a las barcas. Algunos están un poco podridos por la humedad, otros sin embargo, están en perfecto estado.
+Dos tablones están completamente sueltos y en perfecto estado.
+
+> take tablones
+Coges los tablones y no sin poco esfuerzo consigues introducirlos en tus bolsillos.
+
+> w
+Estás en el camino del norte del poblado.
+Puedes ir al south, east or west
+
+> w
+Estás en el camino del bosque.
+Es el camino que enlaza el bosque con el poblado.
+Aquí hay una rama.
+Puedes ir al east or northwest
+
+> take rama
+Coges la rama.
+
+> use trenza de cabellos on rama
+Con la habilidad que te ha caracterizado a lo largo de los años de servicio a Alejandro, consigues fabricar un arco atando la trenza de cabellos a los extremos de la rama. No es un arco para ir a las Olimpiadas, pero al menos puede servir para matar a alguien.
+Una vez terminado, te lo cuelgas al hombro.
+
+> nw
+Estás en un puente.
+Aquí está el viejo puente que comunica el camino que va hacia el poblado con el camino que lleva hacia el bosque.
+Puedes ir al northwest or southeast.
+
+> use tablones on puente
+Colocas los tablones en el puente. Ahora ya puedes cruzar el puente caminando a través de los tablones.
+
+> nw
+Estás en el bosque.
+Aquí comienza el bosque. Seguramente, Darío, el rey persa, obtiene la madera con la que fabrica sus navíos y armas de guerra, de los frondosos árboles de estos bosques. Una sensación de alerta invade tu cuerpo, preparándote para los peligros que te puedan acechar.
+Puedes ir al north, south or southeast.
+
+> n
+Al llegar a esta zona del bosque, oyes unos sonidos lejanos...
+En el bosque
+No le das la mayor importancia. Seguramente serán leñadores al servicio de Darío, que se dirigen a trabajar.
+Puedes ir al south, west or northeast.
+
+
+> ne
+Estás en una alameda
+Puedes ir al east or southwest
+La alameda, al contrario de lo que pueda parecer no tiene álamos, pero se llama alameda porque es un paseo poblado con árboles de cualquier clase.
+Pensando, al caminar bajo estos árboles, divagas y consideras cuántas veces habrás dicho la palabra "alameda" con una "i" y una "r" intercalada en los lugares estratégicos.
+
+
+> e
+
+Estás en una alameda junto al río.
+Puedes ir al west
+El paseo de la alameda, llega a esta zona llena de árboles que bañan sus ramas en el río que se contonea juguetonamente bajo sus raíces. En este lugar se respira una paz y una felicidad difíciles de definir. El aroma de la primavera se introduce por tu nariz recordándote fragancias de tu niñez.
+Aquí hay unos árboles.
+
+
+> take hojas de sauce
+Coges las hojas de uno de los sauces.
+
+> w
+Estás en una alameda
+Puedes ir al east or southwest
+
+> sw
+Al llegar a esta zona del bosque, oyes unos sonidos lejanos...
+En el bosque
+No le das la mayor importancia. Seguramente serán leñadores al servicio de Darío, que vuelven de trabajar.
+Puedes ir al south, west or northeast.
+
+> s
+Estás en el bosque.
+Puedes ir al north, south or southeast
+
+
+> se
+Estás en un puente.
+Puedes ir al northwest or southeast.
+
+
+> se
+Estás en el camino del bosque.
+Puedes ir al east or northwest.
+
+
+> e
+Estás en el camino del norte del poblado.
+Puedes ir al south, east or west
+
+
+> s
+Estás en la zona norte del poblado.
+Desde donde estás puedes ver el templo de la aldea, el mercado y la calle que va de norte a sur.
+Puedes ir al north, south, east or west.
+
+
+> s
+Estás en la zona centro del poblado.
+Al norte continúa el poblado.
+La calle termina hacia el sur.
+Desde aquí también ves la taberna y la casa del anciano.
+Puedes ir al north, south, east or west.
+
+
+> e
+Estás en la taberna.
+Encima del mostrador hay unos vasos y un mortero para hacer cócteles de la época. Detrás del mostrador unas ánforas que contienen vino. La decoración la componen unas cuantas mesas y unos taburetes, bañados por la luz del Sol que se cuela por la ventana de la pared norte.
+Es el lugar de reunión de los hombres de la aldea. Principalmente los domingos se reúnen a tomarse unos vinos, escuchar el partido y hablar de cuántos brazos han perdido en tal o cual batalla. El tabernero está limpiando unos vasos y te mira como esperando que le pidas alguna consumición.
+Aquí está el tabernero.
+Puedes ir al west.
+
+
+> give vasija to tabernero
+Le das la vasija al tabernero.
+El tabernero te dice:
+"De acuerdo, te guardaré el frasco. Sé que lo vas a volver a necesitar".
+
+> give hojas de sauce to tabernero
+El tabernero coge las hojas de sauce, las pone en el mortero y empieza a machacarlas. Al cabo de un rato, extrae un líquido que vierte en el frasco que le has dado.
+El tabernero te entrega el frasco y te dice:
+"Mi abuela materna me enseñó a preparar esta medicina a partir de las hojas de sauce. Es un remedio casero para curar todo tipo de enfermedades. Una pitonisa me dijo que generaciones venideras, a este preparado le llamarían: "Persiaspirina".
+Úsalo en dosis moderadas."
+
+> w
+Estás en la zona centro del poblado.
+Al norte continúa el poblado.
+La calle termina hacia el sur.
+Desde aquí también ves la taberna y la casa del anciano.
+Puedes ir al north, south, east or west.
+
+> s
+Estás en la zona sur del poblado.
+Hacia el norte, ves gente transitando.
+Al este una casa de piedra.
+El oeste representa el abandono, la vergüenza, el deshonor de no terminar tu misión.
+Puedes ir al north, east or west.
+
+
+> e
+Estás frente a una de las pocas casas de piedra que hay en el poblado. Su dueño debe de pertenecer a una de las clases más altas de la comunidad.
+Golpeas con tu puño desnudo sobre la madera de la puerta y...
+Anahita desde dentro de la casa te dice:
+"Por favor, deja de golpear la puerta, tengo un terrible dolor de cabeza. Parece que me va a estallar. Vuelve otro día y deja de hacer ruido. Te lo suplico."
+Tú le contestas:
+"Anahita, tengo un remedio que cura las jaquecas, por favor, déjame entrar"
+
+La puerta se abre y pasas dentro.
+Estás en la casa de la adivina.
+Es una casa muy ricamente decorada. Pero, no nos vamos a engañar, solamente tienes ojos para las peritas de Anahita.
+Puedes ir al west.
+
+
+> give vasija con persiaspirina to anahita
+Anahita te dice:
+"¿Qué es esto? ¿Chinchón? Huyyy... qué rico"
+Y sin darte tiempo a responder, se lo bebe de un trago como si fuese un marinero que no hubiese probado una gota en cinco meses.
+Al cabo de un rato, Anahita, empieza a encontrarse bien y el dolor de cabeza se le va.
+Anahita te dice:
+"Valeroso soldado, te he echado las cartas, he leído la bola de cristal y he echado una bono loto. Los dioses me dicen que estás llamado a cumplir una gran hazaña".
+Anahita continúa:
+"Debes ir de noche al claro del bosque a matar al gran Jabalí negro. Llévale sus dos colmillos al anciano del poblado y él te guiará en tu destino".
+
+> w
+Estás en la zona sur del poblado.
+Hacia el norte, ves gente transitando.
+Al este una casa de piedra.
+El oeste representa el abandono, la vergüenza, el deshonor de no terminar tu misión.
+Puedes ir al north, east or west.
+
+> n
+Estás en la zona centro del poblado.
+Al norte continúa el poblado.
+La calle termina hacia el sur.
+Desde aquí también ves la taberna y la casa del anciano.
+Puedes ir al north, south, east or west.
+
+
+> n
+Estás en la zona norte del poblado.
+Desde donde estás puedes ver el templo de la aldea, el mercado y la calle que va de norte a sur.
+Puedes ir al north, south, east or west.
+
+
+> n
+Estás en el camino del norte del poblado.
+Puedes ir al south, east or west
+
+
+> w
+Estás en el camino del bosque.
+Puedes ir al east or northwest.
+
+> nw
+Estás en un puente.
+Puedes ir al northwest or southeast.
+
+> nw
+Estás en el bosque.
+Puedes ir al north, south or southeast
+
+> s
+Estás en el bosque.
+Puedes ir al north or west
+En esta zona del bosque hay toda clase de árboles. Pero mayoritariamente son árboles de hoja caduca.
+
+
+> w
+Estás en el bosque.
+Puedes ir al east or west
+Al llegar a esta parte del bosque, un sexto sentido de buen general macedonio, te dice que tendrás que volver aquí tarde o temprano.
+Un profundo sueño se apodera de ti en esta parte del bosque.
+Decides descansar.
+Tus ojos se cierran.
+Y el tiempo pasa...
+
+Pulsa una tecla...
+
+
+Despiertas conmocionado.
+¡¡¡ Zeus mío !!!
+Se ha hecho de noche.
+Hacia el norte escuchas unos ruidos.
+Te asomas sigilosamente y ves un enorme jabalí negro que come distraídamente.
+Puedes ir al east or west.
+
+> use arco on jabalí
+Pones una flecha en el arco. Tensas la cuerda. Apuntas a uno de los ojos del jabalí y cuando estás seguro de no fallar, sueltas la flecha que con un silbido atraviesa las ramas y se introduce dentro del cerebro del animal.
+
+Ni siquiera le da tiempo a emitir ningún sonido.
+Cae fulminado al suelo.
+Ahora es totalmente inofensivo.
+Con la espada, cortas las ramas que te impedían el acceso al claro del bosque donde reposa el animal. Ahora, ya tienes el camino libre para llegar hasta el jabalí.
+Puedes ir al north, east or west.
+
+> n
+You are in un claro del bosque.
+There is un jabalí muerto here.
+You can go south.
+
+
+> examine jabalí muerto
+Es el jabalí que has matado con la flecha. Es de color negro, enorme, debe de pesar un quintal. Te llaman poderosamente la atención, sus dos enormes colmillos.
+
+> take colmillos
+Te ayudas de tu espada, para separar los colmillos del jabalí de su cabeza.
+Ahora, son tuyos.
+
+> s
+Estás en el bosque.
+Puedes ir al north, east or west
+
+
+> e
+Estás en el bosque.
+Puedes ir al north or west
+
+
+> n
+Estás en el bosque.
+Puedes ir al north, south or southeast
+
+
+> se
+Estás en un puente.
+Puedes ir al northwest or southeast.
+
+
+> se
+Estás en el camino del bosque.
+Puedes ir al east or northwest.
+Al llegar al camino del bosque, empieza a clarear el día.
+
+
+
+> e
+Estás en el camino del norte del poblado.
+Puedes ir al south, east or west
+
+
+> s
+Estás en la zona norte del poblado.
+Desde donde estás puedes ver el templo de la aldea, el mercado y la calle que va de norte a sur.
+Puedes ir al north, south, east or west.
+
+
+> s
+Estás en la zona centro del poblado.
+Al norte continúa el poblado.
+La calle termina hacia el sur.
+Desde aquí también ves la taberna y la casa del anciano.
+Puedes ir al north, south, east or west.
+
+
+> w
+Estás en la casa del anciano.
+Debe de ser la casa de un anciano de la aldea a juzgar por el cartel que hay en la puerta. Más que una casa, parece una pequeña chabola semiabandonada, seguramente porque su dueño no se ocupa de ella y la tiene bastante descuidada (El mal de la mayoría de los hombres con sus esposas y primera causa de los divorcios en Persia). Está decorada muy pobremente, únicamente una alfombra en el suelo y una silla te llaman la atención.
+Puedes ir al east.
+Flop.
+Sin saber, ni de dónde, ni cómo, un anciano vestido totalmente de blanco, aparece delante de ti, envuelto en una nube de humo.
+
+> give colmillos to anciano
+El anciano al ver los colmillos, los coge y te dice extasiado:
+¡¡¡Ooohhh... !!! Los colmillos del gran Jabalí Negro. Los he deseado tanto, durante tanto tiempo.
+Qué pena que no recuerde la receta...
+Gracias Nearco.
+
+
+> give carta to anciano
+El anciano te dice:
+¿De dónde has sacado esto?
+Oh... ya veo, has estado con Meretricia, ¿verdad?
+Todo el mundo piensa que es una receta de cocina, pero no muchacho, no.
+Es mucho más. Es la fórmula para crear Sildenafil a partir de los colmillos de un marrano.
+Verás joven. Lo ideal para la fórmula son los testículos del jabalí, pero con el paso de los años, he notado que me producen ardor en el estómago, de modo que encontré que machacando los colmillos y siguiendo esta receta que me trajeron de Egipto, consigo tener erecciones continuas para satisfacer a mi gran amada Meretricia.
+Su marido, el vigilante del Templo es un poco "rarito" y hemos decidido fugarnos a Persépolis, la capital del reino, para iniciar una nueva vida. La amo profundamente y ella a mí. 
+Gracias Nearco. Con esta fórmula, haré realidad todos los sueños de Meretricia.
+
+¿Qué puedo hacer a cambio para compensarte?
+
+> give objeto raro to anciano
+El anciano te dice:
+Ohhhh... has encontrado mi máquina de Antikitera. La llamo así, porque allí fue donde la construí. Generaciones futuras hablarán de ella como el primer ordenador que se fabricó en el mundo y si no... al tiempo. (Unos dos mil años o así, ya lo verás).
+Toda mi vida la he dedicado a la astronomía y con esta máquina podrás saber perfectamente donde están situados todos los planetas. Pero, no solo eso, en alta mar te guiará marcándote perfectamente el rumbo, con lo que será imposible que te pierdas. Adivino por tu mirada, que ya estás pensando pedirle a Alejandro que te nombre almirante de su flota. ¿A que sí? Ve en paz, Nearco.
+El anciano, al terminar de decir estas palabras...
+con un suave flop y una nube de humo que te deja tosiendo... se evapora...
+
+> e
+Estás en la zona centro del poblado.
+Al norte continúa el poblado.
+La calle termina hacia el sur.
+Desde aquí también ves la taberna y la casa del anciano.
+Puedes ir al north, south, east or west.
+
+
+> n
+Estás en la zona norte del poblado.
+Desde donde estás puedes ver el templo de la aldea, el mercado y la calle que va de norte a sur.
+Puedes ir al north, south, east or west.
+
+
+> n
+Estás en el camino del norte del poblado.
+Puedes ir al south, east or west
+
+
+> e
+Estás en el embarcadero.
+Es el viejo embarcadero del poblado construido a base de postes y tablones de madera.
+Aquí hay un muchacho, una barca, unas redes and un perrito.
+Puedes ir al west
+
+
+> take barca
+
+Coges la barca y ahora, sabiendo que no te perderás en la inmensidad del mar, pones rumbo a Egipto... tu próxima aventura.
+
+Pulsa una tecla...
+
+
+¡¡¡ Enhorabuena !!!
+
+Has terminado Nearco 3
+Nos vemos en el próximo:
+"Nearco 4. Sus aventuras en Egipto."
+
+(Todos los animales han muerto en este juego, incluso el cabrón del perrito).
+(Los sonidos del juego han sido sacados de http://bancoimagenes.isftic.mepsyd.es/)
+La máquina de Antikitera es un objeto real. Algunos lo consideran un OOPART.
+Más información en esta página: http://es.wikipedia.org/wiki/Mecanismo_de_Anticitera
+Nearco fue nombrado almirante y estuvo al mando de la flota de Alejandro Magno.
+Más información en: http://es.wikipedia.org/wiki/Nearco.
+Mi más sincero agradecimiento a Pomponio.
+"Vetatexter y correstor hortográfico désta abentura." ;)
+Ya le pagaré un viaje al Westin por el esfuerzo realizado.
+Los dibujos de todos los personajes han sido realizados por Jhames.
+El del tabernero a golpe de ratón. El resto de dibujos de los personajes están hechos con la Wacom Bamboo. (Después de haber practicado un poquito con el lápiz).
+Gracias por jugar una aventura Made in Jhames.
+
+
+[runner] turns=93 leftover=0 running=false WON=YES

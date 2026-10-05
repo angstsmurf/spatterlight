@@ -1,0 +1,194 @@
+
+DUNGEON | Samuel
+
+Welcome to DUNGEON by Samuel Bennett. The object is to escape the dungeon maze and return to your house. But beware of the beast - it could be anywhere in the dungeon, and moves around freely!
+
+You are in your cell in the dungeon. You are chained to the wall, too high to reach the objects below you - that is, a loaf of bread, a pile of hay, and some salt.
+
+> look at bread
+That's the bread the dungeon master gives to you. It's so hard and clublike, I'd be surprised if you failed to break something with this thing. You can't reach it.
+
+> look at salt
+The Dungeon Master gives you this salt so you can salt your bread. Mmmmm, good ol' salt. Makes life better. Watch your sodium intake! You can't reach it.
+
+> look at hay
+A nondescript pile of hay. Looks like it's placed over something. You can't reach it.
+
+> look at me
+You look the same as always.
+
+> scream
+AAAAAAAHHHHHH!!!
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+
+> sniff
+You smell a wumpus.
+The big, brawny dungeon master walks into the cell. He's carrying a key on his belt and holding his cup of tea. The dungeon master loves his tea.
+
+> speak to dungeon master
+"Alright, ya welp. It's time ya faced ya doom. Come on, it's time for your execution."
+You're in the dungeon torture chamber. A rack, iron maiden, and piano stand here, among with many other instruments of torture. Doors are to the west and north, and southwest.
+The Dungeon Master drags you to the torture chamber, throws you in the iron maden and shuts the lid.
+
+> push dungeon master
+You push the Dungeon Master into the Iron Maiden and push it shut. 
+The dungeon master has dropped his keys.
+
+> take keys
+You carefully snap the keys out of the Iron Maiden.
+
+> w
+You enter the dingy cells. A small dog carrying a keyring sits in the corner. Prisoners gather around the dog. You hear one say "You can call all you want and the dog is never going to come."
+There are doors to south and east.
+Your cell is in the northwest.
+
+> nw
+You're back at your cell. The bread, salt and hay are all still here. The hall of cells is to the southeast.
+
+> take bread
+You take the bread. Brushing off the weevils, you stick it in your pocket for later.
+
+> take hay
+As you take the hay (that smells like a red herring) a dagger slides out from under the bales.
+
+> take dagger
+It's your lucky day! You take the dagger, waiting for when you get to stab something with it.
+
+> take salt
+You pick up the shaker and safley secure it in an upright position.
+
+> se
+You enter the dingy cells. A small dog carrying a keyring sits in the corner. Prisoners gather around the dog. You hear one say "You can call all you want and the dog is never going to come."
+There are doors to south and east.
+Your cell is in the northwest.
+
+> s
+You stand at the foot of some stairs leading up into a tower. You can go up, north, or you can go to the southeast.
+
+> u
+You are standing on a landing on the immense circular staircase. To your east, there is a door. Stairs lead up and back down.
+
+> e
+This is the Baron's Wife's room. She sits on her canopy bed.
+There's a book resting on its table here, and windows open to the east. 
+
+
+> take book
+As you take the book, you try to blow the dust off of it. It sticks.
+
+> u
+You enter into a giant laboratory. Merlin sits behind his desk. The floor is crowded with rats, and various magical regila clutter the place. An owl flys around, and the ladder leads down.
+
+> give book to merlin
+Merlin looks at the book and blows off the dust. Sure enough, it's a book of spells. Merlin says "You can have it. Allow me to write in it." Merlin scrawls in some spells, then hands you the book.
+
+> use spellbook
+You decide to read the spellbook.
+(Type the spells to cast them)
+
+Frotz: This spell will create light.
+
+Onbit: This spell makes you walk on the ceiling.
+
+Tinsot: This spell freezes things.
+
+Slytha: This spell puts people to sleep.
+
+Xyzzy, Plover, and Plugh:
+These spells all teleport you to a certain area. Use at own risk.
+
+> d
+This is the Baron's Wife's room. She sits on her canopy bed.
+There's a book resting on its table here, and windows open to the east. 
+
+
+> w
+You are standing on a landing on the immense circular staircase. To your east, there is a door. Stairs lead up and back down.
+
+> u
+You're outside the library. A giant door blocks your path.
+You're at the top of the stairs. The passage north is blocked by a door so covered with slugs it is unopenable.
+
+> use salt on door
+You sprinkle the salt all over the door, causing the slugs to shrivel up. The door swings open, allowing a clear passage to the north.
+You run out of salt and throw the empty salt shaker over your shoulder.
+
+> n
+You're in the Baron's private library. There are bookcases lining the walls, and a huge map of the dungeon and its surroundings mounted on the wall. The door to the stairs is south of you.
+
+> use dagger on map
+You slash your dagger behind the map, knocking away the bolts, glue, nails, pins, rope and duck-tape connecting it to the wall. You catch it as it falls to the floor.
+
+> s
+You're outside the library. A giant door blocks your path.
+You're at the top of the stairs. The passage north is blocked by a door so covered with slugs it is unopenable.
+
+> d
+You are standing on a landing on the immense circular staircase. To your east, there is a door. Stairs lead up and back down.
+
+> d
+You stand at the foot of some stairs leading up into a tower. You can go up, north, or you can go to the southeast.
+
+> n
+You enter the dingy cells. A small dog carrying a keyring sits in the corner. Prisoners gather around the dog. You hear one say "You can call all you want and the dog is never going to come."
+There are doors to south and east.
+Your cell is in the northwest.
+
+> e
+You're in the dungeon torture chamber. A rack, iron maiden, and piano stand here, among with many other instruments of torture. Doors are to the west and north, and southwest.
+
+> sw
+It is dark. You see nothing.
+
+> frotz
+SPELLCASTING: F-R-O-T-Z
+
+The room lights up. You're in a maze of twisty little passages, all alike.
+The map says you should go north.
+A prisoner groans.
+
+> n
+You're in a maze of twisty little passages, all alike.
+The map says you should go west.
+[runner] turns=51 leftover=0 running=true WON=YES

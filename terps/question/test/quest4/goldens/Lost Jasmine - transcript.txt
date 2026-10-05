@@ -1,0 +1,42 @@
+
+Lost Jasmine, v5.1 | Mariyama
+
+Welcome to Lost Jasmine, a game of Suspense and Thriller.
+Once upon a time, there was a cruel king named MAFIA. He used to kidnap poor people,fire  and kill them finally.A boy named ALLADIN,a renowned and Courageous among the village people is very helpful person.
+But Unfortunately,Oneday his beloved  JASMINE was found to be lost.MAFIA kidnapped his JASMINE and had taken to his place.
+Now your aim is to search around certain places and find JASMINE.
+
+You are in the Hazrat.
+There is jakara here.
+You can go south or northwest.
+ This place is found to be filled with killers and murderers.
+
+> s
+You are in the Mashira.
+There is Shakira here.
+You can go north or northeast.
+A small restaurant where some people used to come for meals and here ..
+You meet a beautiful girl called Shakira.
+
+> ne
+You are in MadiraHills.
+There is mafiachamber and Sirap here.
+You can go southwest.
+It is found to be cool place  and people around here are drunkyards,kidnappers and killers.
+
+> open sirap
+There appears your friend  "Yago" and you can ofcoarse speak with him.
+
+> speak to yago
+He says your beloved might be in Stable.
+
+> look at stable
+The horses are roaming there and there you found  a locked door key.
+
+> open key
+You open the lock and release your beloved Jasmine.
+
+Congatulations ...
+You have found your lost Jasmine and she is ready to go with you.
+
+[runner] turns=6 leftover=0 running=false WON=YES

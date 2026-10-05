@@ -1,0 +1,86 @@
+get up
+drink
+south
+down
+west
+open cupboard
+eat cake
+examine fridge
+take magnet
+examine wine rack
+take roses
+east
+out
+east
+south
+south
+south
+southeast
+east
+southeast
+speak to elf
+reply
+2
+yes
+south
+southeast
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+yes
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+yes
+north
+east
+east
+take dress
+3
+run
+left
+right
+right
+right
+get on bus
+open doors
+speak to guy
+yes
+right
+straight on
+straight on
+straight on
+east
+yes

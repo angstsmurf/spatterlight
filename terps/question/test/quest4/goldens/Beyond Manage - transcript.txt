@@ -1,0 +1,425 @@
+
+Beyond Manage, vV.005 | METALGod32 and waltercross
+
+    Hey there!, first let me Introduce my self to you.
+
+I am Zanger!, yes you heard me, ZANGER!.
+Now this game here is called Beyond Manage, the reason for this odd name is of a bigger purpose in life.
+
+ok Lets get started, First I Need to know your name, otherwise I'll always be calling you, YOU, or HEY YOU! :).
+
+So you what is Your name? :)
+Type it in that little long white area at the
+bottom, I Promise it really wont hurt!.
+
+
+
+Cool!, so your name is Petter, nice to meet you, see this way I can now call you Petter instead of You! :).
+
+Ready to move onto the next room?, oh yeah, did I tell you how yet?, or do you already know how?, either way, the easiest way is to click on the arrows down on your right to move to the next room, if It's a black arrow that means you can move to that room, try it now!, see ya in the next room!.
+
+ 
+
+> n
+  Congratulations!, you score 10 points!, your score is now: 10!.
+
+  Hey there Petter!, You made it, you noticed that you just now
+scored some points?, everytime you go to the next room you'll get points!.
+I Know your asking, well people can cheat then by going back and fourth?.
+
+It's only one way though, so you cannot go back, That doesn't mean you
+can never get back to that room you were in, But it wont be back the
+way you came!, also each Level has a time Limit to complete, otherwise
+It's game over, but thats for another Tutorial Lesson. :)
+
+Your score is placed under your name, and over your Health on your
+right hand side, that should be easy to see!.
+
+Now go on!, off to Tutorial 3, click the arrow thats black!.
+
+
+
+
+> n
+  Congratulations!, you score 20 points!, your score is now: 30!.
+
+  Wow!, your getting the hang of this Petter!, now in this Tutorial
+I'm gonna tell you about the objects you'll find along the way.
+
+
+Now press any key so I can continue....
+
+
+There!, now Look, I Placed some gold pieces in the room.
+take this and see what happens.
+
+
+
+> take gold
+  You found some Gold pieces and your score was Increased
+by 8!, your score is now: 38!.
+
+
+ 
+Awesome, see easy eh? the score is a bit randomize, meaning
+that 8 may not always be the same.
+
+Here, lets try another object shall we!
+
+
+Comon, press a key! :)
+
+
+> take tin
+  You found some Tin! and your score was Increased
+by 11!, your score is now: 49!.
+
+
+ 
+See, cool, now your Score was increased by 11!.
+ok moving on now!, Next room!, you know
+what to do.
+
+
+
+
+
+> n
+  Congratulations!, you score 40 points!, your score is now: 89!.
+
+  Ok, now not all Objects are friendly!, some can be
+quite nasty!, There called: Bombies they'll randomly explode
+causing you to Lose health, see your health bar on your right?
+ok Good.
+
+Now I'm gonna do you a favor and place one of these bombs
+by you!, Favor....hehehe.
+
+
+
+
+Now press any key so I can continue....
+
+
+Ohhhhhh cool It's a Bomb!, now becareful with this and no you cannot pick it up!, 
+I Mean, Why would you want to anyways!?
+
+Now I'm gonna set the bomb to go off in 5 Seconds!
+
+
+
+
+
+
+Press a key now.
+
+  Now It'll go off in 5 seconds!.
+
+
+
+
+> look at green bomb
+Dude! Run! (A Scene from the Ghost Hunters)
+
+> look at green bomb
+Dude! Run! (A Scene from the Ghost Hunters)
+
+> look at green bomb
+Dude! Run! (A Scene from the Ghost Hunters)
+
+> look at green bomb
+Dude! Run! (A Scene from the Ghost Hunters)
+
+> look at green bomb
+Dude! Run! (A Scene from the Ghost Hunters)
+
+> look at green bomb
+Dude! Run! (A Scene from the Ghost Hunters)
+  You just took 9 Damage!.
+
+ See, now your health is at 91, so becareful
+of bombs, there are several different kinds of bombs.
+but don't worry, there is also health kits that you'll
+find scattered about.
+
+Now head to the next room!
+
+
+
+
+
+> n
+  There you are again!, Now Keep in mind, every Game Level
+has a certain amount of time to complete, so don't dibble dabble
+for to long!, Is dibble dabble even a word?.
+
+Look onto your right, Time remaining is right next to the
+word TIME, Remember that!.
+Now I'm gonna be so kind as to start that for you so
+you can see for yourself!.
+
+
+Press da key on da keyboard?, ya know any key!.....
+
+Lets set it for 10 seconds!
+
+
+
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+
+> look at medical kit
+This is a Medical kit, perfect for picking up and healing yourself!
+  Sorry Petter!, but you Lose!.
+
+
+
+
+
+  See!, You would have Loss the game if this
+was a real official Timer, think of these Timers as
+Sport Officials! :)
+Now that you know how to play, press any key to get Started!
+
+Want to play the Tutorial again?
+1) NO, Lets play the game already!
+2) YES, Lets play the Tutorial again please
+[choice] 1
+
+
+Sorry, but no Items spawned.
+
+
+
+Congratulations!, your score has Increased by 10! and
+your score is now 10!.
+
+
+
+You are in Lay Vega Room 1.
+This room is small, about 5 by 5 in size, this
+room typically gives you 10 points per visit.
+
+The walls in this room are solid concrete, and
+the lighting in this room is lighted very well, with
+80/100 lighting source.
+
+The floor is also solid concrete, and the tempeture
+is about 71 F in this room.
+
+
+
+> nw
+
+
+Congratulations!, your score has Increased by 15! and
+your score is now 25!.
+
+
+
+You are in Lay Vega Room 2.
+This room is small, about 7 by 10 in size, this
+room typically gives you 15 points per visit.
+
+The walls in this room are solid concrete, and
+the lighting in this room is lighted very well, with
+76/100 lighting source.
+
+The floor is also solid concrete, and the tempeture
+is a hot 87 F in this room.
+
+
+
+> ne
+
+
+Congratulations!, your score has Increased by 15! and
+your score is now 40!.
+
+
+
+You are in Lay Vega Room 4.
+This room is small, about 10 by 5 in size, this
+room typically gives you 15 points per visit.
+
+The walls in this room are solid concrete, but the
+concrete walls are very dark in color and
+the lighting in this room is lighted very well, with
+70/100 lighting source.
+
+The floor is also solid concrete, and the tempeture
+is about 70 F in this room, there also seems to be
+a bustery wind of 25 MPH coming from the south!.
+
+
+
+> se
+
+
+Congratulations!, your score has Increased by 25! and
+your score is now 65!.
+
+
+
+You are in Lay Vega Room 5.
+This room is average, about 15 by 20 in size, this
+room typically gives you 25 points per visit.
+
+The walls in this room are solid concrete, but the
+concrete walls are very dark in color and
+the lighting in this room is lighted ok, with
+63/100 lighting source.
+
+The floor is also solid concrete, and the tempeture
+is about 72 F in this room, there also seems to be
+a bustery wind of 20 MPH coming from the south east!.
+
+
+
+> s
+
+
+Congratulations!, your score has Increased by 25! and
+your score is now 90!.
+
+
+
+You are in Lay Vega Room 6.
+This room is small, about 10 by 5 in size, this
+room typically gives you 25 points per visit.
+
+The walls in this room are solid concrete, but the
+concrete walls are very dark in color and
+the lighting in this room is lighted ok, with
+65/100 lighting source.
+
+The floor is also solid concrete, and the tempeture
+is about 73 F in this room, there also seems to be
+a bustery wind of 21 MPH coming from the south east!.
+
+
+
+> e
+
+
+Congratulations!, your score has Increased by 25! and
+your score is now 115!.
+
+
+
+You are in Lay Vega Room 7.
+This room is average in size, about 13 by 23 in size, this
+room typically gives you 25 points per visit.
+
+The walls in this room are solid concrete, but the
+concrete walls are very dark in color and
+the lighting in this room is lighted pretty well, with
+73/100 lighting source.
+
+The floor is also solid concrete, and the tempeture
+is about 76 F in this room, there also seems to be
+a bustery wind of 18 MPH coming from the south west!.
+
+
+
+> s
+
+
+Sorry, but no Items spawned.
+
+
+
+Congratulations!, your score has Increased by 25! and
+your score is now 140!.
+
+
+
+You are in Lay Vega Room 8.
+This room is small, about 10 by 10 in size, this
+room typically gives you 25 points per visit.
+
+The walls in this room are solid concrete, but the
+concrete walls are light in color and
+the lighting in this room is lighted pretty well, with
+78/100 lighting source.
+
+The floor is also solid concrete, and the tempeture
+is a hot 89 F in this room, there also seems to be
+a bustery warm wind of 26 MPH coming from the south west!.
+
+
+
+> se
+
+
+You just took 2 damage from the
+extreme cold and wind chill!, your health
+is now at 98!
+
+
+
+Congratulations!, your score has Increased by 25! and
+your score is now 165!.
+
+
+
+You are in Lay Vega Room 9.
+This room is large, about 53 by 66 in size, this
+room typically gives you 25 points per visit.
+
+The walls in this room are solid concrete, but the
+concrete walls are very dark in color with a dark
+reddish tint and the lighting in this room is pretty dark, 
+with 33/100 lighting source.
+
+The floor is also solid concrete, and the tempeture
+is a cold 31 F in this room, there also seems to be
+a windy cold wind of 37 MPH coming from the north!.
+
+Wind chill is 11 F!.
+
+
+
+> ne
+
+This is the end of Stage 1, also this is the end of Alpha
+1 version of the game, allot of work will still need to be done
+like fixing spelling mistakes, balancing game issues, adding
+key commands, adding sounds, adding stages, adding story,
+adding key characters and much much more!.
+
+Please report all bugs here: http://z9.invisionfree.com/Black_Label_Games/index.php?showforum=3
+
+
+
+Thank you
+
+[runner] turns=31 leftover=0 running=false WON=YES

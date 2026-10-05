@@ -1,0 +1,12 @@
+take worm
+eat worm
+e
+take stick
+e
+examine campfire
+use stick on venison
+eat venison
+examine campfire
+eat venison
+examine campfire
+eat venison

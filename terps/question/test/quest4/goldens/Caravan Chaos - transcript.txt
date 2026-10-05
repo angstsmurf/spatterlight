@@ -1,0 +1,82 @@
+
+caravan chaos, v1.0
+
+You lost your car so you're driving home in your caravan. Suddenly A thunderstorm starts! You leap to the window to close it but the wind blows your keys off the wheel and the caravan stops! The keys fly across the room and dissappear! You have to find them!
+
+PRESS A KEY TO CONTINUE!
+
+
+
+
+You are in a small caravan. Outside there is snow blocking the door and a window overlooks the edge of a cliff. A bed and a sink in here and a bathroom. is here.
+
+> open cupboard
+You open it.
+It's just the cupboard.
+It contains a bowl.
+
+> take bowl
+(first removing it from cupboard)
+Done.
+
+You pick it up.
+
+> examine bowl
+You find a coin in the bowl.
+
+> examine window
+Through the window you can see a cliff. Suddenly you find a memory card on the window ledge.
+
+> examine memory card
+You notice a battery in it!
+
+> use coin on valve
+You use the coin to open the valve and water pours into the bowl.
+
+> look under bed
+You find a box.
+
+> use bowl on box
+You pour the water on the seal and it breaks. You pull a magnet from the box.
+
+> use magnet on bed
+You find your keys with the magnet!
+
+> out
+You are lost in a storm of flying snow!
+
+> e
+You are lost in a storm of snow!
+
+> w
+You are lost in a snowstorm!
+
+> n
+You are in the engine.
+There is the engine here.
+You can go south.
+You have survived the snowstorm and are at the engine.
+
+> open engine
+You lift the top off.
+It's the engine of the caravan.
+It contains the wires.
+
+> use battery on wires
+You attach the battery to the wires. You then pull yourself along the caravan and pull yourself into the caravan and sturggle the door closed. You drive the caravan away.
+
+PUSH A KEY!
+
+
+The caravan suddenly stops! There are wires that cross the roof because the caravan's ancient. You have to fix it! You pull yourself onto the roof.
+You are in roof.
+There is the wires here.
+You are on the roof. The wires are here.
+
+> use coin on wires
+You connect the wires. You drive home!
+You win!
+
+Awesome!
+
+[runner] turns=16 leftover=0 running=false WON=YES

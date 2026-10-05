@@ -1,0 +1,351 @@
+
+the battle, v1.0 | GAMER!
+
+Welcome to this game.
+
+Ok, there is one isue we have to adress hear. Who are you?
+Ok, Sam, That is your real name right? Oh yah it is. Anyway in this game you are a 11 year old kid. You are going to school. The teachers however have called on an age old enemy. He isn't an enemy of the teachers He's an enemy of you. He along with his teachers will try to kill you at every chance. Take everything. Take objects that are probably untakeable. That could be useful. Type "hint" along the way for a slight hint.
+press a key
+
+You get up and get gloomily out of bed. Another school day.
+", come down stairs and eat your breakfast."
+You hate breakfast.
+
+You are standing in your bedroom.
+There is your bed, the bedside table, your desk and your dresser here.
+You can go northwest.
+This bedroom unlike the rest of the house is cluttered. Your bedside table is next to your bed (obviously.) Your computer is sitting on your desk. Your dresser is in the other corner of the room. To the west is the hallway. You can see something sticking out from inside yoir dresser. You wonder what it is.
+
+> open dresser
+You open the dresser. A knife falls onto the floor. How did it get there?
+
+> take knife
+You pick it up.
+
+> northwest
+You are standing in the huge hallway.
+There is a balloon here.
+You can go north, east, west, southeast or down.
+This hsllway connects all the rooms in your house. By the way you live in a one floor house. To the west is the kitchen. To the north is the living room. To the south is the front yard. A balloon lies on the floor.
+
+> take balloon
+You pick it up.
+
+> north
+You are standing in the living room.
+There is a bottle of water, the tv and the couch here.
+You can go south.
+This is a normal living room. A bottle of water is on the floor.
+
+> take water
+You pick it up.
+
+> look behind couch
+You look behind the couch and see a comic
+
+> take comic
+You pick it up.
+
+> use balloon on water
+You fill the ballon with water from the bottle.
+
+> south
+You are standing in the huge hallway.
+You can go north, east, west, southeast or down.
+This hsllway connects all the rooms in your house. By the way you live in a one floor house. To the west is the kitchen. To the north is the living room. To the south is the front yard. A balloon lies on the floor.
+
+> down
+You are standing in the basement.
+There is a dog bone here.
+You can go up.
+This room is filled with junk. A dog bone is on the floor. Your aunt left the dog bone when she last came hear.
+
+> take bone
+Grimacing a little you pick up the bone.
+
+> up
+You are standing in the huge hallway.
+You can go north, east, west, southeast or down.
+This hsllway connects all the rooms in your house. By the way you live in a one floor house. To the west is the kitchen. To the north is the living room. To the south is the front yard. A balloon lies on the floor.
+
+> west
+You are standing in the kitchen.
+There is your mum, the fridge, the microwave and the broken oven here.
+You can go east.
+This is the cluttered kitchen. A cork is lying on the floor. Mum is standing at the table waiting for you.
+
+> speak to mum
+"Hear's your breakfast Sam."
+She puts a bowl full of cereal on the table. You scoff it.
+
+(you can now go to the frong yard south of the hallway.)
+
+> east
+You are standing in the huge hallway.
+You can go north, south, east, west, southeast or down.
+This hsllway connects all the rooms in your house. By the way you live in a one floor house. To the west is the kitchen. To the north is the living room. To the south is the front yard. A balloon lies on the floor.
+
+> south
+You are standing in the front yard.
+There is a bike here.
+You can go west.
+This is the front yard of your house. To the west is the street. Just go west to get onto the bus. An abandoned bike is resting against the wall.
+
+> west
+You get on the bus to go to school. It cost 1 dollar.
+You are sitting in a seat next to your friend on the school bus.
+There is your friend bob here.
+This bus is filled with people. Maybe you should talk to bob.
+
+> speak to bob
+"Hey Bob" you say.
+"Please could you help me?"
+"What's wrong Bob?"
+"Some idiot nicked all my 2 dollars."
+"Ok do you want some money?"
+"Yah, Sam, please could you give me some money?"
+Will you give bob some money?
+1) Yes
+2) No
+[choice] 1
+"Thanks Sam."
+The bus arives at the school gates. You stare! The teacher there is holding a machine gun!
+
+You hurl the water balloon out of the window. It hits the teacher in the face. She runs into the middle of the road! The school bus drives over her!
+"You killed her!"
+"No I didn't. She shot herself with the gun. Didn't you see?"
+"Oh yah she did. To bad we couldn't get the machine gun though."
+You leave the bus and walk into the school yard.
+You are standing in the middle of the school yard.
+There is a teacher brainwashing kids here.
+You can go north.
+This is the normal school yard. A teacher is trying to brainwash you! Quik do something!
+You have to get rid on the teacher Sam.
+
+> use knife on teacher
+You charge at the teacher with the knife. His head falls to the floor. However he hits you for 6 damage.
+
+> north
+You are standing in the school hallway.
+There is a horrible teacher and a lever here.
+This is the school hallway. A lever is in hear. A teacher is guarding it. All the classroom doors are sealed off from the kids. You can hear screams from the classrooms.
+
+> give comic to teacher
+"I am the new book seller" you say. "I have a book for you. It's called "How To Brainwash Kids better."
+The teacher takes it and reads the comic.
+"This book is horrible!"
+He hurls the book at you and runs for it!
+
+
+> pull lever
+You pull the lever. Kids pour from the classroom and out of the school gates.
+
+
+> east
+You are standing in the school hallway.quitquit
+There is a keypad here.
+You can go east.
+This is another part of the school hallway. If only you can make it to the main hallway. There is no teacher hear but a key pad. You wonder where it leads.
+
+
+> east
+You are standing in the school hallway.
+There is a teacher holding a machine gun and some writing on the wall here.
+You can go west.
+This part of the hallway is deserted apart from a teacher with a machine gun!
+
+> read writing
+The writing says "1034."
+
+> use bottle on teacher
+YOu poor the water over the teacher's head.
+"What are you doing?"
+Quik he's distracted do something!
+
+> use knife on teacher
+You stab the teacher and take the machine gun.
+
+> west
+You are standing in the school hallway.quitquit
+There is a keypad here.
+You can go east.
+This is another part of the school hallway. If only you can make it to the main hallway. There is no teacher hear but a key pad. You wonder where it leads.
+
+> examine keypad
+You type the code into the keypad. The door opens with a hum.
+
+> north
+You are standing in the school hallway.
+There is a vicious rotwiler here.
+This part of the school hallway contains a rotwiler! It'e going to eat you! Quik do something !
+
+> give bone to rotwiler
+You hurl the bone at the dog. It chews on it. You run past it through the door. You quikly lock the door behind you.
+You are standing in the school hallway.
+There is a robot here.
+You can go north or east.
+This part of the hallway contains a robot. Quik shoot it?
+
+> use water on robot
+You hurl some of the water at the robot. Half the bottle is left. The robot falls to the ground and explodes! The water touched it's wires!
+
+> east
+You are standing in the school hallway.
+There is a switch here.
+You can go north or south.
+To the north you can see the main hallway. A switch is hear. To the south is the library door.
+
+> south
+You hear a voice.
+"If you can answer the questions you can pass. What does december have that no other month has?
+What will your answer be?
+1) 14 letters
+2) the letter d
+3) It's the twelth month of the year
+4) No idea
+[choice] 2
+"Ok you know to much Sam."
+"Hear is your next riddle.
+Who are tom and jery?"
+What will you answer?
+1) cat and slug
+2) cat and mouse
+3) mouse and pie
+4) No idea
+[choice] 2
+"Correct! You may proceed into the library."
+You are standing in the huge library.
+There is a teacher and a book here.
+You can go north.
+This room is full of stacks of books. A teacher is sitting in wait for you!
+
+> use gun on teacher
+You aim the gun and shoot the teacher's head off. The lab key falls from his pocket onto the floor.
+
+> north
+You are standing in the school hallway.
+There is a switch here.
+You can go north or south.
+To the north you can see the main hallway. A switch is hear. To the south is the library door.
+
+> north
+You are standing in the main hallway.
+You can go north, south, east or west.
+This hallway is usually bustling with miserable kids. A teacher lies dead. The kids killed him! They have got rid of some of the problem for you! Now to kill the head teacher.
+
+> east
+The school lab door is locked.
+
+You unlock the lab door.
+
+> east
+You are standing in the lab.
+There is loads of teachers cooking something in a cauldron and huge cauldrons with some thing cooking inside them. here.
+You can go out to the hallway.
+This is the school lab. Huge cauldrons line the walls.
+
+> use gun on teachers
+You shoot the teachers as they cook in the cauldrons.
+"A A A A A" the teachers scream as they die.
+
+> use water on cauldrons
+You poor the water into the cauldrons. There is a huge explosion! You are thrown against the wall. A vial falls from the ceiling into your hand.
+"That is holy water. Just drink it." The voice comes from the roof abuv your head.
+
+> drink holy water
+You drink the holy water.
+"To access the second vile of holy water you must answer this question. Who is the god of death?"
+What will you reply?
+1) Jonathon reeper
+2) grimstone reeper
+3) ben reeper
+4) glen reeper
+[choice] 2
+"Correct! You are worthy enough to have the second vile. This will vanquish the demon!"
+
+> out
+You are standing in the main hallway.
+You can go north, south, east or west.
+This hallway is usually bustling with miserable kids. A teacher lies dead. The kids killed him! They have got rid of some of the problem for you! Now to kill the head teacher.
+
+> west
+You are standing in the small cafateria.~
+There is a teacher here.
+You can go east.
+This room is full of dead teachers. However the last teacher got rid of the kids.
+
+> use comic on teacher
+You wave the comic in front of her face. She reads it.
+"How would you like to spend the knight in the musium?"
+"I would like that" you say.
+You know how to get out of the musium.
+"Ok then."
+You are picked up and chucked in the musium.
+You are standing in the museum.
+There is loads of figures and a panel here.
+This museum is normal. Figures line the walls. You know there's a lose panel in the north wall.
+
+> push panel
+You push the panel and crawl through the tunel beyond. You find yourself in the ganitor's closet.
+You are in the janitor's closet.
+There is a long broom and a door here.
+This cramped room contains nothing but a broom and a door.
+
+> take broom
+You pick it up.
+
+> use gun on door
+You shoot the lock and enter the main hallway.
+You are standing in the main hallway.
+There is a cat prancing across the coridoor here.
+You can go south.
+This part of the hallway contains nothing of interest. A cat is prancing about guarding the passage to the north.
+
+> use broom on cat
+You hit the cat with the broom. It runs off.
+
+> north
+You are standing in the main hallway.
+There is a note here.
+You can go west.
+This part of the halllway is the most interesting. To the west is the theatre. To the north is the locked door of the head teacher.
+
+> west
+You are standing in the theatre.
+There is a teacher chucking bombs at you! here.
+You can go east.
+In this part of the school the kids perform plays. A teacher laughs at you from the stage!
+
+> use bottle on teacher
+With your almost last ounce of strength you hurl the bottle at the teacher. He yells out then falls through a trapdoor in the stage. Suddenly you see a liftshaft. You take the elevator and find yourself in the headmaster's office!
+PRESS A KEY TO SEE WHAT HAPPENS!
+
+"HA HA HA! I knew you'd make it hear! I will now do what I said kill you!"
+Quik you have to do something!
+You are standing in the headmaster's office!
+There is a pot full of black stuff and the headmaster here.
+This is a normal office for a headmaster. A huge pot is in the centre of the room surrounded by a huge forcefieled of sorts. The headmaster is aiming a machine gun at you!
+
+> use gun on headmaster
+You shoot the headmaster and he dies!
+"Sam, the demon will rise and kill you!"
+"No it won't scumbag" you reply.
+
+> use holy water on pot
+You poor the water into the pot. There is a blinding flash of white light as the demon inside the pot tries to rise. The holy water eats through the demon forcing it into it's rightful place (oblivian.) You fall to the ground and pass out with tiredness and fear.
+PRESS A KEY TO END THE GAME!
+
+You wake up at home. Kids suround your bed. Bob is at the front of the crowd.
+"He's awake! We thought we'd lost you! We thought..."
+You sit up.
+"Shouldn't you be sleeping?"
+"No."
+"Why not?"
+"Because I'm awake Bob" you reply to Bob.
+Every-one laughs.
+
+Congratulations You've won. Now go tell all your friends and get out of the vertual world for a change.
+
+(YOU WON!!!!!!!!!!!!!!!!!)
+
+[runner] turns=55 leftover=0 running=false WON=YES
