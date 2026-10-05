@@ -99,6 +99,36 @@ public:
 
 static void glk_put_cstring(const char *);
 
+/* A line read with glk_request_line_event_uni, as the UTF-8 the engine keeps
+ * its text in.  Input is requested in Unicode so that a character outside
+ * Latin-1 survives, and so that nothing has to guess the encoding of what was
+ * typed (input_to_utf8 still does, for command scripts and for the answers in
+ * autosaves written when the request was a Latin-1 one). */
+static std::string
+line_to_utf8(const glui32 *buf, glui32 n)
+{
+    std::string out;
+    for (glui32 i = 0; i < n; i++) {
+        glui32 cp = buf[i];
+        if (cp < 0x80)
+            out += (char) cp;
+        else if (cp < 0x800) {
+            out += (char) (0xc0 | (cp >> 6));
+            out += (char) (0x80 | (cp & 0x3f));
+        } else if (cp < 0x10000) {
+            out += (char) (0xe0 | (cp >> 12));
+            out += (char) (0x80 | ((cp >> 6) & 0x3f));
+            out += (char) (0x80 | (cp & 0x3f));
+        } else {
+            out += (char) (0xf0 | (cp >> 18));
+            out += (char) (0x80 | ((cp >> 12) & 0x3f));
+            out += (char) (0x80 | ((cp >> 6) & 0x3f));
+            out += (char) (0x80 | (cp & 0x3f));
+        }
+    }
+    return out;
+}
+
 /* The native Quest 5 engine (aslxglk.cc).  glk_main below sniffs the story
  * file and dispatches .aslx/.quest games there; .asl/.cas stay here. */
 extern "C" int aslx_is_quest5_file(const char *path);
@@ -406,16 +436,16 @@ post_game_menu()
     post_game_menu_print();
     if (g_manual_echo)
         glk_set_echo_line_event(inputwin, 1);   /* auto-echo the choice */
-    char b[64];
+    glui32 b[64];
     for (;;) {
         glk_put_string_stream(inputwinstream, (char *) "> ");
-        glk_request_line_event(inputwin, b, (sizeof b) - 1, 0);
+        glk_request_line_event_uni(inputwin, b, 63, 0);
         event_t ev = wait_for_event(
             [](const event_t &e) {
                 return e.type == evtype_LineInput && e.win == inputwin;
             },
             [] { draw_banner(); fill_divider(); });
-        if (int c = post_game_menu_match(std::string(b, (int) ev.val1)))
+        if (int c = post_game_menu_match(line_to_utf8(b, ev.val1)))
             return c;
         post_game_menu_reprompt();
     }
@@ -622,7 +652,7 @@ void glk_main(void)
 static bool
 run_turn_loop(QuestionRunner *gr, bool &autorestored)
 {
-    char buf[200];
+    glui32 buf[200];
     bool quitting = false;
     g_live_runner = gr;
 
@@ -636,7 +666,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
          * after that tick would otherwise print a newline at every cancel. */
         if (g_manual_echo)
             glk_set_echo_line_event(inputwin, 0);
-        glk_request_line_event(inputwin, buf, (sizeof buf) - 1, preload);
+        glk_request_line_event_uni(inputwin, buf, 199, preload);
     };
     auto cancel_line = []() -> glui32 {
         event_t ce;
@@ -693,12 +723,12 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
             switch(ev.type) {
             case evtype_LineInput:
                 if(ev.win == inputwin) {
-                    std::string cmd = std::string(buf, ev.val1);
+                    std::string cmd = line_to_utf8(buf, ev.val1);
                     /* Auto-echo is off, so echo the entered command ourselves at
                      * the prompt (which was already printed above), so every
                      * command -- including the metaverbs below -- shows up. */
                     if (g_manual_echo)
-                        echo_input_line(cmd, false);
+                        echo_input_line(cmd, true);
                     run_or_handle_command(cmd, gr, quitting);
                 }
                 break;
@@ -791,12 +821,16 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                          * eventually gets carries the whole line, prefix and
                          * all. */
                         cancel_line();
-                        glui32 n = (glui32) act.command.size();
-                        if (n < (sizeof buf) - 1) {
-                            memcpy(buf, act.command.data(), n);
-                            buf[n] = '\0';
-                        } else {
-                            n = 0;
+                        /* The command is the engine's UTF-8; the line
+                         * buffer holds codepoints. */
+                        glui32 n = 0;
+                        for (size_t i = 0; i < act.command.size();) {
+                            glui32 cp = utf8_next_cp(act.command, i);
+                            if (n >= 199) {
+                                n = 0;
+                                break;
+                            }
+                            buf[n++] = cp;
                         }
                         request_line(n);
                         /* Clearing the pane below would drop its hyperlink
@@ -819,7 +853,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                      * "> cmd" into the main text (ignore_lines stays 0), so no
                      * manual echo. */
                     if (inputwin == mainglkwin)
-                        echo_input_line(cmd, false);
+                        echo_input_line(cmd, true);
                     run_or_handle_command(cmd, gr, quitting);
                     /* Treat the click as this turn's input so the loop exits,
                      * refreshes the pane (re-arming the link) and re-prompts. */
@@ -1090,7 +1124,10 @@ update_objwin(QuestionRunner *gr)
             (flatexits.empty() ? std::string("") : "; exits: " + flatexits) +
             (flatstatus.empty() ? std::string("") : "; status: " + flatstatus) +
             " ]\n";
-        glk_put_string_stream(transcriptstr, (char *) line.c_str());
+        if (text_is_utf8(line))
+            put_stream_utf8(transcriptstr, line);
+        else
+            glk_put_string_stream(transcriptstr, (char *) line.c_str());
     }
     g_last_objlist = key;
 }
@@ -1115,10 +1152,19 @@ fill_divider()
 static void
 glk_put_cstring(const char *s)
 {
-    /* The cast to remove const is necessary because glk_put_string
-     * receives a "char *" despite the fact that it could equally well use
-     * "const char *". */
-    glk_put_string((char *)s);
+    /* The engine's text is UTF-8: the loader transcodes the game from
+     * Windows-1252 and an `enter` answer goes through input_to_utf8.
+     * glk_put_string would print each byte as a Latin-1 character and turn
+     * every accented letter into two wrong ones, so write codepoints.  The
+     * byte path is kept for anything that is not well-formed UTF-8. */
+    std::string text(s);
+    if (text_is_utf8(text))
+        put_stream_utf8(glk_stream_get_current(), text);
+    else
+        /* The cast to remove const is necessary because glk_put_string
+         * receives a "char *" despite the fact that it could equally well
+         * use "const char *". */
+        glk_put_string((char *)s);
 }
 
 QuestionResult
@@ -1248,7 +1294,7 @@ QuestionGlkInterface::get_string ()
        * replaying and let the player answer. */
       g_replaying = false;
     }
-  char buf[200];
+  glui32 buf[200];
   /* An `enter` or menu fired from a timer blocks inside that tick, before the
    * turn loop gets to refresh anything; show the state the question is being
    * asked in rather than the one from the last prompt. */
@@ -1266,14 +1312,14 @@ QuestionGlkInterface::get_string ()
    * prompt has no line end to take, and is left as it is.) */
   if (inputwin == mainglkwin && unput_tail_exact(mainglkwin, U"\n"))
       glk_put_cstring(" ");
-  glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
+  glk_request_line_event_uni(inputwin, buf, 199, 0);
   while(1) {
     event_t ev;
 
     glk_select(&ev);
 
     if (ev.type == evtype_LineInput && ev.win == inputwin) {
-      std::string answer(buf, ev.val1);
+      std::string answer = line_to_utf8(buf, ev.val1);
       g_turn_answers.push_back(answer);
       return answer;
     }
