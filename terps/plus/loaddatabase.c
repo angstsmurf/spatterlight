@@ -274,53 +274,42 @@ static char *ReadString(FILE *f, size_t *length)
     return t;
 }
 
-/* Reads dictionary words from the plaintext database. Each string read from
-   the file contains comma-separated words that belong to the same synonym
-   group (e.g. "GET,TAKE,GRAB,"). Words within a group are interchangeable.
-   The group number increments with each string read from the file.
-   Builds the dictionary in a stack buffer, then copies to a heap-allocated
-   array terminated by a NULL Word sentinel. */
-static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
-{
-    DictWord dictionary[1024];
-    char *str = NULL;
-    int group = 0;
-    int index = 0;
+#define MAX_DICT_ENTRIES 1024
+#define MAX_SYNONYMS 1024
 
-    for (int i = 0; i < numstrings; i++) {
-        size_t length;
-        str = ReadString(f, &length);
-        if (str == NULL || str[0] == '\0')
+/* Splits one comma-separated dictionary string into individual words and
+   appends them, tagged with group, to dict starting at *index. The string
+   is modified in place. */
+static void ParseDictString(char *str, size_t length, int group, DictWord *dict, int *index)
+{
+    int lastcomma = 0;
+    int commapos = 0;
+    for (size_t j = 0; j < length && str[j] != '\0'; j++) {
+        if (str[j] != ',')
             continue;
 
-        /* Split the comma-separated string into individual dictionary words */
-        int lastcomma = 0;
-        int commapos = 0;
-        for (size_t j = 0; j < length && str[j] != '\0'; j++) {
-            if (str[j] != ',')
-                continue;
-
-            while (str[j] == ',') {
-                str[j] = '\0';
-                commapos = j;
-                j++;
-            }
-
-            int seglen = commapos - lastcomma;
-            if (seglen > 0) {
-                dictionary[index].Word = MemAlloc(seglen);
-                memcpy(dictionary[index].Word, &str[lastcomma + 1], seglen);
-                dictionary[index].Group = group;
-                index++;
-            }
-            lastcomma = commapos;
+        while (str[j] == ',') {
+            str[j] = '\0';
+            commapos = j;
+            j++;
         }
-        free(str);
-        str = NULL;
-        group++;
-    }
 
-    /* Copy the stack-built dictionary to a right-sized heap allocation */
+        int seglen = commapos - lastcomma;
+        if (seglen > 0 && *index < MAX_DICT_ENTRIES - 1) {
+            dict[*index].Word = MemAlloc(seglen);
+            memcpy(dict[*index].Word, &str[lastcomma + 1], seglen);
+            dict[*index].Group = group;
+            debug_print("Dictword %d: %s (%d)\n", *index, dict[*index].Word, group);
+            (*index)++;
+        }
+        lastcomma = commapos;
+    }
+}
+
+/* Terminates the stack-built dictionary and copies it to a right-sized
+   heap allocation. */
+static DictWord *FinishDictionary(DictWord *dictionary, int index, int loud)
+{
     dictionary[index].Word = NULL;
     size_t dictsize = (index + 1) * sizeof(DictWord);
     DictWord *finaldict = MemAlloc(dictsize);
@@ -333,6 +322,119 @@ static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
     return finaldict;
 }
 
+/* Reads dictionary words from the plaintext database. Each string read from
+   the file contains comma-separated words that belong to the same synonym
+   group (e.g. "GET,TAKE,GRAB,"). Words within a group are interchangeable.
+   The group number increments with each string read from the file.
+   Builds the dictionary in a stack buffer, then copies to a heap-allocated
+   array terminated by a NULL Word sentinel. */
+static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
+{
+    DictWord dictionary[MAX_DICT_ENTRIES];
+    int group = 0;
+    int index = 0;
+
+    for (int i = 0; i < numstrings; i++) {
+        size_t length;
+        char *str = ReadString(f, &length);
+        if (str == NULL || str[0] == '\0')
+            continue;
+        ParseDictString(str, length, group, dictionary, &index);
+        free(str);
+        group++;
+    }
+
+    return FinishDictionary(dictionary, index, loud);
+}
+
+/* Accumulates synonym entries while a substitution section is parsed. */
+typedef struct {
+    Synonym syn[MAX_SYNONYMS];
+    char *replace;
+    int index;
+    int firstsyn;
+} SynonymBuilder;
+
+/* Parses one comma-separated substitution string into sb. */
+static void ParseSynonymString(SynonymBuilder *sb, char *str, size_t length, int loud)
+{
+    int lastcomma = 0;
+    int commapos = 0;
+    int foundrep = 0;
+    int nextisrep = 0;
+
+    for (size_t j = 0; j < length && str[j] != '\0'; j++) {
+        if (str[j] != ',')
+            continue;
+
+        while (str[j] == ',') {
+            str[j] = '\0';
+            commapos = j;
+            j++;
+        }
+
+        if (nextisrep) {
+            foundrep = 1;
+            nextisrep = 0;
+        } else if (str[j] == '=') {
+            nextisrep = 1;
+        }
+
+        if (foundrep) {
+            int seglen = commapos - lastcomma - 1;
+            if (seglen > 0) {
+                free(sb->replace);
+                sb->replace = MemAlloc(seglen);
+                memcpy(sb->replace, &str[lastcomma + 2], seglen);
+                if (loud)
+                    debug_print("Found new replacement string \"%s\"\n", sb->replace);
+            }
+        } else {
+            int seglen = commapos - lastcomma;
+            if (seglen > 0 && sb->index < MAX_SYNONYMS - 1) {
+                Synonym *entry = &sb->syn[sb->index];
+                entry->SynonymString = MemAlloc(seglen);
+                memcpy(entry->SynonymString, &str[lastcomma + 1], seglen);
+                if (loud)
+                    debug_print("Found new synonym string \"%s\"\n", entry->SynonymString);
+                sb->index++;
+            }
+        }
+
+        if (foundrep) {
+            size_t replen = strlen(sb->replace) + 1;
+            for (int k = sb->firstsyn; k < sb->index; k++) {
+                sb->syn[k].ReplacementString = MemAlloc(replen);
+                memcpy(sb->syn[k].ReplacementString, sb->replace, replen);
+                if (loud)
+                    debug_print("Setting replacement string of \"%s\" (%d) to \"%s\"\n", sb->syn[k].SynonymString, k, sb->syn[k].ReplacementString);
+            }
+            sb->firstsyn = sb->index;
+            foundrep = 0;
+        }
+
+        lastcomma = commapos;
+    }
+}
+
+/* Terminates the builder's list and copies it to a right-sized heap array. */
+static Synonym *FinishSynonyms(SynonymBuilder *sb, int loud)
+{
+    free(sb->replace);
+    sb->replace = NULL;
+    sb->syn[sb->index].SynonymString = NULL;
+
+    size_t synsize = (sb->index + 1) * sizeof(Synonym);
+    Synonym *finalsyns = MemAlloc(synsize);
+    memcpy(finalsyns, sb->syn, synsize);
+
+    if (loud)
+        for (int j = 0; finalsyns[j].SynonymString != NULL; j++)
+            debug_print("Synonym entry %d: \"%s\", Replacement \"%s\"\n", j, finalsyns[j].SynonymString, finalsyns[j].ReplacementString);
+
+    return finalsyns;
+}
+
 /* Reads substitution (synonym) entries from the plaintext database.
    Each string contains comma-separated tokens. An '=' prefix marks the next
    token as a replacement string; all preceding synonym strings in the current
@@ -341,92 +443,20 @@ static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
    Builds entries in a stack buffer, then copies to the heap. */
 static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud)
 {
-    Synonym syn[1024];
-    char *str = NULL;
-    char *replace = NULL;
-    int index = 0;
-    int firstsyn = 0;
+    SynonymBuilder sb = { .replace = NULL, .index = 0, .firstsyn = 0 };
 
     for (int i = 0; i < numstrings; i++) {
         size_t length;
-        str = ReadString(f, &length);
+        char *str = ReadString(f, &length);
         if (loud)
             debug_print("Read synonym string \"%s\"\n", str);
         if (str == NULL || str[0] == '\0')
             continue;
-
-        int lastcomma = 0;
-        int commapos = 0;
-        int foundrep = 0;
-        int nextisrep = 0;
-
-        for (size_t j = 0; j < length && str[j] != '\0'; j++) {
-            if (str[j] != ',')
-                continue;
-
-            while (str[j] == ',') {
-                str[j] = '\0';
-                commapos = j;
-                j++;
-            }
-
-            if (nextisrep) {
-                foundrep = 1;
-                nextisrep = 0;
-            } else if (str[j] == '=') {
-                nextisrep = 1;
-            }
-
-            if (foundrep) {
-                int seglen = commapos - lastcomma - 1;
-                if (seglen > 0) {
-                    free(replace);
-                    replace = MemAlloc(seglen);
-                    memcpy(replace, &str[lastcomma + 2], seglen);
-                    if (loud)
-                        debug_print("Found new replacement string \"%s\"\n", replace);
-                }
-            } else {
-                int seglen = commapos - lastcomma;
-                if (seglen > 0) {
-                    syn[index].SynonymString = MemAlloc(seglen);
-                    memcpy(syn[index].SynonymString, &str[lastcomma + 1], seglen);
-                    if (loud)
-                        debug_print("Found new synonym string \"%s\"\n", syn[index].SynonymString);
-                    index++;
-                }
-            }
-
-            if (foundrep) {
-                size_t replen = strlen(replace) + 1;
-                for (int k = firstsyn; k < index; k++) {
-                    syn[k].ReplacementString = MemAlloc(replen);
-                    memcpy(syn[k].ReplacementString, replace, replen);
-                    if (loud)
-                        debug_print("Setting replacement string of \"%s\" (%d) to \"%s\"\n", syn[k].SynonymString, k, syn[k].ReplacementString);
-                }
-                firstsyn = index;
-                foundrep = 0;
-            }
-
-            lastcomma = commapos;
-        }
+        ParseSynonymString(&sb, str, length, loud);
         free(str);
-        str = NULL;
     }
 
-    free(replace);
-    syn[index].SynonymString = NULL;
-
-    size_t synsize = (index + 1) * sizeof(Synonym);
-    Synonym *finalsyns = MemAlloc(synsize);
-    memcpy(finalsyns, syn, synsize);
-
-    if (loud)
-        for (int j = 0; finalsyns[j].SynonymString != NULL; j++)
-            debug_print("Synonym entry %d: \"%s\", Replacement \"%s\"\n", j, finalsyns[j].SynonymString, finalsyns[j].ReplacementString);
-
-    return finalsyns;
+    return FinishSynonyms(&sb, loud);
 }
 
 static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *length);
@@ -437,15 +467,11 @@ static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *length);
    as the plaintext version. Advances *startpointer past the consumed data. */
 static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, int loud)
 {
-    Synonym syn[1024];
+    SynonymBuilder sb = { .replace = NULL, .index = 0, .firstsyn = 0 };
     uint8_t *ptr = *startpointer;
 
-    char *str = NULL;
-    char *replace = NULL;
-    int index = 0;
-    int firstsyn = 0;
-
     for (int i = 0; i < numstrings; i++) {
+        char *str = NULL;
         size_t length;
         ptr = ReadPlusString(ptr, &str, &length);
         while (length == 0 && i == 0)
@@ -454,80 +480,12 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
             debug_print("Read synonym string %d, \"%s\"\n", i, str);
         if (str == NULL || str[0] == 0)
             continue;
-
-        int lastcomma = 0;
-        int commapos = 0;
-        int foundrep = 0;
-        int nextisrep = 0;
-
-        for (size_t j = 0; j < length && str[j] != '\0'; j++) {
-            if (str[j] != ',')
-                continue;
-
-            while (str[j] == ',') {
-                str[j] = '\0';
-                commapos = j;
-                j++;
-            }
-
-            if (nextisrep) {
-                foundrep = 1;
-                nextisrep = 0;
-            } else if (str[j] == '=') {
-                nextisrep = 1;
-            }
-
-            if (foundrep) {
-                int seglen = commapos - lastcomma - 1;
-                if (seglen > 0) {
-                    free(replace);
-                    replace = MemAlloc(seglen);
-                    memcpy(replace, &str[lastcomma + 2], seglen);
-                    if (loud)
-                        debug_print("Found new replacement string \"%s\"\n", replace);
-                }
-            } else {
-                int seglen = commapos - lastcomma;
-                if (seglen > 0) {
-                    syn[index].SynonymString = MemAlloc(seglen);
-                    memcpy(syn[index].SynonymString, &str[lastcomma + 1], seglen);
-                    if (loud)
-                        debug_print("Found new synonym string \"%s\"\n", syn[index].SynonymString);
-                    index++;
-                }
-            }
-
-            if (foundrep) {
-                size_t replen = strlen(replace) + 1;
-                for (int k = firstsyn; k < index; k++) {
-                    syn[k].ReplacementString = MemAlloc(replen);
-                    memcpy(syn[k].ReplacementString, replace, replen);
-                    if (loud)
-                        debug_print("Setting replacement string of \"%s\" (%d) to \"%s\"\n", syn[k].SynonymString, k, syn[k].ReplacementString);
-                }
-                firstsyn = index;
-                foundrep = 0;
-            }
-
-            lastcomma = commapos;
-        }
+        ParseSynonymString(&sb, str, length, loud);
         free(str);
-        str = NULL;
     }
 
-    free(replace);
-    syn[index].SynonymString = NULL;
-
-    size_t synsize = (index + 1) * sizeof(Synonym);
-    Synonym *finalsyns = MemAlloc(synsize);
-    memcpy(finalsyns, syn, synsize);
-
-    if (loud)
-        for (int j = 0; finalsyns[j].SynonymString != NULL; j++)
-            debug_print("Synonym entry %d: \"%s\", Replacement \"%s\"\n", j, finalsyns[j].SynonymString, finalsyns[j].ReplacementString);
-
     *startpointer = ptr;
-    return finalsyns;
+    return FinishSynonyms(&sb, loud);
 }
 
 char **Comments;
@@ -1263,52 +1221,25 @@ static uint8_t *ReadHeader(uint8_t *ptr)
 DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
 {
     uint8_t *ptr = *pointer;
-    DictWord dictionary[1024];
-    DictWord *dw = dictionary;
-    char *str = NULL;
+    DictWord dictionary[MAX_DICT_ENTRIES];
     int group = 0;
     int index = 0;
+
     for (int i = 0; i < numstrings; i++) {
+        char *str = NULL;
         size_t strlength;
         ptr = ReadPlusString(ptr, &str, &strlength);
         /* Skip padding zero bytes that appear in some binary formats */
         while (str[0] == 0)
             ptr = ReadPlusString(ptr, &str, &strlength);
         debug_print("Read dictionary string \"%s\"\n", str);
-        /* Split comma-separated words into individual dictionary entries */
-        int lastcomma = 0;
-        int commapos = 0;
-        for (size_t j = 0; j <= strlength && str[j] != '\0'; j++) {
-            if (str[j] == ',') {
-                while (str[j] == ',') {
-                    str[j] = '\0';
-                    commapos = j;
-                    j++;
-                }
-                int length = commapos - lastcomma;
-                if (length > 0) {
-                    dw->Word = MemAlloc(length);
-                    memcpy(dw->Word, &str[lastcomma + 1], length);
-                    dw->Group = group;
-                    debug_print("Dictword %d: %s (%d)\n", index, dw->Word, dw->Group);
-                    dw = &dictionary[++index];
-                }
-                lastcomma = commapos;
-            }
-        }
+        ParseDictString(str, strlength, group, dictionary, &index);
         free(str);
-        str = NULL;
         group++;
     }
-    dictionary[index].Word = NULL;
-    int dictsize = (index + 1) * sizeof(DictWord);
-    DictWord *finaldict = (DictWord *)MemAlloc(dictsize);
-    memcpy(finaldict, dictionary, dictsize);
+
     *pointer = ptr;
-    if (loud)
-        for (int j = 0; dictionary[j].Word != NULL; j++)
-            debug_print("Dictionary entry %d: \"%s\", group %d\n", j, finaldict[j].Word, finaldict[j].Group);
-    return finaldict;
+    return FinishDictionary(dictionary, index, loud);
 }
 
 /* Validates that key header fields fall within expected ranges for a
