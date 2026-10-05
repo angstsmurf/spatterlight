@@ -956,6 +956,9 @@
 		C3D571A827D8F5E9008FB786 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C3D571AC27D8F5EA008FB786 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		C3D571B727D8F652008FB786 /* player.c in Sources */ = {isa = PBXBuildFile; fileRef = C3D571B327D8F652008FB786 /* player.c */; };
+		0EDD73D8B95118DBBE9686BA /* actions.c in Sources */ = {isa = PBXBuildFile; fileRef = C94FA27EE915B77190069612 /* actions.c */; };
+		BE0ADF594CEB194E76D21693 /* gameload.c in Sources */ = {isa = PBXBuildFile; fileRef = EA8AD05091E547F9B3E7E038 /* gameload.c */; };
+		A2D078A1D9FF7A73C1B1F3CF /* textoutput.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C39515C32CD1A203125884F /* textoutput.c */; };
 		C3D571B827D8F652008FB786 /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = C3D571B427D8F652008FB786 /* ui.c */; };
 		C3D571BA27D97BD4008FB786 /* taylor.c in Sources */ = {isa = PBXBuildFile; fileRef = C3D571B927D97BD4008FB786 /* taylor.c */; };
 		C3D571BD27D985CC008FB786 /* taylor in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = C3D571A127D8F5CF008FB786 /* taylor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -3714,6 +3717,12 @@
 		C3D571B127D8F651008FB786 /* taylor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = taylor.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3D571B227D8F651008FB786 /* FORMAT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FORMAT; sourceTree = "<group>"; };
 		C3D571B327D8F652008FB786 /* player.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = player.c; sourceTree = "<group>"; usesTabs = 0; };
+		C94FA27EE915B77190069612 /* actions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = actions.c; sourceTree = "<group>"; usesTabs = 0; };
+		FEDC92A56ADE15EA44439ABE /* actions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = actions.h; sourceTree = "<group>"; usesTabs = 0; };
+		EA8AD05091E547F9B3E7E038 /* gameload.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gameload.c; sourceTree = "<group>"; usesTabs = 0; };
+		07488CCB0BD205058BE2291E /* gameload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameload.h; sourceTree = "<group>"; usesTabs = 0; };
+		6C39515C32CD1A203125884F /* textoutput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = textoutput.c; sourceTree = "<group>"; usesTabs = 0; };
+		4C84AFDAFFC3A247741DE10D /* textoutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textoutput.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3D571B427D8F652008FB786 /* ui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
 		C3D571B627D8F652008FB786 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		C3D571B927D97BD4008FB786 /* taylor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = taylor.c; sourceTree = "<group>"; };
@@ -6840,6 +6849,12 @@
 				C3D571B127D8F651008FB786 /* taylor.h */,
 				C390F30D2FBA9497000F14D3 /* player.h */,
 				C3D571B327D8F652008FB786 /* player.c */,
+				FEDC92A56ADE15EA44439ABE /* actions.h */,
+				C94FA27EE915B77190069612 /* actions.c */,
+				07488CCB0BD205058BE2291E /* gameload.h */,
+				EA8AD05091E547F9B3E7E038 /* gameload.c */,
+				4C84AFDAFFC3A247741DE10D /* textoutput.h */,
+				6C39515C32CD1A203125884F /* textoutput.c */,
 				C30DAE6327EB06E6006C90FB /* gameinfo.c */,
 				C3BD2E862874888E0019F676 /* c64decrunch.h */,
 				C3BD2E882874888E0019F676 /* c64decrunch.c */,
@@ -9300,6 +9315,9 @@
 			files = (
 				C3B6100827DA0C080012FB97 /* graphics.c in Sources */,
 				C3D571B727D8F652008FB786 /* player.c in Sources */,
+				0EDD73D8B95118DBBE9686BA /* actions.c in Sources */,
+				BE0ADF594CEB194E76D21693 /* gameload.c in Sources */,
+				A2D078A1D9FF7A73C1B1F3CF /* textoutput.c in Sources */,
 				C31919A02EF69BF80062991C /* memory_allocation.c in Sources */,
 				C3B148B227FD881400844708 /* animations.c in Sources */,
 				C31919AC2EF69EF30062991C /* common_utils.c in Sources */,

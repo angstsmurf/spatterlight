@@ -11,6 +11,7 @@
 void UpdateRebelAnimations(void);
 void UpdateKaylethAnimations(void);
 void StartAnimations(void);
+void LoadKaylethAnimationData(void);
 
 extern int AnimationRunning;
 

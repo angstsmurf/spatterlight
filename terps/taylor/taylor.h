@@ -41,6 +41,45 @@
 #define DrawImages (Flag[52])
 #define Q3SwitchedWatch (Flag[126])
 
+/* Token table conventions: each byte's low 7 bits carry the character,
+   and the high bit marks the final byte of a token's expansion. */
+#define TOKEN_LAST_BYTE 0x80
+#define TOKEN_BYTE_MASK 0x7F
+
+/* First byte value treated as a token in QP3 text streams; raw bytes
+   below this are emitted as literal characters. */
+#define QP3_TOKEN_BASE 0x7b
+
+/* QP3 text-table framing: each entry ends with QP3_ENTRY_DELIM, and the
+   table itself ends with QP3_TABLE_END. */
+#define QP3_ENTRY_DELIM 0x1f
+#define QP3_TABLE_END   0x18
+
+/* QP3 object-location codes: an object can be in a room (room number) or
+   in one of these special locations. */
+#define LOC_DESTROYED   0xfc /* Object is removed from play */
+#define LOC_INV_TORCH   253  /* In Human Torch's inventory */
+#define LOC_INV_THING   254  /* In Thing's inventory */
+
+/* Message text terminators in non-QP3 versions: MSG_END ends an entry,
+ MSG_END_SPACE ends it and indicates a trailing space is pending. */
+#define MSG_END         0x7e
+#define MSG_END_SPACE   0x5e
+
+/* Action-table opcode byte layout: high bit marks an action byte (vs. a
+   condition byte); bit 6 on an action byte stops further table scanning;
+   the low 6 bits hold the opcode number. */
+#define ACTION_BIT      0x80
+#define ACTION_DONE_BIT 0x40
+#define ACTION_OP_MASK  0x3F
+
+/* Terminator byte that marks the end of a status or command action table. */
+#define ACTION_TABLE_END 0x7F
+
+/* Word code used as a wildcard in command-table verb/noun entries — matches
+   any input word. */
+#define WORD_WILDCARD    126
+
 /* All supported game variants. Each title has separate IDs for the ZX
    Spectrum and Commodore 64 releases; Temple of Terror also has a
    text-only/hybrid split. */
@@ -276,7 +315,10 @@ typedef struct {
 /* Registry of all supported games, indexed by GameIDType. */
 extern GameInfo games[NUMGAMES];
 
+#include "actions.h"
+#include "gameload.h"
 #include "player.h"
+#include "textoutput.h"
 #include "ui.h"
 
 #endif /* taylor_h */
