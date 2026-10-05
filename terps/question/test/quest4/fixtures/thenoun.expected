@@ -1,0 +1,49 @@
+
+thenoun
+
+You are in room.
+There is rat, The Bridge, red rose and theatre here.
+A room.
+
+> look at the rat
+A rat.
+
+> x the rat
+A rat.
+
+> poke the rat
+You can't poke that.
+
+> prod the rat
+prodded rat
+
+> look at the bridge
+A bridge.
+
+> look at bridge
+A bridge.
+
+> look at the rose
+A rose.
+
+> look at the the rat
+I can't see that here.
+
+> look at THE rat
+A rat.
+
+> look at theatre
+A theatre.
+
+> look at the theatre
+A theatre.
+
+> take the rat
+You pick it up.
+
+> drop the rat
+You drop it.
+
+> look at the xyzzy
+I can't see that here.
+[runner] turns=14 leftover=0 running=true

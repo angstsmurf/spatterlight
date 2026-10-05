@@ -1,0 +1,25 @@
+
+labbrev
+
+You are in room.
+There is rat here.
+A room.
+
+> l
+You are in room.
+There is rat here.
+A room.
+
+> l rat
+A rat.
+
+> l at rat
+A rat.
+
+> peek rat
+A rat.
+
+
+> l xyzzy
+I can't see that here.
+[runner] turns=5 leftover=0 running=true

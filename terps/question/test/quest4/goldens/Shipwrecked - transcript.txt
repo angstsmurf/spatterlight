@@ -17,7 +17,7 @@ Send questions or comments to wonderjudge22@yahoo.com
 Press any key to continue.....
 
 You are at the West shore.
-There is a pile of timber  here.
+There is a pile of timber here.
 You can go east, northeast or southeast.
 You are on the beach of the western side of the island. The ocean stretches on as far as the eye can see. 
 Off to the northern part of the island you can see a cliff top. The center of the island, which is off to the east, is shrouded in palm trees and other vegitation.
@@ -1397,7 +1397,7 @@ You are walking through a ravine cut into the rock here. The ravine leads east t
 
 > west
 You are in a Sandy cove.
-There is a pile of timber , an Iron key, a Small key, a Small urn, an * Ivory tusk *, a Book, a Mop, a * Silver bar *, a Row boat and a * Silver cross * here.
+There is a pile of timber, an Iron key, a Small key, a Small urn, an * Ivory tusk *, a Book, a Mop, a * Silver bar *, a Row boat and a * Silver cross * here.
 You can go east.
 You are standing in a sandy cove. Large cliffs rise up to the north and south of here. There is a path leading off in between the cliffs to the east.
 

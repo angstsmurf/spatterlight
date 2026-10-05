@@ -1,0 +1,26 @@
+
+Cmdspace
+
+You are in Lab.
+
+> ask one
+One.
+
+> ask two
+Two.
+
+> ask three
+Three or four.
+
+> ask four
+Three or four.
+
+> ask five
+Five.
+
+> ask six
+Six or seven.
+
+> ask seven
+Six or seven.
+[runner] turns=7 leftover=0 running=true

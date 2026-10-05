@@ -1,0 +1,19 @@
+
+cmdclaim
+
+You are in room.
+There is bun here.
+A room.
+
+> eat bun
+room eats bun
+
+> eat xyzzy
+No such thing.
+
+> poke xyzzy
+No such thing.
+
+> poke bun
+poked bun
+[runner] turns=4 leftover=0 running=true

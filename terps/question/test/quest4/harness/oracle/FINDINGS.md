@@ -5,7 +5,7 @@ same command script at the same seed (`QUESTION_SEED=1` / `QVH_SEED=1`), diffed
 after the normalisation described in `README.md`:
 
 ```
-100/111 identical, 11 differ, 0 skipped/failed
+139/150 identical, 11 differ, 0 skipped/failed
 ```
 
 Every game is compared.  A Certain Oscar was excluded for most of this
@@ -22,17 +22,20 @@ before the first fight, so every draw either fight sees is computable in
 advance — see the command script's header), and it entered the sweep
 byte-identical on the first run.
 
-`triage.py` attributes all but 6 of the 365 diff lines to a cause, and
+`triage.py` attributes every one of the 398 diff lines to a cause, and
 `firstdiff.py` prints each game's *first* divergence — the only one with a cause
 of its own, since everything after it is cascade.  Run `python3 triage.py` for
 the current numbers; the "first" column below is the third one it prints, and
-sums to the 11 games that differ.
+sums to the 11 games that differ.  One of them, Gaiaonline Q&A (35 lines), is
+the deliberate deviation of finding 80; the other ten were already there when
+the corpus was 111 games (Shipwrecked, the eleventh then, is identical now), and none of the 39 games added after that differs
+for any other reason.
 
 Once a game's two transcripts stop describing the same world — a lookup that
 succeeds on one side only, a timer a turn out — nothing after that point is
 independent evidence, so those runs are credited whole to the divergence that
 parted them.  Those are the `desync:` rows; the one that remains accounts for
-338 of the 365 lines.
+338 of the 398 lines.
 
 The corpus shrank by 5 528 lines in one sitting without a single change to
 Question, which is worth stating plainly because both halves of it are lessons
@@ -66,7 +69,13 @@ no author could have wanted — Question is allowed to keep the correct behaviou
 and carry the diff, permanently, as a `deliberate:` row.  The place-tag
 fencepost below is the first such row: it was reproduced once for a clean
 diff, and un-reproduced on purpose, because a transcript that is faithful to
-a typo is worth less than one that is right.  The trimmed-name deviation
+a typo is worth less than one that is right.  The lone command pattern
+(finding 80) is the second: fixed once to match Quest, and reverted on purpose
+the same day, because matching Quest there means throwing away an answer the
+author wrote.  The object called by a pronoun (finding 81) is the third: in
+Quest it can never be referred to, so the verbs its author wrote for it can
+never fire.  The verb named with a trailing space (finding 82) is the fourth,
+for the same reason.  The trimmed-name deviation
 (finding 37) is the same policy from the other end — kept because a corpus
 game is unplayable without it — and the `<ERROR>` compromise, the obeyed
 `outputoff <>` and the accepted `pause <>` are all divergences of Question's that
@@ -86,6 +95,7 @@ golden is derived, replayed and diffed under Quest's alias-only matching.
 | divergence | diff lines | games | first in |
 | --- | ---: | ---: | ---: |
 | desync: 37, Question trims a declared name | 338 | 1 | – |
+| deliberate: lone command pattern trimmed | 35 | 1 | 1 |
 | deliberate: pre-280 place fencepost | 6 | 1 | 1 |
 | unclassified | 6 | 2 | 2 |
 | 62, pre-280 `look` name lookup | 4 | 1 | 1 |
@@ -140,10 +150,14 @@ sitting retired:
   counts the room with its own `for each object in <#quest.currentroom#>`,
   and the plate had been `add`ed to the coffin.
 * The short tails in MichaelsGame (4) and Shipwrecked (2) — both a stray space
-  in an object's display name, in opposite directions, and probably finding
-  37's trimming seen from both sides.  On The Far Blue's two lines were the same
-  thing and are classified now: its room is declared `<Eastern beach of forest
-  island >` and Quest keeps the space.  SomethingBoutAHex's and ShadowMasters's
+  in an object's display name, in opposite directions — are run to ground and
+  classified, and are two different things.  Michael's Game declares `<a
+  pirate skull >` and Quest keeps the space: finding 37's trimming, as in On
+  The Far Blue, whose room is declared `<Eastern beach of forest island >`.
+  Shipwrecked's pile of timber has `suffix < >`, which Quest reads as no
+  suffix (`V4Game.Part2.cs:7532-7536`) while Question still puts the joining
+  space in front of the empty one.  That was a Question bug and is fixed; the
+  game is byte-identical now.  SomethingBoutAHex's and ShadowMasters's
   stray lines are gone with the tick fix.  Magic Sword's three lines went:
   they were the Oggy-Waggi plant's escalation counter reaching zero a round
   earlier in Quest, which is finding 47, and the game came out byte-identical
@@ -3370,8 +3384,7 @@ The other three libraries a corpus game names — `standard.lib` and
 on the skip list, so Question tried to read them from disk, failed, and included
 nothing.  `standard.lib` is bundled now (finding 79), `movecont.lib` exists
 only as a synthesized comment-only stub both engines read from disk (ditto),
-and `q3ext.qlb` is still included as nothing — QuestViva ships and loads it,
-and the one game that names it is among the 100 identical anyway.
+and `q3ext.qlb` is bundled too (finding 83).
 
 #### What bundling it took
 
@@ -4584,6 +4597,144 @@ library correctly and only ever failed to *load* it.  Oscar.asl is the
 corpus's one live `!include <standard.lib>`, and it is byte-identical now.
 `fixtures/standardlib.asl` pins all of the above from the committed tree,
 since `games/` is not.
+
+### 80. A lone command pattern keeps its stray spaces
+
+**A DELIBERATE deviation — Question does not follow Quest here.**
+`ExecUserCommand` walks a command's alternatives by cutting the list at each
+`;` and trimming both halves, but a list with no semicolon in it is taken as
+it stands — `curCmd = commandList` (`V4Game.Part2.cs:2324-2332` for the room,
+`2375-2383` for the game block).  So a single pattern keeps whatever spaces
+the author left inside the angle brackets, and because the player's input is
+trimmed before it gets there, nothing typed can ever match one that begins or
+ends with a space.  The last alternative of a real list is safe: it was
+trimmed when the one before it was cut off.
+
+Gaiaonline Q&A (`QA.asl`) is the corpus witness.  It is 187 global
+`command <question> msg <answer>` lines, and one of them is
+`command <How do I get a MC? >`.  Quest answers that question, alone of the
+187, with "I don't understand your command"; Question's `split_param` trims
+every pattern, lone or not, and prints the author's thirty-odd lines of
+answer.
+
+It was found on 2026-10-05 when the game joined the corpus, fixed to match
+Quest, and reverted the same day.  This is the policy at the top of this file:
+Quest's behaviour is an accident of how a loop was written, it can only ever
+lose text the author meant the player to read, and no game can depend on a
+command of its own being unreachable.  `questionfile.cc` says so where the
+patterns are split.  `fixtures/cmdspace.asl` pins Question's side — a leading
+space, a trailing one, in the game block and in a room, next to lists that
+both engines trim — and its header records what Quest prints instead (checked
+in `qv4`: ASK ONE, ASK TWO and ASK FIVE are refused).  The sweep carries the
+game's 35 lines as `deliberate: lone command pattern trimmed`, matched in
+`triage.py` by label and command echo, and the golden is blessed with the
+answer.
+
+### 81. An object called by a pronoun wins over the pronoun
+
+**A DELIBERATE deviation — Question does not follow Quest here.**
+`Disambiguate` tests the noun against `it`, `them`, `him` and `her` before it
+looks at a single object (`V4Game.cs:4655-4697`), and answers from the last
+object referred to or with "I don't know what 'him' you are referring to."
+So an object whose name is one of those words can never be referred to in
+Quest at all.
+
+Bob's Adventure (`bobsadventure.asl`) is the corpus witness.  Its beggar is
+`define object <him>` and its lady `define object <Her>`, each carrying verb
+properties the author wrote to be used — `cash`, `brick`, `Love`, `Waste` —
+and in Quest none of them can fire: CASH HIM is refused with the pronoun
+error every time.
+
+It was found on 2026-10-05 when the game joined the corpus, and left as it
+stood under the policy at the top of this file: Quest's behaviour is an
+accident of the order two tests were written in, it can only lose text the
+author meant the player to read, and no game can depend on an object of its
+own being unreachable.  What changed is that Question now does it
+consistently.  It used to reach the object only until some other object had
+been referred to, after which `him` went to that one as a pronoun, whatever
+its gender.  `dereference_vars` in `question-parse.cc` now looks first for an
+object in scope whose alias (or name, with no alias) is exactly the pronoun,
+and takes it when there is exactly one; otherwise the word is a pronoun as
+before.  `fixtures/pronounname.asl` pins Question's side and its header
+records what Quest prints instead.  The deviation puts no `deliberate:` row
+in the sweep table: the Bob's Adventure walkthrough avoids both objects, so
+that it replays in a real Quest, and the sweep never sees it.
+
+### 82. A verb named with a trailing space still finds its property
+
+**A DELIBERATE deviation — Question does not follow Quest here.**
+`ExecVerb` takes a lone verb name as it stands, trailing space and all, both
+as the word to match and as the property to look up (`V4Game.cs:2968-2972`,
+`2985`).  It then asks for the input to begin with that name plus a space
+(`2992`), so `verb <Waste the >` is only ever reached by typing two spaces —
+WASTE THE  GANGSTER — and when it is, the property it looks for is
+`waste the ` with the space on, while the object's property name was trimmed
+when it was read.  The two never meet, and the verb's default answers.
+
+Bob's Adventure (`bobsadventure.asl`) is the corpus witness: QDK wrote
+`verb <Waste the > msg <You can't Waste the  that.>` in the game block and
+`properties <Waste the =You shoot him with your gun and he falls to the
+ground. ...>` on the Gangster, plainly a pair.  Quest prints "You can't Waste
+the  that."; Question finds the property and prints the shooting.  With one
+space the two engines agree — the input falls to the plain `Waste` verb and
+its default.
+
+It was found on 2026-10-05 when the game joined the corpus and left as it
+stood, under the policy at the top of this file: Quest's answer is an
+accident of one name being trimmed and the other not, and it can only lose
+text the author meant the player to read.  `try_game_verb` in
+`question-parse.cc` says so at the lookup.  `fixtures/verbspaceprop.asl` pins
+Question's side and its header records what Quest prints instead (checked in
+`qv4`).  It puts no `deliberate:` row in the sweep table: the Bob's Adventure
+walkthrough leaves the verb alone, so that it replays in a real Quest.
+`fixtures/verbspace.asl` is the other half and is unchanged: that a name with
+a trailing space is dead to ordinary one-space input, which games rely on, is
+Quest's behaviour and Question's too.
+
+One neighbouring case is NOT part of the deviation and is simply open: with
+the response written as `action <waste the >` instead of a property, it is
+Quest that keeps the space on both sides and runs the action, and Question
+that falls to the default.  No corpus game does this.
+
+### 83. `q3ext.qlb` is bundled, and what that took
+
+Alex Warren's "Q3EXT" extension library ships inside Quest, and Quest falls
+back to its own copy when there is none beside the game
+(`V4Game.cs:1397-1415`).  Question included it as nothing, which left Get Out
+Of The House and Enterprise running on the built-in verbs: close enough to
+finish, but Enterprise's clothing, containers and room descriptions are the
+library's.  It is now spliced in from `q3ext_builtin.hh` exactly as
+`standard.lib` is, a copy on disk still winning.
+
+Loading it exposed four places where Question differed from Quest:
+
+- **The start room after the startscript.**  The library's `force_refresh`
+  moves the player into its own limbo room and back, and its setup runs from
+  the game's startscript, where `quest.currentroom` is still empty — so "back"
+  is nowhere.  Quest plays the start room once the startscript and intro are
+  over whatever the script did (`V4Game.Part2.cs:8026-8040`); Question left
+  the player wherever the script had put them, stranded in limbo.
+- **`$displayname$` of a hidden object is "!".**  `GetObjectId` only finds an
+  object that exists (`V4Game.cs:6862-6871`).  The library resolves the
+  player's noun by comparing it with `$displayname$` of everything in the
+  room; Get Out Of The House keeps a hidden `pillow 2` beside its pillow, and
+  Question, answering with the hidden one's alias, sent `take pillow` to it.
+- **`$thisobject$` in definition-level text is nothing.**  A `properties`
+  line is resolved at load with the null context, whose calling object is the
+  unused object 0 (`V4Game.cs:7177-7184`).  The clothing type says
+  `properties <alias=$thisobject$>`; Question kept the text and listed "a
+  pair of $thisobject$".  Only `$thisobject$`, `$thisobjectname$` and
+  `$objectname$` are resolved at load; other functions still wait for the
+  runtime.
+- **An empty alias lists the name.**  The line above leaves every piece of
+  clothing with an alias that is there but empty.  Quest's room and inventory
+  lists fall back to the name (`V4Game.Part2.cs:7538-7550`), while
+  `$displayname$` answers the empty alias itself.
+
+`fixtures/q3extlib.asl` covers all four and is identical in Quest.  Left
+alone: an object that carries both a `take` tag and a type with
+`action <take>` takes by whichever comes last in Quest and by the action in
+Question; no corpus game has the pair.
 
 ## Direction uncertain
 

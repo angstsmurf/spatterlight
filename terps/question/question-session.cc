@@ -319,6 +319,7 @@ void question_implementation::set_game (const string &s)
 	  }
 
       state = QuestionState (*gi, gf);
+      string start_room;
       initial_objs_.clear ();
       for (const ObjectRecord &o: state.objs)
 	initial_objs_.push_back (o.name);
@@ -492,7 +493,7 @@ void question_implementation::set_game (const string &s)
 		gi->debug_print (nonparam ("start room", s));
 	      else
 		{
-		  state.location = param_contents (tok);
+		  state.location = start_room = param_contents (tok);
 		}
 	    }
 	}
@@ -565,6 +566,14 @@ void question_implementation::set_game (const string &s)
       if (auto_intro_)
 	run_script ("displaytext <intro>");
 
+      /* The game starts in the `start' room whatever the startscript did:
+       * Quest reads the tag only now and hands it to PlayGame
+       * (V4Game.Part2.cs:8026-8040), so a startscript `goto' shows its room
+       * and is then overridden.  q3ext.qlb's force_refresh is why it matters --
+       * it parks the player in a dummy room and goes "back" to a current room
+       * that, this early, is still empty. */
+      state.location = start_room;
+
       regen_var_room ();
       objs_vars_dirty_ = true;
       regen_var_dirs ();
@@ -580,7 +589,7 @@ void question_implementation::set_game (const string &s)
 	set_obj_property (state.location, "visited");
       look();
       {
-	string start_room = state.location, start_scr;
+	string start_scr;
 	if (get_room_action (start_room, "script", start_scr))
 	  run_script_as (start_room, start_scr);
 	if (asl_version_ >= 410 && !has_room_property (start_room, "visited"))
@@ -667,7 +676,8 @@ void question_implementation::regen_var_objects (bool room_display)
   for (uint i = 0; i < objs.size(); i ++)
     {
       objname = objs[i];
-      if (!get_obj_property (objname, "alias", main))
+      /* An empty alias lists the name (V4Game.Part2.cs:7538-7550). */
+      if (!get_obj_property (objname, "alias", main) || main.empty())
 	main = objname;
       plain = main;
       print2 = "|b" + main + "|xb";
@@ -676,7 +686,9 @@ void question_implementation::regen_var_objects (bool room_display)
 	  plain = prefix + " " + plain;
 	  print2 = prefix + " " + print2;
 	}
-      if (get_obj_property (objname, "suffix", suffix))
+      /* An empty suffix is no suffix, and takes no joining space
+       * (V4Game.Part2.cs:7532-7536); Shipwrecked's timber has `suffix < >'. */
+      if (get_obj_property (objname, "suffix", suffix) && !suffix.empty())
 	print2 = print2 + " " + suffix;
       qobjs = qobjs + plain;
       qfobjs = qfobjs + print2;

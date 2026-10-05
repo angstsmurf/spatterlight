@@ -1,0 +1,42 @@
+
+q3extlib
+
+You are in Bedroom.
+There is a pair of Shoes and a decorative pillow here.
+A small bedroom.
+
+> names
+[] [decorative pillow] [!]
+
+> take pillow
+You pick up the pillow.
+
+
+> take shoes
+You pick up the Shoes.
+
+
+> wear shoes
+Shoes.....
+You put them on.
+
+> i
+You are carrying:
+A pair of Shoes [worn] and a decorative pillow.
+
+> look
+You are in Bedroom.
+A small bedroom.
+
+> unwear shoes
+You take them off.
+
+> drop shoes
+You drop it.
+
+
+> look
+You are in Bedroom.
+There is a pair of Shoes here.
+A small bedroom.
+[runner] turns=9 leftover=0 running=true

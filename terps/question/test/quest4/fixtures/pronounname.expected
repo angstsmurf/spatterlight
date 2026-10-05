@@ -1,0 +1,22 @@
+
+pronounname
+
+You are in room.
+There is him and rock here.
+A room.
+
+> cash him
+You give him 50 cents.
+
+> look at rock
+A rock.
+
+> cash him
+You give him 50 cents.
+
+> look at him
+A beggar.
+
+> cash it
+You give him 50 cents.
+[runner] turns=5 leftover=0 running=true

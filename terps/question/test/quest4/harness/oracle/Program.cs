@@ -212,9 +212,16 @@ while (!finished && (queue.Count > 0 || player.PendingMenu is not null
         if (trace) Console.Error.WriteLine("[cmd] " + cmd);
         // V4Game echoes "> cmd" itself (ExecCommand, V4Game.Part2.cs:4139), as
         // Question's run_command does, so neither is echoed here.
+        // A line that answers an `enter` is not a turn of its own and earns no
+        // tick.  When the prompt came from a command's script the turn's tick
+        // is still pending and is spent below once the answer is in; when it
+        // came from a *timer* script (Sim Political Career's AGM) the tick has
+        // already been spent raising it, and ticking again for the answer put
+        // every later timer a turn ahead of Question.
+        var answersEnter = game.QvhAwaitingEnter;
         if (tick && earlyTick) await game.SendCommand(cmd, 1, null);
         else await game.SendCommand(cmd);
-        if (tick && !earlyTick) pendingTick = true;
+        if (tick && !earlyTick && !answersEnter) pendingTick = true;
     }
     // The deferred tick, at the first suspension of the turn that is *not* a
     // menu or an `enter` -- so before Settle(), because Question ticks at a `wait`

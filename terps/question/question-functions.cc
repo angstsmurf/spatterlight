@@ -168,6 +168,25 @@ string question_implementation::run_function (const string &pname)
    * Quest for *user-defined* names below -- Quest's block dictionary is
    * case-sensitive (DefineBlockParam, V4Game.cs:1195-1233), Question matches them
    * with ci_equal.) */
+  /* A `define function' block wins over a built-in of the same name: DoFunction
+   * looks the name up as a block first and only tries DoInternalFunction when
+   * there is none (V4Game.cs:6760-6772).  "Sim Political Career" defines its own
+   * truncating `round'; Quest 4 has no built-in of that name, and the one
+   * Question used to carry shadowed it. */
+  string rv = "";
+  for (uint i = 0; i < gf.size ("function"); i ++)
+    if (ci_equal (gf.block ("function", i).name, pname))
+      {
+	const QuestionBlock &proc = gf.block ("function", i);
+	QUESTION_DBG << "Running function " << proc << endl;
+	for (uint j = 0; j < proc.data.size(); j ++)
+	  {
+	    QUESTION_DBG << "  Running line #" << j << ": " << proc.data[j] << endl;
+	    run_script(proc.data[j], rv);
+	  }
+	return rv;
+      }
+
   if (pname == "getobjectname")
     {
       if (function_args.size() == 0)
@@ -269,6 +288,21 @@ string question_implementation::run_function (const string &pname)
       if (function_args.size() != 1)
 	return bad_arg_count (pname);
 
+      /* GetObjectId only finds an object that Exists, i.e. is not hidden, and
+       * $displayname$ answers "!" when it finds none (V4Game.cs:6862-6871,
+       * 6174-6179).  q3ext.qlb's realname function leans on that: it matches
+       * the player's noun against the display name of everything in the room,
+       * and a hidden object must not answer -- Get Out Of The House keeps a
+       * hidden `pillow 2' in the room its pillow is taken from. */
+      for (const auto &o: state.objs)
+	if (ci_equal (o.name, function_args[0]) &&
+	    has_obj_property (o.name, "hidden"))
+	  return "!";
+      /* The alias itself, even an empty one (V4Game.cs:6871); only the lists
+       * fall back to the name. */
+      string alias;
+      if (get_obj_property (function_args[0], "alias", alias) && alias.empty())
+	return "";
       return displayed_name (function_args[0]);
     }
   else if (pname == "capfirst")
@@ -380,31 +414,6 @@ string question_implementation::run_function (const string &pname)
 	  return string_int (i.max());
       return "0";
     }
-  else if (pname == "round")
-    {
-      /* Quest "$round(<expr>; <decimals>)$": evaluate the (double) expression
-       * and round to the given number of decimal places (default 0).  Format
-       * without trailing zeros, matching .NET's double-to-string. */
-      if (function_args.size () < 1)
-	return bad_arg_count (pname);
-      double v = eval_double (function_args[0]);
-      int dec = (function_args.size () >= 2) ? parse_int (function_args[1]) : 0;
-      if (dec < 0)
-	dec = 0;
-      double p = pow (10.0, dec);
-      double r = (v < 0 ? -1.0 : 1.0) * floor (fabs (v) * p + 0.5) / p;
-      char buf[64];
-      snprintf (buf, sizeof buf, "%.*f", dec, r);
-      string out = buf;
-      if (dec > 0)
-	{
-	  std::string::size_type last = out.find_last_not_of ('0');
-	  if (last != string::npos && out[last] == '.')
-	    last--;
-	  out = out.substr (0, last + 1);
-	}
-      return out;
-    }
   else if (pname == "ucase")
     {
       if (function_args.size() != 1)
@@ -507,20 +516,6 @@ string question_implementation::run_function (const string &pname)
 
   /* disconnectedby, id, name */
 
-  string rv = "";
-
-  for (uint i = 0; i < gf.size ("function"); i ++)
-    if (ci_equal (gf.block ("function", i).name, pname))
-      {
-	const QuestionBlock &proc = gf.block ("function", i);
-	QUESTION_DBG << "Running function " << proc << endl;
-	for (uint j = 0; j < proc.data.size(); j ++)
-	  {
-	    QUESTION_DBG << "  Running line #" << j << ": " << proc.data[j] << endl;
-	    run_script(proc.data[j], rv);
-	  }
-	return rv;
-      }
   /* A name that is neither a built-in nor a `define function` block prints a
    * marker rather than nothing: DoFunction logs "No such function" and returns
    * the literal "[ERROR]" (V4Game.cs:6763-6771).  Returning "" instead closed

@@ -576,6 +576,30 @@ def classify(line, mates, in_inventory, others=(), prev="", cmd="",
     # on both sides now, and the only "(first removing ...)" left in a diff is
     # Blight of Elantria's, where the whole passage is one-sided for a reason of
     # its own and belongs to that cascade rather than to a rule here.
+    # A command with a single pattern keeps its stray spaces in Quest --
+    # ExecUserCommand trims only what it cuts apart at a `;'
+    # (V4Game.Part2.cs:2324-2332) -- so `command <How do I get a MC? >' can
+    # never match trimmed input and Quest answers badcommand.  Question trims the
+    # pattern and prints the author's answer ON PURPOSE: policy, not a bug on
+    # either side.  Gaiaonline Q&A's one such question is the corpus's only
+    # instance, matched by its echo.  See FINDINGS.md, "A lone command pattern
+    # keeps its stray spaces".
+    if label == "GaiaonlineQA" and cmd.lower() == "> how do i get a mc?":
+        return "deliberate: lone command pattern trimmed"
+    # Michael's Game declares `define object <a pirate skull >` and Quest lists
+    # it with the space it was declared with -- "a pirate skull ," -- where
+    # Question, having trimmed the header, lists "a pirate skull,".  Finding 37's
+    # standing half again, as in On The Far Blue; here it never desyncs, the
+    # script names the skull by nothing the space touches.
+    if (label == "MichaelsGame"
+            and (side == "+" and "a pirate skull ," in text
+                 and text.replace("a pirate skull ,", "a pirate skull,") in others
+                 or side == "-" and "a pirate skull," in text
+                 and text.replace("a pirate skull,", "a pirate skull ,") in others)):
+        return "37, Question trims a declared name"
+    # A rule for Shipwrecked's pile of timber used to be here: `suffix < >` is
+    # no suffix in Quest, and Question put the joining space in front of the
+    # empty one.  Fixed, and the game is byte-identical.
     # Quest routes an unrecognised command that starts with "the " into ExecOops,
     # which does nothing at all when no correction is pending; Question parses it as
     # an ordinary command and reaches the bad-command error.

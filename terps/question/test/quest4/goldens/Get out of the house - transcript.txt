@@ -22,6 +22,7 @@ The weather is clear; the birds are chirping.  You want to go outside and take a
 > take rubber band
 Good.  I'm glad you figured that one out.  You take the rubber band and stuff into your previously empty pocket.
 
+
 > stand
 'bout time.  You get tired of sitting on your butt so you stand.  As you stand, you hear the popping of bones and joints that go along with aging.
 You are in the living room.
@@ -34,6 +35,7 @@ The weather is clear; the birds are chirping.  You want to go outside and take a
 > take couch
 Taken.  Only you would think to pick up a couch and stuff it in your pocket.  Who do you think you are, Serious Sam?
 
+
 > east
 Ok.  You feel the urge of nature to walk into the bathroom.  Although you don't have the urge to actually "go", you are, nonetheless, now standing in the bathroom.  You see the hideous reflection in the mirror and almost pass out but discover it is only you.  The putrid odor of mold fills the air as you look around the room taking in all the glorious scenery.  Speaking of glorious scenery, didn't you want to go outside?  As you look around the room, you spot a nice little decorative pillow on top of the toilet and a toothbrush sitting on the grotesque countertop that seems to scream, "put me in your mouth, I dare you".   A grungy bathrobe hangs menacingly on the back of the bathroom door.
 
@@ -42,8 +44,10 @@ You hear a slow and painfully annoying drip from the shower.
 > take pillow
 Taken.  You notice a pillow-shaped area that is not covered with dust on top of the toilet.
 
+
 > take bathrobe
 Taken.  You stuff it nicely in your increasingly growing pocket.
+
 
 > use pillow on shower
 You strategically set the pillow on the shower floor directly below what seems to be a loose tile.
@@ -53,6 +57,7 @@ You strategically lay the bathrobe on the shower floor covering any tiles nearby
 
 > take loose tile
 As you gently and tenderly touch the tile, the last fiber of whatever was holding it there releases and the tile slips from your grasp.  In slow motion, the tile tumbles end over end.  You can sense the view from a camera zooming in slowly on your widening eyes.  You realize there is no camera but if there was, it would be quite an impressive camera shot.  Your slow, clumsy hand reaches down to catch the slowly falling tile while you yell, "Noooooo" in a deep drawn-out voice that sounds like you are playing it back in slow-motion.  The tile lands on the decorative bathroom pillow and bounces off softly to the side.  The slow-motion action continues as the tile flips noiselessly on the grungy bathrobe.  All is now peaceful as you stand there feeling proud of yourself for saving a shower tile from imminent peril.
+
 
 > west
 You are in the living room.
@@ -68,6 +73,7 @@ You are in the front hall.  The front door looms before you.  You want to open i
 > look at peep hole
 You can't quite reach the peep hole, shorty.
 
+
 > press tile
 You do the river dance on the tile and the front door clicks.
 
@@ -79,6 +85,7 @@ You've stumbled your way into the front closet.  That was highly unexpected.  Ou
 
 > take bucket
 You pick it up.
+
 
 > north
 You're in the front hall.  There is a hall closet to the south and the living room is to the north.
@@ -101,6 +108,7 @@ A counter top sits along the east wall and is a bit dusty but has many of the us
 > take bottle
 When you pick up the bottle, you hear a small object jingling inside.
 
+
 > south
 You are in the living room.
 There is a TV, the shelf and a music book here.
@@ -119,6 +127,7 @@ You walk into the den and see a comfy chair sitting next to a fireplace which cr
 
 > take pencil
 Careful not to stab your hand, you pick up the dull number 2 (or 3) pencil.
+
 
 > use pencil on bottle
 You center the eraser-side of the pencil against the cork and steadily push.  As you strain, you feel the cork give way slightly.  Finally, after much effort, the cork shoots inside the bottle. 
@@ -182,6 +191,7 @@ You're so happy to be here.  You've put out the angry fire that hindered you fro
 > take string
 You pull sharply on the string and feel tension on the other side of the chimney wall.  You also hear a click somewhere nearby.
 
+
 > down
 You are in the den.
 There is a mantle, a comfy chair, a vase, a fireplace and an outlet here.
@@ -214,17 +224,22 @@ This is a lonely bedroom.  You see a bed with no sheets, a dresser and a closet.
 > x closet
 Aw, you discover there are a few more things than you thought.  Maybe you should take a look at each one.
 
+
 > take glue
 You pick it up.
+
 
 > take shoe
 You pick it up.
 
+
 > take shiny red button
 You pick it up.
 
+
 > take dirty sock
 Taken.  You discover a strange odor.
+
 
 > south
 You are in the kitchen.
@@ -303,6 +318,7 @@ You're in the front hall.  There is a hall closet to the south and the living ro
 > x gap
 It seems to be about 3" x 3".  Of course, you are just guessing because you have no tools to measure with.
 
+
 > north
 You are in the living room.
 There is a TV, the shelf and a music book here.
@@ -318,6 +334,7 @@ You hear a slow and painfully annoying drip from the shower.
 
 > take tile
 You decide this tile may be helpful after all!
+
 
 > west
 You are in the living room.
@@ -357,6 +374,7 @@ You imagine that you're walking barefoot.
 > take unplugged toaster
 Now that the toaster is safely unplugged, you decide to take it.
 
+
 > south
 You are in the living room.
 There is a TV, the shelf and a music book here.
@@ -395,6 +413,7 @@ You are in front yard.
 There is a naked lady here.
 You can go north.
 You apparently have made it outside!  The grass is green, the sun is shining and the birds are chirping...and there really seem to be a few naked people running across the lawn.
+
 
 > give sock to lady
 You give the naked lady a dirty sock and she takes her shoe off and puts on the sock and then repositions her shoe over it.

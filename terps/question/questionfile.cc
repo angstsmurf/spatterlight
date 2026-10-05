@@ -215,6 +215,17 @@ void QuestionFile::ensure_cached (const QuestionBlock &b) const
 	      if (is_param (p))
 		{
 		  QuestionBlock::cmd_entry e;
+		  /* Every pattern is trimmed, a lone one included.  That is a
+		   * DELIBERATE deviation: Quest trims the alternatives only
+		   * as it cuts them apart at a `;' and takes a list with no
+		   * semicolon whole (`curCmd = commandList', ExecUserCommand,
+		   * V4Game.Part2.cs:2324-2332), so the stray space in
+		   * `command <How do I get a MC? >' is part of the pattern
+		   * and, the player's input being trimmed, nothing typed can
+		   * ever match it.  That only ever loses the author's answer,
+		   * so Question matches it.  The oracle sweep carries
+		   * Gaiaonline Q&A's diff as `deliberate:' -- see FINDINGS.md
+		   * and fixtures/cmdspace.asl. */
 		  e.patterns = split_param (param_contents (p));
 		  e.script = (c2 + 1 < line.length ()) ? line.substr (c2 + 1) : "";
 		  e.is_lib = is_lib;
@@ -1050,6 +1061,37 @@ string QuestionFile::static_eval (const string &input) const
 	    }
 	  i = j;
 	}
+      else if (input[i] == '$')
+	{
+	  /* Definition-level text goes through GetParameter with the null
+	   * context, functions and all, and the null context's calling object
+	   * is the unused object 0, whose name and alias are empty
+	   * (V4Game.cs:7177-7184).  So "$thisobject$" there is nothing at all:
+	   * q3ext.qlb's clothing type says properties <alias=$thisobject$>,
+	   * which gives every piece of clothing an empty alias, and the room
+	   * then lists it under its own name.  Only these three are resolved
+	   * here; any other function is left for the runtime. */
+	  static const char *const null_ctx[] =
+	    { "$thisobject$", "$thisobjectname$", "$objectname$" };
+	  bool hit = false;
+	  for (const char *fn : null_ctx)
+	    {
+	      size_t len = strlen (fn);
+	      if (ci_equal (input.substr (i, len), fn))
+		{
+		  i += len - 1;
+		  hit = true;
+		  break;
+		}
+	    }
+	  /* A doubled dollar is a literal one (V4Game.cs:6705-6708); the rest
+	   * of the dollar pass calls user functions, which need a running
+	   * game.  Pure Chaos describes a hoard as "It's about $1000000.". */
+	  if (!hit && input.compare (i, 2, "$$") == 0)
+	    i ++;
+	  if (!hit)
+	    rv += "$";
+	}
       else if (input[i] == '%')
 	{
 	  size_t j;
@@ -1072,20 +1114,6 @@ string QuestionFile::static_eval (const string &input) const
 	    rv += lookup (&QuestionFile::static_ivar_lookup,
 			    input.substr (i+1, j-i-1));
 	  i = j;
-	}
-      /* The fourth conversion character.  GetParameter runs a dollar pass too
-       * (ConvertType.Functions, V4Game.cs:1897), and we cannot: it calls user
-       * functions, which need a running game, and this is load time.  The
-       * empty-name case, though, needs no game at all -- a doubled dollar is a
-       * literal one (V4Game.cs:6705-6708) -- and it is the half that reaches
-       * the player, because a definition-level "$name$" is a rarity while
-       * prices are not.  Pure Chaos describes a hoard as "It's about
-       * $1000000."; the pair used to survive into the room description
-       * verbatim. */
-      else if (input.compare (i, 2, "$$") == 0)
-	{
-	  rv += "$";
-	  i ++;
 	}
       else
 	rv += input[i];

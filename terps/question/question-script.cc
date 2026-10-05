@@ -132,8 +132,10 @@ void question_implementation::run_script (const string &s, string &rv)
       std::string::size_type brace1 = c1 + 1, brace2;
       for (brace2 = s.length() - 1; brace2 >= brace1 && s[brace2] != '}'; brace2 --)
 	;
+      /* rv is passed down so a `return' inside a braced block still sets the
+       * enclosing function's result ("if ... then { return <a> } else { ... }"). */
       if (brace2 >= brace1)
-	run_script (s.substr (brace1, brace2 - brace1));
+	run_script (s.substr (brace1, brace2 - brace1), rv);
       else
 	gi->debug_print ("Unterminated brace block in " + s);
       return;
@@ -848,6 +850,20 @@ void question_implementation::run_script (const string &s, string &rv)
 	  run_procedure (trim (fname.substr (0, index)),
 			 split_f_args (fname.substr (index+1, index2-index-1)));
 	}
+      /* A multi-line brace block is hoisted into a "!intproc" procedure, and
+       * from ASL 3.92 Quest runs those in the caller's own context
+       * (ExecuteDo's useNewCtx, V4Game.cs:5767-5776), so a `return' inside
+       * "if ... then {" still sets the enclosing function's result.  Any other
+       * procedure gets a copied context and its `return' is lost. */
+      else if (asl_version_ >= 392 && fname.compare (0, 8, "!intproc") == 0)
+	{
+	  const QuestionBlock *proc = gf.find_by_name ("procedure", fname);
+	  if (proc == NULL)
+	    gi->debug_print ("No procedure " + fname + " found.");
+	  else
+	    for (uint j = 0; j < proc->data.size (); j ++)
+	      run_script (proc->data[j], rv);
+	}
       else
 	run_procedure (fname);
 
@@ -1124,7 +1140,11 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_give:
     {
-      tok = next_token (s, c1, c2);
+      /* Quest takes the first <...> on the line whatever sits before it
+       * (GetParameter, V4Game.Part2.cs:5796-5799), so QDK's long-hand `give
+       * object <pretty hairdo>' in On Time's elf menu still hands it over. */
+      while ((tok = next_token (s, c1, c2)) != "" && !is_param (tok))
+	;
       if (!is_param (tok))
 	{
 	  gi->debug_print ("Expected parameter after give in " + s);

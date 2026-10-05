@@ -316,7 +316,10 @@ string question_implementation::displayed_name (const string &obj) const
 {
   string rv = obj, tmp;
 
-  if (get_obj_property (obj, "alias", tmp))
+  /* An alias that is there but empty shows the name, as Quest's lists do
+   * (V4Game.Part2.cs:7538-7550, 4522-4528, 3811-3821); q3ext.qlb's clothing
+   * type leaves every piece of clothing with one. */
+  if (get_obj_property (obj, "alias", tmp) && !tmp.empty())
     rv = tmp;
   else
     {

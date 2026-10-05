@@ -644,9 +644,44 @@ bool question_implementation::dereference_vars (vector<match_binding> &bindings,
 	 * stdverbs.lib is built entirely out of that: every one of its verb
 	 * responses is "You can't <verb> #(quest.lastobject):article#.". */
 	const_cast<question_implementation *> (this)->set_svar ("quest.lastobject", "");
-	if (last_object != "" &&
-	    (lc == "it" || lc == "them" || lc == "they" ||
-	     lc == "him" || lc == "her"))
+	bool is_pronoun = lc == "it" || lc == "them" || lc == "they" ||
+			  lc == "him" || lc == "her";
+	/* A DELIBERATE deviation: an object in scope that is itself called by
+	 * the pronoun wins over the pronoun.  Disambiguate tests for "it",
+	 * "them", "him" and "her" before it looks at a single object
+	 * (V4Game.cs:4655-4697), so in Quest such an object can never be
+	 * referred to at all -- Bob's Adventure names its beggar `him' and its
+	 * lady `Her', and every verb the author wrote for them answers "I don't
+	 * know what 'him' you are referring to."  The author plainly meant the
+	 * object, and nothing can depend on it being unreachable.  Only an exact
+	 * and unique match on the name the player sees counts, so a pronoun is
+	 * never taken away from a game that uses it as one. */
+	string named;
+	if (is_pronoun)
+	  {
+	    int found = 0;
+	    for (const auto &o: state.objs)
+	      {
+		bool here = false;
+		for (const string &loc: where)
+		  if (loc == "game" || ci_equal (o.parent, loc))
+		    here = true;
+		string shown;
+		if (!get_obj_property (o.name, "alias", shown))
+		  shown = o.name;
+		if (here && !has_obj_property (o.name, "hidden") &&
+		    ci_equal (trim (shown), lc))
+		  {
+		    named = o.name;
+		    found ++;
+		  }
+	      }
+	    if (found != 1)
+	      named = "";
+	  }
+	if (named != "")
+	  obj_name = named;
+	else if (last_object != "" && is_pronoun)
 	  obj_name = last_object;
 	else
 	  obj_name = get_obj_name (binding.var_text, where, is_internal);
@@ -691,9 +726,17 @@ bool question_implementation::dereference_vars (vector<match_binding> &bindings,
   return rv;
 }
 
-string question_implementation::get_obj_name (const string &name, const vector<string> &where, bool is_internal) const
+string question_implementation::get_obj_name (const string &typed, const vector<string> &where, bool is_internal) const
 {
   vector<string> objs, printed_objs;
+  /* Disambiguate drops a leading "the " from the noun before it looks at any
+   * object, and its exact pass then takes a name that is either the noun or
+   * "the " + the noun (V4Game.cs:4699-4720) -- so LOOK AT THE RAT finds `rat',
+   * and both THE BRIDGE and BRIDGE find an object aliased "The Bridge".  The
+   * abbreviation pass sees the stripped noun and nothing else. */
+  string name = typed;
+  if (lcase (name).compare (0, 4, "the ") == 0)
+    name = name.substr (4);
   /* Collect objects in scope whose name matches.  Two passes: first exact
    * (name/alias/alt), and only if nothing matches exactly do we allow partial
    * whole-word matches.  This keeps exact names unambiguous ("ice" matching an
@@ -758,8 +801,11 @@ string question_implementation::get_obj_name (const string &name, const vector<s
 	    }
 	  if (is_used &&
 	      !has_obj_property (state.objs[objnum].name, "hidden") &&
-	      match_object (name, state.objs[objnum].name, is_internal,
-			    allow_partial, internal_name))
+	      (match_object (name, state.objs[objnum].name, is_internal,
+			     allow_partial, internal_name) ||
+	       (pass == 0 &&
+		match_object ("the " + name, state.objs[objnum].name, false,
+			      false, false))))
 	    {
 	      string printed_name, tmp, oname = state.objs[objnum].name;
 	      objs.push_back (oname);
@@ -847,8 +893,14 @@ bool question_implementation::run_commands (string cmd, const QuestionBlock *roo
     for (const string &pat : e.patterns)
       if ((match = match_command (cmd, pat)))
 	{
+	  /* A command whose pattern fits has claimed the input even when its
+	   * #@object# names nothing: ExecUserCommand sets foundCommand on the
+	   * pattern alone and returns it whether or not GetCommandParameters
+	   * succeeds (V4Game.Part2.cs:2405-2413).  Returning false here let the
+	   * input fall through to the built-in verbs, so Hungry Goblin's
+	   * `command <eat #@food#>` answered EAT XYZZY with the error twice. */
 	  if (!dereference_vars (match.bindings, is_internal))
-	    return false;
+	    return true;
 	  set_vars (match.bindings);
 	  run_script_as (state.location, e.script);
 	  return true;
@@ -912,6 +964,14 @@ bool question_implementation::try_game_verb (const string &cmd, bool is_internal
 		  string obj = match.bindings[0].var_text, script;
 		  if (get_obj_action (obj, key, script))
 		    run_script_as (obj, script);
+		  /* A DELIBERATE deviation hides in this lookup.  QDK lets a verb
+		   * be named with a trailing space, `verb <Waste the >', and
+		   * writes the same name into the object: `properties <Waste
+		   * the =He falls.>'.  Quest keeps the space on the verb and
+		   * loses it from the property name, so the two never meet and
+		   * the verb's default answers instead (ExecVerb,
+		   * V4Game.cs:2971, 3051-3058) -- Bob's Adventure's gangster.
+		   * Here the property is found and the author's text printed. */
 		  else if (get_obj_property (obj, key, script))
 		    print_formatted (script);
 		  else if (v.deflt != "")
@@ -1169,8 +1229,14 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
 	  }
   }
 
+  /* "l <thing>" is "look <thing>" -- ExecCommand rewrites it before calling
+   * ExecLook, and takes a bare "l" for "look" (V4Game.Part2.cs:4426-4429,
+   * 4452-4455).  Realm of Chaos depends on it: its `kill' command execs
+   * "l #enemy#" to run the monster's look script, which sets its stats. */
   if ((match = match_command (cmd, "look at #@object#")) ||
-      (match = match_command (cmd, "look #@object#")))
+      (match = match_command (cmd, "look #@object#")) ||
+      (match = match_command (cmd, "l at #@object#")) ||
+      (match = match_command (cmd, "l #@object#")))
     {
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
@@ -1215,7 +1281,7 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
       return true;
     }
 
-  if ((match = match_command (cmd, "look")))
+  if ((match = match_command (cmd, "look")) || (match = match_command (cmd, "l")))
     {
       look();
       return true;

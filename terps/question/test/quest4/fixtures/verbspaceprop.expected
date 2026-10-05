@@ -1,0 +1,25 @@
+
+verbspaceprop
+
+You are in room.
+There is thug here.
+A room.
+
+> waste the thug
+You can't waste that.
+
+> waste the  thug
+He falls.
+
+> waste thug
+You can't waste that.
+
+> zap thug
+Zapped.
+
+> fry thug
+Zapped.
+
+> hug thug
+Cuddled.
+[runner] turns=6 leftover=0 running=true

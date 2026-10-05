@@ -118,7 +118,10 @@ def drop_banner(Question, name):
     game that really does print its own title first (Defenders of Gondor) keeps
     it on both sides.
     """
-    if name and Question and Question[0].startswith(name):
+    # Runs of spaces are collapsed in the transcript but not in the reported
+    # name ("N E A R C O   3"), so compare them collapsed.
+    name = " ".join(name.split()) if name else name
+    if name and Question and " ".join(Question[0].split()).startswith(name):
         Question = Question[1:]
     return Question
 

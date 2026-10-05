@@ -31,6 +31,7 @@
 #include "standardlib_builtin.hh"
 #include "stdverbs_builtin.hh"
 #include "typelib_builtin.hh"
+#include "q3ext_builtin.hh"
 
 using namespace std;
 
@@ -1152,6 +1153,19 @@ static bool is_typelib (const string &name)
   return base == "typelib.qlb" || base == "typelib.lib";
 }
 
+/* MaDbRiT's older extension library, q3ext.qlb, is the same story as his Type
+ * Library: it shipped with Quest, and it is all content -- its own LOOK/TAKE/
+ * DROP/GIVE/WEAR commands, synonyms and object types -- so a game that names
+ * it plays a different game without it (see q3ext_builtin.hh). */
+static bool is_q3ext (const string &name)
+{
+  string base = name;
+  std::string::size_type slash = base.find_last_of ("/\\");
+  if (slash != string::npos)
+    base = base.substr (slash + 1);
+  return lcase (base) == "q3ext.qlb";
+}
+
 /* A library's own asl-version, which decides how its !addto game lines merge
  * into the game block.  Quest reads it only when the file opens with
  * "!library"; a file that does not is a pre-3.x library and counts as 100, and
@@ -1270,19 +1284,24 @@ static void handle_includes (const vector<string> &in_data_arg, const string &fi
 				 out_data, gi, open);
 	      continue;
 	    }
-	  /* The container library.  Unlike the two above, a game could ship its
-	     own copy, and Quest reads an adjacent file before falling back to
-	     the bundled one (V4Game.cs:1397-1415); do the same. */
-	  if (is_standardlib (param_contents (tok)))
+	  /* The container library and MaDbRiT's q3ext.  Unlike the two above, a
+	     game could ship its own copy, and Quest reads an adjacent file
+	     before falling back to the bundled one (V4Game.cs:1397-1415); do
+	     the same. */
+	  if (is_standardlib (param_contents (tok)) ||
+	      is_q3ext (param_contents (tok)))
 	    {
+	      bool q3ext = is_q3ext (param_contents (tok));
+	      string builtin_name = q3ext ? "q3ext.qlb" : "standard.lib";
 	      string libname = gi->absolute_name (param_contents (tok), filename);
 	      string contents = gi->get_file (libname);
 	      if (contents.empty ())
 		{
-		  if (std::find (open.begin(), open.end(), string ("standard.lib"))
+		  if (std::find (open.begin(), open.end(), builtin_name)
 		      == open.end())
-		    handle_includes (split_lines (question_builtin_standardlib),
-				     "standard.lib", out_data, gi, open);
+		    handle_includes (split_lines (q3ext ? question_builtin_q3ext
+						  : question_builtin_standardlib),
+				     builtin_name, out_data, gi, open);
 		}
 	      else if (std::find (open.begin(), open.end(), lcase (libname))
 		       != open.end())

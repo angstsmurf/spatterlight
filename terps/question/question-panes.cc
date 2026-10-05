@@ -101,7 +101,8 @@ v2string question_implementation::get_room_contents (const string &room)
 	    vstring tmp;
 
 	    string print_name, temp_str;
-	    if (!get_obj_property (objname, "alias", print_name))
+	    if (!get_obj_property (objname, "alias", print_name) ||
+		print_name.empty())
 	      print_name = objname;
 	    tmp.push_back (print_name);
 
@@ -845,7 +846,11 @@ string question_implementation::eval_string_body (const string &s)
 	    }
 	  string tmp1 = s.substr (i + 1, j - i - 1);
 	  QUESTION_DBG << "e_s: first substr was '" << tmp1 << "'\n";
-	  string tmp = eval_string_body (tmp1);
+	  /* Quest evaluates inline {expression}s in the call text before it
+	   * dispatches (ConvertParameter, V4Game.cs:6716), so an argument can be
+	   * computed: Sim Political Career's own `round' slices a number with
+	   * "$left(%round.number%; {%round.decimalpos%-1})$". */
+	  string tmp = eval_inline_exprs (eval_string_body (tmp1));
 	  QUESTION_DBG << "e_s: eval substr " + s + "': '" + tmp + "'\n";
 
 	  string func_eval;
