@@ -2094,12 +2094,10 @@ You knock on the doors. After a few minutes a young wizard, probably about the s
 "Well met Tandum my name is....."
 There will now be a pause for drama as you learn the name of the wizard from this author's game 'wizard'.
 Press any key to continue.
-
 "Mantis and I am rather new here. I have only been here a month and haven't taken any potion making classes yet." he says.
 "Mercoz will know what to do if I can get his attention. He has been acting even stranger than usual lately, walking around with a broom and talking to himself. I will go see him." he goes on.
 He turns to go into the tower then turns back and says "Please wait here if you come in an alarm will sound and the front doors will lock and it's a nightmare trying to open them again."
 Press any key to continue.
-
 
 After several minutes Mantis returns.
 "Mercoz has made the potion for me I have it here." he says.
@@ -3663,7 +3661,6 @@ After a while she returns.
 "He will." you reply. "One way or the other!"
 With that Marta shows you to your room and you go to sleep for the night....
 Press any key to continue.
-
 
 You wake up feeling refreshed. When you come downstairs Marta greets you and tells you she will meet you at the great hall.
 You step outside and Marta starts to lock up.

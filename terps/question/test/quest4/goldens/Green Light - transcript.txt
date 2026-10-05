@@ -7,7 +7,6 @@ written by Carlii Cortez. © 2002
 
 
 
-
 You are in the tower room.
 There is panel A, panel B, panel C and a steel grate below you here.
 The tower room has no windows and is black all over, so you can bearly see a thing. You look up to the pinaccle at the top and you notice it is made of glass.
@@ -500,22 +499,16 @@ The giant can barely fit in the library. He is hunched over a desk, reading and 
 > speak to Mervil
 "Ah," Mervil the giant says. "It's you. I thought you might find me."
 press any key to continue...
-
 "Who are you?" you ask. "Who am I?!"
 press any key to continue...
-
 "You, my son, are one of my many experiments," Mervil says. He grins, as if mad. "You've turned out great of course."
 press any key to continue...
-
 "Experiments?!" you holler. "Experiments for what?"
 press any key to continue...
-
 "Hush now, Jem," Mervil says. "You have much to do, and not a whole lot of time. You see, I created you using the new magical formula - it's called Green Light and I made it!" Mervil grins excitedly. "The formula is highly seeked of. Everyone want's to know how to make more...more of you!"
 press any key to continue...
-
 "You need to get out there, in the wilderness. Here, Jem, take this, it's my formula for Green Light. Let no one touch it!" Mervil shouts. Suddenly, he looks frightened. "Oh no! They're coming, I can feel it! Run, Jem! Run away!"
 press any key to continue...
-
 .............
 And so, you know now who you are, what your purpose is in life. Conceal the formula. Destroy it even. But do not let it fall into the wrong hands.
 

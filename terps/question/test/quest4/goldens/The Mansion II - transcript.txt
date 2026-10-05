@@ -11,7 +11,6 @@ For frequently asked questions, type FAQ and hit enter.
 Press any key when ready...
 
 
-
 You are in total darkness.
 There is a shape here.
 You can hear a faint roaring sound but the bag on your head is muffling sound. Your hands are bound but you can feel the seat you are in.
@@ -22,7 +21,6 @@ You slip the object into your palm. Now that you can feel it in your hand, you c
 > use paper clip on handcuffs
 You slot the paper clip into the narrow lock on the handcuffs. After some wriggling, you feel it catch. The handcuffs loosen, then swing open. You are free. You are about to tear the hood from your head when someone else does it for you. You realise you are in a helicopter! You could be anywhere! Solidly built men man-handle you out of the craft and across a small hangar. Before you know it, you have been deposited in a dull prison cell with little hope of rescue. Still, at least you're free from your handcuffs...
 Press any key when ready.
-
 You are in a dank, bare prison cell.
 There is a cot, your dinner, a fork and a high-tech Laser Forcefield here.
 You can go north.
@@ -59,7 +57,6 @@ The combined force of both cots leaning on the laser forcefield causes it to sho
 > speak to cell door
 You shout to the guard but he doesn't respond. After some more shouting, he turns to you and cocks his gun. You start to wonder if continuing to shout might not be such a good idea. Just as you shut up however, a different sound starts up - a loud alarm starts blaring. The guard looks around worried. He gets on the radio and asks what the hell's going on. Before he can get a reply, you can see the faint haze of gas shimmering into the room. The guard's look of angry bewilderment dissolves into pain and terror and he clutches ineffectually at his throat. After barely three seconds, he keels over; his eyes roll back in his skull.
 Press any key when ready...
-
 You stare at the guard's corpse, and panic momentarily that you're next. But no gas comes. The cells must be on a different air purificaton system. Given the security issue, it probably wouldn't be in the building's schematics to have air vents leading from prison cells out into the corridor. Presently, a white cloud of gas sprays from the ceiling, presumably to cleanse the corridor. After the gas has cleared, something you really werent expecting happens - with a buzz, the cell door swings  open.
 
 > north
@@ -499,7 +496,6 @@ This plush office reception boasts a shiny round reception desk and several pot 
 > use magnetic encoder on security computer
 You plug the magnetic encoder into the electromagnetic burner on the computer. The computer automatically loads the software and gives you some options.
 Press any key...
-
 What do you wish to do?
 1) Create a New Security Clearance
 2) Load An Existing Security Clearance
@@ -1101,7 +1097,6 @@ This garden is overgrown with all manner of plants and is virtually unrecognisab
 > east
 You walk up the overgrown path. A sudden feeling of deja vu washes over you. As you reach the front door, the hairs stand up on the back of your neck. You realise that this house was your uncle's first house, before his inventions made him rich enough to afford his mansion. Your memory is flaky but you can vaguely remember spending whole summers here as a young child. The corporation must have built it's base on the same island. With a smile, you realise that you now know where you are. The mainland is about 50 miles to the north!
 Press any key to continue...
-
 You push open the old rusty front door and step into the long abandoned cottage. You begin to wonder what secrets your uncle might have left here, when suddenly the rotten floorboards give way under your feet and you plummet into the basement. You crack your head hard on the stairs and feel blood start to trickle down your face. The world fades to white...
 You are in a dingy basement. Blood is clouding your vision...
 You awaken slowly and focus on the room. Warm light fills your vision and you stand up. This is your uncle's cottage as you remember it - warm and cosy. Nautical memorabilia hangs from the walls along with some old-fashioned electronic lights. Your uncle's writing desk is positioned against the wall.
@@ -1267,7 +1262,6 @@ He puts out a hand to stop you and you do so, confused.
 
 'I was murdered,' he says, 'Murdered by a corporation so greedy they wanted to develop a chemical for use in assassinating their rivals, politicians, powerful businessmen and the like. With the power to kill someone and leave no evidence, they could gain control of everything. You must avenge my death. You must bring the corporation to justice. It's up to you, you're the only one who knows. Will you help me find peace?'
 Press any key to continue...
-
 Will you bring down the corporation?
 1) Yes
 2) No

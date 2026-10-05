@@ -8,7 +8,6 @@ Where's Annabel?
 Where's Annabel?
 
 Press any key
-
 In the Beginning...
 Annabel, a beautiful young girl, waits patiently on a tree stump in the middle of a Forest.  She is waiting for her true love, Griswold.
 
@@ -17,14 +16,11 @@ There is a rustle of leaves behind her.  "Grissie, is that you?" she calls out t
 Annabel gets up and investigates the trees.  Suddenly a pair of huge arms appears from the trees and grab her.  
 She cannot scream, she struggles but to no avail.  And then she is gone!
 
-
 One week later, Griswold comes to your office.  He wants you to find her fiancee Annabel.  He tells you that she was last seen in the nearby village of Insania.
 
 He gives you 2 gold pieces and a photograph of Annabel.
 
-
 You are now about to enter the village.......
-
 
 You are in the main Garden.
 There is a closed Well, some Yellow Flowers, some White Flowers, some Red Flowers and some Blue Flowers here.
@@ -1377,7 +1373,6 @@ YOU HAVE WON!
 
 Press any key
 
-
 You are sitting watching a show.  Annabel is by your side.
 You sit in anticipation watching the stage
 The Usher and the Bouncer shuffle on and attempt to bow.
@@ -1402,7 +1397,6 @@ He points to you, you stand up, pick Annabel up and swing here around.
 
 THE END
 press any key
-
 
 ....... Back at the market square, the camera pans to the stocks.
 

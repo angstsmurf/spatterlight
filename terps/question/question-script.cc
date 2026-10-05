@@ -1794,12 +1794,13 @@ void question_implementation::run_script (const string &s, string &rv)
 	}
       gi->wait_keypress (tok);
       /* The turn suspends here, so this is where its timers tick (see
-       * run_command).  Before the clear below, because in Quest the tick
-       * happens while the game still sits at the keypress. */
+       * run_command).
+       *
+       * Nothing is printed after the keypress: Quest 4.1.5 neither clears
+       * the screen nor leaves a blank line there, and the script's next msg
+       * follows the wait line directly (Sim Political Career's opening,
+       * checked against the real runner). */
       suspend_turn ();
-      /* Quest clears the screen once the player presses a key; clear_screen
-       * emits a blank-line separator (see QuestionInterface::clear_screen). */
-      gi->clear_screen ();
       return;
     }
     break;

@@ -17,15 +17,12 @@ This bland area in the library is your only hope to pass Writing 3 this semester
 You say, "Hay-low"
 Brice says, "Hi... do you need an appointment?"
 Hit any key to continue
-
 You say, "I am likeen jor shert.  Gwat do it meaning?"
 Brice says, "It's nothing... a game we used to play."
 Hit any key to continue
-
 You say, "Oh, I am likeen games.  We can play, no?"
 Brice says, "Nah, we need four more people.  That's why we never play anymore... I'm the only one still here."
 Hit any key to continue
-
 You say, "Pleeeeeeeeeeeeeeeease?"
 Brice rolls his eyes.  He says, "OK, we need to find some people and some other junk.  Here's a list.  I'll go with you if you want."
 HINT: Take willing characters with you to play BriceBall!  AND... don't forget to take items you find that will help you get a game going (Not sure what you need? ...check the list!)
@@ -43,15 +40,12 @@ This classroom is cold and undecorated.  It seems to always have a few students 
 You say, "Hay-low"
 Ivana says, "Hi... are you have done you are homework?"
 Hit any key to continue
-
 You say, "Jess... but I am wanting if you come play games outside?"
 Ivana looks a little confused.  She says, "Jou gwant to play outside?"
 Hit any key to continue
-
 You say, "Jess... is call BreeseBol.  is berry fun."
 Ivana says, "I am needing to finish my home-gwerk... sorry."
 Hit any key to continue
-
 You say, "Pleeeeeeeeeeeeeeeease?  Breese es a Engleesh tutor... maybe he helping us with homework..."
 Ivana looks down at her papers.  She says, "OK, dair ist six udder students before me waitinge to ask Mr. Simpson gwestions about der home-gwerk."
 
@@ -74,15 +68,12 @@ This familiar, big street is on your daily walks between school and home.  There
 You say, "Hay-low"
 Hector says, "Hello.  How are you?  You are in one of Mr. Simpson's classes, right?  Do you need help with your homework?"
 Hit any key to continue
-
 You say, "Wow!  Your Engleesh es berry goo."
 Hector says, "Certainly.  I have been a student of Mr. Simpson for years.  I also have the best in tutoring."
 Hit any key to continue
-
 You say, "Oh, I helping a tutor named Breese to play a game?"
 Hector says, "My tutor, Brice, needs help?"
 Hit any key to continue
-
 You say, "Pleeeeeeeeeeeeeeeease?  We are wanting to play BreeseBol again."
 Hector says, "I didn't even know there was such a game as BriceBall.  Of course I will help.  It would be an honor!"
 
@@ -108,15 +99,12 @@ This street is unfamiliar since you rarely venture around the island, other than
 You say, "Hay-low"
 Cynthia says, "Hey... where do I know you from?"
 Hit any key to continue
-
 You say, "I am going to jor school."
 Cynthia says, "Oh, yeah... how do you like it?"
 Hit any key to continue
-
 You say, "Is fun.  We trying to play a game at school.  You want play?"
 Cynthia says, "A game?  I'm no good at sports."
 Hit any key to continue
-
 You say, "Pleeeeeeeeeeeeeeeease?  This game es juss for fun"
 Cynthia smiles at you.  She says, "OK, I'm not doing anything, anyway."
 
@@ -186,15 +174,12 @@ This big restaurant is a favorite of early dining seniors.
 You say, "Hay-low"
 Corey says, "Hi... sit wherever you'd like"
 Hit any key to continue
-
 You say, "I no hongree.  You go with me to play game?"
 Corey says, "Uh, I'm working right now."
 Hit any key to continue
-
 You say, "Oh, but BreeseBol es berry fun!"
 Corey says, "BriceBall?"
 Hit any key to continue
-
 You say, "Pleeeeeeeeeeeeeeeease?"
 Corey says, "hmm..."
 

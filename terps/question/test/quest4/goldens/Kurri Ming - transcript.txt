@@ -32,12 +32,10 @@ Enjoy!
 
 Press any key to continue...
 
-
 Before you know it the alarm goes off  on your radio, "I love chicken it's a real tasty treat.."  After a brief moment you realize you're in your room,  a relief as you have no clue what happened to you last night. As you're getting out of bed you decide that you should at least get dressed, "I love chicken, I think it's great to eat..." you sing along  while putting on a shirt . Oddly enough you mange to finish getting dressed about the same time the song ends, saying to yourself: 
 
  "Steve Lingle, would of bought the CD if I hadn't already downloaded it."
 Press any key to continue...
-
 You begin looking around the room for clues as to what might of happened, having scanned the room you notice a few things that seem different. Firstly, there is a banner over your door which reads: "So Long, and Thanks for All the Fish!" The connection is easy enough to make, its a reference to "The Hitchhickers Guide to the Galaxy" but how on earth did it get there? Putting the thought aside for the moment you continue scanning the room.
 
 There is an EXIT to the EAST.
@@ -63,7 +61,6 @@ As you enter the living room the first thing you notice is that your good friend
 
 “Kurri, you frightened me! Probably a good thing though, I had the most ridicules dream.”
 Press any key to continue...
-
 To the right of your screen you will  notice a Status Variable. It should  currently read:
 
 P1: Kurri

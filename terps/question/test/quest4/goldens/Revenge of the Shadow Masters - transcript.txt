@@ -4,7 +4,6 @@ Revenge of the Shadow Masters, vDemo 0.5.2 | Slackers Inc.
 With Alexendre Bartolomeu defeated, complete anarchy reigned over the Shadow Masters. They have wrecked havoc all through the little towns South and West of the Dark Hills in an attempt to seek revenge on the one who abandoned them and then returned to defeat their leader. Luckily for you, after winning your battle with Bartolomeu, you managed a narrow escape and have been hiding in a cave on just the other side of the Dark Hills for the last couple of weeks. During the time you've been sitting in the cave alone, you've thought about everything that has gone on. Somehow, you feel that the recent destruction is all your fault and that you have a responsibility to fix all of the wrong which has been done. You know you can't stay in hiding for the rest of your life so you decide that you must embark on a new journey to confront the Shadow Masters and remedy all the problems which you have caused.
 Press any key to continue...
 
-
 The warm sun shines brightly through the open exit to your hideout for the past few weeks. Your little campfire from the night before has been neatly put out and your backpack, which is still filled with a few supplies, has been safely stowed away under a nearby rock. Your towel, which is currently spread out on the cold ground, has really come in handy as a make-shift bed since you've been in hiding. On the wall, nearest your temporary bed, there are a couple of interesting shapes and symbols etched into the stone.
 
 > move rock
@@ -187,19 +186,16 @@ Please select which book you mean:
 Getting a little curious about the content of your manual to immortality, you open it and begin to peruse the pages. The book is impressively clear due to the incredibly well-done illustrations and neatly written notes in the margins. One or two of the hand-written notes are comments on errors the reader has found in the book. As you begin to read the actual text, you see a recipe for something.
 Press any key to continue...
 
-
 Ingredients:
 
 Mug o' Grog
 1 pinch Salt
 1 Mela Oak Leaf
 Press any key to continue...
-
 Directions:
 
 Place the leaf of a Mela Oak and the pinch of salt into the mug with the grog. Wait patiently a few seconds as the grog dissolves the other two items. Your Brew of Immortality should be a bit spicy as it goes down and is good for one use only.
 Press any key to continue...
-
 ***Disclaimer: 
 
 If not made properly, some of the possible side effects are indigestion, upset stomach, headache, rapid heartbeat, sweaty palms, baldness and sudden death. Please consult your doctor, wizard or voodoo lady before starting any Immortality regimen.
@@ -367,7 +363,6 @@ The only thing powerful enough to defeat the Shadow Masters is the Wizards Grid.
 and create a new one. One that will cause a disbalance within the  magical comunity and outside of it. You must find it before them.
 Press any key to continue...
 
-
 When the original grid was created there was a conjurer’s disturbance  which created an illusionary fluctuation in time and placed you in an  elemental shell. That's why you have a hard time remembering things
 about your past.
 
@@ -387,10 +382,8 @@ Continuing on your journey, you enter what is known as the Abyss of the Wise.  A
 You watch as Mortimer’s face turns a shade of pale white. "Do I know about the Grid?" He responds as though almost to himself. "Of course I do. I know more about it than anybody.
 Press any key to continue...
 
-
 Lucky enough for you I happen to know who you are. You're Kitzue, the only one that can bring back order to these parts. In order to do so however, you'll need to reconstruct the grid so listen up.
 Press any key to continue...
-
 
 The grid is constructed up of the five elements.. wood, fire, earth, metal, and water. Find these elements and combine them to make the grid. You must do this in the right order though or it won't work!
 

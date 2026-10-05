@@ -10,7 +10,6 @@ A stone hall.
 > arm
 [before the wait]
 [press a key]
-
 [after the wait]
 
 > t
@@ -24,7 +23,6 @@ A stone hall.
 [before the wait]
 [press a key]
 [tick]
-
 [after the wait]
 
 > code

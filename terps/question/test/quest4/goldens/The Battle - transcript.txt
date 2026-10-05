@@ -6,7 +6,6 @@ Welcome to this game.
 Ok, there is one isue we have to adress hear. Who are you?
 Ok, Sam, That is your real name right? Oh yah it is. Anyway in this game you are a 11 year old kid. You are going to school. The teachers however have called on an age old enemy. He isn't an enemy of the teachers He's an enemy of you. He along with his teachers will try to kill you at every chance. Take everything. Take objects that are probably untakeable. That could be useful. Type "hint" along the way for a slight hint.
 press a key
-
 You get up and get gloomily out of bed. Another school day.
 ", come down stairs and eat your breakfast."
 You hate breakfast.
@@ -319,7 +318,6 @@ In this part of the school the kids perform plays. A teacher laughs at you from 
 > use bottle on teacher
 With your almost last ounce of strength you hurl the bottle at the teacher. He yells out then falls through a trapdoor in the stage. Suddenly you see a liftshaft. You take the elevator and find yourself in the headmaster's office!
 PRESS A KEY TO SEE WHAT HAPPENS!
-
 "HA HA HA! I knew you'd make it hear! I will now do what I said kill you!"
 Quik you have to do something!
 You are standing in the headmaster's office!
@@ -334,7 +332,6 @@ You shoot the headmaster and he dies!
 > use holy water on pot
 You poor the water into the pot. There is a blinding flash of white light as the demon inside the pot tries to rise. The holy water eats through the demon forcing it into it's rightful place (oblivian.) You fall to the ground and pass out with tiredness and fear.
 PRESS A KEY TO END THE GAME!
-
 You wake up at home. Kids suround your bed. Bob is at the front of the crowd.
 "He's awake! We thought we'd lost you! We thought..."
 You sit up.

@@ -39,7 +39,6 @@ Que los dioses te bendigan, Nearco.
 
 Pulsa una tecla...
 
-
 INSTRUCCIONES PARA JUGAR NEARCO 3
 -------------------------------------------------------------
 Recomendaciones útiles para jugar Nearco:
@@ -64,7 +63,6 @@ También te recomiendo que insultes a los personajes. (Para liberar adrenalina)
 Y de momento... eso es todo. Suerte con Nearco 3.
 
 Pulsa una tecla ...
-
 
 
 
@@ -242,7 +240,6 @@ Luego te dice:
 Das unos pasos y ...
 Entras dentro del Templo...
 Pulsa una tecla... 
-
 
 Estás en el Templo.
 Aquí hay una sacerdotisa and un dios.
@@ -512,7 +509,6 @@ Y el tiempo pasa...
 
 Pulsa una tecla...
 
-
 Despiertas conmocionado.
 ¡¡¡ Zeus mío !!!
 Se ha hecho de noche.
@@ -652,7 +648,6 @@ Puedes ir al west
 Coges la barca y ahora, sabiendo que no te perderás en la inmensidad del mar, pones rumbo a Egipto... tu próxima aventura.
 
 Pulsa una tecla...
-
 
 ¡¡¡ Enhorabuena !!!
 

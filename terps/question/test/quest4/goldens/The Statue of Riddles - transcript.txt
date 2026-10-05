@@ -28,10 +28,8 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
 Continue
-
 "Used as a hammer to break myself. I am untouched by earth, melted by fire, and moulded by water."
 Continue
-
 Choose an Answer
 1) Clay
 2) A pebble
@@ -77,10 +75,8 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
 Continue
-
 "The dance I dance is a spirited jig. Wind feeds me, and water is the bane of my existance."
 Continue
-
 Choose an Answer
 1) A cave
 2) A murderer
@@ -132,10 +128,8 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
 Continue
-
 "I weigh nothing, but placed in a box it becomes all the lighter."
 Continue
-
 Choose an Answer
 1) Air
 2) Ignorance
@@ -184,10 +178,8 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
 Continue
-
 "No beginning. No end. I am the symbol of the worlds cycles."
 Continue
-
 Choose an Answer
 1) A candle
 2) A river
@@ -230,10 +222,8 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
 Continue
-
 "A man in a wood came and stepped upon me. He then sat down to try and find me. Unable to do so, he left with me."
 Continue
-
 Choose an Answer
 1) A splinter
 2) A fox
@@ -278,10 +268,8 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
 Continue
-
 "Captures a picture as clear as day, in the light it was then. Kept with you forever, but gone when your dead."
 Continue
-
 Choose an Answer
 1) A photo
 2) A reflection
@@ -327,10 +315,8 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
 Continue
-
 "Not your average dirt nor grime, stand in me and its a matter of time. Struggle and I'll pull you deep, or give in and embrace eternal sleep."
 Continue
-
 Choose an Answer
 1) Air
 2) Clouds
@@ -376,10 +362,8 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
 Continue
-
 "Qaz Wsx Edc Rfv Tgb Yhn Ujm Ik Ol?"
 Continue
-
 Choose an Answer
 1) The letter D
 2) The letter W
@@ -429,7 +413,6 @@ This room is perfectly square, and painted grey. The door behind you dissolves, 
 > speak to estaq
 "Welcome to the Madness Room, mortal. Here your sanity will be tested by answering three riddles. Resistance will not help your final grade."
 
-
 "I settle disputes without words. What am I?"
 Choose an Answer
 1) Death
@@ -449,7 +432,6 @@ Choose an Answer
 
 > speak to aeven
 "You have completed Estaq's riddle. Are you sane or not? That is the question. So here is mine."
-
 "I'm gone at day without been taken, and come at night without being summoned. What am I?"
 Choose an Answer
 1) The sun
@@ -470,7 +452,6 @@ Choose an Answer
 > speak to monty
 "Aeven is the second one thy must speak to."
 "Two riddles thy have answered, both correctly. I am last. Here is my question."
-
 "Only exists when alone, gone when another is near. Talking also destroys it, but it is created when in fear. What am I?"
 Choose an Answer
 1) Love
@@ -503,10 +484,8 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
 Continue
-
 "Alive as you but without breath, as cold in my life as in my death; never a thirst though I always drink, dressed in a mail but never a clink."
 Continue
-
 Choose an Answer
 1) A paladin
 2) Water
@@ -539,7 +518,6 @@ The ladder dissapears as you reach the strange bridge you stand upon. It is made
 From within his helmet comes a creaking sound, then he rasps the words: "My sword, my armour, my helmet, my shield. These you brought me yet the path I won't yield. One riddle, two riddles, a riddle three. Answer them correctly to defeat me."
 
 You have no choice but to complete the three riddles. Press any key to continue.
-
 From within his helmet comes a creaking sound, then he rasps the words: "A princess is as old as a prince will be when the princess is twice the age as the prince was when the princess' age was half the sum of their present age. Which of the following, then, could be true?"
 Choose an Answer
 1) The prince is 20 and the princess is 30
@@ -584,11 +562,9 @@ This massive dome is completely blank. Yep, 100% empty. It's like you just walke
 "Nyah! Welcome, beast, to my dominion! Nyah! You have made it through the temple! Nyah! Well, it looks like you didn't get what you were expecting! Nyah! So guess what! Nyah!"
 
 Press any key to continue to the ending...
-
 Suddenly, in a massive explosion of epicness, Chuck Norris drops down from the heavens, points at you and screams: You just got PUNKED! WHOO!
 
 Hurray! Press any key to continue to the Credits!
-
 -=[ Credits ]=-
 
 Written by: Andrew "Thanatos" Trewin

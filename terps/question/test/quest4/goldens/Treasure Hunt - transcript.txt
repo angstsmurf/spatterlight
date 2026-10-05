@@ -518,5 +518,4 @@ You have beaten spectrum. Congratulations! You deserve a well-earned break in th
 Press enter to end the game.
 
 
-
 [runner] turns=107 leftover=0 running=false WON=YES

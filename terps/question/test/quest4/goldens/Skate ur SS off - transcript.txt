@@ -4,7 +4,6 @@ Skate ur @SS off, v0.4a | Wilson Trent
 
 
 Press any Key to Skate!
-
 Here's how to play:  Type "manual" to start manualling on the ground.  When you manual down, type "UP" to continue your manual.  Same with "Down".  When you're done manualling, type "Land" to land it safely.  If you don't land safely, you will fall and wait to recover.  Also, you can type "ollie" and then "kickflip" or "grind rail".  If you try either of these two things when not in the air, then you'll fall.  If you type "revert" then you'll add some points to your score.  Also, you can "Skate up" a pipe and then you'll be in the air again.  If you're up in the air long enough you can type "Left" repeatedly and you will spin in the air. Make sure you do it fast enough!  In this demo version of the upcoming game, there are still special things like decks and places that you can unlock.  You have a music player that has 3 unique songs available.  Just type "Look at Music Player" to see the instructions for use.  Now that that's said, Skate On!
 
 This is the Skate Lobby.

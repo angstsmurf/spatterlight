@@ -15,7 +15,6 @@ Save often. Good luck.
 
 Send questions or comments to wonderjudge22@yahoo.com
 Press any key to continue.....
-
 You are at the West shore.
 There is a pile of timber here.
 You can go east, northeast or southeast.
@@ -420,7 +419,6 @@ You set sail in your makeshift raft. As you approach the vessel you notice that 
 He seems to notice that you have a large chest of gold coins with you. You make it to the ship and they hoist you from the water.
 They then take your chest and throw you in the brig!
 Press any key to continue.
-
 After awhile you hear the captain come in and announce that they are going ashore. He tells one of the crew to remain here and keep an eye on the prisoner.
 You are in the Brig.
 There is a Cell door and a Mop here.
@@ -2560,7 +2558,6 @@ A huge creature is at the other end of the cavern. It looks as if he was lying o
 Your ticket out of here!
 Press any key to continue.
 
-
 The monkey on your back decides to throw some poo at the thing making it angry!
 Now that's done it! Stupid monkey!
 It's bellows and is heading straight for you!!
@@ -3176,7 +3173,6 @@ He tells you that there has been alot of pirate activity in the area lately and 
 He is just about to let you get back aboard your sail boat when.....
 Press any key to continue.
 
-
 The monkey on your back decides to pee all over him!
 
 In the end he decides that you are not a pirate and decides to let you go. But not before searching your boat and confiscating your treasures.
@@ -3184,7 +3180,6 @@ He tells you that these are the king's waters and anything found here belongs to
 He does pay you a small finders fee though.
 
 Press any key to continue.
-
 
 You return home and sell the monkey to a local zoo.
 With that and your finders fee you are able to get yourself a nice new boat and promise yourself NEVER to drink that much while sailing again.

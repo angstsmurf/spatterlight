@@ -12,7 +12,6 @@ What is your surname?
 And are you a little boy or a little girl?
 Press any key to begin your career
 
-
 You begin your career as a member of the Democrat Kidz Klub earning 1PP/turn.
 
 > look

@@ -49,7 +49,6 @@ I'm gonna tell you about the objects you'll find along the way.
 
 Now press any key so I can continue....
 
-
 There!, now Look, I Placed some gold pieces in the room.
 take this and see what happens.
 
@@ -68,7 +67,6 @@ Here, lets try another object shall we!
 
 
 Comon, press a key! :)
-
 
 > take tin
   You found some Tin! and your score was Increased
@@ -100,7 +98,6 @@ by you!, Favor....hehehe.
 
 Now press any key so I can continue....
 
-
 Ohhhhhh cool It's a Bomb!, now becareful with this and no you cannot pick it up!, 
 I Mean, Why would you want to anyways!?
 
@@ -112,7 +109,6 @@ Now I'm gonna set the bomb to go off in 5 Seconds!
 
 
 Press a key now.
-
   Now It'll go off in 5 seconds!.
 
 
@@ -160,7 +156,6 @@ you can see for yourself!.
 
 
 Press da key on da keyboard?, ya know any key!.....
-
 Lets set it for 10 seconds!
 
 
@@ -208,7 +203,6 @@ This is a Medical kit, perfect for picking up and healing yourself!
 was a real official Timer, think of these Timers as
 Sport Officials! :)
 Now that you know how to play, press any key to get Started!
-
 Want to play the Tutorial again?
 1) NO, Lets play the game already!
 2) YES, Lets play the Tutorial again please

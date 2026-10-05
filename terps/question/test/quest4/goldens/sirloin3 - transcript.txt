@@ -12,7 +12,6 @@ Do you want to skip the intro
 [choice] look
 press a key to start
 
-
 You are in your caravan.
 There is bed, fridge and sink here.
 You can go out to Market Square.
@@ -331,7 +330,6 @@ Could you reach in and take a look for me?"
 
 Uh-oh.  This could spell trouble.
 press a key
-
 Do you wish to climb into the oven for Winnie?
 1) Yes
 2) No
@@ -693,11 +691,9 @@ You call out to the yeti hoping to get it's attention.
 It runs and fixes you with a vicious stare.
 It starts to run at you.  You think it's time to run.
 press a key
-
 You head back to the steppes. You remember seeing a crack in the rock that you could hide in....
 AS you hide in the crack you can hear the yeti far above you.  It start to run down the stairs, but it is unaware that you have made the steps icy.  It loses it footing and falls crashing down into the pass below.
 press a key
-
 You pause a while, but you can hear no noise.  Perhaps it is dead!
 You are in the Steppes.
 There is the stone steps here.
@@ -757,7 +753,6 @@ As you descend the steps to the mountain pas you here a growl, you proceed with 
 Moving into the pass, the yeti, which fell down the steps earlier, suddenly appears.
 He's not dead!  And now he is blocking your path back up the mountain.
 press a key
-
 The Yeti approaches you.  It still seems a bit dazed from the fall, and that has made him angry....
 
 > ring bell
@@ -2258,7 +2253,6 @@ Suddenly the Superior Mum Busts into the Inner Sanctum.
 "How dare you steal from our most sacred relic.  For this sacrelige I damn you to eternal damnation"
 And with a spin of her hand the world around you disappears.....
 press a key to see your fate
-
 Suddenly you find yourself floating in a dreamlike state.  Or is it more of a nightmare?  
 
 You have been transported to the spirit realm of oblivion.  Will you ever get out?
@@ -2314,7 +2308,6 @@ You give the feather to the Queen.
 
 
 press a key
-
 With that Gnomeo rushes up to you.
 
 "I really hope you will be my best man" He says
@@ -2324,7 +2317,6 @@ With that Gnomeo rushes up to you.
 "That is great news" he says......
 
 press a key
-
 
 Soon the day of the wedding arrives....
 ....
@@ -2344,7 +2336,6 @@ Gnomeo is distraught
 You are just about to console him when something happens
 press a key
 
-
 Suddenly the Cathedral is over-run by guards.  Really short guards.
 
 "Gnomeo Jones?"says the head guard
@@ -2359,7 +2350,6 @@ Gnomeo looks around in utter horror "There has to be some kind of mistake" he sa
 And with that the guards drag the poor unsuspecting gnome away....
 ....
 press a key
-
 TO BE CONTINUED.....
 
 

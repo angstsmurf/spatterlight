@@ -16,7 +16,6 @@ And you remain alone.
 Press any key to continue...
 
 
-
 Game name: A certain Oscar.
 Version: 1.00
 Author: Ido Angel

@@ -11,7 +11,6 @@ Night security! How did you end up with this nine dollar an hour job. Oh well at
 (Some new commands in this game. If you want to only see the room descriptions on the first visit to an area type 'terse'. If you wish to switch back to full descriptions type 'verbose'. Also I have employed the use of footnotes (footnote 1). Footnotes don't affect the game at all. They are usually either informational or comedic in nature. To see a footnote simply type 'footnote n'. n being the number of the footnote.)
 Press any key to continue.....
 
-
 You are in The Security Office.
 You are in the small security office at the local smelting/refining plant. The office has windows that overlook the entrance and main road into the plant. Three sets of security monitors afford you camera views from different areas within and without the complex. The door to your office is open to the east.
 You can see Three Security Monitors, A Hand Radio, Some Cabinets and A Telephone here.
@@ -1883,7 +1882,6 @@ You drag dave's body across the airport. Along the way you notice that the sun h
 
 Press any key to continue.
 
-
 After awhile emergeny workers and police arrive. Dave is taken off into custody and the remaining workers are freed. The fence is restored to it's unelectrified state. The police question you several times and it seems quite clear that they are not believing your story until they question the workers.
 They media arrives and starts asking questions and badgering everyone for information on what has happened. You avoid them for most of the day.
 Finally you are allowed to go home after several very tiring hours.
@@ -1891,12 +1889,10 @@ You are greeted at your front door by some very scary looking men in black suits
  
 Press any key to continue.
 
-
 On your way up to bed you catch part of the news on the television....
 'Three people are dead today at the local smelting plant. Initially it was believed to be some kind of terrorist attack but this reporter has been assured by authorities that it was just a minor accident involving one of the chemicals used in the smelting proccess. Authorities did say that that incident could have been much worse if not for the quick thinking and heroics of the plant's lone night security guard. After spending several hours trying to get to the guard for an interview, I finally caught up to him as he was leaving. He only had this to say.'
 "Not on my watch."
 Press any key to continue.
-
 
 Roll Credits!
 

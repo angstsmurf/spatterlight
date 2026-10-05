@@ -49,10 +49,8 @@ A Burning Cigar.
 > use control panel
 You push the big pointy arrow. A computerized voice, neither male nor female, says: "Going Up."
 Press Any Key
-
 The Elevator starts to move, but suddenly the lights go out and it jerks to a stop. The light on the Control Panel goes out.
 Press Any Key
-
 You are in a Dark Elevator.
 There is a Mirror showing your reflection (Very faintly), an Ashtray with a burning cigar in it, a Control Panel for the Elevator, some Golden Hand Rails and an Emergency Exit Panel on the Roof here.
 You can go up.

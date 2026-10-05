@@ -93,7 +93,6 @@ It is an open hatch on the west wall of the stairway.  It is large enough for yo
 
 > enter hatch
 You squeeze yourself into the open hatch...
-
  In The Dark
 You are in a small dark space.  Reaching before you, you find a metal ladder leading upwards through the darkness.  A small open hatch behind you leads east.
 
@@ -103,7 +102,6 @@ You can go east or up.
 
 > u
 You climb the ladder for several minutes before emerging from a round hole...
-
  Venting Tube
 This is a small venting tube in which you are forced to move on your hands and knees.  From here the tube leads south, and there is an open hole revealing a ladder that leads down into darkness.
 
@@ -159,7 +157,6 @@ The note reads -
 
 > d
 You climb into the hole and release your grip on the edges.  You are suddenly sliding down a long, smooth chute - in seconds you suddenly drop some distance and land lightly in the centre of a small room...
-
  Control Room
 This room is little larger than a telephone booth in area, though its ceiling is a considerable distance above you, where you can just make out the terminating end of a person sized chute.  There is a bronze |plaque| on the wall beside you.
 There is a short lever set into the wall here., There is a long lever set into the wall here. and A binocular peephole is at eye level in the east wall of the chamber.
@@ -184,7 +181,6 @@ You set your face to the peephole, and look through.  You find yourself looking 
 
 > pull long lever
 You pull the long lever.  After a few seconds, you are plunged into darkness.  You have a brief sensation of rapid movement before the floor seems to disappear beneath you.  Light then fills your eyes again as you land heavily on a soft carpet...
-
  By Some Paintings
 You are in a long hall, halfway between the front door to the south and a grand marble staircase to the south.  A balcony is visible high above you - the ceiling, unmeasurable, is cloaked by darkness.
 There is a red painting hanging on the wall to your west. and There is a blue painting hanging on the wall to your right.
@@ -278,9 +274,7 @@ You wield the hammer and swing it at the glass case.  It smashes perfectly into 
 
 > take bronze hand
 As you step forward to take the bronze hand, a hatch on the pillar below it opens, causing it to drop away...
-
 You hear a loud bang above you and look up, your arm still outstretched - a huge hatchet blade attached to a wire drops from the ceiling.  It cleanly cuts your hand from your arm in a spray of blood...
-
 You are in pain.
 The stump of your arm is bleeding profusely...
 
@@ -443,11 +437,8 @@ The stump of your arm is bleeding profusely...
 
 > drink bottle
 You drink the entire contents of the bottle in one swig...
-
 You feel the immense attraction of the statue pulling at your soul as your body begins to spasm with the effects of the poison...
-
 You feel your soul suddenly drawn through the flames towards the ever beckoning eyes of the statue as your body begins to collapse...
-
 You suddenly slam into the statue, cutting off the link to your dead body.  You are one with the stone...
  The Message
 This is the message.

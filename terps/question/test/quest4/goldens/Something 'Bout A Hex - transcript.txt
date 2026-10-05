@@ -32,7 +32,6 @@ PRESS ANY KEY TO START
 
 
 
-
 You are in The Living Room.
 You can go out to the middle of the living room.
 
@@ -2921,7 +2920,6 @@ PRESS ANY KEY TO CONTINUE
 
 
 
-
 CONGRATULATIONS! You have completed BOOK ONE of Something 'Bout A Hex and are halfway finished the game.
 
 You have the option to keep a copy of the original script for the game in your inventory as a guide, and then continue on to BOOK TWO. A menu will come up asking if you want the script or not. You don't NEED the script to play BOOK TWO, but it is helpful.
@@ -2932,7 +2930,6 @@ You have the option to keep a copy of the original script for the game in your i
 
 
 PRESS ANY KEY
-
 
 
 
@@ -7244,14 +7241,12 @@ SOMETHING 'BOUT A HEX
 
 
 PRESS ANY KEY
-
 Congratulations! You have completed BOOK TWO of Something 'Bout a Hex and that concludes the story. I hope you enjoyed it.
 
 If you would like to see the script for BOOK TWO in your inventory, a menu will display showing that option. In addition, there are two BONUS features.
 
 
 PRESS ANY KEY
-
 Would you like the script for Book Two placed in your Inventory?
 1) yes
 2) no

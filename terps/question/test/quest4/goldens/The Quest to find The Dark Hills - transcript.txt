@@ -7,7 +7,6 @@ The Quest to find The Dark Hills, v2.0 | Slackers Inc.
 A long time ago something happened to you. It was so long ago in fact, that you don't even remember all of the details. The only things you can seem to remember are that something happened between you and a mysterious group called the Shadow Masters, particularly one by the name of Alexendre Bartolomeu Pendelton, and that it happened in The Dark Hills. You're not exactly sure why Alexandre tried killing you but you have decided to go on a quest in search of The Dark Hills to find out. You hope that along the way you are able to remember more details and figure out any possible explanation for what happened and why. Before you head out on your quest, you may want to gather a few items. After all, you probably won't be able to open your door until you find your key.
 Press any key to continue...
 
-
 Standing beside your neatly-made bed, you begin to have a look around the room and spot one of your old math books on the floor. That doesn't seem too out of the ordinary since math never was your best subject. Each drawer of your dresser is properly closed, just as you left it, and there isn't anything sitting on top of it. As you continue to scan your bedroom, you notice that something doesn't seem quite right with your desk. Among other things you notice that your radio has been moved a tad to the left.
 
 > open book
@@ -183,7 +182,6 @@ You climb down the lighter and make your way into the tunnel. You move the torch
 Part Three - You've managed to make it to the second church, but you still have a long way to go on your jouney.
 Press any key to continue...
 
-
 You have a look at your surroundings only to discover that the basement of this church is much more eerie than the first. The damp, heavy air that fills the vast church basement makes it harder to breathe and the dusty floor and walls aren't helping much. As you look around, you notice that there are several large tiles lining each wall. Many of them appear to have olde English writing on them but it's too dark to make out what any of them say from where you are standing so, instead, you decide to look for a way out. While doing so, your eyes happen upon a black coffin leaning against one of the walls. Its lid is slightly ajar but you cannot see inside of it.
 
 > open coffin
@@ -286,18 +284,14 @@ Through an almost ghostly fog, you observe several rows of large tombstones thro
 You look at the man standing between you and the path to continue. You decide to ask him if he will move out of the way.
 Press any key to continue...
 
-
 He answers back.. "My name is Hugo Sawyer, I've been stuck in this grave yard for some time now. It's almost as if I've been cursed."
 Press any key to continue...
-
 
 "I shall not move for you, unless you can do something for me."
 Press any key to continue...
 
-
 "There is a grave around here, it shouldn't be to far away. If you can find it, use the shovel to dig it up. In it you'll find a ring, if you can get me the ring I'll let you be on your way."
 Press any key to continue...
-
 
 Your not quite sure where to look for this grave Hugo wants you to dig up, but you note that he said it shouldn't be that far away.
 

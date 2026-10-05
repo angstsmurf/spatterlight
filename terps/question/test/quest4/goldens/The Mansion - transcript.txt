@@ -9,7 +9,6 @@ A few days later, you learn that you have inherited everything your uncle owned 
 Press any key
 
 
-
 *** THE MANSION ***
 
 
@@ -3584,7 +3583,6 @@ You are just about to investigate, when the lift suddenly rattles upwards! You r
 At the bottom, a man in a black suit steps out and takes off his dark glasses. He starts to speak:
 "Thank you. You have been most helpful. We could not get into this lab because your uncle left such a complex series of locks and puzzles to stop us. Now you have opened the way for us. We need valuable chemicals from this lab to further our research. With your help, we have got them. Now we must decide what to do with you. You know too much for us to let you go. You can either come and work for us (your brilliant mind would be most useful to us.) or you can die, just like your uncle. The choice is yours..."
 Press any key when ready
-
 You are in the Lab.
 There is a Man in a black suit here.
 You can go south.

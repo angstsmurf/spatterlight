@@ -10,7 +10,6 @@ ESPER: The Secret of Drom Bennacht, vv.1.2 | ESPER
    You finally pull up to the front gate, which swings slowly inward to allow you passage. As soon as you drive through, it shuts tightly and leaves you in front of the mighty fortress of Drom Bennacht, alone with your thoughts. 
 Hit any key to continue...
 
-
 You are in the  Front Yard.
 You are standing in the front yard of Drom Bennacht. The rain here is falling so hard that you can barely see, but the great spotlights looking up at the tall stone walls of the castle give you some sense of direction.
 
@@ -49,7 +48,6 @@ The castle of Drom Bennacht has for years been the ancestral home of the Winters
 The current residents of Drom Bennacht include Laird Winters himself; Angus Winters, the oldest living member and patriarch of the Winters clan; Jennifer Winters, sixteen-year-old daughter of Jonathan Winters; Moira McKinney, the head maid at Drom Bennacht, and James Monroe, active butler since the later days of Laird Angus' headship of the castle.
  
 Press any key to continue...
-
 ESPER has been called to investigate Drom Bennacht because, of late, old Angus Winters has from his deathbed heard the calls of the Bean Sidhe, the Banshee of traditional Celtic lore. In such stories, the howls of the Banshee signify the impending death of a member of the family. 
   
 The investigator to whom this case is given has one job: discover whether or not the sounds attributed to the Banshee are real, and perhaps attempt to gain evidence of said creature.
@@ -770,7 +768,6 @@ You have alerted the robed figures!
 You stand before the very gate of darkness, in a standoff between its two servants.
 Press any key...
 
-
 "Fool," the robed man says. "I do not know how you came to infiltrate the inner sanctum of the Elder Gods, but you will suffer greatly for it!"
 
 "Ha!" cries the woman, "he doesn't even know why the Elder Gods must be called!"
@@ -821,7 +818,6 @@ She holds out an ancient device to him, and he gasps. You have never seen one be
 Obviously upset that they were not freed, the Elder Gods move upon their once-faithful servants. What happens next should never occur in front of the eyes of any man. You thank whatever powers of good might exist in this world that poor, innocent Jenny was not awake to see what the gods now do to James Monroe and Moira McKinney.
 
 Press any key...
-
 The next morning comes, and the rain has stopped. Jenny wakes up, and looks up at you, wondering why you bear her in your arms out of the house.
 
 "I'm sorry," you say before throwing a match into the castle. The gasoline you have already poured throughout the entry hallway is quick to catch, and the dark secret which lies buried under Drom Bennacht will soon be burned to ash.

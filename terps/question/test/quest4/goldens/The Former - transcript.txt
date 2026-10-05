@@ -325,7 +325,6 @@ He passes out in front of you.
 
 You have found a clue.
 Press any key.
-
 You are in City Pub.
 You can go to Interrogate Bartender or Interrogate Barfly.
 You can go east or west.
@@ -539,7 +538,6 @@ You have found a clue.
 > does the word latter mean anything to you?
 No. Get out of my shop.
 Press a key.
-
 You are in The Ghettos.
 You can go north or east.
 These are the Ghettos, an area of substandard housing. Most the bots that live here work in the factories. Poor guys. Basically all the houses here are apartments, some og the windows are barred or planked up. It seems quite dark here, probably from the smog from the industrial region.
@@ -804,21 +802,14 @@ The mines are getting colder, darker, and are attaining a foul odor.
 
 
 You have found a clue.
-
 You are at your Office.
 You can go north or south.
 "Alright, 10. So far we have a lot of confused data, so let's go over what we know. Someone wanted to meet you at the bar for some reason, we're assuming it has to do with the murders. We are sure that  both robots were killed by the Latter."
-
 "The diary you found tells us why the girl was killed, but what was she doing in that mine? Perhaps a body dump. As for the one at the bar, we can tell he was beaten and tossed in the dumpster, but we have yet to find a motive for his death."
-
 "It's also hard to pinpoint a time of death, as the woman from the shop says she han't sold any foiling lances in six months."
-
 "The information about the Latter you got from the repair droid is interesting, but unfortunately so far hasn't told us anything of real value."
-
 "And how does the factory fit into all this? What were we doing there? And why oh why did you clear your memory?"
-
 "Actually, come to think of it, we aren't even sure you were working on this case at the time your memory was wiped. The database says the Latter seem to have disbanded, so whats the point in continuing? Still, a part of me can't ignore the dead bodies."
-
 "The best thing to do right now, perhaps, is to track the latter down. Then we can put this to rest without feeling guilty. A good place to look for information might be the brother of the girl in the mines, her diary said he had close ties with the Latter. He may have even been a member, that would explain why he lives oin third."
 
 > north
@@ -1082,16 +1073,12 @@ You pick it up.
 > x journal
 As you flip through the pages, memories come flooding back. You remember everything, or at least you think you do. Reading the journal tells whats going on. 
 You don't quite remember what happened, but somehow, your parameters were deleted.
-
 The Latter must have found out about this, as a member contacted you a short while after; you hadn't left your house since the incident. They wanted you to join. Seduced by by power and coupled with the fact that your logic systems were corrupt, you accepted. Your first job was simply to prove that the parameters had indeed been lifted, by killing a random person from the bar. Withought being caught, of course. They gave you a weapon, said they had modified it themselves. You killed the man, engraved the word latter into his arm, and returned as instructed.
-
 They gave you a new weapon and instructed you to kill a new person, a girl. You disposed of her and stashed her body in the abandoned mine. You were next told to kill her brother. You did so with great efficiency. The Latter were very pleased to have you on their side, but were quite disdrought with the arrival of a letter, claiming to have seen something horrible happen. You met with the small bot at the bar, the PDA. You were suprided to see that anyone would give a PDA the power of mobility, but you didnt ask. She led you out back and explained she was hiding in a garbage can when the incodent ocurred, but when the assassin left she saw a dead body.Of course she came to you, the detective. Once she saw there was no body in the alleyway anymore, you convinced her to come to the utility region with her, to see if the body had been disposed of by a garbage truck.
-
 You led her into the factory and destroyed her. Upon your arrival home, you apperantly wrote most of this down. Something was scribbled down very quickly and ilegibly about a reformatting, and that the process had already begun. You can't quite understand what you were trying to write there.
 "10, now that we know you've done a crime, we need to go back to the utility region to either confirm or deny your guilt. If we don't hurry, you'll end up deleting yourself."
 
 You rush Into your car and head for the utility region.
-
  Exit gate.
 You can go north.
 You run through the gate into the utility region, It closes behind you, and beeps red. Your antenna begins to vibrate. Already the process is beginning.
@@ -1118,7 +1105,6 @@ You look at the PDA, And quickly remember how you woke up. You must have dodged 
 You call out for Data to clear your memory, and she does so. You fall to the floor. With no evidence you've done anything wrong left on your hard drive, the deletion process stops.
 
 Press a Key.
-
 Factory Center
 You can go south or west.
 You awaken soon after feeling a tad hazy, and quickly realize you still have your memory, but the deletion process has halted. You may want to ask Data what's going on.
@@ -1262,7 +1248,6 @@ This is the elevator in the science center, there are many buttons flasing. Ther
 It fits, and the elevator doors close.
 
 Press a key.
-
 
 The elevator goes down to a small complex, formerly that of the Latter. The light here is insufficient at best. You exit the elevator, and immidiately in front of you is a wooden door with the image of a CPU carved into it. You walk in, expecting to see a mob of criminals, but instead see no one. The database was right, the Latter had long since disbanded, but for what reason you do not know. On a nearby shelf, you see a note.
 

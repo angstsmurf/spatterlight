@@ -10,7 +10,6 @@ Story of an unfortunate boy
 -press any key to start-
  
 
-
 Instructions:
 
 This is a text-based adventure. You must type the action you want to take in the typing area at the bottom. For example, if you see a chair and wish to examine it, you may type "look at chair"; or if you want to talk to a doll, you should type "speak to doll". You can "look at" or "speak to" anything that you will see, but you may also try to perform other actions, such as "kiss baby", "eat candy", or "kick dog" etc. Interact-able objects are always listed in the right-hand side box.
@@ -20,7 +19,6 @@ You must also pick up certain objects to help you escape. For example, if you se
 Finally, to advance to a different area, you may type "go to kitchen", and if you want to check your surrounding, just type "look". To see these instructions again, type "help". Good luck, and let the prison break begin.
 
 - press any key to begin -
-
 
 
 You find yourself in a very dark place. You hear some children singing a Christmas carol. You want to take a look, but you cannot move. Apparently, you are being locked inside some kind of a cardboard box.
@@ -287,7 +285,6 @@ Now that the plastic body of the pen is broken, you are only left with the ink c
 
 - press any key to continue -
 
-
 "Look, right here," she points to another lower cabinet and says. This cabinet has a glass door, thus you can easily see inside. Apart from the coffee mugs and wine glasses, there is also a butter knife left on the top shelf. The metallic butter knife would work as a perfect lever, but you have to find a way to get it out first. You try to open the glass door, but it is locked.
 
 > look at ink cartridge
@@ -354,7 +351,6 @@ You don't really want to leave her, but it is she who doesn't want you in the fi
 You must leave this place. There is no reason for you to stay anymore. It is just too painful to see her playing with other dolls, when you alone have to stay inside a cardboard box in the storage room. You must escape right now.
 
 - press any key to begin your final escape, ninja style! -
-
 What should you do first?
 1) Sneak to the corner where the Pucca doll is sitting.
 2) Hide behind the sofa where Freda is sitting.
@@ -392,7 +388,6 @@ You want to get away from the joyful crowd, so you try to find somewhere quiet. 
 
 - press any key to continue -
 
-
 After a long and lonely while, you hear someone walking into the alley. Her footsteps sound fatigued and weary. A spark of hope lightens up your heart. Would it be Freda? Is she looking for you?
 
 And so you open your eyes, trying to take a look at the girl who still cares about you, but you only see a middle-aged man. His clothes are ragged and dirty, and he looks so tired. It seems like he is not a man with much money. "A teddy bear? What are you doing here, fella?" He holds you up and tries to pat the dirt off your fluffy body. "You're still intact and all. Why would anyone want to dump such a lovely doll?"
@@ -403,7 +398,6 @@ The man didn't put you down. Rather, he holds you in his arms and keeps walking 
 
 - press any key to continue -
 
-
 Suddenly, he makes a turn and walks down a set of stairs. He pulls out a key from his pocket, and unlocks the door at the bottom. Does he live here? Why would he live in such an unpleasant place? Oh yes, he must be too poor to rent a more decent apartment.
 
 If his clothes are old and ragged, this basement would have to be ancient. There aren't many furnitures in his home, and they are all damaged or broken to a certain extent. This man doesn't even have a television, and his only entertainment seems to be the worn books on the equally shabby wooden shelf - he must have picked them up somewhere.
@@ -413,7 +407,6 @@ If his clothes are old and ragged, this basement would have to be ancient. There
 "Don't be silly," the man smiles to his wife and says. "Where's Ameli?"
 
 - press any key to continue -
-
 
 "Daddy!" A little girl comes running in her scruffy pyjamas. It must be Ameli. Her eyes are brightened up the moment she saw you. "Who's that? Is it for me?"
 

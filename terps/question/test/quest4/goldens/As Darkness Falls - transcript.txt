@@ -5,7 +5,6 @@ You are a private detective.  You have recently heard that your friend, Henry Ca
 
 You drive your car, to the motel and pull up into the car park.
 press a key
-
 You are in the Car Park.
 There is a Car, a Jeep and a raised tile here.
 You can go north.
@@ -974,7 +973,6 @@ You light the rag.  The flaming bottle is ready to throw.
 > throw molatov cocktail
 Standing in the tunnel, you throw the bomb northwards into the gas-filled room and you leg it up out of the tunnel.
 press a key
-
 You are in the Garden.
 There is a fountain here.
 You can go north, south, east or down.
@@ -983,7 +981,6 @@ The garden itself is paved, with a large fountain as it's centrepiece.
 You dive behind the relative safety of the fountain as the chambers beneath you explode in a fit of flames.
 
 press a key
-
 
 As the dust settles you realise what you have done.....
 You have managed to save Betsy from the clutches of the evil zombies.

@@ -5,7 +5,6 @@ You have recently been enjoying a hike around the lakes in Canada.  Eventually y
 
 You are trapped in this campsite.  There is only one exit to the South, but that is where the noise was coming from.
 press a key.
-
 You are in the Campsite.
 There is a small wooden crate, the edge of the lake and muddy ground here.
 You can go south or west.

@@ -11,11 +11,9 @@ If you have any other questions or comments about this game, then you can contac
 
 Press a key
 
-
 You awake one sunny morning. You look at the time and notice that it is already 8:05! You are late to work again! This is the third time this month, your boss is definitly going to fire you now. You quickly change into your work clothes and jump into your car. Upon getting into your car, you notice a note lying on the passenger side seat. "How did that get there?" You open it up and read the note:
 
 Press a key
-
 
 "Your car will detonate at 8:08 this morning. Have a nice day!"
 
@@ -23,11 +21,9 @@ Woah! You quickly jump out of the car, and not a minute too soon. You hear a gia
 
 Press a key
 
-
 You get up and walk back into your house. You tell yourself that you should call your boss and tell him what happened, but then again, he will probably never believe you. So much for that idea.
 
 Press a key
-
 
 
 
@@ -86,21 +82,17 @@ You say, "Did you see anyone around my car this morning?"
 
 Press a key
 
-
 The man says, "Actually, I did. But I could not figure out who it was, he was dressed in dark clothes, and he probably came around at about 8:00 or so, and left a couple minutes later."
 
 Press a key
-
 
 You say, "Could you tell what he was doing with my car?"
 
 Press a key
 
-
 The man says, "Sorry, I'm too far away to tell. But here, take this key. It leads to a room on the second floor of this building. Up in the room, is a telescope. See if that will help you detect anything funny."
 
 Press a key
-
 
 You say, "Thanks for your help, I'll see if the telescope can help." as the man puts the key on the table.
 
@@ -186,35 +178,28 @@ As you approach the man, he looks up at you and seems frightened to see you. He 
 
 Press a key
 
-
 You reply back, "I know what you have done. Don't think you can get away with what you have done to me this morning. Of course you would have had to know that I would discover that it was you who put the car bomb in my car."
 
 Press a key
-
 
 The man looks back up at you and says, "What are you talking about? I have never seen you in my life."
 
 Press a key
 
-
 You say, "What? Didn't you try to kill me this morning when you put a bomb in my car?"
 
 Press a key
 
-
 The man says, "I don't know of any bombing on your car. I jumped out of that window because I dropped my watch."
 Press a key
-
 
 You reply back, "Oh, sorry to have bothered you then. But out of curiosity, did you see anyone around the apartment building this morning that was messing around with my car?"
 
 Press a key
 
-
 The man says, "Yes I did, he had a kind of grey colored mustache, and he was wearing a hat that was tilted to the side a little bit, and a pair of blue jeans. Thats all I could see."
 
 Press a key
-
 
 You say, "That's my boss! How could he do such a thing! Thanks for the information man."
 
@@ -246,7 +231,6 @@ You walk into work and the first person you see is your boss. Good, now to settl
 You say, "YOU! You were the one who tried to kill me this morning. You were the one who has put me through this whole mess of trying to find out who tried to kill me. You are going to pay big time now."
 
 Press a key
-
 
 Your boss says, "Oh ya? So what if it was me who tried to kill you. I am sick and tired of you being late to work. So I knew you would be late again so I placed a bomb in your car. But unfortunatly, it didn't kill you. But what are you gonna do about it?"
 

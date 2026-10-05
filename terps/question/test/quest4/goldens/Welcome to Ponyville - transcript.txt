@@ -6,13 +6,11 @@ You wake up to a roaring thunder above. The clouds boom and rain falls down on y
 You squint your eyes and finally make out what you look like.
 
 
-
 1) Female
 2) Male
 [choice] 2
 You are most likely not female.
 You slowly feel your strength returning. You push off of the ground and stand up. Your memories come back to you but everything is still blurry. You try to remember more about yourself.
-
 
 1) Earth Pony
 2) Pegasi
@@ -21,14 +19,12 @@ You slowly feel your strength returning. You push off of the ground and stand up
 You remember that you are an earth pony. A pony specializing in your strength and craftsmanship without wings or a horn.
 You blink. Your head is finally cranking again. You remember who you are and what happened. The realization sends an element of distress down your whole body. Only to be topped off with what you just noticed before you.
 
-
 Several giant boulders were piled on top of a now destroyed cottage in front of you. Several of the towns ponies were gathered around the destruction. They all then scattered again when a loud screeching was  heard and several large shadows passed over the plains. You stumble getting your footing and try to get away. You gasp as you feel something solid and cold press against your backside. You turn to see what it was. It was a tan girl earth pony with a messy brown short mane. 
 
 "It's alright." She tries to comfort you while looking back into the sky. "They're gone." 
 She then turned back to you and huffed. "How could you sleep through all of that racket anyway?  You're lucky I pulled you out of there or you'd be a pony pancake right now!"
 
 Apparently she saved you. You asks her what happened.
-
 She blinks. "Wha- You don't even know? Some huge things flew over town and just started bombarding us. Dropping boulders and stuff. Its not as bad as last month though. They haven't tried to take any of us this time. How could you not know that? Its been all in the newspapers!"
 
 She sighs and looks back at the damage.
@@ -36,12 +32,10 @@ She sighs and looks back at the damage.
 
 
 
-
 You asks her what she means. She turns back to you and grins.
 "Oh you haven't heard? I heard that over there in the cities near Canterlot, they don't get it half as bad as we do.  In Equestria. Ponies have these big ole farms and plains and they are hardly ever bothered by anything! That's what my sister says anyway. She sells pears there in Ponyville. That's where I'm going. ASAP! Ponyville! I can't take living here anymore!"
 
 She huffs and moves  off to check on the rest of the citizens to calm them.
-
 
 It's time for your journey to begin. To the right are controls that move you around the world.
 You can also type "Move *direction* if you would like.
@@ -63,7 +57,6 @@ You try to follow her but you instead collapse and black out.
 
 Press anything to wake up.
 
-
 "Hey! Wake up!"
 "Come on sonny. Its time to wake up! We're almost there!"
 You are The Scattered Plains.
@@ -75,19 +68,16 @@ You wake up to a face full of hay. You shake the stuff off and sit upright. You 
 You then remember everything. You had decided to move to Ponyville like that pony had suggested. Its already been 2 days since the incident and this pony had offered to take you there for a small fee.
 
 
-
 You look over the horizon to notice that a rather large town is in view. That was it. Ponyville. The famed city of Equestria. Your new home.
 
 The brown pony laughed. "Wow, I ne'er get tired of that sight. You're gonna love it here. Its got something for everyone."
 
 The brown pony keeps pulling and waves to some ponies tending to the grasses outside of the city. 
-
 He begins to speak again. "You know you haven't talked at all since we started this journey. Now I don't mind the silent type but I figure I could at least ask you what you're planning on doing in Ponyville."
 
 You tell him you're unsure at the moment and he chuckles. "Well what are you into then? Like I said, Ponyvilles got something for everyone."
 
 You are still unsure how to reply. You try to be as general as possible.
-
 
 1) Academic
 2) Athletic
@@ -104,7 +94,6 @@ You hop off the carriage and thank him.
 He says goodbye and continues down the rode.
 You turn to see that he dropped you at a location called the Supermare. An apartment complex. You head inside.
 
-
 You are in The Supermare.
 There is front desk pony here.
 The room is very homey. Decorated with a very old and stylized wood. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in.
@@ -118,7 +107,6 @@ She smiles and starts typing something.
 "Its always so nice to get new citizens to stay here! Now I just need your name."
 
 You tell her your name and she enters it.
-
 
 
 "Okay. That's it. Welcome to the Supermare!"
@@ -137,7 +125,6 @@ The desk pony sighs. "I forgot mother. I'm sorry."
 
 
 
-
 The older pony sighs.
 
 "Periwinkle. I know you want more and more customers but you can't be so naive and careless."
@@ -153,7 +140,6 @@ Periwinkle starts typing some more stuff while the senior pony takes a good look
 Periwinkles sad face faded and she jumped up with joy. 
 "Right away mother!" She didn't even bother going around the desk, she leaped over it with a bright smile. 
 You follow her down the hall to your new place.
-
 Eventually you and Periwinkle make it to your apartment room. She opens the door for you and gives you the keys.
 
 "Thank you. Thank you so much!" She says and walks back towards the front.
@@ -173,7 +159,6 @@ You decide to go to sleep for now.
 
 Tomorrow is your first day in this new city. What adventures await you? 
 Press anything to sleep.
-
 
 As you drift to sleep you remember something about yourself.
 Your STR is now 3!
@@ -196,7 +181,6 @@ AGI -  Agility is how fast you are. The higher it is, the more likely you are to
 WIS - Wisdom is your magic ability. Believe it or not, even pegasi and earth ponies have a small amount of magic.
 
 type STATUS anytime to read this again.
-
 Because you are a male, your STR gets a bonus of + 2!
 Your STR is now 5!
 Because you are an earth pony, your STR and Dex gets a bonus of + 2!
@@ -212,7 +196,6 @@ You are in Your Apartment.
 You can go east.
 Wakie Wakie. Its 8:00 in the morning.
 
-
 > east
 You are in The Supermare.
 There is Periwinkle here.
@@ -222,13 +205,11 @@ The room is very homey. The walls are painted a warm orange and the floors red. 
 > speak to periwinkle
 Periwrinkle smiles at you and shows you a picture.
 
-
 You want to laugh until you realize that she seems proud of the picture.
 
 "I made this for you since this is your first day in Ponyville. See that red box with the orange circle? That's where we are."
 You smile nervously and take the map.  She continues.
 "I wish I could give you the tour but I'm back on in 5. You have fun!"
-
 
 Just as you go to turn around. Periwinkle's face brightens up.
 "Oh! I forgot! The Princess is in town! You might want to go meet up with her! She's visiting Sugarcube Corner for breakfast!"
@@ -271,7 +252,6 @@ There is Princess Celestia here.
 You can go south.
 You find yourself in a sweets shop of many colors. Very Bright, very pink, very busy. The infamous Sugarcube Corner. You are sure you heard of this place before.
 
-
 As you enter into the pastry palace, you notice some ponies waving to you.  You become puzzled wondering who they were. As you move onward to inquire them, something bumps into your nose. Something hard and smooth. You back up and rub your nose and then notice a presence  before you.
 
 A tall white unicorn with rainbow like flowing hair and a golden chestplate and crown looks down at you smiling.
@@ -279,7 +259,6 @@ A tall white unicorn with rainbow like flowing hair and a golden chestplate and 
 
 The ponies were not waving hello to you. They were waving goodbye to her.
 Your emotions flare up and you take a step back to let her by but she just smiles and stands still.
-
 
 
 Before you can apologize two tall pegasus dressed in royal golden armor step in front of the princess and confront you.
@@ -310,13 +289,11 @@ The princess is asking you a question.
 Time seems to stop as you remember something.
 Press anything to remember.
 
-
 As you face royalty you remember something about relationships.
 There will be certain times when others will want to talk with you. How you reply to them will directly effect how they react and how your relationship with the character will build. Your race, gender and major may also effect how your relationship increases or decreases.
 
 Always choose your replies carefully to avoid making too many enemies in this new town.
 Your head clears up and time seems to continue again. The princess asked you if you were new in town. How will you reply?
-
 
 1) Yes Ma'am!
 2) ...
@@ -329,12 +306,9 @@ The princess bows her head again. You really wish she would stop doing that.
 "It's a pleasure to meet you. Welcome to Ponyville. Now if you'll excuse me, I have to tend to some buisness. Also sorry if you came for breakfast but the Cakes are wrapping up the get together. And I've got to say, I ate like a horse!"
 
 She giggles softly and you let out a nervous smile as you stand aside and let her continue out.
-
 You sigh as she leaves. Then a pony pushes her hoof against you chest. She is a yellow pony with an orange poofy mane. She smiles at you saying "Welcome to Ponyville!" as she follows the princess out the door. Several other ponies welcome you to the town as they leave as well. You just missed a free breakfast and your stomach starts growling as 2 other ponies follow the line outside. One was an orange pony with a long yellow mane tied back. She was wearing a kind of western hat and she had freckles on her cheeks. The one behind was a white unicorn with a stylish purple mane and blue makeup on her eyes.  The two of them stopped by you as the others passed by.
-
 The orange pony pushes you on the chest just like the other one did and begins to speak in a strange southern accent. "Well shucks. Ya'll is new to Ponyville?  Welcome to the bushel." She laughs softly. The unicorn begins to talk after her. "Now Applejack, you should be a little more kind to the newcommer. No shoving. Any way darling. It is always a pleasure to see some new faces here."
 She nods her head and heads out the door.
-
 You turn back to Applejack and she pushes you on the chest again. "Rainbow Dash. Come get a look at this one!"
 A blue pegasus with a spunky rainbow mane rushes over to look at you. "Yeah what?"
 Applejack pushes your chest again.
@@ -343,16 +317,12 @@ Rainbow Dash pushes your chest as well. The two keep pushing you until you start
 You finally ask them to stop and they heed your request.
 
 Applejack continues out the door laughing.
-
 "Hi there. Uh welcome to Ponyville. Okay? Gotta fly!" 
 She says before swooping out the door.
-
 Next up two other ponies follow. One is a yellow pegasus with long pink hair. She and the purple unicorn behind her both pass you by without even a peep. They both seemed to be preoccupied with something.  You look back into the store to notice that those were the last ponies to leave. There was a taller yellow pony cleaning up the party and a rather pink pony waving good bye to everyone else. She walks up to you and reaches out to shake you hoove.
-
 "Hiya! Welcome to Ponyville and SugarCube Corner! I'm Pinkie Pie! What's your name? I must know because I know everypony but not you and If I don't know you then how can you say that I know everypony? Huh? It wouldn't make sense would it? It would be like saying we make the best cakes in Equestria but we can't cook! I'm not saying we can't cook though! Don't get the wrong idea! We can cook all kinds of things like cupcakes and chocolate cakes and pastries and cotton candy, well we don't actually make cotton candy and sell it but sometimes I like to order some for a snack! You know what I mean right? Of course you do! I mean who doesn't love cotton can-"
 
 The ecstatic pony finally stops talking when she notices the larger male calling her over. She smiles and waves over to him. "Just a sec Mr. Cake!"
-
 
 She finally stops shaking your hoove but she continues on. "I gotta say, I thought you were actually in trouble for a second. Wouldn't that have been something. Anyway. I gotta go help the Cakes. I hope to see you later!"
 
@@ -402,7 +372,6 @@ Curses. Your cover is blown. Celestia and the guards turn to see you. She smiles
 
 "You wouldn't happen to be stalking the princess now would you?"
 
-
 1) You caught me!
 2) No no not at all!
 [choice] 2
@@ -444,13 +413,11 @@ You carefully continue into the tree...house but you stop moving forward as some
 
 You hear a voice from somewhere.
 "Oh. Excuse me Twilight. Wait.. Twilight's upstairs. You're not Twilight!" 
-
 You finally decide to look down to become face to face with a rather short purple and green individu- Is that a dragon?!
 You examine the little thing more and more. He just stands there confused. "Uh..Hi." He finally speaks up.
 
 No doubt about it. This short sap is a baby dragon!
 He scratches his head unsure of what to say. You speak up to break up the awkward silence.
-
 
 1) Wow! A baby dragon!
 2) Are you a baby dragon?
@@ -460,10 +427,8 @@ The little guy blinks and then wears a huge grin.
 "Yeah I get that reaction a lot around here. Well I used to."
 He then calls out to someone. "Uh Twilight! I think some pony is here for you!"
 You hear a huge groan and then the thundering sound of hooves rushing down the stairs. The same purple pony you bumped into before faces you both with a rather iritated looking expression.
-
 She looks over you and then finally starts up. "Uh can I help you?"
  
-
 
 
 1) Celestia sent me
@@ -479,10 +444,8 @@ She sighs again. She seems to do that alot. "Spike have you already introduced y
 The little dragon scratched his head and looked to you. "Well you already told him my name Twilight." 
 He walks off to put up some books that had just recently fell down leaving the two of you alone.
 
-
 Twilight watched Spike walk off and the two of you stayed quiet for a second. She kicked at the ground and begun to speak again.
 "So you liking Ponyville so far?"
-
 
 1) Its...alright.
 2) I like it.
@@ -491,7 +454,6 @@ Twilight watched Spike walk off and the two of you stayed quiet for a second. Sh
 Twilight grinned slightly. "Well that's a good thing!" She laughed nervously.
 
 Twilight continues on. "Yeah it certainly is an..interesting town. All kinds of stuff happens here. You'll find plenty of excitement here." She chuckles a little.
-
 
 Twilight gets a good look at you one more time before speaking up again. "Alright. I'll do it! Celestia obviously wants me to give you a tour of the town doesn't she?"
 
@@ -518,7 +480,6 @@ You find yourself in a sweets shop of many colors. Very Bright, very pink, very 
 You and Twilight look around. Only the taller yellow pony from before was there sweeping up the party. Twilight raised an eyebrow. "That's weird. She was here a second ago." She went over to ask the lonely pony while you sat by the door waiting. Twilight returned.
 
 
-
 "Mr. Cake says she and Mrs. Cake had to deliver something. We'll have to come back later. Maybe we should go find Rainbow Dash next then."
 
 > south
@@ -531,16 +492,13 @@ You wanted to ask her what she was looking for but you already answered your own
 That blue pegasi with the rainbow colored spiky mane was buzzing around over the market district. 
 "Rainbow Dash!" Twilight called out to her. The pegasi turned toward you both and quickly descended. She flapped her wings
 slowly as she came to a landing and finally plopped down. 
-
 "Hey Twilight." She replied.
 "Who's this?"
 
 Twilight sighed. "You mean you already forgotten?"
 Twilight coughed and spoke up. "You two already met right?" 
-
 You both nod. You explain to Rainbow Dash that you're new in town and where you were from. She just let out a loud laugh.
 "You're from there? I heard only hardcore ponies live outside of Equestria. You got any stories?"
-
 
 1) I once got in a fight with a giant warthog!
 2) There's always bad stuff happening. Robberies, Murder...Yeah.
@@ -574,18 +532,15 @@ There is Rarity, Sweetie Belle and Torn Hat here.
 You can go northwest.
 The moment you two enter the boutique you hear a loud scream followed by a "HOW COULD YOU?!" 
 You and the alarmed Twilight rush in to see what happen. You see the stylish white unicorn from before confronting a smaller child white unicorn with a light purple and pink curly mane. The older one continues fussing at the smaller one. "Sweetie Belle! I told you not to touch that! Do you have any idea how long it took to get the feather perfect? And the fabric! Just look at it. Ripped? How did you even manage that?" The younger one just looks down kicking at the floor. "I'm sorry Rarity. I just wanted to try it on."
-
 Twilight coughs loudly and the two both squeak at the sound not expecting a third or even fourth pony there.
 The older one quickly screamed out in panic "Customers?!" but then she realized who it was. Her expression softened and she picked 
 up the large purple hat she had been arguing to her sister about.  
 
 Twilight coughed again and then began speaking. "Rarity. I wanted you to meet the new pony in town." She motions toward you. Rarity however just looks you over without greeting you.
 "Its a pleasure to meet you." Rarity speaks up. "I am Rarity and this is my sister Sweetie Belle." The younger one comes from behind Rarity and smiles up at you. "Hi!" You smile back. 
-
 The four of you stay quiet for an whole 15 seconds of awkward silence before Twilight speaks up. 
 "So you both already met earlier right?" Rarity nods. "Why yes. we did.
 Rarity then all of a sudden levitated the torn hat and plopped down on your head. She pondered for a while. "Its yours." She smiled. "Consider it a welcome to Ponyville present! I have to start over anyway. The color is absolutely gawdy now that I think about it. My client probably wants something more..baby blue." 
-
 Sweetie Belle laughs at you. "You look silly in it!" You chuckle a little and Rarity and Twilight join in. Rarity walks up to you and nudges the hat a little and ponders some more. "You're not a bad model dear. I mean don't take that the wrong way but you should stop by more often. I could really use the help."
 Your Relationship with Rarity is now 2.
 
@@ -625,7 +580,6 @@ After a long journey along the dirt you finally arrive to a large farm.
 Twilight looks over to see what she was carrying. "You working hard again today Applejack?"
 Applejack  raises a brow. "This is just lunch Twi." 
 
-
 1) Didn't you just eat?
 2) That's a lot of apples.
 3) Introduce yourself.
@@ -644,12 +598,10 @@ You open the door to see Applejack sitting at a table with an big red male with 
 "Willie? Oh my my stars. Willie? Is that you? I haven't seen you since the old days Will!" 
 The bigger male shook his head. "No Granny its uh. Someone else."
 
-
 "Oh..That's nice. Welcome. This here is Lil Macintosh and AppleBloom my grandchildren. You already met Applejack." You nod to confirm. "You still remind me of some pony from back on the playground. That was so so long ago. I reckon none of you would know nothing about that." 
 
 Before Granny Smith can continue Twilight interupts her. "Mrs. Smith. We really do have to get going-"
 "And you Twilight. Why you take after your old mother. Always runnin around busy and what not. She was so sweet. Sweet like a pie. Oh! Pie!" She rose up from her seat and waddled over to her oven. Applebloom got up from her seat as well to get a good look at you. "You're funny lookin you know that?" You laugh nervously as Applejack darts a look towards her. "Applebloom! Be nice to our guest."
-
 Big Macintosh didn't say anything. He just looked down and ate the apple off his plate. Twilight sighed and motioned towards the door. "I'm sure we can talk more later Apple family. But we really have a tight schedule. Goodbye for now!" She pushes your shoulder and walks straight out the door. Granny Smith heard the door open and turned around to see that Twilight had already gone. "Yep. She's so quick. Just like her mother." 
 
 You said goodbye to family and then walked out to chase after Twilight.
@@ -695,7 +647,6 @@ You can go southwest.
 You and Twilight both arrive to the cottage. It appears that no one is home. Twilight however knew better then to believe on appearances alone. She proceeded in knocking on the front door. "Fluttershy. It's Twilight." She called out. The door slowly came squeaking open and and a worried blue eye peered out. "Oh, hi Twilight." a soft voice spoke as the door continued to open. There stood a very timid looking yellow pegasus with a long flowing pink mane. She turned to notice you and then took a step back. "Uh..Hi.." 
 
 
-
 1) Hi there.
 2) Can we come in?
 3) Open the door.
@@ -707,7 +658,6 @@ Twilight sighed seeing as the conversation was getting nowhere.
 Fluttershy raised a brow. "That's nice. Bunnies are nice." This didn't help at all. The silence just came back. Twilight just kept looking back at you and Fluttershy appearing to be more worried with every glance. You decided that someone needed to break the ice some how.
 
 
-
 1) Sometimes my thighs get itchy around bunnies.
 2) I like your hair!
 3) How about that Applejack huh? She's something.
@@ -715,7 +665,6 @@ Fluttershy raised a brow. "That's nice. Bunnies are nice." This didn't help at a
 [choice] 2
 "Uh...Thank you. I like your hair too. It's...it's nice."
 Twilight groaned. "Well that's Fluttershy. Thanks for having us Fluttershy but we're going to get going now. Take care." Twilight walked off again and you began to follow but Fluttershy spoke up. "Um...could you... could you wait for one second?" You turned around to face her again.
-
 
 
 "I'm sorry. I know you're new in town and I should say something but...um."
@@ -727,7 +676,6 @@ Was she?
 
 You wonder what she means and then you realize, the hat Rarity gave you. You had it on all this time?
 "I mean I didn't know torn hats were in style outside of Equestria. It was the first thing I saw." You chuckle a little. 
-
 "You know I could fix it for you if you'd like. I can get it back to you by tomorrow."
 She leans over and bites the hat and takes it off your head. "Imf prmise Ilf giff itf bck" She spoke through the fabric. "Thmf Ymf"
 She shut the door. You walk over to find Twilght again. She's nowhere in sight.
@@ -763,23 +711,18 @@ You are in Your Apartment.
 You can go east.
 Wakie Wakie. Its 8:00 in the morning.
 You nervously enter your apartment and close the door. Had something terrible happened while you were talking to Fluttershy? Was Ponyville under attack? Was there some kind of emergency? You can't stop your pony heart from beating rapidly. You turn around and you feel your heart stop at what lays in front of you.
-
 "SURPRISE!" You hear more then a dozen voices shout out in unison. A combination of chatter and music then begin to pound on your eardrums. You swear your heart stopped. When you finally regained your composure, you noticed that there were several of the towns ponies all celebrating in your apartment.  A big banner saying "Welcome" was hung on the window. That Pink pony from before bounced over to you and blew on a trumpet (yes a trumpet) in your face.
 
 She laughed and all the others joined her. "Welcome to Ponyville!" she then screamed. You looked around to  notice Twilight and all of her friends there laughing. Mr Cake walks up to you with a shorter chubbier blue pony with a curvy pink mane. She pushed your chest and laughed alongside Pinkie Pie.
-
 "I'm Mrs. Cake dear. I'm sorry about this but Pinkie does this for everypony and I mean everypony. Welcome to Ponyville and I'm sorry I couldn't meet with you earlier." Periwinkle then slid in the door behind you and pushed on your shoulder.  "If I told you Pinkie Pie didn't throw a party every day for someone or something I'd be lying. This is the first time I've ever had one hosted here though! How exciting!" She was clearly enjoying herself.  Some other ponie mares bumped their flanks into you as they passed by.
 
 You were still stunned. You didn't know what to say. All you could manage was a "Thank you?" and even that make Pinkie Pie smile. "You're welcome silly! You should have seen the look on your face! You were like WHAAAA? Hahaha!" Pinkie Pie bounced off to go dance with some of the other ponies. 
-
 You walked over to get a cup of punch and you ended up bumping into Twilight. She smiled nervously when she saw you. "I'm really sorry. Pinkie got me into this mess at the last minute." You just smiled back a nd drunk your punch. 
 
 This is only the first day of your voyage in the new town and you already love it here.
 What lies around the corner?
 
-
 The next day....
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -828,7 +771,6 @@ Before you can speak up Twilight interrupts you. "Sorry I'm actually a little bi
 You reply that you understand and asks if Spike is around.
 
 "Spike is off doing a few errands at the moment. He'll probably be back soon."
-
 "Anyway gotta get going. Feel free to look around if you'd like."
 
 
@@ -860,7 +802,6 @@ You are startled  by the voice and look around.
 You comply and look toward the sound of the voice. You see a familiar face. It's..Spike. He appears to be caught in a tree.
 
 
-
 You ask why he's "hanging around" up there. He doesn't appreciate the joke. 
 
 "What did you really think I just decided to climb up here all by myself? Really? "
@@ -868,7 +809,6 @@ You ask why he's "hanging around" up there. He doesn't appreciate the joke.
 He waves its arms to show that is clear that hes caught by his legs or tail.
 
 "I can actually get out of this pretty easily but it's such a long way down. You're going to have to catch me.. Alright?
-
 Will you help Spike?
 1) Yes
 2) No
@@ -884,7 +824,6 @@ You dive for him but you misjudge Spike's landing spot. Spike comes crashing dow
 
 Your Relationship with Spike is now 1.
 
-
 Spike and you look up at the tree after you hear another loud howl. The tree begins to shake. 
 
 "That tree is alive!" Spike exclaimed. "It was trying to make me its lunch!" The trees branches sway around as if they are trying to reach you two. You both get out the way before a branch comes crashing down into the ground. 
@@ -892,15 +831,12 @@ Spike and you look up at the tree after you hear another loud howl. The tree beg
 You and Spike make a run for it but some vines appear and block your path.
 
 You two turn around to face the tree that has now uprooted and was slowly moving toward you.
-
 You instruct Spike to try to run for it and he shakes his head. "No way. I want to help!" You order him to run and find Twilight. You didn't want the baby dragon to get hurt.  Spike frowns and then starts running. "I have a better idea. I'll get Zecora!" He blows up some flames from his mouth to scare the tree away and ends up getting past it.
 
 "Just hold it for now! I'll be right back with help!"
 
 He runs off and disappears into the forest.
-
 You pick up a dead stick with your mouth and face the enemy. 
-
 You are in Fighting the Corrupted Tree.
 There is Corrupted Tree here.
 The enemy usually has the iniative. They strike first. You can weaken it by attacking and using magic.
@@ -908,7 +844,6 @@ The enemy usually has the iniative. They strike first. You can weaken it by atta
 Attacking is a guaranteed sure fire way to damage an enemy  depending on your strength only while Magic is dependent on your all your other abilities. Magic may have some negative effects if you are not skilled enough. And remember, all ponies, even pegasi and earth ponies have magical abilities that can be learned.
 
 In between attacks, you will have a chance to look at the enemy  to search for weaknesses and even try to negotiate with it by speaking. However, these won't be carried out until after the next turn. They wouldn't be helpful in this situation anyway.
-
 
 > look at corrupted tree
 You look for a weakness. There isn't really one that stands out. It has no eyes or open vital organs. If you had some fire you could probably burn it. Good luck with that though. The best thing to do is just beat it with raw strength.
@@ -995,7 +930,6 @@ The trees hp is now -15 %
 The Tree stops swinging its "arms" and backs down, Its color begins to fade into a dark grey.  Its leaves crumble off of its branches untill they are have all fallen and it stands motionless.
 You are in Everfree Forest.
 You can go east or west.
-
 You sigh and catch your breathe as you stare at the drained enemy. Before you know it you hear a familiar voice. 
 
 "Whoa! You did it!"
@@ -1003,7 +937,6 @@ You sigh and catch your breathe as you stare at the drained enemy. Before you kn
 You turn to see Spike returning with a Zebra. Zecora. She looks up at the dead enemy. Spike continues on. "I was ready to shout HERE COMES THE CALVARY but you already took care of it! Wow you're pretty tough!"
 
 You shrug and then huff, walking towards them. The mysterious zebra speaks up. "This corrupted oak, I have seen it move. To think it would fall to the newcommers hooves." She smirks as she continues to look over it. 
-
 
 "However, next time you should not use such force. For a corrupted being like this, there is a better course."
 
@@ -1014,7 +947,6 @@ You really wish you could have had that help earlier.
 Zecora smiles again. "You two should return to Twilight, she would want to here all about this fight. Look to the path where the trees roots face south, and soon you will both find your way out." 
 
 With that Zecora walks toward her home and you and Spike heed her instructions.
-
 
 You are in East District.
 You can go west, northeast or southeast.
@@ -1030,8 +962,6 @@ Your Relationship with Zecora is now 5.
 
 Your Relationship with Spike is now 6.
 
-
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -1039,7 +969,6 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
 Because of yesterdays endeavors, you feel rested and now a bit stronger.
 Your STR is now 17!
@@ -1105,7 +1034,6 @@ Before you can speak up Twilight rushes up to you and smiles brightly.
 
 You tell her it was no problem and she calms down. "I feel I should repay you for helping him."
 
-
 1) We should go out.
 2) We should do it.
 3) We should go out and do it.
@@ -1113,7 +1041,6 @@ You tell her it was no problem and she calms down. "I feel I should repay you fo
 
 Twilight blushes. "You want to..go out with me? Me of all ponies?"
 "Yeah. I've got nothing to do right now. Lets do it. But can we go to this place in Canterlot? It would be perfect and its my favorite. I can vouch for your ticket."
-
 Go out with Twilight?
 1) Yes
 2) No
@@ -1125,7 +1052,6 @@ Spike inquires "Can I come too?" in which Twilight just huffs. "Spike this is a 
 Spike shrugs. "Whatever..."
 
 The two of you walk towards the train station.
-
 You are in Canterlot Square.
 You can go north, south or east.
 This is Canterlot. Royal city of Equestria. The streets are full of fancy looking ponies who are too stuck up to even notice you. If you head north, you'll eventually get to the royal gates.
@@ -1135,7 +1061,6 @@ Eventually you arrive at this fancy looking bar. Don't get the wrong idea, its a
 You both sit down when a yellow earth pony wearing a green paper cap comes by to take your orders. You notice she has a blue and purple mane. 
 
 "Hey Twilight. What can I get ya?"
-
 "Hi BonBon." Twilight replies. "Just the usual except two of them for me and my friend here."
 
 BonBon looks at you and chuckles a little. "So you two on a date?" 
@@ -1153,7 +1078,6 @@ Twilight can't help but laugh. "Lyra went to school with me. She works at a jewe
 Twilight and you sit quietly for a while until she finally speaks up. "This isn't a date is it?"
 
 
-
 Is this a date?
 1) Yes
 2) No
@@ -1167,7 +1091,6 @@ BonBon returned with two pink, yellow and green milkshakes with a fiery sparkler
 
 You question what she means. Bon Bon dives in. "Her brother named a milkshake after her on one of her birthdays. It was pretty sweet. It was because she got into that school or whatever. Anyway enjoy your drink."
 
-
 Twilight blushes again. "S-sorry I probably should have mentioned that. But the sparkler does really add to the taste! Try it!"
 
 You take a sip from the shake. Its the weirdest milkshake you ever tasted. There's a blend of sherbet, vanilla and some other stuff. It taste great, its just a weird combination.
@@ -1179,14 +1102,11 @@ You nod again. "She's something else and she's so strong. I wish I could be like
  She takes another sip.
 
 You and Twilight continue to make small talk until both your ice cream glasses are almost empty.
-
 Before you know it, Twilight gets up from her seat. "Well I guess that's our cue to go. Don't worry, I'll take care of the bill. It was really nice talking to you. You should stop by more often. It's always nice to have someone I can just unload on." She jokes. 
 
 She lifts the two empty glasses with her magic and carries them over to the counter. Eventually she returns and you two take the train home.
 
 Your Relationship with Twilight is now 9.
-
-
 
 You are in Your Apartment.
 There is Futon and Calendar here.
@@ -1195,7 +1115,6 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
@@ -1221,9 +1140,7 @@ into farm grounds.
 > speak to cheerilee
 You go to greet Cheerilee and she instantly turns back and smiles. 
 "Hi there new pony! You seem to be well adjusting!"
-
 You quickly ask her why she isn't at the school. She nods to her bags. "I was short on some supplies. Besides classes don't start until another 10 minutes. Say why don't you come with? I can introduce you to some of the children if you would like."
-
 Go to class with Cheerilee?
 1) Yes
 2) No
@@ -1234,7 +1151,6 @@ Eventually you and Cheerilee arrive into a class of rowdy youngsters just in tim
 
 The children settle down and all look to you.
 
-
 1) Introduce yourself normally
 2) Lie to impress the kids
 [choice] 2
@@ -1243,13 +1159,11 @@ You introduce yourself and add the title "The Burly" to the end of your name.
 The students all look at you confused but Cheerilee just laughs nervously.
 
 You go on explaining to the students that you came from a town of harsh enviroments and fought hard to survive the nights. You paint the picture of an adventurer, a hero, and a guardian. Someone they can all look up to.
-
 One of the children in front chuckles softly to herself. She's a pink little thing  with a purple and white gently swaying mane. You also happened to notice she had a tiara as a cutie mark. 
 
 "Miss Cheerilee. Does this mean they didn't have much time for schooling?"
 
 The class uproars in laughter at the implication that you probably aren't very smart. Cheerilee chuckles a little but you can really tell she wanted to apologize for the little "angel" in her class.
-
 
 "Alright then. Please be nice to our guest. If you want you can take a seat at my desk and just listen along."
 You heed her instructions and sit down staring at the apple on her desk. Just as the thought of the apple came across your mind a familiar filly raised her hand. You look up to notice its Applebloom. 
@@ -1262,10 +1176,8 @@ As Cheerilee reaches into her bag, you are overcome with the challenge and speak
 The kids all together shake their heads no. Knowing what its like to be a kid, you'd do anything to get out of having to learn some more boring subjects. You'd rather see something you don't see everyday.
 
 
-
 "Okay then! The floors all yours!"
 What should you talk about?
-
 
 1) Music
 2) Magic Tricks
@@ -1277,13 +1189,11 @@ You go take it down and strum on it a little. It works perfectly.  You play a fe
 Your DEX is now 7!
 
 A bell rings signalling recess. You look at the clock and you're instantly surprised at how long you talked. The kids all ran together outside as fast as their  little legs could carry them. You turn to Cheerilee to apologize but instead all you see is her with a huge smile...that and her eyes closed. She had apparently fell asleep in her chair sometime during your presentation. 
-
 "She worthksth too hard." You hear a voice behind you. You turn around to see one of the kids. A girl with reddish orange poofy hair and big purple glasses looking up to you. "Shesth been likthis lately. " She says before walking back out the door. You turn back to the sleeping Cheerile who was yawning. The little girl must've woke her up. She wipes her eyes and looks to you. 
 
 "Oh I'm sorry. Thank you. I really needed that." 
 
 You ask her why she's so tired.
-
 "I was out all night trying to deliver homework and lessons to students who had missed class. I don't want them to fall behind. You understand." She yawns again and stands up. "No offense but I think you should take off for now."
 
 You look surprised. "I really shouldn't have you filling in for me like that. I think if I get another chance to then I just might let you!" She laughs and then looks in her desk. "Here this is for you. I owe you one." You look in the desk to see two 10 bit coins. You accept her gift and turn to leave. "Thanks again! You should come back around sometime again! It was really nice!"
@@ -1293,7 +1203,6 @@ Your Relationship with Cheerile is now 6.
 
 
 You end up returning to your apartment and sleeping the rest of the day.
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -1301,7 +1210,6 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
@@ -1325,7 +1233,6 @@ You can go north.
 > speak to train attendee
 The pony smiles. 
 "Welcome! The train departing to Canterlot will be departing shortly. Would you like a ticket? Just 10 bits!"
-
 Would you like to purchase a ticket to Canterlot?
 1) Yes
 2) No
@@ -1380,7 +1287,6 @@ You give Celestia the letter you received. She looks over it, levitating the con
 She sighs and puts it down. "I worry about her. Did you see her on your way here?"
 
 You felt like you knew who that figure was. It just struck you that it was Celestia's Sister, Princess Luna. You had heard about her before but just didn't make the connection. Celestia sighs.
-
 "She doesn't need to keep writing these notes. It only makes me worry more about her." A guards asks her if she would like to send a party to search for her. She shakes her head. "I know she'll be fine but I woudn't want her to become more upset." She turns back to you.
 
 "If you see Luna again then could you do me a small favor? Could you talk to her? Luna seems to be having troubles lately and she does not want to mention them to me or anyone in the castle. I feel like someone outside of the royal family could get through to her." 
@@ -1407,7 +1313,6 @@ You can go north.
 > speak to train attendee
 The pony smiles. 
 "Welcome! The train departing to Ponyville will be departing shortly. Oh! You still have your stub? Well since you're a resident of Ponyville, you can return for no charge!
-
 Head back to Ponyville?
 1) Yes
 2) No
@@ -1452,7 +1357,6 @@ You greet Big Mac who just nods and continues working.  You ask how he's doing a
 
 He sets the cart down and runs over to the mayhem. The apples were fine but the baskets would say otherwise if they could. 
 
-
 1) Offer to help resort the apples
 2) Offer to pull the cart back while he cleans up the mess
 [choice] 2
@@ -1466,7 +1370,6 @@ You nod and keep moving forward. You can't help but feel proud.
 
 
 Your Relationship with Big Mac is now 5.
-
 
 When you arrive you set the baskets down only to see little Applebloom come up to you smiling brightly. "Wow! You're working on the farm now? Brother and Sis never ask for help!" 
 
@@ -1484,7 +1387,6 @@ Big Mac nods his head to thank you.
 
 
 He begins to walk off and you head back home puzzled by why the chore took so long.
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -1492,7 +1394,6 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
@@ -1533,7 +1434,6 @@ You ask her what's wrong and she flares up. "You didn't need to go helping Big M
 
 
 You explain to her that Big Mac insisted that you helped. She still shakes her head.
-
 Applejack then lowers her head. "Sorting those apples out was a real help though. I guess I should thank you." She drops her basket of apples and smiles at you. "I know Big mac already threw you a bit or two but now is my turn.  I really owe ya one, took a work off my load. I can take a short break, let me get you one of our finest apple beverages!"  
 
 She walks off toward the house and you follow her.
@@ -1545,7 +1445,6 @@ You can go east.
 Applejack fixes you a drink that just so happens to be apple flavored. She sits on a stool across from you and takes a swig of the same drink in a bigger cup.
 
 "You know. We don't usually accept outside help. The farm is our pride and all."
-
 
 1) Apologize
 2) Imply that they need more help
@@ -1561,7 +1460,6 @@ You nod your head in agreement.
 She finishes up her drink in one gulp and moves outside before you can finish yours. "Come on slowpoke!"
 
 You put your drink down and catch up.
-
 You are in Sweet Apple Acres.
 There is Applejack and Big Mac here.
 You can go east or west.
@@ -1573,7 +1471,6 @@ Applejack stamps her hoof. "Okay part timer. I'm going to work the fat off of th
 Applejack won't pay you for working, but that doesn't mean you can't earn some experience working here.
 
 If you get strong enough, maybe she will become closer to you.
-
 Work with Applejack Today?
 1) Yes
 2) No
@@ -1582,9 +1479,6 @@ You work on the fields, applebucking with Applejack. After a while kicking trees
 Your STR is now 18!
 You don't tire as fast and you are able to work longer!
 Your STR is now 20!
-
-
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -1592,7 +1486,6 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
@@ -1623,7 +1516,6 @@ You can go northwest.
 You greet Rarity and she just sighs back at you. Rather loudly in fact. You asks how she's doing and she just groans.
 
 Before you can asks your next question she apologizes. "I'm terribly sorry, I shouldn't be showing you this...attitude. I'm just really stressed about something right now."
-
 Sounds like a quest. Inquire further?
 1) Yes
 2) No
@@ -1632,7 +1524,6 @@ You ask Rarity what could possibly upset her. She lays over the sofa. "I'm havin
 
 You ask if its contagious. She just chuckles slightly. "No not at all. I have this client you see and everything I try to sell to her she keeps turning down. I'm really trying to take her critique seriously but I just can't seem to make anything that looks fabulous enough while following her lead."
 
-
 1) Did you try adding more diamonds?
 2) Can I see it?
 [choice] 2
@@ -1640,7 +1531,6 @@ Rarity sits up. "Oh..well okay.."
 You follow Rarity up the stairs and into her work area to see a light green dazzling gorgeous dress being worn by a mannequin.  The pattern  seems to have shapes of dancing leaves on the ends and the colors slightly from a lime green to a bright yellow.
 
 "It's......" you start up just to be interrupted. "Horrible isn't it?" Rarity says and sighs.  "The original design was much better but I had to take a bunch off and add more on.. I..I just don't know."
-
 
 1) Go back to the original design.
 2) Trash it and start over.
@@ -1652,17 +1542,14 @@ You ask Rarity about the client. "Uh.. she says she wants this to be for some ki
 Rarity directs you toward a piece of paper on her desk. "That's the original design."
 
 
-
 You look over it. A blueprint for the dress shows it had a lot more accesories from the start.
 Rarity sighs again. "I think I'll just redo it."
 Rarity looks down one more time and then looks back up and smiles. "In any case I can work on it later, I'm exhausted. Would you like to join me for a drink?"  You follow her back downstairs and watch her prepare something for the both of you using her magic and mixing in a bunch of juices and ingredients. Soon she comes back with a chilled  drink full of crushed ice, yellow at the top and red at the bottom.
 
 "I hope you like it, it's my moms special..well with a little tweaking of course."
-
 "I have to apologize for not being able to spend more time with you, I'm just always so busy with Sweetie Belle and/or work." 
 
 You ask if she enjoys her work. "It's stressful at times..but..I wouldn't..no. Couldn't trade it for anything in the world. Though I couldn't say the same thing for my sister." She chuckles but you still can't tell that it was a joke. 
-
 You notice that Rarity has been staring at you for quite a while since she delivered your drinks.  "You know, you just moved in a few days ago right? You don't have any work yet do you? I could use a little help with work, modelling, assiting, that sort of thing. I couldn't pay you much but it sure would give me an excuse to get to know you more."
 
 Before you can answer she stands up.
@@ -1674,7 +1561,6 @@ You feel you can't say no at this point with her gleaming like that. If you come
 
 
 You doubt it will be a quick thing.
-
 
 Work with Rarity today?
 1) Yes
@@ -1689,8 +1575,6 @@ Your KNO is now 5!
 You assist Rarity for the day, carrying things, holding parts and just being helpful. She manages to talk your ears off at the same time.
 
 
-
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -1698,15 +1582,12 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
-
 Well, you would usually do that every day, however you realize the sun light hasn't breached your windows yet. You look outside to see that it's still dark out. 
 
 You scratch your head wondering why you woke up so early. It seems to be a little bit past midnight.
 
 You try to get back to sleep but you don't succeed so you instead walk outside for a little stroll.
-
 You are in Town Square.
 You can go north, south, east or west.
 
@@ -1716,7 +1597,6 @@ You wonder around Town Square at night with the street completely silent. You'd 
 You sit down and look up to the full moon behind a tall building. It's shining with a bright yellow. It entrances you and leaves you just staring at it for a few minutes. 
 
 All of a sudden, a sound like a flap breaks your concentration. You swiftly turn to see what it was.
-
 "Oh"
 A figure lands right by you. You notice it's that same hooded figure you met at Canterlot. 
 
@@ -1725,7 +1605,6 @@ A figure lands right by you. You notice it's that same hooded figure you met at 
 You ignore her words and adress that Princess Celestia told you about her. The figure stops her ordering and places her hoof to her mouth. "Ah. So it was you."
 
 Her hood levitates off of her head to reveal herself to you. A tall dark blue horned pegasi with long flowing clear blue hair looked down to you. It was her, Princess Luna.
-
 
 
 "We must thank you for delivering that letter to my dear sister. I am her sister, Princess Luna."
@@ -1739,7 +1618,6 @@ You mention that you weren't going far and that you just wanted to take a short 
 She looks down at you and then quickly looks away. 
 
 "Well I..we don't think it will be too much of a problem. Just stay out of trouble."
-
 She flaps her wings ready to take off. "We must return to Canterlot.  Please do be careful."
 
 You tell her to wait, remembering what Celestia told you. Without thinking you asks if maybe it would be okay to stroll around at night if she watched over you.
@@ -1753,13 +1631,11 @@ Your Relationship with Luna is now 3.
 
 
 
-
 The next day....
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
-
 You open your eyes, sit up and stretch to greet the new day.
 You open your eyes, sit up and stretch to greet the new day.
 
@@ -1843,7 +1719,6 @@ Everything happens so fast but next thing you know, a zebra is holding a staff i
 "Intrumfderf! Heremf! Amf Alomf! Homf Darmf Yumf Inmfvamf Mff Hmff!"
 
 You can't make out the words and you're unsure how to reply.
-
 The zebra shakes her head, groans and then spits the staff out of her mouth.
 
 "Intruder! Here! And Alone! How dare you invade my home!"
@@ -1852,7 +1727,6 @@ You apologize mentioning that you had just taken a wrong turn and was lost in th
 
 "Even so a stranger you are still. Why have I never seen you in Ponyville?" She interrogates. You explain that you just
 moved in to town a few days ago. She sighs and groans again. Her face then lightens up. "Follow me, do not dismay. I know the path, I've learned the way." She continues out the door without saying anymore words.
-
 You are in Bridge to the Forest.
 You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
@@ -1961,16 +1835,13 @@ Its your apartment.
 
 > look at futon
 If you go to bed early, you can probably catch Luna on her patrol.
-
 Go to bed early?
 1) Yes
 2) No
 [choice] 1
 
-
 It's a  new day!
 Midnight
-
 You open your eyes, get up and go for a night stroll.
 You are in Town Square.
 You can go north, south, east or west.
@@ -1983,7 +1854,6 @@ After about 20 minutes of just staring, the familiar figure passes by. You make 
 Luna eventually sees you and lands next to you. "Good Evening..uh..Morning. Thou..you were truly..not lying when thou...you said that you would be here."
 
 You asks her what's wrong and she huffs. "That sister of mine has been trying to teach us to speak properly. You see we were..gone..away from Ponyville for quite some time. About 1000 years."
-
 
 
 1) Wh-How old are you?!
@@ -2003,7 +1873,6 @@ She opens her eyes and looks at you confused.
 You think of something else to say.
 
 
-
 1) It's dark, like my heart.
 2) The stars remind me there is more out there.
 3) Its just cool...cool colors I mean.
@@ -2012,19 +1881,16 @@ She smiles slightly and then looks up. "Not just the stars, everything. Even the
 "I just feel safe in it for some reason. I can't explain why, statistically speaking, night time is the most dangerous time of the day. Carnivores hunt, crime breaks out..but still, its the only time I feel comfortable. Its hard to explain."
 
 She looks back up and ponders while watching the sky again. You copy her.  
-
 "Well. we should go. We..I will see you another night." She stands up and gets ready to take off  when an idea hits her and she stops. "Next time. Do you want to see where I used to live? Its not that far away."
  
 You nod yes which makes her smile again. "Okay." She then pushes hard off the ground and takes off to continue her patrol. You head back inside and go back to sleep.
 Your Relationship with Luna is now 8.
 
 
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
-
 
 You open your eyes, sit up and stretch to greet the new day.
 
@@ -2049,7 +1915,6 @@ You can go north.
 > speak to train attendee
 The pony smiles. 
 "Welcome! The train departing to Canterlot will be departing shortly. Would you like a ticket? Just 10 bits!"
-
 Would you like to purchase a ticket to Canterlot?
 1) Yes
 2) No
@@ -2086,14 +1951,12 @@ Celestia rises from her seat. "Now then. I'm actually finished with court today.
 The guards look startled at the invitation. This makes Celestia laugh slightly. 
 
 Celestia just invited you for a meal out of the blue, even you were startled.
-
 Accept the Invitation?
 1) Yes
 2) No
 [choice] 1
 "Alright then. Let's go to the dining room."
 Your Relationship with Celestia is now 5.
-
 You are in Royal Dining Room.
 Celestia and the guards lead you higher up into the castle until you reach a glorious large room designed with beatiful stained glass windows and chandellers. In the middle sat a long table covered in a gold and purple sheet.  It was obviously meant for a big feast. Celestia went to sit in a comfy looking chair at the head of the table. You try to decide where to sit.
 
@@ -2108,14 +1971,12 @@ You sit at the other end of the table which seems miles away. Celestia wears a w
 She says. But you can't really make it out. You decide to sit closer.
 Almost as soon as you take a seat, 2 white unicorns set a golden bowl in front of you and Celestia, field with some kind of soup. Celestia bows to them thanking them and addresses the guards to let the two of you eat in peace. They all obey leaving the three of you all alone. You, Celestia, and the large table.
 
-
 Celestia waits for everyone to leave before she begins to speak. "Try it, it's really good."
 
 You do as she says and try the soup, leaning over to sip from it. 
 After Celestia takes a sip from her soup she begins talking to you again. 
 
 "We have never had a real chance to talk since last time at Sugarcube Corner. Tell me."
-
 Are you enjoying your new home so far?
 1) Yes
 2) No
@@ -2128,7 +1989,6 @@ She nods her head toward the stained glass windows. You take a look to see the w
 You nod even though you have no idea what she means.
 
 "Tell me, have you been in a castle like this before? What do you personally think about royal life? I know there aren't a lot of these kinds of cities where you are from."
-
 
 
 1) I'm a little jealous.
@@ -2154,11 +2014,9 @@ She takes a sip of her soup again. "Oh dear I've said too much. I really shouldn
 You couldn't help but think to yourself: She thought that was venting?
 
 
-
 Celestia contains herself as the chef returns with a rather large white and pink frosted  cake. He uses his magic to slice both of you both a piece and puts them on two plates. He then leaves without saying a word, taking your soup bowls with him. Desert already? Celestia doesn't hesitate, using her magic to levitate her fork and knife. She takes a bite and smiles.
 
 You asks her what happened to the main course. She stops eating at your question.  "Oh were you still hungry? I'm sorry for getting you the princess course." She laughs. "I've been watching my weight lately, but next time you can have whatever you'd like."
-
 
 
 You can't help but asks if she usually eats alone. She just smiles, doesn't answer and  continues eating her cake. You  do the same. 
@@ -2192,7 +2050,6 @@ You can go north.
 > speak to train attendee
 The pony smiles. 
 "Welcome! The train departing to Ponyville will be departing shortly. Oh! You still have your stub? Well since you're a resident of Ponyville, you can return for no charge!
-
 Head back to Ponyville?
 1) Yes
 2) No
@@ -2228,7 +2085,6 @@ You can go northwest.
 
 You doubt it will be a quick thing.
 
-
 Work with Rarity today?
 1) Yes
 2) No
@@ -2242,8 +2098,6 @@ Your KNO is now 6!
 You assist Rarity for the day, carrying things, holding parts and just being helpful. She manages to talk your ears off at the same time.
 
 
-
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -2251,7 +2105,6 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
@@ -2290,7 +2143,6 @@ Applejack stamps her hoof. "Okay part timer. I'm going to work the fat off of th
 Applejack won't pay you for working, but that doesn't mean you can't earn some experience working here.
 
 If you get strong enough, maybe she will become closer to you.
-
 Work with Applejack Today?
 1) Yes
 2) No
@@ -2299,9 +2151,6 @@ You work on the fields, applebucking with Applejack. After a while kicking trees
 Your STR is now 21!
 You don't tire as fast and you are able to work longer!
 Your STR is now 23!
-
-
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -2309,7 +2158,6 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
@@ -2348,13 +2196,11 @@ You greet Big Mac who just smiles back.
  "Hey there. Are you busy? I could use a little more help. Nothing big, I'll pay you a little bit."
 
 
-
 Help Big Mac Today?
 1) Yes
 2) No
 [choice] 1
 You work with Big Mac today. You earn a little coin for the help and then return home
-
 
 You are in Your Apartment.
 There is Futon and Calendar here.
@@ -2363,7 +2209,6 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
@@ -2404,7 +2249,6 @@ You can go southeast.
 
 > speak to twilight sparkle
 Twilight smiles when she sees you. "Hey! I actually have some stuff to do here but you can still hang out if you want."
-
 Stay with Twilight?
 1) Yes
 2) No
@@ -2423,8 +2267,6 @@ You also managed to look at some of the books Twilight was shelving!
 
 Your KNO is now 9!
 
-
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -2432,7 +2274,6 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
@@ -2465,7 +2306,6 @@ You can go northwest.
 
 You doubt it will be a quick thing.
 
-
 Work with Rarity today?
 1) Yes
 2) No
@@ -2479,8 +2319,6 @@ Your KNO is now 10!
 You assist Rarity for the day, carrying things, holding parts and just being helpful. She manages to talk your ears off at the same time.
 
 
-
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -2488,9 +2326,7 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
-
 
 Before you can start the day normally, you hear a knock on your window. You go to investigate and open it. It's Rainbow Dash. 
 "Morning! Hey what's up?"
@@ -2607,7 +2443,6 @@ Applejack stamps her hoof. "Okay part timer. I'm going to work the fat off of th
 Applejack won't pay you for working, but that doesn't mean you can't earn some experience working here.
 
 If you get strong enough, maybe she will become closer to you.
-
 Work with Applejack Today?
 1) Yes
 2) No
@@ -2624,9 +2459,6 @@ Applejack seems impressed with you.
 Your STR is now 25!
 Your Relationship with Applejack is now 15.
 
-
-
-
 You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
@@ -2634,9 +2466,7 @@ Its your apartment.
 
 It's a  new day!
 The next day....
-
 You open your eyes, sit up and stretch to greet the new day.
-
 
 Today is the big day. The Wonderbolts are performing today. 
 

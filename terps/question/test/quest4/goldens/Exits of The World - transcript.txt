@@ -4,7 +4,6 @@ Exits of The World, v1 | Jim R. Harbis
 You are The Doctor. You are a Timelord, and the last of your kind. Your self-applied goal in life is to preserve the human race. Davros, an evil scientist, has begun enslaving humans, some of which were close to you at one time. You must regain your belongings; they were scattered after you last regenerated. Good luck.
  Any key to continue 
 
-
 You are at The World.
 There is a group of Enslaved Humans and an extremely long stretch of space here.
 You can go out, north, south, east, west, northwest, northeast, southwest, southeast, up, down or to Davros' Lair.

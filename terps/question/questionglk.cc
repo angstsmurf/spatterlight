@@ -187,8 +187,34 @@ static bool g_replaying = false;
 static std::vector<std::string> g_replay_answers;
 static size_t g_replay_next = 0;
 
+/* A timer tick cancels the command line before it runs, leaving the "\n> "
+ * prompt as the window's tail.  Whatever the tick then shows takes the prompt
+ * back first (so it lands after the previous game text, with a fresh prompt
+ * below, like the reference runner) -- but only then: most ticks are silent,
+ * and taking the prompt back and reprinting it on each one makes the window
+ * shrink and grow once a second, which shows as the scroll position jumping.
+ * Main-window input only (a separate input window is cleared per turn and
+ * strands nothing); best-effort, see unput_tail_exact. */
+static bool g_retract_pending = false;
+static bool g_prompt_retracted = false;
+
+static void
+take_back_prompt()
+{
+    if (!g_retract_pending)
+        return;
+    g_retract_pending = false;
+    if (inputwin == mainglkwin && unput_tail_exact(mainglkwin, U"\n> "))
+        g_prompt_retracted = true;
+}
+
 static void draw_banner();
 static void update_objwin(QuestionRunner *gr);
+
+/* The running game, for the interface callbacks that have to refresh the
+ * status line and pane before blocking (see get_string).  Null until the
+ * turn loop starts. */
+static QuestionRunner *g_live_runner = nullptr;
 static void fill_divider();
 static void ensure_objwin_open();
 static void close_objwin();
@@ -598,11 +624,18 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
 {
     char buf[200];
     bool quitting = false;
+    g_live_runner = gr;
 
     /* The command line.  Nothing may print to its window while the request
      * is live, so whatever interrupts it cancels first -- which hands back
      * how much was typed, for a re-request to preload. */
     auto request_line = [&buf](glui32 preload) {
+        /* Echo off for the command line, so a timer cancelling it is clean.
+         * Set on every request, not once per turn: a timer's own menu or
+         * `enter` (get_string) turns auto-echo back on, and the re-request
+         * after that tick would otherwise print a newline at every cancel. */
+        if (g_manual_echo)
+            glk_set_echo_line_event(inputwin, 0);
         glk_request_line_event(inputwin, buf, (sizeof buf) - 1, preload);
     };
     auto cancel_line = []() -> glui32 {
@@ -649,9 +682,6 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
 #endif
         }
 
-        /* Echo off for the command line, so a timer cancelling it is clean. */
-        if (g_manual_echo)
-            glk_set_echo_line_event(inputwin, 0);
         request_line(0);
 
         event_t ev;
@@ -681,29 +711,23 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                      * With echo off the cancel prints nothing and leaves the
                      * "> " prompt in place (it is before the input fence). */
                     glui32 typed = cancel_line();
-                    /* Retract that stale prompt so the timer's text lands
-                     * after the previous game text instead of ON the prompt
-                     * line, with a single fresh prompt below -- like the
-                     * reference runner.  Main-window input only (a separate
-                     * input window is cleared per turn and strands nothing);
-                     * best-effort: if the window tail is not exactly the
-                     * prompt (no echo control, so the typed text is still on
-                     * screen), today's behaviour is kept.  Typed text comes
-                     * back either way, as preloaded input. */
-                    bool retracted = inputwin == mainglkwin &&
-                                     unput_tail_exact(mainglkwin, U"\n> ");
+                    /* The stale prompt is taken back by the timer's first
+                     * output, if it has any (take_back_prompt).  Typed text
+                     * comes back either way, as preloaded input. */
+                    g_retract_pending = true;
+                    g_prompt_retracted = false;
                     g_output_seen = false;
                     gr->tick_timers();
-                    draw_banner();
+                    /* Rebuild the status line and pane, not just redraw the
+                     * cached one: a timer changes the status variables too. */
+                    update_objwin(gr);
+                    g_retract_pending = false;
                     if (gr->is_running()) {
                         /* If the timer printed something (e.g. surviving the
-                         * dynamite), show a fresh prompt.  After a retract
-                         * one is always owed; a silent timer then gets back
-                         * the exact "\n> " just removed.  With neither (the
-                         * interval-0 mayor-door check under a failed or
-                         * non-Spatterlight retract) the existing prompt is
-                         * left alone. */
-                        if (g_output_seen || retracted)
+                         * dynamite), show a fresh prompt; after a retract one
+                         * is always owed.  A silent timer (the interval-0
+                         * mayor-door check) leaves the existing prompt alone. */
+                        if (g_output_seen || g_prompt_retracted)
                             print_prompt();
 #ifdef SPATTERLIGHT
                         /* The timer changed game state while we sat at the
@@ -1104,6 +1128,7 @@ QuestionGlkInterface::print_normal (const std::string &s)
         return r_success;
     if(!ignore_lines)
       {
+	take_back_prompt();
 	glk_put_cstring(s.c_str());
 	g_output_seen = true;
       }
@@ -1119,6 +1144,7 @@ QuestionGlkInterface::print_newline ()
       {
 	if (!g_replaying)
 	  {
+	    take_back_prompt();
 	    glk_put_cstring("\n");
 	    g_output_seen = true;
 	  }
@@ -1184,6 +1210,7 @@ QuestionGlkInterface::wait_keypress (const std::string &msg)
     return r_success;
   if (!msg.empty())
     print_formatted(msg);
+  take_back_prompt();
   glk_request_char_event(mainglkwin);
   /* A click on a pane hyperlink also dismisses the wait, like any keypress
    * (matching the Quest 5 frontend); the click's command is not run here. */
@@ -1222,10 +1249,23 @@ QuestionGlkInterface::get_string ()
       g_replaying = false;
     }
   char buf[200];
+  /* An `enter` or menu fired from a timer blocks inside that tick, before the
+   * turn loop gets to refresh anything; show the state the question is being
+   * asked in rather than the one from the last prompt. */
+  if (g_live_runner)
+      update_objwin(g_live_runner);
+  take_back_prompt();
   /* Use Glk's own echo here: get_string ignores timers, so it never cancels
    * its input, and auto-echo places the entry inline at the prompt. */
   if (g_manual_echo)
       glk_set_echo_line_event(inputwin, 1);
+  /* Quest reads an `enter` in its command box and echoes nothing, so the
+   * question's own line end is the only one.  Here the answer is echoed with
+   * a line end of its own; take the question's back so the answer sits on the
+   * question's line and the count comes out the same.  (A menu's "Choose>"
+   * prompt has no line end to take, and is left as it is.) */
+  if (inputwin == mainglkwin && unput_tail_exact(mainglkwin, U"\n"))
+      glk_put_cstring(" ");
   glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
   while(1) {
     event_t ev;
@@ -1270,6 +1310,7 @@ QuestionGlkInterface::make_choice (const std::string &label, std::vector<std::st
 	if (inputwin != mainglkwin)
 	    glk_window_clear(inputwin);
 
+	take_back_prompt();
 	glk_put_cstring(label.c_str());
 	glk_put_cstring("\n");
 	for (size_t i = 0; i < n; ++i)
@@ -1437,6 +1478,7 @@ QuestionGlkInterface::show_image (const std::string &filename, const std::string
   if (!glk_gestalt (gestalt_Graphics, 0) ||
       !glk_gestalt (gestalt_DrawImage, wintype_TextBuffer))
     return r_not_supported;
+  take_back_prompt();
 
   std::string parent = storyfilename ? storyfilename : "";
   std::string path = absolute_name (filename, parent);

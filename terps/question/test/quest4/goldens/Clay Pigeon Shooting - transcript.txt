@@ -17,7 +17,6 @@ Press any key to start playing...
 
 
 
-
 You are at the firing range, which is outdoors close to a evergreen forest clearing. Standing next to a fully loaded clay pigeon trap is your closest friend Billy Bob, who has been your hunting companion since you both got your first rifles. Closeby is an old wooden table, with all the necessary equipment resting on top of it.
 
 > take all

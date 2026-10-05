@@ -14,7 +14,6 @@ King's Quest V and the entire original King's Quest Series were created and prod
 For game hints, you can search the internet for King's Quest V hints.  For any other questions regarding the gameplay of this text adventure, you may email me directly at stevethemagicguy@yahoo.com.  Thank you.
 
 press any key
-
 ===================
 I would also like to give special thanks to Computer Whizz for helping tremendously on the desert portion of this game.  He put together an awe-inspiring code that I would not have been able to create on my own.  Using this code provided an entertaining and realistic experience.  There were many others in the Quest forums that played a helpful role (small or large) including Al "MaDbRiT", and "I think I'm Dead" and even Alex, the Quest creator himself.
 
@@ -22,7 +21,6 @@ A gameplay warning, you will receive the occasional reminder to save the game be
 I did take the liberty of minimizing the amount of ways that you as the player can be killed so it won't be too bad.
 In the desert if it becomes too challenging, type 'desert' and view the map I have created for you.
 press any key
-
 ************************
 
 When talking to characters in the game, I have taken the extra steps to allow easier game control.  If you are talking to the toy shop owner, for example, you can simply say "talk to man".
@@ -31,7 +29,6 @@ You will discover that long-named objects are for looks mostly.  For convenience
 This is PART ONE of this game.  It should last you a good while.  In the meantime, I will continue creating the rest of the game in a timely manner (hopefully!)
 With that being said, enjoy!
 press any key
-
 
 Have you played this game before?
 1) Yes
@@ -44,7 +41,6 @@ And so...Graham sets off on his quest to find his family.  Accompanying him is C
 
 "Good luck, King Graham!" says Crispin and shuts the front door behind Graham as he steps outside...
 press any key
-
 
 
 
@@ -69,7 +65,6 @@ Smoke rises from chimney tops as you approach the town.  The sounds of everyday 
 > e
 "I think I'll just stay out here until you get back, Graham.  I had a nasty run-in with a dog last time."
 press any key
-
 You are in the town.
 
 As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
@@ -90,7 +85,6 @@ Smoke rises from chimney tops as you approach the town.  The sounds of everyday 
 > e
 "I think I'll just stay out here until you get back, Graham.  I had a nasty run-in with a dog last time."
 press any key
-
 You are in the town.
 
 As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
@@ -112,7 +106,6 @@ To the east is the entrance to the small town.  To the north is a clearing in th
 > enter
 "I will wait for you out here, Graham."
 press any key
-
 You are in the small cottage.
 
 Inside the small cottage, you can see a variety of baked goods.  The smell of fresh bread hits your nose as soon as you walk in.  On the front counter, a freshly baked custard pie sits and the aroma is quite tempting.
@@ -127,16 +120,13 @@ Graham requests the custard pie from the baker.
 
 
 press any key
-
 "Of course, that will be one silver coin."
 
 press any key
-
 Graham hands the baker his silver coin.
 
 
 press any key
-
 "Very good.  Now enjoy your pie."
 
 
@@ -166,14 +156,11 @@ A stick from the old rotting tree lies near the path.
 > throw fish to bear
 Graham throws the rotting fish towards the bear and it turns its attention away from the bees, grabs the fish in its mouth and wanders off.
 press any key
-
 A large bee wearing a crown flies out of the old rotten tree to address Graham.
 "Thank you, kind sir, for chasing away that bear.  My name is Queen Beetrice.  Who are you?"
 press any key
-
 "You're very welcome.  My name is King Graham of Daventry in search of my family and castle.  They have been taken from me by an evil wizard, Mordack."
 press any key
-
 "King Graham, we are just a small colony of bees but to thank you for your kindness, please take a honey comb from our tree.  I wish you well on your quest."
 
 > take honey comb
@@ -193,17 +180,13 @@ A large dog is digging into the castle-shaped ant hill.
 Graham throws the stick to distract the large dog from the ant hill.
 "Here boy!"
 press any key
-
 The dog grabs the stick in its mouth and runs away into the woods.
 press any key
-
 A large ant wearing a crown appears from the castle-shaped ant hill and addresses Graham,
 "I am King Antony.  Thank you for getting rid of that dog."
 press any key
-
 "Not at all.  I'm happy to help.  My name is King Graham.  I am on a quest to find my family who has been taken from me."
 press any key
-
 "If there is anything we can do, we surely will do our best to help you when the time comes."
 The ant abruptly disappears back into the castle as quickly as he had appeared.
 
@@ -217,7 +200,6 @@ Even further north, you can see a wagon.
 > w
 "You're going into the desert?  Be careful, Graham.  I'll wait for you to come back!"
 press any key
-
 You are at the end of the forest.
 
 At the edge of the forest, the desert sands strangle what remaining grass tries to grow.  Further west is nothing but desert sand as far as you can see.
@@ -285,7 +267,6 @@ You are at the  opening in the cliff.
 You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
 A small oasis sits near a small boulder.
 press any key
-
 The sound of horses approaching from the west grows louder.
 
 Hide quickly!
@@ -312,31 +293,25 @@ Two bandits riding horses approach the opening in the cliff wall.
 
 
 press any key
-
 Luckily, they do not see Graham hidden behind the boulder and ride towards the stone temple.
 
 
 press any key
-
 From where Graham is standing, he can see the bandits ride up to the huge stone door of the temple.
 
 press any key
-
 One holding a staff unmounts his horse and approaches the door on foot.
 
 press any key
-
 Waving the staff in the air, the bandit yells "Open Sesame!"
 
 
 press any key
-
 Astonishingly, the entire stone door vaporizes and the bandit walks inside carrying a small bag of jewels.  After a few moments, he returns without the bag and the door returns to normal.
 
 The two bandits mount their horses and ride off toward the southwest.
 
 press any key
-
 After they leave, Graham steps out from behind the boulder.
 
 > look
@@ -512,12 +487,10 @@ Graham waves the staff and bangs it against the large door.  "Open Sesame!"
 
 
 press any key
-
 The staff shatters to pieces but the large stone door seemingly vaporizes creating an entrance into the stone temple.
 
 
 press any key
-
 
 > enter
 You are in the temple.
@@ -539,7 +512,6 @@ Graham leaps out of the temple just as the stone door solidifies back.  That was
 
 
 press any key
-
 You are in front of the temple.
 
 This temple is carved directly into the face of the cliff!
@@ -634,13 +606,10 @@ A gypsy wagon is set up near the trees.  A gypsy is sitting in a rocker next to 
 > give coin to gypsy
 Graham approaches the gypsy.
 press any key
-
 "Good day, sir.  Here is a gold coin.  May I see Madam Mushka?"
 press any key
-
 The gypsy looks at the gold coin and says, "You may see Madam Mushka now."
 press any key
-
 WARNING! (advisory)  The following sequence contians clues to the completion of this game.  If you wish to skip it, be sure to note any new items in your inventory.  Do you wish to skip?
 1) Yes
 2) No
@@ -693,18 +662,15 @@ In desperation, Graham throws the old shoe at the cat chasing the rat...
 
 
 press any key
-
 The shoe strikes the path very close to the cat frightening him away instantly.
 
 The rat runs up to Graham.
 
 
 press any key
-
 Thank you for helping me kind sir.  My poor children would have been left all alone if that cat had caught me.
 If there is something I can do for you in the future, I will certainly help you...
 press any key
-
 Graham watches as the rat scurries back down the path and disappears near the small country inn further away.
 
 
@@ -726,10 +692,8 @@ The path continues to the west where you can see a broad ray of sunshine illumin
 "Oh, Graham!  I'm not going in there!  I'll wait out here for you!", Cedric shivers his feathers.
 
 press any key
-
 "Ok Cedric, but I think there might be something important in here so I am going to check it out."
 press any key
-
 You are in the dark forest.
 Graham walks into the dark forest and is surprised at how quickly it grows dark.  The trees are so thick that they block out most of the sunlight shining through the canopy above.  Creatures make noises in the bushes all around.
 
@@ -748,14 +712,12 @@ You can move north or west.
 Suddenly, a nasty old witch appears in a puff of smoke and screams, "Get out of my forest!"
 She waves her hands together and a beam of magical light flies towards Graham...
 press any key
-
 Luckily, the amulet that Graham is wearing deflected the ball of magic and it did not affect him.
 
 > give large lamp to old witch
 Graham gives the lamp to the forest witch.  She takes it and eyes it with a look of curiousness.
 
 press any key
-
 "What's this?"...
 
 The witch opens the lid to the lamp...
@@ -763,16 +725,13 @@ The witch opens the lid to the lamp...
 A large genii comes from within the lamp in a cloud of smoke.  He notices the witch near the lamp.
 
 press any key
-
 Now you spend the next 500 years in that lamp!
 press any key
-
 
 The genii claps his hands and the witch disappears in a cloud of smoke and is instanteously transported into the genii's bottle.
 
 
 press any key
-
 The genii claps again and he and the bottle disappear in a magical puff of smoke leaving Graham alone in the forest.
 
 
@@ -876,31 +835,25 @@ Graham throws the last emerald out onto the path right in front of him.
 Out of the bushes, the small elf scurries onto the path as before, grabs the emerald and Graham makes a grab for him...
 
 press any key
-
 The elf, stuck in the honey, cannot run away allowing Graham to snatch him up.
 
 press any key
-
 "Put me down!" the angry and frightened little elf cries.
 
 press any key
-
 "Now why should I do that?  You're just going to run away."
 
 "I promise I won't if you just let me down.  I will show you how to get out of this forest."
 
 "It's against my better judgement...but ok."
 press any key
-
 Graham sets the elf back on the ground.
 
 press any key
-
 "Move over, Rocky!"
 Suddenly, the large rock-like creature blocking the western path begins to move...
 
 press any key
-
 "Uhhh, sorry..."
 The creature moves off the path and Graham can see it leading further west.
 
@@ -913,15 +866,12 @@ The elves' cavern is huge.  There are only two exits.  One from which Graham cam
 Graham followed the elf into the cavern.
 
 press any key
-
 "Kind sir, since you kept your word and let me go, I would like to offer you this finely crafted pair of elf shoes."
 The elf hands Graham a pair of beautifully crafted shoes with gold buckles.
 
 press any key
-
 "These are amazing!  Thank you so much.  Now how do I get out of this confounded forest?"
 press any key
-
 "Oh yes.  Just follow that tunnel to the south and you will find your way out soon enough!  Good luck, sir!"
 Before Graham has a chance to say anything further, the little elf turned and ran into the shadows.
 
@@ -934,16 +884,13 @@ Above the surface, Cedric is minding his own business when a fallen log begins t
 Out of the hole in the ground appears Graham after finding his way through the elves' tunnel.
 
 press any key
-
 You are at the dark forest entrance.
 
 East of Crispin's house is an entrance to a very dark part of the forest.  The entrance is to the north.  You also see a sign that very clearly states "Enter at Your Own Risk".  You think it might be your imagination, but it seems as if pairs of eyes are watching you from within the forest.
 The path continues to the west where you can see a broad ray of sunshine illuminating a weeping willow tree.  To the south, the path leads into a lighted clearing.
 press any key
-
 "I was starting to get worried, Graham!"
 press any key
-
 "I'm just glad I found my way out of that enchanted forest in one piece!"
 
 > w
@@ -958,26 +905,20 @@ A weeping willow tree stands in the center of the pond.  Oddly, it has a face an
 Graham gives the golden heart to the weeping willow tree.
 
 press any key
-
 "Oh my goodness!  Is that my heart!?"
 
 The tree reaches out for the heart and takes it from Graham.  She puts it in a hole in her trunk and magically begins to change into a human woman.
 
 press any key
-
 Coincidentally, as the tree changes back into a princess, her prince comes strolling up the path.
 
 press any key
-
 "Darling, is that really you?"
 press any key
-
 "Yes, my dear.  I'm perfectly fine now.  Let's leave this place and go to our own land."
 press any key
-
 "Yes, lets."
 press any key
-
 "I won't be needing this thing anymore."
 The princess tosses the harp aside and she and the prince walk away into the forest leaving Graham and Cedric behind.
 
@@ -1015,31 +956,24 @@ In front, sits an old gnome smoking a pipe.  A small child is sitting nearby pla
 Graham approaches the old gnome smoking his pipe...
 
 press any key
-
 "Sir, I found this spinning wheel and thought you might be interested in it.
 "
 press any key
-
 "My spinning wheel!  Where did you find it?"
 press any key
-
 I found it in the witch's house in the dark forest.
 
 press any key
-
 "I thought that old hag had something to do with it.  She never could figure out how it worked.  That spinning wheel is no ordinary wheel.  It makes strands of pure gold.
 Now hand that over, son."
 press any key
-
 "Hold on just a moment.  I went through a lot of trouble to come by this spinning wheel.  Don't you think that little boy's marionette would be an even trade?"
 press any key
-
 The old gnome thought for a moment and stroked his beard...
 
 "I suppose your right.  Give the man your marionette.  I can make you another one."
 
 press any key
-
 The boy obeyed and gave his marionette to Graham.
 
 Graham gave the spinning wheel to the old gnome and both the gnome and the boy walked away and disappeared down the path.
@@ -1066,7 +1000,6 @@ Smoke rises from chimney tops as you approach the town.  The sounds of everyday 
 > e
 "I think I'll just stay out here until you get back, Graham.  I had a nasty run-in with a dog last time."
 press any key
-
 You are in the town.
 
 As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
@@ -1081,16 +1014,12 @@ The sales clerk notices you,
 > give golden needle to sales clerk
 Graham approaches the sales clerk.
 press any key
-
 "Good day, sir.  Would you take this golden needle as payment for the cloak?"
 press any key
-
 The sales clerk's eyes widen with excitement upon seeing the golden needle, "Heavens!  I have never seen such a beautiful golden needle.  Of course you can have the cloak."
 press any key
-
 The sales clerk walks to the blue cloak on display and hands it to you.  I hope this bides you well on your quest.
 press any key
-
 Thank you, sir.  I'm sure it will indeed.
 
 
@@ -1110,23 +1039,17 @@ The shop owner notices you walking into his shop,
 Graham approaches the toy shop owner...
 
 press any key
-
 "Good day, sir.  I have come upon this fine crafted marionette that I thought you might be interested in."
 press any key
-
 Graham takes out the marionette and shows it to the toy shop owner.
 
 press any key
-
 "Young man!  Where did you get such a finely crafted marionette?"
 press any key
-
 "It was given to me actually but I have no need for such a toy.  Do you think it would be enough of a trade for that sled you have on the wall?"
 press any key
-
 "Of course.  Please take it and enjoy."
 press any key
-
 Graham takes the small sled and tucks it into his belongings.  The toy shop owner gets back to his business.
 
 
@@ -1147,25 +1070,19 @@ Graham can see the shoe maker hammering the sole of a single shoe.  The old shoe
 Graham holds out the shiny shoes to the shoe maker and his wife.
 
 press any key
-
 "What's that you've got there son.  Martha, get those from the young man."
 press any key
-
 The shoe maker's wife takes the shoes from Graham and brings them to her husband.
 
 press any key
-
 "Look at these!  They are flawless.  Perfectly cut and sewn.  And the gold buckles!  I could sell these and retire!
 How can I ever repay you?"
 press any key
-
 "Your happiness is all that I need."
 press any key
-
 "Well, that's very kind of you.  Come on, Martha, let's go home.
 I guess I won't be needing this anymore.  Here, young man, if you can use a hammer, it's all yours."
 press any key
-
 The old shoe maker hands Graham the hammer and then he and his wife walk out the door.  Their dog wakes up and follows them out leaving Graham alone in the shoe shop.
 
 
@@ -1199,7 +1116,6 @@ Which door is Graham going to enter?
 [choice] 1
 "I think I'll just stay out here until you get back, Graham.  That place is a little too rough for me."
 press any key
-
 WARNING ADVISORY!  There is a chance you could die in the inn.  There's also a chance you could get 'stuck' if certain measure have not already been taken.  It is advised that you save your game here if you wish to explore the inn.  Will you save now?
 1) Yes
 2) No
@@ -1209,7 +1125,6 @@ You were warned!
 
 
 press any key
-
 You are in the small country inn.
 
 
@@ -1223,42 +1138,32 @@ The inn is rather empty aside from the rough looking clerk behind the counter.  
 Graham walks further into the lobby of the inn and overhears the men talking.
 
 press any key
-
 "So where did you hide the money from that job we pulled the other day?"
 press any key
-
 "Don't worry, it's in a safe place where no one will find it..."
 press any key
-
 "Hey, where did you come from?"
 The innkeeper notices Graham nearby.
 press any key
-
 "I was just looking for a place to stay the night."
 press any key
-
 The innkeeper walks out from behind the counter.
 
 "I think you were eavesdropping on us."
 press any key
-
 "What should we do wid him boss?"
 press any key
-
 "Rub 'im out!"
 press any key
-
 Graham feels a sharp pain on the back of his head.
 
 A while later, he finds himself tied very tight with rope in the bottom of what appears to be the basement of the inn.
 
 press any key
-
 You are in the basement.
 
 In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
 press any key
-
 Struggle as he might, Graham cannot free himself from the rope.
 
 
@@ -1381,11 +1286,9 @@ While Graham continues to struggle, the rat that he saved comes out from the mou
 It starts biting the rope and finally, the ropes loosen from Graham and fall to the floor.
 
 press any key
-
 "I'm glad I was able to help you.  Good luck on your journey.
 Oh, that is my children calling for me now.  I must go."
 press any key
-
 The rat turns and disappears into the mouse hole.
 
 Graham is now free to move around.  The rope is lying nearby.
@@ -1500,7 +1403,6 @@ You can move north or west.
 Cedric lands on a nearby rock and says, "Watch out for that gap, Graham!"
 
 press any key
-
 At this point in the game, the next challenge would be to cross the gap without falling.  But for now....
 
 You have successfully completed Part One of a total of Two Parts.  I hope you enjoyed yourself.  Part Two will be out as soon as possible.

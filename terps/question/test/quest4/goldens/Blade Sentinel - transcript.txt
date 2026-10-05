@@ -17,7 +17,6 @@ But things were not allways like that (What a cliche, you say to yourself). It a
 
 Press key when ready
 
-
  Sunrays hit your eyes. An alarm clock rings by you. Yes, you have to wake up. Another long day at work waits for you. Better take a shower, get dressed and get to work ASAP.
  You are in your bedroom. A simple bed occupies the most of the room. To the north is a door leading to the bathroom and to the west, a door to your hall. By the door is a closet, containing your wardrobe.
 
@@ -133,14 +132,12 @@ Press a key to continue
 
 
 
-
 Back to your artificial womb, you linger in a state between life and death, consiousness and trance, past and present...
 The world around you comes and goes, constantly coming, then again fading away...
 The robes are hear talking to eachother. You can figure some words: "danger... stabilise... death... live...".
 Soon the world around you fades away once more, sending you once more in the sweet, yet fatal torpor of unconsiousness.
 
 Press key to continue
-
 
 
 
@@ -199,7 +196,6 @@ Alice Morgan  would never act like that, but the Blade Sentinel will. The Blade 
 
 
 Press any key to continue
-
  Blinding lights...
 
 
@@ -226,7 +222,6 @@ Press any key to continue
 
 
 Press any key to continue.
-
 
  This dark alley is almost deserted.  Only a man is here, probably waiting for Torrenti. Apart for him, there is nothing of interest here.
  For the past weeks, you 've been chasing Torenti's goons, capturing most of them. But when Alice heard a tip that Torenti himself would have an important meeting in this specific dark alley, she couldn't resist telling you. So the Blade Sentinel is out to get the big boss. 
@@ -294,7 +289,6 @@ As you read the message, you realise that this was a trap. You run to get away, 
 
 
 press a key to continue
-
 You creak your eyes. You can hear a voice. It says: "The hilt is lost. She is useless. Give her this injection we talked about."
 
 
@@ -302,7 +296,6 @@ You creak your eyes. You can hear a voice. It says: "The hilt is lost. She is us
 
 
 Press a key to continue
-
  As far as the eye sees, a delightfull green surrounds you. The only exception is to the south, where a tall wall stands. A big golden  gate is on it. Perhaps a way out from here... or further inside...
 
 > south

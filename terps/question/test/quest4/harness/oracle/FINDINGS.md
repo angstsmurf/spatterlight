@@ -3271,8 +3271,8 @@ calls `suspend_turn` at the close; `suspend_turn` ticks only if the flag is
 still set and clears it, so the first suspension of the turn spends the tick and
 the rest are no-ops — exactly what `TrySetResult` on a completed
 `TaskCompletionSource` is.  The suspension points are `wait` (`question-runner.cc`,
-before the keypress clears the screen, so the tick lands while the game still
-sits at the prompt), `pause`, a synchronous `playsound`, and the `|w` code, which
+before the keypress, so the tick lands while the game still sits at the
+prompt), `pause`, a synchronous `playsound`, and the `|w` code, which
 is printed by `QuestionInterface::print_formatted` on the far side of the engine and
 so reaches the tick through the new `QuestionRunner::turn_suspended` hook.  King's
 Quest V's 17 diff lines are gone and the wolf now prints inside the harp scene's
@@ -5210,6 +5210,24 @@ The ninth convicted Question again:
   closed sack a scope miss, all of it byte-for-byte the QuestViva answer.  So
   the oracle was translating faithfully, Question's ungated `add` was the bug,
   and Barbarian's pedestal puzzle turned out to be designed around the gate.
+
+* **`wait`, `enter` and timer spacing** — `Sim Political Career.asl`, played
+  by hand, 2026-10-06.  The game is driven entirely by one-second timers, and
+  its opening is three `enter` questions and a `wait`.  The real runner
+  neither clears the window nor leaves a blank line after a `wait`: "Press any
+  key to begin your career" sits directly under the last question and the next
+  message follows its own single `|n`.  An `enter` answer is typed in the
+  command box and is not echoed, so the question's line end is the only one.
+  A `choose` fired by a timer is a modal list dialog; picking from it prints
+  the caption line and "- <choice>".  Timer messages are one blank line apart
+  throughout.  Question had a blank line too many after every `wait`
+  (`st_wait` called `clear_screen`, which the transcript shows as one), 908
+  such lines across 63 goldens, and its Glk frontend had two more faults of
+  its own: an `enter` answer was echoed on a line of its own, and a menu or
+  `enter` fired from a timer left line echo on, so every later tick's cancel
+  printed a line end and stranded a "> " -- three or four blank lines before
+  each message from then on.  All three are fixed; the title banner and the
+  inline numbered menu remain deliberate frontend differences.
 
 The installer is worth keeping for a second reason: it ships the authoritative
 `standard.lib`, `stdverbs.lib` and `typelib.qlb`, and `versions.txt`, the full

@@ -14,7 +14,6 @@ You have a destiny.  You must seek out a musician named 'John' and learn from hi
 When you wake, you are filled with a new sense of destiny.
 press any key
 
-
 You are in your bedroom.
 There is a bed, dresser and a mirror here.
 You can go down.
@@ -1452,7 +1451,6 @@ However, if Mama Shiversword appears, you won't be able to give anyone any drink
 When you are ready to start the party, press a key
 press a key
 
-
 You are in Scone Cottage.
 There is Sharon Scone, Sir Lankylegs, King Arnold, Laura Norder and Birdcage here.
 You can go south.
@@ -1616,7 +1614,6 @@ It is a polished silver tray containing several cups of bubbly Grape Juice
 The party is now over.
 The guests have all gone
 press a key
-
 But as Mama left, she spotted you!  And seeing what you had doen to her sheet has made her furious!
 She drags you home, and sends you to your room
 You are in your bedroom.
@@ -1990,7 +1987,6 @@ GOLD STAR!
 
 
 press a key
-
 
 Whilst on tour, John becomes ill.
 

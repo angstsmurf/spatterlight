@@ -105,6 +105,5 @@ You can go to limo.
 "well done" says the sergeant. Hear's 2000000 pounds."
 You take the 2000000 dollars.
 "thanks."
-
 You can now do what you want!
 [runner] turns=18 leftover=0 running=true WON=YES

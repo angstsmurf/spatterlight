@@ -14,7 +14,6 @@ It's location is on this map."
 And John hands you a map.
 press a key
 
-
 You are in the World Map.
 You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
 
@@ -629,7 +628,6 @@ Madam Mayi gazes into her crystal ball
 She is right!
 press a key
 
-
 After you give the coin to Madam Mayi, she picks up her crystal ball
 
 Suddenly a light comes on inside it as she starts to meditate.
@@ -1007,7 +1005,6 @@ Are you ready to compete in the competition?
 [choice] 1
 "Okay, let's get the competition started."
 press a key
-
 You sit in the Green room and wait as Bing Harbor takes the stage.
 
 From the room you can hear the the judges take Bing to pieces after his three songs. 
@@ -1015,7 +1012,6 @@ However Bing does score a total of 24 out of 30.
 
 That is the score you have to beat
 press a key
-
 Now it is your turn.  You head to the stage
 You are in the Stage.
 There is lever and Bing Harbor here.
@@ -1042,7 +1038,6 @@ That was your first song out of the way. You have scored a total of 10
 
 Now what will you perform?
 press a key
-
 Which song will you perform?
 1) Yesteryear
 2) Mysterious Wench
@@ -1061,7 +1056,6 @@ Your score at the moment is 18
 
 What will be your final song?
 press a key
-
 Which song will you perform?
 1) Yesteryear
 2) Mysterious Wench
@@ -1375,7 +1369,6 @@ Ellott's biggest fear is..... Fish!
 ......
 press a key
 
-
 You stare into your glowing crystal ball.  Now is the oportunity to find out what was hidden in the chamber under Shurlee Temple.
 
 
@@ -1398,7 +1391,6 @@ You stare into your glowing crystal ball.  Now is the oportunity to find out wha
 
 And with that Elliot Leaves.
 press a key
-
 
 So, there wasn't a magic harp.  Just a fish.  a carp!  A Magic Carp!  John must have misheard!
 
@@ -1543,7 +1535,6 @@ You are thrilled that you have such a prestigious job!
 YOU HAVE WON! 
 
 press a key.
-
 
 Whilst you are performing for the Queen that night, her favourite song Greensleeves, there is a knock on the door.
 

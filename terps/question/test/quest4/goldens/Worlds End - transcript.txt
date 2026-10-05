@@ -618,7 +618,6 @@ You shoot the trap door. It falls into the room below.
 > down
 You descend into a dark lab. You are thinking you should go and get a flashlight when a light comes on revealing a huge room. A man is aiming a in huge room. A scientist is pointing an uzzi at you!
 PRESS A KEY TO CONTINUE!
-
 I've been expecting you. Now your going to die.
 You are in a lab.
 There is a scientist and a glass vial here.
@@ -665,7 +664,6 @@ Y9ou have no choice but to walk away from the contraption.
 You climb into the spaceship full of explosives. Your weapons are taken (including your axe).
  "You will now be left to die" the alien says befor slamming the door and pushing a button. The spaceship blasts into orbit arround the earth!
 PRESS A KEY TO SEE WHAT HAPPENS!
-
 You are stuck on a spaceship full of explosives in orbit around the earth! There is loads of equipment here but you can't destroy any of it.
 
 > examine equipment
@@ -698,14 +696,11 @@ You wear the parachute.
 > use scart lead on socket
 You plug in the scart lead. Suddenly the spaceship dives towards earth! 100000 feet abuv the earth the hatch slides open and you fall to your doom!
 PRESS A KEY TO CONTINUE!
-
 You are falling through the sky towards your doom! Aeroplanes are flying past you!
 The parachute opens and you slow down as you hurtal towards your splatty end. However you think you will still die!
 PRESS A KEY TO SEE WHAT HAPPENS!
-
 You hit something soft. You have enough time to realise it's a pile of junk and you are in a dump befor the force of the fall knocks you out!
 PRESS A KEY TO SEE WHAT HAPPENS!
-
 You wake up in a pile of junk. You pull yourself out.
 This is a dump. There is a huge pile of junk against all sides of the dump. Who knows what you couldn't find here?
 
@@ -835,7 +830,6 @@ This is an ice forest. There are ice trees everywhere. There is a stone bench wi
 You enter a small camp. Before you can walk through it a soldier grabs you.
  "You have trespassed into are camp. Now you will pay!"
 PRESS A KEY TO SEE WHAT HAPPENS!
-
 "If you have a skull though you can pass"
 You are thrown through a gate!
 This is a clearing. A small tree is in the middle of it. You also see an elevator in the middle of it!

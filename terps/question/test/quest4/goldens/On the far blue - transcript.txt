@@ -152,7 +152,6 @@ You can't see the ship anywhere. The ocean is calm now, slowly moving around you
 There is no land in sight, its just you and your barrel im afraid...
 
 press a to continou
-
 You are in In the barrel.
 There is Lid and Metal ring here.
 You look around you, there is no land in sight..
@@ -185,7 +184,6 @@ You attached both key´s now you can finally sleep.
 
 
 press a to contiou
-
 You slept for many many hours, awakening with a loud bonk when your barrel arrives at land...
 You are on the northen peak of the rock island,
 There is Broken beer barrel and Rope stuck in the sand here.
@@ -336,7 +334,6 @@ So stay alert!
 
 
 Press any key.
-
 You are in On the raft.
 
 > wait

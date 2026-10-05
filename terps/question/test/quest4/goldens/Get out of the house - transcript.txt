@@ -4,14 +4,12 @@ Get out of the house!, v1.0 | Steve Lingle
 You are about to embark on an adventure of a lifetime.  Well, that might be exaggerating.  You are about to embark on a very small quest to get out of a house.  
 Who's house and why are you there to begin with?  You'll never know.  Nevertheless, you are in a house and you must get out of it.  Using your razor sharp wit and born wisdom, you will find items to help you proceed through challenging puzzles.
 press any key...
-
 Interact with everything...Pick up everything no matter how ridiculous it seems.  Have fun with commands even if it does not progress you further.  :)
 Use simple commands.  N for north, etc...X for Examine.  Look at objects before examining them for a more flowing story.
 For generic commands help, type HELP.
 In some places, you can get a hint by typing HINT.
 NOW HAVE FUN AND GET OUT OF THE HOUSE!!!
 ...press any key...
-
 
 
 The lovely living room
@@ -179,7 +177,6 @@ You can see plenty of crawl space in the chimney now.
 > up
 You have put out the fire so you brave the blackened embers and ease your way into the chimney.
 press any key
-
 You are in the chimney.
 There is the string here.
 You can go down.
@@ -272,7 +269,6 @@ You crumble under temptation and press the shiny red button.  A loud rumble is c
 
 
 press any key
-
 That doesn't really happen but it would have been scary.  Ok, so you press the red shiny button and you do hear the machine kick into gear.  It shakes and shudders and revs up to life.  The two pulleys begin to spin and suddenly, the black flimsy plastic ring breaks and shoots right in your eye.  You scream "OWWWW" and fall to your knees clutching your face.  The machine instantly decides it has had enough and calms back to down to a lifeless hunk of metal.
 
 > use rubber band on machine
@@ -284,7 +280,6 @@ You finally get all excited about pressing the shiny red button and then you do 
 
 
 press any key
-
 Again, that doesn't really happen but it would have been scary.  
 Ok, so you press the red shiny button and you do hear a low rumble in another room.  It almost sounds like it came from the front hall.  *wink, wink*
 
@@ -401,14 +396,11 @@ Be careful, those things can kill you!
 
 
 press any key...
-
 ...press any key...
-
 
 Not only were you thrown at the window, you seem to have been thrown through the window breaking it into bits as you continue to sail through it.
 
 press any key...
-
 You are in front yard.
 There is a naked lady here.
 You can go north.

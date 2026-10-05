@@ -6,7 +6,6 @@ Made by selected awesome individuals and LUKE EVELAND.
 You can type, Fun fact, for a fact that is fun!
 Press any key to start
 
-
 You awaken in your room. On the floor there are clothes from three days ago. You need to take a shower and use the bathroom.  There are two doors one to the bathroom and one to the hallway. 
 
 
@@ -36,13 +35,11 @@ Now that you are clean you proceed downstairs to aquire nutrients. Your mom says
 
 Now you are almost ready for your day. You brush your teeth with a spoon because your mom gave it to a homeless man. I guess he needed it more. you use 5 cups of water because you forgot to turn off the facet made of gold. Bacuase your mom has it made. How much water do you use? ( ill hate you no matter what you say)
 
-
 Hey you got it right! You leave your house with a smile on your face, dispite your awfull morning. You take the hose in your yard and place in your garden. You water your beutiful flowers and they smile back at you. Thats freaking creepy. I wonder what was in that tooth paste. You used 15 galoons whilst watering said plants. You can go to school
 
 > go to school
 
 Later that day you arrive at school and you are doing water project. You and your friends have decicded to make a etxt based adventure game. The first line stated....
-
 You awaken in your room. On the floor there are clothes from three days ago. You need to take a shower and use the bathroom.  There are two doors one to the bathroom and one to the hallway. 
 
 
