@@ -1330,6 +1330,12 @@ QuestionGlkInterface::get_string ()
       g_turn_answers.push_back(answer);
       return answer;
     }
+    /* The banner is a grid window, blanked by a resize; redraw it (and the
+     * divider) as the command line and the keypress wait do. */
+    if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
+      draw_banner();
+      fill_divider();
+    }
     /* All other events, including timer, are deliberately
      * ignored.
      */
