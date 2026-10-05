@@ -24,6 +24,9 @@
 --                     row: `!hwpoke a7ec=23af*37` fills a table of 37 words.
 --                     For pictures no script can walk to — point the game's
 --                     picture table, or its room number, somewhere else
+--   !hwsave <name> <addr> <length>
+--                     save that many bytes of memory, from the hex address,
+--                     as <name>: the game state behind a dumped screen
 --   !hwnext           let it run until the picture has changed and come to
 --                     rest again: the next frame of a slow animation
 --   !dump <name>      dump the screen right now, settled or not; a later
@@ -45,6 +48,7 @@ for line in io.lines(scene) do
     local dump = line:match("^!dump%s+(%S+)")
     local wait = line:match("^!hwwait%s+(%d+)")
     local addr, bytes, times = line:match("^!hwpoke%s+(%x+)=(%x+)%*?(%d*)")
+    local save, from, length = line:match("^!hwsave%s+(%S+)%s+(%x+)%s+(%d+)")
     if check then
         if check:match("%.scr$") and not dumped[check] then
             steps[#steps + 1] = { dump = check, settle = true }
@@ -57,6 +61,8 @@ for line in io.lines(scene) do
     elseif addr then
         bytes = bytes:gsub("%x%x", function(byte) return string.char(tonumber(byte, 16)) end)
         steps[#steps + 1] = { poke = tonumber(addr, 16), bytes = bytes:rep(tonumber(times) or 1) }
+    elseif save then
+        steps[#steps + 1] = { save = save, from = tonumber(from, 16), length = tonumber(length) }
     elseif line == "!hwnext" then
         steps[#steps + 1] = { next = true }
     elseif line == "!hw" or line:match("^!hw ") then
@@ -182,6 +188,10 @@ local function frame()
         for i = 1, #s.bytes do
             mem:write_u8(s.poke + i - 1, s.bytes:byte(i))
         end
+    elseif s.save then
+        local f = assert(io.open(dir .. s.save, "wb"))
+        f:write(mem:read_range(s.from, s.from + s.length - 1, 8))
+        f:close()
     elseif s.next then
         local pic = picture_area(screen())
         s.from = s.from or pic

@@ -306,13 +306,17 @@ static void PerformTileTransformations(IrmakImgContext *ctx)
             if ((data & ADD_128_BIT) && tile < 128)
                 tile += 128;
 
-            for (int i = 0; i < count; i++) {
-                if (offset + i >= imagesize) {
-                    ctx->dataptr = dataptr;
-                    return;
-                }
+            /* A run may be longer than what is left of the image (a piece
+               in Rebel Planet's room 34 is). The original draws on and
+               reads the run's overlay chain all the same, which decides
+               where the colour data starts. So only the plotting is cut
+               short. */
+            int plotted = count;
+            if (offset + plotted > imagesize)
+                plotted = imagesize - offset;
+
+            for (int i = 0; i < plotted; i++)
                 Transform(tile, data & OVERLAY_MASK, offset + i); /* Ignore overlay bits */
-            }
 
             /* Overlay chain: when OVERLAY_BITS are set, one or more
                additional tiles follow and are composited (OR/AND/XOR)
@@ -333,7 +337,7 @@ static void PerformTileTransformations(IrmakImgContext *ctx)
                         /* Direct overlay: tile index without transformation */
                         if (image_version >= 3 && (previous & ADD_128_BIT))
                             data2 += 128;
-                        for (int i = 0; i < count; ++i)
+                        for (int i = 0; i < plotted; ++i)
                             Transform(data2, previous & OVERLAY_BITS, offset + i);
                         break;
                     }
@@ -346,7 +350,7 @@ static void PerformTileTransformations(IrmakImgContext *ctx)
                     if (data2 & ADD_128_BIT)
                         tile += 128;
 
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < plotted; i++)
                         /* Use mask mode of previous command byte */
                         Transform(tile, (data2 & OVERLAY_MASK) | mask_mode, offset + i);
 
@@ -392,7 +396,10 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
 
     int y = 0;
     int x = 0;
-    uint8_t colour = 0;
+    /* Kept from one picture to the next, as in the original: colour data
+       that starts with a repeat (see the overlong run above) repeats the
+       last colour of the picture drawn before. */
+    static uint8_t colour = 0;
     int warned = 0;
 
     while (y < ysize) {

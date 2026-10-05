@@ -9,6 +9,7 @@
 #
 # Usage:
 #   make -f Makefile.headless imagecheck
+#   make -f Makefile.headless mamecheck
 #   ./taylor_image_probe -d /tmp/pictures /path/to/rebelplanet.z80
 
 CHEAPGLK_DIR := ../cheapglk
@@ -78,9 +79,14 @@ $(OBJDIR)/image_glk.o: $(PROBE_DIR)/image_glk.c | $(OBJDIR)
 imagecheck: taylor_image_probe
 	@python3 $(PROBE_DIR)/run_image_tests.py test/images ./taylor_image_probe
 
+# The room pictures against screens captured from the original games in MAME
+# (test/images/mame_capture.py). Games without captures are skipped.
+mamecheck: taylor_image_probe
+	@python3 test/images/mame_compare.py
+
 clean:
 	rm -rf $(OBJDIR) taylor_image_probe
 
-.PHONY: clean imagecheck
+.PHONY: clean imagecheck mamecheck
 
 -include $(OBJS:.o=.d)

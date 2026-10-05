@@ -247,6 +247,7 @@ terps/plus/test/images/games/
 terps/taylor/headless_obj/
 terps/taylor/taylor_image_probe
 terps/taylor/test/images/games/
+terps/taylor/test/images/mame/
 
 # Scarier build artifacts (Makefile.headless compiles in place; the test
 # harnesses have their own .gitignore files under terps/scarier/test/)

@@ -1,0 +1,52 @@
+# Rooms where the interpreter's picture is known to differ from the original's
+# (mame_compare.py): game, room, reason.
+rebel-planet	room1	animated: the original was caught at another frame
+rebel-planet	room50	animated: the original was caught at another frame
+rebel-planet	room71	animated: the original was caught at another frame
+rebel-planet	room86	animated: the original was caught at another frame
+heman	room87	not a room: past the last room of the game
+heman	room90	not a room: past the last room of the game
+heman	room91	not a room: past the last room of the game
+heman	room93	not a room: past the last room of the game
+heman	room94	not a room: past the last room of the game
+heman	room95	not a room: past the last room of the game
+heman	room97	not a room: past the last room of the game
+heman	room98	not a room: past the last room of the game
+heman	room100	not a room: past the last room of the game
+heman	room101	not a room: past the last room of the game
+heman	room102	not a room: past the last room of the game
+heman	room103	not a room: past the last room of the game
+heman	room104	not a room: past the last room of the game
+heman	room106	not a room: past the last room of the game
+heman	room107	not a room: past the last room of the game
+heman	room109	not a room: past the last room of the game
+heman	room113	not a room: past the last room of the game
+heman	room120	not a room: past the last room of the game
+heman	room124	not a room: past the last room of the game
+temple-of-terror	room113	not a room: past the last room of the game
+temple-of-terror	room119	not a room: past the last room of the game
+temple-of-terror	room120	not a room: past the last room of the game
+kayleth	room2	animated: the original was caught at another frame
+kayleth	room3	animated: the original was caught at another frame
+kayleth	room9	animated: the original was caught at another frame
+kayleth	room13	animated: the original was caught at another frame
+kayleth	room14	animated: the original was caught at another frame
+kayleth	room15	animated: the original was caught at another frame
+kayleth	room32	animated: the original was caught at another frame
+kayleth	room36	animated: the original was caught at another frame
+kayleth	room52	animated: the original was caught at another frame
+kayleth	room53	animated: the original was caught at another frame
+kayleth	room56	animated: the original was caught at another frame
+kayleth	room63	animated: the original was caught at another frame
+kayleth	room91	animated: the original was caught at another frame
+kayleth	room69	not drawn by the original: it prints the briefing and waits for a key, with the animated picture of the first room still on the screen
+rebel-planet	room74	dark: the cave is black in play until the scanner is viewed; the capture, which pokes the player into the room, shows the picture
+blizzard-pass	room109	not a room: the original crashes or draws garbage
+blizzard-pass	room117	not a room: the original crashes or draws garbage
+blizzard-pass	room120	not a room: the original crashes or draws garbage
+questprobe-3	room3	below the tar: the original draws the tar pit as seen from above, the interpreter paints the room black
+questprobe-3	room6	original bug, fixed in the interpreter: tile 255 does not exist, and the original draws the bytes after the tile table as speckles over the examiner's hand
+questprobe-3	room7	the original does not get to draw the circus tent: the fall kills the player first
+questprobe-3	room8	original bug, fixed in the interpreter: the same missing tile 255, as speckles in the sky beside the rock
+questprobe-3	room16	the egg and bio gem picture is damaged in the game file; the interpreter draws a repaired copy
+questprobe-3	room22	original bug, fixed in the interpreter: the original draws the toppled statue and the freed Alicia whenever object 46 is in the room, even with Xandu still standing

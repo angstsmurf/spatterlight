@@ -131,8 +131,10 @@ static void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t 
             uint16_t source = (y1 + line) * IRMAK_IMGWIDTH + col;
             if (source >= IRMAK_IMGSIZE)
                 return;
+            /* The original swaps the rows in pairs, so the middle row
+               of an odd number is left as it is. */
             for (int pixrow = 0; pixrow < 8; pixrow++)
-                mirror[target][7 - pixrow] = imagebuffer[source][pixrow];
+                mirror[target][source == target ? pixrow : 7 - pixrow] = imagebuffer[source][pixrow];
             mirror[target][8] = imagebuffer[source][8];
         }
     }
@@ -186,7 +188,10 @@ static void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_
             for (int pixrow = 0; pixrow < 9; pixrow++)
                 mirror[target][pixrow] =
                 imagebuffer[source][pixrow];
-            Flip(mirror[target]);
+            /* The original swaps the columns in pairs, so the middle
+               column of an odd number is left as it is. */
+            if (source != target)
+                Flip(mirror[target]);
         }
     }
 
@@ -210,8 +215,8 @@ static void draw_colour_old(uint8_t x, uint8_t y, uint8_t colour, uint8_t length
     uint16_t index = y * IRMAK_IMGWIDTH + x;
     if (index >= IRMAK_IMGSIZE)
         return;
-    if (index + length >= IRMAK_IMGSIZE)
-        length = IRMAK_IMGSIZE - index - 1;
+    if (index + length > IRMAK_IMGSIZE)
+        length = IRMAK_IMGSIZE - index;
     for (int i = 0; i < length; i++) {
         imagebuffer[index + i][8] = colour;
     }

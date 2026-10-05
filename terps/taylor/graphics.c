@@ -369,6 +369,9 @@ void InitGraphics(void)
     int numgraphics = Game->number_of_pictures;
     pos = SeekToPos(tiles_start);
 
+    /* Questprobe 3 has 246 tiles. Two of its pictures use tile 255 too, and
+       the original then draws the bytes that follow the tiles as speckles.
+       Here that tile is left empty. */
     for (int i = 0; i < 246; i++) {
         for (int y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
             tiles[i][y] = *pos++;

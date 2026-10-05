@@ -2157,6 +2157,8 @@ static void ExecuteLineCode(unsigned char *code, int *done)
         case IMAGE:
             if (!TAYLOR_GRAPHICS_ENABLED)
                 break;
+            /* Room 3 is below the tar. The original draws the tar pit as
+               seen from above there. */
             if (MyLoc == 3 || Flag[DarkFlag()]) {
                 DrawBlack();
                 break;
@@ -2165,6 +2167,8 @@ static void ExecuteLineCode(unsigned char *code, int *done)
                 ClearGraphMem();
                 DrawPictureNumber(MyLoc - 1, 1);
             } else if (arg1 == 45 && ObjectLoc[48] != MyLoc) {
+                /* A bug in the original: it draws the toppled statue
+                   while Xandu still stands. */
                 break;
             } else {
                 DrawPictureNumber(arg1 - 1, 1);
