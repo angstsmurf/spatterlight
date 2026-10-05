@@ -37,6 +37,12 @@ writes each canvas to `DIR/<name>.png`:
 
     ./taylor_image_probe -d /tmp/pics test/images/games/<dir>/<file> [keys]
 
+To play a game through instead, give it a script with `-s`, one command per
+line. The text of the game goes to stdout, with a CRC of the canvas after each
+command, so the output of two builds can be compared with `diff`:
+
+    ./taylor_image_probe -s script.txt <file> [keys] > transcript.txt
+
 ## The keys column
 
 Every game but *Kayleth* opens with "load a saved game?", answered `n`. A C64

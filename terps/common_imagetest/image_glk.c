@@ -15,13 +15,24 @@
 // nothing of the game, so the goldens can be committed although the games
 // cannot.
 //
-//   <probe> [-d dumpdir] <game file> [keys]
+//   <probe> [-d dumpdir] [-s script] <game file> [keys]
 //     -d    also write every picture to <dumpdir>/<label>.png
+//     -s    play the game instead (see below)
 //     keys  answers to the key presses the game asks for before its first
 //           prompt, one character each (a menu choice on a compilation tape,
 //           Y or N to a question). Return is pressed once they run out. A key
 //           asked for on the graphics window (a title picture) always gets
 //           Return and uses up none.
+//
+// With -s the probe plays the game instead of taking the fingerprint: every
+// prompt is answered with the next line of the script, and what the game
+// prints in its text buffer window goes to stdout, each command followed by a
+// "[canvas xxxxxxxx]" line with the CRC32 of the graphics window as it was
+// when the command was typed. It ends when the script does. A key press the
+// game asks for once the keys have run out gets the next script line if that
+// is a lone Y or N (the answer to a question), and Return otherwise. The
+// output is the game's text, so it is for comparing two builds, not for
+// committing.
 //
 // Same approach as scott/saga/test/scenetest.c, which compares single scenes
 // with hardware screen dumps; this one has no script and no hardware goldens,
@@ -36,6 +47,7 @@
 
 #include "glk.h"
 #include "glkstart.h"
+#include "cheapglk.h"
 
 #include "image_probe.h"
 
@@ -93,6 +105,12 @@ static const char *dump_dir;
 static const char *keys = "";
 static int dumped;
 
+/* Play mode (-s). */
+static FILE *script;
+static strid_t stdout_stream;
+static char *line_buf;
+static glui32 line_maxlen;
+
 void ImageProbeClear(void)
 {
     for (int y = 0; y < CANVAS_H; y++)
@@ -107,7 +125,7 @@ winid_t image_window_open(winid_t split, glui32 method, glui32 size, glui32 wint
     win->type = wintype;
     win->rock = rock;
     win->size = (method & winmethod_Fixed) ? size : 24;
-    win->str = null_stream;
+    win->str = (script && wintype == wintype_TextBuffer) ? stdout_stream : null_stream;
     if (wintype == wintype_Graphics) {
         graphics = win;
         ImageProbeClear();
@@ -248,7 +266,7 @@ glui32 image_gestalt(glui32 sel, glui32 val)
 void image_exit(void)
 {
     fflush(stdout);
-    if (!dumped) {
+    if (!dumped && !script) {
         fprintf(stderr, "image probe: the game exited before its first prompt\n");
         exit(1);
     }
@@ -396,7 +414,9 @@ void image_cancel_char_event(winid_t w)
 
 void image_request_line_event(winid_t w, char *buf, glui32 maxlen, glui32 initlen)
 {
-    (void)buf; (void)maxlen; (void)initlen;
+    (void)initlen;
+    line_buf = buf;
+    line_maxlen = maxlen;
     if (w)
         ((image_window *)w)->line_request = 1;
 }
@@ -412,6 +432,50 @@ static image_window *requesting_window(void)
         if (windows[i] && (windows[i]->line_request || windows[i]->char_request))
             return windows[i];
     return NULL;
+}
+
+/* Play mode: the next line of the script, without its line end. NULL at the
+   end of the script. */
+static char *next_script_line(void)
+{
+    static char line[512];
+    if (!fgets(line, sizeof line, script))
+        return NULL;
+    line[strcspn(line, "\r\n")] = 0;
+    return line;
+}
+
+/* Play mode: answer a prompt with the next line of the script. */
+static void type_script_line(image_window *win, event_t *ev)
+{
+    char *line = next_script_line();
+    if (!line) {
+        printf("\n[end of script]\n");
+        image_exit();
+    }
+    size_t length = strlen(line);
+    if (length > line_maxlen)
+        length = line_maxlen;
+    memcpy(line_buf, line, length);
+    printf("%.*s\n[canvas %08x]\n", (int)length, line, ImageProbeCRC(canvas, sizeof canvas));
+
+    win->line_request = 0;
+    ev->type = evtype_LineInput;
+    ev->win = (winid_t)win;
+    ev->val1 = (glui32)length;
+}
+
+/* Play mode: the key to press once the keys have run out. A lone Y or N next
+   in the script is the answer to a question; anything else stays where it is
+   and the key is Return. */
+static glui32 script_key(void)
+{
+    long pos = ftell(script);
+    char *line = next_script_line();
+    if (line && (line[0] == 'Y' || line[0] == 'N') && line[1] == 0)
+        return (unsigned char)line[0];
+    fseek(script, pos, SEEK_SET);
+    return keycode_Return;
 }
 
 void image_select(event_t *ev)
@@ -432,6 +496,11 @@ void image_select(event_t *ev)
     }
     idle_ticks = 0;
 
+    if (win->line_request && script) {
+        type_script_line(win, ev);
+        return;
+    }
+
     if (win->line_request) {
         /* The first prompt: the game is loaded and started. */
         start_fingerprint();
@@ -449,11 +518,15 @@ void image_select(event_t *ev)
     ev->win = (winid_t)win;
     if (win->type == wintype_Graphics) {
         /* A title picture, waiting to be dismissed. */
-        start_fingerprint();
-        ImageProbeReport("title", NULL);
+        if (!script) {
+            start_fingerprint();
+            ImageProbeReport("title", NULL);
+        }
         ev->val1 = keycode_Return;
+    } else if (*keys) {
+        ev->val1 = (unsigned char)*keys++;
     } else {
-        ev->val1 = *keys ? (unsigned char)*keys++ : keycode_Return;
+        ev->val1 = script ? script_key() : keycode_Return;
     }
 }
 
@@ -462,12 +535,16 @@ void image_select(event_t *ev)
 int main(int argc, char **argv)
 {
     int arg = 1;
-    if (arg + 1 < argc && strcmp(argv[arg], "-d") == 0) {
-        dump_dir = argv[arg + 1];
+    const char *script_path = NULL;
+    while (arg + 1 < argc && (strcmp(argv[arg], "-d") == 0 || strcmp(argv[arg], "-s") == 0)) {
+        if (argv[arg][1] == 'd')
+            dump_dir = argv[arg + 1];
+        else
+            script_path = argv[arg + 1];
         arg += 2;
     }
     if (arg >= argc || arg + 2 < argc) {
-        fprintf(stderr, "usage: %s [-d dumpdir] <game file> [keys]\n", argv[0]);
+        fprintf(stderr, "usage: %s [-d dumpdir] [-s script] <game file> [keys]\n", argv[0]);
         return 2;
     }
     if (arg + 1 < argc)
@@ -476,6 +553,19 @@ int main(int argc, char **argv)
     gli_initialize_misc();
     gli_determinism = 1;
     null_stream = glk_stream_open_memory(NULL, 0, filemode_Write, 0);
+    if (script_path) {
+        script = fopen(script_path, "r");
+        if (!script) {
+            perror(script_path);
+            return 2;
+        }
+        /* glk_stream_open_file() wants a fileref, and a fileref a file name. */
+        stdout_stream = gli_new_stream(strtype_File, 0, 1, 0);
+        stdout_stream->unicode = 0;
+        stdout_stream->isbinary = 0;
+        stdout_stream->file = stdout;
+        stdout_stream->lastop = 0;
+    }
     ImageProbeClear();
 
     char *game_argv[] = { argv[0], argv[arg], NULL };
