@@ -1236,17 +1236,21 @@ struct Loader {
             if (imp) type = *imp;
         }
 
-        // Legacy type-name remapping for old games (<= v530).
-        if (!type.empty() && world.asl_version <= 530) {
-            if (type == "list") type = "simplestringlist";
-            else if (type == "stringdictionary") type = "simplestringdictionary";
-            else if (type == "objectdictionary") type = "simpleobjectdictionary";
-        }
+        remap_legacy_type(type);
 
         bool nested = !f.values.empty() || !f.items.empty();
         if (type.empty()) type = (!f.text.empty() || nested) ? "string" : "boolean";
 
         set_typed_field_from_frame(owner, attr, type, f);
+    }
+
+    // Legacy type-name remapping for old games (<= v530), whose "list" and
+    // dictionary types are what later versions call the simple ones.
+    void remap_legacy_type(std::string &type) const {
+        if (world.asl_version > 530) return;
+        if (type == "list") type = "simplestringlist";
+        else if (type == "stringdictionary") type = "simplestringdictionary";
+        else if (type == "objectdictionary") type = "simpleobjectdictionary";
     }
 
     // Build a Value of `type` from a frame's text or nested (recursive) child
@@ -1258,12 +1262,7 @@ struct Loader {
     Value build_value(const std::string &type_in, Frame &f,
                       bool apply_templates, const std::string &ctx) {
         std::string type = type_in;
-        // Legacy type-name remapping for old games (<= v530); idempotent.
-        if (!type.empty() && world.asl_version <= 530) {
-            if (type == "list") type = "simplestringlist";
-            else if (type == "stringdictionary") type = "simplestringdictionary";
-            else if (type == "objectdictionary") type = "simpleobjectdictionary";
-        }
+        remap_legacy_type(type);   // idempotent
         bool nested = !f.values.empty() || !f.items.empty();
         if (type.empty()) type = (!f.text.empty() || nested) ? "string" : "boolean";
 
@@ -1555,15 +1554,14 @@ static void apply_default_types(World &world) {
 
 // Own field, else inherited types most-recent-first (load-time inheritance
 // walk; the runtime equivalent is Interp::resolve_field).
-static const Value *find_field_rec(World &world, Element *e,
-                                   const std::string &name,
-                                   std::set<Element *> &seen) {
-    if (!e || !seen.insert(e).second) return nullptr;
-    if (const Value *own = e->field(name)) return own;
-    for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
-        if (const Value *v = find_field_rec(world, world.find(*it), name, seen))
-            return v;
-    return nullptr;
+static const Value *find_inherited_field(World &world, Element *e,
+                                         const std::string &name) {
+    const Value *found = nullptr;
+    walk_inherited(world, e, [&](Element *x) {
+        found = x->field(name);
+        return found != nullptr;
+    });
+    return found;
 }
 
 // Deferred <verb> pattern conversion (VerbLoader.LoadPattern's lazy action):
@@ -1573,8 +1571,7 @@ static const Value *find_field_rec(World &world, Element *e,
 static void finish_verb_patterns(Loader &ld, World &world) {
     for (auto &pv : ld.pending_verb_patterns) {
         Element *e = pv.first;
-        std::set<Element *> seen;
-        const Value *sep = find_field_rec(world, e, "separator", seen);
+        const Value *sep = find_inherited_field(world, e, "separator");
         std::string separator =
             (sep && sep->type == Value::Type::String) ? sep->str : "";
         e->set_field("pattern", vpattern(convert_verb_simple_pattern(pv.second,

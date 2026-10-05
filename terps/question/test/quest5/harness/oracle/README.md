@@ -28,7 +28,7 @@ but not something to vendor), just like the FrankenDrift build the a5 oracle use
 ```
 
 Clones QuestViva into `$ORACLE_HOME` (default `~/questviva-oracle`), moves the
-clone to the **pinned upstream revision** (`QV_REV` in `build.sh`, currently
+clone to the **pinned upstream revision** (`QV_REV` in `questviva_clone.sh`, currently
 v6.0.0-rc.4 + 9 = `5ef2091b`), applies the harness patches (below), and builds
 `bin/Release/net10.0/qvh.dll`. With the .NET 10 SDK the checkout needs no
 retargeting. Override the location with `ORACLE_HOME=/path ./build.sh`, the

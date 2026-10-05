@@ -23,37 +23,9 @@
  * Part of question_implementation; question-runner.cc holds the rest of the
  * preamble and question-internal.hh what these units share. */
 
-#include "QuestionRunner.hh"
-#include "readfile.hh"
-#include "question-state.hh"
-#include "question-util.hh"
-#include <set>
-#include <unordered_map>
-#include "question-impl.hh"
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include "general.hh"
-#include "istring.hh"
-
-/* Use the shared erkyrath_random() RNG (xoshiro128** when seeded, native
-   otherwise), like scott/comprehend/plus/taylor.  The headless walkthrough
-   runner links common_utils/randomness.c too, so a seeded run draws the same
-   numbers there as in the app -- and, xoshiro128** being a fixed algorithm,
-   the same numbers on any platform.  That is what lets the corpus transcripts
-   in test/quest4/goldens be diffed at all. */
-extern "C" {
-#include "randomness.h"
-}
-
-class QuestionInterface;
+#include "question-internal.hh"
 
 using namespace std;
-
-#include "question-internal.hh"
 
 void question_implementation::run_procedure (const string &pname, vector<string> args)
 {
@@ -406,12 +378,11 @@ string question_implementation::run_function (const string &pname)
 
       /* Highest defined index of an array variable (string or numeric).
        * Records carry index 0 plus every set index, so max() == size()-1. */
-      for (const auto &i: state.svars)
-	if (ci_equal (i.name, function_args[0]))
-	  return string_int (i.max());
-      for (const auto &i: state.ivars)
-	if (ci_equal (i.name, function_args[0]))
-	  return string_int (i.max());
+      size_t n;
+      if (find_svar (function_args[0], n))
+	return string_int (state.svars[n].max());
+      if (find_ivar (function_args[0], n))
+	return string_int (state.ivars[n].max());
       return "0";
     }
   else if (pname == "ucase")

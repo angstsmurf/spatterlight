@@ -196,27 +196,19 @@ void write_to (QuestionOutputStream &gos, const TimerRecord &tr)
 /* The record's upper bound is written as its element count, so write exactly
  * max() + 1 elements: an (unexpected) empty record would otherwise announce one
  * element and write none, leaving the reader to consume the following field as
- * this array's data.  get() serves the usual "undefined" placeholder for any
- * index the record does not actually hold. */
-void write_to (QuestionOutputStream &gos, const SVarRecord &svr)
+ * this array's data.  stored() serves the usual "undefined" placeholder for
+ * any index the record does not actually hold. */
+template <class Rec>
+static void write_var (QuestionOutputStream &gos, const Rec &r)
 {
-  gos.put (svr.name);
-  gos.put (svr.max());
-  for (size_t i = 0; i <= svr.max(); i ++)
-    {
-      gos.put (svr.get(i));
-    }
+  gos.put (r.name);
+  gos.put (r.max());
+  for (size_t i = 0; i <= r.max(); i ++)
+    gos.put (r.stored (i));
 }
 
-void write_to (QuestionOutputStream &gos, const IVarRecord &ivr)
-{
-  gos.put (ivr.name);
-  gos.put (ivr.max());
-  for (size_t i = 0; i <= ivr.max(); i ++)
-    {
-      gos.put (ivr.getd(i));
-    }
-}
+void write_to (QuestionOutputStream &gos, const SVarRecord &svr) { write_var (gos, svr); }
+void write_to (QuestionOutputStream &gos, const IVarRecord &ivr) { write_var (gos, ivr); }
 
 void write_to (QuestionOutputStream &gos, const QuestionState &gs)
 {
@@ -330,36 +322,32 @@ struct SaveReader
     return true;
   }
 
-  bool svars (vector<SVarRecord> &out)
+  /* ELEM reads one element of a record off the stream. */
+  template <class Rec, class Elem>
+  bool vars (vector<Rec> &out, Elem elem)
   {
     size_t n, cnt;
     if (!count (n)) return false;
     for (size_t i = 0; i < n; i ++)
       {
-	SVarRecord v;
+	Rec v;
 	v.name = gis.get_str ();
 	if (!elem_count (cnt)) return false;
 	for (size_t j = 0; j < cnt; j ++)
-	  v.set (j, gis.get_str ());
+	  v.set (j, elem ());
 	out.push_back (v);
       }
     return true;
   }
 
+  bool svars (vector<SVarRecord> &out)
+  {
+    return vars (out, [this] { return gis.get_str (); });
+  }
+
   bool ivars (vector<IVarRecord> &out)
   {
-    size_t n, cnt;
-    if (!count (n)) return false;
-    for (size_t i = 0; i < n; i ++)
-      {
-	IVarRecord v;
-	v.name = gis.get_str ();
-	if (!elem_count (cnt)) return false;
-	for (size_t j = 0; j < cnt; j ++)
-	  v.set (j, gis.get_double ());
-	out.push_back (v);
-      }
-    return true;
+    return vars (out, [this] { return gis.get_double (); });
   }
 
   bool items (vector<string> &out)
@@ -709,31 +697,17 @@ QuestionState::QuestionState (QuestionInterface &gi, const QuestionFile &gf)
        * questionfile.cc's obj_tag_property list about "parent" would not work
        * instead: that would rewrite the definition line as a properties line,
        * and it is the raw line that this loop scans for.) */
-      for (const auto &line: go.data)
-	{
-	  std::string::size_type c1, c2;
-	  if (first_token (line, c1, c2) == "parent")
-	    {
-	      std::string p = next_token (line, c1, c2);
-	      if (is_param (p))
-		add_prop (data.name, "properties parent=" + param_contents (p));
-	      break;
-	    }
-	}
+      std::string p = first_decl_param (go, "parent", false);
+      if (p != "")
+	add_prop (data.name, "properties parent=" + param_contents (p));
       /* "startin <room>": for a top-level object with no room from nesting or
        * an explicit parent, place it in the named room (Quest's startin). */
       if (data.parent == "")
-	for (const auto &line: go.data)
-	  {
-	    std::string::size_type c1, c2;
-	    if (first_token (line, c1, c2) == "startin")
-	      {
-		std::string p = next_token (line, c1, c2);
-		if (is_param (p))
-		  data.parent = param_contents (p);
-		break;
-	      }
-	  }
+	{
+	  p = first_decl_param (go, "startin", false);
+	  if (p != "")
+	    data.parent = param_contents (p);
+	}
       /* Quest's post-definition fixup for visibility.  Only a *bare* "hidden"
        * tag line actually leaves an object non-existent: the loop that reads an
        * object definition raises its local `hidden' flag on
@@ -796,11 +770,7 @@ QuestionState::QuestionState (QuestionInterface &gi, const QuestionFile &gf)
 	  string tok = first_token (line, c1, c2);
 	  if (tok == "interval")
 	    {
-	      tok = next_token (line, c1, c2);
-	      if (!is_param (tok))
-		gi.debug_print (nonparam ("interval", line));
-	      else
-		interval = param_contents(tok);
+	      next_decl_param (gi, line, c1, c2, "interval", interval);
 	    }
 	  else if (tok == "enabled" || tok == "disabled")
 	    {
@@ -829,58 +799,12 @@ QuestionState::QuestionState (QuestionInterface &gi, const QuestionFile &gf)
     {
       const QuestionBlock &go (gf.block("variable", i));
       QUESTION_DBG << "GS::GS: Handling variable #" << i << ": " << go << endl;
-      string vartype;
-      string value;
-      for (size_t j = 0; j < go.data.size(); j ++)
-	{
-	  string line = go.data[j];
-	  QUESTION_DBG << "   Line #" << j << " of var: \"" << line << "\"" << endl;
-	  std::string::size_type c1, c2;
-	  string tok = first_token (line, c1, c2);
-	  if (tok == "type")
-	    {
-	      tok = next_token (line, c1, c2);
-	      if (tok == "")
-		gi.debug_print (string("Missing variable type in ")
-				+ string_question_block (go));
-	      else if (vartype != "")
-		gi.debug_print (string ("Redefining var. type in ")
-				+ string_question_block (go));
-	      else if (tok == "numeric" || tok == "string")
-		vartype = tok;
-	      else
-		gi.debug_print (string ("Bad var. type ") + line);
-	    }
-	  else if (tok == "value")
-	    {
-	      tok = next_token (line, c1, c2);
-	      if (!is_param (tok))
-		gi.debug_print (string ("Expected parameter in " + line));
-	      else
-		value = param_contents (tok);
-	    }
-	  else if (tok == "display" || tok == "onchange")
-	    {
-	    }
-	  else
-	    {
-	      gi.debug_print (string ("Bad var. line: ") + line);
-	    }
-	}
-      if (vartype == "" || vartype == "numeric")
-	{
-	  IVarRecord ivr;
-	  ivr.name = go.name;
-	  ivr.set (0, parse_int (value));
-	  ivars.push_back (ivr);
-	}
+      /* The one reader that reports the block's malformed lines. */
+      VarDef vd (go, &gi);
+      if (vd.is_numeric ())
+	ivars.push_back (IVarRecord (go.name, parse_int (vd.value)));
       else
-	{
-	  SVarRecord svr;
-	  svr.name = go.name;
-	  svr.set (0, value);
-	  svars.push_back (svr);
-	}
+	svars.push_back (SVarRecord (go.name, vd.value));
     }
   QUESTION_DBG << "QuestionState::QuestionState() done with variables" << endl;
 }
@@ -912,39 +836,27 @@ ostream &operator<< (ostream &o, const TimerRecord &tr)
 	   << tr.elapsed << " // " << tr.interval << ")"; 
 }
 
-ostream &operator<< (ostream &o, const SVarRecord &sr) 
-{ 
-  o << sr.name << ": ";
-  if (sr.size () == 0)
+/* A record for the debug log; OPEN and CLOSE bracket each element. */
+template <class Rec>
+static ostream &show_var (ostream &o, const Rec &r, const char *open, const char *close)
+{
+  o << r.name << ": ";
+  if (r.size () == 0)
     o << "(empty)";
-  else if (sr.size() <= 1)
-    o << "<" << sr.get(0) << ">";
+  else if (r.size() <= 1)
+    o << open << r.get(0) << close;
   else
-    for (uint i = 0; i < sr.size(); i ++)
+    for (uint i = 0; i < r.size(); i ++)
       {
-	o << i << ": <" << sr.get(i) << ">";
-	if (i + 1 < sr.size())
+	o << i << ": " << open << r.get(i) << close;
+	if (i + 1 < r.size())
 	  o << ", ";
       }
   return o;
 }
 
-ostream &operator<< (ostream &o, const IVarRecord &ir) 
-{ 
-  o << ir.name << ": ";
-  if (ir.size () == 0)
-    o << "(empty)";
-  else if (ir.size() <= 1)
-    o << ir.get(0);
-  else
-    for (uint i = 0; i < ir.size(); i ++)
-      {
-	o << i << ": " << ir.get(i);
-	if (i + 1 < ir.size())
-	  o << ", ";
-      }
-  return o;
-}
+ostream &operator<< (ostream &o, const SVarRecord &sr) { return show_var (o, sr, "<", ">"); }
+ostream &operator<< (ostream &o, const IVarRecord &ir) { return show_var (o, ir, "", ""); }
 
 ostream &operator<< (ostream &o, const QuestionState &gs)
 {

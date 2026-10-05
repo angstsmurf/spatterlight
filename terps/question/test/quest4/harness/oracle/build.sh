@@ -5,25 +5,16 @@
 # translation of Axe's VB6 Quest 4 -- so it makes a real oracle for Question, in the
 # way FrankenDrift does for scarier.  The clone lives outside the repo and is
 # shared with the Quest 5 oracle (../../../quest5/harness/oracle), whose
-# patch_questviva.py is what routes both engines' RNG through the deterministic
-# xoshiro128** stream Question draws from.  Requires the .NET 10 SDK.
+# questviva_clone.sh gets it to the pinned revision and whose patch_questviva.py
+# is what routes both engines' RNG through the deterministic xoshiro128** stream
+# Question draws from.  Requires the .NET 10 SDK.
 #
 #   ./build.sh
 #   ORACLE_HOME=/somewhere ./build.sh
 set -euo pipefail
 export PATH="/opt/homebrew/bin:$PATH"
 HERE="$(cd "$(dirname "$0")" && pwd)"
-QV5="$HERE/../../../quest5/harness/oracle"
-ORACLE_HOME="${ORACLE_HOME:-$HOME/questviva-oracle}"
-QV="$ORACLE_HOME/questviva"
-
-mkdir -p "$ORACLE_HOME"
-if [ ! -d "$QV/.git" ]; then
-  echo "[build] cloning QuestViva (branch main) into $QV"
-  git clone --depth 1 --filter=blob:none https://github.com/textadventures/quest "$QV"
-fi
-
-python3 "$QV5/patch_questviva.py" "$QV" "$QV5"
+. "$HERE/../../../quest5/harness/oracle/questviva_clone.sh"
 
 echo "[build] building qv4 against $QV"
 dotnet build -c Release "$HERE/qv4.csproj" -p:QuestVivaDir="$QV"

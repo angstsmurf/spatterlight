@@ -8,7 +8,7 @@ real game:
 | `make syntax` (at `../`) | nothing (in-repo) | code that only compiles as one translation unit |
 | `harness/run_fixtures.sh` | nothing (in-repo) | engine behaviour, against golden transcripts |
 | `harness/question_unit_tests` | nothing (in-repo) | corrupt saves and parser edges no player can drive |
-| `harness/run_walkthroughs.sh` | the games (local; scripts in-repo) | regressions in 111 real games, against golden transcripts |
+| `harness/run_walkthroughs.sh` | the games (local; scripts in-repo) | regressions in 150 real games, against golden transcripts |
 
 `make check` (from `../`) runs everything but the last — those are
 self-contained, so they are the ones worth wiring into CI.
@@ -55,7 +55,7 @@ between the two is a loader bug.
 Small hand-written `.asl` games, each paired with a `.cmd` script and a golden
 `.expected` transcript. They exist because **the game corpus cannot catch these
 bugs**: a shipped game only walks the paths its author happened to walk, so a
-crash or a wrong string in an unvisited corner leaves all 111 walkthroughs
+crash or a wrong string in an unvisited corner leaves all 150 walkthroughs
 byte-identical. Every fixture here was checked against a pre-fix engine and
 either crashes it or produces different output; each file's header comment says
 what it guards.
@@ -161,7 +161,7 @@ Each game is checked twice over: the win marker has to appear, **and** the whole
 replay has to match `goldens/<title> - transcript.txt` byte for byte. The marker
 on its own is a weak test — an engine change that garbles every room description
 still reaches the ending, so it still passes. Changing one word of the
-`badcommand` message, for instance, leaves all 111 win markers intact and shows
+`badcommand` message, for instance, leaves all 150 win markers intact and shows
 up as four failed transcripts.
 
 A failure prints the head of the diff and how many lines moved; the transcripts

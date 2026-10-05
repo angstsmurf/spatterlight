@@ -24,27 +24,9 @@
  * Part of question_implementation; question-runner.cc holds the rest of the
  * preamble and question-internal.hh what these units share. */
 
-#include "QuestionRunner.hh"
-#include "readfile.hh"
-#include "question-state.hh"
-#include "question-util.hh"
-#include <set>
-#include <unordered_map>
-#include "question-impl.hh"
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include "general.hh"
-#include "istring.hh"
-
-class QuestionInterface;
+#include "question-internal.hh"
 
 using namespace std;
-
-#include "question-internal.hh"
 
 v2string question_implementation::get_inventory ()
 {
@@ -215,15 +197,12 @@ void question_implementation::set_up_items ()
 	 to the list rather than replacing it. */
       if (keyword != "items" && keyword != "possitems")
 	continue;
-      string tok = next_token (line, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print (nonparam (keyword, line));
-	  continue;
-	}
       /* Read with no variable substitution, as the collectables are: this runs
 	 before the game does. */
-      string s = trim (param_contents (tok));
+      string s;
+      if (!next_decl_param (*gi, line, c1, c2, keyword, s))
+	continue;
+      s = trim (s);
       if (s == "")
 	continue;
 
@@ -266,19 +245,16 @@ void question_implementation::set_up_collectables ()
     {
       if (lcase (first_token (line, c1, c2)) != "collectables")
 	continue;
-      string tok = next_token (line, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print (nonparam ("collectables", line));
-	  continue;
-	}
+      string s;
+      if (!next_decl_param (*gi, line, c1, c2, "collectables", s))
+	continue;
       /* A second "collectables" line replaces the first rather than adding to
 	 it: SetUpCollectables restarts its counter inside the loop over the game
 	 block (V4Game.Part2.cs:6866). */
       collectables.clear ();
       /* Read with no variable substitution -- SetUpCollectables passes
 	 convertStringVariables = false, since this runs before the game does. */
-      string s = trim (param_contents (tok));
+      s = trim (s);
       if (s == "")
 	continue;
 
@@ -539,53 +515,17 @@ vstring question_implementation::get_status_vars ()
       return rv;
     }
 
-  string tok, line;
-  std::string::size_type c1, c2;
-
   for (size_t i = 0; i < gf.size("variable"); i ++)
     {
       const QuestionBlock &gb = gf.block ("variable", i);
 
-      bool nozero = false;
-      string disp;
-      bool is_numeric = true;
-
       QUESTION_DBG << "g_s_v: " << gb << endl;
-
-      for (const string &line: gb.data)
+      VarDef vd (gb);
+      bool is_numeric = vd.is_numeric ();
+      if (! (is_numeric && vd.nozero && get_ivar (gb.name) == 0)
+	  && vd.has_display)
 	{
-	  QUESTION_DBG << "  g_s_v:  " << line << endl;
-	  tok = first_token (line, c1, c2);
-	  /* The block's keywords are CI (BeginsWith, V4Game.Part2.cs:704-728);
-	   * the "type string" *value* is not -- Quest compares the raw text
-	   * (ibid. 707), so "type String" is an unrecognised type there and
-	   * here. */
-	  if (ci_equal (tok, "display"))
-	    {
-	      tok = next_token (line, c1, c2);
-
-	      if (ci_equal (tok, "nozero"))
-		{
-		  nozero = true;
-		  tok = next_token (line, c1, c2);
-		}
-	      if (!is_param (tok))
-		gi->debug_print ("Expected param after display: " + line);
-	      else
-		disp = tok;
-	    }
-	  else if (ci_equal (tok, "type"))
-	    {
-	      tok = next_token (line, c1, c2);
-	      if (tok == "string")
-		is_numeric = false;
-	    }
-	}
-
-      QUESTION_DBG << "  g_s_v, block 2, tok == '" << tok << "'" << endl;
-      if (! (is_numeric && nozero && get_ivar (gb.name) == 0) && disp != "")
-	{
-	  disp = param_contents (disp);
+	  const string &disp = vd.display;
 	  string outval = "";
 	  for (size_t j = 0; j < disp.length(); j ++)
 	    if (disp[j] == '!')

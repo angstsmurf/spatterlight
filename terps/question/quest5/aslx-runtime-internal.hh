@@ -182,6 +182,25 @@ bool starts_with_word(const std::string &line, const std::string &kw);
 // Substring after the first occurrence of `kw` (all of `s` if there is none).
 std::string text_after(const std::string &s, const std::string &kw);
 
+// A keyword that opens a statement carrying a script block, and where that
+// block sits. The parser dispatches on this, and so does the save-time
+// firsttime bake (aslx-savenative.cc), which has to find every block in a
+// script's source exactly where the parser did: a keyword the two told apart
+// differently would hand the firsttime flags to the wrong blocks in a save.
+struct BlockKeyword {
+    enum class Shape {
+        Bare,       // keyword { block }
+        Parameter,  // keyword (parameter) { block }
+        Switch,     // switch (expression) { case (values) { block } ... }
+    };
+    const char *word;
+    Stmt::Kind kind;
+    Shape shape;
+};
+// The block keyword `stmt` opens with, or null. (`else` and `otherwise` are
+// not among them: parse_statements folds those into the statement before.)
+const BlockKeyword *block_keyword(const std::string &stmt);
+
 // Compile an expression source string to an AST; throws std::runtime_error
 // ("<what> in [<src>]") if it does not parse.
 ExprP compile_expr_str(const std::string &src);

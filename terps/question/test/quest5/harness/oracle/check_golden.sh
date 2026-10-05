@@ -16,9 +16,7 @@
 export PATH="/opt/homebrew/bin:$PATH"
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
-if [ -z "${GAMES:-}" ] && [ -d "$HERE/../../games" ]; then GAMES="$HERE/../../games"; fi
-GAMES="${GAMES:-$HOME/Downloads/Quest 5 games}"
-GOLDEN="$HERE/../../goldens"
+. "$HERE/../corpus_lib.sh"  # GAMES, GOLDEN, match_filter, corpus_check
 DLL="$HERE/bin/Release/net10.0/qvh.dll"
 WORK="$HERE/out"
 mkdir -p "$WORK"
@@ -32,63 +30,19 @@ fi
 # the game name), so you can re-check a single new golden without replaying all
 # ~68 games:  ./check_golden.sh "lost cavern"   (the coverage cross-check below
 # always runs over the full corpus regardless of the filter).
-FILTERS=("$@")
-match_filter() {  # $1 = game name; true if no filters, or any filter matches
-  [ "${#FILTERS[@]}" -eq 0 ] && return 0
-  local g; g="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
-  local f
-  for f in "${FILTERS[@]}"; do
-    case "$g" in *"$(printf '%s' "$f" | tr '[:upper:]' '[:lower:]')"*) return 0;; esac
-  done
-  return 1
-}
-
+#
 # The per-game replay+diff is embarrassingly parallel (each is an independent
 # `dotnet` invocation), and dotnet's JIT startup dominates each short game, so we
 # fan out across cores instead of looping serially (~68 cold starts -> minutes).
-JOBS="${GOLDEN_JOBS:-$( (sysctl -n hw.ncpu 2>/dev/null || nproc 2>/dev/null || echo 4) )}"
-check_one() {  # $1 = golden .cmd path; prints one "STATUS<TAB>game<TAB>detail" line
-  local cmd="$1" game q gold got
-  game="$(basename "$cmd" .cmd)"
-  q="$GAMES/$game.quest"; gold="$GOLDEN/$game.txt"
-  if [ ! -f "$q" ] && [ -f "$GAMES/$game.aslx" ]; then q="$GAMES/$game.aslx"; fi
-  [ -f "$q" ]    || { printf 'MISS\t%s\tgame file missing\n' "$game"; return; }
-  [ -f "$gold" ] || { printf 'MISS\t%s\tno golden .txt\n' "$game";    return; }
-  got="$WORK/$game.golden-check.txt"
-  dotnet "$DLL" "$q" "$cmd" > "$got" 2>/dev/null
-  if diff -q "$gold" "$got" >/dev/null; then
-    printf 'PASS\t%s\t\n' "$game"
-  else
-    printf 'FAIL\t%s\t%s diff lines\n' "$game" "$(diff "$gold" "$got" | grep -c '^[<>]')"
-  fi
-}
-export -f check_one; export GAMES GOLDEN WORK DLL
+run_game() { dotnet "$DLL" "$1" "$2"; }
+export DLL
+SUFFIX=golden-check LABEL="golden check" DIFF_LINES=0
+NO_GOLDENS_HINT=" — run ./update_golden.sh"
+JOBS="${GOLDEN_JOBS:-$(default_jobs)}"
+FILTERS=("$@")
+corpus_check
 
-results="$(mktemp)"; trap 'rm -f "$results"' EXIT
-sel_list=()
-for cmd in "$GOLDEN"/*.cmd; do
-  [ -e "$cmd" ] || { echo "no goldens in $GOLDEN — run ./update_golden.sh" >&2; exit 2; }
-  match_filter "$(basename "$cmd" .cmd)" || continue
-  sel_list+=("$cmd")
-done
-sel=${#sel_list[@]}
-if [ "$sel" -gt 0 ]; then
-  printf '%s\0' "${sel_list[@]}" | xargs -0 -P "$JOBS" -I{} bash -c 'check_one "$@"' _ {} | sort -f -t$'\t' -k2 > "$results"
-fi
-
-pass=0; fail=0; miss=0
-while IFS=$'\t' read -r status game detail; do
-  case "$status" in
-    PASS) printf "PASS  %-50s\n" "$game"; pass=$((pass+1));;
-    FAIL) printf "FAIL  %-50s (%s)\n" "$game" "$detail"; fail=$((fail+1));;
-    MISS) printf "MISS  %-50s (%s)\n" "$game" "$detail"; miss=$((miss+1));;
-  esac
-done < "$results"
-echo "---"
-[ "${#FILTERS[@]}" -gt 0 ] && echo "(filtered: $sel of $(ls "$GOLDEN"/*.cmd | wc -l | tr -d ' ') goldens; ${JOBS}-way parallel)"
-echo "golden check: $pass passed, $fail failed, $miss missing"
-
-# Coverage cross-check. The loop above iterates ../../goldens/*.cmd, so it only
+# Coverage cross-check. corpus_check iterates ../../goldens/*.cmd, so it only
 # ever visits games that ALREADY have a golden: a corpus row that is driven but
 # was never frozen into goldens/ is not regression-checked and nothing complains.
 # (run_corpus.sh's counterpart guard catches the other half — a corpus row that

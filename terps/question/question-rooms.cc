@@ -25,27 +25,9 @@
  * Part of question_implementation; question-runner.cc holds the rest of the
  * preamble and question-internal.hh what these units share. */
 
-#include "QuestionRunner.hh"
-#include "readfile.hh"
-#include "question-state.hh"
-#include "question-util.hh"
-#include <set>
-#include <unordered_map>
-#include "question-impl.hh"
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include "general.hh"
-#include "istring.hh"
-
-class QuestionInterface;
+#include "question-internal.hh"
 
 using namespace std;
-
-#include "question-internal.hh"
 
 /* Is `room` somewhere the player can actually stand?  Quest's GetRoomID scans
  * _rooms for a RoomName match (V4Game.cs:6348-6365) -- the room's *alias* is
@@ -619,6 +601,22 @@ vector<string> question_implementation::exit_object_names (const string &room)
 
   vector<string> seen_dirs, seen_places;
   int place_id = 0;
+  /* One object per direction and one per destination, however many times
+   * either is declared or created: only the first makes a new name. */
+  auto add_dir = [&] (const string &dir)
+    {
+      if (ci_contains (seen_dirs, dir))
+	return;
+      seen_dirs.push_back (dir);
+      rv.push_back (rname + "." + dir);
+    };
+  auto add_place = [&] (const string &dest)
+    {
+      if (ci_contains (seen_places, dest))
+	return;
+      seen_places.push_back (dest);
+      rv.push_back (rname + ".exit" + string_int (++place_id));
+    };
 
   std::string::size_type c1, c2;
   if (gb != NULL)
@@ -627,13 +625,7 @@ vector<string> question_implementation::exit_object_names (const string &room)
 	const QuestionBlock::line_first &lt = gf.line_tok (*gb, li);
 	const string &tok = lt.tok;
 	if (is_dir_name (tok))
-	  {
-	    if (!ci_contains (seen_dirs, tok))
-	      {
-		seen_dirs.push_back (tok);
-		rv.push_back (rname + "." + tok);
-	      }
-	  }
+	  add_dir (tok);
 	else if (tok == "place")
 	  {
 	    const string &line = gb->data[li];
@@ -644,11 +636,8 @@ vector<string> question_implementation::exit_object_names (const string &room)
 	      continue;
 	    string dest, prefix;
 	    split_exit_dest (eval_param (ptok), dest, prefix);
-	    if (dest != "" && !ci_contains (seen_places, dest))
-	      {
-		seen_places.push_back (dest);
-		rv.push_back (rname + ".exit" + string_int (++place_id));
-	      }
+	    if (dest != "")
+	      add_place (dest);
 	  }
       }
 
@@ -665,11 +654,7 @@ vector<string> question_implementation::exit_object_names (const string &room)
       tok = next_token (line, c1, c2);
       if (is_dir_name (tok))
 	{
-	  if (!ci_contains (seen_dirs, tok))
-	    {
-	      seen_dirs.push_back (tok);
-	      rv.push_back (rname + "." + tok);
-	    }
+	  add_dir (tok);
 	  continue;
 	}
       /* Directionless: "exit <src; dest>", so the token after "exit" is already
@@ -679,11 +664,7 @@ vector<string> question_implementation::exit_object_names (const string &room)
       vector<string> p = split_param (param_contents (tok));
       if (p.size () != 2)
 	continue;
-      if (!ci_contains (seen_places, p[1]))
-	{
-	  seen_places.push_back (p[1]);
-	  rv.push_back (rname + ".exit" + string_int (++place_id));
-	}
+      add_place (p[1]);
     }
 
   return rv;

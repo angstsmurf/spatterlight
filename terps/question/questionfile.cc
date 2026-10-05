@@ -865,7 +865,103 @@ void QuestionFile::clear_clones ()
   clone_type_keys_.clear ();
 }
 
-string QuestionFile::static_svar_lookup (const string &varname) const
+bool next_decl_param (QuestionInterface &gi, const string &line,
+		      std::string::size_type &c1, std::string::size_type &c2,
+		      const string &what, string &out)
+{
+  string tok = next_token (line, c1, c2);
+  if (!is_param (tok))
+    {
+      gi.debug_print (nonparam (what, line));
+      return false;
+    }
+  out = param_contents (tok);
+  return true;
+}
+
+string next_param_token (const string &line, std::string::size_type &c1,
+			 std::string::size_type &c2)
+{
+  string tok;
+  while ((tok = next_token (line, c1, c2)) != "" && !is_param (tok))
+    ;
+  return tok;
+}
+
+string first_decl_param (const QuestionBlock &block, const char *kw, bool ci)
+{
+  for (const string &line: block.data)
+    {
+      std::string::size_type c1, c2;
+      string tok = first_token (line, c1, c2);
+      if (ci ? !ci_equal (tok, kw) : tok != kw)
+	continue;
+      tok = next_token (line, c1, c2);
+      return is_param (tok) ? tok : "";
+    }
+  return "";
+}
+
+VarDef::VarDef (const QuestionBlock &vb, QuestionInterface *complain)
+{
+  std::string::size_type c1, c2;
+  for (const string &line: vb.data)
+    {
+      string tok = first_token (line, c1, c2);
+      if (ci_equal (tok, "type"))
+	{
+	  tok = next_token (line, c1, c2);
+	  if (!complain)
+	    ;
+	  else if (tok == "")
+	    complain->debug_print ("Missing variable type in "
+				   + string_question_block (vb));
+	  else if (typed)
+	    complain->debug_print ("Redefining var. type in "
+				   + string_question_block (vb));
+	  else if (tok != "numeric" && tok != "string")
+	    complain->debug_print ("Bad var. type " + line);
+	  typed = true;
+	  type = tok;
+	}
+      else if (ci_equal (tok, "value"))
+	{
+	  tok = next_token (line, c1, c2);
+	  if (is_param (tok))
+	    value = param_contents (tok);
+	  else
+	    {
+	      bad_value = line;
+	      if (complain)
+		complain->debug_print ("Expected parameter in " + line);
+	    }
+	}
+      else if (ci_equal (tok, "display"))
+	{
+	  tok = next_token (line, c1, c2);
+	  if (ci_equal (tok, "nozero"))
+	    {
+	      nozero = true;
+	      tok = next_token (line, c1, c2);
+	    }
+	  if (is_param (tok))
+	    {
+	      has_display = true;
+	      display = param_contents (tok);
+	    }
+	  else if (complain)
+	    complain->debug_print ("Expected param after display: " + line);
+	}
+      else if (ci_equal (tok, "onchange"))
+	/* The rest of the line; c2 still marks the end of the keyword. */
+	onchange = trim (c2 < line.length () ? line.substr (c2 + 1) : "");
+      else if (complain)
+	complain->debug_print ("Bad var. line: " + line);
+    }
+}
+
+string QuestionFile::static_var_lookup (const string &varname,
+					bool want_string) const
 {
   /* block("variable", i), not blocks[i]: size("variable") counts the variable
    * blocks, while blocks[] holds every block of every type in file order, so
@@ -874,84 +970,27 @@ string QuestionFile::static_svar_lookup (const string &varname) const
   for (size_t i = 0; i < size("variable"); i ++)
     {
       const QuestionBlock &vb = block ("variable", i);
-      if (ci_equal (vb.name, varname))
-      {
-	string rv;
-	string tok;
-	std::string::size_type c1, c2;
-	bool found_typeline = false;
-	for (size_t j = 0; j < vb.data.size(); j ++)
-	  {
-	    string line = vb.data[j];
-	    tok = first_token (line, c1, c2);
-	    /* The keywords are CI (BeginsWith, V4Game.Part2.cs:704-731); the
-	     * type *value* is not -- Quest compares the raw text (ibid. 707),
-	     * so "type String" is an unrecognised type there and here. */
-	    if (ci_equal (tok, "type"))
-	      {
-		tok = next_token (line, c1, c2);
-		if (tok == "numeric")
-		  throw string ("Trying to evaluate int var '" + varname +
-				"' as string");
-		if (tok != "string")
-		  throw string ("Bad variable type " + tok);
-		found_typeline = true;
-	      }
-	    else if (ci_equal (tok, "value"))
-	      {
-		tok = next_token (line, c1, c2);
-		if (!is_param (tok))
-		  throw string ("Expected param after value in " + line);
-		rv = param_contents (tok);
-	      }
-	  }
-	if (!found_typeline)
-	  throw string (varname + " is a numeric variable");
-	QUESTION_DBG << "static_svar_lookup(" << varname << ") -> \"" << rv << "\"" << endl;
-	return rv;
-      }
+      if (!ci_equal (vb.name, varname))
+	continue;
+      VarDef vd (vb);
+      if (vd.typed && vd.type == (want_string ? "numeric" : "string"))
+	throw want_string
+	  ? "Trying to evaluate int var '" + varname + "' as string"
+	  : "Trying to evaluate string var '" + varname + "' as numeric";
+      if (vd.typed && vd.type != (want_string ? "string" : "numeric"))
+	throw string ("Bad variable type " + vd.type);
+      if (vd.bad_value != "")
+	throw string ("Expected param after value in " + vd.bad_value);
+      /* An untyped block is a numeric variable. */
+      if (want_string && !vd.typed)
+	throw string (varname + " is a numeric variable");
+      QUESTION_DBG << "static_var_lookup(" << varname << ") -> \"" << vd.value
+		   << "\"" << endl;
+      return vd.value;
     }
   debug_print ("Variable <" + varname + "> not found.");
-  return "";
-}
-
-string QuestionFile::static_ivar_lookup (const string &varname) const
-{
-  /* block("variable", i), not blocks[i] -- see static_svar_lookup. */
-  for (size_t i = 0; i < size("variable"); i ++)
-    {
-      const QuestionBlock &vb = block ("variable", i);
-      if (ci_equal (vb.name, varname))
-	{
-	  string rv;
-	  string tok;
-	  std::string::size_type c1=0, c2;
-	  for (const string &line: vb.data)
-	    {
-	      tok = first_token (line, c1, c2);
-	      /* CI keywords, CS type value -- see static_svar_lookup. */
-	      if (ci_equal (tok, "type"))
-		{
-		  tok = next_token (line, c1, c2);
-		  if (tok == "string")
-		    throw string ("Trying to evaluate string var '" + varname +
-				  "' as numeric");
-		  if (tok != "numeric")
-		    throw string ("Bad variable type " + tok);
-		}
-	      else if (ci_equal (tok, "value"))
-		{
-		  tok = next_token (line, c1, c2);
-		  if (!is_param (tok))
-		    throw string ("Expected param after value in " + line);
-		  rv = param_contents (tok);
-		}
-	    }
-	  return rv;
-	}
-    }
-  debug_print ("Variable <" + varname + "> not found");
-  return "-32768";
+  /* What Quest reads from a numeric variable that does not exist. */
+  return want_string ? "" : "-32768";
 }
 
 string QuestionFile::static_eval (const string &input) const
@@ -960,11 +999,10 @@ string QuestionFile::static_eval (const string &input) const
    * block.  Here, at load time, nothing but set_game's catch would see that,
    * and it abandons startup and leaves the game silent; a bad reference in one
    * description is not worth that, so report it and substitute nothing. */
-  auto lookup = [this] (string (QuestionFile::*fn) (const string &) const,
-			const string &name) -> string {
+  auto lookup = [this] (bool want_string, const string &name) -> string {
     try
       {
-	return (this->*fn) (name);
+	return static_var_lookup (name, want_string);
       }
     catch (const string &err)
       {
@@ -1035,7 +1073,7 @@ string QuestionFile::static_eval (const string &input) const
 	    {
 	      string objname;
 	      if (input[i+1] == '(' && input[k-1] == ')')
-		objname = lookup (&QuestionFile::static_svar_lookup,
+		objname = lookup (true,
 				  input.substr (i+2, k-i-3));
 	      else
 		objname = input.substr (i+1, k-i-1);
@@ -1056,7 +1094,7 @@ string QuestionFile::static_eval (const string &input) const
 	    {
 	      QUESTION_DBG << "i == " << i << ", j == " << j << ", length is " << input.length() << endl;
 	      QUESTION_DBG << "Looking up static var " << input.substr (i+1, j-i-1) << endl;
-	      rv += lookup (&QuestionFile::static_svar_lookup,
+	      rv += lookup (true,
 			    input.substr (i+1, j-i-1));
 	    }
 	  i = j;
@@ -1111,7 +1149,7 @@ string QuestionFile::static_eval (const string &input) const
 	  if (j == i + 1)
 	    rv += "%";
 	  else
-	    rv += lookup (&QuestionFile::static_ivar_lookup,
+	    rv += lookup (false,
 			    input.substr (i+1, j-i-1));
 	  i = j;
 	}

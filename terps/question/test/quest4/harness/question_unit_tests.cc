@@ -35,20 +35,7 @@
 #include <string>
 #include <vector>
 
-#include "../../../question-util.cc"
-#include "../../../istring.cc"
-#include "../../../readfile.cc"
-#include "../../../questionfile.cc"
-#include "../../../question-state.cc"
-#include "../../../question-runner.cc"
-#include "../../../question-vars.cc"
-#include "../../../question-objects.cc"
-#include "../../../question-rooms.cc"
-#include "../../../question-session.cc"
-#include "../../../question-parse.cc"
-#include "../../../question-script.cc"
-#include "../../../question-functions.cc"
-#include "../../../question-panes.cc"
+#include "headless_common.hh"
 
 namespace {
 
@@ -417,6 +404,68 @@ test_split_lines ()
   check (v.size () == 2 && v[0] == "a" && v[1] == "b", "CRLF line endings");
 }
 
+/* ---- VarDef: a `define variable` block, read once for every user.  A later
+   line overwrites an earlier one of its kind, the keywords are
+   case-insensitive and the type's value is not. ---- */
+void
+test_variable_block ()
+{
+  struct Complaints : HeadlessInterface
+  {
+    std::vector<std::string> said;
+    void debug_print (const std::string &s) override { said.push_back (s); }
+  } gi;
+
+  QuestionBlock vb;
+  vb.blocktype = "variable";
+  vb.name = "score";
+  vb.data = { "Type string", "VALUE <ten>", "Display NoZero <Score: !>",
+	      "OnChange msg <changed>" };
+  {
+    VarDef vd (vb, &gi);
+    check (vd.typed && !vd.is_numeric () && vd.value == "ten",
+	   "variable block: type and value, keywords in any case");
+    check (vd.has_display && vd.nozero && vd.display == "Score: !",
+	   "variable block: display nozero");
+    check (vd.onchange == "msg <changed>", "variable block: onchange script");
+    check (gi.said.empty (), "variable block: well-formed block, no complaint");
+  }
+
+  vb.data = { "type string", "type numeric", "value <1>", "value <2>",
+	      "onchange msg <a>", "onchange msg <b>" };
+  {
+    VarDef vd (vb, &gi);
+    check (vd.is_numeric () && vd.value == "2" && vd.onchange == "msg <b>",
+	   "variable block: the last line of a kind wins");
+    check (!vd.has_display && !vd.nozero, "variable block: no display line");
+    check (gi.said.size () == 1, "variable block: second type line reported");
+  }
+
+  gi.said.clear ();
+  vb.data = { "type String", "value oops", "display nozero", "scope local" };
+  {
+    VarDef vd (vb, &gi);
+    check (vd.typed && vd.type == "String" && vd.is_numeric (),
+	   "variable block: \"String\" is not the string type");
+    check (vd.value == "" && vd.bad_value == "value oops",
+	   "variable block: value without a parameter kept aside");
+    check (!vd.has_display && vd.nozero,
+	   "variable block: display without a parameter is no display");
+    check (gi.said.size () == 4, "variable block: each bad line reported");
+    size_t before = gi.said.size ();
+    VarDef quiet (vb);
+    check (gi.said.size () == before && quiet.bad_value == vd.bad_value,
+	   "variable block: silent unless asked to complain");
+  }
+
+  vb.data.clear ();
+  {
+    VarDef vd (vb, &gi);
+    check (!vd.typed && vd.is_numeric () && vd.value == "",
+	   "variable block: an empty block is an untyped numeric");
+  }
+}
+
 }  /* namespace */
 
 int
@@ -432,6 +481,8 @@ main ()
   test_undo_history_roundtrip ();
   std::cout << "split_lines:\n";
   test_split_lines ();
+  std::cout << "variable block:\n";
+  test_variable_block ();
 
   std::cout << (failures ? "FAILED" : "all passed") << " (" << failures
 	    << " failure" << (failures == 1 ? "" : "s") << ")\n";

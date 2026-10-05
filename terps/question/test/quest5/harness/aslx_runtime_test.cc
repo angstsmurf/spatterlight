@@ -1937,7 +1937,102 @@ static void test_firsttime_bake_oneliners() {
     std::string baked2 = in.bake_firsttime_source(sw);
     CHECK(baked2.find("msg (\"S\")") == std::string::npos);
     CHECK(baked2.find("case (1)") != std::string::npos);
+
+    // The bake finds blocks through the parser's own block_keyword table, so
+    // a ran firsttime is baked out from under each keyword the parser nests
+    // a block in (those that run without a host prompt, at any rate), and
+    // the statement around it survives.  (A branch after the first needs its
+    // own line: get_script takes one block per line.)
+    const char *nests[] = {
+        "if (true) { firsttime { msg (\"W0\") } }",
+        "if (false) {\n msg (\"n\")\n}\nelse if (true) { firsttime { msg (\"W1\") } }",
+        "if (false) {\n msg (\"n\")\n}\nelse { firsttime { msg (\"W2\") } }",
+        "for (i, 1, 1) { firsttime { msg (\"W3\") } }",
+        "foreach (x, Split (\"a\", \";\")) { firsttime { msg (\"W4\") } }",
+        "on ready { firsttime { msg (\"W5\") } }",
+        "switch (2) {\n case (1) {\n msg (\"n\")\n }\n default { firsttime { msg (\"W6\") } }\n}",
+    };
+    for (size_t i = 0; i < sizeof nests / sizeof *nests; ++i) {
+        std::string mark = "W" + std::to_string(i);
+        out.clear();
+        in.run_script(nests[i], c);
+        CHECK(out.find(mark) != std::string::npos);
+        std::string b = in.bake_firsttime_source(nests[i]);
+        CHECK(b.find(mark) == std::string::npos);
+        CHECK(b.find("firsttime") == std::string::npos);
+        CHECK(b.compare(0, 2, std::string(nests[i]), 0, 2) == 0);
+    }
     CHECK(w.errors.empty());
+}
+
+// The bake reads each firsttime's flag off the statement the parser made of
+// it, so text the parser built nothing from -- a statement it rejected, an
+// `else` with no `if`, a `default` replaced by a later one -- cannot shift
+// the flags of the firsttimes after it, and never reaches the save as code
+// that the reload would attach to something else.
+static void test_firsttime_bake_rejected_statements() {
+    World w;
+    CHECK(load_file("../fixtures/runtime.aslx", w));
+    Interp in(w);
+    std::string out;
+    in.print = [&](const std::string &s) { out += s; };
+    Context c;
+
+    // Each of these holds a firsttime the parser never compiled (X). After it
+    // come one that runs (R) and one that does not (K): R must bake out and K
+    // must stay, and the baked script must still behave like the original.
+    const char *tail =
+        "\nfirsttime { msg (\"R\") }\nif (false) { firsttime { msg (\"K\") } }";
+    const char *heads[] = {
+        "msg (\"x\")\nelse { firsttime { msg (\"X\") } }",
+        "show menu (\"one parameter\") { firsttime { msg (\"X\") } }",
+        "ask () { firsttime { msg (\"X\") } }",
+        "if (false) { if (1 +) { firsttime { msg (\"X\") } } }",
+        ("switch (1) {\n default { firsttime { msg (\"X\") } }\n"
+         " default { msg (\"d\") }\n case (2) { msg (\"n\") }\n}"),
+    };
+    for (const char *head : heads) {
+        std::string src = std::string(head) + tail;
+        out.clear();
+        in.run_script(src, c);
+        CHECK(out.find("R") != std::string::npos);
+        CHECK(out.find("X") == std::string::npos);
+        std::string baked = in.bake_firsttime_source(src);
+        CHECK(baked.find("msg (\"R\")") == std::string::npos);
+        CHECK(baked.find("msg (\"K\")") != std::string::npos);
+        out.clear();
+        in.run_script(baked, c);
+        CHECK(out.find("R") == std::string::npos);
+        CHECK(out.find("X") == std::string::npos);
+        CHECK(out.find("K") == std::string::npos);
+    }
+
+    // An `else` after a firsttime continues nothing. Once the firsttime is
+    // baked out it would follow the `if` -- and run.
+    const char *dead =
+        "if (false) {\n msg (\"n\")\n}\nfirsttime { msg (\"R\") }\n"
+        "else { msg (\"DEAD\") }";
+    out.clear();
+    in.run_script(dead, c);
+    CHECK_STR(out, "R\n");
+    out.clear();
+    in.run_script(in.bake_firsttime_source(dead), c);
+    CHECK_STR(out, "");
+
+    // Of two `otherwise` blocks the parser keeps the last, so that is the one
+    // a run firsttime bakes down to.
+    const char *twice =
+        "firsttime { msg (\"R\") }\notherwise { msg (\"O1\") }\n"
+        "otherwise { msg (\"O2\") }";
+    out.clear();
+    in.run_script(twice, c);
+    CHECK_STR(out, "R\n");
+    out.clear();
+    in.run_script(twice, c);
+    CHECK_STR(out, "O2\n");
+    out.clear();
+    in.run_script(in.bake_firsttime_source(twice), c);
+    CHECK_STR(out, "O2\n");
 }
 
 // Save-writer robustness against degenerate runtime state: a `parent` cycle
@@ -2150,6 +2245,7 @@ int main() {
     test_finish_turn_deferred_across_prompts();
     test_uncharted_room_gets_map_coordinates();
     test_firsttime_bake_oneliners();
+    test_firsttime_bake_rejected_statements();
     test_save_degenerate_state();
     test_save_restore_native();
     test_expressions();

@@ -97,54 +97,19 @@
 #include <string>
 #include <vector>
 
-#include "../../../question-util.cc"
-#include "../../../istring.cc"
-#include "../../../readfile.cc"
-#include "../../../questionfile.cc"
-#include "../../../question-state.cc"
-
-/* The engine's `rand` script function is the one thing in a replay that is not
-   fixed by the game and the script, and the transcripts in ../goldens are
-   byte-compared -- so the draws have to be the same everywhere.  question-runner.cc
-   draws from erkyrath_random() (common_utils/randomness.c), the same generator
-   the Spatterlight build uses: seeded, it is xoshiro128**, a fixed algorithm
-   that gives identical numbers on every platform and in the app.  The Makefile
-   compiles randomness.c alongside this file; nothing here has to substitute a
-   generator of its own. */
-#include "../../../question-runner.cc"
-#include "../../../question-vars.cc"
-#include "../../../question-objects.cc"
-#include "../../../question-rooms.cc"
-#include "../../../question-session.cc"
-#include "../../../question-parse.cc"
-#include "../../../question-script.cc"
-#include "../../../question-functions.cc"
-#include "../../../question-panes.cc"
+#include "headless_common.hh"
 
 namespace {
 
-/* Shared input stream: commands plus the menu/free-text answers they prompt.
-   String helpers lcase () and trim () come from the Question core (question-util.cc /
-   readfile.cc); trim () strips all isspace, so it also drops CR from CRLF. */
-std::deque<std::string> g_queue;
+/* The input queue (g_queue) and the interface this one builds on come from
+   headless_common.hh.  String helpers lcase () and trim () come from the
+   Question core (question-util.cc / readfile.cc); trim () strips all isspace,
+   so it also drops CR from CRLF. */
+
 /* The runner's one save slot, for "[save]" / "[restore]". */
 std::string g_saved;
 
-/* Thrown once the game has asked for input far more often than the script can
-   answer.  A Quest game that validates its input ("How many players?" ... "Try
-   again.") loops until it gets something it likes, and real Quest just blocks on
-   the prompt; headless, an empty queue answers "" forever and the game spins,
-   filling the transcript.  Bail out instead of running until the OS kills us. */
-struct InputExhausted { };
-
-std::string
-dirname_of (const std::string &p)
-{
-  std::string::size_type s = p.find_last_of ('/');
-  return s == std::string::npos ? std::string (".") : p.substr (0, s);
-}
-
-class RunnerInterface : public QuestionInterface
+class RunnerInterface : public HeadlessInterface
 {
 public:
   std::string log;            /* full transcript, for marker detection */
@@ -152,11 +117,6 @@ public:
   /* Put text in the transcript from outside the engine, for the runner's own
      meta-commands (see "[status]"). */
   void emit (const std::string &s) { print_normal (s); }
-  /* Consecutive answers served from an empty queue; see InputExhausted.  The cap
-     is generous because a game may legitimately keep asking after the script
-     ends (an end-of-game "press any key", a final menu) without looping. */
-  int starved = 0;
-  static const int kMaxStarved = 200;
 
 protected:
   QuestionResult print_normal (const std::string &s) override
@@ -175,8 +135,6 @@ protected:
     return r_success;
   }
 
-  void set_foreground (const std::string &) override { }
-  void set_background (const std::string &) override { }
   /* Silent by default -- the engine's diagnostics would swamp a transcript --
    * but set QUESTION_DEBUG=1 to see them on stderr when chasing a load problem. */
   void debug_print (const std::string &s) override
@@ -200,15 +158,9 @@ protected:
 
   std::string get_string () override
   {
-    if (g_queue.empty ())
-      {
-	if (++starved > kMaxStarved)
-	  throw InputExhausted ();
-	return "";
-      }
-    starved = 0;
-    std::string s = g_queue.front ();
-    g_queue.pop_front ();
+    std::string s;
+    if (!next_input (s))
+      return "";
     log += "[input] " + s + "\n";
     return s;
   }
@@ -228,45 +180,21 @@ protected:
 	emit (ss.str ());
       }
     int c = 1;
-    if (g_queue.empty ())
+    std::string s;
+    if (next_input (s))
       {
-	if (++starved > kMaxStarved)
-	  throw InputExhausted ();
-      }
-    else
-      {
-	starved = 0;
-	std::string s = g_queue.front ();
-	g_queue.pop_front ();
 	emit ("[choice] " + s + "\n");
 	c = atoi (s.c_str ());
       }
-    if (c < 1)
-      c = 1;
-    if ((size_t) c > choices.size ())
-      c = (int) choices.size ();
-    return (uint) c - 1;
-  }
-
-  std::string absolute_name (const std::string &rel,
-			     const std::string &parent) const override
-  {
-    if (!rel.empty () && rel[0] == '/')
-      return rel;
-    return dirname_of (parent) + "/" + rel;
+    return clamp_choice (c, choices.size ());
   }
 
   std::string get_file (const std::string &fn) const override
   {
-    std::ifstream f (fn.c_str (), std::ios::binary);
-    if (!f)
-      {
-	std::cerr << "[runner] cannot open " << fn << "\n";
-	return "";
-      }
-    std::ostringstream ss;
-    ss << f.rdbuf ();
-    return ss.str ();
+    std::string s;
+    if (!read_whole_file (fn, s))
+      std::cerr << "[runner] cannot open " << fn << "\n";
+    return s;
   }
 };
 

@@ -579,6 +579,13 @@ public:
       return p;
     return eval_string (p);
   }
+  /* How nearly every statement and condition opens: step to the next token of
+   * `line' and require it to be a <parameter>.  The raw token is left in `tok'
+   * either way; when it is not a parameter this logs `complaint' followed by
+   * the line and returns false. */
+  bool next_param (const std::string &line, std::string::size_type &c1,
+		   std::string::size_type &c2, std::string &tok,
+		   const char *complaint);
 
   /* Quest 2.x items (see the item_table_ comment above). */
   void set_up_items ();

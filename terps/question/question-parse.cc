@@ -24,27 +24,9 @@
  * Part of question_implementation; question-runner.cc holds the rest of the
  * preamble and question-internal.hh what these units share. */
 
-#include "QuestionRunner.hh"
-#include "readfile.hh"
-#include "question-state.hh"
-#include "question-util.hh"
-#include <set>
-#include <unordered_map>
-#include "question-impl.hh"
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include "general.hh"
-#include "istring.hh"
-
-class QuestionInterface;
+#include "question-internal.hh"
 
 using namespace std;
-
-#include "question-internal.hh"
 
 /* Synonym matching follows Quest (V4Game.Part2.cs:4143-4164): the typed command
  * is lowercased before this runs, and each synonym's left-hand word is searched
@@ -1804,23 +1786,19 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
 	    print_formatted (tok);
 	  else
 	    display_error ("defaulttake", object);
-	  string tmp;
 	  move (object, "inventory");
 	  /* A taken object is now in hand, so it's no longer hidden (it may have
 	   * been a hidden item inside a container). */
 	  set_obj_property (object, "not hidden");
-	  if (get_obj_action (object, "gain", tmp))
-	    /* Quest's ExecTake ends a text/default take with
-		   * PlayerItem(item, true), which runs the object's GainScript
-		   * (V4Game.Part2.cs:5205-5215, 6631-6634).  Note run_script_as, not
-		   * run_script: the two-argument run_script is (script, &return value),
-		   * so passing the object name as the first argument ran the *name* as
-		   * a script and quietly dropped the gain script into the return
-		   * value.  Enterprising in space hangs its entire Youhera chain off
-		   * three bare `take` + `gain` objects and was unwinnable. */
-		  run_script_as (object, tmp);
-	  else if (get_obj_property (object, "gain", tmp))
-	    print_formatted (tmp);
+	  /* Quest's ExecTake ends a text/default take with PlayerItem(item, true),
+	   * which runs the object's GainScript (V4Game.Part2.cs:5205-5215,
+	   * 6631-6634).  That is run_script_as inside dispatch_obj_verb, not
+	   * run_script: the two-argument run_script is (script, &return value),
+	   * so passing the object name as the first argument ran the *name* as
+	   * a script and quietly dropped the gain script into the return
+	   * value.  Enterprising in space hangs its entire Youhera chain off
+	   * three bare `take` + `gain` objects and was unwinnable. */
+	  dispatch_obj_verb (object, "gain");
 	}
       else
 	{

@@ -329,23 +329,24 @@ bool question_restore_autosave(QuestionRunner *gr)
     if (!gli_enable_autosave)
         return false;
     @autoreleasepool {
-        std::string filedata;
-        if (!read_autosave_game(&filedata)) {
+        /* An autosave that cannot be used is thrown away, so the next
+         * launch does not trip over it again. */
+        auto unusable = [](const char *why) {
+            if (why)
+                NSLog(@"question autorestore: %s", why);
             question_autosave_discard();
             return false;
-        }
+        };
+
+        std::string filedata;
+        if (!read_autosave_game(&filedata))
+            return unusable(NULL);
 
         std::string data, undo_history, replay;
-        if (!container_split(filedata, &data, &undo_history, &replay)) {
-            NSLog(@"question autorestore: autosave container was malformed.");
-            question_autosave_discard();
-            return false;
-        }
-        if (!gr->load_state(data, false)) {
-            NSLog(@"question autorestore: saved game state was not usable.");
-            question_autosave_discard();
-            return false;
-        }
+        if (!container_split(filedata, &data, &undo_history, &replay))
+            return unusable("autosave container was malformed.");
+        if (!gr->load_state(data, false))
+            return unusable("saved game state was not usable.");
         /* After load_state: the undo snapshots reference the restored props
          * log.  A missing or unreadable history just means no UNDO past the
          * restore point. */
@@ -353,10 +354,8 @@ bool question_restore_autosave(QuestionRunner *gr)
             NSLog(@"question autorestore: undo history was not usable (ignored).");
 
         TempLibrary *newlib = restore_library(question_library_unarchive);
-        if (!newlib) {
-            question_autosave_discard();
-            return false;
-        }
+        if (!newlib)
+            return unusable(NULL);
         question_recover_frontend_state(&frontend_state);
         [newlib updateFromLibraryLate];
 

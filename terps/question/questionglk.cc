@@ -56,6 +56,11 @@
 
 #include "QuestionRunner.hh"
 
+/* The engine's encoding sniff (question-util.cc), declared here rather than
+ * through question-util.hh because that header's trim () collides with the
+ * shared frontend one below. */
+extern bool text_is_utf8 (const std::string &s);
+
 #ifdef SPATTERLIGHT
 /* Spatterlight autosave/autorestore (questionglk-autosave.mm). */
 #include "questionglk-autosave.h"
@@ -273,7 +278,7 @@ handle_status_command(const std::string &raw)
 {
     if (!match_status_command(raw))
         return false;
-    print_status_report(g_status_line, utf8_valid(g_status_line));
+    print_status_report(g_status_line, text_is_utf8(g_status_line));
     return true;
 }
 
@@ -379,14 +384,11 @@ post_game_menu()
     for (;;) {
         glk_put_string_stream(inputwinstream, (char *) "> ");
         glk_request_line_event(inputwin, b, (sizeof b) - 1, 0);
-        event_t ev;
-        do {
-            glk_select(&ev);
-            if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
-                draw_banner();
-                fill_divider();
-            }
-        } while (!(ev.type == evtype_LineInput && ev.win == inputwin));
+        event_t ev = wait_for_event(
+            [](const event_t &e) {
+                return e.type == evtype_LineInput && e.win == inputwin;
+            },
+            [] { draw_banner(); fill_divider(); });
         if (int c = post_game_menu_match(std::string(b, (int) ev.val1)))
             return c;
         post_game_menu_reprompt();
@@ -597,6 +599,19 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
     char buf[200];
     bool quitting = false;
 
+    /* The command line.  Nothing may print to its window while the request
+     * is live, so whatever interrupts it cancels first -- which hands back
+     * how much was typed, for a re-request to preload. */
+    auto request_line = [&buf](glui32 preload) {
+        glk_request_line_event(inputwin, buf, (sizeof buf) - 1, preload);
+    };
+    auto cancel_line = []() -> glui32 {
+        event_t ce;
+        ce.val1 = 0;
+        glk_cancel_line_event(inputwin, &ce);
+        return ce.val1;
+    };
+
     while (gr->is_running() && !quitting) {
         if (autorestored) {
             /* The restored transcript already ends with the old prompt;
@@ -637,7 +652,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
         /* Echo off for the command line, so a timer cancelling it is clean. */
         if (g_manual_echo)
             glk_set_echo_line_event(inputwin, 0);
-        glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
+        request_line(0);
 
         event_t ev;
         ev.type = evtype_None;
@@ -665,8 +680,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                      * printing to a window with a live line-input request.
                      * With echo off the cancel prints nothing and leaves the
                      * "> " prompt in place (it is before the input fence). */
-                    event_t ce;
-                    glk_cancel_line_event(inputwin, &ce);
+                    glui32 typed = cancel_line();
                     /* Retract that stale prompt so the timer's text lands
                      * after the previous game text instead of ON the prompt
                      * line, with a single fresh prompt below -- like the
@@ -675,7 +689,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                      * best-effort: if the window tail is not exactly the
                      * prompt (no echo control, so the typed text is still on
                      * screen), today's behaviour is kept.  Typed text comes
-                     * back either way, as preloaded input (ce.val1). */
+                     * back either way, as preloaded input. */
                     bool retracted = inputwin == mainglkwin &&
                                      unput_tail_exact(mainglkwin, U"\n> ");
                     g_output_seen = false;
@@ -697,8 +711,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                          * the autosave-on-timer preference is off). */
                         question_do_autosave(gr);
 #endif
-                        glk_request_line_event(inputwin, buf,
-                                               (sizeof buf) - 1, ce.val1);
+                        request_line(typed);
                     }
                 } else {
                     /* Just counting down: no output, so the live input is fine. */
@@ -735,15 +748,12 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                          * back folded.  The live line request has to be
                          * cancelled across the write -- an archived PENDING
                          * request would collide with the one a restore makes
-                         * -- and re-armed with anything already typed preloaded
-                         * (ce.val1), exactly as the prefill and timer paths do. */
+                         * -- and re-armed with anything already typed preloaded,
+                         * exactly as the timer path does. */
                         {
-                            event_t ce;
-                            ce.val1 = 0;
-                            glk_cancel_line_event(inputwin, &ce);
+                            glui32 typed = cancel_line();
                             question_do_autosave(gr);
-                            glk_request_line_event(inputwin, buf,
-                                                   (sizeof buf) - 1, ce.val1);
+                            request_line(typed);
                         }
 #endif
                         break;
@@ -756,8 +766,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                          * passes; the loop keeps waiting, and the LineInput it
                          * eventually gets carries the whole line, prefix and
                          * all. */
-                        event_t ce;
-                        glk_cancel_line_event(inputwin, &ce);
+                        cancel_line();
                         glui32 n = (glui32) act.command.size();
                         if (n < (sizeof buf) - 1) {
                             memcpy(buf, act.command.data(), n);
@@ -765,8 +774,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                         } else {
                             n = 0;
                         }
-                        glk_request_line_event(inputwin, buf,
-                                               (sizeof buf) - 1, n);
+                        request_line(n);
                         /* Clearing the pane below would drop its hyperlink
                          * request, so re-arm it here where nothing is redrawn. */
                         if (g_hyperlinks && objwin)
@@ -777,8 +785,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                     /* Cancel the live line input first -- Glk forbids printing to
                      * a window with a pending request; with echo off the cancel
                      * leaves nothing on screen. */
-                    event_t ce;
-                    glk_cancel_line_event(inputwin, &ce);
+                    cancel_line();
                     /* Echo the clicked command so the player sees what ran.  With
                      * input in the main window the "> " prompt is already there
                      * and run_command's own "> cmd" echo is suppressed
@@ -833,8 +840,10 @@ draw_banner()
    * when the text is well-formed UTF-8 (which includes plain ASCII, where
    * both modes agree) use codepoint-aware writes and measurement so accented
    * names render and right-align correctly; anything else is passed through
-   * as Latin-1 bytes, as before. */
-  bool utf8 = utf8_valid(g_room_name) && utf8_valid(g_status_line);
+   * as Latin-1 bytes, as before.  Real Latin-1 text is practically never
+   * valid UTF-8, so the sniff only picks codepoint mode when that is the
+   * right way to decode the string. */
+  bool utf8 = text_is_utf8(g_room_name) && text_is_utf8(g_status_line);
   draw_status_banner(bannerwin, g_room_name, g_status_line, utf8);
 }
 
@@ -875,7 +884,7 @@ put_objwin_link(strid_t s, const std::string &label, const std::string &command,
     /* Encoding sniff per label, as in draw_banner: names from UTF-8-authored
      * games are written codepoint-aware, Latin-1 ones pass through as bytes
      * (ASCII is identical either way). */
-    put_pane_link(s, label, linkval, utf8_valid(label));
+    put_pane_link(s, label, linkval, text_is_utf8(label));
 }
 
 /* Redraw the right-hand pane, laid out like the Quest 5 pane: what you carry
@@ -1127,29 +1136,9 @@ QuestionGlkInterface::set_style (const QuestionFontStyle &style)
 {
     // Glk styles are defined before the window opens, so at this point we can only
     // pick the most suitable style, not define a new one.
-    glui32 match;
-    if (style.is_italic && style.is_bold)
-      {
-	match = style_Alert;
-      }
-    else if (style.is_italic)
-      {
-	match = style_Emphasized;
-      }
-    else if (style.is_bold)
-      {
-	match = style_Subheader;
-      }
-    else if (style.is_underlined)
-      {
-	match = style_User2;
-      }
-    else
-      {
-	match = style_Normal;
-      }
-
-    glk_set_style_stream(glk_window_get_stream(mainglkwin), match);
+    glk_set_style_stream(glk_window_get_stream(mainglkwin),
+			 glk_style_for (style.is_bold, style.is_italic,
+					style.is_underlined));
     return r_success;
 }
 
@@ -1200,24 +1189,15 @@ QuestionGlkInterface::wait_keypress (const std::string &msg)
    * (matching the Quest 5 frontend); the click's command is not run here. */
   if (g_hyperlinks && objwin)
     glk_request_hyperlink_event(objwin);
-  event_t ev;
-  for (;;)
-    {
-      glk_select(&ev);
-      if (ev.type == evtype_CharInput && ev.win == mainglkwin)
-        break;
-      if (ev.type == evtype_Hyperlink && ev.win == objwin)
-        {
-          glk_cancel_char_event(mainglkwin);
-          break;
-        }
-      if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
-        {
-          draw_banner();
-          fill_divider();
-        }
-      /* timers deliberately ignored: the game is paused for the keypress */
-    }
+  /* timers deliberately ignored: the game is paused for the keypress */
+  event_t ev = wait_for_event(
+    [](const event_t &e) {
+      return (e.type == evtype_CharInput && e.win == mainglkwin) ||
+             (e.type == evtype_Hyperlink && e.win == objwin);
+    },
+    [] { draw_banner(); fill_divider(); });
+  if (ev.type == evtype_Hyperlink)
+    glk_cancel_char_event(mainglkwin);
   return r_success;
 }
 

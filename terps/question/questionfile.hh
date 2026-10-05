@@ -97,6 +97,58 @@ struct QuestionBlock
   mutable size_t first_tokens_lines = 0;
 };
 
+/* A `define variable` block, read the way Quest's loader reads one
+ * (SetUpDisplayVariables, V4Game.Part2.cs:707-760): one pass over the lines,
+ * each keyword overwriting what an earlier line of its kind set.  The keywords
+ * are CI (BeginsWith lowercases); the type *value* is not -- Quest compares the
+ * raw text (ibid. 707), so "type String" is an unrecognised type there and
+ * here.
+ *
+ * Give `complain` to have the malformed lines reported through its
+ * debug_print.  The state constructor does, once per load; everything that
+ * reads the block again later stays quiet. */
+/* Three ways of reading a <...> off a definition line that recur all over the
+ * engine.  C1 and C2 are the tokenizer's cursor, as for next_token.
+ *
+ * next_decl_param reads the next token as a parameter and stores its contents
+ * in OUT; when the token is not a <...> it says so through GI ("Non-parameter
+ * for WHAT in ...") and returns false, leaving OUT alone.  (The script
+ * runner's own next_param does the same for statements, in its wording.)
+ *
+ * next_param_token skips ahead to the next token that IS a <...> and returns
+ * it, "" if the line has none: Quest's GetParameter takes a line's first
+ * <...> wherever it stands, whatever words come before it.
+ *
+ * first_decl_param finds the first line of BLOCK that starts with keyword KW
+ * (CI: matched without regard to case) and returns the <...> token following
+ * the keyword there, "" if what follows is not one.  Later lines with the
+ * same keyword are never consulted: the first declaration wins. */
+extern bool next_decl_param (QuestionInterface &gi, const std::string &line,
+			     std::string::size_type &c1,
+			     std::string::size_type &c2,
+			     const std::string &what, std::string &out);
+extern std::string next_param_token (const std::string &line,
+				     std::string::size_type &c1,
+				     std::string::size_type &c2);
+extern std::string first_decl_param (const QuestionBlock &block, const char *kw,
+				     bool ci);
+
+struct VarDef
+{
+  bool typed = false;		// the block has a `type` line...
+  std::string type;		// ...and this is the last one's argument
+  std::string value;		// contents of the last `value <...>`
+  std::string bad_value;	// the last `value` line without a <...>, if any
+  bool has_display = false;	// the block has a `display [nozero] <...>`...
+  std::string display;		// ...and these are the last one's contents
+  bool nozero = false;		// some `display` line said nozero
+  std::string onchange;		// the script of the last `onchange` line
+
+  explicit VarDef (const QuestionBlock &, QuestionInterface *complain = NULL);
+  /* Numeric is the default, so only "string" makes a string variable. */
+  bool is_numeric () const { return type != "string"; }
+};
+
 struct QuestionFile
 {
   QuestionInterface *gi;
@@ -237,8 +289,11 @@ public:
   void get_type_action (const std::string &typenamex, const std::string &propname,
 			bool &, std::string &) const;
   std::string static_eval (const std::string &) const;
-  std::string static_ivar_lookup (const std::string &varname) const;
-  std::string static_svar_lookup (const std::string &varname) const;
+  /* The initial value of a variable, for a "#name#" (want_string) or "%name%"
+   * in definition-level text.  Throws a string when the block is malformed or
+   * defines the other kind of variable. */
+  std::string static_var_lookup (const std::string &varname,
+				 bool want_string) const;
 
   const QuestionBlock *find_by_name (const std::string &type, const std::string &name,
 				 const std::string &preferred_parent = "") const;

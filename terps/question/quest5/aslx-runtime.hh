@@ -179,6 +179,10 @@ struct UndoAction {
         DictRemove,   // entry removed: re-insert at index
         FirstTime,    // a firsttime block ran: clear its flag (UndoFirstTime)
     };
+    // Every action is of some kind, and half of them are about an element.
+    explicit UndoAction(Kind k, std::string elem = std::string())
+        : kind(k), element(std::move(elem)) {}
+
     Kind kind;
     std::string element;    // FieldSet/FieldRemove/SortIndex/Create/Destroy:
                             // element name, re-resolved at undo time
@@ -994,6 +998,9 @@ private:
     void chart_uncharted_room(const Value &room, const Value &player);
     std::string last_charted_room_;
 
+    // Call a Core function whose reference caller only logs what it throws.
+    bool call_core_logged(const char *fn, std::vector<Value> args,
+                          Context &ctx);
     void try_finish_turn(Context &ctx);           // TryFinishTurnAsync
     void try_finish_turn_or_defer(Context &ctx);  // ... or set the flag below
     void run_deferred_finish_turn();              // RunDeferredFinishTurnAsync

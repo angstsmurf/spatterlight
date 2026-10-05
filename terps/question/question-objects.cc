@@ -24,27 +24,9 @@
  * Part of question_implementation; question-runner.cc holds the rest of the
  * preamble and question-internal.hh what these units share. */
 
-#include "QuestionRunner.hh"
-#include "readfile.hh"
-#include "question-state.hh"
-#include "question-util.hh"
-#include <set>
-#include <unordered_map>
-#include "question-impl.hh"
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include "general.hh"
-#include "istring.hh"
-
-class QuestionInterface;
+#include "question-internal.hh"
 
 using namespace std;
-
-#include "question-internal.hh"
 
 bool question_implementation::has_obj_action (const string &obj, const string &prop) const
 {

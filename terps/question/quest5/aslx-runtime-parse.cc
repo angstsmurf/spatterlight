@@ -652,6 +652,36 @@ bool starts_with_word(const std::string &line, const std::string &kw) {
              (unsigned char)n >= 0x80);
 }
 
+// A two-word keyword ("on ready", "get input", "show menu") opening the line.
+static bool starts_with_phrase(const std::string &line, const char *phrase) {
+    size_t n = std::strlen(phrase);
+    return line.compare(0, n, phrase) == 0 &&
+           (line.size() == n || !std::isalnum((unsigned char)line[n]));
+}
+
+const BlockKeyword *block_keyword(const std::string &stmt) {
+    using Shape = BlockKeyword::Shape;
+    // In the order ScriptFactory tries them, though no two can both match.
+    static const BlockKeyword kBlockKeywords[] = {
+        {"if", Stmt::Kind::If, Shape::Parameter},
+        {"while", Stmt::Kind::While, Shape::Parameter},
+        {"foreach", Stmt::Kind::ForEach, Shape::Parameter},
+        {"for", Stmt::Kind::For, Shape::Parameter},
+        {"switch", Stmt::Kind::Switch, Shape::Switch},
+        {"firsttime", Stmt::Kind::FirstTime, Shape::Bare},
+        {"on ready", Stmt::Kind::OnReady, Shape::Bare},
+        {"wait", Stmt::Kind::Wait, Shape::Bare},
+        {"get input", Stmt::Kind::GetInput, Shape::Bare},
+        {"show menu", Stmt::Kind::ShowMenu, Shape::Parameter},
+        {"ask", Stmt::Kind::Ask, Shape::Parameter},
+    };
+    for (const BlockKeyword &k : kBlockKeywords)
+        if (std::strchr(k.word, ' ') ? starts_with_phrase(stmt, k.word)
+                                     : starts_with_word(stmt, k.word))
+            return &k;
+    return nullptr;
+}
+
 // Substring after the first occurrence of `kw`.
 std::string text_after(const std::string &s, const std::string &kw) {
     size_t p = s.find(kw);
@@ -779,24 +809,12 @@ static std::vector<Stmt> parse_block(const std::string &text, Interp &interp) {
     return parse_statements(get_script(text, after), interp);
 }
 
-// A two-word keyword ("on ready", "get input", "show menu") opening the line.
-static bool starts_with_phrase(const std::string &line, const char *phrase) {
-    size_t n = std::strlen(phrase);
-    return line.compare(0, n, phrase) == 0 &&
-           (line.size() == n || !std::isalnum((unsigned char)line[n]));
-}
-
 static Stmt parse_one_statement(const std::string &line, Interp &interp) {
     Stmt s;
     // The keyword's parenthesized parameter; `after` is what follows it.
     std::string after;
     bool found = false;
     auto parameter = [&] { return get_parameter(line, after, found); };
-    // A keyword of `len` characters followed directly by its block.
-    auto bare_block = [&](Stmt::Kind kind, size_t len) {
-        s.kind = kind;
-        s.body = parse_block(rt_trim(line.substr(len)), interp);
-    };
 
     if (starts_with_word(line, "//")) { s.kind = Stmt::Kind::Comment; return s; }
 
@@ -812,14 +830,24 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
         if (found && !rt_trim(p).empty()) s.expr = compile_expr_str(p);
         return s;
     }
-    bool is_if = starts_with_word(line, "if");
-    if (is_if || starts_with_word(line, "while")) {
-        s.kind = is_if ? Stmt::Kind::If : Stmt::Kind::While;
+    const BlockKeyword *bk = block_keyword(line);
+    Stmt::Kind block = bk ? bk->kind : Stmt::Kind::Comment;   // i.e. none
+    if (bk && bk->shape == BlockKeyword::Shape::Bare) {
+        // firsttime, on ready, wait, get input: the block follows directly.
+        s.kind = block;
+        s.body = parse_block(rt_trim(line.substr(std::strlen(bk->word))),
+                             interp);
+        if (block == Stmt::Kind::FirstTime)
+            s.ran = std::make_shared<bool>(false);
+        return s;
+    }
+    if (block == Stmt::Kind::If || block == Stmt::Kind::While) {
+        s.kind = block;
         s.expr = compile_expr_str(parameter());
         s.body = parse_block(after, interp);
         return s;
     }
-    if (starts_with_word(line, "foreach")) {
+    if (block == Stmt::Kind::ForEach) {
         s.kind = Stmt::Kind::ForEach;
         auto parts = split_parameters(parameter());
         if (parts.size() == 2) {
@@ -831,7 +859,7 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
         s.body = parse_block(after, interp);
         return s;
     }
-    if (starts_with_word(line, "for")) {
+    if (block == Stmt::Kind::For) {
         s.kind = Stmt::Kind::For;
         auto parts = split_parameters(parameter());
         if (parts.size() == 3 || parts.size() == 4) {
@@ -846,7 +874,7 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
         return s;
     }
 
-    if (starts_with_word(line, "switch")) {
+    if (block == Stmt::Kind::Switch) {
         s.kind = Stmt::Kind::Switch;
         s.expr = compile_expr_str(parameter());
         std::string bafter;
@@ -875,24 +903,7 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
         }
         return s;
     }
-    if (starts_with_word(line, "firsttime")) {
-        bare_block(Stmt::Kind::FirstTime, 9);
-        s.ran = std::make_shared<bool>(false);
-        return s;
-    }
-    if (starts_with_phrase(line, "on ready")) {
-        bare_block(Stmt::Kind::OnReady, 8);
-        return s;
-    }
-    if (starts_with_word(line, "wait")) {
-        bare_block(Stmt::Kind::Wait, 4);
-        return s;
-    }
-    if (starts_with_phrase(line, "get input")) {
-        bare_block(Stmt::Kind::GetInput, 9);
-        return s;
-    }
-    if (starts_with_phrase(line, "show menu")) {
+    if (block == Stmt::Kind::ShowMenu) {
         // show menu (caption, options, allowCancel) { callback }
         std::string param = parameter();
         auto parts = split_parameters(param);
@@ -909,7 +920,7 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
         s.body = parse_block(after, interp);
         return s;
     }
-    if (starts_with_word(line, "ask")) {
+    if (block == Stmt::Kind::Ask) {
         // ask (caption) { callback }
         std::string param = parameter();
         if (!found || rt_trim(param).empty()) {

@@ -17,16 +17,43 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* What the question_implementation translation units share among themselves.
- * The class itself is in question-impl.hh; this is only for the handful of
- * free helpers and tables that sit beside its methods.  Nothing outside the
- * question-*.cc files should need it. */
+/* What the question_implementation translation units share among themselves:
+ * the headers every one of them needs, and the handful of free helpers and
+ * tables that sit beside the class's methods.  The class itself is in
+ * question-impl.hh.  Nothing outside the question-*.cc files should need
+ * this. */
 
 #ifndef QUESTION_INTERNAL_HH
 #define QUESTION_INTERNAL_HH
 
+#include "QuestionRunner.hh"
+#include "readfile.hh"
+#include "question-state.hh"
+#include "question-util.hh"
+#include "question-impl.hh"
+#include "general.hh"
+#include "istring.hh"
+#include <climits>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
+#include <set>
+#include <sstream>
 #include <string>
+#include <unordered_map>
 #include <vector>
+
+/* Use the shared erkyrath_random() RNG (xoshiro128** when seeded, native
+   otherwise), like scott/comprehend/plus/taylor.  The headless walkthrough
+   runner links common_utils/randomness.c too, so a seeded run draws the same
+   numbers there as in the app -- and, xoshiro128** being a fixed algorithm,
+   the same numbers on any platform.  That is what lets the corpus transcripts
+   in test/quest4/goldens be diffed at all. */
+extern "C" {
+#include "randomness.h"
+}
 
 /* The compass names, in the order the exit tables and the direction bits use.
  * The bound is spelled out so ARRAYSIZE (question-util.hh) works on them from

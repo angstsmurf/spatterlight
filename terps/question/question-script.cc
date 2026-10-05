@@ -24,28 +24,9 @@
  * Part of question_implementation; question-runner.cc holds the rest of the
  * preamble and question-internal.hh what these units share. */
 
-#include "QuestionRunner.hh"
-#include "readfile.hh"
-#include "question-state.hh"
-#include "question-util.hh"
-#include <set>
-#include <unordered_map>
-#include "question-impl.hh"
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <cstdio>
-#include <climits>
-#include <cstring>
-#include "general.hh"
-#include "istring.hh"
-
-class QuestionInterface;
+#include "question-internal.hh"
 
 using namespace std;
-
-#include "question-internal.hh"
 
 /* Bumps a nesting counter for as long as it is alive, so every early `return`
    out of run_script still unwinds it.  See kMaxScriptDepth. */
@@ -96,6 +77,18 @@ void question_implementation::run_script (const string &s)
 {
   string garbage;
   run_script (s, garbage);
+}
+
+bool question_implementation::next_param (const string &line,
+					  std::string::size_type &c1,
+					  std::string::size_type &c2,
+					  string &tok, const char *complaint)
+{
+  tok = next_token (line, c1, c2);
+  if (is_param (tok))
+    return true;
+  gi->debug_print (complaint + line);
+  return false;
 }
 
 void question_implementation::run_script (const string &s, string &rv)
@@ -205,12 +198,8 @@ void question_implementation::run_script (const string &s, string &rv)
     {
   case st_action:
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param(tok))
-	{
-	  gi->debug_print ("Expected parameter after action in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after action in "))
+	return;
       tok = eval_param (tok);
       std::string::size_type index = tok.find (';');
       if (index == string::npos)
@@ -262,12 +251,8 @@ void question_implementation::run_script (const string &s, string &rv)
        * "!type <name>" property, following the "!exitlock"/"!clones"
        * convention, so it rides through save/undo with the rest of the
        * state. */
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected parameter after type in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after type in "))
+	return;
       vector<string> args = split_param (eval_param (tok));
       if (args.size () != 2 || trim (args[0]) == "" || trim (args[1]) == "")
 	{
@@ -297,13 +282,10 @@ void question_implementation::run_script (const string &s, string &rv)
       if (asl_version_ < 391)
 	break;   /* no such statement below 3.91: fall out as unrecognised */
       bool adding = (tok == "add");
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print (string ("Expected parameter after ") +
-			   (adding ? "add" : "remove") + " in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok,
+		       adding ? "Expected parameter after add in "
+			      : "Expected parameter after remove in "))
+	return;
       string arg = eval_param (tok);
       std::string::size_type index = arg.find (';');
       string child = trim (index == string::npos ? arg : arg.substr (0, index));
@@ -352,13 +334,10 @@ void question_implementation::run_script (const string &s, string &rv)
       if (asl_version_ < 391)
 	break;   /* no such statement below 3.91: fall out as unrecognised */
       bool opening = (tok == "open");
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print (string ("Expected parameter after ") +
-			   (opening ? "open" : "close") + " in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok,
+		       opening ? "Expected parameter after open in "
+			       : "Expected parameter after close in "))
+	return;
       string name = trim (eval_param (tok));
       if (state.obj_records (name) == NULL)
 	gi->debug_print ("Invalid object name specified in " + s);
@@ -367,13 +346,16 @@ void question_implementation::run_script (const string &s, string &rv)
       return;
     }
     break;
-  case st_background:
+  case st_background: case st_foreground:
     {
-      tok = next_token (s, c1, c2);
-      if (is_param (tok))
-	gi->set_background (eval_param (tok));
-      else
-	gi->debug_print ("Expected parameter after foreground in " + s);
+      bool background = (tok == "background");
+      if (next_param (s, c1, c2, tok, "Expected parameter after foreground in "))
+	{
+	  if (background)
+	    gi->set_background (eval_param (tok));
+	  else
+	    gi->set_foreground (eval_param (tok));
+	}
       return;
     }
     break;
@@ -383,13 +365,10 @@ void question_implementation::run_script (const string &s, string &rv)
        * locked state.  Recorded as a property on the synthetic "!exitlock"
        * object so it persists with state/undo; exit_locked() consults it. */
       bool locking = (tok == "lock");
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected <room; direction> after " +
-			   string (locking ? "lock" : "unlock") + " in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok,
+		       locking ? "Expected <room; direction> after lock in "
+			       : "Expected <room; direction> after unlock in "))
+	return;
       vector<string> p = split_param (eval_param (tok));
       if (p.size () < 2 || trim (p[0]) == "" || trim (p[1]) == "")
 	{
@@ -416,20 +395,12 @@ void question_implementation::run_script (const string &s, string &rv)
 	  gi->debug_print ("Expected 'case' after 'select' in " + s);
 	  return;
 	}
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected selector parameter in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected selector parameter in "))
+	return;
       string selector = eval_param (tok);
       tok = next_token (s, c1, c2);          // "do"
-      tok = next_token (s, c1, c2);          // <!intproc>
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected case block in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected case block in "))  // <!intproc>
+	return;
       string procname = param_contents (tok);
       /* O(1) name_index lookup instead of the case-insensitive linear scan the
          other procedure dispatch used to do (see run_procedure). */
@@ -468,12 +439,8 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_choose:
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected parameter after choose in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after choose in "))
+	return;
       tok = eval_param (tok);
       const QuestionBlock *gb = gf.find_by_name ("selection", tok);
       if (gb == NULL)
@@ -491,22 +458,16 @@ void question_implementation::run_script (const string &s, string &rv)
 	   * V4Game.Part2.cs:627-634). */
 	  if (ci_equal (tok, "info"))
 	    {
-	      tok = next_token (line, c1, c2);
-	      if (is_param (tok))
+	      if (next_param (line, c1, c2, tok, "Expected parameter after info in "))
 		question = eval_param (tok);
-	      else
-		gi->debug_print ("Expected parameter after info in " + line);
 	    }
 	  else if (ci_equal (tok, "choice"))
 	    {
-	      tok = next_token (line, c1, c2);
-	      if (is_param (tok))
+	      if (next_param (line, c1, c2, tok, "Expected parameter after choice in "))
 		{
 		  choices.push_back (eval_param (tok));
 		  actions.push_back (line.substr (c2));
 		}
-	      else
-		gi->debug_print ("Expected parameter after choice in " + line);
 	    }
 	  else
 	    gi->debug_print ("Bad line " + line + " in selection");
@@ -540,12 +501,8 @@ void question_implementation::run_script (const string &s, string &rv)
        * Turner's market is `clone <Tomato; Tomato%c%; Market>` followed by a
        * `give`, so with this a no-op the player paid and got nothing -- and the
        * cabbage that tames the horse is the first link of task 1. */
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected param after clone in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected param after clone in "))
+	return;
       vector<string> args = split_param (eval_param (tok));
       if (args.size() < 2)
 	{
@@ -678,12 +635,8 @@ void question_implementation::run_script (const string &s, string &rv)
 	   * article take the same defaults Question already falls back on, and
 	   * from 4.10 the `default` type's properties and actions are
 	   * flattened onto it exactly as a declared object gets them. */
-	  tok = next_token (s, c1, c2);
-	  if (!is_param (tok))
-	    {
-	      gi->debug_print ("Expected param after create object in " + s);
-	      return;
-	    }
+	  if (!next_param (s, c1, c2, tok, "Expected param after create object in "))
+	    return;
 	  vector<string> args = split_param (eval_param (tok));
 	  string name = trim (args[0]);
 	  if (name == "")
@@ -713,12 +666,8 @@ void question_implementation::run_script (const string &s, string &rv)
 	   * gives it any, arrive as ordinary property and exit records.  (A room
 	   * of that name declared in the file wins either way: GetRoomID returns
 	   * the first match, and find_by_name is checked first.) */
-	  tok = next_token (s, c1, c2);
-	  if (!is_param (tok))
-	    {
-	      gi->debug_print ("Expected param after create room in " + s);
-	      return;
-	    }
+	  if (!next_param (s, c1, c2, tok, "Expected param after create room in "))
+	    return;
 	  set_obj_property ("!createdroom", lcase (trim (eval_param (tok))));
 	}
       else
@@ -728,11 +677,8 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_debug:
     {
-      tok = next_token (s, c1, c2);
-      if (is_param (tok))
+      if (next_param (s, c1, c2, tok, "Expected param after debug in "))
 	gi->debug_print (eval_param(tok));
-      else
-	gi->debug_print ("Expected param after debug in " + s);
       return;
     }
     break;
@@ -745,12 +691,8 @@ void question_implementation::run_script (const string &s, string &rv)
 	  gi->debug_print ("expected 'exit' after 'destroy' in " + s);
 	  return;
 	}
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected param after 'destroy exit' in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected param after 'destroy exit' in "))
+	return;
       string tok2 = eval_param (tok);
       vector<string> args = split_param (tok2);
       if (args.size() != 2)
@@ -768,12 +710,8 @@ void question_implementation::run_script (const string &s, string &rv)
       /* disconnect <room; direction> -- remove that exit (the inverse of
        * create exit <direction> <room; dest>).  Recorded as a "noexit" so it
        * overrides the static room exit and any earlier dynamic create-exit. */
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-        {
-          gi->debug_print ("Expected param after disconnect in " + s);
-          return;
-        }
+      if (!next_param (s, c1, c2, tok, "Expected param after disconnect in "))
+        return;
       vector<string> args = split_param (eval_param (tok));
       if (args.size () != 2)
         {
@@ -792,13 +730,11 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_displaytext: case st_helpdisplaytext:
     {
-      string stmt = tok;
-      tok = next_token (s, c1, c2);
-      if (!is_param(tok))
-	{
-	  gi->debug_print ("Expected parameter after " + stmt + " in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok,
+		       tok == "displaytext"
+		       ? "Expected parameter after displaytext in "
+		       : "Expected parameter after helpdisplaytext in "))
+	return;
       const QuestionBlock *gb = gf.find_by_name ("text", param_contents(tok));
       if (gb != NULL)
 	{
@@ -835,9 +771,8 @@ void question_implementation::run_script (const string &s, string &rv)
        * made Question silently drop every such block -- The Devil's Bargain writes
        * all of its nested conditionals that way, so e.g. the colour question in
        * its <Answers> procedure never printed its reply and never re-asked. */
-      while ((tok = next_token (s, c1, c2)) != "" && !is_param (tok))
-	;
-      if (!is_param (tok))
+      tok = next_param_token (s, c1, c2);
+      if (tok == "")
 	{
 	  gi->debug_print ("Expected parameter after do in " + s);
 	  return;
@@ -872,12 +807,8 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_doaction:
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param(tok))
-	{
-	  gi->debug_print ("Expected parameter after doaction in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after doaction in "))
+	return;
       string line = eval_param (tok);
       std::string::size_type index = line.find (';');
       string obj = trim (line.substr (0, index));
@@ -900,12 +831,8 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_enter:
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected parameter after enter in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after enter in "))
+	return;
       tok = eval_param (tok);
       set_svar (tok, input_to_utf8 (gi->get_string()));
       return;
@@ -913,12 +840,8 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_exec:
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected parameter after exec in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after exec in "))
+	return;
       tok = eval_param (tok);
       std::string::size_type index = tok.find (';');
       if (index != string::npos)
@@ -1128,24 +1051,13 @@ void question_implementation::run_script (const string &s, string &rv)
 
     }
     break;
-  case st_foreground:
-    {
-      tok = next_token (s, c1, c2);
-      if (is_param (tok))
-	gi->set_foreground (eval_param (tok));
-      else
-	gi->debug_print ("Expected parameter after foreground in " + s);
-      return;
-    }
-    break;
   case st_give:
     {
       /* Quest takes the first <...> on the line whatever sits before it
        * (GetParameter, V4Game.Part2.cs:5796-5799), so QDK's long-hand `give
        * object <pretty hairdo>' in On Time's elf menu still hands it over. */
-      while ((tok = next_token (s, c1, c2)) != "" && !is_param (tok))
-	;
-      if (!is_param (tok))
+      tok = next_param_token (s, c1, c2);
+      if (tok == "")
 	{
 	  gi->debug_print ("Expected parameter after give in " + s);
 	  return;
@@ -1209,11 +1121,7 @@ void question_implementation::run_script (const string &s, string &rv)
 	  if (asl_version_ >= 391)
 	    set_obj_property (tok, "not parent");
 	  move (tok, "inventory");
-	  string tmp;
-	  if (get_obj_action (tok, "gain", tmp))
-	    run_script_as (tok, tmp);
-	  else if (get_obj_property (tok, "gain", tmp))
-	    print_formatted (tmp);
+	  dispatch_obj_verb (tok, "gain");
 	}
       gi->update_sidebars();
       return;
@@ -1221,19 +1129,15 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_goto:
     {
-      tok = next_token (s, c1, c2);
-      if (is_param(tok))
+      if (next_param (s, c1, c2, tok, "Expected parameter after goto in "))
 	goto_room (trim (eval_param (tok)));
-      else
-	gi->debug_print ("Expected parameter after goto in " + s);
       return;
     }
   /* "hideobject"/"hidechar" are the Quest 2.x spellings of "hide". */
     break;
   case st_hide: case st_hideobject: case st_hidechar:
     {
-      tok = next_token (s, c1, c2);
-      if (is_param(tok))
+      if (next_param (s, c1, c2, tok, "Expected param after hide in "))
 	{
 	  string name = eval_param (tok);
 	  if (!resolve_at_room (name))
@@ -1253,8 +1157,6 @@ void question_implementation::run_script (const string &s, string &rv)
 		break;
 	      }
 	}
-      else
-	gi->debug_print ("Expected param after hide in " + s);
       return;
     }
   /* "showobject"/"showchar" are the Quest 2.x spellings of "show". */
@@ -1276,16 +1178,13 @@ void question_implementation::run_script (const string &s, string &rv)
 	    show_picture (eval_param (tok), true);
 	  return;
 	}
-      tok = next_token (s, c1, c2);
-      if (is_param(tok))
+      if (next_param (s, c1, c2, tok, "Expected param after show in "))
 	{
 	  string name = eval_param (tok);
 	  if (!resolve_at_room (name))
 	    return;
 	  set_obj_property (name, "not hidden");
 	}
-      else
-	gi->debug_print ("Expected param after show in " + s);
       return;
     }
     break;
@@ -1346,12 +1245,8 @@ void question_implementation::run_script (const string &s, string &rv)
   case st_inc: case st_dec:
     {
       bool is_dec = (tok == "dec");
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected parameter after inc in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after inc in "))
+	return;
       tok = eval_param (tok);
       double diff;
       std::string::size_type index = tok.find (';');
@@ -1382,12 +1277,8 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_lose:
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected parameter after lose in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after lose in "))
+	return;
       tok = eval_param (tok);
 
       /* Clear the Got flag of the Quest 2.x item, matched the same exact,
@@ -1423,11 +1314,7 @@ void question_implementation::run_script (const string &s, string &rv)
       if (is_object)
 	{
 	  move (tok, state.location);
-	  string tmp;
-	  if (get_obj_action (tok, "lose", tmp))
-	    run_script_as (tok, tmp);
-	  else if (get_obj_property (tok, "lose", tmp))
-	    print_formatted (tmp);
+	  dispatch_obj_verb (tok, "lose");
 	}
       gi->update_sidebars();
       return;
@@ -1436,12 +1323,8 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_move: case st_movechar: case st_moveobject:
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param(tok))
-	{
-	  gi->debug_print ("Expected parameter after move in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after move in "))
+	return;
       tok = eval_param (tok);
       std::string::size_type index = tok.find (';');
       if (index == string::npos)
@@ -1461,7 +1344,9 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_msg: case st_helpmsg:
     {
-      string stmt = tok;
+      const char *complaint = (tok == "msg")
+	? "Expected parameter after msg in "
+	: "Expected parameter after helpmsg in ";
       /* Quest reads the message with GetParameter, which takes whatever lies
        * between the line's first '<' and its first '>' and never looks at what
        * comes before the '<' (V4Game.cs:1858-1874).  So a modifier word
@@ -1474,11 +1359,8 @@ void question_implementation::run_script (const string &s, string &rv)
       std::string::size_type lt = s.find ('<', c2);
       if (lt != string::npos)
 	c2 = lt;
-      tok = next_token (s, c1, c2);
-      if (is_param (tok))
+      if (next_param (s, c1, c2, tok, complaint))
 	print_eval (param_contents(tok));
-      else
-	gi->debug_print ("Expected parameter after " + stmt + " in " + s);
       return;
     }
     break;
@@ -1504,12 +1386,8 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_pause:
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected parameter after pause in " + s);
-	  return;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after pause in "))
+	return;
       int i = (int) eval_double (param_contents(tok));
       gi->pause (i);
       suspend_turn ();          /* PauseAsync suspends the turn, as `wait` does */
@@ -1542,17 +1420,10 @@ void question_implementation::run_script (const string &s, string &rv)
       return;
     }
     break;
-  case st_playerlose:
+  case st_playerlose: case st_playerwin:
     {
-      run_script ("displaytext <lose>");
-      state.running = false;
-      is_running_ = false;   /* end the game so the host stops prompting */
-      return;
-    }
-    break;
-  case st_playerwin:
-    {
-      run_script ("displaytext <win>");
+      run_script (tok == "playerwin" ? "displaytext <win>"
+				     : "displaytext <lose>");
       state.running = false;
       is_running_ = false;   /* end the game so the host stops prompting */
       return;
@@ -1666,11 +1537,8 @@ void question_implementation::run_script (const string &s, string &rv)
     break;
   case st_return:
     {
-      tok = next_token (s, c1, c2);
-      if (is_param(tok))
+      if (next_param (s, c1, c2, tok, "Expected parameter after return in "))
 	rv = eval_param(tok);
-      else
-	gi->debug_print ("Expected parameter after return in " + s);
       return;
     }
   /* "reveal"/"conceal" (ASL>=281) and their "…object"/"…char" spellings
@@ -1682,35 +1550,23 @@ void question_implementation::run_script (const string &s, string &rv)
    * Hence these must map to the "invisible" property, NOT "hidden". */
     break;
   case st_reveal: case st_revealobject: case st_revealchar:
-    {
-      tok = next_token (s, c1, c2);
-      if (is_param(tok))
-	set_obj_property (eval_param (tok), "not invisible");
-      else
-	gi->debug_print ("Expected param after reveal in " + s);
-      return;
-    }
-    break;
   case st_conceal: case st_concealobject: case st_concealchar:
     {
-      tok = next_token (s, c1, c2);
-      if (is_param(tok))
-	set_obj_property (eval_param (tok), "invisible");
-      else
-	gi->debug_print ("Expected param after conceal in " + s);
+      bool reveal = (tok.compare (0, 6, "reveal") == 0);
+      if (next_param (s, c1, c2, tok,
+		      reveal ? "Expected param after reveal in "
+			     : "Expected param after conceal in "))
+	set_obj_property (eval_param (tok), reveal ? "not invisible" : "invisible");
       return;
     }
     break;
   case st_say:
     {
-      tok = next_token (s, c1, c2);
-      if (is_param (tok))
+      if (next_param (s, c1, c2, tok, "Expected param after say in "))
 	{
 	  tok = eval_param (tok);
 	  print_formatted ("\"" + tok + "\"");
 	}
-      else
-	gi->debug_print ("Expected param after say in " + s);
       return;
     }
     break;
@@ -1739,12 +1595,8 @@ void question_implementation::run_script (const string &s, string &rv)
        * BeginsWith (V4Game.Part2.cs:6104-6141). */
       if (ci_equal (tok, "interval"))
 	{
-	  tok = next_token (s, c1, c2);
-	  if (!is_param (tok))
-	    {
-	      gi->debug_print ("Expected param after set interval in " + s);
-	      return;
-	    }
+	  if (!next_param (s, c1, c2, tok, "Expected param after set interval in "))
+	    return;
 	  tok = eval_param (tok);
 	  std::string::size_type index = tok.find (';');
 	  if (index == string::npos)
@@ -1796,25 +1648,11 @@ void question_implementation::run_script (const string &s, string &rv)
 	     <chance factor; 0>` before every random roll.  Missing the variable
 	     there would leave the counter to accumulate and make every one of the
 	     game's chance rolls fail. */
-	  for (const auto &varn: state.svars)
-	    {
-	      if (ci_equal (varn.name, varname))
-		{
-		  vartype = "string";
-		  break;
-		}
-	    }
-	  if (vartype == "")
-	    {
-	      for (const auto &varn: state.ivars)
-		{
-		  if (ci_equal (varn.name, varname))
-		    {
-		      vartype = "numeric";
-		      break;
-		    }
-		}
-	    }
+	  size_t vi;
+	  if (find_svar (varname, vi))
+	    vartype = "string";
+	  else if (find_ivar (varname, vi))
+	    vartype = "numeric";
 	  /* Collectables are searched last, so a variable of the same name
 	     shadows one (SetUnknownVariableType, V4Game.Part2.cs:612-618).  This
 	     search is case-insensitive too, but the set it dispatches to is not
@@ -1849,14 +1687,11 @@ void question_implementation::run_script (const string &s, string &rv)
       return;
     }
     break;
-  case st_setstring:
+  case st_setstring: case st_setvar:
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected parameter in " + s);
-	  return;
-	}
+      bool is_string = (tok == "setstring");
+      if (!next_param (s, c1, c2, tok, "Expected parameter in "))
+	return;
       if (tok.find (';') == string::npos)
 	{
 	  gi->debug_print ("Only one expression in set in " + s);
@@ -1865,37 +1700,17 @@ void question_implementation::run_script (const string &s, string &rv)
       tok = eval_param (tok);
       std::string::size_type index = tok.find (';');
       string varname = trim (tok.substr (0, index));
-      set_svar (varname, trim_braces (trim (tok.substr (index+1))));
-      return;
-    }
-    break;
-  case st_setvar:
-    {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected parameter in " + s);
-	  return;
-	}
-      if (tok.find (';') == string::npos)
-	{
-	  gi->debug_print ("Only one expression in set in " + s);
-	  return;
-	}
-      tok = eval_param (tok);
-      std::string::size_type index = tok.find (';');
-      string varname = trim (tok.substr (0, index));
-      set_ivar (varname, eval_set_numeric (tok.substr (index+1)));
+      if (is_string)
+	set_svar (varname, trim_braces (trim (tok.substr (index+1))));
+      else
+	set_ivar (varname, eval_set_numeric (tok.substr (index+1)));
       return;
     }
     break;
   case st_speak:
     {
-      tok = next_token (s, c1, c2);
-      if (is_param(tok))
+      if (next_param (s, c1, c2, tok, "Expected param after speak in "))
 	gi->speak (eval_param (tok));
-      else
-	gi->debug_print ("Expected param after speak in " + s);
       return;
     }
     break;
@@ -1913,8 +1728,9 @@ void question_implementation::run_script (const string &s, string &rv)
   case st_timeron: case st_timeroff:
     {
       bool running = (tok == "timeron");
-      tok = next_token (s, c1, c2);
-      if (is_param (tok))
+      if (next_param (s, c1, c2, tok,
+		      running ? "Expected parameter after timeron in "
+			      : "Expected parameter after timeroff in "))
 	{
 	  tok = eval_param (tok);
 	  /* Timer names are matched case-insensitively: SetTimerState LCases
@@ -1941,10 +1757,7 @@ void question_implementation::run_script (const string &s, string &rv)
 		return;
 	      }
 	  gi->debug_print ("No timer " + tok + " found");
-	  return;
 	}
-      gi->debug_print (string ("Expected parameter after timer") +
-		       (running ? "on" : "off") + " in " + s);
       return;
     }
     break;
@@ -2089,14 +1902,11 @@ bool question_implementation::eval_cond (const string &s)
   tok = lcase (tok);
   if (tok == "not")
     return !eval_cond (s.substr (c2));
-  else if (tok == "action")
+  else if (tok == "action" || tok == "property")
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("expected parameter after property in " + s);
-	  return false;
-	}
+      bool action = (tok == "action");
+      if (!next_param (s, c1, c2, tok, "expected parameter after property in "))
+	return false;
       tok = eval_param (tok);
       std::string::size_type index = tok.find (';');
       if (index == string::npos)
@@ -2105,28 +1915,25 @@ bool question_implementation::eval_cond (const string &s)
 	  return false;
 	}
       string obj = trim (tok.substr (0, index));
-      string act = trim (tok.substr (index+1));
-      return has_obj_action (obj, act);
+      string name = trim (tok.substr (index+1));
+      return action ? has_obj_action (obj, name) : has_obj_property (obj, name);
     }
   else if (tok == "ask")
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("expected parameter after ask in " + s);
-	  return false;
-	}
+      if (!next_param (s, c1, c2, tok, "expected parameter after ask in "))
+	return false;
       tok = eval_param (tok);
       return gi->choose_yes_no (tok);
     }
-  else if (tok == "exists")
+  else if (tok == "exists" || tok == "real")
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("expected parameter after exists in " + s);
-	  return false;
-	}
+      /* "real" asks only whether the object was ever defined; "exists" also
+       * wants it placed and not hidden. */
+      const string cond = tok;
+      if (!next_param (s, c1, c2, tok,
+		       cond == "real" ? "expected parameter after real in "
+				      : "expected parameter after exists in "))
+	return false;
       vector<string> args = split_param (eval_param (tok));
       bool do_report = false;
       for (uint i = 1; i < args.size(); i ++)
@@ -2135,9 +1942,11 @@ bool question_implementation::eval_cond (const string &s)
 	if (ci_equal (trim (args[i]), "report"))
 	  do_report = true;
 	else
-	  gi->debug_print ("Got modifier " + args[i] + " after exists");
+	  gi->debug_print ("Got modifier " + args[i] + " after " + cond);
       if (const vector<size_t> *v = state.obj_records (args[0]))
 	{
+	  if (cond == "real")
+	    return true;
 	  const ObjectRecord &o = state.objs[(*v)[0]];
 	  /* An object "exists" (in the Quest sense the games rely on) only if it
 	   * is placed AND not hidden.  A statically-defined object can sit in a
@@ -2149,28 +1958,20 @@ bool question_implementation::eval_cond (const string &s)
 	  return o.parent != "" && !has_obj_property (o.name, "hidden");
 	}
       if (do_report)
-	gi->debug_print ("exists " + args[0] + " failed due to nonexistence");
+	gi->debug_print (cond + " " + args[0] + " failed due to nonexistence");
       return false;
     }
   else if (tok == "flag")
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("expected parameter after flag in " + s);
-	  return false;
-	}
+      if (!next_param (s, c1, c2, tok, "expected parameter after flag in "))
+	return false;
       tok = trim (eval_param (tok));
       return has_obj_property ("game", tok);
     }
   else if (tok == "got")
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("expected parameter after got in " + s);
-	  return false;
-	}
+      if (!next_param (s, c1, c2, tok, "expected parameter after got in "))
+	return false;
       tok = trim (eval_param (tok));
       /* Quest 2.x item inventory -- consulted only below ASL 2.80, since
        * ExecuteIfGot looks at nothing but the object's room from there on
@@ -2206,22 +2007,14 @@ bool question_implementation::eval_cond (const string &s)
     }
   else if (tok == "has")
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("expected parameter after has in " + s);
-	  return false;
-	}
+      if (!next_param (s, c1, c2, tok, "expected parameter after has in "))
+	return false;
       return eval_has (eval_param (tok));
     }
   else if (tok == "here")
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("expected parameter after here in " + s);
-	  return false;
-	}
+      if (!next_param (s, c1, c2, tok, "expected parameter after here in "))
+	return false;
       tok = trim (eval_param (tok));
       if (const vector<size_t> *v = state.obj_records (tok))
 	{
@@ -2238,12 +2031,8 @@ bool question_implementation::eval_cond (const string &s)
     }
   else if (tok == "is")
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("expected parameter after is in " + s);
-	  return false;
-	}
+      if (!next_param (s, c1, c2, tok, "expected parameter after is in "))
+	return false;
       tok = eval_param (tok);
       /* ExecuteIfIs (V4Game.cs:7450-7578) splits the parameter into *fields* on
        * the first ';' and, if there is one, the second: with three fields the
@@ -2292,54 +2081,10 @@ bool question_implementation::eval_cond (const string &s)
       gi->debug_print ("Unrecognised comparison condition in 'is " + tok + "'");
       return false;
     }
-  else if (tok == "property")
-    {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("expected parameter after property in " + s);
-	  return false;
-	}
-      tok = eval_param (tok);
-      std::string::size_type index = tok.find (';');
-      if (index == string::npos)
-	{
-	  gi->debug_print ("Only one argument to property in " + s);
-	  return false;
-	}
-      string obj = trim (tok.substr (0, index));
-      string prop = trim (tok.substr (index+1));
-      return has_obj_property (obj, prop);
-    }
-  else if (tok == "real")
-    {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("expected parameter after real in " + s);
-	  return false;
-	}
-      vector<string> args = split_param (eval_param (tok));
-      bool do_report = false;
-      for (uint i = 1; i < args.size(); i ++)
-	if (ci_equal (trim (args[i]), "report"))
-	  do_report = true;
-	else
-	  gi->debug_print ("Got modifier " + args[i] + " after real");
-      if (state.obj_records (args[0]) != NULL)
-	return true;
-      if (do_report)
-	gi->debug_print ("real " + args[0] + " failed due to nonexistence");
-      return false;
-    }
   else if (tok == "type")
     {
-      tok = next_token (s, c1, c2);
-      if (!is_param (tok))
-	{
-	  gi->debug_print ("Expected parameter after type in " + s);
-	  return false;
-	}
+      if (!next_param (s, c1, c2, tok, "Expected parameter after type in "))
+	return false;
       vector<string> args = split_param (eval_param(tok));
       if (args.size() != 2)
 	{

@@ -78,40 +78,51 @@ struct TimerRecord
   bool bypass = false;
 };
 
-struct SVarRecord
+/* A variable is an array of values under one name; a plain variable is the
+ * array's element 0.  Quest keeps strings and numbers in two separate arrays,
+ * and this is what their records share. */
+template <class T>
+struct VarRecord
 {
-private:
-  std::vector<std::string> data;
+protected:
+  std::vector<T> data;
 public:
   std::string name;
 
-  SVarRecord () {}
-  SVarRecord (const std::string &in_name) : name (in_name) { set (0, ""); }
+  VarRecord () {}
+  VarRecord (const std::string &in_name, const T &val = T ()) : name (in_name) { set (0, val); }
   size_t size() const { return data.size(); }
   /* Highest defined index.  A default-constructed record holds no elements at
    * all, so guard the subtraction: an unsigned size() - 1 would wrap to
    * SIZE_MAX, which the serializer would then happily write out as this
    * array's upper bound. */
   size_t max() const { return size() ? size() - 1 : 0; }
-  void set (size_t i, const std::string &val) { if (i >= size()) data.resize(i+1); data[i] = val; }
+  void set (size_t i, const T &val) { if (i >= size()) data.resize(i+1); data[i] = val; }
+  void set (const T &val) { data[0] = val; }
+};
+
+struct SVarRecord : VarRecord<std::string>
+{
+  using VarRecord<std::string>::VarRecord;
+
   /* An index past the end reads as the empty string, not as a sentinel:
    * GetStringContents logs "Array index ... too big" and returns ""
    * (V4Game.Part2.cs:2637-2643).  It used to answer "!", which is a marker for
    * a missing *property*, and it went straight into game text -- Wizard's
    * spell menu printed "4) !" for each of its nine empty slots. */
   std::string get (size_t i) const { if (i < size()) return data[i]; return "";}
-  void set (const std::string &val) { data[0] = val; }
   std::string get() const { return data[0]; }
+  /* Element i as a save file holds it. */
+  std::string stored (size_t i) const { return get (i); }
 };
 
-struct IVarRecord
+/* Quest numeric variables are doubles; we store them as such so fractional
+ * results (e.g. probabilities) survive.  get()/get(i) round to int for the
+ * many callers that need an integer (array indices, loop bounds); getd()
+ * exposes the raw double for formatting and float math. */
+struct IVarRecord : VarRecord<double>
 {
 private:
-  /* Quest numeric variables are doubles; we store them as such so fractional
-   * results (e.g. probabilities) survive.  get()/get(i) round to int for the
-   * many callers that need an integer (array indices, loop bounds); getd()
-   * exposes the raw double for formatting and float math. */
-  std::vector<double> data;
   /* Clamped first: casting a double outside int's range is undefined. */
   static int as_int (double d)
   {
@@ -120,20 +131,16 @@ private:
     return (int) (d < 0 ? d - 0.5 : d + 0.5);
   }
 public:
-  std::string name;
+  using VarRecord<double>::VarRecord;
+  using VarRecord<double>::set;
 
-  IVarRecord () {}
-  IVarRecord (const std::string &in_name) : name (in_name) { set (0, 0.0); }
-  size_t size() const { return data.size(); }
-  size_t max() const { return size() ? size() - 1 : 0; }   /* see SVarRecord::max */
-  void set (size_t i, double val) { if (i >= size()) data.resize(i+1); data[i] = val; }
   void set (size_t i, int val) { set (i, (double) val); }
+  void set (int val) { set ((double) val); }
   int get (size_t i) const { if (i < size()) return as_int (data[i]); else return -32767;}
   double getd (size_t i) const { if (i < size()) return data[i]; else return -32767.0;}
-  void set(double val) { data[0] = val; }
-  void set(int val) { data[0] = (double) val; }
   int get() const { return as_int (data[0]); }
   double getd() const { return data[0]; }
+  double stored (size_t i) const { return getd (i); }
 };
 
 struct QuestionFile;
@@ -254,17 +261,6 @@ public:
    * UndoState. */
   UndoState save_undo () const;
   void restore_undo (const UndoState &u);
-  /*
-  bool has_svar (string s) { for (uint i = 0; i < svars.size(); i ++) if (svars[i].name == s) return true; }
-  uint find_svar (string s) { for (uint i = 0; i < svars.size(); i ++) if (svars[i].name == s) return i; svars.push_back (SVarRecord (s)); return svars.size() - 1;}
-  string get_svar (string s, uint index) { if (!has_svar(s)) return "!"; return svars[find_svar(s)].get(index); }
-  string get_svar (string s) { return get_svar (s, 0); }
-
-  bool has_ivar (string s) { for (uint i = 0; i < ivars.size(); i ++) if (ivars[i].name == s) return true; }
-  uint find_ivar (string s) { for (uint i = 0; i < ivars.size(); i ++) if (ivars[i].name == s) return i; ivars.push_back (IVarRecord (s)); return ivars.size() - 1;}
-  int get_ivar (string s, uint index) { if (!has_ivar(s)) return -32767; return ivars[find_ivar(s)].get(index); }
-  int get_ivar (string s) { return get_ivar (s, 0); }
-  */
 };
 
 /* Serialize/parse a whole undo history (snapshots oldest first) for the

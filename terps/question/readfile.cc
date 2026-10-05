@@ -207,6 +207,46 @@ static bool tag_property_splits (const string &blocktype, const string &tag,
   return !late_object_tags[tag] || version >= 311;
 }
 
+/* Rewrite an object's `use' or `give' line as the action it declares.  `verb'
+ * is the keyword and `prep' the preposition that turns the action round
+ * ("on" for use, "to" for give); `rest' is the token after the keyword, which
+ * [t1, t2) spans.  The five spellings come out as
+ *
+ *     use on <thing> ...     ->  action <use on thing> ...
+ *     use on anything ...    ->  action <use on anything> ...
+ *     use <thing> ...        ->  action <use thing> ...
+ *     use anything ...       ->  action <use anything> ...
+ *     use ...                ->  action <use> ...
+ *
+ * and a preposition with neither after it marks the line an error. */
+static void rewrite_use_give (string &line, const string &verb,
+			      const char *prep, string rest,
+			      std::string::size_type t1,
+			      std::string::size_type t2)
+{
+  string lhs = "action <" + verb + " ";
+  if (ci_equal (rest, prep))
+    {
+      rest = next_token (line, t1, t2);
+      string rhs = line.substr (t2);
+      if (ci_equal (rest, "anything"))
+	line = lhs + prep + " anything> " + rhs;
+      else if (is_param (rest))
+	line = lhs + prep + " " + trim (param_contents (rest)) + "> " + rhs;
+      else
+	{
+	  QUESTION_DBG << "Error handling '" << line << "'" << endl;
+	  line = "ERROR: " + line;
+	}
+    }
+  else if (ci_equal (rest, "anything"))
+    line = lhs + "anything> " + line.substr (t2);
+  else if (is_param (rest))
+    line = lhs + trim (param_contents (rest)) + "> " + line.substr (t2);
+  else
+    line = "action <" + verb + "> " + line.substr (t1);
+}
+
 void QuestionFile::read_into (const vector<string> &in_data,
 			  const string &in_parent, uint cur_line, bool recurse,
 			  const reserved_words &props, 
@@ -449,68 +489,9 @@ void QuestionFile::read_into (const vector<string> &in_data,
 	       * "use on Warrior " and get_obj_action missed -- Londe Perplex's
 	       * Rage lost its whole scripted attack that way.  */
 	      if (ltok == "use")
-		{
-		  string lhs = "action <use ";
-		  if (ci_equal (rest, "on"))
-		    {
-		      rest = next_token (line, t1, t2);
-		      string rhs = line.substr (t2);
-		      if (ci_equal (rest, "anything"))
-			{
-			  line = lhs + "on anything> " + rhs;
-			}
-		      else if (is_param (rest))
-			{
-			  line = lhs + "on " + trim (param_contents(rest)) + "> " + rhs;
-			}
-		      else
-			{
-			  line = "ERROR: " + line;
-			}
-		    }
-		  else if (ci_equal (rest, "anything"))
-		    {
-		      line = lhs + "anything> " + line.substr (t2);
-		    }
-		  else if (is_param(rest))
-		    {
-		      line = lhs + trim (param_contents(rest)) +"> " +line.substr(t2);
-		    }
-		  else
-		    {
-		      line = "action <use> " + line.substr (t1);
-		    }
-		}
+		rewrite_use_give (line, "use", "on", rest, t1, t2);
 	      else if (ltok == "give")
-		{
-		  string lhs = "action <give ";
-		  if (ci_equal (rest, "to"))
-		    {
-		      rest = next_token (line, t1, t2);
-		      string rhs = line.substr (t2);
-		      if (ci_equal (rest, "anything"))
-			line = lhs + "to anything> " + rhs;
-		      else if (is_param(rest))
-			line = lhs + "to " + trim (param_contents(rest)) + "> " + rhs;
-		      else
-			{
-			  QUESTION_DBG << "Error handling '" << line << "'" << endl;
-			  line = "ERROR: " + line;
-			}
-		    }
-		  else if (ci_equal (rest, "anything"))
-		    {
-		      line = lhs + "anything> " + line.substr (t2);
-		    }
-		  else if (is_param(rest))
-		    {
-		      line = lhs + trim (param_contents(rest)) +"> " +line.substr(t2);
-		    }
-		  else
-		    {
-		      line = "action <give> " + line.substr (t1);
-		    }
-		}
+		rewrite_use_give (line, "give", "to", rest, t1, t2);
 	      else
 		{
 		  line = "action <" + ltok + "> " + line.substr (t1);
@@ -1087,6 +1068,15 @@ bool is_balanced (string str)
   return depth == 0;
 }
 
+/* The file an !include names, without its directory and in lower case: what
+ * the bundled-library tests below compare.  A game may spell the path either
+ * way round, so both separators count. */
+static string include_basename (const string &name)
+{
+  std::string::size_type slash = name.find_last_of ("/\\");
+  return lcase (slash == string::npos ? name : name.substr (slash + 1));
+}
+
 /* net.lib is Quest's multiplayer/networking library.  It ships with Quest
  * rather than with the games, so it is never on disk for us to load, and
  * nothing in it means anything to a single-player replay.  Recognise it by
@@ -1094,12 +1084,7 @@ bool is_balanced (string str)
  * "Couldn't open ..." error) when a game !includes it. */
 static bool is_builtin_quest_library (const string &name)
 {
-  string base = name;
-  std::string::size_type slash = base.find_last_of ("/\\");
-  if (slash != string::npos)
-    base = base.substr (slash + 1);
-  base = lcase (base);
-  return base == "net.lib";
+  return include_basename (name) == "net.lib";
 }
 
 /* stdverbs.lib, Quest's "Additional verbs" library, ships with Quest too, but
@@ -1110,12 +1095,7 @@ static bool is_builtin_quest_library (const string &name)
  * include, or a game that !includes it plays differently from Quest. */
 static bool is_stdverbs (const string &name)
 {
-  string base = name;
-  std::string::size_type slash = base.find_last_of ("/\\");
-  if (slash != string::npos)
-    base = base.substr (slash + 1);
-  base = lcase (base);
-  return base == "stdverbs.lib";
+  return include_basename (name) == "stdverbs.lib";
 }
 
 /* A.G. Bampton's standard.lib (the Quest 2-era container library) also ships
@@ -1128,12 +1108,7 @@ static bool is_stdverbs (const string &name)
  * disk, or a game that !includes it plays differently from Quest. */
 static bool is_standardlib (const string &name)
 {
-  string base = name;
-  std::string::size_type slash = base.find_last_of ("/\\");
-  if (slash != string::npos)
-    base = base.substr (slash + 1);
-  base = lcase (base);
-  return base == "standard.lib";
+  return include_basename (name) == "standard.lib";
 }
 
 /* MaDbRiT's Type Library (typelib.qlb / typelib.lib) is another standard Quest
@@ -1145,11 +1120,7 @@ static bool is_standardlib (const string &name)
  * question_builtin_typelib in typelib_builtin.hh). */
 static bool is_typelib (const string &name)
 {
-  string base = name;
-  std::string::size_type slash = base.find_last_of ("/\\");
-  if (slash != string::npos)
-    base = base.substr (slash + 1);
-  base = lcase (base);
+  string base = include_basename (name);
   return base == "typelib.qlb" || base == "typelib.lib";
 }
 
@@ -1159,11 +1130,7 @@ static bool is_typelib (const string &name)
  * it plays a different game without it (see q3ext_builtin.hh). */
 static bool is_q3ext (const string &name)
 {
-  string base = name;
-  std::string::size_type slash = base.find_last_of ("/\\");
-  if (slash != string::npos)
-    base = base.substr (slash + 1);
-  return lcase (base) == "q3ext.qlb";
+  return include_basename (name) == "q3ext.qlb";
 }
 
 /* A library's own asl-version, which decides how its !addto game lines merge
@@ -1234,6 +1201,29 @@ static void mark_library_addtos (vector<string> &lines, int libver)
     }
 }
 
+static void handle_includes (const vector<string> &in_data_arg,
+			     const string &filename, vector<string> &out_data,
+			     QuestionInterface *gi, vector<string> &open);
+
+/* Whether `name' -- already lower-cased, as `open' holds them -- is one of the
+ * files whose !includes are being expanded right now. */
+static bool being_included (const vector<string> &open, const string &name)
+{
+  return std::find (open.begin(), open.end(), name) != open.end();
+}
+
+/* Splice in a library bundled with Question, under the name `open' knows it
+ * by.  It goes through the same include pipeline as a file would, so its own
+ * directives are processed normally; one that is already being expanded is
+ * passed over without comment. */
+static void include_builtin (const char *name, const char *text,
+			     vector<string> &out_data, QuestionInterface *gi,
+			     vector<string> &open)
+{
+  if (!being_included (open, name))
+    handle_includes (split_lines (text), name, out_data, gi, open);
+}
+
 /* `open` holds the files whose !includes are currently being expanded, from the
  * top-level game file down.  A file that !includes something already on that
  * list -- itself, most simply -- would otherwise recurse until the stack blows,
@@ -1269,19 +1259,15 @@ static void handle_includes (const vector<string> &in_data_arg, const string &fi
 	   * its own directives are processed normally). */
 	  if (is_stdverbs (param_contents (tok)))
 	    {
-	      if (std::find (open.begin(), open.end(), string ("stdverbs.lib"))
-		  == open.end())
-		handle_includes (split_lines (question_builtin_stdverbs), "stdverbs.lib",
-				 out_data, gi, open);
+	      include_builtin ("stdverbs.lib", question_builtin_stdverbs, out_data,
+			       gi, open);
 	      continue;
 	    }
 	  /* Likewise the type library. */
 	  if (is_typelib (param_contents (tok)))
 	    {
-	      if (std::find (open.begin(), open.end(), string ("typelib.qlb"))
-		  == open.end())
-		handle_includes (split_lines (question_builtin_typelib), "typelib.qlb",
-				 out_data, gi, open);
+	      include_builtin ("typelib.qlb", question_builtin_typelib, out_data,
+			       gi, open);
 	      continue;
 	    }
 	  /* The container library and MaDbRiT's q3ext.  Unlike the two above, a
@@ -1292,19 +1278,18 @@ static void handle_includes (const vector<string> &in_data_arg, const string &fi
 	      is_q3ext (param_contents (tok)))
 	    {
 	      bool q3ext = is_q3ext (param_contents (tok));
-	      string builtin_name = q3ext ? "q3ext.qlb" : "standard.lib";
 	      string libname = gi->absolute_name (param_contents (tok), filename);
 	      string contents = gi->get_file (libname);
 	      if (contents.empty ())
 		{
-		  if (std::find (open.begin(), open.end(), builtin_name)
-		      == open.end())
-		    handle_includes (split_lines (q3ext ? question_builtin_q3ext
-						  : question_builtin_standardlib),
-				     builtin_name, out_data, gi, open);
+		  if (q3ext)
+		    include_builtin ("q3ext.qlb", question_builtin_q3ext, out_data,
+				     gi, open);
+		  else
+		    include_builtin ("standard.lib", question_builtin_standardlib,
+				     out_data, gi, open);
 		}
-	      else if (std::find (open.begin(), open.end(), lcase (libname))
-		       != open.end())
+	      else if (being_included (open, lcase (libname)))
 		gi->debug_print ("Ignoring recursive !include of " + libname);
 	      else
 		handle_includes (split_lines (contents), libname, out_data, gi,
@@ -1313,7 +1298,7 @@ static void handle_includes (const vector<string> &in_data_arg, const string &fi
 	    }
 	  //handle_includes (split_lines (gi->get_file (param_contents (tok))), out_data, gi);
 	  string newname = gi->absolute_name (param_contents(tok), filename);
-	  if (std::find (open.begin(), open.end(), lcase (newname)) != open.end())
+	  if (being_included (open, lcase (newname)))
 	    {
 	      gi->debug_print ("Ignoring recursive !include of " + newname);
 	      continue;

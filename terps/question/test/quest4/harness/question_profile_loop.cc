@@ -28,84 +28,22 @@
    extras will diverge, but the per-turn engine work being profiled is the same.
 */
 
-#include <cctype>
 #include <cstdlib>
-#include <deque>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <vector>
 
-#include "../../../question-util.cc"
-#include "../../../istring.cc"
-#include "../../../readfile.cc"
-#include "../../../questionfile.cc"
-#include "../../../question-state.cc"
-#include "../../../question-runner.cc"
-#include "../../../question-vars.cc"
-#include "../../../question-objects.cc"
-#include "../../../question-rooms.cc"
-#include "../../../question-session.cc"
-#include "../../../question-parse.cc"
-#include "../../../question-script.cc"
-#include "../../../question-functions.cc"
-#include "../../../question-panes.cc"
+#include "headless_common.hh"
 
 namespace {
 
-std::deque<std::string> g_queue;
-struct InputExhausted { };
-
-std::string dirname_of (const std::string &p)
+class RunnerInterface : public HeadlessInterface
 {
-  std::string::size_type s = p.find_last_of ('/');
-  return s == std::string::npos ? std::string (".") : p.substr (0, s);
-}
-
-class RunnerInterface : public QuestionInterface
-{
-public:
-  int starved = 0;
-  static const int kMaxStarved = 200;
 protected:
-  QuestionResult print_normal (const std::string &) override { return r_success; }
-  QuestionResult print_newline () override { return r_success; }
-  void set_foreground (const std::string &) override { }
-  void set_background (const std::string &) override { }
   void debug_print (const std::string &) override { }
   QuestionResult wait_keypress (const std::string &) override { return r_success; }
   QuestionResult pause (int) override { return r_success; }
-  std::string get_string () override
-  {
-    if (g_queue.empty ())
-      {
-        if (++starved > kMaxStarved) throw InputExhausted ();
-        return "";
-      }
-    starved = 0;
-    std::string s = g_queue.front (); g_queue.pop_front (); return s;
-  }
-  uint make_choice (const std::string &, std::vector<std::string> choices) override
-  {
-    int c = 1;
-    if (g_queue.empty ()) { if (++starved > kMaxStarved) throw InputExhausted (); }
-    else { starved = 0; c = atoi (g_queue.front ().c_str ()); g_queue.pop_front (); }
-    if (c < 1) c = 1;
-    if ((size_t) c > choices.size ()) c = (int) choices.size ();
-    return (uint) c - 1;
-  }
-  std::string absolute_name (const std::string &rel, const std::string &parent) const override
-  {
-    if (!rel.empty () && rel[0] == '/') return rel;
-    return dirname_of (parent) + "/" + rel;
-  }
-  std::string get_file (const std::string &fn) const override
-  {
-    std::ifstream f (fn.c_str (), std::ios::binary);
-    if (!f) return "";
-    std::ostringstream ss; ss << f.rdbuf (); return ss.str ();
-  }
 };
 
 } // namespace

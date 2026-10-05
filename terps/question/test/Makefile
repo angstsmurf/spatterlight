@@ -42,7 +42,7 @@ BIN := $(Q4)/question_walkthrough_runner
 SRC := $(Q4)/question_walkthrough_runner.cc
 TESTBIN := $(Q4)/question_unit_tests
 TESTSRC := $(Q4)/question_unit_tests.cc
-DEPS = $(wildcard ../*.cc ../*.hh ../*.inc) $(RANDSRC)
+DEPS = $(wildcard ../*.cc ../*.hh ../*.inc) $(Q4)/headless_common.hh $(RANDSRC)
 
 # The engine draws its random numbers from erkyrath_random() -- xoshiro128**
 # when seeded -- so that a seeded run gives the same numbers here, in the app
@@ -69,7 +69,8 @@ ASLXENGSRC := $(ASLXLOADSRC) ../quest5/aslx-runtime.cc \
 ASLXOBJDIR := $(Q5)/build
 ASLXLOADOBJ := $(patsubst ../quest5/%.cc,$(ASLXOBJDIR)/%.o,$(ASLXLOADSRC))
 ASLXENGOBJ := $(patsubst ../quest5/%.cc,$(ASLXOBJDIR)/%.o,$(ASLXENGSRC))
-ASLXMAPOBJ := $(ASLXOBJDIR)/aslxglk-map.o $(ASLXOBJDIR)/aslxglk-form.o
+ASLXMAPSRC := ../quest5/aslxglk-map.cc ../quest5/aslxglk-form.cc
+ASLXMAPOBJ := $(patsubst ../quest5/%.cc,$(ASLXOBJDIR)/%.o,$(ASLXMAPSRC))
 ASLXLIBS := -lexpat -lz
 
 # Quest 5 (.aslx / .quest) milestone-1 loader test: the loader alone.
@@ -84,6 +85,12 @@ ASLXSRC := $(Q5)/aslx_loader_test.cc
 #   make quest4/harness/casdump
 CASDUMP := $(Q4)/casdump
 
+# Quest 4 profiling driver: replays a walkthrough in-process N times so a
+# sampler has one long-lived target.  Corpus-dependent and not a test, so
+# built on demand.
+#   make quest4/harness/question_profile_loop
+PROFLOOP := $(Q4)/question_profile_loop
+
 # Quest 5 milestone-2 script/expression runtime test.
 ASLXRTBIN := $(Q5)/aslx_runtime_test
 ASLXRTSRC := $(Q5)/aslx_runtime_test.cc
@@ -91,6 +98,8 @@ ASLXRTSRC := $(Q5)/aslx_runtime_test.cc
 # Quest 5 native walkthrough replayer (diff against quest5/goldens/).
 # Needs the local game corpus, so it is built on demand and not part of check.
 ASLXREPLAY := $(Q5)/aslx_replay
+# The .cmd script driver it shares with the link reporter below.
+ASLXDRIVE := $(Q5)/aslx_drive.hh
 
 # Quest 5 native link reporter: replays a .cmd walkthrough like aslx_replay but
 # prints the visible TEXT of the command link each step clicks (harvested from
@@ -134,6 +143,9 @@ $(TESTBIN): $(TESTSRC) $(DEPS) $(RANDOBJ)
 $(CASDUMP): $(CASDUMP).cc $(DEPS) $(RANDOBJ)
 	$(CXX) $(CXXFLAGS) $(RANDFLAGS) $(CASDUMP).cc $(RANDOBJ) -o $@
 
+$(PROFLOOP): $(PROFLOOP).cc $(DEPS) $(RANDOBJ)
+	$(CXX) $(CXXFLAGS) $(RANDFLAGS) $(PROFLOOP).cc $(RANDOBJ) -o $@
+
 # -I$(CHEAPGLK) and common_utils are for the map pane (glk.h, rgbsurface.h);
 # the engine units include neither.
 $(ASLXOBJDIR)/%.o: ../quest5/%.cc $(ASLXHDRS)
@@ -154,10 +166,10 @@ $(ASLXLINKBIN): $(ASLXLINKSRC) ../quest5/aslxglk.cc ../questglk-common.inc \
 	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXLINKSRC) $(ASLXENGOBJ) $(ASLXMAPOBJ) \
 	    $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 
-$(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXENGOBJ) $(ASLXHDRS)
+$(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXDRIVE) $(ASLXENGOBJ) $(ASLXHDRS)
 	$(CXX) $(CXXFLAGS) $(ASLXREPLAY).cc $(ASLXENGOBJ) $(ASLXLIBS) -o $@
 
-$(ASLXLINKCAP): $(ASLXLINKCAP).cc $(ASLXENGOBJ) $(ASLXHDRS)
+$(ASLXLINKCAP): $(ASLXLINKCAP).cc $(ASLXDRIVE) $(ASLXENGOBJ) $(ASLXHDRS)
 	$(CXX) $(CXXFLAGS) $(ASLXLINKCAP).cc $(ASLXENGOBJ) $(ASLXLIBS) -o $@
 
 $(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc ../questglk-common.inc \
@@ -205,20 +217,24 @@ check: syntax drivesync $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(A
 	cd $(Q5) && ./aslxglk_link_tests
 	$(Q4)/run_fixtures.sh
 
-asan: $(SRC) $(TESTSRC) $(DEPS) $(RANDOBJ) $(ASLXENGSRC) $(ASLXHDRS)
+asan: $(SRC) $(TESTSRC) $(DEPS) $(RANDOBJ) $(ASLXENGSRC) $(ASLXMAPSRC) $(ASLXHDRS)
 	$(CXX) $(ASANFLAGS) $(RANDFLAGS) $(TESTSRC) $(RANDOBJ) -o $(TESTBIN)
 	$(CXX) $(ASANFLAGS) $(RANDFLAGS) $(SRC) $(RANDOBJ) -o $(BIN)
 	$(CXX) $(ASANFLAGS) $(ASLXSRC) $(ASLXLOADSRC) $(ASLXLIBS) -o $(ASLXBIN)
 	$(CXX) $(ASANFLAGS) $(ASLXRTSRC) $(ASLXENGSRC) $(ASLXLIBS) -o $(ASLXRTBIN)
 	$(CXX) $(ASANFLAGS) $(QGLKWARN) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $(QGLKBIN)
+	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) -I../../common_utils $(ASLXLINKSRC) $(ASLXENGSRC) \
+	    $(ASLXMAPSRC) $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $(ASLXLINKBIN)
 	cd $(Q4) && ./question_unit_tests
 	cd $(Q5) && ./aslx_loader_test
 	cd $(Q5) && ./aslx_runtime_test
 	./$(QGLKBIN)
+	cd $(Q5) && ./aslxglk_link_tests
 	$(Q4)/run_fixtures.sh
 
 clean:
 	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN) \
+	      $(CASDUMP) $(PROFLOOP) $(ASLXREPLAY) $(ASLXLINKCAP) $(ASLXGLK) \
 	      $(RANDOBJ)
 	rm -rf $(ASLXOBJDIR)
 

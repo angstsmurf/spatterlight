@@ -24,40 +24,13 @@
  * Part of question_implementation; question-runner.cc holds the rest of the
  * preamble and question-internal.hh what these units share. */
 
-#include "QuestionRunner.hh"
-#include "readfile.hh"
-#include "question-state.hh"
-#include "question-util.hh"
-#include <set>
-#include <unordered_map>
-#include "question-impl.hh"
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include "general.hh"
-#include "istring.hh"
+#include "question-internal.hh"
 
-/* Use the shared erkyrath_random() RNG (xoshiro128** when seeded, native
-   otherwise), like scott/comprehend/plus/taylor.  The headless walkthrough
-   runner links common_utils/randomness.c too, so a seeded run draws the same
-   numbers there as in the app -- and, xoshiro128** being a fixed algorithm,
-   the same numbers on any platform.  That is what lets the corpus transcripts
-   in test/quest4/goldens be diffed at all. */
-extern "C" {
-#include "randomness.h"
-}
 #ifdef SPATTERLIGHT
 extern "C" int gli_determinism;
 #endif
 
-class QuestionInterface;
-
 using namespace std;
-
-#include "question-internal.hh"
 
 bool question_implementation::timer_will_fire ()
 {
@@ -295,16 +268,10 @@ void question_implementation::set_game (const string &s)
        * read version-dependently (see split_exit_dest) and a startscript can
        * already send us through one. */
       asl_version_ = 311;
-      for (const auto &vline: gf.block ("game", 0).data)
-	{
-	  string vtok = lcase (first_token (vline, tok_start, tok_end));
-	  if (vtok != "asl-version")
-	    continue;
-	  vtok = next_token (vline, tok_start, tok_end);
-	  if (is_param (vtok))
-	    asl_version_ = parse_int (param_contents (vtok));
-	  break;
-	}
+      string vtok = first_decl_param (gf.block ("game", 0), "asl-version",
+				      true);
+      if (vtok != "")
+	asl_version_ = parse_int (param_contents (vtok));
 
       /* "define options" is a nameless block, like "define synonyms".  Only
        * "abbreviations" is acted on here; "panes" and "debug" are host-side
@@ -361,38 +328,13 @@ void question_implementation::set_game (const string &s)
       for (size_t vi = 0; vi < gf.size ("variable"); vi ++)
 	{
 	  const QuestionBlock &vb = gf.block ("variable", vi);
-	  string raw;
-	  bool is_numeric = true;
-	  for (const string &vline: vb.data)
-	    {
-	      /* CI keywords, CS type value -- see static_svar_lookup. */
-	      string vtok = first_token (vline, tok_start, tok_end);
-	      if (ci_equal (vtok, "value"))
-		{
-		  vtok = next_token (vline, tok_start, tok_end);
-		  if (is_param (vtok))
-		    raw = param_contents (vtok);
-		}
-	      else if (ci_equal (vtok, "type"))
-		is_numeric =
-		  (next_token (vline, tok_start, tok_end) != "string");
-	    }
-	  string val = (raw.find_first_of ("#%$") == string::npos)
-		       ? raw : eval_string (raw);
-	  if (is_numeric)
-	    {
-	      IVarRecord iv;
-	      iv.name = vb.name;
-	      iv.set ((size_t) 0, strtod (val.c_str (), NULL));
-	      state.ivars.push_back (iv);
-	    }
+	  VarDef vd (vb);
+	  string val = (vd.value.find_first_of ("#%$") == string::npos)
+		       ? vd.value : eval_string (vd.value);
+	  if (vd.is_numeric ())
+	    state.ivars.push_back (IVarRecord (vb.name, strtod (val.c_str (), NULL)));
 	  else
-	    {
-	      SVarRecord sv;
-	      sv.name = vb.name;
-	      sv.set (0, val);
-	      state.svars.push_back (sv);
-	    }
+	    state.svars.push_back (SVarRecord (vb.name, val));
 	}
 
       state.running = true;
@@ -429,11 +371,9 @@ void question_implementation::set_game (const string &s)
 	    }
 	  else if (tok == "background")
 	    {
-	      tok = next_token (s, tok_start, tok_end);
-	      if (!is_param (tok))
-		gi->debug_print (nonparam ("background color", s));
-	      else
-		gi->set_background (param_contents(tok));
+	      if (next_decl_param (*gi, s, tok_start, tok_end,
+				   "background color", tok))
+		gi->set_background (tok);
 	    }
 	  else if (tok == "default")
 	    {
@@ -442,28 +382,22 @@ void question_implementation::set_game (const string &s)
 	       * fontname" phrase with BeginsWith (V4Game.Part2.cs:661-669). */
 	      if (ci_equal (tok, "fontname"))
 		{
-		  tok = next_token (s, tok_start, tok_end);
-		  if (!is_param (tok))
-		    gi->debug_print (nonparam ("font name", s));
-		  else
-		    gi->set_default_font (param_contents(tok));
+		  if (next_decl_param (*gi, s, tok_start, tok_end,
+				       "font name", tok))
+		    gi->set_default_font (tok);
 		}
 	      else if (ci_equal (tok, "fontsize"))
 		{
-		  tok = next_token (s, tok_start, tok_end);
-		  if (!is_param (tok))
-		    gi->debug_print (nonparam("font size", s));
-		  else
-		    gi->set_default_font_size (param_contents(tok));
+		  if (next_decl_param (*gi, s, tok_start, tok_end,
+				       "font size", tok))
+		    gi->set_default_font_size (tok);
 		}
 	    }
 	  else if (tok == "foreground")
 	    {
-	      tok = next_token (s, tok_start, tok_end);
-	      if (!is_param (tok))
-		gi->debug_print (nonparam ("foreground color", s));
-	      else
-		gi->set_foreground (param_contents(tok));
+	      if (next_decl_param (*gi, s, tok_start, tok_end,
+				   "foreground color", tok))
+		gi->set_foreground (tok);
 	    }
 	  else if (tok == "gametype")
 	    {
@@ -488,13 +422,9 @@ void question_implementation::set_game (const string &s)
 	    }
 	  else if (tok == "start")
 	    {
- 	      tok = next_token (s, tok_start, tok_end);
-	      if (!is_param (tok))
-		gi->debug_print (nonparam ("start room", s));
-	      else
-		{
-		  state.location = start_room = param_contents (tok);
-		}
+	      if (next_decl_param (*gi, s, tok_start, tok_end,
+				   "start room", tok))
+		state.location = start_room = tok;
 	    }
 	}
 
@@ -519,16 +449,11 @@ void question_implementation::set_game (const string &s)
       set_up_items ();
 
       /* Quest "startitems <a; b; ...>": the player's initial inventory. */
-      for (const auto &i: game.data)
-	if (ci_equal (first_token (i, c1, c2), "startitems"))
-	  {
-	    tok = next_token (i, c1, c2);
-	    if (is_param (tok))
-	      for (const string &it: split_param (param_contents (tok)))
-		if (trim (it) != "")
-		  run_script ("give <" + trim (it) + ">");
-	    break;
-	  }
+      tok = first_decl_param (game, "startitems", true);
+      if (tok != "")
+	for (const string &it: split_param (param_contents (tok)))
+	  if (trim (it) != "")
+	    run_script ("give <" + trim (it) + ">");
 
       /* Quest runs the startscript first and prints the intro text afterwards
 	 (e.g. Mansion's startscript pauses on "Press any key" before its
@@ -789,9 +714,8 @@ void question_implementation::regen_var_look ()
 	     * they were written, to take the first of them as Quest does. */
 	    if (tok == "look")
 	      {
-		while ((tok = next_token (line, d1, d2)) != "" && !is_param (tok))
-		  ;
-		if (is_param (tok))
+		tok = next_param_token (line, d1, d2);
+		if (tok != "")
 		  look_desc_ = eval_param (tok);
 		break;
 	      }
@@ -898,10 +822,8 @@ void question_implementation::regen_var_dirs()
 	      continue;
 	    /* GetParameter reads the line's first <...>, so the token to take is
 	     * the first parameter after the keyword and not the first token. */
-	    string tok;
-	    while ((tok = next_token (line, d1, d2)) != "" && !is_param (tok))
-	      ;
-	    doorways = is_param (tok) ? eval_param (tok) : "";
+	    string tok = next_param_token (line, d1, d2);
+	    doorways = tok != "" ? eval_param (tok) : "";
 	  }
       string out_display = "", out_alias;
       if (doorways != "")

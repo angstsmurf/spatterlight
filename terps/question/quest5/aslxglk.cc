@@ -104,6 +104,7 @@ using questglk::close_side_pane_windows;
 using questglk::draw_status_banner;
 using questglk::echo_input_line;
 using questglk::fill_side_divider;
+using questglk::glk_style_for;
 using questglk::lower;
 using questglk::match_help_command;
 using questglk::match_restore_command;
@@ -132,6 +133,7 @@ using questglk::put_stream_utf8;
 using questglk::QUIT_FAREWELL;
 using questglk::stop_single_sound;
 using questglk::toggle_transcript;
+using questglk::wait_for_event;
 using questglk::trim;
 using questglk::unput_tail_exact;
 using questglk::utf8_cp_len;
@@ -443,13 +445,7 @@ int g_bold = 0, g_italic = 0, g_under = 0;
 
 void apply_style()
 {
-    glui32 st;
-    if (g_bold && g_italic) st = style_Alert;
-    else if (g_italic)      st = style_Emphasized;
-    else if (g_bold)        st = style_Subheader;
-    else if (g_under)       st = style_User2;
-    else                    st = style_Normal;
-    glk_set_style(st);
+    glk_set_style(glk_style_for(g_bold, g_italic, g_under));
 }
 
 /* What one <span>/<a> contributed to the counters, so its close undoes it. */
@@ -1271,6 +1267,24 @@ std::string plain_text(const std::string &html, const char *brsep)
     return decode_entities(out);
 }
 
+/* The <game> element, which is a root like any other. */
+Element *game_element(World &w)
+{
+    for (Element *r : w.roots)
+        if (r->kind == ElemKind::Game)
+            return r;
+    return nullptr;
+}
+
+/* The element that object attribute `attr` of `e` points at -- game.pov, the
+ * player's parent -- or null when there is no such element or attribute. */
+Element *object_field(Interp &in, Element *e, const char *attr)
+{
+    const Value *v = e ? in.resolve_field(e, attr) : nullptr;
+    return v && v->type == Value::Type::ObjectRef ? in.world().find(v->str)
+                                                  : nullptr;
+}
+
 /* Current room: what Core last sent through JS.updateLocation
  * (CapFirst(GetDisplayName(game.pov.parent)) -- the reference player's
  * location bar).  Old v500-era games embed pre-JS libraries that never call
@@ -1282,17 +1296,10 @@ void update_banner(Interp &in)
     World &w = in.world();
     std::string room = g_location_line;
     if (room.empty()) {
-        Element *game = nullptr;
-        for (Element *r : w.roots)
-            if (r->kind == ElemKind::Game) { game = r; break; }
-        const Value *pov = game ? in.resolve_field(game, "pov") : nullptr;
-        Element *pl = pov && pov->type == Value::Type::ObjectRef
-                          ? w.find(pov->str) : nullptr;
+        Element *pl = object_field(in, game_element(w), "pov");
         if (!pl)
             pl = w.find("player");
-        const Value *par = pl ? in.resolve_field(pl, "parent") : nullptr;
-        Element *rm = par && par->type == Value::Type::ObjectRef
-                          ? w.find(par->str) : nullptr;
+        Element *rm = object_field(in, pl, "parent");
         if (rm) {
             const Value *alias = in.resolve_field(rm, "alias");
             room = alias && alias->type == Value::Type::String ? alias->str
@@ -1352,9 +1359,7 @@ std::string template_text_or(World &w, const char *name, const char *fallback)
 std::vector<std::string> compass_directions(Interp &in)
 {
     std::vector<std::string> dirs;
-    Element *game = nullptr;
-    for (Element *r : in.world().roots)
-        if (r->kind == ElemKind::Game) { game = r; break; }
+    Element *game = game_element(in.world());
     const Value *v = game ? in.resolve_field(game, "compassdirections") : nullptr;
     if (v && v->list_store)
         for (const Value &e : *v->list_store)
@@ -1417,6 +1422,20 @@ void redraw_side_pane(Interp &in)
     strid_t s = glk_window_get_stream(gobjwin);
     bool first = true;
 
+    /* The link value for a pane entry that sends `command` or, for an object
+     * name, folds `toggle_key`'s verb list: its slot in g_pane_links.  0 (the
+     * entry is drawn as plain text) when the host has no hyperlinks. */
+    auto pane_link = [&](const std::string &command,
+                         const std::string &toggle_key = std::string()) {
+        if (!g_hyperlinks)
+            return (glui32) 0;
+        LinkAction act;
+        act.command = command;
+        act.toggle_key = toggle_key;
+        g_pane_links.push_back(act);
+        return kPaneLinkBase + (glui32) g_pane_links.size() - 1;
+    };
+
     auto section = [&](const std::string &header,
                        const std::vector<const ListData *> &items,
                        bool exit_links) {
@@ -1430,18 +1449,10 @@ void redraw_side_pane(Interp &in)
             std::string label = cap_first(plain_text(d->text));
             if (label.empty())
                 label = cap_first(d->display_alias);
-            glui32 linkval = 0;
-            if (g_hyperlinks) {
-                LinkAction act;
-                /* A direction runs itself; an object unfolds its verb list
-                 * in place, the way QuestViva pops a verb menu on a click. */
-                if (exit_links)
-                    act.command = d->display_alias;
-                else
-                    act.toggle_key = d->element_name;
-                g_pane_links.push_back(act);
-                linkval = kPaneLinkBase + (glui32) g_pane_links.size() - 1;
-            }
+            /* A direction runs itself; an object unfolds its verb list in
+             * place, the way QuestViva pops a verb menu on a click. */
+            glui32 linkval = exit_links ? pane_link(d->display_alias)
+                                        : pane_link("", d->element_name);
             put_pane_link(s, label, linkval, true);
             if (exit_links || d->element_name != g_pane_expanded)
                 continue;
@@ -1452,13 +1463,7 @@ void redraw_side_pane(Interp &in)
                 std::string vtext = plain_text(verb);
                 if (vtext.empty())
                     continue;
-                glui32 vlink = 0;
-                if (g_hyperlinks) {
-                    LinkAction act;
-                    act.command = vtext + " " + d->display_alias;
-                    g_pane_links.push_back(act);
-                    vlink = kPaneLinkBase + (glui32) g_pane_links.size() - 1;
-                }
+                glui32 vlink = pane_link(vtext + " " + d->display_alias);
                 glk_put_string_stream(s, (char *) "    ");
                 put_pane_link(s, cap_first(vtext), vlink, true);
             }
@@ -1473,14 +1478,11 @@ void redraw_side_pane(Interp &in)
         for (const std::string &line : custom_status_lines())
             put_pane_link(s, line, 0, true);
         for (size_t i = 0; i < g_cstatus.buttons.size() && g_hyperlinks; i++) {
-            LinkAction act;
-            act.command = g_cstatus.buttons[i];
-            g_pane_links.push_back(act);
+            glui32 link = pane_link(g_cstatus.buttons[i]);
             if (i)
                 glk_put_string_stream(s, (char *) "  ");
-            glk_set_hyperlink_stream(
-                s, kPaneLinkBase + (glui32) g_pane_links.size() - 1);
-            put_stream_utf8(s, cap_first(act.command));
+            glk_set_hyperlink_stream(s, link);
+            put_stream_utf8(s, cap_first(g_cstatus.buttons[i]));
             glk_set_hyperlink_stream(s, 0);
             if (i + 1 == g_cstatus.buttons.size())
                 glk_put_char_stream(s, '\n');
@@ -1727,7 +1729,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
     /* Per-frame, NOT static: a timer tick below can open an expression-form
      * ShowMenu/Ask -> nested read_line, which with a shared buffer would
      * clobber the player's half-typed line (cancelled into buf, re-requested
-     * with ce.val1 preload).  Every return path completes or cancels the
+     * with it preloaded).  Every return path completes or cancels the
      * request, so the request never outlives the frame. */
     glui32 buf[256];
     /* Links are the only other way in, so a library without them always gets
@@ -1776,8 +1778,21 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
         aslx_do_menu_autosave(*mi);
     }
 #endif
-    if (want_line)
-        glk_request_line_event_uni(gwin, buf, 255, 0);
+    /* This frame's line request, when it has one.  Nothing may print while
+     * it is live, so whatever interrupts it cancels first -- which hands
+     * back how much was typed, for a re-request to preload. */
+    auto request_line = [&](glui32 preload) {
+        if (want_line)
+            glk_request_line_event_uni(gwin, buf, 255, preload);
+    };
+    auto cancel_line = [&]() -> glui32 {
+        event_t ce;
+        ce.val1 = 0;
+        if (want_line)
+            glk_cancel_line_event(gwin, &ce);
+        return ce.val1;
+    };
+    request_line(0);
     request_hyperlinks();
     for (;;) {
         event_t ev;
@@ -1794,9 +1809,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
         case evtype_Hyperlink:
             if (ev.win == gwin && ev.val1 > g_links_spent &&
                 ev.val1 <= g_links.size()) {
-                event_t ce;
-                if (want_line)
-                    glk_cancel_line_event(gwin, &ce);
+                cancel_line();
                 /* By value: anything below that prints (a verb menu, an
                  * ASLEvent) renders new links into g_links and can reallocate
                  * it out from under a reference. */
@@ -1897,24 +1910,18 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                      * request has to be cancelled across the write -- an
                      * archived PENDING request would collide with the one a
                      * restore makes -- and re-armed with anything already typed
-                     * preloaded (ce.val1), exactly as the timer path does. */
+                     * preloaded, exactly as the timer path does. */
                     if (g_autosave_interp) {
-                        event_t ce;
-                        ce.val1 = 0;
-                        if (want_line)
-                            glk_cancel_line_event(gwin, &ce);
+                        glui32 typed = cancel_line();
                         aslx_do_autosave(*g_autosave_interp);
-                        if (want_line)
-                            glk_request_line_event_uni(gwin, buf, 255, ce.val1);
+                        request_line(typed);
                     }
 #endif
                     request_hyperlinks();
                     break;
                 }
                 /* A verb or a direction: run its command as if typed. */
-                event_t ce;
-                if (want_line)
-                    glk_cancel_line_event(gwin, &ce);
+                cancel_line();
                 if (g_manual_echo && echo)
                     echo_input(act.command);
                 return {InEnd::Command, act.command};
@@ -1929,10 +1936,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                 break;
             /* Cancel first: Glk forbids output with a live line request.
              * With echo off the cancel is invisible. */
-            event_t ce;
-            ce.val1 = 0;
-            if (want_line)
-                glk_cancel_line_event(gwin, &ce);
+            glui32 typed = cancel_line();
             bool reprompt;
             {
                 PromptBreak pb(in, prompt);
@@ -1960,8 +1964,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
             if (g_autosave_interp)
                 aslx_do_autosave(*g_autosave_interp);
 #endif
-            if (want_line)
-                glk_request_line_event_uni(gwin, buf, 255, ce.val1);
+            request_line(typed);
             request_hyperlinks();
             break;
         }
@@ -2343,18 +2346,14 @@ bool run_character_grid(Interp &in, aslxform::CharacterForm &f)
         glk_window_move_cursor(gformwin, (glui32) lay.name_x,
                                (glui32) lay.name_y);
         glk_request_line_event_uni(gformwin, buf, (glui32) kFormNameMax, n);
-        for (;;) {
-            event_t ev;
-            glk_select(&ev);
-            if (ev.type == evtype_LineInput && ev.win == gformwin) {
-                f.set_name(utf8_from_uni(buf, ev.val1));
-                return;
-            }
-            /* No redraw of the form itself: Glk forbids output to a window
-             * with a line request pending. */
-            if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
-                handle_arrange(in);
-        }
+        /* No redraw of the form itself on a resize: Glk forbids output to a
+         * window with a line request pending. */
+        event_t ev = wait_for_event(
+            [](const event_t &e) {
+                return e.type == evtype_LineInput && e.win == gformwin;
+            },
+            [&] { handle_arrange(in); });
+        f.set_name(utf8_from_uni(buf, ev.val1));
     };
 
     redraw();
@@ -2517,12 +2516,7 @@ void seed_custom_status(Interp &in)
         return;
     g_pane_dirty = true;
 
-    Element *game = nullptr;
-    for (Element *r : w.roots)
-        if (r->kind == ElemKind::Game) { game = r; break; }
-    const Value *pov = game ? in.resolve_field(game, "pov") : nullptr;
-    Element *pl = pov && pov->type == Value::Type::ObjectRef
-                      ? w.find(pov->str) : nullptr;
+    Element *pl = object_field(in, game_element(w), "pov");
     if (!pl)
         return;
     auto seed = [&](const char *id, Element *e, const char *field,
@@ -2531,9 +2525,7 @@ void seed_custom_status(Interp &in)
         if (v && v->type == Value::Type::Int && !g_cstatus_vals.count(id))
             g_cstatus_vals[id] = std::to_string(v->integer) + suffix;
     };
-    const Value *par = in.resolve_field(pl, "parent");
-    seed("level-span", par && par->type == Value::Type::ObjectRef
-                           ? w.find(par->str) : nullptr, "level", "");
+    seed("level-span", object_field(in, pl, "parent"), "level", "");
     seed("max-level-span", pl, "maxlevel", "");
     seed("artefact-span", pl, "artefactcount", "/14");
 }
@@ -2543,13 +2535,16 @@ void seed_custom_status(Interp &in)
 std::string core_dir_path();   /* defined in the core section below */
 
 const char *g_storyfile = nullptr;
+/* The same as a path the engine and the file helpers can always take:
+ * "" while there is none. */
+const char *story_path() { return g_storyfile ? g_storyfile : ""; }
 
 /* Write the engine snapshot to a player-chosen file. Runs mid-turn, from the
  * request (RequestSave) hook -- Core's `save` command -- so there is never a
  * pending line request here. */
 void do_save_ui(Interp &in)
 {
-    prompt_write_save(in.save_game(g_storyfile ? g_storyfile : ""));
+    prompt_write_save(in.save_game(story_path()));
 }
 
 /* Prompt for a save file and read it, validating it against a scratch reload
@@ -2573,7 +2568,7 @@ bool do_restore_ui(std::string &data)
     /* Full validation: apply it to a scratch world before committing. */
     World probe_w;
     std::string err = "could not reload the game";
-    if (load_file(g_storyfile ? g_storyfile : "", probe_w, core_dir_path())) {
+    if (load_file(story_path(), probe_w, core_dir_path())) {
         Interp probe(probe_w);
         probe.print = [](const std::string &) {};
         if (probe.restore_game(data, err))
@@ -2825,7 +2820,7 @@ bool resource_bytes(const std::string &name, std::string &out)
         if (!e)
             return false;
         std::string comp;
-        if (!read_file_range(g_storyfile ? g_storyfile : "", e->offset,
+        if (!read_file_range(story_path(), e->offset,
                              e->comp_size, comp))
             return false;
         if (e->method == 0) { out = std::move(comp); return true; }
@@ -3199,20 +3194,16 @@ bool play_audio_inline(const std::vector<std::string> &srcs, bool loop)
 [[maybe_unused]] void wait_for_sound(Interp &in, glui32 id)
 {
     glk_request_char_event(gwin);
-    for (;;) {
-        event_t ev;
-        glk_select(&ev);
-        if (ev.type == evtype_SoundNotify && ev.val1 == id) {
-            glk_cancel_char_event(gwin);
-            return;
-        }
-        if (ev.type == evtype_CharInput && ev.win == gwin) {
-            stop_sound_ui();
-            return;
-        }
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
-            handle_arrange(in);
-    }
+    event_t ev = wait_for_event(
+        [id](const event_t &e) {
+            return (e.type == evtype_SoundNotify && e.val1 == id) ||
+                   (e.type == evtype_CharInput && e.win == gwin);
+        },
+        [&] { handle_arrange(in); });
+    if (ev.type == evtype_SoundNotify)
+        glk_cancel_char_event(gwin);
+    else
+        stop_sound_ui();
 }
 
 /* The play_sound host hook. Degrades to an instantly-finished sound whenever
@@ -3256,20 +3247,16 @@ void do_wait_ui(Interp &in)
     show_continue_link(in);
     glk_request_char_event(gwin);
     request_hyperlinks();
-    for (;;) {
-        event_t ev;
-        glk_select(&ev);
-        if ((ev.type == evtype_CharInput && ev.win == gwin) ||
-            (ev.type == evtype_Hyperlink &&
-             (ev.win == gwin || ev.win == gobjwin))) {
-            glk_cancel_char_event(gwin);
-            cancel_hyperlinks();
-            hide_continue_link();
-            return;
-        }
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
-            handle_arrange(in);
-    }
+    wait_for_event(
+        [](const event_t &e) {
+            return (e.type == evtype_CharInput && e.win == gwin) ||
+                   (e.type == evtype_Hyperlink &&
+                    (e.win == gwin || e.win == gobjwin));
+        },
+        [&] { handle_arrange(in); });
+    glk_cancel_char_event(gwin);
+    cancel_hyperlinks();
+    hide_continue_link();
 }
 
 /* The do_pause host hook (pre-v550 `request (Pause, ms)` -- Core's Pause).
@@ -3288,18 +3275,14 @@ void do_pause_ui(Interp &in, int ms)
     }
     glk_request_timer_events((glui32) ms);
     glk_request_char_event(gwin);
-    for (;;) {
-        event_t ev;
-        glk_select(&ev);
-        if (ev.type == evtype_Timer) {
-            glk_cancel_char_event(gwin);
-            break;
-        }
-        if (ev.type == evtype_CharInput && ev.win == gwin)
-            break;
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
-            handle_arrange(in);
-    }
+    event_t ev = wait_for_event(
+        [](const event_t &e) {
+            return e.type == evtype_Timer ||
+                   (e.type == evtype_CharInput && e.win == gwin);
+        },
+        [&] { handle_arrange(in); });
+    if (ev.type == evtype_Timer)
+        glk_cancel_char_event(gwin);
     glk_request_timer_events(0);
     g_timer_ms = 0;
 }
@@ -3858,6 +3841,17 @@ void panel_restore_picture()
     panel_relayout();
 }
 
+/* Record `state` -- the engine as it stands, saved -- and the RNG streams
+ * that go with it as what the next command runs from.  An empty state (the
+ * engine could not be saved) leaves the record invalid. */
+void capture_turn_start(Interp &in, const std::string &state)
+{
+    g_turn_start.state = state;
+    g_turn_start.rngs.clear();
+    in.capture_rng_streams(g_turn_start.rngs);
+    g_turn_start.valid = !state.empty();
+}
+
 /* Autosave at the parser prompt: the engine snapshot (the same v1 format
  * SAVE writes), the frontend blob, the Glk library plist, and the GUI
  * snapshot request, in that order. */
@@ -3868,13 +3862,10 @@ void aslx_do_autosave(Interp &in)
         g_turn_start.valid = false;
         return;
     }
-    std::string engine_state = in.save_game(g_storyfile ? g_storyfile : "");
+    std::string engine_state = in.save_game(story_path());
     if (engine_state.empty())
         return;
-    g_turn_start.state = engine_state;
-    g_turn_start.rngs.clear();
-    in.capture_rng_streams(g_turn_start.rngs);
-    g_turn_start.valid = true;
+    capture_turn_start(in, engine_state);
     aslx_do_autosave_write(engine_state, aslx_encode_frontend(in));
 }
 
@@ -3887,10 +3878,7 @@ void note_turn_start(Interp &in, const std::string &cmd)
     g_turn_answers.clear();
     if (!gli_enable_autosave || g_turn_start.valid)
         return;
-    g_turn_start.state = in.save_game(g_storyfile ? g_storyfile : "");
-    g_turn_start.rngs.clear();
-    in.capture_rng_streams(g_turn_start.rngs);
-    g_turn_start.valid = !g_turn_start.state.empty();
+    capture_turn_start(in, in.save_game(story_path()));
 }
 
 /* Under a disambiguation menu: the turn's starting state, and a blob with
@@ -3912,44 +3900,32 @@ void aslx_do_menu_autosave(Interp &in)
  * frame hooks keep running -- they redraw from engine state that the replay
  * brings back to what it was.  Emptied hooks stay SET, as no-ops: an unset
  * hook changes engine behaviour (see play_sound). */
-struct ReplayMutedHooks {
-    decltype(Interp::print) print;
-    decltype(Interp::clear_screen) clear_screen;
-    decltype(Interp::disable_command_links) disable_command_links;
-    decltype(Interp::start_output_section) start_output_section;
-    decltype(Interp::end_output_section) end_output_section;
-    decltype(Interp::hide_output_section) hide_output_section;
-    decltype(Interp::show_picture) show_picture;
-    decltype(Interp::play_sound) play_sound;
-    decltype(Interp::stop_sound) stop_sound;
-    decltype(Interp::do_wait) do_wait;
-    decltype(Interp::do_pause) do_pause;
-} g_replay_muted;
+std::vector<std::function<void(Interp &)>> g_replay_unmute;
 
+/* Mute one hook, leaving behind what end_replay needs to put it back. */
 template <typename F, typename Mute>
-void mute_hook(F &hook, F &saved, Mute mute)
+void mute_hook(Interp &in, F Interp::*hook, Mute mute)
 {
-    saved = hook;
-    if (hook)
-        hook = mute;
+    g_replay_unmute.push_back(
+        [hook, saved = in.*hook](Interp &i) { i.*hook = saved; });
+    if (in.*hook)
+        in.*hook = mute;
 }
 
 void start_replay(Interp &in)
 {
-    ReplayMutedHooks &m = g_replay_muted;
     auto none = [](const std::string &) {};
-    mute_hook(in.print, m.print, none);
-    mute_hook(in.clear_screen, m.clear_screen, [] {});
-    mute_hook(in.disable_command_links, m.disable_command_links, [] {});
-    mute_hook(in.start_output_section, m.start_output_section, none);
-    mute_hook(in.end_output_section, m.end_output_section, none);
-    mute_hook(in.hide_output_section, m.hide_output_section, none);
-    mute_hook(in.show_picture, m.show_picture, none);
-    mute_hook(in.play_sound, m.play_sound,
-              [](const std::string &, bool, bool) {});
-    mute_hook(in.stop_sound, m.stop_sound, [] {});
-    mute_hook(in.do_wait, m.do_wait, [] {});
-    mute_hook(in.do_pause, m.do_pause, [](int) {});
+    mute_hook(in, &Interp::print, none);
+    mute_hook(in, &Interp::clear_screen, [] {});
+    mute_hook(in, &Interp::disable_command_links, [] {});
+    mute_hook(in, &Interp::start_output_section, none);
+    mute_hook(in, &Interp::end_output_section, none);
+    mute_hook(in, &Interp::hide_output_section, none);
+    mute_hook(in, &Interp::show_picture, none);
+    mute_hook(in, &Interp::play_sound, [](const std::string &, bool, bool) {});
+    mute_hook(in, &Interp::stop_sound, [] {});
+    mute_hook(in, &Interp::do_wait, [] {});
+    mute_hook(in, &Interp::do_pause, [](int) {});
     g_replaying = true;
 }
 
@@ -3957,19 +3933,9 @@ void end_replay(Interp &in)
 {
     if (!g_replaying)
         return;
-    ReplayMutedHooks &m = g_replay_muted;
-    in.print = m.print;
-    in.clear_screen = m.clear_screen;
-    in.disable_command_links = m.disable_command_links;
-    in.start_output_section = m.start_output_section;
-    in.end_output_section = m.end_output_section;
-    in.hide_output_section = m.hide_output_section;
-    in.show_picture = m.show_picture;
-    in.play_sound = m.play_sound;
-    in.stop_sound = m.stop_sound;
-    in.do_wait = m.do_wait;
-    in.do_pause = m.do_pause;
-    m = ReplayMutedHooks();
+    for (const auto &unmute : g_replay_unmute)
+        unmute(in);
+    g_replay_unmute.clear();
     g_replaying = false;
     g_replay_answers.clear();
 }

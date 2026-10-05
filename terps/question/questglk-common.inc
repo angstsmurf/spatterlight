@@ -198,33 +198,6 @@ unput_tail_exact (winid_t win, const std::u32string &s)
 #endif
 }
 
-/* True when the whole string is well-formed UTF-8 (pure ASCII counts).  Used
- * to pick between byte (Latin-1) and codepoint-aware presentation for
- * classic-game text, whose file encoding is unknown: real Latin-1 text is
- * practically never valid UTF-8, so the check only flips a string to
- * codepoint mode when decoding it that way is right.  (Overlong forms and
- * surrogates are not rejected; this is an encoding sniff, not a validator.) */
-[[maybe_unused]] static bool
-utf8_valid (const std::string &s)
-{
-    for (size_t i = 0; i < s.size ();) {
-        unsigned char c = (unsigned char) s[i];
-        int len;
-        if (c < 0x80) { i++; continue; }
-        if ((c & 0xe0) == 0xc0) len = 2;
-        else if ((c & 0xf0) == 0xe0) len = 3;
-        else if ((c & 0xf8) == 0xf0) len = 4;
-        else return false;
-        if (i + len > s.size ())
-            return false;
-        for (int k = 1; k < len; k++)
-            if (((unsigned char) s[i + k] & 0xc0) != 0x80)
-                return false;
-        i += len;
-    }
-    return true;
-}
-
 /* ------------------------------------------------------------------- echo */
 
 /* Echo an accepted input line -- or a clicked hyperlink's command, run as if
@@ -241,6 +214,26 @@ echo_input_line (const std::string &line, bool utf8)
         glk_put_string ((char *) line.c_str ());
     glk_set_style (style_Normal);
     glk_put_char ('\n');
+}
+
+/* ------------------------------------------------------------------ style */
+
+/* The Glk style standing in for a combination of bold, italic and underline.
+ * Glk styles are defined before the window opens, so mid-game a frontend can
+ * only pick the closest one: bold italic is Alert, italic Emphasized, bold
+ * Subheader, and underline -- which loses to both -- User2. */
+static glui32
+glk_style_for (bool bold, bool italic, bool underlined)
+{
+    if (bold && italic)
+        return style_Alert;
+    if (italic)
+        return style_Emphasized;
+    if (bold)
+        return style_Subheader;
+    if (underlined)
+        return style_User2;
+    return style_Normal;
 }
 
 /* ----------------------------------------------------------------- banner */
@@ -594,6 +587,28 @@ toggle_transcript (int on, winid_t win, strid_t *slot)
         glk_window_set_echo_stream (win, nullptr);
         glk_stream_close (*slot, nullptr);
         *slot = nullptr;
+    }
+}
+
+/* ---------------------------------------------------------- event waits */
+
+/* Block until `done` accepts an event, and return that event.  A resize or
+ * redraw meanwhile goes to `rearrange`; every other event is dropped, timer
+ * ticks included -- these are the waits during which the game stands still.
+ * Requesting the input to wait on, and cancelling whatever is left pending
+ * afterwards, stay with the caller: which requests are live differs at every
+ * site. */
+template <class Done, class Rearrange>
+static event_t
+wait_for_event (Done done, Rearrange rearrange)
+{
+    for (;;) {
+        event_t ev;
+        glk_select (&ev);
+        if (done (ev))
+            return ev;
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+            rearrange ();
     }
 }
 

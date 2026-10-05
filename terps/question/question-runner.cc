@@ -17,37 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include "QuestionRunner.hh"
-#include "readfile.hh"
-#include "question-state.hh"
-#include "question-util.hh"
-#include <set>
-#include <unordered_map>
-#include "question-impl.hh"
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include "general.hh"
-#include "istring.hh"
 #include "question-internal.hh"
-
-/* Use the shared erkyrath_random() RNG (xoshiro128** when seeded, native
-   otherwise), like scott/comprehend/plus/taylor.  The headless walkthrough
-   runner links common_utils/randomness.c too, so a seeded run draws the same
-   numbers there as in the app -- and, xoshiro128** being a fixed algorithm,
-   the same numbers on any platform.  That is what lets the corpus transcripts
-   in test/quest4/goldens be diffed at all. */
-extern "C" {
-#include "randomness.h"
-}
-#ifdef SPATTERLIGHT
-extern "C" int gli_determinism;
-#endif
-
-class QuestionInterface;
 
 using namespace std;
 

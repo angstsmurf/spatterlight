@@ -48,7 +48,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdlib>
-#include <deque>
+#include <cstring>
 #include <set>
 
 namespace aslx {
@@ -290,41 +290,27 @@ bool is_default_type(const std::string &t) {
 // flag, so to produce a Quest-loadable save we must reproduce that bake --
 // otherwise every firsttime block (intros, one-time hints) re-fires on reload.
 //
-// The transform walks the source statement-by-statement exactly like
-// parse_statements and consumes ran flags in the SAME order collect_firsttime
-// yields them (a statement's own firsttime flag, then its body, else-ifs,
-// else/otherwise, then switch cases -- note: default before cases, matching
-// collect's else_body-then-cases order). It recurses ONLY into the block-
-// bearing keywords collect_firsttime descends into (if/while/for/foreach/
-// switch/wait/ask/on ready/get input/show menu + else/otherwise), so a
-// firsttime inside a trailing script-block argument -- a separately compiled
-// script, not in this flag stream -- is left verbatim and stays aligned.
+// The transform walks the source statement by statement exactly like
+// parse_statements, alongside the statements parse_statements made of it: a
+// block is found in the text where the parser found it and baked against the
+// statements the parser put there, and whether a firsttime has run is read off
+// its own statement. Text the parser built nothing from is not descended into:
+// a statement it rejected is emitted verbatim, and so is a trailing script-
+// block argument (a separately compiled script, with flags of its own), while
+// an `else`, `otherwise` or `default` it dropped -- one with nothing to
+// continue, or replaced by a later one -- is dead and left out, since behind a
+// baked-out firsttime it would continue whatever statement came before.
 
-std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q);
+std::string bake_stmt_list(const std::string &inner,
+                           const std::vector<Stmt> &stmts);
 
-// The single-body statements collect_firsttime descends into come in two
-// shapes (switch and firsttime/otherwise are handled by the callers). This is
-// the length of the keyword opening one that takes NO parameter -- wait /
-// on ready / get input / a plain else -- or 0.
-size_t bare_block_keyword(const std::string &s) {
-    if (starts_with_word(s, "wait")) return 4;
-    if (s.compare(0, 8, "on ready") == 0) return 8;
-    if (s.compare(0, 9, "get input") == 0) return 9;
-    if (starts_with_word(s, "else") &&
-        !starts_with_word(rt_trim(text_after(s, "else")), "if"))
-        return 4;
-    return 0;
+// "<head> {" around `block`, baked against the statements parsed from it.
+std::string bake_block(const std::string &head, const std::string &block,
+                       const std::vector<Stmt> &stmts) {
+    return head + " {\n" + bake_stmt_list(block, stmts) + "\n}";
 }
 
-// ... and the ones whose body follows a parenthesized parameter.
-bool is_parameter_block(const std::string &s) {
-    return starts_with_word(s, "if") || starts_with_word(s, "while") ||
-           starts_with_word(s, "foreach") || starts_with_word(s, "for") ||
-           starts_with_word(s, "ask") || starts_with_word(s, "else") ||
-           s.compare(0, 9, "show menu") == 0;
-}
-
-std::string bake_switch(const std::string &stmt, std::deque<bool> &q) {
+std::string bake_switch(const std::string &stmt, const Stmt &s) {
     // Split off the switch expression like the parser (get_parameter), not on
     // the first '{': a one-line switch arrives with its outer braces already
     // stripped by get_script, where split_block would take the first CASE's
@@ -336,117 +322,160 @@ std::string bake_switch(const std::string &stmt, std::deque<bool> &q) {
     std::string prefix = stmt.substr(0, stmt.size() - after.size());
     std::string body = remove_surrounding_braces(rt_trim(after));
     // Split the switch body into its case/default chunks (source order).
-    struct Chunk { bool is_default; std::string head; std::string inner; };
-    std::vector<Chunk> chunks;
+    std::vector<std::string> chunks;
+    size_t last_default = std::string::npos;
     std::string line = rt_trim(body);
     while (!line.empty()) {
         std::string cafter;
         std::string c = rt_trim(get_script(line, cafter));
         line = cafter;
-        if (!c.empty()) {
-            if (starts_with_word(c, "case")) {
-                std::string a2;
-                bool f2 = false;
-                get_parameter(c, a2, f2);
-                if (f2)
-                    chunks.push_back({false, c.substr(0, c.size() - a2.size()),
-                                      rt_trim(a2)});
-            } else if (starts_with_word(c, "default")) {
-                chunks.push_back({true, "default", rt_trim(c.substr(7))});
-            }
+        if (starts_with_word(c, "case")) {
+            chunks.push_back(c);
+        } else if (starts_with_word(c, "default")) {
+            last_default = chunks.size();
+            chunks.push_back(c);
         }
         if (rt_trim(line).empty()) break;
     }
-    // collect_firsttime does else_body (default) BEFORE cases, so bake the
-    // default's flags first, then the cases in source order.
-    std::vector<std::string> baked(chunks.size());
-    for (size_t i = 0; i < chunks.size(); ++i)
-        if (chunks[i].is_default) baked[i] = bake_stmt_list(chunks[i].inner, q);
-    for (size_t i = 0; i < chunks.size(); ++i)
-        if (!chunks[i].is_default) baked[i] = bake_stmt_list(chunks[i].inner, q);
-    // Re-emit in source order.
+    // Re-emit in source order: each `case` is the parser's next one, and the
+    // last `default` is its else_body.
     std::string out = prefix + " {\n";
-    for (size_t i = 0; i < chunks.size(); ++i)
-        out += chunks[i].head + " {\n" + baked[i] + "\n}\n";
+    size_t ncase = 0;
+    for (size_t i = 0; i < chunks.size(); ++i) {
+        const std::string &c = chunks[i];
+        if (i == last_default) {
+            out += bake_block("default", rt_trim(c.substr(7)), s.else_body) + "\n";
+        } else if (starts_with_word(c, "case") && ncase < s.cases.size()) {
+            const std::vector<Stmt> &block = s.cases[ncase++].second;
+            std::string a2;
+            bool f2 = false;
+            get_parameter(c, a2, f2);
+            if (f2)
+                out += bake_block(c.substr(0, c.size() - a2.size()),
+                                  rt_trim(a2), block) + "\n";
+        }
+    }
     out += "}";
     return out;
 }
 
-// Bake a single (already firsttime/otherwise-stripped) statement.
-std::string bake_generic(const std::string &stmt, std::deque<bool> &q) {
-    if (starts_with_word(stmt, "switch")) return bake_switch(stmt, q);
-    // Locate the body the way parse_one_statement does: after the keyword
-    // itself for the parameterless forms, after the parenthesized parameter
-    // for the others. split_block (first '{') would mis-split a one-liner
-    // whose own braces get_script already stripped -- the first brace it finds
-    // then belongs to a NESTED statement, so the flag stream and the body text
-    // both corrupt.
-    std::string head, body;
-    if (size_t k = bare_block_keyword(stmt)) {
-        head = stmt.substr(0, k);
-        body = rt_trim(stmt.substr(k));
-    } else if (is_parameter_block(stmt)) {
-        std::string after;
-        bool found = false;
-        get_parameter(stmt, after, found);
-        if (!found) return stmt;
-        head = stmt.substr(0, stmt.size() - after.size());
-        body = rt_trim(after);
-    }
-    if (body.empty()) return stmt;  // no descent: emitted verbatim
-    return head + " {\n" + bake_stmt_list(body, q) + "\n}";
+// "<keyword> (<parameter>) <block>": the block follows the parameter, as in
+// parse_one_statement. split_block (first '{') would mis-split a one-liner
+// whose own braces get_script already stripped -- the first brace it finds
+// then belongs to a NESTED statement, and the body text corrupts.
+std::string bake_after_parameter(const std::string &stmt,
+                                 const std::vector<Stmt> &stmts) {
+    std::string after;
+    bool found = false;
+    get_parameter(stmt, after, found);
+    std::string body = rt_trim(after);
+    if (!found || body.empty()) return stmt;
+    return bake_block(stmt.substr(0, stmt.size() - after.size()), body, stmts);
 }
 
-std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q) {
+// "<keyword> <block>": the block follows the keyword itself.
+std::string bake_after_keyword(const std::string &stmt, size_t keyword_len,
+                               const std::vector<Stmt> &stmts) {
+    std::string body = rt_trim(stmt.substr(keyword_len));
+    if (body.empty()) return stmt;
+    return bake_block(stmt.substr(0, keyword_len), body, stmts);
+}
+
+// Bake a statement that is neither a firsttime nor a continuation of the one
+// before; `s` is what the parser made of it.
+std::string bake_generic(const std::string &stmt, const Stmt &s) {
+    using Shape = BlockKeyword::Shape;
+    // Which statements carry a block, and of what shape, is the parser's own
+    // table. A statement of any other kind has none: not a block statement at
+    // all, or one the parser turned down (a `show menu` or `ask` with the
+    // wrong parameters, anything that failed to compile).
+    const BlockKeyword *bk = block_keyword(stmt);
+    if (!bk || s.kind != bk->kind) return stmt;
+    switch (bk->shape) {
+        case Shape::Switch:    return bake_switch(stmt, s);
+        case Shape::Bare:      return bake_after_keyword(stmt, std::strlen(bk->word), s.body);
+        case Shape::Parameter: break;
+    }
+    return bake_after_parameter(stmt, s.body);
+}
+
+std::string bake_stmt_list(const std::string &inner,
+                           const std::vector<Stmt> &stmts) {
     std::string line = remove_comments(remove_surrounding_braces(inner));
-    std::vector<std::string> pieces;
-
-    // A firsttime awaiting its (optional) otherwise continuation.
-    bool ft_pending = false, ft_ran = false;
-    std::string ft_body;
-    auto flush_ft = [&]() {
-        if (!ft_pending) return;
-        // No otherwise followed: a run firsttime emits nothing, else it stays.
-        if (!ft_ran) pieces.push_back("firsttime {\n" + ft_body + "\n}");
-        ft_pending = false;
-    };
-
+    // The statements, split as parse_statements splits them.
+    std::vector<std::string> text;
     while (true) {
         std::string after;
         std::string stmt = rt_trim(get_script(line, after));
         line = after;
-        if (!stmt.empty()) {
-            if (ft_pending && starts_with_word(stmt, "otherwise")) {
-                // The body is everything after the keyword, exactly as
-                // parse_statements sees it -- get_script has already stripped
-                // the braces off a one-line block, so split_block would find
-                // no '{' (or a nested statement's) and lose the body.
-                std::string other =
-                    bake_stmt_list(rt_trim(stmt.substr(9)), q);
-                if (ft_ran)
-                    pieces.push_back(other);  // just the otherwise body
-                else
-                    pieces.push_back("firsttime {\n" + ft_body +
-                                     "\n} otherwise {\n" + other + "\n}");
-                ft_pending = false;
+        if (!stmt.empty()) text.push_back(stmt);
+        if (rt_trim(line).empty()) break;
+    }
+    // parse_statements folds an `otherwise` or an `else` into the statement
+    // before it instead of making it one of its own.
+    auto is_otherwise = [&](size_t i) { return starts_with_word(text[i], "otherwise"); };
+    auto continues = [&](size_t i) {
+        return is_otherwise(i) || starts_with_word(text[i], "else");
+    };
+    auto is_else_if = [&](size_t i) {
+        return !is_otherwise(i) &&
+               starts_with_word(rt_trim(text_after(text[i], "else")), "if");
+    };
+
+    std::vector<std::string> pieces;
+    size_t next = 0;  // stmts[next] is the next statement's
+    for (size_t i = 0; i < text.size();) {
+        if (continues(i)) { ++i; continue; }  // nothing before it to continue
+        const std::string &stmt = text[i++];
+        if (next >= stmts.size()) { pieces.push_back(stmt); continue; }
+        const Stmt &s = stmts[next++];
+        // The continuations that follow, [i, end). Each kind's last one is the
+        // one the parser kept, as the statement's else_body.
+        size_t end = i, last_otherwise = std::string::npos,
+               last_else = std::string::npos;
+        for (; end < text.size() && continues(end); ++end) {
+            if (is_otherwise(end)) last_otherwise = end;
+            else if (!is_else_if(end)) last_else = end;
+        }
+
+        if (s.kind == Stmt::Kind::FirstTime) {
+            bool ran = s.ran && *s.ran;
+            // The body is everything after the keyword, exactly as the parser
+            // sees it -- get_script has already stripped the braces off a
+            // one-line block, so split_block would find no '{' (or a nested
+            // statement's) and lose the body.
+            std::string body =
+                ran ? std::string()
+                    : bake_block("firsttime", rt_trim(stmt.substr(9)), s.body);
+            if (last_otherwise == std::string::npos) {
+                // A run firsttime emits nothing, else it stays.
+                if (!ran) pieces.push_back(body);
             } else {
-                flush_ft();
-                if (starts_with_word(stmt, "firsttime")) {
-                    ft_ran = !q.empty() && q.front();
-                    if (!q.empty()) q.pop_front();
-                    // Same as `otherwise`: take the body after the keyword
-                    // (bake_stmt_list strips surrounding braces itself), so
-                    // one-line bodies survive.
-                    ft_body = bake_stmt_list(rt_trim(stmt.substr(9)), q);
-                    ft_pending = true;
-                } else {
-                    pieces.push_back(bake_generic(stmt, q));
+                std::string other = bake_stmt_list(
+                    rt_trim(text[last_otherwise].substr(9)), s.else_body);
+                // Run: just the otherwise body.
+                pieces.push_back(ran ? other
+                                     : body + " otherwise {\n" + other + "\n}");
+            }
+        } else {
+            pieces.push_back(bake_generic(stmt, s));
+            if (s.kind == Stmt::Kind::If) {
+                // An else's block sits the same two ways a statement's does:
+                // straight after the keyword, or after the condition of an
+                // `else if`. Those are the parser's elseifs, in order.
+                size_t nelseif = 0;
+                for (size_t j = i; j < end; ++j) {
+                    if (j == last_else)
+                        pieces.push_back(
+                            bake_after_keyword(text[j], 4, s.else_body));
+                    else if (is_else_if(j) && nelseif < s.elseifs.size())
+                        pieces.push_back(bake_after_parameter(
+                            text[j], s.elseifs[nelseif++].second));
                 }
             }
         }
-        if (rt_trim(line).empty()) break;
+        i = end;
     }
-    flush_ft();
 
     std::string out;
     bool first = true;
@@ -708,9 +737,7 @@ std::string Interp::bake_firsttime_source(const std::string &src,
     std::vector<std::shared_ptr<bool>> flags;
     collect_firsttime(*body, flags);
     if (!any_firsttime_ran(flags)) return src;
-    std::deque<bool> q;
-    for (const auto &f : flags) q.push_back(*f);
-    return bake_stmt_list(src, q);
+    return bake_stmt_list(src, *body);
 }
 
 // ---- writer ---------------------------------------------------------------

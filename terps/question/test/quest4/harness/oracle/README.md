@@ -16,7 +16,7 @@ a few are listed at the bottom.)
 ## Running it
 
 ```sh
-./build.sh                     # clones QuestViva if needed, then builds qv4
+./build.sh                     # clones/pins QuestViva if needed, builds qv4
 ./compare.sh                   # whole corpus: summary table + out/<label>.diff
 ./compare.sh MagicWorld Hobbit # just these labels
 ./firstdiff.py                 # first divergence per game -- read this first

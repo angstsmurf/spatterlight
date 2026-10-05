@@ -41,6 +41,7 @@
 #include <set>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -356,6 +357,28 @@ struct World {
     unsigned long long children_index_gen_ = ~0ull;
     std::unordered_map<Element *, std::vector<Element *>> children_index_;
 };
+
+// Depth-first walk over `e` and then the types it inherits, most recently added
+// type first -- the order an attribute lookup tries them in. Every element is
+// visited once however many paths lead to it, which is also what stops an
+// inheritance cycle (a bad <inherit>, or a runtime type edit) from recursing
+// until the stack overflows. Ends early, returning true, as soon as `visit`
+// does. Not for the runtime attribute lookup (Interp::resolve_field): a list
+// extension has to see a type once per path that reaches it.
+template <class Visit>
+bool walk_inherited(const World &world, Element *e, Visit &visit,
+                    std::unordered_set<const Element *> &seen) {
+    if (!e || !seen.insert(e).second) return false;
+    if (visit(e)) return true;
+    for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
+        if (walk_inherited(world, world.find(*it), visit, seen)) return true;
+    return false;
+}
+template <class Visit>
+bool walk_inherited(const World &world, Element *e, Visit visit) {
+    std::unordered_set<const Element *> seen;
+    return walk_inherited(world, e, visit, seen);
+}
 
 // Load from a file path. Sniffs the content: a PK zip is treated as a .quest
 // package (game.aslx extracted from it); otherwise it is parsed as raw .aslx.

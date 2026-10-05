@@ -217,22 +217,13 @@ static bool is_decimal_text(const std::string &s, bool allow_exponent) {
     return k > exp_digits && k == s.size();
 }
 
-// Recursive "does e inherit type t" (directly or transitively). `seen` guards
-// against an inheritance cycle (a bad <inherit>, or a runtime type edit) that
-// would otherwise recurse until the C++ stack overflows; deduplicating visited
-// types cannot change a reachability boolean, so a global set is safe here.
-static bool does_inherit(World &w, Element *e, const std::string &t,
-                         std::unordered_set<const Element *> &seen) {
-    if (!e || !seen.insert(e).second) return false;
-    for (const std::string &parent : e->inherits) {
-        if (parent == t) return true;
-        if (does_inherit(w, w.find(parent), t, seen)) return true;
-    }
-    return false;
-}
+// "Does e inherit type t", directly or transitively. The test is on the name
+// in an <inherit>, so a type that was never defined still counts.
 static bool does_inherit(World &w, Element *e, const std::string &t) {
-    std::unordered_set<const Element *> seen;
-    return does_inherit(w, e, t, seen);
+    return walk_inherited(w, e, [&](Element *x) {
+        return std::find(x->inherits.begin(), x->inherits.end(), t) !=
+               x->inherits.end();
+    });
 }
 
 // ASLX type name for a value, matching WorldModel.ConvertTypeToTypeName.
@@ -330,23 +321,20 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // GetParameter's "<Fn> function expected <type> parameter but was passed
     // '<value>'". The error unwinds to the enclosing expression root, which
     // wraps it as "Error evaluating expression '...': ...".
-    auto throw_null = [&](const char *param) {
-        error(std::string("Value cannot be null. (Parameter '") + param + "')");
+    //
+    // The two halves are separate helpers because the builtins do not agree on
+    // the order: the attribute getters type-check `obj` before they null-check
+    // `property`, the rest null-check every parameter first.
+    auto not_null = [&](size_t i, const char *param) {
+        if (arg(i).type == Value::Type::Null)
+            error(std::string("Value cannot be null. (Parameter '") + param + "')");
     };
-    auto expect_object = [&](const char *caller, const char *param = "obj") {
-        if (arg(0).type == Value::Type::Null) throw_null(param);
-        if (arg(0).type != Value::Type::ObjectRef)
-            error(std::string(caller) +
-                  " function expected object parameter but was passed '" +
-                  to_string(arg(0)) + "'");
+    auto wrong_type = [&](const char *caller, const char *type, size_t i) {
+        error(std::string(caller) + " function expected " + type +
+              " parameter but was passed '" + to_string(arg(i)) + "'");
     };
-    auto expect_dictionary = [&](const char *caller) {
-        if (arg(0).type == Value::Type::Null) throw_null("obj");
-        if (arg(1).type == Value::Type::Null) throw_null("key");
-        if (!is_dict(arg(0)))
-            error(std::string(caller) +
-                  " function expected dictionary parameter but was passed '" +
-                  to_string(arg(0)) + "'");
+    auto must_be_object = [&](size_t i, const char *caller) {
+        if (arg(i).type != Value::Type::ObjectRef) wrong_type(caller, "object", i);
     };
     {
         // The (obj, property) attribute getters / has-checks all start with
@@ -362,16 +350,16 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         };
         for (const auto &m : kObjProp) {
             if (fn == m.lower && n == 2) {
-                expect_object(m.canon);
-                if (arg(1).type == Value::Type::Null) throw_null("property");
+                not_null(0, "obj");
+                must_be_object(0, m.canon);
+                not_null(1, "property");
                 break;
             }
         }
         if ((fn == "getdirectchildren" || fn == "getallchildobjects" ||
-             fn == "getattributenames") && n >= 1 && arg(0).type == Value::Type::Null)
-            throw_null("obj");
-        if (fn == "contains" && n == 2 && arg(0).type == Value::Type::Null)
-            throw_null("parent");
+             fn == "getattributenames") && n >= 1)
+            not_null(0, "obj");
+        if (fn == "contains" && n == 2) not_null(0, "parent");
         static const struct { const char *lower, *canon; } kDictItem[] = {
             {"dictionaryitem", "DictionaryItem"},
             {"stringdictionaryitem", "StringDictionaryItem"},
@@ -381,7 +369,9 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         };
         for (const auto &m : kDictItem) {
             if (fn == m.lower && n == 2) {
-                expect_dictionary(m.canon);
+                not_null(0, "obj");
+                not_null(1, "key");
+                if (!is_dict(arg(0))) wrong_type(m.canon, "dictionary", 0);
                 break;
             }
         }
@@ -524,12 +514,10 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         // ExpressionOwner.GetExitByLink: the first element parented in `from`
         // whose `to` field is the target. Hawk the Hunter's NPC movement
         // messages use it every walk tick.
-        if (arg(0).type == Value::Type::Null) throw_null("from");
-        if (arg(1).type == Value::Type::Null) throw_null("to");
-        for (int i = 0; i < 2; ++i)
-            if (arg(i).type != Value::Type::ObjectRef)
-                error("GetExitByLink function expected object parameter but "
-                      "was passed '" + to_string(arg(i)) + "'");
+        not_null(0, "from");
+        not_null(1, "to");
+        must_be_object(0, "GetExitByLink");
+        must_be_object(1, "GetExitByLink");
         Element *toEl = obj_of(arg(1));
         return first_child_name(obj_of(arg(0)), [&](Element *e) {
             const Value *f = resolve_field(e, "to");
@@ -543,11 +531,9 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         // "west" on every generated cell; with the function missing every call
         // errored to null, no cell was ever flagged accessible, and SetWayDown's
         // `while (ListCount(sublist) = 0)` never terminated.
-        if (arg(0).type == Value::Type::Null) throw_null("parent");
-        if (arg(1).type == Value::Type::Null) throw_null("name");
-        if (arg(0).type != Value::Type::ObjectRef)
-            error("GetExitByName function expected object parameter but "
-                  "was passed '" + to_string(arg(0)) + "'");
+        not_null(0, "parent");
+        not_null(1, "name");
+        must_be_object(0, "GetExitByName");
         std::string want = sarg(1);
         return first_child_name(obj_of(arg(0)), [&](Element *e) {
             const Value *f = resolve_field(e, "alias");
@@ -599,25 +585,20 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         bool inh = (n == 2) && truthy(arg(1));
         std::vector<std::string> names;
         auto collect = [&](Element *x) {
-            if (!x) return;
             for (auto &kv : x->fields)
                 if (std::find(names.begin(), names.end(), kv.first) == names.end())
                     names.push_back(kv.first);
+            return false;
         };
-        collect(e);
+        if (e) collect(e);
         // Fields.GetAttributeNames recurses each type's own inherited types
         // (depth-first, most recently added first), so a two-deep type chain
-        // contributes its attributes too. The seen-set guards type cycles.
-        std::set<Element *> seen_ty;
-        std::function<void(Element *)> rec = [&](Element *x) {
-            if (!x || !seen_ty.insert(x).second) return;
-            collect(x);
-            for (auto it = x->inherits.rbegin(); it != x->inherits.rend(); ++it)
-                rec(world_.find(*it));
-        };
-        if (inh && e)
+        // contributes its attributes too.
+        if (inh && e) {
+            std::unordered_set<const Element *> seen;
             for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
-                rec(world_.find(*it));
+                walk_inherited(world_, world_.find(*it), collect, seen);
+        }
         return vstrlist(names);
     }
 
@@ -1050,12 +1031,11 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // clone-on-set) -- and, for the deep form, recursively cloning children
     // into the copy. The clone lands in the same parent, at the end.
     if ((fn == "clone" || fn == "shallowclone") && n == 1) {
-        if (arg(0).type == Value::Type::Null) throw_null("obj");
+        not_null(0, "obj");
+        // Not must_be_object: a reference to an element that no longer exists
+        // is refused here as well.
         Element *src = obj_of(arg(0));
-        if (!src)
-            error(std::string(fn == "clone" ? "Clone" : "ShallowClone") +
-                  " function expected object parameter but was passed '" +
-                  to_string(arg(0)) + "'");
+        if (!src) wrong_type(fn == "clone" ? "Clone" : "ShallowClone", "object", 0);
         // Guard the deep recursion against a runtime parent cycle (a->parent=b,
         // b->parent=a): each element has a single parent, so containment is a
         // tree and a global visited set never prunes a legitimate distinct

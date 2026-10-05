@@ -569,8 +569,7 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
             // FirstTimeScript logs UndoFirstTime, so undoing the turn lets
             // the firsttime text fire again.
             if (undo_logging_) {
-                UndoAction a;
-                a.kind = UndoAction::Kind::FirstTime;
+                UndoAction a(UndoAction::Kind::FirstTime);
                 a.ran = s.ran;
                 add_undo(std::move(a));
             }
@@ -1045,23 +1044,34 @@ void Interp::end_inline_prompt(Context &ctx) {
         call_function("HideOutputSection", {vstr(section)}, &ctx);
 }
 
+bool Interp::call_core_logged(const char *fn, std::vector<Value> args,
+                              Context &ctx) {
+    // The WorldModel entry points that run one Core function under a
+    // LogException-only catch (PrintAsync, HandleCommandAsyncInternal,
+    // TryFinishTurnAsync, UpdateStatusVariablesAsync): a throw that escaped
+    // the function's own script boundary is logged, never printed, and the
+    // caller carries on. Only std::exception is caught, so a TurnSuspended
+    // still unwinds through here. False, with nothing done, when the game
+    // does not define `fn`.
+    if (!world_.find_function(fn)) return false;
+    try {
+        call_function(fn, std::move(args), &ctx);
+    } catch (const std::exception &err) {
+        log_exception(err.what());
+    }
+    return true;
+}
+
 void Interp::print_via_core(const std::string &text, Context &ctx) {
     // WorldModel.PrintAsync: v540+ routes through Core's OutputText so the
     // {...} text processor runs; failures inside its body report at the
     // script boundary as usual, while bypass throws (depth cap) are logged
-    // only. Without Core (unit tests) or on older games, print directly.
-    // OutputText ends at JS.addText -> print.
-    if (world_.asl_version >= 540 && world_.find_function("OutputText")) {
-        try {
-            call_function("OutputText", {vstr(text)}, &ctx);
-        } catch (const std::exception &err) {
-            // PrintAsync's catch is LogException-ONLY: a throw that escaped
-            // OutputText's own script boundary (i.e. the depth-cap throw) is
-            // swallowed silently and the caller carries on -- a deep msg
-            // just prints nothing.
-            log_exception(err.what());
-        }
-    } else {
+    // only -- a throw that escaped OutputText's own script boundary is
+    // swallowed silently and the caller carries on, so a deep msg just
+    // prints nothing. Without Core (unit tests) or on older games, print
+    // directly. OutputText ends at JS.addText -> print.
+    if (world_.asl_version < 540 ||
+        !call_core_logged("OutputText", {vstr(text)}, ctx)) {
         // Pre-540 PrintText wraps the text in <output>...</output>, so an
         // EMPTY print (the pre-v520 echo's leading blank) strips to nothing
         // downstream -- emit nothing, like the oracle transcripts.
@@ -1172,14 +1182,8 @@ void Interp::send_command(const std::string &command) {
             print_via_core("", ctx);
             print_via_core("> " + safe_xml_escape(command), ctx);
         }
-        if (world_.find_function("HandleCommand")) {
-            try {
-                call_function("HandleCommand", {vstr(command), vnull()}, &ctx);
-            } catch (const std::exception &err) {
-                // HandleCommandAsyncInternal's catch: LogException-only.
-                log_exception(err.what());
-            }
-        }
+        // HandleCommandAsyncInternal's catch: LogException-only.
+        call_core_logged("HandleCommand", {vstr(command), vnull()}, ctx);
         // Pre-v580 Core relies on the engine calling FinishTurn after the
         // command (TryFinishTurnAsync); v580+ Core runs it from HandleCommand
         // itself.
@@ -1233,12 +1237,7 @@ void Interp::set_question_response(bool response) {
 void Interp::try_finish_turn(Context &ctx) {
     // WorldModel.TryFinishTurnAsync: LogException-only. Core's RunTurnScripts
     // self-guards on IsGameRunning(), so this no-ops once the game has finished.
-    if (!world_.find_function("FinishTurn")) return;
-    try {
-        call_function("FinishTurn", {}, &ctx);
-    } catch (const std::exception &err) {
-        log_exception(err.what());
-    }
+    call_core_logged("FinishTurn", {}, ctx);
 }
 
 void Interp::try_finish_turn_or_defer(Context &ctx) {
@@ -1512,13 +1511,8 @@ std::vector<ListData> Interp::exits_list_data() {
 void Interp::update_status_variables() {
     // UpdateStatusVariablesAsync: Core's UpdateStatusAttributes ends in
     // JS.updateStatus. Its own catch is LogException-only.
-    if (!world_.find_function("UpdateStatusAttributes")) return;
     Context ctx;
-    try {
-        call_function("UpdateStatusAttributes", {}, &ctx);
-    } catch (const std::exception &err) {
-        log_exception(err.what());
-    }
+    call_core_logged("UpdateStatusAttributes", {}, ctx);
 }
 
 void Interp::update_lists() {
@@ -1881,9 +1875,7 @@ void Interp::log_field_set(Element *e, const std::string &attr,
     if (removing) {
         // Fields.RemoveField -> UndoFieldRemove; only a real removal logs.
         if (!own) return;
-        UndoAction a;
-        a.kind = UndoAction::Kind::FieldRemove;
-        a.element = e->name;
+        UndoAction a(UndoAction::Kind::FieldRemove, e->name);
         a.attr = attr;
         a.old_value = *own;
         add_undo(std::move(a));
@@ -1894,9 +1886,7 @@ void Interp::log_field_set(Element *e, const std::string &attr,
     bool added = !own;
     if (!added && values_equal(*own, newval))
         return;
-    UndoAction a;
-    a.kind = UndoAction::Kind::FieldSet;
-    a.element = e->name;
+    UndoAction a(UndoAction::Kind::FieldSet, e->name);
     a.attr = attr;
     a.added = added;
     if (!added) a.old_value = *own;
@@ -1911,26 +1901,19 @@ Value &Interp::set_field_logged(Element *e, const std::string &attr,
 
 void Interp::log_sort_index(Element *e) {
     if (!undo_logging_) return;
-    UndoAction a;
-    a.kind = UndoAction::Kind::SortIndex;
-    a.element = e->name;
+    UndoAction a(UndoAction::Kind::SortIndex, e->name);
     a.index = e->sort_index;
     add_undo(std::move(a));
 }
 
 void Interp::log_create(Element *e) {
     if (!undo_logging_) return;
-    UndoAction a;
-    a.kind = UndoAction::Kind::Create;
-    a.element = e->name;
-    add_undo(std::move(a));
+    add_undo(UndoAction(UndoAction::Kind::Create, e->name));
 }
 
 void Interp::log_destroy(Element *e) {
     if (!undo_logging_) return;
-    UndoAction a;
-    a.kind = UndoAction::Kind::Destroy;
-    a.element = e->name;
+    UndoAction a(UndoAction::Kind::Destroy, e->name);
     a.element_ptr = e;
     add_undo(std::move(a));
 }
@@ -1938,8 +1921,7 @@ void Interp::log_destroy(Element *e) {
 void Interp::log_list_change(UndoAction::Kind kind, const Value &coll,
                              long index, const Value &entry) {
     if (!undo_logging_) return;
-    UndoAction a;
-    a.kind = kind;
+    UndoAction a(kind);
     a.list_backing = coll.list_store;
     a.old_value = entry;
     a.index = index;
@@ -1950,8 +1932,7 @@ void Interp::log_dict_change(UndoAction::Kind kind, const Value &coll,
                              long index, const std::string &key,
                              const Value &entry) {
     if (!undo_logging_) return;
-    UndoAction a;
-    a.kind = kind;
+    UndoAction a(kind);
     a.dict_backing = coll.dict_store;
     a.attr = key;
     a.old_value = entry;

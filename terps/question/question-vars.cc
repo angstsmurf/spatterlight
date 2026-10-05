@@ -24,32 +24,23 @@
  * Part of question_implementation; question-runner.cc holds the rest of the
  * preamble and question-internal.hh what these units share. */
 
-#include "QuestionRunner.hh"
-#include "readfile.hh"
-#include "question-state.hh"
-#include "question-util.hh"
-#include <set>
-#include <unordered_map>
-#include "question-impl.hh"
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include "general.hh"
-#include "istring.hh"
-
-class QuestionInterface;
+#include "question-internal.hh"
 
 using namespace std;
 
-#include "question-internal.hh"
-
-bool question_implementation::find_ivar (const string &name, size_t &rv) const
+/* Quest keeps string and numeric variables in two independent arrays
+ * (_stringVariable / _numericVariable), so the same name can name one of each
+ * and "#x#" and "%x%" then read different values.  Games rely on it: "enter
+ * <players>" fills the string, and "set numeric <players; #players#>" converts
+ * it (SetNumericVariableContents, V4Game.Part2.cs:477-536, which never
+ * consults the string array).  Question used to refuse the second definition
+ * and leave %players% undefined.  So everything here works on one array, and
+ * neither looks at the other. */
+template <class Rec>
+static bool find_var (const vector<Rec> &vars, const string &name, size_t &rv)
 {
-  for (size_t n = 0; n < state.ivars.size(); n ++)
-    if (ci_equal (state.ivars[n].name, name))
+  for (size_t n = 0; n < vars.size(); n ++)
+    if (ci_equal (vars[n].name, name))
       {
 	rv = n;
 	return true;
@@ -57,15 +48,25 @@ bool question_implementation::find_ivar (const string &name, size_t &rv) const
   return false;
 }
 
+/* The record to assign to: the variable's own, or a new one at the end. */
+template <class Rec>
+static Rec &var_slot (vector<Rec> &vars, const string &name)
+{
+  size_t n;
+  if (find_var (vars, name, n))
+    return vars[n];
+  vars.push_back (Rec (name));
+  return vars.back ();
+}
+
+bool question_implementation::find_ivar (const string &name, size_t &rv) const
+{
+  return find_var (state.ivars, name, rv);
+}
+
 bool question_implementation::find_svar (const string &name, size_t &rv) const
 {
-  for (size_t n = 0; n < state.svars.size(); n ++)
-    if (ci_equal (state.svars[n].name, name))
-      {
-	rv = n;
-	return true;
-      }
-  return false;
+  return find_var (state.svars, name, rv);
 }
 
 bool question_implementation::split_var_index (const string &varname, const char *who,
@@ -128,14 +129,7 @@ void question_implementation::run_onchange_script (const string &varname)
       const QuestionBlock &go (gf.block ("variable", varn));
       if (ci_equal (go.name, varname))
 	{
-	  string script = "";
-	  std::string::size_type c1, c2;
-	  for (uint j = 0; j < go.data.size(); j ++)
-	    /* CI: Quest reads the block's keywords with BeginsWith, which
-	     * lowercases (V4Game.Part2.cs:715). */
-	    if (ci_equal (first_token (go.data[j], c1, c2), "onchange"))
-	      script = trim (c2 < go.data[j].length()
-			     ? go.data[j].substr (c2 + 1) : "");
+	  string script = VarDef (go).onchange;
 	  if (script != "")
 	    run_script (script);
 	}
@@ -144,22 +138,7 @@ void question_implementation::run_onchange_script (const string &varname)
 
 void question_implementation::set_svar (const string &varname, size_t index, const string &varval)
 {
-  size_t n;
-  if (!find_svar (varname, n))
-    {
-      /* Quest keeps string and numeric variables in two independent arrays
-	 (_stringVariable / _numericVariable), so the same name can name one of
-	 each and "#x#" and "%x%" then read different values.  Games rely on it:
-	 "enter <players>" fills the string, and "set numeric <players;
-	 #players#>" converts it (SetNumericVariableContents,
-	 V4Game.Part2.cs:477-536, which never consults the string array).  Question
-	 used to refuse the second definition and leave %players% undefined. */
-      SVarRecord svr;
-      svr.name = varname;
-      n = state.svars.size();
-      state.svars.push_back (svr);
-    }
-  state.svars[n].set(index, varval);
+  var_slot (state.svars, varname).set (index, varval);
   if (index == 0)
     run_onchange_script (varname);
 }
@@ -180,11 +159,9 @@ string question_implementation::get_svar (const string &varname, size_t index) c
   if (objs_vars_dirty_ && (ci_equal (varname, "quest.objects") ||
 			   ci_equal (varname, "quest.formatobjects")))
     const_cast<question_implementation *> (this)->regen_var_objects ();
-  for (const auto &i: state.svars)
-    {
-      if (ci_equal (i.name, varname))
-	return i.get(index);
-    }
+  size_t n;
+  if (find_svar (varname, n))
+    return state.svars[n].get (index);
 
   gi->debug_print ("get_svar (" + varname + ", " + string_int (index) + "): No such variable defined.");
   return "";
@@ -200,9 +177,9 @@ int question_implementation::get_ivar (const string &varname) const
 }
 int question_implementation::get_ivar (const string &varname, size_t index) const
 {
-  for (const auto &i: state.ivars)
-    if (ci_equal (i.name, varname))
-      return i.get(index);
+  size_t n;
+  if (find_ivar (varname, n))
+    return state.ivars[n].get (index);
   gi->debug_print ("get_ivar: Tried to read undefined int '" + varname +
 		   "' [" + string_int(index) + "]");
   return -32767;
@@ -217,9 +194,9 @@ double question_implementation::get_dvar (const string &varname) const
 }
 double question_implementation::get_dvar (const string &varname, size_t index) const
 {
-  for (const auto &i: state.ivars)
-    if (ci_equal (i.name, varname))
-      return i.getd(index);
+  size_t n;
+  if (find_ivar (varname, n))
+    return state.ivars[n].getd (index);
   return -32767.0;
 }
 void question_implementation::set_ivar (const string &varname, int varval)
@@ -237,16 +214,7 @@ void question_implementation::set_ivar (const string &varname, double varval)
 
 void question_implementation::set_ivar (const string &varname, size_t index, double varval)
 {
-  size_t n;
-  if (!find_ivar (varname, n))
-    {
-      /* A string variable of the same name is no obstacle -- see set_svar. */
-      IVarRecord ivr;
-      ivr.name = varname;
-      n = state.ivars.size();
-      state.ivars.push_back (ivr);
-    }
-  state.ivars[n].set(index, varval);
+  var_slot (state.ivars, varname).set (index, varval);
   if (index == 0)
     run_onchange_script (varname);
 }
