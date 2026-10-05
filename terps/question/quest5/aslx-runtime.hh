@@ -701,6 +701,10 @@ private:
     std::string output_;
     Rng rng_;
     Rng *current_rng_ = nullptr;  // active per-expression stream (eval_expr)
+    // Name of the last attribute read that came back null ("obj.attr"), the
+    // port of NcalcExpressionEvaluator._lastNullPropertyAccessDescription: the
+    // null-operand arithmetic guard names the unset attribute in its message.
+    std::string last_null_desc_;
 
     // Compiled-statement cache, keyed by source string (Quest caches too), or
     // by "<scope>\x1F<source>" for a script run from an owning attribute --

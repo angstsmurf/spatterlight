@@ -533,6 +533,22 @@ error, and `msg` prints `System.Object[]`. Question builds an ordinary list
 instead (an object list when every item is an object, else the value-holding
 list `NewList()` makes), so those work. No corpus game writes a list literal.
 
+A fourth, script-only: arithmetic on a null operand (`+ - * / %`, except `+`
+with a string operand, which concatenates null as ""). QuestViva's
+HandleBinaryResult guard and desktop Quest's FLEE (no `Add` for object + object)
+both **throw**, which drops the rest of the running script: Sburb's Bedroom
+"Laptop Dead" scene reads `Player.chumhandlefirst + Player.chumhandlelast` before
+the Pesterchum login has set them, so the oracle prints one
+`Error running script: ... 'Player.chumhandlefirst' is null (it has not been set)
+and cannot be used in this calculation.` and the scene stops there. Question
+prints the same "Error running script: ..." message (naming the unset
+attribute) but the expression **evaluates to null and the script continues**, so
+the scene finishes (with an empty handle). The message appears twice there
+because the NCalc re-evaluation quirk re-runs a null operand. No golden depends
+on it (the Sburb walkthrough logs in first); a probe that visits the Medium
+before `open pesterchum computer` differs from the oracle by that message line
+and the rest of the scene.
+
 ## Determinism (RNG)
 
 The oracle replaces QuestViva's `Random` with `ErkyrathRandom` — a C# port of

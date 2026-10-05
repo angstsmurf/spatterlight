@@ -1239,6 +1239,30 @@ static void test_parity_batch() {
     run(in, "player.flagattr = null");
     CHECK_STR(evals(in, "HasAttribute(player, \"flagattr\")"), "False");
 
+    // -- Arithmetic on a null operand is a reported script error (HandleBinaryResult's
+    // guard; FLEE has no Add for object + object), naming the unset attribute,
+    // and -- a DELIBERATE DEVIATION from QuestViva/desktop, which throw -- the
+    // expression evaluates to null and the script carries on. `+` with a string
+    // operand is concatenation, null -> "". Sburb's pre-login Medium scene is
+    // `Player.chumhandlefirst + Player.chumhandlelast`.
+    CHECK_STR(evals(in, "\"[\" + player.unsetattr + \"]\""), "[]");
+    {
+        const char *guard = "' is null (it has not been set) and cannot be used in this calculation.";
+        const char *exprs[] = {"player.unsetattr + player.unsetattr2",
+                               "1 + player.unsetattr",
+                               "player.unsetattr * 2"};
+        for (const char *ex : exprs) {
+            w.errors.clear();
+            Context ctx;
+            CHECK(in.eval(ex, ctx).type == Value::Type::Null);
+            CHECK(w.errors.size() == 1);
+            CHECK(!w.errors.empty() &&
+                  w.errors[0].find(std::string("Error running script: 'player.unsetattr") ) == 0 &&
+                  w.errors[0].find(guard) != std::string::npos);
+        }
+        w.errors.clear();
+    }
+
     // -- RNG is per-compiled-expression: two distinct expressions each start
     // a fresh seed-1234 stream, so their first draws over one domain agree.
     Context rc;

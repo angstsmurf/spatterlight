@@ -2161,6 +2161,7 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
         Element *el = interp_eval_element(*this, ov);
         if (!el) return vnull();
         const Value *f = resolve_field(el, e.str);
+        if (!f) last_null_desc_ = el->name + "." + e.str;
         return f ? *f : vnull();
     }
     case Expr::Kind::Index: {
@@ -2256,8 +2257,12 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
                                       truthy(eval_expr(*e.b, ctx)));
         if (op == "or") return vbool(truthy(eval_expr(*e.a, ctx)) ||
                                      truthy(eval_expr(*e.b, ctx)));
+        last_null_desc_.clear();
         Value l = eval_expr(*e.a, ctx);
+        std::string l_null_desc = l.type == Value::Type::Null ? last_null_desc_ : std::string();
+        last_null_desc_.clear();
         Value r = eval_expr(*e.b, ctx);
+        std::string r_null_desc = r.type == Value::Type::Null ? last_null_desc_ : std::string();
         if (op == "xor") return vbool(truthy(l) != truthy(r));
         // NCalc's double-evaluation quirk, ported for side-effect parity
         // (AsyncEvaluationVisitor.Visit(BinaryExpression) + BinaryEventArgs):
@@ -2288,6 +2293,30 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
         }
         if (op == "=") return vbool(values_equal(l, r));
         if (op == "<>") return vbool(!values_equal(l, r));
+        // HandleBinaryResult's null-operand guard (the same hole FLEE closed at
+        // compile time: object + object has no Add). Arithmetic on two NCalc-
+        // standard operands where either is null is an error, except `+` with a
+        // string operand, which is concatenation (null -> ""). Desktop Quest 5
+        // rejects the same expressions, e.g. Sburb's
+        // `Player.chumhandlefirst + Player.chumhandlelast` before the login.
+        //
+        // DELIBERATE DEVIATION: QuestViva and desktop Quest throw here and the
+        // rest of the script is dropped. Question prints the same message
+        // ("Error running script: ...") but carries on, and the expression
+        // evaluates to null, so a scene is not cut short by one unset attribute.
+        if ((op == "+" || op == "-" || op == "*" || op == "/" || op == "%") &&
+            ncalc_standard(l) && ncalc_standard(r) &&
+            (l.type == Value::Type::Null || r.type == Value::Type::Null) &&
+            !(op == "+" && (l.type == Value::Type::String ||
+                            r.type == Value::Type::String))) {
+            const std::string &desc =
+                l.type == Value::Type::Null ? l_null_desc : r_null_desc;
+            report_script_error(
+                desc.empty()
+                    ? "Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it."
+                    : "'" + desc + "' is null (it has not been set) and cannot be used in this calculation.");
+            return vnull();
+        }
         // "x in y": list membership, dictionary key lookup, or substring
         // (NCalc's In over QuestList / string; dictionary keys per Quest docs).
         if (op == "in" || op == "not in") {
@@ -2349,10 +2378,6 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
             if (l.type == Value::Type::String || r.type == Value::Type::String ||
                 l.type == Value::Type::ObjectRef || r.type == Value::Type::ObjectRef)
                 return vstr(to_string(l) + to_string(r));
-            // MathHelper.Add: a null operand (not consumed by string concat
-            // above) makes the whole sum null, silently.
-            if (l.type == Value::Type::Null || r.type == Value::Type::Null)
-                return vnull();
             if (l.type == Value::Type::Int && r.type == Value::Type::Int)
                 return vint(l.integer + r.integer);
             return vdouble(as_double(l) + as_double(r));
@@ -2396,8 +2421,6 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
             return vint((long)out);
         }
         if (op == "-" || op == "*" || op == "%") {
-            if (l.type == Value::Type::Null || r.type == Value::Type::Null)
-                return vnull();  // MathHelper: null operand -> null result
             bool ints = l.type == Value::Type::Int && r.type == Value::Type::Int;
             double a = as_double(l), b = as_double(r);
             if (op == "-") return ints ? vint(l.integer - r.integer) : vdouble(a - b);
@@ -2409,8 +2432,6 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
             return vdouble(std::fmod(a, b));
         }
         if (op == "/") {
-            if (l.type == Value::Type::Null || r.type == Value::Type::Null)
-                return vnull();
             if (l.type == Value::Type::Int && r.type == Value::Type::Int) {
                 // HandleBinaryResult's integer-division intercept (FLEE
                 // compiled to IL where int/int = int).
