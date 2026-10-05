@@ -242,8 +242,8 @@ static void draw_banner();
 static void update_objwin(QuestionRunner *gr);
 
 /* The running game, for the interface callbacks that have to refresh the
- * status line and pane before blocking (see get_string).  Null until the
- * turn loop starts. */
+ * status line and pane before blocking (see get_string and wait_keypress).
+ * Null until the game is created. */
 static QuestionRunner *g_live_runner = nullptr;
 static void fill_divider();
 static void ensure_objwin_open();
@@ -565,6 +565,9 @@ void glk_main(void)
                         " functionality may not work correctly.\n\n");
 
     QuestionRunner *gr = QuestionRunner::get_runner(new QuestionGlkInterface());
+    /* From here on, so that the startscript's own questions and waits (which
+     * set_game runs, before the turn loop exists) refresh the status too. */
+    g_live_runner = gr;
 
     /* When a Spatterlight autosave exists, boot the game silently (output
      * swallowed, startscript prompts auto-answered) and then replace the
@@ -654,7 +657,6 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
 {
     glui32 buf[200];
     bool quitting = false;
-    g_live_runner = gr;
 
     /* The command line.  Nothing may print to its window while the request
      * is live, so whatever interrupts it cancels first -- which hands back
@@ -1257,6 +1259,11 @@ QuestionGlkInterface::wait_keypress (const std::string &msg)
   if (!msg.empty())
     print_formatted(msg);
   take_back_prompt();
+  /* As in get_string: show the state the game is pausing in, not the one
+   * from the last prompt.  Timers do not run during the wait, so once is
+   * enough. */
+  if (g_live_runner)
+    update_objwin(g_live_runner);
   glk_request_char_event(mainglkwin);
   /* A click on a pane hyperlink also dismisses the wait, like any keypress
    * (matching the Quest 5 frontend); the click's command is not run here. */
