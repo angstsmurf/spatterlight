@@ -1,0 +1,12 @@
+game       Circus C64
+variant    sys=unknown type=none subtype=11
+header     items=65 actions=165 words=97 rooms=36 maxcarry=6 start=1 treasures=0 wordlen=4 light=150 messages=72 treasureroom=0
+picture    width=255 height=95
+rooms        37 f3334597
+items        66 bf199711
+verbs        98 2066e8d3
+nouns        98 e192a948
+messages     73 8c046196
+actions     166 b865f0c4
+sysmess      71 b219cd98
+lineimages   37 d3f93ab8

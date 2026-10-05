@@ -242,7 +242,7 @@ static uint8_t *ReadDictionary(const GameInfo *info, uint8_t *ptr)
    Returns NULL if the offset is out of range. */
 uint8_t *SeekToPos(int offset)
 {
-    if (offset > file_length || entire_file == NULL)
+    if (offset < 0 || offset > file_length || entire_file == NULL)
         return NULL;
     return entire_file + offset;
 }
@@ -401,6 +401,23 @@ int ParseHeader(int *h, HeaderType type, int *num_items, int *num_actions,
         *light_time    = h[7] >> 8;
         *num_messages  = h[8] >> 8;
         *treasure_room = 0;
+        break;
+    case SPIDERMAN_ATARI8_HEADER:
+        /* No leading unused word, and the light time comes last.
+           h[8] counts the messages rather than naming the last one.
+           h[9] repeats the treasure room and is never read by the
+           original interpreter. */
+        *num_items     = h[0];
+        *num_actions   = h[1];
+        *num_words     = h[2];
+        *num_rooms     = h[3];
+        *max_carry     = h[4];
+        *player_room   = h[5];
+        *treasures     = h[6];
+        *word_length   = h[7];
+        *num_messages  = h[8] - 1;
+        *treasure_room = h[10];
+        *light_time    = h[11];
         break;
     default:
         debug_print("Unhandled header type!\n");
@@ -1531,6 +1548,9 @@ GameIDType DetectGame(const char *file_name)
         break;
     case SPIDERMAN_C64:
         Spiderman64Sysmess();
+        break;
+    case SPIDERMAN_ATARI8:
+        SpidermanAtari8Sysmess();
         break;
     case SUPERGRAN_C64:
         Supergran64Sysmess();

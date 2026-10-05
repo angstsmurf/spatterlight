@@ -1,0 +1,13 @@
+game       Waxworks
+variant    sys=unknown type=old-style subtype=2
+header     items=57 actions=189 words=106 rooms=41 maxcarry=6 start=1 treasures=0 wordlen=4 light=250 messages=91 treasureroom=0
+picture    width=255 height=95
+rooms        42 0cf01e84
+items        58 06598df6
+verbs       107 af8a08bf
+nouns       107 318e7855
+messages     92 27e0daf0
+actions     190 196c319f
+sysmess      71 630055e7
+zxscreen   6912 6d6ffc34
+lineimages   42 3c6ad335

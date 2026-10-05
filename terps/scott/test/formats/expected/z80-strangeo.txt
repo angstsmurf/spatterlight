@@ -1,0 +1,11 @@
+game       Strange Odyssey
+variant    sys=unknown type=old-style subtype=1
+header     items=55 actions=223 words=79 rooms=35 maxcarry=6 start=1 treasures=5 wordlen=4 light=10000 messages=94 treasureroom=22
+picture    width=255 height=96
+rooms        36 e09145db
+items        56 b03b1d79
+verbs        80 c52c6443
+nouns        80 832ed85f
+messages     95 529e47c6
+actions     224 324a57f4
+sysmess      71 f00fe0e0

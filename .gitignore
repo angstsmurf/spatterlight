@@ -238,6 +238,7 @@ terps/scott/headless_obj/
 terps/scott/scott_hl
 terps/scott/scott_death_test
 terps/scott/scott_all_audit
+terps/scott/scott_format_probe
 
 # Scarier build artifacts (Makefile.headless compiles in place; the test
 # harnesses have their own .gitignore files under terps/scarier/test/)

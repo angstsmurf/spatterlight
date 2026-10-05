@@ -400,6 +400,7 @@ static const struct scottrec scott_registry[] = {
    { 0x2ab00, 0x2736, QUESTPROBE_SPIDERMAN_IFID }, // Spiderman C64 (D64) alt
    { 0x2ab00, 0x490a, QUESTPROBE_SPIDERMAN_IFID }, // Spiderman C64 (D64) alt 2
    { 0x2ab00, 0xc4c4, QUESTPROBE_SPIDERMAN_IFID }, // Spiderman C64 (D64) alt 3
+    { 0x3710, 0x6a02, QUESTPROBE_SPIDERMAN_IFID }, // Questprobe 2 - Spiderman Atari 8-bit 16K (UK) boot disk
 
     { 0x9e51, 0x8be7, SAVAGE_ISLAND_PART_I_IFID }, // Savage Island Part 1.tzx
     { 0x9e46, 0x7792, SAVAGE_ISLAND_PART_I_IFID }, // Savage Island Part 1 - Alternate.tzx

@@ -1,0 +1,11 @@
+game       Questprobe 2: Spiderman Atari 16K
+variant    sys=unknown type=none subtype=1
+header     items=72 actions=242 words=124 rooms=40 maxcarry=12 start=2 treasures=18 wordlen=4 light=30000 messages=98 treasureroom=37
+picture    width=255 height=96
+rooms        41 0a4c4e41
+items        73 4c3083d2
+verbs       125 5119759a
+nouns       125 a912ebf5
+messages     99 8efd9fde
+actions     243 5272c707
+sysmess      71 7b4bfd81

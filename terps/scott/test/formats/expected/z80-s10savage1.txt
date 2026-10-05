@@ -1,0 +1,13 @@
+game       Savage Island part I
+variant    sys=unknown type=savage-island subtype=1
+header     items=58 actions=259 words=84 rooms=34 maxcarry=6 start=30 treasures=0 wordlen=4 light=-1 messages=99 treasureroom=0
+picture    width=255 height=96
+rooms        35 b998913e
+items        59 cd63e179
+verbs        85 0c97df60
+nouns        85 653d051b
+messages    100 31d3ce06
+actions     260 aa76b294
+sysmess      71 c725a97e
+irmak        37 9407f429 version=3
+tiles       256 099c3033

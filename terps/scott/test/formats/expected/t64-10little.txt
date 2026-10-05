@@ -1,0 +1,12 @@
+game       Ten Little Indians C64
+variant    sys=unknown type=none subtype=11
+header     items=73 actions=161 words=82 rooms=63 maxcarry=5 start=61 treasures=0 wordlen=4 light=244 messages=67 treasureroom=0
+picture    width=255 height=95
+rooms        64 cae87b59
+items        74 45c83a1f
+verbs        83 ad281941
+nouns        83 593acbae
+messages     68 4364a1c6
+actions     162 37881a0f
+sysmess      71 b219cd98
+lineimages   64 256669c8

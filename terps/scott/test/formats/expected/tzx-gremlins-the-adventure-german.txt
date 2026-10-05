@@ -1,0 +1,14 @@
+game       Gremlins (German)
+variant    sys=unknown type=gremlins subtype=4
+header     items=99 actions=236 words=126 rooms=42 maxcarry=6 start=1 treasures=0 wordlen=5 light=-1 messages=98 treasureroom=0
+picture    width=255 height=96
+rooms        43 f64ad1a4
+items       100 9bf18987
+verbs       127 d78f918a
+nouns       127 7a5498b8
+messages     99 140bd878
+actions     237 83679878
+sysmess      71 343f8451
+zxscreen   6912 252f32f9
+irmak        72 8b34a2f5 version=3
+tiles       256 5df36442

@@ -258,6 +258,7 @@ typedef enum {
     CLAYMORGUE_C64,
     SPIDERMAN,
     SPIDERMAN_C64,
+    SPIDERMAN_ATARI8,
     SAVAGE_ISLAND_C64,
     SAVAGE_ISLAND2_C64,
     GREMLINS,
@@ -447,7 +448,8 @@ typedef enum {
     SEAS_OF_BLOOD_C64_HEADER,
     MYSTERIOUS_C64_HEADER,
     ARROW_OF_DEATH_PT_2_C64_HEADER,
-    INDIANS_C64_HEADER
+    INDIANS_C64_HEADER,
+    SPIDERMAN_ATARI8_HEADER
 } HeaderType;
 
 /* Encoding of the action table inside the game image. Hulk has a

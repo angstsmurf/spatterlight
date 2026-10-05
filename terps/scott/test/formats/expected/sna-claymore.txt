@@ -1,0 +1,13 @@
+game       The Sorcerer of Claymorgue Castle
+variant    sys=unknown type=none subtype=1
+header     items=75 actions=267 words=109 rooms=32 maxcarry=10 start=1 treasures=13 wordlen=5 light=3000 messages=79 treasureroom=19
+picture    width=255 height=96
+rooms        33 7da0005b
+items        76 175f5492
+verbs       110 48893269
+nouns       110 8c6825c6
+messages     80 3e82d1a6
+actions     268 add3c2c3
+sysmess      71 fe66b382
+irmak        37 b2ba7fa9 version=1
+tiles       256 73382597

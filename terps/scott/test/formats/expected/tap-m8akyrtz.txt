@@ -1,0 +1,13 @@
+game       The Wizard of Akyrz
+variant    sys=unknown type=old-style subtype=2
+header     items=49 actions=201 words=85 rooms=40 maxcarry=6 start=1 treasures=4 wordlen=4 light=500 messages=99 treasureroom=7
+picture    width=255 height=95
+rooms        41 1155418d
+items        50 a48ce973
+verbs        86 decc08a3
+nouns        86 d2405393
+messages    100 2f0dcfee
+actions     202 71161c5c
+sysmess      71 630055e7
+zxscreen   6912 6d6ffc34
+lineimages   41 7cd76993

@@ -1,0 +1,13 @@
+game       Gremlins C64
+variant    sys=unknown type=gremlins subtype=9
+header     items=99 actions=243 words=126 rooms=42 maxcarry=6 start=1 treasures=0 wordlen=4 light=-1 messages=98 treasureroom=0
+picture    width=255 height=96
+rooms        43 902b82ef
+items       100 920d5614
+verbs       127 736acd01
+nouns       127 6875d8c9
+messages     99 fc2a7e75
+actions     244 71de3f99
+sysmess      71 8a612c5d
+irmak        91 0431f5d3 version=3
+tiles       256 5df36442

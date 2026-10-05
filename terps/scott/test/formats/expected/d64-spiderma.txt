@@ -1,0 +1,13 @@
+game       Questprobe 2: Spiderman C64
+variant    sys=unknown type=none subtype=9
+header     items=72 actions=245 words=124 rooms=40 maxcarry=12 start=2 treasures=18 wordlen=4 light=150 messages=99 treasureroom=37
+picture    width=255 height=96
+rooms        41 8abeffc2
+items        73 706162bf
+verbs       125 5119759a
+nouns       125 a912ebf5
+messages    100 10953d0c
+actions     246 5b1bdeb1
+sysmess      71 76b0da17
+irmak        41 30455286 version=2
+tiles       256 60dfc012

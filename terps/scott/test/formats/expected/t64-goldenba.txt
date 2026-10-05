@@ -1,0 +1,12 @@
+game       The Golden Baton C64
+variant    sys=unknown type=none subtype=11
+header     items=48 actions=166 words=79 rooms=31 maxcarry=6 start=1 treasures=0 wordlen=4 light=200 messages=99 treasureroom=0
+picture    width=255 height=95
+rooms        32 940439bf
+items        49 bb34bc71
+verbs        80 e5ac6990
+nouns        80 2c055db3
+messages    100 6cbad61f
+actions     167 f90e4f3f
+sysmess      71 b219cd98
+lineimages   32 4af22920

@@ -1,0 +1,12 @@
+game       Feasibility Experiment C64
+variant    sys=unknown type=none subtype=11
+header     items=65 actions=156 words=79 rooms=59 maxcarry=6 start=10 treasures=10 wordlen=4 light=200 messages=65 treasureroom=54
+picture    width=255 height=95
+rooms        60 217cff6e
+items        66 49b4be5c
+verbs        80 98cac313
+nouns        80 bb067fd3
+messages     66 5c0d127e
+actions     157 7e50b512
+sysmess      71 b219cd98
+lineimages   60 18a2eb01

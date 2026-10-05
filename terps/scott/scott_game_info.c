@@ -1674,6 +1674,51 @@ const GameInfo games[] = {
     },
 
     {
+        "Questprobe 2: Spiderman Atari 16K",
+        SPIDERMAN_ATARI8,
+        NO_TYPE,                  // type
+        ENGLISH,                  // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        72,  // Number of items
+        242, // Number of actions
+        124, // Number of words
+        40,  // Number of rooms
+        12,  // Max carried items
+        4,   // Word length
+        98,  // Number of messages
+
+        118, // number_of_verbs
+        124, // number_of_nouns
+
+        0x1879,                  // header
+        SPIDERMAN_ATARI8_HEADER, // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        FOLLOWS, // actions
+        COMPRESSED,
+        0x2258,  // dictionary
+        0x2712,  // start_of_room_descriptions
+        FOLLOWS, // start_of_room_connections
+        FOLLOWS, // start_of_messages
+        FOLLOWS, // start_of_item_descriptions
+        FOLLOWS, // start_of_item_locations
+
+        0x0161, // start_of_system_messages
+        0x0161, // start of directions
+
+        0, // start_of_characters
+        0, // start_of_image_data
+        0, // image_address_offset
+        0, // number_of_pictures
+        0, // palette
+        0  // picture_format_version
+    },
+
+    {
         "Savage Island part I",
         SAVAGE_ISLAND,
         SAVAGE_ISLAND_VARIANT,    // type

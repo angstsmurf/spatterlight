@@ -1,0 +1,11 @@
+game       Buckaroo Banzai
+variant    sys=unknown type=old-style subtype=1
+header     items=60 actions=266 words=110 rooms=35 maxcarry=5 start=1 treasures=0 wordlen=4 light=35 messages=95 treasureroom=0
+picture    width=255 height=96
+rooms        36 ef990dad
+items        61 19455a89
+verbs       111 4c7a4787
+nouns       111 1122ea03
+messages     96 77732f49
+actions     267 3729814f
+sysmess      71 f00fe0e0

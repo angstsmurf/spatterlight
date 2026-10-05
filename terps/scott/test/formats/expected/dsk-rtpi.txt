@@ -1,0 +1,13 @@
+game       -
+variant    sys=unknown type=us subtype=0
+header     items=71 actions=277 words=104 rooms=24 maxcarry=10 start=1 treasures=13 wordlen=4 light=1 messages=89 treasureroom=13
+picture    width=255 height=96
+rooms        25 c0d91ac0
+items        72 2e24b712
+verbs       105 58d38cde
+nouns       105 ff4c7b29
+messages     90 74632b82
+actions     278 be228bb9
+sysmess      71 b649edd3
+titletext   481 aaeddf8a
+usimages     40 e341457e

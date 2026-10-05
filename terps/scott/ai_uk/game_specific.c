@@ -203,6 +203,69 @@ void Spiderman64Sysmess(void)
     sys[SOMETHING] = "\" something. ";
 }
 
+/* The text-only Atari 8-bit 16K port. Its interpreter says "OK." where the
+   others say "Dropped." and "Taken.", and it has no "<HIT ENTER>". */
+void SpidermanAtari8Sysmess(void)
+{
+    SysMessageType messagekey[] = {
+        NORTH,
+        SOUTH,
+        EAST,
+        WEST,
+        UP,
+        DOWN,
+        NONE, /* "TAPE ERROR" */
+        EXITS,
+        YOU_SEE,
+        YOU_ARE,
+        TOO_DARK_TO_SEE,
+        LIGHT_HAS_RUN_OUT,
+        LIGHT_RUNS_OUT_IN,
+        TURNS,
+        I_DONT_KNOW_HOW_TO,
+        SOMETHING,
+        I_DONT_KNOW_WHAT_A,
+        IS,
+        YOU_CANT_GO_THAT_WAY,
+        OK,
+        WHAT_NOW,
+        HUH,
+        YOU_HAVE_IT,
+        YOU_HAVENT_GOT_IT,
+        YOU_DONT_SEE_IT,
+        THATS_BEYOND_MY_POWER,
+        DANGEROUS_TO_MOVE_IN_DARK,
+        DIRECTION,
+        YOU_FELL_AND_BROKE_YOUR_NECK,
+        YOURE_CARRYING_TOO_MUCH,
+        IM_DEAD,
+        RESUME_A_SAVED_GAME,
+        IVE_STORED,
+        TREASURES,
+        ON_A_SCALE_THAT_RATES,
+        YOU_CANT_DO_THAT_YET,
+        INVENTORY,
+        I_DONT_UNDERSTAND,
+        NOTHING,
+        PLAY_AGAIN,
+        YOUVE_SOLVED_IT
+    };
+
+    const char *none = sys[NONE];
+
+    for (int i = 0; i < 41; i++) {
+        sys[messagekey[i]] = system_messages[i];
+    }
+
+    sys[NONE] = none;
+    /* This string follows the unterminated direction letters "NSEWUD" */
+    sys[I_DONT_KNOW_HOW_TO] = "I don't know how to \"";
+    /* A carriage return ends the room description in the original */
+    sys[YOU_SEE] = "\nI can see:";
+    sys[DROPPED] = sys[OK];
+    sys[TAKEN] = sys[OK];
+}
+
 void Adventureland64Sysmess(void)
 {
     SysMessageType messagekey[] = {

@@ -1,0 +1,13 @@
+game       Escape from Pulsar 7
+variant    sys=unknown type=old-style subtype=2
+header     items=90 actions=220 words=145 rooms=45 maxcarry=6 start=1 treasures=0 wordlen=4 light=200 messages=75 treasureroom=0
+picture    width=255 height=95
+rooms        46 788005f2
+items        91 d28bdae3
+verbs       146 195b3494
+nouns       146 dcd66680
+messages     76 a5c9d374
+actions     221 7a82c80c
+sysmess      71 630055e7
+zxscreen   6912 6d6ffc34
+lineimages   46 712c83de

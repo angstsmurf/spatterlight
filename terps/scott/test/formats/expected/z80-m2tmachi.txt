@@ -1,0 +1,13 @@
+game       The Time Machine
+variant    sys=unknown type=old-style subtype=2
+header     items=62 actions=164 words=87 rooms=44 maxcarry=6 start=43 treasures=0 wordlen=4 light=200 messages=73 treasureroom=0
+picture    width=255 height=95
+rooms        45 2ef807a4
+items        63 9d717ec8
+verbs        88 68df853d
+nouns        88 8ed54f97
+messages     74 8b4944c8
+actions     165 f1f0dcc0
+sysmess      71 630055e7
+zxscreen   6912 6d6ffc34
+lineimages   45 dc53f417

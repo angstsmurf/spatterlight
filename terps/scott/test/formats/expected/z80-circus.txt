@@ -1,0 +1,13 @@
+game       Circus
+variant    sys=unknown type=old-style subtype=2
+header     items=65 actions=165 words=97 rooms=36 maxcarry=6 start=1 treasures=0 wordlen=4 light=150 messages=72 treasureroom=0
+picture    width=255 height=95
+rooms        37 019cb82b
+items        66 1867296e
+verbs        98 23c3b267
+nouns        98 a75c2c90
+messages     73 8fdd4d6e
+actions     166 b865f0c4
+sysmess      71 630055e7
+zxscreen   6912 6d6ffc34
+lineimages   37 d3f93ab8

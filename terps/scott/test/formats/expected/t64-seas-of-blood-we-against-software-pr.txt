@@ -1,0 +1,13 @@
+game       Seas of Blood C64
+variant    sys=unknown type=seas-of-blood subtype=9
+header     items=125 actions=347 words=134 rooms=82 maxcarry=10 start=1 treasures=0 wordlen=4 light=-1 messages=99 treasureroom=0
+picture    width=255 height=96
+rooms        83 52fe8d88
+items       126 d6ece808
+verbs       135 2d789f39
+nouns       135 78e03b55
+messages    100 23864c99
+actions     348 02d1fce9
+sysmess      71 c2e71bc2
+irmak       139 49fd408e version=4
+tiles       256 21ad6e1a

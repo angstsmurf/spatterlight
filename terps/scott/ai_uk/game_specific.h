@@ -12,6 +12,7 @@ void SecretAction(int p);
 void AdventurelandAction(int p);
 void AdventurelandDarkness(void);
 void Spiderman64Sysmess(void);
+void SpidermanAtari8Sysmess(void);
 void Adventureland64Sysmess(void);
 void Claymorgue64Sysmess(void);
 void Mysterious64Sysmess(void);

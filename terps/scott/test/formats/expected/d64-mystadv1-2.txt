@@ -1,0 +1,12 @@
+game       The Time Machine C64
+variant    sys=unknown type=none subtype=11
+header     items=62 actions=161 words=85 rooms=44 maxcarry=6 start=43 treasures=0 wordlen=4 light=200 messages=73 treasureroom=0
+picture    width=255 height=95
+rooms        45 fa7afee3
+items        63 912992ac
+verbs        86 3eb5baac
+nouns        86 64d5b612
+messages     74 d823f4a6
+actions     162 336d0154
+sysmess      71 b219cd98
+lineimages   45 39b12554

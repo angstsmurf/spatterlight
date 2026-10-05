@@ -18,6 +18,10 @@
 - `make -f Makefile.headless scott_all_audit` — `test/all_audit.c`, which
   reports whether a database contains implicit actions that relocate
   ALL-eligible items.
+- `make -f Makefile.headless formatcheck` — the disk and tape image loader
+  tests: every container format `DetectGame()` reads, fingerprinted with
+  `test/format_probe.c` and compared with goldens. The images are not in the
+  repository; see `test/formats/README.md`.
 
 ## DETERMINISM is mandatory
 

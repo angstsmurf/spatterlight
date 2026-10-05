@@ -742,6 +742,7 @@ static ActionResultType PerformLine(int ct)
                     switch (CurrentGame) {
                         case SPIDERMAN:
                         case SPIDERMAN_C64:
+                        case SPIDERMAN_ATARI8:
                             DrawBlack();
                             break;
                         case SECRET_MISSION:

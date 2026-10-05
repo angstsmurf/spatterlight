@@ -1,0 +1,12 @@
+game       Arrow of Death part 1 C64
+variant    sys=unknown type=none subtype=11
+header     items=64 actions=150 words=90 rooms=52 maxcarry=5 start=1 treasures=0 wordlen=4 light=32767 messages=82 treasureroom=0
+picture    width=255 height=95
+rooms        53 b4dfb839
+items        65 9b5d494f
+verbs        91 aaef3aee
+nouns        91 4cf8e06f
+messages     83 6c02c39e
+actions     151 738e5c6e
+sysmess      71 b219cd98
+lineimages   53 3317357e

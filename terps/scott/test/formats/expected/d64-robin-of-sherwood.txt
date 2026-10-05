@@ -1,0 +1,13 @@
+game       Robin of Sherwood C64
+variant    sys=unknown type=sherwood subtype=9
+header     items=87 actions=296 words=114 rooms=93 maxcarry=10 start=1 treasures=0 wordlen=4 light=-1 messages=99 treasureroom=0
+picture    width=255 height=96
+rooms        94 3b78c6a8
+items        88 77750321
+verbs       115 9f0053fb
+nouns       115 2da23f68
+messages    100 465c07ae
+actions     297 4a758a1a
+sysmess      71 adf7035c
+irmak        90 a47491dd version=4
+tiles       256 f965f2cf

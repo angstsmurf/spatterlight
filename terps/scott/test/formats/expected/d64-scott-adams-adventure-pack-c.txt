@@ -1,0 +1,11 @@
+game       -
+variant    sys=c64 type=us subtype=0
+header     items=79 actions=253 words=74 rooms=37 maxcarry=7 start=4 treasures=0 wordlen=4 light=100 messages=82 treasureroom=0
+picture    width=255 height=96
+rooms        38 48fa090b
+items        80 45eaf45c
+verbs        75 ee99ab63
+nouns        75 c4183b69
+messages     83 20764846
+actions     254 6c033b79
+sysmess      71 b649edd3

@@ -113,10 +113,10 @@ check: scott_hl
 	@echo "PASS"
 
 clean:
-	rm -rf $(OBJDIR) scott_hl scott_death_test
+	rm -rf $(OBJDIR) scott_hl scott_death_test scott_all_audit scott_format_probe
 
 
-.PHONY: clean check
+.PHONY: clean check formatcheck
 
 -include $(OBJS:.o=.d)
 
@@ -128,3 +128,17 @@ AUDIT_OBJS := $(filter-out $(OBJDIR)/scott.o,$(OBJS)) $(OBJDIR)/scott_deathmain.
 
 scott_all_audit: $(AUDIT_OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB)
 	$(CXX) $(LDFLAGS) -o $@ $(AUDIT_OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB) -lz
+
+# Loader fingerprint tool for the disk and tape image format tests
+# (test/formats/README.md): DetectGame() on one file, then a CRC of every table
+# and picture blob it loaded. Own glk_main, like the two tools above.
+PROBE_OBJS := $(filter-out $(OBJDIR)/scott.o,$(OBJS)) $(OBJDIR)/scott_deathmain.o \
+              $(OBJDIR)/format_probe.o
+
+scott_format_probe: $(PROBE_OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB)
+	$(CXX) $(LDFLAGS) -o $@ $(PROBE_OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB) -lz
+
+# Disk and tape image loader tests. Rows whose image is not in
+# test/formats/games/ are skipped, so this passes on a bare checkout.
+formatcheck: scott_format_probe
+	@python3 test/formats/run_format_tests.py

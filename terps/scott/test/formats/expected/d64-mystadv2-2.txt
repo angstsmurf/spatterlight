@@ -1,0 +1,12 @@
+game       The Wizard of Akyrz C64
+variant    sys=unknown type=none subtype=11
+header     items=49 actions=199 words=85 rooms=40 maxcarry=6 start=1 treasures=4 wordlen=4 light=-1 messages=99 treasureroom=0
+picture    width=255 height=95
+rooms        41 18fa6e17
+items        50 9ccf3bce
+verbs        86 193a8ea5
+nouns        86 4ae1e673
+messages    100 0abd5fb5
+actions     200 cc03a635
+sysmess      71 b219cd98
+lineimages   41 b7ced9b4

@@ -1,0 +1,11 @@
+game       Pirate Adventure
+variant    sys=unknown type=old-style subtype=1
+header     items=66 actions=177 words=79 rooms=26 maxcarry=6 start=1 treasures=2 wordlen=3 light=150 messages=88 treasureroom=1
+picture    width=255 height=96
+rooms        27 b9c747e2
+items        67 6a96bda5
+verbs        80 1a434606
+nouns        80 3fa6dd2d
+messages     89 8c4040a0
+actions     178 4dfcc45c
+sysmess      71 f00fe0e0

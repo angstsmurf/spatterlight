@@ -1052,17 +1052,11 @@ GameIDType DetectAtari8(uint8_t **sf, size_t *extent)
     if (*extent > MAX_LENGTH || *extent < data_start)
         return UNKNOWN_GAME;
 
-    for (int i = 0; i < 6; i++) {
-        if ((*sf)[i] != atrheader[i]) {
-            // Check for old version
-            for (int j = 0; j < 6; j++) {
-                if ((*sf)[j] != atrheader_old[j]) {
-                    return UNKNOWN_GAME;
-                } else {
-                    data_start = 0x040c;
-                }
-            }
-        }
+    if (memcmp(*sf, atrheader, sizeof atrheader) != 0) {
+        // Check for old version
+        if (memcmp(*sf, atrheader_old, sizeof atrheader_old) != 0)
+            return UNKNOWN_GAME;
+        data_start = 0x040c;
     }
 
     size_t companionsize;

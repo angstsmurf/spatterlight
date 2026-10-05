@@ -1,0 +1,12 @@
+game       -
+variant    sys=atari8 type=us subtype=0
+header     items=54 actions=261 words=128 rooms=20 maxcarry=10 start=1 treasures=17 wordlen=4 light=150 messages=99 treasureroom=16
+picture    width=280 height=158
+rooms        21 262a554c
+items        55 e81a4500
+verbs       129 6affe7e2
+nouns       129 dc3568ee
+messages    100 c6106965
+actions     262 2c308966
+sysmess      71 b649edd3
+usimages     70 596403ac

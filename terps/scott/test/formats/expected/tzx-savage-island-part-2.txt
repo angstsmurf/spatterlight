@@ -1,0 +1,13 @@
+game       Savage Island part II
+variant    sys=unknown type=none subtype=1
+header     items=48 actions=241 words=79 rooms=30 maxcarry=6 start=30 treasures=0 wordlen=4 light=-1 messages=95 treasureroom=0
+picture    width=255 height=96
+rooms        31 3734c9f9
+items        49 4975e21c
+verbs        80 aa506918
+nouns        80 8238eb56
+messages     96 0219cf28
+actions     242 f5d6b34b
+sysmess      71 c725a97e
+irmak        21 604ed59d version=3
+tiles       256 4d1cf63c

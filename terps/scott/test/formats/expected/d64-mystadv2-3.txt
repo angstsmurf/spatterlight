@@ -1,0 +1,12 @@
+game       Perseus and Andromeda C64
+variant    sys=unknown type=none subtype=11
+header     items=59 actions=165 words=130 rooms=40 maxcarry=6 start=1 treasures=0 wordlen=4 light=200 messages=96 treasureroom=0
+picture    width=255 height=95
+rooms        41 340806fc
+items        60 7caf3324
+verbs       131 4f14075a
+nouns       131 796feca9
+messages     97 484a45cf
+actions     166 ed6ee1f5
+sysmess      71 b219cd98
+lineimages   41 ffee3579

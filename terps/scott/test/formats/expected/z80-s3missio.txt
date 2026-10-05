@@ -1,0 +1,14 @@
+game       Secret Mission
+variant    sys=unknown type=secret-mission subtype=1
+header     items=53 actions=164 words=64 rooms=23 maxcarry=7 start=2 treasures=0 wordlen=3 light=10000 messages=81 treasureroom=1
+picture    width=255 height=96
+rooms        24 a223a335
+items        54 55336634
+verbs        65 b6de1ac3
+nouns        65 d36186df
+messages     82 b382c642
+actions     165 caff2cc8
+sysmess      71 1d6a7941
+zxscreen   6912 34643d59
+irmak        44 06225f49 version=1
+tiles       256 57da8ad5

@@ -1,0 +1,300 @@
+# Game images for the disk and tape image loader tests (run_format_tests.py).
+#
+# id      names the row and its golden, expected/<id>.txt
+# dir     folder under games/ the image lives in. Images that share a folder
+#         are the disks of one game: the loaders find the other disk by its
+#         file name, so the names must be kept
+# file    file name
+# sha256  of the file
+# input   answer to the "which game" menu of a compilation, or empty
+# note    container variant
+#
+# id	dir	file	sha256	input	note
+atr-s-a-g-a-05-the-count-v5-1-115-1983-a	atr-s-a-g-a-05-the-count-v5-1-115-1983-a	S.A.G.A. 05 - The Count v5.1-115 (1983)(Adventure International)(US)(Side A)[!].atr	5dae708434695a56d442273567c18387becc5b71c8f30921e6b749705bcb2840		Atari .atr, header 960280168000; two-disk set, first disk named
+atr-s-a-g-a-05-the-count-v5-1-115-1983-a-disk2	atr-s-a-g-a-05-the-count-v5-1-115-1983-a	S.A.G.A. 05 - The Count v5.1-115 (1983)(Adventure International)(US)(Side B)[!][cr CSS].atr	48a668136aa32cca4c151ae255bb696a1f1edf6663c451d58cdfd2eaf4cb3152		Atari .atr, header 960280168000; two-disk set, second disk named
+atr-s-a-g-a-no-06-strange-odyssey-v5-0-1	atr-s-a-g-a-no-06-strange-odyssey-v5-0-1	S.A.G.A. No. 06 - Strange Odyssey v5.0-119 (1982)(Adventure International)(US)(Side A).atr	83985e1ac74e67d35d37f1364bd65bb0829f83eb16073fca9f9d1ec2842b0a78		Atari .atr, header 960280168000; two-disk set, first disk named
+atr-s-a-g-a-no-06-strange-odyssey-v5-0-1-disk2	atr-s-a-g-a-no-06-strange-odyssey-v5-0-1	S.A.G.A. No. 06 - Strange Odyssey v5.0-119 (1982)(Adventure International)(US)(Side B).atr	9783df409f692a1cb28d3648cb00dda0d90eb56bdbdb852a71038f8a8ae025b0		Atari .atr, header 960280168000; two-disk set, second disk named
+atr-questprobe-1-the-hulk-v5-2-127-198x	atr-questprobe-1-the-hulk-v5-2-127-198x	Questprobe 1 - The Hulk v5.2-127 (198x)(Main Street Publishing)(US)(Side B).atr	7222468390d924e7f400b74e9bbe1cffe06702e4a693414f8a4b8fb35768db39		Atari .atr, header 960280168000; two-disk set, first disk named
+atr-questprobe-1-the-hulk-v5-2-127-198x-disk2	atr-questprobe-1-the-hulk-v5-2-127-198x	Questprobe 1 - The Hulk v5.2-127 (198x)(Main Street Publishing)(US)(Side A)[cr CSS].atr	ed3b53e3c69333d3608a8698157a57c769d3c1c7746dc7bfae9b5049d38bddfe		Atari .atr, header 960280168000; two-disk set, second disk named
+atr-s-a-g-a-no-02-pirate-adventure-v5-0	atr-s-a-g-a-no-02-pirate-adventure-v5-0	S.A.G.A. No. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side A).atr	547c0e902c732c11d158a4c3e46a2e41a6da861516e60b763f2157b2785d3041		Atari .atr, header 960280168000; two-disk set, first disk named
+atr-s-a-g-a-no-02-pirate-adventure-v5-0-disk2	atr-s-a-g-a-no-02-pirate-adventure-v5-0	S.A.G.A. No. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side B).atr	e2cfea52ea5856bccbcaa4003b6c80de54966e8f4a2ad58b91404c946b8ced7f		Atari .atr, header 960280168000; two-disk set, second disk named
+atr-adventure-no-13-the-sorcerer-of-clay	atr-adventure-no-13-the-sorcerer-of-clay	Adventure_No._13_The_Sorcerer_of_Claymorgue_Castle_v3.9_123_1981_Adventure_International_US_k_file.atr	590c8438a4094d8c385f2e6faa040e3aa1486680604dfdc7ce0908f2719461b4		Atari .atr, header 9602400a8000
+atr-saga-no-13-the-sorcerer-of-claymorgu	atr-saga-no-13-the-sorcerer-of-claymorgu	SAGA No. 13 - The Sorcerer of Claymorgue Castle _ side A.atr	d0dcba442113b7ca60b1f83f085fe5e5a5f65b15a8deaeafa4e8fec9354ceb96		Atari .atr, header 960280168000; two-disk set, first disk named
+atr-saga-no-13-the-sorcerer-of-claymorgu-disk2	atr-saga-no-13-the-sorcerer-of-claymorgu	SAGA No. 13 - The Sorcerer of Claymorgue Castle _ side B.atr	9542de4bb9d83f73981c6bbbb96c46dfe2ecd857f614faeec2e15796066ec142		Atari .atr, header 960280168000; two-disk set, second disk named
+atr-saga-5-the-count-side-a	atr-saga-5-the-count-side-a	SAGA #5 - The Count [side A].atr	5dc27fa238301de48ddc4d2d70dc1fa8fde94dfeb83647a7e25ba2ae13da87e4		Atari .atr, header 960280168000; two-disk set, first disk named
+atr-saga-5-the-count-side-a-disk2	atr-saga-5-the-count-side-a	SAGA #5 - The Count [side B].atr	37fd7e4fd1cf4c3de6a6964322fbdc0f5031e13229965888603f60e24b7bb95f		Atari .atr, header 960280168000; two-disk set, second disk named
+atr-saga-4-voodoo-castle-side-a	atr-saga-4-voodoo-castle-side-a	SAGA #4 - Voodoo Castle [side A].atr	3f7db728180666d1e4d1b8b0a96f75d1ca22cc26d9bc8651546d5d9bc8a5f2bd		Atari .atr, header 960280168000; two-disk set, first disk named
+atr-saga-4-voodoo-castle-side-a-disk2	atr-saga-4-voodoo-castle-side-a	SAGA #4 - Voodoo Castle [side B].atr	2a417fb62f14330d61143403df38d4987cd0ab58b83eeef0d35d3b12e1b60aab		Atari .atr, header 960280168000; two-disk set, second disk named
+atr-saga-3-mission-impossible-side-a	atr-saga-3-mission-impossible-side-a	SAGA #3 - Mission Impossible [side A].atr	7575154bd45890d411fcf19cb566523934ff884b471b25cfa9e3002b88c3d136		Atari .atr, header 960280168000; two-disk set, first disk named
+atr-saga-3-mission-impossible-side-a-disk2	atr-saga-3-mission-impossible-side-a	SAGA #3 - Mission Impossible [side B].atr	b28ab6872c41134db55eb7244eae66640ca994e51f1814878565290aa84e6bc9		Atari .atr, header 960280168000; two-disk set, second disk named
+atr-s-a-g-a-01-adventureland-v5-0-416-19	atr-s-a-g-a-01-adventureland-v5-0-416-19	S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side A)[!].atr	a64ae95561df709d7a00ebb95c703e29a588a4eaaac328e199af6600d54ce6eb		Atari .atr, header 960280168000; two-disk set, first disk named
+atr-s-a-g-a-01-adventureland-v5-0-416-19-disk2	atr-s-a-g-a-01-adventureland-v5-0-416-19	S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side B)[!][cr CSS].atr	5a676ec7aeb3268316cc1a27248c5d1c63b0d84f33aaddd473e6772b58fc5005		Atari .atr, header 960280168000; two-disk set, second disk named
+atr-questprobe-2-spider-man-16k	atr-questprobe-2-spider-man-16k	Questprobe #2 - Spider-Man (1984)(Adventure International).atr	58873b9791c4f6a4100ea17c58eae17eaf573adfab973e41f761b2fd39550518		Atari boot disk, no DOS; UK text-only 16K port, found by the dictionary scan
+cart-return-to-pirate-s-isle	cart-return-to-pirate-s-isle	Return to Pirate's Isle.cart	ce4c10c667caeb241b6bbce5ea9c349b077465b3870483d81ee36aa7aaf404bc		TI-99/4A cartridge dump
+d64-strange-odyssey	d64-strange-odyssey	Strange Odyssey.d64	39b0218157dde5e707ccba3a4b208c8f652c72ceb24b4db0cc05b702e37f225b		C64 .d64
+d64-questpr1	d64-questpr1	QUESTPR1.D64	5035c0ae93ebfd144e8c473c29ed24c30e07f9e5e5457730e573bbb28d95a4e4		C64 .d64
+d64-pirate	d64-pirate	pirate.d64	3cca1b4a461a8241b7498f8585f077d4444e2118dc1e1e16b588c1a167a62e2d		C64 .d64
+d64-sorcerer-of-claymorgue-castle-s1-key	d64-sorcerer-of-claymorgue-castle-s1-key	sorcerer_of_claymorgue_castle_s1[keypunch_19xx].d64	25d97fbfddf86084b07b043dc085a37c722d2456f7ed38f277bf109019fccec9		C64 .d64; two-disk set, first disk named
+d64-sorcerer-of-claymorgue-castle-s1-key-disk2	d64-sorcerer-of-claymorgue-castle-s1-key	sorcerer_of_claymorgue_castle_s2[keypunch_19xx].d64	e1b86c5305007001c246d55d6767dda059193274043ccfec375890fbb58d6b6b		C64 .d64; two-disk set, second disk named
+d64-adventure-11-savage-island-part-2-19	d64-adventure-11-savage-island-part-2-19	Adventure #11 - Savage Island Part 2 (1983)(Scott Adams).d64	e7f77fd248d46184743f1999424259183233af59b187ef0f74e6e49f4a33e7bc		C64 .d64
+d64-voodoo-castle	d64-voodoo-castle	Voodoo Castle.d64	7142bbc318c53ed27300cdbc356c1016d2244d9f6d25aefcaef71d3164ed3353		C64 .d64
+d64-voodoo-castle-ai-toko	d64-voodoo-castle-ai-toko	Voodoo Castle (AI)[toko].d64	ae1ce7b97f38eb667761d241f6d953c766c69f33b484f5958d356a0a4231d8f9		C64 .d64
+d64-count-the	d64-count-the	Count, The.d64	8f359e42eec32c62e7d95bdbd0694679449fda730d6c224c5d902358f3c7024d		C64 .d64
+d64-adventure-10-savage-island-part-1-19	d64-adventure-10-savage-island-part-1-19	Adventure #10 - Savage Island Part 1 (1983)(Scott Adams).d64	a818d272b0c81891438698056f56aa6595152f8a1c34d935492a7cdf5549979f		C64 .d64
+d64-adventureland	d64-adventureland	Adventureland.d64	dc867b217f8c1fdfaaddf10dec058d6a18b6baa61dc55f5af8ce11562d913910		C64 .d64
+d64-arrow-of-death-part-1-1982-channel-8	d64-arrow-of-death-part-1-1982-channel-8	Arrow_of_Death_Part_1_1982_Channel_8_Software_h_SCI.d64	3a550c01db33e5155d2a029d4f3c03d20ca03cee6dd52b955ca9674d2dec050a		C64 .d64
+d64-mystadv2-1	d64-mystadv2	MYSTADV2.D64	17eb01436ab33eb715bdfc10a46d0a21b259ca35a15d841d4ed15ab76a1e6ca2	1	C64 .d64; menu choice 1 (Feasibility Experiment)
+d64-mystadv2-2	d64-mystadv2	MYSTADV2.D64	17eb01436ab33eb715bdfc10a46d0a21b259ca35a15d841d4ed15ab76a1e6ca2	2	C64 .d64; menu choice 2 (The Wizard of Akyrz)
+d64-mystadv2-3	d64-mystadv2	MYSTADV2.D64	17eb01436ab33eb715bdfc10a46d0a21b259ca35a15d841d4ed15ab76a1e6ca2	3	C64 .d64; menu choice 3 (Perseus and Andromeda)
+d64-mystadv2-4	d64-mystadv2	MYSTADV2.D64	17eb01436ab33eb715bdfc10a46d0a21b259ca35a15d841d4ed15ab76a1e6ca2	4	C64 .d64; menu choice 4 (Ten Little Indians)
+d64-mystadv2-5	d64-mystadv2	MYSTADV2.D64	17eb01436ab33eb715bdfc10a46d0a21b259ca35a15d841d4ed15ab76a1e6ca2	5	C64 .d64; menu choice 5 (Waxworks)
+d64-gremlins-das-abenteuer-de-the-joker	d64-gremlins-das-abenteuer-de-the-joker	Gremlins_-_Das_Abenteuer_(de)_(The_Joker).d64	6ab61e6872468d30447f2de74ae411f453cf82b67138c72bc27a3daa63147814		C64 .d64
+d64-gremlins-the-adventure-198x-brian-ho	d64-gremlins-the-adventure-198x-brian-ho	Gremlins_The_Adventure_198x_Brian_Howarth_es_cr_ASS.d64	bf34bd7acd35d0d17df0d5382e688afd1d0a455c56a6d735790af24b35e9e627		C64 .d64
+d64-gremlins	d64-gremlins	gremlins.d64	66e4b945e000a4945a28835d39d92196272ee35f1cb68ab6ec0b6ce421962908		C64 .d64
+d64-perseus-andromeda-1983-channel-8-sof	d64-perseus-andromeda-1983-channel-8-sof	Perseus__Andromeda_1983_Channel_8_Software.d64	be184f5c69543fe214a4558ae6503aec8fe893aa32155cb8f63a8a903fe56154		C64 .d64
+d64-hulk	d64-hulk	HULK.D64	325f6cc9bdbe6e6af1055e863df4deffcf7ba2e72598b9f8ed7c2b50937dbf39		C64 .d64
+d64-spiderma	d64-spiderma	SPIDERMA.D64	77224a7394e984f5640f2a4de30b8a20ddbc3235cf1db020512d12fb8dbf62c9		C64 .d64
+d64-robin-of-sherwood	d64-robin-of-sherwood	Robin of Sherwood.d64	64db43f6092c3b0770d709379692f428c654a247a392062073b5631290941b8c		C64 .d64
+d64-savageis-1	d64-savageis	SAVAGEIS.D64	b99fbfb9df61ee791bdb665372b09e45c847f8158b63e9e268f31f7ba064038d	1	C64 .d64; menu choice 1 (Savage Island part I)
+d64-savageis-2	d64-savageis	SAVAGEIS.D64	b99fbfb9df61ee791bdb665372b09e45c847f8158b63e9e268f31f7ba064038d	2	C64 .d64; menu choice 2 (Savage Island part II)
+d64-seasbloo	d64-seasbloo	SEASBLOO.D64	939b439792914ab9f95b636a67b9cac8e88d41c9122bfa74c7f87bd9174fb6d2		C64 .d64
+d64-secretm	d64-secretm	SECRETM.D64	1e34ba25f7b9522c55e81085de3d5ed4b205aa321ed8fa9b916e7e55680b75ba		C64 .d64
+d64-super-gran-the-adventure-1985-tyneso	d64-super-gran-the-adventure-1985-tyneso	Super_Gran_The_Adventure_1985_Tynesoft_h_ASS.d64	65a4f49898843e06845049765933431196679a5c05ca5895f4fff065305ec1a5		C64 .d64
+d64-mystadv1-1	d64-mystadv1	MYSTADV1.D64	acfcedccc858e6ffb7f5833e4bce80e989c5bd242876a72c66a2aee1870d3798	1	C64 .d64; menu choice 1 (The Golden Baton)
+d64-mystadv1-2	d64-mystadv1	MYSTADV1.D64	acfcedccc858e6ffb7f5833e4bce80e989c5bd242876a72c66a2aee1870d3798	2	C64 .d64; menu choice 2 (The Time Machine)
+d64-mystadv1-3	d64-mystadv1	MYSTADV1.D64	acfcedccc858e6ffb7f5833e4bce80e989c5bd242876a72c66a2aee1870d3798	3	C64 .d64; menu choice 3 (Arrow of Death part 1)
+d64-mystadv1-4	d64-mystadv1	MYSTADV1.D64	acfcedccc858e6ffb7f5833e4bce80e989c5bd242876a72c66a2aee1870d3798	4	C64 .d64; menu choice 4 (Arrow of Death part 2)
+d64-mystadv1-5	d64-mystadv1	MYSTADV1.D64	acfcedccc858e6ffb7f5833e4bce80e989c5bd242876a72c66a2aee1870d3798	5	C64 .d64; menu choice 5 (Escape from Pulsar 7)
+d64-mystadv1-6	d64-mystadv1	MYSTADV1.D64	acfcedccc858e6ffb7f5833e4bce80e989c5bd242876a72c66a2aee1870d3798	6	C64 .d64; menu choice 6 (Circus)
+d64-claymorg	d64-claymorg	claymorg.d64	13f30798eb750190a9a419606443b5e769468aad7ecdef1871923eb58f617891		C64 .d64
+d64-wizrdadv	d64-wizrdadv	WIZRDADV.D64	97a890bc29a2d185b862ebb0b4d65a5dfceab33c9e725d834d574aef64a08a09		C64 .d64
+d64-waxworks-1983-channel-8-software	d64-waxworks-1983-channel-8-software	Waxworks_1983_Channel_8_Software.d64	7a20eb50bb058e90c0ee59f4ae07f77632bd475d95fae2fbecfa941558ef7af6		C64 .d64
+do-questprobe-featuring-the-hulk-v2-3-12	do-questprobe-featuring-the-hulk-v2-3-12	Questprobe featuring The Hulk v2.3-126 (1984)(Adventure International)(Disk 1 of 2)[cr Syndicate - Whip].do	eb185cb96e0c440ab0798251c9ba83a043c091341dbd04bb32f43b15f8f162c6		Apple II DOS 3.3 disk image (.do); two-disk set, first disk named
+do-questprobe-featuring-the-hulk-v2-3-12-disk2	do-questprobe-featuring-the-hulk-v2-3-12	Questprobe featuring The Hulk v2.3-126 (1984)(Adventure International)(Disk 2 of 2)(Data Disk)[cr Syndicate - Whip].do	a1303a2ebf8829f3a33cdc863bcea89692319b63e7cff4f25de8f6731dcddb95		Apple II DOS 3.3 disk image (.do); two-disk set, second disk named
+do-cple-compil3-scott-adams-saga-2-pirat	do-cple-compil3-scott-adams-saga-2-pirat	cple__compil3_Scott_Adams__Saga_2__Pirate_Adventure_disk_1_Of_2.do	872bc738798625041d701c0e7b6b01de145353d58df3604877bb519ac6985472		Apple II DOS 3.3 disk image (.do); two-disk set, first disk named
+do-cple-compil3-scott-adams-saga-2-pirat-disk2	do-cple-compil3-scott-adams-saga-2-pirat	cple__compil3_Scott_Adams__Saga_2__Pirate_Adventure_disk_2_Of_2.do	29496bdfe52c92702a5070177c91db0440f2b90e4bf04c08a8c0a04808250af0		Apple II DOS 3.3 disk image (.do); two-disk set, second disk named
+do-sorcerer-of-claymorgue-castle-1981-ad	do-sorcerer-of-claymorgue-castle-1981-ad	Sorcerer of Claymorgue Castle (1981)(Adventure International)(Disk 1 of 2)[cr Zapman].do	8a559654414caf69fd28e6b61926c231a478741e5a57cc2112c816e13f5a48e2		Apple II DOS 3.3 disk image (.do); two-disk set, first disk named
+do-sorcerer-of-claymorgue-castle-1981-ad-disk2	do-sorcerer-of-claymorgue-castle-1981-ad	Sorcerer of Claymorgue Castle (1981)(Adventure International)(Disk 2 of 2)[cr Zapman][unk filesys].do	42b617c46c4fcdc97fc80aaab8c2564d80222ed3917cd3737aaee56b588e2b56		Apple II DOS 3.3 disk image (.do); two-disk set, second disk named
+do-cple-compil3-scott-adams-saga-1-adven	do-cple-compil3-scott-adams-saga-1-adven	cple__compil3_Scott_Adams__Saga_1__Adventureland_disk_1_Of_2.do	be3757103618ed7dd2581c28c13b87f496e99f574c1958e87dd519319d8291c9		Apple II DOS 3.3 disk image (.do); two-disk set, first disk named
+do-cple-compil3-scott-adams-saga-1-adven-disk2	do-cple-compil3-scott-adams-saga-1-adven	cple__compil3_Scott_Adams__Saga_1__Adventureland_disk_2_Of_2.do	768074b0b7094e732a681af00f8569d9a64413f9813082550026e9ca744f488d		Apple II DOS 3.3 disk image (.do); two-disk set, second disk named
+dsk-scott-adams-graphic-adventure-5-the	dsk-scott-adams-graphic-adventure-5-the	Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side A.dsk	1ad44a16aecc88b8f1bd6d3ec43a92d66b2d4edddad0fdd5c67ab03a7a33bd9d		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
+dsk-scott-adams-graphic-adventure-5-the-disk2	dsk-scott-adams-graphic-adventure-5-the	Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side B - boot.dsk	ba3d66fbcce65ab753b886fad52ce3d4ef54ce829c6bd3667bf10a5fd1529d2a		Apple II DOS 3.3 disk image (.dsk); two-disk set, second disk named
+dsk-voodoo-castle-phd5048	dsk-voodoo-castle-phd5048	Voodoo_Castle_PHD5048.dsk	1144205f20b6cf8e9b10eb0222079ebfe1b352efcf5c582e702e6ac87f4029cf		TI-99/4A disk image
+dsk-scott-adams-graphic-adventure-6-stra	dsk-scott-adams-graphic-adventure-6-stra	Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side A.dsk	623bbe2759bc8521dcb56c5ba35a6d6c5a1dd22dcef0fc05bff6c652d5540704		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
+dsk-scott-adams-graphic-adventure-6-stra-disk2	dsk-scott-adams-graphic-adventure-6-stra	Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side B - boot.dsk	6039602205a6dd03f8b0aa15e5da246d19dcccb3d3495371641c8ed8d156a1fc		Apple II DOS 3.3 disk image (.dsk); two-disk set, second disk named
+dsk-00playable	dsk-00playable	00playable.dsk	16f0ef8b9a24690d00cbc6102ac1b654ea3d572fa47a3e0d8b058ad756861e54		Apple II DOS 3.3 disk image (.dsk)
+dsk-questprobe-featuring-the-hulk-4am-cr	dsk-questprobe-featuring-the-hulk-4am-cr	Questprobe featuring The Hulk (4am crack) side A.dsk	469c612521fd965fda9cf245a9462c7011afa84d46e591d6eaa0655b6a9b9303		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
+dsk-questprobe-featuring-the-hulk-4am-cr-disk2	dsk-questprobe-featuring-the-hulk-4am-cr	Questprobe featuring The Hulk (4am crack) side B (boot).dsk	16f0ef8b9a24690d00cbc6102ac1b654ea3d572fa47a3e0d8b058ad756861e54		Apple II DOS 3.3 disk image (.dsk); two-disk set, second disk named
+dsk-hulk-the-1981-scott-adams-cr-disk-1	dsk-hulk-the-1981-scott-adams-cr-disk-1	Hulk, The (1981)(Scott Adams)[cr](Disk 1 of 2).dsk	eb185cb96e0c440ab0798251c9ba83a043c091341dbd04bb32f43b15f8f162c6		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
+dsk-hulk-the-1981-scott-adams-cr-disk-1-disk2	dsk-hulk-the-1981-scott-adams-cr-disk-1	Hulk, The (1981)(Scott Adams)[cr](Disk 2 of 2).dsk	a1303a2ebf8829f3a33cdc863bcea89692319b63e7cff4f25de8f6731dcddb95		Apple II DOS 3.3 disk image (.dsk); two-disk set, second disk named
+dsk-cple-compil3-scott-adams-saga-2-pira	dsk-cple-compil3-scott-adams-saga-2-pira	cple__compil3_Scott_Adams__Saga_2__Pirate_Adventure_disk_1_Of_2.dsk	872bc738798625041d701c0e7b6b01de145353d58df3604877bb519ac6985472		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
+dsk-cple-compil3-scott-adams-saga-2-pira-disk2	dsk-cple-compil3-scott-adams-saga-2-pira	cple__compil3_Scott_Adams__Saga_2__Pirate_Adventure_disk_2_Of_2.dsk	29496bdfe52c92702a5070177c91db0440f2b90e4bf04c08a8c0a04808250af0		Apple II DOS 3.3 disk image (.dsk); two-disk set, second disk named
+dsk-the-count-phd5049	dsk-the-count-phd5049	The_Count_PHD5049.dsk	6b06bd2609ee2ad64b3f7b45a1f1e10ada03da5fde57a1213d634555d1381999		TI-99/4A disk image
+dsk-mystery-fun-house-phd5051	dsk-mystery-fun-house-phd5051	Mystery_Fun_House_PHD5051.dsk	7238087edb8c3d434e9149324542226b79d45955ba0589c503b5d8811066b09a		TI-99/4A disk image
+dsk-sorcerer-of-claymorgue-castle-1981-a	dsk-sorcerer-of-claymorgue-castle-1981-a	Sorcerer of Claymorgue Castle (1981)(Adventure International)[cr](Disk 1 of 2).dsk	8a559654414caf69fd28e6b61926c231a478741e5a57cc2112c816e13f5a48e2		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
+dsk-sorcerer-of-claymorgue-castle-1981-a-disk2	dsk-sorcerer-of-claymorgue-castle-1981-a	Sorcerer of Claymorgue Castle (1981)(Adventure International)[cr](Disk 2 of 2).dsk	42b617c46c4fcdc97fc80aaab8c2564d80222ed3917cd3737aaee56b588e2b56		Apple II DOS 3.3 disk image (.dsk); two-disk set, second disk named
+dsk-pirates-adventure-phd5043	dsk-pirates-adventure-phd5043	Pirates_Adventure_PHD5043.dsk	cf74d6b4ad5c82ffb9cf09bb5f171a81958871c554cd2c03ea2324a917be9557		TI-99/4A disk image
+dsk-ghost-town-phd5053	dsk-ghost-town-phd5053	Ghost_Town_PHD5053.dsk	e407b3697dc299870fc49f4e45da81a703fc5e007676eb6264bde98d4d5b380f		TI-99/4A disk image
+dsk-strange-odyssee-phd5050	dsk-strange-odyssee-phd5050	Strange_Odyssee_PHD5050.dsk	2e2f9835f32cfb510c0b7cfb14739912694bcdfd16e8a67592c91e55506c81cc		TI-99/4A disk image
+dsk-pyramid-of-doom-phd5052	dsk-pyramid-of-doom-phd5052	Pyramid_Of_Doom_PHD5052.dsk	d63e8bb757be8b90de61f8aa8aa61431b3c9f2299c8066b31f9d6d624fe882f4		TI-99/4A disk image
+dsk-the-golden-voyage-phd5056	dsk-the-golden-voyage-phd5056	The_Golden_Voyage_PHD5056.dsk	a762993aacb13e3dd43be5ac8b17f75230cdf5320721eb0b1c01852275970917		TI-99/4A disk image
+dsk-scott-adams-graphic-adventure-4-vood	dsk-scott-adams-graphic-adventure-4-vood	Scott Adams Graphic Adventure 4 - Voodoo Castle v2.1-119 (4am crack) side A.dsk	0b0572df3f37241035d0190ba4cea24932609cbd6ac50f613e316415f1d187ad		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
+dsk-scott-adams-graphic-adventure-4-vood-disk2	dsk-scott-adams-graphic-adventure-4-vood	Scott Adams Graphic Adventure 4 - Voodoo Castle v2.1-119 (4am crack) side B (boot).dsk	c34dba003a7f5f8e3e32ee682dc96dc1e611a9c9a2236920070fe59882ebf84e		Apple II DOS 3.3 disk image (.dsk); two-disk set, second disk named
+dsk-scott-adams-graphic-adventure-3-miss	dsk-scott-adams-graphic-adventure-3-miss	Scott Adams Graphic Adventure 3 - Mission Impossible v2.1-306 (4am crack) side A.dsk	5395140182c355e9dc32ba12f33e19564a53bb331cbb76f86247b4d1540f4eec		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
+dsk-scott-adams-graphic-adventure-3-miss-disk2	dsk-scott-adams-graphic-adventure-3-miss	Scott Adams Graphic Adventure 3 - Mission Impossible v2.1-306 (4am crack) side B (boot).dsk	7734791024687997fa3025c7e52a71a56dd70dd62d7d4601d61c51759ba03a1b		Apple II DOS 3.3 disk image (.dsk); two-disk set, second disk named
+dsk-mission-impossible	dsk-mission-impossible	mission_impossible.dsk	a843fd368d1bdc8b7b16b34aaab73128a4ed2eaa15655dd7c8c27accd88514a3		Apple II DOS 3.3 disk image (.dsk)
+dsk-rtpi	dsk-rtpi	RTPI.DSK	047160607d88f37cad9b67e0d9630985acf357794b15c97da53e4c74e96ce2e7		TI-99/4A disk image
+dsk-mission-impossible-phd5047	dsk-mission-impossible-phd5047	Mission_Impossible_PHD5047.dsk	9beed823996e42aa4d205130a349043ca6158c5f4939ff001d0135dfbb4e41e7		TI-99/4A disk image
+dsk-adventureland-phd5046	dsk-adventureland-phd5046	Adventureland_PHD5046.dsk	570be9e90004617bf398dff5045b7ac11bb6d76220e976e240917044098eae6a		TI-99/4A disk image
+dsk-adventureland-disk-1-side-a	dsk-adventureland-disk-1-side-a	Adventureland - Disk 1, Side A.dsk	a362e6c3155357d6163ed5b2631e781a0f7c0c77298d0295a3f87c272360f888		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
+dsk-adventureland-disk-1-side-a-disk2	dsk-adventureland-disk-1-side-a	Adventureland - Disk 1, Side B.dsk	ba6c4761cc5b84045c8529de4faad7dd0275436b52ac3a60fa689947d22e2812		Apple II DOS 3.3 disk image (.dsk); two-disk set, second disk named
+fiad-nessy	fiad-nessy	nessy.fiad	ec16341eb5fe43c71810397470a451151f2764c0ca607626a44b9051c2302e4e		TI-99/4A FIAD file
+fiad-cave1	fiad-cave1	cave1.fiad	e472ac03fa9708820d404983814f2bc4fec2395f559f6df67e18b1216c37d64f		TI-99/4A FIAD file
+fiad-adv04	fiad-adv04	adv04.fiad	fdfcccefefdf05e734188614e2a5cc1b1df7540d2f76fb98435de01a95acbb99		TI-99/4A FIAD file
+fiad-escape	fiad-escape	escape.fiad	d2141ae1df1e059ef39d64b6eae786a86c0bc2e1ad46f07c522dfbc298e2ab3a		TI-99/4A FIAD file
+fiad-moon	fiad-moon	moon.fiad	a95e68819544b218077dfbda17b75c68237a7e2f1fdb0a2e30c7b4b432f2784d		TI-99/4A FIAD file
+fiad-ironheart	fiad-ironheart	ironheart.fiad	bf4e9df287e692084e8c7344cdcce83877414b6ef3858ff441e02963f4c64508		TI-99/4A FIAD file
+fiad-adv05	fiad-adv05	adv05.fiad	0408c83dfc2c554451c95996b4b486fc3158a9ba9db32cf0c6a225f163084e13		TI-99/4A FIAD file
+fiad-adv07	fiad-adv07	adv07.fiad	68f764d48b941240a1a722c5bb79c80ec62b2f416d0d8d6349f425b10cd1d456		TI-99/4A FIAD file
+fiad-bondo1	fiad-bondo1	bondo1.fiad	780bf6ff1c62afdf59efd5d46490c613973aaf6d35b393552553ea340f583eb8		TI-99/4A FIAD file
+fiad-adv02	fiad-adv02	adv02.fiad	51ad7b942c81da2c95de7e771b450c26152bcecf3f88342e1109eca4e317dd9a		TI-99/4A FIAD file
+fiad-adv09	fiad-adv09	adv09.fiad	4ed9f27e002947e697640d3c80afcd96c61769103ef93afc236afe1c16740bb2		TI-99/4A FIAD file
+fiad-adv06	fiad-adv06	adv06.fiad	61c9dfd4e0909313f444654b8c3155754e9e7e5fcfc1277eb51c062528e50c29		TI-99/4A FIAD file
+fiad-cave2	fiad-cave2	cave2.fiad	a0ff41829cb98c896de016f50b32d942edb3d58df01ce09a6c9dc76af113ec12		TI-99/4A FIAD file
+fiad-travllng	fiad-travllng	travllng.fiad	1e9bca12a224695c7c1e89c649bfcc2441ed37e2107332c58a298bb9cc28826f		TI-99/4A FIAD file
+fiad-adv08	fiad-adv08	adv08.fiad	640dfe16017c6e48e679f86d9e7e5623215bd01a4145ca186d8c2323e3bcd98d		TI-99/4A FIAD file
+fiad-advocado	fiad-advocado	advocado.fiad	8f5a328cf62d7a00e0b8c0f0436b98f52f352231fc8aef1475a9cac0f2072751		TI-99/4A FIAD file
+fiad-adv11	fiad-adv11	adv11.fiad	2e409f6d8511923de88e8e25e13552e182354899f464a882938a5ca6d5325707		TI-99/4A FIAD file
+fiad-adv12	fiad-adv12	adv12.fiad	37b33eb2d703d5684c710f6450a47a3d5b9ce6a5b3ec1e9e76dfb30b86c0526d		TI-99/4A FIAD file
+fiad-comprama	fiad-comprama	comprama.fiad	2b153fca6386a96d548054216346889ab45a4543af9aab217fc00ce19f8c2f43		TI-99/4A FIAD file
+fiad-cannibal	fiad-cannibal	cannibal.fiad	89cd01bfe6a79b969b670495f4442a2f91cfb4b3bcb6e531916b189468e4e06d		TI-99/4A FIAD file
+fiad-gerrys	fiad-gerrys	gerrys.fiad	bcdf609bdc9a39e1c9c0b2cf503524873931b04646ca896d3cfb9932c367cd5a		TI-99/4A FIAD file
+fiad-adv10	fiad-adv10	adv10.fiad	d04de725f564b80e862e38f6c35226e87dc55f2f2717f5340099e34fff69c9f7		TI-99/4A FIAD file
+fiad-adv03	fiad-adv03	adv03.fiad	5a78bdd2dcc78fd46b931f67bda16c66cdfdc095a97787d7b5cdfc52d63d6935		TI-99/4A FIAD file
+fiad-adv01	fiad-adv01	adv01.fiad	87ce6c457eb454f6230aa3a6abf4987e362fdf3c9d04882eea80ecd138e063b3		TI-99/4A FIAD file
+fiad-grayelf	fiad-grayelf	grayelf.fiad	803da9560d83f021cd8bf15b69d160ce1c31448ac2caec27cd2e6cb70af9f668		TI-99/4A FIAD file
+fiad-cap-kidd	fiad-cap-kidd	cap_kidd.fiad	5a85bc2498d1945fe40cebf4337ea91e74c334de293651eed9c501e284dc129d		TI-99/4A FIAD file
+rpk-return-to-pirate-s-isle	rpk-return-to-pirate-s-isle	Return to Pirate's Isle.rpk	ce4c10c667caeb241b6bbce5ea9c349b077465b3870483d81ee36aa7aaf404bc		TI-99/4A .rpk (zip archive)
+sna-adventureland	sna-adventureland	adventureland.sna	b66fc8e7b8a2fa46ca5da63fe624b4e2cf4076ab6b982ae53bd4609b0e1714f0		ZX .sna
+sna-gremlins	sna-gremlins	gremlins.sna	76889af451c3c1a8dccedf9da0a3403bc7ea6dbaec626d06abcf563bef2d211e		ZX .sna
+sna-german	sna-german	german.sna	9b1f1db3d81044bfdaa8a15991931f1a0f076c371f05c6e92a084ac9312cb534		ZX .sna
+sna-spanish	sna-spanish	Spanish.sna	313d540926e608ccafd7f52d38e27e3ec414d8273780c69758b6b15cb0ba6344		ZX .sna
+sna-pirat	sna-pirat	pirat.sna	c2464267073d780c0b2a019a80f7e3f920f75ee05bfd7fceb6bea99b4294cc36		ZX .sna
+sna-hulk	sna-hulk	hulk.sna	a404083425eb8880902df218cf0017ed7bbc96b1f8559765ddb0c5b416067cc8		ZX .sna
+sna-spiderman	sna-spiderman	spiderman.sna	039e684ac8226f5c1ddb47bc6903e48bcd82f1fc1d6b732c8b4e36668daabac1		ZX .sna
+sna-robin	sna-robin	robin.sna	39911dca7d4e8975e2dff706eb50d62c6c4bf70566411a2a8c40f0edae54cb98		ZX .sna
+sna-savage1	sna-savage1	savage1.sna	620f2e3b246f0c63a271d38edf78f2018219813d795d0d4ffbb1c96f5c280922		ZX .sna
+sna-savage2	sna-savage2	savage2.sna	a66b45f31236cf4f4aa254f5f9aff564bd8285a4f94416aa0e696ce7c894d1f4		ZX .sna
+sna-mission	sna-mission	mission.sna	b1583d4eb156b0eab8c74f521bc301657e891e65058fc47ad980e97133109270		ZX .sna
+sna-supergran	sna-supergran	supergran.sna	872fa79a1b2a01fdbedb3e93ec302a0956f7e9b8847c50d78f9763b7b59a3b53		ZX .sna
+sna-myst1	sna-myst1	myst1.sna	85be02472f6be3defd6d9726656b316748f91c37d24ce0e87ee5e7c8d046e04c		ZX .sna
+sna-claymore	sna-claymore	claymore.sna	aeccea43c2e42112d8b112d51bcacffbf8d5a03bf217a79d26ce18c77e8c0351		ZX .sna
+t64-piratea2	t64-piratea2	PIRATEA2.T64	f1a3843ca7f79a4a2abf1a7c016434ea6e249ff4d9b3d96fc41ece06e50d3649		C64 .t64
+t64-savage-island-part-ii-1983-commodore	t64-savage-island-part-ii-1983-commodore	Savage Island - Part II (1983)(Commodore).t64	384a00b1a718c1eaa142a913c5597a16bba9d1d30bc58b9bba29cd2292cd9a8d		C64 .t64
+t64-voodooc2	t64-voodooc2	VOODOOC2.T64	bdff7b638f26d40bf2f9509e1da94086b222966664aa85825d5827c83fcaf418		C64 .t64
+t64-savage-island-part-i-1983-commodore	t64-savage-island-part-i-1983-commodore	Savage Island - Part I (1983)(Commodore).t64	917ede71958da2ee27fc5c5fd36f400bcf0d1dee3a8c59f023c51127a145250e		C64 .t64
+t64-advland	t64-advland	ADVLAND.T64	6b4b6d63dbb6823bb7796bc4bc871ca2b02686ca22e17acbf7027a4e84a08356		C64 .t64
+t64-arrowod1	t64-arrowod1	ARROWOD1.T64	2d003fb3341ef199d7fbd0fe8c6720b90726439bc9740cf0957ea0477377f9c1		C64 .t64
+t64-arrowod2	t64-arrowod2	ARROWOD2.T64	5136f4034de54acbf001cac17eb6b0d824b0c4ca20a1c9fa0320e8496579e3fe		C64 .t64
+t64-circus1	t64-circus1	CIRCUS1.T64	ae0caab2cb9a677d9f19331cefe64953f15d0021900aba57ff780983aff9f6f6		C64 .t64
+t64-escapep7	t64-escapep7	ESCAPEP7.T64	1ab1fd41dd0caf86905ed0fa2b3129d094ad4183fc1858619588419f469e966b		C64 .t64
+t64-feasibil	t64-feasibil	FEASIBIL.T64	2698b92ff36fbe619b615205d398ff8d7ee95e523deb85854327408eee1c7395		C64 .t64
+t64-gremln-d	t64-gremln-d	GREMLN-D.T64	5862be1aeef0eeaa2a1c46c8666c73af643f6dc32b7242763c39b1e936b00063		C64 .t64
+t64-gremlins	t64-gremlins	GREMLINS.T64	88c2eea62ada1f8a69dcbb2dbf95c950586d0b41fd879ac2209fc94acd59bf00		C64 .t64
+t64-perseus	t64-perseus	PERSEUS.T64	a43b537f441f4ebba48590cb5e587d3c52f335e9a4236d4dcd7d11022436b8c0		C64 .t64
+t64-questpr1	t64-questpr1	QUESTPR1.T64	49c126f431f00f8cd9024249ba3b4153c3ddfe5966fdd1720404a6b6f5c346eb		C64 .t64
+t64-questpr2	t64-questpr2	QUESTPR2.T64	eba0154516d14c4f890f33bb128e659618d0f98583dd2b906a3152f98838e72d		C64 .t64
+t64-sherwood	t64-sherwood	SHERWOOD.T64	b857af7e56e1864d224a6a9cd0111df15ad9c19e4511f6d84eed5111288817ca		C64 .t64
+t64-seas-of-blood-we-against-software-pr	t64-seas-of-blood-we-against-software-pr	Seas of Blood [We Against Software Protection + SCI].t64	4751d13dcca9cbb2d866d8ce11325270e30f21a27ace58717e745f34f2b9ac70		C64 .t64
+t64-adventure-3-secret-mission-section-8	t64-adventure-3-secret-mission-section-8	Adventure #3 - Secret Mission [Section 8].t64	3ebbf7d6af35810f5b571261c6899abec85e5b5aaf902b95c7e801cc2a4563ad		C64 .t64
+t64-superadv	t64-superadv	SUPERADV.T64	177f44dca417275fd8431144d10faa1c072f951266599e81ab07295d69c43b84		C64 .t64
+t64-10little	t64-10little	10LITTLE.T64	a143ce4f41ecb5811c1f261c0a4eb3cc87b3337ecf27d8ca8eb41434a41fd750		C64 .t64
+t64-goldenba	t64-goldenba	GOLDENBA.T64	d57f523bced1b84a61ea7f35c462089ee1f98fb4327a593e249e80ef0a16e096		C64 .t64
+t64-sorcclayalt	t64-sorcclayalt	SORCCLAYALT.T64	9498267749fb6490d05c6159b79001de92315980a942e16e0e4b4451f96b7235		C64 .t64
+t64-sorcclay	t64-sorcclay	SORCCLAY.T64	abad40bc12a0ba8662c28ed34ff93154a8e5138059d7d3b48bf2f563c72e15ef		C64 .t64
+t64-timemach	t64-timemach	TIMEMACH.T64	0796446e3ac3ccd84aaf21b566a82dce47f8fb320d5a06e7057e6c54d11d5281		C64 .t64
+t64-wizardoa	t64-wizardoa	WIZARDOA.T64	a6245a52ffdcc1c6d68eeb5f479684a599444bc3fdf8bf8c5b2ee072059e0208		C64 .t64
+t64-waxworks	t64-waxworks	WAXWORKS.T64	d0be54762bbefbbde2f8759f660b3839faae87333730d86277ba8b3cc5d5e1c6		C64 .t64
+tap-s1advlnd	tap-s1advlnd	S1ADVLND.TAP	b0d86fd351a012767199923038142798c5c8517e4e7b2666d3be798e39cd69fd		ZX .tap tape
+tap-arrdead1	tap-arrdead1	ARRDEAD1.TAP	f01801bebb6b6e26d700fe43fc76261cc0384f918fbf406da33a89ee782b8983		ZX .tap tape
+tap-arrdead2	tap-arrdead2	ARRDEAD2.TAP	4170557f5be3e5cda0fed07adbe6ac90fecefc58638198d930c94903451cb54e		ZX .tap tape
+tap-circusa	tap-circusa	CIRCUSA.TAP	80cd1b3030e8804f411a32b5fbcc60b03845db0a7bcf877d06d3f9b2baf41136		ZX .tap tape
+tap-m5pulsar	tap-m5pulsar	M5PULSAR.TAP	07ab36ab2d9fd2fd1874dc825c69abfd922f2cced5a19121bad89643e21c04d5		ZX .tap tape
+tap-gremlins	tap-gremlins	GREMLINS.TAP	bfd5e7da622dcebe2f1001b2053544a6aa149048232fba060909ec779a43c49d		ZX .tap tape
+tap-gremlisp	tap-gremlisp	GREMLISP.TAP	8615b0f8dbdb20733dd15ed5d8af22b581a54b10a873f8edd9ed416a7002a556		ZX .tap tape
+tap-m9perseu	tap-m9perseu	M9PERSEU.TAP	0c52a7155e4a1eacffc73bc54d57402d9c01ef6cdfa7c1dcd88a7365c3fcc800		ZX .tap tape
+tap-hulk1	tap-hulk1	HULK1.TAP	fc405cc62285e9bd3f0d9a47efc140ca63e948c32b31dd888162909b41428dd5		ZX .tap tape
+tap-spidrman	tap-spidrman	SPIDRMAN.TAP	1be6d85848b8c6c9865cbd0fc908e008049baab2a5e309875bdaa57ecb496b61		ZX .tap tape
+tap-sherwodr	tap-sherwodr	SHERWODR.TAP	10205884c12f6ce59422c5e701070f803caa003ac392c428526b0173c78f90d0		ZX .tap tape
+tap-savageis	tap-savageis	SAVAGEIS.TAP	5f2437ce74c9ddc2159563f51e2c1f58bcc248bbd3a0e5958ef89a0edaa6ebe9		ZX .tap tape
+tap-savagei2	tap-savagei2	SAVAGEI2.TAP	bd85095afbd33aaf5118d1c6f0af1f309fbd77e37e9a32b4c47c6f01f5d270f8		ZX .tap tape
+tap-seablood	tap-seablood	SEABLOOD.TAP	835e1b3b8f490720a4033709130ac62c07ec1fc9266b96888ad33c72033820eb		ZX .tap tape
+tap-secretmi	tap-secretmi	SECRETMI.TAP	b35d339f79781494550231692d4755cf103bfcc9471ec109e7e2b89de7c30b46		ZX .tap tape
+tap-claymorg	tap-claymorg	CLAYMORG.TAP	e79efb8a782348b446adca98741c654d9d6f2b9ec4abf3de567b50ce3fe8deb4		ZX .tap tape
+tap-m2tmachi	tap-m2tmachi	M2TMACHI.TAP	f68d8812372e15cbfef33e7d585757f01d283bc30738711b082204c901eac941		ZX .tap tape
+tap-m8akyrtz	tap-m8akyrtz	M8AKYRTZ.TAP	e5b3873b3360e7660cbf5f3f666bf69fdc8ebbfb5674b60dde6d0b057d2d451a		ZX .tap tape
+tap-m11waxwo	tap-m11waxwo	M11WAXWO.TAP	0b0400d96342fc623ed74c98785943b9b209d7e962973314ccb4899f4c18b3a8		ZX .tap tape
+tzx-adventureland	tzx-adventureland	Adventureland.tzx	f219b408bb13fc08984ae7bf0e2b8592d86b6c2fa1d2485a50b317fa4dc308ae		ZX .tzx tape
+tzx-arrow-of-death-part-i	tzx-arrow-of-death-part-i	Arrow Of Death Part I.tzx	b9a29e2f4aa4be7d7b00a28e30f3ff1d59422a5bfc9e868612ac985f23e5a7fe		ZX .tzx tape
+tzx-arrow-of-death-part-i-alternate	tzx-arrow-of-death-part-i-alternate	Arrow Of Death Part I - Alternate.tzx	063265c9d90fea26a59aceb2766ed20589e4600274be517664b267c9ebb9bbf8		ZX .tzx tape
+tzx-arrow-of-death-part-ii-alternate	tzx-arrow-of-death-part-ii-alternate	Arrow Of Death Part II - Alternate.tzx	ca53837d30d9fe9a5ae13a99fba59465540c212a7b29584a555b636894a2430f		ZX .tzx tape
+tzx-arrow-of-death-part-ii	tzx-arrow-of-death-part-ii	Arrow Of Death Part II.tzx	7bfe776f64974dff9848a93325f9469d3dd26ef4e65cf0c34a5ccf1aaca50333		ZX .tzx tape
+tzx-circus	tzx-circus	Circus.tzx	6d878d010da7038ca6f9b536642e021b17902f26bdbf3ec366cebca5aa0b3a4f		ZX .tzx tape
+tzx-escape-from-pulsar-7-alternate-2	tzx-escape-from-pulsar-7-alternate-2	Escape From Pulsar 7 - Alternate #2.tzx	dda0073b6836754efb171fd6a989bc2b4ab951ea89b4dcbaa133188f6b532b5f		ZX .tzx tape
+tzx-escape-from-pulsar-7	tzx-escape-from-pulsar-7	Escape From Pulsar 7.tzx	88816ca7139ddf31cc0759fb3285f6fdc407a7cab9455a6fbd8e6a8312dfae58		ZX .tzx tape
+tzx-feasibility-experiment	tzx-feasibility-experiment	Feasibility Experiment.tzx	aace0221af655b4c5bdebfcc64a4d0d5b9bf911df9b4d5acfbb48ce3e91f3585		ZX .tzx tape
+tzx-gremlins-the-adventure	tzx-gremlins-the-adventure	Gremlins - The Adventure.tzx	eaa0d4078188d8a16f225b3932f4ad2eb8ea1aa42a5ee1b12cc10b0d81a828ef		ZX .tzx tape
+tzx-gremlins-the-adventure-german	tzx-gremlins-the-adventure-german	Gremlins - The Adventure (German).tzx	7963fbf48c9640cf2199498cf042054e1ec4b5c11a00ebfd4e1e3a5ab67544a4		ZX .tzx tape
+tzx-gremlins-side-1-erbe	tzx-gremlins-side-1-erbe	Gremlins - Side 1 (Erbe).tzx	3f06d398635a4c699447f12b3197fdd5bf1aa6413edc19b0c730922ee94468bc		ZX .tzx tape
+tzx-gremlins-the-adventure-alternate	tzx-gremlins-the-adventure-alternate	Gremlins The Adventure - Alternate.tzx	3a1b1dcbba4fd8a787336319408a28e654f6f7585b9e9bd71d75e4c674ad61b0		ZX .tzx tape
+tzx-perseus-and-andromeda	tzx-perseus-and-andromeda	Perseus And Andromeda.tzx	b1b93d59d1665ddd2f9b9bb628a68bfb805d68be853c3f8612025ee87b16661d		ZX .tzx tape
+tzx-antica-grecia	tzx-antica-grecia	antica_grecia.tzx	d8a54110ef64bc67a7c22a72cc66fbfacb27198bbfa75204535bbd32d27536b9		ZX .tzx tape
+tzx-scott-adams-scoops-1987-u-s-gold-1	tzx-scott-adams-scoops-1987-u-s-gold	Scott Adams Scoops (1987)(U.S. Gold).tzx	e6cb22f13fc8e5c463ca67abbb7b1421ba779be93305a4c2f0f9765a225446b8	1	ZX .tzx tape; menu choice 1 (Pirate Adventure)
+tzx-scott-adams-scoops-1987-u-s-gold-2	tzx-scott-adams-scoops-1987-u-s-gold	Scott Adams Scoops (1987)(U.S. Gold).tzx	e6cb22f13fc8e5c463ca67abbb7b1421ba779be93305a4c2f0f9765a225446b8	2	ZX .tzx tape; menu choice 2 (Voodoo Castle)
+tzx-scott-adams-scoops-1987-u-s-gold-3	tzx-scott-adams-scoops-1987-u-s-gold	Scott Adams Scoops (1987)(U.S. Gold).tzx	e6cb22f13fc8e5c463ca67abbb7b1421ba779be93305a4c2f0f9765a225446b8	3	ZX .tzx tape; menu choice 3 (Strange Odyssey)
+tzx-scott-adams-scoops-1987-u-s-gold-4	tzx-scott-adams-scoops-1987-u-s-gold	Scott Adams Scoops (1987)(U.S. Gold).tzx	e6cb22f13fc8e5c463ca67abbb7b1421ba779be93305a4c2f0f9765a225446b8	4	ZX .tzx tape; menu choice 4 (Buckaroo Banzai)
+tzx-questprobe-1-the-hulk	tzx-questprobe-1-the-hulk	Questprobe 1 - The Hulk.tzx	c725274f6e12b8f8e3ad511a7eae7ac8328ae8e18beeed6318291fd1f5e31738		ZX .tzx tape
+tzx-questprobe-2-spiderman	tzx-questprobe-2-spiderman	Questprobe 2 - Spiderman.tzx	ca493215ea58955693bd894e79310a16102bc819cc066b399ca8e00d7b683806		ZX .tzx tape
+tzx-robin-of-sherwood-alternate	tzx-robin-of-sherwood-alternate	Robin Of Sherwood - Alternate.tzx	d158c344e1c8dde8ac75015e9cfeb1e392246750034135bbc4223037f959156e		ZX .tzx tape
+tzx-robin-of-sherwood	tzx-robin-of-sherwood	Robin Of Sherwood.tzx	d0317cfd7e7b048f6ab8c464d1b2b988eaf5c7881f9e02b70b3cc187285640a2		ZX .tzx tape
+tzx-savage-island	tzx-savage-island	Savage Island.tzx	33ff8eb2ebf82726edbb6bbafcf963ef32278724336e12adfabc85573601d6ae		ZX .tzx tape
+tzx-savage-island-part-2	tzx-savage-island-part-2	Savage Island Part 2.tzx	c0879e906f8c9b7ae83d2e0e181b722bcb396a009d59121e9d975305b5a88df4		ZX .tzx tape
+tzx-seas-of-blood	tzx-seas-of-blood	Seas Of Blood.tzx	ae58ce321646776c65bb58b14c8367fdbeb0e885babd6bd13185baee755b03b9		ZX .tzx tape
+tzx-ten-little-indians	tzx-ten-little-indians	Ten Little Indians.tzx	c0145ddb5baee61637ec3590a141c17ddc96d6594ee5ee5fe7bf51945450e3cc		ZX .tzx tape
+tzx-golden-baton	tzx-golden-baton	Golden Baton.tzx	85112b4098ffb465dba07f565f7a89f2155945d858abdef4b50f687177a32dbf		ZX .tzx tape
+tzx-sorcerer-of-claymorgue-castle	tzx-sorcerer-of-claymorgue-castle	Sorcerer Of Claymorgue Castle.tzx	63c440245fdb23119ac53b20137f1c4f35bfc1585c42f1f31c64cea0c5ea1966		ZX .tzx tape
+tzx-the-time-machine	tzx-the-time-machine	The Time Machine.tzx	96945da33865658f03c04e69175dc5a562359d37f9adaaf4292ee23de58de846		ZX .tzx tape
+tzx-wizard-of-akyrz	tzx-wizard-of-akyrz	Wizard Of Akyrz.tzx	153080af8685514780af9a8653d5cae8e93fe452fc2d6e6dc1a4d2bf72b5bcf8		ZX .tzx tape
+tzx-waxworks	tzx-waxworks	Waxworks.tzx	cdf156e874c55dc5646d5b92937aca9e79d66d071417831260894cac05911c05		ZX .tzx tape
+woz-scott-adams-graphic-adventure-5-the	woz-scott-adams-graphic-adventure-5-the	Scott_Adams_Graphic_Adventure_5_The_Count_v2.1-115_1982_Adventure_International_Disk_2_of_2_boot.woz	123ef6cdce55bf2d4c3230f1527ba995428df1cb4fb6f5d779dac4a1cffb3e53		Apple II .woz (WOZ1)
+woz-s-a-g-a-5-the-count-side-a	woz-s-a-g-a-5-the-count-side-a	S.A.G.A. 5 - The Count side A.woz	d46bf2f461115b646b95d3bbe610aa55db72ef9c170cbd7641efd1def60731d4		Apple II .woz (WOZ2); two-disk set, first disk named
+woz-s-a-g-a-5-the-count-side-a-disk2	woz-s-a-g-a-5-the-count-side-a	S.A.G.A. 5 - The Count side B (boot).woz	27bf6736f5101be20d34190b6aedf125aa7f4835f0f90d8334629d9c73620937		Apple II .woz (WOZ2); two-disk set, second disk named
+woz-scott-adams-graphic-adventure-6-stra	woz-scott-adams-graphic-adventure-6-stra	Scott_Adams_Graphic_Adventure_6_Strange_Odyssey_1982_Adventure_International_Disk_2_of_2_boot.woz	134b50dab8d8f39104d7b7c6a635f911881565dddb231ff27e72234e210684ba		Apple II .woz (WOZ1)
+woz-s-a-g-a-6-strange-odyssey-side-a	woz-s-a-g-a-6-strange-odyssey-side-a	S.A.G.A. 6 - Strange Odyssey side A.woz	269d6f7f92f96aa614fe9cc0bd7f4a05490cb7244f30abafcf3eca7ffbd2753a		Apple II .woz (WOZ2); two-disk set, first disk named
+woz-s-a-g-a-6-strange-odyssey-side-a-disk2	woz-s-a-g-a-6-strange-odyssey-side-a	S.A.G.A. 6 - Strange Odyssey side B (boot).woz	3672928d0656edcf288e1dc31a17c24ba156fc9d594119a58b07f5dacd00da71		Apple II .woz (WOZ2); two-disk set, second disk named
+woz-questprobe-featuring-the-hulk-side-a	woz-questprobe-featuring-the-hulk-side-a	Questprobe featuring The Hulk side A.woz	8e3a935d6404b0fa644e9d68cca8d4b983666a4b18d9bfc5211511d4161bf93b		Apple II .woz (WOZ2); two-disk set, first disk named
+woz-questprobe-featuring-the-hulk-side-a-disk2	woz-questprobe-featuring-the-hulk-side-a	Questprobe featuring The Hulk side B (boot).woz	c60f5fa8735158d0e6cc93a5d16d9c7a8592d6ca9e65874bcd68c9f98b4788d1		Apple II .woz (WOZ2); two-disk set, second disk named
+woz-saga-2-pirate-adventure-v2-1-408-198	woz-saga-2-pirate-adventure-v2-1-408-198	SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz	720f35e662c3c07c2651edd16b0c71d7b764660e720aa35b40bde94515d0353b		Apple II .woz (WOZ2); two-disk set, first disk named
+woz-saga-2-pirate-adventure-v2-1-408-198-disk2	woz-saga-2-pirate-adventure-v2-1-408-198	SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz	358097ae29fc2a6fa90ff3134fbc70281841f5cda70dacce6ebe1ba3e2f672b4		Apple II .woz (WOZ2); two-disk set, second disk named
+woz-s-a-g-a-13-sorcerer-of-claymorgue-ca	woz-s-a-g-a-13-sorcerer-of-claymorgue-ca	S.A.G.A. 13 - Sorcerer of Claymorgue Castle side A.woz	2c5c17bf172779056969e698dccd25764d475704a8fd558b7a37d76d3eb1b9c2		Apple II .woz (WOZ2); two-disk set, first disk named
+woz-s-a-g-a-13-sorcerer-of-claymorgue-ca-disk2	woz-s-a-g-a-13-sorcerer-of-claymorgue-ca	S.A.G.A. 13 - Sorcerer of Claymorgue Castle side B (boot).woz	977782c9e97d0255f9b4fb02ca0c76510ad3092ad7ea26c8a8167d84874711b0		Apple II .woz (WOZ2); two-disk set, second disk named
+woz-s-a-g-a-4-voodoo-castle-side-a	woz-s-a-g-a-4-voodoo-castle-side-a	S.A.G.A. 4 - Voodoo Castle side A.woz	f6f8a0c9a950335e02e7b21910fcd57a1111853024c06425ab3754dc3520bb41		Apple II .woz (WOZ2); two-disk set, first disk named
+woz-s-a-g-a-4-voodoo-castle-side-a-disk2	woz-s-a-g-a-4-voodoo-castle-side-a	S.A.G.A. 4 - Voodoo Castle side B (boot).woz	24e433c14b173595861fbd0fe3d63155b6a0c8e67694c5f73cb599cdc9bd9e26		Apple II .woz (WOZ2); two-disk set, second disk named
+woz-s-a-g-a-3-mission-impossible-side-a	woz-s-a-g-a-3-mission-impossible-side-a	S.A.G.A. 3 - Mission Impossible side A.woz	cd9ccb07e9cbc736be7c9a1a9fc1b6d6456022f74aaf40d4d2433d73f8576338		Apple II .woz (WOZ2); two-disk set, first disk named
+woz-s-a-g-a-3-mission-impossible-side-a-disk2	woz-s-a-g-a-3-mission-impossible-side-a	S.A.G.A. 3 - Mission Impossible side B (boot).woz	bf8fbc6c59dd41e2b06e7bd21aea7a859640f0d64cf829f70fdc44680164b6ae		Apple II .woz (WOZ2); two-disk set, second disk named
+woz-adventureland-disk-1-side-a	woz-adventureland-disk-1-side-a	Adventureland - Disk 1, Side A.woz	ce35e92f62870adc34d9520d7d62f28dd350f0169f7be61afdc4037bb3c223bd		Apple II .woz (WOZ2); two-disk set, first disk named
+woz-adventureland-disk-1-side-a-disk2	woz-adventureland-disk-1-side-a	Adventureland - Disk 1, Side B.woz	69a4a684199aa9836693e4ad27d5b29e2f1749af7e1ff70cbf1c3ca9dc36ebdf		Apple II .woz (WOZ2); two-disk set, second disk named
+z80-adventure-number-01-adventureland-19	z80-adventure-number-01-adventureland-19	Adventure_Number_01_Adventureland_1985_Adventure_International.z80	1b62c378255f7b875b7b0d50e2162be64f7fc68dcc25d273ad745e9668c39f35		ZX .z80 v1 compressed
+z80-s1advlnd	z80-s1advlnd	S1advlnd.z80	933f9a196455459353d79f3bdc475b1acd35c7492028629e47813f625d7fcb59		ZX .z80 v2
+z80-mysterious-adventures-no-02-arrow-of	z80-mysterious-adventures-no-02-arrow-of	Mysterious_Adventures_No._02_Arrow_of_Death_Part_1_1983_Channel_8_Software_a.z80	77e57884a8571884b8f63dfc7c7cb5fb8e41a621952a37519ad32a4c922ce831		ZX .z80 v3
+z80-m3arrow1	z80-m3arrow1	m3arrow1.z80	0f1562ba1f87c44a63028e91688f55f7e453ba129d1c7e051913a74d18249bbf		ZX .z80 v1 compressed
+z80-mysterious-adventures-no-03-arrow-of	z80-mysterious-adventures-no-03-arrow-of	Mysterious_Adventures_No._03_Arrow_of_Death_Part_2_1983_Channel_8_Software_a.z80	889bb16d4854a32c344cd026b6e717e92ababc6b20227ac5d84b1d69c4e37dcc		ZX .z80 v1 compressed
+z80-m4arrow2	z80-m4arrow2	m4arrow2.z80	48bcbae098b9f09732abee0d1282642c87825742a9854b4141d5088a2362a1ec		ZX .z80 v2
+z80-bkroobnz	z80-bkroobnz	BKROOBNZ.Z80	cd904b316423fe03c131e11cc9600df3fcfda429adcec83dc2b6699e38ce2da7		ZX .z80 v1 compressed
+z80-buckaroo-banzai-1987-adventure-inter	z80-buckaroo-banzai-1987-adventure-inter	Buckaroo_Banzai_1987_Adventure_International_cr_Parsec.z80	a1c0e8842a14ff3cfaafe233050eb11f5c6d0c02881d2169ace7013b93710810		ZX .z80 v2
+z80-circus	z80-circus	Circus.z80	d549242483fc49023f2e0a98ef7af42618923767bf4dd83522990ba9ded01c5d		ZX .z80 v1 compressed
+z80-mysterious-adventures-no-04-escape-f	z80-mysterious-adventures-no-04-escape-f	Mysterious_Adventures_No._04_Escape_from_Pulsar_7_1983_Channel_8_Software_a2.z80	88828282c752994499914b78a953949d207b69192b583777884994cb32513f8e		ZX .z80 v1 compressed
+z80-m5pulsar	z80-m5pulsar	m5pulsar.z80	9e6c60da54ab7ac0165b71f7f1bcf3db88b0e41a3b48b3a086eec3adb14c397b		ZX .z80 v1 compressed
+z80-m7feasib	z80-m7feasib	m7feasib.z80	d4b82b9d6dbaea17d2ff0a94a3a8637fad2db008ea18fb4633b8e54f0098c44c		ZX .z80 v2
+z80-gremlins	z80-gremlins	gremlins.z80	a26996adb3153ceb61e4355808a8812dad1a4dd961fee450fba8cf1af896950f		ZX .z80 v3
+z80-gremlins-the-adventure-1985-erbe-sof	z80-gremlins-the-adventure-1985-erbe-sof	Gremlins_The_Adventure_1985_Erbe_Software_es_re_release.z80	405f012c26955ad68c6e241b4dc9530a8cea81cc156132aecdceeebff63112e6		ZX .z80 v1 compressed
+z80-gremlins-the-adventure-1985-adventur	z80-gremlins-the-adventure-1985-adventur	Gremlins_The_Adventure_1985_Adventure_International_a.z80	901033f8e54f19ba617e399fbbe3d9709dd2501fc669e689ecd5384b7fdef79b		ZX .z80 v1 compressed
+z80-mysterious-adventures-no-09-perseus	z80-mysterious-adventures-no-09-perseus	Mysterious_Adventures_No._09_Perseus_and_Andromeda_1983_Channel_8_Software_a.z80	48b449e121daa99863a0e39ce870e2db67a01ad31d2e41ce9fae2d0ef5c231ab		ZX .z80 v2
+z80-m9perseu	z80-m9perseu	m9perseu.z80	9abe65d7654ad574be9b8affcdd98aa62a9c568573cfa9416d881dc40a342427		ZX .z80 v2
+z80-piratead	z80-piratead	PIRATEAD.Z80	b9bef7426b08daa10e9edfb92b0ce33d40809c2afb10d5c9a5a0922967e19b84		ZX .z80 v2
+z80-adventure-number-02-pirate-adventure	z80-adventure-number-02-pirate-adventure	Adventure_Number_02_Pirate_Adventure_1985_Adventure_International_cr_Parsec.z80	5618677f2e0d92af260e051d596fc59c701a3440e63c22c86f38f215116da6bd		ZX .z80 v2
+z80-hulk	z80-hulk	hulk.z80	d87d66d7b5d260304abfb1819cec813677fe367ac0958a94f1eb97a9958c916d		ZX .z80 v3
+z80-questprobe-2-spider-man-1984-adventu	z80-questprobe-2-spider-man-1984-adventu	Questprobe_2_Spider_Man_1984_Adventure_International_a.z80	1d7ccc5aef5ba6ef8f4f489e2d75edd1c0bcd0c33ce72ae25a2b4d4e14ef54d7		ZX .z80 v1 compressed
+z80-q2spider	z80-q2spider	Q2spider.z80	9d200aa8a924381dd50e31f1b309c0817fd7038e00908b228e19579284c1c40a		ZX .z80 v1 compressed
+z80-robin-of-sherwood-the-touchstones-of	z80-robin-of-sherwood-the-touchstones-of	Robin_of_Sherwood_The_Touchstones_of_Rhiannon_1985_Adventure_International_a.z80	634171aa0c9882e4a2e4960cab316b6bf24bea7b6bddb1683172fd342f942818		ZX .z80 v1 compressed
+z80-sherwood	z80-sherwood	sherwood.z80	0939f2ebe4a4ac52ed302c81259eeaea29f2d12e88d25920aba925ab70f5e249		ZX .z80 v1 compressed
+z80-s10savage1	z80-s10savage1	S10savage1.z80	6126b1a0fdba56fe795587b14d973aeeb55e2a1018cf1c7ced1ede785aa28567		ZX .z80 v3
+z80-seas-of-blood-1985-adventure-interna	z80-seas-of-blood-1985-adventure-interna	Seas_of_Blood_1985_Adventure_International_a2.z80	389e3fca232d8a0bbf735bd39e4e5ed58151d84e84d637a9db0211c9e4ce9020		ZX .z80 v3
+z80-seablood	z80-seablood	seablood.z80	9d97e3bc2dfcce6e8113c5e5317cf37c5ea4e002cddb147e0b00bf5b904e7a63		ZX .z80 v2
+z80-s3missio	z80-s3missio	S3missio.z80	1bd4c6c38289919ba5b6bae328956e5b9bb0c5fc848856558da21c70d83b115a		ZX .z80 v2
+z80-strangeo	z80-strangeo	STRANGEO.Z80	6b9c2a15b97be427bed200710d8bb6306f7869d90398cf046214ccc328a29245		ZX .z80 v2
+z80-adventure-number-06-strange-odyssey	z80-adventure-number-06-strange-odyssey	Adventure_Number_06_Strange_Odyssey_1985_Adventure_International_a.z80	563efb0891f09a94e816cda7de8278c2baca603c20daea70eedb52f0b54bb104		ZX .z80 v2
+z80-supergra	z80-supergra	supergra.z80	dabc81fdb3d85cdbf0ea68c50c74b328bf7271eb5ea1d5da5a1e73ef59191536		ZX .z80 v2
+z80-mysterious-adventures-no-10-ten-litt	z80-mysterious-adventures-no-10-ten-litt	Mysterious_Adventures_No._10_Ten_Little_Indians_1983_Channel_8_Software_a.z80	8e3dcf9dc6b03ac489a3d9a56255db8b01ed8f27a4241d7eebc7ef498e77e864		ZX .z80 v1 compressed
+z80-m10india	z80-m10india	M10INDIA.Z80	d15f5b872d66aaa0d49572f240bb9115379859b654a38be6a91ac00a196863ed		ZX .z80 v2
+z80-mysterious-adventures-no-01-golden-b	z80-mysterious-adventures-no-01-golden-b	Mysterious_Adventures_No._01_Golden_Baton_1983_Channel_8_Software_a.z80	c304100c54e033c6b982563c5e214facc85208170efe37626513bdf95b2465ca		ZX .z80 v1 compressed
+z80-m1goldba	z80-m1goldba	m1goldba.z80	b115bc6645b672d74d183058e0779f430d8c30dc9e74093282876bbc9a3cc567		ZX .z80 v2
+z80-s13claym	z80-s13claym	S13claym.z80	c3f1367ad3403b28c439dce501a58d4b7e26d6bc25bbb6bdb283f7ddbc38b957		ZX .z80 v2
+z80-m2tmachi	z80-m2tmachi	m2tmachi.z80	938156ac680129b08b4f01d3c9d2cd5fd52bcbe759d8e4268dfd77e23b6da101		ZX .z80 v1 compressed
+z80-m8akyrtz	z80-m8akyrtz	m8akyrtz.z80	669ace0cc60a90869b75a4bec5f40265dee200bcd1d55d6c663c987e2149f6cc		ZX .z80 v2
+z80-voodoo-c	z80-voodoo-c	VOODOO_C.Z80	c63808967177c4ba80c84838d882967bdaf1c94c5a1c1235296cc03959678e8f		ZX .z80 v2
+z80-adventure-number-04-voodoo-castle-19	z80-adventure-number-04-voodoo-castle-19	Adventure_Number_04_Voodoo_Castle_1985_Adventure_International_a2.z80	c6bea394e0b8f48a1d1a732f8a18738cba7ed8aecaa182203e5bfb197ec02481		ZX .z80 v2
+z80-m11waxwo	z80-m11waxwo	m11waxwo.z80	8e989f1ac73a3e45a173ed0bbca7613fae5c81329c58bf24d6ddf82f27052271		ZX .z80 v2
+zip-return-to-pirate-s-isle-rpk-copy-2	zip-return-to-pirate-s-isle-rpk-copy-2	Return to Pirate's Isle.rpk copy 2.zip	ce4c10c667caeb241b6bbce5ea9c349b077465b3870483d81ee36aa7aaf404bc		TI-99/4A cartridge in a .zip
+d64-scott-adams-adventure-pack-1	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	1	C64 .d64; menu choice 1 (Adventureland)
+d64-scott-adams-adventure-pack-2	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	2	C64 .d64; menu choice 2 (Pirate Adventure)
+d64-scott-adams-adventure-pack-3	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	3	C64 .d64; menu choice 3 (Mission Impossible)
+d64-scott-adams-adventure-pack-4	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	4	C64 .d64; menu choice 4 (Voodoo Castle)
+d64-scott-adams-adventure-pack-5	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	5	C64 .d64; menu choice 5 (The Count)
+d64-scott-adams-adventure-pack-6	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	6	C64 .d64; menu choice 6 (Strange Odyssey)
+d64-scott-adams-adventure-pack-7	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	7	C64 .d64; menu choice 7 (Fun House)
+d64-scott-adams-adventure-pack-8	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	8	C64 .d64; menu choice 8 (Pyramid of Doom)
+d64-scott-adams-adventure-pack-9	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	9	C64 .d64; menu choice 9 (Ghost Town)
+d64-scott-adams-adventure-pack-a	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	A	C64 .d64; menu choice A (Savage Island)
+d64-scott-adams-adventure-pack-b	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	B	C64 .d64; menu choice B (Savage Island Part 2)
+d64-scott-adams-adventure-pack-c	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	C	C64 .d64; menu choice C (The Golden Voyage)

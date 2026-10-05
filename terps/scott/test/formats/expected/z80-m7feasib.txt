@@ -1,0 +1,13 @@
+game       Feasibility Experiment
+variant    sys=unknown type=old-style subtype=2
+header     items=65 actions=164 words=82 rooms=59 maxcarry=5 start=10 treasures=10 wordlen=4 light=200 messages=65 treasureroom=54
+picture    width=255 height=95
+rooms        60 9a4ff2f4
+items        66 155d5ac4
+verbs        83 b2fc0d1b
+nouns        83 2c14e90d
+messages     66 e3f1b665
+actions     165 2d615143
+sysmess      71 630055e7
+zxscreen   6912 57ba52c7
+lineimages   60 160e9ab6

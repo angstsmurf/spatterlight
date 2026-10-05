@@ -1,0 +1,12 @@
+game       Waxworks C64
+variant    sys=unknown type=none subtype=11
+header     items=57 actions=189 words=105 rooms=41 maxcarry=6 start=1 treasures=0 wordlen=4 light=250 messages=91 treasureroom=0
+picture    width=255 height=95
+rooms        42 92d2d30a
+items        58 38671558
+verbs       106 64da29e6
+nouns       106 5006a02d
+messages     92 d4a53cd4
+actions     190 ec270671
+sysmess      71 b219cd98
+lineimages   42 21150817

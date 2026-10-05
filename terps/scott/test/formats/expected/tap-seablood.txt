@@ -1,0 +1,14 @@
+game       Seas of Blood
+variant    sys=unknown type=seas-of-blood subtype=1
+header     items=125 actions=344 words=134 rooms=83 maxcarry=10 start=1 treasures=0 wordlen=4 light=-1 messages=99 treasureroom=0
+picture    width=255 height=96
+rooms        84 3350ea67
+items       126 30ee6f3e
+verbs       135 2d789f39
+nouns       135 78e03b55
+messages    100 23864c99
+actions     345 13d711ba
+sysmess      71 4635c87a
+zxscreen   6912 c52fbc9b
+irmak       139 0e805e49 version=4
+tiles       256 21ad6e1a

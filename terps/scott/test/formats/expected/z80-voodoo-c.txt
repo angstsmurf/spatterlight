@@ -1,0 +1,11 @@
+game       Voodoo Castle
+variant    sys=unknown type=old-style subtype=1
+header     items=65 actions=189 words=89 rooms=25 maxcarry=9 start=1 treasures=0 wordlen=3 light=15000 messages=99 treasureroom=0
+picture    width=255 height=96
+rooms        26 1b2719b9
+items        66 2e98a429
+verbs        90 407b1e79
+nouns        90 de787a74
+messages    100 8e1b69a2
+actions     190 dd0cc3b0
+sysmess      71 f00fe0e0

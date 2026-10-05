@@ -1,0 +1,11 @@
+game       -
+variant    sys=apple2 type=us subtype=0
+header     items=55 actions=223 words=79 rooms=35 maxcarry=6 start=1 treasures=5 wordlen=4 light=10000 messages=94 treasureroom=22
+picture    width=560 height=320
+rooms        36 108bde03
+items        56 b03b1d79
+verbs        80 c52c6443
+nouns        80 832ed85f
+messages     95 3aa1e787
+actions     224 cc1915e7
+sysmess      71 b649edd3

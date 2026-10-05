@@ -1,0 +1,13 @@
+game       Perseus and Andromeda
+variant    sys=unknown type=old-style subtype=2
+header     items=60 actions=178 words=130 rooms=40 maxcarry=6 start=1 treasures=0 wordlen=4 light=200 messages=96 treasureroom=0
+picture    width=255 height=95
+rooms        41 4c40a661
+items        61 0fc65c9f
+verbs       131 666df88e
+nouns       131 e96ddbb7
+messages     97 8f25ad00
+actions     179 ed01e9e8
+sysmess      71 630055e7
+zxscreen   6912 e79102ef
+lineimages   41 1e9a7f68

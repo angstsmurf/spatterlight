@@ -1,0 +1,13 @@
+game       Arrow of Death part 2
+variant    sys=unknown type=old-style subtype=2
+header     items=91 actions=190 words=83 rooms=65 maxcarry=9 start=1 treasures=0 wordlen=4 light=400 messages=87 treasureroom=0
+picture    width=255 height=95
+rooms        66 60213925
+items        92 848e1ee3
+verbs        84 6b79b18f
+nouns        84 14ca9526
+messages     88 dc3d10ca
+actions     191 a5bc33a4
+sysmess      71 630055e7
+zxscreen   6912 6d6ffc34
+lineimages   66 a5603e8c

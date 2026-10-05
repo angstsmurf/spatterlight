@@ -1,0 +1,14 @@
+game       Gremlins
+variant    sys=unknown type=gremlins subtype=1
+header     items=99 actions=236 words=126 rooms=42 maxcarry=6 start=1 treasures=0 wordlen=4 light=-1 messages=98 treasureroom=0
+picture    width=255 height=96
+rooms        43 7d9cc6d2
+items       100 8f8ba6b7
+verbs       127 e5ae0ef2
+nouns       127 6875d8c9
+messages     99 33f5a040
+actions     237 a04b2fc2
+sysmess      71 c725a97e
+zxscreen   6912 a2df80b3
+irmak        78 4a2fc1f1 version=3
+tiles       256 5df36442

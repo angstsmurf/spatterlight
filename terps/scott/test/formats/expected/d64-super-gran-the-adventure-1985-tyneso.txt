@@ -1,0 +1,13 @@
+game       Supergran C64
+variant    sys=unknown type=none subtype=9
+header     items=85 actions=204 words=105 rooms=39 maxcarry=6 start=1 treasures=0 wordlen=4 light=-1 messages=99 treasureroom=0
+picture    width=255 height=96
+rooms        40 65c60425
+items        86 8501af58
+verbs       106 4cf9900d
+nouns       106 ff2d1b85
+messages    100 7e713a8d
+actions     205 3b6febaf
+sysmess      71 5c911c42
+irmak        49 e368212a version=3
+tiles       256 de1f4ae4

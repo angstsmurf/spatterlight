@@ -1,0 +1,13 @@
+game       Questprobe 1: The Hulk C64
+variant    sys=unknown type=none subtype=1
+header     items=54 actions=261 words=128 rooms=20 maxcarry=10 start=1 treasures=17 wordlen=4 light=150 messages=99 treasureroom=16
+picture    width=255 height=96
+rooms        21 a7d96240
+items        55 044dca5c
+verbs       129 6affe7e2
+nouns       129 dc3568ee
+messages    100 c6106965
+actions     262 d50e8af0
+sysmess      71 9e6466c8
+irmak        43 78be69c8 version=0
+tiles       256 b9f9fd8a

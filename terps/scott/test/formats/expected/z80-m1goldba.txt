@@ -1,0 +1,13 @@
+game       The Golden Baton
+variant    sys=unknown type=old-style subtype=2
+header     items=48 actions=171 words=76 rooms=31 maxcarry=5 start=1 treasures=0 wordlen=4 light=200 messages=99 treasureroom=0
+picture    width=255 height=95
+rooms        32 85857207
+items        49 2e682606
+verbs        77 fc548bf7
+nouns        77 ce2b8195
+messages    100 556eec5d
+actions     172 712d9915
+sysmess      71 630055e7
+zxscreen   6912 e79102ef
+lineimages   32 61dd759e

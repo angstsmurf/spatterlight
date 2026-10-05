@@ -1,0 +1,12 @@
+game       Ten Little Indians
+variant    sys=unknown type=old-style subtype=2
+header     items=73 actions=161 words=85 rooms=63 maxcarry=5 start=61 treasures=0 wordlen=4 light=500 messages=67 treasureroom=0
+picture    width=255 height=95
+rooms        64 1f3b610e
+items        74 4ba357da
+verbs        86 74702b80
+nouns        86 4fa1ea44
+messages     68 d7b696aa
+actions     162 0bec5541
+sysmess      71 630055e7
+lineimages   64 256669c8

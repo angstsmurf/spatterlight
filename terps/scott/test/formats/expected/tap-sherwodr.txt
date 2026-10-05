@@ -1,0 +1,14 @@
+game       Robin of Sherwood
+variant    sys=unknown type=sherwood subtype=1
+header     items=87 actions=295 words=114 rooms=93 maxcarry=10 start=1 treasures=0 wordlen=4 light=-1 messages=98 treasureroom=0
+picture    width=255 height=96
+rooms        94 24551d5e
+items        88 e47cf2a8
+verbs       115 9f0053fb
+nouns       115 2da23f68
+messages     99 4029faa2
+actions     296 dcdfedd0
+sysmess      71 ff1743ab
+zxscreen   6912 0f9cc45c
+irmak        83 f51e8329 version=4
+tiles       256 de6049ab
