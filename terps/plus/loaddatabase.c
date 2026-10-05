@@ -764,6 +764,30 @@ static uint8_t ReadNum(FILE *f)
     return num;
 }
 
+#define MAX_CONDITION_ARGS 1024
+
+/* Append one condition to an action's condition list. Each condition is a
+   16-bit value: the lower 15 bits encode a 5-bit condition opcode and a
+   10-bit argument, stored as a condition/argument pair. The high bit
+   signals the last condition in the chain; returns nonzero for that one. */
+static int AddCondition(uint16_t raw, uint16_t *conditions, int *condargs)
+{
+    if (*condargs + 2 > MAX_CONDITION_ARGS)
+        Fatal("Broken database!");
+    conditions[(*condargs)++] = raw & 0x1f;
+    conditions[(*condargs)++] = (raw >> 5) & 0x3ff;
+    return raw & 0x8000;
+}
+
+/* Copy the condition list built by AddCondition() into the action,
+   terminated by a 255 sentinel. */
+static void SetActionConditions(Action *ap, const uint16_t *conditions, int condargs)
+{
+    ap->Conditions = MemAlloc((condargs + 1) * sizeof(uint16_t));
+    memcpy(ap->Conditions, conditions, condargs * sizeof(uint16_t));
+    ap->Conditions[condargs] = 255;
+}
+
 /* Reads a single action entry from the plaintext database.
    The first byte encodes two 4-bit fields: the high nibble is the number of
    extra word parameters, and the low nibble is the command byte count.
@@ -790,25 +814,16 @@ static void ReadAction(FILE *f, Action *ap)
         ap->Words[i] = ReadNum(f);
     }
 
-    /* Read conditions: each is a big-endian 16-bit value where the high bit
-       signals the last condition in the chain. The lower 15 bits encode
-       a 5-bit condition opcode and a 10-bit argument. Stored as alternating
-       condition/argument pairs, terminated by a 255 sentinel. */
-    uint16_t conditions[1024];
+    /* Read conditions: each is a big-endian 16-bit value, written as
+       two numbers */
+    uint16_t conditions[MAX_CONDITION_ARGS];
     int condargs = 0;
     for (;;) {
         uint16_t raw = ReadNum(f) * 256 + ReadNum(f);
-        int last = raw & 0x8000;
-        if (condargs + 2 > 1024)
-            Fatal("Broken database!");
-        conditions[condargs++] = raw & 0x1f;
-        conditions[condargs++] = (raw >> 5) & 0x3ff;
-        if (last)
+        if (AddCondition(raw, conditions, &condargs))
             break;
     }
-    ap->Conditions = MemAlloc((condargs + 1) * sizeof(uint16_t));
-    memcpy(ap->Conditions, conditions, condargs * sizeof(uint16_t));
-    ap->Conditions[condargs] = 255;
+    SetActionConditions(ap, conditions, condargs);
 
     /* Read command bytes directly into a heap allocation */
     int cmdlen = ap->CommandLength + 1;
@@ -839,6 +854,32 @@ static void PrintHeaderInfo(const Header h)
     debug_print("Unknown1 =\t%d\n", h.Unknown1);
     debug_print("Number of object images =\t%d\n", h.NumObjImg);
     debug_print("Unknown3 =\t%d\n", h.Unknown2);
+}
+
+/* Set the counters and flags that mirror header values, and put the
+   player in the start room. */
+static void SetCountersFromHeader(void)
+{
+    Counters[43] = GameHeader.NumItems;
+    MyLoc = GameHeader.PlayerRoom;
+    Counters[35] = GameHeader.NumRooms;
+    Counters[34] = GameHeader.TreasureRoom;
+    Counters[42] = GameHeader.MaxCarry;
+    SetBit(GRAPHICSBIT); // Graphics on
+}
+
+/* Look up each room's description text: Exits[6] holds a message index
+   offset by 76, or 0 for no description. Call after loading Messages. */
+static void SetRoomDescriptions(int loud)
+{
+    for (int i = 0; i <= GameHeader.NumRooms; i++) {
+        if (Rooms[i].Exits[6] == 0)
+            Rooms[i].Text = "";
+        else
+            Rooms[i].Text = Messages[Rooms[i].Exits[6] - 76];
+        if (loud)
+            debug_print("Room description of room %d: \"%s\"\n", i, Rooms[i].Text);
+    }
 }
 
 /* Matches the game's title/ID string against the known games database.
@@ -921,7 +962,6 @@ int LoadDatabasePlaintext(FILE *f, int loud)
         return UNKNOWN_GAME;
     }
     GameHeader.NumItems = num_items;
-    Counters[43] = num_items;
     Items = (Item *)MemAlloc(sizeof(Item) * (num_items + 1));
     GameHeader.NumActions = num_actions;
     GameHeader.ActionSum = action_sum;
@@ -932,7 +972,6 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
     GameHeader.MaxCarry = max_carry;
     GameHeader.PlayerRoom = player_room;
-    MyLoc = player_room;
     GameHeader.Treasures = num_treasures;
     GameHeader.LightTime = light_time;
     GameHeader.NumMessages = num_messages;
@@ -947,10 +986,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (num_obj_img + 1));
     MysteryValues = MemAlloc(unknown2 + 1);
 
-    Counters[35] = num_rooms;
-    Counters[34] = treasure_room;
-    Counters[42] = max_carry;
-    SetBit(35); // Graphics on
+    SetCountersFromHeader();
 
     if (loud) {
         PrintHeaderInfo(GameHeader);
@@ -1001,15 +1037,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
             debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
     }
 
-    /* Resolve room descriptions: Exits[6] holds a message index offset by 76 */
-    for (ct = 0; ct < num_rooms + 1; ct++) {
-        if (Rooms[ct].Exits[6] == 0)
-            Rooms[ct].Text = "";
-        else
-            Rooms[ct].Text = Messages[Rooms[ct].Exits[6] - 76];
-        if (loud)
-            debug_print("Room description of room %d: \"%s\"\n", ct, Rooms[ct].Text);
-    }
+    SetRoomDescriptions(loud);
 
     /* Load items: each has a quoted text string followed by comma-separated
        location, dictionary word index, and flag values */
@@ -1242,6 +1270,17 @@ DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
     return FinishDictionary(dictionary, index, loud);
 }
 
+/* Apple II stores image addresses as two bytes that combine into a memory
+   address: high * 0x1000 + low * 0x100. The high byte has already been
+   read; the low byte is read from *ptr. */
+static int ReadApple2ImageAddress(int high, uint8_t **ptr)
+{
+    int adr = high * 0x100;
+    adr += *(*ptr)++ * 0x10;
+    adr *= 0x10;
+    return adr;
+}
+
 /* Validates that key header fields fall within expected ranges for a
    legitimate Plus game database. Returns 1 if valid, 0 if any field
    is out of range. Used by the binary loader to reject corrupt data. */
@@ -1307,7 +1346,6 @@ int LoadDatabaseBinary(void)
         isSTFantastic4 = 1;
 
     GameHeader.NumItems = num_items;
-    Counters[43] = num_items;
     GameHeader.ActionSum = action_sum;
     GameHeader.NumVerbs = num_verbs;
     GameHeader.NumNouns = num_nouns;
@@ -1315,7 +1353,6 @@ int LoadDatabaseBinary(void)
 
     GameHeader.MaxCarry = max_carry;
     GameHeader.PlayerRoom = player_room;
-    MyLoc = player_room;
     GameHeader.Treasures = num_treasures;
     GameHeader.NumPreps = num_preps;
     GameHeader.NumAdverbs = num_adverbs;
@@ -1333,10 +1370,7 @@ int LoadDatabaseBinary(void)
     Rooms = MemAlloc(sizeof(Room) * (num_rooms + 1));
     ObjectImages = MemAlloc(sizeof(ObjectImage) * (num_obj_img + 1));
 
-    Counters[35] = num_rooms;
-    Counters[34] = treasure_room;
-    Counters[42] = max_carry;
-    SetBit(35); // Graphics on
+    SetCountersFromHeader();
 
 #pragma mark actions
 
@@ -1369,27 +1403,17 @@ int LoadDatabaseBinary(void)
             ap->Words[i] = *ptr++;
         }
 
-        /* Read condition chain: each 16-bit big-endian value encodes a 5-bit
-           condition opcode (low bits) and a 10-bit argument (high bits).
-           Bit 15 marks the last entry in the chain. Stored as alternating
-           condition/argument pairs terminated by a 255 sentinel. */
-        uint16_t conditions[1024];
+        /* Read condition chain: each is a 16-bit big-endian value */
+        uint16_t conditions[MAX_CONDITION_ARGS];
         int condargs = 0;
         for (;;) {
             if (ptr + 2 > end)
                 Fatal("Broken database!");
             uint16_t raw = READ_BE_UINT16_AND_ADVANCE(&ptr);
-            int last = raw & 0x8000;
-            if (condargs + 2 > 1024)
-                Fatal("Broken database!");
-            conditions[condargs++] = raw & 0x1f;
-            conditions[condargs++] = (raw >> 5) & 0x3ff;
-            if (last)
+            if (AddCondition(raw, conditions, &condargs))
                 break;
         }
-        ap->Conditions = MemAlloc((condargs + 1) * sizeof(uint16_t));
-        memcpy(ap->Conditions, conditions, condargs * sizeof(uint16_t));
-        ap->Conditions[condargs] = 255;
+        SetActionConditions(ap, conditions, condargs);
 
         int cmdlen = ap->CommandLength + 1;
         if (ptr + cmdlen > end)
@@ -1432,13 +1456,8 @@ int LoadDatabaseBinary(void)
             Rooms[ct].Exits[j] = *ptr++;
 
             if (CurrentSys == SYS_APPLE2 && j == 7) {
-                /* Apple II stores image addresses as two bytes that combine
-                   into a memory address: high * 0x1000 + low * 0x100 */
-                int adr = Rooms[ct].Exits[j] * 0x100;
-                adr += *ptr++ * 0x10;
-                adr *= 0x10;
-                debug_print("Room image %d address:%x\n", ct, adr);
-                Rooms[ct].Exits[j] = adr;
+                Rooms[ct].Exits[j] = ReadApple2ImageAddress(Rooms[ct].Exits[j], &ptr);
+                debug_print("Room image %d address:%x\n", ct, Rooms[ct].Exits[j]);
             } else if (j > 5) {
                 /* Directions 6 and 7 use 16-bit values (second byte here) */
                 Rooms[ct].Exits[j] |= *ptr++;
@@ -1474,14 +1493,7 @@ int LoadDatabaseBinary(void)
 
     Messages = LoadMessages(GameHeader.NumMessages + 1, &ptr);
 
-    /* Resolve room descriptions: Exits[6] holds a message index offset by 76 */
-    for (int i = 0; i <= GameHeader.NumRooms; i++) {
-        if (Rooms[i].Exits[6] == 0)
-            Rooms[i].Text = "";
-        else
-            Rooms[i].Text = Messages[Rooms[i].Exits[6] - 76];
-        debug_print("Room description of room %d: \"%s\"\n", i, Rooms[i].Text);
-    }
+    SetRoomDescriptions(1);
 
 #pragma mark items
 
@@ -1562,11 +1574,8 @@ int LoadDatabaseBinary(void)
     for (ct = 0; ct <= num_obj_img; ct++) {
         ObjectImages[ct].Image = *ptr++;
         if (CurrentSys == SYS_APPLE2) {
-            int adr = ObjectImages[ct].Image * 0x100;
-            adr += *ptr++ * 0x10;
-            adr *= 0x10;
-            debug_print("Object image %d address:%x\n", ct, adr);
-            ObjectImages[ct].Image = adr;
+            ObjectImages[ct].Image = ReadApple2ImageAddress(ObjectImages[ct].Image, &ptr);
+            debug_print("Object image %d address:%x\n", ct, ObjectImages[ct].Image);
         } else
             ptr++;
     }

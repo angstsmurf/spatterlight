@@ -10,6 +10,11 @@
 
 #include "glk.h"
 
+#include "definitions.h"
+
+/* Bytes needed for a short image name such as "R003", with terminator */
+#define IMAGE_NAME_SIZE 5
+
 extern winid_t Graphics;
 
 extern int pixel_size;
@@ -25,7 +30,11 @@ void DrawCurrentRoom(void);
 int DrawRoomImage(int room);
 void DrawItemImage(int item);
 int DrawImageWithName(char *filename);
+int DrawImageWithTypeAndNumber(char type, int index);
+void DrawOverlayImage(ImgType type, int index);
+void DrawObjectImages(int room, int location);
 char *ShortNameFromType(char type, int index);
+int ImageNumberFromName(const char *name);
 void SetColor(int32_t index, glui32 color);
 // Only IBM PC graphics in "striped" mode use PutPixel()
 void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color);

@@ -207,9 +207,17 @@ static uint32_t get_next_cluster12(uint8_t *sf, uint32_t cluster)
     return 0;
 }
 
-static uint8_t *GetFile(uint8_t *sf, int cluster, msdos_dir_entry dir)
+/* Byte offset of a cluster in the disk image. Cluster numbering starts
+   at 2, at the beginning of the data section after the FATs and the root
+   directory. */
+static size_t ClusterOffset(int cluster)
 {
     size_t datasection = boot.reserved + boot.fats * boot.fat_length + (boot.dir_entries * 32 / boot.sector_size);
+    return (datasection + (cluster - 2) * boot.sec_per_clus) * boot.sector_size;
+}
+
+static uint8_t *GetFile(uint8_t *sf, int cluster, msdos_dir_entry dir)
+{
     int bytespercluster = boot.sector_size * boot.sec_per_clus;
     uint8_t *result = MemAlloc(dir.size);
     size_t offset = 0;
@@ -218,8 +226,7 @@ static uint8_t *GetFile(uint8_t *sf, int cluster, msdos_dir_entry dir)
         if (offset + bytestoread > dir.size) {
             bytestoread = dir.size - offset;
         }
-        size_t offset2 = (datasection + (cluster - 2) * boot.sec_per_clus) * boot.sector_size;
-        uint8_t *ptr = sf + offset2;
+        uint8_t *ptr = sf + ClusterOffset(cluster);
         memcpy(result + offset, ptr, bytestoread);
         offset += bytestoread;
         cluster = get_next_cluster12(sf, cluster);
@@ -238,13 +245,10 @@ static uint8_t *ReadDirEntryRecursive(uint8_t *ptr, uint8_t **sf, int *imgidx, i
     dir->name[8] = 0;
     if (dir->attr & 0x10 && dir->name[0] != '.') {
         int cluster = dir->start;
-        size_t datasection = boot.reserved + boot.fats * boot.fat_length + (boot.dir_entries * 32 / boot.sector_size);
-        size_t offset;
         uint8_t *subdirentry;
         int lastfound = 0;
         while (cluster && !lastfound) {
-            offset = (datasection + (cluster - 2) * boot.sec_per_clus) * boot.sector_size;
-            subdirentry = *sf + offset;
+            subdirentry = *sf + ClusterOffset(cluster);
             for (int i = 0; i < 32; i++) {
                 subdirentry = ReadDirEntryRecursive(subdirentry, sf, imgidx, imgs, found, database, databasesize);
                 if (subdirentry == NULL) {
