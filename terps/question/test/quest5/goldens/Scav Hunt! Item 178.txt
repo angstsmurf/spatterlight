@@ -35,31 +35,219 @@ From here you can see the ocean stretch out behind you to the south. What origin
 > north
 
 The path leads right up the mountain, ending against the smooth stone walls of the lighthouse complex in front of a large gate. Barred windows dot the sides of the walls, but little can be seen in through the foggy windowpanes. A rugged goat path continues to the west and east along the side of the wall. There is also a path leading south towards the ocean.
-> west
-
-> west
-
-The path turns to the north and continues along the western wall of the lighthouse complex. Securely barred windows line the walls here. Here the goat path continues either north along the wall or splits off to the west towards an ominous-looking rainforest. The path also turns around the southern corner to the east.
-> north
-
-> north
-
-To the north, you can see that the mountains continue beyond this one that the lighthouse complex is on. Barred windows dot the sides of the wall of the complex, with one basement-level set of window bars appearing particularly rusted. The path continues along the wall to the east and west.
 > east
 
 > east
 
 The goat path continues along the east side of the stone wall heading north and continues along the north side of the building. The path also goes south back towards the gate. Securely barred windows line the walls here. There is a rusted knife here.
+> take rusted knife
+
+> take rusted knife
+You pick it up.
 > north
 
 > north
 
 To the north, you can see that the mountains continue beyond this one that the lighthouse complex is on. Barred windows dot the sides of the wall of the complex, with one basement-level set of window bars appearing particularly rusted. The path continues along the wall to the east and west.
+> pry window
+
+> pry window
+You manage to pry off the rusted bars, and push open the window behind. You climb through the window into the basement.
+
+You are in a dimly lit basement, where the only light streams in from the upper barred windows. The room is filled with old rubbish, and everything is covered in dust here. There are doors to the south, east, and west. The south door seems to lead to a stairwell heading up, where you can see daylight. There is an open window to the north.
+> east
+
+> east
+
+You are in a small room that is quite dusty. Light streams in from the barred windows above. The walls here are covered in scrawled handwriting. Among the old rubbish here you spy a flashlight and some bits of chalk. There are doors to the south and west.
+> take flashlight
+
+> take flashlight
+You pick it up.
+> turn on flashlight
+
+> turn on flashlight
+You switch it on.
+> south
+
+> south
+
+You are in a corridor along the East wall of the lighthouse complex that runs north to south. The outside wall is made of smooth stone, like the wall you saw outside. The inner wall is a dark-colored mirror that stretches down the length of the hallway. There are doorways to the north and south.
+
+> south
+
+> south
+
+You enter into a large room that is filled with smashed aquariums, tanks, and pots. It seems as though there was some sort of underground greenhouse down here. Some of the tanks are still intact. One of the aquariums is still filled with snails; another small terra cotta pot in the corner has a half-dead sunflower in it. Both have small tags on them. There is a desk in the northwest corner. There are doors to the west and north. The west door is marked “big and drity.”
 > west
 
 > west
 
-The path turns to the north and continues along the western wall of the lighthouse complex. Securely barred windows line the walls here. Here the goat path continues either north along the wall or splits off to the west towards an ominous-looking rainforest. The path also turns around the southern corner to the east.
+You step through the eastern doorway marked “big and drity” into an even darker, dritier and danker room than you were ever in before. You would expect to find some memes in here, but there’s just a lot of water and mold. There’s a workbench on the far side of the room near where a pipe must’ve broken in the ceiling. There is water pooled around the center of the room. There is an exit to the east and a caved-in doorway to the north.
+As you look around the room, you notice a lump on the floor in front of you beneath the water. It looks like it might be a drain of some sort.
+> unclog drain
+
+> unclog drain
+You  unclog the drain, and water swiftly flows down it. In the remaining sludge, you find a bright brass skeleton key.
+> take brass skeleton key
+
+> take brass skeleton key
+You pick it up.
+> east
+
+> east
+
+You enter into a large room that is filled with smashed aquariums, tanks, and pots. It seems as though there was some sort of underground greenhouse down here. Some of the tanks are still intact. One of the aquariums is still filled with snails; another small terra cotta pot in the corner has a half-dead sunflower in it. Both have small tags on them. There is a desk in the northwest corner. There are doors to the west and north. The west door is marked “big and drity.”
+> north
+
+> north
+
+You are in a corridor along the East wall of the lighthouse complex that runs north to south. The outside wall is made of smooth stone, like the wall you saw outside. The inner wall is a dark-colored mirror that stretches down the length of the hallway. There are doorways to the north and south.
+
+> north
+
+> north
+
+You are in a small room that is quite dusty. Light streams in from the barred windows above. The walls here are covered in scrawled handwriting. Among the old rubbish here you spy a flashlight and some bits of chalk. There are doors to the south and west.
+> west
+
+> west
+
+You are in a dimly lit basement, where the only light streams in from the upper barred windows. The room is filled with old rubbish, and everything is covered in dust here. There are doors to the south, east, and west. The south door seems to lead to a stairwell heading up, where you can see daylight. There is an open window to the north.
+> up
+
+> up
+
+You are inside the walls of lighthouse complex. A grassy courtyard extends in front of you, with small trees artfully placed around it. The lighthouse looms in the center. You can see a small rope bridge connecting one of the higher levels of the lighthouse to the top of the wall on the eastern side. There is a double door to the northeast. You can go down stairs here to the north or continue south to the other side of the courtyard.
+> northeast
+
+> northeast
+
+You are in a large dining room with a single megatable running its length. On the table there's Choles, baklava, and all the best things of the world for eating. It's probably meant for someone else though. Maybe no one would miss that weirdly-shaped cup with milk inside? There are doors to the east and west. There is a door to the courtyard to the southwest.
+> east
+
+> east
+
+You are in a large, industrial-sized kitchen. It seems as though people were cooking in here recently, you can still smell...is that offal? Luckily they cleaned up after themselves. On one of the counters there is a to do list. There are exits to the west and south.
+> south
+
+> south
+
+You are in a small room that seems to have been once used by waitstaff. There are several dumbwaiters along the wall and a tall bookshelf in the southwest corner. There is one door out of this room to the north.
+> take doing honest work in college
+
+> take doing honest work in college
+You pick it up.
+You pull out the book, and the bookshelf creaks as it rotates to reveal an exit to the southwest. Sweet.
+> southwest
+
+> southwest
+
+You are in a tiny room with nothing but dusty pictures of some lovely Neo-Gothic university and a large spiral staircase going up. There is a door to the northeast that leads out.
+> up
+
+> up
+
+You are in large, comfortable looking, wood-paneled office. There is a large desk in the center of the room, overlooking the path leading up to the lighthouse complex gate, which is just below you. There are several armchairs scattered around the room and a fresh cup of coffee lies steaming on the desk. Strange...hot coffee, but there doesn't seem to be anyone here. There is also a book on the desk. There is a spiral staircase leading down on the east side of the room and a door leading west.
+> west
+
+> west
+
+You are in a large room lined with bookshelves. Most of the books seem to be old periodicals, but there's a section in the corner that just looks like packets of paper. There is a door to the southeast towards the office and another to the east, which you can see leads outside to a balcony. The door to the north is securely boarded up.
+> east
+
+> east
+
+You are on a small balcony overlooking the lighthouse-complex courtyard. The lighthouse looms in front of you, and there is a small rope bridge leading to it to the east. There is a door to the west leading back inside.
+> east
+
+> east
+
+You are on a rickety rope bridge in between the lighthouse complex walls and the lighthouse itself. It sways gently in the breeze. You can go into the lighthouse to the east or return to the balcony along the wall to the west.
+> east
+
+> east
+
+You are on the second floor of the lighthouse. It is a cozy sitting room that feels like the cabin of a majestic ship. There are squishy armchairs around a center coffeetable. There is a spiral staircase going up and down. There is a door to the west leading to the rope bridge outside.
+> up
+
+> up
+
+You are on the third floor of the lighthouse, which appears to be someone's bedroom. There is a small single bed on one side of the room and a desk on the other. There is a letter on the desk. There is a spiral staircase going up and down.
+> up
+
+> up
+
+You are in the beacon room of the lighthouse. The beacon is lit, but it doesn't seem to be a regular bulb or candle that's providing the light. You might want to look closer... There is a spiral staircase going down.
+> take dragon scale
+
+> take dragon scale
+As you take the dragon scale, you see that there was a tiny gold skeleton key perched behind it. You take the gold skeleton key as well.
+> down
+
+> down
+
+You are on the third floor of the lighthouse, which appears to be someone's bedroom. There is a small single bed on one side of the room and a desk on the other. There is a letter on the desk. There is a spiral staircase going up and down.
+> read letter
+
+> read letter
+The letter reads:
+
+Dear Scavencouple,
+
+      I'm pleased to inform you that the facilities at C.A.S.T.R.A.T.E. will be ready in time for your wedding! We have planned for you a fabulous dinner at our state-of-the-art facilities, a ballroom for dancing following the formal reception, and a cliffside beach formal reception, accessible only by boat. Unfortunately we will not have rooms available, but we do have a lovely interior courtyard. Those are about the same, right?
+
+      Thank you again for your patronage, as it is events like these that keep the lighthouse and its employee in working order here at C.A.S.T.R.A.T.E.!
+
+Yours truly,
+
+Bob the Lighthouse-Master
+
+The letter ends there.
+> down
+
+> down
+
+You are on the second floor of the lighthouse. It is a cozy sitting room that feels like the cabin of a majestic ship. There are squishy armchairs around a center coffeetable. There is a spiral staircase going up and down. There is a door to the west leading to the rope bridge outside.
+> down
+
+> down
+
+You are on the ground floor of the lighthouse. There is a spiral staircase going up and a small wooden door on the south wall leading to the courtyard. There are pictures of strange items around the room: a periodic coffeetable, a zeusaphone, and what looks like a giant PEZ dispenser. There is also a small rug at the center of the room.
+> south
+
+> south
+You unlock the door and step outside.
+
+You are on the south side of the courtyard inside the walls of the lighthouse complex. A path here connects a large barred gate to the south to a small wooden door on the ground floor of the lighthouse in the north. You see a small service door to the southwest next to the large gate. The path to the north side of the courtyard goes northwest.
+> southwest
+
+> southwest
+
+You are in a cramped office that seems to have been used for administrative work of some kind. A fifty pound desktop computer sits on a desk in the corner, and the walls are covered in old, unreadable certificates. There is a key on a hook here. There is a door to the west leading further inside and a door to the north leading to the courtyard.
+> take stainless steel key
+
+> take stainless steel key
+You pick it up.
+> north
+
+> north
+
+You are on the south side of the courtyard inside the walls of the lighthouse complex. A path here connects a large barred gate to the south to a small wooden door on the ground floor of the lighthouse in the north. You see a small service door to the southwest next to the large gate. The path to the north side of the courtyard goes northwest.
+> unlock large gate
+
+> unlock large gate
+With which object?
+1: rusted knife
+2: flashlight
+3: brass skeleton key
+4: Doing Honest Work in College
+5: dragon scale
+6: gold skeleton key
+7: stainless steel key
+8: wooden door
+> 7
+You unlock the gate.
 > south
 
 > south
@@ -76,41 +264,49 @@ From here you can see the ocean stretch out behind you to the south. What origin
 
 You continue up the dirt path towards the mountains, passing by a flat area that seems to be filled with rabbits. Rabbits rabbits rabbits. Hundreds of them, it looks like. Lots of little-rabbit holes dot the area. One rabbit hole is particularly large, and you might be able to crawl into it. To the east you can see what looks like a castle and to the south you can hear the ocean.
 The dirt path goes east and south.
-> south
+> in
 
-> south
+> in
 
-You are on the top of a small hill with a cairn beside you. There seems to be some sort of paper underneath the top stone. Mountains loom before you to the north and you can hear the ocean crashing against the shore behind you to the south.
-A dirt path goes north and south from here.
-> south
+You are in an earthen tunnel that is too large to have been made by any rabbit. Ahead you can see that the tunnel curves off to the northwest and southwest. Daylight is visible from the way out that leads to the plain.
+> northwest
 
-> south
+> northwest
 
-You are at the edge of a cliff facing the sea to the south.You can see what looks like a castle to the north near the mountains. A path goes along the cliff edge from east to west. Another path goes north up a hill towards a cairn and to the castle beyond.
-> west
-
-> west
-
-You are at the end of the western cliff path on a rocky point along the cliff. Below you, you can see a small beach that looks like it's been decorated for a wedding of some kind. I wonder how you get down there... The path you are on goes east along the cliff.
-> east
-
-> east
-
-You are at the edge of a cliff facing the sea to the south.You can see what looks like a castle to the north near the mountains. A path goes along the cliff edge from east to west. Another path goes north up a hill towards a cairn and to the castle beyond.
-> east
-
-> east
-
-You are on the eastern cliff path, where you can see the sea to the south. The path you are on continues to the northeast and west. You can see a small grove of trees ahead of you to the northeast along the path.
-> west
-
-> west
-
-You are at the edge of a cliff facing the sea to the south.You can see what looks like a castle to the north near the mountains. A path goes along the cliff edge from east to west. Another path goes north up a hill towards a cairn and to the castle beyond.
+You are in an earthen tunnel that stretches to the north and southeast. You can see daylight and hear the sound of flowing water to the north.
 > north
 
 > north
 
-You are on the top of a small hill with a cairn beside you. There seems to be some sort of paper underneath the top stone. Mountains loom before you to the north and you can hear the ocean crashing against the shore behind you to the south.
-A dirt path goes north and south from here.
+You are in a small cliff-enclosed garden, where there is a deep pool at the center. A waterfall splashes into the pool, and you can see where the pool drains out in a thin crevice to the east. There is a tunnel into the cliff to the south.
+> swim in pool
+
+> swim in pool
+You swim in the pool. Deep below you, you see something glittering. You dive down, and see that you've found a silver skeleton key.
+> use dragon scale
+
+> use dragon scale
+Congratulations! You've found all of the keys! The dragon scale flashes brightly, and you feel the world around you start to melt...
+
+You are in a small underground circular library. There are chalkboards on the walls here, which are filled with codes and calculations.  At the center of the room on the stone tiles there is a spiral marked: “QI PSBN RCHGE EUJF 2015!” The acoustics are particularly nice in here. There is a small spiral staircase heading up, and a small ladder heading even deeper underground.
+> read chalkboards
+
+> read chalkboards
+The chalkboards are filled with numbers and letters, but one section particularly jumps out at you. There are nine categories of letters that are arranged in a chart.  1: [A, B, J, R, W, Y, Z] 2: [C, U] 3: [D, H] 4: [G, Q] 5: [E, S] 6: [P, T] 7: [I, O] 8: [F, K, M, N, V] 9: [L, X]
+> down
+
+> down
+
+You are in the catacombs. There is a ladder here heading up. You can also go south here.
+> up
+
+> up
+
+You are in a small underground circular library. There are chalkboards on the walls here, which are filled with codes and calculations.  At the center of the room on the stone tiles there is a spiral marked: “QI PSBN RCHGE EUJF 2015!” The acoustics are particularly nice in here. There is a small spiral staircase heading up, and a small ladder heading even deeper underground.
+> up
+
+> up
+You go up the spiral staircase, pushing open the trapdoor at the top.
+
+You are on the ground floor of the lighthouse. There is a spiral staircase going up and a small wooden door on the south wall leading to the courtyard. There are pictures of strange items around the room: a periodic coffeetable, a zeusaphone, and what looks like a giant PEZ dispenser. There is also a small rug at the center of the room.
 [state=Running]

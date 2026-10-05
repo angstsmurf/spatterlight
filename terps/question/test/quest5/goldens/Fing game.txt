@@ -37,10 +37,6 @@ Potion Bag: You pick it up.
 
 > equip pistol
 You equip your Pistol.
-> i
-
-> i
-You are carrying a Spade, a Pistol (equipped) and a Potion Bag.
 > south
 
 > south
@@ -63,25 +59,4559 @@ You can go north or south.
 
 You are in a Battle Room.
 You can see a Decomposing Stallin.
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+You shot the pistol at Decomposing Stallin (17 hits).
+Decomposing Stallin slashes their talons down on you and gets a critical (30 hits).
+Hits points now 80
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+You shot the pistol at Decomposing Stallin (15 hits).
+It is dead!
+
+You are in Limbo.
+You can go north or south.
 > south
 
 > south
-You can't go there.
-> attack stallin
 
-> attack stallin
-You shot the pistol at Decomposing Stallin (1 hits).
-Decomposing Stallin slashes their talons down on you and gets a critical (18 hits).
-Hits points now 92
-> attack stallin
+You are in Limbo.
+You can go north or south.
+> south
 
-> attack stallin
-You shot the pistol at Decomposing Stallin (1 hits).
-Decomposing Stallin swings their talons at you and hits (7 hits).
-Hits points now 85
-> attack stallin
+> south
 
-> attack stallin
-You shot the pistol at Decomposing Stallin (1 hits).
+You are in Limbo.
+You can go north or south.
+> south
+
+> south
+
+You are in Limbo.
+You can go north or south.
+> south
+
+> south
+
+You are in Limbo.
+You can go north or south.
+
+You are in a Battle Room.
+You can see a Shambling Stallin.
+> shoot shambling stallin
+
+> shoot shambling stallin
+You shot the pistol at Shambling Stallin (22 hits).
+Shambling Stallin swings their talons at you and hits (6 hits).
+Hits points now 74
+> shoot shambling stallin
+
+> shoot shambling stallin
+You shot the pistol at Shambling Stallin (22 hits).
+It is dead!
+
+You are in Limbo.
+You can go north or south.
+> south
+
+> south
+
+You are in Limbo.
+You can go north or south.
+> south
+
+> south
+
+You are in Limbo.
+You can go north or south.
+> south
+
+> south
+
+You are in Limbo.
+You can go north or south.
+
+You are in a Battle Room.
+You can see a Disgusting Stallin.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shoot wildly and entirely miss Disgusting Stallin.
+Disgusting Stallin swings their talons at you and hits (7 hits).
+Hits points now 67
+> bathe pistol
+
+> bathe pistol
+Hits points now 110
+Full health
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+A well placed shot with the pistol on Disgusting Stallin (72 hits).
+It is dead!
+
+You are in Limbo.
+You can go north or south.
+> south
+
+> south
+
+You are in Limbo.
+You can go north or south.
+> south
+
+> south
+
+You are in an End Dungeon Room.
+You can see a Shop and a Blood Spring.
+You can go north or east.
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+You don't have enough gold.
+> east
+
+> east
+
+You are in a Worker Suburbs 1.
+You can see a Worker 1.
+You can go west or south.
+> south
+
+> south
+
+You are in a Worker Suburbs 2.
+You can go north or east.
+> east
+
+> east
+
+You are in a Worker Suburbs 3.
+You can see a Worker 2.
+You can go west or east.
+> east
+
+> east
+
+You are in a Worker Suburbs 4.
+You can go west or east.
+> east
+
+> east
+
+You are in a Worker Suburbs 5.
+You can see a Worker 3.
+You can go west or east.
+> east
+
+> east
+
+You are in a Worker Suburbs 6.
+You can go west or east.
+> east
+
+> east
+
+You are in a Worker Suburbs 7.
+You can see a Worker 4 and a Worker 5.
+You can go west or east.
+> east
+
+> east
+
+You are in a Worker Suburbs 8.
+You can go west or east.
+> east
+
+> east
+
+You are in a Worker Suburbs 9.
+You can go west or east.
+> east
+
+> east
+
+You are in a Worker Suburbs 10.
+You can go west or east.
+> east
+
+> east
+
+You are in a Worker Suburbs 11.
+You can see a Worker 6.
+You can go west or east.
+> east
+
+> east
+
+You are in a Worker Suburbs 12.
+You can go west or north.
+> north
+
+> north
+
+You are in a Worker Suburbs 13.
+You can see a Worker 7.
+You can go south or east.
+> east
+
+> east
+
+You are in Pain.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Filthy Stallin.
+> shoot filthy stallin
+
+> shoot filthy stallin
+A well placed shot with the pistol on Filthy Stallin (78 hits).
+It is dead!
+
+You are in Pain.
+You can go east or west.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Falling-apart Stallin.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot falling-apart stallin
+
+> shoot falling-apart stallin
+You shot the pistol at Falling-apart Stallin (23 hits).
+Falling-apart Stallin swings wildly and entirely misses you.
+> shoot falling-apart stallin
+
+> shoot falling-apart stallin
+You shot the pistol at Falling-apart Stallin (19 hits).
+It is dead!
+You are level 2.
+Hits points now 115
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Decrepit Stallin.
+> shoot decrepit stallin
+
+> shoot decrepit stallin
+A well placed shot with the pistol on Decrepit Stallin (81 hits).
+It is dead!
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Decomposing Stallin.
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+You shoot wildly and entirely miss Decomposing Stallin.
 Decomposing Stallin swings wildly and entirely misses you.
-[state=Running]
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+A well placed shot with the pistol on Decomposing Stallin (63 hits).
+It is dead!
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (48 hits).
+It is dead!
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Disgusting Stallin.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (14 hits).
+Disgusting Stallin slashes their talons down on you and gets a critical (27 hits).
+Hits points now 88
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (21 hits).
+It is dead!
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (69 hits).
+It is dead!
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in Hunger .
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Falling-apart Stallin.
+> shoot falling-apart stallin
+
+> shoot falling-apart stallin
+A well placed shot with the pistol on Falling-apart Stallin (66 hits).
+It is dead!
+
+You are in Hunger .
+You can go west or east.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Decrepit Stallin.
+> shoot decrepit stallin
+
+> shoot decrepit stallin
+A well placed shot with the pistol on Decrepit Stallin (78 hits).
+It is dead!
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Decomposing Stallin.
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+A well placed shot with the pistol on Decomposing Stallin (51 hits).
+It is dead!
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Shambling Stallin.
+> shoot shambling stallin
+
+> shoot shambling stallin
+You shoot wildly and entirely miss Shambling Stallin.
+The monster slashes its talons at you and hits (7 hits).
+Hits points now 81
+> shoot shambling stallin
+
+> shoot shambling stallin
+You shot the pistol at Shambling Stallin (18 hits).
+Shambling Stallin slashes their talons down on you and gets a critical (30 hits).
+Hits points now 51
+> bathe pistol
+
+> bathe pistol
+Hits points now 115
+Full health
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot shambling stallin
+
+> shoot shambling stallin
+A well placed shot with the pistol on Shambling Stallin (81 hits).
+It is dead!
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Disgusting Stallin.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shoot wildly and entirely miss Disgusting Stallin.
+Disgusting Stallin swings their talons at you and hits (12 hits).
+Hits points now 103
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+A well placed shot with the pistol on Disgusting Stallin (81 hits).
+It is dead!
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in Pain.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Filthy Stallin.
+> shoot filthy stallin
+
+> shoot filthy stallin
+A well placed shot with the pistol on Filthy Stallin (57 hits).
+It is dead!
+
+You are in Pain.
+You can go west or east.
+> east
+
+> east
+
+You are in an End Dungeon Room 2.
+You can see a Shop and a Blood Spring 2.
+You can go west or north.
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+You don't have enough gold.
+> north
+
+> north
+
+You are in Hunger .
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Falling-apart Stallin.
+> shoot falling-apart stallin
+
+> shoot falling-apart stallin
+A well placed shot with the pistol on Falling-apart Stallin (84 hits).
+It is dead!
+
+You are in Hunger .
+You can go south or north.
+> north
+
+> north
+
+You are in Hunger .
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decrepit Stallin.
+> shoot decrepit stallin
+
+> shoot decrepit stallin
+A well placed shot with the pistol on Decrepit Stallin (30 hits).
+It is dead!
+
+You are in Hunger .
+You can go south or north.
+> north
+
+> north
+
+You are in Hunger .
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decomposing Stallin.
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+A well placed shot with the pistol on Decomposing Stallin (36 hits).
+It is dead!
+
+You are in Hunger .
+You can go south or north.
+> north
+
+> north
+
+You are in Hunger.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Shambling Stallin.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot shambling stallin
+
+> shoot shambling stallin
+A well placed shot with the pistol on Shambling Stallin (66 hits).
+It is dead!
+
+You are in Hunger.
+You can go south or north.
+> north
+
+> north
+
+You are in Hunger.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Stallin.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (23 hits).
+Disgusting Stallin's abdomen is gurgling alarmingly.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (8 hits).
+It is dead!
+
+You are in Hunger.
+You can go south or north.
+> north
+
+> north
+
+You are in Hunger.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Filthy Stallin.
+> shoot filthy stallin
+
+> shoot filthy stallin
+A well placed shot with the pistol on Filthy Stallin (72 hits).
+It is dead!
+
+You are in Hunger.
+You can go south or north.
+> north
+
+> north
+
+You are in Hunger.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (19 hits).
+Horrid Hitler's abdomen is gurgling alarmingly.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (27 hits).
+It is dead!
+
+You are in Hunger.
+You can go south or north.
+> north
+
+> north
+
+You are in Hunger.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decrepit Stallin.
+> shoot decrepit stallin
+
+> shoot decrepit stallin
+A well placed shot with the pistol on Decrepit Stallin (33 hits).
+It is dead!
+You are level 3.
+Hits points now 108
+
+You are in Hunger.
+You can go south or north.
+> north
+
+> north
+
+You are in Hunger.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shoot wildly and entirely miss Disgusting Hitler.
+Disgusting Hitler's abdomen is gurgling alarmingly.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (18 hits).
+Disgusting Hitler kicks you and hits (11 hits).
+Hits points now 97
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (16 hits).
+Disgusting Hitler's abdomen is gurgling alarmingly.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shoot wildly and entirely miss Disgusting Hitler.
+Disgusting Hitler kicks you and hits (11 hits).
+Hits points now 86
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (16 hits).
+It is dead!
+
+You are in Hunger.
+You can go south or north.
+> north
+
+> north
+
+You are in Hunger.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Shambling Stallin.
+> shoot shambling stallin
+
+> shoot shambling stallin
+You shot the pistol at Shambling Stallin (20 hits).
+Shambling Stallin's abdomen is gurgling alarmingly.
+> shoot shambling stallin
+
+> shoot shambling stallin
+A well placed shot with the pistol on Shambling Stallin (39 hits).
+It is dead!
+
+You are in Hunger.
+You can go south or north.
+> north
+
+> north
+
+You are in an End Dungeon Room 3.
+You can see a Shop and a Blood Spring 3.
+You can go south or north.
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+You don't have enough gold.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Stallin.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+A well placed shot with the pistol on Disgusting Stallin (81 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Filthy Stallin.
+> shoot filthy stallin
+
+> shoot filthy stallin
+You shot the pistol at Filthy Stallin (21 hits).
+Filthy Stallin swings their talons at you and hits (7 hits).
+Hits points now 79
+> shoot filthy stallin
+
+> shoot filthy stallin
+A well placed shot with the pistol on Filthy Stallin (63 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Falling-apart Stallin.
+> shoot falling-apart stallin
+
+> shoot falling-apart stallin
+You shot the pistol at Falling-apart Stallin (22 hits).
+Falling-apart Stallin swings wildly and entirely misses you.
+> shoot falling-apart stallin
+
+> shoot falling-apart stallin
+You shot the pistol at Falling-apart Stallin (16 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decrepit Stallin.
+> shoot decrepit stallin
+
+> shoot decrepit stallin
+You shot the pistol at Decrepit Stallin (23 hits).
+Decrepit Stallin swings wildly and entirely misses you.
+> shoot decrepit stallin
+
+> shoot decrepit stallin
+You shot the pistol at Decrepit Stallin (25 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decomposing Stallin.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+A well placed shot with the pistol on Decomposing Stallin (51 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shoot wildly and entirely miss Horrid Hitler.
+Horrid Hitler's abdomen is gurgling alarmingly.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (16 hits).
+Horrid Hitler kicks wildly and entirely misses you.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (36 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Hitler.
+> shoot foul hitler
+
+> shoot foul hitler
+A well placed shot with the pistol on Foul Hitler (51 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (36 hits).
+The monster slashes its talons at you and hits (9 hits).
+Hits points now 70
+> bathe pistol
+
+> bathe pistol
+Hits points now 120
+Full health
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (13 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Falling-apart Stallin.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot falling-apart stallin
+
+> shoot falling-apart stallin
+A well placed shot with the pistol on Falling-apart Stallin (66 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decrepit Stallin.
+> shoot decrepit stallin
+
+> shoot decrepit stallin
+A well placed shot with the pistol on Decrepit Stallin (57 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decomposing Stallin.
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+A well placed shot with the pistol on Decomposing Stallin (48 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (15 hits).
+Horrid Hitler's abdomen is gurgling alarmingly.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (60 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Stallin.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+A well placed shot with the pistol on Disgusting Stallin (72 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Filthy Stallin.
+> shoot filthy stallin
+
+> shoot filthy stallin
+You shot the pistol at Filthy Stallin (10 hits).
+The monster slashes its talons at you and hits (9 hits).
+Hits points now 111
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot filthy stallin
+
+> shoot filthy stallin
+You shot the pistol at Filthy Stallin (19 hits).
+The monster slashes its talons at you and hits (10 hits).
+Hits points now 101
+> shoot filthy stallin
+
+> shoot filthy stallin
+You shot the pistol at Filthy Stallin (19 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Falling-apart Stallin.
+> shoot falling-apart stallin
+
+> shoot falling-apart stallin
+You shot the pistol at Falling-apart Stallin (19 hits).
+Falling-apart Stallin has hit you (2 hits).
+Hits points now 99
+> shoot falling-apart stallin
+
+> shoot falling-apart stallin
+You shot the pistol at Falling-apart Stallin (21 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decrepit Stallin.
+> shoot decrepit stallin
+
+> shoot decrepit stallin
+You shot the pistol at Decrepit Stallin (23 hits).
+Decrepit Stallin's abdomen is gurgling alarmingly.
+> shoot decrepit stallin
+
+> shoot decrepit stallin
+You shot the pistol at Decrepit Stallin (16 hits).
+It is dead!
+You are level 4.
+Hits points now 104
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decomposing Stallin.
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+You shot the pistol at Decomposing Stallin (16 hits).
+Decomposing Stallin misses you.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+A well placed shot with the pistol on Decomposing Stallin (66 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (36 hits).
+Horrid Hitler's abdomen is gurgling alarmingly.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (14 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in Need.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Stallin.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (16 hits).
+Disgusting Stallin swings their talons at you and hits (7 hits).
+Hits points now 97
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shoot wildly and entirely miss Disgusting Stallin.
+Disgusting Stallin swings wildly and entirely misses you.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (16 hits).
+It is dead!
+
+You are in Need.
+You can go south or north.
+> north
+
+> north
+
+You are in End Dungeon Room 4.
+You can see a Shop, a Bar sign, a Blood Spring 4, a Sharp Stone Tip and a The Sloth Heretic.
+You can go south, north or west.
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (36 hits).
+Disgusting Hitler swings wildly and entirely misses you.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (21 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Falling-apart Stallin.
+> shoot falling-apart stallin
+
+> shoot falling-apart stallin
+A well placed shot with the pistol on Falling-apart Stallin (57 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Hitler.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (8 hits).
+Foul Hitler's abdomen is gurgling alarmingly.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (6 hits).
+The monster slashes its talons at you and hits (5 hits).
+Hits points now 92
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (16 hits).
+Foul Hitler kicks wildly and entirely misses you.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (12 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (45 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Shambling Stallin.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot shambling stallin
+
+> shoot shambling stallin
+You shot the pistol at Shambling Stallin (25 hits).
+The monster slashes its talons at you and hits (7 hits).
+Hits points now 85
+> shoot shambling stallin
+
+> shoot shambling stallin
+You shot the pistol at Shambling Stallin (18 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Stallin.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (24 hits).
+The monster slashes its talons at you and hits (8 hits).
+Hits points now 77
+> bathe pistol
+
+> bathe pistol
+Hits points now 125
+Full health
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+A well placed shot with the pistol on Disgusting Stallin (87 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Filthy Stallin.
+> shoot filthy stallin
+
+> shoot filthy stallin
+You shot the pistol at Filthy Stallin (16 hits).
+Filthy Stallin swings wildly and entirely misses you.
+> shoot filthy stallin
+
+> shoot filthy stallin
+You shoot wildly and entirely miss Filthy Stallin.
+The monster slashes its talons at you and hits (7 hits).
+Hits points now 118
+> shoot filthy stallin
+
+> shoot filthy stallin
+You shot the pistol at Filthy Stallin (18 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (60 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decrepit Stallin.
+> shoot decrepit stallin
+
+> shoot decrepit stallin
+A well placed shot with the pistol on Decrepit Stallin (75 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (63 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Shambling Stallin.
+> shoot shambling stallin
+
+> shoot shambling stallin
+A well placed shot with the pistol on Shambling Stallin (63 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Stallin.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (21 hits).
+Disgusting Stallin's abdomen is gurgling alarmingly.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (19 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (12 hits).
+Disgusting Hitler's abdomen is gurgling alarmingly.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shoot wildly and entirely miss Disgusting Hitler.
+The monster slashes its talons at you and gets a critical (15 hits)!
+Hits points now 103
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (45 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (60 hits).
+It is dead!
+You are level 5.
+Hits points now 108
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Hitler.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (8 hits).
+Foul Hitler has hit you (9 hits).
+Hits points now 99
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (16 hits).
+Foul Hitler has hit you (5 hits).
+Hits points now 94
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (14 hits).
+Foul Hitler's abdomen is gurgling alarmingly.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (15 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Decomposing Stallin.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+You shot the pistol at Decomposing Stallin (18 hits).
+Decomposing Stallin swings wildly and entirely misses you.
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+You shoot wildly and entirely miss Decomposing Stallin.
+The monster slashes its talons at you and hits (2 hits).
+Hits points now 92
+> shoot decomposing stallin
+
+> shoot decomposing stallin
+A well placed shot with the pistol on Decomposing Stallin (54 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shoot wildly and entirely miss Horrid Hitler.
+Horrid Hitler's abdomen is gurgling alarmingly.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (16 hits).
+Horrid Hitler kicks you and hits (7 hits).
+Hits points now 85
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (12 hits).
+Horrid Hitler's abdomen is gurgling alarmingly.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (36 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Stallin.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (16 hits).
+Disgusting Stallin's abdomen is gurgling alarmingly.
+> shoot disgusting stallin
+
+> shoot disgusting stallin
+You shot the pistol at Disgusting Stallin (27 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in Justice.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (16 hits).
+Disgusting Hitler kicks you and hits (9 hits).
+Hits points now 76
+> bathe pistol
+
+> bathe pistol
+Hits points now 130
+Full health
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (20 hits).
+The monster slashes its talons at you and hits (7 hits).
+Hits points now 123
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (39 hits).
+It is dead!
+
+You are in Justice.
+You can go south or north.
+> north
+
+> north
+
+You are in an End Dungeon Room 5.
+You can see a Shop 4, a Blood Spring 5 and a Dull Sword.
+You can go south or north.
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hillary Clinton Harpy.
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+You shot the pistol at Horrid Hillary Clinton Harpy (14 hits).
+The monster slashes its talons at you and hits (7 hits).
+Hits points now 116
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+A well placed shot with the pistol on Horrid Hillary Clinton Harpy (45 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Hitler.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (18 hits).
+Foul Hitler kicks you and hits (3 hits).
+Hits points now 113
+> shoot foul hitler
+
+> shoot foul hitler
+A well placed shot with the pistol on Foul Hitler (72 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hillary Clinton Harpy.
+> shoot disgusting hillary clinton harpy
+
+> shoot disgusting hillary clinton harpy
+A well placed shot with the pistol on Disgusting Hillary Clinton Harpy (36 hits).
+{colour:orange:Disgusting Hillary Clinton Harpy kicks you and gets a critical (45 hits)!
+Hits points now 68
+> bathe pistol
+
+> bathe pistol
+Hits points now 130
+Full health
+> shoot disgusting hillary clinton harpy
+
+> shoot disgusting hillary clinton harpy
+A well placed shot with the pistol on Disgusting Hillary Clinton Harpy (39 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (17 hits).
+Horrid Hitler has hit you (7 hits).
+Hits points now 123
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (16 hits).
+Horrid Hitler kicks you and hits (7 hits).
+Hits points now 116
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (16 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Hitler.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (23 hits).
+Foul Hitler swings wildly and entirely misses you.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (17 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hillary Clinton Harpy.
+> shoot disgusting hillary clinton harpy
+
+> shoot disgusting hillary clinton harpy
+You shot the pistol at Disgusting Hillary Clinton Harpy (15 hits).
+Disgusting Hillary Clinton Harpy swings their talons at you and hits (18 hits).
+Hits points now 98
+> shoot disgusting hillary clinton harpy
+
+> shoot disgusting hillary clinton harpy
+You shot the pistol at Disgusting Hillary Clinton Harpy (15 hits).
+The monster slashes its talons at you and hits (10 hits).
+Hits points now 88
+> shoot disgusting hillary clinton harpy
+
+> shoot disgusting hillary clinton harpy
+A well placed shot with the pistol on Disgusting Hillary Clinton Harpy (36 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (33 hits).
+Horrid Hitler's abdomen is gurgling alarmingly.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shoot wildly and entirely miss Horrid Hitler.
+Horrid Hitler kicks you and hits (10 hits).
+Hits points now 78
+> bathe pistol
+
+> bathe pistol
+Hits points now 130
+Full health
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shoot wildly and entirely miss Horrid Hitler.
+Horrid Hitler kicks wildly and entirely misses you.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (54 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Hitler.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (17 hits).
+Foul Hitler's abdomen is gurgling alarmingly.
+> shoot foul hitler
+
+> shoot foul hitler
+You shoot wildly and entirely miss Foul Hitler.
+Foul Hitler kicks you and hits (8 hits).
+Hits points now 122
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (8 hits).
+Foul Hitler's abdomen is gurgling alarmingly.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (22 hits).
+It is dead!
+You are level 6.
+Hits points now 127
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (54 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shoot wildly and entirely miss Horrid Hitler.
+Horrid Hitler has hit you (6 hits).
+Hits points now 121
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (12 hits).
+The monster slashes its talons at you and hits (5 hits).
+Hits points now 116
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (39 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Hitler.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (14 hits).
+The monster slashes its talons at you and hits (6 hits).
+Hits points now 110
+> shoot foul hitler
+
+> shoot foul hitler
+You shoot wildly and entirely miss Foul Hitler.
+Foul Hitler's abdomen is gurgling alarmingly.
+> shoot foul hitler
+
+> shoot foul hitler
+A well placed shot with the pistol on Foul Hitler (42 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (19 hits).
+Disgusting Hitler kicks you and hits (3 hits).
+Hits points now 107
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (10 hits).
+Disgusting Hitler's abdomen is gurgling alarmingly.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (60 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (15 hits).
+Horrid Hitler's abdomen is gurgling alarmingly.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shoot wildly and entirely miss Horrid Hitler.
+Horrid Hitler kicks you and hits (8 hits).
+Hits points now 99
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (12 hits).
+The monster slashes its talons at you and hits (5 hits).
+Hits points now 94
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (19 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Hitler.
+> shoot foul hitler
+
+> shoot foul hitler
+A well placed shot with the pistol on Foul Hitler (54 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (36 hits).
+Disgusting Hitler kicks you and hits (11 hits).
+Hits points now 83
+> bathe pistol
+
+> bathe pistol
+Hits points now 135
+Full health
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+You shot the pistol at Disgusting Hitler (13 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (12 hits).
+Horrid Hitler has hit you (9 hits).
+Hits points now 126
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (17 hits).
+The monster slashes its talons at you and hits (7 hits).
+Hits points now 119
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shoot wildly and entirely miss Horrid Hitler.
+Horrid Hitler swings wildly and entirely misses you.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (14 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Hitler.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (15 hits).
+Foul Hitler swings wildly and entirely misses you.
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (16 hits).
+Foul Hitler kicks you and gets a critical (21 hits)!
+Hits points now 98
+> shoot foul hitler
+
+> shoot foul hitler
+A well placed shot with the pistol on Foul Hitler (36 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hitler.
+> shoot disgusting hitler
+
+> shoot disgusting hitler
+A well placed shot with the pistol on Disgusting Hitler (48 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Horrid Hitler.
+> shoot horrid hitler
+
+> shoot horrid hitler
+A well placed shot with the pistol on Horrid Hitler (39 hits).
+Horrid Hitler kicks you and hits (6 hits).
+Hits points now 92
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shoot wildly and entirely miss Horrid Hitler.
+Horrid Hitler kicks wildly and entirely misses you.
+> shoot horrid hitler
+
+> shoot horrid hitler
+You shot the pistol at Horrid Hitler (15 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Hitler.
+> shoot foul hitler
+
+> shoot foul hitler
+You shot the pistol at Foul Hitler (21 hits).
+Foul Hitler kicks you and hits (10 hits).
+Hits points now 82
+> bathe pistol
+
+> bathe pistol
+Hits points now 135
+Full health
+> reload pistol
+
+> reload pistol
+You put 7 bullets in it.
+> shoot foul hitler
+
+> shoot foul hitler
+A well placed shot with the pistol on Foul Hitler (39 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in Truth.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Disgusting Hillary Clinton Harpy.
+> shoot disgusting hillary clinton harpy
+
+> shoot disgusting hillary clinton harpy
+You shot the pistol at Disgusting Hillary Clinton Harpy (12 hits).
+Disgusting Hillary Clinton Harpy swings wildly and entirely misses you.
+> shoot disgusting hillary clinton harpy
+
+> shoot disgusting hillary clinton harpy
+You shot the pistol at Disgusting Hillary Clinton Harpy (21 hits).
+Disgusting Hillary Clinton Harpy kicks you and hits (15 hits).
+Hits points now 120
+> shoot disgusting hillary clinton harpy
+
+> shoot disgusting hillary clinton harpy
+You shot the pistol at Disgusting Hillary Clinton Harpy (19 hits).
+It is dead!
+
+You are in Truth.
+You can go south or north.
+> north
+
+> north
+
+You are in an End Dungeon Room 6.
+You can see a SMG, a Shop 5, a The Lusty Prostitute Bar, a Bar sign and Blood Spring 6.
+You can go south, west or northeast.
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> take smg
+
+> take smg
+You pick it up.
+> equip smg
+
+> equip smg
+You put away your Pistol (equipped) and equip your SMG.
+> west
+
+> west
+
+You are in an Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Horrid Hillary Clinton Harpy.
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+You shot the SMG at Horrid Hillary Clinton Harpy (21 hits).
+Horrid Hillary Clinton Harpy slashes their talons down on you and gets a critical (57 hits).
+Hits points now 63
+> bathe smg
+
+> bathe smg
+Hits points now 135
+Full health
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Horrid Hillary Clinton Harpy (66 hits).
+It is dead!
+You are level 7.
+Hits points now 140
+
+You are in an Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Hillary Clinton Harpy.
+> shoot foul hillary clinton harpy
+
+> shoot foul hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Foul Hillary Clinton Harpy (69 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (57 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (69 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Hillary Clinton Harpy.
+> shoot foul hillary clinton harpy
+
+> shoot foul hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Foul Hillary Clinton Harpy (63 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shot the SMG at Disgusting Demon (22 hits).
+The monster slashes its talons at you and hits (8 hits).
+Hits points now 132
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (33 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (72 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Hillary Clinton Harpy.
+> shoot foul hillary clinton harpy
+
+> shoot foul hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Foul Hillary Clinton Harpy (36 hits).
+Foul Hillary Clinton Harpy kicks you and hits (11 hits).
+Hits points now 121
+> shoot foul hillary clinton harpy
+
+> shoot foul hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Foul Hillary Clinton Harpy (66 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shot the SMG at Disgusting Demon (21 hits).
+Disgusting Demon kicks you and hits (12 hits).
+Hits points now 109
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (72 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Horrid Hillary Clinton Harpy.
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+You shot the SMG at Horrid Hillary Clinton Harpy (21 hits).
+Horrid Hillary Clinton Harpy swings wildly and entirely misses you.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Horrid Hillary Clinton Harpy (45 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (84 hits).
+It is dead!
+You are level 8.
+Hits points now 114
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (27 hits).
+Disgusting Demon's abdomen is gurgling alarmingly.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (45 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Horrid Hillary Clinton Harpy.
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Horrid Hillary Clinton Harpy (54 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shot the SMG at Foul Demon (27 hits).
+Foul Demon kicks you and hits (15 hits).
+Hits points now 99
+> shoot foul demon
+
+> shoot foul demon
+You shot the SMG at Foul Demon (25 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Hillary Clinton Harpy.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot disgusting hillary clinton harpy
+
+> shoot disgusting hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Disgusting Hillary Clinton Harpy (69 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (54 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shot the SMG at Foul Demon (17 hits).
+Foul Demon kicks you and hits (14 hits).
+Hits points now 85
+> bathe smg
+
+> bathe smg
+Hits points now 145
+Full health
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (69 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (45 hits).
+Disgusting Demon's abdomen is gurgling alarmingly.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (66 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Horrid Hillary Clinton Harpy.
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Horrid Hillary Clinton Harpy (51 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Hillary Clinton Harpy.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot foul hillary clinton harpy
+
+> shoot foul hillary clinton harpy
+You shot the SMG at Foul Hillary Clinton Harpy (17 hits).
+Foul Hillary Clinton Harpy swings their talons at you and hits (19 hits).
+Hits points now 126
+> shoot foul hillary clinton harpy
+
+> shoot foul hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Foul Hillary Clinton Harpy (51 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (72 hits).
+It is dead!
+You are level 9.
+Hits points now 131
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (54 hits).
+It is dead!
+
+You are in Survival.
+You can go west or east.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Hillary Clinton Harpy.
+> shoot foul hillary clinton harpy
+
+> shoot foul hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Foul Hillary Clinton Harpy (75 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (45 hits).
+Disgusting Demon's abdomen is gurgling alarmingly.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (66 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Horrid Hillary Clinton Harpy.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Horrid Hillary Clinton Harpy (39 hits).
+The monster slashes its talons at you and hits (15 hits).
+Hits points now 116
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Horrid Hillary Clinton Harpy (57 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shot the SMG at Foul Demon (18 hits).
+Foul Demon kicks you and hits (14 hits).
+Hits points now 102
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (45 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (63 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in a Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Horrid Hillary Clinton Harpy.
+> shoot horrid hillary clinton harpy
+
+> shoot horrid hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Horrid Hillary Clinton Harpy (42 hits).
+It is dead!
+
+You are in a Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (54 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (36 hits).
+Disgusting Demon swings wildly and entirely misses you.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (45 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go west or east.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (22 hits).
+Horrid Demon swings their talons at you and hits (16 hits).
+Hits points now 86
+> bathe smg
+
+> bathe smg
+Hits points now 150
+Full health
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (39 hits).
+It is dead!
+You are level 10.
+Hits points now 155
+
+You are in Survival.
+You can go west or east.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shot the SMG at Foul Demon (21 hits).
+Foul Demon's abdomen is gurgling alarmingly.
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (66 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in Survival.
+You can go east or west.
+
+You are in a Battle Room.
+You can see a Disgusting Hillary Clinton Harpy.
+> shoot disgusting hillary clinton harpy
+
+> shoot disgusting hillary clinton harpy
+You shoot a fiery, well placed shot with the SMG on Disgusting Hillary Clinton Harpy (54 hits).
+It is dead!
+
+You are in Survival.
+You can go east or west.
+> west
+
+> west
+
+You are in an End Dungeon Room 7.
+You can see a Shop 6 and a Blood Spring 7.
+You can go east or down.
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (15 hits).
+Horrid Demon's abdomen is gurgling alarmingly.
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (11 hits).
+Horrid Demon kicks wildly and entirely misses you.
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (21 hits).
+The monster slashes its talons at you and hits (9 hits).
+Hits points now 146
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (12 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (81 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shot the SMG at Disgusting Demon (12 hits).
+Disgusting Demon's abdomen is gurgling alarmingly.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (78 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (54 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shot the SMG at Foul Demon (16 hits).
+Foul Demon kicks wildly and entirely misses you.
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (66 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (45 hits).
+The monster slashes its talons at you and hits (8 hits).
+Hits points now 138
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (33 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (48 hits).
+Horrid Demon kicks wildly and entirely misses you.
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (21 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (51 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (48 hits).
+Disgusting Demon kicks wildly and entirely misses you.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (30 hits).
+It is dead!
+You are level 11.
+Hits points now 143
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (18 hits).
+The monster slashes its talons at you and hits (9 hits).
+Hits points now 134
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (51 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (51 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (33 hits).
+Disgusting Demon's abdomen is gurgling alarmingly.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (30 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (51 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (69 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shot the SMG at Disgusting Demon (15 hits).
+Disgusting Demon swings wildly and entirely misses you.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shot the SMG at Disgusting Demon (17 hits).
+Disgusting Demon swings their talons at you and hits (12 hits).
+Hits points now 122
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (78 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (45 hits).
+Horrid Demon's abdomen is gurgling alarmingly.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (16 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shot the SMG at Foul Demon (24 hits).
+Foul Demon swings their talons at you and hits (20 hits).
+Hits points now 102
+> bathe smg
+
+> bathe smg
+Hits points now 160
+Full health
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (81 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (63 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (23 hits).
+Horrid Demon kicks you and hits (12 hits).
+Hits points now 148
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (60 hits).
+It is dead!
+You are level 12.
+Hits points now 153
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (81 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+"The part in me, that sees, and bears the sun,,
+In mortal eagles," it began, "must now
+Be noted steadfastly: for of the fires,
+That figure me, those, glittering in mine eye,
+Are chief of all the greatest.  This, that shines
+Midmost for pupil, was the same, who sang
+The Holy Spirit's song, and bare about
+The ark from town to town; now doth he know
+The merit of his soul-impassion'd strains
+By their well-fitted guerdon.  Of the five,
+That make the circle of the vision, he
+Who to the beak is nearest, comforted
+The widow for her son: now doth he know
+How dear he costeth not to follow Christ,
+Both from experience of this pleasant life,
+And of its opposite.  He next, who follows
+In the circumference, for the over arch,
+By true repenting slack'd the pace of death:
+Now knoweth he, that the degrees of heav'n
+Alter not, when through pious prayer below
+Today's is made tomorrow's destiny.
+The other following, with the laws and me,
+To yield the shepherd room, pass'd o'er to Greece,
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shot the SMG at Disgusting Demon (15 hits).
+The monster slashes its talons at you and hits (12 hits).
+Hits points now 141
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (39 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+"The part in me, that sees, and bears the sun,,
+In mortal eagles," it began, "must now
+Be noted steadfastly: for of the fires,
+That figure me, those, glittering in mine eye,
+Are chief of all the greatest.  This, that shines
+Midmost for pupil, was the same, who sang
+The Holy Spirit's song, and bare about
+The ark from town to town; now doth he know
+The merit of his soul-impassion'd strains
+By their well-fitted guerdon.  Of the five,
+That make the circle of the vision, he
+Who to the beak is nearest, comforted
+The widow for her son: now doth he know
+How dear he costeth not to follow Christ,
+Both from experience of this pleasant life,
+And of its opposite.  He next, who follows
+In the circumference, for the over arch,
+By true repenting slack'd the pace of death:
+Now knoweth he, that the degrees of heav'n
+Alter not, when through pious prayer below
+Today's is made tomorrow's destiny.
+The other following, with the laws and me,
+To yield the shepherd room, pass'd o'er to Greece,
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+From good intent producing evil fruit:
+Now knoweth he, how all the ill, deriv'd
+From his well doing, doth not helm him aught,
+Though it have brought destruction on the world.
+That, which thou seest in the under bow,
+Was William, whom that land bewails, which weeps
+For Charles and Frederick living: now he knows
+How well is lov'd in heav'n the righteous king,
+Which he betokens by his radiant seeming.
+Who in the erring world beneath would deem,
+That Trojan Ripheus in this round was set
+Fifth of the saintly splendours?  now he knows
+Enough of that, which the world cannot see,
+The grace divine, albeit e'en his sight
+Reach not its utmost depth."  Like to the lark,
+That warbling in the air expatiates long,
+Then, trilling out his last sweet melody,
+Drops satiate with the sweetness; such appear'd
+That image stampt by the' everlasting pleasure,
+Which fashions like itself all lovely things.
+
+You are in a Battle Room.
+You can see a Horrid Demon.
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (26 hits).
+Horrid Demon swings wildly and entirely misses you.
+> shoot horrid demon
+
+> shoot horrid demon
+You shot the SMG at Horrid Demon (16 hits).
+Horrid Demon's abdomen is gurgling alarmingly.
+> shoot horrid demon
+
+> shoot horrid demon
+You shoot a fiery, well placed shot with the SMG on Horrid Demon (36 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+From good intent producing evil fruit:
+Now knoweth he, how all the ill, deriv'd
+From his well doing, doth not helm him aught,
+Though it have brought destruction on the world.
+That, which thou seest in the under bow,
+Was William, whom that land bewails, which weeps
+For Charles and Frederick living: now he knows
+How well is lov'd in heav'n the righteous king,
+Which he betokens by his radiant seeming.
+Who in the erring world beneath would deem,
+That Trojan Ripheus in this round was set
+Fifth of the saintly splendours?  now he knows
+Enough of that, which the world cannot see,
+The grace divine, albeit e'en his sight
+Reach not its utmost depth."  Like to the lark,
+That warbling in the air expatiates long,
+Then, trilling out his last sweet melody,
+Drops satiate with the sweetness; such appear'd
+That image stampt by the' everlasting pleasure,
+Which fashions like itself all lovely things.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+I, though my doubting were as manifest,
+As is through glass the hue that mantles it,
+In silence waited not: for to my lips
+"What things are these?"  involuntary rush'd,
+And forc'd a passage out: whereat I mark'd
+A sudden lightening and new revelry.
+The eye was kindled: and the blessed sign
+No more to keep me wond'ring and suspense,
+Replied: "I see that thou believ'st these things,
+Because I tell them, but discern'st not how;
+So that thy knowledge waits not on thy faith:
+As one who knows the name of thing by rote,
+But is a stranger to its properties,
+Till other's tongue reveal them.  Fervent love
+And lively hope with violence assail
+The kingdom of the heavens, and overcome
+The will of the Most high; not in such sort
+As man prevails o'er man; but conquers it,
+Because 't is willing to be conquer'd, still,
+Though conquer'd, by its mercy conquering.
+
+You are in a Battle Room.
+You can see a Foul Demon.
+> shoot foul demon
+
+> shoot foul demon
+You shoot a fiery, well placed shot with the SMG on Foul Demon (54 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+I, though my doubting were as manifest,
+As is through glass the hue that mantles it,
+In silence waited not: for to my lips
+"What things are these?"  involuntary rush'd,
+And forc'd a passage out: whereat I mark'd
+A sudden lightening and new revelry.
+The eye was kindled: and the blessed sign
+No more to keep me wond'ring and suspense,
+Replied: "I see that thou believ'st these things,
+Because I tell them, but discern'st not how;
+So that thy knowledge waits not on thy faith:
+As one who knows the name of thing by rote,
+But is a stranger to its properties,
+Till other's tongue reveal them.  Fervent love
+And lively hope with violence assail
+The kingdom of the heavens, and overcome
+The will of the Most high; not in such sort
+As man prevails o'er man; but conquers it,
+Because 't is willing to be conquer'd, still,
+Though conquer'd, by its mercy conquering.
+> down
+
+> down
+
+You are in Self Defense.
+You can go up or down.
+"Those, in the eye who live the first and fifth,
+Cause thee to marvel, in that thou behold'st
+The region of the angels deck'd with them.
+They quitted not their bodies, as thou deem'st,
+Gentiles but Christians, in firm rooted faith,
+This of the feet in future to be pierc'd,
+That of feet nail'd already to the cross.
+One from the barrier of the dark abyss,
+Where never any with good will returns,
+Came back unto his bones.  Of lively hope
+Such was the meed; of lively hope, that wing'd
+The prayers sent up to God for his release,
+And put power into them to bend his will.
+The glorious Spirit, of whom I speak to thee,
+A little while returning to the flesh,
+Believ'd in him, who had the means to help,
+And, in believing, nourish'd such a flame
+Of holy love, that at the second death
+He was made sharer in our gamesome mirth.
+
+You are in a Battle Room.
+You can see a Disgusting Demon.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shoot a fiery, well placed shot with the SMG on Disgusting Demon (30 hits).
+Disgusting Demon's abdomen is gurgling alarmingly.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot disgusting demon
+
+> shoot disgusting demon
+You shot the SMG at Disgusting Demon (22 hits).
+It is dead!
+
+You are in Self Defense.
+You can go up or down.
+"Those, in the eye who live the first and fifth,
+Cause thee to marvel, in that thou behold'st
+The region of the angels deck'd with them.
+They quitted not their bodies, as thou deem'st,
+Gentiles but Christians, in firm rooted faith,
+This of the feet in future to be pierc'd,
+That of feet nail'd already to the cross.
+One from the barrier of the dark abyss,
+Where never any with good will returns,
+Came back unto his bones.  Of lively hope
+Such was the meed; of lively hope, that wing'd
+The prayers sent up to God for his release,
+And put power into them to bend his will.
+The glorious Spirit, of whom I speak to thee,
+A little while returning to the flesh,
+Believ'd in him, who had the means to help,
+And, in believing, nourish'd such a flame
+Of holy love, that at the second death
+He was made sharer in our gamesome mirth.
+> down
+
+> down
+
+You are in an End Dungeon Room 8.
+You can see a Shop 7 and a Blood Spring 8.
+You can go up or north.
+The other, through the riches of that grace,
+Which from so deep a fountain doth distil,
+As never eye created saw its rising,
+Plac'd all his love below on just and right:
+Wherefore of grace God op'd in him the eye
+To the redemption of mankind to come;
+Wherein believing, he endur'd no more
+The filth of paganism, and for their ways
+Rebuk'd the stubborn nations.  The three nymphs,
+Whom at the right wheel thou beheldst advancing,
+Were sponsors for him more than thousand years
+Before baptizing.  O how far remov'd,
+Predestination! is thy root from such
+As see not the First cause entire: and ye,
+O mortal men! be wary how ye judge:
+For we, who see our Maker, know not yet
+The number of the chosen: and esteem
+Such scantiness of knowledge our delight:
+For all our good is in that primal good
+Concentrate, and God's will and ours are one."
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> north
+
+> north
+
+You are in Self Sustaining.
+You can go south or east.
+So, by that form divine, was giv'n to me
+Sweet medicine to clear and strengthen sight,
+And, as one handling skillfully the harp,
+Attendant on some skilful songster's voice
+Bids the chords vibrate, and therein the song
+Acquires more pleasure; so, the whilst it spake,
+It doth remember me, that I beheld
+The pair of blessed luminaries move.
+Like the accordant twinkling of two eyes,
+Their beamy circlets, dancing to the sounds.
+
+You are in a Battle Room.
+You can see a Horrid Humanoid Abomination.
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Horrid Humanoid Abomination (54 hits).
+Horrid Humanoid Abomination kicks you and hits (12 hits).
+Hits points now 129
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Horrid Humanoid Abomination (69 hits).
+It is dead!
+
+You are in Self Sustaining.
+You can go south or east.
+So, by that form divine, was giv'n to me
+Sweet medicine to clear and strengthen sight,
+And, as one handling skillfully the harp,
+Attendant on some skilful songster's voice
+Bids the chords vibrate, and therein the song
+Acquires more pleasure; so, the whilst it spake,
+It doth remember me, that I beheld
+The pair of blessed luminaries move.
+Like the accordant twinkling of two eyes,
+Their beamy circlets, dancing to the sounds.
+
+> east
+
+> east
+
+You are in Self Sustaining.
+You can go west or south.
+Again mine eyes were fix'd on Beatrice,
+And with mine eyes my soul, that in her looks
+Found all contentment.  Yet no smile she wore
+And, "Did I smile," quoth she, "thou wouldst be straight
+Like Semele when into ashes turn'd:
+For, mounting these eternal palace-stairs,
+My beauty, which the loftier it climbs,
+As thou hast noted, still doth kindle more,
+So shines, that, were no temp'ring interpos'd,
+Thy mortal puissance would from its rays
+Shrink, as the leaf doth from the thunderbolt.
+Into the seventh splendour are we wafted,
+That underneath the burning lion's breast
+Beams, in this hour, commingled with his might,
+Thy mind be with thine eyes: and in them mirror'd
+The shape, which in this mirror shall be shown."
+Whoso can deem, how fondly I had fed
+My sight upon her blissful countenance,
+May know, when to new thoughts I chang'd, what joy
+To do the bidding of my heav'nly guide:
+In equal balance poising either weight.
+
+You are in a Battle Room.
+You can see a Foul Humanoid Abomination.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shot the SMG at Foul Humanoid Abomination (26 hits).
+Foul Humanoid Abomination's abdomen is gurgling alarmingly.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Foul Humanoid Abomination (81 hits).
+It is dead!
+
+You are in Self Sustaining.
+You can go west or south.
+Again mine eyes were fix'd on Beatrice,
+And with mine eyes my soul, that in her looks
+Found all contentment.  Yet no smile she wore
+And, "Did I smile," quoth she, "thou wouldst be straight
+Like Semele when into ashes turn'd:
+For, mounting these eternal palace-stairs,
+My beauty, which the loftier it climbs,
+As thou hast noted, still doth kindle more,
+So shines, that, were no temp'ring interpos'd,
+Thy mortal puissance would from its rays
+Shrink, as the leaf doth from the thunderbolt.
+Into the seventh splendour are we wafted,
+That underneath the burning lion's breast
+Beams, in this hour, commingled with his might,
+Thy mind be with thine eyes: and in them mirror'd
+The shape, which in this mirror shall be shown."
+Whoso can deem, how fondly I had fed
+My sight upon her blissful countenance,
+May know, when to new thoughts I chang'd, what joy
+To do the bidding of my heav'nly guide:
+In equal balance poising either weight.
+> south
+
+> south
+
+You are in Self Sustaining.
+You can go north or west.
+Within the crystal, which records the name,
+(As its remoter circle girds the world)
+Of that lov'd monarch, in whose happy reign
+No ill had power to harm, I saw rear'd up,
+In colour like to sun-illumin'd gold.
+
+You are in a Battle Room.
+You can see a Disgusting Humanoid Abomination.
+> shoot disgusting humanoid abomination
+
+> shoot disgusting humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Disgusting Humanoid Abomination (48 hits).
+Disgusting Humanoid Abomination's abdomen is gurgling alarmingly.
+> shoot disgusting humanoid abomination
+
+> shoot disgusting humanoid abomination
+You shot the SMG at Disgusting Humanoid Abomination (24 hits).
+It is dead!
+
+You are in Self Sustaining.
+You can go north or west.
+Within the crystal, which records the name,
+(As its remoter circle girds the world)
+Of that lov'd monarch, in whose happy reign
+No ill had power to harm, I saw rear'd up,
+In colour like to sun-illumin'd gold.
+> west
+
+> west
+
+You are in Self Sustaining.
+You can go east or north.
+A ladder, which my ken pursued in vain,
+So lofty was the summit; down whose steps
+I saw the splendours in such multitude
+Descending, ev'ry light in heav'n, methought,
+Was shed thence.  As the rooks, at dawn of day
+Bestirring them to dry their feathers chill,
+Some speed their way a-field, and homeward some,
+Returning, cross their flight, while some abide
+And wheel around their airy lodge; so seem'd
+That glitterance, wafted on alternate wing,
+As upon certain stair it met, and clash'd
+Its shining. And one ling'ring near us, wax'd
+So bright, that in my thought: said: "The love,
+Which this betokens me, admits no doubt."
+
+You are in a Battle Room.
+You can see a Horrid Humanoid Abomination.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shot the SMG at Horrid Humanoid Abomination (15 hits).
+The monster slashes its talons at you and hits (9 hits).
+Hits points now 120
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Horrid Humanoid Abomination (45 hits).
+Horrid Humanoid Abomination kicks you and hits (25 hits).
+Hits points now 95
+> bathe smg
+
+> bathe smg
+Hits points now 165
+Full health
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Horrid Humanoid Abomination (72 hits).
+It is dead!
+
+You are in Self Sustaining.
+You can go east or north.
+A ladder, which my ken pursued in vain,
+So lofty was the summit; down whose steps
+I saw the splendours in such multitude
+Descending, ev'ry light in heav'n, methought,
+Was shed thence.  As the rooks, at dawn of day
+Bestirring them to dry their feathers chill,
+Some speed their way a-field, and homeward some,
+Returning, cross their flight, while some abide
+And wheel around their airy lodge; so seem'd
+That glitterance, wafted on alternate wing,
+As upon certain stair it met, and clash'd
+Its shining. And one ling'ring near us, wax'd
+So bright, that in my thought: said: "The love,
+Which this betokens me, admits no doubt."
+> north
+
+> north
+
+You are in Self Sustaining.
+You can go south or east.
+Unwillingly from question I refrain,
+To her, by whom my silence and my speech
+Are order'd, looking for a sign: whence she,
+Who in the sight of Him, that seeth all,
+Saw wherefore I was silent, prompted me
+T' indulge the fervent wish; and I began:
+"I am not worthy, of my own desert,
+That thou shouldst answer me; but for her sake,
+Who hath vouchsaf'd my asking, spirit blest!
+That in thy joy art shrouded! say the cause,
+Which bringeth thee so near: and wherefore, say,
+Doth the sweet symphony of Paradise
+Keep silence here, pervading with such sounds
+Of rapt devotion ev'ry lower sphere?"
+"Mortal art thou in hearing as in sight;"
+Was the reply: "and what forbade the smile
+Of Beatrice interrupts our song.
+
+You are in a Battle Room.
+You can see a Foul Humanoid Abomination.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Foul Humanoid Abomination (36 hits).
+Foul Humanoid Abomination swings wildly and entirely misses you.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shot the SMG at Foul Humanoid Abomination (21 hits).
+Foul Humanoid Abomination's abdomen is gurgling alarmingly.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Foul Humanoid Abomination (42 hits).
+It is dead!
+You are level 13.
+Hits points now 170
+
+You are in Self Sustaining.
+You can go south or east.
+Unwillingly from question I refrain,
+To her, by whom my silence and my speech
+Are order'd, looking for a sign: whence she,
+Who in the sight of Him, that seeth all,
+Saw wherefore I was silent, prompted me
+T' indulge the fervent wish; and I began:
+"I am not worthy, of my own desert,
+That thou shouldst answer me; but for her sake,
+Who hath vouchsaf'd my asking, spirit blest!
+That in thy joy art shrouded! say the cause,
+Which bringeth thee so near: and wherefore, say,
+Doth the sweet symphony of Paradise
+Keep silence here, pervading with such sounds
+Of rapt devotion ev'ry lower sphere?"
+"Mortal art thou in hearing as in sight;"
+Was the reply: "and what forbade the smile
+Of Beatrice interrupts our song.
+> east
+
+> east
+
+You are in Self Sustaining.
+You can go west or south.
+Only to yield thee gladness of my voice,
+And of the light that vests me, I thus far
+Descend these hallow'd steps: not that more love
+Invites me; for lo! there aloft, as much
+Or more of love is witness'd in those flames:
+But such my lot by charity assign'd,
+That makes us ready servants, as thou seest,
+To execute the counsel of the Highest.
+"That in this court," said I, "O sacred lamp!
+Love no compulsion needs, but follows free
+Th' eternal Providence, I well discern:
+This harder find to deem, why of thy peers
+Thou only to this office wert foredoom'd."
+I had not ended, when, like rapid mill,
+Upon its centre whirl'd the light; and then
+The love, that did inhabit there, replied:
+
+You are in a Battle Room.
+You can see a Disgusting Humanoid Abomination.
+> shoot disgusting humanoid abomination
+
+> shoot disgusting humanoid abomination
+You shot the SMG at Disgusting Humanoid Abomination (21 hits).
+Disgusting Humanoid Abomination swings wildly and entirely misses you.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot disgusting humanoid abomination
+
+> shoot disgusting humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Disgusting Humanoid Abomination (57 hits).
+It is dead!
+
+You are in Self Sustaining.
+You can go west or south.
+Only to yield thee gladness of my voice,
+And of the light that vests me, I thus far
+Descend these hallow'd steps: not that more love
+Invites me; for lo! there aloft, as much
+Or more of love is witness'd in those flames:
+But such my lot by charity assign'd,
+That makes us ready servants, as thou seest,
+To execute the counsel of the Highest.
+"That in this court," said I, "O sacred lamp!
+Love no compulsion needs, but follows free
+Th' eternal Providence, I well discern:
+This harder find to deem, why of thy peers
+Thou only to this office wert foredoom'd."
+I had not ended, when, like rapid mill,
+Upon its centre whirl'd the light; and then
+The love, that did inhabit there, replied:
+> south
+
+> south
+
+You are in Self Sustaining.
+You can go north or west.
+"Splendour eternal, piercing through these folds,
+Its virtue to my vision knits, and thus
+Supported, lifts me so above myself,
+That on the sov'ran essence, which it wells from,
+I have the power to gaze: and hence the joy,
+Wherewith I sparkle, equaling with my blaze
+The keenness of my sight.  But not the soul,
+That is in heav'n most lustrous, nor the seraph
+That hath his eyes most fix'd on God, shall solve
+What thou hast ask'd: for in th' abyss it lies
+Of th' everlasting statute sunk so low,
+That no created ken may fathom it.
+And, to the mortal world when thou return'st,
+Be this reported; that none henceforth dare
+Direct his footsteps to so dread a bourn.
+The mind, that here is radiant, on the earth
+Is wrapt in mist.  Look then if she may do,
+Below, what passeth her ability,
+When she is ta'en to heav'n."  By words like these
+
+You are in a Battle Room.
+You can see a Horrid Humanoid Abomination.
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Horrid Humanoid Abomination (72 hits).
+It is dead!
+
+You are in Self Sustaining.
+You can go north or west.
+"Splendour eternal, piercing through these folds,
+Its virtue to my vision knits, and thus
+Supported, lifts me so above myself,
+That on the sov'ran essence, which it wells from,
+I have the power to gaze: and hence the joy,
+Wherewith I sparkle, equaling with my blaze
+The keenness of my sight.  But not the soul,
+That is in heav'n most lustrous, nor the seraph
+That hath his eyes most fix'd on God, shall solve
+What thou hast ask'd: for in th' abyss it lies
+Of th' everlasting statute sunk so low,
+That no created ken may fathom it.
+And, to the mortal world when thou return'st,
+Be this reported; that none henceforth dare
+Direct his footsteps to so dread a bourn.
+The mind, that here is radiant, on the earth
+Is wrapt in mist.  Look then if she may do,
+Below, what passeth her ability,
+When she is ta'en to heav'n."  By words like these
+> west
+
+> west
+
+You are in Self Sustaining.
+You can go east or north.
+
+You are in a Battle Room.
+You can see a Foul Humanoid Abomination.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shot the SMG at Foul Humanoid Abomination (14 hits).
+Foul Humanoid Abomination kicks wildly and entirely misses you.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Foul Humanoid Abomination (72 hits).
+It is dead!
+
+You are in Self Sustaining.
+You can go east or north.
+> north
+
+> north
+
+You are in an Bad.
+You can see a Shop and a Blood Spring 9.
+You can go north or south.
+> buy shop
+
+> buy shop
+See something that catches your eye?
+Shop
+1: Potion (100)
+2: Hyper Potion (200)
+3: Ammo (40)
+4: Ammo (80)
+> 4
+> south
+
+> south
+
+You are in Circle of Hell.
+You can go north or west.
+
+You are in a Battle Room.
+You can see a Disgusting Humanoid Abomination.
+> shoot disgusting humanoid abomination
+
+> shoot disgusting humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Disgusting Humanoid Abomination (75 hits).
+It is dead!
+
+You are in Circle of Hell.
+You can go north or west.
+> west
+
+> west
+
+You are in Circle of Hell.
+You can go east or north.
+
+You are in a Battle Room.
+You can see a Horrid Humanoid Abomination.
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Horrid Humanoid Abomination (54 hits).
+Horrid Humanoid Abomination swings wildly and entirely misses you.
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Horrid Humanoid Abomination (48 hits).
+It is dead!
+
+You are in Circle of Hell.
+You can go east or north.
+> north
+
+> north
+
+You are in Circle of Hell.
+You can go south or east.
+
+You are in a Battle Room.
+You can see a Foul Humanoid Abomination.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Foul Humanoid Abomination (42 hits).
+Foul Humanoid Abomination swings wildly and entirely misses you.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Foul Humanoid Abomination (54 hits).
+It is dead!
+
+You are in Circle of Hell.
+You can go south or east.
+> east
+
+> east
+
+You are in Circle of Hell.
+You can go west or south.
+
+You are in a Battle Room.
+You can see a Disgusting Humanoid Abomination.
+> shoot disgusting humanoid abomination
+
+> shoot disgusting humanoid abomination
+You shot the SMG at Disgusting Humanoid Abomination (16 hits).
+Disgusting Humanoid Abomination swings wildly and entirely misses you.
+> shoot disgusting humanoid abomination
+
+> shoot disgusting humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Disgusting Humanoid Abomination (75 hits).
+It is dead!
+
+You are in Circle of Hell.
+You can go west or south.
+> south
+
+> south
+
+You are in Circle of Hell.
+You can go north or west.
+
+You are in a Battle Room.
+You can see a Horrid Humanoid Abomination.
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Horrid Humanoid Abomination (60 hits).
+Horrid Humanoid Abomination kicks wildly and entirely misses you.
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Horrid Humanoid Abomination (45 hits).
+It is dead!
+
+You are in Circle of Hell.
+You can go north or west.
+> west
+
+> west
+
+You are in Circle of Hell.
+You can go east or north.
+
+You are in a Battle Room.
+You can see a Foul Humanoid Abomination.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Foul Humanoid Abomination (57 hits).
+Foul Humanoid Abomination swings wildly and entirely misses you.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Foul Humanoid Abomination (48 hits).
+It is dead!
+
+You are in Circle of Hell.
+You can go east or north.
+> north
+
+> north
+
+You are in Circle of Hell.
+You can go south or east.
+
+You are in a Battle Room.
+You can see a Disgusting Humanoid Abomination.
+> shoot disgusting humanoid abomination
+
+> shoot disgusting humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Disgusting Humanoid Abomination (48 hits).
+Disgusting Humanoid Abomination swings wildly and entirely misses you.
+> shoot disgusting humanoid abomination
+
+> shoot disgusting humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Disgusting Humanoid Abomination (54 hits).
+It is dead!
+You are level 14.
+Hits points now 175
+
+You are in Circle of Hell.
+You can go south or east.
+> east
+
+> east
+
+You are in Circle of Hell.
+You can go west or south.
+
+You are in a Battle Room.
+You can see a Horrid Humanoid Abomination.
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Horrid Humanoid Abomination (69 hits).
+The monster slashes its talons at you and hits (16 hits).
+Hits points now 159
+> shoot horrid humanoid abomination
+
+> shoot horrid humanoid abomination
+You shot the SMG at Horrid Humanoid Abomination (27 hits).
+It is dead!
+
+You are in Circle of Hell.
+You can go west or south.
+> south
+
+> south
+
+You are in Circle of Hell.
+You can go south or north.
+
+You are in a Battle Room.
+You can see a Foul Humanoid Abomination.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Foul Humanoid Abomination (54 hits).
+Foul Humanoid Abomination kicks wildly and entirely misses you.
+> shoot foul humanoid abomination
+
+> shoot foul humanoid abomination
+You shoot a fiery, well placed shot with the SMG on Foul Humanoid Abomination (63 hits).
+It is dead!
+
+You are in Circle of Hell.
+You can go south or north.
+> south
+
+> south
+
+You are in an End Dungeon Room 9.
+You can see a Shop and a Blood Spring 10.
+You can go north or in.
+> in
+
+> in
+
+You are in The Devil's Room.
+You can go out.
+
+You are in a Battle Room.
+You can see a Disgusting Devil.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot disgusting devil
+
+> shoot disgusting devil
+You shot the SMG at Disgusting Devil (16 hits).
+Disgusting Devil's abdomen is gurgling alarmingly.
+> shoot disgusting devil
+
+> shoot disgusting devil
+You shoot a fiery, well placed shot with the SMG on Disgusting Devil (60 hits).
+The monster slashes its talons at you and hits (24 hits).
+Hits points now 135
+> shoot disgusting devil
+
+> shoot disgusting devil
+You shoot a fiery, well placed shot with the SMG on Disgusting Devil (30 hits).
+Disgusting Devil's abdomen is gurgling alarmingly.
+> shoot disgusting devil
+
+> shoot disgusting devil
+You shoot a fiery, well placed shot with the SMG on Disgusting Devil (42 hits).
+Disgusting Devil's abdomen is gurgling alarmingly.
+> shoot disgusting devil
+
+> shoot disgusting devil
+You shot the SMG at Disgusting Devil (13 hits).
+Disgusting Devil's abdomen is gurgling alarmingly.
+> shoot disgusting devil
+
+> shoot disgusting devil
+You shot the SMG at Disgusting Devil (11 hits).
+Disgusting Devil swings wildly and entirely misses you.
+> shoot disgusting devil
+
+> shoot disgusting devil
+You shoot a fiery, well placed shot with the SMG on Disgusting Devil (36 hits).
+Disgusting Devil swings wildly and entirely misses you.
+> reload smg
+
+> reload smg
+You put 7 bullets in it.
+> shoot disgusting devil
+
+> shoot disgusting devil
+You shoot a fiery, well placed shot with the SMG on Disgusting Devil (75 hits).
+
+You are in The Devil's Room.
+You can go out.
+The Devil holds onto his last bit of life. What do you want to do?
+1: Just let him live.
+2: Just let him die.
+> 2
+You knock it over with one last swing. You killed the Devil. ...I think.... Actually, he's immortal. But he's dead now.
+You won the game! Congratulations!
+Ending
+1: End the game
+2: Go back to the first room
+3: Go to Sloth Hypocrite Bar
+4: Go to Lusty Prostitute bar
+> 1
+Game finished.
+> z
+
+> z
+Time passes.
+[state=Finished]

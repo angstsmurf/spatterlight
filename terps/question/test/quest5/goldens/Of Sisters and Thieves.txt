@@ -43,10 +43,6 @@ Your sister was hiding in the kitchen the last you saw her. Maybe she's still th
 > x rug
 The rug is stained by years of abandonment. Boot prints stain the rug in a multitude of patterns. It looks as if multiple people ran across the rug. There is a paper stuck under it.
 Underneath there is a scrap paper.
-> take scrap paper
-
-> take scrap paper
-Just incase.
 > n
 
 > n
@@ -59,18 +55,12 @@ You can go south or north.
 > x bench
 Nothing out of the ordinary.
 It contains a scrap paper.
-> take scrap paper
-
-> take scrap paper
-Please choose which 'scrap paper' you mean:
-1: scrap paper
-2: scrap paper
 > s
 
 > s
 
 You are in a devastated great hall.
-You can see an overturned chair, a crooked painting, a giant flipped table, an abandoned axe and a curled dirty rug.
+You can see an overturned chair, a crooked painting, a giant flipped table, an abandoned axe and a curled dirty rug (under which there is a scrap paper).
 You can go east, north, west or south.
 Any grandeur that had once graced this great hall has been stolen or blown away by time.
 > w
@@ -137,10 +127,6 @@ The square of fabric must be here, unless she took it with her. Search thoroughl
 
 > x opened wardrobe
 The wardrobe's doors are unfrozen.
-> take square
-
-> take square
-I can't see that.
 > open opened wardrobe
 
 > open opened wardrobe
@@ -448,6 +434,8 @@ You had been formerly bound to the wall chain, next to your sister. Everyone was
 Please choose which 'chamber pot' you mean:
 1: chamber pot
 2: chamber pot
+> 1
+The chamber pot is empty.
 > s
 
 > s
@@ -483,5 +471,1137 @@ The smugglers must have cleaned the cauldron after their last meal. It looks bra
 > i
 
 > i
-You are carrying a prisoner outfit, a scrap paper, a locket, a square of torn blanket, a navigation map, a cape, a shirt, bracers, a knife and a smuggler manual (containing maps, inventory lists and logs).
+You are carrying a prisoner outfit, a locket, a square of torn blanket, a navigation map, a cape, a shirt, bracers, a knife and a smuggler manual (containing maps, inventory lists and logs).
+> e
+
+> e
+
+You are in a desolate courtyard.
+You can see a persistant tree, an empty flower beds and a damaged statue.
+You can go east, north, south or west.
+> s
+
+> s
+
+You are in a singed front hall.
+You can see an earth throne, an air throne, a water throne and a scrap paper.
+You can go south, north, west or east.
+> x earth throne
+
+> x earth throne
+A more or less intact throne with a earth element on it.
+> s
+
+> s
+Did you find traces of your sister and your armour? You know that your sister would have left you a message if she could and you don't want to miss any clues to finding her.
+
+You also know your weapon and armour were brought here and stored somewhere in this castle.
+
+ You are at the front gate.
+You can go north or south.
+A grand entrance for the quaint castle. The entrance is large and luxurious, but most importantly to you there is fine stone work around the arch of the entrance. You see nuances of the elements implemented in the design and at the very top reads the name "Filgree". You try and smash that name into your memory.
+> s
+
+> s
+
+ You are on a wandering trail .
+You can see foot steps.
+You can go north, south or west.
+The trail leads out of the castle and towards a road. It is lined with forested edges. The air is crisp and cold as winter begins to set in across the island.
+> s
+
+> s
+
+ You are on a small road.
+You can see an abandoned cart.
+You can go north, west, east or south.
+The road has been pounded harder than the trail to allow for easier transportation. There are no foot steps here.
+> s
+
+> s
+
+ You are on an empty dock.
+You can see a pile of rope and folded fabric.
+You can go north.
+Its functional but does not lend to a copious amount of company. There is no boats left. No way off the island, but you do not want to wait for the smugglers to come back.
+> x pile of rope
+
+> x pile of rope
+A pile of rope lays on the dock.
+It contains a scrap paper.
+> take folded fabric
+
+> take folded fabric
+Do you have a boat?
+You just take one. There are more folded fabric pieces here if you need more.
+> n
+
+> n
+
+ You are on a small road.
+You can see an abandoned cart.
+You can go north, west, east or south.
+The road has been pounded harder than the trail to allow for easier transportation. There are no foot steps here.
+> e
+
+> e
+
+ You are on small rock filled beach.
+You can go west or in.
+The beach is just off the road and is covered in small rocks and shells. You walk carefully trying to think. Then you see it, a beacon in the distance. An abandoned sailboat seems to sing to you as you collapse in the sand with joy. How it got here, you don't even care.
+> in
+
+> in
+The boat is missing a sail but you can use your folded fabric as your sail.
+
+You are in an abandoned sailboat.
+You can go out or south.
+> s
+
+> s
+
+You are pushing off into ocean.
+You can go south.
+You are pushing off into the ocean. No turning back now.
+> s
+
+> s
+
+You are in the ocean.
+You can go west, south or east.
+You feel a shiver of cold wind blow through you. You feel a sense of urgency to find your home island in this boat. The ocean is calm, luckily for you, and it is just a matter of finding your way. You know that you can't be too far off.
+> s
+
+> s
+
+You are in the ocean.
+You can go north, west, east or south.
+> w
+
+> w
+
+You are in the ocean.
+You can go north, west, east or south.
+> s
+
+> s
+
+You are in the ocean.
+You can go north, east, south or west.
+> w
+
+> w
+
+You are in your  abandoned sailboat on eerie beach.
+You can go out or east.
+You have you boat pulled onto the beach as to not lose your boat back into the ocean if you get out and explore. Or you can go back east into the ocean.
+> out
+
+> out
+
+You are on an eerie beach.
+You can see a large stone and a fallen sign.
+You can go in or west.
+The beach seems to hold an eerie presence. It makes you shiver, you question exploring, but something pulls at your heart strings up the beach.
+> x fallen sign
+
+> x fallen sign
+The sign once stood upwards, but now lays in the sand. You dust it off and it reads, "Do Not Enter" but you've never been one to listen to rules.
+> w
+
+> w
+
+You are on a frosty trail.
+You can go east, west, north or south.
+The edges of the trail are beginning to accumulate with frost. The trail is empty, which you find oddly spooky. The wind blows through your hair as if propelling you foreword.
+> n
+
+> n
+
+You are on a rocky edge.
+You can see javelina.
+You can go south.
+The edge of the island ends in a series of jutting rock fronts that extend into the water causing people only to be able to enter through the beach.
+
+The sky shimmers with wavy air, both hot and cold at the same time.
+> x javelina
+
+> x javelina
+The javelina snorts at you, angry with your presence.
+> speak to javelina
+
+> speak to javelina
+
+You are in a javelina dream.
+You can see a cliff mirage and a small door.
+The javelina looks at you and without opening her mouth speaks into your mind. Your skin crawls with the wind that caresses your skin in this barren place. She asks you nothing, yet everything and looks into your very soul. She nods her head.
+
+All of a sudden a cliff appears and she flickers her image between the javelina and your sister before leaping off the edge.
+> x cliff mirage
+
+> x cliff mirage
+Your feet shake with fear as the edge of the cliff come in and out of focus.
+> jump off cliff mirage
+
+> jump off cliff mirage
+You leap after the javelina. You fall for what seems like an eternity. Stuck in the air the javelina meets you with quiet understanding. Her tusk detaches and sucks all the air into it before she disappears. You blink.
+
+You are on a rocky edge.
+You can see javelina.
+You can go south.
+The edge of the island ends in a series of jutting rock fronts that extend into the water causing people only to be able to enter through the beach.
+
+The sky shimmers with wavy air, both hot and cold at the same time.
+> i
+
+> i
+You are carrying a prisoner outfit, a locket, a square of torn blanket, a navigation map, a cape, a shirt, bracers, a knife, a smuggler manual (containing maps, inventory lists and logs) and a hollow tusk.
+> s
+
+> s
+
+You are on a frosty trail.
+You can go east, west, north or south.
+The edges of the trail are beginning to accumulate with frost. The trail is empty, which you find oddly spooky. The wind blows through your hair as if propelling you foreword.
+> w
+
+> w
+
+You are in a barren forest.
+You can see a frosty tree.
+You can go east or west.
+> climb frosty tree
+
+> climb frosty tree
+You climb up a few limbs of the tree and look around. You can still see your boat on the beach and a cemetery past the forest. You also can sense a heaviness in the air. It seems to whisper you to stay on the island.
+> w
+
+> w
+
+You are in a cemetery.
+You can see unmarked graves and frozen flowers.
+You can go east, west or north.
+Ahead to the west is a mausoleum. The cemetery itself feels strangely un-occupied.
+> w
+
+> w
+
+You are in a mausoleum.
+You can go east or down.
+The mausoleum is much like the cemetery and feels more or less empty.
+> d
+
+> d
+
+You are in a room of tombs.
+You can go up or west.
+The wall is lined with wall tombs. There is no way to open them.
+> w
+
+> w
+
+You are in a statue room.
+You can see a Nymph Statue, a stone switch, a fire dish, an ice dish, an earth dish, an air dish, a water dish and metal dish.
+You can go east.
+The room is a circle and very bare along the walls, but in the middle stands a glorious carved display. A statue stands at the centre of a 6 point semi-circle ray and at each end of the ray lays a dish with an emblem engraved in the bottom. At the statues feet sits a stone switch.
+> x nymph statue
+
+> x nymph statue
+A nymph like figure stands holding an orb. The orb seems to have inscriptions of the elements. The dishes to each side of the statue look to be connected to the switch. Perhaps if you asked the Nymph Statue about the dishes it would explain.
+> ask nymph statue about dishes
+
+> ask nymph statue about dishes
+Which dish would you like to know about? They all have requirements.
+> ask nymph statue about air dish
+
+> ask nymph statue about air dish
+Back near your boat there is a rocky edge that is home to a javelina. The javelina may appear as a simple wild pig, but she can see into your soul. She will ask the questions that matter. But be careful, if she does no like you she will do away with you. Just talk to her. She will know what to do.
+
+Bring the hallow tusk of the javelina, achieved through sacrifice.
+> ask nymph statue about fire dish
+
+> ask nymph statue about fire dish
+There is a story about a wolf who's fur is made of flame and who's eyes dance with magic. He lives in a cave and surfaces to feed on the sun's rays. He hides from the moon and can only listen to the howl of the other wolves. What is a wolf without it's pack? But this is all just a legend. What is a legend without its believers? You must believe in the cave to find it, and you must believe in the wolf to cure it.
+
+Bring a strand of the fire wolf's hair to satisfy the fire dish.
+> put hollow tusk in air dish
+
+> put hollow tusk in air dish
+Done.
+> e
+
+> e
+
+You are in a room of tombs.
+You can go up or west.
+The wall is lined with wall tombs. There is no way to open them.
+> u
+
+> u
+
+You are in a mausoleum.
+You can go east or down.
+The mausoleum is much like the cemetery and feels more or less empty.
+> e
+
+> e
+
+You are in a cemetery.
+You can see unmarked graves and frozen flowers.
+You can go east, west or north.
+Ahead to the west is a mausoleum. The cemetery itself feels strangely un-occupied.
+> n
+
+> n
+
+You are on a long path.
+You can go south or north.
+You feel as if you're stepping into a new world and the rest of the world falls away in a fog.
+> n
+
+> n
+
+You are in a large temple ground.
+You can see a bent crown.
+You can go south, north or west.
+The ground is covered in sand but it seems displaced. A chill wind blows through the grounds. There looks to have been statues before, but they have been carefully removed.
+> take bent crown
+
+> take bent crown
+You pick it up.
+> n
+
+> n
+
+You are in an elemental temple.
+You can see a shrine and a wall tapestry.
+You can go south or north.
+The temple whispers of footsteps past that have stepped through this area.
+> x shrine
+
+> x shrine
+A simple display that looks as if it hasn't been used in years. The front is carved with a story. The first slab looks as if there is a group of 6 people holding hands. In the second slab there is an explosion and in the third they stand on top of the mountain.
+> n
+
+> n
+
+You are on the island edge.
+You can see a cliff face.
+You can go south, west or in.
+The edge of the island is bare of ornamentation. A few rocks, a cliff face, and subtle waves. It feels barren, of a different time and place.
+> x cliff face
+
+> x cliff face
+Drawn onto the cliff face in what looks to be soot is a picture of a cave. It has the word believe.
+> in
+
+> in
+You whisper that you believe in the cave and the drawing turns into an entrance allowing you to pass through.
+
+You are in a cave.
+You can see a fire wolf.
+You can go up or out.
+The cave is dark and somber inside. The drawing closes up back into a drawing, but from the inside it appears to be a drawing of the outside. There is a hole in the ceiling with limited light shining through.
+> ask fire wolf about hair
+
+> ask fire wolf about hair
+A strand of my hair you need? That is silly indeed. A strand I will give you young spark but first there is a part of you I also require. A quest that you can go on in this very cave. But first, do you believe in the legend of the fire wolf?
+> ask fire wolf about quest
+
+> ask fire wolf about quest
+A piece of you I need, and that is courage. I need to be able to face the moon like you face the ocean. Do this for me and I will give to you a strand of my hair.
+> ask fire wolf about moon
+
+> ask fire wolf about moon
+She resides on the top of the mountain.
+> u
+
+> u
+
+You are on carved mountain stairs.
+You can go down or up.
+The stairs reach into the sky. You start walking, no need to think about your sore feet now.
+> u
+
+> u
+
+You are in a top of the mountain.
+You can see Moon Sister.
+You can go down.
+> x moon sister
+
+> x moon sister
+The moon sister glows in the sky happily, waiting for night to fall. She looks at you and speaks with a voice full of melody, "What have you come here for child?"
+> tell moon sister about fire wolf
+
+> tell moon sister about fire wolf
+Well that is simple. I must come to her cave so that she may know I mean no harm and do not wish to keep her from her wolf sisters. However I am stuck here in the sky. Take this bottle to her, for then she will understand. I live, I degrade, I exist just as she does, for a purpose unknown.
+> d
+
+> d
+
+You are on carved mountain stairs.
+You can go down or up.
+The stairs reach into the sky. You start walking, no need to think about your sore feet now.
+> d
+
+> d
+You whisper that you believe in the cave and the drawing turns into an entrance allowing you to pass through.
+
+You are in a cave.
+You can see a fire wolf.
+You can go up or out.
+The cave is dark and somber inside. The drawing closes up back into a drawing, but from the inside it appears to be a drawing of the outside. There is a hole in the ceiling with limited light shining through.
+> give bottle of moon sparkle to fire wolf
+
+> give bottle of moon sparkle to fire wolf
+The wolf takes the bottle from you with captivation and begins to cry. The tears sizzle in her fur. "I have misunderstood!" she says to the bottle as she thanks you with her expression. "Here young spark, take this stand of hair."
+
+The fire wolf runs out of the cave and disappears.
+> out
+
+> out
+
+You are on the island edge.
+You can see a cliff face.
+You can go south, west or in.
+The edge of the island is bare of ornamentation. A few rocks, a cliff face, and subtle waves. It feels barren, of a different time and place.
+> s
+
+> s
+
+You are in an elemental temple.
+You can see a shrine and a wall tapestry.
+You can go south or north.
+The temple whispers of footsteps past that have stepped through this area.
+> s
+
+> s
+
+You are in a large temple ground.
+You can go south, north or west.
+The ground is covered in sand but it seems displaced. A chill wind blows through the grounds. There looks to have been statues before, but they have been carefully removed.
+> w
+
+> w
+
+You are in a crisp forest.
+You can see a tall tree.
+You can go east or west.
+> w
+
+> w
+
+You are on a bridge.
+You can go east, down or west.
+You hear a creaking under the bridge. When you look through the cracks you see a troll frozen in the ice.
+> d
+
+> d
+
+You are  underneath the bridge.
+You can see a frozen troll.
+You can go up.
+> x frozen troll
+
+> x frozen troll
+The troll is frozen in a block of ice. Perhaps you could use your fire blast to unfreeze him.
+> use fire blast on frozen troll
+
+> use fire blast on frozen troll
+You defrost the frozen troll and reveal him as the Ice Troll of the island. He stretches and then blurts out, "Am I king?"
+> ask ice troll about crown
+
+> ask ice troll about crown
+I beat time! I must be king now. Where is my crown?
+> give bent crown to ice troll
+
+> give bent crown to ice troll
+You give the crown to the Ice Troll and tell him you found his crown, he is now king. He claps gleefully. "I knew it! I won't be needing my frozen time anymore! Off to rule the world!"
+> u
+
+> u
+
+You are on a bridge.
+You can go east, down or west.
+You hear a creaking under the bridge. When you look through the cracks you see a troll frozen in the ice.
+> w
+
+> w
+
+You are in a muddy forest.
+You can see a Stag of Mother Earth.
+You can go east or west.
+Your feet stick in the mud.
+> x stag
+
+> x stag
+The stag is stuck in the mud. Its head is adorned with flowers and foliage. He looks at you with all knowing eyes.
+It contains a flower.
+> ask stag about flower
+
+> ask stag about flower
+You need one of my flowers? Well you have two options. You could take the flower while I stand her stuck, or you could free me and I will give it to you.
+> free stag
+
+> free stag
+You haul the stag out of the mud. He thanks you with a sly smile in his eyes. It seemed awfully easy to pull him out...
+
+He shakes a flower from his head into your hand and bounds off into the distance.
+> w
+
+> w
+
+You are in the wading waters.
+You can go east or south.
+The beach slopes off into knee high waters. You wade in. The water is refreshing on your skin.
+Something swirls around your feet. You stand perfectly still, and up she pops!
+
+This siren looks like no lover, warrior, writer, trickster - just a girl..with some replacements for her feet.
+> x playful siren
+
+> x playful siren
+The siren is a young girl. She smirks at you as she splashes water at you.
+> ask playful siren about tear
+
+> ask playful siren about tear
+Someone is always wanting a siren's tears. Unfortunately for you, I don't much cry. And you wouldn't torture me! Because my father is king of the sea and he'd see to it that you'd never leave the water again!
+
+So we'll have to come up with a more creative way to make me give you a tear!
+> ask playful siren about how
+
+> ask playful siren about how
+I like you. Lets be friends. If you can make me laugh so hard I cry, I will give you a tear!
+
+But the only thing that makes me laugh is the joke frog! Can you find the joke frog? I'll give you a hint - he's no swimmer! But a climber indeed. Take this seashell so he knows that you know me!
+> s
+
+> s
+
+You are on small mound.
+You can see an Entranced Stone Lizard, a large rock, a pointy rock, a smooth rock, a small rock and a worn stone switch.
+You can go north or down.
+This is domain of stone, below is a series of rooms made of carved stone walls.
+> x entranced stone lizard
+
+> x entranced stone lizard
+The lizard seems part of the landscape with the rocks that grow along his back. He looks stuck, as if trying to get free. Maybe there is a clue around here how to help him. Maybe it has something to do with the stone switch.
+> x large rock
+
+> x large rock
+The rock looks to have fallen from the stone lizard. There is writing on it, perhaps a clue?
+
+I have streets but no pavement,
+I have cities but no buildings,
+I have forests but no trees,
+I have rivers yet no water.
+
+What am I?
+> x pointy rock
+
+> x pointy rock
+The rock looks as if it fell from the stone lizard. It has writing on it, perhaps a clue?
+
+What does man love more than life,
+fear more then death or mortal strife,
+what the poor have the rich require,
+and all contented men desire.
+What misers spend and spendthrifts save
+and all men carry to the grave?
+> x smooth rock
+
+> x smooth rock
+The rock looks like it fell from the stone lizard. It has writing on it, perhaps a clue?
+
+What kills kings,
+what makes mountains crumble,
+and makes all life come to an end?
+> x small rock
+
+> x small rock
+It looks as if the rock fell from the stone lizard. It has writing on it, perhaps a clue?
+
+In marble walls as white as milk,
+Lined with skin as soft as silk,
+In a fountain crystal clear,
+A golden treasure does appear.
+There are no doors to this stronghold,
+Yet thieves break in and steal the gold.
+
+What is it?
+> d
+
+> d
+
+You are in an underground cave.
+You can go up or north.
+> n
+
+> n
+
+You are in a long hall.
+You can go south, southeast, east, northeast, northwest, west or southwest.
+> se
+
+> se
+
+You are in the first room.
+You can see a basket of eggs and an egg room switch.
+You can go northwest.
+> switch on egg room switch
+
+> switch on egg room switch
+You switch it on.
+> nw
+
+> nw
+
+You are in a long hall.
+You can go south, southeast, east, northeast, northwest, west or southwest.
+> e
+
+> e
+
+You are in the second room.
+You can see a large map and a map room switch.
+You can go west.
+> switch on map room switch
+
+> switch on map room switch
+You switch it on.
+> w
+
+> w
+
+You are in a long hall.
+You can go south, southeast, east, northeast, northwest, west or southwest.
+> nw
+
+> nw
+
+You are in the fourth room.
+You can see a nothing room switch.
+You can go southeast.
+There is nothing in this room.
+> switch on nothing room switch
+
+> switch on nothing room switch
+You switch it on.
+> se
+
+> se
+
+You are in a long hall.
+You can go south, southeast, east, northeast, northwest, west or southwest.
+> w
+
+> w
+
+You are in the a fifth room.
+You can see a giant clock and a time room switch.
+You can go east.
+> switch on time room switch
+
+> switch on time room switch
+You switch it on.
+> e
+
+> e
+
+You are in a long hall.
+You can go south, southeast, east, northeast, northwest, west or southwest.
+> s
+
+> s
+
+You are in an underground cave.
+You can go up or north.
+> u
+
+> u
+
+You are on small mound.
+You can see an Entranced Stone Lizard, a large rock, a pointy rock, a smooth rock, a small rock and a worn stone switch.
+You can go north or down.
+This is domain of stone, below is a series of rooms made of carved stone walls.
+> switch on worn stone switch
+
+> switch on worn stone switch
+You switch it on.
+The lizard comes out of his trance! "Thank you! Here is payment for using your head to get me out of my trance!"
+> n
+
+> n
+
+You are in the wading waters.
+You can see a Playful Siren.
+You can go east or south.
+The beach slopes off into knee high waters. You wade in. The water is refreshing on your skin.
+> e
+
+> e
+
+You are in a muddy forest.
+You can go east or west.
+Your feet stick in the mud.
+> e
+
+> e
+
+You are on a bridge.
+You can go east, down or west.
+You hear a creaking under the bridge. When you look through the cracks you see a troll frozen in the ice.
+> e
+
+> e
+
+You are in a crisp forest.
+You can see a tall tree.
+You can go east or west.
+> climb tall tree
+
+> climb tall tree
+A joke tree frog appears! "Ah! The playful little Siren sent you did she! Yes! Yes! I remember her from a time ago when I tried to live in the water. She did love my jokes! But now that I am in this tree she cannot leave the waters and so I cannot tell her jokes! If could be turned into a fish! Then I could live in the water and tell her jokes all day! I hear if you drink from the waters at the water logged beach then you will turn into a water creature! Take me there?"
+> take joke tree frog
+
+> take joke tree frog
+You pick up the frog to take it to the water logged beach.
+> e
+
+> e
+
+You are in a large temple ground.
+You can go south, north or west.
+The ground is covered in sand but it seems displaced. A chill wind blows through the grounds. There looks to have been statues before, but they have been carefully removed.
+> n
+
+> n
+
+You are in an elemental temple.
+You can see a shrine and a wall tapestry.
+You can go south or north.
+The temple whispers of footsteps past that have stepped through this area.
+> n
+
+> n
+
+You are on the island edge.
+You can see a cliff face.
+You can go south, west or in.
+The edge of the island is bare of ornamentation. A few rocks, a cliff face, and subtle waves. It feels barren, of a different time and place.
+> w
+
+> w
+
+You are on a water logged beach.
+You can see You see sparkling water.
+You can go east.
+The joke tree frog jumps into the sparkling water! It bubbles and he emerges not as a fish but as a siren! He shakes the water out of his ear.
+"Hah! Can you believe it! I'll meet you over by the playful siren! I can't wait for her to see me! Thank you so much!"
+> e
+
+> e
+
+You are on the island edge.
+You can see a cliff face.
+You can go south, west or in.
+The edge of the island is bare of ornamentation. A few rocks, a cliff face, and subtle waves. It feels barren, of a different time and place.
+> s
+
+> s
+
+You are in an elemental temple.
+You can see a shrine and a wall tapestry.
+You can go south or north.
+The temple whispers of footsteps past that have stepped through this area.
+> s
+
+> s
+
+You are in a large temple ground.
+You can go south, north or west.
+The ground is covered in sand but it seems displaced. A chill wind blows through the grounds. There looks to have been statues before, but they have been carefully removed.
+> w
+
+> w
+
+You are in a crisp forest.
+You can see a tall tree.
+You can go east or west.
+> w
+
+> w
+
+You are on a bridge.
+You can go east, down or west.
+You hear a creaking under the bridge. When you look through the cracks you see a troll frozen in the ice.
+> w
+
+> w
+
+You are in a muddy forest.
+You can go east or west.
+Your feet stick in the mud.
+> w
+
+> w
+
+You are in the wading waters.
+You can see a Playful Siren and a Joke Siren.
+You can go east or south.
+The beach slopes off into knee high waters. You wade in. The water is refreshing on your skin.
+The playful siren gives you a vial of her laughing tears. "Thank you! For bringing me my friend back!"
+> e
+
+> e
+
+You are in a muddy forest.
+You can go east or west.
+Your feet stick in the mud.
+> e
+
+> e
+
+You are on a bridge.
+You can go east, down or west.
+You hear a creaking under the bridge. When you look through the cracks you see a troll frozen in the ice.
+> e
+
+> e
+
+You are in a crisp forest.
+You can see a tall tree.
+You can go east or west.
+> e
+
+> e
+
+You are in a large temple ground.
+You can go south, north or west.
+The ground is covered in sand but it seems displaced. A chill wind blows through the grounds. There looks to have been statues before, but they have been carefully removed.
+> s
+
+> s
+
+You are on a long path.
+You can go south or north.
+You feel as if you're stepping into a new world and the rest of the world falls away in a fog.
+> s
+
+> s
+
+You are in a cemetery.
+You can see unmarked graves and frozen flowers.
+You can go east, west or north.
+Ahead to the west is a mausoleum. The cemetery itself feels strangely un-occupied.
+> w
+
+> w
+
+You are in a mausoleum.
+You can go east or down.
+The mausoleum is much like the cemetery and feels more or less empty.
+> d
+
+> d
+
+You are in a room of tombs.
+You can go up or west.
+The wall is lined with wall tombs. There is no way to open them.
+> w
+
+> w
+
+You are in a statue room.
+You can see a Nymph Statue, a stone switch, a fire dish, an ice dish, an earth dish, an air dish (containing a hollow tusk), a water dish and metal dish.
+You can go east.
+The room is a circle and very bare along the walls, but in the middle stands a glorious carved display. A statue stands at the centre of a 6 point semi-circle ray and at each end of the ray lays a dish with an emblem engraved in the bottom. At the statues feet sits a stone switch.
+> put strand of fire wolf hair in fire dish
+
+> put strand of fire wolf hair in fire dish
+Done.
+> put frozen watch in ice dish
+
+> put frozen watch in ice dish
+Done.
+> put gifted flower in earth dish
+
+> put gifted flower in earth dish
+Done.
+> put vial of laughing tears in water dish
+
+> put vial of laughing tears in water dish
+Done.
+> put lizard coin in metal dish
+
+> put lizard coin in metal dish
+Done.
+> switch on stone switch
+
+> switch on stone switch
+You switch it on.
+
+You are in a dark hole.
+You can go up.
+There is a hole that you think you can fit through just ahead of you. It glows eerily in the almost darkness. You have no choice, there is no other way out.
+The floor below your feet opens up under you. You fall through it into a pile of dust and darkness as the floor above you closes slowly. You breathe heavily trying to collect yourself.
+> u
+
+> u
+You squeeze through the hole, widening it as you pull yourself up. You dust yourself off before looking around.
+
+You are in a hidden room.
+You can see a large round table, a deceased male (on which there is a diary), a fire bookshelf, an ice bookshelf, an earth bookshelf, an air bookshelf, a water bookshelf, a metal bookshelf and an elementalist bookshelf.
+You can go down or out.
+You're in a circular room. It appears to be some sort of library. At its centre is a grand table with 6 chairs, each with an elemental emblem on them. In the fire chair sits a charred body. There are some benches in-between the copious book shelves.
+> x large round table
+
+> x large round table
+In the middle of the table is a fine engraving, stained a luscious red. The name reads Filgree. That sounds familiar.
+> x deceased male
+
+> x deceased male
+He looks to be some sort of royalty. The remains of his clothes look to be made of fine fabric. He has a stone in his one hand and a diary in the other.
+> x diary
+
+> x diary
+The page that is open in his hand reads:
+
+My name is Gregory Filgree and I've been forced from my castle into hiding at this small elementalists haven. I began moving my books and years of knowledge here when the first breath of war against my kind was leaving the kings halls. He has forced me from my home, killed my wife and children, and now searches for me and my comrades. Once this table was filled with my companions, meant to master our crafts and spells. Now I sit here alone, a world where magic is used as weapons of war on the horizon. If you have happened upon this island you have come here not by chance, but were drawn here by your powers. Only elementalists may step foot on these beaches. Good luck in this war, keep your loved ones safe. The king is a stupid man, who's employed cunning animals to do his dirty work. There is no mercy for our kind here.
+> sit on ice chair
+
+> sit on ice chair
+It hums, and then goes silent.
+> out
+
+> out
+
+You are in a statue room.
+You can see a Nymph Statue, a stone switch, a fire dish (containing a strand of fire wolf hair), an ice dish (containing a frozen watch), an earth dish (containing a gifted flower), an air dish (containing a hollow tusk), a water dish (containing a vial of laughing tears) and metal dish (containing a lizard coin).
+You can go east.
+The room is a circle and very bare along the walls, but in the middle stands a glorious carved display. A statue stands at the centre of a 6 point semi-circle ray and at each end of the ray lays a dish with an emblem engraved in the bottom. At the statues feet sits a stone switch.
+> e
+
+> e
+
+You are in a room of tombs.
+You can go up or west.
+The wall is lined with wall tombs. There is no way to open them.
+> u
+
+> u
+
+You are in a mausoleum.
+You can go east or down.
+The mausoleum is much like the cemetery and feels more or less empty.
+> e
+
+> e
+
+You are in a cemetery.
+You can see unmarked graves and frozen flowers.
+You can go east, west or north.
+Ahead to the west is a mausoleum. The cemetery itself feels strangely un-occupied.
+> e
+
+> e
+
+You are in a barren forest.
+You can see a frosty tree.
+You can go east or west.
+> e
+
+> e
+
+You are on a frosty trail.
+You can go east, west, north or south.
+The edges of the trail are beginning to accumulate with frost. The trail is empty, which you find oddly spooky. The wind blows through your hair as if propelling you foreword.
+> e
+
+> e
+
+You are on an eerie beach.
+You can see a large stone and a fallen sign.
+You can go in or west.
+The beach seems to hold an eerie presence. It makes you shiver, you question exploring, but something pulls at your heart strings up the beach.
+> in
+
+> in
+
+You are in your  abandoned sailboat on eerie beach.
+You can go out or east.
+You have you boat pulled onto the beach as to not lose your boat back into the ocean if you get out and explore. Or you can go back east into the ocean.
+> e
+
+> e
+
+You are in the ocean.
+You can go north, east, south or west.
+> e
+
+> e
+
+You are in the ocean.
+You can go north, west, east or south.
+> e
+
+> e
+
+You are in the ocean.
+You can go north, west, east or south.
+> e
+
+> e
+
+You are in the ocean.
+You can go north, west, east or south.
+> e
+
+> e
+
+You are in the ocean.
+You can go north, west, east or south.
+> e
+
+> e
+
+You are in the ocean.
+You can go north, west, east or south.
+> s
+
+> s
+
+You are in the ocean.
+You can go north, west, east or south.
+> s
+
+> s
+
+You are in the ocean.
+You can go north, west, south or east.
+You see your home island just to east of you!
+> e
+
+> e
+
+You are in an abandoned sailboat on home beach.
+You can go west or out.
+You land on your home island.
+> out
+
+> out
+
+You are on your home beach.
+You can go in or east.
+You recognize your home island and can even see your house from the beach just up on the hill. No one ever comes to this beach much in the winter. The fishing is better on the farmland and the seaweed and shells that wash up here make it not very scenic. But your sister and you used to come down here anyway to collect things.
+You must not use your fire blast from here on out. You need to blend in if you want to make it to your sister. You do not want to be found out.
+> e
+
+> e
+
+You are on a seashell covered beach.
+You can go west, south, north or east.
+This is at the base of the rock covered hill just beside your house. If you look up it you can see the roof of your home. You and your sister would create pictures out of the seashells here on the sands.
+> s
+
+> s
+
+You are on a secluded beach.
+You can see a small girl.
+You can go north.
+> x small girl
+
+> x small girl
+A small girl cowers at the corner of the beach under the stones. She quivers with the cold. She looks to be in shock.
+
+You ask if she is okay, and she shakes her head no. Maybe you should ask her about what happened.
+> ask small girl about what happened
+
+> ask small girl about what happened
+These bad men came to my house up the hill. They were looking for magic people. My dad fought back. My brother and I ran away, but I don't know where he is. I don't know what happened. But they killed my papa. They killed him...
+
+I don't want to go anywhere. I don't want them to find me. Don't tell them I'm here.
+> ask small girl about house
+
+> ask small girl about house
+I live in the farthest house from here. My father was a farmer. My mother is a tailor. We live near the docks. Please, will you go and look and then come back for me. But don't fool me! Bring back my teddy bear if you really went to see. Then I will trust you.
+> n
+
+> n
+
+You are on a seashell covered beach.
+You can go west, south, north or east.
+This is at the base of the rock covered hill just beside your house. If you look up it you can see the roof of your home. You and your sister would create pictures out of the seashells here on the sands.
+> n
+
+> n
+
+You are on a seaweed covered beach.
+You can see a slime covered poster.
+You can go south or east.
+The beach is covered in slime. You wade through trying not to get too much stuck to you.
+> take slime covered poster
+
+> take slime covered poster
+You pick it up.
+You crumple up the paper into a wet ball.
+> e
+
+> e
+
+You are in a shrub filled area.
+You can see a small bird.
+You can go west or east.
+Small shrubs poke up through the ground, sparse and then thicker as you get away from the beach. You wade through them carefully, not wanting to run into anyone.
+> x small bird
+
+> x small bird
+The small bird tweets at you from the shrub. You shush it.
+> e
+
+> e
+
+You are in a sparse forest.
+You can go west or east.
+> e
+
+> e
+
+You are in a pathway.
+You can go west, east, south or southwest.
+> s
+
+> s
+
+You are in a living room.
+You can go north, east, southeast or south.
+> se
+
+> se
+
+You are in a spare room.
+You can go northwest or south.
+> s
+
+> s
+
+You are in a mud room.
+You can go north or south.
+> s
+
+> s
+
+You are in a backyard.
+You can go north or south.
+> s
+
+> s
+
+You are on a cliff.
+You can go north.
+The cliff looks out into the sea. It is less of a cliff and more of pile of rocks. You can only imagine all the people out there just like you and your sister, lost and trying to find each other. You take off your shoes and climb on the rocks, feeling the cold moss on your feet.
+> i
+
+> i
+You are carrying a prisoner outfit, a locket, a square of torn blanket, a navigation map, a cape, a shirt, bracers, a knife, a smuggler manual (containing maps, inventory lists and logs), a seashell and a slime covered poster.
 [state=Running]

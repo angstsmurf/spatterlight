@@ -273,4 +273,21 @@ Select One: Credits and Level One.
 You must complete the previous level in order to advance to the next.
 To select a level, take or play the level. To learn about the level, and what it contains, look at it.
 (If coordinates are active in the level you are playing, they will be listed next to the Room in a (x, y) format)
+> look at credits
+
+> look at credits
+The credits. To view them, please play or take the object.
+> play credits
+
+> play credits
+Labyrinth
+
+Created by Jacob Wilkus and Tim Huffman
+
+Programming Director: Jacob Wilkus
+
+Visual Director: Tim Huffman
+
+Testers: Collin Doll, Caleb Kissinger, Cian O'Lear, Kansas Lees, Riley Sirimongkhon-Dyck, Tyler Zeller
+Error running script: Error evaluating expression 'credits_room': Unknown object or variable 'credits_room'
 [state=Running]

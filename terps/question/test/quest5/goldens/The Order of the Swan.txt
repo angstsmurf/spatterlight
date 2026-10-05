@@ -60,9 +60,67 @@ Western Saranga
 There was a cluster of yellow-gown huts here. Bored, desolate faces stared from beyond the dirty panes of glass. The road was litter-strewn, and the walls of the huts were covered in inane graffiti that made even less sense than it did in Yina's village.
 
 The edge of the village was to the west, the square to the east, and the station was to the south.
+> south
+
+> south
+
+Saranga Station
+Yina had grown up on a small island without stagecoaches, but she could sense this place was even more depressing than stations usually were. A timetable informed her that the coach to Maranga had departed a couple of days earlier, and there would not be another until the following Monday.
+
+The western part of the village was to the north and there were no other exits.
+
+Yina could see a magician here.
+> speak to magician
+
+> speak to magician
+Yina asked the magician what the scroll was about. The magician took the scroll from her. His eyes lit up. "Brilliant," he said. "Just brilliant. It's the whispering spell. You can use it to tame any wild horse."
+
+The magician asked if he could keep the scroll. Yina couldn't possibly refuse.
+
+To use the whispering spell, type TAME with an object.
+> north
+
+> north
+
+Western Saranga
+There was a cluster of yellow-gown huts here. Bored, desolate faces stared from beyond the dirty panes of glass. The road was litter-strewn, and the walls of the huts were covered in inane graffiti that made even less sense than it did in Yina's village.
+
+The edge of the village was to the west, the square to the east, and the station was to the south.
 > east
 
 > east
+
+The Village Square
+Boarded-up shops surrounded the village square on all sides. Apart from that, it was completely abandoned.
+
+To the west and south were yellow-gown huts, to the north were blue-gown houses, and to the east was a stable.
+> x shops
+
+> x shops
+The shops were all boarded up and covered in spiders' webs and graffiti. The graffiti was really quite inane.
+> read graffiti
+
+> read graffiti
+Someone had scratched the words to the fixing spell amongst all the strange messages informing Yina who was in love with whom 4eva.
+
+To use this spell, write FIX with an object.
+> east
+
+> east
+
+The Stables
+There were about ten berths in the stables, but eight of them looked like they'd never been occupied. Each berth contained a small amount of hay here.
+
+The western exit led to the village square. There were no other exits.
+
+Yina could also see some salt lick here.
+> take salt lick
+
+> take salt lick
+Yina took the salt lick.
+> west
+
+> west
 
 The Village Square
 Boarded-up shops surrounded the village square on all sides. Apart from that, it was completely abandoned.
@@ -76,27 +134,29 @@ Northern Saranga
 This was where the blue-gowns lived, although in reality, their houses were barely less shoddy than those in the yellow-gown parts of the village.
 
 To the south was the village square. The bridge out of town was to the northeast.
+> northeast
+
+> northeast
+
+Saranga Bridge
+It was a sturdy, old bridge which passed over a deep ravine to the other side of the river Saranga.
+
+The village of Saranga lay to the southwest. The highway to the Uyele continued to the northeast, although the Uyele actually getting to the Uyele might take several days.
+> search woods
+
+> search woods
+Yina found a knife so blunt it would not even be able to spread butter. Loya picked up the knife. She never knew when she might need to embarrass herself by completely failing to spread butter.
+> southwest
+
+> southwest
+
+Northern Saranga
+This was where the blue-gowns lived, although in reality, their houses were barely less shoddy than those in the yellow-gown parts of the village.
+
+To the south was the village square. The bridge out of town was to the northeast.
 > south
 
 > south
-
-The Village Square
-Boarded-up shops surrounded the village square on all sides. Apart from that, it was completely abandoned.
-
-To the west and south were yellow-gown huts, to the north were blue-gown houses, and to the east was a stable.
-> east
-
-> east
-
-The Stables
-There were about ten berths in the stables, but eight of them looked like they'd never been occupied. Each berth contained a small amount of hay here.
-
-The western exit led to the village square. There were no other exits.
-
-Yina could also see some salt lick here.
-> west
-
-> west
 
 The Village Square
 Boarded-up shops surrounded the village square on all sides. Apart from that, it was completely abandoned.
@@ -112,6 +172,38 @@ Yina found herself in a muddy field surrounded by a few yellow-gown huts. The do
 Some children were here. They appeared to be banging on a frying pan.
 
 Yina could go north to the village square, or into the hut.
+> in
+
+> in
+
+A Yellow-gown Hut
+It was a rustic hut, not much different from any other yellow-gown huts Yina had seen in her lifetime. There was a low table in the middle of the room and a stove in the corner.
+
+Upon the table sat a bell.
+
+Yina could go back out to the southern part of the village.
+> take bell
+
+> take bell
+Yina picked up the bell, although the very sight of it disgusted her.
+> out
+
+> out
+
+Southern Saranga
+Yina found herself in a muddy field surrounded by a few yellow-gown huts. The door to one of the huts was slightly ajar.
+
+Some children were here. They appeared to be banging on a frying pan.
+
+Yina could go north to the village square, or into the hut.
+> ring bell
+
+> ring bell
+Yina rang the bell. The children sprang to their feet and filed past Yina into the hut completely forgetting about their frying pan.
+> take frying pan
+
+> take frying pan
+Yina picked up the frying pan, even though she thoroughly disliked cooking.
 > north
 
 > north
@@ -128,24 +220,6 @@ Western Saranga
 There was a cluster of yellow-gown huts here. Bored, desolate faces stared from beyond the dirty panes of glass. The road was litter-strewn, and the walls of the huts were covered in inane graffiti that made even less sense than it did in Yina's village.
 
 The edge of the village was to the west, the square to the east, and the station was to the south.
-> south
-
-> south
-
-Saranga Station
-Yina had grown up on a small island without stagecoaches, but she could sense this place was even more depressing than stations usually were. A timetable informed her that the coach to Maranga had departed a couple of days earlier, and there would not be another until the following Monday.
-
-The western part of the village was to the north and there were no other exits.
-
-Yina could see a magician here.
-> north
-
-> north
-
-Western Saranga
-There was a cluster of yellow-gown huts here. Bored, desolate faces stared from beyond the dirty panes of glass. The road was litter-strewn, and the walls of the huts were covered in inane graffiti that made even less sense than it did in Yina's village.
-
-The edge of the village was to the west, the square to the east, and the station was to the south.
 > west
 
 > west
@@ -156,4 +230,2233 @@ The village began here. There was a sign welcoming visitors to Saranga, although
 Yina could go into the hut. The forest was to the southwest, and to the east were the first huts in the village. To the northwest was a large and seemingly endless field.
 
 The highway to the west was much too dangerous to contemplate taking.
-[state=Running]
+> southwest
+
+> southwest
+
+Saranga Forest
+Trees surrounded Yina. It was very dark in this part of the forest.
+
+To the southwest the trees grew even thicker. To the northeast was the edge of the village.
+
+The forlorn figure of the minstrel sat under a tree contemplating life and looking all too sorry for himself.
+> speak to minstrel
+
+> speak to minstrel
+Yina asked what the matter was. "I used to make money," replied the man. "But then a giant threw my lute at a dragon. I can't do anything with this useless thing any more!" The minstrel held the lute up for Yina.
+
+She decided not to ask why a giant had thrown his lute at a dragon.
+> fix lute
+
+> fix lute
+Yina chanted the words to the fixing spell. Within moments, the minstrel's lute was restored to new.
+
+The minstrel beamed at Yina. 'Thanks, lassie,' he said. 'The only thing I've got to repay you with is this sheet music, but you're welcome to it.' Yina took the sheet music gratefully, and with that, off galumphed the minstrel, singing, 'I don't know why oh why, but stab the dragon in the eye, oh my.'
+> northeast
+
+> northeast
+
+The Edge of the Village
+The village began here. There was a sign welcoming visitors to Saranga, although the houses apparently did not begin for a while yet. Just one hut was visible from here. The area was pleasantly wooded, exactly the sort of place bandits resided.
+
+Yina could go into the hut. The forest was to the southwest, and to the east were the first huts in the village. To the northwest was a large and seemingly endless field.
+
+The highway to the west was much too dangerous to contemplate taking.
+> northwest
+
+> northwest
+
+The Field
+Yina found herself in a seemingly endless field. Tall grasses brushed around in the wind. Somewhere she could hear the thunder of waves against the shore, but she could not tell exactly where the noise came from.
+
+Yina could go southeast to the edge of the village.
+
+A wild horse galloped around the field.
+> tame horse
+
+> tame horse
+Yina chanted the words to the whispering spell. The horse slowed to a trot and marched up to the girl, as though asking to be fed.
+> feed horse
+
+> feed horse
+Yina gave the salt lick to the horse. It was now a happy horse. It nodded in the direction of the north, and then gestured to Yina as though offering to take her there.
+> north
+
+> north
+
+The Cliffs
+Far below, waves crashed onto a narrow sand strip.
+
+A treacherous trail led down the cliff face. To the south was a field.
+> down
+
+> down
+
+The Sandstrip
+Yina was on a narrow sandstrip which looked out to the endless sea. Somewhere to the north was the kingdom of Arka, which many here still hoped would send it's army across the sea to save Anaxta from impending defeat.
+
+A treacherous path led up the cliff face. Yina could also go into the cave.
+> in
+
+> in
+
+The Cave
+Yina found herself in a cave with slimy, stone walls. It was dark and musty in here.
+
+A dragon lay on the ground sleeping by the side of a wooden chest.
+
+Loya could go out of the cave, back onto the sandstrip.
+> hit frying pan
+
+> hit frying pan
+Yina picked up a nearby stone and banged on the frying pan. The dragon stopped snoring and opened its eyes, furious to have been woken, and even more enraged that its precious chest was under threat.
+> stab dragon's eye with knife
+
+> stab dragon's eye with knife
+Yina inserted the blunt and rusty knife into the dragon's eye. To her surprise, it rolled over and died.
+> play flute
+
+> play flute
+The chest sprung open. Strangely, the chest seemed larger on the inside than on the outside. In fact, it was big enough that Yina could enter it.
+> in
+
+> in
+The lid of the chest snapped shut as soon as Yina entered the chest.
+
+The Chest
+Had the Doctor existed in Yina's world, she would perhaps have been less surprised that the chest was larger on the inside than on the outside.
+
+There was a portal here engraved in the image of the Great Demon, Kayla. It was surely a portal to Hell itself. Yina could go out, back to the cave.
+
+Yina could also see a rather large stone here.
+> take hefty stone
+
+> take hefty stone
+With some effort, Yina managed to pick up the hefty stone.
+> touch portal
+
+> touch portal
+Yina felt a strange energy pass through her as she touched the portal. Indeed, a light flashed from behind her.
+> out
+
+> out
+The carcass of the dead dragon had disappeared, and now a young man appeared in it's place. Yina knew him to be Prince Tanek, husband of the dark queen Gatana. His punishment had been to take on the form of a dragon and guard the portal to Hell.
+
+The Cave
+Yina found herself in a cave with slimy, stone walls. It was dark and musty in here.
+
+Prince Tanek was here.
+
+Loya could go out of the cave, back onto the sandstrip.
+> speak to Prince Tanek
+
+> speak to Prince Tanek
+Prince Tanek spoke softly to Yina. 'My child, never before has the world been so threatened by the forces of darkness. Pekora plans to launch its final assault, one that will bring Anaxta to total annihilation. From there, it has access to Katara, where the Book of Darkness is hidden under nine mountains, and once they have that, even Avleaht and Devala will be powerless against Pekora. Yina, it is imperative that you find the bandits. They will help you to Maranga, where you will find friends. Take this. It will serve you well.' He handed Yina a coil of rope.
+
+With that, Prince Tanek walked to the mouth of the cave. Then he walked out of the cave, where he turned into a swan and entered the ocean.
+> out
+
+> out
+
+The Sandstrip
+Yina was on a narrow sandstrip which looked out to the endless sea. Somewhere to the north was the kingdom of Arka, which many here still hoped would send it's army across the sea to save Anaxta from impending defeat.
+
+A treacherous path led up the cliff face. Yina could also go into the cave.
+> up
+
+> up
+
+The Cliffs
+Far below, waves crashed onto a narrow sand strip.
+
+A treacherous trail led down the cliff face. To the south was a field.
+> south
+
+> south
+The tame horse galloped up to Yina, as though asking if she wanted a ride somewhere.
+
+The Field
+Yina found herself in a seemingly endless field. Tall grasses brushed around in the wind. Somewhere she could hear the thunder of waves against the shore, but she could not tell exactly where the noise came from.
+
+Yina could go southeast to the edge of the village.
+> southeast
+
+> southeast
+
+The Edge of the Village
+The village began here. There was a sign welcoming visitors to Saranga, although the houses apparently did not begin for a while yet. Just one hut was visible from here. The area was pleasantly wooded, exactly the sort of place bandits resided.
+
+Yina could go into the hut. The forest was to the southwest, and to the east were the first huts in the village. To the northwest was a large and seemingly endless field.
+
+The highway to the west was much too dangerous to contemplate taking.
+> southwest
+
+> southwest
+
+Saranga Forest
+Trees surrounded Yina. It was very dark in this part of the forest.
+
+To the southwest the trees grew even thicker. To the northeast was the edge of the village.
+> southwest
+
+> southwest
+
+The Dark Forest
+Trees surrounded Yina in all directions, and it was very, very dark here.
+
+Yina could just about make out a path to the northeast, where the Saranga Woods thinned out a little. To the west, she could hear a faint sound of gushing water. The sound, presumably, came from a stream or a river.
+> west
+
+> west
+
+The River Bank East
+On three sides, Yina was greeted with the endless sight of trees. However, it was slightly lighter here than to the east, perhaps on account of a rapid stream flowing to Yina's west.
+
+Right on the edge of the bank, a tall old tree sprung from the ground at an angle which seemed entirely impossible.
+
+Yina could go east to the darkest part of the woods.
+> chop old tree with axe
+
+> chop old tree with axe
+Yina chopped down the old tree. It fell in such a way that it conveniently formed a bridge to the other side of the river. She could now go west.
+> west
+
+> west
+Please choose which 'west' you mean:
+1: west
+2: west
+> 1
+
+The River Bank West
+Yina found herself on a grassy bank in the middle of the Saranga woods.
+
+Yina could cross the river to the eastern bank. A path led west, but was blocked by a fallen log.
+> tie log with rope
+
+> tie log with rope
+Yina tied the rope to the log.
+> pull log
+
+> pull log
+Yina managed to move the log just about enough to get past the log. She untied the rope and coiled it up again.
+
+Yina could now go west.
+> west
+
+> west
+
+The Clearing
+A clearing opened up here. It was not exactly light, perhaps on account of leaves from the encircling trees covering most of the sky, but it formed a welcome change from the gloom that surrounded Yina in every other direction. Strangely, there was a tall tree right in the middle of the clearing.
+
+Yina could go east to the river.
+> x tree
+
+> x tree
+A tall tree which someone seemed to have built a city within. However, it seemed entirely impossible to reach the city from here.
+> hurl hefty stone at tree
+
+> hurl hefty stone at tree
+Yina threw the hefty stone at the tree. It dislodged some vines before disappearing somewhere into the forest. Yina was rather impressed with her own strength.
+
+She also now had a rope which she could use to climb up into the treehouse city.
+> up
+
+> up
+Yina climbed the vines. Before she could reach the top, a hand grabbed her and hauled her up. The hand dumped Yina to the ground unceremoniously. When Yina looked up, she saw herself face to face with a fierce-looking woman. Sweat dripped from Yina's brow. 'Please,' she said. 'I've been sent by Prince Tanek.'
+
+'A likely story,' growled the woman. 'Prince Tanek is the guardian of the portal to the underworld. He has taken the form of a dragon for hundreds of years.'
+
+'I slew the dragon, and he turned back into Prince Tanek. He told me that grave trouble is afoot.' Yina now told the woman all about her encounter with the Prince. The woman called over a bandit and asked him to watch over the girl while she went to speak to the leader.
+
+A long time passed, but at last the bandit woman returned. 'Very well,' she said. 'Our spies will be detached to investigate the veracity of your claims. If they report favourably, we will aid your journey to Maranga. If not, you shall be put to the sword.'
+Yina remained in the bandit city for several days, but she was neither put to the sword, nor offered assistance in reaching Maranga. She watched the bandits carefully, but saw no indication that they were indeed sending spies to check her claims. At last she realised that she was going to have to escape from the bandit city on her own, and hopefully make it to the big city without incident.
+
+Bandit City
+A complex system of walkways had been built here. Gangways led to the south, north, east and west, each with a large hut at the end.
+
+The bandit woman stood guard here.
+> speak to Sister Ikura
+
+> speak to Sister Ikura
+"Why can't I leave?" Yina demanded to know.
+
+"I get lonely here, sometimes," griped the bandit woman. "I'm surrounded by men. I feel left out. And they aren't even interested in me for a date. I like the guard, though. There's something about him."
+> west
+
+> west
+
+The West Walkway
+Yina stood on a walkway outside a hut, high in the canopy. This architectural wonder did not cease to amaze her.
+
+She could go into the hut or walk east back to the central part of the bandit city.
+> in
+
+> in
+
+The West Hut
+Hammocks stretched from wall to wall. Yina counted about twenty in total. Another twenty or so cots lay on the floor.
+
+She could go out.
+> look under cots
+
+> look under cots
+Yina found a girlie picture and a magnifying glass under the cots. She stuffed both objects in her holdall. She had no idea when she might need to closely examine a hot woman, though.
+> out
+
+> out
+
+The West Walkway
+Yina stood on a walkway outside a hut, high in the canopy. This architectural wonder did not cease to amaze her.
+
+She could go into the hut or walk east back to the central part of the bandit city.
+> east
+
+> east
+
+Bandit City
+A complex system of walkways had been built here. Gangways led to the south, north, east and west, each with a large hut at the end.
+
+The bandit woman stood guard here.
+> north
+
+> north
+
+The North Walkway
+Yina was on the northern walkway. Around her were the branches of nearby trees.
+
+She could go into the northern hut, or she could return to the centre of the bandit city.
+> in
+
+> in
+
+The North Hut
+This was an architectural wonder! A hut built high in the canopy and almost hidden from the various armies that were pillaging the land, there was a stove with a flue allowing the smoke to escape. Next to the stove was a potato sack.
+
+Yina could go out.
+> search stove
+
+> search stove
+Yina found an arrow in the stove. She snatched it up.
+> use magnifying glass on picture
+
+> use magnifying glass on picture
+Yina held the magnifying glass up to the picture and began a fire, which she used to light the stove.
+> put frying pan on stove
+
+> put frying pan on stove
+Yina put the frying pan on the stove.
+> open sack
+
+> open sack
+Yina opened the potato sack.
+
+Unsurprisingly, it contained potatoes.
+> cook potatoes
+
+> cook potatoes
+Yina put the potatoes in the fire. A pleasant smell soon wafted out across the bandit city. Several bandits now entered the hut with hungry expressions on their faces.
+> out
+
+> out
+
+The North Walkway
+Yina was on the northern walkway. Around her were the branches of nearby trees.
+
+She could go into the northern hut, or she could return to the centre of the bandit city.
+> south
+
+> south
+
+Bandit City
+A complex system of walkways had been built here. Gangways led to the south, north, east and west, each with a large hut at the end.
+
+The bandit woman stood guard here.
+> east
+
+> east
+
+The East Walkway
+Yina stood on a sturdy walkway. Below was a river.
+
+To the west was the centre of the bandit city. Yina could also go into the hut.
+
+One of the bandits had left a bow neatly leaning against the wall of the hut.
+> take bow
+
+> take bow
+Yina slung the bow onto her shoulder. She quite liked her new look.
+> in
+
+> in
+
+The East Hut
+Dozens of hammocks hung up from the walls.
+
+On one the floor lay scattered an incomplete game of Snap.
+
+Yina could go out.
+> take playing cards
+
+> take playing cards
+Yina scooped up the cards, patted them into a neat pile and placed them in the box before adding them to her holdall.
+> x playing cards
+
+> x playing cards
+The playing cards were beautifully decorated. One card, the Queen of Spades, looked strangely like Yina's mother. Something was written around the edges of the card.
+> read Queen of Spades
+
+> read Queen of Spades
+Around the edge of the card were the words to the firestarting spell.
+
+To use the firestarting spell, type FIRESTART with an object.
+> out
+
+> out
+
+The East Walkway
+Yina stood on a sturdy walkway. Below was a river.
+
+To the west was the centre of the bandit city. Yina could also go into the hut.
+
+One of the bandits had left a bow neatly leaning against the wall of the hut.
+> west
+
+> west
+
+Bandit City
+A complex system of walkways had been built here. Gangways led to the south, north, east and west, each with a large hut at the end.
+
+The bandit woman stood guard here.
+> south
+
+> south
+
+The South Walkway
+Yina stood outside the leader's hut.
+
+A guard stood outside the leader's hut preventing anyone outside of the inner circle from entering.
+
+Yina could go north to the central crossroads of the city.
+> firestart walkway
+
+> firestart walkway
+Yina chanted the words to the firestarting spell. The guard looked up and in terror bounded across the bridge into the safety of the northern hut.
+> north
+
+> north
+
+Bandit City
+A complex system of walkways had been built here. Gangways led to the south, north, east and west, each with a large hut at the end.
+
+The bandit woman stood guard here.
+> north
+
+> north
+
+The North Walkway
+Yina was on the northern walkway. Around her were the branches of nearby trees.
+
+She could go into the northern hut, or she could return to the centre of the bandit city.
+> in
+
+> in
+
+The North Hut
+This was an architectural wonder! A hut built high in the canopy and almost hidden from the various armies that were pillaging the land, there was a stove with a flue allowing the smoke to escape. Next to the stove was a potato sack.
+
+Yina could go out.
+
+Some bandits were here, busily eating potatoes.
+
+The guardian of the southern walkway was also here.
+> speak to guard
+
+> speak to guard
+"I think Sister Ikura is sweet on you," said Yina. The guard's eyes lit up.
+
+"Can you tell her I'm also sweet on her?" he said. Yina agreed. She walked out of the hut and went to talk to the bandit woman. Their exact conversation has been lost to time, but it resulted in Sister Ikura going to the north hut to talk to the guard and the beginning of a beautiful romance.
+
+Returning to the story, though, Sister Ikura dropped something as she left. Yina picked it up. It was a brooch shaped like a swan.
+
+Bandit City
+A complex system of walkways had been built here. Gangways led to the south, north, east and west, each with a large hut at the end.
+> tie arrow with rope
+
+> tie arrow with rope
+Yina tied the rope to the arrow.
+> south
+
+> south
+
+The South Walkway
+Yina stood outside the leader's hut.
+
+A recent fire had burnt the end closest to the hut making the route insurpassable, although strangely, the bridge had not collapsed into the clearing below.
+
+Yina could go north to the central crossroads of the city.
+> shoot tied arrow with bow
+
+> shoot tied arrow with bow
+Yina tied one end of the arrow to the walkway and then fired. The arrow struck the wall of the leader's hut. Now Yina would be able to slide into it.
+
+Yina could now go south.
+> south
+
+> south
+As Yina entered the leader's hut, she came face to face with the bandit for the first time. She was expecting a fiersome expression to be written on his face, but instead, he clapped his hands approvingly.
+
+'I must say, young lassie,' he began, 'You have proven yourself to be most resourceful. Not many escape this fortress even when we are not keeping them prisoner.'
+
+The Leader's Hut
+The hut was furnished as luxuriously as any blue-gown mansion Yina had ever seen. Banditry was evidently a lucrative business. The leader sat on a cushion in lotus position.
+
+While she really didn't want to, Yina could exit to the north via the slide rope.
+
+A shield stood ostentatiously against one wall.
+> give swan brooch to bandit leader
+
+> give swan brooch to bandit leader
+Yina showed the brooch to the leader. "What is this?" she asked.
+
+"I thought you'd never ask," he replied. "When time started, two demons Kay and La did vainglorious battle for four thousand years. Kay was the demon of vengeance, and La the demon of compassion. Verily they wearied and agreed to merge into Kayla, the Great Demon Itself.
+
+"But where demons can compromise, people cannot. One group believed that Kay Himself was the Great Demon, and others believed that La Herself was. They divided into Dragons and Eagles.
+
+"Yet a small sect was dedicated to balance. They believed that neither part of Kayla was greater than the other. They became the Swans."
+The bandit leader continued. "Yina, the Swans have sought balance whilst the Eagles and the Dragons have sought destruction and domination. Many thousands of years ago, the Swans were outlawed in all parts of this planet.
+
+"For thousands of years, we were able to maintain balance from underground, but now the storm gathers. The Dragons and the Eagles plot to unleash the beast. The last time the beast was let loose on the world was the last time the world united, and if either sect has its way, it will be the next time we do as well, but now the beast is stronger and angrier than ever before. For all out unity, the beast cannot be tamed and will destroy us all.
+
+"A girl of sixteen summers long will unwittingly unleash the beast, for she alone can unbind it. She alone is pure, and there are those who seek to use her for their own purposes."
+Yina blinked trying to take in everything the bandit leader was telling her. He continued.
+
+"Yina, you have a part to play in the events that unfold around us, for whilst you cannot unbind the beast, only you can prevent the fall of Anaxta. Our intelligence has informed us that Pekoran agents are planning an action most vile which will draw Arka into the war. We will be framed and Arka will join on the enemy side.
+
+"It is imperative you get to Maranga, Yina. It is imperative you deliver this letter to Professor Zorek, for he will know what to do. And take my shield, for you now have greater need for it than I."
+
+With that, the bandit leader handed a letter to Yina and beckoned her to take the shield. He also threw down a rope ladder allowing Yina to walk safely to the forest below.
+As soon as Yina was back in the woods, the rope ladder disappeared back into the canopy.
+
+The Central Woodlands
+As Yina entered the Central Woodlands, the rope ladder disappeared back into the canopy. For a moment, Yina wondered if this had all been a dream.
+
+The Central Woodlands did not look any different from the woods which Yina had come from.
+
+To the southeast were the Central Plains.
+> southeast
+
+> southeast
+
+The Central Plains
+The Central Plains were not the most stunning landscape in Yina's world, although they were the most stunning she had ever seen. Empty, rolling hills stretched for miles all around and grass billowed in the wind.
+
+Seemingly endless paths led northwest and southwest.
+As Yina pondered what she was going to do, she suddenly sensed that she was not alone. She turned. Standing about twenty-five yards from her was a man in an Anaxtan army uniform.
+
+Seeing the girl, he quickly drew an arrow from his sheaf and whipped it into his bow.
+> use shield
+
+> use shield
+Yina held up the shield. The arrow flew through the air shattering the shield. The marauder was training another arrow in Yina's direction. Yina covered her eyes like a small child in terror of the dark, bracing herself for death.
+
+But she did not die. "Quick," called a voice. "Get on."
+
+Yina opened her eyes. A horseman was by her side, and in the distance lay a dead marauder. Yina mounted the horse and they galloped off.
+
+Once they were in safety, the horseman said, "My name is Marek. Something is not right. We ride to Maranga where I can find out what is happening, and you have business."
+
+They rode all night in virtual silence. At dawn, Marek dropped Yina off at Maranga Station. "May the "Great Demon be with you," he said as they parted. "The professor's house is not far from here. Leave the station and keep going west."
+
+Maranga Station
+This was certainly a grander structure than the station in Saranga. A huge timetable hung overhead, and a small noticeboard informed travellers where the next departure would be to. There were also some safety deposit boxes here.
+
+An official-looking woman paced around the station. Yina supposed that she was the stationmaster (or stationmistress). Depending on her political views, she could use either word.
+
+Yina could go out to Station Road.
+> out
+
+> out
+
+Station Road
+Travellers flocked at the entrance to the station, chatting and laughing as they greeted long-lost friends or prepared to leave for faraway places. The buildings along the road were decaying with age yet oddly attractive. They were covered also in graffiti.
+
+A large door led into the station, and Old Street was to the west. Other roads branched off into slum estates which looked too sordid for Yina's liking.
+> west
+
+> west
+
+Old Street
+This street was called Old Street despite the fact it had, presumably, once been a new street. It completely deserved its name, though, with rubble peeling and tumbling from the walls of decrepit and uncared for buildings.
+
+Liberty Square was to the west. To the east was Station Road, and Yina could also go into the seminary.
+> search rubble
+
+> search rubble
+Yina found a crowbar in the rubble. She picked it up.
+> west
+
+> west
+
+Liberty Square
+The central square of Maranga was a spacious and busy plaza surrounded on all sides by government buildings. The centrepiece was a giant statue of Queen Mara, the founder of the great city.
+
+The central boulevard was to the north. To the west was Temple Street and to the East was Old Street. Castle Street was to the south.
+
+People buzzed all around Yina.
+> west
+
+> west
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> in
+
+> in
+
+Professor Zorek's Yard
+The professor's yard was pleasantly decorated with garden furniture and two oversized plantpots that seemed to ridicule the withered osweed plants they contained. There was a small porch from whose ceiling dangled a rope.
+
+Yina could go out onto Temple Street, or into Professor Zorek's house.
+> pull rope
+
+> pull rope
+Yina pulled the rope. A chime rang out. A voice from within shouted, 'I'm coming!'
+
+A few moments later, the door swung open. An old man stood on the other side of the threshold. He beckoned Yina in, and she obliged.
+
+Professor Zorek's Hall
+The hall was tastefully decorated in the rustic style, with wood panelling and elegant paintings of former queens.
+
+The yard was to the north. To the east was the study, and to the west was the dining room. Up from the hall was the bedroom.
+
+Professor Zorek stood in the doorway looking inquisitively at Yina.
+> speak to Professor Zorek
+
+> speak to Professor Zorek
+Yina handed the letter to the professor. He read through it and scratched his head.
+
+'This is bad,' he replied. 'Very bad. Take the letter to Ihti. She will know what to do.'
+
+Yina asked who Ihti was.
+
+'Ah. she is an Eaht woman. Women from Eaht always know what to do, and Ihti is the wisest amongst them. She lives in the fishing village.' With that, the professor slammed the door in Yina's face.
+
+Professor Zorek's Yard
+The professor's yard was pleasantly decorated with garden furniture and two oversized plantpots that seemed to ridicule the withered osweed plants they contained. There was a small porch from whose ceiling dangled a rope.
+
+Yina could go out onto Temple Street, or into Professor Zorek's house.
+> out
+
+> out
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> west
+
+> west
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> southwest
+
+> southwest
+
+The Residential District
+This had once been a desirable district in which to live, but overpopulation had turned it into a slum for impoverished blue-gowns. The stench of human waste and decay was overwhelming, and the height of the buildings oppressive.
+
+To the northeast was Temple Street. To the west was the coastal road.
+> west
+
+> west
+
+The Coastal Road
+The road ran alongside a narrow, litter-strewn beach and the rolling waves reached almost as far as the dirty highway.
+
+To the northeast was Seafront Road. The fishing village was in the southwest, and a residential district began in the east.
+> search beach
+
+> search beach
+Yina found a strange ball on the beach. She pocketed it, just in case it would be useful.
+> east
+
+> east
+
+The Residential District
+This had once been a desirable district in which to live, but overpopulation had turned it into a slum for impoverished blue-gowns. The stench of human waste and decay was overwhelming, and the height of the buildings oppressive.
+
+To the northeast was Temple Street. To the west was the coastal road.
+> northeast
+
+> northeast
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> east
+
+> east
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> east
+
+> east
+
+Liberty Square
+The central square of Maranga was a spacious and busy plaza surrounded on all sides by government buildings. The centrepiece was a giant statue of Queen Mara, the founder of the great city.
+
+The central boulevard was to the north. To the west was Temple Street and to the East was Old Street. Castle Street was to the south.
+
+People buzzed all around Yina.
+> south
+
+> south
+
+Castle Street
+This street must have been one of the first built for it ran from Liberty Square to the palace, which occupied the site of an older, lower-key castle. Yina had read that in the days before the war, tourists had flocked from all over Anaxta and beyond to see the castle. Now it was deserted and almost entirely silent.
+
+A grand gate led into the Royal Palace. To the south were the Royal Gardens and to the north was Liberty Square.
+> in
+
+> in
+
+The Royal Palace
+Magnificent chandeliers hung from the ceiling. In the centre of the hall was a giant statue of Kayla.
+
+Out was Castle Street. In all other directions were rather stern looking guards.
+> break strange ball
+
+> break strange ball
+Yina broke the strange ball. Gases wafted out of it, but for some reason not in her direction. Soon all of the guards were gagging and choking.
+> climb statue of Kayla
+
+> climb statue of Kayla
+With some effort, Yina climbed the statue of Kayla
+
+On Top of the Statue of Kayla
+Yina now stood on the shoulders of the giant statue.
+
+There was a lever here.
+
+Yina could go down, back to the Royal Palace.
+> pull lever
+
+> pull lever
+It did not seem like much happened. Yina reset the lever
+> down
+
+> down
+
+The Royal Palace
+Magnificent chandeliers hung from the ceiling. In the centre of the hall was a giant statue of Kayla.
+
+Out was Castle Street. In all other directions were rather stern looking guards.
+> out
+
+> out
+
+Castle Street
+This street must have been one of the first built for it ran from Liberty Square to the palace, which occupied the site of an older, lower-key castle. Yina had read that in the days before the war, tourists had flocked from all over Anaxta and beyond to see the castle. Now it was deserted and almost entirely silent.
+
+A grand gate led into the Royal Palace. To the south were the Royal Gardens and to the north was Liberty Square.
+> north
+
+> north
+
+Liberty Square
+The central square of Maranga was a spacious and busy plaza surrounded on all sides by government buildings. The centrepiece was a giant statue of Queen Mara, the founder of the great city.
+
+The central boulevard was to the north. To the west was Temple Street and to the East was Old Street. Castle Street was to the south.
+
+People buzzed all around Yina.
+> west
+
+> west
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> west
+
+> west
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> southwest
+
+> southwest
+
+The Residential District
+This had once been a desirable district in which to live, but overpopulation had turned it into a slum for impoverished blue-gowns. The stench of human waste and decay was overwhelming, and the height of the buildings oppressive.
+
+To the northeast was Temple Street. To the west was the coastal road.
+> west
+
+> west
+
+The Coastal Road
+The road ran alongside a narrow, litter-strewn beach and the rolling waves reached almost as far as the dirty highway.
+
+To the northeast was Seafront Road. The fishing village was in the southwest, and a residential district began in the east.
+> southwest
+
+> southwest
+
+The Fishing Village
+Yina was in an ancient community which seemed untouched by the relentless march of modernisation. The wooden huts were built in a most traditional style, and the canoes would have sent most people in Yina's day into convulsions. The canoes were conveniently perched on the beach, ready to be taken out to sea at a moment's notice.
+
+Some footprints in the sand roused suspicion in Yina.
+
+To the northeast was the coastal road.
+
+A young boy was wandering around, kicking the sand in front of him, as though he was looking for something.
+
+Strewn on the ground was a white gown.
+> take white gown
+
+> take white gown
+Yina picked up the white gown. She might get some clues from it.
+> search white gown
+
+> search white gown
+Yina found a small piece of wire in the gown.
+> northeast
+
+> northeast
+
+The Coastal Road
+The road ran alongside a narrow, litter-strewn beach and the rolling waves reached almost as far as the dirty highway.
+
+To the northeast was Seafront Road. The fishing village was in the southwest, and a residential district began in the east.
+> east
+
+> east
+
+The Residential District
+This had once been a desirable district in which to live, but overpopulation had turned it into a slum for impoverished blue-gowns. The stench of human waste and decay was overwhelming, and the height of the buildings oppressive.
+
+To the northeast was Temple Street. To the west was the coastal road.
+> northeast
+
+> northeast
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> in
+
+> in
+
+The Cloisters
+Tall pillars held up the temple in an auspicious architectural style which had been used under the reign of Queen Anadena. Proving much too costly and time-consuming to build in such a style, later queens had abandoned this approach for something more simple.
+
+A massive crack split one of the columns almost in two.
+
+Yina could go out to Temple Street. A staircase led up into the temple.
+> search crack
+
+> search crack
+Yina discovered a bizarre thing in the crack. She put it in her holdall. It might come in handy if ever she needed to do anything strange.
+> out
+
+> out
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> north
+
+> north
+
+Hill Street
+This was a potholed street where intrepid houses clung to the hillface, looking as though they could come tumbling down at any moment. This was a steep hill and would certainly not be much fun to climb up or down.
+
+To the south was Temple Street. Down the hill to the north was Seafront Road.
+
+One of the cobbles was a bit loose.
+> use bizarre thing on cobble
+
+> use bizarre thing on cobble
+Yina prised up the loose cobble. She put it in her holdall.
+> south
+
+> south
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> southwest
+
+> southwest
+
+The Residential District
+This had once been a desirable district in which to live, but overpopulation had turned it into a slum for impoverished blue-gowns. The stench of human waste and decay was overwhelming, and the height of the buildings oppressive.
+
+To the northeast was Temple Street. To the west was the coastal road.
+> west
+
+> west
+
+The Coastal Road
+The road ran alongside a narrow, litter-strewn beach and the rolling waves reached almost as far as the dirty highway.
+
+To the northeast was Seafront Road. The fishing village was in the southwest, and a residential district began in the east.
+> southwest
+
+> southwest
+
+The Fishing Village
+Yina was in an ancient community which seemed untouched by the relentless march of modernisation. The wooden huts were built in a most traditional style, and the canoes would have sent most people in Yina's day into convulsions. The canoes were conveniently perched on the beach, ready to be taken out to sea at a moment's notice.
+
+Some footprints in the sand roused suspicion in Yina.
+
+To the northeast was the coastal road.
+
+A young boy was wandering around, kicking the sand in front of him, as though he was looking for something.
+> dig sand
+
+> dig sand
+With the bizarre object, Yina dug up some sand near the footprints. She found a key shaped like an eagle in the sand. She picked it up.
+> northeast
+
+> northeast
+
+The Coastal Road
+The road ran alongside a narrow, litter-strewn beach and the rolling waves reached almost as far as the dirty highway.
+
+To the northeast was Seafront Road. The fishing village was in the southwest, and a residential district began in the east.
+> east
+
+> east
+
+The Residential District
+This had once been a desirable district in which to live, but overpopulation had turned it into a slum for impoverished blue-gowns. The stench of human waste and decay was overwhelming, and the height of the buildings oppressive.
+
+To the northeast was Temple Street. To the west was the coastal road.
+> northeast
+
+> northeast
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> east
+
+> east
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> east
+
+> east
+
+Liberty Square
+The central square of Maranga was a spacious and busy plaza surrounded on all sides by government buildings. The centrepiece was a giant statue of Queen Mara, the founder of the great city.
+
+The central boulevard was to the north. To the west was Temple Street and to the East was Old Street. Castle Street was to the south.
+
+People buzzed all around Yina.
+> x statue of Queen Mara
+
+> x statue of Queen Mara
+Queen Mara looked like she would happily have cut off one's head. The pedestal, though, appeared to contain a safe.
+> unlock safe
+
+> unlock safe
+Unlocked.
+
+Yina opened it.
+
+Inside, Yina found the red stone.
+> take red stone
+
+> take red stone
+Yina took the red stone.
+> west
+
+> west
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> west
+
+> west
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> in
+
+> in
+
+The Cloisters
+Tall pillars held up the temple in an auspicious architectural style which had been used under the reign of Queen Anadena. Proving much too costly and time-consuming to build in such a style, later queens had abandoned this approach for something more simple.
+
+A massive crack split one of the columns almost in two.
+
+Yina could go out to Temple Street. A staircase led up into the temple.
+> up
+
+> up
+
+The Temple
+A massive altar stood at the front of the temple. Along the walls were various statues of demons.
+
+The cloisters was down from the temple. The bell tower was up.
+> up
+
+> up
+As Yina walked up to the gate, it swung open. Then it slammed shut behind her.
+
+The Bell Tower
+A small window in each of the four walls gave Yina some sense of just how expansive this sprawling metropolis was. A massive bell hung from the ceiling, seemingly so heavy it could cause the ceiling to fall at any moment.
+
+Down the stairs was the temple.
+> hurl flute at bell
+
+> hurl flute at bell
+Yina threw her flute at the bell. It fell to the ground and shattered before mysteriously disappearing. However, something got dislodged from the bell and fell onto the altar below.
+> down
+
+> down
+The gate opened when Yina approached, and shut just as mysteriously behind her.
+
+The Temple
+A massive altar stood at the front of the temple. Along the walls were various statues of demons.
+
+The cloisters was down from the temple. The bell tower was up.
+
+A slingshot lay on the altar.
+> take slingshot
+
+> take slingshot
+Yina picked up the slingshot.
+> down
+
+> down
+
+The Cloisters
+Tall pillars held up the temple in an auspicious architectural style which had been used under the reign of Queen Anadena. Proving much too costly and time-consuming to build in such a style, later queens had abandoned this approach for something more simple.
+
+A massive crack split one of the columns almost in two.
+
+Yina could go out to Temple Street. A staircase led up into the temple.
+> out
+
+> out
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> north
+
+> north
+
+Hill Street
+This was a potholed street where intrepid houses clung to the hillface, looking as though they could come tumbling down at any moment. This was a steep hill and would certainly not be much fun to climb up or down.
+
+To the south was Temple Street. Down the hill to the north was Seafront Road.
+> north
+
+> north
+
+Seafront Road
+Despite its name, the road was in fact a hundred yards or so inland from the shore, and was bounded on both sides by tall houses. Yina supposed that these were the quarters where workers and artisans lived. The district exuded a certain exuberrant charm. There was nothing unusual in the buildings being covered in graffiti.
+
+The road continued east and west, and to the south was Hill Street.
+> east
+
+> east
+
+Seafront Road East
+People whisked past Yina in all directions, and hansom cabs rattled over the cobbled road. Yina was not used to such a frenzy of activity and soon her head began to spin.
+
+The road continued to the west. To the north was the harbour and to the southeast was the boulevard. Another road led northeast, but it stretched so endlessly that Yina decided to pay it no further attention.
+> southeast
+
+> southeast
+
+The Boulevard
+If the shoppers along this busy boulevard fretted about the war, they did not show it. People bustled to and fro, looking at luxury items in the windows and leaving shops laden with things. The centre of the boulevard contained a long island of grass upon which oak trees had been planted stretching their arms over the street providing it with a shady charm.
+
+Liberty Square was to the south and Seafront Road was to the northwest. Yina could also go into the smithery.
+> shoot cobble with slingshot
+
+> shoot cobble with slingshot
+Yina fired the cobble into the trees. She struck a bird which came tumbling into the island on the boulevard. The cobble disappeared somewhere into the treetops.
+> take dead bird
+
+> take dead bird
+Loya picked up the dead bird for some inexplicable reason.
+> northwest
+
+> northwest
+
+Seafront Road East
+People whisked past Yina in all directions, and hansom cabs rattled over the cobbled road. Yina was not used to such a frenzy of activity and soon her head began to spin.
+
+The road continued to the west. To the north was the harbour and to the southeast was the boulevard. Another road led northeast, but it stretched so endlessly that Yina decided to pay it no further attention.
+> north
+
+> north
+
+The Harbour
+There were currently no ships in the harbour, perhaps on account of the Pekoran blockade somewhere just beyond the horizon. Along one edge of the harbour were some warehouses, one of which was open.
+
+Yina could go south to Seafront Road or into the warehouse.
+
+Two vicious dogs charged at Yina, gnashing their teeth and howling.
+> feed dogs
+
+> feed dogs
+Yina gave the dead bird to the dogs. They gratefully lapped it up.
+> in
+
+> in
+
+The Warehouse
+The warehouse was a spacious room which had probably contained hundreds of crates in its glory days. These days, though, sea traffic had ground almost to a stop, and only a single crate could be seen lying on the ground.
+
+Yina could go out to the harbour.
+> use crowbar on crate
+
+> use crowbar on crate
+Yina prised open the crate.
+
+There was a mirror inside.
+> take mirror
+
+> take mirror
+Yina had always liked mirrors. She picked this one up, even though it was not a particularly attractive one.
+> out
+
+> out
+
+The Harbour
+There were currently no ships in the harbour, perhaps on account of the Pekoran blockade somewhere just beyond the horizon. Along one edge of the harbour were some warehouses, one of which was open.
+
+Yina could go south to Seafront Road or into the warehouse.
+
+Two scruffy, but friendly-looking dogs bounded up to Yina wagging their tails.
+> give white gown to dogs
+
+> give white gown to dogs
+The dogs sniffed at the gown, and then howled as though the owner had never existed.
+> south
+
+> south
+
+Seafront Road East
+People whisked past Yina in all directions, and hansom cabs rattled over the cobbled road. Yina was not used to such a frenzy of activity and soon her head began to spin.
+
+The road continued to the west. To the north was the harbour and to the southeast was the boulevard. Another road led northeast, but it stretched so endlessly that Yina decided to pay it no further attention.
+> southeast
+
+> southeast
+
+The Boulevard
+If the shoppers along this busy boulevard fretted about the war, they did not show it. People bustled to and fro, looking at luxury items in the windows and leaving shops laden with things. The centre of the boulevard contained a long island of grass upon which oak trees had been planted stretching their arms over the street providing it with a shady charm.
+
+Liberty Square was to the south and Seafront Road was to the northwest. Yina could also go into the smithery.
+> south
+
+> south
+
+Liberty Square
+The central square of Maranga was a spacious and busy plaza surrounded on all sides by government buildings. The centrepiece was a giant statue of Queen Mara, the founder of the great city.
+
+The central boulevard was to the north. To the west was Temple Street and to the East was Old Street. Castle Street was to the south.
+
+People buzzed all around Yina.
+> east
+
+> east
+
+Old Street
+This street was called Old Street despite the fact it had, presumably, once been a new street. It completely deserved its name, though, with rubble peeling and tumbling from the walls of decrepit and uncared for buildings.
+
+Liberty Square was to the west. To the east was Station Road, and Yina could also go into the seminary.
+> in
+
+> in
+
+A Seminary Entrance
+Yina found herself in the entrance to the seminary. As a small child, she had always dreamt of attending, and she had been top of her class every year, such had been her motivation to attend, to qualify for the priesthood.
+
+The hallway was dark, illuminated only with few torches hangin on the walls.
+
+The office was to the east and the corridor continued to the south. Yina could also go out onto Old Street.
+> south
+
+> south
+
+The Seminary Corridor (North)
+The corridor continued north and south with bare walls.
+
+To the west and east were classrooms.
+> south
+
+> south
+
+The Seminary Corridor (South)
+Yina found herself at the end of a corridor. It was just as charmless as the northern section.
+
+To the west was the girls' dorm. The boys' dorm was to the east.
+> west
+
+> west
+
+The Girls' Dorm
+Yina had dreamt of attending te seminary when she'd been younger, but now she was here, she was beginning to feel glad that things hadn't quite worked out the way she had wanted them to.
+
+About twenty bunks lined two of the walls. At the far end of the room was a closet.
+
+The corridor was to the east.
+> open closet
+
+> open closet
+Yina opened it.
+
+As Yina opened the closet, an evil rabbit jumped out, bit her on the arm and then took residence on one of the bunks.
+> stroke evil rabbit
+
+> stroke evil rabbit
+Against her better judgement, Yina stroked the evil rabbit. It did not, however, bite her again.
+
+Instead it turned into a girl. "Hello, Yina," said the girl. Yina did not recognise her at all. Seeing this, the girl introduced herself as Loya.
+> speak to Loya
+
+> speak to Loya
+"Who are you?" Yina asked. Loya looked at her in disbelief.
+
+"Don't you remember?" said Loya. "We're from the same island. You gave me the Book of Darkness."
+
+"The Book of Darkness?"
+
+Loya shook her head. "Yina, I broke into your house, you tried to firebolt me, then I said I knew what had happened to your brother."
+
+"My brother?"
+
+"He was murdered by the fat monk."
+As soon as Loya said this, something changed in Yina. Suddenly she remembered everything. She remembered how her brother had thrust a magical orb at her one day. He had been in some distress, as though he had known that the next day would be his last. Then he had been murdered in the island woods. For a long time, Yina had not known what to do with the magical orb, but then one day she had seen how the gases swirling within the orb appeared to form patterns. Now she had seen a fat monk stabbing her brother in the woods. Yina had vowed revenge on the fat monk, but she had no idea who he was.
+
+Just before the dark witch Abuna had destroyed her island, Yina had discovered that the fat monk had been a man named Brother Ulyek.
+
+"Yina," continued Loya. "We are both part of a story we are too small to understand, but I know one thing. You are going to need protection." Loya held out an orange stone for Yina, which she gladly pocketed.
+"There's something else," continued Loya. "When I arrived in Maranga about ten days ago, I took the Book of Darkness to the professor. I know you have made his acquaintance, for I was in the shadows when you brought him a most urgent communication from the bandits. Anyway, he told me to take it to the clerk. Then a few hours ago, a gang of marauders burst in and murdered the professor. Just before they did that, he turned me into a rabbit. He also turned his son into a dog."
+
+"Sounds like the clerk knows something," said Yina.
+
+"That's what I think," replied Loya. "But be careful. He is not likely to give up without a fight."
+> east
+
+> east
+
+The Seminary Corridor (South)
+Yina found herself at the end of a corridor. It was just as charmless as the northern section.
+
+To the west was the girls' dorm. The boys' dorm was to the east.
+> east
+
+> east
+
+The Boys Dorm
+Clothes were strewn everywhere - on the bunks, on the floor, and strangely, even on the ceiling. There was a closet here, which Yina doubted was ever used.
+
+The only exit was to the west.
+
+The closet was inside. There was a chest inside it.
+> open closet
+
+> open closet
+Yina opened it.
+
+There was a chest inside.
+> unlock chest
+
+> unlock chest
+Unlocked.
+
+Yina opened the chest.
+
+Inside was a wrench.
+> take wrench
+
+> take wrench
+Yina took the wrench. Surely this would be useful for something.
+> west
+
+> west
+
+The Seminary Corridor (South)
+Yina found herself at the end of a corridor. It was just as charmless as the northern section.
+
+To the west was the girls' dorm. The boys' dorm was to the east.
+> north
+
+> north
+
+The Seminary Corridor (North)
+The corridor continued north and south with bare walls.
+
+To the west and east were classrooms.
+> north
+
+> north
+
+A Seminary Entrance
+Yina found herself in the entrance to the seminary. As a small child, she had always dreamt of attending, and she had been top of her class every year, such had been her motivation to attend, to qualify for the priesthood.
+
+The hallway was dark, illuminated only with few torches hangin on the walls.
+
+The office was to the east and the corridor continued to the south. Yina could also go out onto Old Street.
+> east
+
+> east
+
+The Office
+The office consisted of a desk, behind which was a chair. There was a small window here as well.
+
+The exit to the corridor was to the west.
+
+A passive-aggressive-looking clerk sat on the chair doing his best to pay no attention to Yina.
+> speak to clerk
+
+> speak to clerk
+"What do you know about the Book of Darkness?" Yina demanded to know.
+
+The clerk looked up furtively, then jumped out of the window. Yina ran towards the window, but by the time she got there, the clerk was already out of sight.
+
+Yina had the strange feeling that someone was following her.
+> use orange stone
+
+> use orange stone
+Yina held up the orange stone. At the very least, it made her feel safer.
+
+Suddenly she heard something fall to the ground. It was a ring in the shape of dragon. Yina picked it up.
+> x desk
+
+> x desk
+There were some boring papers and a fountain pen on the desk. Under the desk was a drawer.
+> open drawer
+
+> open drawer
+Yina tried to open the drawer.
+
+Inside was a memo.
+> take memo
+
+> take memo
+Yina took the memo, just in case she needed to refer to it again.
+> read memo
+
+> read memo
+MOST URGENT COMMUNICATION
+
+From: MM
+To: BU
+Cc: BP, BZ
+
+Having analysed the Book of Darkness, I can assure you that this is no hoax. Directions are indeed indicated in this book, although it appears that the vital page has been removed. As a matter of most urgent consideration, direct SR to attend to the matter of uncovering the missing page.
+
+May the Great Demon Itself be with you.
+> west
+
+> west
+
+A Seminary Entrance
+Yina found herself in the entrance to the seminary. As a small child, she had always dreamt of attending, and she had been top of her class every year, such had been her motivation to attend, to qualify for the priesthood.
+
+The hallway was dark, illuminated only with few torches hangin on the walls.
+
+The office was to the east and the corridor continued to the south. Yina could also go out onto Old Street.
+> south
+
+> south
+
+The Seminary Corridor (North)
+The corridor continued north and south with bare walls.
+
+To the west and east were classrooms.
+> west
+
+> west
+
+A Classroom
+The classroom was nothing like those which Yina was accustomed to on her island. This was a giant auditorium which could seat a couple of hundred students. At the front was a large blackboard, next to which was a coat peg, although nothing hung on it.
+
+East was the corridor.
+> x coat peg
+
+> x coat peg
+The hook had a small indent, roughly the shape of a dragon's head in it.
+> insert dragon ring into indent
+
+> insert dragon ring into indent
+The coat peg disappeared revealing a cubby. Inside was the dragon gown. Yina picked it up.
+> wear dragon gown
+
+> wear dragon gown
+Yina put on the dragon gown. It was surprisingly comfortable.
+> east
+
+> east
+
+The Seminary Corridor (North)
+The corridor continued north and south with bare walls.
+
+To the west and east were classrooms.
+> north
+
+> north
+
+A Seminary Entrance
+Yina found herself in the entrance to the seminary. As a small child, she had always dreamt of attending, and she had been top of her class every year, such had been her motivation to attend, to qualify for the priesthood.
+
+The hallway was dark, illuminated only with few torches hangin on the walls.
+
+The office was to the east and the corridor continued to the south. Yina could also go out onto Old Street.
+> out
+
+> out
+
+Old Street
+This street was called Old Street despite the fact it had, presumably, once been a new street. It completely deserved its name, though, with rubble peeling and tumbling from the walls of decrepit and uncared for buildings.
+
+Liberty Square was to the west. To the east was Station Road, and Yina could also go into the seminary.
+> west
+
+> west
+
+Liberty Square
+The central square of Maranga was a spacious and busy plaza surrounded on all sides by government buildings. The centrepiece was a giant statue of Queen Mara, the founder of the great city.
+
+The central boulevard was to the north. To the west was Temple Street and to the East was Old Street. Castle Street was to the south.
+
+People buzzed all around Yina.
+> west
+
+> west
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> west
+
+> west
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> southwest
+
+> southwest
+
+The Residential District
+This had once been a desirable district in which to live, but overpopulation had turned it into a slum for impoverished blue-gowns. The stench of human waste and decay was overwhelming, and the height of the buildings oppressive.
+
+To the northeast was Temple Street. To the west was the coastal road.
+> west
+
+> west
+
+The Coastal Road
+The road ran alongside a narrow, litter-strewn beach and the rolling waves reached almost as far as the dirty highway.
+
+To the northeast was Seafront Road. The fishing village was in the southwest, and a residential district began in the east.
+
+A band of marauders stared out to sea expectantly. One man clearly stood out as the leader.
+> speak to leader of the band
+
+> speak to leader of the band
+Yina handed the memo to the leader of the band. He looked at Yina with a slightly disappointed expression on his face. "You are SR?" he said. "I was under the impression the Marangan Chapter would be sending us someone more senior.
+
+"Well, I can't gripe," he continued. "Here is your payment."
+
+With that, he handed Yina a moneybag.
+> east
+
+> east
+
+The Residential District
+This had once been a desirable district in which to live, but overpopulation had turned it into a slum for impoverished blue-gowns. The stench of human waste and decay was overwhelming, and the height of the buildings oppressive.
+
+To the northeast was Temple Street. To the west was the coastal road.
+> northeast
+
+> northeast
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> east
+
+> east
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> east
+
+> east
+
+Liberty Square
+The central square of Maranga was a spacious and busy plaza surrounded on all sides by government buildings. The centrepiece was a giant statue of Queen Mara, the founder of the great city.
+
+The central boulevard was to the north. To the west was Temple Street and to the East was Old Street. Castle Street was to the south.
+
+People buzzed all around Yina.
+> north
+
+> north
+
+The Boulevard
+If the shoppers along this busy boulevard fretted about the war, they did not show it. People bustled to and fro, looking at luxury items in the windows and leaving shops laden with things. The centre of the boulevard contained a long island of grass upon which oak trees had been planted stretching their arms over the street providing it with a shady charm.
+
+Liberty Square was to the south and Seafront Road was to the northwest. Yina could also go into the smithery.
+> in
+
+> in
+
+The Smithery
+Yina was met with a deafening clatter as two or three men struck anvils forging this or that object. One man appeared to be on a break.
+
+Yina could go out to the Boulevard.
+> speak to smith
+
+> speak to smith
+"Can you forge me a flute?" asked Yina.
+
+"Sure," replied the smith over the clammer of hammer on anvil. "Fifty gold pieces and the metal and it's yours." Had Scotland existed in Yina's world, she would have thought he spoke Anaxtan in a Scottish accent. He was probably from the Uyele.
+
+Yina handed over the money and the mirror. The smith set to work, and within the hour, he had finished the flute. He even handed the mirror back to Yina.
+
+"It's a special type of silver," he explained. "I needed only a small amount of it to forge the flute, so you should still have a functioning mirror."
+> out
+
+> out
+
+The Boulevard
+If the shoppers along this busy boulevard fretted about the war, they did not show it. People bustled to and fro, looking at luxury items in the windows and leaving shops laden with things. The centre of the boulevard contained a long island of grass upon which oak trees had been planted stretching their arms over the street providing it with a shady charm.
+
+Liberty Square was to the south and Seafront Road was to the northwest. Yina could also go into the smithery.
+> south
+
+> south
+
+Liberty Square
+The central square of Maranga was a spacious and busy plaza surrounded on all sides by government buildings. The centrepiece was a giant statue of Queen Mara, the founder of the great city.
+
+The central boulevard was to the north. To the west was Temple Street and to the East was Old Street. Castle Street was to the south.
+
+People buzzed all around Yina.
+> south
+
+> south
+
+Castle Street
+This street must have been one of the first built for it ran from Liberty Square to the palace, which occupied the site of an older, lower-key castle. Yina had read that in the days before the war, tourists had flocked from all over Anaxta and beyond to see the castle. Now it was deserted and almost entirely silent.
+
+A grand gate led into the Royal Palace. To the south were the Royal Gardens and to the north was Liberty Square.
+> south
+
+> south
+
+The Royal Gardens
+Before the war had started, the Royal Gardens had been the envy of any city vying with Maranga to be the greatest in the land. Now, though, the money had dried up and the gardens had fallen into neglect.
+
+Withered roses bounded the gardens, and in the centre was a crumbling fountain.
+
+Yina could go north onto Castle Street.
+> x fountain
+
+> x fountain
+The fountain was shaped as an eagle with talons gripped around the neck of a swan. On the talon appeared to be a bolt of some sort.
+
+No water gushed from the fountain.
+> turn bolt with wrench
+
+> turn bolt with wrench
+Yina turned the bolt. Water began to gush from the fountain.
+> wash flute in fountain
+
+> wash flute in fountain
+Yina washed her flute in the fountain. When she removed it from the water, it glistened as though enchanted.
+> north
+
+> north
+
+Castle Street
+This street must have been one of the first built for it ran from Liberty Square to the palace, which occupied the site of an older, lower-key castle. Yina had read that in the days before the war, tourists had flocked from all over Anaxta and beyond to see the castle. Now it was deserted and almost entirely silent.
+
+A grand gate led into the Royal Palace. To the south were the Royal Gardens and to the north was Liberty Square.
+> north
+
+> north
+
+Liberty Square
+The central square of Maranga was a spacious and busy plaza surrounded on all sides by government buildings. The centrepiece was a giant statue of Queen Mara, the founder of the great city.
+
+The central boulevard was to the north. To the west was Temple Street and to the East was Old Street. Castle Street was to the south.
+
+People buzzed all around Yina.
+> north
+
+> north
+
+The Boulevard
+If the shoppers along this busy boulevard fretted about the war, they did not show it. People bustled to and fro, looking at luxury items in the windows and leaving shops laden with things. The centre of the boulevard contained a long island of grass upon which oak trees had been planted stretching their arms over the street providing it with a shady charm.
+
+Liberty Square was to the south and Seafront Road was to the northwest. Yina could also go into the smithery.
+> northwest
+
+> northwest
+
+Seafront Road East
+People whisked past Yina in all directions, and hansom cabs rattled over the cobbled road. Yina was not used to such a frenzy of activity and soon her head began to spin.
+
+The road continued to the west. To the north was the harbour and to the southeast was the boulevard. Another road led northeast, but it stretched so endlessly that Yina decided to pay it no further attention.
+> north
+
+> north
+
+The Harbour
+There were currently no ships in the harbour, perhaps on account of the Pekoran blockade somewhere just beyond the horizon. Along one edge of the harbour were some warehouses, one of which was open.
+
+Yina could go south to Seafront Road or into the warehouse.
+
+Two scruffy, but friendly-looking dogs bounded up to Yina wagging their tails.
+> stroke dogs
+
+> stroke dogs
+Yina stroked the dogs. Suddenly one of them turned into a man and the other fled. Yina recognised the man. It was Marek, he who had saved her in the Central Plains.
+> speak to Marek
+
+> speak to Marek
+Marek grabbed Yina and hugged her tightly. "The professor always told me my sister would save me. I guess I always knew that was true."
+
+Now his eyes turned more serious. "Mother is trapped in Hell. You have to rescue her. The portal is in Saranga. I think you've already discovered it. But you'll need a purple stone to unbind her, and you'll need to open the portal in Maranga as well."
+
+Yina looked at Marek not understanding what was going on.
+"The dark witch Abuna is not your mother," explained Marek. "We are the children of the demons Ihti and Zorek. You have inherited demon blood, but I was born human. The same bandits that killed the professor also abducted Mother. She is being kept in Hell. Yina, Arka is mobilising against us. We cannot raise a strong enough army to defeat them, but there is something that Mother knows and needs you to know. That is why you, not I, must rescue her. When you have completed your mission, return to Maranga and seek me out. I will have enough men, women, and children to slow down Arka, but only you can win the battle."
+
+Yina looked imploringly at her brother, with a thousand questions welling within her.
+
+"Time is short," said Marek. "Go now, and take this purple stone with you. Oh, and the dark witch Abuna will come to you if you summon her. Though she is not your real mother, she has always considered you her true daughter, and after her twelve years of incarceration, she will do anything to bring down the Order of the Eagle and the Order of the Dragon. May the Swan guide you. May the Great Demon Itself be with you."
+While Yina was contemplating what had just happened, Marek disappeared somewhere into the city of Maranga.
+> wear purple stone
+
+> wear purple stone
+Yina put on the purple stone.
+> south
+
+> south
+
+Seafront Road East
+People whisked past Yina in all directions, and hansom cabs rattled over the cobbled road. Yina was not used to such a frenzy of activity and soon her head began to spin.
+
+The road continued to the west. To the north was the harbour and to the southeast was the boulevard. Another road led northeast, but it stretched so endlessly that Yina decided to pay it no further attention.
+> west
+
+> west
+
+Seafront Road
+Despite its name, the road was in fact a hundred yards or so inland from the shore, and was bounded on both sides by tall houses. Yina supposed that these were the quarters where workers and artisans lived. The district exuded a certain exuberrant charm. There was nothing unusual in the buildings being covered in graffiti.
+
+The road continued east and west, and to the south was Hill Street.
+> south
+
+> south
+
+Hill Street
+This was a potholed street where intrepid houses clung to the hillface, looking as though they could come tumbling down at any moment. This was a steep hill and would certainly not be much fun to climb up or down.
+
+To the south was Temple Street. Down the hill to the north was Seafront Road.
+> south
+
+> south
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> in
+
+> in
+
+The Cloisters
+Tall pillars held up the temple in an auspicious architectural style which had been used under the reign of Queen Anadena. Proving much too costly and time-consuming to build in such a style, later queens had abandoned this approach for something more simple.
+
+A massive crack split one of the columns almost in two.
+
+Yina could go out to Temple Street. A staircase led up into the temple.
+> up
+
+> up
+
+The Temple
+A massive altar stood at the front of the temple. Along the walls were various statues of demons.
+
+The cloisters was down from the temple. The bell tower was up.
+> x statues
+
+> x statues
+There was nothing special about the statues. However, the statue of Qulina did catch Yina's eye, perhaps because someone had broken off the queen's nose.
+> fix statue of Qulina
+
+> fix statue of Qulina
+Yina chanted the words of the fixing spell. The statue of Qulina slowly melded back into one piece. Yina now noticed that her eye was made of green stone. She took it.
+> wear green stone
+
+> wear green stone
+Yina put on the green stone.
+> down
+
+> down
+
+The Cloisters
+Tall pillars held up the temple in an auspicious architectural style which had been used under the reign of Queen Anadena. Proving much too costly and time-consuming to build in such a style, later queens had abandoned this approach for something more simple.
+
+A massive crack split one of the columns almost in two.
+
+Yina could go out to Temple Street. A staircase led up into the temple.
+> out
+
+> out
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> east
+
+> east
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> in
+
+> in
+
+Professor Zorek's Yard
+The professor's yard was pleasantly decorated with garden furniture and two oversized plantpots that seemed to ridicule the withered osweed plants they contained. There was a small porch from whose ceiling dangled a rope.
+
+Yina could go out onto Temple Street, or into Professor Zorek's house.
+
+The door into Professor Zorek's house was slighty ajar.
+> in
+
+> in
+
+Professor Zorek's Hall
+The hall was tastefully decorated in the rustic style, with wood panelling and elegant paintings of former queens.
+
+The yard was to the north. To the east was the study, and to the west was the dining room. Up from the hall was the bedroom.
+
+The dead body of Professor Zorek lay strewn on the ground by the door.
+> search Professor Zorek
+
+> search Professor Zorek
+Yina found the page that had been ripped from the Book of Darkness in one of Professor Zorek's pockets. It was bound to be useful, and so she pocketed it.
+> read missing page
+
+> read missing page
+The page contained the words to the unbinding spell. For some reason, Yina thought she should have known them.
+
+To use this spell, write UNBIND with the name of the person you want to bind.
+> turn missing page
+
+> turn missing page
+On the back of the page, a childish hand had scrawled, "I have hidden the black stone the one place only Yina can find it." There was a smiley face under the message.
+> up
+
+> up
+
+The Bedroom
+This was a tidy room compared to anything else in the house, although perhaps this was because the professor had spent so little time here. There was a small bed here.
+
+The only exit was down.
+
+The window was closed.
+> open window
+
+> open window
+Yina opened the window.
+
+Doing so seemed to push something off the window ledge.
+> down
+
+> down
+
+Professor Zorek's Hall
+The hall was tastefully decorated in the rustic style, with wood panelling and elegant paintings of former queens.
+
+The yard was to the north. To the east was the study, and to the west was the dining room. Up from the hall was the bedroom.
+
+The dead body of Professor Zorek lay strewn on the ground by the door.
+> west
+
+> west
+
+The Dining Room
+It looked like this room had hardly been used, except perhaps as a bedroom. A sleeping bag lay stretched out on the floor. There was a dining table in the middle of the room around which were four chairs.
+
+The kitchen was north and the hall was east.
+> north
+
+> north
+
+The Kitchen
+The kitchen was equipped much as Yina would have expected.
+
+A fire raged within the hearth, despite the fact that the professor had been dead much too long for anyone to have been stoking it.
+
+Yina could go south to the dining room.
+> tame fire
+
+> tame fire
+Yina chanted the words of the whispering spell. The horse-like patterns of the flames slowly became pacified. Now Yina could enter the hearth.
+> in
+
+> in
+
+The Hearth
+Ash covered the floor, and Yina had to stoop here.
+
+A trapdoor in the ground was firmly shut.
+
+Yina could go out to the kitchen.
+> play flute
+
+> play flute
+Yina played a haunting melody on the flute.
+
+The trapdoor flew open.
+> down
+
+> down
+
+The Basement
+There was nothing in the basement except for a strange statue of a swan and a portal.
+
+Yina could go up to the hearth or into the portal.
+> x statue
+
+> x statue
+The statue was shaped as a swan.
+
+Strangely, one eye was missing. Instead, there was a black stone where the eye should have been.
+> take black stone
+
+> take black stone
+A strange sensation passed through Yina as she picked up the black stone.
+> use black stone on bizarre thing
+
+> use black stone on bizarre thing
+Yina banged the black stone against the bizarre thing. The bizarre thing disappeared, but Yina felt that something had entered her, something ancient and terrible. She realised she now knew the words to the binding spell.
+
+To bind someone, write BIND and an object.
+> hurl black stone at portal
+
+> hurl black stone at portal
+Yina threw the black stone through the portal. It opened up.
+> up
+
+> up
+
+The Hearth
+Ash covered the floor, and Yina had to stoop here.
+
+There was a trapdoor here, which was open.
+
+Yina could go out to the kitchen.
+> out
+
+> out
+
+The Kitchen
+The kitchen was equipped much as Yina would have expected.
+
+Some embers glowed within the hearth.
+
+The dining room was to the south. Yina could also go into the hearth.
+> south
+
+> south
+
+The Dining Room
+It looked like this room had hardly been used, except perhaps as a bedroom. A sleeping bag lay stretched out on the floor. There was a dining table in the middle of the room around which were four chairs.
+
+The kitchen was north and the hall was east.
+> east
+
+> east
+
+Professor Zorek's Hall
+The hall was tastefully decorated in the rustic style, with wood panelling and elegant paintings of former queens.
+
+The yard was to the north. To the east was the study, and to the west was the dining room. Up from the hall was the bedroom.
+
+The dead body of Professor Zorek lay strewn on the ground by the door.
+> out
+
+> out
+
+Professor Zorek's Yard
+The professor's yard was pleasantly decorated with garden furniture and two oversized plantpots that seemed to ridicule the withered osweed plants they contained. There was a small porch from whose ceiling dangled a rope.
+
+Yina could go out onto Temple Street, or into Professor Zorek's house.
+
+The door into Professor Zorek's house was slighty ajar.
+> search plantpots
+
+> search plantpots
+Yina found a small key in the plantpots. Although she did not know what it was for, she decided to take the key anyway.
+> out
+
+> out
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> east
+
+> east
+
+Liberty Square
+The central square of Maranga was a spacious and busy plaza surrounded on all sides by government buildings. The centrepiece was a giant statue of Queen Mara, the founder of the great city.
+
+The central boulevard was to the north. To the west was Temple Street and to the East was Old Street. Castle Street was to the south.
+
+People buzzed all around Yina.
+> east
+
+> east
+
+Old Street
+This street was called Old Street despite the fact it had, presumably, once been a new street. It completely deserved its name, though, with rubble peeling and tumbling from the walls of decrepit and uncared for buildings.
+
+Liberty Square was to the west. To the east was Station Road, and Yina could also go into the seminary.
+> east
+
+> east
+
+Station Road
+Travellers flocked at the entrance to the station, chatting and laughing as they greeted long-lost friends or prepared to leave for faraway places. The buildings along the road were decaying with age yet oddly attractive. They were covered also in graffiti.
+
+A large door led into the station, and Old Street was to the west. Other roads branched off into slum estates which looked too sordid for Yina's liking.
+> in
+
+> in
+
+Maranga Station
+This was certainly a grander structure than the station in Saranga. A huge timetable hung overhead, and a small noticeboard informed travellers where the next departure would be to. There were also some safety deposit boxes here.
+
+An official-looking woman paced around the station. Yina supposed that she was the stationmaster (or stationmistress). Depending on her political views, she could use either word.
+
+Yina could go out to Station Road.
+> unlock safety deposit box
+
+> unlock safety deposit box
+Unlocked.
+
+Inside was a ticket, which Yina picked up.
+> give ticket to stationmaster
+
+> give ticket to stationmaster
+Yina handed her ticket to the stationmaster. The woman checked it, nodded, and pointed Yina in the direction of the stagecoach.
+
+Yina boarded. Soon the coach was full, cramped, and rolling out of Maranga. By morning it had reached its destination.
+Yina left the station and walked to the field. The horse was still there and still willing to give Yina a ride to the cliffs. She descended and entered the cave.
+
+The Cave
+Yina found herself in a cave with slimy, stone walls. It was dark and musty in here.
+
+Loya could go out of the cave, back onto the sandstrip.
+> in
+
+> in
+
+The Chest
+Had the Doctor existed in Yina's world, she would perhaps have been less surprised that the chest was larger on the inside than on the outside.
+
+There was a portal here engraved in the image of the Great Demon, Kayla. It was surely a portal to Hell itself. Yina could go out, back to the cave.
+
+A glowing etching on the wall stared at Yina, making her shudder. She would be only too glad to go out of the chest, back into the cave.
+> in
+
+> in
+Yina braced herself. Then she stepped through the portal.
+
+Hell
+Yina found herself in a place where there was absolutely nothing.
+
+A distressed woman floated in the air. Yina guessed that she must be Ihti.
+> unbind Ihti
+
+> unbind Ihti
+Yina chanted the words of the unbinding spell. Slowly the black light which had enveloped Ihti lifted.
+
+"Thank you, my daughter," said Ihti. "It was always prophecised that you would save not only your brother, Marek, but also your mother. But Professor Zorek is still trapped, and I must now go to release him, for the Great Demon Itself is in ire at the failure of our mission. Yina, you must complete your journey, for it is also my journey. Your revenge is also my revenge."
+
+Yina blinked at her newly-found mother. "Ihti, erm, Mother," she began.
+
+The old woman interrupted her. "Yina, you will not easily come to call me mother, for the dark witch Abuna is the woman who brought you up. You will not easily call Marek your brother, for Avek is the one you seek vengeance for.
+
+"But know this, you are of demon blood. To turn into your demon form, just say DEMONISE SELF. Now begone with you. My quest is now to save your father, and yours is to save the world. Remember that the dark witch Abuna will always consider you her daughter. She will come if just you summon her."
+Yina was in Hell. Hopefully she had remembered to open the portal in the professor's house before entering.
+
+The black stone which Yina had used to open the portal was here.
+> take black stone
+
+> take black stone
+A strange sensation passed through Yina as she picked up the black stone.
+> out
+
+> out
+
+The Basement
+There was nothing in the basement except for a strange statue of a swan and a portal.
+
+Yina could go up to the hearth or into the portal.
+> up
+
+> up
+
+The Hearth
+Ash covered the floor, and Yina had to stoop here.
+
+There was a trapdoor here, which was open.
+
+Yina could go out to the kitchen.
+> out
+
+> out
+
+The Kitchen
+The kitchen was equipped much as Yina would have expected.
+
+Some embers glowed within the hearth.
+
+The dining room was to the south. Yina could also go into the hearth.
+> south
+
+> south
+
+The Dining Room
+It looked like this room had hardly been used, except perhaps as a bedroom. A sleeping bag lay stretched out on the floor. There was a dining table in the middle of the room around which were four chairs.
+
+The kitchen was north and the hall was east.
+> east
+
+> east
+
+Professor Zorek's Hall
+The hall was tastefully decorated in the rustic style, with wood panelling and elegant paintings of former queens.
+
+The yard was to the north. To the east was the study, and to the west was the dining room. Up from the hall was the bedroom.
+
+The dead body of Professor Zorek lay strewn on the ground by the door.
+> out
+
+> out
+
+Professor Zorek's Yard
+The professor's yard was pleasantly decorated with garden furniture and two oversized plantpots that seemed to ridicule the withered osweed plants they contained. There was a small porch from whose ceiling dangled a rope.
+
+Yina could go out onto Temple Street, or into Professor Zorek's house.
+
+The door into Professor Zorek's house was slighty ajar.
+> out
+
+> out
+
+Temple Street
+Yina was on a long street, far more grandiose than what she was used to. It was a pleasant tree-lined boulevard with plush houses on either side of the road.
+
+The street continued to the west. To the east was Liberty Square. Yina could also go into Professor Zorek's yard.
+> west
+
+> west
+
+Temple Street West
+Yina found herself on a pleasant avenue. This was apparently the wealthy part of the city, close to the centre, but far enough away from the bustle. Around her were luxurious houses and trees.
+
+The road continued to the east, and to the southwest where it entered a residential slum district. To the north was Hill Street and Yina could also enter the temple.
+> southwest
+
+> southwest
+
+The Residential District
+This had once been a desirable district in which to live, but overpopulation had turned it into a slum for impoverished blue-gowns. The stench of human waste and decay was overwhelming, and the height of the buildings oppressive.
+
+To the northeast was Temple Street. To the west was the coastal road.
+
+Marek was here, surrounded by a rabble of a few hundred ragged men, women and children.
+> speak to Marek
+
+> speak to Marek
+"Have you saved Mother?" asked Marek. Yina nodded.
+
+"Oh frabjous day my beamish girl," smiled Marek hugging his sister. "Now we march on the Uyele, for you alone can defeat the Arkan army."
+
+The rabble Marek had managed to assemble marched in uffish thought for days on end. They marched in near silence, as though they already knew their fate - five hundred unarmed men, women and children in battle against the glorious Arkan army. It was a suicide mission, and even the youngest amongst the soldiers knew this. They could not save their country, but they could at least  fight for it.
+
+At last they reached Uyele Bridge.
+That night, for the first time, the untrained soldiers opened up to one another. They must surely have known that this was their last day on earth. And so they drank elweed wine and made merry until the early hours. At the crack of dawn, a horn sounded and the soldiers rose in silence. They ate a humble breakfast, each contemplating his or her fate.
+
+Now they marched towards the bridge. The awesome sight of the enemy awaited them on the other side. For an eternity, the Arkans mocked the feeble army Marek had managed to raise. Marek's rabble gave their best back, but they knew it was all in vain.
+
+Then another trumpet sounded and the two armies charged at one another.
+
+The Uyele
+The Uyele Valley stretched all around offering an idyllic and tranquil backdrop to the battle which was to begin the next day. A peaceful river flowed gently downstream towards the sea, and a glorious light shone through the canopy adding a luxurious green glow to the surroundings.
+A battle raged around Yina. Her men, women and children were falling like flies.
+Marek's rabble fought bravely, but everywhere Yina looked, her people were slain by the invading army.
+> demonise self
+
+> demonise self
+Yina turned into her demon form. She was now ten feet tall, and the soft features of her face had turned to dust. Great energy welled within her. She expelled this energy, the bolt she released being so powerful she destroyed two thousand men in no more than a second. The Arkan soldiers scattered into the woods.
+
+Yina released another huge energy bolt destroying whichever soldiers had stood brave against her. Then she returned to her human form.
+
+Marek's rabble, or rather what was left of them cheered wildly at their victory.
+
+Marek came up to Yina and held her tightly. "Sister," he said. "I knew you would save us, but the war continues. Yina, you have your vengeance, which you must seek. But now I march on Maranga and fight against Pekora. May the Great Demon Itself be with you."
+
+Uyele Bridge
+The stone bridge into town had been badly damaged in battle, but was still just about standing. Below flowed River Uyele.
+
+Uyele City was to the west.
+> west
+
+> west
+
+Uyele City
+Not much remained of Uyele City. Corpses lay scattered on the deserted streets. The Arkan invasion had been ruthless.
+
+Uyele Bridge was to the east. Further west was nothing but a sea of blood and Yina had neither the intention nor the reason to go there.
+> search corpses
+
+> search corpses
+Yina discovered the living body of Brother Ulyek hiding amongst the corpses. She hoisted him up and glared at him.
+
+"Don't kill me," he whimpered.
+> ring bell
+
+> ring bell
+Brother Ulyek was clearly pained by the sound of Yina ringing the dinner bell.
+> torture Brother Ulyek
+
+> torture Brother Ulyek
+"I am a Swan," pleaded Brother Ulyek. "I am also a double agent, and to prove my loyalty, I had to kill your brother. Your real enemy is Mother Mila. She is hiding in Kara. Spare me, please. Here, this Most Urgent Communication will prove I am true to my word and our cause."
+> spare Brother Ulyek
+
+> spare Brother Ulyek
+Brother Ulyek was true to his word. He chanted a transportation spell, and moments later Yina found herself in Kara.
+
+Kara
+The capital city was bleak-looking and felt like a ghost town. The streets were completely deserted, as though the entire city was under a curfew.
+
+The hills, where Mother Mila would be found, were to the northeast.
+> northeast
+
+> northeast
+
+The Kara Hills
+Yina was too engrossed in mortal combat to take in her surroundings.
+
+Yina could sense someone was here, although she could see no one.
+> use mirror
+
+> use mirror
+Yina held up the mirror. Behind her, she could see the figure of a horse whiffling into view. Upon the horse sat Mother Mila.
+
+"Is that all you've got, little girl?" taunted Mother Mila as she blasted an energy bolt in Yina's direction.
+
+Yina dodged the bolt just in time.
+> firestart Queen of Spades
+
+> firestart Queen of Spades
+The dark witch Abuna emerged from the firecard. Seeing her daughter in grave danger filled her with rage.
+
+She turned swiftly and sent a powerful blast towards the source of the danger.
+
+Abuna handed a strange ball to Yina. "Here, you'll need this," she said.
+
+"Is that all you've got, little girl?" taunted Mother Mila as she blasted an energy bolt in Yina's direction.
+
+The bolt was true and struck Yina in the chest.
+> tame horse
+
+> tame horse
+Yina whispered the words to the taming spell. The horse reared up, throwing Mother Mila off his back.
+
+"Is that all you've got, little girl?" taunted Mother Mila as she blasted an energy bolt in Yina's direction.
+
+The bolt knocked into Yina causing her some pain.
+> unbind Mother Mila
+
+> unbind Mother Mila
+"You have been bound by greed and malice," shouted Yina. "I release you from your torment."
+
+With that, Yina chanted the words to the unbinding spell. Mother Mila seemed weaker now.
+
+"Is that all you've got, little girl?" taunted Mother Mila as she blasted an energy bolt in Yina's direction.
+> bind Mother Mila
+
+> bind Mother Mila
+Yina held up the black stone. A light filtered out from it and enveloped Mother Mila. Although the high priestess was still too strong for the spell to have any effect, she screamed in anguish as she fought off the rays of black light.
+
+"Is that all you've got, little girl?" taunted Mother Mila as she blasted an energy bolt in Yina's direction.
+
+The bolt was quite heavily off target.
+
+Mother Mila looked as though she was weak.
+> shoot strange ball with slingshot
+
+> shoot strange ball with slingshot
+As the strange ball hurtled through the air, it turned into a swan. It pecked at Mother Mila's eyes causing her no end of discomfort before flying off beyond the horizon.
+
+"Is that all you've got, little girl?" taunted Mother Mila as she blasted an energy bolt in Yina's direction.
+
+The energy bolt landed tamely just a few feet from Mother Mila.
+
+Mother Mila looked utterly defeated.
+> demonise self
+
+> demonise self
+Yina demonised. When she returned to her human form, Mother Mila was no more. The dark witch Abuna grabbed hold of her child and held her tightly.
+
+"Caloo-callay!" she chortled. "I knew you were worthy of the mission the Great Demon Itself charged you with fifteen years ago. But your journey is not over yet. The world is falling further into chaos. The powers of greed and envy bind men and women as we speak, and nations will crumble and destroy one another as the armies of the soulless battle and kill with no thought of the future.
+
+[state=Finished]

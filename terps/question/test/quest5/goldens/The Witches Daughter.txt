@@ -12,67 +12,271 @@ A cottage
 
 The single room of Blaine Cottage is home, so familiar. A very old and comfortable rocking chair sits near the fireplace. Brónach, is here. A ladder  leads up to the loft. In the long south wall is a door leading out. A small table stands beside the rocking chair. A simple oil lamp stands on the table.
 
-> up
+> x bronach
 
-> up
-You climb up the wooden ladder to the loft.
+> x bronach
+She is sitting in her favourite spot, the old rocking chair, working on a pile of mending and smiling as if remembering something fondly.
 
-A loft
+Bronach peers at the sewing work, turning it to catch the light of the flickering oil lamp she is working by.
 
-Standing in this loft, you must stoop and duck your head to clear the rafters of the cottage roof.  The boards of the raised floor creak beneath your feet. To the left is Siobhán's bed; a burlap mattress stuffed with rags and straw. In the corner where the roof is lowest is a battered old copper chamber pot. A chest made of painted canvas and a wooden frame is beside the bed.
+> talk to bronach
 
-> down
+> talk to bronach
+Talk to Brónach about...
+1: Father
+2: Siobhán
+3: Cottage
+> 1
+"Oh, Siobhán", she says as she clasps her shawl close around her, "your father Arran Blaine was such a good man.  I wish his sense of honour had not led him to war, that he had stayed here with you and I.  He was killed fighting the Kings wars, and yet he was never really a soldier."
 
-> down
-You climb down the ladder from the loft.
+Now I hear people worrying that the Normans are coming to our shores.  I hope its not true and that no more of our men must die.
+> talk to bronach
 
-A cottage
+> talk to bronach
+Talk to Brónach about...
+1: Normans
+2: Siobhán
+3: Soldiers
+4: Cottage
+5: Arran
+6: Mending
+> 3
+War is for soldiers, not for the people of the land, Siobhán.  Your father although he was handy enough, was never a soldier.  Your - ah - your fathers good friend Donegal, was made for soldiering.  He had a streak in him that man.
 
-The single room of Blaine Cottage is home, so familiar. A very old and comfortable rocking chair sits near the fireplace. Brónach, is here. A ladder  leads up to the loft. In the long south wall is a door leading out. A small table stands beside the rocking chair. A simple oil lamp stands on the table.
+We are sorely taxed by the chiefs with coyne and livery to keep the soldiers shod and fed, and yet they take our fine young men to die in their wars.  Do they fight to keep us safe?  I don't know.
+> x blaine cottage
 
-> out
+> x blaine cottage
+The walls of the cottage are several feet thick, made of stone, sods and dry-walling; with a massive ridge-beam supporting sawn rafters above.  Two windows are fitted with shutters and the floor is covered with bullrushes bundled into tight matting, pounded flat with decades of use.
 
-> out
-Opening the front door, you walk out to the small-holding.
+These are the four walls of home, the steady floor beneath and dry roof above.  There's a front window in the south wall, near the front door to allow a view outside to the small-holding.  In the opposite wall a higher back window looks  north down the hill toward the fields and the forest.
+
+Looking around the cottage you see a fireplace and a chest.
+> x front window
+
+> x front window
+A window near the front door has a few flowers in a vase on its deep sill.
+There'd be a view out to the garden, but the shutters are closed right now.
+
+Why don't you open those up Siobhan and let the daylight in. says Bronach.
+
+On its deep window sill is a jar of boot-black and a flowers in a vase.
+> open shutters
+
+> open shutters
+Please choose which 'shutters' you mean:
+1: front window
+2: shutters
+3: back window
+> 2
+With the front window shutters thrown open the light and air of the farmlet outside floats in.
+> look south
+
+> look south
+Looking out the front window you see the small-holding outside.
+A path crosses the yard: it widens into a lane beyond the fruit trees  to the west, dwindles to a muddy track to the east.
+
+There's a small grove of fruit trees by the cottage.
+
+Through the trees to the laneway, you can make out a group of people!  Some carry flaming brands, and they're led by Elder Boyle.  They're marching toward the cottage!
+
+Mama!  There's people from the village coming up the lane with torches!  Callum Boyle is there, and he looks fit to burst!
+
+Brónach comes rushing over to the window, peering up the lane.  What on earth is going on?
+
+> push chest
+
+> push chest
+Putting your shoulder to the chest, you push hard.  At first it seems it'll never move but it does, and grudgingly slides a few feet to a position under the window.
+There's sounds of shouting coming from up the lane!
+
+What's that noise Siobhán?  Careful now but look out the front window!
+> climb chest
+
+> climb chest
+Using the leather straps as footholds you climb onto the top of the chest.
+
+A chest
+
+Its a bit precarious up here on the chest. The high back window on the North wall of the cottage is easily accessible from the top of the chest, now its positioned under the window.
+
+> open back window
+
+> open back window
+You undo the latch and open the shutters for the back window.  Daylight and the smells of the fields flood in.
+> x back window
+
+> x back window
+Looking out the window you see a view:
+the green hills and fields roll away down from the cottage to the copse and then the forest beyond.
+
+The angry voices grow louder, and there's the sound of clanging steel.
+
+> climb back window
+
+> climb back window
+Scrambling awkwardly through the narrow window, you realize too late that the ground is much further below the cottage on this side!
+
+As you hit the ground, all the wind is knocked out of you, and then everything goes dark.
+Eventually you wake, fitful dreams of shouting and smoke.  Dirt is in your mouth.
+
+Mmm.  Where am I?  Around you are rhubarb stalks.  This is the garden bed to the north of the cottage.  The fields of the dales lie through the waving rhubarb stalks.
+
+A fields
+
+Between Blaine Cottage and the scattered trees, copses and forests to the North and East of the cottage lie these rolling fields, known as "the dales".  The grass and mud is high around your knees as you trudge along.
+
+The fields are green with feed for the many goats and sheep, and also with turnips and other crops.  As the cottage stands on a low hill, and the fields just beneath and close to the cottage are filled with stubborn rocks and scrub, its mostly for goats and some patches of wild berries, protected from the goats by thornbushes.
+
+In the distance to the north is an bramble covered hedge fully 5 feet high, and marked out with a few poplar trees, leading to Tierney Farm.  Behind you a path crosses the fields leading southeast from the lane out to the forest. A high window in the cottages north wall overlooks the field. A small patch of garden containing healthy looking rhubarb plants, their long stalks and broad leaves waving in the wind.
+
+> southeast
+
+> southeast
+
+A path
+
+This narrow muddy trail leads east from Blaine Cottage through the lush grass of farm-fields toward the copses and hedgerows bordering the forest.  Some crows perch fearlessly on a moss covered railing at the edge of this field. Mud, wet grass churned up by footsteps and hooves make for tricky footing along the path.
+
+> x mud
+
+> x mud
+The mud has been trammeled by the hooves of many animals, including horses.  Its odd as the villagers own donkeys, goats, and sheep - but few horses.  Besides this path only leads into the woods and fields.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> west
+
+> west
 
 A smallholding
 
 A tiny plot of land, its perhaps twice in area the cottage it adjoins but supports half-a-dozen kinds of farm produce.  The small-holding makes enough for Bronach and Siobhan; and some to sell at the markets besides.
 
-From the small-holding you can see a some distance up the lane.  Peering through the fruit trees you can see a mob of townsfolk walking down the lane toward the cottage.  They're shouting and carrying flaming torches!  At the head of them you can make out Callum Boyle.  They'll be here any minute!
-
  A path crosses the yard: it widens into a lane beyond the fruit trees  to the west, dwindles to a muddy track to the east.
 
  There's a small grove of fruit trees by the cottage.
 
+> x cottage
+
+> x cottage
+Off the small courtyard a door leads in to the cottage.  The old cottage is still in great shape, its white-washed walls of sod & stone still bright; and the thatched roof still in good repair.  Some ivy is creeping on to the southern wall and few birds have made their homes in the roof, but its a fine looking home.
+
+The door to the cottage is currently closed.
+Looking around the outside of the cottage you can see a donkey shed and a notice.
+
+> x notice
+
+> x notice
+The parchment has a dozen words on it in a flowery script and an official looking wax seal.  It's fixed to the door with nails top and bottom.
+Callums voice is becoming angry now.  Find the daughter yet?
+
+Steady on Boyle, yon paper there only names the mother as a witch.  Ye'd put half the town on the bonfire if you had your way.  That was Fergus.  Why was he part of the mob?  It sounded more like he was here to help Bronach rather than hang her!
+
+She's a minor.  And a trouble maker.  She'll try to curry favour amongst the villagers before the Brehon gets here.  For her own safety we can't have her running around!
+
+> read notice
+
+> read notice
+The notice reads To all good people be notified that the accused Witch Brónach Blaine is to be bought before the Brehon at court on charges of i) making crops fail, ii) casting spells to make a good woman barren, and iii) consorting with a devil; charges borne by witnesses for which she may if found guilty be burned at the stake; according to the powers of court & the law of High King of Ireland, Ruaidrí Ua Conchobair.
+Three charges!  Witnesses!!  Those witnesses must have been the ones in the mob with Callum Boyle.  I have to get to the bottom of this!
+> take notice
+
+> take notice
+You tear the notice from the tree, and place it folded in your pocket.
+> x donkey shed
+
+> x donkey shed
+This tumble-down shed was once a solid structure but a few decades of maintenance have been skipped; however its quite serviceable as its current purpose, a home for Rastus the donkey.
+Inside it is Rastus and a harness.
 > west
 
 > west
 
 A lane
 
-This narrow winding country lane runs between hedgerows and stone walls.  To the west is the High Road; and to the east is Blaine Cottage. There's a fierce mob of villagers some looking nervous, others brandishing torches and shouting angrily!
+This narrow winding country lane runs between hedgerows and stone walls.  To the west is the High Road; and to the east is Blaine Cottage.
 
- Jezabel Leary the barmaid from the Dire Goose is right behind Callum. Alice the pastor's wife is hiding behind Jezabel, looking out nervously. Callum Boyle the village elder, holds a paper before him and brandishes his staff as he leads the mob. The stout farmer Rónán Tierney. Flanking the group, distancing himself somewhat from it is Fergus Mac Iver the blacksmith. At the back of the mob is the tall dour figure of Cormac Molloy.
+> west
 
-> east
+> west
 
-> east
+The High Road
 
-A smallholding
+The main way from Carrick and the coast into Duncormac this stretch of road was a river of mud at most times of the year.  The main ruts had had bull-rushes laid in them to help prevent carts from getting stuck.
 
-From the small-holding you can see a some distance up the lane.  They're shouting and carrying flaming torches!  At the head of them you can make out Callum Boyle.  They'll be here any minute!
+To the south perhaps half-a-mile away lies the cross-roads with the Carrick Road; and just over a rise to the north is the main gate into Duncormac.
 
- A path crosses the yard: it widens into a lane beyond the fruit trees  to the west, dwindles to a muddy track to the east.
+Not far from the South Gate, down an incline on the west side of the High Road lay the common.  Not far south of the common, over a rise, was the lane east to Blaine Cottage and the forest. A signpost made of stone is struck deep into the hard stand beside the road, and inscribed with letters and arrows.
 
- There's a small grove of fruit trees by the cottage.
+> x signpost
 
-> in
+> x signpost
+Facing toward Duncormac, the milestone stands to the right, waiting to inform travellers how much of their journey remains.  The stone is as high as a man's chest, perhaps much more below ground, and an arm's span wide.  The top corners are sloped off, and it looks very authoritative.  Quite possibly it was placed here by order of the King of Eire himself.  Moss has started to grow on the inscription.
+> south
 
-> in
+> south
+Setting off south along the High Road, the well drained ridge lands give way to boggy tracks through tussock and gorse, the roadway only flagged by ruts and an occasional milestone marker.  As you trudge along the sun moves through the sky.
+Eventually as you crest a rise you see in the middle distance the stone markers and straggling trees that mark the cross roads.
 
-A cottage
+A crossroads
 
-The single room of Blaine Cottage is home, so familiar. A very old and comfortable rocking chair sits near the fireplace. Brónach, is here. A ladder  leads up to the loft. In the long south wall is a door leading out. A small table stands beside the rocking chair. A simple oil lamp stands on the table.
+The roads west to Carrick and east to Killag meet here at this boggy crossroads.  Some reeds and stones have been placed down by past travellers no doubt in an attempt to get their carts through the sticky mud.
 
-[state=Running]
+To the north the way improves somewhat up on to the High Road, leading into Duncormac; while south its only footsteps and hooves through the sinewy tussock that lead up over a blustery rise, where the Moragh River lays. Leaning up against the stone walls that flank the cross roads is a cartwheel. A straw bale lies abandoned here.
+
+> x cartwheel
+
+> x cartwheel
+The wooden wheel has a broken hub, and the iron bandings around its rim have all but been consumed by rust.  A few spokes have been removed, perhaps by passers-by looking to use the good wood for their own carts or fireplaces.
+
+A curious rabbit sniffs around the wall near the cartwheel, but darts away when it senses you nearby.
+> west
+
+> west
+
+A Carrick Road
+
+The gorse and scrub is sparser here, more rocks and brambles line the road.
+
+Do I really want to go to Carrick?  Maybe I can escape my fates in Duncormac, but life might be quite grim there for a girl on her own.  That's if I survive the road, with no supplies.  Hmm.
+1: Yes
+2: No
+> 1
+You trudge off up the road to Carrick, away from Duncormac, away from everything you've ever known.
+A caw suddenly rings out as a crow dives down from a nearby tree, swooping and striking at your head with its beak and claws before you have time to duck.  Damn.  They must be nesting along here.
+Should I keep going on toward Carrick?  Or should I turn back?
+> wait
+
+> wait
+Time passes.
+The road is steeper here, and occasional rocks cause you to stumble.  Is Carrick a mirage?  It seems like the wind and sleet is all you know now.
+Should I keep going on toward Carrick?  Or should I turn back?
+> wait
+
+> wait
+Time passes.
+The road seems to go on foreever.  Storm clouds are gathering ahead.  Still you try to will your feet forward one after the other.
+Should I keep going on toward Carrick?  Or should I turn back?
+> wait
+
+> wait
+Time passes.
+A cart driven by a merchant, and pulled by two large horses looms into view.  The crack of his whip and the snorting of the horses drowns out any plea for help or food, and you just move off the road into the thorny hedges in time to avoid serious injury.
+Finally in the evening, the gates of Carrick are in front of you.  No longer the Witches Daughter.  Its a chance at a new life.
+THE END
+Your score: 15
+[state=Finished]

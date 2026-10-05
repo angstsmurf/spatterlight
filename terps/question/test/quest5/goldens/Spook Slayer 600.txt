@@ -44,6 +44,11 @@ Comic Book Store
 You can see an Employee, Neckbeard, a mannequin, posters and a Chest.
 Colorful comic books fill bins along the wall with old posters pinned above them. A life sized mannequin of C-3PO rests in one corner with a couch in the opposite corner. Behind the counter sits an androgynous goth employee who doesn't look like they want to be there.
 You can go northwest.
+> open chest
+
+> open chest
+You open it.
+Inside the chest you find a single coin and take it.
 > northwest
 
 > northwest
@@ -53,71 +58,6 @@ Meme Street
 You can see a Poster.
 The blue stone street is empty with a thin layer of mist moving about it an inch off of the ground. The lamp posts that run down the street are either broken or have gone unfueled. Small, wooden shops corner one another under the sparkling night sky as the smell of overgrown grass sneaks throughout the air.
 You can go southeast, southwest, northwest, northeast, east or north.
-> southwest
-
-> southwest
-
-Pub
-You can see a Bartender, a Drunkard, an Old Man, a Fireplace and a Statue.
-The pub is smokey and solemn. On one side is a fireplace with an older man sitting by it and on the other side is bar complete with a bartender and a drunkard. At the far end of the room is a statue of a baby warlord wearing glasses.
-You can go northeast.
-> northeast
-
-> northeast
-
-Meme Street
-You can see a Poster.
-The blue stone street is empty with a thin layer of mist moving about it an inch off of the ground. The lamp posts that run down the street are either broken or have gone unfueled. Small, wooden shops corner one another under the sparkling night sky as the smell of overgrown grass sneaks throughout the air.
-You can go southeast, southwest, northwest, northeast, east or north.
-> northwest
-
-> northwest
-
-Trade Shop
-You can see the Venetian and Hanging Banners.
-Textiles of all kinds are laid out around the room. Jars and vases are kept on shelves and a few sacks of food rot in the back. Sewing an orange and purple banner in te middle of the room is the Venetian owner of the shop.
-You can go southeast or up.
-> up
-
-> up
-"Hey-ah, come down from there! That is my-a room!"
-
-Venetian Bedroom
-There is a bed draped in rich blue with copper coins all over the floor. Posted on the walls are oil paintings of women with oversized large breast, all signed by Issac Giovanni Pizzano Hapsburg.
-You can go down or east.
-> east
-
-> east
-
-Balcony
-You can see a Distant Castle.
-The balcony gives you a grand view of the empty street below you while anyone from the ground level wouldn't be able to get a clear look of you. The stars seem closer and even more comforting. Down the street you can see a flashy building up on the hill while all around the town you can only see dark forest.
-You can go west.
-Walking out onto the balcony you nearly bump into a man with blue hair. You step back and realize that this is the man known as Farley Sweet. "Oh Shit! Already!?" Farley cries before jumping off the balcony. You hear a cat hiss and a trash can spill over before Farely's footsteps fade out.
-Already your foes lurk around every corner.
-> west
-
-> west
-
-Venetian Bedroom
-There is a bed draped in rich blue with copper coins all over the floor. Posted on the walls are oil paintings of women with oversized large breast, all signed by Issac Giovanni Pizzano Hapsburg.
-You can go down or east.
-> down
-
-> down
-
-Trade Shop
-You can see the Venetian and Hanging Banners.
-Textiles of all kinds are laid out around the room. Jars and vases are kept on shelves and a few sacks of food rot in the back. Sewing an orange and purple banner in te middle of the room is the Venetian owner of the shop.
-You can go southeast or up.
-> southeast
-
-> southeast
-
-Meme Street
-You can see a Poster.
-The blue stone street is empty with a thin layer of mist moving about it an inch off of the ground. The lamp posts that run down the street are either broken or have gone unfueled. Small, wooden shops corner one another under the sparkling night sky as the smell of overgrown grass sneaks throughout the air.
-You can go southeast, southwest, northwest, northeast, east or north.
 > northeast
 
 > northeast
@@ -126,6 +66,10 @@ Laundromat
 You can see an Asian Woman, a Slurpie Machine and a Poster.
 White and black washing machies form a number of short rows inside the room. The flickering light gives an ambient hum. For whatever the reason there is a slurpie machine in the back. Behind the counter is a short, middle aged Asian woman.
 You can go southwest or south.
+> use coin on slurpie machine
+
+> use coin on slurpie machine
+Putting the proper coin into the machine and after pulling the level a tasty slurpie winds out from it. You pick up the slurpie and feel is the heat get sucked out of your hand.
 > south
 
 > south
@@ -134,20 +78,534 @@ Alley
 You can see a Sick Hobo and some Graffiti.
 The alleyway is dark and dusty and against a dumpster a homeless man lays.
 You can go west or north.
-> north
+> give slurpie to sick hobo
 
-> north
+> give slurpie to sick hobo
+The hobo happily takes the slurpie and savors his first sip, "Now that's a good slurpie. Listen, some shit's gonna go down tonight, you hear?" The hobo takes out a key and gives it to you, "The arcade. Sneak in maybe you can cash in on some loot--that is if you're not chicken from running into those culties. Whatever you do I wish you good luck."
+> west
 
-Laundromat
-You can see an Asian Woman, a Slurpie Machine and a Poster.
-White and black washing machies form a number of short rows inside the room. The flickering light gives an ambient hum. For whatever the reason there is a slurpie machine in the back. Behind the counter is a short, middle aged Asian woman.
-You can go southwest or south.
-> southwest
-
-> southwest
+> west
 
 Meme Street
 You can see a Poster.
 The blue stone street is empty with a thin layer of mist moving about it an inch off of the ground. The lamp posts that run down the street are either broken or have gone unfueled. Small, wooden shops corner one another under the sparkling night sky as the smell of overgrown grass sneaks throughout the air.
 You can go southeast, southwest, northwest, northeast, east or north.
-[state=Running]
+> north
+
+> north
+
+Arcade Front
+You can see a White Door.
+The surrounding forest grows along flashy walls of the building reading 'Arcade' in neon. The barred windows glow and a white door centers itself at the front.
+You can go south or in.
+> use arcade key on white door
+
+> use arcade key on white door
+You use the key on the door.
+> in
+
+> in
+
+Arcade
+You can see two Pumpkin Goblins.
+Game machines are smashed open all across the neon outlined room. The back wall is ripped apart and the sign reading 'Cuckie Cheeses Food Court' flashes on and off from damage. Blocking the way to the food court are two Pumpkin-Goblins!
+You can go north.
+"Well what the fudge do we have here?" A Pumpkin-Goblin giggles before kicking over a jutebox, triggering the song Pinball Wizard to play. "Have at you, mortal!"
+> use sword on pumpkin goblins
+
+> use sword on pumpkin goblins
+Your combat skills exceed these monsters and you slice them to pieces.
+"BAUGHHH!" one of the Pumpkin-Goblin's cry before their head falls and smashes on the ground.
+> north
+
+> north
+
+Cuckie Cheeses
+Clearly the room you are in was once a place for pizza and fun but now tables smothered with old cheese are broken apart across the area.
+You can go out.
+A high and cocky voice rips through the air, "Your beloved waifu--what was her name again?"
+ENTER NAME
+> Waifu
+What have you done with Waifu
+
+Your question goes unanswered. The evil voice chuckles at your obvious anger.
+> out
+
+> out
+Out of the corner of your eye you see the King of Spooks himself on a cracked TV screen. However, below him a nine foot tall woman with pink hair runs by you snatching your blade and snapping it between her sharp teeth.
+On her back is Waifu
+"Be gone now, Shakre," the King of Spooks orders, "we need the girl for the ritual and there is no time for a fight." His screen goes dark and the demoness Shakre runs off into the woods with your beloved.
+
+You have lost your weapon, the Spooky King has your waifu, and the monster Shakre lurks with her out in woods. Your adventure has taken a dark turn.
+
+The Parking Lot
+You can see a Van and a Truck.
+The lot is dotted with pot holes and cracks and all around it dying trees lean into it. There is a van on one side and a truck double parked near the forest entrance. The Arcade building behind you looks ready to crumble.
+You can go north.
+> north
+
+> north
+
+Forest Trail
+You can see The Parking Lot.
+The dark trees reach for the darker sky above. Queer noises come from every bush you walk by. You can't help but feel you are being watched.
+You can go south, west, north or east.
+> east
+
+> east
+A demoness' voice echoes out from the forest, "Heroic fool!
+Foolish Slayer
+I have your waifu! What ever will you do!?" Her laughter fades off.
+
+Forest
+You can see a Tall Tree and a Pumpkin Patch.
+The forest makes you feel claustrophobic with its close, winding trees and thicker fog. One tree is taller than the rest standing above the forest and can be seen from nearly any point. The howls of wolves alarm you and give you the hint not to linger for long.
+You can go west.
+> climb tall tree
+
+> climb tall tree
+You climb the tree and get a good view of the area. You can see a swamp to the west, the town to the south, and some sort of ruins to the southeast. Beyond those ruins you can see the dark castle--Castle Dickletopia.
+> search tall tree
+
+> search tall tree
+Reaching into the carving hole on the tree you find a note and take it.
+> southeast
+
+> southeast
+The demoness Shakre lets out her voice once more, "Chase me, fool! Work up my appetite!" You make out a glimpse of her with your waifu in the distance but again she's gone in an instant.
+
+Hot Topic Ruins
+You can see a Burnt Sign, a Black Scorch and a Metal Chest.
+Giant chunks of obsidian lay throughout the clearing. A sign reading 'Hot Topic' in red is burnt into a pile of ashes. Here once stood a great building but no more.
+You can go northwest, north or southeast.
+> north
+
+> north
+
+Riverbank
+You can see a Shipwreck, some Rope and a Hanging Man.
+The grey water of the river rushes by quickly. Smashed into the shore is a shipwreck. To the side a man hangs dead from a tree branch.
+You can go south.
+> take rope
+
+> take rope
+You pick it up.
+> south
+
+> south
+
+Hot Topic Ruins
+You can see a Burnt Sign, a Black Scorch and a Metal Chest.
+Giant chunks of obsidian lay throughout the clearing. A sign reading 'Hot Topic' in red is burnt into a pile of ashes. Here once stood a great building but no more.
+You can go northwest, north or southeast.
+> southeast
+
+> southeast
+
+Spooky Canyon
+You can see Crack in the wall.
+The canyon walls break their way high into the sky. Their stone is mostly grey though blends into a dark blue the further in you go. Long grass hangs down from the top of the canyon and puddles of water pop up along the narrow path. An unsettling sound hums throughout the wind bringing a chill to your spine.
+You can go northwest or east.
+"Quickly," a caped figure far down the canyon calls out to you, "this way. The demon has gone this way." They run off.
+> east
+
+> east
+
+Cliff to Dickletopia
+You can see Ren, a Lever and a Drawbridge.
+Across the bottomless trench is a lever and the entrance to the towering fortress--Castle Dickletopia. Looking at the blackness of the castle you can see where Hot Topic's resources were moved to. Clouds gather above and howling wolves gather atop the canyon plateau.
+You can go west or north.
+"You find yourself yet more tangled
+Slayer Slayer
+I am Ren the God of Humor," the caped figure gives you a light bow, "we spoke before you entered the town."
+> speak to ren
+
+> speak to ren
+"Before you showed I was the last one willing to fight Tommy and his cabal. Now our mission is to find a way into their castle and stop their reign of terror."
+> use rope on lever
+
+> use rope on lever
+You form your rope into a lasso and throw it onto the lever across the trench. With a single tug the drawbridge comes down.
+"Well done," Ren cheers, "there'll be no escape for evil tonight."
+> north
+
+> north
+
+Main Hall of Castle Dickletopia
+You can see a Purple Door, an Oil Painting, a Statue, some Banners and Ren.
+The room is great in size. Pillars curl around the walls ending with stairs on each side wrapping upward. In the center is a purple door with an oil painting above it. Above the painting, leaning off of the next floor's balocny, is a statue of some sort of head.
+
+Ever so slightly you swear you can hear an organ playing in the distance.
+You can go up, west, east or north.
+"Alright," Ren fixes his top hat, "we'll have to keep our wits about us now more than ever. This is the home of evil and you'll need to play smart to get your friend out of this."
+> west
+
+> west
+
+Dining Room
+You can see a Fireplace, a Puddle and a Grandfather Clock.
+The floor is checkered with black and white tiles. A long table travels down the middle with empty bronze plates. At the far end is a fireplace with a strange puddle in front of it.
+You can go east or north.
+> north
+
+> north
+
+Kitchen
+You can see a Fridge, sack of Flour and a Fridge Note.
+It's a rather small room compared to what the castle would suggest. There's a fridge, oven, and counter with everything else you would normally find.
+You can go south.
+> take flour
+
+> take flour
+You pick it up.
+> south
+
+> south
+
+Dining Room
+You can see a Fireplace, a Puddle and a Grandfather Clock.
+The floor is checkered with black and white tiles. A long table travels down the middle with empty bronze plates. At the far end is a fireplace with a strange puddle in front of it.
+You can go east or north.
+> east
+
+> east
+
+Main Hall of Castle Dickletopia
+You can see a Purple Door, an Oil Painting, a Statue, some Banners and Ren.
+The room is great in size. Pillars curl around the walls ending with stairs on each side wrapping upward. In the center is a purple door with an oil painting above it. Above the painting, leaning off of the next floor's balocny, is a statue of some sort of head.
+
+Ever so slightly you swear you can hear an organ playing in the distance.
+You can go up, west, east or north.
+> east
+
+> east
+
+Hallway
+You can see a Picture.
+The corridor is dark despite the tourches along the walls.
+You can go west, north, east or south.
+> north
+
+> north
+
+Theater
+You can see a Screen.
+This room is nearly the same size as the main hall though it is far better lit. Rimmed with gold and rowed with purple seats, a grand screen plays some old cartoon about Halloween.
+You can go south or up.
+> up
+
+> up
+
+Projection Booth
+You can see Farley and a Box.
+Through the window the film projector allows the movie go on. The shelves around around it are filled with reels and other film related equipment.
+You can go down.
+Entering the room you find the villain Farley Sweet working the projector. He jumps back when he sees you but notices his way out is blocked, "Fuck! Wait, listen! We've got no reason to fight! I'm just a paperwork kinda guy--I've done nothing wrong! Let me walk away. Let me leave."
+> show mercy farley
+
+> show mercy farley
+You step aside after giving a serious glare to Farley.
+"Thank you, you're more saint than knight than I thought" Farley walks off and hands you a key as he walks by, "I will never forget this generosity." With that Farley leaves the theater.
+> down
+
+> down
+
+Theater
+You can see a Screen.
+This room is nearly the same size as the main hall though it is far better lit. Rimmed with gold and rowed with purple seats, a grand screen plays some old cartoon about Halloween.
+You can go south or up.
+> south
+
+> south
+
+Hallway
+You can see a Picture.
+The corridor is dark despite the tourches along the walls.
+You can go west, north, east or south.
+> west
+
+> west
+
+Main Hall of Castle Dickletopia
+You can see a Purple Door, an Oil Painting, a Statue and some Banners.
+The room is great in size. Pillars curl around the walls ending with stairs on each side wrapping upward. In the center is a purple door with an oil painting above it. Above the painting, leaning off of the next floor's balocny, is a statue of some sort of head.
+
+Ever so slightly you swear you can hear an organ playing in the distance.
+You can go up, west, east or north.
+> use heart key on purple door
+
+> use heart key on purple door
+You use the heart shaped key to open the door.
+"Yauugh!" You hear Ren's voice on the other side.
+> north
+
+> north
+
+The Game Room
+You can see Ren and Shakre.
+Standard issue arcade games line the light purple walls. These games no doubt came from the plundered Arcade in town. The ceiling is covered with loose pipes and the carpet is polka dotted which you suppose means the room is meant to be fun.
+You can go south or west.
+You find Ren and the monster Shakre fighting on the other side of the room!
+"Get out of here," Ren cries, "she'll devour us both!"
+Shakre bites a chunk of Ren's arm off and spits it out, "Your arrogance is both your undoing! Sit back and I'll deal with you next!"
+> use flour on shakre
+
+> use flour on shakre
+You toss the flour into Shakre's eyes, blinding her, "Augh! Where are you!?" She hisses.
+"Right here," Ren yells as he zaps Shakre through the gut. "Your evil ends he--"
+Shakre slashes Ren open before falling down and bleeding out.
+Letting out a final cough on the ground; Ren turns to you with a light smile, "Y-you're fated..."
+> search shakre
+
+> search shakre
+Carefully approaching, you search Shakre and find a diamond shaped key to take.
+> south
+
+> south
+
+Main Hall of Castle Dickletopia
+You can see a Purple Door, an Oil Painting, a Statue and some Banners.
+The room is great in size. Pillars curl around the walls ending with stairs on each side wrapping upward. In the center is a purple door with an oil painting above it. Above the painting, leaning off of the next floor's balocny, is a statue of some sort of head.
+
+Ever so slightly you swear you can hear an organ playing in the distance.
+You can go up, west, east or north.
+> up
+
+> up
+
+Second Floor Balcony
+You can see an Orange Door and two Urns.
+The air up here is cooler.
+You can go down or north.
+> use diamond key on orange door
+
+> use diamond key on orange door
+You use the diamond shaped key on the door and open it.
+> north
+
+> north
+
+Meeting Hall
+You can see an Orb.
+The meeting hall is round and carpeted with red. Suits of armor ring around the walls and in the center is a strange crystal orb. Around the orb is seven tall, oak chairs.
+You can go south, west, east or north.
+> east
+
+> east
+
+Storage Room
+You can see some Boxes, a Skeleton and a Black Chest.
+The room is filled with props and crates.
+You can go west.
+> search black chest
+
+> search black chest
+You open the chest to find a plate of cookies...you take one to hold onto.
+> west
+
+> west
+
+Meeting Hall
+You can see an Orb.
+The meeting hall is round and carpeted with red. Suits of armor ring around the walls and in the center is a strange crystal orb. Around the orb is seven tall, oak chairs.
+You can go south, west, east or north.
+> north
+
+> north
+
+Library
+You can see a Book.
+Shelves of books own the room. In the center is a small lounge with readings desks on each side. On one desk a book is wide open.
+You can go south, southwest or southeast.
+> southwest
+
+> southwest
+
+West Staircase
+You become more uneasy with each step up.
+You can go northeast or east.
+> east
+
+> east
+
+Pumpkin Room
+You can see Strongarm.
+The room is shaped like a pumpkin with a brilliant, sparkling orange floor pattern. Several layers of shelves spread up to the top of the room with pumpkins of all sizes. At the end of the room is a tall, open window.
+You can go west, east or north.
+Standing in the window with binoculars in one hand and a cast on the other arm is a large man calling himself "STRONGARM will spot all enemies! Strongarm shall crush all enemies, hoho!"
+> push strongarm
+
+> push strongarm
+Strongarm cries falling forward, "YAAAAAAAAAHOOHOOHOOHOOEEEE!"
+> north
+
+> north
+
+Lounge
+You can see OTFree, a Globe, a TV, R2 D2 and a Stuffed Bear.
+Zebra carpet, purple curtains, crystal candles, and black leather couches. This long room is cozy, fresh breath of air.
+You can go south, west, east or north.
+The comfort of the room is torn away by the young man standing at end of the room.
+"I am OOOOOOOO T Free," he says with a creepy smile.
+> give cookie to otfree
+
+> give cookie to otfree
+"Oh shucks," OTFree takes the cookie and eats it, "thanks friend. That was really good!"
+OTFree's stomach growls, "Hey, uh, that cookie didn't have gluten in it, did it?"
+OTFree raises his brows in shock but keeps his smile while he explodes from the inside out.
+> west
+
+> west
+
+Workshop
+You can see an Unfinished Statue, an Eraser and a Trunk.
+This is the site of art and numerous stains of paint. Tables are filled with unfinished drawings of faires, devils, vampires, werewolves, and Tommy himself.
+You can go east.
+> take eraser
+
+> take eraser
+You pick it up.
+> east
+
+> east
+
+Lounge
+You can see a Globe, a TV, R2 D2 and a Stuffed Bear.
+Zebra carpet, purple curtains, crystal candles, and black leather couches. This long room is cozy, fresh breath of air.
+You can go south, west, east or north.
+> east
+
+> east
+
+Barracks
+You can see a Silver Sword and a Wardrobe.
+There are two bunk beds on each side of the room. Various Scary Godmother posters cover the wall.
+You can go west.
+A shine grabs your eye. There's a sword on one of the beds.
+> take silver sword
+
+> take silver sword
+You pick it up.
+> west
+
+> west
+
+Lounge
+You can see a Globe, a TV, R2 D2 and a Stuffed Bear.
+Zebra carpet, purple curtains, crystal candles, and black leather couches. This long room is cozy, fresh breath of air.
+You can go south, west, east or north.
+> north
+
+> north
+
+Castle Balcony
+You can see Denly and the Town.
+The air is crisp and cold and the clouds above rumble into one another.
+You can go south or southeast.
+"Hey bitch," you're calmy greeted by Tommy's assassin--Denly the stick figure!
+> use eraser on denly
+
+> use eraser on denly
+"Wrauuughh!" Denly overreacts as you slowly erase him. "EXCUSE YOU! But I am not fond of this fate."
+You erase Denly from existence.
+> southeast
+
+> southeast
+
+Outer Staircase
+You can see the Moon.
+With each step you take you feel more spooked--yet more certain your quest is reaching its end.
+You can go northwest or west.
+A crack of thunder erupts.
+> west
+
+> west
+
+Tommy's Bedroom
+You can see Spilled Ketchup, a Suit of Armor, some Shrunken Monkey Heads and a Computer.
+The floor is hard stone. The walls are covered with hanging black cloth with stars decorated on them. The ceiling has a design of a crowned pumpkin on fire.
+You can go east or northwest.
+Detaching itself from the ceiling, a large green diamond falls and stands on the ground with a series of red tentacles. On the diamond is a thick, drawn on smiley face.
+This is the nightmare of legends--Tommy's ultimate pet--Spilled Ketchup.
+"I DU GOOOOOD!" The diamond-monster yells with an echo.
+> use silver sword on spilled ketchup
+
+> use silver sword on spilled ketchup
+You slash at Spilled Ketchup. His diamond is too high but you manage to fight off his tentacle attacks and cut off a few too!
+> use silver sword on spilled ketchup
+
+> use silver sword on spilled ketchup
+You rush into battle with your silver sword and slice off more of Spilled Ketchup's tentacles.
+"HooooOOOooooOUGHH!" Spilled Ketchup begins to twirl around, visibly wounded.
+> use silver sword on spilled ketchup
+
+> use silver sword on spilled ketchup
+You cut down one last tentacle to lower Spilled Ketchup even more. Finally you dive your silver blade into the diamond.
+The touch of silver is magical and it's singes away all the diamond on him into yellow ashes.
+"WWERRYYYYYYY!" Is all he has to echo before the deed is done.
+> northwest
+
+> northwest
+
+Inner Staircase
+The carpet along the steps is a carpet of royal purple. The obsidian walls are lit with tourches of blue fire.
+
+With each step you take you feel a great force of evil pushing against you--but you push it right back and go forward!
+You can go southeast or east.
+More thunder roars, rumbling in a chain of anger.
+> east
+
+> east
+
+Altar Steps
+You can see a Stoup and a Roses.
+Ahead is the point of no return.
+You can go west or in.
+> in
+
+> in
+
+Temple of Jill
+You can see Tommy Dickles, Your Waifu, a Statue and a Floating Anomaly.
+The floor is clean white as are the pillars around it. The lengthy windows here are orange and light up with the lightning outside. At the end of Castle Dickletopia is a great golden statue--and Tommy beneath it.
+"Ahh, you've made it in time for my grand finale.
+Please come forward Slayer
+We don't have to be enemies, you know."
+
+"I am Tommy Dickles--King of Men--and I tell you now that you have done nothing to wrong me yet!
+That's right! Those you killed who died in my name--their defeat is proof of their unworthiness.
+You, however, present no such problems. Join me now and allow me to summon our Goddess Jill! We will be without equal in a world that has at long last learned order!"
+> use silver sword on tommy dickles
+
+> use silver sword on tommy dickles
+You ignore Tommy, approach him, and cut his head clean off his shoulders.
+A moment later his body drops to the ground. Though violent the nightmare has come to an end.
+With a sigh of relief you untie Waifu
+She hugs you tightly, "It's over--you did it without any chances!"
+> enter portal
+
+> enter portal
+You enter the portal with Waifu
+
+Outside of Town
+You can see Your Waifu.
+The sun has begun to rise as you look onward with your waifu to see Castle Dickletopia collaspe in the horizon. The birds around you sing and the wind comes by to cool your face. People from town gather and whisper before cheering at the sight of Tommy's avalanching defeat.
+
+Your waifu takes your hands and looks back into your eyes deeply, "It's over."
+> look
+
+> look
+Outside of Town
+You can see Your Waifu.
+The sun has begun to rise as you look onward with your waifu to see Castle Dickletopia collaspe in the horizon. The birds around you sing and the wind comes by to cool your face. People from town gather and whisper before cheering at the sight of Tommy's avalanching defeat.
+
+Your waifu takes your hands and looks back into your eyes deeply, "It's over."
+> embrace your waifu
+
+> embrace your waifu
+With your arms around Waifu
+you both know in your hearts
+peace has been untangled.
+
+The End
+[state=Finished]

@@ -40,6 +40,20 @@ You are in your bathroom. There is a putrid stench in here. The washbasin is cra
 > x mirror
 
 Looking good, Dave! Those teeth are looking a bit yellow though!
+> wear tracksuit
+
+You put on the dirty tracksuit. It smells only slightly bad, good for another week or so before it's due a wash you reckon!
+
+OK
+
++2 Social Status
+> look at washbasin
+
+It is cracked and filty, remains of toothpaste and coughed up flem linger there.
+You find a key lying there!
+> take key
+
+You pick it up.
 > go to leave bathroom
 
 Hallway
@@ -60,6 +74,12 @@ Kitchen
 You are in your kitchen. Needless to say, it's a right mess. There is a back door here that leads to the garden. A mouldy banana sits on a stool. An overflowing ashtray sits on the table top, surrounded by dirty, mouldy plates. You can also see some bleach.
 
  Your Move Dave Boy: Living Room.
+> look at ashtray
+
+You find your passport in the ashtray!!
+> take passport
+
+You pick it up.
 > go to garden
 
 Garden
@@ -68,11 +88,39 @@ You are in your garden. Not so much a garden actually, more like a square piece 
 You can see a potato.
 
  Your Move Dave Boy: go back in kitchen.
+> take potato
+
+You pick it up.
+> enter shed
+
+You unlock the shed with the key and stroll in...
+
+CONTINUE
+Garden shed
+
+You are in your garden shed. It is dark and smells musty. Pictures of page 3 girls decorate the walls.
+ A pair of nunchucks lie on a dust covered workplace.
+You can see a battery charger.
+
+ Your Move Dave Boy: leave the confines of the shed.
+> take nunchucks
+
+You pick them up.
+> take battery charger
+
+You pick it up.
+> go to leave the confines of the shed
+
+Garden
+
+You are in your garden. Not so much a garden actually, more like a square piece of paved land just big enough to swing a cat in. If that cat was very a kitten without limbs. There is a little gate here. There is a run down, delapadated garden shed here.
+
+ Your Move Dave Boy: go back in kitchen.
 > go to go back in kitchen
 
 Kitchen
 
-You are in your kitchen. Needless to say, it's a right mess. There is a back door here that leads to the garden. A mouldy banana sits on a stool. An overflowing ashtray sits on the table top, surrounded by dirty, mouldy plates. You can also see some bleach.
+You are in your kitchen. Needless to say, it's a right mess. There is a back door here that leads to the garden. A mouldy banana sits on a stool. You can also see some bleach.
 
  Your Move Dave Boy: Living Room.
 > go to Living Room
@@ -81,4 +129,2559 @@ Living Room
 
 You are in your living room. The tv blasts early afternoon crap. Some stairs lead up, horrible smells eminate from the open kitchen door, and a battered front door opens out onto the street.
 A half eaten pot noodle is on the floor.
-[state=Running]
+> go to street
+
+Street
+
+You are on the street. Your council house is in the centre of the most dangerous part of Moss Side in Manchester. The Switch-Blade Brothers run this area.. be on your guard!
+
+ Your Move Dave Boy: run back inside or walk down the street.
+> go to walk down the street
+
+Corner Shop
+
+You are outside the corner shop at the end of the street. There are many pigeons here, all coughing because of the city smog. A country lane can be seen opposite, leading towards some woods.
+Enter corner shop
+Walk back towards house
+Walk down the country lane.
+> in
+
+Inside corner shop
+
+Mr Haggins, the newsagent greets you with warmth as you enter the shop.
+
+"Mr Crowe, It is a DELIGHT to see you again!! An absolute DELIGHT!!!!" He beems!!
+
+"Hello Mr Haggins!!!" You cheerfully wave.
+
+You walk up to the sweets. There is an array of different chocolate bars, all of different shapes and sizes. You lick your lips and your eyes glisten with wonder!
+
+ In the background you overhear the newsagent talking to Ronnie Pitkin, the paperboy.
+
+"Listen carefully ronnie,  you are to take this letter to NO.3 Fenton Road. Dont stop to talk to anyone. It is vitally important. And whatever you do, dont open the letter, whatever you do!"
+
+ Your Move Dave Boy: Leave the shop.
+> follow Ronnie Pitkin
+
+Follow Ronnie
+
+You follow Ronnie out into the street. From there he goes across a car park, through a little gate, down a little lane and into the local park.
+
+Suddenly, he notices you following him. His hands clutch his face in terror. Then he points and you screaming, "Stranger Danger! Stranger Danger!!"
+
+You can see the strange letter hanging out of his pocket.
+
+People are starting to run towards you both. Perhaps you should muffle him?
+
+> take a strange letter
+
++1 Social Status
+
+Your snatch the letter from Ronnie's pocket and run off towards a patch of trees. Behind you, you can hear Ronnie's sobs and an angry mob forming.
+
+CONTINUE
+Secluded wood
+
+You rip open the letter and read the contents.
+
+It is a credit card! The letter reads...
+
+You memorize the pin number, put the credit card in your pocket and throw away the letter.
+
+You wonder whether it is safe to return to the park yet, or whether you should wait here a bit longer.
+
+> go to hiding
+
+Hiding
+
+You crouch down in the bushes and wait until nightfall.....
+
+Only when you are sure it's safe do you wind your way home...
+
+CONTINUE
+Living Room
+
+You are in your living room. The tv blasts early afternoon crap. Some stairs lead up, horrible smells eminate from the open kitchen door, and a battered front door opens out onto the street.
+A half eaten pot noodle is on the floor.
+> go to kitchen
+
+Kitchen
+
+You are in your kitchen. Needless to say, it's a right mess. There is a back door here that leads to the garden. A mouldy banana sits on a stool. You can also see some bleach.
+
+ Your Move Dave Boy: Living Room.
+> go to garden
+
+Garden
+
+You are in your garden. Not so much a garden actually, more like a square piece of paved land just big enough to swing a cat in. If that cat was very a kitten without limbs. There is a little gate here. There is a run down, delapadated garden shed here.
+
+ Your Move Dave Boy: go back in kitchen.
+> go to alleyway
+
+Alleyway
+
+You are in the alleyway which runs round the back of your council house. A little swing gate here grants access to your backyard. The alley continues in a northerly direction.
+
+> north
+
+High street
+
+You are on the bustling high street. Traffic whizzes by, paying little attention to speed limits. Homeless men lie in the shop doorways, taking sips from brown paper bags.
+
+ The tram stop can be seen towards the west, you can also see you local pub, "The Feathers"  and the  high street  continues east.
+
+ An alleyway stretches south.
+> east
+
+High street
+
+You are at the end of the high street. It doesn't get much prettier this end of the street!
+There is a charity shop to the north, and the  job centre  to the east.
+The high street continues west.
+The fishmongers is to the south.
+> east
+
+Job centre
+
+You are in the job center. Green boards are dotted around, all with hundereds of little white cards stuck upon them, advertising jobs.
+There is a queue of people here waiting to speak to a woman behind a desk.
+ A woman sits behind a desk, scowling.
+
+ Your Move Dave Boy: west.
+> join queue
+
+You join the queue and wait to be seen....
+> x woman
+
+ She is scowling at you! You have done business with this one before, she doesn't like you one bit!
+> x queue
+
+Nothing out of the ordinary.
+> z
+
+Time passes.
+> z
+
+Time passes.
+Still waiting....
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+Still waiting....
+Finally! It is your turn!
+"I am here to collect my dole!" You say to the woman behind the desk.
+
+"I.D please..." She says.
+
+You hand over your passport, and she hands you over a crisp ten pound note!
+
+"We are closing now...." She says. "Get out!"
+
+CONTINUE
+High street
+
+You are at the end of the high street. It doesn't get much prettier this end of the street!
+There is a charity shop to the north, and the  job centre  to the east.
+The high street continues west.
+The fishmongers is to the south.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> west
+
+High street
+
+You are on the bustling high street. Traffic whizzes by, paying little attention to speed limits. Homeless men lie in the shop doorways, taking sips from brown paper bags.
+
+ The tram stop can be seen towards the west, you can also see you local pub, "The Feathers"  and the  high street  continues east.
+
+ An alleyway stretches south.
+> north
+
+The Feathers Pub
+
+You are in the "Four Feathers", your local pub. Here you can meet lots of interesting characters, who all use lots of colorful and wonderful words to express themselves!
+
+The air is thick with cigarette smoke, looks like the smoking ban has not had much of an effect here. An old lady serves behind the bar.
+
+There is a door leading to the toilets, and a door leading out onto the street. Someone has left half a pint on a table. There is an open bag of prawn crackers here.
+> look at interesting characters
+
+You spot the local "salesman", Fingers Flanagan!
+> speak to Fingers Flanagan
+
+"Hello Dave! I've got a lovely tweed suit for sale today, tenner it's yours!" He says, tapping his nose.
+> buy tweed suit
+
+You hand over the 10 pound note, and Fingers Flanagan hands over the tweed suit.
+> buy length of green hose
+
+"Good lad, you know it makes sense!" He says, passing you the green hose, "I'll be over your house next month to collect the cash!"
+
+CONTINUE
+> in
+
+Pub toilets
+
+You are in the toilets of the feathers. The putrid smell of waste rises quickly into your nostrils, attacks your eyes making it to hard to both breathe and see.You can make out a row of urinals and a cracked mirror.
+
+ Your Move Dave Boy: Make a quick exit.
+get changed into tweed suit
+> change
+
+You take off the old tracksuit, and throw it away. You then get dressed into the tweed suit and take a look in the mirror. Wow! What a difference it makes! You almost look human!
+
++3 Social Status
+
++1 Attire
+> take rose
+
+OK!
+
++1 Social Status
+> go to make a quick exit
+
+The Feathers Pub
+
+You are in the "Four Feathers", your local pub. Here you can meet lots of interesting characters, who all use lots of colorful and wonderful words to express themselves!
+
+The air is thick with cigarette smoke, looks like the smoking ban has not had much of an effect here. An old lady serves behind the bar.
+
+There is a door leading to the toilets, and a door leading out onto the street. Someone has left half a pint on a table. There is an open bag of prawn crackers here.
+You can see Fingers Flanagan.
+> go to street
+
+High street
+
+You are on the bustling high street. Traffic whizzes by, paying little attention to speed limits. Homeless men lie in the shop doorways, taking sips from brown paper bags.
+
+ The tram stop can be seen towards the west, you can also see you local pub, "The Feathers"  and the  high street  continues east.
+
+ An alleyway stretches south.
+> east
+
+High street
+
+You are at the end of the high street. It doesn't get much prettier this end of the street!
+There is a charity shop to the north, and the  job centre  to the east.
+The high street continues west.
+The fishmongers is to the south.
+> north
+
+Charity shop
+
+You are in the local charity shop. Bit and pieces of junk that no-one in their right mind would ever want to buy litter the shelves.
+ The exit to the shop is to the south.
+
+ Mrs Busybody, the local volunteer and general do-gooder tends the till.
+
+"Hello Dave!" She greets you as you walk in, "I haven't seen you since that night after the disco, when we.... well you know....."
+> speak to Mrs Busybody
+
+"I still think about the time we had...."
+"I had to go to therapy after sleeping with you"
+
+> flirt
+
+You lean across the counter and start to flirt with Mrs Busybody.
+
+"Remember how good it was.... the last time.....?" You say.
+
+She blushes. "You never called me back."
+
+"I'll make up for it tonight. Why don't you close the shop early and we can go to the city centre together?"
+
+She hesitates. "Ok then, you watch the store for me and I'll go and get my things from the staff room!"
+
+CONTINUE
+> look at shelves
+
+A quick browse through all the junk reveals a pair of smart shoes which are still in quite good condition!
+> take smart shoes
+
+You slip off your dirty scruffy trainers, and slip on the smart shoes.
+You start to feel quite the gent!
++2 Social Status
++1 Attire
+> south
+
+High street
+
+You are at the end of the high street. It doesn't get much prettier this end of the street!
+There is a charity shop to the north, and the  job centre  to the east.
+The high street continues west.
+The fishmongers is to the south.
+> west
+
+High street
+
+You are on the bustling high street. Traffic whizzes by, paying little attention to speed limits. Homeless men lie in the shop doorways, taking sips from brown paper bags.
+
+ The tram stop can be seen towards the west, you can also see you local pub, "The Feathers"  and the  high street  continues east.
+
+ An alleyway stretches south.
+> west
+
+Tram station
+
+You are at the hustling and bustling tram station. There is a tram here, ready to go to the city centre.
+
+A ticket machine is on the platfrom. A burly ticket inspector is checking peoples tickets as they board the tram.
+ There is a rubbish bin here, with a little sign reading "Keep Britain's Streets Tidy"
+You can see a squeezy bottle.
+
+ Your Move Dave Boy: east.
+> look at rubbish bin
+
+You find a half eaten sandwich!
+> take half eaten sandwich
+
+You pick it up.
+> buy ticket ticket machine
+
+You insert the credit card, and the ticket machine asks you for your pin.....
+You Insert the pin and take the ticket from the slot.
+
+CONTINUE
+> board tram
+
+You show your ticket and board the tram...
+
+CONTINUE
+You step on board the tram, the doors close and the tram starts to move, making it's way towards the city centre.
+On board tram
+
+You can smell all sorts of horrible smells, sick, urine, feet and cheese. There is an empty seat close by. You can see some annoying young hooligans playing loud "music" which nobody else wants to hear from a set of portable speakers.
+> look at empty seat
+
+You find a ten pence piece!
+> take ten pence piece
+
+You pick it up.
+> yes
+
++2 Social Status
+
+"Have it!" You say, passing him the sandwich which he scoffs down in an instant.
+
+"Thank you ever so much kind sir...." He says, wiping the crumbs from his mouth with the sleeve of his shirt, "Here... please take my business card as a sign of my gratitute...."
+
+He hands you his business card.
+
+"I used to be a somebody...." He says whistfully, starting out into space.
+
+You feel the tram come to a halt.
+
+"Last stop...Manchester Picadilly.."The annoucer relays over the speaker system.
+
+CONTINUE
+
+MANCHESTER PICADILLY
+
+You are dead centre in the hustle and bustle of Manchester Picadilly.
+In front of you there is a fast food restaurant.
+Market Street runs to the north east, and towards the northwest can be seen an expensive jewellery shop.
+
+You can see a bike and a policeman.
+
+ ...The tram moves off
+
+> northeast
+
+Market Street
+
+This is Market Street, a pedestrianised row of high street shops on either side. A gigantic department store looms over you, casting a giant shadow.
+
+To the north is the bright lights of Deansgate.
+
+The traffic can be heard from Manchester Picadilly, which is close by.
+You can see a group of pigeons.
+> take breadcrumbs
+
+You pick them up.
+> east
+
+Department Store
+
+You are in a busy department store. People are shoving, and pushing and falling over, children and screaming and crying and creating noise, pushchairs and shopping trolley's are bumping and grinding and getting in your way. It is mayhem!
+ There is a lift here, which serves all the floors.
+
+ Your Move Dave Boy: LEAVE DEPARTMENT STORE.
+> enter lift
+
+Inside the Department Store Lift
+
+You await the arrival of the elevator and clamber in. There is a sign here which specifies the different floors of the store.
+
+GROUND FLOOR
+FIRST FLOOR - TOYS AND GAMES
+SECOND FLOOR - SPORTS AND RECREATION
+THIRD FLOOR - HOME FURNISHINGS
+
+> THIRD FLOOR
+
+You cross your arms and wait for the lift to come to a stop....
+> z
+
+Time passes.
+> z
+
+Time passes.
+Still waiting....
+> z
+
+Time passes.
+> z
+
+Time passes.
+Someone farts.
+> z
+
+Time passes.
+> z
+
+Time passes.
+And here we are! You get out of the lift...
+
+CONTINUE
+THIRD FLOOR
+
+You are in the home furnishing department. You know, lamp shades, bed side tables, fancy chairs - that sort of thing.
+
+By the entrance to the lift is a small pool of water. Next to the water is a yellow sign which says "CAUTION - SLIPPERY SURFACE". There is a comfy chair here on special offer.
+You can see a bed sheet.
+> z
+
+Time passes.
+> hide sign
+
+ There is just enough room under the comfy chair to hide the sign. Nobody can see it now!
+> take a bed sheet
+
+You pick it up.
+> sit on comfy chair
+
+SAT DOWN ON THE COMFY CHAIR
+
+You are sat down on a wonderfully luxurious comfy chair, staring at the lift door.
+
+ GET UP
+
+The lift doors open, and an old gentleman with a walking stick comes walking out. He doesn't see the patch of water, and slips on it, collapsing in a heap on the floor.
+
+A pack of cigarettes fall out of his pockets!
+
++5 Bastard Rating
+
+> up
+
+THIRD FLOOR
+
+You are in the home furnishing department. You know, lamp shades, bed side tables, fancy chairs - that sort of thing.
+
+By the entrance to the lift is a small pool of water. There is a comfy chair here on special offer. There is an old man here, lying out cold in a pool of water.
+You can see cigarettes.
+> take cigarettes
+
+Taken.
+> in
+
+Inside the Department Store Lift
+
+You await the arrival of the elevator and clamber in. There is a sign here which specifies the different floors of the store.
+
+GROUND FLOOR
+FIRST FLOOR - TOYS AND GAMES
+SECOND FLOOR - SPORTS AND RECREATION
+THIRD FLOOR - HOME FURNISHINGS
+
+> SECOND FLOOR
+
+You cross your arms and wait for the lift to come to a stop....
+> z
+
+Time passes.
+> z
+
+Time passes.
+Still waiting....
+> z
+
+Time passes.
+> z
+
+Time passes.
+Someone farts.
+> z
+
+Time passes.
+> z
+
+Time passes.
+And here we are! You get out of the lift...
+
+CONTINUE
+SPORTS AND RECREATION
+
+You are on the second floor of the store - the sports and recreation department.  Lots of very atheletic people are here! There is a lift behind you. There is a pretty little assistant here, pricing up tennis rackets.
+> z
+
+Time passes.
+> speak to assistant
+
+You slide up to her, and in the most charming/creepy voice you can muster, ask..
+
+Would you like to go out for a drink with me?
+I demand to see the manager!
+I would like to buy one of your tennis rackets!
+> manager
+
+"I demand to see the manager! This instant!" You demand.
+
+The young shop assistant appears quite shaken at your rudeness.
+
+"I'm sorry, sir but the manager is in a meeting at the moment... if you would like to follow me, you can wait in his office.. He won't be long."
+
+CONTINUE
+Manager's Office
+
+You are in a very elegantly furnished office.
+ There is a grand antique desk here, which takes up most of the room. Edwardian, you hazard a guess. By the desk is a waste paper basket. There is a pen on the desk. A sheepskin rug covers the floor.
+
+ Your Move Dave Boy: LEAVE THE OFFICE.
+
+Wait for the manager
+> open desk
+
+You open it.
+It contains bolt cutters.
+> take bolt cutters
+
+You pick them up.
+> take pen
+
+You pick it up.
+> go to LEAVE THE OFFICE
+
+SPORTS AND RECREATION
+
+You are on the second floor of the store - the sports and recreation department.  Lots of very atheletic people are here! There is a lift behind you. There is a pretty little assistant here, pricing up tennis rackets.
+> in
+
+Inside the Department Store Lift
+
+You await the arrival of the elevator and clamber in. There is a sign here which specifies the different floors of the store.
+
+GROUND FLOOR
+FIRST FLOOR - TOYS AND GAMES
+SECOND FLOOR - SPORTS AND RECREATION
+THIRD FLOOR - HOME FURNISHINGS
+
+> FIRST FLOOR
+
+You cross your arms and wait for the lift to come to a stop....
+> z
+
+Time passes.
+> z
+
+Time passes.
+Still waiting....
+> z
+
+Time passes.
+> z
+
+Time passes.
+Someone farts.
+> z
+
+Time passes.
+> z
+
+Time passes.
+And here we are! You get out of the lift...
+
+CONTINUE
+FIRST FLOOR
+
+You are in the toy's and games department.
+
+There are shelves and shelves of toys stacked up as high as the hand can reach, children run around cheering and laughing, their bewildered and parents in tow.... the noise and confusion is overwelming!
+
+There is a lift here.
+> z
+
+Time passes.
+> north
+
+You wander off to explore the shelves...
+You leave a trail of breadcrumbs behind you.
+
+TOYS
+
+You are amongst a maze of toys, all shapes and sizes. Cuddly toys, toy trains, inflatable toys...toys toys toys!! You can no longer make out the exit!
+You can see a screwdriver and breadcrumbs.
+
+ Your Move Dave Boy: north, east, west or south.
+> take screwdriver
+
+You pick it up.
+> follow breadcrumbs
+
+ You follow the trail of breadcrumbs...
+
+FIRST FLOOR
+
+You are in the toy's and games department.
+
+There are shelves and shelves of toys stacked up as high as the hand can reach, children run around cheering and laughing, their bewildered and parents in tow.... the noise and confusion is overwelming!
+
+There is a lift here.
+> in
+
+Inside the Department Store Lift
+
+You await the arrival of the elevator and clamber in. There is a sign here which specifies the different floors of the store.
+
+GROUND FLOOR
+FIRST FLOOR - TOYS AND GAMES
+SECOND FLOOR - SPORTS AND RECREATION
+THIRD FLOOR - HOME FURNISHINGS
+
+> GROUND FLOOR
+
+You cross your arms and wait for the lift to come to a stop....
+> z
+
+Time passes.
+> z
+
+Time passes.
+Still waiting....
+> z
+
+Time passes.
+> z
+
+Time passes.
+Someone farts.
+> z
+
+Time passes.
+> z
+
+Time passes.
+And here we are! You get out of the lift...
+
+CONTINUE
+Department Store
+
+You are in a busy department store. People are shoving, and pushing and falling over, children and screaming and crying and creating noise, pushchairs and shopping trolley's are bumping and grinding and getting in your way. It is mayhem!
+ There is a lift here, which serves all the floors.
+
+ Your Move Dave Boy: LEAVE DEPARTMENT STORE.
+> z
+
+Time passes.
+> go to LEAVE DEPARTMENT STORE
+
+Market Street
+
+This is Market Street, a pedestrianised row of high street shops on either side. A gigantic department store looms over you, casting a giant shadow.
+
+To the north is the bright lights of Deansgate.
+
+The traffic can be heard from Manchester Picadilly, which is close by.
+You can see a group of pigeons.
+> southwest
+
+MANCHESTER PICADILLY
+
+You are dead centre in the hustle and bustle of Manchester Picadilly.
+In front of you there is a fast food restaurant.
+Market Street runs to the north east, and towards the northwest can be seen an expensive jewellery shop.
+
+You can see a bike and a policeman.
+> north
+
+Fast Food Restaurant
+
+You are outside a well known fast food restaurant.
+Enter Restaurant
+Go back to Manchester Picadilly
+
+ There is a begger here, who looks up at you with hope and expectation. "Spare any change, guv?" He asks.
+> take tie
+
+"I will swap you this tie for that packet of cigarettes you are carrying....." The beggar says.
+
+It sounds like a good deal to you, so you make the exchange. The Beggar walks off, chain smoking.
+
++1 Attire
+> south
+
+MANCHESTER PICADILLY
+
+You are dead centre in the hustle and bustle of Manchester Picadilly.
+In front of you there is a fast food restaurant.
+Market Street runs to the north east, and towards the northwest can be seen an expensive jewellery shop.
+
+You can see a bike and a policeman.
+> northeast
+
+Market Street
+
+This is Market Street, a pedestrianised row of high street shops on either side. A gigantic department store looms over you, casting a giant shadow.
+
+To the north is the bright lights of Deansgate.
+
+The traffic can be heard from Manchester Picadilly, which is close by.
+You can see a group of pigeons.
+> north
+
+Deansgate
+
+You are on Deansgate, a stretch of road full of bars, clubs and restaurants.
+From here  a few steps lead down towards a small nightclub.
+
+Far off in the north west is Spinningfields ,where you can make out a bunch of skyscrapers reaching high into the sky.
+
+ Market street lies to the south.
+> down
+
+Gentlemans Club
+
+You are outside a fashionable and exclusive gentleman's club. A flashing neon sign hangs above the door reading "DOBSONS".
+
+A queue of fashionable and exclusive people are waiting to be let in by a mean looking bouncer who seems to have a chip on his shoulder.
+
+A short flight of steps leads back up onto the street.
+> join queue
+
+You join the queue..
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+Waiting....
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+Still waiting....
+> z
+
+Time passes.
+> z
+
+Time passes.
+Finally It is your turn!!
+
+"Name please...." The bouncer asks.
+
+Dave Crowe
+Scott Macarthur
+Armitage Shanks!
+> Scott Macarthur
+
+"Yes, your names on the list. Do you have anything with your name on it?"
+
+Show Business Card
+Leave Queue
+> Show Business Card
+
+You hand over the business card which the upper class twit gave you on the tram.
+The bouncer turns it over in his hand.
+
+"Scott Macarthur...that's you all right!"
+
+He looks you over.
+
+"Ok, I guess you can go in...."
+
+CONTINUE
+INSIDE CLUB
+
+You are in a very upmarket and select gentleman's club. This, mind is not the sort of gentleman's club with girls taking their clothes off up on a stage, but the old school type of genteman's club with old men with moustaches sitting around playing chess and reading "The Times". In fact, women are not even permitted in here!
+
+There is no music playing, and the only thing that can be heard is the tick, tick - ticking of an old grandfather clock against one of the walls.  Somebody coughs, and all the gentlemen turn around in unison and say "shhhhhhhhh!".
+
+There is an exit through some drapes behind you.
+ Against one of the walls is an unoccupied table and chair.  A slow-moving elderley waiter moves between tables serving drinks.
+> look at table
+
+You find a lighter.
+> sit at table table
+
+You take a seat at one of the tables and the waiter ambles up to you.
+
+"Will Sir be requiring a drink this evening?" The waiter asks you, handing you a menu.
+
+ Champagne my good man!
+ A gin and tonic, as quick as you like!
+ Vodka Martini, shaken - not stirred.
+
+> Gin and Tonic
+
+"Very good sir.."
+
+The waiter slides away, and in a few minutes your Gin and Tonic  is placed in front of you.
+
+You are just beginning to enjoy the ambience and peace and quiet, when a man wearing exactly the same tie as yourself, pulls up a chair next to you.
+
+"Good evening, my good man!" He says, "I couldn't help but notice your tie!! So your an Oxford man are you? Class of '85 I'll hazard a guess? I'm class of '76 myself! Dobson's the name, old boy! Mike Dobson! I own this establishment!"
+
+He holds out his hand, and you shake it. His grip is like a vice. He puts his mouth close to your ear..
+
+"Listen hear, old boy...I also own a merchant bank in Spinningfields..... a job's just come up there. Ideal oppurtunity  for an old Oxford man like yourself. Nothing taxing old boy, good bonus structure...would you be interested?"
+
+ Take the merchant banker job
+ No thank you, old boy
+
+> take job
+
+You say you would be happy to take the job, and he hurries off and comes back bringing a letter of reference.
+
+"Take this to 'Dobson's and Fallow's' in Spinningfields. Ask to speak to Tom Fallows and hand it to him. He'll get you started, old boy! Sorry can't chat much longer, must dash! Ciao!!"
+
+He places the letter of reference on the table in front of you and strides off.
+
++10 Social Status
+
+CONTINUE
+INSIDE CLUB
+
+You are in a very upmarket and select gentleman's club. This, mind is not the sort of gentleman's club with girls taking their clothes off up on a stage, but the old school type of genteman's club with old men with moustaches sitting around playing chess and reading "The Times". In fact, women are not even permitted in here!
+
+There is no music playing, and the only thing that can be heard is the tick, tick - ticking of an old grandfather clock against one of the walls.  Somebody coughs, and all the gentlemen turn around in unison and say "shhhhhhhhh!".
+
+There is an exit through some drapes behind you.
+ A slow-moving elderley waiter moves between tables serving drinks.
+You can see lighter, Gin Tonic and letter of reference.
+> take letter of reference
+
+You pick it up.
+> out
+
+Gentlemans Club
+
+You are outside a fashionable and exclusive gentleman's club.
+There is a sign here from the health and safely department saying that the club is closed until further notice.
+
+A short flight of steps leads back up onto the street.
+> up
+
+Deansgate
+
+You are on Deansgate, a stretch of road full of bars, clubs and restaurants.
+From here  a few steps lead down towards a small nightclub.
+
+Far off in the north west is Spinningfields ,where you can make out a bunch of skyscrapers reaching high into the sky.
+
+ Market street lies to the south.
+> south
+
+Market Street
+
+This is Market Street, a pedestrianised row of high street shops on either side. A gigantic department store looms over you, casting a giant shadow.
+
+To the north is the bright lights of Deansgate.
+
+The traffic can be heard from Manchester Picadilly, which is close by.
+You can see a group of pigeons.
+> southwest
+
+MANCHESTER PICADILLY
+
+You are dead centre in the hustle and bustle of Manchester Picadilly.
+In front of you there is a fast food restaurant.
+Market Street runs to the north east, and towards the northwest can be seen an expensive jewellery shop.
+
+You can see a bike and a policeman.
+> north
+
+Fast Food Restaurant
+
+You are outside a well known fast food restaurant.
+Enter Restaurant
+Go back to Manchester Picadilly
+
+> north
+
+Inside Fast Food Restaurant
+
+You are inside the well known fast food establishment. There is a children's birthday party in progress. As far as you can see, children are eating chips.
+ There is a half-eaten, left over burger here. You an see an entertainer here, making baloon animals. She's as pretty as a picture! A small boy is sat on his own, playing with a hamster
+
+ Your Move Dave Boy: LEAVE RESTAURANT.
+> speak to entertainer
+
+You walk up to the children's entertainer and ask her her name.
+
+"Poppy!" She says with a sweet smile, "My name is Poppy!"
+
+ "You are the most beautifull girl in the world, can I take you for a drink?"
+ "Give us a kiss sweetlips"
+Stomp on her balloon animals
+
+> kiss
+
+"Give us a kiss sweetheart!!" You say, giving her a little wink.
+
+She looks at you, up and down, head to toe, thinking...
+
+"Ok, meet me outside in the car park.... Nobody can see us there. But I want you to be ready. Take all your clothes off!"
+
+CONTINUE
+
+Car Park
+
+You are around the back of the fast food restaurant, where the staff all park their cars. It is very secluded here, but the smell from the bins is almost unbearable. There is a small passageway to the east.
+
+You can see a brick.
+
+ Take off your clothes and wait for Poppy
+ Play a little joke and hide from Poppy
+> take brick
+
+You pick it up.
+> east
+
+Market Street
+
+This is Market Street, a pedestrianised row of high street shops on either side. A gigantic department store looms over you, casting a giant shadow.
+
+To the north is the bright lights of Deansgate.
+
+The traffic can be heard from Manchester Picadilly, which is close by.
+You can see a group of pigeons.
+> southwest
+
+MANCHESTER PICADILLY
+
+You are dead centre in the hustle and bustle of Manchester Picadilly.
+In front of you there is a fast food restaurant.
+Market Street runs to the north east, and towards the northwest can be seen an expensive jewellery shop.
+
+You can see a bike and a policeman.
+> northwest
+
+Jewellery shop
+
+You are in a very expensive Jewellery shop. Gold and silver blink at you from behind reinforced glass. An old ex-girlfriend took you into a shop like this once on her birthday! You ended that relationship there and then!
+
+ Your Move Dave Boy: southeast.
+> break glass
+
+You smash the glass with the brick, and an alarm rings out, piecering your ears! You lose all your nerve and run out of the shop, hiding behind a postbox on Deansgate.
+
+-2 Social Status
+
+CONTINUE
+
+Market Street
+
+This is Market Street, a pedestrianised row of high street shops on either side. A gigantic department store looms over you, casting a giant shadow.
+
+To the north is the bright lights of Deansgate.
+
+The traffic can be heard from Manchester Picadilly, which is close by.
+You can see a group of pigeons.
+> southwest
+
+MANCHESTER PICADILLY
+
+You are dead centre in the hustle and bustle of Manchester Picadilly.
+In front of you there is a fast food restaurant.
+Market Street runs to the north east, and towards the northwest can be seen an expensive jewellery shop.
+
+You can see a bike.
+> cut chain
+
+The bolt cutters make light work of the chain!
+> take bike
+
+You steal the bike!! You now have your own transport!
+
++4 Bastard Rating
++3 Social Status
+> northeast
+
+Market Street
+
+This is Market Street, a pedestrianised row of high street shops on either side. A gigantic department store looms over you, casting a giant shadow.
+
+To the north is the bright lights of Deansgate.
+
+The traffic can be heard from Manchester Picadilly, which is close by.
+You can see a group of pigeons.
+> north
+
+Deansgate
+
+You are on Deansgate, a stretch of road full of bars, clubs and restaurants.
+From here  a few steps lead down towards a small nightclub.
+
+Far off in the north west is Spinningfields ,where you can make out a bunch of skyscrapers reaching high into the sky.
+
+ Market street lies to the south.
+> northwest
+
+Spinningfields
+
+You are standing in the main square of Spinningfields. All around you are huge skyscrapers, containing hundreds of offices full of little office-workers tap-tap-tapping away on their computers, loving the 9-5 rat-race.
+
+The tallest and most imtimidating skyscaper of them all is the one closet to you, emblazed with the words "Dobson and Fallows Merchant Bank" above the door.
+
+Back whence you came, is the sights sounds and smells of Deansgate and the city centre.
+
+You can also see a Taxi Rank further on up the street.
+
+> west
+
+You leave the bike outside and walk in....
+
+CONTINUE
+Entrance Lobby
+
+You are in the entrance lobby to the world famous Dobson and Fallows merchant bank. There is a ornate water fountain in the centre, and relaxing classical music plays over the speakers.
+Close to reception there is a glass panelled door, and behind you there is a set of revolving doors which leads back out onto the street.
+
+ There is a receptionist at her desk here, shuffling some papers.
+
+Put the sheet over your head and pretend to be a ghost
+> give letter of reference receptionist
+
+The receptionist takes the letter and gives it a brief read.
+
+"OK, Mr Macarthur... Mr Fallow's has been expecting you. Take a seat and I'll let him know that you're here."
+
+You take a seat in one of the reception sofas.
+
+Before too long, a short man with long curly hair, red cheeks and a serious expression came out of the glass panelled door, came up to you and stuck out his hand.
+
+"Good morning sir! Mr Macarthur I presume? My associate Mr Dobson speaks very highly of you."
+
+He takes you into his office and sits you down at a desk, taking the seat opposite you.
+
+"You seem like a good sort." He says you, "The jobs yours. Can you start right away? Excellent! Your office is right across the corridor from mine. Go and make yourself comfortable. There will be a board meeting in 5 minutes."
+
+With that, he kicks you out into the corridor, slamming the door behind him.
+
+CONTINUE
+
+End of Corridor
+
+You are the end of the corridor. There are 3 doors here,
+
+A gold plated door,
+A silver plated door,
+A door made out of plastic/vinyl, (the material used to make cheap garage doors)
+
+The corridor continues southwards.
+> west
+
+Your new office
+
+You are in your new office. Compared to the office of Mr Fallows, this is quite bare. Grey painted walls and a functional desk from IKEA.
+You can see a filing cabinet and Bottle of Brandy.
+
+ Your Move Dave Boy: east.
+> open filing cabinet
+
+You force open the filing cabinet using the screwdriver..
+> read memo
+
+INTERNAL MEMO. HIGHLY CONFIDENTIAL
+
+Prepared by Tom. Fallows.
+
+Subject: Destruction of Orphanage in Equador.
+
+At our next board meeting we must come to a decision as to what to do with the problem of the Orphanage in Guayaquil. Equador.
+Since investing in the land over 5 years ago, this orhanage has stood in the way of our proposed location for the a new runway for our private airport connecting our new bank to the main terminal at Cotopaxi.
+
+It has been estimated that the current state of affairs are setting us back 160 million per annum.
+
+The headmistress of the orphange, a Mrs Batty, refuses to sell to us, and leaves us in a postiton whereby I propose to not only elimate Mrs Batty, but to destroy the orphanage in such as way that any investigation would suggest that Mrs Batty went insane, and burnt the orhpanage down herself, leaving us in no way culpable, and free to start work on our runway.
+
+Be advised, that should this plan backfire, it could result in adverse publicity and further decrease our profits in real terms.
+
+CONTINUE
+> z
+
+Time passes.
+
+The receptionist pops her head round the door.
+
+"The board meeting is about to begin Sir..." She says.
+
+> z
+
+Time passes.
+> east
+
+End of Corridor
+
+You are the end of the corridor. There are 3 doors here,
+
+A gold plated door,
+A silver plated door,
+A door made out of plastic/vinyl, (the material used to make cheap garage doors)
+
+The corridor continues southwards.
+> north
+
+Boardroom
+
+You are in the boardroom.
+A large rectangle table dominates the room, with seats all around it.
+You can see boardmembers.
+
+Tom Fallows proudly strides in and takes a seat at the end of the table.
+
+Also here, are 6 other men, all wearing dark grey suits and looking very very serious.
+
+"Ah, glad you could join us Mr Macarthur!" Tom says, "Please... take a seat."
+
+You take a seat. The board meeting goes on and on and on for what seems like days. You are about to fall asleep, when Tom stands up and slams his hand down hard on the table.
+
+"OK...We must take a vote.... You have all read the memo I hope.... what's it to be? Just remember, this is VERY important! It's my arse on the line and I don't want a cock-up!"
+
+Vote Total destruction of the orphange
+Vote Increase Offer to buy out
+Decline to vote
+
+> buy
+
+- 5 Bastard Rating
+
+You vote "BUY".
+
+All the boardmembers stare at you in unison. You are the only one who voted this way. Sir Tom is staring at you, and he doesn't seem very pleased.
+
+"Explain yourself!" He demands.
+
+You squirm in your seat.
+
+"Well, I just thought.... that this way everyone wins, the children...."
+
+Tom stands up and slams his fists on the table,
+
+"Explain to me, just how you imagine we can make a profit if we go around handing out our money willy-nilly to every Tom, Dick and Harry???"
+
+"But Sir..." You plead.
+
+"I've heard enough!!! Go and wait for me in my office!!!!"
+
+CONTINUE
+End of Corridor
+
+You are the end of the corridor. There are 3 doors here,
+
+A gold plated door,
+A silver plated door,
+A door made out of plastic/vinyl, (the material used to make cheap garage doors)
+
+The corridor continues southwards.
+
+The door to the boardroom slams shut behind you.
+
+> east
+
+Mr Fallow's Office
+
+You are in the office of Mr Tom Fallows, merchant banker extraordinare. Wood pannelled walls, solid oak 16th century desk, expensive drapings from Venice and polar-bear hide rugs decorate the room. A priceless ming vase is stored in a glass cabinet here. Behind the desk is a life size oil painting of Tom Fallows himself, dressed as a gladiator, looking ferocious and standing over the littered dead bodies of 3 huge lions.
+
+ Your Move Dave Boy: leave office or east.
+> open portrait
+
+The painting swings open revealing a wall safe!
+> open wall safe
+
+WHAT IS THE CODE?
+
+1990
+0000
+4321
+1234
+1987
+7891
+1981
+2016
+
+> 1987
+
+By Jove you guessed the combination! The safe clicks open revealling a bag full of cash!!!
+> take bag full of cash
+
+You grab the money!
+You better get out of here, sharpish!!
+
++9 Social Status
+> go to leave office
+
+End of Corridor
+
+You are the end of the corridor. There are 3 doors here,
+
+A gold plated door,
+A silver plated door,
+A door made out of plastic/vinyl, (the material used to make cheap garage doors)
+
+The corridor continues southwards.
+> south
+
+Corridor
+
+You are in a long corridor. Works of art line the walls. The carpet is very deep. You have been in a lot of corridors in your time on earth, most of them austere and inhospitable, but this corridor beats the lot!
+
+ Your Move Dave Boy: south or north.
+> south
+
+Entrance Lobby
+
+You are in the entrance lobby to the world famous Dobson and Fallows merchant bank. There is a ornate water fountain in the centre, and relaxing classical music plays over the speakers.
+Close to reception there is a glass panelled door, and behind you there is a set of revolving doors which leads back out onto the street.
+
+ There is a receptionist at her desk here, shuffling some papers.
+> east
+
+Spinningfields
+
+You are standing in the main square of Spinningfields. All around you are huge skyscrapers, containing hundreds of offices full of little office-workers tap-tap-tapping away on their computers, loving the 9-5 rat-race.
+
+The tallest and most imtimidating skyscaper of them all is the one closet to you, emblazed with the words "Dobson and Fallows Merchant Bank" above the door.
+
+Back whence you came, is the sights sounds and smells of Deansgate and the city centre.
+
+You can also see a Taxi Rank further on up the street.
+
+You can see a bike.
+> north
+
+Taxi Rank
+
+You are standing by the side of a road, a sign here displays the legend "Taxi Rank".  You are surrounded by high rise buildings, and as you watch all the people, hurrying about, places to go, you are reminded of a poem "The Waste Land" by T.S Eliot.
+You can see a taxicab.
+
+ Your Move Dave Boy: south.
+> enter taxicab
+
+You climb inside the taxi.
+
+"Where to, Guv?" He asks you.
+
+Home
+City Centre
+Airport!
+> airport
+
+"OK mate, be there in a jiffy!!"
+
+CONTINUE
+Airport
+
+You are stood outside Manchester Airport. Automated glass pannelled doors show the way inside. It is starting to rain.
+
+ You pay the driver and he races off.....
+> north
+
+Departures
+
+You are in the departures. Check-In is staight ahead in front of you, opposite the entrance. There are some toilets to your right hand side.
+
+ Your Move Dave Boy: leave the airport, head towards check-in or enter the toilets.
+
+A vicar walks past you and enters the toilets.
+> go to enter the toilets
+
+Toilets
+
+You are in the toilets. The urinals here smell much more fresh than the urinals in your local pub, The Feathers. Not so fresh as you would want to spend too much time here however. A single toilet cubicle is here.
+
+ Your Move Dave Boy: leave the toilets or enter the cubicle.
+
+A vicar enters the toilet cubicle, locking the door behind him
+> shoulder barge cubicle
+
++3 Bastard Rating
+
+You take a running start, and shoulder barge the door, which detaches itself with ease away from it's hinges. The vicar is sat down on the toilet with his pants round his ankles. He looks up at you with horror, his hands holding his face.
+
+"Forgive him father... for he know's not what he does!" He says.
+
+CONTINUE
+
+Toilet Cubicle
+
+You are in a very small, smelly and crampt toilet cubicle.
+You can see a Vicar.
+
+ Your Move Dave Boy: north.
+> speak to vicar
+
+"Take all your clothes off!"
+"Excuse me, but I really need to use the toilet"
+"Forgive me father, but I need to confess my sins"
+
+> clothes
+
+"Take all your clothes off! NOWWWW!" You scream at the poor vicar.
+
+Scared out of his wits, the vicar takes off his black robes.
+
+"Now get out of here!" You shout, and the naked vicar shreiks and runs off....
+
+CONTINUE
+> wear vicar clothes
+
+You remove your tweed suit and dress up in the Vicars clothes.
+
++4 Social Status
+CONTINUE
+> wear vicar glasses
+
+You put on the Vicar's spectacles. They fit your face well enough, but everything is a bit blurry now...
+CONTINUE
+> north
+
+Toilets
+
+You are in the toilets. The urinals here smell much more fresh than the urinals in your local pub, The Feathers. Not so fresh as you would want to spend too much time here however. A single toilet cubicle is here.
+It's door is hanging off it's hinges.
+
+ Your Move Dave Boy: leave the toilets or enter the cubicle.
+> go to leave the toilets
+
+Departures
+
+You are in the departures. Check-In is staight ahead in front of you, opposite the entrance. There are some toilets to your right hand side.
+
+ Your Move Dave Boy: leave the airport, head towards check-in or enter the toilets.
+> go to head towards check-in
+
+Check-In
+
+You are by Check-In. There is a woman here, wearing far too much make up and smiling the most false smile you would ever hope to see.
+
+ Your Move Dave Boy: return to departures.
+> speak to woman
+
+"Where is it you would like to go, Sir?"
+
+Hawaii
+Seyshelles
+Mexico
+Benidorm
+
+> Benidorm
+
+"You're in luck sir! There are plenty of seats available for that flight!!"
+
+You hand over your passport and some money, and the check-in lady hands you over the tickets.
+
+"Do you not have any luggage, sir?" She asks you.
+
+You tell her you have no need of bags, because you have extra large pockets!
+
+"Ok then, Have a safe flight sir!!!"
+
+BOARD FLIGHT
+> BOARD FLIGHT
+
+After a short flight, during which you had lots of highly entertaining and humorous escapades, your flight touches down in Benidorm airport.
+
+Outside the airport you jump in a taxi and ask the driver to take you to the best hotel in Benidorm!
+
+"That would be the Hotel Bastardos signor!" The driver tells you.
+
+"Well then, take me there if you please my good sir!" You say, and after a 20 minute drive, in which you had lots of highly entertaining and humourous escapades, the driver stops in front of the Hotel Bastardos. You pay the man, tip him genourously, and he speeds off.
+
+You look up at the hotel.
+
+"This is it!!" You think to yourself, "A new life....in paradise!!!"
+
+CONTINUE
+
+Hotel Bastardos
+
+You are standing outside the pleasantly imposing "Hostel Bastardos", the greatest hotel in Benidorm! A few stone steps lead up towards the grand glass entrance. The hotel overlooks the beach as in easy walking distance of the town and port along the promenade towards the east. Looking towards the west, you can make out a stretch of wasteground. Cyclists and joggers breeze by.
+> north
+
+Reception
+
+You are in the grand reception of the "Hotel Bastardos" - the best hotel in town!!
+
+There are some stairs here that lead up to the second floor. A thin man stands behind reception.
+You can see an Umbrella.
+
+ Your Move Dave Boy: leave hotel or walk upstairs.
+
+"Welcome to the Hotel Bastardos Signor!" Thethin man behind reception greets you.
+> speak to thin man
+
+"I would like to check-in please!"
+> check in
+
+You ask to check-in.
+
+The thin man looks you up and down. You are still wearing the vicar's clothes, and they don't fit too well. You look like a man who has recently been very ill.
+
+"I don't think signor could afford the best hotel in Benidorm. There is a cheap hotel the other side of town. Maybe that will be more to sir's budget."
+
+You take a wad of notes from your breast pocket and slam it down on the reception desk.
+
+"I think that should cover a few nights!" You say.
+
+"Signor!!! Certainly!! I will give you the best room in the place!!"
+
+With that, he puts the key to room 5 down on the desk.
+
+CONTINUE
+
+> take key to room 5
+
+You pick it up.
+> go to walk upstairs
+
+FIRST FLOOR LANDING
+
+You are on the First Floor Landing, opposite "Room 5", the best room in the best hotel in Benidorm!
+
+ Your Move Dave Boy: go back to reception or enter Room 5.
+> go to enter room 5
+
+You unlock the door and stroll in...
+
+ROOM 5
+
+You are in "Room 5", the best room in the best hotel in Benidorm!  There is some old fashioned wallpaper, which gives the room a kind of retro appeal, a stained carpet, which gives the room a chic, 80's ambiance, a window and a single bed. This room should do you just fine!  There is a huge great bastard RAT in the room, staring up at you. There is a container of gippy-tummy  pills lying on the floor.
+
+ Your Move Dave Boy: leave your bedroom.
+> look at single bed
+
+Functional small single bed on springs. The less said about the mattress though, the better.
+Under the bed you find an old bottle of suntan lotion.
+> take suntan lotion
+
+You pick it up.
+> apply suntan lotion
+
+You liberally apply the suntan lotion all over your body, giving special attention to nose, cheeks, earlobes, chin, forehead and the rest of your ears and face.
+
+CONTINUE
+> go to leave your bedroom
+
+FIRST FLOOR LANDING
+
+You are on the First Floor Landing, opposite "Room 5", the best room in the best hotel in Benidorm!
+
+ Your Move Dave Boy: go back to reception or enter Room 5.
+> go to go back to reception
+
+Reception
+
+You are in the grand reception of the "Hotel Bastardos" - the best hotel in town!!
+
+There are some stairs here that lead up to the second floor. The thin man has gone, now there is a thin woman standing behind reception.
+You can see an Umbrella.
+
+ Your Move Dave Boy: leave hotel or walk upstairs.
+> go to leave hotel
+
+Hotel Bastardos
+
+You are standing outside the pleasantly imposing "Hostel Bastardos", the greatest hotel in Benidorm! A few stone steps lead up towards the grand glass entrance. The hotel overlooks the beach as in easy walking distance of the town and port along the promenade towards the east. Looking towards the west, you can make out a stretch of wasteground. Cyclists and joggers breeze by.
+> east
+
+Promenade
+
+You are on the promenade, which stretches east to west. There are some stone steps which access the beach  here.
+> east
+
+Promenade
+
+You are on a beautiful stretch of promenade close to the port. The waves soothe you. What a lovely day it is! There is a small but quaint Tapas bar here, overlooking the beach. The promenade continues westwards.
+> north
+
+Tapas Bar
+
+You are in a small but perfectly formed tapas bar. A mouse-trap is here on the floor.
+You can see a waiter.
+
+ Your Move Dave Boy: go outside.
+
+The waiter runs up to you, desperate for business! (almost out of his mind)..
+
+"Table for one, Signore??"
+
+"Yes please!"
+"Just looking at the menu, thank you!"
+
+> no
+
+The waiters shoulders drop, his head goes down, and he slowly walks away, depressed.
+OK
+
+> look at mousetrap
+
+There is a piece of cheese lying on top of it.
+> take cheese
+
+You carefully free the piece of cheese from the clutches of the trap.
+> go to go outside
+
+Promenade
+
+You are on a beautiful stretch of promenade close to the port. The waves soothe you. What a lovely day it is! There is a small but quaint Tapas bar here, overlooking the beach. The promenade continues westwards.
+> west
+
+Promenade
+
+You are on the promenade, which stretches east to west. There are some stone steps which access the beach  here.
+> west
+
+Hotel Bastardos
+
+You are standing outside the pleasantly imposing "Hostel Bastardos", the greatest hotel in Benidorm! A few stone steps lead up towards the grand glass entrance. The hotel overlooks the beach as in easy walking distance of the town and port along the promenade towards the east. Looking towards the west, you can make out a stretch of wasteground. Cyclists and joggers breeze by.
+> north
+
+Reception
+
+You are in the grand reception of the "Hotel Bastardos" - the best hotel in town!!
+
+There are some stairs here that lead up to the second floor. The thin man has gone, now there is a thin woman standing behind reception.
+You can see an Umbrella.
+
+ Your Move Dave Boy: leave hotel or walk upstairs.
+> go to walk upstairs
+
+FIRST FLOOR LANDING
+
+You are on the First Floor Landing, opposite "Room 5", the best room in the best hotel in Benidorm!
+
+ Your Move Dave Boy: go back to reception or enter Room 5.
+> go to enter room 5
+
+ROOM 5
+
+You are in "Room 5", the best room in the best hotel in Benidorm!  There is some old fashioned wallpaper, which gives the room a kind of retro appeal, a stained carpet, which gives the room a chic, 80's ambiance, a window and a single bed. This room should do you just fine!  There is a huge great bastard RAT in the room, staring up at you. There is a container of gippy-tummy  pills lying on the floor.
+
+ Your Move Dave Boy: leave your bedroom.
+> look at rat
+
+It is the biggest rat you have ever seen! It has red eyes like fire and brimstone, sharp claws like cutlasses and teeth like sharpened pitchforks!
+
+Give the cheese to the rat
+
+> give cheese
+
+You throw the cheese on the floor close to the rat, which immediately devours it and scuttles off through a hole in the wainscotting...
+OK
+
+> take gippy tummy pills
+
+You pick up the Gippy tummy pills.
+> swallow gippy tummy pills
+
+You take the whole bottle, just to be on the safe side. Should be safe to eat the local specialities now!
+OK
+> go to leave your bedroom
+
+FIRST FLOOR LANDING
+
+You are on the First Floor Landing, opposite "Room 5", the best room in the best hotel in Benidorm!
+
+ Your Move Dave Boy: go back to reception or enter Room 5.
+> go to go back to reception
+
+Reception
+
+You are in the grand reception of the "Hotel Bastardos" - the best hotel in town!!
+
+There are some stairs here that lead up to the second floor. The thin man has gone, now there is a thin woman standing behind reception.
+You can see an Umbrella.
+
+ Your Move Dave Boy: leave hotel or walk upstairs.
+> go to leave hotel
+
+Hotel Bastardos
+
+You are standing outside the pleasantly imposing "Hostel Bastardos", the greatest hotel in Benidorm! A few stone steps lead up towards the grand glass entrance. The hotel overlooks the beach as in easy walking distance of the town and port along the promenade towards the east. Looking towards the west, you can make out a stretch of wasteground. Cyclists and joggers breeze by.
+> east
+
+Promenade
+
+You are on the promenade, which stretches east to west. There are some stone steps which access the beach  here.
+> east
+
+Promenade
+
+You are on a beautiful stretch of promenade close to the port. The waves soothe you. What a lovely day it is! There is a small but quaint Tapas bar here, overlooking the beach. The promenade continues westwards.
+> east
+
+Port
+
+You are standing by the port. A jetty stretches out from here into the sea. A promenade stretches out to the west, adjacent to the sea, and to the north is the old town of Benidorm, with all it's shops and restaurants.
+A cliff-top road leads off to the east.
+> north
+
+The Old Town
+
+You are in the old town centre of Benidorm. There is the usual mix of tavernas, cheap and tacky souvenir shops with racks upon racks of fridge magnets on show outside, and little cafe's with outdoor seating offering English Breakfast's to tempt the tourists. Out of all the boutique shops, the most interesting seem to be a fashionable tailors, an expensive art gallery, and an estate agents. A short way to the south, you can hear the the horns of boats coming into port.
+> west
+
+Tailors
+
+You are in a fashionable tailors. Ties, bowler hats and suits in various shades of blue and grey tastefully decorate the store.
+You can see camp salesman.
+
+ Your Move Dave Boy: east.
+
+As soon as you enter, a young man runs up to you, Tutting.
+
+"Signore,signore,signore!!!" He says, shaking his head, looking at your clothes.
+
+"Frightfull! Is the stuff of nightmares!!! Where did you get this orrible soot?"
+
+> speak to camp salesman
+
+"Fix me up, my good man! A suit of the finest quality if you may!"
+"Sir, you offend me! This is my favorite garment!
+> buy
+
++7 Social Status
+
+"The finest suit you have, my good man!"
+
+"Of course, Signore, right away, and please permit me to burn this horrible thing you are wearing!"
+
+In no time at all, you are changed into a lovely charcoal gray 3 piece suit. The salesman even throws in the pocket hankerchief for free.
+
+"That will be £2000 euros signor..." The salesman says.
+
+Money doesn't really mean anything to you any more so you practically throw it at the poor man.
+
+"Take it! Take it!" You say, "The subject of money bores me!"
+
+The Salesman thanks you, and explains that he is closing for the day, so you thank him and leave the store.
+
+CONTINUE
+
+The Old Town
+
+You are in the old town centre of Benidorm. There is the usual mix of tavernas, cheap and tacky souvenir shops with racks upon racks of fridge magnets on show outside, and little cafe's with outdoor seating offering English Breakfast's to tempt the tourists. Out of all the boutique shops, the most interesting seem to be a fashionable tailors, an expensive art gallery, and an estate agents. A short way to the south, you can hear the the horns of boats coming into port.
+> northeast
+
+Art Gallery
+
+You are in an exclusive art gallery. Many a fine work of art adorn the walls.
+Adrian Swidzinski, the world renowed art-critic and playboy is here, bidding on a painting.
+
+ Your Move Dave Boy: southwest.
+There is an auction going on at the moment.
+> make a bid painting
+
+"Gentlemen, the bidding now stands at 50,000,000 Euros..... Do I have 55,000,000?"
+
+...You raise your hand.
+
+"Gentleman by the door! Thank-you! I now have 55,000,000, do I have 60,000,000?"
+
+Adrian Swidsinksi raises his hand.
+
+"Thank-you Mr Swidzinski.... the bidding is now at 60,000,000 euros!"
+
+********
+
+> make a bid painting
+
+"The bidding now stands at 60,000,000 euros! Do I have 65,000,000?"
+
+You raise your hand.
+
+The auctioneer nods in your direction. "Thank you Sir, 65,000,000!"
+
+Adrian is starting to look very angry indeed.
+
+The auctioneer asks "Do I have 70,000,000?"
+
+Adrian puts his hand up.
+
+"70,000,000 to the gentleman in the blue suit, do I have 75,000,000....?"
+
+> make a bid painting
+
+"100 MILLION EUROS!" You call out!
+
+Everyone in the room gasps.
+
+"100 Million Euro's!! Do I have any advance on 100 million euros!" The auctioneer asks, looking over at Adrian.
+
+Adrian shakes his head.
+
+"Going once!
+
+     Going Twice!
+
+         ....GONE! To the gentleman by the door, for 100 million euros!! Congratulations sir!!!"
+
+CONTINUE
++15 Social Status
+Art Gallery
+
+You are in an exclusive art gallery. Many a fine work of art adorn the walls.
+Adrian Swidzinski, the world renowed art-critic and playboy is here.
+
+ Your Move Dave Boy: southwest.
+> take painting
+
+Taken!
+> speak to Adrian Swidzinski
+
+"Let me shake your hand!" He says, "Well won! You obviously have excellent taste sir! Tell you what, I'm having a small party on board my yacht this afternoon! I'll be honoured if you could make it. Shall we say 6.00 pm?"
+"Oh, and it's black tie."
+He hands out a  party invitation.
+> take party invitation
+
+You pick it up.
+> southwest
+
+The Old Town
+
+You are in the old town centre of Benidorm. There is the usual mix of tavernas, cheap and tacky souvenir shops with racks upon racks of fridge magnets on show outside, and little cafe's with outdoor seating offering English Breakfast's to tempt the tourists. Out of all the boutique shops, the most interesting seem to be a fashionable tailors, an expensive art gallery, and an estate agents. A short way to the south, you can hear the the horns of boats coming into port.
+> south
+
+Port
+
+You are standing by the port. A jetty stretches out from here into the sea. A promenade stretches out to the west, adjacent to the sea, and to the north is the old town of Benidorm, with all it's shops and restaurants.
+A cliff-top road leads off to the east.
+> south
+
+Jetty
+
+You are standing on a jetty. Here the boats and yachts moor up. You can see a port close by. There is a luxury yacht moored up here. It's gangplank is out.
+> board luxury yacht
+
+2 bulky men on the gang plank stop you in your tracks.
+
+You pass one of them the party invitation and they let you through.
+
+CONTINUE
+YACHT
+
+You are standing on the deck of a wonderful luxury yacht! . Some stairs lead down towards the lower deck, where sounds of a party in progress can be heard. The sun deck is aft. A gangpank connects the yacht to the jetty.
+> down
+
+LOWER DECK
+
+There is a cocktail party in progress here.
+
+Amongst the guests are Elton John, Tracy Emin, David Bailey, Ed Miliband, George Osborne, Justin Welby (the archbishop of canterbury) and Dick & Dom.
+
+Some steps here lead upwards out onto the deck.
+You can see Maureen (a beautiful model) and a waiter.
+
+A waiter walks up to you with a tray of drinks in his hands.
+
+"Would Sir care for a champagne cocktail?"
+
+"Yes, Sir would!"
+"No, Sir wouldn't!"
+
+> look at waiter
+
+The tuxedo-clad waiter is carrying a tray, on which there are a few empty glasses and a banana sandwich.
+> take banana sandwich
+
+You pick it up.
+> no
+
+"I'll think I'll pass Jeeves!!"
+
+"Very good Sir."
+
+The waiter toddles off.
+
+OK
+> take Maureen
+
+Maureen considers your offer...
+
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+...she accepts!
+
++5 Social Status
+
+CONTINUE
+> up
+
+YACHT
+
+You are standing on the deck of a wonderful luxury yacht! . Some stairs lead down towards the lower deck, where sounds of a party in progress can be heard. The sun deck is aft. A gangpank connects the yacht to the jetty.
+Maureen is here, holding your hand.
+> east
+
+Jetty
+
+You are standing on a jetty. Here the boats and yachts moor up. You can see a port close by. There is a luxury yacht moored up here. It's gangplank is out.
+Maureen is here, holding your hand.
+> north
+
+"If you think for one moment that i intend walking about, you have another thing coming!!" Maureen says, "Go and get your car! I shall wait here!!!"
+
+CONTINUE
+Port
+
+You are standing by the port. A jetty stretches out from here into the sea. A promenade stretches out to the west, adjacent to the sea, and to the north is the old town of Benidorm, with all it's shops and restaurants.
+A cliff-top road leads off to the east.
+> west
+
+Promenade
+
+You are on a beautiful stretch of promenade close to the port. The waves soothe you. What a lovely day it is! There is a small but quaint Tapas bar here, overlooking the beach. The promenade continues westwards.
+> west
+
+Promenade
+
+You are on the promenade, which stretches east to west. There are some stone steps which access the beach  here. There is a man with sunglasses here, leaning against a Ferrari Testarossa - looking cool.
+> speak to man
+
+"Nice car!!! Is it for sale?"
+> car
+
+"Hi!" You greet the cool guy, "What's your name?"
+
+"Windle! Ben Windle!" The cool guy answers.
+
+"Great car, is it for sale?"
+
+The cool guy laughs in your face, "For SALE? Are you in total command of your facilities, sir? Do you really think I would part with this car....? This CAR? It would be like parting with my own arm sir!!! My very soul!This car is PRICELESS! I would rather do unspeakable things to a gorilla than part with this car! I would rather...."
+
+"I'll give you thrice what you paid for it my good man!"
+"OK, I can tell you don't want to sell your car. I won't pressure you."
+"I will give you this priceless work of art in exchange!"
+> give banana
+
+"IF YOU THINK, I'm going to swap a FERRARI TESTAROSSA for a BANANA SANDW......"
+
+The cool guy stops for a moment, his eyes drifting to the banana sandwich. A globule of drool drips from the left hand corner of his mouth.
+
+"...I haven't eaten for 10 days......" He says, "I spent every penny I had on this car. I don't have a job. I just stand here every day showing off my car. I'm so so hungry...."
+
+You wave the sandwich in front of his face. His eyes follow it, transfixed.
+
+"Please.... give me a piece, just a bite.... go on....."
+
+"For the car!" You say, unmoved.
+
+"Arrrrghhhh!!! TAKE IT!!!" He screams, "THE KEYS ARE IN THE IGNITION!"
+
+He grabs the sandwich out of your hand, and falls to the floor devouring the banana sandwich.
+
+CONTINUE
+> take ferrari
+
+You jump in the ferrari and start the engine!
+> east
+
+Promenade
+
+You are on a beautiful stretch of promenade close to the port. The waves soothe you. What a lovely day it is! There is a small but quaint Tapas bar here, overlooking the beach. The promenade continues westwards.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+> east
+
+Port
+
+You are standing by the port. A jetty stretches out from here into the sea. A promenade stretches out to the west, adjacent to the sea, and to the north is the old town of Benidorm, with all it's shops and restaurants.
+A cliff-top road leads off to the east.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+> south
+
+Jetty
+
+You are standing on a jetty. Here the boats and yachts moor up. You can see a port close by. There is a luxury yacht moored up here. It's gangplank is out.
+You can see Maureen (a beautiful model).
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+> take Maureen
+
+"Great car, Dave!!" Maureen gushes, climbing into the passenger seat, "I'm hungry...take me for something to eat Dave!"
+
+OK
+
+> north
+
+Port
+
+You are standing by the port. A jetty stretches out from here into the sea. A promenade stretches out to the west, adjacent to the sea, and to the north is the old town of Benidorm, with all it's shops and restaurants.
+A cliff-top road leads off to the east.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> north
+
+The Old Town
+
+You are in the old town centre of Benidorm. There is the usual mix of tavernas, cheap and tacky souvenir shops with racks upon racks of fridge magnets on show outside, and little cafe's with outdoor seating offering English Breakfast's to tempt the tourists. Out of all the boutique shops, the most interesting seem to be a fashionable tailors, an expensive art gallery, and an estate agents. A short way to the south, you can hear the the horns of boats coming into port.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+
+"I'm hungry!!!!" Maureen moans...
+
+> north
+
+Estate Agents
+
+You are in a fancy estate agents, only selling properties of the very highest caliber. Tinkle -tinkle piano music plays from a small radio. A cool breeze enters from the open door behind you. Here you can see a display which lists many desirable properties in Benidorm.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+
+CONGRATULATIONS!
+
+You are their 1,000,000th customer!!
+
+Someone gives you a glass of champagne!!
+
++3 Drunkenness
+> look at display
+
+A particular property catches your eye...
+
+For only £10,000,000 you could buy a luxury villa on the beach!
+
+> buy villa
+
+The transaction is completed with remarkable swiftness, and but moments later the deeds to the villa are placed on the desk in front of you, and you are £10,000,000 lighter. You are somewhat relieved, that bag full of cash was starting to get deciderly heavy.
+
+CONTINUE
+> take deeds
+
+You pick them up.
+> south
+
+The Old Town
+
+You are in the old town centre of Benidorm. There is the usual mix of tavernas, cheap and tacky souvenir shops with racks upon racks of fridge magnets on show outside, and little cafe's with outdoor seating offering English Breakfast's to tempt the tourists. Out of all the boutique shops, the most interesting seem to be a fashionable tailors, an expensive art gallery, and an estate agents. A short way to the south, you can hear the the horns of boats coming into port.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+
+"I'm hungry!!!!" Maureen moans...
+
+> south
+
+Port
+
+You are standing by the port. A jetty stretches out from here into the sea. A promenade stretches out to the west, adjacent to the sea, and to the north is the old town of Benidorm, with all it's shops and restaurants.
+A cliff-top road leads off to the east.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> west
+
+Promenade
+
+You are on a beautiful stretch of promenade close to the port. The waves soothe you. What a lovely day it is! There is a small but quaint Tapas bar here, overlooking the beach. The promenade continues westwards.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> north
+
+You park your ferrari outside, and walk in...
+
+Tapas Bar
+
+You are in a small but perfectly formed tapas bar. A mouse-trap is here on the floor.
+You can see a waiter.
+
+ Your Move Dave Boy: go outside.
+Maureen is here, holding your hand.
+
+The waiter runs up to you both, desperate for business! (almost out of his mind)..
+
+"Table for two, Signore? May I say, your lady is most beautifull!"
+
+"Yes please, table for two!!"
+"We are just looking at the menu, thank you!"
+
+> yes both
+
+"Yes please, we are both rather famished!!"
+
+The waiter seats you at a table by the window, and hands you the menu,
+
+"I'll take the fish, please"
+"The meat looks good!"
+"Vegertarian option for me, every time!"
+
+> eat with maureen
+
+Tapas Bar
+
+You are in a small but perfectly formed tapas bar. A mouse-trap is here on the floor.
+You can see a waiter and Maureen (a beautiful model).
+
+ Your Move Dave Boy: go outside.
+
+Your meals come, and you both start eating...
+
+> speak to Maureen
+
+ "My darling, Would you do me the honor of being my wife??
+ "My darling, you're giving me the hump. Run along and haunt someone else for a change"
+ "My darling, are you enjoying your mash potato?"
+> marry
+
+Maureen is thrilled and accepts!!
+
+But she adds that she could not possibily marry you without her father's consent!
+
+She says that her father is Signor Bardi, the biggest drug trafficker in Spain, and he is also frightfully important in the government too.
+
+You agree to go directly to Signor Bardi's palace now, to ask for his consent.
+
++7 Social Status
+
+CONTINUE
+> x waiter
+
+Nothing out of the ordinary.
+> x mousetrap
+
+Apart from a few congealed blood stains, the mouse trap is bare.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+
+You finish your meals. You wipe blobs of ketchup from around your mouth with a napkin.
+
+"Ta for that!" Maureen says, "I really enjoyed it!"
+
+You signal to the waiter, and he brings over the bill.
+
+OK
+> pay bill
+
+You pay the bill, and leave a big enough tip as to impress Maureen.
+
+> go to go outside
+
+Promenade
+
+You are on a beautiful stretch of promenade close to the port. The waves soothe you. What a lovely day it is! There is a small but quaint Tapas bar here, overlooking the beach. The promenade continues westwards.
+You can see Ferrari Testarossa.
+Maureen is here, holding your hand.
+> take ferrari
+
+You jump in the ferrari and start the engine!
+> east
+
+Port
+
+You are standing by the port. A jetty stretches out from here into the sea. A promenade stretches out to the west, adjacent to the sea, and to the north is the old town of Benidorm, with all it's shops and restaurants.
+A cliff-top road leads off to the east.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> east
+
+ROAD
+
+You are on a long and winding cliff-top road.
+
+ Your Move Dave Boy: west or northeast.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> northeast
+
+Sharp Bend
+
+You are on a sharp bend on the long and winding cliff-top road.
+
+ Your Move Dave Boy: southwest or southeast.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> southeast
+
+Dangerous road
+
+You are on a stretch of road that runs pericously close to the edge of the cliff.
+
+ Your Move Dave Boy: northwest or northeast.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> northeast
+
+Mansion
+
+You are outside a glorious mansion, overlooking the sea, surrounded by lush gardens. There are huge cast iron gates here, blocking entry to the drive leading up to the house. Beside the gate there is a small intercom. By the side of the gate grows a rosebush.
+
+ Your Move Dave Boy: southwest or southeast.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> speak to Maureen
+
+Say "I love you snuggle wuggle dumpling"
+Ask Maureen if she would use the intercom
+
+> intercom
+
+Maureen consents, and presses the buzzer on the intercom.
+
+"zzzzzz.....hello.... can  I help you? zzzzzz......" a voice crackles.
+
+"Daddy! It's me! It's your rumbly-tumbly maureen-pie!"
+
+"Smudgekins!!! Come on in! I'll go and tie the dogs up!!!"
+
+The gates then start to open automatically...
+
+CONTINUE
+> enter gates
+
+You drive through the gates, and up on to the drive..
+CONTINUE
+
+Drive
+
+You are on a grand white-stone cobbled drive, leading up to a grand mansion. A grand entrance lies before you, plant pots beside it and everything.  Above the door there is a coat of arms featuring a fish rampant gules on an azure ground. There are a grand set of gates on the south end of the drive. Here, everything is grand! There is an E-type Jaguar  parked here.  By the side of the door is an old-fashioned iron bell-pull.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+
+You park up and step out of the car
+
+> ring bell-pull
+
+The door is opened by 'Native', the household butler.
+
+"Miss Bardi! It is always a pleasure, to see you... please come in, your father is expecting you!"
+
+You follow Native through the entrance hall, and into an elegant book-lined study.
+
+CONTINUE
+
+Study
+
+You are in a very elegant, book-lined study.
+
+You can see Signor Bardi, a big bag of white powder, a monkey and Maureen (a beautiful model).
+Signor Bardi is here, writing his memoirs on a very fancy green leather lined desk.
+
+He is suaveness personifed, a Rhett-Butler sort of character, straight out of romance fiction.
+
+He stands up and shakes your hand, and asks what are your intentions toward his daughter?
+
+Ask for permission to marry Maureen
+Say something flattering
+> flatter
+
+"You have a beautiful moustache, Signor Bardi!" You say.
+
+Clearly satisfied with your integrity, Signor Bardi hands you a glass of scotch.
+
+Do you take it?
+
+yes
+no
+
+> yes
+
++2 Drunkenness
+Study
+
+You are in a very elegant, book-lined study.
+
+You can see Signor Bardi, a big bag of white powder, a monkey and Maureen (a beautiful model).
+You make a toast to each others health.
+
+"Salute!" Signor Bardi says, knocking back the scotch. You do likewise.
+
+Ask for permission to marry Maureen
+Offer the priceless painting as a gift
+Ask for permission to use the bathroom
+> painting
+
+You pull out the priceless painting from your trousers and offer it as a gift to Signor Bardi. He is clearly touched. He embraces you.
+
+"This is a fine present. If I can do anything for you in return, please name it!"
+
+Ask for permission to marry Maureen
+Ask for the big bag of white powder
+Ask for permission to use the bathroom
+
+> powder
+
+"Take it - It's yours!! It has a street value of half a million euros, but what is money among friends??!!"
+
+OK
+> bathroom
+
+Signor Bardi looks at you with barely concealed scorn.
+
+"Mr Crowe, I do not trust a man who can'not hold his bladder. However, if you must, I will call my manservant Native to show you where it is."
+
+Signor Bardi pulls down on a bell-cord, and in a matter of moments, the butler appears in the room.
+
+"If we would be so good as to follow me, sir..." He says... leading you towards the bathroom.
+
+CONTINUE
+
+Fancy bathroom
+
+You are in a large, fancy bathroom. Everything here is marble, and the bath is a circular bath, so you know it costs money. There is a marble toilet here, and a marble sink with a cabinet above it.
+
+Leave Bathroom
+> look at toilet
+
+Have a wee
+Flush the big bag of white powder down the toilet
+> flush
+
+You pour the cocaine down the toilet and flush it all away, feeling a small measure of pride knowing that you have done the right thing, and an extremely large measure of horror knowing your have literally just poured half a million euros down the toilet.
+> open cabinet
+
+On opening the cabinet, you discover some bandages, some anticeptic and lashings and lashings of heroin,
+> take heroin
+
+You pick it up.
+> look at toilet
+
+Have a wee
+Flush the heroin down the toilet
+> flush2
+
+You pour the heroin down the toilet and flush it all away, praying that there willl be some reward in heaven for your good deeds, because here on earth your reward will probably involve being cut to pieces with a chainsaw by a gang of angry drug dealers.
+> take some bandages
+
+You pick it up.
+> take some anticeptic
+
+You pick it up.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+> z
+
+Time passes.
+
+...Suddenly, and without warning, chaos errupts!!
+
+Men in black masks absail down the building, kicking in the windows, and throwing something at your feet!
+
+IT'S TEAR GAS!
+
+"Get down!!! It's the FEDS!!!" Signor Bardi screams.
+
+Milli-seconds later, you find yourself on the floor, your hands behind your back being cuffed. Maureen is screaming and Signor Bardi is in a rage screaming "Cock-a-Roaches!!!"
+
+"Looks like the place is clean...." One of the feds say, "Looks like it was a bad tip!"
+
+The man in charge grabs a fistfull of your hair, and hisses "You may be lucky this time, but I'll be back for you, you drug smuggling scumbag!!"
+
+CONTINUE
+
+Study
+
+You are in a very elegant, book-lined study.
+
+You can see Signor Bardi, a monkey and Maureen (a beautiful model).
+Study
+
+You are in a very elegant, book-lined study.
+
+You can see Signor Bardi, a monkey and Maureen (a beautiful model).
+> speak to Signor Bardi
+
+"Thank you!!! Thank you!!! Thank you!!! You saved us all!!" Signor Bardi says, grabbing your hands and shaking them.
+
+Ask for permission to marry Maureen
+Ask for permission to use the bathroom again
+Say "I've decided it's you I love, not your daughter, Signor Bardi..."
+> marry
+
+"Mr Bardi....." You begin, puffing out your chest,
+
+"Signor."
+
+"Signor Bardi.... I would very much appreciate it if you would give your permission for your daughter's hand in marriage!"
+
+Signor Bardi knocks his head back and roars with laughter...
+
+"Well of course, why didn't you ask sooner?! You are a fine man, Mr Dave Crowe, I hope you and my daughter will be very happy together!!!!"
+
+Delighted, you and Maureen take each others hand and run downstairs to your waiting car....
+
+OK
+
+Drive
+
+You are on a grand white-stone cobbled drive, leading up to a grand mansion. A grand entrance lies before you, plant pots beside it and everything.  Above the door there is a coat of arms featuring a fish rampant gules on an azure ground. There are a grand set of gates on the south end of the drive. Here, everything is grand! There is an E-type Jaguar  parked here.  By the side of the door is an old-fashioned iron bell-pull.
+You can see Ferrari Testarossa.
+> take ferrari
+
+You jump in the ferrari and start the engine!
+> south
+
+Mansion
+
+You are outside a glorious mansion, overlooking the sea, surrounded by lush gardens. There are huge cast iron gates here, blocking entry to the drive leading up to the house. Beside the gate there is a small intercom. By the side of the gate grows a rosebush.
+
+ Your Move Dave Boy: southwest or southeast.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> southeast
+
+Picturesque road
+
+You are on a lovely stretch of winding road, superb views of the sea can be seen from here.
+
+ Your Move Dave Boy: northwest or east.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> east
+
+Straight road
+
+You are on long straight, dusty road which offers magnificent views of the coast.
+
+ Your Move Dave Boy: west or east.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> east
+
+Luxury Villa
+
+You are outside a marvellous luxury villa.
+
+Carry Maureen over the threshold...
+
+ Your Move Dave Boy: west.
+
+You are sat behind the wheel of your new Ferarri Testarossa!
+Maureen is here, holding your hand.
+> end
+
+You sweep Maureen up into your arms, and carry her across the threshold into your new luxury Villa!
+
+You then jump onto the huge sofa, switch on the huge plasma TV, and start watching Jerermy Kyle.......IN STYLE!
+
+WELL DONE!! YOU HAVE COMPLETED THE GAME!!!
+
+Your social status is  69   (Agreeable Fellow)
+Your bastard rating is  7   (A LITTLE BASTARD)
+Your drunkeness measurement is  5   (Sober as a Judge)
+[state=Finished]

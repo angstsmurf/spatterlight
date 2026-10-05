@@ -34,51 +34,1467 @@ You had feverdreams before. But this one was different. You can still feel the l
 Maybe it was just a dream. Maybe. But then again... maybe not.
 You are back in your bedroom.
 You are back in your bedroom.
-> look
-
-> look
-You are in your Bedroom.
-You can see a Desk, a Nightstand and a Cane.
-You can go to the Eastern Window.
-It's your old room in the city of Bayreuth. After the big dispute with Wagner years ago you came back here to collect your personal belongings.
-> x desk
-
-> x desk
-Your trusty old desk where you have written so many of your manuscripts. Inspired by this peaceful little town and the define music of your old master Richard Wagner.
-It contains a Stack of Books, a Drawer and a Letter.
 > x nightstand
 
 > x nightstand
 An old wooden nightstand.
 It contains a Candle.
-> x cane
+> x desk
 
-> x cane
-It's an elegant cane that you use to walk around when your back starts aching again.
+> x desk
+Your trusty old desk where you have written so many of your manuscripts. Inspired by this peaceful little town and the define music of your old master Richard Wagner.
+It contains a Stack of Books, a Drawer and a Letter.
+> open drawer
+
+> open drawer
+You open it.
+It contains a Matchbox.
+> take matchbox
+
+> take matchbox
+A tiny box of matches.
+> take candle
+
+> take candle
+It's rarely a candle anymore but a little stump of cold wax.
+> use matchbox on candle
+
+> use matchbox on candle
+You use the last match and melt the wax into a stick clump
 > take cane
 
 > take cane
 You pick it up.
+> use cane on sticky wax
+
+> use cane on sticky wax
+You put the wax at the end of your cane. It's all sticky now.
 > go to eastern window
 
 > go to eastern window
 You look out of the eastern window. The window is the same but there are no lions and lambs... and there is no god. Only an old tree is glaring at you. Still it is a strange feeling to be here.
 
 You are at the eastern window.
-> look
-
-> look
-You are at an Eastern Window.
-You can see a Tree.
-You can go back to the Bedroom.
-It's a beautiful, sunny day.
 > x tree
 
 > x tree
 A huge old oak in the backyard. Just like in your dream.
 It contains a Nest.
+> use sticky cane on nest
+
+> use sticky cane on nest
+Your put your cane into the nest and it grabs on to something. When you pull it back you can see it: a beautiful feather. The feather from your dream.
+There is no doubt. The way it looks, the way it reflects the light... this is divine work. This is what God left behind for you to find.
+Everything you wrote about the existence of god is put to the test now. Everytime you denied a divine force come crumbling down on you. And your head is spinning rethinking every thesis you proclaimed in the books you wrote.
+But suddenly you realize it:
+It's not your theories that need to be verified. It is reality.
+Observations about the nature of religion and morals are still valid. You thought about it and it is still true. The existence of a God is nothing but a kink in the fabric of reason. And there has to be a way to rectify it.
+Things have never been so clear to you:
+God IS dead. Because you are going to kill him!
+
+Chapter 1: If there was a god...
+It is a beautiful morning in late autum 1888.
+Bayreuth is a peaceful little town that might as well have dropped off the map if it was not for Richard Wagner who decided to build his premium Festspielhaus here to celebrate his operas and spent his later days here.
+Steam lingers in the air. The streets are filled with small steam powered carriages and there are machines pumping fresh air into the houses and smoke into the air. The steamengine rules supreme this century and although you know that some people who are experimenting with electric energy it is hard to imagine a society not build around the smoke and pipes of the eternal engines.
+You know there is only one person who you can talk to: Richard Wagner. You have to discuss the matter with him before taking further action. You have not been on good terms lately but these are desperate times.
+The house of Richard and his wife Cosima is half way across the city. Richard decided to build the guest house right next to his precious Festspielhaus with its magnificent arichtecture.
+> look
+
+> look
+You are in a Streets of Bayreuth.
+You can see the Festspielhaus, a Steam-Carriage and the Sky.
+> x carriage
+
+> x carriage
+It'a a carriage powered by steam instead of horses. It can bring you anywhere in the city.
+> use carriage
+
+> use carriage
+You call for the carriage and the driver turns on the engine. Huffing and puffing the carriage comes your way.
+"Where you going?" he asks. "Wagner Residence. House Wahnfried." You look at the sky and feel infinity glaring back at you. "Hurry."
+
+Welcome to Wahnfried!
+A house as majestic as Wagner himself, surrounded by a lush park right in the city center. It might not be the biggest or even the most expensive building in this town of ancient castles but it has a certain grandeur to it that only Wagner himself could evoke.
+He wanted to live and to die here at this living memorial that as he said gave his soul peace and his dear wife Cosima was at his side all the years. The steam engines, powering the house are exhausting a soft fog all across the area.
+The servants recognize you (though it might not be a pleasant memory) and let you in. As soon as you enter the main hall Cosima appears and sways towards you  in all her beauty and grace. An honest smile is on her face but there is something else in her mood. You have not seen each other for a long time and who knows how far you have grown apart over the years.
+"Friedrich!" she chimes "It is so good to see you, old firend. I was just about to have a cup of tea. Please, be my guest. We have not spoken in such a long time. Surely there is plenty to talk about."
+She always knew how to be polite and presentable and still you feel as if you are not entirely welcome. Nevertheless you sit down. There is nothing wrong with a cup of tea.
+> look
+
+> look
+You are at Wahnfried.
+You can see Cosima, a Teapot, a Cup and a Cosima's cup.
+You are seated at a small table that is dished up with some tea. It almost feels homely but as soon as you look around you see the greatness of this building. The high ceilings, the expensive artwork. Worthy of a lord, a king, a god... or Richard Wagner.
+> speak to cosima
+
+> speak to cosima
+Talk to Cosima about...
+1: Make a compliment.
+2: I have seen God.
+3: I must talk to Richard!
+> 1
+"Dearest Cosima! It is a pleasure to see. You are more beautiful than ever."
+She blushes.
+> speak to cosima
+
+> speak to cosima
+Talk to Cosima about...
+1: I have seen God.
+2: I must talk to Richard!
+> 1
+You start to tremble, just by remembering your dream.
+"Cosima... tonight I met God."
+She looks worried.
+"Dear Friedrich," she replies "was it one of your feverish dreams again?"
+"No. He was there. The Holy Spirit right in front of me as real as you are."
+"Oh, Friedrich, dearest Friedrich. You are a man of reason, aren't you? Can't you tell, it was just a dream?"
+> speak to cosima
+
+> speak to cosima
+Talk to Cosima about...
+1: I must talk to Richard!
+2: The Divine Feather
+> 1
+Suddenly everything goes quiet. Slowly Cosima puts her teacup down and looks at you for what seems like an eternity.
+"Friedrich. He is dead. For more than five years now. And you know that."
+Reality returns. The room warps itself around you and you feel a rush of memories overloading your senses.
+Of course he is dead. You refused to visit his funeral. Too recent was the betrayal, too fresh the wound that the opened when he left reason for faith. The two of you had a big dispute about the nature of religion and about his new found faith and his work on Parsifal. When you left back then you felt deep inside that you would never see him again.
+Now after all these years you came back not for him but for all the things you've left when you abandoned Bayreuth in such a hurry. And maybe for her. Maybe not. How could you forget all that? How could your mind be warped in such a way that you cannot divide the living and the dead anymore that you cannot tell the past, present and the future apart.
+There is a long silence.
+"Sometimes," Cosima says quietly "people come by to collect their belongings, to get some letters from Richard's office. I thought that's why you were here."
+> speak to cosima
+
+> speak to cosima
+Talk to Cosima about...
+1: The Divine Feather
+2: Can I have a look at his office?
+> 1
+You show the feather. It seems to be the only way to convince her. She looks at it and smiles.
+"Oh Friedrich. It's just a feather! Nothing more!" Softly she puckers her lips to blow it away.
+MADNESS! You reach for the feather and agressively you tear it of of her hand. It's the only prove you've got.
+Suddenly there is a silence filling the room. Cosima looks at you with strange eyes. You realize that you have just assaulted a tender women, a women who is your friend and your love, for nothing more but a feather.
+Her smile is gone and replaced with worries.
+"You know Friedrich. One of the people who stopped by to collect their corrospondence, a young lad named Freud, he asked for you. Wanted to know if you are alright. If you are still sane. I told him everything was fine... I'm not so sure about that anymore."
+"He was worried about you. Talking about bad dreams that might haunt you. He gave me pills... I thought he was just overprotective. But maybe you might need them soon."
+She hands you a small glass of sleeping pills. There is so much pity in her look that you feel ashamed of yourself.
+> speak to cosima
+
+> speak to cosima
+Talk to Cosima about...
+1: Can I have a look at his office?
+> 1
+"Sorry, Friedrich, but these are private matters. I can have a look for you if you want."
+> speak to cosima
+
+> speak to cosima
+Talk to Cosima about...
+1: Could you search his office for me?
+2: Can I have a look at his office?
+> 1
+"Sure. I'll see if there are some of your belongings or letters left."
+She leaves the room gracefully.
+> use sleeping pills on cosima's cup
+
+> use sleeping pills on cosima's cup
+Swiftly you put some of the sleeping pills into her cup. Enough to make her fall asleep fast but no amout that could harm her.
+Cosima returns and sits down at your table.
+"I'm sorry, but there is nothing that seems to belong to you. Maybe he... got rid of it after eveything that happened."
+> drink cup
+
+> drink cup
+You drink a sip of your tea. Cosima smiles and drinks some of her own tea. After a few minutes the sleeping pills are kicking in.
+Her eyes become hazy and quiet and peacefully she slumbs into her chair and dreams sweetest dreams.
+You regret that you have to trick her like this. But it is all for the greater good.
+After checking that she is alright and comfortable you slowly sneak into Wagner's office.
+
+When you enter the office you realize you have never been here before. Few people have. It was one of the most sacred, most private places in his life. Not even Cosima was allowed to enter on a regular basis.
+Here is where he composed the last operas of his life. It is a sanctuary indeed. And in a creepy way it does remind you of a small church. Or a tomb.
+You don't want to spend more time here than necessary in here. The spirits of the dead are watching for sure. Better find some letters that might give you valuable clues.
+> look
+
+> look
+You are in a Wagner's Office.
+You can see a Wardrobe, a Piano, a Shelf, a Fireplace, an Armchair and a Desk.
+A huge room with high ceilings and wooden interior. Artistic carvings of the Nibelungen cover the walls. There is only a small window to the south. Maybe Wagner did not want to be distracted by the outside world, maybe he wanted to keep other people from looking inside. Concentration and paranoia are close neighbours.
+> x desk
+
+> x desk
+A desk as old, sturdy, reliable and pompous as Wagner's operas. There are some scratches on it.
+It contains an Ink, a Stack of Letters and tiny Scratches.
+> take ink
+
+> take ink
+You take the small inkflask
+> x fireplace
+
+> x fireplace
+The fireplace is huge. Since there is only one tiny window and no candles this might be the only source of light in the night and the evening.
+There is some fresh ash inside. Somebody lit a fire not long ago. You picture Cosima sitting in this room night after night, scamming through Richard's belongings and trying to make sense out of it.
+It contains Ash.
+> take ash
+
+> take ash
+You take a crisp piece of burned wood that is nothing but coal and ash right now.
+> use ash on ink
+
+> use ash on ink
+You mix the ash with the ink and get a thick, dusty substance.
+> use inkdust on scratches
+
+> use inkdust on scratches
+The ink and the coal seem to have a good consistence. It sticks to the surface quite well.
+> x shelf
+
+> x shelf
+Filling almost the entire room is a huge shelf with hundreds and thousands of musicsheets and some blank paper. Some of Wagner's famous operas, others he never finished. You understand now, why Cosima would not want to let you in. This is his legacy. And it is priceless.
+It contains Sheets of Music and a Blank paper.
+> take blank paper
+
+> take blank paper
+You take some pieces of the paper.
+> use blank paper on scratches
+
+> use blank paper on scratches
+You press the paper against the desk where the scratches are. Your mixture sticks perfectly and the paper soaks it up. You can see now what Richard wrote: "Parsifal. Overture. Erlösung."
+You've seen this piece of music in the shelf on one of the upper levels.
+> push armchair
+
+> push armchair
+You push the armchair towards the shelf so you can reach the upper racks.
+> take parsifal overture
+
+> take parsifal overture
+You stretch as far as you can and pick the Overture out of the shelf.
+> x parsifal overture
+
+> x parsifal overture
+The Prelude to Parsifal. The first word is "Erlösung" (Salvation) and contains the notes: AABBB
+> use piano
+
+> use piano
+You sit down at the piano. What notes do you want to play?
+> aabbb
+With a short click a small pockets opens, containing a key.
+> take key
+
+> take key
+It's a tiny but beautiful key.
+> open wardrobe
+
+> open wardrobe
+
+You open it.
+Tons of letters are pouring out of the wardrobe.
+> x letters
+
+> x letters
+You dig through the pile of letters. And the deeper you dig, the more frantic you become.
+It's unbeliveable: tons of letters from clerics, mystics and occults. Every piece of writing is an exchange between Wagner and somebody else arguing about religion or the nature of God. And it fall figures into notes and ideas for his operas.
+One letter strikes you in particular. A letter from a young man. He talks about divine forces gathering and secret messages in Wagner's operas.
+The peculiar thing about the letter is a passage where he talks about a dream.: "I was visited by God." he says "And after going through it over and over again there is only one possible message from him: The end is near. Mister Wagner, please understand what I am trying to tell you...
+The apocalypse is coming. But I can stop it. Visit me in London. Aleister Crowley."
+
+Chapter 2: Ways into the abyss
+There is no place as ugly and overblown as Victoria's London. You enter Picadilly Circus and right aways you are disgusted.
+The Queen Victoria rules with an iron fist and the only thing on her might seems to be bolts and metall. The politics in Europe are mostly stable because of the Victorian empire's grip. If there was a wall, England would crush it oppenents with brute force. Maybe God himself helped her to rise to power because right now you cannot imagine that her reign will ever end.
+Unfortunately there seems to be much more on the line than the peace in Europe or the England's quest for power. If Crowley is right, the days of all these people bustling around are doomed. Just like you are.
+> look
+
+> look
+You are at Picadilly Circus.
+You can see a Paperboy, a Taxi and Billboards.
+This it is. One of the busiest citys in the world. And you hate every single bit of it. Industrial revolution hit harder than anywhere else. Thick smoke and steam are all across the streets, carriages, cars and too many people are roaming the streets. It smells like humanity.
+> speak to paperboy
+
+> speak to paperboy
+"PAPERS! PAPERS! NEWSPAPERS! RIPPER STILL ON THE LOSE! GET A PAPER TODAY!"
+The boy stops screaming when he sees you arriving.
+"Oh, hello Sir. Would ya like to buy a newspaper?"
+Talk to a Paperboy about...
+1: Give me a newspaper
+2: Do you know Aleister Crowley?
+3: There is a lot of steam in the air here...
+> 1
+You buy a paper and the boy smiles across the whole face. You get the feeling that you might have paid more than the locals do. You skip through the paper out of sheer politeness. Victoria still on the rise. Industrialisation getting bigger. New, better steamengines are build. The new Tower Brdige almost finished. And there is a killing spree in White Chapel. The press calls him Jack the Ripper. He kills prositutes.
+> speak to paperboy
+
+> speak to paperboy
+"PAPERS! PAPERS! NEWSPAPERS! RIPPER STILL ON THE LOSE! GET A PAPER TODAY!"
+The boy stops screaming when he sees you arriving.
+"Oh, hello Sir. Would ya like to buy a newspaper?"
+Talk to a Paperboy about...
+1: Do you know Aleister Crowley?
+2: There is a lot of steam in the air here...
+> 1
+The boy scratches his head. "No Sir, can't say I do. How does your friend look like?"
+Sadly, you don't know the answer.
+> speak to paperboy
+
+> speak to paperboy
+"PAPERS! PAPERS! NEWSPAPERS! RIPPER STILL ON THE LOSE! GET A PAPER TODAY!"
+The boy stops screaming when he sees you arriving.
+"Oh, hello Sir. Would ya like to buy a newspaper?"
+Talk to a Paperboy about...
+1: Here is a letter he wrote.
+2: There is a lot of steam in the air here...
+> 1
+The boy looks at the letter closely. He is a slow reader obviously.
+"Sir, that is some weird letter, for sure. I'm afraid I don't know that man."
+And your hope to find this one person in this huge city fades.
+"But I know that napkin. It's the Fitzroy Tavern, only a short ride away from here." The boy smiles. It might have been the first time in history that underaged drinking saved the humankind.
+> speak to paperboy
+
+> speak to paperboy
+"PAPERS! PAPERS! NEWSPAPERS! RIPPER STILL ON THE LOSE! GET A PAPER TODAY!"
+The boy stops screaming when he sees you arriving.
+"Oh, hello Sir. Would ya like to buy a newspaper?"
+Talk to a Paperboy about...
+1: There is a lot of steam in the air here...
+> 1
+You cough a little. The boy coughs, too. "Yes, Sir. Lot of smoke around here. The city is breathing steam. It's the smell of industrial revolution my mother says. Would love to have a gasmask, but cannot afford it. The vendor on the corner sells some."
+> speak to vendor
+
+> speak to vendor
+You go down to a vendor that sells all sorts of gifts. A lot of it are souvenirs of Great Queen Victoria. You pick up a gasmask and put it on. Things look better now.
+You think for a moment and buy another mask for the boy. When you give it to him he smiles brightly and has tears of joy in his eyes. Or maybe they are just teary beacause of the smoke. Either way: where was God there? Would have killed of a kid just because it was born poor.
+> use taxi
+
+> use taxi
+You hail a taxi and ask the driver if he knows where Fitzroy Tavern is.
+"Surehell do. Loats of artists and weirdos over there. You might fit raigth in!"
+He laughs and drives off while the dusk is slowly setting in.
+
+The pub is situated in one of the roaring parts of the city where uprising scolars and artists and old veterans mingle together. The sign over the door displays an all seeying eye. On the surfece it might be just a hangout for the boeheme but you know the truth about places like this: great minds always have their dark sides as well. And the places they reside tend to reflect that. You better be careful or one of these dark sides might devour you.
+The air is thick with cigarette smoke and since there are no windows the only source of light are the candle burning on every table and the bar. It's a place of privacy for sure. Nobody wants to look in your direction but you feel that they have noticed you. Strange faces are not well welcome at places like this.
+The mainroom of the tavern.
+> look
+
+> look
+You are in the Fitzroy Tavern.
+You can see a Bar and the Bartender.
+You can go the Cornertable.
+The pub looks like a hangout for creative minds and artists. People are indulged in discussions, writing ideas down, reading literature or just drinking and thinking. But beneath the surface there seems to be more to it. A gloomy mood weights down on the place for some reason. There is a loud discussion going on at one of the cornertables
+> go to cornertable
+
+> go to cornertable
+
+You walk across the pub towards the cornertable where two men are arguing.
+"No, no, that is nonsense! People have to embrace their own madness!" one of them laughs.
+"Embrace it? Madness, my foolish friend is men's demise. Just like vanity, which you should know!" the other smirks.
+You know these people. You know their faces, you know their writings.
+The older, slender one is called Carroll. A fairy tale teller who people believe to be fond of little girls. Since his books about wonderland became famous the Queen herself is suspiciously supportive of him.
+The other one, the dandy, is Wilde. A novelist who is said to lay with boys and men every other day. He wrote some stories but is still waiting for a breakthrough. Last time you talked he was working on a novel about a man and his obesssion with a painting.
+Both are said to be perverts, both are said to be mad, both are delicate minds. You are in good company.
+You are standing at the  Cornertable where the two men are arguing.
+> speak to wilde
+
+> speak to wilde
+Talk to Oscar Wilde & Lewis Carroll about...
+1: Hello Gentlemen.
+> 1
+They break up their quarrel and look at you. Carroll smiles like a cat: "Curious and curioser! Friedrich Nietzsche, far away from home! Take a seat, take a drink!"
+Wilde scrambles around with the Absinth: "A pleasure to meet you again. It's been a long time. I've really enjoyed your latest works. A new bleak outlook on human and humankind. What is your disguise today? A camel? A lion? A child."
+He is all too aware of his sharp tongue. Vanity might be his cardinal sin after all.
+> speak to wilde
+
+> speak to wilde
+Talk to Oscar Wilde & Lewis Carroll about...
+1: Do you know somebody called Crowley?
+2: What are you arguing about?
+3: I have seen God.
+> 1
+"Crowley, Crowley, Crowley..." they both ponder together.
+"Probably not." Wilde starts while Carroll finished "But if he is here, and if he is a lost soul, he might be... downstairs. It's not a place you would like to be, but it is a place you surely have been once in a while, Friedrich."
+Carroll give the bartender a short look. "But if you really want to go... nobody is holding you back."
+He smiles, so does Wilde.
+> speak to wilde
+
+> speak to wilde
+Talk to Oscar Wilde & Lewis Carroll about...
+1: What are you arguing about?
+2: I have seen God.
+> 1
+"Insanity! What else!" Carroll smiles broadly. "A topic you might be familiar with as well, Friedrich?"
+Wilde lights some sugar for the Absinth "Mr. Carroll proclaims that insanity is something to be fond of, something to experience. But for me it uncovers the most dangerous places of otherwise genius minds. Beware of madness, beware of vanity."
+"Nonsense!" Carroll bursts out. And they are arguing again.
+> speak to wilde
+
+> speak to wilde
+Talk to Oscar Wilde & Lewis Carroll about...
+1: I have seen God.
+> 1
+They stop arguing for a second to look at you. Carroll smiles "Congratulations, Friedrich, this might be the first step into the madness you lacked most of your life."
+Wilde takes a sip of Absinth "What does he look like, Friedrich? Did he had your face? Cause when I saw him, he surly got mine!"
+"Faboulus!" Carroll laughs "We are all insane here. But don't worry, cause if we wouldn't we would not be here after all, would we?"
+"It is not insanity..." Wilde starts and the two are arguing again.
+> go to mainroom
+
+> go to mainroom
+
+The barkeeper stepped away from the bar. He does not like the idea of you sniffing around obviously but you have the permission of Wilde and Carrol and that seems to be worth a lot in this place.
+> x bar
+
+> x bar
+The counter is made of thick oak and soaked here and there with spilled alcohol. The sweet smell of wood and absinth lingers in the air. There are some Napkins lying around to clean the mess up. Next to the counter, in the corner of the room, is a heavy wooden Trapdoor.
+> open trapdoor
+
+> open trapdoor
+The barkeeper gives you an angry look when you open the trapdoor but does not hold you back. Into the dark you can see a few torches lighting the way into an underground cellar or dungeon.  A long, winded stairchase leads into the blackness and a familiar smell rises.
+You take the first step when Wilde calls out to you smirking: "Be careful, Friedrich. I cannot remind which great mind worte it but: when you glare into an abyss, the abyss glares right back and sometimes we become the monsters we prerend to find. Who said that, Friedrich?"
+Carroll bursts in laughter: "A madman for sure, a madman! Down, down, the rabbithole Friedrich! Wonderland is waiting!"
+
+The stairs go deep down and the voices from above are getting fainter and in the end they vanish completely.
+From down below you can see some light.
+There are candles guiding the last part of the way. Thick candles, like they use on graves. The smell gets heavier and heavier and the air is getting a little harder to breathe.
+At the end of the stairs you arrive in a huge stone hallway. It seems ancient. An old chinese man with a lantern is sitting on a chair but does not seem to mind you. There are doors in every direction. But the familiar smell comes from the north.
+You are in the hallway.
+> take gravecandle
+
+> take gravecandle
+There are plenty of candles. It will be okay if you take one.
+> n
+
+> n
+
+You follow the smell and enter a small room. Whenever the minds needs more, whenever it needs something otherworldly, people come to places like this. You've been here as well. Purgatory. The thick smell of Opium fills your nostrils. People are lying on the floor or on matrasses and smoking their pipes. Their eyes are far away and their minds probably even further.
+You are in the smoking chamber.
+> speak to opium addicts
+
+> speak to opium addicts
+"Is there somebody here with the name Crowley?" you ask loudly.
+People look at you puzzled, some shake their heads. Nobody seems to know anything. There are a few people, however, so deep into the realm of drug induced hallucination that have not heard you after all. From their age and appearence each of them could be this Aleister Crowley.
+> take blanket
+
+> take blanket
+The blanket is cold and damp but surely was cozy once.
+> use blanket on fireplace
+
+> use blanket on fireplace
+You carefully place the blanket in front of the fireplace and turn it in all directions until it is neat, warm and comfortable.
+> use warm blanket on shaking man
+
+> use warm blanket on shaking man
+Slowly the man calms down. A smile dances across his face and the shivers stop. While his body relaxes the rope that constrained him slowly falls to the ground.
+"Are you Aleister Crowley?" you ask. The gently shakes his head.
+> take rope
+
+> take rope
+You take the piece of rope that fell on the floor.
+> use gravecandle on stuttering man
+
+> use gravecandle on stuttering man
+The man suddenly stops and looks at the candle. The flame seems to calm him down. He reaches for the candle and his dictionary falls to the ground. He looks happier now.
+You ask him if he is Aleister Crowley but he tells you he is not.
+> take dictionary
+
+> take dictionary
+You take the small dictonary. It translates English to Chinese. Not perfect but it could be helpful
+> s
+
+> s
+
+You are in the hallway.
+> speak to old chinese man
+
+> speak to old chinese man
+You take the dictionary and do your best to figure out the right questions.
+Talk to Old Chinese Man about...
+1: What is behind the locked door?
+2: Do you know Aleister Crowley?
+3: What is this place?
+> 1
+He stands up and opens the door. "Look."
+> e
+
+> e
+
+The room is filled with wooden crated and boxes. The smell is overwhelming. A subtle dust fills the air.
+You are in the storage room
+> x boxes
+
+> x boxes
+Big wooden boxes are stacked all across the room. Inside are countless opium poppies. Enough to keep one man in wonderland for the rest of his life.
+> take opium poppies
+
+> take opium poppies
+You take a few of the little flowers. There are soo many, nobody will notice.
+> w
+
+> w
+
+You are in the hallway.
+> speak to old chinese man
+
+> speak to old chinese man
+You take the dictionary and do your best to figure out the right questions.
+Talk to Old Chinese Man about...
+1: Do you know Aleister Crowley?
+2: What is this place?
+3: How much are the Opium poppies?
+> 3
+He smiles and holds his hand up. You are sure you overpay but he seems to be fine with it.
+> n
+
+> n
+
+You are in the smoking chamber.
+> use opium poppies on smoking man
+
+> use opium poppies on smoking man
+The man sniffels and his mood lightens. "So pure!" he mumbles. He takes the blossoms and his pipe falls to the ground.
+> take opium pipe
+
+> take opium pipe
+He has his poppies now. No harm in taking his pipe.
+> s
+
+> s
+
+You are in the hallway.
+> w
+
+> w
+
+A tiny supply room. Here and there a small broom, some cobwebs in the corners. Even places like this need to be cleaned up every once in a while.
+You are in the supply room.
+> take bucket
+
+> take bucket
+You take the old bucket.
+> use bucket on opium pipe
+
+> use bucket on opium pipe
+You press the pipe into the bucket and it fits. The bucket is now way more stable and it has a grip.
+> use bucket with pipe on rope
+
+> use bucket with pipe on rope
+You knot the rope around the pipe. Seems stable and reliable.
+> use roped bucket on well
+
+> use roped bucket on well
+You lower the bucket into the well and draw it back up again. It's filled with clear, cold water from the depths.
+> e
+
+> e
+
+You are in the hallway.
+> n
+
+> n
+
+You are in the smoking chamber.
+> use waterbucket on sleeping man
+
+> use waterbucket on sleeping man
+You throw the water an his face and he rushes up.
+Suddenly he grabs you and starts screaming in strange tongues.
+There are only few words you can understand: "THE WOLVES AND THE LAMBS! SPIRITUS SANCTUM!"
+His eyes are mad and his grasp is getting closer. He holds you tight.
+> use divine feather on screaming man
+
+> use divine feather on screaming man
+Suddenly he stops. Carefully he take the feather and looks at it closely.
+"I have dreamt of it." he says.
+His voice is darker and deeper than it should be for a boy his age. Not even 18 years old, you would guess. He gives you a closer look.
+"And I dreamt of you, Friedrich Nietzsche. There are plenty of things to do. My name ist Aleister Crowley and we've got a god to kill!"
+He laughs maniacally and suddenly his eyes close and he faints.
+
+Interlude: Awakenings
+Carefully you place a cold, wet cloth on Crowley's forehead. His temperature is dangerously high. "Are you sure is isn't dead?"
+"Well, he is still breathing for sure, but there is more than one way to be dead in this day and age."
+Carroll was nice enough to open up the backroom of Fitzeroy's Tavern for you so Crowley could get a propper bed far away from the smoke of the opium dungeon. Wilde ordered some tea and you have to admit it is right what you need.
+"I've nearly finished my novel about vanity." Wilde remarks. "And I believe there is some madness in it, too."
+Carroll pours some tea "There always is."
+Crowley moans and seems to wake up.
+Slowly he opens his eyes and looks around. "Where am I? Where are my runes?"
+Hastely he starts to scribble signs and symbols on the walls and the floor around him.
+"You shouldn't have brought me here!"
+Wilde and Carroll watch from the far side of the room.
+"I like this guy." Wilde says.
+"But if you want to talk to him you should maybe look for another bucket of water or just slap him." Carroll adds.
+Crowley calms down.
+His eyes are wide and wild: "Friedrich Nietzsche... we had the same dream, haven't we? People all over the world are having the same dream and you know what it means, don't you?"
+Deep down inside you are afraid you do know what it means.
+"The apocalpse is coming, Friedrich. The forces of heaven and hell are preparing for the final battle and by silencing sinners like us, the powers up above want to tip the scale in their favour. If we shout our mouth and do not continue to speak the truth the people will flock into the churches like sheep. And every soul in church is one more solider for the last encounter."
+> speak to crowley
+
+> speak to crowley
+Talk to Crowley about...
+1: How do you want to stop the apocalypse?
+2: Who are you anyway?
+3: Why did you contact Wagner?
+> 1
+"The same way as you! I want to unmake the maker! Isn't it right, what you wrote? If there was a God how could be stand not to be God? I can't stand it for sure. And neither can you." suddenly he is getting suspicously quiet.
+"The Problem is," he continues "I already tried... and I failed. Miserably. That's why I hid a a wretched place like this, never daring to see the sunlight again, surrounded by runes that were ment to protect me."
+> speak to crowley
+
+> speak to crowley
+Talk to Crowley about...
+1: What went wrong?
+2: Who are you anyway?
+3: Why did you contact Wagner?
+> 1
+Nervously he looks around. "I opened the gates of hell."
+"Herr Nietzsche I am convinced that no force of this world could kill God without the help of another world. If you want to get assistance for this unbelivable undertaking where else could you look for it?" Oddly enough his logic makes perfect sense to you.
+"I succeeded in finishing the ritual... but I could not contain what came through the portal. I did not have enough energy to tame the beast. A vile demon entered this world and overwhelmed me. He would have killed me if I were not covered in ancient runes of protection during the ritual. But now this hellspawn is on the lose. And he is disguised as a man. The people call him 'The Ripper' but they have no idea what he really is. He feeds of the sins and lust of us mortals. And believe me, Herr Nietzsche, he would devour both of us if he had the chance."
+> speak to crowley
+
+> speak to crowley
+Talk to Crowley about...
+1: Who are you anyway?
+2: Well. I guess you gonna hunt and kill your demon now, Mister Crowley.
+3: Why did you contact Wagner?
+> 1
+"Oh, I am just a young fellow, searching for the ways of the arcane and occult. And If I may admit: a fan of yours. Everything you write about the nature of men and religion I completely agree on. However I took the liberties to take your theoretical thesis and implement it in my rather practical aproaches."
+> speak to crowley
+
+> speak to crowley
+Talk to Crowley about...
+1: Well. I guess you gonna hunt and kill your demon now, Mister Crowley.
+2: Why did you contact Wagner?
+> 1
+A silence fills the room that not even Wilde and Carroll dare to disrupt. You lean back and ponder for a minute until you find the right words.
+"Well, young Crowley. I guess before we kill our god we have to vanquish this demon of yours."
+Crowley is getting pale: "But I've studied every book and scripture. We could restrain him for a while but there is nothing on this world that could harm him!"
+You pull out the divine feather. "Fortunately enough we've got something that is not of this world."
+
+Chapter 3: Sacrifices
+Whitechapel might be one of London's shadiest discricts. It is a perfect place for a demon to hide and and even more perfect place to pick up sinners. Hookers, customers and pimps are roaming the streets.
+You are in the mainstreet of Whitechapel
+> x chinese foodstand
+
+> x chinese foodstand
+A filthy stand selling Chinese Food is situated at the corner. You see, not all Chinese people are coming to the UK to sell Opium. Some come here to sell unhealthy food. Which might kill you even faster.
+> speak to chinese vendor
+
+> speak to chinese vendor
+Before you can order properly the Cinese quickly man dishes up some hot, smelly food and puts it on the paper that covers the counter. Reluctantly you take the steaming dish and pay for it.
+> take oily paper
+
+> take oily paper
+You take the soggy, oily paper. For the vendor it's trash anyway.
+> take herbs
+
+> take herbs
+They are so spicy, they even itch in your hands. You put them in your pocket swiftly.
+> use herbs on chinese food
+
+> use herbs on chinese food
+You sprinkle the food with herbs. You should better not eat it since your stomach probably could not handle it.
+> give chinese food to hookers
+
+> give chinese food to hookers
+Please choose which 'chinese food' you mean:
+1: Chinese Foodstand
+2: Spicy Chinese Food
+> 2
+They gobble it up. Suddenly the look on their faces change. Their bellies grumble and there is a look of panic on their faces. They rush inside the brothel moaning on their way. You take a last look at the herbs and throw them away. To dangerous for mere mortals.
+> n
+
+> n
+
+You step into a shady brothel that tries to disguise itself as a harem. Cheap decoration overfloods the room, beautiful dames are hanging around at the bar. A grumpy and serious patron stands behind the counter and observes you.
+You walk into the brothel and see the hookers returning from the toilet. Pale faces and a look of horror in their eyes. They'll call in sick for the rest of the day.
+> x dames
+
+> x dames
+A small group of dames for the gentleman's pleasure are at the paar. Red, Blone, Brown. Whatever your favour might be.
+> take blonde prostitute
+
+> take blonde prostitute
+"I told you to PISS OFF!" she screams.
+Out of nowhere she pulls a little knife and rams in in your stomach. It's to tiny it barely matters but still you are in shock.
+She empties the rest of her drink: "There you have it asshole! You can keep THAT as a souvernir, too."
+She storms out, leaving the knife behind. The patron gives you a grim look: "You are lucky that she got to you first. My knife would have cut your throat clean."
+> take small knife
+
+> take small knife
+You pick it up.
+> speak to brunette prostitute
+
+> speak to brunette prostitute
+She smiles seductively: 'Care to buy a woman a drink?'
+1: Of course.
+2: No way.
+> 1
+It's hard to say no so you just order a whiskey. When the patron puts the bottle on the table she takes it and gulps in down in one giant sip.
+She licks her lips and smiles: "Thanks honey. I'm done for today. You can keep the souvenir though."
+She gives you a short wink and throws the bottle. Of course you don't catch it and it falls to the floor.
+The patron yells something about making a mess but you don't care too much. You have the weird feeling you've been robbed... and did not even get a blowjob for it.
+> take liquor bottle
+
+> take liquor bottle
+You take the bottle. The bottom is broken but the rest looks fine.
+> take lanterns
+
+> take lanterns
+You try to take one and it falls to the floor. Igniting a veil on the way that catches fire rightaway.
+The patron jumps across the counter as if he would do it every day and kicks the lantern into a clump of metall. It won't burn anything else.
+"Never do that again or it'll be your head getting kicked into pulp!"
+> take broken lantern
+
+> take broken lantern
+You take the pile of metall the patron left behind.
+> take veils
+
+> take veils
+"Don't touch the decoration, motherfucker!" the patron yells.
+But it's too late. You already got a small veil in your pocket. Better take just this one.
+> x red haired prostitute
+
+> x red haired prostitute
+"Like what you see, darling?"
+A busty Red Head with a fake silver neclace to draw even more attention to her magnificent chest.
+> take red haired prostitute
+
+> take red haired prostitute
+You grab on to her and she laughs: "You are not a man of many words, are you? Well then, get your money ready and meet me upstairs."
+She gives you a small kiss that let the blood pump through your veins and walks to the private rooms.
+> up
+
+> up
+
+There she is: lying on the bed completely naked and smiling at you. You have not been with a woman for a while and you have to admit you are a little nervous.
+> speak to red haired prostitute
+
+> speak to red haired prostitute
+Talk to Red Haired Prostitute about...
+1: What would you like me to do?
+> 1
+"Well, you just do what you like and I do the rest, right?"
+> speak to red haired prostitute
+
+> speak to red haired prostitute
+Talk to Red Haired Prostitute about...
+1: You better take a shower first.
+> 1
+"Sure. But I'll do it in private. You wait here until I return."
+She leaves for the bathroom.
+> use oily paper on bathroomdoor
+
+> use oily paper on bathroomdoor
+You rub the oil on the hinges of the door. The squeaking stops
+> e
+
+> e
+
+You are in the bathroom.
+> x shower
+
+> x shower
+A small shower and a bathtube for the most basic cleaning. Some bathing salt and other utensils are scattered across it.
+> take bathing salt
+
+> take bathing salt
+You take a handful of the salt from the edge of the bathtube.
+> use liquor bottle on red haired prostitute
+
+> use liquor bottle on red haired prostitute
+You hesitate for a moment. You do not want to kill her. Not even hurt her, that's for sure. But you need her as bait.
+She stops sining her beautiful song and turns around. You do what must be done and while she looks at you in surprise and horror you smash the bottle over her head, before she can scream.
+You feel miserable.
+> take necklace
+
+> take necklace
+This might be a low point in your life. Stealing a necklace from a prostitute you hit with a bottle. You feel disguisting.
+> use small knife on shower curtain
+
+> use small knife on shower curtain
+You cut the curtain clean off. The knife breaks in the process. It was shitty quality indeed.
+> take red haired prostitute
+
+> take red haired prostitute
+You take her out of the shower and place her on the bed. She's still wet and naked but at least she is lying comfortable now.
+
+You are in a private room in the back of the brothel.
+> use shower curtain on red haired prostitute
+
+> use shower curtain on red haired prostitute
+You wrap her up nice and tight around the body. She is not dripping anymore and it seems to give her a certain stability as well.
+> x bed
+
+> x bed
+A nice bed with some high quality sheets. Guess they have to endure a lot of stains over the years.
+> take sheet
+
+> take sheet
+You take the sheet and see how ugly the matress underneath is. It probably does get soggy fast in here.
+> use sheet on red haired prostitute
+
+> use sheet on red haired prostitute
+You tie the sheet around the curtain. Now she is a neat package and the sheet doubles as a rope.
+> use broken lantern on rear window
+
+> use broken lantern on rear window
+You throw it through the window and manage to break it completely.
+The patron knocks on the door: "SHUT UP! One more sound and I'll cut your head off and push it up your ass!"
+He sounds serious. Better be a little more careful
+> use red haired prostitute on rear window
+
+> use red haired prostitute on rear window
+You try to lower her down the window but it gets noisy. The patron storms up the stairs and knocks on the door: "Quiet in there or I'll come in!"
+Hastily you pull her back up. The broken glass cuts off some of her hair in the process. You put her back on the bed. You need a distraction. A good one.
+> take red hair
+
+> take red hair
+It's fire red and feels like cinder.
+> down
+
+> down
+
+You are in the mainroom of the "Fallen Angel Inn" brothel.
+> e
+
+> e
+
+You are at the toilet. It reeks.
+> use veils on old rags
+
+> use veils on old rags
+You put the veils on the rags. It's highly flamable now if you had cinder terrible things could happen.
+> use red hair on old rags
+
+> use red hair on old rags
+You put the fragile hair on the veils... a spark could possible light it on fire easily now.
+> smell bathing salt
+
+> smell bathing salt
+You smell it and it starts bubbling in your nose making it thick and dripping. It just won't stop.
+> w
+
+> w
+
+You are in the mainroom of the "Fallen Angel Inn" brothel.
+> s
+
+> s
+
+You are in the mainstreet of Whitechapel
+> w
+
+> w
+
+A small and overstocked pharmacy. The medical advantages of the Victorian empire are a weird mixture of science and superstition. The weird stuff that looks at you from jars and glasses stacked on the shelves is the stuff of nightmares.
+You are in the pharmacy.
+> speak to pharmacist
+
+> speak to pharmacist
+Talk to the Pharmacist about...
+1: What the hell is this place?
+2: What does your medicine cure?
+3: What is in this jars?
+> 1
+"A save haven for the sick and the tired. And a place for relief for the sinners and saints."
+> speak to pharmacist
+
+> speak to pharmacist
+Talk to the Pharmacist about...
+1: What does your medicine cure?
+2: What is in this jars?
+> 1
+"Everything." He smiles "Absolutely everything. Sometimes even life itself."
+> speak to pharmacist
+
+> speak to pharmacist
+Talk to the Pharmacist about...
+1: What is in this jars?
+2: Sell me some medicine!
+> 1
+"Trust me. You don't want to know. You look as if you have enough nightmares... and I have a medicine for that." You respectfully decline.
+> speak to pharmacist
+
+> speak to pharmacist
+Talk to the Pharmacist about...
+1: Sell me some medicine!
+> 1
+"Oh, yes! You look sick indeed. Problems with the nose, huh? Here, take this!"
+He hands you a small bottle of medicine
+> e
+
+> e
+
+You are in the mainstreet of Whitechapel
+> n
+
+> n
+
+You are in the mainroom of the "Fallen Angel Inn" brothel.
+> e
+
+> e
+
+You are at the toilet. It reeks.
+> use medicine on latrine
+
+> use medicine on latrine
+You almost have to vomit yourself while you put the flask into the sinkhole. Some shit floats inside and the bottle with the medicine reeks like hell. If it ever had any healing factor it is lost by now!
+> w
+
+> w
+
+You are in the mainroom of the "Fallen Angel Inn" brothel.
+> s
+
+> s
+
+You are in the mainstreet of Whitechapel
+> give medicine to nightguard
+
+> give medicine to nightguard
+The nightguard snorts a little of the medicine and goes pale. Never have you seen such horror. He might have not been able to smell it but now he feels what inside the bottle for sure. He drops his trusty pipe and runs off into the night to puke his heart out.
+> take pipe
+
+> take pipe
+You take the pipe. It still has a faint glow in it.
+> n
+
+> n
+
+You are in the mainroom of the "Fallen Angel Inn" brothel.
+> e
+
+> e
+
+You are at the toilet. It reeks.
+> use pipe on old rags
+
+> use pipe on old rags
+You light the fire and it starts to burn. Smoke fills the room and the fire spreads... things are going to heat up pretty quickly. Better leave.
+> w
+
+> w
+
+The smoke and flames are conquering the room. The Patron runs around to get the fire estinquished risking his life. He has tears in his eyes, trying to save this place that he cared for all his life. "Leave!" he shouts "Leave or help!". You leave.
+> up
+
+> up
+
+You are in a private room in the back of the brothel.
+> use red haired prostitute on rear window
+
+> use red haired prostitute on rear window
+While the building is burning you lower her down to the street most carefully. It makes a strange noise when she hits the ground.
+> down
+
+> down
+
+The patron is still fighting against the fire that's raging more and more. It's a futile effort. He's going to lose his life here.
+> s
+
+> s
+
+You are in the mainstreet of Whitechapel
+> e
+
+> e
+
+Crowley is wrting symbols and scribbles all across the alley. He will soon be ready to banish the Ripper.
+You are in the backstreet. Crowley prepares the ritual.
+> take glass shards
+
+> take glass shards
+Carefully you pick up one of the bigger glas pieces.
+> give glass shards to crowley
+
+> give glass shards to crowley
+He looks at the big glass shard: "It's not exactly a knife but it'll do."
+> give necklace to crowley
+
+> give necklace to crowley
+Crowley takes the necklace: "It's cheap... but it will make a fine pendulum."
+> w
+
+> w
+
+You are in the mainstreet of Whitechapel
+> e
+
+> e
+
+Corwley placed the prostitute in the middle of the pentagram. The burning brothel illuminates the street. Fire is blasting into the dark London night sky.
+Crowley cuts himself with the broken glas his blood drips on the naked body of the red haired girl.. now that you take a closer look she might not be older than 20 years.
+Suddenly the silver necklace begins to swing.
+"It's working!" Crowley smiles like a madman "He is coming!" he takes you to a dark corner of the alley and you wait in your hideout for something to happen.
+Suddenly out of the darkness lurks a shadow. Something big, something not of this world. Even besides the burning building the night is getting unusual cold. A dark creature with wings that it wears like a cape, red glowing eyes and fangs. Your first impulse is to flee your second is to jump out and slay the beast. Crowley holds you back.
+"You have to wait until he's inside of the pentagram. Otherwise I cannot bind him."
+Suddenly you realize what this means: "But if he is inside... he's going to kill her."
+"That's the sacrifice we have to make, Herr Nietzsche."
+The young red haired girl wakes up while the demon walks towards her. She starts screaming like mad. You've got to help her!
+> help her
+It's too late. The beast leashes towards her, ripping his claws deep into her chest and drinking her blood. This is your fault. You brought her there. Crowley chants some ancient words while the monster devours the young girl. Suddenly the pentagram begins to glow the demon tilts his head and looks straight at you. He can see you.
+> look
+
+> look
+You are in a Backstreet.
+You can see The Ripper, a Red Haired Prostitute, Crowley and a Pentagram.
+> use divine feather on the ripper
+
+> use divine feather on the ripper
+You throw the feather at the best like a dart. It hits its mark and explodes in a wave of white light. The demon releases a scream of agony and melts into a black mass. Crowley stops chanting, the wind rises, a storm comes down and the flames of the brothel turn the night sky crimson red.
+Crowley smiles. "We did it, Herr Nietzsche. This is the key. This demon heart could open a portal to hell and your feather could open a gateway to heaven! We place the portals oppsing to each other and BOOOM! Heaven and hell destory each other and we live on withouth neither of it. We only need a place to peform the ritual."
+"What do you need?" you ask.
+"That might be the problem. The last time the metall scructure of the building was the reason for the interference. I need something big. Something huge enough to contain a vast amout of energy. But it must not be made of iron but something else. Glas or wood. And it has to resonate my chants in a very specific way. Like a church or a temple. Unfortunately there is no such building in the whole Victorian Empire."
+You think for a minute: "No Mister Crowley. But there is a building like that after all."
+Chapter 4: Purgatory
+You would not have thought that the Festspielhaus of all places would be suited to open the gates to hell and destroy god. But it fits Crowley's description perfectly. When you arrive at the building Crowley suddenly stops. "What is it?" you ask "Something wrong with the building?"
+He shakes his head: "No. Quite the opposite. It's perfect. Almost too perfect. I mean what are the odds that we not only find a building that we can use for the ritual to unleash the forces of hell but a building that has just every single detail right. Do you know the feeling when something is too good to be true? It's a weird feeling when you are messing with dark forces."
+You understand his train of thoughts. Is this a beautiful coincedence or a trap? You ask him if you should find another place.
+"We don't have time for that. Let's just be careful. I'll refine the ritual and adjust it to the building. You just get us in there and we can start."
+
+The Festspielhaus is situated nicely, surrounded by a small park. Everything is buzzing since there are only mere days left before the Wagner festival begins. Carpenters are reparing minor things, a man with a Barrel Organ plays some tunes. Birds are singing. It's hard to believe that the world is about to end.
+You are in front of the Festspielhaus.
+> x musician
+
+> x musician
+A scruffy musician plays his barrel organ in front of the building.
+> x carpenter
+
+> x carpenter
+A hasty carpenter is working on the building. He has a steam powered wood cutter that scans bluerpints and engraves the results in the wood of the building.
+> x festspielhaus
+
+> x festspielhaus
+The building is under restoration once again but still it is an impressive sight towering against the cold, blue autum sky. A huge mechinical door is the main entrance.
+> s
+
+> s
+
+On a lawn just a short stroll downhill are artits of all kind. They prepare themselves for the festival season try to give the tourists some artistic entertainment and earn some money in the process. Everybody here is a genius kissed by the muse, that's certain.
+You are at the lawn of the Festspielhaus.
+> x artist
+
+> x artist
+A lonely artist sits on the lawn and composes and recomposes some music.
+> s
+
+> s
+
+Just across the road from the Festspielhaus is this cozy, little park where tourists enjoy the beautiful autum sun and some vendors sell their music related goods.
+You are at the Festspiel park.
+> speak to man on bench
+
+> speak to man on bench
+Talk to Man on bench about...
+1: What is happening here?
+2: You look familiar.
+> 1
+"Isn't it great, isn't it grand? The Wagner festival, the Festspiele, is about to begin tomorrow! It's going to be amazing. Everybody who loves Wagner is going to be here. I'm already saving the best spot to observe everything. Take a seat, take a rest, slow down a little."
+> speak to man on bench
+
+> speak to man on bench
+Talk to Man on bench about...
+1: Can I have a look at the newspaper?
+2: What is going to happen at the opening ceremony?
+3: You look familiar.
+> 1
+"Sure. I'm done with it anyway. Take it." he hands you the newspaper.
+> speak to man on bench
+
+> speak to man on bench
+Talk to Man on bench about...
+1: What is going to happen at the opening ceremony?
+2: You look familiar.
+> 1
+"Oh, it's going to be grand! Cosima herself is going to conduct a piece from the opera Parsifal. Then the door will open automatically to let the guests inside! What a marvel, ain't it? Take it easy and enjoy this moment."
+You despise Parsifal but maybe you should listen to it sooner or later... you only have to find out about the good parts.
+> speak to man on bench
+
+> speak to man on bench
+Talk to Man on bench about...
+1: Can you tell me again what is going to happen at the opening ceremony?
+2: You look familiar.
+> 1
+"As I told you: Cosima is going to conduct the some part of Parsifal. Not sure which one exactly. Then the door is programmed to open automatically and the festival begins."
+> x newspaper
+
+> x newspaper
+Today's newspaper about the upcoming Festspiel-season with a huge picture of Cosima on the front. There is a small pamphlet inside.
+> x salesman
+
+> x salesman
+A tall jewish man sells records. Your opinion about these people is not the highest but he has a lot of stuff and seems honest enough.
+> x oaktree
+
+> x oaktree
+A tall old oaktree towering in the park. While you look at it a thick, gooey stream of treesap runs down the tree trunk.
+> take sap
+
+> take sap
+You take some of the tree sap. It feels like glue
+> use sap on records
+
+> use sap on records
+You smear some of the sap on a record without the salesman noticing it.
+> use records
+
+> use records
+The player scratches the record and the needle gets stuck in the sap. With a loud screech the player breaks down.
+"Dammit!" the salesman shouts annoyed. "Not again." He puts the broken recordplayer aside grumbling around.
+> take recordplayer
+
+> take recordplayer
+The player is broken but the speaker might still work.
+> n
+
+> n
+
+You are at the lawn of the Festspielhaus.
+> give newspaper to painter
+
+> give newspaper to painter
+You hand the painter the newspaper and ask him to draw Cosima but keep the small pamphlet inside. After a few quick brushstrokes he proclaims "Voila!" and hands you a beautiful alsmost realistic painting.
+> x pamphlet
+
+> x pamphlet
+The pamphlet fell from the newspaper. It shows the shedule for the opening ceremony and which parts of Parsifal will be played: the Grail Theme. Would be nice to hear it.
+> use pamphlet on singer
+
+> use pamphlet on singer
+"Oh, shall I sing the Grail's theme for you? My pleasure!"
+She starts singing a beautiful melody. And does not seem to stop.
+> speak to composer
+
+> speak to composer
+Talk to Composer about...
+1: What are you doing here?
+> 1
+He looks up and stops writing notes on sheets. He looks around at the mountains of original compositions he has composed during the last few hours with his composing skills and gives you a stern look: "Well Sir, obviously you are not a golfer."
+> speak to composer
+
+> speak to composer
+Talk to Composer about...
+1: Compose something for me!
+> 1
+"Sure, sure! I'm for some reason VERY inspired right now!" he scribbles down some notes. It's the grail theme of Parsifal. Cleary his inspiration comes from the other end of the park
+> speak to composer
+
+> speak to composer
+Talk to Composer about...
+1: Where does your inspiration come from?
+2: Compose something for me!
+> 1
+"Well, from my soul and my muse of course!" he looks around in the park and sets his eyes on one of the young singers.
 > i
 
 > i
-You are carrying a Cane.
-[state=Running]
+You are carrying the Parsifal Overture, a Divine Feather, a Recordplayer, a Portrait of Cosima and a Music Sheets.
+> n
+
+> n
+
+You are in front of the Festspielhaus.
+> use music sheets on blueprints
+
+> use music sheets on blueprints
+You put the sheet with the Grailtheme on top of the plueprints. The carpenter scans it absent minded and furnishes a new piece of wood. Suddenly he realizes his mistake.
+"What the...? Oh, you are a joker, arent' you? You have almost ruined the Festspielhaus!" He takes the piece of wood he just carved and throws it in your direction.
+> take woodbarrel
+
+> take woodbarrel
+You pick it up.
+> give woodbarrel to musician
+
+> give woodbarrel to musician
+The musican looks at the barrel of wood. "Well, that's unusual but it should work."
+He puts the barrel in his organ and begins to play. The grail melody resounds.
+> use recordplayer on barrel organ
+
+> use recordplayer on barrel organ
+You link the organ to the speaker. It's louder and fuller now. Almost sounds like an orchestra.
+> use portrait of cosima on mechanical door
+
+> use portrait of cosima on mechanical door
+
+With a loud noise the giant door opens and reveals the entrance to the Festspielhaus for you and Crowley to finish what you have started.
+Just as you are about to enter a voice stops you. "Herr Nietzsche. Please don't do that."
+It's the man from the bench who seemed so oddly familiar to you.
+"You do not realize who I am, do you? We've met, we've talked, we wrote letters. Freud is the name. Sigmund Freud."
+Slowly your memories return.
+Crowley whispers in your ear: "We've got to go now. Don't listen to him. He's working against us."
+"Herr Nietzsche," Freud continues "Inside this house will be nothing but your demise. You are losing your mind. You could not remember me and Mrs. Cosima told me you could not even remember Wagner's dead. Who knows what else got lost and confused in your memory? Herr Nietzsche, you need help. Before your insanity gets the best of you."
+Crowley shakes his head: "He is lying. We both had the dream."
+Freud cleans his glasses: "Herr Nietzsche, you said yourself if there was a god how could he bare not being god? But no matter what happens: you will never be a god yourself. Just think about it. If everything you constructed is true than you have to battle a god. And if you succeed than you would still be mortal but in a godless world."
+"On the other hand." Freud continues "If all is just your dellusion you would give into your own madness as soon as you enter the building. You would construct your own reality and get lost in your mind. Either way you lose. You lose everything. Especially your sanity."
+"If there was a god - you could not defeat him. But if there was not it would be even worse because you would only defeat yourself. You need help. Come with me. We can cure you. And... I have to admit I would be glad, because I am a fan of yours."
+Crowley turns to you: "The demon said the same, remember? He is not here to help us. He is here to stop us!"
+Crowley or Freud... who can you trust?
+> crowley
+Suddenly Crowley jumps on Freud and knocks him down "Run, Herr Nietzsche! Get inside! I'll stop him!"
+Freud gets up: "Don't do that!"
+Crowley throws you his notebook. "It's all in there! Peform the rite! Finish it! RUN!"
+> run
+You run inside!
+Freud and Crowley are both shouting at you but you cannot understand a word. The world warps around you.  Not sure anymore what might be reality and what might be insanity.The door slams shut. There is no way back now. Faint noises are coming from the concerthall right ahead.
+
+You are in the Entrancehall of the Festspielhaus.
+> look
+
+> look
+You are in The Entrancehall.
+You can go north, south, east, northwest or west.
+The Entrance hall of the Festspielhaus is huge and sparsely illuminated. There are faint noises coming from the main concert hall. It feels like a nightmare.
+> n
+
+> n
+
+You enter the great concert hall. A huge room build for the finest operas. Right there on the stage is Cosima. Frantically scribbling things on the ground and chanting some words you cannot understand. Whatever might be happening here - you don't like it at all.
+You are at the concert hall.
+> speak to cosima
+
+> speak to cosima
+Talk to Cosima about...
+1: Cosima? What are you doing?
+> 1
+She stops and gives you a terrified look: "Oh, dear Friedrich... you should not be here."
+Loud steps are echoing through the hall and a voice like thunder resounds from the halls while somebody enters the stage.
+"One day we'll all be reuinted in Bayreuth and won't understand how we could even bear being anywhere else..."
+"Isn't that what you always said, Friedrich? Welcome home... old friend."
+Your head is spinning but you can manage to say three more words before your mouth dries up:
+"Welcome back... Richard."
+Final Chapter: Heaven and Hell
+Richard Wagner, alive and well enters the stage and stands next to the still shivering Comsima: "You don't seem too surprised to see me. I guess after all you've been through within the last few days an old master coming back from the dead has lost a little of its... grandeur, hasn't it?"
+> speak to wagner
+
+> speak to wagner
+Talk to Wagner about...
+1: Are you not supposed to be dead?
+2: Have I lost my mind now?
+3: I have seen God!
+> 1
+"Death, Friedrich, and you should know that by now is not the end but a mere transitional state. I died. I returned. I'll finish what I have started."
+> speak to wagner
+
+> speak to wagner
+Talk to Wagner about...
+1: And what excactly have you started?
+2: Have I lost my mind now?
+3: I have seen God!
+> 1
+"The apocalypse of course. Everything I have done since I was building this house was aimed towards this one goal. And it is nearly done."
+> speak to wagner
+
+> speak to wagner
+Talk to Wagner about...
+1: Have I lost my mind now?
+2: I have seen God!
+> 1
+"Probably you have. But it does not change the fact that we are about to cleanse this world! Not me and you. Me and Cosima of course. You already read the chapter in Crowley's notes where it tells you that portals need a human sacrifice, right?"
+He holds Cosima tight. She shivers but does not fight back.
+> speak to wagner
+
+> speak to wagner
+Talk to Wagner about...
+1: I have seen God!
+> 1
+You show Wagner the Divine Feather and he swiftly takes it out of your hand.
+"Yes. I know. I've seen him, too. He told me I was a sinner... but I did not try to fight him like a child. This is a battle nobody can win. Not even you. I tried to join him. I built this house as a gateway. To open the path to heaven and start the great reaping. Surely a man who did something as grand as this will be most revered by the Lord in the afterlife."
+"All my ventures towards religion, starting with Parsifal, were attempts to satisfy a very angry God. But unfortunately my life was not long enough to finish all of this. The Lord himself sent me back here to finish what I started. It was the night when you had the dream. You remember my voice, don't you?"
+Richards eyes seem more alive than ever. Who knows what he has seen on the other side.
+"But what's my part in this plan?" you ask.
+Wagner laughs a loud and clear. The Festspielhaus almost trembles.
+"Your part, Friedrich? You have no part! Don't you love it? Isn't that nihilism at its finest? You just came along at the wrong time. Nothing you did, do or going to do has any significance on my plan and the events that are about to take place. Tonight the world is going to end and it would have happend with or without you."
+Clearly Wagner never really understood what nihilism was about.
+> speak to wagner
+
+> speak to wagner
+Talk to Wagner about...
+1: I am sorry Richard... but I cannot let you do this.
+> 1
+"Well, old friend. I'm afraid you picked the wrong side. And as I said before: you have no agency in this matter. Fortunately since I knew the world's end would start right here I did not build this building to last. Auf Wiedersehen."
+He cuts a few ropes in the back of the stage and the floor beneath your feet begins to crumble and crackle. The stage itself is lifted up while the rest of the room collapses. You run towards the exit while Richard and Cosima continue the ritual.
+But you are not fast enough and fall into the abyss that opens underneath your feet.
+
+ Darkness and rubble surrounds you.
+You slowly open your eyes while the dust is settling. Above you a gaping hole where the floor or the concert room once was. Everything can tumbling down, burying you and the whole orchestra in the catacombs beneath the Festspielhaus. You are scratched and wounded but you are still alive.
+Things are getting clearer now in your head and everything seems to line up.
+Wasn't it Crowley's pan all along to open two portals - one for heaven, one for hell? When the divine and infernal energies crush together they would cancel each other out destroying both realms in the progress.
+Now Wanger is opening his own portal thereby saving you half the work you just have to set up yours opposing to his.
+It's perfect. He opens his portal you open yours. You save Cosima and defeat Wagner. Heaven and hell are no more. Now you just have to figure out how exactly you open a gateway to hell. Crowley's notebook should have all the details you need.
+You are in the catacombs.
+> look
+
+> look
+You are in The Catacombs.
+You can see Rubble.
+You can go east.
+From the old days there are a lot of catacombs benath Bayreuth. And one of them seems to be under the Festspielhaus. Long, dark tunnels you dare not to explore but thankfully a small staircase leading back to the Festspielhaus as well.
+> x rubble
+
+> x rubble
+You take a closer look at the debris. There are some interesting things among the dirt: instruments from the orchestra, wooden bricks from the floor and dead animals.
+> take dead rat
+
+> take dead rat
+On the one hand it's disguisting... on the other hand you have done more distuisting things than having a dead rat in your pocket.
+> x broken instruments
+
+> x broken instruments
+You search the instruments but the only one that is still of use is a beautiful old trumpet.
+> take brick
+
+> take brick
+It's a heavy and solid piece of wood, formed like a brick.
+> e
+
+> e
+
+You are in the Entrancehall of the Festspielhaus.
+> e
+
+> e
+
+This dressing room is for the actors and singers to prepare themselves for the great show. Lots of mirrors and make-up are arranged around the room.
+You are in the dressing room.
+> take lipstick
+
+> take lipstick
+You won't use it yourself but it might come in handy.
+> take eyeshadow
+
+> take eyeshadow
+You pick up the small penlike eyeshadow.
+> e
+
+> e
+
+Right next to the dressing room is the costume stock. All sorts of dresses, costumes, props and fake scenery are scattered here.
+You are at the costume stock
+> take puppet
+
+> take puppet
+You take the tall mannequin and strap it on your back to carry it around.
+> x costumes
+
+> x costumes
+There is a lot of stuff but nothing of interest... nothing but a huge dragon made of out paper that catches your eye! Must have been from a Siegfried opera.
+> take paperdragon
+
+> take paperdragon
+At least. Your own dragon. A childhood fantasy comes true.
+> use lipstick on puppet
+
+> use lipstick on puppet
+You smear some lipstick on the mannequin. You can still argue if that makes her a woman or not but it's a good effort.
+> use dead rat on puppet
+
+> use dead rat on puppet
+You squish the dead rat into the mannequin. It's still not human but now it has got at least some blood and guts and that has to do it for now.
+> use demonheart on puppet
+
+> use demonheart on puppet
+You stick the heart inside the mannequin. Very vital if you want to sacrifice it.
+> w
+
+> w
+
+You are in the dressing room.
+> w
+
+> w
+
+You are in the Entrancehall of the Festspielhaus.
+> nw
+
+> nw
+
+You climb up to the balcony. Normally the richt and noble guests would sit here to enjoy the operas. You have a perfect view across the concert hall below. Down there far on the other end of the room is the stage where Wagner performs his ritual.
+You are at the balcony.
+> take noble chair
+
+> take noble chair
+You tear apart the chair and take a huge piece of white satin from its surface. Beautiful quality. It feels a little like paper. Your next poem should be written on satin.
+> use eyeshadow on satin
+
+> use eyeshadow on satin
+Please choose which 'satin' you mean:
+1: Noble Chair
+2: Satin
+> 2
+You inscribe the runes of the rite on the white satin sheet. Looks like in Crowley's notes. Now you've got to find the right place for it.
+> use paperdragon on ledge
+
+> use paperdragon on ledge
+
+Weeeeeeeee! You insanely use the paper dragon as a hangglider. Seriously it's kind of fun. After a short flight you land at the drawing floor where all kinds of ropes hanging around lowering props to the stage. You are right above Wagner and Cosima now. You leave your dragon on standby so you can easily hangglide your way to the balcony and back again whenever you want.
+You are at the drawing floor.
+> x ropes
+
+> x ropes
+A lot of ropes for highering and lowering props to the stage. You can't tell where most of them go. It's a complex and confusing mess. Only one rope is dangling loosely around.
+> use satin on railing
+
+> use satin on railing
+You attach the rune inscribed piece of satin on the railing straight above Wagner's portal. Suddenly something screeches and crashes. A rope gets lose and rips the railing apart, dragging it towards the ceiling.
+Good news is, that the satin is still attached to it and that it is still above Wagner's portal. Bad news it's now even higher above you and you won't reach it. Even if you had a sacrifice it would be hard to get it up there.
+> use puppet on dangling rope
+
+> use puppet on dangling rope
+You strip the puppet on one end of the dangling rope like a hangman.
+> use brick on dangling rope
+
+> use brick on dangling rope
+You tow the brick on the lose end of the rope. The stone rushes down and jerks the puppet on the other end up skyrocketing towards the ceiling where your rune banner hangs.
+Suddenly the rope wraps itself around a iron rod that supports the drawing floor and rips it apart. The whole structre that you are standing on crumbles and once again you are falling.
+
+You are falling. Straight down right into your certain doom.
+Falling.
+Falling.
+And while your fall is getting faster and the stage is getting closer your life flashes in front of your eyes. You are ready to smash on the ground and been crushed into pieces. You did your best.
+And suddenly time slows down. Everything happens in slow motion. Your fall seems to stop in mid air. Reality swings around and suddenly you see them. One to your left and one to your right.
+The Lord himself and his counterpart at least showing up for your big finale. Mere seconds before you hit the ground.
+> look
+
+> look
+You are in Falling.
+You can see a Ropes, a Stage, a Wagner, a Cosima and God & Satan.
+> grab ropes
+
+> grab ropes
+You are right! Screw them! Screw God and Satan! Screw heaven and hell! Screw Wagner! Screw the Apocalypse! You are Friedrich Nietzsche and you've got a job to do!
+You grab the rope in midair and suddenly everything is speeding up again.
+The demons and angels vanish and like the hero that you were always supposed to be you swiftly glide to the ground, ready to save Cosima and the world!
+
+You arrive right in time to witness how Richard swings a sword and cuts Cosima's head clean off.
+Next time you should better not alter your state of mind while somebody's life is on the line. But at least you can still kill God. See it as vengeance.
+Richard turns around: "Friedrich, you are becoming quite a nuisance." he throws the bloody sword off the stage. "Thankfully you are too late. If you excuse me: there is a world I've got to end."
+That said Richard starts chanting something.
+His portal begins to glow. It will open soon. Better finish your own ritual or you'll be late again to prevent terrible things from happening.
+> look
+
+> look
+You are in The Stage.
+You can see Wagner, Cosima and a Trumpet.
+> use trumpet
+
+> use trumpet
+
+The circle next to Wagner begins to glow and white light swallows Cosima's dead body.
+You blow with all your might and the trumpet releases a mighty noise and breaks. Wagner gives you a confused look. suddenly from high above a shadow is cast down in the stage. Your portal at the ceiling is opening.
+Wagner cannot believe what is happening. While the etheral light of his portal mingels with the consuming shadow of yours a tornado of power ensues.
+Lightings strike across the room. Angels and demons rush by and collide. Wagner is fighting with all his might against being sucked into this pandemonium of heaven and hell. Your eyes lock.
+> richard
+> look
+
+> look
+You are in The Stage.
+You can see Wagner, a Heaven, a Hell and a Vortex.
+> speak to wagner
+
+> speak to wagner
+Any last words for poor, old Richard?
+1: Cool One-Liner
+2: Minimalistic One-Liner
+3: Badass One-Liner
+4: Censored One-Line
+> 1
+"I'd say see you in hell... but I guess not today." The room errupts.
+With a mighty thunder the vortex sucks Wagner in. Heaven and hell are finally merging and what you see is beyond what the human mind can take.
+You glimpse into the abyss and it gazes back into you. The wonders of heaven and the tortures of hell all in one place. The souls and lifes out countless human beings swirling across the room and in front of your inner eye unfolds everything that was is and will be.
+The Festspielhaus falls apart and the portals are sucking each other in swirling around and rearangeing infinity before your very eyes. And then. Suddenly....
+Silence.
+Friedrich Nietzsche. You have done the world a great favour. On this day in 1888 you liberated mankind from good and evil. God is dead. Indeed.
+People will claim you are insane. And maybe you are. But then again: where is the thin red line between insanity and blind faith?
+You close your eyes to dream sweet dreams at last. But there is nothing...
+...but darkness.
+-The End-
+[state=Finished]

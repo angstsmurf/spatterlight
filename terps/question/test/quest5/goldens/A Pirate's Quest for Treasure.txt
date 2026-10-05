@@ -25,6 +25,10 @@ You can see a map, a cutlass and a compass.
 
 > take cutlass
 You pick it up.
+> take compass
+
+> take compass
+You pick it up.
 > go to main deck
 
 > go to main deck
@@ -45,12 +49,6 @@ You can see the ship's wheel and the Helmsman.
 
 > go to Port Goldrock
 
-A jetty
-Port Goldrock is a small town that had recently befallen a disaster. A freak fire burned down most of the buildings by the former founder of the town, Martha Goldrock and no one knows why.
-You can go north or to the Dancing Devil.
-> look
-
-> look
 A jetty
 Port Goldrock is a small town that had recently befallen a disaster. A freak fire burned down most of the buildings by the former founder of the town, Martha Goldrock and no one knows why.
 You can go north or to the Dancing Devil.
@@ -132,10 +130,6 @@ A tavern cellar
 A dark and dingy cellar.
 You can go up.
 You can see a casket and a corkscrew.
-> look at casket
-
-> look at casket
-A small box for valuables.
 > unlock casket
 
 > unlock casket
@@ -153,6 +147,10 @@ Added them to your gold tally.
 
 > take corkscrew
 You pick it up.
+> drop small key
+
+> drop small key
+You drop it.
 > up
 
 > up
@@ -191,30 +189,3072 @@ The poop deck
 This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
 You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall or to Blackskull Island.
 You can see the ship's wheel and the Helmsman.
-> go to Port Clam
+> go to Temple of Vlashni
 
-> go to Port Clam
+> go to Temple of Vlashni
+
+Dragos swamp
+A filthy place with a stench of death. Not what you would call a nice vacation-spot.
+You can go to the Dancing Devil, northeast or east.
+> northeast
+
+> northeast
+
+A clearing
+A small clearing in the swamp.
+You can go southwest.
+You can see a twisted oak.
+> look at twisted oak
+
+> look at twisted oak
+An ancient tree with twisted roots.
+> use cutlass on roots
+
+> use cutlass on roots
+You cut the roots and a pungent sap seeps out.
+> use cutlass on sap
+
+> use cutlass on sap
+You coat the blade with the sap.
+> southwest
+
+> southwest
+
+Dragos swamp
+A filthy place with a stench of death. Not what you would call a nice vacation-spot.
+You can go to the Dancing Devil, northeast or east.
+> east
+
+> east
+
+Dragos swamp
+Some areas of the swamp go up to your waist.
+You can go west or east.
+You can see a rock.
+> look at rock
+
+> look at rock
+There are 2 lines painted around the rock.
+> east
+
+> east
+
+The Temple of Vlashni
+A tall stone building with columns either side of the entrance.
+You can go west or in.
+You can see the temple door.
+> look at temple door
+
+> look at temple door
+A stone door with four sliders.
+> push crescent slider
+
+> push crescent slider
+You push it in the up position.
+The door unlocks.
+> open temple door
+
+> open temple door
+You open it.
+> in
+
+> in
+
+Inside the Temple of Vlashni
+The entrance hall has a vaulted ceiling and decorated on the walls are snake-like gods.
+You can go out, east or south.
+> south
+
+> south
+
+A small room
+Not necessarily a broom closet but it looks like one.
+You can go north.
+You can see a fishing net.
+> take fishing net
+
+> take fishing net
+You pick it up.
+> north
+
+> north
+
+Inside the Temple of Vlashni
+The entrance hall has a vaulted ceiling and decorated on the walls are snake-like gods.
+You can go out, east or south.
+> east
+
+> east
+
+The Idol room
+The idol itself is the serpent-god Vlashni. Devourer of souls, destroyer of the mind and eater of small furry animals - Captain Bloodaxe would just love her.
+You can go west.
+You can see a Giant Serpent.
+> use cutlass on Giant Serpent
+
+> use cutlass on Giant Serpent
+The sap on the cutlass blade acts as a poison and the serpent dies instantly.
+> take pile of diamonds
+
+> take pile of diamonds
+You pick them up.
+> west
+
+> west
+
+Inside the Temple of Vlashni
+The entrance hall has a vaulted ceiling and decorated on the walls are snake-like gods.
+You can go out, east or south.
+> out
+
+> out
+
+The Temple of Vlashni
+A tall stone building with columns either side of the entrance.
+You can go west or in.
+You can see a circle slider, a crescent slider, a square slider, an octagon slider and the temple door.
+> west
+
+> west
+
+Dragos swamp
+Some areas of the swamp go up to your waist.
+You can go west or east.
+You can see a rock.
+> west
+
+> west
+
+Dragos swamp
+A filthy place with a stench of death. Not what you would call a nice vacation-spot.
+You can go to the Dancing Devil, northeast or east.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> unlock strong-hold door
+
+> unlock strong-hold door
+Unlocked with the iron key.
+> open strong-hold door
+
+> open strong-hold door
+You open it.
+> go to strong-hold
+
+> go to strong-hold
+
+The strong-hold
+This is where you will store your treasures. Just don't let the crew in here when it starts getting full - they'll be off with it in a shot!
+You can go below deck.
+> drop pile of diamonds
+
+> drop pile of diamonds
+You drop them.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> down
+
+> down
+
+The gunnery
+This is where the action takes place. 'Load up the cannons!', 'Fire at will!', 'Get that thing of my foot!', are such sweet memories of many battles.
+You can go up, to the brig or to the cargo-hold.
+You can see a cannon.
+> open cannon
+
+> open cannon
+You open it.
+It contains a cannonball.
+> take cannonball
+
+> take cannonball
+You pick it up.
+> up
+
+> up
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall or to Blackskull Island.
+You can see the ship's wheel and the Helmsman.
+> go to Skarak Monastery
+
+> go to Skarak Monastery
 
 A jetty
-Welcome to the Inland Sea's den of iniquity: Port Clam the gambler's paradise.
-You can go to the Dancing Devil or north.
-> look
-
-> look
-A jetty
-Welcome to the Inland Sea's den of iniquity: Port Clam the gambler's paradise.
+Skarak Monastery belongs to the Cult of Skarak. A fanatical group of monks who believe that Skarak the Demonic will return and rule the world. Nice!
 You can go to the Dancing Devil or north.
 > north
 
 > north
 
-A wharf
-To the east is the infamous Rat Tail Tavern where anyone infamous hangs out. To the northeast the Gambling Halls are located and to the west is the Fighting Pit.
-You can go south, east, west or northeast.
+A rocky path
+It splits three ways here.
+You can go south, northwest or northeast.
+> northeast
+
+> northeast
+
+A clifftop
+You can see a beach down below.
+You can go southwest or down.
+> down
+
+> down
+
+A beach
+A sandy beach just outside a cave.
+You can go up or in.
+> in
+
+> in
+
+A cave
+A small dark and damp cave.
+You can go out.
+You can see a rock pool.
+> use fishing net on rock pool
+
+> use fishing net on rock pool
+You catch a crab.
+> take crab
+
+> take crab
+You pick it up.
+> out
+
+> out
+
+A beach
+A sandy beach just outside a cave.
+You can go up or in.
+> use compass on sand
+
+> use compass on sand
+You move the compass around and the magnetic needle starts spinning around at a certain spot. You've found something!
+> use shovel on marked spot
+
+> use shovel on marked spot
+You dig up a strange blue metal key.
+> take blue metal key
+
+> take blue metal key
+You pick it up.
+> drop compass
+
+> drop compass
+You drop it.
+> drop shovel
+
+> drop shovel
+You drop it.
+> up
+
+> up
+
+A clifftop
+You can see a beach down below.
+You can go southwest or down.
+> southwest
+
+> southwest
+
+A rocky path
+It splits three ways here.
+You can go south, northwest or northeast.
+> northwest
+
+> northwest
+
+The monastery entrance
+A formidable building with dark red stone walls and strange architecture.
+You can go southeast or in.
+> in
+
+> in
+
+The hall
+A vaulted hall with rooms leading off in all directions and stone steps leading upwards.
+You can go out, up, west, east or north.
+> east
+
+> east
+
+The banquet hall
+A long dining table fills most of this hall.
+You can go west or north.
+You can see a dining table.
+> look at dining table
+
+> look at dining table
+Made of oak.
+It contains a silver plate.
+> take silver plate
+
+> take silver plate
+You pick it up.
+> west
+
+> west
+
+The hall
+A vaulted hall with rooms leading off in all directions and stone steps leading upwards.
+You can go out, up, west, east or north.
+> out
+
+> out
+
+The monastery entrance
+A formidable building with dark red stone walls and strange architecture.
+You can go southeast or in.
+> southeast
+
+> southeast
+
+A rocky path
+It splits three ways here.
+You can go south, northwest or northeast.
+> south
+
+> south
+
+A jetty
+Skarak Monastery belongs to the Cult of Skarak. A fanatical group of monks who believe that Skarak the Demonic will return and rule the world. Nice!
+You can go to the Dancing Devil or north.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> go to galley
+
+> go to galley
+
+The galley
+The hot galley is filled with unholy smells of rotting fish and poached rat. The strongest smell seems to emanate from Bogle the ship's cook.
+You can go below deck.
+You can see a Bogle the Cook.
+> give crab to Bogle
+
+> give crab to Bogle
+'Excellent, Captain! I'll cook it straight away for you.' Bogle says as he put down a bottle of rum.
+> take bottle of rum
+
+> take bottle of rum
+You pick it up.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall or to Blackskull Island.
+You can see the ship's wheel and the Helmsman.
+> go to Azram Castle
+
+> go to Azram Castle
+
+A jetty
+Azram Castle is home to the evil wizard...er, Azram. He hates strangers and will probably kill you with his magic bolts of lightning if you threaten him.
+You can go to the Dancing Devil or east.
+> east
+
+> east
+
+A beach
+A small sandy beach.
+You can go west or up.
+> up
+
+> up
+
+A cliff path
+The path goes down to the beach and east to the castle.
+You can go down or east.
+> east
+
+> east
+
+The castle gates
+Two huge wooden gates lie open but are guarded.
+You can go west or in.
+You can see a guard.
+> give bottle of rum to guard
+
+> give bottle of rum to guard
+The guard takes the rum without question and glugs it down in one go. He is completely slaughtered!
+> in
+
+> in
+
+The courtyard
+A huge courtyard with doors all around going into the castle.
+You can go out, south, north, up or east.
+> east
+
+> east
+
+The Great Hall
+A large vaulted hall full of evil vibes.
+You can go west or down.
+You can see an Azram the wizard and a stone door.
+> use silver plate on Azram
+
+> use silver plate on Azram
+He is starting to get annoyed with your presence and casts a spell. As a bolt of lightning shoots from his fingers you hold up the plate and reflect the bolt back at him. He is blasted into a thousand pieces.
+> take potion of decay
+
+> take potion of decay
+You pick it up.
+> drop silver plate
+
+> drop silver plate
+You drop it.
+> turn snake carving
+
+> turn snake carving
+The stone door disappears into the floor.
+> down
+
+> down
+
+The torture chamber
+Nice to have a hobby!
+You can go up or in.
+You can see a rack and a cell door.
+> look at rack
+
+> look at rack
+If you need a good stretch!
+It contains a dead prisoner.
+> look at dead prisoner
+
+> look at dead prisoner
+Poor sod! Probably won't fit in a regular-sized coffin, now!
+You find on his person a copper key.
+> take copper key
+
+> take copper key
+You pick it up.
+> unlock cell door
+
+> unlock cell door
+Unlocked with the copper key.
+> open cell door
+
+> open cell door
+You open it.
+> in
+
+> in
+
+The cell
+Dirty and dingy!
+You can go out.
+You can see a Jonas the thief.
+> speak to Jonas
+
+> speak to Jonas
+'My old friend, Captain Diablo! You're the last person I expected. I got caught trying to steal Azram's Sceptre of Light and got put in here for execution later.'
+
+You tell him you killed Azram.
+
+'Well, if you're interested in finding the sceptre then he's hidden it very well. I can't find it. Can I get a lift home, old chap?'
+
+However, first he hands you a bronze medallion as a token for rescuing him.
+
+'It wards off the Evil-Eye! Of little help it did me.'
+
+He makes his escape to your ship.
+> take medallion
+
+> take medallion
+You pick it up.
+> drop copper key
+
+> drop copper key
+You drop it.
+> out
+
+> out
+
+The torture chamber
+Nice to have a hobby!
+You can go up or in.
+You can see a rack (on which there is a dead prisoner) and a cell door.
+> up
+
+> up
+
+The Great Hall
+A large vaulted hall full of evil vibes.
+You can go west or down.
+You can see an oak chair and a silver plate.
+> west
+
+> west
+
+The courtyard
+A huge courtyard with doors all around going into the castle.
+You can go out, south, north, up or east.
+> south
+
+> south
+
+The library
+Lined with many books on all sorts of subjects.
+You can go north.
+You can see a books.
+> look at books
+
+> look at books
+There are thousands of them!
+One book lies on the floor.
+> take book
+
+> take book
+You pick it up.
+> read book
+
+> read book
+The pages are all blank.
+One of the pages is loose and falls to the ground.
+> drop book
+
+> drop book
+You drop it.
+> take page
+
+> take page
+You pick it up.
+> north
+
+> north
+
+The courtyard
+A huge courtyard with doors all around going into the castle.
+You can go out, south, north, up or east.
+> north
+
+> north
+
+The dining hall
+A large arched hall with a small dining table. Azram doesn't dine socially that much, it seems.
+You can go south or north.
+You can see a dining table.
+> north
+
+> north
+
+The kitchen
+A regular kitchen. Outside leads to a garden.
+You can go south or out.
+> out
+
+> out
+
+The garden
+This beautiful garden contradicts the evil of Azram. Perhaps he has a heart - most probably somebody else's in a box somewhere.
+You can go in.
+You can see a rose.
+> take rose
+
+> take rose
+You pick it up.
+> use potion of decay on rose
+
+> use potion of decay on rose
+The rose turns black as your pour the potion over it.
+> in
+
+> in
+
+The kitchen
+A regular kitchen. Outside leads to a garden.
+You can go south or out.
+> south
+
+> south
+
+The dining hall
+A large arched hall with a small dining table. Azram doesn't dine socially that much, it seems.
+You can go south or north.
+You can see a dining table.
+> south
+
+> south
+
+The courtyard
+A huge courtyard with doors all around going into the castle.
+You can go out, south, north, up or east.
+> out
+
+> out
+
+The castle gates
+Two huge wooden gates lie open but are guarded.
+You can go west or in.
+You can see a guard.
+> west
+
+> west
+
+A cliff path
+The path goes down to the beach and east to the castle.
+You can go down or east.
+> down
+
+> down
+
+A beach
+A small sandy beach.
+You can go west or up.
+> west
+
+> west
+
+A jetty
+Azram Castle is home to the evil wizard...er, Azram. He hates strangers and will probably kill you with his magic bolts of lightning if you threaten him.
+You can go to the Dancing Devil or east.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> go to guest cabin
+
+> go to guest cabin
+
+The guest cabin
+It's not really a guest cabin just a spare one. Since you have no officers then the crew stay in their quarters.
+You can go below deck.
+You can see a Jonas the thief.
+> give page to Jonas
+
+> give page to Jonas
+'That looks like the Sceptre of Light!' exclaims Jonas, 'In fact, it is! Azram must have magically cast it into the page. It's a shame Draven isn't still alive. He could help you extract it.'
+
+You ask about Draven.
+
+'He was Azram's brother. However, they hated each other's guts and Azram killed Draven years ago and burnt down his castle to the ground. The ruins are further south down the coast from Azram Castle. I'll give you directions.'
+
+You will now see it on your map and will be able to go to the ruins of Draven Castle.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Isle of Fools
+
+> go to Isle of Fools
+
+A pebbled shore
+The Isle of Fools is so named because only an idiot would live out here on his own and one person does, a hermit called Andros.
+You can go to the Dancing Devil or northwest.
+> northwest
+
+> northwest
+
+The Hermit's house
+It's more of a crumbling stone shack with a thatched roof.
+You can go southeast or in.
+> in
+
+> in
+
+Inside the Hermit's house
+There's not much here apart from broken furniture and a smell of rats.
+You can go out.
+You can see Andros the Hermit and a ring of chaos.
+> give rose to Andros
+
+> give rose to Andros
+'You have found one. The only way you could get one is by using a potion of decay. That means Azram must be dead and I'm free! I was his gardener years ago and he wanted me to create black roses for him. I refused and I was banished to this Isle. Now I can leave this place forever.' he sobs.
+
+He leaves, retrieves a hidden boat in some bushes and rows off to a new and hopeful future. I guess you can take the ring now.
+> take ring of chaos
+
+> take ring of chaos
+You pick it up.
+> wear ring of chaos
+
+> wear ring of chaos
+You place it on your finger.
+> out
+
+> out
+
+The Hermit's house
+It's more of a crumbling stone shack with a thatched roof.
+You can go southeast or in.
+> southeast
+
+> southeast
+
+A pebbled shore
+The Isle of Fools is so named because only an idiot would live out here on his own and one person does, a hermit called Andros.
+You can go to the Dancing Devil or northwest.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Skarak Monastery
+
+> go to Skarak Monastery
+
+A jetty
+Skarak Monastery belongs to the Cult of Skarak. A fanatical group of monks who believe that Skarak the Demonic will return and rule the world. Nice!
+You can go to the Dancing Devil or north.
+> north
+
+> north
+
+A rocky path
+It splits three ways here.
+You can go south, northwest or northeast.
+> northwest
+
+> northwest
+
+The monastery entrance
+A formidable building with dark red stone walls and strange architecture.
+You can go southeast or in.
+> in
+
+> in
+
+The hall
+A vaulted hall with rooms leading off in all directions and stone steps leading upwards.
+You can go out, up, west, east or north.
+> north
+
+> north
+
+Skarak's shrine
+A large golden statue of a hawk-headed demi-god towers over you.
+You can go south.
+You can see a statue of Skarak and a Mad Monk.
+> use cutlass on Mad Monk
+
+> use cutlass on Mad Monk
+The ring allows you see through his mad moves and you pierce him through his heart. He falls down dead.
+> pull tail
+
+> pull tail
+You pull the tail and the statue moves to one side revealing a secret room.
+> north
+
+> north
+
+A secret room
+A small repository of some kind.
+You can go south.
+You can see a cage.
+> unlock cage
+
+> unlock cage
+Unlocked with the blue metal key.
+> open cage
+
+> open cage
+You open it.
+It contains the Horn of Skarak.
+> take Horn of Skarak
+
+> take Horn of Skarak
+You pick it up.
+> drop blue metal key
+
+> drop blue metal key
+You drop it.
+> south
+
+> south
+
+Skarak's shrine
+A large golden statue of a hawk-headed demi-god towers over you.
+You can go south or north.
+You can see a statue of Skarak and a Mad Monk.
+> south
+
+> south
+
+The hall
+A vaulted hall with rooms leading off in all directions and stone steps leading upwards.
+You can go out, up, west, east or north.
+> out
+
+> out
+
+The monastery entrance
+A formidable building with dark red stone walls and strange architecture.
+You can go southeast or in.
+> southeast
+
+> southeast
+
+A rocky path
+It splits three ways here.
+You can go south, northwest or northeast.
+> south
+
+> south
+
+A jetty
+Skarak Monastery belongs to the Cult of Skarak. A fanatical group of monks who believe that Skarak the Demonic will return and rule the world. Nice!
+You can go to the Dancing Devil or north.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Kanus Island
+
+> go to Kanus Island
+
+An island shore
+Kanus Island belongs to Zula the Witch. An evil woman with a fondness for dead things, especially necromancy: raising the dead.
+You can go Dancing Devil, southwest or southeast.
+> southwest
+
+> southwest
+
+Outside the witch's cottage
+A small white-washed cottage with a thatched roof.
+You can go northeast or in.
+> in
+
+> in
+
+Inside the witch's cottage
+A grotty hovel with vibes of evil magic.
+You can go out.
+You can see a Zula the Witch.
+> use medallion on Zula
+
+> use medallion on Zula
+She screams as the medallion's powers starts killing her. She falls down dead snapping her wand in the process.
+> take wand of storms
+
+> take wand of storms
+You pick it up.
+> take resurrection stone
+
+> take resurrection stone
+You pick it up.
+> drop medallion
+
+> drop medallion
+You drop it.
+> out
+
+> out
+
+Outside the witch's cottage
+A small white-washed cottage with a thatched roof.
+You can go northeast or in.
+> northeast
+
+> northeast
+
+An island shore
+Kanus Island belongs to Zula the Witch. An evil woman with a fondness for dead things, especially necromancy: raising the dead.
+You can go Dancing Devil, southwest or southeast.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> go to strong-hold
+
+> go to strong-hold
+
+The strong-hold
+This is where you will store your treasures. Just don't let the crew in here when it starts getting full - they'll be off with it in a shot!
+You can go below deck.
+You can see a pile of diamonds.
+> drop Horn of Skarak
+
+> drop Horn of Skarak
+You drop it.
+> remove ring of chaos
+
+> remove ring of chaos
+You remove it from your finger.
+> drop ring of chaos
+
+> drop ring of chaos
+You drop it.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Shipwreck
+
+> go to Shipwreck
+
+A row boat
+The 'Merry Witch' was shipwrecked in the Great storm two years ago. The bow is slightly underwater and the stern sticks out at a jaunty angle.
+You can go to the Dancing Devil or to the slanted deck.
+> go to slanted deck
+
+> go to slanted deck
+
+The slanted deck
+The deck is quite steep and you need to hold on to things to get about. You can go up to the Captain's cabin and down into the cargo-hold.
+You can go up, down or to the row boat.
+You can see a hatch.
+> look at hatch
+
+> look at hatch
+A sturdy hatch leading down to the cargo-hold.
+There is a strong padlock keeping the hatch locked.
+> use cannonball on padlock
+
+> use cannonball on padlock
+You smash the padlock with the cannonball.
+> drop cannonball
+
+> drop cannonball
+You drop it.
+> open hatch
+
+> open hatch
+You open it.
+> down
+
+> down
+
+The cargo-hold
+It's full of seawater and quite dark down here.
+You can go up.
+You can see a black pearl.
+> take black pearl
+
+> take black pearl
+You pick it up.
+> up
+
+> up
+
+The slanted deck
+The deck is quite steep and you need to hold on to things to get about. You can go up to the Captain's cabin and down into the cargo-hold.
+You can go up, down or to the row boat.
+You can see a hatch, a padlock and a cannonball.
+> go to row boat
+
+> go to row boat
+
+A row boat
+The 'Merry Witch' was shipwrecked in the Great storm two years ago. The bow is slightly underwater and the stern sticks out at a jaunty angle.
+You can go to the Dancing Devil or to the slanted deck.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Azram Castle
+
+> go to Azram Castle
+
+A jetty
+Azram Castle is home to the evil wizard...er, Azram. He hates strangers and will probably kill you with his magic bolts of lightning if you threaten him.
+You can go to the Dancing Devil or east.
+> east
+
+> east
+
+A beach
+A small sandy beach.
+You can go west or up.
+> up
+
+> up
+
+A cliff path
+The path goes down to the beach and east to the castle.
+You can go down or east.
+> east
+
+> east
+
+The castle gates
+Two huge wooden gates lie open but are guarded.
+You can go west or in.
+You can see a guard.
+> in
+
+> in
+
+The courtyard
+A huge courtyard with doors all around going into the castle.
+You can go out, south, north, up or east.
+> up
+
+> up
+
+The tower room
+This is Azram's bed chamber. Steps lead up and down.
+You can go down or up.
+You can see a mirror.
+> up
+
+> up
+
+The observation platform
+You can see for miles beyond the Bay of Storms.
+You can go down.
+You can see a lightning rod.
+> use wand of storms on lightning rod
+
+> use wand of storms on lightning rod
+Even though the spark from the wand is small the rod charges slightly and attracts a dark storm cloud overhead.
+> use page on lightning rod
+
+> use page on lightning rod
+As soon as you touch the rod with the page a bolt of lightning from the storm cloud strikes the rod and you are sent flying across the platform. Thankfully, you're still alive! Looking down, the page has gone but in its place is a gold sceptre.
+> take Sceptre of Light
+
+> take Sceptre of Light
+You pick it up.
+> down
+
+> down
+
+The tower room
+This is Azram's bed chamber. Steps lead up and down.
+You can go down or up.
+You can see a mirror.
+> down
+
+> down
+
+The courtyard
+A huge courtyard with doors all around going into the castle.
+You can go out, south, north, up or east.
+> out
+
+> out
+
+The castle gates
+Two huge wooden gates lie open but are guarded.
+You can go west or in.
+You can see a guard.
+> west
+
+> west
+
+A cliff path
+The path goes down to the beach and east to the castle.
+You can go down or east.
+> down
+
+> down
+
+A beach
+A small sandy beach.
+You can go west or up.
+> west
+
+> west
+
+A jetty
+Azram Castle is home to the evil wizard...er, Azram. He hates strangers and will probably kill you with his magic bolts of lightning if you threaten him.
+You can go to the Dancing Devil or east.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Draven Castle
+
+> go to Draven Castle
+
+A jetty
+Draven was Azram's brother and they hated each other but no one remembers why?! A few years ago Azram finally flipped and blasted Draven with his magical bolts of lightning. He then destroyed Draven Castle and left it in ruins.
+You can go to the Dancing Devil or up.
+> up
+
+> up
+
+A clifftop
+Steps down lead to the jetty while the path splits to a lookout tower to the southeast and the castle ruins to the northeast.
+You can go down, southeast or northeast.
+> northeast
+
+> northeast
+
+The broken castle walls
+From the looks of things the castle was bigger than Azram's; jealous, much!
+You can go southwest or east.
+> east
+
+> east
+
+The ruined tower
+Most of the walls have fallen and piles of rubble lie strewn all over the place.
+You can go west or down.
+You can see a rubble and the Ghost of Draven.
+> push rubble
+
+> push rubble
+You push away the rubble. The exit is now clear!
+> down
+
+> down
+
+The crypt
+A dark chamber where little damage has occurred.
+You can go up.
+You can see a barrel.
+> use corkscrew on barrel
+
+> use corkscrew on barrel
+You bore a hole near the bottom and the water flows out completely.
+> drop corkscrew
+
+> drop corkscrew
+You drop it.
+> push barrel
+
+> push barrel
+You move the barrel and reveal a small exit to the south.
+> south
+
+> south
+
+A secret chamber
+A very small room with little light coming in.
+You can go north.
+You can see a vial of perfume and a Shield of Telos.
+> take vial of perfume
+
+> take vial of perfume
+You pick it up.
+> take Shield of Telos
+
+> take Shield of Telos
+You pick it up.
+> north
+
+> north
+
+The crypt
+A dark chamber where little damage has occurred.
+You can go up or south.
+You can see a barrel and a corkscrew.
+> up
+
+> up
+
+The ruined tower
+Most of the walls have fallen and piles of rubble lie strewn all over the place.
+You can go west or down.
+You can see a rubble and the Ghost of Draven.
+> west
+
+> west
+
+The broken castle walls
+From the looks of things the castle was bigger than Azram's; jealous, much!
+You can go southwest or east.
+> southwest
+
+> southwest
+
+A clifftop
+Steps down lead to the jetty while the path splits to a lookout tower to the southeast and the castle ruins to the northeast.
+You can go down, southeast or northeast.
+> southeast
+
+> southeast
+
+The lookout tower
+This tower is in ruins but was used to look for enemies coming up the coast from the south. It's a shame Draven didn't see his brother coming as he lives to the north.
+You can go northwest.
+You can see a spindle and a telescope.
+> use vial of perfume on spindle
+
+> use vial of perfume on spindle
+You use some of it on the spindle to get rid of the rust.
+> turn telescope
+
+> turn telescope
+You turn the telescope and it unscrews off the spindle.
+> take telescope
+
+> take telescope
+You pick it up.
+> northwest
+
+> northwest
+
+A clifftop
+Steps down lead to the jetty while the path splits to a lookout tower to the southeast and the castle ruins to the northeast.
+You can go down, southeast or northeast.
+> down
+
+> down
+
+A jetty
+Draven was Azram's brother and they hated each other but no one remembers why?! A few years ago Azram finally flipped and blasted Draven with his magical bolts of lightning. He then destroyed Draven Castle and left it in ruins.
+You can go to the Dancing Devil or up.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> go to strong-hold
+
+> go to strong-hold
+
+The strong-hold
+This is where you will store your treasures. Just don't let the crew in here when it starts getting full - they'll be off with it in a shot!
+You can go below deck.
+You can see a pile of diamonds, the Horn of Skarak and a ring of chaos.
+> drop black pearl
+
+> drop black pearl
+You drop it.
+> drop Sceptre of Light
+
+> drop Sceptre of Light
+You drop it.
+> drop Shield of Telos
+
+> drop Shield of Telos
+You drop it.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Lighthouse
+
+> go to Lighthouse
+
+A beach
+The lighthouse used to warn ships years ago to steer away from hidden reefs but has since been left abandoned due to budget costs, probably.
+You can go Dancing Devil or up.
+> up
+
+> up
+
+Outside the lighthouse
+A tall white round tower.
+You can go down or in.
+You can see a mat and a lighthouse door.
+> look at mat
+
+> look at mat
+Wipe your feet!
+Under the mat is a brass key.
+> take brass key
+
+> take brass key
+You pick it up.
+> unlock lighthouse door
+
+> unlock lighthouse door
+Unlocked with the brass key.
+> open lighthouse door
+
+> open lighthouse door
+You open it.
+> in
+
+> in
+
+Bottom of the lighthouse
+Steps leads up and down.
+You can go out, down or up.
+> down
+
+> down
+
+The basement
+A dark room with steps leading up.
+You can go up.
+You can see a crowbar.
+> take crowbar
+
+> take crowbar
+You pick it up.
+> up
+
+> up
+
+Bottom of the lighthouse
+Steps leads up and down.
+You can go out, down or up.
+> up
+
+> up
+
+The lamp room
+An old burner stands here overlooking the Inland Sea.
+You can go down.
+You can see a burner.
+> use vial of perfume on burner
+
+> use vial of perfume on burner
+You empty the remainder of the perfume into the burner.
+> use wand of storms on burner
+
+> use wand of storms on burner
+A small spark lights up the perfume and starts a fire.
+> down
+
+> down
+
+Bottom of the lighthouse
+Steps leads up and down.
+You can go out, down or up.
+> out
+
+> out
+
+Outside the lighthouse
+A tall white round tower.
+You can go down or in.
+You can see a mat and a lighthouse door.
+> drop brass key
+
+> drop brass key
+You drop it.
+> down
+
+> down
+
+A beach
+The lighthouse used to warn ships years ago to steer away from hidden reefs but has since been left abandoned due to budget costs, probably.
+You can go Dancing Devil or up.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Kabus Island
+
+> go to Kabus Island
+
+An island shore
+Kabus Island is an unknown island going back to ancient times.
+You can go Dancing Devil or west.
+> west
+
+> west
+
+Grassland
+A vast expanse of grassland with a cave to the northwest and a strange sight to the southwest.
+You can go east, northwest or southwest.
+> northwest
+
+> northwest
+
+A cave entrance
+A huge cave entrance.
+You can go southeast or in.
+> in
+
+> in
+
+Inside the Cyclops' cave
+A huge cave with a pile of human bones piled in one corner.
+You can go out.
+You can see the Cyclops and a pile of bones.
+> look at pile of bones
+
+> look at pile of bones
+A big pile of human bones.
+It contains a relic.
+> take relic
+
+> take relic
+You pick it up.
+> out
+
+> out
+
+A cave entrance
+A huge cave entrance.
+You can go southeast or in.
+> southeast
+
+> southeast
+
+Grassland
+A vast expanse of grassland with a cave to the northwest and a strange sight to the southwest.
+You can go east, northwest or southwest.
+> southwest
+
+> southwest
+
+By a carved head
+A huge granite head carved from ancient times stands looking out across the Inland Sea.
+You can go northeast.
+> use resurrection stone on head
+
+> use resurrection stone on head
+The head comes to life because of the ancient magic on this island.
+
+'I'm alive!' it yawns. 'It feels like I've been asleep for years.'
+> speak to head
+
+> speak to head
+
+You tell him about his neighbour.
+
+'A Cyclops is living on my Island! He's probably not paying rent. What a cheek!'
+
+He calls out to the Cyclops and it lumbers out of its cave and towards you and the head.
+
+'So, Mr One-Eye, you're not welcome here, now blow this joint!' he demands and with one mighty puff of breath he hurtles the Cyclops into the Inland Sea where the poor creature promptly drowns.
+
+'Sorted!' the head grins, 'Anything else?'
+> use resurrection stone on relic
+
+> use resurrection stone on relic
+The stone brings the hand to life and it starts to wriggle about. Yikes!
+> northeast
+
+> northeast
+
+Grassland
+A vast expanse of grassland with a cave to the northwest and a strange sight to the southwest.
+You can go east, northwest or southwest.
+> northwest
+
+> northwest
+
+A cave entrance
+A huge cave entrance.
+You can go southeast or in.
+> in
+
+> in
+
+Inside the Cyclops' cave
+A huge cave with a pile of human bones piled in one corner.
+You can go out.
+You can see the Golden Fleece and a pile of bones.
+> take Golden Fleece
+
+> take Golden Fleece
+You pick it up.
+> out
+
+> out
+
+A cave entrance
+A huge cave entrance.
+You can go southeast or in.
+> southeast
+
+> southeast
+
+Grassland
+A vast expanse of grassland with a cave to the northwest and a strange sight to the southwest.
+You can go east, northwest or southwest.
+> east
+
+> east
+
+An island shore
+Kabus Island is an unknown island going back to ancient times.
+You can go Dancing Devil or west.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Kanus Island
+
+> go to Kanus Island
+
+An island shore
+Kanus Island belongs to Zula the Witch. An evil woman with a fondness for dead things, especially necromancy: raising the dead.
+You can go Dancing Devil, southwest or southeast.
+> southeast
+
+> southeast
+
+Woodland
+A mass of oaks and elm trees with paths leading all around you.
+You can go northwest, south or east.
+> east
+
+> east
+
+Outside a stone building
+Not at all sure what this building is used for?!
+You can go west or in.
+You can see a horde of zombies.
+> use relic on horde of zombies
+
+> use relic on horde of zombies
+The holy relic goes into action! As it touches each of zombies the creatures crumble to dust. That's the power of a Saint for you! In no time at all the zombies are just blowing in the wind. The hand itself decides to go off and make a life for itself. Doing what is anyone's guess?!
+> in
+
+> in
+
+Inside a stone building
+A single square room with a low ceiling.
+You can go out.
+You can see the Eye of Horac.
+> take Eye of Horac
+
+> take Eye of Horac
+You pick it up.
+> out
+
+> out
+
+Outside a stone building
+Not at all sure what this building is used for?!
+You can go west or in.
+> west
+
+> west
+
+Woodland
+A mass of oaks and elm trees with paths leading all around you.
+You can go northwest, south or east.
+> northwest
+
+> northwest
+
+An island shore
+Kanus Island belongs to Zula the Witch. An evil woman with a fondness for dead things, especially necromancy: raising the dead.
+You can go Dancing Devil, southwest or southeast.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> go to strong-hold
+
+> go to strong-hold
+
+The strong-hold
+This is where you will store your treasures. Just don't let the crew in here when it starts getting full - they'll be off with it in a shot!
+You can go below deck.
+You can see a pile of diamonds, the Horn of Skarak, a ring of chaos, a black pearl, the Sceptre of Light and a Shield of Telos.
+> drop Golden Fleece
+
+> drop Golden Fleece
+You drop it.
+> drop Eye of Horac
+
+> drop Eye of Horac
+You drop it.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> close strong-hold door
+
+> close strong-hold door
+You close it.
+> lock strong-hold door
+
+> lock strong-hold door
+Locked with the iron key.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Blackskull Island
+
+> go to Blackskull Island
+
+An island shore
+Blackskull Island is where the Fountain of Rejuvenation is to be found. Its waters have magical healing powers - even bringing life back from death.
+You can go to the Dancing Devil, west or northwest.
+> west
+
+> west
+
+A dark wood
+A small path in a dark creepy wood.
+You can go east or west.
+> west
+
+> west
+
+A native village
+A village with one large hut standing in front of you.
+You can go east or in.
+> in
+
+> in
+
+Inside the Shaman's hut
+A large hut with various occult decorations.
+You can go out.
+You can see the Shaman.
+> speak to Shaman
+
+> speak to Shaman
+'Only the worthy may sample the waters from the Fountain of Rejuvenation.' he says.
+> give telescope to Shaman
+
+> give telescope to Shaman
+'Ooh, I've always wanted one of those.' he grins and takes it. 'I suppose you want something in return like the waters from the Fountain of Rejuvenation. Well it's not free. Find me the egg of the Jub-Jub bird and you may leave the island with as much water you can carry.'
+> out
+
+> out
+
+A native village
+A village with one large hut standing in front of you.
+You can go east or in.
+> east
+
+> east
+
+A dark wood
+A small path in a dark creepy wood.
+You can go east or west.
+> east
+
+> east
+
+An island shore
+Blackskull Island is where the Fountain of Rejuvenation is to be found. Its waters have magical healing powers - even bringing life back from death.
+You can go to the Dancing Devil, west or northwest.
+> northwest
+
+> northwest
+
+The Blackskull cave entrance
+A large cave entrance formed into the shape of a human black skull.
+You can go southeast or in.
+> in
+
+> in
+
+A tunnel
+A dark and dingy rocky tunnel.
+You can go out, northwest or west.
+> northwest
+
+> northwest
+
+A cavern
+A large cavern full of strange shadows and noises.
+You can go southeast.
+You can see a Giant Spider and a webs.
+> use wand of storms on webs
+
+> use wand of storms on webs
+As a spark ignites the webs the Giant Spider rushes to their rescue but burns in the attempt. The spider is toast!
+> take cube
+
+> take cube
+You pick it up.
+> southeast
+
+> southeast
+
+A tunnel
+A dark and dingy rocky tunnel.
+You can go out, northwest or west.
+> west
+
+> west
+
+A lava pool
+A pool of bubbling lava. The hot steam obscures the view across the opposite side of the cave.
+You can go east.
+You can see a pedestal.
+> use cube on pedestal
+
+> use cube on pedestal
+Bubbles emerge from the lava pool and a series of stepping stones rise from it.
+> cross stepping stones
+
+> cross stepping stones
+You cross to the other side through the steamy mist.
+
+The Fountain of Rejuvenation
+The waters here are said to cure all illnesses.
+You can see the stepping stones and a block of ice.
 > look
 
 > look
+The Fountain of Rejuvenation
+The waters here are said to cure all illnesses.
+You can see the stepping stones and a block of ice.
+> take block of ice
+
+> take block of ice
+You pick it up.
+> cross stepping stones
+
+> cross stepping stones
+You cross to the other side through the steamy mist.
+
+A lava pool
+A pool of bubbling lava. The hot steam obscures the view across the opposite side of the cave.
+You can go east.
+You can see a pedestal and the stepping stones.
+> east
+
+> east
+
+A tunnel
+A dark and dingy rocky tunnel.
+You can go out, northwest or west.
+> out
+
+> out
+
+The Blackskull cave entrance
+A large cave entrance formed into the shape of a human black skull.
+You can go southeast or in.
+> southeast
+
+> southeast
+
+An island shore
+Blackskull Island is where the Fountain of Rejuvenation is to be found. Its waters have magical healing powers - even bringing life back from death.
+You can go to the Dancing Devil, west or northwest.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Lighthouse
+
+> go to Lighthouse
+
+A beach
+The lighthouse used to warn ships years ago to steer away from hidden reefs but has since been left abandoned due to budget costs, probably.
+You can go Dancing Devil or up.
+> up
+
+> up
+
+Outside the lighthouse
+A tall white round tower.
+You can go down or in.
+You can see a mat, a lighthouse door and a brass key.
+> in
+
+> in
+
+Bottom of the lighthouse
+Steps leads up and down.
+You can go out, down or up.
+> up
+
+> up
+
+The lamp room
+An old burner stands here overlooking the Inland Sea.
+You can go down.
+You can see a burner and a fire.
+> use block of ice on fire
+
+> use block of ice on fire
+The ice block melts and a large egg emerges from it
+> take egg
+
+> take egg
+You pick it up.
+> down
+
+> down
+
+Bottom of the lighthouse
+Steps leads up and down.
+You can go out, down or up.
+> out
+
+> out
+
+Outside the lighthouse
+A tall white round tower.
+You can go down or in.
+You can see a mat, a lighthouse door and a brass key.
+> down
+
+> down
+
+A beach
+The lighthouse used to warn ships years ago to steer away from hidden reefs but has since been left abandoned due to budget costs, probably.
+You can go Dancing Devil or up.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door.
+> drop wand of storms
+
+> drop wand of storms
+You drop it.
+> drop cube
+
+> drop cube
+You drop it.
+> go to galley
+
+> go to galley
+
+The galley
+The hot galley is filled with unholy smells of rotting fish and poached rat. The strongest smell seems to emanate from Bogle the ship's cook.
+You can go below deck.
+You can see a Bogle the Cook and a crab.
+> take crab
+
+> take crab
+You pick it up.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door, the wand of storms and a cube.
+> down
+
+> down
+
+The gunnery
+This is where the action takes place. 'Load up the cannons!', 'Fire at will!', 'Get that thing of my foot!', are such sweet memories of many battles.
+You can go up, to the brig or to the cargo-hold.
+You can see a cannon.
+> go to cargo-hold
+
+> go to cargo-hold
+
+The cargo-hold
+A place full of things that are of no real value unless you like leaks and rats.
+You can go to the gunnery.
+You can see a crate.
+> use crowbar on crate
+
+> use crowbar on crate
+You prise open the crate with the crowbar.
+> take goblet
+
+> take goblet
+You pick it up.
+> go to gunnery
+
+> go to gunnery
+
+The gunnery
+This is where the action takes place. 'Load up the cannons!', 'Fire at will!', 'Get that thing of my foot!', are such sweet memories of many battles.
+You can go up, to the brig or to the cargo-hold.
+You can see a cannon.
+> up
+
+> up
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door, the wand of storms and a cube.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Port Starfall
+
+> go to Port Starfall
+
+A jetty
+Port Starfall is the residence to the Governor of the Inland Sea.
+You can go Dancing Devil or south.
+> south
+
+> south
+
 A wharf
-To the east is the infamous Rat Tail Tavern where anyone infamous hangs out. To the northeast the Gambling Halls are located and to the west is the Fighting Pit.
-You can go south, east, west or northeast.
-[state=Running]
+You are outside the jail house with two paths leading to the market and the Governor's mansion.
+You can go north, in, southwest or west.
+You can see Vanda the Artist.
+> west
+
+> west
+
+The market square
+It's normally busy but today only one stall is set up - an animal trader called Bargos.
+You can go east.
+You can see Bargos the Animal Trader and a stall.
+> look at stall
+
+> look at stall
+A wooden stall covered in bird droppings.
+It contains a parrot.
+> buy parrot
+
+> buy parrot
+'It's yours for 10 gold coins. You won't regret it as long as you have something to clean up the mess.' smirks Bargos.
+
+Suddenly he makes his excuses and leaves.
+> take parrot
+
+> take parrot
+You pick it up.
+> east
+
+> east
+
+A wharf
+You are outside the jail house with two paths leading to the market and the Governor's mansion.
+You can go north, in, southwest or west.
+You can see Vanda the Artist.
+> southwest
+
+> southwest
+
+A forest path
+A narrow picturesque path that leads south to the Governor's mansion and northeast to the wharf.
+You can go northeast or south.
+> south
+
+> south
+
+Outside the Governor's mansion
+A large building with white walls and pillars either side of the entrance.
+You can go north or in.
+> in
+
+> in
+
+The large entrance hall
+A finely furnished room with a magnificent staircase leading upstairs.
+You can go out, up, north, south or east.
+> north
+
+> north
+
+The study
+An oak-panelled room with an oak desk and an oak floor and... it's very oak-styled.
+You can go south.
+You can see Governor Gripe.
+> give parrot to Governor Gripe
+
+> give parrot to Governor Gripe
+'Oh what a lovely...er, Parrot. Comes here to uncle Gripe.' he smiles and takes the parrot off you.
+> south
+
+> south
+
+The large entrance hall
+A finely furnished room with a magnificent staircase leading upstairs.
+You can go out, up, north, south or east.
+> east
+
+> east
+
+The kitchen
+A small and functional room.
+You can go south or west.
+You can see a cupboard.
+> open cupboard
+
+> open cupboard
+You open it.
+> take hot sauce
+
+> take hot sauce
+You pick it up.
+> use hot sauce on crab
+
+> use hot sauce on crab
+You pour the sauce over the crab. Nice and hot!
+> drop hot sauce
+
+> drop hot sauce
+You drop it.
+> west
+
+> west
+
+The large entrance hall
+A finely furnished room with a magnificent staircase leading upstairs.
+You can go out, up, north, south or east.
+> up
+
+> up
+
+The landing
+There are two doors leading off to bedrooms and a narrow staircase leading up to the attic. The magnificent staircase leads back down to the entrance hall.
+You can go down, up, north or east.
+> north
+
+> north
+
+The master bedroom
+A large room with a four-poster bed.
+You can go south.
+You can see a four-poster bed.
+> look at four-poster bed
+
+> look at four-poster bed
+Large and comfy!
+It contains a pillow.
+> look at pillow
+
+> look at pillow
+A large fluffed up pillow.
+Underneath there is a handbook.
+> take handbook
+
+> take handbook
+You pick it up.
+> south
+
+> south
+
+The landing
+There are two doors leading off to bedrooms and a narrow staircase leading up to the attic. The magnificent staircase leads back down to the entrance hall.
+You can go down, up, north or east.
+> up
+
+> up
+
+The attic
+A dingy and dusty room.
+You can go down.
+You can see an oak chest.
+> open oak chest
+
+> open oak chest
+You open it.
+> take small pirate hat
+
+> take small pirate hat
+You pick it up.
+> take voodoo doll
+
+> take voodoo doll
+You pick it up.
+> down
+
+> down
+
+The landing
+There are two doors leading off to bedrooms and a narrow staircase leading up to the attic. The magnificent staircase leads back down to the entrance hall.
+You can go down, up, north or east.
+> down
+
+> down
+
+The large entrance hall
+A finely furnished room with a magnificent staircase leading upstairs.
+You can go out, up, north, south or east.
+> north
+
+> north
+
+The study
+An oak-panelled room with an oak desk and an oak floor and... it's very oak-styled.
+You can go south.
+You can see Governor Gripe.
+> give handbook to Governor Gripe
+
+> give handbook to Governor Gripe
+'How dare you rummage around in my bedroom.' he snaps and grabs his handbook off you.
+> give small pirate hat to Governor Gripe
+
+> give small pirate hat to Governor Gripe
+'I remember that, I wore that all the time as a child.' he laughs and takes it off you.
+
+'Oh, who cares!' Gripe exclaims, 'I'm going to fulfil my secret ambition and become a Pirate. I'm off to pack, have the house Captain and its contents and I'll enrol on the first ship in dock.'
+
+And with that he does. Unfortunately, your ship is the only one docked!
+> south
+
+> south
+
+The large entrance hall
+A finely furnished room with a magnificent staircase leading upstairs.
+You can go out, up, north, south or east.
+> south
+
+> south
+
+The drawing room
+The living room, the parlour, the lounge. Whatever you call it it's decorated with fine drapes and mahogany furniture.
+You can go north or east.
+You can see a portrait.
+> use crowbar on portrait
+
+> use crowbar on portrait
+You wrench the portrait off the wall and reveal a wall safe.
+> drop crowbar
+
+> drop crowbar
+You drop it.
+> north
+
+> north
+
+The large entrance hall
+A finely furnished room with a magnificent staircase leading upstairs.
+You can go out, up, north, south or east.
+> out
+
+> out
+
+Outside the Governor's mansion
+A large building with white walls and pillars either side of the entrance.
+You can go north or in.
+> north
+
+> north
+
+A forest path
+A narrow picturesque path that leads south to the Governor's mansion and northeast to the wharf.
+You can go northeast or south.
+> northeast
+
+> northeast
+
+A wharf
+You are outside the jail house with two paths leading to the market and the Governor's mansion.
+You can go north, in, southwest or west.
+You can see Vanda the Artist.
+> north
+
+> north
+
+A jetty
+Port Starfall is the residence to the Governor of the Inland Sea.
+You can go Dancing Devil or south.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door, the wand of storms and a cube.
+> go to Crews quarters
+
+> go to Crews quarters
+
+The Crew's quarters
+An array of hammocks and dirty linen.
+You can go below deck.
+You can see Governor Gripe.
+> speak to Governor Gripe
+
+> speak to Governor Gripe
+'I'm hungry!' moans Gripe.
+> give crab to Governor Gripe
+
+> give crab to Governor Gripe
+He takes a bite out of it and screams.
+
+'Too hot, too hot!' he drops something as he runs around try to cool his mouth down by waving his hand in front of it.
+> take silver key
+
+> take silver key
+You pick it up.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door, the wand of storms and a cube.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Port Starfall
+
+> go to Port Starfall
+
+A jetty
+Port Starfall is the residence to the Governor of the Inland Sea.
+You can go Dancing Devil or south.
+> south
+
+> south
+
+A wharf
+You are outside the jail house with two paths leading to the market and the Governor's mansion.
+You can go north, in, southwest or west.
+You can see Vanda the Artist.
+> southwest
+
+> southwest
+
+A forest path
+A narrow picturesque path that leads south to the Governor's mansion and northeast to the wharf.
+You can go northeast or south.
+> south
+
+> south
+
+Outside the Governor's mansion
+A large building with white walls and pillars either side of the entrance.
+You can go north or in.
+> in
+
+> in
+
+The large entrance hall
+A finely furnished room with a magnificent staircase leading upstairs.
+You can go out, up, north, south or east.
+> south
+
+> south
+
+The drawing room
+The living room, the parlour, the lounge. Whatever you call it it's decorated with fine drapes and mahogany furniture.
+You can go north or east.
+You can see a safe and a crowbar.
+> unlock safe
+
+> unlock safe
+Unlocked with the silver key.
+> open safe
+
+> open safe
+You open it.
+It contains a ruby bracelet and a locket.
+> take ruby bracelet
+
+> take ruby bracelet
+You pick it up.
+> take locket
+
+> take locket
+You pick it up.
+> drop silver key
+
+> drop silver key
+You drop it.
+> north
+
+> north
+
+The large entrance hall
+A finely furnished room with a magnificent staircase leading upstairs.
+You can go out, up, north, south or east.
+> out
+
+> out
+
+Outside the Governor's mansion
+A large building with white walls and pillars either side of the entrance.
+You can go north or in.
+> north
+
+> north
+
+A forest path
+A narrow picturesque path that leads south to the Governor's mansion and northeast to the wharf.
+You can go northeast or south.
+> northeast
+
+> northeast
+
+A wharf
+You are outside the jail house with two paths leading to the market and the Governor's mansion.
+You can go north, in, southwest or west.
+You can see Vanda the Artist.
+> north
+
+> north
+
+A jetty
+Port Starfall is the residence to the Governor of the Inland Sea.
+You can go Dancing Devil or south.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door, the wand of storms and a cube.
+> go to Crews quarters
+
+> go to Crews quarters
+
+The Crew's quarters
+An array of hammocks and dirty linen.
+You can go below deck.
+You can see Governor Gripe.
+> give locket to Governor Gripe
+
+> give locket to Governor Gripe
+'That was my true love, Martha Goldrock. Sadly she died because she played with some matches and burned her town down. Silly, woman! It's a shame the picture isn't bigger.' he sighs.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door, the wand of storms and a cube.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Port Starfall
+
+> go to Port Starfall
+
+A jetty
+Port Starfall is the residence to the Governor of the Inland Sea.
+You can go Dancing Devil or south.
+> south
+
+> south
+
+A wharf
+You are outside the jail house with two paths leading to the market and the Governor's mansion.
+You can go north, in, southwest or west.
+You can see Vanda the Artist.
+> give locket to Vanda
+
+> give locket to Vanda
+You ask Vanda if you can make a bigger portrait from the locket.
+
+'Ok, come back later and if you still want it, it will cost you 50 gold coins.' replies Vanda.
+> north
+
+> north
+
+A jetty
+Port Starfall is the residence to the Governor of the Inland Sea.
+You can go Dancing Devil or south.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Blackskull Island
+
+> go to Blackskull Island
+
+An island shore
+Blackskull Island is where the Fountain of Rejuvenation is to be found. Its waters have magical healing powers - even bringing life back from death.
+You can go to the Dancing Devil, west or northwest.
+> west
+
+> west
+
+A dark wood
+A small path in a dark creepy wood.
+You can go east or west.
+> west
+
+> west
+
+A native village
+A village with one large hut standing in front of you.
+You can go east or in.
+> in
+
+> in
+
+Inside the Shaman's hut
+A large hut with various occult decorations.
+You can go out.
+You can see the Shaman.
+> give egg to Shaman
+
+> give egg to Shaman
+'You are now worthy! The fountain has now filled with the healing waters.' he smiles.
+> give voodoo doll to Shaman
+
+> give voodoo doll to Shaman
+'Oh typical! You tourists think this half-naked native guy must be into all that voodoo stuff...' he shouts and then drops a pin. 'Ah, well I can explain. I'm, er... into sewing. Yeah, that's it, sewing.'
+> take pin
+
+> take pin
+You pick it up.
+> out
+
+> out
+
+A native village
+A village with one large hut standing in front of you.
+You can go east or in.
+> east
+
+> east
+
+A dark wood
+A small path in a dark creepy wood.
+You can go east or west.
+> east
+
+> east
+
+An island shore
+Blackskull Island is where the Fountain of Rejuvenation is to be found. Its waters have magical healing powers - even bringing life back from death.
+You can go to the Dancing Devil, west or northwest.
+> northwest
+
+> northwest
+
+The Blackskull cave entrance
+A large cave entrance formed into the shape of a human black skull.
+You can go southeast or in.
+> in
+
+> in
+
+A tunnel
+A dark and dingy rocky tunnel.
+You can go out, northwest or west.
+> west
+
+> west
+
+A lava pool
+A pool of bubbling lava. The hot steam obscures the view across the opposite side of the cave.
+You can go east.
+You can see a pedestal and the stepping stones.
+> cross stepping stones
+
+> cross stepping stones
+You cross to the other side through the steamy mist.
+
+The Fountain of Rejuvenation
+The waters here are said to cure all illnesses.
+You can see the healing waters from the fountain and the stepping stones.
+> use goblet on water
+
+> use goblet on water
+You fill the goblet with the healing waters.
+> look at goblet
+
+> look at goblet
+A small pewter drinking vessel.
+It's full of healing waters from the Fountain of Rejuvenation.
+> cross stepping stones
+
+> cross stepping stones
+You cross to the other side through the steamy mist.
+
+A lava pool
+A pool of bubbling lava. The hot steam obscures the view across the opposite side of the cave.
+You can go east.
+You can see a pedestal and the stepping stones.
+> east
+
+> east
+
+A tunnel
+A dark and dingy rocky tunnel.
+You can go out, northwest or west.
+> out
+
+> out
+
+The Blackskull cave entrance
+A large cave entrance formed into the shape of a human black skull.
+You can go southeast or in.
+> southeast
+
+> southeast
+
+An island shore
+Blackskull Island is where the Fountain of Rejuvenation is to be found. Its waters have magical healing powers - even bringing life back from death.
+You can go to the Dancing Devil, west or northwest.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Port Starfall
+
+> go to Port Starfall
+
+A jetty
+Port Starfall is the residence to the Governor of the Inland Sea.
+You can go Dancing Devil or south.
+> south
+
+> south
+
+A wharf
+You are outside the jail house with two paths leading to the market and the Governor's mansion.
+You can go north, in, southwest or west.
+You can see Vanda the Artist and a portrait.
+> buy portrait
+
+> buy portrait
+'It's yours for 50 gold coins.' smiles Vanda.
+> take portrait
+
+> take portrait
+You pick it up.
+> north
+
+> north
+
+A jetty
+Port Starfall is the residence to the Governor of the Inland Sea.
+You can go Dancing Devil or south.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door, the wand of storms and a cube.
+> go to Crews quarters
+
+> go to Crews quarters
+
+The Crew's quarters
+An array of hammocks and dirty linen.
+You can go below deck.
+You can see Governor Gripe.
+> give portrait to Governor Gripe
+
+> give portrait to Governor Gripe
+He takes the portrait and starts to cry.
+
+'Take me to Port Goldrock please, Captain. I wish to visit Martha's grave.' he begs.
+
+Next time you're at Port Goldrock you'll allow him to leave the ship.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door, the wand of storms and a cube.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> go to poop deck
+
+> go to poop deck
+
+The poop deck
+This is the back of the ship where you spend most of your time keeping an eye on the helmsman and wondering what's for dinner.
+You can go to the main deck, to Port Goldrock, to the Temple of Vlashni, to Port Clam, to the Isle of Fools, to the Shipwreck, to the Skarak Monastery, Azram Castle, to Kabus Island, to Kanus Island, to the Lighthouse, to Port Starfall, to Blackskull Island or Draven Castle.
+You can see the ship's wheel and the Helmsman.
+> go to Port Goldrock
+
+> go to Port Goldrock
+
+A jetty
+Port Goldrock is a small town that had recently befallen a disaster. A freak fire burned down most of the buildings by the former founder of the town, Martha Goldrock and no one knows why.
+You can go north or to the Dancing Devil.
+> north
+
+> north
+
+The town square
+A small square surrounded by burnt out buildings. A graveyard lies to the west.
+You can go south, west, east or north.
+> west
+
+> west
+
+A graveyard
+The town graveyard is occupied mainly by those who died in the fire. Since most of the townsfolk were out on a fishing trip that day, then only Martha Goldrock's grave lies before you.
+You can go east.
+You can see a grave, a headstone and Governor Gripe.
+> use resurrection stone on grave
+
+> use resurrection stone on grave
+There is a disturbance in the ground and a rotting hand followed by the rest of Martha's undead form rises from her grave.
+
+'Oh my, Martha. You're looking... er...' stammers Gripe.
+
+'Dead is the word you're looking for, Gripe.' replies Martha, 'It has been a while. How's things?'
+
+'I'm Governor of the Inland Sea now.' beams Gripe.
+
+'Lovely, what do you want?' she snaps.
+
+'I should of told you I loved you back then. I was foolish to deny our love for each other and then you go and do a silly little thing like arson and cremate yourself.'
+
+'It was an accident! I didn't mean to do it. Oh, Aubrey, I love you too. It's a shame were now in two different worlds. Yours is politics and mine if full of ticks, maggots and being undead.'
+
+'If only you could sample a drop from the Fountain of Rejuvenation on Blackskull Island we could be together forever... well until we both die of some terrible disease or something. The life expectancy of people like us is statistically quite short...'
+
+'Oh, shut up, Aubrey and give us a kiss.'
+
+'Maybe I'll wait for the Captain here to get you that special water first.'
+> give goblet to Martha Goldrock
+
+> give goblet to Martha Goldrock
+With Gripes' help she drinks the healing waters. Life becomes her and the two of them kiss. They thank you and Martha offers you the Amulet of Bal, a treasure for your trouble. They both leave with a future together.
+> take Amulet of Bal
+
+> take Amulet of Bal
+You pick it up.
+> east
+
+> east
+
+The town square
+A small square surrounded by burnt out buildings. A graveyard lies to the west.
+You can go south, west, east or north.
+> south
+
+> south
+
+A jetty
+Port Goldrock is a small town that had recently befallen a disaster. A freak fire burned down most of the buildings by the former founder of the town, Martha Goldrock and no one knows why.
+You can go north or to the Dancing Devil.
+> go to Dancing Devil
+
+> go to Dancing Devil
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+> down
+
+> down
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door, the wand of storms and a cube.
+> unlock strong-hold door
+
+> unlock strong-hold door
+Unlocked with the iron key.
+> open strong-hold door
+
+> open strong-hold door
+You open it.
+> go to strong-hold
+
+> go to strong-hold
+
+The strong-hold
+This is where you will store your treasures. Just don't let the crew in here when it starts getting full - they'll be off with it in a shot!
+You can go below deck.
+You can see a pile of diamonds, the Horn of Skarak, a ring of chaos, a black pearl, the Sceptre of Light, a Shield of Telos, the Golden Fleece and the Eye of Horac.
+> drop ruby bracelet
+
+> drop ruby bracelet
+You drop it.
+> drop Amulet of Bal
+
+> drop Amulet of Bal
+You drop it.
+> go to below deck
+
+> go to below deck
+
+Below deck
+Doors lead all around you as the creak of the hull gently distracts you from the awful smell coming from the galley.
+You can go up to the main deck, down to the gunnery, to the galley, to the Crews quarters, to the strong-hold or to the guest cabin.
+You can see the strong-hold door, the wand of storms and a cube.
+> close strong-hold door
+
+> close strong-hold door
+You close it.
+> lock strong-hold door
+
+> lock strong-hold door
+Locked with the iron key.
+> up
+
+> up
+
+The main deck
+This is your ship the 'Dancing Devil'. You have been a mighty pirate most of your life sailing the Western Seas, plundering and causing a mighty upset towards the locals.
+You can go to the Captains cabin, to the poop deck, down below deck or to the forecastle.
+You can see the Crew.
+
+Captain Bloodaxe grins at you as you appear on deck.
+
+'Well, Diablo. I hear you have treasure worth at least 1500 gold coins. There is no way I'm becoming your cabin-boy.' and with that he draws his sword.
+> use cutlass on Captain Ichabod Bloodaxe
+
+> use cutlass on Captain Ichabod Bloodaxe
+You battle each other for hours but you are his equal and decide to have a rest. You'll need a different plan to defeat Bloodaxe!
+You did manage to cut Bloodaxe and he bleeds on deck.
+> use voodoo doll on bloodstain
+
+> use voodoo doll on bloodstain
+You smear the blood on to the doll.
+> use pin on voodoo doll
+
+> use pin on voodoo doll
+You insert the pin into the voodoo doll and it starts to take effect. He cries in pain as you match limb for limb. After a good 15 minutes of fun he relents.
+
+'Ok, you win! I'll become your cabin-boy until the end of my days.' he sighs.
+
+You laugh to yourself and wonder at the humiliating tasks you'll get him to do. Eventually, you'll get bored and let him go.
+
+You are indeed the mighty Captain Jacob Diablo, pirate scourge and treasure-hunter of the Western Seas.
+
+Congratulations! You have completed your quest.
+
+The End
+[state=Finished]

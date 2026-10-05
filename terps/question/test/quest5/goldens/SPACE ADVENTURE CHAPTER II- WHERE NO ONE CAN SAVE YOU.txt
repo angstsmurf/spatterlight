@@ -92,24 +92,68 @@ The rather lazy guard sits on a spiffy chair and smokes a strange cigar. Judging
 > x cooler
 It is a small white model with a reddish lid.
 
-> open cooler
+> in
 
-> open cooler
-You open it.
-"HEY! DON'T TOUCH THE COOLER BLONDE!" "OK, don't get mad at me man!"
-You close the cooler.
-> take brandy
+> in
 
-> take brandy
-I can't see that.
-> take lighter
+You are in a Mine Elevator.
+The Mine Elevator appears to be made of rickety metal suspended by large rope. Five Buttons grace a small console.
+You can see a TOP Button, a F3 Button, a F2 Button, a F1 Button and a Strange Button.
+You can go out.
+> push f3 button
 
-> take lighter
-I can't see that.
-> i
+> push f3 button
+The elevator makes many creaking sounds as it descends.
 
-> i
-You are not carrying anything.
+You are in a Mine Elevator.
+The Mine Elevator appears to be made of rickety metal suspended by large rope. Five Buttons grace a small console.
+You can see a TOP Button, a F3 Button, a F2 Button, a F1 Button and a Strange Button.
+You can go out.
+> out
+
+> out
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go in, northwest or northeast.
+> northwest
+
+> northwest
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go southeast or northeast.
+> northeast
+
+> northeast
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can see a Man.
+You can go southwest or southeast.
+> x man
+
+> x man
+The rather old-looking man is bleeding in many areas. He is clutching onto some kind of fabric.
+
+> help man
+
+> help man
+As, you attempt to help the man he speaks. "Hello, good sir. I see they have sent new blood to work in these god forsaken mines. I was taken here as a young boy and look at me now. They work us all to death with very little food and water. I am nearing death myself. Here, take this!" He hands you a small piece of his shirt. "Thank you sir, I will now die in peace. Please....sa.....v...e yourself!" With that he dies.
+> southwest
+
+> southwest
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go southeast or northeast.
+> southeast
+
+> southeast
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go in, northwest or northeast.
 > in
 
 > in
@@ -127,9 +171,109 @@ You are in a Mine Elevator.
 The Mine Elevator appears to be made of rickety metal suspended by large rope. Five Buttons grace a small console.
 You can see a TOP Button, a F3 Button, a F2 Button, a F1 Button and a Strange Button.
 You can go out.
-> look
+> out
 
-> look
+> out
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go in, northwest or northeast.
+> northwest
+
+> northwest
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go southeast or northeast.
+> northeast
+
+> northeast
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can see a Sign and a Value.
+You can go southwest or southeast.
+> x sign
+
+> x sign
+A big message is written on the sign.
+
+> turn value
+
+> turn value
+You turn the value and proceed to hear a loud hiss.
+MEANWHILE...
+"JOHY! WE JUST DETECTED A GAS LEAK ON FLOOR 1. WE NEED YOUR HELP TO FIND IT!"
+"ALRIGHT ALRIGHT! I'M COMING (I was finally getting ready to finish by novel...)"
+> southwest
+
+> southwest
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go southeast or northeast.
+> southeast
+
+> southeast
+
+You are in a Mine.
+The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
+You can go in, northwest or northeast.
+> in
+
+> in
+
+You are in a Mine Elevator.
+The Mine Elevator appears to be made of rickety metal suspended by large rope. Five Buttons grace a small console.
+You can see a TOP Button, a F3 Button, a F2 Button, a F1 Button and a Strange Button.
+You can go out.
+> push top button
+
+> push top button
+The elevator makes many creaking sounds as it ascends.
+
+You are in a Mine Elevator.
+The Mine Elevator appears to be made of rickety metal suspended by large rope. Five Buttons grace a small console.
+You can see a TOP Button, a F3 Button, a F2 Button, a F1 Button and a Strange Button.
+You can go out.
+> out
+
+> out
+
+You are  at the Mine Entrance.
+You find yourself in front of a large cave in a small clearing surrounded by a dense jungle. A cooler rests nearby.
+You can see a Cooler and a Lighter.
+You can go in.
+> open cooler
+
+> open cooler
+You open it.
+It contains a Brandy.
+> take brandy
+
+> take brandy
+You remove the brandy from the cooler.
+> take lighter
+
+> take lighter
+You pick it up.
+> use ripped shirt on brandy
+
+> use ripped shirt on brandy
+You place the shirt into the bottle.
+> in
+
+> in
+
+You are in a Mine Elevator.
+The Mine Elevator appears to be made of rickety metal suspended by large rope. Five Buttons grace a small console.
+You can see a TOP Button, a F3 Button, a F2 Button, a F1 Button and a Strange Button.
+You can go out.
+> push f1 button
+
+> push f1 button
+The elevator makes many creaking sounds as it descends.
+
 You are in a Mine Elevator.
 The Mine Elevator appears to be made of rickety metal suspended by large rope. Five Buttons grace a small console.
 You can see a TOP Button, a F3 Button, a F2 Button, a F1 Button and a Strange Button.
@@ -141,22 +285,10 @@ You can go out.
 You are in a Mine.
 The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
 You can go in, northwest or northeast.
-> look
-
-> look
-You are in a Mine.
-The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
-You can go in, northwest or northeast.
 > northwest
 
 > northwest
 
-You are in a Mine.
-The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
-You can go southeast or northeast.
-> look
-
-> look
 You are in a Mine.
 The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
 You can go southeast or northeast.
@@ -168,24 +300,1366 @@ You are in a Mine.
 The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
 You can see a Sign and a Value.
 You can go southwest or southeast.
+> use lighter on cloth
+
+> use lighter on cloth
+Bravely, you light the cloth creating a makeshift bomb. Unfortunately, the shirt will not make a sufficient fuse so what ever you're going to do. DO IT NOW.
+> drop moltov cocktail
+
+> drop moltov cocktail
+You drop it.
+Carefully, you set the explosive beverage near the pipe. You shout "RUN! BOMB!" followed by thousands of people running to the elevators. Suddenly, as you make it out...*KABOOOOOM!*
+Congratulations Ken! You destroyed the evil Slang's Mines and saved thousands of lives. But, Slang is still out there but you wander....what happened to George?
+MEANWHILE EARILER THAT DAY....
+As, you wake up you find your hands tied and aboard a landing dock. A voice shouts "MOVE IT RED!" Obediently you climb aboard the hovercraft. It flies off to your doom.
+As you are flying you hear the craft sputter and then come to a complete stop. "CULQW... I TOLD YOU TO REFUEL THE CRAFT WHILE I TOOK BLONDE!!!" "HEY! YOU WERE SUPPOSED TO DO IT YESTERDAY!" "NO! YOU BLAH BLAH BLAH!" "BLAH BLAH BLAHBLAH!"
+The ridiculous argument is cut short as gravity restarts itself. "ARRRRRRGH!"
+You find yourself on top of a formerly functional guard. Without him you probably wouldn't have survived the fall.
+You are in a Clearing.
+This appears to be a small clearing in a otherwise dense jungle. A crashed hovercraft is nearby along with two formerly functional guards.
+You can see an Obliterated Hovercraft and a Non-functional Guards.
+You can go northwest.
 > look
 
 > look
-You are in a Mine.
-The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
-You can see a Sign and a Value.
-You can go southwest or southeast.
+You are in a Clearing.
+This appears to be a small clearing in a otherwise dense jungle. A crashed hovercraft is nearby along with two formerly functional guards.
+You can see an Obliterated Hovercraft and a Non-functional Guards.
+You can go northwest.
+> x obliterated hovercraft
+
+> x obliterated hovercraft
+The hovercraft is very bent, broken and badly drawn. Various electronic additions seem to be broken into unusable states. A small red button seems to be the only thing intact.
+
+> press red button
+
+> press red button
+The button stops flashing and you no longer hear the annoying sound.
+> search non-functional guards
+
+> search non-functional guards
+You find a pair of keys on one of the guards.
+> take keys
+
+> take keys
+You pocket the keys.
+> northwest
+
+> northwest
+
+You are in a Jungle.
+This area of the jungle seems to be sparsely foliaged compared to the otherwise dense wood. One prominent tree stands in the center of the area.
+You can see a Giant Tree.
+You can go southeast, west or northeast.
+> west
+
+> west
+
+You are in a Jungle.
+This area of the jungle seems to have much flora. A barley visible path leads northwest while a raising cliff blocks passage to the north. Three different bushels of plants clutter the way.
+You can see a Red Bulb, a Yellow Plant and a Sharp Plant.
+You can go east or north.
+> take red bulb
+
+> take red bulb
+Sure. It'll look good in your quarters.
+> north
+
+> north
+
+You are in a Jungle.
+This area seems cramped to the other places in the jungle. A small sign sits next to a path leading to east.
+You can see a Crude Sign.
+You can go east or south.
+> x crude sign
+
+> x crude sign
+It is a rather crude looking sign that looks like it was hastily made.
+
+> east
+
+> east
+
+You are in a Jungle Maze.
+The Maze is filled with flora covered pathes all alike.
+You can go west, north, south, east, northwest or southeast.
 > southeast
 
 > southeast
 
-You are in a Mine.
-The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
-You can go northwest or southwest.
+You are in a Jungle Maze.
+The Maze is filled with flora covered pathes all alike.
+You can go west, northwest or southwest.
+> southwest
+
+> southwest
+
+You are in a Jungle Maze.
+The Maze is filled with flora covered pathes all alike.
+You can go northeast or west.
+> west
+
+> west
+
+You are in a Jungle Maze.
+The Maze is filled with flora covered pathes all alike.
+You can see a Sticky Tree.
+You can go east.
+> x sticky tree
+
+> x sticky tree
+Upon, looking at the tree you notice it covered in a sticky sap secretion.
+> take sticky sap
+
+> take sticky sap
+OK.
+Being careful not to stick your self to the tree you manage to remove the sticky stickiness and place it delicately in your pocket.
+> rub sticky sap
+
+> rub sticky sap
+You rub the sap on both hands until they become absolutely sticky.
+> east
+
+> east
+
+You are in a Jungle Maze.
+The Maze is filled with flora covered pathes all alike.
+You can go northeast or west.
+> northeast
+
+> northeast
+
+You are in a Jungle Maze.
+The Maze is filled with flora covered pathes all alike.
+You can go west, northwest or southwest.
+> northwest
+
+> northwest
+
+You are in a Jungle Maze.
+The Maze is filled with flora covered pathes all alike.
+You can go west, north, south, east, northwest or southeast.
+> west
+
+> west
+
+You are in a Jungle.
+This area seems cramped to the other places in the jungle. A small sign sits next to a path leading to east.
+You can see a Crude Sign.
+You can go east or south.
+> south
+
+> south
+
+You are in a Jungle.
+This area of the jungle seems to have much flora. A barley visible path leads northwest while a raising cliff blocks passage to the north. Three different bushels of plants clutter the way.
+You can see a Yellow Plant and a Sharp Plant.
+You can go east or north.
+> east
+
+> east
+
+You are in a Jungle.
+This area of the jungle seems to be sparsely foliaged compared to the otherwise dense wood. One prominent tree stands in the center of the area.
+You can see a Giant Tree.
+You can go southeast, west or northeast.
+> climb giant tree
+
+> climb giant tree
+OK.
+
+You are in a Tree Top.
+The top of tree gives you a nice looks of all the jungle on Hrkalis. Far, Far, FAR to the southeast you see the landing dock from where you originated.
+You can see a Nest and a Branch.
+> x nest
+
+> x nest
+It is a small nest made of small twigs. You guess it belongs to a Hrkalian Busxicsnott Pigeon.
+A egg rests inside it.
+
+> take egg
+
+> take egg
+OK.
+> take branch
+
+> take branch
+OK.
+You pull and pull on the branch but you can't seem to remove it. Then, with all your might you pull until you suddenly pull it out! This causes you to tumble backwards out of the tree!
+"AHHHHHHHHHH!"
+*BAM!*
+Fortunately, you come to a rather soft landing in a pile of leaves. Finally, you put the branch in your pocket. "OUCH!"
+
+You are in a Jungle.
+This area of the jungle seems to be sparsely foliaged compared to the otherwise dense wood. One prominent tree stands in the center of the area.
+You can see a Giant Tree.
+You can go southeast, west or northeast.
+> northeast
+
+> northeast
+
+You are in a Jungle.
+Like other areas of the jungle this seems covered with dense foliage. A small path leads to the east.
+You can go southwest or east.
+> east
+
+> east
+
+You are in a Jungle.
+This appears to be a more open area of the jungle based on the cliffs to the north and south. To the north you see a dense jungle valley with a river running through it. To the south you see nothing but jungle.
+You can see a Bush.
+You can go west or east.
+> east
+
+> east
+
+You are in a Jungle.
+Oh my! The path grows much thinner. Passage to east is blocked by a large gorge. Small foliage surrounds the cliffsides.
+You can see a Dead Tree and a Gorge.
+You can go west or east.
+> use red bulb on dead tree
+
+> use red bulb on dead tree
+You squeeze the bulbous plant on the dead tree. Acid travels through the side of the tree then, *BAM*
+The tree falls creating a bridge across the chasm.
+> east
+
+> east
+
+You are in a Jungle.
+The Jungle is lightly forested.
+You can go west or east.
+> east
+
+> east
+
+You are in a Jungle.
+In this odd section of the jungle you see a tree spiraling upwards above your head from the bushes.
+You can go west or east.
+"WOAH!"
+To your surprise you're swept up in a net unable to move freely!
+You struggle to break the net but noticing the unforgiving surface below you decide it wouldn't be a good idea so you sit and wait.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+The boringness of sitting here in this net causes you to snooze of into dreamland.
+Time Passed...
+You have an odd dream of falling and something catching you but you can't quite make it out.
+Time Passed...
+Finally, you wake up from your pleasant slumber (hopefully not your last!).
+
+You are in a Cage.
+You find yourself in a iron cage inside of a rocky inclove. Many bones and pieces of presumably the local jungle creatures surround the inside making you feel nervous.
+You can see a Lock.
+You can go out.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
 > look
 
 > look
-You are in a Mine.
-The dark dreary mines give you a depressing feeling. Numerous slaves work quickly at the walls with pick-axes hoping to strike gold for the fat lard Slang. Rocky cliffs form the walls. A huge pit is in the middle of the room. (No, you can't jump or fall in it).
-You can go northwest or southwest.
-[state=Running]
+You are in a Cage.
+You find yourself in a iron cage inside of a rocky inclove. Many bones and pieces of presumably the local jungle creatures surround the inside making you feel nervous.
+You can see a Lock.
+You can go out.
+> use red bulb on lock
+
+> use red bulb on lock
+Squeezing the bulb once again acid sputters on to the lock melting it into an unusable state. Having, taxed its resources you discard the bulb.
+> out
+
+> out
+
+You are in a Campsite.
+You are find a small campsite surrounded to the east and west by huge rocks and a sheer drop to the south with a small path up to the north. A cage sits in one corner and a fire crackles nearby.
+You can see a Hunter, a Rope and a Stone.
+You can go north or in.
+Uh oh! You spot a rather tough hunter sitting next to the south cliff. He doesn't seem to notice you for the time being.
+> throw egg with hunter
+
+> throw egg with hunter
+"EAT THIS!" you shout as you toss the egg at the hunter. He turns around as the egg hits him right in the face causing him to fall backwards off the cliff! Way to go George!
+> take rope
+
+> take rope
+OK.
+You pick up the rope.
+You pick up the rope some more.
+"DAMN!" you think. "That was a long piece of rope! Must be 1,500 feet long.".
+> take stone
+
+> take stone
+OK.
+> north
+
+> north
+
+You are  near Cliffside.
+You are standing next to a sheer cliff. It looks impressively far down which ruins any plans you made have had to jump.
+You can go west or south.
+> west
+
+> west
+
+You are in a Jungle.
+In this odd section of the jungle you see a tree spiraling upwards above your head from the bushes.
+You can go west or east.
+> west
+
+> west
+
+You are in a Jungle.
+The Jungle is lightly forested.
+You can go west or east.
+> west
+
+> west
+
+You are in a Jungle.
+Oh my! The path grows much thinner. Passage to east is blocked by a large gorge. Small foliage surrounds the cliffsides.
+You can see a Log and a Gorge.
+You can go west or east.
+> tie rope with log
+
+> tie rope with log
+You securely tie the rope to the log then toss the rest down.
+> down
+
+> down
+
+You are in a Gorge.
+You find yourself hanging on a rope abovs a raging river below. It seems to be unsurvivable possibly maybe.
+You can see a River.
+You can go up.
+As you hang to rope a incredibly loud explosion shakes the ground around yout he rope then. breaks against the strain causing you to drop into the swift river. You are washed down the river shortly before entering a dark cavern. Eventually, light shines in your face and you wash on some hard rock surface.
+
+You are in a Cavern.
+This appears to be a dark cavern. You can see absolutely nothing ahead. You do hear the sounds of running water ahead.
+You can see a Pond.
+You can go east.
+> z
+
+> z
+Time passes.
+> look
+
+> look
+You are in a Cavern.
+This appears to be a dark cavern. You can see absolutely nothing ahead. You do hear the sounds of running water ahead.
+You can see a Pond.
+You can go east.
+> east
+
+> east
+
+You are in a Cavern.
+This is a normal cave. You notice a hole on the north wall that you could crawl through.
+You can go north, east or west.
+> north
+
+> north
+
+You are in a Small Cave.
+Crawling, through the hole you find yourself in a small cave area. The walls seem eerily close. Wowzers! Tons and tons of sparkling gems fill the wall! Maybe this area is somewhere near one of Slang's mines?
+You can see a Glowing Gem.
+You can go south.
+> take glowing gem
+
+> take glowing gem
+Done.
+> south
+
+> south
+
+You are in a Cavern.
+This is a normal cave. You notice a hole on the north wall that you could crawl through.
+You can go north, east or west.
+> east
+
+> east
+
+You are in a Cavern.
+Many stalactites and stalagmites litter this particular area of the mysterious caves.
+You can go west or east.
+> east
+
+> east
+
+You are in a Cavern.
+Its just more of the depressing caverns beneath the ferocious jungle.
+You can go west or east.
+> east
+
+> east
+
+You are in a Cavern.
+This is apparently where the water from the pond ends up. A swift fiver forms from a creek falling of rocks to the southwest.
+You can go west or east.
+Phew! The light gives you a chance to survey the surroundings. Hmm... you wonder why this area has light and the others don't. Then again you did walk a long distance between places. WOW! A gigantic swift river is to the east!
+> east
+
+> east
+
+You are in a River.
+You are swimming in a swift river.
+You can go west or northwest.
+> northwest
+
+> northwest
+
+You are in a River.
+You are swimming in a swift river.
+You can go southeast or east.
+> east
+
+> east
+
+You are in a River.
+You are swimming in a swift river.
+You can go west or southeast.
+> southeast
+
+> southeast
+
+You are in a River.
+You are swimming in a swift river. You notice to the west beyond some rocks is where you first started swimming in the river.
+You can go northwest or east.
+> east
+
+> east
+
+You are in a River.
+You are swimming in a swift river.
+You can go west or east.
+> east
+
+> east
+
+You are in a River.
+You are swimming in a swift river. Two paths lead to the northwest and northeast.
+You can go west, northeast or northwest.
+> northwest
+
+> northwest
+
+You are in a River.
+You are swimming in a swift river.
+You can go southeast.
+Uh oh! You've found yourself in a area of the river containing a deadly whirlpool! You lose all ability to swim against the currents. You surrender yourself to death. You feel yourself being sucked (no not that way you pervert) down.
+You lose all sense of motion in the water. It feels like riding the Swirl-O-Wonders from Ferferoun State Park. Suddenly, you feel yourself being spat out!
+
+You are in a Pondside.
+This is just one of the many Hrkalin tourist traps. Its main feature is the cliff-hanging face known for the facts it looks like a face on a cliffside, it has a small waterfall coming out of it and no one knows whats inside except you.
+You can see a Cliff-hanging Face, a Railing and a Tourists.
+You can go east.
+You land in a small pond with slightly blurred vision. All you hear are voices followed by the sight of oh my god...tourists! They pull you out revealing you've made it all the way to one of Hrkalis' famous tourist points. One man asks you "You came out of the infamous cliff-hanging face! What's it like in thar?" "Wet." you reply. The man mad at your sarcastic (well, you weren't TRYING to) response stumbles of to the east.
+> look
+
+> look
+You are in a Pondside.
+This is just one of the many Hrkalin tourist traps. Its main feature is the cliff-hanging face known for the facts it looks like a face on a cliffside, it has a small waterfall coming out of it and no one knows whats inside except you.
+You can see a Cliff-hanging Face, a Railing and a Tourists.
+You can go east.
+> east
+
+> east
+
+You are in a Clearing.
+You find yourself in a small clearing with foliage surrounding the southern and eastern ends. A small barley visible path goes of to the north leading to *GASP* the landing dock!
+You can see a Plaque.
+You can go west or north.
+> north
+
+> north
+
+You are in a Clearing.
+You are in a clearing filled with many bushes and an odd sand-like ground. Looking up you realize you are at the foot of the landing dock!
+You can see a Guard and a Lift.
+You can go south.
+You notice a guard blocking a lift possibly that leads up to the top of the dock. He doesn't seem to see you as you are being hidden by the bushes.
+> hit guard with branch
+
+> hit guard with branch
+You sneak behind the guard while he is not looking and smoothly scream like Xarzan and thump the man unconscious with the branch. (We like how you think!)
+Unfortunately, it was too much for the branch. You decide to discard it.
+> get on lift
+
+> get on lift
+You step on to the lift. It begins to slowly ascend...
+
+You are on a Landing Dock.
+This is the dock you originated from. It rises above the trees giving you a nice few of the deadly flora.
+A shuttle is nearby.
+You can see a Lift and a Shuttle.
+> get in shuttle
+
+> get in shuttle
+OK.
+
+You are in a Shuttle.
+This seems like a small deluxe CVB-5695AZX Samson model. Many trinkets and lights surround the environment but only a few you have a clear knowledge of.
+You can see a Navigational Stick, a Purple Button, a Slot, an AT Dial and a PC.
+> use keys on slot
+
+> use keys on slot
+You insert the keys into the slot and give it a firm turn. The ship then proceeds to activate!
+> push purple button
+
+> push purple button
+You push the purplish button. Suddenly the PC flashes on!
+> x pc
+
+> x pc
+
+> turn at dial
+
+> turn at dial
+You turn the dial to vertical.
+> pull navigational stick
+
+> pull navigational stick
+You pull the stick and the ship ascends upwards into the atmosphere.
+Congratulations George! You survived the deadly flora and fauna, outsmarted Slang's goons and escaped that AWFUL planet. You begin to wonder "Now what?"
+Suddenly, the PC flashes the ugly image of Dr. Slang!
+
+"So, George you seem to be more than the eye sees. You have outsmarted by best minions and somehow bungled your way through the intense jungle. I am impressed. How would you like to join me in my domination of the nebula?"
+You swear to Slang's ugly face you'll never join him!
+"Very well. I expected that from you Winstein. No matter, you are now my prisoner. I've gained control of your shuttle and have set a direct course for my Space Fortress. Be seeing you!"
+With that the image fades and the shuttle takes a mind of its own.
+Then, you see the massive fortress followed by the opening of the bay doors. The shuttle lands and you head outside.
+
+You are in a Landing Pad.
+This is the biggest room you've seen! It is huge with blue walls and bay doors on the north wall. A hallway looks like it goes east.
+You can see a Bay Doors and a Shuttle.
+You can go east or west.
+You are relieved that Slang's minions are not here to cancel your life subscription. But it makes you wonder what he has planned for you.
+> look
+
+> look
+You are in a Landing Pad.
+This is the biggest room you've seen! It is huge with blue walls and bay doors on the north wall. A hallway looks like it goes east.
+You can see a Bay Doors and a Shuttle.
+You can go east or west.
+> east
+
+> east
+
+You are in a Catwalk.
+WOW! This fortress is really huge. Several catwalks hang high above you. Far, far below you is the floor.
+You can go west or east.
+> east
+
+> east
+
+You are in a Catwalk.
+This appears to be the end of the catwalk. A clear elevator tube is at the end going up.
+You can see an Elevator.
+You can go west.
+> enter elevator
+
+> enter elevator
+
+You are in an Elevator.
+The elevator is one of those clear tube models. A small panel displays 660 buttons but a sign tells you Floors 5-660 are under intense cleaning due to a out of control party celebrating the completion of the BlasterX4. Currently, you are on Floor 1.
+You can see an One Button, a Two Button, a Three Button and a Four Button.
+You can go out.
+> press two button
+
+> press two button
+As soon you as press the button the elevator quickly ascends.
+
+You are in an Elevator.
+The elevator is one of those clear tube models. A small panel displays 660 buttons but a sign tells you Floors 5-660 are under intense cleaning due to a out of control party celebrating the completion of the BlasterX4. Currently, you are on Floor 2.
+You can see an One Button, a Two Button, a Three Button and a Four Button.
+You can go out.
+> out
+
+> out
+
+You are in a Catwalk.
+This part of a long catwalk leading of to the west. A hallway leads into the east.
+You can see an Elevator.
+You can go east or west.
+> east
+
+> east
+
+You are in a Hallway.
+This hallway appears to be inside a large blue tube. Blue. You are starting to wonder about Slang's desgin scheme.
+You can go west or east.
+> east
+
+> east
+
+You are in a Hallway.
+The design of these hallways all look alike. Some odd looking stairs lead downward.
+You can go west, east or down.
+> east
+
+> east
+
+You are in a Hallway.
+These hallways ALL look alike. This is driving you INSANE.
+You can go west or east.
+> east
+
+> east
+
+You are in a Hallway.
+Hey, their looks like to be a closet in here! Finally the hallway design scheme was getting dull by your standards (which is kinda low!).
+You can see a Closet.
+You can go west or east.
+> open closet
+
+> open closet
+You open it.
+Its hard to see inside the dark closet but you see a Bucket and an Oxygen Tank.
+> take bucket
+
+> take bucket
+OK.
+> take oxygen tank
+
+> take oxygen tank
+OK.
+You wonder "What's this doing in a Janitor's Closet?" You shrug it off and casually (and VERY carefully) put it in your pocket.
+> west
+
+> west
+
+You are in a Hallway.
+These hallways ALL look alike. This is driving you INSANE.
+You can go west or east.
+> west
+
+> west
+
+You are in a Hallway.
+The design of these hallways all look alike. Some odd looking stairs lead downward.
+You can go west, east or down.
+> west
+
+> west
+
+You are in a Hallway.
+This hallway appears to be inside a large blue tube. Blue. You are starting to wonder about Slang's desgin scheme.
+You can go west or east.
+> west
+
+> west
+
+You are in a Catwalk.
+This part of a long catwalk leading of to the west. A hallway leads into the east.
+You can see an Elevator.
+You can go east or west.
+> enter elevator
+
+> enter elevator
+
+You are in an Elevator.
+The elevator is one of those clear tube models. A small panel displays 660 buttons but a sign tells you Floors 5-660 are under intense cleaning due to a out of control party celebrating the completion of the BlasterX4. Currently, you are on Floor 2.
+You can see an One Button, a Two Button, a Three Button and a Four Button.
+You can go out.
+> press three button
+
+> press three button
+As soon you as press the button the elevator quickly ascends.
+
+You are in an Elevator.
+The elevator is one of those clear tube models. A small panel displays 660 buttons but a sign tells you Floors 5-660 are under intense cleaning due to a out of control party celebrating the completion of the BlasterX4. Currently, you are on Floor 3.
+You can see an One Button, a Two Button, a Three Button and a Four Button.
+You can go out.
+> out
+
+> out
+
+You are in a Catwalk.
+Wow! Another catwalk! Besides an elevator nothing else is interesting.
+You can see an Elevator.
+You can go east or west.
+> east
+
+> east
+
+You are in a Hallway.
+This is just a hallway. Several odd unopenable panels are on the north wall.
+You can go west or east.
+> east
+
+> east
+
+You are in a Hallway.
+This is another one of the hallways aboard this bland fortress. You think you should give Slang the number of your house designer.
+A door sits on the north wall.
+You can see a Door.
+You can go west, in or east.
+> open door
+
+> open door
+OK.
+> in
+
+> in
+
+You are in a Bathroom.
+This is the universal waste disposal room. Stalls adorn the north wall and urinals on the east wall. A single sink lies on the west wall. Their is paper towel and soap dispenser next to it.
+You can see a Sink, a Soap Dispenser, a Paper Towel Dispenser, a Stalls and an Urinals.
+You can go out.
+> x sink
+
+> x sink
+Hey it looks like somebody left their lighter to wash their hands and forget to take it.
+> take lighter
+
+> take lighter
+OK.
+You liberate the lighter from the sink and are scared to discover it is rather sticky.
+> use bucket on sink
+
+> use bucket on sink
+You fill the bucket with water from sink. Hmmmmm what are you planning George?
+> open stalls
+
+> open stalls
+You open the only available stall.
+It contains a Toilet and a Toilet Paper.
+> take toilet paper
+
+> take toilet paper
+OK.
+You consider the morality of this move but continue as they could just get another roll from the janitor.
+> tie toilet paper with oxygen tank
+
+> tie toilet paper with oxygen tank
+You tie the long piece of toilet paper to the oxygen tank value.
+> out
+
+> out
+
+You are in a Hallway.
+This is another one of the hallways aboard this bland fortress. You think you should give Slang the number of your house designer.
+A door sits on the north wall.
+You can see a Door.
+You can go west, in or east.
+> east
+
+> east
+
+You are in a Hallway.
+It is another one of Slang's hallways.
+You can go west or east.
+> east
+
+> east
+
+You are in a Hallway.
+Another blue hallway. The door to the tool housing sits on the north wall.
+You can see a Door.
+You can go west, in or east.
+> open door
+
+> open door
+You open it.
+> in
+
+> in
+
+You are in a Tool Room.
+The Tool Room holds many interesting and uninteresting tools used for universal purposes but only a few catch the eye. A calendar sits on the back wall.
+You can see a Wrench and a Calendar.
+You can go out.
+> take wrench
+
+> take wrench
+You take the wrench and decide to carry it with you where ever you go.
+> out
+
+> out
+
+You are in a Hallway.
+Another blue hallway. The door to the tool housing sits on the north wall.
+You can see a Door.
+You can go west, in or east.
+> west
+
+> west
+
+You are in a Hallway.
+It is another one of Slang's hallways.
+You can go west or east.
+> west
+
+> west
+
+You are in a Hallway.
+This is another one of the hallways aboard this bland fortress. You think you should give Slang the number of your house designer.
+A door sits on the north wall.
+You can see a Door.
+You can go west, in or east.
+> west
+
+> west
+
+You are in a Hallway.
+This is just a hallway. Several odd unopenable panels are on the north wall.
+You can go west or east.
+> west
+
+> west
+
+You are in a Catwalk.
+Wow! Another catwalk! Besides an elevator nothing else is interesting.
+You can see an Elevator.
+You can go east or west.
+> enter elevator
+
+> enter elevator
+
+You are in an Elevator.
+The elevator is one of those clear tube models. A small panel displays 660 buttons but a sign tells you Floors 5-660 are under intense cleaning due to a out of control party celebrating the completion of the BlasterX4. Currently, you are on Floor 3.
+You can see an One Button, a Two Button, a Three Button and a Four Button.
+You can go out.
+> press four button
+
+> press four button
+As soon you as press the button the elevator quickly ascends.
+
+You are in an Elevator.
+The elevator is one of those clear tube models. A small panel displays 660 buttons but a sign tells you Floors 5-660 are under intense cleaning due to a out of control party celebrating the completion of the BlasterX4. Currently, you are on Floor 4.
+You can see an One Button, a Two Button, a Three Button and a Four Button.
+You can go out.
+> out
+
+> out
+
+You are in a Catwalk.
+You can see an Elevator.
+You can go east or west.
+> east
+
+> east
+
+You are in a Hallway.
+This hallway looks oddly greyish. A sign indicates this is the prison level.
+You can go west or east.
+> east
+
+> east
+
+You are in a Hallway.
+You notice a bunch of security cameras on the wall. Two cell doors adorn the northern wall.
+You can see a Security Cameras, a Cell Door #1 and a Cell Door #2.
+You can go west or east.
+> east
+
+> east
+
+You are in a Hallway.
+There are three doors distinctly on the wall. Two cell doors and one set of double doors from which you guess leads to a lounge of sorts.
+You can see a Cell Door #3, a Double Doors and a Cell Door #4.
+You can go in, west or east.
+> open cell door #4
+
+> open cell door #4
+OK.
+Nervously, you open the cell door and are surprised no one/creature/intergalactic demon is inside. You strongly feel this is a trap by Slang.
+Without entering the room you notice a Pile of Somebody.
+> search pile of somebody
+
+> search pile of somebody
+You bend down (to avoid entering the room thinking its a trap) and look through the pile of a digested person and find a Code Card relatively intact.
+> take code card
+
+> take code card
+You pick up the code card and carry it with you. Maybe it'll be useful.
+> open double doors
+
+> open double doors
+You open it.
+> in
+
+> in
+
+You are in a Lounge.
+The lounge reminds you of the 'Karen's Pub' in the southern Orion Belt (which by the way you carry stocks in). Many guards lay around drunk while a bartender sits behind a counter.
+You can see a Bartender.
+You can go out.
+> speak to bartender
+
+> speak to bartender
+"Shhhterri! Shhhhow shhhare*hic*shhhyou?"
+(Obviously he has mistaken you for someone)
+"Shhhhgegory shhhhhcalled shhhince shhhhyou shhdon't shhlike shhhhhthe shhhdrinking shhhhparties shhhdeliver this shhhbeer shhhto shhhlieutenant shhhawn."
+He flips a Mug brimming with beer (or something resembling it). You take it and carefully balance it in your left pants pocket.
+> out
+
+> out
+
+You are in a Hallway.
+There are three doors distinctly on the wall. Two cell doors and one set of double doors from which you guess leads to a lounge of sorts.
+You can see a Cell Door #3, a Double Doors and a Cell Door #4 (containing a Pile of Somebody).
+You can go in, west or east.
+> west
+
+> west
+
+You are in a Hallway.
+You notice a bunch of security cameras on the wall. Two cell doors adorn the northern wall.
+You can see a Security Cameras, a Cell Door #1 and a Cell Door #2.
+You can go west or east.
+> west
+
+> west
+
+You are in a Hallway.
+This hallway looks oddly greyish. A sign indicates this is the prison level.
+You can go west or east.
+> west
+
+> west
+
+You are in a Catwalk.
+You can see an Elevator.
+You can go east or west.
+> enter elevator
+
+> enter elevator
+
+You are in an Elevator.
+The elevator is one of those clear tube models. A small panel displays 660 buttons but a sign tells you Floors 5-660 are under intense cleaning due to a out of control party celebrating the completion of the BlasterX4. Currently, you are on Floor 4.
+You can see an One Button, a Two Button, a Three Button and a Four Button.
+You can go out.
+> press two button
+
+> press two button
+As soon you as press the button the elevator quickly descends.
+
+You are in an Elevator.
+The elevator is one of those clear tube models. A small panel displays 660 buttons but a sign tells you Floors 5-660 are under intense cleaning due to a out of control party celebrating the completion of the BlasterX4. Currently, you are on Floor 2.
+You can see an One Button, a Two Button, a Three Button and a Four Button.
+You can go out.
+> out
+
+> out
+
+You are in a Catwalk.
+This part of a long catwalk leading of to the west. A hallway leads into the east.
+You can see an Elevator.
+You can go east or west.
+> east
+
+> east
+
+You are in a Hallway.
+This hallway appears to be inside a large blue tube. Blue. You are starting to wonder about Slang's desgin scheme.
+You can go west or east.
+> east
+
+> east
+
+You are in a Hallway.
+The design of these hallways all look alike. Some odd looking stairs lead downward.
+You can go west, east or down.
+> down
+
+> down
+
+You are in a Hallway.
+This hallway has a strange feeling to it.
+You can go up, east or west.
+> east
+
+> east
+
+You are in a Hallway.
+This hallway has an eerie quality to it. On the back what are doors in which droids are  desposited. A strange indent is on the east wall. Maybe there is something behind it?
+You can see a MEGA-CL34XV.
+You can go west.
+OH NOOOOOO!
+Its a MEGA-CL34XV! Watch out!
+> throw bucket with mega-cl34xv
+
+> throw bucket with mega-cl34xv
+Shouting like your old priest you splash the water all over the droid. He fizzes out for a moment then explodes destroying the bucket in the process.
+Nice thinking George!
+> drop oxygen tank
+
+> drop oxygen tank
+OK. Just be careful.
+> use lighter on oxygen tank
+
+> use lighter on oxygen tank
+You carefully light the toilet paper fuse and start running away!
+
+You are in a Hallway.
+The design of these hallways all look alike. Some odd looking stairs lead downward.
+You can go west, east or down.
+You hear an explosion far below followed by a huge THUD!
+> down
+
+> down
+
+You are in a Hallway.
+This hallway has a strange feeling to it.
+You can go up, east or west.
+> east
+
+> east
+
+You are in a Hallway.
+This hallway has an eerie quality to it. On the back what are doors in which droids are  desposited. A strange indent is on the east wall. Maybe there is something behind it?
+You can go west or east.
+> east
+
+> east
+
+You are in a Chamber.
+This room looks very black and mysterious. A high pedestal rises from the back-middle of the room with stairs going up.
+You can go west or up.
+Suddenly, a barrier springs up blocking passage back to the west! Slang's voice booms up high from the pedestal;
+"SO GEORGE, IT APPEARS MY MINIONS HAVE FAILED ME. YOUR MUCH MORE THAN WHAT MEETS THE EYE. YOU SURVIVED ON HRKALIS ON WITS ALONE AND BROKE THROUGH MY IMPENERTRABLE FORTRESS. HOW WOULD YOU LIKE TO JOIN ME?"
+You swear to Slang's bald head you'll NEVER help him!
+"FIGURED. OH, WELL I'VE GOT BUISNESS TO ATTEND TO SO JUST WAIT TO DIE PLEASE?"
+This is followed by beeps and boops then a synthesized voice saying:
+"LASER READY. 10 MINUTES TILL FIRE."
+> up
+
+> up
+
+You are on a Pedestal.
+This is Slang's main control center. An extensive computer is spread out the north side. Beyond it you see a window looking out into space. Your eye notices a cage on the console.
+You can see a Computer Console.
+You can go down or up.
+Slang shouts "HA! YOU FELL RIGHT INTO MY TRAP!"
+At, that moment a huge cloud of purple dust envelops you from the ceiling. It goes away after bit but you can't help but feel things got bigger.
+OH MY @$%^ YOU'RE SHRINKING!
+"Ah! Seems I finally prefected my Shrink Powder!" (You gain severe ringing in your ears!)
+Slang picks you up and puts you in a cage on his console.
+You start to think adventuring sucks.
+
+You are in a Cage.
+This Cage is small and dank. The bars are spread far across. From within you can see the large chamber.
+> climb out of cage
+
+> climb out of cage
+OK.
+As you slip between the bars you think that Slang did not think this through.
+
+You are in a Console.
+You are on top of Slang's computer console. A cage is nearby.
+You can see a Cage and a Ventilation.
+> climb in ventilation
+
+> climb in ventilation
+OK.
+
+You are in a Computer.
+You appear to be inside Slang's main computer. Three fuses sit on the northern wall while Slang's secondary life support system sits on the far left.
+You can see a Ventilation, a Life Support System, a Blue Fuse, a Red Fuse, a Yellow Fuse and a Big Black Button.
+> x life support system
+
+> x life support system
+Due to lack of a overall lower body mass Slang runs on life support.
+
+> push big black button
+
+> push big black button
+Good Idea!
+You hear a whiring sound as the computer reboots.
+"LASER SEQUENCE ABORTION DUE REBOOTION"
+You hear Slang yell "WHAT NOW?!? GEORGE! YOU'VE FOILED MY PLANS?!?"
+> get out ventilation
+
+> get out ventilation
+OK.
+
+You are in a Console.
+You are on top of Slang's computer console. A cage is nearby.
+You can see a Cage and a Ventilation.
+Suddenly, Slang eyes you with an unusual smirk on his face. "Thanks George! You've just helped me..." to your horror he rips out his support tubes! "You may not understand George, but someday in the future you will!" He falls dead. Wow! George you did it! You've (sort of) defeated Slang and saved your planet! Hurrah!
+LASER INITATION REACTIVATED.
+(D'oh!)
+You feel yourself expanding. To your relief Slang's shrink powder was temporary.
+
+You are in a Chamber.
+This room looks very black and mysterious. A high pedestal rises from the back-middle of the room with stairs going up.
+You can go up.
+> look
+
+> look
+You are in a Chamber.
+This room looks very black and mysterious. A high pedestal rises from the back-middle of the room with stairs going up.
+You can go up.
+> up
+
+> up
+
+You are on a Pedestal.
+This is Slang's main control center. An extensive computer is spread out the north side. Beyond it you see a window looking out into space. Your eye notices a cage on the console.
+You can see a Computer Console and a Dead Carcass.
+You can go down or up.
+> search dead carcass
+
+> search dead carcass
+Disgusted, you search the still warm body of Slang. Strangely, on the back of his underwear in marker is the letters 'USOF'
+> x computer console
+
+> x computer console
+OK.
+
+You are looking at a Computer.
+You can see a Monitor and a Keyboard.
+> use keyboard
+
+> use keyboard
+You quickly type in code 'USOF' and hear a computerized voice announce laser sequence has been aborted!
+Congratulations, George! You successfully defeated Slang and stopped his plot against your people, survived a dense jungle, defeated killer hunters and made it past all the guards! You pat yourself on the back for a job well done.
+Suddenly, the computer voice comes to life!
+"WARNING! FORTRESS CAUGHT IN HRKALIS ORBIT. SITUATION CODE RED. 30 MINUTES TILL MELTDOWN. HAVE A NICE DAY!"
+UH OH! It becomes clear to you. You must escape this vessel before your luck goes up in flames!
+> exit
+
+> exit
+OK.
+
+You are on a Pedestal.
+This is Slang's main control center. An extensive computer is spread out the north side. Beyond it you see a window looking out into space. Your eye notices a cage on the console.
+You can see a Computer Console and a Dead Carcass.
+You can go down or up.
+> up
+
+> up
+
+You are in a Tubular Passageway.
+This appears to be an ordinary space tube giving you a fine view of Hrkalis.
+You can see a Box.
+You can go down or southeast.
+> use wrench on box
+
+> use wrench on box
+Good Idea! You apply the wrench to all four bolts and after removing them you remove the lid and discover a Air Mask which you stuff in your left pants bucket. As courtesy you place the lid back on and tighten the bolts.
+> wear air mask
+
+> wear air mask
+You strap the air mask onto your mouth. A quick test ensures its effectiveness.
+> southeast
+
+> southeast
+
+You are in a Tubular Passageway.
+This is another one of the clear tunnels.
+You can go northwest or down.
+Suddenly, the glass tubes cracks away from the pressure of Hrkalis' atmosphere! The precious oxygen rushes out into space where it will become useless!
+Its a good thing you're wearing that mask!
+> down
+
+> down
+
+You are in a Hallway.
+You briefly wonder what part of the ship you're in now!
+You can go up or west.
+> west
+
+> west
+
+You are in a Hallway.
+This is just a hallway.
+You can see a Lift.
+You can go east.
+> ride lift
+
+> ride lift
+You stand on the lift, weight for it to calculate your weight, find is valid and lift you up to higher floor.
+
+You are in a Hallway.
+This hallway has an eerie quality to it. On the back what are doors in which droids are  desposited. A strange indent is on the east wall. Maybe there is something behind it?
+You can go west.
+> west
+
+> west
+
+You are in a Hallway.
+This hallway has a strange feeling to it.
+You can go up, east or west.
+> west
+
+> west
+
+You are in a Hallway.
+This hallway looks rather typical for a hallway. Some stairs lead upwards. You can't tell where as they go somewhere to left after a while.
+You can go east or up.
+> up
+
+> up
+
+You are in a Control Room.
+This is the control room for one of the rooms aboard the fortress. A console with a rather obvious button sits nearby. A closet is on the west wall. A huge window surrounds the room.
+You can see a Console, a Big Red Button, a Window and a Closet.
+You can go down.
+> open closet
+
+> open closet
+You open it.
+It contains an EVA Suit.
+> take eva suit
+
+> take eva suit
+You take the EVA suit and place it in your pocket.
+> wear eva suit
+
+> wear eva suit
+You're already wearing it!
+> push big red button
+
+> push big red button
+OK.
+> down
+
+> down
+
+You are in a Hallway.
+This hallway looks rather typical for a hallway. Some stairs lead upwards. You can't tell where as they go somewhere to left after a while.
+You can go east or up.
+> east
+
+> east
+
+You are in a Hallway.
+This hallway has a strange feeling to it.
+You can go up, east or west.
+> up
+
+> up
+
+You are in a Hallway.
+The design of these hallways all look alike. Some odd looking stairs lead downward.
+You can go west, east or down.
+> west
+
+> west
+
+You are in a Hallway.
+This hallway appears to be inside a large blue tube. Blue. You are starting to wonder about Slang's desgin scheme.
+You can go west or east.
+> west
+
+> west
+
+You are in a Catwalk.
+This part of a long catwalk leading of to the west. A hallway leads into the east.
+You can see an Elevator.
+You can go east or west.
+> enter elevator
+
+> enter elevator
+
+You are in an Elevator.
+The elevator is one of those clear tube models. A small panel displays 660 buttons but a sign tells you Floors 5-660 are under intense cleaning due to a out of control party celebrating the completion of the BlasterX4. Currently, you are on Floor 2.
+You can see an One Button, a Two Button, a Three Button and a Four Button.
+You can go out.
+> press one button
+
+> press one button
+As soon you as press the button the elevator quickly descends.
+
+You are in an Elevator.
+The elevator is one of those clear tube models. A small panel displays 660 buttons but a sign tells you Floors 5-660 are under intense cleaning due to a out of control party celebrating the completion of the BlasterX4. Currently, you are on Floor 1.
+You can see an One Button, a Two Button, a Three Button and a Four Button.
+You can go out.
+> out
+
+> out
+
+You are in a Catwalk.
+This appears to be the end of the catwalk. A clear elevator tube is at the end going up.
+You can see an Elevator.
+You can go west.
+> west
+
+> west
+
+You are in a Catwalk.
+WOW! This fortress is really huge. Several catwalks hang high above you. Far, far below you is the floor.
+You can see a Guard.
+You can go west or east.
+> speak to guard
+
+> speak to guard
+You ask the guard why he isn't busy vaporizing you.
+"I'm too mad to do anything! I was forced to come here on guard duty cause everyone volunteered me to take a shift at the landing pad under Slang's orders! I was chosen 'cause they say I can't hold my liquor! Those party obsessed %$#&heads!"
+(What a plop!)
+> give mug of beer to guard
+
+> give mug of beer to guard
+You hand the mug o' beer to the frustrated young man and tell him its on the house. "Wow! Thank you sir! (Glug, Glug!)....See! I know I can handle...mrrfff!" At the moment the guard gets a dazed look on his face, falls to the ground out cold!
+> west
+
+> west
+
+You are in a Landing Pad.
+This is the biggest room you've seen! It is huge with blue walls and bay doors on the north wall. A hallway looks like it goes east.
+You can see a Bay Doors and a Shuttle.
+You can go east or west.
+> get in shuttle
+
+> get in shuttle
+OK.
+
+You are in a Shuttle.
+This seems like a small deluxe CVB-5695AZX Samson model. Many trinkets and lights surround the environment but only a few you have a clear knowledge of.
+You can see a Navigational Stick, a Purple Button, a Slot, an AT Dial and a PC.
+> pull navigational stick
+
+> pull navigational stick
+Quickly, you grab the navigational stick and pilot the shuttle out into space.
+
+The ceremony begins as Admiral Chargin Show hands You and for some reason Ken the 'National Velos Award for Outstanding Achivements' Chargin begins to speak.
+"My fellow humans. Today we gather once again to celebrate our great heroes, George Orenthal Winstein and Kenneth Ortega Robinson who have just recently...again saved our entire civilization. Thus, we award them these trophies for their efforts." Chargin turns to you and Ken. "Thank you boys. Velos is....AGAIN in your debt."
+
+[state=Finished]

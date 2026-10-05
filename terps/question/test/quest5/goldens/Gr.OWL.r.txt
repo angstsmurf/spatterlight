@@ -20,6 +20,20 @@ You see an old silver key and a scrap of paper inside the mailbox.
 > take silver key
 
 You put the silver key in your pocket.
+> x scrap of paper
+
+> x scrap of paper
+
+The letter reads...
+
+        Our top secret "Global Research & Occasional Weapons Lab" (G.R.O.W.L) has been overrun by a terrorist faction that calls themselves the "Swarm" (SWRM).  This evil group of Squirrels, Woodpeckers, Rabbits, and Mice are some of the most wanted criminals in the world.
+
+        Your mission is to infiltrate the facility and put a stop to their diabolical plans.  Rescue any prisoners they may have taken, and secure the premises to prevent future attacks.
+
+        The future of the world may be at stake, so be quick and use extreme caution.  You have until midnight to complete your mission.
+
+Good Luck !!
+
 > s
 
 > s
@@ -30,121 +44,34 @@ You can see a Basketball Hoop.
 
 You can go back to the street by going   north, into the Front Yard by going  west, southeast, southwest or south.
 
-> se
+> w
 
-> se
+> w
 
- Side of the House.
+You are in a Front Yard.
 
-Next to some really smell trash cans, you can see a chain-linked fence and a gate that leads into the backyard.  The gate, however, looks to be secured by a silver lock.
+You can see a Big Tree, a Dog Statue, an Apple and a Big Stick.
 
-You can see a Gate and a Garbage Cans.
+You can go east, south or southwest.
 
-You can go northwest or south.
+> take apple
 
-> open gate
+> take apple
 
-> open gate
+You pick it up.
+> take big stick
 
-Unlocked. The path to the spooky backyard is now open.
-You open it.
+> take big stick
+
+You pick it up.
+> x dog statue
+
+> x dog statue
+
+You see a small, stone Dachshund statue on the ground.  On it's side, you see the engraving "I am yellow".
 > s
 
 > s
-
-You are in a Back Yard.
-
-You can see a Table, a Swing Set, a Grill and Pinky.
-
-You can go southwest, south, north or northeast.
-
-> southwest
-
-> southwest
-
-You are standing in front of  a Shed.
-
-The back corner of the grounds hides an old shed.  Long, lost, and forgotten, it doesn't seem to have had any visitors in some time.  There is a bronze lock holding the door shut.
-
-You can see a Shed Door.
-
-You can go northeast.
-
-> northeast
-
-> northeast
-
-You are in a Back Yard.
-
-You can see a Table, a Swing Set, a Grill and Pinky.
-
-You can go southwest, south, north or northeast.
-
-> south
-
-> south
-
-You are standing at a Fire Pit.
-
-You can see a Big Tree and a Fire Pit.
-
-You can go north or southeast.
-
-> southeast
-
-> southeast
-
-You are in a Wooded area.
-
-You can see a Woodpile and a bridge.
-
-You can go north.
-
-> north
-
-> north
-
-You are standing at a Fire Pit.
-
-You can see a Big Tree and a Fire Pit.
-
-You can go north or southeast.
-
-> north
-
-> north
-
-You are in a Back Yard.
-
-You can see a Table, a Swing Set, a Grill and Pinky.
-
-You can go southwest, south, north or northeast.
-
-> ne
-
-> ne
-
- Side of the House.
-
-Next to some really smell trash cans, you can see a chain-linked fence and a gate that leads into the backyard.  The gate, however, looks to be secured by a silver lock.
-
-You can see a Gate and a Garbage Cans.
-
-You can go northwest or south.
-
-> nw
-
-> nw
-
-You are in a Driveway.
-
-You can see a Basketball Hoop.
-
-You can go back to the street by going   north, into the Front Yard by going  west, southeast, southwest or south.
-
-> sw
-
-> sw
 
 You are in You are standing at the Front Door.
 
@@ -168,49 +95,211 @@ You can go north, northeast, south or east.
 > take front door key
 
 You pick it up.
-> open front door
+> x wiener dog sign
 
-> open front door
+> x wiener dog sign
+
+A wooden wiener dog sign hangs from the brick.  There is engraving on the bottom that reads "I am a fruit".
+> ne
+
+> ne
+
+You are in a Driveway.
+
+You can see a Basketball Hoop.
+
+You can go back to the street by going   north, into the Front Yard by going  west, southeast, southwest or south.
+
+> se
+
+> se
+
+ Side of the House.
+
+Next to some really smell trash cans, you can see a chain-linked fence and a gate that leads into the backyard.  The gate, however, looks to be secured by a silver lock.
+
+You can see a Gate and a Garbage Cans.
+
+You can go northwest or south.
+
+> open garbage cans
+
+> open garbage cans
+
+You hear snoring as you lift the lid and peer into the smelly garbage can.  At the bottom, you see the infamous outlaw, Slowpoke Rodriguez out cold, with his gun clutched tightly in his hand.  An empty bottle of tequilla lies next to him.
+It contains a Slowpoke Rodriguez, an Empty Glass Bottle and a napkin with scribbles on it.
+> poke slowpoke rodriguez
+
+> poke slowpoke rodriguez
+
+You stab him with the pointy end of the Big Stick.  He drops his gun as he quickly and quietly fades away.  You decide to leave him and the stick in the garbage can, as they both really smell like tequilla.  You take the gun...just in case.
+
+Your score goes up by 1.
+> take empty glass bottle
+
+> take empty glass bottle
+
+You pick it up.
+> x napkin with scribbles on it
+
+> x napkin with scribbles on it
+
+You see some doodles written by a drunken mouse.  Most of it makes no sense, but you can make out "Triples in darts = big $$$" written clearly on it.
+> move garbage cans
+
+> move garbage cans
+
+You push the garbage cans out of the way and find a small hole, leading into the garage.
+> open gate
+
+> open gate
+
+Unlocked. The path to the spooky backyard is now open.
+You open it.
+> s
+
+> s
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set, a Grill and Pinky.
+
+You can go southwest, south, north or northeast.
+
+> x grill
+
+> x grill
+
+Nothing out of the ordinary.
+> open grill
+
+> open grill
+
+You open it.
+It contains a Lighter.
+> take lighter
+
+> take lighter
+
+You pick it up.
+> x swing set
+
+> x swing set
+
+Nothing out of the ordinary.
+It contains an Itchy and a Plastic Grocery Bag.
+> take plastic grocery bag
+
+> take plastic grocery bag
+
+You pick it up.
+> s
+
+> s
+
+You are standing at a Fire Pit.
+
+You can see a Big Tree and a Fire Pit.
+
+You can go north or southeast.
+
+> x fire pit
+
+> x fire pit
+
+You see an rusted old fire pit, filled with the ashes of fires from long ago,  In the moonlight, you seem the faint sparkle of something metallic underneath that's long since been forgotten.
+It contains a Wood and a Bronze Key.
+> take bronze key
+
+> take bronze key
+
+You pick it up.
+> x big tree
+
+> x big tree
+
+Nothing out of the ordinary.
+> n
+
+> n
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set (on which there is an Itchy), a Grill and Pinky.
+
+You can go southwest, south, north or northeast.
+
+> sw
+
+> sw
+
+You are standing in front of  a Shed.
+
+The back corner of the grounds hides an old shed.  Long, lost, and forgotten, it doesn't seem to have had any visitors in some time.  There is a bronze lock holding the door shut.
+
+You can see a Shed Door.
+
+You can go northeast.
+
+> open shed door
+
+> open shed door
 
 Unlocked.
 You open it.
-> s
+You are in an Inside the Shed.
 
-> s
+You can see a Crumpled up piece of paper, a Crowbar, an Old Boxes and a Hedge Trimmers.
 
-You are in a Hallway.
+You can go north.
 
-You can see an Upstairs, a Coat Closet and a Cabinets.
+> take crowbar
 
-You can go south, east or north.
+> take crowbar
 
-> x coat closet
+You pick it up.
+> take crumpled up piece of paper
 
-> x coat closet
+> take crumpled up piece of paper
 
-Nothing out of the ordinary.
-> open coat closet
+You pick it up.
+> take hedge trimmers
 
-> open coat closet
+> take hedge trimmers
 
-You open it.
-You open up the coat closet.  Out pops the shockingly-evil villian, Megavolt.  He narrowly misses you with an electric bolt.
-It contains a MegaVolt.
-> x cabinets
+You pick it up.
+> n
 
-> x cabinets
+> n
 
-Nothing out of the ordinary.
-It contains a Drawers.
-> x upstairs
+You are standing in front of  a Shed.
 
-> x upstairs
+The back corner of the grounds hides an old shed.  Long, lost, and forgotten, it doesn't seem to have had any visitors in some time.  There is a bronze lock holding the door shut.
 
-Nothing out of the ordinary.
-It contains a Light Switch and a Security Panel.
-> south
+You can see a Shed Door.
 
-> south
+You can go northeast or Inside the Shed.
+
+> ne
+
+> ne
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set (on which there is an Itchy), a Grill and Pinky.
+
+You can go southwest, south, north or northeast.
+
+> smack pinky
+
+> smack pinky
+
+You use the crowbar to smack Pinky in the noggin'.  He falls to the the ground unconscious....spitting out his wad of gum as he collapses.  You may have use for it, so you take the sticky gum.  The back door is now open.
+
+Your score goes up by 1.
+> n
+
+> n
 
 You are in a Kitchen.
 
@@ -218,9 +307,48 @@ You can see a Refrigerator, a Pantry, a Counter, a Trash Can and a Knife Block.
 
 You can go south, east, north or west.
 
-> east
+> x knife block
 
-> east
+> x knife block
+
+Nothing out of the ordinary.
+It contains a Knife.
+> take knife
+
+> take knife
+
+You pick it up.
+> open pantry
+
+> open pantry
+
+You quickly open the pantry door.  Out pops the crazy-toon Roger Rabbit !!!
+It contains a Roger Rabbit and a Banana.
+> take banana
+
+> take banana
+
+You pick it up.
+> x trash can
+
+> x trash can
+
+Nothing out of the ordinary.
+It contains an Empty Milk Jug.
+> take empty milk jug
+
+> take empty milk jug
+
+You pick it up.
+> x counter
+
+> x counter
+
+Nothing out of the ordinary.
+It contains a Birdcage and a the Woodpecker.
+> e
+
+> e
 
 You are in a Dining Room.
 
@@ -228,29 +356,9 @@ You can see a Dining Room Table.
 
 You can go west, north or east.
 
-> north
+> e
 
-> north
-
-You are in a Family Room.
-
-You can see a Cage, an Entertainment Center, a Lounge Chair and a Coffee Table.
-
-You can go south or west.
-
-> south
-
-> south
-
-You are in a Dining Room.
-
-You can see a Dining Room Table.
-
-You can go west, north or east.
-
-> east
-
-> east
+> e
 
 You are  Inside the Garage.
 
@@ -258,24 +366,916 @@ You can see a Baseball Bat, Paint Thinner, some Boxes, a Workbench, an Outdoor L
 
 You can go north or west.
 
-> north
+> take baseball bat
 
-> north
+> take baseball bat
 
- You are standing in front of the  Garage.
+You pick it up.
+> take paint thinner
 
-You can see a Garage Door and a Keypad.
+> take paint thinner
 
-You can go north or west.
+You pick it up.
+> take board with nails
 
-> south
+> take board with nails
 
-> south
+You pick it up.
+> open boxes
 
-You can't go there.
-> west
+> open boxes
 
-> west
+You open it.
+As you peak into the box, the infamous outlaw, Speedy Gonzoles, pops out.
+It contains a Speedy Gonzoles.
+> throw speedy gonzoles
+
+> throw speedy gonzoles
+
+You distract him and casually drop the sticky Bubble Gum to the ground without him seeing you.  He lunges at you with blinding speed........only to be immobilized as he steps into your trap.  You raise your foot and squash him in a single blow.
+
+You loot his body and find a bullet, which you grab...just in case you need it.
+
+Your score has increased by 1.
+> load gun gun
+
+> load gun gun
+
+With which object?
+1: Apple
+2: Front Door Key
+3: Empty Glass Bottle
+4: Lighter
+5: Plastic Grocery Bag
+6: Crumpled up piece of paper
+7: Hedge Trimmers
+8: Knife
+9: Banana
+10: Empty Milk Jug
+11: Baseball Bat
+12: Paint Thinner
+13: Board with nails
+14: Bullet
+15: Boxes
+16: Workbench
+17: Outdoor Light Switch
+18: Recycling Bin
+> 14
+You put the bullet into the gun.  Now it's loaded.
+> switch on outdoor light switch
+
+> switch on outdoor light switch
+
+You turn on the outside floodlights.  You hear a brief screach outside, like something was just temporarily blinded.
+> deposit empty glass bottle
+
+> deposit empty glass bottle
+
+You put the item in the recycling bin.  Good job, your score has increased by 1 !!!
+> deposit plastic grocery bag
+
+> deposit plastic grocery bag
+
+You put the item into the recycling bin.  Good job, your score has increased by 1 !!!
+> deposit crumpled up piece of paper
+
+> deposit crumpled up piece of paper
+
+You put the item into the recycling bin.  Good job, your score has increased by 1 !!!
+> deposit empty milk jug
+
+> deposit empty milk jug
+
+You put the item into the recycling bin.  Good job, your score has increased by 1 !!!
+> x workbench
+
+> x workbench
+
+Nothing out of the ordinary.
+It contains a Toolbox.
+> enter lock combination toolbox
+
+> enter lock combination toolbox
+
+Enter the three digit combination.
+> 777
+The combination looks to be correct.  The toolbox opens and you grab the wire cutters inside.
+> w
+
+> w
+
+You are in a Dining Room.
+
+You can see a Dining Room Table.
+
+You can go west, north or east.
+
+> w
+
+> w
+
+You are in a Kitchen.
+
+You can see a Refrigerator, a Pantry (containing a Roger Rabbit), a Counter (on which there is a Birdcage and a the Woodpecker), a Trash Can and a Knife Block.
+
+You can go south, east, north or west.
+
+> erase roger rabbit
+
+> erase roger rabbit
+
+You throw the paint thinner as him.  He shrieks in pain like he is being burned by acid.  You watch as he is reduced to nothing more than a puddle on the floor.  You claim his Big Hammer as yours now.
+
+Your score has gone up by 1.
+> w
+
+> w
+
+You are in a Living Room.
+
+You can see a Bathroom, a Laundry Room, an Ottoman, a Video Cabinet, a Fireplace and a Couch.
+
+You can go east or northwest.
+
+> open bathroom
+
+> open bathroom
+
+You open it.
+You open the door to the bathroom, and are startled to see a Sorceror, hiding in there. He seems startled as well, as he fumbles around, preparing a spell to cast on you.
+It contains Mickey Mouse the Sorceror and a First Aid Kit.
+> open laundry room
+
+> open laundry room
+
+You open it.
+It contains a Mop and a Light Bulb.
+> take mop
+
+> take mop
+
+You pick it up.
+> take light bulb
+
+> take light bulb
+
+You pick it up.
+> mop him mickey mouse the sorceror
+
+> mop him mickey mouse the sorceror
+
+You smack him with the mop.  It's super-effective !!!!  He drops like a rock, and is now unconscious on the floor.  You pick up his bucket of water before someone trips on it.
+> take first aid kit
+
+> take first aid kit
+
+You pick it up.
+> open ottoman
+
+> open ottoman
+
+You open it.
+The ottomon contains some old video game components and an unused PokeBall.
+> take pokeball
+
+> take pokeball
+
+You pick it up.
+> x fireplace
+
+> x fireplace
+
+Nothing out of the ordinary.
+It contains a Fire Poker and a Firewood.
+> take fire poker
+
+> take fire poker
+
+You pick it up.
+> light firewood
+
+> light firewood
+
+With which object?
+1: Apple
+2: Front Door Key
+3: Lighter
+4: Hedge Trimmers
+5: Knife
+6: Banana
+7: Baseball Bat
+8: Board with nails
+9: Loaded Gun
+10: wire cutters
+11: Big Hammer
+12: Light Bulb
+13: Bucket of Water
+14: First Aid Kit
+15: PokeBall
+16: Fire Poker
+17: Bathroom
+18: Laundry Room
+19: Ottoman
+20: Video Cabinet
+21: Fireplace
+22: Couch
+> 3
+You light the wood in the fireplace, which gives off a warm glow.  You start hearing faint, petite coughing from somewhere up above you.
+> x couch
+
+> x couch
+
+You see the Security Guard tied up on couch with Duct tape.  You try to free him, but are ambushed by
+the mischievous villian  Loki.
+> hammer time loki
+
+> hammer time loki
+
+He freezes in fear as he sees you pull out the Big Hammer, which gives you enough time to smack him good.  One shot and he's out.
+
+He falls off the couch, dropping the slingshot, which you take with you.  You can now reach the Security Guard, who is tied up with Duct tape.
+
+Your score has increased by 1 !!!
+> nw
+
+> nw
+
+You are in an Office.
+
+You can see a Desk, an Office Cabinets, a Calendar and a Dartboard.
+
+You can go southeast.
+
+> x desk
+
+> x desk
+
+The messy, wooden desk is covered with papers.  Standing on the desk, staring intently at the computer is the genius, Brain.  He is too pre-occupied to be bothered by the likes of you.
+ Brain ignores you..
+> swing away brain
+
+> swing away brain
+
+He is dumbfounded.  Who in their right mind uses a baseball bat in the house?  That's not logical.  He is stunned....just long enough for you to crack him aside the head and send him flying.   Home Run !!!!   He drops a very strange Emerald and his mini laser, which is now out of power.
+
+You pick them both up, maybe they will be useful in the future.  You now have access to the computer.
+> x computer
+
+> x computer
+
+Brain was looking at a couple things on the computer before you interrupted him.  The first was an email.  The second looks like some sort of research article.
+It contains an email and a research article.
+> x email
+
+> x email
+
+You get a dreadful feeling reading the email.  It says...
+
+"Our plans are nearing completion.  Your team is the last piece left.
+
+Remember, your tasks are...
+
+(1)  Infiltrate and seize the research facility.  Contain all personnel.
+(2)  Recover the stones and research by any means necessary.
+(3)  Send out false confession email from their system to frame D.O.G.S.A to destroy public support for those annoying dog spies.
+(4)  Blow up the facilities, including all witnesses and destroy any evidence that we were there.
+
+If these gems are as powerful as we believe, and with the dogs out of our hair......the world will be ours !!!
+
+> x research article
+
+> x research article
+
+This research article talks about seven very special gemstones.  Apparently, they were found together in a meteorite that had touched down in the Pacific ocean.  Each stone literally hums with some sort of unimaginable power. However, when they are all in close proximity to each other, that power is magnified exponentially.
+
+The article then mentions that an undisclosed government agency is doing research on these stones.
+> x calendar
+
+> x calendar
+
+You see a calendar with baby goats on it.  The month on it is wrong though, like nobody remembered to change it in a while.  Underneath, you see something.
+It contains a Keypad.
+> enter combination keypad
+
+> enter combination keypad
+
+Enter Security code.
+> 180
+This heavy-duty safe looks to have held some very valuable items in it, but it is empty now.
+The code entered is correct.  The safe door opens.
+You are in an Office.
+
+You can see a Desk (which has a Computer (on which there is an email and a research article)), an Office Cabinets, a Calendar (Underneath, you see a Wall Safe and  a Keypad and a Wall Safe) and a Dartboard.
+
+You can go southeast.
+
+> open wall safe
+
+> open wall safe
+
+It is already open.
+> place emerald
+
+> place emerald
+
+You place the mystical Emerald onto it's stand in the wall safe. Your score has increased by one.
+> se
+
+> se
+
+You are in a Living Room.
+
+You can see a Bathroom, a Laundry Room, an Ottoman, a Video Cabinet, a Fireplace (on which there is a Firewood) and a Couch (on which there is a Security Guard).
+
+You can go east or northwest.
+
+> e
+
+> e
+
+You are in a Kitchen.
+
+You can see a Refrigerator, a Pantry, a Counter (on which there is a Birdcage and a the Woodpecker), a Trash Can and a Knife Block.
+
+You can go south, east, north or west.
+
+> n
+
+> n
+
+You are in a Hallway.
+
+You can see an Upstairs, a Coat Closet and a Cabinets.
+
+You can go south, east or north.
+
+> open coat closet
+
+> open coat closet
+
+You open it.
+You open up the coat closet.  Out pops the shockingly-evil villian, Megavolt.  He narrowly misses you with an electric bolt.
+It contains a MegaVolt.
+> splash megavolt
+
+> splash megavolt
+
+You throw the Bucket at him, covering him with water.  Sparks go flying everywhere as he short-circuits and is electrocuted.
+
+You loot a Battery from his smoldering carcass.
+
+Your score has gone up by 1.
+> combine mini laser
+
+> combine mini laser
+
+With which object?
+1: Apple
+2: Front Door Key
+3: Lighter
+4: Hedge Trimmers
+5: Knife
+6: Banana
+7: Board with nails
+8: Loaded Gun
+9: wire cutters
+10: Light Bulb
+11: First Aid Kit
+12: PokeBall
+13: Fire Poker
+14: Slingshot
+15: Battery
+16: Upstairs
+17: Coat Closet
+18: Cabinets
+> 15
+You add the Battery to the Laser.  It now has power and works.
+> x cabinets
+
+> x cabinets
+
+Nothing out of the ordinary.
+It contains a Drawers.
+> open drawers
+
+> open drawers
+
+You open it.
+It contains a Scissors.
+> take scissors
+
+> take scissors
+
+You pick it up.
+> x upstairs
+
+> x upstairs
+
+Nothing out of the ordinary.
+It contains a Light Switch and a Security Panel.
+> switch on light switch
+
+> switch on light switch
+
+You switch it on.
+The upstairs light looks to be burnt out.  You take the light bulb you picked up and replace the old one.  As soon as you do, the stairs are illuminated.  You're startled to see Slappy the squirrel at the top of the steps.  She squints and curses at you for turning the light on.
+You are in a Hallway.
+
+You can see an Upstairs (on which there is a Light Switch, a Security Panel and a Slappy), a Coat Closet and a Cabinets (on which there is a Drawers).
+
+You can go south, east or north.
+
+> stab slappy
+
+> stab slappy
+
+No use..... you can't reach her.  She reaches into her purse and throws a box of raisins at you.  It only does 1 point of damage, and falls to the ground.
+> take raisins
+
+> take raisins
+
+You pick it up.
+> shoot slappy
+
+> shoot slappy
+
+You shoot your laser at Slappy.  After a couple well placed shots, her lifeless body falls down the stairs.
+
+She drops a humongous Pearl, which you put in your pocket.  You also grab a scrap of paper labeled "Alarm clue".
+
+Your score has gone up by 1.
+
+You can now go upstairs.
+> e
+
+> e
+
+You are in a Family Room.
+
+You can see a Cage, an Entertainment Center, a Lounge Chair and a Coffee Table.
+
+You can go south or west.
+
+> x cage
+
+> x cage
+
+Lying in front of the cage is four dead mice.  One of which looks like they had something taken from his cold, dead hand.
+
+Inside the cage is the D.O.G.S.A. agent, Bailey.  It looks like he put up quite the fight, as his fur is all messed up and he is covered with scratches.  He looks sickly, and can barely lift his head to lick his wounds.
+It contains a Jerry.
+> smash jerry
+
+> smash jerry
+
+You smash him with fire poker.  It's super effective !!!  Jerry now lies motionless on the carpet.  You can't tell if he's dead or playing possum.  You decide to stab him with the poker and finish him off.
+
+He drops the Limburger Cheese he was snacking on.  You pick it up the stinky cheese, just in case.
+
+Your score has gone up by 1.
+You are in a Family Room.
+
+You can see a Cage (on which there is a Dog), an Entertainment Center, a Lounge Chair and a Coffee Table.
+
+You can go south or west.
+
+> patch up dog
+
+> patch up dog
+
+You use the First Aid Kit to provide medical treatment to Diego.  He now looks partially like a mummy due to the amount of bandages on him, but he is at least able to stand.
+
+Without warning, he starts acting like a cat that has a hairball.  Within a couple seconds, he coughs up an abnormal-looking gem.....a Topaz.  He must have swallowed the gemstone to hide it from his attackers.  You wipe it off and grab it so it does not fall into the wrong hands.
+
+Diego slowly hobbles down the hall and out the front door to freedom.
+
+Your score has gone up by 1.
+> x lounge chair
+
+> x lounge chair
+
+A chair made just for lounging.  You catch a glimpse of something underneath.
+It contains a Snack wrapper.
+> take snack wrapper
+
+> take snack wrapper
+
+You pick it up.
+> x coffee table
+
+> x coffee table
+
+Nothing out of the ordinary.
+It contains a Fruit Bowl.
+> deposit apple
+
+> deposit apple
+
+You place the fruit into the bowl.  Congrats, your score has increased by 1 !!
+> deposit banana
+
+> deposit banana
+
+You place the fruit into the bowl.  Congrats, your score has increased by 1 !!
+> deposit raisins
+
+> deposit raisins
+
+You place the fruit into the bowl.  Congrats, your score has increased by 1 !!
+> w
+
+> w
+
+You are in a Hallway.
+
+You can see an Upstairs (on which there is a Light Switch and a Security Panel), a Coat Closet and a Cabinets (on which there is a Drawers).
+
+You can go south, east, north or up.
+
+> s
+
+> s
+
+You are in a Kitchen.
+
+You can see a Refrigerator, a Pantry, a Counter (on which there is a Birdcage and a the Woodpecker), a Trash Can and a Knife Block.
+
+You can go south, east, north or west.
+
+> w
+
+> w
+
+You are in a Living Room.
+
+You can see a Bathroom, a Laundry Room, an Ottoman, a Video Cabinet, a Fireplace (on which there is a Firewood) and a Couch (on which there is a Security Guard).
+
+You can go east or northwest.
+
+> free him security guard
+
+> free him security guard
+
+You use the scissors to cut the restraints off the Security Guard.  After some effort, you are able to free him.  He thanks you and gives you his tranquilizer gun, which is empty.  As he runs toward the exit, he lets you know there are spare darts upstairs.
+
+You have rescued one of the captives.  Your score has increased by 1 !!
+> nw
+
+> nw
+
+You are in an Office.
+
+You can see a Desk (which has a Computer (on which there is an email and a research article)), an Office Cabinets, a Calendar (Underneath, you see a Wall Safe and  a Keypad and a Wall Safe (containing an Emerald)) and a Dartboard.
+
+You can go southeast.
+
+> x office cabinets
+
+> x office cabinets
+
+Nothing out of the ordinary.
+It contains a Master Lock Documentation and an Amazon Alexa Speaker.
+> x master lock documentation
+
+> x master lock documentation
+
+This is the factory documentation for customizing your own combination on your brand new Master Lock.  It says the default is set to "777".
+> say alexa amazon alexa speaker
+
+> say alexa amazon alexa speaker
+
+You talk to the speaker.  You say "Alexa.......
+> tacos
+Alexa responds and is very happy.  "Tacos are my favorite.  Thank you !!!"
+
+Your score has increased by 5 !!!
+> place topaz
+
+> place topaz
+
+You place the strange looking Topaz onto it's stand in the wall safe.
+
+Your score has gone up by 1.
+> se
+
+> se
+
+You are in a Living Room.
+
+You can see a Bathroom, a Laundry Room, an Ottoman, a Video Cabinet, a Fireplace (on which there is a Firewood) and a Couch.
+
+You can go east or northwest.
+
+> e
+
+> e
+
+You are in a Kitchen.
+
+You can see a Refrigerator, a Pantry, a Counter (on which there is a Birdcage and a the Woodpecker), a Trash Can and a Knife Block.
+
+You can go south, east, north or west.
+
+> n
+
+> n
+
+You are in a Hallway.
+
+You can see an Upstairs (on which there is a Light Switch and a Security Panel), a Coat Closet and a Cabinets (on which there is a Drawers).
+
+You can go south, east, north or up.
+
+> up
+
+> up
+
+You are in an Upper Floor.
+
+The upper floor contains a small hallway with three doors.  To your left is a red door.  Straight ahead is a white door, and a blue door is to your right.
+
+You can see a Red Door, a White Door and a Blue Door.
+
+You can go down.
+
+> open blue door
+
+> open blue door
+
+You open it.
+You are in a Library.
+
+You open the Blue Door and enter the library.
+
+You can see a Bookcase, a Large Desk and a Recliner.
+
+You can go south.
+
+> x bookcase
+
+> x bookcase
+
+Nothing out of the ordinary.
+It contains a Bomb Dismantling for Dummies, an Extraterrestrial storage methods and a History of Teacups.
+> x bomb dismantling for dummies
+
+> x bomb dismantling for dummies
+
+Diffusing a bomb is a very simple process.  Just take your trusty wire-cutters and...
+
+Cut the blue wire.
+         Unless there is a red cable, then don’t touch it.
+         If the purple cable is already cut, then it has to be the yellow cable.
+         If there is at least one white wire, then it is probably the red or orange wire.
+         If it is in a briefcase, then they have secretly coated the orange with black paint to
+              disguise it.
+         If there is more than 4 wires, then it has to be either the green one or one that starts
+              with a “B”.
+         If there are less than 4 wires, then it is definitely not the black one.
+
+> x history of teacups
+
+> x history of teacups
+
+Nothing out of the ordinary.
+When you open the book, you see a tiny key stashed away in it. a Tiny Key.
+> take tiny key
+
+> take tiny key
+
+You pick it up.
+> x large desk
+
+> x large desk
+
+Nothing out of the ordinary.
+It contains a Dog Sphinx Statue.
+> solve riddle dog sphinx statue
+
+> solve riddle dog sphinx statue
+
+In an old, creepy voice, the statue demands the answer to its riddle.....
+> pineapple
+You are very wise, the statue bellows.  Now, take this and continue on your journey.
+
+A secret compartment opens up and a fancy looking key falls out onto the desk.
+You are in a Library.
+
+You open the Blue Door and enter the library.
+
+You can see a Bookcase (on which there is a Bomb Dismantling for Dummies, an Extraterrestrial storage methods and a History of Teacups), a Large Desk (on which there is a Dog Sphinx Statue and a Fancy Key) and a Recliner.
+
+You can go south.
+
+> take fancy key
+
+> take fancy key
+
+You pick it up.
+> relax recliner
+
+> relax recliner
+
+You sit in the super comfy recliner.  As you try to relax, you feel a small breeze coming from the corner of the room.  Upon further inspection, you see a small hole in the wall.
+You are in a Library.
+
+You open the Blue Door and enter the library.
+
+You can see a Bookcase (on which there is a Bomb Dismantling for Dummies, an Extraterrestrial storage methods and a History of Teacups), a Large Desk (on which there is a Dog Sphinx Statue), a Recliner and a Small Hole to Outside.
+
+You can go south.
+
+> repair small hole to outside
+
+> repair small hole to outside
+
+You use the items to fix the hole in the wall.  It looks sturdier than before !!!
+
+You have helped secure the building and your score has increased by one point !!!
+> s
+
+> s
+
+You are in an Upper Floor.
+
+The upper floor contains a small hallway with three doors.  To your left is a red door.  Straight ahead is a white door, and a blue door is to your right.
+
+You can see a Red Door, a White Door and a Blue Door.
+
+You can go down or north.
+
+> open white door
+
+> open white door
+
+Unlocked.
+You open it.
+> w
+
+> w
+
+You are in a Storage Room.
+
+You can see a Shelves, a Storage bin and a Small table.
+
+You can go east.
+
+> x shelves
+
+> x shelves
+
+Nothing out of the ordinary.
+It contains a Can of Peaches.
+> take can of peaches
+
+> take can of peaches
+
+You pick it up.
+> open storage bin
+
+> open storage bin
+
+You open it.
+It contains a Tranquilizer Dart.
+> take tranquilizer dart
+
+> take tranquilizer dart
+
+You pick it up.
+> x small table
+
+> x small table
+
+Nothing out of the ordinary.
+It contains an Empty Cardboard Box.
+> take empty cardboard box
+
+> take empty cardboard box
+
+You pick it up.
+> e
+
+> e
+
+You are in an Upper Floor.
+
+The upper floor contains a small hallway with three doors.  To your left is a red door.  Straight ahead is a white door, and a blue door is to your right.
+
+You can see a Red Door, a White Door and a Blue Door.
+
+You can go down, north or west.
+
+> open red door
+
+> open red door
+
+Unlocked.
+You open it.
+> s
+
+> s
+
+You are in a Research Lab.
+
+You can see a Microscope, a File Cabinets and a Waste Bin.
+
+You can go north.
+
+> inspect microscope
+
+> inspect microscope
+
+You peek into the microscope.  Suddenly, Rocky the flying squirrel jumps out  of the darkness and attacks.  He strikes you for 2 damage and escapes up out of reach on the ceiling.
+You are in a Research Lab.
+
+You can see a Microscope, a File Cabinets, a Waste Bin and a Rocky the Flying Squirrel.
+
+You can go north.
+
+> combine tranquilizer dart
+
+> combine tranquilizer dart
+
+With which object?
+1: Front Door Key
+2: Lighter
+3: Hedge Trimmers
+4: Knife
+5: Board with nails
+6: Loaded Gun
+7: wire cutters
+8: PokeBall
+9: Slingshot
+10: Pearl
+11: Alarm clue 3
+12: Limburger Cheese
+13: Snack wrapper
+14: Tranquilizer Gun
+15: Can of Peaches
+16: Empty Cardboard Box
+17: Microscope
+18: File Cabinets
+19: Waste Bin
+20: Rocky the Flying Squirrel
+> 14
+You put the dart into the tranquilizer gun.  It is now loaded.
+> nighty night rocky the flying squirrel
+
+> nighty night rocky the flying squirrel
+
+Like an expert gunslinger, you draw your tranquilizer and shoot him before he can react.  Moments after he is shot, Rocky crashes onto the floor.  You finish him off before he can recover and retrieve the Spectacular Garnet that he has holding onto.
+
+You also grab a scrap of paper labeled "Alarm clue".
+
+Your score has increased by 1 !!!
+> move file cabinets
+
+> move file cabinets
+
+You scoot the file cabinet away from the wall and find a really Big Hole to the outside.
+> repair big hole to outside
+
+> repair big hole to outside
+
+You use the items to fix the hole in the wall.  It looks sturdier than before !!!
+
+You have helped secure the building and your score has increased by one point !!!
+> x waste bin
+
+> x waste bin
+
+Nothing out of the ordinary.
+It contains an Old Newspaper.
+> take old newspaper
+
+> take old newspaper
+
+You pick it up.
+> n
+
+> n
+
+You are in an Upper Floor.
+
+The upper floor contains a small hallway with three doors.  To your left is a red door.  Straight ahead is a white door, and a blue door is to your right.
+
+You can see a Red Door, a White Door and a Blue Door.
+
+You can go down, north, south or west.
+
+> down
+
+> down
+
+You are in a Hallway.
+
+You can see an Upstairs (on which there is a Light Switch and a Security Panel), a Coat Closet and a Cabinets (on which there is a Drawers).
+
+You can go south, east, north or up.
+
+> n
+
+> n
 
 You are in You are standing at the Front Door.
 
@@ -283,19 +1283,688 @@ You can see a Welcome Mat, a Wiener Dog Sign and a Front Door.
 
 You can go north, northeast, south or east.
 
-> west
+> ne
 
-> west
+> ne
 
-You can't go there.
-> north
+You are in a Driveway.
 
-> north
+You can see a Basketball Hoop (on which there is a Yakko).
+
+You can go back to the street by going   north, into the Front Yard by going  west, southeast, southwest or south.
+
+> se
+
+> se
+
+ Side of the House.
+
+Next to some really smell trash cans, you can see a chain-linked fence and a gate that leads into the backyard.  The gate, however, looks to be secured by a silver lock.
+
+You can see a Gate, a Garbage Cans (containing a napkin with scribbles on it) and a Hole into the Garage.
+
+You can go northwest or south.
+
+> repair hole into the garage
+
+> repair hole into the garage
+
+You use the items to fix the hole in the wall.  It looks sturdier than before !!!
+
+You have helped secure the building and your score has increased by one point !!!
+> s
+
+> s
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set (on which there is an Itchy) and a Grill.
+
+You can go southwest, south, north or northeast.
+
+> stab itchy
+
+> stab itchy
+
+You take the knife and stab Itchy with it.  It's super effective !!!  His now cold, lifeless body hangs off the swing, and he drops the Axe Head.  You pick it up.
+
+Your score has gone up by 1.
+> s
+
+> s
+
+You are standing at a Fire Pit.
+
+You can see a Big Tree and a Fire Pit (on which there is a Wood).
+
+You can go north or southeast.
+
+> se
+
+> se
+
+You are in a Wooded area.
+
+You can see a Woodpile and a bridge.
+
+You can go north.
+
+> x woodpile
+
+> x woodpile
+
+The moss covered wood looks more suitable for termite food than firewood now.
+Out of the decaying heap jumps a vicious Ratata.
+> throw ratata
+
+> throw ratata
+
+You throw the PokeBall at him.  It's super-effective !!!  He lets out a wail as he is sucked into the ball and disappears.  He drops a vial of poison.  You pick it up, before something else decides to use it on you.
+
+Your score goes up by 1.
+> n
+
+> n
+
+You are standing at a Fire Pit.
+
+You can see a Big Tree and a Fire Pit (on which there is a Wood).
+
+You can go north or southeast.
+
+> n
+
+> n
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set and a Grill.
+
+You can go southwest, south, north or northeast.
+
+> sw
+
+> sw
+
+You are standing in front of  a Shed.
+
+The back corner of the grounds hides an old shed.  Long, lost, and forgotten, it doesn't seem to have had any visitors in some time.  There is a bronze lock holding the door shut.
+
+You can see a Shed Door.
+
+You can go northeast or Inside the Shed.
+
+> s
+
+> s
+
+You are in an Inside the Shed.
+
+You can see an Old Boxes.
+
+You can go north.
+
+> open old boxes
+
+> open old boxes
+
+You open it.
+As you open the dust-covered box, you are attacked by Danger Mouse.  He gives you a karate chop, and deals 2 points of damage.
+ a Danger Mouse and a Book.
+> throw danger mouse
+
+> throw danger mouse
+
+You throw the vial of poison.  It shatters when it strikes him, coating him with the deadly, green liquid.  He shrieks in pain and falls to the ground, dropping a grenade that he was just about to use on you.  You pick it up and walk away in slow motion like a tough guy, just as he perishes.
+
+Your score goes up by 1.
+> combine grenade
+
+> combine grenade
+
+With which object?
+1: Front Door Key
+2: Lighter
+3: Hedge Trimmers
+4: Board with nails
+5: Loaded Gun
+6: wire cutters
+7: Slingshot
+8: Pearl
+9: Alarm clue 3
+10: Limburger Cheese
+11: Snack wrapper
+12: Can of Peaches
+13: Empty Cardboard Box
+14: Garnet
+15: Alarm clue 5
+16: Old Newspaper
+17: Axe Blade
+18: Old Boxes
+19: Book
+> 7
+You combine the Grenade and Slingshot together to make a Grenade Launcher.  This should help you hit things that are normally out of reach.
+> n
+
+> n
+
+You are standing in front of  a Shed.
+
+The back corner of the grounds hides an old shed.  Long, lost, and forgotten, it doesn't seem to have had any visitors in some time.  There is a bronze lock holding the door shut.
+
+You can see a Shed Door.
+
+You can go northeast or Inside the Shed.
+
+> ne
+
+> ne
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set and a Grill.
+
+You can go southwest, south, north or northeast.
+
+> ne
+
+> ne
+
+ Side of the House.
+
+Next to some really smell trash cans, you can see a chain-linked fence and a gate that leads into the backyard.  The gate, however, looks to be secured by a silver lock.
+
+You can see a Gate and a Garbage Cans (containing a napkin with scribbles on it).
+
+You can go northwest or south.
+
+> nw
+
+> nw
+
+You are in a Driveway.
+
+You can see a Basketball Hoop (on which there is a Yakko).
+
+You can go back to the street by going   north, into the Front Yard by going  west, southeast, southwest or south.
+
+> fire in the hole yakko
+
+> fire in the hole yakko
+
+You shoot the grenade up at him.  He tries to bail by jumping from the top of the basketball hoop, but he is too late.  After the explosion, only some fur falls to the ground..
+
+The Ruby falls to the ground, which you retrieve. You also grab a scrap of paper labeled "Alarm clue".
+
+You score has increased by 1.
+> w
+
+> w
 
 You are in a Front Yard.
 
-You can see a Big Tree, a Dog Statue, an Apple and a Big Stick.
+You can see a Big Tree and a Dog Statue.
 
 You can go east, south or southwest.
 
+> sw
+
+> sw
+
+You are in a West Side of the House.
+
+You can see a Tree Stump, a Bushes and a Chimney (on which there is the cute but diabolical Dot).
+
+You can go northeast.
+
+> x tree stump
+
+> x tree stump
+
+You crouch down and take a look at the tree stump, which is sticking out of the ground slightly.  It almost looks like something is written on it.
+It contains a Mighty Mouse.
+> smash mighty mouse
+
+> smash mighty mouse
+
+You take the stinky Limburger Cheese and smush it in his face.  He shrieks in pain like you gave him kryptonite.  In his vulnerable state, you take your weapon and smash him hard.  You hear a loud crunch as he is pulverized.
+
+You check his carcass for anything of use, and only find a wooden hand for an axe.  It's not much, but you go ahead and take it.
+
+Your score has gone up by 1.
+> x bushes
+
+> x bushes
+
+The bushes have been neglected for many years.  They are now overgrown and very prickly.
+It contains an Air Conditioning Unit.
+> x air conditioning unit
+
+> x air conditioning unit
+
+This air conditioning unit looks to be relatively new.  Behind it, you see a hole that has been dug into the house.
+It contains a Hole into House.
+> repair hole into house
+
+> repair hole into house
+
+You use the items to fix the hole in the wall.  It looks sturdier than before !!!
+
+You have helped secure the building and your score has increased by one point !!!
+> trim bushes
+
+> trim bushes
+
+You use the hedge trimmers to cut a path through the dangerous bushes.  You can see an air conditioning unit hidden in there.  There is also some litter on the ground.
+> take empty plastic pop bottle
+
+> take empty plastic pop bottle
+
+You pick it up.
+> x chimney
+
+> x chimney
+
+Nothing out of the ordinary.
+It contains the cute but diabolical Dot.
+> shoot gun dot
+
+> shoot gun dot
+
+You fire all your bullets at her, and luckily get a direct hit.  She gasps and staggers for a moment, then ends up falling off the roof.  She passes away before she hits the ground, and lands with a thud.
+
+You pickup the sparkling Diamond.  The mirror is now broken into a million pieces.  You also grab a scrap of paper labeled "Alarm clue".
+
+Your score has increased by 1.
+> combine axe handle
+
+> combine axe handle
+
+With which object?
+1: Front Door Key
+2: Lighter
+3: Board with nails
+4: wire cutters
+5: Pearl
+6: Alarm clue 3
+7: Snack wrapper
+8: Can of Peaches
+9: Empty Cardboard Box
+10: Garnet
+11: Alarm clue 5
+12: Old Newspaper
+13: Axe Blade
+14: Ruby
+15: Alarm clue 1
+16: Empty Plastic Pop Bottle
+17: Diamond
+18: Alarm clue 4
+19: Tree Stump
+20: Chimney
+> 13
+You combine the Axe Blade and Handle together to make a working Axe.
+> ne
+
+> ne
+
+You are in a Front Yard.
+
+You can see a Big Tree and a Dog Statue.
+
+You can go east, south or southwest.
+
+> e
+
+> e
+
+You are in a Driveway.
+
+You can see a Basketball Hoop.
+
+You can go back to the street by going   north, into the Front Yard by going  west, southeast, southwest or south.
+
+> se
+
+> se
+
+ Side of the House.
+
+Next to some really smell trash cans, you can see a chain-linked fence and a gate that leads into the backyard.  The gate, however, looks to be secured by a silver lock.
+
+You can see a Gate and a Garbage Cans (containing a napkin with scribbles on it).
+
+You can go northwest or south.
+
+> s
+
+> s
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set and a Grill.
+
+You can go southwest, south, north or northeast.
+
+> s
+
+> s
+
+You are standing at a Fire Pit.
+
+You can see a Big Tree and a Fire Pit (on which there is a Wood).
+
+You can go north or southeast.
+
+> light wood
+
+> light wood
+
+With which object?
+1: Front Door Key
+2: Lighter
+3: Board with nails
+4: wire cutters
+5: Pearl
+6: Alarm clue 3
+7: Snack wrapper
+8: Can of Peaches
+9: Empty Cardboard Box
+10: Garnet
+11: Alarm clue 5
+12: Old Newspaper
+13: Ruby
+14: Alarm clue 1
+15: Empty Plastic Pop Bottle
+16: Diamond
+17: Alarm clue 4
+18: Axe
+19: Big Tree
+20: Fire Pit
+> 2
+You use the lighter and set the wood in the pit on fire.  The back yard now has a warm glow to it.
+
+You begin to hear angry chattering up above you.  You've clearly ticked something off.
+> stab wakko
+
+> stab wakko
+
+No effect.  He's way up there.  He throws a plastic bottle at you with some random yellow liquid in it.  You hope it's soda.  It does hit you, but only does 2 points of damage as the bottle falls to the ground.
+> take plastic pop bottle
+
+> take plastic pop bottle
+
+You pick it up.
+> timber wakko
+
+> timber wakko
+
+You get impatient waiting for him to come down.  You take the axe and start whacking the tree.  It take some time, but eventually........TIMBER !!!!  Wakko falls over 30 feet and is crushed by the once massive tree.
+
+You pull the glowing Sapphire from his cold, dead fingers.  You also grab a scrap of paper labeled "Alarm clue".
+
+Your score has gone up by 1.
+> x alarm clue 1
+
+> x alarm clue 1
+
+It says "even numbers only"
+> x alarm clue 2
+
+> x alarm clue 2
+
+It says "descending order"
+> x alarm clue 3
+
+> x alarm clue 3
+
+It says " 5 digit code".
+> x alarm clue 4
+
+> x alarm clue 4
+
+It says "It does not start with a 3, 7, 2, 9, or 0"
+> x alarm clue 5
+
+> x alarm clue 5
+
+It says "no duplicate numbers".
+> n
+
+> n
+
+You are in a Back Yard.
+
+You can see a Table, a Swing Set and a Grill.
+
+You can go southwest, south, north or northeast.
+
+> n
+
+> n
+
+You are in a Kitchen.
+
+You can see a Refrigerator, a Pantry, a Counter (on which there is a Birdcage and a the Woodpecker), a Trash Can and a Knife Block.
+
+You can go south, east, north or west.
+
+> w
+
+> w
+
+You are in a Living Room.
+
+You can see a Bathroom, a Laundry Room, an Ottoman, a Video Cabinet, a Fireplace (on which there is a Firewood) and a Couch.
+
+You can go east or northwest.
+
+> nw
+
+> nw
+
+You are in an Office.
+
+You can see a Desk (which has a Computer (on which there is an email and a research article)), an Office Cabinets (on which there is a Master Lock Documentation), a Calendar (Underneath, you see a Wall Safe and  a Keypad and a Wall Safe (containing an Emerald and a Topaz)) and a Dartboard.
+
+You can go southeast.
+
+> place ruby
+
+> place ruby
+
+You place the powerful looking Ruby onto it's stand in the wall safe.  Your score has increased by one.
+> place sapphire
+
+> place sapphire
+
+You put the deep blue Sapphire onto it's stand in the Wall Safe.
+
+Your score has gone up by one.
+> place diamond
+
+> place diamond
+
+You place the brilliant Diamond onto it's stand in the wall safe.  Your score has increased by 1.
+> place pearl
+
+> place pearl
+
+You place the humongous Pearl onto it's stand in the wall safe.
+
+Your score has increased by 1.
+> place garnet
+
+> place garnet
+
+You place the cool looking Garnet onto it's stand in the wall safe.  Your score has increased by one.
+> se
+
+> se
+
+You are in a Living Room.
+
+You can see a Bathroom, a Laundry Room, an Ottoman, a Video Cabinet, a Fireplace (on which there is a Firewood) and a Couch.
+
+You can go east or northwest.
+
+> e
+
+> e
+
+You are in a Kitchen.
+
+You can see a Refrigerator, a Pantry, a Counter (on which there is a Birdcage and a the Woodpecker), a Trash Can and a Knife Block.
+
+You can go south, east, north or west.
+
+> n
+
+> n
+
+You are in a Hallway.
+
+You can see an Upstairs (on which there is a Light Switch and a Security Panel), a Coat Closet and a Cabinets (on which there is a Drawers).
+
+You can go south, east, north or up.
+
+> enter alarm code security panel
+
+> enter alarm code security panel
+
+Enter the alarm code.....if you dare !!!
+> 86420
+The code looks to be correct.  The display says "Alarm enabled...Ultrasonic Defenses engaged".
+
+You cannot hear it, but it seems to be driving the Woodpecker Crazy.  He flies to the Security Panel, desperately trying to turn it off, banging his head on the keypad.  He doesn't seem to know the code though.
+
+It also seems to have awoken Brutus, who is now standing upright in the birdcage.  He is still trapped in there though.
+> e
+
+> e
+
+You are in a Family Room.
+
+You can see a Cage, an Entertainment Center, a Lounge Chair and a Coffee Table (on which there is a Fruit Bowl).
+
+You can go south or west.
+
+> deposit can of peaches
+
+> deposit can of peaches
+
+You place the fruit into the bowl.  Congrats, your score has increased by 1 !!
+> w
+
+> w
+
+You are in a Hallway.
+
+You can see an Upstairs (on which there is a Light Switch and a Security Panel), a Coat Closet, a Cabinets (on which there is a Drawers) and a the Woodpecker.
+
+You can go south, east, north or up.
+
+> s
+
+> s
+
+You are in a Kitchen.
+
+You can see a Refrigerator, a Pantry, a Counter (on which there is a Birdcage), a Trash Can and a Knife Block.
+
+You can go south, east, north or west.
+
+> rescue the owl birdcage
+
+> rescue the owl birdcage
+
+With the mastermind out of the way, you are able to unlatch the door.  Brutus, the Great Owl thanks you and bursts out of the birdcage and flies into the hallway.  You hear a panicked squawk and see feathers flying.  In that split second, the owl ate the woodpecker with one chomp.
+
+You retrieve the small key that was around his neck.  It looks like it may go to a piece of luggage.
+
+The owl goes into the other room to look for more victims.  You score has increased by 2 !!!
+> e
+
+> e
+
+You are in a Dining Room.
+
+You can see a Dining Room Table.
+
+You can go west, north or east.
+
+> e
+
+> e
+
+You are  Inside the Garage.
+
+You can see some Boxes, a Workbench (on which there is a Toolbox), an Outdoor Light Switch and a Recycling Bin.
+
+You can go north or west.
+
+> deposit snack wrapper
+
+> deposit snack wrapper
+
+You put the item in the recycling bin.  Good job, your score has increased by 1 !!!
+> deposit empty cardboard box
+
+> deposit empty cardboard box
+
+You put the item into the recycling bin.  Good job, your score has increased by 1 !!!
+> deposit old newspaper
+
+> deposit old newspaper
+
+You put the item into the recycling bin.  Good job, your score has increased by 1 !!!
+> deposit empty plastic pop bottle
+
+> deposit empty plastic pop bottle
+
+You put the item into the recycling bin.  Good job, your score has increased by 1 !!!
+> deposit plastic pop bottle
+
+> deposit plastic pop bottle
+
+You put the item into the recycling bin.  Good job, your score has increased by 1 !!!
+> w
+
+> w
+
+You are in a Dining Room.
+
+You can see a Dining Room Table.
+
+You can go west, north or east.
+
+> x dining room table
+
+> x dining room table
+
+Nothing out of the ordinary.
+It contains a Salt Shaker and a Suspicious Looking Briefcase.
+> open suspicious looking briefcase
+
+> open suspicious looking briefcase
+
+Unlocked.
+You open it.
+It contains a Bomb.
+> x bomb
+
+> x bomb
+
+This explosive looks to be crude, but very large. Possibly even large enough to destroy most of this residential area.  The timer on it is counting down, and does not have much time left before it reaches zero.
+It contains a Red wire, a Blue wire, a Yellow wire, a Brown wire and a Black wire.
+> cut the brown wire brown wire
+
+> cut the brown wire brown wire
+
+With only a few seconds left, you close your eyes and snip the brown wire.  The digital clock stops at 1.3 seconds left.  You have done it !!!  The bomb has been successfully disarmed.
+
+Congratulations Agent, you have completed your primary objective.  The city is now safe, and maybe the world, thanks to you.
+
+Your score has increased by 10 !!!  Secretly communicate the code word "Carrot Cake" to your commanding officer to let them know you have completed your mission, as well as your final score.
+
+If you have time left, you can try to complete your other objectives to increase your score.
 [state=Running]

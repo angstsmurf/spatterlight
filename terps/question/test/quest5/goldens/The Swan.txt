@@ -34,45 +34,1904 @@ There were, unsurprisingly, trees absolutely everywhere.
 Loya could go further into the forest to the north. To the east was the old bridge, to the south the dusty lane, and to the west the muddy lane.
 
 Loya could see the stick and Vin.
+> take stick
+
+> take stick
+
+Loya picked it up.
+> hit vin with stick
+
+> hit vin with stick
+
+Loya whacked Vin with the stick. It knocked him to the ground. Startled, he nervously picked himself up and took to heel.
+
+Loya could not stop laughing. Not until Mother Mila grabbed her from behind and whispered, "You're coming with me, you incorrigible child!"
+
+With that, Mother Mila marched Loya to her office.
+
+Mother Mila paced up and down and Loya knew that she was in very, very big trouble.
+
+"What in the name of the Great Demon did you think you were playing at, girl?" spoke Mother Mila. She spoke quietly. That was how Loya knew that she was really angry. "You attacked a noble born!"
+
+"There is nothing noble about pushing a girl into the river!" retorted Loya. She was quickly hushed.
+
+"Neither is there anything noble about not trying to save your friend, Loya."
+
+Mother Mila turned her back on the girl.
+"Loya, I can smooth this out, but wait for me here. Don't you dare do anything, anything at all!"
+
+As soon as Mother Mila had left, Loya noticed a red stone on the table. Normally, children who broke rules had to wear a red stone to tell the other children to stay away. No doubt this red stone was intended for her, and Mother Mila had simply forgotten to tell the girl to put it on. Needless to say, Loya was no big fan of red stones, but she took it all the same.
+
+Mother Mila's Office
+If Loya was here, it probably meant she was in trouble. On this occasion, she had hit an obnoxious blue-gown boy.
+
+There was a large desk in the centre of the office, upon which was nothing. Apart from that, there was a window which looked out onto the rolling hills.
+
+Loya could go out to the old hall.
+> wear red stone
+
+> wear red stone
+
+Loya put on the red stone.
+> look at drawer
+
+> look at drawer
+
+Loya had never seen anything on Mother Mila's desk, so she supposed the drawer was where the high priestess stored her things. There was a dent on the front of the drawer.
+
+It was locked, which probably meant there was something interesting in it.
+
+Loya noticed that the dent was the exact same shape as her red stone.
+> insert red stone into keyhole
+
+> insert red stone into keyhole
+
+Loya unlocked the drawer.
+> open drawer
+
+> open drawer
+
+Loya opened it.
+
+Inside, Loya found The Songs of Kayla and the memo.
+> take songs
+
+> take songs
+
+Loya picked it up.
+> climb through window
+
+> climb through window
+
+Loya opened the window and just about squeezed through it. Perhaps she should have squozen through it instead, for as soon as she did, it snapped shut. Loya found herself in a narrow alley, which she followed round. She was back in the girls' playground. No matter how hard she looked for the entrance that had allowed her to do this, she could not find it.
+
+The Playground of the Girls' School
+The ground was a curious orange colour of sand which did not exist anywhere else on the island.
+
+Loya could go west onto the terrace, east into the alley, or into the outhouse.
 > east
 
 > east
 
-The Old Bridge
-The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
+The Alley
+It was a filthy alley.
 
-Loya could go west to the forest, east to the Forbidden Hill, southwest to the grassy bank or north to the grasslands.
+The alley continued to the north. To the west was the girls' playground. To the east was the muddy lane.
 > east
 
 > east
 
-As Loya approached the eastern edge of the bridge, a powerful forced repelled her.
-> southeast
+The Muddy Lane
+Loya did not like this street; if she was here, it probably meant she was going to school. Quite apart from that, it was perpetually muddy. Some people rumoured that a dark witch residing in the next street had moved all the mud from her lane here, hence why the adjacent lane was always dry and dusty.
 
-> southeast
+The lane continued north and south. Loya could also go east to the dusty lane where she lived and west to the alley where her school was.
+> south
 
-Loya could not go there.
+> south
+
+The Bottom of the Muddy Lane
+Loya had never known this lane to be anything other than muddy. Indeed, it was muddy right now. There were some yellow-gown huts here, one of which belonged to a bespectactled girl in Loya's class called Avara.
+
+The lane continued to the north. Loya could also go south to the cobbled road or into Avara's hut.
+> south
+
+> south
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> east
+
+> east
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> east
+
+> east
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+In fact, the Great Separator Himself was here leading such a rally. Two dozen hideous men with shaven heads stood around chanting about decapitating the yellow-gowns. Loya did not feel particularly comfortable in such an environment.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> east
+
+> east
+
+The Promenade
+A few people strolled along the promenade, but it was by no means the same thriving place it had been before the war.
+
+Lamp posts lined the sides and a crumbling stone balustrade marked the edge of the promenade and the river far below. One of the lamps was broken.
+
+To the west was the village square, and to the east was pier.
+> east
+
+> east
+
+The Pier
+Before the war, a ship had arrived here almost every day, usually burdened with mainland tourists. The pier had been a bustling alighting point with kiosks selling island fudge and Arkan cloth. Now the stalls were all boarded up and only spiders resided here. For a place never visited by humans, there was a disgusting amount of litter on the ground.
+
+Loya could go west to the promenade.
+> search litter
+
+> search litter
+
+Loya found a leaflet amongst the litter.
+> take leaflet
+
+> take leaflet
+
+Loya picked it up.
+> west
+
+> west
+
+The Promenade
+A few people strolled along the promenade, but it was by no means the same thriving place it had been before the war.
+
+Lamp posts lined the sides and a crumbling stone balustrade marked the edge of the promenade and the river far below. One of the lamps was broken.
+
+To the west was the village square, and to the east was pier.
+> west
+
+> west
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+In fact, the Great Separator Himself was here leading such a rally. Two dozen hideous men with shaven heads stood around chanting about decapitating the yellow-gowns. Loya did not feel particularly comfortable in such an environment.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> south
+
+> south
+
+The Shopping Street
+Along this road were many olde shoppes, all of which had closed down within about a year of opening. Now, only Izin's General Store was not boarded up.
+
+The road continued to the southeast whilst the village square was to the north. Loya could also go into Izin's store.
 > in
 
 > in
 
-Loya could not go there.
+Izin's General Store
+It did pretty much what it said on the window. Loya could buy confectionary, stationery, household items, gowns, and even food, not that she had any money. There was even a stack of magazines, although they appeared to be older than the Great Demon Itself. Elweed seeds, though, were conspicuous in their absence, perhaps because of the war.
+
+Loya could go out.
+
+Loya could see Izin.
+> give leaflet to izin
+
+> give leaflet to izin
+
+"Why do' no one no' tell us this?" grumbled Izin as he swept out of the store.
+> search gowns
+
+> search gowns
+
+Loya found a single blue gown hidden amongst the yellow gowns.
+> take blue gown
+
+> take blue gown
+
+Loya picked it up.
+> wear blue gown
+
+> wear blue gown
+
+Loya slipped into the blue gown. It was a truly comfortable garment.
+> out
+
+> out
+
+The Shopping Street
+Along this road were many olde shoppes, all of which had closed down within about a year of opening. Now, only Izin's General Store was not boarded up.
+
+The road continued to the southeast whilst the village square was to the north. Loya could also go into Izin's store.
+> north
+
+> north
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+In fact, the Great Separator Himself was here leading such a rally. Two dozen hideous men with shaven heads stood around chanting about decapitating the yellow-gowns. Loya did not feel particularly comfortable in such an environment.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+
+As Loya entered the village square, someone shouted "Hey, that girl walked past not twenty minutes ago in a yellow-gown. Now she wears a blue gown."
+
+"Kill the dog!" someone else cried.
+
+"Death to the traitor!" someone else added.
+
+Loya was not going to stick around to find out what would happen next. She took to her heels, heading north to the potholed road.
+
+The Potholed Road
+Torrential rain had only made the potholes bigger. Perhaps before the war had broken out, it had been quite a pleasant road where the orange-gowns lived. Hedges surrounded gardens, and the huts here were beyond what a yellow-gown could ever expect to live in.
+
+The village square was to the south. The road forked northwest to the dusty lane and northeast to the grassy bank.
+> northwest
+
+> northwest
+
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+
+Loya could hear the angered cries of the Separatists behind her.
+> north
+
+> north
+
+The Forest
+There were, unsurprisingly, trees absolutely everywhere.
+
+Loya could go further into the forest to the north. To the east was the old bridge, to the south the dusty lane, and to the west the muddy lane.
+> north
+
+> north
+
+The Dark Forest
+A thick canopy prevented any light at all getting through. As such, it was really, really dark here. Loya supposed that she was surrounded by trees. She could also just about make out some undergrowth beneath her feet.
+
+The forest continued to the south and to the west, a path led to the forest trail.
+
+The Separatists appeared to be gaining on Loya.
+> search undergrowth
+
+> search undergrowth
+
+Loya discovered a hollow under the roots of one of the trees. It was just about large enough for Loya to get into.
+> in
+
+> in
+
+The Hollow
+It was a perfect hiding place.
+
+Loya could go out to the dark forest.
+
+Loya hid in the hollow under the tree. Her heart pounded so fiercely she was sure the Separatists would hear her, but to her relief, they passed.
+
+Just as she was preparing to emerge from her hiding place, she noticed a tunnel to the north.
+> north
+
+> north
+
+The Underground Passage
+The passage had obviously been created by a man-sized creature.
+
+To the northwest was an exit, and to the south was the hollow.
+> northwest
+
+> northwest
+
+The Abandoned Farm
+Loya could vaguely remember coming here as a very small girl to get milk. Now, though, there was no farm, just a ruined farmhouse surrounded by broken glass.
+
+Loya could go into the farmhouse, southeast to the underground passageway, west to the field, or south to the forest trail.
+
+Some brambleweed would have prevented Loya from using the southern exit, though.
+> look
+
+> look
+
+The Abandoned Farm
+Loya could vaguely remember coming here as a very small girl to get milk. Now, though, there was no farm, just a ruined farmhouse surrounded by broken glass.
+
+Loya could go into the farmhouse, southeast to the underground passageway, west to the field, or south to the forest trail.
+
+Some brambleweed would have prevented Loya from using the southern exit, though.
+> west
+
+> west
+
+The Field
+A barn sat in the middle of a fertile field. Long grasses wavered in the gentle breeze.
+
+Loya could go into the barn or east to the abandoned farm.
+> in
+
+> in
+
+The Barn
+Whilst there should have been nothing in the barn except barn owls, there was a pile of fresh hay here. There weren't any barn owls, though.
+
+Loya could go out.
+> look
+
+> look
+
+The Barn
+Whilst there should have been nothing in the barn except barn owls, there was a pile of fresh hay here. There weren't any barn owls, though.
+
+Loya could go out.
+> search hay
+
+> search hay
+
+Loya found a needle in the haystack.
+> take needle
+
+> take needle
+
+Loya picked it up.
+> out
+
+> out
+
+The Field
+A barn sat in the middle of a fertile field. Long grasses wavered in the gentle breeze.
+
+Loya could go into the barn or east to the abandoned farm.
+> east
+
+> east
+
+The Abandoned Farm
+Loya could vaguely remember coming here as a very small girl to get milk. Now, though, there was no farm, just a ruined farmhouse surrounded by broken glass.
+
+Loya could go into the farmhouse, southeast to the underground passageway, west to the field, or south to the forest trail.
+
+Some brambleweed would have prevented Loya from using the southern exit, though.
+> southeast
+
+> southeast
+
+The Underground Passage
+The passage had obviously been created by a man-sized creature.
+
+To the northwest was an exit, and to the south was the hollow.
 > south
 
 > south
+
+The Hollow
+It was a perfect hiding place.
+
+Loya could go out to the dark forest or north along the underground passage.
+> out
+
+> out
+
+The Dark Forest
+A thick canopy prevented any light at all getting through. As such, it was really, really dark here. Loya supposed that she was surrounded by trees. She could also just about make out some undergrowth beneath her feet.
+
+The forest continued to the south and to the west, a path led to the forest trail.
+
+Loya could also go into the hollow.
+> south
+
+> south
+
+The Forest
+There were, unsurprisingly, trees absolutely everywhere.
+
+Loya could go further into the forest to the north. To the east was the old bridge, to the south the dusty lane, and to the west the muddy lane.
+> south
+
+> south
+
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+> in
+
+> in
+
+Loya's Hut
+There was humble. Then there was Loya's hut. Loya's mother tried to pretend that her child's constant antics had forced them to the very edge of the village. Loya knew, though, that her mother's alcoholism was a more likely explanation.
+
+There was a stove in the corner, although considering that no one in her house could cook, its presence had always been a mystery to Loya. There was not even a bale of hay as one would have expected in other yellow-gown huts. Loya's family were too poor to afford such a thing.
+
+Loya could go out to the dusty lane.
+> look
+
+> look
+
+Loya's Hut
+There was humble. Then there was Loya's hut. Loya's mother tried to pretend that her child's constant antics had forced them to the very edge of the village. Loya knew, though, that her mother's alcoholism was a more likely explanation.
+
+There was a stove in the corner, although considering that no one in her house could cook, its presence had always been a mystery to Loya. There was not even a bale of hay as one would have expected in other yellow-gown huts. Loya's family were too poor to afford such a thing.
+
+Loya could go out to the dusty lane.
+> put needle on stove
+
+> put needle on stove
+
+Loya put the needle on the stove.
+
+The needle melted slightly in the heat of the stove. Loya picked it up again, somehow managing not to burn her fingers. She noticed it was now maleable.
+> bend needle
+
+> bend needle
+
+Loya bent the needle into the shape of a hook.
+> look behind stove
+
+> look behind stove
+
+Loya found The Book of Mischief for Girls, a book which she had lost almost as soon as she had managed to save up the money for it.
+
+'So that's where it was!' thought the girl.
+> take book
+
+> take book
+
+Loya picked it up.
+> z
+
+> z
+
+'Boring!' thought Loya. Nonetheless, she waited.
+> out
+
+> out
+
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+> southeast
+
+> southeast
+
+The Potholed Road
+Torrential rain had only made the potholes bigger. Perhaps before the war had broken out, it had been quite a pleasant road where the orange-gowns lived. Hedges surrounded gardens, and the huts here were beyond what a yellow-gown could ever expect to live in.
+
+The village square was to the south. The road forked northwest to the dusty lane and northeast to the grassy bank.
+> search hedges
+
+> search hedges
+
+Someone had hidden a shovel here.
+> take shovel
+
+> take shovel
+
+Loya picked up the shovel.
+> south
+
+> south
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> west
+
+> west
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> in
+
+> in
+
+The Tavern Entrance
+The entrance to the tavern was bare except for a painting on one of the walls and an umbrella stand in the corner. There was a sign next to the door.
+
+Loya could go out to the cobbled road or south to the bar room.
+
+Loya could see the burly man.
+> look
+
+> look
+
+The Tavern Entrance
+The entrance to the tavern was bare except for a painting on one of the walls and an umbrella stand in the corner. There was a sign next to the door.
+
+Loya could go out to the cobbled road or south to the bar room.
+
+Loya could see the burly man.
+> look behind painting
+
+> look behind painting
+
+The painting was hanging loosely by a thin length of string.
+> untie painting
+
+> untie painting
+
+The painting came tumbling down. To Loya's surprise, the burly man said nothing. In fact, he did not react in any way.
+> take string
+
+> take string
+
+Loya picked it up.
+> tie hook to string
+
+> tie hook to string
+
+Loya tied the hook to the string.
+> tie stick to string
+
+> tie stick to string
+
+Loya tied the string to the stick.
+> out
+
+> out
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> west
+
+> west
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> west
+
+> west
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> in
+
+> in
+
+There were two orders, the Eagles and the Dragons. Loya's island worshipped the Eagle, and the Dragons had long ago been driven away. Naturally, this was an Eagle temple, and Loya was an Eagle.
+
+The Temple
+Statues of various demons surrounded the temple.
+
+To the west was the altar and a staircase led up to the bell tower. Loya could also go out onto the cobbled road, or into Father Tarafun's office.
+> look
+
+> look
+
+The Temple
+Statues of various demons surrounded the temple.
+
+To the west was the altar and a staircase led up to the bell tower. Loya could also go out onto the cobbled road, or into Father Tarafun's office.
+> search bimol
+
+> search bimol
+
+Bimol was, in fact, eating a goldworm.
+> take goldworm
+
+> take goldworm
+
+Loya squirmed as she picked it up.
+> bait hook with goldworm
+
+> bait hook with goldworm
+
+Loya baited the hook with the goldworm.
+> out
+
+> out
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> east
+
+> east
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> east
+
+> east
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> north
+
+> north
+
+The Bottom of the Dusty Lane
+The dust here was almost unbearable. A dark witch was rumoured to live here, and villagers spoke that she had turned her lane dusty by shifting all the mud to the adjacent street. Several yellow-gown huts lined the lane, one of which belonged to the dark witch.
+
+Loya could go north along the lane or south to the cobbled road. She could also go into the dark witch' hut.
+> north
+
+> north
+
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+> east
+
+> east
 
 The Grassy Bank
 Loya came here often to contemplate life. There was a shady tree here under which she could sit and hide from the summer heat listening to the burble of the river by the tree.
 
 Loya could go northeast to the old bridge, west to the dusty lane, or southwest to the potholed road. A steep hill south led to the embankment.
+> northeast
+
+> northeast
+
+The Old Bridge
+The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
+
+Loya could go west to the forest, east to the Forbidden Hill, southwest to the grassy bank or north to the grasslands.
+> throw hook into river
+
+> throw hook into river
+
+Something bit. Loya pulled it up. She had caught a bottle. Strangely, the goldworm had disappeared
+> break bottle
+
+> break bottle
+
+Loya broke the bottle. Inside was an orange stone. The bottle mysteriously evaporated
+> take orange stone
+
+> take orange stone
+
+Loya picked it up.
+> break stick
+
+> break stick
+
+Loya broke the stick in two. She now had a broken stick and a twig.
+> southwest
+
+> southwest
+
+The Grassy Bank
+Loya came here often to contemplate life. There was a shady tree here under which she could sit and hide from the summer heat listening to the burble of the river by the tree.
+
+Loya could go northeast to the old bridge, west to the dusty lane, or southwest to the potholed road. A steep hill south led to the embankment.
+> southwest
+
+> southwest
+
+The Potholed Road
+Torrential rain had only made the potholes bigger. Perhaps before the war had broken out, it had been quite a pleasant road where the orange-gowns lived. Hedges surrounded gardens, and the huts here were beyond what a yellow-gown could ever expect to live in.
+
+The village square was to the south. The road forked northwest to the dusty lane and northeast to the grassy bank.
+> south
+
+> south
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> south
+
+> south
+
+The Shopping Street
+Along this road were many olde shoppes, all of which had closed down within about a year of opening. Now, only Izin's General Store was not boarded up.
+
+The road continued to the southeast whilst the village square was to the north. Loya could also go into Izin's store.
+> southeast
+
+> southeast
+
+Riverside Road
+One would have expected somewhere so pleasant to have been colonised by the blue-gowns. Instead, Loya's own caste lived here, albeit the slightly snooty ones. There were a couple of huts which were slightly grander than yellow-gown huts were wont to be. Loya's classmate Pema lived here.
+
+Loya could go into Pema's hut, east to the sandy bank or northwest to the shopping street.
+> in
+
+> in
+
+Pema's Hut
+Instead of a bale of hay, the six or so members of Pema's family slept on a bed. Pema was mighty proud of such a thing, and twelve years since starting school had still not stopped boasting about it. Loya was sick and tired of hearing about Pema's bed.
+
+It did look quite comfortable, though.
+
+There was a stove in one corner, and other than that, there were no furnishings.
+
+Loya could go out.
+> look under bed
+
+> look under bed
+
+Loya found a bundle of love letters under Pema's bed.
+> take love letters
+
+> take love letters
+
+Loya picked them up.
+> out
+
+> out
+
+Riverside Road
+One would have expected somewhere so pleasant to have been colonised by the blue-gowns. Instead, Loya's own caste lived here, albeit the slightly snooty ones. There were a couple of huts which were slightly grander than yellow-gown huts were wont to be. Loya's classmate Pema lived here.
+
+Loya could go into Pema's hut, east to the sandy bank or northwest to the shopping street.
+> northwest
+
+> northwest
+
+The Shopping Street
+Along this road were many olde shoppes, all of which had closed down within about a year of opening. Now, only Izin's General Store was not boarded up.
+
+The road continued to the southeast whilst the village square was to the north. Loya could also go into Izin's store.
+> north
+
+> north
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> west
+
+> west
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> west
+
+> west
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> north
+
+> north
+
+The Bottom of the Muddy Lane
+Loya had never known this lane to be anything other than muddy. Indeed, it was muddy right now. There were some yellow-gown huts here, one of which belonged to a bespectactled girl in Loya's class called Avara.
+
+The lane continued to the north. Loya could also go south to the cobbled road or into Avara's hut.
+> in
+
+> in
+
+Avara's Hut
+Not that there was that much you could do with a yellow-gown hut, but Charlie Dimmock herself would have been proud of Avara's family, had she existed in Loya's world. There was the usual bale of hay upon which a large family slept, a stove, and not much else.
+
+Loya could go out.
+
+Loya could see the bucket and Avara.
+> give love letters to avara
+
+> give love letters to avara
+
+"Thanks," said Avara. "I was looking all over for them. Where did you find them?"
+
+"Under Pema's bed," replied Loya. Avara did not ask why Loya had been snooping around a classmate's hut. However, she was visibly incensed.
+
+"That girl goes too far!" exclaimed Avara. "Someone needs to sort her out." With that, Avara strode out of the hut as though a girl on a mission.
+> take bucket
+
+> take bucket
+
+Loya picked it up.
+> out
+
+> out
+
+The Bottom of the Muddy Lane
+Loya had never known this lane to be anything other than muddy. Indeed, it was muddy right now. There were some yellow-gown huts here, one of which belonged to a bespectactled girl in Loya's class called Avara.
+
+The lane continued to the north. Loya could also go south to the cobbled road or into Avara's hut.
+> north
+
+> north
+
+The Muddy Lane
+Loya did not like this street; if she was here, it probably meant she was going to school. Quite apart from that, it was perpetually muddy. Some people rumoured that a dark witch residing in the next street had moved all the mud from her lane here, hence why the adjacent lane was always dry and dusty.
+
+The lane continued north and south. Loya could also go east to the dusty lane where she lived and west to the alley where her school was.
 > east
 
 > east
 
-Loya could not go there.
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+> east
+
+> east
+
+The Grassy Bank
+Loya came here often to contemplate life. There was a shady tree here under which she could sit and hide from the summer heat listening to the burble of the river by the tree.
+
+Loya could go northeast to the old bridge, west to the dusty lane, or southwest to the potholed road. A steep hill south led to the embankment.
+> fill bucket with river
+
+> fill bucket with river
+
+Loya scooped water from the river up into the bucket.
 > west
 
 > west
+
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+> west
+
+> west
+
+The Muddy Lane
+Loya did not like this street; if she was here, it probably meant she was going to school. Quite apart from that, it was perpetually muddy. Some people rumoured that a dark witch residing in the next street had moved all the mud from her lane here, hence why the adjacent lane was always dry and dusty.
+
+The lane continued north and south. Loya could also go east to the dusty lane where she lived and west to the alley where her school was.
+> south
+
+> south
+
+The Bottom of the Muddy Lane
+Loya had never known this lane to be anything other than muddy. Indeed, it was muddy right now. There were some yellow-gown huts here, one of which belonged to a bespectactled girl in Loya's class called Avara.
+
+The lane continued to the north. Loya could also go south to the cobbled road or into Avara's hut.
+> south
+
+> south
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> in
+
+> in
+
+The Blue Gown School Entrance
+Posters hung upon the walls.
+
+Loya could go out to the cobbled road, into Sister Ozara's office, or south along the corridor.
+> south
+
+> south
+
+The Northern Section of the Blue Gown School Corridor
+There was no rising damp here.
+
+Loya could go north or south along the corridor. To the west was Brother Guran's classroom, while a sign above the eastern door notified Loya that Sister Naya's classroom was to the east.
+> south
+
+> south
+
+The Blue School Corridor
+It was pristeen.
+
+Loya could go north or south along the corridor. Sister Eya's classroom was west, Brother Erkam's classroom was east.
+> south
+
+> south
+
+The Blue School Corridor South
+The corridor was spotless. A little too spotless.
+
+Loya could go north along the corridor. From Sister Yeleda's classroom in the east, an inordinate amount of noise radiated. Brother Kul's classroom was to the west.
+> east
+
+> east
+
+Sister Yeleda's Classroom
+A chaotic scene assaulted Loya's eyes. A girl was chasing a boy around the classroom with a knife. Two boys were playing catch with a lit bomb, and another boy was trying to climb out of the window. A teacher, presumably Sister Yeleda, cowered under a desk. There was a board at the front of the room and a wooden block at the back, just as there seemed to be in any classroom on this island.
+
+Loya could go west to the sanity of the corridor.
+
+Loya could see Sister Yeleda and a Polana.
+> rub broken stick with twig
+
+> rub broken stick with twig
+
+Loya began to rub the broken stick with the twig. Two girls, seeing what Loya was doing, decided to help. Soon the blaze was in full progress.
+> west
+
+> west
+
+The Blue School Corridor South
+The corridor was spotless. A little too spotless.
+
+Loya could go north along the corridor. From Sister Yeleda's classroom in the east, an inordinate amount of noise radiated. Brother Kul's classroom was to the west.
+
+Loya could see the small girl.
+> north
+
+> north
+
+The Blue School Corridor
+It was pristeen.
+
+Loya could go north or south along the corridor. Sister Eya's classroom was west, Brother Erkam's classroom was east.
+> north
+
+> north
+
+The Northern Section of the Blue Gown School Corridor
+There was no rising damp here.
+
+Loya could go north or south along the corridor. To the west was Brother Guran's classroom, while a sign above the eastern door notified Loya that Sister Naya's classroom was to the east.
+> north
+
+> north
+
+The Blue Gown School Entrance
+Posters hung upon the walls.
+
+Loya could go out to the cobbled road, into Sister Ozara's office, or south along the corridor.
+> in
+
+> in
+
+Sister Ozara's Office
+A risibly over-sized plantpot (in which was a risibly withered plant) sat upon the windowsill. Other than that, there was the desk that Loya would have expected and a comfy chair. The window looked out onto the cobbled road.
+
+Loya could go out.
+> water plant
+
+> water plant
+
+Loya watered the plant.
+
+The plant looked only moderately happier, but as though in gratitude, one of its leaves opened out revealing a green stone.
+> take green stone
+
+> take green stone
+
+Loya picked it up.
+
+Just as Loya picked up the green stone, a bell rang signalling the end of the school day.
+> wear green stone
+
+> wear green stone
+
+Loya put on the green stone.
+> out
+
+> out
+
+The Blue Gown School Entrance
+Posters hung upon the walls.
+
+Loya could go out to the cobbled road, into Sister Ozara's office, or south along the corridor.
+> out
+
+> out
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> north
+
+> north
+
+The Bottom of the Muddy Lane
+Loya had never known this lane to be anything other than muddy. Indeed, it was muddy right now. There were some yellow-gown huts here, one of which belonged to a bespectactled girl in Loya's class called Avara.
+
+The lane continued to the north. Loya could also go south to the cobbled road or into Avara's hut.
+> north
+
+> north
+
+The Muddy Lane
+Loya did not like this street; if she was here, it probably meant she was going to school. Quite apart from that, it was perpetually muddy. Some people rumoured that a dark witch residing in the next street had moved all the mud from her lane here, hence why the adjacent lane was always dry and dusty.
+
+The lane continued north and south. Loya could also go east to the dusty lane where she lived and west to the alley where her school was.
+> west
+
+> west
+
+The Alley
+It was a filthy alley.
+
+The alley continued to the north. To the west was the girls' playground. To the east was the muddy lane.
+> west
+
+> west
+
+The Playground of the Girls' School
+The ground was a curious orange colour of sand which did not exist anywhere else on the island.
+
+Loya could go west onto the terrace, east into the alley, or into the outhouse.
+> west
+
+> west
+
+The Southern Part of the Terrace
+When lessons weren't going on, the terrace was full of rambunctious girls. Today it was empty, although it did not seem like a lesson was going on.
+
+The terrace continued to the north. To the east was the playground. Loya could also go into Sister Caya's classroom.
+> north
+
+> north
+
+The Terrace
+The terrace continued north and south. Loya could also go into Mother Mila's office if she was really, really in the mood for a dressing down.
+
+It was suspiciously quiet here. Perhaps Loya was meant to be in a lesson.
+
+'No wait,' thought Loya. 'For some reason, us yellow-gowns have the day off today.'
+> north
+
+> north
+
+The Northern Part of the Terrace
+A fragile railing prevented girls accidentally falling into the lake. That hadn't stopped a girl drowning a few years earlier, at least according to the mythology of the island.
+
+Loya could go into Sister Serina's classroom or south.
+> in
+
+> in
+
+Whilst Sister Serina was a more compassionate soul than Loya's first teacher had been, she was still an authoritarian who imposed rules and made sure the girls in her class abided by them. As such, Loya still often found herself falling foul of the law. Still, in two weeks' time", she would no longer have to worry about that sort of thing.
+
+Sister Serina's Classroom
+The classroom was charmless and squalid, and looked almost identical to Sister Caya's classroom. There was a wooden block at the back of the room, a blackboard at the front, and absolutely no other furnishings. Rising damp and a mouldy smell were about the only redeeming features of this classroom.
+
+Loya could go out to the terrace.
+> look behind blackboard
+
+> look behind blackboard
+
+Amidst the grime, Loya found a scroll behind the blackboard.
+> take scroll
+
+> take scroll
+
+Loya picked it up.
+> out
+
+> out
+
+The Northern Part of the Terrace
+A fragile railing prevented girls accidentally falling into the lake. That hadn't stopped a girl drowning a few years earlier, at least according to the mythology of the island.
+
+Loya could go into Sister Serina's classroom or south.
+> south
+
+> south
+
+The Terrace
+The terrace continued north and south. Loya could also go into Mother Mila's office if she was really, really in the mood for a dressing down.
+> south
+
+> south
+
+The Southern Part of the Terrace
+When lessons weren't going on, the terrace was full of rambunctious girls. Today it was empty, although it did not seem like a lesson was going on.
+
+The terrace continued to the north. To the east was the playground. Loya could also go into Sister Caya's classroom.
+> east
+
+> east
+
+The Playground of the Girls' School
+The ground was a curious orange colour of sand which did not exist anywhere else on the island.
+
+Loya could go west onto the terrace, east into the alley, or into the outhouse.
+> east
+
+> east
+
+The Alley
+It was a filthy alley.
+
+The alley continued to the north. To the west was the girls' playground. To the east was the muddy lane.
+> north
+
+> north
+
+The Northern Part of the Alley
+A bland monk stood at the gates leading into the boys' school. There was nothing else in the alley except dirt.
+
+Loya could go south along the alley or west into the boys' playground.
+
+Loya could see the bland monk.
+> give scroll to bland monk
+
+> give scroll to bland monk
+
+The bland monk took the scroll and read it. "Dear oh dear, what will they think of next?" he tutted. With that, he darted from view. Apparently, he was quite quick when he wanted to be.
+> west
+
+> west
+
+The Playground of the Yellow-gowns Boys' School
+It looked absolutely no different from the playground of the yellow-gown girls' school. It was covered in the same strangely-coloured sand.
+
+Loya could go into the outhouse, or up the stairs. She could also go east to the alley.
+> in
+
+> in
+
+The Outhouse
+The stench was almost unbearable here. It contained much what one would have expected from an outhouse.
+
+Loya would have been most grateful if you were to type OUT right now.
+
+Loya could see the torn page.
+> take torn page
+
+> take torn page
+
+Loya picked it up.
+> out
+
+> out
+
+The Playground of the Yellow-gowns Boys' School
+It looked absolutely no different from the playground of the yellow-gown girls' school. It was covered in the same strangely-coloured sand.
+
+Loya could go into the outhouse, or up the stairs. She could also go east to the alley.
+> east
+
+> east
+
+The Northern Part of the Alley
+The gates to the boys' school were uncharacteristically unguarded. The alley, though, was just as dirty as Loya would have expected.
+
+Loya could go south along the alley or west into the boys' playground.
+> south
+
+> south
+
+The Alley
+It was a filthy alley.
+
+The alley continued to the north. To the west was the girls' playground. To the east was the muddy lane.
+> west
+
+> west
+
+The Playground of the Girls' School
+The ground was a curious orange colour of sand which did not exist anywhere else on the island.
+
+Loya could go west onto the terrace, east into the alley, or into the outhouse.
+
+Loya could see the bland monk.
+> dig sand
+
+> dig sand
+
+Loya discovered a chisel in the sand.
+> take chisel
+
+> take chisel
+
+Loya picked it up.
+> east
+
+> east
+
+The Alley
+It was a filthy alley.
+
+The alley continued to the north. To the west was the girls' playground. To the east was the muddy lane.
+
+Loya could see the bland monk.
+> east
+
+> east
+
+The Muddy Lane
+Loya did not like this street; if she was here, it probably meant she was going to school. Quite apart from that, it was perpetually muddy. Some people rumoured that a dark witch residing in the next street had moved all the mud from her lane here, hence why the adjacent lane was always dry and dusty.
+
+The lane continued north and south. Loya could also go east to the dusty lane where she lived and west to the alley where her school was.
+> south
+
+> south
+
+The Bottom of the Muddy Lane
+Loya had never known this lane to be anything other than muddy. Indeed, it was muddy right now. There were some yellow-gown huts here, one of which belonged to a bespectactled girl in Loya's class called Avara.
+
+The lane continued to the north. Loya could also go south to the cobbled road or into Avara's hut.
+> south
+
+> south
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> east
+
+> east
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> east
+
+> east
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> south
+
+> south
+
+The Shopping Street
+Along this road were many olde shoppes, all of which had closed down within about a year of opening. Now, only Izin's General Store was not boarded up.
+
+The road continued to the southeast whilst the village square was to the north. Loya could also go into Izin's store.
+> southeast
+
+> southeast
+
+Riverside Road
+One would have expected somewhere so pleasant to have been colonised by the blue-gowns. Instead, Loya's own caste lived here, albeit the slightly snooty ones. There were a couple of huts which were slightly grander than yellow-gown huts were wont to be. Loya's classmate Pema lived here.
+
+Loya could go into Pema's hut, east to the sandy bank or northwest to the shopping street.
+> in
+
+> in
+
+Pema's Hut
+Instead of a bale of hay, the six or so members of Pema's family slept on a bed. Pema was mighty proud of such a thing, and twelve years since starting school had still not stopped boasting about it. Loya was sick and tired of hearing about Pema's bed.
+
+It did look quite comfortable, though.
+
+There was a stove in one corner, and other than that, there were no furnishings.
+
+Loya could go out.
+
+Loya could see Avara.
+> speak to avara
+
+> speak to avara
+
+"What's the missing word?" asked Loya, pointing at the torn page.
+
+Avara blinked in disbelief. "Loya, do you just never listen in class? We studied this last week! The word is 'begone'."
+
+Loya's only thought was that the spell had to be about the worst in history. Still, at least she knew it now.
+
+To use the spell write BRAMBLECLEAR and the bramble you want to remove.
+> out
+
+> out
+
+Riverside Road
+One would have expected somewhere so pleasant to have been colonised by the blue-gowns. Instead, Loya's own caste lived here, albeit the slightly snooty ones. There were a couple of huts which were slightly grander than yellow-gown huts were wont to be. Loya's classmate Pema lived here.
+
+Loya could go into Pema's hut, east to the sandy bank or northwest to the shopping street.
+> northwest
+
+> northwest
+
+The Shopping Street
+Along this road were many olde shoppes, all of which had closed down within about a year of opening. Now, only Izin's General Store was not boarded up.
+
+The road continued to the southeast whilst the village square was to the north. Loya could also go into Izin's store.
+> north
+
+> north
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> west
+
+> west
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> west
+
+> west
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> west
+
+> west
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> southwest
+
+> southwest
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+
+The route to the southwest was, however, blocked by a vicious brambleweed colony.
+> brambleclear brambles
+
+> brambleclear brambles
+
+Loya chanted the words of the brambleclearing spell. The colony slowly receded. No doubt it would soon come back to life, though.
+> southwest
+
+> southwest
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> look
+
+> look
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> in
+
+> in
+
+The Wood Hut
+It was a typical green-gown hut. It was slightly prouder than the humble abodes Loya's caste lived in, but was only slightly bigger. There was a bed and a cupboard here. Apparently the owner did not cook, as there was no stove.
+
+Loya could go out to the narrow path.
+> open bed
+
+> open bed
+
+Loya opened it.
+
+Inside, Loya found some rags.
+> take rags
+
+> take rags
+
+Loya picked them up.
+> out
+
+> out
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> northeast
+
+> northeast
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+> northwest
+
+> northwest
+
+The Large Field
+Most of the year, this field was left empty. It was used for just a couple of days when the village fair happened. At the moment, it was fairly empty, though as the fair was in two days' time, the next day, it would be a chaos of activity.
+
+Loya could go southeast to the narrow path.
+
+Loya could see the trader.
+> give rags to trader
+
+> give rags to trader
+
+Loya gave the rags the trader. His face lit up. "Where in the name of the Great Demon did you get those?" he exclaimed.
+
+He took the rags gladly, and gave Loya a bag of elweed seeds in return.
+> southeast
+
+> southeast
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+> northeast
+
+> northeast
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> east
+
+> east
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> in
+
+> in
+
+The Blue Gown School Entrance
+Posters hung upon the walls.
+
+Loya could go out to the cobbled road, into Sister Ozara's office, or south along the corridor.
+> south
+
+> south
+
+The Northern Section of the Blue Gown School Corridor
+There was no rising damp here.
+
+Loya could go north or south along the corridor. To the west was Brother Guran's classroom, while a sign above the eastern door notified Loya that Sister Naya's classroom was to the east.
+> west
+
+> west
+
+Brother Guran's Classroom
+The desks were a bit higgledy-piggledly, as though a non-rebellious person was trying to do something rebellious. There was a board at the front and a block at the back.
+
+The corridor was to the east.
+> look
+
+> look
+
+Brother Guran's Classroom
+The desks were a bit higgledy-piggledly, as though a non-rebellious person was trying to do something rebellious. There was a board at the front and a block at the back.
+
+The corridor was to the east.
+> look under desk
+
+> look under desk
+
+Under Brother Guran's desk was a drawer.
+> open drawer
+
+> open drawer
+
+Loya opened it.
+
+It contained the blunt and rusty knife.
+> take knife
+
+> take knife
+
+Loya picked it up.
+> east
+
+> east
+
+The Northern Section of the Blue Gown School Corridor
+There was no rising damp here.
+
+Loya could go north or south along the corridor. To the west was Brother Guran's classroom, while a sign above the eastern door notified Loya that Sister Naya's classroom was to the east.
+> north
+
+> north
+
+The Blue Gown School Entrance
+Posters hung upon the walls.
+
+Loya could go out to the cobbled road, into Sister Ozara's office, or south along the corridor.
+> out
+
+> out
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> west
+
+> west
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> southwest
+
+> southwest
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+> southwest
+
+> southwest
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> in
+
+> in
+
+The Wood Hut
+It was a typical green-gown hut. It was slightly prouder than the humble abodes Loya's caste lived in, but was only slightly bigger. There was a bed and a cupboard here. Apparently the owner did not cook, as there was no stove.
+
+Loya could go out to the narrow path.
+> insert knife into keyhole
+
+> insert knife into keyhole
+
+Loya unlocked the cupboard.
+> open cupboard
+
+> open cupboard
+
+Loya opened it.
+
+Inside the cupboard, Loya saw the ring.
+> take ring
+
+> take ring
+
+Loya picked it up.
+> out
+
+> out
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> down
+
+> down
+
+The Forgotten Beach
+It was a pleasant enough beach, but for reason, no one ever came here any more. There were some rocks just under the cliff face.
+
+Loya could to northeast to the woody path.
+> stand on rocks
+
+> stand on rocks
+
+The Rocks
+Loya was not enjoying the fact that she was standing on some very slippery and very jagged rocks. She could see a cliff here.
+
+She could go up the cliff face, or down to the beach.
+> up
+
+> up
+
+The Cliff Face
+Loya stood upon a narrow ledge clinging onto the cliff for dear life.
+
+Loya could go down to the forgotten beach. Climbing further up the cliff seemed just a little too daunting for Loya.
+> search cliff
+
+> search cliff
+
+It was vertical and terrifying.
+
+Loya could see a feather just about within reach.
+> take feather
+
+> take feather
+
+Loya picked it up.
+> down
+
+> down
+
+The Forgotten Beach
+It was a pleasant enough beach, but for reason, no one ever came here any more. There were some rocks just under the cliff face.
+
+Loya could to northeast to the woody path.
+> northeast
+
+> northeast
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> northeast
+
+> northeast
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+> northeast
+
+> northeast
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> east
+
+> east
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> north
+
+> north
+
+The Bottom of the Muddy Lane
+Loya had never known this lane to be anything other than muddy. Indeed, it was muddy right now. There were some yellow-gown huts here, one of which belonged to a bespectactled girl in Loya's class called Avara.
+
+The lane continued to the north. Loya could also go south to the cobbled road or into Avara's hut.
+> north
+
+> north
+
+The Muddy Lane
+Loya did not like this street; if she was here, it probably meant she was going to school. Quite apart from that, it was perpetually muddy. Some people rumoured that a dark witch residing in the next street had moved all the mud from her lane here, hence why the adjacent lane was always dry and dusty.
+
+The lane continued north and south. Loya could also go east to the dusty lane where she lived and west to the alley where her school was.
+> west
+
+> west
+
+The Alley
+It was a filthy alley.
+
+The alley continued to the north. To the west was the girls' playground. To the east was the muddy lane.
+> wear ring
+
+> wear ring
+
+Loya put on the ring. She was now invisible.
+> north
+
+> north
+
+The Northern Part of the Alley
+A bland monk stood at the gates leading into the boys' school. There was nothing else in the alley except dirt.
+
+Loya could go south along the alley or west into the boys' playground.
+
+Loya could see the bland monk.
+> west
+
+> west
+
+The bland monk did not seem to notice as Loya brushed past him.
+
+The Playground of the Yellow-gowns Boys' School
+It looked absolutely no different from the playground of the yellow-gown girls' school. It was covered in the same strangely-coloured sand.
+
+Loya could go into the outhouse, or up the stairs. She could also go east to the alley.
+> up
+
+> up
+
+The Southern Part of the Upper Terrace
+It seemed a bit unfair that girls weren't allowed into the boys' school, but boys were allowed to look down from here onto what the girls were doing. Other than that, there was a flimsy railing, which presumably prevented boys from falling into the girls' playground.
+
+Loya could go into Brother Polan's classroom, north along the terrace, or down the stairs.
+> north
+
+> north
+
+The Upper Terrace
+Loya was on a terrace. A flimsy rail prevented her from failing down into the boys' playground.
+
+Apart from that, she could go north or south along the terrace, or into Brother Javirek's office.
+> in
+
+> in
+
+Brother Javirek's Office
+Somehow it seemed slightly more spacious than Mother Mila's office below. There was a large desk here, behind which was a chair. A window looked out to the bay.
+
+Loya could go out.
+
+Loya could see Brother Javirek.
+> open drawer
+
+> open drawer
+
+Loya opened it.
+
+It contained the mask.
+> take mask
+
+> take mask
+
+Loya picked it up.
+> out
+
+> out
+
+The Upper Terrace
+Loya was on a terrace. A flimsy rail prevented her from failing down into the boys' playground.
+
+Apart from that, she could go north or south along the terrace, or into Brother Javirek's office.
+> south
+
+> south
+
+The Southern Part of the Upper Terrace
+It seemed a bit unfair that girls weren't allowed into the boys' school, but boys were allowed to look down from here onto what the girls were doing. Other than that, there was a flimsy railing, which presumably prevented boys from falling into the girls' playground.
+
+Loya could go into Brother Polan's classroom, north along the terrace, or down the stairs.
+> in
+
+> in
+
+Brother Polan's Classroom
+Of all the classrooms in this school, Brother Polan's had to be the least interesting. It just exuded blandness.
+
+There was a block at the back of the room and a board at the front.
+
+Loya could go out.
+
+Loya could see Moran.
+> look
+
+> look
+
+Brother Polan's Classroom
+Of all the classrooms in this school, Brother Polan's had to be the least interesting. It just exuded blandness.
+
+There was a block at the back of the room and a board at the front.
+
+Loya could go out.
+
+Loya could see Moran.
+> take off ring
+
+> take off ring
+
+Loya took off the ring. She was no longer invisible.
+> speak to moran
+
+> speak to moran
+
+"What are you doing?" Loya asked.
+
+"I'm trying to tame brambleweed," replied the boy. "I think I've got it." He returned his attention to the brambleweed, and Loya listened in on the spell.
+
+To use the spell, write TAME and the bramble you want to tame.
+> wear ring
+
+> wear ring
+
+Loya put on the ring. She was now invisible.
+> out
+
+> out
+
+The Southern Part of the Upper Terrace
+It seemed a bit unfair that girls weren't allowed into the boys' school, but boys were allowed to look down from here onto what the girls were doing. Other than that, there was a flimsy railing, which presumably prevented boys from falling into the girls' playground.
+
+Loya could go into Brother Polan's classroom, north along the terrace, or down the stairs.
+> down
+
+> down
+
+The Playground of the Yellow-gowns Boys' School
+It looked absolutely no different from the playground of the yellow-gown girls' school. It was covered in the same strangely-coloured sand.
+
+Loya could go into the outhouse, or up the stairs. She could also go east to the alley.
+> east
+
+> east
+
+The Northern Part of the Alley
+A bland monk stood at the gates leading into the boys' school. There was nothing else in the alley except dirt.
+
+Loya could go south along the alley or west into the boys' playground.
+
+Loya could see the bland monk.
+> south
+
+> south
+
+The Alley
+It was a filthy alley.
+
+The alley continued to the north. To the west was the girls' playground. To the east was the muddy lane.
+> east
+
+> east
+
+The Muddy Lane
+Loya did not like this street; if she was here, it probably meant she was going to school. Quite apart from that, it was perpetually muddy. Some people rumoured that a dark witch residing in the next street had moved all the mud from her lane here, hence why the adjacent lane was always dry and dusty.
+
+The lane continued north and south. Loya could also go east to the dusty lane where she lived and west to the alley where her school was.
+> take off ring
+
+> take off ring
+
+Loya took off the ring. She was no longer invisible.
+> east
+
+> east
 
 The Top of the Dusty Lane
 Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
@@ -86,11 +1945,1571 @@ The Forest
 There were, unsurprisingly, trees absolutely everywhere.
 
 Loya could go further into the forest to the north. To the east was the old bridge, to the south the dusty lane, and to the west the muddy lane.
+> dig undergrowth
 
-Loya could see the stick and Vin.
+> dig undergrowth
+
+Loya dug up some silverworms.
+> take silverworms
+
+> take silverworms
+
+Loya picked them up.
+> south
+
+> south
+
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+> southeast
+
+> southeast
+
+The Potholed Road
+Torrential rain had only made the potholes bigger. Perhaps before the war had broken out, it had been quite a pleasant road where the orange-gowns lived. Hedges surrounded gardens, and the huts here were beyond what a yellow-gown could ever expect to live in.
+
+The village square was to the south. The road forked northwest to the dusty lane and northeast to the grassy bank.
+> south
+
+> south
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
 > east
 
 > east
+
+The Promenade
+A few people strolled along the promenade, but it was by no means the same thriving place it had been before the war.
+
+Lamp posts lined the sides and a crumbling stone balustrade marked the edge of the promenade and the river far below. One of the lamps was broken.
+
+To the west was the village square, and to the east was pier.
+> look at broken lamp
+
+> look at broken lamp
+
+It was broken, possibly because some vandal had stuffed a batch of dead brambleweed into the bulb.
+
+A hole about three feet up from the ground seemed a peculiar thing to discover on it.
+> insert feather into hole
+
+> insert feather into hole
+
+Loya heard a locking mechanism in the bulb click.
+> open bulb
+
+> open bulb
+
+Loya opened it.
+
+Inside the bulb, Loya found the brambleweed.
+> take brambleweed
+
+> take brambleweed
+
+Loya picked it up.
+> west
+
+> west
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> west
+
+> west
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> west
+
+> west
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> west
+
+> west
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> southwest
+
+> southwest
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+> southwest
+
+> southwest
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> west
+
+> west
+
+The Cliffs
+Far below, waves crashed onto the shore. There was also a lighthouse here.
+
+Loya could go into the lighthouse, east to the woody path, or follow the path northwest towards the bay.
+> in
+
+> in
+
+The Lighthouse
+The lighthouse keeper had lived here before the tragic event. There was a table in the middle of the room, an unmade bed, and not much else.
+
+Loya could go up the staircase to the beacon room, or out to the cliffs.
+> wear mask
+
+> wear mask
+
+Loya put on the mask. If truth be told, and if she'd had a mirror at hand, she looked ridiculous.
+> look at plate
+
+> look at plate
+
+It had contained the lighthouse keeper's last supper.
+
+A glorious growth of mould sat upon the plate.
+> take mould
+
+> take mould
+
+Loya motioned towards the mould.
+
+It stank, but as Loya was wearing the mask, she could just about pick it up.
+> out
+
+> out
+
+The Cliffs
+Far below, waves crashed onto the shore. There was also a lighthouse here.
+
+Loya could go into the lighthouse, east to the woody path, or follow the path northwest towards the bay.
+> east
+
+> east
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> northeast
+
+> northeast
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+> northeast
+
+> northeast
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> east
+
+> east
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> east
+
+> east
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> north
+
+> north
+
+The Bottom of the Dusty Lane
+The dust here was almost unbearable. A dark witch was rumoured to live here, and villagers spoke that she had turned her lane dusty by shifting all the mud to the adjacent street. Several yellow-gown huts lined the lane, one of which belonged to the dark witch.
+
+Loya could go north along the lane or south to the cobbled road. She could also go into the dark witch' hut.
+> in
+
+> in
+
+Loya handed the dark witch Kara the bag of elweed seeds, along with the mould, silverworms and dead brambles.
+
+"Oh, you doesn't not want me not to make no shrinking potion," said Kara. "Well, why didn't you not say nothing?"
+
+Kara took the elweed seeds and the ingredients from Loya and within a few moments had brewed up a potion. She handed it to Loya.
+
+"Don't not use it wisely," said Kara. "The effects don't not wear off pretty not quickly."
+
+Kara's Hut
+In one corner was a fire upon which burbled a cauldron. The hawk-eyed Kara was doing her best to unnerve Loya.
+
+Loya could go out to the dusty lane.
+
+Loya could see Kara.
+> out
+
+> out
+
+The Bottom of the Dusty Lane
+The dust here was almost unbearable. A dark witch was rumoured to live here, and villagers spoke that she had turned her lane dusty by shifting all the mud to the adjacent street. Several yellow-gown huts lined the lane, one of which belonged to the dark witch.
+
+Loya could go north along the lane or south to the cobbled road. She could also go into the dark witch' hut.
+> south
+
+> south
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> west
+
+> west
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> west
+
+> west
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> southwest
+
+> southwest
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+> southwest
+
+> southwest
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> west
+
+> west
+
+The Cliffs
+Far below, waves crashed onto the shore. There was also a lighthouse here.
+
+Loya could go into the lighthouse, east to the woody path, or follow the path northwest towards the bay.
+> in
+
+> in
+
+The Lighthouse
+The lighthouse keeper had lived here before the tragic event. There was a table in the middle of the room, an unmade bed, and not much else.
+
+Loya could go up the staircase to the beacon room, or out to the cliffs.
+> up
+
+> up
+
+The Beacon Room
+There was a beacon here and not much else.
+
+Loya could go down the staircase to the lighthouse.
+> drink potion
+
+> drink potion
+
+Loya squirmed as she got the potion down her.
+> enter beacon
+
+> enter beacon
+
+Loya climbed into the beacon.
+
+The Beacon
+It was mighty cramped in here.
+
+Loya could go out.
+
+Loya could see the blue stone.
+> look
+
+> look
+
+The Beacon
+It was mighty cramped in here.
+
+Loya could go out.
+
+Loya could see the blue stone.
+> take blue stone
+
+> take blue stone
+
+Loya picked it up.
+> out
+
+> out
+
+The Beacon Room
+There was a beacon here and not much else.
+
+Loya could go down the staircase to the lighthouse.
+
+Loya could sense she was getting bigger.
+> wear blue stone
+
+> wear blue stone
+
+Loya put on the blue stone.
+> down
+
+> down
+
+The Lighthouse
+The lighthouse keeper had lived here before the tragic event. There was a table in the middle of the room, an unmade bed, and not much else.
+
+Loya could go up the staircase to the beacon room, or out to the cliffs.
+> out
+
+> out
+
+The Cliffs
+Far below, waves crashed onto the shore. There was also a lighthouse here.
+
+Loya could go into the lighthouse, east to the woody path, or follow the path northwest towards the bay.
+
+Loya was almost back to her normal size.
+> east
+
+> east
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> northeast
+
+> northeast
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+
+Loya was back to her normal size.
+> northeast
+
+> northeast
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> east
+
+> east
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> east
+
+> east
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> north
+
+> north
+
+The Bottom of the Dusty Lane
+The dust here was almost unbearable. A dark witch was rumoured to live here, and villagers spoke that she had turned her lane dusty by shifting all the mud to the adjacent street. Several yellow-gown huts lined the lane, one of which belonged to the dark witch.
+
+Loya could go north along the lane or south to the cobbled road. She could also go into the dark witch' hut.
+> north
+
+> north
+
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+> east
+
+> east
+
+The Grassy Bank
+Loya came here often to contemplate life. There was a shady tree here under which she could sit and hide from the summer heat listening to the burble of the river by the tree.
+
+Loya could go northeast to the old bridge, west to the dusty lane, or southwest to the potholed road. A steep hill south led to the embankment.
+> northeast
+
+> northeast
+
+The Old Bridge
+The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
+
+Loya could go west to the forest, east to the Forbidden Hill, southwest to the grassy bank or north to the grasslands.
+> east
+
+> east
+
+The Forbidden Hill
+For something which was so taboo, the Forbidden Hill seemed rather normal and a bit disappointing.
+
+To the southeast, Loya could make out the silhouette of a mansion. A path led northeast up the hill to Hazy Peak. To the west was the old bridge.
+
+Loya could see the mansion.
+> southeast
+
+> southeast
+
+The Mansion Garden
+The garden was a pleasant country garden with rose beds, and bees happily buzzing around.
+
+Loya could go into the house, or northwest to the Forbidden Hill.
+> in
+
+> in
+
+The Mansion Hall
+Loya found herself in a hall larger than her entire hut. The elegant wood panelling was rather spoilt by a very nasty-looking moose hanging on the walls. A staircase led up bounded by bannisters, the cool sort that one could slide down.
+
+Loya could go up to the landing, out to the garden, south to the dining room or east to the living room.
+
+The moose appeared to be following Loya's every movement.
+> up
+
+> up
+
+The Upper Landing
+Loya stood atop the landing from which she could look down onto the hall, where a disturbing moose hung on the panelling.
+
+The moose seemed to glare at Loya.
+
+A pair of bannisters along each side of the staircase looked like they had recently been polished.
+
+A bannistered staircase led down. To the south was the library, and Loya could also go east to the bedroom.
+> slide down bannister
+
+> slide down bannister
+
+"Wheeeeee!!!!", cried Loya as she slid down the bannisters.
+
+On the Bannisters
+Loya stood precariously on the bannisters. It was not nearly as much fun as she would have imagined.
+
+She was within touching distance of the rather disgusting-looking moose head.
+
+She could go down to the hall.
+> blind moose with orange stone
+
+> blind moose with orange stone
+
+Loya put the orange stone on the moose head. The orange stone dissolved, but now the moose looked like it could no longer see.
+> down
+
+> down
+
+The Mansion Hall
+Loya found herself in a hall larger than her entire hut. The elegant wood panelling was rather spoilt by a very nasty-looking moose hanging on the walls. A staircase led up bounded by bannisters, the cool sort that one could slide down.
+
+Loya could go up to the landing, out to the garden, south to the dining room or east to the living room.
+> south
+
+> south
+
+The Dining Room
+A banquet table, replete with a feast for one, graced the centre of the room.
+
+Loya could go north to the hall or east to the kitchen.
+> drink wine
+
+> drink wine
+
+Loya was the sort of girl who could get up to plenty of drunken antics without actually being drunk. However, she did notice the coaster under the goblet was a bit disturbing.
+> take coaster
+
+> take coaster
+
+Loya took the disturbing coaster.
+> east
+
+> east
+
+The Kitchen
+Loya supposed the reason why this kitchen was nowhere near as plush as anything else in the mansion was that the blue-gowns usually employed yellow-gowns to do their cooking.
+
+There was a stove and a mucky sink full of water here.
+
+Loya could go west to the dining room.
+> look at stove
+
+> look at stove
+
+There was nothing particularly unexpected about the stove, although it did contain an oven, whose door was currently open and seemingly uncloseable.
+
+A flue pipe, along which was a valve, led up to the ceiling. Presumably, the stove also acted as some kind of heating system.
+> pull plug
+
+> pull plug
+
+Loya pulled the plug and watched as the water drained away. Once it had done so, Loya noticed there was a knife in the sink and nothing else.
+> take knife
+
+> take knife
+
+Loya took the knife.
+> turn valve
+
+> turn valve
+
+Loya turned the valve.
+> insert blue stone into stove
+
+> insert blue stone into stove
+
+Loya put the blue stone into the stove.
+The blue stone disolved and gases flowed through the house's flue system.
+> west
+
+> west
+
+The Dining Room
+A banquet table, replete with a feast for one, graced the centre of the room.
+
+Loya could go north to the hall or east to the kitchen.
+> north
+
+> north
+
+The Mansion Hall
+Loya found herself in a hall larger than her entire hut. The elegant wood panelling was rather spoilt by a very nasty-looking moose hanging on the walls. A staircase led up bounded by bannisters, the cool sort that one could slide down.
+
+Loya could go up to the landing, out to the garden, south to the dining room or east to the living room.
+> east
+
+> east
+
+The Living Room
+It was a veritably liveable place with cushions, a leather couch and an armchair, The only thing missing was a television, but as the idiot box did not exist in Loya's world, she was hardly surprised by this. A large tiger-head rug graced the floor.
+
+To the west was the hall.
+> search couch
+
+> search couch
+
+Loya discovered some childish drawings.
+> take drawings
+
+> take drawings
+
+Loya picked them up.
+> west
+
+> west
+
+The Mansion Hall
+Loya found herself in a hall larger than her entire hut. The elegant wood panelling was rather spoilt by a very nasty-looking moose hanging on the walls. A staircase led up bounded by bannisters, the cool sort that one could slide down.
+
+Loya could go up to the landing, out to the garden, south to the dining room or east to the living room.
+> up
+
+> up
+
+The Upper Landing
+Loya stood atop the landing from which she could look down onto the hall, where a disturbing moose hung on the panelling.
+
+A pair of bannisters along each side of the staircase looked like they had recently been polished.
+
+A bannistered staircase led down. To the south was the library, and Loya could also go east to the bedroom.
+> south
+
+> south
+
+The Library
+The shelves were full of books. Most of them had rather boring titles such as Why Yellow-gowns would Benefit from Having their Heads Separated from their Bodies by the Great Separator, and What to do when Confronted by a Gibbering Monkey  by the Great Unifier. There was also a lot of dust here.
+
+To the north was the landing.
+> look
+
+> look
+
+The Library
+The shelves were full of books. Most of them had rather boring titles such as Why Yellow-gowns would Benefit from Having their Heads Separated from their Bodies by the Great Separator, and What to do when Confronted by a Gibbering Monkey  by the Great Unifier. There was also a lot of dust here.
+
+To the north was the landing.
+> north
+
+> north
+
+The Upper Landing
+Loya stood atop the landing from which she could look down onto the hall, where a disturbing moose hung on the panelling.
+
+A pair of bannisters along each side of the staircase looked like they had recently been polished.
+
+A bannistered staircase led down. To the south was the library, and Loya could also go east to the bedroom.
+> east
+
+> east
+
+The Bedroom
+It was a comfortable bedroom decorated in various pinks.
+
+There was a four-poster bed here, next to which sat a chest.
+
+Loya could go  west to the landing.
+
+Loya could see the vicious girl.
+> speak to vicious girl
+
+> speak to vicious girl
+
+"I think I know what happened," said Loya.
+
+"Oh really," replied the girl in a mocking voice. So, what do you think happened?"
+What do you think happened?
+ - Your brother was murdered by the Eagles.
+
+"Keep going," challenged the vicious girl.
+Why did the Eagles kill the girl's brother?
+ - He knew something they didn't want him to know.
+
+"How very observant of you." The girl's voice contained a sarcastic undertone which told Loya she needed to make one further guess.
+Who was the girl's enemy?
+ - Father Tarafun
+
+The girl broke down into tears. She grabbed Loya and pulled her tight towards her, as though seeking comfort.
+At last the girl composed herself, at least enough to talk to Loya. Her voice quavered as though her throat was about to explode. "One morning about three years ago, my brother burst into my bedroom and thrust an orb into my hands. He was in distress, but I was too young to understand why. The next morning, his corpse was found in the woods. He'd been stabbed twenty-three times in the heart.
+
+I kept the orb, and for the longest time, I did not know what its significance was."
+
+"Then one day, I noticed gases swirling within the orb. When I looked more carefully, I saw that they represented what had happened to my brother. It showed a fat monk stabbing my brother. I vowed revenge. But I knew he was not the mastermind.
+
+"At the same time, I noticed a book in the library that I could not touch. But Loya, you can touch it, for you are pure. Get the book, for it will serve you well. You will need an orb to locate it." With that, the girl disappeared.
+> look under chest
+
+> look under chest
+
+There was a switch under the chest.
+> press switch
+
+> press switch
+
+Loya heard a click from the chest.
+> open chest
+
+> open chest
+
+Loya opened the chest.
+
+Inside was an orb.
+> take orb
+
+> take orb
+
+Loya picked up the orb
+> orb songs
+
+> orb songs
+
+Strangely, someone had magically etched the words to the unbinding spell in the inside front cover.
+
+To use this spell, write UNBIND and the person you want to unbind.
+> west
+
+> west
+
+The Upper Landing
+Loya stood atop the landing from which she could look down onto the hall, where a disturbing moose hung on the panelling.
+
+A pair of bannisters along each side of the staircase looked like they had recently been polished.
+
+A bannistered staircase led down. To the south was the library, and Loya could also go east to the bedroom.
+> south
+
+> south
+
+The Library
+The shelves were full of books. Most of them had rather boring titles such as Why Yellow-gowns would Benefit from Having their Heads Separated from their Bodies by the Great Separator, and What to do when Confronted by a Gibbering Monkey  by the Great Unifier. There was also a lot of dust here.
+
+To the north was the landing.
+> orb shelves
+
+> orb shelves
+
+Amongst the twenty-three books upon a particular shelf, Loya located a book most evil - The Book of Darkness itself.
+> take book of darkness
+
+> take book of darkness
+
+Loya picked it up.
+> north
+
+> north
+
+The Upper Landing
+Loya stood atop the landing from which she could look down onto the hall, where a disturbing moose hung on the panelling.
+
+A pair of bannisters along each side of the staircase looked like they had recently been polished.
+
+A bannistered staircase led down. To the south was the library, and Loya could also go east to the bedroom.
+> down
+
+> down
+
+The Mansion Hall
+Loya found herself in a hall larger than her entire hut. The elegant wood panelling was rather spoilt by a very nasty-looking moose hanging on the walls. A staircase led up bounded by bannisters, the cool sort that one could slide down.
+
+Loya could go up to the landing, out to the garden, south to the dining room or east to the living room.
+> out
+
+> out
+
+The Mansion Garden
+The garden was a pleasant country garden with rose beds, and bees happily buzzing around.
+
+Loya could go into the house, or northwest to the Forbidden Hill.
+> northwest
+
+> northwest
+
+The Forbidden Hill
+For something which was so taboo, the Forbidden Hill seemed rather normal and a bit disappointing.
+
+To the southeast, Loya could make out the silhouette of a mansion. A path led northeast up the hill to Hazy Peak. To the west was the old bridge.
+
+Loya could see the mansion.
+> west
+
+> west
+
+The Old Bridge
+The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
+
+Loya could go west to the forest, east to the Forbidden Hill, southwest to the grassy bank or north to the grasslands.
+> north
+
+> north
+
+The Grasslands
+Grass billowed in the wind. It smelt sweet.
+
+A path led northwest to the top of the hill. To the south was the old bridge.
+> northwest
+
+> northwest
+
+Eagle Peak
+Loya now stood atop the highest point of the island. The grass below her was luscious, glinting from the rain that still clung to it.
+
+Far below was the old bridge, the forest and the village. Loya seemed so close to the clouds that she could almost touch them.
+
+Loya could go southeast to the grasslands.
+
+Loya could see the entertainer.
+> speak to entertainer
+
+> speak to entertainer
+
+"I locked my chakras," moaned the entertainer. "That's why I just can't keep these balls in the air. Say, would you mind talking to Father Tarafun about it. But be subtle. I'm not exactly in his good books."
+> southeast
+
+> southeast
+
+The Grasslands
+Grass billowed in the wind. It smelt sweet.
+
+A path led northwest to the top of the hill. To the south was the old bridge.
+> south
+
+> south
+
+The Old Bridge
+The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
+
+Loya could go west to the forest, east to the Forbidden Hill, southwest to the grassy bank or north to the grasslands.
+> southwest
+
+> southwest
+
+The Grassy Bank
+Loya came here often to contemplate life. There was a shady tree here under which she could sit and hide from the summer heat listening to the burble of the river by the tree.
+
+Loya could go northeast to the old bridge, west to the dusty lane, or southwest to the potholed road. A steep hill south led to the embankment.
+> west
+
+> west
+
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+> south
+
+> south
+
+The Bottom of the Dusty Lane
+The dust here was almost unbearable. A dark witch was rumoured to live here, and villagers spoke that she had turned her lane dusty by shifting all the mud to the adjacent street. Several yellow-gown huts lined the lane, one of which belonged to the dark witch.
+
+Loya could go north along the lane or south to the cobbled road. She could also go into the dark witch' hut.
+> south
+
+> south
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> west
+
+> west
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> west
+
+> west
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> in
+
+> in
+
+The Temple
+Statues of various demons surrounded the temple.
+
+To the west was the altar and a staircase led up to the bell tower. Loya could also go out onto the cobbled road, or into Father Tarafun's office.
+> in
+
+> in
+
+Father Tarafun's Office
+Father Tarafun occupied a dank office. How he could possibly work there was anyone's guess, but Loya assumed that he enjoyed such a lifestyle.
+
+There was a desk in the centre of the room and a filing cabinet. Other than that, there were no furnishings, and no decorations graced the walls of the office.
+
+Loya could go out to the temple.
+
+Loya could see Father Tarafun.
+> speak to father tarafun
+
+> speak to father tarafun
+
+"What can you tell me about chakras?" asked Loya. Father Tarafun looked up and stared intently at the girl.
+
+"Oh, the juggler sent you. I wish he'd have the courage to talk to me himself. Listen, to unlock his chakras, you need to brambleclear the entertainer. Oh, and you need to be wearing a purple stone."
+
+"That's ridiculous!" exclaimed Loya. Father Tarafun nodded sympathetically.
+> speak to father tarafun
+
+> speak to father tarafun
+
+"What can you tell me about chakras?" asked Loya. Father Tarafun looked up and stared intently at the girl.
+
+"Oh, the juggler sent you. I wish he'd have the courage to talk to me himself. Listen, to unlock his chakras, you need to brambleclear the entertainer. Oh, and you need to be wearing a purple stone."
+
+"That's ridiculous!" exclaimed Loya. Father Tarafun nodded sympathetically.
+> out
+
+> out
+
+The Temple
+Statues of various demons surrounded the temple.
+
+To the west was the altar and a staircase led up to the bell tower. Loya could also go out onto the cobbled road, or into Father Tarafun's office.
+> out
+
+> out
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> southwest
+
+> southwest
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+> southwest
+
+> southwest
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+Loya could see a pile of stones by the road.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> orb pile of stones
+
+> orb pile of stones
+
+The orb showed that a monk had buried a young girl here. The monk looked suspiciously like Brother Erkam from the blue-gown school.
+
+Loya brushed aside the stones and discovered a shallow grave here.
+> dig grave
+
+> dig grave
+
+Loya discovered, unsurprisingly, a skeleton.
+> move skeleton
+
+> move skeleton
+
+As disgusting as the thought was, Loya moved the skeleton.
+
+Loya found a pair of gloves under the skeleton.
+> take gloves
+
+> take gloves
+
+Loya picked them up.
+> wear gloves
+
+> wear gloves
+
+Loya put on the gloves.
+> west
+
+> west
+
+The Cliffs
+Far below, waves crashed onto the shore. There was also a lighthouse here.
+
+Loya could go into the lighthouse, east to the woody path, or follow the path northwest towards the bay.
+> northwest
+
+> northwest
+
+The Bay Trail
+There were some bushes to one side.
+
+The trail led north to the bay and southeast to the cliffs.
+> orb bushes
+
+> orb bushes
+
+Nothing swirled within the orb. This was possibly because the bushes weren't real. On the other hand, there was a cave behind the bushes.
+> in
+
+> in
+
+The Cave
+It was a poky cave in which sat a hermit.
+
+Loya could go out to the bay trail.
+> wear red stone
+
+> wear red stone
+
+Loya put on the red stone.
+> speak to hermit
+
+> speak to hermit
+
+For what seemed like an eternity, the hermit stared at Loya. Then he spoke.
+
+"I have looked into your soul, my child, and I have seen both good and evil. Yet I have seen purity. I know that however you proceed now will not be driven from your own desires, but rather for the greater good.
+
+"I will give you my bracelet, for you are worthy of it."
+
+The hermit removed the bracelet from his foot and handed it to Loya.
+> orb bracelet
+
+> orb bracelet
+
+The bracelet had been made of the leather of the Beast itself.
+> wear bracelet
+
+> wear bracelet
+
+Loya put on the bracelet.
+> read book of darkness
+
+> read book of darkness
+
+On the inside cover were the words to the binding spell.
+
+To bind someone, write BIND and the person you want to bind.
+> out
+
+> out
+
+The Bay Trail
+There were some bushes to one side.
+
+The trail led north to the bay and southeast to the cliffs.
+
+Loya could also go into the cave.
+> north
+
+> north
+
+The Bay
+Loya was ashore a bay. In the distance were some rolling hills.
+
+She could go south to the trail that had got her here.
+> jump into bay
+
+> jump into bay
+
+Loya jumped into the bay.
+
+In the Bay
+The water was surprisingly pleasant.
+
+A swan swam gracefully upon the water.
+
+Loya could go out.
+> follow swan
+
+> follow swan
+
+Loya swam towards the swan. As she approached, it changed into a woman. As the woman, draped in a purple gown, pushed aside the waves, Loya was certain that a swan had passed through her. When she looked up, she saw the ghostly body of Queen Gatana the Terrifying before her.
+
+Queen Gatana saw terror etched into Loya's face. "Fear not, my daughter," said the queen. "Much has been said of me. The history books have not been kind to me, but I was not the cruel queen they say I was, for I sought not to bind men, not to unbind them.
+
+"There is much I must say to you, but I can see that your mind has been polluted against me by the priests and priestesses of this island. There is a reason for this which you will soon discover, other than the normal indocrination which happens when history is written by the victors. All I will say, instead, is that you should fear those you have been taught to trust, for they seek to manipulate you and betray you, just as the high priest of this island and his council of elders sought to manipulate and betray me four hundred years ago."
+"Loya, you will need a purple stone, for while the authorities tell us that purple stones are the keys to people, they are, in fact, the keys to the self, and there is a part of you on this island which is apart from you.
+
+"I have no more need for worldly possessions, but I have waited this day, for today my purple stone, the one passed to me by the Swan Itself, passes to you.
+
+We shall surely meet again, for a storm gathers, my child. There shall surely be an ultimate battle between good and evil, a battle neither side can win, for only whole is Kayla the Great Demon. But until that day, I bid you farewell. May the Great Demon be with you."
+Loya fell unconcious. When she came to, she was on the shore of the bay. For a moment, she thought that everything had been a dream. Then she realised she held a purple stone in her hand.
+
+The Bay
+Loya was ashore a bay. In the distance were some rolling hills.
+
+She could go south to the trail that had got her here.
+> wear purple stone
+
+> wear purple stone
+
+Loya put on the purple stone.
+> south
+
+> south
+
+The Bay Trail
+There were some bushes to one side.
+
+The trail led north to the bay and southeast to the cliffs.
+
+Loya could also go into the cave.
+> southeast
+
+> southeast
+
+The Cliffs
+Far below, waves crashed onto the shore. There was also a lighthouse here.
+
+Loya could go into the lighthouse, east to the woody path, or follow the path northwest towards the bay.
+> east
+
+> east
+
+The Woody Path
+The path ran through a thin sprinkling of trees. The remains of a brambleweed colony were here.
+
+There was a shallow grave here.
+
+Loya could go down to the forgotten beach, west to the cliffs, or northeast to the narrow path. There was also a wooden hut she could go into.
+> northeast
+
+> northeast
+
+The Narrow Path
+The narrow path cut through a small wooded area.
+
+Loya could go northeast to the cobbled road, follow the path southwest, or go northwest to the field.
+> northeast
+
+> northeast
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> in
+
+> in
+
+The Temple
+Statues of various demons surrounded the temple.
+
+To the west was the altar and a staircase led up to the bell tower. Loya could also go out onto the cobbled road, or into Father Tarafun's office.
+> west
+
+> west
+
+The Altar
+There was, unsurprisingly, a large altar here.
+
+Loya could go east to the main section of the temple.
+> prise open control panel with chisel
+
+> prise open control panel with chisel
+
+Loya prised open the control panel. There was a button inside.
+> press button
+
+> press button
+
+Nothing apocalpytic happened.
+> east
+
+> east
+
+The Temple
+Statues of various demons surrounded the temple.
+
+To the west was the altar and a staircase led up to the bell tower. Loya could also go out onto the cobbled road, or into Father Tarafun's office.
+> up
+
+> up
+
+The Bell Tower
+Far below, Loya could see the temple. A few feet, just out of reach, above her was a rafter.
+
+A narrow ledge ran from one end of the tower to the other. It was about two feet off the ground.
+
+Loya could take the staircase down.
+> stand on ledge
+
+> stand on ledge
+
+The Ledge
+Loya found herself on a ledge.
+
+From here, she could go up to the rafter, or down to the bell tower.
+> up
+
+> up
+
+The Rafter
+Loya found herself in a very precarious situation.
+
+She could carefully go back down to the bell tower.
+
+Loya could see the rope.
+> cut rope with knife
+
+> cut rope with knife
+
+Loya cut the rope.
+> take rope
+
+> take rope
+
+Loya picked up the rope
+> down
+
+> down
+
+The Bell Tower
+Far below, Loya could see the temple. A few feet, just out of reach, above her was a rafter.
+
+A narrow ledge ran from one end of the tower to the other. It was about two feet off the ground.
+
+Loya could take the staircase down.
+> down
+
+> down
+
+The Temple
+Statues of various demons surrounded the temple.
+
+To the west was the altar and a staircase led up to the bell tower. Loya could also go out onto the cobbled road, or into Father Tarafun's office.
+> down
+
+> down
+
+Loya could not go there.
+> out
+
+> out
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> east
+
+> east
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> east
+
+> east
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> north
+
+> north
+
+The Bottom of the Dusty Lane
+The dust here was almost unbearable. A dark witch was rumoured to live here, and villagers spoke that she had turned her lane dusty by shifting all the mud to the adjacent street. Several yellow-gown huts lined the lane, one of which belonged to the dark witch.
+
+Loya could go north along the lane or south to the cobbled road. She could also go into the dark witch' hut.
+> north
+
+> north
+
+The Top of the Dusty Lane
+Dust literally caused Loya to weep. If she'd been able to open her eyes, she'd have seen a few yellow-gown huts and also her own hut.
+
+Loya could go south along the lane, southeast to the potholed road, west to the muddy lane, into her hut, north to the forest, or east to the grassy bank.
+> east
+
+> east
+
+The Grassy Bank
+Loya came here often to contemplate life. There was a shady tree here under which she could sit and hide from the summer heat listening to the burble of the river by the tree.
+
+Loya could go northeast to the old bridge, west to the dusty lane, or southwest to the potholed road. A steep hill south led to the embankment.
+> throw rope at shady tree
+
+> throw rope at shady tree
+
+Loya threw the rope at the tree. She could now climb up it.
+> climb shady tree
+
+> climb shady tree
+
+Loya climbed the tree.
+
+The Shady Tree
+A bird had lovingly crafted a nest in one of the boughs.
+
+Loya could go down.
+> search nest
+
+> search nest
+
+Loya found a gold key hidden in the nest.
+> take gold key
+
+> take gold key
+
+Loya picked it up.
+> down
+
+> down
+
+The Grassy Bank
+Loya came here often to contemplate life. There was a shady tree here under which she could sit and hide from the summer heat listening to the burble of the river by the tree.
+
+Loya could go northeast to the old bridge, west to the dusty lane, or southwest to the potholed road. A steep hill south led to the embankment.
+> northeast
+
+> northeast
+
+The Old Bridge
+The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
+
+Loya could go west to the forest, east to the Forbidden Hill, southwest to the grassy bank or north to the grasslands.
+> north
+
+> north
+
+The Grasslands
+Grass billowed in the wind. It smelt sweet.
+
+A path led northwest to the top of the hill. To the south was the old bridge.
+> northwest
+
+> northwest
+
+Eagle Peak
+Loya now stood atop the highest point of the island. The grass below her was luscious, glinting from the rain that still clung to it.
+
+Far below was the old bridge, the forest and the village. Loya seemed so close to the clouds that she could almost touch them.
+
+Loya could go southeast to the grasslands.
+
+Loya could see the entertainer.
+> brambleclear entertainer
+
+> brambleclear entertainer
+
+As if by magic, possibly because magic was involved, the Great Unifier appeared and reunited the entertainer with his chakras. Apparently, a brambleweed colony had been blocking them. Just as mysteriously, the Great Unifier disappeared.
+
+When both the entertainer and Loya had recovered from their states of utter confusion, the juggler said, "Thanks lass. You know how I juggle. I use a mindmoving spell. I'll teach it to you, if you like." Loya agreed.
+
+To use the mindmoving spell, write MINDMOVE with the object you want to move.
+> southeast
+
+> southeast
+
+The Grasslands
+Grass billowed in the wind. It smelt sweet.
+
+A path led northwest to the top of the hill. To the south was the old bridge.
+> south
+
+> south
+
+The Old Bridge
+The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
+
+Loya could go west to the forest, east to the Forbidden Hill, southwest to the grassy bank or north to the grasslands.
+> east
+
+> east
+
+The Forbidden Hill
+For something which was so taboo, the Forbidden Hill seemed rather normal and a bit disappointing.
+
+To the southeast, Loya could make out the silhouette of a mansion. A path led northeast up the hill to Hazy Peak. To the west was the old bridge.
+
+Loya could see the mansion.
+> northeast
+
+> northeast
+
+Hazy Peak
+This was not the highest peak on the island, yet somehow the clouds were peculiarly low here making the view nowhere near as good as it should have been.
+
+Loya could go southwest to the foot of the Forbidden Hill. She could also go down.
+> wear green stone
+
+> wear green stone
+
+Loya put on the green stone.
+> mindmove large rock
+
+> mindmove large rock
+
+Loya moved the large rock. Beneath where the stone had been was a route down.
+> down
+
+> down
+
+The Hidden Temple
+Even if Loya had been paying attention in class, she would never have heard of this temple. It was well and truly hidden from the world. Despite this, it didn't seem particularly strange.
+
+A tunnel led north and the shrine was to the south. Loya could also go up to Hazy Peak.
+> north
+
+> north
+
+The Tunnel
+The tunnel was illuminated by a single torch which offered very light. Other than the torch, there appeared to be nothing in the tunnel.
+
+Loya could go south to the hidden temple.
+> take torch
+
+> take torch
+
+Loya picked up the torch.
+
+Loya could now see an office to the east.
+> east
+
+> east
+
+The Office
+At the back of the office was a portrait of a swan under which was a hefty hardwood desk.
+
+The tunnel was to the west.
+> look
+
+> look
+
+The Office
+At the back of the office was a portrait of a swan under which was a hefty hardwood desk.
+
+The tunnel was to the west.
+> look at portrait
+
+> look at portrait
+
+A terrifying swan stared at Loya. Along one side of the portrait were two hinges.
+
+There was a safe behind it.
+> swing open portrait
+
+> swing open portrait
+
+Loya swung open the portrait. Behind it was a safe.
+> insert gold key into keyhole
+
+> insert gold key into keyhole
+
+Loya unlocked the safe.
+> open safe
+
+> open safe
+
+Loya opened it.
+
+Inside, Loya found the swan brooch.
+> take swan brooch
+
+> take swan brooch
+
+Loya picked it up.
+> west
+
+> west
+
+The Tunnel
+The tunnel was illuminated by a single torch which offered very light. Other than the torch, there appeared to be nothing in the tunnel.
+
+Loya could go south to the hidden temple.
+> south
+
+> south
+
+The Hidden Temple
+Even if Loya had been paying attention in class, she would never have heard of this temple. It was well and truly hidden from the world. Despite this, it didn't seem particularly strange.
+
+A tunnel led north and the shrine was to the south. Loya could also go up to Hazy Peak.
+> south
+
+> south
+
+The Shrine
+It was a small, bare shrine. In the middle sat an altar.
+
+Loya could go north to the Hidden Temple.
+> look at altar
+
+> look at altar
+
+It appeared to be covered in blood.
+
+"Strangely compelling, isn't it?" said a voice from somewhere behind Loya. Startled, she turned around. Behind her was a fat monk.
+
+"Do not be alarmed, my child," he said with a chuckle. "My name is Brother Ulyek. I have been expecting you.
+
+"Well, with no further ado, I might as well explain my business with you. In the beginning, the frumious demon of vengeance, Kay, and the gyring demon of compassion, La, were engaged in gimbling one-two-one-two. Neither could defeat the other, and so after twenty-three thousand years, battle-weary, they merged into Kayla, the Great Demon Itself. Their children became the earth, the sea, the moon and the sun, and in turn the stars, the sky, the hills and rivers were born. Then came trees and flowers and animals, and at last humans.
+
+"But these humans fought over which part of Kayla was the greater. The followers of Kay became the Dragons, whilst the followers of La became the Eagles. Yet there was a third sect, those who realised that only whole could Kayla be the Great Demon, and they became the Order of the Swan. You have entered the Hidden Temple of the Swan, for you are the girl of sixteen summers."
+
+Loya blinked in utter confusion.
+Brother Ulyek continued. "I know all this seems most uffish at the moment, but soon all shall be clear. Now you remember the stories Queen Gatana?"
+
+Loya nodded eagerly, having even met her in person. Well, in spirit at least.
+
+"Well," said Brother Ulyek with an inappropriate chortle. "As you know she unleashed the beast, and it was at her bidding that the bandersnatch annihilated Arka, Avleaht, Kantara and Pekora, and only when the whole world, including her own people, united against her that the jub-jub was captured and imprisoned under twenty-three mountains. Without the beast, Gatana withered and was easily defeated. At least, that's what the History books claim.
+
+"There is prophecy that a girl of sixteen summers will unleash the manxome foe once more, and you are the girl of sixteen summers, my child, for only the pure can enter the caves of Kantara where the jabberwock is hid. The Eagles and the Dragons each strive to manipulate you so they may obtain the burbling Book of Darkness. Only the Swans seek for the beast never to be unleashed again.
+
+"Speak to Sister Yeleda, for she is a Swan, and she will help you and guide you further on your quest."
+
+With that, the fat monk was gone.
+> north
+
+> north
+
+The Hidden Temple
+Even if Loya had been paying attention in class, she would never have heard of this temple. It was well and truly hidden from the world. Despite this, it didn't seem particularly strange.
+
+A tunnel led north and the shrine was to the south. Loya could also go up to Hazy Peak.
+> up
+
+> up
+
+Hazy Peak
+This was not the highest peak on the island, yet somehow the clouds were peculiarly low here making the view nowhere near as good as it should have been.
+
+Loya could go southwest to the foot of the Forbidden Hill. She could also go down.
+> southwest
+
+> southwest
+
+The Forbidden Hill
+For something which was so taboo, the Forbidden Hill seemed rather normal and a bit disappointing.
+
+To the southeast, Loya could make out the silhouette of a mansion. A path led northeast up the hill to Hazy Peak. To the west was the old bridge.
+
+Loya could see the mansion.
+> west
+
+> west
 
 The Old Bridge
 The old bridge was a rickety thing which did not look like it could cope with much more. Below flowed a river, which due to the unseasonal rains flowed more rapidly than it usually did.
@@ -104,18 +3523,119 @@ The Forest
 There were, unsurprisingly, trees absolutely everywhere.
 
 Loya could go further into the forest to the north. To the east was the old bridge, to the south the dusty lane, and to the west the muddy lane.
+> north
 
-Loya could see the stick and Vin.
-> out
+> north
 
-> out
+The Dark Forest
+A thick canopy prevented any light at all getting through. As such, it was really, really dark here. Loya supposed that she was surrounded by trees. She could also just about make out some undergrowth beneath her feet.
 
-Loya could not go there.
+The forest continued to the south and to the west, a path led to the forest trail.
+
+Loya could also go into the hollow.
+> in
+
+> in
+
+The Hollow
+It was a perfect hiding place.
+
+Loya could go out to the dark forest or north along the underground passage.
+> north
+
+> north
+
+The Underground Passage
+The passage had obviously been created by a man-sized creature.
+
+To the northwest was an exit, and to the south was the hollow.
 > northwest
 
 > northwest
 
-Loya could not go there.
+The Abandoned Farm
+Loya could vaguely remember coming here as a very small girl to get milk. Now, though, there was no farm, just a ruined farmhouse surrounded by broken glass.
+
+Loya could go into the farmhouse, southeast to the underground passageway, west to the field, or south to the forest trail.
+
+Some brambleweed would have prevented Loya from using the southern exit, though.
+> push shards
+
+> push shards
+
+Loya pushed the shards of glass. They fell into the farmhouse. She would now be able to climb through the window.
+> climb through window
+
+> climb through window
+
+Loya climbed through the window into the farmhouse.
+
+The Farmhouse
+Broken glass and furniture was scattered everywhere.
+
+Upon a broken piece of chair sat a distraught woman.
+
+Loya could go out or climb through the window.
+
+Loya could see the distraught woman.
+> wear purple stone
+
+> wear purple stone
+
+Loya put on the purple stone.
+> unbind distraught woman
+
+> unbind distraught woman
+
+Loya chanted the words of the unbinding spell. Slowly, the black light around the distraught woman lifted.
+
+The distraught woman grew in stature and in fierceness before Loya's very eyes. "For twelve years I was bound by a curse most terrible," she said in a voice most hellish. "My enemies, and those that stood idly by shall feel my wrath, for I am the Dark Witch Abuna. Mother Mila and Father Tarafun shall be destroyed, along with all the other wretches that live on this island!" With that, she stretched out her arms and blasted away the door.
+
+She glided towards the door. As she reached the threshold, she turned, and now in a softer voice said, "Loya, as you have released me from this spell, I have left you a present in the tavern. Use it well, though." And with that, Abuna disappeared from sight.
+> out
+
+> out
+
+The Abandoned Farm
+Loya could vaguely remember coming here as a very small girl to get milk. Now, though, there was no farm, just a ruined farmhouse surrounded by broken glass.
+
+Loya could go into the farmhouse, southeast to the underground passageway, west to the field, or south to the forest trail.
+
+Some brambleweed would have prevented Loya from using the southern exit, though.
+> southeast
+
+> southeast
+
+The Underground Passage
+The passage had obviously been created by a man-sized creature.
+
+To the northwest was an exit, and to the south was the hollow.
+> south
+
+> south
+
+The Hollow
+It was a perfect hiding place.
+
+Loya could go out to the dark forest or north along the underground passage.
+> out
+
+> out
+
+The Dark Forest
+A thick canopy prevented any light at all getting through. As such, it was really, really dark here. Loya supposed that she was surrounded by trees. She could also just about make out some undergrowth beneath her feet.
+
+The forest continued to the south and to the west, a path led to the forest trail.
+
+Loya could also go into the hollow.
+> south
+
+> south
+
+The Forest
+There were, unsurprisingly, trees absolutely everywhere.
+
+Loya could go further into the forest to the north. To the east was the old bridge, to the south the dusty lane, and to the west the muddy lane.
 > west
 
 > west
@@ -128,4 +3648,537 @@ There were a few yellow-gown huts here, one of which belonged to Loya's best fri
 The lane continued to the south where the mud was even grimier, and to the north where it turned into a trail leading through the forest. Loya could also go east to the forest or into Mara's hut.
 
 A brambleweed colony was blocking the route north, though.
-[state=Running]
+> wear green stone
+
+> wear green stone
+
+Loya put on the green stone.
+> brambleclear brambleweed
+
+> brambleclear brambleweed
+
+Loya chanted the words of the brambleclearing spell. The colony slowly receded. No doubt it would soon come back to life, though.
+> north
+
+> north
+
+The Forest Trail
+A dying brambleweed colony hissed at Loya. She stuck her little finger at it.
+
+To the north was the abandoned farm. Loya could also go south to the Muddy Lane or east into the forest.
+> tame brambleweed
+
+> tame brambleweed
+
+Loya tamed the brambles. They no longer wanted to kill her.
+> take tame brambles
+
+> take tame brambles
+
+As Loya picked up the tame brambles, they tried to kiss her. They might not have been dangerous any more, but they were still disease-ridden. Loya shoved them into her holdall as quickly as she could.
+> south
+
+> south
+
+The Top of the Muddy Lane
+Whatever time of year, and no matter how much rain had fallen here, thick mud always caked Loya's feet. That was precisely what the mud was doing right now.
+
+There were a few yellow-gown huts here, one of which belonged to Loya's best friend, Mara.
+
+The lane continued to the south where the mud was even grimier, and to the north where it turned into a trail leading through the forest. Loya could also go east to the forest or into Mara's hut.
+> south
+
+> south
+
+The Muddy Lane
+Loya did not like this street; if she was here, it probably meant she was going to school. Quite apart from that, it was perpetually muddy. Some people rumoured that a dark witch residing in the next street had moved all the mud from her lane here, hence why the adjacent lane was always dry and dusty.
+
+The lane continued north and south. Loya could also go east to the dusty lane where she lived and west to the alley where her school was.
+> south
+
+> south
+
+The Bottom of the Muddy Lane
+Loya had never known this lane to be anything other than muddy. Indeed, it was muddy right now. There were some yellow-gown huts here, one of which belonged to a bespectactled girl in Loya's class called Avara.
+
+The lane continued to the north. Loya could also go south to the cobbled road or into Avara's hut.
+> south
+
+> south
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> east
+
+> east
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> in
+
+> in
+
+The Tavern Entrance
+The entrance to the tavern was bare except for a painting on one of the walls and an umbrella stand in the corner. There was a sign next to the door.
+
+Loya could go out to the cobbled road or south to the bar room.
+
+Loya could see the burly man.
+> take umbrella
+
+> take umbrella
+
+Loya picked it up.
+> open umbrella
+
+> open umbrella
+
+Loya fumbled for a while, but at last managed to open the umbrella.
+> south
+
+> south
+
+The Bar Room
+It was a typical pub frequented by old men and young women looking for a wealthy husband who'd die soon. One such woman sat at the bar in animated conversation with the barman. Other than that, each table was occupied was a single old man staring forlornly into his ale.
+
+There was a piano on one wall and a hearth on the other.
+
+To the north of the entrance to the bar.
+
+Loya could see Anadena and Izin.
+> drop umbrella
+
+> drop umbrella
+
+Loya put it down.
+> speak to anadena
+
+> speak to anadena
+
+The woman spoke in an accent so posh that Google Translate, had it existed in Loya's world, wouldn't have even been able to detect the language. Indeed, Loya was struggling herself. As a result, Nomad decided it would be better to write her words in English. But just so you get the idea, she wors rarther drarnk, torp hat, wort, wort.
+
+"I was a beauty in my time," said Anadena sadly. "But beauty comes at a high price. The other blue-gown girls decided I was too much of a threat to them, so they began spreading rumours most vile about me.
+
+"Then one day, a young priestess by the name of Sister Mila, although I believe she is now the high priestess of the island, was sent to bind me. I grabbed her black stone and fled here. And I hid her black stone in this very room.
+
+"I wouldn't go looking for it, though," warned Anadena. "I've got a bit of magic myself."
+> play piano
+
+> play piano
+
+Loya clunked out a few chords on the piano. Even if she'd been a genius, it would still have sounded awful. She did, however, feel that it had done something to further her cause.
+> search hearth
+
+> search hearth
+
+Amongst the coal was a black stone.
+> take black stone
+
+> take black stone
+
+A wave of dark energy flooded into Loya as she picked up the black stone.
+> north
+
+> north
+
+The Tavern Entrance
+The entrance to the tavern was bare except for a painting on one of the walls and an umbrella stand in the corner. There was a sign next to the door.
+
+Loya could go out to the cobbled road or south to the bar room.
+
+Loya could see the burly man.
+> out
+
+> out
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> east
+
+> east
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> south
+
+> south
+
+The Shopping Street
+Along this road were many olde shoppes, all of which had closed down within about a year of opening. Now, only Izin's General Store was not boarded up.
+
+The road continued to the southeast whilst the village square was to the north. Loya could also go into Izin's store.
+> southeast
+
+> southeast
+
+Riverside Road
+One would have expected somewhere so pleasant to have been colonised by the blue-gowns. Instead, Loya's own caste lived here, albeit the slightly snooty ones. There were a couple of huts which were slightly grander than yellow-gown huts were wont to be. Loya's classmate Pema lived here.
+
+Loya could go into Pema's hut, east to the sandy bank or northwest to the shopping street.
+> east
+
+> east
+
+The Sandy Bank
+Several canoes, none of which looked seaworthy, lay on the beach.
+
+Loya could go west to Riverside Road.
+> mindmove canoes
+
+> mindmove canoes
+
+Loya used her mind to pick up one of the canoes, turn it upside down, tip out all the sand, and return it to earth.
+> west
+
+> west
+
+Riverside Road
+One would have expected somewhere so pleasant to have been colonised by the blue-gowns. Instead, Loya's own caste lived here, albeit the slightly snooty ones. There were a couple of huts which were slightly grander than yellow-gown huts were wont to be. Loya's classmate Pema lived here.
+
+Loya could go into Pema's hut, east to the sandy bank or northwest to the shopping street.
+> northwest
+
+> northwest
+
+The Shopping Street
+Along this road were many olde shoppes, all of which had closed down within about a year of opening. Now, only Izin's General Store was not boarded up.
+
+The road continued to the southeast whilst the village square was to the north. Loya could also go into Izin's store.
+> north
+
+> north
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> west
+
+> west
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> west
+
+> west
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> in
+
+> in
+
+The Blue Gown School Entrance
+Posters hung upon the walls.
+
+Loya could go out to the cobbled road, into Sister Ozara's office, or south along the corridor.
+> south
+
+> south
+
+The Northern Section of the Blue Gown School Corridor
+There was no rising damp here.
+
+Loya could go north or south along the corridor. To the west was Brother Guran's classroom, while a sign above the eastern door notified Loya that Sister Naya's classroom was to the east.
+> south
+
+> south
+
+The Blue School Corridor
+It was pristeen.
+
+Loya could go north or south along the corridor. Sister Eya's classroom was west, Brother Erkam's classroom was east.
+> south
+
+> south
+
+The Blue School Corridor South
+The corridor was spotless. A little too spotless.
+
+Sister Yeleda's classroom was to the east. Brother Kul's classroom was to the west.
+> east
+
+> east
+
+Sister Yeleda's Classroom
+The shell-shocked figure of Sister Yeleda was here staring at a carnage of broken desks.
+
+Loya could go west to the corridor.
+
+Loya could see Sister Yeleda.
+> give swan brooch to sister yeleda
+
+> give swan brooch to sister yeleda
+
+"You must be Loya," said Sister Yeleda, taking the brooch from Loya. She took a key from her pocket and unlocked the brooch, then handed it back.
+
+"Brother Ulyek told me to expect you. Listen carefully, for what you haven't learnt for yourself, I shall tell you now, and believe me, what you are about to hear may be most shocking to you."
+
+Sister Yeleda paused to allow Loya to prepare herself.
+"Four hundred years ago, two empires, Anaxta and Devala, sought to conquer yet more lands in the centre of the earth. But Anaxta had a secret weapon, a yellow-gown by the name of Gatana.
+
+"Gatana was the descendant of th Swan, the daughter of Kayla Itself, for until then, the descendant had always been a yellow-gown, for only your caste wears chains which are not of your own making.
+
+"It is said that Gatana saw she was manipulated and in revenge unleashed the Beast, for she sought to bind those who had used her in this manner most unxious.
+"You have, I suppose heard of the burning of Alam? You have heard the stories of how Queen Gatana stood over the Devalan capital and unleashed upon it the beast. You have heard stories of how she howled in joy as the innocent men and women of the glorious city perished," continued Sister Yeleda. Loya could indeed remember seeing a picture of it in one of her textbooks.
+
+"Of course the victors write the History books," said Sister Yeleda not without a hint of bitterness in her voice. "In fact, Gatana had tamed the beast, and it attacked only those who were bound by greed, envy, or bigotry. The beast took upon its back the common people, those who were not already bound, and those who had been for crimes they had not committed, or by the chains of an unjust world.
+
+"The twenty-three armies of the world united, nonetheless, for each desired the power of the beast unto themselves. At last they captured Gatana and imprisoned her under twenty-three mountains under twenty-three locks. The beast fell into Anaxtan hands, and then to the Devalans, and back to the Anaxtans. Each time its rage grew."
+"However, Gatana escaped, tracked down the beast, and imprisoned it in the very same cave where she had herself been condemned to die. She cast a spell most powerful upon the chains of the beast whereby only her descendant could unleash the beast. Before she left the cave, she stroked the whimpering Beast one last time, for the Beast is neither good nor evil. She had imprisoned it not for what it could do, but for what man could do if ever again the Beast emerged untethered.
+
+Sister Yeleda paused to allow Loya to take all this in.
+At last she continued. "Loya, you are the girl of sixteen summers. You are the girl who, according to the prophecy, will unleash the Beast once more, for you are the descendant of Queen Gatana. You are the Daughter of the Swan.
+
+"It is imperative you allow no one to manipulate you. If you have not already unbound the Dark Witch Abuna, you will do so now, for she is your mother, and you will need her help to defeat Father Tarafun.
+
+"You will also need this silver key." The priestess pressed something into Loya's hand.
+
+With that, Sister Yeleda marched out of the classroom. For several minutes, Loya stood in shocked silence.
+> west
+
+> west
+
+The Blue School Corridor South
+The corridor was spotless. A little too spotless.
+
+Sister Yeleda's classroom was to the east. Brother Kul's classroom was to the west.
+> north
+
+> north
+
+The Blue School Corridor
+It was pristeen.
+
+Loya could go north or south along the corridor. Sister Eya's classroom was west, Brother Erkam's classroom was east.
+> north
+
+> north
+
+The Northern Section of the Blue Gown School Corridor
+There was no rising damp here.
+
+Loya could go north or south along the corridor. To the west was Brother Guran's classroom, while a sign above the eastern door notified Loya that Sister Naya's classroom was to the east.
+> north
+
+> north
+
+The Blue Gown School Entrance
+Posters hung upon the walls.
+
+Loya could go out to the cobbled road, into Sister Ozara's office, or south along the corridor.
+> out
+
+> out
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> west
+
+> west
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> in
+
+> in
+
+The Temple
+Statues of various demons surrounded the temple.
+
+To the west was the altar and a staircase led up to the bell tower. Loya could also go out onto the cobbled road, or into Father Tarafun's office.
+> in
+
+> in
+
+Father Tarafun's Office
+Father Tarafun occupied a dank office. How he could possibly work there was anyone's guess, but Loya assumed that he enjoyed such a lifestyle.
+
+There was a desk in the centre of the room and a filing cabinet. Other than that, there were no furnishings, and no decorations graced the walls of the office.
+
+Loya could go out to the temple.
+
+Loya could see Father Tarafun and Abuna.
+
+Father Tarafun launched an energy bolt in Loya's direction.
+
+The bolt struck Loya in the chest.
+> open swan brooch
+
+> open swan brooch
+
+Loya opened it.
+
+A swan emerged from the brooch, and with its powerful wings grappled with Father Tarafun. The high priest was visibly stricken. The swan then returned to the brooch, and the brooch snapped shut once more.
+> mindmove desk
+
+> mindmove desk
+
+Loya used the mindmoving spell to thrust the desk at Father Tarafun. Despite it causing him no small distress, he looked up at Loya and smirked. "Is that all you've got, little girl?"
+
+Father Tarafun launched an energy bolt in Loya's direction.
+
+The bolt struck Loya in the chest.
+> throw tame brambles at father tarafun
+
+> throw tame brambles at father tarafun
+
+Loya threw the brambles at Father Tarafun. They clawed into him, but he was able to fight them off. The brambles returned to Loya.
+
+"Smooth move," scowled Father Tarafun. "What else have you got, little girl?"
+> wear black stone
+
+> wear black stone
+
+Loya put on the black stone.
+> bind father tarafun
+
+> bind father tarafun
+
+Loya held out the black stone in her left hand. She began chanting the words to the spell most vile, and soon a black light emerged from the stone. Before Father Tarafun could react, the light grappled his arm and wrapped itself around his body and legs. When the vile deed was done, the light returned to the stone, and Loya was certain just for a moment that the angered shriek of a swan passed through her. Father Tarafun collapsed to the ground wearing the same expression on his face as Loya had seen on the distraught woman in the barn.
+
+"Good girl," said Abuna approvingly. "You have destroyed one of my enemies, and now I destroy the island. Escape quickly, for my wrath shall not spare you if you do not get off the island now."
+
+Abuna motioned towards the door. Just as she reached the threshold, she turned to Loya and said, "The Great Demon Itself will not let you leave without the incriminating evidence. You'll find it in this office."
+
+With this, Abuna glided away as though a swan on water.
+
+Message from Nomad - Save now. You have twenty more moves to complete the game, and there is still something important that needs doing before you can escape the island.
+> insert silver key into keyhole
+
+> insert silver key into keyhole
+
+Loya unlocked the filing cabinet.
+> open filing cabinet
+
+> open filing cabinet
+
+Loya opened it.
+
+It contained the file.
+> open file
+
+> open file
+
+Loya opened it.
+
+Inside, Loya discovered the urgent communication.
+> read urgent communication
+
+> read urgent communication
+
+To: FT
+From: MM
+
+It is true that Loya has none of the nobel qualities. However, she has a quality which is far more useful to our cause. She is the girl of sixteen summers long. She alone is pure. She alone can retrieve The Book of Darkness, for she alone is the descendant of the Swan. She is a foolish child who can easily be manipulated into such a thing. Once we unleash the beast, our enemies will not know what has hit them. Loya can always be disposed of after she has ceased to serve any usefulness for us.
+If Homer Simpson had existed in Loya's world, she would have probably described herself as, 'no longer relatively gruntled'. In fact, she was furious that the people she had been taught to trust and love would betray her like this. She had already disposed of one of the masterminds, but there was still a more powerful enemy out there. She would need to get off the island as quickly as she could. Once on the mainland, she could plot her revenge against Mother Mila. She vowed to help anyone who was also an enemy of the vile high priestess.
+
+In the meantime, though, the dark witch Abuna was threatening to destroy the island. Loya would need to get off the island right now. She picked up the incriminating evidence.
+> out
+
+> out
+
+The Temple
+Statues of various demons surrounded the temple.
+
+To the west was the altar and a staircase led up to the bell tower. Loya could also go out onto the cobbled road, or into Father Tarafun's office.
+> out
+
+> out
+
+The West End of the Cobbled Road
+Loya found herself along a rundown stretch of the village. It seemed odd that she was so close to the poshest part of the village and yet could find herself somewhere so utterly shabby.
+
+A temple loomed to the west casting an impossible shadow on the road.
+
+Loya could go into the temple, east along the cobbled road, or southwest along the narrow path.
+> east
+
+> east
+
+The Cobbled Road
+A few years ago, this road had been just as much of a dirt track as the rest of the village. Now it looked like a street that had been cobbled together with the knowledge that a maritime neighbour was becoming more assertive.
+
+The road continued east and west. To the north was the muddy lane, and Loya could also go into the blue gown school.
+
+Loya could see Brother Balun.
+> east
+
+> east
+
+The East End of the Cobbled Road
+Before the war, the village council had decided to cobble all the streets in the village. Tourists, along with their money, had been flocking to these shores, and whilst the Pekorans were known to be a belligerent people, no one had actually expected them to start a blockade against mighty Anaxta. The finest Eaht tradesmen had been shipped in to lay down the cobbles, and they'd done a mighty fine job of it. Then Pekora had sent over its warships.
+
+Blue-gown mansions lined the street which ran east to the village square and continued to the west. To the north was the dusty lane, and Loya could also go into the tavern.
+> east
+
+> east
+
+The Village Square
+Before the war, this had been a bustling village square. Now it was the domain of boarded-up windows and Separatist rallies.
+
+The cobbled road began in the west. The shopping street was to the south and the promenade was to the east. A potholed road lay to the north.
+> south
+
+> south
+
+The Shopping Street
+Along this road were many olde shoppes, all of which had closed down within about a year of opening. Now, only Izin's General Store was not boarded up.
+
+The road continued to the southeast whilst the village square was to the north. Loya could also go into Izin's store.
+> southeast
+
+> southeast
+
+Riverside Road
+One would have expected somewhere so pleasant to have been colonised by the blue-gowns. Instead, Loya's own caste lived here, albeit the slightly snooty ones. There were a couple of huts which were slightly grander than yellow-gown huts were wont to be. Loya's classmate Pema lived here.
+
+Loya could go into Pema's hut, east to the sandy bank or northwest to the shopping street.
+> east
+
+> east
+
+The Sandy Bank
+Several canoes, none of which looked seaworthy, lay on the beach.
+
+Loya could go west to Riverside Road.
+> enter canoe
+
+> enter canoe
+
+Loya entered the canoe. From nowhere, gallumphed the fat monk. With a guffaw, he said, "My beamish girl, callooh callay," he said. "Snicker-snack, your vorpal stone hast bound the bandersnatch. You have helped the The Order of the Swan prevent actions most manxome taking place, for the Orders of the Eagle and the Dragon seek to cause uffishness, and only you can prevent it.
+
+"Great Demon speed you to Maranga, from whence seek Professor Zorek! He is a Swan most trusted and most frabjous."
+
+The fat monk chuckled once more. "For the moment, our fate moves to the hands of girl named Yina, the whiffling child you met in the mansion."
+
+Then he chortled again. "Fear not, my girl, for you shall soon be the focus of this adventure once more. No fear not, for you shall set eyes upon the caves of Kantara, the cliffs of Eaht and the peaks of Nara, for it is written in the prophecy."
+
+With that, the fat monk pulled a white stone from his pocket and began whispering, "'Twas brililig and the slithy toaves did gyre and gimble in the wabe..." No sooner had he got to the part of the rhyme where the momeraths were outgribben, did Loya's canoe begin to float towards the open seas.  Her canoe glided swiftly the waves of the river until she found herself on the open seas sailing towards the blockade and beyond to the magnificent city of Maranga.
+
+Moments later, the descendant of the Swan heard a huge bang. As she turned, she saw her beloved island in flames.
+[state=Finished]

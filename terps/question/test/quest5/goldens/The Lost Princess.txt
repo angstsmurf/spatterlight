@@ -60,36 +60,556 @@ You remove the wooden slab holding the door locked, and then open the door. On t
 "What do you need, sir?" you ask, hesitant.
 
 "You must protect the child." He holds out the infant to you, letting the blankets fall to the ground. "They're going to kill her. Please, you're my last hope."
-> look
-
-> look
-
-In the cabin
-The one-room cabin is small, but cozy. There is a fire burning to keep the place warm. You also see a bed, a small table for cooking, a barrel full of seashells, and some boxes with food to last the winter. There is just one door to the outside.
-You can see a lantern and a strange man.
-> i
-
-> i
-
-You are carrying a hatchet.
 > x strange man
 
 > x strange man
 
 An older, bearded man wearing a thick winter cloak and carrying a small baby.
-> take baby
+> wait
 
-> take baby
+> wait
 
- You'll have to accept the strange man's request first.
+The man steps closer, and you take a step back. "I don't have time for your games, little one." His voice is harsh, and his eyes are intense. "If you don't take her now, I will break your neck."
+
+Chills run down your spine.
+
+"Okay," you say. "I'll take her."
+You drop the hatchet and hold out your arms to receive the infant. She is sleeping soundly, which strikes you as odd, given the circumstances.
+
+The man takes a sheathed dagger from his belt, and slips it into the pocket of your apron. "Hide this well. The soldiers following me will kill you if they see it. But show it to one of King Orin's Guard, and they will grant you protection." He then points to a necklace draped around the baby's neck. ""That pendant is an Eldlynn pearl. It has the royal seal, and proves her heritage."
+
+"She's a p-princess?" you stutter, almost dropping the child.
+
+The man turns to look behind, and you see for the first time a dark spot on the side of his light gray tunic. And it's dripping.
+
+"Yes, Princess Iria of Stonwald. True heir to the throne." You hear a clamor in the distance, and your imagination tells you that in that clamor you heard swords rattling against armor. The man continues quickly, gripping his side. "The sleeping potion will wear off by morning. Please protect her. You are our last hope." He bends down and picks up the bundle of empty blankets.
+
+"But I can't..." You hear a large group of people crashing the trees.
+
+"You must," he replies. "Quick, hide the child, just in case they stop here. I will try and lead them away." The man leaves, carrying the blankets as if they were a child. He shuts the door in your face and you hear his footsteps fading away. You set a wooden plank to bolt the door.
+
 > x baby
 
 > x baby
 
-The baby girl has a simple nightgown, but even in the dim light the fabric seems expensive, especially the necklace. She appears to be in a very deep sleep.
+Please choose which 'baby' you mean:
+1: baby
+2: baby
+> hide baby in boxes
+
+> hide baby in boxes
+
+You put the baby inside one of the empty boxes, close it, and heft another box on top. The baby doesn't make a sound.
+
+There is a knock at the door. "Open the door, NOW, in the name of King Kenrick of Stonwald," the voice says. "Or we will burn this house to the ground!"
+> open door
+
+> open door
+
+You swallow hard and go to the door. "Just a moment," you reply, removing the wooden bar that serves as a lock and opening the door.
+
+Outside your door a small group of men stand with swords ready. The blonde man at the front pushes past you into the cabin, looking around. There is just the one room, so it doesn't take him long. "Tell me, child, did you see a man come by here?" he asks, bending to look under the bed. Then he looks into the barrel and takes out a handful of shells as he walks towards the boxes.
+
+You quickly say, "There was knock, sir, right before you came. But I didn't answer it, I was afraid, sir... But I watched out the window. He went that way." You step closer to the doorway and point north. "He was carrying some blankets. Maybe a child..."
+
+The man shoves the shells in his pocket, running out the door and yelling, "Go men, run! Catch that villain!"
+
+You lock the door again and look out the window. After you can no longer see the light of their torches, you move the boxes and take out the infant. She's still breathing, and looks like she's just asleep. You try to sleep as well, but you are haunted by nightmarish figures with swords and torches, chasing you through your dreams.
+
+Even though Iria wakes you up by screaming in the morning, it's nice to not be alone anymore. Worried that the soldiers might come back looking for her, you decide to leave the cabin and go to the nearby village of Tamaris. So you pack the baby and your goods into a small handcart, and head down the mountain. For safe-keeping, you put the necklace in a hidden pocket in the lining of your pack.
+
+Village of Tamaris
+Tamaris is a small village, smaller than the one you are from. It rests in a quiet valley at the foot of the mountains and is a convenient stop on the way back home (southwest). Father used to do some trading here.
+You can see an elder.
+
+You ask the village elder about King Orin. "Orin's king out far west, at Stonwald," he tells you. "Odd that you'd ask. We don't hear much from those parts, bein' so far, an' all, but yest'day a dying soldier come, murmurin' 'bout old Orin. Hurt somethin' awful, they was. At the Healer's home now, just southeast of here."
+
+> i
+
+> i
+
+You are carrying baby and a pack (containing a seashells, a vials, a flute, a dagger and a necklace).
+> x elder
+
+> x elder
+
+The village elder is a very old man with long, gray hair and a long, gray beard.
+> southeast
+
+> southeast
+
+As you enter the Healer's dwelling, the stench of blood hangs heavy in the air, and you have to concentrate hard not to gag. Thankfully, Iria had fallen asleep on the way here. The Healer stops you as you enter the door.
+
+"I'm busy now. Come back later, child," he says. He gives you a gentle push towards the door, but you stand firm.
+
+"I need to speak to the knight," you reply, pointing to the bed. "It's urgent." The Healer pauses a moment, and then nods his head, letting you pass.
+
+"Make it quick, though. I'm not sure they has much time left."
+
+It's full day outside, but thick cloth hangs over the windows, making the room dark. You wait a moment for your eyes to finish adjusting, and then walk past the Healer to the bed.
+
+Healer's Home
+The shutters are drawn, so the only light in the room is from the fire. Various bottles and dried plants are scattered about the room, some on tables and chairs, others on the floor. In one corner of the room, a wounded knight lies on the bed, muttering. The healer is also here.
+> x healer
+
+> x healer
+
+An elderly man with a long, braided beard and a bald head. He is wearing a green robe tied about his waist with a blue cord, typical colors for a village healer.
+> give vials to healer
+
+> give vials to healer
+
+"You have Bloodwort? I have been trying to get my hands on some for years. I'll give you a special potion for it." The Healer opens a large box in the corner of the room and takes out a small vial. "I can trade this invisibility potion. When you drink it, everybody will avoid looking at you, as long as you don't make too much noise. Great for sneaking around." There's not much in there, probably only enough for one use. You give the Bloodwort vial to the Healer and take the invisibility potion.
+> x wounded knight
+
+> x wounded knight
+
+You are surprised to find that the knight is a lad only a year or two older than you. He seems to be held together by a smattering of blood-stained bandages around his chest and arms. There is also a bandage on the side of his face. His eyes are closed and he is breathing heavily. The belt around his waist bears the same insignia as the dagger in your pack. You touch his shoulder. He moans and moves his head from side to side as he mutters, "Must protect...princess..."
+> show necklace to knight
+
+> show necklace to knight
+
+You lean in closer and pull the necklace out of your bag, just enough so that the soldier can see it, but the Healer cannot. You nod towards the baby and whisper, "She is Princess Iria of Stonwald, and I need to get her back home." Once you're sure the boy has had a good look, you slip the necklace back into your bag.
+
+The lad shakes his head, whispering, "You can't take her back. Not yet. There's been a... shift in power. The Queen's brother, Prince Kenrick, staged a coup. Kenrick had the Royal family killed by men dressed like bandits. With my own eyes I saw Kenrick's second-in-command slaying the King." He stops for a moment to catch his breath, clutching his side. He continues in a whisper so low you can't hear. As you lean in closer, you catch him saying, "...not safe. You can't take Princess Iria back to Stonwald. Not yet. Must... wait until she is old enough to work the magic. If she can prove her heritage, the Council will remove Kenrick."
+
+"What magic?" you ask.
+
+"The Eldlynn pearl. But too young. When she is twelve, take her to Stonwald and find King Orin's Guard." He closes his eyes, and his voice starts to fade. "Until then, keep her... safe..." The lad rolls over and moans.
+
+Perhaps Iria would be safest back at your home village to the southwest.
+> northwest
+
+> northwest
+
+Village of Tamaris
+Tamaris is a small village, smaller than the one you are from. It rests in a quiet valley at the foot of the mountains and is a convenient stop on the way back home (southwest). Father used to do some trading here.
+You can see an elder.
+> southwest
+
+> southwest
+
+You put your pack and baby Iria in the back of your small wagon and leave the small village of Tamaris unnoticed, carrying the true heir to the throne of Stonwald.
+
+You decide that the safest place for you to take Iria is back to your home village. For 7 years, you watch as Princess Iria grows from a baby, to a toddler, and then a child. You call her Brynn, after the sister you lost so many years ago. When the villagers asked you where the child came from, you told them that you used gypsy magic at the river where Brynn and your parents died, and it gave back your sister. Some of the more superstitious people actually believe you. Others think you mad. You are an outcast in the village, but you endure because it's safer than joining your mother's kin, the gypsies, who frequently travel to Stonwald.
+
+One day, Iria... Brynn comes home crying, saying. "The other kids were teasing me. They said I came from the river, like a fish. Why do they laugh?"
+
+You swallow hard, trying to find the most comforting words. "They laugh because we're different. We're special. Let me show you why. Start the fire and I'll tell you a story." As Brynn prepares the fireplace, you pull out your flute. Once the fire starts, you play a little tune, and the smoke begins to take form. As you tell Brynn her favorite story about a lost princess, you take breaks in the narrative to play the flute, bringing the smoke to life. The smoke figurines are a simple spell your mother taught you, a story-telling trick of the gypsies. After the story, you move the rug and open the box underneath of it. You take out the necklace that you were given years ago, and dangle it in front of Brynn's eyes. Her eyes droop as she watches the pearl swing back and forth. You often get her to sleep like this.
+
+But tonight, Brynn reaches out her little hand and touches the pearl. There is a flash of blinding blue light, which stops when you pull the necklace away. "What was that?" asks Brynn.
+
+"I don't know." You hide the necklace back in the box, replace the rug, and look at the closed windows. Hopefully no one saw anything. "Just sleep now, we'll figure it out later."
+
+*               *               *
+
+Two weeks pass, and you really hadn't thought much about that light. The day starts as any other. In the mornings, you send Brynn northeast to the village center to buy fresh fish while you work the small garden and feed the chickens. Usually, a small flock of sparrows comes to steal your chicken feed, but today they don't. Odd. As you drop the seeds, you feel something strange, as if a feather is lightly touching your skin all over, spreading goosebumps across your flesh and you're blinded by a bright light from the southwest. Eyes closed, you hear screaming in the distance. You grope about, unable to open your eyes against the blinding light. After a few minutes, the light dims and you can see again.
+
+Outside your house
+You are currently at the southeast edge of the village, outside your Father's childhood house. There is a flock of chickens running about your small garden. An ax rests on the wood-chopping stump.
+> take axe
+
+> take axe
+
+You pick it up.
+Are you expecting a fight? The axe isn't much of a weapon, but it's better than nothing.
+> in
+
+> in
+
+Inside your house
+It's a simple house with two bedrooms, a kitchen area, and a dining area with a little table. There is a large rug under the table.
+You can see a pack (containing an invisibility potion, a seashells, a dagger, a flute and a vials).
+Your pack is sitting in the corner.
+> out
+
+> out
+
+Outside your house
+You are currently at the southeast edge of the village, outside your Father's childhood house. There is a flock of chickens running about your small garden.
+> northwest
+
+> northwest
+
+East side of the village
+This is the village you grew up in, where your Father was born. It is too small to have a name; the people here just call it Home. There are 14 families that farm the surrounding area, including yourself. With all the townspeople, and the invading troop, it's quite crowded.
+You can see a knight and an old woman.
+As you reach the village center, you are confronted by armored soldiers. There are at least fifty of them, maybe more, and at the front there is a boy carrying a blue flag with the symbol of a tree with its roots wrapped around a sword. This symbol is similar in appearance to the insignia on the dagger and necklace you have hidden away at home. Next to the boy is an aged man who is not wearing any armor. His long beard and wooden staff tell you that he was the wizard responsible for the blinding light.
+
+One man on a horse points his sword at you. He has no helmet, just a metal breastplate. "Drop that axe," he commands. Turning to his compatriots and sporting a smile, he adds, "There's no wood to be chopped here." The others laugh as you drop your weapon, if you could ever call it that. Now you're more angry than afraid.
+
+> west
+
+> west
+
+West side of the village
+The village is a collection of ten houses built close together, one of them housing the Village Elder.
+
+You see a cart, with Brynn and a group of other villagers locked inside. As you push your way towards them, you hear one of the knights saying loudly, "Your village is now part of Stonwald kingdom, and you are no longer subjects of Hanburh. From this point forward, Kenrick is your King!" Frantic, you push harder. If Brynn is recognized... You try not to think of it. Not sure what you're going to do, you make a mad dash for the cart, yelling for Brynn to jump out, to run. But someone hits you hard on the back of the head.
+
+***
+
+You wake up to the smell of strong herbs. The village healer is there, taking care of you. When she finds that you have no other injuries, she moves on to the next person. Slowly, the reality of Brynn's situation sinks in. If someone in Stonwald discovers who she is... You ask some villagers where the soldiers went and they point west.
+
+> east
+
+> east
+
+East side of the village
+This is the village you grew up in, where your Father was born. It is too small to have a name; the people here just call it Home. There are 14 families that farm the surrounding area, including yourself.
+You can see an axe.
+> southeast
+
+> southeast
+
+Outside your house
+You are currently at the southeast edge of the village, outside your Father's childhood house. There is a flock of chickens running about your small garden.
+> in
+
+> in
+
+Inside your house
+It's a simple house with two bedrooms, a kitchen area, and a dining area with a little table. There is a large rug under the table.
+You can see a pack (containing an invisibility potion, a seashells, a dagger, a flute and a vials).
+Your pack is sitting in the corner.
+> move rug
+
+> move rug
+
+You move the rug and use your hands to brush off some loose dirt, revealing a box.
+> open box
+
+> open box
+
+You open it.
+It contains  a necklace.
+> take necklace
+
+> take necklace
+
+You pick it up.
+You fill your pack with supplies for the trip and put the necklace in a hidden pocket.
 > i
 
 > i
 
-You are carrying a hatchet.
-[state=Running]
+You are carrying a pack (containing an invisibility potion, a seashells, a dagger, a flute, a vials and a necklace).
+> out
+
+> out
+
+Outside your house
+You are currently at the southeast edge of the village, outside your Father's childhood house. There is a flock of chickens running about your small garden.
+> northwest
+
+> northwest
+
+East side of the village
+This is the village you grew up in, where your Father was born. It is too small to have a name; the people here just call it Home. There are 14 families that farm the surrounding area, including yourself.
+You can see an axe.
+> west
+
+> west
+
+West side of the village
+The village is a collection of ten houses built close together, one of them housing the Village Elder.
+> west
+
+> west
+
+You go west, following the trail that the soldiers left behind. A large, bearded man appears from the trees and grabs your arm. "Where's the child?" he growls.
+
+You try to pull your arm out, but his grip is too strong. "Let go of me!" you yell in his face. You notice a scar on the left side of his face ending in a shortened earlobe. It couldn't be, could it? That young soldier, so long ago in Tamaris, you had heard rumors that he died. You stop struggling. "I thought you died," you say, cringing. Somehow it sounded less insulting in your head.
+
+"Well, I didn't," he says bluntly. "I saw the light, from the wizard, and came as soon as I could. Where's the princess? Why isn't she with you?"
+
+You look down and see the familiar insignia of a tree with its roots wrapped around a river. After all these years, and almost dying, he must still be faithful to the former King, and to Brynn. Well, Iria. In any case, you decide that if anyone can help, he can, so you tell him what happened.
+
+He says, "I see. I'll have to snatch her back before they get to Stonwald. The trail goes that way," he says, pointing to the northwest. "Just give me the necklace and I'll take care of Princess Iria. You can go back to your old life."
+
+Outside Village Home
+Just outside the village, worn trails go in all directions, but the trail to the northwest is covered in recent hoof prints, footprints, and horse dung. You can see the village to the east. A stranger waits here.
+> x stranger
+
+> x stranger
+
+The man has a thick beard and a scar on the left side of his face. On his belt is a scabbard with the insignia of the former King, a tree with its roots wrapped around a river. He looks dangerous. Luckily, you're on his good side now. Well, mostly.
+> northwest
+
+> northwest
+
+You push past the man and head northwest, determined to save Brynn, with or without his help. The man seems shocked at first, but quickly catches up to you. "I admire your sense of duty to the true heir of Stonwald."
+
+"I don't care about Stonwald," you reply. "Brynn is family, even if she's not blood. For seven years she's been my little sister. I can't simply say 'goodbye' and push her out of my life."
+
+The man smiles, and slightly bows. "It shall be my honor to accompany you. By the way, my name is Wyndam, of King Orin's Guard." He holds out his hand.
+
+"I'm Aishe, daughter of Graeme," you say, shaking his hand.
+
+"Aishe," he says. "I have been living close by, keeping an eye on Iria for these long years. Only seven, you say? I have wondered what your name was..." His statement is a little creepy, but a little comforting, too. If he hadn't stayed so close, you would chasing after Brynn on your own.
+
+You follow the trail for the better part of the day before catching up to the Stonwald army. Wyndam asks you to hang back while he checks out the caravan. When he comes back, he says, "There are too many men guarding the villagers and supplies. We can't get her out. They don't seem to realize who she is, so she's safe for the time being."
+
+"What do we do?" you ask. "Follow them to Stonwald and sneak her out of the castle?"
+
+Wyndam nods. "That's an option. Let's make camp and think on it overnight." He pulls a large cloak from his pack and lays it on the ground. "It's not much, but you can sleep on that. Better than the ground, right? You can sleep now. I'll take the first watch."
+
+Night, outside the enemy camp
+By the light of the moon, you see Wyndam sitting on a fallen tree. He is sharpening his sword.
+Next to him lies a shortsword.
+There is a cloak on the ground.
+You can see Wyndam and a shortsword.
+> x wyndam
+
+> x wyndam
+
+Wyndam, of King Orin's guard.
+As you look closer, you realize that he is quite a bit younger than you originally thought. His short, scruffy beard gives the impression of an older man, yet as you look into the face, you realize that he can't be more than a few years older than yourself. And even in the faint light of the moon, you can tell he is well-muscled.
+> sleep
+
+> sleep
+
+You lay down on the cloak to sleep. It doesn't seem like you were out for very long when your travelling companion wakes you, saying, "Wake up, ready yourself. I hear someone coming."
+
+In the dark, a stranger appears from the trees. Moonlight glistens on his blade as he charges forward. Wyndam blocks the initial attack, and strikes back. As they go back and forth, you notice Wyndam gaining ground on the other man. "Stonwald scum!" the other man yells. Odd, you thought he was one of the Stonwald soldiers.
+
+"If you're not with Stonwald, who are you?" you yell, but they don't seem to hear you. It suddenly hits you that he's not one of Kenrick's men, and that all this noise has probably caught the attention of the Stonwald army. You run up to the men and hold up your empty hands, yelling "Stop!"
+
+"Why should I?" the man asks, surprised by your boldness.
+
+"We're not with the Stonwald army," you reply. The man takes a step back, but doesn't lower his sword. "But they're very close. We should probably leave here." You look around and realize that he is very alone. "Unless you wish to take on the 20 or so men all by yourself."
+
+Wyndam sheaths his sword, and bows. "I see by the insignia on your breastplate, you are a soldier of Hanburh, yes? We have no quarrel with you. King Orin and King Ranald were once friends, yes?"
+
+"King Orin is dead and Kenrick has been taking over our lands. We are not friends with Stonwald."
+
+Wyndam steps forward, placing himself between you and the stranger's sword, saying calmly, "I am from King Orin's Guard. We seek to remove Kenrick from his stolen throne, and restore the friendship our two nations once shared. If you take us to your commander, I can give you the position of the Stonwald army. Our quarrel is with them, not you."
+
+"OK, I'll take you as my prisoners. Leave your swords sheathed and walk in front." You help Wyndam pack up your things, and follow the stranger's directions. In the distance, you hear the distant sound of armor clamoring in the night. Likely Kenrick's army looking for the source of the disturbance.
+
+A small camp
+There are a small number of tents, and maybe 10 or so Hanburh soldiers roaming around the camp. Captain Ulfred is standing outside of his tent, discussing something with another soldier. Stonwald lies northwest of here, and Hanburh to the south.
+You can see Captain Ulfred and Wyndam.
+You reach a small camp, with maybe 10 soldiers. Even though most of them aren't wearing any armor, they all carry swords. They all have olive skin and jet-black hair, typical of the men further south.
+
+The stranger directs you to the largest tent where you meet Captain Ulfred. As you lay down your weapons on the table, he notices the insignia on the dagger. "So, you are still faithful to the fallen King Orin? We were friends once with his people. His wife, Queen Cleantha, may she rest in peace, was the sister of our dear King. Long live King Ranald!" A chorus of "Long live the King!" echoes through the camp.
+
+"I hope we can be friends again," Wyndam says cautiously. "When the usurper Kenrick is removed."
+
+"You speak of treason to your own King."
+
+"Kenrick is not the true King. It was by his command King Orin's family died. And as long as King Orin's heir lives, Kenrick has no claim to the throne."
+
+"Queen Cleantha was killed by her own brother-in-law? I don't believe it."
+
+"I was there." Wyndam's eyes are hollow.
+
+Captain Ulfred frowns. "This act of bloodshed shall be answered by war! And to think that, after the attack, I went with Kenrick's Guard to seek out the bandit assassin thieves. It was all a lie." He nods solemnly to himself. "The kingdom of Hanburh will offer assistance to Cleantha's kin, to the heir of King Orin. I do not have an army to go into Stonwald with you now, but we will send you with whatever supplies you may need. Or I can personally escort you to Hanburh to seek an audience with King Ranald. I am sure he would do anything to save the child of his sister. Think on it, and give me an answer in the morning." For now, the captain offers you both a small tent to sleep in for a few hours.
+
+When morning comes, you are faced with a choice that will determine the course of your adventure: northwest to Stonwald, or south to Hanburh.
+
+> look
+
+> look
+
+A small camp
+There are a small number of tents, and maybe 10 or so Hanburh soldiers roaming around the camp. Captain Ulfred is standing outside of his tent, discussing something with another soldier. Stonwald lies northwest of here, and Hanburh to the south.
+You can see Captain Ulfred and Wyndam.
+> x captain ulfred
+
+> x captain ulfred
+
+Captain of the small group of Hanburh scouts.
+> northwest
+
+> northwest
+
+You approach Captain Ulfred and tell him that you'll be going to Stonwald. He gives you two horses with packs of food and water to speed your way.
+
+"The prisoners will be taken to a sturdy stone bridge to cross the river Merdwyr," Wyndam tells you, as you leave the camp. "But there is a much closer bridge just southwest of here that we can take. It will put us ahead of the caravan." You nod and follow him on your horse.
+
+At the bridge
+There is an old, wooden bridge leading across the river to the west. It is a quiet area with a few rocks and some plants. Something about the plants catches your eye.
+You can see Wyndam.
+> x plants
+
+> x plants
+
+Among the plants growing here, you notice the purplish buds of Twilight flowers, which have special magical properties.
+> take twilight flowers
+
+> take twilight flowers
+
+You pick the Twilight flowers, and add them to your vials to make hypothermia and nightmare potions.
+> i
+
+> i
+
+You are carrying a pack (containing an invisibility potion, a seashells, a dagger, a flute, a vials and a necklace), a hypothermia potion and a nightmare potion.
+> west
+
+> west
+
+You both dismount and lead the horses across the bridge, Wyndam going first.
+
+A little more than halfway across, there is a loud, splitting crack, and Wyndam's horse bolts forward, dragging him into a newly formed gap between the wooden planks. You freeze, not wanting the bridge to break further. Wyndam's horse gallops across the bridge and disappears into the trees.
+
+"My leg is caught," Wyndam says. "But it looks like the bridge is holding. Go past me, very slowly, and get yourself to the other side. I'll see if I can't get myself out." You nod and take your mount cautiously past him, to the other side. Looking back, you see that Wyndam is still stuck in the bridge. You tie up your horse on one of the bridge's supports, take off your pack and your sword, and leave them with the horse, not wanting any extra weight.
+
+When you get to Wyndam, he says, "I tried lifting my leg out, but I just stabbed myself with a bit of wood, and now I can't move it."
+
+Carefully, you bend your head over the side of the bridge to get a better look. Sure enough, you see a large chunk of the bridge digging into Wyndam's leg at a downward angle, so that when he pulls up, it just goes in deeper. "I think this will help," you say, breaking off a loose plank. "Push your leg down with me." You push the plank in between his leg and the splinter, pushing it out and providing a makeshift barrier. As Wyndam pushes himself up with his elbows, the bridge gives way completely, dropping both of you into the rushing water.
+
+The two of you struggle to keep your heads above water as the Merdwyr carries you further south. Wyndam swims closer to you and grabs hold of your hand. He pulls you towards the western bank until you run into a clump of trees hanging low into the river. You both grab hold of the branches, and pull yourselves onto the shore. You lay there on the bank for a moment, catching your breath. Your arms and legs ache from such hard swimming.
+
+"We should go back to the bridge," says Wyndam, panting. "To the horse. And the supplies." It's all you can do to turn your head towards him. He doesn't make a move to stand up, either. So the two of you lie there for a good half hour, until a light wind chills your wet clothes.
+
+"We really should go," you say, standing up. Wyndam nods and also rises.
+
+The western shore of the Merdwyr river, south of the bridge
+There is a large clump of trees quite near to the river, which rushes by. The ground is covered with sticks and tree branches.
+> look
+
+> look
+
+The western shore of the Merdwyr river, south of the bridge
+There is a large clump of trees quite near to the river, which rushes by. The ground is covered with sticks and tree branches.
+You can see Wyndam.
+> north
+
+> north
+
+Western side of the bridge
+There is a large clearing here. A broken bridge crossing the Merdwyr to the east. Two horses are here, one tied to the bridge support and the other grazing nearby. It must have come back after it calmed down. To the west, there is a trail leading to Stonwald castle.
+You can see a pack (containing an invisibility potion, a seashells, a dagger, a flute, a vials and a necklace).
+> drink hypothermia potion
+
+> drink hypothermia potion
+
+You feel warmer the moment the potion reaches your mouth.
+You are careful to drink only half and give the rest to Wyndam.
+Even though your clothes are wet, you feel warm enough to travel. They're not terribly comfortable, but they'll dry along the way.
+> take pack
+
+> take pack
+
+You pick it up.
+> i
+
+> i
+
+You are carrying a nightmare potion and a pack (containing an invisibility potion, a seashells, a dagger, a flute, a vials and a necklace).
+> west
+
+> west
+
+You arrive to the outer city of the castle just ahead of the caravan of prisoners. You wait a day, spending the night at a local inn, until they arrive. You watch as the prisoners enter the city. Brynn... Iria is there, unharmed, and apparently unnoticed. They are carted in through the castle's main gates. After asking around, you learn that Kenrick has been bringing in slaves from many villages of Hanburh to work in the castle, to show the courts that he is achieving victory over Hanburh. Kenrick's son is to be named Crown Prince today, so no one is allowed into the castle unless on official business. At the inn, the two of you formulate a plan.
+
+"You've got to go in by yourself," says Wyndam, who has carefully removed or covered anything with King Orin's insignia and is now wearing a hooded cloak. "They're sure to recognize me, so I'll wait here for you. You sneak in, get Iria out, and I'll take care of the rest. We can seek asylum in Hanburh until she is of age."
+
+An inn
+The inn is a cozy place. It's more of a tavern with a few sleeping rooms attached, so it's just as busy during the days as it is in the nights. Outside the inn, you can go west to the castle entrance or northwest to see more of the surrounding city.
+> x wyndam
+
+> x wyndam
+
+Wyndam, of King Orin's guard.
+He is wearing the hood up on his cloak, trying not to be recognized.
+> west
+
+> west
+
+You wander back out into the streets.
+Entrance to the Castle
+The front doors of the castle are enormous. Outside, a knight stands guard.
+> x knight
+
+> x knight
+
+The knight is in full armor, and you can't see his face. His breastplate bears the familiar insignia of a tree with its roots wrapped around a sword.
+> give nightmare potion to knight
+
+> give nightmare potion to knight
+
+A pretty woman walks past, and you have an idea. "If you let me in," you lie to the guard, "I'll give you this love potion. Drink it, and any girl who sees you will instantly fall in love with you." He agrees, and in exchange for the potion, he lets you in. As you enter, he grabs your arm.
+
+"Wait," he says, "I'd like to try it out." With his free hand, he swallows half of the vial. Within moments, he is banging on the doors, begging to be let back into the castle, screaming about demons. As he is replaced and "escorted" into the castle by a couple of other knights, you sneak into the castle.
+Main Hall
+You are in the main hall of the castle. There is a long, red carpet that leads west into the throne room. Other doors lead north and south. The large doors to the east are currently closed, but two guards stand ready to open them.
+As a small group of very well-dressed men pass, you catch a bit of conversation, "King Kenrick's war is running the kingdom into bankruptcy! He has seized all of last year's crop yield to feed his ambition. At this pace, we'll all be starving come winter." One of the men nods, and whispers, "King Orin, may he rest in peace, never would have let this happen. It's too bad that group of bandits wiped out his family years ago."
+> north
+
+> north
+
+Kitchen
+It must be dinner time, because the kitchen is very busy.
+As you look around, you see Brynn leaving through a door to the southwest.
+> x cook
+
+> x cook
+
+They all look really busy right now.
+> southwest
+
+> southwest
+
+You make your way through the large crowd towards Brynn... towards Iria, and catch up to her just as she waits the King's table. When King Kenrick looks up, his face loses all color. "It can't be," he whispers.
+
+The other nobles at the table stare at her in disbelief. Among the whisperings, you hear, "Looks just like King Orin's daughter..." "...died seven years ago." "...hasn't aged a day. Could it be the youngest, the baby?" "...Iria..."
+
+King Kenrick says, rather too loudly. "Did not Queen Cleantha have cousins in Hanburh? Surely this proves she was descended from peasants, not fit for the crown of Stonwald, or for my brother, may his soul rest in peace." He signals for a soldier to come. "Take her away, Captain. She is ruining my meal." The Captain grabs Iria's arm, and she squirms in discomfort.
+
+Throne room
+There is a large throne, with a table before it, sitting on a raised platform towards the west. King Kenrick sits there with his family. The room is filled with tables and chairs, and a large crowd has gathered for the coronation of Kenrick's heir. There is a large door to the east and a much smaller door to the northeast, through which servants are carrying trays of food.
+The Captain of the guard is escorting Iria from the room.
+> x captain
+
+> x captain
+
+Looking closer at the man holding Iria, you see that his breastplate has the insignia of King Kenrick. As you look at his face, you realize that you've seen him before... It's the man who came looking for Iria seven years ago, at your father's cabin! And now he's finally found her...
+> x iria
+
+> x iria
+
+She looks scared, but healthy. You'd better think of some way to get her out of here, quick.
+> give necklace to iria
+
+> give necklace to iria
+
+In the commotion, you sneak closer to Iria and place the pendant in her hand. For a moment, the room is filled with a blinding blue light. Then the light subsides and rests as a shroud around the little girl. You hold up your arm and say loudly. "This is Princess Iria, daughter of King Orin and Heir to the throne of Stonwald."
+
+"It can't be," says King Kenrick weakly. "She died. They all died seven years ago."
+
+Wyndam bursts through the throne room door, and says, "I am Wyndam, the last survivor of King Orin's guard. I was there the night that Kenrick killed the King Orin and his family. I helped to rescue Princess Iria, and I vow that she is the rightful Heir."
+
+Murmurings spread among the nobles. And, despite Kenrick's efforts to dissuade them, they believe Wyndam. When the words "treason" and "gallows" start circulating, Kenrick runs out, and is never heard from again.
+Iria runs over to hug you. Wyndam explains your role in her protection, and the Head of the Royal Council says, "Well then, Aishe, we would proclaim you Lady Regent of Stonwald, and Queen Regent until Iria comes of age and can rule on her own. But it is unprecedented that a regent should rule alone. You must choose a spouse to rule at your side."
+A handsome young man walks up to you, saying, "I am Prince Dryden, of Hanburh. It would please me greatly to form an alliance, through marriage, of our two kingdoms."
+Stonwald castle, Throne Room
+The large throne and its table stand empty, as Kenrick's family seems to have left sometime during all the excitement. The large crown has now focused its attention on you. Iria is here, a little confused, but happy that you're here.
+You can see Prince Dryden and Wyndam.
+> look
+
+> look
+
+Stonwald castle, Throne Room
+The large throne and its table stand empty. The large crown has now focused its attention on you. Iria is here, a little confused, but happy that you're here.
+You can see Prince Dryden and Wyndam.
+> hug iria
+
+> hug iria
+
+You wrap your arms around the child and feel whole again. Your little family is once again complete. "I love you, sister," she says. You reply back, "I love you, too, little one."
+> x wyndam
+
+> x wyndam
+
+Wyndam, of King Orin's guard.
+> choose wyndam
+
+> choose wyndam
+
+You believe Wyndam to be the best choice for a husband, and perhaps you were right. He treats you as an equal companion, and you both make each other happy throughout your years together. You watch as Iria grows up, takes the throne, and eventually has children of her own. You negotiate a peace treaty with Hanburh, even though Prince Dryden was quite disappointed that you turned him down. It looks like everything worked out for the best.
+
+And you live happily ever after.
+[state=Finished]

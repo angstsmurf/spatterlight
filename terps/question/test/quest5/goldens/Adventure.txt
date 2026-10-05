@@ -2944,4 +2944,5 @@ What would you like to do?
 1: UNDO your last command
 2: RESTART from the beginning
 3: QUIT the game
-[state=Running]
+> 3
+[state=Finished]

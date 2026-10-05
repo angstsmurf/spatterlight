@@ -21,87 +21,1619 @@ You can go north, east, south or west.
 > look
 You are in a prison cell. You are standing in a shallow puddle. You can see your reflection.
 You can go north, east, south or west.
-> i
+> south
 
-> i
-You are not carrying anything.
-
-(Time is paused. Enter any command to continue.)
-(Type HELP for gameplay help.)
-> n
-
-> n
-
-You can see out of the window, moonlight is shining in. Outside the window is a steep cliff, with jagged rocks, and crashing waves at the bottom. You would not survive the fall.
-You can go east or south.
-> e
-
-> e
-
-You are in a prison cell. There is a wall in front of you. You are in a corner of the cell.
-You can go south or west.
-> s
-
-> s
-
-You are in a prison cell. You see the cell bars a couple steps in front of you.
-You can go west, south or north.
-> e
-
-> e
-You can't go there.
-> n
-
-> n
-
-You are in a prison cell. There is a wall in front of you. You are in a corner of the cell.
-You can go south or west.
-> w
-
-> w
-
-You are in a prison cell. You see a chair in front of you, there is nothing of interest on it.
-You can go east or south.
-> w
-
-> w
-You can't go there.
-> s
-
-> s
-
-You are in a prison cell. You are standing in a shallow puddle. You can see your reflection. You can see the cell door a few steps in front of you.
-You can go north, east, south or west.
-> s
-
-> s
+> south
 
 You are in a prison cell. The cell door is directly in front of you, it is open. You see a table beyond the door.
 You can go west, south, east or north.
-> s
 
-> s
+(Time is paused. Enter any command to continue.)
+(Type HELP for gameplay help.)
+> south
+
+> south
 
 You are in the dungeon hallway. You are facing a table.
 You can go west, east or north.
-> w
+> east
 
-> w
+> east
 
-You are in the dungeon hallway. You are facing a wall.
-You can go east.
-> n
+You are in the dungeon hallway.
+You can go west, south or east.
+> east
 
-> n
+> east
+
+You are in the dungeon hallway. It is hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is very hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in a dungeon hallway. It is very hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in a dungeon hallway. It is extremely hard to see. You can tell you are facing a wall.
+You can go west, south or north.
+> north
+
+> north
+
+You are on a staircase. You can barely see; the staircase seems to continue upwards.
+You can go south or north.
+> north
+
+> north
+
+You are on the staircase. You can barely see; the staircase seems to continue.
+You can go south or north.
+> north
+
+> north
+
+You are on the staircase. You can barely see. It is very dark, the light cannot illuminate this area.
+You can go north or south.
+> north
+
+> north
+
+You are on the staircase. You cannot see.
+You can go north or south.
+> north
+
+> north
+
+You are on the staircase. You cannot see; it is pitch black. You feel a cord hanging directly in front of you.
+You can go south.
+> north
+
+> north
 You can't go there.
-> e
+> west
 
-> e
+> west
+You can't go there.
+> pull cord
 
-You are in the dungeon hallway. There is a table directly to the south of you.
-You can go west, east or north.
+> pull cord
+As you pull the cord you hear a grinding noise with a final thump. Upon further inspection you feel that a ladder has slid down in front of you.
+> look
+
+> look
+You are on the staircase. You cannot see; it is pitch black. You feel a cord hanging directly in front of you.
+You can still feel the ladder that slid down earlier.
+You can go south, north or up.
+> up
+
+> up
+You climb up the ladder, which slides closed behind you as you reach the top. You close the trapdoor at the top so you don't fall back down.
+
+There is a chessboard, sitting on a small table, in front of you. There are pieces arranged on the board.
+You can go west, south or east.
+> look
+
+> look
+There is a chessboard, sitting on a small table, in front of you. There are pieces arranged on the board.
+You can go west, south or east.
+> west
+
+> west
+
+You are in the corner of a small room, facing a wall. There is a table to the southwest of you.
+On the southwest corner of the table, there is an unlit lantern.
+You can go east or north.
+> take lantern
+
+> take lantern
+You pick it up.
+> turn on lantern
+
+> turn on lantern
+Your lantern is now bright. Your eyes adjust to the new light level.
+You are in the corner of a small room, facing a wall. There is a table to the southwest of you.
+You can go east or north.
+> dim lantern
+
+> dim lantern
+Your lantern is now dim. Your eyes adjust to the new light level.
+You are in the corner of a small room, facing a wall. There is a table to the southwest of you.
+You can go east or north.
+> north
+
+> north
+
+There is a chessboard sitting atop a small table to the east of you, and an oak door with a wrought iron handle to the west.
+You can go west, south or north.
+> look
+
+> look
+There is a chessboard sitting atop a small table to the east of you, and an oak door with a wrought iron handle to the west.
+You can go west, south or north.
+> use knight
+
+> use knight
+You hear a click, as if a door has been unlocked, to the west.
+> west
+
+> west
+
+You are in a hallway. There are spots of blood on the ground.
+You can go west.
+> west
+
+> west
+
+You are in a hallway. There are spots of blood on the ground.
+You can go east or west.
+> west
+
+> west
+
+You are in a hallway. There are spots of blood on the ground.
+You can go north, east or west.
+> west
+
+> west
+
+You are in a hallway. There are spots of blood on the ground.
+You can go north, east or west.
+> west
+
+> west
+
+You are in a hallway. You cannot see any blood on the ground.
+You can go north, east or west.
+The room has become very silent.
+> west
+
+> west
+
+You are in a hallway. There are spots of blood on the ground. You can see the light being reflected off a surface to the north of you.
+You can go north, east or west.
+> west
+
+> west
+
+You are in a hallway. There are spots of blood on the ground.
+You can go north, east or west.
+> west
+
+> west
+
+You are in a hallway. You cannot see any blood on the ground.
+You can go north, east or west.
+> west
+
+> west
+
+You are in a hallway. There are spots of blood on the ground.
+You can go north, east or west.
+> west
+
+> west
+
+You are in a hallway. There are spots of blood on the ground.
+You can go north, east or west.
+> west
+
+> west
+
+You are in a hallway. There are spots of blood on the ground.
+You can go north, east or west.
+> west
+
+> west
+
+You are in a hallway. You cannot see any blood on the ground.
+You can go north, east or west.
+> west
+
+> west
+
+There are spots of blood on the ground.
+You can go north, east, south or west.
+> west
+
+> west
+
+There is a counter north of you, and a counter south of you. There are some spots of blood on the ground.
+You can go east or west.
+> fix pots
+
+> fix pots
+You quietly and painstakingly rearrange the pots and pans. They seem stable now.
+> west
+
+> west
+
+You cannot see any blood on the ground. The ground in front of you looks a little weird.
+You can go north, east, south or west.
+> north
+
+> north
+
+There is a counter to the east, and to the west of you. There are some spots of blood on the ground.
+You can go north or south.
+> north
+
+> north
+
+There is a counter to the east, and to the west of you. There are some spots of blood on the ground.
+You can go north or south.
+> north
+
+> north
+
+There is a counter to the east, and to the west of you. There are some spots of blood on the ground.
+The counter to the east has a cask of oil sitting on it.
+You can go north or south.
+> north
+
+> north
+
+There is a counter to the west of you, and to the east of you. There are some spots of blood on the ground.
+The counter to the west has a pile of dirty, bug infested, dishes on it. They look like they might fall at any second.
+You can go north or south.
+> fix dishes
+
+> fix dishes
+You carefully nudge the dishes into a steadier position. They seem stable now.
+> north
+
+> north
+
+There is a counter to the east, and to the west of you. You cannot see any blood on the ground.
+You can go north or south.
+> north
+
+> north
+
+There is a wall in front of you. You cannot see any blood on the ground.
+You can go east, south or west.
+The room has become very silent.
+> west
+
+> west
+
+There is a counter to the south of you, and a wall to the north. There are some spots of blood on the ground.
+You can go east or west.
+> west
+
+> west
+
+There is a wall to the north of you. There are some spots of blood on the ground.
+You can go east, south or west.
+> west
+
+> west
+
+There is a wall to the north of you, and a counter to the south. There are some spots of blood on the ground.
+You can go east or west.
+> west
+
+> west
+
+There is a counter in front of you. You can hear some grunting coming from something on the other side of the counter. You cannot see any blood on the ground.
+You can go east or south.
+The room has become very silent.
+> south
+
+> south
+
+There is a counter to the east, and to the west of you. You can hear the clang of metal on metal to the west. There are some spots of blood on the ground.
+You can go north or south.
+> south
+
+> south
+
+There is a counter to the east, and to the west of you. There are some spots of blood on the ground.
+You can go north or south.
+> south
+
+> south
+
+There is a counter to the east and to the west of you. There are some spots of blood on the ground.
+You can go north or south.
+> fix knives
+
+> fix knives
+You quietly push the knives to the center of the counter. They don't seem like they'll fall now.
+> south
+
+> south
+
+There is a counter to the east, and to the west of you. You cannot see any blood on the ground.
+You can go north or south.
+> south
+
+> south
+
+There is a counter to the east, and to the west of you. There are some spots of blood on the ground.
+You can go north or south.
+> south
+
+> south
+
+There is a counter in front of you. You cannot see any blood on the ground.
+You can go north, east or west.
+> west
+
+> west
+
+There is a counter to the north, and to the south of you. There are some spots of blood on the ground.
+You can go east or west.
+You hear chopping and grunting. The sound echoes around you, and you cannot tell where they are coming from.
+> west
+
+> west
+
+There is a counter to the north, and to the south of you. There are some spots of blood on the ground.
+The counter to the south has a cask of oil sitting on it.
+You can go east or west.
+> west
+
+> west
+
+You cannot see any blood on the ground.
+You can go north, east, south or west.
+The room has become very silent.
+> south
+
+> south
+
+There is a counter to the east of you. You cannot see any blood on the ground.
+The counter to the east has a cask of oil sitting on it.
+You can go north, south or west.
+> south
+
+> south
+
+You cannot see any blood on the ground.
+You can go north, east, south or west.
+> east
+
+> east
+
+There is a counter to the north of you. You cannot see any blood on the ground.
+The counter to the north has a cask of oil sitting on it.
+You can go east, south or west.
+> south
+
+> south
+
+There is a counter to the east of you, it has a rotting turkey carcass on it. There are some spots of blood on the ground.
+You can go north, south or west.
+> north
+
+> north
+
+There is a counter in front of you. You cannot see any blood on the ground.
+The counter in front of you has a cask of oil sitting on it.
+You can go east, south or west.
+> east
+
+> east
+
+There is a counter to north, and to the south of you. The counter to the south of you has a rotting turkey carcass laying on it. You cannot see any blood on the ground.
+You can go east or west.
+The room has become very silent.
+> east
+
+> east
+
+There is a counter in front of you, and to the north of you. There are some spots of blood on the ground.
+You can go south or west.
+> south
+
+> south
+
+There is a counter to the east, and to the west of you. The counter to the east has a bunch of pots and pans on it, and the counter to the west has a rotting turkey carcass laying on it. There are some spots of blood on the ground.
+You can go north or south.
+> rattle pots
+
+> rattle pots
+The creature in the distance grunts in annoyance. You can hear his footsteps stomping closer and closer towards you. The creature rushes up towards you, and you can hear his heavy breathing, and the putrid smell of rotting meat.
+You try to stay as silent as possible, holding your breath. The creature makes an exasperated grunt and smashes his cleaver down on the counter, bits of turkey flying everywhere. The creature makes another satisfied grunt, and walks back to where he was before.
+You stand up, out of hiding, and see a small piece of paper sitting in the turkey rubble. You grab it and read it.
+
+In the tower the pawn will fall.
+So watch your back down the long hall.
+Find the boy, time and again,
+For seeking him will lead you to the end.
+In a closet, it is death you will find,
+If your exit is not perfectly timed.
+To find the boy, listen to the nursery,
+On this long night, the moon’s anniversary.
+
+As you finish reading, a dark force overwhelms you and you pass out.
+
+You begin to open your eyes. You are back in the dungeon cell and your lantern is missing. 'Not this again' you groan, internally, and feel the wetness on your face again.
+You push yourself up slowly, and see your reflection once more. You look very tired, bags under your eyes, cheeks sunken in and colourless. You rub your eyes, sigh, and stand up.
+
+You are in a prison cell. You are standing in a shallow puddle. You can see your reflection. You can see the cell door a few steps in front of you.
+You can go north, east, south or west.
+> look
+
+> look
+You are in a prison cell. You are standing in a shallow puddle. You can see your reflection. You can see the cell door a few steps in front of you.
+You can go north, east, south or west.
+
+(Time is paused. Enter any command to continue.)
+(Now is probably a good time to save!)
 > i
 
 > i
 You are not carrying anything.
-[state=Running]
+> south
+
+> south
+
+You are in a prison cell. The cell door is directly in front of you, it is open. You see a table beyond the door.
+You can go west, south, east or north.
+> south
+
+> south
+
+You are in the dungeon hallway. You are facing a table.
+You can go west, east or north.
+> east
+
+> east
+
+You are in the dungeon hallway.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is very hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in a dungeon hallway. It is very hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in a dungeon hallway. It is extremely hard to see. You can tell you are facing a wall.
+You can go west, south or north.
+> north
+
+> north
+
+You are on a staircase. You can barely see; the staircase seems to continue upwards.
+You can go south or north.
+> north
+
+> north
+
+You are on the staircase. You can barely see; the staircase seems to continue.
+You can go south or north.
+> north
+
+> north
+
+You are on the staircase. You can barely see. It is very dark, the light cannot illuminate this area.
+You can go north or south.
+> north
+
+> north
+
+You are on the staircase. You cannot see.
+You can go north or south.
+> north
+
+> north
+
+You are on the staircase. You cannot see; it is pitch black. You feel a cord hanging directly in front of you.
+You can go south.
+> north
+
+> north
+You can't go there.
+> pull cord
+
+> pull cord
+As you pull the cord you hear a grinding noise with a final thump. Upon further inspection you feel that a ladder has slid down in front of you.
+> up
+
+> up
+You climb up the ladder, which slides closed behind you as you reach the top. You close the trapdoor at the top so you don't fall back down.
+
+There is a chessboard, sitting on a small table, in front of you. There are pieces arranged on the board.
+You can go west, south or east.
+> west
+
+> west
+
+You are in the corner of a small room, facing a wall. There is a table to the southwest of you.
+On the southwest corner of the table, there is an unlit lantern.
+You can go east or north.
+> take lantern
+
+> take lantern
+You pick it up.
+> turn on lantern
+
+> turn on lantern
+Your lantern is now bright. Your eyes adjust to the new light level.
+You are in the corner of a small room, facing a wall. There is a table to the southwest of you.
+You can go east or north.
+> dim lantern
+
+> dim lantern
+Your lantern is now dim. Your eyes adjust to the new light level.
+You are in the corner of a small room, facing a wall. There is a table to the southwest of you.
+You can go east or north.
+> north
+
+> north
+
+There is a chessboard sitting atop a small table to the east of you, and an oak door with a wrought iron handle to the west.
+You can go west, south or north.
+> use rook
+
+> use rook
+You hear a click, as if a door has been unlocked, to the north.
+> north
+
+> north
+
+There is a wall a few steps forwards. You are in a small room. The room is lit by the moonlight cascading through large glass panes on the ceiling. The light coats the room in a ghostly glow.
+You can go south or east.
+> east
+
+> east
+
+There is a chessboard sitting on a small table to the south of you, and a darkly stained oak door to the north.
+You can go west, east or north.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> look
+
+> look
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east of you, and a door to the west.
+You can go north, south or west.
+> open door
+
+> open door
+The door swings open.
+> west
+
+> west
+
+There is a table to the north of you.
+There is some kind of translucent glimmer a few steps northwest of you.
+You can go east, south or west.
+> west
+
+> west
+
+There is a dresser to the south of you.
+You can see a glimmer hanging in the air to the northwest. It looks like the shape of a child.
+You can go north, east or west.
+> west
+
+> west
+
+There is a dresser to the south of you, and a small bed to the northwest.
+There is a figure of a little boy to the north of you, he is translucent.
+You can go north, east or west.
+> north
+
+> north
+You turn to move North and notice a ghost boy is already standing there.
+> talk
+
+> talk
+'Another one, huh?' The little boy stares at you for a moment, he is small, frail looking, and in tattered clothing from a time long since past. 'I’m Maven, will you play with me?'
+> yes
+
+> yes
+'Oh, thank you! The others never want to play… hide and seek is my favorite, I will hide, okay?' Maven turns and starts running away. He stops and turns back for a moment. 'You better come find me, but be careful of the others… Laila, she wants to play too, but I don’t… think she knows what it means! She is really mean, I don’t like to play with her. She doesn't like bright lights.'
+He turns around and continues out of the room; you can hear him singing: 'Mary had a little lamb, His fleece was white as snow, And everywhere that Mary went, The lamb was sure to go.'
+
+(Time is paused. Enter any command to continue.)
+> east
+
+> east
+
+There is a door a couple steps forwards, and a table to the southeast.
+You can go north, east or west.
+> east
+
+> east
+
+There is a door in front of you, and a table to the north of you.
+You can go east, south or west.
+> east
+
+> east
+
+You are in a narrow hallway, there is a wall in front of you.
+You can go north, south or west.
+> north
+
+> north
+
+You are in a narrow hallway, there is a door to the east, and a wall to the west of you. There is a painting of a lady on the wall.
+You can go north, east or south.
+> open door
+
+> open door
+The door swings open.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway. There is a door to the west of you, and a wall to the east.
+You can go north, south or west.
+> open door
+
+> open door
+The door swings open.
+> west
+
+> west
+
+There is a large mound of toys a few steps in front of you. There is a doll in front of them all, wearing a dress with little lambs on it. You could have sworn she just blinked.
+There is a cask of oil sitting on the table to the northwest.
+You can go north, east, south or west.
+> west
+
+> west
+
+There is a small cabinet in front of you. There is a doll sitting on it, wearing a little lamb dress. Did she just move?
+There is a cask of oil sitting on the table to the north.
+You think you see a faint glow emanating from the cabinet.
+You can go east.
+> look in cabinet
+
+> look in cabinet
+‘You found me! You found me! I was sure you would leave like the others.’ You look at Maven, puzzled for a moment. ‘There have always been more like you, y’know. The king must go on, or whatever it is he says. He’s a big ol’ dummy anyway.’ Maven twiddles his thumbs and looks up at you shyly, ‘Can we play again?’
+> yes
+
+> yes
+‘You’re the best! Okay well, just be careful of Geoffrey… He likes the quiet, just… count to five before you take a step!’
+Maven skips away again but you can hear him singing, 'Ring-a-ring o' roses, A pocket full of posies, A-tishoo! A-tishoo! We all fall down.'
+
+(Time is paused. Enter any command to continue.)
+> east
+
+> east
+
+There is a door in front of you.
+You can go north, east, south or west.
+> east
+
+> east
+
+You are in a narrow hallway, there is a wall in front of you.
+You can go north, south or west.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway, there is a door to the east of you, and a wall to the west.
+You can go north, east or south.
+You think you see a doll in shadows in front of you. You blink, and it’s gone.
+> north
+
+> north
+
+You are in a narrow hallway, there is a door to the west of you, and a wall to the east.
+You can go north, south or west.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+You hear distant giggling...
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> north
+
+> north
+
+You are in a narrow hallway, there is a wall in front of you, and a door to the west.
+You can go south or west.
+> open door
+
+> open door
+The door swings open.
+> west
+
+> west
+
+There is a small table to the south of you. There is a wall to the north.
+There is a cask of oil sitting on the table to the south.
+You can go east or west.
+> west
+
+> west
+
+There is a bed in front of you, it is covered in a flower patterned duvet. There is a wall to the north of you.
+You can go east or south.
+> south
+
+> south
+
+There is a small table to the east, and a bed to the west. The bed has a flower patterned duvet on it.
+There is a cask of oil sitting on the table to the east.
+You can go north or south.
+> south
+
+> south
+
+There is an old, broken chair in front of you. It is splintering, and it looks like it might collapse if anyone were to try to sit on it. There is a vanity table in front of it, with a mirror standing on it. You can see your reflection, you look different... thinner, and darker. As if you were fading away. Maybe it’s just the lighting.
+You can go north, east or west.
+> west
+
+> west
+
+There is a bed to the north of you, and a chair to the southeast.
+You can go east, south or west.
+> west
+
+> west
+
+There is a bed to the north of you, there is a flower patterned duvet laying on it. There is a wall a few steps forwards, and a dresser to the southwest.
+You can go east, south or west.
+> west
+
+> west
+
+There is a wall in front of you. There is an old dresser to the south of you, and a bed to the north. The bed has a flower patterned duvet on it, the flowers look like posies.
+You can go east.
+> look in bed
+
+> look in bed
+‘Yay! You’re so good at this!’ Maven bounces around you, excitedly. He stops and looks at you for a moment, then says ‘You know you’re changing, right? Like, you feel different, right?' You look at him confused for a moment. 'Ah, never mind, I guess it’s better if you don’t know.' Maven nods to himself, and spins around in a circle. 'Can we play one last time? I’ll help you get out of here if you do…'
+> yes
+
+> yes
+Maven, already excited, bounces away without even replying. You can hear him singing again though: 'Hush-a-by baby, On the tree top, When the wind blows, The cradle will rock...'
+
+(Time is paused. Enter any command to continue.)
+> east
+
+> east
+
+There is a bed to the north of you. It has a dusty, flower patterned duvet laying on it.
+You can go east, south or west.
+> east
+
+> east
+
+There is a bed to the north of you, and a chair to the southeast.
+You can go east, south or west.
+> east
+
+> east
+
+There is a small table to the northeast, and a broken, old chair to the south.
+There is a cask of oil sitting on the table to the northeast.
+You can go north, east or west.
+> north
+
+> north
+
+There is a small table to the east of you. There is a bed to the west of you, it has a flower patterned duvet on it.
+There is a cask of oil sitting on the table to the east.
+You can go north or south.
+> north
+
+> north
+
+There is a wall in front of you, and a bed to the west of you. The bed has a flower patterned duvet covering it.
+You can go east or south.
+> east
+
+> east
+
+There is a door in front of you, and a small table to the south. There is a wall to the north of you.
+There is a cask of oil sitting on the table to the south.
+You can go east or west.
+> open door
+
+> open door
+The door is already open.
+> east
+
+> east
+
+You are in a narrow hallway, there is a wall in front of you.
+You can go south or west.
+> south
+
+> south
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> south
+
+> south
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+A ghostly figure resembling a girl floats a short distance from you. You can see excitement on her face.
+> south
+
+> south
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> south
+
+> south
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+A ghostly figure resembling a girl floats a short distance from you. You can see excitement on her face.
+> south
+
+> south
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+> south
+
+> south
+
+You are in a narrow hallway, there is a wall to the east, and to the west of you.
+You can go north or south.
+A ghostly figure resembling a girl floats a short distance from you. You can see excitement on her face.
+There is something moving in the shadows, and you can’t quite make it out. You squint, and it stops. The stillness is eerie.
+> south
+
+> south
+
+You are in a narrow hallway, there is a door to the west of you, and a wall to the east.
+You can go north, south or west.
+> south
+
+> south
+
+You are in a narrow hallway, there is a door to the east of you, and a wall to the west.
+You can go north, east or south.
+A ghostly figure resembling a girl floats a short distance from you. You can see excitement on her face.
+> turn up lantern
+
+> turn up lantern
+Your lantern is now bright. Your eyes adjust to the new light level.
+You are in a narrow hallway, there is a door to the east of you, and a wall to the west.
+You can go north, east or south.
+> wait
+
+> wait
+Time passes.
+You hear a shriek from the girl, 'I just wanted to play!', as she fades from existence.
+> dim lantern
+
+> dim lantern
+Your lantern is now dim. Your eyes adjust to the new light level.
+You are in a narrow hallway, there is a door to the east of you, and a wall to the west.
+You can go north, east or south.
+> open door
+
+> open door
+The door swings open.
+> east
+
+> east
+
+There is a small table to the north of you, and a table to the south of you.
+There is a cask of oil sitting on the table to the north.
+You can go east or west.
+> east
+
+> east
+
+There is a pile of toys to the northeast of you. There is not much else around you.
+You can go north, east, south or west.
+> east
+
+> east
+
+There is a pile of toys, including an anatomical skeleton to the north of you. There is not much else around you. There is a glimmer of a little boy to the northeast.
+You can go east, south or west.
+> east
+
+> east
+
+There is a wall in front of you. There is a translucent figure of a small boy to the north of you, he looks angry.
+You can go south or west.
+> south
+
+> south
+
+There is a wall to the east of you. You hear a child’s voice murmuring from little ways behind you.
+You can go north, south or west.
+> south
+
+> south
+
+There is a door to the east of you, and a wall a few steps forwards. There are some noises coming from a few steps behind you.
+You can go north, east, south or west.
+> east
+
+> east
+
+There is a small children’s dresser to the south of you, and a shelf holding some old dusty toys to the north.
+You can go east or west.
+> east
+
+> east
+
+There is a small crib in front of you, and a small children’s dresser to the south of you.
+You think you can see a faint glimmer emanating from under the blanket in the crib.
+You can go north or west.
+> look in crib
+
+> look in crib
+‘Awesome, you found me again!’ Maven smiles, widely. ‘Well, I suppose I can keep my promise…’ Maven gestures to the crib, you can see a piece of paper on it now. It looks like another riddle. You thank Maven as you take the paper, and he smiles. ‘No problem, thank you for playing with me! It was a lot of fun, it has been a long time…” Maven looks into the distance, wistfully. ‘Not many people survive the tests, but I hope you do! Just be careful… I hear bad things happen when you change, when you meet him.’ Maven sighs, ‘Well go on then, don’t get stuck here forever like me. I was too young for the tests, I don’t know why he picked me back then, experiment maybe? Anyway, good luck out there!’ Maven vanishes into thin air.
+You wake up.
+You open your eyes. Your head is pounding, and you groan, as you push yourself up onto your hands and knees. You see your reflection in the puddle, again, and you look more tired than you can even fathom. The bags under your eyes almost seem to take up your face, and your cheeks looks shallow and sickly. You look darker, but that might just be the lack of light in the room. It almost looks like you’re fading. You shake the thoughts off, and stand up.
+You remember the piece of paper that Maven offered you before you passed out, you read it while remembering the child..
+
+By her hand,
+Her might the pawn cannot withstand.
+The path is long, it forks and turns.
+Be careful, because for the shadows the light burns.
+There is a creature, tall and broad.
+Yet, in the dark his sight is flawed.
+Longer now, the darkness holds you,
+But only long enough to get through.
+
+You are in a prison cell. You are standing in a shallow puddle. You can see your reflection. You can see the cell door a few steps in front of you.
+You can go north, east, south or west.
+
+(Time is paused. Enter any command to continue.)
+(Now is probably a good time to save!)
+> look
+
+> look
+You are in a prison cell. You are standing in a shallow puddle. You can see your reflection. You can see the cell door a few steps in front of you.
+You can go north, east, south or west.
+> south
+
+> south
+
+You are in a prison cell. The cell door is directly in front of you, it is open. You see a table beyond the door.
+You can go west, south, east or north.
+> south
+
+> south
+
+You are in the dungeon hallway. You are facing a table.
+You can go west, east or north.
+> east
+
+> east
+
+You are in the dungeon hallway.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is very hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in a dungeon hallway. It is very hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in a dungeon hallway. It is extremely hard to see. You can tell you are facing a wall.
+You can go west, south or north.
+> north
+
+> north
+
+You are on a staircase. You can barely see; the staircase seems to continue upwards.
+You can go south or north.
+> north
+
+> north
+
+You are on the staircase. You can barely see; the staircase seems to continue.
+You can go south or north.
+> north
+
+> north
+
+You are on the staircase. You can barely see. It is very dark, the light cannot illuminate this area.
+You can go north or south.
+> north
+
+> north
+
+You are on the staircase. You cannot see.
+You can go north or south.
+> north
+
+> north
+
+You are on the staircase. You cannot see; it is pitch black. You feel a cord hanging directly in front of you.
+You can go south.
+> north
+
+> north
+You can't go there.
+> pull cord
+
+> pull cord
+As you pull the cord you hear a grinding noise with a final thump. Upon further inspection you feel that a ladder has slid down in front of you.
+> up
+
+> up
+You climb up the ladder, which slides closed behind you as you reach the top. You close the trapdoor at the top so you don't fall back down.
+
+There is a chessboard, sitting on a small table, in front of you. There are pieces arranged on the board.
+You can go west, south or east.
+> west
+
+> west
+
+You are in the corner of a small room, facing a wall. There is a table to the southwest of you.
+On the southwest corner of the table, there is an unlit lantern.
+You can go east or north.
+> take lantern
+
+> take lantern
+You pick it up.
+> turn on lantern
+
+> turn on lantern
+Your lantern is now bright. Your eyes adjust to the new light level.
+You are in the corner of a small room, facing a wall. There is a table to the southwest of you.
+You can go east or north.
+> dim lantern
+
+> dim lantern
+Your lantern is now dim. Your eyes adjust to the new light level.
+You are in the corner of a small room, facing a wall. There is a table to the southwest of you.
+You can go east or north.
+> north
+
+> north
+
+There is a chessboard sitting atop a small table to the east of you, and an oak door with a wrought iron handle to the west.
+You can go west, south or north.
+> use queen
+
+> use queen
+You hear a click, as if a door has been unlocked, to the east.
+> north
+
+> north
+
+There is a wall a few steps forwards. You are in a small room. The room is lit by the moonlight cascading through large glass panes on the ceiling. The light coats the room in a ghostly glow.
+You can go south or east.
+> east
+
+> east
+
+There is a chessboard sitting on a small table to the south of you, and a darkly stained oak door to the north.
+You can go west, east or north.
+> east
+
+> east
+
+There is a wall in front of you. The room is lit by moonlight cascading in through large glass panes in the ceiling. You can see the full moon through the glass. It is large, and imposing.
+You can go west or south.
+> south
+
+> south
+
+There is a chessboard sitting on a small table to the west of you. There is a large, dark cherry stained, oak door to the east of you.
+You can go south, east or north.
+> east
+
+> east
+
+There is a wall to the south and north of you.
+You can go east or west.
+> east
+
+> east
+
+There is a wall to the south, and north of you.
+You can go west or east.
+> east
+
+> east
+
+There is a bookshelf in front of you, it is dusty. None of the books stand out to you.
+You can go west, south or north.
+> south
+
+> south
+
+There is a bookshelf to the east of you, and a wall to the west.
+You can go south or north.
+> south
+
+> south
+
+There is a bookshelf in front of you, and a wall to the west.
+You can go east or north.
+> east
+
+> east
+
+There is a bookshelf to the north of you.
+You can go west, south or east.
+> east
+
+> east
+
+There is a bookshelf in front of you, and to the south of you. On the shelf in front of you there is a faded orange book laying open on a mostly barren shelf. A phrase catches your eye, it reads: ‘Their life is the energy that he obtains his immortality from.’
+You can go west or north.
+> north
+
+> north
+
+There is a bookshelf to the east, and to the west of you.
+You can go south or north.
+> north
+
+> north
+
+There is a bookshelf to the east, and to the west of you.
+You can go south or north.
+> north
+
+> north
+
+There is a bookshelf to the west of you. You are at a fork in the path, the path continues forwards, and to the east.
+You can go south, east or north.
+> east
+
+> east
+
+There is a bookshelf to the south, and north of you.
+You can go west or east.
+> turn off lantern
+
+> turn off lantern
+Your lantern is now off. Your eyes adjust to the new light level.
+You cannot see anything. You feel as if you have faded into the darkness.
+You can go west or east.
+> east
+
+> east
+
+You cannot see anything. You feel as if you have faded into the darkness.
+You can go west, south, east or north.
+> north
+
+> north
+
+You cannot see anything. You feel as if you have faded into the darkness.
+You can go south, east or north.
+> east
+
+> east
+
+You cannot see anything. You feel as if you have faded into the darkness. You cannot feel anything around you.
+You can go west, south, east or north.
+> north
+
+> north
+
+You cannot see anything. You feel as if you have faded into the darkness. You can feel a space between two bookshelves that can get you out of this room a step forwards.
+You can go west, south, east or north.
+> north
+
+> north
+
+You cannot see anything. You feel as if you have faded into the darkness. You can feel bookshelves to the east and west of you.
+You can go south or north.
+You feel as if something is watching you.
+> turn on lantern
+
+> turn on lantern
+Your lantern is now bright. Your eyes adjust to the new light level.
+There is a bookshelf to the east, and the west of you. The path continues forwards.
+You can go south or north.
+> dim lantern
+
+> dim lantern
+Your lantern is now dim. Your eyes adjust to the new light level.
+There is a bookshelf to the east, and the west of you.
+You can go south or north.
+> north
+
+> north
+
+There is a bookshelf in front of you.
+You can go west, south or east.
+> east
+
+> east
+
+There is a bookshelf to the south, and the north of you. The bookshelf to the north has a bright yellow book laying open on it. The books seems to be about necromancy, and eternal life.
+You can go west or east.
+> east
+
+> east
+
+There is a bookshelf to the north, and the south of you.
+You can go west or east.
+> east
+
+> east
+
+There is a bookshelf to the south, and to the north of you.
+You can go west or east.
+> east
+
+> east
+
+There is a bookshelf to the south, and to the north of you. The path continues forwards.
+You can go west or east.
+> east
+
+> east
+
+There is a bookshelf to the north, and to the south of you. The path continues forwards.
+You can go west or east.
+> east
+
+> east
+
+There is a bookshelf in front of you, and to the north of you.
+You can go west or south.
+> south
+
+> south
+
+There is a bookshelf to the west of you. The path continues forwards, and to the east of you.
+You can go south, east or north.
+> east
+
+> east
+
+There is a bookshelf to the north, and to the south of you. The path continues forwards.
+You can go west or east.
+> east
+
+> east
+
+There is a bookshelf to the south of you. The ground a step to the north of you looks unstable. The path continues forwards, and to the north.
+You can go west, east or north.
+You feel like something is watching you from atop the bookshelves.
+> east
+
+> east
+
+You are at a fork in the path. The path continues forwards, to the south, and to the north.
+You can go west, south, east or north.
+> east
+
+> east
+
+There is a bookshelf to the north, and to the south of you. The path continues forwards.
+You can go west or east.
+> east
+
+> east
+The light is becoming too bright for you now, your eyes are watering and the lantern feels hot. Hotter than you remembered it ever feeling. You are disoriented by the brightness, and it feels like it is burning your hand. It stings, and you drop the lantern, unable to hold onto it any longer.
+The lantern falls to the floor and smashes into bits, the oil leaks everywhere and ignites. The books start to catch fire -- everything starts to catch fire.
+Your only choice is to continue down the hall, the rest of the area is bursting into flames quickly, and the light burns your eyes as if you were staring into the sun.
+
+There is a bookshelf to the south of you, and to the north. They are beginning to go up in flames. The light from the fire is burning your eyes.
+You can go west or east.
+> east
+
+> east
+
+There is a bookshelf to the south of you, and to the north. They are beginning to go up in flames. The light from the fire is burning your eyes.
+You can go west or east.
+Your heart is pounding and your breath is short.
+
+(Time is paused. Enter any command to continue.)
+(Now is probably a good time to save!)
+> east
+
+> east
+
+There is a bookshelf to the south of you, and to the north. They are beginning to go up in flames. The light from the fire is burning your eyes.
+You can go west or east.
+> east
+
+> east
+
+There is a bookshelf to the south of you, and to the north. They are beginning to go up in flames. The light from the fire is burning your eyes.
+You can go west or east.
+Your heart is pounding and your breath is short.
+> east
+
+> east
+
+There is a bookshelf to the south of you, and to the north. They are beginning to go up in flames. The light from the fire is burning your eyes.
+You can go west or east.
+> east
+
+> east
+
+There is a bookshelf to the south of you, and to the north. They are beginning to go up in flames. The light from the fire is burning your eyes. There is a door in front of you.
+You can go west or east.
+Your heart is pounding and your breath is short.
+> east
+
+> east
+You aren't sure where the door leads, but you have no other choice. You frantically fumble with the knob and fling it open, scrambling through the doorway and slamming the door behind you.
+It is dark and cool in here. Relief washes over you, and you collapse on the stone floor out of exhaustion. A familiar dark force begins to overwhelm your senses and you drift into unconsciousness.
+In your sleep, words course through your mind. Their origin is uncertain, but to you, their meaning is clear:
+
+Here we are, near the end.
+For yourself, will you fend?
+And the pawn, so mighty and strong,
+Will face the darkened throng,
+Only to fall at the hands of a king?
+What a peculiar thing.
+
+You wake up.
+By now you are familiar with the feeling of this room, and sigh. Pushing yourself up, and opening your eyes you see your reflection in that damn puddle. You look darker, and it is hard to distinguish yourself from the shadows around you. You feel hollow, and empty. You sigh again and stand up.
+
+You are in a prison cell. You are standing in a shallow puddle. You can see your reflection. You can see the cell door a few steps in front of you.
+You can go north, east, south or west.
+> look
+
+> look
+You are in a prison cell. You are standing in a shallow puddle. You can see your reflection. You can see the cell door a few steps in front of you.
+You can go north, east, south or west.
+
+(Time is paused. Enter any command to continue.)
+(Now is probably a good time to save!)
+> south
+
+> south
+
+You are in a prison cell. The cell door is directly in front of you, it is open. You see a table beyond the door.
+You can go west, south, east or north.
+> south
+
+> south
+
+You are in the dungeon hallway. You are facing a table.
+You can go west, east or north.
+> east
+
+> east
+
+You are in the dungeon hallway.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in the dungeon hallway. It is very hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in a dungeon hallway. It is very hard to see.
+You can go west, south or east.
+> east
+
+> east
+
+You are in a dungeon hallway. It is extremely hard to see. You can tell you are facing a wall.
+You can go west, south or north.
+> north
+
+> north
+
+You are on a staircase. You can barely see; the staircase seems to continue upwards.
+You can go south or north.
+> north
+
+> north
+
+You are on the staircase. You can barely see; the staircase seems to continue.
+You can go south or north.
+> north
+
+> north
+
+You are on the staircase. You can barely see. It is very dark, the light cannot illuminate this area.
+You can go north or south.
+> north
+
+> north
+
+You are on the staircase. You cannot see.
+You can go north or south.
+> north
+
+> north
+
+You are on the staircase. You cannot see; it is pitch black. You feel a cord hanging directly in front of you.
+You can go south.
+> north
+
+> north
+You can't go there.
+> pull cord
+
+> pull cord
+As you pull the cord you hear a grinding noise with a final thump. Upon further inspection you feel that a ladder has slid down in front of you.
+> up
+
+> up
+You climb up the ladder, which slides closed behind you as you reach the top. You close the trapdoor at the top so you don't fall back down.
+
+The ceiling has been closed off by metal shutters to prevent any light from coming in. The room is lit by small torches high up on the walls around the room. The light is quite dim, but you can see without any problems.
+There is a chessboard, sitting on a small table, in front of you. There are pieces arranged on the board.
+You can go west, south or east.
+> look
+
+> look
+The ceiling has been closed off by metal shutters to prevent any light from coming in. The room is lit by small torches high up on the walls around the room. The light is quite dim, but you can see without any problems.
+There is a chessboard, sitting on a small table, in front of you. There are pieces arranged on the board.
+You can go west, south or east.
+> use pawn
+
+> use pawn
+You move the pawn into place and take the king from the board.
+
+You don’t know why you’re here, what anyone wants from you, or how you’re going to leave, but you are not going down without a fight. That is all you know.
+
+You don’t feel the same anymore, almost hollow. You know you can’t go back to how you were before. Maven... he mentioned there were others, but how many? For how long has this gone on? You are outraged now. You can see smoke billowing in through the dark cherry oak door, the fire has caught up to here now. You remember the shadows fleeing from the fire in the library, just like you. The light of the torches is bright, brighter than you remember. It gives you an idea.
+
+"You won’t take me. Not now, not ever."
+
+You begin to rip the torches off the wall, and set everything you possibly can on fire -- the table, the chessboard, the doors. You pull at the last torch on the wall, and something clicks. You hear a mechanism, and gears start to push something into motion. The area gets brighter, and brighter, and you look up. The shutters are opening. The large black door bursts open, and an old decrepit man is standing there. He is wear a gold crown, with eyes as black as death itself.
+
+"WHAT ARE YOU DOING?!" He booms, enraged, but he is weak, and the smoke is filling his lungs. A trail of shadow creatures follow him into the room, but howl in pain at the light.
+
+You are nearly blinded now, and the shutters are almost fully open.
+
+"I don’t know who you are, what your purpose is, or what is that you do here. All I know is... I know that it is wrong." You hiss your words at him.
+
+You lunge at him with the torch. You blindly swing at him, and feel the end of the torch puncture his chest. You smile.
+
+The light burns. It burns hotter than you have ever felt, it feels as if you are disintegrating.
+
+But, it is cleansing. You welcome the searing touch of the sun. The shadows begin to fade off of you. It is too late, because the shadows fade with you.
+
+The sun cleanses everything. The shadows disappear in howls of pain, and the man... his eyes are clouded over, they are empty now. The death, and the malice they held are no longer there. He is gone now.
+
+You sigh in relief.
+It is over.
+You fade into the sunlight.
+[state=Finished]

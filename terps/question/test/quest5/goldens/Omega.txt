@@ -23,30 +23,15 @@ Al despertar, notas tu cuerpo entumecido. La cabeza te da vueltas y las náuseas
 A tu alrededor, las paredes de metal reflejan la luz mortecina de los fluorescentes que iluminan la sala, extendiéndose por todo el techo. Algunos de los tubos fallan, parpadeando débilmente con un zumbido que se une a los ruidos de las máquinas, inundando la sala.
 Puedes ver un NODO, una cámara de criostasis, una taquilla y una mesa.
 Puedes ir al noreste.
-> mirar
+> abrir taquilla
 
-> mirar
-Estás en la sala de criostasis 3-B-alfa.
+> abrir taquilla
+La abres.
+Contiene una linterna.
+> coger linterna
 
-A tu alrededor, las paredes de metal reflejan la luz mortecina de los fluorescentes que iluminan la sala, extendiéndose por todo el techo. Algunos de los tubos fallan, parpadeando débilmente con un zumbido que se une a los ruidos de las máquinas, inundando la sala.
-Puedes ver un NODO, una cámara de criostasis, una taquilla y una mesa.
-Puedes ir al noreste.
-> inventario
-
-> inventario
-Llevas una mochila, unas armas y una ropa.
-> examinar taquilla
-
-> examinar taquilla
-Una taquilla sencilla, hecha en metal, incrustada en la pared junto a la puerta. Debe de ser donde los encargados de mantenimiento guardan sus cosas. No tiene candado.
-> examinar mesa
-
-> examinar mesa
-La mesa de la que has recogido tu mochila, situada al lado de la cámara de la que has salido. En ella, grabadas sobre el metal, están las palabras "no eres uno de los nuestros".
-> examinar nodo
-
-> examinar nodo
-Un terminal de ordenador brilla en una esquina, encendido. Incluye un teclado y una pantalla de baja resolución. En el lateral, se puede ver la inscripción "ShinerCorp", así como "N.O.D.O. (Network Operative Database for Omega)"
+> coger linterna
+La coges.
 > noreste
 
 > noreste
@@ -83,68 +68,511 @@ Puedes ir al suroeste, al sureste, al norte, al oeste o al este.
 Estás en el corredor de acceso principal, ala colonial nivel 3-B.
 El corredor es alargado, menos cubierto que las salas de criostasis. La maquinaria y el andamiaje que lo rodean son más visibles, pegados a las paredes. A duras penas, puedes distinguir las líneas de colores que guían a los pasajeros en la nave. Alguien se ha esforzado en borrarlas. En la puerta oeste del corredor, casi descolgado, hay un cartel que dice: "PELIGRO: RADIACIÓN ALTA".
 Puedes ir al sur, al suroeste, al sureste, al este o al norte.
-> mirar
+> sureste
 
-> mirar
+> sureste
+
+Estás en el banco de datos, ala colonial nivel 3-B.
+La sala es amplia, llena de escritorios y sillas anclados al suelo. Hay estanterías con discos duros extraíbles, todas bloqueadas.
+Puedes ver una ventana exterior y un ordenador.
+Puedes ir al noroeste.
+> usar ordenador
+
+> usar ordenador
+>login: Alex
+>contraseña: ******
+>Bienvenido al sistema de datos de Omega. Por favor, seleccione una opción
+1: Registro de datos
+2: Programación de tarjeta
+> 2
+>Por favor, introduzca su código de usuario para continuar:
+> AF-472
+>Tarjeta actualizada. Su nivel de acceso es ahora 1.
+> noroeste
+
+> noroeste
+
 Estás en el corredor de acceso principal, ala colonial nivel 3-B.
 El corredor es alargado, menos cubierto que las salas de criostasis. La maquinaria y el andamiaje que lo rodean son más visibles, pegados a las paredes. A duras penas, puedes distinguir las líneas de colores que guían a los pasajeros en la nave. Alguien se ha esforzado en borrarlas. En la puerta oeste del corredor, casi descolgado, hay un cartel que dice: "PELIGRO: RADIACIÓN ALTA".
 Puedes ir al sur, al suroeste, al sureste, al este o al norte.
 > norte
 
 > norte
-Tu nivel de acceso no es suficiente para esta puerta.
-> mirar
 
-> mirar
-Estás en el corredor de acceso principal, ala colonial nivel 3-B.
-El corredor es alargado, menos cubierto que las salas de criostasis. La maquinaria y el andamiaje que lo rodean son más visibles, pegados a las paredes. A duras penas, puedes distinguir las líneas de colores que guían a los pasajeros en la nave. Alguien se ha esforzado en borrarlas. En la puerta oeste del corredor, casi descolgado, hay un cartel que dice: "PELIGRO: RADIACIÓN ALTA".
-Puedes ir al sur, al suroeste, al sureste, al este o al norte.
-> sur
+Estás en el control de criostasis, ala colonial nivel 3-B.
+Es una sala amplia y luminosa, de techos altos y llena de pantallas apagadas. La maquinaria zumba bajo tus pies, y hay cables por todo el techo, recorriendo la sala entre los tubos fluorescentes. Al este, una puerta rota bloquea el paso. En ella, puedes leer las palabras "Ala de medicina Nv.3". En la esquina, una terminal de ordenador rota suelta chispas.
+Puedes ver un armario de mantenimiento.
+Puedes ir al sur, al norte o al este.
+> abrir armario de mantenimiento
 
-> sur
+> abrir armario de mantenimiento
+Lo abres.
+Contiene una llave inglesa y una batería.
+> usar batería
 
-Estás en el corredor de acceso secundario, ala colonial nivel 3-B.
-Es un pasillo sencillo, sin muchos detalles. Algunas tuberías recorren el techo, y hay franjas de colores repartidas por las paredes, que llevan de unas puertas a otras. El suelo, de metal laminado, parece hueco, indicando que hay un piso inferior bajo tus pies.
-Puedes ver una franjas de colores.
-Puedes ir al suroeste, al sureste, al norte, al oeste o al este.
+> usar batería
+> coger llave inglesa
+
+> coger llave inglesa
+La coges.
+> abrir mochila
+
+> abrir mochila
+La abres.
+Contiene una llave inglesa.
+> abrir ropa
+
+> abrir ropa
+
+Llevas unos calzoncillos (usado) y una camiseta interior (usado).
+> abrir armas
+
+> abrir armas
+
+> norte
+
+> norte
+
+Estás en la esclusa de mantenimiento, ala colonial nivel 3-B.
+La sala es poco más que un pasillo angosto, con un par de bancos a los lados y un sistema de presurización.
+Puedes ver un traje espacial.
+Puedes ir al sur o afuera.
+> coger traje espacial
+
+> coger traje espacial
+Lo coges.
+> encender linterna
+
+> encender linterna
+La enciendes.
+> afuera
+
+> afuera
+
+Estás en la pasarela exterior, ala colonial nivel 3-B.
+La pasarela es estrecha, y a junto a ella puedes ver el casco de la nave. El metal brilla a la luz de un sol lejano, y más allá de la barandilla no hay nada.
+Puedes ir al este o adentro.
 > este
 
 > este
 
-Estás en los sistemas de criostasis 3-B-Beta.
-La sala está en buen estado. Uno de los tubos fluorescentes no funciona, pero la luz sigue siento brillante y rebota con las paredes blancas. Un banco de servidores ocupa casi toda la sala, convirtiéndola en un laberinto.
-Puedes ver un ordenador.
-Puedes ir al oeste.
-> mirar
+Estás en la pasarela exterior, ala de medicina nivel 3.
+La pasarela es estrecha, y a junto a ella puedes ver el casco de la nave. El metal brilla a la luz de un sol lejano, y más allá de la barandilla no hay nada. Hay piezas de metal quemado a lo largo de la sección de la pasarela, y algunas abolladuras que se recortan entre las sombras. Más hacia el este, la pasarela está rota. No hay donde sujetarse ni modo alguno de avanzar.
+Puedes ir al oeste o adentro.
+> adentro
 
-> mirar
-Estás en los sistemas de criostasis 3-B-Beta.
-La sala está en buen estado. Uno de los tubos fluorescentes no funciona, pero la luz sigue siento brillante y rebota con las paredes blancas. Un banco de servidores ocupa casi toda la sala, convirtiéndola en un laberinto.
+> adentro
+
+Estás en la esclusa de mantenimiento, ala de medicina nivel 3.
+La luz fluorescente titila, y hay manchas de sangre por el suelo. Uno de los bancos está arrancado, y el traje espacial de la esclusa está hecho pedazos. Ha habido una pelea aquí.
+Puedes ver un trozo del banco y unos restos del traje espacial.
+Puedes ir al sur o afuera.
+> apagar linterna
+
+> apagar linterna
+La apagas.
+> sur
+
+> sur
+
+Estás en el control de sistemas médicos nivel 3.
+El rastro de sangre de la esclusa de mantenimiento acaba aquí. Por lo demás, la sala está en buen estado. Aunque casi vacía, algunos objetos pueblan el suelo. La puerta oeste, rota, tiene escritas las palabras "Ala colonial B, Nv.3"
+Puedes ver una mancha de sangre, unos tornillos, un ordenador y una silla rota.
+Puedes ir al norte, al sur, al este o al oeste.
+> sur
+
+> sur
+
+Estás en el corredor de acceso principal, ala de medicina nivel 3.
+El corredor es largo, muy parecido al del ala colonial. Aquí las puertas están etiquetadas, en lugar de utilizar franjas de colores. Parece estar diseñado para parecerse más a un hospital de la Tierra que a una nave espacial, aunque la maquinaria sigue condicionando la forma de las paredes.
+ESTE: Sala de espera.
+SURESTE: Solo personal autorizado.
+SUROESTE: Sala de rayos X.
+OESTE: Solo personal autorizado.
+SUR: Corredor secundario.
+Puedes ir al norte, al este, al sureste, al suroeste, al oeste o al sur.
+> sur
+
+> sur
+
+Estás en el corredor de acceso secundario, ala de medicina nivel 3.
+El corredor está en ligera penumbra: parte de los fluorescentes están rotos. En las paredes, puedes ver golpes y arañazos, y alguna que otra mancha de sangre.
+Puedes ir al norte, al suroeste, al sureste o al sur.
+> suroeste
+
+> suroeste
+
+Estás en el registro médico, ala de medicina nivel 3.
+Está lleno de estanterías, repletas de archivos virtuales y algún que otro archivo físico, probablemente de antes de que se fletase la nave. Nada tiene mucho sentido para ti: nombres de pacientes, números de serie...
+Puedes ver un ordenador y unos registros.
+Puedes ir al noreste.
+> usar ordenador
+
+> usar ordenador
+>login: Alex
+>contraseña: ******
+>Sistema médico de Omega
+1: Ubicación de personal médico
+2: Programación de tarjeta
+3: Avisos del sistema
+> 2
+>Por favor, introduzca su código de usuario para continuar:
+> AF-472
+>Nombre del médico solicitante:
+> Joanna Carim
+>Programación completada. Su nivel de acceso es ahora 2.
+> noreste
+
+> noreste
+
+Estás en el corredor de acceso secundario, ala de medicina nivel 3.
+El corredor está en ligera penumbra: parte de los fluorescentes están rotos. En las paredes, puedes ver golpes y arañazos, y alguna que otra mancha de sangre.
+Puedes ir al norte, al suroeste, al sureste o al sur.
+> sur
+
+> sur
+
+Estás en la cafetería, ala de medicina nivel 3.
+Es un lugar húmedo y oscuro. Las manchas de sangre en las paredes y los restos de comida en las mesas indican que alguien ha pasado por aquí antes que tú.
+Puedes ver un armario.
+Puedes ir al norte o al sur.
+> abrir armario
+
+> abrir armario
+Quitas los tornillos que mantienen el armario bloqueado con la llave inglesa.
+Lo abres.
+Contiene un cuchillo.
+> coger cuchillo
+
+> coger cuchillo
+Lo coges.
+> norte
+
+> norte
+
+Estás en el corredor de acceso secundario, ala de medicina nivel 3.
+El corredor está en ligera penumbra: parte de los fluorescentes están rotos. En las paredes, puedes ver golpes y arañazos, y alguna que otra mancha de sangre.
+Puedes ir al norte, al suroeste, al sureste o al sur.
+> norte
+
+> norte
+
+Estás en el corredor de acceso principal, ala de medicina nivel 3.
+El corredor es largo, muy parecido al del ala colonial. Aquí las puertas están etiquetadas, en lugar de utilizar franjas de colores. Parece estar diseñado para parecerse más a un hospital de la Tierra que a una nave espacial, aunque la maquinaria sigue condicionando la forma de las paredes.
+ESTE: Sala de espera.
+SURESTE: Solo personal autorizado.
+SUROESTE: Sala de rayos X.
+OESTE: Solo personal autorizado.
+SUR: Corredor secundario.
+Puedes ir al norte, al este, al sureste, al suroeste, al oeste o al sur.
+> norte
+
+> norte
+
+Estás en el control de sistemas médicos nivel 3.
+El rastro de sangre de la esclusa de mantenimiento acaba aquí. Por lo demás, la sala está en buen estado. Aunque casi vacía, algunos objetos pueblan el suelo. La puerta oeste, rota, tiene escritas las palabras "Ala colonial B, Nv.3"
+Puedes ver una mancha de sangre, unos tornillos, un ordenador y una silla rota.
+Puedes ir al norte, al sur, al este o al oeste.
+> este
+
+> este
+
+Estás en el control de criostasis, ala colonial nivel 3-A.
+Es una sala amplia y luminosa, de techos altos y llena de pantallas apagadas. La maquinaria zumba bajo tus pies, y hay cables por todo el techo, recorriendo la sala entre los tubos fluorescentes.
+Puedes ver un armario de mantenimiento y un ordenador.
+Puedes ir al oeste, al norte o al sur.
+> dejar traje espacial
+
+> dejar traje espacial
+Lo dejas.
+> examinar armario de mantenimiento
+
+> examinar armario de mantenimiento
+Alguien lo ha vaciado por completo. La puerta está arrancada de cuajo y tirada en el suelo, y los estantes de metal doblados.
+Junto al armario hay tirado un traje de radiación.
+Hay  un traje de radiación.
+> coger traje de radiación
+
+> coger traje de radiación
+Lo coges.
+> sur
+
+> sur
+
+Estás en el corredor principal, ala colonial 3-A.
+El corredor está en un grave estado de deterioro. Las líneas de guía son prácticamente ilegibles, y las puertas del suroeste y el sur están abolladas y ennegrecidas. Algunas de las tuberías están descolgadas, soltando vapor.
+Puedes ir al norte, al sureste, al este, al sur o al suroeste.
+Al entrar, te ves sorprendido por un enemigo herido que te ataca.
+
+> usar cuchillo
+
+> usar cuchillo
+Atacas al enemigo con el cuchillo.
+El enemigo te golpea.
+Salud: 40%.
+> usar cuchillo
+
+> usar cuchillo
+Atacas al enemigo con el cuchillo.
+El enemigo te golpea.
+Salud: 30%.
+> usar cuchillo
+
+> usar cuchillo
+Atacas al enemigo con el cuchillo.
+El enemigo te golpea.
+Salud: 20%.
+> usar cuchillo
+
+> usar cuchillo
+Atacas al enemigo con el cuchillo.
+El enemigo te golpea.
+Salud: 10%.
+> usar cuchillo
+
+> usar cuchillo
+Atacas al enemigo con el cuchillo.
+El enemigo te golpea.
+Salud: 0%.
+El enemigo se muere con un chillido.
+> este
+
+> este
+
+Estás en el control de gravedad, ala colonial 3-A.
+Es una sala enorme, llena de maquinaria que ruge en su interior. Puedes ver el vapor salir de las tuberías, y una luz verdosa surgir del fondo del suelo, a través de los agujeros de las planchas de metal.
 Puedes ver un ordenador.
 Puedes ir al oeste.
+El enemigo te golpea.
+Salud: 100%.
+> usar ordenador
+
+> usar ordenador
+>login: Alex
+>contraseña: ******
+>Bienvenido al sistema de control de gravedad de ShinerCorp
+1: Información
+2: Aviso de seguridad
+3: Control por salas
+> 3
+>Por favor, introduzca su código de usuario para continuar:
+> AF-472
+>Se ha encontrado un error en el sistema de gravedad.
+1: Reiniciar sistema
+2: Cancelar
+> 1
+>Sistema reiniciado. Gravedad reestablecida en toda la nave.
 > oeste
 
 > oeste
 
-Estás en el corredor de acceso secundario, ala colonial nivel 3-B.
-Es un pasillo sencillo, sin muchos detalles. Algunas tuberías recorren el techo, y hay franjas de colores repartidas por las paredes, que llevan de unas puertas a otras. El suelo, de metal laminado, parece hueco, indicando que hay un piso inferior bajo tus pies.
-Puedes ver una franjas de colores.
-Puedes ir al suroeste, al sureste, al norte, al oeste o al este.
-> sureste
+Estás en el corredor principal, ala colonial 3-A.
+El corredor está en un grave estado de deterioro. Las líneas de guía son prácticamente ilegibles, y las puertas del suroeste y el sur están abolladas y ennegrecidas. Algunas de las tuberías están descolgadas, soltando vapor.
+Puedes ir al norte, al sureste, al este, al sur o al suroeste.
+> norte
 
-> sureste
+> norte
 
-Estás en la sala de criostasis 3-B-Beta.
+Estás en el control de criostasis, ala colonial nivel 3-A.
+Es una sala amplia y luminosa, de techos altos y llena de pantallas apagadas. La maquinaria zumba bajo tus pies, y hay cables por todo el techo, recorriendo la sala entre los tubos fluorescentes.
+Puedes ver un armario de mantenimiento, un ordenador y un traje espacial.
+Puedes ir al oeste, al norte o al sur.
+> oeste
 
-La sala está ligeramente oscura, y hay abolladuras y golpes por todas las paredes. Algunos de los tubos fluroescentes están rotos. Entre todas las cámaras de criostasis, puedes ver unas cuantas abiertas, y vacías.
-Puedes ver un NODO y unos cristales rotos.
-Puedes ir al noroeste.
-> mirar
+> oeste
 
-> mirar
-Estás en la sala de criostasis 3-B-Beta.
+Estás en el control de sistemas médicos nivel 3.
+El rastro de sangre de la esclusa de mantenimiento acaba aquí. Por lo demás, la sala está en buen estado. Aunque casi vacía, algunos objetos pueblan el suelo. La puerta oeste, rota, tiene escritas las palabras "Ala colonial B, Nv.3"
+Puedes ver una mancha de sangre, unos tornillos, un ordenador y una silla rota.
+Puedes ir al norte, al sur, al este o al oeste.
+> sur
 
-La sala está ligeramente oscura, y hay abolladuras y golpes por todas las paredes. Algunos de los tubos fluroescentes están rotos. Entre todas las cámaras de criostasis, puedes ver unas cuantas abiertas, y vacías.
-Puedes ver un NODO y unos cristales rotos.
-Puedes ir al noroeste.
-[state=Running]
+> sur
+
+Estás en el corredor de acceso principal, ala de medicina nivel 3.
+El corredor es largo, muy parecido al del ala colonial. Aquí las puertas están etiquetadas, en lugar de utilizar franjas de colores. Parece estar diseñado para parecerse más a un hospital de la Tierra que a una nave espacial, aunque la maquinaria sigue condicionando la forma de las paredes.
+ESTE: Sala de espera.
+SURESTE: Solo personal autorizado.
+SUROESTE: Sala de rayos X.
+OESTE: Solo personal autorizado.
+SUR: Corredor secundario.
+Puedes ir al norte, al este, al sureste, al suroeste, al oeste o al sur.
+> sur
+
+> sur
+
+Estás en el corredor de acceso secundario, ala de medicina nivel 3.
+El corredor está en ligera penumbra: parte de los fluorescentes están rotos. En las paredes, puedes ver golpes y arañazos, y alguna que otra mancha de sangre.
+Puedes ir al norte, al suroeste, al sureste o al sur.
+> sur
+
+> sur
+
+Estás en la cafetería, ala de medicina nivel 3.
+Es un lugar húmedo y oscuro. Las manchas de sangre en las paredes y los restos de comida en las mesas indican que alguien ha pasado por aquí antes que tú.
+Puedes ver un armario.
+Puedes ir al norte o al sur.
+> sur
+
+> sur
+
+Estás en el montacargas (nivel 3).
+Es un montacargas sencillo. Puedes ver la maquinaria que lo controla en los laterales del conducto.
+Puedes ir al norte o abajo.
+> abajo
+
+> abajo
+
+Estás en el montacargas (subnivel de mando).
+Es un montacargas sencillo. Puedes ver la maquinaria que lo controla en los laterales del conducto.
+Puedes ir al norte.
+El montacargas se detiene con un chirrido, y de pronto oyes una explosión sobre ti.
+Los niveles superiores ya no parecen seguros...
+> norte
+
+> norte
+
+Estás en la pasarela de acceso a los motores, ala de mantenimiento del subnivel de mando.
+La pasarela cuelga en forma de cruz en una sala enorme. Bajo ella, puedes ver la maquinaria que conecta las distintas secciones de la nave. Todo parece estar en buen estado.
+Puedes ir al sur, al norte, al oeste o al este.
+Algo acecha entre las sombras...
+> norte
+
+> norte
+
+Estás en el acceso de mantenimiento secundario, ala de mantenimiento del subnivel de mando.
+Es un corredor angosto, menos pulido que los niveles superiores. Todo tiene un aspecto funcional y mecánico. Te rodean tuberías y engranajes.
+Puedes ver un NODO y una batería.
+Puedes ir al sur, al norte, al oeste o al este.
+Algo acecha entre las sombras...
+> este
+
+> este
+
+Estás en el control general de maquinaria, ala de mantenimiento del subnivel de mando.
+La sala es pequeña y está abarrotada de partes mecánicas, que se mueven y entrechocan en un ruido infernal. Aún entre la penumbra y el calor sofocante que emiten las máquinas, puedes entrever arañazos en las paredes de metal.
+Puedes ver un armario metálico.
+Puedes ir al oeste o al este.
+Oyes pasos, y después silencio. Parece que estás a solas.
+> abrir armario metálico
+
+> abrir armario metálico
+Lo abres.
+Contiene una palanca, una batería, un engranaje y un manojo de cables.
+Oyes pasos, y después silencio. Parece que estás a solas.
+> coger engranaje
+
+> coger engranaje
+Lo coges.
+> coger manojo de cables
+
+> coger manojo de cables
+Lo coges.
+> usar batería
+
+> usar batería
+> dejar traje de radiación
+
+> dejar traje de radiación
+Lo dejas.
+> este
+
+> este
+
+Estás en la esclusa este, ala de mantenimiento del subnivel de mando.
+La esclusa está en buen estado, pero es diferente de la de los niveles exteriores. No hay bancos a los lados, y el sistema de presurización, aunque funcional, parece más rudimentario.
+Puedes ver un vestidor.
+Puedes ir al oeste o afuera.
+> abrir vestidor
+
+> abrir vestidor
+Lo abres.
+Contiene un casco espacial roto y un traje espacial.
+> coger traje espacial
+
+> coger traje espacial
+Lo coges.
+> encender linterna
+
+> encender linterna
+La enciendes.
+> afuera
+
+> afuera
+
+Estás en la escalera exterior, ala de mantenimiento del subnivel de mando.
+La escalerilla es estrecha y funcional, con los peldaños de metal adheridos al casco de la nave. Flotando en el espacio, sobre ti, puedes ver los restos de los niveles superiores, ya hechos pedazos. Desde aquí puedes ver parte de la destrucción a la que ha sido sometida la nave, y solo puedes imaginar la cantidad de vidas que se ha perdido en el impacto.
+Puedes ir adentro o arriba.
+> arriba
+
+> arriba
+
+Estás en la pasarela exterior, mantenimiento del fuselaje.
+La pasarela está incluida sobre el casco de la nave, y lleva a una cabina que sobresale del propio perfil de la nave, con numerosas ventanas que dan al exterior.
+Puedes ir abajo o adentro.
+> adentro
+
+> adentro
+
+Estás en el corredor de acceso, mantenimiento del fuselaje.
+El corredor está presurizado, pero carece de exclusa. Aunque la cabina de mantenimiento tiene sistemas de soporte vital, está claro que ha sido diseñada para visitas rápidas del personal de la nave. Los pocos detalles que puedes ver en la pared son algunos horarios colgados y carteles con advertencias de seguridad.
+Puedes ir afuera o al norte.
+> norte
+
+> norte
+
+Estás en la cabina principal, mantenimiento del fuselaje.
+La cabina principal es relativamente amplia, con paredes de metal recubierto de placas protectoras. Al noreste y noroeste, hay ventanas que dan a miradores exteriores. Hay manchas de sangre en las paredes y el suelo, muestra clara de que ha habido una pelea aquí.
+Entre la penumbra, ves cómo una silueta se escabulle a través de la esclusa hacia el mirador exterior.
+Puedes ver un cadáver.
+Puedes ir al sur, al este o al norte.
+> este
+
+> este
+
+Estás en el sistema de reparaciones exteriores, mantenimiento del fuselaje.
+La sala es pequeña y está abarrotada de maquinaria. Parece que todos los mecanismos dan al exterior, dispuestos a reemplazar y mover casi cualquier parte del fuselaje exterior de la nave.
+Puedes ver un ordenador.
+Puedes ir al oeste o al este.
+> este
+
+> este
+
+Estás en el nido de la antena de comunicaciones, mantenimiento del fuselaje.
+Una pequeña terraza albergada entre las siluetas del casco exterior. Desde aquí no puedes ver nada más que la enormidad del espacio que te rodea.
+Puedes ver una antena.
+Puedes ir al oeste.
+> reparar antena
+
+> reparar antena
+Con cuidado, encajas el engranaje en la antena de comunicaciones, esperando que esto sirva para enviar un mensaje al exterior.
+> oeste
+
+> oeste
+
+Estás en el sistema de reparaciones exteriores, mantenimiento del fuselaje.
+La sala es pequeña y está abarrotada de maquinaria. Parece que todos los mecanismos dan al exterior, dispuestos a reemplazar y mover casi cualquier parte del fuselaje exterior de la nave.
+Puedes ver un ordenador.
+Puedes ir al oeste o al este.
+> apagar linterna
+
+> apagar linterna
+La apagas.
+> reparar ordenador
+
+> reparar ordenador
+Con tus toscos conocimientos de electrónica, empalmas el cable cortado y el ordenador vuelve a la vida.
+> usar ordenador
+
+> usar ordenador
+>login: Alex
+>contraseña: ******
+>Interfaz de reparaciones exteriores de Omega
+1: Nota de Simon Templeton
+2: Comunicaciones activas
+3: Reajuste de antena
+> 3
+En el exterior, oyes cómo con un crujido metálico, la antena se reajusta.
+Con la llegada de nuevas comunicaciones, esperas poder deducir y aprender sobre qué está ocurriendo en las otras naves coloniales. La nueva información podrá servirte para completar tu aventura.
+Gracias por jugar a Omega. Mantente atento a nuevas actualizaciones que te permitan terminar tu aventura.
+[state=Finished]
