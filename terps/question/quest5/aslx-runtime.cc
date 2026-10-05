@@ -934,7 +934,25 @@ void Interp::drain_on_ready() {
     }
 }
 
+// The one game allowed to make an element its own parent: Tabblewoop (GOTY
+// edition, Quest 5.2). Its intended solution is `put intragate in intragate`,
+// which worked on the Quest it was written for and has been refused by every
+// release since (see assign_field). A deliberate deviation, keyed on the
+// game's gameid so nothing else inherits it.
+static bool allows_self_parent(const World &w) {
+    const Element *game = w.find("game");
+    const Value *id = game ? game->field("gameid") : nullptr;
+    return id && id->type == Value::Type::String &&
+           id->str == "3b93afe0-6756-4eba-8889-09539f798752";
+}
+
 void Interp::assign_field(Element *e, const std::string &attr, Value val) {
+    // Fields.Set refuses a self-parent before touching anything (desktop
+    // Quest since 2012-07-11, commit 2744c3dc; QuestViva likewise).
+    if (attr == "parent" && val.type == Value::Type::ObjectRef &&
+        world_.find(val.str) == e && !allows_self_parent(world_))
+        throw std::runtime_error("Parent of element '" + e->name +
+                                 "' cannot be set to itself");
     const Value *prev = resolve_field(e, attr);
     Value old = prev ? *prev : vnull();
     // Fields.Set CLONES a list/dictionary on any assignment that changes the

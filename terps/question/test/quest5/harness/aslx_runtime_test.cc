@@ -1118,6 +1118,35 @@ static void test_update_lists() {
           std::string::npos);
 }
 
+// An element cannot be made its own parent (Fields.Set), except in the one
+// game whose solution depends on it.
+static void test_self_parent_guard() {
+    for (bool exempt : {false, true}) {
+        World w;
+        w.asl_version = 520;
+        Element *game = w.create_object("game", "", "game");
+        if (exempt) {
+            Value id; id.type = Value::Type::String;
+            id.str = "3b93afe0-6756-4eba-8889-09539f798752";
+            game->set_field("gameid", id);
+        }
+        w.create_object("room");
+        Element *box = w.create_object("box");
+        Value v; v.type = Value::Type::ObjectRef; v.str = "room";
+        box->set_field("parent", v);
+        Interp in(w);
+        std::string out;
+        in.print = [&](const std::string &s) { out += s; };
+        in.script_error = [&](const std::string &s) { out += s; };
+        Context ctx;
+        in.run_script("box.parent = box", ctx);
+        const Value *p = box->field("parent");
+        CHECK(p && p->str == (exempt ? "box" : "room"));
+        CHECK((out.find("Parent of element 'box' cannot be set to itself") !=
+               std::string::npos) == !exempt);
+    }
+}
+
 // The 2026-07-16 golden-parity batch: timers, turn suspension, clone-on-set,
 // v530 null-removal, per-expression RNG, create exit, Clone, expression
 // ShowMenu. Each mirrors a QuestViva behaviour verified against a golden.
@@ -2232,6 +2261,7 @@ static void test_save_restore_native() {
 }
 
 int main() {
+    test_self_parent_guard();
     test_parity_batch();
     test_undo();
     test_save_restore();

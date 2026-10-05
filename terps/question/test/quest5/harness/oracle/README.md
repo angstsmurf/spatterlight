@@ -502,16 +502,18 @@ errors in the golden, `errors=3`); native accepts it, so `../run_replays.sh "Hel
 Hostility"` shows exactly those three lines. Not a deliberate design choice so much as
 an unresolved difference (whether desktop Quest accepts the name is untested).
 
-And one where native is the wrong one: *TabblewoopGOTY*. The intended solution is `put
-intragate in intragate`, which makes the `Intragate` its own parent. QuestViva refuses
-(`Parent of element 'Intragate' cannot be set to itself`, one script error, `errors=1`),
-as does desktop Quest 5 (guard in `Fields.cs` since 2012-07-11, commit 2744c3dc, in the
-5.7.2 and 5.8.0 releases), so the game cannot be finished on any current engine. Native
-lacks the guard: the wormhole appears and the route reaches `The End.` /`Finished`.
-The golden is the oracle's, so `../run_replays.sh TabblewoopGOTY` shows the divergence
-from the `put` onwards (about 20 lines). Unlike the rows above, this is a native defect
-awaiting a fix (reject a self-parent in the `parent` field setter), not a deliberate
-deviation.
+And one **deliberate deviation scoped to a single game**: *TabblewoopGOTY*. The
+intended solution is `put intragate in intragate`, which makes the `Intragate` its own
+parent. QuestViva refuses (`Parent of element 'Intragate' cannot be set to itself`, one
+script error, `errors=1`), as does desktop Quest 5 (guard in `Fields.cs` since
+2012-07-11, commit 2744c3dc, in the 5.7.2 and 5.8.0 releases), so the game cannot be
+finished on any current engine. It was saved by Quest 5.2.4515, which predates the
+guard. Native enforces the same guard (`Interp::assign_field`) for every game except
+this one, recognised by its `gameid` (`allows_self_parent` in `aslx-runtime.cc`): here
+the wormhole appears and the route reaches `The End.` / `Finished`. The golden is the
+oracle's, so `../run_replays.sh TabblewoopGOTY` shows the divergence from the `put`
+onwards (21 diff lines); any other game attempting a self-parent gets the oracle's
+error.
 
 The two *Xanadu* games (*In the Compound — Revenge*, *The World's Only Hope*)
 used to fail here too, and were long mislabelled "RNG-stream and wait-echo
