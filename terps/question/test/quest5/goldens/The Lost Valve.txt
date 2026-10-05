@@ -1,0 +1,350 @@
+You are in laboratory.
+You wake up laying on the hard damp floor. As you open your eyes, you are shocked to see a pool of blood next to you. As you rush to your feet, you realize the blood isn't yours and sigh in relief. Although your memory is hazy, you remember you were part of a science team working for Black Mesa. The last thing you remember was crunching numbers when there was an explosion, but what happened to everyone else?
+There is a open door in front of you, it looks like it is daytime outside.
+You can see a pool of blood and a science equipment.
+You can go north.
+> n
+
+> n
+
+You are in a clearing.
+The clearing is in the middle of a tall canyon with walls stained a deep red. There is a large crate sitting in the middle of the clearing.
+You can see crate.
+You can go east.
+Out of the corner of your eye, you see a man to the east wearing an orange suit and holding a crowbar run into a cave that closes behind him. How curious.
+> look at crate
+
+> look at crate
+The crate is holding some objects, it looks like someone hit the crate with a crowbar several times but couldn't manage to break it.
+It is holding a Scrap of Paper and a Power Core 1.
+> take scrap of paper
+
+> take scrap of paper
+You pick up the piece of paper and reveal something carved into the crate.
+> look at crate
+
+> look at crate
+You can see the numbers 3, 1, 2 carved into the crate.
+It is holding a Power Core 1.
+> take power core 1
+
+> take power core 1
+> e
+
+> e
+
+You are in the clearing still, at its edge where you arrive at a stone wall.
+There appears to be a stone door next to a panel of control units, it looks like this is the only way out of here. You also notice more power cores lying at the base of the stone wall.
+You can see a Control Panel (on which there is a Left Control Unit, a Middle Control Unit and a Right Control Unit), a Power Core 2 and a Power Core 3.
+You can go west or east.
+> take power core 2
+
+> take power core 2
+> take power core 3
+
+> take power core 3
+> use power core 3 with left control unit
+
+> use power core 3 with left control unit
+The console beeps, nothing happens.
+> use power core 1 with middle control unit
+
+> use power core 1 with middle control unit
+The console beeps, nothing happens.
+> use power core 2 with right control unit
+
+> use power core 2 with right control unit
+You feel a shake, then a rumble, you see the large stone door next to the control panel start to lift. It flies up and open, revealing a new room.
+> e
+
+> e
+
+You are in a control room.
+The man wearing orange is holding a crowbar. He looks wary of you, but appears to be friendly.
+There is a a man wearing orange.
+You can go west or north.
+> speak to man wearing orange
+
+> speak to man wearing orange
+The man says nothing, he opens the door next to him and points towards it.
+> n
+
+> n
+You walk slowly into the blinding light, unsure of where this stranger has lead you. As soon as you are clear of the door, you hear a loud slam from behind you. It seems the man in orange has locked you in here.
+
+You are in a warehouse.
+There is nothing particularly interesting about this warehouse, aside from its vibrant red color scheme, and the lone minecart sitting next to a control panel in the center.
+You can see a minecart and a small control panel.
+You can go east or south.
+> look at small control panel
+
+> look at small control panel
+A small control panel, about waist height,
+on which there is a button.
+> press button
+
+> press button
+What's happening? The cart took off along the tracks through the exit. I better follow it.
+> e
+
+> e
+
+You are in a dusty old quarry.
+It's chaos out here! There appears to be a squad of red clothed men shooting everything from bazookas to machine guns, trying to prevent the progress of the minecart. Rockets, grenades, bullets coming from every angle and...did someone throw a jar of urine? A small number of men in blue clothes surround the cart, seemingly protecting it and allowing for its progress. There seems to be some type of large laser on the ground and next to it a large, minigun-wielding man seems to be in charge of the blues, maybe I should ask him what's going on.
+You can see blue heavy weapons guy and a mining laser.
+You can go west.
+> speak to blue heavy weapons guy
+
+> speak to blue heavy weapons guy
+You timidly ask the man who he is.
+ "I am heavy weapons guy. And this is my weapon." He replies, patting the monstrosity that he calls a gun.
+Err...right. You ask him what's going on.
+"We must deliver payload to pit in red base. Then red base will go boom! Muahahaha!"
+Right, whatever. You ask him how to get out of here.
+"I make you deal little man. You help me get cart to pit, I help you find way out of here."
+That sounds fair enough to you, so you agree.
+"Okay little man, red team heavy weapons guy is blocking path to pit. Move red heavy weapons guy."
+That sounds like a tall order...You ask him for a weapon.
+"Weapon? Eh...here you go. A sandvich for you."
+Gee, thanks...
+> use sandvich with red heavy weapons guy
+
+> use sandvich with red heavy weapons guy
+"A sandvich! I suppose I deserve break. Watch pit for me, little man." The red heavy runs into a room nearby to enjoy his snack.
+> speak to blue heavy weapons guy
+
+> speak to blue heavy weapons guy
+"Red heavy is gone! Good work, little man! Now let us go, come help heavy push payload into pit."
+You follow the heavy to the edge of the pit. As you push the cart, you hear a woman's voice boom over a set of loud speakers...
+"Okay," says the heavy, "On count of three, we push. One, eh...I know this...two? Three!" You push the cart as hard as you can. A little too hard, as it turns out, because you fall into the pit directly behind the cart...
+After what seams to have been an eternity, you wake up but quickly close your eyes again. There is a very bright light hanging above your bed.
+
+"Where am I?" you think to yourself as you slowly crack open your eyes to see your surroundings.
+
+Judging from the sunk in mattress in the shape of your body, you must have been out for a long time after the fall.
+
+You are in a Relaxation Vault.
+A small room with glass walls.
+You can see a toilet, a radio, a piece of paper and a Timer.
+You can go out.
+> look
+
+> look
+You are in a Relaxation Vault.
+A small room with glass walls.
+You can see a toilet, a radio, a piece of paper and a Timer.
+You can go out.
+> look at timer
+
+> look at timer
+As you take a look at the timer, it begins counting down from 60 seconds and you can hear a voice!
+When this weird woman stops talking, an orange circle appears on the door, you can see the other side of the hallway through it!
+> out
+
+> out
+As you step through the orange portal on the door, you appear to have been transported to the otherside from a blue portal.
+
+You walk down the hallway and around the corner to see a giant set of circular sliding doors.
+
+As you approach them, they slide open for you to walk in!
+
+You are in a Test Chamber.
+You can see a Fifteen Hundred Megawatt Aperture Science Heavy Duty Super Colliding Super Button and a Cube dispenser.
+You can go east.
+You entered the first test chamber, it looks just barely bigger than the Relaxation Vault you were just in.
+> look at cube dispenser
+
+> look at cube dispenser
+Hey! It dispensed a cube. Neat.
+> take weighted storage cube
+
+> take weighted storage cube
+> use weighted storage cube with Fifteen Hundred Megawatt Aperture Science Heavy Duty Super Colliding Super Button
+
+> use weighted storage cube with Fifteen Hundred Megawatt Aperture Science Heavy Duty Super Colliding Super Button
+As you drop the Weighted Storage Cube on the Fifteen Hundred Megawatt Aperture Science Heavy Duty Super-Colliding Super Button you see another circular set of doors open and a check mark on the wall becomes illuminated!
+> e
+
+> e
+
+You are in a Chamberlock.
+You can go in.
+> in
+
+> in
+The doors close and you can feel it accelerating upwards very quickly!
+
+You are in a Lift.
+You can see a piece of paper in the corner.
+You can see a a Force Staff Recipe.
+
+> take force staff recipe
+
+> take force staff recipe
+You pick it up.
+The lift finally stops, as you see it there are 3 choices:
+
+1. go out the door
+2. sneak through the corner between the door and the wall
+3. press the up button on the wall
+> down
+
+> down
+As you squeeze between the door and the wall you feel a rush of cool air go by you.  Suddenly when you take another step, your foot doesn't touch anything and you begin to fall! Luckily the lift shaft slowly begins to bend, turning into a sort of slide! Near the bottom you begin to hear a flow of water and distinct smell of sewage... Must be at the end soon, you think, when you abruptly change directions into a straight down fall! You land on a grate in the sewers and see a ladder leading to an exit above, so you climb out of the sewer.
+
+You are in a saferoom.
+You can see Louis and Zoey.
+> speak to louis
+
+> speak to louis
+"Pills here! ...Yo, check it out Zoey! It looks like we have a new friend." says Louis.
+> speak to louis
+
+> speak to louis
+Louis continues, "Hey, I know what we should do with our new friend here." He points his shotgun at you. "You, my friend are going to go first and draw all of those zombies out there. Sounds good?
+
+Louis shoves you out of the safe room. You are on a city street.
+You hear the shriek of nearby zombies, they start heading toward you and you begin to run for your life! You can see an Abandoned Vehicle.
+> jump over abandoned vehicle
+
+> jump over abandoned vehicle
+You jump on the car and the alarm goes off. You are narrowly out of the reach of nearby zombies. You jump off and keep running.
+
+You arrive at a park gate.
+Zombies are closing in from either side of you. You can see a gate.
+> try to open gate
+
+> try to open gate
+To your surprise, the gate is actually unlocked! You push it open and continue into the park.
+
+The zombies are slowed as they bottleneck through the park gate. You are in a city park.
+You can see a park river.
+> jump over park river
+
+> jump over park river
+You begin to sprint, faster and faster. You close your eyes and leap as far as you can. You open your eyes and to your amazement find yourself unharmed at the other side of the river.
+
+You arrive at  a playground.
+There are more zombies coming from all around, it looks like the only safe path lies through the playground. You can see a playground equipment.
+> run up the slide playground equipment
+
+> run up the slide playground equipment
+You jump on the slide and run up as fast as you can, you nearly slip and fall down the slide, but grab the top at the last second. You jump off the playground and head for the forest.
+
+You arrive at a a forest edge.
+It seems like you are losing the zombies. You catch your breath as you hear something in the forest. You can see a group of trees.
+> look at group of trees
+
+> look at group of trees
+You stare at the edge of the forest when something knocks over a tree. Its a tank!
+> slide under its legs tank
+
+> slide under its legs tank
+You hold you breath and kickslide underneath the tank. To your surprise you make it pass unharmed.
+
+You run into the forest. With zombies and a tank on your tail, you arrive at the edge of a cliff. You can only see blackness below. You are at a deep ravine.
+You can see a ravine.
+> swing over ravine
+
+> swing over ravine
+You grab a overhanging rope connected to a tree and swing heroically to the safety of the other side. The zombies are no longer a concern.
+Having safely passed over the deep ravine. You see the zombies and the tank back on the other side of the ravine unable to get across. It looks like you are safe. For now. You can see something up ahead.
+
+You are in a radiant fountain.
+You are now in a small grassy area. In one corner there is a fountain that is beautifully radiant as well as a man who seem to have set up some type of shop in another corner of the area. You look around and see that there is a bow and quiver laying on the ground. The bow seems to have some strange aura glowing around it.
+You can see a Bow.
+> take bow
+
+> take bow
+You go to pick up the bow and as you are reaching down to take it the bow emits a blinding flash of light. When you can finally see again you feel different. You have a funny feeling that you are now somehow able to do amazing things. Now all you need is the quiver
+> take quiver
+
+> take quiver
+You pick up the quiver and throw it over your shoulder. When you look up there is a man wearing crazy looking Armour riding a top of some kind of strange animal. The man introduces himself as Chen and tells you to go to the north to help defend the base. He also hands you a ring and tells you that it should assist you in your journey.
+> go to top lane
+
+> go to top lane
+
+You are in a top lane.
+As you are running north toward the top lane you find that it is taking you a while to get there. You start wishing that there was some way that you were able to get to top lane in a quicker manner. All of a sudden you are moving as quick as the wind. You now realize that when you went to pick up the bow, it has imbued you with some special abilities. You finally reach the tower only to see these strange creatures attacking it. You start to kill the creatures with your trusty bow and arrow, but it is taking a while to kill all of them. As you are drawing the next shot on your bow you start to wonder if the bow has given you any other abilities.
+You can see a Power Shot, a Shackleshot and a Wind Run.
+> use ability power shot
+
+> use ability power shot
+As you release the arrow you see a blur of green launch forward cutting everything in its path. As the bad creeps die from your Powershot you are given gold for each kill! You feel immense joy that you were able to help Chen defend the base. You now see that there seems to be some type of fight breaking out between what looks to be a group of friendly people lead by Chen and a group of enemies. You only see two logical options in this situation. You can either run away back to your base or help the group of friendly people.
+> e
+
+> e
+
+You are in a team fight.
+You arrive in the middle lane just in time to assist your group of friendlies with the engagement. You need to decide what ability will be most useful to help your team survive the fight.
+You can see an Use Power Shot, an Use Shackleshot and an Use Wind Run.
+> use ability use shackleshot
+
+> use ability use shackleshot
+You shoot out a shackleshot and it latches perfectly and completely immobilizes two of the enemies. You team is now able to massive damage to all of the surrounding enemies and is eventually able to kill off all of the enemies left.
+> n
+
+> n
+After the team fight is won, you feel a very powerful sensation of strength, you have leveled up!
+
+You quickly notice that you are are able to use a new ability now!
+
+But before you get a chance, Chen instructs the group to go destroy the Dire Towers.
+
+You are at the a Dire Tower.
+In a further stretch of the lane you were in before, the enemy tower looks similar to the one you were defending before the team fight but much darker and scary looking. As you and the team get closer the tower, it begins attacking the creeps coming from your side.
+You can see a Tower.
+> attack tower
+
+> attack tower
+You attack the tower with the team. Slowly but surely, its health is getting lower.
+"Why don't you try your new ability on this tower?" Chen says to you.
+> use ability use focusfire
+
+> use ability use focusfire
+You feel a great increase in speed, suddenly you are launching arrow after arrow at the tower faster than you ever thought was possible!
+In a matter of seconds the tower crumbles and you receive some gold, the group is starting to head further down the lane, maybe you should follow them.
+> n
+
+> n
+
+You are near a Dire Ancient.
+A dark and strongly fortified area with a gigantic structure made of black rock and fire at the center.
+You can see an Ancient.
+> attack ancient
+
+> attack ancient
+You attack the enemy Ancient with the team and friendly creeps, slowly but surely its health gets lower and lower...
+VICTORY!!!!!
+"Thank you for the help Windrunner, without you this would not have been possible!" says Chen.
+The remains of the dire Ancient fall into a pit of lava below!
+> speak to shop keeper
+
+> speak to shop keeper
+"Welcome to my shop Windrunner! "
+
+"Congratulation on your victory!"
+
+"I see you have a recipe for a Force Staff and a Ring of Regeneration already. Would you like to complete it by buying a staff of Wizardry?"
+
+>> "Yes, ofcourse!" you respond, still not knowing exactly what this item will do for you.
+
+And for 1000 of the gold you finally complete your item!
+> use force staff with self
+
+> use force staff with self
+Please choose which 'self' you mean:
+1: Self
+2: me
+> 1
+You use the Force Staff on yourself!
+
+Suddenly you shoot forward 600 units!
+
+"WINDRUNNER NOOOOOOOO" screams Chen as you fall into the giant pit of lava where the dire Ancient used to stand...
+
+"I guess this is the end of me" you think to yourself as your whole adventure flashes before your eyes...
+
+You are in a bedroom.
+[state=Finished]

@@ -1,0 +1,19 @@
+                        Mathematicism:
+                          A Love Story
+
+                         (1) Start (Easy)
+                         (2) Start (Cruel)
+                         (3) Exit
+> 2
+> 2
+> 9943
+> 9943
+You hear a mechanism churn and click and then the bomb stops ticking. The door also slides slightly open. Light fades in. You walk through the door and you approach your living room. You notice an statue erected in the middle of the room. You take another step and the head of the statue falls off. The hollow neck starts emitting a thick green neurotoxin. You run to the nearest door leading out of your mansion and realize that it, just like your bedroom door was, is locked. You yell at the irony of the situation and just bash down the door and run, seeking the final exit to your now contaminated home. You reach your front gate, but there is a contraption there that looks like it's set up to explode as well. You decide against defusing whatever it is, and attempt to climb over the gate. Your first attempt sends you barrelling back onto the ground. You must do math do determine the velocity to get over the gate.
+
+If the gate is half-a-metre high, and you can jump at the speed of 0.1m/second, how long will it take you to get over the gate and back down on the other side?
+> 10
+> 10
+You jump over the gate in exactly ten seconds and run to safety. The emissions coming from your house are more visible than ever, but you keep running. You're safe from whatever or whoever was trying to kill you.
+
+                               le fin
+[state=Finished]

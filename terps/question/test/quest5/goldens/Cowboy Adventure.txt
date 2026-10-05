@@ -1,0 +1,35 @@
+You wake up in a bed, not remembering anything. Ever. You look at the clothes you are wearing, they look like the stuff a cowboy would wear. You have no recollection of a single event that has happened before now.
+You are in a Hotel Room.
+You can see a Bed and a Cabinet.
+You can go out into the hotel hallway.
+> take bed
+
+> take bed
+You pick up the hefty bed. I mean, it COULD be useful. Oh, who am I kidding, it's a bed!
+> use bed with cabinet
+
+> use bed with cabinet
+Apparently placing a bed on a cabinet unlocks doors. Strange, but practical.
+> out
+
+> out
+
+You are in a Hotel Hallway.
+You can see a Small table and a purse.
+You can go in to your hotel room or down the stairs.
+> d
+
+> d
+
+You are in a Main fruit juice bar.
+You can see a shot of apple juice, a shot of grape juice, a shot of orange juice, Big Jim and a loaded fruit punch launcher.
+You can go east or up.
+> take fruit punch launcher
+
+> take fruit punch launcher
+You pick up the fruit punch launcher.
+> use fruit punch launcher with Big Jim
+
+> use fruit punch launcher with Big Jim
+The jug of fruit punch nails Big Jim square in the chest, exploding into little droplets of delectibleness. Big Jim splutters and runs away from the town, never to be seen again, you're the town's hero!
+[state=Finished]

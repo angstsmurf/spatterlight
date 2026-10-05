@@ -1,0 +1,81 @@
+> northwest
+
+> northwest
+
+> open toolbox
+
+> open toolbox
+You open it.
+> take wrench
+
+> take wrench
+You pick it up.
+> southeast
+
+> southeast
+
+> southeast
+
+> southeast
+
+> look at desk
+
+> look at desk
+> open drawer
+
+> open drawer
+You open it.
+> take small key
+
+> take small key
+You pick it up.
+> take battery
+
+> take battery
+You pick it up.
+> move right desk
+
+> move right desk
+Clang...
+> use wrench with vent entrance
+
+> use wrench with vent entrance
+You removed it.
+> northwest
+
+> northwest
+
+> northeast
+
+> northeast
+
+> open shelf
+
+> open shelf
+Unlocked.
+You open it.
+> take flashlight
+
+> take flashlight
+You pick it up.
+> southwest
+
+> southwest
+
+> southeast
+
+> southeast
+
+> use battery with flashlight
+
+> use battery with flashlight
+> switch on charged flashlight
+
+> switch on charged flashlight
+You switch it on.
+> east
+
+> east
+
+Congratulations! You escaped!
+[state=Finished]

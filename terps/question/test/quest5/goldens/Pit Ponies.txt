@@ -1,0 +1,26 @@
+PIT PONIES - A RAINBOW DASH TEXT ADVENTURE
+written by sparklepeep / a sparklepeep season three minigame
+http://sparklepeep.deviantart.com
+
+---
+
+Welcome to Pit Ponies! You are a pony stuck in a pit. To examine an object, type "look at object". For example, "look at pony". You can also interact with them by typing in "verb object". For example, "hug pony" or "wake pony". You can refer to the pegasus pony you encounter as "pony" or by any of her actual names.
+
+To find out more about this game use the command "about".
+To see a full list of possible commands use the command "spoilers".
+
+Enjoy, and have fun!
+
+---
+You are in a pit.
+You can see a pegasus pony, a flag and a small pool of water.
+This is a small, cavernous area about ten scootameters across and five scootameters long. High above ground is an opening to the sky and, persumably, freedom. There are no fulgelhorns.
+> take flag
+> take flag
+You pick it up.
+> use flag on pegasus pony
+> use flag on pegasus pony
+You poke Rainbow Dash with the flagpole. She slowly wakes up in an adorable manner (don't mention it to her though or she'll deny it) and stares at you. "Are you the Headless Horse?" she said as she popped into a fighting stance. Realizing that you are but a normal pony she calms down a bit, and gave you an accusing "what's going on?". After calming explaining that you two both fell in this pit and that you needed her help to get out, though, Rainbow Dash kindly gives you a lift out of the hole.
+
+Hooray! You've escaped and won the game!
+[state=Finished]

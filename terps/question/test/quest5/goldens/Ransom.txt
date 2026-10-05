@@ -1,0 +1,104 @@
+THE KING HAS BEEN KIDNAPPED BY A BAND OF MARAUDING PICTS, WHO ARE KEEPING HIM INCARCERATED IN THE DUNGEON OF A FORTRESS TO THE NORTH.  YOUR TASK IS A SIMPLE ONE... RETRIEVE THE GOLD THAT WILL PAY THE KING'S RANSOM!
+
+Press any key to start
+You find yourself on the bank of a turbulent stream babbling along the base of the mountain itself.  It is crossed by a stone bridge leading East to a dark cave entrance.
+You can also see an old oil lamp.
+> take lamp
+
+> take lamp
+You pick it up.
+> light lamp
+
+> light lamp
+It lights up, giving off a surprisingly strong light
+You find yourself on the bank of a turbulent stream babbling along the base of the mountain itself.  It is crossed by a stone bridge leading East to a dark cave entrance.
+> east
+
+> east
+
+Inside the mountain it is very gloomy.  There is a patch of sunlight to the West and dim tunnels wind away to the South and to the East
+> south
+
+> south
+
+A moat to the East surrounds a fortress of titanic proportions.  The tunnel from which you came is North, and you can see a large door beyond the lowered drawbridge.
+You can also see a dead rat.
+> take dead rat
+
+> take dead rat
+You pick it up.
+> north
+
+> north
+
+Inside the mountain it is very gloomy.  There is a patch of sunlight to the West and dim tunnels wind away to the South and to the East
+> east
+
+> east
+
+Travelling this East-West passage, you notice another tunnel South, across a great crevasse.  A small snake is sleeping in its favourite cranny.
+The snake stirs, and having spied the rat, devours it. It then returns to its corner to sleep.
+> east
+
+> east
+
+You have emerged onto a promontory from a tunnel in the rock face to your West.  To the East is a huge lake, bordered by the mountains, and a solitary tree graces the waters edge.
+> look at tree
+
+> look at tree
+Upon examining the tree you dislodge something from a hole in one branch.  It falls to the ground with a metallic clang.
+> take key
+
+> take key
+You pick it up.
+> west
+
+> west
+
+Travelling this East-West passage, you notice another tunnel South, across a great crevasse.  A small snake is sleeping in its favourite cranny.
+> west
+
+> west
+
+Inside the mountain it is very gloomy.  There is a patch of sunlight to the West and dim tunnels wind away to the South and to the East
+> south
+
+> south
+
+A moat to the East surrounds a fortress of titanic proportions.  The tunnel from which you came is North, and you can see a large door beyond the lowered drawbridge.
+> unlock door
+
+> unlock door
+With a grating sound, the key turns in the lock and the door swings open.
+> drop key
+
+> drop key
+You drop it.
+> east
+
+> east
+
+Inside the castle it is a bit grim, especially for anyone unfortunate enough to be incarcerated here.  Weird torture devices cover the South wall and the door to the West ensures few escape.
+You can also see a gold bar.
+> take gold bar
+
+> take gold bar
+You pick it up.
+> west
+
+> west
+
+A moat to the East surrounds a fortress of titanic proportions.  The tunnel from which you came is North, and you can see a large door beyond the lowered drawbridge.
+You can also see a large key.
+> north
+
+> north
+
+Inside the mountain it is very gloomy.  There is a patch of sunlight to the West and dim tunnels wind away to the South and to the East
+> west
+
+> west
+
+You find yourself on the bank of a turbulent stream babbling along the base of the mountain itself.  It is crossed by a stone bridge leading East to a dark cave entrance.
+Well done! The gold you have brought is enough to pay the King's Ransom!
+[state=Finished]

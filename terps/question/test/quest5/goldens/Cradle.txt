@@ -1,0 +1,316 @@
+CHAPTER 1: MESOPOTAMIA--FOOD
+You are in the Wilderness of Ancient Turkey.
+A nomadic hunter-gatherer, you are wandering with your small family, looking always for food. All of your time is spent looking for food, day in and day out. You only wish you could stop to look around, study the beautiful wildnerness more. If only life were more stable...
+You can go southeast.
+> southeast
+> southeast
+You are in More Wilderness of Ancient Turkey.
+You carry on, still hunting and gathering day in and day out. You are really quite bored, but no one seems to understand that concept. You figure this is because you are much more intelligent than everyone around you. You are just grateful that it will soon be the one time of year that you can see many other people all together. It is time for the gathering at Göbekli Tepe.
+You can go northwest or southeast.
+> southeast
+> southeast
+You are in Göbleki Tepe.
+Finally, it is time again! You arrive in Göbekli Tepe, the one place you can associate with others. You are relieved by the chance to speak (however well you can speak) with others and even hear and tell stories of your hunting and gathering. Everyone loves to hear your stories in particular because they are always so exciting. You maybe change some details at times, but you figure if it helps people get excited and feel happy, it's okay. If only you could spend more time sitting around and telling stories, being with many people every day...Suddenly, a stranger approaches you. It looks like he wants to talk.
+You can see a Stranger.
+You can go northwest or southeast.
+> speak to stranger
+> speak to stranger
+"You tell good story! Me happy! I make you happy! Take large seed from my gathering-grounds. Largest I have ever seen!" (He gives you a large seed.)
+> southeast
+> southeast
+You are in Ancient Northern Syria.
+Now that the gathering at Göbekli Tepe is over, it's back to same-old, same-old hunting and gathering day in and day out. As you wander and scrounge, you often reach into the extra fold you attached to your crude garments to feel the big seed inside, pondering about how you could get the delicious grass out of it for yourself...
+You can go southeast.
+> southeast
+> southeast
+You are in Euphrates River Lands.
+You are now next to the Euphrates River. You notice that the grasses here are always big and delicious every year. You think again about your seed. You see some moist, open land where there are no other grasses. You wonder what would happen if you put your seed in the ground here, then came back...
+You can see a fertile ground.
+You can go northwest, north, south, east or west.
+> put large seed in fertile ground
+> put large seed in fertile ground
+Done.
+> look at fertile ground
+> look at fertile ground
+It worked! Now that you've waited some time, looking at the spot again you see some big and delicious grass ready to be eaten!
+> eat delicious grass
+> eat delicious grass
+Delicious! If only you could do this again, but with more seeds and get more grass...
+> east
+> east
+You are in Land East of the Euphrates.
+You can see some lovely grass.
+You can go west.
+> look at lovely grass
+> look at lovely grass
+A lovely piece of grass...look! Another big seed!
+It has a a big seed.
+> take big seed
+> take big seed
+You pick out the seed.
+> west
+> west
+You are in Euphrates River Lands.
+You are now next to the Euphrates River. You notice that the grasses here are always big and delicious every year. You think again about your seed. You see some moist, open land where there are no other grasses. You wonder what would happen if you put your seed in the ground here, then came back...
+You can see a Fertile Ground.
+You can go northwest, north, south, east or west.
+> north
+> north
+You are in Land North of the Euphrates.
+You can see some pretty grass.
+You can go south.
+> look at pretty grass
+> look at pretty grass
+Oh, this is pretty grass too...wait a second! What a great seed you find here!
+It has a a great seed.
+> take great seed
+> take great seed
+You pick out the seed.
+> south
+> south
+You are in Euphrates River Lands.
+You are now next to the Euphrates River. You notice that the grasses here are always big and delicious every year. You think again about your seed. You see some moist, open land where there are no other grasses. You wonder what would happen if you put your seed in the ground here, then came back...
+You can see a Fertile Ground.
+You can go northwest, north, south, east or west.
+> south
+> south
+You are in Land South of the Euphrates.
+You can see some beautiful grass.
+You can go north.
+> look at beautiful grass
+> look at beautiful grass
+Such beautiful grass...and look! What a nice seed!
+It has a a nice seed.
+> take nice seed
+> take nice seed
+You pick out the seed.
+> north
+> north
+You are in Euphrates River Lands.
+You are now next to the Euphrates River. You notice that the grasses here are always big and delicious every year. You think again about your seed. You see some moist, open land where there are no other grasses. You wonder what would happen if you put your seed in the ground here, then came back...
+You can see a Fertile Ground.
+You can go northwest, north, south, east or west.
+> west
+> west
+You are in Land West of the Euphrates.
+You can see some healthy grass.
+You can go east.
+> look at healthy grass
+> look at healthy grass
+Wow, the grass is really healthy here. It has absolutely perfect seeds!
+It has a a perfect seed.
+> take perfect seed
+> take perfect seed
+You pick out the seed.
+> east
+> east
+You are in Euphrates River Lands.
+You are now next to the Euphrates River. You notice that the grasses here are always big and delicious every year. You think again about your seed. You see some moist, open land where there are no other grasses. You wonder what would happen if you put your seed in the ground here, then came back...
+You can see a Fertile Ground.
+You can go northwest, north, south, east or west.
+> put big seed in fertile ground
+> put big seed in fertile ground
+Done.
+> put great seed in fertile ground
+> put great seed in fertile ground
+Done.
+> put nice seed in fertile ground
+> put nice seed in fertile ground
+Done.
+> put perfect seed in fertile ground
+> put perfect seed in fertile ground
+Done.
+> look at fertile ground
+> look at fertile ground
+You did it! Look at that! The world's first Grass Crop just appeared! Take it and change the world forever!
+> take grass crop
+> take grass crop
+You collect your first crop! You show your family, you all eat, and with the great results you convince your family to go out searching for more seeds and planting more crops. Thus begins the process of grain domestication that is so important to the first requirement for any civilization: food in abundance. Now you won't have to spend all your days searching for food and you can find more creative uses for your time.
+CHAPTER 2: EGYPT--LABOR SPECIALIZATION
+You are now a much later descendant of your former self, living in the great ancient civilization of Egypt. In a former life, you helped Mesopotamia get the first requriement for Civilization: food in abundance. Now, Egypt has followed your system and has plenty of food thanks to the great Nile River. But now you'll need to help Egypt with the second requirement of Civilization: Labor Specialization.
+You are in Memphis.
+Memphis--the great capital of the first Pharaoh to unite Egypt, Narmur (also known as Menes). Here is a growing city where food is definitely in abundance--but only because everyone is farming, farming, farming. You're grateful to your ancestor for discovering how to farm, but now you're stuck farming just like he was stuck hunting and gathering. Couldn't you do something else with your time?
+You can go east or west.
+> east
+> east
+You are in your Farmland.
+You can see some dirt.
+You can go west.
+> look at dirt
+> look at dirt
+Dirt, dirt, dirt--it's growing grass everywhere. But wait! There's something else here. What is this moldable stuff under the top layer of dirt?
+> take moldable clay
+> take moldable clay
+You pick up the clay and notice you could change it's shape however you want by molding it with your hands. What could you make?
+> mold clay
+> mold clay
+You made a horse out of the clay! But it doesn't keep its shape well. If only it could stay a horse, it would make a great toy for your son.
+> west
+> west
+You are in Memphis.
+Memphis--the great capital of the first Pharaoh to unite Egypt, Narmur (also known as Menes). Here is a growing city where food is definitely in abundance--but only because everyone is farming, farming, farming. You're grateful to your ancestor for discovering how to farm, but now you're stuck farming just like he was stuck hunting and gathering. Couldn't you do something else with your time?
+You can go east or west.
+> west
+> west
+You are in your Street.
+You can see your hut and Akhenra.
+You can go east or in.
+> in
+> in
+Home, sweet home! It's small, but cozy. You see your bed, the small bed for Akhenra, and a warm fire burning.
+As you stand there, you think of how you could harden the clay to give the horse to your son. Wait, what's happening? It's already a little harder. It must be the fire!
+> put clay horse in fire
+> put clay horse in fire
+Done.
+> look at fire
+> look at fire
+It worked! Now there's a dry clay horse ready to give to Akhenra! He'll love it!
+> take dry clay horse
+> take dry clay horse
+Go give it to Akhenra! He's sure to love it!
+> out
+> out
+You are in your Street.
+You can see your hut and Akhenra.
+You can go east or in.
+> give dry clay horse to Akhenra
+> give dry clay horse to Akhenra
+He loves it so much! Soon all his friends want one too, and you're making more and more out of clay. You end up making more pots than anything, discovering that they can help people bring water over longer distances. After a while, you don't even farm because you can give pots to people in return for grass. Thus begins the second important aspect of human civilization--specialization of labor.
+CHAPTER 3: INDUS RIVER VALLEY--ORDER and ORGANIZATION
+In accordance with Hindu belief, you died in Egypt and came back in India reincarnated. Because you did so much good in your former life, you have moved up in class. Now you are a leader of the bustling Dravidian city of Harrappa. There is much work to be done here.
+You are in the Harappa Palace Center.
+You can go west, east, north or south.
+> north
+> north
+You are in Harappa Palace North.
+You can see the Advisor on Citizens.
+You can go south.
+> speak to advisor on citizens
+> speak to advisor on citizens
+"Your majesty," he says, "the people are happy, but there are some who break the law and we don't know what to do with them when they do. What should we do with these lawbreakers, your majesty?"
+What do you tell the advisor? To order execution for all lawbreakers, put the lawbreakers in prison, or put the lawbreakers to work? (For some crazy syntax of your ancient language, the advisors only respond to commands that begin "tell advisor about" and then your command.)
+> tell advisor on citizens about work
+> tell advisor on citizens about work
+"An excellent idea, your majesty." He says. I will await you and the Advisor on Construction in the Palace Center."
+> south
+> south
+You are in the Harappa Palace Center.
+You can see the Advisor on Citizens.
+You can go west, east, north or south.
+> west
+> west
+You are in Harappa Palace West.
+You can see the Advisor on Food.
+You can go east.
+> speak to advisor on food
+> speak to advisor on food
+"Your majesty, the people are getting sick. Our priests have determined it is because the waste of the people is too close to the food of the people and as the old mixes with the new it causes confusion in the body. How shall we deal with this, your majesty?
+What do you tell the advisor? To ignore the crazy priests, to send an order to the people to stop producing waste, or to create a system of removal? (For some crazy syntax of your ancient language, the advisors only respond to commands that begin "tell advisor about" and then your command.)
+> tell advisor on food about removal
+> tell advisor on food about removal
+"Certainly, your majesty. I will go to the Palace Center to create a plan. I will await you to present a plan and get further instruction."
+> east
+> east
+You are in the Harappa Palace Center.
+You can see the Advisor on Citizens and the Advisor on Food.
+You can go west, east, north or south.
+> east
+> east
+You are in Harappa Palace East.
+You can see the Advisor on Construction.
+You can go west.
+> speak to advisor on construction
+> speak to advisor on construction
+"Your majesty," he says, "We have truly the greatest city the world has ever known. We are prospering. Everyone has a house, we have this palace, and we have the grand assembly hall. What do we do next?"
+What do you tell the advisor? To just stop all construction, to destroy all existing buildings and start over, or to find new projects and make improvements? (For some crazy syntax of your ancient language, the advisors only respond to commands that begin "tell advisor about" and then your command.)
+> tell advisor on construction about projects
+> tell advisor on construction about projects
+"Of course, your majesty. What new things shall we construct? What projects can we do next? I will ponder this in the center of the palace."
+> west
+> west
+You are in the Harappa Palace Center.
+You can see the Advisor on Citizens, the Advisor on Food and the Advisor on Construction.
+You can go west, east, north or south.
+> tell advisor on construction about do it
+> tell advisor on construction about do it
+"It shall be done, your majesty!" All the advisors run off chattering to each other in excitement. You hear one of them shout, "I doubt the world will see anything like this again for thousands of years!"
+CHAPTER 4: CHINA--WRITING SYSTEM
+Because you really weren't that great of a ruler in your former life (you stole all your ideas from your advisors, after all), you came back as a poor pottery merchant in Ancient China. Business is tough. Especially trying to remember all the money and ware you owe all these different people all the time. It makes your head hurt!
+You are in a Chinese Trade Route.
+You can see a Cart of Pottery (containing a big pot, a middle pot, a small pot and other pots) and a Fortune Teller.
+You can go east.
+> take big pot
+> take big pot
+You take out the biggest pot.
+> give big pot to fortune teller
+> give big pot to fortune teller
+The fortune teller takes the pot and spreads a mysterious liquid over its surface in strange patterns. Without warning, she then throws down the pot and it smashes into fragments. She picks up the pieces and ponders them carefully.
+"You will be very successful in your trade," she says. "Continue with your charitable ways and you will find much happiness."
+You're still a little confused about what just happened.
+> east
+> east
+You are in Chinese Trade Route East.
+You can see a Merchant Stand.
+You can go west, in or south.
+> south
+> south
+You are in a Southern Chinese Trade Route.
+You can go north or south.
+> south
+> south
+You are in a Farther Southern Chinese Trade Route.
+Okay, this is pretty far south.
+You can go north or south.
+> south
+> south
+You are in an Even Farther Southern Chinese Trade Route.
+Maybe you should just give up and turn back. There hasn't been a thing for miles.
+You can go north or south.
+> south
+> south
+You are in a Ridiculously Far Southern Chinese Trade Route.
+Wow, this may have been all in vain. But wait! Someone's here!
+You can see an Awesome Wise Old Man.
+You can go north.
+> speak to awesome wise old man
+> speak to awesome wise old man
+"Ah...I know what you seek. Yes, I have one here. I would be willing to give it to you, for a steep price."
+> ask awesome wise old man about price
+> ask awesome wise old man about price
+"My price is the highest of them all. I require your memory. Tell me a story of your past. Tell me about your homeland and your ancestors."
+> tell awesome wise old man about past
+> tell awesome wise old man about past
+You tell him the story best you can of your home and your dismal life. As you tell him the story you realize he's not very impressed so, by some power beyond your own, you are inspired and you tell of previous lives you have had as a leader in a far-away and sophisticated city, as the inventor of pottery itself in an even farther, more ancient desert land, and, finally, of your ancestor, the original inventor of farming. You have no idea where all that came from, but it sounds good.
+The old man laughs. "I am very pleased! What a story you tell. Here, take the stone that looks like the sea. I hear they call it...diamond!"
+> north
+> north
+You are in an Even Farther Southern Chinese Trade Route.
+Maybe you should just give up and turn back. There hasn't been a thing for miles.
+You can go north or south.
+> north
+> north
+You are in a Farther Southern Chinese Trade Route.
+Okay, this is pretty far south.
+You can go north or south.
+> north
+> north
+You are in a Southern Chinese Trade Route.
+You can go north or south.
+> north
+> north
+You are in Chinese Trade Route East.
+You can see a Merchant Stand.
+You can go west, in or south.
+> west
+> west
+You are in a Chinese Trade Route.
+You can see a Cart of Pottery (containing a middle pot, a small pot and other pots), a Fortune Teller and some pottery pieces.
+You can go east.
+> give diamond to fortune teller
+> give diamond to fortune teller
+"What?! You actually found one?!? I was right--you are destined for great things! What? Oh, yes, here, take all the ink you want."
+> use ink with pottery pieces
+> use ink with pottery pieces
+You start creating some patterns that will help you remember who ordered which and how many pots, and it goes really well. But as you think about it, you want to be able to express all sorts of things through these patterns--like all the stories you told the awesome old wise man. So, you get to work and eventually you have created a whole system of patterns very rapidly, causing later historians to wonder how the Chinese writing system suddenly appeared in such a complete form.
+You did it! You helped establish human civilaztion in all its basic needs--food, labor specialization, order, and a writing system! Your descendants are sure to be grateful as they explore your exploits through history and text-based video games. Congratulations, and thanks for playing Cradle!
+[state=Finished]

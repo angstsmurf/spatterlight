@@ -1,0 +1,969 @@
+Night of the Creeper
+By Craig Dutton (c) 2013
+
+The village of Abbeymede, famous for its Abbey ruins, is now a ghost-village.  Strange supernatural deaths had driven away the residents and left nothing more than shadows and spectres for nearly four decades.
+
+As an amateur Ghost Hunter you head for the village in hope of witnessing any supernatural sightings of your own.
+
+However, this night will unravel a tale of dread and horror, and a cause for concern, as the true nature of the supernatural creature known locally as the Creeper comes to the fore.
+You are on a lane.
+You can go west, south or east.
+The dirt road continues to the east and west while to the south you spot a field. The dark trees blow gently in the breeze while an owl hoots in the distance.
+> e
+> e
+You are by a lych-gate.
+You can go west, south or east.
+An old wooden gate that used to house coffins before they were laid to rest. A graveyard lies south while the road continues to the east and west.
+> e
+> e
+You are at the end of a lane.
+You can go west or north.
+To the north a dimly-lit Motel car park can be seen and is surrounded by a wooden fence that you're facing to the east.
+> n
+> n
+You are in a Motel car park.
+You can go south, west, northwest, north or northeast.
+The old run-down Motel has seen better days since it was built in the late 1960s. Dark shadows bounce off the motel doors marked A, B and C from left to right as you look across the car park. The Manager's office lies to the west and the poorly-lit sign stands indifferent to the years of rust it has gained as it shadows the overgrown grass lying underneath it.
+> look at grass
+> look at grass
+The grass verge near the front of the Motel is slightly overgrown.
+You find a key hidden in the grass.
+> take motel key
+> take motel key
+You pick it up.
+> unlock motel door B
+> unlock motel door B
+Unlocked with the motel key.
+> open motel door B
+> open motel door B
+You open it.
+> n
+> n
+You are in Motel room B.
+You can go south.
+It looks like the place has been trashed by a maniac. Nothing is broken but the wardrobe has fallen on its front.
+You can see a bed, a mattress, a pillow and a wardrobe.
+> look under mattress
+> look under mattress
+You find a torch.
+> take torch
+> take torch
+You pick it up.
+> switch on torch
+> switch on torch
+You switch it on.
+> s
+> s
+You are in a Motel car park.
+You can go south, west, northwest, north or northeast.
+The old run-down Motel has seen better days since it was built in the late 1960s. Dark shadows bounce off the motel doors marked A, B and C from left to right as you look across the car park. The Manager's office lies to the west and the poorly-lit sign stands indifferent to the years of rust it has gained as it shadows the overgrown grass lying underneath it.
+> open motel door C
+> open motel door C
+You open it.
+> ne
+> ne
+You are in Motel room C.
+You can go southwest.
+A cheap and cheerful place with average-looking furniture.
+You can see a bed, a mattress, a pillow and a wardrobe.
+> look under bed
+> look under bed
+You find a cigarette lighter.
+> take cigarette lighter
+> take cigarette lighter
+You pick it up.
+> sw
+> sw
+You are in a Motel car park.
+You can go south, west, northwest, north or northeast.
+The old run-down Motel has seen better days since it was built in the late 1960s. Dark shadows bounce off the motel doors marked A, B and C from left to right as you look across the car park. The Manager's office lies to the west and the poorly-lit sign stands indifferent to the years of rust it has gained as it shadows the overgrown grass lying underneath it.
+> open motel door A
+> open motel door A
+You open it.
+> nw
+> nw
+You are in Motel room A.
+You can go southeast.
+A cheap and cheerful place with average-looking furniture.
+You can see a bed, a mattress, a pillow and a wardrobe.
+> open wardrobe
+> open wardrobe
+You open it.
+It contains a coathanger.
+> take coathanger
+> take coathanger
+You pick it up.
+> straighten coathanger
+> straighten coathanger
+You straighten out the coathanger and make a long piece of strong wire.
+> se
+> se
+You are in a Motel car park.
+You can go south, west, northwest, north or northeast.
+The old run-down Motel has seen better days since it was built in the late 1960s. Dark shadows bounce off the motel doors marked A, B and C from left to right as you look across the car park. The Manager's office lies to the west and the poorly-lit sign stands indifferent to the years of rust it has gained as it shadows the overgrown grass lying underneath it.
+> s
+> s
+You are at the end of a lane.
+You can go west or north.
+To the north a dimly-lit Motel car park can be seen and is surrounded by a wooden fence that you're facing to the east.
+> w
+> w
+You are by a lych-gate.
+You can go west, south or east.
+An old wooden gate that used to house coffins before they were laid to rest. A graveyard lies south while the road continues to the east and west.
+> w
+> w
+You are on a lane.
+You can go west, south or east.
+The dirt road continues to the east and west while to the south you spot a field. The dark trees blow gently in the breeze while an owl hoots in the distance.
+> w
+> w
+You are on a lane.
+You can go in, east or north.
+The lane bends here with a red telephone box on the corner.
+> look behind telephone box
+> look behind telephone box
+As you look behind the box a sudden hiss and clawing starts as a black cat stands there ready to pounce at you. She stares at you with intense hatred and you back away slowly.
+> n
+> n
+You are outside a railway station.
+You can go south or north.
+A large brick structure with an old sign and a tree to the left. The lights are on but is there anybody home?
+> n
+> n
+You are in the station foyer.
+You can go south, north or east.
+A small lit room with nothing but a shuttered-up hatch, the waiting room to the east and the platform to the north. The way out is to the south.
+> e
+> e
+You are in the waiting room.
+You can go west.
+A small room with wooden benches and dirt on the floor.
+You can see a wastebin and a Tramp.
+> look at wastebin
+> look at wastebin
+A small metal wastebin.
+It contains a nail and a ticket.
+> take nail
+> take nail
+You pick it up.
+> w
+> w
+You are in the station foyer.
+You can go south, north or east.
+A small lit room with nothing but a shuttered-up hatch, the waiting room to the east and the platform to the north. The way out is to the south.
+> n
+> n
+You are on the platform.
+You can go south.
+As you stand on the platform you look down on to the railway line and wonder how many trains have passed this way with passengers not knowing the things you do.
+> down
+> down
+It's a steep jump down to the railway line.
+You are on the railway line.
+You can go up.
+Not much to tell other than a well-used railway line lies before you.
+> look at line
+> look at line
+A well used railway line.
+You find a piece of string.
+> take string
+> take string
+You pick it up.
+> up
+> up
+You are on the platform.
+You can go south.
+As you stand on the platform you look down on to the railway line and wonder how many trains have passed this way with passengers not knowing the things you do.
+> s
+> s
+You are in the station foyer.
+You can go south, north or east.
+A small lit room with nothing but a shuttered-up hatch, the waiting room to the east and the platform to the north. The way out is to the south.
+> s
+> s
+You are outside a railway station.
+You can go south or north.
+A large brick structure with an old sign and a tree to the left. The lights are on but is there anybody home?
+> s
+> s
+You are on a lane.
+You can go in, east or north.
+The lane bends here with a red telephone box on the corner.
+You can see a cat.
+> tie nail
+> tie nail
+You tie the nail to the wire with the string and create a make-shift spear.
+> e
+> e
+You are on a lane.
+You can go west, south or east.
+The dirt road continues to the east and west while to the south you spot a field. The dark trees blow gently in the breeze while an owl hoots in the distance.
+> e
+> e
+You are by a lych-gate.
+You can go west, south or east.
+An old wooden gate that used to house coffins before they were laid to rest. A graveyard lies south while the road continues to the east and west.
+> e
+> e
+You are at the end of a lane.
+You can go west or north.
+To the north a dimly-lit Motel car park can be seen and is surrounded by a wooden fence that you're facing to the east.
+> climb fence
+> climb fence
+You scramble over the fence to the other side.
+You are in a wood.
+You can go east.
+A dark creepy wood with a way leading to the east. The wooden fence lies to the west.
+> e
+> e
+You are by a river bank.
+You can go west or south.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side while a small structure can be seen to the south.
+You can see a bridge.
+> s
+> s
+You are outside a boathouse.
+You can go north or in.
+A small building lying just over the river and the land.
+> in
+> in
+You are inside the boathouse.
+You can go out.
+There are no boats here resting on the darkened water as it looks like it was abandoned years ago.
+> look at water
+> look at water
+Dark swirling water.
+Swimming in its depths is a trout.
+> use spear with trout
+> use spear with trout
+You catch the trout by spearing it in its side.
+> take trout
+> take trout
+You pick it up.
+> out
+> out
+You are outside a boathouse.
+You can go north or in.
+A small building lying just over the river and the land.
+> n
+> n
+You are by a river bank.
+You can go west or south.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side while a small structure can be seen to the south.
+You can see a bridge.
+> w
+> w
+You are in a wood.
+You can go east.
+A dark creepy wood with a way leading to the east. The wooden fence lies to the west.
+> climb fence
+> climb fence
+You scramble over the fence to the other side.
+You are at the end of a lane.
+You can go west or north.
+To the north a dimly-lit Motel car park can be seen and is surrounded by a wooden fence that you're facing to the east.
+> w
+> w
+You are by a lych-gate.
+You can go west, south or east.
+An old wooden gate that used to house coffins before they were laid to rest. A graveyard lies south while the road continues to the east and west.
+> w
+> w
+You are on a lane.
+You can go west, south or east.
+The dirt road continues to the east and west while to the south you spot a field. The dark trees blow gently in the breeze while an owl hoots in the distance.
+> w
+> w
+You are on a lane.
+You can go in, east or north.
+The lane bends here with a red telephone box on the corner.
+You can see a cat.
+> give trout to cat
+> give trout to cat
+The cat changes its tone and sniffs at the fish. She grabs it with her teeth and runs off through the trees. However, she left you something behind and it's actually a good thing.
+> take iron key
+> take iron key
+You pick it up.
+> e
+> e
+You are on a lane.
+You can go west, south or east.
+The dirt road continues to the east and west while to the south you spot a field. The dark trees blow gently in the breeze while an owl hoots in the distance.
+> s
+> s
+You are in a field.
+You can go north, southwest or east.
+A small grassy field with a single tree overshadowing you. A marsh lies to the east and the Abbey ruins to the southwest. A country lane lies to the north.
+> sw
+> sw
+You are in the Abbey ruins.
+You can go northeast or down.
+Old stones lie crumbling around you as the Abbey ruins silhouette the night sky.
+You can see an iron grating.
+> unlock iron grating
+> unlock iron grating
+Unlocked with the iron key.
+> open iron grating
+> open iron grating
+You open it.
+
+Without warning a chill runs through your body and what feels like icy-cold fingers start to grip around your throat. As you wrestle for your last breath you are released and you fall to the ground clutching your throat.
+
+Whatever that was it was pure evil! A ghost with a grudge or something else?
+> ne
+> ne
+You are in a field.
+You can go north, southwest or east.
+A small grassy field with a single tree overshadowing you. A marsh lies to the east and the Abbey ruins to the southwest. A country lane lies to the north.
+> n
+> n
+You are on a lane.
+You can go west, south or east.
+The dirt road continues to the east and west while to the south you spot a field. The dark trees blow gently in the breeze while an owl hoots in the distance.
+> e
+> e
+You are by a lych-gate.
+You can go west, south or east.
+An old wooden gate that used to house coffins before they were laid to rest. A graveyard lies south while the road continues to the east and west.
+> s
+> s
+You are in a graveyard.
+You can go north or in.
+As a low mist curls around the old gravestones the old church set against the darkened sky looks like an imposing giant waiting to pounce upon you.
+
+You hear the church bell ringing!
+> in
+> in
+You are in a church.
+You can go out.
+Rows of pews lead up to the stone altar with a wooden cross lying on top of it. Columns hold up the vaulted ceiling and the silence, almost ironically, deafens you.
+> up
+> up
+The way up was hidden.
+You are in a belfry.
+You can go down.
+Above the rusted bell lies a fixed wooden beam. It's very dark in places and shadows cast eerie shapes.
+You can see a bell.
+> look above bell
+> look above bell
+Hanging upside down are a flock of restless bats. One or two fly off into the night looking for food and return later.
+> scare flock of bats
+> scare flock of bats
+You clap your hands and shout loudly. It does the trick and the bats fly off into the night. However, one of them knocks off a hidden key from somewhere and it clatters to the ground.
+> take small key
+> take small key
+You pick it up.
+> down
+> down
+You are in a church.
+You can go out.
+Rows of pews lead up to the stone altar with a wooden cross lying on top of it. Columns hold up the vaulted ceiling and the silence, almost ironically, deafens you.
+> out
+> out
+You are in a graveyard.
+You can go north or in.
+As a low mist curls around the old gravestones the old church set against the darkened sky looks like an imposing giant waiting to pounce upon you.
+> n
+> n
+You are by a lych-gate.
+You can go west, south or east.
+An old wooden gate that used to house coffins before they were laid to rest. A graveyard lies south while the road continues to the east and west.
+> w
+> w
+You are on a lane.
+You can go west, south or east.
+The dirt road continues to the east and west while to the south you spot a field. The dark trees blow gently in the breeze while an owl hoots in the distance.
+> s
+> s
+You are in a field.
+You can go north, southwest or east.
+A small grassy field with a single tree overshadowing you. A marsh lies to the east and the Abbey ruins to the southwest. A country lane lies to the north.
+> e
+> e
+You are on a marsh.
+You can go west, south or east.
+The marsh seems to comes up to your knees in places as its stretches for quite a way.
+> e
+> e
+You are on a marsh.
+You can go west or south.
+The marsh seems to comes up to your knees in places as its stretches for quite a way.
+> s
+> s
+You are on a marsh.
+You can go north, west or south.
+The marsh seems to comes up to your knees in places as its stretches for quite a way.
+> w
+> w
+You are by a monument.
+You can go east.
+The marsh seems to comes up to your knees in places as its stretches for quite a way. A huge stone monument stands before you looking quite out of place.
+> look up monument
+> look up monument
+You spot something painted near the top.
+> e
+> e
+You are on a marsh.
+You can go north, west or south.
+The marsh seems to comes up to your knees in places as its stretches for quite a way.
+> s
+> s
+You are on a marsh.
+You can go north, west or in.
+The marsh seems to comes up to your knees in places as its stretches for quite a way. A solitary wooden hut breaks up the dreary landscape.
+> in
+> in
+You are inside the hut.
+You can go out.
+This wooden hut is very dark in some corners.
+You can see a hut door.
+> look behind hut door
+> look behind hut door
+You find a small cashbox.
+> unlock cashbox
+> unlock cashbox
+Unlocked with the small key.
+> open cashbox
+> open cashbox
+You open it.
+It contains a locket.
+> take locket
+> take locket
+You pick it up.
+> out
+> out
+You are on a marsh.
+You can go north, west or in.
+The marsh seems to comes up to your knees in places as its stretches for quite a way. A solitary wooden hut breaks up the dreary landscape.
+> n
+> n
+You are on a marsh.
+You can go north, west or south.
+The marsh seems to comes up to your knees in places as its stretches for quite a way.
+> n
+> n
+You are on a marsh.
+You can go west or south.
+The marsh seems to comes up to your knees in places as its stretches for quite a way.
+> w
+> w
+You are on a marsh.
+You can go west, south or east.
+The marsh seems to comes up to your knees in places as its stretches for quite a way.
+> w
+> w
+You are in a field.
+You can go north, southwest or east.
+A small grassy field with a single tree overshadowing you. A marsh lies to the east and the Abbey ruins to the southwest. A country lane lies to the north.
+> n
+> n
+You are on a lane.
+You can go west, south or east.
+The dirt road continues to the east and west while to the south you spot a field. The dark trees blow gently in the breeze while an owl hoots in the distance.
+> e
+> e
+You are by a lych-gate.
+You can go west, south or east.
+An old wooden gate that used to house coffins before they were laid to rest. A graveyard lies south while the road continues to the east and west.
+> e
+> e
+You are at the end of a lane.
+You can go west or north.
+To the north a dimly-lit Motel car park can be seen and is surrounded by a wooden fence that you're facing to the east.
+> climb fence
+> climb fence
+You scramble over the fence to the other side.
+You are in a wood.
+You can go east.
+A dark creepy wood with a way leading to the east. The wooden fence lies to the west.
+> e
+> e
+You are by a river bank.
+You can go west or south.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side while a small structure can be seen to the south.
+You can see a bridge.
+> cross bridge
+> cross bridge
+You cross the bridge to the other side.
+You are by a river bank.
+You can go northeast or southeast.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side.
+You can see a bridge.
+> se
+> se
+You are by a dead oak.
+You can go northwest.
+A solitary dead oak lies before you in this darkened wood. It's gnarled roots twist and try to trip you up.
+> look behind dead oak tree
+> look behind dead oak tree
+You find something carved into the bark.
+> nw
+> nw
+You are by a river bank.
+You can go northeast or southeast.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side.
+You can see a bridge.
+> ne
+> ne
+You are outside the Abbeymede Asylum.
+You can go southwest or in.
+The building is quite formidable with its barred windows and dull exterior. The stone steps lead up into the open doors of the Asylum.
+> in
+> in
+You are in an entrance hall.
+You can go out, south, down, up or north.
+This darkened hall has exits on the ground floor in many directions. A flight of stairs lead up and splits into two balconies facing each other. A sense of dread fills the air as the slightest noise makes you jump. What horrors had the residents of this place experienced makes you shudder?!
+> s
+> s
+You are in a dining room.
+You can go north or east.
+A set of plastic topped tables and chairs just fill this room.
+> e
+> e
+You are in a kitchen.
+You can go west.
+A small kitchen still stocked with disused furnishings.
+You can see a curtain, a sink, a cupboard, a cooker and a fridge.
+> open curtain
+> open curtain
+You draw back the curtain and find a recess.
+> look at recess
+> look at recess
+A small space under the sink.
+It contains an oily rag and a bag of salt.
+> take oily rag
+> take oily rag
+You pick it up.
+> open cupboard
+> open cupboard
+You open it.
+It contains a pot of grease.
+> take pot of grease
+> take pot of grease
+You pick it up.
+> w
+> w
+You are in a dining room.
+You can go north or east.
+A set of plastic topped tables and chairs just fill this room.
+> n
+> n
+You are in an entrance hall.
+You can go out, south, down, up or north.
+This darkened hall has exits on the ground floor in many directions. A flight of stairs lead up and splits into two balconies facing each other. A sense of dread fills the air as the slightest noise makes you jump. What horrors had the residents of this place experienced makes you shudder?!
+> n
+> n
+You are in a corridor.
+You can go south, east or north.
+A dark featureless corridor with exits all around.
+> n
+> n
+You are in an indoor garden.
+You can go south.
+An abandoned garden with dead plants and trees in broken pots. A huge dome of glass surrounds the room from the elements.
+You can see a soil patch.
+> look under soil patch
+> look under soil patch
+You do a bit of digging and find a silver key!
+> take silver key
+> take silver key
+You pick it up.
+> s
+> s
+You are in a corridor.
+You can go south, east or north.
+A dark featureless corridor with exits all around.
+> e
+> e
+You are in a recreation room.
+You can go west.
+A collection of chairs and tables.
+You can see a vent.
+> use pot of grease with vent
+> use pot of grease with vent
+You lubricate the vent.
+> look at vent
+> look at vent
+An air vent in the wall.
+> open vent
+> open vent
+You open it.
+It contains a copper key.
+> look at vent
+> look at vent
+An air vent in the wall.
+It contains a copper key.
+> untie spear
+> untie spear
+You drop the spear to untie the string to release the nail from the wire.
+> take wire
+> take wire
+You pick it up.
+> use wire with copper key
+> use wire with copper key
+You reach the key and drag it out of the vent.
+> take copper key
+> take copper key
+You pick it up.
+> w
+> w
+You are in a corridor.
+You can go south, east or north.
+A dark featureless corridor with exits all around.
+> s
+> s
+You are in an entrance hall.
+You can go out, south, down, up or north.
+This darkened hall has exits on the ground floor in many directions. A flight of stairs lead up and splits into two balconies facing each other. A sense of dread fills the air as the slightest noise makes you jump. What horrors had the residents of this place experienced makes you shudder?!
+> up
+> up
+You are at the top of the stairs.
+You can go down, northwest or southwest.
+At the top of the stairs they split off into two balconies.
+> nw
+> nw
+You are on a balcony.
+You can go southeast, north or west.
+You stand outside a door labelled '3'.
+> w
+> w
+You are by a balcony.
+You can go east or north.
+You stand outside a door labelled '4'.
+> unlock door
+> unlock door
+Unlocked with the silver key.
+> open door
+> open door
+You open it.
+> n
+> n
+You are in a room.
+You can go south.
+You are in an empty room.
+You can see a bloodstain.
+> look at bloodstain
+> look at bloodstain
+It's still fresh!
+Suddenly a horrible, creepy and deep laugh fills the room and the walls start to bleed. The dripping blood starts to spell out the word 'KILL'. Then quickly more of the same words appear on the walls. The bloodstain has reduced in size and a coldness fills the room. A pink silk scarf suddenly appears by your feet.
+> take silk scarf
+> take silk scarf
+You pick it up.
+> s
+> s
+You are by a balcony.
+You can go east or north.
+You stand outside a door labelled '4'.
+> e
+> e
+You are on a balcony.
+You can go southeast, north or west.
+You stand outside a door labelled '3'.
+> se
+> se
+You are at the top of the stairs.
+You can go down, northwest or southwest.
+At the top of the stairs they split off into two balconies.
+> down
+> down
+You are in an entrance hall.
+You can go out, south, down, up or north.
+This darkened hall has exits on the ground floor in many directions. A flight of stairs lead up and splits into two balconies facing each other. A sense of dread fills the air as the slightest noise makes you jump. What horrors had the residents of this place experienced makes you shudder?!
+> down
+> down
+You are in a corridor.
+You can go up, north, south or east.
+A dark featureless corridor with exits all around and steps leading back up to the hall. However, the north door is made of solid iron.
+You can see a cell door.
+> s
+> s
+You are in a boiler room.
+You can go north.
+A huge boiler stands before you with pipes leading off it.
+You can see a boiler and some muddy footprints.
+> look behind boiler
+> look behind boiler
+You find a saw hidden behind it.
+> take saw
+> take saw
+You pick it up.
+> open boiler
+> open boiler
+You open it.
+> use oily rag with boiler
+> use oily rag with boiler
+You place the rag in the boiler as a fuel source.
+> use cigarette lighter with oily rag
+> use cigarette lighter with oily rag
+You light the rag and close the boiler door.
+> n
+> n
+You are in a corridor.
+You can go up, north, south or east.
+A dark featureless corridor with exits all around and steps leading back up to the hall. However, the north door is made of solid iron.
+You can see a cell door.
+> unlock cell door
+> unlock cell door
+Unlocked with the copper key.
+> open cell door
+> open cell door
+You open it.
+> up
+> up
+You are in an entrance hall.
+You can go out, south, down, up or north.
+This darkened hall has exits on the ground floor in many directions. A flight of stairs lead up and splits into two balconies facing each other. A sense of dread fills the air as the slightest noise makes you jump. What horrors had the residents of this place experienced makes you shudder?!
+> out
+> out
+You are outside the Abbeymede Asylum.
+You can go southwest or in.
+The building is quite formidable with its barred windows and dull exterior. The stone steps lead up into the open doors of the Asylum.
+> sw
+> sw
+You are by a river bank.
+You can go northeast or southeast.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side.
+You can see a bridge.
+> se
+> se
+You are by a dead oak.
+You can go northwest.
+A solitary dead oak lies before you in this darkened wood. It's gnarled roots twist and try to trip you up.
+> use saw with roots
+> use saw with roots
+As you saw through the roots a hole emerges and you just about make out that there is a small space underneath the dead oak .
+> down
+> down
+You are under the roots.
+You can go up.
+You are crouching in a dark hole!
+You can see a plastic doll.
+> take doll
+> take doll
+You pick it up.
+> up
+> up
+You are by a dead oak.
+You can go northwest or down.
+A solitary dead oak lies before you in this darkened wood. It's gnarled roots twist and try to trip you up.
+> nw
+> nw
+You are by a river bank.
+You can go northeast or southeast.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side.
+You can see a bridge.
+> cross bridge
+> cross bridge
+You cross the bridge to the other side.
+You are by a river bank.
+You can go west or south.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side while a small structure can be seen to the south.
+You can see a bridge.
+> w
+> w
+You are in a wood.
+You can go east.
+A dark creepy wood with a way leading to the east. The wooden fence lies to the west.
+> climb fence
+> climb fence
+You scramble over the fence to the other side.
+You are at the end of a lane.
+You can go west or north.
+To the north a dimly-lit Motel car park can be seen and is surrounded by a wooden fence that you're facing to the east.
+> w
+> w
+You are by a lych-gate.
+You can go west, south or east.
+An old wooden gate that used to house coffins before they were laid to rest. A graveyard lies south while the road continues to the east and west.
+> w
+> w
+You are on a lane.
+You can go west, south or east.
+The dirt road continues to the east and west while to the south you spot a field. The dark trees blow gently in the breeze while an owl hoots in the distance.
+> s
+> s
+You are in a field.
+You can go north, southwest or east.
+A small grassy field with a single tree overshadowing you. A marsh lies to the east and the Abbey ruins to the southwest. A country lane lies to the north.
+> sw
+> sw
+You are in the Abbey ruins.
+You can go northeast or down.
+Old stones lie crumbling around you as the Abbey ruins silhouette the night sky.
+You can see an iron grating.
+> down
+> down
+You are by some stone steps.
+You can go up or south.
+The slippery steps lead down into a crypt.
+> s
+> s
+You are in a crypt.
+You can go north or east.
+An old dusty chamber with many skulls sitting in alcoves.
+> e
+> e
+You are in a cave.
+You can go south or west.
+A dark place.
+> s
+> s
+You are in a tunnel.
+You can go north, east or south.
+The tunnel leads off to various large chambers to the south and east.
+> s
+> s
+You are in a vaulted chamber.
+You can go north.
+A large chamber with a vaulted ceiling, four columns holding it up and an unusual giant bowl in its centre.
+You can see a giant bowl (containing the Eternal Flames).
+> use silk scarf with eternal flames
+> use silk scarf with eternal flames
+As you place the scarf into the flames there is a faint scream that echoes through the chamber. Your skin feels icy cold as a dark apparition appears in the chamber casting an eerie shadow against the walls. It turns into a humanoid shape.
+
+The Creeper steps foward looking in horror as his favourite weapon of choice starts to burn before his very eyes. He jumps into the flames trying to save the scarf but he is engulfed in the supernatural flames of hell...
+
+The last screams fade away to the pounding sound of your own heartbeat as you pause to catch your breath.
+> n
+> n
+You are in a tunnel.
+You can go north, east or south.
+The tunnel leads off to various large chambers to the south and east.
+> n
+> n
+You are in a cave.
+You can go south or west.
+A dark place.
+> w
+> w
+You are in a crypt.
+You can go north or east.
+An old dusty chamber with many skulls sitting in alcoves.
+> w
+> w
+You can't go there.
+> n
+> n
+You are by some stone steps.
+You can go up or south.
+The slippery steps lead down into a crypt.
+> up
+> up
+You are in the Abbey ruins.
+You can go northeast or down.
+Old stones lie crumbling around you as the Abbey ruins silhouette the night sky.
+You can see an iron grating.
+> ne
+> ne
+You are in a field.
+You can go north, southwest or east.
+A small grassy field with a single tree overshadowing you. A marsh lies to the east and the Abbey ruins to the southwest. A country lane lies to the north.
+> n
+> n
+You are on a lane.
+You can go west, south or east.
+The dirt road continues to the east and west while to the south you spot a field. The dark trees blow gently in the breeze while an owl hoots in the distance.
+> e
+> e
+You are by a lych-gate.
+You can go west, south or east.
+An old wooden gate that used to house coffins before they were laid to rest. A graveyard lies south while the road continues to the east and west.
+> e
+> e
+You are at the end of a lane.
+You can go west or north.
+To the north a dimly-lit Motel car park can be seen and is surrounded by a wooden fence that you're facing to the east.
+> climb fence
+> climb fence
+You scramble over the fence to the other side.
+You are in a wood.
+You can go east.
+A dark creepy wood with a way leading to the east. The wooden fence lies to the west.
+> e
+> e
+You are by a river bank.
+You can go west or south.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side while a small structure can be seen to the south.
+You can see a bridge.
+> cross bridge
+> cross bridge
+You cross the bridge to the other side.
+You are by a river bank.
+You can go northeast or southeast.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side.
+You can see a bridge.
+> ne
+> ne
+You are outside the Abbeymede Asylum.
+You can go southwest or in.
+The building is quite formidable with its barred windows and dull exterior. The stone steps lead up into the open doors of the Asylum.
+> in
+> in
+You are in an entrance hall.
+You can go out, south, down, up or north.
+This darkened hall has exits on the ground floor in many directions. A flight of stairs lead up and splits into two balconies facing each other. A sense of dread fills the air as the slightest noise makes you jump. What horrors had the residents of this place experienced makes you shudder?!
+> down
+> down
+You are in a corridor.
+You can go up, north, south or east.
+A dark featureless corridor with exits all around and steps leading back up to the hall. However, the north door is made of solid iron.
+You can see a cell door.
+> n
+> n
+You are in a padded cell.
+You can go south.
+A small cell with soft-padded dirty walls.
+
+The ghost of a young girl appears before you.
+> look
+> look
+You are in a padded cell.
+You can go south.
+A small cell with soft-padded dirty walls.
+You can see the ghost of Veronica Applegate.
+> drop locket
+> drop locket
+You drop it.
+> drop doll
+> drop doll
+You drop it.
+
+Veronica's tone changes as she sees both her doll and locket on the ground before her. As she reaches for them her hand passes right through the objects. Her frustration turns to anger and then to hatred towards you.
+
+As she screams the room begins to shake. Her powers in the afterlife have increased and the boiler across the way explodes. Fire spreads quickly and the basement is now ablaze.
+
+Dark smoke fills your lungs as you race upstairs, the echoes of Veronica's screams fade away as plaster falls around you from the walls and ceiling.
+
+You race outside and turn to see the Asylum light up the sky in a golden inferno. As you head towards the river the Asylum collapses in on itself. You trip over a root and bang your head. You fall unconscious...
+
+You wake up with a sore head not knowing how long you've been out cold. It's still night and in the direction of the Asylum is complete darkness.
+You are by a river bank.
+You can go northeast or southeast.
+A still, dark and deep river lies before you. A wooden bridge spans across it to the other side.
+You can see a bridge.
+> ne
+> ne
+You are by the Asylum ruins.
+You can go southwest.
+All that is left of the Ayslum is charred debris - an expanse of burnt remains and hopefully all ghosts laid to rest.
+> look under charred debris
+> look under charred debris
+You dig around the debris for a number of minutes and much to your surprise find Veronica's doll completely intact and free of any scorch marks or melting. Wait! This doll was in the basement. How did it get to the ground floor?
+> take doll
+> take doll
+You pick it up.
+> press doll
+> press doll
+As you press it the weak recorded girl's voice is stuck in a loop - 'I LOVE YOU, I LOVE YOU, I LOVE YOU...'
+
+You believe Veronica rests in peace now and this is the only thing left to show for it. Time to go home...
+Suddenly the dolls eyes turn red and an icy coldness comes over you!
+
+The dolls voice changes to a male one - deep and guttural. It utters 'I HATE YOU, I HATE YOU, I'M GONNA KILL YOU!'
+
+A laugh eminates from the doll. A laugh of pure evil. The laugh of...
+
+...the Creeper!!!
+The End?
+[state=Finished]

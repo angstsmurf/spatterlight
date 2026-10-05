@@ -1,0 +1,363 @@
+Mensagem da Frota:
+
+Parabéns pela sua promoção a Capitão de nave estelar, sr. Kilt. Parece que foi ontem que o senhor entrou na Academia, e agora já tem seu primeiro comando. E não é qualquer comando: a Navigator é a jóia da frota.
+
+Sua missão é de exploração, mas lembre-se que a Navigator é uma nave militar: você deve proteger a Terra a qualquer custo. Claro que, melhor que vencer uma guerra, é manter a paz. Não que eu espere que você precise se envolver em alguma ação militar. Estamos em paz há séculos e não há motivos para acreditar que isso vá mudar. E, afinal, quem atacaria uma nave poderosa como a Navigator?
+
+Você está no Hall de entrada.
+Você pode ver Stork e o Leitor de cartão.
+Você pode ir para o oeste, leste, noroeste, nordeste, sudeste ou sudoeste.
+> nordeste
+
+> nordeste
+
+Você está no Quarto do capitão.
+Você observa a Cama, a Mesa e a Cadeira.
+Você pode ir para sudoeste.
+> examinar mesa
+
+> examinar mesa
+Sua estação de trabalho no seu quarto. Qualquer dia você tem de arrumar essa bagunça.
+Contém: a Credencial e o Computador.
+> pegar credencial
+
+> pegar credencial
+Você pegou a sua credencial. Não a deixe por aí, pois ela dá acesso aos ambientes de segurança da Navigator.
+> sudoeste
+
+> sudoeste
+
+Você está no Hall de entrada.
+Você pode ver Stork e o Leitor de cartão.
+Você pode ir para o oeste, leste, noroeste, nordeste, sudeste ou sudoeste.
+> usar credencial com leitor de cartão
+
+> usar credencial com leitor de cartão
+Acesso liberado à Sala de Comando.
+> oeste
+
+> oeste
+
+Você está na Sala de Comando.
+Você pode ver Ulula, Suru, Mesa e Equipamento de Comunicação.
+Você pode ir para leste.
+A Sala de Comando da Navigator é de onde toda a nave se controla. Todos seus anos na Academia o prepararam para liderar a partir daqui.
+> usar equipamento de comunicação
+
+> usar equipamento de comunicação
+
+'Capitão Kitt falando.'
+
+'Olá, Capitão, aqui é o Marechal Deodoro da Tropa Estrelar. Gostaria de lhe desejar boa sorte na sua primeira missão espacial. Eu me vejo em você 20 anos atrás quand....'
+
+Subitamente um barulho ensurdecedor invade a sala. A Navigator treme e todos caem no chão. Luzes e equipamentos desligam e ligam sem parar.
+
+'Parece que fomos atacados, Capitão!' diz Ulula.
+
+'Capitão, o Reator Central da nave foi desativado por esse ataque. A Navigator está operando com energia reserva mas não vai durar muito tempo. Alguém precisa urgentemente ir até a Sala do Reator e ligá-lo novamente!' diz Suru.
+
+Você resolve cuidar pessoalmente do Reator. Afinal, se ele não for reativado, a nave estará condenada.
+
+*** Faltam 10 minutos para a energia reserva acabar. Religue o Reator! ***
+> leste
+
+> leste
+
+Você está no Hall de entrada.
+Você pode ver Stork e o Leitor de cartão.
+Você pode ir para o oeste, leste, noroeste, nordeste, sudeste ou sudoeste.
+> sudeste
+
+> sudeste
+
+Você está no Armazém.
+Você pode ver Armário.
+Você pode ir para noroeste.
+> abrir armário
+
+> abrir armário
+O Armário está aberto
+Ele contém Roupa antirradiação.
+> pegar roupa antirradiação
+
+> pegar roupa antirradiação
+Você está carregando a roupa antirradiação
+> vestir roupa antirradiação
+
+> vestir roupa antirradiação
+Você está vestindo a roupa de proteção contra radiação.
+> noroeste
+
+> noroeste
+
+Você está no Hall de entrada.
+Você pode ver Stork e o Leitor de cartão.
+Você pode ir para o oeste, leste, noroeste, nordeste, sudeste ou sudoeste.
+> leste
+
+> leste
+
+Você está no Departamento de Engenharia.
+Você observa Scolt, keypad, poster e Equipamento.
+Você pode ir para oeste ou leste.
+> usar keypad
+
+> usar keypad
+Por favor digite o código de acessar para a Sala do Reator.
+> 5667
+Código correto.Você pode entrar.
+> leste
+
+> leste
+
+Você está na Sala do Reator.
+Você observa Reator.
+Você pode ir para oeste.
+Você está protegido da alta radiação da sala e pode se mover pela Sala do Reator sem problemas.
+> ligar reator
+
+> ligar reator
+Você conseguiu! O Reator está funcionando novamente.
+De repente você escuta o alarme da Navigator tocando. É um alarme específico, que aprendeu na Academia mas jamais imaginou escutar fora de uma simulação: representa invasão alienígena nivel N5!
+
+Pelo Rádio, uma voz como a de alguém com cascalho na boca anuncia: 'Capitão Kilt, sabemos que você está em algum lugar da nave. Temos a sua tripulação como refém. Se entregue agora na Sala de Comando ou morra!'
+
+Poucos minutos atrás você estava se congratulando pelo seu primeiro comando. Como as coisas puderam se deteriorar assim tão rapidamente? O que fazer? Você teme que, se se entregar, estará entregando o jogo na mão dos invasores. Mas, se não o fizer, provavelmente irá para a História como um covarde.
+
+> oeste
+
+> oeste
+
+Você está no Departamento de Engenharia.
+Você observa keypad, poster e Equipamento.
+Você pode ir para oeste ou leste.
+> oeste
+
+> oeste
+
+Você está no Hall de entrada.
+Você pode ver o Leitor de cartão.
+Você pode ir para o oeste, leste, noroeste, nordeste, sudeste ou sudoeste.
+
+'Não encontro mais ninguém pela Nave. Onde está Stork? Onde está Scolt? Quem está nos ameaçando?', você pensa sozinho. Sem o apoio de sua tripulação, um Capitão é apenas um homem comum. Não, comum não: continua sendo responsável pela segurança de sua tripulação, de sua nave e da Terra. O pânico surge e ameaça lhe dominar: 'Será que estão todos mortos e estou sozinho? Esses invasores são uma ameaça à Terra? Meu primeiro comando não pode terminar em desgraça já no seu primeiro dia!'
+
+Sozinho ou não, com medo ou não, você continua sendo um Capitão da Frota. Você respira fundo, controla o início de pânico e procura por opções para agir.
+> noroeste
+
+> noroeste
+
+Você está no Quarto da tripulação.
+Você observa Stork.
+Você pode ir para o sudeste.
+> falar com stork
+
+> falar com stork
+'Capitão, ainda bem que o senhor está vivo' diz Stork. 'De alguma forma os invasores entraram na Navigator e capturaram a tripulação. Consegui escapar me escondendo neste quarto'.
+
+'Stork! Bom ver você! O que eles querem? Diga-me!'
+
+'Pelas minhas análises eles são de uma raça alien chamada Yogozu, muito perigosos. Acredito que estejam planejando invadir a Terra e nos matar. Tivemos o azar de estar na rota do exército deles. O senhor precisa impedi-los. As únicas opções parecem ser derrotá-los ou negociar uma solução pacífica.'
+
+'Como farei isso, Stork?' você pergunta.
+
+'Tome essa chave. Ela pode ser usada na Sala de Segurança. Lá pode haver itens úteis caso resolva contra-atacar os Yogozu.'
+
+'Obrigado, Stork'
+
+** Agora você possui uma chave no seu inventário **
+> sudeste
+
+> sudeste
+
+Você está no Hall de entrada.
+Você pode ver o Leitor de cartão.
+Você pode ir para o oeste, leste, noroeste, nordeste, sudeste ou sudoeste.
+
+'Não encontro mais ninguém pela Nave. Onde está Stork? Onde está Scolt? Quem está nos ameaçando?', você pensa sozinho. Sem o apoio de sua tripulação, um Capitão é apenas um homem comum. Não, comum não: continua sendo responsável pela segurança de sua tripulação, de sua nave e da Terra. O pânico surge e ameaça lhe dominar: 'Será que estão todos mortos e estou sozinho? Esses invasores são uma ameaça à Terra? Meu primeiro comando não pode terminar em desgraça já no seu primeiro dia!'
+
+Sozinho ou não, com medo ou não, você continua sendo um Capitão da Frota. Você respira fundo, controla o início de pânico e procura por opções para agir.
+> sudoeste
+
+> sudoeste
+
+Você está na Sala de Segurança.
+Você observa Armário.
+Você pode ir para nordeste.
+> destrancar armário
+
+> destrancar armário
+Armário aberto
+Você o abre.
+Este armário contém Comunicador Portátil, Arma de Laser e Arma de Plasma.
+> abrir armário
+
+> abrir armário
+O Armário já está aberto.
+> pegar arma de plasma
+
+> pegar arma de plasma
+Você o pega.
+> pegar comunicador portátil
+
+> pegar comunicador portátil
+Você o pega.
+> equip arma de plasma
+
+> equip arma de plasma
+Você está com a Arma de Plasma equipada. Você se sente muito mais seguro assim.
+> negociar comunicador portátil
+
+> negociar comunicador portátil
+'Aqui quem fala é o Capitão Kilt, comandante da Navigator. Gostaria de falar com o líder dos Yogozu.'
+
+'Pois bem, aqui é o líder dos Yogozu e, a partir de agora, seu líder também. Pode me chamar de Mister Vegeta.'
+
+'O que vocês querem e por que invadiram a minha nave?' você pergunta.'
+
+Olhe o tom, Capitão! Não se esqueça que tenho toda a sua tripulação em minhas mãos.'
+
+** A negociação começou! Continue negociando ou parta para o ataque! **
+
+1: Renda-se! Temos um comunicador automático com a Frota Estelar. Reforços chegarão a qualquer momento.
+2: Por que estão aqui? O que querem?
+3: Vamos fazer um acordo. Me diga o que posso fazer para você nos deixar em paz.
+4: Terminar conversa
+> 2
+'Por que estão aqui? O que querem?', Kilt retruca
+'Nada demais... queremos apenas utilizar a Terra como laboratório para nossos experimentos', responde ironicamente Mister Vegeta
+
+1: Renda-se! Temos um comunicador automático com a Frota Estelar. Reforços chegarão a qualquer momento.
+2: Por que estão aqui? O que querem?
+3: Vamos fazer um acordo. Me diga o que posso fazer para você nos deixar em paz.
+4: Terminar conversa
+> 3
+'Vamos fazer um acordo. Me diga o que posso fazer para você nos deixar em paz.'
+'Gosto da sua atitude! Liberaremos seus amigos assim que você nos fizer um favorzinho...'
+> negociar comunicador portátil
+
+> negociar comunicador portátil
+
+1: Experimentos? Que tipo de experimentos?
+2: Que absurdo! Nunca ajudaria vocês a conduzirem qualquer tipo de experimento com meus compatriotas!
+3: Não tenho muito tempo. Diga-me o que quer para acabarmos logo com isso.
+4: Terminar conversa.
+> 1
+'Experimentos? Que tipo de experimentos?' você pergunta.
+'Isso não te interessa no momento. Você saberá no momento certo.' responde Mister Vegeta
+
+1: Experimentos? Que tipo de experimentos?
+2: Que absurdo! Nunca ajudaria vocês a conduzirem qualquer tipo de experimento com meus compatriotas!
+3: Não tenho muito tempo. Diga-me o que quer para acabarmos logo com isso.
+4: Terminar conversa.
+> 3
+'Não tenho muito tempo. Diga-me o que quer para acabarmos logo com isso.'
+'Pois bem. Estamos com dificuldades em atravessar a camada invisível de proteção terrestre. Preciso que você atravesse-a para mim.'
+'Podemos contar com a sua ajuda?', insiste Mister Vegeta
+
+1: Sim.
+2: Nunca!
+> 1
+'Sim.'
+'Muito bem. Você já sabe a sua missão.'
+> nordeste
+
+> nordeste
+
+Você está no Hall de entrada.
+Você pode ver o Leitor de cartão.
+Você pode ir para o oeste, leste, noroeste, nordeste, sudeste ou sudoeste.
+
+'Não encontro mais ninguém pela Nave. Onde está Stork? Onde está Scolt? Quem está nos ameaçando?', você pensa sozinho. Sem o apoio de sua tripulação, um Capitão é apenas um homem comum. Não, comum não: continua sendo responsável pela segurança de sua tripulação, de sua nave e da Terra. O pânico surge e ameaça lhe dominar: 'Será que estão todos mortos e estou sozinho? Esses invasores são uma ameaça à Terra? Meu primeiro comando não pode terminar em desgraça já no seu primeiro dia!'
+
+Sozinho ou não, com medo ou não, você continua sendo um Capitão da Frota. Você respira fundo, controla o início de pânico e procura por opções para agir.
+> leste
+
+> leste
+
+Você está no Departamento de Engenharia.
+Você observa keypad, poster e Equipamento.
+Você pode ir para oeste ou leste.
+> usar keypad
+
+> usar keypad
+Por favor digite o código de acessar para a Sala do Reator.
+> 5667
+Código correto.Você pode entrar.
+> leste
+
+> leste
+
+Você está na Sala do Reator.
+Você observa Reator.
+Você pode ir para oeste.
+Você está protegido da alta radiação da sala e pode se mover pela Sala do Reator sem problemas.
+> desligar reator
+
+> desligar reator
+O Reator está desligando. Cuidado! Isso pode afetar o funcionamento da Navigator.
+'Olá, Capitão. Aqui é o Mister Vegeta novamente. Acho que podemos continuar com as negociações.'
+> negociar comunicador portátil
+
+> negociar comunicador portátil
+
+1: Diga-me, o que gostaria de negociar?
+2: Agora é tarde demais!
+3: Somente se você aceitar minhas condições.
+> 1
+'Diga-me, o que gostaria de negociar?'
+'Errr, eu percebi que você desligou o reator. Não teria como ligá-lo novamente?'
+'Não! Saia ou todos explodimos!'
+'E se fizermos uma troca? Venha até aqui e lhe conto o experimento. Não esqueça de religar o reator, é claro.'
+> oeste
+
+> oeste
+
+Você está no Departamento de Engenharia.
+Você observa keypad, poster e Equipamento.
+Você pode ir para oeste ou leste.
+> oeste
+
+> oeste
+
+Você está no Hall de entrada.
+Você pode ver o Leitor de cartão.
+Você pode ir para o oeste, leste, noroeste, nordeste, sudeste ou sudoeste.
+
+'Não encontro mais ninguém pela Nave. Onde está Stork? Onde está Scolt? Quem está nos ameaçando?', você pensa sozinho. Sem o apoio de sua tripulação, um Capitão é apenas um homem comum. Não, comum não: continua sendo responsável pela segurança de sua tripulação, de sua nave e da Terra. O pânico surge e ameaça lhe dominar: 'Será que estão todos mortos e estou sozinho? Esses invasores são uma ameaça à Terra? Meu primeiro comando não pode terminar em desgraça já no seu primeiro dia!'
+
+Sozinho ou não, com medo ou não, você continua sendo um Capitão da Frota. Você respira fundo, controla o início de pânico e procura por opções para agir.
+> usar credencial com leitor de cartão
+
+> usar credencial com leitor de cartão
+Acesso liberado à Sala de Comando.
+> oeste
+
+> oeste
+
+Você está na Sala de Comando.
+Você pode ver Ulula, Suru, Mesa, Equipamento de Comunicação, Scolt, Monstro CYZ, Monstro CWD e Mister Vegeta.
+Você pode ir para leste.
+A Sala de Comando da Navigator é de onde toda a nave se controla. Todos seus anos na Academia o prepararam para liderar a partir daqui.
+> falar com mister vegeta
+
+> falar com mister vegeta
+Mister Vegeta levanta seus braços. Mais um ataque? Não: ele fala uma única palavra, que você não tem certeza de ter entendido corretamente: 'Paz.'
+
+Gradativamente, uma expressão inefável de serenidade em seu rosto vai passando a convicção de que realmente não há violência nenhuma ocorrendo, de que se alguma ocorreu não é importante.
+
+'Paz', repete Mister Vegeta. Você deve ter uma expressão apalermada no rosto, pois ele ri. Mas não parece ser um riso de deboche, e sim de alívio -- embora você não tenha certeza de conseguir interpretar as expressões de um povo tão alienígena.
+
+'A Terra está segura. Devolveremos sua nave ao seu controle. Sou grato.' Você entende cada vez menos.
+
+'Sinto muito pela violência, Capitão. Sei que deve ser difícil acreditar, mas somos um povo pacífico. E é por isso que temos acompanhado com trepidação a evolução da raça humana. Sua História está coalhada de eventos preocupantes: guerras para dominar e explorar outros povos. Na verdade, para nós o próprio conceito de ''outros povos'' é difícil de compreender, pois para nós vocês são um só povo. Quando soubemos do lançamento de várias missões como a sua, supostamente de exploração mas em poderosas naves militares, ficamos preocupados. Será que suas guerras estavam indo até nós? O consenso entre nossos sábios era de que sua espécie deveria ser extirpada, como um câncer da galáxia.'
+
+Sua perplexidade começa a ser substituída pela tensão. Será que a Terra está para ser destruída? Mas Mister Vegeta, como que sentindo sua preocupação, novamente levanta a mão em sinal de paz.
+
+'Eu sou seu amigo. Na verdade, eu e você somos os únicos amigos da Terra no momento. Explico: quando soube da decisão de destruir a Terra, lembrei nossos sábios de que todos deviam ter uma chance. Não quiseram me ouvir, dizendo que sua História mostrava uma sucessão de chances de paz desperdiçadas ao longo de séculos. Argumentei que todas nossas observações tinham sido feitas de longe, oportunisticamente e sem contato direto. Implorei que me permitissem realizar um experimento controlado. É isto que a invasão da sua nave foi: um teste controlado da capacidade de sua espécie para resolver diferenças pacificamente.'
+
+Você não está convencido. 'Você vem me dizer que meu povo é violento? Mas foram vocês que nos atacaram! Vocês cometeram violência não provocada contra nós.'
+
+'Sim, Capitão, e por isso me desculpo. Mas foi a única maneira que me permitiram testar a sua capacidade de não-violência. É fácil não ser violento em momentos de conforto; é quando aparecem os instintos mais básicos, como o medo, que nosso caráter é posto à prova. Parabéns, Capitão! Sua capacidade de resolver conflitos através da não-violência foi comprovada irrefutavelmente. Se vocês tivessem tentado destruir nossa pequena força invasora -- mesmo que tivessem conseguido -- sua espécie estaria condenada. Uma frota infinitamente mais poderosa que a sua está pronta para ser lançada e destruir a Terra. Ou melhor, estava. Enquanto conversamos, estou comunicando aos sábios que vocês passaram no teste.'
+
+Mister Vegeta abre os braços. 'Parabéns, Capitão Kilt. O senhor salvou a Humanidade da extinção.'
+[state=Finished]

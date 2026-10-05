@@ -1,0 +1,28 @@
+You snap awake in a dark and deserted area. As you blink your surroundings become clearer. The ground around you is dimly lit by pale moonlight, a soft red hue against blue rock. You have just crash landed on the planet NX-1548 and are in danger. Behind you is the escape pod you jettisoned from as your ship crash landed. You were under attack! It is imperative that you navigate back to your ship as quick as you can.
+You are in a Crash Site.
+You can see an Escape Pod.
+You can go north, east or west.
+> west
+
+> west
+
+You are in an Arena.
+You can see a Beam Rifle.
+You can go east or north.
+In front of you is an ancient arena. You enter it and inside is a pedestal lit up by a single beam of light let it from the outside. There sits a weapon of some kind.
+> take weapon
+
+> take weapon
+I can't see that.
+> north
+
+> north
+
+You are attacked by a a Giant Alien.
+You can go south.
+
+You must respond quickly. What do you use against the charging monster?
+> weapon
+You use the beam rifle and make it out! YOU HAVE WON!
+
+[state=Finished]

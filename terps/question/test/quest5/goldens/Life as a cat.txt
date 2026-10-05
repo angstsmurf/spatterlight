@@ -1,0 +1,113 @@
+You are in a trashcan.
+You can see a your self.
+You can go out.
+
+Hello, you are a new adult cat. Your mother has freed you from her licking your self clean. In this game, you have to make choices as a new adult cat. You are also an amazing cat that can READ! (don't ask why you where in this trash can)
+
+Your head sort of hurts too
+
+Well, why are you still here in this smelly trash can! You can get out now you know~
+
+> out
+
+> out
+
+You are in a street.
+You can go north or south.
+
+Oh what a crowded place in here, you thought, mother always say to not go close to the streets when you were only a kitten... Well she has a reason why, so many tall moving things with really long paws use for walking, and big colored things with wheels moving around too. without her guidance, you would've not been walking on your paws right now.
+
+Well, in these streets, all cats need territories, luckily for you, there are two empty alleys, or territories what the cool cats say~
+
+Flower shop alley (north)
+Jewelry shop alley(south)
+
+> n
+
+> n
+
+You are in a FLOWER SHOP ALLEY.
+You can go east or north.
+
+Aha! You have chosen the flower shop as your new territory, unfortionatily, if you change your mind about your territory, you can't change it anymore, your brother took the other alley. (he needs a home too!)
+
+"Oh what a nice place this is, I can smell fresh flowers everyday" You said as you lay down on a soft worn up blanket (What kind of tall walking things with long paws throw this away in the trash like garbage!)
+
+In a few hours, you where still relaxing, you heard a cry for help, you were going go east to help this cat, but then you remembered a few days ago your siblings always prank you by pretending to call help, then when you try  to help them, one sibling pours a bucket of water on your fur. Water is horrible. Sometime being the runt of the litter is not that purfect for a life as a kitten.
+
+And yet your are still very suspicious, you do want to go north to your box and nap.. But you have to make a choice (I'm not you of course)
+
+> e
+
+> e
+
+You are in a go to help.
+You can go up.
+
+Luckily for you it was an emergency! You saw a big dog bullying a black cat, so you attacked the dog with your sharp claws (your mother always say to file your claws, but you never listen. You always want to have long claws that no one in the world has, you call it a "World Record" that is the new word you invented)
+
+you can up to the black cat and talk to it~
+
+> up
+
+> up
+
+You are in a black cat.
+You can go north or west.
+
+"Are you ok?" you asked the black cat.
+"I'm ok.. Sorry for the trouble, I am just a homeless cat walking on the street, then the bully came and attacked me" The black cat said. It's paw seems injured
+
+Tell the black cat to stay to your territory and go north with the cat to get medicine for it's paw.
+
+Or tell the cat that you are glad, then tell the cat to go north, and then go back to your territory without the cat, which is west.
+> n
+
+> n
+
+You are in a let the black cat stay.
+You can go up.
+
+"Oh thank you!" The black cat said with joy. After that you two have been friends, Oh what a happy life you have~ but then a few weeks, you tried to have you time, but your little friend always want "us" time, so peace and quiet can be tricky.
+
+Go up to continue
+> up
+
+> up
+
+You are in a the creature.
+You can go out or north.
+
+While you were on your box, your friend was hunting mice and you where all alone, then suddenly,  long thing with big paws use for walking was infront of the opening of your box, and made that weird noices "human human human human human human?" the weird creature said. You were very confuse what it was saying, it has really long black fur on it's top. Then suddenly the creature carried you from it's other really long paws (but not use for walking) GASP! I think it is gonna take you away!
+
+knock knock, who's there? MORE CHOICES:
+
+Go out of the creature's long paws and stay with your friend (FRIENDSHIP ALWAYS WINS you thought)
+
+Or go north and stay were the creature is gonna take you to (how can a little cat like you get away from a huge creature like THAT)
+> out
+
+> out
+
+You are in a FRIENDSHIP DOES WINS.
+You can see paper.
+
+Lucky you, you got away from the weird creature. You jumped out of it's long paws, the creature had that dispointed look on it's face, then it walked away. Oh victory.
+
+While the creature with long paws was away, your friend got back from hunting, "I got two mice for both of us!" The black cat said.
+After you ate with the cat, you told everything to your friend what happen to you. The cat was very proud of you chosing your friend, and that made you this warm, happy, feeling.
+
+One year later you had little kittens with the black cat, you two have been friends for so long you two um.. ahem, had a little thing together.
+You took take of them with the black cat, there were two black kittens, but only one orange kitten, you thought all of them the rules you where thought when you where young, but the orange kitten was always the different one, it never listens, you kinda of remind the kitten like you when you where a kitten.
+
+Months pass and all of the kittens were adults now. "They grow up so fast" you thought.
+
+The your only orange cat was playing around on the trashcans "You are an adult now, why are you still acting playful?" you thought while smilling, then BAM the orange cat went in a trashcan, it sounded painful
+
+oh look you found a piece of paper with words on it
+
+> look at paper
+
+> look at paper
+Hello! you have reach an ending, oh how fun it is being a parent. You can play again to get the other endings
+[state=Finished]

@@ -1,0 +1,122 @@
+Und wieder ein typischer Fall von Amnesie
+Eine interaktive Selbstfindung von Simon Deimel
+
+Das ist doch zum Mäusemelken. Es hätte ein so schöner Tag werden können, aber leider erwachst du in einem Kerkerraum mit steinernen Wänden, und natürlich kannst du dich beim besten Willen nicht daran erinnern, wie du hier gelandet bist. Hat dich die königliche Garde hier eingesperrt, weil du wieder einmal nach exzessivem Genuß von Met ungebührliches Verhalten an den Tag gelegt hast? Nun denn, dann wollen wir doch mal unseren Ausbruch planen und dabei noch rausfinden, was passiert ist und warum wir unter dieser klischeehaften Amnesie leiden.
+
+Dieses ist eine etwas erweiterte und veränderte Version eines früheren Titels von Simon Deimel. Sie verzichtet auf einen Parser und ist mit der Maus navigierbar.
+
+Du bist hier: Kerker.
+Du siehst: eine Wolldecke, einen Knochenhaufen und eine Holztür.
+Mögliche Ausgänge: nach Osten.
+Du bist in einem Kerkerraum mit steinernen Wänden. Im Osten siehst du eine Tür aus massivem Holz mit gußeisernen Beschlägen.
+Wie bist du nur in dieser Situation gelandet? Da muß schon etwas vorgefallen sein. Es ist ziemlich schattig hier -- irgendwoher kommt ein schwacher Lichtschein, so daß du zumindest genug sehen kannst, um dich zurechtzufinden.
+> untersuche Wolldecke
+
+> untersuche Wolldecke
+Eine schmutzige Wolldecke. Sie ist wohl das einzige, was man dir als Nachtlager zugedacht hat.
+Offenbar liegt etwas darunter. Du könntest sie mal anheben.
+> nimm Wolldecke
+
+> nimm Wolldecke
+Du willst diese gammelige Wolldecke nicht mit dir tragen, aber du hebst sie hoch und entdeckst einen Hammer darunter.
+> nimm Hammer
+
+> nimm Hammer
+Du nimmst ihn an dich.
+> untersuche Knochenhaufen
+
+> untersuche Knochenhaufen
+Das ist ein Haufen von Knochen, die offenbar menschlichen Ursprungs sind. Du bist in der Anatomie nicht sonderlich bewandert, aber kannst ein Schlüsselbein identifizieren.
+> untersuche Holztür
+
+> untersuche Holztür
+Eine Holztür mit Eisenbeschlägen. Sie sieht stabil aus.
+Da ist sogar ein Schlüsselloch.
+> benutze Hammer
+
+> benutze Hammer
+Was willst du denn mit dem Hammer bearbeiten?
+1: Wolldecke
+2: Knochenhaufen
+3: Schlüsselbein
+4: Holztür
+5: Schlüsselloch
+> 3
+Du schlägst mit dem Hammer auf das Schlüsselbein und es zerbricht in zwei Teile, in einen Schlüssel und ein Bein.
+> nimm Schlüssel
+
+> nimm Schlüssel
+Du nimmst ihn an dich.
+> benutze Schlüssel
+
+> benutze Schlüssel
+Du willst den Schlüssel benutzen, aber womit?
+1: Hammer
+2: Wolldecke
+3: Knochenhaufen
+4: Bein
+5: Holztür
+6: Schlüsselloch
+> 6
+Genial, der Schlüssel paßt. Du öffnest die Tür.
+> Osten
+
+> Osten
+
+Du bist hier: Steintreppe, unten.
+Mögliche Ausgänge: nach Westen oder hoch.
+Du stehst in einem Gang am Fuße einer Treppe, die nach oben führt.
+Nachdem du aus dem Kerker entkommen bist, wäre dir sehr danach, das Gebäude zu verlassen. Ein Dach über dem Kopf hat zwar etwas für sich, aber angesichts des kargen Raumes, in dem du dich befunden hast, läßt die Gastfreundschaft hier doch sehr zu wünschen übrig.
+> hoch
+
+> hoch
+
+Du bist hier: Steintreppe, oben.
+Du siehst ein vergittertes Fenster.
+Mögliche Ausgänge: runter oder nach Osten.
+Du befindest dich am oberen Treppenabsatz in einem Gang mit steinernen Wänden.
+Du siehst ein vergittertes Fenster, aber draußen ist alles dunkel. Der Gang führt in östliche Richtung weiter und da scheint etwas zu sein... du bemerkst eine entfernte Bewegung.
+> untersuche vergittertes Fenster
+
+> untersuche vergittertes Fenster
+Du trittst an die kleine Fensteröfffnung heran. Sie ist vergittert und du kannst nicht hinaus.
+Es ist Nacht, keine Sterne sind zu sehen... offenbar ist es zu bewölkt.
+Während du dort ins Freie siehst, bewegen sich die Wolken. Der Vollmond wird sichtbar und sein Licht trifft dich.
+Und da passiert es: die Transformation. Es ist nicht gerade ein angenehmes Gefühl für dich, wie sich langsam dein Körper verändert... die Form deines Kopfes verlängert sich, deine Wirbelsäule verformt sich und zwingt dich auf die Knie...
+In den letzten bewußten Momenten wird dir klar, warum man dich eingesperrt hat: du bist zum Werwolf mutiert.
+Na ja, jetzt ist sowieso alles egal: du kannst nun zum Tier werden und fliehen.
+> Osten
+
+> Osten
+
+Du bist hier: Gang, Ende.
+Du siehst einen Wächter und eine massive Tür.
+Mögliche Ausgänge: nach Westen oder nach Osten.
+Du bist am Ende eines Ganges. Er endet an einer weiteren massiven Holztür.
+Da steht ein Wächter vor der Tür. Du weißt nicht genau, was du von ihm halten sollst; in deinem jetzigen Zustand kannst du nicht viel Empathie aufbringen. Aber wenigstens greift er dich mit seiner Hellebarde nicht an.
+> beseitige Wächter
+
+> beseitige Wächter
+Mit deinen neu entdeckten Kräften fällt es dir leicht, den Wächter zu beeindrucken. Noch bevor er um Gnade winseln kann, hast du ihn schon fertig gemacht.
+> zerstöre massive Tür
+
+> zerstöre massive Tür
+Mit deinen neuen Kräften schlägst du gegen die Tür und sie entscheidet sich schnell, keinen Widerstand zu leisten. Der Weg ins Freie steht nun offen.
+> Osten
+
+> Osten
+
+Du bist hier: Unter freiem Himmel.
+Mögliche Ausgänge: nach Westen oder nach Osten.
+Du bist außerhalb des Gefängnisses. Die Nacht ist still.
+Der Mond ist wieder von Wolken verdeckt, aber deine Umwandlung ist vollkommen für diese Nacht, also hat der kurze Moment, in dem der Lichtschein dich getroffen hat, offenbar genügt. Nun bist du frei.
+> Osten
+
+> Osten
+
+Du bist hier: Im Wald.
+Als Werwolf ziehst du weiter und versteckst dich vorerst in den umliegenden Wäldern. Denn es wäre wohl riskant, dich unter Menschen zu wagen. Dennoch wirst du wohl nicht ewig alleine bleiben. Du bist dir sicher, daß du Gesellschaft findest, sobald du ein paar Menschen zu deinesgleichen gemacht hast. Wer weiß, was alles passieren kann!
+Aber vermutlich wirst du am Morgen erwachen und dich an nichts mehr erinnern. Dennoch: der nächste Vollmond kommt bestimmt. Und dann kannst du wieder loslegen.
+
+Du hast es geschafft, zu entkommen. Gratulation!
+[state=Finished]

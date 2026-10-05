@@ -1,0 +1,187 @@
+You wake from an uneasy slumber. You find yourself in a forest that you have never seen before. How did you get here?
+You are on a Path.
+You can see a Tree.
+You can go southeast, up, north, west or south.
+You are on a path in a dark pine forest. The path continues north and south. To the west you see a stone obelisk deeper into the forest. Through the woods you can make out a shed to the southeast.
+> use knife with tree
+> use knife with tree
+You cut a large swath of bark off of the tree. It's smooth on the inside.
+> n
+> n
+You are in a Glade.
+You can see a Rope and a Camp.
+You can go south or north.
+You enter a clearing in the forest. A small pond glistens in the sun. A path stretches southward.
+It seems as though someone has been here before. You can see signs of a camp site up to the north.
+> take rope
+> take rope
+Rope is always useful!
+> n
+> n
+You are in a Camp.
+You can see a Tent Stake and a Charcoal.
+You can go south or east.
+The ground has been packed down here, you can tell someone set up a tent here. There's a fire pit near to the tent site. To the east you can just see a small object through the foliage.
+> take charcoal
+> take charcoal
+You take the charcoal.
+> use charcoal with bark
+> use charcoal with bark
+You write a note on the bark.
+> e
+> e
+You at a small box.
+You can see a Small Box (containing a Scythe) and a Tree Man.
+You can go west.
+You come across a small box in the woods. It has a glass panel, so you can see that there is a scythe inside.  You also notice a man sitting in a tree fiddling with what looks like a key.
+> use bark sign with tree man
+> use bark sign with tree man
+You write a sign asking for the key from the Tree Man. You throw a stone at him and display the sign. He climbs down the tree, hugs you and hands you the key. He then runs off into the woods without a word.
+> open small box
+> open small box
+You fit the key into the lock and throw open the top.
+Eureka!
+> take scythe
+> take scythe
+Harvest time!
+> w
+> w
+You are in a Camp.
+You can see a Tent Stake.
+You can go south or east.
+The ground has been packed down here, you can tell someone set up a tent here. There's a fire pit near to the tent site. To the east you can just see a small object through the foliage.
+> s
+> s
+You are in a Glade.
+You can see a Camp.
+You can go south or north.
+You enter a clearing in the forest. A small pond glistens in the sun. A path stretches southward.
+It seems as though someone has been here before. You can see signs of a camp site up to the north.
+> s
+> s
+You are on a Path.
+You can see a Tree.
+You can go southeast, up, north, west or south.
+You are on a path in a dark pine forest. The path continues north and south. To the west you see a stone obelisk deeper into the forest. Through the woods you can make out a shed to the southeast.
+> se
+> se
+You are outside a Shed.
+You can see a Sly Man.
+You can go west, in or northwest.
+You see a small shed in front of you.
+A sly man is guarding the door to the shed.
+> give scythe to sly man
+> give scythe to sly man
+You hand the Sly Man his scythe and he takes it. He thanks you and walks off to harvest his fields.
+> in
+> in
+You are in a Shed Room.
+You can see a Hook.
+You can go out.
+The room is sparsely furnished. It has a table, chair and bed in one corner. Hanging on the wall is a hook.
+> take hook
+> take hook
+You got hook!
+> use rope with hook
+> use rope with hook
+You tie the rope to the hook and create a grapple hook!
+> out
+> out
+You are outside a Shed.
+You can go west, in or northwest.
+You see a small shed in front of you.
+> w
+> w
+You are by a Large Tree.
+You can see a Large Tree and a Rope Ladder.
+You can go north, east or up.
+You come to a large tree. It is much taller then the other trees around. Like all of the other trees it has had its lower branches chopped off.
+> use grapple hook with rope ladder
+> use grapple hook with rope ladder
+You throw the grapple hook up and it catches on the rope ladder. You pull down the rope ladder.
+> up
+> up
+You are in a Canopy.
+You can see a Tin.
+You can go down.
+You climb to the upper branches and make your way north wards through the branches. You are now perched over the place that you woke up at.
+> take tin
+> take tin
+A mysterious tin container.
+> open tin
+> open tin
+Well look at this.
+It contains a Note.
+> take note
+> take note
+I'm glad it didn't fly away.
+> down
+> down
+You are by a Large Tree.
+You can see a Large Tree and a Rope Ladder.
+You can go north, east or up.
+You come to a large tree. It is much taller then the other trees around. Like all of the other trees it has had its lower branches chopped off.
+> n
+> n
+You are on a Path.
+You can see a Tree.
+You can go southeast, up, north, west or south.
+You are on a path in a dark pine forest. The path continues north and south. To the west you see a stone obelisk deeper into the forest. Through the woods you can make out a shed to the southeast.
+> w
+> w
+You are at a a Stone Obelisk.
+You can see a Obelisk.
+You can go east, west or in.
+You stand just in sight of the path before a large stone obelisk. There are strange markings down all sides of it. You can see out into the forest to the west. Without some directions, you would surly become lost if you went that way.
+> w
+> w
+You are in a Forest.
+You can go east or west.
+> w
+> w
+You are the a woods.
+You can go east, north, northwest, south, northeast, southwest, west or southeast.
+Your wandering through the forest. Which way to go?
+> w
+> w
+You are in a woods.
+You can go south, northeast, west, southeast, east, northwest, north or southwest.
+> s
+> s
+You are in a Hidden Shrine.
+You can see a Pedestal and a Small Chest.
+You can go east.
+You wander into a hidden glade. Inside is a pedestal that looks very old and important. There's a path leading to the east. There is a small wooden chest atop the pedestal.
+> open small chest
+> open small chest
+You open the small chest.
+It contains a Stone Key.
+> take stone key
+> take stone key
+You pick up a small stone key.
+> e
+> e
+You are in a Forest.
+You can go east or west.
+> e
+> e
+You are at a a Stone Obelisk.
+You can see a Obelisk.
+You can go east, west or in.
+You stand just in sight of the path before a large stone obelisk. There are strange markings down all sides of it. You can see out into the forest to the west. Without some directions, you would surly become lost if you went that way.
+> use stone key with obelisk
+> use stone key with obelisk
+You put the key into the keyhole. You turn the key and the entire eastern side of the obelisk opens. Inside is a stairway downwards.
+> in
+> in
+You are in a End Page.
+You can see a Cake.
+You can go north.
+You descend into the dark stairway. What could lie at the end?
+
+Good job! You completed the game. Good for you. There will be more later! Here, have a cake.
+> n
+> n
+You are in a The End.
+You can go south.
+[state=Finished]

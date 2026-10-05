@@ -1,0 +1,61 @@
+ You wake up inside of an escape pod.
+According to the internal display in front of you, it has crash landed two hours ago. You notice that you’re wearing a specialized pressure suit, which is connected to the escape pod by a bundle of tubes that go from the back of your helmet into the low ceiling of the pod. As you look around, two blinking buttons catch your attention. You can either push the blinking blue button below the internal display, or can try going to the front end of the escape pod to push the green button to the right of the air tight door.
+You can go to the front of the escape pod.
+> press blue button
+
+> press blue button
+As you push the blue button, the screen flickers, replacing the stream of data with a briefing “As one of the brave pilgrims from planet earth, and you arrived here in the state of the art “Pilgrim XII” pilgrim carrier. You mission is to colonize this world. [PLANET DETECTED – SR722 – EARTH 7] Unfortunately your fellow pilgrims have crash landed a long ways away. [CLOSEST POD DETECTED – 2 MILES SOUTHEAST] To accomplish your goal, you need to reach the Colony Setup Kit™ [COLONY SETUP KIT™ DETECTED – 8 miles SOUTH SOUTHEAST] before anything happens to it, and set it up in time for dinner, as mentioned in the “Setup Kit for Dummies” manual provided. Doesn't a dinner sound good? Godspeed, pilgrim!”
+> unplug tubes
+
+> unplug tubes
+The broken connection emits a quick release of pressurized gas, and causes your arm scanner to beep. As you lift your arm – it reads “OXYGEN – 100% POWER – 100%”
+> go to the front of the escape pod
+
+> go to the front of the escape pod
+
+You are in the front end of the escape pod.
+you get out of your seat and move up to the door. There is a green blinking button to the right side of the door.
+You can go outside of the pod.
+> press green blinking button
+
+> press green blinking button
+You press the green button, and hear the deafening sound of air escaping the cabin. The door seal loosens up, and the button stops blinking.
+> go to outside of the pod
+
+> go to outside of the pod
+
+You are outside the pod.
+You’re standing in a small crater outside the pod. The nature of SR 722 is unlike anything you’ve ever seen before. The plants are bright red, and instead of leaves all sport small red spheres attached to brown-red branches. The sky is illuminated by the rare wonder of binary star systems – the two suns. Accompanying them are 722’s three moons – all different in size. To the North and the East there are tall mountains, which are impossible to climb with your bulky space gear. To the south and the east is a thick, but at a first glance easily passable forest.
+You can go east or south.
+As you walk a few steps away from the pod, the door shuts behind you and the seal repressurizes. There is no way back in.
+> south
+
+> south
+
+You are in a forestS.
+You can go back to the crash site.
+You walk into the forest from the south. To your east there is thick red brush with something shiny up in the branches of the closest tree, to the west are the mountains and south are the strangest trees you’ve ever seen. It almost seems like they’re made out of grey stone, forming an enormous, impassable stone web out of their branches.
+the brush to the east is not allowing you passage to what seems like some kind of a swamp behind it.
+> shake tree
+
+> shake tree
+You shake the tree and something lands on the ground. Against all the odds, it’s the Blue Laser Cutter! It must have fallen out of the crashing Pilgrim XII.
+> take blue laser cutter
+
+> take blue laser cutter
+you pick up the blue cutter, and it automatically connects to your suit's power source through the glove connectors. (to use, select the cutter from your inventory on the right, and press the use button!)
+> use blue laser cutter
+
+> use blue laser cutter
+You cut through the red brush with the cutter, clearing a passage to the east!
+> east
+
+> east
+
+You are in a swamp.
+You easily step over the remains of the once thick red brush, and find yourself on the edge of a disgusting, deep purple colored swamp. From here on, young adventurer, you will valiantly find a passage to an alien lair, pass through the many dangerous rooms, find the crashed remains of  the once "state of the art" Pilgrim XII, meet your team mates, and hopefuly make it to the Colony Setup Kit (tm) in time for dinner! So what are you waiting for? carry on to victory!
+You can go west.
+> carry on to victory
+
+> carry on to victory
+[state=Finished]

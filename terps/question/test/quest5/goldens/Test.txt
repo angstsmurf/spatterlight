@@ -1,0 +1,223 @@
+I wake up on this not so fine saterday morning and realized there was absolutely nothing planned.  With any luck that weird dream I had just now will not be the most eventful part of the day.  The bed's springs calmly squeal under my weight as I get out of bed.
+
+I am in a Bedroom.
+I can go west or east.
+I can see a bed, an old wooden door, an east window, a chest of drawers, a south window and an under the bed.
+Behold my bedroom! A symbol of solitude.
+> x chest of drawers
+> x chest of drawers
+Wait a minute. . . where's the chest of drawers?  It was there yesterday and I can see the SCUFF MARKS where my drawers were but it is not here! Fortunately these clothes are not noticeably dirty.
+> open old wooden door
+> open old wooden door
+One door opens, letting in a draft.
+> w
+> w
+I am in a hall.
+I can go east, south or north.
+I can see a Door to the Master Bedroom.
+A hallway in the way that it suits all the needs of a coridoor; a five foot by fifteen enlongated room turning one door north of me into three entrances of all the other rooms of the house except the kitchen. These four doors are the proverbial stargates of this structure called a home.
+
+The door I came through in the east leads to my point of origin; my bedroom.
+
+The door down south at the end of this subspace passage goes to the bathroom. The virtually literal spiral downward of all things gone south. Especially, I notice, when I eat shrimp.
+
+On over westside of this rectaigular personnel tranferer is door simular to my own. It leads to the Master Bedroom, making it the evil essence of tyranny. I can not go that way until I have the key, or I will die trying!
+Where is that no good crook!
+> s
+> s
+I am in a Bathroom.
+I can go north.
+I can see a toilet, a bathtub, a counter (on which there is a liquid hand soap and a towel), a sink, a window, a cabinet and a bathroom door (with a a deadbolt).
+Nondescript bathroom. Although do note that there is only one window here and it is very small and is, quite fortunately, opaque.
+> open cabinet
+> open cabinet
+You open it.
+I've openned it up for a preliminary search and see there is inside a drain cleaner.
+> eat drain cleaner
+> eat drain cleaner
+If you say so. . .
+> eat drain cleaner
+> eat drain cleaner
+If you say so. . .
+> eat drain cleaner
+> eat drain cleaner
+If you say so. . .
+I am in a Bedroom.
+I can go west or east.
+I can see a bed, an old wooden door, an east window, a scuff marks, a south window and an under the bed.
+Behold my bedroom! A symbol of solitude.
+> i
+> i
+You are carrying a KEY.
+> w
+> w
+I am in a hall.
+I can go east, south or north.
+I can see a Door to the Master Bedroom.
+A hallway in the way that it suits all the needs of a coridoor; a five foot by fifteen enlongated room turning one door north of me into three entrances of all the other rooms of the house except the kitchen. These four doors are the proverbial stargates of this structure called a home.
+
+The door I came through in the east leads to my point of origin; my bedroom.
+
+The door down south at the end of this subspace passage goes to the bathroom. The virtually literal spiral downward of all things gone south. Especially, I notice, when I eat shrimp.
+
+On over westside of this rectaigular personnel tranferer is door simular to my own. It leads to the Master Bedroom, making it the evil essence of tyranny. I can not go that way until I have the key, or I will die trying!
+> s
+> s
+I am in a Bathroom.
+I can go north.
+I can see a toilet, a bathtub, a counter (on which there is a liquid hand soap and a towel), a sink, a window, a cabinet (containing a drain cleaner) and a bathroom door (with a a deadbolt).
+Nondescript bathroom. Although do note that there is only one window here and it is very small and is, quite fortunately, opaque.
+> close door
+> close door
+You close it.
+> x bathroom door
+> x bathroom door
+Nothing out of the ordinary.
+> turn deadbolt
+> turn deadbolt
+Sector secured.
+> use toilet
+> use toilet
+Ah, relief.
+Washing is good to.
+> take liquid hand soap
+> take liquid hand soap
+My hands are now covered in soap.
+Error running script: No parameters passed to AddToInventory function - expected 1 parameters
+> use contaminated hands with liquid hand soap
+> use contaminated hands with liquid hand soap
+My hands are currently lathed in soap.
+> use soapy hands with sink
+> use soapy hands with sink
+Ah, sanitation. . . It means clean, you unearthly swine!
+> use wet hands with towel
+> use wet hands with towel
+Cut and dried. Well, not cut but I am dry.
+
+Score increased!
+> use clean hands with deadbolt
+> use clean hands with deadbolt
+I've unlocked and openned the door.
+> n
+> n
+I am in a hall.
+I can go east, south or north.
+I can see a Door to the Master Bedroom.
+A hallway in the way that it suits all the needs of a coridoor; a five foot by fifteen enlongated room turning one door north of me into three entrances of all the other rooms of the house except the kitchen. These four doors are the proverbial stargates of this structure called a home.
+
+The door I came through in the east leads to my point of origin; my bedroom.
+
+The door down south at the end of this subspace passage goes to the bathroom. The virtually literal spiral downward of all things gone south. Especially, I notice, when I eat shrimp.
+
+On over westside of this rectaigular personnel tranferer is door simular to my own. It leads to the Master Bedroom, making it the evil essence of tyranny. I can not go that way until I have the key, or I will die trying!
+> n
+> n
+I am in a Living Room.
+I can go south, southwest or north.
+I can see a TV, a Sofa (on which there is a pillow and a cushions), a Wicker Chair, a Coffee Table, a Windows and a darts.
+It is a living room, suitable for all social activities. Including loafing.
+You can not hide from the Awesome!
+> take darts
+> take darts
+You pick it up.
+> sw
+> sw
+You are in a Kitchen.
+I can go northeast, south or get in oven.
+I can see an oven, a fridge, a cabinets and a table.
+Linoleum floor, neutrally colored wallpaper with small flowers on it, and as many built in cabinets as anyone could ever need.
+> s
+> s
+You are in a Backyard.
+I can go north, west, south or northeast.
+> w
+> w
+You are in a In Front of Shed.
+I can go east, southwest, north or northwest.
+> sw
+> sw
+You are in a Shed.
+I can go northeast.
+I can see a tool chest and a tools.
+Small and crowded.
+> x tools
+> x tools
+Nothing usefull.
+Wait a minute, what's my nerf gun doing out here! I'm taking it.
+> i
+> i
+You are carrying a KEY, a darts and a nerf gun.
+> check nerf gun
+> check nerf gun
+I've openned this back compartment and see that there are ammunition shells for the darts but no darts.
+> use darts with shells
+> use darts with shells
+Ammunition prepared.
+> use cartridges with nerf gun
+> use cartridges with nerf gun
+The darts in their plastic shells click into place.
+> ne
+> ne
+You are in a In Front of Shed.
+I can go east, southwest, north or northwest.
+> e
+> e
+You are in a Backyard.
+I can go north, west, south or northeast.
+> n
+> n
+You are in a Kitchen.
+I can go northeast, south or get in oven.
+I can see an oven, a fridge, a cabinets and a table.
+Linoleum floor, neutrally colored wallpaper with small flowers on it, and as many built in cabinets as anyone could ever need.
+> ne
+> ne
+I am in a Living Room.
+I can go south, southwest or north.
+I can see a TV, a Sofa (on which there is a pillow and a cushions), a Wicker Chair, a Coffee Table and a Windows.
+It is a living room, suitable for all social activities. Including loafing.
+> s
+> s
+I am in a hall.
+I can go east, south or north.
+I can see a Door to the Master Bedroom.
+A hallway in the way that it suits all the needs of a coridoor; a five foot by fifteen enlongated room turning one door north of me into three entrances of all the other rooms of the house except the kitchen. These four doors are the proverbial stargates of this structure called a home.
+
+The door I came through in the east leads to my point of origin; my bedroom.
+
+The door down south at the end of this subspace passage goes to the bathroom. The virtually literal spiral downward of all things gone south. Especially, I notice, when I eat shrimp.
+
+On over westside of this rectaigular personnel tranferer is door simular to my own. It leads to the Master Bedroom, making it the evil essence of tyranny. I can not go that way until I have the key, or I will die trying!
+> use KEY with Door to the Master Bedroom
+> use KEY with Door to the Master Bedroom
+I quietly unlock the gateway to my foe's cemetary, and prepare to open the door for a blitz attack.
+> look
+> look
+I am in a hall.
+I can go east, south, north or Master Bedroom entrance.
+I can see a Door to the Master Bedroom.
+A hallway in the way that it suits all the needs of a coridoor; a five foot by fifteen enlongated room turning one door north of me into three entrances of all the other rooms of the house except the kitchen. These four doors are the proverbial stargates of this structure called a home.
+
+The door I came through in the east leads to my point of origin; my bedroom.
+
+The door down south at the end of this subspace passage goes to the bathroom. The virtually literal spiral downward of all things gone south. Especially, I notice, when I eat shrimp.
+
+On over westside of this rectaigular personnel tranferer is door simular to my own. It leads to the Master Bedroom, making it the evil essence of tyranny. I can not go that way until I have the key, or I will die trying!
+> w
+> w
+You can't go there.
+> go to Master Bedroom entrance
+> go to Master Bedroom entrance
+I am in a Master Bedroom.
+I crash open the door, passing my weopon in front of the path of my eyes I find my target. He winces and jumps for cover behind the bed but is to late and is hit with a dart to the head.
+
+I maneuver around the bed and unload my secound round onto his chest as he jumped for me and I rush forward to confront him.
+> look
+> look
+I am in a Master Bedroom.
+
+We struggle for at least a minute, I keep the upper hand by determination and tactical advantage. Evenually a truce is called when we both grow tired of it.
+
+I know that I a the real winner of this fight even besides the two dartshots.
+Thank you for playing!
+[state=Finished]

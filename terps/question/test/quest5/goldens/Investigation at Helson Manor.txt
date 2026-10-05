@@ -1,0 +1,309 @@
+You are a police officer.
+You drive your police car  to the Front Gate. You step out of the car. You are here to investigate reports of screaming coming from the house.
+You are at the Front Gate.
+You can see your Police car.
+You can go in.
+The Front Gate to the Helson Manor.
+> in
+
+> in
+
+You are in the Driveway.
+You can go northeast, north or out.
+> n
+
+> n
+
+You are at  the Front Porch.
+You can see  the doorbell, several windows and a doormat.
+You can go in or south.
+The Front Porch  and Front Door of the Helson Manor.
+You have a warrant to enter. You knock on the door. No answer. You grab the doorknob and twist. It is locked.
+> lift up doormat
+
+> lift up doormat
+Hey the Front Door Key!
+> use front door key with front door
+
+> use front door key with front door
+> in
+
+> in
+You have entered the manor.
+
+You are in  the Foyer.
+You can see  a small table and a bench.
+You can go out, east, north or west.
+The entrance  to the Helson Manor. It includes a bench and a small table, perfect for receiving guests.
+> n
+
+> n
+
+You are in the Grand Staircase.
+You can see a speaker, bloody footprints and bloody handprints.
+You can go south, west, up or east.
+This is the Grand Staircase of the Helson Manor.
+"You will never find me!" boomed the speaker.
+> w
+
+> w
+
+You are in the Dining Room.
+You can see a table and chairs.
+You can go east or north.
+This is the Dinning Room.
+> n
+
+> n
+
+You are in a Kitchen.
+You can see a cabinet and a sink.
+You can go south.
+> open cabinet
+
+> open cabinet
+You open it.
+It contains one knife, several forks and several spoons.
+> look at cabinet
+
+> look at cabinet
+This cabinet is made of very fine wood.
+It contains one knife, several forks and several spoons.
+> take knife
+
+> take knife
+You pick it up.
+> s
+
+> s
+
+You are in the Dining Room.
+You can see a table and chairs.
+You can go east or north.
+This is the Dinning Room.
+> e
+
+> e
+
+You are in the Grand Staircase.
+You can see a speaker, bloody footprints and bloody handprints.
+You can go south, west, up or east.
+This is the Grand Staircase of the Helson Manor.
+> up
+
+> up
+
+You are in the Upper Landing.
+You can see a side table, a vase and bloody footprints.
+You can go down or north.
+The Upper Landing of the Grand Staircase.
+> n
+
+> n
+
+You are in the Upper Hallway.
+You can see the Attic Ladder and bloody footprints.
+You can go south or east.
+> e
+
+> e
+
+You are in the Master Bedroom.
+You can see a king sized bed, a nightstand and a dresser.
+You can go west or north.
+> use knife with nightstand
+
+> use knife with nightstand
+You opened the nightstand and found a key.
+> w
+
+> w
+
+You are in the Upper Hallway.
+You can see the Attic Ladder and bloody footprints.
+You can go south or east.
+> s
+
+> s
+
+You are in the Upper Landing.
+You can see a side table, a vase and bloody footprints.
+You can go down or north.
+The Upper Landing of the Grand Staircase.
+> down
+
+> down
+
+You are in the Grand Staircase.
+You can see a speaker, bloody footprints and bloody handprints.
+You can go south, west, up or east.
+This is the Grand Staircase of the Helson Manor.
+> s
+
+> s
+
+You are in  the Foyer.
+You can see  a small table and a bench.
+You can go out, east, north or west.
+The entrance  to the Helson Manor. It includes a bench and a small table, perfect for receiving guests.
+> use library door key with library door
+
+> use library door key with library door
+> e
+
+> e
+
+You are in the Library.
+You can see a fireplace, a recliner, many bookcases and a speaker.
+You can go west.
+This is the Helson's library.
+"Sit in the recliner and pull the lever all the way back." commanded the speaker.
+> sit on recliner
+
+> sit on recliner
+You sat in the recliner and pulled the lever all the way back, just as the voice commanded. Boy, are you gullible or what.
+You scream as the chair starts to fall.
+
+You are in the Basement.
+You can see a speaker and a large box.
+You can go west.
+This basement is very creepy.
+You rub your neck, trying to stop the pain. The recliner dumped you into the Basement. You hear a loud voice. It says to you; "You are trapped! You will never find me now!".
+> look at large box
+
+> look at large box
+You notice a door behind the box.
+> push large box
+
+> push large box
+> w
+
+> w
+
+You are in the Torture Chamber.
+You can see Joan Helson, a torture rack, an iron maiden, a large pool of blood and a bloody knife.
+You can go east.
+This room smells of blood.
+You gag on the stench and sheer horror of the room.
+> search joan helson
+
+> search joan helson
+You found the Guest Bedroom Door key in her pocket.
+> use guest bedroom door key with guest bedroom door
+
+> use guest bedroom door key with guest bedroom door
+> open iron maiden
+
+> open iron maiden
+
+You are in a Small Room.
+You can see an iron maiden and a ladder.
+> climb ladder
+
+> climb ladder
+
+You are in an Attic.
+You can see several boxes and a bloody footprints.
+You can go west.
+> w
+
+> w
+
+You are in the Attic Ladder access.
+You can see bloody footprints.
+You can go east or down.
+> down
+
+> down
+
+You are in the Upper Hallway.
+You can see the Attic Ladder and bloody footprints.
+You can go south or east.
+> s
+
+> s
+
+You are in the Upper Landing.
+You can see a side table, a vase and bloody footprints.
+You can go down or north.
+The Upper Landing of the Grand Staircase.
+> down
+
+> down
+
+You are in the Grand Staircase.
+You can see a speaker, bloody footprints and bloody handprints.
+You can go south, west, up or east.
+This is the Grand Staircase of the Helson Manor.
+> e
+
+> e
+
+You are in the Guest Bedroom.
+You can see a bed, a nightstand, a dresser, a microphone and bloody footprints.
+You can go west or north.
+> n
+
+> n
+
+You are in the Guest Bathroom.
+You can see a toilet, a sink, a tub, a shower curtain and bloody footprints.
+You can go south.
+> move shower curtain
+
+> move shower curtain
+You push back the shower curtain and you found someone.
+> speak to robert helson
+
+> speak to robert helson
+"Ha! Ha! Ha! You found me. I thought you never would." Mr. Helson said. "You are under arrest for the murder of your wife. Its time to give yourself up." you said. "Never!" he screamed, as he plunged the wires into the water. As he foams at the mouth, you notice that he slightly smiles at you. You turn to leave. You have some paperwork to do. Return to your police car.
+> s
+
+> s
+
+You are in the Guest Bedroom.
+You can see a bed, a nightstand, a dresser, a microphone and bloody footprints.
+You can go west or north.
+> w
+
+> w
+
+You are in the Grand Staircase.
+You can see a speaker, bloody footprints and bloody handprints.
+You can go south, west, up or east.
+This is the Grand Staircase of the Helson Manor.
+> s
+
+> s
+
+You are in  the Foyer.
+You can see  a small table and a bench.
+You can go out, east, north or west.
+The entrance  to the Helson Manor. It includes a bench and a small table, perfect for receiving guests.
+> out
+
+> out
+
+You are at  the Front Porch.
+You can see  the doorbell, several windows and a doormat.
+You can go in or south.
+The Front Porch  and Front Door of the Helson Manor.
+> s
+
+> s
+
+You are in the Driveway.
+You can go northeast, north or out.
+> out
+
+> out
+
+You are at the Front Gate.
+You can see your Police car.
+You can go in.
+The Front Gate to the Helson Manor.
+> leave police car
+
+> leave police car
+You have left.
+[state=Finished]

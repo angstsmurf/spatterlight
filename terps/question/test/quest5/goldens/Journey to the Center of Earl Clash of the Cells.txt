@@ -1,0 +1,141 @@
+You are in an Office.
+You can see a Clearance Card.
+You can go north.
+You're Dr. Simon Bright with the CDC Special Pathogens Branch. Like any normal day, you're researching a special kind of virus today, the Marburgvirus. The samples and your assistant Earl are waiting for you in the Laboratory ahead. Don't forget you need your Clearance Card.
+> take clearance card
+
+> take clearance card
+You pick up your Clearance Card to enter the lab.  Use clearance card?
+> use clearance card
+
+> use clearance card
+Door seems to be jammed. Maybe a few more scans of the card... and you're in. You're free to enter the lab and begin research as you please. Better wait till it quits buzzing though.
+> north
+
+> north
+
+You are in a Marburgvirus Laboratory.
+You can see a History of Marburgvirus.
+You can go south, east or in.
+Now that your day has officially started, it's time to get started researching. You notice a smashed container on the counter labeled "Ugandan Fruit Bat and Monkey Marburgvirus." Frantically looking about the room, you see Earl, your assistant, passed out on the floor. Tests indicate he has contracted the Marburgvirus. That'll show your supervisor to put unpaid interns in the labs! If only Earl had thought to tell you he might have been infected, you could have stopped the infection during the five day incubation period, but now you're all at risk. You'd better see if any of the adjacent labs in the eastern wing of the complex have anything that can help you out.
+> east
+
+> east
+
+You are in an Experimental Lab 1.
+You can see a Your Supervisor.
+You can go east or west.
+You see your boss in the room. Still mad that he hired an intern to help you with your work and partially blaming him for the accident, you want to  confront your supervisor but at the same time know you should probably keep looking.
+> confront supervisor
+
+> confront supervisor
+Your boss looks at you horrified, before screaming "YOU'LL NEVER GET ME ALIVE" wildly as he runs out of the room. You feel him push something into your pockets as he runs away. One joke about a lawsuit and the whole place shuts down. Sheesh. You look in your pocket and see that it's a clearance card. You'd better use this to see if you can get into the locked lab to the east.
+> use experimental lab clearance card
+
+> use experimental lab clearance card
+You now have access to the secret lab to the  east.
+> east
+
+> east
+
+You are in an Experimental Lab 2.
+You can see a Shrinkifier 9000.
+You can go west.
+A light shines down on a glossed black box atop a pedestal. What is this? A video game or something? Cinematics behind, you recognize it by the curled letters across its face, "Shrinkifier 9000." If it can shrink you down to size to research pathogens, maybe, just maybe, there's a chance you can shrink down and stop the Marburgvirus from killing Earl.
+> take shrinkifier 9000
+
+> take shrinkifier 9000
+Now that you have the Shrinkifier, you'd better get back to the Marburgvirus Laboratory and try to save Earl while you still can!
+> west
+
+> west
+
+You are in an Experimental Lab 1.
+You can go east or west.
+Hurry back to the western lab to help Earl while there's still time!
+> west
+
+> west
+
+You are in a Marburgvirus Laboratory.
+You can see a History of Marburgvirus.
+You can go south, east or in.
+Hurry and  use Shrinkifier 9000 to shrink down to cellular size and  go in Earl to stop the virus!
+> use shrinkifier 9000
+
+> use shrinkifier 9000
+Now that you're miniature, it's time to save Earl. There's no telling if you'll make it out alive, but the rewards are great; your boss might give you an extra day of vacation if you can save him from the paperwork!
+> in
+
+> in
+
+You are in an Inside Earl.
+You can go in or down.
+Now that you're inside Earl, you should probably treat some of the symptoms. You could always try calling your boss to see if he can help you get it... wait! Where's your phone? You must have dropped it on the way in. Better keep an eye out for it or you might not be able to do much. In the meantime you can  go in further to the immune system to notify them where the virus will go next.
+> in
+
+> in
+
+You are in an Immune System.
+You can see a Bruce.
+You can go in or out.
+Now that you're in the immune system you notice many cytotoxic T-cells idly waiting by having a chat. You ask the leader of the Killer Ts Gang, Bruce, why they aren't doing anything about the Marburg virus but they laugh you off. If only you could find a matching helper T-cell to start an immune response. It won't do much beyond slowing the spread, but you'll need all the help you can get.  Go in further to see if you can find a willing helper T-cell.
+> in
+
+> in
+
+You are in an Immune System Helper T Cells.
+You can see a Helper T Cells.
+You can go out.
+You find a few potential matches for Bruce and the Killer Ts.  Speak to Helper T Cells to see if you can get their help.
+> speak to helper t cells
+
+> speak to helper t cells
+After talking with the Helper T Cells, they agree to help you. Earlier they noticed a strange antigen was returned by a phagocyte that indicated a foreign pathogen had entered Earl. They give you the antigen to prove to Bruce and the Killer Ts that an immune response is needed.
+> out
+
+> out
+
+You are in an Immune System.
+You can see a Bruce.
+You can go in or out.
+Now that you have an antigen to prove to Bruce and the Killer Ts that there's a pathogen, you should  give antigen to bruce.
+> give antigen to bruce
+
+> give antigen to bruce
+Realizing that you really  weren't kidding about the foreign pathogen, Bruce and the Killer Ts meet up with the Helper T Cells and launch an immune response. As a sign of their gratitude, Bruce and the gang open the pathway to where you entered Earl. They also give you an antigen to make sure you're not attacked as an invader and a cytotoxic t-cell for protection.  Go out to where you came from?
+> out
+
+> out
+
+You are in an Inside Earl.
+You can go in or down.
+There's limited time until the immune response becomes severe and starts hurting Earl. Better  go down the circulatory system to see if you can find your phone and call for help!
+> down
+
+> down
+
+You are in a Circulatory System.
+You can see a Marburgvirus.
+You can go up or out.
+You trek cautiously into the circulatory system knowing that Marburgvirus is likely to attack here. As you round the corner, you see your phone, but a Marburgvirus infected cell quickly gets in the way. You have to get your phone but if you go head on you'll be killed by the menacing virus. Your cytotoxic T cell bodyguard offers to attack the virus while you secure your phone and get help.  Use Cytotoxic T Cell on Marburgvirus?
+> use cytotoxic t cell on marburgvirus
+
+> use cytotoxic t cell on marburgvirus
+Your Cytotoxic T Cell body guard delays the Marburgvirus just long enough for you to pick up your phone. Hurry and  call with phone for help so that Earl can get cured!
+> call with phone
+
+> call with phone
+You ring through to your boss who surprisingly picks up. After explaining the situation further, he realizes that he needs to get Earl to a hospital for treatment. In a final attempt to help you, your Cytotoxic T Cell body guard reveals a path back out of Earl further  out. Run for it before the Marburgvirus gets you.
+> out
+
+> out
+
+You are in a Hospital.
+You can see a Nurse Amanda.
+You wake up in a hospital room of your own. A nurse, Amanda, walks in with a tray of food and smiles at you warmly.  Talk to Nurse Amanda about what happened?
+> speak to nurse amanda
+
+> speak to nurse amanda
+The nurse explains to you that you contracted Marburgvirus while helping to keep Earl alive, but since you were still in the incubation period they have managed to keep the virus contained by inhibiting a necessary protein for the virus, NPC1. Since similar biruses like Zebol and other strains of Ebola can't present when this protein is mutated or not present, the doctors felt this was the best procedure they could use, even though it's only experimental. Earl is not so lucky because his symptoms already started to manifest and there is no specific Marburg treatment, but thanks to supportive treatment to keep a balance of fluids and replace lost blood, Earl will likely be just fine.
+[state=Finished]

@@ -1,0 +1,167 @@
+You are in your familiar classroom of  Room S118.
+You can see a Computer, a Scale and a Closet.
+You can go north, northwest out the back of the classroom closest to the prep room. or southwest out the front of the classroom closest to the teachers desk..
+While you recognize everything around you, something is very odd about the atmosphere.
+> type in computer
+> type in computer
+> time
+The CD drive opens and the tray is holding a stopwatch where disk would normally go.
+> take stopwatch
+> take stopwatch
+You pick up the stopwatch and place it around your neck.  Your heart surges as its beats become a standard measure of time.  You can now time things down to the hundreth of a second by the sheer power of your will.
+> take scale
+> take scale
+You look at the scale and realize it's more akin to a shield.  Slipping it onto your arm, you feel empowered, magic running through you, allowing you to mass objects with impunity just by directing your thoughts.
+> open closet
+> open closet
+You pull the door to the closet open, revealing its inner treasures.
+It contains a Meterstick Sword.
+> take meterstick sword
+> take meterstick sword
+You pick up your physics weapon of choice.  The power of the swordmeterstick courses through your veins, allowing you to run through your enemies and measure the length of their entrails.
+> southwest
+> southwest
+You sense that this door is locked from the other side.  If you go through, you might not beable to get back into the room.
+The door clicks shut behind you and locks.  Hopefully, you've fully equipped yourself to deal with the danger ahead.
+You are in the a S-Hallway, Elevator side.
+You can go west towards the courtyard and senior hallway. or north to the end of the S-Hallway and the MS parking lot..
+> west
+> west
+Trying to move towards the Junior Hallway, three goblins come crashing down through the ceiling tile, nasty looking daggers in their hands.  They approach menacingly and corner you.  They speak in eerie unision:
+
+"Goblins we three,
+the same mass are we.
+
+One likes to jump, to fly,
+at 20 m/s straight up, how high?
+
+Two likes to dance,
+from 9 m/s to 0 m/s, the impulse of my prance?
+
+Three likes to whirl,
+with a radius of 3 meters, and acceleration of 10 m/s/s, tell the velocity of my twirl!"
+> shout goblin one
+> shout goblin one
+> 20.4 m
+The goblin is paralyzed in place by your answer!
+> shout goblin two
+> shout goblin two
+> -225 kg m/s
+The goblin is paralyzed in place by your answer!
+> shout goblin three
+> shout goblin three
+> 5.5 m/s
+The goblin is paralyzed in place by your answer!
+> attack goblin one
+> attack goblin one
+You lunge towards the goblin, your metersticksword going in for the kill!
+With the goblin stunned, you easily down the filthy creature, your physics blood boiling from battle.
+> attack goblin two
+> attack goblin two
+You hack and slash at the goblin, your metersticksword making swishing noises as it cuts through the air!
+Still processing how you knew the answer to its riddle, you cut it to ribbons.  Its days of Irish jigging are over.
+> attack goblin three
+> attack goblin three
+You swiftly move in for the kill, your metersticksword held low and deadly.
+With the goblin stunned, you lay waste to the goblin, your metersticksword clenched tightly in your hand.
+> north
+> north
+You are in the a S-Hallway, Science Office side.
+You can go northwest towards the choir room and guidance. or south to the elevator side..
+> northwest
+> northwest
+Trying to move towards the Junior Hallway, you sense a gigantic fireball headed your way, you manage to dodge at the last second as a maniacal laugh manifests itself in the form of a wizard.  From that one fireball, you garnered that it was traveling at 16 m/s using the combined powers of your stopwatch and swordmeterstick.
+> angle shield crazy wizard
+> angle shield crazy wizard
+What angle to the horizontal do you want to angle your sheild?
+> 15.4 degrees
+Your deftly angled shield bounces the fireball at the precise angle to smack the wizard right in the face.  He goes down in flames faster than the Hindenburg.
+> south
+> south
+You are in the a S-Hallway, Elevator side.
+You can go west towards the courtyard and senior hallway. or north to the end of the S-Hallway and the MS parking lot..
+> west
+> west
+You are in the Junior Hallway South.
+You can see a Acid Pool and a Ajar Locker.
+You can go west down towards the sports lobby through the D hallway or northwest out into the courtyard.
+Close to the bathrooms and waterfountain, this is a familiar part of the school.
+> open ajar locker
+> open ajar locker
+You open the locker, the metal creaking as you search for its contents.
+It contains a Hand Cream.
+> take hand cream
+> take hand cream
+You greedily take the hand cream for yourself.
+> use hand cream
+> use hand cream
+You take the hand cream and smooth it into your hands.  The calluses and rough skin from battle melt away magically and you are left with baby soft digits.
+> catch acid pool
+> catch acid pool
+You know you need to be very delicate when catching the globs of acid, considering that you have 1.5 m of vertical space to catch it, what is the minimum amount of force you can exert on the glob during that time?
+Enter the minimum amount of force you can exert on the glob to stop it before it hits the pool.
+> 15.8 N
+You every so carefully catch and cradle the fragile mucous encased corrosive cocoon safely.  You'd wipe that bead of sweat off your brow, but you'd just be covering yourself in snot.
+> west
+> west
+You lob the glob of acid towards the blockage and it eats away at the material, causing a portion to collapse and a hole wide enough for you to pass through.
+> west
+> west
+You are in the Junior Hallway, D-hallway.
+You can see a Lever, a Bottle of Liquid and a Bottomless Pit.
+You can go north or south across the abyss..
+Just the D-hallway, although you're pretty sure it didn't have a bottomless pit before. You notice something on the ceiling that might help you get across. In addition there seem to be a small bottle of odd colored liquid; a little sign on it says: "Sip me and change your mass!"
+> take bottle of liquid
+> take bottle of liquid
+You cautiously take the bottle and place it into your pocket.
+> use bottle of liquid
+> use bottle of liquid
+What do you want to change your mass to in kilograms (don't enter units, round to the nearest whole kilogram)?
+> 35
+Your mass has been changed to 35 kilograms
+> hang from lever
+> hang from lever
+You hang from the lever and the contraption groans into life.  You hold your breath as the you travel over the vast dark depths and somehow make it over to the other side.
+You are in a Sports Lobby.
+You can see a Troll, a Torch and a Welcome Mat.
+You can go north back across the abyss to whence you came. or south out into the sports lobby parking lot.
+You enter the lobby and suddenly a troll appears!  You get ready for him to attack but it just stands there smirking and smiling at you.
+
+The troll begins to speak:
+
+Attack you?
+I will not.
+
+But if an exit is sought,
+then I have what you need.
+
+Though, I'll be burnt to a husk before I conceed.
+> take torch
+> take torch
+You pick it up.
+> use torch with welcome mat
+> use torch with welcome mat
+You are priming to try and strike the mat, with the body of the torch perpendicular to the floor.  What is the minimum size (magnitude) of the normal force that you need to have exerted on the torch by the mat to lite it?
+> 32.5 N
+You manage to light the torch and are about to set the troll on fire, when he speaks:
+
+"Just kidding, I don't want to die, here's the key to get out of here.  You should have asked for it instead of doing all that physics nonsense."
+
+Then he gives a large huff and extinguishes the torch before disappearing away into the ceiling above.
+> north
+> north
+You are in the Junior Hallway, D-hallway.
+You can see a Lever and a Bottomless Pit.
+You can go north or south across the abyss..
+Just the D-hallway, although you're pretty sure it didn't have a bottomless pit before. You notice something on the ceiling that might help you get across. In addition there seem to be a small bottle of odd colored liquid; a little sign on it says: "Sip me and change your mass!"
+> north
+> north
+You are in the Junior Hallway South.
+You can see a Acid Pool and a Ajar Locker.
+You can go west down towards the sports lobby through the D hallway or northwest out into the courtyard.
+Close to the bathrooms and waterfountain, this is a familiar part of the school.
+> northwest
+> northwest
+You escape the confines of this particular physics adventure dimension and are teleported happily back home!
+Your final score is: 140
+[state=Running]

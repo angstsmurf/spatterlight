@@ -1,0 +1,136 @@
+Welcome to 'Magic Math Mine', an adventure designed for children from year 4 (age 8) upwards.
+
+If you get stuck, please type 'help'.  Enjoy!
+
+Outside a mine
+------------------------------------------------
+As you approach the old mine entrance, you notice the gate is open! The padlock lies on the ground, broken. (Type 'in' below to enter the mine, or click on 'in' on the compass tool, at the bottom right of the screen)
+
+Exits: in.
+> in
+> in
+A mine entrance
+------------------------------------------------
+It is dark inside the narrow tunnel entrance, so you switch your torch on.
+The tunnel continues to the south. (Type 's' below to go south, or click on the arrow in the compass tool)
+
+Exits: out or south.
+> s
+> s
+A small clearing
+------------------------------------------------
+There is a small creature here! He turns and stares at you as your torch shines upon him.
+
+"who...are you?" you stammer in surprise.
+
+The creature grins, and replies "Me an' my folk are known by many names: 'Dinkies', 'Knockers', 'Little Invisibles' or just 'Piskeys'. Keep away from the 'Buccas' though, mark my words!"
+
+"Riddle me this," the Piskey continues, "if five humans have ten pasties, how many pasties do they have each?" (type the number in the box at the bottom)
+
+Exits: north.
+> 2
+> 2
+
+Correct! (Your score has gone up)
+The Pisky grins at you.
+
+"What, no pasties for the Knockers? Shame on you!" He snaps his fingers and disappears.
+
+You continue down the tunnel. (Press a key to continue)
+
+Top of a ladder
+------------------------------------------------
+The ladder looks pretty old. It has twenty rungs (steps), and each rung is half a metre apart. How many metres tall is the ladder?
+
+Exits: down.
+> 10
+> 10
+
+Correct! (your score has increased)
+
+You can go down the ladder (type d for down)
+> d
+> d
+Mine shaft level 1
+------------------------------------------------
+You are at the bottom of a ladder, and can see the dim light of day above. The tunnel leads to the east.
+
+Exits: up or east.
+You find a map lying on the ground. This should help you find your way down here. (Press any key to look at the map).
+You are in Mine shaft level1.
+Exits: up or east
+------------------------------------------------
+You are at the bottom of a ladder, and can see the dim light of day above. The tunnel leads to the east.
+> e
+> e
+A narrow section
+------------------------------------------------
+The tunnel gets very tight here. The walls are wet and stained red from the iron ore in the rock. If a bucket contains two litres of water, how many millilitres (ml) does it contain?
+
+Exits: west or east.
+> 2000
+> 2000
+
+Correct!
+The tunnel continues to the east.
+> e
+> e
+Level 1 exit ladder
+------------------------------------------------
+You have reached the end of this section of shaft. Another ladder leads deeper down the mine. Press 'd' or click the down arrow to descend (go down) to the level 2 shaft.
+
+Exits: west or down.
+> d
+> d
+A mine shaft level 2
+------------------------------------------------
+You are at the bottom of the ladder. It is very dark, the light from the surface does not reach down here. You wind the handle of your torch to make it brighter. How many degrees are there in one full turn of the handle?
+
+You can go up or west.
+> 360
+> 360
+
+Correct!
+> w
+> w
+A winding corridor
+------------------------------------------------
+The corridor smells damp, and you hear water dripping from above. You realise that there are now thousands of tonnes of rock above your head!
+
+If one tonne = 1000kg, how many kg in a half a tonne?
+You can go east or west.
+> 500
+> 500
+
+Correct! (Your score has gone up)
+> w
+> w
+A mining station
+------------------------------------------------
+You can see a pasty.
+You can go east or west.
+There is a golden brown pasty here, it smells delicious! To take it, type "take pasty" or select the pasty in the objects panel, then click take.
+
+There are lots of things you can do with objects in your inventory (backpack), try typing "look at pasty", or "eat pasty".
+You can also give things to other characters, e.g. "give (thing) to (person)", throw things etc.
+> take pasty
+> take pasty
+The pasty is still warm! You put it in your backpack (see inventory panel on right side of screen).
+> w
+> w
+A tin seam
+------------------------------------------------
+The piskey won't look at you, he looks very unhappy. A gurgling noise is coming from his belly!
+You can see a grumpy piskey.
+You can go east.
+> give pasty to grumpy piskey
+> give pasty to grumpy piskey
+
+"Thank you very much!" says the piskey. Would you like some of my tin? He gives you a bag full of rocks gleaming with black cassiterite (tin ore).
+
+He clicks his fingers and you find yourself back outside the tin mine. You set off for home with a full backpack, hoping it might be pasties for dinner!
+
+Congratulations! You have finished the game. The total possible score was 100 points.
+
+Click here to visit the Geevor tin mine website and find out more about tin mining in Cornwall.
+[state=Finished]

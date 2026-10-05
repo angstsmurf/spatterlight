@@ -1,0 +1,159 @@
+You are in a cell.
+You can see a cell door and a bed.
+You can go north.
+Just your luck- you're supposed to be on your way to Ancient Egypt, but instead end up getting captured by...Sonterruns? Sontarans? Anyway, you've been thrown into a holding cell and have been left alone for the moment. You should probably find the Doctor- for both of your sakes. Maybe it's your imagination, but these aliens seem to have a bone to pick with him.
+Now, how to get out...
+> look at trenchcoat
+
+> look at trenchcoat
+
+This is the Doctor's signature trenchcoat. He managed to give this to you just before you were separated, although you're not really sure why. There's something sticking out of one of the pockets. Is that...the sonic..?
+> look at bed
+
+> look at bed
+A low metal bed with a thin mattress. It doesn't look very comfortable- hopefully you'll never have to sleep on it.
+It looks like there's a rock under it.
+> take rock
+
+> take rock
+You pick it up.
+> use sonic with door
+
+> use sonic with door
+With a buzz, the door unlocks. That was easy.
+> n
+
+> n
+
+You are in a hallway.
+There isn't anything that interesting here. To the west there seems to be another room, to the east there is another hallway, and your cell obviously lies behind you. It's a little chilly, and you're grateful for the trenchcoat.
+You can go south, east or west.
+> e
+
+> e
+
+You are in a second hallway.
+It's about as interesting as the first one. To the west is the first hallway, to the east is a room with a view, and north of you there is a restraining area.
+You can go west, north or east.
+> e
+
+> e
+
+You are in an .
+You're not completely sure what this room is for, but it looks important. There's a large window taking up most of a wall that seems to let you see into space, and a speaker mounted high on another wall.
+There's a Sontaran standing guard for some reason. You'd better go before he sees you.
+You can see a Sontaran, a window and a speaker.
+You can go west.
+> use rock with sontaran
+
+> use rock with sontaran
+You slam the rock against the weak point near the back of the Sontaran's neck. Immediately it gives a shout of pain and crumples unconscious to the ground. Success!
+> look at sontaran
+
+> look at sontaran
+The Sontaran lies unconscious on the ground. It's not as intimidating to you anymore. Hopefully it won't be coming around any time soon, though.
+> take key
+
+> take key
+You take the key.
+> w
+
+> w
+
+You are in a second hallway.
+It's about as interesting as the first one. To the west is the first hallway, to the east is a room with a view, and north of you there is a restraining area.
+You can go west, north or east.
+> n
+
+> n
+
+You are in an .
+It's certainly larger and more high-tech than your cell, probably because it contains a more 'dangerous' prisoner.
+The Doctor is chained by his wrists to the wall. He looks glad to see you.
+You can see the Doctor, a control panel, a chains and a vent.
+You can go south.
+> speak to doctor
+
+> speak to doctor
+He looks clearly happy to see you. "There you are! How about giving me a hand? Not a literal hand, mind you," he amends quickly. "I want you to get me down. Did you find what I left you in my coat? Try using that."
+> look at control panel
+
+> look at control panel
+It's a surprisingly simple looking control panel. On it you see a blue lever, a red button, and what looks to be a key slot.
+> use key with slot
+
+> use key with slot
+The control panel seems to boot up with a low hum. You should be able to use it now.
+> push button
+
+> push button
+When you press the button, the chains slink into the wall and the Doctor drops, free, to the ground. "Oh, that's much better," he says gratefully, rubbing his wrists. "'Course, I probably could have done it quicker, but you did alright anyway. Now, let's work on getting out of here, shall we?"
+The Doctor is now in your inventory. You can ask him for help if you need a hint.
+> s
+
+> s
+
+You are in a second hallway.
+It's about as interesting as the first one. To the west is the first hallway, to the east is a room with a view, and north of you there is a restraining area.
+You can go west, north or east.
+> e
+
+> e
+
+You are in an .
+You're not completely sure what this room is for, but it looks important. There's a large window taking up most of a wall that seems to let you see into space, and a speaker mounted high on another wall.
+Since the Sontaran is out for the count, you can look around freely.
+You can see a Sontaran, a window and a speaker.
+You can go west.
+> give sonic to doctor
+
+> give sonic to doctor
+You hand him the sonic screwdriver, and he points it at the speaker and activates it. Almost immediately a strange alarm sounds, and you look at him in panic. "What did you do?"
+"Don't worry, that's meant to happen," he tells you, seemingly unworried as he lowers the sonic. "This will send all the Sontarans in the ship to an emergency meeting, in the...well, the meeting room, probably."
+"But there isn't really a meeting, is there?"
+"No, no, there isn't. Let's leave before they figure that out." He passes you back the sonic.
+> w
+
+> w
+
+You are in a second hallway.
+It's about as interesting as the first one. To the west is the first hallway, to the east is a room with a view, and north of you there is a restraining area.
+You can go west, north or east.
+> n
+
+> n
+
+You are in an .
+It's certainly larger and more high-tech than your cell, probably because it used to contain a more 'dangerous' prisoner.
+You can see a control panel (on which you see a lever, a button and a slot (inside of which is a key)) and a vent.
+You can go south.
+> enter vent
+
+> enter vent
+The Doctor manages to pull himself into the vent without further ado. "Just warning you, it's a bit tight," you hear him comment as he moves further in, "I'd turn and help you up otherwise."
+"Don't worry, I'll manage," you reply, a little cheekily. You climb onto the control panel and hoist yourself into the vent after him.
+You crawl behind the Doctor in the ventilation shaft for what seems like ages. It's incredibly cramped and you can barely see a thing.
+For all you know, climbing into the vents was a mistake. They could lead to a dead end, and with no way to turn around properly the two of you would be stuck in here forever. Or for all you know, there could be some sort of thing in the vents that eats people.
+
+But you don't worry about that. You force yourself to follow the Doctor and trust that- this time, at least- he knows what he's doing.
+All the same, you're relieved when he says in front of you, "Ah, here we are- that wasn't so bad, was it? Pass me the sonic again."
+
+You are in a holding room.
+It seems to be a storage area, used for one express purpose. In the center stands the TARDIS, as if it's been waiting for you all along. You made it!
+You can see the TARDIS.
+
+> look
+
+> look
+You are in a holding room.
+It seems to be a storage area, used for one express purpose. In the center stands the TARDIS, as if it's been waiting for you all along. You made it!
+You can see the TARDIS.
+> enter tardis
+
+> enter tardis
+With a grin, the Doctor unlocks the doors and pushes them open. He looks very much like a king returning to his castle as he saunters through.
+You stand there for a moment, simply happy to be back where you belong. Again, it's probably just your imagination, but it almost seems as if the TARDIS welcomes you back somehow...
+"Oi, get a move on! Didn't you say you wanted to go to Egypt? Still not sure exactly what you want in Egypt, but it's a good place either way. Well... so long as we avoid Cleopatra, I didn't leave her on the best terms. Well... by 'best terms' I mean..."
+You laugh and step into the TARDIS, pulling the doors shut behind you and listening to the Doctor ramble as he sets coordinates for your new destination. You always enjoy traveling with the Doctor, but all the same you're glad that this adventure, at least, is over.
+Congrats! You've won the game!
+[state=Finished]

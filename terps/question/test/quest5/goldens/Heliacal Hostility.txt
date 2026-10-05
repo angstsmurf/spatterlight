@@ -1,0 +1,706 @@
+Welcome to Heliacal Hostility
+A game
+(The first of many)
+by Turbonerd Studio
+You can save at any time by typing save, and then closing the program.
+If the volume is too loud, please lower it using the windows sound mixer.
+We hope you enjoy our game.
+You are in a darkness.
+You can go up.
+> up
+> up
+You are lying in shallow water, floating on your back, looking up at the stars. It is too dark to make out much of your surroundings.
+It is very peaceful.
+You feel like you have been here forever. At the same time, it feels like you've not been here long at all.
+You feel faintly that time might not be consistent here.
+It's hard to judge the flow of time. It's hard to think in general.
+Everything feels fuzzy.
+You notice your body has felt numb up to this point, but feelings slowly returning with a jarring sensation of pins and needles lightly touching your skin.
+
+An almost imperceptible humming is gradually  growing, and you start to wonder wha-
+
+There is a brilliant flash of white light.
+you cringe as the brightness assails your eyes, unaccustomed to such an intense illumination.
+Eyes clenched shut, you attempt to curl into a ball to avoid these new sensations, but the shallow water around you is draining away loudly, leaving you shivering and cold.
+
+You open your eyes.
+You stand up.
+
+Theres a person in almost every indentation. Or at least, they used to be people. You think.
+It seems they didnt fare so well during the extended cryosleep.
+
+You wonder why you came out without a scratch.
+Your should try to work out why the ship is running on emergency power. You should also try to find a way out of the cryogenics wing.
+
+You see a backpack on the floor next to your cryo pod. You pick it up, and pull it on.
+
+A sign on the wall says cryo room.
+You can see a darkness.
+You can go west or east.
+It is very dark. The room is barely lit with emergency striplighting. A faint red glow illuminates the room.
+
+a grid of twenty or thirty shallow bathtub-like indentations fill the room.
+
+> w
+> w
+You are in a Technicians workshop.
+You can see a fish bowl, a duct tape, a pipe hosing, a plastic garbage bag, a boxcutter knife and a mess of wiring.
+You can go east.
+> take fish bowl
+> take fish bowl
+You pick it up.
+> take duct tape
+> take duct tape
+You pick it up.
+> take pipe hosing
+> take pipe hosing
+You pick it up.
+> take plastic garbage bag
+> take plastic garbage bag
+You pick it up.
+> take boxcutter knife
+> take boxcutter knife
+You pick it up.
+> use duct tape
+> use duct tape
+You somewhat haphazardly combine all the items you've gathered. Using the entire roll of duct tape, you attach one end of the pipe hosing to the fish bowl, and you duct tape the other end into the plastic bag. the fishbowl helmet fits snugly into the snaplocks in your engineering suit. with this equipped, you have a fully-functioning internals breathing device! It should be good for a couple minutes oxygen, at most.
+> use rebreather
+> use rebreather
+You look at your creation. It'll hold a few minutes of oxygen, but not much more. With this in your inventory, You'll automatically put it on whenever you try to access an area without any oxygen.
+> e
+> e
+A sign on the wall says cryo room.
+You can see a darkness.
+You can go west or east.
+It is very dark. The room is barely lit with emergency striplighting. A faint red glow illuminates the room.
+
+a grid of twenty or thirty shallow bathtub-like indentations fill the room.
+
+> e
+> e
+You are in a ventilated hallway.
+You can go west or east.
+A large fracture runs from floor to ceiling. looking in, you can see only darkness.
+
+There is no oxygen here.
+
+You can taste the air in your bag becoming stale, you should hurry on quickly.
+> e
+> e
+You are in a Cryogenics reception.
+You can see a vending machine, a coffee trolley, a FATHER and a keypad.
+You can go west, south or east.
+You're pretty hungry. The nutrient-rich water in the cryopod supplied you with enough nutrients to keep you alive, but you dont remember the last time you had some real food. You should probably find something to eat before progressing.
+> use coffee trolley
+> use coffee trolley
+with  a hearty shove, you send the trolley flying at the vending machine, smashing the glass front.
+> take potato chips
+> take potato chips
+You pick it up.
+> eat potato chips
+> eat potato chips
+You eat it.
+You eat the meagre 'food'. It's not much, but it's something. It gives you a small amount of energy.
+> e
+> e
+You are in A sign on the wall says Cryogenics observatory.
+You can see a window.
+You can go west or east.
+This long room consists of a few low benches and a floor-to-ceiling thick panel of spessglass.
+> e
+> e
+You are in A sign on the wall says Mr Richards Office.
+You can see a desk and a father handbook.
+You can go west.
+> read father handbook
+> read father handbook
+The creators of the FATHER terminal (picture below) Wish you thank you for your purchase.Vaan Hursten (40) and senor Gruhen (59) worked for many years on this...
+You stop reading. You dont think theres any more important information in this book.
+A scrap of paper falls out of the spine.
+> take scrap of paper
+> take scrap of paper
+You pick it up.
+> read scrap of paper
+> read scrap of paper
+Scrawled on the scrap of paper are a few handwritten lines which read: 'FATHER's fathers births are key. not much time left. must  make sure the package arrives in storage soon.'
+> w
+> w
+You are in A sign on the wall says Cryogenics observatory.
+You can see a window.
+You can go west or east.
+This long room consists of a few low benches and a floor-to-ceiling thick panel of spessglass.
+> w
+> w
+You are in a Cryogenics reception.
+You can see a vending machine (containing a bag of space nuts), a FATHER, a keypad, a wrecked coffee trolley and a broken glass.
+You can go west, south or east.
+> use keypad
+> use keypad
+Please enter package tracking number
+> 4059
+Code accepted. Untitled package 1 sent by anonymous to anonymous now delivered to storage,
+
+You hear a bumping overhead as presumably the package is delivered to the room behind you.
+> s
+> s
+You are in a storage.
+You can see a suspicious package.
+You can go north.
+> use boxcutter knife with suspicious package
+> use boxcutter knife with suspicious package
+You hack away at the cuccoon of tape holding the package shut. After a few minutes of cutting, sweating and panting, you finally open the box.
+> take insulated gloves
+> take insulated gloves
+You pick it up.
+> n
+> n
+You are in a Cryogenics reception.
+You can see a vending machine (containing a bag of space nuts), a FATHER, a keypad, a wrecked coffee trolley and a broken glass.
+You can go west, south or east.
+> w
+> w
+You are in a ventilated hallway.
+You can go west or east.
+A large fracture runs from floor to ceiling. looking in, you can see only darkness.
+
+There is no oxygen here.
+
+You can taste the air in your bag becoming stale, you should hurry on quickly.
+> w
+> w
+A sign on the wall says cryo room.
+You can see a darkness.
+You can go west or east.
+It is very dark. The room is barely lit with emergency striplighting. A faint red glow illuminates the room.
+
+a grid of twenty or thirty shallow bathtub-like indentations fill the room.
+
+> w
+> w
+You are in a Technicians workshop.
+You can see a mess of wiring.
+You can go east.
+> use insulated gloves with mess of wiring
+> use insulated gloves with mess of wiring
+You pull on your insulated gloves and gingerly pull back the wall of hanging cables. leaning through, you see a small space,probably used for storage. its barely big enough to crawl into, and theres a small wooden box in the middle of the room. next to it are two bottles of water and a small paper-wrapped object.
+You open the box.
+As you lift the lid, a high-pitched whine begins to emit from within and increase in pitch. Before you can comprehend the circuitry and wires inside, there is a deafening boom and you're flying across the room.
+Shielding your face with your arms you crash through the hanging wires.
+Electricity shoots through your body, and you shake uncontrollably.
+
+The wires fail to slow your flight but they do curtain most of the fiery backlash from the explosion.
+You slam into an air duct and smash through, hitting the interior wall of the duct and knocking all the air out of your lungs.
+you fall into the pitch blackness.
+
+You open your eyes. You notice youre laying down with your shoulder propped up against a wall, in a small storage room. next to you are some bottles of water, a small first aid kit, and a wicked-looking knife. Your left arm is in a cast.It has been set with a makeshift splint, but it still looks pretty wrecked. You doubt you will be able to use it. You notice a number of your burns and abrasions have been patched up as well.
+Someone obviously found you and took the time to drag you to this room, patch you up, and leave you with supplies. Where are they now, though? why would they leave you here? First things first though, you should investigate your surroundings.
+You hear an ominous slithering and squelching in the distance.
+You have FINISHED the TUTORIAL.
+From this point onwards, the game can SPLIT down several various PATHS, and the outcome of the game will DEPEND HEAVILY on the CHOICES YOU MAKE. You will face choices that will present you with the CHOICE to give up your HUMANITY in exchange for SUPERIOR ABILITIES. Will you follow the path of the PURITAN, walk the fine line of PARTIAL TRANSHUMANISATION,  or attempt to survive by transforming from PREY to PREDATOR?
+We hope you enjoy our game.
+You are in a Rotfarm Storage.
+You can see a survival kit (containing a bottle of water, a gutting knife and a medical compress), a cortex and a curious looking cube.
+You can go south.
+You are in a small room, not much larger than a closet.
+
+The room pulses faintly with blue light emenating from the countertop.
+
+The benches on either side of you are cluttered with a number of horticultural equipment and chemicals.
+
+> look
+> look
+You are in a Rotfarm Storage.
+You can see a survival kit (containing a bottle of water, a gutting knife and a medical compress), a cortex and a curious looking cube.
+You can go south.
+You are in a small room, not much larger than a closet.
+
+The room pulses faintly with blue light emenating from the countertop.
+
+The benches on either side of you are cluttered with a number of horticultural equipment and chemicals.
+
+> take survival kit
+> take survival kit
+You can't take it.
+> open survival kit
+> open survival kit
+It is already open.
+> take gutting knife
+> take gutting knife
+You pick it up.
+> take bottle of water
+> take bottle of water
+You pick it up.
+> take medical compress
+> take medical compress
+You pick it up.
+> take cortex
+> take cortex
+You pick it up.
+> take curious looking cube
+> take curious looking cube
+Carefully, you pick up the fragile cube and stow it in your arm cast. It might come in handy.
+> s
+> s
+You are in a graft surgery.
+You can see an augmentation station.
+You can go north or south.
+A graft surgery room, dominated by an intimidating looking augmentation station. Workers in the rotfarms are often fitted with extraneous limbs to help with harvesting.
+
+It is very dark.
+> use augmentation station
+> use augmentation station
+This machine is used by rotfarm labourers to graft on extraneous limbs to speed up harvesting work. Given your current situation, you could strap your broken arm close to your chest and graft another, temporary arm to your shoulder. However, the machine has no vein mesh-netting in its reserve, and only a small amount of Minerva and plasim gel. If you take the graft, you're going to have to remove your arm to give the new one an interface to your nerves and veins. The new arm will grant you new strength, but at the cost of your existing one. You power up the machine, and a panel slides open to reveal two buttons. The red one will power the machine off and pop the reserve tank hatches, allowing you to collect the Minerva energy. It will probably come in handy. The green button will allow you to climb inside the chair, strap yourself in, and the machine will sever your arm and use the remaining Minerva and plasim to graft a new human arm to your shoulder. The strong new arm will give you a new way of interacting with objects, and allow you to use brute strength to force your way through the broken door. There is no anesthetic. What do you do?
+> use green button
+> use green button
+You press the green button. The machines snake-like upper section slides back, allowing you enough room to climb into the operating seat. Leaning over, you key in the values into the console, setting the machine to first remove your broken arm, and then to graft the new one to your shoulder.
+Peeling back your jumpsuit, you remove your undershirt and climb into the chair. You have a feeling of uneasiness about a medical procedure taking place in the dark. You remove the bindings that the enigmatic stranger wrapped your arm with, and wincing, position it in the red outlined area.
+
+With no medical personnel to begin the procedure, you try to hook the pod closing lever with your foot. After a few tries, you succeed, and with a hiss the panels slide down on top of you, leaving you in near total darkness.
+The machine hums into life, suddenly beginning the procedure with machinelike speed. A rising heat emenates from below as the machine begins to heat and spin the plasim gel for grafting. From above, an almost complimentary coldness seeps from the Minerva holding tank. A hundred years studying it, and still no one knows why it grows cold prior to a grafting, as if it somehow senses it.
+
+A flash of green light from your right as the machine 3D models your arm to properly align the saws. It will proceed to remove your arm from its socket, sever all nerves and veins, and then quickly align them to artifical ones in the plasim gel mass. Once it is attached, the Minerva will be administered, telling the gel to pump the blood and send signals through the nerves, bringing the limb to life.
+
+Removing your arm seems severe for just a break, but as you inferred from the pain, the machine reads  a major break in four places. Almost as if your fall put you arm-first into a crusher. You wouldnt have a hope of making it to the bridge or escape shuttles with a broken arm. On a good day you'd face ladders, low-oxygen environments and more, but with the current state of things you have no idea what else could be out there.
+
+You wince as you hear the surgical saws start to spin up, and your mind taunts you with visions of the machine running out of power halfway through the operation. You grit your teeth and clench your eyes as you hear the saws lower into position.
+The pain is like nothing you've ever felt. You scream, and keep screaming. The machine is set to total graft, so it sees the arm as little more then scrap material, and treats it accordingly.
+While the saws are still biting into your shoulder, the opening wound is blasted with searing steam to prevent any bacteria getting between your shoulder and the graft.
+over the intense whine you can hear a gurgling as the gel is moved into the mold.
+The machine is shaking now, the largest saw is working through bone.
+As it splits through the marrow the pain reaches an intensity that hits you like a truck.
+You pass out from the pain.
+You now have the strength and abilities that come with having a bio-engineered robotic arm. For simplicity's sake, the arm will be listed in your inventory. To use your newfound strength, type 'use arm on X' to interact with objects using your arm.
+You come to, sprawled on the floor of the surgery room. You must have shaken yourself out of the machine at some point after the surgery. Wincing, you put your hand to your aching head. It is cold. In wonder, you observe your new arm. You'd seen then before, on other people, but seeing it in place of your own appendage is hard to grasp.
+
+Your arm is a mirror-image of your previous one, minus the breaks and bruises. It is transparent, and through the soft grey silicone-like surface you can see a number of darker lines and shapes which comprise the veins, nerves, and bone structure of the graft. It occasionally pulses softly, as the Minerva mixed throughout tells the arm how to operate.
+Standing, you shrug your shoulder a few times to get used to the newfound weight. You feel lopsided.
+You should test it out on the wall over there.
+> look
+> look
+You are in a graft surgery.
+You can see an augmentation station and a wall.
+You can go north or south.
+A graft surgery room, dominated by an intimidating looking augmentation station. Workers in the rotfarms are often fitted with extraneous limbs to help with harvesting.
+
+It is very dark.
+> use arm with wall
+> use arm with wall
+After taking a few steps back, you dart forward and give the steelcrete wall a quick jab. If you had done that with your normal arm, you probably would have jarred your knuckles and scraped off some of the skin. However, your newfound plasim arm both hardens on impact and shifts the majority of its mass to the site of impact, delivering substantial force to the wall. Enough, it seems, to shatter it.
+The wall collapses, revealing a hallway.
+> s
+> s
+You are in a rotfarm corridor.
+You can see a lodebearing support, a horrible monster and a loose vent.
+You can go north.
+Stepping into the corridor, two things immediately grab your attention. A glimpse of movement to your left as someone ducks around a corner, and a wet, slithering sound from the darkness to your right. Something big is coming, and someone was running away from it.
+Pausing, you are unsure what to do. You should obviously attempt to follow what looked like another survivor, but the loud noises from your right demand your attention.
+However, a glint of metal in the darkness absolves you of decision making.
+With a sound like bubbling acid and steel grating on steel, a gigantic mass of goo and metal slides around the corner.
+A massive snail-shaped monstrocity of plasim gel and ship plating, the beast slowly waves its feelers in your direction.
+You see what looks like a laser rifles particle accelerator embedded down the length of its right eyestalk-
+A brilliant flash of red blasts down the corridor, and you raise your arms defensively. Your plasim arm bears the brunt of the laserbeam, luckily absorbing most of the heat.
+You must act quickly now, a wrong move will spell your doom.
+> use arm with lodebearing support
+> use arm with lodebearing support
+Thinking quickly, you hit the lode-bearing support with all your might, and jump back. Your augmented arm still burns and tingles with the laserbeams heat, but it maintains form enough to buckle the support, and the ceiling begins to rumble.
+The beast lurches forward, sensing its prey is about to escape.
+Before it can move more then a meter, the ceiling panel gives out and a ton of steelcrete building  cubes tumble down, blocking the hallway and raising a cloud of cough-inducing dust.
+The beast roars from the other side of the blockade.
+You are in a safe room 1.
+You can see a scientists and a broken databank.
+You can go south.
+You scramble backwards into the room until you bump into a table. two people in white labcoats rush to secure the door, just in case. You all pause, motionless, waiting to hear if the beast makes any further attempts on the barricade.
+After a few minutes, it gives up. With a mighty roar, it slithers off to other parts of the ship.
+"Thankyou, you saved us."
+The scientist with the blonde ponytail walks over to you, and helps you to your feet. She passes a bottle of water to you, and then begins typing on the databank occupying most of the space along one wall.
+One of the other scientists gestures at a comfortable looking couch.
+"Have a seat, and lets try to figure out whats going on here. First, tell us what you know about that.. thing."
+You tell them what little you gleaned from the F.A.T.H.E.R. terminal and about the mysterious benefactor who bandaged you up.
+One of the scientists nods thoughtfully.
+"That would be Officer Hailey, from shipping. She's the one who woke us up. Used some mining explosive to drop that creature through a floor when it came for us. Somehow, it knows when anyone is woken up from stasis.  That's our biggest challenge trying to wake up the crew."
+You ask them what their plans are.
+The blonde woman speaks up.
+"We're going to sit tight here, and try to repair this databank. With that makeshift barricade, we should be safe for now, and if we can fix this thing, we can send an S.O.S. to the solar array, and have the mil-ships come pick us up."
+You offer them your help.
+The blonde woman shakes her head.
+"No, I think your proven survival skills would be better suited to another operation we have planned. You see, Altabitha Hailey woke us up, and presumeably you as well, but now she's trapped.  She's surfaceside in the mining compound, and the only way to the elevator is through the rot-jungle. We're scientists, we wouldnt have a chance. But you.. you just might."
+> s
+> s
+You are in a rot jungle airlock.
+You can go south.
+Error running script: Invalid attribute name 'in jungle'
+> s
+> s
+You are in a dark jungle.
+You can go west, south, east or north.
+Light can't pierce the density of this place. You can hear the rustling of the bugs and reptiles around you. The atmosphere is heavy with moisture.
+This is the rot-jungle sector of the ship. Most deep-space farming is done in giant glass-domed terrariums like this one, as plants growing in wild environments produce small amounts of harvestable minerva. Some breeds of animals are often brought to inhabit them. You have no idea what would be lurking in this one.
+Error running script: Invalid attribute name 'in jungle'
+> e
+> e
+You are in a dark treefall.
+You can see a Pile of dead wood and a forked branch.
+You can go west.
+A large pile of dead trees used for the composting cycle. It's image is somewhat unsettling.
+> use pile of dead wood
+> use pile of dead wood
+You rummage through the pile of sticks and twigs, and near the bottom you find one straighter then the rest.
+Lifting it up, you realise it's a handmade fishing rod, presumeably left here by one of the farm workers.
+> take forked branch
+> take forked branch
+You pick it up.
+> w
+> w
+You are in a dark jungle.
+You can go west, south, east or north.
+Light can't pierce the density of this place. You can hear the rustling of the bugs and reptiles around you. The atmosphere is heavy with moisture.
+Error running script: Invalid attribute name 'in jungle'
+> s
+> s
+You are in a dark hill.
+You can see a mangled corpse.
+You can go north, west, south or east.
+It gives you a view of the area around you, at least it would if it weren't so dark. At it's peak you're very close to the top of the dome that houses the rotfarm.
+> use mangled corpse
+> use mangled corpse
+You rifle through the pockets of the jumpsuit, and find a small glass vial. You think it might be some kind of recreational drug until you spot the tiny skull and crossbones on the cork.
+> e
+> e
+You are in a dark pond.
+You can see a pond.
+You can go west or south.
+The trees part to reveal a serene pond. The stars are reflected in it's surface.
+> use fishing rod with pond
+> use fishing rod with pond
+You unwind the line and cast out into the middle of the pond. The starlight glints off something at the bottom of the still water.
+After a few more casts, you manage to hook the shiny object. Reeling in, you discover it is an old rusty key.
+> s
+> s
+You are in rest area.
+You can see a shack.
+You can go west or north.
+A banged up old shed where farmers would store their equipment. It looks as though it's starting to return to the earth.
+> use rusty key with shack
+> use rusty key with shack
+You unlock the shack. You should now be able to open it easily.
+> open shack
+> open shack
+It is already open.
+> take strip of rubber
+> take strip of rubber
+You pick it up.
+> use forked branch with strip of rubber
+> use forked branch with strip of rubber
+You tie the rubber strip to each end of the forked branch. You've created a basic slingshot, allowing you to deal with threats from a short distance away.
+> use vial of poison with slingshot
+> use vial of poison with slingshot
+You place the small vial  in the cup of the slingshot. Whatever takes a hit from this will be instantly incapacitated, you hope.
+> w
+> w
+You are in a dark hallway.
+You can go north or east.
+This is the hallway that farmers would use to navigate away from the jungle. It's locked at the moment.
+The red light on the locked hallway door doesnt change. You'll need a key to get out of here.
+> n
+> n
+You are in a dark hill.
+You can see a mangled corpse.
+You can go north, west, south or east.
+It gives you a view of the area around you, at least it would if it weren't so dark. At it's peak you're very close to the top of the dome that houses the rotfarm.
+> w
+> w
+You are in a dark thicket.
+You can go north, east or south.
+You can't traverse it. It's simply too thick and spiny. In this lighting you'll surely lose an eye.
+> s
+> s
+Holding up your slingshot, you enter the cave.
+You are in a Tiger lair.
+You can see a Augmented tiger.
+You can go east.
+This is not where a human should be. This is where tigers should be.
+You creep slowly into the lair, your eyes transfixed on the two red dots in the darkness. With a growl, the tiger comes to meet you.
+You kick something with your foot, and hear a metallic clink.
+Looking down, you spot the key out of the jungle! You hurriedly pocket it.
+ As it leaves the darkness of it's lair, You see it's matted orange fur glows with a strange light. The tiger has been feeding on minerva-enriched animals without the rotfarm crew to harvest it. As a result, the energy has manifested itself into an armoured, furry carapace, and a pair of wicked sharp velociraptor-esque claws on its front limbs.
+You are in a Tiger lair.
+You can see a Augmented tiger.
+You can go east.
+This is not where a human should be. This is where tigers should be.
+> look
+> look
+You are in a Tiger lair.
+You can see a Augmented tiger.
+You can go east.
+This is not where a human should be. This is where tigers should be.
+> use loaded slingshot with augmented tiger
+> use loaded slingshot with augmented tiger
+Crouching low, you pull back the sling and let fly with the poison vial. The tiger jumps at you as you fire, and the vial smashes into its snarling maw. The cloud of powder stuns the tiger, and it soars over you, crashing into the wall. Turning, you see it's already on its feet and pacing towards you.
+
+Wait, no..
+It's another tiger!
+This must be the one you heard patrolling the jungle.
+You'll have to act quickly if you want to survive.
+> use gutting knife with angry tiger
+> use gutting knife with angry tiger
+You pull your knife from its sheath as the tiger pounces. You crouch low, and thrust the knife up, hoping it's strong enough to cut through the augmented fur coat.
+You block the tigers pounce with your augmented arm, and feel its teeth ripping into the plasim gel. You do not feel pain. The tiger, thinking you incapacitated, does not anticipate the twelve inches of blue steel you drive into its neck. With a gurgling yowl, the beast dies.
+> e
+> e
+You hear a growling from inside the cave and see the glow of red eyes. You should probably stay away until you've readied some kind of ranged weapon.
+You are in a dark cave.
+You can go north or east.
+The cave looks like it's inhabited by something large and predatory. Not inviting.
+> e
+> e
+You are in a dark hallway.
+You can go north or east.
+This is the hallway that farmers would use to navigate away from the jungle. It's locked at the moment.
+The red light on the locked hallway door flashes green, and opens. You discard the jungle key, hoping you never have a reason to come back here.
+You quickly stride through the door into what appears to be a cafeteria.
+You are in a cafeteria.
+You can see a fridge.
+You can go south.
+Rows of tables and chairs. Dust is staring to settle on everything. The air is thick with the smell of rotting food. It's coming from the kitchen area.
+> s
+> s
+You are in a viewing platform.
+You can go north or south.
+From here you can see, through the 8 inch thick glass, the surface of the brown planet. The vast expanse is completely lifeless, littered with broken rock. Atmospheric winds barely audible from the safe confines of the deck. From here, you can see that the freight elevator below leads to ground level.
+> s
+> s
+You are in an elevator platform.
+You can see an elevator.
+You can go north.
+This is where people would wait for the elevator.
+> use elevator
+> use elevator
+You are in a surfaceside elevator platform.
+You can go north.
+The freight elevator ends here. You're close to the surface of the planet.
+The big freight elevator slowly grinds to a halt as it nears the docking station. You prepare to disembark as it stops. However, as soon as it does, the banks of floodlights go out, one after another. You hear some big mechanical device whirr into life.
+You crouch and look around wildly, willing your eyes to adjust to the sudden change in light.
+The room gains an unearthly red glow as the source of the whirring noise is revealed.
+You can faintly make out a giant mining laser, charging up and pointed directly at you!
+You dive off the platform and roll to the side, anticipating a blast of lethal heat energy.
+As soon as you hit the ground, however, the laser spins down and turns off. You crouch behind a crate, hand on the hilt of your knife.
+Hello?
+You hear a womans voice call out.
+You emerge, slowly, from your hiding spot.
+She smiles faintly.
+You must be my rescue squad, huh? Come through here, I'll explain what's going on.
+You are in an arrivals.
+You can see an altabitha hailey, a table, a chair, a bunk bed, a small fridge, a laundry line, an empty instafood packets and a photo frame.
+You can go west or south.
+It's been turned into a fort by Altabitha. Static defences block doorways and the mining laser is faced down the corridor you entered via, creating a killzone for any hostiles that might want to gain entry. The basic necessities are all here. There are a few discarded food packets lying on the prep table but other than that she's kept the place clean.
+> look
+> look
+You are in an arrivals.
+You can see an altabitha hailey, a table, a chair, a bunk bed, a small fridge, a laundry line, an empty instafood packets and a photo frame.
+You can go west or south.
+It's been turned into a fort by Altabitha. Static defences block doorways and the mining laser is faced down the corridor you entered via, creating a killzone for any hostiles that might want to gain entry. The basic necessities are all here. There are a few discarded food packets lying on the prep table but other than that she's kept the place clean.
+> w
+> w
+You are in a cave.
+You can go east or west.
+> w
+> w
+You are in a cave.
+You can see a flawed ruby.
+You can go east, south or west.
+> s
+> s
+You are in a cave.
+You can go north, south, west or east.
+> s
+> s
+You are in a cave.
+You can go south or north.
+> s
+> s
+You are in a cave.
+You can go west, north or east.
+> w
+> w
+You are in a cave.
+You can go west, north or east.
+> n
+> n
+You are in a cave.
+You can see a large ruby.
+You can go south.
+> use arm with large ruby
+> use arm with large ruby
+Using the strength of your plasim arm, you easily pry the ruby from the ground. Shouldering it, you continue on your way.
+> s
+> s
+You are in a cave.
+You can go west, north or east.
+> e
+> e
+You are in a cave.
+You can go west, north or east.
+> n
+> n
+You are in a cave.
+You can go south or north.
+> n
+> n
+You are in a cave.
+You can go north, south, west or east.
+> n
+> n
+You are in a cave.
+You can see a flawed ruby.
+You can go east, south or west.
+> e
+> e
+You are in a cave.
+You can go east or west.
+> e
+> e
+You are in an arrivals.
+You can see an altabitha hailey, a table, a chair, a bunk bed, a small fridge, a laundry line, an empty instafood packets and a photo frame.
+You can go west or south.
+It's been turned into a fort by Altabitha. Static defences block doorways and the mining laser is faced down the corridor you entered via, creating a killzone for any hostiles that might want to gain entry. The basic necessities are all here. There are a few discarded food packets lying on the prep table but other than that she's kept the place clean.
+> s
+> s
+You are in a fortified corridor.
+You can see a mining laser.
+You can go north or south.
+> use large ruby with mining laser
+> use large ruby with mining laser
+You and Altabitha spend the next few hours preparing the hallway for the beasts assault.
+You replace the fractured gemstone with the new, larger one.
+With a gem this large, the beams focus should be more powerful then possibly needed, but you might as well be on the safe side.
+Altabitha drags some naked wires across the elevator platform, and with your work finished you have enough time to help her set up some steelcrete barricades to prevent the beast from advancing.
+As you make the final preperations, you hear an ungodly roar from above.
+Pausing your work, you and Altabitha freeze.
+Its coming.
+You hear it slithering down from the top of the elevator shaft.
+Green sludgy goo heralds its arrival.
+You frantically start charging the laser, revving it in anticipation of the beasts descent.
+Over the whirring of the engine, you shout at Altabitha to retreat to the safety of the barricade.
+She looks up, brushing her sweat-heavy hair aside, and shouts something about the wires.
+You cant hear her over the lasers engine.
+Before you can do anything else, the beast slides into view.
+The room fills with a glow as the laser focuses.
+The beast roars, and slithering forward, sends up a shower of sparks from the tripwires. They do nothing to slow it down.
+It swivels its eyestalks around, and catching sight of Altabitha running towards you, fires a blast of red hot light.
+Altabitha twists her torso and the laser, instead of piercing through her breast, leaves a wicked long burn across the front of her stomache.
+She collapses.
+Shouting, you throw the lever on the mining laser and the pent up beam blasts forward, illuminating the beast in putifying light.
+Its scream deafens you.
+Its high pitched wailing sounds like a kettle boiling over.
+In a flash, it's over. the beast is dead, and nothing remains of it except a large ball of floating minerva.
+As entrancing as it is, you have more pressing issues.
+Altabitha is lying facedown on the rock floor. You sprint to her, and try to lift her over your shoulder.
+Seeing her wound has opened up her belly, you think better of it and lift her in your arms instead.
+You hurry to the arrivals bay, kicking pieces of barricade from your path.
+You lay her on one of the benches, and strip her jumpsuit torso off to examine the wound.
+Its bad. Fatal, even. You cannot hope to treat it.
+Even the best you can do is a temporary solution.
+You throw open cupboards and drawers until you find a first aid kit. You tear it open and grab the packet of plasim gel.
+You open the packet and slather Altabitha's wound with the gel. It will slow the bleeding and prevent infection, but without medical treatment, she will still die.
+Without any other option, you carry her to the emergency stasis pod, and carefully stand her inside.
+You activate the timer for 'indefinate'.
+She'll live.
+But she wont wake up until the navy arrives.
+You're back to being on your own.
+You slump against the pod, feeling helpless.
+You hear a rumbling.
+Something massive hs moving outside.
+It feels like a spaceship putting down, but the navy cant be here yet. Altabitha only sent the signal out last month, and it will take the fleet at least two months to arrive.
+You run to the spessglass wondow, and try to peer up.
+What you see shocks you.
+A giant ship is hovering above the surface of the planetoid. It looks like an old-timey castle, but made of bulbous orbs and garishly painted every colour under the sun.
+Aliens.
+Never before had their existance been proven.
+Theoretically, humans couldnt be alone in space, but to finally make contact...
+You can only wonder what theyre here for.
+The ship lands, and a ramp descends.
+Several large shiny, metallic beings descend. They look like robotic men with tank treads for legs.
+Looking closer, you realise they are robots. The way they move, their appendages.. some kind of excavator robot.
+The smaller ones gather around the largest, which projects a hologram of a large glowing orb emerging from a snail.
+Of course, the minerva!
+Something this large, it could well possibly draw the attention of anyone who knew what the substance was.
+The robots roll into single file and then proceed out of view. Theyre on the other side of the elevator platform. You hear a screeching of metal on metal, and realise theyre trying to cut through!
+Once they get inside, you're sure theyll identify you as hostile.
+You're trapped though, your only exit is into the rocky caves- a dead end, you're sure theyll find you.
+Unless...
+With a gulp, you look from the airlock leading outside to the landed alien ship.
+You have no choice. You dart to the airlock, and release it.
+Luckily, your thermals hold, even in the planetoids harsh environment.
+You run the fifteen meters to the alien ramp, and quietly sneak up into it.
+You dont know if it was pressure activated or if theyre aware of your presense, but the ramp closes behind you.
+You're in the belly of the beast now.
+You are in an entryway.
+You can go west, east or down.
+> w
+> w
+You are in a hallway a.
+You can go east, west or south.
+> s
+> s
+You are in a flight deck.
+You can go north, up or east.
+> up
+> up
+You are in a pictograph room.
+You can go down or up.
+> up
+> up
+You are in a stasis.
+You can see a pod1 (containing a bulbous alien), a pod2 (containing a thin alien), a pod3 (containing a fat alien), a pod4 (containing a mishapen alien), a pod5 (containing a gelatinous alien), a pod6 (containing a tiny alien), a life support control panel and a life support canister.
+You can go down.
+> use life support control panel
+> use life support control panel
+Prying off the panel, You observe hundreds of tiny moving wires. It seems the system used to regulate their life support is a living organism of its own.
+With one last look at the scum that engineered the deaths of everyone onboard your ship, you take two big handfuls of wire, and yank them out.
+The room instantly goes dark, and numerous explosions rock the ship. It seems the entire thing is organic, not just this system!
+You hear motion from the pods. The aliens, no longer being fed the necessary nutrients, are slowly dying. Hopefully in agony.
+The little one, not much bigger then a fetus, screams, and you hear more explosions from downstairs.
+You better hurry, you doubt you have more then a few minutes.
+> down
+> down
+You are in a pictograph room.
+You can go down or up.
+> down
+> down
+You are in a flight deck.
+You can go north, up or east.
+> e
+> e
+You are in a hallway b.
+You can go west, south or east.
+> w
+> w
+You are in an entryway.
+You can go west, east or down.
+> down
+> down
+You are in an outside.
+You can go up or south.
+More explosions shake the ground under you, and you nearly fall.
+Turning, you see the robot servants obliviously loading the minerva onto a elevator descended from the ship. Flames are now bellowing out the entranceway.
+Hurry to the fighter!
+> s
+> s
+You are in a landing pad.
+You can see a turbonerd.
+You can go north.
+> use turbonerd
+> use turbonerd
+Lumbering as fast as your injuries will allow you, you haul yourself onto the wing of the fighter. You wince as a flaming piece of metal lands near your hand. Looking closely, you see it writhes as it burns.
+You pop the hatch on the fighter, and collapse upside down into the craft.
+Shutting the hatch, you hit the autopilot engage switch, and brace yourself as a bright light envelops the ship.
+The world goes silent.
+With a massive boom, the alien ship goes up in a ball of blue flame, the shockwave rocking the Turbonerd as it tries to rise.
+Glancing down, you see the explosion has collapsed the cliff face onto the arrivals building.
+Altabithas pod will hold. Theyre made to survive physical punishment.
+But she's trapped, and you cant help her from here.
+Cursing, you plot a course for the location of the space navy.
+You'll find help, and you'll bring it back.
+You'll save her.
+THE END.
+[state=Running]

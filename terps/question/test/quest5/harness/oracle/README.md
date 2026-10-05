@@ -481,7 +481,10 @@ One native/oracle disagreement is permanent:
   3.7* row (seven lines) and for the 45 `Grid_GetGridCoordinateForPlayer` /
   `DictionaryItem … key 'x'` error lines in *GiantKiller Too 2.15* (five
   uncharted-room arrivals): those are the only diffs `../run_replays.sh` is
-  expected to show.
+  expected to show. (Sburb's `wake up` is the same class, not covered by a row: its
+  first `MoveObject(Player, Dream Bedroom)` has no exit into that room, so the
+  oracle prints two `Grid_CalculateMapCoordinates` errors before the Dream Bedroom
+  text and native charts the room silently; the golden route skips `wake up`.)
 
 One more expected row, not a #2189 case: *Rogues Adventure*. Its DoomQuest IV
 Konami-code route (`wwssadadba`) enters the `void` room, whose `msg` is a
@@ -491,6 +494,24 @@ expression, so QuestViva (and the oracle) report one script error
 while the native engine prints the dump as text. The golden is the oracle's
 verbatim output, so `../run_replays.sh "Rogues Adventure"` shows three hunks
 (54 diff lines), all inside the dump; any other diff on that row is a regression.
+
+And one lenient-native row: *Heliacal Hostility*. The game sets and reads a flag named
+`in jungle` (`SetObjectFlagOn/Off`, `GetBoolean` on `player`). QuestViva rejects an
+attribute name with a space (`Invalid attribute name 'in jungle'`, three script
+errors in the golden, `errors=3`); native accepts it, so `../run_replays.sh "Heliacal
+Hostility"` shows exactly those three lines. Not a deliberate design choice so much as
+an unresolved difference (whether desktop Quest accepts the name is untested).
+
+And one where native is the wrong one: *TabblewoopGOTY*. The intended solution is `put
+intragate in intragate`, which makes the `Intragate` its own parent. QuestViva refuses
+(`Parent of element 'Intragate' cannot be set to itself`, one script error, `errors=1`),
+as does desktop Quest 5 (guard in `Fields.cs` since 2012-07-11, commit 2744c3dc, in the
+5.7.2 and 5.8.0 releases), so the game cannot be finished on any current engine. Native
+lacks the guard: the wormhole appears and the route reaches `The End.` /`Finished`.
+The golden is the oracle's, so `../run_replays.sh TabblewoopGOTY` shows the divergence
+from the `put` onwards (about 20 lines). Unlike the rows above, this is a native defect
+awaiting a fix (reject a self-parent in the `parent` field setter), not a deliberate
+deviation.
 
 The two *Xanadu* games (*In the Compound — Revenge*, *The World's Only Hope*)
 used to fail here too, and were long mislabelled "RNG-stream and wait-echo

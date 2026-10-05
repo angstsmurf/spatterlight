@@ -1,0 +1,53 @@
+You are in a Kitchen.
+You can see a fridge, a cupboard, a counter (on which there is a roll of paper towels and a phone), a sink cabinet, a sink (in which there is a sponge and a soap), a family portrait and a knife drawer.
+You can go southeast.
+Goodness, are you thirsty for a glass of milk.
+> open fridge
+
+> open fridge
+You open it. Your eyes gravitate to two cartons, one of milk and the other of orange juice. Be sure to take the right one.
+> open cupboard
+
+> open cupboard
+There's a cup inside.
+> take cup
+
+> take cup
+You pick it up.
+> take milk carton
+
+> take milk carton
+You pick it up.
+> pour milk carton
+
+> pour milk carton
+Oh no! The milk spills! But there's no need to cry over spilled milk. Just clean it up.
+> take roll of paper towels
+
+> take roll of paper towels
+You pick it up.
+> clean up spilled milk
+
+> clean up spilled milk
+The paper towels absorb the mess. Good thinking. A wet paper towel is now on the counter.
+> open sink cabinet
+
+> open sink cabinet
+Inside there's a garbage bin, Windex, a dust pan, and a hand broom.
+> take wet paper towel
+
+> take wet paper towel
+You pick it up.
+> throw away wet paper towel
+
+> throw away wet paper towel
+You toss it in. Good thinking!
+> pour milk carton
+
+> pour milk carton
+This time it pours without spillage. Drink up!
+> drink cup of milk
+
+> drink cup of milk
+Mmm...delicious.
+[state=Finished]

@@ -1,0 +1,78 @@
+Welcome to my first text adventure using Quest. I hope you find some mild amusement in playing it. Your objective is to escape the flat.
+Press a Key to Begin...
+You are in the Lounge.
+You can see a Laptop.
+There is an exit  northwest.
+Pizza boxes are strewn across the floor.
+> nw
+
+> nw
+
+You are on The Landing.
+You can see a Recycling Box.
+You can go in many directions, namely  east, west, southeast, north, southwest or down.
+> n
+
+> n
+
+You are in a Toilet.
+You can see a Toilet and an Air Freshener.
+You can go south.
+> take air freshener
+
+> take air freshener
+You pick it up.
+> s
+
+> s
+
+You are on The Landing.
+You can see a Recycling Box.
+You can go in many directions, namely  east, west, southeast, north, southwest or down.
+> spray air freshener
+
+> spray air freshener
+You spray around and make the place smell much nicer. You especially spreay in the direction of the Bedoom, as some horrible scents are coming from that direction - but should be more bearable now,
+> sw
+
+> sw
+
+You are in a Bedroom.
+You can see a Large Bed.
+You can go northeast.
+> look under large bed
+
+> look under large bed
+You peer under the bed and can find a solitary shoe
+> look at shoe
+
+> look at shoe
+You shake the shoe and discover a key inside it, which you put in your pocket.
+> ne
+
+> ne
+
+You are on The Landing.
+You can see a Recycling Box.
+You can go in many directions, namely  east, west, southeast, north, southwest or down.
+> down
+
+> down
+
+You are in The  Hall.
+You can see a Front Door.
+You can go up.
+> unlock front door with key
+
+> unlock front door with key
+You unlock the door and swing it open. You can now go East.
+> e
+
+> e
+
+You are in a Front Garden.
+You have left the flat and discovered the outside world ...
+
+Well Done!
+You have Completed the Game
+[state=Finished]

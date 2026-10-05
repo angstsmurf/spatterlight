@@ -1,0 +1,84 @@
+You are in a Swiss Celtic Tribal Hut Swiss Celtic Tribal Hut.
+The hut itself looks classy... you know with all the weapons inside and all the helmets and other junk.
+You can go outside south.
+> south
+
+> south
+
+You are in a Swiss Celtic Village.
+The Village is full of not only people but Musical Instruments and Weapons.
+You better be careful...
+The Alphorn though has been recently used... maybe you should take it.
+You can see loads of Swiss Celts, a Sword and an Alphorn.
+You can go north or down.
+> take alphorn
+
+> take alphorn
+You (permanently) received the Alphorn (1 of 5 Trumpets found)!
+> down
+
+> down
+
+You are in an .
+The time portal has sent you through many different ages but it just skipped to the 14th Century, you feel as though someone or something is controlling this and making you learn about the Trumpet (as it is apparently one of the only objects available).
+You can hear tones that sound very harmonic coming from a person playing a Trumpet... (take it!)
+You can see a Fourteenth Century Trumpet.
+You can go up or down.
+> take fourteenth century trumpet
+
+> take fourteenth century trumpet
+You (permanently) received the 14th Century Trumpet (2 of 5 Trumpets found)! This Trumpet is known as the 'Natural Trumpet' and produced 'Harmonic Tones'
+> down
+
+> down
+
+You are in a Sixteenth Century.
+You have gone through a second time portal... you still don't know why you are going through this 'learning experience' but it is very helpful for something that you can't remember.
+The 16th Century Trumpet looks similar to the 14th Century one that you (should) have received from the 14th Century.
+There are many factories producing Trumpets because Trumpet making has become popular in Germany.
+You can hear that the Trumpet has begun to be used in musical works as very catchy songs are hitting you ears and you are resisting to groove to it.
+You can see German Military using their Trumpet for military purposes and a Sixteenth Century Trumpet.
+You can go up or down.
+> take sixteenth century trumpet
+
+> take sixteenth century trumpet
+You (permanently) received the 16th Century Trumpet (3 of 5 Trumpets found)! The Trumpet in this time was used for Courtly and Military Purposes.
+> down
+
+> down
+
+You are in a Seventeenth Century.
+This is now getting old, you almost feel normal after going through this third time portal and you can see 2 Trumpets which you can't tell apart...
+I will give you a clue:
+Look at them and all will be revealed!
+You can see Leopold Mozart (Wolfgang Mozart's dad) using the Trumpet of this time in his compositions and a Seventeenth Century Trumpet 1 and a Seventeenth Century Trumpet 2.
+You can go up or down.
+> look at seventeenth century trumpet 2
+
+> look at seventeenth century trumpet 2
+
+It looks like a 17th Century Trumpet that has been recently used... you are extremely nervous after what I said to you.
+It is in the key of D.
+> take seventeenth century trumpet 2
+
+> take seventeenth century trumpet 2
+You (permanently) received the... correct 17th Century Trumpet (4 of 5 Trumpets found)! You must know that the normal Trumpet was in the key of C or D and military Trumpets were in the key of E flat and F during this time!
+> down
+
+> down
+
+You are in a Nineteenth Century.
+You must have gone through the last time portal if not then what happens next... anyway you can hear the Chromatic scale being played evenly on the Trumpet because of the Valves recently added also you can see a slide finally added onto it (it has been attempted since the 1600's) and you can hear an Orchestra playing... with a Trumpet in it... what a great time for the Trumpet!
+You can see a Nineteenth Century Trumpet.
+You can go up or down.
+> take nineteenth century trumpet
+
+> take nineteenth century trumpet
+You (permanently) received the 19th Century Trumpet from a quitting Trumpet player (5 of 5 Trumpets found)!
+> down
+
+> down
+
+You are in the Final Time Portal a Final Time Portal.
+You can tell this time portal will get you to your own time but reflecting on your journey you know so much about the Trumpet you may get you A+ in music history!
+[state=Finished]

@@ -1,0 +1,163 @@
+"Hi, I'm Mr Worm Hole! We seem to have crash landed our two person spaceship on this unknown planet! The ship seems to be damaged."
+Mr Worm Hole: "Will you help me explore and fix the ship so we can go home?"
+> yes
+You are in the Bridge.
+You can see a Cockpit Window, a Control panel and a Door Release Button.
+
+Mr Worm Hole: "We're locked in The Bridge! See if you can work out a way to get us out!"
+
+"Some useful words you can use when typing commands to work through the ship are Look, Take, Use. I'll help you out where I can but other than that, you're on your own. Good luck kid!"
+> use door release button
+> use door release button
+You have unlocked the bridge door! You can now go forward into the main ship interior.
+You are in a purgatory.
+You are in the Bridge.
+You can see a Cockpit Window and a Control panel.
+You can go forward.
+
+Mr Worm Hole: "Let's find out what planet we're on! We need to use the ship's Map Room, however my computers are telling me there is a hole from our crash in the Map Room! This means there is no oxygen in there. The ship has locked that room and won't let you in until you have Oxygen Tank and your Space Suit. Let's go forward and get to it!"
+> forward
+> forward
+You are in the Main Ship Interior.
+You can go left, right, upstairs, forward or back.
+
+You are in the main ship interior. You can see four doors around you leading to different areas of the ship.
+
+Forward is the Map Room which is locked.
+Upstairs is the Research Bay.
+Left is the Engine Bay,
+Right is the Equipment Storage Bay.
+
+Mr Worm Hole: " The ship has locked the Map Room as there is a hole in that room. The ship will only open the room when you are wearing your space suit with your oxygen tank and that you are carrying the map room key. You should go and find these. Try looking in the Storage Bay for your Space Suit."
+> upstairs
+> upstairs
+You are in the stairway leading to the Research Bay.
+You can see a corridor window.
+You can go upstairs or downstairs.
+> upstairs
+> upstairs
+You are in the Research Bay.
+You can see a Green Tank, a Yellow Tank and a Black Tank.
+You can go downstairs.
+You have entered the Research Bay. You can see rows of research stations and at the front of the room is a rack with three tanks. You need to pick up the tank that needs to be connected to your space suit to allow you to breath in the map room.
+> take oxygen tank
+> take oxygen tank
+You have picked up the Oxygen Tank! This will allow you to breathe in the map room!
+> downstairs
+> downstairs
+You are in the stairway leading to the Research Bay.
+You can see a corridor window.
+You can go upstairs or downstairs.
+> downstairs
+> downstairs
+You are in the Main Ship Interior.
+You can go left, right, upstairs, forward or back.
+
+You are in the main ship interior. You can see four doors around you leading to different areas of the ship.
+
+Forward is the Map Room which is locked.
+Upstairs is the Research Bay.
+Left is the Engine Bay,
+Right is the Equipment Storage Bay.
+
+Mr Worm Hole: " The ship has locked the Map Room as there is a hole in that room. The ship will only open the room when you are wearing your space suit with your oxygen tank and that you are carrying the map room key. You should go and find these. Try looking in the Storage Bay for your Space Suit."
+> left
+> left
+You are in the Engine Bay Corridor.
+You can see a Window.
+You can go left or right.
+You are in the Storage Corridor.
+> left
+> left
+You are in the Engine Bay.
+You can see a Key Container, a Battery Four, a Battery One and a Battery Two.
+You can go right.
+In front of you is a Key Container. The Container has a battery light on. Only one of the bars is full but all four need to be full before the container has enough power to open. You need to use the right batteries with the key container to get the power just right so the key container will open.
+> take battery one
+> take battery one
+You have picked up battery one
+> take battery two
+> take battery two
+You have picked up battery two
+> use battery one on key container
+> use battery one on key container
+You have used battery one with a slot on the key container!
+You need to add a total of three batteries to the container for it to have enough power to open.
+> use battery two on key container
+> use battery two on key container
+You have used battery two in a slot on the key container!
+You know that there is a key inside the container.
+Well Done! You have restored power to the key container! You can see a key inside.
+> take map room key
+> take map room key
+You have picked up the key! Now you can go right to get back into the main ship area.
+> right
+> right
+You are in the Engine Bay Corridor.
+You can see a Window.
+You can go left or right.
+You are in the Storage Corridor.
+> right
+> right
+You are in the Main Ship Interior.
+You can go left, right, upstairs, forward or back.
+
+You are in the main ship interior. You can see four doors around you leading to different areas of the ship.
+
+Forward is the Map Room which is locked.
+Upstairs is the Research Bay.
+Left is the Engine Bay,
+Right is the Equipment Storage Bay.
+
+Mr Worm Hole: " The ship has locked the Map Room as there is a hole in that room. The ship will only open the room when you are wearing your space suit with your oxygen tank and that you are carrying the map room key. You should go and find these. Try looking in the Storage Bay for your Space Suit."
+> right
+> right
+You are in the Equipment Storage Corridor.
+You can see a Window.
+You can go left or right.
+> right
+> right
+You are in the Equipment Storage Bay.
+You can see a Space Suit Container.
+You can go left.
+
+Mr Worm Hole: "Your Space Suit is stored in its container, enter your password to open it, if you have forgotten your password use the hint to help."
+
+Mr Worm Hole: "Open the container to enter your password."
+> open space suit container
+> open space suit container
+Your Space Suit Container is locked by a password. Please enter the correct password below to open the container.
+> door
+The container has opened! Quick, grab the suit while you can!
+> take space suit
+> take space suit
+You have taken the Space Suit! Now go left to head back into the main ship interior.
+> left
+> left
+You are in the Equipment Storage Corridor.
+You can see a Window.
+You can go left or right.
+> left
+> left
+You are in the Main Ship Interior.
+You can go left, right, upstairs, forward or back.
+
+You are in the main ship interior. You can see four doors around you leading to different areas of the ship.
+
+Forward is the Map Room which is locked.
+Upstairs is the Research Bay.
+Left is the Engine Bay,
+Right is the Equipment Storage Bay.
+
+Mr Worm Hole: " The ship has locked the Map Room as there is a hole in that room. The ship will only open the room when you are wearing your space suit with your oxygen tank and that you are carrying the map room key. You should go and find these. Try looking in the Storage Bay for your Space Suit."
+You are now prepared to enter the map room.
+> forward
+> forward
+You are in the Map Room.
+You can see a Map.
+You can go back.
+Mr Worm Hole: Quick Use the Map so we can finally find out what planet we are on!!
+> use map
+> use map
+You are in a Game finish.
+[state=Running]

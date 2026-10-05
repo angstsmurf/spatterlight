@@ -1,0 +1,73 @@
+You are in a chamber.
+You can see that near you sits a bench of rock orderly and geometric against the wall, and on the corner where the floor meets the ground rests an empty frame equipoised impatiently..
+You can go south , where the wall narrows, breaks, and becomes a door. or west.
+Dank and obscure, the air is pregnant with an inquistive languor. The walls are rough with crudely-mined stone, and you feel purposeless and entirely outside your skin.
+
+Realizing yourself as a mobile parthood in the room's static whole, you move about, and examine the things that make you all you are.
+> take empty frame
+The oaken frame feels hollow and light as you harbor it. You can feel the air passing through its opening.
+> s
+You are in a studio.
+Before you lie a mirror and canvas.
+You can go north or west.
+Once you enter this room, you are devoured by an endless darkness. The shadow has descended upon you, and you are thrust into a state where the infinitesimal has been made transfinite, metamorphosed by the catalyzing obscurity. Everything is trembling.
+
+You come to notice the silent sheet of glass in the corner, drawing you forward. This room is empty but for the mirror and a blank canvas which stands next to it.
+> x mirror
+Though the ground is flat, as you approach the mirror, it feels as though you are descending a set of stairs. The mirror's distance from you is completely unknown, confused and betrayed as it is by the darkness, and what feels like a step forward looks like a step backward. The glimmer of that glass sheet becomes the light of the world waiting restlessly at the end of a long tunnel, and the closer you get to it, the more you are overtaken by the feeling of descension. You're gliding beneath the cold and stony ground, arms fully outstretched, seeing nothing in the blackness, becoming one with the blackness, skimming 'cross the air, becoming one with the air, shooting, crying, tumbling, overtaken by the sense of age and agelessness, rolling rapidly through nullness, screaming across the world's dark core, being nothing, being everything, being together, being together, twisted your face, having the room follow, reacting to every motion you detect in this blackened studio, until you stop violently with a sudden and anxious thud before the mirror reflecting darkness.
+
+But from the mirror's plenitude coalesces a demon. Where in your core was nothing but freedom and purpose, you feel the exhausted palpitations of a heart, the inconsistent filling of a pair of lungs. Before the mirror, you materialize, and you now feel a pair of feet, a pair of legs, hit the rocky floor, their bottom-most organism defining your posessions so succintly, telling the floor firmly "No, you cannot have me." You feel a shock of hair sprout from your head, and feel new muscle and skin swirl around your body. In the mirror now stands a corpus of your own devision. Your home and hearth. Your frame of reference. You become an arbiter of size. The things around you are not as simple as they once were. One thing is part of something bigger, and that thing part of a circuit even greater. The biggest thing, the master of reality, is you -- the woeful arbiter of size and shape. You see the arborescence and become ecstatic.
+
+From the primordial soup, you have been coalesced. This is what it is to be human: you gain all things, but you lose one.
+
+You flex your arm and scream.
+The room is suddenly illuminated. You hear the hoarse strains of a man panting behind you, and you see a silhouette dash into a door to the west you had not seen, before.
+> use canvas with empty frame
+You can't use it that way.
+> take painting
+Leaning downward to pick the painting up, you feel a sharp pain in your leg as you understand what has just occurred. When you forced the canvas into the confines of the frame, you essentially changed the now-polymerized object's reference -- it, being made an example of symmetry and order, has acquired a certain elusive beauty. The object is now a painting. As you lift it back into your embrace, you feel in your bones the glory of Power. This painting holds the key to your fate. Its retention or destruction will decide your future.
+> w
+You are in a temple.
+You can see a cup and a statue.
+You can go east or north.
+Entering this new room, you first notice that the roof is domed, extending upwards from all sides, and reaching a furious point in the center. This invasive structure makes all those who dwell under it bear upwards, and in its presence, one is pulled forward by some endorphic poltergeist, set awash in a sea of power and purpose.
+
+In the center of the room is a raised pedestal, behind which stands the silhouette you saw in the previous room, chanting in some arcane tongue. He raises his eyes from the pedestal towards you, and you notice that in the heart of his hirsute and filthy face which is sheltered by the dark aegis of his ragged beard and profuse hair, are two brown eyes cloudy with a wrathful and cosmic smoke, lashless, completely open and vulnerable to all the world's foreign perils. He projects upon you a dreadful benevolence, which has been framed in the pellucid glass of curtness, rejection, and disappointment. While you wallow in your pool of awe, the Lashless Man steals away through an eastern door, his absence lifting from the room the crushing burden of the Divine.
+
+On the pedestal stands a gleaming, ornate cup. Behind it is a wooden door, and next to it an imposing statue.
+> x statue
+The tremendous statue, apparently chiseled from a rough marble, unfurls beneath a sprawling arch by the locked door. The delicately-constructed rock sculpture represents an army of finery-clad mules tirelessly pulling carriages full of men and supplies up an icy cliff.  The statue is situated upon a stone stand, which bears the following poem:
+
+In the sour shade of my crime
+the world I made did trap me in
+a jail for forging God's divine
+arborescent circuitous din.
+My numbers resonate in thine:
+Two, Three, Five, Seven, Eleven.
+T'would be a sin to share my fate --
+view "all" as "ALL"! 'Tis yet not late.
+
+The verse is without a signature, and the click of the door unlocking as you read through it was jarring. You breathe in the musty air, sigh, and count the cobblestones on the ground.
+> yes
+I don't understand your command.
+> n
+You are in a gallery.
+You can see a fireplace, an empty spot on the wall, a podium and a hall.
+You can go south or east.
+You feel in your lungs the thick and ancient air that spins in terpsichorean patterns of whimsy within this room. The walls are adorned with luscious finery -- epic tapestries of linen and silk hang effortlessly, and the brightness of light, the smoothness of the floor, and the brilliance of organization within this room bear nothing in common with the rest of this place, you notice. Walking down the expansive hall, however, you sense something emerging from the chartered interstices and meticulous blueprints the many paintings comprise; they stand as a frightening quantification of the stone walls' existence -- an evisceration and apportioning of the room's various lifeless parts. But its beauty nevertheless overwhelms.
+
+At last, you come upon an elegant foyer, with a crackling fire in a metal pit in the room's center. The artistic progression seems to reach its apex at this point, as the art on the right wall begins to darken and narrow in composition, while the art on the left grows in brightness. In the center of the opposite wall, the two sets end. The right wall's pieces end in a framed canvas painted solid black. The left wall's seem poised to be completed, but it appears that a framed white canvas is missing at the arrangement's tip.
+
+Above both progressions are two immense, stained-glass eyes, both without lashes, equipoised in a somber spectatorship.
+> use painting with spot
+
+The two stained glass eyes above you shatter in a rage. An emotive and frantic brightness envelops the room in its brilliant fury, as you feel rising flutters in your beating heart. Your eyes widen as the fire bursts angrily, then dissipates softly, flinging you into a state of tremulous, empowered laughter. You flex every muscle in your body, making yourself as hard as possible, and throw your figure around the room, as the paintings on the walls move together, draping the wall in a perfect order, flooding the room with light, driving out any and all mystic darkness, as confusion, enigma and belief in all their myriad forms have the life sucked from their veins by your ordinal glory. The walls dividing all the rooms raise suddenly, and the rough cobblestones making up the floor tile themselves en masse.
+
+Bathing in the glory, you scream and cackle, shoot from room to room, dividing and quantifying, counting the cobblestones, organizing the paintings, making more rooms, making fewer rooms, elucidating and illuminating. Out from a corner crawls the Lashless Man, collapsed and weeping, shielding his eyes from the light, which is growing less and less elucidatory, and more and more blinding. The luminescence thickening the air is one of filtration, not illumination, and as you grow more and more certain in your surroundings, you become aware that your certainty is yours alone. You are the arbiter not only of size, but of truth, and your power is infinite. The Lashless Man stumbles and coughs, stands and sits, and stops forever.
+
+You are encircling the room, growing white hot, absorbing the order, feeding off the arborescence, channeling the power of the circuit. You are building and destroying, rebuilding and organizing, adding and subtracting, dividing and multiplying, finding patterns, fixing patterns, broadening the world, narrowing the world. You are perfect, deific, beautiful. You are big and good in your armpits, your sweat, your everything. You are the world, you are the home, and I hate you. You are everything and the galaxies, and suns upon suns, and the universe, and you are gone. You create all.
+
+I cannot see you.
+
+fin
+[state=Finished]

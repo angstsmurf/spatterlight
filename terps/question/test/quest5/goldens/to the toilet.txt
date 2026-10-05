@@ -1,0 +1,17 @@
+A bedroom
+You can see a radio, a door, a box, a dresser and a bed.
+> take key
+u take key
+> open door
+You open it.
+> out
+
+A living room
+You can see a lamp, a door, a door2, a couch, a bookshelf and a door3.
+> out
+
+A bathroom
+You can see a toilet and a bathtub.
+> pull down pants and sit toilet
+congrats u didnt crap yoursrlf u successfully got to the toilet!
+[state=Finished]

@@ -1,0 +1,601 @@
+You are in PACE Headquarters, Earth.
+The year is 2338.
+
+Earth is dying.
+
+Pollution has overwhelmed the Earth's atmosphere, and oxygen is becoming sparse.
+
+All the fossil fuels have been depleted. The Earth is running completely on nuclear power.
+
+But even nuclear power won't last forever. And to make matters worse,
+
+there is only enough fresh water left for 6 months.
+
+You are Team PACE. Together, you have been chosen by President Rosenberg to go on the space mission that is the only option if Earth is to be saved.
+
+Scientists have discovered that there are 12 Planetary Gems scattered throughout the Galaxy.
+Each gem is guarded by a statue created by the ancient civilization of aliens, who were much more technologically advanced, on each of these 12 destinations.
+
+Your mission, should you choose to accept it, is to fly the Normandy Spacecraft to each of the destinations and retrieve the 12 Planetary Gems.
+
+Scientists believe that if all twelve gems are combined, they will form the Gem of the Universe, which, once buried in the center of the planet, will restore Earth to its former glory, undoing the damage of the pollution and greenhouse gases, refilling the oceans and reforming the polar ice caps.
+
+You are Earth's only hope.
+
+To begin, type 'board Normandy'
+> board normandy
+> board normandy
+Your first destination is our Sun.
+The technology of the future is quite advanced, and planetary travel is very fast.
+
+Type 'Go to The Sun' to continue.
+> go to the sun
+> go to the sun
+You are on the Sun.
+
+Don't worry, you won't burn up instantly. Hyperthermal suits will protect you on the surface.
+
+You can see the Statue of the Sun.
+
+There is an inscription. The inscription is in a strange alien language. These letters will be instantly translated with your Retina Decipherer.
+
+"What is the approximate temperature on the surface of the Sun?"
+
+Here is how you answer a question:
+If you think the answer is a, type 'choose a'
+If you think the answer is b, type 'choose b'
+If you think the answer is c, type 'choose c'
+
+a) 3,000 Degrees Celsius
+
+b) 5,500 Degrees Celsius
+
+c) 10,000 Degrees Celsius
+> choose b
+> choose b
+Correct. Gain 10 points.
+
+You obtained the Garnet of the Sun! Eleven to go.
+Your next stop is Mercury,
+
+Type 'go to Mercury' to continue.
+(Did you think that was easy? Don't worry, it will get harder. Just wait.)
+> go to mercury
+> go to mercury
+You are on Mercury.
+
+Armand: We made it to Mercury. Wait, is this the planet or the element?
+Mrs. Knight: The element.
+Armand: Really?
+Mrs. Knight: No! The planet!
+Armand: Oh.
+
+You can see the Statue of Mercury.
+
+The next question is:
+
+"What other planet or moon does Mercury resemble?"
+
+a) Pluto
+
+b) Neptune
+
+c) Earth's Moon
+> choose c
+> choose c
+Correct. Gain 10 points.
+
+You obtained the Amethyst of Mercury! Ten to go.
+Your next stop is Venus.
+
+Type 'go to Venus' to continue.
+> go to venus
+> go to venus
+You are on Venus.
+
+I'm your venus, I'm your fire....
+Nevermind.
+
+You can see the Statue of Venus.
+The next question is:
+
+"What is a unique characteristic of Venus?"
+
+a) Lots of volcanoes. Not the baking soda kind.
+
+b) Its a sister planet to Mercury.
+
+c) Its the smallest planet.
+> choose a
+> choose a
+Correct. Gain 10 points.
+
+You obtained the Aquamarine of Venus! Nine to go.
+Your next stop is the Moon.
+
+Type 'go to the Moon' to continue.
+> go to the moon
+> go to the moon
+You are on The Moon.
+
+One small step for man, one giant leap for mankind.
+
+You can see the Statue of the Moon.
+The next question is:
+
+"Earth's moon affects..."
+
+a) Earth's gravity.
+
+b) Earth's atmosphere.
+
+c) Earth's tides.
+> choose c
+> choose c
+Correct. Gain 10 points.
+
+You obtained the Diamond of the Moon! Eight to go.
+Your next stop is Mars.
+
+(Incoming transmission)
+
+"Hello, it's me, President Rosenberg. I see you have collected 3 of the gems. Keep up the good work.
+
+How about a bonus question for 15 points?"
+
+Type 'go to bonus question' if you want to test your knowledge.
+> go to bonus question
+> go to bonus question
+You are on Rosenberg's Challenge.
+Alright, here is your question!
+
+"Which of the following constellations can be seen at any time during the year?"
+
+a) Ursa Minor, Big Dipper and Aries
+
+b) Cassiopeia, Little Dipper and Ursa Major
+
+c) Gemini, Big Dipper and Little Dipper
+> choose b
+> choose b
+Correct. Gain 15 points.
+
+Your next stop is Mars.
+
+Type 'go to Mars' to continue.
+> go to mars
+> go to mars
+You are on Mars.
+
+The planet.
+
+Not the chocolate bar, Danna.
+
+You can see the Statue of Mars.
+The next question is:
+
+"Mars' red colour comes from..."
+
+a) Carbon dioxide
+
+b) Iron oxide
+
+c) Iron dioxide
+> choose b
+> choose b
+Correct. Gain 10 points.
+
+You obtained the Emerald of Mars! Eight to go.
+Your next stop is the Asteroid Belt.
+
+Type 'go to Asteroid Belt' to continue.
+> go to asteroid belt
+> go to asteroid belt
+You are on the Asteroid Belt.
+
+NO! YOU MAY NOT WEAR THE ASTEROID BELT!!!!
+
+You can see the Statue of the Asteroids.
+The next question is:
+
+"What is not true about the Asteroid Belt?"
+
+a) There are 3 million asteroids in a 1km radius
+
+b) Ceres is a dwarf planet that used to be an asteroid.
+
+c) 4000 Near Earth Asteroids cross Earth's orbits
+
+(Getting harder, huh? Told you so.)
+> choose a
+> choose a
+Correct. Gain 10 points.
+
+You obtained the Pearl of the Asteroid! Seven to go.
+Your next stop is Jupiter.
+
+Type 'go to Jupiter' to continue.
+> go to jupiter
+> go to jupiter
+You are on Jupiter.
+Now, there will be four possible answers, and correct answers will be worth 20 points.
+Incorrect answers will cause you to lose 20 points.
+Remember, type 'choose d' to select d) and so on.
+
+It's a gas giant. Yes, I said gas. Get over it.
+You smelt it you dealt it.
+
+You can see the Statue of Jupiter.
+The next question is:
+
+"Compared to other planets, Jupiter..."
+
+a) Has the fastest rotation.
+
+b) Is the second largest planet.
+
+c) Has the shortest orbital period.
+
+d) Has the most moons.
+> choose a
+> choose a
+Correct. Gain 20 points.
+
+You obtained the Ruby of Jupiter! Six to go.
+Your next stop is Saturn.
+
+Type 'go to Saturn' to continue.
+> go to saturn
+> go to saturn
+You are on Saturn.
+
+It's my favourite planet. Why?
+It has rings that remind me of rainbow road from Mario Kart.
+Who doesn't love Mario Kart?
+
+You can see the Statue of Saturn.
+The next question is:
+
+"Which is the only true answer?"
+
+a) Saturn has 7 rings, 27 satellites and Saturn is the god of the sky.
+
+b) Saturn has 8 rings, 30 satellites and Saturn is the god of water.
+
+c) Saturn has 7 rings, 30 satellites and Saturn is the god of agriculture.
+
+d) Saturn has 8 rings, 27 satellites and Saturn is the god of the underworld.
+> choose c
+> choose c
+Correct. Gain 20 points.
+
+You obtained the Peridot of Saturn! Six to go.
+Your next stop is Uranus.
+
+Hahahahaha very funny.
+
+(Incoming transmission)
+
+"Hello, it's me again. President Rosenberg. You have collected 8 of the gems. Almost there!
+
+How about a bonus question for 15 points?"
+
+Type 'go to bonus question' if you're ready to test your knowledge.
+> go to bonus question
+> go to bonus question
+You are on Rosenberg's Challenge.
+Alright, here is your question!
+
+"On June 2nd at 12 AM, what constellations would be visible in the northern hemisphere?"
+
+a) Corvus, Piseces, Auriga
+
+b) Cassiopeia, Auriga, Andromeda
+
+c) Ursa Major, Cepheus, Auriga
+
+d) Auriga, Perseus, Gemini
+> choose d
+> choose d
+Correct. Gain 15 points.
+
+Your next stop is Uranus.
+
+Type 'go to Uranus' to continue.
+> go to uranus
+> go to uranus
+You are on Uranus.
+
+Hahahahahaha, soooo funny.
+
+Man, you guys are immature. Stop laughing. I SAID STOP!
+
+You can see the Statue of Uranus.
+
+Hahahahahaha, ok I admit it. Statue of Uranus sounds hilarious.
+
+The next question is:
+
+"Uranus rotates in what direction?"
+
+a) North to East
+
+b) East to West
+
+c) South to West
+
+d) North to South
+> choose d
+> choose d
+Correct. Gain 20 points.
+
+You obtained the Sapphire of Uranus! Three to go.
+Your next stop is Neptune.
+
+Type 'go to Neptune' to continue.
+> go to neptune
+> go to neptune
+You are on Neptune.
+
+I can't think of anything funny to do with Neptune.
+Dang.
+
+You can see the Statue of Neptune.
+
+The next question is:
+
+"What is an interesting feature of Neptune that no other planet or moon has?"
+
+a) It has a rocky core.
+
+b) It has a great dark spot.
+
+c) It has an atmosphere of methane.
+
+d) It has extremely fast winds.
+> choose d
+> choose d
+Correct. Gain 20 points.
+
+You obtained the Opal of Neptune! Two to go.
+Your next stop is Pluto.
+
+Type 'go to Pluto' to continue.
+> go to pluto
+> go to pluto
+You are on Pluto.
+
+Armand: Yay! I love Mickey Mouse's dog!
+Mrs. Knight: How did you even get in this class?
+
+You can see the Statue of Pluto.
+The next question is:
+
+"Pluto is no longer considered a planet because..."
+
+a) It does not rotate around the sun.
+
+b) It is not big enough to move space debris.
+
+c) It does not have a spherical shape.
+
+d) It doesn't have any moons.
+> choose b
+> choose b
+Correct. Gain 20 points.
+
+You obtained the Topaz of Pluto! One to go.
+Your next stop is the Oort Cloud.
+
+Correct. Gain 20 points.
+
+You obtained the Turquoise of the Oort Cloud! None to go.
+Your next stop is Earth.
+
+(Incoming transmission)
+
+"Hello, it's me, President Rosenberg. Congratulations on collecting 11 of the Planetary Gems.
+
+I have another bonus question for you, and it's worth 15 points."
+
+Type 'go to bonus question' if you're ready to test your knowledge.
+> go to bonus question
+> go to bonus question
+You are on Rosenberg's Challenge.
+Alright, here is the next question.
+
+"Which of these constellations are named after creatures that are native to Canada?"
+
+a) Ursa Major and Scorpio
+
+b) Cancer and Leo
+
+c) Lepus and Taurus
+
+d) Lepus and Lyra
+
+e) Ursa Minor and Pisces
+> choose e
+> choose e
+Correct. Gain 15 points.
+
+Your next stop is the Oort Cloud.
+
+Type 'go to the oort cloud' to continue.
+> go to the oort cloud
+> go to the oort cloud
+You are on Oort Cloud.
+For 40 points.
+
+This is it. The final gem. This is no time for jokes.
+
+You can see the Statue of the Oort Cloud.
+
+The next question is:
+
+"What ends here?"
+
+a) The solar wind
+
+b) Comets
+
+c) The kuiper belt
+
+d) All of the above
+> choose a
+> choose a
+Correct. Gain 40 points.
+
+You obtained the Turquoise of the Oort Cloud! None to go.
+Your next stop is Earth.
+
+Type 'go to Earth' to continue.
+> go to earth
+> go to earth
+You are on The Long Way Home....
+The way back to Earth is a long journey.
+
+Your radar detects a small object.
+
+You soon discover that this object is Cassini, the space probe.
+
+For 15 points, do you remember the destination planet of Cassini?
+
+a) Saturn
+
+b) Uranus
+
+c) Neptune
+> choose a
+> choose a
+Correct. Gain 15 Points.
+
+Type 'go to space' to continue.
+> go to space
+> go to space
+You are on The Long Way Home.
+The way back to Earth is a long journey.
+
+You come across what appears to be a comet!
+
+For 15 points, what is an example of a comet?
+
+a) A dirty snowball
+
+b) Comet Hale-Bopp
+
+c) Hailey's Comet
+> choose b
+> choose b
+Correct. Gain 15 points.
+
+Type 'go to space' to continue.
+> go to space
+> go to space
+You are on The Long Way Home.
+You're still traveling back to Earth.
+
+You see a small probe.
+
+Your radar identifies it as Voyager 2.
+
+For 15 points, long will it take Voyager 2 to reach the Oort Cloud from the start of its journey?
+
+a) 3000 Years
+
+b) 6000 Years
+
+c) 9000 Years
+
+(Yes, the primitive technology of the 21st century. Unbelievable. The space probes of the 24th
+century could get to the oort cloud in 10 minutes!)
+> choose b
+> choose b
+Correct. Gain 15 points.
+
+Type 'go to space' to continue.
+> go to space
+> go to space
+You are on The Long Way Home.
+You're almost home!
+
+You can see the Venus Express.
+
+For 15 points, what science instruments does the Venus Express have installed?
+
+a) The magnetometer, AVECO4 and S-PAC
+
+b) Virtis, VeRa and V.E.N.U.S
+
+c) The MAG, ASPERA-4, and SPICAV
+> choose c
+> choose c
+Correct. Gain 15 points.
+
+Type 'go to space' to continue.
+> go to space
+> go to space
+You are on THE FINAL STAND.
+You're about to dock in Earth when....
+
+A BLACK HOLE!!!!!
+
+Only your knowledge of black holes can save you now!
+
+For 15 points, and your life, how are black holes created?
+
+a) A massive star reaches the end of its life and is crushed by it's own gradational force.
+
+b) When a colossal star reaches supernova, it expands until it explodes.
+
+c) A gigantic star shrinks and shrinks so it contracts upon itself and eventually is destroyed.
+> choose a
+> choose a
+Correct. Gain 15 points.
+
+Finally, you can reach Earth.
+
+Type 'go to Earth' to finish this adventure.
+> go to earth
+> go to earth
+You are in a Earth.
+Congratulations. You made it back to Earth.
+
+BUT EARTH IS DYING. THERE ISN"T MUCH TIME LEFT. HURRY, BEFORE THE EARTH IS DESTROYED!
+
+You need to combine all gems.
+
+Literally.
+> combine all gems
+> combine all gems
+All the 12 planetary gems, each in the form of a birthstone, form together and a great flash of light appears. When the light fades, all that is left is a beautiful golden gem.
+
+The Gem of the Universe.
+
+You know what to do with it.
+
+(If you don't know, you weren't paying attention. Check the introduction.)
+> bury gem of the universe
+> bury gem of the universe
+You bury the gem of the universe and suddenly the Earth begins to glow. Water is refilled. The air becomes fresh again.
+
+The Earth is saved.
+
+Congratulations! You worked together and victory is yours.
+
+President Rosenberg comes up to you.
+
+"You are the heroes of the Earth. Depending on your score, you will be awarded with a trophy."
+
+Bronze --- 100 Points
+
+Silver ---- 150 Points
+
+Gold --- 200 Points
+
+Platinum --- 300 Points
+You earned PLATINUM!!!!! BOOYAH!!!!!!
+
+Congrats, you know everything about SPAAAAAAAACE!
+You'll ace the exams.
+[state=Running]

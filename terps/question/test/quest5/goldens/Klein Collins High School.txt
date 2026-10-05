@@ -1,0 +1,84 @@
+You are in a Parking Lot.
+You can go in.
+It's the first day of the school year. You are in the parking lot, and walking inside the school.
+> in
+> in
+You are in a Hallway.
+You can go in.
+> in
+> in
+You are in a First Period Geometry.
+You can see a Pencil and a Worksheet.
+You can go out.
+> take pencil
+> take pencil
+You've got your pencil, now do your work.
+> take work
+> take work
+You pick it up.
+Hurry! There's only 10 minutes left in class!
+> use pencil on work
+> use pencil on work
+Good Job! Now the bell has rung, go to Second Period... Ugh, World Geography.
+> out
+> out
+Might as well go to sleep.
+You are in a Second Period World Geography.
+You can go in or out.
+Your teacher is making you watch a documentary on tornadoes all period.
+> out
+> out
+You are in a Third Period Biology.
+You can see a Your Laptop and a Tanners Flash Drive.
+You can go out.
+Okay, you're in Third Period Biology, not bad. You might actually be able to pay atten... WHAT IS THAT?! Your biology partner, Tanner, is watching The Avengers on his computer! Pick up his flash drive and put it on your computer so you can watch it too!
+> take your laptop
+> take your laptop
+Awesome! Now where's that Flash Drive?
+> take tanners flash drive
+> take tanners flash drive
+You may have made Tanner angry, but you got it! Now grab your laptop and stick it in!
+> use tanners flash drive on your laptop
+> use tanners flash drive on your laptop
+AWESOMENESS AT YOUR FINGERTIPS!!!! You're a third of the way through the movie when the bell rings, you watch the second third of it in Fourth Period Spanish, now onto Fifth Period! Theater Arts!
+> out
+> out
+You are in a Fifth Period Theatre Arts.
+You can see a Monologue.
+You can go out.
+Alright! This period is awesome! All of the people are nice to eachother, laughing at your jokes, everyone's having a good time! Before you know it, it's lunch time! But be sure to pick up a monologue on your way out!
+> take monologue
+> take monologue
+Good job. Off to lunch!
+> out
+> out
+You are in a Cafeteria.
+You can see a Your Lunch.
+You can go out.
+You were smart and brought your luch today, bon apetit!
+> take your lunch
+> take your lunch
+Lunchables! Cool! Now eat it up!
+> eat your lunch
+> eat your lunch
+Delicious! Now hurry and get to English!
+> out
+> out
+You are in a Sixth Period English.
+You can see a Your Crush.
+You can go out.
+Ugh, English. Why do we need to learn this stuff anyways? When are we ever going to have to know the differences between the three ironies. Irony is irony, lets just leave it at that... anyways, the teacher is making you read a book. The only thing keeping you awake is the constant struggle to talk to your crush. You only have World Geography and English with them so you try to as much as possible. In any event you make small talk as usual, and barely get through english. One more period left!
+> give pencil to your crush
+> give pencil to your crush
+She smiled at you! Smart, dude! I'm proud! Except... now you have no pencil.
+> out
+> out
+You are in a Seventh Period Journalism.
+You can see a Lesson Plans and a Teacher.
+You can go out.
+Last Period! And it may even get better! The teacher has lost his Lesson Plans for the day! Will you be a teacher's pet and return them? Or mindlessly play on your laptop for the rest of the period like all the other students? Leave when you have done what you wish.
+> out
+> out
+You are in a Bus.
+You made it to the bus! Wow! This year might not have to be so hard!
+[state=Finished]

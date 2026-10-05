@@ -1,0 +1,67 @@
+Exhausted and bone-tired, you drag yourself into the kitchen. The bright lights blind you and you pass a trembling hand over your bloodshot eyes. Work was hell today. It's over at last, but you know you have to go through it all again tomorrow.
+
+Your throat burns with thirst, so you decide to take the edge off with a nice, relaxing cup of tea before bed. Thankfully, the kitchen is stocked with everything you need.
+
+PRESS ANY KEY TO START
+You are in a kitchen.
+
+You can see a sink, a cupboard, a stove, a counter and a refrigerator.
+
+This is a fairly standard kitchen, equipped with standard kitchen-y things.The lights are bright, the counters clean, and the cupboards well-stocked. It's quite a cozy little place.
+> open cupboard
+> open cupboard
+You open it.
+It contains a teapot and a teacup.
+> take teapot
+> take teapot
+You pick it up.
+> take teacup
+> take teacup
+You pick it up.
+> use sink
+> use sink
+You fill the teapot with water.
+> turn on stove
+> turn on stove
+You turn on the stove. The burners glow red and begin to give off heat.
+> use teapot with stove
+> use teapot with stove
+You place the teapot on one of the hot burners and wait. After a few minutes, the water begins to boil. Now we're getting somewhere!
+> x counter
+> x counter
+A clean white countertop. No stains or spills to clean up.
+It holds a teabag, a pouch of arsenic and a sugar bowl.
+> take teabag
+> take teabag
+You pick it up.
+> take sugar bowl
+> take sugar bowl
+You pick it up.
+> open refrigerator
+> open refrigerator
+You open it.
+It contains a milk.
+> take milk
+> take milk
+You pick it up.
+> use teabag with teapot
+> use teabag with teapot
+You place the teabag in the hot water and put the lid on the teapot. After a few minutes, your tea is ready and smells wonderful. Success! Now all you have to do is drink it.
+> take teapot
+> take teapot
+You are already carrying it.
+> pour teapot with teacup
+> pour teapot with teacup
+You pour yourself a cup of tea. Mmm, it smells great. You've been waiting for this cup of tea for what feels like an eternity.
+> use milk with teacup
+> use milk with teacup
+You add a few splashes of milk to your tea. It turns a pale brown color.
+> use sugar bowl with teacup
+> use sugar bowl with teacup
+You add some sugar to your tea. That should make it nice and sweet.
+> drink teacup
+> drink teacup
+You drink the tea. It tastes wonderful. The greatest cup of tea ever brewed. Your life feels complete. You are at peace.
+
+For a few short moments, at least. Then it's time to move on. Another harrowing day awaits...
+[state=Finished]

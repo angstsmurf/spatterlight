@@ -1,0 +1,1754 @@
+Spyre
+The Enchanted Grotto
+
+by Sean DeArmond
+
+Welcome to Spyre: the Enchanted Grotto!
+
+Please enjoy yourself. Feel free to LOOK at anything, TALK to anyone, and TAKE anything that isn't nailed down. Most of all, have fun (preferably as a result of playing the game).
+
+There are a total of 400 points to be earned.
+
+        *Spyre -the spelunking experience for people who don't actually want to spelunk*
+
+You are in an Underground Hollow.
+
+Your time spent wandering this less-traveled mountain has led you to an open crevasse that you can't help but be drawn into.
+
+After a careful descent, your feet touch the damp floor.
+
+Curiously you look around at the various flowers and fungus on the rock faces and notice two things. First, this place appears untouched by the presence of humans, as if very few people (if any) have ever set foot down here. Secondly, the deep hues of blueish-greens dotted with yellows and violets has a certain aesthetic you can't quite place. It's almost as if nature cultivated this cave with intention.
+
+There is a small opening in the rock face towards the northwest.
+
+> northwest
+
+> northwest
+
+You are in a Mossy Cavern.
+
+There is visibly more plant than rock in this cavern as the vegetation seems to have nearly taken over the surroundings.
+
+The few traces of sunlight from the tunnel leading southeast filter out a curious natural glow of the rest of the cave, that seems more at home casting a low light in the shadows.
+
+There is a small tunnel leading southeast and a larger tunnel pointed towards the north.
+
+Your eyes may still be adjusting, but you think you saw the shape of a large animal move up the tunnel when you entered.
+
+> north
+
+> north
+
+You are in the Well Spring.
+
+The air in this cavern has a dampness, as if an underground lake had ebbed not too long ago. Overhead are a few cracks in the ceiling which offer an acknowledgement of the outside world, even if the sun rays barely make it past the stalactites.
+
+There is a shallow pond on the ground. The floor and surrounding rocks are littered with various coins, most of which you don't even recognize the origins of.
+
+There is a wide opening in the wall to the south and a smaller tunnel that snakes off to the east.
+
+You can see some coins and a pond.
+> search coins
+
+> search coins
+Rummaging through the coins reveals what looks like the handle of a key. That doesn't belong there.
+> x coins
+
+> x coins
+
+There are lots and lots of coins. A careful survey of the pond confirms this.
+
+They contain a key handle.
+> take key handle
+
+> take key handle
+You take the key handle. Go you.
+> east
+
+> east
+
+You are in a Fairy Cove.
+
+This area is much dimmer than the place you've come from, and it takes a moment for your eyes to adjust.
+
+Tiny specks of light appear around you, and at first you think they might just be in your imagination until one flutters right in front of your face. The wings hum in a manner similar to that of a dragonfly, but the creature attached to them looks less like an insect and more like a seahorse; at least as best as you can tell before it darts away.
+
+There is a bit more light coming from exits to the west, northwest, and north.
+
+You can see some fairies.
+> north
+
+> north
+
+You are in a Thorny Path.
+
+This whole cave is overgrown with rose bushes. You can't even tell where the walls are.
+
+The blossoms certainly smell sweet, no matter what names you call them. But they're guarded by a complicated web of vines, each brandishing countless thorns, just daring you to try to pluck one of the flowers. You have to turn sideways to avoid being scratched as you make your way through the area.
+
+The exits are to the south and northeast.
+
+You can see some thorns and a tree.
+> northeast
+
+> northeast
+
+You are in an Eerie Corner.
+
+This area is unnaturally dark.
+
+The plants growing here are barely giving off enough illumination to show you where they are, much less the dimensions of the room. You can't even make out your own shape apart from below your knees when you stand close enough to one of the odd patches of fungus.
+
+It's abnormally silent. And you have this unsettling feeling you are being watched. You don't want to stay here any longer than you have to.
+
+There is light coming from the southwest, northwest, and north.
+> northwest
+
+> northwest
+
+You are in a Waiting Room.
+
+This cave seems to be a junction for two intersecting tunnels; one running east to west and another running northwest to southeast.
+
+There is a lone metal bench bolted to the floor against the north wall.
+
+"I'm grumpy."
+> west
+
+> west
+
+You are in the Troll Booth.
+
+You're on a high rocky platform that runs against the south and east walls of this giant cavern. Far below you is an underground river rushing with such force it might actually be flowing uphill. Oddly it's pinkish in color.
+
+Exits are southwest, south, southeast, east, and northeast. There's also a great stone bridge leading west across the river.
+
+At the end of the bridge closest to you stands a large troll. He gives you a casual wave of acknowledgement.
+
+You can see a troll.
+> west
+
+> west
+"Oh, you want to get across the bridge do you?" he says. "Well I can only let you through if you correctly answer three questions."
+
+"There's an old pirate in these caves," the troll begins. "What is his name?"
+> ric
+"That's correct! Now, how old is the pirate?"
+> 80
+"Great! One to go! In one word, how would you describe the pirate's mood?"
+> excited
+"Yes! You did it! If that's not worth passage across the bridge then I don't know what is!"
+
+He steps aside to allow you access to the other side of the river.
+> west
+
+> west
+
+You are in a Waterfall Basin.
+
+You're on the western side of a great stone bridge overlooking a wild rushing pink-ish river. The river ends at a waterfall that flows against the laws of gravity, disappearing way into the ceiling above you.
+
+Beside the waterfall is a steep (and slick) mudslide imbued with pink runoff, also extending from the ceiling to the floor. You notice a second mudslide seems to corkscrew behind the waterfall, disappearing into the darkness below.
+
+> down
+
+> down
+That was fun, if a bit filthy. You circle the room below three times before sliding to a halt at the bottom. Now how are you going to get out of here?
+
+You are in a Dark Shaft.
+
+You're in a shaft of some kind. Perhaps at one point there was an apparatus to take you to the top, but it's long since deteriorated.
+
+In the center of the room is a pile of large buckets and the remnants of broken chain links that used to string them together in some fashion.
+
+A stream, similar to the waterfall outside, flows upwards in this shaft joining its big sister above you. Kind of a vertical tributary if you will (and you will).
+
+You can see a stream and a bucket pile.
+> fill bucket
+
+> fill bucket
+The bucket is heavy, but you manage to turn it upside down and collect the upwards running water. The bucket is quickly filled, and the physical force lifts it out of your grasp, carrying the bucket into the darkness above.
+
+It's kind of what you expected, but sometimes you just have to show yourself.
+> wait
+
+> wait
+Time passes.
+A strange voice calls to you from way off in the distance above you.
+
+"Hello dearie! Are you stuck down there? This should help you out of your jam!"
+
+The voice laughs to herself, and a moment later a long rope lands on the ground in front of you.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> take rope
+
+> take rope
+A rope that length is heavier than you think it is, and you really don't want to waste time coiling it up if you don't have to.
+> tie rope to bucket
+
+> tie rope to bucket
+You tie one end of the rope to a bucket.
+> tie rope to bucket
+
+> tie rope to bucket
+You tie the other end of the rope to a second bucket.
+> enter bucket
+
+> enter bucket
+You step into one of the buckets involved in your rudimentary thing-that-you've-created.
+> fill bucket
+
+> fill bucket
+
+You fill one of the two buckets with the spring of anti-gravity. It floats upwards, lifting the second bucket (with you in it) off the ground and into the darkness above.
+
+Moments pass. Eventually you make out a small ledge up above you. Sensing it might be the only option for preserving your life's longevity, you jump out of the bucket and land on the ledge no worse for wear.
+
+You are on a a Small Ledge.
+
+You're on a small ledge inside a circular tunnel leading way down into darkness (and death, if you're going to be dumb enough to try jumping from here).
+
+There's a crack in the wall to the west, large enough for you to squeeze through.
+
+> west
+
+> west
+A strange voice greets you. "Hello dearie!"
+
+You are in a Wicked Workshop.
+
+You're at the very top of the waterfall.
+
+This appears to be a workshop-in-progress. Vials and burners and things you don't recognize are strewn about waiting to be assembled. One machine seems to be in working condition, but you're not exactly sure of its purpose.
+
+There is an old eccentric witch here, poring through a stack of business magazines. She nods politely at you.
+
+The upwards-flowing waterfall levels off and flows north into a much larger cavern. There's also a crack in the east wall leading to a small ledge, and a massive mudslide that runs downwards, parallel to the waterfall.
+
+You can see a machine and a witch (holding a shell).
+The witch smiles as you enter. "Hello again dearie!"
+> down
+
+> down
+The witch steps in front of you and holds up a strange cord with a shell attached to it.
+
+"Hey you! You wanna shell? Take the shell! You're gonna need it!"
+> take whistle
+
+> take whistle
+You accept the witch's gift. You learned nothing from Snow White.
+> down
+
+> down
+
+You are in a Waterfall Basin.
+
+You're on the western side of a great stone bridge overlooking a wild rushing pink-ish river. The river ends at a waterfall that flows against the laws of gravity, disappearing way into the ceiling above you.
+
+Beside the waterfall is a steep (and slick) mudslide imbued with pink runoff, also extending from the ceiling to the floor. You notice a second mudslide seems to corkscrew behind the waterfall, disappearing into the darkness below.
+
+> i
+
+> i
+You are carrying a pen, a key handle and a shell.
+> east
+
+> east
+
+You are in the Troll Booth.
+
+You're on a high rocky platform that runs against the south and east walls of this giant cavern. Far below you is an underground river rushing with such force it might actually be flowing uphill. Oddly it's pinkish in color.
+
+Exits are southwest, south, southeast, east, and northeast. There's also a great stone bridge leading west across the river.
+
+At the end of the bridge closest to you stands a large troll. He gives you a casual wave of acknowledgement.
+
+You can see a troll.
+> southwest
+
+> southwest
+
+You are in Unterhime Northwest.
+
+This area of the cavern circles from the south to the northeast, where a loud current of water echoes through the chamber.
+
+There is a monument carved into the rock, dedicated to one Harry Bushyhead Harrison, the great story-listener. He stares into nothingness, but he seems very attentive to it.
+
+You can see a monument.
+You briefly glimpse the sight of a large furry animal at the exit opposite that which you entered. It's almost like a mammoth but with a long neck like a giraffe. Unfortunately it bounds away before you can get a really clear look.
+> south
+
+> south
+
+You are in Unterhime Southwest.
+
+This southwestern subchamber forms a wide bend that runs from the north to the southeast.
+
+An old scarecrow has been posted against the west wall, though for what reason will always remain a mystery.
+
+> southeast
+
+> southeast
+
+You are in Unterhime South.
+
+This area seems to be the lowest point of Unterhime. Perhaps at one point it was a basin.
+
+Paths through the stalagmites head northwest, north, northeast, and east.
+
+ There is a little boy curled up against the wall sobbing. A fairy hovers around him, to which he pays no attention.
+You can see a boy.
+"Wolf!" the boy cries.
+> x boy
+
+> x boy
+
+The boy looks to be about eight and a half. He's curled up against the wall, bawling his eyes out and repeating the word "Wolf" over and over.
+He's waving a small bone for added enticement.
+"Wolf!" the boy cries.
+> take bone
+
+> take bone
+The boy doesn't even notice that you swipe his only possession from him.
+"Wolf!" the boy cries.
+> northwest
+
+> northwest
+
+You are in Unterhime Southwest.
+
+This southwestern subchamber forms a wide bend that runs from the north to the southeast.
+
+An old scarecrow has been posted against the west wall, though for what reason will always remain a mystery.
+
+> north
+
+> north
+
+You are in Unterhime Northwest.
+
+This area of the cavern circles from the south to the northeast, where a loud current of water echoes through the chamber.
+
+There is a monument carved into the rock, dedicated to one Harry Bushyhead Harrison, the great story-listener. He stares into nothingness, but he seems very attentive to it.
+
+You can see a monument.
+> northeast
+
+> northeast
+
+You are in the Troll Booth.
+
+You're on a high rocky platform that runs against the south and east walls of this giant cavern. Far below you is an underground river rushing with such force it might actually be flowing uphill. Oddly it's pinkish in color.
+
+Exits are southwest, south, southeast, east, and northeast. There's also a great stone bridge leading west across the river.
+
+At the end of the bridge closest to you stands a large troll. He gives you a casual wave of acknowledgement.
+
+You can see a troll.
+> west
+
+> west
+
+You are in a Waterfall Basin.
+
+You're on the western side of a great stone bridge overlooking a wild rushing pink-ish river. The river ends at a waterfall that flows against the laws of gravity, disappearing way into the ceiling above you.
+
+Beside the waterfall is a steep (and slick) mudslide imbued with pink runoff, also extending from the ceiling to the floor. You notice a second mudslide seems to corkscrew behind the waterfall, disappearing into the darkness below.
+
+> up
+
+> up
+The shell you're carrying seems to reverse the polarity of the mudslides's gravitational flow. You go for a nice ride from the bottom to the top. Whee!
+
+You are in a Wicked Workshop.
+
+You're at the very top of the waterfall.
+
+This appears to be a workshop-in-progress. Vials and burners and things you don't recognize are strewn about waiting to be assembled. One machine seems to be in working condition, but you're not exactly sure of its purpose.
+
+There is an old eccentric witch here, poring through a stack of business magazines. She nods politely at you.
+
+The upwards-flowing waterfall levels off and flows north into a much larger cavern. There's also a crack in the east wall leading to a small ledge, and a massive mudslide that runs downwards, parallel to the waterfall.
+
+You can see a machine and a witch.
+> use bone on machine
+
+> use bone on machine
+The milkbone disappears into the machine with a loud whirring. The cup fills with a fine white powder.
+
+"Dabblin' in the field of lycanthropy, are ye?" the witch cackles. "Tis a fine profession indeed!"
+> take powder
+
+> take powder
+You're the sole proprietor of bonepowder. Yay, I guess?
+> down
+
+> down
+
+You are in a Waterfall Basin.
+
+You're on the western side of a great stone bridge overlooking a wild rushing pink-ish river. The river ends at a waterfall that flows against the laws of gravity, disappearing way into the ceiling above you.
+
+Beside the waterfall is a steep (and slick) mudslide imbued with pink runoff, also extending from the ceiling to the floor. You notice a second mudslide seems to corkscrew behind the waterfall, disappearing into the darkness below.
+
+> east
+
+> east
+
+You are in the Troll Booth.
+
+You're on a high rocky platform that runs against the south and east walls of this giant cavern. Far below you is an underground river rushing with such force it might actually be flowing uphill. Oddly it's pinkish in color.
+
+Exits are southwest, south, southeast, east, and northeast. There's also a great stone bridge leading west across the river.
+
+At the end of the bridge closest to you stands a large troll. He gives you a casual wave of acknowledgement.
+
+You can see a troll.
+> east
+
+> east
+
+You are in a Waiting Room.
+
+This cave seems to be a junction for two intersecting tunnels; one running east to west and another running northwest to southeast.
+
+There is a lone metal bench bolted to the floor against the north wall.
+
+"I'm grumpy."
+> be grumpy
+
+> be grumpy
+I don't know what your real intentions are but he seems to interpret it as an expression of empathy. He perks up at the implication that his feelings are valid.
+
+He smiles at you and nods. "Yeah," he says, rubbing your head with his massive paw, messing up your hair in the process. He's about to try to restyle your hair, but then he gets that look on his face; you know, the one that says 'I have no formal training as a cosmetologist'. Instead he puts the brush in your hands to figure it out for yourself.
+
+The bear rises from the bench and lumbers out of the cave; a newfound resolve to go do whatever it is bears do in their free time (probably beat up someone smaller than him).
+
+> take brush
+
+> take brush
+It's too abrasive to use for your own aesthetic care, but maybe it could serve another purpose.
+> southeast
+
+> southeast
+
+You are in an Eerie Corner.
+
+This area is unnaturally dark.
+
+The plants growing here are barely giving off enough illumination to show you where they are, much less the dimensions of the room. You can't even make out your own shape apart from below your knees when you stand close enough to one of the odd patches of fungus.
+
+It's abnormally silent. And you have this unsettling feeling you are being watched. You don't want to stay here any longer than you have to.
+
+There is light coming from the southwest, northwest, and north.
+> southwest
+
+> southwest
+
+You are in a Thorny Path.
+
+This whole cave is overgrown with rose bushes. You can't even tell where the walls are.
+
+The blossoms certainly smell sweet, no matter what names you call them. But they're guarded by a complicated web of vines, each brandishing countless thorns, just daring you to try to pluck one of the flowers. You have to turn sideways to avoid being scratched as you make your way through the area.
+
+The exits are to the south and northeast.
+
+You can see some thorns and a tree.
+> use brush on tree
+
+> use brush on tree
+You glop up some of the sap on your brush.
+> south
+
+> south
+
+You are in a Fairy Cove.
+
+This area is much dimmer than the place you've come from, and it takes a moment for your eyes to adjust.
+
+Tiny specks of light appear around you, and at first you think they might just be in your imagination until one flutters right in front of your face. The wings hum in a manner similar to that of a dragonfly, but the creature attached to them looks less like an insect and more like a seahorse; at least as best as you can tell before it darts away.
+
+There is a bit more light coming from exits to the west, northwest, and north.
+
+You can see some fairies.
+> northwest
+
+> northwest
+
+You are in the Unterhime Entrance.
+
+You're in the southeast corner of what looks like a really large cavern.  Words painted on the cave wall seem to identify this place as "Unterhime" whatever that is.
+
+The colorful stalagmites are more densely packed in here, creating natural barriers that divide Unterhime into several smaller chambers, but it doesn't look that complicated to navigate through.
+
+The cavern allows passage further west, and a tunnel leads southeast.
+
+> west
+
+> west
+
+You are in Unterhime South.
+
+This area seems to be the lowest point of Unterhime. Perhaps at one point it was a basin.
+
+Paths through the stalagmites head northwest, north, northeast, and east.
+
+ There is a little boy curled up against the wall sobbing. A fairy hovers around him, to which he pays no attention.
+You can see a boy.
+"Wolf!" the boy cries.
+> northwest
+
+> northwest
+
+You are in Unterhime Southwest.
+
+This southwestern subchamber forms a wide bend that runs from the north to the southeast.
+
+An old scarecrow has been posted against the west wall, though for what reason will always remain a mystery.
+
+> x scarecrow
+
+> x scarecrow
+
+The scarecrow was probably scarier in its halcyon days. Most crows would view it more as a tourist attraction.
+It contains a pumpkinseed.
+> take pumpkinseed
+
+> take pumpkinseed
+You have a pumpkinseed! You're very proud.
+> southeast
+
+> southeast
+
+You are in Unterhime South.
+
+This area seems to be the lowest point of Unterhime. Perhaps at one point it was a basin.
+
+Paths through the stalagmites head northwest, north, northeast, and east.
+
+ There is a little boy curled up against the wall sobbing. A fairy hovers around him, to which he pays no attention.
+You can see a boy.
+"Wolf!" the boy cries.
+> north
+
+> north
+
+You are in the South Gate.
+
+You're in the very center of Unterhime. It's a grand pathway that runs north and south.
+
+In the middle of the area is a giant stone portcullis. The gate is down, blocking passage to the north.
+
+You can see a keyhole.
+> put pumpkinseed in keyhole
+
+> put pumpkinseed in keyhole
+You shove the pumpkinseed into the opening.
+> use whistle
+
+> use whistle
+Any sound the whistle makes is at a frequency you can't hear.
+The stork suddenly appears in front of you, apparently drawn to the sound of the whistle.
+The stork eyes the keyhole curiously. She pushes her thin beak through the small open and retrieves the pumpkinseed you stashed there. A small thump is heard on the other side of the gate.
+
+Characteristically without a word, the stork flaps her wings and flies off to the east.
+> south
+
+> south
+
+You are in Unterhime South.
+
+This area seems to be the lowest point of Unterhime. Perhaps at one point it was a basin.
+
+Paths through the stalagmites head northwest, north, northeast, and east.
+
+ There is a little boy curled up against the wall sobbing. A fairy hovers around him, to which he pays no attention.
+You can see a boy.
+"Wolf!" the boy cries.
+> east
+
+> east
+
+You are in the Unterhime Entrance.
+
+You're in the southeast corner of what looks like a really large cavern.  Words painted on the cave wall seem to identify this place as "Unterhime" whatever that is.
+
+The colorful stalagmites are more densely packed in here, creating natural barriers that divide Unterhime into several smaller chambers, but it doesn't look that complicated to navigate through.
+
+The cavern allows passage further west, and a tunnel leads southeast.
+
+> southeast
+
+> southeast
+
+You are in a Fairy Cove.
+
+This area is much dimmer than the place you've come from, and it takes a moment for your eyes to adjust.
+
+Tiny specks of light appear around you, and at first you think they might just be in your imagination until one flutters right in front of your face. The wings hum in a manner similar to that of a dragonfly, but the creature attached to them looks less like an insect and more like a seahorse; at least as best as you can tell before it darts away.
+
+There is a bit more light coming from exits to the west, northwest, and north.
+
+You can see some fairies.
+> north
+
+> north
+
+You are in a Thorny Path.
+
+This whole cave is overgrown with rose bushes. You can't even tell where the walls are.
+
+The blossoms certainly smell sweet, no matter what names you call them. But they're guarded by a complicated web of vines, each brandishing countless thorns, just daring you to try to pluck one of the flowers. You have to turn sideways to avoid being scratched as you make your way through the area.
+
+The exits are to the south and northeast.
+
+You can see some thorns and a tree.
+> northeast
+
+> northeast
+
+You are in an Eerie Corner.
+
+This area is unnaturally dark.
+
+The plants growing here are barely giving off enough illumination to show you where they are, much less the dimensions of the room. You can't even make out your own shape apart from below your knees when you stand close enough to one of the odd patches of fungus.
+
+It's abnormally silent. And you have this unsettling feeling you are being watched. You don't want to stay here any longer than you have to.
+
+There is light coming from the southwest, northwest, and north.
+> northwest
+
+> northwest
+
+You are in a Waiting Room.
+
+This cave seems to be a junction for two intersecting tunnels; one running east to west and another running northwest to southeast.
+
+There is a lone metal bench bolted to the floor against the north wall.
+
+> west
+
+> west
+
+You are in the Troll Booth.
+
+You're on a high rocky platform that runs against the south and east walls of this giant cavern. Far below you is an underground river rushing with such force it might actually be flowing uphill. Oddly it's pinkish in color.
+
+Exits are southwest, south, southeast, east, and northeast. There's also a great stone bridge leading west across the river.
+
+At the end of the bridge closest to you stands a large troll. He gives you a casual wave of acknowledgement.
+
+You can see a troll.
+> south
+
+> south
+
+You are in the North Gate.
+
+You're in the very center of Unterhime. It's a grand pathway that runs north and south.
+
+In the middle of the area is a giant stone portcullis. The gate is down, blocking passage to the south.
+
+You can see a keyhole and a key half.
+> take key half
+
+> take key half
+You have half a key. And I have half a mind to give you half a round of applause.
+> use key handle on key half
+
+> use key handle on key half
+You have assembled a key. Score yourself five bonus points.
+> use glue on broken key
+
+> use glue on broken key
+You seal the imperfections of the key, making it fully functional.
+> use key on keyhole
+
+> use key on keyhole
+You shove the key in and use both hands to turn it. It creaks as the tumblers fall into place.
+
+You are in Unterhime Center.
+
+You're in the very center of Unterhime. It's a grand pathway that runs north and south.
+
+In the middle of the area is a giant stone portcullis. The gate is up, allowing for passage through.
+
+> north
+
+> north
+
+You are in the Troll Booth.
+
+You're on a high rocky platform that runs against the south and east walls of this giant cavern. Far below you is an underground river rushing with such force it might actually be flowing uphill. Oddly it's pinkish in color.
+
+Exits are southwest, south, southeast, east, and northeast. There's also a great stone bridge leading west across the river.
+
+At the end of the bridge closest to you stands a large troll. He gives you a casual wave of acknowledgement.
+
+You can see a troll.
+> east
+
+> east
+
+You are in a Waiting Room.
+
+This cave seems to be a junction for two intersecting tunnels; one running east to west and another running northwest to southeast.
+
+There is a lone metal bench bolted to the floor against the north wall.
+
+> east
+
+> east
+
+You are in the Mome Rath Den.
+
+The spindingenics clough in schoon and gamries vebe the syranae,
+while callots scribble-scrabble doon where dnouble geets berlay.
+
+Mome raths jullingly incide northeast, and subdirs sweel west and south.
+
+> outgrabe mome raths
+
+> outgrabe mome raths
+How did you know to do that? The Mome Raths are impressed with your ability to grabe, and they even learn a thing or two from you. That's worth a reward! They set a blank page (possibly their most valued possession) in front of you.
+> take leaflet of paper
+
+> take leaflet of paper
+It's yours now! In your face, everyone who doesn't have this!
+> northeast
+
+> northeast
+
+You are in the Salmon River Overpass.
+
+This cavern is huge!
+
+A rushing river pours in from the northeast and exits through a partially underground cave on the west wall. The current looks both fast and strong, and unless your perception is disoriented it appears to be flowing uphill. You can't tell how deep the river is, because for reasons you can't fathom (get it?) something in the water has turned it a thick pinkish color.
+
+A natural stone bridge allows passage across the length of the cave. There are tunnels leading northwest and southwest, as well as a large opening on the easternmost wall.
+
+You can see a river.
+The natural rising and falling of the current exposes an underwater tunnel mouth that you have no chance of getting to.
+> enter river
+
+> enter river
+
+You are in the River.
+
+The current is brutal! You do your best to keep your head above the water but it pulls you underneath the rocks of an underground tunnel. Worst of all, you can't see where you're going, because if your field of vision isn't completely dark then it's completely pink.
+
+Ages of erosion have chiseled away at any edges of the boulders that you happen to bounce off of, and each collision feels more like a nudge than an impact. But you have a sinking feeling that you're going to have to go wherever the river takes you.
+
+You are in a Small Shore Under a Bridge.
+
+The current throws you violently onto a small embankment underneath a massive wooden bridge. You cough out pinkish fluid. You're safe at the moment and you have a chance to catch your breath. That was a ride!
+
+Unfortunately there doesn't appear to be a way out of here. The patch of land you're on is only a few square feet in area. Behind you is a wall of stone stretching up to the bridge's level but it's way too steep and wet to claw your way up.
+
+You might have to risk getting back in the river, but judging by the jagged rocks a few yards upstream it would take a miracle for you to survive.
+
+There is a sign planted in the ground next to you.
+You can see a scrap of paper.
+> take scrap of paper
+
+> take scrap of paper
+You grab that before anyone else does.
+
+A huge clawed hand grabs you from above, and a deep voice bellows "Hey! You can't be down there!"
+
+You are in the Troll Booth.
+
+You're on a high rocky platform that runs against the south and east walls of this giant cavern. Far below you is an underground river rushing with such force it might actually be flowing uphill. Oddly it's pinkish in color.
+
+Exits are southwest, south, southeast, east, and northeast. There's also a great stone bridge leading west across the river.
+
+At the end of the bridge closest to you stands a large troll. He gives you a casual wave of acknowledgement.
+
+You can see a troll.
+> east
+
+> east
+
+You are in a Waiting Room.
+
+This cave seems to be a junction for two intersecting tunnels; one running east to west and another running northwest to southeast.
+
+There is a lone metal bench bolted to the floor against the north wall.
+
+> east
+
+> east
+
+You are in the Mome Rath Den.
+
+The spindingenics clough in schoon and gamries vebe the syranae,
+while callots scribble-scrabble doon where dnouble geets berlay.
+
+Mome raths jullingly incide northeast, and subdirs sweel west and south.
+
+> northeast
+
+> northeast
+
+You are in the Salmon River Overpass.
+
+This cavern is huge!
+
+A rushing river pours in from the northeast and exits through a partially underground cave on the west wall. The current looks both fast and strong, and unless your perception is disoriented it appears to be flowing uphill. You can't tell how deep the river is, because for reasons you can't fathom (get it?) something in the water has turned it a thick pinkish color.
+
+A natural stone bridge allows passage across the length of the cave. There are tunnels leading northwest and southwest, as well as a large opening on the easternmost wall.
+
+You can see a river.
+The underwater tunnel pokes its head above the surface, teasing you with its existence.
+> east
+
+> east
+
+You are in a Cauldron Room.
+
+The only exit from this round cave is to the west.
+
+In the center of the room are the dying embers of a campfire, on top of which sits a cauldron full of a bubbling green stew.
+
+There's also some chalk marks on the floor. It looks like someone has been here taking notes.
+
+> use powder on cauldron
+
+> use powder on cauldron
+You throw the bonepowder into the cauldron. A pleasant aroma of bonepowder and stew fills your nostrils, taking you back to whatever you were doing the first time you smelled that.
+> eat stew
+
+> eat stew
+Well, it smells better than it tastes (kind of a broccoli gumbo). But you feel a strange sensation as fur begins to grow all over your skin. Your hands and feet turn into paws and your face elongates into a large snout.
+
+You have become a wolf! You hope this isn't permanent.
+You are in a Cauldron Room.
+
+The only exit from this round cave is to the west.
+
+In the center of the room are the dying embers of a campfire, on top of which sits a cauldron full of a bubbling green stew.
+
+There's also some chalk marks on the floor. It looks like someone has been here taking notes.
+
+> west
+
+> west
+
+You are in the Salmon River Overpass.
+
+This cavern is huge!
+
+A rushing river pours in from the northeast and exits through a partially underground cave on the west wall. The current looks both fast and strong, and unless your perception is disoriented it appears to be flowing uphill. You can't tell how deep the river is, because for reasons you can't fathom (get it?) something in the water has turned it a thick pinkish color.
+
+A natural stone bridge allows passage across the length of the cave. There are tunnels leading northwest and southwest, as well as a large opening on the easternmost wall.
+
+You can see a river.
+The underwater tunnel pokes its head above the surface, teasing you with its existence.
+> enter river
+
+> enter river
+
+You are in the River.
+
+The current is brutal! You do your best to keep your head above the water but it pulls you underneath the rocks of an underground tunnel. Worst of all, you can't see where you're going, because if your field of vision isn't completely dark then it's completely pink.
+
+Ages of erosion have chiseled away at any edges of the boulders that you happen to bounce off of, and each collision feels more like a nudge than an impact. But you have a sinking feeling that you're going to have to go wherever the river takes you.
+
+You spend a moment shaking the excess water out of your fur.
+
+You are in a Small Shore Under a Bridge.
+
+The current throws you violently onto a small embankment underneath a massive wooden bridge. You cough out pinkish fluid. You're safe at the moment and you have a chance to catch your breath. That was a ride!
+
+Unfortunately there doesn't appear to be a way out of here. The patch of land you're on is only a few square feet in area. Behind you is a wall of stone stretching up to the bridge's level but it's way too steep and wet to claw your way up.
+
+You might have to risk getting back in the river, but judging by the jagged rocks a few yards upstream it would take a miracle for you to survive.
+
+There is a sign planted in the ground next to you.
+> wait
+
+> wait
+Time passes.
+
+A huge clawed hand grabs you from above, and a deep voice bellows "Hey! You can't be down there!"
+
+You are in the Troll Booth.
+
+You're on a high rocky platform that runs against the south and east walls of this giant cavern. Far below you is an underground river rushing with such force it might actually be flowing uphill. Oddly it's pinkish in color.
+
+Exits are southwest, south, southeast, east, and northeast. There's also a great stone bridge leading west across the river.
+
+At the end of the bridge closest to you stands a large troll. He gives you a casual wave of acknowledgement.
+
+You can see a troll.
+> south
+
+> south
+
+You are in Unterhime Center.
+
+You're in the very center of Unterhime. It's a grand pathway that runs north and south.
+
+In the middle of the area is a giant stone portcullis. The gate is up, allowing for passage through.
+
+> south
+
+> south
+
+You are in Unterhime South.
+
+This area seems to be the lowest point of Unterhime. Perhaps at one point it was a basin.
+
+Paths through the stalagmites head northwest, north, northeast, and east.
+
+ There is a little boy curled up against the wall sobbing. A fairy hovers around him, to which he pays no attention.
+You can see a boy.
+
+The boy looks up in amazement at the sight of you. "Wolf?" he whimpers as if he's doubting his own eyes. "Wolf!"
+
+He throws his arms around your fuzzy neck and buries his face into your fur.
+
+A few minutes later he lifts his head with an elated smile. He doesn't speak but you can read the gratitude in his eyes. He gives you one last pet before scurrying down the tunnel.
+
+The fairy doesn't follow him, taking a newfound interest in the interloper who managed to shut the kid up.
+You are in Unterhime Center.
+
+You're in the very center of Unterhime. It's a grand pathway that runs north and south.
+
+In the middle of the area is a giant stone portcullis. The gate is up, allowing for passage through.
+
+The effects of the stew wear off. You're back in your own skin.
+> south
+
+> south
+
+You are in Unterhime South.
+
+This area seems to be the lowest point of Unterhime. Perhaps at one point it was a basin.
+
+Paths through the stalagmites head northwest, north, northeast, and east.
+
+You can see a fairy.
+> take fairy
+
+> take fairy
+She happily joins you on your quest to do the...um...thing...that you're...you know...down here to...I just realized, is there a goal to all of this?
+> east
+
+> east
+
+You are in the Unterhime Entrance.
+
+You're in the southeast corner of what looks like a really large cavern.  Words painted on the cave wall seem to identify this place as "Unterhime" whatever that is.
+
+The colorful stalagmites are more densely packed in here, creating natural barriers that divide Unterhime into several smaller chambers, but it doesn't look that complicated to navigate through.
+
+The cavern allows passage further west, and a tunnel leads southeast.
+
+> southeast
+
+> southeast
+
+You are in a Fairy Cove.
+
+This area is much dimmer than the place you've come from, and it takes a moment for your eyes to adjust.
+
+Tiny specks of light appear around you, and at first you think they might just be in your imagination until one flutters right in front of your face. The wings hum in a manner similar to that of a dragonfly, but the creature attached to them looks less like an insect and more like a seahorse; at least as best as you can tell before it darts away.
+
+There is a bit more light coming from exits to the west, northwest, and north.
+
+You can see some fairies.
+
+Your fairy friend happily reunites with her family (or perhaps co-workers, you can't really tell). They collectively glow brighter in each other's presence, which is apparently a thing.
+
+The additional light allows you to make out an exit to the southeast that you never noticed before.
+
+> southeast
+
+> southeast
+
+You are in a Reading Room.
+
+This room looks as though it's in the process of some sort of renovation. There is a bookcase containing several rows of books protected by a locked glass door. On top of the bookcase is a stuffed raven (obviously fake). A picture on the wall depicts a lake with a dinosaur swimming in it.  In the center of the room is a coffee table, upon which rests a tablet depicting a crudely drawn escape plan from some sort of prison. A note is stuck to the table which reads "Breakout Room stuff. Do NOT touch! This means you!" And there's a wastebasket with a piece of paper in it.
+
+But apart from the table, the note, the tablet, the picture, the raven, the bookcase, the books, the glass, the wastebasket, and the paper, the room is completely empty.
+
+You can see a table, a note, a tablet, a picture, a raven, a bookcase, a books, a glass, a wastebasket and a piece of paper.
+> take piece of paper
+
+> take piece of paper
+Now THAT'S an item you can have!
+> northwest
+
+> northwest
+
+You are in a Fairy Cove.
+
+This area is much dimmer than the place you've come from, and it takes a moment for your eyes to adjust.
+
+Tiny specks of light appear around you, and at first you think they might just be in your imagination until one flutters right in front of your face. The wings hum in a manner similar to that of a dragonfly, but the creature attached to them looks less like an insect and more like a seahorse; at least as best as you can tell before it darts away.
+
+There is a bit more light coming from exits to the west, northwest, and north.
+
+You can see some fairies.
+> north
+
+> north
+
+You are in a Thorny Path.
+
+This whole cave is overgrown with rose bushes. You can't even tell where the walls are.
+
+The blossoms certainly smell sweet, no matter what names you call them. But they're guarded by a complicated web of vines, each brandishing countless thorns, just daring you to try to pluck one of the flowers. You have to turn sideways to avoid being scratched as you make your way through the area.
+
+The exits are to the south and northeast.
+
+You can see some thorns and a tree.
+> northeast
+
+> northeast
+
+You are in an Eerie Corner.
+
+This area is unnaturally dark.
+
+The plants growing here are barely giving off enough illumination to show you where they are, much less the dimensions of the room. You can't even make out your own shape apart from below your knees when you stand close enough to one of the odd patches of fungus.
+
+It's abnormally silent. And you have this unsettling feeling you are being watched. You don't want to stay here any longer than you have to.
+
+There is light coming from the southwest, northwest, and north.
+> north
+
+> north
+
+You are in the Mome Rath Den.
+
+The spindingenics clough in schoon and gamries vebe the syranae,
+while callots scribble-scrabble doon where dnouble geets berlay.
+
+Mome raths jullingly incide northeast, and subdirs sweel west and south.
+
+> northeast
+
+> northeast
+
+You are in the Salmon River Overpass.
+
+This cavern is huge!
+
+A rushing river pours in from the northeast and exits through a partially underground cave on the west wall. The current looks both fast and strong, and unless your perception is disoriented it appears to be flowing uphill. You can't tell how deep the river is, because for reasons you can't fathom (get it?) something in the water has turned it a thick pinkish color.
+
+A natural stone bridge allows passage across the length of the cave. There are tunnels leading northwest and southwest, as well as a large opening on the easternmost wall.
+
+You can see a river.
+The underwater tunnel pokes its head above the surface, teasing you with its existence.
+> use whistle
+
+> use whistle
+Any sound the whistle makes is at a frequency you can't hear.
+The river seems to react to your whistle. The tide subsides just enough to allow you passage through a small tunnel to the northeast that you couldn't see before. You naturally scurry through while you have the chance.
+
+You are in a Sanctuary.
+
+This is a large circular room. the smooth walls indicate that it was purposely carved out. For what reason you can't be certain, but if you were ever going to meet with a large group of people in the grotto, this is where you'd set up.
+
+Apart from the water-filled tunnel leading east out of here, the only thing of note is a notification board just to the right of the entrance, surrounded by three candles arranged in a triangle, each burning a different primary color (yellow, blue and red if you need the reminder).
+
+There is also a torch attached to a link on the board by a metal chain. Apparently someone's been wandering off with too many torches.
+
+Directly in front of the board sits a brazier containing an ink-like liquid.
+
+You can see a torch, a red candle, a blue candle, a yellow candle, a bowl and a flyer.
+> take torch
+
+> take torch
+You lift it out of the bowl. The end is soaked in the black stuff which smells flammable. The chain is too strong for you to take the torch with you, but you can use it around the room.
+> use torch on yellow candle
+
+> use torch on yellow candle
+You light the torch with the yellow flame. The torch now burns yellow.
+> burn flyer
+
+> burn flyer
+You set fire to the flyer (Hey! That rhymed!). It ignites immediately, burning to a crisp and dissipating into dust, revealing a red flyer posted underneath. That was unexpected.
+> use torch on bowl
+
+> use torch on bowl
+You extinguish the torch in the black ink.
+> use torch on red candle
+
+> use torch on red candle
+You light the torch with the red flame. The torch now burns red.
+> burn flyer
+
+> burn flyer
+You light the red flyer and get away! FWOOMP! It burns away revealing yet another flyer underneath, this time green. How odd.
+> use torch on bowl
+
+> use torch on bowl
+You extinguish the torch in the black ink.
+> use torch on blue candle
+
+> use torch on blue candle
+You light the torch with the blue flame. The torch now burns blue.
+> use torch on yellow candle
+
+> use torch on yellow candle
+You light the torch with the yellow flame. The torch now burns green.
+> burn flyer
+
+> burn flyer
+You touch the flyer with the green flame. The paper struggles to ignite but eventually begins burning. The ash crumbles away to reveal a white flyer posted on the board. You're not surprised.
+> use torch on red candle
+
+> use torch on red candle
+You light the torch with the red flame. The torch now burns white.
+> burn flyer
+
+> burn flyer
+You ignite the flyer which vanishes in a flash before your very eyes! It reveals a black flyer glued to the board. This is getting old.
+> use torch on bowl
+
+> use torch on bowl
+You extinguish the torch in the black ink.
+> touch flyer with torch
+
+> touch flyer with torch
+You touch the black sludge to the flyer. The stuff dissolves the paper revealing a sealed envelope underneath.
+> take envelope
+
+> take envelope
+The envelope is yours.
+> southwest
+
+> southwest
+You take a deep breath and dive into the water leading back into the larger cavern.
+
+You are in the Salmon River Overpass.
+
+This cavern is huge!
+
+A rushing river pours in from the northeast and exits through a partially underground cave on the west wall. The current looks both fast and strong, and unless your perception is disoriented it appears to be flowing uphill. You can't tell how deep the river is, because for reasons you can't fathom (get it?) something in the water has turned it a thick pinkish color.
+
+A natural stone bridge allows passage across the length of the cave. There are tunnels leading northwest and southwest, as well as a large opening on the easternmost wall.
+
+You can see a river.
+The underwater tunnel pokes its head above the surface, teasing you with its existence.
+> northwest
+
+> northwest
+
+You are in a Lonely Corridor.
+
+You hadn't really noticed the ambient sounds echoing through the cave system until now, when they're suddenly absent. There's the sound of rushing water, but it seems so far away.
+
+The Y-junction runs north, southeast, and southwest.
+
+> north
+
+> north
+
+You are in the Crystal Maze Entrance.
+
+This round cavern is dimly lit and has a large opening in the middle of the floor. Under other circumstances, it's conceivable you might not have noticed the hole until taking an unfortunate tumble, but the denizens of the grotto were kind enough to post a huge sign in front of it.
+
+It reads, "Warning: Crystal Maze below. Please enjoy this natural wonder, but do not attempt to solve the maze without the items needed to draw a map. You'll only get frustrated wandering aimlessly and you'll look stupid. -Love, Management".
+
+You wonder how many complaints led to the installation of that heads up.
+
+The ways out are to the south, and down.
+> down
+
+> down
+
+You are in the Crystal Maze.
+
+There is a kaleidoscope of crystals surrounding you. Without a map, you could get lost for hours down here.
+
+You are in the Peculiar Crystal Room.
+
+This cave is immaculate! Massive reflective stones fill the room, giving you an illusory peek into what infinity looks like! You feel like you could spend hours wandering through this cavern!
+
+There are exits all around you and a climbable rock face to reach an opening in the ceiling.
+> northeast
+
+> northeast
+
+You are in the Bizarre Crystal Room.
+
+This cave is hypnotic! The rock formations create a multiple-mirrored effect that's almost mentally overloading! You're dizzy from the visual stimuli! By the way, how long have you been down here?
+
+Any way you decide to go is an exit, and there's also a tunnel through the roof to which you can scramble.
+ It looks like some litterbug left a bit of trash down here.
+You can see a sheet of paper.
+> take sheet of paper
+
+> take sheet of paper
+No one is going to leave this lying around on your watch!
+> up
+
+> up
+
+You are in the Crystal Maze Entrance.
+
+This round cavern is dimly lit and has a large opening in the middle of the floor. Under other circumstances, it's conceivable you might not have noticed the hole until taking an unfortunate tumble, but the denizens of the grotto were kind enough to post a huge sign in front of it.
+
+It reads, "Warning: Crystal Maze below. Please enjoy this natural wonder, but do not attempt to solve the maze without the items needed to draw a map. You'll only get frustrated wandering aimlessly and you'll look stupid. -Love, Management".
+
+You wonder how many complaints led to the installation of that heads up.
+
+The ways out are to the south, and down.
+> south
+
+> south
+
+You are in a Lonely Corridor.
+
+You hadn't really noticed the ambient sounds echoing through the cave system until now, when they're suddenly absent. There's the sound of rushing water, but it seems so far away.
+
+The Y-junction runs north, southeast, and southwest.
+
+> southwest
+
+> southwest
+
+You are in the Coral Fountain Room.
+
+This chamber slopes upwards to the north. There are dozens of rock formations on both sides of an obvious path in that direction, while an assortment of pink geysers explode every few seconds. It's impossible to walk through here without getting misted.
+
+The sound of rushing water comes from the under the cave's floor.
+
+There is a tunnel to the northeast and paths to the north, southeast, and southwest.
+
+You can see a fountain (on which there is a plaque).
+> say compass
+
+> say compass
+The fountain slides silently to the left revealing a passage to the north.
+> north
+
+> north
+
+You are in the Pirate Island.
+
+This cave has clearly been hollowed out by human(ish) hands. The floor is smooth, and any familiar plant-life that may have once existed has been removed. Light is provided by well placed sconce lanterns welded into the walls.
+
+In the northeast section of the room is an artificial island with two fake palm trees and a plastic treasure chest (also fake) set against a painted backdrop of a seascape.
+
+A rocky path slopes down to the south and a more level one extends into a chamber to the northwest.
+
+"Aye, matey!" the pirate mumbles.
+> northwest
+
+> northwest
+
+You are in the Disenchanted Tower.
+
+This is another deliberately carved out cavern. Lanterns rigged to the ceiling and carefully placed cloud-looking set pieces almost lure you into the facade that you've stepped outside.
+
+Half of a circular tower is built into the east wall, traveling from the floor to the ceiling. There is a window at your level and a princess in a frayed pink dress leaning on the sill with a bored expression. Attached to a hook next to her is a sign that reads "Please bother me if you need assistance."
+
+There are exits southeast and north. On the ground in front of the north exit rest a square mat, and the floor leading out is painted green. It slants upwards, towards a fiberglass unicorn standing on some kind of apparatus in the next room.
+
+> bother princess
+
+> bother princess
+She huffs, "If you're bored why don't you take a stab at feeding the dragon? Do it in one swing and you get a worthless prize."
+
+She slides a tiny ball and a metal club to you.
+> put ball on mat
+
+> put ball on mat
+You carefully set the ball on the mat. The ball is now on the mat, because you've carefully set it there.
+> hit ball with club
+
+> hit ball with club
+You take careful aim and whack the ball with controlled force. It sails up the green ramp and into the Unicorn's apparatus.
+> north
+
+> north
+
+You are in Unicorn Meadow.
+
+You are in another carved out cavern with a green floor.
+
+A painted statue of a unicorn stands in the middle of the room. It's horn is pointed horizontally and the hooves are posed in such a way that it looks as though it's about to charge.
+
+Surrounding the unicorn's feet is a ring of blue rocks sitting on top of a circular platform.
+
+Exits are to the south and west.
+You can see an unicorn (containing a ball).
+> west
+
+> west
+
+You are in Mimic Crossing.
+
+Like the rooms surrounding it, this area has a flat green floor.
+
+In the middle of the room is a massive stone chest painted to look like it was made out of wood. Rows of top and bottom teeth adorn its lid and an obvious pair of eyes shift left and right.
+
+The chest is 'facing' the northeast corner of it's room.
+
+You can leave by going north, east, west, or south.
+You can see a mimic.
+> push mimic
+
+> push mimic
+You shove the giant chest a few inches towards the southern side of the room.
+> push mimic
+
+> push mimic
+You give the huge chest another push. It takes some additional effort, like something underneath is resisting. You shove the thing further south, uncovering a metal pipe in the floor, just a bit too small for the ball.
+> put club in pipe
+
+> put club in pipe
+You wedge the club into the pipe. It keeps the mimic from sliding back to its previous position.
+> east
+
+> east
+
+You are in Unicorn Meadow.
+
+You are in another carved out cavern with a green floor.
+
+A painted statue of a unicorn stands in the middle of the room. It's horn is pointed horizontally and the hooves are posed in such a way that it looks as though it's about to charge.
+
+Surrounding the unicorn's feet is a ring of blue rocks sitting on top of a circular platform.
+
+Exits are to the south and west.
+You can see an unicorn (containing a ball).
+> turn unicorn
+
+> turn unicorn
+You move spin the unicorn on its base.
+The ball speeds out of a pipe hidden in the base of the unicorn and rolls towards the west.
+> west
+
+> west
+
+You are in Mimic Crossing.
+
+Like the rooms surrounding it, this area has a flat green floor.
+
+In the middle of the room is a massive stone chest painted to look like it was made out of wood. Rows of top and bottom teeth adorn its lid and an obvious pair of eyes shift left and right.
+
+The chest is 'facing' the northeast corner of it's room.
+
+You can leave by going north, east, west, or south.
+You can see a pipe (containing a club) and a mimic.
+The ball rolls into the western chamber. There's the sound of it gently scraping against something. A moment later the ball rolls back into the room where you are, bouncing off the mimic's southern corner.
+
+A moment later you hear a small fanfare, and you know that the ball has indeed rolled right into the dragon's mouth.
+> east
+
+> east
+
+You are in Unicorn Meadow.
+
+You are in another carved out cavern with a green floor.
+
+A painted statue of a unicorn stands in the middle of the room. It's horn is pointed horizontally and the hooves are posed in such a way that it looks as though it's about to charge.
+
+Surrounding the unicorn's feet is a ring of blue rocks sitting on top of a circular platform.
+
+Exits are to the south and west.
+You can see an unicorn.
+> south
+
+> south
+
+You are in the Disenchanted Tower.
+
+This is another deliberately carved out cavern. Lanterns rigged to the ceiling and carefully placed cloud-looking set pieces almost lure you into the facade that you've stepped outside.
+
+Half of a circular tower is built into the east wall, traveling from the floor to the ceiling. There is a window at your level and a princess in a frayed pink dress leaning on the sill with a bored expression. Attached to a hook next to her is a sign that reads "Please bother me if you need assistance."
+
+There are exits southeast and north. On the ground in front of the north exit rest a square mat, and the floor leading out is painted green. It slants upwards, towards a fiberglass unicorn standing on some kind of apparatus in the next room.
+
+The princess gives you a half sincere smile.
+
+"Congratulations. You won a certificate of course completion."
+
+She sets a blank slip of paper on the counter in front of you.
+
+"Sorry," she shrugs, "we're all out of toner."
+> take slip of paper
+
+> take slip of paper
+You've succeeded in acquiring this, so you can cross that off your bucket list.
+> southeast
+
+> southeast
+
+You are in the Pirate Island.
+
+This cave has clearly been hollowed out by human(ish) hands. The floor is smooth, and any familiar plant-life that may have once existed has been removed. Light is provided by well placed sconce lanterns welded into the walls.
+
+In the northeast section of the room is an artificial island with two fake palm trees and a plastic treasure chest (also fake) set against a painted backdrop of a seascape.
+
+A rocky path slopes down to the south and a more level one extends into a chamber to the northwest.
+
+"Arr! I see..." The old sea dog is in his own world.
+> south
+
+> south
+
+You are in the Coral Fountain Room.
+
+This chamber slopes upwards to the north. There are dozens of rock formations on both sides of an obvious path in that direction, while an assortment of pink geysers explode every few seconds. It's impossible to walk through here without getting misted.
+
+The sound of rushing water comes from the under the cave's floor.
+
+There is a tunnel to the northeast and paths to the north, southeast, and southwest.
+
+You can see a fountain (on which there is a plaque).
+> southeast
+
+> southeast
+
+You are in a Waiting Room.
+
+This cave seems to be a junction for two intersecting tunnels; one running east to west and another running northwest to southeast.
+
+There is a lone metal bench bolted to the floor against the north wall.
+
+> southeast
+
+> southeast
+
+You are in an Eerie Corner.
+
+This area is unnaturally dark.
+
+The plants growing here are barely giving off enough illumination to show you where they are, much less the dimensions of the room. You can't even make out your own shape apart from below your knees when you stand close enough to one of the odd patches of fungus.
+
+It's abnormally silent. And you have this unsettling feeling you are being watched. You don't want to stay here any longer than you have to.
+
+There is light coming from the southwest, northwest, and north.
+> southwest
+
+> southwest
+
+You are in a Thorny Path.
+
+This whole cave is overgrown with rose bushes. You can't even tell where the walls are.
+
+The blossoms certainly smell sweet, no matter what names you call them. But they're guarded by a complicated web of vines, each brandishing countless thorns, just daring you to try to pluck one of the flowers. You have to turn sideways to avoid being scratched as you make your way through the area.
+
+The exits are to the south and northeast.
+
+You can see some thorns and a tree.
+> use envelope on thorns
+
+> use envelope on thorns
+The thorns shred the envelope into confetti, spilling a blank sliver of paper to the floor.
+> take sliver of paper
+
+> take sliver of paper
+Your collection of trash is expanding.
+> northeast
+
+> northeast
+
+You are in an Eerie Corner.
+
+This area is unnaturally dark.
+
+The plants growing here are barely giving off enough illumination to show you where they are, much less the dimensions of the room. You can't even make out your own shape apart from below your knees when you stand close enough to one of the odd patches of fungus.
+
+It's abnormally silent. And you have this unsettling feeling you are being watched. You don't want to stay here any longer than you have to.
+
+There is light coming from the southwest, northwest, and north.
+> northwest
+
+> northwest
+
+You are in a Waiting Room.
+
+This cave seems to be a junction for two intersecting tunnels; one running east to west and another running northwest to southeast.
+
+There is a lone metal bench bolted to the floor against the north wall.
+
+> west
+
+> west
+
+You are in the Troll Booth.
+
+You're on a high rocky platform that runs against the south and east walls of this giant cavern. Far below you is an underground river rushing with such force it might actually be flowing uphill. Oddly it's pinkish in color.
+
+Exits are southwest, south, southeast, east, and northeast. There's also a great stone bridge leading west across the river.
+
+At the end of the bridge closest to you stands a large troll. He gives you a casual wave of acknowledgement.
+
+You can see a troll.
+> west
+
+> west
+
+You are in a Waterfall Basin.
+
+You're on the western side of a great stone bridge overlooking a wild rushing pink-ish river. The river ends at a waterfall that flows against the laws of gravity, disappearing way into the ceiling above you.
+
+Beside the waterfall is a steep (and slick) mudslide imbued with pink runoff, also extending from the ceiling to the floor. You notice a second mudslide seems to corkscrew behind the waterfall, disappearing into the darkness below.
+
+> up
+
+> up
+The shell you're carrying seems to reverse the polarity of the mudslides's gravitational flow. You go for a nice ride from the bottom to the top. Whee!
+
+You are in a Wicked Workshop.
+
+You're at the very top of the waterfall.
+
+This appears to be a workshop-in-progress. Vials and burners and things you don't recognize are strewn about waiting to be assembled. One machine seems to be in working condition, but you're not exactly sure of its purpose.
+
+There is an old eccentric witch here, poring through a stack of business magazines. She nods politely at you.
+
+The upwards-flowing waterfall levels off and flows north into a much larger cavern. There's also a crack in the east wall leading to a small ledge, and a massive mudslide that runs downwards, parallel to the waterfall.
+
+You can see a machine and a witch.
+> north
+
+> north
+
+You are in a Seashore.
+
+This is confusing. The river empties into an underground lake that seems to extend well beyond the scope of the grotto. For all you know it may go on forever.
+
+You're standing on the southern bank as calm waves lap against the nearest rocks.
+
+There is a large bell hanging from a post right next to you.
+You can see a bell.
+> ring bell
+
+> ring bell
+You strike the bell. The sound of its clang echoes through the waves.
+
+At first nothing happens, but then a huge figure rises out of the water in front of you. It's a scaly serpent with a long snout and more teeth than you care to count.
+
+It smiles politely at you.
+
+"Hi ya!" it says. "It's so good to ssseeee you! I ssseeee lots of things! I'm a ssseeee serpent!"
+
+"I can ssseeee you're going to need a map! If you bring me six pages, I'll make one for you!"
+
+> give leaflet of paper to serpent
+
+> give leaflet of paper to serpent
+"That's certainly going to lighten your load!"
+> give scrap of paper to serpent
+
+> give scrap of paper to serpent
+"For me? Aww, you shouldn't have!"
+> give piece of paper to serpent
+
+> give piece of paper to serpent
+"Oh thank you! This is just what I need!"
+> give sheet of paper to serpent
+
+> give sheet of paper to serpent
+"Absolutely! I'm happy to take care of that!"
+> give slip of paper to serpent
+
+> give slip of paper to serpent
+"Woo-hoo! Building a collection now!"
+> give sliver of paper to serpent
+
+> give sliver of paper to serpent
+"I have no words, except for these, which I'm only saying ironically."
+He smiles happily and takes all of the pages beneath the surface. A moment later he re-emerges with a brand new blank map which he lays on the ground in front of you.
+
+"There you go!" he says proudly. "Now you should be able to ssseeee your way to the end of the grotto! Farewell!
+
+And as quickly as he appeared, he vanishes.
+
+> take map
+
+> take map
+Your load is one blank map heavier now. You barely notice.
+> south
+
+> south
+
+You are in a Wicked Workshop.
+
+You're at the very top of the waterfall.
+
+This appears to be a workshop-in-progress. Vials and burners and things you don't recognize are strewn about waiting to be assembled. One machine seems to be in working condition, but you're not exactly sure of its purpose.
+
+There is an old eccentric witch here, poring through a stack of business magazines. She nods politely at you.
+
+The upwards-flowing waterfall levels off and flows north into a much larger cavern. There's also a crack in the east wall leading to a small ledge, and a massive mudslide that runs downwards, parallel to the waterfall.
+
+You can see a machine and a witch.
+> down
+
+> down
+
+You are in a Waterfall Basin.
+
+You're on the western side of a great stone bridge overlooking a wild rushing pink-ish river. The river ends at a waterfall that flows against the laws of gravity, disappearing way into the ceiling above you.
+
+Beside the waterfall is a steep (and slick) mudslide imbued with pink runoff, also extending from the ceiling to the floor. You notice a second mudslide seems to corkscrew behind the waterfall, disappearing into the darkness below.
+
+> east
+
+> east
+
+You are in the Troll Booth.
+
+You're on a high rocky platform that runs against the south and east walls of this giant cavern. Far below you is an underground river rushing with such force it might actually be flowing uphill. Oddly it's pinkish in color.
+
+Exits are southwest, south, southeast, east, and northeast. There's also a great stone bridge leading west across the river.
+
+At the end of the bridge closest to you stands a large troll. He gives you a casual wave of acknowledgement.
+
+You can see a troll.
+> northeast
+
+> northeast
+
+You are in the Coral Fountain Room.
+
+This chamber slopes upwards to the north. There are dozens of rock formations on both sides of an obvious path in that direction, while an assortment of pink geysers explode every few seconds. It's impossible to walk through here without getting misted.
+
+The sound of rushing water comes from the under the cave's floor.
+
+There is a tunnel to the northeast and paths to the north, southeast, and southwest.
+
+You can see a fountain (on which there is a plaque).
+> northeast
+
+> northeast
+
+You are in a Lonely Corridor.
+
+You hadn't really noticed the ambient sounds echoing through the cave system until now, when they're suddenly absent. There's the sound of rushing water, but it seems so far away.
+
+The Y-junction runs north, southeast, and southwest.
+
+> north
+
+> north
+
+You are in the Crystal Maze Entrance.
+
+This round cavern is dimly lit and has a large opening in the middle of the floor. Under other circumstances, it's conceivable you might not have noticed the hole until taking an unfortunate tumble, but the denizens of the grotto were kind enough to post a huge sign in front of it.
+
+It reads, "Warning: Crystal Maze below. Please enjoy this natural wonder, but do not attempt to solve the maze without the items needed to draw a map. You'll only get frustrated wandering aimlessly and you'll look stupid. -Love, Management".
+
+You wonder how many complaints led to the installation of that heads up.
+
+The ways out are to the south, and down.
+> down
+
+> down
+
+You are in the Crystal Maze.
+
+There is a kaleidoscope of crystals surrounding you. Without a map, you could get lost for hours down here.
+
+You are in the Peculiar Crystal Room.
+
+This cave is immaculate! Massive reflective stones fill the room, giving you an illusory peek into what infinity looks like! You feel like you could spend hours wandering through this cavern!
+
+There are exits all around you and a climbable rock face to reach an opening in the ceiling.
+> draw map
+
+> draw map
+You map out this crazy area once and for all! It's not going to be a problem anymore for you.
+
+You are in the Crystal Maze.
+
+There is a kaleidoscope of crystals surrounding you. Without a map, you could get lost for hours down here.
+
+There is an opening in the wall to the north that you'd never have stumbled upon otherwise.
+> north
+
+> north
+
+You are in an Alcove.
+You can see a door.
+> use glue on door
+
+> use glue on door
+You stick the sap drenched brush against the spot where the handle should be. It crystallizes instantly allowing you to pull the door open.
+
+The way forward is unblocked.
+> north
+
+> north
+
+You are in a Whirlpool Room.
+
+You're in a small cavern. In the middle of the room is a whirlpool. Like the rest of the running water in this place, it appears to be flowing against gravity. The eye of the maelstrom extends into darkness below but the upward current would keep most objects from reaching the lower level.
+
+On the wall is a rudimentary cave painting (as most of them are).
+
+You can leave to the south or head won through the whirlpool.
+
+You can see a painting and a whirlpool.
+> down
+
+> down
+You dive into the whirlpool
+
+You are in Ghost Gulch.
+
+You're staring at a whole underground terrain that physically shouldn't exist; very little seems to be holding up the ceiling.
+
+The conical tip of the whirlpool from the previous room dances just over your head, and you can jump to it if you so desire.
+
+In front of you is the dried remains of what evidently used to be a great lake; the ground is cracked and desert-like. In the distance is an open tunnel that disappears into the darkness. A loud, howling wind fills the air, threatening to blow you back against the wall.
+
+The rotting remains of a dock stand (barely), stretching out over the remains of the lake. There's also what's left of a wooden boat under the dock, splintered beyond use.
+ An intact skeleton is sitting on the ground.
+You can see a desert.
+> give pen to skeleton
+
+> give pen to skeleton
+You carefully place your pen in the skeleton's hand.
+> give map to skeleton
+
+> give map to skeleton
+You carefully place the map in front of the skeleton.
+> give shell to skeleton
+
+> give shell to skeleton
+You carefully place the necklace around the skeleton's neck.
+A glow surrounds the skeleton; similar to the light that the grotto's plant life gives off. It turns its head in your direction and opens its jaw slightly (as if it's smiling at you).
+
+The skeleton stands up and walks past you, springing up to the whirlpool. For a few seconds you watch it spin in place. And then it's gone.
+
+> enter desert
+
+> enter desert
+
+You are in a Desert.
+
+You push forward into the darkness; the sand crunching beneath your feet, which you can barely hear over the howling of the gales that fill the large tunnel before you.
+
+As you traverse the cave you find yourself moving towards a source of light. As you get closer it seems to fade and flicker. You round a corner and a huge gust of wind slaps you so hard you fall backwards.
+
+You regain your footing and peer around the corner, noticing you're coming out of the mouth of the cave. Stars sparkle above you, as if they are trying to contain their laughter. You take your first breath of outside air and shiver as the frigid temperature fills your lungs. You consider turning back when something warm and furry leans against you almost making you lose your balance again.
+
+It's the creature you had seen so many times in the grotto, stares at you with its long trunk hanging down and ears pointed up as if it has a question. Its chartreuse fur with patches of fuchsia covers its entire body from the long (almost floor length) trunk, to the tuffs between its paws, to end of its whip of a tail. Each strand of fur seems to be dancing like a soft flame of a fire.
+
+Although the creature doesn't speak, you feel as though it's telling you that your journey has just begun. And it offers you warmth and rest while it takes you at least some of the way.
+
+You climb onto the animal's back and fight the urge to nod off to sleep for as long as you can. The beast now glows both with excitement as it carries you into the night sky and off into the promise of a new day.
+
+**********************************************************************************************************
+
+Your adventure in the Enchanted Grotto has ended. Congratulations to you.
+
+[state=Finished]

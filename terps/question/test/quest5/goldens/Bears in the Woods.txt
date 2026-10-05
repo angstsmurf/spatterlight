@@ -1,0 +1,101 @@
+For Bears
+Recommended for Bear Audiences Only
+
+by Riley Hunt
+
+It's movie night. The futon in your apartment numbs your thighs. You and your sleeping lover are the only ones home. Only the nature documentary on TV illuminates the semi-darkness. You had a long day, but you can't sleep, so you lose yourself in the screen. White foam drips from a hungry bear’s mouth as it scavenges dead elk from a scrappy band of wolves. It's raining outside, but you are cuddled and warm. Your heartbeat rebounds off of your lover’s ribs, mingling rhythms. The radiator hums, warding off the cold. You adjust yourself to improve the circulation in your legs and lean closer to the TV.
+
+> touch bear
+
+> touch bear
+As you reach towards the screen again, You look around but everything appears too dark to see, only the vibrant screen remains. You can hear the breath of the bear, the wet grass, the smell of green moss pulling you in,
+IN
+> enter in
+
+> enter in
+
+Your feet crunch the large round stones below your feet, the icy water gurgles nearby. The air is above freezing but you can still see your breath. The bear is munching on elk and the wolves cautiously nibble at the edges of it before noticing you with a glint in their hungry eyes.
+> take stones
+
+> take stones
+you lift a stone the size of a baseball from the riverbed.
+> throw stones
+
+> throw stones
+You hit the alpha in the head, crushing the eye. It wails and snarls and the pack takes this moment to pounce. Before you can do anything, an impossibly large paw swats the wolf out of midair. Another wolf leaps at you only to fly away, whimpering. The other two back away and run off, leaving the leader alone. A titanic grizzly stands between you and the ravenous wolf. The alpha snarls as the bear stands on its hind legs and roars in return,
+shaking the stones beneath your feet. The leader of the pack submits, and backs away, teeth bared. Pressing his advantage, the grizzly tears at his attacker's flank and it stumbles. Recovering, the alpha attempts to bite the bear's neck but is too slow. Vertebrae crunch in the bear's teeth and you see the animal's eyes become suddenly glassy and unfocused. It tumbles from the bears's jaws and into a broken heap. The bear takes a moment to catch his breath.
+The bear turns to you with inquisitive eyes.
+> speak to bear
+
+> speak to bear
+"Naked Ape." He says "What are you doing so far from your home? Your kind has lived here since they were bears themselves, and you no longer belong here. Are you lost?”
+
+You respond.
+> yes respond
+
+> yes respond
+"Those wolves won’t bother us now, that was the only pack on this side of the mountains. You won’t survive out here and I can’t protect you forever. I can bring you to a colony of your species, but I need something from you first. We'll be heading in this direction."
+
+You follow the bear through the woods. It's warmer now, the stiff breeze is softened through the pines.
+> speak to bear
+
+> speak to bear
+The bear beckons you over to a nearby tree stump and lies down. "Over here" he rumbles. "There's something around my neck I'd like you to get rid of." You clamber onto the bear's side and find a radio collar with the name "Stuart" scratched into the leather.
+> unbuckle radio collar
+
+> unbuckle radio collar
+You easily remove the belt and slide off of "Stuart's" side. He rights himself and shakes his head. "That's much better" he sighs. "That's been bothering me for days, not quite sure what it was." He looks around for a moment, suddenly alert. You freeze.
+> hear you
+
+> hear you
+Please choose which 'you' you mean:
+1: You
+2: you
+3: me
+> 1
+"Follow me" he whispers, "Something doesn't smell right over there." He gallops very quickly towards a clearing, leaving you behind.
+> follow you
+
+> follow you
+Please choose which 'you' you mean:
+1: You
+2: you
+3: me
+> 2
+you hear human yelling drowned out by the bear's roars.
+
+The bear lies very still in a clearing. There are two men dressed in heavy coats, the tall man appears to be catching his breath. The bearded man is clutching the bear's fur, wounded but alive, clearly distraught.
+> touch bear
+
+> touch bear
+You touch the bear's fur for the last time, the large lungs and beating heart are still, but you feel the world around you start to move in a lurching, but familiar way. It's time to leave
+> depart leave
+
+> depart leave
+
+You land back in your apartment, startled. The dull pain in your back and legs returns, and you clutch the orange blanket coverings underneath you to make sure this is reality. Your lover is awake, but serene and completely unaware that you were gone.
+> touch lover
+
+> touch lover
+They turn and smile. "I couldn't sleep." In their hand is a napkin with scribbles of blue ink. They hand you a hastily written prose poem with edits and crossed out words. It's simply titled "Wild."
+
+I’ve been seeing Grizzly bears swirling in the dark brown well of my morning coffee. They bound and splash after salmon, slurp and swallow, backstroke over the caffeine rapids. I see them everywhere—galloping down the wooden grains of my apartment floorboards, sleeping in puffs of pumpernickel bread at the bakery next door, rearing up from the muck of decomposed leaves in the garden. I think they know I can see them. When I leave for school in the morning, covered in books and worries, they nod their bear heads knowingly and return to their ritual berry licking in the red bricks by the door. Yesterday, I found a caribou flank on my stoop, a bloodstained Hallmark card tacked to the flesh:
+
+“Thank you for your hospitality.
+
+We are enjoying our stay.
+
+Our only request—
+
+that you cook the meat less.
+
+Regards,
+
+The Bears”
+
+I folded the note carefully and transitioned my dinners from medium to a bloody rare. But I still see them growling in the furrow of my lover’s brow as he slices potatoes, and I watch them float languorously in the foam of his thick brown beer at dinner. They seem to like him, his unkempt nature. They nuzzle in his beard at night, tickling his nose with their big bear paws as he snores. Sometimes, when it’s dark and he is asleep, they lumber across my fingers while I write, lingering on my pinkies, reading everything. They love poetry the most. I’ve found comfort in their presence and in their familiar wild smell. They are so like us. How odd we must seem to them, oblivious to the taste of sweet grass, always searching for our life’s purpose when there is life all around us.
+THE END.
+
+Story and Coding by Riley Hunt
+"Wild" a poem by Victoria Martins
+[state=Finished]

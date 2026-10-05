@@ -1,0 +1,1094 @@
+Space Scums 2
+Captain Bostic's Bounty
+
+by RobotBand
+
+Space Scums 2
+
+Enter "Start Game" to start playing.
+> Start Game
+
+> Start Game
+
+Sector 7
+You find yourself drifting in space with your crew on the Liberty 6, after a wild party at the Space Castle. With a plastic baggie filled with a billion space coins, you lay back in your captain's chair with a wide grin on your face. Life truly is amazing now. But alas, in an adventure game, danger lurks at every corner....
+
+> n
+
+> n
+
+Sector 8
+There's a whole lot of nothing here.
+
+> n
+
+> n
+
+A Sector 9
+There's still more nothing here.
+
+Your interface is bugging up.
+
+Could you be lost in space?
+
+> n
+
+> n
+
+Lost in Space
+You are lost in space.
+
+> n
+
+> n
+
+Lost in Space
+You jostle in your seat as an unidentified ship starts blasting at you. You look out the window in terror. They've blown the engines off. Your ship is going down!!!
+
+> d
+
+> d
+
+Esimo
+The Liberty 6 is in shambles.
+Wow, what a predicament!
+
+It takes you a while to take in everything that just happened. Not only were you shot down by an unknown ship, but you spiraled out of control and landed on this barren snow planet, losing your plastic baggie of space coins in the process. Who was that who shot at you? And why? What does this mean for you now?
+
+> w
+
+> w
+
+Esimo
+You can see something in the distance.
+
+> n
+
+> n
+
+Esimo
+You know, for someone who's ship was just destroyed, and lost a billion dollars in the process, you're quite lucky. They'res a used spaceship shop basically three feet from where you crashed.
+
+> n
+
+> n
+
+Gooey's Used Ship Shop
+You walk into the outdoor, used ship store. Gooey stands before you, a smile on his face. He seems to know you want to buy something, without you needing to tell him.
+
+> e
+
+> e
+
+Esimo
+You are outside a dome shaped building. It is a bar, which you assume is filled with curious looking aliens doing wacky things.
+
+> in
+
+> in
+
+A Bar
+You step into the dingy bar.
+Light floods in from the open door outside. The ground is sticky and covered in glass. Your ears are assaulted by the sounds of intergalactic chatter and bad music. You can see aliens everywhere.
+
+Error running script: No parameters passed to MoveObjectHere function - expected 1 parameters
+> e
+
+> e
+
+A Bar
+You see a blue slot machine in front of you. To your knowledge, this is the only way you're gonna be making money around here.
+
+> use slot machine
+
+> use slot machine
+
+A Slot Machine
+
+> pull handle 5 times
+
+> pull handle 5 times
+You violently pull the handle downwards five times. You hear gears and electrical wires frying and breaking as the screen goes haywire. 500 coins dispense out of the machine's coin slot.
+
+Better not break the machine any more.
+> out
+
+> out
+
+A Bar
+You see a blue slot machine in front of you. To your knowledge, this is the only way you're gonna be making money around here.
+
+> w
+
+> w
+
+A Bar
+Light floods in from the open door outside. The ground is sticky and covered in glass. Your ears are assaulted by the sounds of intergalactic chatter and bad music. You can see aliens everywhere.
+
+Error running script: No parameters passed to MoveObjectHere function - expected 1 parameters
+> out
+
+> out
+
+Esimo
+You are outside a dome shaped building. It is a bar, which you assume is filled with curious looking aliens doing wacky things.
+
+> w
+
+> w
+
+Gooey's Used Ship Shop
+You walk into the outdoor, used ship store. Gooey stands before you, a smile on his face. He seems to know you want to buy something, without you needing to tell him.
+
+> buy red ship
+
+> buy red ship
+Gooey takes the coins in his hand and smiles.
+
+"Thank ya friend. The red ship is yours. And also, I'll let you name it."
+
+"The Liberty 7" You say with a grin.
+
+"Real creative." Redd mumbles.
+> e
+
+> e
+
+Esimo
+You are outside a dome shaped building. It is a bar, which you assume is filled with curious looking aliens doing wacky things.
+
+> in
+
+> in
+
+A Bar
+Light floods in from the open door outside. The ground is sticky and covered in glass. Your ears are assaulted by the sounds of intergalactic chatter and bad music. You can see aliens everywhere.
+
+Error running script: No parameters passed to MoveObjectHere function - expected 1 parameters
+> e
+
+> e
+
+A Bar
+You see a blue slot machine in front of you. To your knowledge, this is the only way you're gonna be making money around here.
+
+> e
+
+> e
+
+A Bar
+You step into this area of the bar. There are dozens of aliens everywhere, but the person who truly catches your eye is a woman dressed in red, standing alone on the dance floor.
+
+> talk to Betty G
+
+> talk to Betty G
+"Hey there. The name's Betty G. I'm the best pilot this galaxy has to offer. I've piloted through asteroid fields, battlefields, and corn fields." She says with a smirk.
+
+"Hello Betty G. Can you pilot a stick shift?" You ask.
+
+"Of course I can pilot a stick shift dude. What do you take me for?" She asks.
+
+"Do you want to join our crew? Have some awesome adventures? Become a main character in the RobotBand mythos?"
+
+"Absolutely!" She says. "I'll become your pilot."
+
+And with that, Betty G has joined your crew.
+> w
+
+> w
+
+A Bar
+You see a blue slot machine in front of you. To your knowledge, this is the only way you're gonna be making money around here.
+
+You walk over towards the slot machine and see a strange looking man pointing a Star Blaster at your chest. Adrenaline kicks in, but you manage to stay calm.
+
+"Who are you." You ask. The man doesn't move.
+
+"The name's Jonah Linslaw. And I was hired to kill ya, Barry Bostic." He says. You are frozen in fear.
+
+"I'm not gonna shoot you outright. Naw, that'd be boring. Instead I'm gonna kill you with THIS." He yells. Jonah Linslaw raises a glass bottle above his head and smashes it on the ground.
+"You'd better start running!!" He yells.
+
+> w
+
+> w
+
+A Bar
+The virus buzzes around the room violently. People scream and shriek, after they finish their drinks of course. They were expensive.
+
+Error running script: No parameters passed to MoveObjectHere function - expected 1 parameters
+> s
+
+> s
+
+A Bar
+You can see a drink mixer on the table.
+
+> take drink mixer
+
+> take drink mixer
+As everyone ducks for cover, you take the drink mixer and force it into your pocket.
+
+> n
+
+> n
+
+A Bar
+The virus buzzes around the room violently. People scream and shriek, after they finish their drinks of course. They were expensive.
+
+Error running script: No parameters passed to MoveObjectHere function - expected 1 parameters
+> out
+
+> out
+
+Esimo
+The virus buzzes around outside. Oh no, you think. It can spread to the whole planet.
+
+> w
+
+> w
+
+Gooey's Used Ship Shop
+Gooey screams and ducks for cover, trying to get to a random ship and fly away.
+
+> w
+
+> w
+
+Gooey's Used Ship Shop
+You and your crew make their way over towards the red ship.
+
+"It's beautiful." Todd says.
+
+"It's amazing." Redd says.
+
+"It's perfect." You say. You need to buy this ship.
+
+> in
+
+> in
+
+The Liberty 7
+You slam your butt into the captain's chair and turn the ship to "on". You hope for your life that Betty G is as good a pilot as she says.
+
+> up
+
+> up
+
+Sector 10
+You are hovering over the planet Esimo.
+"What was that?" You ask. Everyone shrugs.
+
+"It was some sort of virus." Todd says. "Doctor Heckyll has a lab on the planet Khallara. Maybe we can ask him about all this."
+
+> w
+
+> w
+
+Sector 13
+You are hovering above the planet Khallara
+
+> down
+
+> down
+
+The Liberty 7
+You land your ship on the hot, rocky planet Khallara. Immediately your ship feels hot. Good thing you've got some space suits at the ready.
+
+> out
+
+> out
+
+Khallara
+You and your crew step out onto the scorching hot planet. The ground sinks beneath your feet.
+
+> e
+
+> e
+
+Khallara
+
+> n
+
+> n
+
+Khallara
+
+> n
+
+> n
+
+Khallara
+
+> in
+
+> in
+
+A The Khallara Science Lab
+The lab is dim and quiet. The building smells musty and abandoned. Charts and graphs line the walls.
+
+> up
+
+> up
+
+The Khallara Science Lab
+The stairs lead up to a dome shaped area.
+You notice some glass on the floor.
+
+> take glass
+
+> take glass
+You take a shard of glass from the floor.
+> up
+
+> up
+
+The Khallara Science Lab
+You enter the glass dome segment of the Khallara laboratory. The room is oddly quiet and abandoned. The only thing in here is an open laptop.
+
+> look at laptop
+
+> look at laptop
+
+A laptop
+
+You take a closer look at the laptop and discover it is a lab report. You squint your eyes and read it.
+
+STAR DATE 36871694615639 19838
+
+The lab is almost entirely packed up for our move to Pepto. Almost all the equipment is stuffed in the ship and ready to be flown out, as this lab here is quite small compared to the one we bought over there.
+
+I've decided to still record the experiments conducted today, on the strangely aggressive Vadka Virus we've accidentally created. Studies have shown it can spread rapidly if not contained, and currently doesn't show any weaknesses. We hope to further conduct research on Pepto as planned.
+
+-Doctor Heckyll
+
+> out
+
+> out
+
+The Khallara Science Lab
+You jump as soon as you pull your eyes away from the laptop. Jonah Linslaw is back! He still has a Star Blaster pointed at your chest, and another glass bottle of Vadka Virus.
+
+"I thought I killed ye back on Esimo. Apparently ye's a good runner. Let me test out those nimble legs o yer's once again. After all, I won't stop chasin ye 'till yer dead, Bostic."
+
+"Why are you following us?" You ask him. He smirks.
+
+"Because I was paid to." With that Jonah Linslaw smashes a second bottle on the ground, releasing yet another batch of Vadka Virus into the air.
+
+> down
+
+> down
+
+The Khallara Science Lab
+The virus buzzes around the room. You duck for cover as it's sticky spores latch onto things.
+
+> down
+
+> down
+
+A The Khallara Science Lab
+The virus continues to buzz.
+
+> out
+
+> out
+
+Khallara
+The virus continues to buzz.
+
+> s
+
+> s
+
+Khallara
+The virus continues to buzz.
+
+> s
+
+> s
+
+Khallara
+The virus continues to buzz.
+
+> w
+
+> w
+
+Khallara
+The virus continues to buzz.
+
+> in
+
+> in
+
+The Liberty 7
+
+> up
+
+> up
+
+Sector 13
+You are hovering above the planet Khallara
+
+> w
+
+> w
+
+A Sector 14
+You are hovering above the moon Pepto.
+
+> down
+
+> down
+
+The Liberty 7
+You land The Liberty 7 on the moon Pepto. You can hear the soft ground squish beneath the ship.
+
+> out
+
+> out
+
+Pepto
+
+> w
+
+> w
+
+Pepto
+You can see a dead scorpion laying on the soft ground.
+
+> take scorpion
+
+> take scorpion
+You pick the flaky dead scorpion from the ground.
+
+> n
+
+> n
+
+Pepto
+
+> n
+
+> n
+
+Pepto
+
+> s
+
+> s
+
+Pepto
+
+> s
+
+> s
+
+Pepto
+
+> e
+
+> e
+
+Pepto
+
+> in
+
+> in
+
+The Liberty 7
+
+> up
+
+> up
+
+A Sector 14
+You are hovering above the moon Pepto.
+
+> n
+
+> n
+
+Sector 15
+You are hovering above the planet Bismol.
+
+> e
+
+> e
+
+Sector 12
+There doesn't seem to be anything here.
+
+> e
+
+> e
+
+Sector 11
+You are hovering over the planet Metalica.
+
+> down
+
+> down
+
+The Liberty 7
+You land your ship on the rocky surface of Metalica. Salt flies up and clouds the windshield.
+
+> out
+
+> out
+
+A Metallica
+The surface of Metalica is coarse and rocky, with little bits of salt covering the ground. It's quite warm here.
+
+> e
+
+> e
+
+Metallica
+A group of robots surrounds you and your crew.
+
+"BZZT. INTRUDER." They all say in unison. "CAPTURE INTRUDERS"
+
+"Get back to the ship!!" Betty yells.
+
+> w
+
+> w
+
+A Cell
+The robots catch you and force you into a dirty, musty cell. Bones from previous space pilots and crew members litter the floor. A steel door is closed with a padlock.
+
+> take bones
+
+> take bones
+You take a small bone from the ground.
+> use bones
+
+> use bones
+You place the bone in the small hole in the padlock and wiggle it until you hear a beep. The steel door is open!
+
+> out
+
+> out
+
+Metallica
+There's a large pile of rock salt outside of the jail cell, and a mysterious blinking tower in the distance.
+
+> take rock salt
+
+> take rock salt
+You take some rock salt from the pile.
+> n
+
+> n
+
+Metallica
+Out in the distance is a strange blinking tower. You can hear the beeping of robots to the west.
+
+> n
+
+> n
+
+Metallica
+The strange blinking tower seems to be abandoned. The door is wide open.
+
+> in
+
+> in
+
+Satellite Tower
+There is some dynamite on the ground.
+
+> take dynamite
+
+> take dynamite
+
+You pick it up.
+> up
+
+> up
+
+A Control Room
+You enter the top of the satellite tower, and notice you're in a control room. You can see all the rogue robots outside. A large red button is placed on top of a pedestal. This seems to be where the mysterious beeping sound is coming from.
+
+> push button
+
+> push button
+
+You push the big red button. All the robots outside fall to the ground, shut off and motionless. The mysterious beeping has stopped.
+> down
+
+> down
+
+Satellite Tower
+
+> out
+
+> out
+
+Metallica
+The strange blinking tower seems to be abandoned. The door is wide open.
+
+> s
+
+> s
+
+Metallica
+Out in the distance is a strange blinking tower. You can hear the beeping of robots to the west.
+
+> w
+
+> w
+
+Metallica
+All the robots are shut down.
+
+> w
+
+> w
+
+A Metallica
+The surface of Metalica is coarse and rocky, with little bits of salt covering the ground. It's quite warm here.
+
+> in
+
+> in
+
+The Liberty 7
+
+> up
+
+> up
+
+Sector 11
+You are hovering over the planet Metalica.
+
+> w
+
+> w
+
+Sector 12
+There doesn't seem to be anything here.
+
+> w
+
+> w
+
+Sector 15
+You are hovering above the planet Bismol.
+
+> down
+
+> down
+
+The Liberty 7
+You land your ship on the planet Bismol. You can hear the sounds of birds and wildlife outside.
+
+> out
+
+> out
+
+Bismol
+You walk out of the ship and look. You breathe the fresh air of the Bismol countryside.
+
+> w
+
+> w
+
+Bismol
+There is a portable ladder resting against the dirt wall.
+
+> take ladder
+
+> take ladder
+You put the ladder in your back pocket.
+
+> e
+
+> e
+
+Bismol
+
+> s
+
+> s
+
+Merchant Rock
+You see a friendly looking merchant on a friendly looking rock.
+
+> use ladder
+
+> use ladder
+You place the ladder over the chasm and nervously walk across. Success!
+
+> talk to merchant
+
+> talk to merchant
+"Ay mon! I see you wanna buy some stuff, no? I already sold lots o' my merchandise, but for you? I've got a special offer. You can have this broken glass bottle, absolutely free!"
+
+Without asking, he puts the broken jar in your hands.
+> use glass
+
+> use glass
+You place the glass shard into the hole in the jar. By some amazing stroke of luck, it fits perfectly!
+> take ladder
+
+> take ladder
+You take the ladder back from the ground.
+
+> n
+
+> n
+
+Bismol
+
+> w
+
+> w
+
+Bismol
+There is a portable ladder resting against the dirt wall.
+
+> use ladder
+
+> use ladder
+Good idea, but not here.
+
+> up
+
+> up
+
+A Bismol
+You are met with a Deeno!
+
+It looks you in the eyes, you can hear it's four stomachs rumbling......
+
+> use scorpion
+
+> use scorpion
+
+You toss the dead, flaky scorpion over to the Deeno. He gobbles it down in one bite, and runs away.
+> e
+
+> e
+
+A Bismol
+
+The thankful Deeno moves a large boulder that was blocking the mine.
+> use dynamite
+
+> use dynamite
+
+the dynamite blasts the boulder to bits. The sparkling water mines are now open.
+> in
+
+> in
+
+A Sparkling Water Mines
+The cave is lit by faint glowing geodes and glittering water.
+
+> take sparkling water
+
+> take sparkling water
+You take some sparkling water in a jar.
+> out
+
+> out
+
+A Bismol
+
+The thankful Deeno moves a large boulder that was blocking the mine.
+
+> w
+
+> w
+
+A Bismol
+You are met with a Deeno!
+
+It looks you in the eyes, you can hear it's four stomachs rumbling......
+
+> down
+
+> down
+
+Bismol
+There is a portable ladder resting against the dirt wall.
+
+> e
+
+> e
+
+Bismol
+
+> in
+
+> in
+
+The Liberty 7
+
+> up
+
+> up
+
+Sector 15
+You are hovering above the planet Bismol.
+
+> s
+
+> s
+
+A Sector 14
+You are hovering above the moon Pepto.
+
+> down
+
+> down
+
+The Liberty 7
+
+> out
+
+> out
+
+Pepto
+
+> w
+
+> w
+
+Pepto
+You can see a dead scorpion laying on the soft ground.
+
+> n
+
+> n
+
+Pepto
+
+> n
+
+> n
+
+Pepto
+
+> in
+
+> in
+
+A The Pepto Science Lab
+This lab is much like the one on Khallara, except it doesn't have a musty smell or broken lights.
+
+> up
+
+> up
+
+A The Pepto Science Lab
+Stepping into the dome area of the lab, you find two scientists. You know these two as Doctor Heckyll and Mr. Jive. They smile and say hello.
+
+> use drink mixer
+
+> use drink mixer
+You put the sparkling water and rock salt in the mixer and shake it up until it's boiling hot.
+
+Congratulations! You made the world's only Vadka Virus cure!
+Doctor Heckyll slaps you on the back for a job well done.
+
+"While you were out gathering ingredients, we were able to track the virus to it's source. There seems to be a lot of activity in Sector 17. I'll give you this de-cloaking device to find any ships hiding there."
+> down
+
+> down
+
+A The Pepto Science Lab
+This lab is much like the one on Khallara, except it doesn't have a musty smell or broken lights.
+
+> out
+
+> out
+
+Pepto
+
+> s
+
+> s
+
+Pepto
+
+> s
+
+> s
+
+Pepto
+You can see a dead scorpion laying on the soft ground.
+
+> e
+
+> e
+
+Pepto
+
+> in
+
+> in
+
+The Liberty 7
+
+> up
+
+> up
+
+A Sector 14
+You are hovering above the moon Pepto.
+
+> w
+
+> w
+
+A Sector 16
+There doesn't seem to be anything here.
+
+> n
+
+> n
+
+A Sector 17
+
+> use decloaking device
+
+> use decloaking device
+The De-Cloaking device is beeping rapidly as it uncovers a mysterious ship.
+
+Sure enough, Jonah Linslaw's fish shaped ship was in Sector 17 the whole time. Painted on the side of the star ship is it's name,
+"The Sturgeon."
+
+The hangar is open for you to make a landing.
+
+> down
+
+> down
+
+The Sturgeon
+
+> out
+
+> out
+
+A Hangar
+You land the Liberty 7 in the Sturgeon's hangar. It seems too quiet, Jonah Linslaw must be lurking here somewhere.
+
+> e
+
+> e
+
+A The Sturgeon
+There's a strange door ahead of you.
+
+> e
+
+> e
+
+The Sturgeon
+"Hey!" The man yells. You freeze in fear, a star blaster between your eyes.
+
+"The captain Jonah Linslaw said he'd get a huge bounty for killing you! I already know he's not gonna share it with me, Bud Liteweek, the co-pilot.  Im sick of being number two! I'm going to kill you and take all the money!"
+
+This is a very stressful situation, captain. You need to make a quick decision for the good of the galaxy.
+
+> shoot Bud
+
+> shoot Bud
+You quickly pull out your Star Blaster and shoot Bud Liteweek in the chest. He stumbles back and falls onto the floor.
+
+"Oww...." He says. Thankfully he was wearing a laser-proof vest! The co-pilot is alive.
+
+You take the card key from his hand.
+
+> w
+
+> w
+
+A The Sturgeon
+There's a strange door ahead of you.
+
+> use card key
+
+> use card key
+You swipe the card key and open the door.
+
+> in
+
+> in
+
+A The Sturgeon
+Towering in front of you is a large glass dome. Buzzing inside is the dangerous Vadka Virus.
+
+> use cure
+
+> use cure
+You take the cure and inject it into the glass dome. The virus dies and vaporizes into thin air. You cured the Vadka Virus! You high five your crew members as you hear Jonah Linslaw's voice comes over the intercom.
+
+"ATTENTION ALL CREW MEMBERS. THE SHIP HAS BEEN INFILTRATED BY BARRY BOSTIC, EVERYONE RETREAT TO THE ESCAPE PODS IMMEDIATELY"
+
+> out
+
+> out
+
+A The Sturgeon
+There's a strange door ahead of you.
+
+> w
+
+> w
+
+A Hangar
+
+> w
+
+> w
+
+The Sturgeon
+Along the wall are some escape pods.
+You get to the escape pods just in time. Jonah Linslaw is about to get away!
+
+> in
+
+> in
+
+An Escape Pod
+
+Jonah Linslaw slams the escape pod door on your face. His voice is muffled behind the small glass window separating you and him.
+
+"Ye too late, Bostic! Ye may have destroyed the Vadka Virus, but yer couldn't catch me!" He yells.
+
+"What, is that Von Deru?!!??" You ask. Jonah Linslaw nods and lets the cyborg drug dealer speak.
+
+"Who do you think hired him Barry?" Von Deru asks. "You destroyed my robotic body, leaving me as only a head! The only reason I'm alive is because I'm hooked up to this old car battery from 2008! My life is miserable, and it's all your fault!!!"
+
+Your jaw drops in disbelief. How could Von Deru have survived the acid back on Keeto?
+
+"We WILL meet again, Bostic! Mark my words!" Jonah Linslaw says, and presses a button on a control panel. The escape pod zooms away, leaving you alone on the Sturgeon.
+
+The Sturgeon
+Along the wall are some escape pods.
+
+> e
+
+> e
+
+A Hangar
+
+> in
+
+> in
+
+The Sturgeon
+
+> up
+
+> up
+
+The End
+And with that, Captain Barry Bostic and the rest of his crew sailed around the galaxy curing the dreaded Vadka Virus. And although Jonah Linslaw and Von Deru are still lurking in the depths of deep space, the universe is safe for now.
+
+CONGRATULATIONS: YOU HAVE COMPLETED SPACE SCUMS 2: CAPTAIN BOSTIC'S BOUNTY
+[state=Running]

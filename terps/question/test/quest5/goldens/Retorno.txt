@@ -1,0 +1,1279 @@
+Retorno
+De cara al recuerdo
+
+Por Borza
+
+El presente es un juego de texto, lo que quiere decir que para moverse e interactuar con el mundo ficcional el jugador deberá escribir comandos compuestos como "VERBO + OBJETO" o similares. Por ejemplo: COGER MARTILLO o ENCENDER TELEVISOR.
+En algunas ocasiones harán falta preposiciones, mientras que en otras no. Asimismo, algunas veces el programa entenderá lo que quiere decir aunque la palabra este incompleta, no tanto así si está mal escrita. No complejice sus codificaciones, la palabra que busca suele ser la más obvia.
+
+Una última cosa: en este mundo las personas pueden revivir sus recuerdos a través de las fotografías... literalmente. Lo único que deben hacer es soñarlas al colocarlas debajo de donde reposa su cabeza.
+
+Espero que lo disfrute ¡No dude en enviarme sus comentarios!
+
+Estas frente a la puerta sin llave del que fue tu hogar.
+
+Afuera de la casa
+En una esquina se encuentra el numero de la casa en una placa. A tus pies, un tapete para sacudirse la tierra de los pies.
+Guardas la llave en el bolsillo, junto a una foto doblada.
+
+Te tiemblan las manos.
+El poner la llave en la cerradura y girarla había sido el primer momento de duda. Ahora, el segundo se presentaba más denso. Presionar el picaporte, empujar la puerta y violar, de una vez por todas, el santuario de la casa cerrada era lo que debías hacer, pero... dudabas. Te oprimía el pecho saber que una vez que abrieses la puerta, perderías el control.
+> abrir puerta
+
+> abrir puerta
+Abres la puerta y, rápidamente, atraviesas el umbral.
+La cierras detrás de ti. Con ella se ha marchado tu indecisión. Ya has cruzado esta puerta antes; vienes a por lo que te corresponde.
+
+Entrada
+Estas parado sobre una ovalada alfombra roja. Hay una mesa de entrada a tu derecha y el baño a tu izquierda. Hacia el fondo se ve el living.
+
+No se debe juzgar un libro por su portada ni una casa por su entrada, sin embargo te dispones a examinar todo lo que te encuentres.
+> ir a living
+
+> ir a living
+
+Living
+Unos sillones impera la habitación, frente a la mesa ratona y un televisor de tubo
+. Marcando el límite de la habitación hay un discreto mueble separador, perpendicular a unas estanterías
+; ambas con algunas decoraciones encima, junto a un ventilador de pie
+. A la derecha está el dormitorio de la hija de la casa, junto a la cocina. A la izquierda están el dormitorio principal y el estudio. Al fondo esta la puerta de vidrio que da al deck, junto a un helecho de interior. Del lado opuesto se encuentra la entrada.
+
+Atravesar el pasaje imaginario tantas veces transitado con anterioridad te genera una sensación de vacío. Hace incontables meses que no ves la casa desde el punto que ocupas ahora, en el centro.
+> ir a dormitorio matrimonial
+
+> ir a dormitorio matrimonial
+Abres la puerta de la izquierda, y entras en la habitación.
+Te has quedado clavado en el umbral de la puerta, porque recuerdas muy bien todo lo que está a tu alrededor.
+Hubieron muy pocos cambios, demasiado pocos. Probablemente hubiese sido mejor si la habitación estuviese irreconocible, pero no lo está. Pero sabes que es una imitación, una comedia en la que ya no te estás riendo, un espejismo del mundo real que ya dejo de ser encantador. Es donde dormías, pero ya no lo es.
+Hundido en aquellas penurias levantas la vista y miras a tu alrededor.
+
+Dormitorio matrimonial
+Una habitación de casados. Puedes ver un espacioso ropero aledaño a la cama matrimonial hecha, que te invita a descansar. A su lado, la mesa de luz con el llamativo teléfono encima. En la pared hay un perchero con dos sacos colgados. Opuesto al ropero, esta la puerta que va hacia el escritorio, mientras que opuesto a la cama se encuentra la puerta que va al living.
+
+> x debajo de la cama
+
+> x debajo de la cama
+Te agachas para mirar debajo de la cama y descubres
+una caja de herramientas entre
+unas cajas de zapatos.
+> abrir caja de herramientas
+
+> abrir caja de herramientas
+Abres la caja de herramientas y revisas su contenido. Hay una espatula, una pinza, un destornillador, un martillo y un par de clavos.
+> x mesa de luz
+
+> x mesa de luz
+Por favor selecciona que 'mesa de luz' quieres decir:
+1: mesa de luz
+2: cajon mesa de luz
+> 1
+Un discreto mueble de planchas de madera y un cajon. Sobre él hay un teléfono fijo, una lámpara de noche y una fotografía de un grupo de personas cenando.
+¿Continuar examinando?
+1: Sí
+2: No
+> 2
+> coger foto cena
+
+> coger foto cena
+Coges la fotografia de la cena y la guardas en tu bolsillo.
+> ir a living
+
+> ir a living
+Vuelves sobre tus pasos y regresas al living.
+
+Living
+Unos sillones impera la habitación, frente a la mesa ratona y un televisor de tubo
+. Marcando el límite de la habitación hay un discreto mueble separador, perpendicular a unas estanterías
+; ambas con algunas decoraciones encima, junto a un ventilador de pie
+. A la derecha está el dormitorio de la hija de la casa, junto a la cocina. A la izquierda están el dormitorio principal y el estudio. Al fondo esta la puerta de vidrio que da al deck, junto a un helecho de interior. Del lado opuesto se encuentra la entrada.
+
+> ir a dormitorio de la hija
+
+> ir a dormitorio de la hija
+Abres la puerta de la derecha, y entras en la habitación.
+Luego de atravesar el umbral miras a tu alrededor.
+
+Dormitorio de la hija
+La habitación de una hija. Puedes ver una cama individual en un rincón, junto a una discreta mesa de luz. Opuesta a esta se encuentra un armario y, a su lado, el escritorio. El suelo está cubierto por una fina alfombra y poblado de algunos juguetes perdidos, como muñecas y camiones.
+
+El silencio de esta habitación te resulta el más extraño.
+> x cajon
+
+> x cajon
+Al abrir el cajón de la mesa de luz encuentras una caja de cuentas para collares
+y el gancho para dicha tarea, junto a un puñado de collares y pulseras terminados. Detrás de esto hay una modesta caja metálica.
+¿Continuar examinando?
+1: Sí
+2: No
+> 2
+> coger gancho
+
+> coger gancho
+Coges el gancho y lo guardas en tu bolsillo, con cuidado de que no se enganche.
+> ir a living
+
+> ir a living
+Vuelves sobre tus pasos y regresas al living.
+
+Living
+Unos sillones impera la habitación, frente a la mesa ratona y un televisor de tubo
+. Marcando el límite de la habitación hay un discreto mueble separador, perpendicular a unas estanterías
+; ambas con algunas decoraciones encima, junto a un ventilador de pie
+. A la derecha está el dormitorio de la hija de la casa, junto a la cocina. A la izquierda están el dormitorio principal y el estudio. Al fondo esta la puerta de vidrio que da al deck, junto a un helecho de interior. Del lado opuesto se encuentra la entrada.
+
+> x mueble separador
+
+> x mueble separador
+Un mueble de madera bajo, utilizado para separar el Living de la entrada. Tiene unas puertas dobles en la parte inferior. Sobre él hay dos portarretratos.
+
+¿Continuar examinando?
+1: Sí
+2: No
+> 2
+> usar gancho en portarretrato de arbol
+
+> usar gancho en portarretrato de arbol
+Utilizas el gancho para doblar los broches de la parte posterior. Uno a uno van cediendo a tu rigurosa operación, hasta que por fin la parte posterior queda suelta.
+> abrir portarretrato de arbol
+
+> abrir portarretrato de arbol
+Abres el portarretrato, separando la parte posterior del marco. Retiras la fotografía y la guardas en tu bolsillo.
+> x estanteria
+
+> x estanteria
+Cinco tablas de madera atornilladas a la pared. La ultima estantería esta casi a tres metros de alto, una altura un tanto ridícula para el paso frecuente. Por ello es el lugar donde se guardan las cosas viejas y sin uso. Los demás estantes están atiborrados de diversas decoraciones.
+¿Continuar examinando?
+1: Sí
+2: No
+> 2
+> ir a cocina
+
+> ir a cocina
+Caminas hacia el fondo del living y pasas a la cocina.
+El suelo de madera del living se vuelven baldosas.
+
+Cocina
+La suave luz del patio entra por la ventana e ilumina tiernamente el cuarto de cocina. La heladera levemente cargada de imanes, junto al horno de gas . Luego se extiende la mesada en forma de L, sobre la cual se haya la zona lava platos y que en su límite se ubican las banquetas.
+
+> x heladera
+
+> x heladera
+La heladera es el coloso blanco que permanece impoluto a pesar de llenarse de grasa e imanes de comida a domicilio.
+Entre estos hay dos fotografías.
+
+> coger foto caja
+
+> coger foto caja
+Coges la fotografia de la caja fuerte y la guardas en tu bolsillo.
+> coger foto zoo
+
+> coger foto zoo
+Coges la fotografia del zoo y la guardas en tu bolsillo.
+> x mesada
+
+> x mesada
+Una mesa o barra para comidas ocasionales. Es evidente que es para comida del paso debido a la altura, aunque viendo las banquetas comprendes el porqué del nivel.
+Debajo hay un balde.
+> 2
+
+> 2
+No entiendo tu orden.
+> coger balde
+
+> coger balde
+Coges el balde vacio y lo llevas contigo.
+> usar destornillador en banqueta
+
+> usar destornillador en banqueta
+Desatornillas la base de una de las banquetas. Los tornillos van cayendo uno a uno, rebotando sobre los azulejos, rodando sobre sí mismos hasta perderse a tu alrededor.
+> coger banqueta
+
+> coger banqueta
+Con los tornillos fuera, ahora puedes llevar la banqueta a cualquier otro lugar de la casa.
+Mirando sobre tu hombro y convenciéndote de que es una buena idea, decides llevarla al living frente a la estanteria.
+
+Living
+Unos sillones impera la habitación, frente a la mesa ratona y un televisor de tubo
+. Marcando el límite de la habitación hay un discreto mueble separador, perpendicular a unas estanterías
+; ambas con algunas decoraciones encima, junto a un ventilador de pie
+. A la derecha está el dormitorio de la hija de la casa, junto a la cocina. A la izquierda están el dormitorio principal y el estudio. Al fondo esta la puerta de vidrio que da al deck, junto a un helecho de interior. Del lado opuesto se encuentra la entrada.
+
+> trepar banqueta
+
+> trepar banqueta
+Con miedo de caerte, trepas sobre la banqueta y te paras. Tus pies apenas encuentran base para permitirte enderezarte. Ahora puedes ver el ultimo nivel de la estantería.
+> x estanteria
+
+> x estanteria
+Las cajas se presentan como grandes riscos protectores. Entre las cajas
+encuentras una fotografía suelta, dejada a su suerte y cubierta por una fina capa de polvo.
+> coger foto huerta
+
+> coger foto huerta
+Coges la fotografia de la huerta y la guardas en tu bolsillo.
+> ir a estudio privado
+
+> ir a estudio privado
+Caminas hacia el fondo de la habitación y atraviesas a puerta.
+Entras en una habitación cerrada con aire viciado.
+
+Estudio privado
+Una dominante biblioteca colocada junto a un escritorio antiguo ocupan una pared. La perpendicular, y opuesta por la puerta del dormitorio, tiene una ventana que da al patio, un mueble bajo y una caja fuerte. En la pared restante hay un par de cuadros y diplomas enmarcados, a la vez que la puerta que lleva al living.
+
+La habitación con estilo de oficina jurídica te recibe como una sutil referencia a tu futuro. Habías evitado pensar en las implicaciones de meterse en una casa ajena hasta este momento, pero ahora no puedes sino fruncirte con la idea de estar expuesto a una segura condena de ser descubierto.
+Esto te deja con la única opción de conseguir lo que estas buscando lo más rápido posible.
+> x carpeta
+
+> x carpeta
+Carpeta A4 llena de planos, propuestas y trabajos en desarrollo. De las posesiones más preciadas de Carla, siempre cuidada por ella y siempre a mano. Recuerdas que ella solia quedarse dormida usando la carpeta de almhoada, luego de un día largo en el estudio.
+¿Continuar examinando?
+1: Sí
+2: No
+> 1
+
+Siempre encontró un orden en su propio desorden. A pesar de estar rodeada de geometrías precisas y números redondos, cuando se trataba de guardar documentos siempre te pareció que Carla era un poco desastrosa. Era lo suficientemente terca, sin embargo, como para aceptar que su sistema no funcionaba. Quizás con una búsqueda más eficiente encuentres algo que hasta ella creería olvidado.
+¿Continuar examinando?
+1: Sí
+2: No
+> 1
+
+No reconoces ninguno de los planos que hay en la carpeta. Muchos están doblados sobre sí mismos en pliegues que no acabas de comprender. Es como ver la cuenta aritmética de otra persona, e igual de emocionante. Si ella estuviese aquí seguramente lo haría entretenido.
+Hojeando con cuidado descubres una fotografía entre un par de planos doblados. La dejas sobre el escritorio para verla mejor.
+> coger foto sillon
+
+> coger foto sillon
+Coges la fotografia del sillon y la guardas en tu bolsillo.
+> ir a living
+
+> ir a living
+
+Living
+Unos sillones impera la habitación, frente a la mesa ratona y un televisor de tubo
+. Marcando el límite de la habitación hay un discreto mueble separador, perpendicular a unas estanterías
+ y una banqueta
+; ambas con algunas decoraciones encima, junto a un ventilador de pie
+. A la derecha está el dormitorio de la hija de la casa, junto a la cocina. A la izquierda están el dormitorio principal y el estudio. Al fondo esta la puerta de vidrio que da al deck, junto a un helecho de interior. Del lado opuesto se encuentra la entrada.
+
+> ir a entrada
+
+> ir a entrada
+Te acercas a la puerta de entrada.
+
+Entrada
+Estas parado sobre una ovalada alfombra roja. Hay una mesa de entrada a tu derecha y el baño a tu izquierda. Hacia el fondo se ve el living.
+
+> x mesa de entrada
+
+> x mesa de entrada
+La mesa es bastante escueta. Tiene una plancha de vidrio grueso pegada en la superficie
+ y, sobre este, hay un bowl de metal donde se acostumbra dejar las llaves. Te gustaría inspeccionarla más.
+¿Continuar examinando?
+1: Sí
+2: No
+> 2
+> coger bowl
+
+> coger bowl
+Coges el bowl en tu mano; es más ligero de lo que pensaste.
+Notas que donde antes estaba el adorno apoyado, se asoma una fotografía.
+> usar martillo en vidrio
+
+> usar martillo en vidrio
+Tomas el martillo con firmeza, lo levantas sobre tu cabeza y luego lo dejas caer; impactando la plancha de vidrio con gran potencia.
+El mueble tiembla y, levemente aturdido por el golpe, das un paso hacia atrás. Una rajadura se comienza a formar en la plancha.
+> usar martillo en vidrio
+
+> usar martillo en vidrio
+Vuelves a tomar el martillo con firmeza y lo levantas sobre tu cabeza. Te concentras en la destrucción de las barreras de tu felicidad. Nada tiene derecho a retenerla por más tiempo. Nada. El martillo baja e impacta el vidrio.
+Una rajadura lo atraviesa de punta a punta.
+> usar martillo en vidrio
+
+> usar martillo en vidrio
+Tomas el martillo una última vez. Impaciente por completar tu cometido, te preparas para golpearlo con la misma fuerza que antes. En el segundo en que lo dejas caer sobre el vidrio tienes un momentáneo remordimiento por estar destruyendo tal antigüedad.
+El vidrio estalla, salpicando pequeñas astillas transparentes por los alrededores. Instintivamente te llevas las manos a los ojos, y evitas que se te metan por las corneas. La mesa de entrada está abierta.
+> coger foto fabrica
+
+> coger foto fabrica
+Con cuidado de no cortarte con los pedazos de vidrio, tomas la fotografía, le limpias las astillas y la guardas en un bolsillo.
+> ir a living
+
+> ir a living
+
+Living
+Unos sillones impera la habitación, frente a la mesa ratona y un televisor de tubo
+. Marcando el límite de la habitación hay un discreto mueble separador, perpendicular a unas estanterías
+ y una banqueta
+; ambas con algunas decoraciones encima, junto a un ventilador de pie
+. A la derecha está el dormitorio de la hija de la casa, junto a la cocina. A la izquierda están el dormitorio principal y el estudio. Al fondo esta la puerta de vidrio que da al deck, junto a un helecho de interior. Del lado opuesto se encuentra la entrada.
+
+> ir a dormitorio matrimonial
+
+> ir a dormitorio matrimonial
+Abres la puerta de la izquierda, y entras en la habitación.
+
+Dormitorio matrimonial
+Una habitación de casados. Puedes ver un espacioso ropero aledaño a la cama matrimonial hecha, que te invita a descansar. A su lado, la mesa de luz con el llamativo teléfono encima. En la pared hay un perchero con dos sacos colgados. Opuesto al ropero, esta la puerta que va hacia el escritorio, mientras que opuesto a la cama se encuentra la puerta que va al living.
+
+> acostarse cama matrimonial
+
+> acostarse cama matrimonial
+Te acuestas boca arriba en la cama. Reposas tu cabeza en la mullida almohada mientras contemplas el silencio de tu alrededor, desde la comodidad del lecho medio vacío.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+> levantar almohadas
+
+> levantar almohadas
+Levantas la almohada, encuentras una fotografía de lo que parece ser un museo de arte.
+> coger foto museo
+
+> coger foto museo
+Coges la fotografia del museo y la guardas en tu bolsillo.
+> dejar foto casa
+
+> dejar foto casa
+Dejas la fotografía de la casa debajo de la almohada y la vuelves a bajar.
+> dormir
+
+> dormir
+Cierras los ojos y sientes como tu conciencia comienza a alejarse lentamente...
+Estas en donde recuerdas haber estado.
+
+Afuera de la casa
+La entrada de la casa en un día soleado de verano. En el aire se siente el pasto recién cortado de un vecino. Un camión está estacionado con el baúl hacia la entrada. A su alrededor hay algunas cajas y muebles.
+
+Sudor. Cansancio. Satisfacción.
+
+Un hombre y una mujer mueven en conjunto una gran caja con libros de arquitectura.
+
+Amor...
+
+El hombre llama, está lleno de orgullo, de esperanza.
+
+¿Y si tus padres quieren volver?
+
+El sabe que no lo van a hacer. La mujer ríe.
+
+Con lo mucho que le gusta España a papa, tendremos suerte si se acuerda de nosotros para llamarnos.
+
+Risas. Gozo. Motivación.
+Una niña sale de la casa y abraza a la mujer por la espalda. Es pequeña, enérgica.
+
+Ana, por dios, no me asustes así hija.
+
+La mujer, precavida, baja el cargamento en coordinación con el hombre. Sorpresa. Arrepentimiento. Liviandad. El hombre las abraza, calma la situación.
+
+Regocijo.
+
+De detrás del camión sale el conductor, al que le piden que tome una fotografía para recuperar el momento. Los tres posan frente a la casa, la nueva vieja casa que compartirán. Ya vivian juntos antes, pero ahora es una casa decente. Ambos adultos pensaban similar. Este es su nuevo lugar en el mundo.
+> despertar
+
+> despertar
+Abres los ojos.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+Sin importar cuantas veces lo hagas, esta foto siempre es un grato recuerdo al cual regresar. Era un momento con esperanza. Carla se había graduado de la licenciatura en arquitectura, Ana estaba comenzando la primaria y tu hablabas con Franco de la posibilidad de ser contratado en la fábrica. Y por primera vez, había un lugar para ustedes. Ya no dependían de un otro, estos eran sus cimientos en el mundo.
+
+Aunque lejano, aquello es un lindo recuerdo. Aunque invisibles, aquellos rostros joviales te conmueven.
+> levantar almohadas
+
+> levantar almohadas
+Levantas la almohada, encuentras una fotografía.
+> coger foto casa
+
+> coger foto casa
+Coges la fotografia de la casa y la guardas en tu bolsillo.
+> dejar foto huerta
+
+> dejar foto huerta
+Dejas la fotografía de la huerta debajo de la almohada y la vuelves a bajar.
+> dormir
+
+> dormir
+Cierras los ojos y sientes como tu conciencia comienza a alejarse lentamente...
+Estas en donde recuerdas haber estado.
+
+Patio
+La huerta de la casa se extiende con la tierra recién colocada. Brilla con su removida intención. El árbol de la casa brinda una sombra refrescante y, más allá, se encuentra la casa vista desde detrás. De la ventana de la cocina sale un dulce cantar
+
+Alegría. Compañía. Recuperación.
+
+En su límite, un hombre y una niña utilizan una pala y un rastrillo para preparar el terreno. El hombre siente incomodidad en la cabeza. Su mano no está con control preciso. La hija lo alienta, quiere levantarle los ánimos. Busca de que hablar, para no pensar en sus falencias.
+
+Papa, no me gustan los peces
+
+La niña señala los peces decorativos en la pared exterior de la casa
+
+¿No? A tu madre le encantan. Son los guardianes del patio
+
+El hombre se distrae, piensa en Carla.
+
+¿Y eso porque?
+
+La niña se frunce, ante una pregunta sin respuesta.
+
+Ese es el secreto que guardan.
+
+El canto se detiene. La mujer se asoma al patio con cámara en mano. Reunión. Soporte. Suena el timbre de la entrada. La mujer entra.
+
+Incógnita. Rutina. Llamado.
+
+ La mujer regresa y lanza una mirada que el hombre capta.
+
+Está Franco en la puerta.
+
+Seriedad. Pesadez. Extrañeza.
+
+El hombre se levanta y entra en la casa.
+> despertar
+
+> despertar
+Abres los ojos.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+Recuerdas vagamente la charla que tuviste con Franco ese día. Redundancias legales que Carla no dudo en maldecir, amenazándolo de hacerle daño físico si el legal no podía concretarse. Te dijo que, para el sistema, eras invisible. Antes de irse dejo esa foto que yace debajo del vidrio de la mesa de entrada. Un último recuerdo, de quien solía ser tu amigo. Eso, y el dolor que se presenta cada vez que intentas mirar a alguien a los ojos.
+
+ Aquello que resulta intangible, inexplicable, incuantificable, es lo que más tortura al alma.
+> levantar almohadas
+
+> levantar almohadas
+Levantas la almohada, encuentras una fotografía.
+> coger foto huerta
+
+> coger foto huerta
+Coges la fotografia de la huerta y la guardas en tu bolsillo.
+> dejar foto arbol
+
+> dejar foto arbol
+Dejas la fotografía del patio debajo de la almohada y la vuelves a bajar.
+> dormir
+
+> dormir
+Cierras los ojos y sientes como tu conciencia comienza a alejarse lentamente...
+Estas en donde recuerdas haber estado.
+
+Patio
+El árbol del patio esta pelado, con todas sus hojas dispersas por el suelo. La brisa de un invierno temprano mueve las ramas y silba entre las orejas coloradas. La casa se muestra cerrada, protegida del frio. A un lado, la huerta que comenzó a hibernar.
+
+Labor. Anhelo. Confianza.
+
+Una niña vistiendo un pullover amarillo recoge con un rastrillo las hojas amontonándolas frente al árbol, justo donde termina el pasto y comienza la tierra desnuda. El hombre la ve desde el deck y la fotografía sin que se de cuenta. La pequeña le recuerda a una adorable abeja. Cercanía. Ternura. La niña lo ve.
+
+Quiero guardar cosas importantes.
+
+El hombre se acerca un poco más a ella, animado por la repentina pregunta.
+
+¿Como una capsula del tiempo?
+
+La niña asiente, sin dejar de trabajar. Señala donde esta parada insistentemente.
+
+Eso quiero una máquina del tiempo ¡Aquí mismo!
+
+Luego de pensarlo un momento, el hombre ríe. Regala su sabiduría.
+
+No, maquina no. En una capsula puedes meter lo que quieras, para volver a encontrarlo en un futuro como si fuese una sorpresa.
+
+La niña quiere eso. Esta ansiosa. Proyecta el futuro.
+
+Cariño. Promesa. Interés.
+
+El hombre resiste las ganas de abrazarla, y de decirle que quisiera que jamás crezca.
+> despertar
+
+> despertar
+Abres los ojos.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+No puedes dejar de pensar en las palabras de Ana. Te preguntas si ella sola se habrá puesto a hacer el pozo, o si Carla la habrá ayudado. Una cosa es segura: estas absolutamente convencido que la perseverancia de Ana la llevo a enterrar esa capsula a los pies del árbol.
+
+¿Cuales serán los recuerdos dignos de retener, en un futuro? ¿Lo que hoy es grato no puede mañana ser miseria?
+> levantarse
+
+> levantarse
+Te pones de pie.
+
+Dormitorio matrimonial
+Una habitación de casados. Puedes ver un espacioso ropero aledaño a la cama matrimonial hecha, que te invita a descansar. A su lado, la mesa de luz con el llamativo teléfono encima. En la pared hay un perchero con dos sacos colgados. Opuesto al ropero, esta la puerta que va hacia el escritorio, mientras que opuesto a la cama se encuentra la puerta que va al living.
+
+> ir a living
+
+> ir a living
+Vuelves sobre tus pasos y regresas al living.
+
+Living
+Unos sillones impera la habitación, frente a la mesa ratona y un televisor de tubo
+. Marcando el límite de la habitación hay un discreto mueble separador, perpendicular a unas estanterías
+ y una banqueta
+; ambas con algunas decoraciones encima, junto a un ventilador de pie
+. A la derecha está el dormitorio de la hija de la casa, junto a la cocina. A la izquierda están el dormitorio principal y el estudio. Al fondo esta la puerta de vidrio que da al deck, junto a un helecho de interior. Del lado opuesto se encuentra la entrada.
+
+> x helecho
+
+> x helecho
+Un helecho de interior. Sus hojas poseen un color verde sano y su tierra negruzca. Debe ser regado a menudo para tener este nivel de cuidado. En la espesura podria perderse algo.
+¿Continuar examinando?
+1: Sí
+2: No
+> 2
+> buscar helecho
+
+> buscar helecho
+Tanteas la tierra en busca de algo que llame tu atención... y lo encuentras. Hay una pequeña protuberancia perdida en el medio del terreno.
+> coger llave exterior
+
+> coger llave exterior
+Aferrándola con tus yemas, tiras de la protuberancia. Consigues una llave de puerta exterior.
+> usar llave exterior en puerta del patio
+
+> usar llave exterior en puerta del patio
+No puedes usarla así.
+> abrir puerta del patio
+
+> abrir puerta del patio
+La desbloqueas.
+La abres.
+> ir a deck
+
+> ir a deck
+Por favor selecciona que 'deck' quieres decir:
+1: deck
+2: deck
+> 1
+Abres la puerta corrediza del patio y sales a exterior.
+La brisa diurna te acaricia el rostro.
+
+Deck
+El deck es una plataforma de madera que separa la casa del pasto. Puedes ver una mesa de exterior rodeada de sillas, una parrilla, un cajón de herramientas y una canilla que sale de la pared. Si sigues de frente, bajas al patio.
+
+> x mesa de exterior
+
+> x mesa de exterior
+Una mesa de plástico, preparada para pasar largas temporadas sin usarse. La cubre una fina capa de mugre terrenal, producto de estar a la intemperie sin nada que la cubra. Si levantas la cabeza te encuentras con unos peces decorativos colgados en la pared.
+¿Continuar examinando?
+1: Sí
+2: No
+> 2
+> coger peces decorativos
+
+> coger peces decorativos
+Pasas por detrás de la mesa y te paras de puntas para alcanzar al primer pez de la pared. Lo traes con cuidado frente a ti y lo examinas, encontrando una abertura en su boca.
+Sacas una pequeña llave y lo vuelves a colocar en su lugar.
+> x cajón de herramientas
+
+> x cajón de herramientas
+Un cajón de madera clara, barnizada para exteriores. Se utiliza para guardar las herramientas de jardinería.
+ En el medio tiene un candado.
+> abrir cajón de herramientas
+
+> abrir cajón de herramientas
+Intentas abrir el cajón, pero está cerrado. Un pequeño candado se bambolea por el forcejeo.
+> usar llave cajon en candado
+
+> usar llave cajon en candado
+No puedes usarla así.
+> abrir candado
+
+> abrir candado
+Usas la llave y, con un suave click, el candado se abre.
+Lo abres.
+> abrir cajón de herramientas
+
+> abrir cajón de herramientas
+Abres la tapa del cajón. Puedes ver una pala, un podador y un rastrillo, así como unas botellas de fertilizantes y pesticidas.
+Coges la pala, el rastrillo y el podador y los pones en la caja de herramientas.
+> ir a patio
+
+> ir a patio
+Bajas el escalón del deck y respiras hondo.
+
+Patio
+El suave pasto cubre casi todo el suelo del jardín, a excepción de el espacio dedicado a la huerta y la tierra de alrededor del árbol cortado.
+
+El suave crujir de tus pisadas sobre el pasto te mantiene en un estado de calma, incluso cuando ves hacia el lugar donde solía estar el árbol del patio, ahora reemplazado por su cadáver a medio cortar.
+El tiempo pasa, y los que nos ausentamos nos quedamos atrás.
+> usar pala en suelo
+
+> usar pala en suelo
+Tomas la pala con ambas manos y clavas su punta en el límite donde el pasto se convierte en tierra. Haciendo palanca, quitas un montón de tierra y la dejas a un lado. Luego, repites.
+Por largos minutos fuerzas tu muñeca con punzante constancia, entregándote a la búsqueda anticipada por un lejano recuerdo impreso. Lo que esperas, se junta con lo que hallas, y luego de llenarte de tierra las manos y las rodillas, descubres un objeto extraño entre la tierra.
+Con el dorso de la pala limpias su superficie y revelas una plancha de cartón, la tapa de una caja de zapatos. Con cuidado limpias su alrededor hasta dejarlo separado de la tierra, de forma que puedes operar sobre ella sin problemas. Te echas hacia atrás, complacido con el desabrimiento y te rascas la cara, sin darte cuenta que te dejas un manchón de tierra en la mejilla.
+> abrir caja de zapatos
+
+> abrir caja de zapatos
+Levantas la caja de zapatos con cuidado y la dejas a un lado. Luego miras su interior. Encuentras un par de dibujos, un llavero y una fotografía. Todo está manchado por una fina capa de basuras provenientes de la caja húmeda y la tierra.
+> coger foto living
+
+> coger foto living
+Tomas la fotografía con la punta de los dedos y la llevas con cuidado.
+> ir a deck
+
+> ir a deck
+La brisa diurna te acaricia el rostro.
+
+Deck
+El deck es una plataforma de madera que separa la casa del pasto. Puedes ver una mesa de exterior rodeada de sillas, una parrilla, un cajón de herramientas y una canilla que sale de la pared. Si sigues de frente, bajas al patio.
+
+> abrir canilla
+
+> abrir canilla
+Abres la canilla y, poco a poco, comienzas a escuchar un sonido profundo avanzando por las cañerías.
+De pronto, un potente chorro de agua sale disparado e impacta contra
+ el fondo del balde. Sabes que debes esperar unos segundos hasta que se llene.
+> usar foto living en balde
+
+> usar foto living en balde
+Colocas la foto en el agua. La mugre comienza a despegarse por sí sola y a caer al fondo del balde. Esperas a que se termina de limpiar y luego la vuelves a coger. Ahora esta empapada y hará falta que la ventiles antes de poder usarla para recordar.
+> ir a living
+
+> ir a living
+Vuelves a entrar en la casa.
+
+Living
+Unos sillones impera la habitación, frente a la mesa ratona y un televisor de tubo
+. Marcando el límite de la habitación hay un discreto mueble separador, perpendicular a unas estanterías
+ y una banqueta
+; ambas con algunas decoraciones encima, junto a un ventilador de pie
+. A la derecha está el dormitorio de la hija de la casa, junto a la cocina. A la izquierda están el dormitorio principal y el estudio. Al fondo esta la puerta de vidrio que da al deck, junto a un helecho de interior. Del lado opuesto se encuentra la entrada.
+
+> dar foto living a mueble separador
+
+> dar foto living a mueble separador
+Crees que este es un buen lugar para dejar la foto a secarse.
+> encender ventilador
+
+> encender ventilador
+Las astas del ventilador comienzan a girar lentamente. La habitación se llena de una suave corriente de aire, junto al sonido del vibrante aparato.
+
+Su frescor va dirigido a la mesa separadora.
+La foto humedecida se seca.
+> coger foto living
+
+> coger foto living
+Coges la fotografia del living y la guardas en tu bolsillo.
+> ir a dormitorio matrimonial
+
+> ir a dormitorio matrimonial
+Abres la puerta de la izquierda, y entras en la habitación.
+
+Dormitorio matrimonial
+Una habitación de casados. Puedes ver un espacioso ropero aledaño a la cama matrimonial hecha, que te invita a descansar. A su lado, la mesa de luz con el llamativo teléfono encima. En la pared hay un perchero con dos sacos colgados. Opuesto al ropero, esta la puerta que va hacia el escritorio, mientras que opuesto a la cama se encuentra la puerta que va al living.
+
+> acostarse cama matrimonial
+
+> acostarse cama matrimonial
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+No puedes dejar de pensar en las palabras de Ana. Te preguntas si ella sola se habrá puesto a hacer el pozo, o si Carla la habrá ayudado. Una cosa es segura: estas absolutamente convencido que la perseverancia de Ana la llevo a enterrar esa capsula a los pies del árbol.
+
+¿Cuales serán los recuerdos dignos de retener, en un futuro? ¿Lo que hoy es grato no puede mañana ser miseria?
+> levantar almohadas
+
+> levantar almohadas
+Levantas la almohada, encuentras una fotografía.
+> coger foto arbol
+
+> coger foto arbol
+Coges la fotografia del patio y la guardas en tu bolsillo.
+> dejar foto living
+
+> dejar foto living
+Dejas la fotografía del living debajo de la almohada y la vuelves a bajar.
+> dormir
+
+> dormir
+Cierras los ojos y sientes como tu conciencia comienza a alejarse lentamente...
+Estas en donde recuerdas haber estado.
+
+Living
+La habitación sigue siendo dominado por el voluminoso sillón doble, perpendicular al individual. De fondo se oye el televisor con volumen bajo, pasando alguna película decorativa. En el aire se siente el aroma de un estofado en proceso de cocción.
+
+Amistad. Compañía. Protección.
+
+Un hombre se encuentra echado en el sillón doble. Parado junto a él, inspeccionando una caja de música, se encuentra otro hombre. Una niña está sentada en el sillón individual, parcialmente distraída por la tele. En su mano tiene una cámara de fotos. Desde la cocina vienen ruidos de alguien cocinando.
+
+Esta cosa me fascina.
+
+Anuncia el hombre parado.
+
+Oye, tío Franco ¿Sabías que tiene un compartimento secreto?
+
+La niña, enérgica como siempre, sabe algo que el hombre no. Complicidad. Desafío.
+
+¡Joder, ahora me fascina más! ¿Y qué guardas allí?
+
+El hombre curiosea por cortesía.
+
+Esas cosas no se dicen.
+
+Argumenta el hombre del sillón, sin incorporarse. Una mujer sale de la cocina y se acerca por detrás al sillón doble, doblándose sobre su respaldo para besar al hombre echado y susurrarle algo.
+
+Recuerda poner la llave en su lugar, por favor
+
+La niña, emocionada, se para sobre el sillón individual y toma rápidamente una foto.
+
+Felicidad. Atolondramiento. Esporádico.
+
+La niña es atrapada por el hombre de pie, al que llaman Franco, que juguetonamente la quita del sillón y la hace pararse en el piso.
+> despertar
+
+> despertar
+Abres los ojos.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+El lugar de la llave siendo mencionado en el living, te recuerda adonde solía guardarse la de la caja fuerte: debajo de una madera suelta del piso. Crees que ya sabes dónde buscar. Luego piensas en lo que dijo Ana sobre el contenido secreto de un compartimento que, honestamente, no recordabas que aquella antigüedad poseía.
+
+Los secretos de los infantes suelen ser los más inocentes y, sin embargo, también suelen estar cargados de una significancia aparentemente invisible para los ajenos.
+> levantarse
+
+> levantarse
+Te pones de pie.
+
+Dormitorio matrimonial
+Una habitación de casados. Puedes ver un espacioso ropero aledaño a la cama matrimonial hecha, que te invita a descansar. A su lado, la mesa de luz con el llamativo teléfono encima. En la pared hay un perchero con dos sacos colgados. Opuesto al ropero, esta la puerta que va hacia el escritorio, mientras que opuesto a la cama se encuentra la puerta que va al living.
+
+> ir a living
+
+> ir a living
+Vuelves sobre tus pasos y regresas al living.
+
+Living
+Unos sillones impera la habitación, frente a la mesa ratona y un televisor de tubo
+. Marcando el límite de la habitación hay un discreto mueble separador, perpendicular a unas estanterías
+ y una banqueta
+; ambas con algunas decoraciones encima, junto a un ventilador de pie
+. A la derecha está el dormitorio de la hija de la casa, junto a la cocina. A la izquierda están el dormitorio principal y el estudio. Al fondo esta la puerta de vidrio que da al deck, junto a un helecho de interior. Del lado opuesto se encuentra la entrada.
+
+> usar espatula en suelo
+
+> usar espatula en suelo
+Tanteas el suelo con la espátula buscando una salidera evidente y, eventualmente, la encuentras cerca del sillón doble. Clavas la herramienta en el espacio entre dos de las tablas de madera, aparentemente pegadas, y al hacer palanca descubres que una de ella se separa.
+La coges con las manos y revelas un pequeño compartimento con una llave rectangular en su interior. Apenas logrando meter tu mano en el agujero, la coges y te la guardas.
+> ir a dormitorio de la hija
+
+> ir a dormitorio de la hija
+Abres la puerta de la derecha, y entras en la habitación.
+Luego de atravesar el umbral miras a tu alrededor.
+
+Dormitorio de la hija
+La habitación de una hija. Puedes ver una cama individual en un rincón, junto a una discreta mesa de luz. Opuesta a esta se encuentra un armario y, a su lado, el escritorio. El suelo está cubierto por una fina alfombra y poblado de algunos juguetes perdidos, como muñecas y camiones.
+
+> x escritorio
+
+> x escritorio
+Un mueble de estudios y orden, sin cajones ni distracciones. Sobre él hay un cuaderno y una caja de música.
+¿Continuar examinando?
+1: Sí
+2: No
+> 2
+> x caja de musica
+
+> x caja de musica
+Una pequeña caja de madera con un dispositivo que le permite emitir música al abrirse. Es un artefacto curioso y decorativo, no tanto un juguete.
+¿Continuar examinando?
+1: Sí
+2: No
+> 1
+
+La caja entra en una sola mano y es de madera negra pulida o algo parecido. Es fría al tacto y no tiene marcas de desgaste.
+¿Continuar examinando?
+1: Sí
+2: No
+> 1
+
+Tomas la caja con cuidado y la levantas por encima de tu cabeza.
+Viendo su base puedes identificar un delineado extraño, a la vez que un agujero para enganchar y abrir el compartimento.
+> abrir compartimento
+
+> abrir compartimento
+Abres el compartimiento con cuidado, y de él cae una llave pequeña que apenas alcanas a coger en el aire. La guardas en tu bolsillo, para no perderla.
+> abrir caja de metal
+
+> abrir caja de metal
+Usas la llave y abres la caja.
+En su interior puedes dilucidar un montón de fotografias.
+La abres.
+> x paquete de fotos
+
+> x paquete de fotos
+Extraes de la caja quince fotografías. Son imágenes de paisajes naturales y urbanos, con el foco en las macro estructuras mas que en los individuos que allí transitan. Das vuelta a algunas y lees que dicen:
+
+Fotografías Densueño.
+
+Sabes que es una línea de productos del grupo comercial que controla los mercados Resplandor.
+¿Continuar examinando?
+1: Sí
+2: No
+> 1
+
+Sospechas que esta caja fue usada como guarda-fotografías. Todas son fotos prefabricadas de paisajes o locaciones. Están la Catedral de Notre Dame, la torre Eiffel, un bosque nevado, un campo abierto en el atardecer, una playa de arena blanca, un torreón antiguo, un navío en alta mar, etcétera.
+Podrías seguir tratando de adivinar que es cada fotografía, pero sientes que es una pérdida de tiempo.
+¿Continuar examinando?
+1: Sí
+2: No
+> 1
+
+Al volverlas a examinar te percatas que una de las fotografías tiene una falla. Es un paisaje de campo durante el atardecer, con arboles perdidos en la lejanía y ganado disperso a sus alrededores. Pero al inspeccionarla con mas atención te das cuenta que no es una falla, sino que ha sido tomada desde detrás de un vidrio y en este se ve reflejado el rostro de Ana.
+Coges esta foto y dejas las demás en la caja.
+> ir a living
+
+> ir a living
+Vuelves sobre tus pasos y regresas al living.
+
+Living
+Unos sillones impera la habitación, frente a la mesa ratona y un televisor de tubo
+. Marcando el límite de la habitación hay un discreto mueble separador, perpendicular a unas estanterías
+ y una banqueta
+; ambas con algunas decoraciones encima, junto a un ventilador de pie
+. A la derecha está el dormitorio de la hija de la casa, junto a la cocina. A la izquierda están el dormitorio principal y el estudio. Al fondo esta la puerta de vidrio que da al deck, junto a un helecho de interior. Del lado opuesto se encuentra la entrada.
+
+> ir a dormitorio matrimonial
+
+> ir a dormitorio matrimonial
+Abres la puerta de la izquierda, y entras en la habitación.
+
+Dormitorio matrimonial
+Una habitación de casados. Puedes ver un espacioso ropero aledaño a la cama matrimonial hecha, que te invita a descansar. A su lado, la mesa de luz con el llamativo teléfono encima. En la pared hay un perchero con dos sacos colgados. Opuesto al ropero, esta la puerta que va hacia el escritorio, mientras que opuesto a la cama se encuentra la puerta que va al living.
+
+> acostarse cama matrimonial
+
+> acostarse cama matrimonial
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+El lugar de la llave siendo mencionado en el living, te recuerda adonde solía guardarse la de la caja fuerte: debajo de una madera suelta del piso. Crees que ya sabes dónde buscar. Luego piensas en lo que dijo Ana sobre el contenido secreto de un compartimento que, honestamente, no recordabas que aquella antigüedad poseía.
+
+Los secretos de los infantes suelen ser los más inocentes y, sin embargo, también suelen estar cargados de una significancia aparentemente invisible para los ajenos.
+> levantar almohadas
+
+> levantar almohadas
+Levantas la almohada, encuentras una fotografía.
+> coger foto living
+
+> coger foto living
+Coges la fotografia del living y la guardas en tu bolsillo.
+> dejar foto caja
+
+> dejar foto caja
+Dejas la fotografía de la caja fuerte debajo de la almohada y la vuelves a bajar.
+> dormir
+
+> dormir
+Cierras los ojos y sientes como tu conciencia comienza a alejarse lentamente...
+Estas en donde recuerdas haber estado.
+
+Estudio privado
+El estudio es un lugar hermético, que solo deja colar sutilmente la luz por la ventana. El aire siempre es viciado, y la colosal biblioteca se mantiene erguida como un monumento a los saberes del pasado.
+
+ Solidez. Estipulación. Largo plazo.
+
+Una mujer está sentada en el suelo, de piernas cruzadas. Apoya sus manos contra la caja fuerte que tiene enfrente, nunca antes abierta. A su lado, un pilón de tomos azules. Un hombre se escabulle por su lado y la fotografía para recordar un momento importante. Ella lo mira juguetona Juvenil.
+
+¿Que clave le pondremos?
+
+El hombre piensa por un momento.
+
+Algo que recordemos seguro, pero no una fecha...
+
+La mujer ríe ante su propia idea.
+
+Que sean dos. El cumpleaños de Ana y mi año de graduación. Y la llave la tendremos bien escondida.
+
+El hombre sonríe, le parece maravilloso. Quiere tener la oportunidad de compartir ambos mundos, y vincularlo para siempre como los ligamentos de sus recuerdos
+
+Familia. Futuro. Anhelo.
+
+El hombre le extiende la mano a la mujer para que pueda pararse.
+> despertar
+
+> despertar
+Abres los ojos.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+Recuerdas con exactitud la contraseña. Sabes cuando era el cumpleaños de la abejita, y el año de graduación Carla, como también recuerdas la cuenta que debía hacerse con ambos números. Dos fechas tan importantes serian improbablemente olvidadas. También recuerdas que, por algún lugar de la casa, se escondía la llave que acompañaba al código. El doble método de seguridad te resultaba optimo en aquel entonces.
+
+La calidad de un hogar es tan bueno como lo es la forma que tienen de proteger lo que más valoran.
+> levantar almohadas
+
+> levantar almohadas
+Levantas la almohada, encuentras una fotografía.
+> coger foto caja
+
+> coger foto caja
+Coges la fotografia de la caja fuerte y la guardas en tu bolsillo.
+> dejar foto zoo
+
+> dejar foto zoo
+Dejas la fotografía del zoo debajo de la almohada y la vuelves a bajar.
+> dormir
+
+> dormir
+Cierras los ojos y sientes como tu conciencia comienza a alejarse lentamente...
+Estas en donde recuerdas haber estado.
+
+Zoo
+Un colosal foso separa a la gigantesca bestia grisácea de larga trompa y colmillos, de los visitantes. La gente se acomoda en pequeñas multitudes, saca fotografías y luego sigue su camino sin darle demasiada importancia a las criatura, para pasar a la siguiente. Hay poco tiempo en un solo día.
+
+Emoción. Pequeñez. Sorpresa
+
+Agarrada firmemente a la baranda hay una niña al borde del llanto. Se ahoga ante la presencia del animal que la observa desinteresado, mientras sigue comiendo. Detrás de ella, con las manos sobre sus hombros, se encuentra una mujer.
+
+¡Es enorme, mama!
+
+La niña exclama explotando de emoción. La mujer le sonríe, complacida. Un hombre se acerca lentamente, con una cámara en mano.
+
+ ¡Eh, Carla!.
+
+La mujer hace girar a la niña, quien se resiste a apartar los ojos del animal. Le limpia la cara con la manga y saluda hacia la cámara. Impaciencia. En cuanto el hombre levanta la cabeza, la niña se vuelve a girar.
+
+¡Eh! ¿pero qué es esto?
+
+La mujer deja a la niña y se acerca al hombre. Preocupación.
+
+¿Qué es? ¿Qué pasa?
+
+El hombre la mira seriamente.
+
+Es que... se ven hermosas. Las tres.
+
+La mujer contiene su risa. El hombre lanza una carcajada. La niña sigue admirando.
+
+Eres tonto.
+
+La mujer se muerde un labio y niega con la cabeza, divertida. El hombre la rodea por la cintura.
+
+Calidez. Cercanía. Complicidad.
+
+Aprovechando que la niña sigue de cara al elefante, se besan. Pero ella está al tanto de eso.
+> despertar
+
+> despertar
+Abres los ojos.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+Por algún motivo, te resulta satisfactorio saber que ella ha logrado conocer a alguien más.
+La nueva pareja
+se ve como un hombre dedicado, amoroso y con cientos de sonrisas para regalar. Eres consciente que ya no formas mas parte de aquel panorama familiar. Y tampoco es que busques recuperarlo, de todas formas no podrías disfrutarlo en tu estado.
+
+No te interesa las incertidumbres de un futuro que ya te ha rechazado, anhelas la seguridad de un pasado que roza tus dedos.
+> levantar almohadas
+
+> levantar almohadas
+Levantas la almohada, encuentras una fotografía.
+> coger foto zoo
+
+> coger foto zoo
+Coges la fotografia del zoo y la guardas en tu bolsillo.
+> dejar foto fabrica
+
+> dejar foto fabrica
+Dejas la fotografía de la fabrica debajo de la almohada y la vuelves a bajar.
+> dormir
+
+> dormir
+Cierras los ojos y sientes como tu conciencia comienza a alejarse lentamente...
+Estas en donde recuerdas haber estado.
+
+Fabrica
+El colosal espacio está parcialmente llenado por maquinas de ensamblaje y líneas de producción, con sus respectivos obreros merodeando alrededor. El barullo de las maquinarias a pura potencia, preparando las entregas de fin de año hacen parecer más opresivo el ambiente de lo que realmente es.
+
+Labor. Futuro. Pertenencia.
+
+Un hombre abre e introduce su torso en una de las maquinas ensambladoras sin funcionar. Los pesados ganchos y pistones son levantados por encima de su cabeza y enganchados con una cadena que cuelga de una viga cercana. El suelo está cubierto por una fina capa de oleoso aceite y su olor impregna las manos del obrero. Otro hombre se acerca por detrás.
+
+Joaquín Bomader, trabajador incansable.
+
+El hombre saca el cuerpo de la maquina y recibe al recién llegado.
+
+Patrón ¿cómo le va?
+
+Diversión. Juego. Los dos hombres se estrechan en un abrazo sudado y ríen.
+
+Te venís adaptando bien, veo. Tengo algo bueno que comentarte...
+
+Al que llaman Joaquín se frota la mano por el overol, mirando al otro.
+
+El viernes mismo te hacemos efectivo.
+
+Alegría. Sorpresa
+
+¡Es mucho antes de lo que esperaba, Franco!
+
+Franco finge modestia. Saca de detrás una cámara de foto y le gesticula a su trabajador para que pose. Este obedece, estirando sus brazos en hiperbolizada actuación.
+
+Para que Clara te crea cuando le digas que estuviste trabajando.
+
+Luego, se retira por los pasillos infinitos de maquinas. El trabajador termina su labor y se echa para atrás, tanteando la cadena con la punta de sus dedos. Pierde el equilibrio, la cadena se suelta.
+
+La placa se cierra con violencia frente a él.
+
+Pisa el aceite y cae de espalda hacia tornillos oxidados.
+
+La gente se acerca preocupada, rodean al caído. El jefe los mueve a un lado y ve a su compañero.
+
+Pánico. Decepción. Miedo.
+
+Los ojos de un hombre aterrado se encuentran con los de un hombre inconsciente.
+> despertar
+
+> despertar
+Abres los ojos.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+Recuerdas que esa fotografía la colocaste tu mismo debajo del vidrio de la mesa de entrada. Carla quería destruirla, pero tú le insististe que no lo hiciese. Querías que fuera un recordatorio de prudencia para todos los días. Y que cuando Ana fuese mayor, pudiera seguirlo viendo cuando saliese por esa puerta creyendo, como tu habías creído, que podía cargar el mundo en la palma de su mano.
+
+ Ninguna herencia es más pesada, que los errores que dejamos olvidados.
+> levantar almohadas
+
+> levantar almohadas
+Levantas la almohada, encuentras una fotografía.
+> coger foto fabrica
+
+> coger foto fabrica
+Coges la fotografia de la fabrica y la guardas en tu bolsillo.
+> dejar foto sillon
+
+> dejar foto sillon
+Dejas la fotografía del sillon debajo de la almohada y la vuelves a bajar.
+> dormir
+
+> dormir
+Cierras los ojos y sientes como tu conciencia comienza a alejarse lentamente...
+Estas en donde recuerdas haber estado.
+
+Living departamento
+Un habitación pequeña, propia de un departamento del centro. Un sillón cama impera contra una pared de la que cuelga un espejo. Una mesita pequeña con aperitivos está al lado, apenas irradiada por la luminosidad de un televisor de tubo viejo, mientras este pasa un documental de Fotografías Densueño.
+
+Compañía. Hogar. Amistad.
+
+Hay dos hombres y una mujer sentados en el sillón. Uno de los hombres esta ansioso, mientras que los otros dos observan la transmisión con calma. En el video se muestran obreros trabajando con grandes maquinarias mientras una voz narradora habla del futuro de la industria fotográfica.
+
+... permiten que esta fábrica, ubicada en el corazón de la urbe, abra puestos de trabajo para los sectores menos beneficiados.
+
+La imagen de la fabrica cambia a la de obreros parados uno junto al otro, haciendo foco uno por uno. Eventualmente, la cámara toma al hombre del sillón, vestido con casco y overol de trabajo. El otro hombre ríe.
+
+¿Ese sos? Te ves más gordo.
+
+La mujer le golpea con el codo, jocosamente, mientras que su amigo lo llama a silencio. Calidez.
+
+Soy Franco Jimeno, hijo de mucama, operador de maquinaria.
+
+El otro hombre despeina al hombre que apareció reflejado en la tele, como gesto de animación. La publicidad continua, pero ya ninguno le está prestando atención. El hombre sigue molestando a quien fue presentado como Franco.
+
+Me hubieras mandado un besito ¡una dedicatoria al menos!
+
+Franco ríe y toma una cámara fotográfica de al lado.
+
+Te traje algo mejor.
+
+Rápidamente coloca la cámara en la mesa y la prepara para dispararse automáticamente. Luego, corre al sillón, se sienta en el medio y abraza a sus dos amigos con fuerza. Se sienten un poco incómodos por la posición, pero disfrutan del momento. La foto es tomada con un flash.
+
+Agradecimiento. Unión. Futuro.
+
+En el televisor siguen hablando de las posibilidades de nunca olvidar lo fotografiado, y de cómo la sociedad pierde la melancolía de la nostalgia si usan su producto, pero ya nadie les presta atención.
+> despertar
+
+> despertar
+Abres los ojos.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+Aquello fue un melancólico recuerdo de otra época, que a su vez acarreaba cierta alegría. Luego de tantos años conociendo a Carla, sabes que ella suele dormirse sobre su carpeta de trabajo a lo largo del día, y el encontrar esta foto allí demuestra una intención de regresar a aquel entonces, cuando todo parecía más fácil. Este descubrimiento te hace sentirte un poco menos solo.
+
+La constante atesoración del pasado no es ajena al resto del mundo. Cada quien lucha con sus propias lagunas, recordando lo que quiere recordar.
+> levantar almohadas
+
+> levantar almohadas
+Levantas la almohada, encuentras una fotografía.
+> coger foto sillon
+
+> coger foto sillon
+Coges la fotografia del sillon y la guardas en tu bolsillo.
+> dejar foto cena
+
+> dejar foto cena
+Dejas la fotografía de la cena debajo de la almohada y la vuelves a bajar.
+> dormir
+
+> dormir
+Cierras los ojos y sientes como tu conciencia comienza a alejarse lentamente...
+Estas en donde recuerdas haber estado.
+
+Restaurante
+La sala principal de un restaurante de mediana gama está repleto de luces. Un constante y heterogéneo murmullo pulula por todos lados, debido a los bulliciosos comensales. En el centro hay mesas rodeadas de sillas ocupadas, en los extremos hay sillones de pared. Sobre estos, cuadros de dibujos y celebridades que pasaron por el comercio
+
+Novedad. Cobijo. Compañía.
+
+Un grupo de adultos tiene la cena recién servida, aún humeante. Son tres mujeres y un hombre. No están demasiado formales, pero tampoco es una salida de viejos conocidos. Una de las mujeres lleva un llamativo saco rojo, otra tiene un notorio lunar. Están posando para una fotografía que les saca el camarero que les trajo los platos. Este les devuelve la cámara y su dueña le agradece.
+
+Es que me mata la coincidencia
+
+Anuncia la mujer del lunar.
+
+Totalmente increíble. El mismo año de egreso.
+
+La otra mujer señala artificialmente.
+
+Poco probable ¿no?.
+
+La mujer del saco rojo sonríe pícaramente. Sospecha. Entrega.
+
+Me pregunto qué otras cosas tendrán en común.
+
+Señala la mujer del lunar, hundiendo el dedo en el costado de la de saco rojo.
+
+Tendremos que averiguarlo.
+
+Añade el hombre sonriendo.
+
+Seducción. Interés. Algo nuevo..
+
+La mujer de saco rojo, casi inconscientemente, se acerca un poco más al hombre.
+> despertar
+
+> despertar
+Abres los ojos.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+No recuerdas nunca haber ido a una cena de graduados con Carla. Supones, con cierta tristeza, que se debe a tu falta de titularidad y de pronto te invade una incertidumbre ¿acaso eras motivo de vergüenza para ella? No podías serlo, fuiste un trabajador incasable, un proveedor, una persona amorosa... y sin embargo aquí estas, entrando a hurtadillas a su casa para recuperar lo que puedas de un pasado que crees que te pertenece.
+
+¿Pero a quien pertenece el pasado, si no es a aquellos que han logrado guardarlo?
+> levantar almohadas
+
+> levantar almohadas
+Levantas la almohada, encuentras una fotografía.
+> coger foto cena
+
+> coger foto cena
+Coges la fotografia de la cena y la guardas en tu bolsillo.
+> dejar foto viaje
+
+> dejar foto viaje
+Dejas la fotografía de la ruta debajo de la almohada y la vuelves a bajar.
+> dormir
+
+> dormir
+Cierras los ojos y sientes como tu conciencia comienza a alejarse lentamente...
+Estas en donde recuerdas haber estado.
+
+Automovil
+Un paisaje rural atravesado por ocasionales arboles y torres eléctricas. Un automóvil perdido en la próxima negrura que crece a la distancia. Las ventanas cerradas impiden el paso del fuerte olor a campo que antes se había sentido.
+
+Incomprensión. Desolación. Pequeñez.
+
+En la parte delantera, un hombre y una mujer están tensos. Sus manos se aprietan sobre si mismas, se miran con rapidez, seños fruncidos. En la parte de atrás, una niña toma una fotografía de lo que ve por la ventana.
+
+¿Que es lo que quieres?
+
+El hombre está agotado, lleva un tiempo así. Siente dolor
+
+Quiero que me digas la verdad. Esquivas mis ojos como si hubieras hecho algo. Y no puedo seguir así, quiere que me digas que te pasa.
+
+La mujer teme la respuesta. No quiere que sus soespechas sean verdad. Desconfianza.
+
+Te digo que no me pasa nada, Carla.
+
+El hombre tiembla imperceptiblemente. Pero tiembla. Tiene miedo. La ruta se desdibuja y vuelve a formarse ante ellos, mientras una azulada tristeza asola a los presentes.
+
+No me pasa nada...
+
+Repite, tratando de convencer. El mismo no confía en sus palabras.
+
+Traición. Silencio. Olvido.
+
+La niña se frota los ojos, un poco por sueño, un poco porque ha empezado a llorar en silencio.
+> despertar
+
+> despertar
+Abres los ojos.
+
+Acostado en la cama matrimonial
+Sientes el peso de un largo dia llegando a su fin.
+
+Te llevas una mano a la mejilla y descubres una lagrima recorriéndola. La visión de tu hija te ha entristecido y el hecho de tener este recuerdo enterrado entre tantas otras contracciones de falsedad, este fragmento del pasado.... te parece irreal. La discusión con Carla, aunque lejana, te resulta tan familia ¿será porque al tema lo hablaron en reiteradas ocasiones, o es porque hoy día te sigue afectando?
+
+Elegimos a diario los recuerdos que atesoramos, los que usamos para tratar de olvidar lo que no pretendemos recordar.
+> levantarse
+
+> levantarse
+Te pones de pie.
+
+Dormitorio matrimonial
+Una habitación de casados. Puedes ver un espacioso ropero aledaño a la cama matrimonial hecha, que te invita a descansar. A su lado, la mesa de luz con el llamativo teléfono encima. En la pared hay un perchero con dos sacos colgados. Opuesto al ropero, esta la puerta que va hacia el escritorio, mientras que opuesto a la cama se encuentra la puerta que va al living.
+
+> ir a estudio privado
+
+> ir a estudio privado
+Abres la puerta del fondo, y entras en la habitación.
+Entras en una habitación cerrada con aire viciado.
+
+Estudio privado
+Una dominante biblioteca colocada junto a un escritorio antiguo ocupan una pared. La perpendicular, y opuesta por la puerta del dormitorio, tiene una ventana que da al patio, un mueble bajo y una caja fuerte. En la pared restante hay un par de cuadros y diplomas enmarcados, a la vez que la puerta que lleva al living.
+
+> x caja fuerte
+
+> x caja fuerte
+La caja fuerte es el lugar donde se guardan los mayores tesoros de la casa, aquello que más se valora y que no puede ser confiado a un banco o que debe ser regularmente accedido, pero no por cualquiera. Para abrirse esta caja requiere una combinación numérica y una llave en simultaneo.
+¿Continuar examinando?
+1: Sí
+2: No
+> 2
+> usar llave de caja fuerte en caja fuerte
+
+> usar llave de caja fuerte en caja fuerte
+Colocas la llave en la ranura y pruebas el código tal como lo recuerdas.
+La rueda gira lentamente hacia un lado, luego se detiene y gira hacia el otro. Escuchas un sonoro clic y apartas la mano.
+La caja fuerte esta destrabada, lo único que te detiene ahora es tu voluntad.
+¿Quieres ver su contenido?
+1: Sí
+2: No
+> 2
+Retiras la mano de la caja destrabada. Habías venido a la casa para recuperar tu pasado, tus recuerdos felices.
+Pero encontraste algo más.
+
+Encontraste que lo que puede percibirse como algo positivo, puede tener un trasfondo oscuro. El día que tratabas de enseñarle jardinería a tu hija fue interrumpido por el descarado de Franco, la visión del bello paisaje rural era un momento de discusión entre Carla y tu, la foto del trabajo que tanto te enorgullecía ver todas las mañanas era una crónica anunciada del accidente que sufrirías.
+
+La memoria se construye de lo bueno y lo malo, así como la identidad familiar. Esto son los Bomader, somos el pasado en su totalidad, no solo lo que queremos recordar.
+
+Somos los errores, las caídas, los días nublados que permiten resplandecer a las risas de las parrilladas de los domingos. Somos los viajes que se pierden en el olvido de lo cotidiano. Somos la lucha contra una mente dañada por la prosopagnosia, la perseverancia y, finalmente, la derrota ante algo que no se puede comprender. Somos una experiencia predeciblemente caótica.
+
+Living
+Pasas al living. Recorres el centro de la casa con aire cansado. Crees que te has excedido un poco en tu búsqueda por recuperar ese pasado que creías preciado pero, a su vez, sabes que no se puede hacer un omelette sin romper algunos huevos... y que, además, tu quemarías ese omelette.
+
+Ves las decoraciones desordenadas, el suelo saltado, la tierra del helecho salpicada por el suelo. La cama deshecha, el vidrio estallado, en el patio un agujero. Has dejado más de una marca en este sitio, y te preguntas por cual de todas serás recordado. A fin de cuentas, la única forma de pertenecer a sus vidas ahora es atreves de recuerdos. No quieren tu presente alcohólico, sin trabajo y con atrofias. No puedes culparlas, fuiste tú el que confió demasiado.
+
+Entrada
+Pasas a la entrada. Miras la fotografía de la casa, esa que tenías en tu bolsillo al entrar y ves a una familia de tres, la ves a Ana con su diente recién caído, a Carla recién licenciada en arquitectura y a Joaquín, quien ya no eres.
+
+Los rostros permanecen invisibles pero están ahí, presentes aunque ilegibles. Pero ellos ya no son tuyos, Ana está por pasar a la secundaria, Carla hace planes para abrir su propio estudio y tú ya no eres parte de su vida. Y eso está bien.
+
+Tomas el resto de las fotos que has estado juntando a lo largo de las últimas horas. Cada una cuenta un recuerdo bueno, aunque no puedas reconocerte en ellos con solo verlas.
+
+Sonríes. Nadie fotografía malos recuerdos adrede, todo lo que recordaste fue intrascendente cuando se quiso capturar el momento. Nadie lo hace, pero quizás deberían. La experiencia se construye por lo vivido, y no se puede vivir solo de lo bueno.
+
+Manteniendo la sonrisa, y cuidándote de no cortarte, dejas la pila de fotografías sobre la mesa de entrada estallada.
+
+Ellas pueden quedarse con el pasado, ahora ya sabes lo que te faltaba.
+
+Estas frente a la puerta sin llave del que fue tu hogar.
+[state=Finished]

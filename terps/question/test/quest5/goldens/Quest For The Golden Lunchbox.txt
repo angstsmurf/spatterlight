@@ -1,0 +1,49 @@
+You are in The Rockstone.
+You can see a Pint of beer and a Bar.
+You can go out.
+You are in a room with a bar. There are glasses and bottles behind the bar and draught taps in front of you. There is a pint of tasty looking beer on the counter. There's nobody else in the room and its quiet, save for some excellent 60's rock music playing in the background.
+> take pint of beer
+> take pint of beer
+You pick up the pint of delicous, amber beer. Foamy and yummy, the bubbles hint at the glorious beery goodness within. I don't know about putting a pint of liquid in your pocket, but you do it anyway.
+> out
+> out
+You are in Bevois Valley Road.
+You can go in, southeast, east, northeast or north.
+You are in the street. There's a second hand car dealership accross the road and an enchanting smell wafts from a nearby curry house. There's not much else about.
+> n
+> n
+You are in The Hobbit.
+You can see a bloke.
+You can go south.
+Ah, The Hobbit. Feels like your home in the Shire.
+> talk to bloke
+> talk to bloke
+Good. Fancy a pint?
+> give pint of beer to bloke
+> give pint of beer to bloke
+Thanks buddy! Here's that number.
+Taxi number has been added to your inventory.
+> call taxi number
+> call taxi number
+We'll be there in just a minute!
+You can now exit to Chiquitos.
+> go to Chiquitos
+> go to Chiquitos
+You are in Chiquitos.
+You can see a box.
+Awesome, you made it! Mexican food as far as the eye can see... only there's a 2 hour queue as they're giving away Golden Lunchboxes. You're worried they might be out of these glorious lunchboxes by the time you get to the front of the queue.
+You notice a small box on the floor.
+> open box
+> open box
+You open the box and find a note inside.
+> read note
+> read note
+You found my secret box! There's some good shit in here dude...
+A series of awesome pills have been added to your inventory.
+> eat green pill
+> eat green pill
+Nothing happens at first. Then all of a sudden you feel angry. Very angry. More angry than you've ever been in your life... and I'm pretty sure people won't like you when you're angry.
+You grow huge and green and start shouting "HULK SMASH!!", mixed with the occasional "ALEX DEMANDS HIS WALLET!"... the queue scatters before you like bowling pins, tossed aside in your fury. Lets see them make you wait two hours now!
+You wade up to the front of the line and take all the Golden Lunchboxes. And then eat them.
+The End.
+[state=Finished]

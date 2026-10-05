@@ -1,0 +1,3371 @@
+Star Wars - A Root of Darkness
+
+by Isaiah535
+
+                                A long time ago in a galaxy far, far away…
+
+                                    *************STAR WARS*************
+
+                                    *********A Root of Darkness**********
+
+You have been a part of the jedi order for as long as you can remember...literally. Although it had once been your life goal to achieve the rank of jedi master, it seems that your dream is slipping farther and farther away from you. Every day it seems like someone advances more quickly than you, someone else gets chosen for the most high profile assignments, while another is publicly commended by the masters for performing some heroic deed. You are pretty sure that you have completely slipped off of everyone's radar. Ah, well. With no power comes no great responsibilities.
+__________________________________________________
+798 BBY, 5th Month; Zhellday, 2:30 a.m.
+...
+You are startled from your sleep suddenly. That's never happened before. You're pretty sure you don't have "Jedi senses", but something's tingling! (And it's not your bladder).
+...
+You are in your chambers
+
+This is a simple room with simple adornments, the one thing that might be termed a "decoration" is an ornate lightsaber stand that you created yourself while still a jedi padawan. A nondescript bed and a plain dresser face each other from the east and west walls of the room, respectively. Next to the bed is an old night stand with a brass lamp attached to its surface.
+The only other life form in the room beside yourself is a small Miser plant that you imported from a trip to the Badlands of Kamar ten years ago.
+
+The only exit is through the door on the north side of the room.
+
+While there may be a few distractions here and there, the only objects that matter right now are your lightsaber and the door out of your room.
+
+> take lightsaber
+
+> take lightsaber
+
+The cool plasteel feels as famliar as your own skin in the palm of your hand.
+> open door
+
+> open door
+
+The door is now open, creating an exit to the hallway on the north side of the room.
+> north
+
+> north
+
+******
+You feel something in the inner pocket of your robe; then recall that the pocket contains your journal, which records a list of the force powers you currently have mastered as well as instructions on how to use them (just to remind yourself).
+******
+The Dormitory Hallway
+
+The hallway stretches out in either direction to the east and the west. Fifty meters to the east, the hall ends abruptly at the elevator doors.
+
+You can see a Painting, an elevator door and a call button next to it.
+
+You can go south to return to your chambers or west , where the hall tees off to the north and south.
+
+Far more impressive than your meager chambers, the floor of the long, dormitory hallway is covered a plush velvety red carpet with an ornate gold pattern tastefully woven in. The light tan walls play host to multiple works of art collected over several mellenia of the Jedi Temple's existence and continued expansion. The painting to the left of the doorway to your chambers has always fascinated you.
+> x painting
+
+> x painting
+
+The classic painting depicts a woman riding on the back of some sort of flying, dragon-like beast. The placard underneath simply says "Sunrider - Onderon".
+Something catches your eye that you never noticed before.
+At the top right edge of the frame is a sticker.
+> x sticker
+
+> x sticker
+
+The sticker says "Position 4: 2".
+You enter the new information in your datapad.
+The sticker vanishes; you blink a few times as if your eyes were playing tricks on you all along.
+> w
+
+> w
+
+The westward path ends here.
+Western dormitory hallway
+
+You can go east to the central corridor and the elevators, northeast following the curve of the hall toward the 2nd-level, 56th-floor balcony or follow the hallway to the southeast.
+
+> ne
+
+> ne
+
+An odd spine-tingling sensation assails you on you as you travel the curve from the north to the east.
+The northeastern dormitory hallway
+
+The northern row of jedi apartments ends here.
+
+You can go southwest , where the hall forks to the east and southeast, north into Carth Ofenn's old room or east to the balcony.
+
+The artwork is equally impressive as what can be seen in the other parts of the hall.
+On the north side, the doorway to Room 5640 is cracked open slightly. 'Wasn't that room vacant?' you think to yourself.
+> n
+
+> n
+
+The door creeks slightly as you push it open.
+
+Room 5640
+
+This room was cleaned out just a few days back when its former occupant, a Bothan jedi knight named Carth Ofenn suddenly decided he was no longer interested in staying with the Order. The incident had the whole temple buzzing all day. As far as anyone could tell, Ofenn had been a devout follower of the light until that day.
+All of the furniture was removed and the room has supposedly been sitting empty awaiting occupancy by a new jedi; except that you are now seeing evidence that it hasn't been unoccupied. Someone has been squatting here for a few days.
+
+You can see a sleeping bag, a canteen and a rotting half-a-biscuit.
+
+You can go south through the open door.
+
+> open sleeping bag
+
+> open sleeping bag
+
+You open it.
+Inside is a digital notebook.
+> take digital notebook
+
+> take digital notebook
+
+You pick it up.
+> take canteen
+
+> take canteen
+
+You pick it up.
+> take biscuit
+
+> take biscuit
+
+The rotting biscuit is slowly desintegrating. You figure that by mid-day it will prabably be nothing more than maggots and dust.
+You realize that you need to be careful with the rotting biscuit or it will disintegrate.
+> s
+
+> s
+
+The northeastern dormitory hallway
+
+The northern row of jedi apartments ends here.
+
+You can go southwest , where the hall forks to the east and southeast, north into Carth Ofenn's old room or east to the balcony.
+
+> sw
+
+> sw
+
+Western dormitory hallway
+
+You can go east to the central corridor and the elevators, northeast following the curve of the hall toward the 2nd-level, 56th-floor balcony or follow the hallway to the southeast.
+
+> se
+
+> se
+
+The southeastern dormitory hallway
+
+The southern row of jedi apartments ends here.
+
+You can go northwest to where the hall heads either east or northeast or east to the old auditorium.
+
+The artwork is equally impressive as what can be seen in the other parts of the hall. A doorway heads east out onto the south auditorium.
+> e
+
+> e
+
+The Jedi Temple Central Spire Auditorium
+
+You are standing on the westernmost side of the Jedi Temple's 2nd level, 56th floor auditorium.
+
+You can go back inside to the west, east to the other half of the auditorium or southeast to the empty space at the base of the speaking platform.
+
+This large outdoor auditorium contains row after row of permacrete benches, presumably to seat the potential thousands of jedi that the temple may one day house (or may have already housed at some point far back in the temple's history.) A dias towers high over the south side of the auditorium with a podium whereupon many a speech has been delivered by a jedi master to new recruits. All of the seating points in that direction.
+> e
+
+> e
+
+The Jedi Temple Central Spire Auditorium
+
+You are standing on the easternmost side of the Jedi Temple's 2nd level, 56th floor auditorium.
+
+You can go west to the western half of the dusty auditorium or southwest to the base of the dias.
+
+This side of the auditorium mirrors the west half, with row after row of benches facing southwest at the platform. (Some of the dust has been disturbed on this side of the auditorium.)
+> x bench
+
+> x bench
+
+The permacrete benches look just like the other benches on the western half of the auditorium.
+Next to one of the benches is a tattered cloth.
+> x tattered cloth
+
+> x tattered cloth
+
+The cloth was clearly torn from the hem of a jedi robe. The ripped edge is singed as if from a lightsaber. Upon closer inspection, you notice that the letters "H" and "E" (and the beginning makings of an"L") are etched upon the cloth. Clearly a hastily formed distress message.
+You flip it over.
+On the back is written "Position 2: 8"
+Without warning, the tattered cloth evaporates into dust and disappears, whisked away by a gentle Corusant breeze.
+You enter the new information in your datapad.
+> w
+
+> w
+
+The Jedi Temple Central Spire Auditorium
+
+You are standing on the westernmost side of the Jedi Temple's 2nd level, 56th floor auditorium.
+
+You can go back inside to the west, east to the other half of the auditorium or southeast to the empty space at the base of the speaking platform.
+
+> w
+
+> w
+
+The southeastern dormitory hallway
+
+The southern row of jedi apartments ends here.
+
+You can go northwest to where the hall heads either east or northeast or east to the old auditorium.
+
+> nw
+
+> nw
+
+Western dormitory hallway
+
+You can go east to the central corridor and the elevators, northeast following the curve of the hall toward the 2nd-level, 56th-floor balcony or follow the hallway to the southeast.
+
+> e
+
+> e
+
+The Dormitory Hallway
+
+The hallway stretches out in either direction to the east and the west. Fifty meters to the east, the hall ends abruptly at the elevator doors.
+
+You can see a Painting, an elevator door and a call button next to it.
+
+You can go south to return to your chambers or west , where the hall tees off to the north and south.
+
+> push call button
+
+> push call button
+
+Moments later the door to the elevator opens.
+> e
+
+> e
+
+The Jedi Temple's central elevator
+
+(The elevator is stopped at the 2nd level - the dormitories)
+
+The one exit is through the elevator door to the west.
+
+On a panel next to the door, you can see, in descending order,  a 3, a 2 and a 1.
+
+You can go west to the dormitory hallway.
+
+The dark grey durasteel walls dimly reflect the soft overhead lighting, giving the elevator a mostly peaceful--though sometimes slightly ominous--feel. (Austensibly, the overall "feel" of any elevator is more-than-likely related to the task which one has set out to accomplish, you surmise. After all, at the end of the short journey up or down the shaft, some destiny always awaits, be it pleasant or otherwise. You have been called more than once to the Council Chamber to receive a repremand for some foolhearty move or another. The ride in this lift is always the worst part of the trip, especially when there is no one else around to distract you. (And if there ever is someone in the elevator with you, they typically ride in such a stand-offish manner as to render their presence there completely useless.))
+> push 3
+
+> push 3
+
+The door shuts. You barely feel the elevator shudder as it begins to move. After about 10 seconds----during which you know that the elevator is moving at an incredible speed----you feel an ever-so-slight jolt as the elevator comes to a stop. The door re-opens.
+The Jedi Temple's central elevator
+
+(The elevator is at the 3rd level - the eatery)
+
+The one exit is through the elevator door to the west.
+
+On a panel next to the door, you can see, in descending order,  a 3, a 2 and a 1.
+
+You can go west to the 2nd level, 56th floor cafeteria.
+
+> w
+
+> w
+
+The Eatery
+
+The Jedi Temple Eatery is a very large room. In its center is an ornate fountain. The fountain is surrounded by multiple long, metal tables with matching benches. The feel of the room is surprisingly cold when contrasted with the rest of the temple.
+
+You can see a fountain (containing some bubbling water), a satchel, a title on the side of the fountain and a call button next to the elevator door..
+
+You can go east through the elevator door or northwest through the swinging door to the kitchen.
+
+(There is an ominous sense of foreboding emanating from the northwest.)
+
+> open satchel
+
+> open satchel
+
+You open it.
+It contains: an open starport visa, a red synthetic force crystal and a Starport Visa belonging to Shythia Winn.
+> take open starport visa
+
+> take open starport visa
+
+You pick it up.
+> take red synthetic force crystal
+
+> take red synthetic force crystal
+
+The crystal is as red as a laigrek's eye. It seems to ooze with malicious intentions.
+> x red synthetic force crystal
+
+> x red synthetic force crystal
+
+The synthetic red force crystal seems to contain moving shadows. The deep crimson reminds you eeriliy of blood. The dark side of the force seems to churn in and around it. Its very essence is repulsive...yet enticing.
+> read digital notebook
+
+> read digital notebook
+
+The owner of the digital notebook is apparently someone called Shythia Winn. There are multiple entries which raise an eyebrow. Of particular note is data entry 1026, which reads:
+
+I am in. I have honed my skills to the degree in which I am able to infiltrate a light side compound----the Jedi Temple itself! It will take a considerable amount of time and guile to accomplish what I have set out to do. But I have nearly complete confidence in the abilities of my apprentice to accomplish his end of the plan. I will the dark side to allow us to succeed.
+There can be no mistakes!
+END
+
+('Pretty big mistake not making sure the door was latched!'  you think to yourself.)
+
+Other entries contain vague references to dark side artifacts such as holocrons and other relics. One discusses the destruction of an entire village for the two-fold purpose of testing out a poison and procuring a relic (which apparently turned out to be a ruse). You peruse the datapad looking for more references to the "plan", but find nothing; she probably recorded it elsewhere.
+
+('Sounds like a dark-side Force user has managed to infiltrate the Jedi Temple,' you think. 'Proposterous! It's probably just a person who idolizes the Sith and not an actual one.')
+
+You jot down the name in your datapad under the heading "saboteur info".
+> x shythia winn visa
+
+> x shythia winn visa
+
+A Starport Visa is required for interstellar travel.
+This particular starport Visa belongs to the human female named Shythia Winn; the same woman whose notebook you discovered in Carth Ofenn's old room.
+
+You jot down the name in your datapad under the heading "saboteur additional info".
+> x plaque
+
+> x plaque
+
+CLASH  OF KINGS
+BY HINTONUS
+APPROX. 4000 BRE
+> take water
+
+> take water
+
+You fill the canteen with water from the fountain.
+> nw
+
+> nw
+
+*****
+An overwhelming sense of doom suddenly grips you as you head into the kitchen.
+*****
+The kitchen
+
+This large kitchen is designed to produce meals for large numbers of beings. Multiple counters and ovens fill all sides of the room. Locked doors bar entrance to the dry storage and cold storage areas.
+
+You can see the woman named Shythia Winn and a supply box.
+
+You can go southeast to the cafeteria.
+
+As you come into the room, you find a figure hunched over a box. The figure whirls on you, clearly caught in the middle of some nefarioius act. Its robe is rather dark for a jedi. You realize in horror that the figure is not a jedi at all. Until now, you had only ever read stories of the dark jedi and the Sith. You had assumed that the tales were simply myths told to try and keep younglings from misbehaving. Yet here in the oddest of places you know beyond a doubt that that is what you are looking at.
+
+The figure pulls back its hood and stares at you with deep, black pupils that seem to peer directly into your soul. "You're up late, jedi," the Sith woman says with a manacing tone.
+
+(You are shaking uncontrollably.)
+You barely manage to duck down before the Sith Lord's red blade nearly decapitates you.
+You will probably not be so lucky if you hang around a couple more seconds.
+> x supply box
+
+> x supply box
+
+The large box that Shythia was tampering with is full of M.R.E.'s (Meals Ready to Eat) slated for delivery to warriors that are fighting on a foreign planet.
+The label on the box reads:
+
+Dxun, Starport 20 - schedule for drop at encampment located at latitude 26.31, longitude 87.507. [4th shipment]
+
+(you take down the coordinates in your datapad)
+
+The box is completely filled and very heavy.
+It contains one MRE , resting on top, that seems to have been tampered with on one corner.
+> take mre
+
+> take mre
+
+You pick it up.
+> escape
+
+> escape
+
+I don't understand your command.
+> escape from shythia winn
+
+> escape from shythia winn
+
+Fueled by fear, you bolt from the kitchen. As you exit, Shythia Winn reaches out in the Force and effortlessly calls her personal effects to her (Satchel, Visa, etc.; hopefully you gathered whatever you may have needed from her satchel already...)
+With a speed you didn't know you were capable of, you jet past the tables and dive behind the fountain for cover.
+***
+You glance back and find that the Sith woman is not pursuing you. In fact, she is nowhere to be seen. Perhaps a holo recording of the incident will shed more light on what she was doing in the temple and where she has run off to.
+*****
+The Eatery
+
+The Jedi Temple Eatery is a very large room. In its center is an ornate fountain. The fountain is surrounded by multiple long, metal tables with matching benches. The feel of the room is surprisingly cold when contrasted with the rest of the temple.
+
+You can see a fountain (containing some bubbling water), a title on the side of the fountain and a call button next to the elevator door..
+
+You can go east through the elevator door or northwest through the swinging door to the kitchen.
+
+> push call button
+
+> push call button
+
+Moments later the door to the elevator opens.
+> e
+
+> e
+
+The Jedi Temple's central elevator
+
+(The elevator is at the 3rd level - the eatery)
+
+The one exit is through the elevator door to the west.
+
+On a panel next to the door, you can see, in descending order,  a 3, a 2 and a 1.
+
+You can go west to the 2nd level, 56th floor cafeteria.
+
+> push 1
+
+> push 1
+
+The door shuts. You barely feel the elevator shudder as it begins to move. After about 10 seconds----during which you know that the elevator is moving at an incredible speed----you feel an ever-so-slight jolt as the elevator comes to a stop. The door re-opens.
+The Jedi Temple's central elevator
+
+(The elevator is at the 1st level - the Main Hall)
+
+The one exit is through the elevator door to the west.
+
+On a panel next to the door, you can see, in descending order,  a 3, a 2 and a 1.
+
+You can go west to the Main Hall of the Jedi Temple.
+
+> w
+
+> w
+
+The Main Hall east, mid-level
+
+This is the easternmost point of the great hall.
+Behind you (to the east) the lift leads to the Temple's central spire.
+
+You can see a call button next to the elevator door..
+
+You can go east, southwest, west to the stairs, down to the lower level or northwest.
+
+The hall is essentially a massive, domed arena. The center of the room is a large sunken floor nearly 300 meters in diameter. Several stairways descend to the floor 30 meters below while----all around the giant hall----other stairs ascend to various rooms, platforms, and attractions high overhead.
+> nw
+
+> nw
+
+The Main Hall Northeast, mid-level
+
+This is the first of two levels in the tech center of the main hall.
+
+You can see an escalator.
+
+You can go southwest ----or, down ----the stairs to the lower floor, southeast, up the moving staircase to the Analysis Center or west to the museum.
+
+There are two levels of the Tech Center of the Jedi Temple's Main Hall.  The first tier----in which you stand currently----leads to the entrance to a dozen different laboratories and testing facilities. A short escalator adjacent to the entrance carries beings up to the second tier.
+> up
+
+> up
+
+You are entering the huge Analysis Center of the Main Hall. Its enormity is due to the fact that it is made up entirely of sections dedicated to the analysis of materials from every single inhabited star system. Once an analysis specialist----usually a droid----determines the planet of origin, the material is then taken to that planet's station in the Analysis Center for more information, often including the exact longitude and latitude in which the material was most likely acquired.
+The Main Hall Analysis Center
+
+This huge Analysis Center is built on the second tier of the Tech Center of the Main Hall of the Jedi Temple.
+There is an analysis droid wandering around nearby.
+
+You can see an escalator and an analysis droid.
+
+You can go down to the middle level.
+
+> x analysis droid
+
+> x analysis droid
+
+Nothing out of the ordinary.
+> give mre to analysis droid
+
+> give mre to analysis droid
+
+The analysis droid examines the MRE. It's spectroscopic analysis sensors produce a bright green laser that quickly scans the box for any compounds that are out-of-the-ordinary.
+...
+The droid returns the box to you. "There is a chemical compound here that is typically found on the planet Onderon. You may wish to take it to the Onderon station in the Inner Rim section of the Center."
+> x onderon databank computer
+
+> x onderon databank computer
+
+The Onderon databank computer has a display screen and a large slot in front in which to place items for analysis. From the slot a mechanical hand extends to take hold of whatever you give to it.
+
+The display screen reads:
+*****
+Please give the item to me for analysis.
+*****
+> give mre to onderon databank computer
+
+> give mre to onderon databank computer
+
+You insert the MRE box into the slot on the face of the unit.
+The Onderon databank computer processes the chemical compound that was added by the Sith woman to the MRE.
+It returns this message:
+
+This chemical compound was used by miners in the now-abandoned Abbadith mining colony to relieve the symptoms a new disease called Ractonodenium Poisoning (RDP). RDP was later discovered to be caused by a concentration of dark-side Force energy. The jedi theorize that the anamoly in the Force was most likely a biproduct of Freedon Nadd's establishment of a Sith kingdom on the planet during the Mandolorian Wars 3000 years ago.
+The Abbadith mining colony is located 3.857 kilometers north by northwest of an abandoned starport. The starport is located at latitude 38.920 - longitude 87.308.
+
+(You add the information to your notebook.)
+> x inner rim section
+
+> x inner rim section
+
+Your eyes glance around the Inner Rim section of the analysis center. Signs for several different systems hang above their respective stations, including the one for Onderon.
+> d
+
+> d
+
+The Main Hall Northeast, mid-level
+
+This is the first of two levels in the tech center of the main hall.
+
+You can see an escalator.
+
+You can go southwest ----or, down ----the stairs to the lower floor, southeast, up the moving staircase to the Analysis Center or west to the museum.
+
+> w
+
+> w
+
+The Museum Entrance
+
+You can see multiple display cases.
+
+You can go west, south ----or, down ----the stairs to the lower floor, up the stairs to the museum's upper floor or east.
+
+This northern section of the Main Hall of the Jedi Temple serves as the foyer for the museum (located upstairs). Multiple display cases containing rare and/or one-of-a-kind artifacts are placed about the room in an aesthetically pleasing fashion.
+> x display cases
+
+> x display cases
+
+There are multiple display cases around. One could spend hours admiring the wondrous artifacts contained in each case. There are 6 cases in the immediate vicinity.
+> up
+
+> up
+
+The  Jedi Temple Museum
+
+The museum is loaded with artifacts. Most of which are encased in impenetrable glass cases.
+
+You can see a black case.
+
+You can go down the stairs to the museum's lower level.
+
+One of the display cases stands out along the back wall. It is black and smaller than all of the others. You notice that there are no transparent sides. Quite odd.
+> x glass cases
+
+> x glass cases
+
+There are multiple glass cases of interest. Many contain relics retrieved from archaelogical digs. Some house ancient swords, vibroblades, and even a few lightsabers. One has a collection of fossilized creatures that have gone extinct.
+> x black case
+
+> x black case
+
+The black case is closed. There is a small keyhole in the back of it.
+> d
+
+> d
+
+The Museum Entrance
+
+You can see multiple display cases, the first display case (containing the Chu-Gon Dar Cube), the second display case, the third display case (containing the Mantle of the Force), the fourth display case (containing the Heart of the Guardian), the fifth display case (containing the Nomi Sunrider armband) and the sixth display case (containing the Sylvar robe).
+
+You can go west, south ----or, down ----the stairs to the lower floor, up the stairs to the museum's upper floor or east.
+
+> w
+
+> w
+
+A Main Hall northwest, mid-level
+
+The area in this part of the hall is primarily designed for dining. Multiple restaurants, all closed for the night, make up the northwest wall. A lift nearby can take individuals up to the security platform overlooking the hall 90 meters overhead.
+
+You can see the lift  that runs between the mid-level dining area and the upper level security platform.
+
+You can go southeast ----or, down ----the stairs to the lower floor, southwest or east.
+
+> x lift
+
+> x lift
+
+It's a rather rustic looking, run-of-the mill platform. The entrance is on the right side.
+> enter lift
+
+> enter lift
+
+You step onto the lift.
+The lift that carries beings between the dining area and the security platform high overhead
+
+There is metal railing around the lift and a panel with an up button and a down button.
+
+You can see an up button, a down button and the lift  that runs between the mid-level dining area and the upper level security platform.
+
+You can go east , where the lift empties into Main Hall northwest.
+
+> push up button
+
+> push up button
+
+The lift shudders slightly and then ascends smoothly the rest of the way up to the top.
+The security platform lift (raised)
+
+There is metal railing around the lift and a panel with an up button and a down button. The security platform to the east is very dimly lit. The shadows play tricks on your eyes.
+
+You can see an up button, a down button and the lift  that runs between the mid-level dining area and the upper level security platform.
+
+You can go east to leave the lift onto the security platform.
+
+> e
+
+> e
+
+The Security Platform
+
+.
+This is the area where temple security monitors activity throughout the entire central spire of the Jedi Temple.
+.
+
+You can see a Sith Lord, a dormitory holorecorder, a main hall holorecorder, an elevator holorecorder, an eatery holorecorder and the lift that runs between the mid-level dining area and the upper level security platform.
+
+As you enter, a hulking creature rises from out of the shadows like a leviathon from the ocean. A lightsaber ignites in the creature's hand and you get a better look at him in the crimson glow of his blade. He's human! (An abnormally large human.) And Sith. "You weren't supposed to be here," he says in a deep, metallic-sounding baritone; adding, "Let's rectify that."
+You are overcome with fear; your body begins to tremble violently. The hideous, dark figure bellows a deep, sinister laugh.
+...
+Then something begins to stir within you; something you've not ever felt before. The hairs on the back of your neck stand straight up, your hands begin to heat up as if a fire is building within them, and your legs begin aching with pent up energy. Is it fear? Anger? Self-preservation? Whatever the reason, you suddenly feel more connected to the Force than you have ever felt...infinitely more connected! The Sith moves towards you, but he is moving so slowly that it is as if he is drudging through wet permacrete.
+...
+Suddenly your eyes are opened in the force. You see the bright crimson glow of the Sith's blade, but it looks to be an extension of his hand. In fact, his entire body has become a large, dark red silhouette.
+Your lightsaber hisses to life. The blade glows in varying shades of blue ranging from white-hot in the center to a deep ultramarine at the outer edge.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+The hulking mass of the Sith Lord lifts his weapon hand. The slow-time effect is wearing off to some degree, yet you still sense that you have the edge in the battle.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+Though you are in an enhanced state, the Sith's mere physical presence is enough to sap your energy.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+The Sith is quite skilled; though you managed to attack him with a quickness and strength that you never dreamed of, he matches you blow for blow. For five minutes straight the two of you jump, twist, juke, and spin about the room like a pair of living whirlwinds.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+Miraculously, the Sith giant manages to sneak a boot past your force awareness and lands it directly on your face. Time is moving slowly still, so you manage to roll backward, absorbing the bulk of the momentum of the blow without breaking anything.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+Having you already off guard, the gargantuan man force shoves you against the panel behind you.  You manage to reverse summersault over the top of the table, but the edge of it scrapes across your back rather painfully.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+Nursing your bruised back, you barely manage to have the where-with-all to withstand a barrage of strikes from the monstrous tank of a man. After several minutes, your arms grow noticeably more tired. You can only hope the Sith is beginning to lose some strength as well.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+The Sith extends a hand and makes a pulling motion. Your chest feels as if someone has jammed a vacuum inside and is sucking out the very essence of your life.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+The giant swings low with his lightsaber, but you manage to skip over his blade just in time----scorching the soles of your boots.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+The Sith backs down, breathing heavily. It's the first real sign that you are wearing him down.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+The Sith's stamina and his resolve are evaporating rapidly now. Etched across his face is the realization that he is about to lose this battle. He makes a pulling motion and tries to drain your life from you again, but only manages in making your pulse rate decrease slightly.
+> attack darth ciin
+
+> attack darth ciin
+
+You go after your opponent with the ferocity of a jungle cat.
+In a last-minute burst of power, you manage to back the Sith against a wall. He tries to parry a violent overhead chop, but mistimes his defense; you slice through his lightsaber, shattering it into a million pieces; and down through his armor all the way to the floor. The gargantuan Sith succumbs to his final destiny. He crashes to the ground like a felled wrorshyr tree.
+(You switch off your lightsaber. The blue blade disappears as quickly as it first appeared.)
+*****
+You breathe heavily, trying desperately to wrap your mind around everything that just happened.
+The Force, fear, adrenaline, and fate have all combined to bolster your skills to a whole new level. You sense that you have a choice to make here and now: do you continue to pursue the way of the light and remain a Jedi OR do you embrace the fear and anger that threatens to consume you now and channel it into a connection to the dark side of the force? Which choice do you make? (Enter either "light side choice" or "dark side choice".)
+*****
+> light side choice
+
+> light side choice
+
+You have chosen to follow the light side path. You let the force fill you with peace, knowledge, wisdom, and strength.
+> x darth ciin
+
+> x darth ciin
+
+It almost saddens you to see the grotesque mass of what remains of this enormous man. "Almost"...
+He has the shattered fragments of a Sith lightsaber, the Force amulet and an encoded disc.
+> take amulet
+
+> take amulet
+
+Your fingers feel extraordinarily dextrous as you take the amulet. Although originally intended as a Sith implement, the object seems to have afforded you the ability to use Force Lift to levitate objects.
+> wear amulet
+
+> wear amulet
+
+A memory with a dark feeling associated flash thru your mind's eye for a mere nanosecond. You take a deep breath to calm yourself and regain your focus. You are now wearing the amulet.
+> take disc
+
+> take disc
+
+You pick it up.
+> x disc
+
+> x disc
+
+The small disc that you found on the Sith's person is a metallic, grayish-blue.
+> look dormitory holorecorder
+
+> look dormitory holorecorder
+
+You hum through the holorecording of the dorm hallways, watching for anything unusual. After several minutes, you are almost ready to move on when you see a flash in the northeastern wing hallway. You rewind and watch frame by frame as a cloaked figure appears outside on the north balcony, then in front of door number 5640 on the very next frame, then the door being closed in the next frame. Whoever it was, they were extremely fast; obviously enhanced by the force.
+Individual rooms do not have cameras in them, so you are unable to look into room 5640.
+
+(Perhaps you should go and "investigate" the balcony for more clues.)
+> look main hall holorecorder
+
+> look main hall holorecorder
+
+You watch the recording of the main hall, fast-forwarding and rewinding to look for clues as to how Darth Ciin got up to the security platform. Nothing.
+Either he was lying in wait for a very long time or he was somehow cloaked to make himself invisible.
+
+When you return the camera feed to "live" you notice a protocol droid moving about in the westernmost region of the Main Hall.
+> look elevator holorecorder
+
+> look elevator holorecorder
+
+You stare at the recording captured by the elevator security cameras for some time, waiting for some sort of evidence to manifest that might provide some clues as to how the Sith managed to infiltrate the temple.
+...
+After a while, you resign yourself to the fact that they must not have been using the lift.
+However, just as you're about to turn off the holorecording, you notice something odd on the roof of the elevator. You hadn't been watching there. It looks like the outline of a trap door or a maintanence door of some sort.
+> look eatery holorecorder
+
+> look eatery holorecorder
+
+You review the holorecording. At one point there is nothing extraordinary in the room. Then suddenly, at precisely 2:01:35 this morning, there was a flash recorded on the screen. After the flash you see a satchel left behind near the fountain. You then see yourself come into the room around 2:45am, examine the bag, and leave the room.
+You rewind and watch the flash repeatedly, but are never able to find anything to explain what it was.
+> w
+
+> w
+
+You can't go there.
+> enter lift
+
+> enter lift
+
+You step onto the lift.
+The security platform lift (raised)
+
+There is metal railing around the lift and a panel with an up button and a down button. The security platform to the east is very dimly lit. The shadows play tricks on your eyes.
+
+You can see an up button, a down button and the lift  that runs between the mid-level dining area and the upper level security platform.
+
+You can go east to leave the lift onto the security platform.
+
+> push down button
+
+> push down button
+
+The lift shudders slightly and then descends smoothly the rest of the trip down.
+The lift that carries beings between the dining area and the security platform high overhead
+
+There is metal railing around the lift and a panel with an up button and a down button.
+
+You can see an up button, a down button and the lift  that runs between the mid-level dining area and the upper level security platform.
+
+You can go east , where the lift empties into Main Hall northwest.
+
+> e
+
+> e
+
+A Main Hall northwest, mid-level
+
+The area in this part of the hall is primarily designed for dining. Multiple restaurants, all closed for the night, make up the northwest wall. A lift nearby can take individuals up to the security platform overlooking the hall 90 meters overhead.
+
+You can see the lift  that runs between the mid-level dining area and the upper level security platform.
+
+You can go southeast ----or, down ----the stairs to the lower floor, southwest or east.
+
+> look
+
+> look
+
+A Main Hall northwest, mid-level
+
+The area in this part of the hall is primarily designed for dining. Multiple restaurants, all closed for the night, make up the northwest wall. A lift nearby can take individuals up to the security platform overlooking the hall 90 meters overhead.
+
+You can see the lift  that runs between the mid-level dining area and the upper level security platform.
+
+You can go southeast ----or, down ----the stairs to the lower floor, southwest or east.
+
+> e
+
+> e
+
+The Museum Entrance
+
+You can see multiple display cases, the first display case (containing the Chu-Gon Dar Cube), the second display case, the third display case (containing the Mantle of the Force), the fourth display case (containing the Heart of the Guardian), the fifth display case (containing the Nomi Sunrider armband) and the sixth display case (containing the Sylvar robe).
+
+You can go west, south ----or, down ----the stairs to the lower floor, up the stairs to the museum's upper floor or east.
+
+> look
+
+> look
+
+The Museum Entrance
+
+You can see multiple display cases, the first display case (containing the Chu-Gon Dar Cube), the second display case, the third display case (containing the Mantle of the Force), the fourth display case (containing the Heart of the Guardian), the fifth display case (containing the Nomi Sunrider armband) and the sixth display case (containing the Sylvar robe).
+
+You can go west, south ----or, down ----the stairs to the lower floor, up the stairs to the museum's upper floor or east.
+
+> e
+
+> e
+
+The Main Hall Northeast, mid-level
+
+This is the first of two levels in the tech center of the main hall.
+
+You can see an escalator.
+
+You can go southwest ----or, down ----the stairs to the lower floor, southeast, up the moving staircase to the Analysis Center or west to the museum.
+
+> look
+
+> look
+
+The Main Hall Northeast, mid-level
+
+This is the first of two levels in the tech center of the main hall.
+
+You can see an escalator.
+
+You can go southwest ----or, down ----the stairs to the lower floor, southeast, up the moving staircase to the Analysis Center or west to the museum.
+
+> se
+
+> se
+
+The Main Hall east, mid-level
+
+This is the easternmost point of the great hall.
+Behind you (to the east) the lift leads to the Temple's central spire.
+
+You can see a call button next to the elevator door..
+
+You can go east, southwest, west to the stairs, down to the lower level or northwest.
+
+> push call button
+
+> push call button
+
+Moments later the door to the elevator opens.
+> e
+
+> e
+
+The Jedi Temple's central elevator
+
+(The elevator is at the 1st level - the Main Hall)
+
+The one exit is through the elevator door to the west.
+
+On a panel next to the door, you can see, in descending order,  a 3, a 2, a 1 and a trap door.
+
+You can go west to the Main Hall of the Jedi Temple or up through the open trap door.
+
+> look
+
+> look
+
+The Jedi Temple's central elevator
+
+(The elevator is at the 1st level - the Main Hall)
+
+The one exit is through the elevator door to the west.
+
+On a panel next to the door, you can see, in descending order,  a 3, a 2, a 1 and a trap door.
+
+You can go west to the Main Hall of the Jedi Temple or up through the open trap door.
+
+> push 2
+
+> push 2
+
+The door shuts. You barely feel the elevator shudder as it begins to move. After about 10 seconds----during which you know that the elevator is moving at an incredible speed----you feel an ever-so-slight jolt as the elevator comes to a stop. The door re-opens.
+The Jedi Temple's central elevator
+
+(The elevator is stopped at the 2nd level - the dormitories)
+
+The one exit is through the elevator door to the west.
+
+On a panel next to the door, you can see, in descending order,  a 3, a 2, a 1 and a trap door.
+
+You can go west to the dormitory hallway or up through the open trap door.
+
+> look
+
+> look
+
+The Jedi Temple's central elevator
+
+(The elevator is stopped at the 2nd level - the dormitories)
+
+The one exit is through the elevator door to the west.
+
+On a panel next to the door, you can see, in descending order,  a 3, a 2, a 1 and a trap door.
+
+You can go west to the dormitory hallway or up through the open trap door.
+
+> force push trap door
+
+> force push trap door
+
+You use your Force push technique to open the trap door, revealing an upward exit onto the roof of the elevator.
+> up
+
+> up
+
+The shaft on top of the elevator, level two
+
+The elevator shaft disappears in in the distance a several hundred meters overhead. At first glance, the shaft looks unremarkable; but something catches your eye about 5 meters up on the south side. Squinting against the darkness, you begin to make out something. There it is. Flush with the wall, you notice a man-sized metal plate.
+
+You can go down through the trap door to re-enter the elevator.
+
+> look
+
+> look
+
+The shaft on top of the elevator, level two
+
+The elevator shaft disappears in in the distance a several hundred meters overhead. At first glance, the shaft looks unremarkable; but something catches your eye about 5 meters up on the south side. Squinting against the darkness, you begin to make out something. There it is. Flush with the wall, you notice a man-sized metal plate.
+
+You can go down through the trap door to re-enter the elevator.
+
+> force push metal plate door
+
+> force push metal plate door
+
+You feel as if something has changed in you. Power seems to be aching to be emitted from your right hand. Slowly you raise it and give a push, envisioning the metal plate being thrown outward. The plate creaks loudly and folds in on itself as if a giant invisible hand were shoving on it. You are startled momentarily by the sudden increase in your ability to push through the force.
+> force push metal plate door
+
+> force push metal plate door
+
+Confidently, you extend your arm fully. The metal plate blasts outward, letting in light from outside.
+> look
+
+> look
+
+The shaft on top of the elevator, level two
+
+The elevator shaft disappears in in the distance a several hundred meters overhead. At first glance, the shaft looks unremarkable; but something catches your eye about 5 meters up on the south side. Squinting against the darkness, you begin to make out something. There it is. Flush with the wall, you notice a man-sized metal plate.
+
+You can see the new doorway that you created 5 meters up the shaft.
+
+You can go down through the trap door to re-enter the elevator.
+
+> force jump to doorway
+
+> force jump to doorway
+
+Feeling exhilerated by your renewed connection to the force, you leap to the newly created doorway, expecting to have to barely reach it with your hands. Instead you easily sail up and out through the opening.
+The dias
+
+You are standing on the dias overlooking the auditorium. The platform towers ten meters above the benches below. It is large enough and has enough seating to play host to a panel of up to 30 jedi masters; though why the ancestors built it so large is unknown. It is doubtful that the auditorium or the platform have ever been filled to capacity----especially in light of the fact that there are other more public forums located in various parts of the temple. The lift has been out-of-order for centuries.
+You could probably make the jump down without incurring too much damage, but the odds of getting back up are slim at best.
+
+You can see an interesting looking podium (containing a small black key) and behind you and several meters overhead, the opening back into the elevator shaft.
+
+You can go down (though you would likely not be able to get back up from that direction), or jump back to the opening that you created.
+
+> look
+
+> look
+
+The dias
+
+You are standing on the dias overlooking the auditorium. The platform towers ten meters above the benches below. It is large enough and has enough seating to play host to a panel of up to 30 jedi masters; though why the ancestors built it so large is unknown. It is doubtful that the auditorium or the platform have ever been filled to capacity----especially in light of the fact that there are other more public forums located in various parts of the temple. The lift has been out-of-order for centuries.
+You could probably make the jump down without incurring too much damage, but the odds of getting back up are slim at best.
+
+You can see an interesting looking podium (containing a small black key) and behind you and several meters overhead, the opening back into the elevator shaft.
+
+You can go down (though you would likely not be able to get back up from that direction), or jump back to the opening that you created.
+
+> x podium
+
+> x podium
+
+The podium is made out of silver plasteel.
+
+You notice that there is something scrawled on the base of the podium. It reads "position 1: 0"
+You enter the new information in your datapad.
+Beneath the lip of the podium is hidden a small black key.
+> take black key
+
+> take black key
+
+You pick it up.
+> down
+
+> down
+
+The base of dias
+
+You are standing at the base of the dias. The platform towers ten meters overhead. The lift has been out-of-order for centuries.
+
+You can go northeast to the benches on the right half of the auditorium or northwest to the other half.
+
+> look
+
+> look
+
+The base of dias
+
+You are standing at the base of the dias. The platform towers ten meters overhead. The lift has been out-of-order for centuries.
+
+You can go northeast to the benches on the right half of the auditorium or northwest to the other half.
+
+> nw
+
+> nw
+
+The Jedi Temple Central Spire Auditorium
+
+You are standing on the westernmost side of the Jedi Temple's 2nd level, 56th floor auditorium.
+
+You can go back inside to the west, east to the other half of the auditorium or southeast to the empty space at the base of the speaking platform.
+
+> look
+
+> look
+
+The Jedi Temple Central Spire Auditorium
+
+You are standing on the westernmost side of the Jedi Temple's 2nd level, 56th floor auditorium.
+
+You can go back inside to the west, east to the other half of the auditorium or southeast to the empty space at the base of the speaking platform.
+
+> w
+
+> w
+
+The southeastern dormitory hallway
+
+The southern row of jedi apartments ends here.
+
+You can go northwest to where the hall heads either east or northeast or east to the old auditorium.
+
+> nw
+
+> nw
+
+Western dormitory hallway
+
+You can go east to the central corridor and the elevators, northeast following the curve of the hall toward the 2nd-level, 56th-floor balcony or follow the hallway to the southeast.
+
+> ne
+
+> ne
+
+The northeastern dormitory hallway
+
+The northern row of jedi apartments ends here.
+
+You can go southwest , where the hall forks to the east and southeast, north into Carth Ofenn's old room or east to the balcony.
+
+> e
+
+> e
+
+The north balcony
+
+You are standing on a large platform that consitutes the temple's 2nd level, 56th floor balcony. The view to the north is worth taking in.
+
+You can go west to re-enter the dormitory hallway.
+
+> investigate balcony
+
+> investigate balcony
+
+As you investigate the balcony, you discover a very thin cable secured to the railing. Someone must have used it to climb down to a point below the balcony.
+> take cable
+
+> take cable
+
+You grab a hold of the cable and swing out over the balcony railing, gingerly scrambling down to the entrance of a ventilation shaft below this level of the central spire.
+The bottom of the rope dangles in front of an opening to a ventilation shaft. Your arms are growing weary, so you decide to enter the shaft.
+A ventilation shaft that runs beneathe the 56th floor of the 2nd level of the central spire
+
+It's quite dark in here. The only light source is the city lights from the opening to the north. Your eyes cannot perceive much of anything on their own, so you reach out in the force. The shaft stretches out westward.
+
+You can see the bottom end of an  ultra-thin cable , leading back up to the balcony above.
+
+You can go west , where the light in the ventilation shaft is significantly less or scramble up the cable to the balcony on the 56th floor of the 2nd level.
+
+> w
+
+> w
+
+A ventilation shaft that runs beneathe the 56th floor of the 2nd level of the central spire
+
+It is very dark in here, but you can sense that the shaft continues both to the east and to the south.
+
+You can go east where a sliver of light comes into the vent from outside or follow the shaft as it curves south into total darkness.
+
+> s
+
+> s
+
+A ventilation shaft that runs beneathe the 56th floor of the 2nd level of the central spire
+
+You are clamboring through the ventilation shaft that runs beneathe the dorm rooms of the Jedi Temple. It is pitch black here, though you sense the shaft curves downward here or continues horizontally to the north.
+
+You can go north or down a utility ladder to the base of the shaft.
+
+> down
+
+> down
+
+A ventilation shaft that runs beneathe the 56th floor of the 2nd level of the central spire
+
+You have reached the base of the ventilation shaft. The screen that was once covered the exit north has been removed.
+
+You can go up the utility ladder or north to exit the ventilation shaft into a dusty old maintenance closet.
+
+> n
+
+> n
+
+A maintenence closet
+
+You are in the maintenance closet for the 55th floor of the second level of the Jedi Temple's central spire.
+
+You can see the opening into the ventilation shaft.
+
+You can go north to an old theater.
+
+The room is lined with shelves and various cleaning supplies typical of such a room. Everything is covered with thick layers of dust from years of non-use.
+ A worn path of footprints going back and forth through the door to the north cuts through the dirt.
+> n
+
+> n
+
+The 55th floor theater
+
+The room has 3 big sections containing 60 tiers of 10 seats per row; 1,800 seats in all. The stage is at the bottom of the room. Two tall, midnight blue curtains book-end the right and left sides of the stage.
+
+You can go south to the dusty maintenance closet or down to the rickety old stage.
+
+The theater has not been used for some time, as multiple more modernized and comfortable theaters have been built throughout the Temple over the past several centuries. And although there is a maintenance closet nearby, it is abundantly evident that this place has not been cleaned in decades. Thick layers of dust cover everything. A path of footprints leads down to the stage.
+> down
+
+> down
+
+The theater stage
+
+The footprints through the dust continue here, ending at a place behind the curtains on stage left.
+The stage is rather precarious. It is probably not a good idea to walk around on it for too long.
+
+You can go up off the stage to the audience seating area.
+
+A small rodent scurries through the dirt and disappears through a crack in the center of the stage.
+
+> investigate left curtain
+
+> investigate left curtain
+
+You discover some sort of ring. There seems to be a deep connection to the force through the ring itself. Perhaps it is a relic of old.
+> take ring
+
+> take ring
+
+Wow! Simply holding the ring brings a new force power to life in you.
+A board snaps beneath your feet and you barely manage to escape before falling the rest of the way in.
+> wear ring
+
+> wear ring
+
+You place the ring on your finger.
+Whoa! Another section of stage crumbles beneath your feet. You scrape your left leg painfully, but do manage to catch yourself at the edge of the hole that you just created. You sense in the force that the floor of the room  under the stage is over 15 meters beneath you. You strain and get yourself pulled back up onto the stage. ('The intruder must have been significantly lighter than me,' you think to yourself.)
+> up
+
+> up
+
+The 55th floor theater
+
+The room has 3 big sections containing 60 tiers of 10 seats per row; 1,800 seats in all. The stage is at the bottom of the room. Two tall, midnight blue curtains book-end the right and left sides of the stage.
+
+You can go south to the dusty maintenance closet or down to the rickety old stage.
+
+All the dust is making your nose itch.
+> s
+
+> s
+
+A maintenence closet
+
+You are in the maintenance closet for the 55th floor of the second level of the Jedi Temple's central spire.
+
+You can see the opening into the ventilation shaft.
+
+You can go north to an old theater.
+
+You sneeze out the last bit of dust clogging your nostrils.
+> enter vent opening
+
+> enter vent opening
+
+A ventilation shaft that runs beneathe the 56th floor of the 2nd level of the central spire
+
+You have reached the base of the ventilation shaft. The screen that was once covered the exit north has been removed.
+
+You can go up the utility ladder or north to exit the ventilation shaft into a dusty old maintenance closet.
+
+> up
+
+> up
+
+A ventilation shaft that runs beneathe the 56th floor of the 2nd level of the central spire
+
+You are clamboring through the ventilation shaft that runs beneathe the dorm rooms of the Jedi Temple. It is pitch black here, though you sense the shaft curves downward here or continues horizontally to the north.
+
+You can go north or down a utility ladder to the base of the shaft.
+
+> n
+
+> n
+
+A ventilation shaft that runs beneathe the 56th floor of the 2nd level of the central spire
+
+It is very dark in here, but you can sense that the shaft continues both to the east and to the south.
+
+You can go east where a sliver of light comes into the vent from outside or follow the shaft as it curves south into total darkness.
+
+> e
+
+> e
+
+A ventilation shaft that runs beneathe the 56th floor of the 2nd level of the central spire
+
+It's quite dark in here. The only light source is the city lights from the opening to the north. Your eyes cannot perceive much of anything on their own, so you reach out in the force. The shaft stretches out westward.
+
+You can see the bottom end of an  ultra-thin cable , leading back up to the balcony above.
+
+You can go west , where the light in the ventilation shaft is significantly less or scramble up the cable to the balcony on the 56th floor of the 2nd level.
+
+> take rope
+
+> take rope
+
+You grip the bottom of the rope and scramble back up to the balcony.
+The north balcony
+
+You are standing on a large platform that consitutes the temple's 2nd level, 56th floor balcony. The view to the north is worth taking in.
+
+You can see an ultra-thin cable tied to the balcony railing.
+
+You can go west to re-enter the dormitory hallway.
+
+> w
+
+> w
+
+The northeastern dormitory hallway
+
+The northern row of jedi apartments ends here.
+
+You can go southwest , where the hall forks to the east and southeast, north into Carth Ofenn's old room or east to the balcony.
+
+> sw
+
+> sw
+
+Western dormitory hallway
+
+You can go east to the central corridor and the elevators, northeast following the curve of the hall toward the 2nd-level, 56th-floor balcony or follow the hallway to the southeast.
+
+> e
+
+> e
+
+The Dormitory Hallway
+
+The hallway stretches out in either direction to the east and the west. Fifty meters to the east, the hall ends abruptly at the elevator doors.
+
+You can see a Painting, an elevator door and a call button next to it.
+
+You can go south to return to your chambers, east to enter the elevator or west , where the hall tees off to the north and south.
+
+> push call button
+
+> push call button
+
+Moments later the door to the elevator opens.
+> e
+
+> e
+
+The Jedi Temple's central elevator
+
+(The elevator is stopped at the 2nd level - the dormitories)
+
+The one exit is through the elevator door to the west.
+
+On a panel next to the door, you can see, in descending order,  a 3, a 2, a 1 and a trap door (which is open).
+
+You can go west to the dormitory hallway or up through the open trap door.
+
+> push 1
+
+> push 1
+
+The door shuts. You barely feel the elevator shudder as it begins to move. After about 10 seconds----during which you know that the elevator is moving at an incredible speed----you feel an ever-so-slight jolt as the elevator comes to a stop. The door re-opens.
+The Jedi Temple's central elevator
+
+(The elevator is at the 1st level - the Main Hall)
+
+The one exit is through the elevator door to the west.
+
+On a panel next to the door, you can see, in descending order,  a 3, a 2, a 1 and a trap door (which is open).
+
+You can go west to the Main Hall of the Jedi Temple or up through the open trap door.
+
+> w
+
+> w
+
+The Main Hall east, mid-level
+
+This is the easternmost point of the great hall.
+Behind you (to the east) the lift leads to the Temple's central spire.
+
+You can see a call button next to the elevator door..
+
+You can go east, southwest, west to the stairs, down to the lower level or northwest.
+
+> sw
+
+> sw
+
+The Main Hall southeast, mid-level
+
+You are standing in the southeastern section of the Main Hall. Various vendors sell there wares in this area during the daytime hours. The late hour combined with the very low population of jedi who are not off on some assignment make for a completely lifeless area. The booths are all shut down and dark.
+
+You can go northeast, up the stairs to the viewing balcony, west, northwest ---- or down ----the stairs to the lower floor.
+
+> sw
+
+> sw
+
+You can't go there.
+> w
+
+> w
+
+The  Main Hall south, mid-level
+
+You are in the south section of the main hall. A very wide stairway with multiple hand rails leads down to the valley that is the center  of this mammoth room. There are dual escalators leading down to the floor below and back up to this level on either side of the broad stairway.
+The winding staircase behind you leads up to a control room in which the Temple overseers keep watch over the goings-on in the entire hall.
+
+You can go east, up, west, north ---- or down ----the stairs to the lower level.
+
+> w
+
+> w
+
+The Main hall southwest, mid-level
+
+Much of the view of the main hall is obscured by a wall forged as a memorial to fallen jedi masters of the past.
+
+You can see a Jedi Masters Monument.
+
+You can go east, northeast ----or, down ----to the lower level or northwest.
+
+> look
+
+> look
+
+The Main hall southwest, mid-level
+
+Much of the view of the main hall is obscured by a wall forged as a memorial to fallen jedi masters of the past.
+
+You can see a Jedi Masters Monument.
+
+You can go east, northeast ----or, down ----to the lower level or northwest.
+
+> x monument
+
+> x monument
+
+There are multiple memorials on the monument. If you want to view a specific one, you should specify which one.
+(Belth Allusis, Dorak, Nomi Sunrider, Gnost Dural, Ajunta Pall, etc.)
+It contains the Belth Allusis memorial, the Dorak memorial, the Nomi Sunrider memorial, the Gnost-Dural memorial and the Ajunta Pall memorial.
+> x nomi sunrider memorial
+
+> x nomi sunrider memorial
+
+"This Jedi will play an important part in the battles to come. Truly, she will be strong—a luminous being is she." Ood Bnar, commenting on Nomi Sunrider
+
+Nomi Sunrider was a Human female who served as a Jedi Master and later leader of the Jedi Order in the days of the Galactic Republic.
+*****
+A sliver of paper sticks out a couple of millimeters from the side of the placard.
+*****
+> x sliver of paper
+
+> x sliver of paper
+
+The paper has written on it: Position 3: 0. You quickly enter the information in your datapad.
+You enter the new information in your datapad. You now have a four-digit combination written down.
+
+The paper disappears in a poof of white smoke, startling you a bit.
+> nw
+
+> nw
+
+The Main Hall West, mid-level
+
+This is the Jedi Temple's maintenance section. A large variety of tool kits and work benches are kept  in perfect order.
+
+You can see a mechanic droid and a work bench (on which there is a repair kit for lightsabers).
+
+You can go northeast, southeast, east to the stairs, down the stairs to the lower floor or up a moving staircase to the transportation hub.
+
+> speak to mechanic droid
+
+> speak to mechanic droid
+
+The mechanic droid notices your lightsaber. It mentions that lightsabers are its favorite things to work on, although most jedi don't let him work on their lightsabers. Something about a "jedi code". He shows you a workbench with a lightsaber repair kit lying upon it. "This is where some of your kind come to perform quick changes and repairs," he explains.
+> use repair kit
+
+> use repair kit
+
+You open up your weapon and customize the placement of various components. Your new awareness in the Force allows you to see how you can make changes that enhance the strenth of the blade. When you finish, you notice that the weapon feels more balanced in your hand as well.
+You test it briefly to make sure that it still works. Not only does it work, but the blade seems stronger and more solid than it did before.
+
+You shut it off and place it back on your belt.
+> ne
+
+> ne
+
+A Main Hall northwest, mid-level
+
+The area in this part of the hall is primarily designed for dining. Multiple restaurants, all closed for the night, make up the northwest wall. A lift nearby can take individuals up to the security platform overlooking the hall 90 meters overhead.
+
+You can see the lift  that runs between the mid-level dining area and the upper level security platform.
+
+You can go southeast ----or, down ----the stairs to the lower floor, southwest or east.
+
+> e
+
+> e
+
+The Museum Entrance
+
+You can see multiple display cases, the first display case (containing the Chu-Gon Dar Cube), the second display case, the third display case (containing the Mantle of the Force), the fourth display case (containing the Heart of the Guardian), the fifth display case (containing the Nomi Sunrider armband) and the sixth display case (containing the Sylvar robe).
+
+You can go west, south ----or, down ----the stairs to the lower floor, up the stairs to the museum's upper floor or east.
+
+> up
+
+> up
+
+The  Jedi Temple Museum
+
+The museum is loaded with artifacts. Most of which are encased in impenetrable glass cases.
+
+You can see a black case.
+
+You can go down the stairs to the museum's lower level.
+
+> use black key on black case
+
+> use black key on black case
+
+The key fits the lock perfectly. The black box opens quietly. The black case contains an old, worn belt.
+> take belt
+
+> take belt
+
+You place the priceless artifact in your inventory. It seems as if a new force power is wanting to reveal itself. Your mind tries to picture it but can't quite grasp it. You imagine wind, glass, and a stream. Hmm...Translucence, perhaps?
+> wear belt
+
+> wear belt
+
+Now that's a tight fit. Girl must've been a waif!
+> down
+
+> down
+
+The Museum Entrance
+
+You can see multiple display cases, the first display case (containing the Chu-Gon Dar Cube), the second display case, the third display case (containing the Mantle of the Force), the fourth display case (containing the Heart of the Guardian), the fifth display case (containing the Nomi Sunrider armband) and the sixth display case (containing the Sylvar robe).
+
+You can go west, south ----or, down ----the stairs to the lower floor, up the stairs to the museum's upper floor or east.
+
+> down
+
+> down
+
+The Jedi Temple Main Hall, center valley
+
+The valley floor that is the lowered center in the Jedi Temple's main hall is larger than two smashball arenas put together. Most of the areas are dedicated to very specific modalities. A skinny Zabrak female is busy at work in the Information Technologies section.
+
+You can see a Zabrak IT Specialist.
+
+You can go up to the mid-level via the stairways heading up in every direction: north, northeast, east, southeast, south, southwest, west or northwest.
+
+> speak to zabrak it specialist
+
+> speak to zabrak it specialist
+
+You strike up a conversation with the Zabrak woman. She's a bit awkward, but extremely bright. You eventually figure out that beside her skills with computers, she also posesses the ability to hack starport visas. She would just need an open one and she could essentially forge a new visa to appear to be the carrier's genuine article.
+> give open starport visa to zabrak it specialist
+
+> give open starport visa to zabrak it specialist
+
+The Zabrak woman's eyes light up and she smiles at you knowingly. She inserts the open starport visa in a slot on the side of her machine and begins a short interview of you.
+When finished, she takes the visa from the slot and hands it to you with a sly grin.
+> w
+
+> w
+
+The Main Hall West, mid-level
+
+This is the Jedi Temple's maintenance section. A large variety of tool kits and work benches are kept  in perfect order.
+
+You can see a mechanic droid and a work bench (on which there is a repair kit for lightsabers).
+
+You can go northeast, southeast, east to the stairs, down the stairs to the lower floor or up a moving staircase to the transportation hub.
+
+> up
+
+> up
+
+The Transportation Hub
+
+The hub is dead quiet right now other than the security officer guarding the exit to the starport.
+
+You can see a Starport Security Officer (SSO).
+
+You can go down the stairs to the mid-level of the Main Hall or west down the long glass corridor to the starport.
+
+> give visa to starport security officer
+
+> give visa to starport security officer
+
+With a friendly nod, he presses the button to unlock the door to the westward walkway.
+
+*****
+The clock above the doorway tells you it is now 5:35am.
+*****
+> w
+
+> w
+
+The Jedi Temple Customs and Check-In, Starport #12
+
+You can see an attendant.
+
+You can go west to the other half of the starport or east down the long, glass corridor back into the Temple.
+
+For sunrise, while the rest of the temple seems to be rather vacant, the Starport is the only area where there seems to be any activity. A group of Quarrens has just gotten off their transport vessel and are trying to figure out where they need to go to begin their "Star Tours, a Day at the Temple" tour. (You think about informing them that they've come a long way just to find the temple practically emptied of jedi, but decide you'll let them discover it themselves.) On the other side of the large terminal, a rather odd collection of beings----two Selkath, an Aqualish, three human women, and Gungan----seems to be preparing to travel together to some destination unknown to you. One of the women is hollering at a customs official about not accepting her Starport visa.
+You could spend hours here "being watching", but you have a job to do.
+
+The attractive attendant behind the counter waves you forward. "Where are you headed?" she asks.
+> look
+
+> look
+
+The Jedi Temple Customs and Check-In, Starport #12
+
+You can see an attendant.
+
+You can go west to the other half of the starport or east down the long, glass corridor back into the Temple.
+
+> speak to attendant
+
+> speak to attendant
+
+You tell the her that you are needing transportation. She asks where you are going.
+"Onderon," she says, "No problem. Just need to see your Starport Visa."
+She examines your Visa. "Perfect! Let me check here...OK...and...there you go. There is a transporter waiting for you in port number 82 in the western terminal. The pilot's name is...Amil Zenn. Oh, excuse me; I'm being called away."
+The attendant gets paged by her boss and disappears through a doorway.
+> give visa to attendant
+
+> give visa to attendant
+
+I can't see that. (attendant)
+> w
+
+> w
+
+The western starport area
+
+A transport vessel is waiting nearby in Port 82.
+
+You can see a transport vessel and the ramp up to the portal leading into the transporter.
+
+You can go east back to the other half of the starport, including the customs desk.
+
+> look
+
+> look
+
+The western starport area
+
+A transport vessel is waiting nearby in Port 82.
+
+You can see a transport vessel and the ramp up to the portal leading into the transporter.
+
+You can go east back to the other half of the starport, including the customs desk.
+
+> board transport vessel
+
+> board transport vessel
+
+A 578-R InterstellarTransport Vessel
+
+You can see the ship's pilot,  Amil Zenn, six lockers and an open portal.
+
+You can go out, north (fore), to the cockpit or south (aft) to the bunk room.
+
+This is the baggage storage area. Next to the portal you came in through (on the port side of the room) are a half-dozen lockers. The wall on the opposite  side is hung with six nets for storing items that one may need easy access to.
+> look
+
+> look
+
+A 578-R InterstellarTransport Vessel
+
+You can see the ship's pilot,  Amil Zenn, six lockers and an open portal.
+
+You can go out, north (fore), to the cockpit or south (aft) to the bunk room.
+
+The pilot asks you, "So where are we headed, my friend?"
+You show him the location of the Abbadith starport that the Analysis Center's computer told you about.
+"Hmm...," he says, "I don't think that's anywhere near Iziz. Are you sure it's safe from the drexyl out there?"
+You tell him that it is an ancient starport used by the mining colony, which is located a few kilometers away from the starport.
+The pilot says, "Whatever you want, partner."
+He shuffles off to the cockpit.
+> x lockers
+
+> x lockers
+
+Nothing special about the lockers, except that locker number 5 has a combination lock on it.
+> use code 0802 on locker
+
+> use code 0802 on locker
+
+The combination works. As you set the last dial to "2", the door pops open with a clank.
+> take vest
+
+> take vest
+
+Merely holding the vest seems to have awakened a new force ability.
+> wear vest
+
+> wear vest
+
+Interesting. Slipping the vest on renders your torso more translucent than opaque.
+> n
+
+> n
+
+A transporter cockpit
+
+You can see the ship's pilot,  Amil Zenn.
+
+You can go south (aft) to the transport's center room.
+
+The pilot turns and glances at you. "Oh, Hi. We're on our way. May want to head back to the bunks and relax. It will be a while."
+> s
+
+> s
+
+A 578-R InterstellarTransport Vessel
+
+You can see six lockers.
+
+You can go out, north (fore), to the cockpit or south (aft) to the bunk room.
+
+> s
+
+> s
+
+The bunk room of the transporter
+
+This is the sleeping quarters for up to six passengers. A short stairwell leads down to a restroom in the aft section of the room.
+
+You can see some bunks.
+
+You can go north (fore) to the transport's central room or down the stairs to the restroom.
+
+The room is not exactly luxurious. Is consists of 6 bunks; 3 on the port wall and 3 on the starboard wall. The beds don't look "dirty", per se, but every one of them has a minimum of one stain from several years of useage. Two of the bunks on the port side have linens that are actually frayed around the edges. A beige-colored loudspeaker in the back corner has chips of paint missing, showing bare metal underneath. The room is carpeted, but the carpeting was most likely installed when the transporter was first built. It was originally dark gray with a black design in the center, but the black has long since turned to gray and the dark gray has long sinced turned to mottled light gray, brown, and the occasional yellow pet stain.
+> lie on bunks
+
+> lie on bunks
+
+You discover how truly exhausted you were when you lie down. You quickly drift off to sleep.
+> z
+
+> z
+
+Time passes.
+"We have made the jump to hyperspace," says Amil Zenn over the loudspeaker.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+"We are exiting hyperspace in the Onderon system."
+> z
+
+> z
+
+Time passes.
+"Prepaing to land at abandonded starport at specified location."
+> z
+
+> z
+
+Time passes.
+"We have landed safely. Thanks for flying with Amil Zenn!"
+The portal in the transport’s central room opens.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> n
+
+> n
+
+A 578-R InterstellarTransport Vessel
+
+You can see six lockers and an open portal.
+
+You can go out, north (fore), to the cockpit or south (aft) to the bunk room.
+
+> out
+
+> out
+
+An Abandoned Starport
+
+The starport was once used to move miners and goods on- and off- world. The main exit to the west leads out to a long trail. You can make out an old wooden watchtower a couple hundred meters down the trail.
+The starport is mostly empty except for some junk along the back walls, including some old toolboxes and a pile of cages. (You raise an eyebrow.) The cages were most likely used to transport black market creatures at some point.
+
+You can go southeast or west to a clearing with an old wooden watchtower in its center.
+
+Amil Zenn wastes no time in getting his ship back up and running. Within moments of your departure, the transporter lifts off and disappears into the distance.
+> look
+
+> look
+
+An Abandoned Starport
+
+The starport was once used to move miners and goods on- and off- world. The main exit to the west leads out to a long trail. You can make out an old wooden watchtower a couple hundred meters down the trail.
+The starport is mostly empty except for some junk along the back walls, including some old toolboxes and a pile of cages. (You raise an eyebrow.) The cages were most likely used to transport black market creatures at some point.
+
+You can go west to a clearing with an old wooden watchtower in its center.
+
+> x cages
+
+> x cages
+
+The cages are mostly all rusted out. One cage still looks functional enough to carry an animal without it escaping.
+> take cage
+
+> take cage
+
+You pick it up.
+> w
+
+> w
+
+A clearing at the base of an old, wooden watchtower
+
+Jungle paths head off in several directions, though many appear to have not been used in decades or more. An old wooden watchtower looms overhead.
+
+You can go east to the abandoned starport filled with cages, up the ladder into the watchtower, north to what appears to be the main pathway through the Onderon jungle or south to an overgrown path.
+
+> n
+
+> n
+
+A jungle
+
+A faint buzzing sound can be heard coming from the northeast.
+
+You can go northeast , where there appears to be a clearing, south to the watchtower clearing or north to continue along the path through the jungle.
+
+> switch on force cloak
+
+> switch on force cloak
+
+You switch it on.
+You allow the Force to flow through you, directing it into the vest and belt. Before you know it, you are invisible. The clothing items require very little concentration to maintain the effect.
+> ne
+
+> ne
+
+A clearing in the jungle
+
+You have stumbled into a clearing on the fringes of the jungle.
+
+You can see a Chiss bounty hunter (carrying a DL-18 blaster pistol) and a hornet's nest.
+
+You can go southwest to the main path through the jungle.
+
+A small camp fire burns in the center of the clearing. A Chiss woman is seated on a rock with her back towards you. You notice that she has a holster strapped at her side with what appears to be some sort of black market weapon inside.
+A tree branch nearly 30 meters overhead hums noisily with a large nest of buzzing insects.
+The bounty hunter searches desperately for the intruder, but you remain invisible under your Force-made cloak.
+> x hornet nest
+
+> x hornet nest
+
+The nest is nearly 30 meters overhead. The only way to reach it would be to throw something up there capable of chopping it down. You realize with a start that your new connection to the Force most likely affords you the ability to use a lightsaber throw to accomplish what you are thinking.
+(Look at your journal in order to add the power "lightsaber throw" to it.)
+The Chiss sniffs the air, you can tell that she is beginning to pick up your trail. She readies her weapon.
+> x journal
+
+> x journal
+
+This journal keeps track of the powers that you have obtained either through your studies or through a natural gifting bestowed upon you by the force itself.
+Your journal contains a collection of force powers that you have been gifted with. In order to use a technique, simply type the command like this: "use 'force technique' on 'target object's name'". For instance; to use force lightning on a cat, you would type "use force lightning on cat". To push a table using the force, you would type "use force push on table".
+Your current powers include: - Force levitate, - Force wind, - Force cloak, - Force jump, - Force push and - lightsaber throw.
+The Chiss zeroes in on your position, levels her pistol, and prepares to fire.
+> use lightsaber throw on hornet nest
+
+> use lightsaber throw on hornet nest
+
+Your lightsaber hisses to life. The blade glows in varying shades of blue ranging from white-hot in the center to a deep ultramarine at the outer edge.
+You exercise your new power by igniting your lightsaber and propelling it through Force at a speed of nearly 200 kilometers per hour. The Chiss jumps, clearly startled. She recognizes the immenent attack, but it's too late; the blade of your lightsaber slices through the branch holding the nest and both come crashing down right next to her. (You retrieve your weapon via the Force.)
+Either the bounty hunter is highly allergic to the insects or their sting is highly toxic. The Chiss bats at the pests for only a few seconds before falling to the ground dead.
+(You switch off your lightsaber. The blue blade disappears as quickly as it first appeared.)
+The insects buzz noisily.
+> x chiss bounty hunter
+
+> x chiss bounty hunter
+
+The Chiss woman was in terrific shape; very athletic. You are fortunate to have not been killed by her while she was alive.
+The Chiss was carrying an access card and a DL-18 blaster pistol.
+> take access card
+
+> take access card
+
+You pick it up.
+> take pistol
+
+> take pistol
+
+You take the pistol.
+> sw
+
+> sw
+
+A jungle
+
+A faint buzzing sound can be heard coming from the northeast.
+
+You can go northeast , where there appears to be a clearing, south to the watchtower clearing or north to continue along the path through the jungle.
+
+> n
+
+> n
+
+A north-south pathway through the Onderon jungle
+
+The trees on either side of the path are brimming with life. To the north, the path begins to curve left.
+
+You can go south or northwest.
+
+> nw
+
+> nw
+
+A pathway through the Onderon jungle
+
+The path branches off in two directions to the north. The one on the right appears a bit more worn than the one on the left. The one on the left seems to have a sort of glow, or aura, coursing through it like a fine mist.
+
+You can go southeast, north or northwest through the seemingly glowing pathway.
+
+> nw
+
+> nw
+
+A pathway through the Onderon jungle
+
+The path here has not been used in some time. Old paths to the west and southwest are mostly blocked by overgrown tree branches. To the southeast it joins the main thoroughfare.
+
+You can see multiple tree branches blocking passage to the west and multiple tree branches blocking passage to the southwest.
+
+You can go southeast to the main path, west or southwest.
+
+> hack southwest trees
+
+> hack southwest trees
+
+You use your lightsaber to hack a trail through the trees to the southwest.
+An overgrown path through the Onderon jungle
+
+The overgrowth here makes you wonder if you are actually on a pathway at all.
+
+You can go northeast, north, southwest or northwest.
+
+> nw
+
+> nw
+
+You continue to cut a swath through the overgrowth.
+An overgrown path through the Onderon jungle
+
+The overgrowth here makes you wonder if you are actually on a pathway at all.
+
+You can go northeast, east, southeast, north, southwest or northwest.
+
+> sw
+
+> sw
+
+You continue to cut a swath through the overgrowth.
+A small alcove
+
+The jungle most definitely ends here, as the trees become impassable in all directions except to the northeast. The alcove is essentially a dried up old pond full of weeds.
+
+You can see a black bag and a cruckleberry bush (holding several cruckleberries).
+
+You can go northeast.
+
+> take black bag
+
+> take black bag
+
+You pick it up.
+> take cruckleberry branch
+
+> take cruckleberry branch
+
+You tear off a branch.
+> ne
+
+> ne
+
+An overgrown path through the Onderon jungle
+
+The overgrowth here makes you wonder if you are actually on a pathway at all.
+
+You can go northeast, east, southeast, north, southwest or northwest.
+
+> se
+
+> se
+
+You continue to cut a swath through the overgrowth.
+An overgrown path through the Onderon jungle
+
+The overgrowth here makes you wonder if you are actually on a pathway at all.
+
+You can go northeast, north, southwest or northwest.
+
+> ne
+
+> ne
+
+You continue to cut a swath through the overgrowth.
+A pathway through the Onderon jungle
+
+The path here has not been used in some time. Old paths to the west and southwest are mostly blocked by overgrown tree branches. To the southeast it joins the main thoroughfare.
+
+You can see multiple tree branches blocking passage to the west.
+
+You can go southeast to the main path, west or southwest.
+
+> se
+
+> se
+
+A pathway through the Onderon jungle
+
+The path branches off in two directions to the north. The one on the right appears a bit more worn than the one on the left. The one on the left seems to have a sort of glow, or aura, coursing through it like a fine mist.
+
+You can go southeast, north or northwest through the seemingly glowing pathway.
+
+> n
+
+> n
+
+A pathway through the Onderon jungle
+
+The path to the northwest leads to a darker part of the jungle. The southern route is well-travelled.
+
+You can go south or northwest.
+
+> nw
+
+> nw
+
+A pathway through the Onderon jungle
+
+The path is blanketed in a shadow cast by the hill to the north.
+
+You can go southeast or north.
+
+> n
+
+> n
+
+The southern face of a steep hill
+
+The path through the jungle ends abruptly at the base of a small but steep hill. It would not be impossible to climb the hill, but quite difficult through the jungle trees.
+
+You can go south, up the hill's southern face or northwest.
+
+> nw
+
+> nw
+
+The southwestern side of a small hill
+
+The path moves away from the hill to the southwest.
+
+You can go southeast or southwest.
+
+> sw
+
+> sw
+
+A pathway through the Onderon jungle
+
+The path through the trees is blanketed in a shadow cast by the hill to the northeast. It is brighter to the west.
+
+You can go northeast or west.
+
+> w
+
+> w
+
+A pathway through the Onderon jungle
+
+The path continues northwest in one direction and heads into a darker part of the jungle to the east.
+
+You can go east or northwest.
+
+> nw
+
+> nw
+
+A pathway through the Onderon jungle
+
+The path here is quite indistinguishable from most of the rest of the path through the jungle.
+
+You can go southeast or north.
+
+> n
+
+> n
+
+A pathway through the Onderon jungle
+
+The path slopes up to the northeast or stays level to the south.
+
+You can go south or northeast.
+
+> ne
+
+> ne
+
+A pathway through the Onderon jungle
+
+The path is somewhat elevated here. A section of flattened, damp foliage forms a sort of slide to the southwest.
+You can see a tee-muss grazing on the foliage nearby.
+
+There is the tee-muss.
+
+You can go southwest, southeast down a slick, moss-strewn pathway or northeast.
+
+> switch off force cloak
+
+> switch off force cloak
+
+You easily remove the Force cloak from yourself and return to visibility.
+> give cruckleberry branch to tee-muss
+
+> give cruckleberry branch to tee-muss
+
+You sidle up to the tee-muss and extend your hand slowly, offering the branch of cruckleberries.
+> ride tee-muss
+
+> ride tee-muss
+
+You pet the neck of the animal gently and slowly, steadily climb up onto its back.
+> ne
+
+> ne
+
+You guide the tee-muss northeast.
+A pathway through the Onderon jungle
+
+Aside from being slightly elevated, the path here is quite indistinguishable from most of the rest of the path through the jungle.
+
+You can go southwest or east.
+
+> e
+
+> e
+
+You guide the tee-muss to the base of the hill.
+A pathway through the Onderon jungle
+
+The path through the jungle jaunts abruptly north at the base of the hill here.
+
+You can go west or up the steep hillside.
+
+> up
+
+> up
+
+The hill, while rather steep, seems like it may be climb-able by the tee-muss. The animal easily finds its footing and manages to haul itself (and you) up the hill one shallow step at a time until you reach a plateau half-way up.
+You dismount the tee-muss. The animal seems wary of something up the hill to the east. After a bit, the beast wanders back down the hill the way it came up.
+The western face of a hill
+
+The slick ground beneath your feet causes you to walk slowly so as to not lose your footing and fall down the hillside.
+
+You can see a warning sign.
+
+You can go east to the top of the hill, down the steep slope to the base of the hill or northwest along a slippery, wet grassy path through the trees.
+
+The path upwards continues to the peak of the hill, where the trees thin and form a clearing. (You are not sure you want to risk potentially being that exposed to the watching eyes of a drexl.)
+Another path leads straight down to the western base of the mountain and a slippery slope leads down to the northwest. It is doubtful you would be able to climb back up if you went that direction.
+> x warning sign
+
+> x warning sign
+
+The sign reads:
+
+TRAVELLERS BEWARE
+
+Those making the pigrimage
+to the hilltop altar could be
+potentially exposed to flying
+drexl. Exercise caution.
+> switch on force cloak
+
+> switch on force cloak
+
+You switch it on.
+You allow the Force to flow through you, directing it into the vest and belt. Before you know it, you are invisible. The clothing items require very little concentration to maintain the effect.
+> e
+
+> e
+
+A jungle hilltop
+
+You can see an ancient altar.
+
+You can go south down the south face or west to that side of the hill.
+
+It is a good thing you are cloaked in the Force as there is an incredibly large beast of prey circling overhead.
+> use altar
+
+> use altar
+
+You look at the reflective of the surface. (Not seeing your own reflection startles you at first; then you remember that you are using the Force to make yourself invisible.)
+For a long while nothing happens. You shrug, but before you turn away you catch the faintest glimmer of something right in the middle of the reflection. It looks like the mirror is beginning to melt from the center outwards. The reflection becomes concave, warping the image of the sky and the clouds behind you. You reach out to touch the surface to see if it is as it appears. Your arm reaches farther and farther without touching anything.
+Suddenly you are inside of a room looking through two elliptical windows positioned side-by-side at an enormous plate of food. An equally large hand uses a fork to lift a bite of succulent red meat off of the plate, moving it towards a spot below the two windows. Your mouth salivates as you anticipate the mouthful of food. Then you notice that the head of a small parasite is just barely poking out of the bottom of the bite. "Wait!" you think, "Don't eat that!"
+The hand freezes. You think, "Good; now put it down."
+The hand complies.
+All of a sudden the two windows wink shut. You are immersed in darkness momentarily. Then you are back on the hilltop staring at a picture of the blue sky overhead in the altar's reflective surface.
+You have learned how to nudge a being's mind by using a Jedi mind trick.
+> w
+
+> w
+
+The western face of a hill
+
+The slick ground beneath your feet causes you to walk slowly so as to not lose your footing and fall down the hillside.
+
+You can see a warning sign.
+
+You can go east to the top of the hill, down the steep slope to the base of the hill or northwest along a slippery, wet grassy path through the trees.
+
+> nw
+
+> nw
+
+You walk as gingerly as possible on the crushed grass, weeds, and clay; but about half way down the slope you lose your footing and slide 50 meters down the hill, which ends in a 15 meter drop. You manage to brace yourself and cushion the fall using the Force, but not without incurring some minor scrapes and bruises.
+The base of a small cliff
+
+The slope of the hill here is almost a 90 degree angle on the east side of you. The path north looks barely wide enough to squeeze through if you turn sideways.
+
+You can go north.
+
+> n
+
+> n
+
+A jungle path northwest of a hill
+
+The northbound path branches off in two directions here.
+
+You can go south, northwest or northeast , where the path slopes downward toward a small lake.
+
+> nw
+
+> nw
+
+A path through the Onderon jungle
+
+You can go southeast or north.
+
+The path to the north appears to be bordered by a cliff on its west side. To the southeast the path moves closer to a hill.
+> n
+
+> n
+
+A path through the Onderon jungle
+
+The path continues north here. The east side is rendered impenetrable by the trees. The west decends precariously into a steep canyon with the sound of rushing water coming up from the bottom.
+
+You can go north or south.
+
+> n
+
+> n
+
+A path through the Onderon jungle
+
+The path seems to get more convoluted with trees to the north. It looks as if you could climb down the canyon face here if you were careful enough.
+
+You can go south, down to the bottom of the canyon or north.
+
+> down
+
+> down
+
+A creek bed
+
+You have wandered into a creek bed at the base of a shallow canyon. The creek used to trickle down from higher ground in the south to lower ground to the north.
+
+You can see a tree lizard (perhaps an ysalamiri).
+
+You can go south further up the dry creek bed, north , where the canyon tapers off or up the rocky wall of the canyon to the jungle path above.
+
+As you scramble down the rocks toward the base of the canyon, you suddenly feel as if an incredible vacuum has sucked out the very essence of who you are. You spent years living an existence which you were convinced was only connected to the Force by the most miniscule of strands. But now, in its total absence, you realize how much you have relied on the Force your whole life.
+You consider leaving, but decide to investigate. You begin to search the area for the cause of the anomaly.
+> put biscuit in cage
+
+> put biscuit in cage
+
+Done.
+The lizard notices the biscuit sitting in the cage, scurries over, and hops right in.
+> close cage
+
+> close cage
+
+You close it.
+The lizard makes itself comfortable in the cage and begins to chow down on the disgusting biscuit.
+> z
+
+> z
+
+Time passes.
+The lizard polishes off the rotten biscuit and, finding the door to the cage closed, makes itself at home.
+> z
+
+> z
+
+Time passes.
+> i
+
+> i
+
+You are carrying a canteen (containing some water from the jedi fountain), a red synthetic force crystal, a your Iightsaber, the Force amulet (worn), an encoded disc, a small black key, a ring of power (worn), a belt (worn) worn by Mission Vao thousands of years ago, your Starport Visa, an ancient vest worn by Mission Vao (worn) thousands of years ago, a cage (containing a tree lizard (perhaps an ysalamiri)), an access card, a DL-18 blaster pistol, a black bag and several cruckleberries.
+> up
+
+> up
+
+A path through the Onderon jungle
+
+The path seems to get more convoluted with trees to the north. It looks as if you could climb down the canyon face here if you were careful enough.
+
+You can go south, down to the bottom of the canyon or north.
+
+> s
+
+> s
+
+A path through the Onderon jungle
+
+The path continues north here. The east side is rendered impenetrable by the trees. The west decends precariously into a steep canyon with the sound of rushing water coming up from the bottom.
+
+You can go north or south.
+
+> s
+
+> s
+
+A path through the Onderon jungle
+
+You can go southeast or north.
+
+> se
+
+> se
+
+A jungle path northwest of a hill
+
+The northbound path branches off in two directions here.
+
+You can go south, northwest or northeast , where the path slopes downward toward a small lake.
+
+> ne
+
+> ne
+
+A path headed down towards a lake
+
+The path is quite wide here.
+
+You can go southwest up the gentle slope back toward the main path or northeast , following the path down to the lake.
+
+> ne
+
+> ne
+
+A small lake
+
+There appears to be the remnants of a rusty, old sign lying in the rocks at the edge of the water.
+
+You can see an old sign.
+
+You can go in to the water, northwest to the center of the beach or southwest toward the jungle.
+
+The lake is bordered on this side by a thin strip of rock-strewn beach which curves about 150 meters northwest. To the south, the beach butts up against a cliff. The rocky slope forms the entire boundary around the lake. It appears as if the rock walls were carved out intentionally.
+
+The dorsal plate of some large, aquatic beast surfaces about 20 meters off-shore.
+
+There is a very large, brown-colored drexl resting its head on the rocks on the northern-most end of the beach. A figure appears to be sitting down next to the creature.
+> nw
+
+> nw
+
+The beach
+
+The rocky beach continues southeast and north of here. A crooked old sign reads "Caution—Thermal Blasting Zone".
+
+You can go southeast to the southern shore, north , where the beach eventually dead-ends into rock and impassable jungle or in to the lake itself.
+
+Glancing at the water, you can see a heap of large rocks piled up to about 5 meters below the glassy surface. There appears to be something wedged in-between some of the large boulders on top of the pile. 'If I decide to check it out', you think, 'I  had better make sure I'm not carrying anything that water could ruin.'
+> in
+
+> in
+
+The lake
+
+There is a rather large aquatic creature swimming around in the southern part of the lake.
+
+You can go swim north, swim southeast, get out of the water or dive down beneath the surface.
+
+Hopefully there is nothing lurking under the water as dreadful as a drexl.
+Oh, no! You forgot about your datapad! It shorts out, sending a jolt of electricity through you that causes you to drop it into the lake!
+
+Still want to continue?
+> down
+
+> down
+
+Underwater in the middle of a lake
+
+The lake bed is rockier here. The rocks down below may have snagged a few items over the years.
+
+You can see a mountain of rocks covering the lake floor.
+
+You can go swim underwater to the north part of the lake, swim underwater to the southeast part of the lake or swim up to the surface.
+
+> x rocks
+
+> x rocks
+
+You notice something out of place on the bottom of the lake. You swim closer. It is a round package wrapped in plastic.
+A school of lizard-like fish rushes past down below you.
+> take waterproof package
+
+> take waterproof package
+
+You pick it up.
+> up
+
+> up
+
+The lake
+
+There is a rather large aquatic creature swimming around in the southern part of the lake.
+
+You can go swim north, swim southeast, get out of the water or dive down beneath the surface.
+
+> out
+
+> out
+
+The beach
+
+The rocky beach continues southeast and north of here. A crooked old sign reads "Caution—Thermal Blasting Zone".
+
+You can go southeast to the southern shore, north , where the beach eventually dead-ends into rock and impassable jungle or in to the lake itself.
+
+> open waterproof package
+
+> open waterproof package
+
+You open it.
+You tear open the package. It contained a thermal detonator, a type of intense-heat producing grenade that incinerates targets within its blast radius. You shudder at the thought of carrying around such a lethal device.
+> drink water
+
+> drink water
+
+You feel incredibly refreshed; healthier, in fact.
+> take lake water
+
+> take lake water
+
+You pick it up.
+You dip the canteen in the water and fill it up.
+> i
+
+> i
+
+You are carrying a canteen (containing a lake water), a red synthetic force crystal, a your Iightsaber, the Force amulet (worn), an encoded disc, a small black key, a ring of power (worn), a belt (worn) worn by Mission Vao thousands of years ago, your Starport Visa, an ancient vest worn by Mission Vao (worn) thousands of years ago, a cage (containing a tree lizard (perhaps an ysalamiri)), an access card, a DL-18 blaster pistol, a black bag, several cruckleberries and a thermal detonator.
+> drop cage
+
+> drop cage
+
+You drop it.
+> n
+
+> n
+
+The drexl has clearly been domesticated by the strange alien creature standing beside it. The strange humanoid has a face which is very long on its left side, reaching down all the way to its chest; while the right side looks almost like the right half of a...Bothan's face. As you meet the gaze of the grotesque alien, you seem to catch a glimpse of an air of recognition in his yellow eyes. He starts to speak, but the word dribbles down his chin along with a strand of uncontainable saliva.
+You gasp. You realize that you are looking at Carth Ofenn----or what used to be Carth Ofenn----the Jedi who left the order just a few days back.
+Suddenly it all makes sense; his disappearance, the appearance of Shythia Winn, his presence here on Onderon...
+Ofenn has been seduced by the dark side of the Force by Shythia Winn, who has tortured him relentlessly to the point of changing his appearance to nearly unrecognizeable. You wonder if she meant to try to torment him as part of a common Sith technique employed to secure a being's commitment to the dark side but ended up mistakenly pushing it too far.
+Carth tries to speak again, but fails miserably, and so just stares at you as if waiting for you to initiate whatever is going to happen next.
+A small lake
+
+You can see former Jedi Carth Ofenn and a brown drexl.
+
+You can go south to the central beach or in to the water of the lake.
+
+You are far enough away from the ysalamiri lizard that your connection to the Force is re-established.
+> switch off force cloak
+
+> switch off force cloak
+
+It is already switched off.
+> use jedi mind trick
+
+> use jedi mind trick
+
+Ofenn is extremely malleable. You nudge his mind and to follow you. He directs the drexl to rise using the Force. He softly speaks to the behomoth as he mounts the natural saddle of its curved back. Then both drexl and Bothan stare at you as if waiting for something to happen.
+> s
+
+> s
+
+Ofenn directs his pet drexl to follow you.
+The beach
+
+The rocky beach continues southeast and north of here. A crooked old sign reads "Caution—Thermal Blasting Zone".
+
+You can see a cage (containing a tree lizard (perhaps an ysalamiri)).
+
+You can go southeast to the southern shore, north , where the beach eventually dead-ends into rock and impassable jungle or in to the lake itself.
+
+> take cage
+
+> take cage
+
+You pick it up.
+> se
+
+> se
+
+Ofenn directs his pet drexl to follow you.
+A small lake
+
+There appears to be the remnants of a rusty, old sign lying in the rocks at the edge of the water.
+
+You can see an old sign.
+
+You can go in to the water, northwest to the center of the beach or southwest toward the jungle.
+
+> sw
+
+> sw
+
+Ofenn directs his pet drexl to follow you.
+A path headed down towards a lake
+
+The path is quite wide here.
+
+You can go southwest up the gentle slope back toward the main path or northeast , following the path down to the lake.
+
+> sw
+
+> sw
+
+Ofenn directs his pet drexl to follow you.
+A jungle path northwest of a hill
+
+The northbound path branches off in two directions here.
+
+You can go south, northwest or northeast , where the path slopes downward toward a small lake.
+
+> nw
+
+> nw
+
+Ofenn directs his pet drexl to follow you.
+A path through the Onderon jungle
+
+You can go southeast or north.
+
+> n
+
+> n
+
+Ofenn directs his pet drexl to follow you.
+A path through the Onderon jungle
+
+The path continues north here. The east side is rendered impenetrable by the trees. The west decends precariously into a steep canyon with the sound of rushing water coming up from the bottom.
+
+You can go north or south.
+
+> n
+
+> n
+
+Ofenn directs his pet drexl to follow you.
+A path through the Onderon jungle
+
+The path seems to get more convoluted with trees to the north. It looks as if you could climb down the canyon face here if you were careful enough.
+
+You can go south, down to the bottom of the canyon or north.
+
+> n
+
+> n
+
+Ofenn directs his pet drexl to follow you.
+A dead end
+
+The path north through the jungle dead ends here.
+
+You can go south.
+
+As Ofenn and the drexl enter the room, the drexl stops. Its nostrils twitch and make loud sniffing sounds. All of a sudden the giant beast crashes through the trees to the north, carving its own pathway through the jungle. (You can now go north.)
+> n
+
+> n
+
+A path to the mine
+
+The jungle ends abruptly in a dirt clearing to the northwest.
+
+You can go west to the bridge that crosses over the gorge, south or northwest to a large, dirt clearing.
+
+Strange, loud puffing sounds can be heard in the direction of the clearing.
+The drexl rushes northwest. Ofenn hobbles along, lagging far behind.
+> nw
+
+> nw
+
+A dirt clearing at the entrance to the Abbadith Mine
+
+The jungle begins abruptly to the south. To the northwest, across a large dirt area, is the entrance to the mine.
+
+You can see a giant red drexl, former Jedi Carth Ofenn and a brown drexl.
+
+You can go southeast to the jungle or northwest to enter the mine.
+
+You enter the room to find the brown drexl facing off with an equally large red drexl. They slowly circle around, sizing each other up.
+
+(You consider helping the brown drexl, but realize you would probably be more of a hindrance than a help.)
+> z
+
+> z
+
+Time passes.
+The brown drexl attacks first. It beats its wings one time, launching itself at the red drexl. The red drexl rears up to defend itself. The former hits the latter with a crashing thud, its talons raking across the abdomen of the red drexl and drawing copious amounts of blood.
+> z
+
+> z
+
+Time passes.
+The red drexl shakes the brown drexl off of itself, grabs it by the right wing and throws it hard into the hillside. The red drexl follows up by diving headlong into the belly of its opponent.
+> z
+
+> z
+
+Time passes.
+Both drexls are seriously wounded. The brown drexl is being crushed against the hill. It struggles for several grueling seconds before it finally manages to push back the red drexl enough to get a shot at it neck. The brown drexl bites the red one's neck, crushing the windpipe and severing the jugular vein; causing blood to spurt like a pulsing fountain.
+The red drexl makes loud wheezing sounds as it fights for its life. In its struggle, it thrusts a clawed hand into the mouth and down the throat of the brown drexl.
+Alas, both beasts crash to the ground in a heap...dead.
+
+Carth Ofenn sluggishly scrapes his way over to his deceased pet. He lays his head against it and you see a single tear streak down his cheek.
+> z
+
+> z
+
+Time passes.
+> nw
+
+> nw
+
+An Abbadith mine
+
+The entrance to the mine used to head off in 3 directions, but the way to the left has been blocked by rubble.
+
+You can see an impossibly heavy stone door blocking the exit to the north.
+
+You can go southeast to the clearing outside, east down a very long, dimly lit hallway or north through the massive stone doorway.
+
+> se
+
+> se
+
+A dirt clearing at the entrance to the Abbadith Mine
+
+The jungle begins abruptly to the south. To the northwest, across a large dirt area, is the entrance to the mine.
+
+You can see the corpse of a giant red drexl, a brown drexl that has died as well and former Jedi Carth Ofenn.
+
+You can go southeast to the jungle or northwest to enter the mine.
+
+> drop cage
+
+> drop cage
+
+You drop it.
+You pause to consider all that has happened.
+> nw
+
+> nw
+
+An Abbadith mine
+
+The entrance to the mine used to head off in 3 directions, but the way to the left has been blocked by rubble.
+
+You can see an impossibly heavy stone door blocking the exit to the north.
+
+You can go southeast to the clearing outside, east down a very long, dimly lit hallway or north through the massive stone doorway.
+
+You are far enough away from the ysalamiri lizard that your connection to the Force is re-established.
+> use force lift on stone door
+
+> use force lift on stone door
+
+Even using the Force, the door is incredibly hard to move. You concentrate as hard as you can and actually manage to get it up about one meter off the ground. A bead of sweat streaks from your forehead to your cheek. You can only hold the door open a few more seconds...
+> n
+
+> n
+
+A ceremonial room
+
+The wall is covered in strange runes----none of which you can decipher. A brazen altar is the central focus of the room. A fire blazes atop the altar in an odd, sickly shade of green.
+
+You can see an impossibly heavy stone door blocking the exit to the south, an brazen altar with and a strange green fire burning atop it.
+
+You can go south through the stone doorway.
+
+> look green fire
+
+> look green fire
+
+The green fire is almost hypnotic. You begin to see the apparition of a face in the dancing flames.
+The face is statuesque and lifeless. It's eyesockets are hollow. "Master?" it asks.
+You frown.
+The face prods again, "Not Master? Master's brother then?"
+"No," you answer truthfully.
+"How get here?"
+You indicate the door. The face furrows. "Only Master strong enough to enter...Why here?"
+"I need to find 'Master'," you reply.
+The face responds, "Master awaken me from rest and encase me in fire to stay. Not know where Master goes when leaves me lonely."
+> pour water on green fire
+
+> pour water on green fire
+
+You empty the canteen on the dark fire. It doesn't go out, but lowers enough to temporarily reveal a dark gray box at its center.
+
+You have set a soul free from the fire. It says, "Aaaahhhh! I return to my rest" and disappears in a wisp of smoke.
+> take dark gray box
+
+> take dark gray box
+
+You pick it up.
+> use force lift on stone door
+
+> use force lift on stone door
+
+You strain to perform the same feat you pulled off moments ago before entering the room. You manage to get the door up high enough to crawl through if you hurry.
+> s
+
+> s
+
+An Abbadith mine
+
+The entrance to the mine used to head off in 3 directions, but the way to the left has been blocked by rubble.
+
+You can see an impossibly heavy stone door blocking the exit to the north.
+
+You can go southeast to the clearing outside, east down a very long, dimly lit hallway or north through the massive stone doorway.
+
+> open dark gray box
+
+> open dark gray box
+
+You open it.
+It contains a CryoBan grenade infused with the light side of the Force.
+You can hold it no longer. The door crashes to the ground with an incredible thump!
+> i
+
+> i
+
+You are carrying a your deeper connection to the light side of the force, a canteen, a red synthetic force crystal, a your Iightsaber, the Force amulet (worn), an encoded disc, a small black key, a ring of power (worn), a belt (worn) worn by Mission Vao thousands of years ago, your Starport Visa, an ancient vest worn by Mission Vao (worn) thousands of years ago, an access card, a DL-18 blaster pistol, a black bag, several cruckleberries, a thermal detonator and a dark gray box (containing a CryoBan grenade infused with the light side of the Force).
+> look
+
+> look
+
+An Abbadith mine
+
+The entrance to the mine used to head off in 3 directions, but the way to the left has been blocked by rubble.
+
+You can see an impossibly heavy stone door blocking the exit to the north.
+
+You can go southeast to the clearing outside, east down a very long, dimly lit hallway or north through the massive stone doorway.
+
+You can hold it no longer. The door crashes to the ground with an incredible thump!
+> se
+
+> se
+
+A dirt clearing at the entrance to the Abbadith Mine
+
+The jungle begins abruptly to the south. To the northwest, across a large dirt area, is the entrance to the mine.
+
+You can see the corpse of a giant red drexl, a brown drexl that has died as well, former Jedi Carth Ofenn and a cage (containing a tree lizard (perhaps an ysalamiri)).
+
+You can go southeast to the jungle or northwest to enter the mine.
+
+> take cage
+
+> take cage
+
+You pick it up.
+You pause to consider all that has happened.
+> nw
+
+> nw
+
+An Abbadith mine
+
+The entrance to the mine used to head off in 3 directions, but the way to the left has been blocked by rubble.
+
+You can see an impossibly heavy stone door blocking the exit to the north.
+
+You can go southeast to the clearing outside, east down a very long, dimly lit hallway or north through the massive stone doorway.
+
+> e
+
+> e
+
+A long tunnel
+
+The tunnel slopes steadily downward for several hundred meters.
+
+You can go west to the mine entrance or east to the end of the long hall.
+
+> e
+
+> e
+
+A top of a mine shaft
+
+The north wall falls away, becoming instead the top of a cliff dropping precariously to an enormous cavern 350 meters below.
+
+You can see a lift  to the north running from the top of the cliff to the base nearly 350 meters below.
+
+You can go into the long hallway to the west or step onto the lift.
+
+The fire has grown back up to its original size.
+> enter lift
+
+> enter lift
+
+You step onto the lift.
+The lift running from the top of the mine here to the base nearly 350 meters below
+
+There is metal railing around the lift and a panel with an up button and a down button. (There is an opening on the north side of the lift. From this height, the drop would mean certain death.)
+
+You can go north into the thin air above the cavern far below or south to exit the lift.
+
+> push down button
+
+> push down button
+
+The lift shudders slightly and then descends, creaking and groaning the rest of the entire way down to the bottom.
+The lift  running from the top of the mine down here to the base nearly 350 meters below ground
+
+There is metal railing around the lift and a panel with an up button and a down button. (You can exit the lift via a gate on the north side of it.)
+
+You can go north to get off the lift into the large cavern.
+
+> n
+
+> n
+
+The bottom of a large hollowed-out cavern
+
+This cavern is quite large. At one time it contained scoffolding, lifts, and ladders moving up and down along the rocky surface. Now, however, all that remains are piles of ancient rubble----preserved by the protection of the cave, but torn down none-the-less.
+A natural staircase forged of multiple tiered steppes leads upward to the northwest.
+
+You can see a lift running from the top of the mine to the base nearly 350 meters below.
+
+You can go through a barely visible opening in the cavern's rocky face on the northwest side.
+
+Your footsteps echo off of the distant walls.
+> nw
+
+> nw
+
+The outer court of the Sith temple
+
+The long, thin room is lined with torches, burning dimly. Beneath the torches the walls are adorned with multiple arcane runes bearing the resemblance to those found in the Valley of Golg. (The Valley of Golg was one of many burial valleys constructed on Korriban by the ancient Sith Empire.) Portraits of past Sith masters are hung above each torch. (The portraits include: Darth Bane; Darth Zash; Tulak Hord; Darth Thanaton; Darth Zannah; Darth Malak; Darth Revan; and Darth Malgus.)
+In all, the room is a profane mockery of the outer court that leads into the Jedi Council's chamber at the Jedi Temple.
+
+You can see multiple runes on the walls.
+
+You can go southeast to the massive cavern or northwest to a room that sparkles with every color of the rainbow.
+
+> nw
+
+> nw
+
+A cavern of crystals
+
+The spectacular room is full of innumerable crystals; each manifesting a degree of Force energy.
+
+You can see a wine crystal, a lapis crystal, a tuscan sun crystal, a mulberry crystal and an emerald crystal.
+
+You can go north to another corridor or southeast to the room full of runes and Sith portraits.
+
+The soft lighting strategically hidden throughout the room explodes magnificently in hues of red ranging from wine to magenta. Blue shades such as cerulean, lapis, and indigo erupt from a conglomeration of stalagmites all along the east wall. A yellow, tuscan-sun- and honey- colored crystalline structure covers most of the northwestern section of the room from floor to cieling. Near to you, a stalagtite of amethyst, jam, and mulberry colored crystals clothes you in a dancing purple outfit. Three rigid pillars comprised of mint-, emerald-, and fern- green crystals. As you examine the various structures, you notice that each one has at least one loose crystal in the bunch.
+> x crystals
+
+> x crystals
+
+Nothing out of the ordinary.
+> take all crystals
+
+> take all crystals
+
+Emerald-, lapis-, mulberry-, Tuscan sun-, and wine- colored crystals added to inventory.
+> n
+
+> n
+
+A dark and dank corridor
+
+The corridor slopes downward toward the lowest room in the Sith Temple or up to the crystal cave room. A panel containing four crystalline slots resides adjacent to the door on the north end of the corridor.
+
+You can see a crystalline flask number 1, a crystalline flask number 2, a crystalline flask number 3 and a crystalline flask number 4.
+
+You can go north or south to the crystal room.
+
+The outline of a door is etched into the stone wall at the north end of the room.
+> use lapis crystal on crystalline flask number 1
+
+> use lapis crystal on crystalline flask number 1
+
+The crystal fits perfectly, but nothing happens.
+> use emerald crystal on crystalline flask number 2
+
+> use emerald crystal on crystalline flask number 2
+
+The crystal fits perfectly, but nothing happens.
+> use tuscan sun crystal on crystalline flask number 3
+
+> use tuscan sun crystal on crystalline flask number 3
+
+The crystal fits perfectly, but nothing happens.
+> use wine crystal on crystalline flask number 4
+
+> use wine crystal on crystalline flask number 4
+
+You hear a series of clicking sounds as the stone door to the north unlocks, then grinds open.
+> n
+
+> n
+
+*****
+You have done it...you found her.
+*****
+The Sith Temple's Hall of Masters
+
+You have entered the Sith Temple's centermost point, the Hall of Masters.
+
+You can see Lord of the Sith  Darth Rihada (a.k.a. Shythia Winn), a statue of Freedon Nadd, several chairs positioned in a semi-cirlce just as in the Jedi Temple's Council Chambers and a large wrap-around window projecting a holographic display of a blazing inferno on the north side of the room.
+
+You can go south to the outer corridor of the Sith Temple Hall of Masters.
+
+*****
+(The door slams shut behind you.)
+*****
+The room is a perversion of the jedi master's meeting room in the Jedi Temple, this room is designed with the same parameters, only everything is dark and twisted. Even the lights seem to pull more light from the room than actually illuminate it. A holographic projection of an inferno plays through the false window that surround the entire northern half of the room. Even so, the room is incredibly cold, dank, and dark.
+Seated in the centermost chair deep in meditation is the Dark Lord of the Sith herself. Her head is bowed as you enter. Then the hood of her robe slowly begins to lift as she comes up and locks eyes with the intruder (you). She peers at you for several moments, then says, "How did you do that?"
+You realize that her connection to the Force has been severed by the presence of the ysalamiri. You bluff, "I am more powerful than you can fathom, Sith."
+You spew the last word as if it were poison in your mouth.
+Darth Rihada looks terrified, but you know that she will begin to figure out the problem if you take too long.
+
+> shoot rihada
+
+> shoot rihada
+
+You squeeze off the last shot left in the blaster. Even without using the Force, the Sith woman could see what was coming, she manages to duck and the shot----intended for her center mass----instead glances off of her right shoulder. She shrieks in pain.
+
+(You toss the useless blaster aside and it disappears through a grate in the floor.)
+You continue to look for ways to attack the Sith Lord that will be unexpected by her.
+The Sith woman looks simultaneously horrified and dumbfounded at her lack of Force powers.
+> use detonator
+
+> use detonator
+
+You press the trigger and launch the detonator over Shythia to get it as far from yourself as possible. The Sith woman watches the device sail over her head in horror. Unable to use the Force to stop the attack, she tries to run and dive out of the way.
+The detonator explodes while she is in mid-air, propelling her across the room and slamming her into the opposite wall. She coughs hard, spitting blood. She inhales loudly, trying desperately to refill her lungs.
+
+The ysalamiri panics at the noise of the bomb. It claws and bites at the cage, tearing it apart. The lizard then darts from the room and disappears from view.
+Your lightsaber hisses to life. The blade glows in varying shades of blue ranging from white-hot in the center to a deep ultramarine at the outer edge.
+You continue to look for ways to attack the Sith Lord that will be unexpected by her.
+***
+Your two lightsabers spark repeatedly as the red and blue blades bash against eachother. She has the upper hand in lightsaber combat and manages to land a few glancing blows.
+***
+> use force push on rihada
+
+> use force push on rihada
+
+You palm strike the air in front of you. Darth Rihada's head snaps back, as if struck in the face. Your other hand repeats the motion, striking her again. You alternate strikes with impossible speed----your arms an untraceable blur. The Sith Lord is thrown against the rear wall and beaten to a pulp.
+When the Force at last dissipates and you have to stop, the Sith's face is cut and bruised like a pugilist who just got the beating of her life.
+Her yellow eyes stare at you with a coldness that betrays her unfettered loathing.
+You continue to look for ways to attack the Sith Lord that will be unexpected by her.
+***
+Darth Rihada and you continue to engage in combat. She makes a few other lightning-fast strikes count.
+***
+> use force wind on rihada
+
+> use force wind on rihada
+
+You twist and crouch as if preparing to throw a massive weight. As you uncoil you feel the Force flowing through you. A great wind passes by you on all sides. The entire room rattles with the sheer strength of the gale. Darth Rihada----along with anything else that is not tied down----is thrown against the wall at breakneck speed.
+Staring at you with wild yellow eyes brimming with supreme hatred, she is pinned to the wall for nearly a full minute when at last your power begins to subside.
+She flops to the floor in a heap.
+You continue to look for ways to attack the Sith Lord that will be unexpected by her.
+***
+The Sith wounds you deeply.
+***
+> use force lift on rihada
+
+> use force lift on rihada
+
+You hold your arms in front of you as if offering a sacrifice to the Dark Lord of the Sith. She looks confused by the motion, and realizes too late what you are doing. She desperately tries to wrap herself with a Force defense against the attack; but alas, she is too late. Her body flops sideways as if caught by an invisible rancor's hand. You raise your arms high above your head. The Sith screams just before her body is slammed against the ceiling. You drop your arms and she is thrown to the ground far faster than gravity would have done.
+She gasps for air. You can sense that multiple bones in her body are broken.
+*****
+That last attack was enough to mortally wound Darth Rihada. She falls back on the ground in the throes of death.
+> kill rihada
+
+> kill rihada
+
+The powerful sith woman looks at you with eyes full of hatred. She calls her lightsaber to her hand, but it's too late. You close your eyes and finish her off with a quick stab through her chest.
+> look
+
+> look
+
+The Sith Temple's Hall of Masters
+
+You have entered the Sith Temple's centermost point, the Hall of Masters.
+
+You can see the lifeless body of Darth Rihada (containing a Sith lightsaber), a statue of Freedon Nadd, several chairs positioned in a semi-cirlce just as in the Jedi Temple's Council Chambers and a large wrap-around window projecting a holographic display of a blazing inferno on the north side of the room.
+
+You can go south to the outer corridor of the Sith Temple Hall of Masters.
+
+> x statue
+
+> x statue
+
+You notice two buttons at the base of the statue; one red, one blue.
+> push red button
+
+> push red button
+
+The exit to the south opens.
+> push blue button
+
+> push blue button
+
+(You hear a distant rumbling sound.)
+You still need to find out why Darth Rihada was sabotaging the shipment of MREs to Dxun.
+> s
+
+> s
+
+Your mission now is to find a way to get to the location on Onderon's nearby moon, Dxun, and figure out what Darth Rihada was doing sabotaging the MREs being shipped there.
+A dark and dank corridor
+
+The corridor slopes downward toward the lowest room in the Sith Temple or up to the crystal cave room. A panel containing four crystalline slots resides adjacent to the door on the north end of the corridor.
+
+You can see a crystalline flask number 1, a crystalline flask number 2 (containing an emerald crystal), a crystalline flask number 3 (containing a tuscan sun crystal) and a crystalline flask number 4 (containing a wine crystal).
+
+You can go north or south to the crystal room.
+
+.
+> s
+
+> s
+
+A cavern of crystals
+
+The spectacular room is full of innumerable crystals; each manifesting a degree of Force energy.
+
+You can go north to another corridor or southeast to the room full of runes and Sith portraits.
+
+> se
+
+> se
+
+The outer court of the Sith temple
+
+The long, thin room is lined with torches, burning dimly. Beneath the torches the walls are adorned with multiple arcane runes bearing the resemblance to those found in the Valley of Golg. (The Valley of Golg was one of many burial valleys constructed on Korriban by the ancient Sith Empire.) Portraits of past Sith masters are hung above each torch. (The portraits include: Darth Bane; Darth Zash; Tulak Hord; Darth Thanaton; Darth Zannah; Darth Malak; Darth Revan; and Darth Malgus.)
+In all, the room is a profane mockery of the outer court that leads into the Jedi Council's chamber at the Jedi Temple.
+
+You can see multiple runes on the walls.
+
+You can go southeast to the massive cavern or northwest to a room that sparkles with every color of the rainbow.
+
+> se
+
+> se
+
+The bottom of a large hollowed-out cavern
+
+This cavern is quite large. At one time it contained scoffolding, lifts, and ladders moving up and down along the rocky surface. Now, however, all that remains are piles of ancient rubble----preserved by the protection of the cave, but torn down none-the-less.
+A natural staircase forged of multiple tiered steppes leads upward to the northwest.
+
+You can see a lift running from the top of the mine to the base nearly 350 meters below and a Sith starship of a class you've never seen before.
+
+You can go through a barely visible opening in the cavern's rocky face on the northwest side.
+
+As you enter, you see a strange starship landing itself in the center of the cavern.
+
+> enter transport
+
+> enter transport
+
+You climb aboard the Sith transport and take a seat in the cockpit.
+A Sith starship
+
+Fortunately, the ship's layout is very basic.
+
+You can see the control panel , upon which you can enter the location that you wish to travel to..
+
+You take your seat in the cockpit. The panel prompts you to enter a destination.
+> input dxun location on control panel
+
+> input dxun location on control panel
+
+The ship shudders slightly as it lifts off. The cave ceiling high overhead opens, letting in the Onderon sunlight. The starship flies straight up through the opening and the thrusters propel you skyward.
+As the ship orbits the planet, you can see the large moon come into view over the horizon.
+Onderon's only moon, Dxun, orbits close enough to the planet that at certain times the two bodies actually share an atmosphere.
+The moon grows and grows until it fills the entire view. Dxun is large and green due to its dense forestation.
+The ship rolls and heads south around the southern pole of the moon.
+The ship flies lower until it is just above the treetops. It banks right to avoid flying into a volcano.
+At last you see a large clearing come into view at the base of the volcano. You can see a landing pad in the middle of the clearing.
+The ship lands atop the landing pad and the cockpit opens automatically.
+> out
+
+> out
+
+A landing pad
+
+You are standing atop a landing pad overlooking a clearing in which the Jedi have set up camp. There are two large Jedi startships on the north end of the landing pad that dwarf the small Sith transport that you arrived in.
+
+You can see a Sith starship of a class you've never seen before.
+
+You can go down a flight of stairs on the west side of the landing pad.
+
+> look
+
+> look
+
+A landing pad
+
+You are standing atop a landing pad overlooking a clearing in which the Jedi have set up camp. There are two large Jedi startships on the north end of the landing pad that dwarf the small Sith transport that you arrived in.
+
+You can see a Sith starship of a class you've never seen before.
+
+You can go down a flight of stairs on the west side of the landing pad.
+
+> w
+
+> w
+
+The Jedi encampment on Dxun
+
+The camp is set up at the base of a volcano. Although several shelters have been set up, the camp is surprisingly quiet.
+
+You can see a young Jedi knight named Yoda and a male Hysalrian Jedi Master named N'Kata Del Gormo.
+
+You can go up the stairs to the east back to the landing pad or southwest toward the volcano.
+
+> look
+
+> look
+
+The Jedi encampment on Dxun
+
+The camp is set up at the base of a volcano. Although several shelters have been set up, the camp is surprisingly quiet.
+
+You can see a young Jedi knight named Yoda and a male Hysalrian Jedi Master named N'Kata Del Gormo.
+
+You can go up the stairs to the east back to the landing pad or southwest toward the volcano.
+
+...
+> sw
+
+> sw
+
+A cool breeze rattles the forest trees.
+The path to the volcano
+
+The path through the forest has an oddly ominous tone to it.
+
+You can go northeast to the Jedi encampment or southwest toward the volcano.
+
+...
+> sw
+
+> sw
+
+Strangely, the breeze seems to be eminating from the volcano itself.
+The base of a  volcano
+
+You can go northeast away from the volcano or up a sort of natural staircase to the middle of the volcano.
+
+...
+> look
+
+> look
+
+The base of a  volcano
+
+You can go northeast away from the volcano or up a sort of natural staircase to the middle of the volcano.
+
+...
+> up
+
+> up
+
+The volcano
+
+The porous pumice rock makes a crunching sound beneath your feet.
+
+You can go back down to the base of the volcano or in through a 1-meter-wide crevice in the face of the volcano.
+
+> look
+
+> look
+
+The volcano
+
+The porous pumice rock makes a crunching sound beneath your feet.
+
+You can go back down to the base of the volcano or in through a 1-meter-wide crevice in the face of the volcano.
+
+> x pebble
+
+> x pebble
+
+I can't see that.
+> in
+
+> in
+
+Strangely, the breeze seems to be eminating from the volcano itself.
+A steam vent coming out of the volcano
+
+You can go south into the center of the volcano or back out.
+
+The natural tunnel formed by the steam vent coming from the volcano's core is just wide enough to allow one being through at a time. The steam is incredibly hot.
+> look
+
+> look
+
+A steam vent coming out of the volcano
+
+You can go south into the center of the volcano or back out.
+
+> s
+
+> s
+
+Your body seems to be experiencing the cold of the dark side and the heat of the volcanic steam simultaneously.
+A volcano center
+
+The sole light source is the opening at the top of the volcanic shaft. Steam rises from the piping hot ground, swirling in a dancing eddy that threatens to sear the flesh from your bones. You are forced to split your focus between the relic's Guardian and maintaining a Force barrier to keep yourself from being boiled alive.
+
+You can see the Guardian of the volcano.
+
+You can go north to the tunnel.
+
+> throw grenade at guardian
+
+> throw grenade at guardian
+
+You prime the device and heave it at the shadowy figure. A hideous hissing voice invades your brain temporarily. "WHAT WAS THA...?! NNNNNOOOOOOOO!!!!!!!"...
+The terrifying voice is silenced by the detonation of the grenade. The grenade explodes in sky-blue shards of icy crystals; as bright as shafts of light. Simultaneously, the halo-like rings expand and incase the Guardian in a swirling, dancing orbit of pure light side energy.
+...
+> look
+
+> look
+
+A volcano center
+
+The sole light source is the opening at the top of the volcanic shaft. Steam rises from the piping hot ground, swirling in a dancing eddy that threatens to sear the flesh from your bones. You are forced to split your focus between the relic's Guardian and maintaining a Force barrier to keep yourself from being boiled alive.
+
+You can see the Guardian of the volcano and the ancient relic.
+
+You can go north to the tunnel.
+
+...
+> take relic
+
+> take relic
+
+**************************
+Your spine tingles as you take the ancient, priceless relic into your posession. You peer into it, sensing the incredible power that it offers you. As you fixate on it, you are suddenly aware that you are not alone. The disembodied souls of a dozen ancient Sith Masters stand ready to serve you; Karnass Muur, Marka Ragnos, Exar Kun, Darth Malak, Darth Malgus... The incredibly menacing spirit of Darth Bane looks at you expectantly. "Why have you brought us here?" he snarls.
+Initially, you feel almost overpowered by the fear threatening to consume you; but you calm yourself and realize that the spirits of the Dark Lords are bound to the relic and are therefore subservient to the wishes of its owner. You look into Bane's eyes and the eyes of each of the ancient Sith Masters one at a time. Each stares back at you with a mixture of malice and anticipation. Your fear transforms to loathing before you center yourself in the Force. The loathing then slowly changes  into pity, which then slowly rolls into compassion. “Compassion for the beings that have caused so much strife, anguish, and death in the galaxy for millennia?” you ask aloud to yourself.
+Darth Malgus tilts his head inquisitively. You know that you could choose to wield the incredible power of the relic, but you have zero doubt that it would eventually lead you down the same path that these poor souls travelled in life. You see very clearly now that the way of darkness leads to complete crushing of one’s will and an eternity of hopeless wanderings through the shadows of black space.
+So instead you place the relic on the volcano floor. You raise your lightsaber blade, point down. The Sith realize in horror what you are preparing to do. Not knowing what will happen to them if the relic is destroyed, they begin to plead pathetically for you to stay your hand. You look Darth Malak square in the eye and say with great sympathy, “I release you to your rest.”
+You plunge your blue blade into the weapon, piercing even the ground beneath it. The Sith Lords become mere wisps of smoke and follow the steam up and out of the volcano opening far above.
+Yoda comes out of stasis and walks solemnly up to you. “Done well you have,” he offers.
+You smile down at the small, green Jedi. You exit the volcano with him, climb down its face, and flop down on the ground at the base. You have been through a lifetime of experiences in a mere day. You are exhausted.
+You return to Corusant and within months you are assigned the rank of Master. As you live out your life, you uphold the tenants of the Jedi order with a level of honor and respectability that leaves behind a legacy of great reverence. Your name and all that you stood for live on well beyond your mortal life.
+***************************
+...
+> look
+
+> look
+
+A volcano center
+
+The sole light source is the opening at the top of the volcanic shaft. Steam rises from the piping hot ground, swirling in a dancing eddy that threatens to sear the flesh from your bones. You are forced to split your focus between the relic's Guardian and maintaining a Force barrier to keep yourself from being boiled alive.
+
+You can see the Guardian of the volcano and the ancient relic.
+
+You can go north to the tunnel or in.
+
+...
+> in
+
+> in
+
+Game created by: Steve J Walker
+
+Congratulations!!!! You won!!!!
+
+Thanks so much for playing. This is the first text adventure that I've ever created. It took me more than four months to finish! I love the Star Wars genre, so it was a labor of love. I hope that you found it worth the effort. I'm sure it's not seamless, but if you made it to the end it must be at least do-able.
+Thanks again! Now try beating it as a follower of the dark side of the Force! It requires a somewhat different approach, especially when facing the last two Sith bosses.
+[state=Finished]

@@ -1,0 +1,964 @@
+What is your name? 0: Aaron 1: Aedan
+> 0
+My name is Aedan, and I don't know where I am.
+
+Let me back up.
+
+I grew up on the streets of Touboro, a small commune along the eastern border of Cameroon. It was hot, dry, and quiet. In a word, paradise.
+
+Now don't get me wrong, I've lived a life far from perfect. My father died when I was six months old, and the locals like to joke that my mother didn't even stick around for my birth. Had I been born into a colder climate I probably would've died before I learned to crawl. As it is, however, I learned to raise myself, and over time I've discovered three rules for surviving on the streets:
+
+   1. Stay warm
+   2. Eat slowly
+   3. Keep your head low to the ground
+
+If you keep to these, there's nothing on earth that you can't squirm out of. Unfortunately, as I've discovered, there are other things to worry about.
+
+Last night I laid under the stars, the world around me calm, still. Even the lark stays its cry come nightfall, and only the southern river separates a minute from an instant. But ashes to ashes, as the proverbs say, and peace soon came to pass. A bright light appeared in the sky above me, and a shapeless black mass lifted me from where I'd lain. Slate gray walls enclosed around me, and the world went black.
+
+Time went by. Perhaps minutes. Perhaps days. Sleep and wake blend together when the world disappears. Eventually the walls were lifted, and I woke up here.
+
+My name is Aedan, and I don't know where I am. But I do know that something brought me here, and that it's going to come back for me. I can't stay here. It's coming.
+
+You are in an office.
+You can go north, west, east or south.
+> east
+
+> east
+
+You are in an office.
+There's a door on the east wall with a large heart on it.
+You can see a Key Card Reader connected to Heart Door.
+You can go north, west, south or east.
+> south
+
+> south
+
+You are in an office.
+You can see a dead rat.
+You can go north or west.
+> eat dead rat
+
+> eat dead rat
+Delicious! You feel...invigorated. Virile. Voluptuous......you're starting to make yourself uncomfortable.
+> west
+
+> west
+
+You are in an office.
+You can go north, east or west.
+> west
+
+> west
+
+You are in an office.
+You can see a box.
+You can go north, east or into vent.
+> push box
+
+> push box
+You slam into the box with all of your weight, and manage to push it aside. You feel a sense of accomplishment somewhat disproportionate to the task of moving a box.
+> go into vent
+
+> go into vent
+
+You are in a vent.
+It slopes down on a curve. It probably goes under the floor and to the north.
+You can go north or out.
+> north
+
+> north
+
+You are in a vent.
+It's dark.
+You can see a Heart Key Card.
+You can go north or south.
+> take key card
+
+> take key card
+You pick up the key card.
+> north
+
+> north
+
+You are in a vent.
+The duct ahead of you looks like it curves back up, and it will probably end in one of the rooms above you.
+You can go south or out.
+> out
+
+> out
+
+You are in an office.
+You can see a vent on the wall, but the room is otherwise unremarkable.
+You can go east, south or into vent.
+> east
+
+> east
+
+You are in an office.
+You can go west, east or south.
+> east
+
+> east
+
+You are in an office.
+A TV blares noisily in the corner of the room.
+You can see a TV.
+You can go west or south.
+> south
+
+> south
+
+You are in an office.
+There's a door on the east wall with a large heart on it.
+You can see a Key Card Reader connected to Heart Door.
+You can go north, west, south or east.
+> use key card on card reader
+
+> use key card on card reader
+Bleep, boop, doop! Now that you're done scat singing, you use the key card in the reader, and the door opens silently.
+> east
+
+> east
+
+You are in a study.
+You can go east, south or west.
+> drop heart key card
+
+> drop heart key card
+You drop it.
+> east
+
+> east
+
+You are in a study.
+This side of the room is ornately detailed. Thick red carpets line the floor, and gilded bookcases stand floor to ceiling on each side. Velvet banners hang from the walls, brandishing the seals of wealthy European houses. Architectural cues guide your eyes to the meeting of the two walls, the center of which houses an enormous fireplace. Atop the fireplace sits a handpainted oil painting, that shimmers from the glow of the fire.
+
+You can see a painting.
+You can go west or south.
+> south
+
+> south
+
+You are in a study.
+You can go west, north or south.
+> south
+
+> south
+
+You are in a large, empty room.
+You can go west, east, south or north.
+This room is crazy large, and there's nothing in it. Zip. Squat. You've haven't space so underutilized since the shuttle program got shut down. Well, maybe not that bad, there are a few things at the far end.
+> west
+
+> west
+
+You are in a large, empty room.
+You can go west, east or south.
+> west
+
+> west
+
+You are in a large, empty room.
+You can go east or south.
+> south
+
+> south
+
+You are in a large, empty room.
+You can see a Fleur-De-Lis Key Card.
+You can go east or north.
+> take fleur-de-lis key card
+
+> take fleur-de-lis key card
+You pick up the key card.
+> east
+
+> east
+
+You are in a large, empty room.
+There's a door on the south wall here with a large fleur-de-lis on it. Seriously, this place uses large icons to match doors to keys? Oh well, easier for you...
+You can see a Key Card Reader connected to Fleur-De-Lis Door.
+You can go west, east, north or south.
+> use key card on card reader
+
+> use key card on card reader
+The card reader signals its approval with a noise inimitable through onomatopoeia.
+> south
+
+> south
+
+You are in a storage room.
+You can see a Lactase Enzyme Pills.
+You can go west, south or north.
+This room has a warm draft. You hate warm drafts.
+> eat lactase enzyme pills
+
+> eat lactase enzyme pills
+Packing on the pounds, there, aren't you? Look, someone had to tell you. Really, you should be thankful. Don't get so damn emotional!
+> west
+
+> west
+
+You are in a storage room.
+You can go east or south.
+> south
+
+> south
+
+You are in a storage room.
+You can go east, north or south.
+> south
+
+> south
+
+You are in a storage room.
+A small lamp sits atop a plain wooden desk. Were this room any less remarkable, Dominos would make it their walk-in special.
+You can see a Lamp.
+You can go east or north.
+> east
+
+> east
+
+You are in a storage room.
+You can go west or north.
+> north
+
+> north
+
+You are in a storage room.
+You can go west, north or south.
+> north
+
+> north
+
+You are in a storage room.
+You can go west, south or north.
+> north
+
+> north
+
+You are in a large, empty room.
+There's a door on the south wall here with a large fleur-de-lis on it. Seriously, this place uses large icons to match doors to keys? Oh well, easier for you...
+You can see a Key Card Reader connected to Fleur-De-Lis Door.
+You can go west, east, north or south.
+> east
+
+> east
+
+You are in a large, empty room.
+You can go west, east or north.
+> east
+
+> east
+
+You are in a large, empty room.
+There's a door on the south wall here with a large fleur-de-lis on it. You mumble something clever to yourself about the French.
+You can see a Key Card Reader connected to Fleur-De-Lis Door.
+You can go west, east, north or south.
+> use key card on card reader
+
+> use key card on card reader
+The reader accepts the card, sucking it in; out of the slot is unleashed a flood of wailing, tormented screams: the sound of thousands of souls who have died in previous save files, trying in vain to escape the eternal prison that is this puzzle room, never to find solace.No pressure.
+> drop fleur-de-lis key card
+
+> drop fleur-de-lis key card
+You drop it.
+> south
+
+> south
+
+You are in an utility closet.
+The walls of this room are jet black. A single light flickers dimly on the ceiling, but you can only see a few feet in front of you.
+You can go east, south or north.
+This room has a cold draft. You hate cold drafts.
+> east
+
+> east
+
+You are in an utility closet.
+You can go west or south.
+> south
+
+> south
+
+You are in an utility closet.
+You can go west, north or south.
+> south
+
+> south
+
+You are in an utility closet.
+You can go west, north or south.
+> south
+
+> south
+
+You are in an utility closet.
+You can go west or north.
+> west
+
+> west
+
+You are in an utility closet.
+On the wall at the end of the room are three glowing square boxes, each of equal shape, size and colour. From left to right, the boxes have inscribed on them "11" , "89" , and "clockwise". Below the boxes is a large wheel with a black button at its middle. Along the wheel is a silver engraving that reads "All will open and seas will fall, when numbers become words, and words become scrawl."  Whatever is going on here, it's too damn complicated for a text adventure, and is certainly not worth your time.
+You can go east or north.
+> north
+
+> north
+
+You are in an utility closet.
+You can go east, north or south.
+> north
+
+> north
+
+You are in an utility closet.
+Through the darkness you glimpse a glass of milk, just sitting there on the floor. How odd.
+You can see a Glass of Milk.
+You can go east, north or south.
+> drink glass of milk
+
+> drink glass of milk
+The rich whole-fat goodness goes straight to your ample midsection as you drink....
+> north
+
+> north
+
+You are in an utility closet.
+The walls of this room are jet black. A single light flickers dimly on the ceiling, but you can only see a few feet in front of you.
+You can go east, south or north.
+> north
+
+> north
+
+You are in a large, empty room.
+There's a door on the south wall here with a large fleur-de-lis on it. You mumble something clever to yourself about the French.
+You can see a Key Card Reader connected to Fleur-De-Lis Door and a Fleur-De-Lis Key Card.
+You can go west, east, north or south.
+> west
+
+> west
+
+You are in a large, empty room.
+You can go west, east or north.
+> north
+
+> north
+
+You are in a large, empty room.
+You can go west, east, south or north.
+> north
+
+> north
+
+You are in a study.
+You can go west, north or south.
+> north
+
+> north
+
+You are in a study.
+This side of the room is ornately detailed. Thick red carpets line the floor, and gilded bookcases stand floor to ceiling on each side. Velvet banners hang from the walls, brandishing the seals of wealthy European houses. Architectural cues guide your eyes to the meeting of the two walls, the center of which houses an enormous fireplace. Atop the fireplace sits a handpainted oil painting, that shimmers from the glow of the fire.
+
+You can see a painting.
+You can go west or south.
+> west
+
+> west
+
+You are in a study.
+You can see a Heart Key Card.
+You can go east, south or west.
+> west
+
+> west
+
+You are in an office.
+There's a door on the east wall with a large heart on it.
+You can see a Key Card Reader connected to Heart Door.
+You can go north, west, south or east.
+> north
+
+> north
+
+You are in an office.
+A TV blares noisily in the corner of the room.
+You can see a TV.
+You can go west or south.
+> west
+
+> west
+
+You are in an office.
+You can go west, east or south.
+> west
+
+> west
+
+You are in an office.
+You can see a vent on the wall, but the room is otherwise unremarkable.
+You can go east, south or into vent.
+> south
+
+> south
+
+You are in an office.
+You can go north, south or east.
+> south
+
+> south
+
+You are in an office.
+You can go north, east or into vent.
+> east
+
+> east
+
+You are in an office.
+You can go north, east or west.
+> north
+
+> north
+
+You are in an office.
+You can go north, west, east or south.
+> east
+
+> east
+
+You are in an office.
+There's a door on the east wall with a large heart on it.
+You can see a Key Card Reader connected to Heart Door.
+You can go north, west, south or east.
+> east
+
+> east
+
+You are in a study.
+You can see a Heart Key Card.
+You can go east, south or west.
+> south
+
+> south
+
+You are in a study.
+You can see an Ikea shelf.
+You can go east or north.
+> x ikea shelf
+
+> x ikea shelf
+
+You look at the shelf sternly. It is intimidated by your strength and collapses immediately. Several wrapped food items fall out of one of the drawers.
+> eat brightly coloured candy
+
+> eat brightly coloured candy
+It tastes so good, but the shame burns so badly. Not that you care. You're just taking up ever more space as you go.
+> eat dull boring candy
+
+> eat dull boring candy
+You down it all like nothing. Did your parents teach you no manners? You are grown now, but only in size.
+> east
+
+> east
+
+You are in a study.
+You can go west, north or south.
+> south
+
+> south
+
+You are in a large, empty room.
+You can go west, east, south or north.
+> east
+
+> east
+
+You are in a large, empty room.
+You can go west, east or south.
+> east
+
+> east
+
+You are in a large, empty room.
+You can go west or south.
+> south
+
+> south
+
+You are in a large, empty room.
+This is the south-east corner of the room. You see a door on the east wall, and a scale attached to the locking mechanism. They sure do secure their doors in strange ways here.
+You can see a Scale.
+You can go west, north or east.
+> use scale
+
+> use scale
+The scale beeps. Just as you give up hope and go to look for another dirty rat to eat, you hear the clicking noise of a door unlocking.
+> east
+
+> east
+
+You are in an oppressively dark room.
+This is the north-west corner of a huge space. There's a door that goes north here. The lock on this door is very odd looking indeed.
+You can see a shake-powered flashlight and a door control.
+You can go east, south, west or north.
+This space is....huge. Yet really dark. Palpably dark. You could almost eat the darkness like cotton candy.
+> east
+
+> east
+
+You are in an oppressively dark room.
+You can go west, east or south.
+> south
+
+> south
+
+You are in an oppressively dark room.
+You can see a shake-powered flashlight.
+You can go west, east, north or south.
+> shake flashlight
+
+> shake flashlight
+You shake the flashlight. It's a bit awkward. 3 little lights blink on the side to indicate the amount of charge. You set it down and point it at the photoreceptor on the door control.
+> south
+
+> south
+
+You are in an oppressively dark room.
+You can go west, east, north or south.
+> south
+
+> south
+
+You are in an oppressively dark room.
+You can see a shake-powered flashlight.
+You can go west, east, north or south.
+> shake flashlight
+
+> shake flashlight
+You shake the flashlight. It's a bit awkward. 7 little lights blink on the side to indicate the amount of charge. You set it down and point it at the photoreceptor on the door control.
+> south
+
+> south
+
+You are in an oppressively dark room.
+You can go west, east, north or south.
+A light turns off in the distance. It's probably one of those flashlights you turned on a minute ago.
+> south
+
+> south
+
+You are in an oppressively dark room.
+You can see a shake-powered flashlight.
+You can go west, east, north or south.
+> shake flashlight
+
+> shake flashlight
+You shake the flashlight. It's a bit awkward. 11 little lights blink on the side to indicate the amount of charge. You set it down and point it at the photoreceptor on the door control.
+> south
+
+> south
+
+You are in an oppressively dark room.
+You can go west, east or north.
+> west
+
+> west
+
+You are in an oppressively dark room.
+You can see a shake-powered flashlight.
+You can go east or north.
+> shake flashlight
+
+> shake flashlight
+You shake the flashlight. It's a bit awkward. 13 little lights blink on the side to indicate the amount of charge. You set it down and point it at the photoreceptor on the door control.
+> north
+
+> north
+
+You are in an oppressively dark room.
+You can go east, north or south.
+> north
+
+> north
+
+You are in an oppressively dark room.
+You can see a shake-powered flashlight.
+You can go east, north or south.
+> shake flashlight
+
+> shake flashlight
+You shake the flashlight. It's a bit awkward. 9 little lights blink on the side to indicate the amount of charge. You set it down and point it at the photoreceptor on the door control.
+> north
+
+> north
+
+You are in an oppressively dark room.
+You can go east, north or south.
+A light turns off in the distance. It's probably one of those flashlights you turned on a minute ago.
+> north
+
+> north
+
+You are in an oppressively dark room.
+You can see a shake-powered flashlight.
+You can go east, north or south.
+> shake flashlight
+
+> shake flashlight
+You shake the flashlight. It's a bit awkward. 5 little lights blink on the side to indicate the amount of charge. You set it down and point it at the photoreceptor on the door control.
+> east
+
+> east
+
+You are in an oppressively dark room.
+You can go west, east, north or south.
+> north
+
+> north
+
+You are in an oppressively dark room.
+You can see a shake-powered flashlight.
+You can go west, east, north or south.
+> shake flashlight
+
+> shake flashlight
+You shake the flashlight. It's a bit awkward. 3 little lights blink on the side to indicate the amount of charge. You set it down and point it at the photoreceptor on the door control.
+> west
+
+> west
+
+You are in an oppressively dark room.
+You can go east, north or south.
+> north
+
+> north
+
+You are in an oppressively dark room.
+This is the north-west corner of a huge space. There's a door that goes north here. The lock on this door is very odd looking indeed.
+You can see a shake-powered flashlight and a door control.
+You can go east, south, west or north.
+> shake flashlight
+
+> shake flashlight
+You shake the flashlight. It's a bit awkward. 3 little lights blink on the side to indicate the amount of charge. You set it down and point it at the photoreceptor on the door control.
+> power on door control
+
+> power on door control
+It looks like this unit is powered by light. Reading the panel, it looks like it requires 6 light sources to fully power on,
+and there is enought light! It powers on!
+> use door control
+
+> use door control
+The door control indicates the door is now unlocked.
+> north
+
+> north
+Eating that candy gave you the extra burst of energy you needed to push the door.
+
+You are in a lab room.
+The passage gives way to a sprawling room with a tiled floor. Off to the north, you see large, closed double doors. To the north west, a stainless steel lab table sits in the center of the room. Farther west, you can see another desk against the wall. You'll have to move closer to get a better look at any of the room's furnishings.
+You can go north, west or south.
+A light turns off in the distance. It's probably one of those flashlights you turned on a minute ago.
+A light turns off in the distance. It's probably one of those flashlights you turned on a minute ago.
+A light turns off in the distance. It's probably one of those flashlights you turned on a minute ago.
+> west
+
+> west
+
+You are in a lab room.
+This room feels empty and cold. The tiles are a stark white. You were never much for interior decorating, but this just feels blasé.
+
+To the north is a stainless steel lab bench. To the west is a desk against the wall.
+You can go east, west or north.
+> west
+
+> west
+
+You are in a lab room.
+As you move through the room you notice a poster on the wall.
+
+To the north is a stainless steel lab bench. To the west is a desk against the wall.
+You can see a poster.
+You can go east, west or north.
+A light turns off in the distance. It's probably one of those flashlights you turned on a minute ago.
+A light turns off in the distance. It's probably one of those flashlights you turned on a minute ago.
+> west
+
+> west
+
+You are in a lab room.
+To the north east is a stainless steel lab bench. To the west is a desk against the wall. The desk is so close you can nearly touch it! Nearly. You've gotta wiggle dat booty a little farther over.
+You can go east, west or north.
+> west
+
+> west
+
+You are in a lab room.
+You sidle over to the left-most side of the desk that spans the whole west wall.
+You can see a small cage (containing a hamster).
+You can go north or east.
+A light turns off in the distance. It's probably one of those flashlights you turned on a minute ago.
+> open cage
+
+> open cage
+You bump the latch and the door swings open.
+> eat hamster
+
+> eat hamster
+You're so hungry. You dart forward, pick up the hamster, and swallow it all in one motion. The adorable Pippy makes a tiny squeak, and then all is silent.
+> north
+
+> north
+
+You are in a lab room.
+You move over to take a look at the center of the desk. The space is generally bare, save for a small coffee pot that a lazy programmer has glued down so that you can't interact with it. You don't even feel like affirming the existence of such a mundane appliance by looking at it.
+You can see photo of terrible beasts.
+You can go north, south or east.
+> north
+
+> north
+
+You are in a lab room.
+You're at the far right side of the desk.
+You can see a typewriter and a thesis.
+You can go south or east.
+> take thesis
+
+> take thesis
+You stretch out and clamp down on it. You've got it securely. You ought to do something with it right away; there's no time to talk!
+> east
+
+> east
+
+You are in a lab room.
+To the south east is a stainless steel lab bench. To the west is a desk against the wall. The desk is so close you can nearly touch it! Nearly. You've gotta Truffle Shuffle a little farther over.
+
+The north wall is a tinted glass window, through which you can barely make something out.
+You can see a tinted window.
+You can go east, south or west.
+> east
+
+> east
+
+You are in a lab room.
+You pause to loiter on the far side of the lab bench. My, how far you've come! Circumnavigating a full room. You feel your insides swelling with pride. Oh, your mistake, it's just gas.
+
+To the south is the lab bench. The north wall is a tinted glass window, through which you can barely make something out.
+You can see a tinted window.
+You can go east, west or south.
+> south
+
+> south
+
+You are in a lab room.
+You approach the left side of the lab bench. Its surface is stainless steel and cold to the touch. You hate things that are cold to the touch. Then again, you also hate stains. You decide that this bench is okay after all.
+You can see a crumpled paper.
+You can go north, south, west or east.
+> east
+
+> east
+
+You are in a lab room.
+You approach the right side of the lab bench. It looks like a good place to do science. You're not a scientist though, so you think the bench looks pretty frustratingly outside the realm of anything that you could find pleasure in.
+You can see a bunsen burner, a hose and a gas valve.
+You can go east, west, south or north.
+> hug bunsen burner
+
+> hug bunsen burner
+It looks like it could use some TLC. You sidle up to embrace it, but bump into it in the process. It falls onto its side.
+> turn on gas valve
+
+> turn on gas valve
+You turn the gas valve to the "on" position.
+> burn thesis
+
+> burn thesis
+You drop the thesis into the fire, watching the tendrils lick at it until it becomes a tiny inferno. You try (in vain) to remember the last time you saw Flames overwhelm anything.The thesis fire begins to fill the room with smoke. “Thesis making it really hard to see/breathe!” you exclaim (you dork). How did you even speak that kind of punctuation? The fire alarm is going off, by the way.
+
+You hear some shuffling and some meat monster noises in the room to the north. After a while, the noises stop. Except for the fire alarm. That will never stop.
+> take hose
+
+> take hose
+You take that hose. It's yours.
+> east
+
+> east
+
+You are in a lab room.
+A ceiling fan humms loudly above you. The on/off cord hangs low enough that you could pull it with ease.
+
+On the east wall, there's a large sign.
+
+To the west is a lab bench, and farther to the north are some double doors.
+You can see a sign, a cord and a fan.
+You can go north, south or west.
+> north
+
+> north
+
+You are in a lab room.
+To the south east is the lab bench. To the north is one side of a double door. The doors are swung shut. As you gaze towards the doors, a nostalgic phrase rushes into your mind: "Look before you leap!"
+
+Psh. There's nothing to jump off of here. Thanks for nothing, brain.
+You can see a double door.
+You can go west, south or north.
+> north
+
+> north
+
+You are in a greenhouse room.
+This room has grey walls, a grey floor, and a grey ceiling. There is literally nothing in this room. Were you to spend a weekend here, it would not be a weekend well spent.
+
+Oh wait, it's just smoky from the fire you made. Once the smoke clears, you can see a bit more.
+
+You're in a small room. It feels humid, like a green house. Shelves line the north east wall. To the west are more shelves and a sink. Just ahead of you, you can see an open window with bright light shining in. The fresh air is the most pleasant thing you've smelled all day!
+You can go north, south or west.
+> north
+
+> north
+
+You are in a greenhouse room.
+There are some more shelves along this wall, covered mostly in jars of plants. You thrust your face into a shrubbery. It makes you feel like you're home again.
+You can go north, south or west.
+> north
+
+> north
+
+You are in a greenhouse room.
+There's a big ol' shelf in the corner of this room. You climb up on top of it. You think you might be able to see your house from here! Oh, no... no, you can't. You're indoors.
+
+If you look hard enough, you think you can see the end of the game from here, though.
+You can see a pot of dirt.
+You can go west or south.
+> west
+
+> west
+
+You are in a greenhouse room.
+To the east are a bunch of shelves with knick knacks and plants on them. To the west is a big, solid door that's firmly closed.
+You can see an open window and a door.
+You can go south or east.
+> south
+
+> south
+
+You are in a greenhouse room.
+You're in the center of the room, and there is nothing remarkable here. You contemplate spinning on your heels round and round with your arms outstretched, pretending to be a tornado knocking all the things off the shelves. But for some reason, before you can contemplate too long, you are seized with the feeling that that's a terrible idea.
+You can go north, east, west or south.
+> west
+
+> west
+
+You are in a greenhouse room.
+In this corner of the room, wedged between the wall and the shelves of plants, is a sink. The sound of running water is almost as soothing as the noise made by a Japanese shishi-odoshi. Well, not really. You just really wanted a chance to say the word "shishi-odoshi."
+You can see a sink and a faucet.
+You can go east or south.
+> attach hose to faucet
+
+> attach hose to faucet
+You attach the hose to the running faucet. The other end hangs off the end of the sink.
+> south
+
+> south
+
+You are in a greenhouse room.
+
+There's a shelf against the wall here, on which sits a number of plants in pots and containers.
+You can see a meaty plant.
+You can go north or east.
+> eat meaty plant
+
+> eat meaty plant
+You swallow that meat plant whole! That's not a sentence you read every day.
+> east
+
+> east
+
+You are in a greenhouse room.
+This room has grey walls, a grey floor, and a grey ceiling. There is literally nothing in this room. Were you to spend a weekend here, it would not be a weekend well spent.
+
+Oh wait, it's just smoky from the fire you made. Once the smoke clears, you can see a bit more.
+
+You're in a small room. It feels humid, like a green house. Shelves line the north east wall. To the west are more shelves and a sink. Just ahead of you, you can see an open window with bright light shining in. The fresh air is the most pleasant thing you've smelled all day!
+You can go south, north, west or east.
+> south
+
+> south
+
+You are in a lab room.
+To the south is the lab bench. To the north is one side of a double door. The doors are swung shut. As you gaze towards the doors, a nostalgic phrase rushes into your mind: "Haste makes waste!"
+
+Psh. Everyone knows that the egregious over-production of goods rampant in our consumer-centric society is what makes waste. Thanks for nothing, brain.
+You can see a double door.
+You can go east, west, south or north.
+> south
+
+> south
+
+You are in a lab room.
+A ceiling fan humms loudly above you. The on/off cord hangs low enough that you could pull it with ease.
+
+On the east wall, there's a large sign.
+
+To the west is a lab bench, and farther to the north are some double doors.
+You can see a sign, a cord and a fan.
+You can go north, south or west.
+> north
+
+> north
+
+You are in a lab room.
+To the south east is the lab bench. To the north is one side of a double door. The doors are swung shut. As you gaze towards the doors, a nostalgic phrase rushes into your mind: "Look before you leap!"
+
+Psh. There's nothing to jump off of here. Thanks for nothing, brain.
+You can see a double door.
+You can go west, south or north.
+> north
+
+> north
+
+You are in a greenhouse room.
+This room has grey walls, a grey floor, and a grey ceiling. There is literally nothing in this room. Were you to spend a weekend here, it would not be a weekend well spent.
+
+Oh wait, it's just smoky from the fire you made. Once the smoke clears, you can see a bit more.
+
+You're in a small room. It feels humid, like a green house. Shelves line the north east wall. To the west are more shelves and a sink. Just ahead of you, you can see an open window with bright light shining in. The fresh air is the most pleasant thing you've smelled all day!
+You can go north, south or west.
+> north
+
+> north
+
+You are in a greenhouse room.
+There are some more shelves along this wall, covered mostly in jars of plants. You thrust your face into a shrubbery. It makes you feel like you're home again.
+You can go north, south or west.
+> north
+
+> north
+
+You are in a greenhouse room.
+There's a big ol' shelf in the corner of this room. You climb up on top of it. You think you might be able to see your house from here! Oh, no... no, you can't. You're indoors.
+
+If you look hard enough, you think you can see the end of the game from here, though.
+You can see a pot of dirt.
+You can go west or south.
+> push pot off shelf
+
+> push pot off shelf
+You throw your weight against the pot, and it tips off the shelf. It smashes on the unforgiving tile below.
+> west
+
+> west
+
+You are in a greenhouse room.
+The water runs out of the end of the hose, and starts forming a puddle on the floor. As the puddle spreads across the room, the dirt begins to moisten. You soon hear a sharp crunching noise as something within the dirt springs to life. Suddenly, a huge plant coils out of the dirt, and grows upwards in a spiral, reaching towards the light streaming in through the open window.Wonderful what science can do these days, no?
+
+To the east are a bunch of shelves with knick knacks and plants on them. To the west is a big, solid door that's firmly closed.
+You can see an open window, a pile of dirt, a tall bean plant and a door.
+You can go south or east.
+> climb plant
+
+> climb plant
+
+You slither up the beanstalk and out the window, seeing your reflection as you pass — out to freedom in the long, cool grass where you feel most at home. Congratulations: you have won Snake!
+[state=Finished]

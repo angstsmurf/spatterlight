@@ -1,0 +1,310 @@
+You are in your room.
+You can see a bedside table (on which there is a note and a bundle of clothes), a TV and a bed.
+You can go to your ensuite or to the lounge.
+You wake up to the sound of the TV blaring, your head still throbbing from the events of last night.
+... What were those again?
+... And how did you end up at your sister's house?
+You decide you'd better get up and take a look around.
+> take clothes
+
+> take clothes
+You decide to take the clothes with you. Oh, and it looks like your sister conveniently put your trusty lighter and cigarettes in the pocket.
+> use clothes
+
+> use clothes
+You dump your pyjamas and get dressed - now you're ready to be seen in daylight!
+> go to the lounge
+
+> go to the lounge
+
+You are in the lounge.
+You can see a fireplace , a sofa, a fridge, a stove and a table (on which there is a knife and car keys).
+You can go to your room or outside.
+
+> open fridge
+
+> open fridge
+You swing the fridge open to take a look at the contents.
+Sitting inside it is a ham sandwich.
+> take sandwich
+
+> take sandwich
+You store that scrumptious sandwich for later.
+> take knife
+
+> take knife
+You pick it up.
+> take car keys
+
+> take car keys
+You pick up the car keys and put them in your pocket.
+> go to outside
+
+> go to outside
+
+You are on the front porch.
+You can see the paparazzi.
+You can go inside or to Star Agent Offices.
+As you open the door a wave of paparazzi overwhelms you, beating and spitting at each other to get the best photo of your disgusted face.
+> go to Star Agent Offices
+
+> go to Star Agent Offices
+
+You are in a Star Agent Offices.
+You can see a chair and a desk (on which there is a photo-half).
+You can go to your sister's house.
+You speed away from the paparazzi, and eventually pull up outside your agent's office. Perhaps he can shed some light on what might be happening.
+The office looks the same as always, apart from a torn photograph that almost seems to be quivering on the desk - no agent in sight.
+> take photo
+
+> take photo
+The photograph begins to shudder as you stretch out your hand, and suddenly releases a small burst of bright blue light - not enough to knock you back, but enough for you to sharply recoil your hand. You hear a soft and quiet sound almost like weeping, and peer more closely at the picture - a woman in uniform stops grinning mischievously, and instead fixes you with a desperate yet determined stare. As you spring back and cling to the chair in horrified mystification, she begins to talk.
+
+"Donald Defoe? My name is Caramel Lake. I need your help, my body has been taken and now I just want it gone. This is a Psylogram; you should be familiar with these. I can't talk for long, don't want to get caught, but I'll input every milligram of information that I can - ask any questions, any questions at all, and I will answer. Thank you, Defoe. Oh, and take me with you when you leave for Yellowstone Wood."
+
+Ahh, the Psylogram; the holagram viewable only by the highest order of psychics, no less terrifying than the first time you saw one. You are undoubtedly startled, but you barely have time to gather your thoughts before your agent re-enters.
+
+"Ah, it's my favourite slice of treacle cherry pie! ... And by the looks of that face, I'm guessing you've either been slapped with the tail-end of a warthog or that's a Psylogram sitting on my desk. Tell Uncle Maxlo aaaaall about it - just as soon as you've got the information."
+> take photo
+
+> take photo
+The woman doesn't seem too impressed at being shoved into your pocket, but you do so all the same.
+> give cigarettes to Maxlo
+
+> give cigarettes to Maxlo
+"Hey thanks, kid - I've been craving one of these little sticks of tar and heaven since my wife threw me out this morning. Again. But hey, that's another story for another time - take this, for your trouble."
+
+Your agent hands you a bottle, which you take gratefully - however you can't help but notice the large skull on the label.
+
+"Oh - that. Weeelll, it was given to me by a mysterious old wizard, Genjabob was the name and wizardcraft was most certainly his game. Apparently in wizard-talk a skull means a fire that'll warm your belly, not a poison that'll turn your legs to jelly. He told me that right after I accidentally burned down his tent - and what a friendly guy he was."
+> talk to Maxlo
+
+> talk to Maxlo
+"Look Donald, this isn't easy for me to say but after last night, your career? It's over - kaboom, kasplatto, the whole works. This could be a crazy ride, but your life isn't all roses and apple orchards; you can't afford to turn down a job. You've gotta show those damn paparazzi that you're worth something. But it'll be dangerous to go alone - take this. You can capture every second of this psychic extravaganza, and use it to wage a winning war against those snappy-pap-camera-men!"
+> go to Yellowstone Wood
+
+> go to Yellowstone Wood
+
+You are in a Yellowstone Wood.
+You can see a wolf and a branch.
+You can go to Granderton Entrance or to Star Agent Offices.
+You jump back in the car and make your way to the edge of the forest - you see the dark and towering trees leaning curiously over you, and conclude that you're never going to fit your car inbetween those trunks. You leave your car, and decide to take a leisurely stroll across the leafy floor; it's a beautiful walk, with birds twittering around all over the place and weird and wonderful insects creeping along the branches.
+Then a wolf steps in front of you. ... Wait, there are wolves here? From the looks of its peculiarly green fur it could be some kind of protective forest being, like you read about in all those weird Spirit of Nature magazines. It doesn't necessarily look harmful, but it does seem to be staring at you a lot. Does it want something?
+> befriend wolf
+
+> befriend wolf
+You give a slightly creepy smile and stretch your arms out, as if inviting a hug. For a second, the wolf peers at you with curiosity - then it suddenly bounds up to you. You begin to rush backwards in a panic, which only seems to aid it in pinning you to the floor and licking your face. You laugh, relieved, and just about manage to roll the beast off you; its eyes seem to smile at you, and it hops to your side, watching you eagerly to see which way you might go.
+> go to Granderton Entrance
+
+> go to Granderton Entrance
+
+You are in a Granderton Entrance.
+You can see a Julia, a wooden door and a window.
+You can go into the wood.
+You find yourself in front of a huge stone wall - it towers over you, and is so long that you can't see either end of it. There is a big wooden double door in front of you with a peculiar purple haze over it,  and above it the word 'GRANDERTON' carved into the stone. A little circular thing with a smiley face hovers next to it. It doesn't seem hostile, though everything is eerily still.
+> look
+
+> look
+You are in a Granderton Entrance.
+You can see a Julia, a wooden door, a window and a wolf.
+You can go into the wood.
+
+> use acid with wooden door
+
+> use acid with wooden door
+Good God, that is strong acid. It burns straight through the aura, leaving a gaping hole, and continues on to silently dissolve the entire door. That's one way of getting things done.
+> go to Granderton
+
+> go to Granderton
+
+You are in a main corridor.
+You can see a desk, a fridge and a Secretary.
+You can go to Granderton Entrance, to Room 246, to Room 247 or to Room 3.
+You take your first steps into the building and have a look around. It looks beautiful on the inside, with an ornate ceiling decorated with slivers of gold, and a thick bottle-green carpet. You are surrounded by doors, though at one end of the room a Thing floats behind a desk, looking perfectly smiley.
+> look
+
+> look
+You are in a main corridor.
+You can see a desk, a fridge and a Secretary.
+You can go to Granderton Entrance, to Room 246, to Room 247 or to Room 3.
+
+> go to Room 247
+
+> go to Room 247
+
+You are in a Room 247.
+You can see the second photo-half and a Demon Guard.
+You can go back to the main corridor.
+The darkness in this room is almost suffocating, though you see half of a ripped photograph lying on the floor - assumedly, it's the one you're looking for. The only thing standing between you and the tattered picture is... well, a Thing. Though this one is rather small, its big mouth turned downward into an extremely sorrowful frown. As you approach it looks up at you and sighs.
+
+"I'm afraid I can't let you take that, Sir. Demon Guard policy, you understand."
+> look
+
+> look
+You are in a Room 247.
+You can see the second photo-half and a Demon Guard.
+You can go back to the main corridor.
+The Guard looks up again, and sighs. "Ah... It's you."
+> ask guard about Julia
+
+> ask guard about Julia
+"That... That is my Julia of which you speak! Is she... is she here? She's outside, waiting for me, you say? Oh hurrah!! I shall go at once! You have truly brought all the light of the sun and stars to a soul as bleak as the Halls of Hades."
+
+The Guard bobs up and down merrily before speeding out of the room, leaving behind the other half of the photograph. You eye it curiously - it seems that it consists mostly of a suited man, grinning quite merrily, his prematurely-ending arm assumedly around the woman in the other half of the picture. You take it with you.
+> go to the main corridor
+
+> go to the main corridor
+
+You are in a main corridor.
+You can see a desk, a fridge and a Secretary.
+You can go to Granderton Entrance, to Room 246, to Room 247 or to Room 3.
+
+> go to Granderton Entrance
+
+> go to Granderton Entrance
+
+You are in a Granderton Entrance.
+You can see a Julia, a window and a Demon Guard.
+You can go into the wood or into Granderton.
+
+> go to the wood
+
+> go to the wood
+
+You are in a Yellowstone Wood.
+You can see a branch.
+You can go to Granderton Entrance or to Star Agent Offices.
+After much walking, you finally reach the clearing. The car is in sight, though inbetween you and it is a peculiar-looking girl in a thin white dress - white except for a deep crimson stain that seems to spread across her chest. She seems weak, and not at all hostile; chances are you could get past her to the car and just carry on driving.
+
+"My heart... have you seen it?"
+> go to Star Agent Offices
+
+> go to Star Agent Offices
+
+You are in a Star Agent Offices.
+You can see a chair, a desk and a Maxlo Starse.
+You can go to your sister's house or to Yellowstone Wood.
+You continue on your merry way towards the car, past the rather desperate-looking girl, before noticing that the wolf does not appear to be beside you. You turn to look at it, and as its green fur glimmers in the sunlight, you realise that this is not a being made to leave the forest. It appears to give you as much of a smile as a wolf can manage, before waving goodbye with its tail and turning away, gradually blending into the foliage as it patters down the path. You see it nod towards the girl, who swiftly becomes its new companion, following it hopefully down the path.
+
+When you arrive at the office, your agent seems to sense that your adventure has been victorious.
+> make photograph
+
+> make photograph
+You take one photograph in each hand - the young woman in the right, and the young man in the left. You give Mr. Starse a rather doubtful look, but he grins all-knowingly and hands you a roll of selotape. It definitely isn't the most professional-looking thing you've ever seen, and the most he can manage is an awkward thumbs-up of congratulations as you hold up the finished photograph, one half flapping pathetically at the hinge.
+
+The figures in the image begin to blur around the edges, blending into the background. You feel a sudden bolt of electricity zip through your fingers and drop the photograph with a yelp - as you scramble to the floor to pick it back up, you realise that the selotape is gone, and that the young man's arm is not only firmly around Caramel's shoulders, but is now firmly connected to his shoulder. They both look the same as they always did, though the man's gaze now seems to be directed at her, and her smile appears much broader. She blinks, squints as though trying to determine shapes through a bright burst of sunlight, and begins to speak.
+
+"Thank you, Mr. Defoe. I feel... almost alive again." She looks to her left, breathes a sigh of relief, and turns back to face you. "I have managed to gather and transfer some more information, though it isn't much. I live - well, I used to live in Sunset House, the one over-looking the river. Every night, that's where that Thing goes to rest, in my body. All you have to do is find it and kill it, and then at least "my" murdering spree will be over and done with. ... Thank you, again."
+
+Caramel waves goodbye to you, before fading back into her original pose, smiling cheesily at the camera. One adventure has ended, and another begins. For now, some rest might be the best idea.
+> go to your sister's house
+
+> go to your sister's house
+
+You are on the front porch.
+You can see the paparazzi.
+You can go inside or to Star Agent Offices.
+Ahh, the usual peace and tranquility of your sister's house.
+> go to inside
+
+> go to inside
+
+You are in the lounge.
+You can see a fireplace , a sofa, a fridge, a stove, a table and Maria.
+You can go to your room or outside.
+You don't think you've ever been so exhausted in your entire life, and practically fall through the door of your sister's house - and not without having a head-on collision with her boyfriend.
+
+"Hehehey, dude! How's it goinnn'? Hope you're takin' it easy after last night, boy was that a bomb. I'm takin' the car, I've got some work to do, so I'll see you around." And like a free-roaming hurricane of long hair and sock-sandal combos, he whirls out of the door, slamming it shut behind him. As you walk further into the lounge you notice your sister sat on the sofa, giving you a curious look.
+
+"How are you feeling? You look like you need some sleep."
+> look
+
+> look
+You are in the lounge.
+You can see a fireplace , a sofa, a fridge, a stove, a table and Maria.
+You can go to your room or outside.
+
+> go to your room
+
+> go to your room
+
+You are in your room.
+You can see a bedside table (on which there is a note), a TV and a bed.
+You can go to your ensuite or to the lounge.
+> sleep
+
+> sleep
+It's been an insane day - you take the advice of others and fall into a deep, well-earned and surprisingly untroubled sleep. When you wake up the sun is just beginning to shine weakly through the bedroom window, and birds are twittering away in the trees, but it's still much earlier than you'd like to be awake. Your sister is probably still asleep - this might be the best time to sneak out for the final chapter of your adventure.
+> go to the lounge
+
+> go to the lounge
+
+You are in the lounge.
+You can see a fireplace , a sofa, a fridge, a stove and a table.
+You can go to your room or outside.
+
+> go to outside
+
+> go to outside
+
+You are on the front porch.
+You can go inside or to the House.
+Ahh, the usual peace and tranquility of your sister's house.
+> go to the House
+
+> go to the House
+
+You are outside a the house.
+You can see a front door and a window.
+You decide to take a leisurely stroll up to the house - the block looks beautiful at dawn, and it definitely has nothing to do with your sister's boyfriend having yet to return the car. You feel as though you've been walking for a very long time when you eventually reach the correct address, and it may well have been a long time, as it appears to be in the middle of absolutely nowhere. Green land stretches out in all directions around you, interrupted only by the gravel path which you have followed here. You feel as though it might be a beautiful place to live, under different circumstances - but now is not the time to dream and wonder. Now is the time to compose a plan.
+> pick front door
+
+> pick front door
+You fumble around in your pockets and manage to find a hairgrip - thank the lord that your hair is so floppy and untameable. You immerse yourself in the world of the RPG, and wiggle it around in a heroic fashion until suddenly, as if by magic, the lock clicks and the door creaks slowly open. You may now enter the house, and thanks to your stealthy intrusion, you have the advantage.
+> go to inside
+
+> go to inside
+
+You are in a a room.
+You can see blood.
+You can go outside or into the bedroom.
+As soon as you enter the house, the stench of blood overwhelms you - you see it in pools and stains across the wooden floor, which is significantly lacking in any furniture or homely touches.
+> go to the bedroom
+
+> go to the bedroom
+
+You are in a bedroom.
+You can see a Possessed.
+The front room is giving you the creeps, and there's clearly no Possessed in here - you decide to make your way into a little room to the side. The door still has 'Caramel' etched into the wood, with the very same photograph underneath that you keep in your pocket. Apart from the eyes having been scratched out. As you creep slowly inside you see that the... thing... is sleeping quite peacefully, almost still enough to pass for dead. The covers are also stained with blood and are pulled right up to its neck, almost giving it the appearance of a vampire. The rest of the room is entirely bare, with the ancient-looking four-poster sat quite ceremoniously in the centre. It looks eerily similar to Caramel herself, apart from the occassional smirk-like twitching of the lips, and the clumps of blood knotted into the birds-nest of hair. Its skin would appear to be an ordinary colour at first glance, but you notice a faint blue hue to it.
+> attack Possessed
+
+> attack Possessed
+Seeing as the Possessed is asleep, the world is pretty much your oyster. Or at least, this particular room. There is a pillow tossed carelessly at the foot of the bed that is not being used, and as you pick it up slowly its feet twitches and it snarls viciously in its sleep. It seems to be nothing more than a reaction to something in a dream - though you carry on shaking long after the appearance of hatred leaves its face, and it sinks back into its previous depth of sleep. You've never killed anything before. As much as it doesn't look pleasant, and is quite clearly evil, it is doing nothing more than sleeping soundly at this moment in time. The house might be stained with blood, but that could just be a coincidence, it could just be that this Possessed enjoys hunting animals or the company of hunting dogs. What if you're in the wrong house altogether? What if you're about to smother some poor, sick old woman, whose skin is blue with cold, and whose hair is bloody because... because of something perfectly innocent? You feel panic rising from your stomach and you try to fight it off, all the while continuing to shake and quiver like a little boat out at sea.
+
+It sits up, opens its eyes and stares directly at you.
+
+You try to suppress the scream that comes hurling out of your mouth, but it's no use - the most that you can do is channel that energy into throwing yourself on top of the Possessed, and forcing the pillow over its face. Though you dread the idea of testing your thought, the struggling soon stops, and you feel pretty certain that the thing is, at long last, dead.
+You stay fixed to the spot, almost in awe of yourself. Suddenly a blinding white light appears, and you instinctively raise your arm to shield your eyes - yet it fades rather quickly, and behind it you see Caramel emerge, looking both angelic and not as though her body has been possessed.
+
+"Thank you - I truly appreciate all the effort that you have gone to, I'm astounded that you would go so far to help a stranger in need. But thanks to that rather ridiculous generosity, I will be able to find peace, and perhaps someone might lay my body to rest. May you always have goodness in your heart, and may you find your own peace here on Earth."
+
+You watch as her image fades. To a certain extent you regret not asking her more, not knowing her in life - but you have done all that you can. Through hardships, struggles and a lot of weird situations, Donald Defoe the Psychic has become Donald Defoe: Triumphant Hero.
+
+Press any key to continue.
+You have slain the Possessed, saved the soul, and completed your quest! But there is still one more decision to be made - how does the story of Donald Defoe end? Type one of the following to find out...
+The Psychic
+The Novelist
+The Film Star
+The Quiet Life
+The Documentarian
+> The Documentarian
+
+> The Documentarian
+You stand on your podium, wincing in the face of the flashing cameras. At this moment in time you are a point of fascination for the entire world, the man who finally proved that the supernatural does, without a shadow of a doubt, exist. The man that attempted to ruin your career has been shamed, and a mass siege is being organised on Yellowstone Wood, consisting of armed forces planning to fight these forces of evil, and scientists determined to pin down and study some of these peculiar 'Things'. Caramel's family are more than a little bemused - they thought that they had buried their daughter two years ago, and amongst all the wonder and amazement of the documentary's big reveal, they have taken some time out in their daughter's old house, to clean up and take some time to get their heads around what's going on. You've become quite close with them, though you're not sure how they feel about your exposing the story to the world.
+
+You answer hundreds of questions and smile politely in response to hundreds of compliments, but the one question that irritates you a little is: "Do you ever see yourself becoming a psyhic again?" There are those who are absolutely desperate for you to come back and carry on, but this event has shaken you up enough to last a life-time. You no longer wish to be the travelling psychic that you were before, performing on tour - rather than standing on a stage and channelling some young boy's dead hamster, maybe you should travel around and see the world, seek out the supernatural and film it. You'll be the David Attenborough of the psychic world, and the money won't hurt - hell, your very first television interview after the documentary was announced got you enough to pay off your mortgage, and with the rest of your income you can think about getting that beautiful manor on the hill-top. You've heard a non-descript celebrity lived there once before, so it seems like a suitable way of life, unecessarily enormous swimming-pool included.
+
+Now that's definitely something that you could get used to.
+
+--- Thanks for playing! ---
+[state=Finished]

@@ -1,0 +1,457 @@
+A Night In Quasit Manor
+A Revolutionary Exchange Production
+
+by Kenneth Quinnell
+
+You stand in a foyer. The main entrance goes to the North. Doors flank the room to the East and West. In the corner is an umbrella stand.
+
+ In your pocket are two letters. You really should check your inventory and read them. Or you might die. In real life, not in the game.
+
+The exit from the manor is locked. You can't leave without a key.
+> west
+
+> west
+
+This is a pretty fancy sitting room. It has two chairs (leather chair and another leather chair), a antique couch, a bar and a covfefe table.
+> north
+
+> north
+
+Portraits of various members of the Quasit family line this wall. They all look basically the same, except one is a woman. The last portrait is currently blank.
+> north
+
+> north
+
+A decent hallway.
+> west
+
+> west
+
+This closet has three items: pink coat, leather jacket and sport coat.
+> open sport coat
+
+> open sport coat
+
+You open it.
+It contains a key number 6.
+> take key number 6
+
+> take key number 6
+
+You pick it up.
+> east
+
+> east
+
+A decent hallway.
+> east
+
+> east
+
+This is a modern kitchen containing a fridge, a cabinet, a marble countertop with a drawer, a spice rack and a cookbook shelf.
+> east
+
+> east
+
+This room is a sizeable dining hall. A long, ancient ornate wooden table sits in the middle of the room. Around it are eight antique wooden chairs. Off to the side is a silver serving table. The lights are off in this room and you can find no switch. The light from the hallway provides some minimal lighting.
+
+Atop the table, you see the shadow of a small, humanoid creature. You can't make it out in the shadows, but you can see it move. It runs to the edge of the table hops off and you hear it scurry away.
+> south
+
+> south
+
+This hallway is nondescript.
+> east
+
+> east
+
+A narrow staircase.
+> up
+
+> up
+
+These stairs are actually pretty okay, width-wise. Good job!
+> west
+
+> west
+
+The wallpaper in this hallway has flying toasters, like an old screen saver from the early 90s.
+> west
+
+> west
+
+It's pretty cozy in here, not at all spooky.
+> south
+
+> south
+
+This house has the strangest design for a building since Ivo Shandor rocked 550 Central Park West.
+> south
+
+> south
+
+A narrower staircase than the last one, but wider than the one before that.
+> up
+
+> up
+
+Creepy stairs to a creepy attic.
+> north
+
+> north
+
+Lots of dust bunnnies gathering here.
+> west
+
+> west
+
+It's very musty in here.
+> north
+
+> north
+
+It's a bit warmer in here.
+> use key number 6
+
+> use key number 6
+
+The door unlocks.
+> east
+
+> east
+
+Any scientist who worked in this room must've been mad, what with all the things you can see on the lab table and the lab shelf.
+> take antique eyeglasses
+
+> take antique eyeglasses
+
+You pick it up.
+> use antique eyeglasses
+
+> use antique eyeglasses
+
+> south
+
+> south
+
+Lots of dust bunnnies gathering here.
+> south
+
+> south
+
+Creepy stairs to a creepy attic.
+> down
+
+> down
+
+A narrower staircase than the last one, but wider than the one before that.
+> north
+
+> north
+
+This house has the strangest design for a building since Ivo Shandor rocked 550 Central Park West.
+> north
+
+> north
+
+It's pretty cozy in here, not at all spooky.
+> east
+
+> east
+
+The wallpaper in this hallway has flying toasters, like an old screen saver from the early 90s.
+> east
+
+> east
+
+These stairs are actually pretty okay, width-wise. Good job!
+> down
+
+> down
+
+A narrow staircase.
+> west
+
+> west
+
+This hallway is nondescript.
+> west
+
+> west
+
+This  hallway is adorned with yellow wallpaper, faded and peeling.
+> west
+
+> west
+
+Portraits of various members of the Quasit family line this wall. They all look basically the same, except one is a woman. The last portrait is currently blank.
+> west
+
+> west
+
+It's pretty dark in here.
+> west
+
+> west
+
+A small puddle of fetid water is something you don't want to step in.
+> south
+
+> south
+
+You see a rat sitting near the wall eating...something.
+> south
+
+> south
+
+A narrower staircase.
+> down
+
+> down
+
+It is colder down here.
+> north
+
+> north
+
+It's cool here, like a wine cellar.
+> east
+
+> east
+
+Like one where you might get a good Pino Grigio.
+> east
+
+> east
+
+You have entered the maze.
+> east
+
+> east
+
+> south
+
+> south
+
+> east
+
+> east
+
+> east
+
+> east
+
+> east
+
+> east
+
+> east
+
+> east
+
+> north
+
+> north
+
+> north
+
+> north
+
+> west
+
+> west
+
+> south
+
+> south
+
+Is that a rock on the ground?
+> take rock
+
+> take rock
+
+You pick it up.
+> north
+
+> north
+
+> east
+
+> east
+
+> south
+
+> south
+
+> east
+
+> east
+
+> north
+
+> north
+
+> north
+
+> north
+
+> north
+
+> north
+
+> west
+
+> west
+
+> north
+
+> north
+
+> west
+
+> west
+
+This part of the maze is a dead end. On the wall is a mirror, stained with blood and other fluids.
+> use rock
+
+> use rock
+
+You use the rock to smash the mirror.
+> north
+
+> north
+
+This is the end, my only friend.
+
+A small alcove behind the mirror is empty except for key number 37.
+> take key number 37
+
+> take key number 37
+
+You pick it up.
+> south
+
+> south
+
+This part of the maze is a dead end. On the wall is a mirror, stained with blood and other fluids.
+> east
+
+> east
+
+> south
+
+> south
+
+> east
+
+> east
+
+> south
+
+> south
+
+> south
+
+> south
+
+> south
+
+> south
+
+> south
+
+> south
+
+> west
+
+> west
+
+> west
+
+> west
+
+> west
+
+> west
+
+> west
+
+> west
+
+> west
+
+> west
+
+> north
+
+> north
+
+> west
+
+> west
+
+You have entered the maze.
+> west
+
+> west
+
+Like one where you might get a good Pino Grigio.
+> west
+
+> west
+
+It's cool here, like a wine cellar.
+> south
+
+> south
+
+It is colder down here.
+> up
+
+> up
+
+A narrower staircase.
+> north
+
+> north
+
+You see a rat sitting near the wall eating...something.
+> north
+
+> north
+
+A small puddle of fetid water is something you don't want to step in.
+> east
+
+> east
+
+It's pretty dark in here.
+> east
+
+> east
+
+Portraits of various members of the Quasit family line this wall. They all look basically the same, except one is a woman. The last portrait is currently blank.
+> east
+
+> east
+
+This  hallway is adorned with yellow wallpaper, faded and peeling.
+> south
+
+> south
+
+You stand in a foyer. The main entrance goes to the North. Doors flank the room to the East and West. In the corner is an umbrella stand.
+
+The exit from the manor is locked. You can't leave without a key.
+> use key number 37
+
+> use key number 37
+
+The door unlocks.
+> south
+
+> south
+
+The End?
+You win! You survived a night in Quasit Manor! You collect your check for $5000 from Wolfram Hart. Now your dreams of fame and fortune will come true!
+[state=Finished]

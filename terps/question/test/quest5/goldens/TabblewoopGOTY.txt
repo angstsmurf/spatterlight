@@ -1,0 +1,167 @@
+While exploring the woods with your pals, the super children's explorer club, you stumbled across a cave. Acording to the child's exploration handbook, this cave met all the specifications of the legendary Tabblewoop's. Your friends where to scared to enter but as a true child explorer who dosen't beleive in the Tabblewoop you intrepidly marched in and promptly fell down a huge hole. Well, you're stuck down here now. Why not take a look around?
+You arrive at the cave entrance.
+> look inside pockets
+> look inside pockets
+You reach into your pockets and find a flashlight and some tape! How useful!
+> switch on flashlight
+> switch on flashlight
+You turn on the flashlight!
+With the flashlight on you can see the rest of the cave. There appears to be a large treasure chest in the far corner along with statue of a very odd looking creature.
+> take skull
+> take skull
+You pick up the skull. Holding it makes you feel like some kind of Shakespearean actor.
+> look inside skull
+> look inside skull
+There is some kind of object inside the skull! You take the liberty of removing it.
+> use cables with pike
+> use cables with pike
+You tie the cables to the pike.
+> use rack
+> use rack
+You pull on the crank. You might not have been strong enough to move it on your own, but with the power of the simple machine the pike snaps in two! The wood of the rack cracks a bit too. You pick up the top of the pike triumphantly! Half a pike is better then no pike at all, right?
+> hit rack
+> hit rack
+With the damage the torture rack sustained pulling the Pike you are able to break some of thewood and metal around the cables with your assault! You pull one out and keep it for furture use.
+> use pike tip with cable
+> use pike tip with cable
+You tie the cabel and pike tip together to make a primitive grappling hook. GET OVER HERE!
+> open treasure chest
+> open treasure chest
+You open the chest.
+> remove sand
+> remove sand
+You take the sand out a handful at a time and realise there is something painted at the bottom of the treasure chest! It looks like some kind of symbol, somewhat similar to an x.
+> put object in treasure chest
+> put object in treasure chest
+Done.
+> use tape with treasure chest
+> use tape with treasure chest
+You tape the chest shut with the object inside. The gate opens, but the chest can't seem to break the tape to do so no matter how much it trys! Huzzah, success!
+> enter gate
+> enter gate
+You walk into the area and fairly quickly notice the giant chasm.
+You enter the cave chasm.
+> use grapple; grappling hook; hook with cliff face
+> use grapple; grappling hook; hook with cliff face
+With the pike head at the end, you've successfully make an indcredibly dangerous rope bridge to the other side of the chasm by getting it lodged between two rocks!
+> open door
+> open door
+It's open!
+> enter door
+> enter door
+You enter the sanctum.
+> push right eye
+> push right eye
+You press the eye down and you hear some kind of mechanism within the face activate. An internal spring pushes the eye forward as well as the right ear.
+> push right eye
+> push right eye
+The right ear sinks into the face.
+The nose pops out.
+The right eye sinks into the face.
+The mouth pops open up! There is a small black sphere inside, which you take.
+> sit on alter
+> sit on alter
+You sit on the alter and it starts to sink into the ground!
+The alter lowers you into a new room!
+You arrive in the dining hall.
+> take bowl
+> take bowl
+You pick it up.
+> take fishing pole
+> take fishing pole
+You pick it up.
+> take apple
+> take apple
+You pick it up.
+> take rotten fruit
+> take rotten fruit
+You pick it up.
+> eat apple
+> eat apple
+You eat the apple. It was yum-tastic! Hey, what's this? There is something in the apple. It's a dark gem.
+> eat orange
+> eat orange
+You eat the orange without even peeling it! It still tasted alright though.
+> wear bowl
+> wear bowl
+You put the bowl on your head.
+> sit on alter
+> sit on alter
+You sit on the alter and it rises back up.
+You enter the sanctum.
+> enter wooden door
+> enter wooden door
+You enter the cave chasm.
+> enter gate
+> enter gate
+You arrive at the cave entrance.
+> use black gem with right eye hole
+> use black gem with right eye hole
+You put the gem in the eye hole. It fits inside!
+> use dark gem with left eye hole
+> use dark gem with left eye hole
+You put the gem in the eye hole. It fits inside!
+The statue seems to come to life! The eyes melt away into the statue, which is creepy, and it speaks to you.
+"To rip asunder the beast, you must do all I say. The face of death must kiss the black abyss. When liquid rot and my gift within throttle the face with great bravado. Finally, stare face to face with the end of time."
+The statue spits a green vial at you. You grab it.
+> use skull with fishing pole
+> use skull with fishing pole
+You hook the skull on the end of the rod. You make a skulling pole!
+> enter gate
+> enter gate
+You enter the cave chasm.
+> use skulling pole with chasm
+> use skulling pole with chasm
+You use the fishing pole to dip the skull in the black waters. The skull sinks into the water and starts to thrash around on it's own. You reel it up and it has changed black. You remove it from the pole.
+> enter wooden door
+> enter wooden door
+You enter the sanctum.
+> enter marble door
+> enter marble door
+The door opens and you move into the next room.
+You walk in the room and something bears down on your head. Luckily the heavy bowl prevented any serious damage, but it still hurt like a bitch!
+> take mortar
+> take mortar
+You pick it up.
+> use rotten fruit with mortar
+> use rotten fruit with mortar
+You grind the rotten fruit up in the mortar and make it into a nice paste.
+> use liquid rot with black skull
+> use liquid rot with black skull
+You pour it in the skull.
+> use green vial with black skull
+> use green vial with black skull
+you pour it inside the skull.
+> shake black skull
+> shake black skull
+You hear the liquid swish around inside.
+You shake the skull and it starts to glow! It seems to have absorbed the liquid, but it's turned into a green skull!
+> take intragate
+> take intragate
+You pick it up.
+> put intragate in intragate
+> put intragate in intragate
+Error running script: Parent of element 'Intragate' cannot be set to itself
+> look
+> look
+You are in a labratory. It looks like the Tabblewoop must dabble in the scientific arts. There are all kinds of beakers and flask and stuff all over the place. You also notice a statue of a minotaur with a baseball bat next to the door. Apperently this thing was triggered to smack whoever entered.
+There is an ornate door at the end of the lab, but it is barred up.
+> use green skull with wormhole
+> use green skull with wormhole
+I can't see that. (wormhole)
+> switch off jerk guard
+> switch off jerk guard
+You turn off the jerk statue. Good call. It also lowers the gates on the ornate door! What a bonus!
+> open ornate door
+> open ornate door
+You open it.
+> enter ornate door
+> enter ornate door
+You go inside.
+You enter the room and quickly see a large beastg, as it takes up most of the room. This is the Tabblewoop. It's real. It looks at you, it's mouth foaming wildly. You are scared still.
+> use intraskull with tabblewoop
+> use intraskull with tabblewoop
+I can't see that. (intraskull)
+The Tabblewoop moves towards you foaming at the mouth and making terrible sounds. As it gets nearer you stumble backwards and crawl back into the lab. You shut slam the door behind you. Maybe you should have a way to fight that... beast... before you go in there again.
+You enter the laboratory.
+[state=Running]

@@ -1,0 +1,217 @@
+You jolt awake.
+You have the immediate sense of danger averted, such as when you miss a step going down stairs only to wake up in your own bed.
+You attempt to sit up, and bang your head on something hard.
+You then realise the darkness is total.
+Panicking, you thrash around, and you feel wires and tubes ripped painfully from your arms.
+In your thrashing, you chance against an apparent eject button, and with a loud hissing, light floods your world.
+You are in a pod.
+You can go out of the pod.
+> out
+
+> out
+This is a text-based adventure game, in the style of Zork and it's descendants.
+In this game, you use simple one or two word commands to navigate the world. for example, you can type 'go north' 'north' or simply 'n' to move from your current area to the one north of you. you will also encounter south, east, west, up, down, in, out, and a number of others.
+To interact with your world, you commonly use the commands 'look at X' 'use X' or 'speak to X' and in some situations, you will 'use X on Y' or similar combinations.
+To define this game in a genre, it would be puzzle-mystery. Use lateral thinking and exploration to solve the puzzles and make it to the end!
+
+This is Turbonerd Studio's second game, The minimalist.
+Entry for the Ludum Dare competition under the theme 'Minimalism'
+I hope you enjoy my game.
+
+You are in a courtyard.
+You can see a line of pods and a fountain.
+You can go into the pod or south.
+From the middle of the courtyard, you can see everything nearby.
+The courtyard is made of spotless shining white marble, and is circular, about thirty meters in diameter.
+A small balcony extends to the south.
+
+> s
+
+> s
+
+You are in a balcony.
+You can see a hexagon, a small hole and a chunk of marble.
+You can go north or into the stairwell.
+Glancing over the edge, you can see you're atop a marble column, several dozen stories tall. The base of the column rests in some kind of forest or jungle, with a dense green canopy. Beyond the garden is nothing but clouds and blue.
+
+Whatever you're on, it's floating in the sky.
+> take hexagon
+
+> take hexagon
+You pick it up.
+> take chunk of marble
+
+> take chunk of marble
+You pick it up.
+> use hexagon with small hole
+
+> use hexagon with small hole
+You press the hexagon-coin into the hole, and it fits perfectly. The hexagon-key glows blue for a second, then pops back out into your hand. the door swings open silently.
+> in
+
+> in
+
+You are in a Stairwell.
+You can go outside to the balcony or east.
+A dimly lit stairwell.
+> e
+
+> e
+
+You are in a round room.
+You can see a glass tube, a Dynasaw, a Morphic level, a zero point wrench, an Energy clamp, a Psionic chisel and a Magnetized file.
+You can go west.
+a perfectly circular room, with shelves running the length of the wall.
+Numerous tools lay on the shelves, tethered with a nearly invisible thread. It looks pretty sturdy, you doubt you would be able to take them out of this room.
+
+A large, green glass tube dominates the room. It looks like you could easily fit inside, should you be able to open it.
+
+> use chunk of marble with glass tube
+
+> use chunk of marble with glass tube
+Sometimes, you think, less is more. You swing the chunk of marble overhead and bring it down with all the force you can muster, smashing the hinge off the door and sending it skittering across the room.
+Inside, you can see a shower.
+> take glass door
+
+> take glass door
+You pick it up.
+> use shower
+
+> use shower
+Trying not to overthink the potential possiblities of showering on an alien vessel in what could very well be a torture room, you strip off and stand under the faucet.
+The shower beeps, and a soft light scans your blue skin.
+Blue skin!?
+Before you can comprehend the situation you're blasted with near freezing-cold water.
+You hear a gurgling from above you, as if a water reservoir was draining.
+Gasping, you squeeze your eyes shut, but the shower is over as quickly as it started.
+Opening your eyes, you glance at your skin. It's no longer blue.
+Blue-tinted water runs down your legs as the water recedes into the drain. You guess it was some kind of skin dye.
+However, tattooed across your stomach in block letters are the numbers 73313. You wonder what they could mean.
+It looks like the water is all used up.
+> w
+
+> w
+
+You are in a Stairwell.
+You can go outside to the balcony or east.
+A dimly lit stairwell.
+> out
+
+> out
+
+You are in a balcony.
+You can see a small hole.
+You can go north or into the stairwell.
+Glancing over the edge, you can see you're atop a marble column, several dozen stories tall. The base of the column rests in some kind of forest or jungle, with a dense green canopy. Beyond the garden is nothing but clouds and blue.
+
+Whatever you're on, it's floating in the sky.
+> n
+
+> n
+
+You are in a courtyard.
+You can see a line of pods and a fountain.
+You can go into the pod or south.
+From the middle of the courtyard, you can see everything nearby.
+The courtyard is made of spotless shining white marble, and is circular, about thirty meters in diameter.
+A small balcony extends to the south.
+
+> use fountain
+
+> use fountain
+Staring down into the darkness of the pipe, you wonder what could be waiting for you at the other end. Due to the angle of the pipe, you know it'll be a one way trip. If you have everything you think you'll need, continue.
+> use fountain
+
+> use fountain
+You clamber into the opening of the pipe. As you try to ease yourself down, you slip!
+You plummet into the darkness.
+
+You are in an observation tank.
+You can see a scanner.
+You are in a small, cramped, water-filled tube. The only light comes from a small panel with what appears to be a scanner mounted on it.
+You slide down the pipe for what feels like an age, and then suddenly, you splash into cold, dark, water.
+Your feet come to rest against the bottom. You seem to be in another form of showering tube, only this one is full of water with no drain! You tread water and desperately try to think.
+> use tattoo with scanner
+
+> use tattoo with scanner
+You swim close to the scanner, and hold your chest as close to it as you can, hoping the scanner can scan your number through the dark water.
+What luck! with a beep, the light turns green, and the water begins draining through a hidden grate near your feet.
+Light floods the tube, and exhausted, you collapse to the floor.
+You begin to black out.
+As you fade from consciousness, you hear faint scuffling noises and see shadows at the edges of your vision.
+You lose consciousness.
+
+You are in a lounge.
+You can see a couch, a viewing screen and a bar (containing a bottle of water, a cocktail glass and a freeze dried seeds).
+A small, softly lit room, furnished with a large viewing screen and fuzzy couch.
+..
+
+....
+
+.....
+
+..
+
+Gradually, you come to.
+You're propped against a fuzzy couch, facing a large viewing screen.
+It seems whoever placed you aboard this monolithic vessel now wishes to show you something.
+> use chunk of marble with viewing screen
+
+> use chunk of marble with viewing screen
+Trusting your instinct that the story was false, you hurl your trusty chunk of marble at the screen. It bounces off, leaving a very large crack splitting the monitor almost in half.
+You hear panicked hisses and whines from the other side, and the scurrying shadows move with aggrevated haste.
+
+Picking up your rock, you hit the screen again and again until the entire thing shatters, leaving a gaping hole into another room. You see numerous small, green dog-sized creatures scurry into the shadows and vents, fleeing your intrusion. one isnt so lucky, and is trapped under a large sheet of screen that pinned it to the floor.
+
+You step towards it menacingly, and it squirms in fear. Suddenly, images fill your head with a projected sense of truth and earnesty.
+
+The monolith you're currently on isnt a bastion of humanity, humanity was never wiped out. It's an observation platform created by these people, the Etimegev, to spy upon, abduct, and feed on humans.
+There are only six or seven or these Etimegev on this monolith, and theyre all fleeing to the interstellar escape pod.
+
+Reeling from this information, you step back. Using the distraction, the last of the Etimegev frees itself from under the screen, and vanishes into a pipe, but not before pressing a button.
+Alarms sound, and a large robot drops from the ceiling, and begins to stride towards you, firing lasers.
+You have no doubt this is some kind of security measure.  Think fast!
+
+You are in a control platform.
+You can see a Security robot, a piece of screen and a broken viewing screen.
+> use glass door with security robot
+
+> use glass door with security robot
+As the robot nears closer, you count the delays between the laser fire.
+On three.. one.. two.. three!
+You burst from cover, holding the reflective object infront of you.
+The laser strikes it straight-on, and you feel an intense heat and a burning pain covers your arm.
+The laser reflects and strikes the robot in the chest, melting a hole deep into its circuitry.
+It beeps loudly, then falls over, unmoving.
+You examine the cause of the burning sensation.
+It seems your shield melted from the heat, encasing your arm in hot glass.
+It looks painful. It feels painful. But the adrenaline and shock have you riding on a high so heartpounding you doubt it'll really kick in for a while.
+
+You hear a groaning sound of rock and machinery, and race to the window.
+On the horizon you see a glimmer, and assume the aliens have fled earth. Hopefully, for good, seeing the trouble you gave them.
+
+Now you face a bigger problem. The laser burnt through the control panel, and now the monolith is sinking at an alarming rate towards the ocean.
+
+With nothing you can do, you brace for impact, and hope it can float.
+
+''
+
+''
+
+GOOD END
+Congratulations! You triumphed over the interstellar predators, and in a battle of wits, won!
+
+This game was made by mark cook in a span of 48 hours, as an entry for the Ludum Dare competition.
+I thank you for playing my game, and I have you enjoyed it.
+
+If you want to hear more about future or past games from us, please feel free to check us out at:
+http://www.facebook.com/TurbonerdStudio
+
+CREDITS:
+
+Mark cook: writing, design, art, and just about everything else.
+
+Created on the quest engine, hosted at:
+http://textadventures.co.uk/
+check them out for more text-adventures!
+[state=Finished]

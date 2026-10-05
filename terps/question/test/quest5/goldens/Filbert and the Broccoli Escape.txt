@@ -1,0 +1,207 @@
+It is a rainy Saturday, two of Filbert’s favorite things.  He loves Saturdays,
+because he is too lazy to like going to school, and he loves rainy days because it means he gets to stay inside and do as little as possible.
+
+But Filbert soon finds that lounging, dilly-dallying, and daydreaming can get exhausting after awhile, and he decides to find something more interesting to do.
+Filbert can see Socks and A book.
+In the corner of the room is Filbert's Closet.
+> in
+> in
+Filbert enters his large closet - it's filled with unplayed games and unread books.
+The first thing Filbert finds in his closet is his Captain Presto Magic Set.
+
+Filbert once tried turning himself into an armadillo, but that didn't work. This time, he wants to try something a little easier.
+> open captain presto magic set
+> open captain presto magic set
+Filbert opens the magic set and finds a Magic hat, a Magic wand, a Nickel, and a whole bunch of magic tricks.
+He also finds a booklet of Instructions Should he read them?
+> take magic hat
+> take magic hat
+Filbert puts on the hat. "Perfect fit," he says.
+> take magic wand
+> take magic wand
+Filbert takes the wand. "Feels magical," he says.
+> take nickel
+> take nickel
+Filbert takes the nickel. "This should be easy to make disappear!" he says.
+> play with captain presto magic set
+> play with captain presto magic set
+
+Filbert decides to try to make the nickel disappear.  Since he is too lazy to read the instructions, he makes up some of his own magic words:
+
+But the nickel stays where it is. "I hope my wand isn't broken," Filbert says with a frown.
+
+"Dinnertime!" Filbert's mother calls from downstairs. "Hurry, before it gets cold!"
+Filbert doesn't want to stop playing, but he knows he should go downstairs to dinner.
+> out
+> out
+
+Filbert sits down at the dinner table.  His mother always waits for Filbert to get to the table before she starts eating—Filbert sometimes wonders if she is more worried about her own food getting cold.
+
+Filbert’s dad is different.  He  never waits, and he is always doing something else while he eats.  One time he worked on a model airplane.  This time, however, he is reading a folded up newspaper.
+
+"A farmer down in South America grew a fifty pound strawberry," he reads, scanning the newspaper with his finger. "Another farmer in the area grew a fifty pound peanut. They were able to make enough peanut butter and jelly sandwiches to feed the entire country of Peru!"
+On the table is Filbert's Dinner plate
+> look at dinner plate
+> look at dinner plate
+
+Filbert looks at the food on the plate in front of him:
+
+Chicken with chicken sauce, potatoes with potato sauce, and what is this?
+Broccoli?
+
+Filbert makes a face.
+What should Filbert do about his Broccoli?
+> complain about broccoli
+> complain about broccoli
+
+"I think I'm allergic to broccoli," Filbert complains.
+
+"You are no such thing," Filbert's mom replies, knowing how good Filbert is at getting out of doing things he doesn't want to do. "Just eat the broccoli first and get it out of the way."
+Filbert looks down and sees his fork and knife sitting in front of him. The knife looks about the same size as his magic wand.  Hmmmm....
+> take knife
+> take knife
+Filbert picks up his knife. "This feels a lot like my magic wand," he thinks to himself.
+He wonders if he can do something about his Broccoli.
+> cast spell on broccoli
+> cast spell on broccoli
+
+"It's worth a try," Filbert thinks to himself. He makes sure his parents aren't watching.  Then he grasps his knife, shuts his eyes, and makes up some more magic words:
+
+Press any key to see if it worked!
+
+When Filbert opens his eyes again, his broccoli is certainly gone.  So are his plate, his parents, and the whole dining room!  Filbert looks around and finds himself sitting in a dense forest.
+
+But it smells familiar.
+
+"Smells like butter," Filbert says, trying not to think about how hungry he still is. He looks up and notices that the trees are actually giant stalks of broccoli!
+A BROCCOLI FOREST!
+A warm drop of butter drips on his hand and he licks it up.
+What should Filbert do now that he's stuck in this Broccoli Forest?
+> explore broccoli forest
+> explore broccoli forest
+
+Filbert stands up to explore the dark broccoli forest around him. "What kind of weird creatures live here?" he wonders to himself.
+
+As if to answer his question, Filbert hears a strange noise coming toward him.  It sounds like clinking metal.  And it is getting closer.
+Filbert sees a large broccoli tree not too far away - a perfect place to hide!
+> west
+> west
+
+Filbert jumps out of his chair and hides behind one of the thick broccoli-trees, waiting to see what the noise is.
+
+Soon, from around a bend in the path, Filbert sees what look to be a large group of giant forks and knives marching in his direction.  They are taller than Filbert, all bobbling along the path in a shiny cluster, clinking into each other rather clumsily.
+
+The Carving Fork, which is bigger and shinier than the rest, stops suddenly, causing all the other knives and forks to clang into him, and into each other.  He seems to be examining the chair in which Filbert had been sitting.
+
+Then the Carving Fork looks around—at least it looks like he is looking around—as if something in the air doesn't smell right.  Even though Filbert is hidden well behind the Broccoli-tree trunk, the Head Fork must be able to see him, because it starts bounding in Filbert’s direction! All the other forks and knives bumble closely behind.
+Filbert sees a break in the trees behind him! Maybe that's how he can escape!
+> run escape
+> run escape
+
+Filbert doesn’t know what the forks and knives want, but he doesn’t want to wait to find out.  He runs away through the broccoli forest as fast as his sneakers can carry him.  The clanking sounds of the forks and knives grow farther and farther away.
+
+Just as Filbert reaches the edge of the forest, it becomes more and more difficult to run.  His feet begin to sink deeper and deeper into the mud—or is it mud after all?
+That looks like some crazy Mud!
+> look at mud
+> look at mud
+
+The mud is so gooey, that when Filbert tries to get his foot unstuck, his shoe comes off!
+
+Filbert reaches down to pull his shoe out and finds that the ground is actually made of mashed potatoes!  When he puts his foot back down, his foot sinks even deeper into the mashed potato-bog.  It is totally impossible for him to run a step further.
+What should Filbert do about his Mashed potato shoe?
+> eat mashed potato shoe
+> eat mashed potato shoe
+
+Even though Filbert is still hungry, he doesn't feel like licking his shoe.  And besides, he is being chased by angry silverware!
+
+He has to find a way out!
+Filbert sees a nearby broccoli tree with low branches.  Filbert thinks it would be pretty easy to climb...
+> up
+> up
+Filbert reaches up and grabs a nearby broccoli branch and, with great effort, hoists himself up into the broccoli tree.  He climbs higher, hoping that his hiding place will fool the rapidly approaching silverware.
+
+Before long, the knives and forks enter the area.  Immediately, several knives lay down single file in the mashed potato bog to form a walkway for the rest of the group.
+
+The Head Fork walks along the knife bridge below, closely following Filbert’s footprints in the mashed potatoes.  He follows the footprints to the base of the broccoli tree and looks up.
+What next? Should Filbert?
+> wave should filbert
+> wave should filbert
+
+The Head Fork turns back around and hops three times, making three clinking metal sounds on the knife bridge.  The remaining forks and knives immediately gather around the base of the broccoli tree.  Then, the Head Fork and the biggest, sharpest knife hop forward and begin to cut the broccoli tree down.
+Oh no! Not very many options for Filbert now. What should he do?? Filbert should...
+> cast a spell filbert should
+> cast a spell filbert should
+
+Filbert has an idea.  He closes his eyes tightly and says:
+
+Filbert feels the tree teeter and totter as the knife and fork finish sawing through the base of the broccoli tree.  Before Filbert can think of what to do, the tree begins to fall. . .
+
+Down goes the tree, with Filbert in it, landing on a hillside at the edge of the broccoli forest.
+
+The forks and knives march slowly toward him.  Filbert doesn’t want to think of what will happen if they catch him!
+Help! Give Filbert some good Ideas!!
+> push ideas
+> push ideas
+
+Filbert tries getting out of the tree, but the mashed potato hillside was too gooey.  Luckily, Filbert has an idea.
+
+With all his might, Filbert pushes against the tree until it starts to slide down the hill.  It slides slowly at first, sloshing through the gooey mashed potatoes.  Filbert never thought of a giant broccoli tree as a sled, but it works pretty well.
+
+The broccoli tree sled picks up speed and whooshes down the side of the mashed potato hill.
+
+Just as Filbert thinks he's safe, he sees something that makes him very nervous—a river!  And he is heading straight for it!
+Quick! Filbert better Think fast!
+> hold on think fast
+> hold on think fast
+
+Filbert and the broccoli tree slide all the way down the mashed potato hill and splash into the river.
+
+A little of the water splashes onto Filbert’s face, and he realizes it isn’t water after all.  The entire river is made of gravy!
+
+As the broccoli tree boat bobs along the windy gravy river, the forks and knives can do nothing except stand at the edge of the river and watch Filbert float away.  Filbert breathes a sigh of relief, thankful that broccoli floats.
+
+The gravy river bends and burbles, groans and gurgles, and before long, Filbert and the Broccoli tree boat approach what looks to be a tremendous mountain.  There is something strangely familiar…
+
+As Filbert gets closer, he sees that the mountain has eyes, ears, a nose, and a giant cave that resembles a mouth.  As the mountain face looks down upon him, Filbert gets that familiar feeling again.  Who does this face look like?
+What should Filbert do now? Actions
+> relax actions
+> relax actions
+
+Just as Filbert begins to relax a little, the broccoli boat suddenly pitches forward, almost knocking Filbert into the gravy river. He holds on and looks back.  To Filbert’s dread, the Head Fork has somehow caught up with him, and is now leaping out of the gravy, trying to get on board!
+
+The fork leaps and jumps and splashes and bumps, and finally manages to hang on by poking the end of the broccoli tree boat.
+
+Filbert and the fork and the broccoli tree enter the mouth of the cave.  It becomes darker and darker the farther inside they go, until it is so dark that Filbert can’t see his hand in front of his face.
+
+Filbert feels the broccoli boat sink a little deeper into the river.  Even though he can’t see anything, Filbert feels like the fork is now on the boat with him, creeping closer…
+Yikes!!  Filbert better find a good Solution.
+> cast spell solution
+> cast spell solution
+
+Filbert clenches his eyes shut and tries one last magic spell:
+
+Do you think it worked this time? Click to find out!
+
+As he opens his eyes again, Filbert finds himself back at the dinner table.  His father’s nose is still pointed into the newspaper.
+
+“Scientists just discovered a two million year-old chicken egg,” his father quotes, scratching his chin. "They are calling it it a chickasaurus."
+
+His mom is just returning from the kitchen holding a gravy boat.  She sits down and pours a little gravy on her potatoes.
+
+"Had they even noticed?" Filbert thinks.
+
+“I thought you didn’t like broccoli,” Filbert’s mother says with a big smile of approval.
+
+Filbert looks down at his plate—his broccoli is all gone! His fork and knife feel warm in his hands.
+
+“But please take smaller bites,” she adds.  “You have gravy all over your mouth.”
+Filbert may be lazy, but he usually remembers his Table manners
+> wipe mouth table manners
+> wipe mouth table manners
+Filbert wipes his mouth with his napkin, looking down and seeing the thick streaks of gravy surrounding his mountain of mashed potatoes.
+
+“See?” his mom says. “Now was that so bad?”
+
+“Nope,” Filbert said as he digs into his mashed potatoes. “Not so bad at all.”
+www.fetworks.net
+[state=Finished]

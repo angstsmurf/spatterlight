@@ -1,0 +1,77 @@
+Thy Dungeonman
+(Quest Edition)
+YOU ARE THY DUNGEONMAN!
+Ye find yourself in yon dungeon. Ye see a SCROLL. Behind ye scroll is a FLASK. Obvious exits are NORTH, SOUTH, and DENNIS.
+What wouldst thou deau?
+> look
+> look
+Ye find yourself in yon dungeon. Ye see a SCROLL. Behind ye scroll is a FLASK. Obvious exits are NORTH, SOUTH, and DENNIS.
+What wouldst thou deau?
+> take scroll
+> take scroll
+Ye takes the scroll and reads of it. It doth say: BEWARE, READER OF THE SCROLL, DANGER AWAITS TO THE- The SCROLL disappears in thy hands with ye olde ZAP!
+What wouldst thou deau?
+> get dagger
+> get dagger
+Yeah, okay.
+What wouldst thou deau?
+> take flask
+> take flask
+Ye cannot get the FLASK. It is firmly bolted to a wall which is bolted to the rest of the dungeon which is probably bolted to a castle. Never you mind.
+What wouldst thou deau?
+> take flask
+> take flask
+Ye cannot get the FLASK. It is firmly bolted to a wall which is bolted to the rest of the dungeon which is probably bolted to a castle. Never you mind.
+What wouldst thou deau?
+> dance
+> dance
+Thou shaketh it a little, and it feeleth all right.
+What wouldst thou deau?
+> n
+> n
+You go NORTH through yon corrider. You arrive at parapets. Ye see a rope. Obvious exits are SOUTH.
+What wouldst thou deau?
+> x parapets
+> x parapets
+Well, they're parapets. This much we know for sure.
+What wouldst thou deau?
+> x rope
+> x rope
+It looks okay. You've seen better.
+What wouldst thou deau?
+> s
+> s
+Ye find yourself in yon dungeon. Back yonder is a FLASK. Obvious exits are NORTH, SOUTH, and DENNIS. There is definitely no YE SCROLL, so drop it.
+What wouldst thou deau?
+> s
+> s
+You head south to an enbankment. Or maybe a chasm. You can't decide which. Anyway, ye spies a TRINKET. Obvious exits are NORTH.
+What wouldst thou deau?
+> take trinket
+> take trinket
+Ye getsts yon TRINKET and discover it to be a bauble. You rejoice at your good fortune. You shove the TRINKET in your pouchel. It kinda hurts.
+What wouldst thou deau?
+> x trinket
+> x trinket
+Just a bulge in thou pouchel at thist point.
+What wouldst thou deau?
+> n
+> n
+Ye find yourself in yon dungeon. Back yonder is a FLASK. Obvious exits are NORTH, SOUTH, and DENNIS. There is definitely no YE SCROLL, so drop it.
+What wouldst thou deau?
+> dennis
+> dennis
+Ye arrive at Dennis. He wears a sporty frock coat and a long jimberjam. He paces about nervously. Obvious exits are NOT DENNIS.
+What wouldst thou deau?
+> speak to dennis
+> speak to dennis
+You engage Dennis in leisurely discussion. Ye learns that his jimberjam was purchased on sale at a discount market and that he enjoys pacing about nervously. You become bored and begin thinking about parapets.
+What wouldst thou deau?
+> look jimberjam
+> look jimberjam
+Man, that art a nice jimberjam.
+What wouldst thou deau?
+> give trinket to dennis
+> give trinket to dennis
+A novel idea! You givst the TRINKET to Dennis and he happily agrees to tell you what parapets are. With this new knowledge, ye escapes from yon dungeon in order to search for new dungeons and to remain... THY DUNGEONMAN!! You hath won! Congraturation!! Your score was: 31
+[state=Finished]

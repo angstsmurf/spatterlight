@@ -1,0 +1,72 @@
+Você está em uma ilha nunca explorada! an Ilha da Sabedoria.
+Leia  a Placa de Instrução.
+Você pode ir para o Riacho de Pedras Preciosas  ao sul.
+> ler placa de instrucao
+
+> ler placa de instrucao
+Não encontro isso aqui. (placa de instrucao)
+> sul
+
+> sul
+
+Você está no Riacho que contém milhares de pedras preciosas. o Riacho de Pedras Preciosas.
+Tome cuidado com tudo o que você fizer está sendo observado pelo Senhor do Tempo! Aprenda um pouco sobre as pedras preciosas. Tem muito Rubi, muita Rodonita e muita Hematita.
+Você pode ir para a Tribo Sy ao leste.
+Tudo o que for encontrado nessa Ilha não pode ser seu, por isso controle seu materialismo e ambição.
+> leste
+
+> leste
+
+Você está na a Tribo Sy.
+Fale com o a Pagé Coaraci.
+ Você pode voltar para o Riacho de Pedras Preciosas ao sudoeste ou seguir para o Templo do Senhor do Tempo ao nordeste.
+A Tribo Sy (Tribo Mãe), é isolada da civilização.Os Índios vivem no que chamam de tapiri, que é uma habitação improvisada, coberta com folhas, fazem redes com casca de árvore. Tem uma roca primitiva, para fazer o barbante usado na fabricação de flechas.
+> falar com Pagé Coaraci
+
+> falar com Pagé Coaraci
+Seja Bem Vindo a Tribo Sy! A partir de agora você se encontra muito perto do Templo do Senhor do Tempo e bem perto de saber como adquirir O Livro da Verdade! Boa Sorte!!
+> nordeste
+
+> nordeste
+
+Você está no Templo do Senhor do Tempo.
+Você observa como é calmo e tranquilo! Fale com o Senhor do Tempo.
+Você deve ir para o Labirinto da Verdade o norte.
+Parabéns! você conseguiu chegar ao Templo do Senhor do Tempo. A partir de agora você será testado para saber se é merecedor de obter O Livro da Verdade.
+> falar com Senhor do Tempo
+
+> falar com Senhor do Tempo
+Você será testado, lembre-se nem todo conhecimento é o suficiente para mudar a realidade do ser humano, o materialismo do ser humano é a principal causa do caos na Terra então sabendo disso faça a escolha certa!
+> norte
+
+> norte
+
+Você está em a Labirinto da Verdade.
+Você nesse momento sua escolha decidirá seu futuro  Porta da Prosperidade a  leste, Porta do Conhecimento a oeste ou Porta do Renascimento ao norte.
+> norte
+
+> norte
+
+Você está em a Porta do Renascimento.
+Você pode ir para Porta do Renascimento ao sul.
+Parabéns! Você entendeu que para adquirir os conhecimentos do livro você tem que mudar o seu interior!
+> sul
+
+> sul
+
+Você está em a Trono da Sabedoria.
+Você observa an O Livro da Verdade.
+> pegar o livro da verdade
+
+> pegar o livro da verdade
+Você o pega.
+Parabéns você foi merecedor do Livro da Verdade!
+
+Ao longo de três mil anos, a humanidade veio se afastando cada vez mais da Lei da Natureza, que é a Lei do Universo, a Vontade de Deus, a Verdade.
+	Movido pelo materialismo, que o faz acreditar somente naquilo que vê, e pelo egoísmo, que o leva a agir de acordo com sua própria conveniência, o homem tornou-se prisioneiro de uma ambição desmedida e inconseqüente e vem destruindo o equilíbrio do planeta, criando para si e seu semelhante, desarmonia e infelicidade.
+	As graves conseqüências do desrespeito às Leis Naturais podem ser verificadas na agricultura, na medicina, na saúde, na educação, na arte, no meio-ambiente, na política, na economia, e em todos os demais campos da atividade humana. Essa situação já chegou ao seu limite. Se continuar agindo assim, é certo que o homem acabará destruindo o planeta e a si mesmo.
+	O propósito da Filosofia de Mokiti Okada é despertar a humanidade, alertando-a para essa triste realidade. Ela cultiva o espiritualismo e o altruísmo, faz o homem crer no invisível e ensina que existem espírito e sentimento não só no ser humano, mas também nos animais, nos vegetais e nos demais seres.
+O Johrei, a Agricultura Natural e o Belo são práticas básicas dessa filosofia, capazes de transformar as pessoas materialistas em espiritualistas e as egoístas em altruístas, restituindo ao planeta seu equilíbrio original.
+	Seu objetivo final é reconduzir a humanidade a uma vida concorde com a Lei da Natureza e construir uma nova civilização, alicerçada na verdadeira saúde, na prosperidade e na paz.
+
+[state=Finished]

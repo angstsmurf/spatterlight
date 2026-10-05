@@ -1,0 +1,1456 @@
+THE 39 STEPS
+
+by From the Novel by John Buchan
+
+LIVING ROOM
+You are in your sitting room. It is designed in a minimalistic fashion, with an armchair in the corner and a large oak coffee table in the centre. The front door leads east onto the landing, and another door is set in to the North wall, which leads into your bedroom. A white rug covers the floor, a small two-piece sofa lies against the Western wall and paintings of historic battles adorn the walls.
+
+Scudder is lying sprawled on his back, a long knife through his heart skewering him to the floor.
+
+You can see a coffee table, a dead American and a sideboard.
+You can go north or east.
+
+> drop pocket watch
+
+> drop pocket watch
+You drop it.
+> x dead american
+
+> x dead american
+You gently feel over the dead body and discover that Scadder had been wearing a strange belt. You unfasten it and pull it out. (The belt that is).
+His hand is clenched!
+It feels wrong to leave him lying on the floor like that.
+There is a knife sticking out of him!
+> take knife
+
+> take knife
+You pick it up.
+You pull the knife out of Scudder's back, and wipe the blood from it with a tea towel.
+> x sofa
+
+> x sofa
+A quick search of the sofa reveals a bunch of keys which had fallen down the back!
+> take keys
+
+> take keys
+You pick them up.
+> unlock door
+
+> unlock door
+Unlocked.
+You open it.
+> drop keys
+
+> drop keys
+You drop them.
+> x coffee table
+
+> x coffee table
+You find something!
+It contains a pipe, a box of matches and a newspaper.
+> take matches
+
+> take matches
+You pick them up.
+> take pipe
+
+> take pipe
+You pick it up.
+> n
+
+> n
+
+BEDROOM
+You are in your bedroom. A door to the South leads into your sitting room. A double bed rests against the western wall, oppostite a window in the eastern wall which looks out onto the street below. Next to the bed is a small bedside cabinet. Facing you is a large wardrobe.
+You can see a bed, a wardrobe and a small bedside cabinet.
+You can go south.
+> open wardrobe
+
+> open wardrobe
+You open it.
+It contains a tweed jacket.
+> x tweed jacket
+
+> x tweed jacket
+Nothing out of the ordinary.
+It contains a sovereign, a penny and a shilling.
+> take sovereign
+
+> take sovereign
+You pick it up.
+> take shilling
+
+> take shilling
+You pick it up.
+> open drawer
+
+> open drawer
+You open it.
+It contains a tobacco jar.
+> stand on cabinet
+
+> stand on cabinet
+
+CABINET
+You are standing on the cabinet which is situated next to the wardrobe.
+You can see a torch.
+You can go down.
+> take torch
+
+> take torch
+You pick it up.
+> down
+
+> down
+
+BEDROOM
+You are in your bedroom. A door to the South leads into your sitting room. A double bed rests against the western wall, oppostite a window in the eastern wall which looks out onto the street below. Next to the bed is a small bedside cabinet. Facing you is a large wardrobe.
+You can see a bed, a wardrobe (containing a tweed jacket (containing a penny)) and a small bedside cabinet (containing a tobacco jar).
+You can go south.
+> search tobacco jar
+
+> search tobacco jar
+As you poke into the tobacco, your fingers touch something hard and you pull out Scadder's little black book...
+> sleep
+
+> sleep
+
+...You lie down on the bed, not daring to take off your clothes, and are soon fast asleep. You have a restless night with the recent events turning over and over in your mind. Eventually, the clanking sound of milk bottles outside stir you from your slumber!
+
+BEDROOM
+You are in your bedroom. A door to the South leads into your sitting room. A double bed rests against the western wall, oppostite a window in the eastern wall which looks out onto the street below. Next to the bed is a small bedside cabinet. Facing you is a large wardrobe.
+You can see a bed, a wardrobe (containing a tweed jacket (containing a penny)) and a small bedside cabinet (containing a tobacco jar).
+You can go south.
+> s
+
+> s
+
+LIVING ROOM
+You are in your sitting room. It is designed in a minimalistic fashion, with an armchair in the corner and a large oak coffee table in the centre. The front door leads east onto the landing, and another door is set in to the North wall, which leads into your bedroom. A white rug covers the floor, a small two-piece sofa lies against the Western wall and paintings of historic battles adorn the walls.
+
+You can see a coffee table (on which there is a newspaper), a dead American, a sideboard, a pocket watch, a boxing belt and a bunch of keys.
+You can go north or east.
+
+You hear the milkman whisling and the rattling of milk cans as he ascends the stairs to your flat.
+
+> e
+
+> e
+
+LANDING
+You are on the first floor landing of your apartment block. A common staircase leads downwards. To the west  is your apartment.
+You can see a crate of milk bottles and a milkman.
+You can go west, up or down.
+
+"Good morning Mr Hanley!" The milkman greets you, "Who are those two shady characters outside on the corner?"
+
+> give sovereign to milkman
+
+> give sovereign to milkman
+You give the soverign to the milkman and he hands over his outfit.
+You are now dressing in the atire of a milkman, cap and all!
+
+"Don't be too long with my clothes Mr Hanley, I have to be getting on with my round!"
+> down
+
+> down
+
+ENTRANCE HALL
+You are on the ground floor of a block of flats. The exit is East, which leads out onto the street. A common staircase leads upwards. The elevator is here. The gate is closed and a sign hangs from it.
+You can go up or east.
+> e
+
+> e
+
+LANGHAM PLACE
+You are in a quiet residential area. Travel east and south to find a cab stand. There is an apartment building to the west. Across the street stand two suspicious characters.
+You can go west, east or northwest.
+> e
+
+> e
+You walk briskly along the road whistling as you go. You turn the corner and breathe a sigh of relief.
+
+ON THE CORNER
+You are on the corner of Langham place and Euston road. The latter leads to Euston Station but it is too long to walk and there is also the danger of being waylaid by ruffians.
+You can go west or south.
+The milkman appears and reclaims his property. He then climbs aboard his milk cart and drives away.
+> s
+
+> s
+
+EUSTON ROAD
+You are on Euston Road, a little way north of a cab stand.
+You can go north or south.
+> s
+
+> s
+
+EUSTON ROAD TAXI RANK
+You are standing on Euston Road near a cab rank.
+It is too far to walk to the station so you must take a cab.
+
+You can see a cab.
+You can go north.
+> enter cab
+
+> enter cab
+
+SAT INSIDE CAB
+You are sitting in a cab. The cabbie sits in front, waiting patiently.
+You can see a cabbie.
+> say station
+
+> say station
+The cab moves off and after negotiating the notorious London traffic finally arrives at the station entrance. You pay the driver the shilling fare and leave the cab.
+
+EUSTON STATION
+The entrance to the station is straight ahead. There is a cab stand here.
+You can go north or east.
+> e
+
+> e
+
+OUTSIDE PAWNSHOP
+You are standing outside a pawnshop. Euston station is off to the west.
+You can go west or east.
+> e
+
+> e
+
+INSIDE PAWNSHOP
+You are standing at the counter of a pawnshop. A miserable looking salesperson, with a cigarette in his mouth, looks up as you enter.
+
+You can see a salesperson.
+You can go west.
+> pawn pipe
+
+> pawn pipe
+He looks at the pipe with a practised eye and says, "Not bad, but it's a copy - not an original. Tell yer wot, I'll give yer a fine rucksack and walking stick for it."
+
+You hand over the pipe and recieve the rucksack and walking stick in return.
+> drop walking stick
+
+> drop walking stick
+You drop it.
+> put knife in rucksack
+
+> put knife in rucksack
+Done.
+> put matches in rucksack
+
+> put matches in rucksack
+Done.
+> put torch in rucksack
+
+> put torch in rucksack
+Done.
+> w
+
+> w
+
+OUTSIDE PAWNSHOP
+You are standing outside a pawnshop. Euston station is off to the west.
+You can go west or east.
+> w
+
+> w
+
+EUSTON STATION
+The entrance to the station is straight ahead. There is a cab stand here.
+You can go north or east.
+> n
+
+> n
+
+TICKET OFFICE
+This is the ticket office.
+Looking at you from the other side of a small glass partition is a bored looking clerk.
+You can see a clerk.
+You can go south or northwest.
+> buy ticket
+
+> buy ticket
+"I'm selling tickets for Dumfries or Glasgow.... where would you like to go?"
+> dumfries
+He takes your money and hands you a ticket.
+> nw
+
+> nw
+
+BARRIER
+An alert ticket inspector stands here, carefully scrutinising passengers as they pass on to the platform.
+You can see a ticket inspector.
+You can go southeast or north.
+> n
+
+> n
+The inspector clips your tickets and waves you through. You put the ticket into your pocket.
+
+PLATFORM
+You are standing on platform number 15. All trains for Scotland leave from here.
+You can see a train and a carriage door.
+You can go south.
+> open carriage door
+
+> open carriage door
+You open the door and enter the carriage.
+You close the door behind you.
+
+TRAIN COMPARTMENT
+You are sitting in a third class compartment. The seats are very comfortable.
+
+You can see a carriage door.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+The train pulls out of the station...
+It gets up speed and pretty soon the station is left far behind. You settle down and prepare yourself for a long journey.
+You are waked by the jolting as the train comes to rest at a station.
+
+A porter calls out "Train leaves in 10 minutes!"
+The train pulls out of the station....
+It gets up speed and pretty soon the station is left far behind. You settle down and prepare yourself for a long journey.
+You are waked by the jolting as the train comes to rest at a station.
+
+The porter calls out "Those not travelling onwards to Glasgow please change."
+TRAIN COMPARTMENT
+You are sitting in a third class compartment. The seats are very comfortable.
+
+You can see a carriage door.
+> open carriage door
+
+> open carriage door
+You open the door and step out onto the platform.
+You close the door behind you.
+
+PLATFORM 1
+You are on number 1 platform for Carlisle railway station. All trains from here go to Glasgow.
+West leads to the main street.
+
+You can see a carriage door.
+You can go east, up or west.
+
+You hear a porter call out,
+"Over the bridge to platform 3 for trains to Stranraer.
+Stopping at Drumfries and Newton Stewart. The train leaves at 4.22pm. This train is non-stop to Glasgow and will depart immediately.
+> up
+
+> up
+
+FOOTBRIDGE
+You are on the west end of a footbridge crossing the tracks.
+You can go down or east.
+> e
+
+> e
+
+FOOTBRIDGE
+You are on the east end of a footbridge crossing the tracks.
+You can go west or down.
+> down
+
+> down
+
+PLATFORM 2
+You are standing on platform number 2. Trains from Dumfries and beyond stop here.
+
+You can see a ticket inspector.
+You can go up or west.
+> w
+
+> w
+The ticket inspector clips your ticket and lets you pass...
+
+PLATFORM 3
+You are standing on platform 3.
+All trains stop at Dumfries.
+You can see a train and a carriage door.
+You can go east.
+> open carriage door
+
+> open carriage door
+You open the door and enter the carriage. You close the door behind you.
+
+TRAIN COMPARTMENT
+You are sitting in a third class compartment. The seats are very comfortable.
+
+You can see a well dressed man and a carriage door.
+The train pulls out of the station....
+The train gathers speed and, looking out of the window all you can see are vast fields of heather.
+
+There seems to be some sort of trouble ahead at a level crossing. A shepherd and his dogs are trying desperately to move the sheep so that the train can proceed. There are some policemen there as well.
+
+The well-dressed man leaves the carriage.
+> open carriage door
+
+> open carriage door
+You jump down on the track.
+Luckily, all eyes seem to be on the sheep as you make a dash for the shelter of a clump of heather.
+
+HEATHER
+You are sitting on soft soil under a clump of heather not far from the railway line.
+You can go up.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+Peeping out from behind the bush you can see that the level crossing seems to be clear. The policemen have gone and the train is nowhere to be seen.
+> wait
+
+> wait
+Time passes.
+> up
+
+> up
+
+HEATHER
+You are standing up beside a clump of heather. Nearby is a railway track.
+You can go down or east.
+> e
+
+> e
+
+MOORLAND
+You are in a wide semicircle of moorland, with the brown river as radius, and the high hills forming the northern circumference. There is not a sign or sound of a human being, only the plashing water and the interminable crying of curlews. Yet, oddly enough, for the first time you feel the terror of being hunted. It is not the police that scare you, but the other folk, who knew that you knew Scudder's secret and dared not let you live. You are certain that they will pursue you with a keenness and vigilance unknown to the British law, and that once their grip closes on you, you will find no mercy.Off to the west you can just make out the railway lines running north and south.
+
+You can go west or northeast.
+> ne
+
+> ne
+
+MOORLAND
+You are in wide semicricle of moorland with a dirty brown river as the radius. High hills to the north form a sort of curcumference.
+You can go southwest or northeast.
+> ne
+
+> ne
+
+MOORLAND
+You are in wide semicricle of moorland with a dirty brown river as the radius. High hills to the north form a sort of curcumference.
+You can go southwest, down, southeast, northeast or south.
+You hear a car approaching.
+> down
+
+> down
+You slip and fall down the steep hill, landing safely at the bottom.
+
+HILL BOTTOM
+You are at the bottom of a steep and slippery hill. Off to the west are vast fields of heather whilst a long way to the south, beyond marsy ground, is a winding road.
+You can go west.
+> w
+
+> w
+
+HEATHER
+You are walking amidst fields of dense heather that stretch as far as the eye can see.
+You can go east or southwest.
+
+Low down in the south a monoplane was climbing into the heavens.You are as certain that the aeroplane is looking for you, and that it does not belong to the police.
+> sw
+
+> sw
+
+HEATHER
+You are walking amidst fields of dense heather that stretches as far as the eye can see.
+You can go northeast or southeast.
+> se
+
+> se
+
+HEATHER
+You are walking amidst fields of dense heather, that stretches as far as the eye can see.
+
+It starts to rain...
+You can go northwest or southwest.
+> sw
+
+> sw
+
+HEATHER
+You are walking amidst fields of dense heather that stretches as far as the eye can see.
+You can go northeast, east or south.
+> e
+
+> e
+
+HEATHER
+You are walking amidst fields of dense heather that stretches as far as the eye can see.
+You can see an extra large heather bush.
+You can go west or northeast.
+A monoplane flies overhead, making big sweeps over the terrain.
+> hide
+
+> hide
+
+BUSH
+You are kneeling down under the cover of a large heather bush.
+You can go up.
+> wait
+
+> wait
+You wait in your hiding place until the sound of the aircraft fades into the distance. It should be safe to proceed now!
+> up
+
+> up
+
+HEATHER
+You are walking amidst fields of dense heather that stretches as far as the eye can see.
+You can see an extra large heather bush.
+You can go west or northeast.
+> w
+
+> w
+
+HEATHER
+You are walking amidst fields of dense heather that stretches as far as the eye can see.
+You can go northeast, east or south.
+> s
+
+> s
+
+QUARRY
+You are standing amongst the rubble of a disused quarry.
+You can go north.
+> drop ticket
+
+> drop ticket
+You drop it.
+> search rubble
+
+> search rubble
+You find a detonator!
+> take detonator
+
+> take detonator
+You pick it up.
+> n
+
+> n
+
+HEATHER
+You are walking amidst fields of dense heather that stretches as far as the eye can see.
+You can go northeast, east or south.
+> e
+
+> e
+
+HEATHER
+You are walking amidst fields of dense heather that stretches as far as the eye can see.
+You can see an extra large heather bush.
+You can go west or northeast.
+> ne
+
+> ne
+
+HEATHER
+You are walking amidst fields of dense heather that stretches as far as the eye can see.
+You can go southwest or northeast.
+> ne
+
+> ne
+
+TWISTY ROAD
+You are on a twisty road, south of marshy ground. A path soutwest leads into vast fields of heather. A winding road runs southeast to a large house.
+You can go southwest or southeast.
+> se
+
+> se
+
+RAMBLERS REST
+You are outside a fine country house, widely used by ramblers. It is built of large square granite-like stones.
+
+You can see a door.
+You can go northwest or north.
+> knock on door
+
+> knock on door
+A man appears. He takes your arm and leads you inside the Inn.
+As you enter  inn porch you can hear from far off the beat of an engine. There silhouetted against the dusky west is your friend, the monoplane.
+
+The innkeeper shows you where to clean up, then he cooks you a tasty meal and tells you that you can spend the night in the guest room at the north end of the corridor.
+
+You tell him your story, and about the people who are chasing you.
+
+'By God!' he whispers, drawing his breath in sharply, 'it is all pure Rider Haggard and Conan Doyle.'
+
+'You believe me,' You say gratefully.
+
+'Of course I do,'I believe everything out of the common. The only thing to distrust
+is the normal.'
+
+'I think they're off my track for the moment, but I must lie close for a couple of days. Can you take me in?'
+
+'You can lie as snug here as if you were in a moss-hole. I'll see that nobody blabs, either.'
+
+LIVING ROOM
+You are in the living room which is adequately furnished.
+You can see a door and a young man.
+You can go up.
+You hear a car approaching.
+
+"Quickly!!!" The Innkeeper says, "Go and hide in your room!!"
+
+> up
+
+> up
+
+LANDING
+You are on the landing. A short corridor runs north and south.
+You can go down or north.
+> n
+
+> n
+
+CORRIDOR
+You are in a short corridor outside one of the guests bedrooms.
+You can go south or north.
+> n
+
+> n
+
+CORRIDOR
+You are at the northern end of the corridor, outside one of the guests bedrooms.
+You can see a door.
+You can go north or south.
+> open door
+
+> open door
+You open the door and enter the bedroom, closing the door behind you.
+
+BEDROOM
+You are in one of the guest bedrooms. It is furnished with a single bed, wardrobe and bedside cabinet.
+You can see a door.
+You hear a key turning in the lock. The young man shouts "I've fobbed those men off for now. Get a good night's sleep and I'll see you in the morning.
+> x bedside cabinet
+
+> x bedside cabinet
+You find a leaflet.
+> read leaflet
+
+> read leaflet
+THE BIG BANG MINING CO.
+
+1. MAKE HOLE IN DYNAMITE.
+2. INSERT DETONATOR.
+3. INSERT DYNAMITE IN HOLE.
+4. JOIN FUSE
+5. PACK HOLE WITH CLAY
+6. LIGHT FUSE
+7. SEEK SHELTER AWAY FROM BLAST
+> sleep
+
+> sleep
+You flop down on the bed, utterly exhausted after your escapades in the heather. You soon fall fast asleep and wake up feeling much refreshed ready for the day and hopefully a meeting with the leader of the anarchists!
+
+BEDROOM
+You are in one of the guest bedrooms. It is furnished with a single bed, wardrobe and bedside cabinet.
+You can see a door and a leaflet.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+The door opens and the young man enters the room.
+
+"The car has returned. There are two men in it and they said that they hoped to meet you here. One of the men has a button missing from his jacket.
+
+I'll make up some sort of story and tell them that you were here but stole my motor bike and would probably be miles away by now."
+
+He returns a few minutes later and tells you that the men have driven off in their car.
+
+You both leave the room and he escorts you to the front door saying "Please don't come back here again, those two men frightened me half to death."
+
+He closes the front door behind you and you hear him turn the key in the lock.
+
+RAMBLERS REST
+You are outside a fine country house, widely used by ramblers. It is built of large square granite-like stones.
+
+You can see a door.
+You can go northwest or north.
+> n
+
+> n
+
+BRIDGE
+You are standing on a stone bridge that crosses over a dirty brown river. Off to the south stands a country house.
+You can go south or north.
+> n
+
+> n
+
+MOORLAND
+You are in a wide semicircle of moorland with a dirty brown river as the radius. Huge hills to the north form a sort of cicumference.
+You can go south or northwest.
+> nw
+
+> nw
+
+MOORLAND
+You are in wide semicricle of moorland with a dirty brown river as the radius. High hills to the north form a sort of curcumference.
+You can go southwest, down, southeast, northeast or south.
+You hear a car approaching...
+A touring car pulls up and your old school chum, Jopley, calls out, "I see from the newspapers that you are in a spot of bother!
+ Can I give you a lift, Richard?"
+1: Yes
+2: No
+> 1
+You climb into Jopley's car and he sets off at a reckless pace, well, reckless for these narrow twisty roads.
+Sure enough, he takes one sharp corner much too fast and you end up in a ditch. The car is in pretty bad shape so Jopley decides to go for assistance, telling you not to hang about.
+
+SIDE OF ROAD
+You are on a stretch of road that is in need of repair.
+You can see an a ditched car.
+You can go south, southwest or west.
+> w
+
+> w
+
+LONG STRETCH OF ROAD
+You are on a stretch of road that is in need of repair.
+You can go east or west.
+> w
+
+> w
+
+CURVE IN THE ROAD
+You are on a stretch of road that is in need of repair.
+You can go east or west.
+> w
+
+> w
+
+LONG STRETCH OF ROAD
+You are on a stretch of road that is in need of repair.
+You can go east or west.
+> w
+
+> w
+
+DUSTY ROAD
+You are on a stretch of road that is in need of repair.
+You can go east or west.
+> w
+
+> w
+
+ROAD
+You are on a stretch of road that is in need of repair.
+You can go east or northwest.
+> nw
+
+> nw
+
+OUTSIDE WORKMAN'S HUT
+You are on a stretch of road that is in need of repair.
+You can see a roadmender, a broken rocks, a roadmenders tools and a workmans hut.
+You can go southeast or north.
+> help roadmender
+
+> help roadmender
+"Your a rite real gentleman, so ye are. Here, put on me outer garments. It would never do for the surveyor to see you in your own clothes and as he's never seen me afore, I'm sure that you won't have any trouble. Come and see me in my cottage after he's come and gone."
+
+"You'll have to finish the stretch from here to the private road and then wait for him at the hut. By the way, be careful of that crowd on the private estate; they're a rum looking lot and no mistake."
+
+With that he turns on his heel and walks off to the north.
+> take tools
+
+> take tools
+Taken.
+> mend road
+
+> mend road
+You repair one section and then move on.
+
+ROAD
+You are on a stretch of road that is in need of repair.
+You can go east or northwest.
+> mend road
+
+> mend road
+You mend one section and then move on.
+
+DUSTY ROAD
+You are on a stretch of road that is in need of repair.
+You can go east or west.
+> mend road
+
+> mend road
+You mend one section and then move on.
+
+LONG STRETCH OF ROAD
+You are on a stretch of road that is in need of repair.
+You can go east or west.
+> mend road
+
+> mend road
+You mend one section and then move on.
+
+A car pulls up and a man steps out.
+"Your blasted road has damaged one of my wheels!"
+
+CURVE IN THE ROAD
+You are on a stretch of road that is in need of repair.
+You can see a man standing beside a motor car.
+You can go east or west.
+> help man
+
+> help man
+In no time at all the wheel is changed. The man puts the damaged wheel in his car and drives off.
+But look, he's left a small chisel behind!
+> take chisel
+
+> take chisel
+You pick it up.
+> mend road
+
+> mend road
+You mend one section and then move on.
+
+LONG STRETCH OF ROAD
+You are on a stretch of road that is in need of repair.
+You can go east or west.
+> mend road
+
+> mend road
+You mend one section and then move on.
+
+SIDE OF ROAD
+You are on a stretch of road that is in need of repair.
+You can see an a ditched car.
+You can go south, southwest or west.
+> mend road
+
+> mend road
+You mend one section and then move on.
+You have now repaired the whole section.
+> drop tools
+
+> drop tools
+You drop them.
+> w
+
+> w
+
+LONG STRETCH OF ROAD
+You are on a stretch of road that has been recently repaired.
+You can go east or west.
+> w
+
+> w
+
+CURVE IN THE ROAD
+You are on a stretch of road that has been recently repaired.
+You can go east or west.
+> w
+
+> w
+
+LONG STRETCH OF ROAD
+You are on a stretch of road that has been recently repaired.
+You can go east or west.
+> w
+
+> w
+
+DUSTY ROAD
+You are on a stretch of road that has been recently repaired.
+You can go east or west.
+> w
+
+> w
+
+ROAD
+You are on a stretch of road that has been recently repaired.
+You can go east or northwest.
+> nw
+
+> nw
+
+OUTSIDE WORKMAN'S HUT
+You are on a stretch of road that has been recently repaired.
+You can see a broken rocks and a workmans hut.
+You can go southeast or north.
+> wait
+
+> wait
+
+A car stops and a man leans out.
+"You'll be Turnbull the roadmender. I'm the new County Road Surveyor. You've done a fair job on that stretch of road! A wee bit soft near the twisty road and the edges need tidying up. See that you look after that.
+Good-morning. You'll know me the next time you see me."
+He then sets off again.
+
+> n
+
+> n
+
+ROAD
+You are on a stretch of road that has been repaired. A little way to the east is a cottage.
+You can go south, northeast or east.
+> e
+
+> e
+
+A PICTURESQUE COTTAGE
+You are outside a small cottage that is set a little way back from the stony road.
+
+You can see a door.
+You can go west or east.
+> e
+
+> e
+
+INSIDE COTTAGE
+You are inside a small, one room cottage which is comfortably furnished.
+You can see a roadmender.
+You can go west.
+> speak to roadmender
+
+> speak to roadmender
+The roadmended takes his clothes back and thanks you for helping him fool the County surveyor and for all the hard work you did in repairing the road. He hands you a stick of dynamite as payment.
+
+"I'm glad to get rid of it!" He says, "I don't like messing about with the stuff!!"
+> make hole dynamite
+
+> make hole dynamite
+You make a small hole with your knife.
+> insert detonator
+
+> insert detonator
+You very carefully slide the detonator into the stick of dynamite.
+> w
+
+> w
+
+A PICTURESQUE COTTAGE
+You are outside a small cottage that is set a little way back from the stony road.
+
+You can see a door.
+You can go west or east.
+> w
+
+> w
+
+ROAD
+You are on a stretch of road that has been repaired. A little way to the east is a cottage.
+You can go south, northeast or east.
+> s
+
+> s
+
+OUTSIDE WORKMAN'S HUT
+You are on a stretch of road that has been recently repaired.
+You can see a broken rocks and a workmans hut.
+You can go southeast or north.
+> se
+
+> se
+
+ROAD
+You are on a stretch of road that has been recently repaired.
+You can go east or northwest.
+> e
+
+> e
+
+DUSTY ROAD
+You are on a stretch of road that has been recently repaired.
+You can go east or west.
+> e
+
+> e
+
+LONG STRETCH OF ROAD
+You are on a stretch of road that has been recently repaired.
+You can go east or west.
+> e
+
+> e
+
+CURVE IN THE ROAD
+You are on a stretch of road that has been recently repaired.
+You can go east or west.
+> e
+
+> e
+
+LONG STRETCH OF ROAD
+You are on a stretch of road that has been recently repaired.
+You can go east or west.
+> e
+
+> e
+
+SIDE OF ROAD
+You are on a stretch of road that has been recently repaired.
+You can see an a ditched car and a roadmenders tools.
+You can go south, southwest or west.
+> s
+
+> s
+
+PRIVATE ROAD
+You are on a narrow road that runs through the wooded grounds of an isolated farm.
+You can see a notice.
+You can go north, east or southwest.
+> e
+
+> e
+
+PRIVATE ROAD
+You are on a narrow road that runs through the wooded grounds of an isolated farm.
+Off to the south is an old dovecot.
+You can go west, east or south.
+> e
+
+> e
+
+PRIVATE ROAD
+You are on a narrow road that runs through the wooded grounds of an isolated farm.
+You can go west or southeast.
+> se
+
+> se
+
+PRIVATE ROAD
+You are on a narrow road that runs through the wooded grounds of an isolated farm.
+Off to the west is a dovecot.
+You can go northwest, south or west.
+> s
+
+> s
+
+PRIVATE ROAD
+You are on a narrow road that runs throught the wooded grounds of an isolated farm.
+You can go north or southwest.
+> sw
+
+> sw
+
+FOOT OF STEPS
+You are standing at the foot of a steep wooden stairway that leads up to the front of a house.
+There is open moorland to the east.
+You can go northeast, up, east or west.
+> count steps
+
+> count steps
+I make it 39!!!
+> up
+
+> up
+You make the weary climb up to the front door of the house.
+
+HOUSE
+You are at the front door of a fine house. There are steps here that lead down to a twisty road.
+
+You can go down or west.
+> w
+
+> w
+
+SIDE OF HOUSE
+You are by the side of a grand house. By your feet there is a small window.
+You can go east.
+> put book in rucksack
+
+> put book in rucksack
+Done.
+> put chisel in rucksack
+
+> put chisel in rucksack
+Done.
+> put dynamite in rucksack
+
+> put dynamite in rucksack
+Done.
+> push rucksack through window
+
+> push rucksack through window
+You manage to squeeze your rucksack through the small opening, and it drops down into the darkness below....
+> e
+
+> e
+
+HOUSE
+You are at the front door of a fine house. There are steps here that lead down to a twisty road.
+
+You can go down or west.
+> knock on door
+
+> knock on door
+The door opens and a servant ushers you into a fine looking living room, glass on one side, and on the other a mass of books.
+
+There is a knee-hole desk in the middle, and seated at it, with some papers and open volumes before him, is a benevolent old gentleman.
+ His face is round and shiny, like Mr Pickwick's, big glasses were stuck on the end of his nose, and the top of his head was as bright and bare as a glass bottle.
+
+ He doesn't move when you enter,  just raises his placid eyebrows and with hooded eyes says, "Welcome Mr Hanway!"
+
+LIVING ROOM
+This large room is adequetely furnished although rather spartan. Beside a large fireplace is a pull cord. The French windows at the north end of the room are open. There is a front door here that leads out onto the front porch.
+
+You can see two henchmen and the professor.
+
+The professor is waiting for you to speak...
+> speak to professor
+
+> speak to professor
+You try to convince the professor that you are not Richard Hannay, but the old man doesn't believe you and becomes fed up with your company.
+
+He nods to his two men. They grab you by the arms and frog-march you out of the house and put you in a room.
+
+One of the men searches you, and takes away everything that you are carrying, and then they leave.
+
+You hear the door being locked and then silence.
+
+The room is in total darkness!!!
+
+PITCH BLACK
+You can see nothing!!
+You can see a rucksack (containing a knife, a box of matches, a torch, a little black book, a chisel and a stick of dynamite).
+> take rucksack
+
+> take rucksack
+Taken.
+> switch on torch
+
+> switch on torch
+You switch on the torch.
+It lights up the room.
+
+STOREROOM
+You are at the south end of a damp chamber that was once the old farmhouse. Now it is just used as a storeroom. High up on the wall in front of you is a boarded-up window. Behind you is a stout door.
+The whole place smells of mould and disuse. You can hear your gaolers shifting their feet as they stand on guard outside.
+You can see a strong chest.
+> open strong chest
+
+> open strong chest
+You open it.
+You find a fuse inside!
+> take fuse
+
+> take fuse
+You pick it up.
+> push strong chest
+
+> push strong chest
+Using all your strength, you manage to push the chest to the far end of the room. Where, the chest once was lies a bare patch of unpainted wall.
+
+You find some loose clay under the chest.
+> x wall
+
+> x wall
+You examine the walls very carefully and discover a loose brick!
+> take brick
+
+> take brick
+Using the small chisel, you eventually manage to remove the loose brick - leaving a deep hole.
+You toss the brick to one side.
+> insert dynamite
+
+> insert dynamite
+You very gingerly insert the dynamite into the deep hole.
+> join fuse
+
+> join fuse
+Okay.
+> take clay
+
+> take clay
+You pick them up.
+> pack clay
+
+> pack clay
+You ram the clay into the hole completely sealing in the charge, only the fuse remaning visible.
+> light fuse
+
+> light fuse
+You light the fuse! Stand back!
+> hide in chest
+
+> hide in chest
+You climb inside the chest and close the lid.
+
+CHEST
+You are crouched down inside the large chest.
+
+You can go up.
+The match flickers and dies!
+The fuse is burning!
+The fuse is burning away!
+BOOM!
+A great wave of heat seems to surge out from the wall. It hangs in the air for a second and then the wall splits open with a thunderous crash and daylight comes flooding in.
+
+Small pieces of brick thunder against the trunk and the air is full of acrid fumes.
+
+> up
+
+> up
+
+STOREROOM
+The storeroom has been wrecked. There are broken items all over the place. The stout door has held fast but the wall under the window has been smashed down, leaving a clear route to the north.
+You can see a strong chest.
+You can go north.
+> n
+
+> n
+
+OLD MILL
+The mill is in a bad state of repair on the outside. The door is hanging off it's hinges.
+You can go north, west or southeast.
+> w
+
+> w
+
+INSIDE THE OLD MILL
+You are inside the disused mill, standing near a flight of rickety stairs.
+
+You can go east or up.
+> up
+
+> up
+As you climb the stairs your coat gets caught on a nail. You pull yourself free and continue up the stairs to the top.
+
+TOP OF THE MILL
+You are at the top of the mill. There's nothing here but grime and dust.
+You can go down.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> down
+
+> down
+
+INSIDE THE OLD MILL
+You are inside the disused mill, standing near a flight of rickety stairs.
+
+You can go east or up.
+> e
+
+> e
+
+OLD MILL
+The mill is in a bad state of repair on the outside. The door is hanging off it's hinges.
+You can see two henchmen.
+You can go north, west or southeast.
+> n
+
+> n
+
+DOVECOT
+The doves have long since departed and the only door has been padlocked.
+You can see a very old ivy plant that winds its way up and around the sides of the dovecot.
+There is a bunch of tin cans across the paths to the north and to the east.
+You can go south, north or east.
+> climb ivy plant
+
+> climb ivy plant
+Grasping the thick stem of the ivy you quickly make your way to the top.
+
+ON TOP OF THE DOVECOT
+You are standing on top of the dovecot with a good view all round. There is a protective wall, about 2ft high, on all four sides.
+
+You could be quite easily spotted standing here like this!
+
+You can go down.
+> peep
+
+> peep
+
+You peep over the edge and see the professior dash into the mill. The two men head off east into the woods along a very narrow track that is only just visible from up here.
+
+> down
+
+> down
+
+DOVECOT
+The doves have long since departed and the only door has been padlocked.
+You can see a very old ivy plant that winds its way up and around the sides of the dovecot.
+There is a bunch of tin cans across the paths to the north and to the east.
+You can go south, north or east.
+> s
+
+> s
+
+OLD MILL
+The mill is in a bad state of repair on the outside. The door is hanging off it's hinges.
+You can go north, west or southeast.
+> se
+
+> se
+
+BACK OF THE HOUSE
+You are at the back of the house by the open French windows.
+You can go northwest or south.
+> s
+
+> s
+
+LIVING ROOM
+This large room is adequetely furnished although rather spartan. Beside a large fireplace is a pull cord. The French windows at the north end of the room are open. There is a front door here that leads out onto the front porch.
+
+You can see some plans.
+You can go north.
+> take plans
+
+> take plans
+You pick them up.
+> open closed door
+
+> open closed door
+Okay.
+> s
+
+> s
+
+HOUSE
+You are at the front door of a fine house. There are steps here that lead down to a twisty road.
+
+You can go down or west.
+> down
+
+> down
+
+FOOT OF STEPS
+You are standing at the foot of a steep wooden stairway that leads up to the front of a house.
+There is open moorland to the east.
+You can go northeast, up, east or west.
+> e
+
+> e
+
+MOORLAND
+You are travelling on sparse moorland.
+From here you can see a stone bridge crossing a small stream to the south.
+
+You can go west or northeast.
+> ne
+
+> ne
+
+MOORLAND
+You are travelling on sparse moorland.
+You can go southwest or southeast.
+> se
+
+> se
+
+MOORLAND
+You are travelling on sparse moorland.
+You can go northwest or east.
+> e
+
+> e
+
+MOORLAND
+You are travelling on sparse moorland.
+You can go west or southeast.
+> se
+
+> se
+
+MOORLAND
+You are travelling on sparse moorland.
+Way over to the northeast you see what appears to be a county house.
+You can go northwest or north.
+> n
+
+> n
+
+A LONELY ROAD
+You are on a lonely, winding road that leads through moorland up a slight incline towards a fantastic and domineering country house.
+You can go east or south.
+> e
+
+> e
+
+A COUNTRY HOUSE
+You are outside the entrance to a well-built country house. There is a bell push on the front door.
+You can go west.
+> ring bell
+
+> ring bell
+You press the bell and a rather tall, distinguished-looking gentleman appears.
+
+"Oh, do come in. You look as though you have been in the wars. Please go into the living room."
+
+A PLUSH LIVING ROOM
+You are in the living room which is furnished to a high standard.
+A log fire throws out a cheerful welcome.
+
+You can see a gentleman.
+You can go west.
+> speak to gentleman
+
+> speak to gentleman
+"Now then, Mr Hawnway, oh yes I know your name; in fact one of my best operatives has been trying to monitor your activities ever since you arrived in Scotland.
+ I am head of the British Secret Service and we have been keeping a close eye on the activities of the occupant of "39 STEPS".
+
+Mr.Scadder was on to him and sent us a detailed account of his nefarious schemes but so far we don't have enough proof to nail him and his men.
+
+I suggest that you show me what you have found and then I can examine it to see if we have enough evidence to go over and tackle Professor Green, as he likes to be called."
+> show plans
+
+> show plans
+You tell the gentleman the whole story from the first moment that Scadder entered your life.
+You show him the plans.
+
+He studies the plans and says,
+
+"This is just what we need in order to bring the blackguard to justice. He obviously had an accomplice inside the War Office but once we have the Professor under lock and key we'll soon be able to round up the rest of the gang.
+I'll dispatch a squad of soldiers to surroud the house while you I together with an armed escort go and smash down the door to the '39 Steps."
+
+HOUSE
+You are at the front door of a fine house. There are steps here that lead down to a twisty road.
+
+You can see an armed escort and Sir Gordon.
+You can go down or west.
+> smash door
+
+> smash door
+Together you break down the door and you all rush into the house.
+
+Sir Gordon addesses the Professor and his men and tells them that enough evidence has been accumulated for him to answer a charge of murder and treason.
+In all probability he will be executed in the Tower of London and his followers will have a rendezvous with the hangman!
+
+Soldiers march the accused man out of the house.
+
+Sir Gordon turns to you and says,
+
+"You have done a magnificent job, Hanway! I'm sure that His Majesty will want to see you at the Palace very soon and pin something shiny on your lapel. There could also be a Knighthood in it for you as well!!"
+
+WELL DONE! YOU HAVE COMPLETED THE 39 STEPS
+
+[state=Finished]

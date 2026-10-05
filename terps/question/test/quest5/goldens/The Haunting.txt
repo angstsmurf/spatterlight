@@ -1,0 +1,89 @@
+The Haunting
+by Jay Nabonne
+
+        The old neighborhood radiates hostility. The windows of the houses glow like silent eyes in the grayness of the night. There's life within them and love and warmth, but here where you walk there is just the chill of oncoming winter and a deathly still disturbed only by your solitary passage. Along the secluded walkway, the trees you had climbed in your youth stand stark and barren, their leaves stripped by the change of season, lying dead and rotting along the path. You unconsciously step around them, making no sound, leaving no trace.
+
+> x walkway
+
+        It's the wrong time of night to be wandering here, but it suits your mood perfectly. You feel cold inside, your life sucked away completely by the events of the past week.
+
+> x events
+
+        Mom, I need you. Where are you?
+
+The question comes and goes quickly. You know where she is. You will never talk with her again, never hug her or kiss her lightly on the cheek as you bid your goodbyes. She'll never smile at you again.
+
+The funeral had brought the family together, but you couldn't bring yourself to stand with them. You remained off at a distance, alone and in silence. Afterwards, they went their separate ways, back to their homes and their loved ones and their lives, leaving you to your solitude.
+
+In your despair and grief, you were drawn back to this place, the place you had lived as a child.
+
+> x thisplace
+
+        It has been years since you were here, many more since you've actually lived here. You slow your pace at the sight of the playground.
+
+> x playground
+
+        Oh, the summer days spent here! You can see Billy and Tommy and Mary riding the swings, sliding down the slide. You blink, and they're gone, vanished like ghosts. The swing floats idly in the wind. There's no one there but you.
+
+The playground, the benches, the fences along the backs of the houses - they all seem so much smaller than you remember. They had been an integral part of your life. Now you remember them, but they no longer know you. Time has separated you.
+
+Beyond the playground is a small foot bridge, its old, weathered wood beginning to crack and splinter.
+
+> x footbridge
+
+        You make your way along the path and over the bridge. As you draw near home, you feel the sudden urge to run. You want to fly along the path and over the lawn, jump up the steps two at a time, swing wide the screen door and dash into your mother's arms. But you know she isn't there.
+
+> x home
+
+        As you round the corner, the house comes into view. It's a different color now; you can tell even in the dullness of the halogen-tinted night. You stand out front and look. Someone else lives there. Someone else is making memories. It doesn't belong to you any more; you no longer belong there. You are the stranger.
+
+Wherever you look, you can see fleeting glimpses of motion. Little scenes tucked away in your memories play out, appearing and disappearing before you can really see them. The phantoms toy with you, answering your yearnings with teases, offering you no relief from the emptiness you feel inside. You close your eyes in frustration.
+
+> x phantoms
+
+        Quit haunting me!
+
+You turn away and quickly make your way back toward the bridge. A sudden motion forces you from your thoughts.
+
+> x cat
+
+        A cat sits crouching along the side of the path. It looks at you, eyes wide. You make friendly clucking sounds at it, but your attention drives it into the bushes. Denied even the friendship of nature, you continue on.
+
+> x continueon
+
+        You slow by the playground but keep going, sadness piercing to the very core of your soul.
+
+> x keepgoing
+
+        As you pass under the trees, a man appears ahead of you, led by a dog on a leash.
+
+> x dog
+
+        The dog sniffs everywhere as they make their way towards you. You keep your head down, your eyes on the path a few feet ahead of you.
+
+> x eyes
+
+        You glance up, and the dog's eyes meet yours. It begins to slow a bit and move to the side, watching you warily. You don't even try to be friendly toward it. Unaware, the man continues forward.
+
+> x man
+
+        You don't stray from your path; he doesn't stray from his. You exhale a sigh as he passes through you. He shivers for a moment and lets out a low curse.
+
+"What the hell was that?" he asks quietly to no one in particular as he draws his coat more tightly around himself and continues along the path to the bridge.
+
+Without looking, you feel him go, his footsteps fading until there is silence again.
+
+> x withoutlooking
+
+        Your eyes still on the path, you continue your journey. A small moan escapes your lips. You don't know where you're going to go next.
+
+> x moan
+
+        You moan again, a little more deeply this time, your anguish taking voice. All around you is darkness and emptiness. You are a stranger in this world. It no longer belongs to you, and you no longer belong here.
+
+The End
+
+An adaptation of a short story of mine, from years ago.
+
+The original can be found here: The Haunting (storiesmania.net)
+[state=Finished]

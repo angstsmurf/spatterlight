@@ -1,0 +1,36 @@
+Cloak of Darkness
+
+by The Pixie
+
+You hurry through the night, keen to get out of the rain. Ahead, you can see the old opera house, a brightly lit beacon of safety.
+Moments later you are pushing though the doors into a foyer. Now that you are here it does not seem so bright. The door closes behind you with an ominous finality...
+
+A foyer
+There is something oppressive about the dark room; a presence in the air that almost suffocates you. It's former glory has all but faded, the walls still sport old posters from productions that ended over twenty years ago. Paint is peeling, dust is everywhere and it smells decidedly musty. You can see doors to the north, west and south.
+> west
+
+> west
+
+A cloakroom
+The cloakroom is dimly lit, and is little more than a cupboard. There is a single hook, which strikes you as strange for a cloakroom. The only way out is back to the east.
+> hang cloak on hook
+
+> hang cloak on hook
+You hang the cloak on the hook.
+> east
+
+> east
+
+A foyer
+There is something oppressive about the dingy foyer; a presence in the air that almost suffocates you. It's former glory has all but faded, the walls still sport old posters from productions that ended over twenty years ago. Paint is peeling, dust is everywhere and it smells decidedly musty. You can see doors to the north, west and south.
+> south
+
+> south
+
+A bar
+The bar is dark, and somehow brooding. It is also thick with dust. So much so that someone has scrawled a message in the dust on the floor. The only exit is north.
+> read message
+
+> read message
+The message in the dust says 'You have won!'
+[state=Finished]

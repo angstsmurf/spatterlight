@@ -1,0 +1,54 @@
+LA PIECE BLEUE : Un jeu de Radu Cédric (octobre 2013)
+
+Si c'est la première fois que vous jouez à ce type de jeu veuillez taper "AIDE"  suivi du bouton "ENTREE" de votre clavier"
+Bon jeu :-)
+
+Vous vous réveillez avec un terrible mal de tête.
+Vous êtes allongé à même le sol.
+Dans un grand effort vous parvenez à vous mettre debout et constatez que vous êtes dans une pièce de quelques mètres carré.
+L'éclairage de la pièce est bleu. Les murs reflètent la lumière et sont lisses. Une porte se trouve face à vous.
+
+> chercher sur murs
+
+En cherchant d'éventuels indices sur les murs vous remarquez qu'il y un petit renfoncement rond de quelques millimettres sur l'un d'eux.
+> appuyer sur renfoncement rond
+
+Click !
+Un compartiment dissimulé dans le mur s'ouvre !
+> regarder compartiment
+
+Un petit compartiment dans le mur donne sur un petit ordinateur.
+> utiliser petit ordinateur
+
+Veuillez entrer votre nom :
+> Norman
+(Une voix synthétique) "Bonjour Monsieur Norman.
+Comment allez vous aujourd'hui ?
+
+Je me permet de vous dire comme convenu que j'ai besoin de votre mot de passe pour continuer"
+
+Entrez votre mot de passe :
+> 1981
+(Une voix synthétique) "Merci Monsieur Norman.
+
+Que puis-je faire pour vous ?"
+Menu
+1: Sortir du programme
+2: Ouvrir la porte
+> 2
+(Une voix synthétique) "Bien Monsieur Norman.
+
+CLACK !
+
+La porte viens de se déverrouiller.
+
+(Une voix synthétique) "A bientot Monsieur Norman."
+> ouvrir porte
+
+Vous ouvez la porte et vous sortez de la pièce, vous êtes envahi d'une lumière tres dense qui vous empeche de vois plus que loin que le bout de vos pieds.
+
+Une chose est sur, vous vous sentez bien ...
+
+* A SUIVRE *
+
+[state=Finished]

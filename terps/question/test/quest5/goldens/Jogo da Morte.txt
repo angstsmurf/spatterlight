@@ -1,0 +1,167 @@
+Você está em Sala escura.
+Você observa a Dona Morte.
+
+Uma sala muito escura...
+...e você não parece estar sozinho nela.
+
+Mas a julgar pela sua companhia, isso pode não ser uma boa notícia.
+> falar com morte
+
+> falar com morte
+
+'Bom, acho que sua hora chegou...  Você tem algo a dizer?'
+
+--> 1. Por favor, não me leve! Eu não mereço morrer agora!
+--> 2. Não posso lutar contra o destino e chegou minha hora. Adeus, Mundo Cruel!
+
+Falar com a Morte:
+ - 1
+
+'Ah se ganhasse um real cada vez que ouço isso eu já teria largado esse emprego e me mudado pras Bahamas... Todos acham que não merecem morrer, que não é a hora deles... Mas ninguém até hoje conseguiu me convencer disso.'
+
+-->1. Eu consigo convencê-la! Se ninguém conseguiu fazer isso até hoje então nenhum deles estava falando a verdade. Mas eu estou e garanto que consigo provar!
+-->2. Ok, você tem razão... se ninguém conseguiu provar isso até hoje, então eu não seria o primeiro.
+
+Falar com a Morte:
+ - 1
+
+'E como você pretende fazer isso?'
+
+-->1. Me teste como quiser e eu garanto que passarei!
+-->2.Eu não sei... você tem alguma idéia?
+
+Falar com a Morte:
+ - 1
+
+'Uau, que confiante! Ok, vamos pensar em algum teste para você. Se você passar, estará livre para viver...
+até a minha próxima visita.'
+> examinar morte
+
+> examinar morte
+Não há muito que se possa ver nessa escuridão. Suas vestimentas completamente pretas não tornam as coisas mais fáceis. Mas seu longo capuz negro cobrindo o seu rosto e a longa foice em suas mãos não deixam dúvidas: é ela! A ceifadora de almas, a aterrorizante e temida: Dona Morte!
+
+Mas até que ela não parece tão aterrorizante vista deste ângulo.
+
+'Vou escrever um documento atestando que você terá direito a anos extras de vida e tudo o que você precisa fazer é achá-lo!"
+> examinar morte
+
+> examinar morte
+Não há muito que se possa ver nessa escuridão. Suas vestimentas completamente pretas não tornam as coisas mais fáceis. Mas seu longo capuz negro cobrindo o seu rosto e a longa foice em suas mãos não deixam dúvidas: é ela! A ceifadora de almas, a aterrorizante e temida: Dona Morte!
+
+Mas até que ela não parece tão aterrorizante vista deste ângulo.
+
+'Boa sorte. você vai precisar!'
+> examinar morte
+
+> examinar morte
+Não há muito que se possa ver nessa escuridão. Suas vestimentas completamente pretas não tornam as coisas mais fáceis. Mas seu longo capuz negro cobrindo o seu rosto e a longa foice em suas mãos não deixam dúvidas: é ela! A ceifadora de almas, a aterrorizante e temida: Dona Morte!
+
+Mas até que ela não parece tão aterrorizante vista deste ângulo.
+
+ Sobreviva.
+> abrir olhos
+
+> abrir olhos
+
+ Escritório.
+Você observa uma mesa, uma corda, uma estante e a física.
+Você pode ir para leste.
+
+Você está no chão do que parece ser o escritório de uma casa. Sua mãos estão atadas atrás do seu corpo com uma corda.
+As luzes estão apagadas mas a luz de fora lhe permite enxergar o ambiente....
+
+Na sua frente está uma mesa grande de madeira. Na sala há também uma grande estante de livros repleta com diversos exemplares.
+
+Abra os olhos...
+
+Abra os olhos...
+
+Abra os olhos...
+> examinar estante
+
+> examinar estante
+Essa é uma estante muito grande, cobrindo quase toda a parede e repleta de livros.
+Você vê diversos exemplares que parecem estar organizados de uma forma não muito óbvia.
+Existem alguns objetos nas prateleiras da estante, mas os únicos objetos ao alcance de suas mãos são alguns livros e um porta-retratos.
+> quebrar porta-retratos
+
+> quebrar porta-retratos
+Que bagunça! Você quebrou o porta-retratos e agora a sala está cheia de cacos de vidro.
+> pegar vidro
+
+> pegar vidro
+Pegar um objeto cortante quando a Morte está atrás de você pode não ser uma boa idéia, mas você pega o caco de vidro de qualquer maneira.
+> cortar corda com vidro
+
+> cortar corda com vidro
+Com muito esforço e paciência você consegue usar o caco de vidro para cortar sua corda.
+
+Finalmente suas mãos estão livres.
+> leste
+
+> leste
+
+ Sala.
+Você observa Dona Morte, a sofa, a cofre e a mesa.
+Você pode ir para o sul ou o oeste.
+
+Sim, ela está ali! Ao ver a Morte seu corpo se arrepia como se subitamente você lembrasse que a qualquer momento ela pode decidir te levar.
+Ao seu lado está um sofa marrom e ao fundo da sala você observa algo que parece um cofre.
+Além disso uma pequena mesa se encontra no centro da sala.
+Não há nada mais que lhe chame a atenção, já que é difícil se concentrar quando a Morte está encarando-o.
+> senha 8634
+
+> senha 8634
+Você conseguiu decifrar o código!
+A chave que estava dentro do cofre, agora está no seu inventário.
+> sul
+
+> sul
+
+ Corredor.
+Você pode ir para o leste, o oeste, o norte ou o sul.
+> leste
+
+> leste
+Você usou a chave para destrancar a porta.
+
+Você está no Quarto.
+Você observa a cama, escrivaninha e espelho.
+Você pode ir para o oeste.
+Um quarto pequeno, mas bem organizado. Está mais bem iluminado e muito mais limpo do que o resto da casa. No canto esquerdo você observa uma cama, diante dela uma escrivaninha e no canto do quarto um espelho grande.
+> pegar documento
+
+> pegar documento
+Você pegou o documento.
+> oeste
+
+> oeste
+
+ Corredor.
+Você pode ir para o leste, o oeste, o norte ou o sul.
+> norte
+
+> norte
+
+ Sala.
+Você observa Dona Morte, a sofa, a cofre e a mesa.
+Você pode ir para o sul ou o oeste.
+> falar com morte
+
+> falar com morte
+'E então? Já desistiu?'
+
+-->1. Desisto! Não consigo sair daqui... pode me matar.
+-->2. Jamais desistirei! Só saio daqui com vida.
+-->3. Eu consegui! Aqui está o documento que prova.
+
+Falar com Dona Morte:
+ - 3
+'Hum... por essa eu não esperava.
+Ok, acho justo. Já que você conseguiu está livre para viver. Em alguns anos nos vemos novamente.'
+
+PARABÉNS! BURLAR A MORTE É PARA POUCOS E VOCÊ CONSEGUIU!
+APROVEITE SEUS ANOS A MAIS.
+
+VOCÊ GANHOU O JOGO.
+[state=Finished]

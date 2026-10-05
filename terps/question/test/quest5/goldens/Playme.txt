@@ -1,0 +1,126 @@
+> look
+> look
+It's the day of the Hampshire ICT Conference and all you have to do is get to Ashburton Hall
+It's the day of the Hampshire ICT Conference and all you have to do is get to Ashburton Hall
+> look
+> look
+
+You submitted your request for cover 10 months ago and begrudgingly the school has agreed to let you out.
+
+What excitement awaits?
+
+Press any key to begin....
+
+You submitted your request for cover 10 months ago and begrudgingly the school has agreed to let you out.
+
+What excitement awaits?
+
+Press any key to begin....
+It's the day of the Hampshire ICT Conference and all you have to do is get to Ashburton Hall
+You are in the Registration Area.
+
+This is where people are registering for the Hampshire ICT Conference. There is a reasonable queue but it seems to be moving along fairly quickly.
+
+You can see Mrs Sue Savory and a charging unit (containing an ipad 4).
+You can go east.
+> look
+> look
+You are in the Registration Area.
+
+This is where people are registering for the Hampshire ICT Conference. There is a reasonable queue but it seems to be moving along fairly quickly.
+
+You can see Mrs Sue Savory and a charging unit (containing an ipad 4).
+You can go east.
+
+You submitted your request for cover 10 months ago and begrudgingly the school has agreed to let you out.
+
+What excitement awaits?
+
+Press any key to begin....
+> e
+> e
+You are in a Coffee Shop.
+
+Tea and coffee - the only way to start a conference. Someone has been hard at work because all the tables are already set up with cups of coffee, milk and sugar. There also seems to be a plentiful supply of mini danish pastries and flapjacks (Sue must have been to CostCo?)
+
+You can see a Table (on which there is a cup of coffee, a danish pastry and a flapjack) and a Sign.
+You can go west or south.
+> drink cup of coffee
+> drink cup of coffee
+The coffee tastes not bad and it goes down a treat.
+You are about to put the coffee down when you notice something small and shiny at the bottom of the mug. Its a key
+> look
+> look
+You are in a Coffee Shop.
+
+Tea and coffee - the only way to start a conference. Someone has been hard at work because all the tables are already set up with cups of coffee, milk and sugar. There also seems to be a plentiful supply of mini danish pastries and flapjacks (Sue must have been to CostCo?)
+
+You can see a Table (on which there is a cup of coffee, a danish pastry, a flapjack and a key) and a Sign.
+You can go west or south.
+> take key
+> take key
+A good idea. I'm guessing it probably is quite important.
+> use key
+> use key
+You place the key in the lock and twist
+Slowly but surely the lock moves across and down.
+The door should now open. You should now be able to get into Ashburton Hall.
+> look
+> look
+You are in a Coffee Shop.
+
+Tea and coffee - the only way to start a conference. Someone has been hard at work because all the tables are already set up with cups of coffee, milk and sugar. There also seems to be a plentiful supply of mini danish pastries and flapjacks (Sue must have been to CostCo?)
+
+You can see a Table (on which there is a cup of coffee, a danish pastry and a flapjack) and a Sign.
+You can go west or south.
+> s
+> s
+You are in a Ashburton Hall.
+
+Well this is quite a grand place and clearly the location of the main key note. There are a host of chairs set out and at the front of the room are two white chairs and a blue chair. The question is which one do you choose?
+
+You can see the first chair, the second chair and the third chair.
+You can go north.
+> sit down second chair
+> sit down second chair
+You remove the sign as after all the seat is reserved for you
+After a moment you spy Daniel Fearnley entering the room
+You raise your hand in acknowledgement and he waves back
+> look
+> look
+You are in a Ashburton Hall.
+
+Well this is quite a grand place and clearly the location of the main key note. There are a host of chairs set out and at the front of the room are two white chairs and a blue chair. The question is which one do you choose?
+
+You can see the first chair, the second chair and the third chair.
+You can go north.
+Daniel comes up to you. That's odd he appears to be dressed up as a prehistoric caveman?
+He grabs your hand and vigorously shakes it up and down
+> look
+> look
+You are in a Ashburton Hall.
+
+Well this is quite a grand place and clearly the location of the main key note. There are a host of chairs set out and at the front of the room are two white chairs and a blue chair. The question is which one do you choose?
+
+You can see the first chair, the second chair and the third chair.
+You can go north.
+Welcome to the ICT Conference....
+
+Game over!
+> look
+> look
+You are in a Ashburton Hall.
+
+Well this is quite a grand place and clearly the location of the main key note. There are a host of chairs set out and at the front of the room are two white chairs and a blue chair. The question is which one do you choose?
+
+You can see the first chair, the second chair and the third chair.
+You can go north.
+> look
+> look
+You are in a Ashburton Hall.
+
+Well this is quite a grand place and clearly the location of the main key note. There are a host of chairs set out and at the front of the room are two white chairs and a blue chair. The question is which one do you choose?
+
+You can see the first chair, the second chair and the third chair.
+You can go north.
+[state=Running]

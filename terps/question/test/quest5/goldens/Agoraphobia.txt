@@ -1,0 +1,38 @@
+Agoraphobia
+
+by Nathan De-Netto (ArcticYetiWampa)
+
+Hello there.
+I'm the scene narrator.
+I set the scene :)
+Your name is Bob. Hello Bob (You say hi).
+Bob is agoraphobic.
+This means he isn't particularly fond of open spaces.
+Your task, should you choose to accept it, is to get Bob out of the front door, or die trying.
+BUT BE WARNED - Bob will stop at nothing to never ever get out of the front door.
+Good luck, my friend, you will need it :)
+You are in Bob's Study
+You can see a Remote and a TV.
+You can go south.
+> s
+
+> s
+
+You are in Bob's Kitchen
+You can see a Cyanide Pills, a Glass of Water, a Fridge, a Bomb and an Apple.
+You can go north or south.
+Bob could really do with some cyanide pills right now.
+> s
+
+> s
+
+You are in Bob's Living Room
+You can see a Front door, a Window and a Gun.
+You can go north.
+> shoot gun
+
+> shoot gun
+Bob shoots his gun at the window, and the door magically swings open. Bob realises how crazy he has been acting. Bob decides to turn over a new leaf; to become a new person, a new Bob.
+
+Congrats! You beat the game :)
+[state=Finished]

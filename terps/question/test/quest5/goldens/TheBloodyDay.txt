@@ -1,0 +1,43 @@
+You are in a lounge.
+You can see a shit.
+You can go south.
+The lounge is very small and you feel a bit claustrophobic. It looks like no one has cleaned here for ages. The air is thick with a pungent stench of rotten eggs, salami and piss. There is no escaping it, breathing through your mouth makes your eyes water. Every corner is occupied with week old shit.
+
+There is no TV here.
+> take shit
+You scoop up the poop and put in your pocket. Smooth move.
+> s
+You are in a kitchen.
+You can see a sink, a dead body and a refrigerator.
+You can go north.
+The kitchen looks to be in worse shape than the lounge. The sink is filled to the brim with a hairy, green liquid that has spilled over, run down to the floor and coagulated.
+
+The dead body in the corner is a sticky mix of cloth and bones as most of the skin, meat and internal organs have rotted away. Or.. perhaps been removed some other way. The refrigerator humms silently but now and then it lets out a screeching noise, becomes silent and begins humming again. The air feels hot and sticky. You feel like throwing up.
+> x sink
+You examine the sink more closely, and it does indeed seem like someone has been trying to make green jello using the whole sink as a container. You can see tufts and single strands of hair inside the jello. Upon looking directly into the sink, you notice that there is something else in there. Contained inside the jello is a round shape, darker than the rest of the contents of the sink.
+> take head
+Sliding your fingers along the contours of the head, you separate it from the jello. As your hands finally touch eachother underneath the head, you pull it towards you. It launches out of the jello with a schlwoopfing sound. The head is yours!
+> x dead body
+You can see the bones through the thin fabric of the clothes of this human corpse. It is wearing a gentleman's suit and tie. You also notice that it's head is missing.
+> search dead body
+You pick at the clothes with your fingers, gently folding the jacket to reveal inner pockets. You find nothing of value, this stiff has been picked clean! Also it's really sticky and smelly and you wish you hadn't done that.
+> use shit on head
+You feed the head some of the shit. It does look kind of funny.
+> x shitfilled head
+You smile with glee as you look at your latest invention: the shitfilled head. You crack yourself up.
+> throw up
+You empty the contents of your stomach. Your breath now smells like bile. Your charisma is lowered by 2. However, between the bits of banana or whatever that is, you see a shiny key which must have been sitting inside your belly, just waiting for you to find the right command. Quick! Pick it up before someone else does!
+> take key
+You pick up the key and wipe off the vomit on your pants. Your charisma is lowered by 1.
+> unlock refrigerator
+You unlock the refrigerator.
+> switch off refrigerator
+You grab hold of the cord running from the back of the fridge and pull hard. The fridge makes a screeching sound and becomes silent.
+> open refrigerator
+You open it.
+The refrigerator is dark, except from a glowing human head that sits on the bottom shelf. there is a vacant spot beside it.
+> x refrigerator
+It is dark inside, but sitting on the bottom shelf is a glowing, human head. There is an empty space beside it.
+> use shitfilled head on refrigerator
+You carefully place the shitfilled head next to the glowing one and watch in amazement as the heads turn to face eachother. As they make eye contact, the shitfilled head starts spewing the shit into the glowing heads mouth. The glowing head pushes the shit back into the shitfilled heads mouth. And then back again into glowing heads mouth. Back and forth. Forever.
+[state=Finished]

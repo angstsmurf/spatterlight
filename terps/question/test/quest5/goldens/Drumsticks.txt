@@ -1,0 +1,1794 @@
+Drumsticks
+
+by Luke A. Jones
+
+You are in The Greasy Spoon Café.
+
+You can see Fat Bob and Jonny Columba.
+
+You can go south or out.
+
+The Greasy Spoon Café, a temple of fried pork products and eggs. The food is cheap, and filthy gorgeous. The room contains rickety chairs and tables, with wipe-clean plastic tablecloths. Although when they were last wiped is a mystery lost in the depths of time.
+
+Type 'hints' at any time to get help
+
+ Press any key to start
+You have just eaten a huge breakfast fry-up, including a couple of rather gristly sausages. The grease sits heavy in your stomach. You are contemplating what to do today when in bursts Robin Lye, the local music promoter.
+
+ He dashes over to you and panting for breath he says, "You still managing that band The Bony Kings?"
+
+You nod and say, "Yep, for my sins."
+
+"Well then" says Robin, "We might be able to do each other a favour. I need a support band for tonight, I've got Get Lamp booked in to play The Blackfriars' Inn tonight, and the support have dropped out. The gig is nearly sold out, a grand in the hand for you and your band if you can fill the slot. What do you say?"
+
+ You pause for a moment, the water bill you opened this morning comes to mind and you say. "Alright, I'll get the band and equipmemt together."
+
+"Nice one" says Robin, "Sound check is at 5pm, don't be late. I'm off, oh Hi Jon." Jon nods but continues eating his fried egg sandwich. "Right, see you later" says Robin, and dashes out of the café.
+
+A few seconds later he pops his head around the door again and says, "Oh, do me a favour and find me a DJ to warm the crowd up before the support." "Right, see you later", he says and dissapears.
+
+"Right," you say to Jonny, "We need to get the band together, find a DJ,  pick up the equipment from the rehearsal rooms with the van and get over to the Blackfriars Inn."
+
+" OK boss" says Jonny," but er..there's a small problem, the van is fucked."
+> out
+
+> out
+
+You are Outside Greasy Spoon Café.
+
+You can see Jonny Columba.
+
+You can go in or north.
+
+> north
+
+> north
+
+You are on Oxford Road.
+
+You can see Jonny Columba.
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> east
+
+> east
+
+You are in the Town Square.
+
+You can see a Statue and Jonny Columba.
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> south
+
+> south
+
+You are on Trinity Lane.
+
+You can see Jonny Columba.
+
+You can go north, northeast, southwest, east or south.
+
+> southwest
+
+> southwest
+
+You are in the Back Yard of The Greasy Spoon.
+
+You can see a Pink Wheelie Bin, a Blue Wheelie Bin, a Brown Wheelie Bin, a pigeon and Jonny Columba.
+
+You can go northeast or north.
+
+The back yard of the Greasy Spoon Café. A hard-standing area of concrete with wheelie bins lined up on one side. There is a door into the café on the north side.
+
+> open pink wheelie bin
+
+> open pink wheelie bin
+
+You open it.
+
+ You shout and shoo the pigeon away from the wheelie bin, the pigeon coos in complaint and flies off. "damn winged rat!" you exclaim. "Fuck sake boss, what the pigeon ever do to you?"
+It contains some Sausages.
+> x pink wheelie bin
+
+> x pink wheelie bin
+
+A pink wheelie bin for food waste.
+It contains some Sausages.
+> take sausages
+
+> take sausages
+
+You pick them up.
+> n
+
+> n
+
+You are in The Greasy Spoon Café.
+
+You can see Fat Bob, a Small Key and Jonny Columba.
+
+You can go south or out.
+
+The Greasy Spoon Café, a temple of fried pork products and eggs. The food is cheap, and filthy gorgeous. The room contains rickety chairs and tables, with wipe-clean plastic tablecloths. Although when they were last wiped is a mystery lost in the depths of time.
+
+> take small key
+
+> take small key
+
+You pick it up.
+> out
+
+> out
+
+You are Outside Greasy Spoon Café.
+
+You can see Jonny Columba.
+
+You can go in or north.
+
+> north
+
+> north
+
+You are on Oxford Road.
+
+You can see Jonny Columba.
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> west
+
+> west
+
+You are on Blackfriars Road.
+
+You can see Jonny Columba.
+
+You can go east, south, west, northeast or north.
+
+The western corridor of the town. To the North lies the Blackfriar's Inn, to the East is Oxford Road, Broughton Lane lies to the South and the band's basist Spider Jones lives to the West.
+
+> west
+
+> west
+
+You are  Outside Spider Jones' House.
+
+You can see an A Front Door and Jonny Columba.
+
+You can go east.
+
+You are outside Spider Jones' house, the bass player of the band, and all round dozy waster. He's rarely seen in daylight hours, but you need to get him up and out of the house. You can see that the curtains are still drawn in the upstairs bedroom window.
+
+The gravel driveway crunches underfoot as you approach the front door.
+
+> take gravel driveway
+
+> take gravel driveway
+
+You pick it up.
+You pick up a handful of gravel.
+> throw handful of gravel
+
+> throw handful of gravel
+
+You throw a handful of gravel at the bedroom window, it rains down on the window with a gentle patter.
+
+"Yeah, that's it boss, give the window a gentle tickle, that will do the job" says Jonny sarcastically. "Here, let me have a go".
+
+He picks up a huge handful of gravel and throws it at the window with such force that you are suprised it doesn't shatter!
+
+After a few seconds Spider's blearly eyed face appears at the window. He spots you both and in a mere ten minutes he appears at the front door.
+> speak to spider jones
+
+> speak to spider jones
+
+"Alright Spider!" You say.
+
+"Yeah  thanks for coming to the door so fucking quickly" growls Jonny.
+
+ You proceed to tell Spider about the gig, he wakes up a bit more and says. "Wicked, I'll meet you at the Blackfriars Inn later, but all my equipment is at the rehearsal rooms."
+
+ "Yeah I know", you reply, "We'll pick it up".
+
+"Oh yes," says Jonny, "I just love humping all that gear around, my favourite fucking hobby."
+
+Spider laughs and says, "Well you need another one apart from being a grumpy sod!", "I'm off, see you later."
+
+Spider disappears up the road.
+> east
+
+> east
+
+You are on Blackfriars Road.
+
+You can see Jonny Columba.
+
+You can go east, south, west, northeast or north.
+
+The western corridor of the town. To the North lies the Blackfriar's Inn, to the East is Oxford Road, Broughton Lane lies to the South and the band's basist Spider Jones lives to the West.
+
+> south
+
+> south
+
+You are on Broughton Lane.
+
+You can see Jonny Columba.
+
+You can go north, south or west.
+
+> west
+
+> west
+
+You are Outside Mike E. Smith's House.
+
+You can see Mike's Front Door and Jonny Columba.
+
+You can go in or east.
+
+A rough end of town. Mike's current home is a run down house, he's on hard times and the rent is cheap. The driveway is covered in potholes, the front door is shabby, the gutter appears to be leaking and there is a big crack in one of the upstairs windows.
+
+"Poor Mike" says Jonny, "He's really on his uppers."
+> knock on mike's front door
+
+> knock on mike's front door
+
+You knock on the door an doing so dislodges more flaking paint from its surface. After a few moments the door opens and Mike greets you with a broad smile, "Hey guys, what's going on, er, come on in, excuse the mess." He disappears inside.
+> in
+
+> in
+
+You are in Mike E. Smith's House.
+
+You can see Mike Smith, a bills and Jonny Columba.
+
+You can go out.
+
+Inside Mike's house is a depressing sight. The house feels and smells damp with black mould growing in the upper corners of the walls. The carpet and furniture are threadbare. Jonny catches your eye and subtly draws your attention to the pile of red bills on the coffee table.
+
+> tell mike smith about gig
+
+> tell mike smith about gig
+
+"Fantastic!" says Mike, "It's no secret that I could really do with the money." "There is a small problem though, our kitten Ponky has gone missing, my girlfriend Kate will be in bits if she gets home and he's not here. I can't go out looking again as she's hasn't got her door keys."
+
+"Perfect!" says Jonny sarcastically,"Getting this band to a gig is like herding fucking kittens, and now we have to herd a real one."
+> out
+
+> out
+
+You are Outside Mike E. Smith's House.
+
+You can see Mike's Front Door and Jonny Columba.
+
+You can go in or east.
+
+A rough end of town. Mike's current home is a run down house, he's on hard times and the rent is cheap. The driveway is covered in potholes, the front door is shabby, the gutter appears to be leaking and there is a big crack in one of the upstairs windows.
+
+> east
+
+> east
+
+You are on Broughton Lane.
+
+You can see Jonny Columba.
+
+You can go north, south or west.
+
+> north
+
+> north
+
+You are on Blackfriars Road.
+
+You can see Jonny Columba.
+
+You can go east, south, west, northeast or north.
+
+The western corridor of the town. To the North lies the Blackfriar's Inn, to the East is Oxford Road, Broughton Lane lies to the South and the band's basist Spider Jones lives to the West.
+
+> east
+
+> east
+
+You are on Oxford Road.
+
+You can see Jonny Columba.
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> east
+
+> east
+
+You are in the Town Square.
+
+You can see a Statue and Jonny Columba.
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> south
+
+> south
+
+You are on Trinity Lane.
+
+You can see Jonny Columba.
+
+You can go north, northeast, southwest, east or south.
+
+> southwest
+
+> southwest
+
+You are in the Back Yard of The Greasy Spoon.
+
+You can see a Pink Wheelie Bin, a Blue Wheelie Bin, a Brown Wheelie Bin and Jonny Columba.
+
+You can go northeast or north.
+
+The back yard of the Greasy Spoon Café. A hard-standing area of concrete with wheelie bins lined up on one side. There is a door into the café on the north side.
+
+> push blue wheelie bin
+
+> push blue wheelie bin
+
+You move the blue wheelie bin, and there behind it is Mike's kitten Ponky, he jumps up into Jonny's arms. "Woah!" says Jonny, "What else do I have to deal with today”, but then his face cracks a smile, he strokes the kitten and says, "Cute little fucker ain't he."
+> northeast
+
+> northeast
+
+You are on Trinity Lane.
+
+You can see Jonny Columba (who is carrying Ponky).
+
+You can go north, northeast, southwest, east or south.
+
+> north
+
+> north
+
+You are in the Town Square.
+
+You can see a Statue and Jonny Columba (who is carrying Ponky).
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> west
+
+> west
+
+You are on Oxford Road.
+
+You can see Jonny Columba (who is carrying Ponky).
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> west
+
+> west
+
+You are on Blackfriars Road.
+
+You can see Jonny Columba (who is carrying Ponky).
+
+You can go east, south, west, northeast or north.
+
+The western corridor of the town. To the North lies the Blackfriar's Inn, to the East is Oxford Road, Broughton Lane lies to the South and the band's basist Spider Jones lives to the West.
+
+> south
+
+> south
+
+You are on Broughton Lane.
+
+You can see Jonny Columba (who is carrying Ponky).
+
+You can go north, south or west.
+
+> west
+
+> west
+
+You are Outside Mike E. Smith's House.
+
+You can see Mike's Front Door and Jonny Columba (who is carrying Ponky).
+
+You can go in or east.
+
+A rough end of town. Mike's current home is a run down house, he's on hard times and the rent is cheap. The driveway is covered in potholes, the front door is shabby, the gutter appears to be leaking and there is a big crack in one of the upstairs windows.
+
+> in
+
+> in
+
+You are in Mike E. Smith's House.
+
+You can see Mike Smith, a bills and Jonny Columba (who is carrying Ponky).
+
+You can go out.
+
+Inside Mike's house is a depressing sight. The house feels and smells damp with black mould growing in the upper corners of the walls. The carpet and furniture are threadbare. Jonny catches your eye and subtly draws your attention to the pile of red bills on the coffee table.
+
+"Hey Mike!" Jonny says, "Look who we found." Mike beams from ear to ear as he hands over Ponky. "Thanks so much lads, I'll see you out and then head down to the gig, I've left the key for Kate with a neighbour."
+
+ As you turn to leave Jon pulls a tenner out of his pocket and hands it Mike, "Here, have this so you can enjoy the evening." Mike looks bashful and says, "Thanks Jon, you're a diamond." "Must be all the fucking pressure," replies Jon. Mike puts Ponky in the backroom and then shows you out of the house.
+
+You are Outside Mike E. Smith's House.
+
+You can see Mike's Front Door and Jonny Columba.
+
+You can go in or east.
+
+A rough end of town. Mike's current home is a run down house, he's on hard times and the rent is cheap. The driveway is covered in potholes, the front door is shabby, the gutter appears to be leaking and there is a big crack in one of the upstairs windows.
+
+> east
+
+> east
+
+You are on Broughton Lane.
+
+You can see Jonny Columba.
+
+You can go north, south or west.
+
+> north
+
+> north
+
+You are on Blackfriars Road.
+
+You can see Jonny Columba.
+
+You can go east, south, west, northeast or north.
+
+The western corridor of the town. To the North lies the Blackfriar's Inn, to the East is Oxford Road, Broughton Lane lies to the South and the band's basist Spider Jones lives to the West.
+
+> east
+
+> east
+
+You are on Oxford Road.
+
+You can see Jonny Columba.
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> east
+
+> east
+
+You are in the Town Square.
+
+You can see a Statue and Jonny Columba.
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> north
+
+> north
+
+You are Outside The Junk 'n' Disorderly Second-hand Emporium.
+
+You can see Jonny Columba.
+
+You can go in or south.
+
+> in
+
+> in
+
+You are in The Junk 'n' Disorderly Second-hand Emporium.
+
+You can see Ancient Sofas, Coffee Tables, Lamps, Newspapers, Books, a Box of Computer Stuff, TVs, Crockery, CDs, Matt Roch, a Box of Vinyl Records, Curtains, Bedding, DVDs, Clothes, a Magnifying Glass and Jonny Columba.
+
+You can go out.
+
+A secondhand shop run by Matt Roch, the rumour is that Roch is actually a serial horder and the shop is just a cover so that the council don't evict him. Judging by the state of the shop you can well believe the rumours. Every piece of wall space and most of the floor  is piled high with clutter, kipple and junk.
+
+> open box of computer stuff
+
+> open box of computer stuff
+
+You open it.
+It contains Nintendo 64 and a copy of Goldenye and a PC Gamer Magazine.
+> take pc gamer magazine
+
+> take pc gamer magazine
+
+You reluctantly pay Matt Roch the 75p that he wants for the magazine and pick it up.
+> open box of vinyl records
+
+> open box of vinyl records
+
+You open it.
+You pull out a box of vinyl records and start rifling through. Amongst the 70's easy listening with garish covers, and umpteen classical albums, one record catches your eye. It is a picture disk in the shape of a some sort of white cocktail with a piece of pinapple on the rim of the glass,
+It contains a Picture Disk.
+> take picture disk
+
+> take picture disk
+
+You reluctantly pay Matt Roch the 50p that he wants for the picture disk and pick it up.
+> out
+
+> out
+
+You are Outside The Junk 'n' Disorderly Second-hand Emporium.
+
+You can see Jonny Columba.
+
+You can go in or south.
+
+> south
+
+> south
+
+You are in the Town Square.
+
+You can see a Statue and Jonny Columba.
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> west
+
+> west
+
+You are on Oxford Road.
+
+You can see Jonny Columba.
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> north
+
+> north
+
+You are on Brunswick Street.
+
+You can see a Tree and Jonny Columba.
+
+You can go south, north, southwest, northeast or up.
+
+A narrow meandering medieval backstreet.
+
+> north
+
+> north
+
+You are Outside Mac Attack's House.
+
+You can see Mac's Front Door and Jonny Columba.
+
+You can go south or in.
+
+> knock on mac's front door
+
+> knock on mac's front door
+
+You knock on Mac's front door. After a few seconds the door opens and standing in the doorway is Mac. "Yo" says Mac, "come on in". He puts the front door on the latch and dissapears inside the house.
+> in
+
+> in
+
+You are in Mac Attack's House.
+
+You can see Mac Attack, a sound system, a Large Russian Doll and Jonny Columba.
+
+You can go out.
+
+Mac's house is a shrine to the two loves of his life; drums and computer games. The room is dominated by an 80 inch plasma widescreen TV and a sound system that would put the local IMAX theatre to shame.
+
+In the corner of the room is an electronic drum kit and on the walls are posters of Mac's drum heroes; John Bonham, Neil Peart, Mike Portnoy, Keith Moon etc. Mac is glued to the TV playing Dark Souls III, it looks like he hasn't slept properly in days.
+
+> give pc gamer magazine to mac attack
+
+> give pc gamer magazine to mac attack
+
+"Ah" says Mac, "Hopefully there's some help in here". He scans through the magazine until he finds what he is looking for, "Enchant with bleed!", "I have you now dancer". Mac sits back down picks up his controller and soundly beats the boss and gets to the checkpoint. "Right" says Mac, "sorry about that, I'll head down to the Blackfriars Inn now." He shows you out of the house and heads off down Brunswick street.
+You are Outside Mac Attack's House.
+
+You can see Mac's Front Door and Jonny Columba.
+
+You can go south or in.
+
+> south
+
+> south
+
+You are on Brunswick Street.
+
+You can see a Tree and Jonny Columba.
+
+You can go south, north, southwest, northeast or up.
+
+A narrow meandering medieval backstreet.
+
+> south
+
+> south
+
+You are on Oxford Road.
+
+You can see Jonny Columba.
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> east
+
+> east
+
+You are in the Town Square.
+
+You can see a Statue and Jonny Columba.
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> southwest
+
+> southwest
+
+You are Outside Discovery Record Store.
+
+You can see Jonny Columba.
+
+You can go in or northeast.
+
+> in
+
+> in
+
+You are in Discovery Record Store.
+
+You can see Jerry 'the mouse'  and Jonny Columba.
+
+You can go out.
+
+Discovery record store.  Specialising in vinyl it somehow survived the digital revolution, and is now enjoying a renaissance as a popular hangout for the local hipster community.
+
+There are racks and racks of vinyl records, arranged by genre and alphabetical order. On the walls are special picture discs and limited edition coloured vinyl records. Some cheesy music is drifting out of the store hi-fi system.
+
+> tell jerry 'the mouse' about gig
+
+> tell jerry 'the mouse' about gig
+
+"Sorry Sir, I'm not doing any gigs for Robin Lye", "He is a scoundrel who doesn't pay what he promises".
+> give picture disk to jerry 'the mouse'
+
+> give picture disk to jerry 'the mouse'
+
+You give the picture disc to Jerry and his eyes light up. "Good gracious me" says Jerry, "the legends are true!" "OK I'll do the warm-up slot for you at the gig". Jerry picks up a box of records and heads out of the door, "See you at the Blackfrairs Inn, and remember.." says Jerry, "Yes I know" you reply, "Keep it easy, keep it cheesy!" you say, "Nice" says Jerry and disappears out of the door.
+> out
+
+> out
+
+You are Outside Discovery Record Store.
+
+You can see Jonny Columba.
+
+You can go in or northeast.
+
+> northeast
+
+> northeast
+
+You are in the Town Square.
+
+You can see a Statue and Jonny Columba.
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> south
+
+> south
+
+You are on Trinity Lane.
+
+You can see Jonny Columba.
+
+You can go north, northeast, southwest, east or south.
+
+> east
+
+> east
+
+You are Outside Ed Kayce's House.
+
+You can see a Front Door and Jonny Columba.
+
+You can go north, west or in.
+
+> knock on front door
+
+> knock on front door
+
+You knock on Ed's front door. "Hell" says Jonny, "I wonder what mood the deranged git is in today." After a few seconds the door opens and standing in the doorway dressed in a bright yellow boxing gown and carrying a feather duster is Ed. He immediately cleans the spot where you knocked on the door and says, "mi casa es su casa, but don't make a mess, I've just had the carpets shampooed." "Fuck sake" mumbles Jonny. Ed disappears inside.
+> take off shoes
+
+> take off shoes
+
+You take them off.
+> in
+
+> in
+
+Jonny struggles to take off his Doc Martin boots, cursing under his breath you both enter Ed's house.
+You are in Ed Kayce's House.
+
+You can see Ed Kayce and Jonny Columba.
+
+You can go out.
+
+More show home than home. Ed's house is so immaculately clean, organised and tidy that it's hard to believe that anyone actually lives here. The thick shag pile cream carpet is spotless. The air  in the room catches your breath. There are plug in air freshers in every power socket, they are set to maximum so there is a constant background 'psst' 'pssst' rhythm as they dispense 'sweet pea and lilac' scent into the room.
+
+On the walls are photos from gigs showing Ed in his many 'power poses' with everyone else in the band cropped out or blurred.
+
+> tell ed kayce about gig
+
+> tell ed kayce about gig
+
+"About time we got a decent gig. The punters at half the venues we play don't appreciate my blatant genius" says Ed. "Bit of a problem though, one of my essential seven guitars needs some attention, the trus rod needs some adjustment. I can't possibly play without it." He disappears out of the room and comes back with a guitar case and hand it to you. "Look after my baby!" he says.
+> open guitar case
+
+> open guitar case
+
+You open it.
+It contains a Fender thundergrunt.
+> take fender thundergrunt
+
+> take fender thundergrunt
+
+You pick it up.
+> out
+
+> out
+
+You and Jonny put on your shoes again and leave the house.
+You are Outside Ed Kayce's House.
+
+You can see a Front Door and Jonny Columba.
+
+You can go north, west or in.
+
+> north
+
+> north
+
+You are on an Industrial Estate.
+
+You can see Jonny Columba.
+
+You can go west, southwest, southeast, south, north or east.
+
+> north
+
+> north
+
+You are Outside PMT Music Supplies.
+
+You can see Jonny Columba.
+
+You can go in or south.
+
+> in
+
+> in
+
+You are in PMT Music Supplies.
+
+You can see Jonny Columba.
+
+You can go down or out.
+
+Professional Music Technology (PMT) store. One of the biggest music equipment stores in the country.
+
+It's best not to linger here to long unless you want to hear the opening riff of 'Sweet Child O' Mine played over and over again, incorrectly.
+
+ You can currently hear someone playing 'Smoke on the Water' on a bass guitar at half tempo.
+
+You only come in here because the basement houses an excellent repair shop; Buzz Stop.
+
+> down
+
+> down
+
+You are in Buzz Stop Guitar Workshop.
+
+You can see Helen Key and Jonny Columba.
+
+You can go up.
+
+Guitar and bass repair shop, run by Helen Key. Helen is a wizard at repairs and people come from miles around for her services. On the workbench in the middle of the room and hanging on the walls are tools, boxes of parts, and guitars in a variety of different states of dismatlement and repair.
+
+> give fender thundergrunt to helen key
+
+> give fender thundergrunt to helen key
+
+Helen takes the guitar from you and says, "Oh no, not this thing again, do you know how many times I've adjusted this for that idiot Ed?!".
+
+Helen holds up the guitar up flat and looks down the length of the fretboard, sighs and says, "Hell the truss rod needs tensioning and the intonation needs adjustment, on this monstrosity it's a fiddly pain in the butt. I'll do it for you but you need to do me a favour, go over to the No Smoke Inn off Brunswick Street and pick me up some vape fluid, I've run out again. I want something sweet, smoky and creamy. Helps me concentrate."
+
+> up
+
+> up
+
+You are in PMT Music Supplies.
+
+You can see Jonny Columba.
+
+You can go down or out.
+
+Professional Music Technology (PMT) store. One of the biggest music equipment stores in the country.
+
+It's best not to linger here to long unless you want to hear the opening riff of 'Sweet Child O' Mine played over and over again, incorrectly.
+
+ You can currently hear someone playing 'Smoke on the Water' on a bass guitar at half tempo.
+
+You only come in here because the basement houses an excellent repair shop; Buzz Stop.
+
+> out
+
+> out
+
+You are Outside PMT Music Supplies.
+
+You can see Jonny Columba.
+
+You can go in or south.
+
+> south
+
+> south
+
+You are on an Industrial Estate.
+
+You can see Jonny Columba.
+
+You can go west, southwest, southeast, south, north or east.
+
+> west
+
+> west
+
+You are in the Town Square.
+
+You can see a Statue and Jonny Columba.
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> west
+
+> west
+
+You are on Oxford Road.
+
+You can see Jonny Columba.
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> north
+
+> north
+
+You are on Brunswick Street.
+
+You can see a Tree and Jonny Columba.
+
+You can go south, north, southwest, northeast or up.
+
+A narrow meandering medieval backstreet.
+
+> northeast
+
+> northeast
+
+You are Outside No Smoke Inn.
+
+You can see Jonny Columba.
+
+You can go in or southwest.
+
+> in
+
+> in
+
+You are in the No Smoke Inn: Vape Store.
+
+You can see a Vap-O-Mix Machine, Sebastian Barley and Jonny Columba.
+
+You can go out.
+
+Recently opened, the No Smoke Inn sells vaping equipment and liquids. Displayed in glass cabinets are complicated looking vaping machines with various tubes, tanks and charging systems. On the walls are posters advertising bizarre and baffling flavours, 'Baked Beans on Toast', 'Dinner Lady (the old school taste of rice pudding!)', 'Ocean Lime'', 'Cornflake Tart, 'Twisted Ice-cream'.
+
+> x vending machine
+
+> x vending machine
+
+I can't see that.
+> x buttons
+
+> x buttons
+
+There are no flavors currently selected.
+
+The choices are  Strawberry Explosion, Scrumpy Cider, Gin Fizz, Baked Beans on Toast, Chorizo Sausage, Mash Potato, French Fries with Mayonnaise, Mint Choc Chip Ice Cream and Cornflakes.
+> press strawberry explosion
+
+> press strawberry explosion
+
+You have selected Strawberry Explosion.
+> press baked beans on toast
+
+> press baked beans on toast
+
+You have selected Baked Beans on Toast.
+> press french fries
+
+> press french fries
+
+You have selected French Fries with Mayonnaise.
+> press vend button
+
+> press vend button
+
+You press it.
+You hear the cartridge fall into the tray.
+> open tray
+
+> open tray
+
+You open it.
+It contains a vape cartridge.
+> take vape cartridge
+
+> take vape cartridge
+
+You pick it up.
+> out
+
+> out
+
+You are Outside No Smoke Inn.
+
+You can see Jonny Columba.
+
+You can go in or southwest.
+
+> southwest
+
+> southwest
+
+You are on Brunswick Street.
+
+You can see a Tree and Jonny Columba.
+
+You can go south, north, southwest, northeast or up.
+
+A narrow meandering medieval backstreet.
+
+> south
+
+> south
+
+You are on Oxford Road.
+
+You can see Jonny Columba.
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> east
+
+> east
+
+You are in the Town Square.
+
+You can see a Statue and Jonny Columba.
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> east
+
+> east
+
+You are on an Industrial Estate.
+
+You can see Jonny Columba.
+
+You can go west, southwest, southeast, south, north or east.
+
+> north
+
+> north
+
+You are Outside PMT Music Supplies.
+
+You can see Jonny Columba.
+
+You can go in or south.
+
+> in
+
+> in
+
+You are in PMT Music Supplies.
+
+You can see Jonny Columba.
+
+You can go down or out.
+
+Professional Music Technology (PMT) store. One of the biggest music equipment stores in the country.
+
+It's best not to linger here to long unless you want to hear the opening riff of 'Sweet Child O' Mine played over and over again, incorrectly.
+
+ You can currently hear someone playing 'Smoke on the Water' on a bass guitar at half tempo.
+
+You only come in here because the basement houses an excellent repair shop; Buzz Stop.
+
+> down
+
+> down
+
+You are in Buzz Stop Guitar Workshop.
+
+You can see Helen Key and Jonny Columba.
+
+You can go up.
+
+Guitar and bass repair shop, run by Helen Key. Helen is a wizard at repairs and people come from miles around for her services. On the workbench in the middle of the room and hanging on the walls are tools, boxes of parts, and guitars in a variety of different states of dismatlement and repair.
+
+> give vape cartridge to helen key
+
+> give vape cartridge to helen key
+
+Helen attaches the cartridge to her e-stick and takes a puff.
+
+"Smooth!!"  Helen takes another puff.  "That hits the spot, thanks!" "Right let's sort out Ed's ego stick then". Helen sets to work on the guitar and it's a joy to watch. Her precision, care and expertise are clear to see. Eventually she is satisfied and hands the guitar back to you and says, "tell Ed he can settle up with me later, I fear it wont be long before I see him in here again."
+> put guitar in guitar case
+
+> put guitar in guitar case
+
+Done.
+> up
+
+> up
+
+You are in PMT Music Supplies.
+
+You can see Jonny Columba.
+
+You can go down or out.
+
+Professional Music Technology (PMT) store. One of the biggest music equipment stores in the country.
+
+It's best not to linger here to long unless you want to hear the opening riff of 'Sweet Child O' Mine played over and over again, incorrectly.
+
+ You can currently hear someone playing 'Smoke on the Water' on a bass guitar at half tempo.
+
+You only come in here because the basement houses an excellent repair shop; Buzz Stop.
+
+> out
+
+> out
+
+You are Outside PMT Music Supplies.
+
+You can see Jonny Columba.
+
+You can go in or south.
+
+> south
+
+> south
+
+You are on an Industrial Estate.
+
+You can see Jonny Columba.
+
+You can go west, southwest, southeast, south, north or east.
+
+> south
+
+> south
+
+You are Outside Ed Kayce's House.
+
+You can see a Front Door and Jonny Columba.
+
+You can go north, west or in.
+
+> take off shoes
+
+> take off shoes
+
+You take them off.
+> in
+
+> in
+
+Jonny struggles to take off his Doc Martin boots, cursing under his breath you both enter Ed's house.
+You are in Ed Kayce's House.
+
+You can see Ed Kayce and Jonny Columba.
+
+You can go out.
+
+More show home than home. Ed's house is so immaculately clean, organised and tidy that it's hard to believe that anyone actually lives here. The thick shag pile cream carpet is spotless. The air  in the room catches your breath. There are plug in air freshers in every power socket, they are set to maximum so there is a constant background 'psst' 'pssst' rhythm as they dispense 'sweet pea and lilac' scent into the room.
+
+On the walls are photos from gigs showing Ed in his many 'power poses' with everyone else in the band cropped out or blurred.
+
+> give guitar case to ed kayce
+
+> give guitar case to ed kayce
+
+Ed opens the case and examines the guitar. "Ah Lucy! What fine shape you are in, and how lucky you are to be played by me!"
+
+ He heads upstairs and comes down dressed in his gig outfit.  "Right he says, I'll see you down at the Blackfriars Inn." He shows you out of the house and disappears up the road.
+
+You and Jonny put on your shoes again and leave the house.
+You are Outside Ed Kayce's House.
+
+You can see a Front Door and Jonny Columba.
+
+You can go north, west or in.
+
+> north
+
+> north
+
+You are on an Industrial Estate.
+
+You can see Jonny Columba.
+
+You can go west, southwest, southeast, south, north or east.
+
+> southeast
+
+> southeast
+
+You are Outside Jackson's Scrap Yard.
+
+You can see Two Ferocious Dogs and Jonny Columba.
+
+You can go in or northwest.
+
+Outside the local scrap yard, in a distinctly shady part of town. The entrance to the scrap yard is guarded by two enormous rottweiler dogs chained to the gate. Jon says, "Fuck this for a game of soldiers, I'm not going past them!".
+
+> give sausages to two ferocious dogs
+
+> give sausages to two ferocious dogs
+
+You chuck the sausages to the dogs. They wolf them down and it seems to calm them. You gingerly pet them and they lie down. "Come on Jon", you say, "let's get in here". "O fucking K then" says Jon.
+> in
+
+> in
+
+You are in Jackson's Scrap Yard.
+
+You can see Sarah Jackson and Jonny Columba.
+
+You can go out.
+
+An old school breakers yard that has been here for decades. Wrecks of cars and vans in various states of decay are stacked up in piles in the yard. The ground is filthy and polluted with years of oil, fuel and other automotive fluid spillages. The place is run by Roy Jackson and his daughter Sarah.
+
+> ask sarah jackson about alternator
+
+> ask sarah jackson about alternator
+
+"Yeah I should be able to sort you out. Hang on a sec," says Sarah.
+
+She disappears amongst the piles of wrecked cars carrying a ratchet wrench and comes back a few minutes later carrying an alternator, she hands it to Jonny and says, "Here you go Jonny, you know how to fix it don't you? Righty tighty, lefty loosy!"
+
+ "Ya Cheeky sod!" say Jonny with a grin, "Cheers!".
+
+"No worries" says Sarah, "you can pay my Dad next time you see him, he's away at the races with that reprobate Cliff from the auction house."
+
+> out
+
+> out
+
+You are Outside Jackson's Scrap Yard.
+
+You can see Two Ferocious Dogs and Jonny Columba (who is carrying an Alternator).
+
+You can go in or northwest.
+
+Outside the local scrap yard, in a distinctly shady part of town. The entrance to the scrap yard is guarded by two enormous rottweiler dogs chained to the gate, but they are calm and lying on the floor.
+
+> northwest
+
+> northwest
+
+You are on an Industrial Estate.
+
+You can see Jonny Columba (who is carrying an Alternator).
+
+You can go west, southwest, southeast, south, north or east.
+
+> west
+
+> west
+
+You are in the Town Square.
+
+You can see a Statue and Jonny Columba (who is carrying an Alternator).
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> west
+
+> west
+
+You are on Oxford Road.
+
+You can see Jonny Columba (who is carrying an Alternator).
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> west
+
+> west
+
+You are on Blackfriars Road.
+
+You can see Jonny Columba (who is carrying an Alternator).
+
+You can go east, south, west, northeast or north.
+
+The western corridor of the town. To the North lies the Blackfriar's Inn, to the East is Oxford Road, Broughton Lane lies to the South and the band's basist Spider Jones lives to the West.
+
+> south
+
+> south
+
+You are on Broughton Lane.
+
+You can see Jonny Columba (who is carrying an Alternator).
+
+You can go north, south or west.
+
+> south
+
+> south
+
+You are in Jonny's Lock-up Garage.
+
+You can see a Van, a Toolbox and Jonny Columba (who is carrying an Alternator).
+
+You can go north.
+
+Jon's lock-up garage where he keeps the van and does amateur maintenance on it; although that doesn't seem to include ever cleaning it.
+
+"Right" says Jon, "Let's give this fucker what it needs!" Jonny opens the engine compartment and with some further cursing and grunting proceeds to replace the alternator. "There," he says, "the fucker is fixed!" He starts the van, guns the engine and says, "Get in then Boss!"
+> unlock toolbox
+
+> unlock toolbox
+
+Using the small key you unlock the toolbox.
+You open it.
+It contains a Tyre Wrench.
+> take tyre wrench
+
+> take tyre wrench
+
+You pick it up.
+> get in van
+
+> get in van
+
+Jonny jumps into the driver seat and says, "Where to then Boss?" (Just type name of the location you want Jon to drive you to).
+> vernon mill
+
+"Right you are boss!", Jonny floors the accelerator and the van hurtles down the road at breakneck speed, eventually screeching to a halt outside Vernon Mill Rehearsal Rooms.
+
+You are Outside Vernon Mill Rehearsal Rooms.
+
+You can see a Van and Jonny Columba.
+
+You can go in or west.
+
+> in
+
+> in
+
+You are in Vernon Mill Rehearsal Rooms.
+
+You can see Jonny Columba.
+
+You can go up or out.
+
+A 19th century cotton mill, now home to artist studios, a martial arts club and band reheasal rooms (including your band's room).
+
+> fix lift door
+
+> fix lift door
+
+You jam the tyre wrench on to the lift door, it fits tight and you are able to open it. "genius move boss!" says Jonny.
+> up
+
+> up
+
+You are in the Band Rehearsal Room.
+
+You can see Band Equipment and Jonny Columba.
+
+You can go down.
+
+Your band's flea pit of a rehearsal room. The walls are made from cinder blocks and it is perpetually cold and draughty. The floor is covered in various scraps of carpet. Blue tacked to the walls are old set lists and band posters advertising past gigs.
+
+Taking up most of one wall is a a large mirror installed by the band narcissistic guitarist Ed Kayce so that he can stare lovingly at his own reflection or 'practise my stage presence' as he would put it. Amplifiers, speaker cabinets, guitar and bass cases, stands and a full drumkit are stacked up against the wall.
+
+"Right" says Jonny, "time to earn my keep."
+
+ You watch as Jonny whistling the theme to Tetris loads up the goods lift with the band equipment and then somehow manages to fit it all inside the van.
+
+ "There, all fucking done" says Jonny, "but no room for you in the van I'm afraid boss.I'll drop this lot off at the Blackfriars Inn then come and find you".
+
+ Jonny jumps into the van and disappears up the road in a cloud of diesel smoke and screeching tyres.
+
+> down
+
+> down
+
+You are in Vernon Mill Rehearsal Rooms.
+
+You can go up or out.
+
+A 19th century cotton mill, now home to artist studios, a martial arts club and band reheasal rooms (including your band's room).
+
+> out
+
+> out
+
+You are Outside Vernon Mill Rehearsal Rooms.
+
+You can go in or west.
+
+> west
+
+> west
+
+You are on an Industrial Estate.
+
+You can go west, southwest, southeast, south, north or east.
+
+> west
+
+> west
+
+You are in the Town Square.
+
+You can see a Statue.
+
+You can go west, south, east, north or southwest.
+
+The main town square, at Christmas time there is a market here, but today it is empty.
+
+> west
+
+> west
+
+You are on Oxford Road.
+
+You can see Jonny Columba.
+
+You can go north, west, east or south.
+
+The main arterial road for the town. To the North is Brunswick street, to the East is the Town Square, Blackfriars Road lies to the west, and to the South is the Greasy Spoon Café.
+
+There is a constant rumble of traffic passing.
+
+> west
+
+> west
+
+You are on Blackfriars Road.
+
+You can see Jonny Columba.
+
+You can go east, south, west, northeast or north.
+
+The western corridor of the town. To the North lies the Blackfriar's Inn, to the East is Oxford Road, Broughton Lane lies to the South and the band's basist Spider Jones lives to the West.
+
+> north
+
+> north
+
+You are Outside Blackfriar's Inn.
+
+You can see a Huge Tour Coach and Jonny Columba.
+
+You can go in or south.
+
+> in
+
+> in
+
+You are in the Blackfriars Inn.
+
+You can see Jerry 'the mouse'  and Jonny Columba.
+
+You can go north or out.
+
+A large Victorian coaching house, converted to a 1000 capacity music venue in the 1970's.
+
+It's seen better times, and could do with a facelift, but the acoustics are excellent.
+
+You've finally got the whole band here, plus their equipment, and you've managed to hire a DJ.
+
+Press any key to continue...
+
+Robin Lye rushes up to you and says, "Glad you managed to get the band together, not sure about the DJ's style of music, but I guess it will have to do. We've got a problem though, the sound engineer is being even more awkward than usual and we need to get the soundcheck done. Do me a favour and have a word with him will ya?" At that moment you see Tony enter the Inn.
+
+> speak to tony def
+
+> speak to tony def
+
+With a heavy heart you engage Tony in conversation.
+
+ "I hope you've got Jonny on a leash tonight, I don't want any trouble like last time," says Tony.
+
+Jonny bristles next to you, before he can say anything you say "Never mind him, why isn't the soundcheck happening yet?"
+
+Tony turns red and says "I've been running around all day! Robin promised there would be something to eat, but as usual he was just fobbing me off. I've had enough, if someone doesn't get me something to eat this gig ain't happening".
+
+"OK," you reply, "I'll sort something out, but at least start sorting the stage out else we'll have no time."
+
+ "Alright fair enough," says Tony, "The prima-donnas in the starship enterprise outside refuse to come inside till that's done anyway. At least your lads mostly know how to behave, I never had this grief when I worked for Quo!"
+
+You turn to leave and Tony shouts over, "I don't want any of that muck from the Greasy Spoon, his sausages gave me stomach cramps last week! Nothing fancy though, fast food will do."
+> out
+
+> out
+
+You are Outside Blackfriar's Inn.
+
+You can see a Huge Tour Coach and Jonny Columba.
+
+You can go in or south.
+
+> south
+
+> south
+
+You are on Blackfriars Road.
+
+You can see Jonny Columba.
+
+You can go east, south, west, northeast or north.
+
+The western corridor of the town. To the North lies the Blackfriar's Inn, to the East is Oxford Road, Broughton Lane lies to the South and the band's basist Spider Jones lives to the West.
+
+> south
+
+> south
+
+You are on Broughton Lane.
+
+You can see Jonny Columba.
+
+You can go north, south or west.
+
+> south
+
+> south
+
+You are in Jonny's Lock-up Garage.
+
+You can see a Toolbox, a Van and Jonny Columba.
+
+You can go north.
+
+Jon's lock-up garage where he keeps the van and does amateur maintenance on it; although that doesn't seem to include ever cleaning it.
+
+> get in van
+
+> get in van
+
+Jonny jumps into the driver seat and says, "Where to then Boss?" (Just type name of the location you want Jon to drive you to).
+> kfc
+
+You are in KFC Drivethrough.
+
+You can see Jonny Columba and a Van.
+
+Jonny drives you up to the order window. He speaks to the server, she says, "Sorry, we're out of chicken, drinks only. There's been a delay with the delivery, flooding on the M6."
+
+"My god!" says Jonny, "have you phoned the police?"
+
+The server laughs, and then realises that Jonny is deadly serious. "Look," she says, "if you're that desperate you can go any pick up a few boxes from the warehouse yourselves and bring them here, we've just had a call that the M6 is open again, here take this order form."
+
+She explains to Jonny where to find the warehouse. You drive out.
+
+"Right," says Jonny, "no time to lose!"
+
+ He steps heavily on the gas pedal and you hurtle two junctions up the M6, aquaplaning most of the way.
+
+ Press any key to continue
+
+You are on the M6 motorway
+
+You can see Jonny Columba and a Van
+
+ "It's just like water skiing!" says Jonny, "Didn't know you'd ever done that," you reply, "I haven't, " says Jon.
+
+After a terror filled ten minutes you arrive outside the warehouse and step out of the van.
+
+You are Outside Cluck You! Warehouse.
+
+You can see Jonny Columba.
+
+You can go in.
+
+You are outside an enormous industrial warehouse. The stench of ammonia is heavy in the air and you can faintly hear the sound of squawking poultry from within.
+
+> in
+
+> in
+
+You are Inside the Cluck You! Warehouse.
+
+You can see a Cluck You! Employee and Jonny Columba.
+
+You can go out.
+
+Inside the Cluck You! Warehouse smells even more strongly of ammonia. You are in a reception area. There seems to be a complicated series of metal pipes passing through the ceiling. You can't see where the chickens are, but you can hear the faint sound of the their clucking and squawking.
+
+> speak to cluck you! employee
+
+> speak to cluck you! employee
+
+"Welcome to Cluck You"! says the employee, my name is Rachael. "Hi" says Jonny and hands her the order form from KFC. "Ah" says Rachael, "Hang on a second".
+
+Rachael picks up a phone and talks for a few moments, she interrupts the conversation to say to Jonny, "that your van outside?" Jon nods. Rachael finishes her phone call and says, "Couple of my lads are loading up your van now." "While you're waiting would you like to feed the chickens?" Jon says, "Yes please!"
+
+Rachael walks you both over to a lever in the back wall and says,"there you go, enjoy! Your van will be loaded now, I've got to get back to the warehouse." She disappears out the door.
+> pull huge lever
+
+> pull huge lever
+
+You pull the lever. It makes a loud clunk and resets itself. You hear a gritty whooshing sound pass through the pipes in the ceiling and in the distance an increase in the squawking noise. Jonny looks disappointed. “Come on Jon, let's get out of here.” you say. “Yeah,” says Jonny, “let's split.”
+
+> out
+
+> out
+
+You are Outside Cluck You! Warehouse.
+
+You can see a Van (containing a Box of Chicken) and Jonny Columba.
+
+You can go in.
+
+You are outside an enormous industrial warehouse. The stench of ammonia is heavy in the air and you can faintly hear the sound of squawking poultry from within.
+
+> get in van
+
+> get in van
+
+Jonny jumps into the driver seat and says, "Where to then Boss?" (Just type name of the location you want Jon to drive you to).
+> kfc
+
+You are in KFC Drivethrough.
+
+Jonny drives up to the window and talks to the server, she sends a couple of staff members out to unload the chicken from the van.
+
+ "Go park up and I'll send someone out with your order when it's ready" she says.
+
+ "Righto!" says Jonny and you park up.
+
+ A few minutes later a staff member delivers a huge order of chicken to your van. Jonny manages to refrain from eating all of it.
+
+You are Outside KFC.
+
+You can see a Van and Jonny Columba.
+
+You can go north or in.
+
+> get in van
+
+> get in van
+
+Jonny jumps into the driver seat and says, "Where to then Boss?" (Just type name of the location you want Jon to drive you to).
+> blackfriars inn
+
+"Right you are boss!", Jonny floors the accelerator and the van hurtles down the road at breakneck speed, eventually screeching to a halt outside the Blackfriars Inn.
+
+You are Outside Blackfriar's Inn.
+
+You can see a Huge Tour Coach, a Van and Jonny Columba.
+
+You can go in or south.
+
+> in
+
+> in
+
+You are in the Blackfriars Inn.
+
+You can see Tony Def, Jerry 'the mouse'  and Jonny Columba.
+
+You can go north or out.
+
+A large Victorian coaching house, converted to a 1000 capacity music venue in the 1970's.
+
+It's seen better times, and could do with a facelift, but the acoustics are excellent.
+
+> give kfc takeaway to tony def
+
+> give kfc takeaway to tony def
+
+Tony takes the bucket of KFC from you and mutters a "thanks". He takes a bite of chicken and starts sorting out the soundcheck.
+
+"Oh hang on!" Tony says, "The damn stage monitors aren't plugged in!" he points at a jumble of cables next to the stage.
+
+ "Go and fix the cables" he says to you, "I don't want to cover it all in chicken grease, and I don't want Jon anywhere near my equipment."
+
+ "You're an arsehole Tony" says Jon.
+
+"Up to you, my sound system, my rules" replies Tony.
+
+"OK, I'll do it" you say to avoid any further escalation between these two.
+
+"Right," says Tony, "here's the instructions for connecting the cables properly before flicking the switch, easy as pie. "
+
+He scribbles on a piece of paper and hand it to you, “That should give me enough time to finish my KFC” he says with smirk.
+> fix jumble of cables
+
+> fix jumble of cables
+
+Which cable would you like to insert into socket 1?
+1: green cable
+2: yellow cable
+3: red cable
+4: blue cable
+5: white cable
+> 1
+You insert the green cable into socket 1.
+Which cable would you like to insert into  socket 2?
+1: yellow cable
+2: red cable
+3: blue cable
+4: white cable
+> 2
+You insert the red cable into socket 2.
+Which cable would you like to insert into  socket 3?
+1: yellow cable
+2: blue cable
+3: white cable
+> 1
+You insert the yellow cable into socket 3.
+Which cable would you like to insert into  socket 4?
+1: blue cable
+2: white cable
+> 1
+You insert the blue cable into socket 4.
+Which cable would you like to insert into  socket 5?
+1: white cable
+> 1
+You insert the white cable into socket 5.
+> switch on switch
+
+> switch on switch
+
+You switch it on.
+
+"That's it!" says Tony, "Right lets get the show on the road". Your band The Bony Kings scramble on to the stage and are set up in a couple of minutes. Despite driving you mad half the time their professionalism on stage makes you proud. They blast through their soundcheck and apart from Ed having his usual moan that his guitar levels aren't high enough all runs smoothly.
+
+The members of Get Lamp stride into the inn, they nod greetings to the room and get on stage. Soon their soundcheck is over too. Robin opens the doors to the public and people start streaming in. Jerry starts his DJ set with the 90's classic 'Trouble' by Shampoo.
+
+Soon it is stage time and both The Bony Kings and Get Lamp thunder through their respective sets, the atmosphere in the room is electric, by far the best you've ever seen your band play, and their biggest gig by far.
+
+The house lights come on and the crowd starts to leave.
+
+You look around for Robin as it's time to get paid. You spot him heading out the door, "Oi Robin!" you shout, but he feigns deafness and disappears.
+
+"Quick Jonny, Robin is doing a runner, let's catch him quick!" you shout, "The thieving bastard!" says Jonny, let's go!
+> out
+
+> out
+
+You are Outside Blackfriar's Inn.
+
+You can see a Huge Tour Coach, a Van and Jonny Columba.
+
+You can go in or south.
+
+You spot Robin and Jonny dashes over to him, grabbing him by the throat. You hear Jonny explode a stream of obscenities and threats at Robin with such venom that you can see Robin visibly shaking from the shock, but suddenly Jonny releases his grip, clutches his chest and falls to the ground.
+
+Sarah Jackson is here, she dashes over and cradles Jonny's head, his breathing is shallow, "Robin go and phone an ambulance!" Robin dashes back into the pub.
+
+"Jonny, you hang in my lad,"says Sarah "Feels like a fuckin elephants sat on my chest" says Jonny. "Hold on Jon, ambulance will be here soon", you can see Jonny turning pale as the blood drains from his face, "It's no use boss" whispers Jonny, "I'm cold, he weakly grips your hand and with an effort says, "thanks for keeping me in a job boss, I know I'm a moaning git but I enjoyed it really." "Hold on Jon", but Jon has fallen silent and his lips have turned blue. You shake him but he doesn't stir.
+
+In the distance you can hear approaching sirens. You stare at the weird pendant hanging around Jon's neck, a pattern of three interlocked spirals.
+
+**********************************************************************************
+Game Over. Thanks for playing.
+
+Press any key for credits.
+Credits:
+
+Written and coded by Luke A. Jones (luke.jones@gmail.com), using the Quest text adventure engine (www.textadeventures.co.uk).
+
+Thank you to K.V. for coding help, and answering endless daft questions with patience and politeness.
+
+Thank you to Alex Dimmer for creating the artwork.
+
+Thanks you to Jennifer Thompson, for alpa and beta testing, suggestions for improvements, correcting my grammar, helping with font choices and putting up with the puns.
+
+Thanks also to the excellent support from the Quest forum members.
+
+Thank you to Arun Kamath for providing help with describing Ed's Fender Thundergrunt guitar (originally called something far more profane).
+
+I was in a heavy metal band for 7 years, the characters in this game are inspired by people I met, but not based on anyone in particular.
+
+I have authored four other games which you can find here: http://textadventures.co.uk/user/view/miyjcc_ft0kagw7ynwd4jw/necrodeath
+
+I welcome all (polite) feedback!
+
+Be excellent to each other.
+
+Luke xx
+
+[state=Finished]

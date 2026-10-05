@@ -1,0 +1,50 @@
+DOUG'S AMAZING ADVENTURE
+You are asleep. You are having an amazing dream about hitting things with sticks. As is the nature of dreams, you don't know you're dreaming - but, in actual fact, there is very little difference between the world of your dreams and the world of your life. You are living the dream. You are the drummer of the greatest rock and roll band of all time. HAIVERCRAFT.
+
+Your brain realises it is missing out by being asleep, and you jolt awake with a surge of joy. You feel awesome. You get out of bed and stand in the middle of your room feeling awesome.
+Punch the keyboard with your fists to continue.
+You are in your bedroom in Haivercraft Manor. The room is massive and amazing, like you. A large window lets the light from the outside world stream in and illuminates the outrageously expensive contents of the room.
+
+A note has been pushed under your bedroom door. You'd better check it out. (Type 'look at note')
+> take note
+> take note
+You fold up the note and place it somewhere safe on your person.
+(Maybe there's a clue to your shituation out the window. Type 'look at window'.)
+> look at window
+> look at window
+You look out of the window. The street below is full of people. You wonder how many of them are aware that the greatest band in the world is so nearby as to be almost within reach. No, you decide - they don't have a clue, because if they did they would be preoccupied with the knowledge and nobody would get any work done. You want to shout at the people, to blow their minds with some philosophical mindbomb, but decide not to for the benefit of the economy.
+
+Something is glinting in the gutter, and it catches your eye.
+
+(Type 'look at gutter' to take a closer look.)
+> x chest of drawers
+> x chest of drawers
+The chest of drawers is ornate mahogany. The stubs of fat Cuban cigars and scribbled song lyrics litter the top surface. There is a drawer which can be opened.
+> open chest of drawers
+> open chest of drawers
+You open the drawer. Inside the drawer is a key.
+> take key
+> take key
+You pick it up.
+> use key on door
+> use key on door
+You push the key into the lock and turn - it clunks. The door is unlocked, and the possibilities of the day have now extended beyond masturbation and shouting at passers by from the window.
+> x bed
+> x bed
+It's a four-poster bed, covered in carvings of wizards and dragons. You find it hard to sleep in something so incredible, but you get by most nights. On the bed is a pile of clothes.
+> take pile of clothes
+> take pile of clothes
+You pick up the clothes and store them somewhere on your person.
+> wear pile of clothes
+> wear pile of clothes
+You put on the clothes. You feel a twinge of regret as you cover your body, but society has demands of all of us. When you are king of the universe you can throw that law into the fire and laugh as you do so.
+> n
+> n
+A hallway
+You can go You see an exit to the south.
+You step out into the hallway. Between you and the exit at the end of the hall is Blair, the bassist in your band. He looks you up and down.
+
+"I'm glad you're wearing clothes for once. Come, enter the jam space and let's continue being the greatest band in the ENTIRE WORLD."
+
+You have completed the game with a total score of 1 out of 1. Well done. Listen to Haivercraft.
+[state=Finished]

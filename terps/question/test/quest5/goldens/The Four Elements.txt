@@ -1,0 +1,199 @@
+"YOU HAVE ANGERED THE ELEMENTAL SPIRITS. APPEASE THEIR WRATH, OR REMAIN TRAPPED FOR ALL ETERNITY."
+
+In order to escape the chamber, you must activate all four of the elemental gems on the pedestal, thereby quelling the rage of the elemental spirits. Use your wits and be resourceful!
+
+PRESS ANY KEY TO CONTINUE.
+You are in the central chamber.
+
+The chamber is formed of smooth stone walls. Dusty tapestries in four colors line the walls: red, green, blue, and yellow. In the very center of the room is a pedestal with four gems embedded in its surface. The gems are dull and colorless. There is a single door in each of the four walls.
+
+You can see a pedestal.
+
+You can go north, east, west or south.
+> w
+> w
+You are in a west chamber.
+
+The walls in this room are hung with golden silk tapestries that shimmer like precious metals. Protruding from between the tapestries are numerous metal pipes, all pointing toward an empty space in the center of the room.
+
+You can see a broken pipe and some pipes (containing water).
+
+You can go east.
+> take broken pipe
+> take broken pipe
+You pick it up.
+> take water
+> take water
+You collect some water from the pipes. There is still a steady stream dripping onto the floor.
+> e
+> e
+You are in the central chamber.
+
+The chamber is formed of smooth stone walls. Dusty tapestries in four colors line the walls: red, green, blue, and yellow. In the very center of the room is a pedestal with four gems embedded in its surface. The gems are dull and colorless. There is a single door in each of the four walls.
+
+You can see a pedestal.
+
+You can go north, east, west or south.
+> e
+> e
+You are in an east chamber.
+
+The walls in this room are hung with emerald-green tapestries laced with darker green thread, like veins or branches. Small, leafy saplings grow around the perimeter of the room, surrounding a patch of bare earth in the very center.
+
+You can see a sapling and dirt.
+
+You can go west.
+> use broken pipe with sapling
+> use broken pipe with sapling
+It takes a while, but eventually you're able to chop down the sapling using the broken pipe you found. You get some pieces of wood for your troubles.
+> look at dirt
+> look at dirt
+You find a box of matches buried in the soil. Brushing off the dirt, you put the matches in your pocket.
+> w
+> w
+You are in the central chamber.
+
+The chamber is formed of smooth stone walls. Dusty tapestries in four colors line the walls: red, green, blue, and yellow. In the very center of the room is a pedestal with four gems embedded in its surface. The gems are dull and colorless. There is a single door in each of the four walls.
+
+You can see a pedestal.
+
+You can go north, east, west or south.
+> n
+> n
+You are in a north chamber.
+
+The walls in this room are hung with royal blue tapestries embroidered with silver moons. In the center of the room is a marble basin filled with liquid.
+
+You can see a basin (containing oil).
+
+You can go south.
+> take oil
+> take oil
+You pick it up.
+> s
+> s
+You are in the central chamber.
+
+The chamber is formed of smooth stone walls. Dusty tapestries in four colors line the walls: red, green, blue, and yellow. In the very center of the room is a pedestal with four gems embedded in its surface. The gems are dull and colorless. There is a single door in each of the four walls.
+
+You can see a pedestal.
+
+You can go north, east, west or south.
+> s
+> s
+You are in a south chamber.
+
+The walls in this chamber are hung with scarlet tapestries emblazoned with golden suns. In the center of the room is a stone hearth.
+
+You can see a hearth (on which there is ash).
+
+You can go north.
+> look at ash
+> look at ash
+Searching through the ashes left in the hearth, you find a single seed. You carefully clean off the ashes and put the seed in your pocket, wondering if it will still grow.
+> clean hearth
+> clean hearth
+You sweep the ash out of the hearth. There, all nice and clean and ready for a new fire.
+> put wood on hearth
+> put wood on hearth
+Done.
+> put oil on hearth
+> put oil on hearth
+Done.
+> use matches with hearth
+> use matches with hearth
+You light a match and throw it on the pile. The oil quickly bursts into flame, and the wood follows suit. Soon you have a merrily blazing fire.
+> take burning branch
+> take burning branch
+You carefully take the burning branch from the fire.
+> n
+> n
+You are in the central chamber.
+
+The chamber is formed of smooth stone walls. Dusty tapestries in four colors line the walls: red, green, blue, and yellow. In the very center of the room is a pedestal with four gems embedded in its surface. The gems are dull and colorless. There is a single door in each of the four walls.
+
+You can see a pedestal.
+
+You can go north, east, west or south.
+> w
+> w
+You are in a west chamber.
+
+The walls in this room are hung with golden silk tapestries that shimmer like precious metals. Protruding from between the tapestries are numerous metal pipes, all pointing toward an empty space in the center of the room.
+
+You can see some pipes (containing water).
+
+You can go east.
+> use burning branch with pipes
+> use burning branch with pipes
+You stick the burning branch up one of the pipes. A hissing sound fills the room, and steam pours out of the pipes, forming a cloud in the center of the chamber.
+> e
+> e
+You are in the central chamber.
+
+The chamber is formed of smooth stone walls. Dusty tapestries in four colors line the walls: red, green, blue, and yellow. In the very center of the room is a pedestal with four gems embedded in its surface. The gems are dull and colorless. There is a single door in each of the four walls.
+
+You can see a pedestal.
+
+You can go north, east, west or south.
+> e
+> e
+You are in an east chamber.
+
+The walls in this room are hung with emerald-green tapestries laced with darker green thread, like veins or branches. Small, leafy saplings grow around the perimeter of the room, surrounding a patch of bare earth in the very center.
+
+You can see dirt and a stump.
+
+You can go west.
+> plant seed with dirt
+> plant seed with dirt
+You plant the seed in the dirt, creating a small mound of soil. It needs some water before it can grow.
+> use water with dirt
+> use water with dirt
+You pour some water on the dirt, but nothing happens. You begin to question how old that seed was and whether it is even still capable of sprouting.
+> speak to seed
+> speak to seed
+You begin to talk to the seed. You tell it all about your day, how hard you've been working to activate the pedestal, and how much you want it to grow. The seed doesn't talk back, but you fancy that you can sense it listening to you.
+
+"Come on, little seed," you coax. "I need you to grow. Just one little leaf? A bud, maybe? Come on, work with me here."
+
+Something small and green pushes through the earth. Then, slowly, leaves unfurl and the plant grows taller. It's a type of flower you've never seen before, with bright blue petals.
+> take flower
+> take flower
+You pick it up.
+> w
+> w
+You are in the central chamber.
+
+The chamber is formed of smooth stone walls. Dusty tapestries in four colors line the walls: red, green, blue, and yellow. In the very center of the room is a pedestal with four gems embedded in its surface. The gems are dull and colorless. There is a single door in each of the four walls.
+
+You can see a pedestal.
+
+You can go north, east, west or south.
+> n
+> n
+You are in a north chamber.
+
+The walls in this room are hung with royal blue tapestries embroidered with silver moons. In the center of the room is a marble basin filled with liquid.
+
+You can see a basin.
+
+You can go south.
+> put flower in basin
+> put flower in basin
+Done.
+> s
+> s
+You are in the central chamber.
+
+The chamber is formed of smooth stone walls. Dusty tapestries in four colors line the walls: red, green, blue, and yellow. In the very center of the room is a pedestal with four gems embedded in its surface. The gems are dull and colorless. There is a single door in each of the four walls.
+
+You can see a pedestal.
+
+You can go north, east, west or south.
+As soon as you enter the room, you notice that all four of the gems on the central pedestal are glowing brightly. The floor begins to rumble under your feet.
+
+A low voice fills the chamber, so deep and resonant you can feel it vibrating in your chest. "YOU HAVE SUCCEEDED. THE ELEMENTAL SPIRITS ARE SATISFIED. YOU ARE FREE."
+
+You've passed the test, and you're now free to go. Whether you'll ever return remains to be seen...
+[state=Finished]

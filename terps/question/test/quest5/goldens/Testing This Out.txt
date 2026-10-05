@@ -1,0 +1,262 @@
+There once was a man who wanted to murder his wife.  He hatched an elaborate plan to build a crooked house based on a hyper cube, or tesseract, and once activated his wife would be unable to escape.  She would starve to death in a house with no exit.
+
+But while showing off his new house to his wife and friends, an earthquake struck and activated the house.  Now they are all trapped inside.
+
+You were in the Master bedroom when the earthquake hit.  There was a great roar and rumble throughout the house, and with a strange feeling of sideways motion you suddenly find that the house is surrounded by a strange mist, and there is no way to know if a door will go to the next room or someplace else entirely!
+
+Can you find a way out of the Crooked House?
+You are in the Master Bedroom.
+You can see a Desk, a MacBook Pro and a Ceiling Fan.
+You can go northwest, southwest or southeast.
+This room looks like a bedroom with an office in one corner.  The desk is cluttered and old.  A ceiling fan turns lazily overhead with one light bulb burned out.  Clothes and personal belongings float about the room as if trained to ignore gravity.
+> open desk
+> open desk
+You open it.
+The drawer sighs as if opening it were painful.
+> take old journal
+> take old journal
+You pick it up.
+> take macbook pro
+> take macbook pro
+You unplug the laptop and take it.
+> northwest
+> northwest
+You are in the Master Bathroom.
+You can see a Mirror (containing a Sheet), a Mud and a Window.
+You can go southeast.
+A lovely bathroom with a mirror covering one wall.  There is a large window on the north east wall.  Mud drips slowly from the tub faucet.
+> take sheet
+> take sheet
+You take the sheet.
+You notice that the mirror reflects a room different from the one you are in!  Although the mirror is hard to the touch, it could be interesting to see what it looks like in the other room!
+> southeast
+> southeast
+You are in the Master Bedroom.
+You can see a Desk and a Ceiling Fan.
+You can go northwest, southwest or southeast.
+This room looks like a bedroom with an office in one corner.  The desk is cluttered and old.  A ceiling fan turns lazily overhead with one light bulb burned out.  Clothes and personal belongings float about the room as if trained to ignore gravity.
+> southwest
+> southwest
+You are in the Upper Hallway.
+You can go northeast, north, west, south or down.
+This hallway tilts crazily, like a length of intestine in the wind.  A single light flickers in the ceiling, trying to decide if it will work or burn out.  The carpeting is wet and mushy, and there are small bugs or creatures darting through it.
+> west
+> west
+You are in the Blue Room.
+You can see a Little Boy, a Wooden bed, a Strange Ceiling Fan on the Floor, a Angry Dog and a Floor Fan.
+You can go east.
+Everything in this room is reversed.  The furniture is on the ceiling, and the ceiling fan and light are on the floor.
+> use macbook pro with little boy
+> use macbook pro with little boy
+The boy looks happy and begins to use the laptop.  As an after thought, he hands you a dog biscuit.
+> use dog biscuit with angry dog
+> use dog biscuit with angry dog
+The dog looks happy, and sits down to chew. A bone he was sitting on falls to the floor (his ceiling).
+> east
+> east
+You are in the Upper Hallway.
+You can go northeast, north, west, south or down.
+This hallway tilts crazily, like a length of intestine in the wind.  A single light flickers in the ceiling, trying to decide if it will work or burn out.  The carpeting is wet and mushy, and there are small bugs or creatures darting through it.
+> north
+> north
+The door handle is sticky and smells vaguely of candy.
+You are in the Red Room.
+You can see a Wailing Child, a Red Dresser and a Red Toy Chest.
+You can go south or north.
+The walls of this room are painted red.  The carpet is red.  The ceiling is red.  The curtains on the window to the north are red.  A freezing wind blows through this room.
+You feel slightly dizzy, as if you've suddenly moved, but not moved.
+You feel a strange humming through the bottom of your feet.
+> use sheet with wailing child
+> use sheet with wailing child
+You cover the girl with the sheet.  She now looks like someone pretending to be a ghost, and is far less disturbing to look at.
+> open red dresser
+> open red dresser
+You open it.
+> take an orange
+> take an orange
+You pick it up.
+> open red toy chest
+> open red toy chest
+You open it.
+> take toy doll
+> take toy doll
+You pick it up.
+> take teddy bear
+> take teddy bear
+You pick it up.
+> south
+> south
+You are in the Upper Hallway.
+You can go northeast, north, west, south or down.
+This hallway tilts crazily, like a length of intestine in the wind.  A single light flickers in the ceiling, trying to decide if it will work or burn out.  The carpeting is wet and mushy, and there are small bugs or creatures darting through it.
+> south
+> south
+You are in the Pink Room.
+You can see a Pink Dresser, a Preschooler and a Tea Set.
+You can go north or south.
+All the furniture in this room is pink.  But there do not appear to be any walls, ceiling, or floor.  Instead, only a swirling mist.  Judging from the fact that the furniture hasn't fallen into the void, it's probably an optical illusion of some kind.  Probably.
+
+A preschooler is sitting on the bed playing with a tea set.  Two places are set.
+
+There is a window on one wall.  Unlike all the other rooms, this window seems to look out onto a bright front yard.
+> use toy doll with preschooler
+> use toy doll with preschooler
+> use teddy bear with preschooler
+> use teddy bear with preschooler
+> south
+> south
+You are in the Grand Staircase.
+You can go up or down.
+The staircase seems to bend and grow in both directions.  It's hard to tell how far it goes in either direction
+> down
+> down
+You are in the First floor hall.
+You can see a Family Portrait, a Photo of a Man and a Photo of a Woman.
+You can go up, north, east, west or northeast.
+This hallway is painted yellow and green, and lined with family pictures.  Some of the pictures are very old.
+> take family portrait
+> take family portrait
+You pick it up.
+> north
+> north
+You are in the Kitchen.
+You can see a Spinning woman and a Big Hole.
+You can go south or southeast.
+This is a very modern looking kitchen, with one difference.  There is a huge hole in the middle of the floor.  A woman is spinning slowly in the hole, a look of pained surprise on her face.
+> use an orange with spinning woman
+> use an orange with spinning woman
+You're sooo much nicer than my husband! Here, have some juice.
+> south
+> south
+You are in the First floor hall.
+You can see a Photo of a Man and a Photo of a Woman.
+You can go up, north, east, west or northeast.
+This hallway is painted yellow and green, and lined with family pictures.  Some of the pictures are very old.
+> up
+> up
+You are in the Grand Staircase.
+You can go up or down.
+The staircase seems to bend and grow in both directions.  It's hard to tell how far it goes in either direction
+> up
+> up
+You are in the Upper Hallway.
+You can go northeast, north, west, south or down.
+This hallway tilts crazily, like a length of intestine in the wind.  A single light flickers in the ceiling, trying to decide if it will work or burn out.  The carpeting is wet and mushy, and there are small bugs or creatures darting through it.
+> south
+> south
+You are in the Pink Room.
+You can see a Pink Dresser, a Preschooler and a Tea Set.
+You can go north or south.
+All the furniture in this room is pink.  But there do not appear to be any walls, ceiling, or floor.  Instead, only a swirling mist.  Judging from the fact that the furniture hasn't fallen into the void, it's probably an optical illusion of some kind.  Probably.
+
+A preschooler is sitting on the bed playing with a tea set.  Two places are set.
+
+There is a window on one wall.  Unlike all the other rooms, this window seems to look out onto a bright front yard.
+> use glass of orange juice with preschooler
+> use glass of orange juice with preschooler
+Juice!  Here, these don't fit my dolls.
+> north
+> north
+You are in the Upper Hallway.
+You can go northeast, north, west, south or down.
+This hallway tilts crazily, like a length of intestine in the wind.  A single light flickers in the ceiling, trying to decide if it will work or burn out.  The carpeting is wet and mushy, and there are small bugs or creatures darting through it.
+> down
+> down
+You are in the Grand Staircase.
+You can go up or down.
+The staircase seems to bend and grow in both directions.  It's hard to tell how far it goes in either direction
+> down
+> down
+You are in the First floor hall.
+You can see a Photo of a Man and a Photo of a Woman.
+You can go up, north, east, west or northeast.
+This hallway is painted yellow and green, and lined with family pictures.  Some of the pictures are very old.
+> east
+> east
+You are in the Great Room.
+You can see a Angry Man.
+You can go west or northwest.
+A combination den and "man-cave."
+> use old journal with angry man
+> use old journal with angry man
+Finally, something to read!  Here, take this.
+> west
+> west
+You are in the First floor hall.
+You can see a Photo of a Man and a Photo of a Woman.
+You can go up, north, east, west or northeast.
+This hallway is painted yellow and green, and lined with family pictures.  Some of the pictures are very old.
+> west
+> west
+You are in the Dining Room.
+You can see a Crying couple.
+You can go east or north.
+A water-soaked dining room.
+> use box of tissues with crying couple
+> use box of tissues with crying couple
+Thank you!  Here, in case you find someone who needs a hand.
+> use family portrait with crying couple
+> use family portrait with crying couple
+That's Bob's family, I think.  Here.
+> use glowing key
+> use glowing key
+> north
+> north
+You are in the Garage.
+You can see a Zombie Man.
+You can go south.
+A garage filled with boxes of garage things.
+> use human hand with zombie man
+> use human hand with zombie man
+Thanks for lending me a hand!
+> use human thigh bone with zombie man
+> use human thigh bone with zombie man
+Now I have more than a leg to stand on!
+> use jar of human eyeballs with zombie man
+> use jar of human eyeballs with zombie man
+Now maybe I can find my car keys!  Here, take this.
+> use black key
+> use black key
+> south
+> south
+You are in the Dining Room.
+You can see a Crying couple.
+You can go east or north.
+A water-soaked dining room.
+> east
+> east
+You are in the First floor hall.
+You can see a Photo of a Man and a Photo of a Woman.
+You can go up, north, east, west or northeast.
+This hallway is painted yellow and green, and lined with family pictures.  Some of the pictures are very old.
+> up
+> up
+You are in the Grand Staircase.
+You can go up or down.
+The staircase seems to bend and grow in both directions.  It's hard to tell how far it goes in either direction
+> up
+> up
+You are in the Upper Hallway.
+You can go northeast, north, west, south or down.
+This hallway tilts crazily, like a length of intestine in the wind.  A single light flickers in the ceiling, trying to decide if it will work or burn out.  The carpeting is wet and mushy, and there are small bugs or creatures darting through it.
+> north
+> north
+The door handle is sticky and smells vaguely of candy.
+You are in the Red Room.
+You can see a Wailing Child, a Red Dresser (containing a Mismatched socks and a Large bath towel) and a Red Toy Chest.
+You can go south or north.
+The walls of this room are painted red.  The carpet is red.  The ceiling is red.  The curtains on the window to the north are red.  A freezing wind blows through this room.
+You feel a strange humming through the bottom of your feet.
+> north
+> north
+You are in  the Crazy Mirror Room.
+You can see a Strange Mirror, a Mirror Room Message, a Floor Door and a Red Drawing.
+You can go out, south or down.
+This room is either an attic for the mentally ill, or the basement of the Smithsonian after a flood.  Gadgets, toys, junk, and strange stuffed animals crowd the floor. One wall has a large mirror. Another wall has something painted on it.  There is a large drawing, possibly made by a child, of a red door leading to a red room.  You find it compellingly realistic.
+
+On the floor is a trap door.
+> down
+> down
+You are in a Freedom.
+You have finally made it out of the house!
+[state=Finished]

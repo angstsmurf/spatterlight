@@ -1,0 +1,110 @@
+You are standing on the edge of some muddy Fields.
+You can go east or west.
+You are standing in a field surrounded by a hedge. In the distance you can see some cows grazing. The ground is muddy from the recent rain.
+
+To the East a gate leads out of the fields towards the plains. To the West a path leads towards a tall tower and beyond that you can see the Woods.
+
+> east
+
+> east
+
+You are standing on the edge of the vast Icthian Plains.
+You can go west, southwest or south.
+The grasslands stretch off for miles to the North and East. No animals live here and there are no birds in the sky.
+
+To the west a path leads through a gate into some fields. Another path leads south towards the Dragon's Head Tavern and a dark path leads through some trees to the south-west.
+> south
+
+> south
+
+You have entered the Dragon's Head  Tavern.
+You can go north or down.
+You are standing by the bar. It is dark inside and the only other customer glares at you from his table. The landlord is nowhere to be seen.
+
+There are two doors; one leads out to the north and the other leads to the south.
+
+As you lean over the bar looking for the landlord you notice a cellar door in the floor.
+> down
+
+> down
+
+You are in a  Dungeon.
+You can go northwest, west, east or up.
+You are standing in the dungeon. It is dark and damp and a skeleton lies on the floor in the corner. A huge rat scuttles past your feet.
+
+As you stumble about in the dark you notice a hole in the east wall and opposite it there is another hole in the west wall.
+
+You also discover a small door in the north-west corner and a dripping in the corner leads you to discover a hole in the ceiling which you can just about fit through.
+> east
+
+> east
+
+You have discovered the  Hidden Valley.
+You can go north, west, east or south.
+You are standing at the bottom of the Hidden Valley. The rocky path circles a shimmering blue lake surrounded by flowering shrubs.
+
+A path leads north and south and a second path leads up the side of the valley to the east.
+
+To the west you notice a small hole behind a rock. The hole is just big enough for you to crawl through.
+
+> east
+
+> east
+
+At the top of the hill are the Castle  Ruins.
+You can see a Rock.
+You can go west or south.
+You are standing in the shadows of a ruined castle. Barely any of the walls remain standing and there are piles of stone all around you.
+
+A path leads to the west and another path leads to the south towards the hills.
+> south
+
+> south
+
+You are standing at the foot of the Hills.
+You can see a Shovel.
+You can go north or west.
+You are standing amongst the long grass. The rolling hills stretch off into the distance. White, fluffy clouds float gently across the sky.
+
+You could go for a nice long stroll over the hills but you know dragons have been spotted in this area recently so you decide to stick to the path. The path leads east and then curves around the base of the hills before taking a northerly direction.
+> take shovel
+
+> take shovel
+You pick it up.
+> west
+
+> west
+
+You are standing on the edge of the rocky  Crags.
+You can go north, west or east.
+A steep path leads through the boulders to the north. You hear something scuttling between the stones. You can also make out a path through the rocks leading east and west.
+> west
+
+> west
+
+You have reached the Desert.
+You can go west or east.
+You are standing on the edge of the desert. Dunes stretch out in all direction and there are no clouds in the sky just the blazing sun.
+
+You could return to the crags by taking the path to the east but you notice some footprints in the sand leading west.
+> west
+
+> west
+
+You are in an Oasis.
+You can go east.
+You are standing by some palm trees and a lone cactus. There is a small watering hole here. Flies buzz around you as you take a drink.
+
+The desert stretches out in all directions but you know you would not survive the searing heat and lack of water so the only option you have is to take the path back east.
+> use shovel
+
+> use shovel
+You dig in the sand and discover the Orb of Knowledge. Your quest is over.
+> take orb of knowledge
+
+> take orb of knowledge
+You gently lift the Orb of Knowledge out of the sand.
+Congratulations on completing the game.
+You have discovered the Orb of Knowledge.
+King Hcael will be delight and will reward you handsomely!
+[state=Finished]

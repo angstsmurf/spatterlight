@@ -1,0 +1,77 @@
+Você está no Corredor.
+Você observa a Macaco e a Porta.
+O corredor é comprido, com cheiro de mofo por razões do antigo tapete vermelho estendido, com paredes cobertas de papel de parede descascando, mas bastante iluminada, apenas a ultima lâmpada piscando em frente da única porta a sua frente.
+
+> abrir Porta
+
+> abrir Porta
+Você o abre.
+
+Você está em a Sala 1.
+Você observa a Tela de projeção, a Porta, a Caminho Amarelo, a Caminho Branco e a Caminho Violeta.
+Sala mal iluminada onde se vê apenas com uma configuração de labirinto, completamente desnivelada onde o jogador pode se desequilibrar se não pisar direito entre os breves espaços. Há 3 caminhos luminosos: Amarelo, Branco e Violeta.
+O Master diz então: "Na mistura faz-se a luz."
+> escolher Caminho Branco
+
+> escolher Caminho Branco
+Você está no centro agora, diante das frutas: Banana e Cereja.
+> pegar Banana
+
+> pegar Banana
+Você escolheu a banana! Ela se transformou num Pendrive! E uma porta apareceu logo em seguida.
+> abrir Porta
+
+> abrir Porta
+Objeto destrancado.
+Você o abre.
+
+Você está em a Sala 2.
+Você observa a Cubo Branco, a Retângulo Branco e a PortaPitfall.
+Uma sala completamente escura onde se vê adiante um retângulo branco luminescente que permanece imóvel e ao seu lado na direita, um pequeno cubo também branco e luminescente.
+
+> aremessar na parede Cubo Branco
+
+> aremessar na parede Cubo Branco
+A sala ganha iluminação, como se de alguma maneira com aquilo você tivesse acendido as luzes. O retângulo branco desaparece e o cubo também.
+ Agora com a sala iluminada é possivel ver que no canto da sala há uma Raquete de aço.
+> pegar Raquete
+
+> pegar Raquete
+A raquete começa a brilhar e diminuir até se tornar um pendrive. Você ouve um "click" da porta vindo mais a frente.
+> abrir PortaPitfall
+
+> abrir PortaPitfall
+Objeto destrancado.
+Você o abre.
+
+Você está em a Sala 3.
+Você observa a Baú Longo, an Escada, an Ilhota, a Tela de projeção e a Buraco.
+Sala repleta de árvores e grama e terra no chão como uma selva. Num lago ao longe, crocodilos adormecidos com apenas as partes superiores de suas cabeças para fora da água, e uma pequena ilhota bem no centro do lago, inalcançável por terra.
+Na direção oposta, um pequeno, mas profundo penhasco que impede acesso a outra porção de terra, enquanto um cipó balança por cima, agarrado a um grosso galho de árvore. Um baú aberto com moedas de ouro ao fim de um caminho delimitado pela grama cortada.
+O Master diz então: “Eleve-se do chão para tristeza da morte.”
+> passar pela armadilha Ilhota
+
+> passar pela armadilha Ilhota
+Passei pela armadilha!
+Você está na ilhota e tem Coqueiro a sua frente.
+> chutar Coqueiro
+
+> chutar Coqueiro
+Caiu um Côco
+> pegar Côco
+
+> pegar Côco
+Ela se transformou num Pendrive!
+> examinar Escada
+
+> examinar Escada
+Uma  escada de mão levando para um alçapão.
+> abrir alçapão
+
+> abrir alçapão
+Objeto destrancado.
+Você o abre.
+
+Você está em a Final.
+O professor Zezéo acorda e repara que tudo não passava de um pesadelo e aprendeu que por mais que o mercado de games possa ser cruel, ele não precisaria agir como tal com os seus alunos.
+[state=Finished]

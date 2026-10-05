@@ -1,0 +1,1083 @@
+Escape the mushrooms!
+
+by Mulligan and Co.
+
+- - -Introduction- - -
+You wake up, unable to remember anything, except that the mushrooms are here, and you need to escape from them. You know that the best way of getting anything done is to type commands into a box at the bottom of the screen. You look down to find the box, but the game gently reassures you that the box is running late and hasn't arrived yet. Typing commands such as go (direction), use (object) on (object), take (object), craft (object) with (object), open/close (object) and turn (object) on/off will often get the job done. Now that you have remembered how to do basic things, you can click Continue...
+- - -Chapter 1- - -
+You are in a dark shelter.
+It is dark in this shelter.
+You can go out.
+> out
+
+> out
+
+You are in a dark forest.
+Though it is dark, you can make out tree shapes surrounding you. You can see your tent on the ground.
+You can go in or northeast.
+
+> ne
+
+> ne
+
+You are in a meadow.
+The meadow is quite nice, and as the sun rises, the green fields are lit.
+But on the horizon you make out a small silhouette. You gasp when you recognize the unmistakable outline of a small mushroom!
+You can see a small mushroom, a matchbox, a bucket and a lake.
+
+> take matchbox
+
+> take matchbox
+You pick it up.
+> take bucket
+
+> take bucket
+You pick it up.
+> use bucket on lake
+
+> use bucket on lake
+You fill the bucket.
+> use matchbox on small mushroom
+
+> use matchbox on small mushroom
+It burns! The mushroom dies! + 1 xp (xp are points that you have experienced. You get an hp boost every 100 xp)
+> look
+
+> look
+You are in a meadow.
+The meadow is mostly green.
+You can see a small mushroom and a lake.
+The fire you lit is now raging! Quick! Put it out!
+
+> look
+
+> look
+You are in a meadow.
+A fire is raging and burning down the meadow.
+You can see a lake, a sleepy mushroom and a fire.
+> use bucket on fire
+
+> use bucket on fire
+You douse the fire, revealing a new passage to the north!
+> n
+
+> n
+
+You are in a beach.
+The waves crash on the shore, as a crab mushroom sits on the sand. A boat is also here, but the game programmer is too lazy to put it in.
+You can see a crab mushroom.
+You can go south or out.
+
+> out
+
+> out
+Hopping in a seemingly non-existent boat, you head out to sea!
+
+You are in an ocean.
+The waters are very calm and soothing.
+You can see an oars and a knife.
+
+You know, it is really calm out here...
+> take oars
+
+> take oars
+You pick it up.
+You really love how calm and lovely this is. You could say that you are having a whale of a time...
+> take knife
+
+> take knife
+You pick it up.
+> craft knife with oars
+
+> craft knife with oars
+You make a spear using oars and a knife!
+Hey, jokes aside, you have do admit that there's nothing better than being out in the sea.
+In the nice, calm, whale-lacking sea
+You know, the great sensation of not being out eaten by the biggest animal known to man...
+Surprise!!! It's a Craken Mushroom!!! Not a whale!
+
+Heh heh. Did you sea what I did there?
+> look
+
+> look
+You are in an ocean.
+The waters are very calm and soothing.
+You can see a craken mushroom.
+> use spear
+
+> use spear
+You throw the spear and it hits the craken mushroom! It writhes around as it dies, creating a massive wave, destroying your boat...
+Congratulations!!! You have completed the first chapter of 'Escape the Mushrooms'! + 5 hp. We feel obliged to reward you for staying alive for this long, but we figured that that finishing the tutorial isn't that much of an acheivment. However, we would look incredibly rude and inconsiderate if we didn't give you an advantage at regular intervals so now we present to you...
+***The gift of the mouth!***
+Now you have a whole new range of commands to use, like eat (object), ask (object) about (subject), and say (something)!!!
+- - -Chapter 2- - -
+
+You are on an island.
+
+You can see a palm mushroom, an eastern shore, an ERRORERROR, a north shore and a southern shore.
+You can go out or down.
+> down
+
+> down
+
+You are in a north shore.
+A fire is raging and burning down the meadow.
+You can go southeast, west, west, west, west or west.
+> w
+
+> w
+Please choose which 'w' you mean:
+1: west
+2: west
+3: west
+4: west
+5: west
+> 1
+
+You are in a southern shore.
+You can go north or southwest.
+> sw
+
+> sw
+
+You are in a cavern.
+You shelter in the cavern from the rain that you previously didn't know about because the game was glitching. You discover that this part of the game is undamaged. You look around and see a normal mushroom. Man oh man. You have found a type of fungus that isn't trying to kill you! This is amazing. A discovery like this could be worth millions...
+You can see a normal mushroom.
+You can go out.
+> x normal mushroom
+
+> x normal mushroom
+This is amazing. It's a normal mushroom, growing in a normal cave, it's not going to kill you. This is *so* cool! +10 points.
+> look
+
+> look
+You are in a cavern.
+You look around in this wonderful cave.
+You can see a normal mushroom.
+You can go out.
+> look
+
+> look
+You are in a cavern.
+You look around in this wonderful cave.
+You can see a normal mushroom.
+You can go out.
+> look
+
+> look
+You are in a cavern.
+You look around in this wonderful cave.
+You can see a normal mushroom.
+You can go out.
+The rain has stopped. You are free to go.
+> look
+
+> look
+You are in a cavern.
+You look around in this wonderful cave.
+You can see a normal mushroom.
+You can go out.
+> look
+
+> look
+You are in a cavern.
+You look around in this wonderful cave.
+You can see a normal mushroom.
+You can go out.
+> out
+
+> out
+
+You are in a jungle.
+You enter a jungle (that's right, you're in a jungle that the game didn't tell you about) and a blade of moonlight (that's right, it lied again) cuts through the canopy. It illuminates a path to the east. You can also see vines! Wow! Another form of life that doesn't want to kill you!
+
+You can see vines.
+You can go in or east.
+> e
+
+> e
+
+You are at the temple entrance.
+You walk along the path and discover a giant ancient mushroom temple. It appears to be abandoned.
+You can see a torch.
+You can go west or in.
+> take torch
+
+> take torch
+You pick it up.
+> in
+
+> in
+
+You are in a temple.
+The temple looks like it was abandoned hundreds of years ago.You see some scratches on the wall.
+
+You can go northeast, east or southeast.
+> se
+
+> se
+
+You are in a bridge.
+A heat haze rises from the lava below. The bridge looks like it is in poor condition.
+3 Riddle Mushrooms stand at spaced intervals, their stony flesh shadowed.
+
+You can see a riddle mushroom.
+You can go northwest.
+The first mushroom asks: What is the color of a black rock?
+> say black
+
+> say black
+You say: It is black! The riddle mushroom lets you pass.
+The second mushroom says: I am young, but I am grey. I am not a rock, but I am grey. I am grey, but I am grey. Who am I?
+> say mushroom
+
+> say mushroom
+You say 'You are a mushroom!' The riddle mushroom lets you pass.
+The final mushroom says: How much wood could a woodchuck chuck if a woodchuck could chuck wood?
+> say wood
+
+> say wood
+You say: wood! The riddle mushroom lets you pass. You arrive at the end of the bridge. There are stairs going down here.
+> down
+
+> down
+
+You are in a passageway.
+You walk down the stairs and arrive in a small room. You see five doors, each numbered. In the center of the room is a pedastal. On it there is a message. It says:
+1+1+1+1+1-1X0+2
+You can see a pedastal.
+You can go 2, 6 or 7.
+Some dust falls from the ceiling. You look up to find that spears are falling from the ceiling.
+> go 7
+
+> go 7
+
+You are in the temple of Shroom.
+You enter the temple. There is a central statue of a mushroom and strange heiroglyphs on the wall. There are many mushrooms worshipping this statue, as well as a larger preist.
+
+You can see worshipping mushrooms, a priest mushroom, a fire bowls and a statue of Shroom.
+You can go in.
+> use torch
+
+> use torch
+You burn all of the worshippers with fire! The preist escapes into the sacrificial chamber. + 5
+> in
+
+> in
+
+You are in a sacrificial chamber.
+This chamber is definitely made for sacrifices. Strange carvings are on the wall.
+
+You can see a torches, an altar and a lever.
+> say friend
+
+> say friend
+The carvings on the walls glow, filling the room with light. The back wall opens up, revealling a doorway. A cold wind blows from the caves within, extinguishing your flame.
+> in
+
+> in
+
+You are in a mines.
+It is dark in this mine. You feel a cold shudder come across you.
+> look
+
+> look
+You are in a mines.
+It is dark in this mine. You feel a cold shudder come across you.
+You see the light of a flame. You know instantly what is coming, since a suspiciously Ian McKellen-like voice told you. It is a Balrog mushroom..a demon of the ancient world. This foe is beyond any of you! Run! Quickly!
+> s
+
+> s
+
+You are in a stairway.
+You enter a large expanse, bridged by a immense stairway, shadowed by the light of the great mushroom behind you.
+
+You can go south.
+> s
+
+> s
+
+You are in the bridge  of Khazad-Shroom.
+You run onto the narrow bridge. The Balrog explodes out of the door-way, flames billowing everywhere. It approaches you slowly.
+
+The Mushroom takes a step closer. A voice that sounds like Elijah Wood calls after you.
+> say you shall not pass
+
+> say you shall not pass
+Feeling the wizard inside of you, you shout out at the top of your lungs, "You shall not pass!" A burst of magic goes everywhere. The Mushroom steps onto the bridge, where it collapses and falls down. You peer down, seeing the mushroom fall. Suddenly, its whip comes up and latches onto your foot. It pulls you down into the abyss below...
+
+You are  a falling.
+You speed down towards the balrog mushroom.
+
+You can see a balrog mushroom.
+> look
+
+> look
+You are  a falling.
+You speed down towards the balrog mushroom.
+
+You can see a balrog mushroom.
+> look
+
+> look
+You are  a falling.
+You speed down towards the balrog mushroom.
+
+You can see a balrog mushroom.
+A lake comes rushing towards your face. Briefly after the balrog mushroom splashes into it, you too are submerged. You fall unconscious...
+Congratulations!!! You have once again completed another chapter of "Escape the Mushrooms!" + 5hp. We also, once again, feel obliged to reward you for your efforts but, once again, don't feel like it. Once again, however, we have decided to compromise by giving you a seemingly-meagre reward that, once agin, will become vital in the next chapter. We now present to you:
+***The gift of the fish!***
+This reward lets you breath underwater, swim more efficiently and become a staple ingredient for sea-side villages. Don't fret, though, as we also include in this pack a trident, because we know that you'll hate us if we don't let you have it.
+(Side note for LotR nerds: If you are disappointed that you didn't get to do the whole Endless-Stair-and-fighting-the-balrog thing, then you can type endlessstair to play that section.Type it again when you wish to return to the game.)
+- - - Chapter 3 - - -
+
+You are at the bottom of a lake.
+You find yourself at the bottom of a lake. You begin to suffocate, but remember that you can breathe underwater and stop making such a fuss about it. You look around.
+
+You can see a fish mushroom.
+You can go southeast.
+> look
+
+> look
+You are at the bottom of a lake.
+You find yourself at the bottom of a lake. You begin to suffocate, but remember that you can breathe underwater and stop making such a fuss about it. You look around.
+
+You can see a fish mushroom.
+You can go southeast.
+> x fish mushroom
+
+> x fish mushroom
+This mushrooms seems very *fishy*
+Bwahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaha! +10 points
+> se
+
+> se
+You go to se! [insert uncontrollable laughter here]
+
+You are in a sea.
+You swim into the great blue sea until you meet a shark mushroom, who is very hungry.
+You can see a shark mushroom.
+> use trident on shark mushroom
+
+> use trident on shark mushroom
+You stab the shark mushroom. It dies. It sinks to the bottom of the sea. You also notice an exit to the Northeast. +3 xp
+> ne
+
+> ne
+
+You are in a port.
+You climb up onto a dock. You see a fisherman, who grabs you and puts you into a net, muttering about how big you were.
+Oh... That'd be the joke about being a staple ingredient for seaside villages...Hey, can you just type something?That was just a joke...
+You can see Psaras and water.
+You can go east, southwest or northeast.
+> hello
+
+You are in the code.
+Sorry! I've just got to get this thing ironed out.
+
+You see, anything I say becomes code, so I just need to delete that bit...
+For example if I said make the game layout look cheesy...
+Ah... see! But I don't want that, do I?
+So it's just about sorted...
+There! Also there's the 'give #obj# to #obj#' command.
+
+You are in a port.
+You climb onto a dock. You see a fisherman, who introduces himself as Psaras and takes you home, gets you dry and points you off to the hotel to the east.
+You can see Psaras and water.
+You can go east, southwest or northeast.
+> look
+
+> look
+You are in a port.
+*Tip: You can fish by using your trident on the water.
+You can see Psaras and water.
+You can go east, southwest or northeast.
+> use trident on water
+
+> use trident on water
+You plunge the trident into the water, and something tugs it down. Psaras calls out, "It looks like you caught a big one!"
+After a bit of wrangling you pull out a long creature with a large tail and a barb-shaped head, presumably a big one.
+> ne
+
+> ne
+
+You are in the markets.
+There are many markets here, where you can sell or buy items. Well, really there is only one, but use your imagination.
+You can see a merchant.
+You can go southwest.
+> give big one to merchant
+
+> give big one to merchant
+He takes the big one. He thanks you and puts it next to a big two. He gives you $5
+> sw
+
+> sw
+
+You are in a port.
+*Tip: You can fish by using your trident on the water.
+You can see Psaras and water.
+You can go east, southwest or northeast.
+> e
+
+> e
+
+You are in a hotel.
+The bar is mostly empty: it's just you and the bartender. In the corner there is a door labelled 'museum'
+
+You can see a bartender.
+You can go out or southwest.
+> give $5 to bartender
+
+> give $5 to bartender
+He unlocks the door to the museum.
+> sw
+
+> sw
+
+You are in a museum.
+The museum is old and dusty. Towards the entrance there are taperstries of knights fighting dragon mushrooms and after that there are some photographs of rather dashing gentlemen, which are apparently the founders of Manitari. Next there are antique jars of fungicide and old rifles. At the very back there are some books on the history of the area.
+You can see a tapestry, a fungicide, an old rifles, a photographs and a books.
+You can go northeast.
+> take fungicide
+
+> take fungicide
+You pick up the antique fungicide and place it in your inventory. +10 points for bieng sensible.
+> x books
+
+> x books
+You flick through the books for a while, untill you find an old myth. It goes as follows:
+Once a great quaestor of the Isle of Sfalma, who had the skill of the greatest sailor in the world.
+He sailed to a sea far south of Manitari. And there a great storm sunk his ship and he died.
+The End.
+Or so we thought.
+Legend has it that the legendary quaestor created an object of incredible power, and transformed into a clam to keep it safe.
+Only if he was reunited a great treasure from his ship would he give this gift of power to another quaestor...
+> ne
+
+> ne
+
+You are in a hotel.
+The bar is mostly empty: it's just you and the bartender. In the corner there is a door labelled 'museum'
+You can see a bartender.
+You can go out or southwest.
+> out
+
+> out
+
+You are in a port.
+*Tip: You can fish by using your trident on the water.
+You can see Psaras and water.
+You can go east, southwest or northeast.
+> sw
+
+> sw
+
+You are in a sea.
+As you swim into the sea you clearly see a reef which you totally missed before you read the legend.
+You can go southeast or northeast.
+> se
+
+> se
+
+You are in a reef.
+There is an amazing collage of colours made from the coral.
+You can see coral, anemones and a clam.
+You can go northwest or in.
+> in
+
+> in
+
+You are in a shipwreck.
+The ship is covered in a fine layer of algae, giving it a green tinge. You realise that this must be the quaestor's ship from the legend.
+Suddenly, a giant squid mushroom appears! Defend yourself!
+
+You can see a cannon and a giant squid mushroom.
+You can go out.
+> use fungicide on giant squid mushroom
+
+> use fungicide on giant squid mushroom
+You throw the fungicide onto the squid's face, and it explodes. You have defeated the giant squid mushroom and avoided a massive boss battle with common sense. Congratulations! + 50 points. Underneath where the squid sat is a ladder leading down. You can also go out.
+
+Congratulations! You have sucessfully experienced 100 points! You now get +5 hp!
+> down
+
+> down
+
+You are in a below deck.
+It is dark down here. You see a lonely barrel in the corner.
+You can see a barrels (Inside it there is gold).
+You can go up.
+> x barrels
+
+> x barrels
+The old barrels are starting to rot.
+> take gold
+
+> take gold
+You pick up the surprisingly light piece of gold which is totally gold. In fact why wouldn't it be gold? Why are you always questioning us? Of course it's gold! [insert nervous eye-twitch here]
+The squid mushroom's tentacles lash out at strike you! -2hp.
+> up
+
+> up
+
+You are in a shipwreck.
+The ship is covered in a fine layer of algae, giving it a green tinge. You realise that this must be the quaestor's ship from the legend.
+You can see a cannon.
+You can go out or down.
+> out
+
+> out
+
+You are in a reef.
+There is an amazing collage of colours made from the coral.
+You can see coral, anemones and a clam.
+You can go northwest or in.
+> give gold to clam
+
+> give gold to clam
+The clam accepts your gift, opens up and gives you a miniature hadron collider, because this clam is too cool for cheap jewelry.
+> i
+
+> i
+You are carrying a trident and a miniature hadron collider.
+> use hadron collider
+
+> use hadron collider
+You use the hadron collider, but since we can only buy it second-hand it explodes and then implodes and continues this process in an amazing sciency thing that is happening for no reason other than it looks cool.
+Congratulations!!! You have completed the third chapter of 'Escape the Mushrooms'! + 5hp. For this award presentation we would like to send you a personal message from the chief financial advisor:
+I know this is a massive cliffhanger since you practically just blew up the universe, but we would appreciate it if you could bear with us for a while. We would also appreciate it if you would stop asking us to buy you little presents for playing our game. We have no budget already, and we don't need to waste more on of it to keep you playing the game. Whoever came up with this 'progressional award scheme' is fired. Yes, that does mean you, Matthew. Pack your bags and get out of here. No you do not get paid. Yes this is completely unethical. Goodbye. Now, player. I'm sorry you had to hear that conversation. The gifts... Ah, here!
+***The gift of the Intern!***
+With this new gift you get some office supplies! I know, its not much but you have to deal with it. Go. Play Chapter four. Have fun. Leave my office. Goodbye.
+- - - Chapter four - - -
+
+You are in an implosion.
+Well, we think you're in it. It's hard to tell with all this interspatial interference, extrapolated with big words I don't know the meaning of.
+
+You can see a tachyon and a hypodefined negative particle.
+> look
+
+> look
+You are in an implosion.
+You see the Whole Sort of General Mish Mash bieng sucked into a single point and then shot out in the exact same way it got sucked in and all goes back to normal.
+You can see a tachyon and a hypodefined negative particle.
+> look
+
+> look
+You are in an implosion.
+You see the Whole Sort of General Mish Mash bieng sucked into a single point and then shot out in the exact same way it got sucked in and all goes back to normal.
+You can see a tachyon and a hypodefined negative particle.
+> look
+
+> look
+You are in an implosion.
+You see the Whole Sort of General Mish Mash bieng sucked into a single point and then shot out in the exact same way it got sucked in and all goes back to normal.
+You can see a tachyon and a hypodefined negative particle.
+> look
+
+> look
+You are in an implosion.
+You see the Whole Sort of General Mish Mash bieng sucked into a single point and then shot out in the exact same way it got sucked in and all goes back to normal.
+You can see a tachyon and a hypodefined negative particle.
+You peer at your computer screen and read some text. You smile because you can see where this is going. You laugh because I'm right. You go to check to see if the word 'computer' was spelt right. You are confused because it is. You laugh again because I was right again. You get back to playing the game.
+
+You are in Corridor %/WO****.
+
+You find yourself in a long corridor, with a long yellow stripe on the wall, labelled in strange writing. You see that you are in a spacecraft of some sort.
+You can go east or north.
+> look
+
+> look
+You are in Corridor %/WO****.
+You find yourself in a long corridor, with a long yellow stripe on the wall, labelled in strange writing.
+You can go east or north.
+> e
+
+> e
+
+You are in a laboratory.
+
+You enter a room with lots of desks and complicated machines with lights and buttons, with small robots working at them. One goes up to you and takes your office supplies, scans them and gives you a ray gun.
+You can see a glass cabinet (containing a barrier card) and a robots.
+You can go west.
+> x glass cabinet
+
+> x glass cabinet
+The glass cabinet looks really sciencey but most of the features do nothing. Very angular. And it lights up.
+> take barrier card
+
+> take barrier card
+You take the card from the cabinet. The card dissolves in your hand. You must have disabled a barrier somewhere.
+> w
+
+> w
+
+You are in Corridor %/WO****.
+You find yourself in a long corridor, with a long yellow stripe on the wall, labelled in strange writing.
+You can go east or north.
+> n
+
+> n
+
+You are in Corridor %/WO***.
+You walk down the corridor for a bit until you arrive at the next barrier.
+You can go south, east or north.
+> e
+
+> e
+
+You are in a teleporter room.
+You enter a room with a great big teleporter, with lots of buttons and visual interfaces and alien technology like that.
+You can see a teleporter.
+You can go west.
+> w
+
+> w
+
+You are in Corridor %/WO***.
+The corridor is fairly clean.
+You can go south, east or north.
+> look
+
+> look
+You are in Corridor %/WO***.
+The corridor is fairly clean.
+You can go south, east or north.
+> look
+
+> look
+You are in Corridor %/WO***.
+The corridor is fairly clean.
+You can go south, east or north.
+Out of the teleporter comes a cybershroom: A genetically enhanced fungal fighter! It charges it's laser...
+> use vaporising ray on cybershroom
+
+> use vaporising ray on cybershroom
+You blast him to a million pieces. So much for genetic enhancement.
+You find a barrier card in his pocket. How convienient. You grab it and it dissolves, presumably bringing down yet another barrier.
+> n
+
+> n
+
+You are in Corridor 2.
+ You enter the next section of the corridor. Slumped on the floor is a human cyborg. He is clad in high-tech armour, which is heavily damaged. He raises his visor. He says to you, "My name is J-dn... I've been critically...wounded. [coughs] Take this..."
+He presses a button on his chest and a message is displayed:
+MISSION GUIDLINES:
+*ENTER MUSHROOM STARCRAFT
+*TELEPORT TO LIGHTDRIVE
+*INSERT VIRUS INTO DRIVE
+AFTER 5 MINUTES THE VIRUS WILL DETONATE THE STARCRAFT. YOU MUST FIND A WAY OUT BEFORE THEN. CO-ORDINATE CARD FOR THE LIGHTDRIVE IS ATTACHED.
+A compartment in his chest opens up, and the Virus and Co-ordinate card are inside. You take them. J-dn tells you to go. He then dies.
+You can see a J-dn (cyborg).
+You can go south.
+> look
+
+> look
+You are in Corridor 2.
+Slumped on the floor is a smoking body.
+You can see a J-dn (cyborg).
+You can go south.
+> s
+
+> s
+
+You are in Corridor %/WO***.
+The corridor is fairly clean.
+You can go south, east or north.
+> e
+
+> e
+
+You are in a teleporter room.
+You enter a room with a great big teleporter, with lots of buttons and visual interfaces and alien technology like that.
+You can see a teleporter.
+You can go west.
+> use card on teleporter
+
+> use card on teleporter
+You insert the card into a slot on the teleporter. A whole heap of lasers and circular blue lights shoot out of everywhere, and you find yourself in the engine room.
+
+You are in an engine room.
+
+In the centre of the room is a large yellow column with wires coming out of it. Surrounding it is a vent of cool air, keeping it cool. There is a large control panel, with a whole lot of surprisingly low tech devices, like LED displays and physical dials rather than smooth holographic digital interfaces, probably because things with LED displays and physical dials look a lot more sciency than an iPhone.
+You can see a control panel and a central column.
+> x control panel
+
+> x control panel
+You search the control panel for anything that looked like it could fit the virus, but only find things like 'danger-o-meter's or 'turn off cooling vent' buttons. Seriously, who, when designing a control panel for an engine room, thinks, "Hey, wouldn't it be a great idea if we put an alert system into it that would say, "Danger! Danger!" but didn't actually tell the people who are screaming and crashing into Venus what was actually wrong with the engine, because all you need when you are screaming and crashing into Venus is a big arrow that is wobbling around in a bright red corner of some dial with flashing lights." I mean, honestly, when you are screaming and crashing into Venus I think that people don't really need some notification saying, "Hey! Did you know that you in danger?" and then expect the screaming person to say, "Oh really, I thought that everyone running around screaming 'We're crashing into Venus!' and the fact that I can see Venus out my front winscreen slowly getting bigger didn't imply that we were in danger."
+Anyway, the rest of the control panel is pretty cool. Very angular. And it lights up.
+On the panel there is a danger-o-meter and a turn-off-cooling-vent button.
+> press button
+
+> press button
+You press the button, and the cooling vent is covered over with a piece of metal.
+Out of the teleporter comes a cybershroom: A genetically enhanced fungal fighter! It charges it's laser...
+> use virus on central column
+
+> use virus on central column
+You plunge the virus into the central column, and ripples of malevolent energy surge through out the column, turning it into a blackened shaft. An emergency override opened up the cooling vent and you fall down into the darkness below.
+
+You are in a cooling vent.
+You find yourself in a small, dark, metal duct. It is freezing in here.
+You can go west.
+> look
+
+> look
+You are in a cooling vent.
+You find yourself in a small, dark, metal duct. It is freezing in here.
+You can go west.
+> w
+
+> w
+
+You are in a garbage storgae.
+There are mounds of discarded waste in here.
+You can see a transmitter and a distress.
+You can go east.
+> craft transmitter with distress
+
+> craft transmitter with distress
+You merge the two together and create a distress transmitter. You press a button on it and it disappears. Oh well. It was worth a try.
+> look
+
+> look
+You are in a garbage storgae.
+There are mounds of discarded waste in here.
+You can go east.
+A large door opens up, silhoutted by the easily-mistakable figure of J-dn! He has come to your rescue! He grabs you out of the garbage pile and brings you out into a corridor, where he promptly dies. Again.
+
+You are in Corridor 2199.
+Lines dot the corridor, labelled '^#(*', which probably means 'exit'. They point southwards.
+You can see a J-dn (cyborg).
+You can go south or north.
+> look
+
+> look
+You are in Corridor 2199.
+Lines dot the corridor, labelled '^#(*', which probably means 'exit'. They point southwards.
+You can see a J-dn (cyborg).
+You can go south or north.
+> look
+
+> look
+You are in Corridor 2199.
+Lines dot the corridor, labelled '^#(*', which probably means 'exit'. They point southwards.
+You can see a J-dn (cyborg).
+You can go south or north.
+> n
+
+> n
+
+You are in a hyperglycemic testing facility.
+You walk into the testing facility and see lots of beakers full of DON'T GO WEST THERE'S A FLYING DONUT!!! MAKE SURE YOU DON'T GO EAST EITHER! ALSO SOUTH IS A BAD IDEA! NORTH, NOW YOU METION IT, DOESN'T LOOK TOO CHEERY EITHER.
+
+You can see a flying donut and a petridish filled with crystals.
+You can go north, east, south or west.
+> eat petridish
+
+> eat petridish
+You eat it and are teleported to another area in the Starcraft!
+
+You are in the Mess.
+The Mess is filled with tables and the walls are lined with buffets. On them is the fabled best food in the galaxy, possibly the universe. Due to the evacuation lockdown, there is nobody here.
+You can see a tables, a buffet, an emergency teleporter, emergency glass and a chairs.
+> use vaporising ray on emergency glass
+
+> use vaporising ray on emergency glass
+You blast the glass out of existence. The metal walls separating you from the food lifts, and the deliciousness and luscious-enity of the food blasts your senses. You are left awestruck.
+> take food
+
+> take food
+You grab the greatest foods you can find: the universe's best gravy, your favourite type of meat and- well, the list goes on. Let's just say that you grab everything.
+> use emergency teleporter
+
+> use emergency teleporter
+You teleport out of the Mess and into the evacuation bay.
+
+You are in an evacuation bay.
+This bay is full of mushrooms eveywhere, with a great big teleporter teleporting teleportees away from the ship. Security droids are here. They spot you.
+You can see a teleporter and a security droids.
+You can go into the teleporter.
+You hear something on the overhead speaker:
+"Everyone aboard the Kosmosipo, we have figured out what is wrong with the ship. The Kosmosipo is going to explode in five minutes time so can everyone please make their way to the escape pods. Thank you."
+> use vaporising ray on security droids
+
+> use vaporising ray on security droids
+You blast all of the security droids to pieces.
+There is now a clear path to the teleporters.
+> use teleporter
+
+> use teleporter
+You teleport out of the ship and find yourself dead. For some reason the recieving end of the teleportation system had been destroyed and the few lines of code carrying your heart and soul missed its mark completely. However, you were already only a few lines of code, being a game character. You land at a different reciever in some other distant area of the galaxy.
+You are in a telephone.
+You are recieved by a telephone. The phone vibrates violently and is picked up by a someone.
+You can go out.
+A voice says,"Hello, who is this?"
+> hello
+The voice replys, "You must be a telemarketer. Let me put you on to my secretary."
+The phone is then hung up.
+> out
+
+> out
+
+You are in the grid.
+You enter the main grid. You can enter thousands of households from here.
+You can go south or east.
+
+> e
+
+> e
+You are sucked into a machine and instantly materialise back into human form!
+Congratulations!!! You have completed the fourth chapter of 'Escape the Mushrooms!' + 5hp. The end is in sight! No seriously, you can see it just four words before the end of this sentence. Anyway, we have had some complaints from the last chapter that stated that the gift we gave you sucked, but we want to remind you that without it you would never have gotten a gun and would have died pathetically. Also, you have reached your final reward stage. Here at Mulligan and Co., we believe it important to give the player the worst gifts possible, and for such an important occassion, we are going to give you the most anti-climactic reward of all time:
+***The gift of the scientist***
+This gift literally gives you the ablility to think. You can't think about something like in the 'say ' command, all you can do type 'think' and then it says, 'You thought'. That is literally all that happens. And you know what? We aren't even going to do the whole, "Ah ha; we tricked you into thinking that your reward was really bad when in reality it was vital!" thing. It will literally be the worst, most anti-climactic reward of all time! Now go along and play our game with no hope of success. Farewell.
+- - -Chapter Five- - -
+You enter a materialiser and are materialised back into your old form. You are confronted by two mushrooms wearing uniforms who somehow look startled. They then pull themselves together and arrest you, taking you to the Mushroom Federal Prison and give you a lifetime sentence behind bars.
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+You feel a bit queasy.
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+You notice that the prison bars are made of celery.
+> look
+
+> look
+You are in a prison.
+This prison is empty...
+You can see a celery.
+> eat celery
+
+> eat celery
+You gnaw at the celery stalks, which are rather stringy.
+> out
+
+> out
+
+You are in a corridor.
+You leave the prison and take your first stroll in five years. You see mushrooms in other cells, cowering in fear from your non-fungality and the narrator's complete disregard for using real words. You see some prison guards cowering as well.
+You can see other cells (containing prisoner mushrooms) and prison guards.
+You can go in or northeast.
+
+> ne
+
+> ne
+
+You are in a detainment centre.
+Stools lay strewn about the floor. Clearly an insane mushroom was here.
+You can see stools.
+> take stools
+
+> take stools
+You pick up a stool, but it is blown away from you.
+A mushroom is now in the room with you, and says to you:
+Greetings, player. I am sure that once in your adventures you have thought to yourself, "Why do I keep running into mushrooms?" Well, I am here to tell you why. I am The Mushroom.
+If you recall back to the introduction of this game, you will remember that it said that you can't remember anything, except that the mushrooms are here, and you need to escape from them. Now I will fill in those gaps.
+You were a spy caught by the Great Mushroom Assosciation. You were taken to be tested on, to discover more about the human race. After we were finished with you, we wiped your mind, but, wanting to keep tabs on you, we put some mushroom spores inside you. Since all mushrooms can communicate with each other via telekenesis, we were able to tell where you were at all times. This is also why you can hear what we say. The other mushrooms you have met so far were our own agents collecting data on your behaviour. However, we saw that the side-effects of our testing was damaging our Empire, so we had to intervene and bring you back to our prison. Now, however, the mushroom we planted inside of you has grown to a potentially dangerous level over the past five years and, unless expelled from your body will be fatal. I also noticed 'mushroom powers' in your inventory. I assume you could use this on objects in a 'use mushroom powers on (obj)' style, and should also display the number of turns you have left until it becomes fatal as its object description. Maybe.
+Apart from that, I have nothing more to tell you, other than you have to Escape the Mushrooms which both surround you and lie within your body.
+Farewell.
+The mushroom then leaves.
+> use mushroom powers on stools
+
+> use mushroom powers on stools
+The musroom powers throw the stools into the wall, giving you an exit.
+> e
+
+> e
+
+You are in an interrogation room.
+You are in a small chamber that blocks you off from the room the rest of the complex. Presumably the interrogator would ask you questions from the other side of the glass wall of this chamber.
+You can see outside of the chamber ( where there is a desk, a filing cabinet and a button).
+You can go west or south.
+> use mushroom powers on button
+
+> use mushroom powers on button
+The mushroom powers telekinetically press the button and open the door leading out of the chamber.
+> s
+
+> s
+
+You are in a corridor.
+The walls of the corridor have 'watch out for escapees' poster.
+You can see a guard mushrooms.
+You can go north or northwest.
+> use mushroom powers on guard mushrooms
+
+> use mushroom powers on guard mushrooms
+You shoot fungicide out of your fingertips and kill the guards.
+
+> use mushroom powers on me
+
+> use mushroom powers on me
+The mushroom powers turn you invisible!
+> nw
+
+> nw
+
+You are in lecture room 2.
+This room has no room description as the room description writer does not want to describe a lecture room.
+You can see chairs and a blackboard.
+You can go southeast.
+> x blackboard
+
+> x blackboard
+On the blackboard it says that there are security cameras outside and that anyone who goes there will be shot on sight. It then points out the window which you completely missed before.
+> out
+
+> out
+
+You are in a courtyard.
+This is mostly empty, except for a security camera and the rotting corpse of a mushroom which tried crossing this courtyard.
+You can see a security camera and a corpse.
+You can go in or north.
+
+Luckily you aren't killed on sight as you are never seen.
+> n
+
+> n
+
+You are in an abandoned building.
+Your steps echo throughout the building.
+You can go south or down.
+> d
+
+> d
+
+You are in a dark staircase.
+Your steps echo down the staircase.
+You can go up or down.
+> d
+
+> d
+You walk down the stairs. You are now about 150 stairs down.
+> d
+
+> d
+You can sense that this long calm before the storm can only mean one thing...
+> d
+
+> d
+
+You are in a trap.
+It's a trap!
+You can see ropes, bear claws, clocks, lasers, piranhas and fifty other utensils of death.
+> use mushroom powers on clocks
+
+> use mushroom powers on clocks
+The clocks stop ticking. You hear the voice of an evil genius mushroom say,"Confounded player! Thou hast foiled my scheme!"
+> look
+
+> look
+You are in a trap.
+It's a trap!
+You can see clocks.
+You can go out.
+You can leave now, there is an exit in the 'out' direction.
+> look
+
+> look
+You are in a trap.
+It's a trap!
+You can see clocks.
+You can go out.
+> out
+
+> out
+
+You are in a secret lair.
+The evil genius mushroom says, "You may think that you have triumphed over me, but you are will not escape!"
+He then climbs onto a pedastal, takes a large mounted laser and rids you of your mushroom powers!
+You can see pneaumatic tubes, a pedastal (on which there is an evil genius mushroom and a mounted laser), piranhas, ropes, bear claws, lasers and fifty other utensils of death.
+You can go up.
+> use ropes on pedastal
+
+> use ropes on pedastal
+You use the ropes to climb up the pedastal.
+> use mounted laser on evil genius mushroom
+
+> use mounted laser on evil genius mushroom
+A shot of death hits the evil genius mushroom and he bursts into many pieces. A pneaumatic tube powers up, giving an upwards exit.
+> up
+
+> up
+You climb under the pipe and get sucked up into it. You are told by your good friend the narrator that once you leave this pipe you will be out of the Mushroom Empire.
+Points:39 - Health:28 - Final Score:199.
+
+You are a free.
+The Mushroom from earlier calls out from behind you. It says, "Wait, there is one more thing for me to tell you!"
+You turn aroud and see the face of evil for the last time.
+It says,"Player, I am your father."
+
+CONGLATURATION !!!
+
+YOU HAVE COMPLETED
+A GREAT GAME.
+
+AND PROOVED THE JUSTICE
+OF OUR CULTURE.
+
+NOW GO REST OUR
+HEROES !
+
+[state=Finished]

@@ -1,0 +1,853 @@
+The Enchanted Glade
+
+ THE ENCHANTED GLADE.
+
+You wake up groggily from a sleep filled with disturbing dreams.
+
+You have no idea where you are.
+
+(Press a key...)
+
+You are in a hotel room.
+A standard sort of room, comfortable but basic, with bed, chair, TV etc.
+You can see a cup.
+You can go south.
+> look under bed
+
+> look under bed
+You find a torch.
+> take torch
+
+> take torch
+You pick it up.
+> switch on torch
+
+> switch on torch
+You switch it on.
+> take cup
+
+> take cup
+You pick it up.
+> s
+
+> s
+
+You are in the reception room.
+Nobody in reception. Where is everybody?
+You can go east, north or out.
+> e
+
+> e
+
+You are in the kitchen.
+Silence everywhere. Nobody about, though someone must have made some coffee not too long ago.
+You can see a pot of coffee, a canopener and a biscuit.
+You can go west.
+> pour coffee
+
+> pour coffee
+You pour a cup of coffee and sip it gratefully. The coffee steadies you. You remember going to bed in your own home and having a strange dream of a beautiful woman asking for your help.
+"Now is the time," she had said, "and you are the one..."
+> drink coffee
+
+> drink coffee
+You finish the coffee.
+> drop cup
+
+> drop cup
+You drop it.
+> take canopener
+
+> take canopener
+You pick it up.
+> take biscuit
+
+> take biscuit
+You pick it up.
+> eat biscuit
+
+> eat biscuit
+Not hugely satisfying but, crumbs, what did you expect?
+> w
+
+> w
+
+You are in the reception room.
+Nobody in reception. Where is everybody?
+You can go east, north or out.
+> out
+
+> out
+
+You are in the Cawsand village square.
+You are standing outside The Old Ship Inn, Cawsand. The village seems deserted.
+You can go north, west, east or in.
+> e
+
+> e
+
+You are in the coastal village of Cawsand.
+All the shops are closed including a small General Stores.
+You can go west or east.
+> e
+
+> e
+
+You are on the Cawsand road.
+You can go west, north or east.
+> n
+
+> n
+
+You are on a beach.
+Small waves break gently onto the sand. Small birds run up and down feeding along the shoreline.
+You can see a shopping trolley.
+You can go south.
+> take trolley
+
+> take trolley
+You pick it up.
+> s
+
+> s
+
+You are on the Cawsand road.
+You can go west, north or east.
+> w
+
+> w
+
+You are in the coastal village of Cawsand.
+All the shops are closed including a small General Stores.
+You can go west or east.
+> link trolley
+
+> link trolley
+You attach the trolley to the others.
+> x handle
+
+> x handle
+You see a coin sticking out of it.
+> take coin
+
+> take coin
+You pick it up.
+> w
+
+> w
+
+You are in the Cawsand village square.
+You are standing outside The Old Ship Inn, Cawsand. The village seems deserted.
+You can go north, west, east or in.
+> w
+
+> w
+
+You are at a junction.
+You can go north, south or east.
+> s
+
+> s
+
+You are at a junction.
+You can go north, south or east.
+> s
+
+> s
+
+You are in a carpark.
+It is strangely deserted.
+The only vehicle is an ice-cream van with its display board.
+You can see bits of rubbish rolling about in the breeze..
+You can go south, northeast or north.
+> x van
+
+> x van
+A rather garish ice-cream van with a board leaning against it.
+
+Behind the counter stands a man in a white coat.
+> give coin to man
+
+> give coin to man
+The man takes the coin and gives you an ice-lolly. As you watch, the air around him shimmers and he disappears!
+> eat lolly
+
+> eat lolly
+You eat the lolly.
+> put lolly stick in litter bin
+
+> put lolly stick in litter bin
+Done.
+You drop the stick into the bin, and hear a clinking noise.
+> feel in litter bin
+
+> feel in litter bin
+You feel a bottle
+> take bottle
+
+> take bottle
+You pick it up.
+> s
+
+> s
+
+You are on a headland.
+To the south, the headland rises to a small mount overlooking the sea. On the crest is a small building.
+You can go north, south or east.
+> e
+
+> e
+
+You are on a promontory.
+You can go west, southwest or north.
+> sw
+
+> sw
+
+You are in a grotto.
+A grotto built of rough stone on the edge of a cliff to take advantage of the wonderful sea views. Inside it is cool and dim.
+You can see a lizard.
+You can go northeast.
+> watch lizard
+
+> watch lizard
+The lizard scuttles into a crack in the wall.
+> pull lever
+
+> pull lever
+A large hole in the wall grates open.
+> enter
+
+> enter
+
+You are in a phosphorescent cave.
+A large cave, lit by a beautiful blue-green shimmering light.
+You can go west or north.
+With a grating noise, the hole behind you closes!
+With a grating noise, the hole closes behind you.
+> w
+
+> w
+
+You are at a bend.
+You see daylight to the south, and a greenish glow to the east.
+You can go east or south.
+> s
+
+> s
+
+You are in a sea cave.
+The bracing smell of the sea reaches you. High on the wall you can see a nest.
+You can go north or south.
+> climb wall
+
+> climb wall
+You climb the wall
+
+You are  near the nest.
+You can go down.
+> x nest
+
+> x nest
+It's a chough's nest. (Cornwall's national bird, though very rare!)
+It contains a small key.
+> take small key
+
+> take small key
+You pick it up.
+> down
+
+> down
+
+You are in a sea cave.
+The bracing smell of the sea reaches you. High on the wall you can see a nest.
+You can go north, south or up.
+> n
+
+> n
+
+You are at a bend.
+You see daylight to the south, and a greenish glow to the east.
+You can go east or south.
+> e
+
+> e
+
+You are in a phosphorescent cave.
+A large cave, lit by a beautiful blue-green shimmering light.
+You can go west or north.
+> n
+
+> n
+
+You are in a cave of pillars.
+The thick stalagmites and stalactites seem like great marble pillars.
+
+There is a door to the north.
+You can go south or west.
+> w
+
+> w
+
+You are in a hall of pools.
+A beautiful place, full of tinkling streams and pools.
+You can go east or north.
+> n
+
+> n
+
+You are in a crystal forest.
+Tiny brightly coloured birds flit between the crystaline stalactites and stalagmites.
+You can go south.
+> throw crumbs
+
+> throw crumbs
+A tiny yellow bird flies down and pecks up the crumbs. It then drops a small acorn into your hand before flying away.
+> s
+
+> s
+
+You are in a hall of pools.
+A beautiful place, full of tinkling streams and pools.
+You can go east or north.
+> e
+
+> e
+
+You are in a cave of pillars.
+The thick stalagmites and stalactites seem like great marble pillars.
+
+There is a door to the north.
+You can go south or west.
+> open door
+
+> open door
+Unlocked.
+You open it.
+> n
+
+> n
+
+You are in a library.
+The walls are lined with shelves. In the centre of the room is a reading stand. There is a small cupboard in the corner.
+You can go south.
+> x reading stand
+
+> x reading stand
+It carries an old leatherbound book.
+> read book
+
+> read book
+To your amazement you realise that it is the diary of a wizard. It is open at the page dated exactly 1000 years ago today!
+You read on...
+
+(press a key)
+
+"My arch-enemy has finally thwarted my schemes, but with the last of my powers I have taken my revenge and imprisoned her for all time.
+
+Unfortunately, the accursed laws of Deep Magic force me to allow one opportunity for escape. Thus I have laid a spell which, in 1000 years, will cause a stasis to fall upon this region for one day.
+
+Should a hero find a way to rescue her during that period, she will be free. Otherwise her captivity will last forever..."
+> open cupboard
+
+> open cupboard
+You open it.
+It contains a tiny model dolphin.
+> take whistle
+
+> take whistle
+You pick it up.
+> x whistle
+
+> x whistle
+It's a whistle.
+> s
+
+> s
+
+You are in a cave of pillars.
+The thick stalagmites and stalactites seem like great marble pillars.
+
+There is a door to the north.
+You can go south, west or north.
+> s
+
+> s
+
+You are in a phosphorescent cave.
+A large cave, lit by a beautiful blue-green shimmering light.
+You can go west or north.
+> w
+
+> w
+
+You are at a bend.
+You see daylight to the south, and a greenish glow to the east.
+You can go east or south.
+> s
+
+> s
+
+You are in a sea cave.
+The bracing smell of the sea reaches you. High on the wall you can see a nest.
+You can go north, south or up.
+> s
+
+> s
+
+You are at the entrance to the sea cave.
+The waves of the English Channel lap gently at your feet. You are, however, aware of the treacherous nature of the currents hereabouts. Not a place to bathe!
+You can go north.
+> blow whistle
+
+> blow whistle
+It makes a haunting flute-like whistle
+The water at your feet swirls. A dolphin appears and wallows next to you, while looking at you invitingly.
+> climb dolphin
+
+> climb dolphin
+You climb nervously onto its back. With a flick of its powerful tail, it carries you off round the headland and deposits you on a sandy beach, before swimming away.
+
+You are on a beach.
+Small waves break gently onto the sand. Small birds run up and down feeding along the shoreline.
+You can go south.
+> s
+
+> s
+
+You are on the Cawsand road.
+You can go west, north or east.
+> e
+
+> e
+
+You are in a dense forest.
+You are at the edge of the wood.
+You can go west.
+
+A dryad appears from between the trees. Although you can see exits to the north and east, the dryad will not let you pass.
+> give acorn to dryad
+
+> give acorn to dryad
+
+The dryad takes the acorn which was a lost and valued talisman. She is very grateful  and tells you of an enchanted glade, full of bird song, where her lady is imprisoned.
+
+Smiling, she disappears amongst the trees.
+> w
+
+> w
+
+You are on the Cawsand road.
+You can go west, north or east.
+> w
+
+> w
+
+You are in the coastal village of Cawsand.
+All the shops are closed including a small General Stores.
+You can go west or east.
+> w
+
+> w
+
+You are in the Cawsand village square.
+You are standing outside The Old Ship Inn, Cawsand. The village seems deserted.
+You can go north, west, east or in.
+> w
+
+> w
+
+You are at a junction.
+You can go north, south or east.
+> s
+
+> s
+
+You are at a junction.
+You can go north, south or east.
+> e
+
+> e
+
+You are at the junction of three paths.
+You can go southwest, northeast or west.
+> ne
+
+> ne
+
+You are at a pithead.
+An old Cornish tin-mine. The building is made of stone and looks a little decrepit!
+You can go southwest or east.
+> e
+
+> e
+
+You are in a tin mine.
+You can see a ring.
+You can go west.
+> pull ring
+
+> pull ring
+Exerting all your strength, you pull the ring and move the slab to one side. It uncovers the entrance to a mineshaft.
+You can go down.
+> d
+
+> d
+
+You are in a bottom of the mine shaft.
+There is a circle of light far above you. To the east stretches a damp tunnel.
+You can go up or east.
+> e
+
+> e
+
+You are in a tunnel.
+Stony walls on either side, and rough-hewn wooden props and ceiling. It's very wet underfoot.
+You can go west, east or south.
+> e
+
+> e
+
+You are in a tunnel.
+You can go west or up.
+> up
+
+> up
+
+You are on an open moor.
+You can see a heavy stone.
+You can go down, south, east or north.
+> n
+
+> n
+
+You are in a boggy place.
+A depressing looking area with tufts of rough grass pushing sadly through stagnant pools.
+You can go south, north, east or west.
+> x grass
+
+> x grass
+You see a little toad.
+> take toad
+
+> take toad
+You pick it up.
+> s
+
+> s
+
+You are on an open moor.
+You can see a heavy stone.
+You can go down, south, east or north.
+> d
+
+> d
+
+You are in a tunnel.
+You can go west or up.
+> w
+
+> w
+
+You are in a tunnel.
+Stony walls on either side, and rough-hewn wooden props and ceiling. It's very wet underfoot.
+You can go west, east or south.
+> s
+
+> s
+
+You are in a cobwebby tunnel.
+ Ahead, you can see hundreds of tiny red gleaming eyes.
+You can go north or south.
+> drop toad
+
+> drop toad
+You drop it.
+The toad crawls forward and makes short work of the spiders before hopping off, presumably back to his soggy home!
+> s
+
+> s
+
+You are in a narrow tunnel.
+You can go north or south.
+> s
+
+> s
+
+You are at a dead end.
+You can't go further this way.
+You can see a tin.
+You can go north.
+> take tin
+
+> take tin
+You pick it up.
+> use canopener on tin
+
+> use canopener on tin
+You prise open the tin.
+> x tin
+
+> x tin
+It's a tin! What else did you expect to find in a tin mine?
+It looks sound, but the label has gone!
+It contains spinach.
+> take spinach
+
+> take spinach
+You pick it up.
+> eat spinach
+
+> eat spinach
+You feel strength flowing through your veins!
+> n
+
+> n
+
+You are in a narrow tunnel.
+You can go north or south.
+> n
+
+> n
+
+You are in a cobwebby tunnel.
+You can go north or south.
+> n
+
+> n
+
+You are in a tunnel.
+Stony walls on either side, and rough-hewn wooden props and ceiling. It's very wet underfoot.
+You can go west, east or south.
+> e
+
+> e
+
+You are in a tunnel.
+You can go west or up.
+> up
+
+> up
+
+You are on an open moor.
+You can see a heavy stone.
+You can go down, south, east or north.
+> e
+
+> e
+
+You are at the foot of a tor.
+You can go west or up.
+> up
+
+> up
+
+You are on the summit of the tor.
+The view is magnificent. The moors stretch out to the north while to the south you can see the sea.
+
+You see a large rock.
+You can go down.
+> push rock
+
+> push rock
+You slide the rock aside with ease! A hole is discovered.
+> x hole
+
+> x hole
+Nothing out of the ordinary.
+However, it contains a large key.
+> take large key
+
+> take large key
+You pick it up.
+> d
+
+> d
+
+You are at the foot of a tor.
+You can go west or up.
+> w
+
+> w
+
+You are on an open moor.
+You can see a heavy stone.
+You can go down, south, east or north.
+> d
+
+> d
+
+You are in a tunnel.
+You can go west or up.
+> w
+
+> w
+
+You are in a tunnel.
+Stony walls on either side, and rough-hewn wooden props and ceiling. It's very wet underfoot.
+You can go west, east or south.
+> w
+
+> w
+
+You are in a bottom of the mine shaft.
+There is a circle of light far above you. To the east stretches a damp tunnel.
+You can go up or east.
+> up
+
+> up
+
+You are in a tin mine.
+You can see a ring.
+You can go west or down.
+> w
+
+> w
+
+You are at a pithead.
+An old Cornish tin-mine. The building is made of stone and looks a little decrepit!
+You can go southwest or east.
+> sw
+
+> sw
+
+You are at the junction of three paths.
+You can go southwest, northeast or west.
+> sw
+
+> sw
+
+You are in a carpark.
+It is strangely deserted.
+The only vehicle is an ice-cream van with its display board.
+You can see bits of rubbish rolling about in the breeze..
+You can go south, northeast or north.
+> s
+
+> s
+
+You are on a headland.
+To the south, the headland rises to a small mount overlooking the sea. On the crest is a small building.
+You can go north, south or east.
+> s
+
+> s
+
+You are outside a druid temple.
+It has a great, old oak door.
+You can go north.
+> open oak door
+
+> open oak door
+
+The door swings open
+> in
+
+> in
+
+You are in the temple.
+An old temple with magnificent views over the English Channel. There is a big bronze disc set into the floor, surrounded by three stones with carved shapes on them.
+You can see a stone with a circle, a stone with a square and a stone with a wriggly line.
+You can go out.
+> turn stone
+
+> turn stone
+Please choose which 'stone' you mean:
+1: stone with a circle
+2: stone with a square
+3: stone with a wriggly line
+> 3
+The disc moves aside, revealing a sacred pool.
+> fill bottle
+
+> fill bottle
+You fill the bottle with water.
+> out
+
+> out
+
+You are outside a druid temple.
+It has a great, old oak door.
+You can go north or in.
+> n
+
+> n
+
+You are on a headland.
+To the south, the headland rises to a small mount overlooking the sea. On the crest is a small building.
+You can go north, south or east.
+> n
+
+> n
+
+You are in a carpark.
+It is strangely deserted.
+The only vehicle is an ice-cream van with its display board.
+You can see bits of rubbish rolling about in the breeze..
+You can go south, northeast or north.
+> n
+
+> n
+
+You are at a junction.
+You can go north, south or east.
+> n
+
+> n
+
+You are at a junction.
+You can go north, south or east.
+> e
+
+> e
+
+You are in the Cawsand village square.
+You are standing outside The Old Ship Inn, Cawsand. The village seems deserted.
+You can go north, west, east or in.
+> e
+
+> e
+
+You are in the coastal village of Cawsand.
+All the shops are closed including a small General Stores.
+You can go west or east.
+> e
+
+> e
+
+You are on the Cawsand road.
+You can go west, north or east.
+> e
+
+> e
+
+You are in a dense forest.
+You are at the edge of the wood.
+You can go west, north or east.
+> e
+
+> e
+
+You are in a dense forest.
+You can't see the wood for the trees!
+You can go south or north.
+> n
+
+> n
+
+You are in a dense forest. Birds can be heard singing nearby.
+You can go west, east or north.
+> n
+
+> n
+
+You are in an enchanted glade.
+A beautiful glade, in the centre of which stands a tall slender birch tree.
+You can go south.
+> sprinkle water
+
+> sprinkle water
+As you watch, the shape of the birch tree becomes indistinct. Its outline wavers, and suddenly a tall and beautiful lady stands before you. Moments later, the glade is full of laughing and rejoicing dryads. A great party begins with you as the guest of honour.
+
+Soon you will be transported home, and all this will seem to have been a dream. Meanwhile you will have a wonderful evening!
+[state=Finished]

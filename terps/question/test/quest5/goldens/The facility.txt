@@ -1,0 +1,98 @@
+You are in a room with a cot and a drawer. a The sleeping quarters.
+You can go north or south.
+You can see a hallway to the north and a closet to the south.
+> s
+> s
+You are in a Closet.
+You can see a Wooden box.
+You can go north.
+> open wooden box
+> open wooden box
+You find a knife in the box and take it.
+> n
+> n
+You are in a room with a cot and a drawer. a The sleeping quarters.
+You can go north or south.
+You can see a hallway to the north and a closet to the south.
+> n
+> n
+You are in a long hallway. a The hallway.
+You can see a Key.
+You can go south or north.
+You can see your reflection in the polished smooth floor. You notice at the end of the hallway there is a ladder.
+> take key
+> take key
+You pick it up.
+> n
+> n
+You are in a The ladder.
+You can go south, up or down.
+There is a long ladder going up and down.
+> d
+> d
+You are in a Stone room.
+You can see a Door.
+You can go north.
+A large stone room with a locked door.
+You should probably use THE key you found earlier.
+> use key with door
+> use key with door
+You quickly turn the key, knowing you could die at any second, and you unlock the door.
+> n
+> n
+You are in a Large chamber.
+You can see an antidote on the table, and some cake a Antidote, a Table and a Cake.
+You can go south or north.
+You are in a huge chamber filled with lanterns.  On the table there is a goblet filled with the precious antidote, and some cake. ( Though the cake could be a lie...)
+> take antidote
+> take antidote
+You pick it up.
+> use antidote
+> use antidote
+You drink the liquid and feel refreshed.
+(HP is now at 100%, score has gone up by 50, and you are no longer poisoned!)
+> n
+> n
+You are in a Maze entrance.
+You can go south or north.
+You are at the entrance of an underground maze of torture.
+I hope you have your cake, your going to need it. You'll find a really nice gift at the end...
+> n
+> n
+You are in a Stone path.
+You can go south, east or west.
+> e
+> e
+You are in a Gun room.
+You can see a Machine gun.
+You can go west or east.
+> e
+> e
+You are in a Maze corner.
+You can go west or north.
+This Is a corner in the maze. Very interesting...
+> n
+> n
+You are in a Three paths.
+You can go south, west, east or north.
+> n
+> n
+You are in a Maze exit.
+You can see a Bear.
+You can go south or north.
+You are at the maze exit ( well that wasn't much of a maze). There is a bear blocking the only path. You could probably shoot it or use the knife of yours.
+> use knife with bear
+> use knife with bear
+You epicly jump on the bear and wrestle with it. You get knocked around a bit then you slit its throat. (HP -10 score +25)
+> n
+> n
+You are in a Prize room.
+You can go south or north.
+You are in a room with a huge portal to the north.
+> n
+> n
+You are in a Portal.
+You can go south.
+You see the swirling red portal in front of you. You realize that once you step through you can end up anywhere. Well, anywhere is better than here...
+Thanks for playing! There will be a part two soon...
+[state=Finished]

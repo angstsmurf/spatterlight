@@ -1,0 +1,1180 @@
+A classroom
+Your professor had to turn off the fan in the back of the room because it kept sending students' papers flying around the classroom. But now the room is terribly muggy. No wonder your classmates are in such a hurry to leave--a crowd of them are pushing their way out the door. You aren't particularly eager to stick around, either. Somewhere between your room and class, you lost the day's assignment, and you don't want to talk to your professor until you can find it. She is sitting at the front of the class, shuffling through a pile of student work.
+You can go north, east or up.
+You can see your professor and a fan.
+> take fan
+
+> take fan
+Oof! It's heavy, but you manage to lift it.
+> north
+
+> north
+
+The Quad
+The quad is wide and grassy. There is a tiled plaza to the east. In front of you, an Ultimate Frisbee team is tossing a frisbee around.
+You can go south or east.
+You can see a frisbee.
+> switch on fan
+
+> switch on fan
+The powerful blades swing into action.
+The frisbee is caught in the fan's powerful gust. It glides gently to the ground a few feet from the players.
+> take frisbee
+
+> take frisbee
+You take it, as triumphant as the champion of an Olympic discus throw, ignoring the jeers of the Ultimate team whose game you just ruined.
+> east
+
+> east
+
+The Quad
+A wide plaza tiled in stone. A statuette stands in the middle.
+You can go west, east, north or south.
+You can see a statuette.
+> east
+
+> east
+
+The Quad
+
+The ground is littered with acorns and absolutely covered in squirrels. Fang-toothed squirrels. They seem to sense your gaze. They stand stock still, sniffing at the air.
+
+Then, in a motion too fast to comprehend, they leap towards once another, scrabbling and crawling their way into a writhing mass almost as tall as the oaks that surround it. The mass moves with one mind, one form. It moves across the grass with the implacable force of a tidal wave. It is the Squirrel King.
+You can go west, east or south.
+You can see the Squirrel King.
+> hit Squirrel King with frisbee
+
+> hit Squirrel King with frisbee
+You send the frisbee flying through the air. At its approach, the squirrels scatter, flying through the air; as they land, they seem to melt into the ground and vanish, leaving only a still-beating acorn heart where they once were.
+> take acorn heart
+
+> take acorn heart
+As you pick up a the heart, a strange sense of power surges through you. Its beat quickens, matching itself to your pulse. Your sense of smell heightens. Your toes twitch, as if they are longing to curl around the bark of a tree. And you suddenly realize you have the power to control acorns--to sprout them using your mind alone. The power is at once disturbing and intoxicating.
+> west
+
+> west
+
+The Quad
+A wide plaza tiled in stone. A statuette stands in the middle.
+You can go west, east, north or south.
+You can see a statuette.
+> sprout statue
+
+> sprout statue
+The stone acorns splits in two. A stone sprout emerges from it, and slowly spring up to become a sapling. Leaves unfurl from branches.  Soon, an oak, shaped entirely in gray stone, stands where the acorn once did. One stone branch, over-weighted, cracks off the tree and falls to the ground.
+> take branch
+
+> take branch
+You pick it up.
+> north
+
+> north
+
+Hull Gate
+A tall stone gate with a gargoyle perched on one side. The gargoyle is holding a student between its jaws, shaking him. The student struggles but the gargoyle's stone grip is too strong.
+You can go south or north.
+You can see a gargoyle.
+> stab gargoyle with branch
+
+> stab gargoyle with branch
+You feint past the gargoyle's wing and stake it with the branch. It explodes into dust, shattering the branch with its force. The student drops to the ground and takes off running.
+> north
+
+> north
+
+The Reg
+The first floor is a wide study space filled with busy students. A librarian sits at a help desk; beside her, there is a table with a row of computers. To the west is the door to Special Collections, where all the library's most valuable holdings are kept.
+You can go south, down, up or west.
+You can see a librarian, a door and a table.
+> take mini pencil
+
+> take mini pencil
+You pick it up.
+> down
+
+> down
+
+The Lower Level
+
+A row of sliding shelves is lit in the basement's flickering light. Based on your book's call number, it should be somewhere between the two middle shelves. Looking at them, you're not eager to get much closer. The middle shelves are larger than any of the others. Curved fangs run up either side, and they pulse gently as if breathing. Hot, wet air issues from between.
+You can go up or in.
+You can see the middle shelves and a stool.
+> x shelves
+
+> x shelves
+The shelves look hungry.
+> take stool
+
+> take stool
+You pick it up.
+> in
+
+> in
+
+The middle shelves
+You can go out.
+The shelves are bearing down on you. You need to find a way to keep them from crushing you, fast.
+> drop stool
+
+> drop stool
+You drop it between the shelves.
+The shelves try to snap shut on you, but the stool holds them apart. They push against it angrily. You can see your book, Slay Anything, on the shelf next to an anatomy textbook.
+> use mini pencil on image
+
+> use mini pencil on image
+You stab through the picture. With a strange sucking sound, the image fades from color to black and white; ink oozes from it like blood. The shelves shudder and fall back; the fangs disappear. The curse is broken.
+> out
+
+> out
+
+The Lower Level
+You can go up or in.
+You can see the middle shelves (containing a stool).
+> up
+
+> up
+
+The Reg
+The first floor is a wide study space filled with busy students. A librarian sits at a help desk; beside her, there is a table with a row of computers. To the west is the door to Special Collections, where all the library's most valuable holdings are kept.
+You can go south, down, up or west.
+You can see a librarian, a door and a table.
+The librarian comes running towards you.
+"Did you take care of those shelves downstairs?"
+You nod, unsure what else to say.
+"Here," she says. "Take this, as a token of our gratitude."
+She holds out her hand. In it is a small golden key.
+> take key
+
+> take key
+You pick it up.
+> south
+
+> south
+
+Hull Gate
+A tall stone gate.
+You can go south or north.
+> south
+
+> south
+
+The Quad
+A wide plaza tiled in stone.
+You can go west, east, north or south.
+You can see a stone oak.
+> south
+
+> south
+
+Harper
+Harper's recent renovation has left it with an oddly patchy look--ancient tile and pale, unfinished wood. To your left, a Doc Films poster hangs on the wall; to your right, there is a bench piled with newspapers.
+You can go west, east, south, north or up.
+> south
+
+> south
+
+Midway
+A sidewalk leads through a grassy lawn dotted with piles of snow. To the east, you can see a skating rink. The ice of stretches out before you, Zamboni-smooth.
+You can go north, east or south.
+> south
+
+> south
+
+South Campus Court
+A tall wall of ice rises in the middle of the square, dividing it in two and hiding South Campus from view. The dining hall is to the east.
+You can go east, south or north.
+You can see a wall of ice.
+> east
+
+> east
+
+Cathey
+The dining hall is quite empty. Not much to eat, except a massive surplus of strawberry shortcakes on the dessert counter. An almost worrying surplus, really.  Next to the dessert counter is a Mongolian grill. On the other side, a seating area with tables.
+You can go west.
+You can see a dessert counter, a Mongolian grill, some tables and a pepper shaker.
+> x bowl
+
+> x bowl
+A bowl full of chopsticks.
+> take chopstick
+
+> take chopstick
+You pick up a pair.
+> stab shortcakes with chopstick
+
+> stab shortcakes with chopstick
+The moment you drive the chopstick into the first strawberry shortcake, the eldritch curse is broken. The sticky syrup melts away, the dry biscuit crumbles to dust, and the strawberry shortcakes are transformed into buffalo chicken sandwiches.
+> take salt shaker
+
+> take salt shaker
+You pick it up.
+> west
+
+> west
+
+South Campus Court
+A tall wall of ice rises in the middle of the square, dividing it in two and hiding South Campus from view. The dining hall is to the east.
+You can go east, south or north.
+You can see a wall of ice.
+> north
+
+> north
+
+Midway
+A sidewalk leads through a grassy lawn dotted with piles of snow. To the east, you can see a skating rink. The ice of stretches out before you, Zamboni-smooth.
+You can go north, east or south.
+> sprinkle salt on ice
+
+> sprinkle salt on ice
+The ice, once salted, is passable. You forge ahead, salt-shaking as you go.
+
+The skating rink
+An oval of ice, crisscrossed with grooves from ice skates. Someone is twirling and jumping on the ice. After moment, the figure comes gliding towards you--the legendary Paper Yeti. What could possibly have happened to make the famously shy creature come out of its seclusion?
+You can go west.
+You can see a Paper Yeti.
+> ask yeti about assignment
+
+> ask yeti about assignment
+"Ah, yes. Indeed,  I have your assignment," says the yeti, bending to show you the paper on its shoulder. "But you lost it fair and square. It belongs to me now. However, we can arrange a trade...in the unlikely event that you have what I want."
+"And what is that?" you ask.
+"Well," says the yeti. "When most people see me, they see a shambling mass of lost flyers and crumpled receipts. Worthless. Little do they know I carry with me a precious lost masterpiece."
+The yeti reaches into his stomach and shuffles through its papers. From deep inside, he extracts a scroll of canvas. He unrolls it to reveal a painting of a landscape in rich green and yellow.
+"Cezanne's View of Auvers-sur-Oise. Stolen from the Ashmolean Museum in 1999, and never seen since. Through a complicated series of events, it came into my possession. A priceless work. And yet I am forced to haunt abandoned spaces, to wander through the cold, rather than being housed with other masterpieces."
+> give key to yeti
+
+> give key to yeti
+"The key to Special Collections?"
+"You will finally be housed among masterpieces."
+"A fair trade," he says. He reaches back and peels the assignment off his shoulder, holding it out to you.
+> take assignment
+
+> take assignment
+You pick it up.
+> west
+
+> west
+
+Midway
+A sidewalk leads through a grassy lawn dotted with piles of snow. To the east, you can see a skating rink. The ice of stretches out before you, Zamboni-smooth.
+You can go north, east or south.
+> north
+
+> north
+
+Harper
+Harper's recent renovation has left it with an oddly patchy look--ancient tile and pale, unfinished wood. To your left, a Doc Films poster hangs on the wall; to your right, there is a bench piled with newspapers.
+You can go west, east, south, north or up.
+> west
+
+> west
+
+A classroom
+The classroom is empty now. Your professor is still sitting at the front of the room, working.
+You can go north, east or up.
+You can see your professor.
+> give assignment to professor
+
+> give assignment to professor
+"Ah, there it is," your professor says, taking the paper. "Hmm. Let me just add this to the gradebook."
+She presses a few button on her laptop. "Well, look at that. The additional credit has bumped up your grade to an A. That moves your GPA up enough that you've been added to the Dean's List. Congratulations!"
+> i
+
+> i
+You are carrying a backpack, a fan, an acorn heart, a mini pencil, a chopstick, a salt shaker and an assignment.
+> east
+
+> east
+
+Harper
+Harper's recent renovation has left it with an oddly patchy look--ancient tile and pale, unfinished wood. To your left, a Doc Films poster hangs on the wall; to your right, there is a bench piled with newspapers.
+You can go west, east, south, north or up.
+> north
+
+> north
+
+The Quad
+A wide plaza tiled in stone.
+You can go west, east, north or south.
+You can see a stone oak.
+> north
+
+> north
+
+Hull Gate
+A tall stone gate.
+You can go south or north.
+> north
+
+> north
+
+The Reg
+The first floor is a wide study space filled with busy students. A librarian sits at a help desk; beside her, there is a table with a row of computers. To the west is the door to Special Collections, where all the library's most valuable holdings are kept.
+You can go south, down, up or west.
+You can see a librarian, a door and a table.
+> up
+
+> up
+
+The Second Floor
+Long rows of shelves fill the room. To your left, you spot the corner of something white on the floor.
+You can go down.
+> nap
+
+> nap
+You begin to drift off.
+The first thing you feel is something heavy sitting on your chest.
+A huge black crow is perched on your stomach. Its wings, half-extended, are long enough to wrap all the way around your shoulders.
+"I come with a message for you," it says. "An envoy for the King of Crows."
+It waits for you to say something, but you are finding it hard to speak with your chest compressed like this.
+"Very well," it says. "The King wishes you to know that you will never defeat your enemy without his assistance. In light of this, he wishes to make you an offer.  He will offer you his help in exchange for a demonstration of your loyalty and respect."
+The crow waits once again for you to speak; after a few moments, it continues.
+"The demonstration will come in the form of four gifts. He is to be married tomorrow; you must bring him four wedding gifts, as according to the old rhyme, before you awaken from this dream. If you can do so, he will lend you his aid. He will wait for you in your room."
+Having finished its speech, the crow lifts itself from your chest and flaps away.
+
+The Quad
+When you open your eyes, you are in the Quad--but the Quad as it might look if it had been abandoned for a hundred years. One side has been pushed up to form a hill; a canyon has been blasted into the other half. The stones of the plaza in the middle have been scattered and cracked. Harper's roof has fallen in, and the walls are nearly obscured by ivy. The Reg, meanwhile, has deteriorated more dramatically. It looks as if it has been hit by a bomb. The charred remains are still smoking.
+You can go north or east.
+You can see a bicycle, a lock and a bike chain.
+> 27-17-15
+
+> 27-17-15
+The lock clicks open and the chain falls away. The bicycle, finding itself free, speeds away.
+> x bike
+
+> x bike
+A black metal bike rack spotted with rust.
+> north
+
+> north
+
+The Quad
+The stones of the plaza have been cracked and scattered around the lawn. Grass grows thickly between the tiles. A stone oak lies in shards on the ground.
+You can go south, north, east or west.
+You can see a shattered stone oak.
+> east
+
+> east
+
+Harper
+Harper's ceiling has fallen in. Pieces of stone rubble lie here and there. Above, you can see the ceiling of Harper Library. A silver-and-gold balloon bobs against the cross-vaults.
+You can go south, north or west.
+You can see a Doc Films poster, pins and a bench.
+> take pins
+
+> take pins
+You pull the pins out of the wall. The poster unfolds itself and flaps gently out of the room.
+> north
+
+> north
+
+Harper
+This section of Harper is much less dilapidated than the rest. Grass sprouts through the tiles on the floor. A stairway leads to Harper Tower above. Fallen rubble litters the floor; a huge rock has fallen in front of the closet in the corner.
+You can go south or up.
+> up
+
+> up
+
+The Harper Tower
+A mahogany desk sits in the center of the room. There is  jagged hole in the eastward wall which leads to Harper Library. Something is tapping against the ledge of the window.
+You can go down, north or south.
+You can see a desk and a pitcher.
+> open window
+
+> open window
+You slide the window open. The Doc Films poster is floating outside. It rears up, then spreads itself out like a magic carpet. It looks wide and sturdy enough to step on.
+> north
+
+> north
+You step out onto the poster. It wraps its corners around your legs and zooms up into the sky. Before long, you are floating just below the apex of the celestial sphere.
+
+A Sky
+The sky above you glows blue. A pink cloud floats beside you.
+You can go south.
+> squeeze pink cloud
+
+> squeeze pink cloud
+The cloud is tough and rigid. You draw together all your strength and squeeze the cloud like a bellows. Hot steam fills the air. As the cloud slowly decompresses, torrents of warm rain pour from its belly.
+> south
+
+> south
+The poster zooms you back to the window of Harper Tower, and you climb through.
+
+The Harper Tower
+The room is hot and muggy. Water runs down the walls. A mahogany desk sits in the center of the room. A window is set into the far wall.
+You can go down, north or south.
+You can see a desk and a pitcher.
+> pour pitcher
+
+> pour pitcher
+You pour the water out onto the floor.
+> take pitcher
+
+> take pitcher
+You pick it up.
+> down
+
+> down
+
+Harper
+The room is extremely hot and muggy. Water drips down the walls; multicolored mushrooms sprout from cracks between the stones. Shoots of bamboo have cracked through the floor, breaking the rock in front of the closet into pieces. You can hear something flapping against the closet door, trying to get out.
+You can go south or up.
+> open closet
+
+> open closet
+
+You open it. There is a small creature huddled in the corner--a toucan.
+> take toucan
+
+> take toucan
+The toucan coos as you pick it up.
+> south
+
+> south
+
+Harper
+The air is hot and muggy. Warm water drips down the walls. Above, you can see the mostly-intact ceiling of Harper Library. A silver-and-gold balloon bobs against the ceiling.
+You can go south, north or west.
+You can see a bench.
+> west
+
+> west
+
+The Quad
+Pink flowers spring from the damp soil. The torrential rain has opened a muddy fissure in the ground.
+You can go south, north, east, in or west.
+You can see a shattered stone oak, a tree, a branch and leaves.
+> x shattered stone oak
+
+> x shattered stone oak
+The stone oak lies in pieces on the ground. Based on the number of rings you can count in one shard, it lived a good long life. You notice with surprise that although the bark and branches are gray stone, a core of crystal runs through the center of the tree. A shard of crystal lies beside the tree.
+> take crystal shard
+
+> take crystal shard
+You pick it up.
+> take branch
+
+> take branch
+You pick it up.
+> take leaves
+
+> take leaves
+You pick up a bundle of leaves.
+> in
+
+> in
+You clamber into the fissure.
+
+A fissure
+You can go out.
+You can see roots.
+> use shard on roots
+
+> use shard on roots
+You select the thickest root and saw at it with the crystal shard. You hear creaking and groaning from above as you sever the root.
+> out
+
+> out
+
+The Quad
+Pink flowers spring from the damp soil. The torrential rain has opened a muddy fissure in the ground.
+You can go south, north, east, in or west.
+You can see a shattered stone oak and a tree.
+> push tree
+
+> push tree
+You push. The tree slowly topples over the edge of the cliff. The trunk creaks--something is climbing up the tree. You peer over the edge. A giant sloth is wrapping its claws around the trunk and climbing slowly up, chewing on branches as it goes. It arrives on the Quad and begins to look around for something to eat.
+> give leaves to sloth
+
+> give leaves to sloth
+You hand a leaf over. The giant sloth makes short work of it. When it's done, it looks up at you expectantly.
+> south
+
+> south
+
+The Quad
+Moss covers the ground; ferns sprout here and there. Everything is covered with beads of rain.
+You can go north or east.
+You can see a lock.
+The sloth lumbers slowly after you. It is still hungry. With one swipe of its claws, it uproots the ivy on the Harper wall. It chews the vines and swallows them with un-slothful speed. The ivy was just about all the was holding the wall together; without it, the wall collapses, leaving the path between Quad and classroom open.
+> look
+
+> look
+The Quad
+Moss covers the ground; ferns sprout here and there. Everything is covered with beads of rain.
+You can go north or east.
+You can see a lock and a giant sloth.
+> east
+
+> east
+
+A classroom
+Vines hang from the roof of the classroom, sprouting strange spiky fruits that drop and smash on the ground. The desks are buried in a thick layer of moss. Your professor sits in the front of the classroom.
+You can go west or north.
+You can see a professor and a fan.
+> switch on fan
+
+> switch on fan
+Slowly, the blades begin to spin.
+The gust of wind from the fan blows the moss from your professor's hair. As they dry, the parasitic plants on her clothes wilt and fall off; the steady drip-drip of water from her body to the floor ceases and the pool around her chair begins to shrink. After a few minutes, her appearance has returned almost to normal. She begins to cough; she reaches into her mouth and grabs hold of something. She pulls and pulls--a long vine emerges from her throat and coils onto her desk. She looks up at you.
+"Well," she says. "Is it office hours already?"
+> west
+
+> west
+"Wait," says your professor. "I graded your assignment. I hope you don't mind that it took so long for me to get it back to you."
+She holds out a paper.
+> take assignment
+
+> take assignment
+You pick it up.
+> west
+
+> west
+
+The Quad
+Moss covers the ground; ferns sprout here and there. Everything is covered with beads of rain.
+You can go north or east.
+You can see a lock and a giant sloth.
+> north
+
+> north
+
+The Quad
+Pink flowers spring from the damp soil. The torrential rain has opened a muddy fissure in the ground.
+You can go south, north, east, in or west.
+You can see a shattered stone oak and a tree.
+> west
+
+> west
+
+Hull Gate
+Ferns spring up between piles of moss-covered stone. To the west, the Reg stands as a smoldering ruin. A small fire, lit by a spark from the ruin, dances between the rocks.
+You can go west or east.
+You can see a fire.
+> set fire to branch
+
+> set fire to branch
+The tip of the branch bursts into flame.
+> east
+
+> east
+
+The Quad
+Pink flowers spring from the damp soil. The torrential rain has opened a muddy fissure in the ground.
+You can go south, north, east, in or west.
+You can see a shattered stone oak and a tree.
+> east
+
+> east
+
+Harper
+The air is hot and muggy. Warm water drips down the walls. Above, you can see the mostly-intact ceiling of Harper Library. A silver-and-gold balloon bobs against the ceiling.
+You can go south, north or west.
+You can see a bench.
+> north
+
+> north
+
+Harper
+The room is extremely hot and muggy. Water drips down the walls; multicolored mushrooms sprout from cracks between the stones. Shoots of bamboo have cracked through the floor, breaking the rock in front of the closet into pieces.
+You can go south or up.
+> up
+
+> up
+
+The Harper Tower
+The room is hot and muggy. Water runs down the walls. A mahogany desk sits in the center of the room. A window is set into the far wall.
+You can go down, north or south.
+You can see a desk and water.
+> north
+
+> north
+You step out onto the poster. It wraps its corners around your legs and zooms up into the sky. Before long, you are floating just below the apex of the celestial sphere.
+
+A Sky
+The sky above you glows blue. A blue cloud floats beside you.
+You can go south.
+> squeeze blue cloud
+
+> squeeze blue cloud
+The cloud folds like an accordion between your hands. Frost crackles on your knuckles; the air chills. You draw your hands apart again and snowflakes begin to pour from the pores of the cloud.
+> south
+
+> south
+The poster zooms you back to the window of Harper Tower, and you climb through.
+
+The Harper Tower
+The room is frosty. There is a window set in the far wall; the window pane is covered in ice crystals. A mahogany desk sits in the center of the room. A glacier spills into the room through the jagged hole in the eastward wall.
+You can go down, north or south.
+You can see a desk and ice.
+> push desk
+
+> push desk
+You give the desk a good push. It slides on the pool of ice and zooms right into Harper Library.
+> south
+
+> south
+You step out onto the top of the glacier. It stands roughly where the floor of Harper Tower once did.
+
+A ZHarper Library
+The glacier is full of cracks and crevices. It curls up the walls of the library. The windowpanes are covered in frost and icicles hang from the chandeliers. A silver-and-gold birthday balloon bobs against the ceiling. Half the north wall is missing, and the glacier slopes out and down onto the snowy lawn below. It looks almost like you could slide down it.
+You can go north.
+You can see a balloon and a desk.
+> take balloon
+
+> take balloon
+Standing on the desk, you are just able to reach the balloon's string. You pull it down.
+> give balloon to toucan
+
+> give balloon to toucan
+You tie the balloon's string securely around the toucan's belly. It floats slowly up into the sky, flapping happily.
+> north
+
+> north
+
+The Harper Tower
+The room is frosty. There is a window set in the far wall; the window pane is covered in ice crystals. A glacier spills into the room through the jagged hole in the eastward wall.
+You can go down, north or south.
+You can see ice.
+> north
+
+> north
+You step out onto the poster. It wraps its corners around your legs and zooms up into the sky. Before long, you are floating just below the apex of the celestial sphere.
+
+A Sky
+The toucan is hanging somehow from the dome of the sky. Its beak has ripped a hole in the surface. A piece of sky is curling away, peeling like wallpaper. A pink cloud floats beside it.
+You can go south.
+You can see a piece of sky, a balloon and a toucan.
+> take piece of sky
+
+> take piece of sky
+You peel the piece of sky away from the dome. It curls in your hand.
+> south
+
+> south
+The poster zooms you back to the window of Harper Tower, and you climb through.
+
+The Harper Tower
+The room is frosty. There is a window set in the far wall; the window pane is covered in ice crystals. A glacier spills into the room through the jagged hole in the eastward wall.
+You can go down, north or south.
+You can see ice.
+> south
+
+> south
+You step out onto the top of the glacier. It stands roughly where the floor of Harper Tower once did.
+
+A ZHarper Library
+The glacier is full of cracks and crevices. It curls up the walls of the library. The windowpanes are covered in frost and icicles hang from the chandeliers. Half the north wall is missing, and the glacier slopes out and down onto the snowy lawn below. It looks almost like you could slide down it.
+You can go north.
+You can see a desk.
+> slide down glacier
+
+> slide down glacier
+Whee!
+
+The Quad
+The Quad is blanketed in snow; Harper has been enveloped by a glacier. You hear a small squeak behind you. The bike has returned. It tilts its handlebars to one side. You have a strong feeling it is looking at you.
+You can go south, north, east or west.
+You can see a shattered stone oak, a tree, a bicycle and a bike chain.
+> x skeleton
+
+> x skeleton
+The mammoth rears up through the ice. One of its tusks protrudes from the surface.
+> take chain
+
+> take chain
+You can't take it.
+> tie chain to tusk
+
+> tie chain to tusk
+You wrap the chain securely around the tusk, and then give the bike a pat on the seat. It accelerates forward, yanking the tusk from the ice. The glacier begins to crumble and calve. It breaks away from the skeleton, which tumbles onto the ground. The skull and spine seem to almost form a staircase. It almost looks as if you could climb up it.
+> take tusk
+
+> take tusk
+You pick it up, and feel its weight in your hands.
+> west
+
+> west
+
+Hull Gate
+Piles of snow cover stone rubble.
+You can go west or east.
+> west
+
+> west
+The snow has put out the fires that were blazing in the twisted skeleton of the Reg. It is now burning cold instead of burning hot, but you think you'll be able to withstand the temperature. You venture forth.
+
+The Reg
+Moving through the Reg is difficult work. Toppled shelves and torn-up books cover the floor; you have to pick your way carefully through the debris.The only area that seems to have escaped relatively unscathed is the Reserve Desk.
+You can go east.
+You can see a shelves, a book and a Reserve Desk.
+> give branch to sabre-toothed librarian
+
+> give branch to sabre-toothed librarian
+You hold the branch out towards her. Slowly, the frost melts away from her eyes; her skin loses its blue tint. She begins to shrink; her lion legs melt into human ones, and her paws into human hands. Finally, the two sabre teeth drop out of her mouth. She pats her hair.
+"You wanted to check something out from her reserves, I assume?" she says. She reaches under the desk. "Fill out this slip with the number of the reserve item."  She holds out a small piece of paper and a mini pencil.
+> take slip
+
+> take slip
+You pick it up.
+> write 342416
+
+> write 342416
+You fill out the slip and hand it to the librarian.
+"Very well," she says, looking it over. She rummages in the shelves and returns with a shiny paperback.
+> take paperback
+
+> take paperback
+You pick it up.
+> east
+
+> east
+
+Hull Gate
+Piles of snow cover stone rubble.
+You can go west or east.
+> east
+
+> east
+
+The Quad
+The Quad is blanketed in snow. The bike is doing wheelies in the snow.
+You can go south, north, east or west.
+You can see a shattered stone oak, a tree, a bicycle and a bike chain.
+> north
+
+> north
+You climb carefully down the trunk.
+
+The canyon
+The ground is covered with snow. The lake has completely frozen over. You can see the second floor of Blackstone rising above the ice.
+You can go south or north.
+> north
+
+> north
+You step out onto the ice.
+
+The frozen lake
+The lake is frozen solid. The ice is clear enough that you can see the ground beneath. The second floor of Blackstone rises above the ice.
+You can go south or in.
+You can see Blackstone and ice.
+> in
+
+> in
+You swing your leg over your windowsill and climb into your room. Your room is filled with crows. They perch on your bed and your desk. They huddle together in the corners of the room.
+
+Blackstone
+You can go out.
+> open card
+
+> open card
+As you open the card, a black, feathery shape unfurls from it like a pop-up. The King of Crows steps regally out.
+> give paperback to King of Crows
+
+> give paperback to King of Crows
+"Ahh," he says. "Something borrowed."
+> give piece of sky to king
+
+> give piece of sky to king
+"Something blue," he says, turning it over with his claws.
+> give tusk to king
+
+> give tusk to king
+"Something old," he says, examining the tusk first with one and eye then the other. "Excellent."
+> give assignment to king
+
+> give assignment to king
+"Something new," he says, turning the pages with his beak. "Very good."
+> out
+
+> out
+"Wait," says the King. "Your gifts have been perfectly satisfactory--excellent, even. In return, I will give you a gift of my own--a token of my support." With his beak, he plucks a feather from his own wing and holds it out to you.
+> take feather
+
+> take feather
+You pick it up.
+The room begins to go fuzzy around you.
+
+The Second Floor
+Long rows of shelves fill the room. To your left, you spot the corner of something white on the floor.
+You can go down.
+You can see a fan, a mini pencil, a salt shaker, a chopstick and an assignment.
+> open backpack
+
+> open backpack
+
+It contains a notebook and a hoodie.
+> wear hoodie
+
+> wear hoodie
+You pull it on.
+> down
+
+> down
+
+The Reg
+The first floor is a wide study space filled with busy students. A librarian sits at a help desk; beside her, there is a table with a row of computers. To the west is the door to Special Collections, where all the library's most valuable holdings are kept.
+You can go south, down, up or west.
+You can see a librarian, a door and a table.
+> south
+
+> south
+
+Hull Gate
+A tall stone gate.
+You can go south or north.
+> south
+
+> south
+
+The Quad
+A wide plaza tiled in stone.
+You can go west, east, north or south.
+You can see a stone oak.
+> south
+
+> south
+
+Harper
+Harper's recent renovation has left it with an oddly patchy look--ancient tile and pale, unfinished wood. To your left, a Doc Films poster hangs on the wall; to your right, there is a bench piled with newspapers.
+You can go west, east, south, north or up.
+> x bench
+
+> x bench
+Copies of the Maroon, fresh off the presses, are stacked on the wooden bench.
+> open newspaper
+
+> open newspaper
+You open the paper to page 2.
+A small flyer is inside.
+> take flyer
+
+> take flyer
+You pick up the flyer.
+> east
+
+> east
+
+Harper
+To your right, a staircase leads upwards; behind you is a janitor's closet. Someone has dropped a pile of loose change on the steps.
+You can go west, up, north or in.
+You can see a closet and loose change.
+> take loose change
+
+> take loose change
+You pick the coins up.
+> north
+
+> north
+
+The Quad
+The quad is wide and grassy, littered with acorns.
+You can go west, east or south.
+You can see a frisbee.
+> east
+
+> east
+
+A Grove of Crows
+You step into a grove of maple trees. Crows are perched on every branch. Blackstone lies to the east.
+One particularly large crow--you recognize him as the emissary you greeted you in you dream--flaps down to the ground and lands in front of you.
+"You carry the mark of the King," he says. "Do you know what that means?"
+"I don't know," you say.
+"It means you have been given the gift of the Crow's Laughter. Try it. Laugh."
+You can go west or east.
+You can see crows and maple.
+> east
+
+> east
+
+Blackstone
+A staircase leads towards your room. Beside it is a small lounge with a couch and a table.
+You can go west, up or north.
+> up
+
+> up
+
+Room 210B
+Your window is open, and natural light is streaming in to fill your room. Beneath the window is a desk. There is a bed by the wall.
+You can go down or east.
+You can see a bed, a desk and a sheet.
+> take sheet
+
+> take sheet
+You pick it up.
+> east
+
+> east
+
+Xanadu
+A pleasure-palace worthy of Kublai Khan. On the far wall is a kitchenette; beside it, a mirror (full-length! luxurious!).
+You can go west.
+> x kitchenette
+
+> x kitchenette
+A dented cupboard above a miniature stove.
+> x cupboard
+
+> x cupboard
+A rich pantry, fully stocked (with chips) (and nothing else).
+> rub Cheetos on sheet
+
+> rub Cheetos on sheet
+You rub the Cheetos on the sheet. The red dust rubs off on the sheet, dyeing it.
+> west
+
+> west
+
+Room 210B
+Your window is open, and natural light is streaming in to fill your room. Beneath the window is a desk. There is a bed by the wall.
+You can go down or east.
+You can see a bed and a desk.
+> down
+
+> down
+
+Blackstone
+A staircase leads towards your room. Beside it is a small lounge with a couch and a table.
+You can go west, up or north.
+> north
+
+> north
+
+A beach
+Rough-cut stone steps lead down to beach. To the north is a lake; waves lap against the sand. Refuse is scattered here and there. A merman is lounging in the sun.
+You can go south or north.
+You can see a merman.
+> give flyer to merman
+
+> give flyer to merman
+"Suoeshey spishal? This is peirfact!" says the merman, gazing at the flyer. "Mieh sheila will luehv theas!"
+He wipes a tear from his face.
+"Heair," he says. "Ayh haevh to thaunk yoough. Coime with meuh." He grabs your hand and pulls you with him, down into the lake.
+
+A lake
+You can see your shadows rippling on the sand below you as the merman pulls you through the freezing water. In the blue light, you can make out the shattered remains of a chest and something spilling out of it.
+"Luek," says the merman. "Peirahte treiajhure."
+You can go south.
+> north
+
+> north
+You can't go there.
+> x treasure
+
+> x treasure
+Green gems and a wicked-looking cutlass are scattered around the smashed remains of a wooden chest.
+> take cutlass
+
+> take cutlass
+The handle fits perfectly in your hand.
+> south
+
+> south
+
+A beach
+Rough-cut stone steps lead down to beach. To the north is a lake; waves lap against the sand. Refuse is scattered here and there.
+You can go south or north.
+> south
+
+> south
+
+Blackstone
+A staircase leads towards your room. Beside it is a small lounge with a couch and a table.
+You can go west, up or north.
+> west
+
+> west
+
+A Grove of Crows
+You step into a grove of maple trees. Crows are perched on every branch. Blackstone lies to the east.
+You can go west or east.
+You can see crows and maple.
+> west
+
+> west
+
+The Quad
+The quad is wide and grassy, littered with acorns.
+You can go west, east or south.
+You can see a frisbee.
+> south
+
+> south
+
+Harper
+To your right, a staircase leads upwards; behind you is a janitor's closet.
+You can go west, up, north or in.
+You can see a closet.
+> up
+
+> up
+
+The Harper Cafe
+
+The cafe is full of tables, chairs, and people. Most of them are gathered around a vending machine, which stands, oddly, right in front of the stairs. Someone is kneeling on the ground, hand caught in the vending machine. She are fighting to free it. The machine is fighting back, chomping down on her wrist with tiny metal fangs.
+You can go down, west or up.
+You can see a vending machine, a crowd and tables.
+> wave sheet
+
+> wave sheet
+You wave the sheet in the air. The vending machine twists around, dropping the student between its jaws. It begins to barrel towards you. You need to get moving before it mows you down.
+> down
+
+> down
+
+Harper
+To your right, a staircase leads upwards; behind you is a janitor's closet.
+You can go west, up, north or in.
+You can see a closet.
+You run down the stairs. The vending machine almost tumbles down after you, but it stops itself just in time and stands wobbling at the top of the stairs.
+> up
+
+> up
+
+The Harper Cafe
+The vending machine continues to menace the cafe. The crowd has been pressed back to the edges of the room while the vending machine circles the center, grunting and snorting like a raging bull.
+You can go down, west or up.
+You can see a vending machine, a crowd and tables.
+> west
+
+> west
+
+The Harper Library
+The vending machine charges into the library after you, overturning tables and chairs in its path. You have to keep moving if you don't want it to run you down.
+You can go east or west.
+You can see a vending machine.
+> west
+
+> west
+
+Harper
+You can go down or east.
+The vending machine charges after you, but the door is too slim. With a screech, the machine comes to a halt, caught in the entryway. It strains to get free.
+> look
+
+> look
+Harper
+You can go down or east.
+You can see a vending machine.
+> put loose change in slot
+
+> put loose change in slot
+Done.
+> press button
+
+> press button
+The heart-shaped box drops down into the compartment below.
+> stab box with cutlass
+
+> stab box with cutlass
+You run the cutlass through the box. The whole machine shudders. Its violent struggle is over. The box slowly transforms. Its beating stops, the ribbons and roses disintegrate, and the red fades to yellow. It has transformed into a box of Banana Laffy Taffy. The message on the vending machine's screen has changed, too. It seems to be much longer now.
+> take taffy
+
+> take taffy
+You pick it up.
+> down
+
+> down
+
+A classroom
+The classroom is empty now. Your professor is still sitting at the front of the room, working.
+You can go north, east or up.
+You can see your professor.
+> east
+
+> east
+
+Harper
+Harper's recent renovation has left it with an oddly patchy look--ancient tile and pale, unfinished wood. To your left, a Doc Films poster hangs on the wall; to your right, there is a bench piled with newspapers.
+You can go west, east, south, north or up.
+> east
+
+> east
+
+Harper
+To your right, a staircase leads upwards; behind you is a janitor's closet.
+You can go west, up, north or in.
+You can see a closet.
+> up
+
+> up
+
+The Harper Cafe
+The cafe has mostly returned to normal. It is full of quiet chatter.
+You can go down, west or up.
+You can see a crowd and tables.
+> up
+
+> up
+
+An office
+A harried secretary sits behind a desk piled with papers.
+You can go down or up.
+You can see a secretary.
+The secretary looks up as you enter. "Congratulations on being added to the Dean's List," he says. "Here--compliments of the Dean."
+He holds out a small gold key.
+> take key
+
+> take key
+You pick it up.
+> up
+
+> up
+The secretary holds the door open for you.
+
+Harper Tower
+The Dean's office. The carpet is a rich, plush red. Light streams in from a lattice window; beneath it, a handsome mahogany desk stands in a sunbeam as if in a spotlight. On the desk is a brass bust. Behind it is a glass-fronted bookcase.
+You can go down or north.
+You can see a carpet.
+> use key on eyes
+
+> use key on eyes
+
+You push the key into the pupil and it turns with a click. The bust's jaw drops open. It falls all the way to the floor, revealing a grotesque gaping throat. Red-carpeted steps lead downward.
+> in
+
+> in
+You step into the gaping mouth. The steps are unpleasantly squishy under your feet. At the bottom of the stairs, there is an antechamber lit by an eerie green glow.
+
+An Antechamber
+At the end of the stairs is an antechamber. To the north, a huge chamber is carved from the earth. In the chamber, hooded figures are crouched around a massive, glowing pentagram.
+You can go north or south.
+> north
+
+> north
+You pull the hood over your head and advance quietly into the cavern.
+
+A Cavern
+The cavern is completely dark but for the glowing light of the pentagram in the center. Hooded figures run back and forth, carrying strange objects--bones, smoking goblets, ancient, crumbling texts. The roots of the oak trees hang through the ceiling.
+You can go south.
+You can see a devotee, an acorns and a roots.
+A twig snaps under your foot. One devotee whirls around. He holds out his hand and a cloud of spectral scarab beetles bursts from his palm. They swarm towards you. You have only an instant to react.
+> laugh
+
+> laugh
+You laugh. An army of crows streams from your throat. For a moment, all is confusion--the air is full of spectral feathers and and squirming beetles' legs. Then the cloud disperses. Beetles and crows are both gone. The devotee stares at you in astonishment.
+Then the rest of the figures turn. They form ranks and advance towards you. You have to find a way to stop them, fast.
+> sprout acorns
+
+> sprout acorns
+> wait
+
+> wait
+Time passes.
+The ground cracks open. Roots reach down from the roof of the cavern like massive hands and curl around the hooded figures, lifting them to the ceiling. They squirm, but the roots hold them tight. Now you can clearly see the pentagram in the center of the room. There is a man in the center. He is bent double, clutching his stomach.
+Suddenly, the man bends backwards, so far it seems his spine might crack. He is racked with strange spasms. For a moment, you get a clear glimpse of his face. It is the Dean.
+The Dean locks eyes with you. As he watches you, he begins to grow--but not uniformly. His eyes bulge, slowly blowing up to be the size of beach balls, but his eyelids do not grow; they stretch tight over the eyes until, suddenly, they burst with a splash of blood. His hands stretch until his palms fill the floor of the cavern like a rug; the hairs on his knuckles are as coarse as cornstalks. But his wrists remain as thin as ever. His lower lip hangs down to the floor. His flapping gums are filled with row upon row of tiny teeth. His shoulders burst through the cavern ceiling. The sunlight streams in from above.
+He grins and reaches for you. You are enveloped in his hand. He lifts you towards his gaping mouth. The buds on his tongue stand out like the fronds of anemone.
+> put taffy in mouth
+
+> put taffy in mouth
+Done.
+> wait
+
+> wait
+Time passes.
+The Dean shrieks as the laffy taffy hits his tongue. A hideous buzzing fills the air and he begins to deflate. He returns to his original form and just keeps shrinking. After a few moments, you are standing in the cavern with a small, mustachioed, Dean-shaped balloon lying beside you.
+You leave the balloon and trek back up the steps. You emerge from the bust and into the bright light of day. When you leave Harper, you find that the ice wall has crumbled. Amelia is standing outside, waiting for you.
+"Hey there," she says, taking your hand. "Sounds like you had an eventful day."
+"I'll tell you about it in a bit," you say. "But right now all I want is to eat a pint of Ben and Jerry's and watch an episode of American Horror Story."
+Which is exactly what you do.
+[state=Finished]

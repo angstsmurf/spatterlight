@@ -1,0 +1,49 @@
+You are in a Forest.
+You can see a Chest.
+You can go north.
+You can see a cave entrance to your north.
+> n
+
+> n
+
+You are in a Cave Entrance.
+You can see a Boulder and a Rope.
+You can go south or north.
+Oh wait! You can't go north. A boulder blocks your path. You can't get your hands all the way around the boulder to pull it. If only there was something you could use to pull it with...
+> use rope
+
+> use rope
+You can now go north into the cave.
+> n
+
+> n
+
+You are in a Cave.
+You can see a Sign, a Key 1, a Key 2, a Key 3, a Key 4 and a Key 5.
+You can go south or east.
+Going east will take you back to the forest.
+> take key 4
+
+> take key 4
+You pick it up.
+> s
+
+> s
+
+You are in a Cave Entrance.
+You can see a Boulder and a Rope.
+You can go south or north.
+Oh wait! You can't go north. A boulder blocks your path. You can't get your hands all the way around the boulder to pull it. If only there was something you could use to pull it with...
+> s
+
+> s
+
+You are in a Forest.
+You can see a Chest.
+You can go north.
+You can see a cave entrance to your north.
+> use key 4 with chest
+
+> use key 4 with chest
+You try the key on the chest. It works! You open the chest and find masses of gold. You go home rich!
+[state=Finished]

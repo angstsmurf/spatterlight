@@ -1,0 +1,93 @@
+You are bitter. You would rather be nursing your wounds with a joint, on your sofa, away from this stupid block party. At least you can sit here in Dan's backyard with a beer and a cigarette.
+    The whole accident is running through your head, all because your neighbors keep asking you about it. You were on your bicycle at night, with full night gear on, and a drunk driver hit you. After being in a coma for two months, you woke up to find yourself in a full body cast. Now, you have a neck brace and a cast on your leg.
+   You take another drag from your cigarette. This is playing through your mind when a scream pierces the clamor of the block party. An explosion, then another explosion, rock the neighborhood. A third and loudest explosion pushes through the air, and the concussion of it knocks you back. Two massive plumes of smoke are coming up from Mulberry Lane and Rubicon Street. You stand up and grab your crutches.
+    What just happened?
+(Type in and enter HELP for a menu of intstructions. Think creatively, and good luck!)
+You are in Dan's backyard.
+You can see a spatula, a charcoal grill, a lawn chair and a strange key.
+You can go south or west.
+There is a massive hole in the fence parallel to Mulberry Lane. Dan's backyard has always looked terrible, so the explosions didn't do much to make it worse. The hole is actually an improvement.
+You notice a glimmer in the grass. It looks like a key.
+> take strange key
+> take strange key
+You pick it up.
+> w
+> w
+You are at the a wrecked block party.
+You can go east or north.
+The block party is wrecked from the shrapnel. Chunks of metal have torn through the picnic tables. The banner has been blown away and lies in ribbons.
+As much as you hate everyone here, you are happy to see nobody is injured too badly. There is nothing you can do to help anyone.
+> n
+> n
+People are nursing their wounds, and helping those that have been injured. they just ignore you and you ignore them.
+You are at the a Mulberry Street crater.
+You can go south, northeast or north.
+A smoldering heap of wreckage is in the center of the street. Shrapnel coats the houses in the neighborhood. A car has been blown over on its side from the concussion of the blast.
+> ne
+> ne
+You are at  the Rubicon Street crater.
+You can see a metal sphere.
+You can go southwest or south.
+This crater is clean and small, unlike the crater on Mulberry Street. There is a metal sphere the size of your fist in the center of the crater. Your house is across the street.
+> use strange key with metal sphere
+> use strange key with metal sphere
+A metal cylinder shoots into the air from the sphere and lands in front of you.
+> take encoded cylinder
+> take encoded cylinder
+You pick it up.
+> s
+> s
+You are on a your front porch.
+You can go north or in.
+The railing on your porch has been torn apart, and your front door has been blown off its hinges. The windows are all blown out.
+You notice a pool of blood on the porch...
+> in
+> in
+You are in a your living room.
+You can see a sofa, an armchair and a coffee table.
+You can go out, north, up, northwest or east.
+Your living room is covered in broken glass from the explosion, the glass being from your windows and various glass decorations you had around your house. Everything else is intact.
+There is a trail of blood leading acroos the living room and up the stairs...
+> up
+> up
+You are in an upstairs hallway.
+You can go down, north, west or east.
+There is some glass in your hallway from the blast. All of the pictures you had hanging up have fallen down.
+The trail of blood leads to the guest bedroom...
+> e
+> e
+You are in the a guest bedroom.
+You can see a bed and an end table.
+You can go west.
+You have a nice setup for your guests. The circumstance you have guests is rare, though.
+The source of the blood trail has appeared. A man, dressed in a ragged flight suit, is slumped next to the bed. He is bleeding profusely from his left leg, and shrapnel is sticking from his head.
+"You aren't from Everest... I'm about to die... I survived the crash and deployed the message sphere but...
+I see you found the cylinder. Take this poem and remember, fears are fears.Don't let Everest win..."
+He lets out a sigh. He is dead now.
+> take cipher
+> take cipher
+It has a poem on it. Some of the same script on the cylinder is on this. It must be a cipher.
+Things are coming together now... You have the encoded message on the cylinder, and this cipher... Maybe it has something to do with this Everest he was talking about... You should decode the message and find out the answer to this situation...
+> w
+> w
+You are in an upstairs hallway.
+You can go down, north, west or east.
+There is some glass in your hallway from the blast. All of the pictures you had hanging up have fallen down.
+The trail of blood leads to the guest bedroom...
+> down
+> down
+You are in a your living room.
+You can see a sofa, an armchair and a coffee table.
+You can go out, north, up, northwest or east.
+Your living room is covered in broken glass from the explosion, the glass being from your windows and various glass decorations you had around your house. Everything else is intact.
+> e
+> e
+You are in the a library.
+You can see a chair and a desk.
+You can go west.
+The library is your house is the only room you care about. As a freelance writer, you do most of your work here. It's just as spartan as the other rooms in your house, but you keep it full of good books. You may hate everyone else, but you love the books other people write.
+> zygotic
+> zygotic
+You have decoded the message. Now, as you plot in your library about what to do next, you realize you can avenge all of your dead neighbors. Sirens blare in the distance. You can get word of the evil Everest Foundation to the appropriate authorities. These are a bunch of rich old men, but they've crossed Rubicon Street. They've messed with the wrong grouch.
+You've won!
+[state=Finished]

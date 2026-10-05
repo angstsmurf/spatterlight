@@ -1,0 +1,560 @@
+Carnival of Shadows
+By Craig Dutton (c) 2012
+
+You are a Private Detective and just got a call from your snitch, Billy the Pinch. He's called that because he's always broke, always feeling the pinch of having no money. That's why he's a snitch; he would sell his own grandma if she was still alive.
+
+He claims he knows something about the murder of Lorrie Lavender. She was the girlfriend of hoodlam Johnney Ralto who you've been after for years for killing your business partner.
+
+He asks you to meet him at the Carnival Voyage at midnight when it will be quieter...
+
+You are at the Carnival Voyage entrance.
+You can go northeast.
+The night air is cold and the clouds are thick. The Carnival has been here for years and looks like it. It's a little worse for wear and in need of repair. A wastebin stands by the sign entrance.
+> look at wastebin
+> look at wastebin
+An average-looking wastebin.
+It contains some matches.
+> take matches
+> take matches
+You pick them up.
+> northeast
+> northeast
+You are on a field.
+You can go southwest, south, in, north or east.
+You are just outside the Arcades' tent.
+> east
+> east
+You are by the Carousel.
+You can go west, southwest, on the Carousel, southeast, east or north.
+It's painted in silver, red and gold.
+> north
+> north
+You are by a campfire.
+You can go south, east or west.
+You can see a Billy the Pinch.
+> look at Billy the Pinch
+> look at Billy the Pinch
+He's dead! You examine the body and it looks like he's been clawed to death! You contact a passing Carnival worker and they call the Police. Billy's body is taken away and the Ringmaster, Bongo the Clown and yourself all give statements.  The Police and ambulance drive off.
+> south
+> south
+You are by the Carousel.
+You can go west, southwest, on the Carousel, southeast, east or north.
+It's painted in silver, red and gold.
+> east
+> east
+You are outside the House of Curios.
+You can go west, south, in, north or northeast.
+> northeast
+> northeast
+You are outside the Ghost House.
+You can go west, southwest, in or north.
+> in
+> in
+You are inside the Ghost House.
+You can go out.
+You can see a skeleton.
+Shabby and not very scary.
+> pull skeleton
+> pull skeleton
+You pull the skeleton and it falls off the ceiling taking the wire with it.
+> take wire
+> take wire
+You pick it up.
+> out
+> out
+You are outside the Ghost House.
+You can go west, southwest, in or north.
+> north
+> north
+You are at the Dodgems.
+You can go south or west.
+You can see a dodgem car.
+This place has been shut down for ages.
+> west
+> west
+You are on a field.
+You can go south, east, northwest or north.
+You can see some concrete.
+> take concrete
+> take concrete
+You pick it up.
+> south
+> south
+You are on a field.
+You can go south, east, north or west.
+> south
+> south
+You are outside the House of Curios.
+You can go west, south, in, north or northeast.
+> west
+> west
+You are by the Carousel.
+You can go west, southwest, on the Carousel, southeast, east or north.
+It's painted in silver, red and gold.
+> southwest
+> southwest
+You are by the Ferris Wheel.
+You can go north, on the Ferris Wheel or northeast.
+You can see a generator.
+> go to Ferris Wheel
+> go to Ferris Wheel
+You are on the Ferris Wheel.
+You can go out.
+> look at seat
+> look at seat
+Uncomfortable.
+Hidden underneath the seat is a diary.
+> take diary
+> take diary
+You pick it up.
+> read diary
+> read diary
+'As I was warming myself by the fire that night it appeared from nowhere! A monster, an animal, a hairy man? As it stood on its hind legs silhouetted against the full moon it howled at me and bit me. If it wasn't for the cops arriving it would of torn me apart. Luckily I escaped the cops as well.'  It's dated two days ago.
+> drop concrete
+> drop concrete
+You drop it.
+> out
+> out
+You are by the Ferris Wheel.
+You can go north, on the Ferris Wheel or northeast.
+You can see a generator.
+> switch on generator
+> switch on generator
+You switch it on.
+The Ferris Wheel is turning.
+You have to dodge out of the way as the piece of concrete hurtles down from the Ferris Wheel to the ground and smashes into tiny pieces by your feet.  Amongst the pieces you spy a metal rod.
+> take metal rod
+> take metal rod
+You pick it up.
+> switch off generator
+> switch off generator
+You switch it off.
+The Ferris Wheel has stopped.
+> north
+> north
+You are on a field.
+You can go southwest, south, in, north or east.
+You are just outside the Arcades' tent.
+> in
+> in
+You are inside the Arcades' tent.
+You can go out.
+You can see a pinball machine.
+It's just full of old broken down junk.
+> unlock slot
+> unlock slot
+You pick the lock with the wire.
+> look at coin box
+> look at coin box
+Where the coins are stored.
+It contains a silver coin.
+> take silver coin
+> take silver coin
+You pick it up.
+> drop wire
+> drop wire
+You drop it.
+> out
+> out
+You are on a field.
+You can go southwest, south, in, north or east.
+You are just outside the Arcades' tent.
+> east
+> east
+You are by the Carousel.
+You can go west, southwest, on the Carousel, southeast, east or north.
+It's painted in silver, red and gold.
+> southeast
+> southeast
+You are outside Madame Selene's tent.
+You can go northwest, in or north.
+Madame Selene is a Fortune Teller.
+> in
+> in
+You are inside Madame Selene's tent.
+You can go out.
+You can see Madame Selene.
+She sits at her table shuffling her Tarot cards.
+> give silver coin to Madame Selene
+> give silver coin to Madame Selene
+She deals them one at a time on to the table.
+The first one is the Fool. 'This is you. It means your innocence to your current situation.'
+The second card is the Hermit. 'You search for wisdom.'
+The third one is the Devil. 'You face a terrible danger.'
+The last card she turns over is Strength. 'Knowledge combined with a weapon of silver will help you survive the night.'
+She offers you some belladonna. 'Take this if you do not wish to succumb to the evil that befalls you.'
+> take belladonna
+> take belladonna
+You pick it up.
+> eat belladonna
+> eat belladonna
+Even though it's a poison, it's not strong enough to kill you - just protect you!
+> out
+> out
+You are outside Madame Selene's tent.
+You can go northwest, in or north.
+Madame Selene is a Fortune Teller.
+> northwest
+> northwest
+You are by the Carousel.
+You can go west, southwest, on the Carousel, southeast, east or north.
+It's painted in silver, red and gold.
+> west
+> west
+You are on a field.
+You can go southwest, south, in, north or east.
+You are just outside the Arcades' tent.
+> north
+> north
+You are on a field.
+You can go south, east, west or north.
+> north
+> north
+You are on a field.
+You can go south, southwest, in, northeast or north.
+You are standing by the ticket booth.
+> north
+> north
+You are outside a small tent.
+You can go south, in, east or southwest.
+> southwest
+> southwest
+You are outside a cage.
+You can go northeast or in.
+The words Claudius the Lion is painted across the top of the cage.
+> unlock cage door
+> unlock cage door
+You break the padlock with the metal rod.
+> open cage door
+> open cage door
+You open it.
+> drop metal rod
+> drop metal rod
+You drop it.
+> drop diary
+> drop diary
+You drop it.
+> in
+> in
+You are inside the cage.
+You can go out or down.
+You can see a Lion and a trapdoor.
+The floor is covered with straw.
+The Lion gets up and walks out of the cage. You hear a nearby scream and then silence.
+> out
+> out
+You are outside a cage.
+You can go northeast or in.
+You can see a metal rod and a diary.
+The words Claudius the Lion is painted across the top of the cage.
+> northeast
+> northeast
+You are outside a small tent.
+You can go south, in, east or southwest.
+You can see a Lion.
+> in
+> in
+You are inside the Artiste's tent.
+You can go out.
+You can see a chest.
+A dressing table and a rack of clothes can be seen here.
+> open chest
+> open chest
+You open it.
+It contains an iron key, a can of grease and a hammer.
+> take iron key
+> take iron key
+You pick it up.
+> take can of grease
+> take can of grease
+You pick it up.
+> take hammer
+> take hammer
+You pick it up.
+> out
+> out
+You are outside a small tent.
+You can go south, in, east or southwest.
+You can see a Lion.
+> south
+> south
+You are on a field.
+You can go south, southwest, in, northeast or north.
+You are standing by the ticket booth.
+> south
+> south
+You are on a field.
+You can go south, east, west or north.
+> east
+> east
+You are by a campfire.
+You can go south, east or west.
+> south
+> south
+You are by the Carousel.
+You can go west, southwest, on the Carousel, southeast, east or north.
+It's painted in silver, red and gold.
+> east
+> east
+You are outside the House of Curios.
+You can go west, south, in, north or northeast.
+> in
+> in
+You are inside the House of Curios.
+You can go out or in.
+There is a two-headed dog, a pickled alien in a jar, a dragon's tooth, a vanishing cabinet and a fish's tail attached to a dead monkey.
+> use can of grease on vanishing cabinet
+> use can of grease on vanishing cabinet
+You grease the hinges.
+> open vanishing cabinet
+> open vanishing cabinet
+You open the cabinet.
+> drop can of grease
+> drop can of grease
+You drop it.
+> in
+> in
+You are inside the Vanishing Cabinet.
+You can go out.
+A magical illusion for making people disappear.
+> use hammer on ceiling
+> use hammer on ceiling
+You bang the hammer on the ceiling and it opens a trapdoor undeneath you and you fall down the hole.
+You are underneath the vanishing cabinet.
+You can go up.
+You can see a dead man.
+> look at dead man
+> look at dead man
+He's half-naked and has been stabbed in the stomach. Looks like he's been dead for a few days.
+You find an ID card underneath the body.
+> take ID card
+> take ID card
+You pick it up.
+> up
+> up
+You are inside the Vanishing Cabinet.
+You can go out or down.
+A magical illusion for making people disappear.
+> out
+> out
+You are inside the House of Curios.
+You can go out or in.
+You can see a can of grease.
+There is a two-headed dog, a pickled alien in a jar, a dragon's tooth, a vanishing cabinet and a fish's tail attached to a dead monkey.
+> out
+> out
+You are outside the House of Curios.
+You can go west, south, in, north or northeast.
+> north
+> north
+You are on a field.
+You can go south, east, north or west.
+> north
+> north
+You are on a field.
+You can go south, east, northwest or north.
+> north
+> north
+You are outside a caravan.
+You can go south, west or in.
+> in
+> in
+You are inside the caravan.
+You can go out.
+You can see a Ringmaster.
+A few bits of 'rustic' furniture.
+> give ID card to Ringmaster
+> give ID card to Ringmaster
+'It's obviously a fake! Leave me alone I've got work to do.' and he storms out.
+> open cupboard
+> open cupboard
+You open the cupboard.
+> take screwdriver
+> take screwdriver
+You pick it up.
+> out
+> out
+You are outside a caravan.
+You can go south, west or in.
+> south
+> south
+You are on a field.
+You can go south, east, northwest or north.
+> south
+> south
+You are on a field.
+You can go south, east, north or west.
+> west
+> west
+You are by a campfire.
+You can go south, east or west.
+> south
+> south
+You are by the Carousel.
+You can go west, southwest, on the Carousel, southeast, east or north.
+It's painted in silver, red and gold.
+> go to Carousel
+> go to Carousel
+You are on the Carousel.
+You can go out.
+You can see a wooden horse.
+> use screwdriver on saddle
+> use screwdriver on saddle
+You unscrew the saddle off the wooden horse.
+> look at hole
+> look at hole
+A hole in the horse's back.
+It contains a silver key.
+> take silver key
+> take silver key
+You pick it up.
+> out
+> out
+You are by the Carousel.
+You can go west, southwest, on the Carousel, southeast, east or north.
+It's painted in silver, red and gold.
+> west
+> west
+You are on a field.
+You can go southwest, south, in, north or east.
+You are just outside the Arcades' tent.
+> north
+> north
+You are on a field.
+You can go south, east, west or north.
+> north
+> north
+You are on a field.
+You can go south, southwest, in, northeast or north.
+You are standing by the ticket booth.
+> north
+> north
+You are outside a small tent.
+You can go south, in, east or southwest.
+You can see a Lion.
+> southwest
+> southwest
+You are outside a cage.
+You can go northeast or in.
+You can see a metal rod and a diary.
+The words Claudius the Lion is painted across the top of the cage.
+> in
+> in
+You are inside the cage.
+You can go out or down.
+You can see a trapdoor.
+The floor is covered with straw.
+> drop screwdriver
+> drop screwdriver
+You drop it.
+> unlock trapdoor
+> unlock trapdoor
+Unlocked with the iron key.
+> open trapdoor
+> open trapdoor
+You open it.
+> drop iron key
+> drop iron key
+You drop it.
+> down
+> down
+You are inside a secret recess.
+You can go up.
+You can see a silver casket.
+> unlock silver casket
+> unlock silver casket
+Unlocked with the silver key.
+> open silver casket
+> open silver casket
+You open it.
+> take silver dagger
+> take silver dagger
+You pick it up.
+> up
+> up
+You are inside the cage.
+You can go out or down.
+You can see a trapdoor, a screwdriver and an iron key.
+The floor is covered with straw.
+> out
+> out
+You are outside a cage.
+You can go northeast or in.
+You can see a metal rod and a diary.
+The words Claudius the Lion is painted across the top of the cage.
+> northeast
+> northeast
+You are outside a small tent.
+You can go south, in, east or southwest.
+You can see a Lion.
+> east
+> east
+You are outside the Bigtop tent.
+You can go southeast, southwest, west, in or east.
+> in
+> in
+You are inside the Bigtop.
+You can go out or inside the circus ring.
+It has seen better days.
+> go to circus ring
+> go to circus ring
+You are inside the circus ring.
+You can go out.
+You can see a crate.
+> use hammer on crate
+> use hammer on crate
+You smash the crate into a pile of wood.
+> take woodpile
+> take woodpile
+You pick it up.
+> out
+> out
+You are inside the Bigtop.
+You can go out or inside the circus ring.
+It has seen better days.
+> out
+> out
+You are outside the Bigtop tent.
+You can go southeast, southwest, west, in or east.
+> southeast
+> southeast
+You are on a field.
+You can go south, east, northwest or north.
+> south
+> south
+You are on a field.
+You can go south, east, north or west.
+> west
+> west
+You are by a campfire.
+You can go south, east or west.
+> use woodpile on campfire
+> use woodpile on campfire
+You pile the wood on to the campfire.
+> use matches on campfire
+> use matches on campfire
+You set the campfire alight.
+
+Suddenly the hairs on the back of your neck rise and you hear a deep growl behind you.  As you turn around the silhouette against the full moon casts an immense shadow over you as the creature licks its lips and steps towards you.
+You are by a campfire.
+You can go south, east or west.
+You can see the Werewolf.
+> use silver dagger on werewolf
+> use silver dagger on werewolf
+
+It's a fight to the death! It pounces on top of you and you roll around on the ground. As it tries to tear your throat out you wildly thrash the dagger about it's body. By some luck you pierce the creature's chest as it sinks its fangs into your arm. It lies there dead on the ground next to you.
+
+Slowly it transforms back into human form and you stare for a moment at the naked man. You look closer at his face and realize its the Ringmaster - the fake one. In fact if you take away his goatee and moustache... it's Johnney Ralto!
+You have avenged Billy and your old partner's deaths.
+
+You'll be let off for killing Johnney Ralto by claiming self-defence. Futher investigations lead you back to Madame Selene.
+
+She claimed she had seen it in the cards and provided the silver dagger; which she hid in the Lion's cage from thieves. Pity she didn't tell you where it was in the first place!
+
+It seems that Johnney, after murdering his girlfriend went on the run and found a good hiding place at the Carnival. Julias Finch, aka Bongo the Clown was an old ex-con friend of Johnney's and together they murdered Alfonso Alberto, the real Ringmaster, so Johnney could take his place and hide out in full view. This happened two days ago during the first full moon.
+
+Another werewolf attacked Johnney later that night and bit him. The infection didn't take effect until earlier tonight when he sadly clawed poor Billy to death. Madame Selene explained that beams of moonlight from a full moon is the only time Johnney 'transformed' and went back to human form when you first met him. Only just now when the night clouds cleared that Johnney went 'wolfman' again...
+
+The Carnival eventually closed down, Bongo/Julias was arrested hours later trying to steal a car, Madame Selene is on hot pursuit of the original werewolf and closing in and Claudius is now retired at an animal sanctuary.  As far as you're concerned - case closed.
+The End
+[state=Finished]

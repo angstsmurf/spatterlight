@@ -1,0 +1,1257 @@
+Easter Egg Hunt
+
+by PeaceGamer
+
+You are on the Garden Lawn.
+
+Here is a well mown stripy
+lawn
+with paths in several directions.
+
+To the north you can see the wildlife meadow.
+To the east, the vegetable patch.
+To the south, the hedge maze.
+To the west, the garden pond.
+
+You can go north, west, east or south.
+
+You can see a Rabbit Hutch (containing an Easter Bunny and a Dirty Newspaper (on which there are Rabbit Droppings)) and an Adventure Guide.
+
+> east
+
+> east
+
+You are at the Vegetable Garden.
+
+There are rows and rows of
+vegetables.
+There are rows and rows of vegetables.
+
+Some hens are scratching the ground, clucking, and pecking at seeds.
+
+To the north is the garden shed.
+To the west is the greenhouse.
+To the south is the chicken hut.
+
+You can go west, north, east or south.
+
+You can see an Old Gardener and Weeds.
+
+> pull weeds
+
+> pull weeds
+You get to work and pull the weeds from the vegetables.
+The Gardener thanks you and pays you a coin.
+Look! You found something!
+> take jade egg
+
+> take jade egg
+22 March is the absolute earliest possible date for Easter Sunday in the Gregorian Calendar.
+What was the last year that this earliest Easter Sunday fell on that date?
+> 1818
+Correct! You take the Jade Egg.
+Your score 10 points!
+Your score is now 10 out of 120 points!
+> put jade egg in basket
+
+> put jade egg in basket
+Done.
+> west
+
+> west
+
+You are on the Garden Lawn.
+
+Here is a well mown stripy
+lawn
+with paths in several directions.
+
+To the north you can see the wildlife meadow.
+To the east, the vegetable patch.
+To the south, the hedge maze.
+To the west, the garden pond.
+
+You can go north, west, east or south.
+
+You can see a Rabbit Hutch (containing an Easter Bunny and a Dirty Newspaper (on which there are Rabbit Droppings)) and an Adventure Guide.
+
+> west
+
+> west
+
+You are at the Garden Pond.
+
+You are at the
+garden pond.
+This consists of a tiled path that goes round it and runs east to the Garden Lawn, and west to the Wishing Well.
+
+You can go east or west.
+
+You can see a Square Pond.
+
+> x square pond
+
+> x square pond
+This square pond contains lots of tadpoles!
+It contains an Aquamarine Egg.
+> take aquamarine egg
+
+> take aquamarine egg
+What is the absolute earliest possible date for Easter Sunday in the Gregorian Calender?
+1: 20 March
+2: 21 March
+3: 22 March
+4: 23 March
+> 3
+Correct! You take the Aquamarine Egg.
+Your score 10 points!
+Your score is now 20 out of 120 points!
+> put aquamarine egg in basket
+
+> put aquamarine egg in basket
+Done.
+> west
+
+> west
+
+You are at the Wishing Well.
+
+You are at
+a wishing well.
+It is not very deep, about 1 metre deep.
+There are some coins in a pool of clear water at the bottom of the well.
+Go on, make a wish by throwing a coin into the pool!
+
+You can go east, north or south.
+
+You can see a Small Pool.
+
+> throw pound coin
+
+> throw pound coin
+The coin flys in an elegant arc and splashes into the pool!
+Look! You find something in the pool!
+> x small pool
+
+> x small pool
+Small pools with some coins in it.
+It contains a Pound Coin and a Clear Quartz Egg.
+> take clear quartz egg
+
+> take clear quartz egg
+25 April is the absolute latest possible date for Easter Sunday in the Gregorian Calendar.
+What was the last year that this latest Easter Sunday fell on that date?
+> 1943
+Correct! You take the Clear Quartz Egg.
+Your score 10 points!
+Your score is now 30 out of 120 points!
+> put clear quartz egg in basket
+
+> put clear quartz egg in basket
+Done.
+> north
+
+> north
+
+You are at the Flower Garden.
+
+You are at
+a flower garden
+of colourful spring flowers!
+
+You can go south.
+
+You can see an Amethyst Egg.
+
+> take amethyst egg
+
+> take amethyst egg
+When was the earliest time that Christians painted eggs?
+1: Early christianity before AD 300
+2: Anglo-Saxon Britain about AD 600
+3: The Reformation about AD 1600
+4: Georgian Era about AD 1800
+> 1
+Correct! You take the Amethyst Egg.
+Your score 10 points!
+Your score is now 40 out of 120 points!
+> put amethyst egg in basket
+
+> put amethyst egg in basket
+Done.
+> south
+
+> south
+
+You are at the Wishing Well.
+
+You are at
+a wishing well.
+It is not very deep, about 1 metre deep.
+There are some coins in a pool of clear water at the bottom of the well.
+
+You can go east, north or south.
+
+You can see a Small Pool (containing a Pound Coin).
+
+> south
+
+> south
+
+You are in a Rose Garden.
+
+This
+rose garden
+has many colourful rose bushes, of white, yellow, pink, and red roses.
+
+You can go north.
+
+You can see a Rose Quartz Egg.
+
+> take rose quartz egg
+
+> take rose quartz egg
+What is the formula used by Christian Churches to determine Easter Sunday?
+1: The first Sunday after the ecclesiastical full moon that occurs on or soonest after 21 March
+2: The first Sunday after the full moon that occurs on or soonest after 21 March
+3: The first Sunday after the full moon that occurs on or soonest after spring equinox
+4: The first Sunday after the ecclesiastical full moon that occurs soonest after 21 March
+> 1
+Correct! You take the Rose Quartz Egg.
+Your score 10 points!
+Your score is now 50 out of 120 points!
+> put rose quartz egg in basket
+
+> put rose quartz egg in basket
+Done.
+> north
+
+> north
+
+You are at the Wishing Well.
+
+You are at
+a wishing well.
+It is not very deep, about 1 metre deep.
+There are some coins in a pool of clear water at the bottom of the well.
+
+You can go east, north or south.
+
+You can see a Small Pool (containing a Pound Coin).
+
+> east
+
+> east
+
+You are at the Garden Pond.
+
+You are at the
+garden pond.
+This consists of a tiled path that goes round it and runs east to the Garden Lawn, and west to the Wishing Well.
+
+You can go east or west.
+
+You can see a Square Pond.
+
+> east
+
+> east
+
+You are on the Garden Lawn.
+
+Here is a well mown stripy
+lawn
+with paths in several directions.
+
+To the north you can see the wildlife meadow.
+To the east, the vegetable patch.
+To the south, the hedge maze.
+To the west, the garden pond.
+
+You can go north, west, east or south.
+
+You can see a Rabbit Hutch (containing an Easter Bunny and a Dirty Newspaper (on which there are Rabbit Droppings)) and an Adventure Guide.
+
+> east
+
+> east
+
+You are at the Vegetable Garden.
+
+There are rows and rows of
+vegetables.
+There are rows and rows of vegetables.
+
+Some hens are scratching the ground, clucking, and pecking at seeds.
+
+To the north is the garden shed.
+To the west is the greenhouse.
+To the south is the chicken hut.
+
+You can go west, north, east or south.
+
+You can see an Old Gardener.
+
+> north
+
+> north
+
+You are in a Garden Shed.
+
+You are inside the
+garden shed.
+
+You can go out.
+
+You can see an Electric Lamp, a Secateurs, Chicken Feed and a Climbing Harness.
+
+> take lamp
+
+> take lamp
+You pick it up.
+> take secateurs
+
+> take secateurs
+You pick it up.
+> out
+
+> out
+
+You are at the Vegetable Garden.
+
+There are rows and rows of
+vegetables.
+There are rows and rows of vegetables.
+
+Some hens are scratching the ground, clucking, and pecking at seeds.
+
+To the north is the garden shed.
+To the west is the greenhouse.
+To the south is the chicken hut.
+
+You can go west, north, east or south.
+
+You can see an Old Gardener.
+
+> west
+
+> west
+
+You are on the Garden Lawn.
+
+Here is a well mown stripy
+lawn
+with paths in several directions.
+
+To the north you can see the wildlife meadow.
+To the east, the vegetable patch.
+To the south, the hedge maze.
+To the west, the garden pond.
+
+You can go north, west, east or south.
+
+You can see a Rabbit Hutch (containing an Easter Bunny and a Dirty Newspaper (on which there are Rabbit Droppings)) and an Adventure Guide.
+
+> north
+
+> north
+
+You are in the Wildlife Meadow.
+
+The meadow is already starting to flower, which would benefit the bees!
+To the north is some woods.
+To the south is the garden lawn.
+To the east is an enormous rockery.
+Just here, is a dark grotto.
+
+You can go south, in, east or north.
+
+You can see Thick Brambles.
+
+> prune brambles
+
+> prune brambles
+You make quick efficent work with your secateurs, and soon you have a passage to the woods.
+> drop secateurs
+
+> drop secateurs
+You drop it.
+> in
+
+> in
+
+You are in the Grotto.
+
+The
+grotto
+is a small cave, lit by the magic lamp.
+
+You can go out.
+
+You can see a Brass Key and an Obsidian Egg.
+
+> take obsidian egg
+
+> take obsidian egg
+What is the absolute latest possible date for Easter Sunday in the Gregorian Calender?
+1: 22 April
+2: 23 April
+3: 24 April
+4: 25 April
+> 4
+Correct! You take the Obsidian Egg.
+Your score 10 points!
+Your score is now 60 out of 120 points!
+> put obsidian egg in basket
+
+> put obsidian egg in basket
+Done.
+> take brass key
+
+> take brass key
+You pick it up.
+> out
+
+> out
+
+You are in the Wildlife Meadow.
+
+The meadow is already starting to flower, which would benefit the bees!
+To the north is some woods.
+To the south is the garden lawn.
+To the east is an enormous rockery.
+Just here, is a dark grotto.
+
+You can go south, in, east or north.
+
+You can see Pruned Brambles and a Secateurs.
+
+> drop lamp
+
+> drop lamp
+You drop it.
+> east
+
+> east
+
+You are at the Alpine Rockery.
+
+Rockery with
+alpine plants.
+
+You can go west.
+
+You can see a Meteorite Egg.
+
+> take meteorite egg
+
+> take meteorite egg
+What is the correct spelling of the manufacturer of the famous jewelled eggs made between 1875 and 1917?
+1: Faberje
+2: Faberjay
+3: Fabergé
+4: Faberge
+> 3
+Correct! You take the Meteorite Egg.
+Your score 10 points!
+Your score is now 70 out of 120 points!
+> put meteorite egg in basket
+
+> put meteorite egg in basket
+Done.
+> west
+
+> west
+
+You are in the Wildlife Meadow.
+
+The meadow is already starting to flower, which would benefit the bees!
+To the north is some woods.
+To the south is the garden lawn.
+To the east is an enormous rockery.
+Just here, is a dark grotto.
+
+You can go south, in, east or north.
+
+You can see Pruned Brambles, a Secateurs and an Electric Lamp.
+
+> north
+
+> north
+
+You are in the Wild Wood.
+
+This end of the garden is
+a forest!
+
+You can go south, east or in.
+
+You can see a Bronze Egg.
+
+> take bronze egg
+
+> take bronze egg
+What is the earliest time did people decorate ostrich eggs, to symbolize death and rebirth?
+1: Prehistoric Africa, about 10,000 BC
+2: Pre-dynastic Egypt, about 3000 BC
+3: Ancient Greece, about 1000 BC
+4: Early Christianity, about AD 70
+> 2
+Correct! You take the Bronze Egg.
+Your score 10 points!
+Your score is now 80 out of 120 points!
+> put bronze egg in basket
+
+> put bronze egg in basket
+Done.
+> in
+
+> in
+
+You are in a Bird Hide.
+
+You are in
+a bird hide
+camoflaged for observing wildlife in the woods.
+
+You can go out.
+
+You can see Ascenders and a Descender.
+
+> drop brass key
+
+> drop brass key
+You drop it.
+> take ascenders
+
+> take ascenders
+You pick it up.
+> take descender
+
+> take descender
+You pick it up.
+> put ascenders in basket
+
+> put ascenders in basket
+Done.
+> put descender in basket
+
+> put descender in basket
+Done.
+> inventory
+
+> inventory
+You are carrying an Easter Basket (containing a Jade Egg, an Aquamarine Egg, a Clear Quartz Egg, an Amethyst Egg, a Rose Quartz Egg, an Obsidian Egg, a Meteorite Egg, a Bronze Egg, Ascenders and a Descender).
+> x basket
+
+> x basket
+Woven
+basket
+for collecting easter eggs!
+It contains a Jade Egg, an Aquamarine Egg, a Clear Quartz Egg, an Amethyst Egg, a Rose Quartz Egg, an Obsidian Egg, a Meteorite Egg, a Bronze Egg, Ascenders and a Descender.
+> out
+
+> out
+
+You are in the Wild Wood.
+
+This end of the garden is
+a forest!
+
+You can go south, east or in.
+
+> south
+
+> south
+
+You are in the Wildlife Meadow.
+
+The meadow is already starting to flower, which would benefit the bees!
+To the north is some woods.
+To the south is the garden lawn.
+To the east is an enormous rockery.
+Just here, is a dark grotto.
+
+You can go south, in, east or north.
+
+You can see Pruned Brambles, a Secateurs and an Electric Lamp.
+
+> south
+
+> south
+
+You are on the Garden Lawn.
+
+Here is a well mown stripy
+lawn
+with paths in several directions.
+
+To the north you can see the wildlife meadow.
+To the east, the vegetable patch.
+To the south, the hedge maze.
+To the west, the garden pond.
+
+You can go north, west, east or south.
+
+You can see a Rabbit Hutch (containing an Easter Bunny and a Dirty Newspaper (on which there are Rabbit Droppings)) and an Adventure Guide.
+
+> east
+
+> east
+
+You are at the Vegetable Garden.
+
+There are rows and rows of
+vegetables.
+There are rows and rows of vegetables.
+
+Some hens are scratching the ground, clucking, and pecking at seeds.
+
+To the north is the garden shed.
+To the west is the greenhouse.
+To the south is the chicken hut.
+
+You can go west, north, east or south.
+
+You can see an Old Gardener.
+
+> north
+
+> north
+
+You are in a Garden Shed.
+
+You are inside the
+garden shed.
+
+You can go out.
+
+You can see Chicken Feed and a Climbing Harness.
+
+> take harness
+
+> take harness
+You pick it up.
+> take chicken feed
+
+> take chicken feed
+You pick it up.
+> out
+
+> out
+
+You are at the Vegetable Garden.
+
+There are rows and rows of
+vegetables.
+There are rows and rows of vegetables.
+
+Some hens are scratching the ground, clucking, and pecking at seeds.
+
+To the north is the garden shed.
+To the west is the greenhouse.
+To the south is the chicken hut.
+
+You can go west, north, east or south.
+
+You can see an Old Gardener.
+
+> west
+
+> west
+
+You are on the Garden Lawn.
+
+Here is a well mown stripy
+lawn
+with paths in several directions.
+
+To the north you can see the wildlife meadow.
+To the east, the vegetable patch.
+To the south, the hedge maze.
+To the west, the garden pond.
+
+You can go north, west, east or south.
+
+You can see a Rabbit Hutch (containing an Easter Bunny and a Dirty Newspaper (on which there are Rabbit Droppings)) and an Adventure Guide.
+
+> north
+
+> north
+
+You are in the Wildlife Meadow.
+
+The meadow is already starting to flower, which would benefit the bees!
+To the north is some woods.
+To the south is the garden lawn.
+To the east is an enormous rockery.
+Just here, is a dark grotto.
+
+You can go south, in, east or north.
+
+You can see Pruned Brambles, a Secateurs and an Electric Lamp.
+
+> north
+
+> north
+
+You are in the Wild Wood.
+
+This end of the garden is
+a forest!
+
+You can go south, east or in.
+
+> in
+
+> in
+
+You are in a Bird Hide.
+
+You are in
+a bird hide
+camoflaged for observing wildlife in the woods.
+
+You can go out.
+
+You can see a Brass Key.
+
+> out
+
+> out
+
+You are in the Wild Wood.
+
+This end of the garden is
+a forest!
+
+You can go south, east or in.
+
+> east
+
+> east
+
+You are in the Oak Wood.
+
+This neck of woods has some
+oak trees.
+A climbing rope hangs from a branch of a large oak tree.
+
+You can go west or up.
+
+> drop chicken feed
+
+> drop chicken feed
+You drop it.
+> up
+
+> up
+
+You are Up An Oak Tree.
+
+You are on a branch of a large oak tree high above the ground, at one end of
+a rope bridge
+that spans to another tree.
+
+You can go down or east.
+
+> east
+
+> east
+
+You are Up Another Oak Tree.
+
+At the other end of the rope bridge, you are standing on a large and sturdy branch of another oak tree,
+outside a tree house.
+
+You can go west or in.
+
+> in
+
+> in
+
+You are in the Tree House.
+
+This
+tree house
+is comfortable with a deck chair and table.
+Great for observing wildlife in the canopy.
+
+You can go out.
+
+You can see an Lapis Lazuli Egg.
+
+> take lapis lazuli egg
+
+> take lapis lazuli egg
+24 April is the usual latest possible date for Easter Sunday in the Gregorian Calendar.
+What was the last year that this latest Easter Sunday fell on that date?
+> 2011
+Correct! You take the Lapis Lazuli Egg.
+Your score 10 points!
+Your score is now 90 out of 120 points!
+> put lapis lazuli egg in basket
+
+> put lapis lazuli egg in basket
+Done.
+> out
+
+> out
+
+You are Up Another Oak Tree.
+
+At the other end of the rope bridge, you are standing on a large and sturdy branch of another oak tree,
+outside a tree house.
+
+You can go west or in.
+
+> west
+
+> west
+
+You are Up An Oak Tree.
+
+You are on a branch of a large oak tree high above the ground, at one end of
+a rope bridge
+that spans to another tree.
+
+You can go down or east.
+
+> down
+
+> down
+
+You are in the Oak Wood.
+
+This neck of woods has some
+oak trees.
+A climbing rope hangs from a branch of a large oak tree.
+
+You can go west or up.
+
+You can see Chicken Feed.
+
+> take chicken feed
+
+> take chicken feed
+You pick it up.
+> west
+
+> west
+
+You are in the Wild Wood.
+
+This end of the garden is
+a forest!
+
+You can go south, east or in.
+
+> drop harness
+
+> drop harness
+You drop it.
+> in
+
+> in
+
+You are in a Bird Hide.
+
+You are in
+a bird hide
+camoflaged for observing wildlife in the woods.
+
+You can go out.
+
+You can see a Brass Key.
+
+> take brass key
+
+> take brass key
+You pick it up.
+> out
+
+> out
+
+You are in the Wild Wood.
+
+This end of the garden is
+a forest!
+
+You can go south, east or in.
+
+You can see a Climbing Harness.
+
+> south
+
+> south
+
+You are in the Wildlife Meadow.
+
+The meadow is already starting to flower, which would benefit the bees!
+To the north is some woods.
+To the south is the garden lawn.
+To the east is an enormous rockery.
+Just here, is a dark grotto.
+
+You can go south, in, east or north.
+
+You can see Pruned Brambles, a Secateurs and an Electric Lamp.
+
+> south
+
+> south
+
+You are on the Garden Lawn.
+
+Here is a well mown stripy
+lawn
+with paths in several directions.
+
+To the north you can see the wildlife meadow.
+To the east, the vegetable patch.
+To the south, the hedge maze.
+To the west, the garden pond.
+
+You can go north, west, east or south.
+
+You can see a Rabbit Hutch (containing an Easter Bunny and a Dirty Newspaper (on which there are Rabbit Droppings)) and an Adventure Guide.
+
+> unlock rabbit hutch
+
+> unlock rabbit hutch
+Unlocked.
+> open rabbit hutch
+
+> open rabbit hutch
+You open it.
+The Easter Bunny hops out of the hutch, onto the lawn and scampers about freely on the grass!
+It contains a Dirty Newspaper (on which there are Rabbit Droppings).
+> put brass key in basket
+
+> put brass key in basket
+Done.
+> east
+
+> east
+
+You are at the Vegetable Garden.
+
+There are rows and rows of
+vegetables.
+There are rows and rows of vegetables.
+
+Some hens are scratching the ground, clucking, and pecking at seeds.
+
+To the north is the garden shed.
+To the west is the greenhouse.
+To the south is the chicken hut.
+
+You can go west, north, east or south.
+
+You can see an Old Gardener.
+
+> south
+
+> south
+
+You are in the Chicken Hut.
+
+This
+chicken hut
+is where hens live.
+
+You can go out.
+
+You can see a White Agate Egg and the Easter Chicken.
+
+> feed easter chicken
+
+> feed easter chicken
+You scatter some seeds outside the chicken hut,
+and the Easter Chicken leaps out of her nest flapping her wings
+and goes off to peck at the seeds that you have just scattered!
+> take white agate egg
+
+> take white agate egg
+23 March is the usual earliest possible date for Easter Sunday in the Gregorian Calendar.
+What was the last year that this earliest Easter Sunday fell on that date?
+> 2008
+Correct! You take the White Agate Egg.
+Your score 10 points!
+Your score is now 100 out of 120 points!
+> put white agate egg in basket
+
+> put white agate egg in basket
+Done.
+> drop chicken feed
+
+> drop chicken feed
+You drop it.
+> out
+
+> out
+
+You are at the Vegetable Garden.
+
+There are rows and rows of
+vegetables.
+There are rows and rows of vegetables.
+
+Some hens are scratching the ground, clucking, and pecking at seeds.
+
+To the north is the garden shed.
+To the west is the greenhouse.
+To the south is the chicken hut.
+
+You can go west, north, east or south.
+
+You can see an Old Gardener and the Easter Chicken.
+
+> east
+
+> east
+
+You are in the Greenhouse.
+
+This
+greenhouse
+is hot and humid.
+Perfect climate for tropical plants!
+
+You can go out.
+
+You can see a Rubber Gloves, a Golden Egg, a Pitcher Plant, a Clean Newspaper and a Bookcase.
+
+> take rubber gloves
+
+> take rubber gloves
+You pick it up.
+> out
+
+> out
+
+You are at the Vegetable Garden.
+
+There are rows and rows of
+vegetables.
+There are rows and rows of vegetables.
+
+Some hens are scratching the ground, clucking, and pecking at seeds.
+
+To the north is the garden shed.
+To the west is the greenhouse.
+To the south is the chicken hut.
+
+You can go west, north, east or south.
+
+You can see an Old Gardener and the Easter Chicken.
+
+> west
+
+> west
+
+You are on the Garden Lawn.
+
+Here is a well mown stripy
+lawn
+with paths in several directions.
+
+To the north you can see the wildlife meadow.
+To the east, the vegetable patch.
+To the south, the hedge maze.
+To the west, the garden pond.
+
+You can go north, west, east or south.
+
+You can see a Rabbit Hutch (containing a Dirty Newspaper (on which there are Rabbit Droppings)), an Adventure Guide and an Easter Bunny.
+
+> take dirty newspaper
+
+> take dirty newspaper
+Wearing your rubber gloves, you carefully fold and take the dirty newspaper.
+> east
+
+> east
+
+You are at the Vegetable Garden.
+
+There are rows and rows of
+vegetables.
+There are rows and rows of vegetables.
+
+Some hens are scratching the ground, clucking, and pecking at seeds.
+
+To the north is the garden shed.
+To the west is the greenhouse.
+To the south is the chicken hut.
+
+You can go west, north, east or south.
+
+You can see an Old Gardener and the Easter Chicken.
+
+> east
+
+> east
+
+You are in the Greenhouse.
+
+This
+greenhouse
+is hot and humid.
+Perfect climate for tropical plants!
+
+You can go out.
+
+You can see a Golden Egg, a Pitcher Plant, a Clean Newspaper and a Bookcase.
+
+> feed pitcher plant
+
+> feed pitcher plant
+You shake the rabbit droppings into the large bulb of pitcher plant, and it burps with pleasure.
+The plant calms down, its tentacles droops, and goes quiet.
+> take golden egg
+
+> take golden egg
+As the plant have been fed and is quietly digesting, you are able to attempt to take the Golden Egg!
+What is the weight, in kilograms, of the largest chocolate Easter Egg made?
+> 7200
+Correct! You take the Golden Egg.
+Your score 10 points!
+Your score is now 110 out of 120 points!
+> put golden egg in basket
+
+> put golden egg in basket
+Done.
+> drop harness
+
+> drop harness
+I can't see that.
+> drop chicken feed
+
+> drop chicken feed
+I can't see that.
+> out
+
+> out
+
+You are at the Vegetable Garden.
+
+There are rows and rows of
+vegetables.
+There are rows and rows of vegetables.
+
+Some hens are scratching the ground, clucking, and pecking at seeds.
+
+To the north is the garden shed.
+To the west is the greenhouse.
+To the south is the chicken hut.
+
+You can go west, north, east or south.
+
+You can see an Old Gardener and the Easter Chicken.
+
+> west
+
+> west
+
+You are on the Garden Lawn.
+
+Here is a well mown stripy
+lawn
+with paths in several directions.
+
+To the north you can see the wildlife meadow.
+To the east, the vegetable patch.
+To the south, the hedge maze.
+To the west, the garden pond.
+
+You can go north, west, east or south.
+
+You can see a Rabbit Hutch, an Adventure Guide and an Easter Bunny.
+
+> south
+
+> south
+
+You are in the Hedge Maze.
+
+You are in
+a hedge maze
+of narrow passages that goes in many directions, all alike!
+
+You can go north, east or west.
+
+> west
+
+> west
+
+You are in the Hedge Maze.
+
+You are in
+a hedge maze
+of narrow passages that goes in many directions, all alike!
+
+You can go north, east, south or west.
+
+> south
+
+> south
+
+You are in the Hedge Maze.
+
+You are in
+a hedge maze
+of narrow passages that goes in many directions, all alike!
+
+You can go north, east or south.
+
+> south
+
+> south
+
+You are in the Hedge Maze.
+
+You are in
+a hedge maze
+of narrow passages that goes in many directions, all alike!
+
+You can go east, north, south or west.
+
+> east
+
+> east
+
+You are in the Hedge Maze.
+
+You are in
+a hedge maze
+of narrow passages that goes in many directions, all alike!
+
+You can go east, north or west.
+
+> north
+
+> north
+
+You are in a Centre of Maze.
+
+You are in a clearing at the centre of the hadge maze.
+
+You can go south.
+
+You can see a Silver Egg and a Small Card.
+
+> take silver egg
+
+> take silver egg
+What year were chocolate eggs first manufactured in the United Kingdom?
+> 1873
+Correct! You take the Silver Egg.
+Your score 10 points!
+Your score is now 120 out of 120 points!
+Look! There's an Easter Card in your basket!
+> read easter card
+
+> read easter card
+Happy Easter
+[state=Running]

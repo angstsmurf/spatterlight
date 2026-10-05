@@ -1,0 +1,108 @@
+This game 'The Mages Of Adalmo' is made, written and programmed by Alex Brannan on 'Quest' text based adventure game creator.
+In this game the currency will be displayed as score (but will be refered to as 'Gold coins') and will be automatically placed in your inventory.
+Your House is small, as it is your first house away from home, it is bland.
+In Your House
+You can see a Bowl Of Soup, a Bed, a Key, a Spell Book Of Fire Guardian, a Spell Book Of Minor Restore Health, a Spell Book Of Fire Fist, a Door and a Match.
+You can go east.
+> take key
+> take key
+Taken.
+> use key with door
+> use key with door
+> take bowl of soup
+> take bowl of soup
+Taken.
+> eat bowl of soup
+> eat bowl of soup
+Mmmm... That was delicious!
+> take spell book of fire guardian
+> take spell book of fire guardian
+Taken.
+Use this item to learn the spell.
+> use spell book of fire guardian
+> use spell book of fire guardian
+You have learnt your first Summoning spell!
+> take spell book of minor restore health
+> take spell book of minor restore health
+Taken.
+Use this item to learn the spell.
+> use spell book of minor restore health
+> use spell book of minor restore health
+You have learnt your first Healing spell!
+> take spell book of fire fist
+> take spell book of fire fist
+Taken.
+Use this item to learn the spell.
+> use spell book of fire fist
+> use spell book of fire fist
+You have learnt your first Combat spell!
+> take match
+> take match
+You pick it up.
+> e
+> e
+Slickton
+You are in Slickton, your home town, it is dull and boring but that is why you are goin to the capital (Adalmo) where you are goin to join the mage guild (The Magic Circle). To the north you can see the a Road To Adalmo.
+The exits lead to the  west or north.
+> n
+> n
+You are in a vile part of Arolma (your continent), you are in  Troll Valley
+You can see a Tree and a Hooded Figure.
+You can go north or south.
+> x tree
+> x tree
+You step towards the tree, a frightened Eagle flies out of the tree knocking its egg off and into your arms you take the egg and place it in your inventory. It is edible if cooked, but if you Heat it up enough, it will hatch.
+> use match with egg
+> use match with egg
+You strike the match on a rock, you hold the burning match next to the egg for 10 seconds until it goes out.. There is a giant explosion, out of the egg emerges a fire eagle ready to protect and serve you.
+'Fire Eagle' is availale for use in your next battle.
+> use fire fist with hooded figure
+> use fire fist with hooded figure
+You Damage the hooded figure, it flee's but leaves behind a spell book and a note you pick both up. Your only option is to examine the tree or go north.
+> use spell book of fire gauntlet
+> use spell book of fire gauntlet
+Well done! What a reward for your first battle, an upgrade for 'Fire Fist'.
+> n
+> n
+Abandoned Camp Site Abandoned Camp Site
+You can see a Chest and a Cooking Pot.
+You can go north or south.
+> open chest
+> open chest
+You open the chest to look inside. There is a spoon that looks old but you feel drawn to it. There is also 50 gold coins.
+> take old rusty spoon
+> take old rusty spoon
+Taken.
+It is Old but it looks important.
+> n
+> n
+Suburbs Of Adalmo
+the only person here is The  a Hooded Figure.
+You can go south or north.
+> use fire eagle with hooded figure
+> use fire eagle with hooded figure
+Your Fire Eagle flies at an alarming rate towards the hooded figure, blasting him into a wall, he flees again.
+> n
+> n
+Streets Of Adalmo
+You can see a Poster and An Armory.
+You can go south or north.
+> x armory
+> x armory
+A man sees you looking at his armory and says, "son, you look like a mage, can i intrest you some 'Power Gaunlets', we have a deal on our 'Power Guanlets' of earthquake for 50 Gold coins".
+> n
+> n
+Halls Of The Magic Circle
+You can see Grekoha Hackta.
+You can go south or north.
+> n
+> n
+Hall Of The Elders
+You can go south.
+You feel strange, You are stabbed in the back, with very little force.
+You Turn, There is no one there.
+You Search your inventory, to your surprise you find the spoon gone and a mystical dagger in it's place.
+
+Well done, You have made it to the magic circle, for your next adventure keep an eye out for The Mages Of Adalmo 2: The Power Within.
+This has been brought to you by Alex Brannan Aged 14.
+[state=Finished]

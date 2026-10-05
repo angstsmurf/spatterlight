@@ -1,0 +1,144 @@
+The Zombie Apocalypse has finally happened! You and a small group of survivors were fighting your way through the city to a safe zone when you got separated. You managed to get yourself barricaded inside this storeroom. The locked door to the west leads to a loading dock which opens up into an alley that leads straight to the clearing where the helicopter is supposed to pick you up. Find a weapon and a way out of the room and make your way to the clearing. Oh, and try not to get killed.
+The Store Room
+You can see a Desk and a Cupboard.
+This is a storeroom. You find the usual accoutrements for a storeroom: Shelves full of random junk and other miscellaneous clutter. There is a barricaded door to the east that you just came through, and a door to the west that leads to the loading dock.
+You can go west.
+> look under desk
+> look under desk
+You see a paper clip lying on the floor underneath the desk.
+> take paper clip
+> take paper clip
+You pick it up.
+> unlock desk
+> unlock desk
+You manage to unlock the desk with the paper clip, but the paper clip breaks.
+> open desk
+> open desk
+You open it.
+It contains a Small Key.
+> take small key
+> take small key
+You pick it up.
+> unlock cupboard
+> unlock cupboard
+You unlock the cupboard.
+> open cupboard
+> open cupboard
+You open it.
+It contains a Shotgun, Shotgun Ammo and a Loading Dock Key.
+> take shotgun
+> take shotgun
+You pick it up.
+> take ammo
+> take ammo
+You pick it up.
+> take loading dock key
+> take loading dock key
+You pick it up.
+> use loading dock key
+> use loading dock key
+You unlock the Loading Dock door with the key from the cupboard.
+> west
+> west
+A Loading Dock
+You can go east or west.
+A group of 8 bloodthirsty Zombies come shambling at you from all directions.
+> shoot zombies
+> shoot zombies
+You fire off a shot and kill 8 Zombies...
+> west
+> west
+An Alley
+You can go east or north.
+A group of 17 bloodthirsty Zombies come shambling at you from all directions.
+> shoot zombies
+> shoot zombies
+You fire off a shot and kill 2 Zombies...
+You are mauled by the Zombies for 15 damage...
+> shoot zombies
+> shoot zombies
+You fire off a shot and kill 9 Zombies...
+You are mauled by the Zombies for 6 damage...
+> shoot zombies
+> shoot zombies
+You fire off a shot and kill 6 Zombies...
+> north
+> north
+An Alley
+You can go south or north.
+A group of 8 bloodthirsty Zombies come shambling at you from all directions.
+> shoot zombies
+> shoot zombies
+You fire off a shot and kill 6 Zombies...
+You are mauled by the Zombies for 2 damage...
+> shoot zombies
+> shoot zombies
+You fire off a shot and kill 2 Zombies...
+> north
+> north
+An Alley
+You can go south or west.
+A group of 12 bloodthirsty Zombies come shambling at you from all directions.
+> shoot zombies
+> shoot zombies
+You fire off a shot and kill 2 Zombies...
+You are mauled by the Zombies for 10 damage...
+> shoot zombies
+> shoot zombies
+You fire off a shot and kill 3 Zombies...
+You are mauled by the Zombies for 7 damage...
+> shoot zombies
+> shoot zombies
+You fire off a shot and kill 7 Zombies...
+> west
+> west
+A Clearing
+You can see a Giant Zombie.
+You can go east.
+As you enter the clearing, a gate close and locks trapping you inside. You search the skies for sign of the helicopter but your attention is diverted by the Giant Zombie that has lurched into view. 7 feet tall and covered in gore, the Giant Zombie sniffs the air, looks in your direction, then comes for you. You'll have to fight this guy to the death!
+The Giant Zombie rakes at you for 7 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 11 damage...
+The Giant Zombie rakes at you for 9 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 2 damage...
+The Giant Zombie rakes at you for 1 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 9 damage...
+The Giant Zombie rakes at you for 8 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 10 damage...
+The Giant Zombie rakes at you for 4 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 6 damage...
+The Giant Zombie rakes at you for 4 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 10 damage...
+The Giant Zombie rakes at you for 2 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 2 damage...
+The Giant Zombie rakes at you for 8 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 3 damage...
+The Giant Zombie rakes at you for 5 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 9 damage...
+The Giant Zombie rakes at you for 3 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 3 damage...
+The Giant Zombie rakes at you for 3 damage...
+> attack giant zombie
+> attack giant zombie
+You fire a round into the Giant Zombie causing 5 damage...
+The Giant Zombie stops and looks at you for a second before spitting up a disgusting combination of blood and bile and then collapsing into a heap on the ground. You have survived the fight, and in good time too! You hear the sound of the approaching helicopter! It touches down and you are whisked away to safety. You hope...
+[state=Finished]

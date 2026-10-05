@@ -1,0 +1,235 @@
+You are stranded on this island, because your boat broke. You have to make the right choices to survive. Find your way back home, and finish the game!
+It's just an ordinary fishing day. You didn't have any luck for fish, and for the day. A storm rolls your way, destroying your boat and you get stranded on an island. Figure out how to get off of the island and survive while you are there. There are more people there, looking like they are stranded too, so be careful!
+You are at a beach.
+You can see a Broken Boat and an ocean.
+You can go west, north or east.
+> look under the boat broken boat
+
+> look under the boat broken boat
+A hole poker?
+> swim ocean
+
+> swim ocean
+Got some fish!
+> w
+
+> w
+
+You are at a The Heart.
+You can see a Palm Tree.
+You can go east or northeast.
+> take some wood palm tree
+
+> take some wood palm tree
+This can be great to repair the boat!
+> poke a hole palm tree with hole poker
+
+> poke a hole palm tree with hole poker
+You got sap! And a lantern?
+> ne
+
+> ne
+
+You are in a Cave.
+You can see a Bear.
+You can go south, southwest or north.
+> fight bear
+
+> fight bear
+That was nasty! You fought the bear, and the bear has some wierd writing on his coat: none shall get out
+> none shall get out
+
+> none shall get out
+You hear rumbling. The back of the cave has been opened!
+> n
+
+> n
+
+You are in a Back Of The Cave.
+You need some kind of light source to see. When you get the light source, drop it.
+> drop lantern
+
+> drop lantern
+You drop it.
+> take the rocks rocks
+
+> take the rocks rocks
+Yes!
+> s
+
+> s
+
+You are in a Cave.
+You can go south, southwest or north.
+> s
+
+> s
+
+You are at a beach.
+You can see a Broken Boat and an ocean.
+You can go west, north or east.
+> fix broken boat with sap
+
+> fix broken boat with sap
+Type in the text box: (2 parts)
+> fix broken boat with wood
+
+> fix broken boat with wood
+first part:   9873
+> fix broken boat with rocks
+
+> fix broken boat with rocks
+second part:    0316
+> 98730316
+
+> 98730316
+YOUR BOAT IS NOW FIXED! YOU CAN HIT OPEN WATER!
+> e
+
+> e
+
+You are finally at an Open Water.
+You can see a The Boat.
+You can go east, northeast or southeast.
+FIND YOUR WAY BACK HOME!
+> ne
+
+> ne
+
+You are in a Water2.
+You can see a Whistle and an Open Spot To Distract 2.
+You can go southwest.
+> pick the whistle up whistle
+
+> pick the whistle up whistle
+Maybe I can use it to distract the boat...
+> distract open spot to distract 2 with whistle
+
+> distract open spot to distract 2 with whistle
+Second Part: 689
+> sw
+
+> sw
+
+You are finally at an Open Water.
+You can see a The Boat.
+You can go east, northeast or southeast.
+FIND YOUR WAY BACK HOME!
+> se
+
+> se
+
+You are in a Water3.
+You can see an Open Spot To Distract.
+You can go northwest.
+> distract open spot to distract with whistle
+
+> distract open spot to distract with whistle
+First Part: 2341
+> nw
+
+> nw
+
+You are finally at an Open Water.
+You can see a The Boat.
+You can go east, northeast or southeast.
+FIND YOUR WAY BACK HOME!
+> 2341689
+
+> 2341689
+The Boat notices you and you can go home!
+> e
+
+> e
+
+You are in a Water1.
+You can go west or east.
+> e
+
+> e
+
+You are at HOME.
+You can go north, east or south.
+Finally! You can finish the game by going to your house and sleep in your bed. But you can explore here a while!
+> s
+
+> s
+
+You are in a Market.
+You can see a Buy.
+You can go north.
+> buy stuff buy
+
+> buy stuff buy
+WE GIVE OUT FREE PAPER! (the paper says 467 )
+> n
+
+> n
+
+You are at HOME.
+You can go north, east or south.
+Finally! You can finish the game by going to your house and sleep in your bed. But you can explore here a while!
+> e
+
+> e
+
+You are in a House.
+You can see a Bed and a Drawer.
+You can go west.
+> look in drawer
+
+> look in drawer
+A banana?
+> w
+
+> w
+
+You are at HOME.
+You can go north, east or south.
+Finally! You can finish the game by going to your house and sleep in your bed. But you can explore here a while!
+> n
+
+> n
+
+You are in a School.
+You can see a Banana Basket.
+You can go south.
+> give banana banana basket with banana
+
+> give banana banana basket with banana
+Thank you for your generous offer to save the school! We reward you with... uh oh! We are out of cupcakes! Take a cupcake recipe instead? (The Recipe says 521 )
+> s
+
+> s
+
+You are at HOME.
+You can go north, east or south.
+Finally! You can finish the game by going to your house and sleep in your bed. But you can explore here a while!
+> e
+
+> e
+
+You are in a House.
+You can see a Bed and a Drawer.
+You can go west.
+> look at bed
+
+> look at bed
+Something written at the bottom... ( 158 )
+> sleep bed
+
+> sleep bed
+COME ON! YOU WANNA GO THAT EASILY!?!?!? I'LL TAKE YOUR BED AWAY! MUAHAHAHA! The only way to get it back is to find 3 parts of a code and unscramble it! Then command it and you can go to sleep!
+> 521467158
+
+> 521467158
+You hear something in your home. You can now sleep!
+> sleep bed
+
+> sleep bed
+You finished the game!
+
+CREATOR: LOLZ2579
+
+THIS IS MY FIRST PUBLISHED GAME!
+[state=Finished]

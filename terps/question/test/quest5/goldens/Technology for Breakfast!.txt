@@ -1,0 +1,94 @@
+You are in a Bedroom.
+You can see a Dresser and an Alarm Clock.
+You can go south.
+Your alarm glows an eerie, pale green in the darkness of your room. According to the clock, it's 6:25 AM. Your room is rather tastefully decorated in silver tones, perfect for a classy individual like yourself. A dresser rests against the wall, with a lovely mirror hanging over it.  A door to the south leads to the hallway.
+> open dresser
+
+> open dresser
+You open the dresser, gazing down at your stylish collection of clothing. After a bit of quick debate, you pull out an outfit and tuck it under your arm.
+> s
+
+> s
+
+You are in a Hallway.
+You can see a Light Switch.
+You can go east, north or south.
+A typical, hard wood hallway. It isn't particularly fancy, but you have a few nice paintings on the wall. Most of them were gifts from your sister, who has a great deal of artistic talent.
+> use light switch
+
+> use light switch
+> e
+
+> e
+
+You are in a Bathroom.
+You can see a Shower, a Medicine Cabinet, a Toilet and a Sink.
+You can go west.
+A small bathroom, the kind to be expected from a college student. A shower is shoved into one corner, sharing its small space with a towel rack. On the other side of the bathroom, a toilet and sink jostle for space. A medicine cabinet hangs above the sink, its surface covered in a mirror. Your bathroom is decorated tastefully in shades of blue.
+> open medicine cabinet
+
+> open medicine cabinet
+You open the cabinet, revealing your multitudes of medications. Most are simple things, like tylenol and cough syrup. One bottle stands out, the label declaring that it's for your heart. You quickly open the bottle and take your pill.
+> use shower
+
+> use shower
+> w
+
+> w
+
+You are in a Hallway.
+You can see a Light Switch.
+You can go east, north or south.
+A typical, hard wood hallway. It isn't particularly fancy, but you have a few nice paintings on the wall. Most of them were gifts from your sister, who has a great deal of artistic talent.
+> s
+
+> s
+
+You are in a Living Room.
+You can see a Television, a Couch, a Computer and a Xbox.
+You can go north, west or south.
+This room is rather large compared to the rest of your small house, though it still pales in comparison to the home you grew up in. It's tastefully decorated in shades of silver, much like your bedroom. There isn't much in the way of decoration, but you have a few spider plants. Those things sure breed fast!
+> w
+
+> w
+
+You are in a Kitchen.
+You can see a Refrigerator, a Stove, a Microwave, a Blender and a Coffee Maker.
+You can go east.
+Your kitchen is a cramped, miserable affair, but you love it nonetheless. It would be much more pleasant if you had a dining room, but unfortunately you were forced to shove a table and chair in here to eat your meals at. A pair of small bowls rests in a corner of the room for your cat, but she's nowhere to be seen.
+> s
+
+> s
+You can't go there.
+> e
+
+> e
+
+You are in a Living Room.
+You can see a Television, a Couch, a Computer and a Xbox.
+You can go north, west or south.
+This room is rather large compared to the rest of your small house, though it still pales in comparison to the home you grew up in. It's tastefully decorated in shades of silver, much like your bedroom. There isn't much in the way of decoration, but you have a few spider plants. Those things sure breed fast!
+> s
+
+> s
+
+You are on a Front Lawn.
+You can see a Sprinklers and a Flood Lights.
+You can go north or southeast.
+It's well groomed and manicured, despite your relatively busy schedule. You enjoy gardening, and maintain a small garden towards the left of your door. You even have a bird feeder! You don't have as much time to spend on it as you'd like, but your neighbors are usually willing to help out.
+> se
+
+> se
+
+You are in a Car.
+You can see an Ignition.
+You can go northwest.
+A typical lemon of a car, you got it for a steal at a used car dealership. Despite the fact it sometimes runs a bit oddly and is laughably ridiculous looking, it's very reliable and gets you from point a to point b.
+
+Travel has improved over the years, allowing people to take more jobs, travel more, and transport goods over greater distances. This has allowed people to spread out more, and has greatly improved the quality of life in many countries. Without easy to access transportation, life would be much more difficult. Traffic might be bad, but it's better then having to ride a horse to work every day.
+
+Horses are nice, but they cost a lot to feed, house and they have a lot of needs that cars don't.
+> use ignition
+
+> use ignition
+[state=Finished]

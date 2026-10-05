@@ -1,0 +1,63 @@
+You are in  a Room.
+You can see a Mirror, a Desk, a Fridge and a Door.
+> x desk
+> x desk
+Nothing out of the ordinary.
+The desk has three draws,  a Draw A, a Draw B and a Draw C.
+> x draw a
+> x draw a
+Nothing out of the ordinary.
+It contains a Shredded Paper.
+> take shredded paper
+> take shredded paper
+This shredded paper may come in useful.
+> x draw b
+> x draw b
+Nothing out of the ordinary.
+It contains a Selotape and a Pencil.
+> take selotape
+> take selotape
+You pick it up.
+> take pencil
+> take pencil
+You pick it up.
+> x draw c
+> x draw c
+Nothing out of the ordinary.
+It contains a Scratched Numerals.
+> x scratched numerals
+> x scratched numerals
+Nothing out of the ordinary.
+> use selotape on shredded paper
+> use selotape on shredded paper
+You made paper.
+> use pencil on scratched numerals
+> use pencil on scratched numerals
+You wrote the code onto the paper.
+> x fridge
+> x fridge
+Nothing out of the ordinary.
+It contains a Mallet.
+> take mallet
+> take mallet
+You pick it up.
+> use mallet on mirror
+> use mallet on mirror
+You smashed a mirror revealing a hidden safe.
+> x safe
+> x safe
+Nothing out of the ordinary.
+> unlock safe
+> unlock safe
+Unlocked.
+You open it.
+It contains a Key.
+> take key
+> take key
+You pick it up.
+> unlock door
+> unlock door
+Unlocked. You have escaped!
+Congratulations!
+You open it.
+[state=Finished]

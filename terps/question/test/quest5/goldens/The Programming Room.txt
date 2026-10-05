@@ -1,0 +1,636 @@
+The Programming Room
+
+by Henry Jenkin
+
+You are in a finding hall.
+You can go east, west, north, northeast, northwest, south, southeast or southwest.
+> ne
+
+> ne
+
+You are in a Labyrinth entrance.
+You can go southwest or north.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south, west or north.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or north.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or west.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go south or east.
+> s
+
+> s
+
+You are in a labyrinth.
+You can go north or west.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east, west or north.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or north.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south, north or east.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or north.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or north.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or east.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go west or south.
+> s
+
+> s
+
+You are in a labyrinth.
+You can go south or north.
+> s
+
+> s
+
+You are in a labyrinth.
+You can see a Turtle Robot.
+You can go north.
+> take turtle robot
+
+> take turtle robot
+You pick it up.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or north.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go west or south.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go south or east.
+> s
+
+> s
+
+You are in a labyrinth.
+You can go south or north.
+> s
+
+> s
+
+You are in a labyrinth.
+You can go south or north.
+> s
+
+> s
+
+You are in a labyrinth.
+You can go south, north or east.
+> s
+
+> s
+
+You are in a labyrinth.
+You can go south or north.
+> s
+
+> s
+
+You are in a labyrinth.
+You can go east, west or north.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go north or west.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or east.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go south or west.
+> s
+
+> s
+
+You are in a labyrinth.
+You can go east or north.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go east or west.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go south, west or north.
+> s
+
+> s
+
+You are in a Labyrinth entrance.
+You can go southwest or north.
+> sw
+
+> sw
+
+You are in a finding hall.
+You can go east, west, north, northeast, northwest, south, southeast or southwest.
+> e
+
+> e
+
+ You are at the west end of a large room.
+You can see a hanging rope and a spikes.
+You can go west.
+The walls are made of metal and electric cords. The floor just to the east of you is made of spikes. Across the spikes at the east end of the room you see the entrance to the programming room.
+> swing on rope
+
+> swing on rope
+You grab the rope, step back and fling yourself forward, lifting your feet and legs off the ground. You fly safely over the spikes to the other side of the room.
+
+ you are at the east end of a large room.
+You can see spikes and a hanging rope.
+You can go east.
+The walls are made of metal and electric cords. The floor just to the west of you is made of spikes. Across the spikes at the west end of the room you see the entrance to the finding hall
+> e
+
+> e
+
+You are in a Programming room.
+You can see a large machine.
+You can go up or west.
+A ladder leads up to the robot room.
+> drop turtle robot
+
+> drop turtle robot
+You drop it.
+> reprogram turtle robot with large machine
+
+> reprogram turtle robot with large machine
+You reprogram the Turtle Robot so it will protect you and help you find your way.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+ you are at the east end of a large room.
+You can see spikes and a hanging rope.
+You can go east.
+The walls are made of metal and electric cords. The floor just to the west of you is made of spikes. Across the spikes at the west end of the room you see the entrance to the finding hall
+The Turtle Robot says "You need to use the rope"
+TheTurtle Robot is accompanying you.
+> swing on rope
+
+> swing on rope
+You grab the rope, step back and fling yourself forward, lifting your feet and legs off the ground. You fly safely over the spikes to the other side of the room.
+
+ You are at the west end of a large room.
+You can see a hanging rope and a spikes.
+You can go west.
+The walls are made of metal and electric cords. The floor just to the east of you is made of spikes. Across the spikes at the east end of the room you see the entrance to the programming room.
+The Turtle Robot activates its hover jets to cross the spikes
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a finding hall.
+You can go east, west, north, northeast, northwest, south, southeast or southwest.
+TheTurtle Robot is accompanying you.
+> ne
+
+> ne
+
+You are in a Labyrinth entrance.
+You can go southwest or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south, west or north.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go south or east.
+TheTurtle Robot is accompanying you.
+> s
+
+> s
+
+You are in a labyrinth.
+You can go north or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east, west or north.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east, west or north.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or east.
+TheTurtle Robot is accompanying you.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go east, west or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go east, north, west or south.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go west or east.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or east.
+TheTurtle Robot is accompanying you.
+> e
+
+> e
+
+You are in a labyrinth.
+You can see a Thingamyminotaur.
+You can go west or east.
+TheTurtle Robot is accompanying you.
+The Thingamy Minotaur hits you with its blue axe
+The Turtle Robot blasts the Thingamyminotaur with its laser cannon. The robotic monster short circuits and collapses and the blue axe disappears.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go west or east.
+TheTurtle Robot is accompanying you.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go north or west.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or east.
+TheTurtle Robot is accompanying you.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go east, west or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go east or south.
+TheTurtle Robot is accompanying you.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go south or west.
+TheTurtle Robot is accompanying you.
+> s
+
+> s
+
+You are in a labyrinth.
+You can go east or north.
+TheTurtle Robot is accompanying you.
+> e
+
+> e
+
+You are in a labyrinth.
+You can go west or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go south or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go west, south or east.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go west, east or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth.
+You can go east, south or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a l159.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east, south or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or west.
+TheTurtle Robot is accompanying you.
+> w
+
+> w
+
+You are in a labyrinth.
+You can go east or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a labyrinth exit.
+You can go south or north.
+TheTurtle Robot is accompanying you.
+> n
+
+> n
+
+You are in a great swamp.
+You can see a machine that eats you up.
+You can go south, in or northwest.
+The Turtle Robot says: "Do not go into that machine".
+TheTurtle Robot is accompanying you.
+> nw
+
+> nw
+
+ You are on a Promenade of Victory.
+You can go southeast.
+You have escaped the Little castle. You have won the game.
+Well done
+[state=Finished]

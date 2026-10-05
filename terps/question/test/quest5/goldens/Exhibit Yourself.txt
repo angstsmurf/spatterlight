@@ -1,0 +1,1310 @@
+You wake up. It's dark, completely dark, and you're suddenly aware that it's not your nice soft bed you're reclining in. You straighten and hit your head on the wooden ceiling of your prison, and something crunches under your feet. Wood is pressing in on either side of your shoulders. "Oh, God," you mutter, fidgeting to bring your arms forward. Once they're free you fling your hands forward, knocking the wood in front of you away. You look around.
+
+"I've got to get out of here."
+
+The room is painted a plain white and has pale wooden floors. In the center of this room is a low platform with a stone sarcophagus lying on it, from which wafts a strong, metallic smell. On the south wall there are two stone reliefs with Egyptian symbols. Your wooden coffin is in the southwest corner. In the northeast corner is a glass display case filled with artifacts. There is one door to the East.
+> x sarcophagus
+
+> x sarcophagus
+The sarcophagus is slightly longer and wider than a man and its surface is richly decorated in gold, green, red, blue, and black. Vacant, painted eyes stare upwards at the ceiling.  The lid is slightly askew so that there is a gap wide enough for a few fingers between the edge of the lid and the side of the sarcophagus. The closer you stand to the sarcophagus, the stronger the metallic smell becomes.
+
+> open sarcophagus
+
+> open sarcophagus
+With great force you push the lid of the sarcophagus off of the sarcophagus itself. The metallic stench overwhelms you and you stop to reclaim your senses for a moment before looking inside the sarcophagus. Inside is a figure wrapped in gauze.
+> x sarcophagus
+
+> x sarcophagus
+The sarcophagus is slightly longer and wider than a man and its surface is richly decorated in gold, green, red, blue, and black. Vacant, painted eyes stare upwards at the ceiling.  The lid is slightly askew so that there is a gap wide enough for a few fingers between the edge of the lid and the side of the sarcophagus. The closer you stand to the sarcophagus, the stronger the metallic smell becomes.
+
+> x mummy
+
+> x mummy
+Inside the sarcophagus is a thin figure wrapped in fresh, white gauze from head to foot. The gauze near the head is bloody at the side of the figure’s head. The figure’s arms are crossed over its chest.
+The figure holds a Scepter and a Wrench.
+> take wrench
+
+> take wrench
+You pick up the pipe wrench and gingerly wipe some of the blood off.
+> x coffin
+
+> x coffin
+The wooden coffin. The lid lies on the floor in front of the coffin itself. Scarab beetles litter the floor around the coffin.
+> x scarab beetles
+
+> x scarab beetles
+The beetles are jet black and continue to glitter slightly in the light If you squint your eyes shut, they almost appear to move. Under one of the beetles is a golden object.
+> take golden scarab
+
+> take golden scarab
+As you reach down to brush away the large scarab beetle, it springs into motion and scuttles over to the sarcophagus and out of sight. Slightly shaken (wasn’t it was dead?), you pocket the golden scarab.
+> x display case
+
+> x display case
+The display case consists of a white box up to your chest with glass covering it. In the display case each of the artifacts is on a pedestal of a different height, and each pedestal has a small, neat number printed on it.
+
+There are seven objects in total, a Sphinx Sculpture, a Coin, a Stone Vase, a Cat Statue, a Statue of a Woman, a Broken Pedestal, and a Pyramid.
+> use wrench on display case
+
+> use wrench on display case
+You heave the pipe wrench over your shoulder and, with some effort, slam it into the glass, which shatters with a loud crash. Once the echoes have faded, the silence that fills the room is all-encompassing.
+> x display case
+
+> x display case
+The display case consists of a white box up to your chest with glass covering it. In the display case each of the artifacts is on a pedestal of a different height, and each pedestal has a small, neat number printed on it.
+
+The display case contains  a Sphinx Sculpture, a Coin, a Stone Vase, a Cat Statue, a Statue of a Woman, a Broken Pedestal and a Pyramid.
+> use golden scarab on statue of a woman
+
+> use golden scarab on statue of a woman
+As soon as you start to pull your hand away, the woman’s hands clap tight around the scarab. She pulls her hands, now concealing the scarab, to her chest. She looks as if she might be praying. You hear the door behind you unlock.
+> x relief 1
+
+> x relief 1
+The stone relief depicts hieroglyphics cut into the pale stone. They seem to tell a story, if only one could read it. One of the hieroglyphics, an eye, catches your attention.
+> x eye
+
+> x eye
+The eye is a simple almond shape with curved lines outward. The pupil, however, is a hole. Is there an object in the hole?
+
+> take glass bottle
+
+> take glass bottle
+With some difficulty you extract the blue object from the hole. The object turns out to be a small, dark blue bottle which is sealed with layers and layers of multicolored wax. Though you hold it up to the light, the glass is too dark to see through. When you shake it, something rattles inside.
+> e
+
+> e
+
+Relieved, you stumble out of the room, only to find yourself in a hallway. The walls of this hallway are a pale cream color and the floors are a light wood. There is a bench on the East wall and a banner hanging above it. There are doors to the North, West, and South.
+> x bench
+
+> x bench
+The bench is wooden with a leather cushion.
+Under the cushion is  a Handle.
+> take handle
+
+> take handle
+You pick up the handle.
+> s
+
+> s
+
+This hallway has pale cream walls, except for the West wall, which has been painted a pale blue color. On the West wall is a display case. There are doors to the North, East, and South.
+> x display case
+
+> x display case
+This display case consists of a white box up to your chest with glass covering it. It holds several specimens of flowers, notably a rose, a poppy, an iris, and a violet.
+> use wrench on display case
+
+> use wrench on display case
+You heave the pipe wrench over your shoulder and slam it into the display case, shattering the glass. You can now access the items inside.
+> x display case
+
+> x display case
+This display case consists of a white box up to your chest with glass covering it.
+Inside the case are  a Rose, a Poppy, a Violet and an Iris.
+> take rose
+
+> take rose
+You reach down to pick up the rose but find it cool and smooth to the touch. With a snap the flower comes away, leaving jagged edges where the stem was held to the case. It isn't a flower...it's made of glass! When you shake it, something rattles inside the stem.
+> drop rose
+
+> drop rose
+You drop the flower and it falls to the floor, smashing into hundreds of tiny glass pieces. Inside the glass rose dust you find a hair pin.
+> n
+
+> n
+
+ The walls of this hallway are a pale cream color and the floors are a light wood. There is a bench on the East wall and a banner hanging above it. There are doors to the North, West, and South.
+> x north door
+
+> x north door
+These are large, pale double doors with circular windows. A small microphone has been attached to the door at face height. A wire winds down from the microphone to a large lock on the handles. A plaque has been affixed to the left door.
+> x microphone
+
+> x microphone
+The microphone is a silver half-sphere attached to the door. Wires run down from the microphone to the lock.
+> say taxidermy into microphone
+
+> say taxidermy into microphone
+After you finish speaking there is a moment of static. Then, the lock clicks open and falls to the floor. You can now go North.
+> n
+
+> n
+
+This appears to be the end of the hallway you have been walking through, though it intersects another hallway leading West. This hallway is painted an off-white color and the floors are made of pale wood. On the North wall are three canvases in a row, each painted a solid color. There is one blue canvas, one yellow canvas, and one red canvas. On the East wall is a gradient canvas. There are doors to the West and the South.
+> use hair pin on west door
+
+> use hair pin on west door
+You slide the hair pin into the lock and jimmy it back and forth for a moment. You hear the door unlock, but the hair pin breaks as you pull it out. Damn. You can now go West.
+> w
+
+> w
+
+This appears to be an ordinary, near-empty Hallway. A single painting hangs on the North wall and a bench sits against the south wall. There are doors to the East and West.
+> x floor
+
+> x floor
+The floor is made of pale wood, but there doesn't appear to be anything interesting about it.
+In one of the corners, you spot  a Pair of Screws.
+> take pair of screws
+
+> take pair of screws
+You pick up the screws.
+> x bench
+
+> x bench
+The bench is made out of wood and has a leather cushion.
+> use pair of screws on handle
+
+> use pair of screws on handle
+You poke the screws through the holes in the handle. You now have a Handle with Screws.
+> e
+
+> e
+
+ This hallway is painted an off-white color and the floors are made of pale wood. On the North wall are three canvases in a row, each painted a solid color. There is one blue canvas, one yellow canvas, and one red canvas. On the East wall is a gradient canvas. There are doors to the West and the South.
+> e
+
+> e
+You can't go there.
+> s
+
+> s
+
+ The walls of this hallway are a pale cream color and the floors are a light wood. There is a bench on the East wall and a banner hanging above it. There are doors to the North, West, and South.
+> s
+
+> s
+
+This hallway has pale cream walls, except for the West wall, which has been painted a pale blue color. On the West wall is a display case. There are doors to the North, East, and South.
+> use handle with screws on east door
+
+> use handle with screws on east door
+You press the handle against the door and twist the screws until they hold the handle to the door. You can now go East.
+> e
+
+> e
+
+The janitor's closet, as it appears, is a tiny, narrow room taken up mostly by shelves. You hardly have the room to turn around in it as you step in, letting the door thud closed behind you. There are three shelves, North, East, and South and a bucket stands in the NorthEast corner. There is one door to the West.
+> x east shelf
+
+> x east shelf
+The East shelf is right in front of you as you enter the closet.
+On the east shelf you find a Feather duster and a Penny.
+> x shelf
+
+> x shelf
+Please choose which 'shelf' you mean:
+1: North shelf
+2: East shelf
+3: South Shelf
+> x bucket
+
+> x bucket
+A yellow mop bucket filled with what appears to be a foggy, white mixture of water and glue.
+Floating on the surface of the water is a  a Fig leaf.
+> take penny
+
+> take penny
+You pick up the penny. Maybe it's your lucky day?
+> take fig leaf
+
+> take fig leaf
+You pluck up the fig leaf, then wipe your damp hands on your shirt.
+> take feather duster
+
+> take feather duster
+What use would you have for this? Better leave it here.
+> i
+
+> i
+You are carrying a Wrench, a Glass Bottle, a Penny and a Fig leaf.
+> w
+
+> w
+
+This hallway has pale cream walls, except for the West wall, which has been painted a pale blue color. On the West wall is a display case. There are doors to the North, East, and South.
+> s
+
+> s
+
+This hallway is slightly dirtier than other hallways you've seen. The floor is covered with dust and there is an overflowing trash can in the Northwest corner. Along the West wall is a wooden bench and, opposite it, on the East wall is an ancient, framed map. There is a door to the North and one to the South.
+> s
+
+> s
+
+This appears to be the end of the hallway you have been walking through. A single painting hangs on the South wall, and a cart sits in the Northeast the corner. There are doors to the West, North, and East.
+> x cart
+
+> x cart
+This is a long, four-wheeled cart with two tiers.
+On top of of the cart there is  a Vase.
+> x vase
+
+> x vase
+The vase is made of blue and white china with a rounded body and a curved, elegant neck. The blue patterns resemble flowers and vines twirling around the vase. A white dragon's outline curls around the neck. From within the vase, you can see something shining. A blade?
+Inside the vase is  a Knife.
+> use wrench on vase
+
+> use wrench on vase
+You heave the pipe wrench over your shoulder and then bring it down on the vase, shattering it into many pieces.
+> take knife
+
+> take knife
+You are already carrying it.
+> i
+
+> i
+You are carrying a Wrench, a Glass Bottle, a Penny, a Fig leaf and a Knife.
+> use knife on glass bottle
+
+> use knife on glass bottle
+You begin carving the wax off of the bottle using the knife. With some effort you peel all of the stubborn wax away and open the bottle. Inside is a skeleton key.
+> i
+
+> i
+You are carrying a Wrench, a Penny, a Fig leaf, a Knife and a Skeleton Key.
+> w
+
+> w
+
+In the center of the room is a large, glass display case, which has a pedestal standing in front of it. Along the north and south walls of the exhibit are two floor-to-ceiling display cases. A faint humming fills the room from the center display case. There are doors to the East and the West.
+> x bee display case
+
+> x bee display case
+The Bee Display Case is large enough for a person to comfortably stand in. The top of the glass appears to be thick with condensation, but this does little to deter the flocks and flocks of honeybees filling the case. These bees are buzzing back and forth between the flowers and the large hive at the center of the display case.
+> x hive
+
+> x hive
+I can't see that.
+> x honeycomb
+
+> x honeycomb
+I can't see that.
+> open bee display case
+
+> open bee display case
+Noting a silver handle on the south side of the display case, you open the case. Suddenly the room swarms with countless bees. One of them stings you on your forearm and another on the neck.
+> x hive
+
+> x hive
+The hive extends from the floor of the case to the top of it, several feet above your head. The honeycomb that covers it smells of sweet, sweet honey.
+> x honeycomb
+
+> x honeycomb
+The honeycomb is dripping with golden honey. In some of the holes there are sleeping bees.
+Wedged into the honeycomb is a piece of  a Gum.
+> take gum
+
+> take gum
+With some effort you extract the pale pink gum from the honeycomb. After pocketing it, you wipe your hands on your shirt in disgust.
+> i
+
+> i
+You are carrying a Wrench, a Penny, a Fig leaf, a Knife, a Skeleton Key and a Gum.
+> x west door
+
+> x west door
+The west door has a tree painted on it with multiple branches. All the branches except one have a leaf painted on them.
+> use fig leaf on west door
+
+> use fig leaf on west door
+Thankful for the fig leaf's stickiness, you press it against the empty branch and smooth it over with your finger to adhere the leaf to the door. The door unlocks. You can now go West.
+> e
+
+> e
+
+This appears to be the end of the hallway you have been walking through. A single painting hangs on the South wall, and a cart sits in the Northeast the corner. There are doors to the West, North, and East.
+> e
+
+> e
+That way is locked.
+> n
+
+> n
+
+This hallway is slightly dirtier than other hallways you've seen. The floor is covered with dust and there is an overflowing trash can in the Northwest corner. Along the West wall is a wooden bench and, opposite it, on the East wall is an ancient, framed map. There is a door to the North and one to the South.
+> x trash can
+
+> x trash can
+A large, gray plastic trash can sits in the corner. It is overflowing with trash.
+> take trash
+
+> take trash
+You pick up the trash.
+As you empty the bin, you see something in the bottom of the trash can that makes your stomach churn. A glass eye.
+> drop trash
+
+> drop trash
+You drop the trash to the floor, wiping your hands off on your sides.
+> take eye
+
+> take eye
+Uneasily, you slide the eye into your pocket.
+> n
+
+> n
+
+This hallway has pale cream walls, except for the West wall, which has been painted a pale blue color. On the West wall is a display case. There are doors to the North, East, and South.
+> n
+
+> n
+
+ The walls of this hallway are a pale cream color and the floors are a light wood. There is a bench on the East wall and a banner hanging above it. There are doors to the North, West, and South.
+> n
+
+> n
+
+ This hallway is painted an off-white color and the floors are made of pale wood. On the North wall are three canvases in a row, each painted a solid color. There is one blue canvas, one yellow canvas, and one red canvas. On the East wall is a gradient canvas. There are doors to the West and the South.
+> w
+
+> w
+
+This appears to be an ordinary, near-empty Hallway. A single painting hangs on the North wall and a bench sits against the south wall. There are doors to the East and West.
+> w
+
+> w
+
+This hallway is painted a pale cream color with pale wood floors. In the Northeast corner is a statue of a woman. There are doors to the North, South, East and West.
+> w
+
+> w
+
+The hallway has pale cream walls and pale wooden floors. From the ceiling hangs a projector which projects images on the North wall. There is a message spray painted on the South wall. There are doors to the East and the West.
+> x west door
+
+> x west door
+The door is made of pale wood with a silver handle.
+Inside the lock there is  a Broken Key.
+> use gum on broken key
+
+> use gum on broken key
+With a grimace you wrap your fingers in the sticky gum and give a tug. The key comes free of the lock. You can now go West.
+> w
+
+> w
+
+This appears to be the end of the hallway you have been walking through, though it intersects another hallway leading South. The hallway is painted a stark white color, even the floor, and it is startlingly bright. In the center of the room is a silhouette sculpture suspended from the ceiling. There is a hanging sculpture on the North wall. There are doors to the East, South, and West.
+
+> x south door
+
+> x south door
+The door is large and dark wood with a silver handle. In the center of the door, at about eye level, is a peephole.
+> use eye on peephole
+
+> use eye on peephole
+You hold the eyeball up to the peephole and, after a moment, the South door unlocks. You can now go South.
+> s
+
+> s
+
+This hallway has pale wooden floors and white walls to the North and South. On the East and West there are large glass display cases. There are doors to the North and the South.
+> look
+
+> look
+This hallway has pale wooden floors and white walls to the North and South. On the East and West there are large glass display cases. There are doors to the North and the South.
+> s
+
+> s
+
+This hallway is painted a simple tan color. There is one tapestry on the West wall and a candelabra in the NorthWest corner. There are doors to the North, East, and South.
+
+> s
+
+> s
+
+This appears to be the end of the hallway you have been walking through, though it intersects another hallway leading west. The walls of this hallway are painted white and the floor is made of pale wood. There is a display case on the South wall. There are doors to the North and the West.
+> x display case
+
+> x display case
+The display case consists of a chest high white box with a glass covering to protect the artifacts inside, notably a pine cone, a photograph, and a vintage camera.
+> use wrench on display case
+
+> use wrench on display case
+You heave the pipe wrench over your shoulder and then slam it forward, hitting the glass on the display case and shattering it. You can now access the photograph, the pine cone, and the vintage camera.
+> x display case
+
+> x display case
+The display case consists of a chest high white box with a glass covering to protect the artifacts inside.
+Inside it are  a Pine Cone, a Photograph and a Vintage Camera.
+> x vintage camera
+
+> x vintage camera
+The camera appears to be contained in some kind of gray case with a brown leather handle. From the top lid of the case, accordion-folded leather springs out, at the end of which is a lens propped up on a wooden frame. When you shake the case you can hear something lightly rattling within the leather.
+> use knife on vintage camera
+
+> use knife on vintage camera
+Using the knife, you slice a hole in the leather. A Purple ID Card falls to the floor.
+> take purple id card
+
+> take purple id card
+You pick up the purple ID card and pocket it.
+> i
+
+> i
+You are carrying a Wrench, a Penny, a Knife, a Skeleton Key, an Eye and a Purple ID Card.
+> x west door
+
+> x west door
+The West door has a large pale door with a silver handle. Above the handle is a card swiper.
+> x card swiper
+
+> x card swiper
+The card swiper is a black box with a slit in it for swiping a card through. The instructions for swiping have been printed in purple.
+> use purple id card on card swiper
+
+> use purple id card on card swiper
+You slide the ID Card through the Card Swiper quickly. The door unlocks. You can now go West.
+> w
+
+> w
+
+The hallway is painted a pale peach color and the floors are dark oak. The chairs have been knocked over and the model fireplace on the North wall has been smashed with something heavy. A chest in the Southwest corner is on it's end. On the North wall is a portrait, the canvas of which has been slashed. The rug on the floor has been singed in places and reeks slightly of gasoline. There are doors to the East and the West.
+> look
+
+> look
+The hallway is painted a pale peach color and the floors are dark oak. The chairs have been knocked over and the model fireplace on the North wall has been smashed with something heavy. A chest in the Southwest corner is on it's end. On the North wall is a portrait, the canvas of which has been slashed. The rug on the floor has been singed in places and reeks slightly of gasoline. There are doors to the East and the West.
+> drop eye
+
+> drop eye
+You drop the eye, which roles around the floor before coming to a standstill.
+> drop purple id card
+
+> drop purple id card
+You drop it.
+> drop penny
+
+> drop penny
+You drop the penny. It lands tail-side up.
+> drop knife
+
+> drop knife
+You drop the knife, which clatters loudly to the floor.
+> x chest
+
+> x chest
+The chest is on it's end. The lid appears to have been carved in an elegant pastoral scene, but it has many scuffs and burn marks on it. The lock has been broken off and tossed aside, though it still has the key in it.
+It contains a Lock and a Corpse.
+> x lock
+
+> x lock
+The lock is a large, old looking padlock that has been broken.
+Inside the lock is an Old Key.
+> take old key
+
+> take old key
+You pull the old key out of the lock and pocket it.
+> x corpse
+
+> x corpse
+The corpse is of a woman wrapped in dark purple velvet fabric. Her skin is dingy and gray, and is covered with scrapes and bruises. Her eyes are missing and her ratty blonde hair is matted with dried blood.
+Inside the corpse's mouth is  a Sprig of Rosemary.
+> take sprig of rosemary
+
+> take sprig of rosemary
+You pick up the bundle of dried rosemary and pocket it.
+> i
+
+> i
+You are carrying a Wrench, a Skeleton Key, an Old Key and a Sprig of Rosemary.
+> w
+
+> w
+
+This room is very dark, and it takes your eyes a moment to adjust. The walls and ceiling are painted a deep, dark teal color. In the center of the room is a large glass column. On the South wall is a large set of shark jaws. The are doors to the North, East, and West.
+> look
+
+> look
+This room is very dark, and it takes your eyes a moment to adjust. The walls and ceiling are painted a deep, dark teal color. In the center of the room is a large glass column. On the South wall is a large set of shark jaws. The are doors to the North, East, and West.
+> x shark jaws
+
+> x shark jaws
+The shark jaws are larger than you are tall. The teeth are about as big as your palm and appear to be quite sharp.
+On the floor by the shark jaw is a  a Tooth.
+> take tooth
+
+> take tooth
+You pick up the tooth.
+> e
+
+> e
+
+The hallway is painted a pale peach color and the floors are dark oak. The chairs have been knocked over and the model fireplace on the North wall has been smashed with something heavy. A chest in the Southwest corner is on it's end. On the North wall is a portrait, the canvas of which has been slashed. The rug on the floor has been singed in places and reeks slightly of gasoline. There are doors to the East and the West.
+> e
+
+> e
+
+ The walls of this hallway are painted white and the floor is made of pale wood. There is a display case on the South wall. There are doors to the North and the West.
+> n
+
+> n
+
+This hallway is painted a simple tan color. There is one tapestry on the West wall and a candelabra in the NorthWest corner. There are doors to the North, East, and South.
+
+> n
+
+> n
+
+This hallway has pale wooden floors and white walls to the North and South. On the East and West there are large glass display cases. There are doors to the North and the South.
+> n
+
+> n
+
+ The hallway is painted a stark white color, even the floor, and it is startlingly bright. In the center of the room is a silhouette sculpture suspended from the ceiling. There is a hanging sculpture on the North wall. There are doors to the East, South, and West.
+
+> x west door
+
+> x west door
+The door is large and dark oak. It has a silver handle with a number pad over it.
+> x number pad
+
+> x number pad
+The number pad is a simple silver box with six buttons and a three-digit screen. The buttons each bear a number between one and six. There are instructions printed below it:
+
+ENTER IN YOUR RESPONSE THE FOLLOWING WAY FOR OPTIMAL RESULTS:
+Type XXX on number pad
+WHERE XXX IS YOUR NUMBER CODE.
+> type 641 on number pad
+
+> type 641 on number pad
+As you type the numbers into the number pad, they appear on the screen. Once you finish, you hear the door unlock. You can now go West.
+> w
+
+> w
+
+The atrium is a large, vaulted room with a fountain at its center. The west wall is made up of columns rising up into stone ribs supporting the ceiling. There appear to have been windows in between the columns but they have been covered in metal bolted to the stone. There is a information desk to the NorthEast.
+> x information desk
+
+> x information desk
+The front desk consists of a dark oak counter with a single drawer on the left hand side. On top of the counter is a  pamphlet.
+> x drawer
+
+> x drawer
+The desk has a single drawer with a gold handle.
+> open drawer
+
+> open drawer
+You slide open the drawer. Inside it is a switch.
+> x drawer
+
+> x drawer
+The desk has a single drawer with a gold handle.
+> use switch
+
+> use switch
+You flick the switch on, and in the distance you hear a white noise humming you'd previously ignored turn off. The silence that follows is deafening.
+> x switch
+
+> x switch
+The Switch is a small rectangular metal box with a handle and two positions, "On" and "Off." The handle has a dark teal knob at the end of it. The handle is currently in the "On" position.
+> e
+
+> e
+
+ The hallway is painted a stark white color, even the floor, and it is startlingly bright. In the center of the room is a silhouette sculpture suspended from the ceiling. There is a hanging sculpture on the North wall. There are doors to the East, South, and West.
+
+> e
+
+> e
+
+The hallway has pale cream walls and pale wooden floors. From the ceiling hangs a projector which projects images on the North wall. There is a message spray painted on the South wall. There are doors to the East and the West.
+> e
+
+> e
+
+This hallway is painted a pale cream color with pale wood floors. In the Northeast corner is a statue of a woman. There are doors to the North, South, East and West.
+> e
+
+> e
+
+This appears to be an ordinary, near-empty Hallway. A single painting hangs on the North wall and a bench sits against the south wall. There are doors to the East and West.
+> e
+
+> e
+
+ This hallway is painted an off-white color and the floors are made of pale wood. On the North wall are three canvases in a row, each painted a solid color. There is one blue canvas, one yellow canvas, and one red canvas. On the East wall is a gradient canvas. There are doors to the West and the South.
+> s
+
+> s
+
+ The walls of this hallway are a pale cream color and the floors are a light wood. There is a bench on the East wall and a banner hanging above it. There are doors to the North, West, and South.
+> s
+
+> s
+
+This hallway has pale cream walls, except for the West wall, which has been painted a pale blue color. On the West wall is a display case. There are doors to the North, East, and South.
+> s
+
+> s
+
+This hallway is slightly dirtier than other hallways you've seen. The floor is covered with dust and there is an overflowing trash can in the Northwest corner. Along the West wall is a wooden bench and, opposite it, on the East wall is an ancient, framed map. There is a door to the North and one to the South.
+> s
+
+> s
+
+This appears to be the end of the hallway you have been walking through. A single painting hangs on the South wall, and a cart sits in the Northeast the corner. There are doors to the West, North, and East.
+> w
+
+> w
+
+In the center of the room is a large, glass display case, which has a pedestal standing in front of it. Along the north and south walls of the exhibit are two floor-to-ceiling display cases. A faint humming fills the room from the center display case. There are doors to the East and the West.
+> w
+
+> w
+
+This room appears to be some kind of taxidermy exhibit. There are platforms along the north and south wall that contain taxidermy animals. There is a mountain lion, a grizzly bear, a horse, a moose, and a wolf. In the center of the room is a single, empty platform. There are doors to the East and the West.
+> w
+
+> w
+
+This room appears to be some sort of dinosaur exhibit. All of the walls are white except for the South wall, which has a faded mural on it. In the center of the room is a platform with a large Tyrannosaurus Rex skeleton on it. A long counter takes up most of the west wall. In the Southeast corner is a smaller platform with a small (baby?) Brontomerus skeleton on it. On the North wall there are four display pictures. There is one door to the East.
+> x counter
+
+> x counter
+The counter is about waist high. There are indented shapes in the counter which, according to the descriptions that are printed beside them, used to hold fossils. In the southwest corner at the edge of the counter there seems to be an embedded safe with a keyhole on the top.
+> x embedded safe
+
+> x embedded safe
+A safe has been embedded into the counter. Oddly, it appears as if someone has replaced the newer lock with an older one.
+> use old key on embedded safe
+
+> use old key on embedded safe
+You slide the old key into the lock and turn it. It works! The safe opens. It contains a Lighter and a USB.
+> take lighter
+
+> take lighter
+You pick up the lighter and pocket it.
+> x tyrannosaurus rex skeleton
+
+> x tyrannosaurus rex skeleton
+The skeleton stands over twenty feet tall. The huge bones are a dark, dark brown, lit by the spotlights on the platform. It's small arms are curled up to its hollow rib cage. You can see supporting beams holding up the skeleton. As you look up into its huge, open mouth, you note that one of its teeth is missing.
+> use tooth on tyrannosaurus rex skeleton
+
+> use tooth on tyrannosaurus rex skeleton
+Well, this is going to be difficult. With some effort you pile up the plastic rocks from around the platform and clamber on top of them, then brace yourself against the skeleton's bones as you fit the bone into the Tyrannosaurus Rex's mouth. In the distance you hear a grinding sound and a door unlocking softly.
+> use lighter on sprig of rosemary
+
+> use lighter on sprig of rosemary
+You hold the lighter up to the dried rosemary and flick the wheel until the branches come alight. The fire dies down but they begin to smoke almost at once. You now have smoking rosemary.
+> i
+
+> i
+You are carrying a Wrench, a Skeleton Key, a Lighter and a Smoking Rosemary.
+> e
+
+> e
+
+This room appears to be some kind of taxidermy exhibit. There are platforms along the north and south wall that contain taxidermy animals. There is a mountain lion, a grizzly bear, a horse, a moose, and a wolf. In the center of the room is a single, empty platform. There are doors to the East and the West.
+> e
+
+> e
+
+In the center of the room is a large, glass display case, which has a pedestal standing in front of it. Along the north and south walls of the exhibit are two floor-to-ceiling display cases. A faint humming fills the room from the center display case. There are doors to the East and the West.
+> e
+
+> e
+
+This appears to be the end of the hallway you have been walking through. A single painting hangs on the South wall, and a cart sits in the Northeast the corner. There are doors to the West, North, and East.
+> n
+
+> n
+
+This hallway is slightly dirtier than other hallways you've seen. The floor is covered with dust and there is an overflowing trash can in the Northwest corner. Along the West wall is a wooden bench and, opposite it, on the East wall is an ancient, framed map. There is a door to the North and one to the South.
+> n
+
+> n
+
+This hallway has pale cream walls, except for the West wall, which has been painted a pale blue color. On the West wall is a display case. There are doors to the North, East, and South.
+> n
+
+> n
+
+ The walls of this hallway are a pale cream color and the floors are a light wood. There is a bench on the East wall and a banner hanging above it. There are doors to the North, West, and South.
+> n
+
+> n
+
+ This hallway is painted an off-white color and the floors are made of pale wood. On the North wall are three canvases in a row, each painted a solid color. There is one blue canvas, one yellow canvas, and one red canvas. On the East wall is a gradient canvas. There are doors to the West and the South.
+> w
+
+> w
+
+This appears to be an ordinary, near-empty Hallway. A single painting hangs on the North wall and a bench sits against the south wall. There are doors to the East and West.
+> w
+
+> w
+
+This hallway is painted a pale cream color with pale wood floors. In the Northeast corner is a statue of a woman. There are doors to the North, South, East and West.
+> w
+
+> w
+
+The hallway has pale cream walls and pale wooden floors. From the ceiling hangs a projector which projects images on the North wall. There is a message spray painted on the South wall. There are doors to the East and the West.
+> w
+
+> w
+
+ The hallway is painted a stark white color, even the floor, and it is startlingly bright. In the center of the room is a silhouette sculpture suspended from the ceiling. There is a hanging sculpture on the North wall. There are doors to the East, South, and West.
+
+> s
+
+> s
+
+This hallway has pale wooden floors and white walls to the North and South. On the East and West there are large glass display cases. There are doors to the North and the South.
+> s
+
+> s
+
+This hallway is painted a simple tan color. There is one tapestry on the West wall and a candelabra in the NorthWest corner. There are doors to the North, East, and South.
+
+> s
+
+> s
+
+ The walls of this hallway are painted white and the floor is made of pale wood. There is a display case on the South wall. There are doors to the North and the West.
+> w
+
+> w
+
+The hallway is painted a pale peach color and the floors are dark oak. The chairs have been knocked over and the model fireplace on the North wall has been smashed with something heavy. A chest in the Southwest corner is on it's end. On the North wall is a portrait, the canvas of which has been slashed. The rug on the floor has been singed in places and reeks slightly of gasoline. There are doors to the East and the West.
+> w
+
+> w
+
+This room is very dark, and it takes your eyes a moment to adjust. The walls and ceiling are painted a deep, dark teal color. In the center of the room is a large glass column. On the South wall is a large set of shark jaws. The are doors to the North, East, and West.
+> x column
+
+> x column
+The water has drained out of the column and it is empty. In the center, you see an ID card suspended on a wire.
+> use wrench on column
+
+> use wrench on column
+You heave the pipe wrench over your shoulder and slam it into the column, which shatters. The shards of glass glisten a little bit in the dim light. You pick up the Green ID Card.
+> i
+
+> i
+You are carrying a Wrench, a Skeleton Key, a Lighter, a Smoking Rosemary and a Green ID Card.
+> w
+
+> w
+
+This appears to be the end of the hallway you have been walking through, and it is slightly dirtier than some of the others you have found. There are muddy boot prints trailing around it from the West door to the East door, meandering into the door to the South on the way. There is a The walls are a pale cream color. There are doors to the East and West and one door to the South.
+> x west door
+
+> x west door
+The west door is large, dark wood with several windows of various sizes and shapes set into it. Through the glass triangles and spirals and diamonds, you can see what looks to be some sort of fenced courtyard. Above the door is a smoke detector.
+> use smoking rosemary on smoke detector
+
+> use smoking rosemary on smoke detector
+You brandish the smoking rosemary in front of the smoke detector. After a moment, the smoke detector lets out a loud beep. The door unlocks. You can now go West.
+> w
+
+> w
+
+The room you enter into does not appear really to be much of a room at all. The walls are made of thickly planted green bamboo and the ceiling is made of thatched branches from which theater-styled spotlights hang. There is a large, abstract sculpture in the center of the space and a bench on the North wall. There is one door to the East.
+> x sculpture
+
+> x sculpture
+The abstract sculpture in the center of the garden is a stone monolith taller than yourself. The shape resembles a tear drop but slimmed down and curved up to the left-hand side. An oval shape has been cut out of the lower part of the sculpture.  From the top of that oval a bloodied human thumb hangs by a metal hook.
+> take thumb
+
+> take thumb
+You pick up the thumb, wrinkling your nose at the disgusting smell wafting off of it.
+> i
+
+> i
+You are carrying a Wrench, a Skeleton Key, a Lighter, a Smoking Rosemary, a Green ID Card and a Thumb.
+> drop smoking rosemary
+
+> drop smoking rosemary
+You drop the bundle of rosemary, which continues to smoke and burn.
+> drop lighter
+
+> drop lighter
+You drop the lighter to the floor.
+> e
+
+> e
+
+This appears to be the end of the hallway you have been walking through, and it is slightly dirtier than some of the others you have found. There are muddy boot prints trailing around it from the West door to the East door, meandering into the door to the South on the way. There is a The walls are a pale cream color. There are doors to the East and West and one door to the South.
+> e
+
+> e
+
+This room is very dark, and it takes your eyes a moment to adjust. The walls and ceiling are painted a deep, dark teal color. In the center of the room is a large glass column. On the South wall is a large set of shark jaws. The are doors to the North, East, and West.
+> e
+
+> e
+
+The hallway is painted a pale peach color and the floors are dark oak. The chairs have been knocked over and the model fireplace on the North wall has been smashed with something heavy. A chest in the Southwest corner is on it's end. On the North wall is a portrait, the canvas of which has been slashed. The rug on the floor has been singed in places and reeks slightly of gasoline. There are doors to the East and the West.
+> e
+
+> e
+
+ The walls of this hallway are painted white and the floor is made of pale wood. There is a display case on the South wall. There are doors to the North and the West.
+> n
+
+> n
+
+This hallway is painted a simple tan color. There is one tapestry on the West wall and a candelabra in the NorthWest corner. There are doors to the North, East, and South.
+
+> n
+
+> n
+
+This hallway has pale wooden floors and white walls to the North and South. On the East and West there are large glass display cases. There are doors to the North and the South.
+> n
+
+> n
+
+ The hallway is painted a stark white color, even the floor, and it is startlingly bright. In the center of the room is a silhouette sculpture suspended from the ceiling. There is a hanging sculpture on the North wall. There are doors to the East, South, and West.
+
+> e
+
+> e
+
+The hallway has pale cream walls and pale wooden floors. From the ceiling hangs a projector which projects images on the North wall. There is a message spray painted on the South wall. There are doors to the East and the West.
+> e
+
+> e
+
+This hallway is painted a pale cream color with pale wood floors. In the Northeast corner is a statue of a woman. There are doors to the North, South, East and West.
+> x north door
+
+> x north door
+The North door is a large, formidable looking steel door. It has no window, only a plaque which reads "EMPLOYEES ONLY" in capital letters. There is a handle and above the handle is some sort of screen.
+> x screen
+
+> x screen
+The screen is lit up with a glowing red thumb print.
+> use thumb on screen
+
+> use thumb on screen
+You press the thumb to the screen. After a moment, the glowing thumb on the screen turns green and you hear the door unlock.
+> drop thumb
+
+> drop thumb
+You drop the thumb to the floor and wipe your hands off on your shirt.
+> n
+
+> n
+
+This room appears to be some kind of security surveillance room. On the west wall is a desk, on which are stacked several cracked televisions. A wheeled stool sits in front of the desk. There are doors to the North and South.
+
+> x cracked televisions
+
+> x cracked televisions
+There are eight televisions that have all been cracked and damaged in some way. On the bottom row there is a broken television.
+> x broken television
+
+> x broken television
+The broken television's screen has been smashed out, leaving jagged edges of glass around the plastic rim.
+Inside the television is a Trowel.
+> take trowel
+
+> take trowel
+You pick up the trowel and pocket it.
+> x desk
+
+> x desk
+The cracked televisions are all stacked on a narrow, plain desk. There are circular water stains all over the surface and many small scuffs and scratches.
+On top of the desk is a  a Steel Water Bottle.
+> x north door
+
+> x north door
+The North door is made of metal and has a simple silver knob. It has a card swiper on it.
+> i
+
+> i
+You are carrying a Wrench, a Skeleton Key, a Green ID Card, a Thumb and a Trowel.
+> s
+
+> s
+
+This hallway is painted a pale cream color with pale wood floors. In the Northeast corner is a statue of a woman. There are doors to the North, South, East and West.
+> w
+
+> w
+
+The hallway has pale cream walls and pale wooden floors. From the ceiling hangs a projector which projects images on the North wall. There is a message spray painted on the South wall. There are doors to the East and the West.
+> w
+
+> w
+
+ The hallway is painted a stark white color, even the floor, and it is startlingly bright. In the center of the room is a silhouette sculpture suspended from the ceiling. There is a hanging sculpture on the North wall. There are doors to the East, South, and West.
+
+> s
+
+> s
+
+This hallway has pale wooden floors and white walls to the North and South. On the East and West there are large glass display cases. There are doors to the North and the South.
+> s
+
+> s
+
+This hallway is painted a simple tan color. There is one tapestry on the West wall and a candelabra in the NorthWest corner. There are doors to the North, East, and South.
+
+> s
+
+> s
+
+ The walls of this hallway are painted white and the floor is made of pale wood. There is a display case on the South wall. There are doors to the North and the West.
+> w
+
+> w
+
+The hallway is painted a pale peach color and the floors are dark oak. The chairs have been knocked over and the model fireplace on the North wall has been smashed with something heavy. A chest in the Southwest corner is on it's end. On the North wall is a portrait, the canvas of which has been slashed. The rug on the floor has been singed in places and reeks slightly of gasoline. There are doors to the East and the West.
+> w
+
+> w
+
+This room is very dark, and it takes your eyes a moment to adjust. The walls and ceiling are painted a deep, dark teal color. In the center of the room is a large glass column. On the South wall is a large set of shark jaws. The are doors to the North, East, and West.
+> n
+
+> n
+
+The room you walk into appears to be the sit of some severe excavation. The ordinary white museum walls appear unharmed but the floor has been almost entirely ripped up. Two feet of wooden flooring remain in a jagged ledge on the South wall by the door. From that ledge the floor descends downwards in a dirty slope towards the middle of the room. From the center of the room the dirt walls rise up again at the North wall, creating a pit in the center. In this center is a pedestal.
+> x floor
+
+> x floor
+The floor consists of a jagged ledge on the South wall by the door. From that ledge the floor descends downwards in a dirty slope towards the middle of the room. From the center of the room the dirt walls rise up again at the North wall, creating a pit in the center. To the left of the pedestal you see a pile of dirt.
+> x pile of dirt
+
+> x pile of dirt
+An heaped pile of dirt. Maybe you'd better find something to dig it up with.
+> use trowel on pile of dirt
+
+> use trowel on pile of dirt
+You dig the trowel down into the pile of dirt and, after a few moments of vigorous shoveling, find that it contains an Orange ID Card.
+> i
+
+> i
+You are carrying a Wrench, a Skeleton Key, a Green ID Card, a Thumb, a Trowel and an Orange ID Card.
+> s
+
+> s
+
+This room is very dark, and it takes your eyes a moment to adjust. The walls and ceiling are painted a deep, dark teal color. In the center of the room is a large glass column. On the South wall is a large set of shark jaws. The are doors to the North, East, and West.
+> e
+
+> e
+
+The hallway is painted a pale peach color and the floors are dark oak. The chairs have been knocked over and the model fireplace on the North wall has been smashed with something heavy. A chest in the Southwest corner is on it's end. On the North wall is a portrait, the canvas of which has been slashed. The rug on the floor has been singed in places and reeks slightly of gasoline. There are doors to the East and the West.
+> e
+
+> e
+
+ The walls of this hallway are painted white and the floor is made of pale wood. There is a display case on the South wall. There are doors to the North and the West.
+> n
+
+> n
+
+This hallway is painted a simple tan color. There is one tapestry on the West wall and a candelabra in the NorthWest corner. There are doors to the North, East, and South.
+
+> n
+
+> n
+
+This hallway has pale wooden floors and white walls to the North and South. On the East and West there are large glass display cases. There are doors to the North and the South.
+> n
+
+> n
+
+ The hallway is painted a stark white color, even the floor, and it is startlingly bright. In the center of the room is a silhouette sculpture suspended from the ceiling. There is a hanging sculpture on the North wall. There are doors to the East, South, and West.
+
+> e
+
+> e
+
+The hallway has pale cream walls and pale wooden floors. From the ceiling hangs a projector which projects images on the North wall. There is a message spray painted on the South wall. There are doors to the East and the West.
+> e
+
+> e
+
+This hallway is painted a pale cream color with pale wood floors. In the Northeast corner is a statue of a woman. There are doors to the North, South, East and West.
+> n
+
+> n
+
+This room appears to be some kind of security surveillance room. On the west wall is a desk, on which are stacked several cracked televisions. A wheeled stool sits in front of the desk. There are doors to the North and South.
+
+> use orange id card on card swiper
+
+> use orange id card on card swiper
+You swipe the ID Card through the swiper. The door unlocks. You can now go North.
+> n
+
+> n
+
+The room is small and dark. The only light comes from a green glass banker's lamp on the desk in the center of the room. The walls have oak paneling covering the lower half of the wall and green flocked wallpaper covering the upper half. There is a large portrait on the East wall and emerald green velvet curtains on the North wall. There is one door to the South.
+
+> x desk
+
+> x desk
+This is a large, stately wooden desk. A winged chair is pushed up behind it. There are four drawers. Three deep drawers are located on the left side of the desk, one shallow drawer is located to the right. There is one green banker lamp on the desk and a pad of paper.
+
+> x first drawer
+
+> x first drawer
+The top drawer of the desk has an ornate lock in the center of it.
+> use skeleton key on first drawer
+
+> use skeleton key on first drawer
+You slide the skeleton key into the drawer and turn it. The first drawer is now open. Inside it is a switch.
+> x first drawer
+
+> x first drawer
+The top drawer of the desk has an ornate lock in the center of it.
+> use switch
+
+> use switch
+You activate the switch. In the distance you hear a door unlocking softly.
+> x paneling
+
+> x paneling
+The dark wood paneling is neatly organized in vertical beams. There is a crooked panel on the West wall.
+> x curtains
+
+> x curtains
+These curtains are dark green velvet with gold fringe trim.
+> i
+
+> i
+You are carrying a Wrench, a Green ID Card, a Thumb, a Trowel and an Orange ID Card.
+> s
+
+> s
+
+This room appears to be some kind of security surveillance room. On the west wall is a desk, on which are stacked several cracked televisions. A wheeled stool sits in front of the desk. There are doors to the North and South.
+
+> s
+
+> s
+
+This hallway is painted a pale cream color with pale wood floors. In the Northeast corner is a statue of a woman. There are doors to the North, South, East and West.
+> w
+
+> w
+
+The hallway has pale cream walls and pale wooden floors. From the ceiling hangs a projector which projects images on the North wall. There is a message spray painted on the South wall. There are doors to the East and the West.
+> w
+
+> w
+
+ The hallway is painted a stark white color, even the floor, and it is startlingly bright. In the center of the room is a silhouette sculpture suspended from the ceiling. There is a hanging sculpture on the North wall. There are doors to the East, South, and West.
+
+> s
+
+> s
+
+This hallway has pale wooden floors and white walls to the North and South. On the East and West there are large glass display cases. There are doors to the North and the South.
+> s
+
+> s
+
+This hallway is painted a simple tan color. There is one tapestry on the West wall and a candelabra in the NorthWest corner. There are doors to the North, East, and South.
+
+> s
+
+> s
+
+ The walls of this hallway are painted white and the floor is made of pale wood. There is a display case on the South wall. There are doors to the North and the West.
+> w
+
+> w
+
+The hallway is painted a pale peach color and the floors are dark oak. The chairs have been knocked over and the model fireplace on the North wall has been smashed with something heavy. A chest in the Southwest corner is on it's end. On the North wall is a portrait, the canvas of which has been slashed. The rug on the floor has been singed in places and reeks slightly of gasoline. There are doors to the East and the West.
+> w
+
+> w
+
+This room is very dark, and it takes your eyes a moment to adjust. The walls and ceiling are painted a deep, dark teal color. In the center of the room is a large glass column. On the South wall is a large set of shark jaws. The are doors to the North, East, and West.
+> w
+
+> w
+
+This appears to be the end of the hallway you have been walking through, and it is slightly dirtier than some of the others you have found. There are muddy boot prints trailing around it from the West door to the East door, meandering into the door to the South on the way. There is a The walls are a pale cream color. There are doors to the East and West and one door to the South.
+> s
+
+> s
+
+The room you enter has been painted a very bright yellow. The walls are entirely plain. The only feature of the room sends chills right through your spine. A corpse hangs from a noose in the center of the room. There is one door to the North.
+> look
+
+> look
+The room you enter has been painted a very bright yellow. The walls are entirely plain. The only feature of the room sends chills right through your spine. A corpse hangs from a noose in the center of the room. There is one door to the North.
+> x corpse
+
+> x corpse
+The corpse hangs above you so that the feet are at your eye level. Their head lolls to side and you find yourself feeling almost grateful that the bag over the figure's head obscures their face. You can see droplets of paint that have dried on the figure's stomach and they appear almost as jaundiced sweat to your eyes. The rope around the corpse's neck is the only non-yellow object in this room, and the black noose cuts a violent vertical through the sunshine-colored æther which makes your stomach churn.
+In one hand, which you note is missing a thumb, the corpse holds  a crowbar.
+> take crowbar
+
+> take crowbar
+You take up the crowbar.
+> i
+
+> i
+You are carrying a Wrench, a Green ID Card, a Thumb, a Trowel, an Orange ID Card and a crowbar.
+> n
+
+> n
+
+This appears to be the end of the hallway you have been walking through, and it is slightly dirtier than some of the others you have found. There are muddy boot prints trailing around it from the West door to the East door, meandering into the door to the South on the way. There is a The walls are a pale cream color. There are doors to the East and West and one door to the South.
+> e
+
+> e
+
+This room is very dark, and it takes your eyes a moment to adjust. The walls and ceiling are painted a deep, dark teal color. In the center of the room is a large glass column. On the South wall is a large set of shark jaws. The are doors to the North, East, and West.
+> e
+
+> e
+
+The hallway is painted a pale peach color and the floors are dark oak. The chairs have been knocked over and the model fireplace on the North wall has been smashed with something heavy. A chest in the Southwest corner is on it's end. On the North wall is a portrait, the canvas of which has been slashed. The rug on the floor has been singed in places and reeks slightly of gasoline. There are doors to the East and the West.
+> e
+
+> e
+
+ The walls of this hallway are painted white and the floor is made of pale wood. There is a display case on the South wall. There are doors to the North and the West.
+> n
+
+> n
+
+This hallway is painted a simple tan color. There is one tapestry on the West wall and a candelabra in the NorthWest corner. There are doors to the North, East, and South.
+
+> n
+
+> n
+
+This hallway has pale wooden floors and white walls to the North and South. On the East and West there are large glass display cases. There are doors to the North and the South.
+> n
+
+> n
+
+ The hallway is painted a stark white color, even the floor, and it is startlingly bright. In the center of the room is a silhouette sculpture suspended from the ceiling. There is a hanging sculpture on the North wall. There are doors to the East, South, and West.
+
+> e
+
+> e
+
+The hallway has pale cream walls and pale wooden floors. From the ceiling hangs a projector which projects images on the North wall. There is a message spray painted on the South wall. There are doors to the East and the West.
+> e
+
+> e
+
+This hallway is painted a pale cream color with pale wood floors. In the Northeast corner is a statue of a woman. There are doors to the North, South, East and West.
+> n
+
+> n
+
+This room appears to be some kind of security surveillance room. On the west wall is a desk, on which are stacked several cracked televisions. A wheeled stool sits in front of the desk. There are doors to the North and South.
+
+> n
+
+> n
+
+The room is small and dark. The only light comes from a green glass banker's lamp on the desk in the center of the room. The walls have oak paneling covering the lower half of the wall and green flocked wallpaper covering the upper half. There is a large portrait on the East wall and emerald green velvet curtains on the North wall. There is one door to the South.
+
+> x paneling
+
+> x paneling
+The dark wood paneling is neatly organized in vertical beams. There is a crooked panel on the West wall.
+> x crooked panel
+
+> x crooked panel
+One of the panels is slightly crooked. Maybe you could pry it off with something?
+> use crowbar on crooked panel
+
+> use crowbar on crooked panel
+Using the crowbar you pry the crooked panel away from the wall.
+> x crooked panel
+
+> x crooked panel
+One of the panels is slightly crooked.
+Behind the crooked panel you find  a Bolt Cutters.
+> take bolt cutters
+
+> take bolt cutters
+You pick up the bolt cutters, opening and closing them with a satisfying clicking sound.
+> i
+
+> i
+You are carrying a Wrench, a Green ID Card, a Thumb, a Trowel, an Orange ID Card, a crowbar and a Bolt Cutters.
+> s
+
+> s
+
+This room appears to be some kind of security surveillance room. On the west wall is a desk, on which are stacked several cracked televisions. A wheeled stool sits in front of the desk. There are doors to the North and South.
+
+> s
+
+> s
+
+This hallway is painted a pale cream color with pale wood floors. In the Northeast corner is a statue of a woman. There are doors to the North, South, East and West.
+> e
+
+> e
+
+This appears to be an ordinary, near-empty Hallway. A single painting hangs on the North wall and a bench sits against the south wall. There are doors to the East and West.
+> e
+
+> e
+
+ This hallway is painted an off-white color and the floors are made of pale wood. On the North wall are three canvases in a row, each painted a solid color. There is one blue canvas, one yellow canvas, and one red canvas. On the East wall is a gradient canvas. There are doors to the West and the South.
+> s
+
+> s
+
+ The walls of this hallway are a pale cream color and the floors are a light wood. There is a bench on the East wall and a banner hanging above it. There are doors to the North, West, and South.
+> s
+
+> s
+
+This hallway has pale cream walls, except for the West wall, which has been painted a pale blue color. On the West wall is a display case. There are doors to the North, East, and South.
+> s
+
+> s
+
+This hallway is slightly dirtier than other hallways you've seen. The floor is covered with dust and there is an overflowing trash can in the Northwest corner. Along the West wall is a wooden bench and, opposite it, on the East wall is an ancient, framed map. There is a door to the North and one to the South.
+> s
+
+> s
+
+This appears to be the end of the hallway you have been walking through. A single painting hangs on the South wall, and a cart sits in the Northeast the corner. There are doors to the West, North, and East.
+> x east door
+
+> x east door
+The east door is painted white to match the wall behind it and has a silver plaque on the door that reads "EMPLOYEES ONLY." It is slightly wider than the other doors you've seen in this museum. There is a card swiper on the door with a wire leading to the handle.
+> x card swiper
+
+> x card swiper
+The card swiper is a black box with a slit in it for swiping a card through. The instructions for swiping have been printed in green.
+> use green id card on card swiper
+
+> use green id card on card swiper
+You swipe the ID Card through the swiper. The door unlocks. You can now go East.
+> e
+
+> e
+
+As you peer through the dim light, you realize that this room appears to be some kind of garage. The walls are made of some kind of accordion-folded aluminum material and there is a shallow but wide ramp extending from the door to the center of the room. There are doors to the East and the West.
+> x east door
+
+> x east door
+The door to the east is large, accordion-folded aluminum, like a garage door. The door is fastened shut with a thick chain.
+> x chain
+
+> x chain
+The chain that keeps the door down is fairly thick and fastens the door to an iron loop on the floor. You cannot open the door without removing the chain so you search for an end to the chain. However, you find that instead of having a lock, the two ends of the chain are hooked through a solid iron circle which has been soldered shut.
+> use bolt cutters on chain
+
+> use bolt cutters on chain
+You fasten the bolt cutters around the soldered loop of the chain and, with a loud crunch, the chain breaks. You slide the chain out and toss it behind you on the floor and the sound of iron clattering on concrete fills the air. You can now go East.
+> e
+
+> e
+
+With a mighty heave that surprises even you, you send the accordion-folding door upwards on its sliders. You can see sunlight. Bright, hot, welcoming sunlight.
+You breathe in heavily and start running. You need to be anywhere but here.
+[state=Finished]

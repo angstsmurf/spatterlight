@@ -1,0 +1,118 @@
+Mexico, April 1931. Der Schweiß perlt dir von der Stirn und auch der quietschende Deckenventilator kann nicht viel gegen die schwüle Hitze ausrichten. Das Bett auf dem du liegst ist genau so schäbig wie der Rest des Hotelzimmers. Aber noch immer Luxus im Gegensatz zu dem schaukelnden Seelenverkäufer, der dich vor nur wenigen Stunden hier an Land gespuckt hat.
+Aber nur so konntest du incognito hierher kommen. Der General war dir schon dicht genug auf den Fersen. Aber niemals sollte ihm das  Amulett des Lebens in die Hände fallen, dafür war es einfach zu mächtig....
+
+Das Brummen von Lastwagen reisst dich aus deinen Gedanken. Schnell springst du auf und schaust aus dem Fenster. Dort unten erfüllen sich deine schlimmsten Befürchtungen. Mehrere Armeetransporter fahren gerade vor und von ihren Ladeflächen springen Dutzende Bewaffnete. Du brauchst nicht lange nachzudenken, um zu wissen wen sie suchen.
+
+Schnell, schnapp dir deinen Bumerang und dann nichts wie raus hier...
+
+Du bist hier: Ein schäbiges Hotelzimmer.
+Du siehst Bumerang.
+Mögliche Ausgänge: rein oder raus.
+Ein heruntergekommenes Hotelzimmer wie es nicht besser in eine mexikanische Hafenstadt passen könnte.
+Du hast genau zwei Fluchtwege. Raus durch das Fenster oder drinnen über die Treppe.
+> take bumerang
+Das gute Stück nehm ich besser mit.
+> raus
+Du bist hier: Fenster.
+Mögliche Ausgänge: rein, hoch oder runter.
+Vor dem Fenster ist eine Feuerleiter. Du befindest dich im ersten Stock und die Feuerleiter führt nach oben und unten.
+Von unten sind Befehle zu hören und ein Blick verrät dir, daß dort mehrere Dutzend Soldaten herumrennen. Einige beginnen mit den Fingern auf dich zu zeigen.
+> hoch
+Du rast die Treppe hoch, als du plötzlich einen lauten Knall hörst und im Mauerwerk neben dir etwas abplatzt. Verdammt, hier wird auf dich geschossen ! Nichts wie hoch.....
+Du bist hier: Dach.
+Du siehst Mast und Kabel.
+Mögliche Ausgänge: runter oder nach Norden.
+Das Dach des Hotels. Du schaust dich nach einem Fluchtweg um. Ausser dem Weg ins Treppenhaus sticht dir ein kleiner Mast mit einer Telefonleitung zum Nachbargebäude ins Auge. Das Kabel führt schräg nach unten. Da sollte doch was machbar sein....
+> use bumerang
+Du legst deinen Bumerang über das Kabel und hälst dich an beiden Seiten daran fest. Dann stößt du dich ab und rutschst das Kabel entlang auf das Nachbarhaus zu. Kurz vor der Hauswand lässt du los und landest halbwegs sanft in einem kleinen Strohhaufen.
+Du bist hier: Straße neben dem Hotel.
+Mögliche Ausgänge: nach Norden, nach Westen oder nach Süden.
+Du rappelst dich auf und schlägst dir den Dreck von der Kleidung. Die Seitenstraße neben deinem Hotel ist so dreckig, wie man es in einem Hafenviertel nur erwarten kann. Das allerdings gar nicht mal so tragisch, wenn du nicht gerade vor ca. 20 Bewaffneten lautstark auf den Boden geplumpst wärst, von denen dich jetzt auch der letzte bemerkt hat.
+
+Was willst du tun ? Auf die Soldaten zu rennen (Norden), versuchen dich in einen Schuppen zu flüchten (Westen), oder den dir nächstgelegenen Armee-Laster schnappen (Süden) ?
+> Westen
+Du bist hier: vor dem Schuppen.
+Du siehst ein Fenster und eine Tür.
+Ein kleiner Schuppen liegt etwa 15 Meter vor dir. Du setzt zum Sprint an und versuchst durch eine der beiden möglichen Zugänge in den Schuppen zu gelangen. Möchtest du durch das Fenster springen, oder lieber versuchen die Tür zu öffnen ?
+> open Tür
+Mit Anlauf rammst du durch die Tür in den Schuppen.
+Du bist hier: ein Schuppen.
+Du siehst eine Handgranate.
+Mögliche Ausgänge: raus.
+Du schaust dich in dem Schuppen um. Er ist weitgehend leer. Es gibt auch keinen Hinterausgang.
+Plötzlich hörst du ein metallisches Klimpern und du siehst neben dir eine Stabhandgranate durch den Raum kullern.
+Jetzt schnell handeln... Willst du die Granate zurückwerfen, oder nach draussen stürmen - zum Lastwagen ?
+> throw Handgranate
+Schnell hebst du die Granate auf und beförderst sie zurück nach draussen. Du kannst dir ein Grinsen nicht verkneifen, als du einen lauten Knall, gefolgt von Schreien hörst. Du nutzt das Chaos und flüchtest aus dem Schuppen.
+Geduckt schlägst du ein paar Haken bis du den Tritt zur Fahrertür des Lastwagens erreichst. Sie steht halb offen, so daß du dich aus vollem Lauf ins Führerhaus werfen kannst.
+Als du den Zündschlüssel umdrehen willst, greifst du ins Leere....
+Eine Kugel, die in die Windschutzscheibe einschlägt, läßt dich in den Fußraum sinken. Beherzt greifst du mit beiden Händen unter die Lenksäule und reißt heraus, was du in die Finger bekommst. In der linken hälst du ein schwarzes Kabel, in der Rechten ein grünes und ein gelbes. Wäre doch gelacht, wenn du diese Kiste nicht zum Laufen kriegen würdest...
+> touch Kabel schwarz und grün
+Ein kurzes stottern... und dann hörst du das beruhigende Geräusch eines Laufenden Motors.
+Du bist hier: Flucht im Lastwagen.
+Mögliche Ausgänge: nach Norden oder nach Osten.
+Du trittst aufs Gas und versuchst so schnell wie möglich aus der Schussbahn zu gelangen. Noch ein paar mal hörst du metallisches Klimpern, als Gewehrkugeln in den Lastwagen einschlagen und du ziehst instinktiv den Kopf ein, dann fährst du um eine Ecke und läßt die Soldaten hinter dir. Vorerst, denn so leicht lassen sich die Schergen des Generals mit Sicherheit nicht abschütteln.
+Du musst nun versuchen das Flugfeld draussen vor der Stadt zu erreichen. Dort wartet dein alter Freund Max mit einem hoffentlich abflugbereiten Luftschiff, das euch in den Dschungel bringen soll - dorthin wo sich das Amulett des Lebens befinden muss.
+Welchen der beiden Wege schlägst du ein ? Die Hauptstrasse im Norden, oder lieber die Seitenstraße im Osten ?
+> Norden
+Die Hauptstrasse ist breit und recht gut ausgebaut. Schnell kannst du deine Geschwindigkeit erhöhen. Doch leider bist du nicht der einzige, der diesen Weg eingeschlagen hat. Im Rückspiegel siehst bedrohlich die Silhouette eines Armee-Lasters näherkommen.
+
+Was willst du tun ?
+Gas geben und weiterfahren (Norden), oder den Laster abdrängen oder ausbremsen?
+> Ausbremsen gegnerischer Lastwagen
+Du wartest ab, bis der Lastwagen fast aufgeholt hat, dann trittst du mit beiden Füßen aufs Bremspedal. Der Aufprall ist so heftig, daß du mit dem Kopf in die Windschutzscheibe krachst.
+
+Argh, das tut weh !  (Energie -1)
+Aber als du dich wieder aufrappelst und in den Rückspiegel schaust, siehst du, daß deine Attacke ihr Ziel nicht verfehlt hat. Der gegnerische Lastwagen bleibt rauchend zurück.
+Du bist hier: Stadtgrenze.
+Mögliche Ausgänge: nach Norden.
+Du läßt die letzten Hütten hinter dir. Vor dir liegen die letzten 2 Kilometer zum Flugplatz. Deine direkten Verfolger hast du abgeschüttelt, aber weiter hinter dir siehst du eine Staubwolke von der Straße aufsteigen die nichts gutes verheißt. Hoffentlich hat Max alles für einen schnellen Start vorbereitet...
+> Norden
+Du bist hier: Flugplatz.
+Du siehst ein Kiste mit Nägeln.
+Mögliche Ausgänge: nach Westen, nach Osten oder nach Süden.
+Du preschst um die letzte Wegbiegung und plötzlich siehst du vor dir auf einer gerodeten Lichtung dein Luftschiff, das dich zu deinem Ziel bringen soll. Es ist ca. 30 Meter lang und sieht aus wie eine eckige Zigarre. Diverse Flicken und die rostige Kabine verraten dir - dieses Gefährt hat seine besten Tage wohl hinter sich. Ist ja auch kein Wunder, bei dem Preis den du einem französischen Schwarzmarkthändler dafür bezahlt hast.
+In einem Liegestuhl daneben flözt sich dein Kumpel Max in der Sonne. Der Lärm deines Lastwagens veranlasst ihn gerade mal dazu seinen Sonnenhut ein paar Zentimeter anzuheben.
+Hastig springst du aus dem Wagen und rennst wild gestikulierend auf ihn zu: "Schnell ! Starten! Die sind uns auf den Fersen"
+Verschlafen steht Max auf und stammelt: "Moment... Benzinpumpe läuft noch... und wir brauchen noch die Karte aus dem Zelt." Dann springt er auf und rennt Richtung Luftschiff.
+In diesem Moment hörst du auch schon das Brummen von Motoren. Gleich werdet ihr Besuch bekommen.
+
+Wohin zu erst ? Zum Zelt im Westen, zur Benzinpumpe im Osten oder versuchst du die Zufahrt im Süden zu blockieren ?
+> Süden
+Hier befindet sich die Einfahrt zum Flughafen. Dies ist der einzige Weg auf den Flugplatz. Du hast nicht mehr viel Zeit bevor das erste Fahrzeug hier ist.
+
+Möchtest du die Zufahrt mit einem schweren Baumstamm versperren ? Oder hast du vielleicht Nägel, die du verstreuen könntest ?
+> Blockieren Einfahrt
+Du wuchtest einen grossen Baumstamm quer vor die Einfahrt. Mit Mühe kannst du ihn heben und dein Rücken bedankt sich mit einem schmerzhaften Krachen. Aber die Einfahrt ist erst mal zu....
+
+Argh, das tut weh !  (Energie -1)
+Willst du nach Nordwesten zum Zelt, oder nach Nordosten zur Pumpstation ?
+> Nordwesten
+Das Zelt in dem Max die letzten Nächte verbracht hat um das Luftschiff flott zu machen. Vor dem Zelt steht auf einem Lagerfeuer ein Kessel mit Max' berühmtem Feuertopf. Im Zelt muß auch die Karte sein, die ihr braucht um euer Ziel zu finden.
+Im Norden geht es zum Luftschiff, im Osten zur Pumpstation.
+Schnell, schnapp sie dir und dann nichts wie weiter.
+> take Karte
+Du nimmst sie an dich.
+> Osten
+Diese Station dient dazu Treibstoff in das Luftschiff zu pumpen.
+Der Schlauch ist noch mit dem Luftschiff verbunden.
+Schnell, den Schlauch ab und weiter zum Luftschiff.
+Im Westen geht es zum Zelt, im Nordwesten zum Luftschiff.
+> Abkoppeln Schlauch
+Du kappst die Verbindung zwischen Schlauch und Luftschiff.
+> Nordwesten
+Im Spurt legst du die letzten Meter zum Luftschiff hin. Max ruft dir entgegen:
+"Schnell rein mit dir, alter Freund. Da kommen sicher gleich noch mehr von denen."
+Er reicht dir die Hand und hilft dir in die Kabine des startenden Luftschiffs. Schnell gewinnt ihr Höhe, doch dann - plötzlich ein Ruck. Das Luftschiff befindet sich etwa 10 Meter über dem Boden. Bestürzt lehnst du dich aus dem Fenster und siehst das fest gespannte Halteseil. Das hattet ihr in der Eile wohl vergessen. Leider kannst du es von hier nicht erreichen.
+> use bumerang
+Du hälst dich am Metall des Türrahmens fest und hängst dich wagemutig aus der Gondel. In der anderen Hand deinen Bumerang. Du wirfst ihn zielgenau Richtung Seil und siehe da - mit einem peitschenden Knall reißt es und gibt das Luftschif frei.
+Schon bald seht ihr Soldaten auf den unter euch kleiner werdenden Flugplatz strömen. Du zeigst auf den Gegner-Auflauf und sagst "Gerade noch rechtzeitig, jetzt wäre es unangenehm da unten" während du Max lachend auf die Schulter klopfst.
+"Wie in alten Zeiten." antwortet er, ebenso erfreut heil dort heraus gekommen zu sein.
+Du tastest deinen Körper ab.
+Die Platzwunde an deinem Kopf fängt langsam an zu verkrusten. Und eine Beule gibt's wohl auch.
+Du denkst dir "Na ja, du hast schon schlimmeres überlebt."
+
+Du schaust auf deine Karte und kontrollierst euren Kurs. Du denkst dir "Jetzt kann mich nichts mehr aufhalten. Das Amulett des Lebens ist so gut wie mir", während nur einige Meter über dir pfeifend Helium durch mehrere Einschusslöcher aus der Hülle entweicht....
+
+- ENDE TEIL 1 -
+[state=Finished]

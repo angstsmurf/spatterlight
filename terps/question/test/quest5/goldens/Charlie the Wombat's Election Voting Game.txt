@@ -1,0 +1,125 @@
+You are on the sidewalk.
+You can see a Liberal Party volunteer, a Greens Party volunteer, a Palmer Party volunteer and Kevin Rudd.
+You can go north into the schoolyard.
+You are outside your local primary school. You should go into the school and cast your ballot!
+> speak to Liberal Party volunteer
+
+> speak to Liberal Party volunteer
+"What? Oh, yeah, Vote LNP number 1. Sorry, I'm worried about my Mum. She lives in QLD and there are fresh reports just in of possible floods." What a strange and potentially very useful piece of information. You might want to tell someone about it.
+> tell Kevin Rudd about floods
+
+> tell Kevin Rudd about floods
+"Flooding up north? Queenslanders need me. Gotta zip!" You don't know where that zip line appeared from, but before you can blink, Kevin is harnessed up and flying away down the street. Oh Kevin.
+> north
+
+> north
+
+You are in a courtyard.
+You can go west, northwest, east or south.
+The majesty of the public school system is laid out before you. Demountables, demountables everywhere. To the west there is a long queue of people waiting to vote. To the east there is a sausage sizzle. The exit to the sidewalk is behind you to the south.
+> west
+
+> west
+
+You are at the back of the back of the queue.
+You can go north to the front of the queue, east to the sausage sizzle or southeast to the sidewalk.
+This queue isn't going anywhere, fast. You could be here all day. You don't have time for this. Also, the ground here is unusually spiky.
+
+> look at ground
+
+> look at ground
+There is a toy dinosaur under your shoe. It is seriously cramping your style.
+> take dinosaur
+
+> take dinosaur
+You take the cute little herbivorous quadruped and put it in your pocket.
+> southeast
+
+> southeast
+
+You are on the sidewalk.
+You can see a Liberal Party volunteer, a Greens Party volunteer and a Palmer Party volunteer.
+You can go north into the schoolyard.
+You are outside your local primary school. You should go into the school and cast your ballot!
+> give dinosaur to Palmer Party volunteer
+
+> give dinosaur to Palmer Party volunteer
+"OH WOW THANK YOU" he says with glee. And with that, he dances off down the road. What a strange fellow you think. Oh, did he leave something behind on the grass?
+> look at grass
+
+> look at grass
+What appears to be a small scale model of the Titanic is lying on the grass. The Palmer Party volunteer must have dropped it.
+> take miniature model Titanic
+
+> take miniature model Titanic
+You pick up the little ship, and suddenly things get very weird. Time and space seem to warp, and a portal materialises in front of you. It appears you could go in if you wanted to.
+> in
+
+> in
+
+You are in a spaceship.
+You can see a perpetual motion machine and a Clive Palmer suit.
+You can go back in the portal you arrived through.
+You can tell you're in a spaceship, because you've watched lots of sci-fi blockbuster movies, and this looks fairly exactly like Hollywood thinks a spaceship should look like. Who knew? So yeah there's viewports and consoles and artificial gravity and whatnot. The room you're in is about the size of Captain Picard's ready room. There doesn't appear to be any doors to anywhere else, but what would you know.
+> take perpetual motion machine
+
+> take perpetual motion machine
+You pick up the machine. It is, unsurprisingly, lighter than it looks. Time to scamper before the owner turns up. Clive Palmer is batshit crazy, you don't wanna meet the thing that pilots him.
+> in
+
+> in
+
+You are on the sidewalk.
+You can see a Liberal Party volunteer and a Greens Party volunteer.
+You can go north into the schoolyard or in the portal.
+You are outside your local primary school. You should go into the school and cast your ballot!
+> give perpetual motion machine to Greens Party volunteer
+
+> give perpetual motion machine to Greens Party volunteer
+She looks at the machine with minimal interest. "Might come in handy". She wanders off, leaving behind her placard.
+> take placard
+
+> take placard
+Ok. You look like a conformist Greens Party lackey. Oh well.
+> north
+
+> north
+
+You are in a courtyard.
+You can go west, northwest, east or south.
+The majesty of the public school system is laid out before you. Demountables, demountables everywhere. To the west there is a long queue of people waiting to vote. To the east there is a sausage sizzle. The exit to the sidewalk is behind you to the south.
+> east
+
+> east
+
+You are in front of the sausage sizzle.
+You can see Bob Brown.
+You can go west to the back of the queue, northwest to the front of the queue or southwest to the sidewalk.
+The greasy aroma of barbeque wafts over you. Mmmm...
+> give placard to Bob Brown
+
+> give placard to Bob Brown
+"Fantastic! Thanks for that. I'm not here. Take this vegie patty." You should take it.
+> take vegie patty
+
+> take vegie patty
+You take the vegie patty. Yay!
+> northwest
+
+> northwest
+
+You are at the front of the queue.
+You can see an AEC dude.
+You can go south to the back of the queue, east to the sausage sizzle, southeast to the sidewalk or north into the school hall.
+This is where you need to be! The back of the queue is no place for you! But this AEC dude is blocking the door.
+> give vegie patty to AEC dude
+
+> give vegie patty to AEC dude
+"Hey thanks! Why don't you go straight in and vote. Screw egalitarianism. Money talks, but food opens doors."
+> north
+
+> north
+
+You are in a school hall.
+You're in! Time to cast your donkey vote and get the hell outta here! Congratulations. You've completed the quest!
+[state=Finished]

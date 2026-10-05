@@ -1,0 +1,107 @@
+You are in a Cell.
+It's a white-walled prison cell, very simplistic.
+You can see an intercom.
+You can go north.
+> x intercom
+
+> x intercom
+It's a sci-fi-ish intercom. There's a large SPEAK button.
+As you look, the intercom starts to talk. "Who are you?"
+> tell intercom about me
+
+> tell intercom about me
+"You sound like a weirdly nice person. Come down to my office."
+You hear a click as the door opens... you can now go NORTH.
+> n
+
+> n
+
+You are in a Hallway.
+A long hallway with only two doors on it.
+
+You can go south or west.
+> w
+
+> w
+
+You are in a Warden's Office.
+It's the warden's office.
+You can see an  (on which there is a coffee cup and a drawer), Warden and an intercom.
+You can go east.
+> speak to warden
+
+> speak to warden
+"You're the prisoner? Well, listen carefully. You're here on the grounds of...but that's classified. Tell you what, if you can leave this room, I'll tell you. Heh heh!"
+You hear a clang as the door locks itself behind you, and a whirring comes as the warden is elevated into a higher room...
+> use intercom
+
+> use intercom
+There's a click and a hole appears in the floor...
+> d
+
+> d
+
+You are in a Warden's Quarters.
+It's dark in here.
+You can see a lamp.
+
+> turn on lamp
+
+> turn on lamp
+The lamp is on now. You can see.
+(May I suggest going up and coming back down to see the room description?)
+> u
+
+> u
+
+You are in a Warden's Office.
+It's the warden's office.
+You can see an  (on which there is a coffee cup and a drawer) and an intercom.
+You can go east.
+> d
+
+> d
+
+You are in a Warden's Quarters.
+It's the warden's bedroom. There are doors to the staff rooms and up to his office. How convenient to live right under your work!
+You can see a bed, a lamp and a television.
+You can go up or east.
+> x bed
+
+> x bed
+It's the warden's bed. It looks comfortable.
+This bed has some things on it, like a teddy and a pillow.
+> take pillow
+
+> take pillow
+You took the pillow from the bed.
+There was a switch under the pillow! Wonder what it did?
+> e
+
+> e
+
+You are in a Staff Room.
+It's the staff room. It's very spacious.
+You can see a minikitchen (which contains a sink and a cupboards), an  (on which there is a key), a Maid and a keyhole.
+You can go south or west.
+> take key
+
+> take key
+You pick up the key.
+> use key with keyhole
+
+> use key with keyhole
+The gate has been unlocked!
+> s
+
+> s
+
+You are an outdoors.
+You're outside at last!
+You can see the world.
+You can go north.
+> x world
+
+> x world
+You've escaped the jail-ish thing and completed the game! Except you still don't know why you were there...
+[state=Finished]

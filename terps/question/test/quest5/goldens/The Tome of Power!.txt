@@ -1,0 +1,257 @@
+You are in a Entryway.
+For years, you have been seeking the ancient Ziggurat of the King.
+
+This Ziggurat is fabeled to contain the Tome of Power, a book supposedly containing the methods to mastering magic.
+
+There is a small room to the east and a corridor leading north.
+You can go  east or north.
+> n
+> n
+You are in a Corridor.
+A large corridor extends for a few meters before ending at a large doorway. Torches light the way to the door.
+You can go south or north.
+> n
+> n
+You are in You are in the Atrium.
+The door to the corridor slams as you enter the room.
+
+This room is brightly lit by torches. A unusually clean pool of water sits in the middle of the room.
+
+Two large statues stand on both sides of the sealed corridor.
+
+You can see an doorway to the east .
+You can see a Statues, a Cup, a Pool and a Pistol.
+You can go in or east.
+There is a shiny object in the pool.
+> take cup
+> take cup
+You pick it up.
+> take pistol
+> take pistol
+You pick up the pistol, and place it in a holster. It's probably going to come in handy, who knows what's in this place.
+> use cup with pool
+> use cup with pool
+You fill the cup with the fresh water of the pool.
+> in
+> in
+You are in a Pool.
+As you dive into the fresh water, a feeling of strength fills you.
+
+You can see a Helmet.
+You can go out.
+> take helmet
+> take helmet
+You put the helmet on. It's a perfect fit!
+> out
+> out
+You are in You are in the Atrium.
+The door to the corridor slams as you enter the room.
+
+This room is brightly lit by torches. A unusually clean pool of water sits in the middle of the room.
+
+Two large statues stand on both sides of the sealed corridor.
+
+You can see an doorway to the east .
+You can see a Statues and a Pool.
+You can go in or east.
+> e
+> e
+You are in a Large room.
+You enter a large room with vines growing on the walls.
+
+A picture of some kind of bird is etched into the ground.
+
+There is an altar with something written on it.
+You can go west.
+> use cup of water with altar
+> use cup of water with altar
+You pour the water over the Altar. A voice talks to you in your head. "Thank you, there is a button on the wall. Press it."
+> press button
+> press button
+A tunnel reveals itself, You can climb through it if you want.
+> in
+> in
+You are in a Tunnel.
+You climb into the tight tunnel.
+
+At the other end of it you see some kind of dining hall.
+
+You can see a Snake.
+You can go back to the large room.
+Unfortunatley, a snake has found its way into the tunnel, and is currently blocking your way.
+> use pistol with snake
+> use pistol with snake
+You fire at the snake. The bullet kills it.
+> out
+> out
+You are in a Dining Hall.
+You enter the dining hall.
+
+As you look around it, you see something familiar.
+
+The emblem of your arch nemesis, Count Hangler, is scratched into the wall.
+You can go southwest.
+> sw
+> sw
+You are in a a Hallway.
+You are in a large hallway.
+
+Various paintings of Count Hangler decorate the walls.
+
+You hear voices coming from the south.
+You can go northeast or south.
+> s
+> s
+You are in a Library.
+You walk into the library, and quickly hide behind some books.
+
+You can see a Book and a Soldiers.
+You can go north or east.
+There are some soldiers in here, and they are packing heat!
+> use pistol with soldiers
+> use pistol with soldiers
+You shoot at the two soldiers, killing them both. Yeesh, Hangler doesn't spend much on armour for these chumps. One of the soldiers dropped something.
+> take id
+> take id
+You pick it up.
+> take book
+> take book
+You put the book into your bag.
+> e
+> e
+You are in You are in more of the library.
+The Library is much larger than you thought it was. There are discarded uniforms left and right.
+
+A very tough guard is at the exit to the Courtyard.
+You can see a Tough guard.
+You can go west or east.
+> use id with tough guard
+> use id with tough guard
+"What are you doing out here recruit!? Get in there and help with the excavation!"
+> e
+> e
+You are in a Courtyard.
+You enter a large courtyard filled with guards. Portraits of the Count decorate the room.
+
+You can see a Strange Guard, a Digging machine and a Statue.
+You can go west, south or north.
+> s
+> s
+You are in a Mess Hall.
+You enter a slighly smaller room than the last, this time it smells of stew.
+
+Many guards are eating here.
+You can see a Guard eating stew and a Stew.
+You can go north.
+> take stew
+> take stew
+You pour the stew into your thermos.
+> n
+> n
+You are in a Courtyard.
+You enter a large courtyard filled with guards. Portraits of the Count decorate the room.
+
+You can see a Strange Guard, a Digging machine and a Statue.
+You can go west, south or north.
+> n
+> n
+You are in a Artifact Room.
+You are in small room with shelves lined with ancient artifacts. The stuff in here alone has got to be worth a fortune!
+You can see a Equipment.
+You can go south.
+> take equipment
+> take equipment
+You take some armour and a spear and shield.
+> s
+> s
+You are in a Courtyard.
+You enter a large courtyard filled with guards. Portraits of the Count decorate the room.
+
+You can see a Strange Guard, a Digging machine and a Statue.
+You can go west, south or north.
+> use equipment with statue
+> use equipment with statue
+You put the armour on the statue and give it the shield and spear. It rumbles to life...
+The statues eyes glow a blood red. A guard runs to try and kill it, but he finds himself on the wrong side of a spear. The guards are screaming and running from the stone colossus.
+The guards are almost all dead, with the exception of Ms. Grin. She ran to your side and watched the destruction with you. Suddenly the tough guard from before walks into the room.
+The rocket smashes the guardian into rubble. "What's going on in here!?" The guard yells. At that same moment, the drill roars back to life, and finishes drilling into the wall.
+Ms. Grin looks at you. "Well don't just stand there, go talk to him or else he will get suspicious!"
+> speak to tough guard
+> speak to tough guard
+"What the heck happened in here!?"
+What do you do?
+ - Explain that the statue woke up and went crazy.
+The guard goes to the radio. "Yeah, the statue woke up." The voice on the radio yells something. "Yeah. Y-Yeah I know."  "What!? No, it was just a-" The voice is yelling more now. The guard looks at you. "No we found him looking around the statue." The voice says something in an annoyed tone. "Oh. I see..."
+You don't like the way he said that.
+The guard puts down the radio. "Recruit, where did you come from?"
+"Uhh... I uh, came from..." You look around the room to find something.
+"Uh, west... ken... spor... gia."
+"West Kensporgia?" He walks back over to the radio, and after some whispering he walks back.
+"West Kensporgia isn't even a real coun-"
+Ms. Grin has used your distraction to get behind the guard and break his neck.
+"Yeesh, that took longer than it needed to. Now then, lets find out who he was talking to." She picks up the radio, and after a few seconds she hangs up in a hurry. "Oh no! It's Hangler. and he's on his way here!"
+The door to the Tome room crumbles. Hangler enters the room from his quarters, which were hidden behind an unmarked wall.
+"Now what went on in here?" the count says confused.
+"The statue killed him!" Ms. Grin says.
+"But I was just talking to him on the radio." the count says.
+"Uh, yeah but the statue stabbed him when he was talking to you on the radio."
+"Well, I guess that makes sense." He walks into the now open tome room."
+> e
+> e
+You are in a Tome Room.
+The tome room glows an eerie blue. You can't shake the feeling you are being watched.
+
+A large statue, with the tome resting in its hands sits at the far side of the room. Infront of it seems to be some kind of magic shield.
+You can see a Count Hangler, a Tome, a Magic field and a Master Statue.
+You can go out.
+> speak to count hangler
+> speak to count hangler
+"Oh, it's you again. What do you want?" the count says.
+"Who am I? I'm surprised you don't remember me." you reply.
+'It's me, the man you banished from Slangoria!"
+"Who?" Hangler says, noticably confused.
+"Y-You don't remember me?" you say, shocked.
+"Yeah, I honestly don't recognise you."
+"Oh, Ok then."
+He turns to the statue.
+"Oh great and powerful Master of the tome! Bestow upon me your knowledge of the arcane arts!"
+The statues eyes open, and it speaks.
+"What have you to present me, mortal!?"
+"What do I have to present to you? Well, uh..."
+The count fumbles around for a second or two.
+"Aha!" He pulles out a large diamond. "Here you go!"
+"A diamond? You offer me riches."
+"Eeyup!" Says the count excitedly. Less than a second later, the diamond vaporises before your eyes.
+"I am dead, you buffoon! What need do I have for riches!?" the statue says, noticably ticked off. You can feel the heat in the room rise a little.
+"Um, I also have this!" the count pulls out his prized revolver.
+"A weapon huh. What do you offer me with this, defence or offence?"
+"Why, offence of course!"
+"I AM SICKENED BY YOUR OFFERING!"
+"W-what!?" the count screams as he is raised into the air by a supernatural force. "You can't do this to me! I am a billionaire! You can't kill me! I'm too important!"
+There is a sickening snap as he is torn limb by limb by invisible arms.
+"Now then, you there." The statue says to you, "What do you offer me?"
+> give helmet to master statue
+> give helmet to master statue
+The statue's voice suddenly becomes less demanding.
+"A lowly soldiers helmet. You offer me protection?"
+You nod reluctantly
+"Since you offer me protections, I shall grant you the best protection I have!"
+The tome burns in the statues hands, and suddenly, a green circle forms around your feet.
+"Uh, if you don't mind me asking, what're you doing?"
+A green field surrounds you and slowly fades away.
+"I have granted you protection from all attacks, you will live without fear of harm."
+"Uh, thanks!" you say, happy that the statue did not tear you limb from limb.
+"I must send you away now. Now that the tome is gone, there is no reason for this ziggurat to exist."
+The ground begins to shake, and you meet with Ms. Grin and escape the crumbling ziggurat.
+
+-5 weeks later-
+You wake to a beautiful morning in your home country of Slangoria.
+"Man, it's good to be home."
+Ms. Grin kicks open the door and rushes to you.
+"Smiles! Hangler lives!" she screams.
+"What! I saw him explode before my eyes!"
+"A group of Hangler loyalists are resurrecting him with the magical 'Rod of Resurrection' found in the Amazon!"
+You sigh, rubbing your forehead.
+"Here we go again..."
+THE END
+[state=Finished]

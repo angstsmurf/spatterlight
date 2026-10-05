@@ -1,0 +1,258 @@
+Esther Harris was found murdered in her bed this morning. The grieving family called the police, who noted that there was no sign of forced entry. They called you, a renowned homicide detective. You have just arrived at her family's farm. Esther's husband died of a heart attack years ago.
+Her son, Bobby Harris (40) and his wife, Marcia Harris (36), were in the middle of a two-week visit with Esther when she was killed. Bobby is a US Senator, and Marcia is a high-powered attorney. They have no children.
+Her daughter, Irene Harris (33), lives with her. Irene never married. She worked as a nurse in the city before her father's death. After, she came to take care of her mother.
+Her son, her daughter, or her daughter-in-law is the murderer. It's your job to explore the house and grounds, figure out who killed Esther, and find enough evidence to get a conviction or a confession.
+Good luck.
+
+You are at the front gate. You take a breath and hope you can put this case to rest.
+Gate
+The entrance to the farm. You locked it behind you when you walked in.
+You can see the house up the drive and a Rusty Gate.
+You can go north.
+> n
+
+> n
+
+Path
+The path to the lawn.
+You can see the house, far-off, and  a Pile of Gravel.
+You can go south or north.
+> search pile of gravel
+
+> search pile of gravel
+You find the Shed Key.
+> take shed key
+
+> take shed key
+You pick it up.
+> n
+
+> n
+
+Lawn
+The farm house's front yard. Don't try to climb the tree: you're too heavy. No offense.
+You can see the house in front of you, a small tree, and  a Black Jeep.
+You can go south or north.
+> n
+
+> n
+
+Porch
+The house's porch. It has a white wooden railing and a matching porch swing.
+You can go south, east, west or north.
+> n
+
+> n
+
+Entryway
+The first room of the house.
+You can see the main bedroom where Mrs. Harris was murdered, the living room, and a Staircase.
+You can go up, east, west or south.
+> w
+
+> w
+
+Living Room
+The living room.
+You can see Bobby Harris, Marcia Harris, a Chair, a Sofa, a Table and a TV.
+You can go east or north.
+> n
+
+> n
+
+Dining room
+The dining room.
+You can see  a Table and Chairs.
+You can go south, north or east.
+> n
+
+> n
+
+Kitchen
+The kitchen. It's a little cramped.
+You can see  Irene Harris, a Fridge, a Counter (on which there is a Knife), a Sink (containing Dirty Dishes) and a Stove.
+You can go south or north.
+> n
+
+> n
+
+Conservatory
+The closed-in back porch.
+You can go south or north.
+> n
+
+> n
+
+Rear Lawn
+A back yard.
+You can see the door to the conservatory, the forest's edge, and  a Shed Door.
+You can go south or northwest.
+> unlock shed door
+
+> unlock shed door
+> nw
+
+> nw
+
+Shed
+You can see a Lightbulb.
+You can go southeast.
+> switch on lightbulb
+
+> switch on lightbulb
+You can see around the shed.
+> search table
+
+> search table
+You have found Room 3 Key concealed under the table.
+> take room 3 key
+
+> take room 3 key
+You pick it up.
+> se
+
+> se
+
+Rear Lawn
+A back yard.
+You can see the door to the conservatory, the forest's edge, and  a Shed Door.
+You can go south or northwest.
+> s
+
+> s
+
+Conservatory
+The closed-in back porch.
+You can go south or north.
+> s
+
+> s
+
+Kitchen
+The kitchen. It's a little cramped.
+You can see  Irene Harris, a Fridge, a Counter (on which there is a Knife), a Sink (containing Dirty Dishes) and a Stove.
+You can go south or north.
+> s
+
+> s
+
+Dining room
+The dining room.
+You can see  a Table and Chairs.
+You can go south, north or east.
+> s
+
+> s
+
+Living Room
+The living room.
+You can see Bobby Harris, Marcia Harris, a Chair, a Sofa, a Table and a TV.
+You can go east or north.
+> e
+
+> e
+
+Entryway
+The first room of the house.
+You can see the main bedroom where Mrs. Harris was murdered, the living room, and a Staircase.
+You can go up, east, west or south.
+> up
+
+> up
+
+Upstairs Hall
+The upper hall leading to the guest bedrooms.
+You can see three doors, including Bedroom 3 Door and a Staircase.
+You can go down, east, west or northwest.
+> unlock bedroom 3 door
+
+> unlock bedroom 3 door
+You unlock the door.
+> nw
+
+> nw
+
+The Forgotten Room
+The room looks different from the rest of the house. A thick layer of dust covers everything, like no one's been in here in years. The wallpaper is light blue with silver stripes. There's a crib in the center of the room with a pink blanket and a rattle.
+You can see a Baby Blanket and a Rattle.
+You can go southeast.
+> take baby blanket
+
+> take baby blanket
+You pick it up.
+Irene walks in. "So," she says. "You found the key to this place. What do you think?"
+You are silent.
+She takes another step inside and plays with the edge of the Crib. "It's hard to believe I haven't been in here in two decades." She turns and looks you sharply in the eye. "I was thirteen. Unwed. What were we supposed to do? Give her up for adoption." She sniffles, tears pricking at her eyes. "That's what they wanted, anyway. Momma and Daddy." She covers her eyes with her hand, and a small key drops out of her pocket. She doesn't notice as she cries.
+> take small key
+
+> take small key
+You pick it up.
+> se
+
+> se
+
+Upstairs Hall
+The upper hall leading to the guest bedrooms.
+You can see three doors, including Bedroom 3 Door and a Staircase.
+You can go down, east, west or northwest.
+> w
+
+> w
+
+Irene's Room
+You can see a Jewelry Box, a Bed and an Area Rug.
+You can go east.
+> open jewelry box
+
+> open jewelry box
+Unlocked.
+You open it.
+> take irene's letter
+
+> take irene's letter
+You pick it up.
+> e
+
+> e
+
+Upstairs Hall
+The upper hall leading to the guest bedrooms.
+You can see three doors, including Bedroom 3 Door and a Staircase.
+You can go down, east, west or northwest.
+> d
+
+> d
+
+Entryway
+The first room of the house.
+You can see the main bedroom where Mrs. Harris was murdered, the living room, and a Staircase.
+You can go up, east, west or south.
+> w
+
+> w
+
+Living Room
+The living room.
+You can see Bobby Harris, Marcia Harris, a Chair, a Sofa, a Table and a TV.
+You can go east or north.
+> use irene's letter with bobby harris
+
+> use irene's letter with bobby harris
+Bobby reads the letter. He looks up at you.
+"This is..." He takes a breath. "This is Irene's handwriting. No doubt about it. I just can't believe...I never knew about the baby. She must have been pregnant while I was at college."
+"I knew," Marcia says. "That was one of the reasons Esther hated me. The birth parents contacted me about finding Irene. When we did, I couldn't believe. Irene told me the story and begged me not to tell Esther, but I had to confront her. This was while Bobby and I were still dating." She looks at him. "I'm sorry. I had to ask Esther, but I swore never to tell you."
+He puts an arm around her. "It's okay. It'll be okay," he corrects. Let's go talk to Irene. Will you need reinforcements?" he asks you.
+You consider. "No. I think she'll come quietly."
+Irene walks in and hold out her hands for handcuffs.
+> use handcuffs with irene harris
+
+> use handcuffs with irene harris
+Irene goes peacefully. You poke your head back into the living room and tell Bobby and Marcia that everything will be okay.
+ They nod and shuffle closer together.
+"You know," Marcia says. "I can kind of understand why she did it."
+You nod. "Hell hath no fury."
+
+Thank you for playing!
+I hope you enjoyed it; this was my first attempt at a text game!
+--A. Graczyk
+[state=Finished]

@@ -1,0 +1,78 @@
+You are in a lobby.
+You can see a mysterious note.
+You can go west, north, northeast, east or southeast.
+The lobby is deserted. The only sign that there were people here just a while before, is the popcorn boxes and sweet wrappers littered across the floor.
+> w
+> w
+You are in a sweet shop.
+You can see a chocolate bar.
+You can go east or north.
+The concession shop seems to be raided, as there's nothing left but a chocolate bar.
+> n
+> n
+You are in a Screen 1.
+You can see a key.
+You can go south.
+The smallest of all the screens. The Lorax is currently showing.
+> take key
+> take key
+You take they key and stow it away safely.
+> s
+> s
+You are in a sweet shop.
+You can see a chocolate bar.
+You can go east or north.
+The concession shop seems to be raided, as there's nothing left but a chocolate bar.
+> e
+> e
+You are in a lobby.
+You can see a mysterious note.
+You can go west, north, northeast, east or southeast.
+The lobby is deserted. The only sign that there were people here just a while before, is the popcorn boxes and sweet wrappers littered across the floor.
+> se
+> se
+You are in a Corridor.
+You can see your now dead friend Catherine.
+You can go northwest, northeast, southwest or southeast.
+This is the corridor connecting the bathrooms to the lobby.
+> x catherine
+> x catherine
+Catherine is lying dead on the ground, a look of horror on her face. It looks like someone jammed a light switch into her head. A message plays from an unknown source "You better hurry, if you don't want to end up like sweet little Catherine here..." followed by static.
+> se
+> se
+You are in the .
+You can go up.
+In what you thought was a storage room, is a shiny golden elevator. You step in, and the doors slide together.
+> up
+> up
+You are in a Employees Only room II.
+You can go out.
+The elevator shoots upwards. You fall down on your behind in the confusion and bump your head off the wall.
+> out
+> out
+You are in a Projector Room.
+You can go up.
+The projector is still flickering. The credits of The Dark Knight Rises are playing on the screen. A crooked ladder hangs feebly from the roof.
+The doors snap shut behind you. Guess you're not going back down the elevator again.
+> up
+> up
+You are in the a The Maze of Hopelessness.
+You can see a The Switch To End It All and a speaker.
+You can go west, northeast, south, northwest, southeast, north, east or southwest.
+The ladder that you climbed up falls and a panel closes over the hatch you came through.
+> switch on speaker
+> switch on speaker
+You switch it on.
+"So you've made it this far. I applaud you. But here's where it gets tricky, see. Behind one of these doors is your freedom. Choose a wrong door, and your life will meet an untimely end. Good luck."
+> sw
+> sw
+You are in a Freedom.
+You can see a mobile phone.
+You made it! But wait. You look around and see dying people strewn across the floor. They have ugly lime green boils all over their bodies. The poison must have already begun its work.
+> x mobile phone
+> x mobile phone
+You must use this to ring an ambulance to save the dying people.
+> call an ambulance mobile phone
+> call an ambulance mobile phone
+"Don't worry, we're on our way."
+[state=Finished]

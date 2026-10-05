@@ -1,0 +1,71 @@
+You are in a Reception.
+You can see a Desk, a Paper, a Pen and a Drawer.
+You can go west or east.
+This room appears quite dark. You came here to work, to ask for help from the librarian. But it seems that no one is here... You suddenly have an urge to leave.
+> w
+> w
+You are in a Fiction Area.
+You can see a Through The Looking Glass, a Couch, a Shelf and a Pillows.
+You can go east or north.
+A cosy area, designed to make the customer feel welcome and comfortable. It doesn't work. The walls are lined with books and books,all things you have read, or can recall hearing about from some far flung conversation with a forgotten person.
+> take Through The Looking Glass
+> take Through The Looking Glass
+You pick it up.
+> n
+> n
+You are in an English Literature Area.
+You can see a Lord Darlington and an A Christmas Carol.
+You can go south or east.
+A dark room, lined with shelves, with very little in it.
+> e
+> e
+You are in a Meeting Room.
+You can see a Coffee Table, a Sofa and a Lamp.
+You can go west or east.
+A comfortable room lined with books about all things bright and beautiful.
+> look at lamp
+> look at lamp
+A cream lamp, which is not switched on cannot be switched on. It has a bulb in it.
+> take bulb
+> take bulb
+You pick it up.
+> break bulb
+> break bulb
+You smash it on the ground.
+> take fillament
+> take fillament
+You pick it up.
+> bend fillament
+> bend fillament
+You mould the fillament into a key shape.
+> e
+> e
+You are in a Study Area.
+You can see a Table, a Chair and a Glass of Water.
+You can go west, east or south.
+A plain room, nothing much. But on the west door in a code reader.
+> use key
+> use key
+You unlock the east door with the makeshift key
+> e
+> e
+You are in a Guard Room.
+You can see a Guard.
+You can go west or east.
+A small stone room.
+> read to guard
+> read to guard
+He takes no notice,
+But you open "Through the Looking Glass" and begin to read, before you can finish reading the sentence, he is on the floor sleeping.
+> e
+> e
+You are in a Box Room.
+You can see a Wooden Box.
+You can go west.
+A Grand room with velvet carpets and gold skirting board.
+> open wooden box
+> open wooden box
+You carefully open the box, it's worn hinges almost give way. You are extremely disappointed when you realize that it is empty. But just seconds later the bottom of the box fades to black, a bottomless pit. Something pushes you from behind and when you start tumbling down this ever expanding hole, you catch a glimpse of a Lord Darlington, sitting proudly on the edge of the box. But soon he fades away to nothingness.
+
+You sit bolt upright, fear gripping you, that was a terrible nightmare. But it's still 1:30 am, so you slip back off to sleep...
+[state=Finished]

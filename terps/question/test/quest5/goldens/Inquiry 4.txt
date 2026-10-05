@@ -1,0 +1,72 @@
+You are in a Childhood.
+You can see a Tub (containing a Cross and a Questions) and a Lego Set.
+You can go north.
+The familiar room is littered with toys and games of all kinds, piled up in corners or along walls. The wallpaper is a gentle blue, and there are tubs in the corner full of toys and other objects. There is a lego set in the middle of the room.
+> look
+> look
+You are in a Childhood.
+You can see a Tub (containing a Cross and a Questions) and a Lego Set.
+You can go north.
+The familiar room is littered with toys and games of all kinds, piled up in corners or along walls. The wallpaper is a gentle blue, and there are tubs in the corner full of toys and other objects. There is a lego set in the middle of the room.
+> x tub
+> x tub
+Nothing out of the ordinary.
+It contains a Cross and a Questions.
+> take cross
+> take cross
+You pick it up.
+> take questions
+> take questions
+You pick it up.
+> use cross on lego set
+> use cross on lego set
+You wiggle the cross into place, and it snaps into the top of the lego set! It's very clear now that this set is supposed to be a church. The roof opens up, and inside, you find a Religion.
+> take religion
+> take religion
+You pick it up.
+> x religion
+> x religion
+It's a beautiful, though elusive, shining light. It does make you feel better, but there's still a bit of an icky feeling in the pit of your stomach that you just can't completely chase away.
+> n
+> n
+You are in a Crossroads.
+You can see a Decision Door.
+You can go west, east, south or north.
+Two different roads, one going north-south, the other east-west, intersect here. The trails are pristine and well-kept, and the only off-putting thing is the large door in front of you, with the word "DECISION" written across it.
+> x decision door
+> x decision door
+Underneath the elaborately carved word "DECISION", you find three different recesses. One is just the right size and shape for a rosary, another is the right size for a rounded cube, and the final recess is the right size for... a sphere? It's hard to tell. The text below the recesses says "You cannot open this door if you hold any Questions. Once a decision has been made, one cannot go back. There are three decisions possible."
+> w
+> w
+You are in a Logos.
+You can see a Logic Furnace and a Scientific Method.
+You can go east.
+The room is a perfectly square chamber, with acheckerboard pattern running along the floor, walls, and ceiling of the room. There are chairs and a table, squared perfectly in the center of the room, and each with their own solid color. The room seems very constrained, direct, and efficient.
+> x scientific method
+> x scientific method
+The Scientific Method is a square box with a clear, round door on the front, much like a front-loading drier. You could probably fit two objects in there, although it looks like only two specific objects would fit. If it had everything inside of it, it could probably be activated fairly easily.
+> x logic furnace
+> x logic furnace
+The Logic Furnace is just like any other furnace. There's a fuel cap on one side, which can be opened to deposite fuel, and a small door which could be opened to place things inside of it. It's probably not much larger than a small book, but you wouldn't imagine needing to burn anything much bigger than that anyway. This could be activated if it was given proper fuel and something to burn.
+> give questions to scientific method
+> give questions to scientific method
+The Questions fits perfectly!
+> give religion to scientific method
+> give religion to scientific method
+The Religion fits perfectly!
+> activate scientific method
+> activate scientific method
+The machine whirrs and hums for a minute, and then dispenses Scientific Doubt straight into your inventory! And your Questions and Religion have disappeared!
+> i
+> i
+You are carrying a Cross and a Scientific Doubt.
+> e
+> e
+You are in a Crossroads.
+You can see a Decision Door.
+You can go west, east, south or north.
+Two different roads, one going north-south, the other east-west, intersect here. The trails are pristine and well-kept, and the only off-putting thing is the large door in front of you, with the word "DECISION" written across it.
+> use scientific doubt on decision door
+> use scientific doubt on decision door
+The door accepts your object, and slowly opens. The path ahead is pitch black, with very little visible light anywhere in the tunnel. You decide, against your better judgment, to push forward. It's a very cold hallway, without much guidance at all. You're forced to push through without even the smallest hint of direction, but you know you'll eventually reach the end.
+[state=Finished]
