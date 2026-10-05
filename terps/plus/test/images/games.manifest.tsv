@@ -1,0 +1,337 @@
+# Game images for the picture tests of the Plus interpreter
+# (../../../common_imagetest/run_image_tests.py).
+#
+# id      names the row and its golden, expected/<id>.txt. A row with the id
+#         "-" is a companion: a file the game needs next to it (the
+#         .PAK pictures of an MS-DOS game)
+#         that is not opened itself
+# dir     folder under games/ the file lives in. Files that share a folder
+#         belong to one game and find each other by file name, so the names
+#         must be kept
+# file    file name
+# sha256  of the file
+# keys    keys typed at the prompts before the first command line, or empty
+# note    game as detected; container variant
+#
+# id	dir	file	sha256	keys	note
+dat-buckaroo-banzai	dat-buckaroo-banzai	SPL99.DAT	77458a71aee0a040cb4b85cb011662395a30c622449fee410e41a41e8c0b91ed		Buckaroo Banzai; MS-DOS database and .PAK pictures; title picture
+-	dat-buckaroo-banzai	B004.PAK	d4cfa73eda8085db5753e1d68da5cc7a1c85d9c395b214677e8cc4950522506c		
+-	dat-buckaroo-banzai	B005.PAK	f5419a4b9ff97c98bf385d80c3a6c68832efcae95087979a082ddbb9e7755d03		
+-	dat-buckaroo-banzai	B006.PAK	0337d65369c6bc24ea28e3171f5e820cd419abc0b245923f47e01c4162673470		
+-	dat-buckaroo-banzai	B007.PAK	07a6a6ca8f66e0281ee6cf41d20b917f7f1ed97a631ceb9a7a99d93595934338		
+-	dat-buckaroo-banzai	B019.PAK	e0bcdc22c0c16e3cecc8f791801b1eedbd9c8ba6ef1063f46026b9febf23f1de		
+-	dat-buckaroo-banzai	B023.PAK	2c9717e22389186fcfbe6a5c39f795b388ab19050756e7f8c0fe88ec21ee7eff		
+-	dat-buckaroo-banzai	B025.PAK	446388cd671cf81f7f2e2326dbef7c9db2a1e0f33045b22f611c73966baad209		
+-	dat-buckaroo-banzai	B026.PAK	a48a672d57641faec03faf6a1aca26d8b69f3cf26cb563dee93711aacac13217		
+-	dat-buckaroo-banzai	B027.PAK	120d5040f050bdf5e951de72b201a01fcbca319cdfdaa7c20c0d51897fb80090		
+-	dat-buckaroo-banzai	B030.PAK	952e04fceb0d07354b327fedf39a992bde05961b8e81ac2407d9c24d6bf04bda		
+-	dat-buckaroo-banzai	B034.PAK	b412dd854fd1db8669c3b76ad09f4cdd8b94e39da0116af688d44b7ddc5f4d86		
+-	dat-buckaroo-banzai	B035.PAK	27b559b3aa9ac3f3b24507cb58250329d80a4ab7e10ee327710de03720485206		
+-	dat-buckaroo-banzai	B037.PAK	c0a76a740269d386e7c1f9e6ae7c35c6bc90bf7208968e31964c01e065bf8267		
+-	dat-buckaroo-banzai	B051.PAK	fa25657abfa8637f2dbe8db068bf784227cb802fcff03eecc8fe9da9d5e00215		
+-	dat-buckaroo-banzai	B055.PAK	9f9a5b58da9e46913cffbc7f4ec35c08e5ce42f56fd50dfcf9a502fe8500b6f0		
+-	dat-buckaroo-banzai	B056.PAK	7538860c23ac9e958638d9772ea9e62963d86d9eaeb2aff8e7843618571c851d		
+-	dat-buckaroo-banzai	B070.PAK	12c61f739fc4f5d355c7d1c68567649e86483b7fd448c03bf52e1866e3de3cfe		
+-	dat-buckaroo-banzai	B071.PAK	c26d50e43c60ed40afd580392e69243e5732695715c53c580173374fc70a352c		
+-	dat-buckaroo-banzai	B073.PAK	32554a90bf47abe9105ff06b1078d2e890159fcace4f5b6167cad27b08139c2c		
+-	dat-buckaroo-banzai	B074.PAK	fa2720cb6329c12e39d2b0d051be98f49ebf55d51ec9e288f6bff569e9972290		
+-	dat-buckaroo-banzai	R001.PAK	cad8c7cf8e8d940c5eceac0e541a9b9602781a28aaa2736456b275c29cc3a287		
+-	dat-buckaroo-banzai	R002.PAK	87ca4459ef8088244a4bcfe4ac4c5d059c800f1f21ad350646edaf5be0c4232b		
+-	dat-buckaroo-banzai	R003.PAK	72f3ecec7b77c256b4278c2dcac196e07e4676981ce7955502fb781f77287144		
+-	dat-buckaroo-banzai	R004.PAK	261ab1422eb3c95506c3f6010bfa3be3fd82c28825a85502004915e4e4213e05		
+-	dat-buckaroo-banzai	R005.PAK	aefb124882a620c9e84812d6d56b2cca555bc1d83472d6c069ec58cd11f7e1bb		
+-	dat-buckaroo-banzai	R006.PAK	19238e0fd0a0aa6b1dd70890a753883f7c3ed1c21fd8e079288586cb98cb24c6		
+-	dat-buckaroo-banzai	R008.PAK	95bf0d9aac95b5203cd8084e18858d8a3c397db74d775908421d8005c5ae4eb5		
+-	dat-buckaroo-banzai	R009.PAK	5e4e10310c55b8ed820dbb02a52d3662ecb78d8f2d199da478335c5df3bcbc90		
+-	dat-buckaroo-banzai	R011.PAK	0e01733ba9597fbbcea7a3f90beb1f9a82d156d6450024b2d26c2de7f1b40918		
+-	dat-buckaroo-banzai	R012.PAK	56dcc8d35e6d69906c83fd87eaf71a2d07a059eb468a590f1d44ce9245d6e24f		
+-	dat-buckaroo-banzai	R013.PAK	4bf3fb2b5749a4750d4cf2a7e28df34d9213e1e162030b747bc701052f8225b1		
+-	dat-buckaroo-banzai	R014.PAK	46bccfa5e23c183366182b0aec9e91ee1306d287cf3e375e8e4c5d35a46f6150		
+-	dat-buckaroo-banzai	R015.PAK	bff6478d0300cfd984cba1b616d74674c059b9f6b917dcda3ffdfa1fcdfb530f		
+-	dat-buckaroo-banzai	R016.PAK	26d2445afc50199b0710eb9e8ea479a2dc1becea684526d2c24ea126c6296bc0		
+-	dat-buckaroo-banzai	R017.PAK	9cb4ac1ebd58685e17b41f12205ad5fe2e206befa068bcf5e4bbbe3d78aeb7dc		
+-	dat-buckaroo-banzai	R018.PAK	6560ea71a20bb94d1f4234889fe77a51483a183e503f8bc654c54fa7bb3c4071		
+-	dat-buckaroo-banzai	R019.PAK	76aeab93ad0fe4e680b10b7488cbceb24acf1bdaf9a4f790372fd6687309dc56		
+-	dat-buckaroo-banzai	R020.PAK	bbd9d2deb5933e25c61ccecf97e6e0db29132067a62c893babcaef7004e6fc7c		
+-	dat-buckaroo-banzai	R021.PAK	9c13e0f20236fd50fd119c53ec72fa85bb94e4a21ec9b515524cdc83935ba911		
+-	dat-buckaroo-banzai	R022.PAK	3d398dc190bb9d3333883953c876ffef26d6d25458e5b702e7afca19870985a2		
+-	dat-buckaroo-banzai	R023.PAK	76f59eb7b65abe6dc2c83192f364ba37571f718d025ed59ac0c5fa63ede6e305		
+-	dat-buckaroo-banzai	R024.PAK	d7e50c3c743c47f2aee7e676e43e94343ca16c2c7053f48a9a17469ca5bda2cd		
+-	dat-buckaroo-banzai	R025.PAK	095e9c5689bda25316a5399923de4e9fd7cc4b9ec95a9f631007d8d1118ba6be		
+-	dat-buckaroo-banzai	R026.PAK	3a52d20b4b64fd81656ee3970c6b0ae412414bde7bb8c1c8c16a7bbc2dd8f6ec		
+-	dat-buckaroo-banzai	R028.PAK	f768770f95b957314a84aee87cdfc95ac65841d98a2821aa502608d0eba7c1de		
+-	dat-buckaroo-banzai	R029.PAK	37e8054cf16cce6bc1f27e386b52a2723c6fe042eae15f6d1ea56d911b3117f4		
+-	dat-buckaroo-banzai	R035.PAK	eb29177c4b8b0d170b73fa334a004aaf3e251368c236ba7a17e61b3922f05d02		
+-	dat-buckaroo-banzai	S000.PAK	83965bf015e677a9dd0796155bc0165c52cc2ace71927ea5f750384c18aa79d4		
+-	dat-buckaroo-banzai	S001.PAK	e1611158f0046aa2bc596a0c495bce7e7738781a1bd9654d1f277b1334038758		
+-	dat-buckaroo-banzai	S002.PAK	9a83342bcc91c84b9126f8aaf2156d3dbd244b53e5c1d162dc982793657c4df4		
+-	dat-buckaroo-banzai	S003.PAK	f907ceecbce98a3ac03bc5c9ade56e5581cdb6962bf8c6be2717ac2868359d41		
+-	dat-buckaroo-banzai	S004.PAK	792865693bea29d99ec3abf776c9ed79440fcfff78ac581b9a196ae1eb72fbd5		
+-	dat-buckaroo-banzai	S005.PAK	5356322c459735baff7010e6b209d82a6a91fc47b09e4fa6285f18f318450411		
+-	dat-buckaroo-banzai	S006.PAK	7cbdf7276cd8d52a2f277986f67f217418ed0cadf3be6330d5644d3dda6b9a43		
+-	dat-buckaroo-banzai	S007.PAK	c704edc4fe08df574e2936d961929204fdba616e8315dcf072905d0ce30f5967		
+-	dat-buckaroo-banzai	S008.PAK	42f0921840297f4fc352c91f9d5d3b28bc42ddf23c98a31a06bfa4b645a58df7		
+-	dat-buckaroo-banzai	S009.PAK	9169c2028cd58436b34d675391be2450b38e363b061ccc4ae28d41913535d579		
+-	dat-buckaroo-banzai	S010.PAK	0dcc3bc6da9ffaf6484a94cab93a6ad2bad00d9883f272cae35381c2624cd36b		
+-	dat-buckaroo-banzai	S011.PAK	73afa405bfc15607db3266f6c82a9f29252b696645cb48dc636b2c147e9fe3a7		
+-	dat-buckaroo-banzai	S012.PAK	11e9b0e6f1ba4f1d94913e3ebf07a7c6f1345bfbc136c18c6dac4d2d61913350		
+-	dat-buckaroo-banzai	S013.PAK	fa89adf66bd8e52a5a4ea545a271fc24af834390c02ad438223ea09b6fdd4e17		
+-	dat-buckaroo-banzai	S014.PAK	43e20f84e64cec624425891cae356d4aee121bbb37e27fa852e9922727257754		
+-	dat-buckaroo-banzai	S015.PAK	b64b04e7a4eafba6bc546e80599dfd7768db609a04b3d4ef28c31c790903d0bd		
+-	dat-buckaroo-banzai	S016.PAK	3ebea393561ec1bf5343f0ad84b317311b8a6643ab80628591133e125eb4533a		
+-	dat-buckaroo-banzai	S017.PAK	a1578cc9c8379a6f8218ad562054c333bbe8c77f9e3412411ee22a0d2487f510		
+dat-spider-man	dat-spider-man	SPL52.DAT	eff8ca6680ee2dc0a7cea44b8044a36e9f79d870baa289eae1731a943138e260		Spider-Man; MS-DOS database and .PAK pictures; title picture
+-	dat-spider-man	B015.PAK	26a850a265ee4dcc970c59138724b89780bee012eaa5ffcd68fd16282a01cdfc		
+-	dat-spider-man	B016.PAK	6ad37e4a607bf5ba88f39a3e84ea07e9033c9bdc0273515912141695e8f04376		
+-	dat-spider-man	B021.PAK	3dc243f1b15563d5d62b4f7b0d811c6b550202ee487ad45216a903588d03ae6d		
+-	dat-spider-man	B023.PAK	5bf928366949bb0b387e7904a73c3e9f9a452f81e720157571106e192e4abc55		
+-	dat-spider-man	B025.PAK	f1829deca0eb3d6544551c8a2d2eb8a5806ae16dd9e051b5699a462151327634		
+-	dat-spider-man	B027.PAK	8cf7bd938cf3745363f3cab9dab0068c60048530e8b904eb2f720b94bd0b7611		
+-	dat-spider-man	B028.PAK	c96c94b0847a8bc4bea9f7246c4184f5e9ac8193a555ca0be90d76de4b48ac74		
+-	dat-spider-man	B031.PAK	4cc3269cb0a1dddc31427af229861124b9e099cfe36bd2d69d87b0fd0120ebb2		
+-	dat-spider-man	B033.PAK	e9d026c308f1efbb6a177cc2a39fe617c34857ed1a56da22c4ec630b2acbdb2f		
+-	dat-spider-man	B034.PAK	cf195eaf80e8b379244d17b869af085b8599f7a580869253d9bdf3453454b064		
+-	dat-spider-man	B035.PAK	011dca394590218d3c9dba25f9548e47eaeecded1effa9785737df432ef60c39		
+-	dat-spider-man	B038.PAK	25c19d3c04f47a364629b270dbd91ece8a93f357445910c5f4385d25ca3d5651		
+-	dat-spider-man	B044.PAK	c5c9db105b97ae9d0e80464f296120e2c392b9bbb545e9036ad3b4a2ec37c793		
+-	dat-spider-man	B049.PAK	181834f873714b4ddae336d36e26c87500e79f510050865f104c95b36b27dd77		
+-	dat-spider-man	B050.PAK	219340bea4bba4ebcc401a5b27fcd39fac5d846947d0447b553188d3c8191d26		
+-	dat-spider-man	B051.PAK	22a37132a31d48f0da514a2cb212bdfc1219712ce0d661c9f12964c7bc79766b		
+-	dat-spider-man	B052.PAK	7e6127ef82c2f3f231c7877357e2be9e0c68cbc49f05b1356f6267be2e3d4935		
+-	dat-spider-man	B053.PAK	88933a92e7b7cd1fd7b89f55426eddebfa06df59425561537188a6771533f154		
+-	dat-spider-man	B055.PAK	fb25e18bcd4065cfa29d920ee8ecbb79b08a0a5fb6eefb0a661689fdf0a92d08		
+-	dat-spider-man	B056.PAK	689f9783dec1cadbc28d00c949f46e7d8df4fc6f297ac2591c620b421774a731		
+-	dat-spider-man	B058.PAK	7974432c335a3d14dd8af0092aaedc8827ceec1bb5830cde996db7bc47f33dab		
+-	dat-spider-man	B059.PAK	6c442b68ed16d1f1c15e661b4c0da9e19be84d73e56bf5b7bbf1e9931abdbef9		
+-	dat-spider-man	B060.PAK	9480c6aa7691f9f72d7b200168dd352e388fc5ebc0a9aef17eb7af4fedb090a0		
+-	dat-spider-man	B062.PAK	0aae318cc173cbded6b775a83de36081db6d65d0200890992725b8977da4ee4d		
+-	dat-spider-man	B071.PAK	8888505b879e0dd6aee8e7da9e45ff40cd6b7e104b2e7c3b00802ce515498616		
+-	dat-spider-man	R001.PAK	831d06e95a845b1149d747fa5a24f98b4f9b951b00900b653f6826b4b209abd6		
+-	dat-spider-man	R002.PAK	8c378be3645061767273525165764eed9928102221dcc3cc60fb266699cf070a		
+-	dat-spider-man	R003.PAK	791c66d4ecdfd00e05de4b34ae498e2dd247c9dc56fd7d3d1c1d0a00426d2a0d		
+-	dat-spider-man	R005.PAK	b10c363e4dba8eac3ca889f00a3cd697461148e3d83d05a8137aa83218fcd0b9		
+-	dat-spider-man	R006.PAK	8e4559824369a57089a62ba3630f7cf533b43b906469d7e2960e0edca507b25b		
+-	dat-spider-man	R007.PAK	c4e9733f91b686d7b1e371bdf3b0a0eae3ce155e0351a8d17aa5735f06b6b04d		
+-	dat-spider-man	R008.PAK	3808721fe2f7ba9d4cbf42fb7fe40aad8770456a9958d901a441beeeffcc5e0b		
+-	dat-spider-man	R013.PAK	70e4c3760a7132da49b662768d8da56641b3caaa5031a056d6aafe772027e45c		
+-	dat-spider-man	R015.PAK	aaeeb9d40f84b423831a060def01fd555d2a824a3d5719b742fbc2cdd0f938d0		
+-	dat-spider-man	R017.PAK	164c9e273b649e98635e456bc34ee6f512294f2bf5e49805f85cf61deb52a593		
+-	dat-spider-man	R018.PAK	99bc8a1e9da12884345267ea9a8630863a4a680b8ee6a04da662d22ed0a6f2b3		
+-	dat-spider-man	R019.PAK	e10a538d92b696448a9382ac9c97f7b313bef94b37dc303ef87b8a544925f2ed		
+-	dat-spider-man	R022.PAK	40c6f16a6c54aae1a58f72e875fc7999edf526fdc0b9b384e0191bb49c80e853		
+-	dat-spider-man	R024.PAK	a30b9e890dc22b721f58274bea521b1108653368fe08cfb2c9b34e7447e600a0		
+-	dat-spider-man	R025.PAK	356da47511ab10a6d7c7f47377d37d1be341871bf5830bf6b59aee56ab515e11		
+-	dat-spider-man	R034.PAK	45b7f99edd7abd2d806153eda7e851c0bc05deacc74d6ad6f11466d78f926a6f		
+-	dat-spider-man	R037.PAK	2d85a96f146cb001dd3670f1dfec1d246785348e07d2cd1de56a66b7fe5de14a		
+-	dat-spider-man	R040.PAK	18b22b309d4e112bb24b498b0f361c6e8b9ccff6c865c6e255040077dbb3dd21		
+-	dat-spider-man	S000.PAK	6f51a53008e3e32f35f75521ad7fe5ee597dcd539b0f105d4ab7bab3b84de333		
+-	dat-spider-man	S001.PAK	6336c6994c892c67a52d0cb9dd50ad95ecedd6398261d8b0595b8603a0bcae65		
+-	dat-spider-man	S002.PAK	1abba88e0fb25f372747ce04156f92d9cbd5d2ca04b43565808fb93bceb6159f		
+-	dat-spider-man	S003.PAK	f89eda256732b07306021bf9cfe7edc5af5e0041a94db17c5e30f9aba9f73009		
+-	dat-spider-man	S004.PAK	ab6b5584d2b853076c26feb1ee7a71ca667e65848fd4326ae0be20e2c1c38efc		
+-	dat-spider-man	S005.PAK	5678084dffa6b0bb55c936f6500d4f86fa25d838830fe7083d55572e37d9ac13		
+-	dat-spider-man	S006.PAK	c57d743046b158b303385785d707af492e6208aae3341d552045223b1072056a		
+-	dat-spider-man	S007.PAK	9a900a8f477e36eee99a4dac202330348266ff503b4e800e968955948a3fef36		
+-	dat-spider-man	S008.PAK	bb1b43ba6bc9089e84236fd287cb0358f574b657fc3b00f384b2d56d9c25ed03		
+-	dat-spider-man	S009.PAK	6bc312be2a0d42dc2f729426c1bd1fc8735df4f525ac77faa766016fdcc26344		
+-	dat-spider-man	S010.PAK	b672b4ed9db613f6f382ec0f2b9c5774feeca699325ad01474795a3127d4bf13		
+-	dat-spider-man	S011.PAK	d3ceba07ab0c4db0672b135cb94e19386da6bec26df594b0041edd64cfa9fc68		
+-	dat-spider-man	S012.PAK	27e3e8d68aaac79ad00ab2fe6b72edff5cf3eb121bcd093dafd7ead00433aeac		
+-	dat-spider-man	S013.PAK	480921c30c1ec8a601c97242e4be25777a2046bea89bfae2ab69ead8dedf447b		
+-	dat-spider-man	S014.PAK	0bc0055dc4f10f0b27dd4a71c6c0cddcf0c0db67b88835ee137baab8143de585		
+-	dat-spider-man	S015.PAK	d49982f047f3f7ba7bc70d7b200a97537836f19638d9d5b6c7ed6c78753b810a		
+-	dat-spider-man	S016.PAK	56836f280a2eda2a3eb94fcab3620978b0b664ebfe77fc7583cbacdc9b6e8a55		
+-	dat-spider-man	S017.PAK	0f015863d0933c1666d308e7c3d69a33318ca8af10ad4c38080cae19ad2352db		
+-	dat-spider-man	S018.PAK	b782776809309b9b432f577699ca6a7bf8f32f538e0db327fa6b8e44e1a51615		
+-	dat-spider-man	S020.PAK	66d9720f453ff7cacc78ca14f47d2ab8f48fd8d310e60e63caf071cb71e65d47		
+-	dat-spider-man	S021.PAK	e697bfe79326689e2350cadcc6bc388a80a4c9af749953edcf4fcbde020023c9		
+-	dat-spider-man	S022.PAK	4b577e41b9be5ca42cdc9e624bf19f18742d9fb3b90aa43d5948c92bd718fb89		
+-	dat-spider-man	S026.PAK	09b41d1895a0a3de1d81fff3c569af99f54ef4beaeb6e654805ba768aa2b253a		
+dat-fantastic-four	dat-fantastic-four	SPL53P.DAT	321787ad12ca0316f6f4a987c977b4891f27a779c5133e9f0f97308e6c0ed87c		Fantastic Four; MS-DOS database and .PAK pictures; title picture
+-	dat-fantastic-four	B002.PAK	016eb3875549bc9c4cc91ba21594ba96f2db9f1a31342264b276ff89dff67565		
+-	dat-fantastic-four	B003.PAK	7ca23f0e6246d083fa72d04ddffd12c0064ffe2795bdf93c31b7756cc2595fbc		
+-	dat-fantastic-four	B004.PAK	734f6f2feb8e8df781af12bff5a3459050d6ffe7fda4fdc2dd829543093d4094		
+-	dat-fantastic-four	B005.PAK	ec25d5b471e17c53a321ea689ed51851f1afec04b2ea9f257ac25c5339e38175		
+-	dat-fantastic-four	B006.PAK	7967bce45153fb36e6979715bd6a6dcff66464ac45e0e13e261fc0f5bc362545		
+-	dat-fantastic-four	B007.PAK	00d73321170daef5272286130a27d11028fa14355238cbd3ed015c47b37ff317		
+-	dat-fantastic-four	B008.PAK	0f15f35d5033b17afc25ffff6e7353474a373c707825f55f2940b30193909326		
+-	dat-fantastic-four	B009.PAK	5f752057d2fac7d9c52ec5419431b49950f1636a39b5f3eaf1b5ea4a4b3e036c		
+-	dat-fantastic-four	B010.PAK	7ae07102b2f1ad185101ca0e54492a5b236e065191af4fee76aca1674afaf723		
+-	dat-fantastic-four	B011.PAK	be95675b463ff8297cbcae7e4593ecc79954bf5d85af7c27a363773563157537		
+-	dat-fantastic-four	B012.PAK	5d95afe7d46a45cd8501abdcb5f7bc4e884b46740dc5a0b46cd5574f69141bee		
+-	dat-fantastic-four	B013.PAK	0b7a9d329d3eabbadc42144c2ae8d3e67770d4065f9f611a70f9d2054046b489		
+-	dat-fantastic-four	B014.PAK	717cffd20e2413364ecbe1e4bc485d5137624302c323c48891e6fa77bad2b4d4		
+-	dat-fantastic-four	B015.PAK	5ea0cb213b45962a0cc4d017391f7e1e53e3edded48f511d4c2878ab7de06338		
+-	dat-fantastic-four	B016.PAK	067e46c29ccc11f7a198bcd904d708411be7607c8146dc8b6d6fe29cb5ffa4aa		
+-	dat-fantastic-four	B017.PAK	0ed1bafaebd06d5b6fb119d9ddaacb61096afc17db8daf48687f099a64b6df71		
+-	dat-fantastic-four	B018.PAK	77b2a738ac76cfc31a39a727b5cf979710a28880475953a4ee4b241b36edb40e		
+-	dat-fantastic-four	B019.PAK	2511171fb1d70fec29d76b98ae4ad0820ae21ff289c577f3d643c9c361f0a0e6		
+-	dat-fantastic-four	B020.PAK	c02aaa8e2d85ee9b900efdef1abad3ddb45eee5940002efdc0cf33f92d6140aa		
+-	dat-fantastic-four	B021.PAK	98f058b128884f4680d31b5be066596086c6306451e8d6699cc0387a2be51fe0		
+-	dat-fantastic-four	B022.PAK	5ed153d5bb5ba7a9089b11f5c53c825a3b1911e9eab6a612b2c18cfa917c7b06		
+-	dat-fantastic-four	B023.PAK	da76e400bef4f624984ca9311bbf7f469f473c18a428fad50d1146f434b2dc52		
+-	dat-fantastic-four	R001.PAK	4b2784e06b05cbc7d4bab261bc9641fdc525201ec9df5732f73e45c9f2d1865b		
+-	dat-fantastic-four	R002.PAK	01af62b98c5caecb1ef788acd7a021b672d4dfce6f5d83c72c476eb058189b51		
+-	dat-fantastic-four	R004.PAK	ee20e9f12455118fc8bd14d287930ccd25662d41a7a25bd89a46a5154d7ab423		
+-	dat-fantastic-four	R005.PAK	f53c236280e0fc0ab409afb02f88eb4eaad7bdfc0afc8a66ee3ee8cafb21bfab		
+-	dat-fantastic-four	R006.PAK	952af13f1ddfa8a5aa4251bc5f0120850ee954894a2370097a30db885089f8b6		
+-	dat-fantastic-four	R007.PAK	a9774d34d16a8f59a8d745aa3f653d768e848f6e802553cce9ae7cb0ee9c6690		
+-	dat-fantastic-four	R008.PAK	88f10e858c6b1ded8ce36828b6bf4c519c34811720aaa7b61eee6727e1118389		
+-	dat-fantastic-four	R009.PAK	387c94f1c95f4e4c12a1ddbfa370a99c60c79e418f02f5d3bbdac39405bb7358		
+-	dat-fantastic-four	R010.PAK	ec20dc97228ebc8760162ec177c94b1d20f6bfc6a402f533b22483042f5212f9		
+-	dat-fantastic-four	R011.PAK	c9465b5fc3525a60885abda698626ce64267c5213b636aff5b09924178a1039c		
+-	dat-fantastic-four	R012.PAK	6084476cd9bccc6bdee681c81619a8ba68b2ebe69e78288b3f31cc3bf0cf9b14		
+-	dat-fantastic-four	R013.PAK	9b32c1acc352b5939bd51b823761fcf33eb4ef04da8d8f72dea46cbf257e9549		
+-	dat-fantastic-four	R014.PAK	3f88c4c5cc1307ac3100d57deff79dcb0bfa60354b56f37cb098c46096ed2385		
+-	dat-fantastic-four	R015.PAK	c1654dfcdddd76759525a92d915a52b1c681cad38c2c7941f3f8234fe2a64684		
+-	dat-fantastic-four	R016.PAK	f77785b2042b7ed205158d6554a0f63289b70ec20151d5e34da65761c2a50314		
+-	dat-fantastic-four	R017.PAK	ee053b3917725e4118efd29127fb67eb91e720508f2bf75b733dca6c35d1658f		
+-	dat-fantastic-four	R018.PAK	70f24b82a8e80c191b4039a51a26c83bddcbfb9385d6fc11b51caa83bb0e2f09		
+-	dat-fantastic-four	R019.PAK	d7da81c0b4cb96834335d9c730d39f9a361e9f8813eaa68a7832e7512826f1b8		
+-	dat-fantastic-four	R020.PAK	659314c3e7f063e42e74592068e98cfd06c2e88ea1da186eeaa07ee9165a5152		
+-	dat-fantastic-four	R021.PAK	75e20ebb6b99c883c809d4dcfd2396bb358f8b15d84f045001d0c87977b9810e		
+-	dat-fantastic-four	R022.PAK	f7b2d02144c2a45c6f37e2f7b24564324cf072051c35579b6cf9aaf3c2d6c080		
+-	dat-fantastic-four	S000.PAK	612fbcf8057407d7e2f8b3e079af1b789ce20a6b4044b6a977ab60f359c2af18		
+-	dat-fantastic-four	S001.PAK	08b28211bbd483106c898985296013067a0faf05ac27e74aaee3c61e1dda119f		
+-	dat-fantastic-four	S002.PAK	09638bfc8f1fb4d740203bd744e0861ef5f1488cb4f6d050a82049e7e8518fbf		
+-	dat-fantastic-four	S003.PAK	ab5cde5208e00168be97507ba38e92d3de9f502938b7ac02fb78ba6113923a8f		
+-	dat-fantastic-four	S004.PAK	ed344fa9ecd40d2b628505e07c05ab465b3ae38c8654c6ccf7e95b54fa7e04db		
+-	dat-fantastic-four	S005.PAK	d6135e3b2dfa065edf6ea2210d6a25ffb0263764bc1344bb82b97c24511c4e3a		
+-	dat-fantastic-four	S006.PAK	b74837403e5d4f43b8fec9c19d026916cde8e97a2c230b012d246e454426bff7		
+-	dat-fantastic-four	S007.PAK	265bc36f8280f578bc6d3be07184f7ba3d312c9412f6fb1aa2d7455ee7db7608		
+-	dat-fantastic-four	S008.PAK	95110b828c2dab717769ff6b827f9e2c43edd689cfabb9fc272358d38ccbcf59		
+-	dat-fantastic-four	S009.PAK	baff31009da64972bc6a489c690fc15f1411e16b9c6d94c7c1b6a091ea7f467b		
+-	dat-fantastic-four	S010.PAK	435ab31a8918a5925ea7a70c3ca84765f5436b1a9d462079016b50b4f399f9ec		
+-	dat-fantastic-four	S011.PAK	2e8e536fc1afccd0b2576a8ef03f50b87072b61c9f8e057ee4c012a169262ab0		
+-	dat-fantastic-four	S012.PAK	1db155b288f0722d58493f8e49b02e646226263d94b7e213fd5fa24653a9ab0f		
+-	dat-fantastic-four	S013.PAK	2b1fa21078ea8baca6b30f68c789a499de334c95514caa2b319a4e699a0b9c29		
+-	dat-fantastic-four	S014.PAK	14b41153c3eea0c6807164ce2a8306983f184c0bcd37a705e5e5ffdbefc7fa3f		
+-	dat-fantastic-four	S015.PAK	bbccc87b3812ef0647abe2381e10f3fae109a27911b33cf9d0ab48f7de33ffa3		
+-	dat-fantastic-four	S016.PAK	a26768026accb842e57637217960c6b957d88a26a91cadb2baa90d269a82ca35		
+-	dat-fantastic-four	S017.PAK	592dc1fcbd9611bda1c46fc21d4333b444c792045ea8c9713327f16bdfa58409		
+-	dat-fantastic-four	S018.PAK	36c41da21378e142297264c2d03db91641962af5cc44ff69302ef3f509d6fc78		
+-	dat-fantastic-four	S019.PAK	2ee02649a19f065e782f9ca4e47bd972731438341819f63821d9f6e234a90741		
+-	dat-fantastic-four	S020.PAK	bb120264321644f23f4a314396533aaa4d2458ef07726f4436fe53f58ae6523f		
+dat-sorcerer-of-claymorgue-castle	dat-sorcerer-of-claymorgue-castle	SPL13P.DAT	dc6cd906d3e2b6add9bd5f12dfeae5847c953d3ebc5e6a3e9b598f9cf7ff34c5		Sorcerer of Claymorgue Castle; MS-DOS database and .PAK pictures; title picture
+-	dat-sorcerer-of-claymorgue-castle	B001.PAK	9a2a2d943b435468d4c2c165f09afd78e3ff1f0c67a86fec203a97cb3a6d230e		
+-	dat-sorcerer-of-claymorgue-castle	B002.PAK	edcd015228b96173ee192e674f49f1035e5246cc0265701a3055e9e460164a88		
+-	dat-sorcerer-of-claymorgue-castle	B003.PAK	fc31a0d49550c8d3f36952fae550a846264a4d6fe04cb33711875ee1d85c1624		
+-	dat-sorcerer-of-claymorgue-castle	B004.PAK	9d0d0fdf5ee8737dcef94e913cfc08d41e47e02402060d8d14aa5966f1cbfe84		
+-	dat-sorcerer-of-claymorgue-castle	B005.PAK	f12b82cbd5120517385c69364e7a438a224830b4bba2926d68a9084a3683137e		
+-	dat-sorcerer-of-claymorgue-castle	B006.PAK	95ab06886b6de3bb6527fc750a5502008286cfcb9975698e58c4f353e62a5e99		
+-	dat-sorcerer-of-claymorgue-castle	B007.PAK	784dee1a70ad273168af7357d9e663d6c19db8b4964c3d8cd1c46f9404215fff		
+-	dat-sorcerer-of-claymorgue-castle	B008.PAK	8119f8b133c167bef2c38d0fea0ca21d2da365798009fc00b829cdb11fad6c50		
+-	dat-sorcerer-of-claymorgue-castle	B009.PAK	123da207c8603f81781b849213daf544e9284bf3a0a882dad1be1f8f4842d223		
+-	dat-sorcerer-of-claymorgue-castle	B010.PAK	47d83deca793e6475c6a28d5d98bf3053c948a7fce6ca922451eea8a49b2b4b5		
+-	dat-sorcerer-of-claymorgue-castle	B011.PAK	fab7adfdbccea3e67960262e63e3130606944155c94d3b1462de71c2e31ebdad		
+-	dat-sorcerer-of-claymorgue-castle	B012.PAK	4f9d1f374745da9092cc12b9c91a3a8b62e61245a755f07971d4a4cc48311719		
+-	dat-sorcerer-of-claymorgue-castle	B013.PAK	31b4ef820d473fcb3fd2d01e4bfb2fdaf7dfc8ec09b053d88f625ef5a7830b30		
+-	dat-sorcerer-of-claymorgue-castle	B014.PAK	ec1789f0dce7ad884988080e9bc7c77659985d09981940dd11588c37744b0221		
+-	dat-sorcerer-of-claymorgue-castle	B015.PAK	cd7c6efe663b4b6b9f516c38c106c6825e20116f44d5872e67441e01cea8624b		
+-	dat-sorcerer-of-claymorgue-castle	B016.PAK	e4e5b3dfa5ec830bac7e8217e99b28bdd9350e80c28829f388f1998860e8513f		
+-	dat-sorcerer-of-claymorgue-castle	B017.PAK	9cdb789e13052927f88171cb8312231beea6746d9345dbbe35cceec0e644b507		
+-	dat-sorcerer-of-claymorgue-castle	B018.PAK	84c5bad90f6002336c240747907ef6cc20c387916aaee355e046f0ff74c003f5		
+-	dat-sorcerer-of-claymorgue-castle	B019.PAK	e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855		
+-	dat-sorcerer-of-claymorgue-castle	B020.PAK	5a6f392d4ea4ebd5272f6f8392d1242a0a2eacd0867a99e2128524c97028c36f		
+-	dat-sorcerer-of-claymorgue-castle	B021.PAK	9f354b0f8f02b64a79487584983c6538ba337d079d9dcee57a497fde5e5a2a45		
+-	dat-sorcerer-of-claymorgue-castle	B022.PAK	ea9c5e0897ebde9e503df2d5c84911b54307d410fd7c2afca42a58418cf3311d		
+-	dat-sorcerer-of-claymorgue-castle	B023.PAK	e80ab2c4c235ecdb38a5114f566f4c218f492f7c893b4e3efbd90fc9712a5d41		
+-	dat-sorcerer-of-claymorgue-castle	B024.PAK	82d97fac8baa2727f3aaacf3f240f07ee3c0a8618376d5dc9ac90537a44068eb		
+-	dat-sorcerer-of-claymorgue-castle	B025.PAK	fc1e3e94a871404dd674e8d150eff0dfd0a3f4f5de8359b57785b4b0399c1c8b		
+-	dat-sorcerer-of-claymorgue-castle	B026.PAK	b2e7d151dacd114d4846641bda9af11cc7f314a3bf7aafc45100b31d8e103531		
+-	dat-sorcerer-of-claymorgue-castle	B027.PAK	65efad4fb822a5d2815481279aa754d01abd3bdce88e582c2c9e7892c88eaa5a		
+-	dat-sorcerer-of-claymorgue-castle	B028.PAK	c182997fcfdbc2faf83576103e698432c4978fce480c5f7aec33e0bb8fef4cc4		
+-	dat-sorcerer-of-claymorgue-castle	B029.PAK	e647d8df37e738cfa3f5e65c4e006ae1be23fce1bff90535252764435e3ca5dd		
+-	dat-sorcerer-of-claymorgue-castle	B030.PAK	bf4c88ef068c2da2fa86862cebae7a9e5336a02736c5dccf5a72da7ce2f14619		
+-	dat-sorcerer-of-claymorgue-castle	B031.PAK	24ad06acf3a8bbdcff31c45c7405b0b21b7f4e3eff6dc2e1f9c83c53ac37caee		
+-	dat-sorcerer-of-claymorgue-castle	B032.PAK	a6731f0b1d1fdfa7700935862aa11e90fa038acad6644eab3fedeb62a4b2f1c0		
+-	dat-sorcerer-of-claymorgue-castle	B033.PAK	6b24ce864772d022c8c180a866d198aaa5687c5935b35c965fbd072aad424387		
+-	dat-sorcerer-of-claymorgue-castle	B034.PAK	fca5c7000ed89f9d881003acf1f20696738fc88b82a13a2a767edd0f8dca9c51		
+-	dat-sorcerer-of-claymorgue-castle	B035.PAK	1f47c4a650ebff34e0b1d907112b5ace914fef2368d3ae2a7e4f2a8141861340		
+-	dat-sorcerer-of-claymorgue-castle	B036.PAK	521f7c603cc6c5e5ae2c809e8bd7bb64dfdaa011d17b49913d50d2cf4cf2b3aa		
+-	dat-sorcerer-of-claymorgue-castle	B037.PAK	3f44de30f128e5789b455c3d6b0d85d8a838271d400657c761e3997b89ca20ba		
+-	dat-sorcerer-of-claymorgue-castle	B038.PAK	890784dfc10d8a8728f9b73f17fd7fc2e9096abea27db75ae16061c277e54144		
+-	dat-sorcerer-of-claymorgue-castle	B039.PAK	5af877ef749a776af6eea8535779661e313677c2ef8b019a526c4e83b7311f2a		
+-	dat-sorcerer-of-claymorgue-castle	B040.PAK	ec13e8458c7eb42a2c604db4aff3ac34a26dd85ff1363c092472532bbaeae358		
+-	dat-sorcerer-of-claymorgue-castle	B041.PAK	6937f504bc594e68e2b069fef4f66ea52e290f7e310cd47329b5d28209eeb19a		
+-	dat-sorcerer-of-claymorgue-castle	B042.PAK	45902a94e0083d23f6f5c48978d151cc0c98356da6029a10b80f881b89471b2c		
+-	dat-sorcerer-of-claymorgue-castle	B044.PAK	d28590d028188b70787e44e2a6462ff56b153a3318677adeb51e1072c85c6d88		
+-	dat-sorcerer-of-claymorgue-castle	B045.PAK	69732bb6014c72da56b76e7028993a33230960dbe3bac224e0bc43be3e9a5bf3		
+-	dat-sorcerer-of-claymorgue-castle	B046.PAK	33aa727d902c25de59bc03e2169a5a88a748efdce9f0ea9804be1c65ca23998d		
+-	dat-sorcerer-of-claymorgue-castle	B047.PAK	6e8fd338e6c2f0a4c198f17f486b9b911daf65ce17fc42f286c16403ac45dba5		
+-	dat-sorcerer-of-claymorgue-castle	B048.PAK	f75d785aace8085c0ca604c3cd2ee28368361fb22e66e0c7a3607c3f9fa93ef0		
+-	dat-sorcerer-of-claymorgue-castle	B049.PAK	758936b4d02fd7b916d465b856234c02d2575b2dfa64be55c8325b2b2926002c		
+-	dat-sorcerer-of-claymorgue-castle	B050.PAK	107ff92962706f728daa4efe800bd315702111dbece24362c93e4de96d02adf5		
+-	dat-sorcerer-of-claymorgue-castle	B051.PAK	fbd3cd3fab0a72ca7b7b471c30606af055c8125fab7451c71934a2df86cdd8c6		
+-	dat-sorcerer-of-claymorgue-castle	B052.PAK	686eaa5208dde8413b897c5fe8149ac88474945512bc76a9a2d4633975851a6b		
+-	dat-sorcerer-of-claymorgue-castle	R000.PAK	7568687a9401dd6e98e574c53cbb26af971a0ec28d457226c4b47a3d6135f580		
+-	dat-sorcerer-of-claymorgue-castle	R001.PAK	52d685817e3ca9db71a865701f932b943c65f917e59dd3e7742e686a0538fee8		
+-	dat-sorcerer-of-claymorgue-castle	R002.PAK	96cb39bfcd151d7a07aaa2454d3fec012688badaea226d5a06d198e9eec94156		
+-	dat-sorcerer-of-claymorgue-castle	R003.PAK	c5fcb0ac6950c302b59b677c0bc3ce0bde315ece3f388c4602420238808137e7		
+-	dat-sorcerer-of-claymorgue-castle	R004.PAK	528a943b340fb70d6b5531a860fca7d17086dbe7d14299ec8bc1d7a03ae9cc4c		
+-	dat-sorcerer-of-claymorgue-castle	R005.PAK	1030247929bb2d7c4972d7ecd5c19eb56b1e0367e95470000e20288930294e01		
+-	dat-sorcerer-of-claymorgue-castle	R006.PAK	e705423d43e625d502e8934272408e52d55145f31db7d495e6037018cd29de73		
+-	dat-sorcerer-of-claymorgue-castle	R007.PAK	442622863a9be5fd004a69fe6aad7aa8dc64c6d8fe3596d8817cd440006bae30		
+-	dat-sorcerer-of-claymorgue-castle	R008.PAK	8cef99598755f03745558d2c44e71c237b4f17e1ae89dfe090134241062c2eaa		
+-	dat-sorcerer-of-claymorgue-castle	R009.PAK	44f0a6c3b377ebecc70dc50616b8f8e7864d869921fee3be454a67fd2bb98e75		
+-	dat-sorcerer-of-claymorgue-castle	R010.PAK	0a4ee49e0a6d67430529e6fab4299f0ee6fe664b7ba6d6b630dae58213a4b936		
+-	dat-sorcerer-of-claymorgue-castle	R011.PAK	7faab950c0c0815463a58c8db1fd2317ac3fc47343f09efb33786c1207cc5219		
+-	dat-sorcerer-of-claymorgue-castle	R012.PAK	4baac3c2a00b5416fa891dd26f0481457db6fe9da5b3d1aa4f0a4ab38ac4dd07		
+-	dat-sorcerer-of-claymorgue-castle	R013.PAK	6230b84e740ced170c51599d4293152b3328ac805191900e236e596ac5e1a90e		
+-	dat-sorcerer-of-claymorgue-castle	R014.PAK	3e05d3bd6b1edc8255b6dc7d945454204220a20fa250f33936b527369dff90b4		
+-	dat-sorcerer-of-claymorgue-castle	R015.PAK	845d8f9e426e0cdb54e10c80ef0dc755aee310ec720120dc32993abc8a7576b4		
+-	dat-sorcerer-of-claymorgue-castle	R016.PAK	187b0532023a1bcd2d2aee21b2ada972cf50c0777fc3ccd13eeaaa0d7228af57		
+-	dat-sorcerer-of-claymorgue-castle	R017.PAK	10fdd301a2799c41308aef1d3519c884b33849e2d9ab84cccc25c93f2aa6ffb5		
+-	dat-sorcerer-of-claymorgue-castle	R018.PAK	669ec1532139433e26ae871f161c7f4c447570c10e642f15502588df4d3f789a		
+-	dat-sorcerer-of-claymorgue-castle	R019.PAK	b1042edd17b066abbfcc155f479fb8a6a5b51d52e14a4d2102f6bb2a7b4c8ed1		
+-	dat-sorcerer-of-claymorgue-castle	R020.PAK	486454b720de9933cb933ac9ee8ac42202a66684874ceafa513d673da9e04bcc		
+-	dat-sorcerer-of-claymorgue-castle	R021.PAK	b2d9773e738a46cece2dc36253bebc67fc239237958f88e65df37552d7edc589		
+-	dat-sorcerer-of-claymorgue-castle	R022.PAK	7b1395708b0d5153eb115c7502e26fc8409c89d4a1d78356f87761ff403dcba4		
+-	dat-sorcerer-of-claymorgue-castle	R023.PAK	ccfdc5ef1151c839887c982de5853604a05aa2f4a1c6e0347f4a840912d84f2e		
+-	dat-sorcerer-of-claymorgue-castle	R024.PAK	6482ea73527150b798c686d042fa723353fe6ccfbae0878795cf07fa9375451a		
+-	dat-sorcerer-of-claymorgue-castle	R025.PAK	241c90e5045caca963c7266f4f2329ba75d64e269682ed6dbc5ea8a521a411b2		
+-	dat-sorcerer-of-claymorgue-castle	R026.PAK	866dbfb4be5a80e54fbcba2faab80e35b367ea914a765d4af5650755e690cc5e		
+-	dat-sorcerer-of-claymorgue-castle	R027.PAK	3d232a2af81e13e81de9c228e9a92e1cf3d9b15e3f1f5b0890a191734d171c4f		
+-	dat-sorcerer-of-claymorgue-castle	R028.PAK	6e63e41e82ce1cea0b05a21348a13c8b32ab7b1f55188dadf54ab77de3a6001e		
+-	dat-sorcerer-of-claymorgue-castle	R029.PAK	4b8b12c1e1f3068dc5a7be745851efcb375885c5c01585fcec6ea02802dc1874		
+-	dat-sorcerer-of-claymorgue-castle	R030.PAK	3f19eaccb8a880383f109a28b15f9df52e3b9bac5922b9fc05b08e79b22b29e9		
+-	dat-sorcerer-of-claymorgue-castle	R031.PAK	2fe05853efdc19ec224b12e245ae31c076f2d04b7cf7cd6cf873f9c6a6a11e39		
+-	dat-sorcerer-of-claymorgue-castle	R032.PAK	378bd5f293f28c46d6d47eee51e2d6dfc9d4f10c60a5a7aa51f91eb6ebe6f0e8		
+-	dat-sorcerer-of-claymorgue-castle	R033.PAK	44cebb0425a42dbab593d3c5d1fb84302a2f50c9ba916c830af41786acd3781c		
+-	dat-sorcerer-of-claymorgue-castle	S000.PAK	d5f9498000ea8de3e9365816b38c4306ee6db68bfd64a122d97f36d7ea064dd8		
+-	dat-sorcerer-of-claymorgue-castle	S001.PAK	22e7a827dd72af3ccfb6b671d19453ecedd5e6a3e06fd9edeadf787046a528b1		
+-	dat-sorcerer-of-claymorgue-castle	S002.PAK	b3dea385122b907a2a72a6d97f547107f03e2fd45a08911ae8ea66d84dd5fd9d		
+-	dat-sorcerer-of-claymorgue-castle	S003.PAK	588aa5f314cbe2e8186a80fa38a95bd08a89f973dc643084ce980e9f62b9d9c5		
+-	dat-sorcerer-of-claymorgue-castle	S004.PAK	c17b579fe769620f27085fb4640a2e48bdbf3ccdff3abb6ef5d490723c375f15		
+-	dat-sorcerer-of-claymorgue-castle	S008.PAK	28fc4ec83cc1037f48c5fbe1a989306840feabafa3f378cd8ca370ee09ea595c		
+d64-spider-man	d64-spider-man	QUESTPR2.D64	75c3226bfb7b94bf6db38eac31c77b02401a21c998610406ee325c5809a4dd0f		Spider-Man; C64 .d64; title picture
+d64-fantastic-four	d64-fantastic-four	QUESTPR3.D64	68c72e55ff77a4ef025c67a79f8007114aca6073dc614e7c0bc6f6fb55ac53a8		Fantastic Four; C64 .d64; title picture
+dsk-spider-man	dsk-spider-man	SpiderMan-S1.dsk	f43048d1493a8a4e1d34b2e8e17ca84d4c0024ff9648728fe859f16ff6e2a57e		Spider-Man; Apple II .dsk; title picture
+dsk-spider-man-disk2	dsk-spider-man	SpiderMan-S2.dsk	5ecf0de83ae4f41b5d08d7de2a21d21b521a9ceffb27b05220993e83c8e43a4b		Spider-Man; Apple II .dsk; the other disk named
+d64-buckaroo-banzai	d64-buckaroo-banzai	BuckarooBanzai.d64	04b9839c8868f9a1d0cab14858d1e8c8f5679ae2d2b55f834f55b07dbeec5ad5		Buckaroo Banzai; C64 .d64; title picture
+dsk-buckaroo-banzai	dsk-buckaroo-banzai	buckaroobonzai1.dsk	3a9def445c2a0b623859763e4ffa23c653e1ea9296f88144a0ef43aed027126a		Buckaroo Banzai; Apple II .dsk; title picture
+dsk-buckaroo-banzai-disk2	dsk-buckaroo-banzai	buckaroobonzai2.dsk	8fe10f48f15afc42caa08504978ac0b2d257072b37444b3278ff8a6717c14172		Buckaroo Banzai; Apple II .dsk; the other disk named
+dsk-fantastic-four	dsk-fantastic-four	fantasticfour-1.dsk	f6c33ff7715c0137458d10919f4ea0a2fcdbe5e96e01b31d8a48d2dc767d6a5c		Fantastic Four; Apple II .dsk; title picture
+dsk-fantastic-four-disk2	dsk-fantastic-four	fantasticfour-2.dsk	f9a077918c0fc99f54b0e1ada6fa0b3c32296367f6fdeb3112c93b311094a8c1		Fantastic Four; Apple II .dsk; the other disk named
+dsk-buckaroo-banzai-2	dsk-buckaroo-banzai-2	304_Buckaroo_Banzai_Side_2.dsk	34e180c389900ab339fee4c0b169eb8b3b6e09156e91467ea03f016cb5889861		Buckaroo Banzai; Apple II .dsk; title picture
+dsk-buckaroo-banzai-3	dsk-buckaroo-banzai-3	177a - Buckaroo Banzai - Side 1.dsk	3cd27b832810160085a6586cbbd65577124d7f6742c531d0a07c83d1b8d20d28		Buckaroo Banzai; Apple II .dsk; title picture
+dsk-buckaroo-banzai-3-disk2	dsk-buckaroo-banzai-3	177b - Buckaroo Banzai - Side 2.dsk	515f9d772f7b68d101dff48226edb3dd5ce59f63cc444976fdc0a81ed6b77bba		Buckaroo Banzai; Apple II .dsk; the other disk named
+d64-spider-man-2	d64-spider-man-2	questprobe_spider-man[sharedata_1987].d64	8fe6bbf171248bdfc30d2ec5d76252c150de24123a78d94c2f4f89e773b248ae		Spider-Man; C64 .d64; title picture
+atr-buckaroo-banzai	atr-buckaroo-banzai	Adventures of Buckaroo Banzai (The) [side A].atr	3150c086b66cd21397ca1a18bc959617b4b3d8bb2c0e264c92ff314f8c7690d2		Buckaroo Banzai; Atari 8-bit .atr; title picture
+atr-buckaroo-banzai-disk2	atr-buckaroo-banzai	Adventures of Buckaroo Banzai (The) [side B].atr	1a36b32f65e59b875e21494e5750a0a92cadf045590efb3ab8c1fe9ccaebc037		Buckaroo Banzai; Atari 8-bit .atr; the other disk named
+msa-fantastic-four	msa-fantastic-four	Questprobe Featuring Human Torch And The Thing.msa	be148cb26e15b18fbc422b61cd8da2906e0f05e615902444a022cab61e1e4457		Fantastic Four; Atari ST .msa; title picture
+atr-spider-man	atr-spider-man	questprobe_two_spider_man_green_valley_side_one.atr	1682eefb48426ecaaa1d9c37194ca7dbb472833b51e911f438732fd9c921c288		Spider-Man; Atari 8-bit .atr; title picture
+atr-spider-man-disk2	atr-spider-man	questprobe_two_spider_man_green_valley_side_two.atr	6447b8c60e61a7ba4f6d0c2041a9a5f993f31cfc12704783477248932d71699d		Spider-Man; Atari 8-bit .atr; the other disk named
+st-spider-man	st-spider-man	questprobe_ii_-_spiderman_adventure_international_(usa).ST	b50819fa039446d3954baecfde7c1f56f8b2d1b7702baa0d9b274b93f7e52a1d		Spider-Man; Atari ST .st; title picture
+st-sorcerer-of-claymorgue-castle	st-sorcerer-of-claymorgue-castle	sorcerer_of_claymorgue_castle_adventure_international_(usa).ST	d74e6dd27261c59952bf2a1d4b0ff449d8705d8b1e9a0be7ee82b099e6c88b88		Sorcerer of Claymorgue Castle; Atari ST .st; title picture
+plus-fantastic-four-c64	plus-fantastic-four-c64	Questprobe_3_Fantastic_Four_1985_Acventure_International (kopia).plus	f011ea9161f3ca77c86a364928e9ed4cd9704979739334c669c9ad114e46c8d7		Fantastic Four; C64, .plus; title picture
+atr-fantastic-four	atr-fantastic-four	Questprobe #3 - Fantastic Four _ side A _ Green Valley Publishing.atr	a6403a2277db7c9bcea38a18f5848b90bd10e8d0c45580184d0d0f6a2a3ef2ee		Fantastic Four; Atari 8-bit .atr; title picture
+atr-fantastic-four-disk2	atr-fantastic-four	Questprobe #3 - Fantastic Four _ side B _ Green Valley Publishing.atr	e6b1d2ad021bfc0059c5a2b86849f61692c5a1cdecf125452c033a19a4dd52df		Fantastic Four; Atari 8-bit .atr; the other disk named
+do-spider-man	do-spider-man	Amazing Spider-Man, The v1.0 (1986)(Green Valley Publishing)(Side A).do	f43048d1493a8a4e1d34b2e8e17ca84d4c0024ff9648728fe859f16ff6e2a57e		Spider-Man; Apple II .do; title picture
+do-spider-man-disk2	do-spider-man	Amazing Spider-Man, The v1.0 (1986)(Green Valley Publishing)(Side B).do	5ecf0de83ae4f41b5d08d7de2a21d21b521a9ceffb27b05220993e83c8e43a4b		Spider-Man; Apple II .do; the other disk named
+do-fantastic-four	do-fantastic-four	Fantastic Four, The v1.0 (1986)(Green Valley Publishing)(Disk 1 of 2).do	f6c33ff7715c0137458d10919f4ea0a2fcdbe5e96e01b31d8a48d2dc767d6a5c		Fantastic Four; Apple II .do; title picture
+do-fantastic-four-disk2	do-fantastic-four	Fantastic Four, The v1.0 (1986)(Green Valley Publishing)(Disk 2 of 2).do	f9a077918c0fc99f54b0e1ada6fa0b3c32296367f6fdeb3112c93b311094a8c1		Fantastic Four; Apple II .do; the other disk named
+atr-buckaroo-banzai-2	atr-buckaroo-banzai-2	Adventures of Buckaroo Banzai, The Rev 397 (1984)(Adventure International)(US)(Side B).atr	285d12982f1c722ec601817eb7bd4278a034ec2381b6bdbef6f6ae7f6cf9c0c0		Buckaroo Banzai; Atari 8-bit .atr; title picture
+atr-buckaroo-banzai-2-disk2	atr-buckaroo-banzai-2	Adventures of Buckaroo Banzai, The Rev 397 (1984)(Adventure International)(US)(Side A)[cr CSS].atr	b8ae62901acfcaca5905b50eda36ca7075186bf6301ccac1ab6f9b1e9ad7585b		Buckaroo Banzai; Atari 8-bit .atr; the other disk named
+woz-spider-man	woz-spider-man	Questprobe featuring Spider-Man vF261 (1984)(Adventure International)(II+)(US)(Side A)[48K].woz	9b9df1b87db37e842806e0b909504d2ba1dd16ddd1f4b7c2119500f60f154539		Spider-Man; Apple II WOZ2; title picture
+woz-spider-man-disk2	woz-spider-man	Questprobe featuring Spider-Man vF261 (1984)(Adventure International)(II+)(US)(Side B)[48K].woz	591c6af2e999d33e27c75ef9b5c851f85e93ef2c4ebbb88a016c731aa82e20a4		Spider-Man; Apple II WOZ2; the other disk named

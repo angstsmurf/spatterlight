@@ -1,0 +1,76 @@
+# Game images for the picture tests of the TaylorMade interpreter
+# (../../../common_imagetest/run_image_tests.py).
+#
+# id      names the row and its golden, expected/<id>.txt. A row with the id
+#         "-" is a companion: a file the game needs next to it that is not
+#         opened itself (none so far)
+# dir     folder under games/ the file lives in. Files that share a folder
+#         belong to one game and find each other by file name, so the names
+#         must be kept
+# file    file name
+# sha256  of the file
+# keys    keys typed at the prompts before the first command line:
+#         n answers "load a saved game?", 1/2/3 pick the version on a C64
+#         Temple of Terror image, a leading y/n answers "combine the two
+#         sides?" of the Spectrum one. Empty when the game does not ask
+# note    game as detected; container variant
+#
+# id	dir	file	sha256	keys	note
+sna-questprobe-3	sna-questprobe-3	qp3.sna	2f95c211fcccd30aa4661b7a83710faa2ffbdf6e5af2a790024e9c8b09a0e3c6	n	Questprobe 3; ZX .sna
+tay-temple-of-terror-c64	tay-temple-of-terror-c64	tot.tay	d6f70326055978f170398fcacefe4a570de63b290d5bc302b16b93b996f92a1f	n	Temple of Terror C64; .tay
+sna-heman	sna-heman	heman.sna	272c051c3eb8b4db4d3d839f0a0432daf1327b903632c1e307c97f6748574369	n	Heman; ZX .sna
+z80-questprobe-3	z80-questprobe-3	human.z80	83912ccbcfd04ec7cdabe17dc2d669a6711ccb2aa7e68f4026ec3aa1f0f7e1cf	n	Questprobe 3; ZX .z80 v1; title picture
+sna-rebel-planet	sna-rebel-planet	rebel.sna	1da578eea6a1021b55398d27fcc8d5106c02c5d8371ddd822ccb03b45e6d436c	n	Rebel Planet; ZX .sna
+z80-rebel-planet	z80-rebel-planet	rebel.z80	f03d35d2613ae7754c2f993bc508e275a146c462fa9de8e2ba9bd29efa04cb5e	n	Rebel Planet; ZX .z80 v1; title picture
+sna-temple-of-terror	sna-temple-of-terror	terror.sna	dbc31a04536cc2afcc4748817e1c455586338e37230907217eaee8a508f326c8	n	Temple of Terror; ZX .sna
+z80-temple-of-terror	z80-temple-of-terror	temple.z80	6c15ed9836a375c23aa6f12a4cf4768a4cf298287ea3491ed300714aeeb1bd79	n	Temple of Terror; ZX .z80 v2; title picture
+sna-kayleth	sna-kayleth	kayleth.sna	606c61633e6a93ff86972a88121378f47986ac6d8d873d1187e86e593feac2f0		Kayleth; ZX .sna
+d64-kayleth-c64	d64-kayleth-c64	Kayleth.d64	f40d4ec14457006b37606dbe013fded490bbd6af0bb24df2819c34cfc2d306e3		Kayleth C64; C64 .d64
+tzx-kayleth	tzx-kayleth	Kayleth.tzx	5288ddf483666e4f1a8487dd1401f0227d14eca1a6fb7136db93dd7ab6e0ca25		Kayleth; ZX .tzx tape; title picture
+t64-kayleth-c64	t64-kayleth-c64	KAYLETH.T64	146a3f5aff19977f14e2051b7ccdc318061cbdee5610be83dce9cb7f48134cfd		Kayleth C64; C64 .t64
+z80-kayleth	z80-kayleth	Kayleth.z80	2c3b965ee1111b5336361c087a886e435aadbbbb7328e95d50055c093a3a59f5		Kayleth; ZX .z80 v1
+tap-blizzard-pass	tap-blizzard-pass	BLIZZARD.TAP	3928a67fc8f49ff188b197088329daf641366cc336b492060dc0d7fb633689ca	n	Blizzard Pass; ZX .tap tape; title picture
+tap-questprobe-3	tap-questprobe-3	HUMANTOR.TAP	fac456a00c337b213f0d5b6702acd9638624c9131054f7044310c625f6ddc8ff	n	Questprobe 3; ZX .tap tape; title picture
+t64-heman-c64	t64-heman-c64	MASTERSA.T64	7b991edb46b17f063b83629f1637a6bf43039fbb623e0f9b6101475cb29fa9e8	n	Heman C64; C64 .t64
+t64-questprobe-3-c64	t64-questprobe-3-c64	QUESTPR3.T64	9a42a8ff8253d62bb1e91be68f7475bc7eb5141a4abd1725817450a186d7459b	n	Questprobe 3 C64; C64 .t64
+t64-rebel-planet-c64	t64-rebel-planet-c64	REBELPLA.T64	5ebe588e0a7f3051892c60e4528cb8046de631eefcea6e335283e773b9303b28	n	Rebel Planet C64; C64 .t64
+t64-temple-of-terror-c64-1n	t64-temple-of-terror-c64	TEMPLEOT.T64	baebc7ef305fdb51d4af181302ed448e82db01e494f39f3ea539d9c049ed98c6	1n	Temple of Terror C64; C64 .t64
+t64-temple-of-terror-c64-3n	t64-temple-of-terror-c64	TEMPLEOT.T64	baebc7ef305fdb51d4af181302ed448e82db01e494f39f3ea539d9c049ed98c6	3n	Temple of Terror C64 combined version; C64 .t64
+d64-temple-of-terror-c64	d64-temple-of-terror-c64	TMPLTERR.D64	634e41b3c6bdc76f1342b6760ac2f963959afc074d3c22aa4c3926f1bf51a9eb	n	Temple of Terror C64; C64 .d64
+z80-heman	z80-heman	TERRAQUA.Z80	70ee48d989b5adebd9a63effe5d0c5b1860d708bfc13928ba22c3fc4aef7354e	n	Heman; ZX .z80 v3; title picture
+tap-temple-of-terror	tap-temple-of-terror	TEMPTERR.TAP	b767494a483d025e3cd3ab5645b318d8f63c82f47efaa8b00f94977c6600f1f1	n	Temple of Terror; ZX .tap tape
+z80-blizzard-pass	z80-blizzard-pass	Blizzardpass.z80	4f4698317247294b1183ccc1e8ba55eb0d7df02c334cf2cc003b5f341f397b60	n	Blizzard Pass; ZX .z80 v2; title picture
+sna-blizzard-pass	sna-blizzard-pass	blizzardpass.sna	cbadbac1f0bc17fc7134a751f0d67be105071a37407940342a43f0fa9dcbe32b	n	Blizzard Pass; ZX .sna
+tzx-rebel-planet	tzx-rebel-planet	Rebel Planet.tzx	9680d18e116f12d66a1921ee8c715458b305406ca6be3eb967988c0dd34764dc	n	Rebel Planet; ZX .tzx tape; title picture
+tzx-blizzard-pass	tzx-blizzard-pass	Blizzard Pass.tzx	165fac009d64395eb20368bc5c024d35ef2a30365d9b84e546a830b238767c2e	n	Blizzard Pass; ZX .tzx tape; title picture
+tay-kayleth	tay-kayleth	KAYLETH (kopia).tay	f8b2247bc15d71054ff8efec35ee4c072233c19bf8e96d0724ac5a24871b2c66		Kayleth; .tay
+z80-temple-of-terror-2	z80-temple-of-terror-2	Temple of Terror.z80	ff3a23f348167004a52efdb4395c8cb78ebba0cd3a9c17416b48f6dd64625a92	n	Temple of Terror; ZX .z80 v2
+d64-temple-of-terror-c64-2-1n	d64-temple-of-terror-c64-2	Temple of Terror.d64	3a6867819401015ddc2f015530a5baf4cea7466794cf1e03239e4cfa5d48e5f7	1n	Temple of Terror C64; C64 .d64
+d64-temple-of-terror-c64-2-3n	d64-temple-of-terror-c64-2	Temple of Terror.d64	3a6867819401015ddc2f015530a5baf4cea7466794cf1e03239e4cfa5d48e5f7	3n	Temple of Terror C64 combined version; C64 .d64
+tay-temple-of-terror-c64-2-1n	tay-temple-of-terror-c64-2	TEMPLEOT (kopia).tay	534e970f881e676d1a3a5c9838c04c76716330af4118fd7b3a102cd17f8a1dfa	1n	Temple of Terror C64; .tay
+tay-temple-of-terror-c64-2-3n	tay-temple-of-terror-c64-2	TEMPLEOT (kopia).tay	534e970f881e676d1a3a5c9838c04c76716330af4118fd7b3a102cd17f8a1dfa	3n	Temple of Terror C64 combined version; .tay
+tay-rebel-planet	tay-rebel-planet	RBPLANET (kopia).tay	699321afd526eea8cfee9a57c83d9ba16e68bb202a09a69f976b225b62989712	n	Rebel Planet; .tay; title picture
+d64-kayleth-c64-2	d64-kayleth-c64-2	Kayleth_1987_U.S._Gold.d64	8f48cfac6e90003aa852f81d8e3a71ac6aac4be0be53a344187ec7e49ae416b2		Kayleth C64; C64 .d64
+tzx-temple-of-terror-side-b-combined	tzx-temple-of-terror-two-sides	Temple Of Terror - Side B.tzx	63d4f41c25469b1b26cf529c9b6e83810354cd2c722ba8d82b17beacfe333cb6	yn	Temple of Terror combined version; ZX .tzx tape, other side found by name; title picture
+tzx-temple-of-terror-side-b	tzx-temple-of-terror-two-sides	Temple Of Terror - Side B.tzx	63d4f41c25469b1b26cf529c9b6e83810354cd2c722ba8d82b17beacfe333cb6	nn	Temple of Terror text only version; ZX .tzx tape; title picture, no other
+tzx-temple-of-terror-side-a-combined	tzx-temple-of-terror-two-sides	Temple Of Terror - Side A.tzx	94b04c3515a9a53f1c97e0f0e971afaa79fd76285a76b226af58737e4939b351	yn	Temple of Terror combined version; ZX .tzx tape, other side found by name; title picture
+tzx-temple-of-terror-side-a	tzx-temple-of-terror-two-sides	Temple Of Terror - Side A.tzx	94b04c3515a9a53f1c97e0f0e971afaa79fd76285a76b226af58737e4939b351	nn	Temple of Terror; ZX .tzx tape; title picture
+z80-rebel-planet-2	z80-rebel-planet-2	Rebel_Planet_1986_U.S._Gold_a.z80	8dad08b1a1b063dca6cc55b76f722ee7784b64779d219384b1dcdd6cae986fe0	n	Rebel Planet; ZX .z80 v2
+z80-kayleth-2	z80-kayleth-2	Kayleth_1986_Adventuresoft_UK_a.z80	3669f99d240abd305ac36eb72c532a89cb77249c81de91ea10c505f0a9a1a957		Kayleth; ZX .z80 v1; title picture
+d64-kayleth-c64-3	d64-kayleth-c64-3	Kayleth_1987_U.S._Gold_cr_Newstars.d64	2407783f65b603de96f032ca7ce827f1aed77b3adcc68958644a5df08ad84560		Kayleth C64; C64 .d64
+tay-temple-of-terror-c64-3-1n	tay-temple-of-terror-c64-3	Temple of Terror - Trianon (kopia).tay	ccd1703afefbf09177273617f82316bdd29a6d09e82fbdeb177595c43fba202b	1n	Temple of Terror C64; .tay
+tay-temple-of-terror-c64-3-3n	tay-temple-of-terror-c64-3	Temple of Terror - Trianon (kopia).tay	ccd1703afefbf09177273617f82316bdd29a6d09e82fbdeb177595c43fba202b	3n	Temple of Terror C64 combined version; .tay
+tzx-questprobe-3	tzx-questprobe-3	Questprobe 3 - Human Torch & The Thing.tzx	b60bb94cbd73029b4028b01a58bf62a5781af36b465799241e40046e167df403	n	Questprobe 3; ZX .tzx tape; title picture
+tay-rebel-planet-2	tay-rebel-planet-2	Rebel_Planet_1986_U.S._Gold_a3 (kopia).tay	50e6c6363c8092186aec416a7218c8eb728eaaa9ac61b2acadc4fd693b7bf1ae	n	Rebel Planet; .tay
+tzx-heman	tzx-heman	Masters Of The Universe - Super Adventure.tzx	013cdc83194170d3731103f2aa1cc0f2c7ad6561fce8a8cea8e396b89030b66f	n	Heman; ZX .tzx tape; title picture
+tay-rebel-planet-c64	tay-rebel-planet-c64	Rebel_Planet_1986_Adventure_International (kopia).tay	7a22b7f407848070a4661089e37c987be2b347d81b1959bb563d8ee5d767e773	n	Rebel Planet C64; .tay
+tzx-questprobe-3-2	tzx-questprobe-3-2	Questprobe 3 - Human Torch & The Thing - Alternate.tzx	5df6c627d702d9c986cd4f3a311498ababf4c93d37abca9a6f0ef665da4355b4	n	Questprobe 3; ZX .tzx tape; title picture
+z80-heman-2	z80-heman-2	Masters_of_the_Universe_The_Super_Adventure_1987_U.S._Gold.z80	e00a0c262d04360287411cf4a008532075b15cf5d53e77103187b6e4af4885a8	n	Heman; ZX .z80 v1
+d64-questprobe-3-c64	d64-questprobe-3-c64	Questprobe_3_Fantastic_Four_1985_Adventure_International_h_ASS.d64	da2c6ff50bb1d7c40f63f51a5f5dd9475890dc724ac0a3da9311b9dd5bc93841	n	Questprobe 3 C64; C64 .d64
+t64-questprobe-3-c64-2	t64-questprobe-3-c64-2	Questprobe 3 - Fantastic Four (1985)(Adventure International)[h ASS].t64	ad6ede0f767f677b2b49e8e07663b261abcc1adf0296fdac9c18200713901ede	n	Questprobe 3 C64; C64 .t64
+tay-heman	tay-heman	Masters_of_the_Universe_The_Super_Adventure_1987_U.S._Gold_a3 (kopia).tay	1365e9f4324fe24dcafce4596b19937add7ffa4f37ac4df159d0d33e0f4119ec	n	Heman; .tay
+z80-questprobe-3-2	z80-questprobe-3-2	Questprobe_3_The_Human_Torch_and_The_Thing_1985_Adventure_International.z80	86796edb31e3b3f8fed636ce3f5c6c2b663c32bc32dadfe0201169d74a7c8de6	n	Questprobe 3; ZX .z80 v1
+tay-heman-c64	tay-heman-c64	Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_TIA (kopia).tay	ad0a3eb241c6f57fa158e5c408bed524dc24b0eb8edd43187c2ed27ab9125eba	n	Heman C64; .tay
+z80-questprobe-3-3	z80-questprobe-3-3	Questprobe_3_The_Human_Torch_and_The_Thing_1985_Adventure_International_a2.z80	17aa88f2a419bc199d3604f9f13171cf9c5cdfbdce788b98c3eb5a58cce342d2	n	Questprobe 3; ZX .z80 v3; title picture
+tay-heman-c64-2	tay-heman-c64-2	Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_Popeye (kopia).tay	524993f6206419560b36682f4f5a8bf0fccebe216a135606826a0c3c1e37632a	n	Heman C64; .tay
+d64-heman-c64	d64-heman-c64	He-Man and the Masters of the Universe in Terraquake.d64	2398799f8976d818f179008f52716af801597eecef308b22eb769fd437576d57	n	Heman C64; C64 .d64, WCC crack, four packer layers

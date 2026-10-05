@@ -140,7 +140,7 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
        different ways, we just make use the data for number 17
        for all of them (after patching it.)*/
     if (picture_number == 17) {
-        img->imagedata = MemAlloc(Q3_WIND_TUNNEL_SIZE);
+        img->imagedata = MemCalloc(Q3_WIND_TUNNEL_SIZE);
         img->datasize = Q3_WIND_TUNNEL_SIZE;
         memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, Q3_WIND_TUNNEL_SIZE));
         int patch = FindImagePatch(QUESTPROBE3, 55, 0);
@@ -152,7 +152,7 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
         /* The last image, 56, the egg and the bio gem,
            is broken in many versions, especially the colours.
            We fix it here. */
-        img->imagedata = MemAlloc(Q3_EGG_BIOGEM_SIZE);
+        img->imagedata = MemCalloc(Q3_EGG_BIOGEM_SIZE);
         img->datasize = Q3_EGG_BIOGEM_SIZE;
         memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, Q3_EGG_BIOGEM_SIZE));
         int patch = FindImagePatch(QUESTPROBE3, 56, 0);
@@ -378,7 +378,7 @@ void InitGraphics(void)
     /* Now we have hopefully read the tile data. */
     /* Time for the image offsets. */
 
-    images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
+    images = (Image *)MemCalloc(sizeof(Image) * numgraphics);
     Image *img = images;
     size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
 

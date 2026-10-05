@@ -240,6 +240,14 @@ terps/scott/scott_death_test
 terps/scott/scott_all_audit
 terps/scott/scott_format_probe
 
+# Plus and TaylorMade picture test build artifacts and (copyrighted) games
+terps/plus/headless_obj/
+terps/plus/plus_image_probe
+terps/plus/test/images/games/
+terps/taylor/headless_obj/
+terps/taylor/taylor_image_probe
+terps/taylor/test/images/games/
+
 # Scarier build artifacts (Makefile.headless compiles in place; the test
 # harnesses have their own .gitignore files under terps/scarier/test/)
 /terps/scarier/*.o

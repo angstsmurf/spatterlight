@@ -52,7 +52,9 @@ static const c64rec c64_registry[] = {
     { HEMAN_64, 0xfa17, 0xfbd2, TYPE_T64, 2, NULL, 0 }, // Terraquake C64 (T64) Super Compressor / Flexible -> ECA Compacker
     { HEMAN_64, 0x2ab00, 0x4625, TYPE_D64, 2, NULL, 0 }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_TIA.d64
     { HEMAN_64, 0x2ab00, 0x78ba, TYPE_D64, 4, "-e0xc400", 4 }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_Popeye.d64
-    { HEMAN_64, 0x2ab00, 0xbd68, TYPE_D64, 2, NULL, 0 }, // He-Man and the Masters of the Universe in Terraquake (c64.com), WCC crack: ECA Compacker -> Super Compressor / Flexible
+    // The first pass also unpacks the crack intro at $c000, which tells the
+    // next depacker that its data ends at $b1db. Cut the output there.
+    { HEMAN_64, 0x2ab00, 0xbd68, TYPE_D64, 4, "-t0xb1da", 1 }, // He-Man and the Masters of the Universe in Terraquake (c64.com), WCC crack: ECA Compacker -> Super Compressor / Flexible -> two more
 
     { TEMPLE_OF_TERROR_64, 0xf716, 0x2b54, TYPE_T64, 4, NULL, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
     { TOT_TEXT_ONLY_64, 0xf716, 0x2b54, TYPE_T64, 3, NULL, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
@@ -249,7 +251,9 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
         ProcessC64(&file1, &size1, rec);
         ProcessC64(&file2, &size2, c64_registry[recindex + 1]);
 
-        uint8_t *final = MemAlloc(size2 + 0x4124);
+        /* Zeroed: the copies below leave gaps, and the draw instruction
+           streams of rooms without a picture run into them. */
+        uint8_t *final = MemCalloc(size2 + 0x4124);
         memcpy(final, file2, size2);
         memcpy(final + 0x16ea, file1 + 0x4708, 0x1400);
         memcpy(final + 0x8888, file1 + 0x8048, 0x4123);

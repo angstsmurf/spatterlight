@@ -1,0 +1,3 @@
+title                     49152 px    0,0   256x192  eddd3cec
+game     Temple of Terror text only version
+pictures 0

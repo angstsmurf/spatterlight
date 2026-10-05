@@ -1,0 +1,272 @@
+game     Temple of Terror
+pictures 143
+pic0       23 711d2f57    24576 px    0,0   256x96   0e085fc4
+pic1       18 1557bd25    24576 px    0,0   256x96   0d6af5f2
+pic2       17 9413dc21    24576 px    0,0   256x96   24dd2202
+pic3       24 e4842b33    24576 px    0,0   256x96   4497c6ec
+pic4       39 4894d38e    24576 px    0,0   256x96   ec5f835b
+pic5       42 10d7de5c    24576 px    0,0   256x96   cb1f27ab
+pic6       41 e108c3ed    24576 px    0,0   256x96   307b17b8
+pic7      160 f9d27247    24576 px    0,0   256x96   7322aecd
+pic8       93 6950f863    24576 px    0,0   256x96   9eb7126e
+pic9      132 e5cc205c    24576 px    0,0   256x96   9880eeee
+pic10      37 253b3af1    24576 px    0,0   256x96   8fef84fe
+pic11     124 70c5204a    24576 px    0,0   256x96   e9cdd4ba
+pic12      45 9c75ae98    24576 px    0,0   256x96   3f44212c
+pic13      77 74339a08    24576 px    0,0   256x96   a7e59999
+pic14     268 65edecbf    24576 px    0,0   256x96   bf516c8c
+pic15     429 8961a86b    24576 px    0,0   256x96   f0b3f1df
+pic16     132 832677e8    24576 px    0,0   256x96   f600790b
+pic17     227 b902e169    24576 px    0,0   256x96   0728b2b0
+pic18      96 3d4f261b    24576 px    0,0   256x96   4aa692cd
+pic19     107 56bef031    24576 px    0,0   256x96   89ac8bd6
+pic20     261 de3e88a9    24576 px    0,0   256x96   b12311fd
+pic21      38 c511a001    24576 px    0,0   256x96   b433d5f0
+pic22      27 704dad79    24576 px    0,0   256x96   540dcfa6
+pic23     147 fcabad27    24576 px    0,0   256x96   5584dfa2
+pic24     128 4cc2c14e    24576 px    0,0   256x96   4460f00f
+pic25      84 f79677e2    24576 px    0,0   256x96   fdf69bc4
+pic26     116 6db8a32f    24576 px    0,0   256x96   a497d855
+pic27     173 aa08c7eb    24576 px    0,0   256x96   e6c18dce
+pic28     197 b30457d1    24576 px    0,0   256x96   e49df521
+pic29      24 322e55c6    24576 px    0,0   256x96   6a60d90e
+pic30       4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic31     257 c4b0db07    24576 px    0,0   256x96   8402ef78
+pic32     136 c9afa0c9    24576 px    0,0   256x96   279a1988
+pic33      45 eb8e19f2    24576 px    0,0   256x96   9fa07b8e
+pic34      71 fbcd15dc    24576 px    0,0   256x96   ea200d76
+pic35      52 464e0f18    24576 px    0,0   256x96   2af0273a
+pic36     187 5b283e60    24576 px    0,0   256x96   1c239500
+pic37      29 9d2a1be1    24576 px    0,0   256x96   b3f5e33a
+pic38      51 1d8096d2    24576 px    0,0   256x96   df830a71
+pic39     196 e3ca8ccd    24576 px    0,0   256x96   ac795797
+pic40      20 ff3903c4    24576 px    0,0   256x96   5f75ab37
+pic41      63 0c07f934    24576 px    0,0   256x96   3a5ce6e0
+pic42      12 46f3fc13    24576 px    0,0   256x96   4ec85b72
+pic43      62 30033d8b    24576 px    0,0   256x96   14b8d4c4
+pic44      59 02ae28a6    24576 px    0,0   256x96   e7ac2ee5
+pic45      79 0dcdf373    24576 px    0,0   256x96   69305b13
+pic46      20 ab3d50d1    24576 px    0,0   256x96   a20e1d14
+pic47      76 14b71f2a    24576 px    0,0   256x96   e7a6caab
+pic48     296 e7b6d83b    24576 px    0,0   256x96   4c422dc3
+pic49      79 00cf5ded    24576 px    0,0   256x96   9df57052
+pic50     131 d90685c4    24576 px    0,0   256x96   9bd50137
+pic51      64 cb2329f8    24576 px    0,0   256x96   fb34fb65
+pic52     146 dfff70f8    24576 px    0,0   256x96   e2f95bb1
+pic53      20 77ed4b4c    24576 px    0,0   256x96   2ade703e
+pic54     223 41d7e889    24576 px    0,0   256x96   3c7645ec
+pic55      51 7a92faf5    24576 px    0,0   256x96   19345ae5
+pic56      28 5cfe9eb4    24576 px    0,0   256x96   bf4d03ab
+pic57      64 5ad0361a    24576 px    0,0   256x96   8d806651
+pic58      76 2b111d0f    24576 px    0,0   256x96   3360a44f
+pic59      17 d92a03a5    24576 px    0,0   256x96   f827b9c1
+pic60      52 5b34f3e4    24576 px    0,0   256x96   1e10fc06
+pic61     252 a4de4dfd    24576 px    0,0   256x96   b42c70ab
+pic62     210 103737ac    24576 px    0,0   256x96   6addc9d0
+pic63     179 b92a17bf    24576 px    0,0   256x96   464b27f9
+pic64      52 7b4e81dc    24576 px    0,0   256x96   df04efa3
+pic65     135 4729ce20    24576 px    0,0   256x96   8ec8f4f5
+pic66     240 a85a8acf    24576 px    0,0   256x96   6951da3b
+pic67      36 cc69f8a3    24576 px    0,0   256x96   cf64e30e
+pic68      21 390aad2a    24576 px    0,0   256x96   4eade804
+pic69     149 4d055693    24576 px    0,0   256x96   9084f5e8
+pic70     283 9bd11fb8    24576 px    0,0   256x96   563f4243
+pic71      94 63e1b55a    24576 px    0,0   256x96   ef2533c6
+pic72     140 bc915b12    24576 px    0,0   256x96   0d9f5efe
+pic73      92 08328517    24576 px    0,0   256x96   459d2142
+pic74     283 0dc6a738    24576 px    0,0   256x96   7123e749
+pic75     266 502b763d    24576 px    0,0   256x96   1356e653
+pic76     297 11ccb3da    24576 px    0,0   256x96   09262c2c
+pic77      45 05bd8f0c    24576 px    0,0   256x96   f2af05de
+pic78     207 77c0f0b5    24576 px    0,0   256x96   e41c4a1b
+pic79     145 38a42a8b    24576 px    0,0   256x96   77a4aff9
+pic80     146 d4597d60    24576 px    0,0   256x96   22ef2fef
+pic81     417 b455b17b    24576 px    0,0   256x96   9f7eea10
+pic82     102 731e88a2    24576 px    0,0   256x96   3764151c
+pic83     121 d267b425    24576 px    0,0   256x96   c65e369e
+pic84      10 78febdac    24576 px    0,0   256x96   9fa28e39
+pic85      91 fea85a12    24576 px    0,0   256x96   4dbb5c5a
+pic86      54 96133ead    24576 px    0,0   256x96   fbd66d3c
+pic87     223 689eb1a4    24576 px    0,0   256x96   4d463cfc
+pic88     298 a83e1590    24576 px    0,0   256x96   541548f1
+pic89      38 0c0d8a96    24576 px    0,0   256x96   7e73aeee
+pic90      17 03fc5582    24576 px    0,0   256x96   cbf7be22
+pic91      59 17a1007e    24576 px    0,0   256x96   a6e4fd6f
+pic92     144 faa7e4e4    24576 px    0,0   256x96   a9b05f08
+pic93      56 b14386eb    24576 px    0,0   256x96   19f96cba
+pic94      39 9e22a53c    24576 px    0,0   256x96   ba34dcbf
+pic95      35 b114819a    24576 px    0,0   256x96   05b108d7
+pic96     159 c911059f    24576 px    0,0   256x96   4a73c769
+pic97      63 47e1cde4    24576 px    0,0   256x96   20613f9d
+pic98     128 b04c8763    24576 px    0,0   256x96   fe3eb0bd
+pic99      58 7156a918    24576 px    0,0   256x96   0096f4f5
+pic100     15 1198fff0    24576 px    0,0   256x96   17e1eeac
+pic101     93 6b9e265f    24576 px    0,0   256x96   7a3204bc
+pic102      4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic103    311 f631f28d    24576 px    0,0   256x96   f005f643
+pic104    141 4d4491d4    24576 px    0,0   256x96   954726c3
+pic105     61 f2bbae6c    24576 px    0,0   256x96   dbbb0742
+pic106    256 a95dc6d7    24576 px    0,0   256x96   d5a5b721
+pic107    142 30f83a4b    24576 px    0,0   256x96   72854f9e
+pic108     10 3a9135b5    24576 px    0,0   256x96   20af83f4
+pic109    143 6ac9a4b2    24576 px    0,0   256x96   0fddbbe5
+pic110     68 76457411    24576 px    0,0   256x96   5202f219
+pic111    228 d7a99d87    24576 px    0,0   256x96   172596eb
+pic112     10 ad85b76f    24576 px    0,0   256x96   6e2e6561
+pic113     72 5dfaf713    24576 px    0,0   256x96   7b26f5fb
+pic114      4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic115      4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic116      4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic117    192 38039e60    24576 px    0,0   256x96   6bf20a66
+pic118     29 5eb3ff53    24576 px    0,0   256x96   03cb24eb
+pic119    166 6b010a1f    24576 px    0,0   256x96   ccf8d6cf
+pic120     17 61a40141    24576 px    0,0   256x96   c97f868b
+pic121     25 3d8aadb4    24576 px    0,0   256x96   eb2c1f6c
+pic122    160 f980bf41    24576 px    0,0   256x96   2e2478c4
+pic123      4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic124     48 fbce2e99    24576 px    0,0   256x96   e80329fb
+pic125    204 a1e1b4fe    24576 px    0,0   256x96   60b8cbc0
+pic126    151 e2d631e7    24576 px    0,0   256x96   979feb45
+pic127      4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic128     49 8c637211    24576 px    0,0   256x96   1e10b1e3
+pic129      4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic130    111 ae5bb99a    24576 px    0,0   256x96   6a4179d5
+pic131     19 16e423a4    24576 px    0,0   256x96   4b17113e
+pic132    149 13c4d8af    24576 px    0,0   256x96   5326d43a
+pic133     49 3507c3f8    24576 px    0,0   256x96   591b54af
+pic134     11 c1a079ca    24576 px    0,0   256x96   5560eed2
+pic135    330 92c2ed7b    24576 px    0,0   256x96   fa7f3bc4
+pic136      4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic137     36 d197cafb    24576 px    0,0   256x96   edcab504
+pic138      4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic139      4 29206ffe    24576 px    0,0   256x96   1324b04c
+pic140     26 cfbebd2f    24576 px    0,0   256x96   4f96e482
+pic141     11 1a2918a6    24576 px    0,0   256x96   c7fc5078
+pic142    143 49d944b1    24576 px    0,0   256x96   6d8e24c9
+rooms    126
+room0                     24576 px    0,0   256x96   1324b04c
+room1                     24576 px    0,0   256x96   7d47c133
+room2                     24576 px    0,0   256x96   76a61c76
+room3                     24576 px    0,0   256x96   da33bdb0
+room4                     24576 px    0,0   256x96   9078b3ba
+room5                     24576 px    0,0   256x96   458aa947
+room6                     24576 px    0,0   256x96   eed2523a
+room7                     24576 px    0,0   256x96   36a2ea6e
+room8                     24576 px    0,0   256x96   d7eb87d9
+room9                     24576 px    0,0   256x96   677a64ad
+room10                    24576 px    0,0   256x96   83241011
+room11                    24576 px    0,0   256x96   464b566a
+room12                    24576 px    0,0   256x96   6a81c588
+room13                    24576 px    0,0   256x96   eadaed9c
+room14                    24576 px    0,0   256x96   635d8d33
+room15                    24576 px    0,0   256x96   03e50c24
+room16                    24576 px    0,0   256x96   e95278c2
+room17                    24576 px    0,0   256x96   050f23c5
+room18                    24576 px    0,0   256x96   175b6c05
+room19                    24576 px    0,0   256x96   827df79c
+room20                    24576 px    0,0   256x96   614cb299
+room21                    24576 px    0,0   256x96   e58f11ae
+room22                    24576 px    0,0   256x96   66a4a0b8
+room23                    24576 px    0,0   256x96   1ee468e7
+room24                    24576 px    0,0   256x96   c5578593
+room25                    24576 px    0,0   256x96   7b5b64b2
+room26                    24576 px    0,0   256x96   e6521ede
+room27                    24576 px    0,0   256x96   f5c0a7fb
+room28                    24576 px    0,0   256x96   18fd1b93
+room29                    24576 px    0,0   256x96   643a638c
+room30                    24576 px    0,0   256x96   13b3bcf0
+room31                    24576 px    0,0   256x96   d2ab3d66
+room32                    24576 px    0,0   256x96   eed8ef56
+room33                    24576 px    0,0   256x96   0dbb9abc
+room34                    24576 px    0,0   256x96   b3797c4b
+room35                    24576 px    0,0   256x96   0ba806ba
+room36                    24576 px    0,0   256x96   94206341
+room37                    24576 px    0,0   256x96   e52e3e0f
+room38                    24576 px    0,0   256x96   d0d06e59
+room39                    24576 px    0,0   256x96   d2a4eaad
+room40                    24576 px    0,0   256x96   4632a3a8
+room41                    24576 px    0,0   256x96   14c4450e
+room42                    24576 px    0,0   256x96   0e0c9516
+room43                    24576 px    0,0   256x96   82e8d67a
+room44                    24576 px    0,0   256x96   8bff34f5
+room45                    24576 px    0,0   256x96   ec8e396b
+room46                    24576 px    0,0   256x96   1eb6a5bb
+room47                    24576 px    0,0   256x96   3896d512
+room48                    24576 px    0,0   256x96   227a8207
+room49                    24576 px    0,0   256x96   ef5541f2
+room50                    24576 px    0,0   256x96   4840b63d
+room51                    24576 px    0,0   256x96   52ce9c34
+room52                    24576 px    0,0   256x96   0b24a971
+room53                    24576 px    0,0   256x96   0d23e1e7
+room54                    24576 px    0,0   256x96   a177e302
+room55                    24576 px    0,0   256x96   85e16796
+room56                    24576 px    0,0   256x96   5fa76e95
+room57                    24576 px    0,0   256x96   4ca08f79
+room58                    24576 px    0,0   256x96   0043f7ef
+room59                    24576 px    0,0   256x96   591b1826
+room60                    24576 px    0,0   256x96   0fb1e816
+room61                    24576 px    0,0   256x96   e6affecd
+room62                    24576 px    0,0   256x96   6f5ee186
+room63                    24576 px    0,0   256x96   c2b1c5f8
+room64                    24576 px    0,0   256x96   413bde8b
+room65                    24576 px    0,0   256x96   1324b04c
+room66                    24576 px    0,0   256x96   1324b04c
+room67                    24576 px    0,0   256x96   5d29e2f0
+room68                    24576 px    0,0   256x96   8ed2f4bb
+room69                    24576 px    0,0   256x96   d8c170df
+room70                    24576 px    0,0   256x96   23347a03
+room71                    24576 px    0,0   256x96   e9e44246
+room72                    24576 px    0,0   256x96   6f311b1b
+room73                    24576 px    0,0   256x96   4f08166f
+room74                    24576 px    0,0   256x96   71bc453f
+room75                    24576 px    0,0   256x96   46e972b8
+room76                    24576 px    0,0   256x96   e2d67892
+room77                    24576 px    0,0   256x96   4a0e03d8
+room78                    24576 px    0,0   256x96   d8cd15d8
+room79                    24576 px    0,0   256x96   d0b2f52c
+room80                    24576 px    0,0   256x96   da5540a3
+room81                    24576 px    0,0   256x96   bb7ddf0d
+room82                    24576 px    0,0   256x96   6e168a78
+room83                    24576 px    0,0   256x96   d33510de
+room84                    24576 px    0,0   256x96   25ed1d90
+room85                    24576 px    0,0   256x96   ceb865cc
+room86                    24576 px    0,0   256x96   6d935f5b
+room87                    24576 px    0,0   256x96   518465c5
+room88                    24576 px    0,0   256x96   43226820
+room89                    24576 px    0,0   256x96   aff6d4e0
+room90                    24576 px    0,0   256x96   6b2d04e1
+room91                    24576 px    0,0   256x96   0c086bf7
+room92                    24576 px    0,0   256x96   581f1462
+room93                    24576 px    0,0   256x96   a6bf1b32
+room94                    24576 px    0,0   256x96   3d7c8966
+room95                    24576 px    0,0   256x96   2cad2eef
+room96                    24576 px    0,0   256x96   ec8e396b
+room97                    24576 px    0,0   256x96   4aa23e51
+room98                    24576 px    0,0   256x96   3830400d
+room99                    24576 px    0,0   256x96   f389a426
+room100                   24576 px    0,0   256x96   49f461f0
+room101                   24576 px    0,0   256x96   0bc3cef2
+room102                   24576 px    0,0   256x96   67a4b429
+room103                   24576 px    0,0   256x96   3a8f7b8c
+room104                   24576 px    0,0   256x96   fbff095f
+room105                   24576 px    0,0   256x96   0bf3b0b6
+room106                   24576 px    0,0   256x96   ef14c33c
+room107                   24576 px    0,0   256x96   f647b5e2
+room108                   24576 px    0,0   256x96   1324b04c
+room109                   24576 px    0,0   256x96   1324b04c
+room110                   24576 px    0,0   256x96   91bab36c
+room111                   24576 px    0,0   256x96   a7765165
+room112                   24576 px    0,0   256x96   46a61a21
+room113                   24576 px    0,0   256x96   24b52d52
+room114                   24576 px    0,0   256x96   7e916a12
+room115                   24576 px    0,0   256x96   1324b04c
+room116                   24576 px    0,0   256x96   1324b04c
+room117                   24576 px    0,0   256x96   f98e99d6
+room118                   24576 px    0,0   256x96   298cbad1
+room119                   24576 px    0,0   256x96   464b27f9
+room120                   24576 px    0,0   256x96   b723c0de
+room121                   24576 px    0,0   256x96   1324b04c
+room122                   24576 px    0,0   256x96   1324b04c
+room123                   24576 px    0,0   256x96   13ef5f98
+room124                   24576 px    0,0   256x96   a0036ed8
+room125                   24576 px    0,0   256x96   1e10fc06
