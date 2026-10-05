@@ -12,7 +12,7 @@ void AdjustGraphicsWindowHeight(void) {
     glui32 curheight, curwidth;
     glk_window_get_size(Graphics, &curwidth, &curheight);
     int optimal_height = ImageHeight * pixel_size;
-    if (curheight != optimal_height && ImageWidth * pixel_size <= curwidth) {
+    if ((int)curheight != optimal_height && ImageWidth * pixel_size <= (int)curwidth) {
         x_offset = (curwidth - ImageWidth * pixel_size) / 2;
         right_margin = (ImageWidth * pixel_size) + x_offset;
         winid_t parent = glk_window_get_parent(Graphics);

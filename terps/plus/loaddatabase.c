@@ -296,7 +296,7 @@ static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
         /* Split the comma-separated string into individual dictionary words */
         int lastcomma = 0;
         int commapos = 0;
-        for (int j = 0; j < length && str[j] != '\0'; j++) {
+        for (size_t j = 0; j < length && str[j] != '\0'; j++) {
             if (str[j] != ',')
                 continue;
 
@@ -360,7 +360,7 @@ static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud)
         int foundrep = 0;
         int nextisrep = 0;
 
-        for (int j = 0; j < length && str[j] != '\0'; j++) {
+        for (size_t j = 0; j < length && str[j] != '\0'; j++) {
             if (str[j] != ',')
                 continue;
 
@@ -460,7 +460,7 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
         int foundrep = 0;
         int nextisrep = 0;
 
-        for (int j = 0; j < length && str[j] != '\0'; j++) {
+        for (size_t j = 0; j < length && str[j] != '\0'; j++) {
             if (str[j] != ',')
                 continue;
 
@@ -1278,7 +1278,7 @@ DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
         /* Split comma-separated words into individual dictionary entries */
         int lastcomma = 0;
         int commapos = 0;
-        for (int j = 0; j <= strlength && str[j] != '\0'; j++) {
+        for (size_t j = 0; j <= strlength && str[j] != '\0'; j++) {
             if (str[j] == ',') {
                 while (str[j] == ',') {
                     str[j] = '\0';
@@ -1352,7 +1352,7 @@ int LoadDatabaseBinary(void)
     /* The binary header starts at offset 0x32 in the raw file image */
     int offset = 0x32;
 
-    if (memlen <= offset)
+    if (memlen <= (size_t)offset)
         return 0;
 
     int isSTSpiderman = 0, isSTFantastic4 = 0;

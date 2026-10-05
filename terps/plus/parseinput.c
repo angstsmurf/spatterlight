@@ -158,7 +158,7 @@ static int MatchingChars(const char *synonym, const char *original)
             return 0;
     }
 
-    return (i == strlen(synonym) && (original[i] == 0 || original[i] == ' ' || (i > 0 && original[i - 1] == 0)));
+    return ((size_t)i == strlen(synonym) && (original[i] == 0 || original[i] == ' ' || (i > 0 && original[i - 1] == 0)));
 }
 
 /* Search for synonym within original, matching only at word boundaries

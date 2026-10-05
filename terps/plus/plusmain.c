@@ -166,7 +166,7 @@ static glui32 OptimalPictureSize(glui32 *width, glui32 *height)
     glui32 graphwidth, graphheight;
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
     multiplier = graphheight / h;
-    if (w * multiplier > graphwidth)
+    if (w * multiplier > (int)graphwidth)
         multiplier = graphwidth / w;
 
     if (multiplier == 0)
@@ -739,7 +739,7 @@ static void Delay(float seconds)
 
 int RandomPercent(int n)
 {
-   return erkyrath_random() % 100 < n;
+   return (int)(erkyrath_random() % 100) < n;
 }
 
 /* Count items in a room (0 = CARRIED). Also stores the carried count
