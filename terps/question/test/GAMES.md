@@ -1,6 +1,6 @@
 # The game corpora: manifests, fetching, and why the checksums matter
 
-The Quest regression suites here replay real games — 112 Quest 4 `.asl`/`.cas`
+The Quest regression suites here replay real games — 152 Quest 4 `.asl`/`.cas`
 files and 89 Quest 5 `.quest` files at the time of writing. Those files are
 third-party and copyrighted, so they are **not** committed (`quest4/games/` and
 `quest5/games/` are gitignored) and every harness that needs them skips when
@@ -88,7 +88,7 @@ there; `fetch` creates the subdirectory.
 
 A row gets a `source` only when some upstream file or archive member hashes
 **identically** to the corpus file — nothing here is a guess from a matching
-filename. Coverage as recorded: 105/112 Quest 4 and 74/89 Quest 5 rows are
+filename. Coverage as recorded: 144/152 Quest 4 and 74/89 Quest 5 rows are
 fetchable, from two places.
 
 **The IF Archive.** `if-archive/games/quest/` is only part of what it holds:
@@ -135,9 +135,10 @@ Matching by content rather than by name is what recovers the renamed files:
 
 **The digest index only sees whole payloads, so it misses everything published
 inside an archive** — which is how most Quest 4 games were published, and which
-is why the digest sweep alone found only 62 of the 112 Quest 4 rows. Downloading
+is why the digest sweep alone found only 62 of the first 112 Quest 4 rows. Downloading
 each of the 131 distinct archived `.zip` payloads once (~250 MB) and hashing its
-1889 members recovers 44 more, taking that corpus to 105. Those rows carry the
+1889 members recovers 44 more, taking those 112 to 105; the 40 rows added
+since were recorded with their source as they were downloaded, all but one. Those rows carry the
 member path in the `member` column, and `fetch` extracts it with `unzip -p`.
 A few of them are not named `.zip` at all: the archive holds a zip under
 `…/games/annabel.cas`, so the local file's own extension is no guide.
@@ -156,9 +157,11 @@ because those files run to hundreds of megabytes.
 
 ## The rows that cannot be fetched
 
-The remaining 22 rows — 7 Quest 4, 15 Quest 5 — are marked `MANUAL`. None of them
-is lost: **every one still has a game page on `textadventures.co.uk`**, and each
-note opens with it:
+The remaining 23 rows — 8 Quest 4, 15 Quest 5 — are marked `MANUAL`. One,
+`KQ5_PartOne.asl`, has no upstream at all: it is an earlier part-one release of
+King's Quest V recovered from a local backup, and its note says so. None of the
+others is lost: **every one still has a game page on `textadventures.co.uk`**,
+and each note opens with it:
 
 - *browser download only: `<page url>`* — the game's page on the site, verified
   to exist. It cannot be scripted, so `fetch` will never pick these up (below).
