@@ -107,30 +107,34 @@ GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
 /* Bit flag accessors. The 64-bit BitFlags word holds general-purpose
    flags tested and set by the action table; several indices have fixed
    meanings (e.g. DARKBIT=15, DRAWBIT=34, GRAPHICSBIT=35, STOPTIMEBIT=63). */
-void SetBit(int bit)
+
+/* Report an out-of-range bit index on behalf of caller. Returns 1 if
+   the bit is in range. */
+static int IsValidBit(const char *caller, int bit)
 {
     if (bit >= 64 || bit < 0) {
-        fprintf(stderr, "SetBit: bit %d out of range!\n", bit);
-    } else {
-        BitFlags |= (uint64_t)1 << bit;
+        fprintf(stderr, "%s: bit %d out of range!\n", caller, bit);
+        return 0;
     }
+    return 1;
+}
+
+void SetBit(int bit)
+{
+    if (IsValidBit("SetBit", bit))
+        BitFlags |= (uint64_t)1 << bit;
 }
 
 void ResetBit(int bit)
 {
-    if (bit >= 64 || bit < 0) {
-        fprintf(stderr, "ResetBit: bit %d out of range!\n", bit);
-    } else {
+    if (IsValidBit("ResetBit", bit))
         BitFlags &= ~((uint64_t)1 << bit);
-    }
 }
 
 int IsSet(int bit)
 {
-    if (bit >= 64 || bit < 0) {
-        fprintf(stderr, "IsSet: bit %d out of range!\n", bit);
+    if (!IsValidBit("IsSet", bit))
         return 0;
-    }
     return ((BitFlags & ((uint64_t)1 << bit)) != 0);
 }
 
@@ -178,6 +182,33 @@ static glui32 OptimalPictureSize(glui32 *width, glui32 *height)
     return multiplier;
 }
 
+/* Pick the pixel scaling for the graphics window and centre the image
+   horizontally in it. Writes the window height and the scaled image
+   height to *graphheight and *optimal_height. */
+static void FitImageToGraphicsWindow(glui32 *graphheight, glui32 *optimal_height)
+{
+    glui32 graphwidth, optimal_width;
+    glk_window_get_size(Graphics, &graphwidth, graphheight);
+    pixel_size = OptimalPictureSize(&optimal_width, optimal_height);
+    x_offset = ((int)graphwidth - (int)optimal_width) / 2;
+    right_margin = optimal_width + x_offset;
+}
+
+/* Make the graphics window exactly height pixels tall. */
+static void SetGraphicsWindowHeight(glui32 height)
+{
+    winid_t parent = glk_window_get_parent(Graphics);
+    if (parent)
+        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+            height, NULL);
+}
+
+static winid_t OpenGraphicsWindowAboveBottom(void)
+{
+    return glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
+        60, wintype_Graphics, GLK_GRAPHICS_ROCK);
+}
+
 /* Open (or reconfigure) the Glk graphics window above the text windows.
    Calculates the optimal pixel scaling, centres the image horizontally,
    and sizes the window to fit exactly. If a status window already exists
@@ -186,7 +217,7 @@ void OpenGraphicsWindow(void)
 {
     if (!IsSet(GRAPHICSBIT))
         return;
-    glui32 graphwidth, graphheight, optimal_width, optimal_height;
+    glui32 graphheight, optimal_height;
     y_offset = 0;
 
     if (Top == NULL)
@@ -196,17 +227,11 @@ void OpenGraphicsWindow(void)
     if (Graphics == NULL && Top != NULL) {
         glk_window_get_size(Top, &TopWidth, &TopHeight);
         glk_window_close(Top, NULL);
-        Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
-            60, wintype_Graphics, GLK_GRAPHICS_ROCK);
-        glk_window_get_size(Graphics, &graphwidth, &graphheight);
-        pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
-        x_offset = ((int)graphwidth - (int)optimal_width) / 2;
+        Graphics = OpenGraphicsWindowAboveBottom();
+        FitImageToGraphicsWindow(&graphheight, &optimal_height);
 
-        if (graphheight > optimal_height) {
-            winid_t parent = glk_window_get_parent(Graphics);
-            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-                optimal_height, NULL);
-        }
+        if (graphheight > optimal_height)
+            SetGraphicsWindowHeight(optimal_height);
 
         /* Set the graphics window background to match
          * the main window background, best as we can,
@@ -224,18 +249,10 @@ void OpenGraphicsWindow(void)
         glk_window_get_size(Top, &TopWidth, &TopHeight);
     } else {
         if (!Graphics)
-            Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60,
-                wintype_Graphics, GLK_GRAPHICS_ROCK);
-        glk_window_get_size(Graphics, &graphwidth, &graphheight);
-        pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
-        x_offset = (graphwidth - optimal_width) / 2;
-        winid_t parent = glk_window_get_parent(Graphics);
-        if (parent)
-            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-                optimal_height, NULL);
+            Graphics = OpenGraphicsWindowAboveBottom();
+        FitImageToGraphicsWindow(&graphheight, &optimal_height);
+        SetGraphicsWindowHeight(optimal_height);
     }
-
-    right_margin = optimal_width + x_offset;
 }
 
 /* Close the graphics window and restore the status window dimensions. */
@@ -290,22 +307,28 @@ void UpdateSettings(void)
 static void FlushRoomDescription(char *buf, int transcript);
 static void ListInventory(int upper);
 
+#define ROOM_DESCRIPTION_SIZE 1000
+
+/* Open room_description_stream on a new zeroed buffer, which
+   FlushRoomDescription() frees. */
+static char *OpenRoomDescriptionStream(void)
+{
+    char *buf = MemCalloc(ROOM_DESCRIPTION_SIZE);
+    room_description_stream = glk_stream_open_memory(buf, ROOM_DESCRIPTION_SIZE, filemode_Write, 0);
+    return buf;
+}
+
 /* Claymorgue Castle displays the inventory in the upper window alongside
    images of carried items. This renders the inventory text to a memory
    stream, flushes it to the status window, then redraws room 33's image
    with overlays for each carried object. */
 static void UpdateClaymorgueInventory(void)
 {
-    char *buf = MemAlloc(1000);
-    buf = memset(buf, 0, 1000);
-    room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
+    char *buf = OpenRoomDescriptionStream();
     ListInventory(1);
     FlushRoomDescription(buf, 0);
     DrawRoomImage(33);
-    for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
-        if (ObjectImages[ct].Room == 33 && Items[ObjectImages[ct].Object].Location == CARRIED) {
-            DrawItemImage(ObjectImages[ct].Image);
-        }
+    DrawObjectImages(33, CARRIED);
 }
 
 void UpdateColorCycling(void);
@@ -325,19 +348,14 @@ void Updates(event_t ev)
         UpdateSettings();
         OpenGraphicsWindow();
         if (AnimationRunning && LastAnimationBackground) {
-            char buf[5];
-            snprintf(buf, sizeof buf, "S0%02d", LastAnimationBackground);
-            DrawImageWithName(buf);
+            DrawImageWithTypeAndNumber('S', LastAnimationBackground);
         } else {
             SetBit(DRAWBIT);
             if (showing_inventory == 1) {
                 UpdateClaymorgueInventory();
             } else {
                 Look(0);
-                if (SavedImgType == IMG_OBJECT)
-                    DrawItemImage(SavedImgIndex);
-                else if (SavedImgType == IMG_SPECIAL)
-                    DrawCloseup(SavedImgIndex);
+                DrawOverlayImage(SavedImgType, SavedImgIndex);
             }
         }
     } else if (ev.type == evtype_Timer) {
@@ -579,6 +597,19 @@ static const char *IndefiniteArticle(const char *word)
     return " a ";
 }
 
+/* The room is dark if DARKBIT is set and no light source (item flag 2)
+   is carried or in the room. */
+int IsDark(void)
+{
+    if (!IsSet(DARKBIT))
+        return 0;
+    for (int i = 0; i <= GameHeader.NumItems; i++) {
+        if ((Items[i].Flag & 2) && (Items[i].Location == MyLoc || Items[i].Location == CARRIED))
+            return 0;
+    }
+    return 1;
+}
+
 /* Compose and display the full room description: room text, visible items,
    exit list, and optionally the inventory. Draws the room image if DRAWBIT
    is set. The description is built in a memory stream and flushed to the
@@ -592,21 +623,12 @@ void Look(int transcript)
         DrawCurrentRoom();
     }
 
-    char *buf = MemCalloc(1000);
-    room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
+    char *buf = OpenRoomDescriptionStream();
 
     Room *r;
     int ct;
 
-    int dark = IsSet(DARKBIT);
-    for (int i = 0; i <= GameHeader.NumItems; i++) {
-        if (Items[i].Flag & 2) {
-            if (Items[i].Location == MyLoc || Items[i].Location == CARRIED)
-                dark = 0;
-        }
-    }
-
-    if (dark) {
+    if (IsDark()) {
         WriteToRoomDescriptionStream("%s", sys[TOO_DARK_TO_SEE]);
         FlushRoomDescription(buf, transcript);
         return;
@@ -821,28 +843,21 @@ static void PrintNoun(void)
 }
 
 /* Find the index of the first word in a dictionary list that belongs
-   to the given synonym group. Used for debug printing of action verbs/nouns. */
+   to the given synonym group. Returns 0 if there is none. */
 static int GetAnyDictWord(int group, DictWord *dict)
 {
-    for (int i = 0; dict->Word != NULL; i++) {
-        if (dict->Group == group) {
+    for (int i = 0; dict[i].Word != NULL; i++) {
+        if (dict[i].Group == group) {
             return i;
         }
-        dict++;
     }
     return 0;
 }
 
+/* GetAnyDictWord() for the noun dictionary. */
 int GetDictWord(int group)
 {
-    DictWord *dict = Nouns;
-    for (int i = 0; dict->Word != NULL; i++) {
-        if (dict->Group == group) {
-            return i;
-        }
-        dict++;
-    }
-    return 0;
+    return GetAnyDictWord(group, Nouns);
 }
 
 /* Handle player death: print the death message, turn on lights, move
@@ -1132,6 +1147,14 @@ int CalculateConditionResult(int x, int y, int or_condition)
 int parens_depth = 0;    /* Current nesting depth of parenthesised condition groups */
 int parens_stack[5];     /* Saved intermediate results for each open parenthesis */
 
+/* Read the extra argument of a two-argument condition. It is stored as
+   the argument of the (code 0) pair that follows, so the code is skipped. */
+static int NextConditionArgument(const uint16_t *ptr, int *cc)
+{
+    (*cc)++;
+    return ptr[(*cc)++];
+}
+
 /* Evaluate the condition list of an action. Conditions are pairs of
    (code, argument) terminated by 255. Supports AND/OR/NOT logic,
    parenthetical grouping, fuzzy dictionary matching, and special
@@ -1203,8 +1226,7 @@ static ActionResultType TestConditions(uint16_t *ptr)
                 current_result = 0;
             break;
         case 5:
-            cc++;
-            dv2 = ptr[cc++];
+            dv2 = NextConditionArgument(ptr, &cc);
             debug_print("Is description of room %d (counter %d) (%d) == Message %d?\n", Counters[dv], dv, Rooms[Counters[dv]].Exits[6], dv2);
             if (Rooms[Counters[dv]].Exits[6] != dv2)
                 current_result = 0;
@@ -1252,8 +1274,7 @@ static ActionResultType TestConditions(uint16_t *ptr)
             }
             break;
         case 17:
-            cc++;
-            dv2 = ptr[cc++];
+            dv2 = NextConditionArgument(ptr, &cc);
             debug_print("Is Counter %d == Counter %d?\n", dv, dv2);
 
             if (Counters[dv] != Counters[dv2]) {
@@ -1261,8 +1282,7 @@ static ActionResultType TestConditions(uint16_t *ptr)
             }
             break;
         case 18:
-            cc++;
-            dv2 = ptr[cc++];
+            dv2 = NextConditionArgument(ptr, &cc);
             debug_print("Is counter %d (%d) greater than counter %d (%d)?\n", dv, Counters[dv], dv2, Counters[dv2]);
             if (Counters[dv] <= Counters[dv2]) {
                 current_result = 0;
@@ -1275,16 +1295,14 @@ static ActionResultType TestConditions(uint16_t *ptr)
             }
             break;
         case 20:
-            cc++;
-            dv2 = ptr[cc++];
+            dv2 = NextConditionArgument(ptr, &cc);
             debug_print("Is counter %d (%d) == %d?\n", dv, Counters[dv], dv2);
             if (Counters[dv] != dv2)
                 current_result = 0;
             break;
 
         case 21:
-            cc++;
-            dv2 = ptr[cc++];
+            dv2 = NextConditionArgument(ptr, &cc);
             debug_print("Is counter %d (%d) >= %d?\n", dv, Counters[dv], dv2);
             if (Counters[dv] < dv2)
                 current_result = 0;
@@ -1295,23 +1313,20 @@ static ActionResultType TestConditions(uint16_t *ptr)
                 current_result = 0;
             break;
         case 23:
-            cc++;
-            dv2 = ptr[cc++];
+            dv2 = NextConditionArgument(ptr, &cc);
             debug_print("Is item %d (%s) in room (counter %d) %d?\n", dv, Items[dv].Text, dv2, Counters[dv2]);
             if (Items[dv].Location != Counters[dv2])
                 current_result = 0;
             break;
         case 26:
-            cc++;
-            dv2 = ptr[cc++];
+            dv2 = NextConditionArgument(ptr, &cc);
             debug_print("Is object %d in room %d?\n", dv, dv2);
             if (Items[dv].Location != dv2)
                 current_result = 0;
 
             break;
         case 28:
-            cc++;
-            dv2 = ptr[cc++];
+            dv2 = NextConditionArgument(ptr, &cc);
             if (dv < 1 || dv2 < 1 || dv > GameHeader.NumItems + 1 || dv2 > GameHeader.NumItems + 1)
                 debug_print("Is dictword of item (dv) %d == dictword group (dv2) %d?\n", dv, dv2);
             else
@@ -1337,8 +1352,7 @@ static ActionResultType TestConditions(uint16_t *ptr)
             }
             break;
         case 29:
-            cc++;
-            dv2 = ptr[cc++];
+            dv2 = NextConditionArgument(ptr, &cc);
             if (dv2 == 998)
                 dv2 = CurrentNoun;
             else if (dv2 == 999)
@@ -1360,8 +1374,7 @@ static ActionResultType TestConditions(uint16_t *ptr)
             }
             break;
         case 30:
-            cc++;
-            dv2 = ptr[cc++];
+            dv2 = NextConditionArgument(ptr, &cc);
             if (dv > GameHeader.NumItems)
                 debug_print("Bug! dv Out of bounds! dv:%d GameHeader.NumItems:%d\n", dv, GameHeader.NumItems);
             debug_print("Is Object flag %d & %d != 0\n", dv, dv2);
@@ -2103,6 +2116,41 @@ static int IsMatch(int ct, int doagain)
     return 0;
 }
 
+/* Update the action table scan after line *ct returned actresult:
+   start or stop a chain of continuation lines, and push, pop or jump
+   back to a loop. Returns 1 if the game is over and the scan must stop. */
+static int ApplyActionResult(ActionResultType actresult, int *ct, int *chain_on)
+{
+    switch (actresult) {
+    case ACT_CONTINUE:
+        *chain_on = 1;
+        break;
+    case ACT_DONE:
+        *chain_on = 0;
+        loops[loop_index] = 0;
+        if (loop_index)
+            loop_index--;
+        break;
+    case ACT_LOOP_BEGIN:
+        loop_index++;
+        if (loop_index >= MAX_LOOPS)
+            Fatal("Loop stack overflow");
+        loops[loop_index] = *ct;
+        *chain_on = 1;
+        break;
+    case ACT_LOOP:
+        if (loop_index) {
+            *ct = loops[loop_index];
+        }
+        break;
+    case ACT_GAMEOVER:
+        return 1;
+    default:
+        break;
+    }
+    return 0;
+}
+
 /* Run all implicit (automatic) actions — those with verb=0 at the start
    of the action table. These fire each turn before the player is prompted,
    handling timed events, NPC behaviour, and game-state updates. Supports
@@ -2127,33 +2175,8 @@ static CommandResultType PerformImplicit(void)
 
             if (actresult != ACT_FAILURE) {
                 result = ER_SUCCESS;
-                switch (actresult) {
-                case ACT_CONTINUE:
-                    chain_on = 1;
-                    break;
-                case ACT_DONE:
-                    chain_on = 0;
-                    loops[loop_index] = 0;
-                    if (loop_index)
-                        loop_index--;
-                    break;
-                case ACT_LOOP_BEGIN:
-                    loop_index++;
-                    if (loop_index >= MAX_LOOPS)
-                        Fatal("Loop stack overflow");
-                    loops[loop_index] = ct;
-                    chain_on = 1;
-                    break;
-                case ACT_LOOP:
-                    if (loop_index) {
-                        ct = loops[loop_index];
-                    }
-                    break;
-                case ACT_GAMEOVER:
+                if (ApplyActionResult(actresult, &ct, &chain_on))
                     return ER_SUCCESS;
-                default:
-                    break;
-                }
             }
         }
 
@@ -2216,33 +2239,8 @@ static CommandResultType PerformExplicit(void)
                     result = ER_RAN_ALL_LINES;
                 }
 
-                switch (actresult) {
-                case ACT_CONTINUE:
-                    chain_on = 1;
-                    break;
-                case ACT_DONE:
-                    chain_on = 0;
-                    loops[loop_index] = 0;
-                    if (loop_index)
-                        loop_index--;
-                    break;
-                case ACT_LOOP_BEGIN:
-                    loop_index++;
-                    if (loop_index >= MAX_LOOPS)
-                        Fatal("Loop stack overflow");
-                    loops[loop_index] = ct;
-                    chain_on = 1;
-                    break;
-                case ACT_LOOP:
-                    if (loop_index) {
-                        ct = loops[loop_index];
-                    }
-                    break;
-                case ACT_GAMEOVER:
+                if (ApplyActionResult(actresult, &ct, &chain_on))
                     return ER_SUCCESS;
-                default:
-                    break;
-                }
             } else {
                 if (verbvalue == CurrentVerb && (nounvalue == CurrentNoun || nounvalue == 0))
                     SetBit(MATCHBIT);
@@ -2315,15 +2313,12 @@ int glkunix_startup_code(glkunix_startup_t *data)
    it both horizontally and vertically (⅓ from top). */
 void ResizeTitleImage(void)
 {
-    glui32 graphwidth, graphheight, optimal_width, optimal_height;
+    glui32 graphheight, optimal_height;
 #ifdef SPATTERLIGHT
     glk_window_set_background_color(Graphics, gbgcol);
     glk_window_clear(Graphics);
 #endif
-    glk_window_get_size(Graphics, &graphwidth, &graphheight);
-    pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
-    x_offset = ((int)graphwidth - (int)optimal_width) / 2;
-    right_margin = optimal_width + x_offset;
+    FitImageToGraphicsWindow(&graphheight, &optimal_height);
     y_offset = ((int)graphheight - (int)optimal_height) / 3;
 }
 

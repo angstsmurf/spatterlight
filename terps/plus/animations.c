@@ -86,23 +86,25 @@ void AddFrameToBuffer(int frameidx)
     AnimationFrames[FramesTail] = -1;
 }
 
-/* Convenience wrappers that build a short filename from an image type
-   prefix ('R' = room, 'B' = item/object, 'S' = special) and index,
-   then add it to the animation image pool. */
+/* Build a short filename from an image type prefix ('R' = room,
+   'B' = item/object, 'S' = special) and index, then add it to the
+   animation image pool. */
+static void AddImageWithType(char type, int image)
+{
+    char *shortname = ShortNameFromType(type, image);
+    AddImageToBuffer(shortname);
+    free(shortname);
+}
 
 void AddRoomImage(int image)
 {
-    char *shortname = ShortNameFromType('R', image);
-    AddImageToBuffer(shortname);
-    free(shortname);
+    AddImageWithType('R', image);
     STWebAnimation = 0;
 }
 
 void AddItemImage(int image)
 {
-    char *shortname = ShortNameFromType('B', image);
-    AddImageToBuffer(shortname);
-    free(shortname);
+    AddImageWithType('B', image);
     STWebAnimation = 0;
 }
 
@@ -123,9 +125,7 @@ void AddSpecialImage(int image)
         }
     }
 
-    char *shortname = ShortNameFromType('S', image);
-    AddImageToBuffer(shortname);
-    free(shortname);
+    AddImageWithType('S', image);
 }
 
 /* Request an animation timer rate. Avoids overriding a faster existing
@@ -293,11 +293,9 @@ void UpdateAnimation(void)
     /* Draw a background image before the next animation frame if one
        was queued (e.g. a room transition overlay) */
     if (AnimationBackground) {
-        char buf[5];
-        snprintf(buf, sizeof buf, "S0%02d", AnimationBackground);
         LastAnimationBackground = AnimationBackground;
         AnimationBackground = 0;
-        DrawImageWithName(buf);
+        DrawImageWithTypeAndNumber('S', LastAnimationBackground);
         return;
     }
 

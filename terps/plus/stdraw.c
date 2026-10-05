@@ -15,6 +15,7 @@
 #include "definitions.h"
 #include "glk.h"
 #include "graphics.h"
+#include "read_le16.h"
 
 static int xoff = 0, yoff = 0;
 
@@ -34,11 +35,6 @@ typedef struct {
     int NumPix;
     Pixel *Pixels;
 } AnimationColor;
-
-static inline uint16_t READ_BE_UINT16(const void *ptr) {
-    const uint8_t *b = (const uint8_t *)ptr;
-    return b[1] | (b[0] << 8) ;
-}
 
 static int IsSTBitSet(int bit, uint8_t byte)
 {
@@ -218,8 +214,6 @@ static void DrawPattern(uint8_t pattern, Pixel **pixels)
     LineNibblesLeft = NibblesWide;
 }
 
-void SetRGB(int32_t index, int red, int green, int blue);
-
 int ColorCyclingRunning = 0;
 
 int Intersects(Pixel pix, int xpos, int ypos, int width, int height)
@@ -326,12 +320,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t total_size)
     NumAnimCols = *ptr++;
 
     for (int i = 0; i <= 15; i++) {
-        int blue = *(ptr + 1) & 0xf;
-        int green = (*(ptr + 1) >> 4) & 0xf;
-        int red = *ptr & 0xf;
-
-        SetRGB(i, red, green, blue);
-
+        SetColor(i, StColToGlk(ptr[0], ptr[1]));
         ptr += 2;
     }
 

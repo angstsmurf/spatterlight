@@ -30,6 +30,7 @@ void Display(winid_t w, const char *fmt, ...)
 void SetBit(int bit);
 void ResetBit(int bit);
 int IsSet(int bit);
+int IsDark(void);
 
 int CompareUpToHashSign(char *word1, char *word2);
 int GetDictWord(int group);

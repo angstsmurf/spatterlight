@@ -274,53 +274,46 @@ static char *ReadString(FILE *f, size_t *length)
     return t;
 }
 
-/* Reads dictionary words from the plaintext database. Each string read from
-   the file contains comma-separated words that belong to the same synonym
-   group (e.g. "GET,TAKE,GRAB,"). Words within a group are interchangeable.
-   The group number increments with each string read from the file.
-   Builds the dictionary in a stack buffer, then copies to a heap-allocated
-   array terminated by a NULL Word sentinel. */
-static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
-{
-    DictWord dictionary[1024];
-    char *str = NULL;
-    int group = 0;
-    int index = 0;
+/* Dictionary and substitution strings are a list of comma-separated words,
+   starting with a comma. Both the plaintext and the binary database store
+   them this way; only the way the strings are read differs. */
 
-    for (int i = 0; i < numstrings; i++) {
-        size_t length;
-        str = ReadString(f, &length);
-        if (str == NULL || str[0] == '\0')
+#define MAX_DICT_ENTRIES 1024
+
+/* Split the comma-separated words in str (modified in place) into entries
+   of dictionary group group, starting at dictionary[index]. Returns the
+   index after the last entry added. */
+static int AddDictWords(char *str, size_t length, int group, DictWord *dictionary, int index)
+{
+    int lastcomma = 0;
+    int commapos = 0;
+    for (int j = 0; j < length && str[j] != '\0'; j++) {
+        if (str[j] != ',')
             continue;
 
-        /* Split the comma-separated string into individual dictionary words */
-        int lastcomma = 0;
-        int commapos = 0;
-        for (int j = 0; j < length && str[j] != '\0'; j++) {
-            if (str[j] != ',')
-                continue;
-
-            while (str[j] == ',') {
-                str[j] = '\0';
-                commapos = j;
-                j++;
-            }
-
-            int seglen = commapos - lastcomma;
-            if (seglen > 0) {
-                dictionary[index].Word = MemAlloc(seglen);
-                memcpy(dictionary[index].Word, &str[lastcomma + 1], seglen);
-                dictionary[index].Group = group;
-                index++;
-            }
-            lastcomma = commapos;
+        while (str[j] == ',') {
+            str[j] = '\0';
+            commapos = j;
+            j++;
         }
-        free(str);
-        str = NULL;
-        group++;
-    }
 
-    /* Copy the stack-built dictionary to a right-sized heap allocation */
+        int seglen = commapos - lastcomma;
+        if (seglen > 0) {
+            dictionary[index].Word = MemAlloc(seglen);
+            memcpy(dictionary[index].Word, &str[lastcomma + 1], seglen);
+            dictionary[index].Group = group;
+            debug_print("Dictword %d: %s (%d)\n", index, dictionary[index].Word, dictionary[index].Group);
+            index++;
+        }
+        lastcomma = commapos;
+    }
+    return index;
+}
+
+/* Copy the stack-built dictionary of index entries to a right-sized heap
+   allocation, terminated by a NULL Word sentinel. */
+static DictWord *FinishDictionary(DictWord *dictionary, int index, int loud)
+{
     dictionary[index].Word = NULL;
     size_t dictsize = (index + 1) * sizeof(DictWord);
     DictWord *finaldict = MemAlloc(dictsize);
@@ -333,94 +326,91 @@ static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
     return finaldict;
 }
 
-/* Reads substitution (synonym) entries from the plaintext database.
-   Each string contains comma-separated tokens. An '=' prefix marks the next
-   token as a replacement string; all preceding synonym strings in the current
-   group are mapped to that replacement. For example, the string
-   ",HELLO,HI,=,GREET," means both "HELLO" and "HI" expand to "GREET".
-   Builds entries in a stack buffer, then copies to the heap. */
-static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud)
-{
-    Synonym syn[1024];
-    char *str = NULL;
-    char *replace = NULL;
-    int index = 0;
-    int firstsyn = 0;
+/* Substitution parsing state that carries over from one string to the next:
+   the synonyms read so far, the first of them still waiting for a
+   replacement, and the latest replacement string. */
+typedef struct {
+    Synonym syn[MAX_DICT_ENTRIES];
+    int index;
+    int firstsyn;
+    char *replace;
+} SubstitutionReader;
 
-    for (int i = 0; i < numstrings; i++) {
-        size_t length;
-        str = ReadString(f, &length);
-        if (loud)
-            debug_print("Read synonym string \"%s\"\n", str);
-        if (str == NULL || str[0] == '\0')
+/* Add the substitutions in one comma-separated string (modified in place).
+   An '=' prefix marks the next token as a replacement string; all preceding
+   synonym strings that are still without one are mapped to it. For example,
+   the string ",HELLO,HI,=GREET," means both "HELLO" and "HI" expand to
+   "GREET". */
+static void AddSubstitutions(SubstitutionReader *r, char *str, size_t length, int loud)
+{
+    int lastcomma = 0;
+    int commapos = 0;
+    int foundrep = 0;
+    int nextisrep = 0;
+
+    for (int j = 0; j < length && str[j] != '\0'; j++) {
+        if (str[j] != ',')
             continue;
 
-        int lastcomma = 0;
-        int commapos = 0;
-        int foundrep = 0;
-        int nextisrep = 0;
-
-        for (int j = 0; j < length && str[j] != '\0'; j++) {
-            if (str[j] != ',')
-                continue;
-
-            while (str[j] == ',') {
-                str[j] = '\0';
-                commapos = j;
-                j++;
-            }
-
-            if (nextisrep) {
-                foundrep = 1;
-                nextisrep = 0;
-            } else if (str[j] == '=') {
-                nextisrep = 1;
-            }
-
-            if (foundrep) {
-                int seglen = commapos - lastcomma - 1;
-                if (seglen > 0) {
-                    free(replace);
-                    replace = MemAlloc(seglen);
-                    memcpy(replace, &str[lastcomma + 2], seglen);
-                    if (loud)
-                        debug_print("Found new replacement string \"%s\"\n", replace);
-                }
-            } else {
-                int seglen = commapos - lastcomma;
-                if (seglen > 0) {
-                    syn[index].SynonymString = MemAlloc(seglen);
-                    memcpy(syn[index].SynonymString, &str[lastcomma + 1], seglen);
-                    if (loud)
-                        debug_print("Found new synonym string \"%s\"\n", syn[index].SynonymString);
-                    index++;
-                }
-            }
-
-            if (foundrep) {
-                size_t replen = strlen(replace) + 1;
-                for (int k = firstsyn; k < index; k++) {
-                    syn[k].ReplacementString = MemAlloc(replen);
-                    memcpy(syn[k].ReplacementString, replace, replen);
-                    if (loud)
-                        debug_print("Setting replacement string of \"%s\" (%d) to \"%s\"\n", syn[k].SynonymString, k, syn[k].ReplacementString);
-                }
-                firstsyn = index;
-                foundrep = 0;
-            }
-
-            lastcomma = commapos;
+        while (str[j] == ',') {
+            str[j] = '\0';
+            commapos = j;
+            j++;
         }
-        free(str);
-        str = NULL;
+
+        if (nextisrep) {
+            foundrep = 1;
+            nextisrep = 0;
+        } else if (str[j] == '=') {
+            nextisrep = 1;
+        }
+
+        if (foundrep) {
+            int seglen = commapos - lastcomma - 1;
+            if (seglen > 0) {
+                free(r->replace);
+                r->replace = MemAlloc(seglen);
+                memcpy(r->replace, &str[lastcomma + 2], seglen);
+                if (loud)
+                    debug_print("Found new replacement string \"%s\"\n", r->replace);
+            }
+        } else {
+            int seglen = commapos - lastcomma;
+            if (seglen > 0) {
+                r->syn[r->index].SynonymString = MemAlloc(seglen);
+                memcpy(r->syn[r->index].SynonymString, &str[lastcomma + 1], seglen);
+                if (loud)
+                    debug_print("Found new synonym string \"%s\"\n", r->syn[r->index].SynonymString);
+                r->index++;
+            }
+        }
+
+        if (foundrep) {
+            size_t replen = strlen(r->replace) + 1;
+            for (int k = r->firstsyn; k < r->index; k++) {
+                r->syn[k].ReplacementString = MemAlloc(replen);
+                memcpy(r->syn[k].ReplacementString, r->replace, replen);
+                if (loud)
+                    debug_print("Setting replacement string of \"%s\" (%d) to \"%s\"\n", r->syn[k].SynonymString, k, r->syn[k].ReplacementString);
+            }
+            r->firstsyn = r->index;
+            foundrep = 0;
+        }
+
+        lastcomma = commapos;
     }
+}
 
-    free(replace);
-    syn[index].SynonymString = NULL;
+/* Copy the substitutions read to a right-sized heap allocation, terminated
+   by a NULL SynonymString sentinel. */
+static Synonym *FinishSubstitutions(SubstitutionReader *r, int loud)
+{
+    free(r->replace);
+    r->syn[r->index].SynonymString = NULL;
 
-    size_t synsize = (index + 1) * sizeof(Synonym);
+    size_t synsize = (r->index + 1) * sizeof(Synonym);
     Synonym *finalsyns = MemAlloc(synsize);
-    memcpy(finalsyns, syn, synsize);
+    memcpy(finalsyns, r->syn, synsize);
 
     if (loud)
         for (int j = 0; finalsyns[j].SynonymString != NULL; j++)
@@ -429,24 +419,64 @@ static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud)
     return finalsyns;
 }
 
-static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *length);
-
-/* Binary-format variant of ReadSubstitutions. Reads substitution entries from
-   an in-memory binary database using length-prefixed strings (via ReadPlusString)
-   instead of file I/O. Same comma-delimited format and '=' replacement logic
-   as the plaintext version. Advances *startpointer past the consumed data. */
-static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, int loud)
+/* Reads dictionary words from the plaintext database. Each string read from
+   the file contains comma-separated words that belong to the same synonym
+   group (e.g. ",GET,TAKE,GRAB,"). Words within a group are interchangeable.
+   The group number increments with each non-empty string read from the file. */
+static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
 {
-    Synonym syn[1024];
-    uint8_t *ptr = *startpointer;
-
-    char *str = NULL;
-    char *replace = NULL;
+    DictWord dictionary[MAX_DICT_ENTRIES];
+    int group = 0;
     int index = 0;
-    int firstsyn = 0;
 
     for (int i = 0; i < numstrings; i++) {
         size_t length;
+        char *str = ReadString(f, &length);
+        if (str == NULL || str[0] == '\0')
+            continue;
+
+        index = AddDictWords(str, length, group, dictionary, index);
+        free(str);
+        group++;
+    }
+
+    return FinishDictionary(dictionary, index, loud);
+}
+
+/* Reads substitution (synonym) entries from the plaintext database. */
+static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud)
+{
+    SubstitutionReader r = { .index = 0, .firstsyn = 0, .replace = NULL };
+
+    for (int i = 0; i < numstrings; i++) {
+        size_t length;
+        char *str = ReadString(f, &length);
+        if (loud)
+            debug_print("Read synonym string \"%s\"\n", str);
+        if (str == NULL || str[0] == '\0')
+            continue;
+
+        AddSubstitutions(&r, str, length, loud);
+        free(str);
+    }
+
+    return FinishSubstitutions(&r, loud);
+}
+
+static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *length);
+
+/* Binary-format variant of ReadSubstitutions. Reads substitution entries from
+   an in-memory binary database using length-prefixed strings (via
+   ReadPlusString) instead of file I/O. Advances *startpointer past the
+   consumed data. */
+static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, int loud)
+{
+    SubstitutionReader r = { .index = 0, .firstsyn = 0, .replace = NULL };
+    uint8_t *ptr = *startpointer;
+
+    for (int i = 0; i < numstrings; i++) {
+        size_t length;
+        char *str;
         ptr = ReadPlusString(ptr, &str, &length);
         while (length == 0 && i == 0)
             ptr = ReadPlusString(ptr, &str, &length);
@@ -455,79 +485,12 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
         if (str == NULL || str[0] == 0)
             continue;
 
-        int lastcomma = 0;
-        int commapos = 0;
-        int foundrep = 0;
-        int nextisrep = 0;
-
-        for (int j = 0; j < length && str[j] != '\0'; j++) {
-            if (str[j] != ',')
-                continue;
-
-            while (str[j] == ',') {
-                str[j] = '\0';
-                commapos = j;
-                j++;
-            }
-
-            if (nextisrep) {
-                foundrep = 1;
-                nextisrep = 0;
-            } else if (str[j] == '=') {
-                nextisrep = 1;
-            }
-
-            if (foundrep) {
-                int seglen = commapos - lastcomma - 1;
-                if (seglen > 0) {
-                    free(replace);
-                    replace = MemAlloc(seglen);
-                    memcpy(replace, &str[lastcomma + 2], seglen);
-                    if (loud)
-                        debug_print("Found new replacement string \"%s\"\n", replace);
-                }
-            } else {
-                int seglen = commapos - lastcomma;
-                if (seglen > 0) {
-                    syn[index].SynonymString = MemAlloc(seglen);
-                    memcpy(syn[index].SynonymString, &str[lastcomma + 1], seglen);
-                    if (loud)
-                        debug_print("Found new synonym string \"%s\"\n", syn[index].SynonymString);
-                    index++;
-                }
-            }
-
-            if (foundrep) {
-                size_t replen = strlen(replace) + 1;
-                for (int k = firstsyn; k < index; k++) {
-                    syn[k].ReplacementString = MemAlloc(replen);
-                    memcpy(syn[k].ReplacementString, replace, replen);
-                    if (loud)
-                        debug_print("Setting replacement string of \"%s\" (%d) to \"%s\"\n", syn[k].SynonymString, k, syn[k].ReplacementString);
-                }
-                firstsyn = index;
-                foundrep = 0;
-            }
-
-            lastcomma = commapos;
-        }
+        AddSubstitutions(&r, str, length, loud);
         free(str);
-        str = NULL;
     }
 
-    free(replace);
-    syn[index].SynonymString = NULL;
-
-    size_t synsize = (index + 1) * sizeof(Synonym);
-    Synonym *finalsyns = MemAlloc(synsize);
-    memcpy(finalsyns, syn, synsize);
-
-    if (loud)
-        for (int j = 0; finalsyns[j].SynonymString != NULL; j++)
-            debug_print("Synonym entry %d: \"%s\", Replacement \"%s\"\n", j, finalsyns[j].SynonymString, finalsyns[j].ReplacementString);
-
     *startpointer = ptr;
-    return finalsyns;
+    return FinishSubstitutions(&r, loud);
 }
 
 char **Comments;
@@ -806,6 +769,30 @@ static uint8_t ReadNum(FILE *f)
     return num;
 }
 
+#define MAX_CONDITION_ARGS 1024
+
+/* Append one condition to an action's condition list. Each condition is a
+   16-bit value: the lower 15 bits encode a 5-bit condition opcode and a
+   10-bit argument, stored as a condition/argument pair. The high bit
+   signals the last condition in the chain; returns nonzero for that one. */
+static int AddCondition(uint16_t raw, uint16_t *conditions, int *condargs)
+{
+    if (*condargs + 2 > MAX_CONDITION_ARGS)
+        Fatal("Broken database!");
+    conditions[(*condargs)++] = raw & 0x1f;
+    conditions[(*condargs)++] = (raw >> 5) & 0x3ff;
+    return raw & 0x8000;
+}
+
+/* Copy the condition list built by AddCondition() into the action,
+   terminated by a 255 sentinel. */
+static void SetActionConditions(Action *ap, const uint16_t *conditions, int condargs)
+{
+    ap->Conditions = MemAlloc((condargs + 1) * sizeof(uint16_t));
+    memcpy(ap->Conditions, conditions, condargs * sizeof(uint16_t));
+    ap->Conditions[condargs] = 255;
+}
+
 /* Reads a single action entry from the plaintext database.
    The first byte encodes two 4-bit fields: the high nibble is the number of
    extra word parameters, and the low nibble is the command byte count.
@@ -832,25 +819,16 @@ static void ReadAction(FILE *f, Action *ap)
         ap->Words[i] = ReadNum(f);
     }
 
-    /* Read conditions: each is a big-endian 16-bit value where the high bit
-       signals the last condition in the chain. The lower 15 bits encode
-       a 5-bit condition opcode and a 10-bit argument. Stored as alternating
-       condition/argument pairs, terminated by a 255 sentinel. */
-    uint16_t conditions[1024];
+    /* Read conditions: each is a big-endian 16-bit value, written as
+       two numbers */
+    uint16_t conditions[MAX_CONDITION_ARGS];
     int condargs = 0;
     for (;;) {
         uint16_t raw = ReadNum(f) * 256 + ReadNum(f);
-        int last = raw & 0x8000;
-        if (condargs + 2 > 1024)
-            Fatal("Broken database!");
-        conditions[condargs++] = raw & 0x1f;
-        conditions[condargs++] = (raw >> 5) & 0x3ff;
-        if (last)
+        if (AddCondition(raw, conditions, &condargs))
             break;
     }
-    ap->Conditions = MemAlloc((condargs + 1) * sizeof(uint16_t));
-    memcpy(ap->Conditions, conditions, condargs * sizeof(uint16_t));
-    ap->Conditions[condargs] = 255;
+    SetActionConditions(ap, conditions, condargs);
 
     /* Read command bytes directly into a heap allocation */
     int cmdlen = ap->CommandLength + 1;
@@ -881,6 +859,32 @@ static void PrintHeaderInfo(const Header h)
     debug_print("Unknown1 =\t%d\n", h.Unknown1);
     debug_print("Number of object images =\t%d\n", h.NumObjImg);
     debug_print("Unknown3 =\t%d\n", h.Unknown2);
+}
+
+/* Set the counters and flags that mirror header values, and put the
+   player in the start room. */
+static void SetCountersFromHeader(void)
+{
+    Counters[43] = GameHeader.NumItems;
+    MyLoc = GameHeader.PlayerRoom;
+    Counters[35] = GameHeader.NumRooms;
+    Counters[34] = GameHeader.TreasureRoom;
+    Counters[42] = GameHeader.MaxCarry;
+    SetBit(GRAPHICSBIT); // Graphics on
+}
+
+/* Look up each room's description text: Exits[6] holds a message index
+   offset by 76, or 0 for no description. Call after loading Messages. */
+static void SetRoomDescriptions(int loud)
+{
+    for (int i = 0; i <= GameHeader.NumRooms; i++) {
+        if (Rooms[i].Exits[6] == 0)
+            Rooms[i].Text = "";
+        else
+            Rooms[i].Text = Messages[Rooms[i].Exits[6] - 76];
+        if (loud)
+            debug_print("Room description of room %d: \"%s\"\n", i, Rooms[i].Text);
+    }
 }
 
 /* Matches the game's title/ID string against the known games database.
@@ -963,7 +967,6 @@ int LoadDatabasePlaintext(FILE *f, int loud)
         return UNKNOWN_GAME;
     }
     GameHeader.NumItems = num_items;
-    Counters[43] = num_items;
     Items = (Item *)MemAlloc(sizeof(Item) * (num_items + 1));
     GameHeader.NumActions = num_actions;
     GameHeader.ActionSum = action_sum;
@@ -974,7 +977,6 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
     GameHeader.MaxCarry = max_carry;
     GameHeader.PlayerRoom = player_room;
-    MyLoc = player_room;
     GameHeader.Treasures = num_treasures;
     GameHeader.LightTime = light_time;
     GameHeader.NumMessages = num_messages;
@@ -989,10 +991,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (num_obj_img + 1));
     MysteryValues = MemAlloc(unknown2 + 1);
 
-    Counters[35] = num_rooms;
-    Counters[34] = treasure_room;
-    Counters[42] = max_carry;
-    SetBit(35); // Graphics on
+    SetCountersFromHeader();
 
     if (loud) {
         PrintHeaderInfo(GameHeader);
@@ -1043,15 +1042,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
             debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
     }
 
-    /* Resolve room descriptions: Exits[6] holds a message index offset by 76 */
-    for (ct = 0; ct < num_rooms + 1; ct++) {
-        if (Rooms[ct].Exits[6] == 0)
-            Rooms[ct].Text = "";
-        else
-            Rooms[ct].Text = Messages[Rooms[ct].Exits[6] - 76];
-        if (loud)
-            debug_print("Room description of room %d: \"%s\"\n", ct, Rooms[ct].Text);
-    }
+    SetRoomDescriptions(loud);
 
     /* Load items: each has a quoted text string followed by comma-separated
        location, dictionary word index, and flag values */
@@ -1263,52 +1254,35 @@ static uint8_t *ReadHeader(uint8_t *ptr)
 DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
 {
     uint8_t *ptr = *pointer;
-    DictWord dictionary[1024];
-    DictWord *dw = dictionary;
-    char *str = NULL;
+    DictWord dictionary[MAX_DICT_ENTRIES];
     int group = 0;
     int index = 0;
     for (int i = 0; i < numstrings; i++) {
         size_t strlength;
+        char *str;
         ptr = ReadPlusString(ptr, &str, &strlength);
         /* Skip padding zero bytes that appear in some binary formats */
         while (str[0] == 0)
             ptr = ReadPlusString(ptr, &str, &strlength);
         debug_print("Read dictionary string \"%s\"\n", str);
-        /* Split comma-separated words into individual dictionary entries */
-        int lastcomma = 0;
-        int commapos = 0;
-        for (int j = 0; j <= strlength && str[j] != '\0'; j++) {
-            if (str[j] == ',') {
-                while (str[j] == ',') {
-                    str[j] = '\0';
-                    commapos = j;
-                    j++;
-                }
-                int length = commapos - lastcomma;
-                if (length > 0) {
-                    dw->Word = MemAlloc(length);
-                    memcpy(dw->Word, &str[lastcomma + 1], length);
-                    dw->Group = group;
-                    debug_print("Dictword %d: %s (%d)\n", index, dw->Word, dw->Group);
-                    dw = &dictionary[++index];
-                }
-                lastcomma = commapos;
-            }
-        }
+        /* The terminator is included, as in the plaintext version */
+        index = AddDictWords(str, strlength + 1, group, dictionary, index);
         free(str);
-        str = NULL;
         group++;
     }
-    dictionary[index].Word = NULL;
-    int dictsize = (index + 1) * sizeof(DictWord);
-    DictWord *finaldict = (DictWord *)MemAlloc(dictsize);
-    memcpy(finaldict, dictionary, dictsize);
     *pointer = ptr;
-    if (loud)
-        for (int j = 0; dictionary[j].Word != NULL; j++)
-            debug_print("Dictionary entry %d: \"%s\", group %d\n", j, finaldict[j].Word, finaldict[j].Group);
-    return finaldict;
+    return FinishDictionary(dictionary, index, loud);
+}
+
+/* Apple II stores image addresses as two bytes that combine into a memory
+   address: high * 0x1000 + low * 0x100. The high byte has already been
+   read; the low byte is read from *ptr. */
+static int ReadApple2ImageAddress(int high, uint8_t **ptr)
+{
+    int adr = high * 0x100;
+    adr += *(*ptr)++ * 0x10;
+    adr *= 0x10;
+    return adr;
 }
 
 /* Validates that key header fields fall within expected ranges for a
@@ -1376,7 +1350,6 @@ int LoadDatabaseBinary(void)
         isSTFantastic4 = 1;
 
     GameHeader.NumItems = num_items;
-    Counters[43] = num_items;
     GameHeader.ActionSum = action_sum;
     GameHeader.NumVerbs = num_verbs;
     GameHeader.NumNouns = num_nouns;
@@ -1384,7 +1357,6 @@ int LoadDatabaseBinary(void)
 
     GameHeader.MaxCarry = max_carry;
     GameHeader.PlayerRoom = player_room;
-    MyLoc = player_room;
     GameHeader.Treasures = num_treasures;
     GameHeader.NumPreps = num_preps;
     GameHeader.NumAdverbs = num_adverbs;
@@ -1402,10 +1374,7 @@ int LoadDatabaseBinary(void)
     Rooms = MemAlloc(sizeof(Room) * (num_rooms + 1));
     ObjectImages = MemAlloc(sizeof(ObjectImage) * (num_obj_img + 1));
 
-    Counters[35] = num_rooms;
-    Counters[34] = treasure_room;
-    Counters[42] = max_carry;
-    SetBit(35); // Graphics on
+    SetCountersFromHeader();
 
 #pragma mark actions
 
@@ -1438,27 +1407,17 @@ int LoadDatabaseBinary(void)
             ap->Words[i] = *ptr++;
         }
 
-        /* Read condition chain: each 16-bit big-endian value encodes a 5-bit
-           condition opcode (low bits) and a 10-bit argument (high bits).
-           Bit 15 marks the last entry in the chain. Stored as alternating
-           condition/argument pairs terminated by a 255 sentinel. */
-        uint16_t conditions[1024];
+        /* Read condition chain: each is a 16-bit big-endian value */
+        uint16_t conditions[MAX_CONDITION_ARGS];
         int condargs = 0;
         for (;;) {
             if (ptr + 2 > end)
                 Fatal("Broken database!");
             uint16_t raw = READ_BE_UINT16_AND_ADVANCE(&ptr);
-            int last = raw & 0x8000;
-            if (condargs + 2 > 1024)
-                Fatal("Broken database!");
-            conditions[condargs++] = raw & 0x1f;
-            conditions[condargs++] = (raw >> 5) & 0x3ff;
-            if (last)
+            if (AddCondition(raw, conditions, &condargs))
                 break;
         }
-        ap->Conditions = MemAlloc((condargs + 1) * sizeof(uint16_t));
-        memcpy(ap->Conditions, conditions, condargs * sizeof(uint16_t));
-        ap->Conditions[condargs] = 255;
+        SetActionConditions(ap, conditions, condargs);
 
         int cmdlen = ap->CommandLength + 1;
         if (ptr + cmdlen > end)
@@ -1501,13 +1460,8 @@ int LoadDatabaseBinary(void)
             Rooms[ct].Exits[j] = *ptr++;
 
             if (CurrentSys == SYS_APPLE2 && j == 7) {
-                /* Apple II stores image addresses as two bytes that combine
-                   into a memory address: high * 0x1000 + low * 0x100 */
-                int adr = Rooms[ct].Exits[j] * 0x100;
-                adr += *ptr++ * 0x10;
-                adr *= 0x10;
-                debug_print("Room image %d address:%x\n", ct, adr);
-                Rooms[ct].Exits[j] = adr;
+                Rooms[ct].Exits[j] = ReadApple2ImageAddress(Rooms[ct].Exits[j], &ptr);
+                debug_print("Room image %d address:%x\n", ct, Rooms[ct].Exits[j]);
             } else if (j > 5) {
                 /* Directions 6 and 7 use 16-bit values (second byte here) */
                 Rooms[ct].Exits[j] |= *ptr++;
@@ -1543,14 +1497,7 @@ int LoadDatabaseBinary(void)
 
     Messages = LoadMessages(GameHeader.NumMessages + 1, &ptr);
 
-    /* Resolve room descriptions: Exits[6] holds a message index offset by 76 */
-    for (int i = 0; i <= GameHeader.NumRooms; i++) {
-        if (Rooms[i].Exits[6] == 0)
-            Rooms[i].Text = "";
-        else
-            Rooms[i].Text = Messages[Rooms[i].Exits[6] - 76];
-        debug_print("Room description of room %d: \"%s\"\n", i, Rooms[i].Text);
-    }
+    SetRoomDescriptions(1);
 
 #pragma mark items
 
@@ -1631,11 +1578,8 @@ int LoadDatabaseBinary(void)
     for (ct = 0; ct <= num_obj_img; ct++) {
         ObjectImages[ct].Image = *ptr++;
         if (CurrentSys == SYS_APPLE2) {
-            int adr = ObjectImages[ct].Image * 0x100;
-            adr += *ptr++ * 0x10;
-            adr *= 0x10;
-            debug_print("Object image %d address:%x\n", ct, adr);
-            ObjectImages[ct].Image = adr;
+            ObjectImages[ct].Image = ReadApple2ImageAddress(ObjectImages[ct].Image, &ptr);
+            debug_print("Object image %d address:%x\n", ct, ObjectImages[ct].Image);
         } else
             ptr++;
     }

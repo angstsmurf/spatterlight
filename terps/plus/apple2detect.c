@@ -260,6 +260,19 @@ static uint8_t *ConvertWozToDsk(uint8_t *data, size_t datasize, size_t *outsize)
     return dsk;
 }
 
+// Copy the 256-byte sectors of src into a new buffer of imagesize bytes
+// in reverse order, so that the last sector of src comes first.
+static uint8_t *ReverseSectors(const uint8_t *src, size_t srcsize, size_t imagesize)
+{
+    uint8_t *reversed = MemAlloc(imagesize);
+    size_t offset = imagesize - 256;
+    for (int i = 0; i < srcsize && i < imagesize; i += 256) {
+        memcpy(reversed + offset, src + i, 256);
+        offset -= 256;
+    }
+    return reversed;
+}
+
 int DetectApple2(uint8_t **sf, size_t *extent)
 {
     const size_t dsk_image_size = 35 * 16 * 256;
@@ -276,12 +289,7 @@ int DetectApple2(uint8_t **sf, size_t *extent)
     if (*sf == NULL || *extent > MAX_LENGTH || *extent < dsk_image_size)
         return 0;
 
-    new = MemAlloc(dsk_image_size);
-    size_t offset = dsk_image_size - 256;
-    for (int i = 0; i < *extent && i < dsk_image_size; i += 256) {
-        memcpy(new + offset, *sf + i, 256);
-        offset -= 256;
-    }
+    new = ReverseSectors(*sf, *extent, dsk_image_size);
 
     int actionsize = READ_LE_UINT16(new + 0x1EA32);
     debug_print("Actionsize: %d\n", actionsize);
@@ -301,12 +309,7 @@ int DetectApple2(uint8_t **sf, size_t *extent)
         }
         if (companionfile && companionsize >= dsk_image_size) {
             free(new);
-            new = MemAlloc(companionsize);
-            offset = companionsize - 256;
-            for (int i = 0; i < companionsize; i += 256) {
-                memcpy(new + offset, companionfile + i, 256);
-                offset -= 256;
-            }
+            new = ReverseSectors(companionfile, companionsize, companionsize);
             actionsize = READ_LE_UINT16(new + 0x1EA32);
         }
         if (actionsize < 4000 || actionsize > 7000) {
@@ -330,6 +333,33 @@ int DetectApple2(uint8_t **sf, size_t *extent)
     }
 
     return 0;
+}
+
+// Return the index of the entry in list with the given disk offset, or -1.
+static int FindImageWithOffset(const struct imglist *list, size_t offset)
+{
+    for (int ct = 0; list[ct].filename != NULL; ct++) {
+        if (list[ct].offset == offset)
+            return ct;
+    }
+    return -1;
+}
+
+// Has an image with this disk offset been added to the first count Images?
+static int IsImageAdded(int count, size_t offset)
+{
+    for (int j = 0; j < count; j++) {
+        if (Images[j].DiskOffset == offset)
+            return 1;
+    }
+    return 0;
+}
+
+static void CopyImageData(imgrec *rec, size_t offset, size_t size)
+{
+    rec->Data = MemAlloc(size);
+    memcpy(rec->Data, new + offset, size);
+    rec->Size = size;
 }
 
 void LookForApple2Images(void)
@@ -361,62 +391,34 @@ void LookForApple2Images(void)
     int created = 0;
 
     for (int i = 0; i <= GameHeader.NumRooms; i++) {
-        int exists = 0;
-        for (int j = 0; j < created; j++) {
-            if (Images[j].DiskOffset == Rooms[i].Image) {
-                exists = 1;
-                break;
-            }
-        }
-        if (exists || Rooms[i].Image == 0)
+        if (IsImageAdded(created, Rooms[i].Image) || Rooms[i].Image == 0)
             continue;
 
         size_t offset = 0x23000 - Rooms[i].Image - 0x100;
         size_t size = READ_LE_UINT16(new + offset);
 
-        int ct = 0;
-        int found = 0;
-        while (list[ct].filename != NULL) {
-            if (list[ct].offset == Rooms[i].Image) {
-                Images[created].Filename = list[ct].filename;
-                Images[created].DiskOffset = list[ct].offset;
-                Rooms[i].Image = (list[ct].filename[2] - '0') * 10 + list[ct].filename[3] - '0';
-                found = 1;
-                break;
-            }
-            ct++;
-        }
-        if (found == 0) {
+        int ct = FindImageWithOffset(list, Rooms[i].Image);
+        if (ct < 0) {
             fprintf(stderr, "Error, room with offset %x not found!\n", Rooms[i].Image);
             continue;
         }
+        Images[created].Filename = list[ct].filename;
+        Images[created].DiskOffset = list[ct].offset;
+        Rooms[i].Image = ImageNumberFromName(list[ct].filename);
 
-        Images[created].Data = MemAlloc(size);
-        memcpy(Images[created].Data, new + offset, size);
-        Images[created].Size = size;
+        CopyImageData(&Images[created], offset, size);
         created++;
     }
 
+    /* Rooms that share an image already added above */
     for (int i = 0; i <= GameHeader.NumRooms; i++) {
-        int ct = 0;
-        while (list[ct].filename != NULL) {
-            if (list[ct].offset == Rooms[i].Image) {
-                Rooms[i].Image = (list[ct].filename[2] - '0') * 10 + list[ct].filename[3] - '0';
-                break;
-            }
-            ct++;
-        }
+        int ct = FindImageWithOffset(list, Rooms[i].Image);
+        if (ct >= 0)
+            Rooms[i].Image = ImageNumberFromName(list[ct].filename);
     }
 
     for (int i = 0; i <= GameHeader.NumObjImg; i++) {
-        int exists = 0;
-        for (int j = 0; j < created; j++) {
-            if (Images[j].DiskOffset == ObjectImages[i].Image) {
-                exists = 1;
-                break;
-            }
-        }
-        if (exists || ObjectImages[i].Image == 0)
+        if (IsImageAdded(created, ObjectImages[i].Image) || ObjectImages[i].Image == 0)
             continue;
         size_t offset = 0x23000 - ObjectImages[i].Image - 0x100;
         if (offset > 0x23000)
@@ -425,25 +427,15 @@ void LookForApple2Images(void)
         if (offset + size > 0x23000)
             size = 0x23000 - offset;
 
-        int ct = 0;
-        int found = 0;
-        while (list[ct].filename != NULL) {
-            if (list[ct].offset == ObjectImages[i].Image) {
-                Images[created].Filename = list[ct].filename;
-                ObjectImages[i].Image = (list[ct].filename[2] - '0') * 10 + list[ct].filename[3] - '0';
-                found = 1;
-                break;
-            }
-            ct++;
-        }
-        if (found == 0) {
+        int ct = FindImageWithOffset(list, ObjectImages[i].Image);
+        if (ct < 0) {
             fprintf(stderr, "Error, image with offset %x not found!\n", ObjectImages[i].Image);
             continue;
         }
+        Images[created].Filename = list[ct].filename;
+        ObjectImages[i].Image = ImageNumberFromName(list[ct].filename);
 
-        Images[created].Data = MemAlloc(size);
-        memcpy(Images[created].Data, new + offset, size);
-        Images[created].Size = size;
+        CopyImageData(&Images[created], offset, size);
         Images[created].DiskOffset = list[ct].offset;
         created++;
         if (created > count) {
@@ -453,28 +445,19 @@ void LookForApple2Images(void)
         }
     }
 
+    /* Object images that share an image already added above */
     for (int i = 0; i <= GameHeader.NumObjImg; i++) {
-        int ct = 0;
-        while (list[ct].filename != NULL) {
-            if (list[ct].offset == ObjectImages[i].Image) {
-                ObjectImages[i].Image = (list[ct].filename[2] - '0') * 10 + list[ct].filename[3] - '0';
-                break;
-            }
-            ct++;
-        }
+        int ct = FindImageWithOffset(list, ObjectImages[i].Image);
+        if (ct >= 0)
+            ObjectImages[i].Image = ImageNumberFromName(list[ct].filename);
     }
 
-    int ct = 0;
-    while (list[ct].filename != NULL) {
+    for (int ct = 0; list[ct].filename != NULL; ct++) {
         if (list[ct].filename[0] == 'S') {
             Images[created].Filename = list[ct].filename;
-            size_t size = READ_LE_UINT16(new + list[ct].offset);
-            Images[created].Size = size;
-            Images[created].Data = MemAlloc(size);
-            memcpy(Images[created].Data, new + list[ct].offset, size);
+            CopyImageData(&Images[created], list[ct].offset, READ_LE_UINT16(new + list[ct].offset));
             created++;
         }
-        ct++;
     }
 
     Images[created].Filename = NULL;

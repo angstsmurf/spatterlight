@@ -94,11 +94,7 @@ void RestoreState(SavedState *state)
     if (CurrentGame == FANTASTIC4) {
         LastImgType = state->LastImgType;
         LastImgIndex = state->LastImgIndex;
-        if (LastImgType == IMG_SPECIAL) {
-            DrawCloseup(LastImgIndex);
-        } else if (LastImgType == IMG_OBJECT) {
-            DrawItemImage(LastImgIndex);
-        }
+        DrawOverlayImage(LastImgType, LastImgIndex);
     }
 }
 
@@ -277,11 +273,7 @@ int LoadGame(void)
     SetBit(DRAWBIT);
     Look(0);
 
-    if (LastImgType == IMG_SPECIAL) {
-        DrawCloseup(LastImgIndex);
-    } else if (LastImgType == IMG_OBJECT) {
-        DrawItemImage(LastImgIndex);
-    }
+    DrawOverlayImage(LastImgType, LastImgIndex);
 
     SaveUndo();
     JustRestored = 1;

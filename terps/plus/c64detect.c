@@ -34,22 +34,30 @@ int issagaimg(const char *name)
     return 0;
 }
 
+/* Read the named file from the disk image into a new buffer and set *size
+   to its length. Returns NULL, leaving *size alone, if it can't be opened. */
+static uint8_t *ReadFileFromD64(DiskImage *d64, const char *name, size_t *size)
+{
+    unsigned char rawname[100];
+    di_rawname_from_name(rawname, name);
+    ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
+    if (c64file == NULL)
+        return NULL;
+    uint8_t buf[0xffff];
+    *size = di_read(c64file, buf, 0xffff);
+    uint8_t *file = MemAlloc(*size);
+    memcpy(file, buf, *size);
+    free(c64file);
+    return file;
+}
+
 static uint8_t *get_files_from_d64(uint8_t *data, size_t length, size_t *newlength)
 {
     uint8_t *file = NULL;
     *newlength = 0;
-    unsigned char rawname[100];
     DiskImage *d64 = di_create_from_data(data, (int)length);
-    di_rawname_from_name(rawname, "DATA");
     if (d64) {
-        ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
-        if (c64file) {
-            uint8_t buf[0xffff];
-            *newlength = di_read(c64file, buf, 0xffff);
-            file = MemAlloc(*newlength);
-            memcpy(file, buf, *newlength);
-            free(c64file);
-        }
+        file = ReadFileFromD64(d64, "DATA", newlength);
         int numfiles;
         char **filenames = di_get_all_file_names(d64, &numfiles);
 
@@ -68,15 +76,7 @@ static uint8_t *get_files_from_d64(uint8_t *data, size_t length, size_t *newleng
             Images = MemAlloc((imgindex + 1) * sizeof(imgrec));
             for (int i = 0; i < imgindex; i++) {
                 Images[i].Filename = imagefiles[i];
-                di_rawname_from_name(rawname, imagefiles[i]);
-                c64file = di_open(d64, rawname, 0xc2, "rb");
-                if (c64file) {
-                    uint8_t buf[0xffff];
-                    Images[i].Size = di_read(c64file, buf, 0xffff);
-                    Images[i].Data = MemAlloc(Images[i].Size);
-                    memcpy(Images[i].Data, buf, Images[i].Size);
-                    free(c64file);
-                }
+                Images[i].Data = ReadFileFromD64(d64, imagefiles[i], &Images[i].Size);
             }
             Images[imgindex].Filename = NULL;
         }

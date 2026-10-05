@@ -43,16 +43,29 @@ void DrawBlack(void)
     LastImgType = NO_IMG;
 }
 
+/* Write the short image name for an image type ('R' = room,
+   'B' = item/object, 'S' = special) and number, e.g. "R003", to buf,
+   which must hold IMAGE_NAME_SIZE bytes. Returns 0 on failure. */
+static int ImageNameFromType(char *buf, char type, int index)
+{
+    return snprintf(buf, IMAGE_NAME_SIZE, "%c0%02d", type, index) >= 0;
+}
+
 char *ShortNameFromType(char type, int index)
 {
-    char buf[5];
-    int n = snprintf(buf, sizeof buf, "%c0%02d", type, index);
-    if (n < 0)
+    char buf[IMAGE_NAME_SIZE];
+    if (!ImageNameFromType(buf, type, index))
         return NULL;
     size_t len = strlen(buf) + 1;
     char *result = MemAlloc(len);
     memcpy(result, buf, len);
     return result;
+}
+
+/* The image number in a short image name, e.g. 3 for "R003". */
+int ImageNumberFromName(const char *name)
+{
+    return (name[2] - '0') * 10 + name[3] - '0';
 }
 
 /* Used by IBM PC graphics in "striped" mode where every other pixel is skipped
@@ -99,15 +112,6 @@ void SetColor(int32_t index, glui32 color)
     pal[index] = color;
 }
 
-void SetRGB(int32_t index, int red, int green, int blue)
-{
-    red = red * 35.7;
-    green = green * 35.7;
-    blue = blue * 35.7;
-
-    pal[index] = red << 16 | green << 8 | blue;
-}
-
 int DrawImageWithName(char *filename)
 {
     debug_print("DrawImageWithName %s\n", filename);
@@ -146,7 +150,7 @@ int DrawImageWithName(char *filename)
         debug_print("DrawImageWithName: Unknown image type!\n");
     }
 
-    LastImgIndex = Images[i].Filename[3] - '0' + 10 * (Images[i].Filename[2] - '0');
+    LastImgIndex = ImageNumberFromName(Images[i].Filename);
 
     if (CurrentSys == SYS_C64 || CurrentSys == SYS_ATARI8) {
         return DrawC64A8ImageFromData(Images[i].Data, Images[i].Size, 0, C64A8AdjustPlus, CurrentSys == SYS_C64);
@@ -158,14 +162,21 @@ int DrawImageWithName(char *filename)
         return DrawDOSImageFromData(Images[i].Data);
 }
 
+int DrawImageWithTypeAndNumber(char type, int index)
+{
+    char buf[IMAGE_NAME_SIZE];
+    if (!ImageNameFromType(buf, type, index))
+        return 0;
+    return DrawImageWithName(buf);
+}
+
 void DrawItemImage(int item)
 {
     LastImgType = IMG_OBJECT;
     LastImgIndex = item;
-    char buf[5];
+    char buf[IMAGE_NAME_SIZE];
 
-    int n = snprintf(buf, sizeof buf, "B0%02d", item);
-    if (n < 0)
+    if (!ImageNameFromType(buf, 'B', item))
         return;
 
     upside_down = (CurrentGame == SPIDERMAN && Items[0].Location == MyLoc);
@@ -177,10 +188,9 @@ int DrawCloseup(int img)
 {
     LastImgType = IMG_SPECIAL;
     LastImgIndex = img;
-    char buf[5];
+    char buf[IMAGE_NAME_SIZE];
 
-    int n = snprintf(buf, sizeof buf, "S0%02d", img);
-    if (n < 0)
+    if (!ImageNameFromType(buf, 'S', img))
         return 0;
 
     upside_down = 0;
@@ -203,11 +213,9 @@ int DrawRoomImage(int roomimg)
     LastImgType = IMG_ROOM;
     LastImgIndex = roomimg;
 
-    char buf[5];
-    int n = snprintf(buf, sizeof buf, "R0%02d", roomimg);
-    if (n < 0)
+    char buf[IMAGE_NAME_SIZE];
+    if (!ImageNameFromType(buf, 'R', roomimg))
         return 0;
-    buf[4] = 0;
 
     if (Graphics)
         glk_window_clear(Graphics);
@@ -220,6 +228,27 @@ int DrawRoomImage(int roomimg)
     upside_down = (CurrentGame == SPIDERMAN && Items[0].Location == MyLoc);
 
     return DrawImageWithName(buf);
+}
+
+/* Redraw an item or closeup image that was showing on top of the room
+   picture, given the type and index it was drawn with. Room images are
+   left alone. */
+void DrawOverlayImage(ImgType type, int index)
+{
+    if (type == IMG_SPECIAL)
+        DrawCloseup(index);
+    else if (type == IMG_OBJECT)
+        DrawItemImage(index);
+}
+
+/* Draw the item images that ObjectImages assigns to room, for every
+   such item at location. */
+void DrawObjectImages(int room, int location)
+{
+    for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
+        if (ObjectImages[ct].Room == room && Items[ObjectImages[ct].Object].Location == location) {
+            DrawItemImage(ObjectImages[ct].Image);
+        }
 }
 
 extern int AnimationRoom;
@@ -235,13 +264,7 @@ void DrawCurrentRoom(void)
         return;
     }
 
-    int dark = IsSet(DARKBIT);
-    for (int i = 0; i <= GameHeader.NumItems; i++) {
-        if (Items[i].Flag & 2) {
-            if (Items[i].Location == MyLoc || Items[i].Location == CARRIED)
-                dark = 0;
-        }
-    }
+    int dark = IsDark();
 
     if (Rooms[MyLoc].Image == 255 || Images[0].Filename == NULL) {
         CloseGraphicsWindow();
@@ -268,10 +291,7 @@ void DrawCurrentRoom(void)
         return;
     }
 
-    for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
-        if (ObjectImages[ct].Room == MyLoc && Items[ObjectImages[ct].Object].Location == MyLoc) {
-            DrawItemImage(ObjectImages[ct].Image);
-        }
+    DrawObjectImages(MyLoc, MyLoc);
 
     if (CurrentSys == SYS_APPLE2) {
         DrawApple2ImageFromVideoMemWithFlip(upside_down);
