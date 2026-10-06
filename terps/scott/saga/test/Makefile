@@ -28,6 +28,29 @@ SRCS := filltest.c headless_glk_stubs.c \
 
 FIXTURES := $(TERPS)/../SpatterlightTests/Supporting Files/
 
+# ---- Shared recipe pieces ----------------------------------------------------
+# The golden runners below loop over a $(wildcard) of goldens, run one shell
+# command per golden ($$g) and report a one-line verdict:
+#   $(call no_goldens,LABEL,GOLDENS)        stop (successfully) when there are none
+#   $(call each_golden,GOLDENS,COMMAND)     run COMMAND for every $$g, noting failures
+#   $(call goldens_verdict,LABEL[,PASSED])  "LABEL: PASSED" or "LABEL: FAILURES" (exit 1)
+# run_goldens strings the last two together. Arguments must not contain commas.
+no_goldens = [ -n "$(2)" ] || { echo "$(1): no goldens yet"; exit 0; };
+each_golden = for g in $(1); do $(2) || fail=1; done;
+goldens_verdict = if [ $$fail -eq 0 ]; then echo "$(1): $(or $(2),all goldens byte-exact)"; \
+  else echo "$(1): FAILURES"; exit 1; fi
+define run_goldens
+fail=0; $(call each_golden,$(2),$(3)) $(call goldens_verdict,$(1),$(4))
+endef
+
+# $(call compile_each,SOURCES,OBJDIR,FLAGS): compile every C source to
+# OBJDIR/<its path with / and . turned into _>.o, leaving the object list in the
+# shell variable objs (for a link command in the same recipe line).
+compile_each = objs=""; for f in $(1); do \
+  o="$(2)/$$(echo $$f | tr '/.' '__').o"; \
+  $(CC) $(3) -c "$$f" -o "$$o" || exit 1; \
+  objs="$$objs $$o"; done;
+
 build/filltest: $(SRCS) filltest.c
 	@mkdir -p build
 	$(CC) $(CFLAGS) -o $@ $(SRCS)
@@ -56,12 +79,10 @@ build/dostest: $(DOS_SRCS)
 	$(CC) $(CFLAGS) -o $@ $(DOS_SRCS)
 
 dostest: build/dostest
-	@fail=0; for g in $(DOS_GOLDENS); do \
+	@$(call run_goldens,DOS,$(DOS_GOLDENS),{ \
 	  pak="$${g%.cga}.PAK"; \
 	  printf '%-28s ' "$$(basename $$(dirname $$g))/$$(basename $$pak)"; \
-	  ./build/dostest cmp "$$pak" "$$g" || fail=1; \
-	done; \
-	if [ $$fail -eq 0 ]; then echo "DOS: all goldens byte-exact"; else echo "DOS: FAILURES"; exit 1; fi
+	  ./build/dostest cmp "$$pak" "$$g"; })
 
 # Extractor for C64 SAGA disks that ship separate R### image files (not the
 # packed/decrunch games). Built on demand; not part of the default test run.
@@ -87,12 +108,10 @@ build/apple2test: $(A2_SRCS)
 	$(CC) $(CFLAGS) -include stddef.h -o $@ $(A2_SRCS)
 
 apple2test: build/apple2test
-	@fail=0; for g in $(A2_GOLDENS); do \
+	@$(call run_goldens,Apple II,$(A2_GOLDENS),{ \
 	  d=$$(dirname $$g); dat="$${g%.page}.dat"; ds="$$d/descrambletable.bin"; \
 	  [ -f "$$ds" ] && dsarg="$$ds" || dsarg=""; \
-	  ./build/apple2test cmp "$$dat" "$$g" $$dsarg || fail=1; \
-	done; \
-	if [ $$fail -eq 0 ]; then echo "Apple II: all goldens byte-exact"; else echo "Apple II: FAILURES"; exit 1; fi
+	  ./build/apple2test cmp "$$dat" "$$g" $$dsarg; })
 
 # ---- Headless image-blob dumper (the keystone for the packed/decrunch games) --
 # Runs the real interpreter's DetectGame loading pipeline and dumps every
@@ -126,18 +145,21 @@ EXTRACT_SRCS := extract_images.c extract_stubs.c \
 EXTRACT_INC := -I$(SCOTT) -I$(SCOTT)/ai_uk -I$(SCOTT)/saga -I$(SCOTT)/ti994a \
   -I$(TERPS)/common_utils -I$(TERPS)/common_sagadraw -I$(TERPS)/aiukgraphics \
   -I$(TERPS)/readwoz -I$(TERPS)/c64diskimage -I$(TERPS)/decompressz80 -I$(TERPS)/common_zxscreen -I$(TERPS)/../glkimp -I$(CG)
+EXTRACT_CFLAGS := -std=c11 -g -O0 -w -DSPATTERLIGHT -include stddef.h $(EXTRACT_INC)
+# extract_stubs.c pulls in the glkimp stand-ins shared with the headless builds.
+STUBS_DEPS := extract_stubs.c $(TERPS)/common_imagetest/glkimp_stubs.c
 
-build/extract_images: $(EXTRACT_SRCS) extract_stubs.c
+build/extract_images: $(EXTRACT_SRCS) $(STUBS_DEPS)
 	@mkdir -p build
-	$(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -include stddef.h $(EXTRACT_INC) $(EXTRACT_SRCS) $(CGOBJ) -lz -o $@
+	$(CC) $(EXTRACT_CFLAGS) $(EXTRACT_SRCS) $(CGOBJ) -lz -o $@
 
 # ZX Spectrum Irmak-graphics state dumper (same loader object set as
 # extract_images, swapping in zxextract.c). Dumps tiles.bin + meta.txt +
 # pic<NNN>.dat for a ZX .z80/.tzx game, on demand (`make build/zxextract`).
 ZXEXTRACT_SRCS := $(filter-out extract_images.c,$(EXTRACT_SRCS)) zxextract.c
-build/zxextract: $(ZXEXTRACT_SRCS) extract_stubs.c
+build/zxextract: $(ZXEXTRACT_SRCS) $(STUBS_DEPS)
 	@mkdir -p build
-	$(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -include stddef.h $(EXTRACT_INC) $(ZXEXTRACT_SRCS) $(CGOBJ) -lz -o $@
+	$(CC) $(EXTRACT_CFLAGS) $(ZXEXTRACT_SRCS) $(CGOBJ) -lz -o $@
 
 # ---- TI-99/4A RTPI bitmap renderer -------------------------------------------
 # ti994a/rtpi_graphics.c decodes a GROM image bytecode stream into the native
@@ -152,19 +174,17 @@ TI_SRCS := titest.c extract_stubs.c \
 # blob); font.bin sits in the same per-game dir. <name> is ti994a_u<usage>_i<index>.
 TI_GOLDENS := $(wildcard groundtruth_ti99/*/*.pgrid)
 
-build/titest: $(TI_SRCS) titest.c
+build/titest: $(TI_SRCS) $(STUBS_DEPS)
 	@mkdir -p build
-	$(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -include stddef.h $(EXTRACT_INC) $(TI_SRCS) $(CGOBJ) -lz -o $@
+	$(CC) $(EXTRACT_CFLAGS) $(TI_SRCS) $(CGOBJ) -lz -o $@
 
 titest: build/titest
-	@[ -n "$(TI_GOLDENS)" ] || { echo "TI-99: no goldens yet"; exit 0; }; \
-	fail=0; for g in $(TI_GOLDENS); do \
+	@$(call no_goldens,TI-99,$(TI_GOLDENS)) \
+	$(call run_goldens,TI-99,$(TI_GOLDENS),{ \
 	  d=$$(dirname $$g); base=$$(basename $$g .pgrid); \
 	  u=$$(echo $$base | sed -E 's/.*_u([0-9]+)_i.*/\1/'); \
 	  i=$$(echo $$base | sed -E 's/.*_i0*([0-9]+)$$/\1/'); \
-	  ./build/titest cmp "$$d/font.bin" "$$d/$$base.dat" "$$u" "$$i" "$$g" || fail=1; \
-	done; \
-	if [ $$fail -eq 0 ]; then echo "TI-99: all goldens byte-exact"; else echo "TI-99: FAILURES"; exit 1; fi
+	  ./build/titest cmp "$$d/font.bin" "$$d/$$base.dat" "$$u" "$$i" "$$g"; })
 
 # ---- C64 "tiny" (mini-C64) bitmap renderer -----------------------------------
 # saga/c64_small.c:DrawMiniC64ImageFromData decodes the compact RLE multicolor
@@ -189,28 +209,24 @@ C64X_CSRCS := $(SCOTT)/ai_uk/c64decrunch.c \
   $(EXTRACT_SRCS)
 C64_GOLDENS := $(wildcard groundtruth_c64/*/*.c64)
 
-build/extract_images_c64: $(C64X_CSRCS) $(UNP64_SRCS)
+build/extract_images_c64: $(C64X_CSRCS) $(UNP64_SRCS) $(STUBS_DEPS)
 	@mkdir -p build/unp64 build/c64obj
 	@echo "compiling unp64 (C++)..."; for f in $(UNP64_SRCS); do \
 	  c++ -std=c++14 -g -O0 -w -I$(UNP64) -c "$$f" -o "build/unp64/$$(basename $$f .cpp).o" || exit 1; done
-	@echo "compiling C64 loader (C)..."; objs=""; for f in $(C64X_CSRCS); do \
-	  o="build/c64obj/$$(echo $$f | tr '/.' '__').o"; \
-	  $(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -DSAGA_REAL_C64_DECRUNCH -include stddef.h $(EXTRACT_INC) -I$(UNP64) -c "$$f" -o "$$o" || exit 1; \
-	  objs="$$objs $$o"; done; \
+	@echo "compiling C64 loader (C)..."; \
+	$(call compile_each,$(C64X_CSRCS),build/c64obj,$(EXTRACT_CFLAGS) -DSAGA_REAL_C64_DECRUNCH -I$(UNP64)) \
 	c++ -g -O0 $$objs build/unp64/*.o $(CGOBJ) -lz -o $@
 
 build/c64test: c64test.c $(SCOTT)/saga/c64_small.c
 	@mkdir -p build
-	$(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -include stddef.h $(EXTRACT_INC) c64test.c -lz -o $@
+	$(CC) $(EXTRACT_CFLAGS) c64test.c -lz -o $@
 
 c64test: build/c64test
-	@[ -n "$(C64_GOLDENS)" ] || { echo "C64: no goldens yet"; exit 0; }; \
-	fail=0; for g in $(C64_GOLDENS); do \
+	@$(call no_goldens,C64,$(C64_GOLDENS)) \
+	$(call run_goldens,C64,$(C64_GOLDENS),{ \
 	  spec="$${g%.c64}.spec"; \
 	  printf '%-36s ' "$$(basename $$(dirname $$g))/$$(basename $$spec)"; \
-	  ./build/c64test cmp "$$spec" "$$g" || fail=1; \
-	done; \
-	if [ $$fail -eq 0 ]; then echo "C64: all goldens byte-exact"; else echo "C64: FAILURES"; exit 1; fi
+	  ./build/c64test cmp "$$spec" "$$g"; })
 
 # ---- C64 / Atari 8-bit full bitmap renderer ----------------------------------
 # common_sagadraw/c64a8draw.c:DrawC64A8ImageFromData decodes the RLE multicolor
@@ -232,13 +248,11 @@ build/c64a8test: $(C64A8_SRCS)
 	$(CC) $(CFLAGS) -include stddef.h -o $@ $(C64A8_SRCS)
 
 c64a8test: build/c64a8test
-	@[ -n "$(C64A8_GOLDENS)" ] || { echo "C64/A8: no goldens yet"; exit 0; }; \
-	fail=0; for g in $(C64A8_GOLDENS); do \
+	@$(call no_goldens,C64/A8,$(C64A8_GOLDENS)) \
+	$(call run_goldens,C64/A8,$(C64A8_GOLDENS),{ \
 	  spec="$${g%.c64}.spec"; \
 	  printf '%-40s ' "$$(basename $$(dirname $$g))/$$(basename $$spec)"; \
-	  ./build/c64a8test cmp "$$spec" "$$g" || fail=1; \
-	done; \
-	if [ $$fail -eq 0 ]; then echo "C64/A8: all goldens byte-exact"; else echo "C64/A8: FAILURES"; exit 1; fi
+	  ./build/c64a8test cmp "$$spec" "$$g"; })
 
 # ---- ZX Spectrum Irmak / tile renderer ---------------------------------------
 # aiukgraphics/irmak.c:DrawPictureNumber decodes the tile/attribute stream of
@@ -269,20 +283,17 @@ build/zxvectortest: $(ZXVEC_SRCS)
 	@mkdir -p build
 	$(CC) $(CFLAGS) -include stddef.h -o $@ $(ZXVEC_SRCS)
 
+# One golden of a ZX harness: $(call zx_golden,HARNESS)
+zx_golden = { dir="$$(dirname $$g)"; \
+	  printf '%-40s ' "$$(basename $$dir)/$$(basename $$g)"; \
+	  ./build/$(1) cmp "$$dir" "$$g"; }
+
 zxtest: build/zxtest build/zxvectortest
 	@fail=0; \
-	for g in $(ZX_GOLDENS); do \
-	  dir="$$(dirname $$g)"; \
-	  printf '%-40s ' "$$(basename $$dir)/$$(basename $$g)"; \
-	  ./build/zxtest cmp "$$dir" "$$g" || fail=1; \
-	done; \
-	for g in $(ZXVEC_GOLDENS); do \
-	  dir="$$(dirname $$g)"; \
-	  printf '%-40s ' "$$(basename $$dir)/$$(basename $$g)"; \
-	  ./build/zxvectortest cmp "$$dir" "$$g" || fail=1; \
-	done; \
-	if [ -z "$(ZX_GOLDENS)$(ZXVEC_GOLDENS)" ]; then echo "ZX: no goldens yet"; exit 0; fi; \
-	if [ $$fail -eq 0 ]; then echo "ZX: all goldens byte-exact"; else echo "ZX: FAILURES"; exit 1; fi
+	$(call each_golden,$(ZX_GOLDENS),$(call zx_golden,zxtest)) \
+	$(call each_golden,$(ZXVEC_GOLDENS),$(call zx_golden,zxvectortest)) \
+	$(call no_goldens,ZX,$(ZX_GOLDENS)$(ZXVEC_GOLDENS)) \
+	$(call goldens_verdict,ZX)
 
 # ---- Scene tests: the whole interpreter against hardware screen dumps ---------
 # The picture paths that live above the renderers — the game-specific Look
@@ -312,22 +323,18 @@ IMAGETEST := $(TERPS)/common_imagetest
 build/scenetest: scenetest.c scene_glk.h $(SCENE_CSRCS) build/extract_images_c64 \
                  $(IMAGETEST)/fake_glk_window.c $(IMAGETEST)/fake_glk_window.h
 	@mkdir -p build/sceneobj
-	@echo "compiling scene harness..."; objs=""; for f in $(SCENE_CSRCS); do \
-	  o="build/sceneobj/$$(echo $$f | tr '/.' '__').o"; \
-	  $(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -DSAGA_REAL_C64_DECRUNCH -DSAGA_SCENE_HARNESS -DAUTOWIN \
-	    -include stddef.h -include scene_glk.h $(EXTRACT_INC) -I$(TERPS)/taylor -I$(UNP64) -c "$$f" -o "$$o" || exit 1; \
-	  objs="$$objs $$o"; done; \
+	@echo "compiling scene harness..."; \
+	$(call compile_each,$(SCENE_CSRCS),build/sceneobj,$(EXTRACT_CFLAGS) -DSAGA_REAL_C64_DECRUNCH \
+	  -DSAGA_SCENE_HARNESS -DAUTOWIN -include scene_glk.h -I$(TERPS)/taylor -I$(UNP64)) \
 	$(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT $(EXTRACT_INC) -I$(IMAGETEST) -c scenetest.c -o build/sceneobj/scenetest.o || exit 1; \
 	$(CC) -std=c11 -g -O0 -w -I$(CG) -c $(IMAGETEST)/fake_glk_window.c -o build/sceneobj/fake_glk_window.o || exit 1; \
 	c++ -g -O0 build/sceneobj/scenetest.o build/sceneobj/fake_glk_window.o $$objs build/unp64/*.o $(CGOBJ) -lz -o $@
 
 scenetest: build/scenetest
-	@[ -n "$(SCENES)" ] || { echo "Scenes: no goldens yet"; exit 0; }; \
-	fail=0; for s in $(SCENES); do \
-	  echo "$$(basename $$(dirname $$s))/$$(basename $$s)"; \
-	  ./build/scenetest "$$s" || fail=1; \
-	done; \
-	if [ $$fail -eq 0 ]; then echo "Scenes: all checks passed"; else echo "Scenes: FAILURES"; exit 1; fi
+	@$(call no_goldens,Scenes,$(SCENES)) \
+	$(call run_goldens,Scenes,$(SCENES),{ \
+	  echo "$$(basename $$(dirname $$g))/$$(basename $$g)"; \
+	  ./build/scenetest "$$g"; },all checks passed)
 
 # Run every per-format byte-exact renderer test in one shot.
 all-tests: test dostest apple2test titest c64test c64a8test zxtest scenetest
