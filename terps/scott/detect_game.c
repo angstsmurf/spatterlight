@@ -1075,12 +1075,11 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
 
     SEEK_OR_FAIL(info->start_of_directions);
 
-    while(!isalpha(*ptr)) {
+    while (ptr - entire_file < file_length && !isalpha(*ptr))
         ptr++;
-        if (ptr - entire_file > file_length) {
-            debug_print("Read out of bounds!\n");
-            return info->gameID;
-        }
+    if (ptr - entire_file >= file_length) {
+        debug_print("Read out of bounds!\n");
+        return info->gameID;
     }
 
     ReadTerminatedStrings(&ptr, sys, 6, "");
