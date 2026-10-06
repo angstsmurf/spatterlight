@@ -17,6 +17,9 @@
 #ifndef unzip_in_mem_h
 #define unzip_in_mem_h
 
+#include <stddef.h>
+#include <stdint.h>
+
 uint8_t *extract_file_from_zip_data(uint8_t *zipdata, size_t zipdatasize, const char *filename_to_extract, size_t *unzipped_size);
 
 #endif /* unzip_in_mem_h */
