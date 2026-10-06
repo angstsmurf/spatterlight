@@ -25,22 +25,37 @@
 
 extern SavedState *InitialState;
 
+/* Prompt for a file and open a (Unicode, if unicode is set) stream on it.
+   Returns NULL if the player cancels the prompt, or if the file can't be
+   opened, after printing failure_message if it is non-NULL. */
+static strid_t OpenPromptedStream(glui32 usage, glui32 mode, int unicode,
+    const char *failure_message)
+{
+    frefid_t ref = glk_fileref_create_by_prompt(usage, mode, 0);
+    if (ref == NULL)
+        return NULL;
+
+    strid_t file;
+    if (unicode)
+        file = glk_stream_open_file_uni(ref, mode, 0);
+    else
+        file = glk_stream_open_file(ref, mode, 0);
+    glk_fileref_destroy(ref);
+
+    if (file == NULL && failure_message != NULL)
+        Output(failure_message);
+    return file;
+}
+
 /* Save the current game state to a file via Glk file prompts.
    Writes counters, room flags, bit flags, location, and item positions. */
 void SaveGame(void)
 {
-    strid_t file;
-    frefid_t ref;
     int ct;
     char buf[128];
 
-    ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_SavedGame,
-        filemode_Write, 0);
-    if (ref == NULL)
-        return;
-
-    file = glk_stream_open_file(ref, filemode_Write, 0);
-    glk_fileref_destroy(ref);
+    strid_t file = OpenPromptedStream(fileusage_TextMode | fileusage_SavedGame,
+        filemode_Write, 0, NULL);
     if (file == NULL)
         return;
 
@@ -116,16 +131,8 @@ static int ReadSavedGame(strid_t file)
    and rolls back to a snapshot if any value is out of range. */
 void LoadGame(void)
 {
-    strid_t file;
-    frefid_t ref;
-
-    ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_SavedGame,
-        filemode_Read, 0);
-    if (ref == NULL)
-        return;
-
-    file = glk_stream_open_file(ref, filemode_Read, 0);
-    glk_fileref_destroy(ref);
+    strid_t file = OpenPromptedStream(fileusage_TextMode | fileusage_SavedGame,
+        filemode_Read, 0, NULL);
     if (file == NULL)
         return;
 
@@ -162,26 +169,15 @@ void RestartGame(void)
 
 static void TranscriptOn(void)
 {
-    frefid_t ref;
-
     if (Transcript) {
         Output(sys[TRANSCRIPT_ALREADY]);
         return;
     }
 
-    ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_Transcript,
-        filemode_Write, 0);
-    if (ref == NULL)
+    Transcript = OpenPromptedStream(fileusage_TextMode | fileusage_Transcript,
+        filemode_Write, 1, sys[FAILED_TRANSCRIPT]);
+    if (Transcript == NULL)
         return;
-
-    Transcript = glk_stream_open_file_uni(ref, filemode_Write, 0);
-
-    glk_fileref_destroy(ref);
-
-    if (Transcript == NULL) {
-        Output(sys[FAILED_TRANSCRIPT]);
-        return;
-    }
 
     PutUnicodeString(Transcript, sys[TRANSCRIPT_START]);
 
@@ -247,10 +243,7 @@ int PerformExtraCommand(int extra_stop_time)
     if (noun > GameHeader.NumWords)
         noun -= GameHeader.NumWords;
     else if (noun) {
-        const char *NounWord = CharWords[CurrentCommand->nounwordindex];
-        int newnoun = WhichWord(NounWord, ExtraNouns, strlen(NounWord),
-            NUMBER_OF_EXTRA_NOUNS);
-        newnoun = ExtraNounsKey[newnoun];
+        int newnoun = FindExtraNoun(CurrentCommand->nounwordindex);
         if (newnoun)
             noun = newnoun;
     }
@@ -337,35 +330,47 @@ int PerformExtraCommand(int extra_stop_time)
     return 0;
 }
 
+/* Request a keypress (a Unicode one if unicode is set) in the main window
+   and wait for it, passing any other events to Updates(). */
+static glui32 GetKeyPress(int unicode)
+{
+    if (unicode)
+        glk_request_char_event_uni(Bottom);
+    else
+        glk_request_char_event(Bottom);
+
+    event_t ev;
+    do {
+        glk_select(&ev);
+        if (ev.type != evtype_CharInput)
+            Updates(ev);
+    } while (ev.type != evtype_CharInput);
+
+    return ev.val1;
+}
+
 /* Prompt for a yes/no response via single-character input.
    Uses the localized first characters of sys[YES] and sys[NO]. */
 int YesOrNo(void)
 {
-    glk_request_char_event_uni(Bottom);
-
-    event_t ev;
     int result = 0;
     const char y = tolower((unsigned char)sys[YES][0]);
     const char n = tolower((unsigned char)sys[NO][0]);
 
     do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            if ((glsi32)ev.val1 > ' ') {
-                glk_put_char_stream_uni(glk_window_get_stream(Bottom), ev.val1);
-            }
-            const char reply = ev.val1 < 0x100 ? tolower((int)ev.val1) : 0;
-            if (reply == y) {
-                result = 1;
-            } else if (reply == n) {
-                result = 2;
-            } else {
-                Output("\n");
-                Output(sys[ANSWER_YES_OR_NO]);
-                glk_request_char_event_uni(Bottom);
-            }
-        } else
-            Updates(ev);
+        glui32 key = GetKeyPress(1);
+        if ((glsi32)key > ' ') {
+            glk_put_char_stream_uni(glk_window_get_stream(Bottom), key);
+        }
+        const char reply = key < 0x100 ? tolower((int)key) : 0;
+        if (reply == y) {
+            result = 1;
+        } else if (reply == n) {
+            result = 2;
+        } else {
+            Output("\n");
+            Output(sys[ANSWER_YES_OR_NO]);
+        }
     } while (result == 0);
 
     return (result == 1);
@@ -392,27 +397,18 @@ int SelectGameFromMenu(const char *intro, const char **titles, int count)
         Display(Bottom, "\n%c. %s", label, titles[i]);
     }
 
-    glk_request_char_event_uni(Bottom);
-
-    event_t ev;
     int choice = -1;
     do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            glui32 c = ev.val1;
-            int idx = -1;
-            if (c >= '1' && c <= '9')
-                idx = (int)(c - '1');
-            else if (c >= 'A' && c <= 'Z')
-                idx = (int)(c - 'A' + 9);
-            else if (c >= 'a' && c <= 'z')
-                idx = (int)(c - 'a' + 9);
-            if (idx >= 0 && idx < count)
-                choice = idx;
-            else
-                glk_request_char_event_uni(Bottom);
-        } else
-            Updates(ev);
+        glui32 c = GetKeyPress(1);
+        int idx = -1;
+        if (c >= '1' && c <= '9')
+            idx = (int)(c - '1');
+        else if (c >= 'A' && c <= 'Z')
+            idx = (int)(c - 'A' + 9);
+        else if (c >= 'a' && c <= 'z')
+            idx = (int)(c - 'a' + 9);
+        if (idx >= 0 && idx < count)
+            choice = idx;
     } while (choice < 0);
 
     glk_window_clear(Bottom);
@@ -421,21 +417,8 @@ int SelectGameFromMenu(const char *intro, const char **titles, int count)
 
 void HitEnter(void)
 {
-    glk_request_char_event(Bottom);
-
-    event_t ev;
-    int result = 0;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            if (ev.val1 == keycode_Return) {
-                result = 1;
-            } else {
-                glk_request_char_event(Bottom);
-            }
-        } else
-            Updates(ev);
-    } while (result == 0);
+    while (GetKeyPress(0) != keycode_Return)
+        ;
     showing_closeup = 0;
     should_draw_image = 1;
     return;

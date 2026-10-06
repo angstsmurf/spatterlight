@@ -1365,6 +1365,15 @@ int GetInput(int *vb, int *no)
     return 0;
 }
 
+/* Look up input word wordindex among the extra nouns (GAME, ON, ALL...).
+   Returns its extra_command value, or NO_COMMAND if it isn't one. */
+int FindExtraNoun(int wordindex)
+{
+    const char *NounWord = CharWords[wordindex];
+    return ExtraNounsKey[WhichWord(NounWord, ExtraNouns, strlen(NounWord),
+        NUMBER_OF_EXTRA_NOUNS)];
+}
+
 /* Re-check a command that the action table didn't recognize, looking for
    meta-commands (save, undo, etc.) that might have been masked by a
    game dictionary word with the same prefix. */
@@ -1377,15 +1386,12 @@ int RecheckForExtraCommand(void)
     if (!ExtraVerb) {
         return 0;
     }
-    int ExtraNoun = 0;
-    if (CurrentCommand->noun) {
-        const char *NounWord = CharWords[CurrentCommand->nounwordindex];
-        ExtraNoun = WhichWord(NounWord, ExtraNouns, strlen(NounWord),
-            NUMBER_OF_EXTRA_NOUNS);
-    }
+    int ExtraNoun = NO_COMMAND;
+    if (CurrentCommand->noun)
+        ExtraNoun = FindExtraNoun(CurrentCommand->nounwordindex);
     CurrentCommand->verb = ExtraCommandsKey[ExtraVerb];
     if (ExtraNoun)
-        CurrentCommand->noun = ExtraNounsKey[ExtraNoun];
+        CurrentCommand->noun = ExtraNoun;
 
     return PerformExtraCommand(1);
 }

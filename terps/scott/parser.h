@@ -45,6 +45,7 @@ int GetInput(int *vb, int *no);
 void FreeCommands(void);
 glui32 *ToUnicode(const char *string);
 int RecheckForExtraCommand(void);
+int FindExtraNoun(int wordindex);
 int WhichWord(const char *word, const char **list, int word_length,
     int list_length);
 
