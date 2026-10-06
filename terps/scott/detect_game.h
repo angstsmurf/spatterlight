@@ -8,7 +8,7 @@
 #ifndef detect_game_h
 #define detect_game_h
 
-#include "scott_defines.h"
+#include "scott.h"
 #include <stdint.h>
 
 GameIDType DetectGame(const char *file_name);
@@ -17,20 +17,11 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
 DictionaryType GetId(const uint8_t *data, size_t datasize, size_t *offset);
 int FindCode(const uint8_t *data, size_t datasize, const char *pattern, int patternLen);
 uint8_t *ReadHeader(uint8_t *ptr);
-int ParseHeader(int *h, HeaderType type, int *num_items, int *num_actions,
-    int *num_words, int *num_rooms, int *max_carry, int *player_room,
-    int *treasures, int *word_length, int *light_time, int *num_messages,
-    int *treasure_room);
-
-void PrintHeaderInfo(int *h, int num_items, int num_actions, int num_words,
-    int num_rooms, int max_carry, int player_room, int treasures,
-    int word_length, int light_time, int num_messages, int treasure_room);
+int ParseHeader(int *h, HeaderType type, Header *out);
+void PrintHeaderInfo(int *h, const Header *hdr);
 
 void ParseItemSlashAutoGet(int index);
-void SetGameHeader(int num_items, int num_actions, int num_words,
-                   int num_rooms, int max_carry, int player_room,
-                   int treasures, int word_length, int light_time,
-                   int num_messages, int treasure_room);
+void SetGameHeader(const Header *h);
 void AllocateGameData(void);
 
 extern int header[];

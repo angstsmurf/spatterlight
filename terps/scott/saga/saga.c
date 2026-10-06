@@ -488,9 +488,7 @@ uint8_t *Skip(uint8_t *ptr, int count, uint8_t *eof)
    The first 0x38 bytes contain version and adventure number fields, which are
    used to identify the specific game title. */
 uint8_t *LoadHeader(uint8_t *ptr, size_t length, GameInfo info, int dict_start) {
-    int num_items, num_actions, num_words, num_rooms, max_carry;
-    int player_room, num_treasures, word_length, light_time;
-    int num_messages, treasure_room;
+    Header hdr;
 
     size_t offset;
 
@@ -547,20 +545,13 @@ uint8_t *LoadHeader(uint8_t *ptr, size_t length, GameInfo info, int dict_start) 
 
     ptr = ReadHeader(ptr);
 
-    ParseHeader(header, US_HEADER, &num_items, &num_actions, &num_words,
-                &num_rooms, &max_carry, &player_room, &num_treasures,
-                &word_length, &light_time, &num_messages, &treasure_room);
-
-    PrintHeaderInfo(header, num_items, num_actions, num_words, num_rooms,
-                    max_carry, player_room, num_treasures, word_length,
-                    light_time, num_messages, treasure_room);
+    ParseHeader(header, US_HEADER, &hdr);
+    PrintHeaderInfo(header, &hdr);
 
     if (!SanityCheckScottFreeHeader())
         return NULL;
 
-    SetGameHeader(num_items, num_actions, num_words, num_rooms, max_carry,
-                  player_room, num_treasures, word_length, light_time,
-                  num_messages, treasure_room);
+    SetGameHeader(&hdr);
     AllocateGameData();
 
     /* When probing for UK Hulk, verify the parsed header matches the

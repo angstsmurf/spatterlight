@@ -497,19 +497,8 @@ GameIDType LoadDatabase(FILE *f, int loud)
     LightRefill = GameHeader.LightTime;
     AllocateGameData();
 
-    if (loud) {
-        debug_print("Number of items: %d\n", GameHeader.NumItems);
-        debug_print("Number of actions: %d\n", GameHeader.NumActions);
-        debug_print("Number of words: %d\n", GameHeader.NumWords);
-        debug_print("Word length: %d\n", GameHeader.WordLength);
-        debug_print("Number of rooms: %d\n", GameHeader.NumRooms);
-        debug_print("Number of messages: %d\n", GameHeader.NumMessages);
-        debug_print("Max carried: %d\n", GameHeader.MaxCarry);
-        debug_print("Starting location: %d\n", GameHeader.PlayerRoom);
-        debug_print("Light time: %d\n", GameHeader.LightTime);
-        debug_print("Number of treasures: %d\n", GameHeader.Treasures);
-        debug_print("Treasure room: %d\n", GameHeader.TreasureRoom);
-    }
+    if (loud)
+        PrintHeaderInfo(NULL, &GameHeader);
 
     /* Load the actions */
 

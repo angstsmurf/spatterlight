@@ -1357,38 +1357,13 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
         13 << 8, // Treasure room
     };
 
-    int num_items, num_actions, num_words, num_rooms, max_carry,
-        player_room, num_treasures, word_length, light_time,
-        num_messages, treasure_room;
-
-    ParseHeader(raw_header, US_HEADER, &num_items, &num_actions, &num_words,
-                &num_rooms, &max_carry, &player_room, &num_treasures,
-                &word_length, &light_time, &num_messages, &treasure_room);
-
-    GameHeader.NumItems = num_items;
-    /* See load_ti99_4a.c: the lamp timer reads Items[LIGHT_SOURCE] (item 9)
-       every turn regardless of NumItems, so never allocate short of it. */
-    Items = (Item *)MemCalloc(sizeof(Item) * MAX(num_items + 1, LIGHT_SOURCE + 1));
-    GameHeader.NumActions = num_actions;
-    Actions = (Action *)MemAlloc(sizeof(Action) * (num_actions + 1));
-    GameHeader.NumWords = num_words;
-    GameHeader.WordLength = word_length;
-    Verbs = MemAlloc(sizeof(char *) * (num_words + RTPI_DICT_PADDING));
-    Nouns = MemAlloc(sizeof(char *) * (num_words + RTPI_DICT_PADDING));
-    GameHeader.NumRooms = num_rooms;
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
-    GameHeader.MaxCarry = max_carry;
-    GameHeader.PlayerRoom = player_room;
-    GameHeader.Treasures = num_treasures;
-    GameHeader.LightTime = light_time;
-    LightRefill = light_time;
-    GameHeader.NumMessages = num_messages;
-    Messages = MemAlloc(sizeof(char *) * (num_messages + 1));
-    GameHeader.TreasureRoom = treasure_room;
-
-    PrintHeaderInfo(raw_header, num_items, num_actions, num_words, num_rooms,
-                    max_carry, player_room, num_treasures, word_length,
-                    light_time, num_messages, treasure_room);
+    Header hdr;
+    ParseHeader(raw_header, US_HEADER, &hdr);
+    SetGameHeader(&hdr);
+    /* Zero-filled, and never short of Items[LIGHT_SOURCE]: see
+       AllocateGameData(). The dictionary padding matches RTPI_DICT_PADDING. */
+    AllocateGameData();
+    PrintHeaderInfo(raw_header, &hdr);
 
     /* Parse all game data from the GROM, then set up the TI-99/4A
        colour table. The original zip data is freed here since
