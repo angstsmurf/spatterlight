@@ -331,6 +331,155 @@ void PrintMessage(int index)
 }
 
 
+/* Test a single action condition (one of the COND_XXX codes other
+ than COND_PARAMETER) against the current game state. arg is the
+ condition's operand: an item, room, flag or counter value. Shared by
+ the standard action engine and the TI-99/4A bytecode interpreter.
+ Returns nonzero if the condition holds. */
+int ConditionHolds(int condition, int arg)
+{
+    switch (condition) {
+        case COND_CARRIED:
+#ifdef DEBUG_ACTIONS
+            debug_print("Does the player carry %s?\n", Items[arg].Text);
+#endif
+            if (Items[arg].Location != CARRIED)
+                return 0;
+            break;
+        case COND_IN_ROOM:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is %s in location?\n", Items[arg].Text);
+#endif
+            if (Items[arg].Location != MyLoc)
+                return 0;
+            break;
+        case COND_PRESENT:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is %s held or in location?\n", Items[arg].Text);
+#endif
+            if (Items[arg].Location != CARRIED && Items[arg].Location != MyLoc)
+                return 0;
+            break;
+        case COND_AT_LOC:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is location %s?\n", Rooms[arg].Text);
+#endif
+            if (MyLoc != arg)
+                return 0;
+            break;
+        case COND_NOT_IN_ROOM:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is %s NOT in location?\n", Items[arg].Text);
+#endif
+            if (Items[arg].Location == MyLoc)
+                return 0;
+            break;
+        case COND_NOT_CARRIED:
+#ifdef DEBUG_ACTIONS
+            debug_print("Does the player NOT carry %s?\n", Items[arg].Text);
+#endif
+            if (Items[arg].Location == CARRIED)
+                return 0;
+            break;
+        case COND_NOT_AT_LOC:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is location NOT %s?\n", Rooms[arg].Text);
+#endif
+            if (MyLoc == arg)
+                return 0;
+            break;
+        case COND_FLAG_SET:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is bitflag %d set?\n", arg);
+#endif
+            if ((BitFlags & ((uint64_t)1 << arg)) == 0)
+                return 0;
+            break;
+        case COND_FLAG_CLEAR:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is bitflag %d NOT set?\n", arg);
+#endif
+            if (BitFlags & ((uint64_t)1 << arg))
+                return 0;
+            break;
+        case COND_CARRYING_ANY:
+#ifdef DEBUG_ACTIONS
+            debug_print("Does the player carry anything?\n");
+#endif
+            if (CountCarried() == 0)
+                return 0;
+            break;
+        case COND_CARRYING_NONE:
+#ifdef DEBUG_ACTIONS
+            debug_print("Does the player carry nothing?\n");
+#endif
+            if (CountCarried())
+                return 0;
+            break;
+        case COND_NOT_PRESENT:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is %s neither carried nor in room?\n", Items[arg].Text);
+#endif
+            if (Items[arg].Location == CARRIED || Items[arg].Location == MyLoc)
+                return 0;
+            break;
+        case COND_IN_PLAY:
+            if (arg > GameHeader.NumItems + 1)
+                Fatal("Broken database!");
+#ifdef DEBUG_ACTIONS
+            debug_print("Is %s (%d) in play?\n", Items[arg].Text, arg);
+#endif
+            if (Items[arg].Location == 0)
+                return 0;
+            break;
+        case COND_NOT_IN_PLAY:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is %s NOT in play?\n", Items[arg].Text);
+#endif
+            if (Items[arg].Location)
+                return 0;
+            break;
+        case COND_COUNTER_LE:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is CurrentCounter <= %d?\n", arg);
+#endif
+            if (CurrentCounter > arg)
+                return 0;
+            break;
+        case COND_COUNTER_GT:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is CurrentCounter > %d?\n", arg);
+#endif
+            if (CurrentCounter <= arg)
+                return 0;
+            break;
+        case COND_NOT_MOVED:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is %s still in initial room?\n", Items[arg].Text);
+#endif
+            if (Items[arg].Location != Items[arg].InitialLoc)
+                return 0;
+            break;
+        case COND_MOVED:
+#ifdef DEBUG_ACTIONS
+            debug_print("Has %s been moved?\n", Items[arg].Text);
+#endif
+            if (Items[arg].Location == Items[arg].InitialLoc)
+                return 0;
+            break;
+        case COND_COUNTER_EQ:
+#ifdef DEBUG_ACTIONS
+            debug_print("Is current counter == %d?\n", arg);
+            if (CurrentCounter != arg)
+                debug_print("Nope, current counter is %d\n", CurrentCounter);
+#endif
+            if (CurrentCounter != arg)
+                return 0;
+            break;
+    }
+    return 1;
+}
+
 /* Evaluate one action line: check up to 5 conditions, and if all pass,
  execute the 4 opcodes encoded in the action's two Opcode words.
 
@@ -365,148 +514,11 @@ static ActionResultType PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
         debug_print("Testing condition %d: ", cv);
 #endif
-        switch (cv) {
-            case COND_PARAMETER:
-                if (pptr < (int)(sizeof(param) / sizeof(param[0])))
-                    param[pptr++] = dv;
-                break;
-            case COND_CARRIED:
-#ifdef DEBUG_ACTIONS
-                debug_print("Does the player carry %s?\n", Items[dv].Text);
-#endif
-                if (Items[dv].Location != CARRIED)
-                    return ACT_FAILURE;
-                break;
-            case COND_IN_ROOM:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is %s in location?\n", Items[dv].Text);
-#endif
-                if (Items[dv].Location != MyLoc)
-                    return ACT_FAILURE;
-                break;
-            case COND_PRESENT:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is %s held or in location?\n", Items[dv].Text);
-#endif
-                if (Items[dv].Location != CARRIED && Items[dv].Location != MyLoc)
-                    return ACT_FAILURE;
-                break;
-            case COND_AT_LOC:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is location %s?\n", Rooms[dv].Text);
-#endif
-                if (MyLoc != dv)
-                    return ACT_FAILURE;
-                break;
-            case COND_NOT_IN_ROOM:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is %s NOT in location?\n", Items[dv].Text);
-#endif
-                if (Items[dv].Location == MyLoc)
-                    return ACT_FAILURE;
-                break;
-            case COND_NOT_CARRIED:
-#ifdef DEBUG_ACTIONS
-                debug_print("Does the player NOT carry %s?\n", Items[dv].Text);
-#endif
-                if (Items[dv].Location == CARRIED)
-                    return ACT_FAILURE;
-                break;
-            case COND_NOT_AT_LOC:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is location NOT %s?\n", Rooms[dv].Text);
-#endif
-                if (MyLoc == dv)
-                    return ACT_FAILURE;
-                break;
-            case COND_FLAG_SET:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is bitflag %d set?\n", dv);
-#endif
-                if ((BitFlags & ((uint64_t)1 << dv)) == 0)
-                    return ACT_FAILURE;
-                break;
-            case COND_FLAG_CLEAR:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is bitflag %d NOT set?\n", dv);
-#endif
-                if (BitFlags & ((uint64_t)1 << dv))
-                    return ACT_FAILURE;
-                break;
-            case COND_CARRYING_ANY:
-#ifdef DEBUG_ACTIONS
-                debug_print("Does the player carry anything?\n");
-#endif
-                if (CountCarried() == 0)
-                    return ACT_FAILURE;
-                break;
-            case COND_CARRYING_NONE:
-#ifdef DEBUG_ACTIONS
-                debug_print("Does the player carry nothing?\n");
-#endif
-                if (CountCarried())
-                    return ACT_FAILURE;
-                break;
-            case COND_NOT_PRESENT:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is %s neither carried nor in room?\n", Items[dv].Text);
-#endif
-                if (Items[dv].Location == CARRIED || Items[dv].Location == MyLoc)
-                    return ACT_FAILURE;
-                break;
-            case COND_IN_PLAY:
-                if (dv > GameHeader.NumItems + 1)
-                    Fatal("Broken database!");
-#ifdef DEBUG_ACTIONS
-                debug_print("Is %s (%d) in play?\n", Items[dv].Text, dv);
-#endif
-                if (Items[dv].Location == 0)
-                    return ACT_FAILURE;
-                break;
-            case COND_NOT_IN_PLAY:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is %s NOT in play?\n", Items[dv].Text);
-#endif
-                if (Items[dv].Location)
-                    return ACT_FAILURE;
-                break;
-            case COND_COUNTER_LE:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is CurrentCounter <= %d?\n", dv);
-#endif
-                if (CurrentCounter > dv)
-                    return ACT_FAILURE;
-                break;
-            case COND_COUNTER_GT:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is CurrentCounter > %d?\n", dv);
-#endif
-                if (CurrentCounter <= dv)
-                    return ACT_FAILURE;
-                break;
-            case COND_NOT_MOVED:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is %s still in initial room?\n", Items[dv].Text);
-#endif
-                if (Items[dv].Location != Items[dv].InitialLoc)
-                    return ACT_FAILURE;
-                break;
-            case COND_MOVED:
-#ifdef DEBUG_ACTIONS
-                debug_print("Has %s been moved?\n", Items[dv].Text);
-#endif
-                if (Items[dv].Location == Items[dv].InitialLoc)
-                    return ACT_FAILURE;
-                break;
-            case COND_COUNTER_EQ:
-#ifdef DEBUG_ACTIONS
-                debug_print("Is current counter == %d?\n", dv);
-                if (CurrentCounter != dv)
-                    debug_print("Nope, current counter is %d\n", CurrentCounter);
-#endif
-                if (CurrentCounter != dv)
-                    return ACT_FAILURE;
-                break;
+        if (cv == COND_PARAMETER) {
+            if (pptr < (int)(sizeof(param) / sizeof(param[0])))
+                param[pptr++] = dv;
+        } else if (!ConditionHolds(cv, dv)) {
+            return ACT_FAILURE;
         }
 #ifdef DEBUG_ACTIONS
         debug_print("YES\n");

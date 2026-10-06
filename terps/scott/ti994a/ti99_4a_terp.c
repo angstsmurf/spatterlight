@@ -25,6 +25,31 @@
 #include "load_ti99_4a.h"
 #include "ti99_4a_terp.h"
 
+/* Maps the TI-99/4A condition opcodes (TI99CND_CARRIED to
+   TI99CND_MOVED, in order) to the equivalent COND_XXX codes, so that
+   both interpreters share ConditionHolds(). */
+static const int ti99_conditions[] = {
+    COND_CARRIED,
+    COND_IN_ROOM,
+    COND_PRESENT,
+    COND_NOT_IN_ROOM,
+    COND_NOT_CARRIED,
+    COND_NOT_PRESENT,
+    COND_IN_PLAY,
+    COND_NOT_IN_PLAY,
+    COND_AT_LOC,
+    COND_NOT_AT_LOC,
+    COND_FLAG_SET,
+    COND_FLAG_CLEAR,
+    COND_CARRYING_ANY,
+    COND_CARRYING_NONE,
+    COND_COUNTER_LE,
+    COND_COUNTER_GT,
+    COND_COUNTER_EQ,
+    COND_NOT_MOVED,
+    COND_MOVED,
+};
+
 /* Execute a single action line (a sequence of condition checks
    followed by commands).  Returns ACT_SUCCESS if the line ran to
    completion (opcode 255), ACT_FAILURE if a condition failed with
@@ -46,7 +71,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
     int done = 0;
     int fallback_offset = 0;
     ActionResultType result = ACT_FAILURE;
-    int opcode, seTI99CND_param;
+    int opcode, seTI99CND_param, cond_param;
 
     /* try-block fallback stack: each "try" opcode pushes an offset
        to resume at if the subsequent conditions fail. */
@@ -62,199 +87,33 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
 
         switch (opcode) {
         case TI99CND_CARRIED:
-#ifdef DEBUG_ACTIONS
-            debug_print("Does the player carry %s?\n", Items[*ip].Text);
-#endif
-            if (Items[*(ip++)].Location != CARRIED) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_IN_ROOM:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is %s in location?\n", Items[*ip].Text);
-#endif
-            if (Items[*(ip++)].Location != MyLoc) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-
-            break;
-
         case TI99CND_PRESENT:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is %s held or in location?\n", Items[*ip].Text);
-#endif
-            if (Items[*ip].Location != CARRIED && Items[*ip].Location != MyLoc) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            ip++;
-            break;
-
         case TI99CND_NOT_IN_ROOM:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is %s NOT in location?\n", Items[*ip].Text);
-#endif
-            if (Items[*(ip++)].Location == MyLoc) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_NOT_CARRIED:
-#ifdef DEBUG_ACTIONS
-            debug_print("Does the player NOT carry %s?\n", Items[*ip].Text);
-#endif
-            if (Items[*(ip++)].Location == CARRIED) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_NOT_PRESENT:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is %s neither carried nor in room?\n", Items[*ip].Text);
-#endif
-
-            if (Items[*ip].Location == CARRIED || Items[*ip].Location == MyLoc) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            ip++;
-            break;
-
         case TI99CND_IN_PLAY:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is %s (%d) in play?\n", Items[*ip].Text, dv);
-#endif
-            if (Items[*(ip++)].Location == 0) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_NOT_IN_PLAY:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is %s NOT in play?\n", Items[*ip].Text);
-#endif
-            if (Items[*(ip++)].Location != 0) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_AT_LOC:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is location %s?\n", Rooms[*ip].Text);
-#endif
-            if (MyLoc != *(ip++)) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_NOT_AT_LOC:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is location NOT %s?\n", Rooms[*ip].Text);
-#endif
-            if (MyLoc == *(ip++)) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_FLAG_SET:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is bitflag %d set?\n", *ip);
-#endif
-            if ((BitFlags & (1 << *(ip++))) == 0) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_FLAG_CLEAR:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is bitflag %d NOT set?\n", *ip);
-#endif
-            if (BitFlags & ((uint64_t)1 << (uint64_t)*(ip++))) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_CARRYING_ANY:
-#ifdef DEBUG_ACTIONS
-            debug_print("Does the player carry anything?\n");
-#endif
-            if (CountCarried() == 0) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_CARRYING_NONE:
-#ifdef DEBUG_ACTIONS
-            debug_print("Does the player carry nothing?\n");
-#endif
-            if (CountCarried()) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_COUNTER_LE:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is CurrentCounter <= %d?\n", *ip);
-#endif
-            if (CurrentCounter > *(ip++)) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_COUNTER_GT:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is CurrentCounter > %d?\n", *ip);
-#endif
-            if (CurrentCounter <= *(ip++)) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_COUNTER_EQ:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is current counter == %d?\n", *ip);
-#endif
-            if (CurrentCounter != *(ip++)) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            break;
-
         case TI99CND_NOT_MOVED:
-#ifdef DEBUG_ACTIONS
-            debug_print("Is %s still in initial room?\n", Items[*ip].Text);
-#endif
-            if (Items[*ip].Location != Items[*ip].InitialLoc) {
-                done = 1;
-                result = ACT_FAILURE;
-            }
-            ip++;
-            break;
-
         case TI99CND_MOVED:
-#ifdef DEBUG_ACTIONS
-            debug_print("Has %s been moved?\n", Items[*ip].Text);
-#endif
-            if (Items[*ip].Location == Items[*ip].InitialLoc) {
+            /* The carrying any/none tests have no parameter byte. */
+            if (opcode == TI99CND_CARRYING_ANY || opcode == TI99CND_CARRYING_NONE)
+                cond_param = 0;
+            else
+                cond_param = *(ip++);
+            if (!ConditionHolds(ti99_conditions[opcode - TI99CND_CARRIED], cond_param)) {
                 done = 1;
                 result = ACT_FAILURE;
             }
-            ip++;
             break;
 
         case TI99OP_CLEAR_SCREEN:

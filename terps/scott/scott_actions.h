@@ -12,6 +12,7 @@
 
 void ClearBitFlag(int bit);
 void ClearScreen(void);
+int ConditionHolds(int condition, int arg);
 int CountCarried(void);
 void Delay(float seconds);
 void GameOver(void);
