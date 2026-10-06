@@ -16,6 +16,10 @@ of their colours. That is compared with TESTDIR/expected/<id>.txt.
 The games are copyrighted and not in the repository. Rows whose game is not in
 TESTDIR/games/ are skipped, so the suite passes (testing nothing) on a bare
 checkout. See TESTDIR/README.md.
+
+The manifest / golden / --bless / --collect machinery is shared with the Scott
+loader format tests (scott/test/formats/run_format_tests.py), which import this
+module and describe their differences with a Suite.
 """
 
 import argparse
@@ -32,12 +36,34 @@ TIMEOUT = 120
 COMPANION = "-"
 
 
+class Suite:
+    """Everything that differs between the suites sharing this runner: the
+    paths, how the probe is run, and the words of the report."""
+
+    def __init__(self, testdir, probe, run, companion=COMPANION,
+                 label="image tests", item="game", thing="file", id_width=36,
+                 readme=None, not_built=None):
+        self.testdir = testdir
+        self.manifest = os.path.join(testdir, "games.manifest.tsv")
+        self.expected = os.path.join(testdir, "expected")
+        self.probe = probe
+        self.run = run              # run(probe, row, games) -> fingerprint text
+        self.companion = companion  # id of rows that are files, not tests
+        self.label = label          # "image tests: 1 passed, ..."
+        self.item = item            # "skipped (game not in games/)", "no games found"
+        self.thing = thing          # "with a wrong file", "missing files"
+        self.id_width = id_width    # --list column width
+        self.readme = readme or os.path.join(testdir, "README.md")
+        self.not_built = not_built or f"{probe} is not built: make -f Makefile.headless"
+
+
 class Row:
     def __init__(self, fields):
+        # keys: the key presses (image probes) or the menu answer (format probe)
         self.id, self.dir, self.file, self.sha256, self.keys, self.note = fields
 
 
-def read_manifest(manifest):
+def read_manifest(manifest, companion=COMPANION):
     rows = []
     with open(manifest, encoding="utf-8") as f:
         for n, line in enumerate(f, 1):
@@ -48,7 +74,7 @@ def read_manifest(manifest):
             if len(fields) != 6:
                 sys.exit(f"{manifest}:{n}: expected 6 columns, got {len(fields)}")
             rows.append(Row(fields))
-    ids = [r.id for r in rows if r.id != COMPANION]
+    ids = [r.id for r in rows if r.id != companion]
     if len(ids) != len(set(ids)):
         sys.exit(f"{manifest}: duplicate ids")
     return rows
@@ -82,17 +108,19 @@ def check_corpus(rows, games):
     return missing, wrong
 
 
-def fingerprint(probe, row, games):
+def run_with_keys(probe, row, games, marker=MARKER, timeout=TIMEOUT):
+    """The image probes: the key presses are one command-line argument, and a
+    non-zero exit appends the last line of stderr."""
     path = os.path.join(games, row.dir, row.file)
     try:
         run = subprocess.run(
             [probe, path] + ([row.keys] if row.keys else []), stdin=subprocess.DEVNULL,
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=TIMEOUT)
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout)
     except subprocess.TimeoutExpired:
         return "TIMEOUT\n"
     out = run.stdout.decode("utf-8", "replace")
-    at = out.find(MARKER)
-    got = out[at + len(MARKER):] if at >= 0 else ""
+    at = out.find(marker)
+    got = out[at + len(marker):] if at >= 0 else ""
     if run.returncode != 0:
         # The interpreter gave up, or the probe did: keep the last words.
         lines = [l for l in run.stderr.decode("utf-8", "replace").splitlines() if l.strip()]
@@ -100,7 +128,26 @@ def fingerprint(probe, row, games):
     return got
 
 
-def collect(rows, games, roots):
+def run_with_stdin(probe, row, games, marker, timeout):
+    """A probe that reads its answer (e.g. a menu choice) from stdin and
+    reports failure on stdout only."""
+    path = os.path.join(games, row.dir, row.file)
+    try:
+        out = subprocess.run(
+            [probe, path], input=(row.keys + "\n").encode() if row.keys else b"",
+            stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, timeout=timeout).stdout
+    except subprocess.TimeoutExpired:
+        return "TIMEOUT\n"
+    out = out.decode("utf-8", "replace")
+    at = out.find(marker)
+    if at < 0:
+        # Fatal() inside a loader: keep its last words.
+        lines = [l for l in out.splitlines() if l.strip()]
+        return "NO FINGERPRINT: %s\n" % (lines[-1] if lines else "(no output)")
+    return out[at + len(marker):]
+
+
+def collect(rows, games, roots, thing="file"):
     wanted = {}
     for (d, f), want in files_of(rows).items():
         if not os.path.exists(os.path.join(games, d, f)):
@@ -123,34 +170,31 @@ def collect(rows, games, roots):
                     shutil.copyfile(os.path.join(dirpath, name), os.path.join(games, d, f))
                     targets.remove(t)
                     found += 1
-    print(f"collected {found} of {total} missing files")
+    print(f"collected {found} of {total} missing {thing}s")
     for targets in wanted.values():
         for d, f, _ in targets:
             print(f"  still missing: {d}/{f}")
 
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__,
-        formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("testdir", help="folder with games.manifest.tsv and expected/")
-    ap.add_argument("probe", help="the interpreter's image probe binary")
+def add_common_args(ap, games_help, games_default=None):
     ap.add_argument("--bless", action="store_true")
     ap.add_argument("--collect", action="store_true")
     ap.add_argument("--list", action="store_true")
-    ap.add_argument("--games",
-        help="where the games are (default: games/ in the test folder)")
+    ap.add_argument("--games", default=games_default, help=games_help)
     ap.add_argument("args", nargs="*")
-    opt = ap.parse_args()
-    expected = os.path.join(opt.testdir, "expected")
-    if not opt.games:
-        opt.games = os.path.join(opt.testdir, "games")
 
-    rows = read_manifest(os.path.join(opt.testdir, "games.manifest.tsv"))
-    tests = [r for r in rows if r.id != COMPANION]
+
+def run_suite(suite, opt, ap):
+    """Check, --bless, --collect or --list one suite. Returns the exit code."""
+    expected = suite.expected
+    games = opt.games or os.path.join(suite.testdir, "games")
+
+    rows = read_manifest(suite.manifest, suite.companion)
+    tests = [r for r in rows if r.id != suite.companion]
     if opt.collect:
         if not opt.args:
             ap.error("--collect needs at least one directory to search")
-        collect(rows, opt.games, opt.args)
+        collect(rows, games, opt.args, suite.thing)
         return 0
 
     if opt.args:
@@ -162,20 +206,20 @@ def main():
 
     # The other files in the folders of the selected rows count too.
     dirs = {r.dir for r in rows_to_run}
-    missing, wrong = check_corpus([r for r in rows if r.dir in dirs], opt.games)
+    missing, wrong = check_corpus([r for r in rows if r.dir in dirs], games)
 
     if opt.list:
         for r in rows_to_run:
             status = "wrong" if r.dir in wrong else "absent" if r.dir in missing else "ok"
-            print(f"{status:7}{r.id:36}{r.note}")
+            print(f"{status:7}{r.id:{suite.id_width}}{r.note}")
         return 0
 
     runnable = [r for r in rows_to_run if r.dir not in missing and r.dir not in wrong]
-    if runnable and not os.access(opt.probe, os.X_OK):
-        sys.exit(f"{opt.probe} is not built: make -f Makefile.headless")
+    if runnable and not os.access(suite.probe, os.X_OK):
+        sys.exit(suite.not_built)
 
     with concurrent.futures.ThreadPoolExecutor(os.cpu_count() or 4) as pool:
-        results = list(pool.map(lambda r: fingerprint(opt.probe, r, opt.games), runnable))
+        results = list(pool.map(lambda r: suite.run(suite.probe, r, games), runnable))
 
     passed = failed = blessed = 0
     for row, got in zip(runnable, results):
@@ -212,11 +256,22 @@ def main():
         print(f"{blessed} goldens rewritten, {len(runnable) - blessed} unchanged, "
               f"{skipped} rows skipped")
         return 0
-    print(f"image tests: {passed} passed, {failed} failed, "
-          f"{skipped - bad} skipped (game not in games/), {bad} with a wrong file")
+    print(f"{suite.label}: {passed} passed, {failed} failed, "
+          f"{skipped - bad} skipped ({suite.item} not in games/), "
+          f"{bad} with a wrong {suite.thing}")
     if skipped - bad == len(rows_to_run):
-        print(f"  no games found; see {os.path.join(opt.testdir, 'README.md')}")
+        print(f"  no {suite.item}s found; see {suite.readme}")
     return 1 if failed or bad else 0
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("testdir", help="folder with games.manifest.tsv and expected/")
+    ap.add_argument("probe", help="the interpreter's image probe binary")
+    add_common_args(ap, "where the games are (default: games/ in the test folder)")
+    opt = ap.parse_args()
+    return run_suite(Suite(opt.testdir, opt.probe, run_with_keys), opt, ap)
 
 
 if __name__ == "__main__":

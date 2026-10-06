@@ -29,8 +29,10 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "formats"))
-import run_format_tests as formats
+sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "common_imagetest"))
+import run_image_tests as formats  # noqa: E402
+
+MANIFEST = os.path.join(HERE, "..", "formats", "games.manifest.tsv")
 
 TABLE = os.path.join(HERE, "scripts.tsv")
 TIMEOUT = 60
@@ -66,7 +68,7 @@ def write_table(pairs):
 def transcript(binary, script, row, keys, games):
     with open(os.path.join(HERE, script + ".txt"), "rb") as f:
         commands = f.read()
-    menu = (row.input + "\n").encode() if row.input else b""
+    menu = (row.keys + "\n").encode() if row.keys else b""
     # What the release asks before the first command: a key a line, as the
     # script itself has them. "_" is Return.
     menu += "".join(k.replace("_", "") + "\n" for k in keys).encode()
@@ -100,7 +102,7 @@ def main():
     ap.add_argument("args", nargs="*")
     opt = ap.parse_args()
 
-    rows = {r.id: r for r in formats.read_manifest()}
+    rows = {r.id: r for r in formats.read_manifest(MANIFEST, companion=None)}
     pairs = read_table()
     for script, id, _, _, _ in pairs:
         if id not in rows:
