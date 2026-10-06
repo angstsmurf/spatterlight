@@ -12,6 +12,7 @@
 #include <string.h>
 
 #include "c64diskimage.h"
+#include "c64unpack.h"
 #include "taylor.h"
 #include "utility.h"
 #include "unp64_interface.h"
@@ -86,15 +87,6 @@ static const c64rec c64_registry[] = {
     { UNKNOWN_GAME, 0, 0, UNKNOWN_FILE_TYPE, 0, NULL, 0 }
 };
 
-/* Simple 16-bit additive checksum for identifying known disk/tape images. */
-static uint16_t checksum(uint8_t *sf, size_t extent)
-{
-    uint16_t c = 0;
-    for (int i = 0; i < extent; i++)
-        c += sf[i];
-    return c;
-}
-
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec entry);
 
 /* Extract the largest file from a D64 disk image into a new buffer.
@@ -109,14 +101,10 @@ static uint8_t *get_largest_file(uint8_t *data, size_t length, size_t *newlength
         RawDirEntry *largest = di_find_largest_file_entry(d64);
         if (largest) {
             ImageFile *c64file = di_open(d64, largest->rawname, largest->type, "rb");
-            if (c64file) {
-                uint8_t buf[0xffff];
-                *newlength = di_read(c64file, buf, 0xffff);
-                file = MemAlloc(*newlength);
-                memcpy(file, buf, *newlength);
-                free(c64file);
-            }
+            if (c64file)
+                file = di_read_file(c64file, newlength);
         }
+        free(d64);
     }
     return file;
 }
@@ -155,13 +143,9 @@ static uint8_t *get_file_at_ts(uint8_t *data, size_t length, size_t *newlength, 
     DiskImage *d64 = di_create_from_data(data, (int)length);
     if (d64) {
         ImageFile *c64file = di_create_file_from_ts(d64, track, sector);
-        if (c64file) {
-            uint8_t buf[0xffff];
-            *newlength = di_read(c64file, buf, 0xffff);
-            file = MemAlloc(*newlength);
-            memcpy(file, buf, *newlength);
-            free(c64file);
-        }
+        if (c64file)
+            file = di_read_file(c64file, newlength);
+        free(d64);
     }
     return file;
 }
@@ -289,7 +273,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
     if (*extent > MAX_LENGTH || *extent < MIN_LENGTH)
         return UNKNOWN_GAME;
 
-    uint16_t chksum = checksum(*sf, *extent);
+    uint16_t chksum = C64Checksum(*sf, *extent);
 
     for (int i = 0; c64_registry[i].length != 0; i++) {
         c64rec record = c64_registry[i];
@@ -338,34 +322,10 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
    checksum-specific memory block relocations for variants that store
    graphics data at non-standard addresses. Finally, sets the global Game
    pointer to the matching entry in games[]. */
-/* Run unp64 record.decompress_iterations times, peeling off one
- * compression layer per pass. Each successful pass installs the
- * unpacked buffer as the new input; a failed pass aborts the chain
- * but keeps whatever was already unpacked. */
-static void decompressIterations(uint8_t **sf, size_t *extent, c64rec record)
-{
-    uint8_t *output = MemAlloc(0x10000);
-    size_t decompressedLength = 0;
-
-    for (int i = 1; i <= record.decompress_iterations; i++) {
-        const char *switches =
-            (i == record.parameter && record.switches != NULL) ? record.switches : NULL;
-        if (!unp64(*sf, *extent, output, &decompressedLength, switches))
-            break;
-        /* Swap: the freshly-unpacked output replaces the input buffer.
-         * Grab a fresh 64 KiB scratch buffer for the next pass. */
-        free(*sf);
-        *sf = output;
-        *extent = decompressedLength;
-        output = MemAlloc(0x10000);
-    }
-
-    free(output);
-}
-
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
 {
-    decompressIterations(sf, extent, record);
+    C64DecompressIterations(sf, extent, record.decompress_iterations,
+        record.switches, record.parameter);
 
     /* Relocate graphics data for specific releases that store image blocks
        at addresses the engine doesn't expect. memmove handles the

@@ -3841,6 +3841,7 @@
 		C3F06B85288CBB8400AC7FDE /* c64detect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64detect.c; sourceTree = "<group>"; };
 		C3F06B87288CBB8400AC7FDE /* c64detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64detect.h; sourceTree = "<group>"; };
 		C3F06B93288D429200AC7FDE /* libc64diskimage.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libc64diskimage.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3C0A5E100000000000000A6 /* c64unpack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64unpack.h; sourceTree = "<group>"; };
 		C3F06B98288D42DD00AC7FDE /* c64diskimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64diskimage.h; sourceTree = "<group>"; };
 		C3F06B99288D42DD00AC7FDE /* c64diskimage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64diskimage.c; sourceTree = "<group>"; };
 		C3F09D3B28888F890035DAC2 /* unp64_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unp64_interface.h; sourceTree = "<group>"; };
@@ -6983,6 +6984,7 @@
 			isa = PBXGroup;
 			children = (
 				C3F06B98288D42DD00AC7FDE /* c64diskimage.h */,
+				C3C0A5E100000000000000A6 /* c64unpack.h */,
 				C3F06B99288D42DD00AC7FDE /* c64diskimage.c */,
 			);
 			path = c64diskimage;

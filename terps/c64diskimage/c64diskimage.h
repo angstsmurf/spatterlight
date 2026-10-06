@@ -92,6 +92,7 @@ ImageFile *di_open(DiskImage *di, unsigned char *rawname, FileType type,
                    char *mode);
 ImageFile *di_create_file_from_ts(DiskImage *di, int track, int sector);
 int di_read(ImageFile *imgfile, unsigned char *buffer, int len);
+uint8_t *di_read_file(ImageFile *imgfile, size_t *length);
 int di_rawname_from_name(unsigned char *rawname, const char *name);
 
 RawDirEntry *di_find_largest_file_entry(DiskImage *di);

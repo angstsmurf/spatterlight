@@ -18,6 +18,7 @@
 
 #include "c64decrunch.h"
 #include "c64diskimage.h"
+#include "c64unpack.h"
 #include "detect_game.h"
 #include "sagadraw.h"
 #include "sagagraphics.h"
@@ -173,16 +174,6 @@ static const c64rec c64_registry[] = {
 };
 // clang-format off
 
-/* Compute a simple 16-bit additive checksum over a byte buffer.
-   Used together with file length to identify known C64 disk/tape images. */
-uint16_t checksum(uint8_t *sf, uint32_t extent)
-{
-    uint16_t c = 0;
-    for (int i = 0; i < extent; i++)
-        c += sf[i];
-    return c;
-}
-
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec entry);
 
 /* Extract the largest file from a D64 disk image into a newly allocated buffer.
@@ -198,11 +189,9 @@ static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
         if (largest) {
             ImageFile *c64file = di_open(d64, largest->rawname, largest->type, "rb");
             if (c64file) {
-                uint8_t buf[0xffff];
-                *newlength = di_read(c64file, buf, 0xffff);
-                file = MemAlloc(*newlength);
-                memcpy(file, buf, *newlength);
-                free(c64file);
+                size_t filelength;
+                file = di_read_file(c64file, &filelength);
+                *newlength = (int)filelength;
             }
         }
         free(d64);
@@ -475,11 +464,7 @@ void LoadC64USImages(uint8_t *data, size_t length)
                     di_rawname_from_name(rawname, shortname);
                     ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
                     if (c64file) {
-                        uint8_t buf[0xffff];
-                        image->datasize = di_read(c64file, buf, 0xffff);
-                        image->imagedata = MemAlloc(image->datasize);
-                        memcpy(image->imagedata, buf, image->datasize);
-                        free(c64file);
+                        image->imagedata = di_read_file(c64file, &image->datasize);
                         image->systype = SYS_C64;
                         /* Parse 3-digit image index from filename positions 3–5 */
                         image->index = shortname[5] - '0' + (shortname[4] - '0') * 10 + (shortname[3] - '0') * 100;
@@ -504,6 +489,7 @@ void LoadC64USImages(uint8_t *data, size_t length)
                 }
             }
         }
+        free(d64);
     }
 }
 
@@ -565,7 +551,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
     if (*extent > MAX_LENGTH || *extent < MIN_LENGTH)
         return UNKNOWN_GAME;
 
-    uint16_t chksum = checksum(*sf, *extent);
+    uint16_t chksum = C64Checksum(*sf, *extent);
 
     for (int i = 0; c64_registry[i].length != 0; i++) {
         if (*extent == c64_registry[i].length && chksum == c64_registry[i].chk) {
@@ -714,36 +700,12 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
    TryLoading, appends any Savage Island picture data, relocates
    graphics blocks via CopyData, and initializes the drawing system. */
 
-/* Run unp64 record.decompress_iterations times, peeling off one
-   compression layer per pass. Each successful pass installs the
-   unpacked buffer as the new input; a failed pass aborts the chain
-   but keeps whatever was already unpacked. */
-static void decompressIterations(uint8_t **sf, size_t *length, c64rec record)
-{
-    uint8_t *output = MemAlloc(0x10000);
-    size_t decompressedLength = 0;
-
-    for (int i = 1; i <= record.decompress_iterations; i++) {
-        const char *switches =
-            (i == record.parameter && record.switches != NULL) ? record.switches : NULL;
-        if (!unp64(*sf, *length, output, &decompressedLength, switches))
-            break;
-        /* Swap: the freshly-unpacked output replaces the input buffer.
-         * Grab a fresh 64 KiB scratch buffer for the next pass. */
-        free(*sf);
-        *sf = output;
-        *length = decompressedLength;
-        output = MemAlloc(0x10000);
-    }
-
-    free(output);
-}
-
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
 {
     size_t length = *extent;
 
-    decompressIterations(sf, &length, record);
+    C64DecompressIterations(sf, &length, record.decompress_iterations,
+        record.switches, record.parameter);
 
     /* Debug: dump the decompressed image for offline analysis */
     const char *dumppath = getenv("C64_DUMP_US_IMAGE");

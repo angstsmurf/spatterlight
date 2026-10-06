@@ -951,6 +951,23 @@ int di_read(ImageFile *imgfile, unsigned char *buffer, int len)
     return counter;
 }
 
+/* Read an open file (at most 0xffff bytes) into a newly allocated
+   buffer, which the caller must free, and close the file. Sets *length
+   to the number of bytes read. Returns NULL if out of memory. */
+uint8_t *di_read_file(ImageFile *imgfile, size_t *length)
+{
+    uint8_t buf[0xffff];
+    int bytesread = di_read(imgfile, buf, 0xffff);
+    free(imgfile);
+    *length = bytesread;
+    /* Allocate at least one byte, so that an empty file is not mistaken
+       for a failure */
+    uint8_t *file = malloc(bytesread > 0 ? bytesread : 1);
+    if (file)
+        memcpy(file, buf, bytesread);
+    return file;
+}
+
 uint8_t *di_get_file_named(uint8_t *data, size_t length, size_t *newlength,
                         const char *name)
 {
@@ -961,17 +978,8 @@ uint8_t *di_get_file_named(uint8_t *data, size_t length, size_t *newlength,
     di_rawname_from_name(rawname, name);
     if (d64) {
         ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
-        if (c64file) {
-            uint8_t buf[0xffff];
-            *newlength = di_read(c64file, buf, 0xffff);
-            file = malloc(*newlength);
-            if (!file) {
-                free(c64file);
-                return NULL;
-            }
-            memcpy(file, buf, *newlength);
-            free(c64file);
-        }
+        if (c64file)
+            file = di_read_file(c64file, newlength);
         free(d64);
     }
     return file;
