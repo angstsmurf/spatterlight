@@ -40,8 +40,6 @@
 #define SIZECENTRALDIRITEM (0x2e)
 /* Size of a local file header (fixed-size portion): 30 bytes */
 #define SIZEZIPLOCALHEADER (0x1e)
-/* Buffer size for scanning backward through the file to find the EOCD record */
-#define BUFREADCOMMENT (0x400)
 
 /* Default case sensitivity for filename matching (0 = use OS default) */
 #define CASESENSITIVITY (0)
@@ -204,63 +202,36 @@ static int unz64local_getShort(uint8_t **outptr, uint8_t *endptr,
 }
 
 
+/* Scan backward from the end of the in-memory zip data for a 4-byte
+   signature, which must start within the last 0xffff bytes (the maximum
+   size of the global comment). Returns the offset of the last match,
+   or CENTRALDIRINVALID if there is none. */
+static uint64_t unz64local_FindSignatureBackward(const uint8_t *data, size_t size,
+                                                 const char *signature) {
+    size_t maxback = (size < 0xffff) ? size : 0xffff;
+    if (maxback <= 4)
+        return CENTRALDIRINVALID;
+    for (size_t pos = size - 4; pos >= size - maxback; pos--) {
+        if (memcmp(data + pos, signature, 4) == 0)
+            return pos;
+        if (pos == 0)
+            break;
+    }
+    return CENTRALDIRINVALID;
+}
+
 /* Search for the Zip64 end of central directory locator by scanning backward
    from the end of the in-memory zip data. The locator has signature
    0x07064b50 ("PK\x06\x07"). If found, follows the pointer to the Zip64
    end of central directory record and returns its offset. Returns
    CENTRALDIRINVALID if the archive is not Zip64. */
 static uint64_t unz64local_SearchCentralDir64(uint8_t *filestream, size_t fileSize) {
-    unsigned char* buf;
-    uint64_t uBackRead;
-    uint64_t uMaxBack=0xffff; /* maximum size of global comment */
-    uint64_t uPosFound=CENTRALDIRINVALID;
     uLong uL;
     uint64_t relativeOffset;
-
-    if (uMaxBack>fileSize)
-        uMaxBack = fileSize;
-
-    buf = (unsigned char*)MemAlloc(BUFREADCOMMENT+4);
-
-    uBackRead = 4;
-
     uint8_t *endptr = filestream + fileSize;
 
-    /* Scan backward through the file in BUFREADCOMMENT-sized chunks,
-       looking for the Zip64 EOCD locator signature (0x07064b50). */
-    while (uBackRead<uMaxBack)
-    {
-        uLong uReadSize;
-        uint64_t uReadPos;
-        int i;
-        if (uBackRead+BUFREADCOMMENT>uMaxBack)
-            uBackRead = uMaxBack;
-        else
-            uBackRead+=BUFREADCOMMENT;
-        uReadPos = fileSize-uBackRead ;
-
-        uReadSize = ((BUFREADCOMMENT+4) < (fileSize-uReadPos)) ?
-        (BUFREADCOMMENT+4) : (uLong)(fileSize-uReadPos);
-
-        uint8_t *ptr = filestream + uReadPos;
-        if (ptr + uReadSize > endptr)
-            break;
-
-        memcpy(buf, ptr, uReadSize);
-
-        /* Search backward through the chunk for the 4-byte signature */
-        for (i=(int)uReadSize-3; (i--)>0;)
-            if (((*(buf+i))==0x50) && ((*(buf+i+1))==0x4b) &&
-                ((*(buf+i+2))==0x06) && ((*(buf+i+3))==0x07))
-            {
-                uPosFound = uReadPos+(unsigned)i;
-                break;
-            }
-
-        if (uPosFound!=CENTRALDIRINVALID)
-            break;
-    }
-    free(buf);
+    uint64_t uPosFound = unz64local_FindSignatureBackward(filestream, fileSize,
+        "PK\x06\x07");
     if (uPosFound == CENTRALDIRINVALID)
         return CENTRALDIRINVALID;
 
@@ -922,53 +893,7 @@ static int unzCloseCurrentFile(unz64_s *s) {
  Returns the byte offset of the EOCD record, or CENTRALDIRINVALID if not found.
  */
 static uint64_t unz64local_SearchCentralDir(uint8_t *filestream, size_t size) {
-    unsigned char* buf;
-    uint64_t uBackRead;
-    uint64_t uMaxBack=0xffff; /* maximum size of global comment */
-    uint64_t uPosFound=CENTRALDIRINVALID;
-
-    uint8_t *endptr = filestream + size;
-
-    if (uMaxBack>size)
-        uMaxBack = size;
-
-    buf = (unsigned char*)MemAlloc(BUFREADCOMMENT+4);
-
-    uBackRead = 4;
-    /* Scan backward in BUFREADCOMMENT-sized chunks looking for the signature */
-    while (uBackRead<uMaxBack)
-    {
-        uLong uReadSize;
-        uint64_t uReadPos ;
-        int i;
-        if (uBackRead+BUFREADCOMMENT>uMaxBack)
-            uBackRead = uMaxBack;
-        else
-            uBackRead+=BUFREADCOMMENT;
-        uReadPos = size-uBackRead ;
-
-        uReadSize = ((BUFREADCOMMENT+4) < (size-uReadPos)) ?
-        (BUFREADCOMMENT+4) : (uLong)(size-uReadPos);
-        uint8_t *ptr = filestream + uReadPos;
-        if (ptr + uReadSize > endptr)
-            break;
-
-        memcpy(buf, ptr, uReadSize);
-
-        /* Search backward through the chunk for "PK\x05\x06" */
-        for (i=(int)uReadSize-3; (i--)>0;)
-            if (((*(buf+i))==0x50) && ((*(buf+i+1))==0x4b) &&
-                ((*(buf+i+2))==0x05) && ((*(buf+i+3))==0x06))
-            {
-                uPosFound = uReadPos+(unsigned)i;
-                break;
-            }
-
-        if (uPosFound!=CENTRALDIRINVALID)
-            break;
-    }
-    free(buf);
-    return uPosFound;
+    return unz64local_FindSignatureBackward(filestream, size, "PK\x05\x06");
 }
 
 /*
