@@ -985,7 +985,6 @@ void Interp::assign_field(Element *e, const std::string &attr, Value val) {
     // SortIndex metafield). WearGarment's redundant `object.parent = game.pov`
     // really does reorder the inventory.
     if (attr == "parent") {
-        log_sort_index(e);
         e->sort_index = world_.next_sort_index++;
         world_.note_containment_change();
     }
@@ -1811,6 +1810,9 @@ void Interp::undo_once(Context &ctx) {
         print_via_core(to_string(eval(*dt, tc)), ctx);
     }
     std::reverse(txn->actions.begin(), txn->actions.end());
+    // An action that fails throws out of here (see apply_undo_action), as
+    // the reference's DoUndo does: the transaction is gone from the stack
+    // with its actions left reversed and only some of them applied.
     for (UndoAction &a : txn->actions)
         apply_undo_action(a);
     redo_stack_.push_back(txn);
@@ -1832,19 +1834,24 @@ void Interp::apply_undo_action(UndoAction &a) {
             e->remove_field(a.attr);
         else
             e->set_field(a.attr, a.old_value);
-        if (a.attr == "parent") world_.note_containment_change();
+        if (a.attr == "parent") {
+            // SetFromUndo goes through SetParentFromFields like any other
+            // parent write, so the element comes back as the LAST child of
+            // its old parent, not at the place it left.  An added parent is
+            // taken away by RemoveFieldInternal, which reorders nothing.
+            if (!a.added) e->sort_index = world_.next_sort_index++;
+            world_.note_containment_change();
+        }
         return;
     }
     case UndoAction::Kind::FieldRemove: {
         Element *e = world_.find(a.element);
-        if (e) e->set_field(a.attr, a.old_value);
-        if (a.attr == "parent") world_.note_containment_change();
-        return;
-    }
-    case UndoAction::Kind::SortIndex: {
-        Element *e = world_.find(a.element);
-        if (e) e->sort_index = a.index;
-        world_.note_containment_change();
+        if (!e) return;
+        e->set_field(a.attr, a.old_value);
+        if (a.attr == "parent") {
+            e->sort_index = world_.next_sort_index++;
+            world_.note_containment_change();
+        }
         return;
     }
     case UndoAction::Kind::Create:
@@ -1854,30 +1861,61 @@ void Interp::apply_undo_action(UndoAction &a) {
         return;
     case UndoAction::Kind::Destroy:
         // Undo-of-destroy: re-register the kept-alive element, fields intact.
-        world_.register_name(a.element, a.element_ptr);
+        // (No storage: a restored history whose element could not be found.)
+        if (a.element_ptr)
+            world_.register_name(a.element, a.element_ptr);
         return;
+    // The four collection actions below can meet a collection that is not in
+    // the state they were logged against: the re-commit quirk (see
+    // rollback_transaction) rolls one transaction back twice, the second time
+    // forwards.  The reference then fails inside the .NET collection, and the
+    // exception ends the rollback right there -- the transaction's remaining
+    // actions are never applied, and the chain is not stepped back.  The
+    // messages are .NET's, as the player sees them after "Error running
+    // script: ".  Clamping instead would apply the rest of the transaction to
+    // a world it does not fit (a parser menu's leftovers put back, say, after
+    // which every command is taken for a menu answer and prints nothing).
     case UndoAction::Kind::ListAdd: {
+        // UndoListAdd.DoUndo: List<T>.RemoveAt(index).
         std::vector<Value> &v = *a.list_backing;
-        if ((size_t)a.index < v.size())
-            v.erase(v.begin() + a.index);
+        if (a.index < 0 || (size_t)a.index >= v.size())
+            error("Index was out of range. Must be non-negative and less than"
+                  " the size of the collection. (Parameter 'index')");
+        v.erase(v.begin() + a.index);
         return;
     }
     case UndoAction::Kind::ListRemove: {
+        // UndoListRemove.DoUndo: List<T>.Insert(index, item).
         std::vector<Value> &v = *a.list_backing;
-        size_t at = (size_t)a.index <= v.size() ? (size_t)a.index : v.size();
-        v.insert(v.begin() + at, a.old_value);
+        if (a.index < 0 || (size_t)a.index > v.size())
+            error("Index must be within the bounds of the List."
+                  " (Parameter 'index')");
+        v.insert(v.begin() + a.index, a.old_value);
         return;
     }
     case UndoAction::Kind::DictAdd: {
+        // UndoDictionaryAdd.DoUndo: QuestDictionary.Remove(key), which reads
+        // the entry (for its ItemRemoved event) before removing it.
         std::vector<Value::DictEntry> &d = *a.dict_backing;
         for (auto it = d.begin(); it != d.end(); ++it)
-            if (it->first == a.attr) { d.erase(it); break; }
-        return;
+            if (it->first == a.attr) { d.erase(it); return; }
+        error("The given key '" + a.attr +
+              "' was not present in the dictionary.");
     }
     case UndoAction::Kind::DictRemove: {
+        // UndoDictionaryRemove.DoUndo: QuestDictionary.Add(key, item, index)
+        // -> OrderedDictionary.Insert, index checked before the key.
         std::vector<Value::DictEntry> &d = *a.dict_backing;
-        size_t at = (size_t)a.index <= d.size() ? (size_t)a.index : d.size();
-        d.insert(d.begin() + at, {a.attr, a.old_value});
+        const std::string adding = "Error adding key '" + a.attr +
+                                   "' to dictionary: ";
+        if (a.index < 0 || (size_t)a.index > d.size())
+            error(adding + "Specified argument was out of the range of valid"
+                           " values. (Parameter 'index')");
+        for (const Value::DictEntry &entry : d)
+            if (entry.first == a.attr)
+                error(adding + "An item with the same key has already been"
+                               " added. Key: " + a.attr);
+        d.insert(d.begin() + a.index, {a.attr, a.old_value});
         return;
     }
     case UndoAction::Kind::FirstTime:
@@ -1917,13 +1955,6 @@ Value &Interp::set_field_logged(Element *e, const std::string &attr,
     return e->set_field(attr, v);
 }
 
-void Interp::log_sort_index(Element *e) {
-    if (!undo_logging_) return;
-    UndoAction a(UndoAction::Kind::SortIndex, e->name);
-    a.index = e->sort_index;
-    add_undo(std::move(a));
-}
-
 void Interp::log_create(Element *e) {
     if (!undo_logging_) return;
     add_undo(UndoAction(UndoAction::Kind::Create, e->name));
@@ -1938,7 +1969,9 @@ void Interp::log_destroy(Element *e) {
 
 void Interp::log_list_change(UndoAction::Kind kind, const Value &coll,
                              long index, const Value &entry) {
-    if (!undo_logging_) return;
+    // QuestList.UndoLogAdd/UndoLogRemove: only a list that has the logger.
+    if (!undo_logging_ || !coll.list_store || !coll.list_store->undo_logged)
+        return;
     UndoAction a(kind);
     a.list_backing = coll.list_store;
     a.old_value = entry;
@@ -1949,7 +1982,8 @@ void Interp::log_list_change(UndoAction::Kind kind, const Value &coll,
 void Interp::log_dict_change(UndoAction::Kind kind, const Value &coll,
                              long index, const std::string &key,
                              const Value &entry) {
-    if (!undo_logging_) return;
+    if (!undo_logging_ || !coll.dict_store || !coll.dict_store->undo_logged)
+        return;
     UndoAction a(kind);
     a.dict_backing = coll.dict_store;
     a.attr = key;
@@ -3054,6 +3088,8 @@ void Interp::exec_list_command(bool add, const ExprList &args, Context &ctx) {
         // The value is stored boxed/typed verbatim (QuestList<object>.Add)
         // -- a list can hold dictionaries, objects, numbers... (spondre).
         auto &v = lst->list();
+        // UndoLogAdd hands the logger on to a collection added as an entry.
+        if (lst->list_store->undo_logged) item.attach_undo_log();
         log_list_change(UndoAction::Kind::ListAdd, *lst, (long)v.size(), item);
         v.push_back(std::move(item));
     } else {
@@ -3120,7 +3156,9 @@ void Interp::exec_dictionary_command(bool add, const ExprList &args,
     if (add) {
         log_dict_change(UndoAction::Kind::DictAdd, *d,
                         (long)d->dict().size(), key, Value{});
-        d->dict().emplace_back(key, ev(2));  // store the typed value verbatim
+        Value item = ev(2);
+        if (d->dict_store->undo_logged) item.attach_undo_log();
+        d->dict().emplace_back(key, std::move(item));  // the typed value verbatim
     }
 }
 

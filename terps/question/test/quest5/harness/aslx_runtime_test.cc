@@ -853,6 +853,128 @@ static void test_rng_streams_survive_capture() {
     CHECK(c_s != b_s);
 }
 
+// The Spatterlight autosave's undo history (capture_undo_history): a session
+// saved, restored onto a freshly loaded world and handed its history back must
+// undo exactly as the session it was taken from -- same message, same world --
+// all the way down the stack.
+static void test_undo_history_survives_capture() {
+    const char *game = "../fixtures/command.aslx";
+    const char *core = "../../../quest5/aslx-core";
+    auto boot = [](World &w, Interp &in, bool fresh) {
+        Context c;
+        if (w.find("InitInterface")) in.call_function("InitInterface", {}, &c);
+        if (fresh && w.find("StartGame")) in.call_function("StartGame", {}, &c);
+        if (in.has_pending_on_ready()) in.drain_on_ready();
+    };
+
+    World w;
+    CHECK(load_file(game, w, core));
+    Interp in(w);
+    std::string out;
+    in.print = [&](const std::string &s) { out += s + "\n"; };
+    boot(w, in, true);
+
+    // Outside any transaction: the list and dictionary the turns below change.
+    Context c;
+    in.run_script("game.tags = NewStringList()\n"
+                  "list add (game.tags, \"old\")\n"
+                  "game.notes = NewStringDictionary()", c);
+    // Parser turns (Core opens a transaction for each), then turns that reach
+    // every kind of action: a list still in the world and one that is not, a
+    // dictionary, an element created and destroyed, a firsttime.
+    const char *ft = "start transaction (\"ft\")\nfirsttime { msg (\"FT\") }";
+    in.send_command("take apple");
+    in.send_command("north");
+    in.run_script("start transaction (\"lists\")\n"
+                  "list add (game.tags, \"new\")\n"
+                  "game.scratch = NewStringList()\n"
+                  "list add (game.scratch, \"gone\")\n"
+                  "game.scratch = null\n"
+                  "dictionary add (game.notes, \"day\", \"one\")\n"
+                  "create (\"kite\")\n"
+                  "kite.parent = player\n"
+                  "kite.colour = \"red\"", c);
+    in.run_script("start transaction (\"break kite\")\n"
+                  "kite.colour = \"blue\"\n"
+                  "destroy (\"kite\")\n"
+                  "list remove (game.tags, \"old\")", c);
+    in.run_script(ft, c);
+    in.send_command("south");
+    CHECK(w.errors.empty());
+    CHECK(in.undo_available());
+
+    const std::string save = in.save_game("command.aslx");
+    const std::string history = in.capture_undo_history();
+    // Capturing changes nothing.
+    CHECK_STR(in.save_game("command.aslx"), save);
+    CHECK_STR(in.capture_undo_history(), history);
+
+    World w2;
+    CHECK(load_file(game, w2, core));
+    Interp in2(w2);
+    std::string out2;
+    in2.print = [&](const std::string &s) { out2 += s + "\n"; };
+    std::string err;
+    CHECK(in2.restore_game(save, err));
+    CHECK(!in2.undo_available());
+    CHECK(in2.restore_undo_history(history));
+    // The saved-game boot runs with logging off, so nothing it does is added.
+    boot(w2, in2, false);
+    in2.resume_undo_logging();
+    CHECK(in2.undo_available());
+    CHECK_STR(in2.capture_undo_history(), history);
+    CHECK_STR(in2.save_game("command.aslx"), save);
+
+    // Undo both sessions to the bottom of the stack, comparing as they go.
+    int undone = 0;
+    for (; undone < 20 && in.undo_available(); ++undone) {
+        out.clear();
+        out2.clear();
+        CHECK(in2.undo_available());
+        in.send_command("undo");
+        in2.send_command("undo");
+        CHECK(!out.empty());
+        CHECK_STR(out2, out);
+        CHECK_STR(in2.save_game("command.aslx"), in.save_game("command.aslx"));
+        if (out.find("Undo: ft") != std::string::npos) {
+            // "ft" undone: the flag inside the restored world's compiled
+            // script was cleared, so the block fires again there too.
+            out2.clear();
+            Context c2;
+            in2.run_script("firsttime { msg (\"FT\") }", c2);
+            in.run_script("firsttime { msg (\"FT\") }", c);
+        }
+        if (out.find("Undo: break kite") != std::string::npos) {
+            // "break kite" undone: the destroyed element is back, as it was
+            // before that turn.
+            CHECK(w2.find("kite") != nullptr);
+            Context c2;
+            CHECK_STR(Interp::to_string(in2.eval("kite.colour", c2)), "red");
+            CHECK_STR(Interp::to_string(in2.eval("ListCount(game.tags)", c2)), "2");
+        }
+    }
+    CHECK(undone >= 5);
+    CHECK(!in2.undo_available());
+    CHECK(w2.find("kite") == nullptr);
+    Context c2;
+    CHECK_STR(Interp::to_string(in2.eval("ListCount(game.tags)", c2)), "1");
+    CHECK_STR(Interp::to_string(in2.eval("DictionaryCount(game.notes)", c2)), "0");
+    CHECK(w2.errors.empty());
+
+    // Malformed history: refused whole, at every length, leaving none.
+    for (size_t cut = 0; cut < history.size(); cut += 7) {
+        World w3;
+        CHECK(load_file(game, w3, core));
+        Interp in3(w3);
+        CHECK(in3.restore_game(save, err));
+        bool accepted = in3.restore_undo_history(history.substr(0, cut));
+        CHECK(!accepted);
+        in3.resume_undo_logging();
+        CHECK(!in3.undo_available());
+        if (accepted || cut > 2000) break;   // one world load per probe
+    }
+}
+
 // End-to-end boot: load a game plus the full Core library, run InitInterface +
 // StartGame, and confirm the whole pipeline (default types, parent field, the
 // text processor via msg->OutputText, ~all the primitives) runs with zero
@@ -1401,17 +1523,22 @@ static void test_undo() {
 
     CHECK(w.errors.empty());
 
-    // A parent write's inventory reorder (sort_index bump) is restored too.
+    // An undone move does not put the object back where it was among its
+    // siblings: SetFromUndo is a parent write like any other, so it comes
+    // back as the last child.
     run(in, "create (\"sack\")\n"
+            "create (\"purse\")\n"
             "create (\"coin\")\n"
             "create (\"ring\")\n"
             "coin.parent = sack\n"
             "ring.parent = sack");
     CHECK_STR(evals(in, "GetDirectChildren(sack)[0].name"), "coin");
-    run(in, "start transaction (\"reorder\")\ncoin.parent = sack");
+    run(in, "start transaction (\"move\")\ncoin.parent = purse");
     CHECK_STR(evals(in, "GetDirectChildren(sack)[0].name"), "ring");
     run(in, "undo");
-    CHECK_STR(evals(in, "GetDirectChildren(sack)[0].name"), "coin");
+    CHECK_STR(evals(in, "GetDirectChildren(sack)[0].name"), "ring");
+    CHECK_STR(evals(in, "GetDirectChildren(sack)[1].name"), "coin");
+    CHECK(evals(in, "ListCount(GetDirectChildren(purse))") == "0");
 }
 
 // Save/restore: the v1 snapshot format (aslx-state.cc). A restore reloads
@@ -2292,6 +2419,7 @@ int main() {
     test_update_lists();
     test_rng_determinism();
     test_rng_streams_survive_capture();
+    test_undo_history_survives_capture();
 
     if (g_failures == 0) {
         std::cout << "aslx_runtime_test: all checks passed\n";

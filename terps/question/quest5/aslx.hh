@@ -70,6 +70,9 @@ inline std::string c_format_g(double d, int precision) {
     return buf;
 }
 
+struct ValueList;
+struct ValueDict;
+
 // A typed field value. Only the storage side matters for the loader; arithmetic
 // and coercion belong to the expression evaluator (a later milestone). Object
 // references and object lists are "lazy" in Quest -- stored as element names and
@@ -120,8 +123,8 @@ struct Value {
     // NewXxx constructors' declared kind -- a loaded StringList holds String
     // entries and an ObjectList holds ObjectRef entries by construction.
     using DictEntry = std::pair<std::string, Value>;
-    std::shared_ptr<std::vector<Value>> list_store;
-    std::shared_ptr<std::vector<DictEntry>> dict_store;
+    std::shared_ptr<ValueList> list_store;
+    std::shared_ptr<ValueDict> dict_store;
 
     // Lazily-allocating accessors so a freshly-typed list/dict Value is usable
     // without a separate init step. The const overloads return a shared empty
@@ -144,12 +147,47 @@ struct Value {
     // parameter to be visible to the caller.
     void ensure_backing();
 
+    // Give this collection, and every collection inside it, the undo logger
+    // (see ValueList::undo_logged).
+    void attach_undo_log();
+
     std::string debug_string() const;
+};
+
+// The backings: the entries, plus whether changes to them are logged for
+// undo.  A QuestList or QuestDictionary is created without an undo logger and
+// is handed one when it becomes the value of an element's attribute
+// (Fields.Set), or an entry of a collection that has one; only from then on
+// does `list add` to it leave a record.  A list a script builds in a local
+// variable and throws away is never logged at all.  A copy of the entries
+// (QuestList.Clone, detach()) starts without one again.
+struct ValueList : std::vector<Value> {
+    bool undo_logged = false;
+    ValueList() = default;
+    ValueList(const ValueList &o) : std::vector<Value>(o) {}
+    explicit ValueList(const std::vector<Value> &o) : std::vector<Value>(o) {}
+    ValueList &operator=(const ValueList &o) {
+        std::vector<Value>::operator=(o);
+        return *this;
+    }
+    using std::vector<Value>::operator=;
+};
+struct ValueDict : std::vector<Value::DictEntry> {
+    bool undo_logged = false;
+    ValueDict() = default;
+    ValueDict(const ValueDict &o) : std::vector<Value::DictEntry>(o) {}
+    explicit ValueDict(const std::vector<Value::DictEntry> &o)
+        : std::vector<Value::DictEntry>(o) {}
+    ValueDict &operator=(const ValueDict &o) {
+        std::vector<Value::DictEntry>::operator=(o);
+        return *this;
+    }
+    using std::vector<Value::DictEntry>::operator=;
 };
 
 inline std::vector<Value> &Value::list() {
     if (!list_store)
-        list_store = std::make_shared<std::vector<Value>>();
+        list_store = std::make_shared<ValueList>();
     return *list_store;
 }
 inline const std::vector<Value> &Value::list() const {
@@ -158,7 +196,7 @@ inline const std::vector<Value> &Value::list() const {
 }
 inline std::vector<Value::DictEntry> &Value::dict() {
     if (!dict_store)
-        dict_store = std::make_shared<std::vector<DictEntry>>();
+        dict_store = std::make_shared<ValueDict>();
     return *dict_store;
 }
 inline const std::vector<Value::DictEntry> &Value::dict() const {
@@ -167,10 +205,25 @@ inline const std::vector<Value::DictEntry> &Value::dict() const {
 }
 inline void Value::detach() {
     if (list_store)
-        list_store = std::make_shared<std::vector<Value>>(*list_store);
+        list_store = std::make_shared<ValueList>(*list_store);
     if (dict_store)
-        dict_store = std::make_shared<std::vector<DictEntry>>(*dict_store);
+        dict_store = std::make_shared<ValueDict>(*dict_store);
     ensure_backing();  // a detached collection owns a store even when empty
+}
+
+inline void Value::attach_undo_log() {
+    // Already attached: so is everything in it (UndoLog's setter returns
+    // early the same way), which also ends a self-containing collection.
+    if (list_store && !list_store->undo_logged) {
+        list_store->undo_logged = true;
+        for (Value &entry : *list_store)
+            entry.attach_undo_log();
+    }
+    if (dict_store && !dict_store->undo_logged) {
+        dict_store->undo_logged = true;
+        for (DictEntry &entry : *dict_store)
+            entry.second.attach_undo_log();
+    }
 }
 
 inline void Value::ensure_backing() {

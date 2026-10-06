@@ -138,6 +138,9 @@ const Value *Element::field(const std::string &n) const {
 }
 
 Value &Element::set_field(const std::string &n, Value v) {
+    // Fields.Set: a list or dictionary that becomes an attribute's value is
+    // logged for undo from here on.
+    v.attach_undo_log();
     auto it = field_index_.find(n);
     if (it != field_index_.end()) {
         fields[it->second].second = std::move(v);

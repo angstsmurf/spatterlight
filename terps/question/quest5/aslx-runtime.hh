@@ -170,7 +170,6 @@ struct UndoAction {
     enum class Kind {
         FieldSet,     // own attribute written: restore old (or remove if added)
         FieldRemove,  // own attribute removed (v530+ null assignment): restore
-        SortIndex,    // a parent write bumped sort_index: restore the old one
         Create,       // element created: unregister its name again
         Destroy,      // element destroyed: re-register the (kept-alive) storage
         ListAdd,      // entry appended to a shared list backing: erase at index
@@ -184,19 +183,19 @@ struct UndoAction {
         : kind(k), element(std::move(elem)) {}
 
     Kind kind;
-    std::string element;    // FieldSet/FieldRemove/SortIndex/Create/Destroy:
+    std::string element;    // FieldSet/FieldRemove/Create/Destroy:
                             // element name, re-resolved at undo time
                             // (UndoFieldSet stores names, not references)
     std::string attr;       // field name, or the dictionary key
     Value old_value;        // old field value / list item / dict value -- kept
                             // verbatim (same backing), like SetFromUndo
     bool added = false;     // FieldSet: no own attribute existed before
-    long index = 0;         // list/dict position, or the old sort_index
+    long index = 0;         // list/dict position
     // List/dict actions hold the live backing itself (QuestViva's UndoListAdd
     // keeps the IQuestList reference), so they hit the right collection even
     // after the owning field was overwritten and restored.
-    std::shared_ptr<std::vector<Value>> list_backing;
-    std::shared_ptr<std::vector<Value::DictEntry>> dict_backing;
+    std::shared_ptr<ValueList> list_backing;
+    std::shared_ptr<ValueDict> dict_backing;
     Element *element_ptr = nullptr;   // Destroy: storage to re-register (the
                                       // element object stays alive, like
                                       // CreateDestroyLogEntry)
@@ -506,6 +505,34 @@ public:
         std::vector<std::pair<std::string, std::array<uint32_t, 4>>> &out);
     void restore_rng_streams(
         const std::vector<std::pair<std::string, std::array<uint32_t, 4>>> &in);
+
+    // -- Spatterlight autosave: the undo history ------------------------------
+    // A save carries no undo history (see above), which is right for a file
+    // the player saved and wrong for an autosave: closing the window and
+    // opening it again is not supposed to cost the player their UNDO.  These
+    // serialize the logger -- the committed transactions, the open one and the
+    // chain between them -- so that it can be put back onto the world a
+    // restore_game of the matching save_game produced.  A logged action holds
+    // the very list or dictionary it changed; one that is still part of the
+    // world is recorded as the path to it (element, attribute, positions) and
+    // found again there, and any other is written out in full, once.
+    //
+    // Only the newest kUndoHistoryKept transactions are kept: the history
+    // otherwise grows with every turn, and an autosave is written every turn.
+    static constexpr size_t kUndoHistoryKept = 100;
+    std::string capture_undo_history();
+    // Apply a capture onto this Interp, right after the restore_game it goes
+    // with and before the host runs anything (the paths are looked up in the
+    // world as saved).  False on malformed data, leaving the history empty.
+    // Logging stays off -- the host's saved-game boot re-runs InitInterface,
+    // which the session being resumed never logged -- until
+    // resume_undo_logging.
+    bool restore_undo_history(const std::string &data);
+    // Call once the boot is over, just before play resumes.
+    void resume_undo_logging() {
+        undo_logging_ = undo_logging_resume_;
+        undo_logging_resume_ = false;
+    }
 
     // -- native .quest-save (Quest/QuestViva GameSaver format) ----------------
     // Interoperable with the desktop Quest player and QuestViva: an ASLX
@@ -914,6 +941,9 @@ private:
 
     // -- undo internals (UndoLogger.cs) ----------------------------------------
     bool undo_logging_ = false;                          // m_logging
+    // What undo_logging_ was when a restored history was captured; see
+    // resume_undo_logging.
+    bool undo_logging_resume_ = false;
     std::shared_ptr<UndoTransaction> current_txn_;       // m_currentTransaction
     std::vector<std::shared_ptr<UndoTransaction>> undo_stack_;
     // Populated by rollbacks and cleared on every commit (EndTransaction).
@@ -933,9 +963,6 @@ private:
     // An engine-side own-attribute write that is undoable but otherwise bare
     // (no clone, no changed<attr> script). Returns the stored value.
     Value &set_field_logged(Element *e, const std::string &attr, const Value &v);
-    // The SortIndex metafield bump a parent write performs: log the old value
-    // before overwriting (UpdateElementSortOrder's Fields.Set is undoable).
-    void log_sort_index(Element *e);
     // Element creation/destruction (CreateDestroyLogEntry).
     void log_create(Element *e);
     void log_destroy(Element *e);

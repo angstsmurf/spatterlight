@@ -13,8 +13,8 @@ autosave -- so the next session with the same game autorestores.
 The main check is equivalence: a script played in ONE session must print,
 command for command, exactly what it prints when the process is killed and
 relaunched after chosen commands.  Determinism is on (the app's testing
-mode), so this also proves the RNG, the timers, the variables and (Quest 4)
-the undo history come back exactly.  No goldens -- the single-session run is
+mode), so this also proves the RNG, the timers, the variables and the undo
+history come back exactly.  No goldens -- the single-session run is
 the reference.  Only the main text window is compared: the status line and
 the side pane are repainted at boot on a relaunch, in the pre-input stretch,
 where the control run has no such repaint.  On top of that every relaunch must
@@ -649,6 +649,13 @@ def build_cases(stage):
     equiv("q5-attribute", probe5, ["count"] * 5, [2, 4],
           expect=["Count is 5."])
 
+    # The undo history, including after undos already taken.  (Quest 5 logs
+    # every turn, so a LOOK between undos is itself one more to undo.)
+    equiv("q5-undo", probe5,
+          ["take apple", "open chest", "north", "south", "undo", "undo",
+           "undo", "look", "undo", "undo", "i"],
+          [3, 4, 6, 7, 9], expect=["Undo: open chest", "Undo: take apple"])
+
     # The recurring <timer> (3 s) and a one-shot SetTimeout (5 s); the Glk
     # frontend counts a second per timer event.
     equiv("q5-timer", probe5,
@@ -679,6 +686,23 @@ def build_cases(stage):
             resume=True, expect=["blue ball"])
     pending("q5-which-juggle", probe5, ["north", "roll", "juggle", "yes"],
             ["1", "i", "roll"], resume=True, expect=["red ball", "You roll"])
+    # The replayed turn is logged again on top of the history the autosave
+    # carried from the start of the turn: it undoes as one turn, and the
+    # turns before it are still there to undo.
+    pending("q5-which-undo", probe5, ["take apple", "north", "take ball"],
+            ["2", "i", "undo", "undo", "i", "undo", "undo", "look"],
+            resume=True,
+            expect=["blue ball", "Undo: take ball", "Undo: north",
+                    "You are in a lounge."])
+    # Undoing on past the answered question runs into the reference's own
+    # quirk: one turn is rolled back twice, the second time against lists
+    # that no longer match, which fails (the message goes to stderr, not the
+    # page) and leaves the turns before it still undoable.
+    pending("q5-which-undo-error", probe5,
+            ["take apple", "north", "take ball"],
+            ["2", "undo", "i", "undo", "undo", "undo", "undo", "look", "i"],
+            resume=True,
+            expect=["Undo: take apple", "You can see a chest and an apple."])
 
     # An inline object link: live after a relaunch (cut after "look"), and
     # the verb menu it pops reopens after a relaunch (cut after the click).

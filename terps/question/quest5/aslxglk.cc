@@ -323,6 +323,9 @@ std::string g_autorestore_panel;      /* frame picture to re-establish */
  * (AFTER InitInterface's own draws) so the restored prompt's randomness is
  * exactly the saved one. */
 std::vector<std::pair<std::string, std::array<uint32_t, 4>>> g_autorestore_rngs;
+/* The undo history captured at autosave time (Interp::capture_undo_history),
+ * handed back to the engine as soon as its state is restored. */
+std::string g_autorestore_undo;
 Interp *g_autosave_interp = nullptr;
 void aslx_do_autosave(Interp &in);
 
@@ -340,6 +343,7 @@ struct TurnStart {
     bool valid = false;         /* false once the engine moved on without it */
     std::string state;          /* save_game at the start of the turn */
     RngStreams rngs;            /* ...and the RNG streams, drawn again on replay */
+    std::string undo;           /* ...and the undo history, as of then */
 };
 TurnStart g_turn_start;
 std::string g_turn_command;                 /* the turn being played */
@@ -3640,10 +3644,12 @@ struct BlobReader {
  * the output-section log joined it): an older blob has different fields, and
  * an autorestore that mis-parses is worse than one discarded for a fresh
  * start.  aslx_recover_frontend rejects anything that does not match. */
-const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 6";
+const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 7";
 
 /* `turn` = a disambiguation-menu autosave: the blob carries the RNG streams
- * from the start of the turn and the replay record (g_turn_start). */
+ * from the start of the turn and the replay record (g_turn_start).  Either
+ * way the undo history is g_turn_start's, which both callers have current:
+ * it belongs to the engine state the autosave is written with. */
 std::string aslx_encode_frontend(Interp &in, const TurnStart *turn = nullptr)
 {
     std::string b;
@@ -3700,6 +3706,7 @@ std::string aslx_encode_frontend(Interp &in, const TurnStart *turn = nullptr)
         for (int i = 0; i < 4; i++)
             blob_num(b, (long) entry.second[i]);
     }
+    blob_str(b, g_turn_start.undo);
     /* Output sections and the chunk log behind them.  The restored transcript
      * still shows the text they cover, so without these the first hide after
      * an autorestore -- which for a gamebook is the very next click -- would
@@ -3779,6 +3786,7 @@ bool aslx_recover_frontend(const std::string &blob)
             s[(size_t) j] = (uint32_t) r.num();
         g_autorestore_rngs.emplace_back(src, s);
     }
+    g_autorestore_undo = r.str();
     g_out_log.clear();
     long nchunks = r.num();
     for (long i = 0; i < nchunks && r.ok; i++) {
@@ -3850,6 +3858,7 @@ void capture_turn_start(Interp &in, const std::string &state)
     g_turn_start.state = state;
     g_turn_start.rngs.clear();
     in.capture_rng_streams(g_turn_start.rngs);
+    g_turn_start.undo = in.capture_undo_history();
     g_turn_start.valid = !state.empty();
 }
 
@@ -4297,6 +4306,10 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             exit(0);
         }
         aslx_autosave_restore_library_late();
+        /* The undo history goes back on while the world is exactly as saved;
+         * it starts logging again once the boot below is over.  One that will
+         * not read back costs the player their UNDOs, not the session. */
+        in.restore_undo_history(g_autorestore_undo);
         /* The library snapshot re-arms the Glk timer interval that was in
          * force when the autosave was taken (TempLibrary restores
          * gtimerinterval) -- typically the map glide's 33 ms cadence, since
@@ -4326,6 +4339,8 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             g_autorestore_reentry = true;
         g_turn_start.state = engine_state;
         g_turn_start.rngs = g_autorestore_rngs;
+        g_turn_start.undo = std::move(g_autorestore_undo);
+        g_autorestore_undo.clear();
         g_turn_start.valid = true;
     }
 #endif
@@ -4374,6 +4389,8 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         in.restore_rng_streams(g_autorestore_rngs);
         g_autorestore_rngs.clear();
     }
+    if (autorestored)
+        in.resume_undo_logging();
     if (g_autorestore_replay) {
         g_autorestore_replay = false;
         start_replay(in);
