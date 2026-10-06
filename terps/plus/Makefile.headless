@@ -39,7 +39,8 @@ SRCS := $(wildcard *.c) test/image_probe.c \
         $(READWOZ_DIR)/woz2nib.c $(READWOZ_DIR)/ciderpress.c \
         $(C64DISK_DIR)/c64diskimage.c
 
-OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS))) $(OBJDIR)/image_glk.o
+PROBE_OBJS := $(OBJDIR)/image_glk.o $(OBJDIR)/fake_glk_window.o
+OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS))) $(PROBE_OBJS)
 VPATH := .:test:$(PROBE_DIR):$(COMMON_DIR):$(SAGADRAW_DIR):$(READWOZ_DIR):$(C64DISK_DIR)
 
 # CheapGlk without its main.o: the probe has its own main().
@@ -62,7 +63,7 @@ $(OBJDIR)/%.o: %.c | $(OBJDIR)
 
 # The window layer itself calls the real Glk, so it is built without the
 # renames.
-$(OBJDIR)/image_glk.o: $(PROBE_DIR)/image_glk.c | $(OBJDIR)
+$(PROBE_OBJS): $(OBJDIR)/%.o: $(PROBE_DIR)/%.c | $(OBJDIR)
 	$(CC) $(BASEFLAGS) -c $< -o $@
 
 # Picture regression tests. Rows whose game is not in test/images/games/ are

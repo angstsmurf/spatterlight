@@ -300,21 +300,26 @@ zxtest: build/zxtest build/zxvectortest
 # Same loader object set as extract_images_c64 (whose unp64 objects are reused),
 # plus the Taylor picture renderer and the real random number generator. The
 # interpreter sources are built with -include scene_glk.h, which redirects their
-# Glk window/event calls to the fake window layer in scenetest.c, and with
+# Glk window/event calls to the fake window layer (common_imagetest/
+# fake_glk_window.c) and the scripted event loop in scenetest.c, and with
 # AUTOWIN, so that a scene can walk past Seas of Blood's dice battles.
 SCENE_CSRCS := $(filter-out extract_images.c,$(C64X_CSRCS)) \
   $(TERPS)/aiukgraphics/taylordraw.c $(TERPS)/common_utils/randomness.c
 SCENES := $(wildcard groundtruth_scene/*/*.scene)
+# The fake Glk window layer, shared with the Plus/TaylorMade image probes.
+IMAGETEST := $(TERPS)/common_imagetest
 
-build/scenetest: scenetest.c scene_glk.h $(SCENE_CSRCS) build/extract_images_c64
+build/scenetest: scenetest.c scene_glk.h $(SCENE_CSRCS) build/extract_images_c64 \
+                 $(IMAGETEST)/fake_glk_window.c $(IMAGETEST)/fake_glk_window.h
 	@mkdir -p build/sceneobj
 	@echo "compiling scene harness..."; objs=""; for f in $(SCENE_CSRCS); do \
 	  o="build/sceneobj/$$(echo $$f | tr '/.' '__').o"; \
 	  $(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -DSAGA_REAL_C64_DECRUNCH -DSAGA_SCENE_HARNESS -DAUTOWIN \
 	    -include stddef.h -include scene_glk.h $(EXTRACT_INC) -I$(TERPS)/taylor -I$(UNP64) -c "$$f" -o "$$o" || exit 1; \
 	  objs="$$objs $$o"; done; \
-	$(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT $(EXTRACT_INC) -c scenetest.c -o build/sceneobj/scenetest.o || exit 1; \
-	c++ -g -O0 build/sceneobj/scenetest.o $$objs build/unp64/*.o $(CGOBJ) -lz -o $@
+	$(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT $(EXTRACT_INC) -I$(IMAGETEST) -c scenetest.c -o build/sceneobj/scenetest.o || exit 1; \
+	$(CC) -std=c11 -g -O0 -w -I$(CG) -c $(IMAGETEST)/fake_glk_window.c -o build/sceneobj/fake_glk_window.o || exit 1; \
+	c++ -g -O0 build/sceneobj/scenetest.o build/sceneobj/fake_glk_window.o $$objs build/unp64/*.o $(CGOBJ) -lz -o $@
 
 scenetest: build/scenetest
 	@[ -n "$(SCENES)" ] || { echo "Scenes: no goldens yet"; exit 0; }; \

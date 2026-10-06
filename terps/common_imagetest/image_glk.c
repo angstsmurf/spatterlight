@@ -1,11 +1,12 @@
-// Fake Glk window layer for the image probes of the Plus and TaylorMade
+// Event loop and fingerprint for the image probes of the Plus and TaylorMade
 // interpreters (plus/test/image_probe.c, taylor/test/image_probe.c).
 //
 // The probe runs the real interpreter (glk_main) on one game file. The
 // interpreter sources are built with -include image_glk.h, which renames the
-// Glk window and event entry points to the image_* functions below; streams and
-// files still come from cheapglk. So the game is detected, loaded and started
-// exactly as shipped, the title picture is painted into the canvas below, and
+// Glk window entry points to the fake window layer in fake_glk_window.c and
+// the event entry points to the image_* functions below; streams and files
+// still come from cheapglk. So the game is detected, loaded and started
+// exactly as shipped, the title picture is painted into the canvas, and
 // when the game first waits for a command the interpreter's own probe takes
 // over (ImageProbeDump) and draws every picture through the interpreter's
 // drawing code.
@@ -49,6 +50,7 @@
 #include "glkstart.h"
 #include "cheapglk.h"
 
+#include "fake_glk_window.h"
 #include "image_probe.h"
 
 extern void gli_initialize_misc(void);
@@ -82,25 +84,20 @@ void win_beep_zx(int duration, int pitch)
     (void)duration; (void)pitch;
 }
 
-// ---- Fake windows --------------------------------------------------------------
+// ---- Fake windows (fake_glk_window.c) -------------------------------------------
 
-#define CANVAS_W 640
-#define CANVAS_H 400
-#define UNSET 0xffffffffu
+#define canvas fakeglk_canvas
+#define CANVAS_W FAKEGLK_CANVAS_W
+#define CANVAS_H FAKEGLK_CANVAS_H
+#define UNSET FAKEGLK_UNSET
 
-typedef struct {
-    glui32 type, rock, size;
-    strid_t str;
-    int char_request, line_request;
-} image_window;
+const char *fakeglk_name = "image probe";
 
-#define MAX_WINDOWS 16
-static image_window *windows[MAX_WINDOWS];
-static image_window pair_window;
-static image_window *graphics;
-static uint32_t canvas[CANVAS_H][CANVAS_W];
-static strid_t null_stream;
-static glui32 timer_ms;
+void fakeglk_graphics_size(int *width, int *height)
+{
+    ImageProbeGraphicsSize(width, height);
+}
+
 static const char *dump_dir;
 static const char *keys = "";
 static int dumped;
@@ -113,154 +110,7 @@ static glui32 line_maxlen;
 
 void ImageProbeClear(void)
 {
-    for (int y = 0; y < CANVAS_H; y++)
-        for (int x = 0; x < CANVAS_W; x++)
-            canvas[y][x] = UNSET;
-}
-
-winid_t image_window_open(winid_t split, glui32 method, glui32 size, glui32 wintype, glui32 rock)
-{
-    (void)split;
-    image_window *win = calloc(1, sizeof *win);
-    win->type = wintype;
-    win->rock = rock;
-    win->size = (method & winmethod_Fixed) ? size : 24;
-    win->str = (script && wintype == wintype_TextBuffer) ? stdout_stream : null_stream;
-    if (wintype == wintype_Graphics) {
-        graphics = win;
-        ImageProbeClear();
-    }
-    for (int i = 0; i < MAX_WINDOWS; i++)
-        if (!windows[i]) {
-            windows[i] = win;
-            return (winid_t)win;
-        }
-    fprintf(stderr, "image probe: too many windows\n");
-    exit(2);
-}
-
-void image_window_close(winid_t w, stream_result_t *result)
-{
-    image_window *win = (image_window *)w;
-    if (result)
-        result->readcount = result->writecount = 0;
-    if (!win)
-        return;
-    for (int i = 0; i < MAX_WINDOWS; i++)
-        if (windows[i] == win)
-            windows[i] = NULL;
-    if (win == graphics)
-        graphics = NULL;
-    free(win);
-}
-
-winid_t image_window_iterate(winid_t w, glui32 *rock)
-{
-    int i = 0;
-    if (w)
-        for (i = 1; i <= MAX_WINDOWS; i++)
-            if (windows[i - 1] == (image_window *)w)
-                break;
-    for (; i < MAX_WINDOWS; i++)
-        if (windows[i]) {
-            if (rock)
-                *rock = windows[i]->rock;
-            return (winid_t)windows[i];
-        }
-    return NULL;
-}
-
-void image_window_clear(winid_t w)
-{
-    if (w && (image_window *)w == graphics)
-        ImageProbeClear();
-}
-
-void image_window_get_size(winid_t w, glui32 *width, glui32 *height)
-{
-    image_window *win = (image_window *)w;
-    int gw = 80, gh = win ? (int)win->size : 0;
-    if (win && win->type == wintype_Graphics) {
-        ImageProbeGraphicsSize(&gw, &gh);
-        if (gw > CANVAS_W)
-            gw = CANVAS_W;
-        if (gh > CANVAS_H)
-            gh = CANVAS_H;
-    }
-    if (width)
-        *width = gw;
-    if (height)
-        *height = gh;
-}
-
-winid_t image_window_get_parent(winid_t w)
-{
-    return w ? (winid_t)&pair_window : NULL;
-}
-
-void image_window_set_arrangement(winid_t w, glui32 method, glui32 size, winid_t key)
-{
-    (void)w;
-    if (key && (method & winmethod_Fixed))
-        ((image_window *)key)->size = size;
-}
-
-strid_t image_window_get_stream(winid_t w)
-{
-    return w ? ((image_window *)w)->str : NULL;
-}
-
-void image_window_set_echo_stream(winid_t w, strid_t str)
-{
-    (void)w; (void)str;
-}
-
-void image_set_window(winid_t w)
-{
-    glk_stream_set_current(w ? ((image_window *)w)->str : NULL);
-}
-
-void image_window_move_cursor(winid_t w, glui32 x, glui32 y)
-{
-    (void)w; (void)x; (void)y;
-}
-
-void image_window_set_background_color(winid_t w, glui32 color)
-{
-    (void)w; (void)color;
-}
-
-void image_window_fill_rect(winid_t w, glui32 color, glsi32 left, glsi32 top, glui32 width, glui32 height)
-{
-    if (!w || (image_window *)w != graphics)
-        return;
-    for (glsi32 y = top; y < top + (glsi32)height; y++)
-        for (glsi32 x = left; x < left + (glsi32)width; x++)
-            if (x >= 0 && x < CANVAS_W && y >= 0 && y < CANVAS_H)
-                canvas[y][x] = color & 0xffffff;
-}
-
-glui32 image_style_measure(winid_t w, glui32 style, glui32 hint, glui32 *result)
-{
-    (void)w; (void)style; (void)hint; (void)result;
-    return 0;
-}
-
-glui32 image_gestalt_ext(glui32 sel, glui32 val, glui32 *arr, glui32 arrlen)
-{
-    switch (sel) {
-    case gestalt_Graphics:
-    case gestalt_DrawImage:
-    case gestalt_GraphicsCharInput:
-    case gestalt_Timer:
-        return 1;
-    }
-    return glk_gestalt_ext(sel, val, arr, arrlen);
-}
-
-glui32 image_gestalt(glui32 sel, glui32 val)
-{
-    return image_gestalt_ext(sel, val, NULL, 0);
+    fakeglk_clear_canvas();
 }
 
 void image_exit(void)
@@ -278,16 +128,6 @@ void image_exit(void)
 uint32_t ImageProbeCRC(const void *data, size_t length)
 {
     return (uint32_t)crc32(0, data, (uInt)length);
-}
-
-static void png_chunk(FILE *f, const char *tag, const uint8_t *data, uint32_t len)
-{
-    uint8_t head[8] = { len >> 24, len >> 16, len >> 8, len, tag[0], tag[1], tag[2], tag[3] };
-    uint32_t crc = crc32(crc32(0, head + 4, 4), data, len);
-    uint8_t tail[4] = { crc >> 24, crc >> 16, crc >> 8, crc };
-    fwrite(head, 1, 8, f);
-    fwrite(data, 1, len, f);
-    fwrite(tail, 1, 4, f);
 }
 
 /* Write the graphics window as a PNG; unpainted pixels come out mid-grey. */
@@ -309,33 +149,7 @@ static void dump_png(const char *name)
     for (const char *p = name; *p && n < (int)sizeof path - 5; p++)
         path[n++] = (*p == ' ' || *p == '/') ? '_' : *p;
     strcpy(path + n, ".png");
-    FILE *f = fopen(path, "wb");
-    if (!f) {
-        perror(path);
-        return;
-    }
-    size_t rawlen = (size_t)h * (w * 3 + 1);
-    uint8_t *raw = malloc(rawlen), *p = raw;
-    for (int y = 0; y < h; y++) {
-        *p++ = 0;
-        for (int x = 0; x < w; x++) {
-            uint32_t c = canvas[y][x] == UNSET ? 0x808080 : canvas[y][x];
-            *p++ = c >> 16;
-            *p++ = c >> 8;
-            *p++ = c;
-        }
-    }
-    uLongf zlen = compressBound(rawlen);
-    uint8_t *z = malloc(zlen);
-    compress(z, &zlen, raw, rawlen);
-    uint8_t ihdr[13] = { w >> 24, w >> 16, w >> 8, w, h >> 24, h >> 16, h >> 8, h, 8, 2, 0, 0, 0 };
-    fwrite("\x89PNG\r\n\x1a\n", 1, 8, f);
-    png_chunk(f, "IHDR", ihdr, 13);
-    png_chunk(f, "IDAT", z, (uint32_t)zlen);
-    png_chunk(f, "IEND", NULL, 0);
-    fclose(f);
-    free(raw);
-    free(z);
+    fakeglk_write_png(path, w, h);
 }
 
 void ImageProbeReport(const char *name, const char *detail)
@@ -400,38 +214,13 @@ static void start_fingerprint(void)
 
 // ---- Events --------------------------------------------------------------------
 
-void image_request_char_event(winid_t w)
-{
-    if (w)
-        ((image_window *)w)->char_request = 1;
-}
-
-void image_cancel_char_event(winid_t w)
-{
-    if (w)
-        ((image_window *)w)->char_request = 0;
-}
-
 void image_request_line_event(winid_t w, char *buf, glui32 maxlen, glui32 initlen)
 {
     (void)initlen;
     line_buf = buf;
     line_maxlen = maxlen;
     if (w)
-        ((image_window *)w)->line_request = 1;
-}
-
-void image_request_timer_events(glui32 millisecs)
-{
-    timer_ms = millisecs;
-}
-
-static image_window *requesting_window(void)
-{
-    for (int i = 0; i < MAX_WINDOWS; i++)
-        if (windows[i] && (windows[i]->line_request || windows[i]->char_request))
-            return windows[i];
-    return NULL;
+        ((fakeglk_window *)w)->line_request = 1;
 }
 
 /* Play mode: the next line of the script, without its line end. NULL at the
@@ -446,7 +235,7 @@ static char *next_script_line(void)
 }
 
 /* Play mode: answer a prompt with the next line of the script. */
-static void type_script_line(image_window *win, event_t *ev)
+static void type_script_line(fakeglk_window *win, event_t *ev)
 {
     char *line = next_script_line();
     if (!line) {
@@ -481,9 +270,10 @@ static glui32 script_key(void)
 void image_select(event_t *ev)
 {
     static long idle_ticks, key_presses;
+    glui32 timer_ms = fakeglk_timer_ms;
 
     memset(ev, 0, sizeof *ev);
-    image_window *win = requesting_window();
+    fakeglk_window *win = fakeglk_requesting_window();
     if (!win) {
         /* A timed pause or an animation: let the time pass. */
         if (!timer_ms || ++idle_ticks > 1000000) {
@@ -552,7 +342,8 @@ int main(int argc, char **argv)
 
     gli_initialize_misc();
     gli_determinism = 1;
-    null_stream = glk_stream_open_memory(NULL, 0, filemode_Write, 0);
+    fakeglk_null_stream = glk_stream_open_memory(NULL, 0, filemode_Write, 0);
+    fakeglk_text_stream = fakeglk_null_stream;
     if (script_path) {
         script = fopen(script_path, "r");
         if (!script) {
@@ -565,6 +356,8 @@ int main(int argc, char **argv)
         stdout_stream->isbinary = 0;
         stdout_stream->file = stdout;
         stdout_stream->lastop = 0;
+        /* What the game prints in its text buffer window goes to stdout. */
+        fakeglk_text_stream = stdout_stream;
     }
     ImageProbeClear();
 

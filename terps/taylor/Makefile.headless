@@ -46,7 +46,8 @@ SRCS := $(filter-out dumper.c,$(wildcard *.c)) test/image_probe.c \
         $(C64DISK_DIR)/c64diskimage.c
 UNP64_SRCS := $(wildcard $(UNP64_DIR)/*.cpp) $(wildcard $(UNP64_DIR)/scanners/*.cpp)
 
-OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS))) $(OBJDIR)/image_glk.o \
+PROBE_OBJS := $(OBJDIR)/image_glk.o $(OBJDIR)/fake_glk_window.o
+OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS))) $(PROBE_OBJS) \
         $(patsubst %.cpp,$(OBJDIR)/%.o,$(notdir $(UNP64_SRCS)))
 VPATH := .:test:$(PROBE_DIR):$(COMMON_DIR):$(GRAPHICS_DIR):$(ZXSCREEN_DIR):$(Z80_DIR):$(C64DISK_DIR):$(UNP64_DIR):$(UNP64_DIR)/scanners
 
@@ -73,7 +74,7 @@ $(OBJDIR)/%.o: %.cpp | $(OBJDIR)
 
 # The window layer itself calls the real Glk, so it is built without the
 # renames.
-$(OBJDIR)/image_glk.o: $(PROBE_DIR)/image_glk.c | $(OBJDIR)
+$(PROBE_OBJS): $(OBJDIR)/%.o: $(PROBE_DIR)/%.c | $(OBJDIR)
 	$(CC) $(BASEFLAGS) -c $< -o $@
 
 # Picture regression tests. Rows whose game is not in test/images/games/ are

@@ -12,8 +12,10 @@
 // glk_window_fill_rect calls land in the canvas below.
 //
 // The interpreter sources are built with -include scene_glk.h, which renames
-// the Glk window/event entry points to the scene_* functions defined here.
-// Streams, files and unicode still come from cheapglk.
+// the Glk window entry points to the fake window layer shared with the image
+// probes (common_imagetest/fake_glk_window.c) and the event loop to the
+// scene_* functions defined here. Streams, files and unicode still come from
+// cheapglk.
 //
 //   scenetest [-v] [-d dumpdir] <file.scene>
 //     -v  print the game's text output (a transcript) to stdout
@@ -80,6 +82,7 @@ extern glui32 pal[16];
 extern void glk_main(void);
 
 #include "scott.h"
+#include "fake_glk_window.h"
 
 // ---- Script ------------------------------------------------------------------
 
@@ -139,177 +142,32 @@ static void load_script(const char *path)
     scene_dir[dirlen] = 0;
 }
 
-// ---- Fake windows --------------------------------------------------------------
+// ---- Fake windows (common_imagetest/fake_glk_window.c) ------------------------
 
-#define CANVAS_W 640
-#define CANVAS_H 400
-#define UNSET 0xffffffffu
+#define canvas fakeglk_canvas
+#define CANVAS_W FAKEGLK_CANVAS_W
+#define CANVAS_H FAKEGLK_CANVAS_H
+#define UNSET FAKEGLK_UNSET
+#define graphics fakeglk_graphics
 
-typedef struct {
-    glui32 type, rock, size;
-    strid_t str;
-    int char_request, line_request;
-    glui32 *linebuf, linemax;
-} scene_window;
-
-#define MAX_WINDOWS 16
-static scene_window *windows[MAX_WINDOWS];
-static scene_window pair_window;
-static scene_window *graphics;
-static uint32_t canvas[CANVAS_H][CANVAS_W];
-static strid_t text_stream, null_stream;
-static glui32 timer_ms;
 static long ticks_owed;
 
-static void clear_canvas(void)
-{
-    for (int y = 0; y < CANVAS_H; y++)
-        for (int x = 0; x < CANVAS_W; x++)
-            canvas[y][x] = UNSET;
-}
+const char *fakeglk_name = "scenetest";
 
 /* The graphics window is exactly one picture large, so the interpreter picks
    a pixel size of 1 and no margins: canvas coordinates are picture pixels. */
-static void graphics_size(int *w, int *h)
+void fakeglk_graphics_size(int *w, int *h)
 {
     *w = ImageWidth < 256 ? 256 : ImageWidth;
     *h = ImageHeight;
-    if (*w > CANVAS_W)
-        *w = CANVAS_W;
-    if (*h > CANVAS_H)
-        *h = CANVAS_H;
-}
-
-winid_t scene_window_open(winid_t split, glui32 method, glui32 size, glui32 wintype, glui32 rock)
-{
-    (void)split;
-    scene_window *win = calloc(1, sizeof *win);
-    win->type = wintype;
-    win->rock = rock;
-    win->size = (method & winmethod_Fixed) ? size : 24;
-    win->str = (wintype == wintype_TextBuffer) ? text_stream : null_stream;
-    if (wintype == wintype_Graphics) {
-        graphics = win;
-        clear_canvas();
-    }
-    for (int i = 0; i < MAX_WINDOWS; i++)
-        if (!windows[i]) {
-            windows[i] = win;
-            return (winid_t)win;
-        }
-    fprintf(stderr, "scenetest: too many windows\n");
-    exit(2);
-}
-
-void scene_window_close(winid_t w, stream_result_t *result)
-{
-    scene_window *win = (scene_window *)w;
-    if (result)
-        result->readcount = result->writecount = 0;
-    if (!win)
-        return;
-    for (int i = 0; i < MAX_WINDOWS; i++)
-        if (windows[i] == win)
-            windows[i] = NULL;
-    if (win == graphics)
-        graphics = NULL;
-    free(win);
 }
 
 winid_t FindGlkWindowWithRock(glui32 rock)
 {
-    for (int i = 0; i < MAX_WINDOWS; i++)
-        if (windows[i] && windows[i]->rock == rock)
-            return (winid_t)windows[i];
+    for (int i = 0; i < FAKEGLK_MAX_WINDOWS; i++)
+        if (fakeglk_windows[i] && fakeglk_windows[i]->rock == rock)
+            return (winid_t)fakeglk_windows[i];
     return NULL;
-}
-
-void scene_window_clear(winid_t w)
-{
-    if (w && (scene_window *)w == graphics)
-        clear_canvas();
-}
-
-void scene_window_get_size(winid_t w, glui32 *width, glui32 *height)
-{
-    scene_window *win = (scene_window *)w;
-    int gw = 80, gh = win ? (int)win->size : 0;
-    if (win && win->type == wintype_Graphics)
-        graphics_size(&gw, &gh);
-    if (width)
-        *width = gw;
-    if (height)
-        *height = gh;
-}
-
-winid_t scene_window_get_parent(winid_t w)
-{
-    return w ? (winid_t)&pair_window : NULL;
-}
-
-void scene_window_set_arrangement(winid_t w, glui32 method, glui32 size, winid_t key)
-{
-    (void)w;
-    if (key && (method & winmethod_Fixed))
-        ((scene_window *)key)->size = size;
-}
-
-strid_t scene_window_get_stream(winid_t w)
-{
-    return w ? ((scene_window *)w)->str : NULL;
-}
-
-void scene_window_set_echo_stream(winid_t w, strid_t str)
-{
-    (void)w; (void)str;
-}
-
-void scene_set_window(winid_t w)
-{
-    glk_stream_set_current(w ? ((scene_window *)w)->str : NULL);
-}
-
-void scene_window_move_cursor(winid_t w, glui32 x, glui32 y)
-{
-    (void)w; (void)x; (void)y;
-}
-
-void scene_window_set_background_color(winid_t w, glui32 color)
-{
-    (void)w; (void)color;
-}
-
-void scene_window_fill_rect(winid_t w, glui32 color, glsi32 left, glsi32 top, glui32 width, glui32 height)
-{
-    if (!w || (scene_window *)w != graphics)
-        return;
-    for (glsi32 y = top; y < top + (glsi32)height; y++)
-        for (glsi32 x = left; x < left + (glsi32)width; x++)
-            if (x >= 0 && x < CANVAS_W && y >= 0 && y < CANVAS_H)
-                canvas[y][x] = color & 0xffffff;
-}
-
-glui32 scene_style_measure(winid_t w, glui32 style, glui32 hint, glui32 *result)
-{
-    (void)w; (void)style; (void)hint; (void)result;
-    return 0;
-}
-
-glui32 scene_gestalt_ext(glui32 sel, glui32 val, glui32 *arr, glui32 arrlen)
-{
-    switch (sel) {
-    case gestalt_Graphics:
-    case gestalt_DrawImage:
-    case gestalt_GraphicsCharInput:
-    case gestalt_Timer:
-        return 1;
-    }
-    return glk_gestalt_ext(sel, val, arr, arrlen);
-}
-
-glui32 scene_gestalt(glui32 sel, glui32 val)
-{
-    return scene_gestalt_ext(sel, val, NULL, 0);
 }
 
 void scene_exit(void)
@@ -368,49 +226,13 @@ static int load_truth(const char *path)
     return 0;
 }
 
-static void png_chunk(FILE *f, const char *tag, const uint8_t *data, uint32_t len)
-{
-    uint8_t head[8] = { len >> 24, len >> 16, len >> 8, len, tag[0], tag[1], tag[2], tag[3] };
-    uint32_t crc = crc32(crc32(0, head + 4, 4), data, len);
-    uint8_t tail[4] = { crc >> 24, crc >> 16, crc >> 8, crc };
-    fwrite(head, 1, 8, f);
-    fwrite(data, 1, len, f);
-    fwrite(tail, 1, 4, f);
-}
-
 /* Write the graphics window as a PNG; unpainted pixels come out mid-grey. */
 static void dump_png(const char *name, int w, int h)
 {
     char path[2048];
     const char *base = strrchr(name, '/');
     snprintf(path, sizeof path, "%s/%s.png", dump_dir, base ? base + 1 : name);
-    FILE *f = fopen(path, "wb");
-    if (!f) {
-        perror(path);
-        return;
-    }
-    size_t rawlen = (size_t)h * (w * 3 + 1);
-    uint8_t *raw = malloc(rawlen), *p = raw;
-    for (int y = 0; y < h; y++) {
-        *p++ = 0;
-        for (int x = 0; x < w; x++) {
-            uint32_t c = canvas[y][x] == UNSET ? 0x808080 : canvas[y][x];
-            *p++ = c >> 16;
-            *p++ = c >> 8;
-            *p++ = c;
-        }
-    }
-    uLongf zlen = compressBound(rawlen);
-    uint8_t *z = malloc(zlen);
-    compress(z, &zlen, raw, rawlen);
-    uint8_t ihdr[13] = { w >> 24, w >> 16, w >> 8, w, h >> 24, h >> 16, h >> 8, h, 8, 2, 0, 0, 0 };
-    fwrite("\x89PNG\r\n\x1a\n", 1, 8, f);
-    png_chunk(f, "IHDR", ihdr, 13);
-    png_chunk(f, "IDAT", z, (uint32_t)zlen);
-    png_chunk(f, "IEND", NULL, 0);
-    fclose(f);
-    free(raw);
-    free(z);
+    fakeglk_write_png(path, w, h);
 }
 
 static void check(char *args)
@@ -443,7 +265,7 @@ static void check(char *args)
         return;
     }
     int w, h;
-    graphics_size(&w, &h);
+    fakeglk_graphics_window_size(&w, &h);
     if (dump_dir)
         dump_png(name, w, h);
 
@@ -485,47 +307,6 @@ static void check(char *args)
 
 // ---- Events --------------------------------------------------------------------
 
-void scene_request_char_event(winid_t w)
-{
-    if (w)
-        ((scene_window *)w)->char_request = 1;
-}
-
-void scene_request_char_event_uni(winid_t w)
-{
-    scene_request_char_event(w);
-}
-
-void scene_cancel_char_event(winid_t w)
-{
-    if (w)
-        ((scene_window *)w)->char_request = 0;
-}
-
-void scene_request_line_event_uni(winid_t w, glui32 *buf, glui32 maxlen, glui32 initlen)
-{
-    (void)initlen;
-    scene_window *win = (scene_window *)w;
-    if (!win)
-        return;
-    win->line_request = 1;
-    win->linebuf = buf;
-    win->linemax = maxlen;
-}
-
-void scene_request_timer_events(glui32 millisecs)
-{
-    timer_ms = millisecs;
-}
-
-static scene_window *requesting_window(void)
-{
-    for (int i = 0; i < MAX_WINDOWS; i++)
-        if (windows[i] && (windows[i]->line_request || windows[i]->char_request))
-            return windows[i];
-    return NULL;
-}
-
 void scene_select(event_t *ev)
 {
     /* A game spinning on timer events forever is a broken scene, not a hang. */
@@ -533,8 +314,8 @@ void scene_select(event_t *ev)
 
     memset(ev, 0, sizeof *ev);
     for (;;) {
-        scene_window *win = requesting_window();
-        if (timer_ms && (ticks_owed > 0 || !win)) {
+        fakeglk_window *win = fakeglk_requesting_window();
+        if (fakeglk_timer_ms && (ticks_owed > 0 || !win)) {
             if (ticks_owed > 0)
                 ticks_owed--;
             else if (++idle_ticks > 1000000) {
@@ -563,7 +344,7 @@ void scene_select(event_t *ev)
         } else if (strncmp(line, "!picture", 8) == 0) {
             for (int i = 0; i <= GameHeader.NumRooms; i++)
                 Rooms[i].Image = atoi(line + 8);
-            clear_canvas();
+            fakeglk_clear_canvas();
         } else if (strncmp(line, "!tick", 5) == 0) {
             ticks_owed = atol(line + 5);
             if (ticks_owed <= 0)
@@ -634,9 +415,9 @@ int main(int argc, char **argv)
 
     gli_initialize_misc();
     gli_determinism = 1;
-    null_stream = glk_stream_open_memory(NULL, 0, filemode_Write, 0);
-    text_stream = verbose ? glk_window_get_stream(glk_window_open(0, 0, 0, wintype_TextBuffer, 0))
-                          : null_stream;
+    fakeglk_null_stream = glk_stream_open_memory(NULL, 0, filemode_Write, 0);
+    fakeglk_text_stream = verbose ? glk_window_get_stream(glk_window_open(0, 0, 0, wintype_TextBuffer, 0))
+                                  : fakeglk_null_stream;
 
     char *game_argv[] = { argv[0], game_path, NULL };
     glkunix_startup_t startdata = { 2, game_argv };
