@@ -149,7 +149,6 @@ GameIDType LoadDatabase(FILE *f, int loud);
 void Updates(event_t ev);
 int PerformExtraCommand(int extra_stop_time);
 const char *MapSynonym(int noun);
-GLK_ATTRIBUTE_NORETURN void Fatal(const char *x);
 uint8_t *SeekToPos(int offset);
 void SaveGame(void);
 void UpdateSettings(void);
