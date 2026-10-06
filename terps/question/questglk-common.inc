@@ -238,36 +238,28 @@ glk_style_for (bool bold, bool italic, bool underlined)
 
 /* ----------------------------------------------------------------- banner */
 
-/* Marker put in front of a status line that was cut down to fit.  Four cells
- * wide, which is what STATUS_ELLIPSIS costs the visible text. */
-static const char STATUS_ELLIPSIS[] = "... ";
-static const size_t STATUS_ELLIPSIS_LEN = 4;
+/* Marker put in front of a status line that was cut down to fit: U+2026,
+ * a horizontal ellipsis, one cell wide. */
+static const glui32 STATUS_ELLIPSIS = 0x2026;
 
-/* The status text to draw when only `avail` cells are left for it: the whole
- * string when it fits, otherwise its tail behind the marker, or nothing at
- * all when even the marker plus a character would not fit. */
+/* The longest tail of `status` that fits in `avail` cells, without the blanks
+ * it would start with when the cut lands in a gap. */
 static std::string
-fit_status (const std::string &status, size_t avail, bool utf8)
+status_tail (const std::string &status, size_t avail, bool utf8)
 {
-    size_t slen = utf8 ? utf8_cp_len (status) : status.size ();
-    if (slen <= avail)
-        return status;
-    if (avail <= STATUS_ELLIPSIS_LEN)
-        return "";
-    std::string tail = tail_chars (status, avail - STATUS_ELLIPSIS_LEN, utf8);
-    /* A cut landing mid-gap would leave a doubled space after the marker, so
-     * drop whatever leading blanks the tail starts with. */
+    std::string tail = tail_chars (status, avail, utf8);
     std::string::size_type a = tail.find_first_not_of (' ');
-    return STATUS_ELLIPSIS + (a == std::string::npos ? std::string ()
-                                                     : tail.substr (a));
+    return a == std::string::npos ? std::string () : tail.substr (a);
 }
 
 /* Draw the one-line status banner grid: the current room name left-aligned
- * at column 1, and the game's status variables right-aligned (at least two
- * blank cells between them, one before the right edge).  The room name is
+ * at column 1, and the game's status variables right-aligned (at least one
+ * blank cell between them, one before the right edge).  The room name is
  * never shortened; a status too long for the cells left over is truncated
- * from the LEFT behind a "... " marker, keeping the fields at the end of the
- * line -- the whole status stays readable with the STATUS metaverb.
+ * from the LEFT, keeping the fields at the end of the line -- the whole
+ * status stays readable with the STATUS metaverb.  What survives follows the
+ * room name directly, with only an ellipsis between the two and no blanks
+ * around it.
  * `utf8` selects codepoint-aware writes and measurement (Quest 5 text is
  * UTF-8); byte mode passes classic Question text through verbatim (those games
  * are typically Latin-1). */
@@ -293,18 +285,28 @@ draw_status_banner (winid_t banner, const std::string &room,
 
     if (!status.empty ()) {
         glui32 rlen = (glui32) (utf8 ? utf8_cp_len (room) : room.size ());
-        /* Cells the status may use: everything past the room name, less the
-         * two blank cells separating them and the one before the right edge. */
-        glui32 avail = (width > rlen + 4) ? width - rlen - 4 : 0;
-        std::string shown = fit_status (status, avail, utf8);
-        if (!shown.empty ()) {
-            glui32 slen = (glui32) (utf8 ? utf8_cp_len (shown) : shown.size ());
+        glui32 slen = (glui32) (utf8 ? utf8_cp_len (status) : status.size ());
+        /* Cells past the room name, less the one before the right edge. */
+        glui32 avail = (width > rlen + 2) ? width - rlen - 2 : 0;
+        std::string shown = status;
+        if (slen + 1 <= avail) {
+            /* Fits with a blank to spare after the room name. */
             glk_window_move_cursor (banner, width - slen - 1, 0);
-            if (utf8)
-                put_stream_utf8 (stream, shown);
-            else
-                glk_put_string_stream (stream, (char *) shown.c_str ());
+        } else {
+            /* The ellipsis takes one cell; nothing is drawn unless at least
+             * one character of the status fits behind it. */
+            if (avail < 2)
+                return;
+            shown = status_tail (status, avail - 1, utf8);
+            if (shown.empty ())
+                return;
+            glk_window_move_cursor (banner, 1 + rlen, 0);
+            glk_put_char_stream_uni (stream, STATUS_ELLIPSIS);
         }
+        if (utf8)
+            put_stream_utf8 (stream, shown);
+        else
+            glk_put_string_stream (stream, (char *) shown.c_str ());
     }
 }
 

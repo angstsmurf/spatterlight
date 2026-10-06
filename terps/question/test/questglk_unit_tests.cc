@@ -23,7 +23,7 @@
   The status banner is a single Glk grid line, so how a long status line is
   cut down to the cells left beside the room name is pure string arithmetic
   that neither the fixture games nor the frontend smoke harness can reach:
-  CheapGlk has no grid window to draw into.  fit_status is that arithmetic,
+  CheapGlk has no grid window to draw into.  status_tail is that arithmetic,
   lifted out of draw_status_banner so it can be called directly here.
 
   Build:  make questglk_unit_tests      (in this directory)
@@ -35,9 +35,9 @@
 
 #include "../questglk-common.inc"
 
-using questglk::fit_status;
 using questglk::match_help_command;
 using questglk::match_status_command;
+using questglk::status_tail;
 using questglk::tail_chars;
 using questglk::utf8_cp_len;
 
@@ -71,43 +71,40 @@ test_tail_chars ()
 }
 
 void
-test_fit_status ()
+test_status_tail ()
 {
   const std::string s = "Score: 30 | Health: 100 | Moves: 412";  /* 36 chars */
 
-  check (fit_status (s, 36, false) == s, "an exactly-fitting status is untouched");
-  check (fit_status (s, 99, false) == s, "a comfortably fitting status is untouched");
+  check (status_tail (s, 36, false) == s, "an exactly-fitting status is untouched");
+  check (status_tail (s, 99, false) == s, "a comfortably fitting status is untouched");
 
-  /* Cut from the LEFT: the fields at the end of the line survive, behind the
-     marker, and the result fills the cells available exactly. */
-  check (fit_status (s, 20, false) == "... 100 | Moves: 412",
-	 "a too-long status keeps its tail behind the marker");
-  check (fit_status (s, 20, false).size () == 20,
-	 "the truncated status is exactly as wide as the cells available");
+  /* Cut from the LEFT: the fields at the end of the line survive, and the
+     result fills the cells available exactly. */
+  check (status_tail (s, 16, false) == "100 | Moves: 412",
+	 "a too-long status keeps its tail");
+  check (status_tail (s, 17, false) == "100 | Moves: 412",
+	 "leading blanks of the tail are dropped");
 
-  /* A cut landing on the space before a separator must not leave a doubled
-     space after the marker: 15 cells would otherwise give "...  Moves: 412".
-     Dropping it makes the result one cell narrower than the space available,
-     which is fine -- the banner right-aligns whatever it gets back. */
-  check (fit_status (s, 15, false) == "... Moves: 412",
-	 "leading blanks of the tail are dropped after the marker");
+  /* A cut landing on the space before a separator must not leave a blank
+     between the ellipsis the banner draws and the text: 11 cells would
+     otherwise give " Moves: 412". */
+  check (status_tail (s, 11, false) == "Moves: 412",
+	 "a cut in a gap starts at the next word");
 
-  /* Too narrow for the marker plus any text at all: draw nothing, which is
-     what the banner did for every over-long status before truncation. */
-  check (fit_status (s, 4, false) == "", "no room for marker plus text: nothing");
-  check (fit_status (s, 0, false) == "", "no cells at all: nothing");
-  check (fit_status (s, 5, false) == "... 2",
-	 "the narrowest status that still shows a character");
+  check (status_tail (s, 0, false) == "", "no cells at all: nothing");
+  check (status_tail (s, 1, false) == "2",
+	 "the narrowest tail that still shows a character");
+  check (status_tail ("ab   ", 2, false) == "", "an all-blank tail is nothing");
 
   /* Measured in codepoints in UTF-8 mode, so an accented status is not cut
      shorter than a plain one of the same visible length.  22 codepoints,
      23 bytes. */
   const std::string a = "H\xc3\xa4lsa: 100 | Steg: 412";
   check (utf8_cp_len (a) == 22 && a.size () == 23, "the accented fixture");
-  check (fit_status (a, 22, true) == a, "an exactly-fitting utf-8 status");
-  check (fit_status (a, 15, true) == "... | Steg: 412",
-	 "utf-8 truncation keeps the tail");
-  check (utf8_cp_len (fit_status (a, 15, true)) == 15,
+  check (status_tail (a, 22, true) == a, "an exactly-fitting utf-8 status");
+  check (status_tail (a, 21, true) == "\xc3\xa4lsa: 100 | Steg: 412",
+	 "utf-8 truncation keeps the tail and whole characters");
+  check (utf8_cp_len (status_tail (a, 21, true)) == 21,
 	 "utf-8 truncation is measured in codepoints, not bytes");
 }
 
@@ -141,8 +138,8 @@ main ()
 {
   std::cout << "tail_chars:\n";
   test_tail_chars ();
-  std::cout << "fit_status:\n";
-  test_fit_status ();
+  std::cout << "status_tail:\n";
+  test_status_tail ();
   std::cout << "match_status_command:\n";
   test_match_status_command ();
   std::cout << "match_help_command:\n";
