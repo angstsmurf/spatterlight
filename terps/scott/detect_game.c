@@ -547,22 +547,29 @@ static int LoadGameHeader(const GameInfo *info, int dict_start,
 }
 
 /* Read room exit connections from binary data: one byte per exit,
-   6 exits per room. */
-static void ReadRoomExits(uint8_t **ptr, int num_rooms)
+   6 exits per room. Returns 0 if the table would run past endptr. */
+int ReadRoomExits(uint8_t **ptr, int num_rooms, const uint8_t *endptr)
 {
     for (int ct = 0; ct <= num_rooms; ct++) {
+        if (*ptr + 6 > endptr)
+            return 0;
         memcpy(Rooms[ct].Exits, *ptr, 6);
         *ptr += 6;
     }
+    return 1;
 }
 
-/* Read item starting locations from binary data: one byte per item. */
-static void ReadItemLocations(uint8_t **ptr, int num_items)
+/* Read item starting locations from binary data: one byte per item.
+   Returns 0 if the table would run past endptr. */
+int ReadItemLocations(uint8_t **ptr, int num_items, const uint8_t *endptr)
 {
     for (int ct = 0; ct <= num_items; ct++) {
+        if (*ptr >= endptr)
+            return 0;
         Items[ct].Location = *((*ptr)++);
         Items[ct].InitialLoc = Items[ct].Location;
     }
+    return 1;
 }
 
 /* Read NUL-terminated room descriptions from binary data, rejecting
@@ -807,13 +814,15 @@ static GameIDType TryLoadingOld(const GameInfo *info, int dict_start)
 
     SEEK_OR_FAIL(info->start_of_room_connections);
 
-    ReadRoomExits(&ptr, GameHeader.NumRooms);
+    if (!ReadRoomExits(&ptr, GameHeader.NumRooms, entire_file + file_length))
+        return UNKNOWN_GAME;
 
 #pragma mark item locations
 
     SEEK_OR_FAIL(info->start_of_item_locations);
 
-    ReadItemLocations(&ptr, GameHeader.NumItems);
+    if (!ReadItemLocations(&ptr, GameHeader.NumItems, entire_file + file_length))
+        return UNKNOWN_GAME;
 
 #pragma mark dictionary
 
@@ -983,7 +992,8 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
 
     SEEK_OR_FAIL(info->start_of_room_connections);
 
-    ReadRoomExits(&ptr, GameHeader.NumRooms);
+    if (!ReadRoomExits(&ptr, GameHeader.NumRooms, entire_file + file_length))
+        return UNKNOWN_GAME;
 
 #pragma mark messages
 
@@ -1034,7 +1044,8 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
 
     SEEK_OR_FAIL(info->start_of_item_locations);
 
-    ReadItemLocations(&ptr, GameHeader.NumItems);
+    if (!ReadItemLocations(&ptr, GameHeader.NumItems, entire_file + file_length))
+        return UNKNOWN_GAME;
 
 #pragma mark vector images
 

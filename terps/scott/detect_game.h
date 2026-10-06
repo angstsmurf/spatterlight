@@ -23,6 +23,8 @@ void PrintHeaderInfo(int *h, const Header *hdr);
 void ParseItemSlashAutoGet(int index);
 void SetGameHeader(const Header *h);
 void AllocateGameData(void);
+int ReadRoomExits(uint8_t **ptr, int num_rooms, const uint8_t *endptr);
+int ReadItemLocations(uint8_t **ptr, int num_items, const uint8_t *endptr);
 
 extern int header[];
 

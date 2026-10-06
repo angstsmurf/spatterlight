@@ -425,51 +425,38 @@ static uint8_t *LoadTitleScreen(void)
    Returns TI994A on success or UNKNOWN_GAME on failure. */
 static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
 {
-    int num_items, num_words, num_rooms, max_carry, player_room;
-    int num_treasures, word_length, light_time, num_messages, treasure_room;
-
     Room *room;
     Item *item;
 
     uint8_t *endptr = entire_file + file_length;
 
-    /* Unpack the binary header into local variables.  The header uses
-       big-endian layout matching the TI-99/4A's native byte order. */
-    num_items = dh->num_objects;
-    num_words = MAX(dh->num_verbs, dh->num_nouns);
-    num_rooms = dh->red_room;
-    max_carry = dh->max_items_carried;
-    player_room = dh->begin_locn;
-    num_treasures = 0;
-    treasure_room = dh->treasure_locn;
-    word_length = dh->cmd_length;
-    light_time = READ_BE_UINT16(&dh->light_turns);
-    num_messages = max_messages; /* derived earlier by GetMaxTI99Messages */
+    /* Unpack the binary header.  The header uses big-endian layout
+       matching the TI-99/4A's native byte order.  Treasures are counted
+       from the item texts below, and the actions are TI-99/4A bytecode
+       rather than Action entries, so both counts start at 0. */
+    Header hdr = { 0 };
+    hdr.NumItems = dh->num_objects;
+    hdr.NumWords = MAX(dh->num_verbs, dh->num_nouns);
+    hdr.NumRooms = dh->red_room;
+    hdr.MaxCarry = dh->max_items_carried;
+    hdr.PlayerRoom = dh->begin_locn;
+    hdr.TreasureRoom = dh->treasure_locn;
+    hdr.WordLength = dh->cmd_length;
+    hdr.LightTime = READ_BE_UINT16(&dh->light_turns);
+    hdr.NumMessages = max_messages; /* derived earlier by GetMaxTI99Messages */
+
+    /* Populate the global GameHeader and allocate (zero-filled) arrays
+       for all game data sections. */
+    SetGameHeader(&hdr);
+    AllocateGameData();
+
+    int num_items = GameHeader.NumItems;
+    int num_words = GameHeader.NumWords;
+    int num_rooms = GameHeader.NumRooms;
+    int num_messages = GameHeader.NumMessages;
+    int num_treasures = 0;
 
     uint8_t *data_ptr = entire_file;
-
-    /* Populate the global GameHeader and allocate arrays for all game
-       data sections.  Arrays are one-indexed (slot 0 is valid), so
-       each allocation adds 1 to the count. */
-    GameHeader.NumItems = num_items;
-    /* Always allocate through LIGHT_SOURCE (item 9): the lamp timer reads
-       Items[LIGHT_SOURCE] every turn without consulting NumItems, and
-       MemCalloc makes the padding read back as a destroyed item. */
-    Items = (Item *)MemCalloc(sizeof(Item) * MAX(num_items + 1, LIGHT_SOURCE + 1));
-    GameHeader.NumActions = 0;
-    GameHeader.NumWords = num_words;
-    GameHeader.WordLength = word_length;
-    Verbs = MemAlloc(sizeof(char *) * (num_words + 2));
-    Nouns = MemAlloc(sizeof(char *) * (num_words + 2));
-    GameHeader.NumRooms = num_rooms;
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
-    GameHeader.MaxCarry = max_carry;
-    GameHeader.PlayerRoom = player_room;
-    GameHeader.LightTime = light_time;
-    LightRefill = light_time;
-    GameHeader.NumMessages = num_messages;
-    Messages = MemAlloc(sizeof(char *) * (num_messages + 1));
-    GameHeader.TreasureRoom = treasure_room;
 
     size_t seek_offset;
 
@@ -553,17 +540,8 @@ static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
        subtract it so we can index directly into entire_file. */
     data_ptr -= file_baseline_offset;
 
-    idx = 0;
-    room = Rooms;
-
-    while (idx < num_rooms + 1) {
-        if (data_ptr >= endptr - 6)
-            return UNKNOWN_GAME;
-        memcpy(room->Exits, data_ptr, 6);
-        data_ptr += 6;
-        idx++;
-        room++;
-    }
+    if (!ReadRoomExits(&data_ptr, num_rooms, endptr))
+        return UNKNOWN_GAME;
 
     /* --- Initial item locations ---
        One byte per item: the room number where the item starts.
@@ -576,16 +554,8 @@ static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
         return UNKNOWN_GAME;
     data_ptr -= file_baseline_offset;
 
-    idx = 0;
-    item = Items;
-    while (idx < num_items + 1) {
-        if (data_ptr >= endptr)
-            return UNKNOWN_GAME;
-        item->Location = *(data_ptr++);
-        item->InitialLoc = item->Location;
-        item++;
-        idx++;
-    }
+    if (!ReadItemLocations(&data_ptr, num_items, endptr))
+        return UNKNOWN_GAME;
 
     /* --- Verb and noun dictionaries ---
        Loaded from separate pointer tables.  The verb and noun counts
