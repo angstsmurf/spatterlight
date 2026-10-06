@@ -45,6 +45,7 @@
 #include "aslxglk-form.hh"
 #include "aslxglk-map.hh"
 
+#include <cctype>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -72,7 +73,7 @@ extern "C" {
 /* Presentation helpers shared with the classic Quest 1-4 frontend
  * (questionglk.cc): the status banner, side pane + divider, transcript metaverb,
  * save-file prompts, string/UTF-8 utilities and resource registration. */
-#include "../questglk-common.inc"
+#include "../questglk-common.hh"
 
 #ifdef __APPLE__
 #include <mach-o/dyld.h>
@@ -98,7 +99,7 @@ using namespace aslx;
 glui32 g_timer_ms = 0;
 int g_timer_frac_ms = 0;
 
-/* Shared frontend helpers (questglk-common.inc).  Using-declarations rather
+/* Shared frontend helpers (questglk-common.hh).  Using-declarations rather
  * than a using-directive, so each borrowed name is spelled out here. */
 using questglk::close_side_pane_windows;
 using questglk::draw_status_banner;
@@ -3049,7 +3050,7 @@ void index_bundled_js(World &w)
 #ifdef SPATTERLIGHT
 /* Quest's image and sound files are external and arbitrarily named, so
  * each is registered with glkimp (gli_add_resource_from_path, as the classic
- * runner does -- see questglk-common.inc), which gives it a resource number
+ * runner does -- see questglk-common.cc), which gives it a resource number
  * that glk_image_draw* / glk_schannel_play* then find. */
 
 /* filename (case-folded) -> registered resource number; 0 = known-failed. */
@@ -3154,7 +3155,7 @@ glui32 cached_media_id(std::map<std::string, glui32> &ids,
 
 /* One sound channel, like the reference player's single <audio> element: a
  * new `play sound` replaces the current one, `stop sound` silences it
- * (shared single-channel semantics -- see questglk-common.inc). */
+ * (shared single-channel semantics -- see questglk-common.cc). */
 schanid_t g_schannel = nullptr;
 
 void stop_sound_ui()
@@ -3520,7 +3521,7 @@ bool post_game_undo(Interp &in)
 
 /* After the game ends: undo, restore, restart or quit -- the same four
  * choices, in the same words, as the classic runner's menu (the text and the
- * matching are shared, in questglk-common.inc). */
+ * matching are shared, in questglk-common.cc). */
 SessionEnd post_game_menu(Interp &in, std::string &restore_data)
 {
     post_game_menu_print();

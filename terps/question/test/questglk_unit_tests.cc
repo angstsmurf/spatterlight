@@ -18,7 +18,7 @@
 
 /*
   questglk_unit_tests -- checks for the presentation helpers both Glk
-  frontends share (../questglk-common.inc).
+  frontends share (../questglk-common.cc).
 
   The status banner is a single Glk grid line, so how a long status line is
   cut down to the cells left beside the room name is pure string arithmetic
@@ -30,10 +30,26 @@
   Run:    ./questglk_unit_tests         (exit 0 = all passed)
 */
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
 
-#include "../questglk-common.inc"
+#include "../questglk-common.hh"
+
+extern "C" {
+#include "glkstart.h"
+}
+
+/* The helpers are linked in whole, and the Glk calls among them pull in
+   CheapGlk's main(), which expects these entry points. */
+glkunix_argumentlist_t glkunix_arguments[] = {
+    { nullptr, glkunix_arg_End, nullptr }
+};
+
+int glkunix_startup_code(glkunix_startup_t *)
+{
+    return 1;
+}
 
 using questglk::match_help_command;
 using questglk::match_status_command;
@@ -133,8 +149,8 @@ test_match_help_command ()
 
 }  /* namespace */
 
-int
-main ()
+void
+glk_main (void)
 {
   std::cout << "tail_chars:\n";
   test_tail_chars ();
@@ -147,5 +163,6 @@ main ()
 
   std::cout << (failures ? "FAILED" : "all passed") << " (" << failures
 	    << " failure" << (failures == 1 ? "" : "s") << ")\n";
-  return failures ? 1 : 0;
+  if (failures)
+    exit (1);
 }

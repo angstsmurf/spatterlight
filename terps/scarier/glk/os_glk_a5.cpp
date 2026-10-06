@@ -143,7 +143,7 @@ gsc_a5_start_real_time (a5_run_t *run)
  * retracts from the CURRENT output stream, so point that at the main window
  * first and put it back after.  Returns TRUE when the full string was
  * removed.  (Same retract the Question frontends use; see
- * questglk-common.inc unput_window_tail.)
+ * questglk-common.cc unput_window_tail.)
  */
 static int
 gsc_unput_tail (const char *s)

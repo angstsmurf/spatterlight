@@ -69,7 +69,7 @@ extern bool text_is_utf8 (const std::string &s);
 /* Presentation helpers shared with the Quest 5 frontend (aslxglk.cc): the
  * status banner, side pane + divider, transcript metaverb, save-file
  * prompts, string/UTF-8 utilities and resource registration. */
-#include "questglk-common.inc"
+#include "questglk-common.hh"
 using namespace questglk;
 
 class QuestionGlkInterface : public QuestionInterface
@@ -1482,7 +1482,7 @@ std::string QuestionGlkInterface::absolute_name (const std::string &rel_name, co
 }
 
 /* Audio and images go through the by-name resource registration shared with
- * the Quest 5 frontend (register_path_resource in questglk-common.inc). */
+ * the Quest 5 frontend (register_path_resource in questglk-common.cc). */
 
 static schanid_t question_soundchannel = NULL;
 

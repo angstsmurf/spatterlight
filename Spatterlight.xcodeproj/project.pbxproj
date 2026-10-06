@@ -51,6 +51,7 @@
 		55368B71272BF24700740A0A /* question-util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5D272BF24700740A0A /* question-util.cc */; };
 		55368B72272BF24700740A0A /* question-state.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5E272BF24700740A0A /* question-state.cc */; };
 		55368B73272BF24700740A0A /* readfile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5F272BF24700740A0A /* readfile.cc */; };
+		C3A51F000000000000000021 /* questglk-common.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000022 /* questglk-common.cc */; };
 		55368B74272BF24700740A0A /* questionglk.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B60272BF24700740A0A /* questionglk.cc */; };
 		55368B75272BF24700740A0A /* istring.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B61272BF24700740A0A /* istring.cc */; };
 		55368B76272BF24700740A0A /* questionglkterm.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368B6A272BF24700740A0A /* questionglkterm.c */; };
@@ -1820,6 +1821,8 @@
 		55368B5D272BF24700740A0A /* question-util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-util.cc"; sourceTree = "<group>"; };
 		55368B5E272BF24700740A0A /* question-state.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-state.cc"; sourceTree = "<group>"; };
 		55368B5F272BF24700740A0A /* readfile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = readfile.cc; sourceTree = "<group>"; };
+		C3A51F000000000000000022 /* questglk-common.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "questglk-common.cc"; sourceTree = "<group>"; };
+		C3A51F000000000000000023 /* questglk-common.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "questglk-common.hh"; sourceTree = "<group>"; };
 		55368B60272BF24700740A0A /* questionglk.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = questionglk.cc; sourceTree = "<group>"; };
 		55368B61272BF24700740A0A /* istring.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = istring.cc; sourceTree = "<group>"; };
 		55368B62272BF24700740A0A /* general.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = general.hh; sourceTree = "<group>"; };
@@ -4284,6 +4287,8 @@
 				55368B5D272BF24700740A0A /* question-util.cc */,
 				55368B6C272BF24700740A0A /* questionfile.hh */,
 				55368B6B272BF24700740A0A /* questionfile.cc */,
+				C3A51F000000000000000023 /* questglk-common.hh */,
+				C3A51F000000000000000022 /* questglk-common.cc */,
 				55368B60272BF24700740A0A /* questionglk.cc */,
 				C3A51F0000000000000000A3 /* questionglk-autosave.h */,
 				C3A51F0000000000000000A2 /* questionglk-autosave.mm */,
@@ -8383,6 +8388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55368B74272BF24700740A0A /* questionglk.cc in Sources */,
+				C3A51F000000000000000021 /* questglk-common.cc in Sources */,
 				C3A51F0000000000000000A1 /* questionglk-autosave.mm in Sources */,
 				C3A51F00000000000000000A /* aslxglk.cc in Sources */,
 				C3A51F000000000000000015 /* aslx.cc in Sources */,

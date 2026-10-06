@@ -30,11 +30,6 @@ CC       ?= clang
 CXXFLAGS ?= -std=c++17 -O2 -Wall -Wextra -I..
 ASANFLAGS := -std=c++17 -O1 -g -Wall -Wextra -I.. -fsanitize=address,undefined
 
-# questglk_unit_tests exercises a small subset of questglk-common.inc, a menu
-# of static helpers shared by the two Glk frontends, so most of the menu is
-# (correctly) unused in that one translation unit.
-QGLKWARN := -Wno-unused-function
-
 Q4 := quest4/harness
 Q5 := quest5/harness
 
@@ -42,7 +37,7 @@ BIN := $(Q4)/question_walkthrough_runner
 SRC := $(Q4)/question_walkthrough_runner.cc
 TESTBIN := $(Q4)/question_unit_tests
 TESTSRC := $(Q4)/question_unit_tests.cc
-DEPS = $(wildcard ../*.cc ../*.hh ../*.inc) $(Q4)/headless_common.hh $(RANDSRC)
+DEPS = $(wildcard ../*.cc ../*.hh) $(Q4)/headless_common.hh $(RANDSRC)
 
 # The engine draws its random numbers from erkyrath_random() -- xoshiro128**
 # when seeded -- so that a seeded run gives the same numbers here, in the app
@@ -115,9 +110,13 @@ ASLXLINKCAP := $(Q5)/aslx_linkcapture
 ASLXGLK := $(Q5)/aslxglk_smoke
 CHEAPGLK := ../../cheapglk
 
-# Unit tests for the helpers both Glk frontends share (../questglk-common.inc).
-# Engine-agnostic, so it stays at the root of the test tree.  It includes the
-# .inc directly and links CheapGlk for the glk_* symbols the other helpers in
+# The helpers both Glk frontends share, compiled into every binary that
+# carries a frontend.
+QGLKCOMMON := ../questglk-common.cc
+QGLKCOMMONHDR := ../questglk-common.hh
+
+# Unit tests for those helpers.  Engine-agnostic, so it stays at the root of
+# the test tree.  It links CheapGlk for the glk_* symbols the other helpers in
 # there reference.
 QGLKBIN := questglk_unit_tests
 QGLKSRC := questglk_unit_tests.cc
@@ -158,12 +157,12 @@ $(ASLXBIN): $(ASLXSRC) $(ASLXLOADOBJ) $(ASLXHDRS)
 $(ASLXRTBIN): $(ASLXRTSRC) $(ASLXENGOBJ) $(ASLXHDRS)
 	$(CXX) $(CXXFLAGS) $(ASLXRTSRC) $(ASLXENGOBJ) $(ASLXLIBS) -o $@
 
-$(QGLKBIN): $(QGLKSRC) ../questglk-common.inc
-	$(CXX) $(CXXFLAGS) $(QGLKWARN) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $@
+$(QGLKBIN): $(QGLKSRC) $(QGLKCOMMON) $(QGLKCOMMONHDR)
+	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(QGLKCOMMON) $(CHEAPGLK)/libcheapglk.a -o $@
 
-$(ASLXLINKBIN): $(ASLXLINKSRC) ../quest5/aslxglk.cc ../questglk-common.inc \
+$(ASLXLINKBIN): $(ASLXLINKSRC) ../quest5/aslxglk.cc $(QGLKCOMMON) $(QGLKCOMMONHDR) \
 	         $(ASLXENGOBJ) $(ASLXMAPOBJ) $(ASLXHDRS)
-	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXLINKSRC) $(ASLXENGOBJ) $(ASLXMAPOBJ) \
+	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXLINKSRC) $(QGLKCOMMON) $(ASLXENGOBJ) $(ASLXMAPOBJ) \
 	    $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 
 $(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXDRIVE) $(ASLXENGOBJ) $(ASLXHDRS)
@@ -172,9 +171,9 @@ $(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXDRIVE) $(ASLXENGOBJ) $(ASLXHDRS)
 $(ASLXLINKCAP): $(ASLXLINKCAP).cc $(ASLXDRIVE) $(ASLXENGOBJ) $(ASLXHDRS)
 	$(CXX) $(CXXFLAGS) $(ASLXLINKCAP).cc $(ASLXENGOBJ) $(ASLXLIBS) -o $@
 
-$(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc ../questglk-common.inc \
+$(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc $(QGLKCOMMON) $(QGLKCOMMONHDR) \
             $(ASLXENGOBJ) $(ASLXMAPOBJ) $(ASLXHDRS)
-	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc ../quest5/aslxglk.cc \
+	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc ../quest5/aslxglk.cc $(QGLKCOMMON) \
 	    $(ASLXENGOBJ) $(ASLXMAPOBJ) $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 
 # Compile each engine source as its own translation unit, semantic analysis only.
@@ -222,8 +221,8 @@ asan: $(SRC) $(TESTSRC) $(DEPS) $(RANDOBJ) $(ASLXENGSRC) $(ASLXMAPSRC) $(ASLXHDR
 	$(CXX) $(ASANFLAGS) $(RANDFLAGS) $(SRC) $(RANDOBJ) -o $(BIN)
 	$(CXX) $(ASANFLAGS) $(ASLXSRC) $(ASLXLOADSRC) $(ASLXLIBS) -o $(ASLXBIN)
 	$(CXX) $(ASANFLAGS) $(ASLXRTSRC) $(ASLXENGSRC) $(ASLXLIBS) -o $(ASLXRTBIN)
-	$(CXX) $(ASANFLAGS) $(QGLKWARN) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $(QGLKBIN)
-	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) -I../../common_utils $(ASLXLINKSRC) $(ASLXENGSRC) \
+	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(QGLKCOMMON) $(CHEAPGLK)/libcheapglk.a -o $(QGLKBIN)
+	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) -I../../common_utils $(ASLXLINKSRC) $(QGLKCOMMON) $(ASLXENGSRC) \
 	    $(ASLXMAPSRC) $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $(ASLXLINKBIN)
 	cd $(Q4) && ./question_unit_tests
 	cd $(Q5) && ./aslx_loader_test

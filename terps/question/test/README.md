@@ -14,7 +14,7 @@ Each half holds `fixtures/` (small hand-written games that are ours, committed),
 Only engine-agnostic things stay at this level: this README,
 [`GAMES.md`](GAMES.md) and `fetch_games.sh` (the corpora, for both engines), the
 `Makefile` that builds both halves, `questglk_unit_tests.cc` (the helpers both
-Glk frontends share, `../questglk-common.inc`), `glkdrive.py` (a fake
+Glk frontends share, `../questglk-common.cc`), `glkdrive.py` (a fake
 Spatterlight app that drives the built terp over the glkimp protocol) and
 `autosave/`, the one suite that spans both engines (below). `glkdrive.py` is
 terp-agnostic and is the same file as `terps/scarier/test/glkdrive.py`, kept
@@ -112,7 +112,7 @@ relaunch is addressed by number (`link:PEER:N`) rather than by text; see the
 ## Shared frontend helpers (`questglk_unit_tests.cc`)
 
 Both Glk frontends (`questionglk.cc` and `quest5/aslxglk.cc`) draw on
-`../questglk-common.inc`; this binary includes that file directly and links the
+`../questglk-common.cc`; this binary compiles that file in and links the
 in-repo CheapGlk for the `glk_*` symbols its helpers reference. It belongs to
 neither engine, so it stays here and is built at the root as
 `./questglk_unit_tests`. Exit 0 is a pass.
