@@ -10,6 +10,7 @@
 
 #include "decompress_text.h"
 #include "sagagraphics.h"
+#include "game_specific.h"
 #include "irmak.h"
 #include "scott.h"
 #include "scott_display.h"
@@ -385,9 +386,7 @@ void LoadExtraSherwoodData(int c64)
             NOTHING
         };
 
-        for (int i = 0; i < 28; i++) {
-            sys[messagekey[i]] = system_messages[i];
-        }
+        MapSysMessages(messagekey, 28, 0);
 
         sys[HIT_ENTER] = system_messages[30];
         sys[WHAT] = system_messages[13];
@@ -419,9 +418,7 @@ void LoadExtraSherwoodData(int c64)
             RESUME_A_SAVED_GAME
         };
 
-        for (int i = 0; i < 23; i++) {
-            sys[messagekey[i]] = system_messages[i];
-        }
+        MAP_SYS_MESSAGES(messagekey, 0);
 
         sys[WHAT] = sys[HUH];
     }

@@ -9,6 +9,8 @@
 
 #include "sagagraphics.h"
 #include "apple2draw.h"
+#include "game_specific.h"
+#include "parser.h"
 #include "saga.h"
 #include "sagadraw.h"
 #include "scott.h"
@@ -148,6 +150,87 @@ void AdventurelandAction(int p)
     return;
 }
 
+/* Map system_messages[src_offset + i] to sys[keys[i]] for each of the
+   n keys. Each port stores its system messages in its own order, so most
+   of them need a key table. */
+void MapSysMessages(const SysMessageType *keys, size_t n, int src_offset)
+{
+    for (size_t i = 0; i < n; i++)
+        sys[keys[i]] = system_messages[src_offset + i];
+}
+
+/* Map the consecutive sys[] slots first to last to the consecutive
+   system_messages[] starting at index src. */
+void MapSysRange(SysMessageType first, SysMessageType last, int src)
+{
+    for (int i = first; i <= last; i++)
+        sys[i] = system_messages[src - first + i];
+}
+
+static void CopyWordList(const char **dest, const char **src, int count)
+{
+    if (src == NULL)
+        return;
+    for (int i = 0; i < count; i++)
+        dest[i] = src[i];
+}
+
+/* Switch the parser's word lists to those of another language.
+   Lists passed as NULL are left as they are. */
+void SetParserWordLists(const char **directions, const char **skip_list,
+    const char **delimiters, const char **extra_commands, const char **extra_nouns)
+{
+    CopyWordList(Directions, directions, NUMBER_OF_DIRECTIONS);
+    CopyWordList(SkipList, skip_list, NUMBER_OF_SKIPPABLE_WORDS);
+    CopyWordList(DelimiterList, delimiters, NUMBER_OF_DELIMITERS);
+    CopyWordList(ExtraCommands, extra_commands, NUMBER_OF_EXTRA_COMMANDS);
+    CopyWordList(ExtraNouns, extra_nouns, NUMBER_OF_EXTRA_NOUNS);
+}
+
+/* The system message order shared by the C64 ports of Adventureland,
+   Secret Mission and the Mysterious Adventures. */
+static const SysMessageType c64_sysmess_keys[] = {
+    NORTH,
+    SOUTH,
+    EAST,
+    WEST,
+    UP,
+    DOWN,
+    EXITS,
+    YOU_SEE,
+    YOU_ARE,
+    TOO_DARK_TO_SEE,
+    LIGHT_HAS_RUN_OUT,
+    LIGHT_RUNS_OUT_IN,
+    TURNS,
+    I_DONT_KNOW_HOW_TO,
+    SOMETHING,
+    I_DONT_KNOW_WHAT_A,
+    IS,
+    YOU_CANT_GO_THAT_WAY,
+    OK,
+    WHAT_NOW,
+    HUH,
+    YOU_HAVENT_GOT_IT,
+    INVENTORY,
+    YOU_DONT_SEE_IT,
+    THATS_BEYOND_MY_POWER,
+    DANGEROUS_TO_MOVE_IN_DARK,
+    DIRECTION,
+    YOU_FELL_AND_BROKE_YOUR_NECK,
+    YOURE_CARRYING_TOO_MUCH,
+    IM_DEAD,
+    PLAY_AGAIN,
+    RESUME_A_SAVED_GAME,
+    IVE_STORED,
+    TREASURES,
+    ON_A_SCALE_THAT_RATES,
+    YOU_CANT_DO_THAT_YET,
+    I_DONT_UNDERSTAND,
+    NOTHING,
+    YOUVE_SOLVED_IT
+};
+
 void Spiderman64Sysmess(void)
 {
     SysMessageType messagekey[] = {
@@ -195,9 +278,7 @@ void Spiderman64Sysmess(void)
         YOUVE_SOLVED_IT
     };
 
-    for (int i = 0; i < 42; i++) {
-        sys[messagekey[i]] = system_messages[i];
-    }
+    MAP_SYS_MESSAGES(messagekey, 0);
 
     sys[I_DONT_KNOW_HOW_TO] = "I don't know how to \"";
     sys[SOMETHING] = "\" something. ";
@@ -253,9 +334,7 @@ void SpidermanAtari8Sysmess(void)
 
     const char *none = sys[NONE];
 
-    for (int i = 0; i < 41; i++) {
-        sys[messagekey[i]] = system_messages[i];
-    }
+    MAP_SYS_MESSAGES(messagekey, 0);
 
     sys[NONE] = none;
     /* This string follows the unterminated direction letters "NSEWUD" */
@@ -268,51 +347,7 @@ void SpidermanAtari8Sysmess(void)
 
 void Adventureland64Sysmess(void)
 {
-    SysMessageType messagekey[] = {
-        NORTH,
-        SOUTH,
-        EAST,
-        WEST,
-        UP,
-        DOWN,
-        EXITS,
-        YOU_SEE,
-        YOU_ARE,
-        TOO_DARK_TO_SEE,
-        LIGHT_HAS_RUN_OUT,
-        LIGHT_RUNS_OUT_IN,
-        TURNS,
-        I_DONT_KNOW_HOW_TO,
-        SOMETHING,
-        I_DONT_KNOW_WHAT_A,
-        IS,
-        YOU_CANT_GO_THAT_WAY,
-        OK,
-        WHAT_NOW,
-        HUH,
-        YOU_HAVENT_GOT_IT,
-        INVENTORY,
-        YOU_DONT_SEE_IT,
-        THATS_BEYOND_MY_POWER,
-        DANGEROUS_TO_MOVE_IN_DARK,
-        DIRECTION,
-        YOU_FELL_AND_BROKE_YOUR_NECK,
-        YOURE_CARRYING_TOO_MUCH,
-        IM_DEAD,
-        PLAY_AGAIN,
-        RESUME_A_SAVED_GAME,
-        IVE_STORED,
-        TREASURES,
-        ON_A_SCALE_THAT_RATES,
-        YOU_CANT_DO_THAT_YET,
-        I_DONT_UNDERSTAND,
-        NOTHING,
-        YOUVE_SOLVED_IT
-    };
-
-    for (int i = 0; i < 39; i++) {
-        sys[messagekey[i]] = system_messages[i];
-    }
+    MAP_SYS_MESSAGES(c64_sysmess_keys, 0);
 
     sys[I_DONT_KNOW_HOW_TO] = "I don't know how to \"";
     sys[SOMETHING] = "\" something. ";
@@ -363,9 +398,7 @@ void Claymorgue64Sysmess(void)
         YOUVE_SOLVED_IT
     };
 
-    for (int i = 0; i < 40; i++) {
-        sys[messagekey[i]] = system_messages[i];
-    }
+    MAP_SYS_MESSAGES(messagekey, 0);
 
     sys[I_DONT_KNOW_HOW_TO] = "I don't know how to \"";
     sys[SOMETHING] = "\" something. ";
@@ -373,52 +406,9 @@ void Claymorgue64Sysmess(void)
 
 void Mysterious64Sysmess(void)
 {
-    SysMessageType messagekey[] = {
-        NORTH,
-        SOUTH,
-        EAST,
-        WEST,
-        UP,
-        DOWN,
-        EXITS,
-        YOU_SEE,
-        YOU_ARE,
-        TOO_DARK_TO_SEE,
-        LIGHT_HAS_RUN_OUT,
-        LIGHT_RUNS_OUT_IN,
-        TURNS,
-        I_DONT_KNOW_HOW_TO,
-        SOMETHING,
-        I_DONT_KNOW_WHAT_A,
-        IS,
-        YOU_CANT_GO_THAT_WAY,
-        OK,
-        WHAT_NOW,
-        HUH,
-        YOU_HAVENT_GOT_IT,
-        INVENTORY,
-        YOU_DONT_SEE_IT,
-        THATS_BEYOND_MY_POWER,
-        DANGEROUS_TO_MOVE_IN_DARK,
-        DIRECTION,
-        YOU_FELL_AND_BROKE_YOUR_NECK,
-        YOURE_CARRYING_TOO_MUCH,
-        IM_DEAD,
-        PLAY_AGAIN,
-        RESUME_A_SAVED_GAME,
-        IVE_STORED,
-        TREASURES,
-        ON_A_SCALE_THAT_RATES,
-        YOU_CANT_DO_THAT_YET,
-        I_DONT_UNDERSTAND,
-        NOTHING,
-        YOUVE_SOLVED_IT,
-        YOUVE_SOLVED_IT
-    };
-
-    for (int i = 0; i < 40; i++) {
-        sys[messagekey[i]] = system_messages[i];
-    }
+    MAP_SYS_MESSAGES(c64_sysmess_keys, 0);
+    /* Here YOUVE_SOLVED_IT is the 40th message, not the 39th */
+    sys[YOUVE_SOLVED_IT] = system_messages[39];
 
     sys[ITEM_DELIMITER] = " - ";
     sys[MESSAGE_DELIMITER] = "\n";
@@ -511,9 +501,7 @@ void Supergran64Sysmess(void)
         NOTHING
     };
 
-    for (int i = 0; i < 30; i++) {
-        sys[messagekey[i]] = system_messages[i];
-    }
+    MAP_SYS_MESSAGES(messagekey, 0);
 
     sys[I_DONT_KNOW_WHAT_A] = "\"";
     sys[IS] = "\" is a word I don't know. ";
@@ -521,51 +509,7 @@ void Supergran64Sysmess(void)
 
 void SecretMission64Sysmess(void)
 {
-    SysMessageType messagekey[] = {
-        NORTH,
-        SOUTH,
-        EAST,
-        WEST,
-        UP,
-        DOWN,
-        EXITS,
-        YOU_SEE,
-        YOU_ARE,
-        TOO_DARK_TO_SEE,
-        LIGHT_HAS_RUN_OUT,
-        LIGHT_RUNS_OUT_IN,
-        TURNS,
-        I_DONT_KNOW_HOW_TO,
-        SOMETHING,
-        I_DONT_KNOW_WHAT_A,
-        IS,
-        YOU_CANT_GO_THAT_WAY,
-        OK,
-        WHAT_NOW,
-        HUH,
-        YOU_HAVENT_GOT_IT,
-        INVENTORY,
-        YOU_DONT_SEE_IT,
-        THATS_BEYOND_MY_POWER,
-        DANGEROUS_TO_MOVE_IN_DARK,
-        DIRECTION,
-        YOU_FELL_AND_BROKE_YOUR_NECK,
-        YOURE_CARRYING_TOO_MUCH,
-        IM_DEAD,
-        PLAY_AGAIN,
-        RESUME_A_SAVED_GAME,
-        IVE_STORED,
-        TREASURES,
-        ON_A_SCALE_THAT_RATES,
-        YOU_CANT_DO_THAT_YET,
-        I_DONT_UNDERSTAND,
-        NOTHING,
-        YOUVE_SOLVED_IT
-    };
-
-    for (int i = 0; i < 39; i++) {
-        sys[messagekey[i]] = system_messages[i];
-    }
+    MAP_SYS_MESSAGES(c64_sysmess_keys, 0);
 
     sys[I_DONT_KNOW_HOW_TO] = "I don't know how to \"";
 }

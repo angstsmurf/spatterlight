@@ -16,5 +16,6 @@ void LoadExtraGermanGremlinsData(void);
 void LoadExtraGermanGremlinsC64Data(void);
 void LoadExtraSpanishGremlinsData(void);
 void LoadExtraSpanishGremlinsC64Data(void);
+void MapGremlinsSysMessages(int shift);
 
 #endif /* gremlins_h */

@@ -1398,14 +1398,8 @@ GameIDType DetectGame(const char *file_name)
         return UNKNOWN_GAME;
     }
 
-    for (int i = 0; i < NUMBER_OF_DIRECTIONS; i++)
-        Directions[i] = EnglishDirections[i];
-    for (int i = 0; i < NUMBER_OF_SKIPPABLE_WORDS; i++)
-        SkipList[i] = EnglishSkipList[i];
-    for (int i = 0; i < NUMBER_OF_DELIMITERS; i++)
-        DelimiterList[i] = EnglishDelimiterList[i];
-    for (int i = 0; i < NUMBER_OF_EXTRA_NOUNS; i++)
-        ExtraNouns[i] = EnglishExtraNouns[i];
+    SetParserWordLists(EnglishDirections, EnglishSkipList, EnglishDelimiterList,
+        NULL, EnglishExtraNouns);
 
     Game = (GameInfo *)MemAlloc(sizeof(GameInfo));
     memset(Game, 0, sizeof(GameInfo));
@@ -1491,10 +1485,8 @@ GameIDType DetectGame(const char *file_name)
         LoadExtraSeasOfBloodData(1);
         break;
     case CLAYMORGUE:
-        for (int i = OK; i <= RESUME_A_SAVED_GAME; i++)
-            sys[i] = system_messages[6 - OK + i];
-        for (int i = PLAY_AGAIN; i <= ON_A_SCALE_THAT_RATES; i++)
-            sys[i] = system_messages[2 - PLAY_AGAIN + i];
+        MapSysRange(OK, RESUME_A_SAVED_GAME, 6);
+        MapSysRange(PLAY_AGAIN, ON_A_SCALE_THAT_RATES, 2);
         break;
     case SECRET_MISSION:
     case SECRET_MISSION_C64:
@@ -1506,12 +1498,9 @@ GameIDType DetectGame(const char *file_name)
             break;
         }
     case ADVENTURELAND:
-        for (int i = PLAY_AGAIN; i <= ON_A_SCALE_THAT_RATES; i++)
-            sys[i] = system_messages[2 - PLAY_AGAIN + i];
-        for (int i = OK; i <= YOU_HAVENT_GOT_IT; i++)
-            sys[i] = system_messages[6 - OK + i];
-        for (int i = YOU_DONT_SEE_IT; i <= RESUME_A_SAVED_GAME; i++)
-            sys[i] = system_messages[13 - YOU_DONT_SEE_IT + i];
+        MapSysRange(PLAY_AGAIN, ON_A_SCALE_THAT_RATES, 2);
+        MapSysRange(OK, YOU_HAVENT_GOT_IT, 6);
+        MapSysRange(YOU_DONT_SEE_IT, RESUME_A_SAVED_GAME, 13);
         break;
     case ADVENTURELAND_C64:
         Adventureland64Sysmess();
@@ -1549,16 +1538,7 @@ GameIDType DetectGame(const char *file_name)
     case GREMLINS_GERMAN:
     case GREMLINS:
     case SUPERGRAN:
-        for (int i = DROPPED; i <= OK; i++)
-            sys[i] = system_messages[2 - DROPPED + i];
-        for (int i = I_DONT_UNDERSTAND; i <= THATS_BEYOND_MY_POWER; i++)
-            sys[i] = system_messages[6 - I_DONT_UNDERSTAND + i];
-        for (int i = YOU_ARE; i <= HIT_ENTER; i++)
-            sys[i] = system_messages[17 - YOU_ARE + i];
-        sys[PLAY_AGAIN] = system_messages[5];
-        sys[YOURE_CARRYING_TOO_MUCH] = system_messages[24];
-        sys[IM_DEAD] = system_messages[25];
-        sys[YOU_CANT_GO_THAT_WAY] = system_messages[14];
+        MapGremlinsSysMessages(2);
         break;
     case GREMLINS_SPANISH:
         LoadExtraSpanishGremlinsData();
@@ -1575,19 +1555,15 @@ GameIDType DetectGame(const char *file_name)
     default:
         if (!(Game->subtype & C64)) {
             if (Game->subtype & MYSTERIOUS) {
-                for (int i = PLAY_AGAIN; i <= YOU_HAVENT_GOT_IT; i++)
-                    sys[i] = system_messages[2 - PLAY_AGAIN + i];
-                for (int i = YOU_DONT_SEE_IT; i <= WHAT_NOW; i++)
-                    sys[i] = system_messages[15 - YOU_DONT_SEE_IT + i];
-                for (int i = LIGHT_HAS_RUN_OUT; i <= RESUME_A_SAVED_GAME; i++)
-                    sys[i] = system_messages[31 - LIGHT_HAS_RUN_OUT + i];
+                MapSysRange(PLAY_AGAIN, YOU_HAVENT_GOT_IT, 2);
+                MapSysRange(YOU_DONT_SEE_IT, WHAT_NOW, 15);
+                MapSysRange(LIGHT_HAS_RUN_OUT, RESUME_A_SAVED_GAME, 31);
                 sys[ITEM_DELIMITER] = " - ";
                 sys[MESSAGE_DELIMITER] = "\n";
                 sys[YOU_SEE] = "\nThings I can see:\n";
                 break;
             } else {
-                for (int i = PLAY_AGAIN; i <= RESUME_A_SAVED_GAME; i++)
-                    sys[i] = system_messages[2 - PLAY_AGAIN + i];
+                MapSysRange(PLAY_AGAIN, RESUME_A_SAVED_GAME, 2);
             }
         }
         break;
@@ -1596,9 +1572,6 @@ GameIDType DetectGame(const char *file_name)
     switch (detectedGame) {
     case GREMLINS_GERMAN:
         LoadExtraGermanGremlinsData();
-        break;
-    case GREMLINS_GERMAN_C64:
-        LoadExtraGermanGremlinsC64Data();
         break;
     case PERSEUS_ITALIAN:
         PerseusItalianSysmess();

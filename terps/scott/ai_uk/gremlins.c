@@ -5,6 +5,7 @@
 //  Created by Petter Sjölund on 2022-01-10.
 //
 
+#include "game_specific.h"
 #include "gremlins.h"
 
 #include "parser.h"
@@ -217,16 +218,8 @@ void FillInGermanSystemMessages(void)
     sys[YOU_ARE] = "Ich bin ";
     sys[WHAT] = sys[HUH];
 
-    for (int i = 0; i < NUMBER_OF_DIRECTIONS; i++)
-        Directions[i] = GermanDirections[i];
-    for (int i = 0; i < NUMBER_OF_SKIPPABLE_WORDS; i++)
-        SkipList[i] = GermanSkipList[i];
-    for (int i = 0; i < NUMBER_OF_DELIMITERS; i++)
-        DelimiterList[i] = GermanDelimiterList[i];
-    for (int i = 0; i < NUMBER_OF_EXTRA_COMMANDS; i++)
-        ExtraCommands[i] = GermanExtraCommands[i];
-    for (int i = 0; i < NUMBER_OF_EXTRA_NOUNS; i++)
-        ExtraNouns[i] = GermanExtraNouns[i];
+    SetParserWordLists(GermanDirections, GermanSkipList, GermanDelimiterList,
+        GermanExtraCommands, GermanExtraNouns);
 }
 
 void LoadExtraGermanGremlinsC64Data(void)
@@ -272,9 +265,7 @@ void LoadExtraGermanGremlinsC64Data(void)
         NOTHING
     };
 
-    for (int i = 0; i < 28; i++) {
-        sys[messagekey[i]] = system_messages[i];
-    }
+    MAP_SYS_MESSAGES(messagekey, 0);
 
     sys[HIT_ENTER] = system_messages[30];
 
@@ -323,26 +314,28 @@ void LoadCommonSpanishGremlinsData(void)
     sys[NO_SAVED_STATE] = "No existe ning\x85n estado guardado.\n";
     sys[STATE_RESTORED] = "Estado restaurado.\n";
 
-    for (int i = 0; i < NUMBER_OF_DIRECTIONS; i++)
-        Directions[i] = SpanishDirections[i];
-    for (int i = 0; i < NUMBER_OF_EXTRA_NOUNS; i++)
-        ExtraNouns[i] = SpanishExtraNouns[i];
-    for (int i = 0; i < NUMBER_OF_EXTRA_COMMANDS; i++)
-        ExtraCommands[i] = SpanishExtraCommands[i];
+    SetParserWordLists(SpanishDirections, NULL, NULL,
+        SpanishExtraCommands, SpanishExtraNouns);
+}
+
+/* The ZX Spectrum system message layout of Gremlins, also used by the
+   Spectrum Supergran and Savage Island. The Spanish Gremlins has two
+   messages fewer before "I'm in a", so the rest are shifted by shift
+   (0 there, 2 elsewhere). */
+void MapGremlinsSysMessages(int shift)
+{
+    MapSysRange(DROPPED, OK, 2);
+    MapSysRange(I_DONT_UNDERSTAND, THATS_BEYOND_MY_POWER, 6);
+    MapSysRange(YOU_ARE, HIT_ENTER, 15 + shift);
+    sys[PLAY_AGAIN] = system_messages[5];
+    sys[YOURE_CARRYING_TOO_MUCH] = system_messages[22 + shift];
+    sys[IM_DEAD] = system_messages[23 + shift];
+    sys[YOU_CANT_GO_THAT_WAY] = system_messages[14];
 }
 
 void LoadExtraSpanishGremlinsData(void)
 {
-    for (int i = YOU_ARE; i <= HIT_ENTER; i++)
-        sys[i] = system_messages[15 - YOU_ARE + i];
-    for (int i = I_DONT_UNDERSTAND; i <= THATS_BEYOND_MY_POWER; i++)
-        sys[i] = system_messages[6 - I_DONT_UNDERSTAND + i];
-    for (int i = DROPPED; i <= OK; i++)
-        sys[i] = system_messages[2 - DROPPED + i];
-    sys[PLAY_AGAIN] = system_messages[5];
-    sys[YOURE_CARRYING_TOO_MUCH] = system_messages[22];
-    sys[IM_DEAD] = system_messages[23];
-    sys[YOU_CANT_GO_THAT_WAY] = system_messages[14];
+    MapGremlinsSysMessages(0);
 
     LoadCommonSpanishGremlinsData();
 }
@@ -375,9 +368,7 @@ void LoadExtraSpanishGremlinsC64Data(void)
         BAD_DATA,
     };
 
-    for (int i = 0; i < 23; i++) {
-        sys[messagekey[i]] = system_messages[6 + i];
-    }
+    MAP_SYS_MESSAGES(messagekey, 6);
     sys[YOU_CANT_GO_THAT_WAY] = system_messages[9] + 6;
     sys[HIT_ENTER] = system_messages[30];
     LoadCommonSpanishGremlinsData();

@@ -22,6 +22,7 @@
 #include <string.h>
 
 #include "decompress_text.h"
+#include "game_specific.h"
 #include "irmak.h"
 #include "sagadraw.h"
 #include "scott.h"
@@ -858,15 +859,11 @@ void LoadExtraSeasOfBloodData(int c64)
             NOTHING
         };
 
-        for (int i = 0; i < 27; i++) {
-            sys[messagekey[i]] = system_messages[i];
-        }
+        MAP_SYS_MESSAGES(messagekey, 0);
     } else {
-        for (int i = I_DONT_UNDERSTAND; i <= THATS_BEYOND_MY_POWER; i++)
-            sys[i] = system_messages[4 - I_DONT_UNDERSTAND + i];
+        MapSysRange(I_DONT_UNDERSTAND, THATS_BEYOND_MY_POWER, 4);
 
-        for (int i = YOU_ARE; i <= HIT_ENTER; i++)
-            sys[i] = system_messages[13 - YOU_ARE + i];
+        MapSysRange(YOU_ARE, HIT_ENTER, 13);
 
         sys[OK] = system_messages[2];
         sys[PLAY_AGAIN] = system_messages[3];
