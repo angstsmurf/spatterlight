@@ -97,7 +97,7 @@ command per piece of state a relaunch has to carry. The cases:
 | RNG position | `q4-rng` | `q5-rng` (the fallback stream and every per-expression stream, including those inside script bodies) |
 | variables / attributes | `q4-variable` | `q5-attribute` |
 | undo history | `q4-undo` | (no engine undo) |
-| real-time timers | `q4-timer`, `q4-timer-midcycle` (XFAIL: a tick that did not fire is not re-saved) | `q5-timer`, `q5-timer-midcycle`, `q5-timeout` |
+| real-time timers | `q4-timer`, `q4-timer-midcycle` | `q5-timer`, `q5-timer-midcycle`, `q5-timeout` |
 | prompts the game can be closed on | `q4-question`, `q4-menu` (no autosave; the relaunch resumes at the turn prompt) | `q5-get-input`, `q5-show-menu`, `q5-ask`, `q5-wait` (same) |
 | hyperlinks | `q4-pane-links` (fold, Take, Drop through the pane) | `q5-inline-link`, `q5-link-menu` (an object link's verb menu stays autosaved and reopens on relaunch) |
 | walkthroughs from `goldens/` | Bear Campsite, Mansion, Gathered in Darkness | Exit the Room, Bear's Epic Quest, ARC II |

@@ -770,12 +770,30 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                         request_line(typed);
                     }
                 } else {
-                    /* Just counting down: no output, so the live input is fine. */
+#ifdef SPATTERLIGHT
+                    /* Just counting down, but the count is game state too: a
+                     * game closed between two firings must come back with the
+                     * ticks already counted, not with the count the prompt's
+                     * autosave had.  So refresh the autosave here as well,
+                     * which takes the same cancel as a firing does -- the
+                     * saved windows carry no pending request.  With echo off
+                     * the cancel shows nothing and the typed text is
+                     * preloaded again. */
+                    if (g_manual_echo && question_autosave_wanted()) {
+                        glui32 typed = cancel_line();
+                        gr->tick_timers();
+                        question_do_autosave(gr);
+                        request_line(typed);
+                        break;
+                    }
+#endif
+                    /* No output, so the live input is fine. */
                     gr->tick_timers();
 #ifdef SPATTERLIGHT
-                    /* ...but the state no longer matches the prompt's
-                     * autosave, which a "which one?" menu autosave would
-                     * replay the next command from. */
+                    /* Not saved (autosave-on-timer is off): the state no
+                     * longer matches the prompt's autosave, which a "which
+                     * one?" menu autosave would replay the next command
+                     * from. */
                     question_turn_state_changed();
 #endif
                 }

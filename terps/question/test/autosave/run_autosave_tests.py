@@ -587,18 +587,15 @@ def build_cases(stage):
            "undo", "i", "undo", "i"],
           [3, 4, 6, 8, 10], expect=["You are carrying"])
 
-    # The real-time timer: three ticks per firing, and a firing re-saves, so
-    # a relaunch right after one resumes from the re-save with the cycle
-    # restarted.  (Ticks that did not fire are not re-saved: see the
-    # midcycle case.)
+    # The real-time timer: three ticks per firing.  Every tick re-saves,
+    # whether it fires or only counts, so a relaunch between two firings
+    # (the midcycle case) resumes with the ticks already counted.
     equiv("q4-timer", probe4,
           ["look", "tick:3", "look", "tick:3", "look", "tick:3", "look"],
           [1, 2, 3], sa_delays=1, expect=["[pulse]"])
     equiv("q4-timer-midcycle", probe4,
           ["look", "tick:2", "look", "tick:1", "look"],
-          [1], sa_delays=1, expect=["[pulse]"],
-          xfail="ticks that did not fire are not re-saved; the count in"
-                " flight restarts from the prompt's snapshot")
+          [1], sa_delays=1, expect=["[pulse]"])
 
     # Closed under a question / a selection menu: no autosave there.
     pending("q4-question", probe4, ["look", "question"],
