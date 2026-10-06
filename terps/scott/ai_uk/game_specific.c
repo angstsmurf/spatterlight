@@ -73,9 +73,9 @@ void SecretAction(int p)
         break;
     case 2: /* ID picture */
         DrawImage(24);
-        if (Items[1].Location == CARRIED || Items[1].Location == MyLoc) {
+        if (IsPresent(1)) {
             DrawImage(27); // "Security" label
-        } else if ((Items[7].Location == CARRIED || Items[7].Location == MyLoc) && Items[8].Location != CARRIED && Items[8].Location != MyLoc && Items[41].Location != CARRIED && Items[41].Location != MyLoc) {
+        } else if (IsPresent(7) && !IsPresent(8) && !IsPresent(41)) {
             DrawImage(28); /* "Visitor" label */
         }
         showing_closeup = 1;
@@ -514,6 +514,16 @@ void SecretMission64Sysmess(void)
     sys[I_DONT_KNOW_HOW_TO] = "I don't know how to \"";
 }
 
+/* Draw a close-up image and wait for a key press. The room image is
+   redrawn after that. */
+void ShowCloseup(int image)
+{
+    DrawImage(image);
+    showing_closeup = 1;
+    Output(sys[HIT_ENTER]);
+    HitEnter();
+}
+
 void ShowUSCloseup(int image, int offset) {
     if (image >= 0) {
         if (Graphics)
@@ -536,37 +546,37 @@ void VoodooShowImageOnExamineUS(int noun)
             image = 11;
         break;
     case 13: // Broken sword
-        if (Items[33].Location == MyLoc || Items[33].Location == CARRIED)
+        if (IsPresent(33))
             image = 0;
         break;
     case 55: // Voodoo doll
-        if (Items[44].Location == MyLoc || Items[44].Location == CARRIED)
+        if (IsPresent(44))
             image = 1;
         break;
     case 63: // Voodoo book
-        if (Items[52].Location == MyLoc || Items[52].Location == CARRIED)
+        if (IsPresent(52))
             image = 2;
         break;
     case 32: // Ring
-        if (Items[25].Location == MyLoc || Items[25].Location == CARRIED)
+        if (IsPresent(25))
             image = 3;
         break;
     case 43: // Ju-ju man statue
-        if (Items[53].Location == MyLoc || Items[53].Location == CARRIED)
+        if (IsPresent(53))
             image = 4;
         break;
     case 9: // Glowing idol
-        if (Items[9].Location == MyLoc || Items[9].Location == CARRIED)
+        if (IsPresent(9))
             image = 5;
-        if (Items[43].Location == MyLoc || Items[43].Location == CARRIED)
+        if (IsPresent(43))
             image = 10;
         break;
     case 42: // Chemicals
-        if (Items[38].Location == MyLoc || Items[38].Location == CARRIED)
+        if (IsPresent(38))
             image = 6;
         break;
     case 7: // Bloody knife
-        if (Items[0].Location == MyLoc || Items[0].Location == CARRIED)
+        if (IsPresent(0))
             image = 7;
 
     default:
@@ -581,7 +591,7 @@ void CountShowImageOnExamineUS(int noun)
     int image = -1;
     switch (noun) {
     case 21: // Package
-        if (Items[45].Location == MyLoc || Items[45].Location == CARRIED)
+        if (IsPresent(45))
             image = 0;
         break;
     case 50: // Crowd
@@ -599,15 +609,15 @@ void AdventurelandShowImageOnExamineUS(int noun) {
     int image = -1;
     switch (noun) {
         case 59: /* Firestone */
-            if (Items[56].Location == CARRIED || Items[56].Location == MyLoc || Items[0].Location == MyLoc)
+            if (IsPresent(56) || Items[0].Location == MyLoc)
                 image = 1;
             break;
         case 23: /* Bees */
-            if (Items[24].Location == CARRIED || Items[24].Location == MyLoc || Items[26].Location == CARRIED || Items[26].Location == MyLoc)
+            if (IsPresent(24) || IsPresent(26))
                 image = 2;
             break;
         case 26: /* Flint and steel */
-            if (Items[28].Location == CARRIED || Items[28].Location == MyLoc)
+            if (IsPresent(28))
                 image = 3;
             break;
         case 54: /* Stream of lava */
@@ -615,19 +625,19 @@ void AdventurelandShowImageOnExamineUS(int noun) {
                 image = 4;
             break;
         case 10: /* Magic mirror */
-            if (Items[38].Location == CARRIED ||Items[38].Location == MyLoc)
+            if (IsPresent(38))
                 image = 5;
             break;
         case 46: /* Chiggers */
-            if (Items[42].Location == CARRIED || Items[42].Location == MyLoc)
+            if (IsPresent(42))
                 image = 6;
             break;
         case 43: /* Jewelled Fruit */
-            if (Items[46].Location == CARRIED || Items[46].Location == MyLoc)
+            if (IsPresent(46))
                 image = 7;
             break;
         case 44: /* Blue Ox */
-            if (Items[47].Location == CARRIED || Items[47].Location == MyLoc)
+            if (IsPresent(47))
                 image = 8;
             break;
         case 39: /* Dragon */
@@ -645,31 +655,31 @@ void PirateShowImageOnExamineUS(int noun) {
     int image = -1;
     switch (noun) {
         case 34: /* Plans */
-            if (Items[29].Location == CARRIED || Items[29].Location == MyLoc)
+            if (IsPresent(29))
                 image = 1;
             break;
         case 10: /* Book */
-            if (Items[3].Location == CARRIED || Items[3].Location == MyLoc)
+            if (IsPresent(3))
                 image = 2;
             break;
         case 66: /* Stamps */
-            if (Items[50].Location == CARRIED || Items[50].Location == MyLoc)
+            if (IsPresent(50))
                 image = 3;
             break;
         case 38: /* Coffin */
-            if (Items[13].Location == CARRIED || Items[13].Location == MyLoc)
+            if (IsPresent(13))
                 image = 4;
             break;
         case 29: /* DUBLOONS */
-            if (Items[22].Location == CARRIED || Items[22].Location == MyLoc)
+            if (IsPresent(22))
                 image = 5;
             break;
         case 53: /* Map */
-            if (Items[45].Location == CARRIED || Items[45].Location == MyLoc)
+            if (IsPresent(45))
                 image = 6;
             break;
         case 39: /* Parrot */
-            if (Items[24].Location == CARRIED || Items[24].Location == MyLoc)
+            if (IsPresent(24))
                 image = 7;
             break;
         default:
@@ -683,20 +693,20 @@ void MissionShowImageOnExamineUS(int noun) {
     int image = -1;
     switch (noun) {
         case 14: // "Picture"
-            if (Items[1].Location == CARRIED || Items[1].Location == MyLoc) {
+            if (IsPresent(1)) {
                 image = 1; // Security
-            } else if (Items[41].Location == CARRIED || Items[41].Location == MyLoc) {
+            } else if (IsPresent(41)) {
                 image = 3; // Maintenance
-            } else if (Items[7].Location == CARRIED || Items[7].Location == MyLoc) {
+            } else if (IsPresent(7)) {
                 image = 2; // Visitor
             }
             break;
         case 7: // Recorder
-            if (Items[3].Location == CARRIED || Items[3].Location == MyLoc)
+            if (IsPresent(3))
                 image = 4;
             break;
         case 29: // Bomb
-            if (Items[28].Location == CARRIED || Items[28].Location == MyLoc)
+            if (IsPresent(28))
                 image = 5;
             break;
         default:
@@ -710,7 +720,7 @@ void StrangeShowImageOnExamineUS(int noun) {
     int image = -1;
     switch (noun) {
         case 22: // Phaser
-            if (Items[10].Location == CARRIED || Items[10].Location == MyLoc || Items[11].Location == CARRIED || Items[11].Location == MyLoc)
+            if (IsPresent(10) || IsPresent(11))
                 image = 1;
             break;
         case 30: // Control Console
@@ -722,11 +732,11 @@ void StrangeShowImageOnExamineUS(int noun) {
                 image = 3;
             break;
         case 69: /* Sculpture */
-            if (Items[44].Location == 0 && (Items[50].Location == CARRIED || Items[50].Location == MyLoc))
+            if (Items[44].Location == 0 && IsPresent(50))
                 image = 4;
             break;
         case 75: /* Goggles */
-            if (Items[51].Location == CARRIED || Items[51].Location == MyLoc)
+            if (IsPresent(51))
                 image = 5;
             break;
         case 58: /* Belt */
@@ -734,11 +744,11 @@ void StrangeShowImageOnExamineUS(int noun) {
                 image = 6;
             break;
         case 8: /* Hound */
-            if (Items[30].Location == MyLoc || Items[31].Location == MyLoc || Items[31].Location == CARRIED)
+            if (Items[30].Location == MyLoc || IsPresent(31))
                 image = 7;
             break;
         case 56: /* Ice Diamond */
-            if (Items[43].Location == CARRIED || Items[43].Location == MyLoc )
+            if (IsPresent(43))
                 image = 8;
             break;
         default:

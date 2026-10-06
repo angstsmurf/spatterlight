@@ -162,7 +162,7 @@ void UpdateUSInventory(void)
 
 int ItIsDark(void)
 {
-    return ((BitFlags & (1 << DARKBIT)) && Items[LIGHT_SOURCE].Location != CARRIED && Items[LIGHT_SOURCE].Location != MyLoc);
+    return ((BitFlags & (1 << DARKBIT)) && !IsPresent(LIGHT_SOURCE));
 }
 
 void DrawBlack(void)

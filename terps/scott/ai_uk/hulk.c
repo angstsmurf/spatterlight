@@ -6,6 +6,7 @@
 //
 
 #include "apple2draw.h"
+#include "game_specific.h"
 #include "saga.h"
 #include "sagagraphics.h"
 #include "scott.h"
@@ -24,16 +25,16 @@ void HulkShowImageOnExamineUS(int noun)
         break;
     case 124: // Bio-Gem
     case 41:
-        if (Items[18].Location == MyLoc || Items[18].Location == CARRIED)
+        if (IsPresent(18))
             image = 1;
         break;
     case 108:
-        if (Items[17].Location == MyLoc || Items[17].Location == CARRIED)
+        if (IsPresent(17))
             // Natter energy egg
             image = 2;
         break;
     case 72:
-        if (Items[20].Location == MyLoc || Items[20].Location == CARRIED)
+        if (IsPresent(20))
             // Alien army ants
             image = 3;
         break;
@@ -58,16 +59,7 @@ void HulkShowImageOnExamineUS(int noun)
         break;
     }
 
-    if (image >= 0) {
-        glk_window_clear(Graphics);
-        if (DrawUSRoom(90 + image)) {
-            showing_closeup = 1;
-            if (CurrentSys == SYS_APPLE2)
-                DrawApple2ImageFromVideoMem();
-            Output(sys[HIT_ENTER]);
-            HitEnter();
-        }
-    }
+    ShowUSCloseup(image, 90);
 }
 
 void HulkShowImageOnExamine(int noun)
@@ -84,13 +76,13 @@ void HulkShowImageOnExamine(int noun)
             image = 28;
         break;
     case 108:
-        if (Items[17].Location == MyLoc || Items[17].Location == CARRIED)
+        if (IsPresent(17))
             // Natter energy egg
             image = 30;
         break;
     case 124: // Bio-Gem
     case 41:
-        if (Items[18].Location == MyLoc || Items[18].Location == CARRIED)
+        if (IsPresent(18))
             image = 29;
         break;
     case 21: // Killer Bees
@@ -108,12 +100,8 @@ void HulkShowImageOnExamine(int noun)
     default:
         break;
     }
-    if (image) {
-        DrawImage(image);
-        showing_closeup = 1;
-        Output(sys[HIT_ENTER]);
-        HitEnter();
-    }
+    if (image)
+        ShowCloseup(image);
 }
 
 void HulkLook(void)
@@ -177,10 +165,6 @@ void DrawHulkImage(int p)
         break;
     }
 
-    if (image != 0) {
-        DrawImage(image);
-        showing_closeup = 1;
-        Output(sys[HIT_ENTER]);
-        HitEnter();
-    }
+    if (image != 0)
+        ShowCloseup(image);
 }

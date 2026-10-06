@@ -926,13 +926,13 @@ Distributed under the GNU software license\n\n");
             GameHeader.LightTime--;
             if (GameHeader.LightTime < 1) {
                 SetBitFlag(LIGHTOUTBIT);
-                if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
+                if (IsPresent(LIGHT_SOURCE)) {
                     Output(sys[LIGHT_HAS_RUN_OUT]);
                 }
                 if ((Options & PREHISTORIC_LAMP) || (Game->subtype & MYSTERIOUS))
                     Items[LIGHT_SOURCE].Location = DESTROYED;
             } else if (GameHeader.LightTime < LAMP_WARNING_THRESHOLD) {
-                if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
+                if (IsPresent(LIGHT_SOURCE)) {
                     if ((Options & SCOTTLIGHT) || (Game->subtype & MYSTERIOUS)) {
                         Display(Bottom, "%s %d %s\n", sys[LIGHT_RUNS_OUT_IN], GameHeader.LightTime, sys[TURNS]);
                     } else {

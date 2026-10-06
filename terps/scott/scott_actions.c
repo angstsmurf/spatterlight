@@ -357,7 +357,7 @@ int ConditionHolds(int condition, int arg)
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s held or in location?\n", Items[arg].Text);
 #endif
-            if (Items[arg].Location != CARRIED && Items[arg].Location != MyLoc)
+            if (!IsPresent(arg))
                 return 0;
             break;
         case COND_AT_LOC:
@@ -420,7 +420,7 @@ int ConditionHolds(int condition, int arg)
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s neither carried nor in room?\n", Items[arg].Text);
 #endif
-            if (Items[arg].Location == CARRIED || Items[arg].Location == MyLoc)
+            if (IsPresent(arg))
                 return 0;
             break;
         case COND_IN_PLAY:

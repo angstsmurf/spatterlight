@@ -34,6 +34,7 @@ void Supergran64Sysmess(void);
 void SecretMission64Sysmess(void);
 void UpdateSecretAnimations(void);
 
+void ShowCloseup(int image);
 void ShowUSCloseup(int image, int offset);
 
 void CountShowImageOnExamineUS(int noun);

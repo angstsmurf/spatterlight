@@ -204,4 +204,10 @@ int SelectGameFromMenu(const char *intro, const char **titles, int count);
 void RestartGame(void);
 void LoadGame(void);
 
+/* Is the item carried or in the current room? */
+static inline int IsPresent(int item)
+{
+    return Items[item].Location == CARRIED || Items[item].Location == MyLoc;
+}
+
 #endif /* scott_h */
