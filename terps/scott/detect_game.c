@@ -219,8 +219,7 @@ static uint8_t *ReadDictionary(const GameInfo *info, uint8_t *ptr)
         }
         dictword[charindex] = 0;
 
-        char *word = MemAlloc(charindex + 1);
-        memcpy(word, dictword, charindex + 1);
+        char *word = MemStrndup(dictword, charindex);
         if (wordnum < nv) {
             Verbs[wordnum] = word;
             debug_print("Verb %d: \"%s\"\n", wordnum, word);
@@ -585,9 +584,7 @@ static int ReadBinaryRoomDescs(uint8_t **ptr, int num_rooms, int has_pictures, i
             p++;
         if (*p > 127)
             return 0;
-        size_t len = p - *ptr;
-        Rooms[ct].Text = MemAlloc(len + 1);
-        memcpy(Rooms[ct].Text, *ptr, len + 1);
+        Rooms[ct].Text = MemStrndup((char *)*ptr, p - *ptr);
         debug_print("Room %d: %s\n", ct, Rooms[ct].Text);
         if (vector || !has_pictures)
             Rooms[ct].Image = has_pictures ? ct - 1 : 255;
@@ -694,8 +691,7 @@ void AllocateGameData(void)
 static char *ReadBinaryString(uint8_t **ptr)
 {
     size_t len = strlen((char *)*ptr);
-    char *result = MemAlloc(len + 1);
-    memcpy(result, *ptr, len + 1);
+    char *result = MemStrndup((char *)*ptr, len);
     *ptr += len + 1;
     return result;
 }
@@ -774,10 +770,7 @@ static void ReadBinaryItemDescs(uint8_t **ptr, int num_items)
         uint8_t *p = *ptr;
         while (*p > 0 && *p <= 126)
             p++;
-        size_t len = p - *ptr;
-        Items[ct].Text = MemAlloc(len + 1);
-        memcpy(Items[ct].Text, *ptr, len);
-        Items[ct].Text[len] = 0;
+        Items[ct].Text = MemStrndup((char *)*ptr, p - *ptr);
         *ptr = p + 1;
         ParseItemSlashAutoGet(ct);
     }

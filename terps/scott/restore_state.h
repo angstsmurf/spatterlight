@@ -10,9 +10,11 @@
 
 #include <stdint.h>
 
+#include "scott.h"
+
 typedef struct SavedState {
-    int Counters[16];
-    int RoomSaved[16];
+    int Counters[NUM_COUNTERS];
+    int RoomSaved[NUM_COUNTERS];
     long BitFlags;
     int CurrentLoc;
     int CurrentCounter;

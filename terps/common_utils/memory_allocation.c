@@ -6,6 +6,7 @@
 //
 
 #include <stdlib.h>
+#include <string.h>
 
 #include "memory_allocation.h"
 
@@ -33,4 +34,12 @@ void *MemRealloc(void *ptr, size_t size)
     if (t == NULL)
         Fatal("Out of memory");
     return (t);
+}
+
+char *MemStrndup(const char *string, size_t len)
+{
+    char *t = MemAlloc(len + 1);
+    memcpy(t, string, len);
+    t[len] = 0;
+    return t;
 }

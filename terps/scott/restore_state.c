@@ -13,12 +13,6 @@
 
 #define MAX_UNDOS 100
 
-extern int CurrentCounter;
-extern int RoomSaved[]; /* Range unknown */
-
-extern int StopTime;
-extern int JustStarted;
-
 SavedState *InitialState = NULL;
 static SavedState *ramsave = NULL;
 static SavedState *last_undo = NULL;
@@ -29,7 +23,7 @@ static int number_of_undos;
 SavedState *SaveCurrentState(void)
 {
     SavedState *s = (SavedState *)MemAlloc(sizeof(SavedState));
-    for (int ct = 0; ct < 16; ct++) {
+    for (int ct = 0; ct < NUM_COUNTERS; ct++) {
         s->Counters[ct] = Counters[ct];
         s->RoomSaved[ct] = RoomSaved[ct];
     }
@@ -70,7 +64,7 @@ void RecoverFromBadRestore(SavedState *state)
 
 void RestoreState(SavedState *state)
 {
-    for (int ct = 0; ct < 16; ct++) {
+    for (int ct = 0; ct < NUM_COUNTERS; ct++) {
         Counters[ct] = state->Counters[ct];
         RoomSaved[ct] = state->RoomSaved[ct];
     }

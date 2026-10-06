@@ -232,15 +232,28 @@ void SwapCounters(int index)
 #endif
 }
 
+/* Turn the light on and move the player to the last room, which the
+   games use as the death room */
+static void MoveToDeathRoom(void)
+{
+    SetLight();
+    MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
+    should_look_in_transcript = should_draw_image = 1;
+}
+
 void PlayerIsDead(void)
 {
 #ifdef DEBUG_ACTIONS
     debug_print("Player is dead\n");
 #endif
     Output(sys[IM_DEAD]);
-    SetLight();
-    should_look_in_transcript = should_draw_image = 1;
-    MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
+    MoveToDeathRoom();
+}
+
+/* Where TAKE (the current room) or DROP (the inventory) finds its items */
+int TakeOrDropSource(int verb)
+{
+    return (verb == TAKE) ? MyLoc : CARRIED;
 }
 
 static void PrintTakenOrDropped(int index)
@@ -842,10 +855,8 @@ ExplicitResultType PerformActions(int vb, int no)
             return ER_SUCCESS;
         }
         if (dark) {
-            SetLight();
-            MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
+            MoveToDeathRoom();
             Output(sys[YOU_FELL_AND_BROKE_YOUR_NECK]);
-            should_look_in_transcript = should_draw_image = 1;
             return ER_SUCCESS;
         }
         Output(sys[YOU_CANT_GO_THAT_WAY]);
@@ -972,9 +983,7 @@ ExplicitResultType PerformActions(int vb, int no)
                     return ER_SUCCESS;
                 }
                 item = CurrentCommand->item;
-                int location = CARRIED;
-                if (vb == TAKE)
-                    location = MyLoc;
+                int location = TakeOrDropSource(vb);
                 /* The ALL chain is built when the line is parsed, so an action
                    that ran earlier in the chain may have moved this item since.
                    Skip just this node and let the chain go on to the next one.

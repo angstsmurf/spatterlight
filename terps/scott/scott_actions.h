@@ -32,5 +32,6 @@ void SetLight(void);
 void SwapCounters(int index);
 void SwapItemLocations(int itemA, int itemB);
 void SwapLocAndRoomflag(int index);
+int TakeOrDropSource(int verb);
 
 #endif /* scott_actions_h */

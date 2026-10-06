@@ -184,6 +184,25 @@ void Display(winid_t w, const char *fmt, ...)
     va_end(ap);
 }
 
+#ifdef SPATTERLIGHT
+/* Apply a three-way UI setting to a pair of mutually exclusive option
+   flags: 0 clears both, 1 sets the first, 2 sets the second. */
+static void SetExclusiveOptions(int setting, int first, int second)
+{
+    switch (setting) {
+    case 0:
+        Options &= ~(first | second);
+        break;
+    case 1:
+        Options = (Options | first) & ~second;
+        break;
+    case 2:
+        Options = (Options | second) & ~first;
+        break;
+    }
+}
+#endif
+
 /* Sync game options from the Spatterlight UI settings (delays, flicker,
    inventory display mode, palette override) and refresh the display. */
 void UpdateSettings(void)
@@ -199,29 +218,8 @@ void UpdateSettings(void)
     else
         Options &= ~FLICKER_ON;
 
-    switch (gli_sa_inventory) {
-    case 0:
-        Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
-        break;
-    case 1:
-        Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
-        break;
-    case 2:
-        Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
-        break;
-    }
-
-    switch (gli_sa_palette) {
-    case 0:
-        Options &= ~(FORCE_PALETTE_ZX | FORCE_PALETTE_C64);
-        break;
-    case 1:
-        Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
-        break;
-    case 2:
-        Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
-        break;
-    }
+    SetExclusiveOptions(gli_sa_inventory, FORCE_INVENTORY, FORCE_INVENTORY_OFF);
+    SetExclusiveOptions(gli_sa_palette, FORCE_PALETTE_ZX, FORCE_PALETTE_C64);
 #endif
 
     if (DrawingVector())
@@ -399,13 +397,29 @@ static char *ReadString(FILE *f)
         else
             tmp[ct++] = '?';
     }
-    tmp[ct] = 0;
-    char *result = MemAlloc(ct + 1);
-    memcpy(result, tmp, ct + 1);
-    return result;
+    return MemStrndup(tmp, ct);
 }
 
 int header[24];
+
+/* Free a database string, unless it is unset (a database that failed to
+   load halfway will have NULL strings in its arrays) or the shared "."
+   placeholder. */
+static void FreeDatabaseString(char *string)
+{
+    if (string != NULL && string[0] != '.')
+        free(string);
+}
+
+/* Free entries 0..last of a string array, then the array itself */
+static void FreeStringArray(char **array, int last)
+{
+    if (array == NULL)
+        return;
+    for (int i = 0; i <= last; i++)
+        FreeDatabaseString(array[i]);
+    free(array);
+}
 
 /* Free all dynamically allocated game data arrays (actions, items, rooms,
    dictionary, messages). Frees individual string elements that aren't
@@ -414,48 +428,19 @@ void FreeDatabase(void)
 {
     if (Actions != NULL)
         free(Actions);
-    /* A database that failed to load halfway will have unset (NULL)
-       strings in its arrays. */
     if (Items != NULL) {
-        for (int i = 0; i <= GameHeader.NumItems; i++) {
-            if (Items[i].Text != NULL && Items[i].Text[0] != '.') {
-                free(Items[i].Text);
-            }
-        }
+        for (int i = 0; i <= GameHeader.NumItems; i++)
+            FreeDatabaseString(Items[i].Text);
         free(Items);
     }
     if (Rooms != NULL) {
-        for (int i = 0; i <= GameHeader.NumRooms; i++) {
-            if (Rooms[i].Text != NULL && Rooms[i].Text[0] != '.') {
-                free(Rooms[i].Text);
-            }
-        }
+        for (int i = 0; i <= GameHeader.NumRooms; i++)
+            FreeDatabaseString(Rooms[i].Text);
         free(Rooms);
     }
-    if (Nouns != NULL) {
-        for (int i = 0; i <= GameHeader.NumWords; i++) {
-            if (Nouns[i] != NULL && Nouns[i][0] != '.') {
-                free(Nouns[i]);
-            }
-        }
-        free(Nouns);
-    }
-    if (Verbs != NULL) {
-        for (int i = 0; i <= GameHeader.NumWords; i++) {
-            if (Verbs[i] != NULL && Verbs[i][0] != '.') {
-                free(Verbs[i]);
-            }
-        }
-        free(Verbs);
-    }
-    if (Messages != NULL) {
-        for (int i = 0; i <= GameHeader.NumMessages; i++) {
-            if (Messages[i] != NULL && Messages[i][0] != '.') {
-                free(Messages[i]);
-            }
-        }
-        free(Messages);
-    }
+    FreeStringArray(Nouns, GameHeader.NumWords);
+    FreeStringArray(Verbs, GameHeader.NumWords);
+    FreeStringArray(Messages, GameHeader.NumMessages);
 
     Items = NULL;
     Actions = NULL;

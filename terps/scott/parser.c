@@ -9,6 +9,7 @@
 
 #include "parser.h"
 #include "scott.h"
+#include "scott_actions.h"
 
 #include "bsd.h"
 
@@ -1194,9 +1195,7 @@ static int CreateAllCommands(Command *command)
     int exceptions[MAX_ITEM_LIMIT];
     int exceptioncount = 0;
 
-    int location = CARRIED;
-    if (command->verb == TAKE)
-        location = MyLoc;
+    int location = TakeOrDropSource(command->verb);
 
     Command *next = command->next;
     /* Check if the ALL command is followed by EXCEPT */
