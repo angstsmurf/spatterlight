@@ -72,6 +72,33 @@ Banzai*, *Spider-Man*, *Fantastic Four* and *Sorcerer of Claymorgue Castle*:
 
 Not covered: Apple II `.nib`, for want of a sample.
 
+## Two-disk sets under other names
+
+`make -f Makefile.headless companioncheck` takes the two-disk sets of the
+manifest (the rows with a `-disk2` twin) once more, in a scratch folder, and
+runs the probe on each disk
+
+- with the other disk missing, and
+- with both disks renamed to each pair of names in `companions.tsv`.
+
+`companions.tsv` says what is to come of it. An `alone` row holds, for one
+set, how the output of each disk on its own differs from its golden: nothing
+(`complete`), the pictures only, or the game is not recognized. A `names` row
+holds, for a pair of file names, whether the disks find each other (`found`)
+or load as they do alone (`not found`); it is run on every set with one of the
+row's file extensions, and all of them have to agree.
+
+The names are the patterns `../../../common_utils/companion_search.c`
+understands (`side A`/`side B`, `disk 1`/`disk 2`, `Disk One`/`Disk Two`, with
+a space, underscore or period, and a lone `1`/`2` or `A`/`B` before the
+extension), the extra guesses of `companionfile.c` (`[cr CSS]`, the
+`177a`/`177b` *Buckaroo Banzai*), and some names that must not match.
+
+- Intended change to the file name rules: `run_companion_tests.py test/images ./plus_image_probe --bless`, then review
+  `git diff companions.tsv`.
+- Another pair of names worth pinning: add a `names` row with any verdict and
+  bless.
+
 ## Adding or updating
 
 - New game: add a manifest row (`shasum -a 256`) and a companion row for

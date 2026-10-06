@@ -335,6 +335,11 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
         if (companionfile) {
             ExtractImagesFromAtariCompanionFile(companionfile, companionsize, main_disk, main_size);
             free(companionfile);
+        } else {
+            // No picture disk: play without pictures. The drawing code
+            // expects a list, if only an empty one.
+            Images = MemAlloc(sizeof(imgrec));
+            Images[0].Filename = NULL;
         }
     } else
         debug_print("Failed loading database\n");

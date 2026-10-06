@@ -109,6 +109,20 @@ uint8_t *CompanionBracketFallback(char *buffer, size_t bufsize, size_t namelen, 
     return NULL;
 }
 
+/* The replacement letter in the case of the letter it replaces, so that
+   "side a" gives "side b" and "Disk One" gives "Disk Two" on a file system
+   that tells them apart */
+static char match_case(char replacement, char original)
+{
+    return isupper((unsigned char)original) ? toupper((unsigned char)replacement) : tolower((unsigned char)replacement);
+}
+
+static void replace_word(char *position, const char *word)
+{
+    for (int i = 0; word[i] != '\0'; i++)
+        position[i] = match_case(word[i], position[i]);
+}
+
 static uint8_t *default_reader(const char *filename, size_t *size, void *user)
 {
     (void)user;
@@ -131,10 +145,10 @@ static uint8_t *LookForCompanionFilename(const char *gamefile, int index,
 
     switch (type) {
         case TYPE_A:
-            buffer[index] = 'A';
+            replace_word(buffer + index, "a");
             break;
         case TYPE_B:
-            buffer[index] = 'B';
+            replace_word(buffer + index, "b");
             break;
         case TYPE_1:
             buffer[index] = '1';
@@ -143,14 +157,10 @@ static uint8_t *LookForCompanionFilename(const char *gamefile, int index,
             buffer[index] = '2';
             break;
         case TYPE_ONE:
-            buffer[index] = 'o';
-            buffer[index + 1] = 'n';
-            buffer[index + 2] = 'e';
+            replace_word(buffer + index, "one");
             break;
         case TYPE_TWO:
-            buffer[index] = 't';
-            buffer[index + 1] = 'w';
-            buffer[index + 2] = 'o';
+            replace_word(buffer + index, "two");
             break;
         case TYPE_NONE:
             return NULL;
@@ -219,8 +229,8 @@ static CompanionNameType determine_type(const char *filename, size_t length,
         case 't':
             // Check for "two" -> look for "one"
             if (length > (size_t)(i + 4) &&
-                filename[i + 3] == 'w' &&
-                filename[i + 4] == 'o') {
+                tolower(filename[i + 3]) == 'w' &&
+                tolower(filename[i + 4]) == 'o') {
                 return TYPE_ONE;
             }
             break;
@@ -228,8 +238,8 @@ static CompanionNameType determine_type(const char *filename, size_t length,
         case 'o':
             // Check for "one" -> look for "two"
             if (length > (size_t)(i + 4) &&
-                filename[i + 3] == 'n' &&
-                filename[i + 4] == 'e') {
+                tolower(filename[i + 3]) == 'n' &&
+                tolower(filename[i + 4]) == 'e') {
                 return TYPE_TWO;
             }
             break;
@@ -277,8 +287,10 @@ uint8_t *FindCompanionFile(const char *gamefile, const CompanionSearch *search, 
 
         // Check if this position matches a companion file pattern
         if (is_companion_name(gamefile, i, c, search->match_char_before_extension) && gamefilelen > (size_t)(i + 2)) {
-            // Extract the separator character (space, underscore, or period)
-            if (c != '.') {
+            // A single character before the extension, or "side" or "disk"
+            // followed by a separator (space, underscore, or period)
+            int before_extension = (c == '.');
+            if (!before_extension) {
                 c = gamefile[i + 1];
             }
 
@@ -288,7 +300,7 @@ uint8_t *FindCompanionFile(const char *gamefile, const CompanionSearch *search, 
                 char disk_char;
                 int adjusted_index;
 
-                if (c == '.') {
+                if (before_extension) {
                     // Pattern: "file1.dsk" or "filea.dsk"
                     disk_char = tolower(gamefile[i - 1]);
                     adjusted_index = i - 3;

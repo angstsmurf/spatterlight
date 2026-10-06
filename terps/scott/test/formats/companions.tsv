@@ -1,0 +1,126 @@
+# What comes of a two-disk game when its disks are renamed or one is missing
+# (../../../common_imagetest/run_companion_tests.py).
+#
+# alone  id    first   second
+#     what the probe makes of each disk when the other one is not there:
+#     how its output differs from expected/<id>.txt
+#
+# names  exts  first   second   verdict
+#     the two disks of every set with one of these file extensions, named
+#     first and second: "found" if each finds the other, "not found" if both
+#     load as they do alone
+#
+alone	atr-s-a-g-a-05-the-count-v5-1-115-1983-a	UNKNOWN_GAME	lacks: usimages
+alone	atr-s-a-g-a-no-06-strange-odyssey-v5-0-1	differs: picture; lacks: usimages	NO FINGERPRINT: Unsupported game!!
+alone	atr-questprobe-1-the-hulk-v5-2-127-198x	UNKNOWN_GAME	lacks: usimages
+alone	atr-s-a-g-a-no-02-pirate-adventure-v5-0	differs: picture; lacks: usimages	UNKNOWN_GAME
+alone	atr-saga-no-13-the-sorcerer-of-claymorgu	lacks: usimages	UNKNOWN_GAME
+alone	atr-saga-5-the-count-side-a	lacks: usimages	UNKNOWN_GAME
+alone	atr-saga-4-voodoo-castle-side-a	lacks: usimages	UNKNOWN_GAME
+alone	atr-saga-3-mission-impossible-side-a	differs: picture; lacks: usimages	UNKNOWN_GAME
+alone	atr-s-a-g-a-01-adventureland-v5-0-416-19	UNKNOWN_GAME	differs: picture; lacks: usimages
+alone	d64-sorcerer-of-claymorgue-castle-s1-key	UNKNOWN_GAME	complete
+alone	do-questprobe-featuring-the-hulk-v2-3-12	lacks: usimages	UNKNOWN_GAME
+alone	do-cple-compil3-scott-adams-saga-2-pirat	lacks: usimages	differs: actions; lacks: usimages
+alone	do-sorcerer-of-claymorgue-castle-1981-ad	lacks: usimages	UNKNOWN_GAME
+alone	do-cple-compil3-scott-adams-saga-1-adven	lacks: usimages	UNKNOWN_GAME
+alone	dsk-scott-adams-graphic-adventure-5-the	UNKNOWN_GAME	lacks: usimages
+alone	dsk-scott-adams-graphic-adventure-6-stra	UNKNOWN_GAME	lacks: usimages
+alone	dsk-questprobe-featuring-the-hulk-4am-cr	UNKNOWN_GAME	lacks: usimages
+alone	dsk-hulk-the-1981-scott-adams-cr-disk-1	lacks: usimages	UNKNOWN_GAME
+alone	dsk-cple-compil3-scott-adams-saga-2-pira	lacks: usimages	differs: actions; lacks: usimages
+alone	dsk-sorcerer-of-claymorgue-castle-1981-a	lacks: usimages	UNKNOWN_GAME
+alone	dsk-scott-adams-graphic-adventure-4-vood	UNKNOWN_GAME	lacks: usimages
+alone	dsk-scott-adams-graphic-adventure-3-miss	UNKNOWN_GAME	lacks: usimages
+alone	dsk-adventureland-disk-1-side-a	UNKNOWN_GAME	lacks: usimages
+alone	woz-s-a-g-a-5-the-count-side-a	UNKNOWN_GAME	lacks: usimages
+alone	woz-s-a-g-a-6-strange-odyssey-side-a	UNKNOWN_GAME	lacks: usimages
+alone	woz-questprobe-featuring-the-hulk-side-a	UNKNOWN_GAME	lacks: usimages
+alone	woz-saga-2-pirate-adventure-v2-1-408-198	differs: actions; lacks: usimages	lacks: usimages
+alone	woz-s-a-g-a-13-sorcerer-of-claymorgue-ca	UNKNOWN_GAME	lacks: usimages
+alone	woz-s-a-g-a-4-voodoo-castle-side-a	UNKNOWN_GAME	lacks: usimages
+alone	woz-s-a-g-a-3-mission-impossible-side-a	UNKNOWN_GAME	lacks: usimages
+alone	woz-adventureland-disk-1-side-a	UNKNOWN_GAME	lacks: usimages
+names	atr	Game side A	Game side B	found
+names	atr	game side a	game side b	found
+names	atr	GAME SIDE A	GAME SIDE B	found
+names	atr	Game side 1	Game side 2	found
+names	atr	Game disk A	Game disk B	found
+names	atr	Game_disk_1	Game_disk_2	found
+names	atr	Game.disk.1	Game.disk.2	found
+names	atr	Game Disk One	Game Disk Two	found
+names	atr	Game side one	Game side two	found
+names	atr	Game (Disk 1 of 2)	Game (Disk 2 of 2)	found
+names	atr	Game (Side A)[cr CSS]	Game (Side B)	found
+names	atr	Game (Side A)	Game (Side B)[cr CSS]	not found
+names	atr	Game (Side A)[!]	Game (Side B)[!]	found
+names	atr	Game side A	Game side B (boot)	not found
+names	atr	Game side A	Game side B - boot	not found
+names	atr	Game side B	Game side A	found
+names	atr	Game1	Game2	not found
+names	atr	GameA	GameB	not found
+names	atr	Game-S1	Game-S2	not found
+names	atr	game_s1	game_s2	not found
+names	atr	Game	Other	not found
+names	dsk,do,woz	Game side A	Game side B	found
+names	dsk,do,woz	game side a	game side b	found
+names	dsk,do,woz	GAME SIDE A	GAME SIDE B	found
+names	dsk,do,woz	Game side 1	Game side 2	found
+names	dsk,do,woz	Game disk A	Game disk B	found
+names	dsk,do,woz	Game_disk_1	Game_disk_2	found
+names	dsk,do,woz	Game.disk.1	Game.disk.2	found
+names	dsk,do,woz	Game Disk One	Game Disk Two	found
+names	dsk,do,woz	Game side one	Game side two	found
+names	dsk,do,woz	Game (Disk 1 of 2)	Game (Disk 2 of 2)	found
+names	dsk,do,woz	Game (Side A)[cr CSS]	Game (Side B)	not found
+names	dsk,do,woz	Game (Side A)	Game (Side B)[cr CSS]	not found
+names	dsk,do,woz	Game (Side A)[!]	Game (Side B)[!]	found
+names	dsk,do,woz	Game side A	Game side B (boot)	found
+names	dsk,do,woz	Game side A	Game side B - boot	not found
+names	dsk,do,woz	Game side B	Game side A	found
+names	dsk,do,woz	Game1	Game2	not found
+names	dsk,do,woz	GameA	GameB	not found
+names	dsk,do,woz	Game-S1	Game-S2	not found
+names	dsk,do,woz	game_s1	game_s2	not found
+names	dsk,do,woz	Game	Other	not found
+names	d64	Game side A	Game side B	not found
+names	d64	game side a	game side b	not found
+names	d64	GAME SIDE A	GAME SIDE B	not found
+names	d64	Game side 1	Game side 2	not found
+names	d64	Game disk A	Game disk B	not found
+names	d64	Game_disk_1	Game_disk_2	not found
+names	d64	Game.disk.1	Game.disk.2	not found
+names	d64	Game Disk One	Game Disk Two	not found
+names	d64	Game side one	Game side two	not found
+names	d64	Game (Disk 1 of 2)	Game (Disk 2 of 2)	not found
+names	d64	Game (Side A)[cr CSS]	Game (Side B)	not found
+names	d64	Game (Side A)	Game (Side B)[cr CSS]	not found
+names	d64	Game (Side A)[!]	Game (Side B)[!]	not found
+names	d64	Game side A	Game side B (boot)	not found
+names	d64	Game side A	Game side B - boot	not found
+names	d64	Game side B	Game side A	not found
+names	d64	Game1	Game2	not found
+names	d64	GameA	GameB	not found
+names	d64	Game-S1	Game-S2	not found
+names	d64	game_s1	game_s2	found
+names	d64	Game	Other	not found
+names	atr	S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side A)[!]	S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side B)[!][cr CSS]	found
+names	atr	S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side A)[f][m]	S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side B)[cr CSS]	found
+names	atr	S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side A)[f][a]	S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side B)[a][cr CSS]	found
+names	atr	S.A.G.A. 04 - Voodoo Castle v5.1-119 (1983)(Adventure International)(US)(Disk 1 of 2)[!]	S.A.G.A. 04 - Voodoo Castle v5.1-119 (1983)(Adventure International)(US)(Disk 2 of 2)[!][cr CSS]	found
+names	atr	S.A.G.A. 05 - The Count v5.1-115 (1983)(Adventure International)(US)(Side A)[!]	S.A.G.A. 05 - The Count v5.1-115 (1983)(Adventure International)(US)(Side B)[!][cr CSS]	found
+names	atr	S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[!][cr CSS]	S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[f][!]	found
+names	atr	S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[a][cr CSS]	S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[a]	found
+names	atr	S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[a][cr CSS]	S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[a]	found
+names	dsk,do,woz	Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side A	Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side B - boot	found
+names	dsk,do,woz	SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side A)[48K]	SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K]	found
+names	dsk,do,woz	SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side A)[48K]	SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K]	found
+names	dsk,do,woz	Scott Adams Graphic Adventure 2 - Pirate Adventure v2.1-408 (4am crack) side A	Scott Adams Graphic Adventure 2 - Pirate Adventure v2.1-408 (4am crack) side B - boot	found
+names	dsk,do,woz	SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side A)[48K]	SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K]	found
+names	dsk,do,woz	SAGA #4 - Voodoo Castle v2.1-119 (1982)(Adventure International)(II+)(US)(Side A)[48K]	SAGA #4 - Voodoo Castle v2.1-119 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K]	found
+names	dsk,do,woz	Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side A	Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side B - boot	found
+names	dsk,do,woz	SAGA #5 - The Count v2.1-115 (1982)(Adventure International)(II+)(US)(Side A)[48K]	SAGA #5 - The Count v2.1-115 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K]	found
+names	dsk,do,woz	SAGA #6 - Strange Odyssey v2.1-119 (1982)(Adventure International)(II+)(US)(Side A)[48K]	SAGA #6 - Strange Odyssey v2.1-119 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K]	found
+names	dsk,do,woz	Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side A	Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side B - boot	found
+names	dsk,do,woz	Sorcerer of Claymorgue Castle (1981)(Adventure International)(Disk 1 of 2)[cr Zapman]	Sorcerer of Claymorgue Castle (1981)(Adventure International)(Disk 2 of 2)[cr Zapman][unk filesys]	found
+names	dsk,do,woz	Questprobe featuring The Hulk v2.3-126 (1984)(Adventure International)(Disk 1 of 2)[cr Syndicate - Whip]	Questprobe featuring The Hulk v2.3-126 (1984)(Adventure International)(Disk 2 of 2)(Data Disk)[cr Syndicate - Whip]	found

@@ -10,6 +10,7 @@
 #
 # Usage:
 #   make -f Makefile.headless imagecheck
+#   make -f Makefile.headless companioncheck
 #   make -f Makefile.headless scriptcheck
 #   ./plus_image_probe -d /tmp/pictures "/path/to/Spider-Man side A.atr"
 
@@ -71,6 +72,11 @@ $(PROBE_OBJS): $(OBJDIR)/%.o: $(PROBE_DIR)/%.c | $(OBJDIR)
 imagecheck: plus_image_probe
 	@python3 $(PROBE_DIR)/run_image_tests.py test/images ./plus_image_probe
 
+# The two-disk sets of the same games, with one disk missing and under other
+# file names: does each disk find the other? Skips like imagecheck.
+companioncheck: plus_image_probe
+	@python3 $(PROBE_DIR)/run_companion_tests.py test/images ./plus_image_probe
+
 # The interpreter on plain CheapGlk: commands on stdin, transcript on stdout,
 # no pictures. The same sources as the probe, built without the window
 # renames, with $(PROBE_DIR)/text_main.c in place of the probe and its window
@@ -98,6 +104,6 @@ scriptcheck: plus_hl
 clean:
 	rm -rf $(OBJDIR) $(TEXT_OBJDIR) plus_image_probe plus_hl
 
-.PHONY: clean imagecheck scriptcheck
+.PHONY: clean imagecheck companioncheck scriptcheck
 
 -include $(OBJS:.o=.d) $(TEXT_OBJS:.o=.d)

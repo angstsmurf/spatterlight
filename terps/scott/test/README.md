@@ -43,6 +43,9 @@
   tests: every container format `DetectGame()` reads, fingerprinted with
   `test/format_probe.c` and compared with goldens. The images are not in the
   repository; see `test/formats/README.md`.
+- `make -f Makefile.headless companioncheck` — the two-disk sets of those
+  images with one disk missing and under other file names: which names let a
+  disk find the other one. Also in `test/formats/README.md`.
 
 ## DETERMINISM is mandatory
 

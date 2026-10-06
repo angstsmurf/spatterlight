@@ -63,6 +63,35 @@ Not covered, for want of a sample: Apple II `.nib`. `.dat`, `.saga` and `.sag` a
 the above, or a plain ScottFree database, under another name); the plain
 database is covered by `make check`.
 
+## Two-disk sets under other names
+
+`make -f Makefile.headless companioncheck` takes the two-disk sets of the
+manifest (the rows with a `-disk2` twin) once more, in a scratch folder, and
+runs the probe on each disk
+
+- with the other disk missing, and
+- with both disks renamed to each pair of names in `companions.tsv`.
+
+`companions.tsv` says what is to come of it. An `alone` row holds, for one
+set, how the output of each disk on its own differs from its golden: nothing
+(`complete`), the pictures only, or the game is not recognized. A `names` row
+holds, for a pair of file names, whether the disks find each other (`found`)
+or load as they do alone (`not found`); it is run on every set with one of the
+row's file extensions, and all of them have to agree.
+
+The names are the patterns `../../../common_utils/companion_search.c`
+understands (`side A`/`side B`, `disk 1`/`disk 2`, `Disk One`/`Disk Two`, with
+a space, underscore or period), the extra guesses of each system (`[cr CSS]`
+on Atari, `(boot)` on Apple II, `s1`/`s2` for the C64 *Claymorgue*), some
+names that must not match, and every pair that `saga/atari8detect.c` and
+`saga/apple2detect.c` know by heart. Those are read from the source: a pair
+added there fails the run until it is a `names` row, which `--bless` makes it.
+
+- Intended change to the file name rules: `run_companion_tests.py --bless`, then review
+  `git diff companions.tsv`.
+- Another pair of names worth pinning: add a `names` row with any verdict and
+  bless.
+
 ## Adding or updating
 
 - New image: add a manifest row (`shasum -a 256`), put the file in

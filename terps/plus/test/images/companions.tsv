@@ -1,0 +1,67 @@
+# What comes of a two-disk game when its disks are renamed or one is missing
+# (../../../common_imagetest/run_companion_tests.py).
+#
+# alone  id    first   second
+#     what the probe makes of each disk when the other one is not there:
+#     how its output differs from expected/<id>.txt
+#
+# names  exts  first   second   verdict
+#     the two disks of every set with one of these file extensions, named
+#     first and second: "found" if each finds the other, "not found" if both
+#     load as they do alone
+#
+alone	dsk-spider-man	PROBE FAILED: image probe: the game exited before its first prompt	complete
+alone	dsk-buckaroo-banzai	PROBE FAILED: image probe: the game exited before its first prompt	complete
+alone	dsk-fantastic-four	PROBE FAILED: image probe: the game exited before its first prompt	complete
+alone	dsk-buckaroo-banzai-3	PROBE FAILED: image probe: the game exited before its first prompt	complete
+alone	atr-buckaroo-banzai	4 of 106 lines as in the golden	PROBE FAILED: image probe: the game exited before its first prompt
+alone	atr-spider-man	5 of 112 lines as in the golden	PROBE FAILED: image probe: the game exited before its first prompt
+alone	atr-fantastic-four	4 of 105 lines as in the golden	PROBE FAILED: image probe: the game exited before its first prompt
+alone	do-spider-man	PROBE FAILED: image probe: the game exited before its first prompt	complete
+alone	do-fantastic-four	PROBE FAILED: image probe: the game exited before its first prompt	complete
+alone	atr-buckaroo-banzai-2	PROBE FAILED: image probe: the game exited before its first prompt	4 of 106 lines as in the golden
+alone	woz-spider-man	PROBE FAILED: image probe: the game exited before its first prompt	complete
+names	atr	Game side A	Game side B	found
+names	atr	game side a	game side b	found
+names	atr	GAME SIDE A	GAME SIDE B	found
+names	atr	Game side 1	Game side 2	found
+names	atr	Game disk A	Game disk B	found
+names	atr	Game_disk_1	Game_disk_2	found
+names	atr	Game.disk.1	Game.disk.2	found
+names	atr	Game Disk One	Game Disk Two	found
+names	atr	Game side one	Game side two	found
+names	atr	Game (Disk 1 of 2)	Game (Disk 2 of 2)	found
+names	atr	Game (Side A)[cr CSS]	Game (Side B)	found
+names	atr	Game (Side A)	Game (Side B)[cr CSS]	not found
+names	atr	Game (Side A)[!]	Game (Side B)[!]	found
+names	atr	Game side A	Game side B (boot)	not found
+names	atr	Game side A	Game side B - boot	not found
+names	atr	Game side B	Game side A	found
+names	atr	Game1	Game2	found
+names	atr	GameA	GameB	found
+names	atr	Game-S1	Game-S2	found
+names	atr	game_s1	game_s2	found
+names	atr	Game	Other	not found
+names	dsk,do,woz	Game side A	Game side B	found
+names	dsk,do,woz	game side a	game side b	found
+names	dsk,do,woz	GAME SIDE A	GAME SIDE B	found
+names	dsk,do,woz	Game side 1	Game side 2	found
+names	dsk,do,woz	Game disk A	Game disk B	found
+names	dsk,do,woz	Game_disk_1	Game_disk_2	found
+names	dsk,do,woz	Game.disk.1	Game.disk.2	found
+names	dsk,do,woz	Game Disk One	Game Disk Two	found
+names	dsk,do,woz	Game side one	Game side two	found
+names	dsk,do,woz	Game (Disk 1 of 2)	Game (Disk 2 of 2)	found
+names	dsk,do,woz	Game (Side A)[cr CSS]	Game (Side B)	found
+names	dsk,do,woz	Game (Side A)	Game (Side B)[cr CSS]	not found
+names	dsk,do,woz	Game (Side A)[!]	Game (Side B)[!]	found
+names	dsk,do,woz	Game side A	Game side B (boot)	not found
+names	dsk,do,woz	Game side A	Game side B - boot	not found
+names	dsk,do,woz	Game side B	Game side A	found
+names	dsk,do,woz	Game1	Game2	found
+names	dsk,do,woz	GameA	GameB	found
+names	dsk,do,woz	Game-S1	Game-S2	found
+names	dsk,do,woz	game_s1	game_s2	found
+names	dsk,do,woz	Game	Other	not found
+names	dsk,do,woz	177a - Buckaroo Banzai - Side 1	177b - Buckaroo Banzai - Side 2	found
+names	dsk,do,woz	177a - Game - Side 1	177b - Game - Side 2	not found
