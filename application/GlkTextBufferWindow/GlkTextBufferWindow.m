@@ -142,6 +142,7 @@
         scrollview.accessibilityLabel = @"buffer scroll view";
 
         [self addSubview:scrollview];
+        [self observeLiveScroll];
 
         if (self.glkctl.usesFont3)
             [self createBeyondZorkStyle];
@@ -395,7 +396,7 @@
         // wasAtBottom was captured before the append above, so it reflects
         // whether the user was following output rather than the just-grown
         // document (which always reads as "not at bottom" until we scroll).
-        // This is the resume counterpart to scrollWheelchanged's pause and
+        // This is the resume counterpart to userDidScrollFromPosition's pause and
         // covers both command-script and timer-driven output.
         if (pauseScrolling && wasAtBottom)
             pauseScrolling = NO;
@@ -422,35 +423,76 @@
     [NSUserDefaults.standardUserDefaults setValue:hyphenationLanguage forKey:@"NSHyphenationLanguage"];
 }
 
-// Track scroll wheel activity while the game produces unattended output —
+// Track user scrolling while the game produces unattended output —
 // command-script playback or a timer-driven (real-time/animated) game.
 // Scrolling up pauses auto-scrolling so the user can read; scrolling back to
 // the bottom resumes it.
 //
-// Called from -[BufferTextView scrollWheel:] *after* the event has been
-// applied, so scrolledToBottom reflects the current position. Resume uses the
-// strict scrolledToBottom test (not the old "within one viewport of the
-// bottom" test), so the trackpad-momentum sub-events — whose deltas wobble in
-// both directions — can no longer cancel the pause the instant it is set,
-// which is what made scrolling up nearly impossible.
+// Called *after* the scroll has been applied, with the clip origin from
+// before it, by every route the user has for moving the view: the scroll
+// wheel, a live scroll (trackpad gesture or scroller knob), and the paging
+// keys. The verdict comes from where the view ended up, not from the event's
+// deltas: a gesture's opening event often carries no delta at all, and the
+// trackpad-momentum sub-events wobble in both directions.
 //
-// The at-bottom test takes priority over the upward-delta pause: once the user
-// has scrolled back down to the bottom, a trackpad rubber-band/momentum bounce
-// emits a spurious upward delta there, which would otherwise re-arm the pause
+// The at-bottom test takes priority: once the user has scrolled back down to
+// the bottom, a rubber-band/momentum bounce there must not re-arm the pause
 // while the view is sitting on the input prompt — leaving auto-scroll stuck off
 // after the next command. Being at the bottom always resumes (and never
-// pauses).
-- (void)scrollWheelchanged:(NSEvent *)event {
+// pauses). It is the strict scrolledToBottom test, not "within one viewport of
+// the bottom", so that a pause just set is not cancelled straight away.
+- (void)userDidScrollFromPosition:(CGFloat)oldPosition {
     if (self.glkctl.commandScriptRunning || self.glkctl.timerActive) {
         if (self.scrolledToBottom) {
-            // At the very bottom. Resume scrolling, and never let a momentum
-            // bounce's upward delta re-pause us here.
             pauseScrolling = NO;
-        } else if (event.scrollingDeltaY > 0) {
-            // Scrollbar moved up, away from the bottom. Pause scrolling.
+        } else if (scrollview.contentView.bounds.origin.y < oldPosition) {
+            // The view moved up, away from the bottom. Auto-scroll only ever
+            // moves it down, so this was the user.
             pauseScrolling = YES;
         }
     }
+}
+
+// The same, for an upward scroll that may be applied as a short animation (a
+// plain mouse wheel tick, a paging key): the view may not have moved yet, in
+// which case the test saw nothing, so look again once it has had time to land.
+- (void)userDidScrollUpFromPosition:(CGFloat)oldPosition {
+    [self userDidScrollFromPosition:oldPosition];
+    if (!pauseScrolling) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self userDidScrollFromPosition:oldPosition];
+        });
+    }
+}
+
+// Called from -[BufferTextView scrollWheel:] after the event has been passed
+// on to the scroll view.
+- (void)scrollWheelchanged:(NSEvent *)event fromPosition:(CGFloat)oldPosition {
+    if (event.scrollingDeltaY > 0)
+        [self userDidScrollUpFromPosition:oldPosition];
+    else
+        [self userDidScrollFromPosition:oldPosition];
+}
+
+// Live scrolls — trackpad gestures and dragging the scroller knob — are
+// tracked by the scroll view itself and mostly never reach scrollWheel:, so
+// follow them through its notifications instead.
+- (void)observeLiveScroll {
+    NSNotificationCenter *center = NSNotificationCenter.defaultCenter;
+    [center addObserver:self selector:@selector(willStartLiveScroll:)
+                   name:NSScrollViewWillStartLiveScrollNotification object:scrollview];
+    [center addObserver:self selector:@selector(didLiveScroll:)
+                   name:NSScrollViewDidLiveScrollNotification object:scrollview];
+    [center addObserver:self selector:@selector(didLiveScroll:)
+                   name:NSScrollViewDidEndLiveScrollNotification object:scrollview];
+}
+
+- (void)willStartLiveScroll:(NSNotification *)notification {
+    liveScrollStartPosition = scrollview.contentView.bounds.origin.y;
+}
+
+- (void)didLiveScroll:(NSNotification *)notification {
+    [self userDidScrollFromPosition:liveScrollStartPosition];
 }
 
 // Make this window's text view the first responder (keyboard focus).

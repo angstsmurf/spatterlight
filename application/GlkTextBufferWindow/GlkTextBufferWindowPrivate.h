@@ -61,7 +61,9 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL rewrapFollowupScroll;          // A deferred auto-scroll was pending when the rewrap hit;
                                         // re-run it once the restore has made coordinates valid again
 
-    BOOL pauseScrolling;               // Temporarily pause auto-scrolling (during command scripts)
+    BOOL pauseScrolling;               // Temporarily pause auto-scrolling: the user scrolled up to
+                                       // read while a command script or timer-driven game prints
+    CGFloat liveScrollStartPosition;   // Clip origin y when the current live scroll began
     BOOL commandScriptWasRunning;      // Track command script transitions
 
     BOOL scrolling;                    // YES during animated scroll to prevent re-entry
@@ -114,6 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)coalescePendingEchoDeleteWithAppend:(NSAttributedString *)toAppend;
 - (BOOL)applyPendingEchoDeleteIfValid;
 - (void)configureBufferTextView:(BufferTextView *)textView;
+- (void)observeLiveScroll;
 
 @end
 

@@ -1276,6 +1276,242 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     }];
 }
 
+// Scrolling up to read the scrollback while a timer-driven game keeps printing
+// must hold the view where the user put it: the output (and the input request
+// that follows it) may not drag the view back down. Scrolling back to the
+// bottom, or answering the prompt, resumes following.
+//
+// The Archers runs a Glk timer throughout, so pressing a key here stands in
+// for output arriving by itself: sendKeypress: goes straight to the
+// interpreter, without passing through the key handling that a real keypress
+// would use to page or to return to the prompt.
+- (void)testScrollingUpPausesAutoScrollInTimerGame {
+    XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import completes"];
+    XCTestExpectation *scrollTestExpectation = [self expectationWithDescription:@"Scroll pause test completes"];
+
+    NSURL *gameFileURL = [self gameFileURLForFileNamed:@"The Archers - Side 1.tzx"];
+
+    [self deleteGameAtPath:gameFileURL.path];
+
+    NSUInteger initialCount = [self currentGameCount];
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
+
+    GameImporter *importer = [self createGameImporter];
+    GameLauncher *launcher = [self createAndSetupGameLauncher];
+
+    void (^after)(double, dispatch_block_t) = ^(double seconds, dispatch_block_t block) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
+    };
+
+    [self observeImportCompletionWithInitialCount:initialCount
+                                      gameFileURL:gameFileURL
+                                     fetchRequest:fetchRequest
+                                       onComplete:^(Game *game) {
+        [self verifyGame:game hasPath:gameFileURL.path];
+        [importExpectation fulfill];
+
+        GlkController *tempgctl = [[GlkController alloc] init];
+        [tempgctl deleteAutosaveFilesForGame:game];
+
+        Theme *oldTheme = game.theme;
+        game.theme = [BuiltInThemes createDefaultThemeInContext:self.testContext forceRebuild:NO];
+
+        BOOL originalDeterminismSetting = game.theme.determinism;
+        game.theme.determinism = YES;
+        BOOL originalSlowDrawSetting = game.theme.slowDrawing;
+        game.theme.slowDrawing = NO;
+        BOOL originalAutosaveSetting = game.theme.autosave;
+        game.theme.autosave = NO;
+        BOOL originalSmoothScrollSetting = game.theme.smoothScroll;
+        game.theme.smoothScroll = NO;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSWindow *gameWindow = [launcher playGame:game restorationHandler:nil];
+
+            after(3.0, ^{
+                GlkController *glkController = self.tableViewController.gameSessions[game.hashTag];
+                XCTAssertNotNil(glkController, @"GlkController should be created");
+
+                dispatch_block_t finishUp = ^{
+                    game.theme.determinism = originalDeterminismSetting;
+                    game.theme.slowDrawing = originalSlowDrawSetting;
+                    game.theme.autosave = originalAutosaveSetting;
+                    game.theme.smoothScroll = originalSmoothScrollSetting;
+                    game.theme = oldTheme;
+
+                    [glkController.window performClose:nil];
+                    [scrollTestExpectation fulfill];
+                };
+
+                GlkTextBufferWindow *bufferWin = nil;
+                for (GlkWindow *win in glkController.gwindows.allValues) {
+                    if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+                        bufferWin = (GlkTextBufferWindow *)win;
+                        break;
+                    }
+                }
+                XCTAssertNotNil(bufferWin, @"Should have a text buffer window");
+                if (!bufferWin) {
+                    finishUp();
+                    return;
+                }
+
+                // Half the default size, so a few responses overflow the viewport.
+                NSSize defaultSize = gameWindow.contentView.frame.size;
+                NSRect newWindowFrame = [gameWindow frameRectForContentRect:
+                                         NSMakeRect(0, 0, defaultSize.width / 2.0, defaultSize.height / 2.0)];
+                newWindowFrame.origin = gameWindow.frame.origin;
+                [gameWindow setFrame:newWindowFrame display:YES];
+
+                NSScrollView *scrollView = bufferWin.textview.enclosingScrollView;
+                NSClipView *clipView = scrollView.contentView;
+
+                CGFloat (^position)(void) = ^{ return clipView.bounds.origin.y; };
+                NSUInteger (^textLength)(void) = ^{ return bufferWin.textview.string.length; };
+
+                // Run `press` until `satisfied` holds or we run out of
+                // presses, then give any scroll that the new output set off
+                // a second to land before reporting back.
+                // The block refers to itself through a __block variable; see
+                // the note in performMoleScrollingTestWithFileName: on why
+                // that cycle is left alone.
+                __block void (^repeatUntil)(NSInteger, dispatch_block_t, BOOL (^)(void), void (^)(BOOL)) = nil;
+                repeatUntil = ^(NSInteger pressesLeft, dispatch_block_t press, BOOL (^satisfied)(void), void (^completion)(BOOL)) {
+                    press();
+                    after(0.7, ^{
+                        if (satisfied()) {
+                            after(1.0, ^{ completion(YES); });
+                        } else if (pressesLeft <= 1) {
+                            completion(NO);
+                        } else {
+                            repeatUntil(pressesLeft - 1, press, satisfied, completion);
+                        }
+                    });
+                };
+
+                // '1' picks the first choice, and acknowledges "more" prompts.
+                // Sent straight to the interpreter:
+                dispatch_block_t sendOne = ^{
+                    [bufferWin sendKeypress:'1'];
+                };
+                // and typed, going through keyDown:
+                dispatch_block_t typeOne = ^{
+                    [bufferWin keyDown:[NSEvent keyEventWithType:NSEventTypeKeyDown
+                                                        location:NSZeroPoint
+                                                   modifierFlags:0
+                                                       timestamp:NSProcessInfo.processInfo.systemUptime
+                                                    windowNumber:gameWindow.windowNumber
+                                                         context:nil
+                                                      characters:@"1"
+                                     charactersIgnoringModifiers:@"1"
+                                                       isARepeat:NO
+                                                         keyCode:18]];
+                };
+
+                // A wheel event to hand to the buffer window. Only its
+                // direction matters; the scroll itself is done by the test.
+                NSEvent *(^wheelEvent)(int32_t) = ^(int32_t lines) {
+                    CGEventRef cgEvent = CGEventCreateScrollWheelEvent(NULL, kCGScrollEventUnitLine, 1, lines);
+                    NSEvent *event = [NSEvent eventWithCGEvent:cgEvent];
+                    CFRelease(cgEvent);
+                    return event;
+                };
+
+                // Move the view the way a wheel tick would, then report it.
+                void (^wheelTo)(CGFloat) = ^(CGFloat target) {
+                    CGFloat oldPosition = position();
+                    NSRect bounds = clipView.bounds;
+                    bounds.origin.y = target;
+                    [clipView scrollToPoint:[clipView constrainBoundsRect:bounds].origin];
+                    [scrollView reflectScrolledClipView:clipView];
+                    [bufferWin scrollWheelchanged:wheelEvent(target < oldPosition ? 1 : -1)
+                                     fromPosition:oldPosition];
+                };
+
+                after(3.0, ^{
+                    XCTAssertTrue(glkController.timerActive,
+                                  @"The Archers should be running a Glk timer");
+
+                    // Play until the view has scrolled well away from the top.
+                    CGFloat viewportHeight = NSHeight(clipView.bounds);
+                    repeatUntil(20, sendOne, ^BOOL{ return position() > viewportHeight; }, ^(BOOL scrolledDown) {
+                        XCTAssertTrue(scrolledDown, @"The buffer should overflow and scroll during play");
+                        if (!scrolledDown) {
+                            finishUp();
+                            return;
+                        }
+
+                        // 1. Jump to the top of the scrollback, as the Find bar
+                        // does when it reveals a match there.
+                        [bufferWin.textview scrollRangeToVisible:NSMakeRange(0, 1)];
+                        CGFloat parked = position();
+                        NSUInteger parkedLength = textLength();
+                        XCTAssertLessThan(parked, viewportHeight,
+                                          @"scrollRangeToVisible: should have moved the view up");
+
+                        repeatUntil(5, sendOne, ^BOOL{ return textLength() > parkedLength; }, ^(BOOL grew) {
+                            XCTAssertTrue(grew, @"The game should have printed more text");
+                            XCTAssertEqual(position(), parked,
+                                           @"New output dragged the view away from a Find match (was %f, now %f)",
+                                           parked, position());
+
+                            // 2. Back at the bottom, output is followed again.
+                            wheelTo(NSHeight(scrollView.documentView.frame));
+                            CGFloat bottom = position();
+                            NSUInteger bottomLength = textLength();
+                            XCTAssertTrue(bufferWin.scrolledToBottom, @"Should be back at the bottom");
+
+                            repeatUntil(5, sendOne, ^BOOL{ return textLength() > bottomLength; }, ^(BOOL grewAgain) {
+                                XCTAssertTrue(grewAgain, @"The game should have printed more text");
+                                XCTAssertGreaterThan(position(), bottom,
+                                                     @"Auto-scroll should resume once the user is back at the bottom");
+
+                                // 3. Scroll up by wheel; the view stays put again.
+                                wheelTo(position() - viewportHeight);
+                                CGFloat wheeled = position();
+                                NSUInteger wheeledLength = textLength();
+
+                                repeatUntil(5, sendOne, ^BOOL{ return textLength() > wheeledLength; }, ^(BOOL grewOnceMore) {
+                                    XCTAssertTrue(grewOnceMore, @"The game should have printed more text");
+                                    XCTAssertEqual(position(), wheeled,
+                                                   @"New output dragged the view down after scrolling up (was %f, now %f)",
+                                                   wheeled, position());
+                                    XCTAssertFalse(bufferWin.scrolledToBottom, @"Should still be up in the scrollback");
+
+                                    // 4. Answering the prompt from up here is a
+                                    // request to go back to it.
+                                    NSUInteger typedLength = textLength();
+                                    repeatUntil(5, typeOne, ^BOOL{ return textLength() > typedLength; }, ^(BOOL grewLast) {
+                                        XCTAssertTrue(grewLast, @"The game should have printed more text");
+                                        XCTAssertGreaterThan(position(), wheeled,
+                                                             @"Typing at the prompt should resume auto-scroll");
+                                        finishUp();
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    }];
+
+    NSDictionary *options = @{
+        @"lookForImages": @(NO),
+        @"downloadInfo": @(NO),
+        @"context": self.testContext
+    };
+
+    [importer addFiles:@[gameFileURL] options:options];
+
+    [self waitForExpectationsWithTimeout:120.0 handler:^(NSError * _Nullable error) {
+        [self deleteGameAtPath:gameFileURL.path];
+        if (error) {
+            XCTFail(@"Test timed out: %@", error);
+        }
+    }];
+}
+
 // Regression tests for autorestored scroll position.
 //
 // During autorestore, postRestoreAdjustments seeds the saved scroll state

@@ -95,9 +95,11 @@
 
     if (!scrolling && !_pendingScroll && !self.scrolledToBottom && !self.glkctl.voiceOverActive && !self.glkctl.commandScriptRunning) {
         // Not scrolled to the bottom, pagedown or navigate scrolling on each key instead
+        CGFloat oldPosition = scrollview.contentView.bounds.origin.y;
         switch (ch) {
             case keycode_PageUp:
                 [_textview scrollPageUp:nil];
+                [self userDidScrollUpFromPosition:oldPosition];
                 return;
             case keycode_PageDown:
             case ' ':
@@ -105,6 +107,7 @@
                 return;
             case keycode_Up:
                 [_textview scrollLineUp:nil];
+                [self userDidScrollUpFromPosition:oldPosition];
                 return;
             case keycode_Down:
             case keycode_Return:
@@ -114,6 +117,10 @@
                 [self scrollToBottomAnimated:YES];
                 return;
             default:
+                // Typing is a request to go back to the prompt, whether
+                // that is a line prompt or a single-key one.
+                if (!(flags & NSEventModifierFlagCommand))
+                    pauseScrolling = NO;
                 if (line_request && !flags) {
                     // Capture the viewport snapshot before the scroll so
                     // the doc-fit anchor inside
@@ -150,7 +157,9 @@
         [self travelForwardInHistory];
     } else if (line_request && ch == keycode_PageUp &&
                fence == textstorage.length) {
+        CGFloat oldPosition = scrollview.contentView.bounds.origin.y;
         [_textview scrollPageUp:nil];
+        [self userDidScrollUpFromPosition:oldPosition];
         return;
     }
 

@@ -292,8 +292,20 @@
     // Let the scroll happen first, then notify the delegate, so it can test
     // the *updated* scroll position (e.g. to resume auto-scrolling once the
     // user has reached the bottom).
+    CGFloat oldPosition = self.enclosingScrollView.contentView.bounds.origin.y;
     [super scrollWheel:event];
-    [delegate scrollWheelchanged:(NSEvent *)event];
+    [delegate scrollWheelchanged:event fromPosition:oldPosition];
+}
+
+// The Find bar reveals each match through this (BufferTextView is its
+// NSTextFinderClient), and jumping to a match up in the scrollback is the
+// user scrolling up as much as a wheel or paging key is: tell the delegate,
+// so it can pause auto-scrolling while unattended output keeps arriving.
+- (void)scrollRangeToVisible:(NSRange)range {
+    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+    CGFloat oldPosition = self.enclosingScrollView.contentView.bounds.origin.y;
+    [super scrollRangeToVisible:range];
+    [delegate userDidScrollUpFromPosition:oldPosition];
 }
 
 - (void)changeAttributes:(id)sender {

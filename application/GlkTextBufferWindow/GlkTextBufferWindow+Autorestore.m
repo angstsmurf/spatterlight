@@ -48,6 +48,7 @@
             NSLog(@"scrollview nil!");
         scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
         scrollview.documentView = _textview;
+        [self observeLiveScroll];
         _textview.delegate = self;
         textstorage.delegate = self;
 

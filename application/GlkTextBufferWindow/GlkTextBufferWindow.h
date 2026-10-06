@@ -69,7 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)padWithNewlines:(NSUInteger)lines;
 
-- (void)scrollWheelchanged:(NSEvent *)event;
+- (void)scrollWheelchanged:(NSEvent *)event fromPosition:(CGFloat)oldPosition;
+- (void)userDidScrollUpFromPosition:(CGFloat)oldPosition;
 - (void)updateImageAttachmentsWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale;
 
 - (void)resetLastSpokenString;
