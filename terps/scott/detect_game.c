@@ -1281,7 +1281,13 @@ GameIDType DetectZXSpectrum(void)
        with a 0x4000-based Spectrum image) and skip the .z80 path below. */
     int decrypted = (is_tzx && DeAlkatrazTape());
 
-    uint8_t *uncompressed = decrypted ? NULL : DecompressZ80(entire_file, &file_length);
+    /* Tapes and .sna snapshots are not .z80 snapshots: read as one they are
+       only rejected, with a libspectrum error on stderr. A .sna has no
+       signature, but it does have one of two sizes. */
+    int is_sna = (file_length == 49179 || file_length == 131103 || file_length == 147487);
+    int not_z80 = (decrypted || is_tzx || looks_like_tap || is_sna);
+
+    uint8_t *uncompressed = not_z80 ? NULL : DecompressZ80(entire_file, &file_length);
     if (uncompressed != NULL) {
         was_z80_snapshot = 1;
         free(entire_file);

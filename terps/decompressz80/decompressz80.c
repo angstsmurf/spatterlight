@@ -499,6 +499,9 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length)
     for (int i = 0; i < SNAPSHOT_RAM_PAGES; i++)
         libspectrum_snap_set_pages(snap, i, NULL);
     if (internal_z80_read(snap, raw_data, *length) != LIBSPECTRUM_ERROR_NONE) {
+        for (int i = 0; i < SNAPSHOT_RAM_PAGES; i++)
+            free(snap->pages[i]);
+        free(snap);
         return NULL;
     }
 
