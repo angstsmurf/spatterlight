@@ -141,44 +141,28 @@ static void draw_sherwood(int loc)
     }
 }
 
-/* Animate the waterfall in room 86. Scrolls the blue water pixels
-   downward by 'stage' pixels (wrapping at 80), over a white background.
-   Reads pixel data from the layout buffer (not imagebuffer) so the
-   source pattern stays constant across frames. */
-static void animate_waterfall(int stage)
+/* Animate a waterfall by scrolling its water pixels downward by 'stage'
+   pixels, wrapping around within the 64 pixel high area. The waterfall
+   is the 8 character lines starting at first_line, cols characters wide
+   from first_col. Reads pixel data from the layout buffer (not
+   imagebuffer) so the source pattern stays constant across frames.
+   In room 86 it is blue water on white; seen from inside the cave
+   (room 79) a single column at the right edge, white on blue. */
+static void animate_waterfall(int first_col, int cols, int first_line,
+    int stage, int water_colour, int background_colour)
 {
-    RectFill(88, 16, 48, 64, white_colour);
-    for (int line = 2; line < 10; line++) {
-        for (int col = 11; col < 17; col++) {
+    int top = first_line * 8;
+    RectFill(first_col * 8, top, cols * 8, 64, background_colour);
+    for (int line = first_line; line < first_line + 8; line++) {
+        for (int col = first_col; col < first_col + cols; col++) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (isNthBitSet(layout[col + line * IRMAK_IMGWIDTH][i], 7 - j)) {
                         int ypos = line * 8 + i + stage;
-                        if (ypos > 79)
+                        if (ypos > top + 63)
                             ypos = ypos - 64;
-                        PutPixel(col * 8 + j, ypos, blue_colour);
+                        PutPixel(col * 8 + j, ypos, water_colour);
                     }
-                }
-            }
-        }
-    }
-}
-
-/* Animate the waterfall visible from inside the cave (room 79).
-   Same downward-scrolling technique as animate_waterfall, but only
-   a single column wide (8 pixels) at the right edge of the image,
-   and with the colours the other way around: white water on blue. */
-static void animate_waterfall_cave(int stage)
-{
-    RectFill(248, 24, 8, 64, blue_colour);
-    for (int line = 3; line < 11; line++) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (isNthBitSet(layout[31 + line * IRMAK_IMGWIDTH][i], 7 - j)) {
-                    int ypos = line * 8 + i + stage;
-                    if (ypos > 87)
-                        ypos = ypos - 64;
-                    PutPixel(248 + j, ypos, white_colour);
                 }
             }
         }
@@ -220,13 +204,7 @@ void RobinOfSherwoodLook(void)
         } else {
             DrawImage(Rooms[MyLoc].Image);
             /* Draw images for items present in this room */
-            for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
-                if (Items[ct].Image) {
-                    if ((Items[ct].Flag & 127) == MyLoc && Items[ct].Location == MyLoc) {
-                        DrawImage(Items[ct].Image);
-                    }
-                }
-            }
+            DrawRoomItemImages();
         }
     }
 
@@ -279,9 +257,9 @@ void UpdateRobinOfSherwoodAnimations(void)
         AnimationFlag = 0;
     if (MyLoc == 86 || MyLoc == 79 || MyLoc == 84) {
         if (MyLoc == 86) {
-            animate_waterfall(AnimationFlag);
+            animate_waterfall(11, 6, 2, AnimationFlag, blue_colour, white_colour);
         } else if (MyLoc == 79) {
-            animate_waterfall_cave(AnimationFlag);
+            animate_waterfall(31, 1, 3, AnimationFlag, white_colour, blue_colour);
         }
     } else {
         glk_request_timer_events(0);

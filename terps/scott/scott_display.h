@@ -20,6 +20,7 @@ void FitPictureToGraphicsWindow(glui32 *graphheight, glui32 *optimal_height);
 void OpenGraphicsWindow(void);
 void CloseGraphicsWindow(void);
 void DrawImage(int image);
+void DrawRoomItemImages(void);
 void DrawRoomImage(void);
 void Look(void);
 void ListInventory(int upper);

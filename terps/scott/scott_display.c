@@ -304,6 +304,21 @@ void DrawImage(int image)
         DrawPictureNumber(image, (Game->type == SEAS_OF_BLOOD_VARIANT));
 }
 
+/* Draw the overlay images of the items in the current room whose image
+   belongs to this room. */
+void DrawRoomItemImages(void)
+{
+    for (int ct = 0; ct <= GameHeader.NumItems; ct++)
+        if (Items[ct].Image && Items[ct].Location == MyLoc) {
+            if ((Items[ct].Flag & IMAGE_INDEX_MASK) == MyLoc) {
+                DrawImage(Items[ct].Image);
+                /* Draw the correct image of the bear on the beach */
+            } else if (Game->type == SAVAGE_ISLAND_VARIANT && ct == SAVAGE_BEAR_ITEM && MyLoc == SAVAGE_BEACH_ROOM) {
+                DrawImage(SAVAGE_BEAR_IMAGE);
+            }
+        }
+}
+
 /* Draw the image for the current room, with special handling for
    darkness (black screen or fuzzy image), US-variant layout, and
    game-specific overrides (Seas of Blood, Robin of Sherwood, Hulk,
@@ -376,15 +391,7 @@ void DrawRoomImage(void)
     } else {
         DrawImage(Rooms[MyLoc].Image & IMAGE_INDEX_MASK);
     }
-    for (int ct = 0; ct <= GameHeader.NumItems; ct++)
-        if (Items[ct].Image && Items[ct].Location == MyLoc) {
-            if ((Items[ct].Flag & IMAGE_INDEX_MASK) == MyLoc) {
-                DrawImage(Items[ct].Image);
-                /* Draw the correct image of the bear on the beach */
-            } else if (Game->type == SAVAGE_ISLAND_VARIANT && ct == SAVAGE_BEAR_ITEM && MyLoc == SAVAGE_BEACH_ROOM) {
-                DrawImage(SAVAGE_BEAR_IMAGE);
-            }
-        }
+    DrawRoomItemImages();
     if (Game->type == GREMLINS_VARIANT)
         GremlinsKeepBlenderFrame();
 }

@@ -110,32 +110,20 @@ static void Patch(uint8_t *offset, int patch_number)
     }
 }
 
-/* One specific C64 version of Claymorgue Castle has 15 images
-   (12–27, excluding 16) whose data is hopelessly corrupt — not
-   fixable with simple byte patches. Reassign their rooms to image
+/* One specific C64 version of Claymorgue Castle has images 12–27
+   (except 16) hopelessly corrupt, and one ZX Spectrum version images
+   9–35 (except 14) — not fixable with simple byte patches. Reassign
+   the rooms that use images first to last, except unbroken, to image
    255 (no picture) so the game doesn't try to render garbage. */
-static void PatchOutBrokenClaymorgueImagesC64(void)
+static void PatchOutBrokenClaymorgueImages(int first, int last, int unbroken)
 {
-    Output("[This copy of The Sorcerer of Claymorgue Castle has 15 broken or "
-           "missing pictures. These have been patched out.]\n\n");
-    for (int i = 12; i < 28; i++) {
-        if (i != 16)
-            for (int j = 0; j < GameHeader.NumRooms; j++) {
-                if (Rooms[j].Image == i) {
-                    Rooms[j].Image = 255;
-                }
-            }
-    }
-}
-
-/* Same treatment for one ZX Spectrum version, which has even more
-   broken images (9–35, excluding 14). */
-static void PatchOutBrokenClaymorgueImagesZX(void)
-{
-    Output("[This copy of The Sorcerer of Claymorgue Castle has 26 broken or "
-           "missing pictures. These have been patched out.]\n\n");
-    for (int i = 9; i < 36; i++) {
-        if (i != 14)
+    char message[128];
+    snprintf(message, sizeof(message),
+        "[This copy of The Sorcerer of Claymorgue Castle has %d broken or "
+        "missing pictures. These have been patched out.]\n\n", last - first);
+    Output(message);
+    for (int i = first; i <= last; i++) {
+        if (i != unbroken)
             for (int j = 0; j < GameHeader.NumRooms; j++) {
                 if (Rooms[j].Image == i) {
                     Rooms[j].Image = 255;
@@ -321,7 +309,7 @@ void SagaGraphicsSetup(size_t imgoffset)
            few images that can be reconstructed (16/28 for C64, 14
            for Spectrum) by giving them valid full-screen headers. */
         if (CurrentGame == CLAYMORGUE_C64 && img->height == 0 && img->width == 0 && picture_number == 13) {
-            PatchOutBrokenClaymorgueImagesC64();
+            PatchOutBrokenClaymorgueImages(12, 27, 16);
             broken_claymorgue_pictures_c64 = 1;
         }
 
@@ -335,7 +323,7 @@ void SagaGraphicsSetup(size_t imgoffset)
         }
 
         if (CurrentGame == CLAYMORGUE && img->height == 0 && img->width == 0 && picture_number == 9) {
-            PatchOutBrokenClaymorgueImagesZX();
+            PatchOutBrokenClaymorgueImages(9, 35, 14);
             broken_claymorgue_pictures_zx = 1;
         }
 

@@ -36,6 +36,7 @@ void Flip(uint8_t character[]);
 void Rot90(uint8_t *tile);
 void Rot180(uint8_t *tile);
 void Rot270(uint8_t *tile);
+void RotateTile(uint8_t *tile, int rotation);
 int isNthBitSet(unsigned const char c, int n);
 void ClearGraphMem(void);
 void DrawPictureNumber(int picture_number, int draw_to_buffer);

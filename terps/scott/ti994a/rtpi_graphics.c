@@ -84,26 +84,6 @@ const static char *draw_opcode_names[8] = {
     "op7_combine_tile_pairs"
 };
 
-/* Apply one of four rotation modes (0=none, 1=90°, 2=180°, 3=270°)
-   to an 8-byte tile, using the rotation primitives from irmak.c. */
-static void rotate(uint8_t *tile, int rotation) {
-    switch (rotation) {
-        case 0:
-            break;
-        case 1:
-            Rot90(tile);
-            break;
-        case 2:
-            Rot180(tile);
-            break;
-        case 3:
-            Rot270(tile);
-            break;
-        default:
-            break; // Should never happen
-    }
-}
-
 /* Decode the RLE-compressed colour attribute stream that follows the
    tile pattern opcodes. Each byte in vdp_colors holds the colour for
    one pixel row: upper nibble = foreground, lower nibble = background.
@@ -195,7 +175,7 @@ static int get_tile_and_rotate(uint8_t *tile, int tile_index, int rotation) {
     if (tile_index == 0 && rotation == 1) {
         memset(tile, 0xff, 8);
     } else {
-        rotate(tile, rotation);
+        RotateTile(tile, rotation);
     }
     return 1;
 }

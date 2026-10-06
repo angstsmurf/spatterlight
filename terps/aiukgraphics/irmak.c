@@ -163,6 +163,25 @@ void Rot270(uint8_t *tile)
     memcpy(tile, work2, 8);
 }
 
+/* Apply one of four rotation modes (0=none, 1=90°, 2=180°, 3=270°)
+   to an 8-byte tile. */
+void RotateTile(uint8_t *tile, int rotation)
+{
+    switch (rotation) {
+    case 1:
+        Rot90(tile);
+        break;
+    case 2:
+        Rot180(tile);
+        break;
+    case 3:
+        Rot270(tile);
+        break;
+    default:
+        break;
+    }
+}
+
 /* Apply rotation, flip, and overlay transformations to a tile and
    write the result into layout[offset].
 
@@ -179,15 +198,8 @@ static void Transform(uint8_t tile, uint8_t mode, int offset)
 
     memcpy(work, tiles[tile], 8);
 
-    uint8_t rotate_mode = mode & ROTATE_BITS;
-
-    if (rotate_mode == MODE_ROT90) {
-        Rot90(work);
-    } else if (rotate_mode == MODE_ROT180) {
-        Rot180(work);
-    } else if (rotate_mode == MODE_ROT270) {
-        Rot270(work);
-    }
+    /* MODE_ROT90, MODE_ROT180 and MODE_ROT270 are 1, 2 and 3 shifted up 4 bits */
+    RotateTile(work, (mode & ROTATE_BITS) >> 4);
 
     if (mode & FLIP_BIT) {
         Flip(work);
