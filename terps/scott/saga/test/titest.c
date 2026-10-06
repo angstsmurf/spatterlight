@@ -34,6 +34,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "test_util.h"
+
 // Unity-include the renderer to reach its file-static VDP buffers / tile font.
 #include "rtpi_graphics.c"
 
@@ -47,18 +49,6 @@ static const uint32_t ti_palette[16] = {
     0x000000, 0x000000, 0x21c842, 0x5edc78, 0x5051E0, 0x7F77F8, 0xE15D53, 0x42ebf5,
     0xff655C, 0xff847e, 0xD4C154, 0xEAD087, 0x00ae3f, 0xc95bba, 0xCDCDCD, 0xffffff,
 };
-
-static uint8_t *read_file(const char *path, size_t *size) {
-    FILE *f = fopen(path, "rb");
-    if (!f) return NULL;
-    fseek(f, 0, SEEK_END); long n = ftell(f); fseek(f, 0, SEEK_SET);
-    if (n <= 0) { fclose(f); return NULL; }
-    uint8_t *b = malloc((size_t)n);
-    if (b && fread(b, 1, (size_t)n, f) != (size_t)n) { free(b); b = NULL; }
-    fclose(f);
-    if (b && size) *size = (size_t)n;
-    return b;
-}
 
 // Render the current vdp_pixels/vdp_colors to a 256x96 RGB PPM (same tile walk
 // as DrawRTPIFromMem: 32 cols x 12 rows, fg = hi nibble, bg = lo nibble).

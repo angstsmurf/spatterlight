@@ -23,6 +23,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "test_util.h"
+
 #include "glk.h"
 #include "scott.h"
 #include "palette.h"
@@ -72,18 +74,6 @@ void Fatal(const char *msg) { fprintf(stderr, "Fatal: %s\n", msg); exit(1); }
 // vector_common.c which we link).
 #include "line_drawing.c"
 
-static uint8_t *read_file(const char *path, size_t *size) {
-    FILE *f = fopen(path, "rb");
-    if (!f) return NULL;
-    fseek(f, 0, SEEK_END); long n = ftell(f); fseek(f, 0, SEEK_SET);
-    if (n < 0) { fclose(f); return NULL; }
-    uint8_t *buf = malloc((size_t)n ? (size_t)n : 1);
-    if (buf && n && fread(buf, 1, (size_t)n, f) != (size_t)n) { free(buf); buf = NULL; }
-    fclose(f);
-    if (buf && size) *size = (size_t)n;
-    return buf;
-}
-
 static int render_dir(const char *dir) {
     memset(grid, 0xff, sizeof grid);
     grid_minx = ZX_W; grid_miny = ZX_H; grid_maxx = -1; grid_maxy = -1;
@@ -104,7 +94,7 @@ static int render_dir(const char *dir) {
 
     size_t psz = 0;
     snprintf(path, sizeof path, "%s/%s", dir, picfile);
-    uint8_t *picbuf = read_file(path, &psz);
+    uint8_t *picbuf = read_file_ex(path, &psz, 1);
     if (!picbuf) { fprintf(stderr, "cannot read pic %s\n", path); return 1; }
 
     // line_drawing.c reads entire_file/file_length for its end-of-data bounds
@@ -155,7 +145,7 @@ static void write_grid(const char *out) {
 
 static int compare_golden(const char *goldenpath) {
     size_t sz = 0;
-    uint8_t *gold = read_file(goldenpath, &sz);
+    uint8_t *gold = read_file_ex(goldenpath, &sz, 1);
     if (!gold || sz < 17 || memcmp(gold, "C64C2", 5) != 0) { fprintf(stderr, "bad golden\n"); return 2; }
     int32_t gw, gh, npal;
     memcpy(&gw, gold + 5, 4); memcpy(&gh, gold + 9, 4); memcpy(&npal, gold + 13, 4);

@@ -32,6 +32,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "test_util.h"
+
 #include "glk.h"
 #include "irmak.h"
 #include "palette.h"
@@ -75,18 +77,6 @@ int last_image_index = 0;
 #include "irmak.c"
 
 // ---- fixture loading ---------------------------------------------------------
-static uint8_t *read_file(const char *path, size_t *size) {
-    FILE *f = fopen(path, "rb");
-    if (!f) return NULL;
-    fseek(f, 0, SEEK_END); long n = ftell(f); fseek(f, 0, SEEK_SET);
-    if (n < 0) { fclose(f); return NULL; }
-    uint8_t *buf = malloc((size_t)n ? (size_t)n : 1);
-    if (buf && n && fread(buf, 1, (size_t)n, f) != (size_t)n) { free(buf); buf = NULL; }
-    fclose(f);
-    if (buf && size) *size = (size_t)n;
-    return buf;
-}
-
 // Build the single-image irmak state from a golden dir and render picture 0.
 static int render_dir(const char *dir) {
     memset(grid, 0xff, sizeof grid);
@@ -114,7 +104,7 @@ static int render_dir(const char *dir) {
     // tile font
     size_t tsz = 0;
     snprintf(path, sizeof path, "%s/tiles.bin", dir);
-    uint8_t *tilebuf = read_file(path, &tsz);
+    uint8_t *tilebuf = read_file_ex(path, &tsz, 1);
     if (!tilebuf || tsz < 256 * 8) { fprintf(stderr, "bad tiles.bin\n"); return 1; }
     memcpy(tiles, tilebuf, 256 * 8);
     free(tilebuf);
@@ -122,7 +112,7 @@ static int render_dir(const char *dir) {
     // picture data
     size_t psz = 0;
     snprintf(path, sizeof path, "%s/%s", dir, picfile);
-    uint8_t *picbuf = read_file(path, &psz);
+    uint8_t *picbuf = read_file_ex(path, &psz, 1);
     if (!picbuf) { fprintf(stderr, "cannot read pic %s\n", path); return 1; }
 
     // palette: DefinePalette reads palchosen
@@ -177,10 +167,7 @@ static int compare_scr(const uint8_t *scr) {
         for (int x = 0; x < ZX_W; x++) {
             if (grid[y][x] == UNSET) continue;
             total++;
-            int addr = ((y & 0xc0) << 5) | ((y & 0x07) << 8) | ((y & 0x38) << 2) | (x >> 3);
-            uint8_t attr = scr[6144 + (y >> 3) * 32 + (x >> 3)];
-            int set = (scr[addr] >> (7 - (x & 7))) & 1;
-            int colour = (set ? (attr & 7) : ((attr >> 3) & 7)) + ((attr & 0x40) ? 8 : 0);
+            int colour = zx_scr_colour(scr, x, y);
             if (grid[y][x] == (pal[colour] & 0xffffff)) match++;
             else if (firstx < 0) { firstx = x; firsty = y; }
         }
@@ -194,7 +181,7 @@ static int compare_scr(const uint8_t *scr) {
 
 static int compare_golden(const char *goldenpath) {
     size_t sz = 0;
-    uint8_t *gold = read_file(goldenpath, &sz);
+    uint8_t *gold = read_file_ex(goldenpath, &sz, 1);
     const char *ext = strrchr(goldenpath, '.');
     if (gold && sz == 6912 && ext && strcmp(ext, ".scr") == 0) {
         int result = compare_scr(gold);

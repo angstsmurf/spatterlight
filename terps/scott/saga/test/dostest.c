@@ -23,6 +23,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "test_util.h"
+
 #include "glk.h"
 
 int DrawDOSImageFromData(uint8_t *ptr);
@@ -55,20 +57,6 @@ void PutDoublePixel(glsi32 x, glsi32 y, int32_t color) { PutPixelWithWidth(x, y,
 void SetColor(int32_t index, glui32 color) { (void)index; (void)color; }
 
 // ---- helpers ------------------------------------------------------------------
-static uint8_t *read_file(const char *path, size_t *size) {
-    FILE *f = fopen(path, "rb");
-    if (!f) return NULL;
-    fseek(f, 0, SEEK_END);
-    long n = ftell(f);
-    fseek(f, 0, SEEK_SET);
-    if (n <= 0) { fclose(f); return NULL; }
-    uint8_t *buf = malloc((size_t)n);
-    if (buf && fread(buf, 1, (size_t)n, f) != (size_t)n) { free(buf); buf = NULL; }
-    fclose(f);
-    if (buf && size) *size = (size_t)n;
-    return buf;
-}
-
 static void render(const char *pakpath) {
     memset(grid, -1, sizeof grid);
     size_t sz = 0;

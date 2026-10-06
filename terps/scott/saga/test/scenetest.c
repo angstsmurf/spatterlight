@@ -83,6 +83,7 @@ extern void glk_main(void);
 
 #include "scott.h"
 #include "fake_glk_window.h"
+#include "test_util.h"
 
 // ---- Script ------------------------------------------------------------------
 
@@ -200,14 +201,8 @@ static int load_truth(const char *path)
         truth_w = 256;
         truth_h = 192;
         for (int y = 0; y < 192; y++)
-            for (int x = 0; x < 256; x++) {
-                /* Display file layout: the three bit fields of y are shuffled. */
-                int addr = ((y & 0xc0) << 5) | ((y & 0x07) << 8) | ((y & 0x38) << 2) | (x >> 3);
-                uint8_t attr = buf[6144 + (y >> 3) * 32 + (x >> 3)];
-                int set = (buf[addr] >> (7 - (x & 7))) & 1;
-                int bright = (attr & 0x40) ? 8 : 0;
-                truth[y][x] = (set ? (attr & 7) : ((attr >> 3) & 7)) + bright;
-            }
+            for (int x = 0; x < 256; x++)
+                truth[y][x] = zx_scr_colour(buf, x, y);
         return 1;
     }
     if (ext && strcmp(ext, ".c64") == 0 && size == 9000) {

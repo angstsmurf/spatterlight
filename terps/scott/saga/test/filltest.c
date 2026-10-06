@@ -19,6 +19,8 @@
 #include <string.h>
 #include <dirent.h>
 
+#include "test_util.h"
+
 #include "glk.h"
 #include "sagagraphics.h"
 #include "scott_defines.h"
@@ -87,20 +89,6 @@ void SetColor(int32_t index, glui32 color) { (void)index;(void)color; unreached(
 
 #define A2_PAGE_SIZE 0x2000
 
-static uint8_t *read_whole_file(const char *path, size_t *size) {
-	FILE *f = fopen(path, "rb");
-	if (!f) return NULL;
-	fseek(f, 0, SEEK_END);
-	long n = ftell(f);
-	fseek(f, 0, SEEK_SET);
-	if (n <= 0) { fclose(f); return NULL; }
-	uint8_t *buf = malloc((size_t)n);
-	if (buf && fread(buf, 1, (size_t)n, f) != (size_t)n) { free(buf); buf = NULL; }
-	fclose(f);
-	if (buf && size) *size = (size_t)n;
-	return buf;
-}
-
 static int cmp_str(const void *a, const void *b) {
 	return strcmp(*(const char *const *)a, *(const char *const *)b);
 }
@@ -115,7 +103,7 @@ static int compare_one_image(const char *dir, const char *datname) {
 	snprintf(pagepath, sizeof pagepath, "%s/%s.page", dir, base);
 
 	size_t datsize = 0;
-	uint8_t *datbuf = read_whole_file(datpath, &datsize);
+	uint8_t *datbuf = read_file(datpath, &datsize);
 	if (!datbuf || datsize < 5) {
 		fprintf(stderr, "  %s: cannot read .dat\n", base);
 		free(datbuf);
@@ -131,7 +119,7 @@ static int compare_one_image(const char *dir, const char *datname) {
 	free(img);
 
 	size_t pagesize = 0;
-	uint8_t *page = read_whole_file(pagepath, &pagesize);
+	uint8_t *page = read_file(pagepath, &pagesize);
 	if (!page || pagesize < A2_PAGE_SIZE) {
 		fprintf(stderr, "  %s: cannot read .page golden\n", base);
 		free(page);
@@ -238,7 +226,7 @@ static int compare_one_atari(const char *dir, const char *datname) {
 	snprintf(pa0, sizeof pa0, "%s/%s.a0", dir, base);
 
 	size_t datsize = 0;
-	uint8_t *datbuf = read_whole_file(datpath, &datsize);
+	uint8_t *datbuf = read_file(datpath, &datsize);
 	if (!datbuf || datsize < 2) { fprintf(stderr, "  %s: cannot read .dat\n", base); free(datbuf); return 0; }
 
 	USImage *img = NewImage();
@@ -250,8 +238,8 @@ static int compare_one_atari(const char *dir, const char *datname) {
 	free(img);
 
 	size_t s90 = 0, sa0 = 0;
-	uint8_t *g90 = read_whole_file(p90, &s90);
-	uint8_t *ga0 = read_whole_file(pa0, &sa0);
+	uint8_t *g90 = read_file(p90, &s90);
+	uint8_t *ga0 = read_file(pa0, &sa0);
 	if (!g90 || !ga0 || s90 < ATARI8_PLANE || sa0 < ATARI8_PLANE) {
 		fprintf(stderr, "  %s: cannot read plane goldens\n", base);
 		free(g90); free(ga0); return 0;

@@ -18,6 +18,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "test_util.h"
+
 #include "glk.h"
 #include "apple2draw.h"   // A2_SCREEN_MEM_SIZE, DrawApple2ImageFromData, screenmem
 
@@ -29,18 +31,6 @@ extern uint8_t *descrambletable;
 winid_t Graphics = NULL;
 int pixel_size = 1, x_offset = 0, y_offset = 0, ImageHeight = 320;
 void Fatal(const char *x) { fprintf(stderr, "Fatal: %s\n", x ? x : ""); exit(1); }
-
-static uint8_t *read_file(const char *path, size_t *size) {
-    FILE *f = fopen(path, "rb");
-    if (!f) return NULL;
-    fseek(f, 0, SEEK_END); long n = ftell(f); fseek(f, 0, SEEK_SET);
-    if (n <= 0) { fclose(f); return NULL; }
-    uint8_t *b = malloc((size_t)n);
-    if (b && fread(b, 1, (size_t)n, f) != (size_t)n) { free(b); b = NULL; }
-    fclose(f);
-    if (b && size) *size = (size_t)n;
-    return b;
-}
 
 int main(int argc, char **argv) {
     if (argc < 4 || strcmp(argv[1], "cmp") != 0) {

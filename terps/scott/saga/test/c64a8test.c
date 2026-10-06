@@ -30,6 +30,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "test_util.h"
+
 #include "glk.h"
 
 // ---- displayed-colour capture ------------------------------------------------
@@ -89,20 +91,6 @@ static int adjust_room(int width, int height, int *x_origin) {
 }
 
 // ---- helpers -----------------------------------------------------------------
-static uint8_t *read_file(const char *path, size_t *size) {
-    FILE *f = fopen(path, "rb");
-    if (!f) return NULL;
-    fseek(f, 0, SEEK_END);
-    long n = ftell(f);
-    fseek(f, 0, SEEK_SET);
-    if (n <= 0) { fclose(f); return NULL; }
-    uint8_t *buf = malloc((size_t)n);
-    if (buf && fread(buf, 1, (size_t)n, f) != (size_t)n) { free(buf); buf = NULL; }
-    fclose(f);
-    if (buf && size) *size = (size_t)n;
-    return buf;
-}
-
 static int g_is_c64 = 1;
 static int g_voodoo = 0;
 
