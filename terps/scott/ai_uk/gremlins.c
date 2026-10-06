@@ -197,7 +197,7 @@ void FillInGermanSystemMessages(void)
     sys[I_DONT_UNDERSTAND] = "Ich verstehe nicht. ";
     sys[ARE_YOU_SURE] = "Sind Sie sicher? ";
     sys[NOTHING_HERE_TO_TAKE] = "Hier gibt es nichts zu nehmen. ";
-    sys[YOU_HAVE_NOTHING] = "Ich traege nichts. ";
+    sys[YOU_HAVE_NOTHING] = "Ich trage nichts. ";
     sys[MOVE_UNDONE] = "Verschieben rueckgaengig gemacht. ";
     sys[CANT_UNDO_ON_FIRST_TURN] = "Sie koennen die erste Runde nicht rueckgaengig machen. ";
     sys[NO_UNDO_STATES] = "Keine rueckgaengig-Zustaende mehr gespeichert. ";
@@ -206,16 +206,21 @@ void FillInGermanSystemMessages(void)
     sys[TRANSCRIPT_ON] = "Das Transkript ist jetzt eingeschaltet. ";
     sys[TRANSCRIPT_OFF] = "Das Transkript ist jetzt deaktiviert. ";
     sys[NO_TRANSCRIPT] = "Es wird kein Transkript ausgefuehrt. ";
-    sys[TRANSCRIPT_ALREADY] = "Eine Transkript laeuft bereits. ";
+    sys[TRANSCRIPT_ALREADY] = "Ein Transkript laeuft bereits. ";
     sys[FAILED_TRANSCRIPT] = "Transkriptdatei konnte nicht erstellt werden. ";
-    sys[TRANSCRIPT_START] = "Beginn einer Transkript.\n\n";
-    sys[TRANSCRIPT_END] = "\n\nEnde eniner Transkript.\n";
+    sys[TRANSCRIPT_START] = "Beginn eines Transkripts.\n\n";
+    sys[TRANSCRIPT_END] = "\n\nEnde eines Transkripts.\n";
     sys[BAD_DATA] = "SCHLECHTE DATEN! Ungueltige Speicherdatei.\n";
     sys[STATE_SAVED] = "Zustand speichern.\n";
     sys[NO_SAVED_STATE] = "Es ist kein gespeicherter Zustand vorhanden.\n";
     sys[STATE_RESTORED] = "Zustand wiederhergestellt.\n";
 
     sys[YOU_ARE] = "Ich bin ";
+    /* The tape has "Ausgaenge:", without the space that the disk has */
+    sys[EXITS] = "Ausgaenge: ";
+
+    /* The empty pool was left in Spanish, "Piscina vacia" */
+    Items[98].Text = "Leeres Schwimmbad";
     sys[WHAT] = sys[HUH];
 
     SetParserWordLists(GermanDirections, GermanSkipList, GermanDelimiterList,
@@ -280,7 +285,7 @@ void LoadExtraGermanGremlinsData(void)
     Nouns[0] = "ANY";
     Nouns[28] = "*Y.M.C";
 
-    Messages[90] = "Ehe ich etwas anderes mache, much aich erst alles andere fallenlassen. ";
+    Messages[90] = "Ehe ich etwas anderes mache, muss ich erst alles andere fallenlassen. ";
     FillInGermanSystemMessages();
 }
 
@@ -371,6 +376,11 @@ void LoadExtraSpanishGremlinsC64Data(void)
     MAP_SYS_MESSAGES(messagekey, 6);
     sys[YOU_CANT_GO_THAT_WAY] = system_messages[9] + 6;
     sys[HIT_ENTER] = system_messages[30];
+    /* The disk has "Estoy en", without the space that the tape has */
+    sys[YOU_ARE] = "Estoy en ";
+    /* The header has the action count of the English disk. What follows
+       action 236 here is the dictionary. */
+    GameHeader.NumActions = 236;
     LoadCommonSpanishGremlinsData();
 }
 

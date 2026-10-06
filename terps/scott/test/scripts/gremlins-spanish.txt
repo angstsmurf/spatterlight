@@ -1,0 +1,208 @@
+abajo
+coger espada
+coger remoto
+matar gremlin
+soltar espada
+ir cocina
+apretar remoto
+apretar remoto
+apretar remoto
+apretar remoto
+apretar remoto
+mirar vertedero
+apretar remoto
+apretar remoto
+mirar cajon
+mirar cajon
+coger encendedor
+coger cuchillo
+soltar remoto
+e
+arriba
+matar gremlin
+coger linterna
+abajo
+ir puerta
+n
+e
+e
+ir taberna
+ir bar
+coger maquina
+apretar boton
+cortar tubo
+soltar cuchillo
+coger tubo
+n
+n
+e
+ir cine
+s
+empezar proyector
+n
+n
+o
+o
+ir estacion
+ir foso
+coger soplete
+coger botella
+arriba
+n
+o
+s
+s
+abrir valvula
+encender soplete
+soldar tractor
+soltar encendedor
+coger escalera
+n
+n
+o
+ir puerta
+soltar todo
+soltar tubo
+ir piscina
+coger tapon
+arriba
+coger maquina
+coger linterna
+apretar boton
+coger botella
+coger tubo
+coger soplete
+coger escalera
+e
+e
+e
+e
+e
+ir cine
+s
+empezar proyector
+n
+n
+ir almacen
+o
+soltar escalera
+coger sierra
+e
+s
+o
+o
+o
+n
+encender linterna
+insertar linterna
+cortar buzon
+coger chapa
+s
+e
+e
+e
+ir almacen
+n
+soldar chapa
+o
+soldar chapa
+e
+s
+o
+soldar chapa
+e
+e
+e
+soldar chapa
+o
+arriba
+e
+apretar boton
+soldar chapa
+o
+arriba
+o
+abrir puerta
+ir puerta
+soldar chapa
+e
+e
+e
+abrir puerta
+ir puerta
+soldar chapa
+n
+o
+arriba
+o
+ir puerta
+soldar chapa
+e
+e
+abajo
+abajo
+abajo
+o
+s
+ir cine
+s
+empezar proyector
+n
+n
+ir almacen
+o
+soltar sierra
+coger escalera
+e
+s
+o
+ir taberna
+n
+e
+ir almacen
+e
+arriba
+arriba
+arriba
+ir escotilla
+empujar boton
+soldar chapa
+abajo
+abajo
+abajo
+abajo
+o
+o
+enchufar taladro
+cerrar valvula
+soltar soplete
+soltar chapa
+examinar mostrador
+coger cinta
+coger taladro
+taladrar chapa
+coger sierra
+cortar tubo
+unir tubo
+introducir tubo
+abrir valvula
+e
+s
+o
+o
+o
+o
+mirar
+mirar
+mirar
+mirar
+mirar
+mirar
+mirar
+mirar
+ir puerta
+soltar todo
+ir piscina
+coger stripe
+arriba
+e

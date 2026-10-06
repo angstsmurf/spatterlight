@@ -302,8 +302,14 @@ static const CharMapping spanish_mapping[] = {
     { 0x82, 0x00FC }, /* ü */
     { '{',  0x00E1 }, /* á */
     { '}',  0x00ED }, /* í */
+    /* The C64 disk has this one í of its own, in "todavía" */
+    { 0x92, 0x00ED }, /* í */
     { '|',  0x00F3 }, /* ó */
     { '~',  0x00F1 }, /* ñ */
+    { 0x7f, 0x00E9 }, /* é */
+    { 0x81, 0x00FA }, /* ú */
+    /* The game has no 0x84 or 0x85; they are the é and ú of the messages
+       added in ai_uk/gremlins.c */
     { 0x84, 0x00E9 }, /* é */
     { 0x85, 0x00FA }, /* ú */
 };
@@ -358,19 +364,32 @@ static const struct {
 } german_digraphs[] = {
     { 'u', 'e', 0x00FC, 'e' }, /* ü */
     { 'U', 'E', 0x00DC, 0 },   /* Ü */
+    { 'U', 'e', 0x00DC, 0 },   /* Ü */
     { 'o', 'e', 0x00F6, 0 },   /* ö */
     { 'a', 'e', 0x00E4, 0 },   /* ä */
 };
 
-/* As far as I can tell, only five words in the German Gremlins output text
-   use the double-s ß character: 'außer', 'draußen', 'Straße', 'schießt',
-   and 'geschweißt'. Simply checking the two preceding characters seems to
-   be sufficient to avoid false positives. */
+/* The game text has ss for ß. It is an ß in these words, which the two
+   letters before the ss are enough to tell from the others:
+
+     au  außer, außerhalb, draußen
+     ra  Straße
+     ro  groß, große, Großer
+     eu  scheußlicher
+     ie  schießt
+     ei  weiß, festgeschweißt, zusammengeschweißt
+
+   None of the words that keep their ss (Wasser, Schlüssel, geschlossen,
+   verlassen, gerissen, ...) has one of these pairs before it. The words that
+   had an ß only before the spelling reform of 1996 (muss, passt, Ablass,
+   Netzanschluss, misslungen, Verfasst) are left as they are. */
 static int IsEszettPosition(const glui32 *in, size_t i)
 {
     return i > 1 &&
         ((in[i - 2] == 'a' && in[i - 1] == 'u') ||
          (in[i - 2] == 'r' && in[i - 1] == 'a') ||
+         (in[i - 2] == 'r' && in[i - 1] == 'o') ||
+         (in[i - 2] == 'e' && in[i - 1] == 'u') ||
          (in[i - 2] == 'i' && in[i - 1] == 'e') ||
          (in[i - 2] == 'e' && in[i - 1] == 'i'));
 }
@@ -385,6 +404,13 @@ static glui32 *FoldGermanSequences(const glui32 *in, size_t in_len,
     size_t write_pos = 0;
     for (size_t i = 0; i < in_len; ++i) {
         glui32 cp = in[i];
+        /* Not a sequence, just a single character substitution. Also for
+           the last character: the error messages are put together from
+           pieces, one of which ends with the opening quotation mark. */
+        if (cp == '"') {
+            out[write_pos++] = 0x2019; /* ’ */
+            continue;
+        }
         if (i + 1 < in_len) {
             glui32 next = in[i + 1];
             int folded = 0;
@@ -399,11 +425,6 @@ static glui32 *FoldGermanSequences(const glui32 *in, size_t in_len,
             }
             if (folded)
                 continue;
-            /* Not a sequence, just a single character substitution. */
-            if (cp == '"') {
-                out[write_pos++] = 0x2019; /* ’ */
-                continue;
-            }
             if (cp == 's' && next == 's' && IsEszettPosition(in, i)) {
                 out[write_pos++] = 0x00DF; /* ß */
                 ++i;

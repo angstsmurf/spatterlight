@@ -3,7 +3,7 @@
 `make -f Makefile.headless scriptcheck` (from `terps/scott`) plays each command
 script in this folder through `scott_hl` on every image of its game in
 `../formats/games/` and compares the transcript with a hash in `scripts.tsv`.
-214 replays, about ten seconds.
+218 replays, about ten seconds.
 
 Where `formatcheck` shows that the loaders still produce the same tables, this
 shows that the interpreter still does the same things with them: the parser,
@@ -59,7 +59,8 @@ One command per line. Three things are not commands:
   on every release.
 - **Idle turns.** Where a script has to wait, `LOOK` takes a turn and
   `INVENTORY` does not. German Gremlins has no `LOOK`; `laufen`, which it does
-  not understand, takes a turn all the same.
+  not understand, takes a turn all the same. Spanish Gremlins has `mirar`;
+  a word it does not understand takes no turn there.
 
 Seas of Blood's dice are thrown by timer and key events, which CheapGlk does
 not have. `scott_hl` is built with `AUTOWIN` (`ai_uk/seas_of_blood.c`), as the
@@ -116,6 +117,7 @@ regression test needs, but it covers less of the game.
 | `gremlins` | won on 6 of 8 | English only; the "alternate" ZX release stops one command short |
 | `gremlins-german` | won, all 4 | C64 and ZX. Changed from the wiki: `holen` for `nehmen`, which the game does not know; `anzeige` for `ladentisch`, which only the C64 knows; `taste druecken` once more at the pool; `laufen` for the waits |
 | `gremlins-german-verb-first` | won, all 4 | the same commands with the verb first; has to play out as `gremlins-german` does |
+| `gremlins-spanish` | won, all 4 | C64 and ZX. The English script put into Spanish word for word, but: the camera button is pressed as soon as the gang is at the pool, and `mirar` for the waits |
 | `hulk` | won on 14 of 18 | old random numbers. The two C64 and two of the four ZX images end in limbo: Banner is gassed on another turn there |
 | `robin-of-sherwood` | won, all 8 | old random numbers |
 | `seas-of-blood-c64`, `-zx` | won | old random numbers and `AUTOWIN`. Each wins on its own platform (2 C64 images, 4 ZX) and gets lost on the other |

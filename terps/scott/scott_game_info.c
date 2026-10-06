@@ -2183,7 +2183,7 @@ const GameInfo games[] = {
         FOLLOWS, // item flags
         FOLLOWS, // item images
 
-        0x3cbd, // actions
+        0x3cbe, // actions
         COMPRESSED,
         0x4793,  // dictionary
         FOLLOWS, // start_of_room_descriptions

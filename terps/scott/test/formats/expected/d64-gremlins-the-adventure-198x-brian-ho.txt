@@ -1,13 +1,13 @@
 game       Gremlins (Spanish C64)
 variant    sys=unknown type=gremlins subtype=4
-header     items=99 actions=243 words=124 rooms=42 maxcarry=6 start=1 treasures=0 wordlen=4 light=-1 messages=98 treasureroom=0
+header     items=99 actions=236 words=124 rooms=42 maxcarry=6 start=1 treasures=0 wordlen=4 light=-1 messages=98 treasureroom=0
 picture    width=255 height=96
 rooms        43 f970d50a
 items       100 b48d0f6e
 verbs       125 5ca8a906
 nouns       125 3402ac7a
 messages     99 bec005aa
-actions     244 5c74997b
-sysmess      71 bf7af6fc
+actions     237 a71162ed
+sysmess      71 92eb2398
 irmak        91 58855b15 version=3
 tiles       256 5df36442
