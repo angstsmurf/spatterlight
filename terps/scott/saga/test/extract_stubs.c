@@ -25,29 +25,19 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename) {
 #endif
 
 // --- glkimp-specific globals (defined by the glkimp lib in the real build) -----
-// gli_slowdraw / gli_determinism are provided by cheapglk's cgmisc.o.
-int gli_enable_graphics = 1;
-int gli_flicker = 0;
-int gli_sa_delays = 0;
-int gli_sa_inventory = 0;
-int gli_sa_palette = 0;
-uint32_t gbgcol = 0;
-
-// Config globals normally provided by cheapglk's main.o (which we exclude to
-// keep our own main()).
-int gli_screenwidth = 80, gli_screenheight = 200;
-int gli_utf8output = 1, gli_utf8input = 1;
-int gli_debugger = 0;
-int gli_get_dataresource_info(int num, void **ptr, glui32 *len, int *isbinary) {
-    (void)num; (void)ptr; (void)len; (void)isbinary; return 0;
-}
+// Graphics on, a black background, and cheapglk's main.o config globals (which
+// we exclude to keep our own main()) as a 200-line UTF-8 terminal.
+#define GLKIMP_ENABLE_GRAPHICS 1
+#define GLKIMP_GBGCOL 0
+#define GLKIMP_SCREENHEIGHT 200
+#define GLKIMP_UTF8 1
+#include "../../../common_imagetest/glkimp_stubs.c"
 
 // --- glkimp-specific helpers ---------------------------------------------------
 GLK_ATTRIBUTE_NORETURN void Fatal(const char *x) {
     fprintf(stderr, "Fatal: %s\n", x ? x : "(null)");
     exit(1);
 }
-void win_testresult(int result) { (void)result; }
 char *LineBreakText(const char *source, int columns, int *rows, int *length) {
     (void)source; (void)columns; if (rows) *rows = 0; if (length) *length = 0; return NULL;
 }

@@ -1,6 +1,8 @@
 /* Stubs for the Spatterlight front-end symbols that the ScottFree sources
    reference outside of #ifdef SPATTERLIGHT guards. In the real app these live
-   in glkimp; the headless CheapGlk build has no glkimp, so define them here.
+   in glkimp; the headless CheapGlk build has no glkimp, so define them here
+   (common_imagetest/glkimp_stubs.c, shared with the image probes and the SAGA
+   image dumpers).
 
    Deliberately absent (provided elsewhere in the headless link):
      - gli_slowdraw, gli_determinism        -> CheapGlk (cgmisc.c)
@@ -9,29 +11,13 @@
      - FindGlkWindowWithRock                -> common_utils (common_utils.c) */
 
 #include <stdlib.h>
-#include <stdint.h>
-
-#include "glk.h"
 
 /* Graphics are unavailable under CheapGlk (it refuses wintype_Graphics), so the
-   drawing paths are inert. Delays and flicker are off, and the "nothing forced"
-   settings (0) keep the engine on its default inventory/palette behaviour. */
-int gli_enable_graphics = 0;
-int gli_sa_delays = 0;
-int gli_flicker = 0;
-int gli_sa_inventory = 0;
-int gli_sa_palette = 0;
-int gli_utf = 1;
-
-/* Foreground/background colours, normally taken from the Spatterlight theme. */
-uint32_t gfgcol = 0x000000;
-uint32_t gbgcol = 0xffffff;
-
-/* Only used by the -z self-test entry point, which the harness never takes. */
-void win_testresult(int result)
-{
-    (void)result;
-}
+   drawing paths are inert; a white background. */
+#define GLKIMP_ENABLE_GRAPHICS 0
+#define GLKIMP_GBGCOL 0xffffff
+#define GLKIMP_NO_CHEAPGLK_MAIN
+#include "../../common_imagetest/glkimp_stubs.c"
 
 /* Force the engine down its determinism path (fixed RNG seed) before glk_main
    reads the flag. Without this the headless build seeds the RNG from the clock,

@@ -57,32 +57,13 @@ extern void gli_initialize_misc(void);
 extern int gli_determinism;
 extern void glk_main(void);
 
-/* Spatterlight front-end settings (glkimp.h). Graphics on, no delays, and the
-   "nothing forced" value for the rest. */
-int gli_enable_graphics = 1;
-int gli_sa_delays = 0;
-int gli_sa_inventory = 0;
-int gli_sa_palette = 0;
-uint32_t gfgcol = 0x000000;
-uint32_t gbgcol = 0xffffff;
-
-/* What CheapGlk's main.c would define; the probe has its own main(). */
-int gli_screenwidth = 80;
-int gli_screenheight = 24;
-int gli_utf8output = 0;
-int gli_utf8input = 0;
-int gli_debugger = 0;
-
-int gli_get_dataresource_info(int num, void **ptr, glui32 *len, int *isbinary)
-{
-    (void)num; (void)ptr; (void)len; (void)isbinary;
-    return 0;
-}
-
-void win_beep_zx(int duration, int pitch)
-{
-    (void)duration; (void)pitch;
-}
+/* Spatterlight front-end settings (glkimp.h): graphics on, a white
+   background, an 80x24 terminal without UTF-8, and the defaults for the rest. */
+#define GLKIMP_ENABLE_GRAPHICS 1
+#define GLKIMP_GBGCOL 0xffffff
+#define GLKIMP_SCREENHEIGHT 24
+#define GLKIMP_UTF8 0
+#include "glkimp_stubs.c"
 
 // ---- Fake windows (fake_glk_window.c) -------------------------------------------
 
