@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C3C0A5E100000000000000A3 /* companion_search.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0A5E100000000000000A1 /* companion_search.c */; };
+		C3C0A5E100000000000000A4 /* companion_search.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0A5E100000000000000A1 /* companion_search.c */; };
 		08669A147249B2573251633E /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		144A2FE274534FB4993C777A /* GlkTextBufferWindow+Input.m in Sources */ = {isa = PBXBuildFile; fileRef = A14490B80EA24F1C864C91E3 /* GlkTextBufferWindow+Input.m */; };
 		173BCAC39A06DA931B4F8506 /* scrunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */; };
@@ -1799,6 +1801,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C3C0A5E100000000000000A5 /* vector_oplist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vector_oplist.h; sourceTree = "<group>"; };
+		C3C0A5E100000000000000A2 /* companion_search.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = companion_search.h; sourceTree = "<group>"; };
+		C3C0A5E100000000000000A1 /* companion_search.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = companion_search.c; sourceTree = "<group>"; };
 		066545D7B54AED7A90A3003E /* scparser.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser.cpp; sourceTree = "<group>"; };
 		0B97A332BA494DD98C1A1131 /* GlkTextBufferWindow+Hyperlinks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Hyperlinks.m"; sourceTree = "<group>"; };
 		0E7D25CD79FDADB081ACDA2B /* scprops.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scprops.cpp; sourceTree = "<group>"; };
@@ -6626,6 +6631,8 @@
 				C3590C702EF1494100F02FE7 /* read_le16.c */,
 				C31919B12EF6B97E0062991C /* common_file_utils.h */,
 				C31919B22EF6B97E0062991C /* common_file_utils.c */,
+				C3C0A5E100000000000000A2 /* companion_search.h */,
+				C3C0A5E100000000000000A1 /* companion_search.c */,
 				C35032ED2F37EF0900BD32A6 /* randomness.h */,
 				C35032EE2F37EF0900BD32A6 /* randomness.c */,
 				C3A51F0000000000000000D1 /* rgbsurface.h */,
@@ -6718,6 +6725,7 @@
 				C314DFDB2F24181200A0879C /* c64_small.h */,
 				C314DFDC2F24181200A0879C /* c64_small.c */,
 				C3D83A9B2F2FA3CB00A5D6AE /* vector_common.h */,
+				C3C0A5E100000000000000A5 /* vector_oplist.h */,
 				C3D83A9C2F2FA3CB00A5D6AE /* vector_common.c */,
 				C30C7AD528CA2C0300D293BE /* apple2detect.h */,
 				C30C7AD828CA2C0300D293BE /* apple2detect.c */,
@@ -9193,6 +9201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3C0A5E100000000000000A3 /* companion_search.c in Sources */,
 				C31919B82EF6F2510062991C /* layouttext.c in Sources */,
 				C3109FCD2798B19F00854ED0 /* parser.c in Sources */,
 				C36797E22EF0B43A008A6A0D /* c64a8scott.c in Sources */,
@@ -9284,6 +9293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3C0A5E100000000000000A4 /* companion_search.c in Sources */,
 				C3484A7C2F105FF1003D6B4C /* writetiff.cpp in Sources */,
 				C31919B92EF6F25E0062991C /* layouttext.c in Sources */,
 				C31919AE2EF69EF30062991C /* common_utils.c in Sources */,

@@ -23,9 +23,6 @@
 #define BRUSH_PART_HEIGHT      8
 #define GM_BRUSH_BITMAPS_SIZE  256
 
-#define CALC_APPLE2_ADDRESS(y) \
-    ((((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10))
-
 void gm_spread7(uint8_t src, uint8_t offset, uint8_t *mask_a, uint8_t *mask_b) {
     /* Rotate the 7-bit source left `offset` times, collecting bit 6 into the
        carry byte that spills into the next column. */
@@ -47,7 +44,7 @@ void gm_set_color(uint8_t color_index, gm_vector_ctx *c) {
 void gm_set_draw_position(uint16_t xpos, uint8_t ypos, gm_vector_ctx *c) {
     c->HGR_X = xpos;
     c->HGR_Y = ypos;
-    c->HBAS = CALC_APPLE2_ADDRESS(ypos);
+    c->HBAS = gm_row_address(ypos);
     c->HGR_HORIZ = xpos / COL_BITS;
     static const uint8_t masktable[COL_BITS] = {0x81, 0x82, 0x84, 0x88, 0x90, 0xa0, 0xc0};
     c->HMASK = masktable[xpos % COL_BITS];
@@ -101,7 +98,7 @@ static void move_up_or_down(bool down, gm_vector_ctx *c) {
         /* Note: `(int8_t)HGR_Y < 0` would wrongly fire for valid rows 128..191. */
         if (c->HGR_Y > 191) c->HGR_Y = 191;
     }
-    c->HBAS = CALC_APPLE2_ADDRESS(c->HGR_Y);
+    c->HBAS = gm_row_address(c->HGR_Y);
 }
 
 static void move_left_or_right(bool left, gm_vector_ctx *c) {
@@ -177,7 +174,7 @@ typedef struct {
 // then blend it into the screen using the current fill colour pattern.
 static void brush_bitmap(gm_vector_ctx *c, gm_brush_scratch *s) {
     for (int row = 0; row < 8; row++) {
-        uint16_t address = CALC_APPLE2_ADDRESS(s->scanline) + s->seed_column;
+        uint16_t address = gm_row_address(s->scanline) + s->seed_column;
         int idx = s->bitmap_index + row;
         if (idx < GM_BRUSH_BITMAPS_SIZE && address <= GM_MAX_SCREEN_ADDR) {
             uint8_t b = c->brush_bitmaps[idx];

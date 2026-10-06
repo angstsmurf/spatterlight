@@ -957,6 +957,24 @@ char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t game_fi
 
    For example, if the game file is "/Games/HULK.DAT" and the companion
    database says HULK.DAT pairs with HULK.PIC, this returns "/Games/HULK.PIC". */
+void SwapWithCompanionFile(uint8_t **sf, size_t *extent, uint8_t **companion, size_t *companionsize)
+{
+    uint8_t *temp = *companion;
+    size_t tempsize = *companionsize;
+    *companion = *sf;
+    *companionsize = *extent;
+    *sf = temp;
+    *extent = tempsize;
+}
+
+void FreeUSImagesIfEmpty(void)
+{
+    if (USImages != NULL && USImages->next == NULL && USImages->imagedata == NULL) {
+        free(USImages);
+        USImages = NULL;
+    }
+}
+
 char *LookInDatabase(const pairrec list[][2], const char *game_path, size_t pathlen)
 {
     size_t resultlen;

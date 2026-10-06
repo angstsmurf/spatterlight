@@ -21,16 +21,6 @@ typedef struct {
     uint32_t stringlength;
 } pairrec;
 
-typedef enum {
-    TYPE_NONE,
-    TYPE_A,
-    TYPE_B,
-    TYPE_ONE,
-    TYPE_TWO,
-    TYPE_1,
-    TYPE_2,
-} CompanionNameType;
-
 int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2);
 
 GameIDType FreeGameResources(void);
@@ -38,6 +28,13 @@ GameIDType FreeGameResources(void);
 char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t stringlen, size_t *stringlength2);
 
 char *LookInDatabase(const pairrec list[][2], const char *game_path, size_t pathlen);
+
+/* Swaps the game file with its companion file, when the database turned out
+   to be on the companion disk */
+void SwapWithCompanionFile(uint8_t **sf, size_t *extent, uint8_t **companion, size_t *companionsize);
+
+/* Frees USImages if it holds nothing but a single empty image */
+void FreeUSImagesIfEmpty(void);
 
 GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int dict_start);
 

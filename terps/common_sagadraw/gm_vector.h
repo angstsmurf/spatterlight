@@ -24,6 +24,11 @@
 extern "C" {
 #endif
 
+// Offset into the hi-res page of the first byte of scanline y
+static inline int gm_row_address(int y) {
+    return (((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10);
+}
+
 // Cursor + colour state for the Graphics Magician line primitives. The field
 // names match the 6502 zero-page locations the disassembly uses.
 typedef struct gm_vector_ctx {

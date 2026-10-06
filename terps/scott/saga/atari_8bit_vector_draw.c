@@ -13,6 +13,7 @@
 #include "common_file_utils.h"
 #include "scott.h"
 #include "vector_common.h"
+#include "vector_oplist.h"
 
 #include "atari_8bit_vector_draw.h"
 
@@ -100,11 +101,7 @@ typedef struct {
     uint16_t delay;
 } a8_byte_to_write;
 
-static a8_byte_to_write *bytes_to_write = NULL;
-static size_t write_ops_capacity = 100;
-
-static size_t total_write_ops = 0;
-static size_t current_write_op = 0;
+static VectorOpList write_ops = VECTOR_OPLIST(a8_byte_to_write);
 
 /* Bytes emitted per slow-draw tick. Pairs with the graphics timer interval —
  * change in step with it. */
@@ -113,43 +110,6 @@ static size_t current_write_op = 0;
 
 static inline bool is_valid_screen_offset(uint16_t offset) {
     return offset < A8_IMAGE_SIZE;
-}
-
-static void ensure_capacity(void) {
-    // Ensure bytes_to_write has room for all write ops.
-    // This might be more than the total amount of bytes
-    // in screenmem, as many ops may write to the same offset
-    if (total_write_ops >= write_ops_capacity) {
-        write_ops_capacity = MAX(write_ops_capacity * 2, total_write_ops + 1);  // Double the capacity
-        a8_byte_to_write *new_ops = MemRealloc(bytes_to_write, write_ops_capacity * sizeof(a8_byte_to_write));
-        bytes_to_write = new_ops;
-    }
-}
-
-static void FreeOps(void)
-{
-    if (bytes_to_write == NULL)
-        return;
-    free(bytes_to_write);
-    bytes_to_write = NULL;
-    write_ops_capacity = 100;
-}
-
-static void shrink_capacity(void) {
-    // When the image has finished writing all its ops,
-    // we might have allocated a lot more memory than we need,
-    // so we free any excess space.
-    if (bytes_to_write != NULL && write_ops_capacity > total_write_ops) {
-        if (total_write_ops == 0) {
-            FreeOps();
-            return;
-        }
-        write_ops_capacity = total_write_ops;
-        // Our wrapper of realloc() will exit() on failure,
-        // so no need to check the result here.
-        a8_byte_to_write *new_pixels = MemRealloc(bytes_to_write, write_ops_capacity * sizeof(a8_byte_to_write));
-        bytes_to_write = new_pixels;
-    }
 }
 
 static void write_to_screenmem(uint16_t offset, uint8_t value90, uint8_t valueA0, bool fill, int delay) {
@@ -166,8 +126,7 @@ static void write_to_screenmem(uint16_t offset, uint8_t value90, uint8_t valueA0
         a8_screenmemA0[offset] = valueA0;
     }
 
-    ensure_capacity();
-    a8_byte_to_write *op = &bytes_to_write[total_write_ops++];
+    a8_byte_to_write *op = VectorOpListPush(&write_ops);
     op->offset = offset;
     op->value90 = value90;
     op->valueA0 = valueA0;
@@ -596,19 +555,27 @@ static const RGBColor color_matrix[4][4] = {
     {GOLD12,   GOLD13,   WHITE14,  YELLOW15}
 };
 
-static void DrawByteAt(glsi32 *x, glsi32 *y, int index) {
+// Sets colour 1 to the colour of the pixel whose two-bit values in the
+// $9000 and $A000 planes are idx90 and idxA0
+static void SetA8PixelColor(int idx90, int idxA0) {
+    SetColor(1, RGBpalette[color_matrix[idx90][idxA0]]);
+}
+
+// Draws the four pixels of one screen memory byte
+static void DrawSingleByteAt(uint8_t byte90, uint8_t bytea0, glsi32 x, glsi32 y) {
     uint8_t mask = 0xc0;
 
     for (int i = 6; i >= 0; i -= 2) {
-        int idx90 = (a8_screenmem90[index] & mask) >> i;
-        int idxA0 = (a8_screenmemA0[index] & mask) >> i;
-        RGBColor rgbidx = color_matrix[idx90][idxA0];
-        glui32 color = RGBpalette[rgbidx];
-        SetColor(1, color);
-        PutDoublePixel(*x, *y, 1);
+        SetA8PixelColor((byte90 & mask) >> i, (bytea0 & mask) >> i);
+        PutDoublePixel(x, y, 1);
         mask >>= 2;
-        (*x) += 2;
+        x += 2;
     }
+}
+
+static void DrawByteAt(glsi32 *x, glsi32 *y, int index) {
+    DrawSingleByteAt(a8_screenmem90[index], a8_screenmemA0[index], *x, *y);
+    (*x) += 8;
 }
 
 static void DrawAtari8bitImageFromScreenmem(void) {
@@ -788,28 +755,9 @@ static bool process_opcode(a8_draw_ctx *ctx, Opcode opcode, uint8_t arg0, uint8_
     return start_over;
 }
 
-static void DrawSingleByteAt(uint8_t byte90,  uint8_t bytea0, glsi32 x, glsi32 y) {
-    uint8_t mask = 0xc0;
-
-    for (int i = 6; i >= 0; i -= 2) {
-        int idx90 = (byte90 & mask) >> i;
-        int idxA0 = (bytea0 & mask) >> i;
-        RGBColor rgbidx = color_matrix[idx90][idxA0];
-        glui32 color = RGBpalette[rgbidx];
-        SetColor(1, color);
-        PutDoublePixel(x, y, 1);
-        mask >>= 2;
-        x += 2;
-    }
-}
-
 void DrawSingleAtari8ImageByte(const a8_byte_to_write *towrite) {
     if (towrite->fill_bg == true) {
-        int idx90 = (towrite->value90 & 0x3);
-        int idxA0 = (towrite->valueA0 & 0x3);
-        RGBColor rgbidx = color_matrix[idx90][idxA0];
-        glui32 color = RGBpalette[rgbidx];
-        SetColor(1, color);
+        SetA8PixelColor(towrite->value90 & 0x3, towrite->valueA0 & 0x3);
         RectFill(0, 0, ImageWidth, ImageHeight, 1);
     } else {
         glsi32 y = towrite->offset / A8_SCREEN_COLUMNS;
@@ -824,13 +772,13 @@ void DrawSomeAtari8VectorBytes(int from_start)
 {
     if (!gli_slowdraw) {
         DrawAtari8bitImageFromScreenmem();
-        current_write_op = total_write_ops;
+        write_ops.current = write_ops.total;
     } else {
         VectorState = DRAWING_VECTOR_IMAGE;
         if (from_start) {
-            current_write_op = 0;
+            write_ops.current = 0;
             delay_active = 0;
-            shrink_capacity();
+            VectorOpListShrink(&write_ops);
         }
 
         if (delay_active > 0) {
@@ -838,46 +786,28 @@ void DrawSomeAtari8VectorBytes(int from_start)
             return;
         }
 
-        size_t i = current_write_op;
+        size_t i = write_ops.current;
         size_t chunk_end = i + ATARI8_VECTOR_BYTES_PER_TICK;
 
-        for (; i < total_write_ops && i < chunk_end; i++) {
-            const a8_byte_to_write *towrite = &bytes_to_write[i];
+        for (; i < write_ops.total && i < chunk_end; i++) {
+            const a8_byte_to_write *towrite = VectorOpAt(&write_ops, i);
             if (towrite->delay > 0) {
                 delay_active = towrite->delay;
                 debug_print("DrawSomeAtari8VectorBytes: initiating a delay of %d\n", delay_active);
-                current_write_op = i + 1;
+                write_ops.current = i + 1;
                 return;
             }
             DrawSingleAtari8ImageByte(towrite);
         }
 
-        current_write_op = i;
+        write_ops.current = i;
     }
 
-    if (current_write_op >= total_write_ops) {
-        // Finished
-        glk_request_timer_events(0);
-        VectorState = SHOWING_VECTOR_IMAGE;
-        FreeOps();
-    }
+    VectorOpListFinishIfDone(&write_ops);
 }
 
 int DrawingAtari8Vector(void) {
-    return  (total_write_ops > current_write_op);
-}
-
-static void init_a8_vector_draw_session(USImage *img) {
-    // Init a new image session. Cancel any in-progress drawing and free any ops.
-    FreeOps();
-    // Start with a small allocation for bytes_to_write.
-    // write_to_screenmem() will grow this as needed.
-    write_ops_capacity = 100;
-    bytes_to_write = MemAlloc(write_ops_capacity * sizeof(a8_byte_to_write));
-    total_write_ops = 0;
-    current_write_op = 0;
-    glk_request_timer_events(0);
-    VectorState = DRAWING_VECTOR_IMAGE;
+    return VectorOpListDrawing(&write_ops);
 }
 
 uint8_t *DrawAtari8BitVectorImage(USImage *img) {
@@ -897,23 +827,10 @@ uint8_t *DrawAtari8BitVectorImage(USImage *img) {
     if (a8_screenmemA0 == NULL)
         a8_screenmemA0 = MemAlloc(A8_IMAGE_SIZE);
 
-    // We reset any drawing if the image is not supposed
-    // to be drawn on top of another image (i.e. it is a room image)
-    if (img->usage == IMG_ROOM) {
-        init_a8_vector_draw_session(img);
-        write_to_screenmem(0, 0, 0, true, 0);
-        vector_image_shown = img->index;
-    } else if (VectorState == SHOWING_VECTOR_IMAGE) {
-        // If this is not a room image and we are already showing an image,
-        // we can assume that we want to draw a room object on top of
-        // the current room image
-        DrawAtari8bitImageFromScreenmem();
-        init_a8_vector_draw_session(img);
-    } else if (bytes_to_write == NULL) {
-        // No room image is being drawn or shown (it is dark, or graphics
-        // are off), so there is no session to add this object to.
+    if (!VectorBeginImage(&write_ops, img, DrawAtari8bitImageFromScreenmem))
         return NULL;
-    }
+    if (img->usage == IMG_ROOM)
+        write_to_screenmem(0, 0, 0, true, 0);
 
     uint16_t offset = 0;
 
@@ -936,73 +853,22 @@ uint8_t *DrawAtari8BitVectorImage(USImage *img) {
     return ctx.imagedata + offset;
 }
 
-static int Atari8bitVectorCompare(uint8_t *data, size_t datasize, int a0) {
-    fprintf(stderr, "Atari8bitVectorCompare\n");
-    uint8_t *target;
-    if (a0) {
-        target = a8_screenmemA0;
-        fprintf(stderr, "Comparing data to screen buffer at A0\n");
-    } else {
-        target = a8_screenmem90;
-        fprintf(stderr, "Comparing data to screen buffer at 90\n");
-    }
-    for (int i = 0; i < datasize; i++) {
-        if (target[i] != data[i]) {
-            fprintf(stderr, "Mismatch at offset 0x%04x: expected 0x%02x, got 0x%02x\n", i, data[i], target[i]);
-            return 0;
-        }
-    }
-    fprintf(stderr, "Incredible! All data matched!\n");
-    return 1;
-}
-
-int ReadAndDrawImageWithName(const char *name, const char *supportpath, USImageType usage) {
-    USImage *image = NewImage();
-
-    size_t pathlength = strlen(name) + 11;
-    char *finalname = MemAlloc(pathlength);
-
-    snprintf(finalname, pathlength, "atari8%s.dat", name);
-
-    size_t size;
-
-    image->imagedata = ReadTestDataFromFile(finalname, supportpath, &size);
-    if (!image->imagedata) {
-        fprintf(stderr, "Failed to read image data\n");
-        free(finalname);
+static int ReadAndDrawImageWithName(const char *name, const char *supportpath, USImageType usage) {
+    USImage *image = LoadTestImage("atari8", name, supportpath);
+    if (!image)
         return 0;
-    }
-    image->datasize = size;
     image->usage = usage;
     DrawAtari8BitVectorImage(image);
-    free(image->imagedata);
-    free(image);
-    free(finalname);
+    FreeTestImage(image);
     return 1;
 }
 
 int TestAtari8ImageWithName(const char *name, const char *supportpath) {
     if (!ReadAndDrawImageWithName(name, supportpath, IMG_ROOM))
         return 0;
-
-    size_t pathlength = strlen(name) + 16;
-    char *finalname = MemAlloc(pathlength);
-    snprintf(finalname, pathlength, "atari8%s90.result", name);
-
-    size_t size;
-    uint8_t *arg = ReadTestDataFromFile(finalname, supportpath, &size);
-    int result = Atari8bitVectorCompare(arg, size, 0);
-    free(arg);
-    if (result == 0) {
-        free(finalname);
+    if (!CompareWithTestFile("atari8", name, "90.result", supportpath, a8_screenmem90, A8_IMAGE_SIZE))
         return 0;
-    }
-    snprintf(finalname, pathlength, "atari8%sA0.result", name);
-    arg = ReadTestDataFromFile(finalname, supportpath, &size);
-    result = Atari8bitVectorCompare(arg, size, 1);
-    free(arg);
-    free(finalname);
-    return result;
+    return CompareWithTestFile("atari8", name, "A0.result", supportpath, a8_screenmemA0, A8_IMAGE_SIZE);
 }
 
 const uint8_t *GetAtari8Screenmem90(void) { return a8_screenmem90; }
@@ -1026,17 +892,7 @@ int RunAtari8bitVectorTests(const char *supportpath) {
     if (!ReadAndDrawImageWithName("so_tint", supportpath, IMG_INV_AND_ROOM_OBJ))
         return 0;
 
-    size_t size;
-    uint8_t *arg = ReadTestDataFromFile("tint90.result", supportpath, &size);
-    if (!Atari8bitVectorCompare(arg, size, 0)) {
+    if (!CompareWithTestFile("tint", "90", ".result", supportpath, a8_screenmem90, A8_IMAGE_SIZE))
         return 0;
-    }
-    free(arg);
-    arg = ReadTestDataFromFile("tinta0.result", supportpath, &size);
-
-    if (!Atari8bitVectorCompare(arg, size, 1)) {
-        return 0;
-    }
-    
-    return 1;
+    return CompareWithTestFile("tint", "a0", ".result", supportpath, a8_screenmemA0, A8_IMAGE_SIZE);
 }

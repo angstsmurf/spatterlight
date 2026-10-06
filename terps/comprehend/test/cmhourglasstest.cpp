@@ -158,7 +158,7 @@ static void test_fall_frame_machine() {
 }
 
 // Apple II hi-res row base address (rows are address-interleaved). Mirrors the
-// renderer's CALC_APPLE2_ADDRESS so the test can address the page directly.
+// renderer's gm_row_address so the test can address the page directly.
 static int row_base(int y) {
 	return (((y / 8) & 7) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10);
 }

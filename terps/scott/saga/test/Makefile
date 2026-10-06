@@ -23,7 +23,8 @@ SRCS := filltest.c headless_glk_stubs.c \
         $(SCOTT)/saga/apple2detect.c \
         $(TERPS)/readwoz/ciderpress.c \
         $(TERPS)/common_utils/memory_allocation.c \
-        $(TERPS)/common_utils/common_file_utils.c
+        $(TERPS)/common_utils/common_file_utils.c \
+        $(TERPS)/common_utils/companion_search.c
 
 FIXTURES := $(TERPS)/../SpatterlightTests/Supporting Files/
 
@@ -118,7 +119,7 @@ EXTRACT_SRCS := extract_images.c extract_stubs.c \
   $(TERPS)/common_sagadraw/pcdraw.c $(TERPS)/common_sagadraw/gm_artifact.c \
   $(TERPS)/common_sagadraw/gm_vector.c \
   $(TERPS)/common_utils/memory_allocation.c $(TERPS)/common_utils/common_file_utils.c \
-  $(TERPS)/common_utils/read_le16.c \
+  $(TERPS)/common_utils/read_le16.c $(TERPS)/common_utils/companion_search.c \
   $(TERPS)/aiukgraphics/irmak.c $(TERPS)/aiukgraphics/palette.c \
   $(TERPS)/readwoz/ciderpress.c $(TERPS)/readwoz/woz2nib.c \
   $(TERPS)/decompressz80/decompressz80.c

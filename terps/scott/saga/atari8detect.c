@@ -12,6 +12,7 @@
 
 #include "atari8detect.h"
 #include "common_file_utils.h"
+#include "companion_search.h"
 #include "saga.h"
 #include "sagagraphics.h"
 #include "scott.h"
@@ -720,110 +721,6 @@ static const CropList a8croplist[] = {
     { 0, 0, 0, 0, 0 }
 };
 
-static int StripBrackets(char sideB[], size_t length)
-{
-    if (!sideB || length < 4) {
-        return 0;
-    }
-
-    // Find any extension
-    // (we assume that everything after the last period is an extension)
-    char *extension = strrchr(sideB, '.');
-
-    // This should not be possible
-    if (!extension)
-        return 0;
-
-    size_t extlen = length - (extension - sideB) + 1;
-
-    // Find last closing bracket
-    char *close_paren = strrchr(sideB, ']');
-    if (!close_paren || close_paren >= extension) {
-        return 0;  // No trailing parenthetical
-    }
-
-    // Find matching opening bracket
-    char *open_paren = strrchr(sideB, '[');
-    if (!open_paren || open_paren >= close_paren) {
-        return 0;  // No matching opening paren
-    }
-
-    // Copy extension, inluding terminating 0, starting at the opening bracket
-    memcpy(open_paren, close_paren + 1, extlen);
-    return 1;  // Successfully stripped
-}
-
-static uint8_t *LookForAtari8CompanionFilename(int index, CompanionNameType type, size_t stringlen, size_t *filesize)
-{
-
-    char *sideB = MemAlloc(stringlen + 10);
-    uint8_t *result = NULL;
-
-    memcpy(sideB, game_file, stringlen + 1);
-    switch (type) {
-    case TYPE_A:
-        sideB[index] = 'A';
-        break;
-    case TYPE_B:
-        sideB[index] = 'B';
-        break;
-    case TYPE_1:
-        sideB[index] = '1';
-        break;
-    case TYPE_2:
-        sideB[index] = '2';
-        break;
-    case TYPE_ONE:
-        sideB[index] = 'o';
-        sideB[index + 1] = 'n';
-        sideB[index + 2] = 'e';
-        break;
-    case TYPE_TWO:
-        sideB[index] = 't';
-        sideB[index + 1] = 'w';
-        sideB[index + 2] = 'o';
-        break;
-    case TYPE_NONE:
-        break;
-    }
-
-    debug_print("looking for companion file \"%s\"\n", sideB);
-    result = ReadFileIfExists(sideB, filesize);
-    if (!result) {
-        if (type == TYPE_B) {
-            if (StripBrackets(sideB, stringlen)) {
-                debug_print("looking for companion file \"%s\"\n", sideB);
-                result = ReadFileIfExists(sideB, filesize);
-            }
-        } else if (type == TYPE_A) {
-            // First we look for the period before the file extension
-            size_t ppos = stringlen - 1;
-            while (sideB[ppos] != '.' && ppos > 0)
-                ppos--;
-            if (ppos < 1) {
-                free(sideB);
-                return NULL;
-            }
-            // Then we copy the extension to the new end position
-            for (size_t i = ppos; i <= stringlen; i++) {
-                sideB[i + 8] = sideB[i];
-            }
-            sideB[ppos++] = '[';
-            sideB[ppos++] = 'c';
-            sideB[ppos++] = 'r';
-            sideB[ppos++] = ' ';
-            sideB[ppos++] = 'C';
-            sideB[ppos++] = 'S';
-            sideB[ppos++] = 'S';
-            sideB[ppos] = ']';
-            debug_print("looking for companion file \"%s\"\n", sideB);
-            result = ReadFileIfExists(sideB, filesize);
-        }
-    }
-    free(sideB);
-    return result;
-}
-
 static uint8_t *GetAtari8CompanionFile(size_t *size)
 {
 
@@ -837,48 +734,13 @@ static uint8_t *GetAtari8CompanionFile(size_t *size)
             return result;
     }
 
-    char c;
-    for (int i = (int)gamefilelen - 1; i >= 0 && game_file[i] != '/' && game_file[i] != '\\'; i--) {
-        c = tolower(game_file[i]);
-        if (i > 3 && ((c == 'e' && game_file[i - 1] == 'd' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 's') || (c == 'k' && game_file[i - 1] == 's' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 'd'))) {
-            if (gamefilelen > i + 2) {
-                c = game_file[i + 1];
-                if (c == ' ' || c == '_') {
-                    c = tolower(game_file[i + 2]);
-                    CompanionNameType type = TYPE_NONE;
-                    switch (c) {
-                    case 'a':
-                        type = TYPE_B;
-                        break;
-                    case 'b':
-                        type = TYPE_A;
-                        break;
-                    case 't':
-                        if (gamefilelen > i + 4 && game_file[i + 3] == 'w' && game_file[i + 4] == 'o') {
-                            type = TYPE_ONE;
-                        }
-                        break;
-                    case 'o':
-                        if (gamefilelen > i + 4 && game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
-                            type = TYPE_TWO;
-                        }
-                        break;
-                    case '2':
-                        type = TYPE_1;
-                        break;
-                    case '1':
-                        type = TYPE_2;
-                        break;
-                    }
-                    if (type != TYPE_NONE)
-                        result = LookForAtari8CompanionFilename(i + 2, type, gamefilelen, size);
-                    if (result)
-                        return result;
-                }
-            }
-        }
-    }
-    return NULL;
+    const CompanionSearch search = {
+        .read = NULL,
+        .user = NULL,
+        .fallback = CompanionBracketFallback,
+        .match_char_before_extension = 0,
+    };
+    return FindCompanionFile(game_file, &search, size);
 }
 
 static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdisk, size_t othersize)
@@ -1017,10 +879,7 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
     }
 
     /* If no images are found, free USImages struct */
-    if (USImages != NULL && USImages->next == NULL && USImages->imagedata == NULL) {
-        free(USImages);
-        USImages = NULL;
-    }
+    FreeUSImagesIfEmpty();
 
     return 1;
 }
@@ -1073,12 +932,7 @@ GameIDType DetectAtari8(uint8_t **sf, size_t *extent)
         result = LoadBinaryDatabase(companionfile + data_start, companionsize - data_start, *Game, 0);
         if (result != UNKNOWN_GAME) {
             debug_print("Found database in companion file. Switching files.\n");
-            uint8_t *temp = companionfile;
-            size_t tempsize = companionsize;
-            companionfile = *sf;
-            companionsize = *extent;
-            *sf = temp;
-            *extent = tempsize;
+            SwapWithCompanionFile(sf, extent, &companionfile, &companionsize);
         }
     }
 

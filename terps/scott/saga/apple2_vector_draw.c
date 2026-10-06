@@ -31,6 +31,7 @@
 #include "ciderpress.h"
 #include "common_file_utils.h"
 #include "vector_common.h"
+#include "vector_oplist.h"
 #include "gm_vector.h"
 
 #define APPLE2_SCREEN_HEIGHT 192
@@ -40,8 +41,6 @@
 #define APPLE2_WHITE 0xff
 
 extern uint8_t *screenmem;
-
-#define CALC_APPLE2_ADDRESS(y) ((((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10))
 
 // The ROM dispatcher (DRAW_OPCODE @ $8E30) selects on `byte & 0xe0`: a 3-bit
 // opcode in the top bits, with the low nibble as the parameter and bit 4
@@ -135,21 +134,11 @@ typedef struct {
 
 static uint8_t *slow_vector_screenmem = NULL;
 
-static byte_to_write *bytes_to_write = NULL;
-static size_t write_ops_capacity = 100;
-
-static size_t total_write_ops = 0;
-static size_t current_write_op = 0;
+static VectorOpList write_ops = VECTOR_OPLIST(byte_to_write);
 
 /* Bytes emitted per slow-draw tick. Pairs with the graphics timer interval —
  * change in step with it. */
 #define APPLE2_VECTOR_BYTES_PER_TICK 50
-
-#ifdef SPATTERLIGHT
-extern int gli_slowdraw;
-#else
-static int gli_slowdraw = 0;
-#endif
 
 
 // set_color / set_draw_position now live in common_sagadraw/gm_vector.c.
@@ -159,43 +148,6 @@ static inline bool is_valid_screen_offset(uint16_t offset) {
 }
 
 #pragma mark SLOW DRAW
-
-static void ensure_capacity(void) {
-    // Ensure bytes_to_write has room for all write ops.
-    // This might be more than the total amount of bytes
-    // in screenmem, as many ops may write to the same offset
-    if (total_write_ops >= write_ops_capacity) {
-        write_ops_capacity = MAX(write_ops_capacity * 2, total_write_ops + 1);  // Double the capacity
-        byte_to_write *new_ops = MemRealloc(bytes_to_write, write_ops_capacity * sizeof(byte_to_write));
-        bytes_to_write = new_ops;
-    }
-}
-
-static void FreeOps(void)
-{
-    if (bytes_to_write == NULL)
-        return;
-    free(bytes_to_write);
-    bytes_to_write = NULL;
-    write_ops_capacity = 100;
-}
-
-static void shrink_capacity(void) {
-    // When the image has finished writing all its ops,
-    // we might have allocated a lot more memory than we need,
-    // so we free any excess space.
-    if (bytes_to_write != NULL && write_ops_capacity > total_write_ops) {
-        if (total_write_ops == 0) {
-            FreeOps();
-            return;
-        }
-        write_ops_capacity = total_write_ops;
-        // Our wrapper of realloc() will exit() on failure,
-        // so no need to check the result here.
-        byte_to_write *new_pixels = MemRealloc(bytes_to_write, write_ops_capacity * sizeof(byte_to_write));
-        bytes_to_write = new_pixels;
-    }
-}
 
 static void write_to_screenmem(uint16_t offset, uint8_t value, bool fill) {
     if (!is_valid_screen_offset(offset))
@@ -208,8 +160,7 @@ static void write_to_screenmem(uint16_t offset, uint8_t value, bool fill) {
     } else {
         screenmem[offset] = value;
     }
-    ensure_capacity();
-    byte_to_write *op = &bytes_to_write[total_write_ops++];
+    byte_to_write *op = VectorOpListPush(&write_ops);
     op->offset = offset;
     op->value = value;
     op->fill_bg = fill;
@@ -263,7 +214,7 @@ static void select_pattern_for_scanline(a2_fill_ctx *ctx) {
  */
 
 static bool is_seed_pixel_white(a2_fill_ctx *ctx) {
-    ctx->screen_row_base = CALC_APPLE2_ADDRESS(ctx->scanline);
+    ctx->screen_row_base = gm_row_address(ctx->scanline);
     if (!read_screen_byte(ctx, ctx->seed_column))
         return false;
     uint8_t two_bits[7] = {0x3, 0x3, 0x6, 0xC, 0x18, 0x30, 0x60};
@@ -602,11 +553,11 @@ static void white_background(void) {
     RectFill(2, 0, ImageWidth - 2, ImageHeight, 1);
 }
 
-static int write_pixel(const byte_to_write *towrite, int current_op_index) {
+static int write_pixel(const byte_to_write *towrite, size_t current_op_index) {
     slow_vector_screenmem[towrite->offset] = towrite->value;
     DrawSingleApple2ImageByte(slow_vector_screenmem, towrite->offset);
-    if (current_op_index + 1 < total_write_ops) {
-        const byte_to_write *next_byte = &bytes_to_write[current_op_index + 1];
+    if (current_op_index + 1 < write_ops.total) {
+        const byte_to_write *next_byte = VectorOpAt(&write_ops, current_op_index + 1);
         // Extend the chunk only across physically adjacent bytes, whose Apple II
         // artifact colours depend on each other — stopping between them would
         // flash a transient wrong colour at the seam. (A previous version also
@@ -624,14 +575,14 @@ void DrawSomeApple2VectorBytes(int from_start)
 {
     if (!gli_slowdraw) {
         DrawApple2ImageFromVideoMem();
-        current_write_op = total_write_ops;
+        write_ops.current = write_ops.total;
     } else {
         VectorState = DRAWING_VECTOR_IMAGE;
         if (from_start) {
-            current_write_op = 0;
-            shrink_capacity();
+            write_ops.current = 0;
+            VectorOpListShrink(&write_ops);
         }
-        size_t i = current_write_op;
+        size_t i = write_ops.current;
 
         /* keep_going extends the chunk past the normal cap when the next op
          * writes an adjacent byte — this avoids visible seams in runs of
@@ -639,41 +590,23 @@ void DrawSomeApple2VectorBytes(int from_start)
         int keep_going = 0;
         size_t chunk_end = i + APPLE2_VECTOR_BYTES_PER_TICK;
 
-        for (; i < total_write_ops && (i < chunk_end || keep_going); i++) {
-            const byte_to_write *towrite = &bytes_to_write[i];
+        for (; i < write_ops.total && (i < chunk_end || keep_going); i++) {
+            const byte_to_write *towrite = VectorOpAt(&write_ops, i);
             if (towrite->fill_bg) {
                 white_background();
             } else {
-                keep_going = write_pixel(towrite, (int)i);
+                keep_going = write_pixel(towrite, i);
             }
         }
 
-        current_write_op = i;
+        write_ops.current = i;
     }
 
-    if (current_write_op >= total_write_ops) {
-        // Finished
-        glk_request_timer_events(0);
-        VectorState = SHOWING_VECTOR_IMAGE;
-        FreeOps();
-    }
+    VectorOpListFinishIfDone(&write_ops);
 }
 
 int DrawingApple2Vector(void) {
-    return  (total_write_ops > current_write_op);
-}
-
-static void init_a2_vector_draw_session(USImage *img) {
-    // Init a new image session. Cancel any in-progress drawing and free any ops.
-    FreeOps();
-    // Start with a small allocation for bytes_to_write.
-    // write_to_screenmem() will grow this as needed.
-    write_ops_capacity = 100;
-    bytes_to_write = MemAlloc(write_ops_capacity * sizeof(byte_to_write));
-    total_write_ops = 0;
-    current_write_op = 0;
-    glk_request_timer_events(0);
-    VectorState = DRAWING_VECTOR_IMAGE;
+    return VectorOpListDrawing(&write_ops);
 }
 
 int DrawApple2VectorImage(USImage *img) {
@@ -691,23 +624,10 @@ int DrawApple2VectorImage(USImage *img) {
         slow_vector_screenmem = MemAlloc(A2_SCREEN_MEM_SIZE);
     }
 
-    // We reset any drawing if the image is not supposed
-    // to be drawn on top of another image (i.e. it is a room image)
-    if (img->usage == IMG_ROOM) {
-        init_a2_vector_draw_session(img);
-        write_to_screenmem(0, 0, true);
-        vector_image_shown = img->index;
-    } else if (VectorState == SHOWING_VECTOR_IMAGE) {
-        // If this is not a room image and we are already showing an image,
-        // we can assume that we want to draw a room object on top of
-        // the current room image
-        DrawApple2ImageFromVideoMem();
-        init_a2_vector_draw_session(img);
-    } else if (bytes_to_write == NULL) {
-        // No room image is being drawn or shown (it is dark, or graphics
-        // are off), so there is no session to add this object to.
+    if (!VectorBeginImage(&write_ops, img, DrawApple2ImageFromVideoMem))
         return 0;
-    }
+    if (img->usage == IMG_ROOM)
+        write_to_screenmem(0, 0, true);
 
     ctx.gv.screenmem = screenmem;
     ctx.gv.write = scott_gm_write;
@@ -726,57 +646,14 @@ int DrawApple2VectorImage(USImage *img) {
     return 1;
 }
 
-int CompareA2ScreenMemory(const char *filename, const char *supportpath) {
-    size_t pathlength = strlen(supportpath) + strlen(filename) + 1;
-    char *path = MemAlloc(pathlength);
-    snprintf(path, pathlength, "%s%s", supportpath, filename);
-    fprintf(stderr, "CompareA2ScreenMemory: Comparison with file %s\n", path);
-    size_t size;
-    uint8_t *screen_dump = ReadFileIfExists(path, &size);
-    if (screen_dump == NULL || size == 0) {
-        fprintf(stderr, "Bad file!\n");
-        return 0;
-    }
-    for (int i = 0; i < A2_SCREEN_MEM_SIZE; i++) {
-        if (screen_dump[i] != screenmem[i]) {
-            fprintf(stderr, "Mismatch at 0x%x: expected 0x%x, got 0x%x\n", i, screen_dump[i], screenmem[i]);
-            free(screen_dump);
-            return 0;
-        }
-    }
-    free(screen_dump);
-    return 1;
-}
-
 int TestApple2ImageWithName(const char *name, const char *supportpath) {
-    USImage *image = NewImage();
-
-    size_t pathlength = strlen(name) + 11;
-    char *finalname = MemAlloc(pathlength);
-
-    snprintf(finalname, pathlength, "apple2%s.dat", name);
-
-    size_t size;
-
-    image->imagedata = ReadTestDataFromFile(finalname, supportpath, &size);
-    if (!image->imagedata) {
-        fprintf(stderr, "Failed to read image data\n");
-        free(finalname);
+    USImage *image = LoadTestImage("apple2", name, supportpath);
+    if (!image)
         return 0;
-    }
-    image->datasize = size;
     image->usage = IMG_ROOM;
     DrawApple2VectorImage(image);
-    free(image->imagedata);
-    free(image);
-    free(finalname);
-
-    pathlength = strlen(name) + 14;
-    finalname = MemAlloc(pathlength);
-    snprintf(finalname, pathlength, "apple2%s.result", name);
-    int result = CompareA2ScreenMemory(finalname, supportpath);
-    free(finalname);
-    return result;
+    FreeTestImage(image);
+    return CompareWithTestFile("apple2", name, ".result", supportpath, screenmem, A2_SCREEN_MEM_SIZE);
 }
 
 int RunApple2VectorTests(const char *supportpath) {

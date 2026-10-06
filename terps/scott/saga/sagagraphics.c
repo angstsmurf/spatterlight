@@ -41,20 +41,15 @@ int HasGraphics(void)
 void DrawImageOrVector(void) {
     if (!Graphics)
         return;
-    if (CurrentSys == SYS_APPLE2 && USImages) {
-        if (USImages->systype != SYS_APPLE2_LINES) {
-            DrawApple2ImageFromVideoMem();
-        } else {
-            if (gli_slowdraw)
-                glk_request_timer_events(TimerDelay());
-            else
-                DrawSomeApple2VectorBytes(1);
-        }
-    } else if (USImages && USImages->systype == SYS_ATARI8_LINES) {
+    if (USImages && (USImages->systype == SYS_APPLE2_LINES || USImages->systype == SYS_ATARI8_LINES)) {
+        // DrawSomeVectorPixels() picks the Apple II or Atari 8-bit
+        // renderer from CurrentSys, which matches the image system type
         if (gli_slowdraw)
             glk_request_timer_events(TimerDelay());
         else
-            DrawSomeAtari8VectorBytes(1);
+            DrawSomeVectorPixels(1);
+    } else if (CurrentSys == SYS_APPLE2 && USImages) {
+        DrawApple2ImageFromVideoMem();
     } else if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
         DrawRTPIFromMem();
     }

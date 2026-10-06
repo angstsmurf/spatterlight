@@ -66,6 +66,8 @@ int IsSagaImage(const char *name) { (void)name; return 0; }
 static void unreached(const char *who) { Fatal(who); }
 void *LoadBinaryDatabase(void) { unreached("LoadBinaryDatabase"); return 0; }
 void *LookInDatabase(void) { unreached("LookInDatabase"); return 0; }
+void SwapWithCompanionFile(void) { unreached("SwapWithCompanionFile"); }
+void FreeUSImagesIfEmpty(void) { unreached("FreeUSImagesIfEmpty"); }
 void *woz2nib(void) { unreached("woz2nib"); return 0; }
 void DrawApple2ImageFromVideoMem(void) { unreached("DrawApple2ImageFromVideoMem"); }
 void DrawSingleApple2ImageByte(void) { unreached("DrawSingleApple2ImageByte"); }

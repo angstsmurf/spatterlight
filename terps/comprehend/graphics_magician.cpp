@@ -127,7 +127,6 @@ bool gmInstallDrawingTables(const uint8_t *t2, size_t size) {
 #define COL_BITS 7
 #define RIGHT_EXPAND_MASK 0x40
 
-#define CALC_APPLE2_ADDRESS(y) ((((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10))
 
 // Persistent across calls: item / overlay images are drawn straight on top of
 // the room already rendered into the Apple hi-res page (the real interpreter
@@ -170,7 +169,7 @@ static void init_offset_tables() {
 	memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
 	memset(s_colOfOffset, 0xff, sizeof(s_colOfOffset));
 	for (int row = 0; row < 192; row++) {
-		uint16_t base = CALC_APPLE2_ADDRESS(row);
+		uint16_t base = gm_row_address(row);
 		for (int col = 0; col < 40; col++) {
 			s_rowOfOffset[base + col] = (uint8_t)row;
 			s_colOfOffset[base + col] = (uint8_t)col;
@@ -312,7 +311,7 @@ static inline int to_pos(int col, int bit) { return col * COL_BITS + bit; }
 // Compute the base address and pattern base for the current row (g_row); odd
 // rows draw with the odd fill sub-index, even rows with the even one.
 static void set_row_address() {
-	g_row_addr = CALC_APPLE2_ADDRESS(g_row);
+	g_row_addr = gm_row_address(g_row);
 	g_pat_base = static_cast<uint8_t>(((g_row & 1) ? g_pat_odd : g_pat_even) << 2);
 }
 
@@ -580,7 +579,7 @@ static void draw_text_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal,
 			continue;
 		uint8_t mask_a, mask_b;                 // mask_a -> col, mask_b -> col+1
 		gm_spread7(g, off, &mask_a, &mask_b);
-		uint16_t addr = (uint16_t)(CALC_APPLE2_ADDRESS(scan) + col);
+		uint16_t addr = (uint16_t)(gm_row_address(scan) + col);
 		uint8_t pat_base = (uint8_t)(((scan & 1) ? pat_odd : pat_even) << 2);
 		glyph_blit_half(addr,     col,     mask_a, normal, pat_base);
 		glyph_blit_half(addr + 1, col + 1, mask_b, normal, pat_base);
@@ -640,7 +639,7 @@ static void draw_circle(uint16_t cx, uint8_t cy, uint8_t radius, a2_ctx *ctx) {
 
 static void fill_rect_pattern(a2_ctx *ctx, uint8_t pat_even, uint8_t pat_odd) {
 	for (int row = ctx->fill_top; row <= ctx->fill_bottom && row < APPLE2_SCREEN_HEIGHT; row++) {
-		uint16_t base = CALC_APPLE2_ADDRESS(row);
+		uint16_t base = gm_row_address(row);
 		uint8_t pat_base = ((row & 1) ? pat_odd : pat_even) * 4;
 		for (int col = ctx->fill_left; col <= ctx->fill_right && col < APPLE2_SCREEN_COLS; col++)
 			write_screen(base + col, s_patternData[(col & 3) | pat_base]);
@@ -812,7 +811,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 				}
 				while (reps--) {
 					if (row < APPLE2_SCREEN_HEIGHT && col < APPLE2_SCREEN_COLS)
-						write_screen(CALC_APPLE2_ADDRESS(row) + col, b);
+						write_screen(gm_row_address(row) + col, b);
 					if (row != bottom) {
 						row++;
 					} else if (col == right) {
@@ -855,7 +854,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 // 0..h-1, sampling the 560-wide artifact colours down to w columns.
 static void screenmem_to_rgba(const uint8_t *src, uint32_t *out, int w, int h) {
 	for (int row = 0; row < h; row++) {
-		unsigned const address = CALC_APPLE2_ADDRESS(row);
+		unsigned const address = gm_row_address(row);
 		const uint8_t *vram_row = src + address;
 		uint16_t words[40];
 		gm_compute_row_words(vram_row, words);
@@ -970,7 +969,7 @@ void gmEndCMPanelRebuild() {
 // (s_screenmem) and the progressively-revealed page (s_slowScreen).
 static void cm_panel_to_pages(int y0, int y1) {
 	for (int row = y0; row <= y1; row++) {
-		uint16_t base = CALC_APPLE2_ADDRESS(row);
+		uint16_t base = gm_row_address(row);
 		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
 			s_screenmem[base + col]  = s_cmPanel[base + col];
 			s_slowScreen[base + col] = s_cmPanel[base + col];

@@ -12,6 +12,7 @@
 
 #include "apple2draw.h"
 #include "common_file_utils.h"
+#include "companion_search.h"
 #include "ciderpress.h"
 #include "saga.h"
 #include "sagagraphics.h"
@@ -682,6 +683,26 @@ static uint8_t *GetApple2CompanionFile(size_t *size, int *isnib);
 static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdata, size_t othersize, int isnib);
 static int ExtractDrawingDataFromBuffer(uint8_t *data, size_t datasize);
 
+static void InitA2DiskImage(uint8_t *data, size_t datasize, int isnib)
+{
+    if (isnib)
+        InitNibImage(data, datasize);
+    else
+        InitDskImage(data, datasize);
+}
+
+// The inventory image is stored as a room image with index 98
+static void SetA2InventoryImage(uint8_t *data, size_t datasize)
+{
+    if (!USImages)
+        USImages = NewImage();
+    USImages->index = 98;
+    USImages->systype = SYS_APPLE2;
+    USImages->datasize = datasize;
+    USImages->imagedata = data;
+    USImages->usage = IMG_ROOM;
+}
+
 GameIDType DetectApple2(uint8_t **sf, size_t *extent)
 {
     if (*extent > MAX_LENGTH || *extent < kDiskImageSize)
@@ -709,32 +730,16 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
 
     if (!datafile && companionfile != NULL) {
         FreeDiskImage();
-        if (isnib)
-            InitNibImage(companionfile, companionsize);
-        else
-            InitDskImage(companionfile, companionsize);
+        InitA2DiskImage(companionfile, companionsize, isnib);
         datafile = ReadApple2DOSFile(companionfile, &companionsize, &invimg, &invimgsiz, &m2, &m3, &m3len);
-        if (datafile) {
-            uint8_t *temp = companionfile;
-            size_t tempsize = companionsize;
-            companionfile = *sf;
-            companionsize = *extent;
-            *sf = temp;
-            *extent = tempsize;
-        }
+        if (datafile)
+            SwapWithCompanionFile(sf, extent, &companionfile, &companionsize);
     }
 
     FreeDiskImage();
 
-    if (invimg) {
-        if (!USImages)
-            USImages = NewImage();
-        USImages->index = 98;
-        USImages->systype = SYS_APPLE2;
-        USImages->datasize = invimgsiz;
-        USImages->imagedata = invimg;
-        USImages->usage = IMG_ROOM;
-    }
+    if (invimg)
+        SetA2InventoryImage(invimg, invimgsiz);
 
     if (m2) {
         descrambletable = m2;
@@ -782,14 +787,10 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
             ImageHeight = 320;
 
             if (CurrentGame == CLAYMORGUE_US_126) {
-                if (!USImages)
-                    USImages = NewImage();
-                USImages->index = 98;
-                USImages->systype = SYS_APPLE2;
-                USImages->datasize = 0x4f8;
-                USImages->imagedata = MemAlloc(USImages->datasize);
-                memcpy(USImages->imagedata, datafile + 0x7e84, USImages->datasize);
-                USImages->usage = IMG_ROOM;
+                size_t invsize = 0x4f8;
+                uint8_t *inv = MemAlloc(invsize);
+                memcpy(inv, datafile + 0x7e84, invsize);
+                SetA2InventoryImage(inv, invsize);
             }
             if (companionfile != NULL) {
                 ExtractResult result = ExtractImagesFromApple2CompanionFile(companionfile, companionsize, *sf, *extent, isnib);
@@ -802,10 +803,7 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
                     // or the navigation animations. Thus, we reload the correct database
                     // from the other disk.
                     FreeDiskImage();
-                    if (isnib)
-                        InitNibImage(companionfile, companionsize);
-                    else
-                        InitDskImage(companionfile, companionsize);
+                    InitA2DiskImage(companionfile, companionsize, isnib);
                     uint8_t *temp = ReadApple2DOSFile(companionfile, &companionsize, &invimg, &invimgsiz, &m2, &m3, &m3len);
                     if (temp) {
                         int finalresult = LoadBinaryDatabase(temp + 0x135, companionsize - 0x135, *Game, 0);
@@ -837,46 +835,6 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
     }
 }
 
-// Strip any parenthesis before the extension (but keep the extension)
-// Mainly to remove "(boot)"
-static bool StripTrailingParenthetical(char *sideA, size_t length)
-{
-    if (!sideA || length < 4) {
-        return false;
-    }
-
-    // Find any extension
-    // (we assume that everything after the last period is an extension)
-    char *extension = strrchr(sideA, '.');
-
-    // This should not be possible
-    if (!extension)
-        return false;
-
-    size_t extlen = length - (extension - sideA) + 1;
-
-    // Find last closing paren
-    char *close_paren = strrchr(sideA, ')');
-    if (!close_paren || close_paren >= extension) {
-        return false;  // No trailing parenthetical
-    }
-
-    // Find matching opening paren
-    char *open_paren = strrchr(sideA, '(');
-    if (!open_paren || open_paren >= close_paren) {
-        return false;  // No matching opening paren
-    }
-
-    // Strip any space before first paren
-    if (open_paren > sideA && *(open_paren - 1) == ' ') {
-        open_paren--;
-    }
-
-    // Copy extension, inluding terminating 0, starting at the opening paren
-    memcpy(open_paren, close_paren + 1, extlen);
-    return true;  // Successfully stripped
-}
-
 uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib)
 {
     uint8_t *result = ReadFileIfExists(filename, filesize);
@@ -891,79 +849,28 @@ uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib)
     return result;
 }
 
-uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t stringlen, size_t *filesize, int *isnib)
+static uint8_t *A2CompanionReader(const char *filename, size_t *filesize, void *user)
 {
-
-    char *sideB = MemAlloc(stringlen + 9);
-    uint8_t *result = NULL;
-
-    *isnib = 0;
-    memcpy(sideB, game_file, stringlen + 1);
-    switch (type) {
-    case TYPE_A:
-        sideB[index] = 'A';
-        break;
-    case TYPE_B:
-        sideB[index] = 'B';
-        break;
-    case TYPE_1:
-        sideB[index] = '1';
-        break;
-    case TYPE_2:
-        sideB[index] = '2';
-        break;
-    case TYPE_ONE:
-        sideB[index] = 'o';
-        sideB[index + 1] = 'n';
-        sideB[index + 2] = 'e';
-        break;
-    case TYPE_TWO:
-        sideB[index] = 't';
-        sideB[index + 1] = 'w';
-        sideB[index + 2] = 'o';
-        break;
-    case TYPE_NONE:
-        break;
-    }
-
-    debug_print("looking for companion file \"%s\"\n", sideB);
-    result = ReadA2DiskImageFile(sideB, filesize, isnib);
-    if (!result) {
-        if (type == TYPE_A) {
-            if (StripTrailingParenthetical(sideB, stringlen)) {
-                debug_print("looking for companion file \"%s\"\n", sideB);
-                result = ReadA2DiskImageFile(sideB, filesize, isnib);
-            }
-        } else if (type == TYPE_B) {
-
-            // First we look for the period before the file extension
-            size_t ppos = stringlen - 1;
-            while (sideB[ppos] != '.' && ppos > 0)
-                ppos--;
-            if (ppos < 1) {
-                free(sideB);
-                return NULL;
-            }
-            // Then we copy the extension to the new end position
-            for (size_t i = ppos; i <= stringlen; i++) {
-                sideB[i + 7] = sideB[i];
-            }
-            sideB[ppos++] = ' ';
-            sideB[ppos++] = '(';
-            sideB[ppos++] = 'b';
-            sideB[ppos++] = 'o';
-            sideB[ppos++] = 'o';
-            sideB[ppos++] = 't';
-            sideB[ppos] = ')';
-            debug_print("looking for companion file \"%s\".\n", sideB);
-            result = ReadA2DiskImageFile(sideB, filesize, isnib);
-        }
-    }
-    free(sideB);
-    return result;
+    return ReadA2DiskImageFile(filename, filesize, (int *)user);
 }
 
-uint8_t *GetApple2CompanionFile(size_t *size, int *isnib)
+// If side A is not found, try stripping any parenthesis before the extension,
+// mainly to remove "(boot)". If side B is not found, try adding " (boot)".
+static uint8_t *A2CompanionFallback(char *buffer, size_t bufsize, size_t namelen, int index, CompanionNameType type, CompanionReader read, void *user, size_t *size)
+{
+    (void)index;
+    int found = 0;
+    if (type == TYPE_A)
+        found = CompanionStripEnclosed(buffer, namelen, '(', ')', 1);
+    else if (type == TYPE_B)
+        found = CompanionInsertBeforeExtension(buffer, bufsize, namelen, " (boot)");
+    if (!found)
+        return NULL;
+    debug_print("looking for companion file \"%s\"\n", buffer);
+    return read(buffer, size, user);
+}
+
+static uint8_t *GetApple2CompanionFile(size_t *size, int *isnib)
 {
     *size = 0;
     *isnib = 0;
@@ -982,48 +889,13 @@ uint8_t *GetApple2CompanionFile(size_t *size, int *isnib)
         }
     }
 
-    char c;
-    for (int i = (int)gamefilelen - 1; i >= 0 && game_file[i] != '/' && game_file[i] != '\\'; i--) {
-        c = tolower(game_file[i]);
-        if (i > 3 && ((c == 'e' && game_file[i - 1] == 'd' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 's') || (c == 'k' && game_file[i - 1] == 's' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 'd'))) {
-            if (gamefilelen > i + 2) {
-                c = game_file[i + 1];
-                if (c == ' ' || c == '_') {
-                    c = tolower(game_file[i + 2]);
-                    CompanionNameType type = TYPE_NONE;
-                    switch (c) {
-                    case 'a':
-                        type = TYPE_B;
-                        break;
-                    case 'b':
-                        type = TYPE_A;
-                        break;
-                    case 't':
-                        if (gamefilelen > i + 4 && game_file[i + 3] == 'w' && game_file[i + 4] == 'o') {
-                            type = TYPE_ONE;
-                        }
-                        break;
-                    case 'o':
-                        if (gamefilelen > i + 4 && game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
-                            type = TYPE_TWO;
-                        }
-                        break;
-                    case '2':
-                        type = TYPE_1;
-                        break;
-                    case '1':
-                        type = TYPE_2;
-                        break;
-                    }
-                    if (type != TYPE_NONE)
-                        result = LookForA2CompanionFilename(i + 2, type, gamefilelen, size, isnib);
-                    if (result)
-                        return result;
-                }
-            }
-        }
-    }
-    return NULL;
+    const CompanionSearch search = {
+        .read = A2CompanionReader,
+        .user = isnib,
+        .fallback = A2CompanionFallback,
+        .match_char_before_extension = 0,
+    };
+    return FindCompanionFile(game_file, &search, size);
 }
 
 static int ExtractAtAddress(uint8_t *data, size_t datasize, uint16_t addr, size_t len, void (*setter)(const uint8_t *)) {
@@ -1182,11 +1054,7 @@ static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t 
             // to determine which disk is which. We'll just check
             // for image files on both disks instead.
             FreeDiskImage();
-            if (isnib) {
-                InitNibImage(otherdata, othersize);
-            } else {
-                InitDskImage(otherdata, othersize);
-            }
+            InitA2DiskImage(otherdata, othersize, isnib);
             number_of_images_found = ReadA2VectorImageFiles(otherdata, othersize, image);
             if (number_of_images_found > 0 && data != otherdata) {
                 result = WRONG_DATABASE;
@@ -1224,10 +1092,7 @@ static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t 
 
     FreeDiskImage();
 
-    if (USImages->next == NULL && USImages->imagedata == NULL) {
-        free(USImages);
-        USImages = NULL;
-    }
+    FreeUSImagesIfEmpty();
 
     if (CurrentGame == HULK_US_PREL)
         CurrentGame = HULK_US;

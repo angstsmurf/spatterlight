@@ -12,6 +12,7 @@
 #include "sagagraphics.h"
 #include "scott.h"
 #include "vector_common.h"
+#include "vector_oplist.h"
 
 #define OPCODE_MOVE_TO  0xc0
 #define OPCODE_FILL     0xc1
@@ -31,11 +32,7 @@ typedef struct {
     uint8_t colour;
 } pixel_to_draw;
 
-static pixel_to_draw *pixels_to_draw = NULL;
-static size_t draw_ops_capacity = 100;
-
-static int total_draw_instructions = 0;
-static int current_draw_instruction = 0;
+static VectorOpList pixels_to_draw = VECTOR_OPLIST(pixel_to_draw);
 int vector_image_shown = -1;
 
 /* Pixels emitted per slow-draw tick. Pairs with the 20 ms timer interval
@@ -43,8 +40,8 @@ int vector_image_shown = -1;
 #define SCOTT_VECTOR_PIXELS_PER_TICK 50
 
 /* TRUE once the background fill has been issued for the current image. Reset
- * in FreePixels() and whenever DrawSomeHowarthVectorPixels is asked to start
- * over. */
+ * whenever the pixel list is released and whenever DrawSomeHowarthVectorPixels
+ * is asked to start over. */
 static int vector_background_painted = 0;
 
 static uint8_t *picture_bitmap = NULL;
@@ -62,42 +59,6 @@ static int bg_colour = 0;
  * it handles clipping.
  */
 
-void FreePixels(void)
-{
-    vector_background_painted = 0;
-    free(pixels_to_draw);
-    pixels_to_draw = NULL;
-    draw_ops_capacity = 100;
-}
-
-static void ensure_capacity(void) {
-    // Ensure pixels_to_draw has room for all draw instructions.
-    // This could theoretically be more than the total amount of
-    // pixels in the bitmap, as lines may be overlapping.
-    if (total_draw_instructions >= draw_ops_capacity) {
-        draw_ops_capacity *= 2;  // Double the capacity
-        pixel_to_draw *new_pixels = MemRealloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw));
-        pixels_to_draw = new_pixels;
-    }
-}
-
-static void shrink_capacity(void) {
-    // When the image has finished drawing all its instructions,
-    // we might have allocated a lot more memory than we need,
-    // so free any excess space.
-    if (pixels_to_draw != NULL && draw_ops_capacity > total_draw_instructions) {
-        if (total_draw_instructions == 0) {
-            FreePixels();
-            return;
-        }
-        draw_ops_capacity = total_draw_instructions;
-        // Our wrapper of realloc() will exit() on failure,
-        // so no need to check the result here.
-        pixel_to_draw *new_pixels = MemRealloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw));
-        pixels_to_draw = new_pixels;
-    }
-}
-
 static void
 scott_linegraphics_plot_clip(int x, int y, int colour)
 {
@@ -107,8 +68,7 @@ scott_linegraphics_plot_clip(int x, int y, int colour)
      */
     if (x >= 0 && x <= MYSTERIOUS_WIDTH && y >= 0 && y < MYSTERIOUS_CLIPHEIGHT) {
         picture_bitmap[y * MYSTERIOUS_WIDTH + x] = colour;
-        ensure_capacity();
-        pixel_to_draw *todraw = &pixels_to_draw[total_draw_instructions++];
+        pixel_to_draw *todraw = VectorOpListPush(&pixels_to_draw);
         todraw->x = x;
         todraw->y = y;
         todraw->colour = colour;
@@ -117,21 +77,17 @@ scott_linegraphics_plot_clip(int x, int y, int colour)
 
 int DrawingHowarthVector(void)
 {
-    return (total_draw_instructions > current_draw_instruction);
+    return VectorOpListDrawing(&pixels_to_draw);
 }
-
-#ifndef SPATTERLIGHT
-static int gli_slowdraw = 1;
-#endif
 
 void DrawSomeHowarthVectorPixels(int from_start)
 {
     VectorState = DRAWING_VECTOR_IMAGE;
     if (from_start) {
-        current_draw_instruction = 0;
+        pixels_to_draw.current = 0;
         vector_background_painted = 0;
     }
-    int i = current_draw_instruction;
+    size_t i = pixels_to_draw.current;
 
     /* Paint the background once per image, before any pixels are plotted. */
     if (!vector_background_painted) {
@@ -141,20 +97,17 @@ void DrawSomeHowarthVectorPixels(int from_start)
 
     /* Emit pixels until we run out or, in slow-draw mode, hit the chunk limit
      * that yields back to the timer loop. */
-    int chunk_end = i + SCOTT_VECTOR_PIXELS_PER_TICK;
-    for (; i < total_draw_instructions && (!gli_slowdraw || i < chunk_end); i++) {
-        const pixel_to_draw *todraw = &pixels_to_draw[i];
+    size_t chunk_end = i + SCOTT_VECTOR_PIXELS_PER_TICK;
+    for (; i < pixels_to_draw.total && (!gli_slowdraw || i < chunk_end); i++) {
+        const pixel_to_draw *todraw = VectorOpAt(&pixels_to_draw, i);
         PutPixel(todraw->x, todraw->y, Remap(todraw->colour));
     }
-    current_draw_instruction = i;
+    pixels_to_draw.current = i;
 
     /* All instructions consumed: stop the timer, transition to "showing",
      * and release the instruction buffer. */
-    if (current_draw_instruction >= total_draw_instructions) {
-        glk_request_timer_events(0);
-        VectorState = SHOWING_VECTOR_IMAGE;
-        FreePixels();
-    }
+    if (VectorOpListFinishIfDone(&pixels_to_draw))
+        vector_background_painted = 0;
 }
 
 static void
@@ -253,7 +206,7 @@ void DrawHowarthVectorPicture(int image)
     }
 
     // If this image is already shown:
-    if (vector_image_shown == image && pixels_to_draw) {
+    if (vector_image_shown == image && pixels_to_draw.ops) {
         if (VectorState == SHOWING_VECTOR_IMAGE) {
             return;
         } else {
@@ -267,17 +220,10 @@ void DrawHowarthVectorPicture(int image)
     glk_request_timer_events(0);
     vector_image_shown = image;
 
-    // Free previous pixels if necessary
-    if (pixels_to_draw != NULL)
-        FreePixels();
-
-    // Start with a small allocation for pixels_to_draw.
+    // Free any previous pixels and start a new list.
     // scott_linegraphics_plot_clip() will grow this as needed.
-    draw_ops_capacity = 100;  // Initial capacity 100 instructions.
-    pixels_to_draw = MemAlloc(draw_ops_capacity * sizeof(pixel_to_draw));
-
-    total_draw_instructions = 0;
-    current_draw_instruction = 0;
+    VectorOpListStartSession(&pixels_to_draw);
+    vector_background_painted = 0;
 
     if (palchosen == NO_PALETTE) {
         palchosen = Game->palette;
@@ -333,7 +279,7 @@ void DrawHowarthVectorPicture(int image)
         picture_bitmap = NULL;
     }
 
-    shrink_capacity();
+    VectorOpListShrink(&pixels_to_draw);
 
     // Either draw immediately or use a timer for slow, "animated" drawing
     if (gli_slowdraw)
