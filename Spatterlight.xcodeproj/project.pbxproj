@@ -1055,6 +1055,7 @@
 		C3FACE0100000000DEAD0005 /* alkatraz_screen.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0100000000DEAD0006 /* alkatraz_screen.c */; };
 		C3FACE0200000000DEAD0001 /* zx_title.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0200000000DEAD0010 /* zx_title.c */; };
 		C3FACE0200000000DEAD0002 /* zx_title.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0200000000DEAD0010 /* zx_title.c */; };
+		BBBC23C9E382F679DA0A656B /* zx_title.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0200000000DEAD0010 /* zx_title.c */; };
 		C3FACE0300000000A1A20003 /* glkmedia.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0300000000A1A20001 /* glkmedia.c */; };
 		C3FACE0300000000DEAD0011 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C3FACE0300000000DEAD0012 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
@@ -9207,6 +9208,7 @@
 				C36797E22EF0B43A008A6A0D /* c64a8scott.c in Sources */,
 				C314DFDD2F24181200A0879C /* c64_small.c in Sources */,
 				C3BCB7D728E8EBBB00D590ED /* title_image.c in Sources */,
+				BBBC23C9E382F679DA0A656B /* zx_title.c in Sources */,
 				C3D83A9D2F2FA3CB00A5D6AE /* vector_common.c in Sources */,
 				C35032F02F37EF0900BD32A6 /* randomness.c in Sources */,
 				C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */,

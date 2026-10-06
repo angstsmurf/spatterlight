@@ -24,6 +24,7 @@ READWOZ_DIR  := ../readwoz
 C64DISK_DIR  := ../c64diskimage
 UNP64_DIR    := ../unp64
 TAYLOR_DIR   := ../taylor
+ZXSCREEN_DIR := ../common_zxscreen
 OBJDIR       := headless_obj
 
 CC  ?= clang
@@ -33,7 +34,7 @@ CXX ?= clang++
 # headers rather than glkimp's.
 COMMON_INC := -I. -Itest -Iai_uk -Isaga -Iti994a -I$(CHEAPGLK_DIR) -I$(COMMON_DIR) \
               -I$(SAGADRAW_DIR) -I$(AIUKGFX_DIR) -I$(Z80_DIR) -I$(READWOZ_DIR) \
-              -I$(C64DISK_DIR) -I$(UNP64_DIR) -I$(TAYLOR_DIR)
+              -I$(C64DISK_DIR) -I$(UNP64_DIR) -I$(TAYLOR_DIR) -I$(ZXSCREEN_DIR)
 DEPFLAGS   := -MMD -MP
 # Some engine headers (e.g. ai_uk/sagadraw.h) use size_t without including
 # <stddef.h>; under glkimp that arrives transitively, but CheapGlk's glk.h does
@@ -50,11 +51,11 @@ SRCS := $(wildcard *.c) $(filter-out ai_uk/debug.c,$(wildcard ai_uk/*.c)) $(wild
         $(AIUKGFX_DIR)/irmak.c $(AIUKGFX_DIR)/palette.c \
         $(AIUKGFX_DIR)/taylordraw.c $(wildcard $(Z80_DIR)/*.c) \
         $(READWOZ_DIR)/woz2nib.c $(READWOZ_DIR)/ciderpress.c \
-        $(C64DISK_DIR)/c64diskimage.c \
+        $(C64DISK_DIR)/c64diskimage.c $(ZXSCREEN_DIR)/zx_title.c \
         test/headless_stubs.c
 
 OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS)))
-VPATH := .:ai_uk:saga:ti994a:test:$(COMMON_DIR):$(SAGADRAW_DIR):$(AIUKGFX_DIR):$(Z80_DIR):$(READWOZ_DIR):$(C64DISK_DIR)
+VPATH := .:ai_uk:saga:ti994a:test:$(COMMON_DIR):$(SAGADRAW_DIR):$(AIUKGFX_DIR):$(Z80_DIR):$(READWOZ_DIR):$(C64DISK_DIR):$(ZXSCREEN_DIR)
 
 CXX_SRCS := $(wildcard $(UNP64_DIR)/*.cpp) $(wildcard $(UNP64_DIR)/scanners/*.cpp)
 CXX_OBJS := $(patsubst %.cpp,$(OBJDIR)/%.o,$(notdir $(CXX_SRCS)))

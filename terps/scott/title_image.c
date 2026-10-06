@@ -14,6 +14,7 @@
 #include "saga.h"
 #include "sagagraphics.h"
 #include "vector_common.h"
+#include "zx_title.h"
 #include "scott.h"
 #include "scott_display.h"
 
@@ -23,7 +24,7 @@
 
 #include "title_image.h"
 
-void ResizeTitleImage(void)
+static void ResizeTitleImage(void)
 {
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
 #ifdef SPATTERLIGHT
@@ -37,45 +38,64 @@ void ResizeTitleImage(void)
     y_offset = ((int)graphheight - (int)optimal_height) / 3;
 }
 
-void InitTitleImage(void) {
-#ifdef SPATTERLIGHT
-    if (!gli_enable_graphics)
-        return;
-#endif
+/* Replace the whole window tree with a single full-screen graphics window,
+   plus a thin text buffer below it if the Glk library can't take key input
+   in a graphics window. If background_color is non-NULL, it receives the
+   background colour of the closed main window (left untouched if there was
+   none). */
+static void OpenTitleWindows(glui32 *background_color)
+{
     Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
     if (Top) {
         glk_window_close(Top, NULL);
         Top = NULL;
     }
 
-    glui32 background_color = -1;
-
     Bottom = FindGlkWindowWithRock(GLK_BUFFER_ROCK);
     if (Bottom) {
-        glk_style_measure(Bottom, style_Normal, stylehint_BackColor,
-                          &background_color);
+        if (background_color)
+            glk_style_measure(Bottom, style_Normal, stylehint_BackColor,
+                background_color);
         glk_window_close(Bottom, NULL);
+        Bottom = NULL;
     }
 
     Graphics = glk_window_open(0, 0, 0, wintype_Graphics, GLK_GRAPHICS_ROCK);
 
-    if (glk_gestalt_ext(gestalt_GraphicsCharInput, 0, NULL, 0)) {
-        glk_request_char_event(Graphics);
-    } else {
+    if (glk_gestalt_ext(gestalt_GraphicsCharInput, 0, NULL, 0) == 0)
         Bottom = glk_window_open(Graphics, winmethod_Below | winmethod_Fixed,
-                                 2, wintype_TextBuffer, GLK_BUFFER_ROCK);
-        glk_request_char_event(Bottom);
-    }
-
-    if (background_color != -1) {
-        glk_window_set_background_color(Graphics, background_color);
-        glk_window_clear(Graphics);
-    }
-
-    ResizeTitleImage();
+            2, wintype_TextBuffer, GLK_BUFFER_ROCK);
 }
 
-void wait_for_key_on_title_screen(void) {
+/* Tear down the title windows and rebuild the normal main and status
+   windows. */
+static void CloseTitleWindows(void)
+{
+    glk_window_close(Graphics, NULL);
+    Graphics = NULL;
+    Bottom = FindGlkWindowWithRock(GLK_BUFFER_ROCK);
+    if (Bottom != NULL)
+        glk_window_close(Bottom, NULL);
+    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
+    if (Bottom == NULL)
+        glk_exit();
+    glk_set_window(Bottom);
+    OpenTopWindow();
+}
+
+/* Draw the US title picture (room image 99) fitted to the window */
+static void DrawUSTitle(void)
+{
+    ResizeTitleImage();
+    glk_window_clear(Graphics);
+    DrawUSRoom(99);
+    if (USImages->systype == SYS_APPLE2_LINES || USImages->systype == SYS_ATARI8_LINES) {
+        DrawUSRoomObject(255);
+    }
+    DrawImageOrVector();
+}
+
+static void wait_for_key_on_title_screen(void) {
 
     if (Graphics != NULL) {
         glk_request_char_event(Graphics);
@@ -95,165 +115,12 @@ void wait_for_key_on_title_screen(void) {
 #endif
             int stored_slowdraw = gli_slowdraw;
             gli_slowdraw = 0;
-            ResizeTitleImage();
-            glk_window_clear(Graphics);
-            DrawUSRoom(99);
-            if (USImages->systype == SYS_APPLE2_LINES || USImages->systype == SYS_ATARI8_LINES) {
-                DrawUSRoomObject(255);
-            }
-            DrawImageOrVector();
+            DrawUSTitle();
             gli_slowdraw = stored_slowdraw;
         } else if (ev.type == evtype_Timer) {
             if (DrawingVector()) {
                 DrawSomeVectorPixels((VectorState == NO_VECTOR_IMAGE));
             }
-        }
-    } while (ev.type != evtype_CharInput);
-}
-
-/* A ZX Spectrum loading screen (SCREEN$) is a 6912-byte dump of the Spectrum
-   display file; its geometry and the bitmap address scramble are decoded by
-   the shared helpers in decompressz80.h. Here we paint each byte into scott's
-   saga graphics buffer with PutPixel(), letting the ZXOPT palette (selected in
-   DrawZXTitleImage) map the ink/paper indices to colours. */
-
-/* Draw the 8 pixels of one bitmap byte (display-file address bmaddr) using the
-   attribute currently in scr for that cell. */
-static void DrawZXByte(const uint8_t *scr, uint16_t bmaddr)
-{
-    int offset = bmaddr - 0x4000;
-    int col = offset & 0x1f;
-    int y = ZXBitmapRow(offset);
-
-    uint8_t bits = scr[offset];
-    uint8_t attr = scr[ZX_BITMAP_SIZE + (y >> 3) * ZX_SCREEN_COLS + col];
-    int ink, paper;
-    ZXDecodeAttr(attr, &ink, &paper);
-
-    for (int b = 0; b < 8; b++) {
-        int set = (bits >> (7 - b)) & 1;
-        PutPixel(col * 8 + b, y, set ? ink : paper);
-    }
-}
-
-/* Redraw the cell at a screen address: one bitmap byte, or (for an attribute
-   address) the whole 8x8 character it colours. */
-static void RedrawZXCell(const uint8_t *scr, uint16_t addr)
-{
-    if (addr < 0x5800) {
-        DrawZXByte(scr, addr);
-        return;
-    }
-    int cell = addr - 0x5800;
-    int crow = cell >> 5, ccol = cell & 0x1f;
-    for (int py = 0; py < 8; py++) {
-        int y = crow * 8 + py;
-        DrawZXByte(scr, (uint16_t)(0x4000 + ZXBitmapOffset(y, ccol)));
-    }
-}
-
-static void DrawZXScreen(const uint8_t *scr)
-{
-    if (!scr || !Graphics)
-        return;
-
-    for (int y = 0; y < ZX_SCREEN_HEIGHT; y++)
-        for (int col = 0; col < ZX_SCREEN_COLS; col++)
-            DrawZXByte(scr, (uint16_t)(0x4000 + ZXBitmapOffset(y, col)));
-}
-
-/* Reveal the screen progressively, in the linear order a real Spectrum loaded
-   it from tape (bitmap top-to-bottom, then the attributes), on a timer. A
-   keypress dismisses it. Scott Adams Spectrum games use ordinary loaders, so
-   the linear order is the authentic one. */
-#define ZX_REVEAL_TICK_MS 30
-#define ZX_REVEAL_TICKS   120
-
-static void ZXSlowReveal(void)
-{
-    if (!ZXLoadingScreen || !Graphics)
-        return;
-
-    /* Start from the unrevealed background: black bitmap, attributes at the
-       screen's uniform fill (its most common attribute byte). */
-    static uint8_t work[ZX_SCREEN_SIZE];
-    int counts[256] = { 0 };
-    for (int i = ZX_BITMAP_SIZE; i < ZX_SCREEN_SIZE; i++)
-        counts[ZXLoadingScreen[i]]++;
-    int fill = 0;
-    for (int v = 1; v < 256; v++)
-        if (counts[v] > counts[fill])
-            fill = v;
-    memset(work, 0x00, ZX_BITMAP_SIZE);
-    memset(work + ZX_BITMAP_SIZE, (uint8_t)fill, ZX_SCREEN_SIZE - ZX_BITMAP_SIZE);
-
-    glk_window_clear(Graphics);
-    DrawZXScreen(work);
-
-    int per_tick = ZX_SCREEN_SIZE / ZX_REVEAL_TICKS;
-    if (per_tick < 1)
-        per_tick = 1;
-    int pos = 0;
-
-    winid_t keywin = Graphics ? Graphics : Bottom;
-    if (keywin == NULL)
-        return;
-    glk_request_char_event(keywin);
-    glk_request_timer_events(ZX_REVEAL_TICK_MS);
-
-    event_t ev;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_Timer) {
-            int end = pos + per_tick;
-            if (end > ZX_SCREEN_SIZE)
-                end = ZX_SCREEN_SIZE;
-            for (; pos < end; pos++) {
-                uint16_t a = (uint16_t)(0x4000 + pos);
-                work[pos] = ZXLoadingScreen[pos];
-                RedrawZXCell(work, a);
-            }
-            if (pos >= ZX_SCREEN_SIZE)
-                glk_request_timer_events(0);
-        } else if (ev.type == evtype_Arrange) {
-#ifdef SPATTERLIGHT
-            if (!gli_enable_graphics)
-                break;
-#endif
-            ResizeTitleImage();
-            glk_window_clear(Graphics);
-            DrawZXScreen(work);
-        }
-    } while (ev.type != evtype_CharInput);
-
-    glk_request_timer_events(0);
-}
-
-/* Wait for a keypress on the ZX loading-screen title. Unlike
-   wait_for_key_on_title_screen(), the arrange handler redraws the ZX
-   screen (there is no US image / vector state to fall back on, so the
-   shared version would dereference a NULL USImages). */
-static void wait_for_key_on_zx_title(void)
-{
-    if (Graphics != NULL) {
-        glk_request_char_event(Graphics);
-    } else if (Bottom != NULL) {
-        glk_request_char_event(Bottom);
-    } else {
-        return;
-    }
-
-    event_t ev;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_Arrange) {
-#ifdef SPATTERLIGHT
-            if (!gli_enable_graphics)
-                break;
-#endif
-            ResizeTitleImage();
-            glk_window_clear(Graphics);
-            DrawZXScreen(ZXLoadingScreen);
         }
     } while (ev.type != evtype_CharInput);
 }
@@ -296,65 +163,33 @@ void DrawZXTitleImage(void)
     if (!ZXLoadingScreen)
         return;
 
-    int storedwidth = ImageWidth;
-    int storedheight = ImageHeight;
+    /* Force the ZX palette, whatever the game's own platform palette is. */
     palette_type storedpal = palchosen;
-
-    /* Force the ZX palette (whatever the game's own platform palette is)
-       and size the window to the native 256x192 loading-screen geometry. */
     palchosen = ZXOPT;
     DefinePalette();
-    ImageWidth = ZX_SCREEN_WIDTH;
-    ImageHeight = ZX_SCREEN_HEIGHT;
 
-    Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
-    if (Top) {
-        glk_window_close(Top, NULL);
-        Top = NULL;
+    OpenTitleWindows(NULL);
+
+    if (Graphics) {
+#ifdef SPATTERLIGHT
+        glk_window_set_background_color(Graphics, gbgcol);
+#endif
+        glk_window_clear(Graphics);
+
+        /* Reveal the picture slowly when the slow-draw setting is on,
+           otherwise paint it at once. The reveal is linear, which is the
+           order a real Spectrum loaded it from tape: Scott Adams Spectrum
+           games use ordinary loaders. The picture sits a third of the way
+           down the window. */
+        ZXTitle title = { Graphics, pal, 3, 0, 0, 0 };
+        ZXTitleShow(&title, ZXLoadingScreen, Graphics, gli_slowdraw, NULL, 0);
     }
 
-    Bottom = FindGlkWindowWithRock(GLK_BUFFER_ROCK);
-    if (Bottom) {
-        glk_window_close(Bottom, NULL);
-        Bottom = NULL;
-    }
+    CloseTitleWindows();
 
-    Graphics = glk_window_open(0, 0, 0, wintype_Graphics, GLK_GRAPHICS_ROCK);
-
-    if (glk_gestalt_ext(gestalt_GraphicsCharInput, 0, NULL, 0) == 0)
-        Bottom = glk_window_open(Graphics, winmethod_Below | winmethod_Fixed,
-            2, wintype_TextBuffer, GLK_BUFFER_ROCK);
-
-    ResizeTitleImage();
-    glk_window_clear(Graphics);
-
-    /* Reveal the picture slowly (in tape-load order) when the slow-draw
-       setting is on; otherwise paint it at once. */
-    int slow = gli_slowdraw;
-    if (slow) {
-        ZXSlowReveal();
-    } else {
-        DrawZXScreen(ZXLoadingScreen);
-        wait_for_key_on_zx_title();
-    }
-
-    glk_window_close(Graphics, NULL);
-    Graphics = NULL;
-    Bottom = FindGlkWindowWithRock(GLK_BUFFER_ROCK);
-    if (Bottom != NULL)
-        glk_window_close(Bottom, NULL);
-    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
-    if (Bottom == NULL)
-        glk_exit();
-    glk_set_window(Bottom);
-    OpenTopWindow();
-
-    /* Restore the game's own palette and image geometry. */
+    /* Restore the game's own palette. */
     palchosen = storedpal;
     DefinePalette();
-    ImageWidth = storedwidth;
-    ImageHeight = storedheight;
-    y_offset = 0;
 
     free(ZXLoadingScreen);
     ZXLoadingScreen = NULL;
@@ -362,7 +197,7 @@ void DrawZXTitleImage(void)
 
 #define RTPI_TITLE_LINES 24
 
-const char **GetRTPILines(const char *text) {
+static const char **GetRTPILines(const char *text) {
     char *lines[RTPI_TITLE_LINES];
     size_t linelenghts[RTPI_TITLE_LINES];
     uint8_t line[128];
@@ -438,7 +273,7 @@ const char **GetRTPILines(const char *text) {
 
 */
 
-void initRTPITitle(void) {
+static void initRTPITitle(void) {
     if (!title_screen)
         return;
     Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
@@ -451,7 +286,7 @@ void initRTPITitle(void) {
     Bottom = glk_window_open(Graphics, winmethod_Below | winmethod_Proportional, 50, wintype_TextBuffer, GLK_BUFFER_ROCK);
 }
 
-void RTPITitle(void) {
+static void RTPITitle(void) {
     glk_stream_set_current(glk_window_get_stream(Bottom));
     const char **lines = GetRTPILines(title_screen);
     free((void *)title_screen);
@@ -477,27 +312,8 @@ void DrawTitleImageScott(void)
     if (!gli_enable_graphics)
         return;
 #endif
-    Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
-    if (Top) {
-        glk_window_close(Top, NULL);
-        Top = NULL;
-    }
-
     glui32 background_color = -1;
-
-    Bottom = FindGlkWindowWithRock(GLK_BUFFER_ROCK);
-    if (Bottom) {
-        glk_style_measure(Bottom, style_Normal, stylehint_BackColor,
-            &background_color);
-        glk_window_close(Bottom, NULL);
-    }
-
-    Graphics = glk_window_open(0, 0, 0, wintype_Graphics, GLK_GRAPHICS_ROCK);
-
-    if (glk_gestalt_ext(gestalt_GraphicsCharInput, 0, NULL, 0) == 0) {
-        Bottom = glk_window_open(Graphics, winmethod_Below | winmethod_Fixed,
-            2, wintype_TextBuffer, GLK_BUFFER_ROCK);
-    }
+    OpenTitleWindows(&background_color);
 
     initRTPITitle();
 
@@ -509,14 +325,7 @@ void DrawTitleImageScott(void)
     ResizeTitleImage();
 
     if (DrawUSRoom(99)) {
-        ResizeTitleImage();
-        glk_window_clear(Graphics);
-
-        DrawUSRoom(99);
-        if (USImages->systype == SYS_APPLE2_LINES || USImages->systype == SYS_ATARI8_LINES) {
-            DrawUSRoomObject(255);
-        }
-        DrawImageOrVector();
+        DrawUSTitle();
 
         if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
             RTPITitle();
@@ -525,16 +334,7 @@ void DrawTitleImageScott(void)
         wait_for_key_on_title_screen();
     }
 
-    glk_window_close(Graphics, NULL);
-    Graphics = NULL;
-    Bottom = FindGlkWindowWithRock(GLK_BUFFER_ROCK);
-    if (Bottom != NULL)
-        glk_window_close(Bottom, NULL);
-    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
-    if (Bottom == NULL)
-        glk_exit();
-    glk_set_window(Bottom);
-    OpenTopWindow();
+    CloseTitleWindows();
     OpenGraphicsWindow();
     ResizeTitleImage();
     ImageWidth = storedwidth;
