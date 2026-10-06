@@ -513,8 +513,9 @@ static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
     }
 
     /* --- Item descriptions ---
-       Items whose text begins with '*' are treasures; count them
-       here so the engine knows the win condition. */
+       Items whose text begins with '*' are treasures. They are counted
+       here only for a header that gives no number: the ruby of Pyramid
+       of Doom is starred too, and has to be destroyed, not stored. */
 #if defined(__clang__)
 #pragma mark items
 #endif
@@ -534,7 +535,7 @@ static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
         item++;
     }
 
-    GameHeader.Treasures = num_treasures;
+    GameHeader.Treasures = dh->num_treasures ? dh->num_treasures : num_treasures;
     if (loud)
         debug_print("Number of treasures %d\n", GameHeader.Treasures);
 

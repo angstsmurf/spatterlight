@@ -110,13 +110,13 @@ static void Patch(uint8_t *offset, int patch_number)
     }
 }
 
-/* One specific C64 version of Claymorgue Castle has 16 images
+/* One specific C64 version of Claymorgue Castle has 15 images
    (12–27, excluding 16) whose data is hopelessly corrupt — not
    fixable with simple byte patches. Reassign their rooms to image
    255 (no picture) so the game doesn't try to render garbage. */
 static void PatchOutBrokenClaymorgueImagesC64(void)
 {
-    Output("[This copy of The Sorcerer of Claymorgue Castle has 16 broken or "
+    Output("[This copy of The Sorcerer of Claymorgue Castle has 15 broken or "
            "missing pictures. These have been patched out.]\n\n");
     for (int i = 12; i < 28; i++) {
         if (i != 16)

@@ -786,7 +786,7 @@ void StrangeShowImageOnExamineUS(int noun) {
                 image = 5;
             break;
         case 58: /* Belt */
-            if (Items[44].Location == CARRIED || Items[4].Location == MyLoc)
+            if (Items[44].Location == CARRIED || Items[44].Location == MyLoc)
                 image = 6;
             break;
         case 8: /* Hound */

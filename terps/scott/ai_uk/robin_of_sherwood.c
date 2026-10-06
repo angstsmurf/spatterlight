@@ -385,7 +385,7 @@ void LoadExtraSherwoodData(int c64)
             NOTHING
         };
 
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < 28; i++) {
             sys[messagekey[i]] = system_messages[i];
         }
 

@@ -1,6 +1,6 @@
 game       -
 variant    sys=ti994a type=none subtype=0
-header     items=53 actions=0 words=60 rooms=93 maxcarry=7 start=1 treasures=16 wordlen=5 light=256 messages=64 treasureroom=2
+header     items=53 actions=0 words=60 rooms=93 maxcarry=7 start=1 treasures=15 wordlen=5 light=256 messages=64 treasureroom=2
 picture    width=255 height=96
 rooms        94 04a0066f
 items        54 a2c5da1a
