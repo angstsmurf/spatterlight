@@ -65,6 +65,11 @@ def write_table(pairs):
             f.write("\t".join(fields).rstrip("\t") + "\n")
 
 
+# The scripts that need the random numbers they were written with (README.md).
+OLD_RANDOM = {"hulk", "robin-of-sherwood", "seas-of-blood-c64", "seas-of-blood-zx",
+              "the-count", "waxworks"}
+
+
 def transcript(binary, script, row, keys, games):
     with open(os.path.join(HERE, script + ".txt"), "rb") as f:
         commands = f.read()
@@ -72,11 +77,14 @@ def transcript(binary, script, row, keys, games):
     # What the release asks before the first command: a key a line, as the
     # script itself has them. "_" is Return.
     menu += "".join(k.replace("_", "") + "\n" for k in keys).encode()
+    env = dict(os.environ, SCOTT_SCRIPT_KEYS="1")
+    env.pop("SCOTT_OLD_RANDOM", None)
+    if script in OLD_RANDOM:
+        env["SCOTT_OLD_RANDOM"] = "1"
     try:
         out = subprocess.run(
             [binary, os.path.join(games, row.dir, row.file)],
-            input=menu + commands, stdout=subprocess.PIPE,
-            env=dict(os.environ, SCOTT_SCRIPT_KEYS="1"),
+            input=menu + commands, stdout=subprocess.PIPE, env=env,
             stderr=subprocess.DEVNULL, timeout=TIMEOUT).stdout
     except subprocess.TimeoutExpired:
         return b"TIMEOUT\n"

@@ -26,6 +26,23 @@ hashing.
 `scott_hl` forces the fixed-seed random generator (see `../README.md`), so a
 replay is repeatable.
 
+## The old random numbers
+
+The plain-named scripts (see below) were written in the app with the
+Determinism option on, when that meant `srand(1234)` and the C library's
+`rand()`. In February 2026 the interpreter got the generator of Glulxe
+instead. Which turn the bell tolls on in The Count, when Banner turns into the
+Hulk, where a ship attacks in Seas of Blood: all of that is decided by the
+random numbers, so a script written for the old ones wanders off with the new.
+
+For the scripts listed as `OLD_RANDOM` in `run_script_tests.py` the runner
+therefore sets `SCOTT_OLD_RANDOM`, and `scott_hl` hands the interpreter the
+numbers of old (`../old_random.c`; a test build only, the app is not changed).
+Those are the scripts that play to the end that way: `hulk`,
+`robin-of-sherwood`, both `seas-of-blood`, `the-count` and `waxworks`. The
+other plain-named ones do as well or better with today's numbers, some because
+they were written later, some because they have been adapted since.
+
 ## How a script is read
 
 One command per line. Three things are not commands:
@@ -44,7 +61,11 @@ One command per line. Three things are not commands:
   `INVENTORY` does not. German Gremlins has no `LOOK`; `laufen`, which it does
   not understand, takes a turn all the same.
 
-Seas of Blood's dice combat cannot run headless at all.
+Seas of Blood's dice are thrown by timer and key events, which CheapGlk does
+not have. `scott_hl` is built with `AUTOWIN` (`ai_uk/seas_of_blood.c`), as the
+app was when the two scripts were written: a battle is won without a roll, and
+takes only the `<HIT ENTER>` before it. So the dice code itself is not run
+here.
 
 ## The scripts
 
@@ -80,16 +101,16 @@ regression test needs, but it covers less of the game.
 | `golden-baton` | won on C64 | dead on ZX (the Gorgon) |
 | `gremlins` | won on 6 of 8 | English only; the "alternate" ZX release stops one command short |
 | `gremlins-german` | won, all 4 | C64 and ZX. Changed from the wiki: `holen` for `nehmen`, which the game does not know; `anzeige` for `ladentisch`, which only the C64 knows; `taste druecken` once more at the pool; `laufen` for the waits |
-| `hulk` | open | none finish |
-| `robin-of-sherwood` | open | stuck at the locked grating, all 8 |
-| `seas-of-blood-c64`, `-zx` | open | stops at the first battle |
+| `hulk` | won on 14 of 18 | old random numbers. The two C64 and two of the four ZX images end in limbo: Banner is gassed on another turn there |
+| `robin-of-sherwood` | won, all 8 | old random numbers |
+| `seas-of-blood-c64`, `-zx` | won | old random numbers and `AUTOWIN`. Each wins on its own platform (2 C64 images, 4 ZX) and gets lost on the other |
 | `secret-mission` | won, both | C64 only; every other release is covered by `bunyon-mission-impossible` |
 | `spider-man` | open | none finish; it is a script for the Plus release and wins there (`terps/plus/test/scripts`) |
 | `super-gran` | won | all 4 |
 | `ten-little-indians` | won | 4 of 5 |
-| `the-count` | lost | all 13 |
+| `the-count` | won on 11 of 13 | old random numbers. Lost on the TI-99/4A image and one Apple II disk |
 | `voodoo-castle` | won | all 15 |
-| `waxworks` | dead | all 6 |
+| `waxworks` | won, all 6 | old random numbers |
 | `wizard-of-akyrz` | won | all 6 |
 
 Scripts for the other two Scott Adams interpreters are in

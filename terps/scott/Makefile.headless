@@ -41,7 +41,11 @@ DEPFLAGS   := -MMD -MP
 # not pull it in. Force it in rather than churn the engine headers.
 FORCE_INC  := -include stddef.h
 CFLAGS     := -O0 -g -Wall -Wno-unknown-pragmas -Wno-unused-function \
-              $(COMMON_INC) $(DEPFLAGS) $(FORCE_INC) -DSPATTERLIGHT -DSCOTT_HEADLESS
+              $(COMMON_INC) $(DEPFLAGS) $(FORCE_INC) -DSPATTERLIGHT -DSCOTT_HEADLESS \
+              -DAUTOWIN
+# AUTOWIN: Seas of Blood's battles are won without a roll of the dice. The dice
+# are thrown by timer and key events, which CheapGlk does not have, and the
+# command scripts for the game (test/scripts) were written with it.
 
 # ai_uk/debug.c is an orphan (its debug.h does not exist and Xcode does not
 # build it), so it is filtered out here.
@@ -52,7 +56,7 @@ SRCS := $(wildcard *.c) $(filter-out ai_uk/debug.c,$(wildcard ai_uk/*.c)) $(wild
         $(AIUKGFX_DIR)/taylordraw.c $(wildcard $(Z80_DIR)/*.c) \
         $(READWOZ_DIR)/woz2nib.c $(READWOZ_DIR)/ciderpress.c \
         $(C64DISK_DIR)/c64diskimage.c $(ZXSCREEN_DIR)/zx_title.c \
-        test/headless_stubs.c
+        test/headless_stubs.c test/old_random.c
 
 OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS)))
 VPATH := .:ai_uk:saga:ti994a:test:$(COMMON_DIR):$(SAGADRAW_DIR):$(AIUKGFX_DIR):$(Z80_DIR):$(READWOZ_DIR):$(C64DISK_DIR):$(ZXSCREEN_DIR)
@@ -79,6 +83,12 @@ $(OBJDIR):
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+# test/old_random.c stands in front of the random generator, to be able to
+# hand out the numbers some command scripts were written with.
+$(OBJDIR)/randomness.o: $(COMMON_DIR)/randomness.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -Derkyrath_random=xo_erkyrath_random \
+	    -Dset_erkyrath_random=xo_set_erkyrath_random -c $< -o $@
 
 # Focused reproducer for the death-room bug (compressed-room off-by-one): it
 # needs its own glk_main, so scott.c is compiled a second time with the real one

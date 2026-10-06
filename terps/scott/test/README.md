@@ -56,14 +56,18 @@ replay differently every run — two runs of the *same* binary diverge, which
 silently invalidates any before/after diff. Anything that diffs transcripts
 must keep this on.
 
-## HARNESS LIMITATION — combat is NOT exercised
+With `SCOTT_OLD_RANDOM` set, the fixed-seed numbers are those of the generator
+the interpreter had before February 2026 (`test/old_random.c`). Some command
+scripts were written with them; see `test/scripts/README.md`.
+
+## Seas of Blood's battles
 
 Seas of Blood's dice combat (`roll_dice` in `ai_uk/seas_of_blood.c`) is driven
-by Glk timer events, and `HitEnter()` / the dice loop wait on char events.
-CheapGlk delivers neither (`glk_request_timer_events` is a no-op), so a
-line-input replay stalls at the first battle (`ATTACK BARGE`, ~command 13 of
-405) at the `<HIT ENTER>` prompt and EOFs. Combat must be tested in the real
-Glk app.
+by Glk timer events and char events, and CheapGlk delivers no timer events
+(`glk_request_timer_events` is a no-op). `Makefile.headless` therefore builds
+with `AUTOWIN`: a battle is won without a roll, so a replay can play past it
+(`test/scripts` wins the game that way), but the dice code is not exercised.
+Combat must be tested in the real Glk app.
 
 When diffing two builds, verify the two binaries really differ before trusting
 the result — a stale build once made a "no change" result out of an unchanged
