@@ -64,6 +64,15 @@ static void PrintWindowDelimiter(void)
     }
 }
 
+/* Open a memory stream for building a room description. Returns its
+   (zeroed) buffer, which FlushRoomDescription() renders and frees. */
+static char *OpenRoomDescriptionStream(void)
+{
+    char *buf = MemCalloc(ROOM_DESC_BUFFER_SIZE);
+    room_description_stream = glk_stream_open_memory(buf, ROOM_DESC_BUFFER_SIZE, filemode_Write, 0);
+    return buf;
+}
+
 /* Close the room description memory stream and render its contents.
    In split-screen mode, the text is line-broken to fit the top window;
    otherwise it's printed inline in the main window. Also handles
@@ -72,11 +81,8 @@ static void FlushRoomDescription(char *buf)
 {
     glk_stream_close(room_description_stream, 0);
 
-    if (Transcript && print_look_to_transcript) {
-        glui32 *unistring = ToUnicode(buf);
-        glk_put_string_stream_uni(Transcript, unistring);
-        free(unistring);
-    }
+    if (Transcript && print_look_to_transcript)
+        PutUnicodeString(Transcript, buf);
 
     int print_delimiter = (Options & (TRS80_STYLE | SPECTRUM_STYLE | TI994A_STYLE));
 
@@ -148,9 +154,7 @@ static void FlushRoomDescription(char *buf)
 /* Render inventory in the graphics window for US-variant games */
 void UpdateUSInventory(void)
 {
-    char *buf = MemAlloc(ROOM_DESC_BUFFER_SIZE);
-    buf = memset(buf, 0, ROOM_DESC_BUFFER_SIZE);
-    room_description_stream = glk_stream_open_memory(buf, ROOM_DESC_BUFFER_SIZE, filemode_Write, 0);
+    char *buf = OpenRoomDescriptionStream();
     ListInventory(1);
     FlushRoomDescription(buf);
     InventoryUS();
@@ -205,6 +209,18 @@ glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidt
     return multiplier;
 }
 
+/* Scale the image to the Graphics window: set pixel_size, and x_offset and
+   right_margin to centre it horizontally. The window height and the scaled
+   image height are returned in graphheight and optimal_height. */
+void FitPictureToGraphicsWindow(glui32 *graphheight, glui32 *optimal_height)
+{
+    glui32 graphwidth, optimal_width;
+    glk_window_get_size(Graphics, &graphwidth, graphheight);
+    pixel_size = OptimalPictureSize(graphwidth, *graphheight, &optimal_width, optimal_height);
+    x_offset = ((int)graphwidth - (int)optimal_width) / 2;
+    right_margin = optimal_width + x_offset;
+}
+
 /* Open the graphics window between the status window and the main text
    window, sized to fit the game's native image resolution at the best
    integer scale. Re-opens the status window above it if needed. */
@@ -214,7 +230,7 @@ void OpenGraphicsWindow(void)
     if (!gli_enable_graphics)
         return;
 #endif
-    glui32 graphwidth, graphheight, optimal_width, optimal_height;
+    glui32 graphheight, optimal_height;
 
     if (Top == NULL)
         Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
@@ -225,9 +241,7 @@ void OpenGraphicsWindow(void)
         glk_window_close(Top, NULL);
         Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
             60, wintype_Graphics, GLK_GRAPHICS_ROCK);
-        glk_window_get_size(Graphics, &graphwidth, &graphheight);
-        pixel_size = OptimalPictureSize(graphwidth, graphheight, &optimal_width, &optimal_height);
-        x_offset = ((int)graphwidth - (int)optimal_width) / 2;
+        FitPictureToGraphicsWindow(&graphheight, &optimal_height);
 
         if (graphheight > optimal_height) {
             winid_t parent = glk_window_get_parent(Graphics);
@@ -252,15 +266,12 @@ void OpenGraphicsWindow(void)
         if (!Graphics)
             Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60,
                 wintype_Graphics, GLK_GRAPHICS_ROCK);
-        glk_window_get_size(Graphics, &graphwidth, &graphheight);
-        pixel_size = OptimalPictureSize(graphwidth, graphheight, &optimal_width, &optimal_height);
-        x_offset = (graphwidth - optimal_width) / 2;
+        FitPictureToGraphicsWindow(&graphheight, &optimal_height);
         winid_t parent = glk_window_get_parent(Graphics);
         if (parent)
             glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
                 optimal_height, NULL);
     }
-    right_margin = optimal_width + x_offset;
 }
 
 void CloseGraphicsWindow(void)
@@ -398,53 +409,47 @@ static void WriteToRoomDescriptionStream(const char *fmt, ...)
     glk_put_string_stream(room_description_stream, msg);
 }
 
-/* List room exits in ZX Spectrum style (only shown if exits exist) */
-static void ListExitsSpectrumStyle(void)
+/* List room exits. In ZX Spectrum style the list (with its header) is only
+   shown if there are exits; otherwise the header is always shown, with
+   "None" if there are no exits. */
+static void ListExits(int spectrum_style)
 {
-    int ct = 0;
     int f = 0;
 
-    while (ct < NUM_EXITS) {
-        if ((&Rooms[MyLoc])->Exits[ct] != 0) {
-            if (f == 0) {
+    if (!spectrum_style)
+        WriteToRoomDescriptionStream("\n\n%s", sys[EXITS]);
+
+    for (int ct = 0; ct < NUM_EXITS; ct++) {
+        if (Rooms[MyLoc].Exits[ct] != 0) {
+            if (f) {
+                WriteToRoomDescriptionStream("%s", sys[EXITS_DELIMITER]);
+            } else if (spectrum_style) {
                 if (!(Options & PC_STYLE))
                     WriteToRoomDescriptionStream("\n\n");
                 WriteToRoomDescriptionStream("%s", sys[EXITS]);
-            } else {
-                WriteToRoomDescriptionStream("%s", sys[EXITS_DELIMITER]);
             }
             /* sys[] begins with the exit names */
             WriteToRoomDescriptionStream("%s", sys[ct]);
             f = 1;
         }
-        ct++;
     }
-    WriteToRoomDescriptionStream("\n");
-    return;
+
+    if (spectrum_style)
+        WriteToRoomDescriptionStream("\n");
+    else if (f == 0)
+        WriteToRoomDescriptionStream("%s", sys[NONE]);
 }
 
-/* List room exits in standard format (always shows header, "None" if empty) */
-static void ListExits(void)
+/* Print one item of a room or inventory list. The delimiter goes before
+   every item but the first, or in TRS-80 and Spectrum style after every
+   item. */
+static void PrintListItem(void (*print_function)(const char *fmt, ...), int item, int first)
 {
-    int ct = 0;
-    int f = 0;
-
-    WriteToRoomDescriptionStream("\n\n%s", sys[EXITS]);
-
-    while (ct < NUM_EXITS) {
-        if ((&Rooms[MyLoc])->Exits[ct] != 0) {
-            if (f) {
-                WriteToRoomDescriptionStream("%s", sys[EXITS_DELIMITER]);
-            }
-            /* sys[] begins with the exit names */
-            WriteToRoomDescriptionStream("%s", sys[ct]);
-            f = 1;
-        }
-        ct++;
-    }
-    if (f == 0)
-        WriteToRoomDescriptionStream("%s", sys[NONE]);
-    return;
+    if (!first && !(Options & (TRS80_STYLE | SPECTRUM_STYLE)))
+        print_function("%s", sys[ITEM_DELIMITER]);
+    print_function("%s", Items[item].Text);
+    if (Options & (TRS80_STYLE | SPECTRUM_STYLE))
+        print_function("%s", sys[ITEM_DELIMITER]);
 }
 
 static int ItemEndsWithPeriod(int item)
@@ -472,9 +477,7 @@ void Look(void)
     if (split_screen && Top == NULL)
         return;
 
-    char *buf = MemAlloc(ROOM_DESC_BUFFER_SIZE);
-    buf = memset(buf, 0, ROOM_DESC_BUFFER_SIZE);
-    room_description_stream = glk_stream_open_memory(buf, ROOM_DESC_BUFFER_SIZE, filemode_Write, 0);
+    char *buf = OpenRoomDescriptionStream();
 
     Room *r;
     int ct, f;
@@ -509,7 +512,7 @@ void Look(void)
     }
 
     if (!(Options & SPECTRUM_STYLE)) {
-        ListExits();
+        ListExits(0);
         WriteToRoomDescriptionStream(".\n");
     }
 
@@ -524,16 +527,11 @@ void Look(void)
             }
             if (f == 0) {
                 WriteToRoomDescriptionStream("%s", sys[YOU_SEE]);
-                f++;
                 if (Options & SPECTRUM_STYLE && !(Options & PC_STYLE))
                     WriteToRoomDescriptionStream("\n");
-            } else if (!(Options & (TRS80_STYLE | SPECTRUM_STYLE))) {
-                WriteToRoomDescriptionStream("%s", sys[ITEM_DELIMITER]);
             }
-            WriteToRoomDescriptionStream("%s", Items[ct].Text);
-            if (Options & (TRS80_STYLE | SPECTRUM_STYLE)) {
-                WriteToRoomDescriptionStream("%s", sys[ITEM_DELIMITER]);
-            }
+            PrintListItem(WriteToRoomDescriptionStream, ct, f == 0);
+            f = 1;
         }
         ct++;
     }
@@ -544,7 +542,7 @@ void Look(void)
         WriteToRoomDescriptionStream(". ");
 
     if (Options & SPECTRUM_STYLE) {
-        ListExitsSpectrumStyle();
+        ListExits(1);
     } else if (f) {
         WriteToRoomDescriptionStream("\n");
     }
@@ -560,17 +558,9 @@ void Look(void)
 static void WriteToLowerWindow(const char *fmt, ...)
 {
     va_list ap;
-    char msg[DISPLAY_BUFFER_SIZE];
-
-    int size = sizeof msg;
-
     va_start(ap, fmt);
-    vsnprintf(msg, size, fmt, ap);
+    vDisplay(Bottom, fmt, ap);
     va_end(ap);
-
-    glui32 *unistring = ToUnicode(msg);
-    glk_put_string_stream_uni(glk_window_get_stream(Bottom), unistring);
-    free(unistring);
 }
 
 /* List the player's carried items. When upper=1, writes to the room
@@ -594,14 +584,8 @@ void ListInventory(int upper)
                 i++;
                 continue;
             }
-            if (lastitem > -1 && (Options & (TRS80_STYLE | SPECTRUM_STYLE)) == 0) {
-                print_function("%s", sys[ITEM_DELIMITER]);
-            }
+            PrintListItem(print_function, i, lastitem == -1);
             lastitem = i;
-            print_function("%s", Items[i].Text);
-            if (Options & (TRS80_STYLE | SPECTRUM_STYLE)) {
-                print_function("%s", sys[ITEM_DELIMITER]);
-            }
         }
         i++;
     }

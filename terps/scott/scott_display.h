@@ -16,6 +16,7 @@ int ItIsDark(void);
 void DrawBlack(void);
 void OpenTopWindow(void);
 glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight);
+void FitPictureToGraphicsWindow(glui32 *graphheight, glui32 *optimal_height);
 void OpenGraphicsWindow(void);
 void CloseGraphicsWindow(void);
 void DrawImage(int image);

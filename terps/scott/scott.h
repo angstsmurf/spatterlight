@@ -20,6 +20,7 @@
 #ifndef scott_h
 #define scott_h
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdint.h>
 
@@ -137,6 +138,12 @@ void Display(winid_t w, const char *fmt, ...)
     __attribute__((__format__(__printf__, 2, 3)))
 #endif
     ;
+void vDisplay(winid_t w, const char *fmt, va_list ap)
+#ifdef __GNUC__
+    __attribute__((__format__(__printf__, 2, 0)))
+#endif
+    ;
+void PutUnicodeString(strid_t stream, const char *string);
 void HitEnter(void);
 GameIDType LoadDatabase(FILE *f, int loud);
 void Updates(event_t ev);

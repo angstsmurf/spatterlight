@@ -156,24 +156,32 @@ strid_t Transcript = NULL;
 #define TRS80_LINE \
     "\n<------------------------------------------------------------>\n"
 
+/* Convert a string to Unicode and write it to a Glk stream */
+void PutUnicodeString(strid_t stream, const char *string)
+{
+    glui32 *unistring = ToUnicode(string);
+    glk_put_string_stream_uni(stream, unistring);
+    free(unistring);
+}
+
 /* Format and output text to a Glk window, converting to Unicode */
+void vDisplay(winid_t w, const char *fmt, va_list ap)
+{
+    char msg[DISPLAY_BUFFER_SIZE];
+    vsnprintf(msg, sizeof msg, fmt, ap);
+
+    int oldlastwasnewline = lastwasnewline;
+    PutUnicodeString(glk_window_get_stream(w), msg);
+    if (w != Bottom)
+        lastwasnewline = oldlastwasnewline;
+}
+
 void Display(winid_t w, const char *fmt, ...)
 {
     va_list ap;
-    char msg[DISPLAY_BUFFER_SIZE];
-
-    int size = sizeof msg;
-
     va_start(ap, fmt);
-    vsnprintf(msg, size, fmt, ap);
+    vDisplay(w, fmt, ap);
     va_end(ap);
-
-    int oldlastwasnewline = lastwasnewline;
-    glui32 *unistring = ToUnicode(msg);
-    if (w != Bottom)
-        lastwasnewline = oldlastwasnewline;
-    glk_put_string_stream_uni(glk_window_get_stream(w), unistring);
-    free(unistring);
 }
 
 /* Sync game options from the Spatterlight UI settings (delays, flicker,

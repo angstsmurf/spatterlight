@@ -183,9 +183,7 @@ static void TranscriptOn(void)
         return;
     }
 
-    glui32 *start_of_transcript = ToUnicode(sys[TRANSCRIPT_START]);
-    glk_put_string_stream_uni(Transcript, start_of_transcript);
-    free(start_of_transcript);
+    PutUnicodeString(Transcript, sys[TRANSCRIPT_START]);
 
     print_look_to_transcript = 1;
     Look();
@@ -204,9 +202,7 @@ static void TranscriptOff(void)
 
     glk_window_set_echo_stream(Bottom, NULL);
 
-    glui32 *end_of_transcript = ToUnicode(sys[TRANSCRIPT_END]);
-    glk_put_string_stream_uni(Transcript, end_of_transcript);
-    free(end_of_transcript);
+    PutUnicodeString(Transcript, sys[TRANSCRIPT_END]);
 
     glk_stream_close(Transcript, NULL);
     Transcript = NULL;
