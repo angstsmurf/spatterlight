@@ -647,14 +647,41 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
             } @catch (NSException *ex) {
                 NSLog(@"Unable to read previous terp autosave: %@", ex);
             }
+            BOOL usedPrevious = NO;
             if (tempLib && tempLib.autosaveTag == restoredController.autosaveTag) {
-                [fileManager removeItemAtPath:self.autosaveFileTerp error:nil];
-                [fileManager moveItemAtPath:oldAutosaveFileTerp toPath:self.autosaveFileTerp error:nil];
+                // Put the previous pair back, game state first. The library
+                // carries the tag, so as long as the backup library is still
+                // waiting under its -bak name, a crash in here leaves a
+                // mismatch that the next launch finds and finishes. Library
+                // first would instead leave the previous library beside the
+                // current game state, with matching tags: two turns mixed
+                // and nothing to tell.
                 NSString *glkSaveTerp = [self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"];
-
                 NSString *oldGlkSaveTerp = [self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.glksave"];
-                [fileManager removeItemAtPath:glkSaveTerp error:nil];
-                [fileManager moveItemAtPath:oldGlkSaveTerp toPath:glkSaveTerp error:nil];
+
+                // No backup game state means an earlier launch already put
+                // it back and was interrupted before the library followed.
+                BOOL gameStateBack = YES;
+                if ([fileManager fileExistsAtPath:oldGlkSaveTerp]) {
+                    gameStateBack = [fileManager replaceItemAtURL:[NSURL fileURLWithPath:glkSaveTerp isDirectory:NO]
+                                                    withItemAtURL:[NSURL fileURLWithPath:oldGlkSaveTerp isDirectory:NO]
+                                                   backupItemName:nil
+                                                          options:0
+                                                 resultingItemURL:nil
+                                                            error:&error];
+                }
+                if (gameStateBack) {
+                    usedPrevious = [fileManager replaceItemAtURL:[NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO]
+                                                   withItemAtURL:[NSURL fileURLWithPath:oldAutosaveFileTerp isDirectory:NO]
+                                                  backupItemName:nil
+                                                         options:0
+                                                resultingItemURL:nil
+                                                           error:&error];
+                }
+                if (!usedPrevious)
+                    NSLog(@"Could not move previous terp save into place: %@", error);
+            }
+            if (usedPrevious) {
                 NSLog(@"Successfully used previous terp save");
             } else {
                 NSLog(@"Only restore UI state at first turn");
