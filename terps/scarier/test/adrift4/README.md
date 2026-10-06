@@ -145,8 +145,15 @@ python3 harness/run_autosave_tests.py -v undo   # only cases matching "undo", wi
   first input (a RESTART played later may reopen the graphics window), print
   nothing before its first input, and have autosaved at the prompt it closed
   on.
-- **Other cases.** No autosave at the startup name prompt; a corrupt container
-  is discarded; a container without its undo tail still restores.
+- **Startup prompts.** A game closed at its ADRIFT 4 name or gender prompt,
+  before the first room, comes back at that question (`startup-name-prompt`,
+  `startup-gender-prompt`, and the name prompt a RESTART asks in `restart`).
+  An ADRIFT 5 `%PopUpInput%` or `%PopUpChoice%` question is asked partway
+  through a turn, so its autosave is of where the turn began plus the command
+  and the answers given so far, and the relaunch runs the turn again up to
+  the question (`a5-popup-open`; `a5-popup-opening` for one the opening asks).
+- **Other cases.** A corrupt container is discarded; a container without its
+  undo tail still restores.
 - **`xfail` cases.** These record state the autosave does not carry yet. An
   XPASS fails the run, so the list stays current. There are none at present.
 - **Environment.** Autosaves are keyed by `SPATTERLIGHT_AUTOSAVE_SIGNATURE`.

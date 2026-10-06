@@ -266,6 +266,14 @@ int gsc_a5_real_time = FALSE;
    Spatterlight autorestore boot), so a %PopUpInput% naming prompt in it is
    answered with its default instead of asking the player again. */
 int gsc_a5_popup_silent = FALSE;
+int gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
+std::string gsc_a5_popup_command;
+std::vector<std::string> gsc_a5_popup_answers;
+/* The context an autorestore is playing back to a question, if any, with
+   the command to run again and the answers still to be given. */
+int gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+std::string gsc_a5_replay_command;
+std::vector<std::string> gsc_a5_replay_answers;
 
 /* Author-defined secondary output window (ADRIFT 5 <window NAME>), opened
    lazily as a right-hand text buffer the first time the game routes text to

@@ -482,6 +482,54 @@ gsc_a5_popup_status (void)
 
 
 /*
+ * gsc_a5_popup_replayed()
+ * gsc_a5_popup_answered()
+ *
+ * A game closed at a popup question comes back at it: the autosave written
+ * there (gsc_a5_autosave_popup) holds the state the turn started from, the
+ * command, and the answers its earlier questions were given, and the
+ * relaunch runs the command again.  Nothing of the turn has been printed
+ * yet -- its text is displayed once the engine returns -- so all there is to
+ * keep quiet is the questions already answered.  gsc_a5_popup_replayed hands
+ * back the next recorded answer; when none is left the replay is over, and
+ * the question being asked is the one on screen, which *resumed tells the
+ * caller not to print again.
+ */
+static int
+gsc_a5_popup_replayed (std::string *answer, int *resumed)
+{
+  *resumed = FALSE;
+  if (gsc_a5_popup_replay == GSC_A5_POPUP_ELSEWHERE)
+    return FALSE;
+  if (gsc_a5_replay_answers.empty ())
+    {
+      gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+      *resumed = TRUE;
+      return FALSE;
+    }
+  *answer = gsc_a5_replay_answers.front ();
+  gsc_a5_replay_answers.erase (gsc_a5_replay_answers.begin ());
+  gsc_a5_popup_answers.push_back (*answer);
+  return TRUE;
+}
+
+static void
+gsc_a5_popup_answered (const std::string &answer)
+{
+  gsc_a5_popup_answers.push_back (answer);
+}
+
+/* Save the game at the question just printed. */
+static void
+gsc_a5_popup_autosave (void)
+{
+#ifdef SPATTERLIGHT
+  gsc_a5_autosave_popup ();
+#endif
+}
+
+
+/*
  * gsc_a5_popup_input()
  *
  * Answer the %PopUpInput[prompt, default]% text function -- ADRIFT's naming
@@ -499,7 +547,8 @@ static char *
 gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
 {
   char input[1024];
-  int saved_real_time, n;
+  int saved_real_time, n, resumed;
+  std::string replayed;
 
   /* No window to ask in, or a silent boot (the autorestore below replays the
      intro only to reach the saved state, whose name the player already
@@ -507,20 +556,28 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
   if (gsc_main_window == NULL || gsc_a5_popup_silent)
     return NULL;
 
+  /* An answer is recorded as "=" and the text typed, the default as "". */
+  if (gsc_a5_popup_replayed (&replayed, &resumed))
+    return replayed.empty () ? NULL : gsc_copy_string (replayed.c_str () + 1);
+
   gsc_a5_popup_status ();
 
-  gsc_a5_put_string ("\n");
-  if (prompt != NULL && prompt[0] != '\0')
-    gsc_a5_put_string (prompt);
-  if (dflt != NULL && dflt[0] != '\0')
+  if (!resumed)
     {
-      /* The InputBox arrives with the default already filled in; say what
-         answering with an empty line will give. */
-      gsc_a5_put_string (" [");
-      gsc_a5_put_string (dflt);
-      gsc_a5_put_string ("]");
+      gsc_a5_put_string ("\n");
+      if (prompt != NULL && prompt[0] != '\0')
+        gsc_a5_put_string (prompt);
+      if (dflt != NULL && dflt[0] != '\0')
+        {
+          /* The InputBox arrives with the default already filled in; say
+             what answering with an empty line will give. */
+          gsc_a5_put_string (" [");
+          gsc_a5_put_string (dflt);
+          gsc_a5_put_string ("]");
+        }
+      gsc_a5_put_prompt ("\n");
+      gsc_a5_popup_autosave ();
     }
-  gsc_a5_put_prompt ("\n");
 
   /* This runs inside the engine (mid text-render), so a TimeBased tick must
      not re-enter it: hold real-time mode off for the duration, which also
@@ -549,6 +606,7 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
     }
   gsc_a5_real_time = saved_real_time;
 
+  gsc_a5_popup_answered (n > 0 ? std::string ("=") + input : std::string ());
   return n > 0 ? gsc_copy_string (input) : NULL;
 }
 
@@ -597,13 +655,18 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
                      const char *choice1, const char *choice2)
 {
   char input[1024];
-  int saved_real_time, picked;
+  int saved_real_time, picked, resumed;
+  std::string replayed;
 
   /* No window to ask in, or a silent boot (the autorestore below replays the
      opening only to reach the saved state, whose answer the player already
      gave): leave the question unasked, as an unattended Runner does. */
   if (gsc_main_window == NULL || gsc_a5_popup_silent)
     return -1;
+
+  /* Recorded as "1" for the first choice and "0" for the second. */
+  if (gsc_a5_popup_replayed (&replayed, &resumed))
+    return replayed != "0";
 
   gsc_a5_popup_status ();
 
@@ -617,14 +680,20 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
     {
       int n;
 
-      gsc_a5_put_string ("\n");
-      if (prompt != NULL && prompt[0] != '\0')
-        gsc_a5_put_string (prompt);
-      gsc_a5_put_string (" [yes = ");
-      gsc_a5_put_string (choice1);
-      gsc_a5_put_string (" / no = ");
-      gsc_a5_put_string (choice2);
-      gsc_a5_put_string ("]\n> ");
+      if (resumed)
+        resumed = FALSE;
+      else
+        {
+          gsc_a5_put_string ("\n");
+          if (prompt != NULL && prompt[0] != '\0')
+            gsc_a5_put_string (prompt);
+          gsc_a5_put_string (" [yes = ");
+          gsc_a5_put_string (choice1);
+          gsc_a5_put_string (" / no = ");
+          gsc_a5_put_string (choice2);
+          gsc_a5_put_string ("]\n> ");
+          gsc_a5_popup_autosave ();
+        }
 
       n = gsc_a5_read_line_raw (input, sizeof input);
 
@@ -661,6 +730,7 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
     }
 
   gsc_a5_real_time = saved_real_time;
+  gsc_a5_popup_answered (picked ? "1" : "0");
   return picked;
 }
 
@@ -1203,7 +1273,23 @@ gsc_a5_main (void)
      window contents from its own GUI snapshot; the loop below skips one
      prompt print (the restored transcript already ends with it).  No window
      has been opened yet -- the restored library supplies them all. */
-  if (autorestore)
+  if (autorestore && gsc_a5_autosave_at_boot_popup ())
+    {
+      /* Closed at a question the opening itself asks, before any of it was
+         shown: there is no state to load, only the windows and the answers
+         given so far (which gsc_a5_apply_all takes), so play the opening
+         for real.  It stops at the question already on screen. */
+      gsc_autorestore_replace_state (gsc_a5_apply_all);
+      glk_set_window (gsc_main_window);
+      glk_set_style (style_Normal);
+      gsc_a5_start_real_time (run);
+      gsc_a5_popup_context = GSC_A5_POPUP_BOOT;
+      gsc_a5_present_intro (run);
+      gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
+      gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+      gsc_map_auto_reveal ();
+    }
+  else if (autorestore)
     {
       gsc_a5_popup_silent = TRUE;
       text = a5run_intro (run);
@@ -1227,7 +1313,13 @@ gsc_a5_main (void)
   else
     {
 #endif
+  /* Only this first opening can be closed at one of its questions and come
+     back: a relaunch reaches it again by starting the game, which is not
+     where a RESTART's opening starts from. */
+  gsc_a5_popup_answers.clear ();
+  gsc_a5_popup_context = GSC_A5_POPUP_BOOT;
   gsc_a5_present_intro (run);
+  gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
   /* After the intro, so the title page is not sharing the screen with a map.
      An autorestore takes the archived pane instead, whatever it was. */
   gsc_map_auto_reveal ();
@@ -1339,9 +1431,12 @@ gsc_a5_main (void)
 
 #ifdef SPATTERLIGHT
       if (gsc_autorestored)
-        /* The restored transcript already ends with the old prompt; skip
-           printing another and just take input. */
-        gsc_autorestored = FALSE;
+        {
+          /* The restored transcript already ends with the old prompt; skip
+             printing another and just take input. */
+          gsc_autorestored = FALSE;
+          gsc_a5_note_turn_start ();
+        }
       else
         {
           gsc_a5_put_prompt ("\n");
@@ -1354,8 +1449,22 @@ gsc_a5_main (void)
 #else
       gsc_a5_put_prompt ("\n");
 #endif
-      if (gsc_a5_read_line (input, sizeof input) == 0)
-        continue;
+      if (gsc_a5_popup_replay == GSC_A5_POPUP_TURN
+          && !gsc_a5_replay_command.empty ()
+          && gsc_a5_replay_command.size () < sizeof input)
+        {
+          /* Resuming at a question this command's turn asked: the command
+             is in the restored transcript, and is run again rather than
+             read. */
+          strcpy (input, gsc_a5_replay_command.c_str ());
+          gsc_a5_replay_command.clear ();
+        }
+      else
+        {
+          gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+          if (gsc_a5_read_line (input, sizeof input) == 0)
+            continue;
+        }
 
       /* Handle "glk ..." command escapes and input logging. */
       if (gsc_a5_command_escape (input))
@@ -1403,7 +1512,12 @@ gsc_a5_main (void)
          which increments the turn counter on entry). */
       a5run_snapshot (run);
 
+      gsc_a5_popup_command = input;
+      gsc_a5_popup_answers.clear ();
+      gsc_a5_popup_context = GSC_A5_POPUP_TURN;
       text = a5run_input (run, input);
+      gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
+      gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
       gsc_a5_display (text);
       free (text);
       gsc_a5_show_media (run);

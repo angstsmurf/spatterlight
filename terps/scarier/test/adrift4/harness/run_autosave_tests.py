@@ -29,8 +29,11 @@ none at present.)
 
 State that lives outside the saved game -- the line `again` repeats, command
 history, pronouns, an open "Which ...?" question, a question prefix, brief/
-verbose and score notification -- travels in the container's session section
-(run_session_state).  A case's "expect" strings must appear in the
+verbose and score notification, and which of the startup name and gender
+prompts the game was closed at -- travels in the container's session section
+(run_session_state).  An ADRIFT 5 popup question is asked from inside a turn,
+so a game closed at one is saved as the state the turn began in, its command
+and the answers given so far, and played forward again on the relaunch.  A case's "expect" strings must appear in the
 single-session output, proving the script really reached that state.  With
 AUTOSAVE_TEST_STRIP_SESSION=1 the section is cut out of every autosave between
 sessions; the cases that depend on it must then FAIL.
@@ -305,6 +308,9 @@ def case_equivalence(terp, case, res, verbose):
         bufwins = {w for w, t in control.wintypes.items() if t == TEXTBUFFER}
         got = []
         sessions = split_script(script, cuts)
+        if case.get("first_prompt"):
+            # Closed at the prompt the game opens on, with nothing typed.
+            sessions.insert(0, [])
         for index, part in enumerate(sessions):
             s = run_session(terp, game, part, sig, work, savepath)
             label = "session %d" % (index + 1)
@@ -349,29 +355,6 @@ def session_of(cuts, n):
     first = (n == 0) or any(c == n for c in cuts)
     return "session %d%s" % (before + 1,
                              ", its first command" if first and n else "")
-
-
-def case_no_autosave_at_name_prompt(terp, case, res, verbose):
-    """A game closed at its startup name prompt must not autosave: resuming
-    there would replay the intro over the restored transcript.  The next
-    launch must start fresh."""
-    sig = "scarier-autosave-test-" + case["name"]
-    game = case["game"]
-    with tempfile.TemporaryDirectory() as work:
-        clean_autosave(sig)
-        s1 = run_session(terp, game, [], sig, work)
-        check_process(res, s1, "session 1")
-        if "autosave" in [e[0] for e in s1.events]:
-            res.fail("session 1: autosaved at the name prompt")
-        if os.path.exists(os.path.join(autosave_dir(sig), "autosave.glksave")):
-            res.fail("session 1: autosave.glksave left behind")
-        s2 = run_session(terp, game, [case["name_answer"], "look"], sig, work)
-        check_process(res, s2, "session 2")
-        if not s2.newwin:
-            res.fail("session 2: opened no windows, so it did not boot fresh")
-        if case["intro"] not in "".join(s2.transcript):
-            res.fail("session 2: intro text %r missing" % case["intro"])
-        clean_autosave(sig)
 
 
 def case_damaged_container(terp, case, res, verbose):
@@ -598,17 +581,23 @@ def build_cases():
            "look", "e", "restore", "key:y", "look", "undo", "look"],
           [3, 6, 8, 9], savepath="checkpoint.sav")
 
-    # Restart, then relaunch into the restarted game.  Not closed at the
-    # name prompt the restart asks: like the startup one it never autosaves.
+    # Restart, then relaunch into the restarted game -- and at the name
+    # prompt the restart asks, which unlike the session's first is saved.
     equiv("restart", maze,
           ["adventurer", "n", "e", "restart", "key:y", "adventurer", "look",
            "n", "look"],
-          [3, 6, 7])
+          [3, 5, 6, 7])
 
-    cases.append(dict(kind=case_no_autosave_at_name_prompt,
-                      name="name-prompt", game=maze,
-                      name_answer="adventurer",
-                      intro="Welcome to the ADRIFT Maze"))
+    # The startup prompts: Wizard's Playground asks a name, then a gender.
+    # Closed at the second, it comes back at that question with the name it
+    # was given, and does not print its title page again.
+    equiv("startup-gender-prompt", game("Wizards_Playground.taf"),
+          solution("wizards_solution.txt")[:6], [1, 2],
+          expect=["Please choose the player's gender"])
+
+    # ...and closed at the first, before anything has been typed at all.
+    equiv("startup-name-prompt", maze, ["adventurer", "look", "n"], [],
+          first_prompt=True)
     cases.append(dict(kind=case_damaged_container, name="corrupt-container",
                       game=maze, damage="garbage",
                       first=["adventurer", "n"], fresh=["adventurer", "look"],
@@ -715,6 +704,18 @@ def build_cases():
     equiv("a5-bare-verb-open", ambiguity,
           ["get", "blue key", "i", "drop", "blue key", "i"], [1, 4],
           expect=["what?"])
+
+    # Closed at a %PopUpInput% / %PopUpChoice% question, which the engine
+    # asks partway through a turn: the autosave is of where the turn began,
+    # with the command and the answers given so far, and the relaunch runs
+    # the turn again up to the question on screen.
+    equiv("a5-popup-open", a5_probe("popups.taf"),
+          ["ask name", "Petter", "ask choice", "no", "ask blank", "anything",
+           "show results", "ask name", "", "show results"],
+          [1, 3, 5, 8], expect=["InputResult=Petter", "ChoiceResult=blue"])
+    # ... and at the one Beagle 2 asks before it has shown anything at all.
+    equiv("a5-popup-opening", a5_game("Beagle2.blorb"),
+          ["male", "look", "i"], [], first_prompt=True)
 
     cases.append(dict(kind=case_damaged_container,
                       name="a5-corrupt-container", game=events,

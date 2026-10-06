@@ -228,7 +228,44 @@ gsc_sc_apply_all (const std::string &data)
  * (oldest first) with its parallel turn texts, and last the parser's
  * cross-turn continuation (a5run_pending_save: an open "Which X?" question
  * or a remembered bare verb), which the save format itself does not carry.
+ *
+ * An autosave taken at a %PopUp...% question (gsc_a5_autosave_popup) is the
+ * container of the prompt the turn started from, followed by "R", the
+ * command, and the answers the turn's earlier questions were given; one
+ * taken at a question the opening asks has no state at all, only "BOOT" and
+ * the answers.  gsc_a5_apply_all hands either record to the driver, which
+ * plays it back (gsc_a5_popup_replayed in os_glk_a5.cpp).
  */
+static const char *const GSC_A5_BOOT_MARK = "BOOT\n";
+
+static void
+gsc_a5_put_answers (std::string &out, const std::vector<std::string> &answers)
+{
+  out += std::to_string ((long) answers.size ());
+  out += '\n';
+  for (const std::string &answer : answers)
+    gsc_container_put_chunk (out, answer.data (), answer.size ());
+}
+
+static bool
+gsc_a5_get_answers (const std::string &data, size_t *pos,
+                    std::vector<std::string> *answers)
+{
+  std::string chunk;
+  long count, i;
+
+  answers->clear ();
+  if (!gsc_container_get_count (data, pos, &count))
+    return false;
+  for (i = 0; i < count; i++)
+    {
+      if (!gsc_container_get_chunk (data, pos, &chunk))
+        return false;
+      answers->push_back (chunk);
+    }
+  return true;
+}
+
 static std::string
 gsc_a5_serialize_all (void)
 {
@@ -280,6 +317,15 @@ gsc_a5_apply_all (const std::string &data)
     return false;
   size_t pos = magic.size ();
 
+  if (data.compare (pos, strlen (GSC_A5_BOOT_MARK), GSC_A5_BOOT_MARK) == 0)
+    {
+      pos += strlen (GSC_A5_BOOT_MARK);
+      if (!gsc_a5_get_answers (data, &pos, &gsc_a5_replay_answers))
+        return false;
+      gsc_a5_popup_replay = GSC_A5_POPUP_BOOT;
+      return true;
+    }
+
   if (!gsc_container_get_chunk (data, &pos, &chunk))
     return false;
   if (!a5run_restore (gsc_a5_run, chunk.data (), chunk.size ()))
@@ -303,8 +349,21 @@ gsc_a5_apply_all (const std::string &data)
 
   /* Absent from an autosave written before the question was carried; the
      game then resumes at a fresh prompt, as it always did. */
-  if (gsc_container_get_chunk (data, &pos, &chunk))
-    a5run_pending_restore (gsc_a5_run, chunk.data (), chunk.size ());
+  if (!gsc_container_get_chunk (data, &pos, &chunk))
+    return true;
+  a5run_pending_restore (gsc_a5_run, chunk.data (), chunk.size ());
+
+  /* Closed at a question the turn asked: run its command again. */
+  if (pos < data.size () && data[pos] == 'R')
+    {
+      pos++;
+      if (gsc_container_get_chunk (data, &pos, &chunk)
+          && gsc_a5_get_answers (data, &pos, &gsc_a5_replay_answers))
+        {
+          gsc_a5_replay_command = chunk;
+          gsc_a5_popup_replay = GSC_A5_POPUP_TURN;
+        }
+    }
   return true;
 }
 
@@ -322,6 +381,9 @@ static_assert (sizeof (ScarierGlkFrontendState::a5_channeltags)
  * has been rebuilt (called from scarier-autosave.mm between the library's
  * main and "late" restore passes).
  */
+static const ScarierGlkFrontendState *gsc_rng_override = NULL;
+static void gsc_stash_rng (ScarierGlkFrontendState *st);
+
 void
 gsc_stash_frontend_state (ScarierGlkFrontendState *st)
 {
@@ -352,6 +414,29 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
   st->map_cy = gsc_map_cam.cy;
   st->map_page = gsc_map_cam.page;
   st->colour_on = gsc_colour_enabled;
+
+  /* Saving at a question asked partway through a turn: the generators as
+     they stood when the turn began, which is where the relaunch runs it
+     from (or, for the opening, left as the fresh start seeds them). */
+  if (gsc_rng_override != NULL)
+    {
+      st->rng_usenative = gsc_rng_override->rng_usenative;
+      st->rng_runner = gsc_rng_override->rng_runner;
+      st->rng_runner_draws = gsc_rng_override->rng_runner_draws;
+      for (ch = 0; ch < 4; ch++)
+        {
+          st->rng_state[ch] = gsc_rng_override->rng_state[ch];
+          st->rng_runner_state[ch] = gsc_rng_override->rng_runner_state[ch];
+        }
+    }
+  else
+    gsc_stash_rng (st);
+}
+
+static void
+gsc_stash_rng (ScarierGlkFrontendState *st)
+{
+  int ch;
 
   /* The exact RNG state (which generator is active plus the xoshiro words),
      so a deterministic session's randomness continues where it left off. */
@@ -484,6 +569,78 @@ gsc_autosave_game_path (void)
 }
 
 /*
+ * gsc_a5_note_turn_start()
+ * gsc_a5_autosave_popup()
+ * gsc_a5_autosave_at_boot_popup()
+ *
+ * The ADRIFT 5 %PopUpInput% and %PopUpChoice% questions are asked from
+ * inside the engine, partway through a turn or the opening, where there is
+ * no state to save that a relaunch could continue from.  So the autosave
+ * taken at one is of where the turn began -- the container and generators
+ * every top-level prompt notes here, whether or not it is written -- with
+ * the command and the answers given so far, and the relaunch runs the turn
+ * again as far as the question.  For the opening there is nothing to note:
+ * the relaunch is a fresh start, which gsc_a5_autosave_at_boot_popup lets
+ * the driver tell apart before it boots silently for an ordinary restore.
+ * A question asked from anywhere else (a RESTART's opening, a real-time
+ * tick) is not saved.
+ */
+static std::string gsc_a5_turn_state;
+static ScarierGlkFrontendState gsc_a5_turn_rng;
+
+void
+gsc_a5_note_turn_start (void)
+{
+  gsc_a5_turn_state.clear ();
+  if (gsc_a5_run == NULL || a5run_is_over (gsc_a5_run))
+    return;
+  gsc_a5_turn_state = gsc_a5_serialize_all ();
+  gsc_stash_rng (&gsc_a5_turn_rng);
+}
+
+void
+gsc_a5_autosave_popup (void)
+{
+  /* Neither generator is put back: see gsc_recover_frontend_state. */
+  static const ScarierGlkFrontendState fresh;
+  std::string state;
+
+  if (gsc_in_debug_read || !scarier_autosave_wanted ())
+    return;
+  if (gsc_a5_popup_context == GSC_A5_POPUP_BOOT)
+    {
+      state = GSC_A5_CONTAINER_MAGIC;
+      state += GSC_A5_BOOT_MARK;
+      gsc_rng_override = &fresh;
+    }
+  else if (gsc_a5_popup_context == GSC_A5_POPUP_TURN
+           && !gsc_a5_turn_state.empty ())
+    {
+      state = gsc_a5_turn_state;
+      state += 'R';
+      gsc_container_put_chunk (state, gsc_a5_popup_command.data (),
+                               gsc_a5_popup_command.size ());
+      gsc_rng_override = &gsc_a5_turn_rng;
+    }
+  else
+    return;
+  gsc_a5_put_answers (state, gsc_a5_popup_answers);
+  scarier_autosave_write (state);
+  gsc_rng_override = NULL;
+}
+
+bool
+gsc_a5_autosave_at_boot_popup (void)
+{
+  const std::string mark = std::string (GSC_A5_CONTAINER_MAGIC)
+                           + GSC_A5_BOOT_MARK;
+  std::string data;
+
+  return scarier_autosave_read_game (&data)
+         && data.compare (0, mark.size (), mark) == 0;
+}
+
+/*
  * gsc_autosave()
  *
  * Save the whole game state (engine container + Glk library plist), then
@@ -492,22 +649,25 @@ gsc_autosave_game_path (void)
  * line input is requested, and again after a real-time tick that changed
  * state and reprinted the prompt.  An open "Which X?" question is saved
  * with the game on both engines (which_* / which_offered on the ADRIFT 4
- * side, the pending chunk on the ADRIFT 5 side), so the only prompts
- * skipped are those that would not restore coherently: the pre-intro
- * name/gender prompts and the debugger's.
+ * side, the pending chunk on the ADRIFT 5 side), and so are the ADRIFT 4
+ * name and gender prompts that come before the first room, so the only
+ * prompt skipped is the debugger's.  The ADRIFT 5 popup questions have a
+ * save of their own, gsc_a5_autosave_popup().
  */
 void
 gsc_autosave (void)
 {
   std::string state;
 
+  if (gsc_is_a5)
+    gsc_a5_note_turn_start ();
   if (gsc_in_debug_read || !scarier_autosave_wanted ())
     return;
   if (gsc_is_a5)
     {
       if (gsc_a5_run == NULL || a5run_is_over (gsc_a5_run))
         return;
-      state = gsc_a5_serialize_all ();
+      state = gsc_a5_turn_state;
     }
   else
     {
@@ -515,10 +675,12 @@ gsc_autosave (void)
 
       if (gsc_game == NULL || !scr_is_game_running (gsc_game))
         return;
-      /* Not seen the player's room yet = still inside the startup block
-         (the "Please enter your name" prompt): resuming there would replay
-         the intro over the restored transcript. */
-      if (!gs_room_seen (game, gs_playerroom (game)))
+      /* Not seen the player's room yet = still inside the startup block.
+         Its name and gender prompts resume where they were (see
+         run_startup_prompt()); anywhere else would replay the intro over
+         the restored transcript. */
+      if (!gs_room_seen (game, gs_playerroom (game))
+          && run_startup_prompt () == 0)
         return;
       state = gsc_sc_serialize_all ();
     }

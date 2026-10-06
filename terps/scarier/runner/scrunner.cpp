@@ -165,7 +165,9 @@ run_notify_score_change (scr_gameref_t game)
  *     after the container has rebuilt the ring;
  *   - the player's settings: verbose, score notification and wait turns;
  *   - the name and gender typed at the startup prompts, which live in the
- *     property bundle.
+ *     property bundle;
+ *   - which startup prompt the save was taken at, if either: see
+ *     run_startup_prompt().
  *
  * The encoding is a run of session records (sessrec.h), the framing the
  * ADRIFT 5 engine's parser continuation shares.  The reader skips keys it
@@ -173,6 +175,24 @@ run_notify_score_change (scr_gameref_t game)
  * records can be added without breaking an older autosave; only broken
  * framing fails the restore.
  */
+/*
+ * The startup prompt a line is being read for, and the one an autorestore
+ * resumes at: 0 for neither, else RUN_STARTUP_NAME or RUN_STARTUP_GENDER.
+ * A game saved at one of them has not shown its first room, so the main loop
+ * runs its startup block again on the relaunch; run_startup_resume has it
+ * leave out what the restored transcript already shows -- the title, the
+ * startup text, any earlier prompt, and the question itself.
+ */
+enum { RUN_STARTUP_NAME = 1, RUN_STARTUP_GENDER = 2 };
+static scr_int run_startup_stage = 0;
+static scr_int run_startup_resume = 0;
+
+scr_int
+run_startup_prompt (void)
+{
+  return run_startup_stage;
+}
+
 static std::string
 run_session_join (const std::vector<scr_int> &values)
 {
@@ -258,6 +278,9 @@ run_session_state (scr_gameref_t game)
   sessrec_put (out, "gender",
                std::to_string ((long) prop_get_global_integer
                                (bundle, "PlayerGender")));
+  if (run_startup_stage != 0)
+    sessrec_put (out, "startup_prompt",
+                 std::to_string ((long) run_startup_stage));
   sessrec_put (out, "settings",
                run_session_join ({game->verbose,
                                   game->notify_score_change,
@@ -346,6 +369,10 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
           vt_key[1].string = "PlayerGender";
           prop_put_integer (bundle, "I<-ss", numbers[0], vt_key);
         }
+      else if (key == "startup_prompt" && numbers.size () == 1
+               && (numbers[0] == RUN_STARTUP_NAME
+                   || numbers[0] == RUN_STARTUP_GENDER))
+        run_startup_resume = numbers[0];
       else if (key == "settings" && numbers.size () >= 3)
         {
           game->verbose = numbers[0] != 0;
@@ -499,7 +526,7 @@ run_prompt_restore (scr_gameref_t game, const scr_char *reply)
  * run370 have no such prompt, and their TAF schema defaults PromptName off.
  */
 static void
-run_prompt_player_name (scr_gameref_t game)
+run_prompt_player_name (scr_gameref_t game, scr_int resume)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -509,6 +536,10 @@ run_prompt_player_name (scr_gameref_t game)
   scr_char buffer[LINE_BUFFER_SIZE];
   const scr_char *name;
 
+  /* Answered before the autosave being resumed was taken; the name came
+     back with the session state. */
+  if (resume > RUN_STARTUP_NAME)
+    return;
   if (!prop_get_global_boolean (bundle, "PromptName"))
     return;
   if (!is_400 && !scr_strempty (prop_get_global_string (bundle, "PlayerName")))
@@ -516,10 +547,18 @@ run_prompt_player_name (scr_gameref_t game)
 
   for (;;)
     {
-      pf_buffer_string (filter, "Please enter your name: ");
-      pf_flush (filter, vars, bundle);
+      /* Resuming here, the question is already on screen. */
+      if (resume == RUN_STARTUP_NAME)
+        resume = 0;
+      else
+        {
+          pf_buffer_string (filter, "Please enter your name: ");
+          pf_flush (filter, vars, bundle);
+        }
 
+      run_startup_stage = RUN_STARTUP_NAME;
       if_read_line (buffer, sizeof (buffer));      /* Trailing newline stripped. */
+      run_startup_stage = 0;
 
       /* "restore"/"load" initiates a restore instead of naming the player. */
       if (run_prompt_restore (game, buffer))
@@ -566,7 +605,7 @@ run_prompt_player_name (scr_gameref_t game)
  * Lost World" answered "female" but took the male path (ring to the princess).
  */
 static void
-run_prompt_player_gender (scr_gameref_t game)
+run_prompt_player_gender (scr_gameref_t game, scr_int resume)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -585,11 +624,19 @@ run_prompt_player_gender (scr_gameref_t game)
       scr_char buffer[LINE_BUFFER_SIZE];
       const scr_char *reply;
 
-      pf_buffer_string (filter,
-                        "Please choose the player's gender (male or female): ");
-      pf_flush (filter, vars, bundle);
+      /* Resuming here, the question is already on screen. */
+      if (resume == RUN_STARTUP_GENDER)
+        resume = 0;
+      else
+        {
+          pf_buffer_string (filter, "Please choose the player's gender"
+                                    " (male or female): ");
+          pf_flush (filter, vars, bundle);
+        }
 
+      run_startup_stage = RUN_STARTUP_GENDER;
       if_read_line (buffer, sizeof (buffer));
+      run_startup_stage = 0;
 
       /* "restore"/"load" initiates a restore instead of choosing a gender. */
       if (run_prompt_restore (game, buffer))
@@ -668,65 +715,73 @@ run_main_loop (scr_gameref_t game)
       scr_vartype_t vt_key[2];
       const scr_char *gamename, *startuptext;
       scr_bool disp_first_room;
+      const scr_int resume = run_startup_resume;
 
-      /* Initial clear screen. */
-      pf_buffer_tag (filter, SCR_TAG_CLS);
+      run_startup_resume = 0;
 
-      /*
-       * Print the game name.  The Runner gives this line a look of its own,
-       * not the plain body style: one step larger than normal text, in the
-       * secondary ("command") colour -- the same red that <c> spans and the
-       * player's own typing come out in.  Measured off a 3.90 Runner shot of
-       * rich_text_390.taf: the title's ascenders run 13px against normal
-       * text's 11 (12pt -> 14pt), with the stroke weight of normal text, not
-       * of bold.
-       *
-       * Emit it as markup rather than as a port-side special case, so it
-       * costs the ports nothing: the Glk port already maps a 14pt font to
-       * style_Subheader and <c> to the input colour, and the ANSI port
-       * discards both tags, leaving headless output unchanged.
-       */
-      gamename = prop_get_global_string (bundle, "GameName");
-      pf_buffer_string (filter, "<font size=14><c>");
-      pf_buffer_string (filter, gamename);
-      pf_buffer_string (filter, "</c></font>");
-      pf_buffer_character (filter, '\n');
+      /* An autorestore to one of the startup prompts below picks up at that
+         prompt: everything before it is in the restored transcript. */
+      if (resume == 0)
+        {
+          /* Initial clear screen. */
+          pf_buffer_tag (filter, SCR_TAG_CLS);
 
-      /*
-       * Print the game header.  Adrift StartupText conventionally ends with a
-       * <br> tag to set off the intro from the first room.  Scarier supplies its
-       * own paragraph break below (the forced newline here plus the leading
-       * newline from lib_cmd_look()), so adding a terminator when the text
-       * already ends in a line break leaves the first room preceded by two
-       * blank lines.  The Adrift Runner shows just one; only add the
-       * terminator when the displayed text doesn't already end in a newline.
-       */
-      vt_key[0].string = "Header";
-      vt_key[1].string = "StartupText";
-      startuptext = prop_get_string (bundle, "S<-ss", vt_key);
-      pf_buffer_string (filter, startuptext);
-      if (!run_text_ends_in_newline (startuptext))
-        pf_buffer_character (filter, '\n');
+          /*
+           * Print the game name.  The Runner gives this line a look of its own,
+           * not the plain body style: one step larger than normal text, in the
+           * secondary ("command") colour -- the same red that <c> spans and the
+           * player's own typing come out in.  Measured off a 3.90 Runner shot of
+           * rich_text_390.taf: the title's ascenders run 13px against normal
+           * text's 11 (12pt -> 14pt), with the stroke weight of normal text, not
+           * of bold.
+           *
+           * Emit it as markup rather than as a port-side special case, so it
+           * costs the ports nothing: the Glk port already maps a 14pt font to
+           * style_Subheader and <c> to the input colour, and the ANSI port
+           * discards both tags, leaving headless output unchanged.
+           */
+          gamename = prop_get_global_string (bundle, "GameName");
+          pf_buffer_string (filter, "<font size=14><c>");
+          pf_buffer_string (filter, gamename);
+          pf_buffer_string (filter, "</c></font>");
+          pf_buffer_character (filter, '\n');
 
-      /*
-       * Alignment is a local of the Runner's display routine, so it starts out
-       * left on every call and no <center> outlives the one string it was
-       * opened in.  Scarier instead buffers a whole turn's worth of strings and
-       * hands the lot to the port as one stream, so a title page that opens
-       * <center> and never closes it -- "Cut the Red Wire! No, the Blue Wire!"
-       * for one -- would carry on centering the first room description, which
-       * the Runner displays in a separate call.  Close the intro's alignment
-       * here, at that call boundary.  Games with balanced tags see nothing:
-       * the tag lands at the start of a line, where the Glk port breaks no
-       * paragraph because the alignment doesn't change and the ANSI port
-       * breaks none because there is nothing buffered on the line.
-       */
-      pf_buffer_tag (filter, SCR_TAG_ENDCENTER);
+          /*
+           * Print the game header.  Adrift StartupText conventionally ends with a
+           * <br> tag to set off the intro from the first room.  Scarier supplies its
+           * own paragraph break below (the forced newline here plus the leading
+           * newline from lib_cmd_look()), so adding a terminator when the text
+           * already ends in a line break leaves the first room preceded by two
+           * blank lines.  The Adrift Runner shows just one; only add the
+           * terminator when the displayed text doesn't already end in a newline.
+           */
+          vt_key[0].string = "Header";
+          vt_key[1].string = "StartupText";
+          startuptext = prop_get_string (bundle, "S<-ss", vt_key);
+          pf_buffer_string (filter, startuptext);
+          if (!run_text_ends_in_newline (startuptext))
+            pf_buffer_character (filter, '\n');
+
+          /*
+           * Alignment is a local of the Runner's display routine, so it starts out
+           * left on every call and no <center> outlives the one string it was
+           * opened in.  Scarier instead buffers a whole turn's worth of strings and
+           * hands the lot to the port as one stream, so a title page that opens
+           * <center> and never closes it -- "Cut the Red Wire! No, the Blue Wire!"
+           * for one -- would carry on centering the first room description, which
+           * the Runner displays in a separate call.  Close the intro's alignment
+           * here, at that call boundary.  Games with balanced tags see nothing:
+           * the tag lands at the start of a line, where the Glk port breaks no
+           * paragraph because the alignment doesn't change and the ANSI port
+           * breaks none because there is nothing buffered on the line.
+           */
+          pf_buffer_tag (filter, SCR_TAG_ENDCENTER);
+        }
 
       /* If the game asks, prompt for the player's name, then (if Unknown) the
        * player's gender -- both at game start, like the Runner. */
-      run_prompt_player_name (game);
-      run_prompt_player_gender (game);
+      run_prompt_player_name (game, resume);
+      run_prompt_player_gender (game, resume);
 
       /*
        * Start the events that start immediately, before anything is

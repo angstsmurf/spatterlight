@@ -1237,6 +1237,7 @@ extern void run_get_attributes (scr_gameref_t game,
                                 const scr_char **preferred_font,
                                 scr_bool *bold_room_names, scr_bool *verbose,
                                 scr_bool *notify_score_change);
+extern scr_int run_startup_prompt (void);
 extern std::string run_session_state (scr_gameref_t game);
 extern scr_bool run_restore_session_state (scr_gameref_t game,
                                            const std::string &state);

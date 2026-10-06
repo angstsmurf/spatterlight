@@ -236,6 +236,18 @@ extern char gsc_game_key[40];
 extern a5_run_t *gsc_a5_run;
 extern int gsc_a5_real_time;
 extern int gsc_a5_popup_silent;
+
+/* Where a %PopUp...% question is being asked from, the command whose turn
+   it is, and the answers that turn (or the opening) has been given so far:
+   what an autosave taken at the question records, and what a relaunch plays
+   back to reach it again.  See gsc_a5_autosave_popup(). */
+enum { GSC_A5_POPUP_ELSEWHERE, GSC_A5_POPUP_BOOT, GSC_A5_POPUP_TURN };
+extern int gsc_a5_popup_context;
+extern std::string gsc_a5_popup_command;
+extern std::vector<std::string> gsc_a5_popup_answers;
+extern int gsc_a5_popup_replay;
+extern std::string gsc_a5_replay_command;
+extern std::vector<std::string> gsc_a5_replay_answers;
 extern winid_t gsc_a5_side_window;
 
 extern scr_bool gsc_normal_measure (glui32 *fg, glui32 *bg);
@@ -366,6 +378,9 @@ extern glui32 gsc_load_external_resource (const char *filepath, int is_sound);
 
 /* os_glk_autosave.cpp: Spatterlight autosave and autorestore. */
 extern void gsc_autosave (void);
+extern void gsc_a5_note_turn_start (void);
+extern void gsc_a5_autosave_popup (void);
+extern bool gsc_a5_autosave_at_boot_popup (void);
 extern bool gsc_sc_apply_all (const std::string &data);
 extern bool gsc_a5_apply_all (const std::string &data);
 extern void gsc_autorestore_replace_state (bool (*apply)
