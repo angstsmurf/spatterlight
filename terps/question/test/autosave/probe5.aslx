@@ -8,11 +8,12 @@
                one second per timer event, and arms the timer only with the
                sa_delays setting on)
        hold    a one-shot SetTimeout (5 seconds)
-       type    `get input`  : the prompts a game can be closed on.  None of
-       pick    `show menu`    them autosaves: the relaunch resumes at the
-       query   `ask`          parser prompt before them and the command is
-       nap     `wait`         typed again.
-       take ball  (garden) Core's "which one?" menu: DOES autosave.
+       type    `get input`  : the prompts a game can be closed on.  Each
+       pick    `show menu`    autosaves: the relaunch replays the command
+       query   `ask`          up to it.
+       nap     `wait`       : does not; the relaunch resumes at the parser
+                              prompt before it and the command is typed again.
+       take ball  (garden) Core's "which one?" menu, likewise autosaved.
        juggle  roll + ask + take ball, replayed back to that menu.
 
      The room description names the apple through a hyperlink (Core's

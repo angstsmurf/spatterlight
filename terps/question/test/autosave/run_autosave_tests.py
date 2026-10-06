@@ -27,18 +27,18 @@ where the control run has no such repaint.  On top of that every relaunch must
   - have autosaved after the last thing the previous session did: a typed
     line, a timer tick that fired, a pane click.
 
-Prompts a game can be closed on other than the turn prompt -- Quest 4's
-question and selection menu, Quest 5's `get input`, `show menu`, `ask` and
-`wait` -- must NOT autosave: the relaunch resumes at the turn prompt before
-them and the player types the command again.  Two exceptions resume in the
-prompt instead: the Quest 5 verb menu popped by clicking an object link, which
-is recorded in the blob and reopened, and the parser's own "which one do you
-mean?" disambiguation menu (Quest 4's choose_object, Quest 5 while
-game.disambiguating is set).  That one autosaves the state from the start of
-the turn plus a replay record (the command line and the answers to earlier
-prompts of the same turn); the relaunch re-runs the turn muted up to the menu
-and waits there without redrawing it.  case_pending_prompt covers all of
-these.
+A keypress wait (Quest 5's `wait`) must NOT autosave: the relaunch resumes at
+the turn prompt before it and the player types the command again.  The other
+prompts a game can be closed on resume in the prompt instead: the Quest 5 verb
+menu popped by clicking an object link, which is recorded in the blob and
+reopened; and every menu (the parser's own "which one do you mean?" among
+them), yes/no question and typed answer -- Quest 4's `enter`, Quest 5's `get
+input` -- that a turn or the start script puts up.  Those autosave the state
+from the start of the turn plus a replay record (the command line and the
+answers to earlier prompts of the same turn; for the start script the answers
+alone, the boot itself being what is re-run); the relaunch re-runs the turn
+muted up to the prompt and waits there without redrawing it.
+case_pending_prompt covers all of these.
 
 A damaged autosave (garbage where the game state should be) must be
 discarded without taking input, after which the next launch boots fresh; a
@@ -553,7 +553,9 @@ def probe5_as_v600(stage):
 def build_cases(stage):
     cases = []
     probe4 = os.path.join(HERE, "probe4.asl")
+    probe4intro = os.path.join(HERE, "probe4-intro.asl")
     probe5 = os.path.join(HERE, "probe5.aslx")
+    probe5intro = os.path.join(HERE, "probe5-intro.aslx")
     probe6 = probe5_as_v600(stage)
 
     def equiv(name, gamefile, script, cuts, **kw):
@@ -597,20 +599,28 @@ def build_cases(stage):
           ["look", "tick:2", "look", "tick:1", "look"],
           [1], sa_delays=1, expect=["[pulse]"])
 
-    # Closed under a question / a selection menu: no autosave there.
-    pending("q4-question", probe4, ["look", "question"],
-            ["question", "1", "look"], expect=["[yes]"])
-    pending("q4-menu", probe4, ["look", "menu"], ["menu", "2", "look"],
-            expect=["[two]"])
-
-    # Closed under the parser's "which ball?" menu: it autosaves, and the
-    # relaunch replays the command silently back to it.  juggle rolls and
-    # asks a question before the menu, so the replay must draw the same
-    # number and answer the question the same way.
+    # Closed under a question, a selection menu, an `enter` question or the
+    # parser's "which ball?" menu: each autosaves, and the relaunch replays
+    # the command silently back to it.  juggle rolls and asks a question
+    # before the menu, so the replay must draw the same number and answer
+    # the question the same way.
+    pending("q4-question", probe4, ["look", "question"], ["1", "look"],
+            resume=True, expect=["[yes]"])
+    pending("q4-menu", probe4, ["look", "menu"], ["2", "look"],
+            resume=True, expect=["[two]"])
+    pending("q4-enter", probe4, ["look", "sign"], ["Ann", "look"],
+            resume=True, expect=["Signed Ann."])
     pending("q4-which", probe4, ["look", "take ball"], ["2", "i"],
             resume=True, expect=["blue ball"])
     pending("q4-which-juggle", probe4, ["look", "roll", "juggle", "1"],
             ["1", "i", "roll"], resume=True, expect=["red ball", "You roll"])
+
+    # Closed under a question the startscript asks, before any turn: the
+    # autosave is the answers so far, and the relaunch boots with them.  (The
+    # very first question needs none: nothing has been typed yet, and a
+    # relaunch is a fresh start.)
+    pending("q4-intro-gender", probe4intro, ["Ann"], ["2", "who", "look"],
+            resume=True, expect=["You are Ann, female, lucky number"])
 
     # Pane hyperlinks: live after a relaunch (cut 1), and the unfolded verb
     # menu -- a re-save without a turn -- comes back unfolded (cut 2).
@@ -668,20 +678,20 @@ def build_cases(stage):
           ["hold", "tick:2", "look", "tick:3", "look"],
           [1, 2], sa_delays=1, expect=["[timeout]"])
 
-    # Closed under the four host prompts: no autosave there.
-    pending("q5-get-input", probe5, ["look", "type"],
-            ["type", "hello", "look"], expect=["You typed hello."])
-    pending("q5-show-menu", probe5, ["look", "pick"],
-            ["pick", "2", "look"], expect=["You picked green."])
-    pending("q5-ask", probe5, ["look", "query"],
-            ["query", "yes", "look"], expect=["Confirmed."])
+    # Closed under a `wait`: no autosave there.
     pending("q5-wait", probe5, ["look", "nap"], ["nap", "look"],
             expect=["You wake up."])
 
-    # Closed under Core's "which ball?" menu: it autosaves (engine state
-    # from the start of the turn plus a replay record), and the relaunch
-    # replays the command back to it with the output muted.  juggle draws a
-    # number and asks a question first.
+    # Closed under `get input`, `show menu`, `ask` or Core's "which ball?"
+    # menu: each autosaves (engine state from the start of the turn plus a
+    # replay record), and the relaunch replays the command back to it with
+    # the output muted.  juggle draws a number and asks a question first.
+    pending("q5-get-input", probe5, ["look", "type"], ["hello", "look"],
+            resume=True, expect=["You typed hello."])
+    pending("q5-show-menu", probe5, ["look", "pick"], ["2", "look"],
+            resume=True, expect=["You picked green."])
+    pending("q5-ask", probe5, ["look", "query"], ["yes", "look"],
+            resume=True, expect=["Confirmed."])
     pending("q5-which", probe5, ["north", "take ball"], ["2", "i"],
             resume=True, expect=["blue ball"])
     pending("q5-which-juggle", probe5, ["north", "roll", "juggle", "yes"],
@@ -720,19 +730,31 @@ def build_cases(stage):
     # The same prompts in an ASL 600 game, where `ask` and `show menu` draw
     # an inline option list that is hidden again once answered.  A relaunch
     # after an answered prompt must not bring the hidden list back; closed
-    # under one there is still no autosave; and the "which ball?" replay has
-    # to get through juggle's inline question with the output muted.
+    # under one the relaunch waits under the list without drawing it again;
+    # and the "which ball?" replay has to get through juggle's inline
+    # question with the output muted.
     equiv("q5-v600-prompts", probe6,
           ["look", "pick", "2", "look", "query", "yes", "look", "roll"],
           [3, 4, 6, 7],
           expect=["2: green", "You picked green.", "1: Yes", "Confirmed."])
-    pending("q5-v600-show-menu", probe6, ["look", "pick"],
-            ["pick", "2", "look"], expect=["You picked green."])
-    pending("q5-v600-ask", probe6, ["look", "query"],
-            ["query", "yes", "look"], expect=["Confirmed."])
+    pending("q5-v600-show-menu", probe6, ["look", "pick"], ["2", "look"],
+            resume=True, expect=["You picked green."])
+    pending("q5-v600-ask", probe6, ["look", "query"], ["yes", "look"],
+            resume=True, expect=["Confirmed."])
     pending("q5-v600-which-juggle", probe6,
             ["north", "roll", "juggle", "yes"],
             ["1", "i", "roll"], resume=True, expect=["red ball", "You roll"])
+
+    # Closed under the prompts the start script puts up, before any turn:
+    # the autosave is the answers so far, and the relaunch boots with them.
+    # The last is the expression form of `ask`, blocking inside the menu's
+    # callback.  (The very first prompt needs no autosave: nothing has been
+    # typed yet, and a relaunch is a fresh start.)
+    who = "You are Ann, female, sure True, lucky number"
+    pending("q5-intro-menu", probe5intro, ["Ann"], ["2", "yes", "who"],
+            resume=True, expect=[who])
+    pending("q5-intro-ask", probe5intro, ["Ann", "2"], ["yes", "who", "look"],
+            resume=True, expect=[who])
 
     for name, gamefile, sol in (
             ("q5-walk-exit-the-room", "Exit the Room.quest",

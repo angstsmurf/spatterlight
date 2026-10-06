@@ -155,9 +155,10 @@ static void question_library_unarchive(TempLibrary *library, NSCoder *decoder)
  * state serialization plus the undo history (so UNDO still works across an
  * autorestore, as Bocfel carries its save stacks in its autosave).  Both
  * parts are length-prefixed because the QUEST300 body reads to end-of-
- * buffer.  An autosave taken at an open "which one?" menu appends a third
+ * buffer.  An autosave taken at an open menu or question appends a third
  * part, the replay record (see question_do_menu_autosave); a turn-prompt
- * autosave has none.  A file without the container magic is a bare engine
+ * autosave has none.  One taken at a question the startscript asked has
+ * the replay record and an empty engine state (question_do_boot_autosave).  A file without the container magic is a bare engine
  * state (an autosave from before the container existed).  Being on disk,
  * the magic keeps its pre-rename "GEAS" prefix. */
 static const char *const kQuestionContainerMagic = "GEASAUTO1\n";
@@ -288,6 +289,43 @@ void question_do_menu_autosave(const std::string &command,
                                            replay_encode(command, answers));
     gli_autosave_write(storyfilename, container.data(), container.size(),
                        question_library_archive);
+}
+
+void question_do_boot_autosave(const std::vector<std::string> &answers)
+{
+    if (!question_autosave_wanted())
+        return;
+    question_stash_frontend_state(&frontend_state);
+    std::string container = container_wrap(std::string(), std::string(),
+                                           replay_encode(std::string(), answers));
+    gli_autosave_write(storyfilename, container.data(), container.size(),
+                       question_library_archive);
+}
+
+bool question_autosave_take_boot_replay(std::vector<std::string> *answers)
+{
+    if (!gli_enable_autosave || !question_autosave_exists())
+        return false;
+    std::string filedata, data, undo_history, replay, command;
+    return read_autosave_game(&filedata)
+        && container_split(filedata, &data, &undo_history, &replay)
+        && data.empty() && !replay.empty()
+        && replay_decode(replay, &command, answers);
+}
+
+bool question_restore_boot_autosave(void)
+{
+    @autoreleasepool {
+        TempLibrary *newlib = restore_library(question_library_unarchive);
+        if (!newlib) {
+            question_autosave_discard();
+            return false;
+        }
+        question_recover_frontend_state(&frontend_state);
+        [newlib updateFromLibraryLate];
+        turn_start.valid = false;
+    }
+    return true;
 }
 
 static bool pending_replay = false;

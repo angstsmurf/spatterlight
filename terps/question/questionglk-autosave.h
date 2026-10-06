@@ -99,8 +99,9 @@ void question_do_autosave(QuestionRunner *gr);
  * autosave files have been deleted; the caller should reset and exit. */
 bool question_restore_autosave(QuestionRunner *gr);
 
-/* Autosave while the parser's "which one do you mean?" menu is open.  The
- * engine can't be serialized mid-parse, so the autosave instead holds the
+/* Autosave while a turn has a menu or an `enter` question open: the parser's
+ * "which one do you mean?", or one the game's script asks.  The engine can't
+ * be serialized mid-turn, so the autosave instead holds the
  * state from the start of the turn plus a replay record: the command line
  * and the answers already given to earlier prompts in the same turn.  An
  * autorestore loads that state and re-runs the command silently, feeding it
@@ -122,6 +123,17 @@ void question_do_menu_autosave(const std::string &command,
  * was taken at an open menu, handing back what to replay. */
 bool question_autosave_take_replay(std::string *command,
                                    std::vector<std::string> *answers);
+
+/* The same for a menu or question of the startscript, which runs inside
+ * set_game: there is no earlier state, so the autosave is the replay record
+ * alone, with no command line, and the boot itself is what gets re-run.
+ * question_autosave_take_boot_replay is true if the autosave on disk is such
+ * a record, handing back its answers; the caller then boots with them, and
+ * at the question calls question_restore_boot_autosave, which swaps in the
+ * saved Glk library (false, and the autosave discarded, if it can't). */
+void question_do_boot_autosave(const std::vector<std::string> &answers);
+bool question_autosave_take_boot_replay(std::vector<std::string> *answers);
+bool question_restore_boot_autosave(void);
 
 /* ---- Quest 5 (aslxglk.cc / aslx Interp) ---------------------------------- */
 

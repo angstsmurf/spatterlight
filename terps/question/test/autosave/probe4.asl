@@ -6,14 +6,13 @@
 '   count   a numeric variable
 '   pulse   a real-time timer (three ticks per firing; the Glk frontend ticks
 '           it once per timer event, and only with the sa_delays setting on)
-'   question / menu
-'           a yes/no question and a selection menu, the two host prompts a
-'           game can be closed on (neither autosaves: the relaunch resumes at
-'           the turn prompt before them).  Not `q`/`m`: `q` is the
+'   question / menu / sign
+'           a yes/no question, a selection menu and an `enter` question, the
+'           host prompts a game can be closed on.  Each autosaves: the
+'           relaunch replays the command up to it.  Not `q`/`m`: `q` is the
 '           frontend's quit metaverb.
 '   take ball
-'           the parser's "which one?" menu (red or blue ball), which DOES
-'           autosave: the relaunch replays the command up to it.
+'           the parser's "which one?" menu (red or blue ball), likewise.
 '   juggle  rolls, asks, then takes a ball -- a replay that must draw the
 '           same number and feed the question's answer back before the menu.
 '
@@ -35,10 +34,20 @@ define game <Autosave Probe>
   if ask <Ready?> then msg <[yes]> else msg <[no]>
  }
  command <menu> choose <pick>
+ command <sign> {
+  msg <Sign as?>
+  enter <signature>
+  msg <Signed #signature#.>
+ }
  command <juggle> {
   msg <You roll $rand(1;1000)$.>
   if ask <Juggle?> then exec <take ball> else msg <[no]>
  }
+end define
+
+define variable <signature>
+ type string
+ value <>
 end define
 
 define variable <count>

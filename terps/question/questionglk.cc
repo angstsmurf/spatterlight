@@ -85,7 +85,6 @@ protected:
 
     virtual std::string get_string ();
     virtual uint make_choice (const std::string &, std::vector<std::string>);
-    virtual uint choose_object (const std::string &, std::vector<std::string>);
     virtual QuestionResult play_sound (const std::string &filename, bool looped, bool sync);
     virtual QuestionResult show_image (const std::string &filename, const std::string &resolution,
 				   const std::string &caption, ...);
@@ -200,22 +199,61 @@ static int ignore_lines = 0;  /* count of lines to ignore in game output */
  * any key" pause) is auto-answered instead of blocking. */
 static bool g_autorestore_booting = false;
 
-/* The running turn, recorded for an autosave taken while the parser's "which
- * one do you mean?" menu is open (question_do_menu_autosave): the command
- * line and every answer given to a prompt since it started. */
+/* The running turn, recorded for an autosave taken while it has a menu or an
+ * `enter` question open (question_do_menu_autosave): the command line and
+ * every answer given to a prompt since it started.  The game's startscript
+ * counts as a turn of its own, with no command line (g_in_boot;
+ * question_do_boot_autosave).  A prompt raised by a timer belongs to neither
+ * and is not autosaved at. */
 static std::string g_turn_command;
 static std::vector<std::string> g_turn_answers;
-
-/* Set by choose_object for the make_choice call it makes, so that menu (and
- * no game-script menu) is autosaved at. */
-static bool g_choosing_object = false;
+static bool g_in_turn = false;
+static bool g_in_boot = false;
+/* True while make_choice reads its choice through get_string. */
+static bool g_in_menu = false;
 
 /* True while an autorestore replays the turn such an autosave was taken in:
  * output is swallowed and prompts are answered from g_replay_answers until
- * make_choice reaches the menu again, which is already on screen. */
+ * the turn reaches the prompt again, which is already on screen. */
 static bool g_replaying = false;
 static std::vector<std::string> g_replay_answers;
 static size_t g_replay_next = 0;
+/* The replay is of the startscript: the Glk library is still the fresh
+ * boot's, and is replaced by the saved one at the moment the prompt is
+ * reached (replay_reached_prompt). */
+static bool g_replaying_boot = false;
+
+/* The replay has run out of recorded answers, so this prompt is the one the
+ * autosave was taken at: the player answers it. */
+static void
+replay_reached_prompt()
+{
+    g_replaying = false;
+#ifdef SPATTERLIGHT
+    if (g_replaying_boot) {
+        g_replaying_boot = false;
+        if (!question_restore_boot_autosave()) {
+            /* As for any autosave that will not restore: start over in a
+             * fresh process. */
+            win_reset();
+            exit(0);
+        }
+    }
+#endif
+}
+
+/* Autosave with a menu or question of the running turn on screen and no
+ * input requested yet, as at the turn prompt. */
+static void
+autosave_at_prompt()
+{
+#ifdef SPATTERLIGHT
+    if (g_in_boot)
+        question_do_boot_autosave(g_turn_answers);
+    else if (g_in_turn)
+        question_do_menu_autosave(g_turn_command, g_turn_answers);
+#endif
+}
 
 /* A timer tick cancels the command line before it runs, leaving the "\n> "
  * prompt as the window's tail.  Whatever the tick then shows takes the prompt
@@ -412,7 +450,9 @@ run_or_handle_command(const std::string &cmd, QuestionRunner *gr, bool &quitting
 #ifdef SPATTERLIGHT
     question_note_turn_start(gr);
 #endif
+    g_in_turn = true;
     gr->run_command(cmd);
+    g_in_turn = false;
 }
 
 /* Print the top-level "> " prompt.  A separate input window holds nothing but
@@ -575,7 +615,24 @@ void glk_main(void)
      * The app restores the window contents from its own GUI snapshot. */
     bool autorestored = false;
 #ifdef SPATTERLIGHT
-    if (question_autosave_exists()) {
+    if (question_autosave_take_boot_replay(&g_replay_answers)) {
+        /* Saved at a question the startscript asked: there is no state to
+         * load, the boot itself is run again, silently and with the same
+         * answers, up to that question. */
+        g_replay_next = 0;
+        g_replaying = g_replaying_boot = true;
+        g_in_boot = true;
+        gr->set_game(storyfilename);
+        g_in_boot = false;
+        g_replay_answers.clear();
+        if (g_replaying) {
+            fprintf(stderr, "question: autosave replay of the startscript "
+                    "never reached its question\n");
+            question_autosave_discard();
+            win_reset();
+            exit(0);
+        }
+    } else if (question_autosave_exists()) {
         g_autorestore_booting = true;
         gr->set_game(storyfilename);
         autorestored = question_restore_autosave(gr);
@@ -589,7 +646,11 @@ void glk_main(void)
         }
     } else
 #endif
+    {
+        g_in_boot = true;
         gr->set_game(storyfilename);
+        g_in_boot = false;
+    }
 
 #ifdef GLK_MODULE_GARGLKTEXT
     {
@@ -683,11 +744,11 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
              * just re-request input below without printing another. */
             autorestored = false;
 #ifdef SPATTERLIGHT
-            /* ...unless it was saved with a "which one?" menu open: then
-             * it ends with that menu, and the state is from before the
-             * command that put it up.  Run the command again, silently and
-             * with the same answers to any earlier prompts, until it gets
-             * back to the menu; make_choice then waits for the choice. */
+            /* ...unless it was saved with a menu or question open: then it
+             * ends with that, and the state is from before the command that
+             * put it up.  Run the command again, silently and with the same
+             * answers to any earlier prompts, until it gets back there; the
+             * prompt then waits for its answer. */
             std::string cmd;
             if (question_autosave_take_replay(&cmd, &g_replay_answers)) {
                 g_replay_next = 0;
@@ -695,7 +756,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                 run_or_handle_command(cmd, gr, quitting);
                 if (g_replaying)
                     fprintf(stderr, "question: autosave replay of \"%s\" "
-                            "never reached its menu\n", cmd.c_str());
+                            "never reached its prompt\n", cmd.c_str());
                 g_replaying = false;
                 g_replay_answers.clear();
                 draw_banner();
@@ -1307,6 +1368,7 @@ QuestionGlkInterface::get_string ()
    * resulting state is about to be replaced by the restored one. */
   if (g_autorestore_booting)
     return "x";
+  bool resumed = false;
   if (g_replaying)
     {
       if (g_replay_next < g_replay_answers.size())
@@ -1315,9 +1377,10 @@ QuestionGlkInterface::get_string ()
 	  g_turn_answers.push_back(answer);
 	  return answer;
 	}
-      /* The replay asked for more than the turn it recorded did; stop
-       * replaying and let the player answer. */
-      g_replaying = false;
+      /* Out of recorded answers: this is the question the autosave was
+       * taken at, on screen already with its line end taken back. */
+      replay_reached_prompt();
+      resumed = true;
     }
   glui32 buf[200];
   /* An `enter` or menu fired from a timer blocks inside that tick, before the
@@ -1335,8 +1398,12 @@ QuestionGlkInterface::get_string ()
    * a line end of its own; take the question's back so the answer sits on the
    * question's line and the count comes out the same.  (A menu's "Choose>"
    * prompt has no line end to take, and is left as it is.) */
-  if (inputwin == mainglkwin && unput_tail_exact(mainglkwin, U"\n"))
+  if (!resumed && inputwin == mainglkwin
+      && unput_tail_exact(mainglkwin, U"\n"))
       glk_put_cstring(" ");
+  /* A menu has saved already, before asking for the choice. */
+  if (!resumed && !g_in_menu)
+      autosave_at_prompt();
   glk_request_line_event_uni(inputwin, buf, 199, 0);
   while(1) {
     event_t ev;
@@ -1366,9 +1433,6 @@ QuestionGlkInterface::make_choice (const std::string &label, std::vector<std::st
     if (g_autorestore_booting)
         return 0;
 
-    bool object_menu = g_choosing_object;
-    g_choosing_object = false;
-
     size_t n = v.size();
     if (n == 0)
         return 0;   /* nothing to choose between; the caller's own fallback */
@@ -1379,7 +1443,7 @@ QuestionGlkInterface::make_choice (const std::string &label, std::vector<std::st
      * it is not printed again: the player just answers it. */
     bool replayed = g_replaying && g_replay_next < g_replay_answers.size();
     if (g_replaying && !replayed)
-        g_replaying = false;
+        replay_reached_prompt();
     else if (!replayed)
       {
 	/* Only clear a *separate* input window; if input shares the main
@@ -1398,19 +1462,14 @@ QuestionGlkInterface::make_choice (const std::string &label, std::vector<std::st
 
 	std::string prompt = "Choose [1-" + std::to_string(n) + "]> ";
 	glk_put_string_stream(inputwinstream, (char *) prompt.c_str());
-#ifdef SPATTERLIGHT
-	/* The parser's own "which one?" menu is autosaved at, with the menu
-	 * on screen and no input requested yet, as at the turn prompt.  The
-	 * game's own menus and questions are not; a relaunch goes back to the
-	 * prompt before the command that asked them. */
-	if (object_menu)
-	    question_do_menu_autosave(g_turn_command, g_turn_answers);
-#endif
+	autosave_at_prompt();
       }
 
     /* Anything unparseable or out of range is clamped to a valid entry, so
      * the caller always gets an index it can use. */
+    g_in_menu = true;
     int choice = atoi(get_string().c_str());
+    g_in_menu = false;
     if (choice < 1)
       choice = 1;
     if ((size_t) choice > n)
@@ -1422,13 +1481,6 @@ QuestionGlkInterface::make_choice (const std::string &label, std::vector<std::st
         glk_put_cstring("\n");
 
     return choice - 1;
-}
-
-uint
-QuestionGlkInterface::choose_object (const std::string &label, std::vector<std::string> v)
-{
-    g_choosing_object = true;
-    return make_choice(label, v);
 }
 
 /* Resolve `rel_name` against the directory holding `parent` (the story file),

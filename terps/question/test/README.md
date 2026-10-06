@@ -88,7 +88,7 @@ nothing before its first input. The autosave directory is the app's
 (`~/Library/Application Support/Spatterlight/Quest Files/Autosaves/`), under a
 `question-autosave-test-*` signature that is created and removed per case.
 
-The two probe games in `autosave/` (`probe4.asl`, `probe5.aslx`) have one
+The probe games in `autosave/` (`probe4.asl`, `probe5.aslx`; the `-intro` pair ask their questions from the start script) have one
 command per piece of state a relaunch has to carry. The cases:
 
 | | Quest 4 (`questionglk.cc`) | Quest 5 (`quest5/aslxglk.cc`) |
@@ -98,7 +98,7 @@ command per piece of state a relaunch has to carry. The cases:
 | variables / attributes | `q4-variable` | `q5-attribute` |
 | undo history | `q4-undo` | `q5-undo`, `q5-which-undo`, `q5-which-undo-error` (after a replayed disambiguation turn) |
 | real-time timers | `q4-timer`, `q4-timer-midcycle` | `q5-timer`, `q5-timer-midcycle`, `q5-timeout` |
-| prompts the game can be closed on | `q4-question`, `q4-menu` (no autosave; the relaunch resumes at the turn prompt) | `q5-get-input`, `q5-show-menu`, `q5-ask`, `q5-wait` (same) |
+| prompts the game can be closed on | `q4-question`, `q4-menu`, `q4-enter` (autosaved; the relaunch replays the turn back to the prompt), `q4-intro-gender` (the same for a question of the startscript) | `q5-get-input`, `q5-show-menu`, `q5-ask`, `q5-intro-menu`, `q5-intro-ask` (same), `q5-wait` (no autosave; the relaunch resumes at the turn prompt) |
 | hyperlinks | `q4-pane-links` (fold, Take, Drop through the pane) | `q5-inline-link`, `q5-link-menu` (an object link's verb menu stays autosaved and reopens on relaunch) |
 | walkthroughs from `goldens/` | Bear Campsite, Mansion, Gathered in Darkness | Exit the Room, Bear's Epic Quest, ARC II |
 | damaged container | `q4-corrupt` (discarded, fresh boot), `q4-bad-undo` (engine state restored, undo history ignored with a log line) | `q5-corrupt` |
