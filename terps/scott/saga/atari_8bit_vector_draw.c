@@ -90,6 +90,13 @@ static const uint8_t color_array[32] = {
     0x00, 0x01
 };
 
+/* Returns the first (half 0) or second (half 1) color of color pair index.
+   Indices come straight from the image data, so malformed data can point past
+   the 16 pairs; wrap them instead of reading past the end of the table. */
+static inline uint8_t color_pair(uint8_t index, int half) {
+    return color_array[((index & 0x0f) << 1) | half];
+}
+
 typedef struct {
     uint16_t offset;
     uint8_t value90;
@@ -326,10 +333,10 @@ static void create_patterns(uint8_t pattern, uint8_t op_arg_a, uint8_t op_arg_b,
      color_a_index selects one pair (pattern_color[0..1]),
      color_b_index selects a second pair (pattern_color[2..3]).
      These are the raw color values used by make_pattern(). */
-    ctx->pattern_color[0] = color_array[ctx->color_a_index << 1];
-    ctx->pattern_color[1] = color_array[ctx->color_a_index << 1 | 1];
-    ctx->pattern_color[2] = color_array[ctx->color_b_index << 1];
-    ctx->pattern_color[3] = color_array[ctx->color_b_index << 1 | 1];
+    ctx->pattern_color[0] = color_pair(ctx->color_a_index, 0);
+    ctx->pattern_color[1] = color_pair(ctx->color_a_index, 1);
+    ctx->pattern_color[2] = color_pair(ctx->color_b_index, 0);
+    ctx->pattern_color[3] = color_pair(ctx->color_b_index, 1);
 
     /* Convert the opcode's x/y arguments into a pixel offset for the flood fill
      seed point. The formula op_arg_b * 160 + op_arg_a computes the linear pixel
@@ -354,13 +361,18 @@ inline static uint8_t color_at_byte_slot(uint8_t value, uint8_t slot) {
     return (value >> (6 - 2 * slot)) & 3;
 }
 
+// Pixels outside screen memory read as color 0 (and count as an edge in at_edge())
 static uint8_t get_pixel_color(a8_draw_ctx *ctx) {
+    if (!is_valid_screen_offset(ctx->screen_offset))
+        return 0;
     uint8_t color_90 = color_at_byte_slot(a8_screenmem90[ctx->screen_offset], ctx->pixel_remainder);
     uint8_t color_a0 = color_at_byte_slot(a8_screenmemA0[ctx->screen_offset], ctx->pixel_remainder);
     return color_a0 << 2 | color_90;
 }
 
 static bool at_edge(a8_draw_ctx *ctx) {
+    if (!is_valid_screen_offset(ctx->screen_offset))
+        return true;
     uint8_t color = get_pixel_color(ctx);
     if (ctx->erase_enabled)
         return color == ctx->fill_edge_color;
@@ -639,12 +651,10 @@ static uint16_t atari8_delay_ticks(uint8_t arg0, uint8_t arg_a, uint8_t arg_b) {
 static void handle_draw_line(a8_draw_ctx *ctx) {
     /* Set up two pattern bytes derived from color_array,
      then set plane90/planeA0 pattern even bytes and draw the line. */
-    uint8_t color_idx = ctx->color_idx * 2;
-
     /* Build two bytes by looking up color_array[opcode_arg] and then
      duplicating nibbles. */
-    uint8_t nibble0 = color_array[color_idx] & 3;
-    uint8_t nibble1 = color_array[color_idx + 1] & 3;
+    uint8_t nibble0 = color_pair(ctx->color_idx, 0) & 3;
+    uint8_t nibble1 = color_pair(ctx->color_idx, 1) & 3;
     uint8_t pattern_nibble_combined0 = nibble0 << 2 | nibble0;
     uint8_t pattern_nibble_combined1 = nibble1 << 2 | nibble1;
 
@@ -677,8 +687,8 @@ static bool handle_fill_or_set_background(a8_draw_ctx *ctx,
         case OPCODE_ERASE_FILL:
             if (ctx->lines_only_mode) return false;
             ctx->erase_enabled = true;
-            ctx->fill_edge_color = color_array[ctx->color_idx << 1] << 2 |
-            color_array[(ctx->color_idx << 1) + 1];
+            ctx->fill_edge_color = color_pair(ctx->color_idx, 0) << 2 |
+            color_pair(ctx->color_idx, 1);
             // fallthrough
         case OPCODE_FLOOD_FILL:
             if (ctx->lines_only_mode) return false;
@@ -823,9 +833,9 @@ uint8_t *DrawAtari8BitVectorImage(USImage *img) {
     ctx.color_idx = 10; // initial color index. (2,1)
 
     if (a8_screenmem90 == NULL)
-        a8_screenmem90 = MemAlloc(A8_IMAGE_SIZE);
+        a8_screenmem90 = MemCalloc(A8_IMAGE_SIZE);
     if (a8_screenmemA0 == NULL)
-        a8_screenmemA0 = MemAlloc(A8_IMAGE_SIZE);
+        a8_screenmemA0 = MemCalloc(A8_IMAGE_SIZE);
 
     if (!VectorBeginImage(&write_ops, img, DrawAtari8bitImageFromScreenmem))
         return NULL;

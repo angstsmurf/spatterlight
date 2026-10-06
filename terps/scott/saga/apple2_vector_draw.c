@@ -114,6 +114,19 @@ static uint8_t color_pattern_subindices[216];
 
 static uint8_t brush_bitmaps[256];
 
+#define NUMBER_OF_PATTERNS (sizeof(pattern_data) / 4)
+
+/* Returns the pattern sub-index for the even (half 0) or odd (half 1) rows of
+   color pattern `color`. The color comes straight from the image data and the
+   table from the game disk, so keep both inside their tables. */
+static uint8_t pattern_subindex(uint8_t color, int half) {
+    size_t index = (uint8_t)(color * 2 + half);
+    if (index >= sizeof(color_pattern_subindices))
+        return 0;
+    uint8_t subindex = color_pattern_subindices[index];
+    return subindex < NUMBER_OF_PATTERNS ? subindex : 0;
+}
+
 void SetBrushBitmaps(const uint8_t *data) {
     memcpy(brush_bitmaps, data, sizeof(brush_bitmaps));
 }
@@ -416,8 +429,8 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t color)
     ctx.scanline = y;
 
     /* Configure pattern colors */
-    ctx.pattern_even = color_pattern_subindices[(uint8_t)(ctx.fill_color * 2)];
-    ctx.pattern_odd  = color_pattern_subindices[(uint8_t)(ctx.fill_color * 2 + 1)];
+    ctx.pattern_even = pattern_subindex(ctx.fill_color, 0);
+    ctx.pattern_odd  = pattern_subindex(ctx.fill_color, 1);
 
     /* Get col/pixel for this X position */
     x_to_column_and_pixel(&ctx, x);
@@ -473,7 +486,16 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t color)
 
 #pragma mark Main draw routine
 
-static bool doImageOp(uint8_t **outptr, a2_vector_ctx *ctx) {
+// Number of argument bytes that follow each (even) opcode
+static const uint8_t opcode_arguments[16] = {
+    [OPCODE_SET_FILL_COLOR] = 1,
+    [OPCODE_MOVE_TO] = 2,
+    [OPCODE_DRAW_LINE] = 2,
+    [OPCODE_DRAW_SHAPE] = 2,
+    [OPCODE_PAINT] = 2,
+};
+
+static bool doImageOp(uint8_t **outptr, const uint8_t *end, a2_vector_ctx *ctx) {
     uint8_t *ptr = *outptr;
     uint8_t opcode;
     uint16_t a, b;
@@ -487,6 +509,12 @@ static bool doImageOp(uint8_t **outptr, a2_vector_ctx *ctx) {
        SET_SHAPE, not a distinct "text outline" op that swallows an argument
        byte). Fold bit 4 out to match, which keeps the opcode stream in sync. */
     opcode = (opcode & 0xe0) >> 4;
+
+    // A truncated final op ends the image
+    if (ptr + opcode_arguments[opcode] > end) {
+        *outptr = (uint8_t *)end;
+        return true;
+    }
 
 //    fprintf(stderr, "doImageOp: opcode %d. param %d\n", opcode, param);
 
@@ -527,8 +555,8 @@ static bool doImageOp(uint8_t **outptr, a2_vector_ctx *ctx) {
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
             gm_draw_brush(a, b, ctx->BRUSH,
-                          color_pattern_subindices[(uint8_t)(ctx->FILL_COLOR * 2)],
-                          color_pattern_subindices[(uint8_t)(ctx->FILL_COLOR * 2 + 1)],
+                          pattern_subindex(ctx->FILL_COLOR, 0),
+                          pattern_subindex(ctx->FILL_COLOR, 1),
                           &ctx->gv);
             break;
 
@@ -641,7 +669,7 @@ int DrawApple2VectorImage(USImage *img) {
     ctx.BRUSH = BRUSH_CIRCLE_LARGE;
 
     while (done == 0 && vecdata < img->imagedata + img->datasize) {
-        done = doImageOp(&vecdata, &ctx);
+        done = doImageOp(&vecdata, img->imagedata + img->datasize, &ctx);
     }
     return 1;
 }
