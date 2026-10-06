@@ -1,0 +1,104 @@
+n
+esamina principe
+s
+s
+s
+prendi sacco
+n
+o
+o
+prendi acqua
+e
+e
+e
+s
+offri acqua
+prendi disco
+lascia sacco
+n
+e
+vai dolmen
+prega
+prendi scudo
+s
+o
+o
+o
+vai tempio
+prega
+prendi sandali
+s
+o
+vai caverna
+esamina statua
+scaglia disco
+contro statua
+prendi elmetto
+e
+e
+vai tempio
+indossa sandali
+vai piedistallo
+aspetta
+vola nord
+vola giu
+giu
+o
+esamina rovi
+prendi bacca
+e
+offri bacca
+e
+aspetta
+prendi frutto
+vola giu
+o
+offri frutto
+prendi spada
+vai piedistallo
+aspetta
+vola est
+vola giu
+giu
+togli sandali
+lascia sandali
+s
+prendi torcia
+n
+n
+e
+accendi torcia
+o
+vai caverna
+prendi rete
+e
+s
+s
+o
+arrampica tempio
+tendi rete
+giu
+o
+prendi corda
+e
+e
+n
+n
+e
+indossa elmetto
+prendi occhio
+offri occhio
+vai buco
+n
+e
+esamina scudo
+aspetta
+taglia medusa
+s
+prendi testa
+annoda corda
+vai pegaso
+cavalca pegaso
+s
+mostra testa
+taglia catene

@@ -3,7 +3,7 @@
 `make -f Makefile.headless scriptcheck` (from `terps/scott`) plays each command
 script in this folder through `scott_hl` on every image of its game in
 `../formats/games/` and compares the transcript with a hash in `scripts.tsv`.
-218 replays, about ten seconds.
+226 replays, about ten seconds.
 
 Where `formatcheck` shows that the loaders still produce the same tables, this
 shows that the interpreter still does the same things with them: the parser,
@@ -98,6 +98,7 @@ regression test needs, but it covers less of the game.
 | --- | --- | --- |
 | `adventureland` | won, all 16 | the Bunyon route made portable: empty lines after the genie, `scream bear`, `unlock door`, the mud picked up twice |
 | `adventureland-c64` | won, both | the C64 release has no tunnel before the bees and no endless corridor, so two moves fewer |
+| `antica-grecia` | won | the Italian Perseus and Andromeda: `perseus-and-andromeda` put into Italian word for word |
 | `arrow-of-death-1`, `-2` | won | all 8 and all 7 |
 | `bunyon-adventureland` | won, all 3 | `make holes` added after `get bees`: with the fixed seed they suffocate otherwise |
 | `bunyon-ghost-town` | won, all 3 | |
@@ -119,6 +120,7 @@ regression test needs, but it covers less of the game.
 | `gremlins-german-verb-first` | won, all 4 | the same commands with the verb first; has to play out as `gremlins-german` does |
 | `gremlins-spanish` | won, all 4 | C64 and ZX. The English script put into Spanish word for word, but: the camera button is pressed as soon as the gang is at the pool, and `mirar` for the waits |
 | `hulk` | won on 14 of 18 | old random numbers. The two C64 and two of the four ZX images end in limbo: Banner is gassed on another turn there |
+| `perseus-and-andromeda` | won, all 7 | C64 and ZX. The solution of Jacob Gunness (solutionarchive.com) as written |
 | `robin-of-sherwood` | won, all 8 | old random numbers |
 | `seas-of-blood-c64`, `-zx` | won | old random numbers and `AUTOWIN`. Each wins on its own platform (2 C64 images, 4 ZX) and gets lost on the other |
 | `secret-mission` | won, both | C64 only; every other release is covered by `bunyon-mission-impossible` |

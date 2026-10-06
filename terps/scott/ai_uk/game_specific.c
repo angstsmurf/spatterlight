@@ -464,6 +464,41 @@ void PerseusItalianSysmess(void)
     sys[YOU_ARE] = "Sono in ";
     sys[YOU_SEE] = "\nQui posso vedere:\n";
     sys[INVENTORY] = "Ho raccolto: ";
+
+    /* The messages that the game does not have, with ' for an accent as in
+       those that it has. It asks for Y or N itself, and the tape has
+       "FILE ERRATO!!  Premi un tasto" and "<CARICAMENTO> ..Premi <ENTER>"
+       for its own saved games. */
+    sys[HIT_ENTER] = "<Premi ENTER> ";
+    sys[YOU_HAVE_IT] = "Ce l'ho gia' ! ";
+    sys[NONE] = "Nessuna";
+    sys[NOTHING_HERE_TO_TAKE] = "Qui non c'e' niente da prendere. ";
+    sys[YOU_HAVE_NOTHING] = "Non ho niente da lasciare. ";
+    sys[LIGHT_GROWING_DIM] = "La mia luce si sta affievolendo. ";
+    sys[WHAT] = "Cosa ? ";
+    sys[YES] = "y";
+    sys[NO] = "n";
+    sys[ANSWER_YES_OR_NO] = "Rispondi Y o N.\n";
+    sys[ARE_YOU_SURE] = "Sei sicuro?(Y/N) ";
+    sys[MOVE_UNDONE] = "Mossa annullata. ";
+    sys[CANT_UNDO_ON_FIRST_TURN] = "Non si puo' annullare la prima mossa. ";
+    sys[NO_UNDO_STATES] = "Non ci sono altre mosse da annullare. ";
+    sys[SAVED] = "Gioco salvato. ";
+    sys[CANT_USE_ALL] = "Non puoi usare TUTTO con questo verbo. ";
+    sys[TRANSCRIPT_ON] = "La trascrizione e' ora attiva.\n";
+    sys[TRANSCRIPT_OFF] = "La trascrizione e' ora disattivata.\n";
+    sys[NO_TRANSCRIPT] = "Nessuna trascrizione in corso.\n";
+    sys[TRANSCRIPT_ALREADY] = "Una trascrizione e' gia' in corso.\n";
+    sys[FAILED_TRANSCRIPT] = "Impossibile creare il file di trascrizione. ";
+    sys[TRANSCRIPT_START] = "Inizio della trascrizione\n\n";
+    sys[TRANSCRIPT_END] = "\n\nFine della trascrizione\n";
+    sys[BAD_DATA] = "FILE ERRATO!! File di salvataggio non valido.\n";
+    sys[STATE_SAVED] = "Stato salvato.\n";
+    sys[STATE_RESTORED] = "Stato ripristinato.\n";
+    sys[NO_SAVED_STATE] = "Nessuno stato salvato.\n";
+
+    SetParserWordLists(ItalianDirections, ItalianSkipList, ItalianDelimiterList,
+        ItalianExtraCommands, ItalianExtraNouns);
 }
 
 void Supergran64Sysmess(void)

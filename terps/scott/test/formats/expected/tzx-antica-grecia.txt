@@ -1,4 +1,4 @@
-game       Perseus and Andromeda Italian
+game       Antica Grecia (Perseus and Andromeda Italian)
 variant    sys=unknown type=old-style subtype=2
 header     items=60 actions=178 words=130 rooms=40 maxcarry=6 start=1 treasures=0 wordlen=4 light=200 messages=96 treasureroom=0
 picture    width=255 height=95
@@ -8,5 +8,5 @@ verbs       131 7ef0054b
 nouns       131 890ff35d
 messages     97 178bd5ed
 actions     179 ed01e9e8
-sysmess      71 eb747c87
+sysmess      71 77b43d83
 lineimages   41 994af772

@@ -57,6 +57,7 @@ extern char **CharWords;
 extern const char *Directions[];
 extern const char *GermanDirections[];
 extern const char *SpanishDirections[];
+extern const char *ItalianDirections[];
 extern const char *EnglishDirections[];
 
 #define NUMBER_OF_SKIPPABLE_WORDS 18
@@ -64,16 +65,19 @@ extern const char *EnglishDirections[];
 extern const char *SkipList[];
 extern const char *EnglishSkipList[];
 extern const char *GermanSkipList[];
+extern const char *ItalianSkipList[];
 
 #define NUMBER_OF_DELIMITERS 5
 
 extern const char *EnglishDelimiterList[];
 extern const char *GermanDelimiterList[];
+extern const char *ItalianDelimiterList[];
 extern const char *DelimiterList[];
 
 #define NUMBER_OF_EXTRA_COMMANDS 34
 extern const char *GermanExtraCommands[];
 extern const char *SpanishExtraCommands[];
+extern const char *ItalianExtraCommands[];
 extern const char *ExtraCommands[];
 
 #define NUMBER_OF_EXTRA_NOUNS 16
@@ -81,6 +85,7 @@ extern const char *ExtraCommands[];
 extern const char *EnglishExtraNouns[];
 extern const char *GermanExtraNouns[];
 extern const char *SpanishExtraNouns[];
+extern const char *ItalianExtraNouns[];
 extern const char *ExtraNouns[];
 extern const extra_command ExtraNounsKey[];
 

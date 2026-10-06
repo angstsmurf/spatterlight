@@ -52,7 +52,8 @@ static glui32 *FirstErrorMessage = NULL; /* Deferred error message (shown after 
 
 /* Direction words by language — includes both full names and single-letter
    abbreviations. Index 1-6 = full names (N/S/E/W/U/D), 7-12 = abbreviations,
-   13 = alternate west ('w' in Spanish is used for 'oeste'). */
+   13 = alternate west ('w' in Spanish is used for 'oeste', and in Italian
+   for 'ovest'). */
 const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = {
     NULL, "north", "south", "east", "west", "up", "down",
     "n", "s", "e", "w", "u", "d", " "
@@ -65,6 +66,11 @@ const char *GermanDirections[NUMBER_OF_DIRECTIONS] = {
     NULL, "norden", "sueden", "osten", "westen", "oben", "unten",
     "n", "s", "o", "w", "u", "d", " "
 };
+/* The tape has the letters NSEOSG: S is both sud and su there */
+const char *ItalianDirections[NUMBER_OF_DIRECTIONS] = {
+    NULL, "nord", "sud", "est", "ovest", "su", "giu",
+    "n", "s", "e", "o", "u", "g", "w"
+};
 
 const char *Directions[NUMBER_OF_DIRECTIONS];
 
@@ -72,7 +78,7 @@ const char *Directions[NUMBER_OF_DIRECTIONS];
    dictionary. Includes save/restore, undo, transcript, RAM save/load,
    and command-chain operators (EXCEPT/BUT). The '#' prefix forms are
    for compatibility with interpreters that use '#' as a command prefix.
-   The German and Spanish tables share the English words up to EXCEPT. */
+   The German, Spanish and Italian tables share the English words up to EXCEPT. */
 #define COMMON_EXTRA_COMMANDS \
     NULL,                     \
     "restart",                \
@@ -133,6 +139,18 @@ const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "reinicia"
 };
 
+const char *ItalianExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+    COMMON_EXTRA_COMMANDS,
+    "eccetto",
+    "tranne",
+    "#flicker",
+    "ripristina",
+    "carica",
+    "trascrizione",
+    "annulla",
+    "ricomincia"
+};
+
 #undef COMMON_EXTRA_COMMANDS
 
 /* Maps each ExtraCommands[] entry to its canonical command enum.
@@ -179,6 +197,12 @@ const char *SpanishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
     "toda", "todo", "eso", "activar", "desactivar"
 };
 
+const char *ItalianExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+    NULL, "gioco", "storia", "on", "off", "carica",
+    "ripristina", "salva", "mossa", "comando", "turno",
+    "tutto", "tutti", "esso", "attiva", "disattiva"
+};
+
 const char *ExtraNouns[NUMBER_OF_EXTRA_NOUNS];
 
 const extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = {
@@ -209,6 +233,12 @@ const char *GermanSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
     "auf", "den", "lassen", "lass", "fallen", "in", "ins", "zur", "zum"
 };
 
+/* Not "i", which is the inventory */
+const char *ItalianSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
+    NULL, "il", "lo", "la", "gli", "le", "un", "uno", "una", "a",
+    "al", "alla", "in", "nel", "nella", "verso", "mio", "mia"
+};
+
 const char *SkipList[NUMBER_OF_SKIPPABLE_WORDS];
 
 /* Words that separate multiple commands in a single input line */
@@ -217,6 +247,10 @@ const char *EnglishDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "and",
 
 const char *GermanDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "und",
     "dann", "and" };
+
+/* Not "e", which is east */
+const char *ItalianDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "poi",
+    "quindi", " " };
 
 const char *DelimiterList[NUMBER_OF_DELIMITERS];
 

@@ -201,7 +201,7 @@ static const struct scottrec scott_registry[] = {
     { 0x911c, 0x067e, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda.tzx
     { 0x502b, 0x913b, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda C64
    { 0x2ab00, 0xdc5e, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda C64 D64
-    { 0x6fce, 0x4bac, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda Italian
+    { 0x6fce, 0x4bac, PERSEUS_AND_ANDROMEDA_IFID }, // Antica Grecia (Perseus and Andromeda Italian)
     { 0x7bb0, 0x3877, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians z80
     { 0x7c16, 0xe269, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians z80 alt
     { 0x6fdc, 0xa77e, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians z80 alt 1

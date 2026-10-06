@@ -1007,7 +1007,7 @@ const GameInfo games[] = {
     },
 
     {
-        "Perseus and Andromeda Italian",
+        "Antica Grecia (Perseus and Andromeda Italian)",
         PERSEUS_ITALIAN,
         OLD_STYLE,  // type
         MYSTERIOUS, // subtype
