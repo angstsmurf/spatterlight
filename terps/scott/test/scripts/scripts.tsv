@@ -42,6 +42,11 @@ arrow-of-death-2	tzx-arrow-of-death-part-ii-alternate	1871	bf058b7f98a636499c1ae
 arrow-of-death-2	tzx-arrow-of-death-part-ii	1869	b228b5b2b326116054454c6db50116b2f88e651a292d483f155973d9a8f80aea
 arrow-of-death-2	z80-mysterious-adventures-no-03-arrow-of	1869	e371dff705552ace6048a9c3154eaf38e1cdb2b3de249a9cb8f584fe52195955
 arrow-of-death-2	z80-m4arrow2	1869	b228b5b2b326116054454c6db50116b2f88e651a292d483f155973d9a8f80aea
+circus-c64	d64-mystadv1-6	856	d4f73974797ae9a5e8fc4688a283c141970b7c339b3ecc6a16682297abfd9a55
+circus-c64	t64-circus1	825	35be819604ecca50de6f02fb98a243affb5429ba693359b5e9da7cc7e4613335
+circus-zx	tap-circusa	824	2c6c072614a2cbd76fd7bc181c3f799975992dbfa66803b1dd22b5d93821cb4e
+circus-zx	tzx-circus	824	2c6c072614a2cbd76fd7bc181c3f799975992dbfa66803b1dd22b5d93821cb4e
+circus-zx	z80-circus	824	2c6c072614a2cbd76fd7bc181c3f799975992dbfa66803b1dd22b5d93821cb4e
 claymorgue	atr-adventure-no-13-the-sorcerer-of-clay	1754	05e3c8ec9c9b272c34a01d4c50eab1f2719e3bb8b9302a42ab90c8f91dacfe7f
 claymorgue	atr-saga-no-13-the-sorcerer-of-claymorgu	920	4183fa16ac3085cfd3f8d317ebab67159e4678bfb09f514005d7e1f06b243ca8
 claymorgue	atr-saga-no-13-the-sorcerer-of-claymorgu-disk2	920	4183fa16ac3085cfd3f8d317ebab67159e4678bfb09f514005d7e1f06b243ca8
@@ -60,6 +65,12 @@ claymorgue	tzx-sorcerer-of-claymorgue-castle	1571	83201b711427c7ff040d14f9423c95
 claymorgue	woz-s-a-g-a-13-sorcerer-of-claymorgue-ca	919	a2ed94d02ad996f286d256942a871c918f0a8b2a129ab6ef1431eb68a0f05507
 claymorgue	woz-s-a-g-a-13-sorcerer-of-claymorgue-ca-disk2	919	a2ed94d02ad996f286d256942a871c918f0a8b2a129ab6ef1431eb68a0f05507
 claymorgue	z80-s13claym	1573	3d1eeee29a0465ea82822d26a8bf901e965e424aa38f2c00f83790c4cbe11f59
+escape-from-pulsar-7	d64-mystadv1-5	1368	d1c72bf0870c72626ccb036f94f2f71e7ee17bf8312c1a6c2144c817ad1cc254
+escape-from-pulsar-7	tap-m5pulsar	1337	53c8556a8c5db8f822b489d2a682619bc31e45c5794369af3a17868b76bb5a72
+escape-from-pulsar-7	tzx-escape-from-pulsar-7-alternate-2	1337	53c8556a8c5db8f822b489d2a682619bc31e45c5794369af3a17868b76bb5a72
+escape-from-pulsar-7	tzx-escape-from-pulsar-7	1337	53c8556a8c5db8f822b489d2a682619bc31e45c5794369af3a17868b76bb5a72
+escape-from-pulsar-7	z80-mysterious-adventures-no-04-escape-f	1337	53c8556a8c5db8f822b489d2a682619bc31e45c5794369af3a17868b76bb5a72
+escape-from-pulsar-7	z80-m5pulsar	1337	53c8556a8c5db8f822b489d2a682619bc31e45c5794369af3a17868b76bb5a72
 feasibility-experiment	d64-mystadv2-1	2950	411685996d86470256c4a5951fec16f59592d860eaafbf2da5e711b7dce42553
 feasibility-experiment	t64-feasibil	2920	2eb91560af2a826001971f974c1e21e8b85e3b835b1daae5839d3cd16a999ef5
 feasibility-experiment	tzx-feasibility-experiment	2822	55d33f41ed8ea564ab4b203977a1ab0d4c114960304471a2c432de106da0ee6b
@@ -169,6 +180,11 @@ the-count	woz-scott-adams-graphic-adventure-5-the	1643	17e5a2a7cd7706a8d972285ba
 the-count	woz-s-a-g-a-5-the-count-side-a	944	8dd2955b967b9f0433bcc88bb83ade2e5ac1b0e17ecf24eac7e5272e14aac637
 the-count	woz-s-a-g-a-5-the-count-side-a-disk2	944	8dd2955b967b9f0433bcc88bb83ade2e5ac1b0e17ecf24eac7e5272e14aac637
 the-count	d64-scott-adams-adventure-pack-5	1704	2e2b67dff8fdd0e8cb865c972f035ddc56cf502679789607cbba2513f2ca7130
+time-machine-c64	d64-mystadv1-2	2169	d1ed0a2f488b96526cb0cb6bb91169b064483ee58de56931bc06c54dc1e55990
+time-machine-c64	t64-timemach	2138	edcf60f71e12f90f419d81ed54c0e42f59704c41d7000ed054ee37bdc0e7f4a2
+time-machine-zx	tap-m2tmachi	1669	e0e497234bd3cdd9fc019a4bba623018f4ccf34ff85088ac8b6200c109654334
+time-machine-zx	tzx-the-time-machine	1669	e0e497234bd3cdd9fc019a4bba623018f4ccf34ff85088ac8b6200c109654334
+time-machine-zx	z80-m2tmachi	1669	e0e497234bd3cdd9fc019a4bba623018f4ccf34ff85088ac8b6200c109654334
 voodoo-castle	atr-saga-4-voodoo-castle-side-a	686	f04ee28661bd089ded114d6a638f34dd2b25da0e28b2b45d0b68514a3fd02da0
 voodoo-castle	atr-saga-4-voodoo-castle-side-a-disk2	686	f04ee28661bd089ded114d6a638f34dd2b25da0e28b2b45d0b68514a3fd02da0
 voodoo-castle	d64-voodoo-castle	1306	05bb5714b756b57d80f3558fc4c9229ee2fa6aac0907474da5e03f4d02ff56bf

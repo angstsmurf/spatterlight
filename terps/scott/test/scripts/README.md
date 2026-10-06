@@ -3,7 +3,7 @@
 `make -f Makefile.headless scriptcheck` (from `terps/scott`) plays each command
 script in this folder through `scott_hl` on every image of its game in
 `../formats/games/` and compares the transcript with a hash in `scripts.tsv`.
-226 replays, about ten seconds.
+242 replays, about ten seconds.
 
 Where `formatcheck` shows that the loaders still produce the same tables, this
 shows that the interpreter still does the same things with them: the parser,
@@ -112,7 +112,9 @@ regression test needs, but it covers less of the game.
 | `bunyon-strange-odyssey` | won, all 6 | |
 | `bunyon-the-count` | lost | as shipped; the bell and nightfall come on other turns than the script expects |
 | `bunyon-voodoo-castle` | won, both | |
+| `circus-c64`, `-zx` | won, all 5 | the solution of Jacob Gunness (solutionarchive.com) as written. The seal of the C64 release is a sea-lion on ZX, so one command differs |
 | `claymorgue` | won on 17 of 18 | one Atari image ends in the star room |
+| `escape-from-pulsar-7` | won, all 6 | C64 and ZX. The solution of Jacob Gunness as written; the C64 release has no watch to drop |
 | `feasibility-experiment` | won on C64 | the ZX images end mid-game |
 | `golden-baton` | won on C64 | dead on ZX (the Gorgon) |
 | `gremlins` | won on 6 of 8 | English only; the "alternate" ZX release stops one command short |
@@ -128,6 +130,7 @@ regression test needs, but it covers less of the game.
 | `super-gran` | won | all 4 |
 | `ten-little-indians` | won | 4 of 5 |
 | `the-count` | won on 11 of 13 | old random numbers. Lost on the TI-99/4A image and one Apple II disk |
+| `time-machine-c64`, `-zx` | won, all 5 | the solution of Jacob Gunness. Where PRESS FOR lands is random until the three prisms are in, so each script has the number of presses that the random numbers of its release take |
 | `voodoo-castle` | won | all 15 |
 | `waxworks` | won, all 6 | old random numbers |
 | `wizard-of-akyrz` | won | all 6 |
