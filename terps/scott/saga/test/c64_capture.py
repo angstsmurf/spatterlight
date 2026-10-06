@@ -9,7 +9,8 @@
 #   c64_capture.py groundtruth_scene/gremlins_c64/gremlins.scene
 #
 # x64sc is started (in warp mode, with the scene's `!game` file autostarted) and
-# driven over its binary monitor. Set X64SC to use a particular binary.
+# driven over its binary monitor. Set X64SC to use a particular binary, and
+# VICE_PORT to another monitor port for each capture that runs at the same time.
 #
 # Scene lines as seen from here:
 #   plain line        typed, followed by RETURN (an empty line is just RETURN)
@@ -25,6 +26,11 @@
 #                     row (as in zx_capture.lua): for pictures no script can
 #                     walk to, point the game's picture table somewhere else
 #   !hwmem <name>     save the 64K of RAM as <name> (to find such a table)
+#   !hwsnap <name>    the first time, save a VICE snapshot of the machine as
+#                     <name>; after that, start from the snapshot and skip
+#                     every line before this one. For a game that takes long to
+#                     load when many scenes begin the same way (delete the
+#                     snapshot if those lines change)
 # Everything else (!game, !tick, !slowdraw, comments) is skipped.
 #
 # The original stops with <HIT RETURN> whenever its text window fills up, and
@@ -36,7 +42,7 @@
 
 import os, socket, struct, subprocess, sys, time
 
-PORT = 6510
+PORT = int(os.environ.get('VICE_PORT', 6510))   # set VICE_PORT to run several at once
 POLL = 0.5          # seconds between looks at the screen: entering the
                     # monitor stops the emulation, so looking often slows it
 SETTLE = 3          # looks in a row the screen must stay unchanged (cursor aside)
@@ -80,6 +86,14 @@ class Vice:
     def poke(self, addr, data):
         # No side effects, main memory, bank 1 (RAM)
         self.command(0x02, struct.pack('<BHHBH', 0, addr, addr + len(data) - 1, 0, 1) + data)
+        self.resume()
+
+    def snapshot(self, path, load):
+        name = path.encode()
+        if len(name) > 255:
+            sys.exit('c64_capture: the path of the snapshot is too long for VICE')
+        # dump: with the ROMs, without the disks
+        self.command(0x42 if load else 0x41, (b'' if load else b'\x01\x00') + bytes([len(name)]) + name)
         self.resume()
 
     def ram(self):
@@ -204,6 +218,12 @@ def main():
             steps.append(('poke', (int(addr, 16), bytes.fromhex(data) * int(times or 1))))
         elif word == '!hwmem':
             steps.append(('mem', rest))
+        elif word == '!hwsnap':
+            snapshot = os.path.join(folder, rest)
+            if os.path.exists(snapshot):
+                steps = [('load', snapshot)]
+            else:
+                steps.append(('snap', snapshot))
         elif word == '!hwkey':
             steps.append(('type', rest))
         elif word == '!hw':
@@ -212,9 +232,11 @@ def main():
             steps.append(('type', line + '\r'))
 
     x64sc = os.environ.get('X64SC', 'x64sc')
+    restored = steps[:1] == [('load', steps[0][1])]
     emulator = subprocess.Popen(
         [x64sc, '-default', '-warp', '-sounddev', 'dummy', '-binarymonitor',
-         '-binarymonitoraddress', '127.0.0.1:%d' % PORT, '-autostart', os.path.join(folder, game)],
+         '-binarymonitoraddress', '127.0.0.1:%d' % PORT]
+        + ([] if restored else ['-autostart', os.path.join(folder, game)]),
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     try:
         for attempt in range(100):
@@ -234,7 +256,8 @@ def main():
             while paused(settle(vice)) and typed[:1] != ['\r']:
                 vice.type('\r')
 
-        wait(0)
+        if not restored:
+            wait(0)
         for step, (kind, arg) in enumerate(steps):
             if kind == 'type':
                 vice.type(arg)
@@ -243,6 +266,10 @@ def main():
                 time.sleep(arg)
             elif kind == 'poke':
                 vice.poke(*arg)
+            elif kind in ('snap', 'load'):
+                vice.snapshot(arg, kind == 'load')
+                if kind == 'load':
+                    wait(step + 1)
             elif kind == 'mem':
                 with open(os.path.join(folder, arg), 'wb') as f:
                     f.write(vice.ram())

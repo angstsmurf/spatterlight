@@ -37,6 +37,14 @@
 //                      original gets a `!hwpoke` of its picture table instead.
 //                      Also blanks the picture, as the original does before
 //                      it draws a room: some pictures are only overlays
+//   !room <n>          put the player in room n, and
+//   !item <i> <n>      item i in room n,
+//   !counter <c> <n>   n in the stored counter c, and
+//   !flag <f>          set bit flag f (the next LOOK shows it all): for rooms
+//                      behind a battle, for things that only turn up later
+//                      in the game, and to keep an event that happens by
+//                      chance from happening. The original gets a `!hwpoke`
+//                      of the same byte of its own state instead
 //   !check <golden> [min=N] [dx=N] [dy=N]
 //                      compare the graphics window as it is when the game next
 //                      waits for input. Every painted pixel must match unless
@@ -54,7 +62,7 @@
 // which drives VICE, for the C64): plain lines are typed there too and every
 // `!check` dumps the screen. Lines for the original only — `!hw <keys>`,
 // `!hwkey <keys>`, `!hwwait <n>`, `!hwnext`, `!hwpoke <addr>=<bytes>`,
-// `!dump <file>` — are ignored here.
+// `!hwsnap <file>`, `!dump <file>` — are ignored here.
 // An animated picture is dumped frame by frame there (`!hwnext`, `!dump`) and
 // stepped through here with `!tick` and a `!check` of each dump.
 //
@@ -340,6 +348,22 @@ void scene_select(event_t *ev)
             for (int i = 0; i <= GameHeader.NumRooms; i++)
                 Rooms[i].Image = atoi(line + 8);
             fakeglk_clear_canvas();
+        } else if (strncmp(line, "!room", 5) == 0) {
+            MyLoc = atoi(line + 5);
+        } else if (strncmp(line, "!counter", 8) == 0) {
+            int counter, value;
+            if (sscanf(line + 8, "%d %d", &counter, &value) != 2 || counter < 0 || counter >= 16)
+                scene_fail("!counter needs a counter and a value");
+            else
+                Counters[counter] = value;
+        } else if (strncmp(line, "!flag", 5) == 0) {
+            BitFlags |= 1L << atoi(line + 5);
+        } else if (strncmp(line, "!item", 5) == 0) {
+            int item, room;
+            if (sscanf(line + 5, "%d %d", &item, &room) != 2 || item < 0 || item > GameHeader.NumItems)
+                scene_fail("!item needs an item and a room");
+            else
+                Items[item].Location = room;
         } else if (strncmp(line, "!tick", 5) == 0) {
             ticks_owed = atol(line + 5);
             if (ticks_owed <= 0)

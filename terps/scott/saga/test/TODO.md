@@ -104,6 +104,18 @@ interpreter ships, and pictures that look like the originals'. See
         interpreter walks, which takes three battles — the scene build defines
         `AUTOWIN`. That walk found `draw_border()` looping four billion times
         on a battle window without rows (fixed).
+- [x] **Every picture of Seas of Blood**, `seas_pictures_zx/` (124 scenes) and
+      `seas_pictures_c64/` (123), written by `seas_scenes.py`: every room as
+      the game starts, every room without its things, and every thing that is
+      elsewhere at the start (or shares its room) alone where it is drawn. No
+      walk gets to them all, so each scene writes the room, the items and,
+      for what is seen from the ship, the position counters into the game
+      state: `!hwpoke` for the original, the new `!room`, `!item`, `!counter`
+      and `!flag` for the interpreter. Chance is switched off the same way
+      (the merchant ships, the roc of room 45, the crevasse of room 71).
+      All exact but the two entries under Divergences. `c64_capture.py` got
+      `!hwsnap` (start from a VICE snapshot instead of loading the disk: 93 s
+      down to 9 s a scene) and `VICE_PORT` (several captures at once).
 - [ ] Not covered yet: the Gremlins gang animations (square, road), German and
       Spanish Gremlins, Super Gran, Savage Island, C64 animations
       (`c64_capture.py` has no `!hwnext`).
@@ -115,6 +127,21 @@ with a comment there; the last three are left out of the scenes. Only the
 ticked one is ported: decide per item whether the interpreter should follow
 the original.
 
+- [x] **Seas of Blood, the stone hall (C64), two cells.** Deliberate: the
+      patch table of `sagadraw.c` (`SEAS_OF_BLOOD_C64`, image 34, offset 471)
+      takes a stray flip bit off one byte. Rooms 28, 61 and 69 share
+      sub-image 0x22, which is mirrored to the right. Its cell at the foot of
+      the outer pillar, (2,11), is `a5 08 e0 03` on the C64 disk where the
+      eleven cells above it, and all twelve on the Spectrum, are
+      `a5 08 a0 03`: the overlay tile 3, a vertical line, turned by 180
+      degrees and then mirrored, which puts it back where it began (0x20 a
+      row for 0x04). The C64 draw routine (`$1E48`: rotate, then flip on
+      `$40`, then overlay) does what the byte says, as `irmak.c` would. 32
+      pixels (`seas_pictures_c64`, `min=24544` in 8 scenes).
+- [x] **Seas of Blood, the crypt (ZX).** Deliberate: `PatchCryptImage()`
+      takes the BRIGHT off four cells beside the sarcophagus. 141 pixels
+      (`seas_pictures_zx/room13`, `item051`, `min=24435`); the C64 picture is
+      exact.
 - [ ] **Howarth vector pictures, line colour (ZX).** The Spectrum original
       draws its lines in the complement of the background colour (cyan on the
       oak's red, magenta on the hedge's green); the interpreter uses black,
