@@ -504,7 +504,7 @@ ud_triangle_offsets (int r, double *t, double *h, double *b)
   /* The two smallest are drawn by hand. */
   if (r <= 5)
     {
-      /* Scales 10-11. */
+      /* Scales 3-11: the badge radius stops at 4 below scale 8. */
       *t = *h = *b = 2;
       return;
     }
