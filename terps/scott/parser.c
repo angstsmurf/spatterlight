@@ -367,13 +367,22 @@ static glui32 MapTI994A(unsigned char b)
     }
 }
 
+static int IsGerman(void)
+{
+    return (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64);
+}
+
+static int IsSpanish(void)
+{
+    return (CurrentGame == GREMLINS_SPANISH || CurrentGame == GREMLINS_SPANISH_C64);
+}
+
 /* Determine mapping function pointer based on CurrentGame */
 typedef glui32(*map_fn)(unsigned char);
 
 static map_fn SelectMapper(void)
 {
-    if (Game && (CurrentGame == GREMLINS_SPANISH ||
-                 CurrentGame == GREMLINS_SPANISH_C64))
+    if (Game && IsSpanish())
         return Map_Spanish;
     if (Game && CurrentGame == TI994A)
         return MapTI994A;
@@ -494,8 +503,7 @@ glui32 *ToUnicode(const char *string)
     tmp[out_len] = 0;
 
     /* If the current game is German, do sequence folding */
-    if (Game && (CurrentGame == GREMLINS_GERMAN ||
-                 CurrentGame == GREMLINS_GERMAN_C64)) {
+    if (Game && IsGerman()) {
         size_t folded_len;
         glui32 *folded = FoldGermanSequences(tmp, out_len, &folded_len);
         free(tmp);
@@ -542,8 +550,7 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
             break;
         case 0xfc: // ü
             dest[destpos] = 'u';
-            if (CurrentGame == GREMLINS_GERMAN ||
-                CurrentGame == GREMLINS_GERMAN_C64) {
+            if (IsGerman()) {
                 destpos++;
                 dest[destpos] = 'e';
             }
@@ -1020,6 +1027,30 @@ static Command *CreateCommandStruct(int verb, int noun, int verbindex,
     return command;
 }
 
+static int IsNounList(const char **list)
+{
+    return (list == (const char **)Nouns || list == (const char **)Directions || list == (const char **)ExtraNouns);
+}
+
+static void DontKnowHowTo(int wordindex)
+{
+    CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[wordindex],
+        sys[SOMETHING]);
+}
+
+/* Check if word (an extra noun) is ALL, followed by EXCEPT at input
+   word i */
+static int IsAllExcept(int word, int i)
+{
+    int except = 0;
+    if (i < WordsInInput && word - GameHeader.NumWords == ALL) {
+        int stringlength = strlen(CharWords[i]);
+        except = WhichWord(CharWords[i], ExtraCommands, stringlength,
+            NUMBER_OF_EXTRA_COMMANDS);
+    }
+    return (ExtraCommandsKey[except] == EXCEPT);
+}
+
 /* Parse tokenized words starting at `index` into a Command node.
    Tries to identify a verb, then a noun, handling special cases:
    - Directions become GO + direction_number
@@ -1066,17 +1097,16 @@ static Command *CommandFromStrings(int index, Command *previous)
     int found_noun_at_verb_position = 0;
     int lastverb = 0;
 
-    if (list == (const char **)Nouns || list == (const char **)Directions || list == (const char **)ExtraNouns) {
+    if (IsNounList(list)) {
         /* It is a noun */
         /* If we find no verb, we try copying the verb from the previous command */
         if (previous) {
             lastverb = previous->verb;
         }
         /* Unless the game is German, where we allow the noun to come before the verb */
-        if (CurrentGame != GREMLINS_GERMAN && CurrentGame != GREMLINS_GERMAN_C64) {
+        if (!IsGerman()) {
             if (!previous) {
-                CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
-                    sys[SOMETHING]);
+                DontKnowHowTo(i - 1);
                 return NULL;
             } else {
                 verbindex = previous->verbwordindex;
@@ -1091,8 +1121,7 @@ static Command *CommandFromStrings(int index, Command *previous)
     }
 
     if (list == NULL || list == SkipList) {
-        CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
-            sys[SOMETHING]);
+        DontKnowHowTo(i - 1);
         return NULL;
     }
 
@@ -1101,8 +1130,7 @@ static Command *CommandFromStrings(int index, Command *previous)
             return CreateCommandStruct(lastverb, verb, previous->verbwordindex, i,
                 previous);
         } else if (found_noun_at_verb_position) {
-            CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
-                sys[SOMETHING]);
+            DontKnowHowTo(i - 1);
             return NULL;
         } else {
             return CreateCommandStruct(verb, 0, i - 1, i, previous);
@@ -1116,17 +1144,11 @@ static Command *CommandFromStrings(int index, Command *previous)
         noun = FindNoun(CharWords[i++], &list);
     } while (list == SkipList && i < WordsInInput);
 
-    if (list == (const char **)Nouns || list == (const char **)Directions || list == (const char **)ExtraNouns) {
+    if (IsNounList(list)) {
         /* It is a noun */
 
-        /* Check if it is an ALL followed by EXCEPT */
-        int except = 0;
-        if (list == (const char **)ExtraNouns && i < WordsInInput && noun - GameHeader.NumWords == ALL) {
-            int stringlength = strlen(CharWords[i]);
-            except = WhichWord(CharWords[i], ExtraCommands, stringlength,
-                NUMBER_OF_EXTRA_COMMANDS);
-        }
-        if (ExtraCommandsKey[except] != EXCEPT && FindExtraneousWords(&i, noun) != 0)
+        int except = (list == (const char **)ExtraNouns && IsAllExcept(noun, i));
+        if (!except && FindExtraneousWords(&i, noun) != 0)
             return NULL;
         /* If we found a noun where a verb was expected, check
            again to see if it matches a verb as well */
@@ -1151,14 +1173,7 @@ static Command *CommandFromStrings(int index, Command *previous)
 
     if (list == (const char **)Verbs && found_noun_at_verb_position) {
         /* It is a verb */
-        /* Check if it is an ALL followed by EXCEPT */
-        int except = 0;
-        if (i < WordsInInput && verb - GameHeader.NumWords == ALL) {
-            int stringlength = strlen(CharWords[i]);
-            except = WhichWord(CharWords[i], ExtraCommands, stringlength,
-                NUMBER_OF_EXTRA_COMMANDS);
-        }
-        if (ExtraCommandsKey[except] != EXCEPT && FindExtraneousWords(&i, 0) != 0)
+        if (!IsAllExcept(verb, i) && FindExtraneousWords(&i, 0) != 0)
             return NULL;
         return CreateCommandStruct(noun, verb, i - 1, i, previous);
     }
@@ -1257,10 +1272,7 @@ void FreeCommands(void)
         free(temp);
     }
     CurrentCommand = NULL;
-    FreeStrings();
-    if (FirstErrorMessage)
-        free(FirstErrorMessage);
-    FirstErrorMessage = NULL;
+    FreeStrings(); /* also frees FirstErrorMessage */
 }
 
 static void PrintPendingError(void)
@@ -1305,7 +1317,7 @@ int GetInput(int *vb, int *no)
        by the fact that the game lists FALLEN and LASSEN as both
        verbs and nouns. */
 
-    if ((CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64) && CurrentCommand->verb - GameHeader.NumWords == ALL && CurrentCommand->noun == GERMAN_FALLEN_NOUN) {
+    if (IsGerman() && CurrentCommand->verb - GameHeader.NumWords == ALL && CurrentCommand->noun == GERMAN_FALLEN_NOUN) {
         CurrentCommand->verb = DROP;
         CurrentCommand->noun = ALL + GameHeader.NumWords;
     }
