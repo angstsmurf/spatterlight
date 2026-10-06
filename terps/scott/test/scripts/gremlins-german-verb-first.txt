@@ -1,0 +1,221 @@
+gehen nach unten
+holen saebel
+angreifen gremlin
+holen fernsteuerung
+lass saebel fallen
+gehen in kueche
+druecken fernsteuerung
+druecken fernsteuerung
+druecken fernsteuerung
+druecken fernsteuerung
+druecken fernsteuerung
+durchsuchen rutsche
+holen gizmo
+druecken fernsteuerung
+druecken fernsteuerung
+durchsuchen schublade
+durchsuchen schublade
+holen messer
+holen funkenzuendung
+fallen lassen fernsteuerung
+gehen nach osten
+gehen nach oben
+angreifen gremlin
+holen taschenlampe
+gehen nach unten
+eintreten tuere
+gehen nach norden
+gehen nach osten
+gehen nach osten
+gehen in taverne
+gehen zur bar
+holen photoapparat
+druecken taste
+schneiden rohr
+holen rohr
+gehen nach norden
+gehen nach norden
+gehen nach osten
+gehen ins kino
+gehen nach sueden
+lass projektor anlaufen
+gehen nach norden
+gehen nach norden
+gehen nach westen
+gehen nach westen
+gehen zur tankstelle
+gehen in die grube
+fallen lassen messer
+lass gizmo fallen
+holen gaszylinder
+holen azethylbrenner
+gehen nach oben
+gehen norden
+gehen westen
+gehen sueden
+gehen sueden
+oeffnen ventil
+anstellen azethylbrenner
+schweissen pflug
+fallen lassen funkenzuendung
+holen leiter
+gehen norden
+gehen norden
+gehen nach westen
+eintreten tuere
+lass gaszylinder fallen
+fallen lassen azethylbrenner
+lass rohr fallen
+fallen lassen taschenlampe
+lass leiter fallen
+fallen lassen photoapparat
+gehen schwimmbad
+holen stecker
+gehen nach oben
+holen photoapparat
+druecken taste
+holen taschenlampe
+holen gaszylinder
+holen azethylbrenner
+holen rohr
+holen leiter
+gehen nach osten
+gehen nach osten
+gehen nach osten
+gehen nach osten
+gehen nach osten
+gehen ins kino
+gehen nach sueden
+lass projektor anlaufen
+gehen nach norden
+gehen nach norden
+gehen ins warenhaus
+gehen nach westen
+fallen lassen leiter
+holen saege
+gehen nach osten
+gehen nach sueden
+gehen nach westen
+gehen nach westen
+gehen nach westen
+gehen nach norden
+anstellen taschenlampe
+wegschmeissen taschenlampe
+schneiden briefkasten
+holen metallplatten
+gehen nach sueden
+gehen nach osten
+gehen nach osten
+gehen nach osten
+gehen ins warenhaus
+gehen nach norden
+schweissen platte
+gehen nach westen
+schweissen platte
+gehen nach osten
+gehen nach sueden
+gehen nach sueden
+gehen ins kino
+gehen sueden
+laufen
+lass projektor anlaufen
+gehen nach norden
+gehen nach norden
+gehen ins warenhaus
+gehen nach osten
+gehen nach osten
+schweissen platte
+gehen nach westen
+gehen nach oben
+gehen nach osten
+schweissen platte
+gehen nach westen
+gehen nach oben
+gehen nach westen
+oeffnen tuere
+eintreten tuere
+schweissen platte
+gehen nach osten
+gehen nach osten
+gehen nach osten
+oeffnen tuere
+eintreten tuere
+schweissen platte
+gehen nach norden
+gehen nach westen
+gehen nach unten
+gehen nach unten
+gehen nach westen
+gehen nach sueden
+gehen ins kino
+gehen nach sueden
+laufen
+anlaufen lassen projektor
+gehen nach norden
+gehen nach norden
+gehen ins warenhaus
+gehen nach westen
+lass saege fallen
+holen leiter
+gehen nach osten
+gehen nach osten
+gehen nach oben
+gehen nach oben
+gehen nach oben
+gehen nach westen
+eintreten tuere
+schweissen platte
+gehen nach osten
+gehen nach osten
+klettern decke
+schweissen platte
+gehen nach unten
+gehen nach unten
+gehen nach unten
+gehen nach unten
+gehen nach westen
+gehen nach westen
+laufen
+laufen
+laufen
+laufen
+laufen
+laufen
+laufen
+laufen
+laufen
+druecken taste
+schweissen platte
+einstecken elektrobohrer
+schliessen ventil
+fallen lassen azethylbrenner
+durchsuchen anzeige
+holen klebestreifen
+holen elektrobohrer
+bohren platte
+lass photoapparat fallen
+holen saege
+abschneiden rohr
+verbinden rohr
+anbringen rohr
+oeffnen ventil
+gehen nach osten
+gehen nach sueden
+gehen nach westen
+gehen nach westen
+gehen nach westen
+gehen nach westen
+fallen lassen platte
+lass elektrobohrer fallen
+fallen lassen saege
+laufen
+laufen
+laufen
+laufen
+laufen
+eintreten tuere
+gehen schwimmbad
+holen stripe
+gehen nach oben
+gehen nach osten
+

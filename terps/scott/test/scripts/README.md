@@ -3,7 +3,7 @@
 `make -f Makefile.headless scriptcheck` (from `terps/scott`) plays each command
 script in this folder through `scott_hl` on every image of its game in
 `../formats/games/` and compares the transcript with a hash in `scripts.tsv`.
-210 replays, about ten seconds.
+214 replays, about ten seconds.
 
 Where `formatcheck` shows that the loaders still produce the same tables, this
 shows that the interpreter still does the same things with them: the parser,
@@ -76,6 +76,20 @@ written for the TI-99/4A releases; they also win on many of the others.
 `gremlins-german` is the walkthrough on the C64-Wiki page
 (c64-wiki.de/wiki/Gremlins_–_The_Adventure).
 
+`gremlins-german-verb-first` is that walkthrough again with the verb moved to
+the front of every command: `gehen nach unten` for `nach unten gehen`,
+`holen saebel` for `saebel holen`, and `lass saebel fallen` and
+`fallen lassen saebel` in turn for `saebel fallen lassen`. The game's
+own examples have the verb last, but the original takes it in either place
+(the ZX Spectrum release in MAME: `holen saebel`, `angreifen gremlin`,
+`gehen nach oben`, `lass saebel fallen` and `fallen lassen saebel` all do what
+the verb-last forms do), and so does the interpreter (`CommandFromStrings()`
+in `parser.c`). So besides its own hashes this script
+has a second check (`SAME_AS` in `run_script_tests.py`): apart from the lines
+that echo the commands, its transcript has to be that of `gremlins-german` on
+every image. A command that is understood in one word order only fails the
+test by name, and `--bless` does not get it past that.
+
 A replay that does not finish is still deterministic, and that is all a
 regression test needs, but it covers less of the game.
 
@@ -101,6 +115,7 @@ regression test needs, but it covers less of the game.
 | `golden-baton` | won on C64 | dead on ZX (the Gorgon) |
 | `gremlins` | won on 6 of 8 | English only; the "alternate" ZX release stops one command short |
 | `gremlins-german` | won, all 4 | C64 and ZX. Changed from the wiki: `holen` for `nehmen`, which the game does not know; `anzeige` for `ladentisch`, which only the C64 knows; `taste druecken` once more at the pool; `laufen` for the waits |
+| `gremlins-german-verb-first` | won, all 4 | the same commands with the verb first; has to play out as `gremlins-german` does |
 | `hulk` | won on 14 of 18 | old random numbers. The two C64 and two of the four ZX images end in limbo: Banner is gassed on another turn there |
 | `robin-of-sherwood` | won, all 8 | old random numbers |
 | `seas-of-blood-c64`, `-zx` | won | old random numbers and `AUTOWIN`. Each wins on its own platform (2 C64 images, 4 ZX) and gets lost on the other |

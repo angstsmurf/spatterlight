@@ -13,6 +13,9 @@ exercises every loader and every variant of the game's text. Many of these
 replays do not reach the end of the game (see README.md). They are still
 deterministic, and that is all a regression test needs.
 
+A script named in SAME_AS is another script in other words, and also has to
+play out like it, command for command.
+
   run_script_tests.py [PREFIX...]         check (all rows, or the scripts or
                                           images whose name starts so)
   run_script_tests.py --bless [PREFIX...] rewrite the hashes
@@ -91,6 +94,28 @@ def transcript(binary, script, row, keys, games):
     return NOISE.sub(b"", out)
 
 
+# Scripts that say the same as another in other words: script -> (the other,
+# what a line that echoes a command looks like). The two have to play out
+# alike on every image, command for command (README.md).
+SAME_AS = {"gremlins-german-verb-first": ("gremlins-german", rb"(?m)^-+Was jetzt\? .*$")}
+
+
+def differs_from_twin(script, got, binary, row, keys, games):
+    """None, or how the transcript differs from that of the script's twin."""
+    twin, echo = SAME_AS[script]
+    turns = [re.split(echo, t)
+             for t in (got, transcript(binary, twin, row, keys, games))]
+    if turns[0] == turns[1]:
+        return None
+    n = next((i for i, (a, b) in enumerate(zip(*turns)) if a != b), None)
+    if n is None:
+        return f"{len(turns[0]) - 1} commands, {twin} has {len(turns[1]) - 1}"
+    if n == 0:
+        return f"starts unlike {twin}"
+    command = re.findall(echo, got)[n - 1].decode("latin-1")
+    return f"command {n} ({command.strip()}) does not do what it does in {twin}"
+
+
 def ending(text):
     lines = [l.strip() for l in text.decode("latin-1").splitlines()
              if l.strip() and "<end of input>" not in l and set(l.strip()) != {"*"}]
@@ -143,10 +168,16 @@ def main():
             with open(os.path.join(opt.save, script, id + ".txt"), "wb") as f:
                 f.write(got)
         if opt.list:
-            print(f"{script:24}{id:44}{ending(got)}")
+            print(f"{script:28}{id:44}{ending(got)}")
             continue
         now = [str(got.count(b"\n")), hashlib.sha256(got).hexdigest()]
-        if opt.bless:
+        other = script in SAME_AS and differs_from_twin(
+            script, got, opt.hl, rows[id], pair[4], opt.games)
+        if other:
+            # Not something a --bless can settle.
+            failed += 1
+            print(f"FAIL    {script} on {id}: {other}")
+        elif opt.bless:
             if pair[2:4] != now:
                 pair[2:4] = now
                 blessed += 1
@@ -162,7 +193,7 @@ def main():
     if opt.bless:
         write_table(pairs)
         print(f"blessed {blessed} of {len(runnable)} rows")
-        return 0
+        return 1 if failed else 0
     print(f"script tests: {passed} passed, {failed} failed, "
           f"{len(selected) - len(runnable)} skipped (image not in games/)")
     return 1 if failed else 0
