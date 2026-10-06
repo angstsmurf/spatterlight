@@ -94,6 +94,35 @@ static int cmp_str(const void *a, const void *b) {
 }
 
 // Render one .dat and compare against its .page. Returns 1 on a byte-exact match.
+// The games of both ground-truth corpora: one sub-folder each.
+static const char *const corpus_games[] = { "adventureland", "mission", "pirate", "strange" };
+#define NUM_CORPUS_GAMES ((int)(sizeof corpus_games / sizeof corpus_games[0]))
+
+// The *.dat files in dir, sorted so the run order is stable and readable.
+// Returns the count (the caller frees each name and the array), or -1 after a
+// warning if dir cannot be opened.
+static int list_dat_files(const char *dir, char ***out) {
+	DIR *d = opendir(dir);
+	if (!d) {
+		fprintf(stderr, "warning: cannot open %s\n", dir);
+		return -1;
+	}
+	char **names = NULL;
+	int count = 0, cap = 0;
+	struct dirent *ent;
+	while ((ent = readdir(d)) != NULL) {
+		size_t len = strlen(ent->d_name);
+		if (len > 4 && strcmp(ent->d_name + len - 4, ".dat") == 0) {
+			if (count == cap) { cap = cap ? cap * 2 : 64; names = realloc(names, cap * sizeof *names); }
+			names[count++] = strdup(ent->d_name);
+		}
+	}
+	closedir(d);
+	qsort(names, count, sizeof *names, cmp_str);
+	*out = names;
+	return count;
+}
+
 static int compare_one_image(const char *dir, const char *datname) {
 	char base[64];
 	snprintf(base, sizeof base, "%.*s", (int)(strlen(datname) - 4), datname); // strip ".dat"
@@ -149,32 +178,17 @@ static int compare_one_image(const char *dir, const char *datname) {
 }
 
 static int run_groundtruth_corpus(const char *root) {
-	static const char *games[] = { "adventureland", "mission", "pirate", "strange" };
+	const char *const *games = corpus_games;
 	int total = 0, passed = 0;
 
-	for (int g = 0; g < (int)(sizeof games / sizeof games[0]); g++) {
+	for (int g = 0; g < NUM_CORPUS_GAMES; g++) {
 		char dir[1024];
 		snprintf(dir, sizeof dir, "%s/%s", root, games[g]);
 
-		DIR *d = opendir(dir);
-		if (!d) {
-			fprintf(stderr, "warning: cannot open %s\n", dir);
+		char **names;
+		int count = list_dat_files(dir, &names);
+		if (count < 0)
 			continue;
-		}
-
-		// Collect the .dat names so the run order is stable and readable.
-		char **names = NULL;
-		int count = 0, cap = 0;
-		struct dirent *ent;
-		while ((ent = readdir(d)) != NULL) {
-			size_t len = strlen(ent->d_name);
-			if (len > 4 && strcmp(ent->d_name + len - 4, ".dat") == 0) {
-				if (count == cap) { cap = cap ? cap * 2 : 64; names = realloc(names, cap * sizeof *names); }
-				names[count++] = strdup(ent->d_name);
-			}
-		}
-		closedir(d);
-		qsort(names, count, sizeof *names, cmp_str);
 
 		int gpass = 0;
 		for (int i = 0; i < count; i++) {
@@ -264,26 +278,16 @@ static int compare_one_atari(const char *dir, const char *datname) {
 }
 
 static int run_atari_groundtruth_corpus(const char *root) {
-	static const char *games[] = { "adventureland", "mission", "pirate", "strange" };
+	const char *const *games = corpus_games;
 	int total = 0, passed = 0, known = 0;
 
-	for (int g = 0; g < (int)(sizeof games / sizeof games[0]); g++) {
+	for (int g = 0; g < NUM_CORPUS_GAMES; g++) {
 		char dir[1024];
 		snprintf(dir, sizeof dir, "%s/%s", root, games[g]);
-		DIR *d = opendir(dir);
-		if (!d) { fprintf(stderr, "warning: cannot open %s\n", dir); continue; }
-
-		char **names = NULL; int count = 0, cap = 0;
-		struct dirent *ent;
-		while ((ent = readdir(d)) != NULL) {
-			size_t len = strlen(ent->d_name);
-			if (len > 4 && strcmp(ent->d_name + len - 4, ".dat") == 0) {
-				if (count == cap) { cap = cap ? cap * 2 : 64; names = realloc(names, cap * sizeof *names); }
-				names[count++] = strdup(ent->d_name);
-			}
-		}
-		closedir(d);
-		qsort(names, count, sizeof *names, cmp_str);
+		char **names;
+		int count = list_dat_files(dir, &names);
+		if (count < 0)
+			continue;
 
 		int gpass = 0, gknown = 0;
 		for (int i = 0; i < count; i++) {
