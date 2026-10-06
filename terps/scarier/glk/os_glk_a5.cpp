@@ -459,6 +459,29 @@ gsc_a5_read_line (char *buf, int bufsize)
 }
 
 /*
+ * gsc_a5_popup_status()
+ *
+ * Bring the status line up to date before a popup blocks for its answer, as
+ * a <waitkey> does: the question is asked mid-turn, and the window would
+ * otherwise show the room and score from the last prompt until it is
+ * answered.  gsc_a5_status leaves the main window selected, so the stream the
+ * popup is about to print to is put back.
+ */
+static void
+gsc_a5_popup_status (void)
+{
+  strid_t current;
+
+  if (gsc_a5_run == NULL)
+    return;
+  current = glk_stream_get_current ();
+  gsc_a5_status (gsc_a5_run);
+  if (current != NULL)
+    glk_stream_set_current (current);
+}
+
+
+/*
  * gsc_a5_popup_input()
  *
  * Answer the %PopUpInput[prompt, default]% text function -- ADRIFT's naming
@@ -483,6 +506,8 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
      chose): take the default without troubling anyone. */
   if (gsc_main_window == NULL || gsc_a5_popup_silent)
     return NULL;
+
+  gsc_a5_popup_status ();
 
   gsc_a5_put_string ("\n");
   if (prompt != NULL && prompt[0] != '\0')
@@ -579,6 +604,8 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
      gave): leave the question unasked, as an unattended Runner does. */
   if (gsc_main_window == NULL || gsc_a5_popup_silent)
     return -1;
+
+  gsc_a5_popup_status ();
 
   /* This runs inside the engine (mid text-render), so a TimeBased tick must
      not re-enter it: hold real-time mode off for the duration, which also
