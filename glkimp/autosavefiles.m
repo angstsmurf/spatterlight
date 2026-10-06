@@ -82,13 +82,22 @@ static bool move_into_place(NSString *dirname, NSString *tmpname,
     NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
     NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
 
+    /* With no final file to back up, the replace below would leave a
+     * stale -bak from an earlier turn for roll_back to find. */
     [fileManager removeItemAtPath:bakpath error:nil];
-    [fileManager moveItemAtPath:finalpath toPath:bakpath error:nil];
 
+    /* The backup must outlive the call: roll_back needs it if the other
+     * file of the pair cannot follow. */
     NSError *error = nil;
-    if (![fileManager moveItemAtPath:tmppath toPath:finalpath error:&error]) {
+    if (![fileManager replaceItemAtURL:[NSURL fileURLWithPath:finalpath isDirectory:NO]
+                         withItemAtURL:[NSURL fileURLWithPath:tmppath isDirectory:NO]
+                        backupItemName:bakname
+                               options:NSFileManagerItemReplacementWithoutDeletingBackupItem
+                      resultingItemURL:nil
+                                 error:&error]) {
         NSLog(@"autosave: could not move %@ to final position: %@", tmpname, error);
-        /* Put the old file back so the previous autosave stays usable. */
+        /* Put the old file back so the previous autosave stays usable.
+         * This fails harmlessly if the final file was never moved away. */
         [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
         return false;
     }
@@ -127,8 +136,9 @@ bool gli_autosave_write(const char *gamepath, const void *data, size_t length,
         NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
         NSData *gamedata = [NSData dataWithBytes:data length:length];
         NSError *error = nil;
-        if (![gamedata writeToFile:tmpgamepath options:NSDataWritingAtomic error:&error]) {
+        if (![gamedata writeToFile:tmpgamepath options:0 error:&error]) {
             NSLog(@"autosave: game state write failed: %@", error);
+            [[NSFileManager defaultManager] removeItemAtPath:tmpgamepath error:nil];
             return false;
         }
     }
@@ -164,8 +174,9 @@ bool gli_autosave_commit(const char *gamepath, gli_autosave_hook archive_hook)
             [fileManager removeItemAtPath:tmpgamepath error:nil];
             return false;
         }
-        if (![archiveData writeToFile:tmplibpath options:NSDataWritingAtomic error:&error]) {
+        if (![archiveData writeToFile:tmplibpath options:0 error:&error]) {
             NSLog(@"autosave: library write failed: %@", error);
+            [fileManager removeItemAtPath:tmplibpath error:nil];
             [fileManager removeItemAtPath:tmpgamepath error:nil];
             return false;
         }
