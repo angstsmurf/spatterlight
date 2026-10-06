@@ -249,7 +249,7 @@ const char *EnglishSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
 
 const char *GermanSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
     NULL, "nach", "die", "der", "das", "im", "mein", "meine", "an",
-    "auf", "den", "lassen", "lass", "fallen", " ", " ", " ", " "
+    "auf", "den", "lassen", "lass", "fallen", "in", "ins", "zur", "zum"
 };
 
 const char *SkipList[NUMBER_OF_SKIPPABLE_WORDS];
@@ -1045,7 +1045,20 @@ static Command *CommandFromStrings(int index, Command *previous)
 
     if (list == Directions) {
         /* It is a direction */
-        if (verb == 0 || FindExtraneousWords(&i, 0) != 0)
+        if (verb == 0)
+            return NULL;
+        /* German has the verb last: "nach unten gehen" */
+        if (i < WordsInInput && (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64)) {
+            const char **verblist = NULL;
+            int go = FindVerb(CharWords[i], &verblist);
+            if (verblist == (const char **)Verbs) {
+                while (go > 1 && Verbs[go][0] == '*')
+                    go--;
+                if (go == GO)
+                    i++;
+            }
+        }
+        if (FindExtraneousWords(&i, 0) != 0)
             return NULL;
         return CreateCommandStruct(GO, verb, 0, i, previous);
     }
