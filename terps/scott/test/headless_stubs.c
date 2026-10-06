@@ -8,6 +8,7 @@
        gli_get_dataresource_info            -> CheapGlk (main.c)
      - FindGlkWindowWithRock                -> common_utils (common_utils.c) */
 
+#include <stdlib.h>
 #include <stdint.h>
 
 #include "glk.h"
@@ -39,8 +40,14 @@ void win_testresult(int result)
    every run -- which makes before/after diffing useless. CheapGlk owns the
    definition (cgmisc.c); we only flip it. */
 extern int gli_determinism;
+/* Key presses the way the app's command scripts type them (cgmisc.c), so that
+   a "hit enter" pause does not swallow the command after it. Only the command
+   script tests ask for it (test/scripts/run_script_tests.py): the goldens of
+   "make check" were made without, and have no echoed commands in them. */
+extern int gli_script_keys;
 
 __attribute__((constructor)) static void headless_force_determinism(void)
 {
     gli_determinism = 1;
+    gli_script_keys = getenv("SCOTT_SCRIPT_KEYS") != NULL;
 }

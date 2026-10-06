@@ -243,9 +243,13 @@ terps/scott/scott_format_probe
 # Plus and TaylorMade picture test build artifacts and (copyrighted) games
 terps/plus/headless_obj/
 terps/plus/plus_image_probe
+terps/plus/headless_text_obj/
+terps/plus/plus_hl
 terps/plus/test/images/games/
 terps/taylor/headless_obj/
 terps/taylor/taylor_image_probe
+terps/taylor/headless_text_obj/
+terps/taylor/taylor_hl
 terps/taylor/test/images/games/
 terps/taylor/test/images/mame/
 

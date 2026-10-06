@@ -1,0 +1,126 @@
+open coffin
+examine coffin
+get ring
+e
+wave ring
+drop ring
+go chute
+get plaque
+go hole
+examine ball
+w
+s
+w
+s
+e
+get sword
+get shield
+w
+n
+e
+get glass
+e
+n
+e
+e
+examine chemicals
+mix chemicals
+get chemicals
+drink chemicals
+w
+w
+s
+move kettle
+go hole
+read plaque
+get foot
+u
+n
+remove heads
+drop heads
+drop sword
+turn 38
+turn 33
+examine safe
+get hammer
+drop glass
+drop plaque
+s
+w
+w
+s
+go door
+get saw
+examine grave
+get clover
+e
+n
+go cell
+read leaflet
+saw door
+e
+n
+drop foot
+on man
+w
+go fireplace
+get idol
+dust idol
+open flue
+go flue
+remove nails
+drop nails
+drop hammer
+remove boards
+saw grating
+drop saw
+drop grating
+press button
+push sweep
+read paper
+d
+d
+s
+e
+s
+go stairs
+say zap
+listen
+drop paper
+d
+e
+n
+e
+e
+get bag
+w
+drop shield
+w
+s
+w
+n
+e
+go chute
+open bag
+examine bag
+get book
+get stick
+read book
+wave bag
+go crack
+drop bag
+read page
+s
+go hole
+summon medium
+examine ball
+get knife
+w
+n
+go window
+get doll
+s
+s
+circle coffin
+wave stick
+yell chant

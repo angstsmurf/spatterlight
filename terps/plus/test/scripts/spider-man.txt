@@ -1,0 +1,188 @@
+go ceiling
+w
+get formula
+get gem
+e
+e
+open doors
+
+
+go shaft
+look niches
+u
+look niches
+u
+look niches
+push elevator
+u
+look niches
+w
+open desk
+open painting
+lower
+lower
+lower
+get all
+go shaft
+go all the way down
+w
+w
+n
+n
+drop all gems
+s
+e
+get ice statue
+i
+w
+s
+e
+go shaft
+u
+u
+w
+w
+s
+get exotic powders
+n
+n
+make fluid
+s
+s
+get all
+n
+n
+mix hydrochloric acid with calcium carbonate
+get chloride
+s
+close eyes
+w
+push knob
+turn knob
+open eyes
+get gem
+e
+e
+go shaft
+go all the way down
+w
+w
+n
+shoot web at gem
+
+
+n
+drop all gems
+s
+e
+get ice
+n
+y
+w
+s
+s
+throw chloride at lizard
+look conners
+get conners
+n
+n
+n
+drop gem
+s
+i
+s
+e
+go shaft
+u
+w
+
+
+w
+go ceiling
+open duct
+go duct
+shoot web at fan
+
+
+shoot web at fan
+
+
+shoot web at fan
+
+
+again
+
+
+again
+
+
+shoot web at button
+
+
+get gem
+go fan
+get gem
+go all the way down
+grab dr ock
+
+hit electro
+look doc ock
+
+look electro
+
+w
+drop all
+e
+get all
+w
+drop all
+get all gems
+get ice block
+e
+u
+go all the way up
+d
+d
+e
+e
+go shaft
+u
+w
+w
+w
+go computer
+type run
+type new
+e
+e
+go shaft
+u
+w
+raise
+raise
+i
+empty aquarium get gem
+e
+d
+d
+w
+w
+w
+jump
+feel north
+get gem
+s
+feel south
+get gem
+n
+e
+e
+
+e
+d
+w
+w
+n
+n
+drop all gems
+score

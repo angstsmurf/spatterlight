@@ -1,0 +1,318 @@
+go shoulders
+grab leg
+strangle guard
+search guard
+get sword
+undo bolt
+open grating
+go grating
+go door
+go gates
+go battlements
+go door
+go left
+open chest
+go door
+go right
+talk to marion
+go bed
+go window
+
+
+w
+n
+n
+n
+n
+go waterfall
+get all
+talk to herne
+
+e
+go waterfall
+n
+w
+w
+w
+n
+w
+w
+n
+e
+e
+n
+e
+n
+en
+e
+n
+knock door
+talk to nun
+s
+e
+s
+s
+s
+s
+s
+s
+w
+w
+w
+w
+w
+w
+e
+n
+i
+n
+w
+e
+e
+get quarterstaff
+attack john
+n
+n
+wait
+s
+s
+s
+s
+s
+s
+e
+go nottingham
+shoot arrow
+grab sheriff
+get arrow
+go gates
+drop sheriff
+n
+go tree
+look tree
+d
+w
+w
+w
+w
+e
+s
+s
+w
+w
+e
+e
+e
+e
+e
+e
+e
+e
+n
+e
+n
+e
+n
+e
+n
+e
+e
+go door
+s
+kill belleme
+free marion
+look body
+get touchstone
+look body
+get arrow
+n
+go door
+climb statue
+look statue
+look eyes
+get coins
+look eyes
+d
+w
+w
+e
+e
+talk to marion
+talk to john
+w
+w
+n
+n
+n
+n
+n
+w
+stop gregory
+look cart
+look grain
+get coins
+e
+e
+s
+e
+e
+n
+n
+w
+n
+s
+w
+w
+s
+w
+n
+w
+s
+s
+e
+e
+e
+e
+s
+e
+e
+e
+say follow
+w
+w
+n
+n
+n
+n
+n
+n
+w
+n
+s
+exam
+go cave
+n
+get siward
+s
+s
+s
+w
+s
+w
+s
+w
+w
+drop quiver
+drop bow
+say wait
+s
+say wait
+w
+w
+w
+w
+e
+e
+s
+w
+w
+w
+s
+w
+e
+n
+n
+n
+e
+n
+e
+n
+n
+w
+w
+w
+n
+w
+n
+i
+e
+e
+s
+s
+s
+s
+s
+stop cart
+enter cart
+wait
+leave cart
+go battlements
+go door
+go left
+drop siward
+kill siward
+examine chest
+examine chest
+examine chest
+get all
+go door
+go right
+go window
+n
+n
+n
+n
+n
+n
+n
+w
+n
+n
+w
+n
+w
+give crest
+get touchstone
+e
+n
+e
+n
+e
+n
+e
+n
+knock
+drop gold
+drop gold
+drop gold
+get touchstone
+s
+w
+s
+w
+s
+w
+s
+w
+w
+w
+go tree
+look tree
+get touchstone
+d
+e
+e
+e
+e
+s
+s
+w
+w
+s
+w
+drop touchstone
+drop touchstone
+drop touchstone
+drop touchstone
+drop touchstone
+drop arrow

@@ -1,0 +1,159 @@
+d
+get suit
+get phaser
+get shovel
+to destroy
+u
+push red
+go door
+wear suit
+push red
+go door
+jump
+n
+n
+go cave
+shoot boulder
+go light
+remove suit
+drop phaser
+pull rod
+push rod
+pull rod
+push rod
+pull rod
+push rod
+pull rod
+push rod
+touch plastic
+wear suit
+go light
+get painting
+get sculpture
+go light
+remove suit
+wear goggles
+look painting
+drop painting
+drop goggles
+get belt
+drop sculpture
+pull rod
+push rod
+touch plastic
+wear belt
+drop shovel
+twist buckle
+wear suit
+go light
+get brandy
+go light
+drop brandy
+go light
+get metal
+go light
+remove suit
+twist buckle
+drop belt
+drop metal
+get shovel
+get phaser
+to stun
+pull rod
+touch plastic
+push rod
+pull rod
+push rod
+touch plastic
+go light
+dig
+get pick
+drop shovel
+go jungle
+e
+shoot hound
+get hound
+s
+w
+go light
+pull rod
+push rod
+touch plastic
+wear suit
+go light
+drop hound
+say any
+say any
+wake hound
+w
+pick mound
+shoot hound
+get diamond
+to destroy
+shoot mound
+n
+n
+go light
+remove suit
+drop pick
+get brandy
+get belt
+get painting
+pull rod
+touch plastic
+push rod
+touch plastic
+wear suit
+go light
+u
+w
+go ship
+push red
+remove suit
+drop brandy
+drop diamond
+drop belt
+drop painting
+wear suit
+push red
+go door
+jump
+n
+n
+go cave
+go light
+get metal
+get sculpture
+break rod
+go light
+u
+w
+go ship
+push red
+remove suit
+go door
+d
+open hatch
+go crawl
+put rod
+u
+drop hatch
+drop metal
+u
+push red
+push blue
+push red
+go door
+drop suit
+get diamond
+get belt
+get painting
+get brandy
+push red
+go door
+drop belt
+drop brandy
+drop diamond
+drop painting
+drop sculpture
+score

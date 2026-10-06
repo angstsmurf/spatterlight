@@ -1,5 +1,6 @@
-# Headless build of the Plus interpreter's image probe, for the picture
-# regression tests (test/images/README.md).
+# Headless builds of the Plus interpreter: the image probe, for the picture
+# regression tests (test/images/README.md), and plus_hl, a stdio build for the
+# command script tests (test/scripts/README.md).
 #
 # The whole interpreter is linked against the vendored CheapGlk for streams and
 # files, and against the fake window layer in ../common_imagetest for windows
@@ -9,6 +10,7 @@
 #
 # Usage:
 #   make -f Makefile.headless imagecheck
+#   make -f Makefile.headless scriptcheck
 #   ./plus_image_probe -d /tmp/pictures "/path/to/Spider-Man side A.atr"
 
 CHEAPGLK_DIR := ../cheapglk
@@ -38,7 +40,7 @@ SRCS := $(wildcard *.c) test/image_probe.c \
         $(C64DISK_DIR)/c64diskimage.c
 
 OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS))) $(OBJDIR)/image_glk.o
-VPATH := .:test:$(COMMON_DIR):$(SAGADRAW_DIR):$(READWOZ_DIR):$(C64DISK_DIR)
+VPATH := .:test:$(PROBE_DIR):$(COMMON_DIR):$(SAGADRAW_DIR):$(READWOZ_DIR):$(C64DISK_DIR)
 
 # CheapGlk without its main.o: the probe has its own main().
 CHEAPGLK_LIB  := $(CHEAPGLK_DIR)/libcheapglk.a
@@ -68,9 +70,33 @@ $(OBJDIR)/image_glk.o: $(PROBE_DIR)/image_glk.c | $(OBJDIR)
 imagecheck: plus_image_probe
 	@python3 $(PROBE_DIR)/run_image_tests.py test/images ./plus_image_probe
 
+# The interpreter on plain CheapGlk: commands on stdin, transcript on stdout,
+# no pictures. The same sources as the probe, built without the window
+# renames, with $(PROBE_DIR)/text_main.c in place of the probe and its window
+# layer.
+#
+#   printf '\n\n\nlook\n' | ./plus_hl /path/to/SPL53P.DAT
+TEXT_OBJDIR := headless_text_obj
+TEXT_SRCS   := $(filter-out test/image_probe.c,$(SRCS)) $(PROBE_DIR)/text_main.c
+TEXT_OBJS   := $(patsubst %.c,$(TEXT_OBJDIR)/%.o,$(notdir $(TEXT_SRCS)))
+
+plus_hl: $(TEXT_OBJS) $(CHEAPGLK_LIB)
+	$(CC) $(LDFLAGS) -o $@ $(TEXT_OBJS) $(CHEAPGLK_OBJS) -lz
+
+$(TEXT_OBJDIR):
+	mkdir -p $(TEXT_OBJDIR)
+
+$(TEXT_OBJDIR)/%.o: %.c | $(TEXT_OBJDIR)
+	$(CC) $(BASEFLAGS) -c $< -o $@
+
+# Command script replays on the picture test images: transcript hashes of
+# whole playthroughs. Skips, like imagecheck, the rows whose game is missing.
+scriptcheck: plus_hl
+	@python3 $(PROBE_DIR)/run_script_tests.py test/scripts test/images ./plus_hl
+
 clean:
-	rm -rf $(OBJDIR) plus_image_probe
+	rm -rf $(OBJDIR) $(TEXT_OBJDIR) plus_image_probe plus_hl
 
-.PHONY: clean imagecheck
+.PHONY: clean imagecheck scriptcheck
 
--include $(OBJS:.o=.d)
+-include $(OBJS:.o=.d) $(TEXT_OBJS:.o=.d)

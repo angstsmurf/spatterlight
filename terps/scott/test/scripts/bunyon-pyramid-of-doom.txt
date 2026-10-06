@@ -1,0 +1,176 @@
+get pole
+go pool
+get water
+get key
+e
+e
+n
+dig
+get key
+s
+dig
+get stone
+go hole
+unlock door
+u
+unlock door
+go door
+light flashlite
+drop key
+drop key
+get pistol
+n
+e
+get flute
+w
+s
+s
+look ashes
+get necklace
+look fireplace
+get coal
+wash coal
+play flute
+go passage
+n
+e
+drop flute
+get jerky
+look hieroglyphics
+read markings
+drop necklace
+w
+n
+feed oyster
+w
+s
+open sarcophagus
+go sarcophagus
+d
+pour water
+drop canteen
+drop stone
+drop shovel
+get tapestry
+go alcove
+look box
+look box
+get glove
+look skull
+get teeth
+get skull
+w
+s
+drop skull
+n
+n
+wear gloves
+hit bricks
+go door
+get gloves
+feel floor
+get coin
+e
+light flashlite
+get glove
+get scarab
+w
+w
+light flashlite
+s
+u
+w
+n
+e
+go archway
+e
+drop tapestry
+drop coin
+drop scarab
+drop teeth
+w
+n
+w
+s
+get key
+get key
+drop key
+go sarcophagus
+d
+n
+get rope
+s
+s
+climb ladder
+s
+get sapphire
+throw ruby
+throw rope
+w
+n
+look explorer
+look rubbish
+get pin
+get carving
+w
+s
+climb rope
+open chest
+get crown
+d
+w
+d
+n
+u
+w
+n
+e
+go archway
+e
+drop crown
+drop carving
+drop pin
+drop sapphire
+w
+n
+w
+s
+go sarcophagus
+d
+s
+get saw
+get glove
+climb ladder
+s
+climb rope
+pull chain
+go staircase
+wear glove
+unlock coffer
+open coffer
+look coffer
+get bracelet
+saw bars
+go window
+get bar
+w
+d
+d
+w
+d
+n
+u
+w
+n
+saw table
+get necklace
+e
+drop glove
+get pearl
+go archway
+e
+drop pearl
+drop necklace
+drop bar
+drop bracelet
+score

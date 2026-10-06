@@ -162,8 +162,10 @@ unsigned char WaitCharacter(void)
 static void WordFlush(winid_t win)
 {
     int i;
+    /* Without a status window Top is Bottom (OpenTopWindow), and everything
+       is plain scrollback. */
     for (i = 0; i < OutCount; i++) {
-        if (win == Top)
+        if (win == Top && Top != Bottom)
             WriteToRoomDescriptionStream("%c", OutWord[i]);
         else
             Display(win, "%c", OutWord[i]);

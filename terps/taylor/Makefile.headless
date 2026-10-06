@@ -1,5 +1,6 @@
-# Headless build of the TaylorMade interpreter's image probe, for the picture
-# regression tests (test/images/README.md).
+# Headless builds of the TaylorMade interpreter: the image probe, for the
+# picture regression tests (test/images/README.md), and taylor_hl, a stdio
+# build for the command script tests (test/scripts/README.md).
 #
 # The whole interpreter is linked against the vendored CheapGlk for streams and
 # files, and against the fake window layer in ../common_imagetest for windows
@@ -10,6 +11,7 @@
 # Usage:
 #   make -f Makefile.headless imagecheck
 #   make -f Makefile.headless mamecheck
+#   make -f Makefile.headless scriptcheck
 #   ./taylor_image_probe -d /tmp/pictures /path/to/rebelplanet.z80
 
 CHEAPGLK_DIR := ../cheapglk
@@ -46,7 +48,7 @@ UNP64_SRCS := $(wildcard $(UNP64_DIR)/*.cpp) $(wildcard $(UNP64_DIR)/scanners/*.
 
 OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS))) $(OBJDIR)/image_glk.o \
         $(patsubst %.cpp,$(OBJDIR)/%.o,$(notdir $(UNP64_SRCS)))
-VPATH := .:test:$(COMMON_DIR):$(GRAPHICS_DIR):$(ZXSCREEN_DIR):$(Z80_DIR):$(C64DISK_DIR):$(UNP64_DIR):$(UNP64_DIR)/scanners
+VPATH := .:test:$(PROBE_DIR):$(COMMON_DIR):$(GRAPHICS_DIR):$(ZXSCREEN_DIR):$(Z80_DIR):$(C64DISK_DIR):$(UNP64_DIR):$(UNP64_DIR)/scanners
 
 # CheapGlk without its main.o: the probe has its own main().
 CHEAPGLK_LIB  := $(CHEAPGLK_DIR)/libcheapglk.a
@@ -84,9 +86,34 @@ imagecheck: taylor_image_probe
 mamecheck: taylor_image_probe
 	@python3 test/images/mame_compare.py
 
+# The interpreter on plain CheapGlk: commands on stdin, transcript on stdout,
+# no pictures. The same sources as the probe, built without the window
+# renames, with $(PROBE_DIR)/text_main.c in place of the probe and its window
+# layer.
+#
+#   printf '\n\n\nlook\n' | ./taylor_hl /path/to/rebelplanet.z80
+TEXT_OBJDIR := headless_text_obj
+TEXT_SRCS   := $(filter-out test/image_probe.c,$(SRCS)) $(PROBE_DIR)/text_main.c
+TEXT_OBJS   := $(patsubst %.c,$(TEXT_OBJDIR)/%.o,$(notdir $(TEXT_SRCS))) \
+               $(patsubst %.cpp,$(OBJDIR)/%.o,$(notdir $(UNP64_SRCS)))
+
+taylor_hl: $(TEXT_OBJS) $(CHEAPGLK_LIB)
+	$(CXX) $(LDFLAGS) -o $@ $(TEXT_OBJS) $(CHEAPGLK_OBJS) -lz
+
+$(TEXT_OBJDIR):
+	mkdir -p $(TEXT_OBJDIR)
+
+$(TEXT_OBJDIR)/%.o: %.c | $(TEXT_OBJDIR)
+	$(CC) $(BASEFLAGS) -c $< -o $@
+
+# Command script replays on the picture test images: transcript hashes of
+# whole playthroughs. Skips, like imagecheck, the rows whose game is missing.
+scriptcheck: taylor_hl
+	@python3 $(PROBE_DIR)/run_script_tests.py test/scripts test/images ./taylor_hl
+
 clean:
-	rm -rf $(OBJDIR) taylor_image_probe
+	rm -rf $(OBJDIR) $(TEXT_OBJDIR) taylor_image_probe taylor_hl
 
-.PHONY: clean imagecheck mamecheck
+.PHONY: clean imagecheck mamecheck scriptcheck
 
--include $(OBJS:.o=.d)
+-include $(OBJS:.o=.d) $(TEXT_OBJS:.o=.d)

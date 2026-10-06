@@ -1,0 +1,146 @@
+get sack
+get rum
+get sneakers
+climb stairs
+get book
+read book
+go passage
+e
+open bag
+get matches
+get torch
+w
+w
+go window
+say yoho
+drop sneakers
+drop book
+drop sack
+e
+go shack
+give rum
+w
+e
+go path
+light torch
+go crack
+go shed
+get hammer
+get wings
+n
+get sails
+go crack
+unlight torch
+d
+w
+w
+drop torch
+drop matches
+drop sails
+drop wings
+get book
+get sneakers
+say yoho
+go window
+go passage
+e
+wake pirate
+get bottle
+w
+w
+d
+remove nails
+get rug
+drop rug
+get keys
+say yoho
+say yoho
+drop book
+drop sneakers
+drop hammer
+drop nails
+get torch
+get matches
+light torch
+drop matches
+get wings
+go lagoon
+n
+get water
+get fish
+s
+s
+e
+e
+go cave
+d
+drop fish
+unlock door
+go hall
+e
+go shed
+get shovel
+n
+get lumber
+w
+go pit
+u
+w
+w
+drop torch
+go shack
+unlock chest
+look chest
+look chest
+drop bottle
+get map
+get plans
+w
+w
+drop lumber
+go lagoon
+dig
+dig
+get anchor
+s
+make ship
+drop plans
+drop wings
+get parrot
+get hammer
+get sack
+go ship
+wait
+set sail
+go beach
+s
+e
+read map
+pace 30
+dig
+open box
+drop hammer
+drop keys
+get stamp
+go monastery
+release parrot
+get doubloons
+w
+w
+n
+dig
+s
+wake pirate
+n
+go ship
+set sail
+go beach
+drop sack
+get sneakers
+get book
+say yoho
+go window
+d
+drop doubloons
+drop stamp
+score

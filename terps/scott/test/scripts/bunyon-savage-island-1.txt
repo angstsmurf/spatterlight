@@ -1,0 +1,194 @@
+dig sand
+use hands
+look hole
+get bottle
+go east
+go tree
+get coconuts
+go down
+go west
+go south
+go volcano
+go volcano
+drop coconuts
+drop bottle
+drop watch
+go lake
+swim
+get bottle
+go cave
+empty bottle
+go east
+drop bottle
+go lake
+swim west
+go crevice
+jump
+go east
+go east
+wait
+get log
+go west
+go south
+go volcano
+get bottle
+go lake
+swim west
+drop log
+go crevice
+jump
+go east
+go down
+get water
+go south
+go south
+go volcano
+drop bottle
+go lake
+swim
+get bottle
+go cave
+go crevice
+empty bottle
+go crevice
+wait
+wait
+go crevice
+get salt
+go crevice
+give salt
+get rum
+drop bottle
+go east
+go lake
+swim west
+get log
+go east
+swim
+get coconuts
+go cave
+get bottle
+get bones
+go east
+go lake
+drop log
+hold breath
+swim east
+swim north
+get knife
+get block
+swim up
+get log
+swim west
+drop log
+sleep
+go crevice
+jump
+go east
+go down
+drop coconuts
+drop bottle
+drop bones
+drop block
+go south
+cut vines
+get vines
+go east
+get log
+go west
+go down
+drop log
+drop knife
+drop vines
+go south
+go south
+go volcano
+go lake
+swim west
+get log
+go east
+swim
+go up
+go lake
+swim west
+go crevice
+jump
+go east
+go south
+get log
+go north
+go down
+make raft
+get bottle
+get knife
+get bones
+get block
+get coconuts
+go raft
+paddle
+paddle
+paddle
+paddle
+go atoll
+wait
+give bottle
+get bandanna
+get note
+read note
+go raft
+paddle
+go beach
+go cave
+move stalctite
+with coconuts
+go crevice
+go north
+go west
+go field
+go field
+wait
+go field
+go field
+go east
+go south
+go south
+go south
+go raft
+paddle
+paddle
+paddle
+paddle
+go tide
+go south
+go south
+go volcano
+go cave
+go opening
+go north
+go north
+go north
+go north
+go west
+go north
+dig hole
+with hands
+drop coconuts
+get wire
+go west
+go down
+go crevice
+go north
+go east
+go south
+repair machinery
+with wire
+go north
+go west
+go south
+go east
+push button
+go west
+go north
+go west
+say free
+go field

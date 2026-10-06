@@ -1,0 +1,199 @@
+w
+n
+go palace
+get gold
+e
+s
+e
+buy sandals
+get sandals
+w
+buy compass
+get compass
+buy telescope
+get telescope
+buy tablet
+get tablet
+w
+buy ship
+go ship
+drop gold
+drop compass
+raise anchor
+sail west
+climb mast
+look telescope
+d
+drop anchor
+wear sandals
+go island
+n
+go mountain
+get sword
+d
+s
+w
+get shovel
+e
+go ship
+raise anchor
+sail east
+sail east
+sail east
+sail north
+climb mast
+look telescope
+go down
+drop sword
+drop telescope
+drop anchor
+go beach
+go jungle
+go north
+dig
+dig
+get torch
+get stone
+go south
+go west
+go ship
+drop stone
+drop shovel
+raise anchor
+sail west
+sail west
+sail south
+get telescope
+climb mast
+look telescope
+climb down
+drop telescope
+get sword
+drop anchor
+go strand
+look statue
+wait
+wait
+go staircase
+push statue
+drop sword
+get flint
+walk up
+w
+pray
+light torch
+go passage
+w
+get stone
+e
+n
+unlight torch
+e
+go stairs
+walk down
+look rubble
+get stone
+go ship
+drop stone
+drop stone
+raise anchor
+sail north
+sail east
+sail east
+drop anchor
+get shovel
+go beach
+go jungle
+n
+light torch
+go cave
+drop tablet
+in fountain
+w
+unlight torch
+s
+dig
+get rope
+s
+w
+go ship
+raise anchor
+sail west
+sail west
+sail west
+drop anchor
+get tablet
+go island
+n
+look tablet
+say sun
+light torch
+go crevice
+drop tablet
+in fountain
+look fountain
+get globe
+go crevice
+unlight torch
+s
+go ship
+raise anchor
+sail east
+sail south
+drop anchor
+go strand
+s
+dig
+drop shovel
+get key
+n
+climb stairs
+walk up
+w
+n
+unlock chest
+drop key
+look chest
+get mask
+s
+drop sandals
+look altar
+get chalice
+light torch
+go passage
+go hallway
+e
+tie rope
+to stalagmite
+drop rope
+in pit
+climb rope
+wear mask
+s
+drop globe
+go cave
+w
+fill chalice
+remove mask
+e
+n
+n
+climb rope
+w
+n
+n
+unlight torch
+get sandals
+wear sandals
+e
+go staircase
+walk down
+go ship
+raise anchor
+sail north
+drop anchor
+go city
+e
+n
+go palace
+give chalice

@@ -1,0 +1,254 @@
+west
+go store
+get shovel
+get matches
+get compass
+read sign
+north
+west
+west
+go stable
+go stall
+get horseshoe
+look compass
+drop compass
+south
+south
+east
+go hotel
+go counter
+get cashbox
+north
+north
+east
+go store
+drop cashbox
+north
+east
+go jail
+open door
+with horseshoe
+go jail
+get derringer
+north
+east
+east
+shoot snake
+dig
+go grave
+get coin
+up
+west
+west
+west
+go store
+drop coin
+drop derringer
+north
+go saloon
+get bell
+s
+w
+go hotel
+e
+ring bell
+go bed
+sleep
+get up
+drop bell
+w
+n
+e
+wait
+wait
+go saloon
+clap
+open piano
+read map
+s
+w
+go hotel
+east
+move bed
+west
+north
+west
+west
+west
+south
+light ravine
+go ravine
+go mine
+light match
+down
+light match
+get candle
+light candle
+south
+dig roof
+get nugget
+north
+up
+get bullet
+up
+unlight candle
+get charcoal
+up
+n
+e
+e
+e
+e
+go store
+drop bullet
+drop nugget
+north
+east
+go barbershop
+get hat
+s
+w
+w
+go office
+move safe
+splice wires
+tap key
+shake hat
+drop hat
+get key
+drop charcoal
+s
+e
+e
+go jail
+open door
+go door
+drop key
+get hammer
+n
+n
+w
+w
+go hotel
+e
+go bed
+sleep
+get up
+w
+n
+w
+go stable
+dig pile
+get crystals
+go stall
+go paint
+get spurs
+wear spurs
+kick paint
+get up
+go stall
+drop hammer
+go hole
+get keg
+north
+empty keg
+shoe paint
+drop keg
+go paint
+say giddyap
+go teepee
+get tom
+get necklace
+hit tom
+say how
+get up
+s
+e
+e
+go store
+drop tom
+drop necklace
+drop spurs
+n
+w
+go hotel
+e
+get tape
+w
+n
+go office
+drop crystals
+s
+w
+w
+w
+n
+dig
+drop shovel
+get powder
+s
+e
+e
+go stable
+go stall
+get keg
+s
+s
+e
+go office
+make gunpowder
+fill keg
+with gunpowder
+s
+e
+go saloon
+tape mirror
+break mirror
+go hole
+get go
+east
+pass go
+drop tape
+get $200
+south
+go store
+drop go
+drop $200
+north
+west
+west
+west
+west
+south
+jump ravine
+west
+go shack
+tap key
+get plank
+drop plank
+go hole
+get pelts
+up
+south
+east
+jump ravine
+north
+east
+east
+east
+look safe
+get bag
+east
+go store
+drop pelts
+drop bag
+north
+go saloon
+wait
+wait
+dance
+light candle
+south
+go store
+drop cup
+score

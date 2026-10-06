@@ -1,0 +1,164 @@
+get sheets
+get up
+n
+w
+go dumb-waiter
+raise dumb-waiter
+go room
+get garlic
+get matches
+go dumb-waiter
+lower dumb-waiter
+lower dumb-waiter
+go room
+d
+tie sheets
+to rings
+climb sheets
+light match
+get torch
+climb sheets
+u
+go vent
+go dumb-waiter
+raise dumb-waiter
+go room
+e
+wait
+wait
+wait
+e
+get postcard
+read postcard
+remove clip
+drop postcard
+drop note
+w
+w
+go dumb-waiter
+lower dumb-waiter
+go room
+pick lock
+open door
+go door
+empty vial
+get tablets
+eat tablet
+light torch
+drop stake
+w
+close door
+lock door
+go dumb-waiter
+raise dumb-waiter
+go room
+go oven
+get nailfile
+w
+e
+s
+go bed
+unlight torch
+sleep
+drop clip
+get sheets
+get up
+tie sheets
+to bed
+get end
+open window
+go window
+drop end
+climb sheet
+go window
+go window
+remove portrait
+drop portrait
+go window
+climb sheet
+climb sheet
+go window
+n
+n
+examine mirror
+wait
+wait
+wait
+wait
+s
+e
+open package
+get pack
+w
+s
+go window
+climb sheets
+go window
+go window
+eat tablet
+light torch
+go passage
+n
+drop tablet
+wait
+wait
+wait
+wait
+get cigarette
+light cigarette
+smoke cigarette
+open coffin
+go coffin
+break bolt
+with file
+u
+drop cigarette
+s
+s
+get cigarette
+go window
+unlight torch
+climb sheets
+climb sheets
+go window
+go bed
+sleep
+drop garlic
+get sheets
+get clip
+get up
+n
+w
+go dumb-waiter
+lower dumb-waiter
+go room
+pick lock
+drop clip
+drop file
+get mallet
+open door
+go door
+get stake
+w
+go dumb-waiter
+raise dumb-waiter
+go room
+e
+s
+open window
+tie sheets
+to bed
+get end
+go window
+drop end
+climb sheet
+go window
+go window
+light torch
+go passage
+n
+light cigarette
+smoke cigarette
+open coffin
+go coffin
+kill dracula

@@ -75,6 +75,55 @@ unsigned char glk_char_to_upper(unsigned char ch)
     return char_toupper_table[ch];
 }
 
+/* Spatterlight: key presses out of a command script, the way the app's
+   CommandScriptHandler types one. Off (the default), a character request
+   takes a whole line of input and uses its first character, as CheapGlk
+   always did. On, the line is typed a key at a time: one character and then
+   Return for as long as the game keeps asking for keys, and if it asks for a
+   line while more than the Return is left, it gets the whole line again. So
+   a "press any key" pause does not swallow the command after it, unless that
+   command is a single character or empty, which is a key press and no more.
+   The commands are echoed, as they would be on a terminal.
+   A headless build that replays scripts written in the app turns this on. */
+int gli_script_keys = 0;
+
+static char script_line[256];
+static int script_pos = -1; /* next character to type, or -1 */
+
+static char *gli_input_line(char *buf, int forchar)
+{
+    if (!gli_script_keys)
+        return fgets(buf, 255, stdin);
+
+    if (forchar) {
+        if (script_pos < 0) {
+            size_t len;
+            if (!fgets(script_line, 254, stdin))
+                return NULL;
+            len = strlen(script_line);
+            while (len && (script_line[len-1] == '\n' || script_line[len-1] == '\r'))
+                script_line[--len] = '\0';
+            if (len != 1)
+                strcat(script_line, "\n");
+            script_pos = 0;
+        }
+        buf[0] = script_line[script_pos++];
+        buf[1] = '\0';
+        if (!script_line[script_pos])
+            script_pos = -1;
+        return buf;
+    }
+
+    if (script_pos >= 0 && strlen(script_line + script_pos) > 1)
+        strcpy(buf, script_line);
+    else if (!fgets(buf, 255, stdin))
+        return NULL;
+    script_pos = -1;
+    /* Nobody typed it, so the transcript would not show it. */
+    fputs(buf, stdout);
+    return buf;
+}
+
 void glk_select(event_t *event)
 {
     window_t *win = gli_window_get();
@@ -114,7 +163,7 @@ void glk_select(event_t *event)
             /* If debug mode is on, it may capture input, in which case
                we need to loop until real input arrives. */
 
-            res = fgets(buf, 255, stdin);
+            res = gli_input_line(buf, TRUE);
             if (!res) {
                 printf("\n<end of input>\n");
                 glk_exit();
@@ -171,7 +220,7 @@ void glk_select(event_t *event)
             /* If debug mode is on, it may capture input, in which case
                we need to loop until real input arrives. */
 
-            res = fgets(buf, 255, stdin);
+            res = gli_input_line(buf, FALSE);
             if (!res) {
                 printf("\n<end of input>\n");
                 glk_exit();
