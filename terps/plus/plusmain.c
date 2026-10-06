@@ -980,7 +980,6 @@ static void ListInventory(int upper)
         if (Items[i].Location == CARRIED) {
             if (Items[i].Text[0] == 0) {
                 debug_print("Invisible item in inventory: %d\n", i);
-                i++;
                 continue;
             }
 
