@@ -239,20 +239,17 @@ static void journey_draw_title_image(void) {
 // enter the Gate to the Plains without a light. Only the IBM PC build
 // draws it: on every other machine BLACK-PICTURE-BORDER is set and the
 // game just clears the (black) window instead. The MCGA graphics file,
-// and thus the Blorb, do not contain picture 59 (the EGA file does), so
-// with the MS-DOS interpreter number the window would be left empty.
-// Stand in for it with a black rectangle the size of an ordinary room
-// image (picture 52). zpicture_data() reports the same size to the game.
+// and thus the Blorb, do not contain picture 59 (the EGA file does).
+// No stand-in is needed: our graphics window always has a black
+// background, so the cleared window GRAPHIC leaves behind when
+// @picture_data fails already looks the same.
 int journey_draw_picture(int pic, winid_t journey_window) {
     if (pic == 44) {
         pic = 116;
     }
 
     int width, height;
-    bool fake_black_room = false;
-    if (!get_image_size(pic, &width, &height) && pic == JOURNEY_PIC_BLACK_ROOM) {
-        fake_black_room = get_image_size(JOURNEY_PIC_ROOM_SIZE_REFERENCE, &width, &height);
-    }
+    bool avail = get_image_size(pic, &width, &height);
 
     Window *win = curwin;
     if (win->id && win->id->type != wintype_Graphics) {
@@ -273,12 +270,11 @@ int journey_draw_picture(int pic, winid_t journey_window) {
     if (win->id != nullptr) {
         glk_window_clear(win->id);
 
-        float scale;
-        uint16_t x, y;
-        journey_adjust_image(pic, &x, &y, width, height, win->x_size, win->y_size, &scale, pixelwidth);
-        if (fake_black_room) {
-            glk_window_fill_rect(win->id, 0x000000, x, y, width * scale * pixelwidth, height * scale);
-        } else {
+        // A missing picture just leaves the window cleared.
+        if (avail) {
+            float scale;
+            uint16_t x, y;
+            journey_adjust_image(pic, &x, &y, width, height, win->x_size, win->y_size, &scale, pixelwidth);
             draw_inline_image(win->id, pic, x, y, scale, false);
         }
     }

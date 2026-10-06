@@ -6269,14 +6269,6 @@ void zpicture_data()
             avail = get_image_size(116, &width, &height);
         }
 
-        // Picture 59 (G-BLACK, the dark room) is missing from the MCGA
-        // Blorb. journey_draw_picture() fakes it with a black rectangle
-        // the size of an ordinary room image, so report the size of
-        // one (picture 52) here.
-        if (!avail && is_spatterlight_journey && pic == JOURNEY_PIC_BLACK_ROOM) {
-            avail = get_image_size(JOURNEY_PIC_ROOM_SIZE_REFERENCE, &width, &height);
-        }
-
         if (is_spatterlight_arthur && (is_arthur_map_image(pic))) {
             user_store_word(table + 0, height);
             user_store_word(table + 2, width);

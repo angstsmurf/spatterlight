@@ -4,7 +4,7 @@
 
 ### Bocfel (Z-code)
 - The core interpreter is updated to Bocfel 2.6, keeping Spatterlight's own V6 support.
-- *Journey* shows a black picture when you reach the Gate to the Plains without a light, instead of leaving the graphics window empty, and the charging boar in *Arthur* now lines up with the tree behind it.
+- The charging boar in *Arthur* now lines up with the tree behind it.
 - Fixes two crashes when resuming from an autosave: one that hit the next autosave in games with sound, and one that hit old autosaves on relaunch. Autosave also works again when its folder does not exist yet.
 
 ### Scarier (Adrift)
