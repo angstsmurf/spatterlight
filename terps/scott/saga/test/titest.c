@@ -50,57 +50,59 @@ static const uint32_t ti_palette[16] = {
     0xff655C, 0xff847e, 0xD4C154, 0xEAD087, 0x00ae3f, 0xc95bba, 0xCDCDCD, 0xffffff,
 };
 
-// Render the current vdp_pixels/vdp_colors to a 256x96 RGB PPM (same tile walk
-// as DrawRTPIFromMem: 32 cols x 12 rows, fg = hi nibble, bg = lo nibble).
-static void write_ppm(const char *path) {
-    enum { W = 256, H = 96 };
-    static uint8_t rgb[W * H * 3];
-    const uint8_t *ptr = vdp_pixels, *colorptr = vdp_colors;
-    int x = 0, y = 0;
-    while (y < H && ptr < vdp_pixels + RTPI_IMAGE_SIZE) {
-        for (int line = 0; line < 8; line++) {
-            uint8_t byte = *ptr++;
-            uint8_t attr = *colorptr++;
-            uint8_t bg = attr & 0xf, fg = attr >> 4;
-            for (int p = 0; p < 8; p++) {
-                uint32_t c = ti_palette[(byte & (0x80 >> p)) ? fg : bg];
-                int px = x + p, py = y + line;
-                if (px < W && py < H) {
-                    uint8_t *o = rgb + (py * W + px) * 3;
-                    o[0] = c >> 16; o[1] = c >> 8; o[2] = c;
-                }
-            }
-        }
-        x += 8;
-        if (x >= W) { x = 0; y += 8; }
-    }
-    FILE *f = fopen(path, "wb");
-    if (f) { fprintf(f, "P6\n%d %d\n255\n", W, H); fwrite(rgb, 1, sizeof rgb, f); fclose(f); }
-}
-
-// Build the displayed picture as a 256x96 grid of palette indices (one byte per
-// pixel) from the decoded vdp_pixels/vdp_colors, matching DrawRTPIFromMem's tile
-// walk. Palette entries 0 and 1 are both black on the TMS9918, so 1 is folded to
-// 0 — exactly the normalisation ti_decode_fb.py applies to the MAME framebuffer,
-// so the two grids are directly comparable (approach B).
 #define PIC_W 256
 #define PIC_H 96
 #define PGRID_SIZE (PIC_W * PIC_H)
-static void grid_from_vdp(uint8_t *out) {
+
+// The decoded vdp_pixels/vdp_colors as a 256x96 grid of TMS9918 palette
+// indices, one byte per pixel, by DrawRTPIFromMem's tile walk: 32 cols x 12
+// rows of 8x8 tiles, fg = hi nibble, bg = lo nibble of each line's attribute.
+static void vdp_index_grid(uint8_t *out) {
     const uint8_t *ptr = vdp_pixels, *colorptr = vdp_colors;
     int x = 0, y = 0;
     while (y < PIC_H && ptr < vdp_pixels + RTPI_IMAGE_SIZE) {
         for (int line = 0; line < 8; line++) {
             uint8_t byte = *ptr++, attr = *colorptr++;
             uint8_t bg = attr & 0xf, fg = attr >> 4;
-            for (int p = 0; p < 8; p++) {
-                uint8_t idx = (byte & (0x80 >> p)) ? fg : bg;
-                out[(y + line) * PIC_W + x + p] = (idx == 1) ? 0 : idx;
-            }
+            for (int p = 0; p < 8; p++)
+                out[(y + line) * PIC_W + x + p] = (byte & (0x80 >> p)) ? fg : bg;
         }
         x += 8;
         if (x >= PIC_W) { x = 0; y += 8; }
     }
+}
+
+// Render the current vdp_pixels/vdp_colors to a 256x96 RGB PPM.
+static void write_ppm(const char *path) {
+    static uint8_t idx[PGRID_SIZE];
+    static uint8_t rgb[PGRID_SIZE * 3];
+    vdp_index_grid(idx);
+    for (int i = 0; i < PGRID_SIZE; i++) {
+        uint32_t c = ti_palette[idx[i]];
+        rgb[i * 3] = c >> 16; rgb[i * 3 + 1] = c >> 8; rgb[i * 3 + 2] = c;
+    }
+    FILE *f = fopen(path, "wb");
+    if (f) { fprintf(f, "P6\n%d %d\n255\n", PIC_W, PIC_H); fwrite(rgb, 1, sizeof rgb, f); fclose(f); }
+}
+
+// Dump the raw VDP pattern + colour tables (RTPI_IMAGE_SIZE bytes each).
+static void write_vdp(const char *path) {
+    FILE *f = fopen(path, "wb");
+    if (f) {
+        fwrite(vdp_pixels, 1, RTPI_IMAGE_SIZE, f);
+        fwrite(vdp_colors, 1, RTPI_IMAGE_SIZE, f);
+        fclose(f);
+    }
+}
+
+// The displayed picture as palette indices. Palette entries 0 and 1 are both
+// black on the TMS9918, so 1 is folded to 0 — exactly the normalisation
+// ti_decode_fb.py applies to the MAME framebuffer, so the two grids are
+// directly comparable (approach B).
+static void grid_from_vdp(uint8_t *out) {
+    vdp_index_grid(out);
+    for (int i = 0; i < PGRID_SIZE; i++)
+        if (out[i] == 1) out[i] = 0;
 }
 
 // Render a single RTPI image self-contained: install the 52-tile font (the
@@ -183,12 +185,7 @@ static int do_dump(const char *game, const char *outdir) {
         DrawRTPIImage(img);
 
         snprintf(path, sizeof path, "%s/ti994a_u%d_i%03d.vdp", outdir, img->usage, img->index);
-        f = fopen(path, "wb");
-        if (f) {
-            fwrite(vdp_pixels, 1, RTPI_IMAGE_SIZE, f);
-            fwrite(vdp_colors, 1, RTPI_IMAGE_SIZE, f);
-            fclose(f);
-        }
+        write_vdp(path);
         snprintf(path, sizeof path, "%s/ti994a_u%d_i%03d.ppm", outdir, img->usage, img->index);
         write_ppm(path);
         printf("  u%d i%03d  (%zu bytes in)\n", img->usage, img->index, img->datasize);
@@ -223,8 +220,7 @@ static int do_seq(const char *game, const char *outdir, const char *list) {
     }
     char path[1100];
     snprintf(path, sizeof path, "%s/seq_i%03d.vdp", outdir, last);
-    FILE *f = fopen(path, "wb");
-    if (f) { fwrite(vdp_pixels, 1, RTPI_IMAGE_SIZE, f); fwrite(vdp_colors, 1, RTPI_IMAGE_SIZE, f); fclose(f); }
+    write_vdp(path);
     snprintf(path, sizeof path, "%s/seq_i%03d.ppm", outdir, last);
     write_ppm(path);
     return 0;
