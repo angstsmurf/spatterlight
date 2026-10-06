@@ -144,6 +144,14 @@ int SanityCheckHeader(void)
     return 1;
 }
 
+/* Append c to the dictionary word being built, leaving room for the
+   terminating zero */
+static void AddDictionaryChar(char *dictword, int *charindex, char c)
+{
+    if (*charindex < 31)
+        dictword[(*charindex)++] = c;
+}
+
 /* Parse the dictionary from a binary game file into the global Verbs[]
    and Nouns[] arrays. Handles three encoding schemes:
    - Compressed/C64: first letter case indicates synonym ('*' prefix)
@@ -177,26 +185,20 @@ static uint8_t *ReadDictionary(const GameInfo *info, uint8_t *ptr)
 
             if (info->dictionary == FOUR_LETTER_COMPRESSED || info->dictionary == GERMAN_C64 || info->dictionary == SPANISH_C64) {
                 if (charindex == 0) {
-                    if (c >= 'a') {
+                    if (c >= 'a')
                         c = toupper(c);
-                    } else if (c != '.' && c != 0) {
-                        if (charindex < 31)
-                            dictword[charindex++] = '*';
-                    }
+                    else if (c != '.' && c != 0)
+                        AddDictionaryChar(dictword, &charindex, '*');
                 }
-                if (charindex < 31)
-                    dictword[charindex++] = c;
+                AddDictionaryChar(dictword, &charindex, c);
             } else if (info->subtype == LOCALIZED) {
                 if (charindex == 0) {
-                    if (c & 0x80) {
+                    if (c & 0x80)
                         c = c & 0x7f;
-                    } else if (c != '.') {
-                        if (charindex < 31)
-                            dictword[charindex++] = '*';
-                    }
+                    else if (c != '.')
+                        AddDictionaryChar(dictword, &charindex, '*');
                 }
-                if (charindex < 31)
-                    dictword[charindex++] = c;
+                AddDictionaryChar(dictword, &charindex, c);
             } else {
                 if (c == 0 && charindex == 0) {
                     if (ptr >= endptr)
@@ -213,8 +215,7 @@ static uint8_t *ReadDictionary(const GameInfo *info, uint8_t *ptr)
                     if (++restarts > wl)
                         break;
                 }
-                if (charindex < 31)
-                    dictword[charindex++] = c;
+                AddDictionaryChar(dictword, &charindex, c);
             }
         }
         dictword[charindex] = 0;
@@ -259,167 +260,99 @@ int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr)
     return 1;
 }
 
+/* Where ParseHeader() finds one Header field: a whole raw header word, its
+   low or high byte, the word minus one, or a constant. */
+typedef enum {
+    HDR_CONST,
+    HDR_WORD,
+    HDR_LOW_BYTE,
+    HDR_HIGH_BYTE,
+    HDR_WORD_MINUS_1,
+} HeaderSourceKind;
+
+typedef struct {
+    HeaderSourceKind kind;
+    int value; /* Index into the raw header, or the constant */
+} HeaderSource;
+
+#define W(i) { HDR_WORD, i }
+#define LO(i) { HDR_LOW_BYTE, i }
+#define HI(i) { HDR_HIGH_BYTE, i }
+#define W_MINUS_1(i) { HDR_WORD_MINUS_1, i }
+#define K(v) { HDR_CONST, v }
+
+/* The header layouts of the different platforms and game generations. Some
+   pack two values into one 16-bit word (e.g. max_carry + player_room in the
+   low and high bytes). */
+static const struct {
+    HeaderType type;
+    /* NumItems, NumActions, NumWords, NumRooms, MaxCarry, PlayerRoom,
+       Treasures, WordLength, LightTime, NumMessages, TreasureRoom */
+    HeaderSource field[11];
+} header_layouts[] = {
+    { EARLY,                          { W(1), W(2), W(3),   W(4), W(5),  W(6),  W(7),  W(8),  W(9),  W(10), W(11) } },
+    { LATE,                           { W(1), W(2), W(3),   W(4), W(5),  K(1),  K(0),  W(6),  K(-1), W(7),  K(0) } },
+    { US_HEADER,                      { W(3), W(2), W(1),   W(5), W(6),  W(7),  W(8),  W(0),  W(9),  W(4),  HI(10) } },
+    { ROBIN_C64_HEADER,               { W(1), W(2), W(6),   W(4), W(5),  K(1),  K(0),  W(7),  K(-1), W(3),  K(0) } },
+    { GREMLINS_C64_HEADER,            { W(1), W(2), W(5),   W(3), W(6),  W(8),  K(0),  W(7),  K(-1), K(98), K(0) } },
+    { SUPERGRAN_C64_HEADER,           { W(3), W(1), W(2),   W(4), W(8),  K(1),  K(0),  W(6),  K(-1), W(5),  K(0) } },
+    { SEAS_OF_BLOOD_C64_HEADER,       { W(0), W(1), K(134), W(3), W(4),  K(1),  K(0),  W(6),  K(-1), W(2),  K(0) } },
+    { MYSTERIOUS_C64_HEADER,          { W(1), W(2), W(3),   W(4), LO(5), HI(5), W(6),  W(7),  W(8),  W(9),  K(0) } },
+    { ARROW_OF_DEATH_PT_2_C64_HEADER, { W(3), W(1), W(2),   W(4), LO(5), HI(5), W(6),  W(7),  W(8),  W(9),  K(0) } },
+    { INDIANS_C64_HEADER,             { W(1), W(2), W(3),   W(4), LO(5), HI(5), LO(6), HI(6), HI(7), HI(8), K(0) } },
+    /* No leading unused word, and the light time comes last. h[8] counts the
+       messages rather than naming the last one. h[9] repeats the treasure
+       room and is never read by the original interpreter. */
+    { SPIDERMAN_ATARI8_HEADER,        { W(0), W(1), W(2),   W(3), W(4),  W(5),  W(6),  W(7),  W(11), W_MINUS_1(8), W(10) } },
+};
+
+#undef W
+#undef LO
+#undef HI
+#undef W_MINUS_1
+#undef K
+
+static int HeaderValue(const int *h, HeaderSource source)
+{
+    switch (source.kind) {
+    case HDR_WORD:
+        return h[source.value];
+    case HDR_LOW_BYTE:
+        return h[source.value] & 0xff;
+    case HDR_HIGH_BYTE:
+        return h[source.value] >> 8;
+    case HDR_WORD_MINUS_1:
+        return h[source.value] - 1;
+    case HDR_CONST:
+    default:
+        return source.value;
+    }
+}
+
 /* Extract game parameters from the raw header[] array based on the header
-   layout type. Different platforms and game generations use different field
-   orderings — this function abstracts that away. Some formats pack two
-   values into one 16-bit word (e.g. max_carry + player_room in high/low bytes). */
+   layout type (see header_layouts[] above). Returns 0 for an unknown type. */
 int ParseHeader(int *h, HeaderType type, Header *out)
 {
-    switch (type) {
-    case NO_HEADER:
-        return 0;
-    case EARLY:
-        out->NumItems     = h[1];
-        out->NumActions   = h[2];
-        out->NumWords     = h[3];
-        out->NumRooms     = h[4];
-        out->MaxCarry     = h[5];
-        out->PlayerRoom   = h[6];
-        out->Treasures    = h[7];
-        out->WordLength   = h[8];
-        out->LightTime    = h[9];
-        out->NumMessages  = h[10];
-        out->TreasureRoom = h[11];
-        break;
-    case LATE:
-        out->NumItems     = h[1];
-        out->NumActions   = h[2];
-        out->NumWords     = h[3];
-        out->NumRooms     = h[4];
-        out->MaxCarry     = h[5];
-        out->WordLength   = h[6];
-        out->NumMessages  = h[7];
-        out->PlayerRoom   = 1;
-        out->Treasures    = 0;
-        out->LightTime    = -1;
-        out->TreasureRoom = 0;
-        break;
-    case US_HEADER:
-        out->NumItems     = h[3];
-        out->NumActions   = h[2];
-        out->NumWords     = h[1];
-        out->NumRooms     = h[5];
-        out->MaxCarry     = h[6];
-        out->PlayerRoom   = h[7];
-        out->Treasures    = h[8];
-        out->WordLength   = h[0];
-        out->LightTime    = h[9];
-        out->NumMessages  = h[4];
-        out->TreasureRoom = h[10] >> 8;
-        break;
-    case ROBIN_C64_HEADER:
-        out->NumItems     = h[1];
-        out->NumActions   = h[2];
-        out->NumWords     = h[6];
-        out->NumRooms     = h[4];
-        out->MaxCarry     = h[5];
-        out->PlayerRoom   = 1;
-        out->Treasures    = 0;
-        out->WordLength   = h[7];
-        out->LightTime    = -1;
-        out->NumMessages  = h[3];
-        out->TreasureRoom = 0;
-        break;
-    case GREMLINS_C64_HEADER:
-        out->NumItems     = h[1];
-        out->NumActions   = h[2];
-        out->NumWords     = h[5];
-        out->NumRooms     = h[3];
-        out->MaxCarry     = h[6];
-        out->PlayerRoom   = h[8];
-        out->Treasures    = 0;
-        out->WordLength   = h[7];
-        out->LightTime    = -1;
-        out->NumMessages  = 98;
-        out->TreasureRoom = 0;
-        break;
-    case SUPERGRAN_C64_HEADER:
-        out->NumItems     = h[3];
-        out->NumActions   = h[1];
-        out->NumWords     = h[2];
-        out->NumRooms     = h[4];
-        out->MaxCarry     = h[8];
-        out->PlayerRoom   = 1;
-        out->Treasures    = 0;
-        out->WordLength   = h[6];
-        out->LightTime    = -1;
-        out->NumMessages  = h[5];
-        out->TreasureRoom = 0;
-        break;
-    case SEAS_OF_BLOOD_C64_HEADER:
-        out->NumItems     = h[0];
-        out->NumActions   = h[1];
-        out->NumWords     = 134;
-        out->NumRooms     = h[3];
-        out->MaxCarry     = h[4];
-        out->PlayerRoom   = 1;
-        out->Treasures    = 0;
-        out->WordLength   = h[6];
-        out->LightTime    = -1;
-        out->NumMessages  = h[2];
-        out->TreasureRoom = 0;
-        break;
-    case MYSTERIOUS_C64_HEADER:
-        out->NumItems     = h[1];
-        out->NumActions   = h[2];
-        out->NumWords     = h[3];
-        out->NumRooms     = h[4];
-        out->MaxCarry     = h[5] & 0xff;
-        out->PlayerRoom   = h[5] >> 8;
-        out->Treasures    = h[6];
-        out->WordLength   = h[7];
-        out->LightTime    = h[8];
-        out->NumMessages  = h[9];
-        out->TreasureRoom = 0;
-        break;
-    case ARROW_OF_DEATH_PT_2_C64_HEADER:
-        out->NumItems     = h[3];
-        out->NumActions   = h[1];
-        out->NumWords     = h[2];
-        out->NumRooms     = h[4];
-        out->MaxCarry     = h[5] & 0xff;
-        out->PlayerRoom   = h[5] >> 8;
-        out->Treasures    = h[6];
-        out->WordLength   = h[7];
-        out->LightTime    = h[8];
-        out->NumMessages  = h[9];
-        out->TreasureRoom = 0;
-        break;
-    case INDIANS_C64_HEADER:
-        out->NumItems     = h[1];
-        out->NumActions   = h[2];
-        out->NumWords     = h[3];
-        out->NumRooms     = h[4];
-        out->MaxCarry     = h[5] & 0xff;
-        out->PlayerRoom   = h[5] >> 8;
-        out->Treasures    = h[6] & 0xff;
-        out->WordLength   = h[6] >> 8;
-        out->LightTime    = h[7] >> 8;
-        out->NumMessages  = h[8] >> 8;
-        out->TreasureRoom = 0;
-        break;
-    case SPIDERMAN_ATARI8_HEADER:
-        /* No leading unused word, and the light time comes last.
-           h[8] counts the messages rather than naming the last one.
-           h[9] repeats the treasure room and is never read by the
-           original interpreter. */
-        out->NumItems     = h[0];
-        out->NumActions   = h[1];
-        out->NumWords     = h[2];
-        out->NumRooms     = h[3];
-        out->MaxCarry     = h[4];
-        out->PlayerRoom   = h[5];
-        out->Treasures    = h[6];
-        out->WordLength   = h[7];
-        out->NumMessages  = h[8] - 1;
-        out->TreasureRoom = h[10];
-        out->LightTime    = h[11];
-        break;
-    default:
-        debug_print("Unhandled header type!\n");
-        return 0;
+    for (size_t i = 0; i < sizeof(header_layouts) / sizeof(header_layouts[0]); i++) {
+        if (header_layouts[i].type != type)
+            continue;
+        const HeaderSource *f = header_layouts[i].field;
+        out->NumItems     = HeaderValue(h, f[0]);
+        out->NumActions   = HeaderValue(h, f[1]);
+        out->NumWords     = HeaderValue(h, f[2]);
+        out->NumRooms     = HeaderValue(h, f[3]);
+        out->MaxCarry     = HeaderValue(h, f[4]);
+        out->PlayerRoom   = HeaderValue(h, f[5]);
+        out->Treasures    = HeaderValue(h, f[6]);
+        out->WordLength   = HeaderValue(h, f[7]);
+        out->LightTime    = HeaderValue(h, f[8]);
+        out->NumMessages  = HeaderValue(h, f[9]);
+        out->TreasureRoom = HeaderValue(h, f[10]);
+        return 1;
     }
-    return 1;
+    if (type != NO_HEADER)
+        debug_print("Unhandled header type!\n");
+    return 0;
 }
 
 /* Print parsed header values for debugging (only active when DEBUG_PRINT is set).
@@ -776,6 +709,98 @@ static void ReadBinaryItemDescs(uint8_t **ptr, int num_items)
     }
 }
 
+/* Read the room descriptions of TryLoading(): compressed text, or
+   NUL-terminated strings. Returns 0 on invalid data. */
+static int ReadRoomDescs(uint8_t **ptr, const GameInfo *info, int compressed)
+{
+    if (!compressed)
+        return ReadBinaryRoomDescs(ptr, GameHeader.NumRooms, info->number_of_pictures > 0, 0);
+
+    /* Rooms hold NumRooms+1 entries (0..NumRooms); the last room is the
+       death/limbo room the engine jumps to in PlayerIsDead() and the
+       dark-move death. Every other room loop uses <=; this one must too,
+       or Rooms[NumRooms].Text is left uninitialised and Look() reads a
+       wild pointer the first time the player dies. */
+    for (int ct = 0; ct <= GameHeader.NumRooms; ct++) {
+        Rooms[ct].Text = DecompressText(*ptr, ct);
+        if (Rooms[ct].Text == NULL)
+            return 0;
+        Rooms[ct].Text[0] = tolower(Rooms[ct].Text[0]);
+    }
+    return 1;
+}
+
+/* Read the messages of TryLoading(): compressed text, or NUL-terminated
+   strings. Returns 0 on invalid data. */
+static int ReadMessages(uint8_t **ptr, int compressed)
+{
+    if (!compressed) {
+        ReadBinaryMessages(ptr);
+        return 1;
+    }
+
+    for (int ct = 0; ct <= GameHeader.NumMessages; ct++) {
+        Messages[ct] = DecompressText(*ptr, ct);
+        debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
+        if (Messages[ct] == NULL)
+            return 0;
+    }
+    return 1;
+}
+
+/* Extract the auto-get/drop word from a compressed item description, which
+   uses the format "description.WORD." (the compressed counterpart of
+   ParseItemSlashAutoGet()). Upper-cases the word after its first letter. */
+static void ParseItemDotAutoGet(int index)
+{
+    Items[index].AutoGet = strchr(Items[index].Text, '.');
+    if (Items[index].AutoGet == NULL)
+        return;
+    *Items[index].AutoGet++ = 0;
+    Items[index].AutoGet++;
+    char *t = strchr(Items[index].AutoGet, '.');
+    if (t != NULL)
+        *t = 0;
+    for (int i = 1; i < GameHeader.WordLength; i++)
+        Items[index].AutoGet[i] = toupper(Items[index].AutoGet[i]);
+}
+
+/* Read the item descriptions of TryLoading(): compressed text, or
+   NUL-terminated strings, and extract their auto-get words. */
+static void ReadItemDescs(uint8_t **ptr, int compressed)
+{
+    for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
+        if (compressed) {
+            Items[ct].Text = DecompressText(*ptr, ct);
+            Items[ct].AutoGet = NULL;
+            if (Items[ct].Text != NULL && Items[ct].Text[0] != '.') {
+                debug_print("Item %d: %s\n", ct, Items[ct].Text);
+                ParseItemDotAutoGet(ct);
+            }
+        } else {
+            Items[ct].Text = ReadBinaryString(ptr);
+            debug_print("Item %d: %s\n", ct, Items[ct].Text);
+            ParseItemSlashAutoGet(ct);
+        }
+    }
+}
+
+/* The system messages of the English C64 games may start a little before
+   their listed offset. Step back from offset to the nearest position where
+   the table, after any padding, starts with "NORTH". */
+static size_t FindC64SystemMessages(size_t offset)
+{
+    while (offset > 0) {
+        uint8_t *ptr = SeekToPos(offset);
+        while (ptr - entire_file < file_length && (*ptr == 0 || *ptr == '\r'))
+            ptr++;
+        if (ptr - entire_file + 5 <= file_length && memcmp(ptr, "NORTH", 5) == 0)
+            break;
+        offset--;
+    }
+    return offset;
+}
+
 /* Seek to a game data section in TryLoadingOld() / TryLoading() (see
    SeekIfNeeded()), giving up on the game if the position is out of range. */
 #define SEEK_OR_FAIL(start)                                \
@@ -963,22 +988,8 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
     if (info->start_of_room_descriptions != 0) {
         SEEK_OR_FAIL(info->start_of_room_descriptions);
 
-        if (!compressed) {
-            if (!ReadBinaryRoomDescs(&ptr, GameHeader.NumRooms, info->number_of_pictures > 0, 0))
-                return UNKNOWN_GAME;
-        } else {
-            /* Rooms hold NumRooms+1 entries (0..NumRooms); the last room is the
-               death/limbo room the engine jumps to in PlayerIsDead() and the
-               dark-move death. Every other room loop uses <=; this one must too,
-               or Rooms[NumRooms].Text is left uninitialised and Look() reads a
-               wild pointer the first time the player dies. */
-            for (int ct = 0; ct <= GameHeader.NumRooms; ct++) {
-                Rooms[ct].Text = DecompressText(ptr, ct);
-                if (Rooms[ct].Text == NULL)
-                    return UNKNOWN_GAME;
-                Rooms[ct].Text[0] = tolower(Rooms[ct].Text[0]);
-            }
-        }
+        if (!ReadRoomDescs(&ptr, info, compressed))
+            return UNKNOWN_GAME;
     }
 
 #pragma mark room connections
@@ -992,46 +1003,14 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
 
     SEEK_OR_FAIL(info->start_of_messages);
 
-    if (compressed) {
-        for (int ct = 0; ct <= GameHeader.NumMessages; ct++) {
-            Messages[ct] = DecompressText(ptr, ct);
-            debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
-            if (Messages[ct] == NULL)
-                return UNKNOWN_GAME;
-        }
-    } else {
-        ReadBinaryMessages(&ptr);
-    }
+    if (!ReadMessages(&ptr, compressed))
+        return UNKNOWN_GAME;
 
 #pragma mark items
 
     SEEK_OR_FAIL(info->start_of_item_descriptions);
 
-    if (compressed) {
-        for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
-            Items[ct].Text = DecompressText(ptr, ct);
-            Items[ct].AutoGet = NULL;
-            if (Items[ct].Text != NULL && Items[ct].Text[0] != '.') {
-                debug_print("Item %d: %s\n", ct, Items[ct].Text);
-                Items[ct].AutoGet = strchr(Items[ct].Text, '.');
-                if (Items[ct].AutoGet) {
-                    *Items[ct].AutoGet++ = 0;
-                    Items[ct].AutoGet++;
-                    char *t = strchr(Items[ct].AutoGet, '.');
-                    if (t != NULL)
-                        *t = 0;
-                    for (int i = 1; i < GameHeader.WordLength; i++)
-                        Items[ct].AutoGet[i] = toupper(Items[ct].AutoGet[i]);
-                }
-            }
-        }
-    } else {
-        for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
-            Items[ct].Text = ReadBinaryString(&ptr);
-            debug_print("Item %d: %s\n", ct, Items[ct].Text);
-            ParseItemSlashAutoGet(ct);
-        }
-    }
+    ReadItemDescs(&ptr, compressed);
 
 #pragma mark item locations
 
@@ -1051,16 +1030,8 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
 
     int is_c64_english = (info->subtype & (C64 | ENGLISH)) == (C64 | ENGLISH);
 
-    if (is_c64_english) {
-        while (offset > 0) {
-            ptr = SeekToPos(offset);
-            while (ptr - entire_file < file_length && (*ptr == 0 || *ptr == '\r'))
-                ptr++;
-            if (ptr - entire_file + 5 <= file_length && memcmp(ptr, "NORTH", 5) == 0)
-                break;
-            offset--;
-        }
-    }
+    if (is_c64_english)
+        offset = FindC64SystemMessages(offset);
 
     ptr = SeekToPos(offset);
     if (ptr == NULL)
@@ -1270,6 +1241,23 @@ static int DeAlkatrazTape(void)
     return 1;
 }
 
+/* Try loading entire_file as each game that uses dictionary type dict_type.
+   On success, copies the matching GameInfo into *Game and returns the result
+   of TryLoading(). */
+static GameIDType TryGamesWithDictionary(DictionaryType dict_type, size_t dict_offset)
+{
+    for (int i = 0; games[i].Title != NULL; i++) {
+        if (games[i].dictionary == dict_type) {
+            GameIDType result = TryLoading(entire_file, file_length, &games[i], dict_offset);
+            if (result != UNKNOWN_GAME) {
+                *Game = games[i];
+                return result;
+            }
+        }
+    }
+    return UNKNOWN_GAME;
+}
+
 /* Detect and load a ZX Spectrum game file. Handles .z80 snapshot
    decompression, dictionary signature scanning, and Parsec RLE
    decompression (a two-pass scheme using Z80 register values
@@ -1321,15 +1309,7 @@ GameIDType DetectZXSpectrum(void)
     if (dict_type == NOT_A_GAME)
         return UNKNOWN_GAME;
 
-    for (int i = 0; games[i].Title != NULL; i++) {
-        if (games[i].dictionary == dict_type) {
-            detectedGame = TryLoading(entire_file, file_length, &games[i], dict_offset);
-            if (detectedGame != UNKNOWN_GAME) {
-                *Game = games[i];
-                break;
-            }
-        }
-    }
+    detectedGame = TryGamesWithDictionary(dict_type, dict_offset);
 
     /* If no dictionary was found and this was a .z80 snapshot, try
        Parsec RLE decompression. The decompression parameters (start/end
@@ -1353,15 +1333,8 @@ GameIDType DetectZXSpectrum(void)
             dict_type = GetId(entire_file, file_length, &dict_offset);
             if (dict_type == NOT_A_GAME)
                 Fatal("Unsupported game!");
-            for (int i = 0; games[i].Title != NULL; i++) {
-                if (games[i].dictionary == dict_type) {
-                    if (TryLoading(entire_file, file_length, &games[i], dict_offset)) {
-                        *Game = games[i];
-                        detectedGame = Game->gameID;
-                        break;
-                    }
-                }
-            }
+            if (TryGamesWithDictionary(dict_type, dict_offset) != UNKNOWN_GAME)
+                detectedGame = Game->gameID;
         }
     }
 
@@ -1371,97 +1344,10 @@ GameIDType DetectZXSpectrum(void)
     return detectedGame;
 }
 
-/* Top-level game detection: try each supported format in order.
-
-   1. ScottFree plaintext (LoadDatabase)
-   2. TI-99/4A cartridge
-   3. Commodore 64 (with optional decrunch)
-   4. Atari 8-bit
-   5. Apple II
-   6. ZX Spectrum (.z80 snapshots, Parsec-compressed)
-
-   Once the game is identified and loaded, configures system messages,
-   graphics, and game-specific overrides (system message mappings,
-   item/room image patches, parser language tables). */
-GameIDType DetectGame(const char *file_name)
+/* Set up the system messages, extra data, image patches and graphics of a
+   detected Adventure International UK / Brian Howarth or C64 game. */
+static void SetUpGameSpecifics(GameIDType detectedGame)
 {
-    FILE *f = fopen(file_name, "rb");
-    if (f == NULL)
-        Fatal("Cannot open game");
-
-    file_length = GetFileLength(f);
-
-    if (file_length > MAX_GAMEFILE_SIZE) {
-        debug_print("File too large to be a valid game file (%zu bytes, max is %d)\n",
-            file_length, MAX_GAMEFILE_SIZE);
-        fclose(f);
-        return UNKNOWN_GAME;
-    }
-
-    SetParserWordLists(EnglishDirections, EnglishSkipList, EnglishDelimiterList,
-        NULL, EnglishExtraNouns);
-
-    Game = (GameInfo *)MemAlloc(sizeof(GameInfo));
-    memset(Game, 0, sizeof(GameInfo));
-
-    /* Try the ScottFree plaintext format first (closes f on success) */
-    GameIDType detectedGame = LoadDatabase(f, Options & DEBUGGING);
-
-    if (detectedGame == UNKNOWN_GAME) { /* Not a ScottFree game, check if TI99/4A */
-        entire_file = MemAlloc(file_length);
-        fseek(f, 0, SEEK_SET);
-        size_t result = fread(entire_file, 1, file_length, f);
-        fclose(f);
-        if (result == 0)
-            Fatal("File empty or read error!");
-
-        detectedGame = DetectTI994A();
-
-        if (detectedGame == UNKNOWN_GAME) { /* Not a TI99/4A game, check if C64 */
-            detectedGame = DetectC64(&entire_file, &file_length, file_name);
-        }
-
-        if (detectedGame == UNKNOWN_GAME) { /* Not a C64 game, check if Atari */
-            detectedGame = DetectAtari8(&entire_file, &file_length);
-        }
-
-        if (detectedGame == UNKNOWN_GAME) { /* Not an Atari game, check if Apple 2 */
-            detectedGame = DetectApple2(&entire_file, &file_length);
-        }
-
-        if (detectedGame == UNKNOWN_GAME) { /* Not an Apple 2 game, check if ZX Spectrum */
-            detectedGame = DetectZXSpectrum();
-        }
-
-        if (detectedGame == UNKNOWN_GAME) {
-            free(entire_file);
-            free(Game);
-            Game = NULL;
-            return UNKNOWN_GAME;
-        }
-    }
-
-    if (detectedGame == HULK_US) {
-        CurrentGame = HULK_US;
-        Game->type = US_VARIANT;
-    }
-
-    if (detectedGame == RETURN_TO_PIRATES_ISLE) {
-        CurrentGame = RETURN_TO_PIRATES_ISLE;
-        Game->type = US_VARIANT;
-    }
-
-    if (detectedGame == SCOTTFREE || detectedGame == TI994A)
-        CurrentGame = detectedGame;
-
-    if (IsMysterious()) {
-        Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
-        ImageHeight = 95;
-    }
-
-    if (detectedGame == SCOTTFREE || detectedGame == TI994A || Game->type == US_VARIANT)
-        return detectedGame;
-
     /* Copy ZX Spectrum style system messages as a base, then apply
        game-specific overrides below */
     for (int i = 6; i < MAX_SYSMESS && sysdict_zx[i] != NULL; i++) {
@@ -1587,6 +1473,94 @@ GameIDType DetectGame(const char *file_name)
     if (!(Game->subtype & (C64 | MYSTERIOUS)) && Game->number_of_pictures > 0) {
         SagaGraphicsSetup(0);
     }
+}
+
+/* Top-level game detection: try each supported format in order.
+
+   1. ScottFree plaintext (LoadDatabase)
+   2. TI-99/4A cartridge
+   3. Commodore 64 (with optional decrunch)
+   4. Atari 8-bit
+   5. Apple II
+   6. ZX Spectrum (.z80 snapshots, Parsec-compressed)
+
+   Once the game is identified and loaded, configures system messages,
+   graphics, and game-specific overrides (system message mappings,
+   item/room image patches, parser language tables). */
+GameIDType DetectGame(const char *file_name)
+{
+    FILE *f = fopen(file_name, "rb");
+    if (f == NULL)
+        Fatal("Cannot open game");
+
+    file_length = GetFileLength(f);
+
+    if (file_length > MAX_GAMEFILE_SIZE) {
+        debug_print("File too large to be a valid game file (%zu bytes, max is %d)\n",
+            file_length, MAX_GAMEFILE_SIZE);
+        fclose(f);
+        return UNKNOWN_GAME;
+    }
+
+    SetParserWordLists(EnglishDirections, EnglishSkipList, EnglishDelimiterList,
+        NULL, EnglishExtraNouns);
+
+    Game = MemCalloc(sizeof(GameInfo));
+
+    /* Try the ScottFree plaintext format first (closes f on success) */
+    GameIDType detectedGame = LoadDatabase(f, Options & DEBUGGING);
+
+    if (detectedGame == UNKNOWN_GAME) { /* Not a ScottFree game, check if TI99/4A */
+        entire_file = MemAlloc(file_length);
+        fseek(f, 0, SEEK_SET);
+        size_t result = fread(entire_file, 1, file_length, f);
+        fclose(f);
+        if (result == 0)
+            Fatal("File empty or read error!");
+
+        detectedGame = DetectTI994A();
+
+        if (detectedGame == UNKNOWN_GAME) { /* Not a TI99/4A game, check if C64 */
+            detectedGame = DetectC64(&entire_file, &file_length, file_name);
+        }
+
+        if (detectedGame == UNKNOWN_GAME) { /* Not a C64 game, check if Atari */
+            detectedGame = DetectAtari8(&entire_file, &file_length);
+        }
+
+        if (detectedGame == UNKNOWN_GAME) { /* Not an Atari game, check if Apple 2 */
+            detectedGame = DetectApple2(&entire_file, &file_length);
+        }
+
+        if (detectedGame == UNKNOWN_GAME) { /* Not an Apple 2 game, check if ZX Spectrum */
+            detectedGame = DetectZXSpectrum();
+        }
+
+        if (detectedGame == UNKNOWN_GAME) {
+            free(entire_file);
+            free(Game);
+            Game = NULL;
+            return UNKNOWN_GAME;
+        }
+    }
+
+    if (detectedGame == HULK_US || detectedGame == RETURN_TO_PIRATES_ISLE) {
+        CurrentGame = detectedGame;
+        Game->type = US_VARIANT;
+    }
+
+    if (detectedGame == SCOTTFREE || detectedGame == TI994A)
+        CurrentGame = detectedGame;
+
+    if (IsMysterious()) {
+        Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
+        ImageHeight = 95;
+    }
+
+    if (detectedGame == SCOTTFREE || detectedGame == TI994A || Game->type == US_VARIANT)
+        return detectedGame;
+
+    SetUpGameSpecifics(detectedGame);
 
     return detectedGame;
 }
