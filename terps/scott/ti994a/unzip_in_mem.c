@@ -150,7 +150,7 @@ typedef struct
 static int unz64local_getLong64(uint8_t **outptr,uint8_t *endptr,
                          uint64_t *pX) {
     uint8_t *ptr = *outptr;
-    if (ptr - endptr < 8) {
+    if (endptr - ptr < 8) {
         *pX = 0;
         return UNZ_EOF;
     }
