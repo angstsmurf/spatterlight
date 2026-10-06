@@ -195,9 +195,9 @@ static const gsc_status_writer_t GSC_STATUS_WRITER = {
   gsc_status_printed_width, gsc_put_string, gsc_status_next_byte
 };
 
-/* Head-truncation marker, and the least text worth printing after it. */
-static const char *const GSC_STATUS_ELLIPSIS = "...";
-enum { GSC_STATUS_ELLIPSIS_WIDTH = 3, GSC_STATUS_MIN_TAIL = 1 };
+/* Head-truncation marker, U+2026, and the least text worth printing after
+   it.  The marker is one column wide. */
+enum { GSC_STATUS_ELLIPSIS = 0x2026, GSC_STATUS_MIN_TAIL = 1 };
 
 
 /*
@@ -211,9 +211,10 @@ enum { GSC_STATUS_ELLIPSIS_WIDTH = 3, GSC_STATUS_MIN_TAIL = 1 };
  *
  * A status too long for that gap is truncated at its head: the tail carries
  * the parts that change -- score, moves, time, whatever the game keeps there --
- * so it is the head that gets replaced with "...".  If not even the "..." and a
- * character of text will fit, the status is dropped rather than allowed to run
- * into the room name.
+ * so it is the head that gets replaced with an ellipsis.  The ellipsis goes
+ * straight after the room name and the tail straight after the ellipsis, with
+ * no blanks around it.  If not even the ellipsis and a character of text will
+ * fit, the status is dropped rather than allowed to run into the room name.
  */
 void
 gsc_status_put_right (glui32 width, glui32 room_end,
@@ -236,21 +237,26 @@ gsc_status_put_right (glui32 width, glui32 room_end,
       return;
     }
 
-  /* Too wide: find the longest tail that fits alongside the "...". */
-  if (avail < GSC_STATUS_ELLIPSIS_WIDTH + GSC_STATUS_MIN_TAIL)
+  /* Too wide: the ellipsis takes the column the blank would have had, so the
+     longest tail that fits in the rest goes behind it. */
+  if (avail < GSC_STATUS_MIN_TAIL)
     return;
 
   while (*status != '\0')
     {
       status = writer->next (status);
 
+      /* A cut landing in a gap would leave a blank after the ellipsis. */
+      if (*status == ' ')
+        continue;
+
       status_width = writer->width (status);
-      if (status_width <= avail - GSC_STATUS_ELLIPSIS_WIDTH)
+      if (status_width <= avail)
         {
-          glk_window_move_cursor (gsc_status_window,
-                                  width - status_width
-                                  - GSC_STATUS_ELLIPSIS_WIDTH - 1, 0);
-          writer->print (GSC_STATUS_ELLIPSIS);
+          if (status_width < GSC_STATUS_MIN_TAIL)
+            return;
+          glk_window_move_cursor (gsc_status_window, room_end, 0);
+          glk_put_char_uni (GSC_STATUS_ELLIPSIS);
           writer->print (status);
           return;
         }
