@@ -71,34 +71,38 @@ const char *Directions[NUMBER_OF_DIRECTIONS];
 /* Meta-command words recognized by the parser but not in the game's
    dictionary. Includes save/restore, undo, transcript, RAM save/load,
    and command-chain operators (EXCEPT/BUT). The '#' prefix forms are
-   for compatibility with interpreters that use '#' as a command prefix. */
+   for compatibility with interpreters that use '#' as a command prefix.
+   The German and Spanish tables share the English words up to EXCEPT. */
+#define COMMON_EXTRA_COMMANDS \
+    NULL,                     \
+    "restart",                \
+    "#restart",               \
+    "save",                   \
+    "#save",                  \
+    "restore",                \
+    "load",                   \
+    "#restore",               \
+    "transcript",             \
+    "#transcript",            \
+    "script",                 \
+    "#script",                \
+    "oops",                   \
+    "undo",                   \
+    "bom",                    \
+    "#undo",                  \
+    "ram",                    \
+    "ramload",                \
+    "ramrestore",             \
+    "qload",                  \
+    "quickload",              \
+    "#qload",                 \
+    "ramsave",                \
+    "qsave",                  \
+    "quicksave",              \
+    "#qsave"
+
 const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
-    NULL,
-    "restart",
-    "#restart",
-    "save",
-    "#save",
-    "restore",
-    "load",
-    "#restore",
-    "transcript",
-    "#transcript",
-    "script",
-    "#script",
-    "oops",
-    "undo",
-    "bom",
-    "#undo",
-    "ram",
-    "ramload",
-    "ramrestore",
-    "qload",
-    "quickload",
-    "#qload",
-    "ramsave",
-    "qsave",
-    "quicksave",
-    "#qsave",
+    COMMON_EXTRA_COMMANDS,
     "except",
     "but",
     "#flicker",
@@ -106,32 +110,7 @@ const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
 };
 
 const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
-    NULL,
-    "restart",
-    "#restart",
-    "save",
-    "#save",
-    "restore",
-    "load",
-    "#restore",
-    "transcript",
-    "#transcript",
-    "script",
-    "#script",
-    "oops",
-    "undo",
-    "bom",
-    "#undo",
-    "ram",
-    "ramload",
-    "ramrestore",
-    "qload",
-    "quickload",
-    "#qload",
-    "ramsave",
-    "qsave",
-    "quicksave",
-    "#qsave",
+    COMMON_EXTRA_COMMANDS,
     "ausser",
     "bis",
     "#flicker",
@@ -143,32 +122,7 @@ const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
 };
 
 const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
-    NULL,
-    "restart",
-    "#restart",
-    "save",
-    "#save",
-    "restore",
-    "load",
-    "#restore",
-    "transcript",
-    "#transcript",
-    "script",
-    "#script",
-    "oops",
-    "undo",
-    "bom",
-    "#undo",
-    "ram",
-    "ramload",
-    "ramrestore",
-    "qload",
-    "quickload",
-    "#qload",
-    "ramsave",
-    "qsave",
-    "quicksave",
-    "#qsave",
+    COMMON_EXTRA_COMMANDS,
     "excepto",
     "menos",
     "#flicker",
@@ -178,6 +132,8 @@ const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "deshacer",
     "reinicia"
 };
+
+#undef COMMON_EXTRA_COMMANDS
 
 /* Maps each ExtraCommands[] entry to its canonical command enum.
    Multiple strings can map to the same command (e.g. "restore", "load",
@@ -290,6 +246,15 @@ static void FreeStrings(void)
     WordsInInput = 0;
 }
 
+/* Append the (possibly NULL) string src to buffer at position length, up to
+   MAX_BUFFER characters in all. Returns the new length. */
+static int AppendUnicode(glui32 *buffer, int length, const glui32 *src)
+{
+    for (int i = 0; src != NULL && length < MAX_BUFFER && src[i] != 0; i++)
+        buffer[length++] = src[i];
+    return length;
+}
+
 /* Build a deferred error message from up to three parts (prefix + word + suffix).
    Only the first error per input line is kept; subsequent calls are ignored. */
 static void CreateErrorMessage(const char *fchar, glui32 *second, const char *tchar)
@@ -299,23 +264,15 @@ static void CreateErrorMessage(const char *fchar, glui32 *second, const char *tc
     glui32 *first = ToUnicode(fchar);
     glui32 *third = ToUnicode(tchar);
     glui32 buffer[MAX_BUFFER];
-    int i, j = 0, k = 0;
-    for (i = 0; first != NULL && first[i] != 0 && i < MAX_BUFFER; i++)
-        buffer[i] = first[i];
-    if (second != NULL) {
-        for (j = 0; second[j] != 0 && i + j < MAX_BUFFER; j++)
-            buffer[i + j] = second[j];
-    }
-    if (third != NULL) {
-        for (k = 0; third[k] != 0 && i + j + k < MAX_BUFFER; k++)
-            buffer[i + j + k] = third[k];
-        free(third);
-    }
-    int length = i + j + k;
+    int length = 0;
+    length = AppendUnicode(buffer, length, first);
+    length = AppendUnicode(buffer, length, second);
+    length = AppendUnicode(buffer, length, third);
     FirstErrorMessage = MemAlloc((length + 1) * sizeof(glui32));
     memcpy(FirstErrorMessage, buffer, length * sizeof(glui32));
     FirstErrorMessage[length] = 0;
     free(first);
+    free(third);
 }
 
 /* Single-byte mapping for bytes >= 0x80. Default: map byte to same codepoint (Latin‑1). Overrides below. */
@@ -324,48 +281,51 @@ static glui32 MapLatin1(unsigned char b)
     return (glui32)b;
 }
 
+typedef struct {
+    unsigned char byte;
+    glui32 codepoint;
+} CharMapping;
+
+/* Returns the codepoint b maps to in table, or b itself */
+static glui32 MapWithTable(unsigned char b, const CharMapping *table, size_t count)
+{
+    for (size_t i = 0; i < count; i++)
+        if (table[i].byte == b)
+            return table[i].codepoint;
+    return (glui32)b;
+}
+
+/* C64 PETSCII codes used by Spanish Gremlins */
+static const CharMapping spanish_mapping[] = {
+    { 0x83, 0x00BF }, /* ¿ */
+    { 0x80, 0x00A1 }, /* ¡ */
+    { 0x82, 0x00FC }, /* ü */
+    { '{',  0x00E1 }, /* á */
+    { '}',  0x00ED }, /* í */
+    { '|',  0x00F3 }, /* ó */
+    { '~',  0x00F1 }, /* ñ */
+    { 0x84, 0x00E9 }, /* é */
+    { 0x85, 0x00FA }, /* ú */
+};
+
+/* TI-99/4A character codes */
+static const CharMapping ti994a_mapping[] = {
+    { '@',            0x00A9 }, /* © */
+    { '}',            0x00FC }, /* ü */
+    { TI99_O_UMLAUT,  0x00F6 }, /* ö */
+    { '{',            0x00E4 }, /* ä */
+};
+
 /* Map C64 PETSCII codes to Unicode for Spanish Gremlins */
 static glui32 Map_Spanish(unsigned char b)
 {
-    switch (b) {
-    case 0x83:
-        return 0x00BF; /* ¿ */
-    case 0x80:
-        return 0x00A1; /* ¡ */
-    case 0x82:
-        return 0x00FC; /* ü */
-    case '{':
-        return 0x00E1; /* á */
-    case '}':
-        return 0x00ED; /* í */
-    case '|':
-        return 0x00F3; /* ó */
-    case '~':
-        return 0x00F1; /* ñ */
-    case 0x84:
-        return 0x00E9; /* é */
-    case 0x85:
-        return 0x00FA; /* ú */
-    default:
-        return (glui32)b;
-    }
+    return MapWithTable(b, spanish_mapping, sizeof(spanish_mapping) / sizeof(spanish_mapping[0]));
 }
 
 /* Map TI-99/4A character codes to Unicode */
 static glui32 MapTI994A(unsigned char b)
 {
-    switch (b) {
-    case '@':
-        return 0x00A9; /* © */
-    case '}':
-        return 0x00FC; /* ü */
-    case TI99_O_UMLAUT:
-        return 0x00F6; /* ö */
-    case '{':
-        return 0x00E4; /* ä */
-    default:
-        return (glui32)b;
-    }
+    return MapWithTable(b, ti994a_mapping, sizeof(ti994a_mapping) / sizeof(ti994a_mapping[0]));
 }
 
 static int IsGerman(void)
@@ -391,61 +351,63 @@ static map_fn SelectMapper(void)
     return MapLatin1;
 }
 
+/* German digraphs folded into umlauts. A digraph is left alone when it
+   follows not_after (no 'ü' in 'Abenteuer'). */
+static const struct {
+    glui32 first, second, folded, not_after;
+} german_digraphs[] = {
+    { 'u', 'e', 0x00FC, 'e' }, /* ü */
+    { 'U', 'E', 0x00DC, 0 },   /* Ü */
+    { 'o', 'e', 0x00F6, 0 },   /* ö */
+    { 'a', 'e', 0x00E4, 0 },   /* ä */
+};
+
+/* As far as I can tell, only five words in the German Gremlins output text
+   use the double-s ß character: 'außer', 'draußen', 'Straße', 'schießt',
+   and 'geschweißt'. Simply checking the two preceding characters seems to
+   be sufficient to avoid false positives. */
+static int IsEszettPosition(const glui32 *in, size_t i)
+{
+    return i > 1 &&
+        ((in[i - 2] == 'a' && in[i - 1] == 'u') ||
+         (in[i - 2] == 'r' && in[i - 1] == 'a') ||
+         (in[i - 2] == 'i' && in[i - 1] == 'e') ||
+         (in[i - 2] == 'e' && in[i - 1] == 'i'));
+}
+
 /* Fold German digraph sequences into proper Unicode characters:
-   ue→ü, oe→ö, ae→ä, ss→ß (contextual), and "→'. The ß folding
-   checks the two preceding characters to avoid false positives
-   (only triggers after au/ra/ie/ei, covering außer/Straße/schießt/geschweißt). */
+   ue→ü, oe→ö, ae→ä, ss→ß (contextual), and "→'. */
 static glui32 *FoldGermanSequences(const glui32 *in, size_t in_len,
                                      size_t *out_len)
 {
-    glui32 *out = MemAlloc((in_len + 1) * sizeof(glui32));
     /* at most as large as input */
+    glui32 *out = MemAlloc((in_len + 1) * sizeof(glui32));
     size_t write_pos = 0;
     for (size_t i = 0; i < in_len; ++i) {
         glui32 cp = in[i];
         if (i + 1 < in_len) {
             glui32 next = in[i + 1];
-            /* sequences are ASCII letters */
-            if (cp == 'u' && next == 'e' &&
-                !(i > 0 && in[i - 1] == 'e')) { /* No 'ü' in 'Abenteuer' */
-                out[write_pos++] = 0x00FC; /* ü */
-                ++i;
-                continue;
+            int folded = 0;
+            for (size_t d = 0; d < sizeof(german_digraphs) / sizeof(german_digraphs[0]); d++) {
+                if (cp == german_digraphs[d].first && next == german_digraphs[d].second &&
+                    !(german_digraphs[d].not_after && i > 0 && in[i - 1] == german_digraphs[d].not_after)) {
+                    out[write_pos++] = german_digraphs[d].folded;
+                    ++i;
+                    folded = 1;
+                    break;
+                }
             }
-            else if (cp == 'U' && next == 'E') {
-                out[write_pos++] = 0x00DC; /* Ü */
-                ++i;
+            if (folded)
                 continue;
-            }
-            else if (cp == 'o' && next == 'e') {
-                out[write_pos++] = 0x00F6; /* ö */
-                ++i;
-                continue;
-            }
-            else if (cp == 'a' && next == 'e') {
-                out[write_pos++] = 0x00E4; /* ä */
-                ++i;
-                continue;
-            }
-            /* Not a sequences, just a single character */
-            /* substitution. */
-            else if (cp == '"') {
+            /* Not a sequence, just a single character substitution. */
+            if (cp == '"') {
                 out[write_pos++] = 0x2019; /* ’ */
                 continue;
             }
-            /* As far as I can tell, only five words in the German
-               Gremlins output text use the double-s ß character:
-               'außer', 'draußen', 'Straße', 'schießt', and 'geschweißt'
-               Simply checking the two preceding characters seems to be
-               sufficient to avoid false positives. */
-            else if (cp == 's' && next == 's' && i > 1 &&
-                    ((in[i - 2] == 'a' && in[i - 1] == 'u') ||
-                     (in[i - 2] == 'r' && in[i - 1] == 'a') ||
-                     (in[i - 2] == 'i' && in[i - 1] == 'e') ||
-                     (in[i - 2] == 'e' && in[i - 1] == 'i'))) {
-                    out[write_pos++] = 0x00DF; /* ß */
-                    ++i;
-                    continue;
+            if (cp == 's' && next == 's' && IsEszettPosition(in, i)) {
+                out[write_pos++] = 0x00DF; /* ß */
+                ++i;
+                continue;
             }
         }
         out[write_pos++] = cp;
@@ -516,6 +478,30 @@ glui32 *ToUnicode(const char *string)
     return tmp;
 }
 
+/* ASCII spellings of the diacritical characters the games use */
+static const struct {
+    glui32 codepoint;
+    const char *ascii;
+} diacritic_spellings[] = {
+    { 0xf6, "oe" }, /* ö */
+    { 0xe4, "ae" }, /* ä */
+    { 0xdf, "ss" }, /* ß */
+    { 0xed, "i" },  /* í */
+    { 0xe1, "a" },  /* á */
+    { 0xf3, "o" },  /* ó */
+    { 0xf1, "n" },  /* ñ */
+    { 0xe9, "e" },  /* é */
+};
+
+/* Returns the ASCII spelling of diacritical character c, or NULL */
+static const char *AsciiForDiacritic(glui32 c)
+{
+    for (size_t i = 0; i < sizeof(diacritic_spellings) / sizeof(diacritic_spellings[0]); i++)
+        if (diacritic_spellings[i].codepoint == c)
+            return diacritic_spellings[i].ascii;
+    return NULL;
+}
+
 /* Convert a Unicode string back to ASCII for dictionary matching.
    Diacritical characters are replaced with their base-letter equivalents
    (ö→oe, ä→ae, ü→ue/u, ß→ss, á→a, etc.). Lone punctuation (.,;) is
@@ -529,57 +515,20 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
         glui32 unichar = unicode_string[i];
         if (unichar == 0)
             break;
-        switch (unichar) {
-        case '.':
-        case ',':
-        case ';':
-            if (origlength == 1) {
-                dest[destpos++] = 'a';
-                dest[destpos++] = 'n';
-                dest[destpos] = 'd';
-            } else {
-                dest[destpos] = (char)unichar;
-            }
-            break;
-        case 0xf6: // ö
-            dest[destpos++] = 'o';
-            dest[destpos] = 'e';
-            break;
-        case 0xe4: // ä
-            dest[destpos++] = 'a';
-            dest[destpos] = 'e';
-            break;
-        case 0xfc: // ü
-            dest[destpos] = 'u';
-            if (IsGerman()) {
-                destpos++;
-                dest[destpos] = 'e';
-            }
-            break;
-        case 0xdf: // ß
-            dest[destpos++] = 's';
-            dest[destpos] = 's';
-            break;
-        case 0xed: // í
-            dest[destpos] = 'i';
-            break;
-        case 0xe1: // á
-            dest[destpos] = 'a';
-            break;
-        case 0xf3: // ó
-            dest[destpos] = 'o';
-            break;
-        case 0xf1: // ñ
-            dest[destpos] = 'n';
-            break;
-        case 0xe9: // é
-            dest[destpos] = 'e';
-            break;
-        default:
-            dest[destpos] = (char)unichar;
-            break;
+        const char *replacement = NULL;
+        if ((unichar == '.' || unichar == ',' || unichar == ';') && origlength == 1)
+            replacement = "and";
+        else if (unichar == 0xfc) // ü
+            replacement = IsGerman() ? "ue" : "u";
+        else
+            replacement = AsciiForDiacritic(unichar);
+
+        if (replacement) {
+            for (const char *r = replacement; *r; r++)
+                dest[destpos++] = *r;
+        } else {
+            dest[destpos++] = (char)unichar;
         }
-        destpos++;
     }
     if (destpos == 0) {
         free(dest);
@@ -616,6 +565,60 @@ static int MatchTitleWithPeriod(glui32 *string, int length, int index)
     return 0;
 }
 
+/* Whitespace, punctuation treated as whitespace, and Unicode spaces */
+static int IsSpaceChar(glui32 c)
+{
+    switch (c) {
+    case ' ':
+    case '\t':
+    case '!':
+    case '?':
+    case '\"':
+    case 0x83:   // ¿
+    case 0x80:   // ¡
+    case 0xa0:   // non-breaking space
+    case 0x2000: // en quad
+    case 0x2001: // em quad
+    case 0x2003: // em space
+    case 0x2004: // three-per-em space
+    case 0x2005: // four-per-em space
+    case 0x2006: // six-per-em space
+    case 0x2007: // figure space
+    case 0x2009: // thin space
+    case 0x200A: // hair space
+    case 0x202f: // narrow no-break space
+    case 0x205f: // medium mathematical space
+    case 0x3000: // ideographic space
+        return 1;
+    default:
+        return 0;
+    }
+}
+
+/* Punctuation delimiters, emitted as their own one-character tokens */
+static int IsDelimiterChar(glui32 c)
+{
+    return (c == '.' || c == ',' || c == ';');
+}
+
+/* Start positions and lengths of the words found in an input line */
+typedef struct {
+    int start[MAX_WORDS];
+    int length[MAX_WORDS];
+    int count;
+} WordSpans;
+
+/* Record a word starting at start. Returns 0 if MAX_WORDS are already found. */
+static int AddWordSpan(WordSpans *spans, int start, int length)
+{
+    if (spans->count >= MAX_WORDS)
+        return 0;
+    spans->start[spans->count] = start;
+    spans->length[spans->count] = length;
+    spans->count++;
+    return 1;
+}
+
 /* Tokenize a Unicode input string into words.
    Lowercases the input, coalesces whitespace, splits on spaces and
    various Unicode space variants, and emits commas/periods/semicolons
@@ -631,98 +634,44 @@ void SplitIntoWords(glui32 *string, int length)
     glk_buffer_to_lower_case_uni(string, INPUT_BUFFER_SIZE, MIN(length, INPUT_BUFFER_SIZE));
     glk_buffer_canon_normalize_uni(string, INPUT_BUFFER_SIZE, MIN(length, INPUT_BUFFER_SIZE));
 
-    int startpos[MAX_WORDS];
-    int wordlength[MAX_WORDS];
-    int words_found = 0;
+    WordSpans spans = { .count = 0 };
     int lastwasspace = 1;
 
     for (int i = 0; string[i] != 0 && i < length; i++) {
-        int title_len = 0;
-        int is_space = 0;
-        int is_delimiter = 0;
+        glui32 c = string[i];
 
-        switch (string[i]) {
-        case 'd':
-        case 'm':
-            title_len = MatchTitleWithPeriod(string, length, i);
-            /* Falls through to also check YMCA pattern */
-        case 'y': {
+        if (c == 'd' || c == 'm' || c == 'y') {
+            /* Keep "y.m.c.a." and "Dr."/"Mr." as single tokens */
+            int title_len = (c == 'y') ? 0 : MatchTitleWithPeriod(string, length, i);
             int match_len = MatchYMCA(string, length, i);
             if (title_len > match_len)
                 match_len = title_len;
             if (match_len > YMCA_PATTERN_LEN / 2 || title_len > TITLE_PATTERN_LEN - 1) {
-                /* Matched "y.m.c.a." or "Dr."/"Mr." — emit as single token */
-                if (words_found >= MAX_WORDS)
-                    goto done;
-                startpos[words_found] = i;
-                wordlength[words_found] = match_len;
-                words_found++;
+                if (!AddWordSpan(&spans, i, match_len))
+                    break;
                 i += match_len - 1; /* -1: the for-loop increment adds 1 */
                 lastwasspace = 1;
                 continue;
             }
-        } break;
-
-        /* Whitespace, punctuation treated as whitespace, and Unicode spaces */
-        case ' ':
-        case '\t':
-        case '!':
-        case '?':
-        case '\"':
-        case 0x83:   // ¿
-        case 0x80:   // ¡
-        case 0xa0:   // non-breaking space
-        case 0x2000: // en quad
-        case 0x2001: // em quad
-        case 0x2003: // em space
-        case 0x2004: // three-per-em space
-        case 0x2005: // four-per-em space
-        case 0x2006: // six-per-em space
-        case 0x2007: // figure space
-        case 0x2009: // thin space
-        case 0x200A: // hair space
-        case 0x202f: // narrow no-break space
-        case 0x205f: // medium mathematical space
-        case 0x3000: // ideographic space
-            is_space = 1;
-            break;
-
-        /* Punctuation delimiters — emitted as their own tokens */
-        case '.':
-        case ',':
-        case ';':
-            is_delimiter = 1;
-            break;
-
-        default:
-            break;
         }
 
-        if (is_space) {
+        if (IsSpaceChar(c)) {
             lastwasspace = 1;
-        } else if (is_delimiter) {
+        } else if (IsDelimiterChar(c)) {
             /* Emit the delimiter character as a one-character word token
                so downstream parsing can match it in DelimiterList */
-            if (words_found >= MAX_WORDS)
+            if (!AddWordSpan(&spans, i, 1))
                 break;
-            startpos[words_found] = i;
-            wordlength[words_found] = 1;
-            words_found++;
             lastwasspace = 1;
         } else {
-            if (lastwasspace) {
-                if (words_found >= MAX_WORDS)
-                    break;
-                startpos[words_found] = i;
-                wordlength[words_found] = 0;
-                words_found++;
-            }
-            wordlength[words_found - 1]++;
+            if (lastwasspace && !AddWordSpan(&spans, i, 0))
+                break;
+            spans.length[spans.count - 1]++;
             lastwasspace = 0;
         }
     }
-done:
 
+    int words_found = spans.count;
     if (words_found == 0)
         return;
 
@@ -731,10 +680,11 @@ done:
     char **words8 = MemAlloc(words_found * sizeof(*words8));
 
     for (int i = 0; i < words_found; i++) {
-        words[i] = (glui32 *)MemAlloc((wordlength[i] + 1) * sizeof(glui32));
-        memcpy(words[i], string + startpos[i], wordlength[i] * sizeof(glui32));
-        words[i][wordlength[i]] = 0;
-        words8[i] = FromUnicode(words[i], wordlength[i]);
+        int len = spans.length[i];
+        words[i] = (glui32 *)MemAlloc((len + 1) * sizeof(glui32));
+        memcpy(words[i], string + spans.start[i], len * sizeof(glui32));
+        words[i][len] = 0;
+        words8[i] = FromUnicode(words[i], len);
     }
     UnicodeWords = words;
     WordsInInput = words_found;
@@ -748,32 +698,26 @@ void LineInput(void)
     event_t ev;
     glui32 unibuf[INPUT_BUFFER_SIZE];
 
-    do {
+    for (;;) {
         Display(Bottom, "\n%s", sys[WHAT_NOW]);
         glk_request_line_event_uni(Bottom, unibuf, (glui32)(INPUT_BUFFER_SIZE - 1), 0);
 
-        while (1) {
+        do {
             glk_select(&ev);
-
-            if (ev.type == evtype_LineInput)
-                break;
-            else
+            if (ev.type != evtype_LineInput)
                 Updates(ev);
-        }
+        } while (ev.type != evtype_LineInput);
 
         unibuf[ev.val1] = 0;
         lastwasnewline = 1;
 
         SplitIntoWords(unibuf, ev.val1);
 
-        if (WordsInInput == 0 || CharWords == NULL)
-            Output(sys[HUH]);
-        else {
+        if (WordsInInput != 0 && CharWords != NULL)
             return;
-        }
 
-    } while (WordsInInput == 0 || CharWords == NULL);
-    return;
+        Output(sys[HUH]);
+    }
 }
 
 /* Search a word list for a match, comparing up to word_length characters.
@@ -925,18 +869,15 @@ static int FindVerbOrNoun(const char *word, const SearchSpec *order, int list_si
             case L_SKIP:
                 return 0;
 
-            case L_EXTRACMD: {
-                if (idx > 0 && idx < NUMBER_OF_EXTRA_COMMANDS && ExtraCommandsKey[idx]) {
+            case L_EXTRACMD:
+                if (idx > 0 && idx < NUMBER_OF_EXTRA_COMMANDS && ExtraCommandsKey[idx])
                     return ExtraCommandsKey[idx] + GameHeader.NumWords;
-                }
-            }
+                break;
 
-            case L_EXTRANOUN: {
-                if (idx > 0 && idx < NUMBER_OF_EXTRA_NOUNS &&
-                    ExtraNounsKey[idx]) {
+            case L_EXTRANOUN:
+                if (idx > 0 && idx < NUMBER_OF_EXTRA_NOUNS && ExtraNounsKey[idx])
                     return ExtraNounsKey[idx] + GameHeader.NumWords;
-                }
-            }
+                break;
         }
     }
 
