@@ -1,0 +1,35 @@
+take all
+inventory
+drop all
+take everything
+drop everything
+take all except coin
+drop all
+take all but rope and gem
+drop all
+take all except coin, rope, book
+drop all
+take everything except the gem
+drop all
+take all except money
+drop all
+take all except xyzzy
+drop all
+take all except
+drop all but
+examine all
+take all coin
+drop all
+take all xyzzy except the coin now
+drop all
+except coin
+east
+take all
+drop all
+west
+take all then north
+take all
+drop all except medal
+inventory
+take all and south
+inventory

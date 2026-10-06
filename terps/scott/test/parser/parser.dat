@@ -1,0 +1,54 @@
+0
+10 2 18 3 4 1 0 4 -1 2 3
+
+1800 0 0 0 0 0 9900 0
+1960 0 0 0 0 0 150 0
+1950 0 0 0 0 0 300 0
+
+"AUT" "ANY"
+"GO" "NORT"
+"" "SOUT"
+"" "EAST"
+"" "WEST"
+"" "UP"
+"" "DOWN"
+"" "COIN"
+"" "*MONE"
+"" "ROPE"
+"TAKE" "BOOK"
+"*GET" "GEM"
+"INVE" "MEDA"
+"EXAM" "STAT"
+"*LOOK" ""
+"" ""
+"" ""
+"" ""
+"DROP" ""
+
+0 0 0 0 0 0 ""
+2 0 3 0 0 0 "test chamber"
+0 1 0 0 0 0 "storeroom"
+0 0 0 1 0 0 "empty closet"
+
+""
+"The book is a parser manual."
+"I see nothing special."
+
+"A statue" 1
+"A coin/COIN/" 1
+"A rope/ROPE/" 1
+"A book/BOOK/" 1
+"A gem/GEM/" 1
+"A medal/MEDA/" 2
+"Nothing" 0
+"Nothing" 0
+"Nothing" 0
+"A burnt-out lamp" 0
+"Nothing" 0
+
+"INVENTORY"
+"EXAMINE BOOK"
+"EXAMINE anything else"
+
+100
+1

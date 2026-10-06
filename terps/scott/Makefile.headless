@@ -107,6 +107,12 @@ check: scott_hl
 	@printf 'take all\ninv\ncall dr.\ndr. medal\n' | ./scott_hl test/regression.dat 2>/dev/null \
 	    | $(NOISE) > $(OBJDIR)/regression.out
 	@diff -u test/regression_expected.txt $(OBJDIR)/regression.out && echo "    ok"
+	@for s in all chain it words; do \
+	    echo "--- test/parser/$$s.txt: see test/README.md"; \
+	    SCOTT_SCRIPT_KEYS=1 ./scott_hl test/parser/parser.dat < test/parser/$$s.txt 2>/dev/null \
+	        | $(NOISE) > $(OBJDIR)/parser-$$s.out; \
+	    diff -u test/parser/expected/$$s.txt $(OBJDIR)/parser-$$s.out && echo "    ok" || exit 1; \
+	done
 	@echo "--- adv01.dat: full Adventureland walkthrough (157 commands, wins 13/13)"
 	@./scott_hl "$(UITESTS)/Games/adv01.dat" < "$(UITESTS)/Command scripts/ScottFree command script.txt" \
 	    2>/dev/null | $(NOISE) > $(OBJDIR)/adv01.out

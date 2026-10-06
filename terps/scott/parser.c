@@ -802,9 +802,11 @@ static const SearchSpec verb_search_order[] = {
     {L_VERBS, 1}, {L_DIRECTIONS, 1}, {L_ABBREVS, 1},   {L_SKIP, 0},
     {L_NOUNS, 1}, {L_EXTRACMD, 0},   {L_EXTRANOUN, 0}, {L_DELIM, 0}};
 
+/* The filler words come before the extra nouns: those two lists are matched
+   on as many letters as were typed, and "a" is also how "all" begins. */
 static const SearchSpec noun_search_order[] = {
-    {L_NOUNS, 1}, {L_DIRECTIONS, 1}, {L_EXTRANOUN, 0},
-    {L_SKIP, 0},  {L_VERBS, 1},      {L_DELIM, 0}};
+    {L_NOUNS, 1}, {L_DIRECTIONS, 1}, {L_SKIP, 0},
+    {L_EXTRANOUN, 0}, {L_VERBS, 1},  {L_DELIM, 0}};
 
 /* Unified search routine used by FindVerb() and FindNoun().
  * - order: array of SearchSpec describing priority order to
@@ -897,61 +899,34 @@ static int FindNoun(const char *string, const char ***list)
 
 static Command *CommandFromStrings(int index, Command *previous);
 
-/* Check for unrecognized trailing words after a verb+noun pair.
-   Skips filler words and synonyms of the current noun. Returns 1
-   and sets an error message if an invalid word is found. */
-static int FindExtraneousWords(int *index, int noun)
+static int IsExceptWord(int i)
 {
-    int original_index = *index;
-    if (*index >= WordsInInput) {
-        return 0;
+    int except = WhichWord(CharWords[i], ExtraCommands, strlen(CharWords[i]),
+        NUMBER_OF_EXTRA_COMMANDS);
+    return (ExtraCommandsKey[except] == EXCEPT);
+}
+
+/* Whatever follows the verb and its noun is ignored, as the original
+   interpreters do: LOOK UP AT THE GREMLIN is LOOK UP, and GET FLASHLIGHT
+   AT THE XYZZY takes the flashlight. Returns the index of the word where
+   the next command begins: a delimiter, the end of the input or, after
+   ALL, the word EXCEPT. */
+static int SkipTrailingWords(int index, int after_all)
+{
+    while (index < WordsInInput) {
+        const char **list = NULL;
+        FindVerb(CharWords[index], &list);
+        if (list == DelimiterList || (after_all && IsExceptWord(index)))
+            break;
+        index++;
     }
-    const char **list = NULL;
-    int verb = 0;
-    int stringlength = strlen(CharWords[*index]);
-
-    int secondnoun = WhichWord(CharWords[*index], (const char **)Nouns, GameHeader.WordLength, GameHeader.NumWords + 1);
-    if (secondnoun) {
-        if (MapSynonym(secondnoun) == MapSynonym(noun)) {
-            *index = *index + 1;
-            return 0;
-        }
-    }
-
-    list = SkipList;
-    do {
-        verb = WhichWord(CharWords[*index], SkipList, stringlength,
-            NUMBER_OF_SKIPPABLE_WORDS);
-        if (verb)
-            *index = *index + 1;
-    } while (verb && *index < WordsInInput);
-
-    if (*index >= WordsInInput)
-        return 0;
-
-    FindVerb(CharWords[*index], &list);
-
-    if (list == DelimiterList) {
-        if (*index > original_index)
-            *index = *index - 1;
-        return 0;
-    }
-
-    if (list == NULL) {
-        if (*index >= WordsInInput)
-            *index = WordsInInput - 1;
-        CreateErrorMessage(sys[I_DONT_KNOW_WHAT_A], UnicodeWords[*index], sys[IS]);
-    } else {
-        CreateErrorMessage(sys[I_DONT_UNDERSTAND], NULL, NULL);
-    }
-
-    return 1;
+    return index;
 }
 
 /* Allocate a Command node and recursively parse any remaining words
    into a linked list of subsequent commands. */
 static Command *CreateCommandStruct(int verb, int noun, int verbindex,
-    int nounindex, Command *previous)
+    int nounindex, int nextindex, Command *previous)
 {
     Command *command = MemAlloc(sizeof(Command));
     command->verb = verb;
@@ -965,7 +940,7 @@ static Command *CreateCommandStruct(int verb, int noun, int verbindex,
     } else {
         command->nounwordindex = 0;
     }
-    command->next = CommandFromStrings(nounindex, command);
+    command->next = CommandFromStrings(nextindex, command);
     return command;
 }
 
@@ -978,19 +953,6 @@ static void DontKnowHowTo(int wordindex)
 {
     CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[wordindex],
         sys[SOMETHING]);
-}
-
-/* Check if word (an extra noun) is ALL, followed by EXCEPT at input
-   word i */
-static int IsAllExcept(int word, int i)
-{
-    int except = 0;
-    if (i < WordsInInput && word - GameHeader.NumWords == ALL) {
-        int stringlength = strlen(CharWords[i]);
-        except = WhichWord(CharWords[i], ExtraCommands, stringlength,
-            NUMBER_OF_EXTRA_COMMANDS);
-    }
-    return (ExtraCommandsKey[except] == EXCEPT);
 }
 
 /* Parse tokenized words starting at `index` into a Command node.
@@ -1031,9 +993,7 @@ static Command *CommandFromStrings(int index, Command *previous)
                     i++;
             }
         }
-        if (FindExtraneousWords(&i, 0) != 0)
-            return NULL;
-        return CreateCommandStruct(GO, verb, 0, i, previous);
+        return CreateCommandStruct(GO, verb, 0, i, SkipTrailingWords(i, 0), previous);
     }
 
     int found_noun_at_verb_position = 0;
@@ -1053,10 +1013,9 @@ static Command *CommandFromStrings(int index, Command *previous)
             } else {
                 verbindex = previous->verbwordindex;
             }
-            if (FindExtraneousWords(&i, verb) != 0)
-                return NULL;
-
-            return CreateCommandStruct(lastverb, verb, verbindex, i, previous);
+            int after_all = (list == (const char **)ExtraNouns && verb - GameHeader.NumWords == ALL);
+            return CreateCommandStruct(lastverb, verb, verbindex, i,
+                SkipTrailingWords(i, after_all), previous);
         } else {
             found_noun_at_verb_position = 1;
         }
@@ -1070,12 +1029,12 @@ static Command *CommandFromStrings(int index, Command *previous)
     if (i == WordsInInput) {
         if (lastverb) {
             return CreateCommandStruct(lastverb, verb, previous->verbwordindex, i,
-                previous);
+                i, previous);
         } else if (found_noun_at_verb_position) {
             DontKnowHowTo(i - 1);
             return NULL;
         } else {
-            return CreateCommandStruct(verb, 0, i - 1, i, previous);
+            return CreateCommandStruct(verb, 0, i - 1, i, i, previous);
         }
     }
 
@@ -1089,9 +1048,7 @@ static Command *CommandFromStrings(int index, Command *previous)
     if (IsNounList(list)) {
         /* It is a noun */
 
-        int except = (list == (const char **)ExtraNouns && IsAllExcept(noun, i));
-        if (!except && FindExtraneousWords(&i, noun) != 0)
-            return NULL;
+        int after_all = (list == (const char **)ExtraNouns && noun - GameHeader.NumWords == ALL);
         /* If we found a noun where a verb was expected, check
            again to see if it matches a verb as well */
         if (found_noun_at_verb_position) {
@@ -1105,19 +1062,20 @@ static Command *CommandFromStrings(int index, Command *previous)
                 verb = lastverb;
             }
         }
-        return CreateCommandStruct(verb, noun, verbindex, i, previous);
+        return CreateCommandStruct(verb, noun, verbindex, i,
+            SkipTrailingWords(i, after_all), previous);
     }
 
     if (list == DelimiterList) {
         /* It is a delimiter */
-        return CreateCommandStruct(verb, 0, verbindex, i, previous);
+        return CreateCommandStruct(verb, 0, verbindex, i, i, previous);
     }
 
     if (list == (const char **)Verbs && found_noun_at_verb_position) {
         /* It is a verb */
-        if (!IsAllExcept(verb, i) && FindExtraneousWords(&i, 0) != 0)
-            return NULL;
-        return CreateCommandStruct(noun, verb, i - 1, i, previous);
+        int after_all = (verb - GameHeader.NumWords == ALL);
+        return CreateCommandStruct(noun, verb, i - 1, i,
+            SkipTrailingWords(i, after_all), previous);
     }
 
     CreateErrorMessage(sys[I_DONT_KNOW_WHAT_A], UnicodeWords[i - 1], sys[IS]);
@@ -1141,8 +1099,18 @@ static int CreateAllCommands(Command *command)
     Command *next = command->next;
     /* Check if the ALL command is followed by EXCEPT */
     while (next && next->verb == GameHeader.NumWords + EXCEPT) {
+        const char *word = CharWords[next->nounwordindex];
+        /* The item's own word, or a synonym of it */
+        int noun = WhichWord(word, (const char **)Nouns, GameHeader.WordLength,
+            GameHeader.NumWords + 1);
+        /* ALL EXCEPT IT */
+        if (next->noun == GameHeader.NumWords + IT)
+            noun = lastnoun;
         for (int i = 0; i <= GameHeader.NumItems; i++) {
-            if (exceptioncount < MAX_ITEM_LIMIT && Items[i].AutoGet && xstrncasecmp(Items[i].AutoGet, CharWords[next->nounwordindex], GameHeader.WordLength) == 0) {
+            if (exceptioncount >= MAX_ITEM_LIMIT || !Items[i].AutoGet)
+                continue;
+            if (xstrncasecmp(Items[i].AutoGet, word, GameHeader.WordLength) == 0
+                || (noun && noun == WhichWord(Items[i].AutoGet, (const char **)Nouns, GameHeader.WordLength, GameHeader.NumWords + 1))) {
                 exceptions[exceptioncount++] = i;
             }
         }

@@ -1,0 +1,44 @@
+take it
+examine it
+take coin
+drop it
+take it
+examine it
+drop it now
+quickly take it
+north
+drop it
+south
+take it
+north
+take it
+south
+take book
+examine it
+drop it
+take money
+drop it
+take coin then drop it then take it and examine it
+inventory
+drop it, take rope, drop it
+take xyzzy
+take it
+examine statue
+take it
+take all
+drop it
+inventory
+take it
+drop all except it
+inventory
+drop it
+take all but it
+inventory
+drop all
+take coin and rope
+drop it
+drop it
+it
+it coin
+take it it
+take it rope

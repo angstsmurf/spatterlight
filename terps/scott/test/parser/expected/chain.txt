@@ -1,0 +1,441 @@
+Welcome to the Cheap Glk Implementation, library version 1.0.7.
+
+Scott Free, A Scott Adams game driver in C.
+Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.
+Distributed under the GNU software license
+
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? take coin and rope
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A book - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? drop coin, rope
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A book - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? take coin then drop it
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? take coin. take rope; take book
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A book - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? drop coin and rope and book
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A rope - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? take coin, rope, book and gem then north
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A book - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - 
+<------------------------------------------------------------------------------>
+I'm in a storeroom
+
+Obvious exits: South.
+
+I can also see: A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? take medal
+I've too much to carry. 
+
+I'm in a storeroom
+
+Obvious exits: South.
+
+I can also see: A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? s. drop coin and take medal
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - 
+<------------------------------------------------------------------------------>
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - 
+<------------------------------------------------------------------------------>I don't see it here. 
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? drop all
+A rope....O.K. 
+A book....O.K. 
+A gem....O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? take coin and then drop it
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? take coin then examine book and inventory
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>The book is a parser manual.
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>I'm carrying: 
+A coin - 
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? n and s and e and w
+
+I'm in a storeroom
+
+Obvious exits: South.
+
+I can also see: A medal - 
+<------------------------------------------------------------------------------>
+I'm in a storeroom
+
+Obvious exits: South.
+
+I can also see: A medal - 
+<------------------------------------------------------------------------------>
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+I'm in a empty closet
+
+Obvious exits: West.
+<------------------------------------------------------------------------------>
+I'm in a empty closet
+
+Obvious exits: West.
+<------------------------------------------------------------------------------>
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? north, take medal, south, drop it
+
+I'm in a storeroom
+
+Obvious exits: South.
+
+I can also see: A medal - 
+<------------------------------------------------------------------------------>
+I'm in a storeroom
+
+Obvious exits: South.
+
+I can also see: A medal - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a storeroom
+
+Obvious exits: South.
+<------------------------------------------------------------------------------>
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? drop all
+A coin....O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A rope - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? take coin and frob gem
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>I don't know how to "frob" something. 
+Tell me what to do ? take rope and gem xyzzy and book
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A book - A medal - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? inventory
+I'm carrying: 
+A coin - A rope - A book - A gem - 
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? drop all
+A coin....O.K. 
+A rope....O.K. 
+A book....O.K. 
+A gem....O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A rope - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? take coin now xyzzy, rope at once then examine book closely
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A rope - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>The book is a parser manual.
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? drop coin and
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>I don't understand 
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A coin - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? and take coin
+O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? take rope,, book
+I already have it. 
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A book - A gem - A medal - 
+<------------------------------------------------------------------------------>O.K. 
+
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A gem - A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? then
+I don't understand 
+I'm in a test chamber
+
+Obvious exits: North, East.
+
+I can also see: A statue - A gem - A medal - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+<end of input>

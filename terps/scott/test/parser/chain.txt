@@ -1,0 +1,23 @@
+take coin and rope
+drop coin, rope
+take coin then drop it
+take coin. take rope; take book
+drop coin and rope and book
+take coin, rope, book and gem then north
+take medal
+s. drop coin and take medal
+drop all
+take coin and then drop it
+take coin then examine book and inventory
+n and s and e and w
+north, take medal, south, drop it
+drop all
+take coin and frob gem
+take rope and gem xyzzy and book
+inventory
+drop all
+take coin now xyzzy, rope at once then examine book closely
+drop coin and
+and take coin
+take rope,, book
+then

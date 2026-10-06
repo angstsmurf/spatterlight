@@ -2,13 +2,34 @@
 
 - `Makefile.headless` — builds `scott_hl`, a stdio (CheapGlk) build of the
   interpreter. `printf 'look\nquit\n' | ./scott_hl "<game file>"`.
-- `make -f Makefile.headless check` — the regression suite. Replays two scripted
-  games and diffs the transcript against a golden file:
+- `make -f Makefile.headless check` — the regression suite. Replays scripted
+  games and diffs the transcripts against golden files:
   - `test/regression.dat` — a hand-written plaintext Scott database that
     exercises the TAKE/DROP ALL skip loop, the `mr.`/`dr.` title parser and the
     last-dictionary-word lookup in a few turns.
   - `UITests/.../adv01.dat` + `ScottFree command script.txt` — the full
     157-command Adventureland walkthrough, which wins 13/13 treasures.
+  - `test/parser/parser.dat` — a second hand-written database (three rooms,
+    five portable items, one synonym each for a verb and a noun) for the parser
+    alone. Four scripts, goldens in `test/parser/expected/`:
+    - `all.txt` — TAKE/DROP ALL, the carry limit, ALL EXCEPT/BUT with one or
+      several items, by synonym, with an unknown word and with nothing after
+      it, ALL in an empty room, and ALL with a verb that does not take it.
+    - `chain.txt` — several commands on a line, split by `,` `.` `;` `and`
+      `then`, and what happens to the rest of a line after an error.
+    - `it.txt` — IT as the noun of the last command: before there is one,
+      across lines and within one, with filler words around it, after a
+      direction, a synonym, an error and an ALL, in ALL EXCEPT IT, and where
+      it is not a noun at all.
+    - `words.txt` — the filler words (`the`, `a`, `my`, `quickly`, `room`, ...)
+      before and between verb and noun, and everything after the noun, which
+      is ignored up to the next command, known word or not, as the original
+      interpreters do (`LOOK UP AT THE GREMLIN` is `LOOK UP`). Unknown words
+      where the verb or the noun should be are still reported.
+
+    After a deliberate change to the parser, look at the diff and regenerate:
+    `SCOTT_SCRIPT_KEYS=1 ./scott_hl test/parser/parser.dat < test/parser/all.txt
+    2>/dev/null | grep -v 'Glk library error' > test/parser/expected/all.txt`.
 - `make -f Makefile.headless scott_death_test` — loads a real game, jumps the
   player into `MyLoc = GameHeader.NumRooms` (the death/limbo room) and calls
   `Look()`. Run under ASan with a non-zero malloc fill so an uninitialised room
