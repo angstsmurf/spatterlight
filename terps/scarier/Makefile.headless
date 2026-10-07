@@ -187,7 +187,13 @@ WHERE_TAF  := test/adrift4/harness/where_refusal.taf \
               test/adrift4/harness/where_refusal_3p.taf
 WHERE_PROBES := where_refusal where_refusal_1p where_refusal_3p
 
-.PHONY: test quick suitebins unittest test-fd sanitize taf clean capacitytest capacitybless wheretest wherebless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5walkthroughs-golden a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5duptest a5sexprtest v4walkthroughs scprojregress gamescheck gamesfetch vendorcheck
+# ADRIFT 4.0 embedded-sound probe: a WAV, an MP3 and a looping MIDI appended to
+# the TAF as the 4.0 Generator embeds them, plus a "##" stop.  Headless, sound
+# is silent, so the golden pins the text and that the resources parse; play
+# sound_400.taf in Spatterlight to hear them.
+SOUND_TAF  := test/adrift4/harness/sound_400.taf
+
+.PHONY: test quick suitebins unittest test-fd sanitize taf clean capacitytest capacitybless wheretest wherebless soundtest soundbless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5walkthroughs-golden a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5duptest a5sexprtest v4walkthroughs scprojregress gamescheck gamesfetch vendorcheck
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
 # copyrighted and not committed.  Override A5_GAMES_DIR / A5_BULLETS to relocate.
@@ -213,12 +219,12 @@ V4_GAMES_DIR ?= test/adrift4/games
 # which share nothing but read-only inputs, run side by side
 # (test/run_stages.sh), each stage's output printed whole and in the order
 # below as it finishes.  The run fails if any stage does.
-SUITE_STAGES := unittest vendorcheck capacitytest wheretest gamescheck a5runtest \
+SUITE_STAGES := unittest vendorcheck capacitytest wheretest soundtest gamescheck a5runtest \
                 v4walkthroughs a5maptest scprojregress a5walkthroughs-golden
 
 UNIT_BINS := $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(EXPR_BIN) $(A5PARSE_BIN) \
              $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5DUP_BIN)
-SUITE_BINS := $(UNIT_BINS) $(TAF) $(PREC_TAF) $(BADP_TAF) $(CAP_BIN) $(CAP_TAF) $(WHERE_TAF) \
+SUITE_BINS := $(UNIT_BINS) $(TAF) $(PREC_TAF) $(BADP_TAF) $(CAP_BIN) $(CAP_TAF) $(WHERE_TAF) $(SOUND_TAF) \
               $(A5RUN_BIN) $(A5MAP_BIN) $(SCPROJ_BIN) \
               $(if $(wildcard $(V4_GAMES_DIR)),$(SCARE_BIN))
 
@@ -627,6 +633,23 @@ wherebless: $(CAP_BIN) $(WHERE_TAF)
 	  echo "blessed test/adrift4/harness/$${probe}_expected.txt"; \
 	done
 
+# Embedded-sound golden.  Regenerate with:
+#   make -f Makefile.headless soundbless
+soundtest: $(CAP_BIN) $(SOUND_TAF)
+	@./$(CAP_BIN) $(SOUND_TAF) < test/adrift4/harness/sound_400_script.txt \
+	    2>/dev/null | tr -s '\n' > /tmp/sound_400.got; \
+	if diff -u test/adrift4/harness/sound_400_expected.txt /tmp/sound_400.got \
+	    > /tmp/sound_400.diff 2>&1; then \
+	  echo "sound sound_400: PASS"; \
+	else \
+	  echo "sound sound_400: FAIL"; cat /tmp/sound_400.diff; exit 1; \
+	fi
+
+soundbless: $(CAP_BIN) $(SOUND_TAF)
+	@./$(CAP_BIN) $(SOUND_TAF) < test/adrift4/harness/sound_400_script.txt \
+	    2>/dev/null | tr -s '\n' > test/adrift4/harness/sound_400_expected.txt; \
+	echo "blessed test/adrift4/harness/sound_400_expected.txt"
+
 $(CAP_BIN): $(ENG_OBJ) $(call objs,os_ansi.cpp test/adrift4/harness/seed.cpp)
 	$(CXX) $^ $(LDLIBS) -o $@
 
@@ -653,6 +676,9 @@ test/adrift4/harness/where_refusal_1p.taf: test/adrift4/harness/make_39_wherepro
 	python3 test/adrift4/harness/make_39_whereprobe.py $@ 0 e
 test/adrift4/harness/where_refusal_3p.taf: test/adrift4/harness/make_39_whereprobe.py
 	python3 test/adrift4/harness/make_39_whereprobe.py $@ 2 e
+$(SOUND_TAF): test/adrift4/harness/make_400_soundprobe.py test/adrift4/harness/variation_iv.mid \
+              test/adrift5/probes/oof.wav test/adrift5/probes/oof.mp3
+	python3 test/adrift4/harness/make_400_soundprobe.py $@
 
 taf: $(TAF) $(PREC_TAF) $(BADP_TAF)
 $(TAF): test/adrift4/harness/make_battle_taf.py

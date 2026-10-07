@@ -1,0 +1,14 @@
+Loading game...
+Sound Test 4.00
+Welcome to the Sound Test.
+You should hear a man say "oof" (WAV).
+Studio
+A quiet room for testing sounds. Type wav, mp3, midi or stop.
+>Playing the WAV again.
+>Playing the MP3.
+>Looping the MIDI. Type stop to stop it.
+>Stopping the sound.
+>
+Studio
+A quiet room for testing sounds. Type wav, mp3, midi or stop.
+>
