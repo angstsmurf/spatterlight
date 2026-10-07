@@ -1,0 +1,7 @@
+# ProbeImage -- synthetic probe (test/adrift5/probes/src/image.xml).
+# Exercises <img src="..."> in the intro and in a task's completion message.
+# The src is an author's absolute Windows path; on Spatterlight the image is
+# probes/sample.png, found beside image.taf by basename.  Headless, each <img>
+# leaves an empty line.
+picture
+look
