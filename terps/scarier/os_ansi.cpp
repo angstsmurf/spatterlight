@@ -263,19 +263,38 @@ os_print_string_debug (const scr_char *string)
  * os_stop_sound()
  * os_show_graphic()
  */
+/*
+ * SCR_TRACE_SOUND=1 prints each sound request on a line of its own where it
+ * falls in the output, in sxstubs.cpp's <<Sound: ...>> form, so a headless golden can pin which
+ * resource a task plays and the offset and length the TAF parser gave it.
+ * The id is the path's last component: the rest is the author's directory,
+ * or for an embedded resource this machine's path to the game.
+ */
 void
 os_play_sound (const scr_char *filepath,
                scr_int offset, scr_int length, scr_bool is_looping)
 {
-  (void) filepath;
-  (void) offset;
-  (void) length;
-  (void) is_looping;
+  if (getenv ("SCR_TRACE_SOUND"))
+    {
+      const scr_char *id = filepath, *p;
+      scr_char buffer[96];
+
+      for (p = filepath; *p != '\0'; p++)
+        if (*p == '/' || *p == '\\' || *p == ':')
+          id = p + 1;
+      os_print_string ("<<Sound: id=\"");
+      os_print_string (id);
+      snprintf (buffer, sizeof buffer, "\", offset=%ld, length=%ld, looping=%s>>\n",
+                (long) offset, (long) length, is_looping ? "true" : "false");
+      os_print_string (buffer);
+    }
 }
 
 void
 os_stop_sound (void)
 {
+  if (getenv ("SCR_TRACE_SOUND"))
+    os_print_string ("<<Sound: stop>>\n");
 }
 
 void

@@ -1,0 +1,5 @@
+wav
+mp3
+midi
+stop
+look

@@ -1,0 +1,18 @@
+Loading game...
+<<Sound: id="oof.wav", offset=419, length=35142, looping=false>>
+Sound Test 4.00
+Welcome to the Sound Test.
+You should hear a man say "oof" (WAV).
+Studio
+A quiet room for testing sounds. Type wav, mp3, midi or stop.
+>Playing the WAV again.
+><<Sound: id="oof.mp3", offset=35562, length=4198, looping=false>>
+Playing the MP3.
+><<Sound: id="ode_to_joy.mid", offset=39761, length=306, looping=true>>
+Looping the MIDI. Type stop to stop it.
+><<Sound: stop>>
+Stopping the sound.
+>
+Studio
+A quiet room for testing sounds. Type wav, mp3, midi or stop.
+>
