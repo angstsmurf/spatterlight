@@ -14,6 +14,9 @@
 
 @interface MarginContainer () <NSSecureCoding> {
     NSMutableArray<FlowBreak *> *flowbreaks;
+    // Character index of the line fragment currently being laid out, or
+    // NSNotFound when it is unknown.
+    NSUInteger layoutCharIndex;
 }
 @end
 
@@ -31,6 +34,7 @@
 - (instancetype)initWithContainerSize:(NSSize)size {
     self = [super initWithContainerSize:size];
 
+    layoutCharIndex = NSNotFound;
     _marginImages = [[NSMutableArray alloc] init];
     flowbreaks = [[NSMutableArray alloc] init];
 
@@ -40,6 +44,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
+        layoutCharIndex = NSNotFound;
         _marginImages = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"marginImages"];
         for (MarginImage *img in _marginImages) {
             img.container = self;
@@ -62,7 +67,41 @@
     [self.layoutManager textContainerChangedGeometry:self];
 }
 
+// A flow break only pushes text below margin images anchored before it, so
+// breaks older than the oldest surviving image can never have any effect.
+- (void)pruneInertFlowBreaks {
+    if (!flowbreaks.count)
+        return;
+    if (!_marginImages.count) {
+        [flowbreaks removeAllObjects];
+        return;
+    }
+    // Margin images are appended in pos order, so the first is the oldest.
+    NSUInteger oldest = _marginImages.firstObject.pos;
+    NSIndexSet *inert = [flowbreaks indexesOfObjectsPassingTest:^BOOL(FlowBreak *f, NSUInteger idx, BOOL *stop) {
+        return f.pos < oldest;
+    }];
+    [flowbreaks removeObjectsAtIndexes:inert];
+}
+
+// When the container changes size (as it does on every step of a live
+// resize), the text rewraps and the anchors of the margin images move. Forget
+// their cached bounds, so that they are recalculated during the re-layout
+// that follows instead of staying where they were at the old width.
+- (void)setSize:(NSSize)size {
+    if (!NSEqualSizes(size, self.size)) {
+        for (MarginImage *i in _marginImages)
+            [i uncacheBounds];
+
+        for (FlowBreak *f in flowbreaks)
+            [f uncacheBounds];
+    }
+    super.size = size;
+}
+
 - (void)invalidateLayout:(id)sender {
+    [self pruneInertFlowBreaks];
+
     for (MarginImage *i in _marginImages)
         [i uncacheBounds];
 
@@ -81,18 +120,54 @@
                                                   linkId:linkid
                                                       at:pos
                                                   sender:self];
+    BOOL wasSimple = (_marginImages.count == 0);
     [_marginImages addObject:mi];
-    [self.layoutManager textContainerChangedGeometry:self];
+    if (wasSimple) {
+        // The container just stopped being a simple rectangle
+        [self.layoutManager textContainerChangedGeometry:self];
+    } else {
+        [self invalidateLayoutFrom:pos];
+    }
+}
+
+// A new margin image or flow break can only affect text at or after its
+// anchor, so there is no need to throw away the layout of everything above it.
+- (void)invalidateLayoutFrom:(NSUInteger)pos {
+    NSLayoutManager *layout = self.layoutManager;
+    NSUInteger length = layout.textStorage.length;
+    if (pos < length)
+        [layout invalidateLayoutForCharacterRange:NSMakeRange(pos, length - pos)
+                             actualCharacterRange:NULL];
 }
 
 - (void)flowBreakAt:(NSUInteger)pos {
     FlowBreak *f = [[FlowBreak alloc] initWithPos:pos];
     [flowbreaks addObject:f];
-    [self.layoutManager textContainerChangedGeometry:self];
+    [self invalidateLayoutFrom:pos];
 }
 
 - (BOOL)isSimpleRectangularTextContainer {
     return _marginImages.count == 0;
+}
+
+// The typesetter calls this variant, which in NSTextContainer forwards to the
+// sweepDirection: one below. Remember which character the line starts at, so
+// that we can skip margin images and flow breaks anchored further down. They
+// sit below this line and can't intersect it, and asking for their bounds
+// would force a nested layout all the way to their anchors, which makes a
+// re-layout of a long scrollback many times slower.
+- (NSRect)lineFragmentRectForProposedRect:(NSRect)proposedRect
+                                  atIndex:(NSUInteger)characterIndex
+                         writingDirection:(NSWritingDirection)baseWritingDirection
+                            remainingRect:(NSRect *)remainingRect {
+    NSUInteger savedIndex = layoutCharIndex;
+    layoutCharIndex = characterIndex;
+    NSRect rect = [super lineFragmentRectForProposedRect:proposedRect
+                                                 atIndex:characterIndex
+                                        writingDirection:baseWritingDirection
+                                           remainingRect:remainingRect];
+    layoutCharIndex = savedIndex;
+    return rect;
 }
 
 - (NSRect)lineFragmentRectForProposedRect:(NSRect)proposed
@@ -121,11 +196,16 @@
 
         NSEnumerator *enumerator = [_marginImages reverseObjectEnumerator];
         while (image = [enumerator nextObject]) {
+            if (layoutCharIndex != NSNotFound && image.pos > layoutCharIndex)
+                continue;
+
             // I'm not quite sure why, but this prevents the flowbreaks from
             // jumping to incorrect positions when resizing the window
             for (f in flowbreaks)
                 if (f.pos > image.pos) {
                     if (f.pos - image.pos > 1000)
+                        break;
+                    if (layoutCharIndex != NSNotFound && f.pos > layoutCharIndex)
                         break;
                     [f boundsWithLayout:self.layoutManager];
                 }
@@ -201,6 +281,8 @@
 
     NSEnumerator *breakenumerator = [flowbreaks reverseObjectEnumerator];
     while (f = [breakenumerator nextObject]) {
+        if (layoutCharIndex != NSNotFound && f.pos > layoutCharIndex)
+            continue;
         if (_marginImages.count == 1) {
             if (f.pos - _marginImages.firstObject.pos > 1000)
                 continue;

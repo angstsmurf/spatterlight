@@ -14,6 +14,8 @@
 #define NSLog(...)
 #endif // DEBUG
 
+static const NSUInteger kMaxMarginImages = 200;
+
 @implementation GlkTextBufferWindow (Images)
 
 // Scale an image to the specified size using high-quality interpolation.
@@ -143,9 +145,12 @@
             return;
         }
 
-        if (container.marginImages.count > 10) {
-            [container.marginImages removeObject:container.marginImages.firstObject];
-            // Removing the oldest image deletes its margin float, so the text
+        // Old margin images normally go away when the scrollback is trimmed.
+        // This cap only matters with unlimited scrollback. Evicting forces a
+        // re-layout of the whole buffer, so do it rarely and in bulk.
+        if (container.marginImages.count >= kMaxMarginImages) {
+            [container.marginImages removeObjectsInRange:NSMakeRange(0, kMaxMarginImages / 2)];
+            // Removing an image deletes its margin float, so the text
             // that wrapped beside it reclaims the full width and reflows
             // upward. Uncache the surviving images' bounds so they track the
             // new layout instead of lagging at their stale (lower) cached
