@@ -14,6 +14,8 @@
 
 #include "glk.h"
 
+#include <stdint.h>
+
 /* This file contains definitions for platform-dependent code. Since
  Glk takes care of I/O, this is a short list -- memory allocation
  and random numbers.
@@ -116,6 +118,7 @@ static void rand_set_seed(void)
 #ifdef _MSC_VER /* For Visual C++, get rand_s() */
 #define _CRT_RAND_S
 #endif
+#include <stdlib.h>
 
 #ifdef _MSC_VER /* Visual C++ */
 
