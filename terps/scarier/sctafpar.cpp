@@ -926,7 +926,10 @@ static scr_bool parse_use_pushback = FALSE;
  */
 static void
 parse_taf_fail (const scr_char *reason, scr_int line)
-  __attribute__ ((__noreturn__));
+#ifdef __GNUC__
+  __attribute__ ((__noreturn__))
+#endif
+  ;
 
 static void
 parse_taf_fail (const scr_char *reason, scr_int line)
