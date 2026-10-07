@@ -292,13 +292,17 @@ a5run_media_cb (void *ctx, int kind, const char *src, int channel, int loop)
                                       kind == A5_MEDIA_IMAGE, ev.number);
   ev.shown = 0;
   /* A description may be rendered more than once internally during a turn; drop
-     an image already recorded this turn so it is not shown twice. */
+     an image already recorded this turn so it is not shown twice.  Unresolved
+     images all share number -1, so those are the same image only if their
+     srcs match. */
   if (kind == A5_MEDIA_IMAGE)
     for (size_t i = 0; i < run->media->size (); i++)
       if ((*run->media)[i].kind == A5_MEDIA_IMAGE
-          && (*run->media)[i].number == ev.number)
+          && (*run->media)[i].number == ev.number
+          && (ev.number > 0 || (*run->media_src)[i] == (src != NULL ? src : "")))
         return ev.number;
   run->media->push_back (ev);
+  run->media_src->push_back (src != NULL ? src : "");
   return kind == A5_MEDIA_IMAGE ? ev.number
                                 : (int) run->media->size () - 1;
 }
@@ -308,6 +312,7 @@ static void
 a5run_media_begin (a5_run_t *run)
 {
   run->media->clear ();
+  run->media_src->clear ();
   a5text_set_media_sink (a5run_media_cb, run);
 }
 
@@ -326,6 +331,14 @@ a5run_media_get (a5_run_t *run, int i)
   if (i < 0 || (size_t) i >= run->media->size ())
     return NULL;
   return &(*run->media)[i];
+}
+
+const char *
+a5run_media_src (a5_run_t *run, int i)
+{
+  if (i < 0 || (size_t) i >= run->media_src->size ())
+    return NULL;
+  return (*run->media_src)[i].c_str ();
 }
 
 void
@@ -363,6 +376,7 @@ a5run_new (const a5_adventure_t *adv)
   run->adv = adv;
   run->st = a5state_new (adv);
   run->media = new std::vector<a5_media_event_t>;
+  run->media_src = new std::vector<std::string>;
   run->order = new std::vector<int>;
   run->events = new std::vector<a5_event_rt> (adv->n_events);
   run->events_running = 0;
@@ -454,6 +468,7 @@ a5run_free (a5_run_t *run)
   a5state_free (run->st);
   free (run->look_pinned);
   delete run->media;
+  delete run->media_src;
   delete run->order;
   delete run->events;
   delete run->walks;

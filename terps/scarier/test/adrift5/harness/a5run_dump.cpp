@@ -158,13 +158,18 @@ ask_upgrade_question (a5_adventure_t *a, FILE *script)
 
 /* A5_DUMP_MEDIA=1 prints the turn's collected <img>/<audio> events to stderr
    (the same list a Glk host presents), so sound ordering and channel handling
-   can be checked headlessly. */
+   can be checked headlessly.  Each line carries the turn it belongs to (0 =
+   the introduction, then one per command) and the src's last path component,
+   which is what a host looks for beside a raw .taf.  run_a5_walkthroughs.sh
+   diffs these lines against a row's <Name>_media.txt golden. */
 static void
 dump_media (a5_run_t *run)
 {
   static const char *dm = (const char *) 1;
+  static int turn = -1;
   int n, i;
 
+  turn++;
   if (dm == (const char *) 1) dm = getenv ("A5_DUMP_MEDIA");
   if (dm == NULL)
     return;
@@ -173,10 +178,16 @@ dump_media (a5_run_t *run)
     {
       const a5_media_event_t *m = a5run_media_get (run, i);
       static const char *kn[] = { "?", "image", "play", "stop", "pause" };
+      const char *src = a5run_media_src (run, i), *base = src, *p;
 
-      fprintf (stderr, "[media %d/%d %s num=%d ch=%d loop=%d]\n", i + 1, n,
+      for (p = src; *p != '\0'; p++)
+        if (*p == '\\' || *p == '/' || *p == ':')
+          base = p + 1;
+      fprintf (stderr, "[media turn %d %d/%d %s num=%d ch=%d loop=%d%s%s]\n",
+               turn, i + 1, n,
                (m->kind >= 1 && m->kind <= 4) ? kn[m->kind] : "?",
-               m->number, m->channel, m->loop);
+               m->number, m->channel, m->loop,
+               *base != '\0' ? " src=" : "", base);
     }
 }
 

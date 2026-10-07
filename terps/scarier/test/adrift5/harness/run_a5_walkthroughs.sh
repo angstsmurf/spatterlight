@@ -26,6 +26,8 @@
 #   DIVERGE    at baseline in both modes (recorded bug; see A5_WALKTHROUGH_FINDINGS.md).
 #   OKbetter   below baseline in some mode -- re-bless that column in the MAP.
 #   FAIL       exceeded a budget in either mode (regression), or golden mismatch.
+#              A row with a <Name>_media.txt also FAILs when its <img>/<audio>
+#              events (a5run_dump's A5_DUMP_MEDIA lines) differ from that file.
 #
 # Exit status: non-zero iff any game regressed in either mode.
 #
@@ -1919,7 +1921,7 @@ trap 'rm -rf "$WORKDIR"' EXIT
 run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     local idx name game vbudget xbudget script gf golden stxt row
     local got want vout xout hv hx vv xv vtag xtag vcell xcell status
-    local srfail srcell ncmd mid srtxt vgtfail xgtfail
+    local srfail srcell ncmd mid srtxt vgtfail xgtfail mgolden mtxt mfail
     idx=$1 name=$2 game=$3 vbudget=$4 xbudget=$5
     row="$WORKDIR/$idx.row"
     script="$HERE/test/adrift5/goldens/${name}_walkthrough.txt"
@@ -1950,14 +1952,39 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     # RNG-mode-independent -- only FrankenDrift's generator changes between the
     # vanilla and xoshiro passes, so replaying Scarier per mode was pure waste.
     stxt="$WORKDIR/$idx.scarier"
-    "$A5RUN" "$gf" "$script" 2>/dev/null > "$stxt" || true
+    # Media golden (opt-in per row: test/adrift5/goldens/<Name>_media.txt).  The
+    # transcript drops <img>/<audio> tags, and FrankenDrift.Headless has no
+    # media either, so neither column can see which picture or sound a turn
+    # produced.  A row with a _media.txt has the same replay's A5_DUMP_MEDIA
+    # lines (stderr) strict-diffed against it; a mismatch is STATUS=FAIL.  To
+    # start one, create the file empty and --bless the row.
+    mgolden="$HERE/test/adrift5/goldens/${name}_media.txt"
+    mtxt="$WORKDIR/$idx.media"
+    mfail=0
+    if [ -f "$mgolden" ]; then
+        A5_DUMP_MEDIA=1 "$A5RUN" "$gf" "$script" 2>"$mtxt.err" > "$stxt" || true
+        grep '^\[media ' "$mtxt.err" > "$mtxt"
+        rm -f "$mtxt.err"
+    else
+        "$A5RUN" "$gf" "$script" 2>/dev/null > "$stxt" || true
+    fi
 
     if [ "$BLESS" = 1 ]; then
         # (Re)write the golden through the SAME normalisation the comparison uses,
         # so blessing is canonical and never trips the trailing-newline artifact.
         sed 's/[[:space:]]*$//' "$stxt" | cat -s > "$golden"
+        [ -f "$mgolden" ] && cp "$mtxt" "$mgolden"
+        rm -f "$mtxt"
         printf "%-24s %-9s %s\n" "$name" "BLESSED" "$golden" > "$row"
         return
+    fi
+
+    if [ -f "$mgolden" ]; then
+        if ! diff "$mgolden" "$mtxt" > "$mtxt.diff" 2>&1; then
+            mfail=1
+            [ "$VERBOSE" = 1 ] && cp "$mtxt.diff" "/tmp/a5wt/${name}.media.diff"
+        fi
+        rm -f "$mtxt" "$mtxt.diff"
     fi
 
     # --- save/restore self-check (a5run_dump only; SAVERESTORE=0 skips) -------
@@ -2015,8 +2042,9 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     rm -f "$stxt"
 
     # --- combined status -----------------------------------------------------
+    [ "$mfail" = 1 ] && srcell="$srcell media MISMATCH"
     if [ "$vtag" = REGRESSION ] || [ "$xtag" = REGRESSION ] || [ "$srfail" = 1 ] \
-       || [ "$vgtfail" = 1 ] || [ "$xgtfail" = 1 ]; then
+       || [ "$vgtfail" = 1 ] || [ "$xgtfail" = 1 ] || [ "$mfail" = 1 ]; then
         status=FAIL; echo "$name" > "$WORKDIR/$idx.reg"
     elif [ "$vtag" = better ] || [ "$xtag" = better ]; then
         status=OKbetter
@@ -2116,7 +2144,9 @@ echo "#"
 echo "# STATUS   MATCH     0 hunks in both modes (golden-only: golden match)"
 echo "#          DIVERGE   at baseline (see test/adrift5/notes/A5_WALKTHROUGH_FINDINGS.md)"
 echo "#          OKbetter  below baseline in some mode -- re-bless the MAP"
-echo "#          FAIL      exceeded a budget, OR the save/restore self-check"
+echo "#          FAIL      exceeded a budget, OR a <Name>_media.txt golden (the"
+echo "#                    row's <img>/<audio> events) mismatched, OR the"
+echo "#                    save/restore self-check"
 echo "#                    diverged (i.e. a regression), OR the ground truth"
 echo "#                    never ran for that mode (cell reads GT FAILED --"
 echo "#                    NOT a pass: nothing was compared)"

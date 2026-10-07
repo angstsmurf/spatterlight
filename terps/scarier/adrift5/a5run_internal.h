@@ -181,6 +181,10 @@ struct a5_run_s {
   /* Embedded-media events captured from this turn's rendered text (a5text media
      sink); rebuilt each a5run_intro / a5run_input.  See a5run_media_* . */
   std::vector<a5_media_event_t> *media;
+  /* Each event's src as the tag wrote it ("" for a sound-stop), parallel to
+     `media`: what tells two unresolved images apart, and what a5run_media_src
+     reports. */
+  std::vector<std::string> *media_src;
   std::vector<int> *order;   /* task indices, ascending priority */
 
   /* The Adrift 5 runner's per-top-level-command response aggregation layer

@@ -1,0 +1,4 @@
+[media turn 0 1/2 image num=1 ch=0 loop=0 src=sample.png]
+[media turn 0 2/2 image num=2 ch=0 loop=0 src=sample.gif]
+[media turn 1 1/2 image num=1 ch=0 loop=0 src=sample.png]
+[media turn 1 2/2 image num=2 ch=0 loop=0 src=sample.gif]

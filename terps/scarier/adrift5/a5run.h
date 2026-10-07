@@ -109,6 +109,9 @@ extern void a5run_set_media_resolver (a5run_media_resolver_t resolver,
 
 extern int                     a5run_media_count (a5_run_t *run);
 extern const a5_media_event_t *a5run_media_get   (a5_run_t *run, int i);
+/* Event i's src exactly as the tag wrote it (usually the author's absolute
+   Windows path), "" for a sound-stop; valid until the next turn. */
+extern const char             *a5run_media_src   (a5_run_t *run, int i);
 /* Flag event i `shown`: the host presented it at its positional A5_SOUND_MARK
    in the turn text, so the after-the-turn media sweep must not replay it.
    Cleared with the rest of the event when the list is rebuilt next turn. */
