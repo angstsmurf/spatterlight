@@ -330,6 +330,13 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
         marginImages[marginImage.uuid] = marginImage;
     }
 
+    // Looking images up below makes each of them the handler's "last image"
+    // in turn. Put back the one the interpreter last asked for when done, or
+    // a draw request that follows would draw the wrong picture.
+    ImageHandler *handler = self.glkctl.imageHandler;
+    NSImage *savedLastImage = handler.lastimage;
+    NSInteger savedLastImageResno = handler.lastimageresno;
+
     [textstorage
      enumerateAttribute:NSAttachmentAttributeName
      inRange:NSMakeRange(0, textstorage.length)
@@ -339,6 +346,8 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
             return;
         }
         MyAttachmentCell *cell = (MyAttachmentCell *)value.attachmentCell;
+        if (![cell isKindOfClass:[MyAttachmentCell class]])
+            return;
 
         // Rule-scaled cells (glk_image_draw_scaled_ext) resolve their display
         // size against the wrap width at layout time; scaling their stored
@@ -349,11 +358,16 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
         NSImage *img = nil;
         BOOL imageIsMargin = (cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight);
 
-        if (cell && [self.glkctl.imageHandler handleFindImageNumber:cell.index]) {
+        // The resource number, that is, not cell.index, which is whatever
+        // the game passed as val2 of glk_image_draw(). Cells from autosaves
+        // older than imageNumber do not know theirs; fall back on the index
+        // for those, as Bocfel (the only caller) passes the picture number.
+        NSInteger resno = cell.imageNumber >= 0 ? cell.imageNumber : (NSInteger)cell.index;
+        if ([handler handleFindImageNumber:resno]) {
             CGFloat blockXScale = xscale;
             CGFloat blockYScale = yscale;
 
-            img = self.glkctl.imageHandler.lastimage;
+            img = handler.lastimage;
             if (!imageIsMargin && cell.image && cell.image.size.width > scrollview.contentView.frame.size.width * 0.7) {
                 CGFloat width = scrollview.contentView.frame.size.width;
                 CGFloat factor = img.size.width * xscale / width;
@@ -389,6 +403,9 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
         cell.marginImage = container.marginImages.lastObject;
         cell.marginImgUUID = cell.marginImage.uuid;
     }];
+
+    handler.lastimage = savedLastImage;
+    handler.lastimageresno = savedLastImageResno;
 }
 
 @end
