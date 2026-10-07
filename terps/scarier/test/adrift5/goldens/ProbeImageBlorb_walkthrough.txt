@@ -1,0 +1,7 @@
+# ProbeImageBlorb -- synthetic probe (test/adrift5/probes/src/image.xml),
+# packaged by tools/xml2blorb.py with probes/sample.png as Blorb Pict 1 and a
+# <FileMappings> entry mapping the <img> src to it.  Same script and text as
+# ProbeImage; loading through the blorb path (Exec chunk, IFmd-decided
+# obfuscation) must not change a byte of output.
+picture
+look

@@ -1,0 +1,20 @@
+Image Test
+Welcome to the Image Test.
+
+Below this line is a picture of a sunny meadow.
+
+Above this line is a picture of a sunny meadow.
+
+Gallery
+A quiet room for testing images. Type picture to see the picture again.
+
+> picture
+Here is the picture again.
+
+That was the picture.
+
+> look
+
+Gallery
+A quiet room for testing images. Type picture to see the picture again.
+

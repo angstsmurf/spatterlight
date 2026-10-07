@@ -356,12 +356,18 @@ scprojregress: $(SCPROJ_BIN)
 # only needed after editing a source XML: the .taf output is byte-stable (the
 # IFID is derived from the probe's file name, not a fresh uuid4 per build), so a
 # no-change rebuild leaves the files -- and FrankenDrift's FD_CACHE entries for
-# them -- untouched.
+# them -- untouched.  A probe whose text has <img>/<audio> tags is also packaged
+# as a .blorb by tools/xml2blorb.py, bundling the media files in probes/ that
+# the tags name.
 a5probetafs:
 	@cd test/adrift5/probes && for x in src/*.xml; do \
 	    n=$$(basename "$$x" .xml); \
 	    python3 tools/xml2taf.py "$$x" -o "$$n.taf" || exit 1; \
 	    echo "built adrift5/probes/$$n.taf"; \
+	    if grep -qiE '&lt;(img|audio)[[:space:]]' "$$x"; then \
+	        python3 tools/xml2blorb.py "$$x" -o "$$n.blorb" || exit 1; \
+	        echo "built adrift5/probes/$$n.blorb"; \
+	    fi; \
 	done
 
 # ADRIFT 5 auto-map raster regression: renders six views of the map.xml
