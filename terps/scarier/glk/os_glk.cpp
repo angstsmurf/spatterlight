@@ -1698,6 +1698,7 @@ winglk_startup_code (const char *cmdline)
                              "Adrift Files (.taf)|*.taf;All Files (*.*)|*.*||");
   if (!filename)
     return 0;
+  snprintf (gsc_game_path, sizeof gsc_game_path, "%s", filename);
 
   fileref = winglk_fileref_create_by_name (fileusage_BinaryMode
                                            | fileusage_Data,
