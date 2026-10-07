@@ -555,6 +555,14 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         }
     }
 
+    // With no late autosave at all (the window was closed before the first
+    // one was written, say), the ordinary one has to stand in for it.
+    // Everything below reads the late controller without checking it, and
+    // from a nil one gets an empty window frame, no sound handler, no style
+    // hints and a hasAutoSaved of NO, which then passes for a first-turn save.
+    if (!restoredControllerLate)
+        restoredControllerLate = restoredController;
+
     if (GUIAutosaveDate && GUILateAutosaveDate && [GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
         NSLog(@"GUI late autosave file is created before GUI autosave file!");
         NSLog(@"Do not use it.");

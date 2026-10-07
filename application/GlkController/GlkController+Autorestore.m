@@ -126,8 +126,17 @@
     self.windowPreFullscreenFrame = [self frameWithSanitycheckedSize:restoredControllerLate.windowPreFullscreenFrame];
     self.autosaveTag = restoredController.autosaveTag;
 
-    self.bufferStyleHints = restoredController.bufferStyleHints;
-    self.gridStyleHints = restoredController.gridStyleHints;
+    // Not when only the UI is restored: the interpreter is then starting the
+    // game from scratch and sets its own style hints as it goes. This can run
+    // in the middle of that (scarier gets here from its temporary loading
+    // window, before it has opened the real ones), and swapping in the
+    // archived hints would throw away the ones set so far.
+    if (!restoreUIOnly) {
+        if (restoredController.bufferStyleHints)
+            self.bufferStyleHints = restoredController.bufferStyleHints;
+        if (restoredController.gridStyleHints)
+            self.gridStyleHints = restoredController.gridStyleHints;
+    }
 
     // Restore frame size
     self.gameView.frame = restoredControllerLate.storedGameViewFrame;
