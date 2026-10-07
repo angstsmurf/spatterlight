@@ -955,11 +955,39 @@ gsc_a5_stop_all_sounds (void)
     }
 }
 
+#if defined(_WIN32) && !defined(GARGLK)
+#include "WinGlk.h"
+
+/* Windows Glk has no glkunix_stream_open_pathname; a fileref made from the
+ * path with validation off opens the same file. */
+static strid_t
+gsc_a5_open_game_path (void)
+{
+  frefid_t fileref;
+  strid_t stream;
+
+  fileref = winglk_fileref_create_by_name (fileusage_BinaryMode
+                                           | fileusage_Data,
+                                           gsc_game_path, 0, 0);
+  if (fileref == NULL)
+    return NULL;
+  stream = glk_stream_open_file (fileref, filemode_Read, 0);
+  glk_fileref_destroy (fileref);
+  return stream;
+}
+#else
 /* Declared in glkstart.h, which only os_glk.cpp includes (in its UNIX linkage
  * section); declared here so the resource setup below can open the game file
  * as a Glk stream for giblorb. */
 extern "C" strid_t glkunix_stream_open_pathname (char *pathname,
                                                  glui32 textmode, glui32 rock);
+
+static strid_t
+gsc_a5_open_game_path (void)
+{
+  return glkunix_stream_open_pathname (gsc_game_path, FALSE, 0);
+}
+#endif
 
 /*
  * gsc_a5_init_resources()
@@ -1016,7 +1044,7 @@ gsc_a5_init_resources (void)
   if ((!gsc_a5_graphics_ok && !gsc_a5_sound_ok) || gsc_game_path[0] == '\0')
     return;
 
-  stream = glkunix_stream_open_pathname (gsc_game_path, FALSE, 0);
+  stream = gsc_a5_open_game_path ();
   if (stream == NULL)
     {
       /* The file is unreachable by path (a host that cannot reopen it, or a
