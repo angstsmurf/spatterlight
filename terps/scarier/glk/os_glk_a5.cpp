@@ -357,9 +357,11 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
      relaunch with real-time off -- determinism/testing mode, say -- and the
      library echo would stay off while the manual echo below is skipped,
      which loses every typed command from the transcript for the rest of the
-     session. */
+     session.  A Glk without echo control never runs in real time and always
+     echoes, so it is left alone (cheapglk complains at the call). */
 #ifdef GLK_MODULE_LINE_ECHO
-  glk_set_echo_line_event (gsc_main_window, gsc_a5_real_time ? 0 : 1);
+  if (glk_gestalt (gestalt_LineInputEcho, 0))
+    glk_set_echo_line_event (gsc_main_window, gsc_a5_real_time ? 0 : 1);
 #endif
 
   /* The author's input colour for what the player types, whether the echo is
