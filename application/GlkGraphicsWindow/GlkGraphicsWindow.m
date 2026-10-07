@@ -13,6 +13,9 @@
 #import "Game.h"
 #import "MyFilePromiseProvider.h"
 #import "NSImage+Categories.h"
+#import "ImageHandler.h"
+
+#import <QuartzCore/QuartzCore.h>
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -22,11 +25,59 @@
 #define NSLog(...)
 #endif
 
+// An animated image that was drawn into the window and has not been painted
+// over since. Its frames are composited into the backing image as they
+// come due, on top of a copy of what was underneath.
+@interface AnimatedSubImage : NSObject <NSSecureCoding>
+
+@property NSInteger imageNumber;
+// In Glk coordinates (origin at top left), so that it survives a resize.
+@property NSRect rect;
+@property (nullable) NSImage *under;
+@property (nullable) ImageAnimation *animation;
+@property BOOL animationResolved;
+@property CFTimeInterval start;
+@property NSUInteger frame;
+
+@end
+
+@implementation AnimatedSubImage
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
+        _imageNumber = [decoder decodeIntegerForKey:@"imageNumber"];
+        _rect = [decoder decodeRectForKey:@"rect"];
+        _under = [decoder decodeObjectOfClass:[NSImage class] forKey:@"under"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeInteger:_imageNumber forKey:@"imageNumber"];
+    [encoder encodeRect:_rect forKey:@"rect"];
+    [encoder encodeObject:_under forKey:@"under"];
+}
+
+@end
+
 @interface GlkGraphicsWindow () <NSSecureCoding> {
     BOOL mouse_request;
     BOOL transparent;
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
+
+    NSMutableArray <AnimatedSubImage *> *animatedImages;
+    // When each animation last started playing here, so that a game which
+    // clears and redraws its picture (on every resize, say) does not
+    // restart it.
+    NSMapTable <ImageAnimation *, NSNumber *> *animationStarts;
+    NSTimer *imageAnimationTimer;
+    BOOL redrawingOldContents;
 }
 
 @property NSOperationQueue *workQueue;
@@ -58,6 +109,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
         _showingImage = NO;
         subImages = [NSMutableArray new];
         dirtyRects = [NSMutableArray new];
+        animatedImages = [NSMutableArray new];
     }
 
     return self;
@@ -73,6 +125,11 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
         _showingImage = [decoder decodeBoolForKey:@"showingImage"];
         subImages =  [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"subImages"];
         dirtyRects = [NSMutableArray new];
+        NSArray *animated = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [AnimatedSubImage class], nil]
+                                                    forKey:@"animatedImages"];
+        animatedImages = animated ? [animated mutableCopy] : [NSMutableArray new];
+        if (animatedImages.count)
+            [self startImageAnimations];
     }
     return self;
 }
@@ -81,6 +138,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
     [super encodeWithCoder:encoder];
     [encoder encodeObject:_image forKey:@"image"];
     [encoder encodeObject:subImages forKey:@"subImages"];
+    [encoder encodeObject:animatedImages forKey:@"animatedImages"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeBool:transparent forKey:@"transparent"];
     [encoder encodeBool:_showingImage forKey:@"showingImage"];
@@ -137,6 +195,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
     _showingImage = NO;
     if (subImages)
         [subImages removeAllObjects];
+    [animatedImages removeAllObjects];
     dirtyRects = [NSMutableArray new];
     [dirtyRects addObject:@(self.bounds)];
     dirty = YES;
@@ -185,6 +244,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
     }
 
     // The we draw the old contents over it
+    redrawingOldContents = YES;
     [self drawImage:oldimage
                val1:0
                val2:0
@@ -193,6 +253,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
           imagerule:0
            maxwidth:0
               style:style_Normal];
+    redrawingOldContents = NO;
 
     dirty = YES;
 }
@@ -237,6 +298,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
     [_image unlockFocus];
     [dirtyRects addObject:@(unionRect)];
     [self pruneSubimagesInRect:unionRect];
+    [self pruneAnimatedImagesInRect:unionRect];
     dirty = YES;
     _showingImage = YES;
     free(rects);
@@ -312,15 +374,38 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
             h = (NSInteger)srcsize.height;
     }
 
-    NSRect florpedRect;
+    NSRect florpedRect = [self florpCoords:NSMakeRect((CGFloat)x, (CGFloat)y, (CGFloat)w, (CGFloat)h)];
+
+    AnimatedSubImage *animated = nil;
+    if (!redrawingOldContents) {
+        [self pruneAnimatedImagesInRect:florpedRect];
+        ImageHandler *handler = self.glkctl.imageHandler;
+        ImageAnimation *animation = (src && src == handler.lastimage && w > 0 && h > 0) ?
+            [handler animationForImageNumber:handler.lastimageresno] : nil;
+        if (animation) {
+            animated = [AnimatedSubImage new];
+            animated.imageNumber = handler.lastimageresno;
+            animated.rect = NSMakeRect((CGFloat)x, (CGFloat)y, (CGFloat)w, (CGFloat)h);
+            animated.animation = animation;
+            animated.animationResolved = YES;
+            animated.start = [animationStarts objectForKey:animation].doubleValue;
+            // What the frames will be composited over.
+            NSImage *under = [[NSImage alloc] initWithSize:florpedRect.size];
+            [under lockFocus];
+            [_image drawInRect:NSMakeRect(0, 0, florpedRect.size.width, florpedRect.size.height)
+                      fromRect:florpedRect
+                     operation:NSCompositingOperationCopy
+                      fraction:1.0];
+            [under unlockFocus];
+            animated.under = under;
+        }
+    }
 
     @autoreleasepool {
         [_image lockFocus];
 
         [NSGraphicsContext currentContext].imageInterpolation =
         NSImageInterpolationHigh;
-
-        florpedRect = [self florpCoords:NSMakeRect((CGFloat)x, (CGFloat)y, (CGFloat)w, (CGFloat)h)];
 
         [src drawInRect:florpedRect
                fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
@@ -335,6 +420,11 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
     [dirtyRects addObject:@(florpedRect)];
 
     [self pruneSubimagesInRect:florpedRect];
+
+    if (animated) {
+        [animatedImages addObject:animated];
+        [self startImageAnimations];
+    }
 
     if (src.accessibilityDescription.length) {
         SubImage *subImage = [SubImage new];
@@ -586,6 +676,102 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
         return NO;
 
     return YES;
+}
+
+#pragma mark Animated images
+
+static const NSTimeInterval kImageAnimationIdleInterval = 0.5;
+static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
+
+// Anything drawn over an animated image stops it: the game has painted
+// something else there, and the next frame would wipe that out.
+- (void)pruneAnimatedImagesInRect:(NSRect)rect {
+    if (redrawingOldContents || !animatedImages.count)
+        return;
+    for (AnimatedSubImage *img in animatedImages.copy) {
+        if (NSIntersectsRect(rect, [self florpCoords:img.rect]))
+            [animatedImages removeObject:img];
+    }
+}
+
+- (void)startImageAnimations {
+    if (!imageAnimationTimer)
+        [self scheduleImageAnimationTick:kImageAnimationMinInterval];
+}
+
+- (void)scheduleImageAnimationTick:(NSTimeInterval)delay {
+    __weak GlkGraphicsWindow *weakSelf = self;
+    imageAnimationTimer = [NSTimer timerWithTimeInterval:delay repeats:NO block:^(NSTimer *timer) {
+        [weakSelf tickImageAnimations];
+    }];
+    [[NSRunLoop mainRunLoop] addTimer:imageAnimationTimer forMode:NSRunLoopCommonModes];
+}
+
+// Composite the frame that each animated image should be showing now into
+// the backing image, and schedule the next tick for when the earliest of
+// them is due to change again.
+- (void)tickImageAnimations {
+    imageAnimationTimer = nil;
+
+    if (!animatedImages.count)
+        return;
+
+    BOOL play = self.window.visible &&
+        (self.window.occlusionState & NSWindowOcclusionStateVisible) &&
+        !NSWorkspace.sharedWorkspace.accessibilityDisplayShouldReduceMotion &&
+        _image.size.width > 0 && _image.size.height > 0;
+
+    NSTimeInterval nextTick = kImageAnimationIdleInterval;
+
+    if (play) {
+        CFTimeInterval now = CACurrentMediaTime();
+        for (AnimatedSubImage *img in animatedImages.copy) {
+            // Images restored from an autosave arrive without their animation.
+            if (!img.animationResolved) {
+                img.animation = [self.glkctl.imageHandler animationForImageNumber:img.imageNumber];
+                img.animationResolved = YES;
+            }
+            ImageAnimation *animation = img.animation;
+            if (!animation) {
+                [animatedImages removeObject:img];
+                continue;
+            }
+            if (img.start == 0) {
+                img.start = now;
+                if (!animationStarts)
+                    animationStarts = [NSMapTable weakToStrongObjectsMapTable];
+                [animationStarts setObject:@(now) forKey:animation];
+            }
+            NSTimeInterval untilNext;
+            NSUInteger frame = [animation frameAtTime:now - img.start untilNext:&untilNext];
+            if (frame != img.frame) {
+                NSImage *frameImage = [animation imageForFrame:frame];
+                if (frameImage) {
+                    img.frame = frame;
+                    NSRect rect = [self florpCoords:img.rect];
+                    @autoreleasepool {
+                        [_image lockFocus];
+                        [NSGraphicsContext currentContext].imageInterpolation = NSImageInterpolationHigh;
+                        [img.under drawInRect:rect
+                                     fromRect:NSZeroRect
+                                    operation:NSCompositingOperationCopy
+                                     fraction:1.0];
+                        [frameImage drawInRect:rect
+                                      fromRect:NSZeroRect
+                                     operation:NSCompositingOperationSourceOver
+                                      fraction:1.0];
+                        [_image unlockFocus];
+                    }
+                    [self setNeedsDisplayInRect:rect];
+                }
+            }
+            if (untilNext < nextTick)
+                nextTick = untilNext;
+        }
+    }
+
+    if (animatedImages.count)
+        [self scheduleImageAnimationTick:MAX(nextTick, kImageAnimationMinInterval)];
 }
 
 #pragma mark Dragging source stuff

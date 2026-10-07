@@ -7,7 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MarginImage;
+@class MarginImage, ImageAnimation;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,6 +37,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSUInteger ruleHeight;
 @property NSUInteger ruleMaxWidth;
 @property NSSize naturalSize;
+
+// The Glk image resource number, for looking the image up in the image
+// handler. (index above is the val2 argument of the draw call, which
+// buffer windows are sent as-is.) -1 when unknown, as in cells archived
+// before this property existed.
+@property NSInteger imageNumber;
+
+// Animated image playback, driven by the buffer window's animation timer
+// (see -[GlkTextBufferWindow tickImageAnimations]). None of this is archived:
+// a restored cell starts over from the first frame. animationResolved is
+// set once the image handler has been asked whether the image is animated.
+// Until animationStart is set the cell draws its ordinary still image.
+@property (nullable) ImageAnimation *animation;
+@property BOOL animationResolved;
+@property CFTimeInterval animationStart;
+@property NSUInteger animationFrame;
 
 // Resolve a 0.7.6 imagerule against an available width. Exposed for margin
 // images, whose size is resolved once at draw time instead.
