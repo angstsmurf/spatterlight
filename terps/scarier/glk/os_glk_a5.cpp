@@ -359,7 +359,10 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
      which loses every typed command from the transcript for the rest of the
      session. */
 #ifdef GLK_MODULE_LINE_ECHO
-  glk_set_echo_line_event (gsc_main_window, gsc_a5_real_time ? 0 : 1);
+  /* A library without line echo control (cheapglk) has no echo state to set
+     or to restore, and warns about every call. */
+  if (glk_gestalt (gestalt_LineInputEcho, 0))
+    glk_set_echo_line_event (gsc_main_window, gsc_a5_real_time ? 0 : 1);
 #endif
 
   /* The author's input colour for what the player types, whether the echo is
