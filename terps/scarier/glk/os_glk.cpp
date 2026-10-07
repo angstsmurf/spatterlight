@@ -1448,6 +1448,8 @@ glk_main (void)
 /*---------------------------------------------------------------------*/
 /*  Glk linkage relevant only to the UNIX platform                     */
 /*---------------------------------------------------------------------*/
+/* Gargoyle starts up through glkunix_startup_code() on Windows too. */
+#if !defined(_WIN32) || defined(GARGLK)
 
 extern "C" {
 #include "glkstart.h"
@@ -1625,6 +1627,7 @@ glkunix_startup_code (glkunix_startup_t * data)
   return gsc_startup_code (game_stream, restore_stream, trace_flags,
                            enable_debugger, stable_random, locale);
 }
+#endif /* !_WIN32 || GARGLK */
 
 
 /*---------------------------------------------------------------------*/
