@@ -344,7 +344,29 @@ def xml_to_taf(
 ) -> bytes:
     root, has_bom, has_declaration = _parse_xml(xml)
     embed_libraries(root, library_paths)
+    babel = _babel_xml(root, ifid_seed or root.findtext("Title") or "Untitled")
+    return pack_adventure(
+        root,
+        has_bom=has_bom,
+        has_declaration=has_declaration,
+        babel=babel.encode("utf-8"),
+        password=password,
+    )
 
+
+def pack_adventure(
+    root: ET.Element,
+    *,
+    has_bom: bool,
+    has_declaration: bool,
+    babel: bytes,
+    password: str = DEFAULT_PASSWORD,
+) -> bytes:
+    """Serialize, deflate and obfuscate an adventure into the .taf layout.
+
+    An empty ``babel`` writes the "0000" size field a blorb Exec chunk carries,
+    its metadata living in the blorb's IFmd chunk instead.
+    """
     xml_text = _serialize_adventure(
         root,
         has_bom=has_bom,
@@ -355,8 +377,6 @@ def xml_to_taf(
     compressed = bytearray(zlib.compress(xml_bytes, level=9))
     _obfuscate(compressed)
 
-    babel = _babel_xml(root, ifid_seed or root.findtext("Title") or "Untitled")
-    babel = babel.encode("utf-8")
     babel_length = len(babel)
     babel_size = f"{babel_length:04X}"
 

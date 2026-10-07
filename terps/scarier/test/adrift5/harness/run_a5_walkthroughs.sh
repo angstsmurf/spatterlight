@@ -1845,6 +1845,8 @@ ProbeExecOrderTask|a5probes/execute_ordering.taf|0|0
 ProbeExecOrderTopic|a5probes/execute_ordering.taf|0|0
 ProbeHiPriPassingTask|a5probes/highest_priority_passing_task.taf|0|0
 ProbeHiPriTask|a5probes/highest_priority_task.taf|0|0
+ProbeImage|a5probes/image.taf|0|0
+ProbeImageBlorb|a5probes/image.blorb|0|0
 ProbeLifecycleRestart|a5probes/lifecycle.taf|0|0
 ProbeLifecycle2ndPass|a5probes/lifecycle.taf|0|0
 ProbeLifecycleLoop|a5probes/lifecycle.taf|0|0
