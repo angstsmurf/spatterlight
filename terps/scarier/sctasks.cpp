@@ -1747,6 +1747,7 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
  * AArch64 has no 80-bit long double, so the two roundings are done here in
  * integers.  max_score is positive.
  */
+#ifdef __SIZEOF_INT128__
 static scr_int
 task_percent_x87 (scr_int score, scr_int max_score)
 {
@@ -1804,6 +1805,185 @@ task_percent_x87 (scr_int score, scr_int max_score)
     whole++;
   return -(scr_int) whole;
 }
+
+#else /* !__SIZEOF_INT128__ */
+
+/*
+ * Compilers with no 128-bit integer type (MSVC, and GCC and Clang on 32-bit
+ * targets) get the same arithmetic on a pair of 64-bit halves.  Shift counts
+ * are always in [0, 128).
+ */
+typedef struct
+{
+  unsigned long long hi, lo;
+} sc_u128_t;
+
+static sc_u128_t
+task_u128 (unsigned long long hi, unsigned long long lo)
+{
+  sc_u128_t result;
+  result.hi = hi;
+  result.lo = lo;
+  return result;
+}
+
+static sc_u128_t
+task_u128_shl (sc_u128_t value, int count)
+{
+  if (count == 0)
+    return value;
+  if (count >= 64)
+    return task_u128 (value.lo << (count - 64), 0);
+  return task_u128 ((value.hi << count) | (value.lo >> (64 - count)),
+                    value.lo << count);
+}
+
+static sc_u128_t
+task_u128_shr (sc_u128_t value, int count)
+{
+  if (count == 0)
+    return value;
+  if (count >= 64)
+    return task_u128 (0, value.hi >> (count - 64));
+  return task_u128 (value.hi >> count,
+                    (value.lo >> count) | (value.hi << (64 - count)));
+}
+
+/* The low count bits of value, count in [1, 128). */
+static sc_u128_t
+task_u128_low_bits (sc_u128_t value, int count)
+{
+  if (count >= 64)
+    return task_u128 (count == 64 ? 0
+                                  : value.hi & ((1ULL << (count - 64)) - 1),
+                      value.lo);
+  return task_u128 (0, value.lo & ((1ULL << count) - 1));
+}
+
+static int
+task_u128_compare (sc_u128_t a, sc_u128_t b)
+{
+  if (a.hi != b.hi)
+    return a.hi < b.hi ? -1 : 1;
+  if (a.lo != b.lo)
+    return a.lo < b.lo ? -1 : 1;
+  return 0;
+}
+
+static sc_u128_t
+task_u128_increment (sc_u128_t value)
+{
+  value.lo++;
+  if (value.lo == 0)
+    value.hi++;
+  return value;
+}
+
+static sc_u128_t
+task_u128_multiply (unsigned long long a, unsigned long long b)
+{
+  const unsigned long long a_lo = a & 0xffffffffULL, a_hi = a >> 32;
+  const unsigned long long b_lo = b & 0xffffffffULL, b_hi = b >> 32;
+  const unsigned long long lo_lo = a_lo * b_lo, hi_lo = a_hi * b_lo;
+  const unsigned long long lo_hi = a_lo * b_hi, hi_hi = a_hi * b_hi;
+  const unsigned long long cross = (lo_lo >> 32) + (hi_lo & 0xffffffffULL)
+                                   + lo_hi;
+
+  return task_u128 (hi_hi + (hi_lo >> 32) + (cross >> 32),
+                    (cross << 32) | (lo_lo & 0xffffffffULL));
+}
+
+/* Long division by a divisor below 2^63, so the running remainder fits. */
+static sc_u128_t
+task_u128_divide (sc_u128_t dividend, unsigned long long divisor,
+                  unsigned long long *remainder)
+{
+  sc_u128_t quotient = task_u128 (0, 0);
+  unsigned long long rest = 0;
+  int bit;
+
+  for (bit = 127; bit >= 0; bit--)
+    {
+      rest = (rest << 1) | (task_u128_shr (dividend, bit).lo & 1);
+      quotient = task_u128_shl (quotient, 1);
+      if (rest >= divisor)
+        {
+          rest -= divisor;
+          quotient.lo |= 1;
+        }
+    }
+
+  *remainder = rest;
+  return quotient;
+}
+
+static scr_int
+task_percent_x87 (scr_int score, scr_int max_score)
+{
+  const scr_bool negative = score < 0;
+  const unsigned long long magnitude = negative ? -(unsigned long long) score
+                                                : (unsigned long long) score;
+  const unsigned long long divisor = (unsigned long long) max_score;
+  sc_u128_t quotient, product, half, low;
+  unsigned long long remainder, mantissa, whole;
+  int k, bits, shift, exponent;
+
+  if (magnitude == 0)
+    return 0;
+
+  /* q = 100 / max_score as mantissa * 2^-k, mantissa in [2^63, 2^64). */
+  k = 0;
+  for (;;)
+    {
+      quotient = task_u128_divide (task_u128_shl (task_u128 (0, 100), k),
+                                   divisor, &remainder);
+      if (quotient.hi != 0 || quotient.lo >= (1ULL << 63))
+        break;
+      k++;
+    }
+  if (2 * remainder > divisor
+      || (2 * remainder == divisor && (quotient.lo & 1)))
+    quotient = task_u128_increment (quotient);
+  if (quotient.hi != 0)
+    {
+      quotient = task_u128_shr (quotient, 1);
+      k--;
+    }
+  mantissa = quotient.lo;
+
+  /* |score| * q, rounded back to a 64-bit mantissa. */
+  product = task_u128_multiply (magnitude, mantissa);
+  for (bits = 0; bits < 128 && task_u128_compare (task_u128_shr (product, bits),
+                                                  task_u128 (0, 0)) != 0;
+       bits++)
+    ;
+  shift = bits > 64 ? bits - 64 : 0;
+  if (shift > 0)
+    {
+      half = task_u128_shl (task_u128 (0, 1), shift - 1);
+      low = task_u128_low_bits (product, shift);
+      product = task_u128_shr (product, shift);
+      if (task_u128_compare (low, half) > 0
+          || (task_u128_compare (low, half) == 0 && (product.lo & 1)))
+        product = task_u128_increment (product);
+    }
+
+  /* Int() floors: toward zero for a positive value, away for a negative. */
+  exponent = shift - k;
+  if (exponent >= 0)
+    {
+      const long long value = (long long) task_u128_shl (product, exponent).lo;
+      return (scr_int) (negative ? -value : value);
+    }
+  whole = task_u128_shr (product, -exponent).lo;
+  if (!negative)
+    return (scr_int) whole;
+  low = task_u128_low_bits (product, -exponent);
+  if (low.hi != 0 || low.lo != 0)
+    whole++;
+  return -(scr_int) whole;
+}
+#endif /* !__SIZEOF_INT128__ */
 
 
 /*
