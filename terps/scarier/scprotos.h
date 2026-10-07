@@ -101,7 +101,7 @@ extern void scr_fatal (const scr_char *format, ...)
 #else
 extern void scr_trace (const scr_char *format, ...);
 extern void scr_error (const scr_char *format, ...);
-extern void scr_fatal (const scr_char *format, ...) __attribute__ ((__noreturn__));
+extern void scr_fatal (const scr_char *format, ...);
 #endif
 
 #ifdef __cplusplus
