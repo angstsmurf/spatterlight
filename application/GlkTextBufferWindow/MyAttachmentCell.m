@@ -7,6 +7,7 @@
 
 #import "MyAttachmentCell.h"
 #import "MarginImage.h"
+#import "ImageHandler.h"
 #import "MyFilePromiseProvider.h"
 #import "NSImage+Categories.h"
 #import "Constants.h"
@@ -47,6 +48,7 @@
         _attrstr = anattrstr;
         _pos = apos;
         _index = index;
+        _imageNumber = -1;
         _naturalSize = image.size;
         lastDisplaySize = image.size;
         if (image.accessibilityDescription.length) {
@@ -65,6 +67,8 @@
         _marginImgUUID = [decoder decodeObjectOfClass:[NSString class] forKey:@"marginImgUUID"];
         _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
         _index = [decoder decodeIntegerForKey:@"index"];
+        _imageNumber = [decoder containsValueForKey:@"imageNumber"] ?
+            [decoder decodeIntegerForKey:@"imageNumber"] : -1;
         lastXHeight = [decoder decodeDoubleForKey:@"lastXHeight"];
         lastAscender = [decoder decodeDoubleForKey:@"lastAscender"];
         _hasDescription = [decoder decodeBoolForKey:@"hasDescription"];
@@ -92,6 +96,7 @@
     [encoder encodeDouble:lastAscender forKey:@"lastAscender"];
     [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
     [encoder encodeInteger:_index forKey:@"index"];
+    [encoder encodeInteger:_imageNumber forKey:@"imageNumber"];
     [encoder encodeBool:_hasDescription forKey:@"hasDescription"];
     [encoder encodeInteger:(NSInteger)_imagerule forKey:@"imagerule"];
     [encoder encodeInteger:(NSInteger)_ruleWidth forKey:@"ruleWidth"];
@@ -259,19 +264,30 @@
 // differs from the stored image size (rule-scaled cells, and legacy images
 // reduced to the window width). Returns NO when the default unscaled
 // drawing should run instead.
+//
+// A cell whose animation has started always draws here, with the current
+// frame in place of the stored image.
 - (BOOL)drawScaledInFrame:(NSRect)cellFrame {
-    if (!self.image || lastDisplaySize.width <= 0 ||
-        NSEqualSizes(lastDisplaySize, self.image.size))
+    NSImage *image = self.image;
+    if (_animation && _animationStart != 0) {
+        NSImage *frame = [_animation imageForFrame:_animationFrame];
+        if (frame)
+            image = frame;
+    }
+    if (!image)
+        return NO;
+    if (image == self.image && (lastDisplaySize.width <= 0 ||
+                                NSEqualSizes(lastDisplaySize, image.size)))
         return NO;
     NSGraphicsContext *ctx = NSGraphicsContext.currentContext;
     NSImageInterpolation oldInterpolation = ctx.imageInterpolation;
     ctx.imageInterpolation = NSImageInterpolationHigh;
-    [self.image drawInRect:cellFrame
-                  fromRect:NSZeroRect
-                 operation:NSCompositingOperationSourceOver
-                  fraction:1.0
-            respectFlipped:YES
-                     hints:nil];
+    [image drawInRect:cellFrame
+             fromRect:NSZeroRect
+            operation:NSCompositingOperationSourceOver
+             fraction:1.0
+       respectFlipped:YES
+                hints:nil];
     ctx.imageInterpolation = oldInterpolation;
     return YES;
 }
