@@ -1695,7 +1695,8 @@ winglk_startup_code (const char *cmdline)
   /* Open a stream to the game. */
   filename = winglk_get_initial_filename (cmdline,
                              "Select an Adrift game to run",
-                             "Adrift Files (.taf)|*.taf;All Files (*.*)|*.*||");
+                             "Adrift Games (*.taf;*.blorb;*.blb)"
+                             "|*.taf;*.blorb;*.blb|All Files (*.*)|*.*||");
   if (!filename)
     return 0;
   snprintf (gsc_game_path, sizeof gsc_game_path, "%s", filename);
