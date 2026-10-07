@@ -43,6 +43,14 @@ fi
 
 short() { echo "$1" | cut -c1-8; }
 
+# The manifest records each game under its upstream name, but a few of those
+# ("Then Who did it ?", "The Great Something <br>Act I") contain characters
+# Windows forbids in filenames.  The corpus, its goldens and its overrides all
+# use the name with each such character replaced by "_", so the repository can
+# be checked out on Windows.  "/" is left alone: quest4 rows use it for
+# subdirectories.
+local_name() { printf '%s\n' "$1" | sed 's/[<>:"|?*\\]/_/g'; }
+
 games_dir() {
   case "$1" in
     quest4) echo "${Q4_GAMES_DIR:-$here/quest4/games}" ;;
@@ -148,7 +156,14 @@ for corpus in $corpora; do
   # shellcheck disable=SC2162  (we want read's backslash-literal behaviour off)
   while IFS="$tab" read -r file size sha source member title note; do
     case "$file" in ''|'#'*) continue ;; esac
-    path="$dir/$file"
+    path="$dir/$(local_name "$file")"
+
+    # Corpora fetched before local_name existed hold these games under their
+    # upstream names; move them into place rather than downloading again.
+    if [ "$mode" = fetch ] && [ ! -f "$path" ] && [ "$path" != "$dir/$file" ] \
+       && [ -f "$dir/$file" ]; then
+      mv "$dir/$file" "$path"
+    fi
 
     if [ "$mode" = manual ]; then
       if [ "$source" = "-" ]; then

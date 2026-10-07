@@ -35,6 +35,12 @@ can never quietly replace a corpus file. Existing files are never overwritten.
 Override the corpus locations with `Q4_GAMES_DIR` / `Q5_GAMES_DIR` and the cache
 with `QUESTION_GAMES_CACHE`.
 
+The manifest's `file` column keeps each game's upstream name, but the game is
+installed with any character Windows forbids in a filename (`<>:"|?*\`) replaced
+by `_`, so `Then Who did it ?.quest` is installed as `Then Who did it _.quest`.
+Its golden, override and `corpus.tsv` row use that name too. A corpus fetched
+before this rule is moved into place by the next `fetch`.
+
 `gamescheck` is **not** a prerequisite of `make check`. That suite is
 deliberately corpus-free — it is the part worth wiring into CI — and a corpus
 check says nothing at all on a machine that has no corpus. Run it when you have
