@@ -1854,6 +1854,8 @@ ProbePopups|a5probes/popups.taf|4|4
 ProbeRandomness|a5probes/randomness.taf|0|0
 ProbeRefCapture|a5probes/reference_capture.taf|0|0
 ProbeRestrictions|a5probes/restrictions.taf|0|0
+ProbeSound|a5probes/sound.taf|0|0
+ProbeSoundBlorb|a5probes/sound.blorb|0|0
 ProbeTaskActions|a5probes/task_actions.taf|1|0
 ProbeUDF|a5probes/user_defined_functions.taf|0|0
 ProbeUndoAfterEnd|a5probes/undo_after_end.taf|0|4

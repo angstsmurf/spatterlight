@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-10-07 13:00:00</LastUpdated>
+<Title>Sound Test</Title>
+<Author>Test</Author>
+<!-- oof.wav is "Man oof.wav" by xtrgamr,
+     https://freesound.org/people/xtrgamr/sounds/257780/, licensed CC BY 4.0;
+     oof.mp3 is the same recording converted to MP3. -->
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Welcome to the Sound Test.
+
+You should hear a man say "oof" (WAV).
+&lt;audio play src="C:\Users\Author\Documents\ADRIFT\Sound Test\oof.wav"&gt;
+That was the WAV.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+
+<Location>
+<Key>Location1</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Studio</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A quiet room for testing sounds. Type wav, mp3, loop or stop.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-10-07 13:00:00</LastUpdated>
+<Created>2026-10-07 13:00:00</Created>
+</Location>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>Location1</Value>
+</Property>
+<LastUpdated>2026-10-07 13:00:00</LastUpdated>
+<Created>2026-10-07 13:00:00</Created>
+</Character>
+
+<!-- The srcs are the author's absolute Windows paths, as the Generator writes
+     them; a raw .taf has no FileMappings, so a host finds oof.wav and oof.mp3
+     beside the game by the path's last component.  The tag shapes are the
+     corpus's most common: channel=1 loop=N, a bare channel=2, loop=Y, and a
+     channel-specific stop. -->
+<Task>
+<Key>TaskWav</Key>
+<Priority>50000</Priority>
+<Type>General</Type>
+<Command>wav</Command>
+<Description>Play the WAV on channel 1</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Playing the WAV on channel 1.
+&lt;audio play src="C:\Users\Author\Documents\ADRIFT\Sound Test\oof.wav" channel=1 loop=N&gt;
+That was the WAV.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-10-07 13:00:00</LastUpdated>
+<Created>2026-10-07 13:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskMp3</Key>
+<Priority>50001</Priority>
+<Type>General</Type>
+<Command>mp3</Command>
+<Description>Play the MP3 on channel 2</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Playing the MP3 on channel 2.
+&lt;audio play src="C:\Users\Author\Documents\ADRIFT\Sound Test\oof.mp3" channel=2&gt;
+That was the MP3.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-10-07 13:00:00</LastUpdated>
+<Created>2026-10-07 13:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskLoop</Key>
+<Priority>50002</Priority>
+<Type>General</Type>
+<Command>loop</Command>
+<Description>Loop the MP3 on channel 3</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Looping the MP3 on channel 3. Type stop to stop it.
+&lt;audio play src="C:\Users\Author\Documents\ADRIFT\Sound Test\oof.mp3" channel=3 loop=Y&gt;
+The MP3 is looping.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-10-07 13:00:00</LastUpdated>
+<Created>2026-10-07 13:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskStop</Key>
+<Priority>50003</Priority>
+<Type>General</Type>
+<Command>stop</Command>
+<Description>Stop channel 3</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Stopping channel 3.
+&lt;audio stop channel=3&gt;
+The loop has stopped.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-10-07 13:00:00</LastUpdated>
+<Created>2026-10-07 13:00:00</Created>
+</Task>
+
+</Adventure>

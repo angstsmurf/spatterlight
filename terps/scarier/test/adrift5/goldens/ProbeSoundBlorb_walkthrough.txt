@@ -1,0 +1,10 @@
+# ProbeSoundBlorb -- synthetic probe (test/adrift5/probes/src/sound.xml),
+# packaged by tools/xml2blorb.py with probes/oof.wav as Blorb Snd 1 (a "WAVE"
+# chunk), probes/oof.mp3 as Snd 2 (an "MP3 " chunk), and <FileMappings>
+# entries mapping the <audio> srcs to them.  Same script and text as
+# ProbeSound; loading through the blorb path must not change a byte of output.
+wav
+mp3
+loop
+stop
+look
