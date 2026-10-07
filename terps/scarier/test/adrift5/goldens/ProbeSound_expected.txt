@@ -1,0 +1,35 @@
+Sound Test
+Welcome to the Sound Test.
+
+You should hear a man say "oof" (WAV).
+
+That was the WAV.
+
+Studio
+A quiet room for testing sounds. Type wav, mp3, loop or stop.
+
+> wav
+Playing the WAV on channel 1.
+
+That was the WAV.
+
+> mp3
+Playing the MP3 on channel 2.
+
+That was the MP3.
+
+> loop
+Looping the MP3 on channel 3. Type stop to stop it.
+
+The MP3 is looping.
+
+> stop
+Stopping channel 3.
+
+The loop has stopped.
+
+> look
+
+Studio
+A quiet room for testing sounds. Type wav, mp3, loop or stop.
+

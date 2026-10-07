@@ -1,0 +1,13 @@
+# ProbeSound -- synthetic probe (test/adrift5/probes/src/sound.xml).
+# Exercises <audio> in the intro and in task completion messages: a WAV on the
+# default channel, a WAV on channel=1 loop=N, an MP3 on channel=2, a looping
+# MP3 on channel=3 (loop=Y) and <audio stop channel=3>.  The srcs are an
+# author's absolute Windows paths; on Spatterlight the sounds are
+# probes/oof.wav ("Man oof.wav" by xtrgamr, freesound.org/s/257780, CC BY 4.0)
+# and probes/oof.mp3 (the same recording as MP3), found beside sound.taf by
+# basename.
+wav
+mp3
+loop
+stop
+look
