@@ -226,6 +226,10 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
           gsc_refresh_windows ();
           break;
 
+        case evtype_SoundNotify:
+          gsc_a5_sound_finished (event);
+          break;
+
         case evtype_MouseInput:
           /* A click on a room walks the player there: the pending line
              request is cancelled, and gsc_a5_read_line issues the first step
@@ -927,8 +931,9 @@ static int gsc_a5_have_blorb = FALSE;
    (clsSound.vb: Channels(7), numbered 1..8 in the <audio> tag; anything out of
    that range is a no-op); slot 0 here is simply never used. */
 schanid_t gsc_a5_channels[GSC_A5_MAX_CHANNELS];
-/* The resource last started on each channel, so a repeated play of the same
-   sound leaves it alone rather than restarting it (see gsc_a5_show_media). */
+/* The resource playing on each channel, so a repeated play of the same sound
+   leaves it alone rather than restarting it (see gsc_a5_show_media).  It is
+   cleared when the sound finishes (see gsc_a5_sound_finished). */
 glui32 gsc_a5_chan_sound[GSC_A5_MAX_CHANNELS];
 
 /*

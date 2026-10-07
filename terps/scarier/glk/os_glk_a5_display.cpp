@@ -25,7 +25,6 @@
  */
 
 #include "os_glk_internal.h"
-
 /*
  * gsc_a5_draw_image()
  *
@@ -500,7 +499,8 @@ gsc_a5_sound_event (const a5_media_event_t *m)
          alone in the Runner ("just leave as is", clsSound.vb) -- a
          room description that embeds its background music must not
          restart the track every time the room is re-shown.  Only a
-         different sound (re)starts the channel. */
+         different sound, or one that has finished (see
+         gsc_a5_sound_finished), (re)starts the channel. */
       if ((glui32) m->number == gsc_a5_chan_sound[ch])
         {
           if (trace)
@@ -515,10 +515,26 @@ gsc_a5_sound_event (const a5_media_event_t *m)
                      ch, m->number, m->loop);
           glk_schannel_play_ext (gsc_a5_channels[ch],
                                  (glui32) m->number,
-                                 m->loop ? 0xffffffffu : 1, 0);
+                                 m->loop ? 0xffffffffu : 1, (glui32) ch);
           gsc_a5_chan_sound[ch] = (glui32) m->number;
         }
     }
+}
+
+/*
+ * gsc_a5_sound_finished()
+ *
+ * Handle the notification that a sound played by gsc_a5_sound_event has
+ * finished, so that playing it again on its channel restarts it.
+ */
+void
+gsc_a5_sound_finished (const event_t *event)
+{
+  glui32 ch = event->val2;
+
+  if (ch > 0 && ch < GSC_A5_MAX_CHANNELS
+      && gsc_a5_chan_sound[ch] == event->val1)
+    gsc_a5_chan_sound[ch] = 0;
 }
 
 /*

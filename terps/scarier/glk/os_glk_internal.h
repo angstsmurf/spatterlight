@@ -367,6 +367,7 @@ extern void gsc_a5_main (void);
 extern void gsc_a5_display (const char *text);
 extern winid_t gsc_a5_open_side_window (void);
 extern int gsc_a5_show_media (a5_run_t *run);
+extern void gsc_a5_sound_finished (const event_t *event);
 extern void gsc_a5_media_fire (a5_run_t *run, int idx);
 extern void gsc_a5_present_intro_media (a5_run_t *run);
 extern void gsc_a5_undo_look (a5_run_t *run);
