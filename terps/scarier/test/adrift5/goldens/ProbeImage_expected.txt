@@ -5,6 +5,10 @@ Below this line is a picture of a sunny meadow.
 
 Above this line is a picture of a sunny meadow.
 
+Below this line is an animated picture of a starry night.
+
+Above this line is an animated picture of a starry night.
+
 Gallery
 A quiet room for testing images. Type picture to see the picture again.
 
@@ -12,6 +16,8 @@ A quiet room for testing images. Type picture to see the picture again.
 Here is the picture again.
 
 That was the picture.
+
+That was the animated picture.
 
 > look
 

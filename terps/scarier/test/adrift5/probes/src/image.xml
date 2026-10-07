@@ -11,7 +11,11 @@
 
 Below this line is a picture of a sunny meadow.
 &lt;img src="C:\Users\Author\Documents\ADRIFT\Image Test\sample.png"&gt;
-Above this line is a picture of a sunny meadow.</Text>
+Above this line is a picture of a sunny meadow.
+
+Below this line is an animated picture of a starry night.
+&lt;img src="C:\Users\Author\Documents\ADRIFT\Image Test\sample.gif"&gt;
+Above this line is an animated picture of a starry night.</Text>
 </Description>
 </Introduction>
 <ShowFirstLocation>1</ShowFirstLocation>
@@ -77,20 +81,22 @@ Above this line is a picture of a sunny meadow.</Text>
 </Character>
 
 <!-- The src is the author's absolute Windows path, as the Generator writes it;
-     a raw .taf has no FileMappings, so a host finds sample.png beside the game
-     by the path's last component. -->
+     a raw .taf has no FileMappings, so a host finds sample.png and sample.gif
+     beside the game by the path's last component. -->
 <Task>
 <Key>TaskPicture</Key>
 <Priority>50000</Priority>
 <Type>General</Type>
 <Command>picture</Command>
-<Description>Show the sample image mid-game</Description>
+<Description>Show the sample images mid-game</Description>
 <CompletionMessage>
 <Description>
 <DisplayWhen>StartDescriptionWithThis</DisplayWhen>
 <Text>Here is the picture again.
 &lt;img src="C:\Users\Author\Documents\ADRIFT\Image Test\sample.png"&gt;
-That was the picture.</Text>
+That was the picture.
+&lt;img src="C:\Users\Author\Documents\ADRIFT\Image Test\sample.gif"&gt;
+That was the animated picture.</Text>
 </Description>
 </CompletionMessage>
 <Repeatable>1</Repeatable>

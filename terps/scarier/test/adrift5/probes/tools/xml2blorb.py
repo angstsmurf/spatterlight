@@ -50,7 +50,8 @@ MEDIA_TAG_RE = re.compile(
 )
 
 # Chunk type by file extension: the Blorb spec's, as the Generator writes them.
-PICT_TYPES = {".png": b"PNG ", ".jpg": b"JPEG", ".jpeg": b"JPEG"}
+# "GIF " is ADRIFT's own (Blorb.vb), outside the Blorb spec's picture types.
+PICT_TYPES = {".png": b"PNG ", ".jpg": b"JPEG", ".jpeg": b"JPEG", ".gif": b"GIF "}
 SND_TYPES = {".wav": b"WAVE", ".mp3": b"MP3 ", ".ogg": b"OGGV", ".mod": b"MOD "}
 
 
