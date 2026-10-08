@@ -12,6 +12,7 @@ look at table
 take bowl
 take spoon
 take box of Frooties
+pour cereal in bowl
 pour milk in bowl
 e
 eat breakfast

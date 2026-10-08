@@ -1,0 +1,370 @@
+1
+2
+talk to rancid
+3
+4
+open closet
+x shelves
+open wardrobe
+x bureau
+x bed
+get pillow
+get bell
+ring bell
+get all
+wear all
+down
+talk to rancid
+3
+south
+talk to stimmons
+2
+x stimmons
+ask stimmons about sword
+ask stimmons about bible
+x bodies
+get all
+give arm to doris
+west
+x ned
+ask ned about rake
+east
+north
+open door
+north
+talk to bill
+4
+x bill
+ask bill about coin
+x ben
+ask ben about glasses
+talk to ben
+4
+south
+talk to bill
+5
+e
+get all
+west
+ne
+talk to doris
+5
+flush privy
+sw
+ne
+get cap
+wear cap
+sw
+up
+ask rancid about desk
+get all
+in
+get statue
+out
+down
+south
+south
+x scarecrow
+x left arm
+x bushes
+south
+se
+se
+south
+south
+drop crown
+south
+give bomb to samson
+talk to samson
+sw
+buy beer
+give bear rug to aahsodoff
+get beer
+x dwarves
+give beer to dwarf
+give beer mug to aahsodoff
+get beer
+give beer to dwarf
+give beer mug to aahsodoff
+get beer
+read noticeboard
+read task 1
+read task 2
+read task 3
+read task 4
+ne
+give beer to samson
+talk to samson
+2
+3
+6
+8
+sw
+give bell to aahsodoff
+get beer
+ne
+north
+north
+nw
+nw
+sw
+kill borrible the horrible
+get all
+sw
+east
+south
+ask will the mystic about flowers
+north
+west
+ne
+se
+south
+talk to roden
+4
+give teddy bear to roden
+talk to murphy
+4
+south
+get head
+sw
+nw
+comehereyerlittlebastard!
+east
+talk to petunia
+3
+ask ben about axe
+ask ben about axe
+ask bill about axe
+ask bill about axe
+nw
+sw
+get twig
+ne
+se
+west
+se
+ne
+north
+north
+nw
+sw
+east
+south
+give twig to will the mystic
+give rake to will the mystic
+get wig
+wear wig
+north
+west
+ne
+ne
+east
+ne
+east
+north
+talk to mayor
+1
+salute
+ask mayor about borrible
+give axx to mayor
+give skull to mayor
+give codpiece to mayor
+south
+se
+sell pen
+nw
+ne
+x beggar
+get teeth
+sw
+west
+sw
+west
+give beer to toto
+se
+se
+south
+drop borrible the Horrible
+south
+east
+open chest
+west
+ask newbie about chest
+east
+open chest
+get recipe book
+west
+sw
+talk to karumba
+6
+give beach ball to karumba
+give glasses to karumba
+give pillow to karumba
+give cat to mertle
+talk to sebastian
+5
+give beer mug to aahsodoff
+get beer
+give beer to karumba
+east
+north
+north
+nw
+south
+talk to smith
+4
+give broken axe to smith
+give beer to smith
+give sword to smith
+give broken arrow to smith
+get axe
+north
+nw
+north
+north
+north
+west
+talk to patrick oison
+2
+3
+give recipe book to patrick oison
+get all
+eat loaf
+x ladle
+pull button
+look
+get cake
+east
+south
+south
+south
+west
+talk to mother mabel
+1
+1
+give statue to mother mabel
+talk to mother mabel
+1
+2
+give cake to mabel
+talk to mother mabel
+1
+3
+give head to mother mabel
+east
+sw
+se
+south
+give rose to murphy
+south
+sw
+nw
+east
+give pansy to petunia
+west
+se
+ne
+north
+north
+nw
+ne
+north
+north
+south
+south
+se
+se
+south
+south
+sw
+give daffodil to karumba
+give cookies to karumba
+give coin to karumba
+eat sandwiches
+get all
+east
+se
+talk to priests
+give bible to thomas
+give holy water to thomas
+give cross to thomas
+nw
+nw
+down
+down
+down
+down
+kill alonzo the magnaf- magniff- great!
+get all
+x niche
+get all
+read journal
+untie girl
+wear holy symbol
+up
+up
+up
+up
+se
+se
+talk to thomas
+nw
+se
+talk to red harry
+7
+get key of pure harry
+nw
+north
+north
+east
+north
+talk to aaaaaaaaaarg
+4
+5
+give axe to aaaaaaaaaarg
+south
+east
+whizzo!
+talk to merton
+7
+4
+ne
+open gates
+north
+up
+north
+get all
+south
+west
+x toys
+get manuscripts
+drop repair kit
+east
+east
+drop prayer book
+west
+south
+kill vorgon
+get egg
+north
+down
+south
+sw
+west
+west
+west
+south
+drop body of alonzo
+south
+se
+give manuscripts to harry
+nw
+north
+north
+nw
+nw
+north
+north
+up
+up
+give egg to dragon

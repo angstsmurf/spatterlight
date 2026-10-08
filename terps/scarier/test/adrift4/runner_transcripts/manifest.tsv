@@ -63,7 +63,7 @@ bomb_threat	bomb_threat.txt	driven:Adrift_128_bomb_threat_rt.txt	3.90	run390x.ex
 bountyhunter	bountyhunter.txt	driven:Adrift_305_bountyhunter_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 breakout	breakout.txt	driven:Adrift_342_breakout_rt.txt	4.00	run400x.exe	1234	3	look at shelves	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 briefcase	briefcase.txt	harvested-xoshiro:Adrift_134_briefcase_x.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
-britishfox	britishfox.txt	driven:Adrift_282_britishfox_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+britishfox	britishfox.txt	driven:Adrift_305_britishfox_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	5 differing turn(s)
 bsg22	bsg22.txt	driven:Adrift_459_bsg22_rt.txt	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 bta	bta.txt	driven:Adrift_286_bta_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 buried_alive	buried_alive.txt	driven:Adrift_136_buried_alive_rt.txt	4.00	run400x.exe	1234	1			yes	identical on every turn.
@@ -105,7 +105,7 @@ cowboyblues	cowboyblues.txt	driven:Adrift_311_cowboyblues_rt.txt	4.00	run400x.ex
 crashland	crashland.txt	driven:Adrift_311_crashland_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 crime_adventure	crime_adventure.rtf	driven:Adrift_279_crime_adventure_rt.rtf+tail	3.80	run380x.exe	1234	0			yes	identical on every turn.
 crimelife	crimelife.txt	driven:Adrift_314_crimelife_rt.txt	4.00	run400x.exe	1234	0	Petter~male		yes	identical on every turn.
-crimescene	crimescene.txt	driven:Adrift_287_crimescene_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+crimescene	crimescene.txt	driven:Adrift_306_crimescene_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 crimsondetritus	crimsondetritus.txt	driven:Adrift_315_crimsondetritus_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 crm	crm.txt	harvested-native-0-draws:Adrift_604_crm.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 croft	croft.txt	driven:Adrift_348_croft_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
@@ -180,11 +180,10 @@ fairscare	fairscare.txt	driven:Adrift_315_fairscare_rt.txt	4.00	run400x.exe	1234
 fantasy	fantasy.txt	driven:Adrift_287_fantasy_rt.txt	4.00	run400x.exe	1234	0	Player	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 fantasyworld	fantasyworld.txt	driven:Adrift_224_fantasyworld_rt.txt	3.90	run390x.exe	1234	0	Corin		yes	identical on every turn.
 farfromhome	farfromhome.txt	driven:Adrift_326_farfromhome_rt.txt	3.90	run390x.exe	1234	1	Sam	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-filthybill	filthybill.txt	driven:Adrift_328_filthybill_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
-filthybill_patched	filthybill_patched.txt	driven:Adrift_325_filthybill_patched_rt.txt	3.90	run390x.exe	1234	0		SCR_ASSUME_PATCHES=1	yes	identical on every turn.
+filthybill	filthybill.txt	driven:Adrift_305_filthybill_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 finalquestion	finalquestion.txt	driven:Adrift_444_finalquestion_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 findandy1	findandy1.txt	driven:Adrift_316_findandy1_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-firstday	firstday.txt	driven:Adrift_351_firstday_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+firstday	firstday.txt	driven:Adrift_305_firstday_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 firstpug	firstpug.txt	driven:Adrift_436_firstpug_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 fistandantalus	fistandantalus.rtf	driven:Adrift_297_fistandantalus_rt.rtf+tail	3.80	run380x.exe	1234	0			yes	identical on every turn.
 fluffykins	fluffykins.txt	driven:Adrift_440_fluffykins_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -377,6 +376,7 @@ ohhuman	ohhuman.txt	driven:Adrift_395_ohhuman_rt.txt	4.00	run400x.exe	1234	0			y
 ohhuman_200	ohhuman_200.txt	driven:Adrift_304_ohhuman_200_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 oldchurch	oldchurch.txt	driven:Adrift_466_oldchurch_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 onnafa	onnafa.txt	driven:Adrift_500_onnafa_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
+onnafa_full	onnafa_full.txt	driven:Adrift_305_onnafa_full_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	3 differing turn(s)
 orient_express	orient_express.txt	driven:Adrift_169_orient_express_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 outline	outline.txt	driven:Adrift_376_outline_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 outside	outside.txt	driven:Adrift_305_outside_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from whitespace.

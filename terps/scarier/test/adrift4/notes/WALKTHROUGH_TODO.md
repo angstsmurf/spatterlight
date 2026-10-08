@@ -58,8 +58,10 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
   which is exactly what the red-cup scoring task forbids, and the third twin's
   +1 is paid for by that task's own −1. So 39 of 41 is the real ceiling, and
   `melbourne_patched_solution.txt` reaches it. `CrimeScene.taf`'s faithful row
-  is in the same family and was left faithful on purpose: its missing +2 needs
-  the patch above, because typing `look at door` kills the Runner too.
+  is in the same family and was left faithful on purpose: typing `look at
+  door` for its missing +2 kills the Runner.  (Its patch was retired
+  2026-10-09 -- Scarier now survives the command unpatched, see
+  `crimescene_door_solution.txt`.)
 - **Three more games joined the patch table later the same day
   (2026-09-27), on the user's "add more games to the patch table":** each keeps
   its faithful row and gains a `SCR_ASSUME_PATCHES=1` one.
@@ -234,6 +236,13 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
   facts, not route bugs: T460 (+1) and T189 (+2) are structurally excluded once
   she is captured, Grace's arrest is the other, mutually exclusive branch, and
   T564 (+1) would need the whole RNG-sensitive gauntlet re-derived.
+  **Superseded 2026-10-09: British Fox is now 50/50.** That "branch facts"
+  reading was wrong — XavierHawkUk's walkthrough shows capture and Grace's arrest
+  are NOT exclusive. The middle of the route was re-derived as a no-alarm run
+  (attack a dungeon visitor with the collar off, `ring bell`, subdue Grace, let
+  Eugene finish with her, unlock the cells and outer doors from the computer);
+  with the alarm never raised there is no combat left and so no RNG-sensitive
+  gauntlet. See the row's entry in `v4_walkthrough_rows.md`.
 - **2026-09-27 footgun hit while adding the row:** the `Edit` tool round-trips
   `run_v4_walkthroughs.sh` as UTF-8, but the file is cp1251 — this silently
   mangled every pre-existing non-ASCII byte run elsewhere in the file (7

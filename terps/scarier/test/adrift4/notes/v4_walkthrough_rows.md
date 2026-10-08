@@ -8408,6 +8408,17 @@ matches over 100). 64 commands, `SCR_SKIP_WAITKEY=1` (five intro waitkeys
 plus one at the ending otherwise eat scripted input).
 ```
 
+## firstday_solution.txt
+
+```text
+First Day (firstday.taf, 3.90).  15/15.  Until 2026-10-09 the row
+banked 10: it poured the milk without the cereal.  Delron's walkthrough has
+`pour cereal in bowl` before `pour milk in bowl` (+5).  Runner transcript
+re-driven the same day (run390x, seed 1234): one differing turn, `look at
+table` -- "On the Kitchen table is a cereal bowl, a spoon and ..." in the
+Runner, "are" in Scarier, the deliberate plural list verb.
+```
+
 ## firstpug_solution.txt
 
 ```text
@@ -10767,6 +10778,50 @@ takes the key instead of reading Harry out of the key's name ("I don't
 think Harry would appreciate being handled.").
 ```
 
+## onnafa_full_solution.txt
+
+```text
+ONNAFA.TAF again, the high-score route: 248 of 268, closing narrator "your
+score turned out at 208" (onnafa_solution.txt is 122 / "82").  370 commands.
+Base is Delron's walkthrough (2026-10-09), which already wins at 208/268 once
+its bare `get key` -- ambiguous here, three keys in scope -- is spelled
+`get key of pure harry`.  Side quests added on top, +40:
+  x shelves (after open closet)                 +1
+  ask stimmons about sword / give sword to smith +3
+  talk to bill, 5 in the Main Hall              +4   Bill smashes the guest room door
+  e (Main Hall; `east` is the kitchen), get all  --   the bomb
+  give bomb to samson                           +7
+  sell pen (Newbieville Hardware Store, se of the Town Square)  +1
+  eat loaf, eat sandwiches                      +1 +1
+  x niche, get all, read journal, untie girl    +2 +3 +4   Cult room, after kill alonzo
+  x toys, get manuscripts                       +3
+  give manuscripts to harry                     +10
+The sell point is paid once however many items go (repeatable task, score
+counted once); the pillow, someone's head, the bible and the rusti kee are
+needed later.  The Harry detour runs from the Murky Crossroads on the way
+home: Samson throws you out of Korbintown's gate while you carry Alonzo's
+body, so it is dropped at the Gates first.
+The 20 left over are not reachable on this branch:
+  rose to Murphy +5       needs the jam cake; `get cake` in the Kitchen is
+                          intercepted by T325 `get *jam*` -- run400 agrees
+  Barnaby's key/staff/cloak +12   the possum items are Alonzo's reward for
+                          destroying the Temple, i.e. the other branch
+  ring bell in the Main Hall +2   T34, exclusive with T33 (bedchamber) taken here
+  smash door, Abandoned Church +1   cemetery is not on this branch
+`kill dragon` (+20) is the other ending.
+The route cannot replace onnafa_solution.txt: that one carries the Perry
+`give empty beer mug` turn, and here the mug is gone (last refill goes to
+Karumba) by the time nothing else needs it.
+run400x (seed 1234) plays the same game to the same 208
+(runner_transcripts/onnafa_full.txt).  One turn really differs: `get key of
+pure harry` -- run400 asks "Which key. The rusti kee, the guard's key or the
+little black key?" and takes the key anyway; Scarier just takes it
+(mask_npc_overwrite, see onnafa_solution.txt).  The two turns the compare
+lists at the intro menu are alignment only.  Delron's `get
+comehereyerlittlebastard!` gets a "Hmm... That what exactly?" prefix in
+run400, so the route calls the cat by name alone.
+```
+
 ## house_solution.txt
 
 ```text
@@ -11554,60 +11609,65 @@ names (deliberate deviation, 8f7dc3d7a).  Still 100/100.
 ## britishfox_solution.txt
 
 ```text
-British Fox and the Celebrity Abductions (Sirene).  Solution: hand-derived
-(no author walkthrough survives online) by live static+dynamic analysis of
-the .taf under SCR_RNG=xoshiro, following the game's own StartupText hint
-that max score needs the scripted capture-and-escape route, not the
-alternate "subdue Grace" branch (mutually exclusive, lower-scoring).
-Chain: Welsh Fox intro -> Grace's-office seduction/capture -> dungeon
-jailors scene, concealing a key on her person past the post-scene
-search -> collar removal alone in the cell -> jailbreak (`open door`
-triggers the alarm) -> full dungeon loot run -> a costume/item-retrieval
-side-trip back to Grace's Office via the rear Computer-Room route, killing
-both the balcony guard and the upstairs guard on the way in (his spawn is a
-fixed tick 4 turns after entering the office, so `wait` is timed to land
-on it) to avoid a second, unscripted damage-cap knockout -- the balcony
-guard is patrolled on both routes to/from the office and must be put down
-before any return crossing; 15 reps of the arousal-raise action is the
-exact count that triggers the lust-overwhelm escape without spending extra
-turns (and therefore extra RNG draws) that shift the later outdoor-patrol
-gauntlet's damage rolls into a KO -- fewer reps never escapes, more just
-wastes turns. Then per-captive bespoke triggers (an explicit act for Ulgham, "tell
-her it was sabrina" for Jones, a sex toy for Omega-Bones, the dungeon
-catsuit for Sinclair) and a `call <name>`-every-room escort out the back
-door/gate route (the front-hallway route has an unresolved balcony-gunman
-hazard, avoided) to the Abandoned Farmhouse, where all four rescues fire.
-Finally `in`/`close britmobile door`/`start engine`/`return to
-headquarters` drives home, and the corridor walk north into the
-Controller's Office ends the game. Scores 46/50 (21/50 when first wired;
-the route now also does the Eugene/computer-terminal evidence puzzle,
-password "butterscotch", and the 2026-09-24 ports).
+British Fox and the Celebrity Abductions (Sirene).  50/50 since 2026-10-09
+(21 when first wired, 43 after rerouting, 46 on 2026-09-27).  Needs
+SCR_SKIP_WAITKEY=1 for the same family of unattended-prompt reasons as
+CW2/CW4 above.
 
-The last two points were recovered 2026-09-27.  Both edits had to be
-turn-for-turn NEUTRAL: the outdoor-patrol and dungeon-escort damage rolls
-downstream are RNG-stream sensitive, and a sweep of forced offsets found
-0,+1,+2,+3,+4,+7,+8 safe while -1,+5,+6 all end in recapture (signature:
-the basement `attack guard` answers from the wrong actor and no "You
-scored" line is ever printed).  So:
-  * T333 (+1) -- the no-op `attack guard` in the mansion basement was
-    swapped in place for `ring bell`.  One command replaced, no shift.
-  * T52 "# Beverley cums" (+2) -- the Welsh Fox scene that opens the game is
-    played out to its end instead of being broken off: a 13-command
-    escalation ladder (two arousal-raising actions repeated, one of which
-    draws twice from the RNG and one not at all, then the ALTCMD that fires
-    the task; see lines 10-22 of the golden).  Those 13 added turns are paid
-    for by deleting 13 zero-point HQ flavour lines BEFORE the sensitive
-    region -- the four HQ-corridor NPC encounters and `x outer guards` --
-    chosen so the net draw offset lands in a safe zone.
+The route is a NO-ALARM run, re-derived 2026-10-09 against XavierHawkUk's
+walkthrough ("British Fox Walkthrough.txt", points list sums to 50) and the
+.taf.  Lines 1-146 are the old hand-derived opening unchanged: Welsh Fox
+scene played out (T52 "# Beverley cums" +2), Grace's-office capture, the
+dungeon jailors scene with a key concealed past the search, `unlock collar`
+alone in Cell Five.  From there:
 
-The remaining 4 points are not reachable on this branch: T460 "# Sneak"
-(+1) and T189 "# BF works off some frustration" (+2) are structurally
-excluded once she is captured, and Grace herself necessarily evades capture
-since arresting her is the OTHER, mutually exclusive branch.  T564
-"# Point for Eugene" (+1) is reachable in principle but not without
-re-deriving the whole RNG-sensitive gauntlet.  Needs
-SCR_SKIP_WAITKEY=1 for the same family of
-unattended-prompt reasons as CW2/CW4 above.
+  * `wait` x4 until the next dungeon session, THEN `remove collar` and
+    `attack highrise` -- T189 "# BF works off some frustration" (+2).  The
+    visitor must be attacked in the dungeon with the collar off; taking the
+    collar off in the cell and attacking the torturess there does nothing
+    (she is not in the dungeon).  `ring bell` (T333, +1) then brings the
+    jailors, who are beaten and leave the dungeon door open -- no alarm.
+  * Loot (`get dildo`, `get catsuit`, `get all from table`), walk up through
+    the trapdoor and rear hallway to Grace's Office.  While the alarm is
+    silent every guard is friendly ("Ma'am"), so there is no combat at all.
+  * `kiss grace's pussy` x20, `attack grace` (+2), `spank grace` (+1).  20
+    works, 15 does not (16-19 untested); `turn off reactor` alone is not
+    enough.  Office loot, `wear my costume`, `get grace`, west.
+  * `spank technician`, then `grace suck cock` x4 instead of the old
+    `suck technician` x5: Eugene finishes with Grace (T559) which fires T564
+    "# Point for Eugene" (+1).  T564 is barred once T321 "# technician
+    orgasms" has run, i.e. British Fox must never bring him off herself.
+    `eugene turn on computer` works without it.  ("Eugene's dick is still
+    shrunken" after the point is just his arousal reset to -10.)
+  * Computer: the two butterscotch downloads as before, then `open security`,
+    `enter clitoris`, `open external doors`, `enter yes`, `open cell doors`,
+    `enter yes`.  With the cells unlocked `open door` opens them normally;
+    forcing a locked cell door (T340-346) or the back door / gate is what
+    raised the alarm in the old route.
+  * Cells: Elizabeth (Cell One, off Corridor 2), Aphrodite (Cell Two, C3),
+    Margeretta (Cell Three, C4), Cherry (Cell Six, C7), same per-captive
+    triggers as before, `call <name>` in every room.  The basement guard
+    wanders through and only offers to help.
+  * Out the kitchen back door, e, s, s, s, w, s (front gate, guards merely
+    "flabbergasted"), s to the farmhouse, Britmobile home.  Reaching the
+    endgame with `sneak` (variable 40) still 1 fires T460 "# Sneak" (+1);
+    only T59 "# the alarm is raised" ever clears it.
+
+Because nothing is fought after the dungeon, the RNG-offset sensitivity the
+old route suffered from (outdoor-patrol damage rolls ending in recapture) is
+gone.  The earlier claim here that T460/T189 were "structurally excluded
+once she is captured" and that arresting Grace was a mutually exclusive
+branch was wrong.
+
+Runner (run400x, runner_transcripts/britishfox.txt, re-driven 2026-10-09 on
+this route): all 350 commands echoed, also ends "You scored 50 out of the
+maximum 50!".  Five turns differ, all DELIBERATE DEVIATIONS: four is/are
+list verbs (`open folder`, `x table`, `open chest`, `search drawer` -- the
+Runner says "Inside X is a, b and c"), and turn 21 `welsh fox fuck british
+fox`, an unmatched line where run400's profanity arm answers "I really don't
+think there's any need for language like that!" (not ported, see
+thenightmoon) and Scarier gives the NPC-command refusal.  No task fires on
+that turn in either.
 ```
 
 ## doa_xbs_solution.txt
@@ -12114,25 +12174,30 @@ Crime Scene. 78/80. Living room: search body, glass on gun, examine blood,
 take blood, window, under body, table; kitchen: under table, wood+hair to Sam;
 Tom's key, desk, folder, give evidence to inspector (+15, win).
 Missing 2 = task 0 'look at door' (hall): its six junk actions move the player
-to room -2 and scarier dies (gs_move_player_to_room: invalid room, -2).
-The Runner dies on it too: run390 under Wine (2026-09-26, fast.sh feeds
-`look at door` and `look` + `look at door`) pops "Run-time error '9':
-Subscript out of range" and exits at that command. 78/80 is the ceiling.
+to room -2.  The Runner dies on it: run390 under Wine pops "Run-time error
+'9': Subscript out of range" and exits at that command (2026-09-26 fast.sh;
+re-measured 2026-10-09 with `look` + `look at door`, probe
+runner_probes/crimescene.run390.door.txt).  So 78/80 is the ceiling in the
+Runner, and this row stays on the route the Runner can finish.
+Scarier no longer dies there: since a8c24cccb (2026-10-01, range-checked
+indices) a move-player action with a negative room is skipped, so `look at
+door` prints its clue and pays the +2 -- 80/80
+(a deliberate robustness deviation; Delron's walkthrough plays it that way).
 'take blood' is claimed by task 7 (+5); task 16 (same text, 0) is shadowed.
-78/80 is the ceiling as shipped; the patched row below banks the two.
+The crimescene_door row below banks the two.
 ```
 
-## crimescene_patched_solution.txt
+## crimescene_door_solution.txt
 
 ```text
-And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
-default in the Glk build): the six blank move-player rows on task 0 are read
-as "no destination chosen" (Var2 -1) instead of "to room -2", so `look at
-door` is just its clue and its +2, and the script is the faithful one plus
-that one command.  80 of 80.  Task 1 `look under couch` carries the same six
-rows and is left as shipped -- it scores nothing, and typing it in the Living
-Room, with or without the magnifying glass, falls through to the library's
-"Nothing special." rather than completing.
+The faithful route plus `look at door` in the Hall: 80 of 80, no patch.
+Scarier-only -- the Runner dies on that command (see the row above), so this
+row has no Runner transcript.  Until 2026-10-09 it was
+crimescene_patched_solution.txt and ran under SCR_ASSUME_PATCHES=1; the patch
+(six blank move-player rows on task 0 rewritten to Var2 -1) was retired once
+the engine's own range check made it a no-op.  Task 1 `look under couch`
+carries the same six rows; it scores nothing, and typing it in the Living
+Room falls through to the library's "Nothing special." rather than completing.
 ```
 
 ## schoolday_solution.txt
@@ -12768,32 +12833,25 @@ Filthy Bill Does Everyone But His Mother (filthybill.taf, AIF/adult, all
 named characters textually adult -- Amanda explicitly "18 year old
 daughter", Chelsea "middle aged hooker", Marlene a police officer, Tanya
 the stable grounds keeper, Janine a hotel-suite "buxom beauty", Jen a bar
-patron; no minors). Best-reachable state: 5 of 6 required conquests done
-(Amanda, Chelsea, the Desk Clerk via "say interested", Tanya, Marlene).
-The 6th, Jen, is permanently blocked by a genuine authoring bug: her task
-requires the "french tickler" worn, which is a CONTAINERIDX item sealed
-inside the passed-out Bum's coat. Taking a held/worn object from an NPC
-is unconditionally refused by the engine (sclibrar.cpp) unless the NPC is
-actually killed in battle (which drops worn items -- scbattle.cpp
-battle_kill); the Bum is never a battle target, so "give whiskey to bum"
-(a plain ACT type=7 battle-attribute change, not a kill) never triggers
-that drop, and no other task ever relocates the coat or its contents.
-The wired script demonstrates this: it attempts "screw jen" after doing
-everything else required (phone-prank ladder at the payphone, shower,
-shave) and gets the tickler-specific refusal, then attempts "orgy" in the
-Orgy-Fest Room and gets "Someone is missing here." -- confirming the win
-task's all-six-conquests restriction can never be satisfied. Same class
-of authoring dead end as ebonysworld/illegalsocks in this same batch.
-```
-
-## filthybill_patched_solution.txt
-
-```text
-The same route with the engine's targeted game patches on: `give whiskey to
-bum` now also drops the coat on the floor of 1st Street (North), so the
-french tickler inside it can be taken and worn, Jen becomes the sixth
-conquest, and the Orgy-Fest Room's all-six restriction is satisfiable --
-1000 of 1000, the game's one ending.
+patron; no minors).  1000 of 1000, the game's one ending, as shipped.
+Until 2026-10-09 this row stopped at 5 of 6 conquests and the note called
+Jen permanently blocked: her task needs the french tickler worn, and the
+tickler sits inside the coat the passed-out Bum is wearing.  That was a
+route gap, not an authoring bug.  Delron's walkthrough has the missing
+step: `give whiskey to bum`, `look at bum` ("Bum is wearing a raggedy old
+coat."), `look in coat` ("A french tickler is inside the raggedy old
+coat."), `get french tickler`, `wear french tickler`.  The `look at bum`
+is what matters -- it is what makes the worn coat seen; without it `look in
+coat` answers "Nothing special." and the take "Take what?".  Taking from a
+container an NPC is wearing is allowed; only the worn object itself is
+refused.
+run390 agrees on both halves (2026-10-09, unpatched .taf): without `look at
+bum` the probe runner_probes/filthybill.run390.coat.txt gets "Nothing
+special." / "Take what?" / "Wear what?"; with it the Runner takes and wears
+the tickler and finishes 1000/1000 -- runner_transcripts/filthybill.txt,
+identical to Scarier on every turn.
+A game patch that dropped the coat in the street (and its filthybill_patched
+row) was retired the same day as unnecessary.
 ```
 
 ## temporfell_solution.txt

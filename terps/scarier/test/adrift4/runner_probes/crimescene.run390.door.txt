@@ -1,0 +1,6 @@
+
+> look
+Hall
+You're standing in the short hall.The door to the apartment is North.
+
+> look at door

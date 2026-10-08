@@ -606,6 +606,7 @@ hero_solution.txt|competition2004__adrift__hero__hero.taf|the world is a better 
 datewithdeath_solution.txt|datewithdeath.taf|And you have a whole life ahead of you to live|SCR_SKIP_WAITKEY=1
 alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 onnafa_solution.txt|ONNAFA.TAF|your score turned out at 82|SCR_SKIP_WAITKEY=1
+onnafa_full_solution.txt|ONNAFA.TAF|your score turned out at 208|SCR_SKIP_WAITKEY=1
 house_solution.txt|House.taf|Well done - you scored maximum points!|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 lca_solution.txt|Lights_Camera_Action.taf|best ending in the game!|SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-09-13 for the 4.0 event "ticked" byte and post-execute-task event
@@ -636,7 +637,7 @@ namiki_solution.txt|Namiki'sDay.taf|You scored 8 out of the maximum 8!|
 akari_solution.txt|AkarisStory.taf|You scored 13 out of the maximum 13!|
 crossworlds2_solution.txt|Crossworlds Part 2.taf|You scored 75 out of the maximum 75!|SCR_SKIP_WAITKEY=1
 crossworlds4_solution.txt|Crossworlds Part 4.taf|You scored 100 out of the maximum 100!|SCR_SKIP_WAITKEY=1
-britishfox_solution.txt|British.Fox.and.the.Celebrity.Abductions.taf|You scored 46 out of the maximum 50!|SCR_SKIP_WAITKEY=1
+britishfox_solution.txt|British.Fox.and.the.Celebrity.Abductions.taf|You scored 50 out of the maximum 50!|SCR_SKIP_WAITKEY=1
 doa_xbs_solution.txt|DOA_X_B_S.taf|You scored 10 out of the maximum 10!|
 silvermaiden_solution.txt|The Silver Maiden.taf|You cast your ultimate spell at Velle.|
 insidejob_solution.txt|insidejob.taf|You scored 614 out of the maximum 14198!|
@@ -898,7 +899,7 @@ akron_rus_solution.txt|akron_rus.taf|78%|SCR_SKIP_WAITKEY=1
 # Nightmare on Elm Street (Russian). Valve, coffee, alarm, go to work.
 elmstreet_solution.txt|A Nightmare on Elm Street.taf|100%|SCR_SKIP_WAITKEY=1
 crimescene_solution.txt|CrimeScene.taf|Trent smashed the window|SCR_SKIP_WAITKEY=1
-crimescene_patched_solution.txt|CrimeScene.taf|You scored 80 out of the maximum 80!|SCR_ASSUME_PATCHES=1 SCR_SKIP_WAITKEY=1
+crimescene_door_solution.txt|CrimeScene.taf|You scored 80 out of the maximum 80!|SCR_SKIP_WAITKEY=1
 schoolday_solution.txt|SchoolDay.taf|YOU WIN!!!!!|SCR_SKIP_WAITKEY=1
 sororityHouse_solution.txt|sororityHouse.taf|Congratulations, you win!|SCR_SKIP_WAITKEY=1
 freshman_solution.txt|freshman.taf|Five times.  That last time was a doozy!|SCR_SKIP_WAITKEY=1
@@ -942,8 +943,7 @@ twentyone_solution.txt|Twenty-one.taf|survived long enough to get the best endin
 # empty; entering room 1436 is an unavoidable trap into a Cell with zero
 # EXIT entries (genuine engine dead end). See notes/Weirdstuff2_walkthrough.md.
 weirdstuff2_solution.txt|weirdstuff2.taf||
-filthybill_solution.txt|filthybill.taf|I appreciate your help with Dave|
-filthybill_patched_solution.txt|filthybill.taf|Well done - you scored maximum points!|SCR_ASSUME_PATCHES=1
+filthybill_solution.txt|filthybill.taf|Well done - you scored maximum points!|
 temporfell_solution.txt|temporfell_demo.taf|Thanks for testing|SCR_RNG=xoshiro
 thenightmoon_solution.txt|thenightmoon.taf|You scored 360 out of the maximum 400!|SCR_RNG=xoshiro
 thenightmoon_patched_solution.txt|thenightmoon.taf|You scored 380 out of the maximum 400!|SCR_RNG=xoshiro SCR_ASSUME_PATCHES=1

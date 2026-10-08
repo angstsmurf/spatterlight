@@ -4212,38 +4212,6 @@ static const scr_patch_edit_t PATCH_DEL_SOL[] = {
 };
 
 /*
- * Filthy Bill Does Everyone But His Mother (Filthy Bill Lee).  Six conquests
- * open the Orgy-Fest Room and the game's one ending; five of them work.  The
- * sixth, Jen in Neener's Pub, wants the french tickler worn (task 19
- * restriction 3, dynamic object 2, "worn by player"), and the tickler is
- * object 2 with InitialPosition 2 -- inside the raggedy old coat, object 14,
- * which NPC 5, the Bum, is wearing.
- *
- * `give whiskey to bum` (task 14) is where the coat was meant to come off:
- * its text has the bum puke on himself and pass out against the wall, and the
- * Bum's AltText, gated on that same task, is "The bum is passed out against
- * the wall. Leave him alone."  But its only action is a battle-attribute
- * change, nothing else in the file ever names the coat, and the library
- * refuses to take a worn object off an NPC unless a battle kills them (the
- * Bum has 9999 stamina and is never a battle target).  So the tickler is
- * sealed for the whole game and the orgy's six-conquest restriction can never
- * be met.
- *
- * The passing-out task gets a second action: drop the coat, contents and all,
- * on the floor of 1st Street (North), the room the task itself is gated to.
- */
-static const scr_patch_edit_t PATCH_FILTHYBILL[] = {
-  PATCH_VERIFY ("Tasks/14/Command/0", "give whiskey to bum"),
-  PATCH_VERIFY ("Objects/14/Short", "coat"),
-  PATCH_VERIFY ("Objects/2/Short", "french tickler"),
-  PATCH_VERIFY ("NPCs/5/Name", "Bum"),
-  PATCH_ADD ("Tasks/14/Actions/1/Type", 0),
-  PATCH_ADD ("Tasks/14/Actions/1/Var1", 14),
-  PATCH_ADD ("Tasks/14/Actions/1/Var2", 0),
-  PATCH_ADD ("Tasks/14/Actions/1/Var3", 11)
-};
-
-/*
  * The Quest For More Hair, or AMU Part 1: The Smugglers (Matt, Dark Baron;
  * the .taf still carries the generator's placeholder, quotes and all).
  * MaxScore is 100, 60 is reachable, and the last forty and the ending are
@@ -4449,48 +4417,6 @@ static const scr_patch_edit_t PATCH_VILLAINS_AND_KINGS[] = {
   PATCH_VERIFY ("Tasks/5/Command/0", "take * soap * * *"),
   PATCH_VERIFY ("Tasks/5/CompleteText", "you snatch up the soap.  good for you."),
   PATCH_SET ("Tasks/5/Where/Type", 0, 3)
-};
-
-/*
- * The Crime Scene, Mel S.
- *
- * Fifteen tasks carry a ChangeScore and they sum to exactly the declared
- * MaxScore of 80.  Fourteen of them are the detective work the walkthrough
- * does; the fifteenth is task 0 `look at door` (+2) in the Hall, the very
- * first clue in the game -- "The door doesn't appear to have been forced
- * open...".
- *
- * That task also carries six identical leftover action rows: move the player
- * (Var1 0) "to room" (Var2 0) room Var3 = -2, which is no room at all.  ADRIFT
- * writes an unmade choice as a negative combo index, so these are six blank
- * rows the author never filled in -- and the destination kind, not the
- * destination, is what was left unset: with Var2 = 0 both engines take the
- * "to room" branch and index the room array with -2.  Scarier dies on
- * gs_move_player_to_room's bounds check; the real Runner dies harder, with
- * "Run-time error '9': Subscript out of range" (measured under Wine on
- * 2026-09-26, run390 fed `look at door` in the Hall), so the two points are
- * unreachable as shipped no matter which engine reads the file.
- *
- * Var2 is set to -1 on all six, the value both engines read as "no
- * destination was chosen" and ignore -- the Runner's Select Case falls
- * through, and task_move_player's default branch traces and returns.  What is
- * left of the task is its message and its +2, which is what a `look at door`
- * clue was always meant to be.  Task 1 `look under couch` has the same six
- * rows copied into it and is left alone: it scores nothing, and typing it in
- * the Living Room, with or without the magnifying glass it asks for, falls
- * through to the library's "Nothing special." instead of completing -- so its
- * copy of the rows never runs.
- */
-static const scr_patch_edit_t PATCH_CRIME_SCENE[] = {
-  PATCH_VERIFY ("Tasks/0/Command/0", "look at door"),
-  PATCH_VERIFY ("Tasks/0/CompleteText",
-                "The door doesn't appear to have been forced open..."),
-  PATCH_SET ("Tasks/0/Actions/1/Var2", 0, -1),
-  PATCH_SET ("Tasks/0/Actions/2/Var2", 0, -1),
-  PATCH_SET ("Tasks/0/Actions/3/Var2", 0, -1),
-  PATCH_SET ("Tasks/0/Actions/4/Var2", 0, -1),
-  PATCH_SET ("Tasks/0/Actions/5/Var2", 0, -1),
-  PATCH_SET ("Tasks/0/Actions/6/Var2", 0, -1)
 };
 
 /*
@@ -5214,10 +5140,6 @@ static const scr_patch_game_t PATCH_TABLE[] = {
               "the note answer scores, Hina joins the nightmare, and the"
               " nightmare Moreland carries the win",
               PATCH_DEL_SOL),
-  PATCH_GAME ("Filthy Bill Does Everyone But His Mother", "Filthy Bill Lee",
-              "the bum's coat falls to the street when he passes out, so the"
-              " french tickler sealed inside it can be reached",
-              PATCH_FILTHYBILL),
   PATCH_GAME ("'!NameOfGame!'", "Matt, Dark Baron",
               "the cliff rope can be untied again, and killing Hamish runs"
               " the smuggler's death task that opens the hair shop",
@@ -5247,10 +5169,6 @@ static const scr_patch_game_t PATCH_TABLE[] = {
               "taking the soap out of the broken window is allowed in the"
               " room the window is in",
               PATCH_VILLAINS_AND_KINGS),
-  PATCH_GAME ("The Crime Scene", "Mel S.",
-              "looking at the hall door scores its two points instead of"
-              " moving the player to room -2",
-              PATCH_CRIME_SCENE),
   PATCH_GAME ("FunHouse", "C. A. Gist",
               "the third hundred-dollar task can be typed on the midway, so"
               " the declared 410 can be scored",

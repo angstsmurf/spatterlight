@@ -33,7 +33,7 @@ They are not interchangeable.
   (`GSC_GAME_ASSIST_TABLE` in `os_glk.cpp`, matched on GameName+GameAuthor),
   with a one-line startup notice; `glk <assist> off` restores faithful
   behaviour.  The headless harness does NOT apply that table.
-- **Patch table** — `PATCH_TABLE` in `sctafpar.cpp`, 37 games, 238 edits.  It
+- **Patch table** — `PATCH_TABLE` in `sctafpar.cpp`, 35 games, 222 edits.  It
   changes GAME DATA, content-verified edit by edit, and repairs the author's
   slip itself.  ON BY DEFAULT in the glk build (`glk patches off`, then reload,
   to play a game exactly as its author left it), with a one-line notice; opt-in
@@ -78,7 +78,6 @@ right repair.
 | Ebony's World | ebonysworld.taf | no win | 1450 WIN | Won by patch |
 | Mystery House | MysteryHouse.taf | no win | win | Won by patch |
 | Bedlam | bedlam.taf | no win | win | Won by patch |
-| Filthy Bill (AIF) | filthybill.taf | 5 of 6, no win | 1000/1000 WIN | Won by patch |
 | Fun Town (AIF) | fun town.taf | 200/200, no win | 200/200 WIN | Won by patch |
 | The Annihilation of Think.com 3 | TAOT3.taf | 0/1 | 1/1 WIN | Won by patch |
 | The Vampire With A Conscience | Vampire.taf | 70/100 | 100/100 | Won by patch |
@@ -90,7 +89,6 @@ right repair.
 | TheADRIFTProject | — | 90/100 | same | Short — not patched |
 | Mangiasaur | — | 63/74 | same | Short — not patched |
 | Aquarius Part 1 | — | 85/95 | same | Short — not patched |
-| British Fox and the Celebrity Abductions | — | 46/50 | same | Short — not patched |
 | The Night The Moon Shone Grey | thenightmoon | 360/400 (wins) | 380/400 | Short — partly patched |
 | Space Boy Volume I | — | 1009/1374 | 1039/1374 | Short — partly patched |
 | Melbourne Beach | — | 38/41 | 39/41 | Short — partly patched |
@@ -103,7 +101,6 @@ right repair.
 | Professor Von Witt | — | 154/229 | 229/229 | Short points fixed by patch |
 | FunHouse | — | 310/410 | 410/410 | Short points fixed by patch |
 | Locked Out | — | 90/110 | 110/110 | Short points fixed by patch |
-| The Crime Scene | — | 78/80 | 80/80 | Short points fixed by patch |
 | Goldilocks - Breaking & Entering | — | 32/35 | 35/35 | Short points fixed by patch |
 | Provenance | — | 285/300 | 300/300 | Short points fixed by patch |
 | ALEXIS (Easy), Cowboy Blues | — | — | — | Short at their real ceiling (section 4) |
@@ -319,12 +316,6 @@ lines, so object 30 stays Hidden and T38 `start car` can never pass.  The
 patch gives T37 its move-object action (`start car` twice — T31's no-keys
 message matches first and is not repeatable).
 
-**Filthy Bill** (filthybill.taf, AIF) — 5 of 6 → 1000/1000.  The sixth
-conquest needs the french tickler worn, sealed inside the passed-out Bum's
-coat; the engine refuses taking a held/worn object off a living NPC, and no
-task relocates the coat.  The patch gives `give whiskey to bum` a second action
-that drops the coat in the street.
-
 **Fun Town** (fun town.taf, AIF) — 200/200, no win → WIN.  The one WIN action
 ("open treasure chest") sits behind a 20-entry gate chain including a
 death-only task.  T117's gate named task 105 (the no-condom death) instead of
@@ -393,14 +384,6 @@ ADRIFT 4.00 refuses to pay twice.
 **Aquarius Part 1** — 85/95, the ceiling.  The EndGame into Part 2 closes the
 game first.  Part 2 reaches 200/200.
 
-**British Fox and the Celebrity Abductions** — 46/50.  The Controller's Office
-ends the game before the rest can be banked (21/50 when first wired, 43 after
-rerouting, 46 on 2026-09-27 via `ring bell` banking T333 and playing the Welsh
-Fox opening out to bank T52; later damage rolls are RNG-stream sensitive, safe
-draw offsets 0,+1..+4,+7,+8).  The last 4 are branch facts: T460 and T189 are
-excluded once she is captured, Grace's arrest is the other, exclusive branch,
-and T564 would need the whole RNG-sensitive gauntlet re-derived.
-
 ### Partly patched
 
 **The Night The Moon Shone Grey** — 360/400 → 380/400.  The two dead +20
@@ -429,8 +412,8 @@ Where=NO_ROOMS and lost its line to the library put; opened to all rooms.
 
 **The Twilight** 485/500 → 500/500 · **House Of Horror** 145/155 → 155/155 ·
 **Sun Empire: Quest for the Founders (Part I)** 140/145 → 145/145 ·
-**Terrified** 60/65 → 65/65 · **Professor Von Witt** 154/229 → 229/229 · **FunHouse** 310/410 → 410/410 · **The Crime
-Scene** 78/80 → 80/80 · **Goldilocks - Breaking & Entering** 32/35 → 35/35.
+**Terrified** 60/65 → 65/65 · **Professor Von Witt** 154/229 → 229/229 · **FunHouse** 310/410 → 410/410 ·
+**Goldilocks - Breaking & Entering** 32/35 → 35/35.
 
 ### Short by route choice
 
@@ -567,6 +550,17 @@ WanderersGoW 0.04.taf (demo ends at 29/29 with no type-6), toronto.taf (A Day
 In Toronto), DetectiveTemplate.taf and shablon.taf (Russian author sandboxes).
 
 ## 7. Resolved or overturned — do not re-list
+
+- **Two patches retired (2026-10-09)** — neither game needs one any more:
+  - **Filthy Bill (AIF)** — was "5 of 6, no win; won by patch".  Winnable as
+    shipped, 1000/1000 in run390 and Scarier alike: `look at bum` after the
+    whiskey makes his worn coat seen, so `look in coat` / `get french
+    tickler` work (route from Delron's walkthrough).  The faithful row wins.
+  - **The Crime Scene** — was "78/80, short points fixed by patch".  The
+    Runner still dies on `look at door` (Run-time error '9'), so 78 is its
+    ceiling and `crimescene_solution.txt` stays there; Scarier skips the
+    move to room -2 since the 2026-10-01 range checks and scores 80/80
+    unpatched (`crimescene_door_solution.txt`, Scarier-only).
 
 - **Full score FAITHFUL by deliberate deviation (2026-09-30)** — no patch
   needed any more, but above the Runner's own ceiling, so the Wine Runners

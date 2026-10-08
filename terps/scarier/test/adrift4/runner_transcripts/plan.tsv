@@ -437,6 +437,7 @@ hero	competition2004__adrift__hero__hero.taf	4.00	run400x.exe	1234	0		SCR_SKIP_W
 datewithdeath	datewithdeath.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	And you have a whole life ahead of you to live	7933
 alchemist	alchemist.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	That is 100% of the game	3065
 onnafa	ONNAFA.TAF	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	your score turned out at 82	1027
+onnafa_full	ONNAFA.TAF	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	your score turned out at 208	1843
 house	House.taf	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	2431
 lca	Lights_Camera_Action.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	best ending in the game!	5160
 mutaydid	mutaydid.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	That is 100% of the game	61
@@ -465,7 +466,7 @@ namiki	Namiki'sDay.taf	3.90	run390x.exe	1234	0			You scored 8 out of the maximum
 akari	AkarisStory.taf	3.90	run390x.exe	1234	0			You scored 13 out of the maximum 13!	1009
 crossworlds2	Crossworlds Part 2.taf	3.90	run390x.exe	1234	0	Player	SCR_SKIP_WAITKEY=1	You scored 75 out of the maximum 75!	288
 crossworlds4	Crossworlds Part 4.taf	3.90	run390x.exe	1234	2	Player	SCR_SKIP_WAITKEY=1	You scored 100 out of the maximum 100!	4265
-britishfox	British.Fox.and.the.Celebrity.Abductions.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You scored 43 out of the maximum 50!	2150
+britishfox	British.Fox.and.the.Celebrity.Abductions.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You scored 50 out of the maximum 50!	1737
 doa_xbs	DOA_X_B_S.taf	4.00	run400x.exe	1234	0	Player		You scored 10 out of the maximum 10!	9
 silvermaiden	The Silver Maiden.taf	4.00	run400x.exe	1234	0			You cast your ultimate spell at Velle.	1
 insidejob	insidejob.taf	3.90	run390x.exe	1234	0			You scored 614 out of the maximum 14198!	0
@@ -625,8 +626,7 @@ night	The_Night_That_Dripped_Blood.taf	4.00	run400x.exe	1234	0	Petter~male		You 
 thewill	The_Will.taf	3.90	run390x.exe	1234	1			You have completed The Will and inherited a fortune.	2481
 twentyone	Twenty-one.taf	4.00	run400x.exe	1234	0			survived long enough to get the best ending	17
 weirdstuff2	weirdstuff2.taf	4.00	run400x.exe	1234	0				47
-filthybill	filthybill.taf	3.90	run390x.exe	1234	0			studded cocks	0
-filthybill_patched	filthybill.taf	3.90	run390x.exe	1234	0		SCR_ASSUME_PATCHES=1	Well done - you scored maximum points!	0
+filthybill	filthybill.taf	3.90	run390x.exe	1234	0			Well done - you scored maximum points!	0
 temporfell	temporfell_demo.taf	4.00	run400x.exe	1234	0		SCR_RNG=xoshiro	Thanks for testing	346
 thenightmoon	thenightmoon.taf	3.90	run390x.exe	1234	0	Petter~male	SCR_RNG=xoshiro	You scored 360 out of the maximum 400!	643
 zanoza	zanoza.taf	3.90	run390x.exe	1234	2		SCR_SKIP_WAITKEY=1	Ïîçäðàâëÿþ ñ ïîáåäîé	866

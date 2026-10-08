@@ -41,6 +41,9 @@ You take a spoon from the Kitchen table.
 > take box of Frooties
 You take a box of Frooties from the Kitchen table.
 
+> pour cereal in bowl
+You pour yourself a nice big bowl of Frooties. You can feel your stomach growl, and a rumble travels across your belly.
+
 > pour milk in bowl
 You pour the milk in the bowl, and watch as the Frooties begin to float to the rim of the bowl.
 

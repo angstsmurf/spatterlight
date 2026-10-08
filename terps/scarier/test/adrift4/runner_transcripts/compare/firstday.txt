@@ -1,0 +1,12 @@
+feed        21 commands
+runner      21 turns echoed
+scarier     24 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 8  look at table
+  run400   The sturdy table is made from wood, and is near the back door. Mom usually uses the table when she has to cut vegetables up to make salad, or something. On the Kitchen table is a cereal bowl, a spoon and a box of Frooties.
+  scarier  The sturdy table is made from wood, and is near the back door. Mom usually uses the table when she has to cut vegetables up to make salad, or something. On the Kitchen table are a cereal bowl, a spoon and a box of Frooties.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)
