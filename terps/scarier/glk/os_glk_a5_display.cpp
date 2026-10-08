@@ -25,6 +25,7 @@
  */
 
 #include "os_glk_internal.h"
+
 /*
  * gsc_a5_draw_image()
  *

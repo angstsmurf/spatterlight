@@ -101,7 +101,11 @@ extern void scr_fatal (const scr_char *format, ...)
 #else
 extern void scr_trace (const scr_char *format, ...);
 extern void scr_error (const scr_char *format, ...);
+#ifdef _MSC_VER
+extern __declspec (noreturn) void scr_fatal (const scr_char *format, ...);
+#else
 extern void scr_fatal (const scr_char *format, ...);
+#endif
 #endif
 
 #ifdef __cplusplus

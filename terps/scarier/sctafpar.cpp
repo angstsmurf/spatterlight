@@ -924,6 +924,9 @@ static scr_bool parse_use_pushback = FALSE;
  * Report a bad or exhausted TAF stream with a stack backtrace, then throw
  * out of the parse to parse_game().  Does not return.
  */
+#ifdef _MSC_VER
+__declspec (noreturn)
+#endif
 static void
 parse_taf_fail (const scr_char *reason, scr_int line)
 #ifdef __GNUC__

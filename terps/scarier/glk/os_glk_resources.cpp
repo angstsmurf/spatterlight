@@ -323,6 +323,8 @@ gsc_title_screen_wait (void)
       glk_select (&event);
       if (event.type == evtype_Arrange || event.type == evtype_Redraw)
         gsc_refresh_windows ();
+      else if (event.type == evtype_SoundNotify)
+        gsc_a5_sound_finished (&event);
       else if (event.type == evtype_CharInput && event.win == key_window)
         break;
       else if (event.type == evtype_MouseInput
