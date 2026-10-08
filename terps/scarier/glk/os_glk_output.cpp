@@ -1119,9 +1119,19 @@ os_print_tag (scr_int tag, const scr_char *argument)
        */
       if (!gsc_readlog_stream)
         {
+          strid_t stream;
+
           /* Update the status line now only if it has its own window. */
           if (gsc_status_window)
             gsc_status_notify ();
+
+          /* The turn that led here has already moved the player and marked
+             the room seen; show that on the map now rather than at the next
+             prompt, after the whole cutscene.  Opening the pane can move the
+             current stream (gsc_map_show), so put it back. */
+          stream = glk_stream_get_current ();
+          gsc_map_redraw ();
+          glk_stream_set_current (stream);
 
           /* Request a character event, and wait for it to be filled. */
           glk_request_char_event (gsc_main_window);

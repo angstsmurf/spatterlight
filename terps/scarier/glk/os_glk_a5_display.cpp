@@ -272,13 +272,18 @@ gsc_a5_display (const char *text)
         {
           event_t event;
 
-          /* Bring the status line up to date before pausing. */
+          /* Bring the status line and the map up to date before pausing:
+             a turn that walks into a room and then plays a cutscene there
+             should show the new room on the map now, not at the next prompt
+             once the whole cutscene has been paged through. */
           if (gsc_a5_run)
             gsc_a5_status (gsc_a5_run);
+          gsc_map_redraw ();
           glk_request_char_event (gsc_main_window);
           gsc_event_wait (evtype_CharInput, &event);
-          /* gsc_a5_status leaves the main window selected; restore the span's
-             routing window so text after the pause stays in it. */
+          /* gsc_a5_status (and gsc_map_redraw, if it opens the pane) leave
+             the main window selected; restore the span's routing window so
+             text after the pause stays in it. */
           glk_set_window (cur_window);
         }
       else if (*p == A5_COMMIT_MARK)
