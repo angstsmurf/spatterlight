@@ -314,10 +314,6 @@
         flowrect = [f boundsWithLayout:self.layoutManager];
 
         if (NSIntersectsRect(flowrect, rect)) {
-//            NSLog(@"MarginContainer: looking for an image that intersects "
-//                  @"flowbreak %ld (%@)",
-//                  [flowbreaks indexOfObject:f], NSStringFromRect(flowrect));
-
             CGFloat lowest = 0;
 
             for (img2 in _marginImages)
@@ -473,8 +469,6 @@
 - (NSUInteger)findHyperlinkAt:(NSPoint)point {
     for (MarginImage *image in _marginImages) {
         if ([self.textView mouse:point inRect:image.bounds]) {
-            NSLog(@"Clicked on image %ld with linkid %ld",
-                  [_marginImages indexOfObject:image], image.linkid);
             return image.linkid;
         }
     }
