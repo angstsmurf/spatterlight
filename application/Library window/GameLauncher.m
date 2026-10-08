@@ -281,13 +281,15 @@
     [tvc selectGames:[NSSet setWithObject:game]];
 
     // updateTableViews sorts the model and reloads the table asynchronously
-    // on the main queue, so wait for that before scrolling.
+    // on the main queue (and re-applies the selection), so wait for that
+    // before scrolling.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-        NSUInteger gameIndex = [tvc.gameTableModel indexOfObject:game];
-        if (gameIndex == NSNotFound)
+        // Leave the table alone if the user has selected something else meanwhile.
+        if (![tvc.selectedGames containsObject:game])
             return;
-        [tvc selectGames:[NSSet setWithObject:game]];
-        [tvc.gameTableView scrollRowToVisible:(NSInteger)gameIndex];
+        NSUInteger gameIndex = [tvc.gameTableModel indexOfObject:game];
+        if (gameIndex != NSNotFound)
+            [tvc.gameTableView scrollRowToVisible:(NSInteger)gameIndex];
     });
     return result;
 }
