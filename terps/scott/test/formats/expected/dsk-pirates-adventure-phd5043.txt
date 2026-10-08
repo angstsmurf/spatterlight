@@ -8,7 +8,7 @@ verbs        77 d5144276
 nouns        77 c5882c40
 messages     91 22ddf4bc
 actions       1 190a55ad
-ti99impl    340 f18a71ec
-ti99expl   1166 1a7b089a
+ti99impl   74732 2d0a1221
+ti99expl   74384 bf7b3aaf
 sysmess      71 5a67f1ac
 titletext   984 642f0b22

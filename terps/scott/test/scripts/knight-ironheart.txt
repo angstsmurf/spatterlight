@@ -1,0 +1,155 @@
+n
+n
+e
+e
+e
+e
+n
+drink water
+n
+n
+n
+n
+n
+n
+take ivy
+s
+s
+s
+s
+s
+s
+drink water
+s
+w
+go church
+drop ivy
+drop sword
+go door
+take candle
+take corkscrew
+take hat
+drop hat
+look
+take key
+n
+n
+w
+go mansion
+e
+open drawer
+look drawer
+drop corkscrew
+take casket
+turn badge
+unlock casket
+turn badge
+open casket
+drop key
+take matches
+light candle
+drop casket
+drop matches
+take knife
+drop knife
+take corkscrew
+w
+d
+take wine
+open wine
+empty wine
+u
+e
+fill bottle
+empty bottle
+drink water
+drop candle
+drop corkscrew
+take knife
+take glove
+w
+n
+e
+go church
+fill bottle
+n
+e
+n
+drink water
+n
+n
+n
+n
+n
+drink water
+w
+n
+w
+w
+w
+drink water
+go house
+drop knife
+look pile
+open trapdoor
+take ladder
+close trapdoor
+raise ladder
+take knife
+climb ladder
+open door
+wear glove
+go door
+take princess
+wet wolf
+kill wolf
+unwear glove
+drop glove
+kiss princess
+take frog
+e
+climb ladder
+e
+drink water
+n
+n
+n
+n
+n
+take bag
+e
+e
+e
+e
+fill bottle
+s
+s
+s
+s
+s
+w
+s
+e
+drink water
+s
+s
+s
+s
+s
+s
+w
+go church
+drop bottle
+bathe frog
+take ivy
+tie princess
+take sword
+n
+w
+w
+w
+s
+s
+untie princess
+go castle
+say yes

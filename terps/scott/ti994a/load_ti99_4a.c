@@ -266,34 +266,20 @@ static void LoadTI994ADict(uint16_t table, int num_words,
 
 /* Copy the implicit (auto-run) action bytecode out of the game file.
    Actions are stored as variable-length blocks: byte 0 is a tag and
-   byte 1 is the block length.  A zero tag or zero length terminates
-   the list. */
+   byte 1 is the block length.  A zero length marks the last block,
+   whose own size is therefore not recorded, so everything up to the
+   end of the file is copied. */
 static void ReadTI99ImplicitActions(const DATAHEADER *dh)
 {
     uint8_t *endptr = entire_file + file_length;
     uint8_t *block_start = entire_file + FixAddress(READ_BE_UINT16(&dh->p_implicit));
-    uint8_t *scan = block_start;
 
-    if (scan >= endptr)
+    if (block_start >= endptr)
         return;
 
-    while (scan + 1 < endptr && *scan != 0) {
-        if (scan[1] == 0)
-            break;
-        scan += 1 + scan[1];
-    }
-
-    /* Include the terminator block (at least its 2-byte header) so
-       RunImplicitTI99Actions can read block[0] and block[1] before
-       deciding to break out of the loop. */
-    size_t scan_extent = scan - block_start;
-    if (scan + 1 < endptr)
-        scan_extent += 2;
-    ti99_implicit_extent = MIN((size_t)(endptr - block_start), scan_extent);
-    if (ti99_implicit_extent) {
-        ti99_implicit_actions = MemAlloc(ti99_implicit_extent);
-        memcpy(ti99_implicit_actions, block_start, ti99_implicit_extent);
-    }
+    ti99_implicit_extent = endptr - block_start;
+    ti99_implicit_actions = MemAlloc(ti99_implicit_extent);
+    memcpy(ti99_implicit_actions, block_start, ti99_implicit_extent);
 }
 
 /* Copy the explicit (player-triggered) action bytecode out of the
@@ -333,19 +319,10 @@ static void ReadTI99ExplicitActions(const DATAHEADER *dh)
             data_start = scan;
         VerbActionOffsets[i] = scan;
 
-        while (scan + 1 < endptr) {
-            if (scan[1] == 0)
-                break;
-            scan += 1 + scan[1];
-        }
-        /* Include the terminator block's header (2 bytes) so that
-           RunExplicitTI99Actions can safely read block[0] and block[1]
-           when it advances past the last real block. */
-        uint8_t *chain_end = scan;
-        if (scan + 1 < endptr)
-            chain_end = scan + 2;
-        if (chain_end > data_end)
-            data_end = chain_end;
+        /* The last block of a chain has a zero length byte, so its own
+           size is not recorded: keep everything up to the end of the
+           file rather than cutting that block short. */
+        data_end = endptr;
     }
 
     if (data_end <= data_start)

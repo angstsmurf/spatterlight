@@ -8,7 +8,7 @@ verbs       101 4c83fc3e
 nouns       101 e4a27ca8
 messages    103 da95adfa
 actions       1 190a55ad
-ti99impl    323 2165841d
-ti99expl   1158 54ee6c85
+ti99impl   2268 6ad391c6
+ti99expl   1941 c3e5e9e8
 sysmess      71 5a67f1ac
 titletext   984 567ee694

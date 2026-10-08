@@ -81,6 +81,13 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
     try_depth = 0;
 
     while (done == 0) {
+        /* Running off the end of a try block ends that block: drop
+           its fallback so a later failing condition cannot jump back
+           to it.  Nested blocks end no later than their parents, so
+           the innermost one is always on top. */
+        while (try_depth > 0 && ip - action_line >= try_stack[try_depth - 1])
+            try_depth--;
+
         if (ip >= action_end)
             return ACT_FAILURE;
         opcode = *(ip++);
@@ -121,6 +128,13 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             glk_window_clear(Bottom);
             break;
 
+        case TI99OP_DRAW:
+            /* Does nothing in the Adventure cartridge, and takes no
+               parameter there: its entry in the opcode table jumps
+               straight back to the fetch loop.  No known TI-99/4A game
+               uses it. */
+            break;
+
         case TI99OP_AUTO_INV_ON:
             AutoInventory = 1;
             break;
@@ -149,9 +163,12 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
 
         case TI99OP_GET_ITEM:
             if (CountCarried() >= GameHeader.MaxCarry) {
+                /* A full inventory behaves like TI99OP_SUCCESS: the
+                   whole action ends here, try blocks included. */
                 Output(sys[YOURE_CARRYING_TOO_MUCH]);
                 done = 1;
-                result = ACT_FAILURE;
+                result = ACT_SUCCESS;
+                try_depth = 0;
                 break;
             } else {
                 Items[*ip].Location = CARRIED;
@@ -210,9 +227,12 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
 #ifdef DEBUG_ACTIONS
             debug_print("Player is dead\n");
 #endif
+            /* Dying does not end the game: the player is moved to the
+               last room (limbo) with the light on, and the action
+               carries on.  Games that want to stop follow this with
+               TI99OP_GAME_OVER; the others let the player try to get
+               out of limbo. */
             PlayerIsDead();
-            GameOver();
-            result = ACT_GAMEOVER;
             break;
 
         case TI99OP_MOVE_ITEM:
@@ -287,8 +307,11 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             break;
 
         case TI99OP_DEC_COUNTER:
-            if (CurrentCounter >= 1)
-                CurrentCounter--;
+            /* The Adventure cartridge keeps the counter as a signed
+               16-bit number and lets it go below zero, here and in
+               TI99OP_SUB_COUNTER, unlike the other releases, which
+               stop at -1. */
+            CurrentCounter--;
             break;
 
         case TI99OP_PRINT_COUNTER:
@@ -314,8 +337,6 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
 
         case TI99OP_SUB_COUNTER:
             CurrentCounter -= *(ip++);
-            if (CurrentCounter < -1)
-                CurrentCounter = -1;
             break;
 
         case TI99OP_GOTO_STORED:
@@ -387,18 +408,18 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
 }
 
 /* Run all implicit (auto-run) actions once per turn.  Each action
-   block is: byte 0 = probability (0–100), byte 1 = block length,
-   bytes 2.. = bytecode.  A zero-probability or zero-length block
-   terminates the list. */
+   block is: byte 0 = probability (1–100), byte 1 = block length,
+   bytes 2.. = bytecode.  A zero length marks the last block, which
+   is still a real action; a zero probability terminates the list. */
 void RunImplicitTI99Actions(void)
 {
     uint8_t *block = ti99_implicit_actions;
 
-    if (*block == 0x0)
+    if (block == NULL)
         return;
 
     while (block + 1 < ti99_implicit_actions + ti99_implicit_extent) {
-        if (block[0] == 0 || block[1] == 0)
+        if (block[0] == 0)
             break;
 
         /* Pass the end of the entire implicit buffer, not the end
@@ -408,6 +429,8 @@ void RunImplicitTI99Actions(void)
             PerformTI99Line(block + 2,
                 ti99_implicit_actions + ti99_implicit_extent);
 
+        if (block[1] == 0)
+            break;
         block += 1 + block[1];
     }
 }

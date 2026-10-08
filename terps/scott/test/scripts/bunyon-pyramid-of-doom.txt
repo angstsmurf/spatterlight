@@ -78,6 +78,7 @@ w
 w
 light flashlite
 s
+get glove
 u
 w
 n

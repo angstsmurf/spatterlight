@@ -142,6 +142,7 @@
 /* equivalent to the OP_XXX opcodes in
 scott_actions.c (but with different numbers). */
 #define TI99OP_CLEAR_SCREEN     212
+#define TI99OP_DRAW             213
 #define TI99OP_AUTO_INV_ON      214
 #define TI99OP_AUTO_INV_OFF     215
 #define TI99OP_SUCCESS_OFF      216

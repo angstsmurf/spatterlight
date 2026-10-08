@@ -3,7 +3,7 @@
 `make -f Makefile.headless scriptcheck` (from `terps/scott`) plays each command
 script in this folder through `scott_hl` on every image of its game in
 `../formats/games/` and compares the transcript with a hash in `scripts.tsv`.
-242 replays, about ten seconds.
+243 replays, about ten seconds.
 
 Where `formatcheck` shows that the loaders still produce the same tables, this
 shows that the interpreter still does the same things with them: the parser,
@@ -76,6 +76,7 @@ ones are the walkthroughs that come with Bunyon 0.3 (`bunyon-0.3/scripts`),
 written for the TI-99/4A releases; they also win on many of the others.
 `gremlins-german` is the walkthrough on the C64-Wiki page
 (c64-wiki.de/wiki/Gremlins_–_The_Adventure).
+`knight-ironheart` was worked out from the game's own action table.
 
 `gremlins-german-verb-first` is that walkthrough again with the verb moved to
 the front of every command: `gehen nach unten` for `nach unten gehen`,
@@ -96,20 +97,20 @@ regression test needs, but it covers less of the game.
 
 | script | ends | notes |
 | --- | --- | --- |
-| `adventureland` | won, all 16 | the Bunyon route made portable: empty lines after the genie, `scream bear`, `unlock door`, the mud picked up twice |
+| `adventureland` | won, all 14 | the Bunyon route made portable: empty lines after the genie, `scream bear`, `unlock door`, the mud picked up twice |
 | `adventureland-c64` | won, both | the C64 release has no tunnel before the bees and no endless corridor, so two moves fewer |
 | `antica-grecia` | won | the Italian Perseus and Andromeda: `perseus-and-andromeda` put into Italian word for word |
 | `arrow-of-death-1`, `-2` | won | all 8 and all 7 |
-| `bunyon-adventureland` | won, all 3 | `make holes` added after `get bees`: with the fixed seed they suffocate otherwise |
-| `bunyon-ghost-town` | won, all 3 | |
+| `bunyon-adventureland` | won | `make holes` added after `get bees`: with the fixed seed they suffocate otherwise |
+| `bunyon-ghost-town` | won, all 3 | the bonus score is -81 on the TI-99/4A, whose counters go below -1, and -1 elsewhere |
 | `bunyon-golden-voyage` | won, both | |
-| `bunyon-mission-impossible` | won, all 13 | the saboteur dies one room earlier with this seed, so the detour to find him is shorter |
+| `bunyon-mission-impossible` | won, all 11 | the saboteur dies one room earlier with this seed, so the detour to find him is shorter |
 | `bunyon-mystery-fun-house` | won, all 3 | |
-| `bunyon-pirate-adventure` | won, both | TI-99/4A only; the other releases differ |
-| `bunyon-pyramid-of-doom` | won, both | `get glove` added where it slips off |
+| `bunyon-pirate-adventure` | won, both | TI-99/4A only; the other releases differ. A `look` after `give rum` and a `wait` before `set sail`, for the pirate and the tide |
+| `bunyon-pyramid-of-doom` | won, both | `get glove` added in the two places where it slips off |
 | `bunyon-savage-island-1` | dead | random nearly every turn: the hurricane and the bear |
 | `bunyon-savage-island-2` | won | |
-| `bunyon-strange-odyssey` | won, all 6 | |
+| `bunyon-strange-odyssey` | won, all 4 | |
 | `bunyon-the-count` | lost | as shipped; the bell and nightfall come on other turns than the script expects |
 | `bunyon-voodoo-castle` | won, both | |
 | `circus-c64`, `-zx` | won, all 5 | the solution of Jacob Gunness (solutionarchive.com) as written. The seal of the C64 release is a sea-lion on ZX, so one command differs |
@@ -122,6 +123,7 @@ regression test needs, but it covers less of the game.
 | `gremlins-german-verb-first` | won, all 4 | the same commands with the verb first; has to play out as `gremlins-german` does |
 | `gremlins-spanish` | won, all 4 | C64 and ZX. The English script put into Spanish word for word, but: the camera button is pressed as soon as the gang is at the pool, and `mirar` for the waits |
 | `hulk` | won on 14 of 18 | old random numbers. The two C64 and two of the four ZX images end in limbo: Banner is gassed on another turn there |
+| `knight-ironheart` | won | TI-99/4A home-brew (M. Weiand, Tex-Comp 1984). The full ending: the princess and the bag of diamonds, then `say yes`. No random event fires on the way; the open trapdoor and the sandstorm could |
 | `perseus-and-andromeda` | won, all 7 | C64 and ZX. The solution of Jacob Gunness (solutionarchive.com) as written |
 | `robin-of-sherwood` | won, all 8 | old random numbers |
 | `seas-of-blood-c64`, `-zx` | won | old random numbers and `AUTOWIN`. Each wins on its own platform (2 C64 images, 4 ZX) and gets lost on the other |
@@ -134,6 +136,18 @@ regression test needs, but it covers less of the game.
 | `voodoo-castle` | won | all 15 |
 | `waxworks` | won, all 6 | old random numbers |
 | `wizard-of-akyrz` | won | all 6 |
+
+The TI-99/4A images (`fiad-adv*` and the `phd50*` disks) run every implicit
+action of the game, which costs one more random draw per turn than the other
+releases, so the random events come on other turns there. Four scripts have a
+`-ti99` copy that those images replay in place of the shared one:
+
+| Script | Outcome | Differs from the shared script by |
+| --- | --- | --- |
+| `adventureland-ti99` | won, both | a second `get bees` (they suffocate on the turn they are bottled) and a `look` before the meadow |
+| `bunyon-adventureland-ti99` | won, both | `get mud`, `drop mud` after `get gas` to cure the chigger bites, and three `look`s before `drop bees` |
+| `bunyon-mission-impossible-ti99` | won, both | the saboteur dies in the yellow room on the first `wait`, so the route fetches his picture there |
+| `bunyon-strange-odyssey-ti99` | won, both | a `look` before `wake hound` |
 
 Scripts for the other two Scott Adams interpreters are in
 `terps/taylor/test/scripts/` and `terps/plus/test/scripts/`.

@@ -1,0 +1,154 @@
+e
+e
+get axe
+n
+get ox
+say bunyon
+swim
+s
+go hole
+get flint
+u
+w
+w
+get axe
+get ox
+get fruit
+e
+climb tree
+get keys
+d
+chop tree
+drop axe
+get mud
+drop mud
+go stump
+drop ox
+drop fruit
+d
+get rubies
+u
+drop rubies
+get lamp
+rub lamp
+
+rub lamp
+
+d
+go hole
+unlock door
+drop keys
+light lamp
+go hallway
+d
+s
+get bladder
+n
+u
+u
+unlight lamp
+u
+u
+u
+get gas
+go stump
+d
+go hole
+light lamp
+go hallway
+d
+s
+u
+drop bladder
+light gas
+go hole
+go ledge
+jump
+scream bear
+get mirror
+go throne
+get crown
+w
+jump
+w
+get bricks
+d
+n
+u
+u
+unlight lamp
+u
+u
+drop crown
+get bottle
+d
+go hole
+light lamp
+drop flint
+go hallway
+d
+d
+d
+w
+d
+get rug
+d
+build dam
+drop bricks
+pour water
+get fire
+get net
+say away
+say away
+unlight lamp
+s
+go stump
+drop fire
+drop rug
+drop mirror
+u
+e
+n
+get water
+get fish
+s
+w
+go stump
+drop fish
+drop net
+u
+get mud
+drop mud
+get mud
+go stump
+d
+go hole
+get flint
+light lamp
+go hallway
+d
+n
+n
+get honey
+pour water
+get bees
+get bees
+make holes
+s
+s
+u
+u
+unlight lamp
+u
+u
+u
+drop mud
+look
+n
+drop bees
+get eggs
+s
+go stump
+drop honey
+drop eggs
+score

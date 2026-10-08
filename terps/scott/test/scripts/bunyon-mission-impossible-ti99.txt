@@ -1,0 +1,99 @@
+take recorder
+start recorder
+w
+s
+sit
+press red
+press white
+stand up
+take picture
+wait
+n
+d
+n
+take saboteur
+frisk saboteur
+take picture
+s
+u
+n
+w
+n
+show picture
+break window
+with recorder
+show picture
+go window
+take key
+go window
+press white
+s
+d
+s
+sit
+press white
+unlock yellow
+press yellow
+press red
+press white
+stand up
+take picture
+n
+d
+n
+show picture
+w
+take mop
+frisk mop
+drop mop
+take key
+drop saboteur
+take cutters
+e
+press yellow
+s
+u
+s
+sit
+unlock blue
+press blue
+press red
+press white
+stand up
+drop key
+take picture
+n
+w
+drop key
+take pail
+e
+n
+n
+show picture
+u
+drop picture
+drop picture
+look window
+d
+w
+take water
+e
+kick door
+go door
+e
+drop pail
+w
+go door
+w
+take suit
+wear suit
+e
+go door
+d
+cut wire
+take bomb
+u
+e
+drop cutters
+take pail
+pour pail

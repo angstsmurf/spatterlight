@@ -8,7 +8,7 @@ verbs        88 302dfd7c
 nouns        88 be010903
 messages    100 7358466a
 actions       1 190a55ad
-ti99impl    130 82d6ec7b
-ti99expl   1289 4a225cfe
+ti99impl   74712 8e1f8fdf
+ti99expl   74578 93e6f355
 sysmess      71 5a67f1ac
 titletext   984 642f0b22
