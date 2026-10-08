@@ -2,6 +2,7 @@
 4rooms.blorb	27928	25f85dbf11e9d069a0d7becfd967f9702953738c349f48d2570d1213c8377a1b	https://www.adrift.co/files/games/4rooms.blorb	-	4rooms	-
 A_Difficult_Puzzle_v2(LimitedParserEdition).blorb	59466	b67d1bda35fb25f0ab31ab27f1165b8973c769286fad2b128da75f624577fcc4	https://www.adrift.co/files/games/A_Difficult_Puzzle_v2%28LimitedParserEdition%29.blorb	-	A Difficult Puzzle	-
 AchtungPanzer.blorb	120732	373773ae4a8417a5d91de3eabce9d3027ccdf0f035c99921328df115412dfb59	https://www.adrift.co/files/games/APz%20v.3.blorb	-	Achtung Panzer!	-
+AFP2.taf	87592	168eaf1d4c9cbba9a399126c78cf5b0a3159740fb0ffa79851c480e67e48979b	-	-	Another Friday Party 2	no online source found (local aifarchive2 copy, Another Friday Games/AFP_2)
 AlgernonsConundrum.blorb	31280	2555f4aea83558ba5d1f7d2ee77d5691c949f35bccab9b72c487a0e61ad05350	https://www.adrift.co/files/games/Algernon%27s%20Conundrum.blorb	-	Algernon's Conundrum	-
 AlienDiver.blorb	87904	e7d7e22d2e17c3264ab6058785f7b5686916d2587d16214fd9abcfe9cfeaf059	https://www.adrift.co/files/games/AlienDiver_V15.blorb	-	Alien Diver	-
 AlienDiver_V13.blorb	77266	23f342d4e71a259042efb2641969edb67c217514bbf357f7c958c36fcb232b3a	https://www.adrift.co/files/games/AlienDiver_V13.blorb	-	Alien Diver v13	earlier build of AlienDiver.blorb (v15, 2020-10-04); this one is 2020-05-15
@@ -46,6 +47,7 @@ DwarfOfDirewoodForest.blorb	242106	38070929a35181281725c45484a59b12bbbb31f901fad
 ECOD3D.taf	19904	b97b2cf06dde29615f3959ec19a12bcdd971b9f3cd73dead2db1cc8976ae0ef4	-	-	The Evil Chicken of Doom 3D	no online source found
 edithscats.taf	18347	f377bafcc332b2e1be5c3870cb30e78267d02a03f23f5f856d33f6a958f784cf	-	-	-	different release upstream, now pinned as edithscats_upstream.taf
 edithscats_upstream.taf	18316	289939dce4acac940dabbd2393c1263e11fd634b395d886e69e42b8e67410f9f	https://ifarchive.org/if-archive/games/adrift/edithscats.taf	-	Edith's Cats	IF Archive release of edithscats.taf, built the same day but eight hours earlier
+EscapeFromTheCastleOfCarnalIntent.blorb	46496	a49928c45494d0ffc0462afaa245955337d927c73034171e91bc05d93d6411e1	-	-	Escape from the Castle of Carnal Intent	no online source found; Sheriff, v2.35, IFID ADRIFT-500-9BF0-871C-455F-8148-3DC3802EC855. The Blorb the ADRIFT 5 standalone ecci2.35.exe (5692838 bytes, sha256 03c07f65288ad3f32751690a87d306ee8f8aacfb4550359e09aab14c51701c10) carries after its PE image: bytes 0x562800 to EOF-6 (the last 6 are the ASCII offset "562800")
 Evil on Queen Street ver 1.0.blorb	7909064	cde654bdaba35da31b24800a2ca31ccdb177df8740134bec736bfeadaac51de5	https://web.archive.org/web/20230601231246id_/http://delron.org.uk/games/Evil%20on%20Queen%20Street.zip	Evil on Queen Street ver 1.0.blorb	Evil Queen	-
 FBA v.3c.blorb	1330114	c00f9c56a6bd05460766c94241d10cb53565f9065ba2db4a87adac5bb303851a	-	-	-	no online source found
 FBA v.7.blorb	1416286	d35a595b1a026ee03ed02f9d4770478e814324c550733792afafff4c4de650f2	https://www.adrift.co/files/games/FBA%20v.7.blorb	-	Finn's Big Adventure	later build of FBA v.3c.blorb (2023-09-21 vs 2023-07-04)

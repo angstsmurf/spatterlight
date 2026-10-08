@@ -512,6 +512,36 @@ after the three fixes: **116 MATCH / 11 DIVERGE, 0 FAIL** — no other game move
 in either column, save/restore self-checks all OK, a5 unit tests and the v4
 corpus green.
 
+### Another Friday Party 2 — ★ maximum ending, MATCH 0|0
+
+ADRIFT 5 AIF (`AFP2.taf`; the cast are college students, stated as 19).
+Delron's file for it is a hints guide with no commands, so the route in
+`goldens/AFP2_walkthrough.txt` (107 commands, prose header included) was
+derived from the model. It reaches the Maximum Ending (Task168) at Deviance
+25/25, wired `AFP2|AFP2.taf|0|0`. Explicit, so like TASP and Dinner Plans its
+walkthrough and golden are gitignored and stay local-only.
+
+Route notes: an earlier-priority general task that matches and fails its
+restrictions blocks the later specific task (FrankenDrift agrees), so several
+commands need exact nouns (`search dryer`, `search cardboard boxes`,
+`x photo`, `search sliding closet`, `search old drawers`,
+`open mandy's drawers`, `search essa's closet`, `leave house`). Event4 (the
+Munchkin game) lasts 1–16 turns and teleports the player when it ends, so
+nothing optional sits between `play munchkin` and the fifteen
+`drink slurpee`.
+
+Engine fix it forced: **room view ending in a raw `<br>`**. Location22's long
+description ends `You hop the railing...<br><br>` and a LocationTrigger task's
+completion text follows. The runner pSpaces on its raw buffer, which ends in
+a tag, so the next message keeps its two join spaces; Scarier's stripped view
+ended in `\n` and dropped them. `view_location_impl` (a5text.cpp) now applies
+`ps_mark_trailing` like the other describe paths. No other row moved.
+
+Not wired from the same Delron batch: *Master of the House* and *Pervert
+Action: Crisis* (declined: sexual content with high-school-age characters);
+*Emily – Sister Attraction*, *Pervert Action: Legacy* and *Working Man* have
+no game file here.
+
 ### Dinner Plans — ★ best ending, MATCH 0|0
 
 Nick Fisher (as "PC-Fan"), 2014; an AIF dating sim, eight rooms, 273 tasks, no
@@ -784,3 +814,21 @@ Engine fixes the suite forced:
   `a5restr_route_cache_clear` before drawing.  The `reveal` view's
   Cellar–Door Room connector accordingly draws as a live route (solid), not
   the mid-turn blocked result.
+
+## Escape from the Castle of Carnal Intent (ECCI) — 2026-10-09
+
+Wired as `ECCI`, MATCH 0|0 against FrankenDrift, save/restore OK, no engine
+changes needed.  The game only exists as the Blorb appended to the ADRIFT 5
+standalone `ecci2.35.exe` (bytes 0x562800 to EOF-6; the FORM length field
+stops short of the trailing IFmd chunk, so take everything up to the 6-byte
+ASCII offset trailer).  Pinned in `games.manifest.tsv` with no online source.
+
+The walkthrough is partial because the game is: 30 rooms, 24 tasks, no score,
+and the only EndGame is a Lose (`get branch` in the Hidden Lair, reached by
+attacking the pixies).  Rear Foyer and Boathouse are placeholder rooms (the
+Boathouse description is the author's design note), their onward doors are
+never unsealed, and Long Hallway / Concert Hall / Dining Hall / Throne Room
+are unreachable.  Branches not taken by the route: `burn notes`, `drink
+potion`, `attack pixies` → lair (`kick legs` escapes), `touch goo girl`,
+`use amulet on minotaur`, `attack minotaur with sword` (teleports to the
+Rear Foyer), `put cock in mouth`.

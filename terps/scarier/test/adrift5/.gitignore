@@ -12,13 +12,17 @@
 # Symphonica 64 route-derivation scratch (see notes/Symphonica64_walkthrough.md).
 /harness/symph_work/
 
-# TASP, Dinner Plans and The Drunken Harlot: explicit text, deliberately not
+# TASP, Dinner Plans, AFP2 and The Drunken Harlot: explicit text, deliberately not
 # committed.  (The Harlot pair was committed once, in a998af91, before this
 # rule covered it.)
 /goldens/TASP_expected.txt
 /goldens/TASP_walkthrough.txt
 /goldens/DinnerPlans_expected.txt
 /goldens/DinnerPlans_walkthrough.txt
+/goldens/AFP2_expected.txt
+/goldens/AFP2_walkthrough.txt
+/goldens/ECCI_expected.txt
+/goldens/ECCI_walkthrough.txt
 /goldens/TheDrunkenHarlot_expected.txt
 /goldens/TheDrunkenHarlot_walkthrough.txt
 /goldens/TheDrunkenHarlotSrc_expected.txt

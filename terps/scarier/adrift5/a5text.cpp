@@ -4598,6 +4598,10 @@ view_location_impl (a5_state_t *st, const char *lockey)
     char *capped = auto_capitalise (alrd);
     free (alrd);
     plain = a5text_render_plain (capped);
+    /* A long description ending in a raw <br> leaves the runner's buffer
+       non-vbLf, so the next message (a LocationTrigger task's completion
+       text, say) still space-joins -- AFP2's "You hop the railing...<br><br>". */
+    plain = ps_mark_trailing (capped, plain);
     free (capped);
   }
   free (sb.p);

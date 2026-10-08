@@ -1574,6 +1574,28 @@ FILTER="${1:-}"
 # leaked into the transcript and the `%PropertyValue[...]%+2` progress
 # arithmetic stopped counting.  See test/TASP_walkthrough.txt (local-only).
 #
+# (2026-10-09) ECCI, MATCH 0|0.  Escape from the Castle of Carnal Intent v2.35
+# (Sheriff, 2012), an ADRIFT 5 AIF whose only copy is the Blorb inside the
+# standalone ecci2.35.exe.  PARTIAL by necessity: the game is unfinished -- no
+# score, no winning EndGame, and the rooms past the Minotaur are placeholders
+# behind doors nothing unseals -- so the 37-command route in
+# goldens/ECCI_walkthrough.txt just plays every reachable encounter down its
+# item-keeping branch and stops at the dead ends.  Adult game: walkthrough and
+# golden are gitignored and stay local-only.
+#
+# (2026-10-09) AFP2, MATCH 0|0.  Another Friday Party 2, an ADRIFT 5 AIF (the
+# cast are college students, stated as 19).  Delron's file for it is a hints
+# guide without commands, so the 107-command route in
+# goldens/AFP2_walkthrough.txt was derived from the model; it reaches the
+# Maximum Ending (Task168) at Deviance 25/25.  Adult game: like TASP and Dinner
+# Plans its walkthrough and golden are gitignored and stay local-only, so this
+# row only runs where they exist.  xoshiro is byte-identical to FrankenDrift;
+# a live stock-RNG FrankenDrift run differs in 16 hunks of RNG residue (Roofus's
+# walk, the Munchkin event length) and reaches the same final line.  Wiring it forced one
+# engine fix: a room view whose long description ends in a raw <br> leaves the
+# runner's buffer mid-line, so the LocationTrigger task's completion text that
+# follows keeps its two join spaces (view_location_impl now ps_mark_trailing).
+#
 # (2026-08-11) DinnerPlans, MATCH 0|0.  Nick Fisher's 2014 AIF dating sim,
 # eight rooms and 273 tasks, with no walkthrough anywhere; the 100-command route
 # in goldens/DinnerPlans_walkthrough.txt was derived from the model and reaches
@@ -1838,6 +1860,8 @@ Dementophobia|Dementophobia Alpha Demo.blorb|0|0
 TheDrunkenHarlot|The Drunken Harlot.blorb|0|0
 TheDrunkenHarlotSrc|harlot.taf|0|0
 DinnerPlans|Dinner Plans.taf|0|0
+AFP2|AFP2.taf|0|0
+ECCI|EscapeFromTheCastleOfCarnalIntent.blorb|0|0
 LetMeIn|LMI_v100.blorb|0|0
 ProbeAmbiguity|a5probes/ambiguity.taf|0|0
 ProbeDel|a5probes/del.taf|0|0
