@@ -72,9 +72,10 @@
     NSMutableArray <SubImage *> *subImages;
 
     NSMutableArray <AnimatedSubImage *> *animatedImages;
-    // When each animation last started playing here, so that a game which
+    // When each animation showing here started playing, so that a game which
     // clears and redraws its picture (on every resize, say) does not
-    // restart it.
+    // restart it. An animation that is gone by the next flush is forgotten,
+    // and starts over when it is shown again.
     NSMapTable <ImageAnimation *, NSNumber *> *animationStarts;
     NSTimer *imageAnimationTimer;
     BOOL redrawingOldContents;
@@ -312,6 +313,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
     }
     dirtyRects = [NSMutableArray new];
     dirty = NO;
+    [self forgetStartsOfRemovedAnimations];
 }
 
 - (NSRect)florpCoords:(NSRect)r {
@@ -691,6 +693,26 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
     for (AnimatedSubImage *img in animatedImages.copy) {
         if (NSIntersectsRect(rect, [self florpCoords:img.rect]))
             [animatedImages removeObject:img];
+    }
+}
+
+// Called at every flush, when the game has finished drawing for now. An
+// animation that was cleared away and not drawn again has left the window:
+// it plays from the beginning the next time it appears, which matters for
+// one that does not loop.
+- (void)forgetStartsOfRemovedAnimations {
+    if (!animationStarts.count)
+        return;
+    for (ImageAnimation *animation in animationStarts.keyEnumerator.allObjects) {
+        BOOL showing = NO;
+        for (AnimatedSubImage *img in animatedImages) {
+            if (img.animation == animation) {
+                showing = YES;
+                break;
+            }
+        }
+        if (!showing)
+            [animationStarts removeObjectForKey:animation];
     }
 }
 
