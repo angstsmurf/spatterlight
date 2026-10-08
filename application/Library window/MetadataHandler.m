@@ -587,11 +587,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         NSLog(@"Object: %@", [object class]);
     }
 
-    if (game && [tvc.gameTableModel indexOfObject:game] == NSNotFound) {
-        tvc.windowController.searchField.stringValue = @"";
-        [tvc searchForGames:nil];
-    }
-
+    // selectAndPlayGame: clears the search bar if it hides the game.
     if (game) {
         [tvc.gameLauncher selectAndPlayGame:game];
     } else if (meta) {

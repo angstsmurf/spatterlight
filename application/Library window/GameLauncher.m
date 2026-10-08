@@ -261,16 +261,34 @@
 - (NSWindow *)selectAndPlayGame:(Game *)game {
     TableViewController *tvc = self.tableViewController;
     NSWindow *result = [self playGame:game restorationHandler:nil];
-    NSUInteger gameIndex = [tvc.gameTableModel indexOfObject:game];
-    if (gameIndex >= (NSUInteger)tvc.gameTableView.numberOfRows) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-            [tvc selectGames:[NSSet setWithObject:game]];
-            [tvc.gameTableView scrollRowToVisible:(NSInteger)[tvc.gameTableModel indexOfObject:game]];
-        });
-    } else {
+
+    // Games opened without being added to the library are never shown.
+    if (game.hidden)
+        return result;
+
+    // A newly imported game may not be in the table model yet, so rebuild
+    // it now. If the game is still missing, it is filtered out by the
+    // current search string: clear the search bar so it becomes visible.
+    if (![tvc.gameTableModel containsObject:game]) {
+        tvc.gameTableDirty = YES;
+        [tvc updateTableViews];
+        if (![tvc.gameTableModel containsObject:game] && tvc.searchString.length) {
+            tvc.windowController.searchField.stringValue = @"";
+            [tvc searchForGames:nil];
+        }
+    }
+
+    [tvc selectGames:[NSSet setWithObject:game]];
+
+    // updateTableViews sorts the model and reloads the table asynchronously
+    // on the main queue, so wait for that before scrolling.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        NSUInteger gameIndex = [tvc.gameTableModel indexOfObject:game];
+        if (gameIndex == NSNotFound)
+            return;
         [tvc selectGames:[NSSet setWithObject:game]];
         [tvc.gameTableView scrollRowToVisible:(NSInteger)gameIndex];
-    }
+    });
     return result;
 }
 
