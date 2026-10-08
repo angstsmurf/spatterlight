@@ -17,6 +17,10 @@
     // Character index of the line fragment currently being laid out, or
     // NSNotFound when it is unknown.
     NSUInteger layoutCharIndex;
+    // End of the paragraph that line fragment belongs to. A flow break
+    // anywhere on the line pushes the whole line down, and the line can't
+    // extend past its paragraph.
+    NSUInteger layoutParagraphEnd;
 }
 @end
 
@@ -35,6 +39,7 @@
     self = [super initWithContainerSize:size];
 
     layoutCharIndex = NSNotFound;
+    layoutParagraphEnd = NSNotFound;
     _marginImages = [[NSMutableArray alloc] init];
     flowbreaks = [[NSMutableArray alloc] init];
 
@@ -45,6 +50,7 @@
     self = [super initWithCoder:decoder];
     if (self) {
         layoutCharIndex = NSNotFound;
+        layoutParagraphEnd = NSNotFound;
         _marginImages = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"marginImages"];
         for (MarginImage *img in _marginImages) {
             img.container = self;
@@ -156,17 +162,28 @@
 // sit below this line and can't intersect it, and asking for their bounds
 // would force a nested layout all the way to their anchors, which makes a
 // re-layout of a long scrollback many times slower.
+// A margin image is always anchored at the start of a line, but a flow break
+// may follow text on its line. We don't know yet where this line will end, so
+// flow breaks are only skipped when they are past the end of the paragraph.
 - (NSRect)lineFragmentRectForProposedRect:(NSRect)proposedRect
                                   atIndex:(NSUInteger)characterIndex
                          writingDirection:(NSWritingDirection)baseWritingDirection
                             remainingRect:(NSRect *)remainingRect {
     NSUInteger savedIndex = layoutCharIndex;
+    NSUInteger savedParagraphEnd = layoutParagraphEnd;
     layoutCharIndex = characterIndex;
+    layoutParagraphEnd = NSNotFound;
+    if (flowbreaks.count) {
+        NSString *string = self.layoutManager.textStorage.string;
+        if (characterIndex < string.length)
+            layoutParagraphEnd = NSMaxRange([string paragraphRangeForRange:NSMakeRange(characterIndex, 0)]);
+    }
     NSRect rect = [super lineFragmentRectForProposedRect:proposedRect
                                                  atIndex:characterIndex
                                         writingDirection:baseWritingDirection
                                            remainingRect:remainingRect];
     layoutCharIndex = savedIndex;
+    layoutParagraphEnd = savedParagraphEnd;
     return rect;
 }
 
@@ -199,13 +216,20 @@
             if (layoutCharIndex != NSNotFound && image.pos > layoutCharIndex)
                 continue;
 
-            // I'm not quite sure why, but this prevents the flowbreaks from
-            // jumping to incorrect positions when resizing the window
+            // Measure the flow breaks that follow this image before placing
+            // the line. A flow break finds its position by forcing layout up
+            // to its anchor and then invalidating that line again, and this
+            // has to happen up front. If it is left to adjustForBreaks:, which
+            // only runs once the line is found to overlap an image, that
+            // nested layout happens halfway through placing the line. Lines
+            // then end up at the wrong height, beside an image they should be
+            // below or on top of the lines above. MarginFlowBreakTests fails
+            // without this loop.
             for (f in flowbreaks)
                 if (f.pos > image.pos) {
                     if (f.pos - image.pos > 1000)
                         break;
-                    if (layoutCharIndex != NSNotFound && f.pos > layoutCharIndex)
+                    if (layoutParagraphEnd != NSNotFound && f.pos >= layoutParagraphEnd)
                         break;
                     [f boundsWithLayout:self.layoutManager];
                 }
@@ -281,7 +305,7 @@
 
     NSEnumerator *breakenumerator = [flowbreaks reverseObjectEnumerator];
     while (f = [breakenumerator nextObject]) {
-        if (layoutCharIndex != NSNotFound && f.pos > layoutCharIndex)
+        if (layoutParagraphEnd != NSNotFound && f.pos >= layoutParagraphEnd)
             continue;
         if (_marginImages.count == 1) {
             if (f.pos - _marginImages.firstObject.pos > 1000)
