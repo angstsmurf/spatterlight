@@ -145,6 +145,11 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
     if (line_request)
         NSLog(@"Printing to text buffer window during line request");
 
+    // Output right after a hyperlink click cancelled the line request: the
+    // link ran a command.
+    if (lineCancelledAfterLink)
+        [self linkDidEnterCommand];
+
     [self printToWindow:str style:stylevalue];
 
     if (self.glkctl.gameID == kGameIsDeadCities && line_request && [[str substringFromIndex:str.length - 1] isEqualToString:@"\n"]) {

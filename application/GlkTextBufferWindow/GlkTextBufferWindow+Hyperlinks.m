@@ -23,6 +23,24 @@
     hyper_request = NO;
 }
 
+// A hyperlink was clicked somewhere in the game window. If our line prompt is
+// scrolled out of view, watch what the interpreter does with the click: a
+// link that enters a command at the prompt should bring the prompt back into
+// view, just as typing would (see linkDidEnterCommand).
+- (void)linkWasClicked {
+    linkClickPending = (line_request && !self.scrolledToBottom);
+    lineCancelledAfterLink = nil;
+}
+
+// Tell every text buffer window about a hyperlink click. The link and the
+// prompt may be in different windows (a side pane of object and exit links).
+- (void)noteLinkClick {
+    for (GlkWindow *win in self.glkctl.gwindows.allValues) {
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            [(GlkTextBufferWindow *)win linkWasClicked];
+    }
+}
+
 // Handle mouse clicks on margin images that have hyperlinks.
 // Margin images live outside the text storage, so NSTextView's built-in
 // link clicking doesn't reach them. This method converts the click point
@@ -45,6 +63,7 @@
 
         NSUInteger linkid = [container findHyperlinkAt:p];
         if (linkid) {
+            [self noteLinkClick];
             gev = [[GlkEvent alloc] initLinkEvent:linkid forWindow:self.name];
             [self.glkctl queueEvent:gev];
             hyper_request = NO;
@@ -67,6 +86,7 @@
     }
 
     [self.glkctl markLastSeen];
+    [self noteLinkClick];
 
     GlkEvent *gev =
     [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue

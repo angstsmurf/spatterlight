@@ -458,6 +458,26 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     docHeightAtLastSeen = (CGFloat)docBottom;
 }
 
+// A clicked hyperlink entered a command at our line prompt while the prompt
+// was scrolled out of view. Go back to the prompt, as typing there would
+// have: count everything up to the prompt as read, so that the auto-scroll
+// for the command's output starts from the prompt rather than paging down
+// from wherever the view happens to be.
+- (void)linkDidEnterCommand {
+    linkClickPending = NO;
+    lineCancelledAfterLink = nil;
+    pauseScrolling = NO;
+
+    NSRange glyphs = [layoutmanager glyphRangeForTextContainer:container];
+    if (!glyphs.length)
+        return;
+    NSRect lastLine = [layoutmanager
+                       lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
+                       effectiveRange:nil];
+    _lastseen = (NSInteger)ceil(NSMaxY(lastLine));
+    docHeightAtLastSeen = (CGFloat)_lastseen;
+}
+
 // Capture the current scroll position for later restoration (e.g. after
 // a theme change or window resize). Records whether we're at the top,
 // bottom, or a mid-document position. For mid-document positions, stores

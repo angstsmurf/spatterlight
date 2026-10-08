@@ -56,6 +56,8 @@
         }
     }
 
+    linkClickPending = NO;
+
     // Cancel any in-progress scrolling
     // (because we might want to start a new scroll animated,
     // and that won't work if we are already at the bottom)
@@ -329,6 +331,20 @@
     line_request = YES;
     [self showInsertionPoint];
 
+    // A new line request right after a hyperlink click cancelled the old one,
+    // with nothing printed in between. If it comes preloaded with different
+    // text, the link filled in (the start of) a command for the player to
+    // finish, so show the prompt. If the text is unchanged, the link did
+    // something else and the view stays where it is.
+    if (lineCancelledAfterLink) {
+        BOOL prefilled = ![str isEqualToString:lineCancelledAfterLink];
+        lineCancelledAfterLink = nil;
+        if (prefilled) {
+            [self linkDidEnterCommand];
+            [self scrollToBottomAnimated:YES];
+        }
+    }
+
     _textview.selectedRange = NSMakeRange(textstorage.length, 0);
     if (bufferedEvents.count)  {
         NSMutableArray *copiedEvents = bufferedEvents.copy;
@@ -355,6 +371,10 @@
 
     NSString *str = textstorage.string;
     str = [str substringFromIndex:fence];
+    if (linkClickPending) {
+        linkClickPending = NO;
+        lineCancelledAfterLink = str;
+    }
     if (echo) {
         [self printToWindow:@"\n" style:style_Input];
         _lastchar = '\n'; // [str characterAtIndex: str.length - 1];

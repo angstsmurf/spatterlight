@@ -65,6 +65,12 @@ NS_ASSUME_NONNULL_BEGIN
                                        // read while a command script or timer-driven game prints
     CGFloat liveScrollStartPosition;   // Clip origin y when the current live scroll began
     BOOL commandScriptWasRunning;      // Track command script transitions
+    BOOL linkClickPending;             // A hyperlink was clicked while this window's line prompt
+                                       // was scrolled out of view
+    NSString *lineCancelledAfterLink;  // The input that line request held when the interpreter
+                                       // cancelled it in response to that click. What it does
+                                       // next tells whether the link entered a command at the
+                                       // prompt (see linkDidEnterCommand). nil when not armed.
 
     BOOL scrolling;                    // YES during animated scroll to prevent re-entry
     BOOL scrollToBottomPending;        // YES when a scrollToBottomAnimated callback is queued
@@ -117,6 +123,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)applyPendingEchoDeleteIfValid;
 - (void)configureBufferTextView:(BufferTextView *)textView;
 - (void)observeLiveScroll;
+- (void)linkWasClicked;
+- (void)linkDidEnterCommand;
 
 @end
 
