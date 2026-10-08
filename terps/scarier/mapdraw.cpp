@@ -144,6 +144,12 @@ rgb_luminance (unsigned int rgb)
    sits on a much darker card. */
 #define MAP_ROOM_FILL_ALPHA 200
 
+/* A room on another level than the player's: card, name and badges.  Well
+   below Map.vb's 50, which left the other levels too close to the player's
+   own to tell apart at a glance. */
+#define MAP_FAR_ROOM_ALPHA 28
+#define MAP_FAR_LABEL_ALPHA 56
+
 /* Paper/ink labels: put the mark on the other side of mid-luminance from
    the fill.  WCAG on an alpha-blended mid grey still prefers dark ink, which
    then fails to mark "you are here" as the filled-in box. */
@@ -189,7 +195,7 @@ rebuild_derived_palette (void)
   map_link = mix_rgb (map_bg, map_fg, dark ? 0.50 : 0.60);
   map_stub = mix_rgb (map_bg, map_fg, dark ? 0.35 : 0.40);
   map_link_alpha = 220;
-  map_link_alpha_far = 70;
+  map_link_alpha_far = 44;
 }
 
 static void
@@ -2227,7 +2233,7 @@ static void
 render_node (const render_ctx_t *rc, int i, const char *player_key)
 {
   const map_node_t *n = &rc->page->nodes[i];
-  int x0, y0, x1, y1, alpha, is_player, k, l;
+  int x0, y0, x1, y1, alpha, is_player, is_far, k, l;
   const map_link_t *bl[MAP_N_BADGES] = { NULL, NULL, NULL, NULL };
   unsigned int fill;
 
@@ -2246,12 +2252,11 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
   is_player = (player_key != NULL && n->key != NULL
                && strcmp (n->key, player_key) == 0);
 
-  /* MAP_ROOM_FILL_ALPHA on the player's level, 50 elsewhere
-     (Map.vb:1172-1194).  The derived scheme picked its label colours
-     against this blend. */
-  alpha = MAP_ROOM_FILL_ALPHA;
-  if (!is_player && rc->active != NULL && n->z != rc->active->z)
-    alpha = 50;
+  /* MAP_ROOM_FILL_ALPHA on the player's level, MAP_FAR_ROOM_ALPHA
+     elsewhere (Map.vb:1172-1194, which fades to 50).  The derived scheme
+     picked its label colours against the on-level blend. */
+  is_far = (!is_player && rc->active != NULL && n->z != rc->active->z);
+  alpha = is_far ? MAP_FAR_ROOM_ALPHA : MAP_ROOM_FILL_ALPHA;
 
   fill = is_player ? map_here_fill : map_room_fill;
   fill_rect (rc->dst, x0, y0, x1, y1, fill, alpha);
@@ -2266,7 +2271,7 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
       if (label != NULL && label[0] != '\0')
         draw_label (rc->dst, label, x0, y0, x1, y1,
                     is_player ? map_here_label : map_label,
-                    alpha == 50 ? 90 : 255);
+                    is_far ? MAP_FAR_LABEL_ALPHA : 255);
     }
 
   for (l = 0; l < n->n_links; l++)
@@ -2313,7 +2318,7 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
          DrawNode stub path -- has[] set without a matching SourceAnchor
          Link).  A Link whose route is currently blocked leaves has[] set
          but bl[] NULL; those must stay hidden. */
-      int badge_a = (alpha == 50) ? 50 : 255;
+      int badge_a = is_far ? MAP_FAR_ROOM_ALPHA : 255;
       for (k = 0; k < MAP_N_BADGES; k++)
         {
           int dir = badge_order[k];
