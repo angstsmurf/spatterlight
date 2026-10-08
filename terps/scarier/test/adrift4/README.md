@@ -152,6 +152,12 @@ python3 harness/run_autosave_tests.py -v undo   # only cases matching "undo", wi
   through a turn, so its autosave is of where the turn began plus the command
   and the answers given so far, and the relaunch runs the turn again up to
   the question (`a5-popup-open`; `a5-popup-opening` for one the opening asks).
+- **Media after a relaunch.** A Blorb's pictures and sounds are read through
+  a Glk stream, and the library restore replaces every stream, so
+  `gsc_a5_rebind_resources` registers the resource map again. The
+  `a5-sound-after-restore` and `a5-image-after-restore` cases compare the
+  resource loads the app is sent (number, offset, length, file) with those of
+  one unbroken session, across two relaunches.
 - **Other cases.** A corrupt container is discarded; a container without its
   undo tail still restores.
 - **`xfail` cases.** These record state the autosave does not carry yet. An

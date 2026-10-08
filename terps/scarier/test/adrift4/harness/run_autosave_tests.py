@@ -92,6 +92,7 @@ class Session(glkdrive.Driver):
 
     def __init__(self, *args, **kwargs):
         self.events = []
+        self.loads = []
         self.wintypes = {}
         self.newwin = 0
         self.delwin = 0
@@ -119,6 +120,12 @@ class Session(glkdrive.Driver):
             self.events.append(("delwin",))
         elif cmd == glkdrive.AUTOSAVE:
             self.events.append(("autosave",))
+        elif cmd in (glkdrive.LOADIMAGE, glkdrive.LOADSOUND):
+            # a1 = resource, a2 = offset and a3 = length within the file
+            # named by the payload.
+            self.loads.append(("image" if cmd == glkdrive.LOADIMAGE
+                               else "sound", a1, a2, a3,
+                               payload.decode("utf-8", "replace")))
         super().dispatch(cmd, a1, a2, a3, a4, a5, payload)
 
     def chunks(self):
@@ -408,6 +415,50 @@ def case_damaged_container(terp, case, res, verbose):
                 if want not in text:
                     res.fail("session 2: %r missing" % want,
                              text[-600:] if verbose else None)
+        clean_autosave(sig)
+
+
+def case_media_after_restore(terp, case, res, verbose):
+    """Pictures and sounds asked for after an autorestore.  The library
+    restore closes every stream, the one behind the Blorb resource map
+    included, so the map has to be registered again or the load reads
+    through a freed stream.  The app must be handed the same resources, at
+    the same place in the game file, as a session that never relaunched --
+    after one relaunch, and after a second, whose autosave carries the
+    stream the first one opened."""
+    sig = "scarier-autosave-test-" + case["name"]
+    game, first, second = case["game"], case["first"], case["second"]
+    with tempfile.TemporaryDirectory() as work:
+        want = []
+        for script in (first, first + second, first + second + second):
+            clean_autosave(sig)
+            control = run_session(terp, game, script, sig, work)
+            check_process(res, control, "control")
+            want.append(control.loads)
+        clean_autosave(sig)
+        for a, b in zip(want, want[1:]):
+            if a != b[:len(a)] or not all(n > 0 for _, _, _, n, _
+                                          in b[len(a):] or [(0,) * 5]):
+                res.fail("control: no resource loaded by %r, so the case"
+                         " does not test what it says" % second, repr(b))
+                return
+
+        got = []
+        for index, script in enumerate((first, second, second)):
+            s = run_session(terp, game, script, sig, work)
+            label = "session %d" % (index + 1)
+            check_process(res, s, label)
+            if index > 0 and s.newwin:
+                res.fail("%s: did not autorestore" % label)
+            if not s.autosaved_last_prompt():
+                res.fail("%s: no autosave at the prompt it was closed on"
+                         % label)
+            got += s.loads
+            if got != want[index]:
+                res.fail("%s: resources loaded differ" % label,
+                         "--- one session ---\n%r\n--- relaunched ---\n%r"
+                         % (want[index], got))
+                break
         clean_autosave(sig)
 
 
@@ -716,6 +767,17 @@ def build_cases():
     # ... and at the one Beagle 2 asks before it has shown anything at all.
     equiv("a5-popup-opening", a5_game("Beagle2.blorb"),
           ["male", "look", "i"], [], first_prompt=True)
+
+    # The first sound / picture of a session that began with an autorestore
+    # (a Blorb's resources are read through a stream the restore replaces).
+    cases.append(dict(kind=case_media_after_restore,
+                      name="a5-sound-after-restore",
+                      game=a5_probe("sound.blorb"),
+                      first=["look"], second=["mp3", "loop", "stop"]))
+    cases.append(dict(kind=case_media_after_restore,
+                      name="a5-image-after-restore",
+                      game=a5_probe("image.blorb"),
+                      first=["look"], second=["picture"]))
 
     cases.append(dict(kind=case_damaged_container,
                       name="a5-corrupt-container", game=events,

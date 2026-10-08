@@ -987,10 +987,15 @@ gsc_a5_open_game_path (void)
 extern "C" strid_t glkunix_stream_open_pathname (char *pathname,
                                                  glui32 textmode, glui32 rock);
 
+/* Rock of the stream behind the resource map, so that an autorestore can
+ * tell it from the game's other streams (see gsc_a5_rebind_resources). */
+#define GSC_A5_BLORB_STREAM_ROCK 0x424c5242 /* 'BLRB' */
+
 static strid_t
 gsc_a5_open_game_path (void)
 {
-  return glkunix_stream_open_pathname (gsc_game_path, FALSE, 0);
+  return glkunix_stream_open_pathname (gsc_game_path, FALSE,
+                                       GSC_A5_BLORB_STREAM_ROCK);
 }
 #endif
 
@@ -1070,6 +1075,52 @@ gsc_a5_init_resources (void)
     }
   gsc_a5_have_blorb = TRUE;
 }
+
+#ifdef SPATTERLIGHT
+/*
+ * gsc_a5_rebind_resources()
+ *
+ * Register the resource map again after an autorestore.  Replacing the Glk
+ * library closes every stream there was, the one the map reads the Blorb
+ * through included, and the map is not part of what the library restores: it
+ * would go on reading through the freed stream, at the first picture or sound
+ * the app has not already cached.
+ *
+ * The restored library brings back its own copy of that stream, opened on
+ * wherever the game was when it was saved.  That one is closed rather than
+ * adopted -- the game may have moved since -- and the file opened afresh, so
+ * exactly one such stream is carried from one autosave to the next.
+ */
+static void
+gsc_a5_rebind_resources (void)
+{
+  strid_t stream, next;
+
+  if (!gsc_a5_have_blorb)
+    return;
+  gsc_a5_have_blorb = FALSE;
+  if (giblorb_unset_resource_map () != giblorb_err_None)
+    return;
+
+  for (stream = glk_stream_iterate (NULL, NULL); stream != NULL;
+       stream = next)
+    {
+      next = glk_stream_iterate (stream, NULL);
+      if (glk_stream_get_rock (stream) == GSC_A5_BLORB_STREAM_ROCK)
+        glk_stream_close (stream, NULL);
+    }
+
+  stream = gsc_a5_open_game_path ();
+  if (stream == NULL)
+    return;
+  if (giblorb_set_resource_map (stream) != giblorb_err_None)
+    {
+      glk_stream_close (stream, NULL);
+      return;
+    }
+  gsc_a5_have_blorb = TRUE;
+}
+#endif
 
 
 /*
@@ -1316,6 +1367,7 @@ gsc_a5_main (void)
          given so far (which gsc_a5_apply_all takes), so play the opening
          for real.  It stops at the question already on screen. */
       gsc_autorestore_replace_state (gsc_a5_apply_all);
+      gsc_a5_rebind_resources ();
       glk_set_window (gsc_main_window);
       glk_set_style (style_Normal);
       gsc_a5_start_real_time (run);
@@ -1335,6 +1387,7 @@ gsc_a5_main (void)
          autosave restarts in a fresh process rather than continue from a
          polluted state. */
       gsc_autorestore_replace_state (gsc_a5_apply_all);
+      gsc_a5_rebind_resources ();
       glk_set_window (gsc_main_window);
       glk_set_style (style_Normal);
       /* Re-arm or cancel the real-time timer per the current preferences
