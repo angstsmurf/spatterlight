@@ -419,6 +419,7 @@ extern int gsc_a5_walk_clicked;
 extern void gsc_map_screen_drop (void);
 extern void gsc_a5_walk_stop (void);
 extern int gsc_map_click (event_t *event);
+extern void gsc_map_click_view (event_t *event);
 extern void gsc_a5_map_names_clear (void);
 extern void gsc_map_redraw (void);
 extern int gsc_sc_walk_next (scr_char *buffer, scr_int length);

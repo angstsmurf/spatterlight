@@ -539,12 +539,20 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
 
         case evtype_MouseInput:
           /* A click on a room starts a walk, and the cancelled line request
-             ends the wait as a LineInput event.  Only for the scare engine:
-             the a5 loop reads its lines through gsc_a5_await_line, and its
-             other waits (a <waitkey>, a popup choice) pass through here with
-             no line request to cancel. */
-          if (!gsc_is_a5)
-            gsc_map_click (event);
+             ends the wait as a LineInput event.  Only where a line is what
+             is being waited for, which is only the scare engine (the a5
+             loop reads its lines through gsc_a5_await_line): the other
+             waits of both -- a <waitkey>, a <wait>, a popup choice -- have
+             no line request to cancel, and there the click can only work
+             the map's pan and zoom buttons. */
+          if (wait_type_1 == evtype_LineInput
+              || wait_type_2 == evtype_LineInput)
+            {
+              if (!gsc_is_a5)
+                gsc_map_click (event);
+            }
+          else
+            gsc_map_click_view (event);
           break;
         }
     }

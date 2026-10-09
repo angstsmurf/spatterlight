@@ -225,6 +225,25 @@ gsc_map_click (event_t *event)
   return FALSE;
 }
 
+/*
+ * gsc_map_click_view()
+ *
+ * The same click with no line of input pending -- at a <waitkey> pause, a
+ * timed <wait>, a yes-or-no question.  There is no command to give, so a
+ * room is not walked to, but the pan and zoom buttons work as they do at
+ * the prompt: a cutscene can hold the screen for a long while, and the map
+ * beside it is still the player's to look around.
+ */
+void
+gsc_map_click_view (event_t *event)
+{
+  if (event->win != gsc_map_window)
+    return;
+  gsc_map_chrome_click ((int) event->val1, (int) event->val2);
+  if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
+    glk_request_mouse_event (gsc_map_window);
+}
+
 
 /*---------------------------------------------------------------------*/
 /*  ADRIFT 5 map window                                                */
