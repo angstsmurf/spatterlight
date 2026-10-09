@@ -423,7 +423,10 @@ match_help_command (const std::string &raw)
  *   about_rows  drawn after STATUS -- question-runner has ABOUT, Quest 5 has not
  *
  * Each argument is one or more complete "  NAME  text\n" rows, indented to
- * the same columns as the shared ones below. */
+ * the same columns as the shared ones below.
+ *
+ * The rows are a table laid out with spaces, so they are printed in the
+ * fixed-width style; in a proportional font the second column wanders. */
 void
 print_system_commands (const char *quit_rows, const char *oops_rows,
                        const char *verbs_rows, const char *about_rows)
@@ -431,7 +434,9 @@ print_system_commands (const char *quit_rows, const char *oops_rows,
     glk_put_string ((char *)
         "\nThese system commands work in any game, whether Quest itself or"
         " this interpreter handles them:\n"
-        "\n"
+        "\n");
+    glk_set_style (style_Preformatted);
+    glk_put_string ((char *)
         "  SAVE              Save the whole game to a file.\n"
         "  RESTORE  (LOAD)   Restore a previously saved game.\n"
         "  RESTART           Start the game over from the beginning.\n"
@@ -451,6 +456,7 @@ print_system_commands (const char *quit_rows, const char *oops_rows,
     glk_put_string ((char *)
         "  HELP              Show the game's own in-game help.\n"
         "  #HELP             Show this list of system commands.\n");
+    glk_set_style (style_Normal);
 }
 
 /* -------------------------------------------------------------- side pane */
