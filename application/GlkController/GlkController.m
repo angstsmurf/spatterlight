@@ -370,6 +370,12 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     // If we are resetting, there is a bunch of stuff that we have already done
     // and we can skip
     if (shouldReset) {
+        // An interpreter that rejects its autosave resets us in the middle of
+        // an autorestore, before postRestoreArrange: has taken a game that
+        // was saved in fullscreen back there. The window then stays as it is,
+        // so stop counting it as being in fullscreen.
+        if ((self.window.styleMask & NSWindowStyleMaskFullScreen) != NSWindowStyleMaskFullScreen)
+            _inFullscreen = NO;
         if (!_inFullscreen) {
             _windowPreFullscreenFrame = self.window.frame;
         }
