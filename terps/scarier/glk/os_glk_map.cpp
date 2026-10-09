@@ -108,6 +108,10 @@ gsc_map_screen_drop (void)
    does.  Each step is submitted as an ordinary direction command, one room per
    turn. */
 char gsc_a5_walk_to[256] = "";
+/* A click beside the player's room rather than on another one walks a single
+   step that way, wherever it leads: the direction to take, or -1.  Both
+   engines share it, as only one of them is ever running. */
+static int gsc_map_step_dir = -1;
 static char gsc_a5_walk_last[256] = "";
 int gsc_a5_walk_clicked = FALSE;
 static int gsc_a5_walk_steps = 0;
@@ -122,6 +126,7 @@ gsc_a5_walk_stop (void)
   gsc_a5_walk_to[0] = '\0';
   gsc_a5_walk_last[0] = '\0';
   gsc_a5_walk_steps = 0;
+  gsc_map_step_dir = -1;
 }
 
 /* The same walk, for ADRIFT 4.  Room keys here are just room numbers, and the
@@ -140,6 +145,7 @@ gsc_sc_walk_stop (void)
   gsc_sc_walk_to[0] = '\0';
   gsc_sc_walk_last[0] = '\0';
   gsc_sc_walk_steps = 0;
+  gsc_map_step_dir = -1;
 }
 
 
@@ -152,9 +158,11 @@ gsc_sc_walk_stop (void)
  * line request is cancelled so that the line read can issue the first step
  * in its place, and whatever the player had half-typed is discarded.
  * Returns TRUE when a walk was started, and `event` is then the LineInput
- * event the cancel produced.  A click on empty map, on the player's own room
- * or on one with no way there re-arms the mouse request and returns FALSE; a
- * click anywhere but the map returns FALSE.
+ * event the cancel produced.  A click just beside the player's own room walks
+ * one step through the exit on that side, if it has one.  A click on other
+ * empty map, on the player's own room or on one with no way there re-arms the
+ * mouse request and returns FALSE; a click anywhere but the map returns
+ * FALSE.
  */
 int
 gsc_map_click (event_t *event)
@@ -162,6 +170,7 @@ gsc_map_click (event_t *event)
   map_view_t view;
   char here_room[16];
   const char *hit, *here;
+  int step = -1;
 
   if (event->win != gsc_map_window)
     return FALSE;
@@ -203,6 +212,17 @@ gsc_map_click (event_t *event)
   if (hit != NULL && here != NULL
       && (strcmp (hit, here) == 0 || map_walk_step (&view, here, hit) < 0))
     hit = NULL;
+  /* A click on no room, but just off a side or corner of the player's own,
+     is one step out through the exit on that side.  The walk is then to
+     wherever that exit leads, with its first step already chosen. */
+  else if (hit == NULL && here != NULL)
+    {
+      step = map_hit_dir (gsc_map, &view, &gsc_map_cam, gsc_map_px_w,
+                          gsc_map_px_h, here, (int) event->val1,
+                          (int) event->val2);
+      if (step >= 0)
+        hit = view.exit_dest (view.ctx, here, step);
+    }
   if (hit != NULL)
     {
       if (gsc_is_a5)
@@ -217,6 +237,7 @@ gsc_map_click (event_t *event)
           snprintf (gsc_sc_walk_to, sizeof gsc_sc_walk_to, "%s", hit);
           gsc_sc_walk_clicked = TRUE;
         }
+      gsc_map_step_dir = step;
       glk_cancel_line_event (gsc_main_window, event);
       return TRUE;
     }
@@ -664,6 +685,17 @@ gsc_sc_walk_next (scr_char *buffer, scr_int length)
       return FALSE;
     }
 
+  /* A single step beside the room: take it, and that is the whole walk. */
+  if (gsc_map_step_dir >= 0)
+    {
+      word = lib_direction_name (gsc_map_step_dir);
+      gsc_sc_walk_stop ();
+      if (word == NULL)
+        return FALSE;
+      snprintf (buffer, (size_t) length, "%s", word);
+      return TRUE;
+    }
+
   snprintf (from, sizeof from, "%ld",
             (long) gs_playerroom ((scr_gameref_t) gsc_game));
   if (strcmp (from, gsc_sc_walk_to) == 0
@@ -710,6 +742,17 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
     return FALSE;                       /* the walk ended the game */
   if (++gsc_a5_walk_steps > GSC_A5_WALK_MAX)
     return FALSE;
+
+  /* A single step beside the room: take it, and that is the whole walk. */
+  if (gsc_map_step_dir >= 0)
+    {
+      word = a5parse_direction_name (map_dirs[gsc_map_step_dir]);
+      gsc_a5_walk_stop ();
+      if (word == NULL)
+        return FALSE;
+      snprintf (buf, (size_t) bufsize, "%s", word);
+      return TRUE;
+    }
 
   st = a5run_state (run);
   from = a5state_player_location (st);

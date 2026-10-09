@@ -308,6 +308,15 @@ extern const char *map_hit (const map_t *map, const map_view_t *view,
                             const map_camera_t *cam, int w, int h,
                             int px, int py);
 
+/* Which way out of the player's room a click at (px,py) beside it points: the
+   compass direction (DIR_N..DIR_NW, never a badge direction) of the side or
+   corner of the room box the click is off, or -1.  Only a click within one
+   room's pitch of the box counts, and only if there is a usable exit that
+   way -- which, unlike a walk to a room, may lead somewhere not yet seen. */
+extern int map_hit_dir (const map_t *map, const map_view_t *view,
+                        const map_camera_t *cam, int w, int h,
+                        const char *player_key, int px, int py);
+
 /* The first step of the shortest route from `from` to `to`: a direction index
    (0..11), or -1 if there is no route.  This is the runner's map-click walk
    (clsCharacter.Dijkstra / DoWalk): edges are the restriction-checked exits,

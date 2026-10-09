@@ -2412,6 +2412,56 @@ map_hit (const map_t *map, const map_view_t *view,
   return NULL;
 }
 
+int
+map_hit_dir (const map_t *map, const map_view_t *view,
+             const map_camera_t *cam, int w, int h,
+             const char *player_key, int mx, int my)
+{
+  const map_page_t *page;
+  const map_node_t *n;
+  const char *dest;
+  map_surface_t dim;
+  proj_t p;
+  int x0, y0, x1, y1, reach_x, reach_y, sx, sy, d;
+
+  if (map == NULL || view == NULL || view->exit_dest == NULL || cam == NULL
+      || player_key == NULL || w <= 0 || h <= 0)
+    return -1;
+  page = page_by_key (map, cam->page);
+  n = page_node (page, player_key);
+  if (n == NULL || n->hidden)
+    return -1;                  /* no box to click around */
+  dim.w = w;
+  dim.h = h;
+  dim.px = NULL;                /* proj_init only reads the dimensions */
+  proj_init (&p, cam, &dim);
+
+  x0 = px_x (&p, n->x);
+  y0 = px_y (&p, n->y);
+  x1 = px_x (&p, n->x + n->w);
+  y1 = px_y (&p, n->y + n->h);
+  /* One room's pitch out from the box: the gap the ADRIFT 4 layout leaves
+     between two rooms, half a box, and the neighbouring box itself. */
+  reach_x = round_px (n->w * 1.5 * cam->scale);
+  reach_y = round_px (n->h * 1.5 * cam->scale);
+  if (mx < x0 - reach_x || mx > x1 + reach_x
+      || my < y0 - reach_y || my > y1 + reach_y)
+    return -1;
+
+  sx = (mx < x0) ? -1 : (mx > x1) ? 1 : 0;
+  sy = (my < y0) ? -1 : (my > y1) ? 1 : 0;
+  if (sx == 0 && sy == 0)
+    return -1;                  /* on the box itself */
+  for (d = 0; d < MAP_N_DIRS; d++)
+    if (!map_is_badge_dir (d) && map_dir_dx[d] == sx && map_dir_dy[d] == sy)
+      break;
+  if (d == MAP_N_DIRS)
+    return -1;
+
+  dest = view->exit_dest (view->ctx, player_key, d);
+  return (dest != NULL && dest[0] != '\0') ? d : -1;
+}
+
 /*
  * clsCharacter.Dijkstra, with the runner's two constraints: an edge exists
  * only where HasRouteInDirection says the exit is currently usable (the
