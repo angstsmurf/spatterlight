@@ -415,6 +415,8 @@ extern char gsc_map_last_player[256];
 extern int gsc_map_full_flush;
 extern char gsc_a5_walk_to[256];
 extern int gsc_a5_walk_clicked;
+extern int gsc_sc_walk_clicked;
+extern int gsc_line_echo_manual;
 
 extern void gsc_map_screen_drop (void);
 extern void gsc_a5_walk_stop (void);

@@ -224,8 +224,9 @@ gsc_read_command (scr_char *buffer, scr_int length)
 
   /* A walk set going by a click on the map supplies the next direction itself,
      in place of reading one from the player, and so does a `go <place>`
-     walk.  Echo it so the transcript reads as though it had been typed. */
-  if (gsc_sc_walk_next (buffer, length)
+     walk.  Echo it so the transcript reads as though it had been typed.
+     Not at the name and gender questions, whose line is an answer. */
+  if ((run_startup_prompt () == 0 && gsc_sc_walk_next (buffer, length))
       || scr_take_scripted_line (buffer, length))
     {
       gsc_echo_input (gsc_put_literal, buffer, TRUE);
@@ -254,6 +255,23 @@ gsc_read_command (scr_char *buffer, scr_int length)
   characters = gsc_read_line (buffer, length - 1);
   assert (characters <= length);
   buffer[characters] = '\0';
+
+  /* A click on the map cancelled the request to start a walk.  Its first
+     step takes the place of the line; where the library echoed the cancelled
+     line, the prompt's line has ended, and the step gets a prompt of its
+     own. */
+  if (gsc_sc_walk_clicked)
+    {
+      gsc_sc_walk_clicked = FALSE;
+      if (gsc_sc_walk_next (buffer, length))
+        {
+          if (!gsc_line_echo_manual)
+            gsc_put_prompt (">");
+          gsc_echo_input (gsc_put_literal, buffer, TRUE);
+          return TRUE;
+        }
+      gsc_colour_echo (FALSE);
+    }
 
   /*
    * If neither abbreviations nor local commands are enabled, use the data

@@ -128,6 +128,7 @@ gsc_a5_walk_stop (void)
    step is submitted as a direction word through SCARE's own parser. */
 static char gsc_sc_walk_to[16] = "";
 static char gsc_sc_walk_last[16] = "";
+int gsc_sc_walk_clicked = FALSE;
 static int gsc_sc_walk_steps = 0;
 #define GSC_SC_WALK_MAX 100
 
@@ -148,8 +149,8 @@ gsc_sc_walk_stop (void)
  * Act on a mouse click that arrived while a line of input was pending.  A
  * click on a room of the map walks the player there, one room per turn
  * (Map.vb imgMap_MouseDown: Player.WalkTo = node; DoWalk()): the pending
- * line request is cancelled so that the next line read can issue the first
- * step in its place, and whatever the player had half-typed is discarded.
+ * line request is cancelled so that the line read can issue the first step
+ * in its place, and whatever the player had half-typed is discarded.
  * Returns TRUE when a walk was started, and `event` is then the LineInput
  * event the cancel produced.  A click on empty map, on the player's own room
  * or on one with no way there re-arms the mouse request and returns FALSE; a
@@ -214,6 +215,7 @@ gsc_map_click (event_t *event)
         {
           gsc_sc_walk_stop ();
           snprintf (gsc_sc_walk_to, sizeof gsc_sc_walk_to, "%s", hit);
+          gsc_sc_walk_clicked = TRUE;
         }
       glk_cancel_line_event (gsc_main_window, event);
       return TRUE;

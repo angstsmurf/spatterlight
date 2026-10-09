@@ -50,8 +50,7 @@ no script to see what autorestore brings back.
 Determinism is on by default, matching the app's testing mode: it is what
 makes the walkthrough regressions reproducible.  Turn it OFF to reach code
 paths it deliberately suppresses -- notably Scarier's ADRIFT 5 real-time
-mode, which is the only mode where the terp takes over line-input echo
-(gsc_a5_start_real_time forces real_time FALSE under determinism).
+mode (gsc_a5_start_real_time forces real_time FALSE under determinism).
 
 Autosaves are keyed by game content and land in the REAL
 ~/Library/Application Support (NSApplicationSupportDirectory ignores $HOME),

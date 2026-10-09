@@ -544,12 +544,19 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
              loop reads its lines through gsc_a5_await_line): the other
              waits of both -- a <waitkey>, a <wait>, a popup choice -- have
              no line request to cancel, and there the click can only work
-             the map's pan and zoom buttons. */
+             the map's pan and zoom buttons.  So too at the name and gender
+             questions a game opens with: the line read there is an answer,
+             which the first step of a walk would be taken for. */
           if (wait_type_1 == evtype_LineInput
               || wait_type_2 == evtype_LineInput)
             {
               if (!gsc_is_a5)
-                gsc_map_click (event);
+                {
+                  if (run_startup_prompt () != 0)
+                    gsc_map_click_view (event);
+                  else
+                    gsc_map_click (event);
+                }
             }
           else
             gsc_map_click_view (event);

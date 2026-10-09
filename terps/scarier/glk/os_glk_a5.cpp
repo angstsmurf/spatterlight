@@ -197,6 +197,10 @@ gsc_a5_sound_marks_only (const char *text)
   return TRUE;
 }
 
+/* Whether the line being awaited is a command, which a click on a room of
+   the map may replace with a walk: set by gsc_a5_read_line around its read. */
+static int gsc_a5_line_walkable = FALSE;
+
 /*
  * gsc_a5_await_line()
  *
@@ -233,8 +237,13 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
         case evtype_MouseInput:
           /* A click on a room walks the player there: the pending line
              request is cancelled, and gsc_a5_read_line issues the first step
-             instead. */
-          if (gsc_map_click (event))
+             instead.  Only at a prompt that takes commands: a line read for
+             a popup question is an answer, which a walk could neither give
+             nor follow, so there the click only works the map's pan and zoom
+             buttons. */
+          if (!gsc_a5_line_walkable)
+            gsc_map_click_view (event);
+          else if (gsc_map_click (event))
             return FALSE;
           break;
 
@@ -321,6 +330,10 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
     }
 }
 
+/* Whether the line just read is echoed by us rather than by the library:
+   set by every gsc_a5_read_line_raw. */
+static int gsc_a5_manual_echo = FALSE;
+
 static int
 gsc_a5_read_line_raw (char *buf, int bufsize)
 {
@@ -349,24 +362,26 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
         }
     }
 
-  /* In real-time mode take over input echo: a TimeBased tick may cancel and
-     re-issue the pending request, and with auto-echo every cancel would
-     commit a spurious input line to the window.  The completed command is
-     echoed manually below instead.
+  /* Take over input echo wherever the library lets us: the pending request
+     can be cancelled, by a TimeBased tick that has something to print or by
+     a click on the map that starts a walk, and with auto-echo every cancel
+     would commit a spurious input line to the window, ending the prompt's
+     line.  The completed command is echoed manually below instead.
 
-     Set it BOTH ways, every time.  Echo mode is per-window library state that
-     a Spatterlight autosave archives and re-applies (TempWindow), so a
-     one-sided "turn it off" leaves the restored process obeying the SAVED
-     mode rather than this one: autosave with real-time on (echo off), then
-     relaunch with real-time off -- determinism/testing mode, say -- and the
-     library echo would stay off while the manual echo below is skipped,
-     which loses every typed command from the transcript for the rest of the
-     session. */
+     Set it every time.  Echo mode is per-window library state that a
+     Spatterlight autosave archives and re-applies (TempWindow), and an
+     autosave from before the echo was always ours may hold it switched on.
+
+     A library without line echo control (cheapglk) has no echo state to set,
+     and warns about every call.  There the library echoes, except in
+     real-time mode, which has always echoed for itself. */
+  gsc_a5_manual_echo = gsc_a5_real_time;
 #ifdef GLK_MODULE_LINE_ECHO
-  /* A library without line echo control (cheapglk) has no echo state to set
-     or to restore, and warns about every call. */
   if (glk_gestalt (gestalt_LineInputEcho, 0))
-    glk_set_echo_line_event (gsc_main_window, gsc_a5_real_time ? 0 : 1);
+    {
+      glk_set_echo_line_event (gsc_main_window, 0);
+      gsc_a5_manual_echo = TRUE;
+    }
 #endif
 
   /* The author's input colour for what the player types, whether the echo is
@@ -419,7 +434,7 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
     }
 
   buf[n] = '\0';
-  if (gsc_a5_real_time && done)
+  if (gsc_a5_manual_echo && done)
     /* Echo the completed command, as Glk's auto-echo would have. */
     gsc_echo_input (gsc_a5_put_string, buf, TRUE);
   else
@@ -446,7 +461,19 @@ gsc_a5_read_line (char *buf, int bufsize)
         {
           if (gsc_a5_walk_next (gsc_a5_run, buf, bufsize))
             {
-              /* Echo the step as though the player had typed it. */
+              /* Echo the step as though the player had typed it.  The first
+                 step of a walk follows a line request the click cancelled,
+                 which took the prompt's input colour off again; and where
+                 the library echoed that cancelled line, the prompt's line
+                 has ended too, so the step gets a prompt of its own. */
+              if (gsc_a5_walk_clicked)
+                {
+                  if (gsc_a5_manual_echo)
+                    gsc_colour_echo (TRUE);
+                  else
+                    gsc_a5_put_prompt ("");
+                  gsc_a5_walk_clicked = FALSE;
+                }
               gsc_echo_input (gsc_a5_put_string, buf, TRUE);
               return (int) strlen (buf);
             }
@@ -455,7 +482,11 @@ gsc_a5_read_line (char *buf, int bufsize)
 
       gsc_a5_walk_clicked = FALSE;
       {
-        int n = gsc_a5_read_line_raw (buf, bufsize);
+        int n;
+
+        gsc_a5_line_walkable = TRUE;
+        n = gsc_a5_read_line_raw (buf, bufsize);
+        gsc_a5_line_walkable = FALSE;
 
         /* A click cancelled the request: loop round and walk instead. */
         if (gsc_a5_walk_clicked)
@@ -587,8 +618,7 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
     }
 
   /* This runs inside the engine (mid text-render), so a TimeBased tick must
-     not re-enter it: hold real-time mode off for the duration, which also
-     hands the echo of the typed answer back to the library. */
+     not re-enter it: hold real-time mode off for the duration. */
   saved_real_time = gsc_a5_real_time;
   gsc_a5_real_time = FALSE;
   for (;;)
@@ -678,8 +708,7 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
   gsc_a5_popup_status ();
 
   /* This runs inside the engine (mid text-render), so a TimeBased tick must
-     not re-enter it: hold real-time mode off for the duration, which also
-     hands the echo of the typed answer back to the library. */
+     not re-enter it: hold real-time mode off for the duration. */
   saved_real_time = gsc_a5_real_time;
   gsc_a5_real_time = FALSE;
 

@@ -579,17 +579,41 @@ gsc_unicode_buffer_to_locale (const glui32 *unicode, scr_int length,
 }
 
 
+/* Whether the line being read is echoed by us rather than by the library:
+   set by every gsc_read_line_locale. */
+int gsc_line_echo_manual = FALSE;
+
 /*
  * gsc_read_line_locale()
  *
  * Read in a line and translate out of the given locale.  Returns the count
- * of characters placed in the buffer.
+ * of characters placed in the buffer.  When a click on the map cancelled the
+ * request to start a walk, gsc_sc_walk_clicked is set, the count is 0, and
+ * the prompt is left as it was, in the input colour, for the walk's first
+ * step to follow.
  */
 static scr_int
 gsc_read_line_locale (scr_char *buffer,
                       scr_int length, const gsc_locale_t *locale)
 {
   event_t event;
+
+  /* Take over input echo wherever the library lets us: a click on the map
+     cancels the pending request to start a walk, and with auto-echo the
+     cancel would commit an empty input line to the window, ending the
+     prompt's line.  The completed line is echoed manually below instead.
+     Set every time: echo mode is library state that a Spatterlight autosave
+     archives and re-applies, and an older autosave holds it switched on.  A
+     library without line echo control (cheapglk) warns about the call. */
+  gsc_line_echo_manual = FALSE;
+#ifdef GLK_MODULE_LINE_ECHO
+  if (glk_gestalt (gestalt_LineInputEcho, 0))
+    {
+      glk_set_echo_line_event (gsc_main_window, 0);
+      gsc_line_echo_manual = TRUE;
+    }
+#endif
+  gsc_sc_walk_clicked = FALSE;
 
   /* The Runner echoes what the player types in its own "typed" colour, a
      different one from the text the game writes back. */
@@ -612,6 +636,20 @@ gsc_read_line_locale (scr_char *buffer,
       glk_request_line_event_uni (gsc_main_window, unicode, length, 0);
       gsc_event_wait (evtype_LineInput, &event);
 
+      /* A click on the map took the request: there is no line. */
+      if (gsc_sc_walk_clicked)
+        {
+          free (unicode);
+          return 0;
+        }
+      if (gsc_line_echo_manual)
+        {
+          glk_set_style (style_Input);
+          glk_put_buffer_uni (unicode, event.val1);
+          glk_set_style (style_Normal);
+          glk_put_char ('\n');
+        }
+
       /* Convert the unicode buffer out, then free it. */
       gsc_unicode_buffer_to_locale (unicode, event.val1, buffer, locale);
       free (unicode);
@@ -624,6 +662,16 @@ gsc_read_line_locale (scr_char *buffer,
   /* No success with unicode, so fall back to standard line input. */
   glk_request_line_event (gsc_main_window, buffer, length, 0);
   gsc_event_wait (evtype_LineInput, &event);
+
+  if (gsc_sc_walk_clicked)
+    return 0;
+  if (gsc_line_echo_manual)
+    {
+      glk_set_style (style_Input);
+      glk_put_buffer (buffer, event.val1);
+      glk_set_style (style_Normal);
+      glk_put_char ('\n');
+    }
 
   /* Return the count of characters placed in the buffer. */
   gsc_colour_echo (FALSE);
