@@ -72,6 +72,11 @@ glui32 glk_style_for (bool bold, bool italic, bool underlined);
 std::string status_tail (const std::string &status, size_t avail, bool utf8);
 void draw_status_banner (winid_t banner, const std::string &room,
                          const std::string &status, bool utf8);
+bool status_leaves_banner (size_t width, const std::string &room,
+                           const std::string &status, bool utf8,
+                           bool in_pane);
+bool status_wants_pane (winid_t banner, const std::string &room,
+                        const std::string &status, bool utf8, bool in_pane);
 
 /* ----------------------------------------------------------------- status */
 
@@ -94,6 +99,7 @@ void print_system_commands (const char *quit_rows, const char *oops_rows,
 extern const char PANE_INVENTORY[];
 extern const char PANE_PLACES_OBJECTS[];
 extern const char PANE_COMPASS[];
+extern const char PANE_STATUS[];
 
 void open_side_pane_windows (winid_t mainwin, winid_t *pane, winid_t *divider);
 void close_side_pane_windows (winid_t *pane, winid_t *divider);

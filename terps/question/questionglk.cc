@@ -322,6 +322,11 @@ file_starts_with_zip_magic(const char *path)
 
 static std::string g_last_objlist;   /* last room-object list echoed to a transcript */
 static std::string g_status_line;    /* status vars joined for the banner, rebuilt each turn */
+static vstring g_status_vars;        /* the same, one per pane line */
+/* The status is listed in the side pane instead of the banner, which is too
+ * narrow for it (see status_wants_pane). */
+static bool g_status_in_pane = false;
+static bool g_updating_objwin = false;   /* draw_banner was called by update_objwin */
 static std::string g_room_name;      /* current room name, shown left-aligned in the banner */
 
 /* Handle the transcript metaverb ("transcript"/"script" on/off).  Returns true
@@ -992,7 +997,21 @@ draw_banner()
    * valid UTF-8, so the sniff only picks codepoint mode when that is the
    * right way to decode the string. */
   bool utf8 = text_is_utf8(g_room_name) && text_is_utf8(g_status_line);
-  draw_status_banner(bannerwin, g_room_name, g_status_line, utf8);
+  /* A status the banner has no room for goes to the pane, which opens for
+   * it if need be.  Asked on every redraw: a resize and a new status both
+   * end up here. */
+  bool in_pane = g_use_objpane &&
+    status_wants_pane(bannerwin, g_room_name, g_status_line, utf8,
+                      g_status_in_pane);
+  bool moved = in_pane != g_status_in_pane;
+  g_status_in_pane = in_pane;
+  draw_status_banner(bannerwin, g_room_name,
+                     in_pane ? std::string() : g_status_line, utf8);
+  /* The pane lists it from now on, or no longer does.  update_objwin draws
+   * the pane right after this when the call came from there; a bare banner
+   * redraw (a resize during a keypress wait, say) has to ask for it. */
+  if (moved && !g_updating_objwin && g_live_runner)
+    update_objwin(g_live_runner);
 }
 
 /* Open the right-hand pane (and its divider), if not already open and the host
@@ -1092,9 +1111,11 @@ update_objwin(QuestionRunner *gr)
     vstring status = gr->get_status_vars();
     std::string flatstatus;
     g_status_line.clear();
+    g_status_vars.clear();
     for (std::string &var : status) {
         if (var.empty())
             continue;
+        g_status_vars.push_back(var);
         if (!flatstatus.empty())
             flatstatus += ", ";
         flatstatus += var;
@@ -1102,7 +1123,9 @@ update_objwin(QuestionRunner *gr)
             g_status_line += " | ";
         g_status_line += var;
     }
+    g_updating_objwin = true;
     draw_banner();
+    g_updating_objwin = false;
 
     /* Split the exits the way the Quest 5 pane does: bare directions (and the
      * OUT exit) are the compass, while a named place you can walk into is
@@ -1120,7 +1143,8 @@ update_objwin(QuestionRunner *gr)
     }
 
     /* Show the pane only when it has something to list. */
-    bool show = !flat.empty() || !flatexits.empty() || !inventory.empty();
+    bool show = !flat.empty() || !flatexits.empty() || !inventory.empty() ||
+        g_status_in_pane;
     if (g_use_objpane) {
         if (show)
             ensure_objwin_open();
@@ -1178,6 +1202,13 @@ update_objwin(QuestionRunner *gr)
             put_objwin_link(s, cap_first(exit[0]),
                             exit.size() > 1 ? exit[1] : exit[0]);
         };
+
+        /* A status too long for the banner, one variable per line. */
+        if (g_status_in_pane) {
+            header(PANE_STATUS);
+            for (const std::string &var : g_status_vars)
+                put_pane_link(s, var, 0, text_is_utf8(var));
+        }
 
         if (!inventory.empty()) {
             header(PANE_INVENTORY);

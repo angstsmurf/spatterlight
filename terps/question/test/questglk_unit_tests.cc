@@ -53,6 +53,7 @@ int glkunix_startup_code(glkunix_startup_t *)
 
 using questglk::match_help_command;
 using questglk::match_status_command;
+using questglk::status_leaves_banner;
 using questglk::status_tail;
 using questglk::tail_chars;
 using questglk::utf8_cp_len;
@@ -84,6 +85,53 @@ test_tail_chars ()
 	 "utf-8 tail of the whole string");
   check (tail_chars ("\xc3\xa5\xc3\xa4\xc3\xb6", 1, true) == "\xc3\xb6",
 	 "utf-8 tail of an all-multibyte string");
+}
+
+/* Where the status goes: the side pane once less than three quarters of it
+   fits in the banner, and back only when all of it does. */
+void
+test_status_leaves_banner ()
+{
+  const std::string room = "Hall";                                /* 4 chars */
+  const std::string s = "Score: 30 | Health: 100 | Moves: 412";  /* 36 chars */
+
+  /* The banner spends a cell before the room name, one between the two and
+     one at the right edge: 4 + 36 + 3 = 43 is the narrowest that holds it. */
+  check (!status_leaves_banner (43, room, s, false, false), "all of it fits");
+  check (!status_leaves_banner (200, room, s, false, false), "room to spare");
+
+  /* Cut, but 29 of the 36 characters survive behind the ellipsis. */
+  check (!status_leaves_banner (36, room, s, false, false),
+	 "a cut that keeps three quarters stays in the banner");
+  /* 23 of 36. */
+  check (status_leaves_banner (30, room, s, false, false),
+	 "less than three quarters: to the pane");
+  check (status_leaves_banner (5, room, s, false, false),
+	 "no room for any of it: to the pane");
+  check (status_leaves_banner (0, room, s, false, false),
+	 "a banner with no cells: to the pane");
+
+  /* Once there it stays until the whole of it fits again. */
+  check (status_leaves_banner (36, room, s, false, true),
+	 "three quarters is not enough to come back");
+  check (status_leaves_banner (42, room, s, false, true),
+	 "one cell short of fitting: still in the pane");
+  check (!status_leaves_banner (43, room, s, false, true),
+	 "all of it fits: back to the banner");
+
+  check (!status_leaves_banner (10, room, "", false, false),
+	 "no status, nothing to move");
+  check (!status_leaves_banner (10, room, "", false, true),
+	 "a status that went away leaves the pane");
+
+  /* A longer room name takes the cells away just the same. */
+  check (status_leaves_banner (43, "The Great Northern Hall", s, false, false),
+	 "the room name counts against the status");
+
+  /* Codepoints, not bytes: 22 characters in 23 bytes fit 29 cells. */
+  const std::string a = "H\xc3\xa4lsa: 100 | Steg: 412";
+  check (!status_leaves_banner (29, room, a, true, true),
+	 "a utf-8 status is measured in codepoints");
 }
 
 void
@@ -156,6 +204,7 @@ glk_main (void)
   test_tail_chars ();
   std::cout << "status_tail:\n";
   test_status_tail ();
+  test_status_leaves_banner ();
   std::cout << "match_status_command:\n";
   test_match_status_command ();
   std::cout << "match_help_command:\n";

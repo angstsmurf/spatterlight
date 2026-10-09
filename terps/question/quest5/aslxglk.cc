@@ -116,6 +116,7 @@ using questglk::open_side_pane_windows;
 using questglk::PANE_COMPASS;
 using questglk::PANE_INVENTORY;
 using questglk::PANE_PLACES_OBJECTS;
+using questglk::PANE_STATUS;
 using questglk::play_single_sound;
 using questglk::post_game_menu_match;
 using questglk::post_game_menu_print;
@@ -130,6 +131,7 @@ using questglk::prompt_read_save;
 using questglk::prompt_write_save;
 using questglk::put_pane_header;
 using questglk::put_pane_link;
+using questglk::status_wants_pane;
 using questglk::put_stream_utf8;
 using questglk::QUIT_FAREWELL;
 using questglk::stop_single_sound;
@@ -255,6 +257,12 @@ const glui32 kPaneLinkBase = 0x40000000;
 /* JS.updateStatus payload flattened for the banner ("Score: 3 | Health: 90%"),
  * shown right-aligned next to the room name like the classic runner. */
 std::string g_status_line;
+/* The status is listed in the side pane instead of the banner, which is too
+ * narrow for it (see status_wants_pane). */
+bool g_status_in_pane = false;
+/* request_hyperlinks is in force: a pane repainted outside the turn loop's
+ * own redraws has to re-arm its request. */
+bool g_links_requested = false;
 /* JS.updateLocation payload -- Core's own "where am I" string, preferred over
  * resolving game.pov.parent by hand (empty for old pre-JS games). */
 std::string g_location_line;
@@ -281,6 +289,7 @@ void request_hyperlinks()
 {
     if (!g_hyperlinks)
         return;
+    g_links_requested = true;
     glk_request_hyperlink_event(gwin);
     if (gobjwin)
         glk_request_hyperlink_event(gobjwin);
@@ -290,6 +299,7 @@ void cancel_hyperlinks()
 {
     if (!g_hyperlinks)
         return;
+    g_links_requested = false;
     glk_cancel_hyperlink_event(gwin);
     if (gobjwin)
         glk_cancel_hyperlink_event(gobjwin);
@@ -1337,7 +1347,24 @@ void update_banner(Interp &in)
     std::string status = g_status_line;
     if (status.empty() && !g_cstatus.rows.empty())
         status = custom_status_lines().front();     /* the headline row */
-    draw_status_banner(gbanner, g_room_name, status, true);
+    /* A status the banner has no room for goes to the pane, which opens for
+     * it if need be -- unless the game has hidden its panes.  Asked on every
+     * redraw: a resize and a new status both end up here. */
+    bool in_pane = g_use_objpane && g_panes_visible &&
+        status_wants_pane(gbanner, g_room_name, status, true,
+                          g_status_in_pane);
+    bool moved = in_pane != g_status_in_pane;
+    g_status_in_pane = in_pane;
+    draw_status_banner(gbanner, g_room_name,
+                       in_pane ? std::string() : status, true);
+    if (moved) {
+        /* The pane lists it from now on, or no longer does.  Not every
+         * caller repaints the pane after the banner (a resize does not). */
+        g_pane_dirty = true;
+        redraw_side_pane(in);
+        if (g_links_requested && g_hyperlinks && gobjwin)
+            glk_request_hyperlink_event(gobjwin);
+    }
 }
 
 /* ------------------------------------------------------------- side pane -- */
@@ -1427,8 +1454,10 @@ void redraw_side_pane(Interp &in)
         if (is_dir(d))
             exits.push_back(&d);
 
+    /* The status attributes, when the banner is too narrow for them. */
+    bool status_rows = g_status_in_pane && !g_status_line.empty();
     if (inv.empty() && places.empty() && exits.empty() &&
-        g_cstatus.rows.empty()) {
+        g_cstatus.rows.empty() && !status_rows) {
         close_side_pane();
         return;
     }
@@ -1492,11 +1521,26 @@ void redraw_side_pane(Interp &in)
         }
     };
 
-    /* The game's own status panel, and under it the commands its icon
-     * buttons send. */
-    if (!g_cstatus.rows.empty()) {
+    World &w = in.world();
+    /* The status attributes moved out of the banner, one per line; then the
+     * game's own status panel, and under it the commands its icon buttons
+     * send. */
+    if (status_rows || !g_cstatus.rows.empty()) {
         first = false;
-        put_pane_header(s, "Status", true);
+        put_pane_header(s, template_text_or(w, "StatusLabel", PANE_STATUS),
+                        true);
+        if (status_rows) {
+            const std::string sep = " | ";      /* as update_status joins */
+            for (size_t a = 0;;) {
+                size_t b = g_status_line.find(sep, a);
+                put_pane_link(s, g_status_line.substr(a, b == std::string::npos
+                                                             ? b : b - a),
+                              0, true);
+                if (b == std::string::npos)
+                    break;
+                a = b + sep.size();
+            }
+        }
         for (const std::string &line : custom_status_lines())
             put_pane_link(s, line, 0, true);
         for (size_t i = 0; i < g_cstatus.buttons.size() && g_hyperlinks; i++) {
@@ -1511,7 +1555,6 @@ void redraw_side_pane(Interp &in)
         }
     }
 
-    World &w = in.world();
     section(template_text_or(w, "InventoryLabel", PANE_INVENTORY), inv, false);
     section(template_text_or(w, "PlacesObjectsLabel", PANE_PLACES_OBJECTS),
             places, false);
@@ -4202,9 +4245,13 @@ void install_host_hooks(Interp &in, bool &restart_requested)
             g_pane_dirty = true;
         };
     }
-    /* Status attributes land in the banner, next to the room name. */
+    /* Status attributes land in the banner, next to the room name -- or in
+     * the pane, when the banner is too narrow (see update_banner). */
     in.update_status = [](const std::string &html) {
-        g_status_line = plain_text(html, " | ");
+        std::string line = plain_text(html, " | ");
+        if (line != g_status_line && g_status_in_pane)
+            g_pane_dirty = true;
+        g_status_line = line;
     };
     in.update_location = [](const std::string &text) {
         g_location_line = plain_text(text);

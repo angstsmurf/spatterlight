@@ -292,6 +292,46 @@ draw_status_banner (winid_t banner, const std::string &room,
     }
 }
 
+/* Where the status belongs: true for the side pane (under a "Status" header,
+ * one field per line), false for the banner.  It leaves the banner once less
+ * than three quarters of it would survive draw_status_banner's cut, and --
+ * `in_pane`, the answer last time -- comes back only when all of it fits, so
+ * a window dragged across the threshold does not flicker between the two.
+ * The frontends ask on every banner redraw, which covers a resize and a
+ * change of the status alike; one that has no pane to offer does not ask. */
+bool
+status_wants_pane (winid_t banner, const std::string &room,
+                   const std::string &status, bool utf8, bool in_pane)
+{
+    if (!banner)
+        return false;
+    glui32 width;
+    glk_window_get_size (banner, &width, nullptr);
+    return status_leaves_banner (width, room, status, utf8, in_pane);
+}
+
+/* The rule itself, for a banner `width` cells wide. */
+bool
+status_leaves_banner (size_t width, const std::string &room,
+                      const std::string &status, bool utf8, bool in_pane)
+{
+    if (status.empty ())
+        return false;
+    size_t rlen = utf8 ? utf8_cp_len (room) : room.size ();
+    size_t slen = utf8 ? utf8_cp_len (status) : status.size ();
+    /* The same arithmetic as draw_status_banner. */
+    size_t avail = (width > rlen + 2) ? width - rlen - 2 : 0;
+    if (slen + 1 <= avail)
+        return false;
+    if (in_pane)
+        return true;
+    std::string shown;
+    if (avail >= 2)
+        shown = status_tail (status, avail - 1, utf8);
+    size_t fits = utf8 ? utf8_cp_len (shown) : shown.size ();
+    return fits * 4 < slen * 3;
+}
+
 /* ----------------------------------------------------------------- status */
 
 /* STATUS metaverb matching.  The banner is a single grid line and drops the
@@ -399,8 +439,8 @@ print_system_commands (const char *quit_rows, const char *oops_rows,
     glk_put_string ((char *) quit_rows);
     glk_put_string ((char *)
         "\n"
-        "  SCRIPT   (TRANSCRIPT)       Start recording the game text to a file.\n"
-        "  SCRIPT OFF  (UNSCRIPT)      Stop recording the transcript.\n"
+        "  SCRIPT            Start recording the game text to a file.\n"
+        "  SCRIPT OFF        Stop recording the transcript.\n"
         "\n");
     glk_put_string ((char *) oops_rows);
     glk_put_string ((char *) verbs_rows);
@@ -421,6 +461,7 @@ print_system_commands (const char *quit_rows, const char *oops_rows,
 const char PANE_INVENTORY[] = "Inventory";
 const char PANE_PLACES_OBJECTS[] = "Places and Objects";
 const char PANE_COMPASS[] = "Compass";
+const char PANE_STATUS[] = "Status";
 
 /* Open the right-hand pane: a 20%-proportional split of the main text
  * window, with a thin graphics window as its left child, drawn in the text
