@@ -95,8 +95,15 @@
 
     // If we are starting up in "system" fullscreen,
     // we will use the autosaved windowPreFullscreenFrame
-    // instead (which will be set in the restoreUI method)
-    if (self.restorationHandler == nil) {
+    // instead (which will be set in the restoreUI method).
+    // The system only takes the window into fullscreen after it has been
+    // handed over through the restoration handler, which is gone by now, so
+    // that cannot be what tells us. What does is that we already count as
+    // being in fullscreen, having been restored that way from the autosave,
+    // without having put ourselves there (as startInFullscreen does). The
+    // window frame is then the stored fullscreen one, not a frame to go
+    // back to.
+    if (!self.inFullscreen || self.startingInFullscreen) {
         self.windowPreFullscreenFrame = self.window.frame;
         NSLog(@"windowWillEnterFullScreen calling storeScrollOffsets");
         [self storeScrollOffsets];
