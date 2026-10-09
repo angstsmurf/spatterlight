@@ -6,6 +6,13 @@
 #include <SFBAudioEngine/LoopableRegionDecoder.h>
 #include <SFBAudioEngine/CoreAudioOutput.h>
 #include <AudioToolbox/AudioToolbox.h>
+#include <CoreAudio/CoreAudio.h>
+
+static const AudioObjectPropertyAddress kDefaultOutputDeviceAddress = {
+    .mSelector = kAudioHardwarePropertyDefaultOutputDevice,
+    .mScope    = kAudioObjectPropertyScopeGlobal,
+    .mElement  = kAudioObjectPropertyElementMain
+};
 
 class CFDataInputSource final: public SFB::InputSource {
 public:
@@ -65,6 +72,7 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     SFB::Audio::Player    *_player;        // The player instance
     SInt64 _pendingFrame;                  // Where a deserialized channel resumes
     BOOL _resumeEnqueued;                  // A decoder is queued at that position
+    AudioObjectPropertyListenerBlock _defaultDeviceListener;
 }
 
 @end
@@ -160,6 +168,7 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
     if (!_player) {
         _player = new SFB::Audio::Player();
+        [self startFollowingDefaultOutputDevice];
     }
 
     [self setVolume];
@@ -237,6 +246,56 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     }
 
     return YES;
+}
+
+/* The player's output unit binds to whichever device was the system default
+   when it was opened, and stays on it. Move it along when the default changes
+   (headphones plugged in or pulled out, a new choice in the Sound settings),
+   or the channel keeps playing through the old device for as long as it lives. */
+- (void)startFollowingDefaultOutputDevice {
+    if (_defaultDeviceListener)
+        return;
+    GlkSoundChannel __weak *weakSelf = self;
+    _defaultDeviceListener = ^(UInt32 /*count*/, const AudioObjectPropertyAddress * /*addresses*/) {
+        [weakSelf defaultOutputDeviceDidChange];
+    };
+    OSStatus result = AudioObjectAddPropertyListenerBlock(kAudioObjectSystemObject, &kDefaultOutputDeviceAddress, dispatch_get_main_queue(), _defaultDeviceListener);
+    if (result != kAudioHardwareNoError) {
+        NSLog(@"GlkSoundChannel: Could not listen for default output device changes: %d", (int)result);
+        _defaultDeviceListener = nil;
+    }
+}
+
+- (void)defaultOutputDeviceDidChange {
+    if (!_player)
+        return;
+
+    AudioDeviceID defaultDevice = kAudioDeviceUnknown;
+    UInt32 size = sizeof(defaultDevice);
+    OSStatus result = AudioObjectGetPropertyData(kAudioObjectSystemObject, &kDefaultOutputDeviceAddress, 0, nullptr, &size, &defaultDevice);
+    if (result != kAudioHardwareNoError || defaultDevice == kAudioDeviceUnknown)
+        return;
+
+    auto& output = dynamic_cast<SFB::Audio::CoreAudioOutput&>(_player->GetOutput());
+    AudioDeviceID currentDevice = kAudioDeviceUnknown;
+    if (output.GetDeviceID(currentDevice) && currentDevice == defaultDevice)
+        return;
+
+    /* The output unit will not change device while it is running. A player
+       pause only stops the output and leaves the decoders and position alone,
+       so the sound carries on from where it was. */
+    bool wasPlaying = _player->IsPlaying();
+    if (wasPlaying)
+        _player->Pause();
+    if (!output.SetDeviceID(defaultDevice))
+        NSLog(@"GlkSoundChannel: Could not move channel %d to output device %u", _name, (unsigned)defaultDevice);
+    if (wasPlaying)
+        _player->Play();
+}
+
+- (void)dealloc {
+    if (_defaultDeviceListener)
+        AudioObjectRemovePropertyListenerBlock(kAudioObjectSystemObject, &kDefaultOutputDeviceAddress, dispatch_get_main_queue(), _defaultDeviceListener);
 }
 
 - (BOOL)claimsNowPlaying {
