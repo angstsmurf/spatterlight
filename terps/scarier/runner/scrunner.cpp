@@ -776,6 +776,16 @@ run_main_loop (scr_gameref_t game)
            * breaks none because there is nothing buffered on the line.
            */
           pf_buffer_tag (filter, SCR_TAG_ENDCENTER);
+
+          /*
+           * Bold, italics and underline are locals of that routine as well
+           * (run390 45BE84-45BF04), so an intro that leaves one open -- Plains
+           * of Fantasy ends on a title in italics closed with a second <i> --
+           * does not set the first room description in it either.
+           */
+          pf_buffer_tag (filter, SCR_TAG_ENDBOLD);
+          pf_buffer_tag (filter, SCR_TAG_ENDITALICS);
+          pf_buffer_tag (filter, SCR_TAG_ENDUNDERLINE);
         }
 
       /* If the game asks, prompt for the player's name, then (if Unknown) the

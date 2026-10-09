@@ -769,25 +769,27 @@ gsc_handle_endfont_tag (void)
 /*
  * gsc_handle_attribute_tag()
  *
- * Increment the required attribute nesting counter, or decrement on end
- * tag.  Set the appropriate Glk style.
+ * Switch the required attribute on, or off on its end tag, and set the
+ * appropriate Glk style.  Bold, italics and underline are flat states in the
+ * Runner, one byte each in its display routine (run390 45BE84-45BF04), not
+ * nesting depths: a second <i> changes nothing and one </i> ends both, so
+ * the title "<i>Plains of Fantasy.<i>", closed with the wrong tag, is no
+ * deeper in italics than one that was never closed at all.  The colour tag
+ * keeps its count.
  */
 static void
 gsc_handle_attribute_tag (scr_int tag)
 {
-  /*
-   * Increment the required attribute nesting counter, and set Glk style.
-   */
   switch (tag)
     {
     case SCR_TAG_BOLD:
-      gsc_attribute_bold++;
+      gsc_attribute_bold = 1;
       break;
     case SCR_TAG_ITALICS:
-      gsc_attribute_italic++;
+      gsc_attribute_italic = 1;
       break;
     case SCR_TAG_UNDERLINE:
-      gsc_attribute_underline++;
+      gsc_attribute_underline = 1;
       break;
     case SCR_TAG_COLOUR:
       gsc_attribute_secondary_colour++;
@@ -801,23 +803,16 @@ gsc_handle_attribute_tag (scr_int tag)
 static void
 gsc_handle_endattribute_tag (scr_int tag)
 {
-  /*
-   * Decrement the required attribute nesting counter, unless underrun, and
-   * set Glk style.
-   */
   switch (tag)
     {
     case SCR_TAG_ENDBOLD:
-      if (gsc_attribute_bold > 0)
-        gsc_attribute_bold--;
+      gsc_attribute_bold = 0;
       break;
     case SCR_TAG_ENDITALICS:
-      if (gsc_attribute_italic > 0)
-        gsc_attribute_italic--;
+      gsc_attribute_italic = 0;
       break;
     case SCR_TAG_ENDUNDERLINE:
-      if (gsc_attribute_underline > 0)
-        gsc_attribute_underline--;
+      gsc_attribute_underline = 0;
       break;
     case SCR_TAG_ENDCOLOUR:
       if (gsc_attribute_secondary_colour > 0)
