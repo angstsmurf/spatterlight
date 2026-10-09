@@ -274,8 +274,14 @@
     // We create a forced arrange event in order to force the interpreter process
     // to re-send us window sizes. The player may have changed settings that
     // affect window size since the autosave was created.
+    //
+    // This used to wait 0.2 seconds, to let the system finish resizing a
+    // window it was restoring. The system no longer gets the window until
+    // postRestoreArrange: hands it over, so the wait only held up the launch.
+    // What the system does to the window afterwards is dealt with in
+    // window:didDecodeRestorableState:.
 
-    [self performSelector:@selector(postRestoreArrange:) withObject:nil afterDelay:0.2];
+    [self performSelector:@selector(postRestoreArrange:) withObject:nil afterDelay:0];
 }
 
 

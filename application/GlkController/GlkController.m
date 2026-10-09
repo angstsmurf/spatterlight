@@ -774,7 +774,15 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         _gameView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
         [self.window setFrame:restoredControllerLate.storedWindowFrame display:YES];
-        _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        // A game restored in fullscreen keeps its width and stays centered,
+        // as windowDidEnterFullScreen: would have it. The system may still
+        // resize the window, when it applies its own saved state to it, and a
+        // game view that follows the window's width while keeping its
+        // fullscreen margins would be squeezed down to nothing.
+        if (_inFullscreen)
+            _gameView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
+        else
+            _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     }
 
     [self adjustContentView];

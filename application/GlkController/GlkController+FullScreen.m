@@ -73,6 +73,23 @@
         return nil;
 }
 
+// Called once the system has applied its own saved state to a window it is
+// restoring, which happens some time after we hand the window over through
+// the restoration handler. That state is written lazily, so after a crash or
+// a force quit it can disagree with our autosave: we restored the game as
+// being in fullscreen, in a window as large as the screen, and the system
+// then puts the window back as an ordinary one. Go with what the system did
+// and fit the game view to the window.
+- (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
+    if (window != self.window || !self.inFullscreen ||
+        (window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen)
+        return;
+    self.inFullscreen = NO;
+    self.gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    [self adjustContentView];
+    [self restoreScrollOffsets];
+}
+
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
     // Save the window frame in self.windowPreFullscreenFrame so that it can be restored when leaving fullscreen.
 
