@@ -596,6 +596,7 @@ withoutaclue_solution.txt|WithoutAClue.taf|you've managed to finish the game|SCR
 cowboyblues_solution.txt|CowboyBlues.taf|how does it feel to be a hero then, Fingle Bodge?|
 cowboyblues_medium_solution.txt|CowboyBlues.taf|Your score is 147 out of a maximum of 401.|
 cowboyblues_medium_patched_solution.txt|CowboyBlues.taf|middle setting. There's the hard version to do as well.|SCR_ASSUME_PATCHES=1
+cowboyblues_hard_solution.txt|CowboyBlues.taf|beat the game on the hardest setting so that's pretty much all you can do.|
 grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 226 out of a maximum of 404|SCR_SKIP_WAITKEY=1
 magicshow_solution.txt|magicshow.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
 goblin_solution.txt|goblin.taf|Oh, and before we forget- Congratulations, gobbo. Or, should we say...|

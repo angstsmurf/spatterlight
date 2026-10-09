@@ -47,8 +47,8 @@ have a go at puzzles providing they're really really easy).
    3)  I hate playing games the proper way! I wanna cheat! Make it as easy as
 easy can be!
 
-> 3
-The 'setting for cheats' it is.
+> 2
+The medium setting it is.
 
 Your House
 
@@ -67,6 +67,19 @@ very wonky about it since you took the liberty of placing your credit card
 under one of the legs. Since then the leg has been fine.
    Knowing you might well need the credit card again, you retrieve it. At
 once the table tilts alarmingly to one side.
+
+> open cupboard
+Acting on a rare bout of inspiration (you get one once every three years
+without fail), you slide your credit card up and down the cupboard until - as
+if by magic - the lock clicks and the cupboard springs open! Out tumbles a
+bullet proof vest but you're too busy jumping for joy to worry about that
+right now.
+
+> get vest
+You take the bullet proof vest.
+
+> wear vest
+You put on the bullet proof vest.
 
 > s
 You move south.
@@ -127,7 +140,7 @@ compressed into just one word: "no".
    1)  Thanks. I think. Let me ask you something else.
 
 > score
-Your score is 7 out of a maximum of 401.  (1%)
+Your score is 10 out of a maximum of 401.  (2%)
 
 > 1
 "Yo!" says Jeb, his usual 'cool' greeting in full flow there.
@@ -174,7 +187,7 @@ and Mason)
   Speckle, Normal, Dyanne and Spam are here.
 
 > score
-Your score is 7 out of a maximum of 401.  (1%)
+Your score is 10 out of a maximum of 401.  (2%)
 
 > buy beer
 "I sell beer, beer and more beer," remarks Spam. "People 'round these parts
@@ -195,7 +208,7 @@ saloon!"
 
 > i
 You are wearing a bullet proof vest, and you are carrying your wallet, a
-brutally sharp knife, a book of poetry and a credit card.
+brutally sharp knife, a book of poetry and a broken credit card.
 
 > talk normal
 "Thirsty work all this talking," says Normal.
@@ -205,13 +218,13 @@ A grubby little affair, your wallet informs you that your name is "Fingle
 Bodge", you're a resident of Stonetomb and you're a bit of a git. (Actually,
 the last bit has been scribbled in biro by a fellow employee at the bank
 where you work but it probably still applies.)
-   Currently your wallet contains a grand total of 15 dollars.
+   Currently your wallet contains a grand total of 10 dollars.
 
 > open wallet
 You can't open your wallet!
 
 > score
-Your score is 7 out of a maximum of 401.  (1%)
+Your score is 10 out of a maximum of 401.  (2%)
 
 > give cash to spam
 "Much obliged," says Spam and swipes a dollar off you. "Best beer in town
@@ -221,15 +234,29 @@ this is."
    Spam hands you the beer.
 
 > score
-Your score is 7 out of a maximum of 401.  (1%)
+Your score is 10 out of a maximum of 401.  (2%)
 
 > give beer to normal
 "Ah, much obliged," says Normal and chugs it down. "Man, that hit the spot!
-Okay, my friend, I'm all ears. Talk and let's see what we can find to
-discuss."
+But-" He licks his lips and frowns. "But, darn it! I still feel thirsty."
 
 > score
-Your score is 8 out of a maximum of 401.  (1%)
+Your score is 10 out of a maximum of 401.  (2%)
+
+> buy beer
+"If you got some cash, just hand it over. If not, show me your credit card.
+Failing that," Spam shrugs, "you ain't getting served in my bar."
+
+> give cash to spam
+"Much obliged," says Spam and swipes a dollar off you. "Best beer in town
+this is."
+   "I thought it was the only beer in town," you say.
+   "That too."
+   Spam hands you the beer.
+
+> give beer to normal
+"Ah, that did it," says Normal as he finishes the second beer. "Okay, my
+friend, I'm all ears. Talk and let's see what we can find to discuss."
 
 > talk normal
 "Ask away," says Normal. "Can't say I'll have an answer for you - or even if
@@ -242,23 +269,35 @@ all the same."
    3)  How much do you know about Mad Jake and the Thuggs?
 
 > 3
-Normal consults his wrist. "Ah, the wimpy version. Well, this one's so easy
-I'm not sure I should be helping you out at all..."
-   Spam gives Normal a hard glare.
-   Normal sighs. "Okay, fair enough. Right, hint one: go to the west of town
-and get whatever the kids are playing at and then use it when you meet
-Scabies. Hint two: er... running out of ideas here, Spammy."
-   "Tell him about the kidnap," Spam suggests.
-   "Ah, the kidnap! Almost forgot about that. Okay, hint two: another of
-Jake's cronies, Herman by name, is planning to kidnap some chick on Murder
-Avenue. Unless, of course, you're there to stop him. Now Herman is a nasty
-piece of work and full of uncontrolled rage."
-   "Doesn't he have a thing for killing bank employees?" asks Spam.
-   "He may well at that, Spammy. So when you meet him, Bodge, be sure to wear
-a disguise so that he doesn't recognise you. Only way to get him to lower his
-guard. Short of that-" Normal grimaces. "It won't be pretty."
+Normal consults his wrist. "Ah, medium. Okay, let's see what I can tell
+you..." He stares into space for a few moments then snaps his fingers and
+cries, "Scabies!"
+   "What about it?" you ask, wondering if he's contracted a real foul
+disease.
+   "No. Scabies is a 'he'. Then again, maybe 'it' suits him better. He's one
+of Jake's cronies and I know for a fact that he's planning to rob the bank
+where you work. Of course, this could all be info you already know but if
+not, then it's worth knowing."
 
-   1)  Thanks for the info. Let me ask you something else.
+   1)  What else can you tell me?
+
+> 1
+"Not much seeing as you're on medium difficulty, pal. Come back and ask me
+when you've got it on easy and I'll tell you things you wouldn't believe."
+   "That's hardly fair, Normal," Spam says. "You've not told him anything
+useful at all."
+   Normal sighs. "Okay, okay. Can't blame a guy for trying to horde all the
+information so the player goes and gets himself killed. Geez! Okay, Bodge,
+Scabies happens to be scared of scary things. Depending on whether you're the
+gory sort or the other sort-"
+   "Yellow-bellied coward," Spam supplies helpfully.
+   "-you'll find what you need over on the west side of the town. Some
+kids'll have it. Get it and then when you face Scabies - well, just make sure
+he sees what you've got before he comes in shooting." Normal pauses for
+breath - and a few sips of beer. "And that's all you're getting so don't ask
+for anything more!"
+
+   1)  Okay. Thanks. Let me ask you something else.
 
 > 1
 "Ask away," says Normal. "Can't say I'll have an answer for you - or even if
@@ -388,7 +427,7 @@ southwest (to a long and dusty road) or northeast (to a long and dusty road)
 > x rock
 You study the rock and discover it to be the resting place of the proceeds
 from the $3,000,000 bank robbery of 1974. Indeed, if not for the unfortunate
-fact that rats have eaten all but $6 you'd doubtless be rich right now.
+fact that rats have eaten all but $4 you'd doubtless be rich right now.
 Still, you take the remaining cash and have a good curse over the
 insensitivity of rats the world over.
 
@@ -430,7 +469,7 @@ location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to a long and dusty road)
 
 > score
-Your score is 12 out of a maximum of 401.  (2%)
+Your score is 13 out of a maximum of 401.  (3%)
 
 > kid
 "It weren't ours," says one kid as you approach. "We found it."
@@ -453,10 +492,10 @@ you don't stop them soon.
 
 > i
 You are wearing a bullet proof vest, and you are carrying your wallet, a
-brutally sharp knife, a book of poetry and a credit card.
+brutally sharp knife, a book of poetry and a broken credit card.
 
 > score
-Your score is 14 out of a maximum of 401.  (3%)
+Your score is 15 out of a maximum of 401.  (3%)
 
 > look
 
@@ -476,7 +515,7 @@ You take the grenade.
 
 > i
 You are wearing a bullet proof vest, and you are carrying your wallet, a
-brutally sharp knife, a book of poetry, a credit card and a grenade.
+brutally sharp knife, a book of poetry, a broken credit card and a grenade.
 
 > ne
 You move northeast.
@@ -603,14 +642,18 @@ muppet?
    4)  Can you help me out?
 
 > 4
-"Perhaps indeed there is," says Toby and peers intently at you. "Hmm... no. I
-see I was mistaken. You lack a certain... item. A pity. Come back and speak
-to me again when you have the item with you and perhaps we can discuss the
-wonders of life some more."
-   "Are you going to tell me what this item is?" you ask.
-   Toby shrugs, considers for a moment then says, "I doubt it very much."
+"I see you have a broken credit card," says Toby. He takes it from you,
+aligns the edges together, concentrates for a moment, and then hands you back
+the credit card - fully mended.
+   "That was pretty cool," you say.
+   "The powers of my magic are cool indeed," says Toby.
+   "Didn't you just squirt some glue onto it?" you ask suspiciously.
+   "Glue? Glue! Ha! Why, of course not. I used the powers of my-"
+   "But I saw you reach into your pocket-"
+   Toby says, "if you want it fixing the next time you break it, you'll do
+well to stay on my good side. That glu- er, my powers don't come cheap."
 
-   1)  Fine. Let me ask you something else.
+   1)  Fair enough. Let me ask you something else.
 
 > 1
 Toby shrugs. "Did not Shakespeare himself say that it is better to be laughed
@@ -811,9 +854,9 @@ dwarf! Interesting. But a bit pointless as well because the bank doesn't
 employ any dwarves.
 
 > find broom
-You fail to find the broom again but trapped under a box is a single dollar
-which is happy to take up residence in your possession in return for its
-freedom.
+After twenty minutes searching through your mess of an office and failing to
+find the broom, you're forced to face up to a damning realisation: it isn't
+here.
 
 > x table
 Lying on the table in plain sight of you is a piece of the evidence you need.
@@ -843,8 +886,7 @@ Ah-ha! This box contains a couple of dollars which you quickly swipe before
 whoever left them there realises and comes back for them.
 
 > open box
-Another box also contains two dollars. At this rate you'll be rich by the end
-of the day!
+You can't open the boxes!
 
 > s
 You move south.
@@ -3273,9 +3315,6 @@ riffraff. Anyway, must be going. I need to get a sword for my Lord."
    Chuckling at his play on words, Eccles strides from the saloon, leaving
 you clutching the whistle and wondering if you've been well and truly ripped
 off.
-
-> dif 1
-Done. You're now playing the medium version of the game.
 
 > talk speckle
 "Howdy, pardner," says Speckle as he tosses a marble from hand to hand. "Grab

@@ -1,7 +1,10 @@
 1
 2
-3
+2
 x leg
+open cupboard
+get vest
+wear vest
 s
 get poetry
 w
@@ -22,8 +25,12 @@ give cash to spam
 score
 give beer to normal
 score
+buy beer
+give cash to spam
+give beer to normal
 talk normal
 3
+1
 1
 2
 1
@@ -254,7 +261,6 @@ w
 w
 nw
 give voucher to eccles
-dif 1
 talk speckle
 3
 give cash to spam

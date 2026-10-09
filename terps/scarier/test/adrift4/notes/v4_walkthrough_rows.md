@@ -10288,13 +10288,57 @@ exists only via `cheat`) is left: 177 is the practical ceiling.
 ## cowboyblues_medium_solution.txt, cowboyblues_medium_patched_solution.txt
 
 ```text
-The easy route with `dif 1` (the game's own override, T31-T33) typed after
-the voucher, and `talk jeb` / `4` for the mattress markings: on medium T353
-leaves them unreadable until Jeb translates them.  Unpatched, `x house` gets
-T369's "nothing else has mysteriously appeared" and no battery: no map, walled
-at 147.  Patched (T365 `difficulty > 1` -> `> 0`), the battery comes, and so
-do the map and the medium ending, "you only beat the game on the middle
-setting" (T604), 188.  Added 2026-09-30.
+Medium from the start menu (`1` start, `2` no gore, `2` medium).  Medium
+starts with the knife and no vest, and T22/T23 block the front door until one
+is worn: `x leg` (credit card, +2), `open cupboard` (T72, +3, breaks the
+card), `get vest`, `wear vest`; Toby mends the card later (T340).  Normal
+takes two beers (T453, T455) and the hint menu one more step (`talk normal`,
+`3`, `1`); the mattress markings need `talk jeb` / `4` (T353).  Cash is
+tighter ($10 wallet, $4 from the rats) but still covers Egbert's $25.
+Unpatched, `x house` gets T369's "nothing else has mysteriously appeared" and
+no battery: no map, walled at 147.  Patched (T365 `difficulty > 1` -> `> 0`),
+the battery comes, and so do the map and the medium ending, "you only beat
+the game on the middle setting" (T604), 188.  188 is the medium ceiling:
+the scored tasks left over are hard-only or easy-only twins of ones taken
+(Peter's barrel T479/T480, the locket T393, the rock, the cartons) and
+`eat bread` (cheat).  Added 2026-09-30 as the easy route plus `dif 1`;
+replaced 2026-10-09 by the from-the-start route.  326 lines.
+```
+
+## cowboyblues_hard_solution.txt
+
+```text
+Hard from the start menu, gore ON (`1` start, `1` gory, `1` hard), no patch
+table needed.  Reaches the hard ending, "you beat the game on the hardest
+setting" (T605, +30), 201/401.  316 lines.  Added 2026-10-09.
+What hard changes against the medium route:
+- No knife at the start: `x bed`, `x crawl` (T17/T18, +2).  $5 wallet, $3
+  under the rock.
+- Normal takes three beers and then knows nothing (T442): skipped, no
+  points there on hard.  Quiff likewise has no Cherie tip (T419), so T427's
+  +4 is gone; the kidnap still happens.
+- Office: the carton evidence is under it, `move carton` (T246), not in it.
+- Higgold's bonus needs asking twice (T265 denies, then T280 pays $10, +2).
+- The barrel will not budge (T466): `n` to the Ghost Saloon, `talk peter`,
+  `5` (T479, +4).
+- `x house` twice for the battery (T366 then T367).
+- Jake: `blow whistle` FIRST (T583 wants no dodge yet), then `use helmet`
+  (T582), then `kill jake` (T593 wants both dodges, +10).  So hard needs the
+  whistle AND the helmet: the voucher goes to Eccles and Egbert gets $25
+  cash.  Cash works out: 5 + 3 rock + 2 box + 10 Higgold + 15 from Spam for
+  the package (T4) = 35, less 3 beers/lolly.
+Two author bugs shape the row:
+- Gore must be ON.  With gore off Peter's task is T480, which lacks T479's
+  `move Herman away`; Herman stays in the cellar and `d` is T471's death.
+  (`gore 0` typed before `talk peter` would also do it.)  Gory swaps the
+  kids' grenade for a severed head: `get head`, `throw head`.
+- The marble.  On hard Speckle's `3` is T376: he puts down a locket for his
+  lady love, and no task ever hands over the marble afterwards.  The row
+  takes the locket (given to Lucy in the arcade office, T393, +3), then
+  types `dif 1`, asks again (T375, the beer deal), types `dif 0` and buys
+  the beer.  That one exchange is the only step not played on hard.
+Left over on hard+gory: only alternates of tasks taken (knife on Bomba 5/7
+vs arrest 10, voucher to Egbert) and `eat bread` (cheat).
 ```
 
 ## grumble_solution.txt

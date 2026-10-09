@@ -241,10 +241,13 @@ medium one task and hard another (the marble: T375 `> 0` vs T376-T378 `== 0`).
 The battery is the exception: easy's T365 asks `difficulty > 1`, so on medium
 neither it nor hard's look-twice pair T366/T367 matches.  `x house` then falls
 to T369, and with no battery there is no map.  The patch makes T365 ask `> 0`,
-one field.  The rows (`cowboyblues_medium[_patched]_solution.txt`) play the
-easy route and switch to medium with the game's `dif 1` after the voucher.  A
-from-the-start medium route is not derived: medium gates more than the battery,
-e.g. T23 keeps you in the house until you are armoured, with no hint.
+one field.  The rows (`cowboyblues_medium[_patched]_solution.txt`) play medium
+from the start menu (`1`, `2`, `2`), no `dif 1`.  What medium adds to the easy
+route: no starting vest, and T22/T23 keep you in the house until you wear one
+(`x leg`, `open cupboard`, `get vest`, `wear vest`; Toby mends the card the
+cupboard breaks); Normal wants a second beer and one more menu step; less
+cash ($10 wallet, $4 from the rats).  188 is the medium ceiling: every scored
+task the route skips is a hard-only or easy-only twin, or the bread cheat.
 
 **The Hangover** (hangover.taf) — 5/7 → 6/7 (room assist) → 7/7 (patch).
 Both endgame tasks are Where/Type = 0 (ROOMLIST_NO_ROOMS); run390 answers
@@ -433,7 +436,10 @@ ceiling, or a deliberate second row.
   marble.  Medium's missing battery was an author slip, and the patch table
   fixes it (section 3).  So the hard closing bonus (T605 +30) is unreachable
   without the override, and 401 is not a real maximum.  The one point left, T721 (eat bread, +1), exists only
-  via the `cheat` command.
+  via the `cheat` command.  `cowboyblues_hard_solution.txt` plays hard with
+  the override used for that one exchange (`dif 1`, ask Speckle, `dif 0`) and
+  wins at 201.  It plays gory: with gore off, Peter's barrel task T480 never
+  removes Herman (T479 does), and the cellar is T471's death.
 - **Provenance** — 285/300 (was 260), a win.  The remaining 15 are blocked.
   T142 `give strawberry to crow` (+10) needs the skeleton key held.  Its
   prerequisite, T141, feeds the key to the crow, and only T143 gives it back,
