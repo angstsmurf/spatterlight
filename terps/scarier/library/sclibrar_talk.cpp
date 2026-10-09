@@ -168,23 +168,6 @@ lib_cmd_ask_npc (scr_gameref_t game)
   return TRUE;
 }
 
-/*
- * lib_any_named_npc()
- *
- * The NPC the line named, with no gate on whether they're seen or in the
- * room -- run400's characters() (47F845-47F8CE) tests only c(name) Or
- * c(descriptor), unlike lib_disambiguate_npc()'s present-and-seen filter.
- * Returns the unique such NPC, or -1 for none or a tie (a tie is
- * unmeasured, so it is left to fall through as before).
- */
-static scr_int
-lib_any_named_npc (scr_gameref_t game)
-{
-  scr_int npc;
-
-  return lib_count_npc_references (game, &npc) == 1 ? npc : -1;
-}
-
 scr_bool
 lib_cmd_talk_to_npc (scr_gameref_t game)
 {
@@ -205,9 +188,15 @@ lib_cmd_talk_to_npc (scr_gameref_t game)
    * p39ABSNPC (runner_probes/absnpc.run390.txt): `talk to fred` (never seen),
    * `speak to erin`, `talk to erin about key` and `talk to girl` (Alias)
    * from the next room all answer the hint.
+   *
+   * The hint is a plain assignment inside the per-character loop, which has
+   * no early exit (47F2C5-4805C8), so with several characters named the
+   * last one answers in 4.0 as well.  Measured on Escape to Freedom (4.00,
+   * run400x): `talk to man` -- an Alias five characters share, none of them
+   * in the room -- is 'Use the format "ask soldier about [subject]".'.
    */
   named = prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
-          ? lib_any_named_npc (game) : -1;
+          ? lib_last_named_npc (game) : -1;
 
   /*
    * Pre-4.0 assigns the hint outright for every character named, here or
@@ -240,6 +229,53 @@ lib_cmd_talk_to_npc (scr_gameref_t game)
       npc = named;
     }
 
+  lib_print_wrapped_npc (game, "Use the format \"ask ",
+                         npc, lib_ask_format_subject (game));
+  return TRUE;
+}
+
+/*
+ * lib_talk_to_hint_after_failed_task_390()
+ *
+ * 3.9: the talk-to hint replaces a task's restriction-fail message.  run390's
+ * hint arm (45973D-4597C0) is a plain assignment to the message buffer, gated
+ * only on c("talk to") Or c("speak to"), the character being named, and the
+ * task-ran flag MemVar_468198 = 0 -- and a task whose restrictions failed has
+ * not run, so its FailMessage is in the buffer and is overwritten.  run400
+ * 47F863 adds the MemVar_4942E0 test (a fail message was stored) and keeps
+ * the task's text.  The last character named answers, as in
+ * lib_cmd_talk_to_npc().
+ *
+ * Measured on run390x: Practice Policy `talk to Emma` away from her (task 20,
+ * fail "She isn't here!") is 'Use the format "ask Emma about [subject]".',
+ * and Ron Weasley `talk to harry` (task 22's fail text) is the game's ALR
+ * for the Harry hint, "Harry doesn't have much to say to you right now."
+ *
+ * Cuts the buffer back to mark, the length it had before the tasks ran.
+ */
+scr_bool
+lib_talk_to_hint_after_failed_task_390 (scr_gameref_t game,
+                                        const scr_char *input, size_t mark)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  scr_int index_, npc = -1;
+
+  if (version < TAF_VERSION_390 || version >= TAF_VERSION_400)
+    return FALSE;
+  if (!lib_input_contains_word (input, "talk to")
+      && !lib_input_contains_word (input, "speak to"))
+    return FALSE;
+
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      if (lib_npc_named_in_line (game, index_, input))
+        npc = index_;
+    }
+  if (npc == -1)
+    return FALSE;
+
+  pf_truncate (gs_get_filter (game), mark);
+  var_set_ref_character (gs_get_vars (game), npc);
   lib_print_wrapped_npc (game, "Use the format \"ask ",
                          npc, lib_ask_format_subject (game));
   return TRUE;

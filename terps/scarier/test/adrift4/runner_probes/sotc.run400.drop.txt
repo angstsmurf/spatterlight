@@ -1,0 +1,167 @@
+
+> yes
+   In this adventure you play the part of a detective assigned to solve a brutal murder involving a nun, a monkey and several Nazi war criminals. Oh, and there's a nuclear bomb thrown in for good measure...
+
+   Actual that's a lie. You do play the part of a detective but you won't find any nuns, monkeys or Nazi war criminals in this game. Or nuclear bombs for that matter. But you can't win 'em all.
+
+   The game is not designed to be easy but it is designed to be logical. You won't need to guess the verb or try to get into the writer's head (a difficult thing to do anyway as I wear a very hard hat most of the time) in trying to figure out just what I was thinking at the time I wrote it. It is also (hopefully at any rate) completely free of bugs. Of course, in a game this large and complex no amount of play-testing is going to guarantee that all the bugs are removed, but the game is definitely finishable and you shouldn't run into any weird error messages.
+
+   To progress through the game, you should make a point of questioning people, generally in the format [ask "such-and-such" about "such-and-such"]. As to whether you get a response or not (and a response that's any good to you) is entirely in the hands of the Gods.
+
+   At points in the game you'll need to drive your car (assuming you get that far and manage to find where you hid the keys) and to do this simply type "drive to" followed by the name of the location you want to visit. Sometimes the name of the street will do, sometimes you can also type the name of the building.
+
+   Not every location in the game needs to be visited. Some are just red herrings. There are two that if you reach, you've probably done something wrong at some point because in all fairness you should never have to visit those locations.
+
+   The same with the locations applies to items in the game: you don't need to pick up everything you see. Some you do need, others you don't and are just there to confuse and baffle you. Figuring out which ones you need is part of the game.
+
+   You can ask for help by typing "help" or "hint" at certain points in the game. As to whether you get  any help is another matter entirely. If there's no help to be given at the time, a little birdie will tell you as much.
+Press a key  
+My hotel room
+MY HOTEL ROOM
+   This is my hotel room, which is not a pretty sight at the best of times (which this, if you're wondering, is not). My bed looks like it's seen one too many cans of Carling tipped onto it, the carpet appears to be just one small step away from giving up the ghost for good and the telephone looks to have grown a pair of ears. All in all, one depressing sight.
+   The door leading out of this joyful place is to the south.
+
+> x bed
+A-ha! I find a small card and my everyday clothes!
+
+> x clothes
+I quickly go through the pockets and come up with some small change and a lighter.
+
+> get all
+I take my everyday clothes and the small card.
+
+> wear clothes
+I put on my everyday clothes.
+
+> x card
+In small, neat type are the words:
+"ROOM SERVICE
+ WE ARE HERE TO HELP!"
+
+> south
+I try to go south - but it seems that the door is a little on the locked side. Needless to say, I don't get far.
+
+> call room service
+I put a call through to room service who promise to send someone up to fix my door asap. I thank them for their assistance and hang up.
+
+> wait
+Time passes...
+
+> south
+I try to go south - but it seems that the door is a little on the locked side. Needless to say, I don't get far.
+
+> down
+I can only move south.  
+
+   There is a sudden crash and the door comes flying off its hinges! I manage to duck to one side and thus avoid being squashed beneath it.
+   In the doorway stands a short, squat man with a ferocious moustache and a crowbar in one hand. Yep, there's no mistaking the sinister appearance of Jake 'The Slasher' McGrogan, the most feared man on the East Side of-
+   "I'm Stanley," says the man, interrupting my train of thought. "From room service."
+   Ah well, I could be wrong.
+   "Now," says Stanley the room service man. "What seems to be the problem with your door?"
+   I look at it. At both pieces of it actually, the top and the bottom, lying forlornly on the floor. "Er, it's a little broken," I say lamely.
+   Stanley nods. "True, true. Ah well, can't be time wasting. Got to be on my way."
+   He salutes me with the crowbar in pretty much the same way I might salute Herr Fuhrer if I ever met him, then turns and marches promptly away.    
+
+> east
+I can only move south.
+
+> say to barry, the bartender hello
+That's the most interesting thing I've ever heard!
+
+> ask barry, the bartender about last night
+Barry, the bartender isn't here!
+
+> say to barry, the bartender thanks
+Not surprisingly, no-one takes any notice of me.
+
+> west
+I can only move south.
+
+> south
+A small corridor
+A SMALL CORRIDOR
+   I am in a small corridor outside my room which lies to the north. A flight of stairs lead down to the lobby.
+
+> in
+I can't go in that direction, but I can move north and down.
+
+> x junk
+I see no such thing.
+
+> x dashboard
+I see no such thing.
+
+> get all
+There is nothing worth taking here.
+
+> insert car keys
+Huh! Is that supposed to mean something?
+
+> drive to rossetter street
+Huh! Is that supposed to mean something?
+
+> out
+I can't go in that direction, but I can move north and down.
+
+> north
+I move north.
+My hotel room
+MY HOTEL ROOM
+   This is my hotel room, which is not a pretty sight at the best of times (which this, if you're wondering, is not). My bed looks like it's seen one too many cans of Carling tipped onto it, the carpet appears to be just one small step away from giving up the ghost for good and the telephone looks to have grown a pair of ears. All in all, one depressing sight.
+   The door leading out of this joyful place is to the south.  
+
+   MY HOTEL ROOM
+   This is my hotel room, which is not a pretty sight at the best of times (which this, if you're wondering, is not). My bed looks like it's seen one too many cans of Carling tipped onto it, the carpet appears to be just one small step away from giving up the ghost for good and the telephone appears to have grown a pair of ears. All in all, one depressing sight.
+   The door leading out of this joyous place lies broken on the floor.
+
+> ne
+I can only move south.
+
+> ask clancy about murder
+Clancy isn't here!
+
+> ask clancy about murder
+Clancy isn't here!
+
+> x sofa
+I see no such thing.
+
+> x body
+I see no such thing.
+
+> i
+I am wearing my everyday clothes, and I am carrying some small change, my lighter and a small card.
+
+> drop tiny card
+I drop the small card.  
+
+> i
+I am wearing my everyday clothes, and I am carrying some small change and my lighter.
+
+> get card
+I take the small card.
+
+> drop security card
+I drop the small card.  
+
+> i
+I am wearing my everyday clothes, and I am carrying some small change and my lighter.
+
+> get card
+I take the small card.
+
+> drop card
+I drop the small card.  
+
+> i
+I am wearing my everyday clothes, and I am carrying some small change and my lighter.
+
+> look
+My hotel room
+MY HOTEL ROOM
+   This is my hotel room, which is not a pretty sight at the best of times (which this, if you're wondering, is not). My bed looks like it's seen one too many cans of Carling tipped onto it, the carpet appears to be just one small step away from giving up the ghost for good and the telephone looks to have grown a pair of ears. All in all, one depressing sight.
+   The door leading out of this joyful place is to the south.  
+
+   MY HOTEL ROOM
+   This is my hotel room, which is not a pretty sight at the best of times (which this, if you're wondering, is not). My bed looks like it's seen one too many cans of Carling tipped onto it, the carpet appears to be just one small step away from giving up the ghost for good and the telephone appears to have grown a pair of ears. All in all, one depressing sight.
+   The door leading out of this joyous place lies broken on the floor.  Also here is a small card.

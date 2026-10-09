@@ -1384,11 +1384,40 @@ lib_cmd_speak_pre390 (scr_gameref_t game)
   return lib_talk_hint_anywhere_pre390 (game);
 }
 
+/*
+ * A `talk` line no character answered.  therest's `c("ask") Or c("talk to")`
+ * block (run370 43E9B7, run380 444039, run390 45D831, run400 488B5C) takes
+ * `talk to` as it takes `ask`: without "about", an empty buffer and no task
+ * run for the line, it prints the generic 'Use the format "ask [character]
+ * about [subject]"' (run400 488D40-488D8C).  The rabblings line just below
+ * it (488DA2-488DC6) only fills a buffer still empty, so it is what a bare
+ * `talk dirty` gets, and a `talk to` line whose task ran silently (sophie_comp
+ * `talk to devil`).
+ *
+ * Measured on run400x: Aegis `talk to Elder`, Whatever Happened to Uncle
+ * Grumble `talk to mayor`, Shards of Memory `talk to reaper` and YADFA `talk
+ * to elves` -- none of them a character's Name or Alias -- all answer the
+ * generic hint.
+ *
+ * Both lines want an empty buffer, and 4.0's up-front resolver (see
+ * lib_absent_seen_object()) has already filled it for a seen-but-absent
+ * object the line names: The Plague - Redux `talk to girl`, with the girls
+ * left behind, is "I couldn't see the girls." (run400x).
+ */
 scr_bool
 lib_cmd_talk (scr_gameref_t game)
 {
+  const scr_char *input = run_get_dispatch_input ();
+
   if (lib_talk_hint_anywhere_pre390 (game))
     return TRUE;
+
+  if (lib_cmd_verb_absent_400 (game))
+    return TRUE;
+
+  if (input && lib_input_contains_word (input, "talk to")
+      && !run_any_task_ran_this_command ())
+    return lib_cmd_ask_other (game);
 
   return lib_print_response_message (game,
       "No-one listens to your rabblings.\n",

@@ -266,7 +266,6 @@ extern const std::vector<const scr_char *> &
 run_task_command_patterns (scr_gameref_t game, scr_int task, scr_bool forwards);
 extern void run_replace_all (std::string &text, const scr_char *find,
                              const scr_char *with);
-extern scr_bool run_any_task_ran_this_command (void);
 extern void run_restriction_cache_task_pick (scr_gameref_t game,
                                              const scr_char *string);
 extern scr_bool run_game_commands_common (scr_gameref_t game,

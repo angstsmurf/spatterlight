@@ -3706,6 +3706,46 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
 
 
 /*
+ * lib_put_on_seen_absent_400()
+ *
+ * The one seen, dynamic object a 4.0 "put X on Y" names when X names nothing
+ * present, or -1.  The "on" twin of the fragment test in
+ * lib_put_in_multiple_common(); a list ("all", "and") is left alone.
+ */
+static scr_int
+lib_put_on_seen_absent_400 (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  std::string line, fragment;
+  std::string::size_type split;
+  scr_int index_, seen;
+
+  if (!input || !lib_is_version_400 (game))
+    return -1;
+
+  line = run_normalise_put_line (input);
+  split = line.find (" on ");
+  if (split == std::string::npos)
+    return -1;
+  fragment = line.substr (0, split + 1);
+  if ((" " + fragment).find (" all ") != std::string::npos
+      || (" " + line).find (" and ") != std::string::npos)
+    return -1;
+
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      if (obj_indirectly_in_room (game, index_, gs_playerroom (game))
+          && lib_verb_object_name_score (game, index_, fragment.c_str ()) > 0)
+        return -1;
+    }
+
+  seen = lib_verb_object_resolve_400_string (game, fragment.c_str (), NULL,
+                                             FALSE);
+  return seen >= 0 && !obj_is_static (game, seen) ? seen : -1;
+}
+
+
+/*
  * lib_put_on_multiple_common()
  *
  * Put the objects held by the player and listed in %text% onto an object,
@@ -3743,7 +3783,23 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
                                         : lib_put_multiple_resolve_filter,
                                         is_except ? supporter : -1,
                                         &references))
-    return FALSE;
+    {
+      /*
+       * name_object is one routine for "in" and "on", so the seen object
+       * lying elsewhere is fetched here too; see lib_put_in_multiple_common().
+       * warlord `put globe on stove`, the globe hidden by the wrap-in-hankie
+       * task, answers "(Taking the foul-smelling globe first)" / "You put
+       * the foul-smelling globe onto the iron stove." in run400, and the
+       * author's own walkthrough leans on it (2026-10-10).
+       */
+      const scr_int seen = is_except ? -1 : lib_put_on_seen_absent_400 (game);
+
+      if (seen < 0)
+        return FALSE;
+      lib_put_seen_absent = seen;
+      gs_clear_multiple_references (game);
+      game->multiple_references[seen] = TRUE;
+    }
   else if (references == 0)
     return TRUE;
 

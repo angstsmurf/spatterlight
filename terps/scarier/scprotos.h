@@ -1134,6 +1134,9 @@ extern scr_bool lib_npc_400_raise_for_line_string (scr_gameref_t game,
 extern scr_bool lib_ask_npc_topic_after_task_390 (scr_gameref_t game,
                                                   size_t mark,
                                                   scr_bool over_empty_buffer);
+extern scr_bool lib_talk_to_hint_after_failed_task_390 (scr_gameref_t game,
+                                                        const scr_char *input,
+                                                        size_t mark);
 extern scr_bool lib_line_names_npc_390 (scr_gameref_t game,
                                         const scr_char *input);
 extern scr_bool lib_put_where_question_400 (scr_gameref_t game,
@@ -1194,6 +1197,7 @@ extern scr_bool run_in_priority_pass (void);
 extern scr_bool run_in_put_clause_loop (void);
 extern const scr_char *run_get_dispatch_input (void);
 extern const scr_char *run_get_line_input (void);
+extern scr_bool run_any_task_ran_this_command (void);
 extern void run_queue_goto_step (const scr_char *step);
 extern void run_set_goto_arrival (const scr_char *text);
 extern scr_int run_c_word_pre400 (scr_int version, const scr_char *line,
@@ -1281,6 +1285,7 @@ extern scr_bool task_is_room_refused (scr_gameref_t game,
 extern scr_bool task_is_done_refused (scr_gameref_t game, scr_int task);
 extern scr_bool task_is_reverse_refused_390 (scr_gameref_t game, scr_int task);
 extern scr_bool task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards);
+extern scr_int task_execution_count (void);
 extern scr_int task_selector_npc (scr_var_setref_t vars, scr_int var);
 extern void task_push_dispatched_run (void);
 extern void task_pop_dispatched_run (void);
@@ -1387,6 +1392,7 @@ extern scr_int obj_get_player_size_limit (scr_gameref_t game);
 extern scr_int obj_get_player_weight_limit (scr_gameref_t game);
 extern scr_bool obj_uses_burden_model (scr_gameref_t game);
 extern scr_bool obj_uses_running_load (scr_gameref_t game);
+extern scr_bool obj_uses_running_weight (scr_gameref_t game);
 extern scr_int obj_get_burden (scr_gameref_t game, scr_int object);
 extern scr_int obj_get_player_burden_limit (scr_gameref_t game);
 extern scr_int obj_get_container_capacity (scr_gameref_t game, scr_int object);

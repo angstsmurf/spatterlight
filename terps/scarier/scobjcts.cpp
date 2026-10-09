@@ -770,6 +770,39 @@ obj_uses_running_load (scr_gameref_t game)
 
 
 /*
+ * obj_uses_running_weight()
+ *
+ * TRUE if the carried WEIGHT is read back from the running total.  3.9 joins
+ * 4.0 here, though not for obj_uses_running_load()'s leaks: run390's own
+ * arithmetic is exact, but its loader seeds the total the way run400's does,
+ * with the BASE weight of each object the player starts out holding (openadv
+ * 46557C-4655A4) -- a held container's contents are not rolled in -- and
+ * every take and drop after that moves the total by the recursive weight.
+ * So a game that starts the player with a loaded container runs that much
+ * light for good, and recomputing the load from what is held refuses takes
+ * the Runner allows.
+ *
+ * Measured in run390 on Lara Croft - The Sun Obelisk (croft_count, croft_wa,
+ * croft_wd probes, 2026-10-09).  Lara starts with her Magnums (9) and a
+ * closed backpack (9) holding a journal (9): `count` says 18, not 27.
+ * `drop backpack` takes it to 0 with the Magnums still in hand, `get
+ * backpack` back to 18.  With an Aztec coin (3) the total is 21, and the belt
+ * pouch (9, holding a glow rod, 9) is taken -- 39 of 45 -- where a recomputed
+ * 30 + 18 refused it and stopped the walkthrough.  A restore brings back the
+ * total the save was made with (39 again after dropping the pouch to 21), so
+ * unlike 4.0 the saved figure is kept rather than reseeded.
+ *
+ * Size is untouched: no container is charged for the size of its contents,
+ * so the base-only seed and a recomputation agree.
+ */
+scr_bool
+obj_uses_running_weight (scr_gameref_t game)
+{
+  return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390;
+}
+
+
+/*
  * obj_get_burden()
  *
  * Return what the given object costs against the player's 3.8 carry limit.

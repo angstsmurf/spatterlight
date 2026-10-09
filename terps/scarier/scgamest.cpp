@@ -180,7 +180,9 @@ gs_runner_worn (scr_gameref_t gs, scr_int object)
  * arithmetic comes out exact, so a 3.9 game reads its load back from
  * lib_carried_size()/lib_carried_weight() instead of from here; see
  * obj_uses_running_load().  The totals are still tracked for every version,
- * because a .tas save carries them, but nothing consults them below 4.0.
+ * because a .tas save carries them; below 4.0 only a 3.9 game's weight is
+ * consulted (obj_uses_running_weight()), the rule above standing in for
+ * run390's per-handler arithmetic, which agrees with it on weight.
  */
 static void
 gs_carried_track (scr_gameref_t gs, scr_int object, scr_int old_pos,

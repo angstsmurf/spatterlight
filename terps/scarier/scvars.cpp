@@ -677,6 +677,13 @@ var_use_alternate_format (scr_gameref_t game, scr_int associate, size_t count)
  * surface object.  `position` picks which, `prefix` introduces the normal
  * format, and `singular` and `plural` are the phrase joining the list to the
  * associate in the alternate one.
+ *
+ * Whatever is listed is seen from then on, as with the library's own
+ * listers (lib_reveal_children()).  run400 fills %in_%, %on_% and %onin_%
+ * through whatisinon (46A950), which writes the seen byte for each object it
+ * names, in the on-half at 46A376 and the in-half at 46A81E.  Darkness and
+ * Fire in the Blood describe a table with "%on_round table%" and then expect
+ * a plain `get plate` to work (runner_transcripts darkness, 2026-10-09).
  */
 static var_list_t
 var_collect_at_object (scr_gameref_t game, scr_int associate, scr_int position)
@@ -689,7 +696,10 @@ var_collect_at_object (scr_gameref_t game, scr_int associate, scr_int position)
       /* Contained, or standing on? */
       if (gs_object_position (game, object) == position
           && gs_object_parent (game, object) == associate)
-        list.push_back (object);
+        {
+          gs_set_object_seen (game, object, TRUE);
+          list.push_back (object);
+        }
     }
   return list;
 }

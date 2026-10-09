@@ -670,6 +670,22 @@ static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
   {NULL, NULL}
 };
 
+/*
+ * run390's examines() is called from generaltasks at 45F684, far above the
+ * out-of-room refusal's `If msg = ""` at 45FFE8, and its tail writes "Nothing
+ * special." for a noun that names nothing (44BF94) -- so an examine line that
+ * an out-of-room task also matches is "Nothing special.", not "You can't do
+ * that here!".  Gamma Gals (3.90) `look under dresser` and `look under bed`
+ * typed outside the tasks' rooms (run390x, Delron walkthrough replay
+ * 2026-10-09).  3.9 only: 3.7/3.8 have no
+ * bare look in examines and are unmeasured; 4.0's refusal is not here.
+ */
+static scr_commands_t EXAMINE_ABOVE_REFUSAL_390_COMMANDS[] = {
+  {"[x/ex/exam/examine/look {at}] %object%", lib_cmd_examine_absent},
+  {"[x/ex/exam/examine/look {at}] *", lib_cmd_examine_other},
+  {NULL, NULL}
+};
+
 static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   /*
    * The two 4.0-only absent-object rows sit directly above the catch-alls
@@ -2537,6 +2553,7 @@ private:
      the passes before and after it settled; see task_peek() and
      task_passes(). */
   size_t task_mark = 0;
+  scr_int task_mark_executions = 0;
   scr_bool claimed_before_tasks = FALSE, silent_before_priority = FALSE;
   scr_bool task_claimed = FALSE, silent_task_390 = FALSE;
   scr_bool silent_names_npc_390 = FALSE;
@@ -3136,6 +3153,7 @@ run_line_t::task_peek ()
     }
 
   task_mark = pf_buffer_length (filter);
+  task_mark_executions = task_execution_count ();
   claimed_before_tasks = status;
   if (!status && !refused)
     {
@@ -3534,6 +3552,11 @@ run_line_t::library ()
    * run390's Call therest() -- so it outranks the generic catch-alls and
    * loses to every dedicated handler above it.
    */
+  if (!status
+      && run_get_version (gs_get_bundle (game)) == TAF_VERSION_390
+      && game->pending_endgame == 0)
+    status = run_try_command_table (EXAMINE_ABOVE_REFUSAL_390_COMMANDS,
+                                    game, library_string);
   if (!status)
     status = run_task_refusal (game, library_string, REFUSAL_PASS_MID);
   if (!status)
@@ -3599,6 +3622,15 @@ run_line_t::settle ()
   if (silent_task_390 && !silent_names_npc_390
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390)
     game->is_admin = TRUE;
+
+  /*
+   * 3.9: the talk-to hint replaces the fail message of a task that did not
+   * run; see lib_talk_to_hint_after_failed_task_390().
+   */
+  if (status && !claimed_before_tasks
+      && task_execution_count () == task_mark_executions
+      && pf_buffer_length (filter) > task_mark)
+    lib_talk_to_hint_after_failed_task_390 (game, string, task_mark);
 
   /*
    * 3.9: a character's topic reply replaces what a task printed for an ask or

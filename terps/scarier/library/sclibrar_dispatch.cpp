@@ -826,8 +826,8 @@ lib_try_game_command_take_from_parent_400 (scr_gameref_t game, scr_int object,
   *looked_up = TRUE;
   lib_rebuilt_raw_dispatch = TRUE;
   lib_rebuilt_silent_continues = TRUE;
-  status = lib_try_game_command_short (game, "get", object);
   run_set_task_class_filter (1);
+  status = lib_try_game_command_short (game, "get", object);
 
   /*
    * Deliberate deviation (2026-09-30): the "from" retry is skipped when

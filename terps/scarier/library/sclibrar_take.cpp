@@ -87,10 +87,12 @@ lib_carried_burden (scr_gameref_t game)
  * (gs_carried_*, with its take/drop double-count); otherwise, and in legacy
  * mode, it is recomputed afresh from what is currently held or worn.
  *
- * Only 4.0 keeps a running total worth reproducing: run390 adjusts the same
- * two globals but does so exactly, so recomputing is what a 3.9 game looks
- * like from the outside -- see obj_uses_running_load() for the probe that
- * separates the two.  Legacy mode also drops the Runner's stale parent rule
+ * Only 4.0 keeps a running size worth reproducing: run390 adjusts the same
+ * two globals but does so exactly, so recomputing is what a 3.9 game's size
+ * looks like from the outside -- see obj_uses_running_load() for the probe
+ * that separates the two.  Its weight is another matter, because the total
+ * starts out short of a held container's contents and stays short; see
+ * obj_uses_running_weight().  Legacy mode also drops the Runner's stale parent rule
  * from obj_weigh(), so it is free of the phantom weight too; a 3.9 game gets
  * that for the same reason, having no running total to poison.
  */
@@ -118,7 +120,7 @@ lib_carried_weight (scr_gameref_t game)
 {
   scr_int index_, weight;
 
-  if (obj_uses_running_load (game) && !game->capacity_recompute)
+  if (obj_uses_running_weight (game) && !game->capacity_recompute)
     return gs_carried_weight (game);
 
   weight = 0;
@@ -3009,7 +3011,12 @@ lib_take_from_slot_valid_pre390 (scr_gameref_t game, scr_int slot)
  *   in a      3.8 up, while the message is still empty or the seed, or ends
  *   parent    " from here!": obhere() -> the line gets " from <parent>"
  *             appended for insides() to answer (43E47B); else the message
- *             becomes "<You> can't see X from here!".  ON is not tested.
+ *             becomes "<You> can't see X from here!".  ON is not tested
+ *             in 3.8.  3.9 does take from a surface: The Corruption of
+ *             Alex, `get flask and gloves and mask` with all three on the
+ *             lab counter, is "You take the flask, the pair of gloves and
+ *             the mask from the counter." in run390 (Delron walkthrough
+ *             replay, 2026-10-09).
  *
  * so a worn object named first and a loose one after it print as one string,
  * "You are already wearing a hat!the stone." (run380x) / "You are already
@@ -3173,10 +3180,15 @@ lib_take_and_pre400 (scr_gameref_t game)
               appended = TRUE;
             }
         }
-      else if (taf_version >= TAF_VERSION_380 && position == OBJ_IN_OBJECT
+      else if (taf_version >= TAF_VERSION_380
+               && (position == OBJ_IN_OBJECT
+                   || (taf_version >= TAF_VERSION_390
+                       && position == OBJ_ON_OBJECT))
                && ((!overwritten && !appended) || cant_see))
         {
-          if (lib_obhere_380 (game, object))
+          if (lib_obhere_380 (game, object)
+              || (position == OBJ_ON_OBJECT
+                  && obj_indirectly_in_room (game, object, room)))
             rewrite_parent = gs_object_parent (game, object);
           else
             {

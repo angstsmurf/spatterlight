@@ -3186,6 +3186,23 @@ task_in_dispatched_run (void)
  * task with an error message if we seem to be in one.  Checked by counting
  * the call depth.
  */
+/*
+ * task_execution_count()
+ *
+ * How many tasks have passed their restrictions and gone on to run -- the
+ * Runner's "a task ran for this line" flag (run390 MemVar_468198, run400
+ * MemVar_4941F8, set in execute_task at 45A176) as a counter, so a caller
+ * can compare two readings.  A task that only printed its FailMessage does
+ * not count.
+ */
+static scr_int task_executions = 0;
+
+scr_int
+task_execution_count (void)
+{
+  return task_executions;
+}
+
 scr_bool
 task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
 {
@@ -3256,6 +3273,8 @@ task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
       /* Task not done; look for more possibilities. */
       return FALSE;
     }
+
+  task_executions++;
 
   /* Check for infinite recursion. */
   if (recursion_depth > TASK_MAXIMUM_RECURSION)

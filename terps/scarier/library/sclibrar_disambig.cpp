@@ -481,6 +481,18 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
 
       if (other == object)
         continue;
+      /*
+       * An object never seen and not here is nothing the player can mean,
+       * so its longer name hides nobody's: Scene of the Crime (4.00) `drop
+       * tiny card` with "a small card" in hand and "a tiny card" (alias
+       * "tiny card") not yet in play drops the small card (run400x
+       * runner_probes/sotc.run400.drop.txt, 2026-10-09), where the shadow
+       * left the line to "I am not holding the small card.".
+       */
+      if (!gs_object_seen (game, other)
+          && !obj_indirectly_in_room (game, other, gs_playerroom (game))
+          && !obj_indirectly_held_by_player (game, other))
+        continue;
       alias_count = lib_alias_prepare (bundle, vt_key, "Objects", other);
       for (alias = -1; alias < alias_count; alias++)
         {
@@ -3777,8 +3789,25 @@ pre400_take_done:
           if (gs_object_openness (game, index_) == OBJ_WONTCLOSE)
             continue;
           if (last != -1 && gs_object_openness (game, last) == wanted)
-            gs_set_object_openness (game, last,
-                                    is_open ? OBJ_OPEN : OBJ_CLOSED);
+            {
+              gs_set_object_openness (game, last,
+                                      is_open ? OBJ_OPEN : OBJ_CLOSED);
+              /*
+               * The overwritten message was still built, contents list and
+               * all, and in 3.9 listing is what makes an object seen.  The
+               * Gamma Gals (3.90, run390x, gamma_fridge probe 2026-10-09):
+               * `open fridge and cupboards` answers for the cupboards
+               * alone, and the `get all` after it takes the can of coke
+               * from the refrigerator as well as the glass.  3.7 and 3.8
+               * are left as they were, unmeasured.
+               */
+              if (is_open && taf_version >= TAF_VERSION_390)
+                {
+                  lib_list_t revealed;
+
+                  lib_reveal_children (game, last, OBJ_IN_OBJECT, revealed);
+                }
+            }
           last = index_;
         }
 

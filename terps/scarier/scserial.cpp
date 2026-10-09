@@ -1451,7 +1451,7 @@ ser_load_game_body (scr_gameref_t game,
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
-  scr_int index_, var_count;
+  scr_int index_, var_count, saved_carried_weight = 0;
   const scr_char *gamename;
   scr_bool runner_format = ser_pre_v4;
 
@@ -1529,11 +1529,12 @@ ser_load_game_body (scr_gameref_t game,
   (void) ser_get_int ();
 
   /* Skip encumbrance details; the carried totals are recomputed from the
-     restored inventory once loading is done. */
+     restored inventory once loading is done -- all but a 3.9 game's weight,
+     which comes back as it was saved (see below). */
   (void) ser_get_int ();
   (void) ser_get_int ();
   (void) ser_get_int ();
-  (void) ser_get_int ();
+  saved_carried_weight = ser_get_int ();
 
   /* Runner format: the player's interleaved battle block follows encumbrance. */
   if (runner_format && battle_is_enabled (new_game))
@@ -1801,6 +1802,14 @@ ser_load_game_body (scr_gameref_t game,
    * gs_carried_recompute).  gs_copy() then carries them over verbatim.
    */
   gs_carried_recompute (new_game);
+
+  /*
+   * run390 does not reseed the weight: a restore brings back the total the
+   * save was made with (measured, croft_wd probe 2026-10-09 -- 39 saved, 21
+   * after a drop, 39 again once restored; a base-only reseed would say 30).
+   */
+  if (obj_uses_running_weight (new_game) && !obj_uses_running_load (new_game))
+    new_game->carried_weight = saved_carried_weight;
 
   /*
    * If we got this far, we successfully restored the game from the file.

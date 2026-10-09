@@ -3131,6 +3131,41 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
                     }
                 }
             }
+
+          /*
+           * A name matched in place is no match when nothing it names has
+           * ever been seen and none of it is here: run400's resolver
+           * (463640) scores present, seen objects only, so the line is left
+           * to whatever else it contains.  Scene of the Crime (4.00) has "a
+           * small card" in hand and "a tiny card" (alias "tiny card") not yet
+           * in play: `x tiny card` describes the small card (run400x, Delron
+           * walkthrough replay 2026-10-09), where the in-place match answered
+           * "I see no such thing.".  A name seen elsewhere keeps the line
+           * (not measured), and below 4.0 is not measured.
+           */
+          if (pass == 0 && contain && max_extent > 0 && !is_character
+              && prop_get_taf_version (gs_get_bundle (game))
+                 >= TAF_VERSION_400)
+            {
+              const scr_int room = gs_playerroom (game);
+              scr_bool is_known = FALSE;
+
+              for (index = 0; index < entity_count && !is_known; index++)
+                is_known = matched_extent[index] > 0
+                    && (gs_object_seen (game, index)
+                        || obj_indirectly_in_room (game, index, room)
+                        || obj_indirectly_held_by_player (game, index));
+              if (!is_known)
+                {
+                  for (index = 0; index < entity_count; index++)
+                    if (matched_extent[index] > 0)
+                      {
+                        references[index] = FALSE;
+                        matched_extent[index] = 0;
+                      }
+                  max_extent = 0;
+                }
+            }
         }
     }
 
@@ -3581,7 +3616,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
   std::string buffer;
   scr_bool modified;
   const scr_char *current;
-  scr_int offset;
+  scr_int offset, pass;
   assert (string);
 
   if (uip_trace)
@@ -3595,13 +3630,35 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
   modified = FALSE;
   current = string;
 
-  /* Search for pronouns until no more string remains. */
+  /*
+   * Search for pronouns until no more string remains, the character ones
+   * first and "it"/"them" on a second pass: the Runner works through them
+   * by kind, not by where they stand on the line (run390 its(): "him"
+   * 43D310, "he" 43D3EB, "her" 43D4CF, "she" 43D5AA, "it" 43D685, "them"
+   * 43D782), and each prints its bracket echo as it goes.  Blue Sky (3.90,
+   * run390x, 2026-10-09): `give it to her` echoes "(Maria)" and then "(the
+   * burger)".
+   */
+  for (pass = 0; pass < 2; pass++)
+  {
   offset = strspn (current, WHITESPACE);
   while (current[offset] != NUL)
     {
       scr_int object, npc, extent;
       const scr_char *prefix, *name, *echo;
       std::string definite;
+      const scr_bool is_character_word
+          = scr_compare_word (current + offset, "him", 3)
+            || scr_compare_word (current + offset, "he", 2)
+            || scr_compare_word (current + offset, "her", 3)
+            || scr_compare_word (current + offset, "she", 3);
+
+      if (is_character_word != (pass == 0))
+        {
+          offset += strcspn (current + offset, WHITESPACE);
+          offset += strspn (current + offset, WHITESPACE);
+          continue;
+        }
 
       /* Initially, no object or NPC, no names, and a zero extent. */
       object = npc = -1;
@@ -3892,7 +3949,20 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * answers the "wand" topic, not the later "witch" one that "the
            * witch's magic wand" would hit under the substring topic match.
            */
-          if (object > -1 && prop_get_taf_version (bundle) < TAF_VERSION_390)
+          /*
+           * 3.9 keeps the same pair (MemVar_46811C echo, MemVar_468120
+           * splice).  Its handlers write one composed string to both
+           * (takes 455067/455071, drops 445BE6/445BF0), but co()'s pre-pass
+           * writes "the X" to the echo (43B69E) and the bare Short to the
+           * splice (global_4, 43B6B0).  Blue Sky: `ask maria about burger`
+           * then `give it to her` echoes "(the burger)" and runs the game's
+           * `give burger to maria` task, which "give the burger to maria"
+           * would not match.
+           */
+          if (object > -1
+              && (prop_get_taf_version (bundle) < TAF_VERSION_390
+                  || (prop_get_taf_version (bundle) < TAF_VERSION_400
+                      && game->it_form == UIP_IT_DEFINITE)))
             replacement = name;
           buffer.replace (offset, extent, replacement);
           scr_lowercase (&buffer[0]);
@@ -3913,6 +3983,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
       /* Set offset to the next word start. */
       offset += strspn (current + offset, WHITESPACE);
     }
+  }
 
   /* Return the final string, or NULL if no pronoun replacements. */
   return modified ? scr_strdup (buffer) : NULL;
@@ -4478,6 +4549,40 @@ uip_definite_form (scr_gameref_t game, const scr_char *command,
 
 
 /*
+ * uip_handler_composes_390()
+ *
+ * Whether a 3.9 line is one of those whose handler composes the antecedent
+ * itself, as Prefix & " " & Short for echo and splice alike: a take from the
+ * floor, drop, wear, remove, examine or read.  Any other line -- open,
+ * close, put, take-from, a game task, an unknown verb -- keeps what co()'s
+ * pre-pass left, "the X" for the echo and the bare Short for the splice
+ * (run390 43B69E / 43B6B0; make_39_itprobe.py, `open microwave` then "(the
+ * microwave)").
+ */
+static scr_bool
+uip_handler_composes_390 (const scr_char *command)
+{
+  const scr_char *verb = command + strspn (command, WHITESPACE);
+
+  if (scr_compare_word (verb, "get", 3) || scr_compare_word (verb, "take", 4)
+      || scr_compare_word (verb, "pick", 4))
+    return strstr (verb, " from ") == NULL;
+
+  return scr_compare_word (verb, "drop", 4)
+         || scr_compare_word (verb, "wear", 4)
+         || scr_compare_word (verb, "remove", 6)
+         || scr_compare_word (verb, "x", 1)
+         || scr_compare_word (verb, "ex", 2)
+         || scr_compare_word (verb, "exam", 4)
+         || scr_compare_word (verb, "examine", 7)
+         || scr_compare_word (verb, "read", 4)
+         || ((scr_compare_word (verb, "l", 1)
+              || scr_compare_word (verb, "look", 4))
+             && strstr (verb, " at ") != NULL);
+}
+
+
+/*
  * uip_assign_pronouns()
  *
  * Search a player command for object and NPC names, and assign any found to
@@ -4568,7 +4673,8 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
 
               if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
                 form = uip_definite_form (game, string, current, object);
-              else if (prop_get_taf_version (bundle) < TAF_VERSION_390)
+              else if (prop_get_taf_version (bundle) < TAF_VERSION_390
+                       || !uip_handler_composes_390 (string))
                 form = UIP_FORM_DEFINITE;
 
               if (form != UIP_FORM_KEEP && !handler_set)
