@@ -10,12 +10,13 @@
 ### Scarier (Adrift)
 - Text set in Wingdings, Wingdings 3 or Symbol is translated to Unicode, as Webdings already was. Games that put meaning in a symbol font — the aliens' speech in *The Most Average Man in the World*, the row of droplets in *The Reluctant Resurrectee* — now read as the author meant them to instead of spilling raw letters.
 - The default map colours are now less flat, with in-between tints added to the previous two.
-- A map too big for its pane can be moved about with the arrow buttons at its top right, and any map zoomed with the + and − buttons beside them. *glk zoom N* sets an exact size, from 3 to 32; below 10 the rooms lose their names, to give an overview of a big map. The Up and Down badges now show an arrow rather than a letter.
+- A map too big for its pane can be moved about with the arrow buttons at its top right, and any map zoomed with the + and − buttons beside them. *glk zoom N* sets an exact size, from 3 to 32; below 10 the rooms lose their names, to give an overview of a big map. The Up and Down badges now show an arrow rather than a letter. The buttons also work while the game waits for a keypress or a pop-up answer, the map is redrawn at each such pause so that it keeps up with a cutscene, and rooms on another level than yours are drawn fainter.
+- Autosave also works at a "press a key" pause, so a long cutscene closed halfway comes back where you left it. The same goes for the name and gender questions at the start of an Adrift 4 game and the pop-up questions of an Adrift 5 one.
 - The *glk map colour* command has been removed: the map is always drawn in the standard colours.
 - Sounds and pictures that a game names but never packed into its game file are now found beside it. Such a game refers to each file by its full path on the author's computer, so Scarier looks in the game's own folder for a file of that name, whatever its capitals. This brings back the sounds of Adrift 4 games like *Druggy Lane*, and the pictures and sounds of Adrift 5 games shipped as a bare .taf.
 
 #### Adrift 3.7 to 4
-- 37 games whose own data makes them unwinnable, such as *Ebony's World* and *Bedlam*, are repaired as they load, each by the smallest change that gets past the bug. The fix only applies to the exact release that has the bug, and saved games still load. Use *glk patches off* to play the games as released.
+- 35 games whose own data makes them unwinnable, such as *Ebony's World* and *Bedlam*, are repaired as they load, each by the smallest change that gets past the bug. The fix only applies to the exact release that has the bug, and saved games still load. Use *glk patches off* to play the games as released.
 - A title picture is now either a title screen of its own, filling the window until you press a key or click, or, when it is small enough to sit comfortably above the text, the first thing in the story. It no longer squeezes the opening text into a strip below it, as it did in *SS Whore*.
 - Games known to need one of the assists (combat, movement, repeated tasks, room restrictions, capacity) get it turned on automatically, and a notice at startup names each assist and the command that turns it off. The assists now share one command, *glk assist*: *glk assist* on its own lists them, and *glk assist combat off* turns one off. The old *glk combatassist*, *glk moveassist* and *glk capacity* still work, and *glk assist repeat* and *glk assist room* are new.
 - Where matching the original runners would only have made the parser understand less, Scarier keeps the more helpful behaviour: UNDO, Z, LOOK X and commas between commands in 3.7 and 3.8 games, GO TO and the other verbs a runner happened not to know, and a *key* that no longer gets confused with a *key ring*. When a command matches none of the game's tasks under the runner's strict rules, it is tried again under looser ones, so a sensible phrasing reaches the author's task.
@@ -35,10 +36,18 @@
 - Autosave also works while a "Which key?" question or a half-finished command such as "Get what?" is waiting for an answer.
 - Turning the music off at a game's opening question — the name prompt in *Grandpa's Ranch*, for instance — now keeps it off once play begins.
 - Identical `<# #>` expression tags inside one block of text all show the first one's value, as the original runner's replace-all does.
+- Fixes an occasional crash when a game resumed from an autosave loaded a picture or sound.
+- Scarier now builds with Visual C++, and plays the pictures and sounds of Adrift 5 games under Windows Glk.
 
 ### Question (Quest)
 - The Quest interpreter formerly called Geas is now called Question. Existing saves and autosaves still load.
 - Autosave also works while the parser asks which of several things you meant, in both Quest 4 and Quest 5 games. The game resumes at the same list, with anything you had already answered earlier in that turn kept.
+- Autosave works at every other question a game asks as well — a name or gender prompt, a menu, a yes/no question, a line of free input — and at a "press a key" pause. A game closed at one comes back at it.
+- *SIDEBAR WIDE* gives the side pane 35% of the window instead of 20%, for games whose object names or status lines do not fit it, and *SIDEBAR NORMAL* puts it back. The choice is kept in the autosave.
+- A status line too long for the banner at the top is listed in the side pane instead, one value per line, and returns to the banner when the window is wide enough to hold it.
+
+#### Quest 4
+- A game with a timer, closed between two of its firings, resumes with the right amount of time left.
 
 #### Quest 5
 - *Deeper* no longer hangs while generating its levels.
@@ -47,6 +56,16 @@
 - A "Continue..." link appears while the game is waiting for a keypress.
 - A turnscript can no longer fire between a command's question and its answer, matching the original's turn boundary.
 - Rooms that the map library can never reach on its own — one entered by a script rather than through an exit, or through an exit revealed after the player was already next to it — are charted anyway, so *The Acreage* draws its map instead of printing errors.
+- The undo history is part of the autosave, so UNDO still works after a game is reopened. UNDO itself follows the original more closely in what it puts back.
+
+### ScottFree
+- TI-99/4A games run their actions as the Adventure cartridge does. Random events were falling on the wrong turns in every one of them, dying ended the game where it should carry on in the game's last room, and *Pyramid of Doom* could not be won.
+- Whatever follows a verb and its noun is ignored, as in the original interpreters: LOOK UP AT THE GREMLIN is LOOK UP. TAKE A COIN is understood, and ALL EXCEPT accepts synonyms and IT.
+- The Italian *Perseus and Andromeda*, *Antica Grecia*, has its interpreter messages and its system commands in Italian.
+- Spanish *Gremlins* on Commodore 64 disk can be won: its first action was garbled, which made the dart in the attic always fatal. The German *Gremlins* understands "nach unten gehen", and both have a number of text fixes.
+- The second disk of a two-disk game is found under more file names, such as "disk.1" and "Side A", and a *Saga Plus* game on Atari 8-bit no longer crashes when its picture disk is missing.
+- Zip64 archives can be read.
+- Small fixes to *Robin of Sherwood* on Commodore 64 and *Strange Odyssey*.
 
 ### General
 - Autosave in Bocfel, Glulxe, Scarier and Question now writes the new files completely before replacing the old ones, so a crash or failed write no longer leaves a game state paired with the previous turn's window layout.
@@ -56,7 +75,14 @@
 - Builds again on Xcode 27 and with GCC 9, and releases are now built, signed and notarized by an automated workflow.
 - Cancelling line input no longer writes past the game's input buffer: the text typed so far came back as two bytes per character into a buffer sized for one, which could crash a game that takes input back on a timer. Cancelling the file dialog of a restore command no longer hands the game a made-up file name, and text a game pre-loads into the input line keeps its accented characters instead of showing `?`.
 - Each temporary file a game creates no longer leaves a file descriptor open, and a very long line of input no longer risks the interpreter giving up with a protocol error.
-- Thanks to Dan Fabulich (@dfabulich) for the Quest 5 fixes, the `glk_style_measure` support, the map colour scheme and the build fixes.
+- Text windows with many pictures in the margins lay out several times faster, which shows most when resizing the window of a long session of an illustrated game such as *Zork Zero*.
+- Reading the scrollback in a game that runs a timer is no longer interrupted by the view jumping back to the bottom, however you scrolled up. Clicking a link that enters a command scrolls down to the prompt, as typing the command does.
+- Sound that is already playing moves to the new output device when you plug in headphones.
+- Games resumed from an autosave open a fifth of a second sooner. A game force quit in fullscreen no longer comes back as a blank window, leaving fullscreen after a relaunch no longer puts the window in a corner of the screen, and windows opened after a restore keep their colours and alignment.
+- Fixes a hang when an interpreter rejected an autosave from an older version and restarted the game.
+- Starting a game no longer stalls for a moment when the library is large. Opening a game file that the library's search field is hiding clears the search, and the selection no longer jumps back to the opened game a moment later.
+- Spatterlight opts out of Game Mode, which macOS otherwise turned on, with a notification, whenever a game window entered fullscreen.
+- Thanks to Dan Fabulich (@dfabulich) for the Quest 5 fixes, the `glk_style_measure` support, the map colour scheme, the Windows port of Scarier and the build fixes.
 
 ## Release 1.5.4
 
