@@ -101,6 +101,7 @@ int g_timer_frac_ms = 0;
 
 /* Shared frontend helpers (questglk-common.hh).  Using-declarations rather
  * than a using-directive, so each borrowed name is spelled out here. */
+using questglk::change_side_pane_width;
 using questglk::close_side_pane_windows;
 using questglk::draw_status_banner;
 using questglk::echo_input_line;
@@ -109,6 +110,7 @@ using questglk::glk_style_for;
 using questglk::lower;
 using questglk::match_help_command;
 using questglk::match_restore_command;
+using questglk::match_sidebar_command;
 using questglk::match_status_command;
 using questglk::match_transcript_command;
 using questglk::NOTHING_TO_UNDO;
@@ -131,6 +133,8 @@ using questglk::prompt_read_save;
 using questglk::prompt_write_save;
 using questglk::put_pane_header;
 using questglk::put_pane_link;
+using questglk::set_side_pane_wide;
+using questglk::side_pane_is_wide;
 using questglk::status_wants_pane;
 using questglk::put_stream_utf8;
 using questglk::QUIT_FAREWELL;
@@ -2729,6 +2733,22 @@ bool handle_status_command(const std::string &raw)
     return true;
 }
 
+/* SIDEBAR WIDE / SIDEBAR NORMAL: double the pane's width, or put it back.
+ * Shared with the classic runner. */
+bool handle_sidebar_command(Interp &in, const std::string &raw)
+{
+    int which = match_sidebar_command(raw);
+    if (!which)
+        return false;
+    echo_metaverb_command(raw);
+    change_side_pane_width(which, g_use_objpane, gobjwin, gdivider);
+    /* Written out again at its new width, the pane shows its top, rather
+     * than wherever the rewrapped text happened to leave it scrolled. */
+    g_pane_dirty = true;
+    redraw_side_pane(in);
+    return true;
+}
+
 /* Transcript recording, same commands (and shared code) as the classic
  * runner. */
 bool handle_transcript_command(const std::string &raw)
@@ -3836,6 +3856,10 @@ std::string aslx_encode_frontend(Interp &in, const TurnStart *turn = nullptr,
         for (const std::string &a : g_turn_answers)
             blob_str(b, a);
     }
+    /* SIDEBAR WIDE.  Appended without a new format stamp: a blob that ends
+     * before it reads as the usual width, and a reader that predates it
+     * stops before it. */
+    blob_num(b, side_pane_is_wide() ? 1 : 0);
     return b;
 }
 
@@ -3924,6 +3948,9 @@ bool aslx_recover_frontend(const std::string &blob)
     }
     if (!r.ok || !gwin)
         return false;
+    /* The restored windows already have their sizes; this is for the pane's
+     * next opening. */
+    set_side_pane_wide(r.pos < blob.size() && r.num() != 0, nullptr, nullptr);
 
     /* The redraw paths dedup against "what is already on screen"; void
      * those keys so the post-restore repaints actually repaint. */
@@ -4732,6 +4759,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                         return SessionEnd::Restore;
                 } else if (!handle_transcript_command(cmd) &&
                            !handle_help_command(cmd) &&
+                           !handle_sidebar_command(in, cmd) &&
                            /* Not under a `get input`: unlike the metaverbs
                             * above, STATUS is a plain word a game may well be
                             * waiting to hear as an answer. */

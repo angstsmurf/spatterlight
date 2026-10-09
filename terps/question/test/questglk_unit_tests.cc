@@ -52,6 +52,7 @@ int glkunix_startup_code(glkunix_startup_t *)
 }
 
 using questglk::match_help_command;
+using questglk::match_sidebar_command;
 using questglk::match_status_command;
 using questglk::status_leaves_banner;
 using questglk::status_tail;
@@ -195,6 +196,22 @@ test_match_help_command ()
   check (!match_help_command (""), "an empty line is not #HELP");
 }
 
+static void
+test_match_sidebar_command ()
+{
+  check (match_sidebar_command ("sidebar wide") == 1, "SIDEBAR WIDE widens");
+  check (match_sidebar_command ("  #Sidebar WIDE ") == 1,
+         "#SIDEBAR WIDE matches trimmed/mixed case");
+  check (match_sidebar_command ("sidebar normal") == -1,
+         "SIDEBAR NORMAL narrows");
+  check (match_sidebar_command ("sidebar narrow") == -1,
+         "SIDEBAR NARROW narrows");
+  check (match_sidebar_command ("sidebar") == 0,
+         "a bare SIDEBAR is the game's");
+  check (match_sidebar_command ("wide") == 0, "WIDE alone is the game's");
+  check (match_sidebar_command ("") == 0, "an empty line is no command");
+}
+
 }  /* namespace */
 
 void
@@ -209,6 +226,9 @@ glk_main (void)
   test_match_status_command ();
   std::cout << "match_help_command:\n";
   test_match_help_command ();
+
+  std::cout << "match_sidebar_command:\n";
+  test_match_sidebar_command ();
 
   std::cout << (failures ? "FAILED" : "all passed") << " (" << failures
 	    << " failure" << (failures == 1 ? "" : "s") << ")\n";

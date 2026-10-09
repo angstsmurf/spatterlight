@@ -101,6 +101,11 @@ extern const char PANE_PLACES_OBJECTS[];
 extern const char PANE_COMPASS[];
 extern const char PANE_STATUS[];
 
+bool side_pane_is_wide ();
+void set_side_pane_wide (bool wide, winid_t pane, winid_t divider);
+int match_sidebar_command (const std::string &raw);
+void change_side_pane_width (int which, bool supported, winid_t pane,
+                             winid_t divider);
 void open_side_pane_windows (winid_t mainwin, winid_t *pane, winid_t *divider);
 void close_side_pane_windows (winid_t *pane, winid_t *divider);
 void fill_side_divider (winid_t mainwin, winid_t divider);

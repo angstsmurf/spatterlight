@@ -75,6 +75,7 @@ struct QuestionGlkFrontendState {
     int soundchanneltag = 0;
     int use_objpane = 0;
     std::string objwin_expanded; /* object whose verb menu is unfolded in the pane */
+    int sidebar_wide = 0;        /* SIDEBAR WIDE is in effect */
     /* Exact RNG state (erkyrath_random detstate): which generator is active
      * plus the xoshiro words, so deterministic randomness continues across
      * an autorestore.  -1 = not recorded (an older autosave). */

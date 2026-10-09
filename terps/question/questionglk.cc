@@ -387,6 +387,23 @@ handle_status_command(const std::string &raw)
     return true;
 }
 
+/* Handle the SIDEBAR WIDE / SIDEBAR NORMAL metaverbs: double the pane's
+ * width, for a game whose object names or status do not fit it, or put it
+ * back. */
+static bool
+handle_sidebar_command(const std::string &raw)
+{
+    int which = match_sidebar_command(raw);
+    if (!which)
+        return false;
+    change_side_pane_width(which, g_use_objpane, objwin, gfxwin);
+    /* Written out again at its new width, the pane shows its top, rather
+     * than wherever the rewrapped text happened to leave it scrolled. */
+    if (g_live_runner)
+        update_objwin(g_live_runner);
+    return true;
+}
+
 /* Handle the QUIT metaverb: print a farewell and ask the loop to stop, rather
  * than letting the game end the session silently. */
 static bool
@@ -449,6 +466,7 @@ run_or_handle_command(const std::string &cmd, QuestionRunner *gr, bool &quitting
         handle_restart_command(cmd, gr) ||
         handle_help_command(cmd) ||
         handle_status_command(cmd) ||
+        handle_sidebar_command(cmd) ||
         handle_quit_command(cmd, quitting))
         return;
 
@@ -1720,6 +1738,7 @@ question_stash_frontend_state (QuestionGlkFrontendState *st)
     st->soundchanneltag = question_soundchannel ? question_soundchannel->tag : 0;
     st->use_objpane = g_use_objpane ? 1 : 0;
     st->objwin_expanded = g_objwin_expanded;
+    st->sidebar_wide = side_pane_is_wide() ? 1 : 0;
 
     /* The exact RNG state (xoshiro words + which generator is active), so a
      * deterministic session's randomness continues where it left off. */
@@ -1747,6 +1766,9 @@ question_recover_frontend_state (const QuestionGlkFrontendState *st)
     question_soundchannel = gli_schan_for_tag(st->soundchanneltag);
     g_use_objpane = st->use_objpane != 0;
     g_objwin_expanded = st->objwin_expanded;
+    /* The restored windows already have their sizes; this is for the pane's
+     * next opening. */
+    set_side_pane_wide(st->sidebar_wide != 0, nullptr, nullptr);
     /* Restore the RNG to its saved position.  The silent autorestore boot
      * (set_game) re-seeded and drew from it; this puts it back exactly where
      * the autosave left it.  In native (non-deterministic) mode the flag

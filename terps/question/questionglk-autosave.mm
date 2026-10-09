@@ -122,6 +122,7 @@ static void question_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:frontend_state.use_objpane forKey:@"geas_use_objpane"];
     [encoder encodeObject:@(frontend_state.objwin_expanded.c_str())
                    forKey:@"geas_objwin_expanded"];
+    [encoder encodeInt32:frontend_state.sidebar_wide forKey:@"geas_sidebar_wide"];
     [encoder encodeInt32:frontend_state.rng_usenative forKey:@"geas_rng_usenative"];
     for (int i = 0; i < 4; i++)
         [encoder encodeInt32:(int32_t)frontend_state.rng_state[i]
@@ -143,6 +144,7 @@ static void question_library_unarchive(TempLibrary *library, NSCoder *decoder)
                                                forKey:@"geas_objwin_expanded"];
     frontend_state.objwin_expanded = expanded ? std::string(expanded.UTF8String)
                                               : std::string();
+    frontend_state.sidebar_wide = [decoder decodeInt32ForKey:@"geas_sidebar_wide"];
     frontend_state.rng_usenative =
         [decoder containsValueForKey:@"geas_rng_usenative"]
             ? [decoder decodeInt32ForKey:@"geas_rng_usenative"] : -1;

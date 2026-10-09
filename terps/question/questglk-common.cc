@@ -454,6 +454,8 @@ print_system_commands (const char *quit_rows, const char *oops_rows,
         "                    is too long to fit beside the room name.\n");
     glk_put_string ((char *) about_rows);
     glk_put_string ((char *)
+        "  SIDEBAR WIDE      Make the pane beside the text wider.\n"
+        "  SIDEBAR NORMAL    Give the pane its usual width back.\n"
         "  HELP              Show the game's own in-game help.\n"
         "  #HELP             Show this list of system commands.\n");
     glk_set_style (style_Normal);
@@ -469,17 +471,91 @@ const char PANE_PLACES_OBJECTS[] = "Places and Objects";
 const char PANE_COMPASS[] = "Compass";
 const char PANE_STATUS[] = "Status";
 
-/* Open the right-hand pane: a 20%-proportional split of the main text
- * window, with a thin graphics window as its left child, drawn in the text
- * colour as a divider (see fill_side_divider).  No-op when already open; the
- * pane stays null when the host cannot split. */
+/* The pane's share of the width, in percent: 20 as a rule, twice that after
+ * SIDEBAR WIDE.  The player's choice rather than the game's, so it outlives
+ * the pane itself, which closes whenever it has nothing to list. */
+static bool side_pane_wide = false;
+
+static glui32
+side_pane_percent ()
+{
+    return side_pane_wide ? 35 : 20;
+}
+
+bool
+side_pane_is_wide ()
+{
+    return side_pane_wide;
+}
+
+/* Set the pane's width, resizing it on the spot if it is open.  The split
+ * that carries the width is the one the pane was opened with; the divider
+ * was split off the pane afterwards and so sits one pair window below it. */
+void
+set_side_pane_wide (bool wide, winid_t pane, winid_t divider)
+{
+    side_pane_wide = wide;
+    if (!pane)
+        return;
+    winid_t split = glk_window_get_parent (pane);
+    if (split && divider)
+        split = glk_window_get_parent (split);
+    if (split)
+        glk_window_set_arrangement (split,
+                                    winmethod_Right | winmethod_Proportional,
+                                    side_pane_percent (), nullptr);
+}
+
+/* SIDEBAR metaverb matching: +1 = make the pane wide, -1 = back to its
+ * usual width, 0 = not a sidebar command (let it reach the game). */
+int
+match_sidebar_command (const std::string &raw)
+{
+    std::string c = lower (trim (raw));
+    if (!c.empty () && c[0] == '#')
+        c.erase (0, 1);
+    if (c == "sidebar wide")
+        return 1;
+    if (c == "sidebar normal" || c == "sidebar narrow")
+        return -1;
+    return 0;
+}
+
+/* Act on a SIDEBAR command and say what came of it.  `supported` is whether
+ * the host can show a pane at all; one that is merely closed for want of
+ * anything to list takes the new width when it next opens. */
+void
+change_side_pane_width (int which, bool supported, winid_t pane,
+                        winid_t divider)
+{
+    if (!supported) {
+        glk_put_string ((char *) "There is no sidebar to resize.\n");
+        return;
+    }
+    bool wide = which > 0;
+    if (wide == side_pane_wide) {
+        glk_put_string ((char *) (wide ? "The sidebar is already wide.\n"
+                                       : "The sidebar already has its usual"
+                                         " width.\n"));
+        return;
+    }
+    set_side_pane_wide (wide, pane, divider);
+    glk_put_string ((char *) (wide ? "The sidebar is now wide.\n"
+                                   : "The sidebar is back to its usual"
+                                     " width.\n"));
+}
+
+/* Open the right-hand pane: a proportional split of the main text window
+ * (see side_pane_percent), with a thin graphics window as its left child,
+ * drawn in the text colour as a divider (see fill_side_divider).  No-op when
+ * already open; the pane stays null when the host cannot split. */
 void
 open_side_pane_windows (winid_t mainwin, winid_t *pane, winid_t *divider)
 {
     if (*pane)
         return;
     *pane = glk_window_open (mainwin, winmethod_Right | winmethod_Proportional,
-                             20, wintype_TextBuffer, 0);
+                             side_pane_percent (), wintype_TextBuffer, 0);
     if (*pane && glk_gestalt (gestalt_Graphics, 0))
         *divider = glk_window_open (*pane, winmethod_Left | winmethod_Fixed,
                                     2, wintype_Graphics, 0);
