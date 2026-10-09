@@ -1000,6 +1000,10 @@
 	<string>$(TeamIdentifierPrefix)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.adventure-games</string>
+	<key>LSSupportsGameMode</key>
+	<false/>
+	<key>GCSupportsGameMode</key>
+	<false/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
