@@ -238,6 +238,8 @@
         }
     }
 
+    [self startImageAnimations];
+
     layoutmanager.delegate = self;
     scrollAdjustTimeStamp = [NSDate date];
     // Leave _pendingScrollRestore set until the scheduled restoreScroll: below

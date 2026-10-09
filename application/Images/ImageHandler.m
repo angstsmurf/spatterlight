@@ -6,8 +6,104 @@
 //
 
 #import "ImageHandler.h"
+#import <ImageIO/ImageIO.h>
 #import <BlorbFramework/BlorbFramework.h>
 #import <BlorbFramework/BlorbFramework-Swift.h>
+
+static BOOL dataIsGIF(NSData *data) {
+    return data.length >= 6 && (memcmp(data.bytes, "GIF89a", 6) == 0 ||
+                                memcmp(data.bytes, "GIF87a", 6) == 0);
+}
+
+@implementation ImageAnimation {
+    CGImageSourceRef _source;
+    // End time of each frame, in seconds from the start of a pass.
+    NSTimeInterval *_frameEnds;
+    NSCache<NSNumber *, NSImage *> *_frameCache;
+}
+
+- (nullable instancetype)initWithData:(NSData *)data {
+    self = [super init];
+    if (self) {
+        if (!dataIsGIF(data))
+            return nil;
+        _source = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+        if (!_source)
+            return nil;
+        _frameCount = CGImageSourceGetCount(_source);
+        if (_frameCount < 2)
+            return nil;
+
+        // A GIF without a looping extension plays once.
+        _loopCount = 1;
+        NSDictionary *properties = CFBridgingRelease(CGImageSourceCopyProperties(_source, NULL));
+        NSDictionary *gif = properties[(__bridge NSString *)kCGImagePropertyGIFDictionary];
+        NSNumber *loops = gif[(__bridge NSString *)kCGImagePropertyGIFLoopCount];
+        if (loops)
+            _loopCount = loops.unsignedIntegerValue;
+
+        _frameEnds = calloc(_frameCount, sizeof(NSTimeInterval));
+        for (NSUInteger i = 0; i < _frameCount; i++) {
+            NSDictionary *frameProperties = CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(_source, i, NULL));
+            NSDictionary *frameGif = frameProperties[(__bridge NSString *)kCGImagePropertyGIFDictionary];
+            NSNumber *delay = frameGif[(__bridge NSString *)kCGImagePropertyGIFUnclampedDelayTime];
+            if (!delay)
+                delay = frameGif[(__bridge NSString *)kCGImagePropertyGIFDelayTime];
+            NSTimeInterval seconds = delay.doubleValue;
+            // Like web browsers, treat delays too short to display as 100 ms.
+            if (seconds < 0.011)
+                seconds = 0.1;
+            _duration += seconds;
+            _frameEnds[i] = _duration;
+        }
+
+        _frameCache = [NSCache new];
+        _frameCache.countLimit = 4;
+    }
+    return self;
+}
+
+- (void)dealloc {
+    if (_source)
+        CFRelease(_source);
+    free(_frameEnds);
+}
+
+- (NSUInteger)frameAtTime:(NSTimeInterval)elapsed
+                untilNext:(nullable NSTimeInterval *)untilNext {
+    if (elapsed < 0)
+        elapsed = 0;
+    if (_loopCount && elapsed >= _duration * _loopCount) {
+        if (untilNext)
+            *untilNext = INFINITY;
+        return _frameCount - 1;
+    }
+    NSTimeInterval position = fmod(elapsed, _duration);
+    NSUInteger frame = 0;
+    while (frame < _frameCount - 1 && _frameEnds[frame] <= position)
+        frame++;
+    if (untilNext)
+        *untilNext = _frameEnds[frame] - position;
+    return frame;
+}
+
+- (nullable NSImage *)imageForFrame:(NSUInteger)frame {
+    if (frame >= _frameCount)
+        return nil;
+    NSImage *image = [_frameCache objectForKey:@(frame)];
+    if (!image) {
+        NSDictionary *options = @{ (__bridge NSString *)kCGImageSourceShouldCacheImmediately : @YES };
+        CGImageRef cgImage = CGImageSourceCreateImageAtIndex(_source, frame, (__bridge CFDictionaryRef)options);
+        if (!cgImage)
+            return nil;
+        image = [[NSImage alloc] initWithCGImage:cgImage size:NSZeroSize];
+        CGImageRelease(cgImage);
+        [_frameCache setObject:image forKey:@(frame)];
+    }
+    return image;
+}
+
+@end
 
 @implementation ImageFile : NSObject
 
@@ -159,6 +255,19 @@
     return img;
 }
 
+- (nullable ImageAnimation *)createAnimation {
+    if (!_data) {
+        // Only keep the resource in memory if it can be an animation.
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingFromURL:_imageFile.URL error:NULL];
+        if (!fileHandle)
+            return nil;
+        [fileHandle seekToFileOffset:_offset];
+        if (!dataIsGIF([fileHandle readDataOfLength:6]) || ![self loadWithError:NULL])
+            return nil;
+    }
+    return [[ImageAnimation alloc] initWithData:_data];
+}
+
 @end
 
 @implementation ImageHandler {
@@ -168,6 +277,8 @@
     // caching queue. A group that was never entered returns from wait
     // immediately, so the decoded-from-autosave case needs no special handling.
     dispatch_group_t _cacheGroup;
+    // ImageAnimation, or NSNull for a resource known to be a still image.
+    NSMutableDictionary<NSNumber *, id> *_animations;
 }
 
 - (instancetype)init {
@@ -350,6 +461,21 @@
     [res loadWithError:NULL];
 }
 
+- (nullable ImageAnimation *)animationForImageNumber:(NSInteger)resno {
+    [self waitForCaching];
+    if (!_animations)
+        _animations = [NSMutableDictionary new];
+    id animation = _animations[@(resno)];
+    if (!animation) {
+        ImageResource *resource = _resources[@(resno)];
+        if (!resource)
+            return nil;
+        animation = [resource createAnimation];
+        _animations[@(resno)] = animation ?: [NSNull null];
+    }
+    return animation == [NSNull null] ? nil : animation;
+}
+
 - (NSString *)lastImageLabel {
     NSString *label =@"";
     if (_lastimageresno != -1) {
@@ -365,6 +491,7 @@
     [self waitForCaching];
 
     [_imageCache removeObjectForKey:@(resno)];
+    [_animations removeObjectForKey:@(resno)];
     ImageResource *resource = _resources[@(resno)];
     NSError *error = nil;
     if (![Blorb isBlorbURL:resource.imageFile.URL]) {
