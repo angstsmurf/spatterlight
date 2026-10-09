@@ -103,6 +103,9 @@
 }
 
 - (void)unpause {
+    // As in GlkSoundChannel: a channel that is not paused is left alone.
+    if (!paused)
+        return;
     paused = NO;
     if (!_player) {
         BOOL result = [self playSound:resid countOfRepeats:loop notification:notify];

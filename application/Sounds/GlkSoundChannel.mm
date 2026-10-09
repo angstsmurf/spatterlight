@@ -329,6 +329,10 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 }
 
 - (void)unpause {
+    /* Unpausing a channel that is not paused does nothing. Without this, the
+       restart below would play a sound that had run to its end all over again. */
+    if (!paused)
+        return;
     paused = NO;
     BOOL result;
     if (_resumeEnqueued && _player) {
