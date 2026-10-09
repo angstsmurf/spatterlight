@@ -902,6 +902,10 @@ int win_cols(int name)
 
 int win_canprint(glui32 val)
 {
+    /* The reply is read into wbuf, which is also the pending PRINT text:
+       unflushed, readmsg()'s terminating NUL would zero its first
+       character. */
+    win_flush();
     sendmsg(CANPRINT, val, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
     return wmsg.a1;
