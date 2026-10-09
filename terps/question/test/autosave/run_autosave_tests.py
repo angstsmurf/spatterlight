@@ -27,17 +27,16 @@ where the control run has no such repaint.  On top of that every relaunch must
   - have autosaved after the last thing the previous session did: a typed
     line, a timer tick that fired, a pane click.
 
-A keypress wait (Quest 5's `wait`) must NOT autosave: the relaunch resumes at
-the turn prompt before it and the player types the command again.  The other
-prompts a game can be closed on resume in the prompt instead: the Quest 5 verb
+A game closed on a prompt of its own resumes in that prompt: the Quest 5 verb
 menu popped by clicking an object link, which is recorded in the blob and
 reopened; and every menu (the parser's own "which one do you mean?" among
-them), yes/no question and typed answer -- Quest 4's `enter`, Quest 5's `get
-input` -- that a turn or the start script puts up.  Those autosave the state
-from the start of the turn plus a replay record (the command line and the
-answers to earlier prompts of the same turn; for the start script the answers
-alone, the boot itself being what is re-run); the relaunch re-runs the turn
-muted up to the prompt and waits there without redrawing it.
+them), yes/no question, typed answer -- Quest 4's `enter`, Quest 5's `get
+input` -- and "press a key" pause (`wait`) that a turn or the start script
+puts up.  Those autosave the state from the start of the turn plus a replay
+record (the command line and the answers to earlier prompts of the same turn,
+a keypress counting as one; for the start script the answers alone, the boot
+itself being what is re-run); the relaunch re-runs the turn muted up to the
+prompt and waits there without redrawing it.
 case_pending_prompt covers all of these.
 
 A damaged autosave (garbage where the game state should be) must be
@@ -152,8 +151,13 @@ class Session(glkdrive.Driver):
         before the first input; each chunk is the main-window text printed
         from one input -- a typed line or a hyperlink click, either of which
         can start a relaunched session -- up to the next, with keypresses and
-        timer ticks inlined.  Nothing after EVTQUIT is kept."""
+        timer ticks inlined.  A keypress ahead of every line and click opens
+        a chunk of its own: it answers a pause the start script put up, or
+        (self.continues) the pause the previous session was closed on, and
+        that chunk is then the rest of that session's last one.  Nothing
+        after EVTQUIT is kept."""
         pre, chunks, cur = [], [], None
+        self.continues = False
         for ev in self.events:
             if ev[0] == "quit":
                 break
@@ -165,7 +169,11 @@ class Session(glkdrive.Driver):
                 chunks.append(cur)
             elif ev[0] in ("key", "tick"):
                 mark = "[%s]" % " ".join(str(x) for x in ev)
-                if cur is not None:
+                if cur is None and ev[0] == "key":
+                    cur = [mark]
+                    chunks.append(cur)
+                    self.continues = True
+                elif cur is not None:
                     cur.append(mark)
                 else:
                     pre.append(mark)
@@ -375,8 +383,10 @@ def case_pending_prompt(terp, case, res, verbose):
     follow that line: the relaunch resumes at the turn prompt before it, and
     `second` (the line again, then its answer) must produce what the single
     session produced.  With resume=True the prompt IS meant to survive (the
-    verb menu of a clicked object, a disambiguation menu): `second` then
-    starts with the answer."""
+    verb menu of a clicked object, a disambiguation menu, a pause): `second`
+    then starts with the answer -- for a pause the keypress, which the
+    driver supplies by itself.  An empty `first` closes the game on the
+    first prompt of the start script."""
     game, first, second = case["game"], case["first"], case["second"]
     resume = case.get("resume", False)
     sig = SIG_PREFIX + case["name"]
@@ -386,7 +396,8 @@ def case_pending_prompt(terp, case, res, verbose):
         clean_autosave(sig)
         want = control_run(terp, case, res, sig, work)
 
-        s1 = run_session(terp, game, first, sig, work)
+        s1 = run_session(terp, game, first, sig, work,
+                         case.get("sa_delays", 0))
         check_process(res, s1, "session 1")
         if s1.leftover:
             res.fail("session 1: script not consumed (%r left)" % s1.leftover)
@@ -400,7 +411,8 @@ def case_pending_prompt(terp, case, res, verbose):
         elif not any(e[0] == "autosave" for e in s1.events):
             res.fail("session 1: never autosaved at all")
 
-        s2 = run_session(terp, game, second, sig, work)
+        s2 = run_session(terp, game, second, sig, work,
+                         case.get("sa_delays", 0))
         check_process(res, s2, "session 2")
         check_relaunch(res, s2, "session 2")
         if s2.leftover:
@@ -409,6 +421,10 @@ def case_pending_prompt(terp, case, res, verbose):
 
     _, c1 = s1.chunks()
     _, c2 = s2.chunks()
+    if resume and c1 and c2 and s2.continues:
+        # Closed under a keypress pause: session 2 opens with the key, and
+        # what follows is the rest of the command session 1 was closed in.
+        c1, c2 = c1[:-1], [c1[-1] + c2[0]] + c2[1:]
     # Without resume the closing line's chunk (the prompt's own text) is
     # replaced by session 2's retyping of it.
     got = c1 + c2 if resume else c1[:-1] + c2
@@ -534,19 +550,20 @@ def spread(script, parts):
     return [n * i // parts for i in range(1, parts)]
 
 
-def probe5_as_v600(stage):
-    """probe5.aslx with its <asl version> raised to 600, written into the
-    staging directory: from ASL 600 on `ask` and `show menu` draw their
-    options inline in the transcript instead of through the host dialog."""
+def probe5_as(stage, version):
+    """probe5.aslx with its <asl version> changed, written into the staging
+    directory.  From ASL 600 on `ask` and `show menu` draw their options
+    inline in the transcript instead of through the host dialog; below 540
+    `request (Wait, "")` is still a keypress pause."""
     with open(os.path.join(HERE, "probe5.aslx"), encoding="utf-8") as f:
         text = f.read()
     old = '<asl version="580">'
     if text.count(old) != 1:
         sys.exit("run_autosave_tests: probe5.aslx no longer declares %s"
                  % old)
-    path = os.path.join(stage, "probe5-v600.aslx")
+    path = os.path.join(stage, "probe5-v%d.aslx" % version)
     with open(path, "w", encoding="utf-8") as f:
-        f.write(text.replace(old, '<asl version="600">'))
+        f.write(text.replace(old, '<asl version="%d">' % version))
     return path
 
 
@@ -556,7 +573,8 @@ def build_cases(stage):
     probe4intro = os.path.join(HERE, "probe4-intro.asl")
     probe5 = os.path.join(HERE, "probe5.aslx")
     probe5intro = os.path.join(HERE, "probe5-intro.aslx")
-    probe6 = probe5_as_v600(stage)
+    probe6 = probe5_as(stage, 600)
+    probe53 = probe5_as(stage, 530)
 
     def equiv(name, gamefile, script, cuts, **kw):
         cases.append(dict(kind=case_equivalence, name=name, game=gamefile,
@@ -615,11 +633,24 @@ def build_cases(stage):
     pending("q4-which-juggle", probe4, ["look", "roll", "juggle", "1"],
             ["1", "i", "roll"], resume=True, expect=["red ball", "You roll"])
 
+    # Closed under a `wait`, the first of the command and then the second:
+    # the pause autosaves like the questions above, and the keypress that
+    # passed the first is part of the record.  Each roll must come out as in
+    # the single session.
+    pending("q4-wait", probe4, ["look", "roll", "nap"], ["roll", "look"],
+            resume=True, expect=["You stir", "You wake up.", "You roll"])
+    pending("q4-wait-second", probe4, ["look", "roll", "nap", "key:32"],
+            ["roll", "look"], resume=True,
+            expect=["You stir", "You wake up.", "You roll"])
+
     # Closed under a question the startscript asks, before any turn: the
     # autosave is the answers so far, and the relaunch boots with them.  (The
     # very first question needs none: nothing has been typed yet, and a
     # relaunch is a fresh start.)
     pending("q4-intro-gender", probe4intro, ["Ann"], ["2", "who", "look"],
+            resume=True, expect=["You are Ann, female, lucky number"])
+    # The pause ahead of them, with nothing typed at all.
+    pending("q4-intro-wait", probe4intro, [], ["Ann", "2", "who"],
             resume=True, expect=["You are Ann, female, lucky number"])
 
     # Pane hyperlinks: live after a relaunch (cut 1), and the unfolded verb
@@ -678,9 +709,23 @@ def build_cases(stage):
           ["hold", "tick:2", "look", "tick:3", "look"],
           [1, 2], sa_delays=1, expect=["[timeout]"])
 
-    # Closed under a `wait`: no autosave there.
-    pending("q5-wait", probe5, ["look", "nap"], ["nap", "look"],
-            expect=["You wake up."])
+    # Closed under a `wait`, the first of the command and then the second:
+    # the pause autosaves like the prompts below, and the keypress that
+    # passed the first is part of the record.  Each roll must come out as in
+    # the single session.
+    pending("q5-wait", probe5, ["look", "roll", "nap"], ["roll", "look"],
+            resume=True, expect=["You stir", "You wake up.", "You roll"])
+    pending("q5-wait-second", probe5, ["look", "roll", "nap", "key:32"],
+            ["roll", "look"], resume=True,
+            expect=["You stir", "You wake up.", "You roll"])
+    # The same under the request form of the pause.
+    pending("q5-request-wait", probe53, ["look", "roll", "doze"],
+            ["roll", "look"], resume=True, sa_delays=1,
+            expect=["You come round", "You are awake.", "You roll"])
+    pending("q5-request-wait-second", probe53,
+            ["look", "roll", "doze", "key:32"], ["roll", "look"],
+            resume=True, sa_delays=1,
+            expect=["You come round", "You are awake.", "You roll"])
 
     # Closed under `get input`, `show menu`, `ask` or Core's "which ball?"
     # menu: each autosaves (engine state from the start of the turn plus a
@@ -754,6 +799,9 @@ def build_cases(stage):
     pending("q5-intro-menu", probe5intro, ["Ann"], ["2", "yes", "who"],
             resume=True, expect=[who])
     pending("q5-intro-ask", probe5intro, ["Ann", "2"], ["yes", "who", "look"],
+            resume=True, expect=[who])
+    # The pause ahead of them, with nothing typed at all.
+    pending("q5-intro-wait", probe5intro, [], ["Ann", "2", "yes", "who"],
             resume=True, expect=[who])
 
     for name, gamefile, sol in (

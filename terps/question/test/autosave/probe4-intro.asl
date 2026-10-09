@@ -1,8 +1,9 @@
 ' Probe game for run_autosave_tests.py (Quest 4 half): the questions a game
-' asks before its first turn.  The startscript rolls a number, asks for a
-' name (`enter`) and then a gender (a selection menu); both questions
-' autosave, as a record of the answers given so far, and the relaunch boots
-' again with those answers up to the question it was closed on.  `who` shows
+' asks before its first turn.  The startscript rolls a number, pauses for a
+' key (`wait`), asks for a name (`enter`) and then a gender (a selection
+' menu); the pause and both questions autosave, as a record of the answers
+' given so far, and the relaunch boots again with those answers up to the
+' one it was closed on.  `who` shows
 ' that the answers and the number arrived.
 '
 ' Not a fixture, like probe4.asl.
@@ -11,6 +12,7 @@ define game <Autosave Intro Probe>
  start <Hall>
  startscript {
   set numeric <lucky; $rand(1;1000)$>
+  wait <Press a key to begin.>
   msg <What is your name?>
   enter <name>
   msg <Hello, #name#.>

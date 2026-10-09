@@ -11,8 +11,14 @@
        type    `get input`  : the prompts a game can be closed on.  Each
        pick    `show menu`    autosaves: the relaunch replays the command
        query   `ask`          up to it.
-       nap     `wait`       : does not; the relaunch resumes at the parser
-                              prompt before it and the command is typed again.
+       nap     two `wait` pauses with a roll before each.  A pause
+               autosaves too (a cutscene paged out a keypress at a time has
+               no other prompt to save at): the keypresses already given are
+               part of the record, and the relaunch comes back under the
+               pause it was closed on.
+       doze    the pre-5.4 `request (Wait, "")`, which blocks inside the
+               script (the suite runs it from a copy declaring ASL 530, and
+               with sa_delays on: without it this pause is skipped).
        take ball  (garden) Core's "which one?" menu, likewise autosaved.
        juggle  roll + ask + take ball, replayed back to that menu.
 
@@ -140,11 +146,25 @@
       }
     </script>
   </command>
+  <command name="dozecmd">
+    <pattern>doze</pattern>
+    <script>
+      msg ("You doze, dreaming of " + GetRandomInt(1, 1000) + ".")
+      request (Wait, "")
+      msg ("You come round, dreaming of " + GetRandomInt(1, 1000) + ".")
+      request (Wait, "")
+      msg ("You are awake.")
+    </script>
+  </command>
   <command name="napcmd">
     <pattern>nap</pattern>
     <script>
+      msg ("You doze off, dreaming of " + GetRandomInt(1, 1000) + ".")
       wait {
-        msg ("You wake up.")
+        msg ("You stir, dreaming of " + GetRandomInt(1, 1000) + ".")
+        wait {
+          msg ("You wake up.")
+        }
       }
     </script>
   </command>

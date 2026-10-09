@@ -1,9 +1,9 @@
 <!--
   Probe game for run_autosave_tests.py (Quest 5 half): the questions a game
-  asks before its first turn.  The start script rolls a number, asks for a
-  name (`get input`), then a gender (`show menu`), then (as an expression,
-  which blocks inside the script) whether that is right.  Each prompt
-  autosaves as a record of the answers given so far, and the relaunch boots
+  asks before its first turn.  The start script rolls a number, pauses for
+  a key (`wait`), asks for a name (`get input`), then a gender (`show menu`), then (as an expression,
+  which blocks inside the script) whether that is right.  The pause and
+  each prompt autosave as a record of the answers given so far, and the relaunch boots
   again with those answers up to the prompt it was closed on.  `who` shows
   that the answers and the number arrived.
 
@@ -22,15 +22,17 @@
     <sure type="boolean">false</sure>
     <start type="script">
       game.lucky = GetRandomInt(1, 1000)
-      msg ("What is your name?")
-      get input {
-        game.who = result
-        msg ("Hello, " + result + ".")
-        options = Split("male;female", ";")
-        show menu ("Are you male or female?", options, false) {
-          game.gender = result
-          game.sure = Ask("Is that right?")
-          msg ("Welcome.")
+      wait {
+        msg ("What is your name?")
+        get input {
+          game.who = result
+          msg ("Hello, " + result + ".")
+          options = Split("male;female", ";")
+          show menu ("Are you male or female?", options, false) {
+            game.gender = result
+            game.sure = Ask("Is that right?")
+            msg ("Welcome.")
+          }
         }
       }
     </start>

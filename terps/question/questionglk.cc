@@ -200,8 +200,10 @@ static int ignore_lines = 0;  /* count of lines to ignore in game output */
 static bool g_autorestore_booting = false;
 
 /* The running turn, recorded for an autosave taken while it has a menu or an
- * `enter` question open (question_do_menu_autosave): the command line and
- * every answer given to a prompt since it started.  The game's startscript
+ * `enter` question open, or is paused for a keypress
+ * (question_do_menu_autosave): the command line and every answer given to a
+ * prompt since it started, with an empty one for each keypress, which only
+ * has to be counted.  The game's startscript
  * counts as a turn of its own, with no command line (g_in_boot;
  * question_do_boot_autosave).  A prompt raised by a timer belongs to neither
  * and is not autosaved at. */
@@ -222,6 +224,9 @@ static size_t g_replay_next = 0;
  * boot's, and is replaced by the saved one at the moment the prompt is
  * reached (replay_reached_prompt). */
 static bool g_replaying_boot = false;
+/* The record counts the keypresses.  One written before a pause autosaved
+ * does not, and its replay goes through every pause without stopping. */
+static bool g_replay_waits = false;
 
 /* The replay has run out of recorded answers, so this prompt is the one the
  * autosave was taken at: the player answers it. */
@@ -243,15 +248,16 @@ replay_reached_prompt()
 }
 
 /* Autosave with a menu or question of the running turn on screen and no
- * input requested yet, as at the turn prompt. */
+ * input requested yet, as at the turn prompt.  `at_wait` is the same for a
+ * keypress pause. */
 static void
-autosave_at_prompt()
+autosave_at_prompt([[maybe_unused]] bool at_wait = false)
 {
 #ifdef SPATTERLIGHT
     if (g_in_boot)
-        question_do_boot_autosave(g_turn_answers);
+        question_do_boot_autosave(g_turn_answers, at_wait);
     else if (g_in_turn)
-        question_do_menu_autosave(g_turn_command, g_turn_answers);
+        question_do_menu_autosave(g_turn_command, g_turn_answers, at_wait);
 #endif
 }
 
@@ -615,10 +621,11 @@ void glk_main(void)
      * The app restores the window contents from its own GUI snapshot. */
     bool autorestored = false;
 #ifdef SPATTERLIGHT
-    if (question_autosave_take_boot_replay(&g_replay_answers)) {
-        /* Saved at a question the startscript asked: there is no state to
-         * load, the boot itself is run again, silently and with the same
-         * answers, up to that question. */
+    if (question_autosave_take_boot_replay(&g_replay_answers,
+                                           &g_replay_waits)) {
+        /* Saved at a question the startscript asked, or a keypress it was
+         * waiting for: there is no state to load, the boot itself is run
+         * again, silently and with the same answers, up to that point. */
         g_replay_next = 0;
         g_replaying = g_replaying_boot = true;
         g_in_boot = true;
@@ -744,13 +751,15 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
              * just re-request input below without printing another. */
             autorestored = false;
 #ifdef SPATTERLIGHT
-            /* ...unless it was saved with a menu or question open: then it
-             * ends with that, and the state is from before the command that
-             * put it up.  Run the command again, silently and with the same
-             * answers to any earlier prompts, until it gets back there; the
-             * prompt then waits for its answer. */
+            /* ...unless it was saved with a menu or question open, or at a
+             * keypress pause: then it ends with that, and the state is from
+             * before the command that put it up.  Run the command again,
+             * silently and with the same answers to any earlier prompts,
+             * until it gets back there; the prompt then waits for its
+             * answer. */
             std::string cmd;
-            if (question_autosave_take_replay(&cmd, &g_replay_answers)) {
+            if (question_autosave_take_replay(&cmd, &g_replay_answers,
+                                              &g_replay_waits)) {
                 g_replay_next = 0;
                 g_replaying = true;
                 run_or_handle_command(cmd, gr, quitting);
@@ -1333,16 +1342,39 @@ QuestionGlkInterface::get_file (const std::string &fname) const
 QuestionResult
 QuestionGlkInterface::wait_keypress (const std::string &msg)
 {
-  if (g_autorestore_booting || g_replaying)
+  if (g_autorestore_booting)
     return r_success;
-  if (!msg.empty())
-    print_formatted(msg);
-  take_back_prompt();
+  bool resumed = false;
+  if (g_replaying)
+    {
+      if (!g_replay_waits)
+	return r_success;
+      if (g_replay_next < g_replay_answers.size())
+	{
+	  g_turn_answers.push_back(g_replay_answers[g_replay_next++]);
+	  return r_success;
+	}
+      /* Out of recorded answers: this is the pause the autosave was taken
+       * at, its message on screen already. */
+      replay_reached_prompt();
+      resumed = true;
+    }
+  if (!resumed)
+    {
+      if (!msg.empty())
+	print_formatted(msg);
+      take_back_prompt();
+    }
   /* As in get_string: show the state the game is pausing in, not the one
    * from the last prompt.  Timers do not run during the wait, so once is
    * enough. */
   if (g_live_runner)
     update_objwin(g_live_runner);
+  /* A cutscene paged out a keypress at a time has no other prompt to save
+   * at.  Before the request, as everywhere: the saved window has none
+   * pending. */
+  if (!resumed)
+    autosave_at_prompt(true);
   glk_request_char_event(mainglkwin);
   /* A click on a pane hyperlink also dismisses the wait, like any keypress
    * (matching the Quest 5 frontend); the click's command is not run here. */
@@ -1357,6 +1389,7 @@ QuestionGlkInterface::wait_keypress (const std::string &msg)
     [] { draw_banner(); fill_divider(); });
   if (ev.type == evtype_Hyperlink)
     glk_cancel_char_event(mainglkwin);
+  g_turn_answers.push_back(std::string());
   return r_success;
 }
 

@@ -16,6 +16,11 @@
 '   juggle  rolls, asks, then takes a ball -- a replay that must draw the
 '           same number and feed the question's answer back before the menu.
 '
+'   nap     two `wait` pauses with a roll before each.  A pause autosaves too
+'           (a cutscene paged out a keypress at a time has no other prompt
+'           to save at): the keypresses already given are part of the record,
+'           and the relaunch comes back under the pause it was closed on.
+'
 ' The lamp in the pane is the hyperlink case: clicking its name unfolds its
 ' verb menu (a re-save, no turn), clicking "Take" runs the command.  The
 ' engine's own UNDO covers the undo history.
@@ -38,6 +43,13 @@ define game <Autosave Probe>
   msg <Sign as?>
   enter <signature>
   msg <Signed #signature#.>
+ }
+ command <nap> {
+  msg <You doze off, dreaming of $rand(1;1000)$.>
+  wait <Press a key to stir.>
+  msg <You stir, dreaming of $rand(1;1000)$.>
+  wait <Press a key to wake.>
+  msg <You wake up.>
  }
  command <juggle> {
   msg <You roll $rand(1;1000)$.>

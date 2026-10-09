@@ -100,7 +100,9 @@ void question_do_autosave(QuestionRunner *gr);
 bool question_restore_autosave(QuestionRunner *gr);
 
 /* Autosave while a turn has a menu or an `enter` question open: the parser's
- * "which one do you mean?", or one the game's script asks.  The engine can't
+ * "which one do you mean?", or one the game's script asks.  Likewise while
+ * it waits for a keypress, which goes into the answers as an empty one.  The
+ * engine can't
  * be serialized mid-turn, so the autosave instead holds the
  * state from the start of the turn plus a replay record: the command line
  * and the answers already given to earlier prompts in the same turn.  An
@@ -115,14 +117,21 @@ void question_note_turn_start(QuestionRunner *gr);
 void question_turn_state_changed(void);
 
 /* Write the menu autosave.  Called with the menu and its prompt on screen
- * and no input requested yet, like question_do_autosave. */
+ * and no input requested yet, like question_do_autosave.  `at_wait` is for a
+ * keypress pause, which is saved whatever the last Glk event was: the game
+ * reaches it once, with no prompt loop for a timer or a resize to send round
+ * again, and the one a timed delay leads up to has a timer event behind it. */
 void question_do_menu_autosave(const std::string &command,
-                               const std::vector<std::string> &answers);
+                               const std::vector<std::string> &answers,
+                               bool at_wait = false);
 
 /* After a successful question_restore_autosave: true (once) if the autosave
- * was taken at an open menu, handing back what to replay. */
+ * was taken at an open menu, handing back what to replay.  `waits` is false
+ * for a record from before keypress pauses were saved, which has no answers
+ * for them. */
 bool question_autosave_take_replay(std::string *command,
-                                   std::vector<std::string> *answers);
+                                   std::vector<std::string> *answers,
+                                   bool *waits);
 
 /* The same for a menu or question of the startscript, which runs inside
  * set_game: there is no earlier state, so the autosave is the replay record
@@ -131,8 +140,10 @@ bool question_autosave_take_replay(std::string *command,
  * a record, handing back its answers; the caller then boots with them, and
  * at the question calls question_restore_boot_autosave, which swaps in the
  * saved Glk library (false, and the autosave discarded, if it can't). */
-void question_do_boot_autosave(const std::vector<std::string> &answers);
-bool question_autosave_take_boot_replay(std::vector<std::string> *answers);
+void question_do_boot_autosave(const std::vector<std::string> &answers,
+                               bool at_wait = false);
+bool question_autosave_take_boot_replay(std::vector<std::string> *answers,
+                                        bool *waits);
 bool question_restore_boot_autosave(void);
 
 /* ---- Quest 5 (aslxglk.cc / aslx Interp) ---------------------------------- */

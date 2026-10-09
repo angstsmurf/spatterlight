@@ -330,7 +330,8 @@ Interp *g_autosave_interp = nullptr;
 void aslx_do_autosave(Interp &in);
 
 /* Autosave under a prompt a turn puts up: a menu (the parser's "which one do
- * you mean?" among them), a yes/no question, a `get input`.  Its callback
+ * you mean?" among them), a yes/no question, a `get input`, a `wait` for a
+ * keypress.  Its callback
  * sits in the engine as a live script continuation that no snapshot can
  * hold, so that autosave instead carries the state the turn STARTED from
  * plus a replay record -- the command and every answer given to a prompt
@@ -355,6 +356,9 @@ Interp *g_menu_autosave_interp = nullptr;
 bool g_autorestore_replay = false;
 std::string g_replay_command;
 std::vector<std::string> g_replay_answers;
+/* The record has an answer for each keypress too.  One written before a
+ * `wait` autosaved has none, and its replay goes through them all. */
+bool g_replay_waits = false;
 /* The start script counts as a turn of its own, with no command and no
  * state to start from: an autosave under one of its prompts is the answers
  * given so far, and the autorestore boots the game again with them.  True
@@ -366,7 +370,9 @@ bool g_boot_turn = false;
 const char *const kAslxBootState = "ASLXGLK-BOOT\n";
 /* Decoded from the blob: the replay is of the boot. */
 bool g_autorestore_boot_replay = false;
-void aslx_do_menu_autosave(Interp &in);
+void aslx_do_menu_autosave(Interp &in, bool at_wait = false);
+bool replay_answer(const char *kinds, std::string *text = nullptr);
+bool replay_reached(Interp &in, const char *where);
 void turn_start_changed() { g_turn_start.valid = false; g_boot_turn = false; }
 #endif
 
@@ -1580,11 +1586,13 @@ void echo_metaverb_command(const std::string &cmd)
  * own throws. */
 void run_asl_event(Interp &in, const LinkAction &act)
 {
-    in.send_event(act.event_func, act.event_param);
-    in.drain_on_ready();
 #ifdef SPATTERLIGHT
+    /* Before, not after: a prompt the event itself puts up belongs to no
+     * turn, and must not autosave as part of the last one. */
     turn_start_changed();
 #endif
+    in.send_event(act.event_func, act.event_param);
+    in.drain_on_ready();
 }
 
 /* (ASLEvent function name, its parameter) pairs -- what a scanned JS body
@@ -1957,15 +1965,17 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
              * With echo off the cancel is invisible. */
             glui32 typed = cancel_line();
             bool reprompt;
+#ifdef SPATTERLIGHT
+            /* Before, not after: a prompt the tick itself puts up belongs
+             * to no turn, and must not autosave as part of the last one. */
+            turn_start_changed();
+#endif
             {
                 PromptBreak pb(in, prompt);
                 in.tick(1);
                 in.drain_on_ready();
                 reprompt = pb.broke;
             }
-#ifdef SPATTERLIGHT
-            turn_start_changed();
-#endif
             update_banner(in);
             redraw_side_pane(in);
             redraw_grid_map();
@@ -2002,12 +2012,16 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
  * the transcript tail and retracted (best-effort) before the wait resolves --
  * leaving the next msg where the Continue was, like the reference link
  * vanishing rather than joining the scrollback. */
-void show_continue_link(Interp &in)
+void show_continue_link(Interp &in, bool on_screen = false)
 {
     if (!g_continue_shown.empty())
         return;
     g_continue_shown =
         template_text_or(in.world(), "ContinueLabel", "Continue...");
+    /* Autorestored under this wait: the label and its link came back with
+     * the window. */
+    if (on_screen)
+        return;
     put_uni_char('\n');
     LinkAction act;
     act.end_wait = true;
@@ -2055,10 +2069,18 @@ void hide_continue_link()
 /* One keypress (a pending `wait`).  Timer events keep ticking.  A click on a
  * hyperlink -- in the main window or the side pane -- counts as the keypress
  * that dismisses the wait, matching the reference player where any input
- * continues past "Press any key to continue". */
-void read_keypress(Interp &in)
+ * continues past "Press any key to continue".  `resumed` = autorestored
+ * under this very wait, with its chrome on screen. */
+void read_keypress(Interp &in, bool resumed = false)
 {
-    show_continue_link(in);
+    show_continue_link(in, resumed);
+#ifdef SPATTERLIGHT
+    /* A cutscene paged out a keypress at a time has no other prompt to
+     * save at.  Before the request, as everywhere: the saved window has
+     * none pending. */
+    if (!resumed)
+        aslx_do_menu_autosave(in, true);
+#endif
     glk_request_char_event(gwin);
     request_hyperlinks();
     for (;;) {
@@ -3266,9 +3288,23 @@ bool play_audio_inline(const std::vector<std::string> &srcs, bool loop)
  * game-time tick happens: a Quest wait is real-world only. */
 void do_wait_ui(Interp &in)
 {
+    bool resumed = false;
+#ifdef SPATTERLIGHT
+    /* A replay goes through the waits the player already has, and stops at
+     * the one the autosave was taken under. */
+    if (g_replaying) {
+        if (!g_replay_waits || replay_answer("w"))
+            return;
+        resumed = replay_reached(in, "a wait");
+    }
+#endif
     if (!gli_sa_delays)
         return;
-    show_continue_link(in);
+    show_continue_link(in, resumed);
+#ifdef SPATTERLIGHT
+    if (!resumed)
+        aslx_do_menu_autosave(in, true);
+#endif
     glk_request_char_event(gwin);
     request_hyperlinks();
     wait_for_event(
@@ -3281,6 +3317,9 @@ void do_wait_ui(Interp &in)
     glk_cancel_char_event(gwin);
     cancel_hyperlinks();
     hide_continue_link();
+#ifdef SPATTERLIGHT
+    g_turn_answers.push_back("w");
+#endif
 }
 
 /* The do_pause host hook (pre-v550 `request (Pause, ms)` -- Core's Pause).
@@ -3744,9 +3783,10 @@ std::string aslx_encode_frontend(Interp &in, const TurnStart *turn = nullptr,
         blob_num(b, (long) s.start);
         blob_num(b, s.end == (size_t) -1 ? -1 : (long) s.end);
     }
-    /* The replay record: the turn's command and its answers so far.  (2 =
-     * the turn is the boot; there is no command.) */
-    blob_num(b, boot ? 2 : turn ? 1 : 0);
+    /* The replay record: the turn's command and its answers so far.  (4 =
+     * the turn is the boot; there is no command.  1 and 2 were the same
+     * before a `wait` autosaved, with no answers for the keypresses.) */
+    blob_num(b, boot ? 4 : turn ? 3 : 0);
     if (turn || boot) {
         blob_str(b, g_turn_command);
         blob_num(b, (long) g_turn_answers.size());
@@ -3829,7 +3869,8 @@ bool aslx_recover_frontend(const std::string &blob)
     }
     long replay = r.num();
     g_autorestore_replay = replay != 0;
-    g_autorestore_boot_replay = replay == 2;
+    g_autorestore_boot_replay = replay == 2 || replay == 4;
+    g_replay_waits = replay >= 3;
     g_replay_command.clear();
     g_replay_answers.clear();
     if (g_autorestore_replay) {
@@ -3919,10 +3960,14 @@ void note_turn_start(Interp &in, const std::string &cmd)
  * the windows as they are now (menu on screen) but the RNG streams as they
  * were then, plus the replay record.  Skipped when the engine has moved on
  * since the turn started other than through the turn itself (a timer tick,
- * a link's ASLEvent): replaying the command would not arrive here. */
-void aslx_do_menu_autosave(Interp &in)
+ * a link's ASLEvent): replaying the command would not arrive here.
+ * `at_wait` is for a keypress wait, which is saved whatever the last Glk
+ * event was: the game reaches it once, with no prompt loop for a timer or a
+ * resize to send round again, and the one a timed pause leads up to has a
+ * timer event behind it. */
+void aslx_do_menu_autosave(Interp &in, bool at_wait)
 {
-    if (!question_autosave_wanted())
+    if (!(at_wait ? gli_enable_autosave != 0 : question_autosave_wanted()))
         return;
     if (g_turn_start.valid)
         aslx_do_autosave_write(g_turn_start.state,
@@ -3962,7 +4007,6 @@ void start_replay(Interp &in)
     mute_hook(in, &Interp::show_picture, none);
     mute_hook(in, &Interp::play_sound, [](const std::string &, bool, bool) {});
     mute_hook(in, &Interp::stop_sound, [] {});
-    mute_hook(in, &Interp::do_wait, [] {});
     mute_hook(in, &Interp::do_pause, [](int) {});
     g_replaying = true;
 }
@@ -3979,10 +4023,10 @@ void end_replay(Interp &in)
 }
 
 /* The next recorded answer, which must be of `kind` ('k' menu key, 'c' menu
- * cancelled, 'y'/'n' question, 'i' input line).  False when the record has
+ * cancelled, 'y'/'n' question, 'i' input line, 'w' keypress).  False when the record has
  * run out or does not match -- for a menu the first is where the replay was
  * meant to stop; anything else means the replay went another way. */
-bool replay_answer(const char *kinds, std::string *text = nullptr)
+bool replay_answer(const char *kinds, std::string *text)
 {
     if (g_replay_answers.empty())
         return false;
@@ -4539,12 +4583,24 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             if (answered)
                 in.set_question_response(answer);
         } else if (in.pending_wait()) {
+            bool resumed = false;
 #ifdef SPATTERLIGHT
-            if (!g_replaying)
+            if (g_replaying) {
+                if (!g_replay_waits || replay_answer("w")) {
+                    in.finish_wait();
+                    goto turn_done;
+                }
+                /* The wait the autosave was taken under. */
+                resumed = replay_reached(in, "a wait");
+            }
 #endif
-                read_keypress(in);
-            if (in.pending_wait())
+            read_keypress(in, resumed);
+            if (in.pending_wait()) {
+#ifdef SPATTERLIGHT
+                g_turn_answers.push_back("w");
+#endif
                 in.finish_wait();
+            }
         } else {
             /* Parser-bound lines.  Prompt-first (g_prompt_first): print a
              * standard "> " prompt at the input point, host-echo the accepted
