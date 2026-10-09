@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSURL *homepath;
 
 @property NSMutableArray<Game *> *gameTableModel;
+// The rows the table view last loaded, in order. Lets updateTableViews tell
+// a change of contents from a change of rows.
+@property (nullable) NSArray<Game *> *displayedGames;
 
 @property BOOL currentlyAddingGames;
 @property BOOL spinnerSpinning;

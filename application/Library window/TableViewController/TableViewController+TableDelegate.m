@@ -341,7 +341,21 @@ enum  {
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf.gameTableModel sortUsingDescriptors:@[sort, fallback]];
         weakSelf.gameTableDirty = NO;
-        [weakSelf.gameTableView reloadData];
+        NSTableView *tableView = weakSelf.gameTableView;
+        NSArray<Game *> *model = weakSelf.gameTableModel;
+        if (model && [model isEqualToArray:weakSelf.displayedGames] &&
+            tableView.numberOfRows == (NSInteger)model.count) {
+            // The same games in the same order, which is what most Core Data
+            // changes amount to (starting a game stamps its lastPlayed date,
+            // for one). Refresh the cells in place: a full reload throws away
+            // and rebuilds every visible row, which stalls the main thread
+            // long enough to delay a game that is starting up.
+            [tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, model.count)]
+                                 columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, (NSUInteger)tableView.numberOfColumns)]];
+        } else {
+            [tableView reloadData];
+        }
+        weakSelf.displayedGames = [model copy];
         [weakSelf selectGames:[NSSet setWithArray:weakSelf.selectedGames]];
         [weakSelf invalidateRestorableState];
     });
