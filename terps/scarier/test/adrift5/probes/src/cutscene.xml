@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-10-09 02:00:00</LastUpdated>
+<Title>Cutscene Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Opening, card one.&lt;waitkey&gt;&lt;cls&gt;Opening, card two.&lt;waitkey&gt;Opening, card three. Type watch, premiere, or show.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+
+<Location>
+<Key>LocationLab</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Screening Room</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A quiet room for testing keypress-paced cutscenes.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-10-09 02:00:00</LastUpdated>
+<Created>2026-10-09 02:00:00</Created>
+</Location>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<LastUpdated>2026-10-09 02:00:00</LastUpdated>
+<Created>2026-10-09 02:00:00</Created>
+</Character>
+
+<!-- A cutscene is one turn's text paged out a keypress at a time: the state
+     it leaves (Showings, Roll) is the engine's before the first pause is
+     reached, and what an autosave taken at a pause has to get back to is the
+     pause.  The roll makes a replayed turn show its randomness came back; the
+     bold span is open across a pause. -->
+<Variable>
+<Key>Showings</Key>
+<Name>Showings</Name>
+<Type>Numeric</Type>
+<InitialValue>0</InitialValue>
+<LastUpdated>2026-10-09 02:00:00</LastUpdated>
+<Created>2026-10-09 02:00:00</Created>
+</Variable>
+<Variable>
+<Key>Roll</Key>
+<Name>Roll</Name>
+<Type>Numeric</Type>
+<InitialValue>0</InitialValue>
+<LastUpdated>2026-10-09 02:00:00</LastUpdated>
+<Created>2026-10-09 02:00:00</Created>
+</Variable>
+<Variable>
+<Key>Guest</Key>
+<Name>Guest</Name>
+<Type>Text</Type>
+<InitialValue>nobody</InitialValue>
+<LastUpdated>2026-10-09 02:00:00</LastUpdated>
+<Created>2026-10-09 02:00:00</Created>
+</Variable>
+
+<Task>
+<Key>TaskWatch</Key>
+<Priority>50001</Priority>
+<Type>General</Type>
+<Command>watch</Command>
+<Description>A three-pause cutscene</Description>
+<MessageBeforeOrAfter>After</MessageBeforeOrAfter>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Reel one, showing %Showings%, roll %Roll%.&lt;waitkey&gt;Reel two.&lt;waitkey&gt;&lt;b&gt;Reel three&lt;waitkey&gt; still in bold.&lt;/b&gt; The end of showing %Showings%.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>Showings = "%Showings% + 1"</SetVariable>
+<SetVariable>Roll = "RAND(1,1000)"</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-10-09 02:00:00</LastUpdated>
+<Created>2026-10-09 02:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskPremiere</Key>
+<Priority>50002</Priority>
+<Type>General</Type>
+<Command>premiere</Command>
+<Description>A question, then a cutscene</Description>
+<MessageBeforeOrAfter>After</MessageBeforeOrAfter>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Welcome, %Guest%.&lt;waitkey&gt;Take your seat, %Guest%.&lt;waitkey&gt;Roll %Roll%.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>Guest = %PopUpInput["Who is attending", "Anonymous"]%</SetVariable>
+<SetVariable>Roll = "RAND(1,1000)"</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-10-09 02:00:00</LastUpdated>
+<Created>2026-10-09 02:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskShow</Key>
+<Priority>50003</Priority>
+<Type>General</Type>
+<Command>show</Command>
+<Description>Show the state</Description>
+<MessageBeforeOrAfter>After</MessageBeforeOrAfter>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Showings=%Showings%. Roll=%Roll%. Guest=%Guest%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-10-09 02:00:00</LastUpdated>
+<Created>2026-10-09 02:00:00</Created>
+</Task>
+
+</Adventure>

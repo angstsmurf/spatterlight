@@ -165,6 +165,43 @@ class Session(glkdrive.Driver):
             closed += ev[0] == "delwin"
         return opened, closed
 
+    def flat(self, resumed=False):
+        """(pre, text): everything printed, typed and pressed, in order, as
+        one string -- the form a session closed at a "press a key" pause is
+        compared in, since such a session ends, and the next one begins,
+        partway through a command's output.  A resumed session's pre is what
+        it printed before its first input (the autorestore's redraw, which is
+        not part of the game's output) and is left out of text."""
+        pre, parts, win, started = [], [], None, not resumed
+        for ev in self.events:
+            if ev[0] == "quit":
+                break
+            if ev[0] == "in":
+                parts.append("\n> %s\n" % ev[1])
+                started, win = True, None
+            elif ev[0] == "key":
+                parts.append("[key %d]" % ev[1])
+                started, win = True, None
+            elif ev[0] == "out":
+                if not started:
+                    pre.append((ev[1], ev[2]))
+                    continue
+                if ev[1] != win:
+                    parts.append("\n{win %d}\n" % ev[1])
+                    win = ev[1]
+                parts.append(ev[2])
+        return pre, "".join(parts)
+
+    def autosaved_last_pause(self):
+        """True when an AUTOSAVE came after the last input of any kind: at
+        the keypress pause (or the prompt) the session was closed on."""
+        for ev in reversed(self.events):
+            if ev[0] == "autosave":
+                return True
+            if ev[0] in ("in", "key"):
+                return False
+        return False
+
     def autosaved_last_prompt(self):
         """True when an AUTOSAVE came after the last line input (i.e. at the
         prompt the session was closed on)."""
@@ -357,6 +394,66 @@ def case_equivalence(terp, case, res, verbose):
                      % (len(want), len(got)))
 
 
+def case_pause_equivalence(terp, case, res, verbose):
+    """Like case_equivalence, but the sessions are given outright and may end
+    at a "press a key" pause in the middle of a command's output (a script
+    that runs out at a char request closes the game there).  Compared as
+    whole transcripts: one session's against the relaunched sessions' laid
+    end to end."""
+    game, sessions = case["game"], case["sessions"]
+    sig = "scarier-autosave-test-" + case["name"]
+    script = [item for part in sessions for item in part]
+
+    with tempfile.TemporaryDirectory() as work:
+        clean_autosave(sig)
+        control = run_session(terp, game, script, sig, work)
+        clean_autosave(sig)
+        check_process(res, control, "control")
+        if control.leftover:
+            res.fail("control: script not consumed, %d entries left (%r...)"
+                     % (len(control.leftover), control.leftover[:3]))
+        _, want = control.flat()
+        for text in case.get("expect", []):
+            if text not in want:
+                res.fail("control: never printed %r, so the case does not"
+                         " test what it says" % text)
+
+        bufwins = {w for w, t in control.wintypes.items() if t == TEXTBUFFER}
+        got = []
+        for index, part in enumerate(sessions):
+            s = run_session(terp, game, part, sig, work)
+            label = "session %d" % (index + 1)
+            check_process(res, s, label)
+            pre, text = s.flat(resumed=index > 0)
+            if index > 0:
+                printed = "".join(t for w, t in pre if w in bufwins).strip()
+                if printed:
+                    res.fail("%s: printed into a buffer window before input"
+                             % label, printed[:400])
+                if s.newwin or s.delwin:
+                    res.fail("%s: opened %d and closed %d windows"
+                             % (label, s.newwin, s.delwin))
+            if index < len(sessions) - 1 and not s.autosaved_last_pause():
+                res.fail("%s: no autosave at the pause it was closed on"
+                         % label)
+            if s.leftover:
+                res.fail("%s: script not consumed, %d entries left"
+                         % (label, len(s.leftover)))
+            got.append(text)
+            if verbose:
+                res.detail.append("--- %s ---\n%s" % (label, text.rstrip()))
+        clean_autosave(sig)
+
+    got = "".join(got)
+    if want != got:
+        at = next((i for i, (a, b) in enumerate(zip(want, got)) if a != b),
+                  min(len(want), len(got)))
+        res.fail("transcripts differ at character %d of %d" % (at, len(want)),
+                 "--- one session ---\n%s\n--- relaunched ---\n%s"
+                 % (want[max(0, at - 200):at + 300].rstrip(),
+                    got[max(0, at - 200):at + 300].rstrip()))
+
+
 def session_of(cuts, n):
     before = sum(1 for c in cuts if c <= n)
     first = (n == 0) or any(c == n for c in cuts)
@@ -505,6 +602,10 @@ def build_cases():
         cases.append(dict(kind=case_equivalence, name=name, game=gamefile,
                           script=script, cuts=cuts, **kw))
 
+    def pauses(name, gamefile, sessions, **kw):
+        cases.append(dict(kind=case_pause_equivalence, name=name,
+                          game=gamefile, sessions=sessions, **kw))
+
     def walk(name, gamefile, sol, parts=4, stop=None, **kw):
         if not os.path.exists(os.path.join(GOLDENS, sol)):
             cases.append(dict(kind=None, name=name, game=gamefile,
@@ -649,6 +750,24 @@ def build_cases():
     # ...and closed at the first, before anything has been typed at all.
     equiv("startup-name-prompt", maze, ["adventurer", "look", "n"], [],
           first_prompt=True)
+
+    # Closed at a <waitkey> pause: in the opening, before any prompt (the
+    # relaunch starts the game over and shows nothing until it is back at
+    # the pause), and partway through a turn's text (the autosave is of the
+    # prompt the turn began at with the line typed there, and the relaunch
+    # runs it again, unseen, as far as the pause).  Zack Smackfoot's crash
+    # is one pause and its title page, on leaving the plane, two more; the
+    # game ends there, and the U takes the turn back.
+    K = "key:32"
+    zack = ["take briefcase", "back", "open penknife", "put knife in slot"]
+    pauses("waitkey-opening", game("zacksmackfoot.taf"),
+           [[], [K] + zack + ["out"], [K], [K, "key:u", "look", "i"]],
+           expect=["Coming round you recall", "Jungle Terror",
+                   "You have made it out of the aircraft"])
+    pauses("waitkey-turn", game("zacksmackfoot.taf"),
+           [[K] + zack, ["out"], [K], [K, "key:u", "look"], ["i"]],
+           expect=["You have made it out of the aircraft"])
+
     cases.append(dict(kind=case_damaged_container, name="corrupt-container",
                       game=maze, damage="garbage",
                       first=["adventurer", "n"], fresh=["adventurer", "look"],
@@ -767,6 +886,24 @@ def build_cases():
     # ... and at the one Beagle 2 asks before it has shown anything at all.
     equiv("a5-popup-opening", a5_game("Beagle2.blorb"),
           ["male", "look", "i"], [], first_prompt=True)
+
+    # Closed at a <waitkey> pause, which comes while a turn's text is being
+    # shown: the autosave is again of where the turn began, with the command,
+    # its answers and how many pauses had been reached, and the relaunch
+    # runs the turn again without showing anything up to that pause.  The
+    # roll (RAND) and the count each showing prints say whether the replay
+    # was of the same turn; the third reel's pause is inside a bold span and
+    # the opening's second card follows a <cls>.
+    cutscene = a5_probe("cutscene.taf")
+    pauses("a5-waitkey-turn", cutscene,
+           [[K, K, "watch"], [K], [K, K, "show", "watch", K, K], [K, "show"]],
+           expect=["still in bold", "Showings=1.", "The end of showing 1."])
+    pauses("a5-waitkey-opening", cutscene,
+           [[], [K], [K, "show", "watch", K, K, K, "show"]],
+           expect=["Opening, card three.", "Showings=0."])
+    pauses("a5-waitkey-popup", cutscene,
+           [[K, K, "premiere"], ["Petter"], [K], [K, "show"]],
+           expect=["Take your seat, Petter.", "Guest=Petter."])
 
     # The first sound / picture of a session that began with an autorestore
     # (a Blorb's resources are read through a stream the restore replaces).

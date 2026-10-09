@@ -147,8 +147,28 @@ gsc_readlog_line (char *buffer, glui32 length)
  *
  * Read and return a line of player input.
  */
+static scr_bool gsc_read_command (scr_char *buffer, scr_int length);
+
 scr_bool
 os_read_line (scr_char *buffer, scr_int length)
+{
+  scr_bool status;
+
+#ifdef SPATTERLIGHT
+  /* A turn run again to reach a pause never gets as far as a prompt, unless
+     the pause did not come round this time; either way that is over. */
+  gsc_sc_silent = FALSE;
+#endif
+  status = gsc_read_command (buffer, length);
+#ifdef SPATTERLIGHT
+  if (status)
+    gsc_sc_note_command (buffer);
+#endif
+  return status;
+}
+
+static scr_bool
+gsc_read_command (scr_char *buffer, scr_int length)
 {
   scr_int characters;
   assert (buffer && length > 0);
@@ -175,9 +195,20 @@ os_read_line (scr_char *buffer, scr_int length)
 
 #ifdef SPATTERLIGHT
   if (gsc_autorestored)
-    /* The restored transcript already ends with the old prompt; skip
-       printing another and just take input. */
-    gsc_autorestored = FALSE;
+    {
+      /* The restored transcript already ends with the old prompt; skip
+         printing another and just take input. */
+      gsc_autorestored = FALSE;
+      gsc_sc_note_turn_start ();
+      /* ...or, closed at a <waitkey> pause in the turn this prompt began,
+         with the command too: it is run again, unseen, as far as the pause
+         (gsc_sc_autosave_waitkey). */
+      if (gsc_sc_take_replay_command (buffer, length))
+        {
+          gsc_sc_silent = TRUE;
+          return TRUE;
+        }
+    }
   else
     {
       gsc_put_prompt (">");
@@ -355,6 +386,10 @@ gsc_get_choice_key (const char *choices)
       event_t event;
 
       /* Wait for a standard key, ignoring Glk special keys. */
+#ifdef SPATTERLIGHT
+      gsc_sc_silent = FALSE;
+      gsc_sc_note_mid_turn_input ();
+#endif
       do
         {
           glk_request_char_event (gsc_main_window);

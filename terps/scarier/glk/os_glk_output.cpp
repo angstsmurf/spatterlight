@@ -953,10 +953,15 @@ gsc_draw_inline_graphic (glui32 id)
 {
   strid_t stream = glk_window_get_stream (gsc_main_window);
 
-  if (!gsc_main_at_line_start)
-    glk_put_char_stream (stream, '\n');
-  glk_image_draw (gsc_main_window, id, imagealign_InlineDown, 0);
-  glk_put_char_stream (stream, '\n');
+  /* On the way back to a pause the picture is on screen already; only note
+     it, for the clear that may yet come. */
+  if (!gsc_sc_silent)
+    {
+      if (!gsc_main_at_line_start)
+        glk_put_char_stream (stream, '\n');
+      glk_image_draw (gsc_main_window, id, imagealign_InlineDown, 0);
+      glk_put_char_stream (stream, '\n');
+    }
   gsc_main_at_line_start = TRUE;
 
   gsc_pending_graphic_id = id;
@@ -981,7 +986,8 @@ os_print_tag (scr_int tag, const scr_char *argument)
     {
     case SCR_TAG_CLS:
       /* Clear the main text display window. */
-      glk_window_clear (gsc_main_window);
+      if (!gsc_sc_silent)
+        glk_window_clear (gsc_main_window);
       gsc_main_at_line_start = TRUE;
       gsc_main_window_empty = TRUE;
 #if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
@@ -1043,7 +1049,8 @@ os_print_tag (scr_int tag, const scr_char *argument)
 
         if (centered != gsc_attribute_center || gsc_attribute_right > 0)
           {
-            glk_put_char ('\n');
+            if (!gsc_sc_silent)
+              glk_put_char ('\n');
             gsc_attribute_center = centered;
             gsc_attribute_right = 0;
             gsc_set_glk_style ();
@@ -1063,7 +1070,8 @@ os_print_tag (scr_int tag, const scr_char *argument)
 
         if (right != gsc_attribute_right || gsc_attribute_center > 0)
           {
-            glk_put_char ('\n');
+            if (!gsc_sc_silent)
+              glk_put_char ('\n');
             gsc_attribute_right = right;
             gsc_attribute_center = 0;
             gsc_set_glk_style ();
@@ -1096,7 +1104,7 @@ os_print_tag (scr_int tag, const scr_char *argument)
         gsc_colour_background = wanted;
         gsc_set_glk_style ();
 
-        if (changed && gsc_colour_enabled
+        if (changed && gsc_colour_enabled && !gsc_sc_silent
             && gsc_main_window_empty && gsc_main_window)
           glk_window_clear (gsc_main_window);
       }
@@ -1107,6 +1115,8 @@ os_print_tag (scr_int tag, const scr_char *argument)
        * Update the status line now only if it has its own window, then
        * handle with a specialized handler.
        */
+      if (gsc_sc_silent)
+        break;
       if (gsc_status_window)
         gsc_status_notify ();
       gsc_handle_wait_tag (argument);
@@ -1120,6 +1130,22 @@ os_print_tag (scr_int tag, const scr_char *argument)
       if (!gsc_readlog_stream)
         {
           strid_t stream;
+#ifdef SPATTERLIGHT
+          scr_bool resumed = FALSE;
+
+          /* Running the turn again after a relaunch: go by the pauses the
+             player had already been through, and stop at the one the game
+             was closed at -- whose save is the one just restored. */
+          gsc_sc_waitkey_count++;
+          if (gsc_sc_silent)
+            {
+              if (gsc_sc_waitkey_count < gsc_sc_waitkey_skip)
+                break;
+              gsc_sc_silent = FALSE;
+              gsc_sc_waitkey_skip = 0;
+              resumed = TRUE;
+            }
+#endif
 
           /* Update the status line now only if it has its own window. */
           if (gsc_status_window)
@@ -1132,6 +1158,13 @@ os_print_tag (scr_int tag, const scr_char *argument)
           stream = glk_stream_get_current ();
           gsc_map_redraw ();
           glk_stream_set_current (stream);
+
+#ifdef SPATTERLIGHT
+          /* Before the request, as at a prompt: the archived window then
+             has none pending and the relaunch asks for the key itself. */
+          if (!resumed)
+            gsc_sc_autosave_waitkey ();
+#endif
 
           /* Request a character event, and wait for it to be filled. */
           glk_request_char_event (gsc_main_window);
@@ -1158,6 +1191,17 @@ os_print_string (const scr_char *string)
 {
   assert (string);
   assert (glk_stream_get_current ());
+
+  /* Already on the restored screen: see gsc_sc_silent. */
+  if (gsc_sc_silent)
+    {
+      if (string[0] != '\0')
+        {
+          gsc_main_at_line_start = (string[strlen (string) - 1] == '\n');
+          gsc_main_window_empty = FALSE;
+        }
+      return;
+    }
 
   /* The first output of a replayed opening is where a restart becomes visible
      to the front end; take the map pane down before the text is laid out. */

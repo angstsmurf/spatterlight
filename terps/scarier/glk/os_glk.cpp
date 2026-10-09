@@ -101,6 +101,16 @@ winid_t gsc_status_window = NULL;
    costing the player any text; see SCR_TAG_BGCOLOUR. */
 int gsc_main_window_empty = TRUE;
 
+/* ADRIFT <=4, set while a relaunch runs a turn (or the opening) again to get
+   back to the <waitkey> pause the game was closed at: the text, pictures and
+   sounds on the way there are already on the restored screen, so none of it
+   is put out a second time.  The pause is the gsc_sc_waitkey_skip'th since
+   the last line was read, gsc_sc_waitkey_count being how many there have
+   been.  See gsc_sc_autosave_waitkey(). */
+int gsc_sc_silent = FALSE;
+int gsc_sc_waitkey_count = 0;
+int gsc_sc_waitkey_skip = 0;
+
 /*
  * Transcript stream and input log.  These are NULL if there is no current
  * collection of these strings.
@@ -274,6 +284,12 @@ std::vector<std::string> gsc_a5_popup_answers;
 int gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
 std::string gsc_a5_replay_command;
 std::vector<std::string> gsc_a5_replay_answers;
+/* How many <waitkey> pauses the display of the turn in hand (or of the
+   opening) has reached, and how many of them an autorestore's replay passes
+   in silence: a game closed at one comes back at it.  See
+   gsc_a5_autosave_waitkey(). */
+int gsc_a5_waitkey_count = 0;
+int gsc_a5_waitkey_skip = 0;
 
 /* Author-defined secondary output window (ADRIFT 5 <window NAME>), opened
    lazily as a right-hand text buffer the first time the game routes text to
@@ -583,6 +599,9 @@ os_open_file (scr_bool is_save)
   usage = fileusage_SavedGame | fileusage_BinaryMode;
   fmode = is_save ? filemode_Write : filemode_Read;
 
+#ifdef SPATTERLIGHT
+  gsc_sc_note_mid_turn_input ();
+#endif
   fileref = glk_fileref_create_by_prompt (usage, fmode, 0);
   if (!fileref)
     return NULL;
@@ -1293,6 +1312,16 @@ gsc_main (void)
   if (autorestore)
     {
       gsc_autorestore_replace_state (gsc_sc_apply_all);
+      if (gsc_sc_boot_replay ())
+        {
+          /* Closed at a pause in the opening: there is no state to have
+             loaded, and the game starts over without showing anything until
+             it is back there. */
+          glk_set_window (gsc_main_window);
+          glk_set_style (style_Normal);
+          gsc_sc_silent = TRUE;
+          goto restored;
+        }
       /* The app resumes any interrupted sound and restores the graphics
          window pixels itself; the engine must not replay them. */
       scr_note_resources_synced (gsc_game);
@@ -1310,6 +1339,8 @@ gsc_main (void)
       glk_set_window (gsc_main_window);
       glk_set_style (style_Normal);
       gsc_autorestored = TRUE;
+    restored:
+      ;
     }
 #endif
 

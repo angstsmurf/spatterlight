@@ -211,6 +211,15 @@ gsc_a5_display (const char *text)
      A5_ENDWINDOW_MARK.  A <cls> inside the span clears that side window. */
   winid_t cur_window = gsc_main_window;
 
+  /* Whether a <waitkey> pause here is one a relaunch can come back to (the
+     text is a turn's or the first opening's), and whether this is such a
+     relaunch, still short of the pause the game was closed at.  Up to there
+     everything is already in the restored windows and channels, so nothing
+     is printed, drawn, played or waited for: only the spans and the window
+     the text is routed to are followed, to be in force when it resumes. */
+  const int saved_pauses = gsc_a5_popup_context != GSC_A5_POPUP_ELSEWHERE;
+  int silent = saved_pauses && gsc_a5_waitkey_skip > 0;
+
   if (text == NULL)
     return;
 
@@ -232,7 +241,10 @@ gsc_a5_display (const char *text)
           char *chunk = (char *) gsc_malloc (n + 1);
           memcpy (chunk, seg, n);
           chunk[n] = '\0';
-          gsc_a5_put_string (chunk);
+          if (!silent)
+            gsc_a5_put_string (chunk);
+          else if (cur_window == gsc_main_window)
+            gsc_main_window_empty = FALSE;
           free (chunk);
         }
       if (*p == '\0')
@@ -240,7 +252,8 @@ gsc_a5_display (const char *text)
 
       if (*p == A5_CLS_MARK)
         {
-          glk_window_clear (cur_window);
+          if (!silent)
+            glk_window_clear (cur_window);
           if (cur_window == gsc_main_window)
             gsc_main_window_empty = TRUE;
         }
@@ -271,6 +284,22 @@ gsc_a5_display (const char *text)
       else if (*p == A5_WAITKEY_MARK)
         {
           event_t event;
+          int resumed = FALSE;
+
+          if (saved_pauses)
+            gsc_a5_waitkey_count++;
+          if (silent)
+            {
+              if (gsc_a5_waitkey_count < gsc_a5_waitkey_skip)
+                {
+                  seg = ++p;
+                  continue;
+                }
+              /* The pause the game was closed at: what follows is new. */
+              silent = FALSE;
+              gsc_a5_waitkey_skip = 0;
+              resumed = TRUE;
+            }
 
           /* Bring the status line and the map up to date before pausing:
              a turn that walks into a room and then plays a cutscene there
@@ -279,6 +308,15 @@ gsc_a5_display (const char *text)
           if (gsc_a5_run)
             gsc_a5_status (gsc_a5_run);
           gsc_map_redraw ();
+#ifdef SPATTERLIGHT
+          /* Save the game at the pause: after the panes are brought up to
+             date (so the GUI snapshot has them) and before the key is asked
+             for (so the archived windows carry no pending request).  Not
+             when this is the pause just come back to, which is the save on
+             disk already. */
+          if (saved_pauses && !resumed)
+            gsc_a5_autosave_waitkey ();
+#endif
           glk_request_char_event (gsc_main_window);
           gsc_event_wait (evtype_CharInput, &event);
           /* gsc_a5_status (and gsc_map_redraw, if it opens the pane) leave
@@ -411,7 +449,8 @@ gsc_a5_display (const char *text)
                 n = sizeof arg - 1;
               memcpy (arg, p + 1, n);
               arg[n] = '\0';
-              gsc_handle_wait_tag (arg);
+              if (!silent)
+                gsc_handle_wait_tag (arg);
               p = e;
             }
         }
@@ -424,7 +463,12 @@ gsc_a5_display (const char *text)
           const char *e = strchr (p + 1, A5_SOUND_MARK);
           if (e != NULL)
             {
-              if (gsc_a5_run != NULL)
+              /* Passed in silence, a sound is on its restored channel
+                 already (or was stopped there); it is still marked as dealt
+                 with, to keep the after-the-turn sweep off it. */
+              if (gsc_a5_run != NULL && silent)
+                a5run_media_note_shown (gsc_a5_run, (int) atol (p + 1));
+              else if (gsc_a5_run != NULL)
                 gsc_a5_media_fire (gsc_a5_run, (int) atol (p + 1));
               p = e;
             }
@@ -435,12 +479,18 @@ gsc_a5_display (const char *text)
           const char *e = strchr (p + 1, A5_IMG_MARK);
           if (e != NULL)
             {
-              gsc_a5_draw_image (cur_window, (glui32) atol (p + 1));
+              if (!silent)
+                gsc_a5_draw_image (cur_window, (glui32) atol (p + 1));
               p = e;
             }
         }
       seg = ++p;
     }
+
+  /* A replay that never reached the pause it was after (the turn did not
+     come out as it did before) is over all the same. */
+  if (silent)
+    gsc_a5_waitkey_skip = 0;
 
   /* A dangling span must not bleed into prompts and later turns. */
   if (center_depth > 0 || right_depth > 0

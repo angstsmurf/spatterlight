@@ -1184,8 +1184,10 @@ gsc_a5_try_restore (a5_run_t *run)
 static void
 gsc_a5_present_intro (a5_run_t *run)
 {
-  char *text = a5run_intro (run);
+  char *text;
 
+  gsc_a5_waitkey_count = 0;
+  text = a5run_intro (run);
   gsc_a5_display (text);
   free (text);
   gsc_a5_present_intro_media (run);
@@ -1551,6 +1553,7 @@ gsc_a5_main (void)
       else
         {
           gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+          gsc_a5_waitkey_skip = 0;
           if (gsc_a5_read_line (input, sizeof input) == 0)
             continue;
         }
@@ -1604,10 +1607,13 @@ gsc_a5_main (void)
       gsc_a5_popup_command = input;
       gsc_a5_popup_answers.clear ();
       gsc_a5_popup_context = GSC_A5_POPUP_TURN;
+      gsc_a5_waitkey_count = 0;
       text = a5run_input (run, input);
-      gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
       gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+      /* Still the turn's while its text is paged out: a <waitkey> pause in
+         it is saved as a question is (gsc_a5_autosave_waitkey). */
       gsc_a5_display (text);
+      gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
       free (text);
       gsc_a5_show_media (run);
       gsc_a5_status (run);

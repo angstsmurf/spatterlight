@@ -65,6 +65,11 @@ bool scarier_autosave_wanted(void)
     return gli_autosave_wanted();
 }
 
+bool scarier_autosave_enabled(void)
+{
+    return gli_enable_autosave != 0;
+}
+
 void scarier_autosave_discard(void)
 {
     gli_autosave_discard(gsc_autosave_game_path());

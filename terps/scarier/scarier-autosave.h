@@ -62,6 +62,11 @@ bool scarier_autosave_exists(void);
  * the autosave-on-timer preference is on). */
 bool scarier_autosave_wanted(void);
 
+/* Autosaving enabled at all, whatever the last Glk event was: the guard for
+ * a save taken at a point the game reaches once (a <waitkey> pause), where
+ * there is no prompt loop for a resize or a timer to send round again. */
+bool scarier_autosave_enabled(void);
+
 /* Delete the autosave files (called after a failed restore, so the next
  * launch boots fresh instead of hitting the same failure again). */
 void scarier_autosave_discard(void);

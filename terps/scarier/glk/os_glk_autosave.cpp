@@ -110,7 +110,20 @@ gsc_state_read (void *opaque, scr_byte *buffer, scr_int length)
  *
  * The ADRIFT <=4 container: the engine's TAS-format state, the memo undo
  * ring (oldest first), and the one-turn-back undo buffer when available.
+ *
+ * An autosave taken at a <waitkey> pause (gsc_sc_autosave_waitkey) is the
+ * container of the prompt the turn started from, followed by "R", the line
+ * typed there and the number of pauses reached; one taken in the opening,
+ * before any prompt, has no state at all, only "BOOT" and the number.
  */
+static const char *const GSC_SC_BOOT_MARK = "BOOT\n";
+
+/* What a relaunch at a <waitkey> pause has to play back: see
+   gsc_sc_autosave_waitkey(). */
+static std::string gsc_sc_replay_command;
+static bool gsc_sc_replay_pending = false;
+static bool gsc_sc_replay_boot = false;
+
 static std::string
 gsc_sc_serialize_all (void)
 {
@@ -173,6 +186,18 @@ gsc_sc_apply_all (const std::string &data)
     return false;
   size_t pos = magic.size ();
 
+  if (data.compare (pos, strlen (GSC_SC_BOOT_MARK), GSC_SC_BOOT_MARK) == 0)
+    {
+      long pauses;
+
+      pos += strlen (GSC_SC_BOOT_MARK);
+      if (!gsc_container_get_count (data, &pos, &pauses) || pauses < 1)
+        return false;
+      gsc_sc_waitkey_skip = (int) pauses;
+      gsc_sc_replay_boot = true;
+      return true;
+    }
+
   if (!gsc_container_get_chunk (data, &pos, &chunk))
     return false;
   {
@@ -212,6 +237,19 @@ gsc_sc_apply_all (const std::string &data)
           scr_load_undo_game_from_callback (gsc_game, gsc_state_read,
                                             &cursor);
         }
+      if (pos < data.size () && data[pos] == 'R')
+        {
+          long pauses;
+
+          pos++;
+          if (gsc_container_get_chunk (data, &pos, &chunk)
+              && gsc_container_get_count (data, &pos, &pauses) && pauses > 0)
+            {
+              gsc_sc_replay_command = chunk;
+              gsc_sc_replay_pending = true;
+              gsc_sc_waitkey_skip = (int) pauses;
+            }
+        }
     }
   while (false);
 
@@ -234,7 +272,11 @@ gsc_sc_apply_all (const std::string &data)
  * command, and the answers the turn's earlier questions were given; one
  * taken at a question the opening asks has no state at all, only "BOOT" and
  * the answers.  gsc_a5_apply_all hands either record to the driver, which
- * plays it back (gsc_a5_popup_replayed in os_glk_a5.cpp).
+ * plays it back (gsc_a5_popup_replayed in os_glk_a5.cpp).  Either record
+ * ends with the number of <waitkey> pauses the text had been shown through:
+ * none at a question, which comes before any of the text, and at least one
+ * in a record taken at a pause (gsc_a5_autosave_waitkey).  A record written
+ * before pauses were saved has no count, which reads as none.
  */
 static const char *const GSC_A5_BOOT_MARK = "BOOT\n";
 
@@ -264,6 +306,17 @@ gsc_a5_get_answers (const std::string &data, size_t *pos,
       answers->push_back (chunk);
     }
   return true;
+}
+
+static int
+gsc_a5_get_waitkeys (const std::string &data, size_t *pos)
+{
+  long count;
+
+  if (*pos >= data.size () || !gsc_container_get_count (data, pos, &count)
+      || count < 0)
+    return 0;
+  return (int) count;
 }
 
 static std::string
@@ -323,6 +376,7 @@ gsc_a5_apply_all (const std::string &data)
       if (!gsc_a5_get_answers (data, &pos, &gsc_a5_replay_answers))
         return false;
       gsc_a5_popup_replay = GSC_A5_POPUP_BOOT;
+      gsc_a5_waitkey_skip = gsc_a5_get_waitkeys (data, &pos);
       return true;
     }
 
@@ -362,6 +416,7 @@ gsc_a5_apply_all (const std::string &data)
         {
           gsc_a5_replay_command = chunk;
           gsc_a5_popup_replay = GSC_A5_POPUP_TURN;
+          gsc_a5_waitkey_skip = gsc_a5_get_waitkeys (data, &pos);
         }
     }
   return true;
@@ -571,6 +626,7 @@ gsc_autosave_game_path (void)
 /*
  * gsc_a5_note_turn_start()
  * gsc_a5_autosave_popup()
+ * gsc_a5_autosave_waitkey()
  * gsc_a5_autosave_at_boot_popup()
  *
  * The ADRIFT 5 %PopUpInput% and %PopUpChoice% questions are asked from
@@ -584,6 +640,16 @@ gsc_autosave_game_path (void)
  * the driver tell apart before it boots silently for an ordinary restore.
  * A question asked from anywhere else (a RESTART's opening, a real-time
  * tick) is not saved.
+ *
+ * A <waitkey> pause is saved the same way.  The engine has finished the
+ * turn by then and its text is being paged out, but the rest of that text,
+ * the sounds it has yet to start and the spans open across the pause are
+ * the turn's, not the saved game's; so this too is the state the turn began
+ * in and its command, with the number of pauses reached, and the relaunch
+ * runs the turn again and displays nothing until it is back at that pause
+ * (gsc_a5_display).  A cutscene can run to dozens of pauses on one command,
+ * or on none at all in an opening, and without this closing the window
+ * anywhere in it meant paging through it all again.
  */
 static std::string gsc_a5_turn_state;
 static ScarierGlkFrontendState gsc_a5_turn_rng;
@@ -598,15 +664,13 @@ gsc_a5_note_turn_start (void)
   gsc_stash_rng (&gsc_a5_turn_rng);
 }
 
-void
-gsc_a5_autosave_popup (void)
+static void
+gsc_a5_autosave_mid_turn (void)
 {
   /* Neither generator is put back: see gsc_recover_frontend_state. */
   static const ScarierGlkFrontendState fresh;
   std::string state;
 
-  if (gsc_in_debug_read || !scarier_autosave_wanted ())
-    return;
   if (gsc_a5_popup_context == GSC_A5_POPUP_BOOT)
     {
       state = GSC_A5_CONTAINER_MAGIC;
@@ -625,8 +689,148 @@ gsc_a5_autosave_popup (void)
   else
     return;
   gsc_a5_put_answers (state, gsc_a5_popup_answers);
+  state += std::to_string ((long) gsc_a5_waitkey_count);
+  state += '\n';
   scarier_autosave_write (state);
   gsc_rng_override = NULL;
+}
+
+void
+gsc_a5_autosave_popup (void)
+{
+  if (gsc_in_debug_read || !scarier_autosave_wanted ())
+    return;
+  gsc_a5_autosave_mid_turn ();
+}
+
+/* Not scarier_autosave_wanted: a pause that follows a <wait> delay has a
+   timer event behind it, and the first one of an opening no event at all,
+   neither of which is a reason to leave it out. */
+void
+gsc_a5_autosave_waitkey (void)
+{
+  if (gsc_in_debug_read || !scarier_autosave_enabled ())
+    return;
+  gsc_a5_autosave_mid_turn ();
+}
+
+/*
+ * gsc_sc_note_turn_start()
+ * gsc_sc_note_command()
+ * gsc_sc_note_mid_turn_input()
+ * gsc_sc_autosave_waitkey()
+ * gsc_sc_take_replay_command()
+ * gsc_sc_boot_replay()
+ *
+ * The ADRIFT <=4 <waitkey> pause comes from inside the interpreter, with a
+ * turn half run and half printed, so it is saved the way the ADRIFT 5 one
+ * is: as the container of the prompt the turn began at -- noted at every
+ * prompt, whether or not it is written -- with the line typed there and
+ * the number of pauses since.  The relaunch loads that, hands the line back
+ * to the interpreter in place of reading one, and puts nothing out until
+ * the pause comes round again (gsc_sc_silent).  A line of several commands
+ * is one line here, and the count runs across all of them.
+ *
+ * Pauses in the opening, before any line has been read, have nothing to
+ * start from but the game as loaded: the relaunch starts it over, silently.
+ * Not saved: a pause in a turn that asked for something besides its line
+ * (a yes or no, a save file, the debugger), which could not be run again
+ * unattended, and so any pause in the opening a RESTART plays.
+ */
+enum { GSC_SC_TURN_BOOT, GSC_SC_TURN_PROMPT, GSC_SC_TURN_RUN,
+       GSC_SC_TURN_NONE };
+static int gsc_sc_turn_context = GSC_SC_TURN_BOOT;
+static std::string gsc_sc_turn_state, gsc_sc_turn_command;
+static ScarierGlkFrontendState gsc_sc_turn_rng;
+
+void
+gsc_sc_note_turn_start (void)
+{
+  const scr_gameref_t game = (scr_gameref_t) gsc_game;
+
+  gsc_sc_turn_state.clear ();
+  gsc_sc_turn_command.clear ();
+  gsc_sc_turn_context = GSC_SC_TURN_NONE;
+  gsc_sc_waitkey_count = 0;
+  if (gsc_in_debug_read || !scarier_autosave_enabled ())
+    return;
+  if (gsc_game == NULL || !scr_is_game_running (gsc_game))
+    return;
+  /* Not seen the player's room yet = still inside the startup block.
+     Its name and gender prompts resume where they were (see
+     run_startup_prompt()); anywhere else would replay the intro over
+     the restored transcript. */
+  if (!gs_room_seen (game, gs_playerroom (game))
+      && run_startup_prompt () == 0)
+    return;
+  gsc_sc_turn_state = gsc_sc_serialize_all ();
+  gsc_stash_rng (&gsc_sc_turn_rng);
+  if (!gsc_sc_turn_state.empty ())
+    gsc_sc_turn_context = GSC_SC_TURN_PROMPT;
+}
+
+void
+gsc_sc_note_command (const scr_char *line)
+{
+  if (gsc_sc_turn_context == GSC_SC_TURN_PROMPT)
+    {
+      gsc_sc_turn_command = line;
+      gsc_sc_turn_context = GSC_SC_TURN_RUN;
+    }
+}
+
+void
+gsc_sc_note_mid_turn_input (void)
+{
+  gsc_sc_turn_context = GSC_SC_TURN_NONE;
+}
+
+void
+gsc_sc_autosave_waitkey (void)
+{
+  /* Neither generator is put back: see gsc_recover_frontend_state. */
+  static const ScarierGlkFrontendState fresh;
+  std::string state;
+
+  if (!scarier_autosave_enabled ())
+    return;
+  if (gsc_sc_turn_context == GSC_SC_TURN_BOOT)
+    {
+      state = GSC_SC_CONTAINER_MAGIC;
+      state += GSC_SC_BOOT_MARK;
+      gsc_rng_override = &fresh;
+    }
+  else if (gsc_sc_turn_context == GSC_SC_TURN_RUN)
+    {
+      state = gsc_sc_turn_state;
+      state += 'R';
+      gsc_container_put_chunk (state, gsc_sc_turn_command.data (),
+                               gsc_sc_turn_command.size ());
+      gsc_rng_override = &gsc_sc_turn_rng;
+    }
+  else
+    return;
+  state += std::to_string ((long) gsc_sc_waitkey_count);
+  state += '\n';
+  scarier_autosave_write (state);
+  gsc_rng_override = NULL;
+}
+
+bool
+gsc_sc_take_replay_command (scr_char *buffer, scr_int length)
+{
+  if (!gsc_sc_replay_pending)
+    return false;
+  gsc_sc_replay_pending = false;
+  strncpy (buffer, gsc_sc_replay_command.c_str (), length - 1);
+  buffer[length - 1] = '\0';
+  return true;
+}
+
+bool
+gsc_sc_boot_replay (void)
+{
+  return gsc_sc_replay_boot;
 }
 
 bool
@@ -651,8 +855,10 @@ gsc_a5_autosave_at_boot_popup (void)
  * with the game on both engines (which_* / which_offered on the ADRIFT 4
  * side, the pending chunk on the ADRIFT 5 side), and so are the ADRIFT 4
  * name and gender prompts that come before the first room, so the only
- * prompt skipped is the debugger's.  The ADRIFT 5 popup questions have a
- * save of their own, gsc_a5_autosave_popup().
+ * prompt skipped is the debugger's.  The ADRIFT 5 popup questions and
+ * <waitkey> pauses have saves of their own, gsc_a5_autosave_popup() and
+ * gsc_a5_autosave_waitkey(), and the ADRIFT 4 pauses
+ * gsc_sc_autosave_waitkey().
  */
 void
 gsc_autosave (void)
@@ -661,6 +867,8 @@ gsc_autosave (void)
 
   if (gsc_is_a5)
     gsc_a5_note_turn_start ();
+  else
+    gsc_sc_note_turn_start ();
   if (gsc_in_debug_read || !scarier_autosave_wanted ())
     return;
   if (gsc_is_a5)
@@ -671,18 +879,8 @@ gsc_autosave (void)
     }
   else
     {
-      const scr_gameref_t game = (scr_gameref_t) gsc_game;
-
-      if (gsc_game == NULL || !scr_is_game_running (gsc_game))
-        return;
-      /* Not seen the player's room yet = still inside the startup block.
-         Its name and gender prompts resume where they were (see
-         run_startup_prompt()); anywhere else would replay the intro over
-         the restored transcript. */
-      if (!gs_room_seen (game, gs_playerroom (game))
-          && run_startup_prompt () == 0)
-        return;
-      state = gsc_sc_serialize_all ();
+      /* Empty where there is nothing to save: gsc_sc_note_turn_start. */
+      state = gsc_sc_turn_state;
     }
   if (!state.empty ())
     scarier_autosave_write (state);
