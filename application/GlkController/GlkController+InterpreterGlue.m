@@ -90,6 +90,14 @@ static BOOL pollMoreData(int fd) {
     if (windowClosedAlready)
         return;
 
+    // A termination notice for an interpreter we have already replaced (or
+    // dropped): reset: clears the handler, but a terp that exits on its own
+    // right after asking for a RESET may have queued this block already.
+    // Acting on it would wait for the new interpreter to exit, which blocks
+    // the main thread for as long as the restarted game runs.
+    if (sender != task)
+        return;
+
     dead = YES;
     terpHasStopped = YES;
     restartingAlready = NO;
