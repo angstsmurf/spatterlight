@@ -110,7 +110,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~336~~ | ~~`scdump_tasks`~~ | DONE: `scdump_task_t` + eight section members, see "scdump_tasks split" |
 | ~~323~~ | ~~`oo_prop`~~ | DONE: `oo_step_t` + six context members, see "oo_prop split" |
 | ~~309~~ | ~~`lib_print_room_description`~~ | DONE: four parts + driver, see "lib_print_room_description split" |
-| 308 | `gsc_a5_display` | `glk/os_glk_a5_display.cpp` ~200 |
+| ~~308~~ | ~~`gsc_a5_display`~~ | DONE: `gsc_a5_display_t` + one member per mark, see "gsc_a5_display split" |
 | 306 | `debug_help` | `scdebug.cpp` ~240 (data, not logic: make it a table) |
 | 301 | `view_location_impl` | `adrift5/text/a5text_view.cpp` ~141 |
 | 289 | `lib_take_multiple_common` | `library/sclibrar_take.cpp` ~3554 |
@@ -353,7 +353,7 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `gsc_a5_display` down; `run_task`, `pass_character`,
+   open from `debug_help` down; `gsc_a5_display`, `run_task`, `pass_character`,
    `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
    `eval_function`, `scdump_tasks`, `oo_prop` and
    `lib_print_room_description` are taken (see their "split" sections).
@@ -1052,3 +1052,28 @@ them):
 - Next in the table: `gsc_a5_display` (glk/os_glk_a5_display.cpp), which
   the headless suite does not compile -- the check there is the Glk
   build and the autosave suite.
+
+## 3: gsc_a5_display split (2026-10-11)
+
+- **`gsc_a5_display`** (308 l.) in `glk/os_glk_a5_display.cpp` is a
+  70-line scan loop over `gsc_a5_display_t`, on the `uip_pronoun_t`
+  model: the struct holds what the old locals did (the cursor `p`, the
+  five span depths, the colour stack, `cur_window`, `saved_pauses`,
+  `silent`) and has one member per arm of the old if-chain --
+  `plain_run`, `cls`, `window_open`, `window_close`, `waitkey`, `commit`,
+  `colour_open`, `colour_close`, `span` (the ten alignment and
+  character-style marks), `wait`, `sound`, `image` -- plus `finish` for
+  the dangling-span cleanup.  The chain itself is now a `switch` on the
+  mark with `image` as the default, as it was the final `else`.  The
+  run start `seg` stays a driver local.  Bodies are code motion; the one
+  edit is in `waitkey`, where the replay's `seg = ++p; continue;` is a
+  `return` (the driver's own `seg = ++d.p` after the switch is the same
+  statement).  The struct is zero-initialised, where the colour arrays
+  used to start uninitialised.
+- Verification: `make -j8 scarier glkscarier` warning-free; headless
+  `quick`; the Scarier autosave suite (`run_autosave_tests.py --build`),
+  whose `a5-waitkey-*`, `a5-sound-after-restore` and
+  `a5-image-after-restore` rows drive the silent replay through this
+  function, all passed.  The headless suite does not compile the file.
+  No line over 80 columns.
+- Next in the table: `debug_help` (scdebug.cpp) -- data, not logic.

@@ -181,6 +181,338 @@ static const char GSC_A5_DISPLAY_MARKS[] = {
 };
 
 /*
+ * One call of gsc_a5_display(): where it is in the text, the spans open
+ * there, and the window the text is going to.  One member per mark.
+ */
+namespace {
+
+struct gsc_a5_display_t
+{
+  const char *p;
+  int center_depth, right_depth, bold_depth, italic_depth, underline_depth;
+  glui32 colour_stack[GSC_MAX_STYLE_NESTING];
+  int colour_is_input[GSC_MAX_STYLE_NESTING];
+  int colour_depth;
+
+  /* The window a run of text is currently going to: the main story window, or
+     an author-defined side window between an A5_WINDOW_MARK span and its
+     A5_ENDWINDOW_MARK.  A <cls> inside the span clears that side window. */
+  winid_t cur_window;
+
+  /* Whether a <waitkey> pause here is one a relaunch can come back to (the
+     text is a turn's or the first opening's), and whether this is such a
+     relaunch, still short of the pause the game was closed at.  Up to there
+     everything is already in the restored windows and channels, so nothing
+     is printed, drawn, played or waited for: only the spans and the window
+     the text is routed to are followed, to be in force when it resumes. */
+  int saved_pauses;
+  int silent;
+
+  void plain_run (const char *seg);
+  void cls ();
+  void window_open ();
+  void window_close ();
+  void waitkey ();
+  void commit ();
+  void colour_open ();
+  void colour_close ();
+  void span ();
+  void wait ();
+  void sound ();
+  void image ();
+  void finish ();
+};
+
+} /* namespace */
+
+/* Flush the plain text run before this mark (or before the end). */
+void
+gsc_a5_display_t::plain_run (const char *seg)
+{
+  size_t n = (size_t) (p - seg);
+  char *chunk = (char *) gsc_malloc (n + 1);
+  memcpy (chunk, seg, n);
+  chunk[n] = '\0';
+  if (!silent)
+    gsc_a5_put_string (chunk);
+  else if (cur_window == gsc_main_window)
+    gsc_main_window_empty = FALSE;
+  free (chunk);
+}
+
+void
+gsc_a5_display_t::cls ()
+{
+  if (!silent)
+    glk_window_clear (cur_window);
+  if (cur_window == gsc_main_window)
+    gsc_main_window_empty = TRUE;
+}
+
+void
+gsc_a5_display_t::window_open ()
+{
+  /* Side-window span opens: \022<name>\022.  Route text to the side
+     window (opened lazily, right split); fall back to the main window
+     if Glk cannot split.  The name delimits the span but is unused --
+     this build routes every <window> to the one side window. */
+  const char *e = strchr (p + 1, A5_WINDOW_MARK);
+  winid_t w = gsc_a5_open_side_window ();
+
+  cur_window = w != nullptr ? w : gsc_main_window;
+  glk_set_window (cur_window);
+  gsc_colour_apply (cur_window,
+                    gsc_a5_colour_top (colour_stack, colour_depth));
+  if (e != nullptr)
+    p = e;
+}
+
+void
+gsc_a5_display_t::window_close ()
+{
+  /* Side-window span closes: text returns to the main story window. */
+  cur_window = gsc_main_window;
+  glk_set_window (cur_window);
+  gsc_colour_apply (cur_window,
+                    gsc_a5_colour_top (colour_stack, colour_depth));
+}
+
+void
+gsc_a5_display_t::waitkey ()
+{
+  event_t event;
+  int resumed = FALSE;
+
+  if (saved_pauses)
+    gsc_a5_waitkey_count++;
+  if (silent)
+    {
+      if (gsc_a5_waitkey_count < gsc_a5_waitkey_skip)
+        return;
+      /* The pause the game was closed at: what follows is new. */
+      silent = FALSE;
+      gsc_a5_waitkey_skip = 0;
+      resumed = TRUE;
+    }
+
+  /* Bring the status line and the map up to date before pausing:
+     a turn that walks into a room and then plays a cutscene there
+     should show the new room on the map now, not at the next prompt
+     once the whole cutscene has been paged through. */
+  if (gsc_a5_run)
+    gsc_a5_status (gsc_a5_run);
+  gsc_map_redraw ();
+#ifdef SPATTERLIGHT
+  /* Save the game at the pause: after the panes are brought up to
+     date (so the GUI snapshot has them) and before the key is asked
+     for (so the archived windows carry no pending request).  Not
+     when this is the pause just come back to, which is the save on
+     disk already. */
+  if (saved_pauses && !resumed)
+    gsc_a5_autosave_waitkey ();
+#else
+  (void) resumed;
+#endif
+  glk_request_char_event (gsc_main_window);
+  gsc_event_wait (evtype_CharInput, &event);
+  /* gsc_a5_status (and gsc_map_redraw, if it opens the pane) leave
+     the main window selected; restore the span's routing window so
+     text after the pause stays in it. */
+  glk_set_window (cur_window);
+}
+
+void
+gsc_a5_display_t::commit ()
+{
+  /* Display-commit boundary with a dangling span (a5text.h): each
+     commit is its own Source2HTML parse in the Runner, so a <center>,
+     <right>, <b>, or <i> left open there ends now -- Death Shack's
+     Introduction never closes its <center>, and the first room
+     description (the next commit) must come out left-aligned, not
+     centered. */
+  center_depth = right_depth = bold_depth = italic_depth
+    = underline_depth = 0;
+  colour_depth = 0;
+  glk_set_style (gsc_a5_span_style (0, 0, 0, 0, 0, FALSE));
+  gsc_colour_apply (cur_window, GSC_COLOUR_NONE);
+}
+
+void
+gsc_a5_display_t::colour_open ()
+{
+  /* Colour span opens: \027<value>\027, the value being a colour name
+     or hex triplet, the reserved token "input" for <c> (which the
+     Runner draws in its input colour), or empty for a <font> tag with
+     no colour of its own. */
+  const char *e = strchr (p + 1, A5_COLOUR_MARK);
+
+  if (e != nullptr)
+    {
+      char token[32];
+      size_t n = (size_t) (e - (p + 1));
+
+      if (n >= sizeof token)
+        n = sizeof token - 1;
+      memcpy (token, p + 1, n);
+      token[n] = '\0';
+
+      if (colour_depth < GSC_MAX_STYLE_NESTING)
+        {
+          const int is_input = strcmp (token, "input") == 0;
+
+          colour_is_input[colour_depth] = is_input;
+          colour_stack[colour_depth++]
+            = is_input ? gsc_colour_input
+                       : gsc_colour_lookup (token);
+          gsc_colour_apply (cur_window,
+                            gsc_a5_colour_top (colour_stack,
+                                               colour_depth));
+          /* Colour spans carry a style too, for the colourless case
+             (see gsc_a5_span_style); with colours on this re-asserts
+             the style already in force. */
+          glk_set_style (gsc_a5_span_style (center_depth, right_depth,
+                                            bold_depth, italic_depth,
+                                            underline_depth,
+                                            gsc_a5_colour_top_is_input
+                                              (colour_stack,
+                                               colour_is_input,
+                                               colour_depth)));
+        }
+      p = e;
+    }
+}
+
+void
+gsc_a5_display_t::colour_close ()
+{
+  if (colour_depth > 0)
+    colour_depth--;
+  gsc_colour_apply (cur_window,
+                    gsc_a5_colour_top (colour_stack, colour_depth));
+  glk_set_style (gsc_a5_span_style (center_depth, right_depth,
+                                    bold_depth, italic_depth,
+                                    underline_depth,
+                                    gsc_a5_colour_top_is_input
+                                      (colour_stack, colour_is_input,
+                                       colour_depth)));
+}
+
+void
+gsc_a5_display_t::span ()
+{
+  /* Alignment or character-style span boundary: like the Runner, only
+     the style changes -- the game's own line breaks around an aligned
+     span delimit the paragraph.  A <b> inside a <center> gets the
+     weight-hinted centered style (User2); elsewhere bold is Subheader
+     and italic/underline are Emphasized (Alert when combined with
+     bold).  Right alignment uses style_Note and wins over character
+     styles. */
+  if (*p == A5_CENTER_MARK)
+    center_depth++;
+  else if (*p == A5_ENDCENTER_MARK && center_depth > 0)
+    center_depth--;
+  else if (*p == A5_RIGHT_MARK)
+    right_depth++;
+  else if (*p == A5_ENDRIGHT_MARK && right_depth > 0)
+    right_depth--;
+  else if (*p == A5_BOLD_MARK)
+    bold_depth++;
+  else if (*p == A5_ENDBOLD_MARK && bold_depth > 0)
+    bold_depth--;
+  else if (*p == A5_ITALIC_MARK)
+    italic_depth++;
+  else if (*p == A5_ENDITALIC_MARK && italic_depth > 0)
+    italic_depth--;
+  else if (*p == A5_UNDERLINE_MARK)
+    underline_depth++;
+  else if (*p == A5_ENDUNDERLINE_MARK && underline_depth > 0)
+    underline_depth--;
+  glk_set_style (gsc_a5_span_style (center_depth, right_depth,
+                                    bold_depth, italic_depth,
+                                    underline_depth,
+                                    gsc_a5_colour_top_is_input
+                                      (colour_stack, colour_is_input,
+                                       colour_depth)));
+}
+
+void
+gsc_a5_display_t::wait ()
+{
+  /* Timed-pause slot: \026<seconds>\026.  Run the same cancelable
+     timer delay the ADRIFT 4 path gives its <wait x.x> tag, so
+     Death Shack's letter-at-a-time title cards play out in real
+     time (an empty or unparsable argument pauses not at all). */
+  const char *e = strchr (p + 1, A5_WAIT_MARK);
+  if (e != nullptr)
+    {
+      char arg[16];
+      size_t n = (size_t) (e - (p + 1));
+      if (n >= sizeof arg)
+        n = sizeof arg - 1;
+      memcpy (arg, p + 1, n);
+      arg[n] = '\0';
+      if (!silent)
+        gsc_handle_wait_tag (arg);
+      p = e;
+    }
+}
+
+void
+gsc_a5_display_t::sound ()
+{
+  /* Sound slot: \024<media event index>\024.  Fire it here, at the
+     tag's place in the text -- before any later <waitkey>, so e.g. a
+     sting cued ahead of a keypress-paced cutscene starts immediately
+     (Pervert Action Crisis' maid encounter). */
+  const char *e = strchr (p + 1, A5_SOUND_MARK);
+  if (e != nullptr)
+    {
+      /* Passed in silence, a sound is on its restored channel
+         already (or was stopped there); it is still marked as dealt
+         with, to keep the after-the-turn sweep off it. */
+      if (gsc_a5_run != nullptr && silent)
+        a5run_media_note_shown (gsc_a5_run, (int) atol (p + 1));
+      else if (gsc_a5_run != nullptr)
+        gsc_a5_media_fire (gsc_a5_run, (int) atol (p + 1));
+      p = e;
+    }
+}
+
+void
+gsc_a5_display_t::image ()
+{
+  /* Image slot: \006<Blorb resource number>\006. */
+  const char *e = strchr (p + 1, A5_IMG_MARK);
+  if (e != nullptr)
+    {
+      if (!silent)
+        gsc_a5_draw_image (cur_window, (glui32) atol (p + 1));
+      p = e;
+    }
+}
+
+void
+gsc_a5_display_t::finish ()
+{
+  /* A replay that never reached the pause it was after (the turn did not
+     come out as it did before) is over all the same. */
+  if (silent)
+    gsc_a5_waitkey_skip = 0;
+
+  /* A dangling span must not bleed into prompts and later turns. */
+  if (center_depth > 0 || right_depth > 0
+      || bold_depth > 0 || italic_depth > 0 || underline_depth > 0)
+    glk_set_style (style_Normal);
+  /* Nor a dangling colour span: the prompt and the player's input follow. */
+  if (colour_depth > 0)
+    gsc_colour_apply (cur_window, GSC_COLOUR_NONE);
+  /* Likewise a dangling <window> span: prompts and input echo belong in the
+     main story window. */
+  if (cur_window != gsc_main_window)
+    glk_set_window (gsc_main_window);
+}
+
+/*
  * gsc_a5_display()
  *
  * Present one turn's text.  The engine runs in interactive mode (see
@@ -199,26 +531,13 @@ static const char GSC_A5_DISPLAY_MARKS[] = {
 void
 gsc_a5_display (const char *text)
 {
-  const char *p = text, *seg = text;
-  int center_depth = 0, right_depth = 0, bold_depth = 0, italic_depth = 0,
-      underline_depth = 0;
-  glui32 colour_stack[GSC_MAX_STYLE_NESTING];
-  int colour_is_input[GSC_MAX_STYLE_NESTING];
-  int colour_depth = 0;
+  const char *seg = text;
+  gsc_a5_display_t d = {};
 
-  /* The window a run of text is currently going to: the main story window, or
-     an author-defined side window between an A5_WINDOW_MARK span and its
-     A5_ENDWINDOW_MARK.  A <cls> inside the span clears that side window. */
-  winid_t cur_window = gsc_main_window;
-
-  /* Whether a <waitkey> pause here is one a relaunch can come back to (the
-     text is a turn's or the first opening's), and whether this is such a
-     relaunch, still short of the pause the game was closed at.  Up to there
-     everything is already in the restored windows and channels, so nothing
-     is printed, drawn, played or waited for: only the spans and the window
-     the text is routed to are followed, to be in force when it resumes. */
-  const int saved_pauses = gsc_a5_popup_context != GSC_A5_POPUP_ELSEWHERE;
-  int silent = saved_pauses && gsc_a5_waitkey_skip > 0;
+  d.p = text;
+  d.cur_window = gsc_main_window;
+  d.saved_pauses = gsc_a5_popup_context != GSC_A5_POPUP_ELSEWHERE;
+  d.silent = d.saved_pauses && gsc_a5_waitkey_skip > 0;
 
   if (text == nullptr)
     return;
@@ -228,283 +547,66 @@ gsc_a5_display (const char *text)
 
   while (TRUE)
     {
-      if (*p != '\0' && strchr (GSC_A5_DISPLAY_MARKS, *p) == nullptr)
+      if (*d.p != '\0' && strchr (GSC_A5_DISPLAY_MARKS, *d.p) == nullptr)
         {
-          p++;
+          d.p++;
           continue;
         }
 
-      /* Flush the plain text run before this mark (or before the end). */
-      if (p > seg)
-        {
-          size_t n = (size_t) (p - seg);
-          char *chunk = (char *) gsc_malloc (n + 1);
-          memcpy (chunk, seg, n);
-          chunk[n] = '\0';
-          if (!silent)
-            gsc_a5_put_string (chunk);
-          else if (cur_window == gsc_main_window)
-            gsc_main_window_empty = FALSE;
-          free (chunk);
-        }
-      if (*p == '\0')
+      if (d.p > seg)
+        d.plain_run (seg);
+      if (*d.p == '\0')
         break;
 
-      if (*p == A5_CLS_MARK)
+      switch (*d.p)
         {
-          if (!silent)
-            glk_window_clear (cur_window);
-          if (cur_window == gsc_main_window)
-            gsc_main_window_empty = TRUE;
+        case A5_CLS_MARK:
+          d.cls ();
+          break;
+        case A5_WINDOW_MARK:
+          d.window_open ();
+          break;
+        case A5_ENDWINDOW_MARK:
+          d.window_close ();
+          break;
+        case A5_WAITKEY_MARK:
+          d.waitkey ();
+          break;
+        case A5_COMMIT_MARK:
+          d.commit ();
+          break;
+        case A5_COLOUR_MARK:
+          d.colour_open ();
+          break;
+        case A5_ENDCOLOUR_MARK:
+          d.colour_close ();
+          break;
+        case A5_CENTER_MARK:
+        case A5_ENDCENTER_MARK:
+        case A5_RIGHT_MARK:
+        case A5_ENDRIGHT_MARK:
+        case A5_BOLD_MARK:
+        case A5_ENDBOLD_MARK:
+        case A5_ITALIC_MARK:
+        case A5_ENDITALIC_MARK:
+        case A5_UNDERLINE_MARK:
+        case A5_ENDUNDERLINE_MARK:
+          d.span ();
+          break;
+        case A5_WAIT_MARK:
+          d.wait ();
+          break;
+        case A5_SOUND_MARK:
+          d.sound ();
+          break;
+        default:
+          d.image ();
+          break;
         }
-      else if (*p == A5_WINDOW_MARK)
-        {
-          /* Side-window span opens: \022<name>\022.  Route text to the side
-             window (opened lazily, right split); fall back to the main window
-             if Glk cannot split.  The name delimits the span but is unused --
-             this build routes every <window> to the one side window. */
-          const char *e = strchr (p + 1, A5_WINDOW_MARK);
-          winid_t w = gsc_a5_open_side_window ();
-
-          cur_window = w != nullptr ? w : gsc_main_window;
-          glk_set_window (cur_window);
-          gsc_colour_apply (cur_window,
-                            gsc_a5_colour_top (colour_stack, colour_depth));
-          if (e != nullptr)
-            p = e;
-        }
-      else if (*p == A5_ENDWINDOW_MARK)
-        {
-          /* Side-window span closes: text returns to the main story window. */
-          cur_window = gsc_main_window;
-          glk_set_window (cur_window);
-          gsc_colour_apply (cur_window,
-                            gsc_a5_colour_top (colour_stack, colour_depth));
-        }
-      else if (*p == A5_WAITKEY_MARK)
-        {
-          event_t event;
-          int resumed = FALSE;
-
-          if (saved_pauses)
-            gsc_a5_waitkey_count++;
-          if (silent)
-            {
-              if (gsc_a5_waitkey_count < gsc_a5_waitkey_skip)
-                {
-                  seg = ++p;
-                  continue;
-                }
-              /* The pause the game was closed at: what follows is new. */
-              silent = FALSE;
-              gsc_a5_waitkey_skip = 0;
-              resumed = TRUE;
-            }
-
-          /* Bring the status line and the map up to date before pausing:
-             a turn that walks into a room and then plays a cutscene there
-             should show the new room on the map now, not at the next prompt
-             once the whole cutscene has been paged through. */
-          if (gsc_a5_run)
-            gsc_a5_status (gsc_a5_run);
-          gsc_map_redraw ();
-#ifdef SPATTERLIGHT
-          /* Save the game at the pause: after the panes are brought up to
-             date (so the GUI snapshot has them) and before the key is asked
-             for (so the archived windows carry no pending request).  Not
-             when this is the pause just come back to, which is the save on
-             disk already. */
-          if (saved_pauses && !resumed)
-            gsc_a5_autosave_waitkey ();
-#else
-          (void) resumed;
-#endif
-          glk_request_char_event (gsc_main_window);
-          gsc_event_wait (evtype_CharInput, &event);
-          /* gsc_a5_status (and gsc_map_redraw, if it opens the pane) leave
-             the main window selected; restore the span's routing window so
-             text after the pause stays in it. */
-          glk_set_window (cur_window);
-        }
-      else if (*p == A5_COMMIT_MARK)
-        {
-          /* Display-commit boundary with a dangling span (a5text.h): each
-             commit is its own Source2HTML parse in the Runner, so a <center>,
-             <right>, <b>, or <i> left open there ends now -- Death Shack's
-             Introduction never closes its <center>, and the first room
-             description (the next commit) must come out left-aligned, not
-             centered. */
-          center_depth = right_depth = bold_depth = italic_depth
-            = underline_depth = 0;
-          colour_depth = 0;
-          glk_set_style (gsc_a5_span_style (0, 0, 0, 0, 0, FALSE));
-          gsc_colour_apply (cur_window, GSC_COLOUR_NONE);
-        }
-      else if (*p == A5_COLOUR_MARK)
-        {
-          /* Colour span opens: \027<value>\027, the value being a colour name
-             or hex triplet, the reserved token "input" for <c> (which the
-             Runner draws in its input colour), or empty for a <font> tag with
-             no colour of its own. */
-          const char *e = strchr (p + 1, A5_COLOUR_MARK);
-
-          if (e != nullptr)
-            {
-              char token[32];
-              size_t n = (size_t) (e - (p + 1));
-
-              if (n >= sizeof token)
-                n = sizeof token - 1;
-              memcpy (token, p + 1, n);
-              token[n] = '\0';
-
-              if (colour_depth < GSC_MAX_STYLE_NESTING)
-                {
-                  const int is_input = strcmp (token, "input") == 0;
-
-                  colour_is_input[colour_depth] = is_input;
-                  colour_stack[colour_depth++]
-                    = is_input ? gsc_colour_input
-                               : gsc_colour_lookup (token);
-                  gsc_colour_apply (cur_window,
-                                    gsc_a5_colour_top (colour_stack,
-                                                       colour_depth));
-                  /* Colour spans carry a style too, for the colourless case
-                     (see gsc_a5_span_style); with colours on this re-asserts
-                     the style already in force. */
-                  glk_set_style (gsc_a5_span_style (center_depth, right_depth,
-                                                    bold_depth, italic_depth,
-                                                    underline_depth,
-                                                    gsc_a5_colour_top_is_input
-                                                      (colour_stack,
-                                                       colour_is_input,
-                                                       colour_depth)));
-                }
-              p = e;
-            }
-        }
-      else if (*p == A5_ENDCOLOUR_MARK)
-        {
-          if (colour_depth > 0)
-            colour_depth--;
-          gsc_colour_apply (cur_window,
-                            gsc_a5_colour_top (colour_stack, colour_depth));
-          glk_set_style (gsc_a5_span_style (center_depth, right_depth,
-                                            bold_depth, italic_depth,
-                                            underline_depth,
-                                            gsc_a5_colour_top_is_input
-                                              (colour_stack, colour_is_input,
-                                               colour_depth)));
-        }
-      else if (*p == A5_CENTER_MARK || *p == A5_ENDCENTER_MARK
-               || *p == A5_RIGHT_MARK || *p == A5_ENDRIGHT_MARK
-               || *p == A5_BOLD_MARK || *p == A5_ENDBOLD_MARK
-               || *p == A5_ITALIC_MARK || *p == A5_ENDITALIC_MARK
-               || *p == A5_UNDERLINE_MARK || *p == A5_ENDUNDERLINE_MARK)
-        {
-          /* Alignment or character-style span boundary: like the Runner, only
-             the style changes -- the game's own line breaks around an aligned
-             span delimit the paragraph.  A <b> inside a <center> gets the
-             weight-hinted centered style (User2); elsewhere bold is Subheader
-             and italic/underline are Emphasized (Alert when combined with
-             bold).  Right alignment uses style_Note and wins over character
-             styles. */
-          if (*p == A5_CENTER_MARK)
-            center_depth++;
-          else if (*p == A5_ENDCENTER_MARK && center_depth > 0)
-            center_depth--;
-          else if (*p == A5_RIGHT_MARK)
-            right_depth++;
-          else if (*p == A5_ENDRIGHT_MARK && right_depth > 0)
-            right_depth--;
-          else if (*p == A5_BOLD_MARK)
-            bold_depth++;
-          else if (*p == A5_ENDBOLD_MARK && bold_depth > 0)
-            bold_depth--;
-          else if (*p == A5_ITALIC_MARK)
-            italic_depth++;
-          else if (*p == A5_ENDITALIC_MARK && italic_depth > 0)
-            italic_depth--;
-          else if (*p == A5_UNDERLINE_MARK)
-            underline_depth++;
-          else if (*p == A5_ENDUNDERLINE_MARK && underline_depth > 0)
-            underline_depth--;
-          glk_set_style (gsc_a5_span_style (center_depth, right_depth,
-                                            bold_depth, italic_depth,
-                                            underline_depth,
-                                            gsc_a5_colour_top_is_input
-                                              (colour_stack, colour_is_input,
-                                               colour_depth)));
-        }
-      else if (*p == A5_WAIT_MARK)
-        {
-          /* Timed-pause slot: \026<seconds>\026.  Run the same cancelable
-             timer delay the ADRIFT 4 path gives its <wait x.x> tag, so
-             Death Shack's letter-at-a-time title cards play out in real
-             time (an empty or unparsable argument pauses not at all). */
-          const char *e = strchr (p + 1, A5_WAIT_MARK);
-          if (e != nullptr)
-            {
-              char arg[16];
-              size_t n = (size_t) (e - (p + 1));
-              if (n >= sizeof arg)
-                n = sizeof arg - 1;
-              memcpy (arg, p + 1, n);
-              arg[n] = '\0';
-              if (!silent)
-                gsc_handle_wait_tag (arg);
-              p = e;
-            }
-        }
-      else if (*p == A5_SOUND_MARK)
-        {
-          /* Sound slot: \024<media event index>\024.  Fire it here, at the
-             tag's place in the text -- before any later <waitkey>, so e.g. a
-             sting cued ahead of a keypress-paced cutscene starts immediately
-             (Pervert Action Crisis' maid encounter). */
-          const char *e = strchr (p + 1, A5_SOUND_MARK);
-          if (e != nullptr)
-            {
-              /* Passed in silence, a sound is on its restored channel
-                 already (or was stopped there); it is still marked as dealt
-                 with, to keep the after-the-turn sweep off it. */
-              if (gsc_a5_run != nullptr && silent)
-                a5run_media_note_shown (gsc_a5_run, (int) atol (p + 1));
-              else if (gsc_a5_run != nullptr)
-                gsc_a5_media_fire (gsc_a5_run, (int) atol (p + 1));
-              p = e;
-            }
-        }
-      else
-        {
-          /* Image slot: \006<Blorb resource number>\006. */
-          const char *e = strchr (p + 1, A5_IMG_MARK);
-          if (e != nullptr)
-            {
-              if (!silent)
-                gsc_a5_draw_image (cur_window, (glui32) atol (p + 1));
-              p = e;
-            }
-        }
-      seg = ++p;
+      seg = ++d.p;
     }
 
-  /* A replay that never reached the pause it was after (the turn did not
-     come out as it did before) is over all the same. */
-  if (silent)
-    gsc_a5_waitkey_skip = 0;
-
-  /* A dangling span must not bleed into prompts and later turns. */
-  if (center_depth > 0 || right_depth > 0
-      || bold_depth > 0 || italic_depth > 0 || underline_depth > 0)
-    glk_set_style (style_Normal);
-  /* Nor a dangling colour span: the prompt and the player's input follow. */
-  if (colour_depth > 0)
-    gsc_colour_apply (cur_window, GSC_COLOUR_NONE);
-  /* Likewise a dangling <window> span: prompts and input echo belong in the
-     main story window. */
-  if (cur_window != gsc_main_window)
-    glk_set_window (gsc_main_window);
+  d.finish ();
 }
 
 /*
