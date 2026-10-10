@@ -85,6 +85,29 @@ typedef struct
 } scr_parse_schema_t;
 
 /*
+ * Records whose descriptor is byte-for-byte the same in every version that
+ * has them, written once here and named from the version tables below.
+ * HEADER is shared by 4.0, 3.9 and 3.8 (3.7 appends a #WinTask), EVENT by
+ * 4.0 and 3.9 (3.8 and 3.7 have no resources), the rest by every version
+ * whose table lists them.
+ */
+static const scr_char V400_V390_V380_HEADER_DESC[] =
+  "MStartupText #StartRoom MWinText";
+static const scr_char V400_V390_EVENT_DESC[] =
+  "$Short #StarterType ?#StarterType=2:#StartTime,#EndTime"
+  " ?#StarterType=3:#TaskNum #RestartType BTaskFinished #Time1 #Time2"
+  " $StartText $LookText $FinishText <ROOM_LIST0>Where #PauseTask"
+  " BPauserCompleted #PrefTime1 $PrefText1 #ResumeTask BResumerCompleted"
+  " #PrefTime2 $PrefText2 #Obj2 #Obj2Dest #Obj3 #Obj3Dest #Obj1 #Obj1Dest"
+  " #TaskAffected [5]<RESOURCE>Res";
+static const scr_char ROOM_LIST0_DESC[] = "#Type {ROOM_LIST0}";
+static const scr_char ROOM_LIST1_DESC[] = "#Type {ROOM_LIST1}";
+static const scr_char TOPIC_DESC[] = "$Subject $Reply #Task $AltReply";
+static const scr_char ROOM_GROUP_DESC[] = "$Name {ROOM_GROUP:[]BList}";
+static const scr_char SYNONYM_DESC[] = "$Replacement $Original";
+static const scr_char ALR_DESC[] = "$Original $Replacement";
+
+/*
  * The version 4.0 room exit record descriptor; parse_special() matches on
  * this same constant.
  */
@@ -98,8 +121,7 @@ static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
    " V<EVENT>Events V<NPC>NPCs V<ROOM_GROUP>RoomGroups V<SYNONYM>Synonyms"
    " V<VARIABLE>Variables V<ALR>ALRs BCustomFont ?BCustomFont:$FontNameSize"
    " $CompileDate"},
-  {"HEADER",
-   "MStartupText #StartRoom MWinText"},
+  {"HEADER", V400_V390_V380_HEADER_DESC},
   {"GLOBAL",
    "$GameName $GameAuthor $DontUnderstand #Perspective BShowExits #WaitTurns"
    " BDispFirstRoom BBattleSystem #MaxScore $PlayerName BPromptName $PlayerDesc"
@@ -133,8 +155,7 @@ static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
    " $InRoomDesc #OnlyWhenNotMoved"},
   {"OBJ_BATTLE",
    "#ProtectionValue #HitValue #Method #Accuracy"},
-  {"ROOM_LIST1",
-   "#Type {ROOM_LIST1}"},
+  {"ROOM_LIST1", ROOM_LIST1_DESC},
   {"TASK",
    "V$Command $CompleteText $ReverseMessage $RepeatText $AdditionalMessage"
    " #ShowRoomDesc BRepeatable BReversible V$ReverseCommand <ROOM_LIST0>Where"
@@ -149,15 +170,8 @@ static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
    " ?#Type=2:#Var1,#Var2 ?#Type=3:#Var1,#Var2,#Var3,$Expr,#Var5"
    " ?#Type=4:#Var1 ?#Type=5:#Var1,#Var2 ?#Type=6:#Var1,#Var2,#Var3"
    " ?#Type=7:#Var1,#Var2,#Var3"},
-  {"ROOM_LIST0",
-   "#Type {ROOM_LIST0}"},
-  {"EVENT",
-   "$Short #StarterType ?#StarterType=2:#StartTime,#EndTime"
-   " ?#StarterType=3:#TaskNum #RestartType BTaskFinished #Time1 #Time2"
-   " $StartText $LookText $FinishText <ROOM_LIST0>Where #PauseTask"
-   " BPauserCompleted #PrefTime1 $PrefText1 #ResumeTask BResumerCompleted"
-   " #PrefTime2 $PrefText2 #Obj2 #Obj2Dest #Obj3 #Obj3Dest #Obj1 #Obj1Dest"
-   " #TaskAffected [5]<RESOURCE>Res"},
+  {"ROOM_LIST0", ROOM_LIST0_DESC},
+  {"EVENT", V400_V390_EVENT_DESC},
   {"NPC",
    "$Name $Prefix V$Alias $Descr #StartRoom $AltText #Task V<TOPIC>Topics"
    " V<WALK>Walks BShowEnterExit ?BShowEnterExit:$EnterText,$ExitText"
@@ -166,19 +180,15 @@ static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
    "#Attitude #StaminaLo #StaminaHi #StrengthLo #StrengthHi #AccuracyLo"
    " #AccuracyHi #DefenseLo #DefenseHi #AgilityLo #AgilityHi #Speed"
    " #KilledTask #Recovery #StaminaTask"},
-  {"TOPIC",
-   "$Subject $Reply #Task $AltReply"},
+  {"TOPIC", TOPIC_DESC},
   {"WALK",
    "#NumStops BLoop #StartTask #CharTask #MeetObject #ObjectTask #StoppingTask"
    " #MeetChar $ChangedDesc {WALK:#Rooms_#Times}"},
-  {"ROOM_GROUP",
-   "$Name {ROOM_GROUP:[]BList}"},
-  {"SYNONYM",
-   "$Replacement $Original"},
+  {"ROOM_GROUP", ROOM_GROUP_DESC},
+  {"SYNONYM", SYNONYM_DESC},
   {"VARIABLE",
    "$Name #Type $Value"},
-  {"ALR",
-   "$Original $Replacement"},
+  {"ALR", ALR_DESC},
   {NULL, NULL}
 };
 
@@ -197,8 +207,7 @@ static const scr_parse_schema_t V390_PARSE_SCHEMA[] = {
    " V<EVENT>Events V<NPC>NPCs V<ROOM_GROUP>RoomGroups V<SYNONYM>Synonyms"
    " V<VARIABLE>Variables V<ALR>ALRs BCustomFont ?BCustomFont:$FontNameSize"
    " $CompileDate sPassword"},
-  {"HEADER",
-   "MStartupText #StartRoom MWinText"},
+  {"HEADER", V400_V390_V380_HEADER_DESC},
   {"GLOBAL",
    "$GameName $GameAuthor $DontUnderstand #Perspective BShowExits #WaitTurns"
    " BDispFirstRoom BBattleSystem #MaxScore $PlayerName BPromptName $PlayerDesc"
@@ -230,8 +239,7 @@ static const scr_parse_schema_t V390_PARSE_SCHEMA[] = {
    " EInRoomDesc ZOnlyWhenNotMoved"},
   {"OBJ_BATTLE",
    "#ProtectionValue #HitValue #Method"},
-  {"ROOM_LIST1",
-   "#Type {ROOM_LIST1}"},
+  {"ROOM_LIST1", ROOM_LIST1_DESC},
   {"TASK",
    "W$Command $CompleteText $ReverseMessage $RepeatText $AdditionalMessage"
    " #ShowRoomDesc BRepeatable BReversible W$ReverseCommand <ROOM_LIST0>Where"
@@ -247,34 +255,23 @@ static const scr_parse_schema_t V390_PARSE_SCHEMA[] = {
    " ?#Type=3:#Var1,#Var2,#Var3,|V390_TASK_ACTION:$Expr_#Var5|"
    " ?#Type=4:#Var1 ?#Type=6:#Var1,ZVar2,ZVar3"
    " ?#Type=7:#Var1,#Var2,#Var3,|V390_TASK_ACTION:_BattleAttr_|"},
-  {"ROOM_LIST0",
-   "#Type {ROOM_LIST0}"},
-  {"EVENT",
-   "$Short #StarterType ?#StarterType=2:#StartTime,#EndTime"
-   " ?#StarterType=3:#TaskNum #RestartType BTaskFinished #Time1 #Time2"
-   " $StartText $LookText $FinishText <ROOM_LIST0>Where #PauseTask"
-   " BPauserCompleted #PrefTime1 $PrefText1 #ResumeTask BResumerCompleted"
-   " #PrefTime2 $PrefText2 #Obj2 #Obj2Dest #Obj3 #Obj3Dest #Obj1 #Obj1Dest"
-   " #TaskAffected [5]<RESOURCE>Res"},
+  {"ROOM_LIST0", ROOM_LIST0_DESC},
+  {"EVENT", V400_V390_EVENT_DESC},
   {"NPC",
    "$Name $Prefix [1]$Alias $Descr #StartRoom $AltText #Task V<TOPIC>Topics"
    " V<WALK>Walks BShowEnterExit ?BShowEnterExit:$EnterText,$ExitText"
    " $InRoomText #Gender [4]<RESOURCE>Res ?GBattleSystem:<NPC_BATTLE>Battle"},
   {"NPC_BATTLE",
    "#Attitude #Stamina #Strength #Defense #Speed #KilledTask"},
-  {"TOPIC",
-   "$Subject $Reply #Task $AltReply"},
+  {"TOPIC", TOPIC_DESC},
   {"WALK",
    "#NumStops BLoop #StartTask #CharTask #MeetObject #ObjectTask #StoppingTask"
    " ZMeetChar $ChangedDesc {WALK:#Rooms_#Times}"},
-  {"ROOM_GROUP",
-   "$Name {ROOM_GROUP:[]BList}"},
-  {"SYNONYM",
-   "$Replacement $Original"},
+  {"ROOM_GROUP", ROOM_GROUP_DESC},
+  {"SYNONYM", SYNONYM_DESC},
   {"VARIABLE",
    "$Name ZType $Value"},
-  {"ALR",
-   "$Original $Replacement"},
+  {"ALR", ALR_DESC},
   {NULL, NULL}
 };
 
@@ -325,14 +322,12 @@ static const scr_parse_schema_t V380_PARSE_SCHEMA[] = {
    " V<EVENT>Events V<NPC>NPCs V<ROOM_GROUP>RoomGroups V<SYNONYM>Synonyms"
    " FCustomFont $CompileDate sPassword |V380_GLOBAL:_MaxScore_|"
    " |V380_OBJECT:_InitialPositions_|"},
-  {"HEADER",
-   "MStartupText #StartRoom MWinText"},
+  {"HEADER", V400_V390_V380_HEADER_DESC},
   {"GLOBAL", V380_V370_GLOBAL_DESC},
   {"ROOM", V380_V370_ROOM_DESC},
   {"ROOM_EXIT", V390_V380_ROOM_EXIT_DESC},
   {"OBJECT", V380_V370_OBJECT_DESC},
-  {"ROOM_LIST1",
-   "#Type {ROOM_LIST1}"},
+  {"ROOM_LIST1", ROOM_LIST1_DESC},
   {"TASK",
    "W$Command $CompleteText $ReverseMessage $RepeatText $AdditionalMessage"
    " #ShowRoomDesc BRepeatable #Score BSingleScore [6]<TASK_MOVE>Movements"
@@ -344,17 +339,13 @@ static const scr_parse_schema_t V380_PARSE_SCHEMA[] = {
    " |V380_TASK:_Restrictions_|"},
   {"TASK_MOVE",
    "#Var1 #Var2 #Var3"},
-  {"ROOM_LIST0",
-   "#Type {ROOM_LIST0}"},
+  {"ROOM_LIST0", ROOM_LIST0_DESC},
   {"EVENT", V380_V370_EVENT_DESC},
   {"NPC", V380_V370_NPC_DESC},
-  {"TOPIC",
-   "$Subject $Reply #Task $AltReply"},
+  {"TOPIC", TOPIC_DESC},
   {"WALK", V380_V370_WALK_DESC},
-  {"ROOM_GROUP",
-   "$Name {ROOM_GROUP:[]BList}"},
-  {"SYNONYM",
-   "$Replacement $Original"},
+  {"ROOM_GROUP", ROOM_GROUP_DESC},
+  {"SYNONYM", SYNONYM_DESC},
   {NULL, NULL}
 };
 
@@ -402,8 +393,7 @@ static const scr_parse_schema_t V370_PARSE_SCHEMA[] = {
   {"ROOM", V380_V370_ROOM_DESC},
   {"ROOM_EXIT", V390_V380_ROOM_EXIT_DESC},
   {"OBJECT", V380_V370_OBJECT_DESC},
-  {"ROOM_LIST1",
-   "#Type {ROOM_LIST1}"},
+  {"ROOM_LIST1", ROOM_LIST1_DESC},
   {"TASK",
    "W$Command $CompleteText $ReverseMessage $RepeatText $AdditionalMessage"
    " #ShowRoomDesc BRepeatable #Score BSingleScore [6]<TASK_MOVE>Movements"
@@ -415,15 +405,12 @@ static const scr_parse_schema_t V370_PARSE_SCHEMA[] = {
    " |V380_TASK:_Restrictions_|"},
   {"TASK_MOVE",
    "#Var1 #Var2"},
-  {"ROOM_LIST0",
-   "#Type {ROOM_LIST0}"},
+  {"ROOM_LIST0", ROOM_LIST0_DESC},
   {"EVENT", V380_V370_EVENT_DESC},
   {"NPC", V380_V370_NPC_DESC},
-  {"TOPIC",
-   "$Subject $Reply #Task $AltReply"},
+  {"TOPIC", TOPIC_DESC},
   {"WALK", V380_V370_WALK_DESC},
-  {"ROOM_GROUP",
-   "$Name {ROOM_GROUP:[]BList}"},
+  {"ROOM_GROUP", ROOM_GROUP_DESC},
   {"COMMAND",
    "$Word"},
   {NULL, NULL}
