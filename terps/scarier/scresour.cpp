@@ -314,7 +314,6 @@ res_sync_resources (scr_gameref_t game)
                              &game->requested_sound))
     {
       const scr_char *name;
-      scr_char *clean_name;
       scr_bool is_looping;
 
       /* If the sound name ends '##', this is a looping sound. */
@@ -322,17 +321,15 @@ res_sync_resources (scr_gameref_t game)
       is_looping = strlen (name) >= 2
                    && !strcmp (name + strlen (name) - 2, "##");
 
-      clean_name = scr_strdup (name);
+      scr_owned_string clean_name (scr_strdup (name));
       if (is_looping)
-        clean_name[strlen (clean_name) - 2] = NUL;
+        clean_name.get ()[strlen (name) - 2] = NUL;
 
-      if_update_sound (clean_name,
+      if_update_sound (clean_name.get (),
                        game->requested_sound.offset,
                        game->requested_sound.length, is_looping);
       game->playing_sound = game->requested_sound;
       game->sound_active = TRUE;
-
-      scr_free (clean_name);
     }
 
   /* Look for a change of graphic, and pass to interface on change. */

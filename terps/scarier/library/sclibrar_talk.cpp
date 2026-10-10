@@ -297,8 +297,6 @@ lib_line_names_object_before_about (scr_gameref_t game, scr_int object)
 {
   const scr_char *input = run_get_dispatch_input ();
   const scr_char *scan;
-  scr_char *head;
-  scr_bool is_named;
 
   if (!input)
     return TRUE;
@@ -313,12 +311,10 @@ lib_line_names_object_before_about (scr_gameref_t game, scr_int object)
   if (*scan == NUL)
     return TRUE;
 
-  head = (scr_char *) scr_malloc (scan - input + 1);
-  memcpy (head, input, scan - input);
-  head[scan - input] = NUL;
-  is_named = lib_verb_object_name_score (game, object, head) > 0;
-  scr_free (head);
-  return is_named;
+  scr_owned_string head ((scr_char *) scr_malloc (scan - input + 1));
+  memcpy (head.get (), input, scan - input);
+  head.get ()[scan - input] = NUL;
+  return lib_verb_object_name_score (game, object, head.get ()) > 0;
 }
 
 scr_bool

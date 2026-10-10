@@ -2126,8 +2126,11 @@ debug_parse_command (const scr_char *command_string,
   const scr_strings_t *entry;
 
   /* Allocate temporary strings long enough to take a copy of the input. */
-  string = (decltype(string)) scr_malloc (strlen (command_string) + 1);
-  help = (decltype(help)) scr_malloc (strlen (command_string) + 1);
+  const size_t size = strlen (command_string) + 1;
+  scr_owned_string owned_string ((scr_char *) scr_malloc (size));
+  scr_owned_string owned_help ((scr_char *) scr_malloc (size));
+  string = owned_string.get ();
+  help = owned_help.get ();
 
   /*
    * Parse the input line, in a very simplistic fashion.  The argument count
@@ -2141,7 +2144,6 @@ debug_parse_command (const scr_char *command_string,
       is_help = TRUE;
       is_parsed = TRUE;
     }
-  scr_free (help);
   if (!is_parsed)
     {
       converted = sscanf (command_string,
@@ -2179,7 +2181,6 @@ debug_parse_command (const scr_char *command_string,
     {
       if_print_debug ("Invalid debug command.");
       if_print_debug ("  Type 'help' for a list of valid commands.\n");
-      scr_free (string);
       return DEBUG_NONE;
     }
 
@@ -2214,12 +2215,8 @@ debug_parse_command (const scr_char *command_string,
       else
         if_print_debug ("Unrecognized debug command.");
       if_print_debug ("  Type 'help' for a list of valid commands.\n");
-      scr_free (string);
       return DEBUG_NONE;
     }
-
-  /* Done with temporary command parse area. */
-  scr_free (string);
 
   /*
    * Return the command type, arguments, and the debugging command.  For help

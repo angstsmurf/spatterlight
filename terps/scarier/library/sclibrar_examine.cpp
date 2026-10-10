@@ -1253,7 +1253,7 @@ lib_examine_referencedob_ex_400 (scr_gameref_t game, const scr_char *input,
   for (index_ = 0; index_ < (scr_int) marked.size (); index_++)
     {
       const scr_char *prefix;
-      scr_char *copy, *word, *next;
+      scr_char *word, *next;
       scr_int found;
 
       prefix = prop_get_indexed_string (bundle, "Objects", marked[index_],
@@ -1262,8 +1262,8 @@ lib_examine_referencedob_ex_400 (scr_gameref_t game, const scr_char *input,
         prefix = "a";
 
       found = 0;
-      copy = scr_strdup (prefix);
-      for (word = copy; word; word = next)
+      scr_owned_string copy (scr_strdup (prefix));
+      for (word = copy.get (); word; word = next)
         {
           next = strchr (word, ' ');
           if (next)
@@ -1279,7 +1279,6 @@ lib_examine_referencedob_ex_400 (scr_gameref_t game, const scr_char *input,
               best = found;
             }
         }
-      scr_free (copy);
     }
   return result;
 }

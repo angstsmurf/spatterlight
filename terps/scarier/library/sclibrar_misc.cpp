@@ -963,14 +963,14 @@ lib_cmd_examine_other (scr_gameref_t game)
 
       if (input)
         {
-          scr_char *line = scr_strdup (input);
+          scr_owned_string owned_line (scr_strdup (input));
+          scr_char *const line = owned_line.get ();
           scr_bool is_bare;
 
           scr_normalize_string (line);
           is_bare = scr_strcasecmp (line, "x") == 0
                     || scr_strcasecmp (line, "ex") == 0
                     || scr_strcasecmp (line, "examine") == 0;
-          scr_free (line);
           if (is_bare)
             {
               if (!lib_is_version_390 (game))

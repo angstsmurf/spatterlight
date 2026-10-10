@@ -95,7 +95,8 @@ lib_cmd_look_typed (scr_gameref_t game)
 
   if (input)
     {
-      scr_char *line = scr_strdup (input);
+      scr_owned_string owned_line (scr_strdup (input));
+      scr_char *const line = owned_line.get ();
       const scr_char *const *entry;
       scr_bool is_look = FALSE;
 
@@ -116,7 +117,6 @@ lib_cmd_look_typed (scr_gameref_t game)
           if (is_look)
             SCR_DEVIATION ("look_at_room", nullptr);
         }
-      scr_free (line);
       if (!is_look)
         return FALSE;
     }

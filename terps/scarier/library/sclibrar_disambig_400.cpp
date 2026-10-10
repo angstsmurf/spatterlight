@@ -1271,12 +1271,12 @@ lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
 scr_int
 lib_prefix_words_in_input_400 (const scr_char *input, const scr_char *prefix)
 {
-  scr_char *copy, *word, *next;
+  scr_owned_string copy (scr_strdup (prefix));
+  scr_char *word, *next;
   scr_int score;
 
   score = 0;
-  copy = scr_strdup (prefix);
-  for (word = copy; word; word = next)
+  for (word = copy.get (); word; word = next)
     {
       next = strchr (word, ' ');
       if (next)
@@ -1284,7 +1284,6 @@ lib_prefix_words_in_input_400 (const scr_char *input, const scr_char *prefix)
       if (word[0] != NUL && lib_input_contains_word_400 (input, word))
         score++;
     }
-  scr_free (copy);
   return score;
 }
 
