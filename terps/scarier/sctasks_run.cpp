@@ -268,110 +268,102 @@ task_defers_room_desc (scr_gameref_t game,
 
 
 /*
- * task_run_task_unrestricted()
+ * task_run_task_reverse()
  *
- * Run a task, providing restrictions permit, in the given direction.  Return
- * TRUE if the task ran, or we handled it in some complete way, for example by
- * outputting a message describing what prevented it, or why it couldn't be
- * done.
+ * Print any reverse message for the task, and undo the task.
  */
 static scr_bool
-task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
+task_run_task_reverse (scr_gameref_t game, scr_int task)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  const scr_char *completetext, *additionalmessage;
-  scr_int action_count;
-  scr_bool defer_room_desc, status;
-
-  /* Start considering task output tracking. */
-  status = FALSE;
+  scr_bool status = FALSE;
+  const scr_char *reversemessage;
 
   /*
-   * If reversing, print any reverse message for the task, and undo the task,
-   * then return.
+   * If not yet done, we can hardly reverse it -- except that run390's
+   * reverse_task (4283C8) has no such test, and its checktask hands it a
+   * repeatable task whether done or not (probe p39REV `unpoke`).
    */
-  if (!forwards)
+  if (gs_task_done (game, task)
+      || (prop_get_taf_version (bundle) == TAF_VERSION_390
+          && task_is_repeatable (game, task)))
     {
-      const scr_char *reversemessage;
-
-      /*
-       * If not yet done, we can hardly reverse it -- except that run390's
-       * reverse_task (4283C8) has no such test, and its checktask hands it a
-       * repeatable task whether done or not (probe p39REV `unpoke`).
-       */
-      if (gs_task_done (game, task)
-          || (prop_get_taf_version (bundle) == TAF_VERSION_390
-              && task_is_repeatable (game, task)))
+      reversemessage = prop_get_indexed_string (bundle, "Tasks", task,
+                                                "ReverseMessage");
+      if (!scr_strempty (reversemessage))
         {
-          reversemessage = prop_get_indexed_string (bundle, "Tasks", task,
-                                                    "ReverseMessage");
-          if (!scr_strempty (reversemessage))
-            {
-              pf_buffer_paragraph_line (filter, reversemessage);
-              status |= TRUE;
-            }
-
-          /* Undo the task. */
-          gs_set_task_done (game, task, FALSE);
+          pf_buffer_paragraph_line (filter, reversemessage);
+          status |= TRUE;
         }
 
-      /* Return status of undo. */
-      return status;
+      /* Undo the task. */
+      gs_set_task_done (game, task, FALSE);
     }
 
-  /* See if we are trying to repeat a task that's not repeatable. */
-  if (gs_task_done (game, task))
+  /* Return status of undo. */
+  return status;
+}
+
+
+/*
+ * task_run_task_repeat_refusal()
+ *
+ * Answer an attempt to repeat a task that is done and not repeatable.
+ */
+static scr_bool
+task_run_task_repeat_refusal (scr_gameref_t game, scr_int task)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  if (!task_repeattext_is_empty (game, task))
     {
-      if (!task_is_repeatable (game, task))
+      if (tasks.trace)
         {
-          if (!task_repeattext_is_empty (game, task))
-            {
-              if (tasks.trace)
-                {
-                  scr_trace ("Task:"
-                            " trying to repeat completed action, aborting\n");
-                }
-
-              pf_buffer_paragraph_line (filter,
-                                        prop_get_indexed_string (bundle,
-                                                                 "Tasks", task,
-                                                                 "RepeatText"));
-              return TRUE;
-            }
-
-          /*
-           * Task done, yet not repeatable, so don't consider this case
-           * handled.
-           */
-          return status;
+          scr_trace ("Task:"
+                    " trying to repeat completed action, aborting\n");
         }
+
+      pf_buffer_paragraph_line (filter,
+                                prop_get_indexed_string (bundle,
+                                                         "Tasks", task,
+                                                         "RepeatText"));
+      return TRUE;
     }
-
-  /* Mark the task as done. */
-  gs_set_task_done (game, task, TRUE);
-
-  /* Print any task completion text. */
-  vt_key[0].string = "Tasks";
-  vt_key[1].integer = task;
-  vt_key[2].string = "CompleteText";
-  completetext = prop_get_string (bundle, "S<-sis", vt_key);
 
   /*
-   * 4.0 tests the field raw, VB's `<> ""`, so a CompleteText of nothing but
-   * spaces still counts as the task saying something: it lands in the
-   * message buffer, the dispatcher at 48A481 reports the line handled, and
-   * the tail's `48B573: If MemVar_4941B0 = "" ...` DontUnderstand never
-   * fires.  wumpusrun task 167 (`climb ladder`, CompleteText " ", then End
-   * Game) is the measured case: runner_transcripts/wumpusrun.txt shows the
-   * lone space on its own line and then the WinText, where iachini task 30
-   * (CompleteText "") gets "I don't understand what you mean!" first.
-   * Probe .tafs without the task's variable, Execute Task and restriction
-   * fail texts (runner_transcripts/wumpusrun.txt,
-   * runner_probes/wumpusrun.run400.c.txt,
-   * runner_probes/wumpusrun.run400.d.txt) all kept the silence.
+   * Task done, yet not repeatable, so don't consider this case
+   * handled.
    */
+  return FALSE;
+}
+
+
+/*
+ * task_print_complete_text()
+ *
+ * Print any task completion text; TRUE if there was some.
+ *
+ * 4.0 tests the field raw, VB's `<> ""`, so a CompleteText of nothing but
+ * spaces still counts as the task saying something: it lands in the
+ * message buffer, the dispatcher at 48A481 reports the line handled, and
+ * the tail's `48B573: If MemVar_4941B0 = "" ...` DontUnderstand never
+ * fires.  wumpusrun task 167 (`climb ladder`, CompleteText " ", then End
+ * Game) is the measured case: runner_transcripts/wumpusrun.txt shows the
+ * lone space on its own line and then the WinText, where iachini task 30
+ * (CompleteText "") gets "I don't understand what you mean!" first.
+ * Probe .tafs without the task's variable, Execute Task and restriction
+ * fail texts (runner_transcripts/wumpusrun.txt,
+ * runner_probes/wumpusrun.run400.c.txt,
+ * runner_probes/wumpusrun.run400.d.txt) all kept the silence.
+ */
+static scr_bool
+task_print_complete_text (scr_gameref_t game, const scr_char *completetext)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
   if (prop_get_taf_version (bundle) >= TAF_VERSION_400
       ? completetext[0] != '\0' : !scr_strempty (completetext))
     {
@@ -393,24 +385,26 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
         pf_buffer_join_line (filter, completetext);
       else
         pf_buffer_paragraph_line (filter, completetext);
-      status |= TRUE;
+      return TRUE;
     }
+  return FALSE;
+}
 
-  /* Handle any task completion resource. */
-  vt_key[2].string = "Res";
-  res_handle_resource (game, "sis", vt_key);
 
-  /*
-   * Show the task's room, ahead of its actions -- unless this is one of the
-   * 4.0 tasks that defers the block behind them; see
-   * task_defers_room_desc().
-   */
-  vt_key[2].string = "AdditionalMessage";
-  additionalmessage = prop_get_string (bundle, "S<-sis", vt_key);
-  defer_room_desc = task_defers_room_desc (game, completetext,
-                                           additionalmessage);
-  if (!defer_room_desc)
-    status |= task_show_room_desc (game, task);
+/*
+ * task_run_task_actions_buffered()
+ *
+ * Start the NPC walks the task alerts and run its actions, if any, with
+ * the turn's text so far kept out of their way.
+ */
+static scr_bool
+task_run_task_actions_buffered (scr_gameref_t game, scr_int task)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int action_count;
+  scr_bool status = FALSE;
 
   /*
    * Things get slightly tricky here.  We need to filter the completion text
@@ -424,6 +418,8 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
    *
    * As an optimization, we can avoid doing this if there are no task actions.
    */
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = task;
   vt_key[2].string = "Actions";
   action_count = prop_get_child_count (bundle, "I<-sis", vt_key);
   if (action_count > 0 && prop_get_taf_version (bundle) >= TAF_VERSION_400)
@@ -483,17 +479,20 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
       /* Start NPC walks only; there are no task actions. */
       task_start_npc_walks (game, task);
     }
+  return status;
+}
 
-  /*
-   * The AdditionalMessage trails the actions, and is printed even when one of
-   * them has just ended the game: measured live on topaz.taf (run400), whose
-   * task 22 "wear ring" is a single "end game (win)" action with a room
-   * description and "The two of you set out into the forest." as its
-   * AdditionalMessage, and the Runner shows both, ahead of the ending.
-   * marooned.taf task 29 says the same for run380.
-   */
-  if (defer_room_desc)
-    status |= task_show_room_desc (game, task);
+
+/*
+ * task_print_additional_message()
+ *
+ * Print the task's AdditionalMessage, unless suppressed; TRUE if printed.
+ */
+static scr_bool
+task_print_additional_message (scr_gameref_t game,
+                               const scr_char *additionalmessage)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
 
   if (!scr_strempty (additionalmessage)
       && !task_suppresses_additional_message (game))
@@ -511,8 +510,81 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
        * (runner_transcripts/troll.txt).
        */
       pf_buffer_join_line (filter, additionalmessage);
-      status |= TRUE;
+      return TRUE;
     }
+  return FALSE;
+}
+
+
+/*
+ * task_run_task_unrestricted()
+ *
+ * Run a task, providing restrictions permit, in the given direction.  Return
+ * TRUE if the task ran, or we handled it in some complete way, for example by
+ * outputting a message describing what prevented it, or why it couldn't be
+ * done.
+ */
+static scr_bool
+task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  const scr_char *completetext, *additionalmessage;
+  scr_bool defer_room_desc, status;
+
+  /* Start considering task output tracking. */
+  status = FALSE;
+
+  /* If reversing, print any reverse message, undo the task, and return. */
+  if (!forwards)
+    return task_run_task_reverse (game, task);
+
+  /* See if we are trying to repeat a task that's not repeatable. */
+  if (gs_task_done (game, task) && !task_is_repeatable (game, task))
+    return task_run_task_repeat_refusal (game, task);
+
+  /* Mark the task as done. */
+  gs_set_task_done (game, task, TRUE);
+
+  /* Print any task completion text. */
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = task;
+  vt_key[2].string = "CompleteText";
+  completetext = prop_get_string (bundle, "S<-sis", vt_key);
+  status |= task_print_complete_text (game, completetext);
+
+  /* Handle any task completion resource. */
+  vt_key[2].string = "Res";
+  res_handle_resource (game, "sis", vt_key);
+
+  /*
+   * Show the task's room, ahead of its actions -- unless this is one of the
+   * 4.0 tasks that defers the block behind them; see
+   * task_defers_room_desc().
+   */
+  vt_key[2].string = "AdditionalMessage";
+  additionalmessage = prop_get_string (bundle, "S<-sis", vt_key);
+  defer_room_desc = task_defers_room_desc (game, completetext,
+                                           additionalmessage);
+  if (!defer_room_desc)
+    status |= task_show_room_desc (game, task);
+
+  /* Run the task's actions, and start the NPC walks it alerts. */
+  status |= task_run_task_actions_buffered (game, task);
+
+  /*
+   * The AdditionalMessage trails the actions, and is printed even when one of
+   * them has just ended the game: measured live on topaz.taf (run400), whose
+   * task 22 "wear ring" is a single "end game (win)" action with a room
+   * description and "The two of you set out into the forest." as its
+   * AdditionalMessage, and the Runner shows both, ahead of the ending.
+   * marooned.taf task 29 says the same for run380.
+   */
+  if (defer_room_desc)
+    status |= task_show_room_desc (game, task);
+
+  status |= task_print_additional_message (game, additionalmessage);
 
   /*
    * A version 4.0 task that completes runs the output filter over the whole

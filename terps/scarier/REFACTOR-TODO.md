@@ -115,7 +115,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~301~~ | ~~`view_location_impl`~~ | DONE: seven sections + driver, see "view_location_impl split" |
 | ~~289~~ | ~~`lib_take_multiple_common`~~ | DONE: seven stages + driver, see "lib_take_multiple_common split" |
 | ~~274~~ | ~~`npc_tick_npc_walk`~~ | DONE: `npc_walk_tick_t` + six members, see "npc_tick_npc_walk split" |
-| 267 | `task_run_task_unrestricted` | `sctasks_run.cpp` |
+| ~~267~~ | ~~`task_run_task_unrestricted`~~ | DONE: five parts + driver, see "task_run_task_unrestricted split" |
 | 260 | `uip_match_entity` | `scparser_entity.cpp` |
 
 Ideas that recur: `eval_function`, `oo_prop`, `debug_help`, `gsc_a5_display`
@@ -353,7 +353,8 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `task_run_task_unrestricted` down; `npc_tick_npc_walk`, `gsc_a5_display`,
+   open at `uip_match_entity` only; `task_run_task_unrestricted`,
+   `npc_tick_npc_walk`, `gsc_a5_display`,
    `debug_help`, `view_location_impl`, `lib_take_multiple_common`, `run_task`, `pass_character`,
    `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
    `eval_function`, `scdump_tasks`, `oo_prop` and
@@ -1169,3 +1170,27 @@ them):
   byte-identical to the snapshot (manifest rewrite reverted, not
   committed).  No line over 80 columns.
 - Next in the table: `task_run_task_unrestricted` (sctasks_run.cpp).
+
+## 3: task_run_task_unrestricted split (2026-10-11)
+
+- **`task_run_task_unrestricted`** (267 l.) in `sctasks_run.cpp` is a
+  92-line driver (half of it the three measurement comments that belong
+  to its own lines) over five parts: `task_run_task_reverse`,
+  `task_run_task_repeat_refusal`, `task_print_complete_text`,
+  `task_run_task_actions_buffered` (the three action-count branches with
+  the 4.0 hide guard and the pre-4.0 buffer transfer) and
+  `task_print_additional_message`.  The driver keeps the order the
+  comments argue about: done-mark, CompleteText, Res, room block now or
+  deferred, actions, AdditionalMessage, the 4.0 refilter, the pre-4.0
+  ending.  Each printing part returns whether it printed, and the driver
+  ORs that into `status`, where the inline code did `status |= TRUE`.
+- Not pure code motion: `if (done) { if (!repeatable) {...} }` is one
+  `&&` in the driver; the refusal's `return status` is `return FALSE`
+  (nothing had set it yet); `task_run_task_actions_buffered` builds its
+  own `vt_key` for the Actions count instead of reusing the driver's.
+- Verification: headless `quick`; full `test` output identical;
+  `make -j8 scarier glkscarier` warning-free; corpus `recompare`
+  byte-identical to the snapshot (manifest rewrite reverted, not
+  committed).  One line over 80 columns in the file, before and after.
+- Next, and last, in the table: `uip_match_entity`
+  (scparser_entity.cpp).
