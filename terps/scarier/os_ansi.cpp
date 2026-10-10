@@ -47,7 +47,10 @@
 #include <string>
 #include <vector>
 
-#include "runner/scrunner.h"
+/* Defined in runner/scrun_match.cpp and declared in runner/scrunner.h, but
+ * that header drags in scprotos.h, whose TRUE/FALSE macros clash with the
+ * enum below; this front end stays off the engine headers on purpose. */
+extern scr_bool run_probe_strict;
 #endif
 
 enum { FALSE = 0, TRUE = !FALSE };
