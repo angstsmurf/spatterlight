@@ -421,7 +421,7 @@ lib_cmd_drop_all (scr_gameref_t game)
  * both loose by then, so it is the `take orb` cell.
  *
  * MODE 4 is mode 1 with a container named (get_piece's var_92 <> &HFF): one
- * pass over what is visibly in or on lib_resolve_parent_400; see
+ * pass over what is visibly in or on disambig.resolve_parent_400; see
  * lib_take_from_piece_400().
  *
  * MODE 0 is the plain one-pass scan most of the Runner's callers use, the

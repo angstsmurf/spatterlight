@@ -398,8 +398,8 @@ lib_openclose_with_half_raise_400 (scr_gameref_t game, const scr_char *line)
   scr_int object, me, last_tied, mark_count;
   scr_bool list_ok;
 
-  if (!line || !lib_is_version_400 (game) || lib_co_400_therest_split
-      || lib_co_400_flagged || lib_co_400_named_raised
+  if (!line || !lib_is_version_400 (game) || disambig.element.therest_split
+      || disambig.offered.flagged || disambig.element.named_raised
       || lib_co_400_question_pending ()
       || !lib_input_contains_word_400 (line, "with"))
     return FALSE;

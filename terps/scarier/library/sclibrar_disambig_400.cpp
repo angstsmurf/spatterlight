@@ -217,27 +217,21 @@
  * element at all -- see lib_co_400_raise_for_short_tie().
  */
 
-/* The open question, and the object an answer resolved it to. */
-static scr_bool lib_co_400_pending = FALSE;
-static scr_bool lib_co_400_refused = FALSE;
-static scr_bool lib_co_400_was_pending = FALSE;
-static std::string lib_co_400_term;
-static std::string lib_co_400_command;
-static std::vector<scr_int> lib_co_400_candidates;
-
-/* var_98: the question this typed line began with, still to be spent. */
-static scr_bool lib_co_400_spend = FALSE;
-
-/* A handler's own prompt (name_object's, not the generaltasks scan's) was
-   raised by this line element; see lib_openclose_with_half_400(). */
-scr_bool lib_co_400_named_raised = FALSE;
-
-/* therest's with-split scored this element and so owns Me(424); see
-   lib_openclose_with_half_raise_400(). */
-scr_bool lib_co_400_therest_split = FALSE;
-
 /*
- * MemVar_4941F4, and whether this element flagged an ambiguity at all.
+ * The state all of that lives in is disambig.question, disambig.element
+ * and disambig.offered (sclibrar_internal.h):
+ *
+ *   question.spend           var_98: the question this typed line began
+ *                            with, still to be spent.
+ *   element.named_raised     a handler's own prompt (name_object's, not the
+ *                            generaltasks scan's) was raised by this line
+ *                            element; see lib_openclose_with_half_400().
+ *   element.therest_split    therest's with-split scored this element and
+ *                            so owns Me(424); see
+ *                            lib_openclose_with_half_raise_400().
+ *   offered.list, .seen, .flagged
+ *                            MemVar_4941F4, and whether this element
+ *                            flagged an ambiguity at all.
  *
  * 4941F4 holds the LIST the last prompt offered, not its term: co()
  * accumulates the candidates' names into MemVar_4941F0 as it walks them
@@ -249,9 +243,6 @@ scr_bool lib_co_400_therest_split = FALSE;
  * rather than the rendered string, which differs only where two different
  * sets render alike.
  */
-static std::vector<scr_int> lib_co_400_prompt_list;
-static scr_bool lib_co_400_prompt_seen = FALSE;
-scr_bool lib_co_400_flagged = FALSE;
 
 void
 lib_co_400_reset (void)
@@ -260,20 +251,10 @@ lib_co_400_reset (void)
    * The "Which" form is cached per bundle; a game reloaded in the same
    * process can land its bundle at the old address, so forget it here.
    */
-  lib_which_cached_bundle = nullptr;
-  lib_which_cached_result = FALSE;
-  lib_co_400_pending = FALSE;
-  lib_co_400_was_pending = FALSE;
-  lib_co_400_term.clear ();
-  lib_co_400_command.clear ();
-  lib_co_400_candidates.clear ();
-  lib_co_400_refused = FALSE;
-  lib_co_400_spend = FALSE;
-  lib_co_400_prompt_list.clear ();
-  lib_co_400_prompt_seen = FALSE;
-  lib_co_400_flagged = FALSE;
-  lib_co_400_named_raised = FALSE;
-  lib_co_400_therest_split = FALSE;
+  disambig.which = {};
+  disambig.question = {};
+  disambig.element = {};
+  disambig.offered = {};
 }
 
 /*
@@ -296,13 +277,13 @@ lib_co_400_get_question (scr_bool *pending, std::string *term,
                          scr_bool *offered,
                          std::vector<scr_int> *offered_list)
 {
-  *pending = lib_co_400_pending;
-  *term = lib_co_400_term;
-  *command = lib_co_400_command;
-  *candidates = lib_co_400_candidates;
-  *offered = lib_co_400_flagged && lib_co_400_prompt_seen;
+  *pending = disambig.question.pending;
+  *term = disambig.question.term;
+  *command = disambig.question.command;
+  *candidates = disambig.question.candidates;
+  *offered = disambig.offered.flagged && disambig.offered.seen;
   if (*offered)
-    *offered_list = lib_co_400_prompt_list;
+    *offered_list = disambig.offered.list;
   else
     offered_list->clear ();
 }
@@ -315,17 +296,17 @@ lib_co_400_set_question (scr_bool pending, const std::string &term,
                          const std::vector<scr_int> &offered_list)
 {
   lib_co_400_reset ();
-  lib_co_400_pending = pending;
-  lib_co_400_term = term;
-  lib_co_400_command = command;
-  lib_co_400_candidates = candidates;
+  disambig.question.pending = pending;
+  disambig.question.term = term;
+  disambig.question.command = command;
+  disambig.question.candidates = candidates;
   if (offered)
     {
       /* As the prompt left them (48BB53), with the flag that carries the
          list past the next begin_line. */
-      lib_co_400_prompt_list = offered_list;
-      lib_co_400_prompt_seen = TRUE;
-      lib_co_400_flagged = TRUE;
+      disambig.offered.list = offered_list;
+      disambig.offered.seen = TRUE;
+      disambig.offered.flagged = TRUE;
     }
 }
 
@@ -343,26 +324,26 @@ lib_co_400_set_question (scr_bool pending, const std::string &term,
 void
 lib_co_400_begin_line (scr_bool is_new_line)
 {
-  if (!lib_co_400_flagged)
+  if (!disambig.offered.flagged)
     {
-      lib_co_400_prompt_list.clear ();
-      lib_co_400_prompt_seen = FALSE;
+      disambig.offered.list.clear ();
+      disambig.offered.seen = FALSE;
     }
-  lib_co_400_flagged = FALSE;
-  lib_co_400_named_raised = FALSE;
-  lib_co_400_therest_split = FALSE;
+  disambig.offered.flagged = FALSE;
+  disambig.element.named_raised = FALSE;
+  disambig.element.therest_split = FALSE;
 
   if (is_new_line)
-    lib_co_400_spend = lib_co_400_pending;
+    disambig.question.spend = disambig.question.pending;
 
   /* The answer slot reads the question as it stood BEFORE the spend. */
-  lib_co_400_was_pending = lib_co_400_pending;
-  if (lib_co_400_spend)
+  disambig.question.was_pending = disambig.question.pending;
+  if (disambig.question.spend)
     {
-      lib_co_400_pending = FALSE;
-      lib_co_400_spend = FALSE;
+      disambig.question.pending = FALSE;
+      disambig.question.spend = FALSE;
     }
-  lib_co_400_refused = FALSE;
+  disambig.question.refused = FALSE;
 }
 
 /*
@@ -395,7 +376,7 @@ lib_antecedent_begin_line_400 (scr_gameref_t game, const scr_char *line)
 scr_bool
 lib_co_400_question_pending (void)
 {
-  return lib_co_400_was_pending;
+  return disambig.question.was_pending;
 }
 
 /*
@@ -413,9 +394,9 @@ lib_co_400_question_pending (void)
 void
 lib_co_400_take_question (void)
 {
-  lib_co_400_pending = FALSE;
-  lib_co_400_was_pending = FALSE;
-  lib_co_400_refused = FALSE;
+  disambig.question.pending = FALSE;
+  disambig.question.was_pending = FALSE;
+  disambig.question.refused = FALSE;
 }
 
 /*
@@ -426,7 +407,7 @@ lib_co_400_take_question (void)
 scr_bool
 lib_co_400_named_question_raised (void)
 {
-  return lib_co_400_named_raised;
+  return disambig.element.named_raised;
 }
 
 /*
@@ -438,11 +419,11 @@ lib_co_400_named_question_raised (void)
 void
 lib_co_400_drop_question (void)
 {
-  lib_co_400_pending = FALSE;
-  lib_co_400_refused = FALSE;
-  lib_co_400_term.clear ();
-  lib_co_400_command.clear ();
-  lib_co_400_candidates.clear ();
+  disambig.question.pending = FALSE;
+  disambig.question.refused = FALSE;
+  disambig.question.term.clear ();
+  disambig.question.command.clear ();
+  disambig.question.candidates.clear ();
 }
 
 /*
@@ -453,13 +434,13 @@ lib_co_400_drop_question (void)
 void
 lib_co_400_note_refusal (void)
 {
-  lib_co_400_refused = TRUE;
+  disambig.question.refused = TRUE;
 }
 
 scr_bool
 lib_co_400_line_refused (void)
 {
-  return lib_co_400_refused;
+  return disambig.question.refused;
 }
 
 void
@@ -482,14 +463,15 @@ lib_co_400_print_still_ambiguous (scr_gameref_t game)
 scr_bool
 lib_co_400_pending_is_npc (void)
 {
-  return lib_co_400_candidates.empty () && !lib_co_400_term.empty ();
+  return disambig.question.candidates.empty ()
+         && !disambig.question.term.empty ();
 }
 
 std::string
 lib_co_400_npc_answer_line (const scr_char *line)
 {
-  const std::string &command = lib_co_400_command;
-  const std::string &term = lib_co_400_term;
+  const std::string &command = disambig.question.command;
+  const std::string &term = disambig.question.term;
   std::string::size_type at;
 
   for (at = 0; at + term.size () <= command.size (); at++)
@@ -547,24 +529,24 @@ lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
   if (from_scan)
     {
       /* 48B6AE, on a question an earlier element of this line raised. */
-      if (lib_co_400_pending)
+      if (disambig.question.pending)
         {
           pf_buffer_string (filter, "That wasn't one of the options!\n");
-          lib_co_400_pending = FALSE;
-          lib_co_400_term.clear ();
-          lib_co_400_command.clear ();
-          lib_co_400_candidates.clear ();
-          lib_co_400_flagged = TRUE;
+          disambig.question.pending = FALSE;
+          disambig.question.term.clear ();
+          disambig.question.command.clear ();
+          disambig.question.candidates.clear ();
+          disambig.offered.flagged = TRUE;
           return;
         }
 
       /* 48B6F6/48B80F: the same list offered twice running. */
-      lib_co_400_flagged = TRUE;
-      if (lib_co_400_prompt_seen && lib_co_400_prompt_list == objects)
+      disambig.offered.flagged = TRUE;
+      if (disambig.offered.seen && disambig.offered.list == objects)
         {
           pf_buffer_string (filter, "That is still ambiguous!\n");
-          lib_co_400_prompt_list.clear ();
-          lib_co_400_prompt_seen = FALSE;
+          disambig.offered.list.clear ();
+          disambig.offered.seen = FALSE;
           return;
         }
     }
@@ -584,17 +566,17 @@ lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
   pf_buffer_answer_break (filter);
 
   command = run_get_dispatch_input ();
-  lib_co_400_pending = TRUE;
-  lib_co_400_term = term;
-  lib_co_400_command = command ? command : "";
-  lib_co_400_candidates = objects;
+  disambig.question.pending = TRUE;
+  disambig.question.term = term;
+  disambig.question.command = command ? command : "";
+  disambig.question.candidates = objects;
   if (from_scan)
     {
-      lib_co_400_prompt_list = objects;         /* 48BB53 */
-      lib_co_400_prompt_seen = TRUE;
+      disambig.offered.list = objects;         /* 48BB53 */
+      disambig.offered.seen = TRUE;
     }
   else
-    lib_co_400_named_raised = TRUE;
+    disambig.element.named_raised = TRUE;
 }
 
 void
@@ -1578,7 +1560,7 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
   /* One pass of the original loop; the braces keep its indentation. */
     {
       game->is_admin = TRUE;
-      if (lib_co_400_was_pending)
+      if (disambig.question.was_pending)
         {
           pf_buffer_string (filter, "That is still ambiguous!\n");
           return TRUE;
@@ -1617,10 +1599,10 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
         }
       pf_buffer_string (filter, "?\n");
 
-      lib_co_400_pending = TRUE;
-      lib_co_400_term = term;
-      lib_co_400_command = input ? input : "";
-      lib_co_400_candidates.clear ();
+      disambig.question.pending = TRUE;
+      disambig.question.term = term;
+      disambig.question.command = input ? input : "";
+      disambig.question.candidates.clear ();
       return TRUE;
     }
 }
@@ -1660,8 +1642,8 @@ lib_npc_400_raise_for_line_string (scr_gameref_t game, const scr_char *line)
 std::string
 lib_co_400_object_answer_line (const scr_char *line)
 {
-  const std::string &command = lib_co_400_command;
-  const std::string &term = lib_co_400_term;
+  const std::string &command = disambig.question.command;
+  const std::string &term = disambig.question.term;
   const std::string answer (line ? line : "");
   std::string::size_type at;
   std::string built;

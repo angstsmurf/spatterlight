@@ -40,6 +40,94 @@
 
 #include "sclibrar.h"
 
+/*
+ * The disambiguation files' module state: every file-scope variable of
+ * sclibrar_disambig.cpp and the two files split out of it, grouped by
+ * lifetime.  One instance, `disambig`, defined in sclibrar_disambig.cpp.
+ * It is declared here and not in sclibrar_disambig_internal.h because the
+ * other core files write a few of the per-line and per-element flags.
+ *
+ *   which      whether this game keeps the Runner's "Which <term>." form;
+ *              decided once per bundle by lib_which_runner_form(), dropped
+ *              by lib_co_400_reset().
+ *   long_names the multi-word names lib_mask_long_names() masks, objects
+ *              then characters; collected once per bundle, dropped by
+ *              lib_forget_bundle() before the runner destroys it.
+ *   line       per typed line, set by lib_co_note_line_top(): the 3.7
+ *              "a handler settled this line's object" flag, and the
+ *              snapshot of which objects fitted the line's co() mode.
+ *   resolve_parent_400
+ *              the container mode 4 admits from; see
+ *              lib_resolve_admit_parent().  Set and put back to -1 around
+ *              one call by the take-from handler.
+ *   question   the open 4.0 question: generaltasks' MemVar_494234 and the
+ *              bookkeeping of spending it.  Lives from the prompt to the
+ *              line that answers or drops it.
+ *   element    what this 4.0 line element did, cleared for each one by
+ *              lib_co_400_begin_line().
+ *   offered    the list the last 4.0 prompt offered (MemVar_4941F4); kept
+ *              across a line boundary only while `flagged` is set.
+ *
+ * Saved in a Spatterlight autosave, through lib_co_400_get_question() /
+ * lib_co_400_set_question(): question.pending, .term, .command and
+ * .candidates, and the offered list when the next line will keep it.  The
+ * rest is per-line scratch or rebuilds from the bundle.  lib_co_400_reset()
+ * clears the three 4.0 groups and `which` for a new run; see
+ * sclibrar_disambig_400.cpp for what each 4.0 member models.
+ */
+enum { LIB_LONG_NAME_CATEGORIES = 2 };
+
+struct scr_disambig_state_s
+{
+  struct
+  {
+    scr_prop_setref_t bundle = nullptr;
+    scr_bool runner_form = FALSE;
+  } which;
+
+  struct
+  {
+    scr_prop_setref_t bundle = nullptr;
+    std::vector<std::string> names[LIB_LONG_NAME_CATEGORIES];
+  } long_names;
+
+  struct
+  {
+    scr_bool prompt_370_blocked = FALSE;
+    scr_int top_mode = 0;
+    std::vector<scr_bool> top_fits;
+  } line;
+
+  scr_int resolve_parent_400 = -1;
+
+  struct
+  {
+    scr_bool pending = FALSE;
+    scr_bool refused = FALSE;
+    scr_bool was_pending = FALSE;
+    std::string term;
+    std::string command;
+    std::vector<scr_int> candidates;
+    scr_bool spend = FALSE;
+  } question;
+
+  struct
+  {
+    scr_bool named_raised = FALSE;
+    scr_bool therest_split = FALSE;
+  } element;
+
+  struct
+  {
+    std::vector<scr_int> list;
+    scr_bool seen = FALSE;
+    scr_bool flagged = FALSE;
+  } offered;
+};
+typedef struct scr_disambig_state_s scr_disambig_state_t;
+
+extern scr_disambig_state_t disambig;
+
 /* sclibrar_disambig.cpp, _disambig_scan, _disambig_400 */
 extern scr_bool
 lib_print_npc_not_here_pre390 (scr_gameref_t game, scr_int npc);
@@ -50,16 +138,12 @@ extern scr_bool lib_co_prefix_excluded (scr_gameref_t game,
                                         const scr_char *line, scr_int object);
 extern scr_bool lib_co_names_prefix (scr_gameref_t game, const scr_char *line,
                                      scr_int object);
-extern scr_bool lib_co_prompt_370_blocked;
 extern scr_bool lib_co_object_answers_to (scr_gameref_t game, scr_int object,
                                           const scr_char *term);
 extern scr_bool lib_co_candidate (scr_gameref_t game, scr_int object,
                                   scr_int room);
 extern scr_bool lib_co_mode_fits (scr_gameref_t game, scr_int object,
                                   scr_int mode);
-extern scr_bool lib_co_400_named_raised;
-extern scr_bool lib_co_400_therest_split;
-extern scr_bool lib_co_400_flagged;
 extern void lib_co_400_raise (scr_gameref_t game, const scr_char *term,
                               const std::vector<scr_int> &objects);
 extern void lib_co_400_raise_named (scr_gameref_t game, const scr_char *term,
@@ -87,7 +171,6 @@ extern scr_bool
 lib_npc_400_find_namesakes (scr_gameref_t game, std::string *term_out,
                             std::vector<scr_int> *namesakes_out);
 extern scr_bool lib_npc_400_raise_for_line (scr_gameref_t game);
-extern scr_int lib_resolve_parent_400;
 extern scr_int
 lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
                                 scr_bool (*resolver) (scr_gameref_t, scr_int,

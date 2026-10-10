@@ -176,7 +176,7 @@ lib_resolve_admit_take (scr_gameref_t game, scr_int object, scr_int pass)
 scr_bool
 lib_resolve_admit_parent (scr_gameref_t game, scr_int object, scr_int pass)
 {
-  const scr_int parent = lib_resolve_parent_400;
+  const scr_int parent = disambig.resolve_parent_400;
 
   (void) pass;
   if (parent < 0 || gs_object_parent (game, object) != parent)
@@ -1153,7 +1153,7 @@ lib_cmd_verb_object (scr_gameref_t game)
            */
           scr_int with_pending, with_head;
 
-          lib_co_400_therest_split = TRUE;
+          disambig.element.therest_split = TRUE;
           if (lib_with_split_crowd_400 (game, FALSE, &crowd, &with_pending,
                                         &with_head))
             tied = crowd;
@@ -1356,7 +1356,7 @@ lib_cmd_verb_object (scr_gameref_t game)
       scr_int with_pending, with_head;
 
       /* One half asks the question; see lib_with_split_crowd_400(). */
-      lib_co_400_therest_split = TRUE;
+      disambig.element.therest_split = TRUE;
       if (lib_with_split_crowd_400 (game, FALSE, &crowd, &with_pending,
                                     &with_head))
         tied = crowd;

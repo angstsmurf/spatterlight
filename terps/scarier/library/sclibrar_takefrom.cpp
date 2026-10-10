@@ -1081,10 +1081,10 @@ lib_take_from_piece_400 (scr_gameref_t game, scr_int associate)
   if (!piece || lib_input_contains_word_400 (piece, "all"))
     return FALSE;
 
-  lib_resolve_parent_400 = associate;
+  disambig.resolve_parent_400 = associate;
   object = lib_name_object_resolve_400 (game, piece, 4, &pending, &last_tied,
                                         &marked, &mark_count);
-  lib_resolve_parent_400 = -1;
+  disambig.resolve_parent_400 = -1;
   if (object == -2)
     object = lib_name_object_resolve_400 (game, piece, 0, &pending,
                                           &last_tied, &marked, &mark_count);

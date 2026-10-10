@@ -1204,7 +1204,7 @@ lib_what (scr_gameref_t game, const scr_char *verb)
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
       && (strcmp (verb, "Take") == 0 || strcmp (verb, "Drop") == 0))
-    lib_co_prompt_370_blocked = TRUE;
+    disambig.line.prompt_370_blocked = TRUE;
 
   pf_buffer_string (filter, verb);
   pf_buffer_string (filter, " what?\n");

@@ -247,20 +247,16 @@ lib_references_are_namesakes (scr_gameref_t game)
  * runner calls lib_forget_bundle() before destroying one, so a later bundle
  * allocated at the same address can't inherit them.
  */
-enum { LIB_LONG_NAME_CATEGORIES = 2 };
-static scr_prop_setref_t lib_long_names_bundle = nullptr;
-static std::vector<std::string> lib_long_names[LIB_LONG_NAME_CATEGORIES];
-
 void
 lib_forget_bundle (scr_prop_setref_t bundle)
 {
-  if (lib_long_names_bundle == bundle)
+  if (disambig.long_names.bundle == bundle)
     {
       size_t category;
 
-      lib_long_names_bundle = nullptr;
+      disambig.long_names.bundle = nullptr;
       for (category = 0; category < LIB_LONG_NAME_CATEGORIES; category++)
-        lib_long_names[category].clear ();
+        disambig.long_names.names[category].clear ();
     }
 }
 
@@ -272,11 +268,11 @@ lib_cache_long_names (scr_gameref_t game)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   size_t category;
 
-  if (lib_long_names_bundle == bundle)
+  if (disambig.long_names.bundle == bundle)
     return;
 
-  lib_forget_bundle (lib_long_names_bundle);
-  lib_long_names_bundle = bundle;
+  lib_forget_bundle (disambig.long_names.bundle);
+  disambig.long_names.bundle = bundle;
   for (category = 0; category < LIB_LONG_NAME_CATEGORIES; category++)
     {
       const scr_char *const kind = CATEGORIES[category];
@@ -312,7 +308,7 @@ lib_cache_long_names (scr_gameref_t game)
                 length--;
               if (length == 0 || !memchr (name, ' ', length))
                 continue;
-              lib_long_names[category].emplace_back (name, length);
+              disambig.long_names.names[category].emplace_back (name, length);
             }
         }
     }
@@ -341,7 +337,7 @@ lib_mask_long_names (scr_gameref_t game, const scr_char *line,
   lib_cache_long_names (game);
   for (category = 0; category < (objects_only ? 1u : 2u); category++)
     {
-      for (const std::string &name : lib_long_names[category])
+      for (const std::string &name : disambig.long_names.names[category])
         {
           const size_t length = name.size ();
           size_t posn;
@@ -553,10 +549,6 @@ lib_first_alias (const scr_prop_setref_t bundle, scr_vartype_t *vt_key,
   return prop_get_string (bundle, "S<-sisi", vt_key);
 }
 
-
-/* Set once a 3.7 library handler has settled the line's object; see
- * lib_co_note_line_top(). */
-scr_bool lib_co_prompt_370_blocked = FALSE;
 
 /* TRUE if the object's Short or Alias is exactly the term. */
 scr_bool
@@ -787,17 +779,15 @@ lib_co_mode_fits (scr_gameref_t game, scr_int object, scr_int mode)
 /*
  * Which objects fitted the line's co() mode when the line began.  The
  * end-of-turn scan runs after the handler has acted -- `drop hat` has put
- * the held hat on the floor by then -- so it counts by this snapshot.
+ * the held hat on the floor by then -- so it counts by this snapshot
+ * (disambig.line.top_mode, top_fits).
  */
-scr_int lib_co_top_mode = 0;
-std::vector<scr_bool> lib_co_top_fits;
-
 static scr_bool
 lib_co_mode_fitted (scr_gameref_t game, scr_int object, scr_int mode)
 {
-  if (mode == lib_co_top_mode && mode != 0
-      && object < (scr_int) lib_co_top_fits.size ())
-    return lib_co_top_fits[object];
+  if (mode == disambig.line.top_mode && mode != 0
+      && object < (scr_int) disambig.line.top_fits.size ())
+    return disambig.line.top_fits[object];
   return lib_co_mode_fits (game, object, mode);
 }
 
@@ -981,7 +971,7 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
    * runner_probes/task.run370.pname2.rtf, 2026-09-19.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
-      && lib_co_prompt_370_blocked)
+      && disambig.line.prompt_370_blocked)
     return FALSE;
   if (!lib_runner_co_scan (game, command, &prompt_term, &list_term, &present))
     return FALSE;

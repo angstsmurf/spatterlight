@@ -31,6 +31,9 @@
 #include "sclibrar_internal.h"
 #include "sclibrar_disambig_internal.h"
 
+/* The module state; see sclibrar_internal.h. */
+scr_disambig_state_t disambig;
+
 /*
  * lib_disambiguate_npc()
  *
@@ -58,14 +61,12 @@
  * that the author's replacement fires.  Any ALR Original starting "Which "
  * opts the game in.
  */
-scr_prop_setref_t lib_which_cached_bundle = nullptr;
-scr_bool lib_which_cached_result = FALSE;
 
 scr_bool
 lib_which_runner_form (scr_gameref_t game)
 {
-  scr_prop_setref_t &cached_bundle = lib_which_cached_bundle;
-  scr_bool &cached_result = lib_which_cached_result;
+  scr_prop_setref_t &cached_bundle = disambig.which.bundle;
+  scr_bool &cached_result = disambig.which.runner_form;
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key;
   scr_int alr_count, index_;
@@ -390,8 +391,6 @@ lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
  * resolved into just one object.  The resolver function can normally be the
  * same as the function used to filter objects for multiple references.
  */
-/* The container mode 4 admits from; see lib_resolve_admit_parent(). */
-scr_int lib_resolve_parent_400 = -1;
 
 /*
  * lib_co_note_line_top()
@@ -406,11 +405,12 @@ lib_co_note_line_top (scr_gameref_t game)
   const scr_char *line = run_get_dispatch_input ();
   scr_int object;
 
-  lib_co_prompt_370_blocked = FALSE;
-  lib_co_top_mode = line ? lib_co_verb_mode (line) : 0;
-  lib_co_top_fits.assign (gs_object_count (game), FALSE);
+  disambig.line.prompt_370_blocked = FALSE;
+  disambig.line.top_mode = line ? lib_co_verb_mode (line) : 0;
+  disambig.line.top_fits.assign (gs_object_count (game), FALSE);
   for (object = 0; object < gs_object_count (game); object++)
-    lib_co_top_fits[object] = lib_co_mode_fits (game, object, lib_co_top_mode);
+    disambig.line.top_fits[object]
+      = lib_co_mode_fits (game, object, disambig.line.top_mode);
 }
 
 /*
@@ -540,7 +540,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    */
   if (taf_version < TAF_VERSION_380 && count > 0
       && strncmp (verb, "put", 3) != 0 && strcmp (verb, "move") != 0)
-    lib_co_prompt_370_blocked = TRUE;
+    disambig.line.prompt_370_blocked = TRUE;
 
   /*
    * 3.8 and 3.9 put each candidate through co() -- run380 co(obj) from
@@ -965,7 +965,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
           if (kept == 0)
             {
               lib_what (game, is_take ? "Take" : "Drop");
-              lib_co_prompt_370_blocked = TRUE;
+              disambig.line.prompt_370_blocked = TRUE;
               if (is_ambiguous)
                 *is_ambiguous = TRUE;
               return -1;

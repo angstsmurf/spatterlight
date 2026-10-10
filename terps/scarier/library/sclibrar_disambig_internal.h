@@ -36,8 +36,6 @@
 #include "sclibrar_internal.h"
 
 /* sclibrar_disambig.cpp */
-extern scr_prop_setref_t lib_which_cached_bundle;
-extern scr_bool lib_which_cached_result;
 extern scr_bool lib_which_runner_form (scr_gameref_t game);
 extern void lib_which_head (scr_gameref_t game, const scr_char *head,
                             const scr_char *tail);
@@ -57,8 +55,6 @@ extern scr_bool lib_names_object_370 (scr_gameref_t game, const scr_char *line,
 extern scr_bool
 lib_names_only_shadowed_370 (scr_gameref_t game, const scr_char *line,
                              scr_int object);
-extern scr_int lib_co_top_mode;
-extern std::vector<scr_bool> lib_co_top_fits;
 extern scr_int lib_co_verb_mode (const scr_char *line);
 extern scr_bool
 lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
