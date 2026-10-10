@@ -73,6 +73,9 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 - (GameLauncher *)createAndSetupGameLauncher;
 - (void)importAndRunGameFile:(NSString *)gameFileName
            commandScriptName:(NSString *)scriptName;
+- (void)importAndRunGameFile:(NSString *)gameFileName
+           commandScriptName:(NSString *)scriptName
+      keepScrollbackTrimming:(BOOL)keepTrimming;
 
 @end
 
@@ -574,6 +577,19 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 
 - (void)importAndRunGameFile:(NSString *)gameFileName
            commandScriptName:(NSString *)scriptName {
+    [self importAndRunGameFile:gameFileName
+             commandScriptName:scriptName
+        keepScrollbackTrimming:NO];
+}
+
+// Scrollback is UI-only, so the limit never changes a protocol log. These runs
+// turn it off by default: each front trim forces a full relayout of the text
+// kept, about 90 ms (Debug) each, and Fortress of Fear trims 61 times. Pass
+// keepTrimming = YES to run with the theme's limit instead, so the trim path
+// (trimScrollbackIfNeeded:) stays covered by a real game.
+- (void)importAndRunGameFile:(NSString *)gameFileName
+           commandScriptName:(NSString *)scriptName
+      keepScrollbackTrimming:(BOOL)keepTrimming {
     XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import completes"];
     XCTestExpectation *gameStartExpectation = [self expectationWithDescription:@"Game starts running"];
     XCTestExpectation *commandScriptExpectation = [self expectationWithDescription:@"Command script completes"];
@@ -694,6 +710,8 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
             originalSADelaysSetting = game.theme.sADelays;
             game.theme.sADelays = NO;
             NSLog(@"Disabled real-time delays (sADelays) for test");
+            if (!keepTrimming)
+                game.theme.scrollbackLimit = 0; // unlimited: no trims
         }
 
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -808,9 +826,12 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
              commandScriptName:@"Veteran"];
 }
 
+// Keeps the theme's scrollback limit: Humbug prints enough to trim many times
+// in about five seconds, so it is the trim path's real-game coverage.
 - (void)testAdrift40Humbug {
     [self importAndRunGameFile:@"humbug.taf"
-             commandScriptName:@"Humbug"];
+             commandScriptName:@"Humbug"
+        keepScrollbackTrimming:YES];
 }
 
 - (void)testAdrift40Shadowpeak {
@@ -934,9 +955,11 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
              commandScriptName:@"TerpEtude"];
 }
 
+// Keeps the theme's scrollback limit, so trimming also runs under a V6 game.
 - (void)testZorkZero {
     [self importAndRunGameFile:@"zork0.zblorb"
-             commandScriptName:@"Zork Zero"];
+             commandScriptName:@"Zork Zero"
+        keepScrollbackTrimming:YES];
 }
 
 #pragma mark - Scrollback cap (#1)
