@@ -12,6 +12,7 @@
 #import "GameImporter.h"
 #import "GameLauncher.h"
 #import "GlkController.h"
+#import "CommandScriptHandler.h"
 #import "GlkController+Autorestore.h"
 #import "Game.h"
 #import "Theme.h"
@@ -86,6 +87,10 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     // Initialize TableViewController
     self.tableViewController = [[TableViewController alloc] init];
 
+    // Without this it falls back to the app delegate's manager, i.e. the real
+    // library, for saves the importer makes outside the test context.
+    self.tableViewController.coreDataManager = self.coreDataManager;
+
     // Set the test context on the table view controller
     // This ensures it uses our in-memory database instead of the real one
     if ([self.tableViewController respondsToSelector:@selector(setManagedObjectContext:)]) {
@@ -115,35 +120,12 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 }
 
 - (void)setUpInMemoryCoreDataStack {
-    // Create a CoreDataManager with in-memory store for testing
-    self.coreDataManager = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"];
-
-    // Get the managed object context
+    // A private in-memory store per test. initWithModelName: would open the
+    // real on-disk library -- the one the host app has open too -- so tests
+    // would read and write the user's games and race the app's own stack.
+    self.coreDataManager = [[CoreDataManager alloc] initInMemoryWithModelName:@"Spatterlight"];
     self.testContext = self.coreDataManager.mainManagedObjectContext;
-
-    // Configure for in-memory testing if CoreDataManager supports it
-    // Alternative: Create a minimal in-memory stack manually
-    if (!self.testContext) {
-        // Manual setup if CoreDataManager doesn't provide a context
-        NSURL *modelURL = [[NSBundle bundleForClass:[CoreDataManager class]] URLForResource:@"Spatterlight" withExtension:@"momd"];
-        NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-
-        NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-
-        NSError *error = nil;
-        [coordinator addPersistentStoreWithType:NSInMemoryStoreType
-                                  configuration:nil
-                                            URL:nil
-                                        options:nil
-                                          error:&error];
-
-        if (error) {
-            NSLog(@"Failed to create in-memory store: %@", error);
-        }
-
-        self.testContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        self.testContext.persistentStoreCoordinator = coordinator;
-    }
+    XCTAssertNotNil(self.testContext, @"In-memory Core Data stack should load");
 }
 
 #pragma mark - Helper Methods
@@ -313,6 +295,33 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     if (error)
         NSLog(@"Error: %@", error);
     return facit;
+}
+
+// A resource registered from a plain file (glkimp fileresource.c) is numbered
+// by a hash of its absolute path, which for a test game lies inside this
+// checkout's DerivedData folder. Replace those numbers (bit 30 set, bit 31
+// clear) with a placeholder so a facit isn't tied to one machine. Blorb
+// resource numbers are small and are left alone.
++ (NSString *)normalizedProtocolLog:(NSString *)log {
+    static NSRegularExpression *regex;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        regex = [NSRegularExpression
+                 regularExpressionWithPattern:@"^(\\[MSG\\] cmd=(?:FINDIMAGE|LOADIMAGE|PURGEIMG|FINDSOUND|LOADSOUND) a1=)(\\d+)"
+                 options:NSRegularExpressionAnchorsMatchLines
+                 error:nil];
+    });
+
+    NSMutableString *result = [log mutableCopy];
+    NSArray<NSTextCheckingResult *> *matches = [regex matchesInString:log options:0 range:NSMakeRange(0, log.length)];
+    // Replace back to front so earlier ranges stay valid.
+    for (NSTextCheckingResult *match in matches.reverseObjectEnumerator) {
+        NSRange numberRange = [match rangeAtIndex:2];
+        long long number = [log substringWithRange:numberRange].longLongValue;
+        if (number >= 0x40000000LL && number <= 0x7fffffffLL)
+            [result replaceCharactersInRange:numberRange withString:@"<fileresource>"];
+    }
+    return result;
 }
 
 #pragma mark - Tests
@@ -485,12 +494,12 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
                     if (scriptURL) {
                         NSLog(@"Running command script: %@", scriptURL.path);
                         
-                        // Give the game a moment to be fully ready, then start the script
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [launcher runCommandsFromFile:scriptURL.path];
-                            // The scriptObserver will handle fulfilling commandScriptExpectation
-                            // when the GlkCommandScriptDidComplete notification is posted
-                        });
+                        // Start once the game waits for input. The scriptObserver
+                        // fulfils commandScriptExpectation when the
+                        // GlkCommandScriptDidComplete notification is posted.
+                        [self runCommandsFromFile:scriptURL.path
+                              whenInputReadyIn:glkController
+                                        attempts:100];
                     } else {
                         NSLog(@"No command script found, skipping");
                         [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
@@ -525,6 +534,42 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
             XCTFail(@"Test timed out: %@", error);
         }
     }];
+}
+
+// Polls every 0.1 s until a game window has a pending line or char request,
+// then runs the command script on that game's own handler.
+//
+// A game that never asks for input (Czech, a self-running test suite with an
+// empty script) finishes by itself: when the interpreter exits, terpDidStop
+// posts GlkCommandScriptDidComplete, so the poll just stops. A game still
+// running without asking for input when the attempts run out is a failure,
+// recorded here rather than left to the test's overall timeout.
+- (void)runCommandsFromFile:(NSString *)path
+           whenInputReadyIn:(GlkController *)glkController
+                   attempts:(NSUInteger)attempts {
+    if (!glkController.alive)
+        return;
+    NSDictionary<NSFileAttributeKey, id> *attributes =
+        [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+    if (attributes.fileSize == 0)
+        return; // Nothing to send; the game runs to its own end.
+    if (glkController.commandScriptHandler.findGlkWindowWithInput) {
+        // Straight to this game's handler: GameLauncher finds "the active
+        // game" through the preferences window, which works on the library's
+        // store and so never sees a game in the test's in-memory one.
+        [glkController.commandScriptHandler runCommandsFromFile:path];
+        return;
+    }
+    if (attempts == 0) {
+        XCTFail(@"%@: game never asked for input, so the command script could not start",
+                path.lastPathComponent);
+        return;
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self runCommandsFromFile:path
+                 whenInputReadyIn:glkController
+                         attempts:attempts - 1];
+    });
 }
 
 - (void)importAndRunGameFile:(NSString *)gameFileName
@@ -607,7 +652,9 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 
             NSString *facit = [GameImportXCTests comparisonLogFor:scriptName];
             XCTAssert(facit.length > 0, @"Comparison file should contain text");
-            XCTAssert([log isEqualToString:facit], @"Log file text should match comparison file text");
+            XCTAssert([[GameImportXCTests normalizedProtocolLog:log]
+                       isEqualToString:[GameImportXCTests normalizedProtocolLog:facit]],
+                      @"Log file text should match comparison file text");
             [logsMatchedExpectation fulfill];
         }
 
@@ -675,10 +722,13 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
                     if (scriptURL) {
                         NSLog(@"Running command script: %@", scriptURL.path);
 
-                        // Give the game a moment to be fully ready, then start the script
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [launcher runCommandsFromFile:scriptURL.path];
-                        });
+                        // Start the script once the game is waiting for input, rather than
+                        // after a fixed delay: a slow start (e.g. under a profiler) would
+                        // otherwise hit the modal "Cannot find an input prompt" alert,
+                        // which stalls the interpreter's pipe for the rest of the run.
+                        [self runCommandsFromFile:scriptURL.path
+                              whenInputReadyIn:glkController
+                                        attempts:100];
                     } else {
                         NSLog(@"No command script found, skipping");
                         [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
@@ -719,7 +769,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     [importer addFiles:@[gameFileURL] options:options];
 
     // Wait for expectations with a longer timeout for game startup and command script
-    [self waitForExpectationsWithTimeout:110.0 handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:60.0 handler:^(NSError * _Nullable error) {
         [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
         [self deleteGameAtPath:gameFileURL.path];
         if (error) {

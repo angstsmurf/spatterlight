@@ -241,23 +241,69 @@ You barely make it back into your room before falling down.  The intense drowsin
 You crash...hard.  The soft blankets almost seem to fold themselves around you and instantly a groggy, drug-induced sleep takes you under.  When you finally awaken in the morning it seems like no time has passed at all and your only clue to how long you have been out is the morning sunlight pouring in from the window.  Time to go get some answers.
 press any key to continue
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Prolog Bedroom
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 1
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] East
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=220
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=218
 [TEXT] 
-
 Welcome to:
 G A T H E R E D   I N   D A R K N E S S
 by Michael "Dr.Froth" Millsap
 press any key to continue
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Prolog Bedroom
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 1
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] East
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1170
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1168
 [TEXT] 
-
 Chapter 1:
 Piercing The Darkness
 Your Room
@@ -871,12 +917,74 @@ The hallway is dimly lit by an overhead fixture swinging on a chain.  The light,
 As you open the door to the guest room that belongs to Kitty a gust of her perfume vapors floats past your nose and takes you back to earlier yesterday evening...
 press any key to continue
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
+[TEXT] 3rd Floor Hallway
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 9
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] Radio
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] South
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] East
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3812
-[TEXT] 
-...She looks at you and smiles seductively.  "So tell me," she asks "what does Domou Island hold for a professor of history anyway.  You do know that this resort has not been open to the public for many years."  She had been strangely inquisitive since you met her at the dinner gathering downstairs.  Polite conversation had lead to a more detailed verbal exchange which had in turn led to you being invited here, to her room.  She said she was a doctor of anthropology named Kitty Donovon, and had been hired here by the current owner of the property to do something that she had been very vague about.  "I'd assume that I was brought here because of my history background," you reply "But to be honest, no one has asked me any questions yet."
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3810
+[TEXT] ...She looks at you and smiles seductively.  "So tell me," she asks "what does Domou Island hold for a professor of history anyway.  You do know that this resort has not been open to the public for many years."  She had been strangely inquisitive since you met her at the dinner gathering downstairs.  Polite conversation had lead to a more detailed verbal exchange which had in turn led to you being invited here, to her room.  She said she was a doctor of anthropology named Kitty Donovon, and had been hired here by the current owner of the property to do something that she had been very vague about.  "I'd assume that I was brought here because of my history background," you reply "But to be honest, no one has asked me any questions yet."
 "I have a question for you," her eyes flutter as the words ease out like breath, "are you going to insist on wearing that dinner jacket for the entire evening."
 Her boldness makes an impression on you, and so you obey, laying your jacket across the dresser before turning to face her.  She is crossing the room toward you, when suddenly she drops to the ground in a fashion similar to cutting the strings on a marionette.  Rushing to her, you crouch next to her crumpled form and begin to shake her and ask if she is alright.  Relief fills you as you realize that she is still breathing and does not seem to be in any immediate danger.  She, however, is out like a light and nothing you try seems to rouse her.  Perhaps she has narcolepsy, you wonder, or perhaps a mixture of the excitement and wine was a little to much for her.  Being the gentleman that you are, you place her in bed and turn off her light.  So much for a first date you think as you close the door gently behind you..
 
@@ -884,12 +992,74 @@ You force the memories of last night, the final good ones that you can recall be
 
 press any key to continue
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
+[TEXT] 3rd Floor Hallway
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 9
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] Radio
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] South
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] East
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1234
-[TEXT] 
-Kitty's Room
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1232
+[TEXT] Kitty's Room
 You are disappointed though not surprised to discover Kitty's room to be empty.  Fear for her safety creeps into your gut as you realize that her passing out might be a side effect of the exact same poison that is working on killing you right now.  Though the curtains on her window are closed, the sunlight is still strong enough to shine through and coat the room in a soft greenish glow.  Her bed is not made, perhaps the maid has disappeared as well.  You feel a small amount of hope when you notice that your coat is still laying on her dresser where you left it last night.  The hallway is north.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -3359,7 +3529,58 @@ What do you wish to do?
 5: Punch Yourself In The Crotch...HARD
 6: Log Out
 Choose [1-6]> 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Upper Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 38
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=UNPRINT a1=0 a2=0 a3=0 len=2
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=706
@@ -3370,12 +3591,60 @@ The following words flicker across the screen:
 (your journal has been updated)
 press any key to continue
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Upper Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 38
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=406
-[TEXT] 
-What do you wish to do?
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=404
+[TEXT] What do you wish to do?
 1: Generate Lab Passcode
 2: Attempt To Send An Email
 3: Read Archived Messages
@@ -3383,7 +3652,58 @@ What do you wish to do?
 5: Punch Yourself In The Crotch...HARD
 6: Log Out
 Choose [1-6]> 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Upper Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 38
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=UNPRINT a1=0 a2=0 a3=0 len=2
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -7210,7 +7530,156 @@ Please select which key you mean:
 1: the Dim Hall Key
 2: small handcuff key
 Choose [1-2]> 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Central Hub
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 70
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Dim Hall Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Piano Music
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=26
+[TEXT] Cheese Grader
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Golden Apple
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=10 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Chain Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=11 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=12 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] South
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=13 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Northeast
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=14 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Northwest
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=15 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Southeast
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=16 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Southwest
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=17 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] Up
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=18 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] Down
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=UNPRINT a1=0 a2=0 a3=0 len=2
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
@@ -7753,12 +8222,106 @@ You place "Contrapunctus I" on the holder in front of the keys, nod respectfully
 You put in the code that you generated in the office on the third floor and the green light that begins flashing upon completion of the entry lets you know that you have succeeded in doing something.  A few moments later the black couch that had seemed out of place to you at first suddenly flips into the wall.  The couch had been attached to the section of floor that it rested on, so when it flipped upwards into the wall it took that part of the floor with it revealing a set of steps that lead downwards.  This must be the hidden entrance to the lab, perhaps you can find an antidote down there.  With curiosity and hope you descend the steps to see.
 press any key to continue
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Music Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 74
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=26
+[TEXT] Cheese Grader
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Golden Apple
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Chain Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=38
+[TEXT] Places and Objects
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] Harp
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=10 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1088
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1086
 [TEXT] 
-
 Chapter 3:
 The Great Skin Hunt
 Lab Entry
@@ -8252,7 +8815,100 @@ What information would you like to look up?
 5: Unlock the Containment Room
 6: Log Off
 Choose [1-6]> 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Dr.Skinn's Small Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 78
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=26
+[TEXT] Cheese Grader
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Golden Apple
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Chain Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=10 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=UNPRINT a1=0 a2=0 a3=0 len=2
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1036
@@ -8261,12 +8917,102 @@ NASSIC is the compound that we devised here in the lab as a failsafe for our gen
 (your journal has been updated)
 press any key to continue
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Dr.Skinn's Small Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 78
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=26
+[TEXT] Cheese Grader
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Golden Apple
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Chain Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=10 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=404
-[TEXT] 
-What information would you like to look up?
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=402
+[TEXT] What information would you like to look up?
 1: Try for an internet connection
 2: The FALON-6 Project
 3: NASSIC
@@ -8274,7 +9020,100 @@ What information would you like to look up?
 5: Unlock the Containment Room
 6: Log Off
 Choose [1-6]> 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Dr.Skinn's Small Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 78
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=26
+[TEXT] Cheese Grader
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Golden Apple
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Chain Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=10 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=UNPRINT a1=0 a2=0 a3=0 len=2
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=314
@@ -8282,12 +9121,102 @@ Choose [1-6]>
 You press the selection and the computer indicates that the electronic locks on the containment room door have now been released.
 press any key to continue
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Dr.Skinn's Small Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 78
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=26
+[TEXT] Cheese Grader
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Golden Apple
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Chain Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=10 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=404
-[TEXT] 
-What information would you like to look up?
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=402
+[TEXT] What information would you like to look up?
 1: Try for an internet connection
 2: The FALON-6 Project
 3: NASSIC
@@ -8295,7 +9224,100 @@ What information would you like to look up?
 5: Unlock the Containment Room
 6: Log Off
 Choose [1-6]> 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Dr.Skinn's Small Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 78
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=26
+[TEXT] Cheese Grader
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Golden Apple
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Chain Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=10 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=UNPRINT a1=0 a2=0 a3=0 len=2
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -8416,12 +9438,102 @@ You begin to cross the elaborate office of Dr. Skinn to check out the items he h
 
 What will happen? Press any key to find out.
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Dr.Skinn's Small Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 79
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=26
+[TEXT] Cheese Grader
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Golden Apple
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Chain Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=10 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=5144
-[TEXT] 
-You think that you can actually hear your own heartbeat throbbing in your ears as you watch the opening intently.  Moments later you see two people enter the office from the opening in the wall.  They are dressed in black hooded robes, very similar to the ones worn by the other people you have encountered today.  In fact, as you hear them speak you are positive that they are the ones that you saw in the central hub earlier.  You concentrate on their conversation.
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=5142
+[TEXT] You think that you can actually hear your own heartbeat throbbing in your ears as you watch the opening intently.  Moments later you see two people enter the office from the opening in the wall.  They are dressed in black hooded robes, very similar to the ones worn by the other people you have encountered today.  In fact, as you hear them speak you are positive that they are the ones that you saw in the central hub earlier.  You concentrate on their conversation.
 "So, now that they have Dr. Funderburk cornered in the facility I thought we would be finished with our tasks." the man's voice is gruff but not deep.  The reply you hear seems to come from a woman.
 "The majority of them are but FALON-6 is still a factor and Lector wants to make sure that he is fed until we can find a suitable vessel to transfer the uhhh..guest..too."
 "But we are no longer importing...victims..I mean volunteers.  I was under the impression that only those of a certain blood type will work."  The gruff voiced man sounded confused "This is stupid, we need to return to the place of gathering.  I do not want to miss the main event."
@@ -11419,12 +12531,95 @@ You hold the golden apple in your hands and watch the expression on Heath's face
 "Okay" he says "come with me and I will get you the skin samples.  You have saved me and the least I can do is try to help you save yourself."  You thank him and both of you exit his cell into the stone corridor.
 press any key to go on
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Heath's Cell
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 100
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=26
+[TEXT] Cheese Grader
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] Surgical Tubing
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] Bucket
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3000
-[TEXT] 
-You step into the corridor with Heath when suddenly he begins walking toward the northern cell.  "They took some stuff from me when they incarcerated me.  I'm going to see if they stored it in one of these other cells."  You try to yell at him to stop but it is already to late.  He throws open the door to the north cell and all hell breaks loose.  Your scream joins in with the one that Heath just let loose as a small three foot monster with red, leathery skin and wearing nothing but a furry loincloth leaps from the cell and grapples onto the stunned scientist.  You watch in horror as it smiles devilishly before sinking its teeth into Heath's throat and ripping it free.  A rapid spray of blood spews from the gaping wound in Heath's neck, drenching the cackling beast as the mortality wounded man sinks to the floor of the stone corridor and dies.  The demonic imp regards you with a mild bit of interest for a moment more until it grunts and flees east into the cell that used to house Heath.  Amazingly, the devil bashes through the brick wall in the back of cell, causing it to cave in on itself, and dives outside.   As the smoke and dust clears...you stand there dumfounded.
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2998
+[TEXT] You step into the corridor with Heath when suddenly he begins walking toward the northern cell.  "They took some stuff from me when they incarcerated me.  I'm going to see if they stored it in one of these other cells."  You try to yell at him to stop but it is already to late.  He throws open the door to the north cell and all hell breaks loose.  Your scream joins in with the one that Heath just let loose as a small three foot monster with red, leathery skin and wearing nothing but a furry loincloth leaps from the cell and grapples onto the stunned scientist.  You watch in horror as it smiles devilishly before sinking its teeth into Heath's throat and ripping it free.  A rapid spray of blood spews from the gaping wound in Heath's neck, drenching the cackling beast as the mortality wounded man sinks to the floor of the stone corridor and dies.  The demonic imp regards you with a mild bit of interest for a moment more until it grunts and flees east into the cell that used to house Heath.  Amazingly, the devil bashes through the brick wall in the back of cell, causing it to cave in on itself, and dives outside.   As the smoke and dust clears...you stand there dumfounded.
 
 Stone Corridor
 The corridor is in disarray.  The mauled body of Heath lays dead next to the south door that leads to the empty cell.  The north cell is now open and the east cell, the one that used to be Heaths, is destroyed.  The cell block is west and an empty cell is south.
@@ -13791,12 +14986,102 @@ His voice trails off and his eyes close.
 
 press any key to continue
 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
+[TEXT] Lab A-1
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 119
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] Surgical Tubing
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] North
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] South
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] East
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=10 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=502
-[TEXT] 
-Thanks for playing this introductory segment to "Gathered in Darkness."  The entire portion of the game (all nine chapters) will be uploaded to the archive the day the contest has ended.  Come back and have all your questions answered....
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=500
+[TEXT] Thanks for playing this introductory segment to "Gathered in Darkness."  The entire portion of the game (all nine chapters) will be uploaded to the archive the day the contest has ended.  Come back and have all your questions answered....
 Congrats.
 
 
