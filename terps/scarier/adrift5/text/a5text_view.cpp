@@ -134,162 +134,151 @@ ci_replace_all (const std::string &s, const std::string &from, const std::string
   return out;
 }
 
-/* Render a specific location's ViewLocation (clsLocation.ViewLocation).  lockey
-   NULL => the Player's current location (the common case; also the `%Player%`
-   look path).  Used directly for `%DisplayLocation[loc]%`. */
-char *
-view_location_impl (a5_state_t *st, const char *lockey)
+/* Room name (bold), then the long description.  The runner embeds the raw
+   ShortDescription (still bearing its %functions%) inside "<b>...</b>" on the
+   marked-up view (clsLocation.vb:188) and only its ONE Display-time
+   ReplaceFunctions + ReplaceALRs + CapAfterFullStop runs over the whole sView;
+   the '\n' before the name is followed by the '<' of the tag, so the
+   line-start cap rule never fires on the name.  So process the name WITHOUT
+   the per-piece cap (a5text_process_nocap keeps markup + resolves
+   functions/OO/ALR), wrap it in the bold tags, and let the room-view
+   replace_alrs + auto_capitalise pass below adjudicate it exactly as the runner does.
+   A genuinely lowercase generated name -- LostCoastlines' "cabal plain",
+   "flock sea" -- is thus left lowercase like the runner, while an already-capitalised
+   name (its case baked into the source) is unaffected. */
+static void
+view_loc_name (a5_state_t *st, const char *lockey, sb_t &sb)
 {
-  const a5_location_t *loc;
-  sb_t sb;
-  char *plain;
-  int i, body_empty = 1;
-  size_t body_start = 0;
+  char *raw = a5text_location_short (st, lockey);
+  char *name = a5text_process_nocap (st, raw);
+  sb_puts (&sb, "<b>");
+  sb_puts (&sb, name);
+  sb_puts (&sb, "</b>\n");
+  free (raw);
+  free (name);
+}
 
-  if (lockey == nullptr)
-    lockey = a5state_player_location (st);
-  sb_init (&sb);
-  if (lockey == nullptr)
-    return strdup ("");
-  loc = a5model_location (st->adv, lockey);
-  if (loc == nullptr)
-    return strdup ("");
+/* The long description with the special-listed objects appended.  Returns
+   whether that body came out empty. */
+static int
+view_loc_body (a5_state_t *st, const char *lockey, sb_t &sb)
+{
+  int i, body_empty;
 
-  /* A v5 location view is prefixed with a blank line before the room name
-     (clsLocation.ViewLocation: "If Adventure.dVersion >= 5 Then sView = vbCrLf
-     & sView"), so after a "> look" echo the room name has a paragraph break. */
-  sb_putc (&sb, '\n');
-
-  /* Room name (bold), then the long description.  The runner embeds the raw
-     ShortDescription (still bearing its %functions%) inside "<b>...</b>" on the
-     marked-up view (clsLocation.vb:188) and only its ONE Display-time
-     ReplaceFunctions + ReplaceALRs + CapAfterFullStop runs over the whole sView;
-     the '\n' before the name is followed by the '<' of the tag, so the
-     line-start cap rule never fires on the name.  So process the name WITHOUT
-     the per-piece cap (a5text_process_nocap keeps markup + resolves
-     functions/OO/ALR), wrap it in the bold tags, and let the room-view
-     replace_alrs + auto_capitalise pass below adjudicate it exactly as the runner does.
-     A genuinely lowercase generated name -- LostCoastlines' "cabal plain",
-     "flock sea" -- is thus left lowercase like the runner, while an already-capitalised
-     name (its case baked into the source) is unaffected. */
+  /* Whether this render retires <DisplayOnce> segments follows the CALLER's
+     marking_display, mirroring the runner's ambient bTestingOutput: the Look dance's
+     two pre/post-action TEST renders (run_task, marking 0) must NOT retire a
+     first-visit segment -- the runner's bTestingOutput=True renders both as the
+     segment, they compare EQUAL, and the single Display render is what
+     retires it.  Forcing 1 here made the test renders unequal (e1 kept the
+     DisplayOnce text, e2 lost it), which pinned the view as plain text and
+     let a movement task's own "%Player%.Location.Description" completion
+     re-render the post-retire variant as a SECOND room view (Murder Most
+     Foul's Slave Holdings / east-wing rooms).  Real-output call sites
+     (emit_look, resp_flush, the game-start view) set marking_display=1. */
+  char *raw, *proc;
+  raw = location_long_desc (st, lockey);
+  proc = a5text_process (st, raw);
+  free (raw);
+  /* Special-listed objects directly here.  The runner's ViewLocation SELECTS them
+     via ObjectsInLocation(AllSpecialListedObjects), whose `ob.ListDescription
+     <> ""` test is a REAL Description render (clsLocation.vb:232) -- it
+     retires <DisplayOnce> segments -- and the append loop then renders the
+     property AGAIN.  Mirror the two-pass shape: scan every candidate first
+     (render + discard), then re-render the non-empty ones for output.  Lost
+     Children's rabbit needs this: its DisplayOnce lead-in "Several metres
+     ... you see " terminates the scan render, and the appended second render
+     rebuilds it as the StartAfterDefaultDescription default prefix + "a
+     large rabbit nibbling ...". */
   {
-    char *raw = a5text_location_short (st, lockey);
-    char *name = a5text_process_nocap (st, raw);
-    sb_puts (&sb, "<b>");
-    sb_puts (&sb, name);
-    sb_puts (&sb, "</b>\n");
-    free (raw);
-    free (name);
-  }
-  body_start = sb.len;
-  {
-    /* Whether this render retires <DisplayOnce> segments follows the CALLER's
-       marking_display, mirroring the runner's ambient bTestingOutput: the Look dance's
-       two pre/post-action TEST renders (run_task, marking 0) must NOT retire a
-       first-visit segment -- the runner's bTestingOutput=True renders both as the
-       segment, they compare EQUAL, and the single Display render is what
-       retires it.  Forcing 1 here made the test renders unequal (e1 kept the
-       DisplayOnce text, e2 lost it), which pinned the view as plain text and
-       let a movement task's own "%Player%.Location.Description" completion
-       re-render the post-retire variant as a SECOND room view (Murder Most
-       Foul's Slave Holdings / east-wing rooms).  Real-output call sites
-       (emit_look, resp_flush, the game-start view) set marking_display=1. */
-    char *raw, *proc;
-    raw = location_long_desc (st, lockey);
-    proc = a5text_process (st, raw);
-    free (raw);
-    /* Special-listed objects directly here.  The runner's ViewLocation SELECTS them
-       via ObjectsInLocation(AllSpecialListedObjects), whose `ob.ListDescription
-       <> ""` test is a REAL Description render (clsLocation.vb:232) -- it
-       retires <DisplayOnce> segments -- and the append loop then renders the
-       property AGAIN.  Mirror the two-pass shape: scan every candidate first
-       (render + discard), then re-render the non-empty ones for output.  Lost
-       Children's rabbit needs this: its DisplayOnce lead-in "Several metres
-       ... you see " terminates the scan render, and the appended second render
-       rebuilds it as the StartAfterDefaultDescription default prefix + "a
-       large rabbit nibbling ...". */
-    {
-      std::vector<int> specials;
-      for (i = 0; i < st->adv->n_objects; i++)
-        {
-          const a5_object_t *o = &st->adv->objects[i];
-          int is_static = st->obj[i].is_static;
-          char *ld;
-          if (!object_listed_at (st, i, lockey))
-            continue;
-          ld = object_list_desc (st, o, is_static);          /* scan render */
-          if (ld != nullptr && ld[0] != '\0')
-            specials.push_back (i);
-          free (ld);
-        }
-      for (int si : specials)
-        {
-          const a5_object_t *o = &st->adv->objects[si];
-          char *ld = object_list_desc (st, o, st->obj[si].is_static);
-          if (ld != nullptr && ld[0] != '\0')
-            {
-              char *p = process_inner (st, ld, 0);
-              size_t plen = strlen (proc);
-              /* pSpace: two spaces unless the previous text ends with a newline. */
-              const char *sep = (plen == 0 || proc[plen - 1] == '\n') ? "" : "  ";
-              size_t need = plen + 2 + strlen (p) + 1;
-              char *joined = (char *) malloc (need);
-              snprintf (joined, need, "%s%s%s", proc, sep, p);
-              free (proc);
-              proc = joined;
-              free (p);
-            }
-          free (ld);
-        }
-    }
-    /* The runner's ViewLocation sView at the general-listed test = LongDescription +
-       special objects (the room NAME is NOT part of it): a v5 room whose body is
-       empty lists its general objects as "There is X here." instead of the
-       trailing "Also here is X." -- clsLocation.vb:132-139. */
-    body_empty = (proc[0] == '\0');
-    sb_puts (&sb, proc);
-    free (proc);
-  }
-
-  /* General listed objects ("Also here is ..." / v5-empty-room "There is ...
-     here."). */
-  {
-    std::vector<std::string> names;
+    std::vector<int> specials;
     for (i = 0; i < st->adv->n_objects; i++)
       {
         const a5_object_t *o = &st->adv->objects[i];
         int is_static = st->obj[i].is_static;
-        char *ld, *nm;
+        char *ld;
         if (!object_listed_at (st, i, lockey))
           continue;
-        ld = object_list_desc (st, o, is_static);
-        if (ld != nullptr && ld[0] != '\0') { free (ld); continue; } /* special-listed */
+        ld = object_list_desc (st, o, is_static);          /* scan render */
+        if (ld != nullptr && ld[0] != '\0')
+          specials.push_back (i);
         free (ld);
-        nm = a5text_object_name (st, o, A5_ART_INDEFINITE);
-        names.push_back (nm);
-        free (nm);
       }
-    if (!names.empty ())
+    for (int si : specials)
       {
-        /* v5 empty-body room: "There is <list> here." with no leading pSpace
-           (clsLocation.vb:138).  Otherwise the trailing "Also here is <list>.",
-           prefixed by pSpace(sView) -- two spaces unless the buffer is empty or
-           already ends in a newline (clsLocation.vb:134). */
-        int as_there_is = body_empty
-          && (st->adv->version == nullptr || atof (st->adv->version) >= 5.0);
-        if (!as_there_is && sb.len > 0 && sb.p[sb.len - 1] != '\n')
-          sb_puts (&sb, "  ");
-        sb_puts (&sb, as_there_is ? "There is " : "Also here is ");
-        sb_puts (&sb, join_and (names).c_str ());
-        sb_puts (&sb, as_there_is ? " here." : ".");
+        const a5_object_t *o = &st->adv->objects[si];
+        char *ld = object_list_desc (st, o, st->obj[si].is_static);
+        if (ld != nullptr && ld[0] != '\0')
+          {
+            char *p = process_inner (st, ld, 0);
+            size_t plen = strlen (proc);
+            /* pSpace: two spaces unless the previous text ends with a newline. */
+            const char *sep = (plen == 0 || proc[plen - 1] == '\n') ? "" : "  ";
+            size_t need = plen + 2 + strlen (p) + 1;
+            char *joined = (char *) malloc (need);
+            snprintf (joined, need, "%s%s%s", proc, sep, p);
+            free (proc);
+            proc = joined;
+            free (p);
+          }
+        free (ld);
       }
   }
+  /* The runner's ViewLocation sView at the general-listed test = LongDescription +
+     special objects (the room NAME is NOT part of it): a v5 room whose body is
+     empty lists its general objects as "There is X here." instead of the
+     trailing "Also here is X." -- clsLocation.vb:132-139. */
+  body_empty = (proc[0] == '\0');
+  sb_puts (&sb, proc);
+  free (proc);
+  return body_empty;
+}
 
-  /* Event SetLook text (clsLocation.ViewLocation: "For Each e ... e.LookText()"):
-     walk the model's events in order; each RUNNING event contributes its own
-     most-recent look entry matching the player's location (clsEvent.LookText
-     answers only while Status = Running, so a finished or paused event's
-     SetLook text disappears from the room view). */
+/* General listed objects ("Also here is ..." / v5-empty-room "There is ...
+   here."). */
+static void
+view_loc_objects (a5_state_t *st, const char *lockey, sb_t &sb, int body_empty)
+{
+  int i;
+  std::vector<std::string> names;
+  for (i = 0; i < st->adv->n_objects; i++)
+    {
+      const a5_object_t *o = &st->adv->objects[i];
+      int is_static = st->obj[i].is_static;
+      char *ld, *nm;
+      if (!object_listed_at (st, i, lockey))
+        continue;
+      ld = object_list_desc (st, o, is_static);
+      if (ld != nullptr && ld[0] != '\0') { free (ld); continue; } /* special-listed */
+      free (ld);
+      nm = a5text_object_name (st, o, A5_ART_INDEFINITE);
+      names.push_back (nm);
+      free (nm);
+    }
+  if (!names.empty ())
+    {
+      /* v5 empty-body room: "There is <list> here." with no leading pSpace
+         (clsLocation.vb:138).  Otherwise the trailing "Also here is <list>.",
+         prefixed by pSpace(sView) -- two spaces unless the buffer is empty or
+         already ends in a newline (clsLocation.vb:134). */
+      int as_there_is = body_empty
+        && (st->adv->version == nullptr || atof (st->adv->version) >= 5.0);
+      if (!as_there_is && sb.len > 0 && sb.p[sb.len - 1] != '\n')
+        sb_puts (&sb, "  ");
+      sb_puts (&sb, as_there_is ? "There is " : "Also here is ");
+      sb_puts (&sb, join_and (names).c_str ());
+      sb_puts (&sb, as_there_is ? " here." : ".");
+    }
+}
+
+/* Event SetLook text (clsLocation.ViewLocation: "For Each e ... e.LookText()"):
+   walk the model's events in order; each RUNNING event contributes its own
+   most-recent look entry matching the player's location (clsEvent.LookText
+   answers only while Status = Running, so a finished or paused event's
+   SetLook text disappears from the room view). */
+static void
+view_loc_event_looks (a5_state_t *st, sb_t &sb)
+{
   for (int ei = 0; ei < st->adv->n_events; ei++)
     {
       if (st->ev_running == nullptr
@@ -308,66 +297,73 @@ view_location_impl (a5_state_t *st, const char *lockey)
           sb_puts (&sb, lt);
         }
     }
+}
 
-  /* Present NPCs (clsLocation.ViewLocation character loop): each visible
-     character contributes its CharHereDesc (or "<Name> is here."); identical
-     descriptions are grouped, the name folded out via ##CHARNAME##, the verb
-     pluralised (" is "->" are ") for a shared description, and the names listed. */
-  {
-    struct cgroup { std::string keyd, first_desc; std::vector<std::string> names; };
-    std::vector<cgroup> groups;
-    for (i = 0; i < st->adv->n_characters; i++)
-      {
-        const a5_character_t *c = &st->adv->characters[i];
-        char *nmr, *descr;
-        if (ci_eq (c->key, a5state_player_key (st)))
-          continue;
-        if (!a5state_character_visible_at_location (st, i, lockey))
-          continue;                          /* incl. on/in furniture, but not
-                                                inside a closed opaque container
-                                                (CharactersVisibleAtLocation) */
-        nmr = character_display_name (st, c, 0, /*displaying*/ 0);
-        descr = char_here_desc (st, c);
-        std::string sName = nmr ? nmr : "";
-        std::string sDesc = descr ? descr : "";
-        free (nmr); free (descr);
-        if (sDesc.empty ())
-          continue;
-        std::string keyd = ci_replace_all (sDesc, sName, "##CHARNAME##");
-        size_t g;
-        for (g = 0; g < groups.size (); g++)
-          if (groups[g].keyd == keyd)
-            break;
-        if (g == groups.size ())
-          { cgroup ng; ng.keyd = keyd; ng.first_desc = sDesc; groups.push_back (ng); }
-        if (std::find (groups[g].names.begin (), groups[g].names.end (), sName)
-            == groups[g].names.end ())
-          groups[g].names.push_back (sName);
-      }
-    for (size_t g = 0; g < groups.size (); g++)
-      {
-        const std::vector<std::string> &nm = groups[g].names;
-        std::string d;
-        /* The runner substitutes the name back into the de-named form for EVERY group,
-           single characters included (vb:171 `sDesc.Replace("##CHARNAME##",
-           .List)`), so an authored lowercase name is case-normalised to the
-           character's Name -- LostLabyrinth's caged "white stallion" CharHereDesc
-           renders "White Stallion".  Only a shared description also pluralises
-           the verb. */
-        d = groups[g].keyd;
-        if (nm.size () > 1)
-          d = ci_replace_all (d, " is ", " are ");
-        d = ci_replace_all (d, "##CHARNAME##", join_and (nm));
-        if (sb.len > 0 && sb.p[sb.len - 1] != '\n')   /* pSpace, vb:166 */
-          sb_puts (&sb, "  ");
-        sb_puts (&sb, d.c_str ());
-      }
-  }
+/* Present NPCs (clsLocation.ViewLocation character loop): each visible
+   character contributes its CharHereDesc (or "<Name> is here."); identical
+   descriptions are grouped, the name folded out via ##CHARNAME##, the verb
+   pluralised (" is "->" are ") for a shared description, and the names listed. */
+static void
+view_loc_characters (a5_state_t *st, const char *lockey, sb_t &sb)
+{
+  int i;
+  struct cgroup { std::string keyd, first_desc; std::vector<std::string> names; };
+  std::vector<cgroup> groups;
+  for (i = 0; i < st->adv->n_characters; i++)
+    {
+      const a5_character_t *c = &st->adv->characters[i];
+      char *nmr, *descr;
+      if (ci_eq (c->key, a5state_player_key (st)))
+        continue;
+      if (!a5state_character_visible_at_location (st, i, lockey))
+        continue;                          /* incl. on/in furniture, but not
+                                              inside a closed opaque container
+                                              (CharactersVisibleAtLocation) */
+      nmr = character_display_name (st, c, 0, /*displaying*/ 0);
+      descr = char_here_desc (st, c);
+      std::string sName = nmr ? nmr : "";
+      std::string sDesc = descr ? descr : "";
+      free (nmr); free (descr);
+      if (sDesc.empty ())
+        continue;
+      std::string keyd = ci_replace_all (sDesc, sName, "##CHARNAME##");
+      size_t g;
+      for (g = 0; g < groups.size (); g++)
+        if (groups[g].keyd == keyd)
+          break;
+      if (g == groups.size ())
+        { cgroup ng; ng.keyd = keyd; ng.first_desc = sDesc; groups.push_back (ng); }
+      if (std::find (groups[g].names.begin (), groups[g].names.end (), sName)
+          == groups[g].names.end ())
+        groups[g].names.push_back (sName);
+    }
+  for (size_t g = 0; g < groups.size (); g++)
+    {
+      const std::vector<std::string> &nm = groups[g].names;
+      std::string d;
+      /* The runner substitutes the name back into the de-named form for EVERY group,
+         single characters included (vb:171 `sDesc.Replace("##CHARNAME##",
+         .List)`), so an authored lowercase name is case-normalised to the
+         character's Name -- LostLabyrinth's caged "white stallion" CharHereDesc
+         renders "White Stallion".  Only a shared description also pluralises
+         the verb. */
+      d = groups[g].keyd;
+      if (nm.size () > 1)
+        d = ci_replace_all (d, " is ", " are ");
+      d = ci_replace_all (d, "##CHARNAME##", join_and (nm));
+      if (sb.len > 0 && sb.p[sb.len - 1] != '\n')   /* pSpace, vb:166 */
+        sb_puts (&sb, "  ");
+      sb_puts (&sb, d.c_str ());
+    }
+}
 
-  /* Exit listing (clsLocation.ViewLocation: "If Adventure.ShowExits Then ...").
-     ListExits enumerates the player's routes (restriction-unchecked, matching
-     HasRouteInDirection(d, False)); >1 exits => "Exits are <list>.", exactly one
-     => "An exit leads <dir>.", none => nothing. */
+/* Exit listing (clsLocation.ViewLocation: "If Adventure.ShowExits Then ...").
+   ListExits enumerates the player's routes (restriction-unchecked, matching
+   HasRouteInDirection(d, False)); >1 exits => "Exits are <list>.", exactly one
+   => "An exit leads <dir>.", none => nothing. */
+static void
+view_loc_exits (a5_state_t *st, const char *lockey, sb_t &sb)
+{
   if (st->adv->show_exits)
     {
       /* The runner: Adventure.Player.ListExits(Me.Key) -- the player's routes FROM
@@ -392,6 +388,82 @@ view_location_impl (a5_state_t *st, const char *lockey)
         }
       free (lst);
     }
+}
+
+/* Capitalise the assembled room view on its still-MARKED-UP buffer, exactly
+   as the runner's Display-time CapAfterFullStop runs over the whole (marked-up) turn
+   text.  This is where the room's NPC "is here" list (built here with lowercase
+   articles, e.g. "the cook and the kitchen maid are here.") gets its line-start
+   capital: the runner caps it because the newline before it is followed directly by the
+   letter, with no intervening tag.  Doing it here (rather than only at the
+   a5text_display_alr boundary, which sees PLAIN text and must suppress the
+   `^`/`\n` rules to avoid capitalising a letter the runner left alone behind a stripped
+   tag) keeps the room view correct for ALR games without the boundary needing
+   the tag-sensitive line-start rules.  Non-ALR games always matched with their
+   room views already upper-cased at line start, so this is a no-op for them. */
+static char *
+view_loc_finish (a5_state_t *st, sb_t &sb)
+{
+  char *plain;
+
+  /* The runner's Display runs ReplaceALRs BEFORE CapAfterFullStop (Global.vb:527-539),
+     so a game TextOverride matches the still-lowercase NPC listing -- AoK's
+     Override12 blanks "the dwark is here." -- and only the survivors get their
+     line-start capital.  Run ALR round 1 on the uncapped marked-up buffer
+     here; the cap follows, and the runner's post-cap round 2 falls out of the
+     ordinary downstream ALR passes over the capped text. */
+  char *alrd = replace_alrs (st, sb.p ? sb.p : "", 0);
+  /* This ALR round is the runner's Display-time pass for the room view: its verdicts
+     are final.  Seal any surviving OldText site (an override whose passing
+     alternative was the identity text, e.g. XXR's camel-tether postfix while
+     the camels are untethered) so the end-of-turn boundary pass cannot
+     re-adjudicate it with post-task state -- the runner never revisits Display()ed
+     text.  finish_turn strips the sentinels. */
+  alrd = seal_alr_sites (st, alrd);
+  char *capped = auto_capitalise (alrd);
+  free (alrd);
+  plain = a5text_render_plain (capped);
+  /* A long description ending in a raw <br> leaves the runner's buffer
+     non-vbLf, so the next message (a LocationTrigger task's completion
+     text, say) still space-joins -- AFP2's "You hop the railing...<br><br>". */
+  plain = ps_mark_trailing (capped, plain);
+  free (capped);
+  return plain;
+}
+
+/* Render a specific location's ViewLocation (clsLocation.ViewLocation).  lockey
+   NULL => the Player's current location (the common case; also the `%Player%`
+   look path).  Used directly for `%DisplayLocation[loc]%`. */
+char *
+view_location_impl (a5_state_t *st, const char *lockey)
+{
+  const a5_location_t *loc;
+  sb_t sb;
+  char *plain;
+  int body_empty;
+  size_t body_start;
+
+  if (lockey == nullptr)
+    lockey = a5state_player_location (st);
+  sb_init (&sb);
+  if (lockey == nullptr)
+    return strdup ("");
+  loc = a5model_location (st->adv, lockey);
+  if (loc == nullptr)
+    return strdup ("");
+
+  /* A v5 location view is prefixed with a blank line before the room name
+     (clsLocation.ViewLocation: "If Adventure.dVersion >= 5 Then sView = vbCrLf
+     & sView"), so after a "> look" echo the room name has a paragraph break. */
+  sb_putc (&sb, '\n');
+
+  view_loc_name (st, lockey, sb);
+  body_start = sb.len;
+  body_empty = view_loc_body (st, lockey, sb);
+  view_loc_objects (st, lockey, sb, body_empty);
+  view_loc_event_looks (st, sb);
+  view_loc_characters (st, lockey, sb);
+  view_loc_exits (st, lockey, sb);
 
   /* Empty-view fallback (clsLocation.ViewLocation vb:185: `If sView = "" Then
      sView = "Nothing special."`).  The runner's sView at this point is only the BODY
@@ -402,41 +474,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
   if (sb.len == body_start)
     sb_puts (&sb, "Nothing special.");
 
-  /* Capitalise the assembled room view on its still-MARKED-UP buffer, exactly
-     as the runner's Display-time CapAfterFullStop runs over the whole (marked-up) turn
-     text.  This is where the room's NPC "is here" list (built here with lowercase
-     articles, e.g. "the cook and the kitchen maid are here.") gets its line-start
-     capital: the runner caps it because the newline before it is followed directly by the
-     letter, with no intervening tag.  Doing it here (rather than only at the
-     a5text_display_alr boundary, which sees PLAIN text and must suppress the
-     `^`/`\n` rules to avoid capitalising a letter the runner left alone behind a stripped
-     tag) keeps the room view correct for ALR games without the boundary needing
-     the tag-sensitive line-start rules.  Non-ALR games always matched with their
-     room views already upper-cased at line start, so this is a no-op for them. */
-  {
-    /* The runner's Display runs ReplaceALRs BEFORE CapAfterFullStop (Global.vb:527-539),
-       so a game TextOverride matches the still-lowercase NPC listing -- AoK's
-       Override12 blanks "the dwark is here." -- and only the survivors get their
-       line-start capital.  Run ALR round 1 on the uncapped marked-up buffer
-       here; the cap follows, and the runner's post-cap round 2 falls out of the
-       ordinary downstream ALR passes over the capped text. */
-    char *alrd = replace_alrs (st, sb.p ? sb.p : "", 0);
-    /* This ALR round is the runner's Display-time pass for the room view: its verdicts
-       are final.  Seal any surviving OldText site (an override whose passing
-       alternative was the identity text, e.g. XXR's camel-tether postfix while
-       the camels are untethered) so the end-of-turn boundary pass cannot
-       re-adjudicate it with post-task state -- the runner never revisits Display()ed
-       text.  finish_turn strips the sentinels. */
-    alrd = seal_alr_sites (st, alrd);
-    char *capped = auto_capitalise (alrd);
-    free (alrd);
-    plain = a5text_render_plain (capped);
-    /* A long description ending in a raw <br> leaves the runner's buffer
-       non-vbLf, so the next message (a LocationTrigger task's completion
-       text, say) still space-joins -- AFP2's "You hop the railing...<br><br>". */
-    plain = ps_mark_trailing (capped, plain);
-    free (capped);
-  }
+  plain = view_loc_finish (st, sb);
   free (sb.p);
   return plain;
 }

@@ -112,7 +112,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~309~~ | ~~`lib_print_room_description`~~ | DONE: four parts + driver, see "lib_print_room_description split" |
 | ~~308~~ | ~~`gsc_a5_display`~~ | DONE: `gsc_a5_display_t` + one member per mark, see "gsc_a5_display split" |
 | ~~306~~ | ~~`debug_help`~~ | DONE: two string tables + 25-line lookup, see "debug_help split" |
-| 301 | `view_location_impl` | `adrift5/text/a5text_view.cpp` ~141 |
+| ~~301~~ | ~~`view_location_impl`~~ | DONE: seven sections + driver, see "view_location_impl split" |
 | 289 | `lib_take_multiple_common` | `library/sclibrar_take.cpp` ~3554 |
 | 274 | `npc_tick_npc_walk` | `scnpcs.cpp` ~944 |
 | 267 | `task_run_task_unrestricted` | `sctasks_run.cpp` |
@@ -353,7 +353,8 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `view_location_impl` down; `gsc_a5_display`, `debug_help`, `run_task`, `pass_character`,
+   open from `lib_take_multiple_common` down; `gsc_a5_display`,
+   `debug_help`, `view_location_impl`, `run_task`, `pass_character`,
    `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
    `eval_function`, `scdump_tasks`, `oo_prop` and
    `lib_print_room_description` are taken (see their "split" sections).
@@ -1094,3 +1095,25 @@ them):
   `test` output identical; `make -j8 scarier glkscarier` warning-free.
   No line over 80 columns.
 - Next in the table: `view_location_impl` (adrift5/text/a5text_view.cpp).
+
+## 3: view_location_impl split (2026-10-11)
+
+- **`view_location_impl`** (301 l.) in `adrift5/text/a5text_view.cpp` is
+  a 43-line driver over seven sections in ViewLocation's own order, each
+  carrying the comment its block had: `view_loc_name` (the bold room
+  name), `view_loc_body` (long description + special-listed objects;
+  returns whether the body is empty), `view_loc_objects` ("Also here is"
+  / "There is ... here."), `view_loc_event_looks`, `view_loc_characters`
+  (the grouped "is here" lines), `view_loc_exits` and `view_loc_finish`
+  (ALR round, seal, capitalise, plain render; returns the result).  They
+  share the buffer as `sb_t &sb`, so every `&sb` / `sb.len` / `sb.p` in
+  the bodies is unchanged.  The driver keeps the location lookup, the
+  leading blank line, the `body_start` mark and the "Nothing special."
+  fallback that compares against it.  Code motion apart from the added
+  locals and returns.
+- Verification: headless `quick`; full `test` output (which runs the
+  ADRIFT 5 goldens) identical to the pre-change run with the compile
+  lines dropped; `make -j8 scarier glkscarier` warning-free.  Lines over
+  80 columns: 37 before, 24 after (the dedent).
+- Next in the table: `lib_take_multiple_common`
+  (library/sclibrar_take.cpp).
