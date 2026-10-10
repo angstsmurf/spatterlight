@@ -535,8 +535,12 @@ $(A5MAP_BIN): $(A5_RUN_OBJ) $(call objs,$(A5DIR)/a5map.cpp mapdraw.cpp $(A5MAP_H
 # Render the ADRIFT 4 map headlessly to a PPM (no Glk).  Run it by hand:
 #   make -f Makefile.headless scmap
 #   ./test/adrift4/harness/scmap_dump path/to/game.taf [script.txt] -o map.ppm [-all] [-grid]
+# Linked with seed.cpp so that a script's visited set is the same on every
+# run: a game that branches on the RNG (adriftorama's golf) otherwise marks
+# a different set of rooms seen each time.
 scmap: $(SCMAP_BIN)
-$(SCMAP_BIN): $(ENG_OBJ) $(call objs,$(OS_STUBS) $(SCMAP_HARNESS))
+$(SCMAP_BIN): $(ENG_OBJ) \
+              $(call objs,$(OS_STUBS) $(SCMAP_HARNESS) test/adrift4/harness/seed.cpp)
 	$(CXX) $^ $(LDLIBS) -o $@
 
 # Self-contained matcher regression test (no game data); part of `test`.
