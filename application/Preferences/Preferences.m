@@ -212,6 +212,14 @@ static Preferences *prefs = nil;
         // currentTheme recreates a default theme when this happens.
         Theme *currentTheme = [Preferences currentTheme];
 
+        // The preferences window works on the library's store. A game from
+        // another store (a test's in-memory one) cannot be mapped into it --
+        // objectWithID: raises -- so show the window as having no game.
+        if (ctrl.game.managedObjectContext && currentTheme.managedObjectContext &&
+            ctrl.game.managedObjectContext.persistentStoreCoordinator !=
+            currentTheme.managedObjectContext.persistentStoreCoordinator)
+            ctrl = nil;
+
         Game *game = nil;
         if (ctrl.game)
             game = [currentTheme.managedObjectContext objectWithID:ctrl.game.objectID];

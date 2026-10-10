@@ -24,6 +24,7 @@
 #import "Metadata.h"
 #import "NotificationBezel.h"
 #import "Preferences.h"
+#import "BuiltInThemes.h"
 #import "RotorHandler.h"
 #import "SoundHandler.h"
 #import "TableViewController.h"
@@ -227,8 +228,17 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if (!_theme.name) {
         NSLog(@"GlkController runTerp called with theme without name!");
-        if (Preferences.currentTheme)
-            game.theme = [game.managedObjectContext objectWithID:Preferences.currentTheme.objectID];
+        Theme *currentTheme = Preferences.currentTheme;
+        NSManagedObjectContext *gameContext = game.managedObjectContext;
+        if (currentTheme) {
+            if (gameContext.persistentStoreCoordinator ==
+                currentTheme.managedObjectContext.persistentStoreCoordinator)
+                game.theme = [gameContext objectWithID:currentTheme.objectID];
+            else if (gameContext)
+                // A game from another store (a test's in-memory one) cannot
+                // borrow the library's theme: objectWithID: would raise.
+                game.theme = [BuiltInThemes createDefaultThemeInContext:gameContext forceRebuild:NO];
+        }
         _theme = game.theme;
     }
 

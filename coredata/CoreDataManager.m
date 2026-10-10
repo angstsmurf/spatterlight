@@ -16,6 +16,7 @@
 @interface CoreDataManager () {
     NSString *modelName;
     NSManagedObjectContext *privateManagedObjectContext;
+    BOOL inMemory;
 }
 @end
 
@@ -37,27 +38,46 @@
     return self;
 }
 
+- (instancetype)initInMemoryWithModelName:(NSString *)aModelName {
+    self = [self initWithModelName:aModelName];
+    if (self)
+        inMemory = YES;
+    return self;
+}
+
+// The process's single copy of each managed object model. Two stacks built on
+// separate copies of the same model (the app's library and a test's store, say)
+// each claim the same NSManagedObject subclasses, and an object from one can
+// then land in a relationship of the other ("desired type = Image; given type
+// = Image").
++ (nullable NSManagedObjectModel *)sharedModelNamed:(NSString *)name {
+    static NSMutableDictionary<NSString *, NSManagedObjectModel *> *models;
+    @synchronized (self) {
+        if (!models)
+            models = [NSMutableDictionary new];
+        NSManagedObjectModel *model = models[name];
+        if (!model) {
+            NSURL *modelURL = [[NSBundle mainBundle] URLForResource:name withExtension:@"momd"];
+            if (!modelURL) {
+                NSLog(@"Unable to Find Data Model!");
+                return nil;
+            }
+            model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+            if (!model) {
+                NSLog(@"Unable to Load Data Model!");
+                return nil;
+            }
+            models[name] = model;
+        }
+        return model;
+    }
+}
+
 // Creates if necessary and returns the managed object model for the application.
 - (NSManagedObjectModel *)managedObjectModel
 {
-    if (_managedObjectModel) {
-        return _managedObjectModel;
-    }
-
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
-
-    if (!modelURL) {
-        NSLog(@"Unable to Find Data Model!");
-        return nil;
-    }
-
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-
-    if (!_managedObjectModel) {
-        NSLog(@"Unable to Load Data Model!");
-        return nil;
-    }
-
+    if (!_managedObjectModel)
+        _managedObjectModel = [CoreDataManager sharedModelNamed:modelName];
     return _managedObjectModel;
 }
 
@@ -208,6 +228,12 @@
         return _persistentStoreCoordinator;
     }
 
+    // An in-memory stack has exactly one store: the container's.
+    if (inMemory) {
+        _persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator;
+        return _persistentStoreCoordinator;
+    }
+
     //    BOOL needDeleteOld  = false;
 
     NSManagedObjectModel *mom = self.managedObjectModel;
@@ -330,6 +356,9 @@
         return _persistentContainer;
     }
 
+    if (inMemory)
+        return [self inMemoryPersistentContainer];
+
     NSURL *groupURL = nil;
     BOOL needMigrate = NO;
 
@@ -343,7 +372,8 @@
         }
     }
 
-    _persistentContainer = [[NSPersistentContainer alloc] initWithName:modelName];
+    _persistentContainer = [[NSPersistentContainer alloc] initWithName:modelName
+                                                     managedObjectModel:self.managedObjectModel];
 
     // Chain through intermediate model versions before the container opens the
     // store, so custom mapping models (e.g. the IfidToHashMigrationPolicy that
@@ -362,15 +392,23 @@
     description.shouldMigrateStoreAutomatically = YES;
     description.shouldInferMappingModelAutomatically = YES;
 
-    if (@available(macOS 10.15, *)) {
-        [description setOption:@YES forKey:NSPersistentHistoryTrackingKey];
-#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
-        _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description coordinator:_persistentContainer.persistentStoreCoordinator];
-#else
-        _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
-#endif
+    // Under XCTest the app is only a host. Its Spotlight exporter cannot reach
+    // the indexing helper there and floods the log with CDCS errors, and tests
+    // have no business re-indexing the user's library anyway.
+    BOOL runningTests = NSProcessInfo.processInfo.environment[@"XCTestConfigurationFilePath"] != nil;
 
-        [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
+    if (@available(macOS 10.15, *)) {
+        // History tracking stays on even under tests: the store has it, and
+        // opening it without would make Core Data open it read-only.
+        [description setOption:@YES forKey:NSPersistentHistoryTrackingKey];
+        if (!runningTests) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
+            _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description coordinator:_persistentContainer.persistentStoreCoordinator];
+#else
+            _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
+#endif
+            [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
+        }
         [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
     }
 
@@ -411,6 +449,36 @@
         }
     }];
 
+    return _persistentContainer;
+}
+
+// The in-memory variant: nothing on disk, so no migration, folder access,
+// persistent history or Spotlight exporter. The store loads synchronously.
+- (NSPersistentContainer *)inMemoryPersistentContainer {
+    NSPersistentContainer *container = [[NSPersistentContainer alloc] initWithName:modelName
+                                                                  managedObjectModel:self.managedObjectModel];
+
+    NSPersistentStoreDescription *description = [NSPersistentStoreDescription new];
+    description.type = NSInMemoryStoreType;
+    description.shouldAddStoreAsynchronously = NO;
+    container.persistentStoreDescriptions = @[ description ];
+
+    __block NSError *loadError = nil;
+    [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
+        loadError = error;
+    }];
+    if (loadError) {
+        NSLog(@"Failed to load in-memory Core Data stack: %@", loadError);
+        return nil;
+    }
+
+    NSUndoManager *undoManager = [[NSUndoManager alloc] init];
+    undoManager.levelsOfUndo = 10;
+    container.viewContext.undoManager = undoManager;
+    container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+    container.viewContext.automaticallyMergesChangesFromParent = YES;
+
+    _persistentContainer = container;
     return _persistentContainer;
 }
 

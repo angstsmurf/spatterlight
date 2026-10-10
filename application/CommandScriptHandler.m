@@ -23,6 +23,24 @@ extern NSArray *gSaveFileTypes;
     return YES;
 }
 
+// Under XCTest a modal alert stalls the whole run: the main thread sits in the
+// modal session, so no test timeout can fire until someone clicks. There the
+// problem is logged instead, and the test fails on its own terms.
+static BOOL SPRunningUnderTests(void) {
+    return NSProcessInfo.processInfo.environment[@"XCTestConfigurationFilePath"] != nil;
+}
+
+static void SPReportScriptProblem(NSString *message, NSString *informativeText) {
+    if (SPRunningUnderTests()) {
+        NSLog(@"CommandScriptHandler: %@ %@", message, informativeText);
+        return;
+    }
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = message;
+    alert.informativeText = informativeText;
+    [alert runModal];
+}
+
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
@@ -184,26 +202,22 @@ extern NSArray *gSaveFileTypes;
     NSAttributedString *attStr = [[NSAttributedString alloc] initWithURL:fileURL options:@{} documentAttributes:nil error:&error];
     NSString *string = attStr.string;
     if (error || !string.length) {
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = NSLocalizedString(@"Could not read command script.", nil);
-        alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"\"%@\" is not a valid text file", nil), filename.lastPathComponent];
-        [alert runModal];
+        SPReportScriptProblem(NSLocalizedString(@"Could not read command script.", nil),
+                              [NSString stringWithFormat:NSLocalizedString(@"\"%@\" is not a valid text file", nil), filename.lastPathComponent]);
         return;
     }
 
     if (!win)
         win = [self findGlkWindowWithInput];
     if (!win) {
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = NSLocalizedString(@"No prompt.", nil);
-        alert.informativeText = NSLocalizedString(@"Cannot find an input prompt for this command script.", nil);
-        [alert runModal];
+        SPReportScriptProblem(NSLocalizedString(@"No prompt.", nil),
+                              NSLocalizedString(@"Cannot find an input prompt for this command script.", nil));
         return;
     }
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    if ([defaults boolForKey:@"CommandScriptAlertSuppression"]) {
+    if ([defaults boolForKey:@"CommandScriptAlertSuppression"] || SPRunningUnderTests()) {
         NSLog(@"Command script alert suppressed");
     } else {
         NSAlert *anAlert = [[NSAlert alloc] init];
@@ -259,15 +273,13 @@ extern NSArray *gSaveFileTypes;
         }
     }
     if (!win) {
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = NSLocalizedString(@"No prompt.", nil);
-        alert.informativeText = NSLocalizedString(@"Cannot find an input prompt to restore this save from.", nil);
-        [alert runModal];
+        SPReportScriptProblem(NSLocalizedString(@"No prompt.", nil),
+                              NSLocalizedString(@"Cannot find an input prompt to restore this save from.", nil));
         return;
     }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    if ([defaults boolForKey:@"SaveFileAlertSuppression"]) {
+    if ([defaults boolForKey:@"SaveFileAlertSuppression"] || SPRunningUnderTests()) {
         NSLog(@"Save file alert suppressed");
     } else {
         NSAlert *anAlert = [[NSAlert alloc] init];

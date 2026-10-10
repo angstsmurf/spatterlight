@@ -24,6 +24,12 @@
 @property MyCoreDataCoreSpotlightDelegate *spotlightDelegate;
 
 - (instancetype)initWithModelName:(NSString *)aModelName;
+
+//! A stack on a private in-memory store, for tests: no on-disk library, no
+//! migration, no persistent history or Spotlight indexing. It shares the
+//! process's one managed object model with every other CoreDataManager, so
+//! entities never resolve against a second copy of the model.
+- (instancetype)initInMemoryWithModelName:(NSString *)aModelName;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) NSManagedObjectContext *privateChildManagedObjectContext;
 - (void)saveChanges;
 
