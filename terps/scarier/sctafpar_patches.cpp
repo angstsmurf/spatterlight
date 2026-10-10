@@ -706,7 +706,7 @@ static const scr_patch_edit_t PATCH_GOLDILOCKS_BE[] = {
  * pair the author clearly meant as "either spelling will do": synonym 3
  * rewrites `dryer` to `drier`, synonym 4 rewrites `drier` back to `dryer`.
  * The Runner applies the table as a sequence, each rule rewriting the
- * previous rule's output -- see pf_filter_input() in scprintf.cpp, and the
+ * previous rule's output -- see pf_filter_input() in scprintf_input.cpp, and the
  * Vardock Bates transcript that pins the order -- so both spellings arrive at
  * the tasks as `dryer`, and task 48's pattern `turn* drier` is out of reach of
  * any ordinary line, in run390 exactly as here.  "turn on drier" falls instead

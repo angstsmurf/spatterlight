@@ -100,7 +100,7 @@ Two distinct layers — immutable model and mutable runtime state.
 
 ## 4. Text Engine
 
-### ADRIFT 4 (`scprintf.cpp`)
+### ADRIFT 4 (`scprintf.cpp` and `scprintf_*.cpp`)
 
 `pf_filter()` is the printfilter: expands `%variable%` and `<tag>` markup in two passes (expressions via `scexpr.cpp`, then ALR replacement via `pf_replace_alrs()`). ALRs are sorted by original-string length (longest first) and applied globally.
 

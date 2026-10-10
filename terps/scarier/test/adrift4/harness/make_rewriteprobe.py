@@ -4,7 +4,7 @@
 WINE-TRANSCRIPTS-TODO's "3.90 rewrites the line too, and Scarier stops at
 3.80" lead.  Every Runner edits the typed line before anything -- task
 matcher or library -- ever looks at it, but it does so through two different
-mechanisms, and `scprintf.cpp` BUILTIN[] currently knows only the older one:
+mechanisms, and `scprintf_input.cpp` BUILTIN[] currently knows only the older one:
 
     run370 43B41F  change(line, "everything", "all")
            43B430  change(line, "slap", "hit")

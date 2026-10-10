@@ -41,7 +41,7 @@ VVVV, because WWWWW was already behind the cursor when UUU produced it -- and a
 self-containing ALR fires exactly once.  Version 4.0 instead repeats the walk
 until a pass changes nothing, and repeats the whole thing once per task that
 completes in the turn; see pf_filter_internal() and pf_refilter() in
-scprintf.cpp, and make_400_alrsrcprobe.py for which text catches which walk.
+scprintf_output.cpp, and make_400_alrsrcprobe.py for which text catches which walk.
 
 Versions 3.8 and 3.7 cannot reach any of this -- neither schema in sctafpar.cpp
 carries an ALRs section, so those games have no ALRs at all.

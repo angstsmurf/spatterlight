@@ -8,7 +8,7 @@ CompleteText is "I put the sweet on the plinth." and the game carries the ALR
 
 whose replacement CONTAINS its own original.  Scarier answered with one
 "Okay.", run400 answers with two (Adrift_30_humbug.txt:841) -- so the Runner
-applies that ALR twice where Scarier applied it once.  scprintf.cpp's
+applies that ALR twice where Scarier applied it once.  scprintf_alr.cpp's
 pf_replace_alrs() used to mark every ALR "used up" the first time it fired and
 never let it fire again;
 run390's ALR pass (loc_45BD43, the `For i = 0 To Me(188)-1 : If InStr(text,

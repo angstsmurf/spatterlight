@@ -7,7 +7,7 @@ e.g.   harness/syn.py CS2.taf cs2_solution.txt
 Synonyms come from SCR_DUMP_TASKS stderr ("SYNONYM [x] -> [y]"), in file order.
 
 Runner model (run390 45F18C, gate c() at 4334B0; ported into pf_filter_input() in
-scprintf.cpp on 2026-09-25, so it is Scarier's model now too):
+scprintf_input.cpp on 2026-09-25, so it is Scarier's model now too):
   * the typed line is lower-cased first;
   * the gate LCase()s both sides and looks only at the FIRST InStr hit that starts
     the line or follows a space; it passes only if that hit ends the line or is
