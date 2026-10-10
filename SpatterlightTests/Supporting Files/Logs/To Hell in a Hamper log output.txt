@@ -124,7 +124,7 @@ Press any key
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
 [REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
-[MSG] cmd=FILLRECT a1=2 a2=1374 a3=0 len=16488
+[MSG] cmd=FILLRECT a1=2 a2=281 a3=0 len=3372
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0

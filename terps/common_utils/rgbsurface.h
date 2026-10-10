@@ -529,4 +529,108 @@ rgbsurf_send (const rgbsurf_t *now, const rgbsurf_t *shown,
     }
 }
 
+/* As rgbsurf_send, but merges a run with the same run (same x, width and
+   colour) on the rows directly below it, so `rect` gets one w x h rectangle
+   per vertical stack of identical runs rather than one call per row -- which
+   a Glk caller turns into glk_window_fill_rect(win, rgb, x, y, w, h).  Box
+   edges, link lines and flat fills in a map collapse to a handful of rects.
+
+   The rectangles cover exactly the pixels rgbsurf_send's spans would, and no
+   two overlap, so the order they arrive in does not matter; a merge never
+   reaches across a row skipped as unchanged.  Falls back to one-row rects if
+   it cannot allocate its bookkeeping. */
+typedef void (*rgbsurf_rect_fn) (void *ctx, unsigned int rgb, int x, int y,
+                                 int w, int h);
+
+typedef struct
+{
+  int x, w, y0;
+  unsigned int rgb;
+} rgbsurf_open_run_t;
+
+static inline void
+rgbsurf_send_rects (const rgbsurf_t *now, const rgbsurf_t *shown,
+                    rgbsurf_rect_fn rect, void *ctx)
+{
+  rgbsurf_open_run_t *open, *next, *swap;
+  int nopen = 0, nnext, i, x, y;
+  if (shown != NULL &&
+      (shown->px == NULL || shown->w != now->w || shown->h != now->h))
+    shown = NULL;
+  if (now->w <= 0 || now->h <= 0)
+    return;
+  /* A row holds at most w runs. */
+  open = (rgbsurf_open_run_t *) malloc ((size_t) now->w * sizeof *open);
+  next = (rgbsurf_open_run_t *) malloc ((size_t) now->w * sizeof *next);
+  if (open == NULL || next == NULL)
+    {
+      free (open);
+      free (next);
+      open = next = NULL;
+    }
+  for (y = 0; y < now->h; y++)
+    {
+      const unsigned int *row = &now->px[(size_t) y * now->w];
+      if (shown != NULL &&
+          memcmp (row, &shown->px[(size_t) y * now->w],
+                  (size_t) now->w * sizeof row[0]) == 0)
+        {
+          /* An unchanged row ends every stack above it. */
+          for (i = 0; i < nopen; i++)
+            rect (ctx, open[i].rgb, open[i].x, open[i].y0, open[i].w,
+                  y - open[i].y0);
+          nopen = 0;
+          continue;
+        }
+      /* Walk this row's runs against last row's open stacks; both are in x
+         order and neither overlaps itself. */
+      i = 0;
+      nnext = 0;
+      x = 0;
+      while (x < now->w)
+        {
+          unsigned int c = row[x];
+          int x0 = x;
+          do
+            x++;
+          while (x < now->w && row[x] == c);
+          if (open == NULL)
+            {
+              rect (ctx, c, x0, y, x - x0, 1);
+              continue;
+            }
+          /* Stacks that started left of this run cannot continue. */
+          while (i < nopen && open[i].x < x0)
+            {
+              rect (ctx, open[i].rgb, open[i].x, open[i].y0, open[i].w,
+                    y - open[i].y0);
+              i++;
+            }
+          if (i < nopen && open[i].x == x0 && open[i].w == x - x0
+              && open[i].rgb == c)
+            next[nnext++] = open[i++];
+          else
+            {
+              next[nnext].x = x0;
+              next[nnext].w = x - x0;
+              next[nnext].y0 = y;
+              next[nnext].rgb = c;
+              nnext++;
+            }
+        }
+      for (; i < nopen; i++)
+        rect (ctx, open[i].rgb, open[i].x, open[i].y0, open[i].w,
+              y - open[i].y0);
+      swap = open;
+      open = next;
+      next = swap;
+      nopen = nnext;
+    }
+  for (i = 0; i < nopen; i++)
+    rect (ctx, open[i].rgb, open[i].x, open[i].y0, open[i].w,
+          now->h - open[i].y0);
+  free (open);
+  free (next);
+}
+
 #endif /* RGBSURFACE_H */

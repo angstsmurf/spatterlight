@@ -534,12 +534,12 @@ gsc_map_chrome_click (int px, int py)
   return TRUE;
 }
 
-/* One run of a colour, for rgbsurf_send. */
+/* One block of a colour, for rgbsurf_send_rects. */
 static void
-gsc_map_span (void *ctx, unsigned int rgb, int x, int y, int len)
+gsc_map_rect (void *ctx, unsigned int rgb, int x, int y, int w, int h)
 {
   (void) ctx;
-  glk_window_fill_rect (gsc_map_window, rgb, x, y, (glui32) len, 1);
+  glk_window_fill_rect (gsc_map_window, rgb, x, y, (glui32) w, (glui32) h);
 }
 
 /*
@@ -548,7 +548,9 @@ gsc_map_span (void *ctx, unsigned int rgb, int x, int y, int len)
  * Rasterise the map and blit it into the graphics window.  Glk has no drawing
  * primitives beyond a filled rectangle, so -- as in the Comprehend port -- the
  * page is rendered into an RGB surface and flushed as run-length-encoded
- * horizontal spans, which is far cheaper than one fill_rect per pixel.
+ * spans, with identical spans on consecutive rows merged into one taller
+ * rectangle (rgbsurf_send_rects): far cheaper than one fill_rect per pixel,
+ * or per row.
  *
  * Only the rows that differ from what is already on screen (gsc_map_screen) are
  * flushed, so a turn that leaves the map alone -- most of them -- sends nothing
@@ -646,8 +648,8 @@ gsc_map_redraw (void)
     gsc_map_screen_drop ();
 
   /* Untouched rows: what is on screen is already right. */
-  rgbsurf_send (surf, gsc_map_full_flush ? NULL : gsc_map_screen,
-                gsc_map_span, NULL);
+  rgbsurf_send_rects (surf, gsc_map_full_flush ? NULL : gsc_map_screen,
+                      gsc_map_rect, NULL);
 
   /* These pixels are the screen now. */
   map_surface_free (gsc_map_screen);
