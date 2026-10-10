@@ -130,12 +130,63 @@ expr_multichar_search (const scr_char *name, const scr_expr_multichar_t *table)
 }
 
 
-/* Tokenizer variables. */
-static const scr_char *expr_expression = nullptr;
-static scr_int expr_index = 0;
-static scr_vartype_t expr_token_value;
-static scr_char *expr_temporary = nullptr;
-static scr_int expr_current_token = TOK_NONE;
+/*
+ * Evaluation values stack entry, uses a variable type so it can contain
+ * both integers and strings, and flags strings for possible garbage
+ * collection on parse errors.
+ */
+typedef struct
+{
+  scr_bool is_collectible;
+  scr_vartype_t value;
+} scr_stack_t;
+
+/*
+ * The expression evaluator's module state, in one instance (expr).  It is
+ * grouped by the start/end pair that owns it; every group is scratch for
+ * one expr_evaluate_expression() call, nothing is per game and nothing is
+ * saved, so there is no reset hook:
+ *
+ *   tokenizer  the expression under scan, the cursor into it, the value and
+ *              kind of the last token, and the temporary that holds token
+ *              literals.  expr_tokenize_start()/_end(), through the
+ *              expr_tokenize_guard RAII owner.
+ *   eval       the values stack and its depth, and the variables set that
+ *              %...% references resolve against.  expr_eval_start() resets
+ *              the depth; expr_eval_result() or expr_eval_garbage_collect()
+ *              empty the stack again.
+ *   parse      the predictive parser's lookahead, the factor nesting count
+ *              that bounds recursion, and the parse error jump buffer.
+ *              Set at the top of each evaluation.
+ */
+struct scr_expr_state_s
+{
+  struct
+  {
+    const scr_char *expression = nullptr;
+    scr_int index = 0;
+    scr_vartype_t token_value;
+    scr_char *temporary = nullptr;
+    scr_int current_token = TOK_NONE;
+  } tokenizer;
+
+  struct
+  {
+    scr_stack_t stack[MAX_NESTING_DEPTH];
+    scr_int stack_index = 0;
+    scr_var_setref_t varset = nullptr;
+  } eval;
+
+  struct
+  {
+    jmp_buf error;
+    scr_int lookahead = TOK_NONE;
+    scr_int depth = 0;
+  } parse;
+};
+typedef struct scr_expr_state_s scr_expr_state_t;
+
+static scr_expr_state_t expr;
 
 
 /*
@@ -179,27 +230,27 @@ expr_tokenize_start (const scr_char *expression)
     }
 
   /* Save expression, and restart index. */
-  expr_expression = expression;
-  expr_index = 0;
+  expr.tokenizer.expression = expression;
+  expr.tokenizer.index = 0;
 
   /* Allocate a temporary token value/literals string. */
-  assert (!expr_temporary);
-  expr_temporary
-    = (decltype(expr_temporary)) scr_malloc (strlen (expression) + 1);
+  assert (!expr.tokenizer.temporary);
+  expr.tokenizer.temporary
+    = (scr_char *) scr_malloc (strlen (expression) + 1);
 
   /* Reset last token to none. */
-  expr_current_token = TOK_NONE;
+  expr.tokenizer.current_token = TOK_NONE;
 }
 
 static void
 expr_tokenize_end (void)
 {
   /* Deallocate temporary strings, clear expression. */
-  scr_free (expr_temporary);
-  expr_temporary = nullptr;
-  expr_expression = nullptr;
-  expr_index = 0;
-  expr_current_token = TOK_NONE;
+  scr_free (expr.tokenizer.temporary);
+  expr.tokenizer.temporary = nullptr;
+  expr.tokenizer.expression = nullptr;
+  expr.tokenizer.index = 0;
+  expr.tokenizer.current_token = TOK_NONE;
 }
 
 
@@ -208,9 +259,9 @@ expr_tokenize_end (void)
  *
  * RAII owner of a tokenization: expr_tokenize_start() on construction,
  * expr_tokenize_end() on destruction.  A scr_fatal_error thrown by var_get()
- * or an allocation mid-expression then still clears expr_temporary, so the
- * next expression in the same process does not trip the assert in
- * expr_tokenize_start().  Only multi-game processes ever saw that.
+ * or an allocation mid-expression then still clears the tokenizer's
+ * temporary, so the next expression in the same process does not trip the
+ * assert in expr_tokenize_start().  Only multi-game processes ever saw that.
  */
 struct expr_tokenize_guard
 {
@@ -239,19 +290,19 @@ expr_next_token_unadjusted (scr_vartype_t *token_value)
 {
   scr_int c;
 
-  assert (expr_expression);
+  assert (expr.tokenizer.expression);
 
   /* Skip any and all leading whitespace. */
   do
     {
-      c = expr_expression[expr_index++];
+      c = expr.tokenizer.expression[expr.tokenizer.index++];
     }
   while (scr_isspace (c) && c != NUL);
 
   /* Return EOS if at expression end. */
   if (c == NUL)
     {
-      expr_index--;
+      expr.tokenizer.index--;
       return TOK_EOS;
     }
 
@@ -263,11 +314,12 @@ expr_next_token_unadjusted (scr_vartype_t *token_value)
     {
       scr_int value;
 
-      sscanf (expr_expression + expr_index - 1, "%ld", &value);
+      sscanf (expr.tokenizer.expression + expr.tokenizer.index - 1,
+              "%ld", &value);
 
       while (scr_isdigit (c) && c != NUL)
-        c = expr_expression[expr_index++];
-      expr_index--;
+        c = expr.tokenizer.expression[expr.tokenizer.index++];
+      expr.tokenizer.index--;
 
       token_value->integer = value;
       return TOK_INTEGER;
@@ -279,23 +331,23 @@ expr_next_token_unadjusted (scr_vartype_t *token_value)
       scr_int index_;
 
       /* Copy variable name. */
-      c = expr_expression[expr_index++];
+      c = expr.tokenizer.expression[expr.tokenizer.index++];
       for (index_ = 0; c != PERCENT && c != NUL;)
         {
-          expr_temporary[index_++] = c;
-          c = expr_expression[expr_index++];
+          expr.tokenizer.temporary[index_++] = c;
+          c = expr.tokenizer.expression[expr.tokenizer.index++];
         }
-      expr_temporary[index_++] = NUL;
+      expr.tokenizer.temporary[index_++] = NUL;
 
       if (c == NUL)
         {
           scr_error ("expr_next_token_unadjusted:"
                     " warning: unterminated variable name\n");
-          expr_index--;
+          expr.tokenizer.index--;
         }
 
       /* Return a variable name. */
-      token_value->string = expr_temporary;
+      token_value->string = expr.tokenizer.temporary;
       return TOK_VARIABLE;
     }
 
@@ -307,23 +359,23 @@ expr_next_token_unadjusted (scr_vartype_t *token_value)
 
       /* Copy maximal string literal. */
       quote = c;
-      c = expr_expression[expr_index++];
+      c = expr.tokenizer.expression[expr.tokenizer.index++];
       for (index_ = 0; c != quote && c != NUL;)
         {
-          expr_temporary[index_++] = c;
-          c = expr_expression[expr_index++];
+          expr.tokenizer.temporary[index_++] = c;
+          c = expr.tokenizer.expression[expr.tokenizer.index++];
         }
-      expr_temporary[index_++] = NUL;
+      expr.tokenizer.temporary[index_++] = NUL;
 
       if (c == NUL)
         {
           scr_error ("expr_next_token_unadjusted:"
                     " warning: unterminated string literal\n");
-          expr_index--;
+          expr.tokenizer.index--;
         }
 
       /* Return string literal. */
-      token_value->string = expr_temporary;
+      token_value->string = expr.tokenizer.temporary;
       return TOK_STRING;
     }
 
@@ -340,20 +392,20 @@ expr_next_token_unadjusted (scr_vartype_t *token_value)
        */
       for (index_ = 0; scr_isalpha (c) && c != NUL;)
         {
-          expr_temporary[index_++] = c;
-          c = expr_expression[expr_index++];
+          expr.tokenizer.temporary[index_++] = c;
+          c = expr.tokenizer.expression[expr.tokenizer.index++];
         }
-      expr_index--;
-      expr_temporary[index_++] = NUL;
+      expr.tokenizer.index--;
+      expr.tokenizer.temporary[index_++] = NUL;
 
       /*
        * Check for a function name, and if known, return that, otherwise
        * return a bare id.
        */
-      token = expr_multichar_search (expr_temporary, FUNCTION_TOKENS);
+      token = expr_multichar_search (expr.tokenizer.temporary, FUNCTION_TOKENS);
       if (token == TOK_NONE)
         {
-          token_value->string = expr_temporary;
+          token_value->string = expr.tokenizer.temporary;
           return TOK_IDENT;
         }
       else
@@ -375,7 +427,7 @@ expr_next_token_unadjusted (scr_vartype_t *token_value)
        * operator_[1], so no need to special case end of expression here.
        */
       operator_[0] = c;
-      operator_[1] = expr_expression[expr_index];
+      operator_[1] = expr.tokenizer.expression[expr.tokenizer.index];
       operator_[2] = NUL;
 
       /* Search for this two-character operator. */
@@ -385,7 +437,7 @@ expr_next_token_unadjusted (scr_vartype_t *token_value)
           if (token != TOK_NONE)
             {
               /* Matched, so advance expression index and return this token. */
-              expr_index++;
+              expr.tokenizer.index++;
               return token;
             }
         }
@@ -418,7 +470,7 @@ expr_next_token (void)
        * Unary minus/plus if prior token was an operator or a comparison, left
        * parenthesis, or comma, or if there was no prior token.
        */
-      switch (expr_current_token)
+      switch (expr.tokenizer.current_token)
         {
         case TOK_MOD:
         case TOK_POWER:
@@ -446,8 +498,8 @@ expr_next_token (void)
     }
 
   /* Set current token to the one just found, and return it. */
-  expr_current_token = token;
-  expr_token_value = token_value;
+  expr.tokenizer.current_token = token;
+  expr.tokenizer.token_value = token_value;
   return token;
 }
 
@@ -462,7 +514,7 @@ static void
 expr_current_token_value (scr_vartype_t *value)
 {
   /* Quick check that the value is a valid one. */
-  switch (expr_current_token)
+  switch (expr.tokenizer.current_token)
     {
     case TOK_INTEGER:
     case TOK_STRING:
@@ -472,32 +524,13 @@ expr_current_token_value (scr_vartype_t *value)
 
     default:
       scr_fatal ("expr_current_token_value:"
-                " taking undefined token value, %ld\n", expr_current_token);
+                " taking undefined token value, %ld\n",
+                expr.tokenizer.current_token);
     }
 
   /* Return value. */
-  *value = expr_token_value;
+  *value = expr.tokenizer.token_value;
 }
-
-
-/*
- * Evaluation values stack, uses a variable type so it can contain both
- * integers and strings, and flags strings for possible garbage collection
- * on parse errors.
- */
-typedef struct
-{
-  scr_bool is_collectible;
-  scr_vartype_t value;
-} scr_stack_t;
-static scr_stack_t expr_eval_stack[MAX_NESTING_DEPTH];
-static scr_int expr_eval_stack_index = 0;
-
-/* Parse error jump buffer. */
-static jmp_buf expr_parse_error;
-
-/* Variables set to reference for %...% values. */
-static scr_var_setref_t expr_varset = (scr_var_setref_t) nullptr;
 
 
 /*
@@ -509,8 +542,8 @@ static scr_var_setref_t expr_varset = (scr_var_setref_t) nullptr;
 static void
 expr_eval_start (scr_var_setref_t vars)
 {
-  expr_eval_stack_index = 0;
-  expr_varset = vars;
+  expr.eval.stack_index = 0;
+  expr.eval.varset = vars;
 }
 
 
@@ -529,14 +562,14 @@ expr_eval_garbage_collect (void)
    * Find and free all collectible strings still in the stack.  We have to
    * free through mutable string rather than const string.
    */
-  for (index_ = 0; index_ < expr_eval_stack_index; index_++)
+  for (index_ = 0; index_ < expr.eval.stack_index; index_++)
     {
-      if (expr_eval_stack[index_].is_collectible)
-        scr_free (expr_eval_stack[index_].value.mutable_string);
+      if (expr.eval.stack[index_].is_collectible)
+        scr_free (expr.eval.stack[index_].value.mutable_string);
     }
 
   /* Reset the stack index, for clarity and neatness. */
-  expr_eval_stack_index = 0;
+  expr.eval.stack_index = 0;
 }
 
 
@@ -553,14 +586,14 @@ expr_eval_garbage_collect (void)
 static void
 expr_eval_push_integer (scr_int value)
 {
-  if (expr_eval_stack_index >= MAX_NESTING_DEPTH)
+  if (expr.eval.stack_index >= MAX_NESTING_DEPTH)
     {
       scr_error ("expr_eval_push_integer: stack overflow\n");
-      scr_longjmp (expr_parse_error, 1);
+      scr_longjmp (expr.parse.error, 1);
     }
 
-  expr_eval_stack[expr_eval_stack_index].is_collectible = FALSE;
-  expr_eval_stack[expr_eval_stack_index++].value.integer = value;
+  expr.eval.stack[expr.eval.stack_index].is_collectible = FALSE;
+  expr.eval.stack[expr.eval.stack_index++].value.integer = value;
 }
 
 static void
@@ -568,30 +601,30 @@ expr_eval_push_string (const scr_char *value)
 {
   scr_char *value_copy;
 
-  if (expr_eval_stack_index >= MAX_NESTING_DEPTH)
+  if (expr.eval.stack_index >= MAX_NESTING_DEPTH)
     {
       scr_error ("expr_eval_push_string: stack overflow\n");
-      scr_longjmp (expr_parse_error, 1);
+      scr_longjmp (expr.parse.error, 1);
     }
 
   /* Push a copy of value. */
   value_copy = (decltype(value_copy)) scr_malloc (strlen (value) + 1);
   memcpy (value_copy, value, strlen (value) + 1);
-  expr_eval_stack[expr_eval_stack_index].is_collectible = TRUE;
-  expr_eval_stack[expr_eval_stack_index++].value.mutable_string = value_copy;
+  expr.eval.stack[expr.eval.stack_index].is_collectible = TRUE;
+  expr.eval.stack[expr.eval.stack_index++].value.mutable_string = value_copy;
 }
 
 static void
 expr_eval_push_alloced_string (scr_char *value)
 {
-  if (expr_eval_stack_index >= MAX_NESTING_DEPTH)
+  if (expr.eval.stack_index >= MAX_NESTING_DEPTH)
     {
       scr_error ("expr_eval_push_alloced_string: stack overflow\n");
-      scr_longjmp (expr_parse_error, 1);
+      scr_longjmp (expr.parse.error, 1);
     }
 
-  expr_eval_stack[expr_eval_stack_index].is_collectible = TRUE;
-  expr_eval_stack[expr_eval_stack_index++].value.mutable_string = value;
+  expr.eval.stack[expr.eval.stack_index].is_collectible = TRUE;
+  expr.eval.stack[expr.eval.stack_index++].value.mutable_string = value;
 }
 
 
@@ -605,22 +638,22 @@ expr_eval_push_alloced_string (scr_char *value)
 static scr_int
 expr_eval_pop_integer (void)
 {
-  if (expr_eval_stack_index == 0)
+  if (expr.eval.stack_index == 0)
     scr_fatal ("expr_eval_pop_integer: stack underflow\n");
 
-  assert (!expr_eval_stack[expr_eval_stack_index - 1].is_collectible);
-  return expr_eval_stack[--expr_eval_stack_index].value.integer;
+  assert (!expr.eval.stack[expr.eval.stack_index - 1].is_collectible);
+  return expr.eval.stack[--expr.eval.stack_index].value.integer;
 }
 
 static scr_char *
 expr_eval_pop_string (void)
 {
-  if (expr_eval_stack_index == 0)
+  if (expr.eval.stack_index == 0)
     scr_fatal ("expr_eval_pop_string: stack underflow\n");
 
   /* Returns mutable string rather than const string. */
-  assert (expr_eval_stack[expr_eval_stack_index - 1].is_collectible);
-  return expr_eval_stack[--expr_eval_stack_index].value.mutable_string;
+  assert (expr.eval.stack[expr.eval.stack_index - 1].is_collectible);
+  return expr.eval.stack[--expr.eval.stack_index].value.mutable_string;
 }
 
 
@@ -632,12 +665,12 @@ expr_eval_pop_string (void)
 static void
 expr_eval_result (scr_vartype_t *vt_rvalue)
 {
-  if (expr_eval_stack_index != 1)
+  if (expr.eval.stack_index != 1)
     scr_fatal ("expr_eval_result: values stack not completed\n");
 
   /* Clear down stack and return the top value. */
-  expr_eval_stack_index = 0;
-  *vt_rvalue = expr_eval_stack[0].value;
+  expr.eval.stack_index = 0;
+  *vt_rvalue = expr.eval.stack[0].value;
 }
 
 
@@ -717,11 +750,11 @@ expr_eval_push_value (scr_int token)
         scr_int type;
 
         expr_current_token_value (&token_value);
-        if (!var_get (expr_varset, token_value.string, &type, &vt_rvalue))
+        if (!var_get (expr.eval.varset, token_value.string, &type, &vt_rvalue))
           {
             scr_error ("expr_eval_action:"
                       " undefined variable, %s\n", token_value.string);
-            scr_longjmp (expr_parse_error, 1);
+            scr_longjmp (expr.parse.error, 1);
           }
         switch (type)
           {
@@ -1381,9 +1414,6 @@ expr_eval_action (scr_int token)
 }
 
 
-/* Predictive parser lookahead token. */
-static scr_int expr_parse_lookahead = TOK_NONE;
-
 /* Forward declaration of factor parsers and string expression parser. */
 static void expr_parse_numeric_factor (void);
 static void expr_parse_string_factor (void);
@@ -1398,14 +1428,14 @@ static void expr_parse_string_expr (void);
 static void
 expr_parse_match (scr_int token)
 {
-  if (expr_parse_lookahead == token)
-    expr_parse_lookahead = expr_next_token ();
+  if (expr.parse.lookahead == token)
+    expr.parse.lookahead = expr_next_token ();
   else
     {
       /* Syntax error. */
       scr_error ("expr_parse_match: syntax error,"
-                " expected %ld, got %ld\n", token, expr_parse_lookahead);
-      scr_longjmp (expr_parse_error, 1);
+                " expected %ld, got %ld\n", token, expr.parse.lookahead);
+      scr_longjmp (expr.parse.error, 1);
     }
 }
 
@@ -1495,12 +1525,12 @@ expr_parse_numeric_element (scr_int precedence)
    * with the given level.
    */
   expr_parse_numeric_element (precedence + 1);
-  while (expr_parse_contains_token (entry, expr_parse_lookahead))
+  while (expr_parse_contains_token (entry, expr.parse.lookahead))
     {
       scr_int token;
 
       /* Note token and match, parse next level, then action this token. */
-      token = expr_parse_lookahead;
+      token = expr.parse.lookahead;
       expr_parse_match (token);
       expr_parse_numeric_element (precedence + 1);
       expr_eval_action (token);
@@ -1536,15 +1566,15 @@ expr_parse_variable_factor (const scr_char *caller, scr_int want,
   scr_int type;
 
   expr_current_token_value (&token_value);
-  if (!var_get (expr_varset, token_value.string, &type, &vt_rvalue))
+  if (!var_get (expr.eval.varset, token_value.string, &type, &vt_rvalue))
     {
       scr_error ("%s: undefined variable, %s\n", caller, token_value.string);
-      scr_longjmp (expr_parse_error, 1);
+      scr_longjmp (expr.parse.error, 1);
     }
   if (type != want)
     {
       scr_error ("%s: %s, %s\n", caller, mismatch, token_value.string);
-      scr_longjmp (expr_parse_error, 1);
+      scr_longjmp (expr.parse.error, 1);
     }
   expr_eval_action (TOK_VARIABLE);
   expr_parse_match (TOK_VARIABLE);
@@ -1559,15 +1589,13 @@ expr_parse_variable_factor (const scr_char *caller, scr_int want,
  * factor parsers count back down on the way out; a parse error skips that,
  * but every evaluation resets the count.
  */
-static scr_int expr_parse_depth = 0;
-
 static void
 expr_parse_enter (void)
 {
-  if (++expr_parse_depth > MAX_NESTING_DEPTH)
+  if (++expr.parse.depth > MAX_NESTING_DEPTH)
     {
       scr_error ("expr_parse: expression nested too deeply\n");
-      scr_longjmp (expr_parse_error, 1);
+      scr_longjmp (expr.parse.error, 1);
     }
 }
 
@@ -1583,7 +1611,7 @@ expr_parse_numeric_factor (void)
   expr_parse_enter ();
 
   /* Handle factors based on lookahead token. */
-  switch (expr_parse_lookahead)
+  switch (expr.parse.lookahead)
     {
       /* Handle straightforward factors first. */
     case TOK_LPAREN:
@@ -1655,14 +1683,14 @@ expr_parse_numeric_factor (void)
         scr_int token, argument_count;
 
         /* Match up the function name and opening parenthesis. */
-        token = expr_parse_lookahead;
+        token = expr.parse.lookahead;
         expr_parse_match (token);
         expr_parse_match (TOK_LPAREN);
 
         /* Count variable number of arguments as they are stacked. */
         expr_parse_numeric_expr ();
         argument_count = 1;
-        while (expr_parse_lookahead == TOK_COMMA)
+        while (expr.parse.lookahead == TOK_COMMA)
           {
             expr_parse_match (TOK_COMMA);
             expr_parse_numeric_expr ();
@@ -1708,16 +1736,16 @@ expr_parse_numeric_factor (void)
     case TOK_IDENT:
       /* Unrecognized function-type token. */
       scr_error ("expr_parse_numeric_factor: syntax error, unknown ident\n");
-      scr_longjmp (expr_parse_error, 1);
+      scr_longjmp (expr.parse.error, 1);
 
     default:
       /* Syntax error. */
       scr_error ("expr_parse_numeric_factor:"
-                " syntax error, unexpected token, %ld\n", expr_parse_lookahead);
-      scr_longjmp (expr_parse_error, 1);
+                " syntax error, unexpected token, %ld\n", expr.parse.lookahead);
+      scr_longjmp (expr.parse.error, 1);
     }
 
-  expr_parse_depth--;
+  expr.parse.depth--;
 }
 
 
@@ -1735,9 +1763,9 @@ expr_parse_string_expr (void)
    * otherwise unused TOK_CONCATENATE for evaluation.
    */
   expr_parse_string_factor ();
-  while (expr_parse_lookahead == TOK_AND || expr_parse_lookahead == TOK_ADD)
+  while (expr.parse.lookahead == TOK_AND || expr.parse.lookahead == TOK_ADD)
     {
-      expr_parse_match (expr_parse_lookahead);
+      expr_parse_match (expr.parse.lookahead);
       expr_parse_string_factor ();
       expr_eval_action (TOK_CONCATENATE);
     }
@@ -1755,7 +1783,7 @@ expr_parse_string_factor (void)
   expr_parse_enter ();
 
   /* Handle factors based on lookahead token. */
-  switch (expr_parse_lookahead)
+  switch (expr.parse.lookahead)
     {
       /* Handle straightforward factors first. */
     case TOK_LPAREN:
@@ -1782,7 +1810,7 @@ expr_parse_string_factor (void)
       {
         scr_int token;
 
-        token = expr_parse_lookahead;
+        token = expr.parse.lookahead;
         expr_parse_match (token);
         expr_parse_match (TOK_LPAREN);
         expr_parse_string_expr ();
@@ -1797,7 +1825,7 @@ expr_parse_string_factor (void)
       {
         scr_int token;
 
-        token = expr_parse_lookahead;
+        token = expr.parse.lookahead;
         expr_parse_match (token);
         expr_parse_match (TOK_LPAREN);
         expr_parse_string_expr ();
@@ -1833,16 +1861,16 @@ expr_parse_string_factor (void)
     case TOK_IDENT:
       /* Unrecognized function-type token. */
       scr_error ("expr_parse_string_factor: syntax error, unknown ident\n");
-      scr_longjmp (expr_parse_error, 1);
+      scr_longjmp (expr.parse.error, 1);
 
     default:
       /* Syntax error. */
       scr_error ("expr_parse_string_factor:"
-                " syntax error, unexpected token, %ld\n", expr_parse_lookahead);
-      scr_longjmp (expr_parse_error, 1);
+                " syntax error, unexpected token, %ld\n", expr.parse.lookahead);
+      scr_longjmp (expr.parse.error, 1);
     }
 
-  expr_parse_depth--;
+  expr.parse.depth--;
 }
 
 
@@ -1866,11 +1894,11 @@ expr_evaluate_expression (const scr_char *expression, scr_var_setref_t vars,
   const expr_tokenize_guard tokenizer (expression);
 
   /* Try parsing an expression, and catch errors. */
-  expr_parse_depth = 0;
-  if (scr_setjmp (expr_parse_error) == 0)
+  expr.parse.depth = 0;
+  if (scr_setjmp (expr.parse.error) == 0)
     {
       /* Parse an expression, and ensure it ends at string end. */
-      expr_parse_lookahead = expr_next_token ();
+      expr.parse.lookahead = expr_next_token ();
       if (assign_type == VAR_STRING)
         expr_parse_string_expr ();
       else
