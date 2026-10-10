@@ -1172,353 +1172,406 @@ udf_arg_is_expression (const char *s)
   return 0;
 }
 
-/* Evaluate one %Name[args]% (args already function-expanded), or NULL. */
-char *
-eval_function (a5_state_t *st, const char *name, const char *args)
+static char *
+fn_convcharacter (a5_state_t *st, const char * /*name*/, const char * /*args*/)
 {
-  int i;
+  /* Global.vb:1762 substitutes %ConvCharacter% with the conversation char KEY. */
+  return strdup (st->conv_char ? st->conv_char : "");
+}
 
-  st->name_cap_eligible = 0;      /* only a resolved CharacterName sets it */
+static char *
+fn_replace (a5_state_t * /*st*/, const char * /*name*/, const char * /*args*/)
+{
+  /* In TEXT context the runner's function Select has no Replace arm --
+     sResult stays "" ("Bad Function - Nothing output") and the token
+     renders empty; the usable replace(a,b,c) lives in expressions
+     (a5sexpr.cpp). */
+  return strdup ("");
+}
 
-  /* User-defined <Function>s (clsUserFunction): the runner's ReplaceFunctions runs
-     EvaluateUDF over every UDF FIRST (Global.vb:1748), matching the exact
-     case-sensitive name with an optional [args] block.  The Output is a
-     restriction-gated description whose declared <Argument> names are
-     substituted with the (already function-expanded) argument values -- The
-     Last Expedition's %Lantern[]% renders "with his free gloved hand" while
-     the lantern is held, and its %Red[text]%-style wrappers colour the arg. */
-  {
-    static int udf_depth = 0;
-    for (i = 0; i < st->adv->n_udfs; i++)
-      {
-        const a5_udf_t *u = &st->adv->udfs[i];
-        if (u->name == nullptr || strcmp (u->name, name) != 0)
-          continue;
-        const a5_xml_node_t *outp = a5xml_child (u->node, "Output");
-        if (outp == nullptr || udf_depth > 8)   /* The runner: recursive UDF = error */
-          return strdup ("");
-        /* EvaluateUDF (Global.vb:1653) substitutes the arguments into the RAW
-           Output text -- BEFORE any function/expression evaluation -- then
-           re-runs ReplaceFunctions on the substituted body
-           (`sText = ReplaceFunctions(re.Replace(...))`) while the `<#...#>`
-           expressions stay GUID-stashed for the Display-time
-           ReplaceExpressions pass.  So `Double of %n% is <# %n% * 2 #>.` on
-           %Double[21]% must become "Double of 21 is <# 21 * 2 #>." here, with
-           the outer replace_expressions pass reducing it to 42 -- evaluating
-           the body first computed <# %n% * 2 #> with %n% unbound (= 0).
-           (Not mirrored: the restriction-key Parameter-<name> rewrite and the
-           refsUDF %objects% NewReferences swap during the render -- Scarier
-           gates the Output's restrictions against the live state instead.) */
-        udf_depth++;
-        char *raw = a5text_eval_description (st, outp);
-        std::string body = (raw != nullptr) ? raw : "";
-        free (raw);
-        if (args != nullptr && args[0] != '\0')
-          {
-            /* SplitArgs (Global.vb:1623): split on commas at bracket depth 0
-               ('('/'[' up, ')'/']' down); empty chunks are dropped, nothing
-               is trimmed. */
-            std::vector<std::string> vals;
-            {
-              std::string cur;
-              int level = 0;
-              for (const char *p = args; *p != '\0'; p++)
-                {
-                  if (*p == '(' || *p == '[') level++;
-                  else if (*p == ')' || *p == ']') level--;
-                  if (*p == ',' && level == 0)
-                    { if (!cur.empty ()) vals.push_back (cur); cur.clear (); }
-                  else cur += *p;
-                }
-              if (!cur.empty ()) vals.push_back (cur);
-            }
-            size_t vi = 0;
-            for (const a5_xml_node_t *an = u->node->first_child;
-                 an != nullptr; an = an->next)
-              {
-                if (strcmp (an->name, "Argument") != 0)
-                  continue;
-                const char *anm = a5xml_child_text (an, "Name");
-                if (anm != nullptr && vi < vals.size ())
-                  {
-                    std::string v = vals[vi];
-                    /* "Our function argument could be an expression": fold a
-                       digit-op-digit argument through EvaluateExpression
-                       (%Double[3 + 4]% -> body sees 7); keep the original on
-                       a failed evaluation (EvaluateExpression = Nothing). */
-                    if (udf_arg_is_expression (v.c_str ()))
-                      {
-                        char *ev = a5text_eval_expression (st, v.c_str ());
-                        if (ev != nullptr && ev[0] != '\0')
-                          v = ev;
-                        free (ev);
-                      }
-                    std::string tok = std::string ("%") + anm + "%";
-                    size_t at = 0;
-                    while ((at = body.find (tok, at)) != std::string::npos)
-                      { body.replace (at, tok.size (), v); at += v.size (); }
-                  }
-                vi++;
-              }
-          }
-        /* The runner's trailing ReplaceFunctions recursion: expand any
-           functions the substituted body carries (%TheObject[ObjectBall]%),
-           keeping its <#...#> bodies untouched for the outer expression
-           pass. */
-        std::vector<std::string> saved;
-        std::string prot = protect_exprs (body.c_str (), saved);
-        char *funcs = replace_functions (st, prot.c_str ());
-        std::string rest = restore_exprs (funcs, saved);
-        free (funcs);
-        udf_depth--;
-        return strdup (rest.c_str ());
-      }
-  }
+static char *
+fn_version (a5_state_t * /*st*/, const char * /*name*/, const char * /*args*/)
+{
+  /* %version% (Global.vb:1765): the Runner's assembly version "5.0.36.6"
+     (AssemblyInfo.vb) with the first two dots elided by the substring
+     splice -> "5036.6". */
+  return strdup ("5036.6");
+}
 
-  if (ci_eq (name, "player"))
-    return fn_player (st, name, args);
+static char *
+fn_release (a5_state_t *st, const char * /*name*/, const char * /*args*/)
+{
+  /* %release% (Global.vb:1766): the <ifindex> block's <release><version>
+     (BabelTreatyInfo ... Release.Version) -- which DEFAULTS to 1
+     (Babel.vb:354 iVersion As Integer = 1), so a file carrying no release
+     metadata still renders "1". */
+  return strdup (st->adv->release != nullptr ? st->adv->release : "1");
+}
+
+/* The built-in functions, in the order eval_function() tries them.  A name
+   is a call in one of three shapes: %Name% and %Name[args]% alike, only with
+   an [args] block, or only without one; in any other shape it falls through
+   to the references and variables. */
+enum fn_args_t { FN_ARGS_ANY, FN_ARGS_REQUIRED, FN_ARGS_NONE };
+
+static const struct
+{
+  const char *name;
+  fn_args_t args;
+  char *(*handler) (a5_state_t *st, const char *name, const char *args);
+} eval_builtins[] = {
+  {"player", FN_ARGS_ANY, fn_player},
   /* Bare %PopUpInput% (no [args]) is not a function call in the runner --
      the args-form regex doesn't match it, so it survives verbatim (ProbePopups
      intro).  Evaluating it here would also eat a script line as the popup
      answer, desyncing the transcript. */
-  if (args != nullptr && ci_eq (name, "popupinput"))
-    return fn_popupinput (st, name, args);
-  if (ci_eq (name, "charactername"))
-    return fn_charactername (st, name, args);
-  if (ci_eq (name, "characterproper") || ci_eq (name, "propername"))
-    return fn_characterproper (st, name, args);
-  if (ci_eq (name, "convcharacter"))
-    /* Global.vb:1762 substitutes %ConvCharacter% with the conversation char KEY. */
-    return strdup (st->conv_char ? st->conv_char : "");
-  if (ci_eq (name, "turns"))
-    return fn_turns (st, name, args);
-  if (ci_eq (name, "alonewithchar"))
-    return fn_alonewithchar (st, name, args);
-  if (ci_eq (name, "locationname"))
-    return fn_locationname (st, name, args);
-  if (ci_eq (name, "locationof"))
-    return fn_locationof (st, name, args);
-  if (ci_eq (name, "displaylocation"))
-    return fn_displaylocation (st, name, args);
-  if (args != nullptr
-      && (ci_eq (name, "theobject") || ci_eq (name, "aobject")
-          || ci_eq (name, "objectname") || ci_eq (name, "object")
-          || ci_eq (name, "theobjects") || ci_eq (name, "aobjects")
-          || ci_eq (name, "objects")))
-    return fn_object_names (st, name, args);
-  if (ci_eq (name, "propertyvalue") && args != nullptr)
-    return fn_propertyvalue (st, name, args);
-  if (ci_eq (name, "parentof") && args != nullptr)
-    return fn_parentof (st, name, args);
-  if (args != nullptr
-      && (ci_eq (name, "listobjectson") || ci_eq (name, "listobjectsin")))
-    return fn_list_objects_on_in (st, name, args);
-  if (args != nullptr && ci_eq (name, "listobjectsonandin"))
-    return fn_list_objects_on_and_in (st, name, args);
-  if (args != nullptr
-      && (ci_eq (name, "listcharacterson") || ci_eq (name, "listcharactersin")
-          || ci_eq (name, "listcharactersonandin")))
-    return fn_list_characters (st, name, args);
-  if (args != nullptr && (ci_eq (name, "listheld") || ci_eq (name, "listworn")))
-    return fn_list_held_worn (st, name, args);
-  if (args != nullptr && (ci_eq (name, "displaycharacter") || ci_eq (name, "displayobject")))
-    return fn_display_char_obj (st, name, args);
-  if (args != nullptr && ci_eq (name, "listexits"))
-    return fn_list_exits (st, name, args);
-  if (args != nullptr && ci_eq (name, "listobjectsatlocation"))
-    return fn_list_objects_at_location (st, name, args);
-  if (ci_eq (name, "numberastext") && args != nullptr)
-    return fn_number_as_text (st, name, args);
-  if (ci_eq (name, "pcase") || ci_eq (name, "ucase") || ci_eq (name, "lcase"))
-    return fn_case (st, name, args);
-  if (args != nullptr && (ci_eq (name, "held") || ci_eq (name, "worn")))
-    return fn_held_worn_keys (st, name, args);
-  if (args != nullptr && ci_eq (name, "objectsin"))
-    return fn_objectsin (st, name, args);
-  if (args != nullptr && ci_eq (name, "characterdescriptor"))
-    return fn_characterdescriptor (st, name, args);
-  if (args != nullptr && ci_eq (name, "taskcompleted"))
-    return fn_taskcompleted (st, name, args);
-  if (args != nullptr && ci_eq (name, "sum"))
-    return fn_sum (st, name, args);
-  if (args != nullptr && ci_eq (name, "popupchoice"))
-    return fn_popupchoice (st, name, args);
-  if (args != nullptr && ci_eq (name, "prevparentof"))
-    return fn_prevparentof (st, name, args);
-  if (args != nullptr && ci_eq (name, "prevlistobjectson"))
-    return fn_prevlistobjectson (st, name, args);
-  if (args != nullptr && ci_eq (name, "replace"))
-    /* In TEXT context the runner's function Select has no Replace arm --
-       sResult stays "" ("Bad Function - Nothing output") and the token
-       renders empty; the usable replace(a,b,c) lives in expressions
-       (a5sexpr.cpp). */
-    return strdup ("");
-  if (args == nullptr && ci_eq (name, "version"))
-    /* %version% (Global.vb:1765): the Runner's assembly version "5.0.36.6"
-       (AssemblyInfo.vb) with the first two dots elided by the substring
-       splice -> "5036.6". */
-    return strdup ("5036.6");
-  if (args == nullptr && ci_eq (name, "release"))
-    /* %release% (Global.vb:1766): the <ifindex> block's <release><version>
-       (BabelTreatyInfo ... Release.Version) -- which DEFAULTS to 1
-       (Babel.vb:354 iVersion As Integer = 1), so a file carrying no release
-       metadata still renders "1". */
-    return strdup (st->adv->release != nullptr ? st->adv->release : "1");
+  {"popupinput", FN_ARGS_REQUIRED, fn_popupinput},
+  {"charactername", FN_ARGS_ANY, fn_charactername},
+  {"characterproper", FN_ARGS_ANY, fn_characterproper},
+  {"propername", FN_ARGS_ANY, fn_characterproper},
+  {"convcharacter", FN_ARGS_ANY, fn_convcharacter},
+  {"turns", FN_ARGS_ANY, fn_turns},
+  {"alonewithchar", FN_ARGS_ANY, fn_alonewithchar},
+  {"locationname", FN_ARGS_ANY, fn_locationname},
+  {"locationof", FN_ARGS_ANY, fn_locationof},
+  {"displaylocation", FN_ARGS_ANY, fn_displaylocation},
+  {"theobject", FN_ARGS_REQUIRED, fn_object_names},
+  {"aobject", FN_ARGS_REQUIRED, fn_object_names},
+  {"objectname", FN_ARGS_REQUIRED, fn_object_names},
+  {"object", FN_ARGS_REQUIRED, fn_object_names},
+  {"theobjects", FN_ARGS_REQUIRED, fn_object_names},
+  {"aobjects", FN_ARGS_REQUIRED, fn_object_names},
+  {"objects", FN_ARGS_REQUIRED, fn_object_names},
+  {"propertyvalue", FN_ARGS_REQUIRED, fn_propertyvalue},
+  {"parentof", FN_ARGS_REQUIRED, fn_parentof},
+  {"listobjectson", FN_ARGS_REQUIRED, fn_list_objects_on_in},
+  {"listobjectsin", FN_ARGS_REQUIRED, fn_list_objects_on_in},
+  {"listobjectsonandin", FN_ARGS_REQUIRED, fn_list_objects_on_and_in},
+  {"listcharacterson", FN_ARGS_REQUIRED, fn_list_characters},
+  {"listcharactersin", FN_ARGS_REQUIRED, fn_list_characters},
+  {"listcharactersonandin", FN_ARGS_REQUIRED, fn_list_characters},
+  {"listheld", FN_ARGS_REQUIRED, fn_list_held_worn},
+  {"listworn", FN_ARGS_REQUIRED, fn_list_held_worn},
+  {"displaycharacter", FN_ARGS_REQUIRED, fn_display_char_obj},
+  {"displayobject", FN_ARGS_REQUIRED, fn_display_char_obj},
+  {"listexits", FN_ARGS_REQUIRED, fn_list_exits},
+  {"listobjectsatlocation", FN_ARGS_REQUIRED, fn_list_objects_at_location},
+  {"numberastext", FN_ARGS_REQUIRED, fn_number_as_text},
+  {"pcase", FN_ARGS_ANY, fn_case},
+  {"ucase", FN_ARGS_ANY, fn_case},
+  {"lcase", FN_ARGS_ANY, fn_case},
+  {"held", FN_ARGS_REQUIRED, fn_held_worn_keys},
+  {"worn", FN_ARGS_REQUIRED, fn_held_worn_keys},
+  {"objectsin", FN_ARGS_REQUIRED, fn_objectsin},
+  {"characterdescriptor", FN_ARGS_REQUIRED, fn_characterdescriptor},
+  {"taskcompleted", FN_ARGS_REQUIRED, fn_taskcompleted},
+  {"sum", FN_ARGS_REQUIRED, fn_sum},
+  {"popupchoice", FN_ARGS_REQUIRED, fn_popupchoice},
+  {"prevparentof", FN_ARGS_REQUIRED, fn_prevparentof},
+  {"prevlistobjectson", FN_ARGS_REQUIRED, fn_prevlistobjectson},
+  {"replace", FN_ARGS_REQUIRED, fn_replace},
+  {"version", FN_ARGS_NONE, fn_version},
+  {"release", FN_ARGS_NONE, fn_release},
+};
 
-  /* A bound reference produced by the parser this turn (%direction%, %text%). */
-  if (args == nullptr)
+/* User-defined <Function>s (clsUserFunction): the runner's ReplaceFunctions runs
+   EvaluateUDF over every UDF FIRST (Global.vb:1748), matching the exact
+   case-sensitive name with an optional [args] block.  The Output is a
+   restriction-gated description whose declared <Argument> names are
+   substituted with the (already function-expanded) argument values -- The
+   Last Expedition's %Lantern[]% renders "with his free gloved hand" while
+   the lantern is held, and its %Red[text]%-style wrappers colour the arg. */
+static char *
+eval_udf (a5_state_t *st, const char *name, const char *args)
+{
+  int i;
+
+  static int udf_depth = 0;
+  for (i = 0; i < st->adv->n_udfs; i++)
     {
-      const char *bound = nullptr;
-      std::string slot;     /* ReferencedCharacterN / LocationN / ItemN */
-      int is_ref = ref_slot_name (name, slot);
-      if (ci_eq (name, "direction") || ci_eq (name, "direction1"))
-        bound = a5state_lookup_ref (st, "ReferencedDirection");
-      else if (ci_eq (name, "text") || ci_eq (name, "text1"))
-        bound = a5state_lookup_ref (st, "ReferencedText");
-      else if (ci_eq (name, "number") || ci_eq (name, "number1"))
-        bound = a5state_lookup_ref (st, "ReferencedNumber");
-      else if (ci_eq (name, "object") || ci_eq (name, "objects")
-               || ci_eq (name, "object1") || ci_eq (name, "object2"))
+      const a5_udf_t *u = &st->adv->udfs[i];
+      if (u->name == nullptr || strcmp (u->name, name) != 0)
+        continue;
+      const a5_xml_node_t *outp = a5xml_child (u->node, "Output");
+      if (outp == nullptr || udf_depth > 8)   /* The runner: recursive UDF = error */
+        return strdup ("");
+      /* EvaluateUDF (Global.vb:1653) substitutes the arguments into the RAW
+         Output text -- BEFORE any function/expression evaluation -- then
+         re-runs ReplaceFunctions on the substituted body
+         (`sText = ReplaceFunctions(re.Replace(...))`) while the `<#...#>`
+         expressions stay GUID-stashed for the Display-time
+         ReplaceExpressions pass.  So `Double of %n% is <# %n% * 2 #>.` on
+         %Double[21]% must become "Double of 21 is <# 21 * 2 #>." here, with
+         the outer replace_expressions pass reducing it to 42 -- evaluating
+         the body first computed <# %n% * 2 #> with %n% unbound (= 0).
+         (Not mirrored: the restriction-key Parameter-<name> rewrite and the
+         refsUDF %objects% NewReferences swap during the render -- Scarier
+         gates the Output's restrictions against the live state instead.) */
+      udf_depth++;
+      char *raw = a5text_eval_description (st, outp);
+      std::string body = (raw != nullptr) ? raw : "";
+      free (raw);
+      if (args != nullptr && args[0] != '\0')
         {
-          /* A plural %objects% that resolved to several items renders the whole
-             set as an "a, b and c" list of full names (mirroring the Adrift 5 runner's
-             %objects% -> "key1|key2|..." -> OO list render; each name without an
-             article, like a bare %object%). */
-          if (ci_eq (name, "objects") && st->n_ref_items > 1)
+          /* SplitArgs (Global.vb:1623): split on commas at bracket depth 0
+             ('('/'[' up, ')'/']' down); empty chunks are dropped, nothing
+             is trimmed. */
+          std::vector<std::string> vals;
+          {
+            std::string cur;
+            int level = 0;
+            for (const char *p = args; *p != '\0'; p++)
+              {
+                if (*p == '(' || *p == '[') level++;
+                else if (*p == ')' || *p == ']') level--;
+                if (*p == ',' && level == 0)
+                  { if (!cur.empty ()) vals.push_back (cur); cur.clear (); }
+                else cur += *p;
+              }
+            if (!cur.empty ()) vals.push_back (cur);
+          }
+          size_t vi = 0;
+          for (const a5_xml_node_t *an = u->node->first_child;
+               an != nullptr; an = an->next)
             {
-              std::vector<const char *> keys (st->ref_items,
-                                              st->ref_items + st->n_ref_items);
-              return list_objects_art (st, keys, A5_ART_NONE);
+              if (strcmp (an->name, "Argument") != 0)
+                continue;
+              const char *anm = a5xml_child_text (an, "Name");
+              if (anm != nullptr && vi < vals.size ())
+                {
+                  std::string v = vals[vi];
+                  /* "Our function argument could be an expression": fold a
+                     digit-op-digit argument through EvaluateExpression
+                     (%Double[3 + 4]% -> body sees 7); keep the original on
+                     a failed evaluation (EvaluateExpression = Nothing). */
+                  if (udf_arg_is_expression (v.c_str ()))
+                    {
+                      char *ev = a5text_eval_expression (st, v.c_str ());
+                      if (ev != nullptr && ev[0] != '\0')
+                        v = ev;
+                      free (ev);
+                    }
+                  std::string tok = std::string ("%") + anm + "%";
+                  size_t at = 0;
+                  while ((at = body.find (tok, at)) != std::string::npos)
+                    { body.replace (at, tok.size (), v); at += v.size (); }
+                }
+              vi++;
             }
-          /* A bare %objectN% renders the entity KEY, mirroring the runner's
-             ReplaceFunctions (nr.Items(0).MatchingPossibilities(0), Global.vb:
-             1795): ReplaceOO only rewrites `key.Property` tokens, so a standalone
-             key survives verbatim.  For an ADRIFT-default noun-key that is the
-             noun WITHOUT its adjective/prefix (`Nymphs`, not `Comely Nymphs`),
-             and -- crucially -- it lets an OO reference-list argument whose head
-             is `%object%.Children(...)` chain from the real key. */
-          /* The singular %object%/%object1% never resolves off a plural
-             %objects% binding here either (the runner GetReference needs
-             ReferenceMatch "object1", clsUserSession.vb:3990) -- so the
-             Blender's "You put %object1%.Name on the Table." on a `put
-             %objects% on %object2%` command stays VERBATIM like the runner. */
-          if ((ci_eq (name, "object") || ci_eq (name, "object1"))
-              && st->ref_object1_plural)
-            return nullptr;
-          const char *ref = ci_eq (name, "object2") ? "ReferencedObject2"
-                                                     : "ReferencedObject";
-          const char *key = a5state_lookup_ref (st, ref);
-          const a5_object_t *o = key ? a5model_object (st->adv, key) : nullptr;
-          if (o != nullptr)
-            return strdup (o->key);
         }
-      else if (is_ref && slot.compare (0, 19, "ReferencedCharacter") == 0)
-        {
-          const char *key = a5state_lookup_ref (st, slot.c_str ());
-          const a5_character_t *ch = key ? a5model_character (st->adv, key) : nullptr;
-          if (ch != nullptr && ch->name != nullptr)
-            return strdup (ch->name);
-        }
-      else if (is_ref && slot.compare (0, 16, "ReferencedObject") != 0)
-        {
-          /* %locationN% / %itemN%.  Like %objectN%: the runner's
-             ReplaceFunctions substitutes the bound entity KEY
-             (nr.Items(0).MatchingPossibilities(0)) for a resolved reference;
-             an unbound one stays verbatim (in its numbered form -- see the
-             singular rewrite below).  (A bare %object3%..%object5% is not
-             resolved on this path; only the function-argument path in
-             replace_functions keys off those slots.) */
-          bound = a5state_lookup_ref (st, slot.c_str ());
-        }
-      if (bound != nullptr)
-        return strdup (bound);
+      /* The runner's trailing ReplaceFunctions recursion: expand any
+         functions the substituted body carries (%TheObject[ObjectBall]%),
+         keeping its <#...#> bodies untouched for the outer expression
+         pass. */
+      std::vector<std::string> saved;
+      std::string prot = protect_exprs (body.c_str (), saved);
+      char *funcs = replace_functions (st, prot.c_str ());
+      std::string rest = restore_exprs (funcs, saved);
+      free (funcs);
+      udf_depth--;
+      return strdup (rest.c_str ());
     }
 
-  /* A bare %VariableName% (or %Score% etc.). */
-  if (args == nullptr)
-    {
-      for (i = 0; i < st->adv->n_variables; i++)
-        if (ci_eq (st->adv->variables[i].name, name))
-          {
-            /* Inside an ALR NewText the value must be the END-OF-TURN one
-               (the runner expands ALRs only at Display): emit a deferred sentinel,
-               resolved by a5text_expand_var_defers in finish_turn. */
-            if (st->alr_defer_vars)
-              {
-                size_t nl = strlen (st->adv->variables[i].name);
-                char *s = (char *) malloc (nl + 3);
-                s[0] = A5_VARDEF_MARK;
-                memcpy (s + 1, st->adv->variables[i].name, nl);
-                s[nl + 1] = A5_VARDEF_MARK;
-                s[nl + 2] = '\0';
-                return s;
-              }
-            if (streq (st->adv->variables[i].type, "Text"))
-              return strdup (st->var_text[i] ? st->var_text[i] : "");
-            else
-              {
-                char buf[32];
-                snprintf (buf, sizeof buf, "%ld", st->var_num[i]);
-                return strdup (buf);
-              }
-          }
-    }
-  /* An array-variable element: %VariableName[index]% (1-based, mirroring
-     ADRIFT's clsVariable string/int arrays).  A Text array stores its elements
-     newline-separated in the single var_text string (the InitialValue layout),
-     so split on '\n' and return the index'th line; out-of-range -> empty. */
-  else
-    {
-      for (i = 0; i < st->adv->n_variables; i++)
-        if (ci_eq (st->adv->variables[i].name, name))
-          {
-            char *end = nullptr;
-            long idx = strtol (args, &end, 10);
-            while (end != nullptr && (*end == ' ' || *end == '\t'))
-              end++;
-            /* A non-literal index (e.g. %notallowed[RAND(1,6)]%) must be
-               evaluated as an expression -- the runner's clsVariable indexing runs the
-               bracket contents through EvaluateExpression.  Only fall through to
-               the plain-literal fast path when args is exactly an integer. */
-            if (end == args || (end != nullptr && *end != '\0'))
-              {
-                char *ev = a5text_eval_expression (st, args);
-                char *e2 = nullptr;
-                long v = strtol (ev, &e2, 10);
-                int oknum = (e2 != ev);
-                free (ev);
-                if (!oknum)
-                  break;            /* still not numeric -> leave verbatim */
-                idx = v;
-              }
-            if (streq (st->adv->variables[i].type, "Text"))
-              {
-                const char *s = st->var_text[i] ? st->var_text[i] : "";
-                long line = 1;
-                const char *ls = s;
-                while (line < idx && *s != '\0')
-                  if (*s++ == '\n')
-                    { line++; ls = s; }
-                if (line != idx)
-                  return strdup ("");
-                const char *le = strchr (ls, '\n');
-                size_t n = le ? (size_t) (le - ls) : strlen (ls);
-                return strndup (ls, n);
-              }
-            else
-              {
-                /* Numeric array element (clsVariable.IntValue(idx), 1-based;
-                   out-of-range -> ErrMsg + 0).  A scalar Numeric with a stray
-                   [index] falls back to its value (index defaults to 1). */
-                char buf[32];
-                snprintf (buf, sizeof buf, "%ld",
-                          a5state_var_get_elem (st, i, idx));
-                return strdup (buf);
-              }
-          }
-    }
+  return nullptr;
+}
 
-  return nullptr;                  /* unhandled: leave the token verbatim */
+/* A bound reference produced by the parser this turn (%direction%, %text%).
+   Sets *unbound when the name is none, or one with nothing to render, so
+   that the caller goes on to the variables; a NULL return without it is
+   final. */
+static char *
+eval_bound_reference (a5_state_t *st, const char *name, int *unbound)
+{
+  const char *bound = nullptr;
+  std::string slot;     /* ReferencedCharacterN / LocationN / ItemN */
+  int is_ref = ref_slot_name (name, slot);
+  if (ci_eq (name, "direction") || ci_eq (name, "direction1"))
+    bound = a5state_lookup_ref (st, "ReferencedDirection");
+  else if (ci_eq (name, "text") || ci_eq (name, "text1"))
+    bound = a5state_lookup_ref (st, "ReferencedText");
+  else if (ci_eq (name, "number") || ci_eq (name, "number1"))
+    bound = a5state_lookup_ref (st, "ReferencedNumber");
+  else if (ci_eq (name, "object") || ci_eq (name, "objects")
+           || ci_eq (name, "object1") || ci_eq (name, "object2"))
+    {
+      /* A plural %objects% that resolved to several items renders the whole
+         set as an "a, b and c" list of full names (mirroring the Adrift 5 runner's
+         %objects% -> "key1|key2|..." -> OO list render; each name without an
+         article, like a bare %object%). */
+      if (ci_eq (name, "objects") && st->n_ref_items > 1)
+        {
+          std::vector<const char *> keys (st->ref_items,
+                                          st->ref_items + st->n_ref_items);
+          return list_objects_art (st, keys, A5_ART_NONE);
+        }
+      /* A bare %objectN% renders the entity KEY, mirroring the runner's
+         ReplaceFunctions (nr.Items(0).MatchingPossibilities(0), Global.vb:
+         1795): ReplaceOO only rewrites `key.Property` tokens, so a standalone
+         key survives verbatim.  For an ADRIFT-default noun-key that is the
+         noun WITHOUT its adjective/prefix (`Nymphs`, not `Comely Nymphs`),
+         and -- crucially -- it lets an OO reference-list argument whose head
+         is `%object%.Children(...)` chain from the real key. */
+      /* The singular %object%/%object1% never resolves off a plural
+         %objects% binding here either (the runner GetReference needs
+         ReferenceMatch "object1", clsUserSession.vb:3990) -- so the
+         Blender's "You put %object1%.Name on the Table." on a `put
+         %objects% on %object2%` command stays VERBATIM like the runner. */
+      if ((ci_eq (name, "object") || ci_eq (name, "object1"))
+          && st->ref_object1_plural)
+        return nullptr;
+      const char *ref = ci_eq (name, "object2") ? "ReferencedObject2"
+                                                 : "ReferencedObject";
+      const char *key = a5state_lookup_ref (st, ref);
+      const a5_object_t *o = key ? a5model_object (st->adv, key) : nullptr;
+      if (o != nullptr)
+        return strdup (o->key);
+    }
+  else if (is_ref && slot.compare (0, 19, "ReferencedCharacter") == 0)
+    {
+      const char *key = a5state_lookup_ref (st, slot.c_str ());
+      const a5_character_t *ch = key ? a5model_character (st->adv, key) : nullptr;
+      if (ch != nullptr && ch->name != nullptr)
+        return strdup (ch->name);
+    }
+  else if (is_ref && slot.compare (0, 16, "ReferencedObject") != 0)
+    {
+      /* %locationN% / %itemN%.  Like %objectN%: the runner's
+         ReplaceFunctions substitutes the bound entity KEY
+         (nr.Items(0).MatchingPossibilities(0)) for a resolved reference;
+         an unbound one stays verbatim (in its numbered form -- see the
+         singular rewrite below).  (A bare %object3%..%object5% is not
+         resolved on this path; only the function-argument path in
+         replace_functions keys off those slots.) */
+      bound = a5state_lookup_ref (st, slot.c_str ());
+    }
+  if (bound != nullptr)
+    return strdup (bound);
+
+  *unbound = 1;
+  return nullptr;
+}
+
+/* A bare %VariableName% (or %Score% etc.). */
+static char *
+eval_variable (a5_state_t *st, const char *name)
+{
+  int i;
+
+  for (i = 0; i < st->adv->n_variables; i++)
+    if (ci_eq (st->adv->variables[i].name, name))
+      {
+        /* Inside an ALR NewText the value must be the END-OF-TURN one
+           (the runner expands ALRs only at Display): emit a deferred sentinel,
+           resolved by a5text_expand_var_defers in finish_turn. */
+        if (st->alr_defer_vars)
+          {
+            size_t nl = strlen (st->adv->variables[i].name);
+            char *s = (char *) malloc (nl + 3);
+            s[0] = A5_VARDEF_MARK;
+            memcpy (s + 1, st->adv->variables[i].name, nl);
+            s[nl + 1] = A5_VARDEF_MARK;
+            s[nl + 2] = '\0';
+            return s;
+          }
+        if (streq (st->adv->variables[i].type, "Text"))
+          return strdup (st->var_text[i] ? st->var_text[i] : "");
+        else
+          {
+            char buf[32];
+            snprintf (buf, sizeof buf, "%ld", st->var_num[i]);
+            return strdup (buf);
+          }
+      }
+
+  return nullptr;
+}
+
+/* An array-variable element: %VariableName[index]% (1-based, mirroring
+   ADRIFT's clsVariable string/int arrays).  A Text array stores its elements
+   newline-separated in the single var_text string (the InitialValue layout),
+   so split on '\n' and return the index'th line; out-of-range -> empty. */
+static char *
+eval_variable_element (a5_state_t *st, const char *name, const char *args)
+{
+  int i;
+
+  for (i = 0; i < st->adv->n_variables; i++)
+    if (ci_eq (st->adv->variables[i].name, name))
+      {
+        char *end = nullptr;
+        long idx = strtol (args, &end, 10);
+        while (end != nullptr && (*end == ' ' || *end == '\t'))
+          end++;
+        /* A non-literal index (e.g. %notallowed[RAND(1,6)]%) must be
+           evaluated as an expression -- the runner's clsVariable indexing runs the
+           bracket contents through EvaluateExpression.  Only fall through to
+           the plain-literal fast path when args is exactly an integer. */
+        if (end == args || (end != nullptr && *end != '\0'))
+          {
+            char *ev = a5text_eval_expression (st, args);
+            char *e2 = nullptr;
+            long v = strtol (ev, &e2, 10);
+            int oknum = (e2 != ev);
+            free (ev);
+            if (!oknum)
+              break;            /* still not numeric -> leave verbatim */
+            idx = v;
+          }
+        if (streq (st->adv->variables[i].type, "Text"))
+          {
+            const char *s = st->var_text[i] ? st->var_text[i] : "";
+            long line = 1;
+            const char *ls = s;
+            while (line < idx && *s != '\0')
+              if (*s++ == '\n')
+                { line++; ls = s; }
+            if (line != idx)
+              return strdup ("");
+            const char *le = strchr (ls, '\n');
+            size_t n = le ? (size_t) (le - ls) : strlen (ls);
+            return strndup (ls, n);
+          }
+        else
+          {
+            /* Numeric array element (clsVariable.IntValue(idx), 1-based;
+               out-of-range -> ErrMsg + 0).  A scalar Numeric with a stray
+               [index] falls back to its value (index defaults to 1). */
+            char buf[32];
+            snprintf (buf, sizeof buf, "%ld",
+                      a5state_var_get_elem (st, i, idx));
+            return strdup (buf);
+          }
+      }
+
+  return nullptr;
+}
+
+/* Evaluate one %Name[args]% (args already function-expanded), or NULL. */
+char *
+eval_function (a5_state_t *st, const char *name, const char *args)
+{
+  st->name_cap_eligible = 0;      /* only a resolved CharacterName sets it */
+
+  char *udf = eval_udf (st, name, args);
+  if (udf != nullptr)
+    return udf;
+
+  for (const auto &b : eval_builtins)
+    if (ci_eq (name, b.name)
+        && (b.args == FN_ARGS_ANY
+            || (b.args == FN_ARGS_REQUIRED) == (args != nullptr)))
+      return b.handler (st, name, args);
+
+  if (args != nullptr)
+    return eval_variable_element (st, name, args);
+
+  int unbound = 0;
+  char *bound = eval_bound_reference (st, name, &unbound);
+  if (!unbound)
+    return bound;
+
+  /* NULL = unhandled: leave the token verbatim. */
+  return eval_variable (st, name);
 }
 
 /* Capture a pending CharacterName render as a PronounKeys entry at output

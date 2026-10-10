@@ -106,7 +106,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~385~~ | ~~`lib_cmd_verb_object`~~ | DONE: eight stages + driver, see "lib_cmd_verb_object split" |
 | ~~371~~ | ~~`uip_replace_pronouns`~~ | DONE: `uip_pronoun_t` + six stage members, see "uip_replace_pronouns split" |
 | ~~353~~ | ~~`run_main_loop`~~ | DONE: six stages + driver, see "run_main_loop split" |
-| 345 | `eval_function` | `adrift5/text/a5text_func.cpp` ~1177 |
+| ~~345~~ | ~~`eval_function`~~ | DONE: built-in table + four lookups, see "eval_function split" |
 | 336 | `scdump_tasks` | `scdump.cpp` ~752 |
 | 323 | `oo_prop` | `adrift5/a5expr.cpp` ~626 |
 | 309 | `lib_print_room_description` | `library/sclibrar_room.cpp` ~382 |
@@ -353,9 +353,9 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `eval_function` down; `run_task`, `pass_character`,
-   `lib_cmd_verb_object`, `uip_replace_pronouns` and `run_main_loop` are
-   taken (see their "split" sections).
+   open from `scdump_tasks` down; `run_task`, `pass_character`,
+   `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop` and
+   `eval_function` are taken (see their "split" sections).
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -944,3 +944,34 @@ them):
   after (the dedent), none new.
 - Next in the table: `eval_function` (adrift5/text/a5text_func.cpp), a
   name -> handler table candidate.
+
+## 3: eval_function split (2026-10-11)
+
+- **`eval_function`** (345 l.) in `adrift5/text/a5text_func.cpp` is a
+  25-line driver.  The `fn_*` handlers already existed; what was left was
+  the 45-arm `ci_eq (name, ...)` chain that picked one, and three inline
+  blocks.  The chain is `eval_builtins[]`, 48 rows of {name, `fn_args_t`,
+  handler} in the order the chain tested them, where `fn_args_t` says in
+  which shape the name is a call: `FN_ARGS_ANY` (%Name% and %Name[args]%),
+  `FN_ARGS_REQUIRED` (only with an [args] block) or `FN_ARGS_NONE` (only
+  without).  No name sat in two arms, so first match in the table is the
+  chain.  The four arms that returned inline have handlers now
+  (`fn_convcharacter`, `fn_replace`, `fn_version`, `fn_release`), each
+  with its comment.  The blocks are `eval_udf` (the user-defined function
+  pass, with its `udf_depth` static; NULL = no UDF of that name),
+  `eval_bound_reference` (the parser's %direction% / %text% / %objectN% /
+  %characterN% slots), `eval_variable` (bare %Name%) and
+  `eval_variable_element` (%Name[index]%).  The reference block has one
+  `return nullptr` that is final (a singular %object% off a plural
+  binding stays verbatim and must NOT go on to the variables), so it
+  takes an `int *unbound` it sets only when it falls off the end; that
+  kept its body verbatim.  All four bodies are line slices of the old
+  function, dedented.
+- Verification: headless `quick`; full `test` output identical to the
+  pre-change run with the compile and "Nothing to be done" lines dropped;
+  `make -j8 scarier glkscarier` warning-free; `sanitize` clean.  A sorted
+  line multiset old vs new loses only the chain's `if` / `return fn_*`
+  lines.  Lines over 80 columns in the file: 83 before, 76 after, none
+  new.
+- Next in the table: `scdump_tasks` (scdump.cpp, developer tooling), then
+  `oo_prop` (adrift5/a5expr.cpp).
