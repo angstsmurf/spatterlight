@@ -21,7 +21,8 @@
 /*
  * Line splitting helpers and the version gate shared by the runner.
  *
- * Split out of scrunner.cpp; see scrunner.h for what the five files share.
+ * Split out of scrunner.cpp; see scrunner.h for what the runner files
+ * share.
  */
 
 #include <assert.h>

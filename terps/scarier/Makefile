@@ -106,7 +106,8 @@ OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
 	  $(LIBDIR)/sclibrar_talk.o					\
 	  $(RUNDIR)/scrunner.o $(RUNDIR)/scrun_split.o			\
 	  $(RUNDIR)/scrun_respell.o $(RUNDIR)/scrun_match.o		\
-	  $(RUNDIR)/scrun_dispatch.o					\
+	  $(RUNDIR)/scrun_tables.o $(RUNDIR)/scrun_dispatch.o		\
+	  $(RUNDIR)/scrun_input.o $(RUNDIR)/scrun_census.o		\
 	  scevents.o	\
 	  scnpcs.o scbattle.o scobjcts.o sctasks.o screstrs.o scgamest.o scserial.o\
 	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o

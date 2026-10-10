@@ -23,8 +23,9 @@
 
 /*
  * Internal header of the runner, shared by scrunner.cpp, scrun_split.cpp,
- * scrun_respell.cpp, scrun_match.cpp and scrun_dispatch.cpp.  Nothing here is
- * part of the interface the rest of Scarier uses; that stays in scprotos.h.
+ * scrun_respell.cpp, scrun_match.cpp, scrun_tables.cpp, scrun_dispatch.cpp,
+ * scrun_input.cpp and scrun_census.cpp.  Nothing here is part of the
+ * interface the rest of Scarier uses; that stays in scprotos.h.
  */
 
 #include <string>
@@ -45,7 +46,9 @@ static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
 /* State shared across the runner files, each defined in the file named. */
 
 #ifdef SCARIER_DUMP_TOOLS
+/* scrun_census.cpp */
 extern scr_bool run_census_requested (scr_gameref_t game);
+/* scrun_match.cpp */
 extern scr_bool run_census_matches_task (scr_gameref_t game, scr_int task,
                                          const scr_char *string);
 #endif
@@ -62,11 +65,70 @@ extern scr_bool run_matcher_second_pass;
 extern scr_bool run_put_class_only;
 extern scr_bool run_repeat_assist;
 
+/* scrun_tables.cpp */
+extern scr_bool run_priority_deferred;
+extern scr_bool run_priority_refused;
+extern scr_bool run_put_clause_loop_active;
+
+/*
+ * scr_ref_number_guard
+ *
+ * Save and put back the game's referenced-number state across a library
+ * command table walk.
+ *
+ * Three library rows carry a %number% wildcard -- "wait 5", "redo 3",
+ * "hist 3" (the wait row is written twice, abbreviation-gated) -- and
+ * uip_match_number() sets the referenced number as a side effect of matching
+ * one, exactly as it does for a game task's own %number%.  But those
+ * commands are Scarier's, not the Runner's: run400 has no "wait N" at all,
+ * and its referenced number (MemVar_49420C) has just two writers,
+ * numintext/numintext2, reachable only from the wildcard expansion helper
+ * mdlSpreadTheLoad.Proc_19_36_45F268 and only when the pattern being
+ * expanded really contains %number%.  So in the Runner a game with no number
+ * wildcard anywhere can never see a referenced number other than the initial
+ * zero, and a "$number = N" restriction (Type 4, Var1 0 -- run400
+ * loc_4817BF..loc_4817F8) can never pass.
+ *
+ * Leaving the leak in makes those meta commands part of the game: Sandy.taf's
+ * win task tests the referenced number against 2 where the author meant the
+ * variable "mom", so `wait 2` followed by `look in toilet` won a game that is
+ * unwinnable in the Runner.  Restoring around the whole walk -- not inside the
+ * handlers -- also covers a row that matches and then declines, such as
+ * "redo 99" falling through to the %text% row.
+ *
+ * Only the number is guarded.  The referenced object, character and text are
+ * bound by library rows the Runner does have, and the text they later expand
+ * into is meant to see them.
+ */
+class scr_ref_number_guard
+{
+public:
+  explicit scr_ref_number_guard (scr_gameref_t game)
+    : vars_ (gs_get_vars (game)),
+      number_ (var_get_ref_number (vars_)),
+      is_referenced_ (var_is_number_referenced (vars_))
+  {
+  }
+
+  ~scr_ref_number_guard ()
+  {
+    var_restore_ref_number (vars_, number_, is_referenced_);
+  }
+
+  scr_ref_number_guard (const scr_ref_number_guard &) = delete;
+  scr_ref_number_guard &operator= (const scr_ref_number_guard &) = delete;
+
+private:
+  const scr_var_setref_t vars_;
+  const scr_int number_;
+  const scr_bool is_referenced_;
+};
+
+
 /* scrun_dispatch.cpp */
 #ifdef SCARIER_DUMP_TOOLS
 extern std::string run_trace_last_input;
 #endif
-extern scr_bool run_priority_deferred;
 extern const scr_char *run_dispatch_input;
 
 /*
@@ -88,6 +150,9 @@ struct run_dispatch_input_guard
 private:
   const scr_char *const saved;
 };
+extern std::vector<std::string> run_goto_steps;
+extern size_t run_goto_next;
+extern std::string run_goto_rest;
 extern std::string run_goto_arrival;
 extern scr_bool run_goto_arrival_due;
 extern std::vector<scr_bool> run_tasks_ran_this_command;
@@ -97,6 +162,7 @@ extern scr_bool run_co_task_claimed;
 extern scr_char run_prior_element[LINE_BUFFER_SIZE];
 extern std::string run_previous_typed_line;
 extern std::string run_typed_line;
+extern std::string run_temporary_text;
 extern std::string run_undo_text;
 
 
@@ -293,9 +359,19 @@ extern void run_takes_second_pass_370 (scr_gameref_t game,
                                        const scr_char *task_string,
                                        size_t task_mark);
 
-/* scrun_dispatch.cpp */
+/* scrun_tables.cpp */
+extern scr_commands_t EXAMINE_ABOVE_REFUSAL_390_COMMANDS[];
 extern scr_bool run_priority_commands (scr_gameref_t game,
                                        const scr_char *string);
+extern scr_bool run_is_put_command (scr_gameref_t game,
+                                    const scr_char *string);
+extern scr_bool run_is_put_command_400 (scr_gameref_t game,
+                                        const scr_char *string,
+                                        scr_bool *contained);
+extern scr_bool run_is_inventory_command (scr_gameref_t game,
+                                          const scr_char *string);
+extern scr_bool run_repeat_survivor_400 (scr_gameref_t game,
+                                         const scr_char *string);
 extern scr_bool run_try_command_table (scr_commandsref_t command,
                                        scr_gameref_t game,
                                        const scr_char *string);
@@ -309,10 +385,26 @@ extern scr_bool
 run_standard_fallback_commands (scr_gameref_t game, const scr_char *string);
 extern scr_bool run_therest_arm_at (scr_int version, const scr_char *word);
 extern scr_bool run_therest_pre400 (scr_gameref_t game, const scr_char *string);
+extern scr_bool run_therest_absent_370 (scr_gameref_t game,
+                                        const scr_char *string);
 extern scr_bool run_line_for_anywhere (scr_gameref_t game,
                                        const scr_char *line);
+extern scr_bool run_score_anywhere (scr_gameref_t game,
+                                    const scr_char *string);
+extern scr_bool run_wait_anywhere (scr_gameref_t game, const scr_char *string);
+
+/* scrun_dispatch.cpp */
+extern scr_bool run_all_commands (scr_gameref_t game, const scr_char *string);
 extern void run_finish_goto_walk (void);
 extern void run_cancel_goto_walk (void);
+
+/* scrun_input.cpp */
+extern scr_char run_line_element[LINE_BUFFER_SIZE];
+extern scr_bool run_separator_task_line (scr_gameref_t game,
+                                         const scr_char *line);
+extern scr_bool run_comma_splits_pre390 (scr_gameref_t game,
+                                         const scr_char *line);
+extern scr_char *run_element_filtered (scr_gameref_t game);
 extern scr_bool run_player_input (scr_gameref_t game);
 
 #endif

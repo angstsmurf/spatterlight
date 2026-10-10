@@ -2214,12 +2214,13 @@ var_get_ref_number (scr_var_setref_t vars)
  *
  * Peek at, and put back, the whole referenced-number state -- the value and
  * the "has one ever been set" flag that %number% substitution tests.  Used by
- * runner/scrun_dispatch.cpp to keep Scarier's own meta commands ("wait 5", "hist 3") from
- * writing the game's referenced number: they match a %number% pattern, but the
- * real Runner has no such commands and only ever sets its referenced number
- * (run400 MemVar_49420C, written solely by numintext/numintext2 off the
- * wildcard expansion in mdlSpreadTheLoad.Proc_19_36_45F268) while expanding a
- * pattern that really contains %number%.
+ * the runner's scr_ref_number_guard (runner/scrunner.h) to keep Scarier's own
+ * meta commands ("wait 5", "hist 3") from writing the game's referenced
+ * number: they match a %number% pattern, but the real Runner has no such
+ * commands and only ever sets its referenced number (run400 MemVar_49420C,
+ * written solely by numintext/numintext2 off the wildcard expansion in
+ * mdlSpreadTheLoad.Proc_19_36_45F268) while expanding a pattern that really
+ * contains %number%.
  */
 scr_bool
 var_is_number_referenced (scr_var_setref_t vars)

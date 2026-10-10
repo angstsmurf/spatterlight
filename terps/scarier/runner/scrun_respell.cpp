@@ -22,7 +22,8 @@
  * Line re-spelling ahead of the standard library: the goto and battle
  * classifiers, verb hoisting and the 4.0 two-verb pass.
  *
- * Split out of scrunner.cpp; see scrunner.h for what the five files share.
+ * Split out of scrunner.cpp; see scrunner.h for what the runner files
+ * share.
  */
 
 #include <assert.h>

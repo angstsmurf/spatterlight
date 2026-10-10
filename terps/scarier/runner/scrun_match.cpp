@@ -21,7 +21,8 @@
 /*
  * Task command matching, restriction gating, task dispatch and refusal.
  *
- * Split out of scrunner.cpp; see scrunner.h for what the five files share.
+ * Split out of scrunner.cpp; see scrunner.h for what the runner files
+ * share.
  */
 
 #include <assert.h>
