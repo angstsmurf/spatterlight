@@ -650,7 +650,7 @@ run_element_begin (scr_gameref_t game, const scr_char *command,
    * a typed LINE began with is spent by its first element; one raised by an
    * earlier element of the same line is not, and the element that meets it
    * answers "That wasn't one of the options!".  See lib_co_400_raise() in
-   * sclibrar_disambig.cpp.
+   * sclibrar_disambig_400.cpp.
    */
   lib_co_400_begin_line (is_new_line);
   lib_antecedent_begin_line_400 (game, command);

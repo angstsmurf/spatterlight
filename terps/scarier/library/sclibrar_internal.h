@@ -22,12 +22,12 @@
 #define SCLIBRAR_INTERNAL_H
 
 /*
- * Internal header of the library's core: what the eleven core topic files
- * (sclibrar_disambig.cpp, _examine, _dispatch, _take, _takefrom, _drop,
- * _open, _put, _battle, _refuse and _verbobj) share among themselves.  They
- * were once fragments of a single translation unit, so much here is helper
- * detail rather than interface; the peripheral topic files use sclibrar.h
- * alone.
+ * Internal header of the library's core: what the eleven core topics
+ * (sclibrar_disambig.cpp and the two files split out of it, _examine,
+ * _dispatch, _take, _takefrom, _drop, _open, _put, _battle, _refuse and
+ * _verbobj) share among themselves.  They were once fragments of a single
+ * translation unit, so much here is helper detail rather than interface;
+ * the peripheral topic files use sclibrar.h alone.
  *
  * Module notes:
  *
@@ -40,7 +40,7 @@
 
 #include "sclibrar.h"
 
-/* sclibrar_disambig.cpp */
+/* sclibrar_disambig.cpp, _disambig_scan, _disambig_400 */
 extern scr_bool
 lib_print_npc_not_here_pre390 (scr_gameref_t game, scr_int npc);
 extern scr_bool lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,

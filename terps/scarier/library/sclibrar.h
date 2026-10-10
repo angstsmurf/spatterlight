@@ -179,7 +179,7 @@ extern void lib_describe_player_room (scr_gameref_t game,
 extern std::string lib_command_slot_370 (scr_prop_setref_t bundle,
                                          scr_int slot);
 
-/* sclibrar_disambig.cpp */
+/* sclibrar_disambig.cpp, _disambig_scan, _disambig_400 */
 extern scr_int lib_disambiguate_npc (scr_gameref_t game, const scr_char *verb,
                                      scr_bool *is_ambiguous);
 extern scr_int lib_last_named_npc (scr_gameref_t game);
