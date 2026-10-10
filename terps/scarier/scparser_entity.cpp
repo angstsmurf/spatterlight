@@ -99,32 +99,25 @@
  * variable functions go through the Runner's noun resolver, which is
  * prefix- and case-tolerant, so the flag is set only around
  * run_match_task_commands().
+ *
+ * uip.match.strict_is_character is set by uip_match_entity() for the
+ * duration of a call, because uip_compare_reference_strict() cannot
+ * otherwise tell an NPC from an object.
  */
-static scr_bool uip_strict_reference = FALSE;
-
-/* Cleared for 3.90, which lower-cases the name it substitutes. */
-static scr_bool uip_strict_case = FALSE;
-
-
-/*
- * Set by uip_match_entity() for the duration of a call, because
- * uip_compare_reference_strict() cannot otherwise tell an NPC from an
- * object.
- */
-static scr_bool uip_strict_is_character = FALSE;
 
 
 /*
  * uip_set_strict_reference()
  *
- * Set the strict %object%/%character% comparison, and whether it folds case,
- * around task command matching; see above.
+ * Set the strict %object%/%character% comparison, and whether it folds case
+ * (cleared for 3.90, which lower-cases the name it substitutes), around task
+ * command matching; see above.
  */
 void
 uip_set_strict_reference (scr_bool strict, scr_bool match_case)
 {
-  uip_strict_reference = strict;
-  uip_strict_case = match_case;
+  uip.options.strict_reference = strict;
+  uip.options.strict_case = match_case;
 }
 
 
@@ -137,12 +130,10 @@ uip_set_strict_reference (scr_bool strict, scr_bool match_case)
  * binds in place ("take off %object%") is never pre-empted by a shorter one
  * ("take %object%") reaching past "off" to the object.
  */
-static scr_bool uip_containment_enabled = FALSE;
-
 void
 uip_set_containment (scr_bool enabled)
 {
-  uip_containment_enabled = enabled;
+  uip.options.containment = enabled;
 }
 
 
@@ -157,16 +148,16 @@ uip_set_containment (scr_bool enabled)
  * (runner_probes/ask.run380.split.rtf), and 3.9 never cuts at a period with no
  * space after it, so `x stone.` and `x stone.look` do
  * (runner_probes/ask.run390.split.txt).  4.0 is untouched: it cuts a line's
- * final period off before the parser sees it (run_find_split_400).  Set per
- * match from the game's version in uip_match().
+ * final period off before the parser sees it (run_find_split_400).  Held in
+ * uip.match.word_end_punctuation, set per match from the game's version in
+ * uip_match_pattern().
  */
-const scr_char *uip_word_end_punctuation = "";
 
 static scr_bool
 uip_is_word_end (scr_char character)
 {
   return character == NUL || scr_isspace (character)
-         || strchr (uip_word_end_punctuation, character) != NULL;
+         || strchr (uip.match.word_end_punctuation, character) != NULL;
 }
 
 
@@ -188,17 +179,18 @@ uip_compare_reference_strict (const scr_char *name)
 {
   scr_int wpos, posn;
 
-  posn = uip_posn;
+  posn = uip.match.posn;
   for (wpos = 0; name[wpos] != NUL; wpos++, posn++)
     {
-      const scr_char wanted = uip_strict_case && !uip_strict_is_character
+      const scr_char wanted = uip.options.strict_case
+                              && !uip.match.strict_is_character
                               ? name[wpos] : scr_tolower (name[wpos]);
 
-      if (wanted != scr_tolower (uip_string[posn]))
+      if (wanted != scr_tolower (uip.match.string[posn]))
         return 0;
     }
 
-  if (uip_is_word_end (uip_string[posn]))
+  if (uip_is_word_end (uip.match.string[posn]))
     return posn;
   return 0;
 }
@@ -210,7 +202,7 @@ uip_compare_reference_strict (const scr_char *name)
  * Helper for %character% and %object% matchers.  Matches multiple words
  * if necessary, at the current position.  Returns zero if the string
  * didn't match, otherwise the length of the current position that matched
- * the words passed in (the new value of uip_posn on match).
+ * the words passed in (the new value of uip.match.posn on match).
  */
 static scr_int
 uip_compare_reference (const scr_char *words)
@@ -219,7 +211,7 @@ uip_compare_reference (const scr_char *words)
 
   /* Skip articles and lead in space on words and string. */
   wpos = uip_skip_article (words, 0);
-  posn = uip_skip_article (uip_string, uip_posn);
+  posn = uip_skip_article (uip.match.string, uip.match.posn);
 
   /*
    * A name with nothing after its article matches nothing.  At the end of
@@ -233,7 +225,7 @@ uip_compare_reference (const scr_char *words)
   while (TRUE)
     {
       /* Any character mismatch means no words match. */
-      if (scr_tolower (words[wpos]) != scr_tolower (uip_string[posn]))
+      if (scr_tolower (words[wpos]) != scr_tolower (uip.match.string[posn]))
         return 0;
 
       /* Move to next character in each. */
@@ -270,9 +262,11 @@ uip_compare_reference (const scr_char *words)
        * T8 `x mailbox` is "You see no such thing." (run400x,
        * runner_transcripts/chasingrussian.txt).
        */
-      if (scr_isspace (words[wpos - 1]) && !scr_isspace (uip_string[posn]))
+      if (scr_isspace (words[wpos - 1])
+          && !scr_isspace (uip.match.string[posn]))
         return 0;
-      while (scr_isspace (uip_string[posn]) && uip_string[posn] != NUL)
+      while (scr_isspace (uip.match.string[posn])
+             && uip.match.string[posn] != NUL)
         posn++;
     }
 
@@ -280,7 +274,7 @@ uip_compare_reference (const scr_char *words)
    * We reached the end of words.  If we're at the end of the match string, or
    * at spaces, we've matched.
    */
-  if (uip_is_word_end (uip_string[posn]))
+  if (uip_is_word_end (uip.match.string[posn]))
     return posn;
 
   /* More text after the match, so it's not quite a match. */
@@ -306,26 +300,11 @@ uip_compare_reference (const scr_char *words)
  * own lead character equals one of these, so the matchers use that as an
  * exact one-character rejection test before comparing in full.
  *
- * The cache tracks a single game (SCARE runs one at a time); gs_destroy()
- * calls uip_forget_game() so a later game reusing the same allocation
- * address cannot be mistaken for a cached one.
+ * The cache (uip.cache; the candidate types are scr_uip_candidate_t and
+ * scr_uip_entity_t in scparser_internal.h) tracks a single game (SCARE runs
+ * one at a time); gs_destroy() calls uip_forget_game() so a later game
+ * reusing the same allocation address cannot be mistaken for a cached one.
  */
-typedef struct
-{
-  std::vector<std::string> forms;  /* every string this candidate answers to */
-  const scr_char *plain;   /* interned name string from the bundle */
-  std::string leads;       /* uip_lead_char() of each form, in form order */
-} scr_uip_candidate_t;
-
-typedef struct
-{
-  scr_uip_candidate_t name;
-  std::vector<scr_uip_candidate_t> aliases;  /* empty aliases excluded */
-} scr_uip_entity_t;
-
-static const void *uip_cache_game = NULL;
-static std::vector<scr_uip_entity_t> uip_cache_objects;
-static std::vector<scr_uip_entity_t> uip_cache_npcs;
 
 
 /*
@@ -495,14 +474,14 @@ uip_build_entities (std::vector<scr_uip_entity_t> &entities,
 static void
 uip_synchronize_cache (scr_gameref_t game)
 {
-  if (uip_cache_game == game)
+  if (uip.cache.game == game)
     return;
 
-  uip_build_entities (uip_cache_objects,
+  uip_build_entities (uip.cache.objects,
                       game, gs_object_count (game), "Objects", "Short");
-  uip_build_entities (uip_cache_npcs,
+  uip_build_entities (uip.cache.npcs,
                       game, gs_npc_count (game), "NPCs", "Name");
-  uip_cache_game = game;
+  uip.cache.game = game;
 }
 
 
@@ -515,11 +494,11 @@ uip_synchronize_cache (scr_gameref_t game)
 void
 uip_forget_game (const void *game)
 {
-  if (uip_cache_game == game)
+  if (uip.cache.game == game)
     {
-      uip_cache_game = NULL;
-      uip_cache_objects.clear ();
-      uip_cache_npcs.clear ();
+      uip.cache.game = NULL;
+      uip.cache.objects.clear ();
+      uip.cache.npcs.clear ();
     }
 }
 
@@ -551,7 +530,7 @@ uip_compare_candidate (const scr_uip_candidate_t &candidate)
    * (runner_probes/chref.run400.b.txt, runner_probes/chref.run390.b.txt,
    * 2026-09-20).
    */
-  if (uip_strict_reference)
+  if (uip.options.strict_reference)
     return uip_compare_reference_strict (candidate.plain);
 
   for (form = 0; form < candidate.forms.size (); form++)
@@ -607,13 +586,13 @@ uip_contains_words (const scr_char *words)
   if (length == 0)
     return FALSE;
 
-  for (posn = uip_posn; uip_string[posn] != NUL; posn++)
+  for (posn = uip.match.posn; uip.match.string[posn] != NUL; posn++)
     {
-      if (posn > 0 && !scr_isspace (uip_string[posn - 1]))
+      if (posn > 0 && !scr_isspace (uip.match.string[posn - 1]))
         continue;
-      if (scr_strncasecmp (uip_string + posn, words, length) != 0)
+      if (scr_strncasecmp (uip.match.string + posn, words, length) != 0)
         continue;
-      if (uip_is_word_end (uip_string[posn + length]))
+      if (uip_is_word_end (uip.match.string[posn + length]))
         return TRUE;
     }
 
@@ -651,8 +630,8 @@ uip_match_remainder (scr_ptnoderef_t node, scr_int extent)
     return TRUE;
 
   /* Note the start position, then advance to the given extent. */
-  start_posn = uip_posn;
-  uip_posn = extent;
+  start_posn = uip.match.posn;
+  uip.match.posn = extent;
 
   /*
    * Try to match everything after the node passed in, at this position in the
@@ -666,7 +645,7 @@ uip_match_remainder (scr_ptnoderef_t node, scr_int extent)
 
   /* Free the temporary list node, and restore position. */
   uip_destroy_node (list);
-  uip_posn = start_posn;
+  uip.match.posn = start_posn;
 
   /* Return TRUE if the pattern remainder matched. */
   return matched;
@@ -728,9 +707,9 @@ static scr_bool
 uip_case_folds_name (const scr_char *name)
 {
   /* Deliberate deviation: see uip_set_lenient_tasks(). */
-  if (uip_lenient_tasks)
+  if (uip.options.lenient_tasks)
     return TRUE;
-  return uip_case_folds_name_in (uip_string, name);
+  return uip_case_folds_name_in (uip.match.string, name);
 }
 
 
@@ -756,7 +735,7 @@ uip_entity_admitted (scr_gameref_t game, scr_bool is_character, scr_int index,
    * %object%` and the library answers "Take what?"
    * (runner_probes/glum_fiddle.run400.seen.txt T16).
    */
-  if (uip_strict_reference && !is_character
+  if (uip.options.strict_reference && !is_character
       && !gs_object_seen (game, index))
     return FALSE;
 
@@ -793,7 +772,7 @@ uip_entity_admitted (scr_gameref_t game, scr_bool is_character, scr_int index,
    * nowhere at all: p39CHREF `frob fay`, Fay having been given no start
    * room, runs the task (runner_probes/chref.run390.b.txt).
    */
-  if (uip_strict_reference && is_character && version >= TAF_VERSION_400
+  if (uip.options.strict_reference && is_character && version >= TAF_VERSION_400
       && !gs_npc_seen (game, index))
     return FALSE;
 
@@ -837,7 +816,7 @@ uip_record_entity_match (scr_gameref_t game, scr_var_setref_t vars,
    * Lit Room, rocks 0 "a big" and 2 "a red" both present and
    * seen, is "NURBED a big rock." (runner_probes/objref.run400.txt).
    */
-  if (!(uip_strict_reference && strict_first_bound))
+  if (!(uip.options.strict_reference && strict_first_bound))
     {
       if (is_character)
         var_set_ref_character (vars, index);
@@ -855,9 +834,9 @@ uip_record_entity_match (scr_gameref_t game, scr_var_setref_t vars,
  * uip_candidate_extent()
  *
  * Match one name or alias of a %character% or %object% candidate (alias -1
- * for the name itself) against the input: in place at uip_posn on pass 0, by
- * whole-word containment anywhere in the line on pass 1, when a match takes
- * the rest of the input (input_end).  input_lead is the input's lead
+ * for the name itself) against the input: in place at uip.match.posn on pass
+ * 0, by whole-word containment anywhere in the line on pass 1, when a match
+ * takes the rest of the input (input_end).  input_lead is the input's lead
  * character, which a positional match's leads must include.  Returns the
  * match's extent, or 0 for no match.
  */
@@ -877,18 +856,18 @@ uip_candidate_extent (const scr_uip_candidate_t &candidate, scr_int alias,
    * she is met, "Eve is not here!" after -- where run400 runs the task
    * (2026-09-20).
    */
-  if (uip_strict_reference && is_character && alias >= 0
+  if (uip.options.strict_reference && is_character && alias >= 0
       && prop_get_taf_version (gs_get_bundle (uip_get_game ()))
          < TAF_VERSION_400)
     return 0;
 
-  if (uip_trace)
+  if (uip.trace)
     scr_trace ("UIParser: trying %s%s\n",
                alias < 0 ? "" : "alias ", candidate.plain);
 
   if (pass == 0)
     {
-      if (!uip_strict_reference
+      if (!uip.options.strict_reference
           && candidate.leads.find (input_lead) == std::string::npos)
         return 0;
 
@@ -902,7 +881,7 @@ uip_candidate_extent (const scr_uip_candidate_t &candidate, scr_int alias,
    * well -- see uip_case_folds_name().  Task commands go through a different
    * Runner routine and are exempt.
    */
-  if (extent > 0 && is_character && !uip_strict_reference
+  if (extent > 0 && is_character && !uip.options.strict_reference
       && !uip_case_folds_name (candidate.plain))
     extent = 0;
 
@@ -972,11 +951,11 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
   scr_int entity_count, index, max_extent;
   scr_char input_lead;
 
-  if (uip_trace)
+  if (uip.trace)
     scr_trace ("UIParser: attempting to match %s\n",
                is_character ? "%character%" : "%object%");
 
-  uip_strict_is_character = is_character;
+  uip.match.strict_is_character = is_character;
 
   /* Clear all current references. */
   if (is_character)
@@ -999,7 +978,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * single substitution chosen by the line rather than by the pattern's
    * position; see run_pre400_substitute_references().
    */
-  if (is_character && uip_task_commands && version < TAF_VERSION_390)
+  if (is_character && uip.options.task_commands && version < TAF_VERSION_390)
     return FALSE;
 
   /*
@@ -1007,12 +986,13 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * character -- a candidate whose own leads differ cannot match.
    */
   uip_synchronize_cache (game);
-  input_lead = scr_tolower (uip_string[uip_skip_article (uip_string,
-                                                         uip_posn)]);
+  input_lead
+    = scr_tolower (uip.match.string[uip_skip_article (uip.match.string,
+                                                      uip.match.posn)]);
 
   const std::vector<scr_uip_entity_t> &cache = is_character
-                                               ? uip_cache_npcs
-                                               : uip_cache_objects;
+                                               ? uip.cache.npcs
+                                               : uip.cache.objects;
   std::vector<scr_bool> &references = is_character
                                       ? game->npc_references
                                       : game->object_references;
@@ -1069,10 +1049,10 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * Mutaydid), run400 answers with the object arm, "You can't see the
    * mystery meat." (runner_transcripts/mutaydid.txt).
    */
-  const scr_bool contain = uip_containment_enabled
-                           && !uip_strict_reference
+  const scr_bool contain = uip.options.containment
+                           && !uip.options.strict_reference
                            && uip_nothing_follows (node);
-  const scr_int input_end = strlen (uip_string);
+  const scr_int input_end = strlen (uip.match.string);
 
   /*
    * Pass 0 is the positional match.  Pass 1 is the containment fallback,
@@ -1113,7 +1093,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * a red rock." (runner_probes/objref.run390.txt) -- and pre-3.9 the
    * substitution is the line's own, see run_pre400_substitute_references().
    */
-  const scr_bool strict_scoped = uip_strict_reference && !is_character
+  const scr_bool strict_scoped = uip.options.strict_reference && !is_character
                                  && version >= TAF_VERSION_400;
 
   entity_count = cache.size ();
@@ -1152,7 +1132,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
 
                   if (extent > 0 && uip_match_remainder (node, extent))
                     {
-                      if (uip_trace)
+                      if (uip.trace)
                         scr_trace ("UIParser: matched (pass %ld, extent %ld)\n",
                                    (long) pass, (long) extent);
 
@@ -1211,14 +1191,14 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
         }
     }
 
-  if (max_extent > 0 && !uip_strict_reference)
+  if (max_extent > 0 && !uip.options.strict_reference)
     uip_drop_shorter_matches (vars, is_character, references, matched_extent,
                               max_extent);
 
   /* On match, advance position and return successfully. */
   if (max_extent > 0)
     {
-      uip_posn = max_extent;
+      uip.match.posn = max_extent;
       return TRUE;
     }
 

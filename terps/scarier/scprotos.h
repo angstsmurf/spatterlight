@@ -698,6 +698,7 @@ extern void uip_renote_named_npcs (scr_gameref_t game,
 extern scr_bool uip_line_names_npc (scr_gameref_t game,
                                     const scr_char *string);
 extern void uip_forget_game (const void *game);
+extern void uip_state_reset (void);
 extern void uip_debug_trace (scr_bool flag);
 extern void task_forget_game (const void *game);
 extern void ser_forget_game (const void *game);

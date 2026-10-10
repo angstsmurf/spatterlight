@@ -27,18 +27,6 @@
 #include "scparser_internal.h"
 
 
-/* Enumeration of tokens.  TOK_NONE represents a non-occurring token. */
-typedef enum
-{
-  TOK_NONE = 0,
-  TOK_CHOICE, TOK_CHOICE_END, TOK_OPTIONAL, TOK_OPTIONAL_END,
-  TOK_ALTERNATES_SEPARATOR,
-  TOK_WILDCARD, TOK_WHITESPACE, TOK_WORD, TOK_VARIABLE,
-  TOK_CHARACTER_REFERENCE, TOK_OBJECT_REFERENCE, TOK_NUMBER_REFERENCE,
-  TOK_TEXT_REFERENCE, TOK_EOS
-} scr_uip_tok_t;
-
-
 /*
  * Small table tying token strings to tokens.  Anything not whitespace and
  * not caught by the table is a plain TOK_WORD.
@@ -64,15 +52,10 @@ static const scr_uip_token_entry_t UIP_TOKENS[] = {
 
 
 /*
- * Tokenizer variables.  The temporary is used for keeping word token values.
- * For improved performance, we'll set it to indicate a static buffer if
- * short enough, otherwise it's allocated.
+ * The tokenizer's state is uip.tokenizer.  The temporary is used for keeping
+ * word token values.  For improved performance, we'll set it to indicate a
+ * static buffer if short enough, otherwise it's allocated.
  */
-static const scr_char *uip_pattern = NULL;
-static scr_int uip_index = 0;
-static const scr_char *uip_token_value;
-static scr_char uip_static_temporary[UIP_ALLOCATION_AVOIDANCE_SIZE];
-static scr_char *uip_temporary = NULL;
 
 
 /*
@@ -107,30 +90,27 @@ uip_tokenize_start (const scr_char *pattern)
     }
 
   /* Save pattern, and restart index. */
-  uip_pattern = pattern;
-  uip_index = 0;
+  uip.tokenizer.pattern = pattern;
+  uip.tokenizer.index = 0;
 
   /* Set up temporary; static if the pattern is short enough, else allocated. */
   required = strlen (pattern) + 1;
-  uip_temporary = (required > UIP_ALLOCATION_AVOIDANCE_SIZE)
-                  ? (decltype(+uip_static_temporary)) scr_malloc (required)
-                  : uip_static_temporary;
+  uip.tokenizer.temporary
+    = (required > UIP_ALLOCATION_AVOIDANCE_SIZE)
+      ? (decltype(+uip.tokenizer.static_temporary)) scr_malloc (required)
+      : uip.tokenizer.static_temporary;
 }
 
 static void
 uip_tokenize_end (void)
 {
   /* Deallocate temporary if required, and clear pattern and index. */
-  if (uip_temporary != uip_static_temporary)
-    scr_free (uip_temporary);
-  uip_temporary = NULL;
-  uip_pattern = NULL;
-  uip_index = 0;
+  if (uip.tokenizer.temporary != uip.tokenizer.static_temporary)
+    scr_free (uip.tokenizer.temporary);
+  uip.tokenizer.temporary = NULL;
+  uip.tokenizer.pattern = NULL;
+  uip.tokenizer.index = 0;
 }
-
-
-static scr_bool uip_token_multi_space = FALSE;
-static scr_bool uip_token_after_group = FALSE;
 
 
 /*
@@ -143,29 +123,31 @@ uip_next_token (void)
 {
   const scr_uip_token_entry_t *entry;
   scr_char close;
-  assert (uip_pattern);
+  auto &tok = uip.tokenizer;
+  assert (tok.pattern);
 
   /* Get next character, return EOS if at pattern end. */
-  if (uip_pattern[uip_index] == NUL)
+  if (tok.pattern[tok.index] == NUL)
     {
-      uip_token_value = NULL;
+      tok.token_value = NULL;
       return TOK_EOS;
     }
 
   /*
    * If whitespace, skip it, then return a whitespace token.  A run of two
-   * or more is remembered in uip_token_multi_space; see uip_parse_element().
+   * or more is remembered in uip.tokenizer.multi_space; see
+   * uip_parse_element().
    */
-  if (scr_isspace (uip_pattern[uip_index]))
+  if (scr_isspace (tok.pattern[tok.index]))
     {
-      scr_char before = uip_index > 0 ? uip_pattern[uip_index - 1] : NUL;
+      scr_char before = tok.index > 0 ? tok.pattern[tok.index - 1] : NUL;
 
-      uip_index++;
-      uip_token_multi_space = scr_isspace (uip_pattern[uip_index])
-                              && uip_pattern[uip_index] != NUL;
-      while (scr_isspace (uip_pattern[uip_index])
-             && uip_pattern[uip_index] != NUL)
-        uip_index++;
+      tok.index++;
+      tok.multi_space = scr_isspace (tok.pattern[tok.index])
+                        && tok.pattern[tok.index] != NUL;
+      while (scr_isspace (tok.pattern[tok.index])
+             && tok.pattern[tok.index] != NUL)
+        tok.index++;
 
       /*
        * A run right after a [..] or {..} group is not simply literal.
@@ -191,29 +173,29 @@ uip_next_token (void)
        * plain double -- read from the P-code, no golden reaches that cell.
        * A trailing run is dropped by the top-level Trim() and stays lenient.
        */
-      uip_token_after_group = FALSE;
+      tok.after_group = FALSE;
       if (before == '}' || before == ']')
         {
-          if (uip_pattern[uip_index] == NUL)
-            uip_token_multi_space = FALSE;
+          if (tok.pattern[tok.index] == NUL)
+            tok.multi_space = FALSE;
           else
-            uip_token_after_group = uip_token_multi_space;
+            tok.after_group = tok.multi_space;
         }
-      uip_token_value = NULL;
+      tok.token_value = NULL;
       return TOK_WHITESPACE;
     }
 
   /* Search the table for matching strings. */
   for (entry = UIP_TOKENS; entry->name; entry++)
     {
-      if (strncmp (uip_pattern + uip_index, entry->name, entry->length) == 0)
+      if (strncmp (tok.pattern + tok.index, entry->name, entry->length) == 0)
         break;
     }
   if (entry->name)
     {
       /* Advance over string, and return token. */
-      uip_index += entry->length;
-      uip_token_value = NULL;
+      tok.index += entry->length;
+      tok.token_value = NULL;
       return entry->token;
     }
 
@@ -225,11 +207,11 @@ uip_next_token (void)
    * here or earlier, so we have to save the variable's name, and retrieve
    * it when we come to try the match.
    */
-  if (sscanf (uip_pattern + uip_index, "%%%[^%]%c", uip_temporary, &close) == 2
+  if (sscanf (tok.pattern + tok.index, "%%%[^%]%c", tok.temporary, &close) == 2
       && close == PERCENT)
     {
-      uip_index += strlen (uip_temporary) + 2;
-      uip_token_value = uip_temporary;
+      tok.index += strlen (tok.temporary) + 2;
+      tok.token_value = tok.temporary;
       return TOK_VARIABLE;
     }
 
@@ -237,19 +219,19 @@ uip_next_token (void)
    * Return a word.  This is a contiguous run of non-pattern-special, non-
    * whitespace, non-percent characters
    */
-  if (sscanf (uip_pattern + uip_index, "%[^][/{}*% \f\n\r\t\v]",
-              uip_temporary) != 1)
+  if (sscanf (tok.pattern + tok.index, "%[^][/{}*% \f\n\r\t\v]",
+              tok.temporary) != 1)
     {
       /*
        * A '%' that opens no %var% (a trailing "50%", an unclosed "%foo").
        * The scan above matched nothing and left the previous token in the
        * buffer, so take the '%' as a one-character word instead.
        */
-      uip_temporary[0] = uip_pattern[uip_index];
-      uip_temporary[1] = NUL;
+      tok.temporary[0] = tok.pattern[tok.index];
+      tok.temporary[1] = NUL;
     }
-  uip_token_value = uip_temporary;
-  uip_index += strlen (uip_temporary);
+  tok.token_value = tok.temporary;
+  tok.index += strlen (tok.temporary);
   return TOK_WORD;
 }
 
@@ -264,31 +246,25 @@ static const scr_char *
 uip_current_token_value (void)
 {
   /* If the token value is NULL, the current token isn't a word. */
-  if (!uip_token_value)
+  if (!uip.tokenizer.token_value)
     {
       scr_fatal ("uip_current_token_value:"
                 " attempt to take undefined token value\n");
     }
 
   /* Return value. */
-  return uip_token_value;
+  return uip.tokenizer.token_value;
 }
 
 
-/* Predictive parser lookahead token. */
-static scr_uip_tok_t uip_parse_lookahead = TOK_NONE;
-
-/* Parse error jump buffer. */
-static jmp_buf uip_parse_error;
-
-
 /*
- * Nesting depth of [...] and {...} groups currently being parsed.  A "/" is
- * an alternatives separator only inside a group; at depth zero run400 has no
- * notion of it at all and treats it as an ordinary literal character (see
- * uip_parse_list()).
+ * The tree builder's state is uip.parse: the predictive parser's lookahead
+ * token, the parse error jump buffer, the tree under construction (for
+ * cleanup), and the nesting depth of [...] and {...} groups currently being
+ * parsed.  A "/" is an alternatives separator only inside a group; at depth
+ * zero run400 has no notion of it at all and treats it as an ordinary
+ * literal character (see uip_parse_list()).
  */
-static scr_int uip_parse_group_depth = 0;
 
 
 /*
@@ -299,38 +275,8 @@ static scr_int uip_parse_group_depth = 0;
  */
 enum { UIP_MAX_GROUP_DEPTH = 64 };
 
-/* Parse tree for cleanup, and forward declaration of pattern list parser. */
-static scr_ptnoderef_t uip_parse_tree = (scr_ptnoderef_t) NULL;
+/* Forward declaration of pattern list parser. */
 static void uip_parse_list (scr_ptnoderef_t list);
-
-
-/*
- * Pool of statically allocated nodes, for faster allocations.  Nodes are
- * first allocated from here, then by straight malloc() if this pool is empty.
- * An average game's peak node allocation seems to be around 40-50 nodes, so
- * allowing 128 here should be plenty.
- */
-enum { UIP_NODE_POOL_SIZE = 128 };
-static scr_ptnode_t uip_node_pool[UIP_NODE_POOL_SIZE];
-static scr_int uip_node_pool_cursor = 0;
-static scr_int uip_node_pool_available = UIP_NODE_POOL_SIZE;
-
-
-/*
- * Words held at nodes are usually short (15 chars covers 95% of English), so
- * to avoid a lot of small allocations we use a pool of short strings, used
- * first, then by straight malloc() should the pool empty.
- */
-enum { UIP_WORD_POOL_SIZE = 64, UIP_SHORT_WORD_SIZE = 16 };
-typedef struct
-{
-  scr_bool is_in_use;
-  scr_char word[UIP_SHORT_WORD_SIZE];
-} scr_ptshortword_t;
-typedef scr_ptshortword_t *scr_ptshortwordref_t;
-static scr_ptshortword_t uip_word_pool[UIP_WORD_POOL_SIZE];
-static scr_int uip_word_pool_cursor = 0;
-static scr_int uip_word_pool_available = UIP_WORD_POOL_SIZE;
 
 
 /*
@@ -341,14 +287,14 @@ static scr_int uip_word_pool_available = UIP_WORD_POOL_SIZE;
 static void
 uip_parse_match (scr_uip_tok_t token)
 {
-  if (uip_parse_lookahead == token)
-    uip_parse_lookahead = uip_next_token ();
+  if (uip.parse.lookahead == token)
+    uip.parse.lookahead = uip_next_token ();
   else
     {
       /* Syntax error. */
       scr_error ("uip_parse_match: syntax error, expected %ld, got %ld\n",
-                (scr_int) token, (scr_int) uip_parse_lookahead);
-      scr_longjmp (uip_parse_error, 1);
+                (scr_int) token, (scr_int) uip.parse.lookahead);
+      scr_longjmp (uip.parse.error, 1);
     }
 }
 
@@ -370,29 +316,29 @@ uip_new_word (const scr_char *word)
    * until an unused slot is found, or until the index wraps to the cursor.
    */
   required = strlen (word) + 1;
-  if (uip_word_pool_available > 0 && required <= UIP_SHORT_WORD_SIZE)
+  if (uip.pools.word_available > 0 && required <= UIP_SHORT_WORD_SIZE)
     {
       scr_int index_;
       scr_ptshortwordref_t shortword;
 
-      index_ = (uip_word_pool_cursor + 1) % UIP_WORD_POOL_SIZE;
-      while (index_ != uip_word_pool_cursor)
+      index_ = (uip.pools.word_cursor + 1) % UIP_WORD_POOL_SIZE;
+      while (index_ != uip.pools.word_cursor)
         {
-          if (!uip_word_pool[index_].is_in_use)
+          if (!uip.pools.words[index_].is_in_use)
             break;
           index_ = (index_ + 1) % UIP_WORD_POOL_SIZE;
         }
 
-      if (uip_word_pool[index_].is_in_use)
+      if (uip.pools.words[index_].is_in_use)
         scr_fatal ("uip_new_word: no free slot found in the words pool\n");
 
       /* Use the slot and update the pool cursor and free count. */
-      shortword = uip_word_pool + index_;
+      shortword = uip.pools.words + index_;
       strncpy (shortword->word, word, UIP_SHORT_WORD_SIZE);
       shortword->is_in_use = TRUE;
 
-      uip_word_pool_cursor = index_;
-      uip_word_pool_available--;
+      uip.pools.word_cursor = index_;
+      uip.pools.word_available--;
 
       /* Return the address of the copied string. */
       return shortword->word;
@@ -421,8 +367,8 @@ uip_free_word (scr_char *word)
   const scr_char *first_in_pool, *last_in_pool;
 
   /* Obtain the range of valid addresses for words from the word pool. */
-  first_in_pool = uip_word_pool[0].word;
-  last_in_pool = uip_word_pool[UIP_WORD_POOL_SIZE - 1].word;
+  first_in_pool = uip.pools.words[0].word;
+  last_in_pool = uip.pools.words[UIP_WORD_POOL_SIZE - 1].word;
 
   /* If from the pool, mark the entry as no longer in use, otherwise free. */
   if (word >= first_in_pool && word <= last_in_pool)
@@ -434,12 +380,12 @@ uip_free_word (scr_char *word)
        * Calculate the index to the word pool entry from which this short
        * word was allocated.
        */
-      index_ = (word - first_in_pool) / sizeof (uip_word_pool[0]);
-      shortword = uip_word_pool + index_;
+      index_ = (word - first_in_pool) / sizeof (uip.pools.words[0]);
+      shortword = uip.pools.words + index_;
       assert (shortword->word == word);
 
       shortword->is_in_use = FALSE;
-      uip_word_pool_available++;
+      uip.pools.word_available++;
     }
   else
     scr_free (word);
@@ -462,27 +408,27 @@ uip_new_node (scr_pttype_t type)
    * Unless the pool is empty, search forwards from the next cursor position
    * until an unused slot is found, or until the index wraps to the cursor.
    */
-  if (uip_node_pool_available > 0)
+  if (uip.pools.node_available > 0)
     {
       scr_int index_;
 
-      index_ = (uip_node_pool_cursor + 1) % UIP_NODE_POOL_SIZE;
-      while (index_ != uip_node_pool_cursor)
+      index_ = (uip.pools.node_cursor + 1) % UIP_NODE_POOL_SIZE;
+      while (index_ != uip.pools.node_cursor)
         {
-          if (uip_node_pool[index_].type == NODE_UNUSED)
+          if (uip.pools.nodes[index_].type == NODE_UNUSED)
             break;
           index_ = (index_ + 1) % UIP_NODE_POOL_SIZE;
         }
 
-      if (uip_node_pool[index_].type != NODE_UNUSED)
+      if (uip.pools.nodes[index_].type != NODE_UNUSED)
         scr_fatal ("uip_new_node: no free slot found in the nodes pool\n");
 
       /* Use the slot and update the pool cursor and free count. */
-      node = uip_node_pool + index_;
+      node = uip.pools.nodes + index_;
       node->is_allocated = FALSE;
 
-      uip_node_pool_cursor = index_;
-      uip_node_pool_available--;
+      uip.pools.node_cursor = index_;
+      uip.pools.node_available--;
     }
   else
     {
@@ -527,7 +473,7 @@ uip_destroy_node (scr_ptnoderef_t node)
   else
     {
       node->type = NODE_UNUSED;
-      uip_node_pool_available++;
+      uip.pools.node_available++;
     }
 }
 
@@ -558,7 +504,7 @@ uip_parse_alternatives (scr_ptnoderef_t node)
   /* Parse initial alternative, then add other listed alternatives. */
   node->left_child = uip_parse_new_list ();
   child = node->left_child;
-  while (uip_parse_lookahead == TOK_ALTERNATES_SEPARATOR)
+  while (uip.parse.lookahead == TOK_ALTERNATES_SEPARATOR)
     {
       uip_parse_match (TOK_ALTERNATES_SEPARATOR);
       child->right_sibling = uip_parse_new_list ();
@@ -576,12 +522,12 @@ uip_parse_alternatives (scr_ptnoderef_t node)
 static void
 uip_parse_enter_group (void)
 {
-  if (uip_parse_group_depth >= UIP_MAX_GROUP_DEPTH)
+  if (uip.parse.group_depth >= UIP_MAX_GROUP_DEPTH)
     {
       scr_error ("uip_parse_enter_group: groups nested too deeply\n");
-      scr_longjmp (uip_parse_error, 1);
+      scr_longjmp (uip.parse.error, 1);
     }
-  uip_parse_group_depth++;
+  uip.parse.group_depth++;
 }
 
 
@@ -597,7 +543,7 @@ uip_parse_element (void)
   scr_uip_tok_t token;
 
   /* Handle pattern element based on lookahead token. */
-  switch (uip_parse_lookahead)
+  switch (uip.parse.lookahead)
     {
     case TOK_WHITESPACE:
       {
@@ -617,8 +563,8 @@ uip_parse_element (void)
          * the whole rest of the transcript out of step.  The multi-space flag
          * belongs to the lookahead token, so read it before advancing.
          */
-        scr_bool is_double = uip_token_multi_space;
-        scr_bool after_group = uip_token_after_group;
+        scr_bool is_double = uip.tokenizer.multi_space;
+        scr_bool after_group = uip.tokenizer.after_group;
 
         uip_parse_match (TOK_WHITESPACE);
         node = uip_new_node (!is_double ? NODE_WHITESPACE
@@ -633,7 +579,7 @@ uip_parse_element (void)
       node = uip_new_node (NODE_CHOICE);
       uip_parse_enter_group ();
       uip_parse_alternatives (node);
-      uip_parse_group_depth--;
+      uip.parse.group_depth--;
       uip_parse_match (TOK_CHOICE_END);
       break;
 
@@ -643,7 +589,7 @@ uip_parse_element (void)
       node = uip_new_node (NODE_OPTIONAL);
       uip_parse_enter_group ();
       uip_parse_alternatives (node);
-      uip_parse_group_depth--;
+      uip.parse.group_depth--;
       uip_parse_match (TOK_OPTIONAL_END);
       break;
 
@@ -669,7 +615,7 @@ uip_parse_element (void)
     case TOK_NUMBER_REFERENCE:
     case TOK_TEXT_REFERENCE:
       /* Parse %mumble% references and * wildcards. */
-      token = uip_parse_lookahead;
+      token = uip.parse.lookahead;
       uip_parse_match (token);
       switch (token)
         {
@@ -729,8 +675,8 @@ uip_parse_element (void)
     default:
       /* Syntax error. */
       scr_error ("uip_parse_element: syntax error,"
-                " unexpected token, %ld\n", (scr_int) uip_parse_lookahead);
-      scr_longjmp (uip_parse_error, 1);
+                " unexpected token, %ld\n", (scr_int) uip.parse.lookahead);
+      scr_longjmp (uip.parse.error, 1);
     }
 
   /* Return the newly created node. */
@@ -754,7 +700,7 @@ uip_parse_list (scr_ptnoderef_t list)
   child = list;
   while (TRUE)
     {
-      switch (uip_parse_lookahead)
+      switch (uip.parse.lookahead)
         {
         case TOK_CHOICE_END:
         case TOK_OPTIONAL_END:
@@ -800,7 +746,7 @@ uip_parse_list (scr_ptnoderef_t list)
            * move out of the Cabaret, where run400 walks north, T39 of
            * runner_transcripts/hotelconfuego.txt.)
            */
-          if (uip_parse_group_depth > 0)
+          if (uip.parse.group_depth > 0)
             return;
           /* FALLTHROUGH */
 
@@ -971,12 +917,12 @@ uip_debug_dump (scr_ptnoderef_t tree)
   scr_trace ("UIParser: debug dump follows...\n");
   if (tree)
     {
-      scr_trace ("uip_parse_tree = {\n");
+      scr_trace ("uip.parse.tree = {\n");
       uip_debug_dump_node (tree, 0);
       scr_trace ("}\n");
     }
   else
-    scr_trace ("uip_parse_tree = (nil)\n");
+    scr_trace ("uip.parse.tree = (nil)\n");
 }
 
 
@@ -1003,26 +949,26 @@ uip_compile_pattern (const scr_char *pattern)
 
   /* Start tokenizer. */
   cleansed = uip_cleanse_string (pattern, buffer, sizeof (buffer), FALSE);
-  if (uip_trace)
+  if (uip.trace)
     scr_trace ("UIParser: pattern \"%s\"\n", cleansed);
   uip_tokenize_start (cleansed);
 
   /* Try parsing the pattern, and catch errors. */
-  if (scr_setjmp (uip_parse_error) == 0)
+  if (scr_setjmp (uip.parse.error) == 0)
     {
       /* Parse the pattern into a match tree. */
-      uip_parse_lookahead = uip_next_token ();
-      uip_parse_group_depth = 0;
-      uip_parse_tree = uip_new_node (NODE_LIST);
-      uip_parse_list (uip_parse_tree);
+      uip.parse.lookahead = uip_next_token ();
+      uip.parse.group_depth = 0;
+      uip.parse.tree = uip_new_node (NODE_LIST);
+      uip_parse_list (uip.parse.tree);
       uip_tokenize_end ();
     }
   else
     {
       /* Parse error -- clean up and fail. */
       uip_tokenize_end ();
-      uip_destroy_tree (uip_parse_tree);
-      uip_parse_tree = NULL;
+      uip_destroy_tree (uip.parse.tree);
+      uip.parse.tree = NULL;
     }
   uip_free_cleansed_string (cleansed, buffer);
 
@@ -1030,8 +976,8 @@ uip_compile_pattern (const scr_char *pattern)
    * Detach the tree from the parser statics, so a re-entrant parse cannot
    * touch it.
    */
-  compiled->tree = uip_parse_tree;
-  uip_parse_tree = NULL;
+  compiled->tree = uip.parse.tree;
+  uip.parse.tree = NULL;
   return compiled;
 }
 

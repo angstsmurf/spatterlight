@@ -1344,6 +1344,7 @@ run_create (scr_read_callbackref_t callback, void *opaque)
   else if (if_get_trace_flag (SCR_DUMP_TAF))
     taf_debug_dump (taf);
   restr_cache_reset ();
+  uip_state_reset ();
 
   /*
    * Any construction step below can throw (scr_fatal on a corrupt game);

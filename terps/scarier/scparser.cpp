@@ -28,8 +28,26 @@
 #include "scparser_internal.h"
 
 
-/* Pattern matching trace flag. */
-scr_bool uip_trace = FALSE;
+/* The parser's module state; see scr_uip_state_t. */
+scr_uip_state_t uip;
+
+
+/*
+ * uip_state_reset()
+ *
+ * Put the between-games parser state back to its start: the options, the
+ * candidate cache and the pronoun registers.  run_create() calls this, so a
+ * game created after another in the same process starts the parser clean.
+ * The pools stay, since the cached compiled patterns below are built from
+ * them; the per-call groups are cleared by their own start/end pairs.
+ */
+void
+uip_state_reset (void)
+{
+  uip.options = {};
+  uip_forget_game (uip.cache.game);
+  uip.pronoun = {};
+}
 
 
 /*
@@ -100,7 +118,7 @@ uip_free_cleansed_string (scr_char *string, const scr_char *buffer)
 void
 uip_debug_trace (scr_bool flag)
 {
-  uip_trace = flag;
+  uip.trace = flag;
 }
 
 
@@ -170,7 +188,7 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
     {
       compiled = cached->second;
       is_cached = TRUE;
-      if (uip_trace && compiled->tree)
+      if (uip.trace && compiled->tree)
         scr_trace ("UIParser: pattern \"%s\" (cached tree)\n", pattern);
     }
   else

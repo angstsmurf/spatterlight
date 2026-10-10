@@ -32,10 +32,9 @@
  * uip_replace_pronouns() when a pronoun was substituted this turn (the
  * Runner leaves its antecedent alone for such commands), and by the library's
  * unknown-verb handler, whose antecedent is definite; both are consumed and
- * cleared by uip_assign_pronouns().  See uip_definite_form() below.
+ * cleared by uip_assign_pronouns().  See uip_definite_form() below.  They
+ * are uip.pronoun.used and uip.pronoun.pending_definite.
  */
-static scr_bool uip_pronoun_used = FALSE;
-static scr_bool uip_pending_definite = FALSE;
 
 
 /*
@@ -62,12 +61,12 @@ uip_tense_prefix_3738 (const scr_char *prefix)
  * uip_note_definite_reference()
  *
  * The library's unknown-verb handler marks its antecedent definite; see
- * uip_pending_definite above.
+ * uip.pronoun.pending_definite above.
  */
 void
 uip_note_definite_reference (void)
 {
-  uip_pending_definite = TRUE;
+  uip.pronoun.pending_definite = TRUE;
 }
 
 
@@ -90,7 +89,7 @@ uip_note_definite_reference (void)
  * (co()'s third call, 464848, sits behind var_8A > 1 on a path only mode 3
  * reaches, and mode 3 returned at 4643B2 for any var_8A > 0: dead.)  The
  * setter stores nothing when the line holds the word "it" (flag 0), which
- * is uip_pronoun_used here.  A question is not a turn, but these writes
+ * is uip.pronoun.used here.  A question is not a turn, but these writes
  * stand: `cut rope with stone` then `x it` echoes "(stone)" and asks
  * "Which stone." again.
  *
@@ -108,10 +107,8 @@ uip_note_definite_reference (void)
  * Scarier's library reaches these points in its own order, so the writes
  * are kept by stage, and a handler's write -- ours, or the verb-driven
  * uip_definite_form() one -- outranks co()'s whatever order they came in.
+ * The staged write is uip.pronoun.antecedent_object / _form / _stage.
  */
-static scr_int uip_antecedent_object = -1;
-static scr_int uip_antecedent_form = UIP_IT_INDEFINITE;
-static scr_int uip_antecedent_stage = -1;
 
 
 /*
@@ -126,24 +123,24 @@ static scr_int uip_antecedent_stage = -1;
 void
 uip_begin_antecedent_400 (void)
 {
-  uip_antecedent_object = -1;
-  uip_antecedent_stage = -1;
+  uip.pronoun.antecedent_object = -1;
+  uip.pronoun.antecedent_stage = -1;
 }
 
 void
 uip_note_antecedent_400 (scr_int object, scr_int form, scr_int stage)
 {
-  if (uip_pronoun_used || object < 0 || stage < uip_antecedent_stage)
+  if (uip.pronoun.used || object < 0 || stage < uip.pronoun.antecedent_stage)
     return;
-  uip_antecedent_object = object;
-  uip_antecedent_form = form;
-  uip_antecedent_stage = stage;
+  uip.pronoun.antecedent_object = object;
+  uip.pronoun.antecedent_form = form;
+  uip.pronoun.antecedent_stage = stage;
 }
 
 scr_bool
 uip_pronoun_was_used (void)
 {
-  return uip_pronoun_used;
+  return uip.pronoun.used;
 }
 
 
@@ -156,14 +153,14 @@ uip_pronoun_was_used (void)
 void
 uip_commit_antecedent_400 (scr_gameref_t game)
 {
-  if (uip_antecedent_object >= 0 && !uip_pronoun_used)
+  if (uip.pronoun.antecedent_object >= 0 && !uip.pronoun.used)
     {
-      game->it_object = uip_antecedent_object;
-      game->it_form = uip_antecedent_form;
+      game->it_object = uip.pronoun.antecedent_object;
+      game->it_form = uip.pronoun.antecedent_form;
       game->it_npc = -1;
     }
-  uip_antecedent_object = -1;
-  uip_antecedent_stage = -1;
+  uip.pronoun.antecedent_object = -1;
+  uip.pronoun.antecedent_stage = -1;
 }
 
 
@@ -177,15 +174,15 @@ uip_commit_antecedent_400 (scr_gameref_t game)
 void
 uip_get_pronoun_flags (scr_bool *used, scr_bool *pending_definite)
 {
-  *used = uip_pronoun_used;
-  *pending_definite = uip_pending_definite;
+  *used = uip.pronoun.used;
+  *pending_definite = uip.pronoun.pending_definite;
 }
 
 void
 uip_set_pronoun_flags (scr_bool used, scr_bool pending_definite)
 {
-  uip_pronoun_used = used;
-  uip_pending_definite = pending_definite;
+  uip.pronoun.used = used;
+  uip.pronoun.pending_definite = pending_definite;
 }
 
 
@@ -206,7 +203,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
   scr_int offset, pass;
   assert (string);
 
-  if (uip_trace)
+  if (uip.trace)
     scr_trace ("UIParser: pronoun search \"%s\"\n", string);
 
   /*
@@ -450,7 +447,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
           {
             std::string replacement;
 
-            uip_pronoun_used = TRUE;
+            uip.pronoun.used = TRUE;
 
             /*
              * If not yet copied, copy the input string into the buffer now and
@@ -552,7 +549,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
             /* Adjust offset to skip over the replacement. */
             offset += replacement.size ();
 
-            if (uip_trace)
+            if (uip.trace)
               scr_trace ("Parser: pronoun \"%s\"\n", buffer.c_str ());
           }
         else
@@ -662,7 +659,7 @@ uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered,
         }
     }
 
-  if (is_390 || uip_lenient_tasks)
+  if (is_390 || uip.options.lenient_tasks)
     return chosen != NULL;
   return chosen && uip_case_folds_name_in (command, chosen);
 }
@@ -692,11 +689,8 @@ uip_last_npc_name (scr_gameref_t game, scr_int npc)
 
 /*
  * The registers as they stood before uip_note_named_npcs() ran, for
- * uip_renote_named_npcs() to put back.
+ * uip_renote_named_npcs() to put back, are uip.pronoun.*_before_noting.
  */
-static scr_int uip_npc_before_noting = -1;
-static scr_int uip_him_before_noting = -1, uip_her_before_noting = -1,
-               uip_it_before_noting = -1, uip_it_object_before_noting = -1;
 
 
 /*
@@ -766,11 +760,11 @@ uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
   const std::string lowered = uip_lowered (string);
   scr_int index_;
 
-  uip_npc_before_noting = game->last_npc;
-  uip_him_before_noting = game->him_npc;
-  uip_her_before_noting = game->her_npc;
-  uip_it_before_noting = game->it_npc;
-  uip_it_object_before_noting = game->it_object;
+  uip.pronoun.npc_before_noting = game->last_npc;
+  uip.pronoun.him_before_noting = game->him_npc;
+  uip.pronoun.her_before_noting = game->her_npc;
+  uip.pronoun.it_before_noting = game->it_npc;
+  uip.pronoun.it_object_before_noting = game->it_object;
   for (index_ = 0; index_ < gs_npc_count (game); index_++)
     {
       if (uip_npc_named (game, index_, lowered, string))
@@ -818,13 +812,13 @@ uip_renote_named_npcs (scr_gameref_t game, const scr_char *cut_line,
                                   || lowered[0] == ',');
   scr_int index_;
 
-  game->last_npc = uip_npc_before_noting;
-  game->him_npc = uip_him_before_noting;
-  game->her_npc = uip_her_before_noting;
-  if (game->it_npc != uip_it_before_noting)
+  game->last_npc = uip.pronoun.npc_before_noting;
+  game->him_npc = uip.pronoun.him_before_noting;
+  game->her_npc = uip.pronoun.her_before_noting;
+  if (game->it_npc != uip.pronoun.it_before_noting)
     {
-      game->it_npc = uip_it_before_noting;
-      game->it_object = uip_it_object_before_noting;
+      game->it_npc = uip.pronoun.it_before_noting;
+      game->it_object = uip.pronoun.it_object_before_noting;
     }
   if (walked)
     return;
@@ -1004,7 +998,7 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
       modified = TRUE;
     }
 
-  if (modified && uip_trace)
+  if (modified && uip.trace)
     scr_trace ("Parser: reference rewrite \"%s\"\n", command.c_str ());
 
   return modified ? scr_strdup (command) : NULL;
@@ -1080,7 +1074,7 @@ uip_definite_form (scr_gameref_t game, const scr_char *command,
   scr_bool has_from = FALSE;
   const scr_char *scan;
 
-  if (uip_pending_definite)
+  if (uip.pronoun.pending_definite)
     return UIP_FORM_DEFINITE;
 
   for (scan = verb; scan[0] != NUL; scan++)
@@ -1198,17 +1192,17 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
   scr_bool handler_set;
   assert (string);
 
-  if (uip_trace)
+  if (uip.trace)
     scr_trace ("UIParser: pronoun assignment \"%s\"\n", string);
 
   /*
    * A 4.0 command that went through a pronoun leaves every antecedent as it
    * was -- see uip_definite_form() -- so there is nothing to assign.
    */
-  if (uip_pronoun_used && prop_get_taf_version (bundle) >= TAF_VERSION_400)
+  if (uip.pronoun.used && prop_get_taf_version (bundle) >= TAF_VERSION_400)
     {
-      uip_pronoun_used = FALSE;
-      uip_pending_definite = FALSE;
+      uip.pronoun.used = FALSE;
+      uip.pronoun.pending_definite = FALSE;
       uip_begin_antecedent_400 ();
       return;
     }
@@ -1218,9 +1212,9 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
    * the verb-driven form below is a handler's, and replaces anything but
    * another handler's.
    */
-  handler_set = uip_antecedent_stage == UIP_STAGE_HANDLER;
+  handler_set = uip.pronoun.antecedent_stage == UIP_STAGE_HANDLER;
   uip_commit_antecedent_400 (game);
-  uip_pronoun_used = FALSE;
+  uip.pronoun.used = FALSE;
 
   /*
    * run390 points "it" by a co() pre-pass (generaltasks 45F318-45F430): the
@@ -1283,7 +1277,7 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
                   game->it_npc = -1;
                 }
 
-              if (uip_trace)
+              if (uip.trace)
                 {
                   scr_trace ("UIParser: object 'it/them' assigned %ld,"
                              " form %d\n", object, (int) form);
@@ -1312,7 +1306,7 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
               game->her_npc = npc;
               game->it_npc = -1;
 
-              if (uip_trace)
+              if (uip.trace)
                 {
                   scr_trace ("UIParser: 3.8 pronouns"
                             " 'him' and 'her' assigned %ld\n", npc);
@@ -1332,5 +1326,5 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
   /* Restore variables references. */
   var_set_ref_object (vars, saved_ref_object);
   var_set_ref_character (vars, saved_ref_character);
-  uip_pending_definite = FALSE;
+  uip.pronoun.pending_definite = FALSE;
 }

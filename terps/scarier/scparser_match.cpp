@@ -27,12 +27,6 @@
 #include "scparser_internal.h"
 
 
-/* String matching variables. */
-const scr_char *uip_string = NULL;
-scr_int uip_posn = 0;
-static scr_gameref_t uip_game = (scr_gameref_t) NULL;
-
-
 /*
  * uip_match_start()
  * uip_match_end()
@@ -43,20 +37,20 @@ static void
 uip_match_start (const scr_char *string, scr_gameref_t game)
 {
   /* Save string, and restart index. */
-  uip_string = string;
-  uip_posn = 0;
+  uip.match.string = string;
+  uip.match.posn = 0;
 
   /* Save the game we're working on. */
-  uip_game = game;
+  uip.match.game = game;
 }
 
 static void
 uip_match_end (void)
 {
   /* Clear match target string, and variable set. */
-  uip_string = NULL;
-  uip_posn = 0;
-  uip_game = NULL;
+  uip.match.string = NULL;
+  uip.match.posn = 0;
+  uip.match.game = NULL;
 }
 
 
@@ -69,8 +63,8 @@ uip_match_end (void)
 scr_gameref_t
 uip_get_game (void)
 {
-  assert (gs_is_game_valid (uip_game));
-  return uip_game;
+  assert (gs_is_game_valid (uip.match.game));
+  return uip.match.game;
 }
 
 
@@ -102,13 +96,10 @@ uip_get_game (void)
  * `take golden idol` for a "Golden Idol" with a `get *idol*` task was
  * swallowed as DontUnderstand, neither taken nor answered (5489f80fe).
  */
-static scr_bool uip_binary_input = FALSE;
-static scr_bool uip_binary_active = FALSE;
-
 void
 uip_set_binary_input (scr_bool binary)
 {
-  uip_binary_input = binary;
+  uip.options.binary_input = binary;
 }
 
 
@@ -116,16 +107,13 @@ uip_set_binary_input (scr_bool binary)
  * uip_set_task_commands()
  *
  * Set around task command matching (run_match_task_commands()), which keeps
- * a pre-3.9 comma out of the word boundary; uip_comma_is_space is set per
- * match from it and the game's version -- see uip_match_whitespace().
+ * a pre-3.9 comma out of the word boundary; uip.match.comma_is_space is set
+ * per match from it and the game's version -- see uip_match_whitespace().
  */
-scr_bool uip_task_commands = FALSE;
-static scr_bool uip_comma_is_space = FALSE;
-
 void
 uip_set_task_commands (scr_bool task_commands)
 {
-  uip_task_commands = task_commands;
+  uip.options.task_commands = task_commands;
 }
 
 
@@ -143,12 +131,10 @@ uip_set_task_commands (scr_bool task_commands)
  * SYNONYM put a capital back into (uip_case_folds_name()); the strict
  * %object% binding is simply not turned on (run_match_task_commands()).
  */
-scr_bool uip_lenient_tasks = FALSE;
-
 void
 uip_set_lenient_tasks (scr_bool lenient)
 {
-  uip_lenient_tasks = lenient;
+  uip.options.lenient_tasks = lenient;
 }
 
 
@@ -207,7 +193,8 @@ uip_wildcard_prepare (std::string &pat, std::string &line,
  * run390 sells the armor on the same line (the_town_of_azra_v390).
  *
  * The pattern is lower-cased and the line compared as uip_match() would see
- * it: byte for byte while uip_binary_input is set, else lower-cased too.
+ * it: byte for byte while uip.options.binary_input is set, else lower-cased
+ * too.
  */
 scr_bool
 uip_wildcard_match_400 (const scr_char *pattern, const scr_char *string)
@@ -215,9 +202,9 @@ uip_wildcard_match_400 (const scr_char *pattern, const scr_char *string)
   std::string pat (pattern), line (string);
   scr_bool matched = TRUE;
 
-  const size_t first_star = uip_wildcard_prepare (pat, line,
-                                                  !uip_binary_input
-                                                  || uip_lenient_tasks, TRUE);
+  const size_t first_star
+    = uip_wildcard_prepare (pat, line, !uip.options.binary_input
+                                       || uip.options.lenient_tasks, TRUE);
   if (first_star == std::string::npos)
     return FALSE;
   if (line.substr (0, first_star) != pat.substr (0, first_star))
@@ -312,8 +299,9 @@ uip_wildcard_match_pre400 (const scr_char *pattern, const scr_char *string,
 static void
 uip_skip_spaces (void)
 {
-  while (uip_string[uip_posn] != NUL && scr_isspace (uip_string[uip_posn]))
-    uip_posn++;
+  while (uip.match.string[uip.match.posn] != NUL
+         && scr_isspace (uip.match.string[uip.match.posn]))
+    uip.match.posn++;
 }
 
 
@@ -336,7 +324,7 @@ static scr_bool
 uip_match_eos (void)
 {
   /* Check that we hit the string's end. */
-  return uip_string[uip_posn] == NUL;
+  return uip.match.string[uip.match.posn] == NUL;
 }
 
 static scr_bool
@@ -350,24 +338,25 @@ uip_match_word (scr_ptnoderef_t node)
   word = node->word;
 
   length = strlen (word);
-  if (uip_binary_active)
+  if (uip.match.binary_active)
     {
       scr_int index_;
 
       for (index_ = 0; index_ < length; index_++)
         {
-          if (uip_string[uip_posn + index_] != scr_tolower (word[index_]))
+          if (uip.match.string[uip.match.posn + index_]
+              != scr_tolower (word[index_]))
             return FALSE;
         }
-      uip_posn += length;
+      uip.match.posn += length;
       return TRUE;
     }
 
   /* Compare string text with this node's word, ignore case. */
-  if (scr_strncasecmp (uip_string + uip_posn, word, length) == 0)
+  if (scr_strncasecmp (uip.match.string + uip.match.posn, word, length) == 0)
     {
       /* Word match, advance position and return. */
-      uip_posn += length;
+      uip.match.posn += length;
       return TRUE;
     }
 
@@ -402,7 +391,7 @@ uip_match_variable (scr_ptnoderef_t node)
 
   /* Get the variable name to match, from overloaded word. */
   assert (node->word);
-  if (uip_lenient_tasks)
+  if (uip.options.lenient_tasks)
     {
       std::string text;
 
@@ -410,9 +399,10 @@ uip_match_variable (scr_ptnoderef_t node)
       if (!var_get_command_text (vars, node->word, text))
         return FALSE;
       length = (scr_int) text.size ();
-      if (scr_strncasecmp (uip_string + uip_posn, text.c_str (), length) != 0)
+      if (scr_strncasecmp (uip.match.string + uip.match.posn,
+                           text.c_str (), length) != 0)
         return FALSE;
-      uip_posn += length;
+      uip.match.posn += length;
       return TRUE;
     }
   if (!var_get_command_number (vars, node->word, &number))
@@ -421,10 +411,10 @@ uip_match_variable (scr_ptnoderef_t node)
   /* Compare the value against the current string position. */
   snprintf (value, sizeof (value), "%ld", number);
   length = strnlen (value, sizeof (value));
-  if (strncmp (uip_string + uip_posn, value, length) == 0)
+  if (strncmp (uip.match.string + uip.match.posn, value, length) == 0)
     {
       /* Match, advance position and return. */
-      uip_posn += length;
+      uip.match.posn += length;
       return TRUE;
     }
 
@@ -435,7 +425,7 @@ static scr_bool
 uip_match_whitespace (scr_bool hard)
 {
   /* If next character is space, read whitespace and return. */
-  if (scr_isspace (uip_string[uip_posn]))
+  if (scr_isspace (uip.match.string[uip.match.posn]))
     {
       /* Space match, advance position and return. */
       uip_skip_spaces ();
@@ -454,16 +444,17 @@ uip_match_whitespace (scr_bool hard)
    * runner_probes/exam.run380.comma.rtf.  Library patterns only; how a pre-3.9
    * task command meets a comma is unmeasured.
    */
-  if (uip_comma_is_space && uip_string[uip_posn] == ','
-      && uip_posn > 0 && !scr_isspace (uip_string[uip_posn - 1]))
+  if (uip.match.comma_is_space && uip.match.string[uip.match.posn] == ','
+      && uip.match.posn > 0
+      && !scr_isspace (uip.match.string[uip.match.posn - 1]))
     {
-      if (uip_string[uip_posn + 1] == NUL
-          || scr_isspace (uip_string[uip_posn + 1]))
+      if (uip.match.string[uip.match.posn + 1] == NUL
+          || scr_isspace (uip.match.string[uip.match.posn + 1]))
         {
-          uip_posn++;
-          while (uip_string[uip_posn] != NUL
-                 && scr_isspace (uip_string[uip_posn]))
-            uip_posn++;
+          uip.match.posn++;
+          while (uip.match.string[uip.match.posn] != NUL
+                 && scr_isspace (uip.match.string[uip.match.posn]))
+            uip.match.posn++;
         }
       return TRUE;
     }
@@ -490,7 +481,7 @@ uip_match_whitespace (scr_bool hard)
    * Deliberate deviation: on a line no task matches the Runner's way, the
    * stray space is forgiven -- see uip_set_lenient_tasks().
    */
-  if (hard && !uip_lenient_tasks)
+  if (hard && !uip.options.lenient_tasks)
     return FALSE;
 
   /*
@@ -502,7 +493,7 @@ uip_match_whitespace (scr_bool hard)
    * leading spaces on patterns will be ignored -- harmless, even useful,
    * and long since validated by the walkthrough corpus.
    */
-  if (uip_posn == 0 || scr_isspace (uip_string[uip_posn - 1]))
+  if (uip.match.posn == 0 || scr_isspace (uip.match.string[uip.match.posn - 1]))
     return TRUE;
 
   /*
@@ -511,7 +502,7 @@ uip_match_whitespace (scr_bool hard)
    * in optional elements to succeed since options and wildcards always match,
    * even if to no text.
    */
-  if (uip_string[uip_posn] == NUL)
+  if (uip.match.string[uip.match.posn] == NUL)
     return TRUE;
 
   /* No match.  Really. */
@@ -531,10 +522,10 @@ uip_match_whitespace (scr_bool hard)
 static scr_bool
 uip_match_double_whitespace (void)
 {
-  if (scr_isspace (uip_string[uip_posn])
-      && uip_string[uip_posn] != NUL
-      && scr_isspace (uip_string[uip_posn + 1])
-      && uip_string[uip_posn + 1] != NUL)
+  if (scr_isspace (uip.match.string[uip.match.posn])
+      && uip.match.string[uip.match.posn] != NUL
+      && scr_isspace (uip.match.string[uip.match.posn + 1])
+      && uip.match.string[uip.match.posn + 1] != NUL)
     {
       uip_skip_spaces ();
       return TRUE;
@@ -553,16 +544,13 @@ uip_match_double_whitespace (void)
  * the start of a literal stretch and needs the typed doubles a 4.0 line
  * never has -- see uip_next_token().  uip_match_optional() and
  * uip_match_choice() leave whether the group just matched empty in
- * uip_last_group_empty; this node is always that group's right sibling, so
- * nothing else runs between them.
+ * uip.match.last_group_empty; this node is always that group's right
+ * sibling, so nothing else runs between them.
  */
-static scr_bool uip_last_group_empty = FALSE;
-static scr_bool uip_last_group_optional = FALSE;
-
 static scr_bool
 uip_match_group_double_whitespace (void)
 {
-  if (uip_last_group_empty)
+  if (uip.match.last_group_empty)
     return uip_match_whitespace (FALSE);
 
   /*
@@ -577,7 +565,7 @@ uip_match_group_double_whitespace (void)
    * `ask  *girl* about *` would answer every question to the girl with a
    * random phrase and swallow her topics.
    */
-  if (uip_lenient_tasks && uip_last_group_optional)
+  if (uip.options.lenient_tasks && uip.match.last_group_optional)
     return uip_match_whitespace (FALSE);
 
   return uip_match_double_whitespace ();
@@ -632,28 +620,28 @@ uip_match_alternatives (scr_ptnoderef_t node)
   scr_bool matched;
 
   /* Note the start position for rewind between tries. */
-  start_posn = uip_posn;
+  start_posn = uip.match.posn;
 
   /*
    * Try a match on each of the children, looking to see which one moves the
    * position on the furthest.  Match on this one.  This is a "maximal munch".
    */
-  extent = uip_posn;
+  extent = uip.match.posn;
   matched = FALSE;
   for (child = node->left_child; child; child = child->right_sibling)
     {
-      uip_posn = start_posn;
+      uip.match.posn = start_posn;
       if (uip_match_node (child))
         {
           /* Matched. */
           matched = TRUE;
-          if (uip_posn > extent)
-            extent = uip_posn;
+          if (uip.match.posn > extent)
+            extent = uip.match.posn;
         }
     }
 
   /* If matched, set position to extent; if not, back to start. */
-  uip_posn = matched ? extent : start_posn;
+  uip.match.posn = matched ? extent : start_posn;
 
   /* Return match status. */
   return matched;
@@ -671,10 +659,10 @@ uip_match_choice (scr_ptnoderef_t node)
    * space whether the choice consumed anything (an empty alternative is
    * spliced as "" and Trim()ed away just like an omitted option).
    */
-  start_posn = uip_posn;
+  start_posn = uip.match.posn;
   matched = uip_match_alternatives (node);
-  uip_last_group_empty = uip_posn == start_posn;
-  uip_last_group_optional = FALSE;
+  uip.match.last_group_empty = uip.match.posn == start_posn;
+  uip.match.last_group_optional = FALSE;
   return matched;
 }
 
@@ -686,7 +674,7 @@ uip_match_optional (scr_ptnoderef_t node)
   scr_bool matched;
 
   /* Note the start position for rewind on empty match. */
-  start_posn = uip_posn;
+  start_posn = uip.match.posn;
 
   /*
    * Look ahead to see if we can match to nothing, and still have the main
@@ -697,7 +685,7 @@ uip_match_optional (scr_ptnoderef_t node)
   list->left_child = node->right_sibling;
 
   /* Match on the temporary list, with this option counting as empty. */
-  uip_last_group_empty = TRUE;
+  uip.match.last_group_empty = TRUE;
   matched = uip_match_node (list);
 
   /* Free the temporary list node. */
@@ -721,17 +709,17 @@ uip_match_optional (scr_ptnoderef_t node)
    * the whole pattern dies -- which lost the game its brainsucker task even
    * though the author's own published transcript shows the command working.
    */
-  if (matched && uip_posn > start_posn)
-    uip_posn = start_posn;
+  if (matched && uip.match.posn > start_posn)
+    uip.match.posn = start_posn;
   else
     {
-      uip_posn = start_posn;
+      uip.match.posn = start_posn;
       uip_match_alternatives (node);
     }
 
   /* Note for a following double space whether anything was consumed. */
-  uip_last_group_empty = uip_posn == start_posn;
-  uip_last_group_optional = TRUE;
+  uip.match.last_group_empty = uip.match.posn == start_posn;
+  uip.match.last_group_optional = TRUE;
 
   /* Return TRUE no matter what. */
   return TRUE;
@@ -755,7 +743,7 @@ uip_match_right_siblings (scr_ptnoderef_t node)
   scr_ptnoderef_t list;
 
   /* Note the start position for rewind on no match. */
-  start_posn = uip_posn;
+  start_posn = uip.match.posn;
 
   /*
    * To make life a little easier, we'll match on the tree to the right of
@@ -771,14 +759,14 @@ uip_match_right_siblings (scr_ptnoderef_t node)
    * include the NUL, needed to match TOK_EOS.
    */
   matched = FALSE;
-  limit = strlen (uip_string) + 1;
-  for (index_ = uip_posn + 1; index_ < limit; index_++)
+  limit = strlen (uip.match.string) + 1;
+  for (index_ = uip.match.posn + 1; index_ < limit; index_++)
     {
-      uip_posn = index_;
+      uip.match.posn = index_;
       if (uip_match_node (list))
         {
           /* The rest of the tree matches at this point. */
-          uip_posn = index_;
+          uip.match.posn = index_;
           matched = TRUE;
           break;
         }
@@ -789,7 +777,7 @@ uip_match_right_siblings (scr_ptnoderef_t node)
 
   /* If we didn't match in the loop, restore position. */
   if (!matched)
-    uip_posn = start_posn;
+    uip.match.posn = start_posn;
 
   return matched;
 }
@@ -825,13 +813,14 @@ uip_match_number (void)
   scr_int number;
 
   /* Attempt to read a number from input. */
-  if (sscanf (uip_string + uip_posn, "%ld", &number) == 1)
+  if (sscanf (uip.match.string + uip.match.posn, "%ld", &number) == 1)
     {
       /* Advance position over the number. */
-      while (uip_string[uip_posn] == MINUS || uip_string[uip_posn] == PLUS)
-        uip_posn++;
-      while (scr_isdigit (uip_string[uip_posn]))
-        uip_posn++;
+      while (uip.match.string[uip.match.posn] == MINUS
+             || uip.match.string[uip.match.posn] == PLUS)
+        uip.match.posn++;
+      while (scr_isdigit (uip.match.string[uip.match.posn]))
+        uip.match.posn++;
 
       /* Set number reference in variables and return. */
       var_set_ref_number (vars, number);
@@ -854,11 +843,12 @@ uip_match_text (scr_ptnoderef_t node)
    * tree at successive character positions; on no match the position is
    * restored.
    */
-  start_posn = uip_posn;
+  start_posn = uip.match.posn;
   if (uip_match_right_siblings (node))
     {
       /* Found a match; create a string and save the text. */
-      std::string string (uip_string + start_posn, uip_posn - start_posn);
+      std::string string (uip.match.string + start_posn,
+                          uip.match.posn - start_posn);
 
       /*
        * Adrift seems to save referenced text as all-lowercase; we need to do
@@ -1040,25 +1030,27 @@ uip_match_pattern (scr_uip_patternref_t compiled, const scr_char *string,
   /* Match the string to the pattern tree. */
   cleansed = (uip_needs_trim (string) || uip_is_referenced_text (string, game))
              ? uip_cleanse_string (string, buffer, sizeof (buffer)) : NULL;
-  if (uip_trace)
+  if (uip.trace)
     scr_trace ("UIParser: string \"%s\"\n", cleansed ? cleansed : string);
   uip_match_start (cleansed ? cleansed : string, game);
   {
-    const scr_bool was_binary = uip_binary_active;
-    const scr_char *const was_punctuation = uip_word_end_punctuation;
-    const scr_bool was_comma_space = uip_comma_is_space;
+    const scr_bool was_binary = uip.match.binary_active;
+    const scr_char *const was_punctuation = uip.match.word_end_punctuation;
+    const scr_bool was_comma_space = uip.match.comma_is_space;
     const scr_int version = prop_get_taf_version (gs_get_bundle (game));
 
-    uip_word_end_punctuation = (version == TAF_VERSION_390) ? ",."
-                               : (version < TAF_VERSION_390) ? "," : "";
-    uip_comma_is_space = version < TAF_VERSION_390 && !uip_task_commands;
+    uip.match.word_end_punctuation = (version == TAF_VERSION_390) ? ",."
+                                     : (version < TAF_VERSION_390) ? "," : "";
+    uip.match.comma_is_space = version < TAF_VERSION_390
+                               && !uip.options.task_commands;
 
-    uip_binary_active = uip_binary_input && !uip_lenient_tasks
-                        && compiled->binary_candidate;
+    uip.match.binary_active = uip.options.binary_input
+                              && !uip.options.lenient_tasks
+                              && compiled->binary_candidate;
     match = uip_match_node (compiled->tree);
-    uip_binary_active = was_binary;
-    uip_word_end_punctuation = was_punctuation;
-    uip_comma_is_space = was_comma_space;
+    uip.match.binary_active = was_binary;
+    uip.match.word_end_punctuation = was_punctuation;
+    uip.match.comma_is_space = was_comma_space;
   }
 
   /* Clean up matching. */
@@ -1067,7 +1059,7 @@ uip_match_pattern (scr_uip_patternref_t compiled, const scr_char *string,
     uip_free_cleansed_string (cleansed, buffer);
 
   /* Return result of matching. */
-  if (uip_trace)
+  if (uip.trace)
     scr_trace ("UIParser: %s\n", match ? "MATCHED!" : "No match");
   return match;
 }
