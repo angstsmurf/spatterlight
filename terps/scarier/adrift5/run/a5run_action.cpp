@@ -1526,334 +1526,370 @@ emit_look (a5_run_t *run, sb_t *out)
   sb_puts (out, result.c_str ());
 }
 
-void
-run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
+/* The stock Look task, run as its own routine: the completion is the ADRIFT
+   property expression "%Player%.Location.Description" plus a restriction-gated
+   darkness override, so the CompletionMessage is rendered (render_look_string)
+   instead of the room view directly, and a dark location shows the game's
+   "too dark" line.  SELF_TI is the task's index for the done mark and the
+   score attribution. */
+static void
+run_task_look (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out,
+               int self_ti)
 {
   a5_state_t *st = run->st;
-  /* v5's FileIO.Load defaults a missing <MessageBeforeOrAfter> to Before (the
-     class default After is overridden at load time, FileIO.vb:1618), so the
-     completion message is evaluated and emitted *before* the actions run.  This
-     is what makes TakeObjectsFromOthersLazy's "(from %objects%.Parent.Name)"
-     render "(from the Table)" (parent still the source) ahead of the
-     SetTasks-Execute sub-task's "You take ... from the Table." line. */
-  const char *when = a5xml_child_text (t->node, "MessageBeforeOrAfter");
-  int before = !streq (when, "After");
-  const a5_xml_node_t *comp = a5xml_child (t->node, "CompletionMessage");
-  const a5_xml_node_t *act = t->actions;
-  int self_ti = a5state_task_index (st, t->key);
 
-  if (a5run_trace)
-    fprintf (stderr, "  [run task %s]\n", t->key ? t->key : "?");
+  /* The runner executes the stock Look like any Before + AggregateOutput task
+     (clsUserSession.vb:1164-1207): the message is test-rendered BEFORE and
+     AFTER its actions (bTestingOutput=True; each render re-draws any
+     <# OneOf #>/RAND in the room view), and when the two renders differ (a
+     random pick moved between them) the response is PINNED to the first
+     render.  Only when they agree does the raw aggregate message survive to
+     be re-rendered once more at final Display -- which is the defer_look /
+     is_look deferral emit_look implements.  Doing both test renders here
+     keeps the xoshiro draw stream aligned with the runner for random room views
+     (LostLabyrinth's riding OneOf: 2 draws, first one shown); for the usual
+     static view the two renders draw nothing and agree, so this is
+     draw- and output-neutral. */
+  /* The probes run inside Display in the runner (bDisplaying=True AND
+     bTestingOutput=True, vb:1177-1203), so they DO run clsCharacter.Name's
+     Introduced dance and record PronounKeys entries -- which is why, with a
+     character in view, the second probe pronoun-replaces the name recorded
+     by the first ("she") and the response pins to the FIRST probe's text
+     (vb:1200).  That pinned text must therefore be a bDisplaying render:
+     set intro_active for both probes (marking stays 0 -- bTestingOutput
+     keeps DisplayOnce retirement off).  SampleConversation `s` after the
+     chat: the pinned view says "the old lady", and the probe's Introduced
+     mark plus the end-of-turn visibility reset makes the next `look` say
+     "an old lady" again. */
+  auto probe_view = [&] (void) -> std::string {
+      int pia = st->intro_active;
+      st->intro_active = 1;
+      std::string v;
+      { a5_mark_guard mg (st, 0); v = render_look_string (run); }
+      st->intro_active = pia;
+      return v;
+  };
+  std::string e1 = probe_view ();
 
-  /* The built-in Look task's completion is the ADRIFT property expression
-     "%Player%.Location.Description" plus a restriction-gated darkness override;
-     render that CompletionMessage (render_look_string) instead of the room view
-     directly, so a dark location shows the game's "too dark" line. */
-  if (streq (t->key, "Look"))
+  /* The response slot is reserved BEFORE the actions run (vb:1189
+     iResponsePosition), so any output the actions produce follows the
+     room view -- Grandpa's tutorial lines land after the view. */
+  int resp_pos = -1;
+  int claimed_pending = 0;
+  sb_t abuf; sb_init (&abuf);
+  if (run->resp != nullptr)
+    resp_pos = (int) run->resp->ents.size ();
+  else if (run->defer_look && !run->look_pending)
+    { run->look_pending = 1; run->look_pos = out->len; claimed_pending = 1; }
+
+  if (self_ti >= 0) st->task_done[self_ti] = 1;
+  int saved_sti = run->cur_score_ti;
+  run->cur_score_ti = self_ti;
+  if (t->actions != nullptr)
+    for (const a5_xml_node_t *c = t->actions->first_child; c; c = c->next)
+      run_action (run, c->name, c->text, depth,
+                  (run->resp == nullptr && !run->defer_look) ? &abuf : out);
+  run->cur_score_ti = saved_sti;
+
+  std::string e2 = probe_view ();
+
+  if (e1 != e2)
     {
-      /* The runner executes the stock Look like any Before + AggregateOutput task
-         (clsUserSession.vb:1164-1207): the message is test-rendered BEFORE and
-         AFTER its actions (bTestingOutput=True; each render re-draws any
-         <# OneOf #>/RAND in the room view), and when the two renders differ (a
-         random pick moved between them) the response is PINNED to the first
-         render.  Only when they agree does the raw aggregate message survive to
-         be re-rendered once more at final Display -- which is the defer_look /
-         is_look deferral emit_look implements.  Doing both test renders here
-         keeps the xoshiro draw stream aligned with the runner for random room views
-         (LostLabyrinth's riding OneOf: 2 draws, first one shown); for the usual
-         static view the two renders draw nothing and agree, so this is
-         draw- and output-neutral. */
-      /* The probes run inside Display in the runner (bDisplaying=True AND
-         bTestingOutput=True, vb:1177-1203), so they DO run clsCharacter.Name's
-         Introduced dance and record PronounKeys entries -- which is why, with a
-         character in view, the second probe pronoun-replaces the name recorded
-         by the first ("she") and the response pins to the FIRST probe's text
-         (vb:1200).  That pinned text must therefore be a bDisplaying render:
-         set intro_active for both probes (marking stays 0 -- bTestingOutput
-         keeps DisplayOnce retirement off).  SampleConversation `s` after the
-         chat: the pinned view says "the old lady", and the probe's Introduced
-         mark plus the end-of-turn visibility reset makes the next `look` say
-         "an old lady" again. */
-      auto probe_view = [&] (void) -> std::string {
-          int pia = st->intro_active;
-          st->intro_active = 1;
-          std::string v;
-          { a5_mark_guard mg (st, 0); v = render_look_string (run); }
-          st->intro_active = pia;
-          return v;
-      };
-      std::string e1 = probe_view ();
-
-      /* The response slot is reserved BEFORE the actions run (vb:1189
-         iResponsePosition), so any output the actions produce follows the
-         room view -- Grandpa's tutorial lines land after the view. */
-      int resp_pos = -1;
-      int claimed_pending = 0;
-      sb_t abuf; sb_init (&abuf);
+      /* Pinned to the pre-actions render (vb:1200 sMessage = sBefore...). */
       if (run->resp != nullptr)
-        resp_pos = (int) run->resp->ents.size ();
-      else if (run->defer_look && !run->look_pending)
-        { run->look_pending = 1; run->look_pos = out->len; claimed_pending = 1; }
-
-      if (self_ti >= 0) st->task_done[self_ti] = 1;
-      int saved_sti = run->cur_score_ti;
-      run->cur_score_ti = self_ti;
-      if (t->actions != nullptr)
-        for (const a5_xml_node_t *c = t->actions->first_child; c; c = c->next)
-          run_action (run, c->name, c->text, depth,
-                      (run->resp == nullptr && !run->defer_look) ? &abuf : out);
-      run->cur_score_ti = saved_sti;
-
-      std::string e2 = probe_view ();
-
-      if (e1 != e2)
+        resp_add_text (run, e1.c_str (), true, resp_pos);
+      else if (run->defer_look)
         {
-          /* Pinned to the pre-actions render (vb:1200 sMessage = sBefore...). */
-          if (run->resp != nullptr)
-            resp_add_text (run, e1.c_str (), true, resp_pos);
-          else if (run->defer_look)
-            {
-              if (claimed_pending)
-                { free (run->look_pinned);
-                  run->look_pinned = strdup (e1.c_str ()); }
-            }
-          else if (run->exec_scope == nullptr
-                   || run->exec_scope->pass_seen.insert (e1).second)
-            { sb_pspace (out); sb_puts (out, e1.c_str ()); }
+          if (claimed_pending)
+            { free (run->look_pinned);
+              run->look_pinned = strdup (e1.c_str ()); }
         }
-      else if (run->resp != nullptr)
+      else if (run->exec_scope == nullptr
+               || run->exec_scope->pass_seen.insert (e1).second)
+        { sb_pspace (out); sb_puts (out, e1.c_str ()); }
+    }
+  else if (run->resp != nullptr)
+    {
+      if (!t->aggregate)
         {
-          if (!t->aggregate)
+          /* A NON-aggregate stock Look (this game's library version --
+             e.g. Murder Most Foul) renders its response text at task
+             time in the runner (AddResponse keys the rendered text), so the view
+             must NOT be deferred to the flush: a LocationTrigger System
+             task that fires after the move (the corridor's +2 servant
+             scene) would otherwise leak its score into the view's SCORE
+             header, which the runner renders pre-award. */
+          std::string v = render_look_marked (run);
+          resp_add_text (run, v.c_str (), true, resp_pos);
+        }
+      else
+        {
+          resp_entry e;
+          e.is_pass = true; e.is_look = true;
+          e.item = run->resp->cur_item;
+          resp_insert (run->resp, e, resp_pos);
+        }
+    }
+  else if (!run->defer_look)
+    {
+      /* The per-command response dedup applies to the room view too: the runner
+         keys the Look task's raw AggregateOutput template, so a command
+         that Executes Look twice shows one view (Euripides `press on`).
+         Real output: retire any <DisplayOnce> completion segments. */
+      std::string v = render_look_marked (run);
+      if (run->exec_scope == nullptr
+          || run->exec_scope->pass_seen.insert (v).second)
+        {
+          exec_resp_scope *sc = run->exec_scope;
+          if (sc != nullptr && t->aggregate && sc->look_off >= 0
+              && sc->look_sink == out
+              && (size_t) sc->look_off + sc->look_len <= out->len)
             {
-              /* A NON-aggregate stock Look (this game's library version --
-                 e.g. Murder Most Foul) renders its response text at task
-                 time in the runner (AddResponse keys the rendered text), so the view
-                 must NOT be deferred to the flush: a LocationTrigger System
-                 task that fires after the move (the corridor's +2 servant
-                 scene) would otherwise leak its score into the view's SCORE
-                 header, which the runner renders pre-award. */
-              std::string v = render_look_marked (run);
-              resp_add_text (run, v.c_str (), true, resp_pos);
+              /* Second aggregate view this command, DIFFERENT text (the
+                 player moved between the Executes): the runner's response map has
+                 ONE slot for the Look template, so the later render
+                 replaces the earlier view in place (first slot's position,
+                 last text). */
+              sb_splice (out, (size_t) sc->look_off, sc->look_len,
+                         v.c_str ());
+              sc->look_len = v.size ();
             }
           else
             {
-              resp_entry e;
-              e.is_pass = true; e.is_look = true;
-              e.item = run->resp->cur_item;
-              resp_insert (run->resp, e, resp_pos);
+              sb_pspace (out);
+              if (sc != nullptr && t->aggregate)
+                { sc->look_sink = out; sc->look_off = (long) out->len; }
+              sb_puts (out, v.c_str ());
+              if (sc != nullptr && t->aggregate)
+                sc->look_len = v.size ();
             }
         }
-      else if (!run->defer_look)
-        {
-          /* The per-command response dedup applies to the room view too: the runner
-             keys the Look task's raw AggregateOutput template, so a command
-             that Executes Look twice shows one view (Euripides `press on`).
-             Real output: retire any <DisplayOnce> completion segments. */
-          std::string v = render_look_marked (run);
-          if (run->exec_scope == nullptr
-              || run->exec_scope->pass_seen.insert (v).second)
-            {
-              exec_resp_scope *sc = run->exec_scope;
-              if (sc != nullptr && t->aggregate && sc->look_off >= 0
-                  && sc->look_sink == out
-                  && (size_t) sc->look_off + sc->look_len <= out->len)
-                {
-                  /* Second aggregate view this command, DIFFERENT text (the
-                     player moved between the Executes): the runner's response map has
-                     ONE slot for the Look template, so the later render
-                     replaces the earlier view in place (first slot's position,
-                     last text). */
-                  sb_splice (out, (size_t) sc->look_off, sc->look_len,
-                             v.c_str ());
-                  sc->look_len = v.size ();
-                }
-              else
-                {
-                  sb_pspace (out);
-                  if (sc != nullptr && t->aggregate)
-                    { sc->look_sink = out; sc->look_off = (long) out->len; }
-                  sb_puts (out, v.c_str ());
-                  if (sc != nullptr && t->aggregate)
-                    sc->look_len = v.size ();
-                }
-            }
-        }
-      else if (!t->aggregate && claimed_pending)
-        {
-          /* Direct-path deferral (the outer task's Execute Look splice) of a
-             NON-aggregate Look: pin the view rendered NOW, at Execute Look
-             time, so later actions/system tasks can't retro-date the SCORE
-             header (the runner renders the non-aggregate response eagerly). */
-          std::string v = render_look_marked (run);
-          free (run->look_pinned);
-          run->look_pinned = strdup (v.c_str ());
-        }
-      /* defer_look + unchanged (aggregate): the pending slot claimed above is
-         rendered at the enabling frame's final state, exactly as before. */
-
-      if (abuf.len > 0) { sb_pspace (out); sb_puts (out, abuf.p); }
-      free (abuf.p);
-      return;
     }
+  else if (!t->aggregate && claimed_pending)
+    {
+      /* Direct-path deferral (the outer task's Execute Look splice) of a
+         NON-aggregate Look: pin the view rendered NOW, at Execute Look
+         time, so later actions/system tasks can't retro-date the SCORE
+         header (the runner renders the non-aggregate response eagerly). */
+      std::string v = render_look_marked (run);
+      free (run->look_pinned);
+      run->look_pinned = strdup (v.c_str ());
+    }
+  /* defer_look + unchanged (aggregate): the pending slot claimed above is
+     rendered at the enabling frame's final state, exactly as before. */
 
-  /* On the map path a "Before" message follows the Adrift 5 runner's
-     sBeforeActionsMessage logic (clsUserSession.vb:1176-1205): it claims its
-     slot in the response order now, is rendered once before the actions, and
-     after the actions is either pinned to that pre-action text (if the actions
-     changed its rendering -- e.g. TakeObjectsFromOthersLazy's "(from
-     %objects%.Parent.Name)", whose parent flips to the player once the take
-     runs) or, for an unchanged AggregateOutput task, left deferred so a second
-     item merges into its %objects% list. */
+  if (abuf.len > 0) { sb_pspace (out); sb_puts (out, abuf.p); }
+  free (abuf.p);
+}
+
+/* What the phases of a general run_task share.  The Before message is
+   rendered ahead of the actions and compared with a second render after
+   them, so its pre-action state outlives the action loop; a deferred
+   `Execute Look` inside the action list likewise saves the run's look_*
+   registers across the loop.  Built by run_task, which owns the sequence:
+   run_task_before_message, the done mark, run_task_actions,
+   run_task_before_finalize, run_task_after_message. */
+struct run_task_ctx
+{
+  a5_run_t *run;
+  a5_state_t *st;
+  const a5_task_t *t;
+  int depth;
+  sb_t *out;
+  int before;                         /* MessageBeforeOrAfter is not After */
+  const a5_xml_node_t *comp;          /* CompletionMessage, or null */
+  const a5_xml_node_t *act;           /* the action list, or null */
+  int self_ti;                        /* this task's index, -1 if unknown */
+
+  /* Before message on the resp path: the pre-action test render, its
+     marked form, and the response slot it claimed. */
   char *resp_pre = nullptr;
   char *resp_pre_marked = nullptr;
   int   resp_pos = -1;
-  char *flat_raw = nullptr;         /* flat-path frozen Before template + snapshot */
+
+  /* Before message on the flat interleaved path: frozen template, the
+     pre-action snapshot, and the side buffer the actions write into. */
+  char *flat_raw = nullptr;
   char *flat_pre = nullptr;
   char *flat_pre_marked = nullptr;
   int   flat_pre_ink = 0;
   int   flat_inter = 0;
-  sb_t  flat_abuf; sb_init (&flat_abuf);
+  sb_t  flat_abuf;
+
   /* Immediate-Display splice point: where this task's output begins in `out`,
      recorded BEFORE the Before message is emitted.  An action Display that the
      runner sends straight to sOutputText (vb:1748) precedes the buffered
-     response, i.e. lands here.  (imm frame set around the action loop below,
+     response, i.e. lands here.  (imm frame set around the action loop,
      flat paths only.) */
-  long imm0 = (long) out->len;
-  if (before && comp != nullptr)
+  long imm0 = 0;
+
+  /* An `Execute Look` deferred inside this task's own action list, and the
+     run's look registers as they were before the claim. */
+  int local_defer_look = 0;
+  int prev_dl = 0, prev_lp = 0;
+  size_t prev_lpos = 0;
+  char *prev_lpin = nullptr;
+};
+
+/* Phase 1: the Before completion message, rendered ahead of the actions.
+   On the map path a "Before" message follows the Adrift 5 runner's
+   sBeforeActionsMessage logic (clsUserSession.vb:1176-1205): it claims its
+   slot in the response order now, is rendered once before the actions, and
+   after the actions is either pinned to that pre-action text (if the actions
+   changed its rendering -- e.g. TakeObjectsFromOthersLazy's "(from
+   %objects%.Parent.Name)", whose parent flips to the player once the take
+   runs) or, for an unchanged AggregateOutput task, left deferred so a second
+   item merges into its %objects% list. */
+static void
+run_task_before_message (run_task_ctx &c)
+{
+  a5_run_t *run = c.run;
+  a5_state_t *st = c.st;
+  const a5_task_t *t = c.t;
+  const a5_xml_node_t *comp = c.comp;
+  sb_t *out = c.out;
+
+  c.imm0 = (long) out->len;
+  if (!(c.before && comp != nullptr))
+    return;
+
+  if (run->resp != nullptr)
     {
-      if (run->resp != nullptr)
+      c.resp_pre = render_comp_test_ex (st, comp, &c.resp_pre_marked);
+      c.resp_pos = (int) run->resp->ents.size ();
+      /* The runner renders task.CompletionMessage.ToString with bTestingOutput
+         False BEFORE the actions (clsUserSession.vb:1167), retiring any
+         <DisplayOnce> segment even though the response text itself is
+         pinned/re-rendered later.  Mirror the marking for a non-aggregate
+         task with a segment-selection eval AFTER the pre-action test
+         render (so resp_pre keeps the first-time segment) -- eval only,
+         no %function% replacement, so no RNG draws.  An aggregate comp is
+         re-rendered at flush, where Scarier's segment choice must stay
+         live, so it keeps the old behaviour.  Euripides' crevice squeeze
+         (a movement override with a DisplayOnce first paragraph) showed
+         the first-time text on every later squeeze without this. */
+      if (!t->aggregate)
         {
-          resp_pre = render_comp_test_ex (st, comp, &resp_pre_marked);
-          resp_pos = (int) run->resp->ents.size ();
-          /* The runner renders task.CompletionMessage.ToString with bTestingOutput
-             False BEFORE the actions (clsUserSession.vb:1167), retiring any
-             <DisplayOnce> segment even though the response text itself is
-             pinned/re-rendered later.  Mirror the marking for a non-aggregate
-             task with a segment-selection eval AFTER the pre-action test
-             render (so resp_pre keeps the first-time segment) -- eval only,
-             no %function% replacement, so no RNG draws.  An aggregate comp is
-             re-rendered at flush, where Scarier's segment choice must stay
-             live, so it keeps the old behaviour.  Euripides' crevice squeeze
-             (a movement override with a DisplayOnce first paragraph) showed
-             the first-time text on every later squeeze without this. */
-          if (!t->aggregate)
-            {
-              a5_mark_guard mg (st, 1);
-              free (a5text_eval_description (st, comp));
-            }
+          a5_mark_guard mg (st, 1);
+          free (a5text_eval_description (st, comp));
         }
-      else if (!comp_bears_function (comp) || run->defer_look)
+    }
+  else if (!comp_bears_function (comp) || run->defer_look)
+    {
+      /* The runner (FileIO.vb:1618 defaults a missing <MessageBeforeOrAfter> to
+         Before) renders a Before completion message up to THREE times
+         (clsUserSession.vb:1176-1205): a pre-action snapshot
+         `sBeforeActionsMessage`, a post-action compare, and a finalize
+         `sMessage = ReplaceExpressions(ReplaceFunctions(sMessage))`.  A message
+         bearing a text-changing function (`RAND(..)`, `<#OneOf#>`) draws on
+         each render, so the runner draws 3× and shows the finalize when the first two
+         renders agree, or draws 2× and pins the first when they differ.
+         Scarier's flat resp==NULL buffer emitted once -- desyncing the xoshiro
+         stream on e.g. Tingalan's `read book of ancient lore`, whose
+         CompletionMessage is `This book contains %booksoflore[RAND(1,25)]%`
+         (the runner drew RAND(1,25) 3× and showed array index 3; Scarier drew once and
+         showed index 1, diverging every downstream encounter roll).  A static
+         completion (no `%function%`) renders identically every time and draws
+         nothing, so the two extra renders are inert for the corpus's plain
+         messages -- this fast path keeps them byte-stable.  (defer_look also
+         stays here: the interleaved path below buffers action output, which
+         would break look_pos indexing into `out`.) */
+      char *m1 = nullptr, *m2 = nullptr;
+      char *e1 = render_comp_test_ex (st, comp, &m1);
+      char *e2 = render_comp_test_ex (st, comp, &m2);
+      int renders_differ = (m1 != nullptr && m2 != nullptr && strcmp (m1, m2) != 0);
+      free (m2);
+      if (e1 != nullptr && e2 != nullptr && renders_differ)
         {
-          /* The runner (FileIO.vb:1618 defaults a missing <MessageBeforeOrAfter> to
-             Before) renders a Before completion message up to THREE times
-             (clsUserSession.vb:1176-1205): a pre-action snapshot
-             `sBeforeActionsMessage`, a post-action compare, and a finalize
-             `sMessage = ReplaceExpressions(ReplaceFunctions(sMessage))`.  A message
-             bearing a text-changing function (`RAND(..)`, `<#OneOf#>`) draws on
-             each render, so the runner draws 3× and shows the finalize when the first two
-             renders agree, or draws 2× and pins the first when they differ.
-             Scarier's flat resp==NULL buffer emitted once -- desyncing the xoshiro
-             stream on e.g. Tingalan's `read book of ancient lore`, whose
-             CompletionMessage is `This book contains %booksoflore[RAND(1,25)]%`
-             (the runner drew RAND(1,25) 3× and showed array index 3; Scarier drew once and
-             showed index 1, diverging every downstream encounter roll).  A static
-             completion (no `%function%`) renders identically every time and draws
-             nothing, so the two extra renders are inert for the corpus's plain
-             messages -- this fast path keeps them byte-stable.  (defer_look also
-             stays here: the interleaved path below buffers action output, which
-             would break look_pos indexing into `out`.) */
-          char *m1 = nullptr, *m2 = nullptr;
-          char *e1 = render_comp_test_ex (st, comp, &m1);
-          char *e2 = render_comp_test_ex (st, comp, &m2);
-          int renders_differ = (m1 != nullptr && m2 != nullptr && strcmp (m1, m2) != 0);
-          free (m2);
-          if (e1 != nullptr && e2 != nullptr && renders_differ)
-            {
-              /* First two renders differ: the runner pins the pre-action snapshot and the
-                 finalize replace is a no-op on the already-plain text (no 3rd
-                 draw). */
-              free (e2);
-              emit_message_body (run, e1, 0, out, m1);
-              free (m1);
-            }
-          else
-            {
-              free (e1);
-              free (e2);
-              free (m1);
-              /* Finalize.  For a non-aggregate task this is vb:1185/1204's
-                 eager replace, the one completion render the runner makes with
-                 bDisplaying clear; an aggregate task skips that line entirely
-                 and its raw template expands inside Display instead. */
-              a5_intro_guard ig (st, t->aggregate);
-              emit_completion (run, comp, out);   /* finalize: 3rd render + display */
-            }
+          /* First two renders differ: the runner pins the pre-action snapshot and the
+             finalize replace is a no-op on the already-plain text (no 3rd
+             draw). */
+          free (e2);
+          emit_message_body (run, e1, 0, out, m1);
+          free (m1);
         }
       else
         {
-          /* The message draws AND this task's actions may draw too (AoK's
-             Task999 magpie miss: message = <# Either(...) #>, actions =
-             Execute Task998 = Variable206 RAND(1,100)).  Evaluating the
-             compare/finalize before the actions (as above) would put the
-             Either draws before the roll, while the runner's real order is render1 ->
-             actions -> render2 (-> finalize) -- that misordering desynced the
-             whole xoshiro stream from the magpie chase onward.  Interleave:
-             freeze the template and take the pre-action snapshot now, run the
-             actions into a side buffer below (the message still precedes their
-             output, vb:1189 iResponsePosition), compare after them.
-
-             The template is frozen via eval_description ONCE, exactly like
-             the runner's `sMessage = task.CompletionMessage.ToString` (segment
-             selection + DisplayOnce retirement happen HERE, vb:1167 -- real
-             render, not bTestingOutput): the pre/post/finalize renders rework
-             that string with the function/expression pass only.  Re-selecting
-             segments per render instead broke Spectre of Castle Coris: the
-             banish task's actions hide the Spectre, so a live re-select
-             dropped the Either-bearing segment from the post-action compare
-             and its draw vanished from the stream. */
-          {
-            a5_mark_guard mg (st, 1);
-            flat_raw = a5text_eval_description (st, comp);
-            st->marking_display = 0;   /* the frozen re-render is a test */
-            /* vb:1177's probe: bTestingOutput AND bDisplaying (the freeze above
-               is CompletionMessage.ToString, which precedes both). */
-            a5_intro_guard ig (st, 1);
-            flat_pre = a5text_process_frozen (st, flat_raw, &flat_pre_ink,
-                                              &flat_pre_marked);
-          }
-          flat_inter = 1;
+          free (e1);
+          free (e2);
+          free (m1);
+          /* Finalize.  For a non-aggregate task this is vb:1185/1204's
+             eager replace, the one completion render the runner makes with
+             bDisplaying clear; an aggregate task skips that line entirely
+             and its raw template expands inside Display instead. */
+          a5_intro_guard ig (st, t->aggregate);
+          emit_completion (run, comp, out);   /* finalize: 3rd render + display */
         }
     }
-
-  /* clsUserSession.vb:1193 sets `task.Completed = True` *before* ExecuteActions
-     (vb:1194), so an action that runs or gates on this task's own completion sees
-     it complete -- e.g. Anno's Translatin runs `SetTasks Execute SettingOff`, and
-     SettingOff requires `Translatin Must BeComplete`.  (Callers also mark it after
-     run_task; this earlier mark is the one the runner relies on.) */
-  if (self_ti >= 0)
-    st->task_done[self_ti] = 1;
-
-  /* The runner's stock Look is an AggregateOutput task, so its room view is deferred to
-     the command's final Display -- a later action in THIS task's list that moves
-     an object out of the room is reflected in the view even though the view is
-     positioned ahead of that action's output.  FoF's `give pail to baker` runs
-     Task317 (Baker Bakes Bread), whose action list does `Execute Look` and THEN
-     `Execute Task2572` (Farrier Takes Pail, hiding the pail); The runner shows the bakery
-     WITHOUT the pail followed by the farrier's "picks up the pail" line.  When an
-     `Execute Look` is not the last action here, defer it (its slot is recorded at
-     look_pos) and splice the final-state view back in after the remaining actions
-     have run.  The last-action case (the usual "move then look") is unchanged. */
-  int local_defer_look = 0;
-  int prev_dl = run->defer_look, prev_lp = run->look_pending;
-  size_t prev_lpos = run->look_pos;
-  char *prev_lpin = run->look_pinned;
-  if (act != nullptr && !flat_inter && run->resp == nullptr && !run->defer_look)
+  else
     {
-      for (const a5_xml_node_t *c = act->first_child; c != nullptr; c = c->next)
-        if (streq (c->name, "SetTasks") && c->next != nullptr
-            && streq (c->text, "Execute Look"))
-          { local_defer_look = 1; break; }
-      if (local_defer_look)
+      /* The message draws AND this task's actions may draw too (AoK's
+         Task999 magpie miss: message = <# Either(...) #>, actions =
+         Execute Task998 = Variable206 RAND(1,100)).  Evaluating the
+         compare/finalize before the actions (as above) would put the
+         Either draws before the roll, while the runner's real order is render1 ->
+         actions -> render2 (-> finalize) -- that misordering desynced the
+         whole xoshiro stream from the magpie chase onward.  Interleave:
+         freeze the template and take the pre-action snapshot now, run the
+         actions into a side buffer (run_task_actions; the message still
+         precedes their output, vb:1189 iResponsePosition), compare after
+         them (run_task_before_finalize).
+
+         The template is frozen via eval_description ONCE, exactly like
+         the runner's `sMessage = task.CompletionMessage.ToString` (segment
+         selection + DisplayOnce retirement happen HERE, vb:1167 -- real
+         render, not bTestingOutput): the pre/post/finalize renders rework
+         that string with the function/expression pass only.  Re-selecting
+         segments per render instead broke Spectre of Castle Coris: the
+         banish task's actions hide the Spectre, so a live re-select
+         dropped the Either-bearing segment from the post-action compare
+         and its draw vanished from the stream. */
+      {
+        a5_mark_guard mg (st, 1);
+        c.flat_raw = a5text_eval_description (st, comp);
+        st->marking_display = 0;   /* the frozen re-render is a test */
+        /* vb:1177's probe: bTestingOutput AND bDisplaying (the freeze above
+           is CompletionMessage.ToString, which precedes both). */
+        a5_intro_guard ig (st, 1);
+        c.flat_pre = a5text_process_frozen (st, c.flat_raw, &c.flat_pre_ink,
+                                            &c.flat_pre_marked);
+      }
+      c.flat_inter = 1;
+    }
+}
+
+/* Phase 2: the action list, with an `Execute Look` that is not the last
+   action deferred and spliced back in at the final state.
+   The runner's stock Look is an AggregateOutput task, so its room view is
+   deferred to the command's final Display -- a later action in THIS task's
+   list that moves an object out of the room is reflected in the view even
+   though the view is positioned ahead of that action's output.  FoF's `give
+   pail to baker` runs Task317 (Baker Bakes Bread), whose action list does
+   `Execute Look` and THEN `Execute Task2572` (Farrier Takes Pail, hiding the
+   pail); The runner shows the bakery WITHOUT the pail followed by the
+   farrier's "picks up the pail" line.  When an `Execute Look` is not the last
+   action here, defer it (its slot is recorded at look_pos) and splice the
+   final-state view back in after the remaining actions have run.  The
+   last-action case (the usual "move then look") is unchanged. */
+static void
+run_task_actions (run_task_ctx &c)
+{
+  a5_run_t *run = c.run;
+  const a5_xml_node_t *act = c.act;
+  sb_t *out = c.out;
+
+  c.prev_dl = run->defer_look;
+  c.prev_lp = run->look_pending;
+  c.prev_lpos = run->look_pos;
+  c.prev_lpin = run->look_pinned;
+  if (act != nullptr && !c.flat_inter && run->resp == nullptr
+      && !run->defer_look)
+    {
+      for (const a5_xml_node_t *n = act->first_child; n != nullptr; n = n->next)
+        if (streq (n->name, "SetTasks") && n->next != nullptr
+            && streq (n->text, "Execute Look"))
+          { c.local_defer_look = 1; break; }
+      if (c.local_defer_look)
         { run->defer_look = 1; run->look_pending = 0; run->look_pinned = nullptr; }
     }
 
@@ -1862,29 +1898,30 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
       int saved_sti = run->cur_score_ti;
       sb_t *prev_isink = run->imm_sink;
       long  prev_ipos = run->imm_pos;
-      run->cur_score_ti = self_ti;
+      run->cur_score_ti = c.self_ti;
       /* Flat paths only: the resp path's flush order and the Look dance keep
          their existing append behaviour.  defer_look is fine -- the splice
          helper shifts look_pos when it inserts ahead of a recorded slot. */
       if (run->resp == nullptr)
-        { run->imm_sink = out; run->imm_pos = imm0; }
-      const a5_xml_node_t *c;
-      for (c = act->first_child; c != nullptr; c = c->next)
-        run_action (run, c->name, c->text, depth, flat_inter ? &flat_abuf : out);
+        { run->imm_sink = out; run->imm_pos = c.imm0; }
+      const a5_xml_node_t *n;
+      for (n = act->first_child; n != nullptr; n = n->next)
+        run_action (run, n->name, n->text, c.depth,
+                    c.flat_inter ? &c.flat_abuf : out);
       run->cur_score_ti = saved_sti;
       run->imm_sink = prev_isink;
       run->imm_pos = prev_ipos;
     }
 
-  if (local_defer_look)
+  if (c.local_defer_look)
     {
       int did_defer = run->look_pending;
       size_t lpos = run->look_pos;
       char *lpin = run->look_pinned;
-      run->defer_look = prev_dl;
-      run->look_pending = prev_lp;
-      run->look_pos = prev_lpos;
-      run->look_pinned = prev_lpin;
+      run->defer_look = c.prev_dl;
+      run->look_pending = c.prev_lp;
+      run->look_pos = c.prev_lpos;
+      run->look_pinned = c.prev_lpin;
       if (did_defer && lpos <= (size_t) out->len)
         {
           std::string view;
@@ -1904,8 +1941,20 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
         }
       free (lpin);
     }
+}
 
-  if (flat_inter)
+/* Phase 3: the Before message's post-action compare and finalize, on
+   whichever path phase 1 took, and the release of its renders. */
+static void
+run_task_before_finalize (run_task_ctx &c)
+{
+  a5_run_t *run = c.run;
+  a5_state_t *st = c.st;
+  const a5_task_t *t = c.t;
+  const a5_xml_node_t *comp = c.comp;
+  sb_t *out = c.out;
+
+  if (c.flat_inter)
     {
       /* Post-action compare + finalize (clsUserSession.vb:1200-1205), on the
          FROZEN template: pin the pre-action snapshot when the renders differ
@@ -1916,19 +1965,20 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
       {
         a5_mark_guard mg (st, 0);
         a5_intro_guard ig (st, 1);        /* vb:1199's probe */
-        post = a5text_process_frozen (st, flat_raw, nullptr, &post_marked);
+        post = a5text_process_frozen (st, c.flat_raw, nullptr, &post_marked);
       }
       /* Compare the MARKED renders: that is the string the runner holds in
          sMessage (clsUserSession.vb:1200), so a change confined to markup --
          Beginner's Cave's `<# "<" & rand(0,1000000) & ">" #>` cache-buster --
          counts, and the runner then pins the pre-action text instead of
          drawing a third time. */
-      int changed = (flat_pre_marked != nullptr && post_marked != nullptr
-                     && strcmp (flat_pre_marked, post_marked) != 0);
+      int changed = (c.flat_pre_marked != nullptr && post_marked != nullptr
+                     && strcmp (c.flat_pre_marked, post_marked) != 0);
       free (post_marked);
-      if (flat_pre != nullptr && post != nullptr && changed)
-        { emit_message_body (run, flat_pre, flat_pre_ink, out, flat_pre_marked);
-          flat_pre = nullptr; }
+      if (c.flat_pre != nullptr && post != nullptr && changed)
+        { emit_message_body (run, c.flat_pre, c.flat_pre_ink, out,
+                             c.flat_pre_marked);
+          c.flat_pre = nullptr; }
       else
         {
           int fin_ink = 0;
@@ -1937,7 +1987,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
           {
             a5_mark_guard mg (st, 1);
             a5_intro_guard ig (st, t->aggregate);   /* vb:1204 finalize */
-            fin = a5text_process_frozen (st, flat_raw, &fin_ink,
+            fin = a5text_process_frozen (st, c.flat_raw, &fin_ink,
                                          &fin_marked);
           }
           emit_message_body (run, fin, fin_ink, out, fin_marked);
@@ -1945,108 +1995,170 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
         }
       free (post);
     }
-  free (flat_pre);
-  free (flat_pre_marked);
-  free (flat_raw);
-  if (flat_abuf.len > 0) { sb_pspace (out); sb_puts (out, flat_abuf.p); }
-  free (flat_abuf.p);
+  free (c.flat_pre);
+  free (c.flat_pre_marked);
+  free (c.flat_raw);
+  c.flat_pre = c.flat_pre_marked = c.flat_raw = nullptr;
+  if (c.flat_abuf.len > 0) { sb_pspace (out); sb_puts (out, c.flat_abuf.p); }
+  free (c.flat_abuf.p);
+  c.flat_abuf.p = nullptr;
 
-  if (before && comp != nullptr && run->resp != nullptr)
+  if (c.before && comp != nullptr && run->resp != nullptr)
     {
       char *post_marked = nullptr;
       char *post = render_comp_test_ex (st, comp, &post_marked);
       /* Marked compare, as in the flat path above (vb:1200's sMessage still
          carries its markup). */
-      int same = (resp_pre_marked != nullptr && post_marked != nullptr
-                  && strcmp (resp_pre_marked, post_marked) == 0);
+      int same = (c.resp_pre_marked != nullptr && post_marked != nullptr
+                  && strcmp (c.resp_pre_marked, post_marked) == 0);
       free (post_marked);
-      if (t->aggregate && resp_pre != nullptr && post != nullptr && same)
-        resp_add_comp (run, t, comp, true, resp_pos);      /* deferred + merge */
-      else if (resp_pre != nullptr)
-        resp_add_text (run, resp_pre, true, resp_pos);     /* pinned pre-action */
+      if (t->aggregate && c.resp_pre != nullptr && post != nullptr && same)
+        /* deferred + merge */
+        resp_add_comp (run, t, comp, true, c.resp_pos);
+      else if (c.resp_pre != nullptr)
+        /* pinned pre-action */
+        resp_add_text (run, c.resp_pre, true, c.resp_pos);
       free (post);
     }
-  free (resp_pre);
-  free (resp_pre_marked);
+  free (c.resp_pre);
+  free (c.resp_pre_marked);
+  c.resp_pre = c.resp_pre_marked = nullptr;
+}
 
-  if (!before && comp != nullptr)
+/* Phase 4: an After completion message, rendered once the actions ran. */
+static void
+run_task_after_message (run_task_ctx &c)
+{
+  a5_run_t *run = c.run;
+  a5_state_t *st = c.st;
+  const a5_task_t *t = c.t;
+  const a5_xml_node_t *comp = c.comp;
+  sb_t *out = c.out;
+
+  if (c.before || comp == nullptr)
+    return;
+
+  if (run->resp != nullptr)
+    resp_add_comp (run, t, comp, true);
+  else if (run->comp_defers != nullptr && t->aggregate
+           && run->in_ev_attempt && run->ev_tbl != nullptr)
     {
-      if (run->resp != nullptr)
-        resp_add_comp (run, t, comp, true);
-      else if (run->comp_defers != nullptr && t->aggregate
-               && run->in_ev_attempt && run->ev_tbl != nullptr)
+      /* Event/walk/LocationTrigger attempt: the runner adds this After
+         completion per subtask pass via CompletionMessage.ToString -- the
+         restriction-gated branch is selected EAGERLY (at this item's
+         state, retiring DisplayOnce), and the resulting RAW branch text
+         keys the response table.  A repeat of the same raw MERGES: one
+         response, no second render, no second `<#..#>` draw.  A DIFFERENT
+         raw from the same completion node is its own response (Quest
+         Giver's daylight task landing on 5 mid-iteration).  Functions in a
+         NEW entry render with the `<#..#>` draw deferred to the attempt's
+         Display flush, mirroring the runner's aggregate expansion. */
+      char *raw;
+      {
+        a5_mark_guard mg (st, 1);
+        raw = a5text_eval_description (st, comp);
+      }
+      std::string rawtext = raw != nullptr ? raw : "";
+      free (raw);
+      if (!rawtext.empty ())
         {
-          /* Event/walk/LocationTrigger attempt: the runner adds this After
-             completion per subtask pass via CompletionMessage.ToString -- the
-             restriction-gated branch is selected EAGERLY (at this item's
-             state, retiring DisplayOnce), and the resulting RAW branch text
-             keys the response table.  A repeat of the same raw MERGES: one
-             response, no second render, no second `<#..#>` draw.  A DIFFERENT
-             raw from the same completion node is its own response (Quest
-             Giver's daylight task landing on 5 mid-iteration).  Functions in a
-             NEW entry render with the `<#..#>` draw deferred to the attempt's
-             Display flush, mirroring the runner's aggregate expansion. */
-          char *raw;
-          {
-            a5_mark_guard mg (st, 1);
-            raw = a5text_eval_description (st, comp);
-          }
-          std::string rawtext = raw != nullptr ? raw : "";
-          free (raw);
-          if (!rawtext.empty ())
+          run->task_raw_output = 1;      /* the runner's bHasOutput */
+          if (ev_tbl_touch (run->ev_tbl, comp, rawtext))
             {
-              run->task_raw_output = 1;      /* the runner's bHasOutput */
-              if (ev_tbl_touch (run->ev_tbl, comp, rawtext))
-                {
-                  size_t sink0 = run->comp_defers->size ();
-                  size_t out0 = out->len;
-                  st->expr_defer = run->comp_defers;
-                  int ink = 0;
-                  char *mk = nullptr;
-                  char *m;
-                  {
-                    a5_mark_guard mg (st, 1);
-                    a5_intro_guard ig (st, 1);   /* aggregate: Display render */
-                    m = a5text_process_frozen (st, rawtext.c_str (),
-                                               &ink, &mk);
-                  }
-                  st->expr_defer = nullptr;
-                  emit_message_body (run, m, ink, out, mk);
-                  free (mk);
-                  if (out->len == out0)
-                    run->comp_defers->resize (sink0);
-                }
+              size_t sink0 = run->comp_defers->size ();
+              size_t out0 = out->len;
+              st->expr_defer = run->comp_defers;
+              int ink = 0;
+              char *mk = nullptr;
+              char *m;
+              {
+                a5_mark_guard mg (st, 1);
+                a5_intro_guard ig (st, 1);   /* aggregate: Display render */
+                m = a5text_process_frozen (st, rawtext.c_str (),
+                                           &ink, &mk);
+              }
+              st->expr_defer = nullptr;
+              emit_message_body (run, m, ink, out, mk);
+              free (mk);
+              if (out->len == out0)
+                run->comp_defers->resize (sink0);
             }
         }
-      else if (run->comp_defers != nullptr && t->aggregate)
-        {
-          /* AggregateOutput completion on the eager command path: render the
-             static skeleton now (so its position and pSpace separators match),
-             but hold any random `<#..#>` draw to the end-of-command flush --
-             the runner's AggregateOutput responses run ReplaceExpressions at Display,
-             after the following actions' draws.  If the message renders empty
-             (or is deduped away), roll back any recorded expressions so no
-             orphan draw fires at flush. */
-          size_t sink0 = run->comp_defers->size ();
-          size_t out0 = out->len;
-          st->expr_defer = run->comp_defers;
-          {
-            a5_intro_guard ig (st, 1);     /* aggregate: Display render */
-            emit_completion (run, comp, out);
-          }
-          st->expr_defer = nullptr;
-          if (out->len == out0)
-            run->comp_defers->resize (sink0);
-        }
-      else
-        {
-          /* vb:1211's eager finalize for a non-aggregate After message (the
-             flag is clear); an aggregate landing here has no defer sink to
-             hold its draws, but it is still a Display-time expansion. */
-          a5_intro_guard ig (st, t->aggregate);
-          emit_completion (run, comp, out);
-        }
     }
+  else if (run->comp_defers != nullptr && t->aggregate)
+    {
+      /* AggregateOutput completion on the eager command path: render the
+         static skeleton now (so its position and pSpace separators match),
+         but hold any random `<#..#>` draw to the end-of-command flush --
+         the runner's AggregateOutput responses run ReplaceExpressions at Display,
+         after the following actions' draws.  If the message renders empty
+         (or is deduped away), roll back any recorded expressions so no
+         orphan draw fires at flush. */
+      size_t sink0 = run->comp_defers->size ();
+      size_t out0 = out->len;
+      st->expr_defer = run->comp_defers;
+      {
+        a5_intro_guard ig (st, 1);     /* aggregate: Display render */
+        emit_completion (run, comp, out);
+      }
+      st->expr_defer = nullptr;
+      if (out->len == out0)
+        run->comp_defers->resize (sink0);
+    }
+  else
+    {
+      /* vb:1211's eager finalize for a non-aggregate After message (the
+         flag is clear); an aggregate landing here has no defer sink to
+         hold its draws, but it is still a Display-time expansion. */
+      a5_intro_guard ig (st, t->aggregate);
+      emit_completion (run, comp, out);
+    }
+}
+
+void
+run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
+{
+  run_task_ctx c;
+  c.run = run;
+  c.st = run->st;
+  c.t = t;
+  c.depth = depth;
+  c.out = out;
+  /* v5's FileIO.Load defaults a missing <MessageBeforeOrAfter> to Before (the
+     class default After is overridden at load time, FileIO.vb:1618), so the
+     completion message is evaluated and emitted *before* the actions run.  This
+     is what makes TakeObjectsFromOthersLazy's "(from %objects%.Parent.Name)"
+     render "(from the Table)" (parent still the source) ahead of the
+     SetTasks-Execute sub-task's "You take ... from the Table." line. */
+  const char *when = a5xml_child_text (t->node, "MessageBeforeOrAfter");
+  c.before = !streq (when, "After");
+  c.comp = a5xml_child (t->node, "CompletionMessage");
+  c.act = t->actions;
+  c.self_ti = a5state_task_index (c.st, t->key);
+  sb_init (&c.flat_abuf);
+
+  if (a5run_trace)
+    fprintf (stderr, "  [run task %s]\n", t->key ? t->key : "?");
+
+  if (streq (t->key, "Look"))
+    {
+      run_task_look (run, t, depth, out, c.self_ti);
+      return;
+    }
+
+  run_task_before_message (c);
+
+  /* clsUserSession.vb:1193 sets `task.Completed = True` *before* ExecuteActions
+     (vb:1194), so an action that runs or gates on this task's own completion sees
+     it complete -- e.g. Anno's Translatin runs `SetTasks Execute SettingOff`, and
+     SettingOff requires `Translatin Must BeComplete`.  (Callers also mark it after
+     run_task; this earlier mark is the one the runner relies on.) */
+  if (c.self_ti >= 0)
+    c.st->task_done[c.self_ti] = 1;
+
+  run_task_actions (c);
+  run_task_before_finalize (c);
+  run_task_after_message (c);
 }
 
 /* The events + walks turn-based runtime (ev_* / wk_*) lives in
