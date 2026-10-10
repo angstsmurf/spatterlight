@@ -776,400 +776,443 @@ char_holds_object (a5_state_t *st, const char *charkey, const char *objkey,
   return 0;
 }
 
-static int
-pass_character (a5_state_t *st, a5_restr_t *r)
-{
-  const char *k1 = resolve_key (st, r->key1);
-  const char *k2 = resolve_key (st, r->key2);
-  int ci = a5state_character_index (st, k1);
-  const char *cloc = (ci >= 0) ? st->char_loc[ci] : nullptr;
+/* One Character restriction under evaluation: the restriction, its two
+   resolved keys, and the subject character's index and recorded room
+   (ci < 0 and cloc NULL for ANYCHARACTER or an unknown key).  Each
+   operator is one member, found by name through char_restr_ops[]. */
+namespace {
 
-  if (streq (r->op, "BeAtLocation"))
+struct char_restr_t
+{
+  a5_state_t *st;
+  a5_restr_t *r;
+  const char *k1, *k2;
+  int ci;
+  const char *cloc;
+
+  int be_at_location () const;
+  int be_of_gender () const;
+  int be_holding_object () const;
+  int be_wearing_object () const;
+  int be_in_same_location_as_object () const;
+  int be_in_same_location_as_character () const;
+  int be_character () const;
+  int be_visible_to_character () const;
+  int be_within_location_group () const;
+  int have_property () const;
+  int exist () const;
+  int be_in_group () const;
+  int have_route_in_direction () const;
+  int be_in_position () const;
+  int be_on_or_in_object () const;
+  int be_in_conversation_with () const;
+  int have_seen_character () const;
+  int have_seen_object () const;
+  int have_seen_location () const;
+  int be_alone_with () const;
+  int be_alone () const;
+  int be_on_character () const;
+};
+
+} /* namespace */
+
+int
+char_restr_t::be_at_location () const
+{
+  /* clsRestriction.CharacterEnum.BeAtLocation (clsUserSession.vb:4571):
+     ANYCHARACTER = true when ANY character's Location.LocationKey equals
+     k2 (DieFeuerfaust's look-through-flap segment is gated on
+     `AnyCharacter Must BeAtLocation ChieftainS` after the chieftain and
+     his wife are bulk-moved into the main chamber; this case previously
+     fell through to the ci<0 NULL compare and always failed).  Both
+     branches compare the runner's *resolved* LocationKey -- the root room through
+     an on/in-object carrier (clsCharacter.vb:1773) -- not the raw
+     char_loc, which is NULL for a character seated on furniture. */
+  if (streq (k1, ANYCHARACTER))
     {
-      /* clsRestriction.CharacterEnum.BeAtLocation (clsUserSession.vb:4571):
-         ANYCHARACTER = true when ANY character's Location.LocationKey equals
-         k2 (DieFeuerfaust's look-through-flap segment is gated on
-         `AnyCharacter Must BeAtLocation ChieftainS` after the chieftain and
-         his wife are bulk-moved into the main chamber; this case previously
-         fell through to the ci<0 NULL compare and always failed).  Both
-         branches compare the runner's *resolved* LocationKey -- the root room through
-         an on/in-object carrier (clsCharacter.vb:1773) -- not the raw
-         char_loc, which is NULL for a character seated on furniture. */
-      if (streq (k1, ANYCHARACTER))
+      for (int s = 0; s < st->adv->n_characters; s++)
+        if (streq (a5state_character_location_key (st, s), k2))
+          return 1;
+      return 0;
+    }
+  return streq (a5state_character_location_key (st, ci), k2);
+}
+
+int
+char_restr_t::be_of_gender () const
+{
+  /* clsCharacter.Gender / clsRestriction.CharacterEnum.BeOfGender: an
+     exact match against the Mandatory StateList "Gender" property
+     (Male/Female/Unknown).  k2 is the literal state name (resolve_key is
+     a no-op on it -- no leading '%' and no matching per-turn ref
+     binding).  Without this case the operator fell through to the
+     best-effort `return 1`, so a gender-gated branch (e.g. Pathway to
+     Destruction's
+     `Player Must BeOfGender Female` swapping in an alternate character
+     name/pronoun set) always fired even when the player's Gender is still
+     its unset "Unknown" default.  Pathway's Gender never gets set at all:
+     the generated GenTask1 that would ask via %PopUpChoice% is a System
+     task WITHOUT RunImmediately, and nothing ever dispatches one of those
+     (clsUserSession.vb:213 auto-runs only the RunImmediately ones), so the
+     Unknown default is what the runner plays with too. */
+  const char *g = a5state_entity_prop (st, k1, "Gender");
+  return g != nullptr && strcasecmp (g, k2) == 0;
+}
+
+int
+char_restr_t::be_holding_object () const
+{
+  /* ANYOBJECT -> holding at least one object (clsCharacter.IsHoldingObject:
+     "If sObKey = ANYOBJECT Then Return HeldObjects.Count > 0"). */
+  if (streq (k2, ANYOBJECT))
+    return char_holds_any (st, k1, A5_OWHERE_HELD_BY);
+  /* ANYCHARACTER subject: htblObjects(k2).IsHeldByAnyone
+     (clsUserSession.vb:4674) -- held directly, or nested in a
+     container/surface whose own chain ends held (clsObject.vb:737
+     recurses into the parent).  A worn or located object is not "held
+     by anyone". */
+  if (streq (k1, ANYCHARACTER))
+    {
+      int oi = a5state_object_index (st, k2), hops;
+      for (hops = 0; oi >= 0 && hops < st->adv->n_objects; hops++)
         {
-          for (int s = 0; s < st->adv->n_characters; s++)
-            if (streq (a5state_character_location_key (st, s), k2))
-              return 1;
-          return 0;
+          if (st->obj[oi].where == A5_OWHERE_HELD_BY)
+            return 1;
+          if (st->obj[oi].where != A5_OWHERE_IN_OBJECT
+              && st->obj[oi].where != A5_OWHERE_ON_OBJECT)
+            return 0;
+          oi = a5state_object_index (st, st->obj[oi].key);
         }
-      return streq (a5state_character_location_key (st, ci), k2);
+      return 0;
     }
-  if (streq (r->op, "BeOfGender"))
-    {
-      /* clsCharacter.Gender / clsRestriction.CharacterEnum.BeOfGender: an
-         exact match against the Mandatory StateList "Gender" property
-         (Male/Female/Unknown).  k2 is the literal state name (resolve_key is
-         a no-op on it -- no leading '%' and no matching per-turn ref
-         binding).  Without this case the operator fell through to the
-         best-effort `return 1`, so a gender-gated branch (e.g. Pathway to
-         Destruction's
-         `Player Must BeOfGender Female` swapping in an alternate character
-         name/pronoun set) always fired even when the player's Gender is still
-         its unset "Unknown" default.  Pathway's Gender never gets set at all:
-         the generated GenTask1 that would ask via %PopUpChoice% is a System
-         task WITHOUT RunImmediately, and nothing ever dispatches one of those
-         (clsUserSession.vb:213 auto-runs only the RunImmediately ones), so the
-         Unknown default is what the runner plays with too. */
-      const char *g = a5state_entity_prop (st, k1, "Gender");
-      return g != nullptr && strcasecmp (g, k2) == 0;
-    }
-  if (streq (r->op, "BeHoldingObject"))
-    {
-      /* ANYOBJECT -> holding at least one object (clsCharacter.IsHoldingObject:
-         "If sObKey = ANYOBJECT Then Return HeldObjects.Count > 0"). */
-      if (streq (k2, ANYOBJECT))
-        return char_holds_any (st, k1, A5_OWHERE_HELD_BY);
-      /* ANYCHARACTER subject: htblObjects(k2).IsHeldByAnyone
-         (clsUserSession.vb:4674) -- held directly, or nested in a
-         container/surface whose own chain ends held (clsObject.vb:737
-         recurses into the parent).  A worn or located object is not "held
-         by anyone". */
-      if (streq (k1, ANYCHARACTER))
-        {
-          int oi = a5state_object_index (st, k2), hops;
-          for (hops = 0; oi >= 0 && hops < st->adv->n_objects; hops++)
-            {
-              if (st->obj[oi].where == A5_OWHERE_HELD_BY)
-                return 1;
-              if (st->obj[oi].where != A5_OWHERE_IN_OBJECT
-                  && st->obj[oi].where != A5_OWHERE_ON_OBJECT)
-                return 0;
-              oi = a5state_object_index (st, st->obj[oi].key);
-            }
-          return 0;
-        }
-      /* A specific object counts as held if it is directly held OR nested in a
-         container/supporter the character holds (clsCharacter.IsHoldingObject is
-         recursive) -- e.g. Anno's gunpowder poured into the held skull still
-         satisfies "Player Must BeHoldingObject Gunpowder1". */
-      return char_holds_object (st, k1, k2, 0);
-    }
-  if (streq (r->op, "BeWearingObject"))
-    {
-      if (streq (k2, ANYOBJECT))     /* WornObjects.Count > 0 */
-        return char_holds_any (st, k1, A5_OWHERE_WORN_BY);
-      int oi = a5state_object_index (st, k2);
-      /* ANYCHARACTER subject: htblObjects(k2).IsWornByAnyone
-         (clsUserSession.vb:4868) -- a direct WornBy check only, NOT
-         recursive (clsObject.vb:756). */
-      if (streq (k1, ANYCHARACTER))
-        return oi >= 0 && st->obj[oi].where == A5_OWHERE_WORN_BY;
-      return oi >= 0 && st->obj[oi].where == A5_OWHERE_WORN_BY
-             && streq (st->obj[oi].key, k1);
-    }
-  if (streq (r->op, "BeInSameLocationAsObject"))
-    {
-      int oi;
-      if (cloc == nullptr)
+  /* A specific object counts as held if it is directly held OR nested in a
+     container/supporter the character holds (clsCharacter.IsHoldingObject is
+     recursive) -- e.g. Anno's gunpowder poured into the held skull still
+     satisfies "Player Must BeHoldingObject Gunpowder1". */
+  return char_holds_object (st, k1, k2, 0);
+}
+
+int
+char_restr_t::be_wearing_object () const
+{
+  if (streq (k2, ANYOBJECT))     /* WornObjects.Count > 0 */
+    return char_holds_any (st, k1, A5_OWHERE_WORN_BY);
+  int oi = a5state_object_index (st, k2);
+  /* ANYCHARACTER subject: htblObjects(k2).IsWornByAnyone
+     (clsUserSession.vb:4868) -- a direct WornBy check only, NOT
+     recursive (clsObject.vb:756). */
+  if (streq (k1, ANYCHARACTER))
+    return oi >= 0 && st->obj[oi].where == A5_OWHERE_WORN_BY;
+  return oi >= 0 && st->obj[oi].where == A5_OWHERE_WORN_BY
+         && streq (st->obj[oi].key, k1);
+}
+
+int
+char_restr_t::be_in_same_location_as_object () const
+{
+  int oi;
+  if (cloc == nullptr)
+    return 0;
+  /* k2 may be an object GROUP (e.g. LightSources): true if any member is in
+     scope, mirroring clsCharacter.CanSeeObject's group expansion (the
+     darkness override's "MustNot BeInSameLocationAsObject LightSources"
+     must see a held torch). */
+  for (int gi = 0; gi < st->adv->n_groups; gi++)
+    if (streq (st->adv->groups[gi].key, k2))
+      {
+        /* Effective membership = static <Member>s plus runtime adds minus
+           removes; scan every object so runtime-added members (e.g. a lit
+           flashlight in LightSources) count too. */
+        for (int mi = 0; mi < st->adv->n_objects; mi++)
+          if (a5state_object_in_group (st, k2, st->adv->objects[mi].key)
+              && a5state_object_visible_at_location (st, mi, cloc, 0))
+            return 1;
         return 0;
-      /* k2 may be an object GROUP (e.g. LightSources): true if any member is in
-         scope, mirroring clsCharacter.CanSeeObject's group expansion (the
-         darkness override's "MustNot BeInSameLocationAsObject LightSources"
-         must see a held torch). */
-      for (int gi = 0; gi < st->adv->n_groups; gi++)
-        if (streq (st->adv->groups[gi].key, k2))
-          {
-            /* Effective membership = static <Member>s plus runtime adds minus
-               removes; scan every object so runtime-added members (e.g. a lit
-               flashlight in LightSources) count too. */
-            for (int mi = 0; mi < st->adv->n_objects; mi++)
-              if (a5state_object_in_group (st, k2, st->adv->objects[mi].key)
-                  && a5state_object_visible_at_location (st, mi, cloc, 0))
-                return 1;
-            return 0;
-          }
-      oi = a5state_object_index (st, k2);
-      return oi >= 0 && a5state_object_visible_at_location (st, oi, cloc, 0);
-    }
-  if (streq (r->op, "BeInSameLocationAsCharacter"))
+      }
+  oi = a5state_object_index (st, k2);
+  return oi >= 0 && a5state_object_visible_at_location (st, oi, cloc, 0);
+}
+
+int
+char_restr_t::be_in_same_location_as_character () const
+{
+  /* clsUserSession.vb:4681-4698.  clsCharacter.Location.LocationKey resolves a
+     seated/carried character to its room, so the comparison must walk an
+     on/in-object character (e.g. Anne seated on Chair1) through its carrier
+     rather than read the raw char_loc (NULL for a non-"At Location"
+     character).  `same_room` does that resolution for either operand (prefer
+     the recorded room, else scan locations for the on/in-object case). */
+  auto same_room = [&] (int a, int b) -> int {
+    if (a < 0 || b < 0)
+      return 0;
+    const char *la = (st->char_loc != nullptr) ? st->char_loc[a] : nullptr;
+    if (la != nullptr)
+      return a5state_character_at_location (st, b, la);
+    for (int L = 0; L < st->adv->n_locations; L++)
+      { const char *lk = st->adv->locations[L].key;
+        if (a5state_character_at_location (st, a, lk)
+            && a5state_character_at_location (st, b, lk))
+          return 1; }
+    return 0;
+  };
+  int c2 = a5state_character_index (st, k2);
+  /* k1 = ANYCHARACTER: r = Not htblCharacters(k2).IsAlone -- some *other*
+     character shares k2's room (vb:4684). */
+  if (streq (k1, ANYCHARACTER))
     {
-      /* clsUserSession.vb:4681-4698.  clsCharacter.Location.LocationKey resolves a
-         seated/carried character to its room, so the comparison must walk an
-         on/in-object character (e.g. Anne seated on Chair1) through its carrier
-         rather than read the raw char_loc (NULL for a non-"At Location"
-         character).  `same_room` does that resolution for either operand (prefer
-         the recorded room, else scan locations for the on/in-object case). */
-      auto same_room = [&] (int a, int b) -> int {
-        if (a < 0 || b < 0)
-          return 0;
-        const char *la = (st->char_loc != nullptr) ? st->char_loc[a] : nullptr;
-        if (la != nullptr)
-          return a5state_character_at_location (st, b, la);
-        for (int L = 0; L < st->adv->n_locations; L++)
-          { const char *lk = st->adv->locations[L].key;
-            if (a5state_character_at_location (st, a, lk)
-                && a5state_character_at_location (st, b, lk))
-              return 1; }
+      if (c2 < 0)
         return 0;
-      };
-      int c2 = a5state_character_index (st, k2);
-      /* k1 = ANYCHARACTER: r = Not htblCharacters(k2).IsAlone -- some *other*
-         character shares k2's room (vb:4684). */
-      if (streq (k1, ANYCHARACTER))
-        {
-          if (c2 < 0)
-            return 0;
-          for (int s = 0; s < st->adv->n_characters; s++)
-            if (s != c2 && same_room (s, c2))
-              return 1;
-          return 0;
-        }
-      /* k1 = specific, k2 = ANYCHARACTER: any *other* character co-located with
-         k1 (vb:4687-4694) -- e.g. Revenge's `Player Must
-         BeInSameLocationAsCharacter AnyCharacter` ("There's nobody here to show
-         anything to!"), true when the customs official is present. */
-      if (streq (k2, ANYCHARACTER))
-        {
-          if (ci < 0)
-            return 0;
-          for (int c = 0; c < st->adv->n_characters; c++)
-            if (c != ci && same_room (c, ci))
-              return 1;
-          return 0;
-        }
-      /* k1, k2 both specific: identical rooms (vb:4696). */
-      return same_room (ci, c2);
+      for (int s = 0; s < st->adv->n_characters; s++)
+        if (s != c2 && same_room (s, c2))
+          return 1;
+      return 0;
     }
-  if (streq (r->op, "BeCharacter"))
+  /* k1 = specific, k2 = ANYCHARACTER: any *other* character co-located with
+     k1 (vb:4687-4694) -- e.g. Revenge's `Player Must
+     BeInSameLocationAsCharacter AnyCharacter` ("There's nobody here to show
+     anything to!"), true when the customs official is present. */
+  if (streq (k2, ANYCHARACTER))
     {
-      /* clsRestriction.CharacterEnum.BeCharacter (clsUserSession.vb:4579): the
-         subject character k1 is a specific character (ANYCHARACTER = any) -- an
-         identity test on the resolved keys (mirrors the object `BeObject`).  Without
-         this case the operator fell through to the best-effort `return 1`, so e.g.
-         RunBronwynn's `ExamineCha1` ("Examine Me", `ReferencedCharacter Must
-         BeCharacter Player`) wrongly fired for any examined character (x horse ->
-         Fleetwind), showing its description where the runner's higher-priority
-         ExamineCharacter fails the HaveSeen check with "You see no such thing." */
-      if (streq (k1, ANYCHARACTER))
-        return 1;
-      return streq (k1, k2);
-    }
-  if (streq (r->op, "BeVisibleToCharacter"))
-    {
-      /* clsRestriction.CharacterEnum.BeVisibleToCharacter (clsUserSession.vb:4700):
-         true when the subject character k1 (ANYCHARACTER = any) can be seen by the
-         observer k2 -- clsCharacter.CanSeeCharacter -> IsVisibleTo: the two share a
-         BoundVisible location and the subject is not Hidden.  Reduce to "the subject
-         is at the observer's location" (a5state_character_at_location resolves an
-         on/in-object subject through its carrier and treats Hidden as not-present).
-         Without this case the operator fell through to the best-effort `return 1`,
-         so e.g. Grandpa's `vnl_JustTalk` ("talk" near Molly) wrongly fired when
-         Molly was elsewhere, swallowing the turn. */
-      const char *obs_loc;
-      if (streq (k2, ANYCHARACTER))
-        {
-          /* any observer: the subject (or any subject) co-located with any *other*
-             character. */
-          for (int s = 0; s < st->adv->n_characters; s++)
-            {
-              if (!streq (k1, ANYCHARACTER) && !streq (st->adv->characters[s].key, k1))
-                continue;
-              for (int o = 0; o < st->adv->n_characters; o++)
-                if (o != s && st->char_loc[o] != nullptr
-                    && a5state_character_at_location (st, s, st->char_loc[o]))
-                  return 1;
-            }
-          return 0;
-        }
-      if (k2 == nullptr || streq (k2, a5state_player_key (st)))
-        obs_loc = a5state_player_location (st);
-      else
-        /* effective location: an observer seated ON furniture (Grandpa on
-           his rocking chair) has char_loc NULL. */
-        obs_loc = a5state_character_location_key (st,
-                    a5state_character_index (st, k2));
-      if (obs_loc == nullptr)
+      if (ci < 0)
         return 0;
-      if (streq (k1, ANYCHARACTER))
+      for (int c = 0; c < st->adv->n_characters; c++)
+        if (c != ci && same_room (c, ci))
+          return 1;
+      return 0;
+    }
+  /* k1, k2 both specific: identical rooms (vb:4696). */
+  return same_room (ci, c2);
+}
+
+int
+char_restr_t::be_character () const
+{
+  /* clsRestriction.CharacterEnum.BeCharacter (clsUserSession.vb:4579): the
+     subject character k1 is a specific character (ANYCHARACTER = any) -- an
+     identity test on the resolved keys (mirrors the object `BeObject`).  Without
+     this case the operator fell through to the best-effort `return 1`, so e.g.
+     RunBronwynn's `ExamineCha1` ("Examine Me", `ReferencedCharacter Must
+     BeCharacter Player`) wrongly fired for any examined character (x horse ->
+     Fleetwind), showing its description where the runner's higher-priority
+     ExamineCharacter fails the HaveSeen check with "You see no such thing." */
+  if (streq (k1, ANYCHARACTER))
+    return 1;
+  return streq (k1, k2);
+}
+
+int
+char_restr_t::be_visible_to_character () const
+{
+  /* clsRestriction.CharacterEnum.BeVisibleToCharacter (clsUserSession.vb:4700):
+     true when the subject character k1 (ANYCHARACTER = any) can be seen by the
+     observer k2 -- clsCharacter.CanSeeCharacter -> IsVisibleTo: the two share a
+     BoundVisible location and the subject is not Hidden.  Reduce to "the subject
+     is at the observer's location" (a5state_character_at_location resolves an
+     on/in-object subject through its carrier and treats Hidden as not-present).
+     Without this case the operator fell through to the best-effort `return 1`,
+     so e.g. Grandpa's `vnl_JustTalk` ("talk" near Molly) wrongly fired when
+     Molly was elsewhere, swallowing the turn. */
+  const char *obs_loc;
+  if (streq (k2, ANYCHARACTER))
+    {
+      /* any observer: the subject (or any subject) co-located with any *other*
+         character. */
+      for (int s = 0; s < st->adv->n_characters; s++)
         {
-          for (int s = 0; s < st->adv->n_characters; s++)
-            if (a5state_character_at_location (st, s, obs_loc))
+          if (!streq (k1, ANYCHARACTER) && !streq (st->adv->characters[s].key, k1))
+            continue;
+          for (int o = 0; o < st->adv->n_characters; o++)
+            if (o != s && st->char_loc[o] != nullptr
+                && a5state_character_at_location (st, s, st->char_loc[o]))
               return 1;
-          return 0;
         }
-      return a5state_character_at_location (st, ci, obs_loc);
+      return 0;
     }
-  if (streq (r->op, "BeWithinLocationGroup"))
+  if (k2 == nullptr || streq (k2, a5state_player_key (st)))
+    obs_loc = a5state_player_location (st);
+  else
+    /* effective location: an observer seated ON furniture (Grandpa on
+       his rocking chair) has char_loc NULL. */
+    obs_loc = a5state_character_location_key (st,
+                a5state_character_index (st, k2));
+  if (obs_loc == nullptr)
+    return 0;
+  if (streq (k1, ANYCHARACTER))
     {
-      /* Membership must consult the runtime override layer, not just the static
-         model members: SixSilverBullets' TimeTraps1 fires the bell then runs
-         `RemoveLocationFromGroup LocationOf %Player% FromGroup TimeTraps`, so a
-         once-tolled location leaves the group and must not re-toll.  Likewise
-         AddLocationToGroup (Jacaranda's dark-locations) must count. */
-      return cloc != nullptr && a5state_object_in_group (st, k2, cloc);
+      for (int s = 0; s < st->adv->n_characters; s++)
+        if (a5state_character_at_location (st, s, obs_loc))
+          return 1;
+      return 0;
     }
-  if (streq (r->op, "HaveProperty"))
+  return a5state_character_at_location (st, ci, obs_loc);
+}
+
+int
+char_restr_t::be_within_location_group () const
+{
+  /* Membership must consult the runtime override layer, not just the static
+     model members: SixSilverBullets' TimeTraps1 fires the bell then runs
+     `RemoveLocationFromGroup LocationOf %Player% FromGroup TimeTraps`, so a
+     once-tolled location leaves the group and must not re-toll.  Likewise
+     AddLocationToGroup (Jacaranda's dark-locations) must count. */
+  return cloc != nullptr && a5state_object_in_group (st, k2, cloc);
+}
+
+int
+char_restr_t::have_property () const
+{
+  /* clsCharacter.HasProperty (clsItem.vb:386) consults the *merged*
+     property table, so a property added at runtime via SetProperty
+     (e.g. `SetProperty Susan Known <Selected>`, clsUserSession.vb:2042)
+     must count -- not just the static model props.  The runner's
+     SetPropertyValue(Boolean) removes a SelectionOnly property when set
+     to <Unselected>, so an override carrying that sentinel reads as
+     absent (mirroring the display-name "Selected" check at a5text.cpp). */
+  if (streq (k1, ANYCHARACTER))
     {
-      /* clsCharacter.HasProperty (clsItem.vb:386) consults the *merged*
-         property table, so a property added at runtime via SetProperty
-         (e.g. `SetProperty Susan Known <Selected>`, clsUserSession.vb:2042)
-         must count -- not just the static model props.  The runner's
-         SetPropertyValue(Boolean) removes a SelectionOnly property when set
-         to <Unselected>, so an override carrying that sentinel reads as
-         absent (mirroring the display-name "Selected" check at a5text.cpp). */
-      if (streq (k1, ANYCHARACTER))
+      for (int s = 0; s < st->adv->n_characters; s++)
+        if (a5state_entity_has_prop (st, st->adv->characters[s].key, k2))
+          return 1;
+      return 0;
+    }
+  return ci >= 0 && a5state_entity_has_prop (st, k1, k2);
+}
+
+int
+char_restr_t::exist () const
+{
+  /* clsUserSession.vb:4600: ANYCHARACTER -> any character defined at all. */
+  if (streq (k1, ANYCHARACTER))
+    return st->adv->n_characters > 0;
+  return ci >= 0;
+}
+
+int
+char_restr_t::be_in_group () const
+{
+  /* clsUserSession.vb:4779: ANYCHARACTER -> any character among the
+     group's LIVE members (runtime Add/RemoveCharacterToGroup counts);
+     else membership of k1 itself.  Previously unhandled, so the check
+     fell through to the pass-everything default and a MustNot BeInGroup
+     restriction could never fail. */
+  if (streq (k1, ANYCHARACTER))
+    {
+      for (int s = 0; s < st->adv->n_characters; s++)
+        if (a5state_object_in_group (st, k2, st->adv->characters[s].key))
+          return 1;
+      return 0;
+    }
+  return a5state_object_in_group (st, k2, k1);
+}
+
+int
+char_restr_t::have_route_in_direction () const
+{
+  const char *dir = a5parse_canonical_direction (k2);
+  const char *cl = streq (k1, a5state_player_key (st))
+                     ? a5state_player_location (st) : cloc;
+  const a5_xml_node_t *blocked = nullptr;
+  const char *exit;
+  if (dir == nullptr)
+    dir = k2;             /* already canonical (e.g. bound ReferencedDirection) */
+  /* sRouteError: clear, then capture the blocked exit's own message (if the
+     exit exists but is restriction-gated) so the deciding fail message
+     override below can prefer it over the generic "no route" text. */
+  st->route_error = nullptr;
+  if (streq (dir, ANYDIRECTION))
+    {
+      /* clsUserSession.vb:4608: AnyDirection loops every DirectionsEnum
+         value through HasRouteInDirection -- true when at least one
+         direction has an open route (enum order, matching the runner's
+         short-circuit). */
+      static const char *const kEnumDirs[12] = {
+        "North", "East", "South", "West", "Up", "Down",
+        "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest" };
+      if (cl == nullptr)
+        return 0;
+      for (int d = 0; d < 12; d++)
         {
-          for (int s = 0; s < st->adv->n_characters; s++)
-            if (a5state_entity_has_prop (st, st->adv->characters[s].key, k2))
-              return 1;
-          return 0;
+          const a5_xml_node_t *b = nullptr;
+          if (a5restr_exit_in_direction (st, k1, cl, kEnumDirs[d], &b) != nullptr)
+            return 1;
+          if (b != nullptr)
+            blocked = b;    /* the runner keeps the LAST specific error */
         }
-      return ci >= 0 && a5state_entity_has_prop (st, k1, k2);
-    }
-  if (streq (r->op, "Exist"))
-    {
-      /* clsUserSession.vb:4600: ANYCHARACTER -> any character defined at all. */
-      if (streq (k1, ANYCHARACTER))
-        return st->adv->n_characters > 0;
-      return ci >= 0;
-    }
-  if (streq (r->op, "BeInGroup"))
-    {
-      /* clsUserSession.vb:4779: ANYCHARACTER -> any character among the
-         group's LIVE members (runtime Add/RemoveCharacterToGroup counts);
-         else membership of k1 itself.  Previously unhandled, so the check
-         fell through to the pass-everything default and a MustNot BeInGroup
-         restriction could never fail. */
-      if (streq (k1, ANYCHARACTER))
-        {
-          for (int s = 0; s < st->adv->n_characters; s++)
-            if (a5state_object_in_group (st, k2, st->adv->characters[s].key))
-              return 1;
-          return 0;
-        }
-      return a5state_object_in_group (st, k2, k1);
-    }
-  if (streq (r->op, "HaveRouteInDirection"))
-    {
-      const char *dir = a5parse_canonical_direction (k2);
-      const char *cl = streq (k1, a5state_player_key (st))
-                         ? a5state_player_location (st) : cloc;
-      const a5_xml_node_t *blocked = nullptr;
-      const char *exit;
-      if (dir == nullptr)
-        dir = k2;             /* already canonical (e.g. bound ReferencedDirection) */
-      /* sRouteError: clear, then capture the blocked exit's own message (if the
-         exit exists but is restriction-gated) so the deciding fail message
-         override below can prefer it over the generic "no route" text. */
-      st->route_error = nullptr;
-      if (streq (dir, ANYDIRECTION))
-        {
-          /* clsUserSession.vb:4608: AnyDirection loops every DirectionsEnum
-             value through HasRouteInDirection -- true when at least one
-             direction has an open route (enum order, matching the runner's
-             short-circuit). */
-          static const char *const kEnumDirs[12] = {
-            "North", "East", "South", "West", "Up", "Down",
-            "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest" };
-          if (cl == nullptr)
-            return 0;
-          for (int d = 0; d < 12; d++)
-            {
-              const a5_xml_node_t *b = nullptr;
-              if (a5restr_exit_in_direction (st, k1, cl, kEnumDirs[d], &b) != nullptr)
-                return 1;
-              if (b != nullptr)
-                blocked = b;    /* the runner keeps the LAST specific error */
-            }
-          if (blocked != nullptr)
-            st->route_error = blocked;
-          return 0;
-        }
-      exit = (cl != nullptr) ? a5restr_exit_in_direction (st, k1, cl, dir, &blocked)
-                          : nullptr;
-      if (exit == nullptr && blocked != nullptr)
+      if (blocked != nullptr)
         st->route_error = blocked;
-      return exit != nullptr;
+      return 0;
     }
-  if (streq (r->op, "BeInPosition"))
+  exit = (cl != nullptr) ? a5restr_exit_in_direction (st, k1, cl, dir, &blocked)
+                      : nullptr;
+  if (exit == nullptr && blocked != nullptr)
+    st->route_error = blocked;
+  return exit != nullptr;
+}
+
+int
+char_restr_t::be_in_position () const
+{
+  /* clsUserSession.vb:4902-4915 reads the raw CharacterPosition PROPERTY,
+     gated on HasProperty -- NOT the Position getter (which defaults to
+     Standing).  A character that never gained the property tests False
+     for every position: the library-injected default Player carries no
+     CharacterPosition <Property>, and the SetProperty action on an
+     absent character property is a no-op (vb:2056), so `stand` always
+     passes StandOnFloor's `MustNot BeInPosition Standing` for it.  Only
+     a character whose XML sets the property, or one moved via
+     ToStandingOn/ToSittingOn/ToLyingOn (the Position setter creates the
+     property, clsCharacter.vb:1853), ever tests True. */
+  if (streq (k1, ANYCHARACTER))
     {
-      /* clsUserSession.vb:4902-4915 reads the raw CharacterPosition PROPERTY,
-         gated on HasProperty -- NOT the Position getter (which defaults to
-         Standing).  A character that never gained the property tests False
-         for every position: the library-injected default Player carries no
-         CharacterPosition <Property>, and the SetProperty action on an
-         absent character property is a no-op (vb:2056), so `stand` always
-         passes StandOnFloor's `MustNot BeInPosition Standing` for it.  Only
-         a character whose XML sets the property, or one moved via
-         ToStandingOn/ToSittingOn/ToLyingOn (the Position setter creates the
-         property, clsCharacter.vb:1853), ever tests True. */
-      if (streq (k1, ANYCHARACTER))
+      for (int s = 0; s < st->adv->n_characters; s++)
         {
-          for (int s = 0; s < st->adv->n_characters; s++)
-            {
-              const char *pos = a5state_entity_prop
-                  (st, st->adv->characters[s].key, "CharacterPosition");
-              if (pos != nullptr && streq (pos, k2))
-                return 1;
-            }
-          return 0;
+          const char *pos = a5state_entity_prop
+              (st, st->adv->characters[s].key, "CharacterPosition");
+          if (pos != nullptr && streq (pos, k2))
+            return 1;
         }
-      const char *pos = (ci >= 0)
-          ? a5state_entity_prop (st, k1, "CharacterPosition") : nullptr;
-      return pos != nullptr && streq (pos, k2);
+      return 0;
     }
-  /* On/in object, optionally constrained by stance.  Mirrors clsUserSession's
-     BeOnObject / BeInsideObject / Be{Standing,Sitting,Lying}OnObject cases:
-     ANYOBJECT -> just the ExistWhere; THEFLOOR / else -> object-key compare. */
-  if (streq (r->op, "BeOnObject") || streq (r->op, "BeInsideObject")
-      || streq (r->op, "BeStandingOnObject") || streq (r->op, "BeSittingOnObject")
-      || streq (r->op, "BeLyingOnObject"))
+  const char *pos = (ci >= 0)
+      ? a5state_entity_prop (st, k1, "CharacterPosition") : nullptr;
+  return pos != nullptr && streq (pos, k2);
+}
+
+/* On/in object, optionally constrained by stance.  Mirrors clsUserSession's
+   BeOnObject / BeInsideObject / Be{Standing,Sitting,Lying}OnObject cases:
+   ANYOBJECT -> just the ExistWhere; THEFLOOR / else -> object-key compare. */
+int
+char_restr_t::be_on_or_in_object () const
+{
+  const char *onobj = (ci >= 0 && st->char_onobj) ? st->char_onobj[ci] : nullptr;
+  int inside = (ci >= 0 && st->char_in) ? st->char_in[ci] : 0;
+  const char *want_pos =
+      streq (r->op, "BeStandingOnObject") ? "Standing"
+    : streq (r->op, "BeSittingOnObject")  ? "Sitting"
+    : streq (r->op, "BeLyingOnObject")    ? "Lying" : nullptr;
+  int want_in = streq (r->op, "BeInsideObject");
+  const char *pos = (ci >= 0 && st->char_position) ? st->char_position[ci] : nullptr;
+  /* Subject ANYCHARACTER: the runner's clsUserSession CharacterOnObject/InObject
+     AnyCharacter case counts the object's ChildrenCharacters (vb:4930/
+     4952) -- true when ANY character is on/in the (specific) object.  Head
+     Case's examine template gates %ListCharactersOnAndIn[%object%]% on
+     "AnyCharacter Must BeInsideObject ReferencedObject" (the Mysterious
+     Voice sitting inside the black van). */
+  if (streq (k1, ANYCHARACTER))
     {
-      const char *onobj = (ci >= 0 && st->char_onobj) ? st->char_onobj[ci] : nullptr;
-      int inside = (ci >= 0 && st->char_in) ? st->char_in[ci] : 0;
-      const char *want_pos =
-          streq (r->op, "BeStandingOnObject") ? "Standing"
-        : streq (r->op, "BeSittingOnObject")  ? "Sitting"
-        : streq (r->op, "BeLyingOnObject")    ? "Lying" : nullptr;
-      int want_in = streq (r->op, "BeInsideObject");
-      const char *pos = (ci >= 0 && st->char_position) ? st->char_position[ci] : nullptr;
-      /* Subject ANYCHARACTER: the runner's clsUserSession CharacterOnObject/InObject
-         AnyCharacter case counts the object's ChildrenCharacters (vb:4930/
-         4952) -- true when ANY character is on/in the (specific) object.  Head
-         Case's examine template gates %ListCharactersOnAndIn[%object%]% on
-         "AnyCharacter Must BeInsideObject ReferencedObject" (the Mysterious
-         Voice sitting inside the black van). */
-      if (streq (k1, ANYCHARACTER))
+      if (streq (k2, ANYOBJECT))
+        return 0;                     /* not a shipped combination */
+      if (streq (k2, THEFLOOR))
         {
-          if (streq (k2, ANYOBJECT))
-            return 0;                     /* not a shipped combination */
-          if (streq (k2, THEFLOOR))
-            {
-              /* clsUserSession.vb:4834: TheFloor = the stance with ExistWhere
-                 AtLocation -- on the ground, not on/in any object. */
-              for (int i = 0; i < st->adv->n_characters; i++)
-                {
-                  if (want_in)
-                    continue;             /* can't be inside the floor */
-                  if (st->char_onobj != nullptr && st->char_onobj[i] != nullptr)
-                    continue;
-                  if (st->char_loc == nullptr || st->char_loc[i] == nullptr)
-                    continue;
-                  if (want_pos != nullptr
-                      && !streq (st->char_position ? st->char_position[i] : nullptr,
-                                 want_pos))
-                    continue;
-                  return 1;
-                }
-              return 0;
-            }
+          /* clsUserSession.vb:4834: TheFloor = the stance with ExistWhere
+             AtLocation -- on the ground, not on/in any object. */
           for (int i = 0; i < st->adv->n_characters; i++)
             {
-              if (st->char_onobj == nullptr || st->char_onobj[i] == nullptr
-                  || !streq (st->char_onobj[i], k2))
+              if (want_in)
+                continue;             /* can't be inside the floor */
+              if (st->char_onobj != nullptr && st->char_onobj[i] != nullptr)
                 continue;
-              int in_i = st->char_in != nullptr && st->char_in[i];
-              if ((in_i ? 1 : 0) != want_in)
+              if (st->char_loc == nullptr || st->char_loc[i] == nullptr)
                 continue;
               if (want_pos != nullptr
                   && !streq (st->char_position ? st->char_position[i] : nullptr,
@@ -1179,103 +1222,188 @@ pass_character (a5_state_t *st, a5_restr_t *r)
             }
           return 0;
         }
-      if (ci < 0) return 0;
-      if (want_pos != nullptr && !streq (pos, want_pos))
-        return 0;
-      if (streq (k2, ANYOBJECT))
-        return onobj != nullptr && (inside ? 1 : 0) == want_in;
-      if (streq (k2, THEFLOOR))
+      for (int i = 0; i < st->adv->n_characters; i++)
         {
-          /* clsUserSession.vb:4834: TheFloor = the stance with ExistWhere
-             AtLocation -- on the ground, not on/in any object (the position
-             itself was already checked above).  The player's room comes from
-             a5state_player_location; char_loc is the NPC store. */
-          const char *atloc = streq (k1, a5state_player_key (st))
-                                ? a5state_player_location (st) : cloc;
-          return !want_in && onobj == nullptr && atloc != nullptr;
+          if (st->char_onobj == nullptr || st->char_onobj[i] == nullptr
+              || !streq (st->char_onobj[i], k2))
+            continue;
+          int in_i = st->char_in != nullptr && st->char_in[i];
+          if ((in_i ? 1 : 0) != want_in)
+            continue;
+          if (want_pos != nullptr
+              && !streq (st->char_position ? st->char_position[i] : nullptr,
+                         want_pos))
+            continue;
+          return 1;
         }
-      /* Any concrete object key: must be on/in that key. */
-      return onobj != nullptr && (inside ? 1 : 0) == want_in && streq (onobj, k2);
+      return 0;
     }
-  /* Conversation / acquaintance operators (clsUserSession character cases). */
-  if (streq (r->op, "BeInConversationWith"))
+  if (ci < 0) return 0;
+  if (want_pos != nullptr && !streq (pos, want_pos))
+    return 0;
+  if (streq (k2, ANYOBJECT))
+    return onobj != nullptr && (inside ? 1 : 0) == want_in;
+  if (streq (k2, THEFLOOR))
     {
-      if (streq (k2, ANYCHARACTER))
-        return st->conv_char != nullptr && st->conv_char[0] != '\0';
-      return streq (st->conv_char, k2);
+      /* clsUserSession.vb:4834: TheFloor = the stance with ExistWhere
+         AtLocation -- on the ground, not on/in any object (the position
+         itself was already checked above).  The player's room comes from
+         a5state_player_location; char_loc is the NPC store. */
+      const char *atloc = streq (k1, a5state_player_key (st))
+                            ? a5state_player_location (st) : cloc;
+      return !want_in && onobj == nullptr && atloc != nullptr;
     }
-  if (streq (r->op, "HaveSeenCharacter"))
-    {
-      /* key1 is the observer (typically Player), key2 the target.  We track the
-         player's "seen" set; a non-player observer is treated as having seen
-         (best-effort, no shipped restriction needs the general case). */
-      int c2 = a5state_character_index (st, k2);
-      if (c2 < 0)
-        return 0;
-      if (!streq (k1, a5state_player_key (st)))
-        return 1;
-      return st->char_seen != nullptr && st->char_seen[c2];
-    }
-  if (streq (r->op, "HaveSeenObject"))
-    {
-      /* key1 is the observer, key2 the target object.  The runner funnels this and the
-         object-subject HaveBeenSeenByCharacter to the same per-character
-         clsCharacter.HasSeenObject table (clsUserSession.vb:4677 / :4341), so
-         mirror the object-side handler exactly: the player consults the tracked
-         seen set; a non-player observer falls back to "seen" (best-effort).
-         Without this case the operator fell through to `return 1`, so Thy
-         Dunjohnman's gated exits (`%Player% Must HaveSeenObject Platform` /
-         Coins) were open from turn one (the runner keeps them shut). */
-      int o2 = a5state_object_index (st, k2);
-      if (o2 < 0)
-        return 0;
-      if (!streq (k1, a5state_player_key (st)))
-        return 1;
-      return st->obj_seen != nullptr && st->obj_seen[o2];
-    }
-  if (streq (r->op, "HaveSeenLocation"))
-    {
-      /* key1 is the observer (typically Player), key2 the target location.
-         the runner sets clsCharacter.HasSeenLocation only for the Player
-         (clsUserSession.vb:222, on every player move), so a non-player observer
-         has never seen any location -- mirror the location-subject
-         HaveBeenSeenByCharacter handler.  Without this case the operator fell
-         through to the best-effort `return 1`, so RunBronwynn's Caught121
-         (`Player Must HaveSeenLocation BridgetSLi`) fired the moment the player
-         reached the cathedral-square street -- BEFORE ever entering Bridget's
-         house -- ending the game prematurely (the runner plays on). */
-      int li = a5state_location_index (st, k2);
-      if (li < 0)
-        return 0;
-      if (!streq (k1, a5state_player_key (st)))
-        return 0;
-      return st->loc_seen != nullptr && st->loc_seen[li];
-    }
-  if (streq (r->op, "BeAloneWith"))
-    {
-      const char *aw = alone_with_char (st, k1);
-      if (streq (k2, ANYCHARACTER))
-        return aw != nullptr;
-      return streq (aw, k2);
-    }
-  if (streq (r->op, "BeAlone"))
-    /* clsCharacter.IsAlone: resolved Location.LocationKey compare, so a
-       character on/in furniture still breaks solitude. */
-    return chars_sharing_room (st, ci, nullptr) == 0;
-  if (streq (r->op, "BeOnCharacter"))
-    {
-      /* clsCharacterLocation.ExistsWhereEnum.OnCharacter: the character rides
-         *another character*.  The carrier lives in char_onchar (set by the
-         loader for an "On Character" start state and by the OntoCharacter
-         MoveCharacter action) -- char_onobj only ever names objects, so reading
-         it here always failed (Penrhyn's Arkell-on-Ralph follow message). */
-      const char *onk = (ci >= 0 && st->char_onchar) ? st->char_onchar[ci] : nullptr;
-      if (onk == nullptr || a5state_character_index (st, onk) < 0)
-        return 0;
-      if (streq (k2, ANYCHARACTER))
-        return 1;
-      return streq (onk, k2);
-    }
+  /* Any concrete object key: must be on/in that key. */
+  return onobj != nullptr && (inside ? 1 : 0) == want_in && streq (onobj, k2);
+}
+
+/* Conversation / acquaintance operators (clsUserSession character cases). */
+int
+char_restr_t::be_in_conversation_with () const
+{
+  if (streq (k2, ANYCHARACTER))
+    return st->conv_char != nullptr && st->conv_char[0] != '\0';
+  return streq (st->conv_char, k2);
+}
+
+int
+char_restr_t::have_seen_character () const
+{
+  /* key1 is the observer (typically Player), key2 the target.  We track the
+     player's "seen" set; a non-player observer is treated as having seen
+     (best-effort, no shipped restriction needs the general case). */
+  int c2 = a5state_character_index (st, k2);
+  if (c2 < 0)
+    return 0;
+  if (!streq (k1, a5state_player_key (st)))
+    return 1;
+  return st->char_seen != nullptr && st->char_seen[c2];
+}
+
+int
+char_restr_t::have_seen_object () const
+{
+  /* key1 is the observer, key2 the target object.  The runner funnels this and the
+     object-subject HaveBeenSeenByCharacter to the same per-character
+     clsCharacter.HasSeenObject table (clsUserSession.vb:4677 / :4341), so
+     mirror the object-side handler exactly: the player consults the tracked
+     seen set; a non-player observer falls back to "seen" (best-effort).
+     Without this case the operator fell through to `return 1`, so Thy
+     Dunjohnman's gated exits (`%Player% Must HaveSeenObject Platform` /
+     Coins) were open from turn one (the runner keeps them shut). */
+  int o2 = a5state_object_index (st, k2);
+  if (o2 < 0)
+    return 0;
+  if (!streq (k1, a5state_player_key (st)))
+    return 1;
+  return st->obj_seen != nullptr && st->obj_seen[o2];
+}
+
+int
+char_restr_t::have_seen_location () const
+{
+  /* key1 is the observer (typically Player), key2 the target location.
+     the runner sets clsCharacter.HasSeenLocation only for the Player
+     (clsUserSession.vb:222, on every player move), so a non-player observer
+     has never seen any location -- mirror the location-subject
+     HaveBeenSeenByCharacter handler.  Without this case the operator fell
+     through to the best-effort `return 1`, so RunBronwynn's Caught121
+     (`Player Must HaveSeenLocation BridgetSLi`) fired the moment the player
+     reached the cathedral-square street -- BEFORE ever entering Bridget's
+     house -- ending the game prematurely (the runner plays on). */
+  int li = a5state_location_index (st, k2);
+  if (li < 0)
+    return 0;
+  if (!streq (k1, a5state_player_key (st)))
+    return 0;
+  return st->loc_seen != nullptr && st->loc_seen[li];
+}
+
+int
+char_restr_t::be_alone_with () const
+{
+  const char *aw = alone_with_char (st, k1);
+  if (streq (k2, ANYCHARACTER))
+    return aw != nullptr;
+  return streq (aw, k2);
+}
+
+int
+char_restr_t::be_alone () const
+{
+  /* clsCharacter.IsAlone: resolved Location.LocationKey compare, so a
+     character on/in furniture still breaks solitude. */
+  return chars_sharing_room (st, ci, nullptr) == 0;
+}
+
+int
+char_restr_t::be_on_character () const
+{
+  /* clsCharacterLocation.ExistsWhereEnum.OnCharacter: the character rides
+     *another character*.  The carrier lives in char_onchar (set by the
+     loader for an "On Character" start state and by the OntoCharacter
+     MoveCharacter action) -- char_onobj only ever names objects, so reading
+     it here always failed (Penrhyn's Arkell-on-Ralph follow message). */
+  const char *onk = (ci >= 0 && st->char_onchar) ? st->char_onchar[ci] : nullptr;
+  if (onk == nullptr || a5state_character_index (st, onk) < 0)
+    return 0;
+  if (streq (k2, ANYCHARACTER))
+    return 1;
+  return streq (onk, k2);
+}
+
+/* Operator name -> evaluator, in the order the if-chain tested them.  The
+   five on/in-object operators share one evaluator, which reads r->op for
+   the stance and the in/on half. */
+static const struct
+{
+  const char *op;
+  int (char_restr_t::*pass) () const;
+} char_restr_ops[] = {
+  { "BeAtLocation", &char_restr_t::be_at_location },
+  { "BeOfGender", &char_restr_t::be_of_gender },
+  { "BeHoldingObject", &char_restr_t::be_holding_object },
+  { "BeWearingObject", &char_restr_t::be_wearing_object },
+  { "BeInSameLocationAsObject",
+    &char_restr_t::be_in_same_location_as_object },
+  { "BeInSameLocationAsCharacter",
+    &char_restr_t::be_in_same_location_as_character },
+  { "BeCharacter", &char_restr_t::be_character },
+  { "BeVisibleToCharacter", &char_restr_t::be_visible_to_character },
+  { "BeWithinLocationGroup", &char_restr_t::be_within_location_group },
+  { "HaveProperty", &char_restr_t::have_property },
+  { "Exist", &char_restr_t::exist },
+  { "BeInGroup", &char_restr_t::be_in_group },
+  { "HaveRouteInDirection", &char_restr_t::have_route_in_direction },
+  { "BeInPosition", &char_restr_t::be_in_position },
+  { "BeOnObject", &char_restr_t::be_on_or_in_object },
+  { "BeInsideObject", &char_restr_t::be_on_or_in_object },
+  { "BeStandingOnObject", &char_restr_t::be_on_or_in_object },
+  { "BeSittingOnObject", &char_restr_t::be_on_or_in_object },
+  { "BeLyingOnObject", &char_restr_t::be_on_or_in_object },
+  { "BeInConversationWith", &char_restr_t::be_in_conversation_with },
+  { "HaveSeenCharacter", &char_restr_t::have_seen_character },
+  { "HaveSeenObject", &char_restr_t::have_seen_object },
+  { "HaveSeenLocation", &char_restr_t::have_seen_location },
+  { "BeAloneWith", &char_restr_t::be_alone_with },
+  { "BeAlone", &char_restr_t::be_alone },
+  { "BeOnCharacter", &char_restr_t::be_on_character },
+};
+
+static int
+pass_character (a5_state_t *st, a5_restr_t *r)
+{
+  char_restr_t c;
+  c.st = st;
+  c.r = r;
+  c.k1 = resolve_key (st, r->key1);
+  c.k2 = resolve_key (st, r->key2);
+  c.ci = a5state_character_index (st, c.k1);
+  c.cloc = (c.ci >= 0) ? st->char_loc[c.ci] : nullptr;
+
+  for (const auto &entry : char_restr_ops)
+    if (streq (r->op, entry.op))
+      return (c.*entry.pass) ();
   return 1;                   /* other character ops: best-effort pass */
 }
 
