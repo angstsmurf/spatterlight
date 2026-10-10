@@ -247,7 +247,7 @@ pf_rewrite_whole_words (const scr_char *string, std::string &buffer,
           current = buffer.c_str ();
           offset += replacement_length;
 
-          if (pf_trace)
+          if (pf.trace)
             scr_trace ("Printfilter: %s \"%s\"\n", what, buffer.c_str ());
         }
       else
@@ -298,7 +298,7 @@ pf_rewrite_substring (const scr_char *string, std::string &buffer,
       current = buffer.c_str ();
       offset += replacement_length;
 
-      if (pf_trace)
+      if (pf.trace)
         scr_trace ("Printfilter: %s \"%s\"\n", what, buffer.c_str ());
     }
 }
@@ -652,9 +652,9 @@ pf_apply_synonyms_by_word (const scr_char *string, scr_int version)
       size_t span = 0;
       size_t index_;
 
-      for (index_ = 0; index_ < pf_synonym_cache.size (); index_++)
+      for (index_ = 0; index_ < pf.synonym.cache.size (); index_++)
         {
-          const pf_str_pair_t &entry = pf_synonym_cache[index_];
+          const pf_str_pair_t &entry = pf.synonym.cache[index_];
           scr_int extent;
 
           extent = pf_compare_words (buffer.c_str () + offset, entry.original);
@@ -705,7 +705,7 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
   const scr_char *current;
   assert (string && bundle);
 
-  if (pf_trace)
+  if (pf.trace)
     scr_trace ("Printfilter: input \"%s\"\n", string);
 
   /* Obtain a count of synonyms. */
@@ -715,12 +715,12 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
 
   /*
    * Resolve the immutable synonym table from the property tree once per game
-   * (see the string-pair caches above); after that the word loop reads it
+   * (see scr_pf_state_t); after that the word loop reads it
    * directly, with no prop_get() lookups.  The count is fixed for a game, so a
    * lazy build on first use is safe.
    */
-  if (!pf_synonym_cache_built
-      || (scr_int) pf_synonym_cache.size () != synonym_count)
+  if (!pf.synonym.built
+      || (scr_int) pf.synonym.cache.size () != synonym_count)
     pf_synonym_cache_build (bundle, synonym_count);
 
   /*
@@ -780,9 +780,9 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
       {
         const std::string before = line;
 
-        pf_apply_synonym (line, pf_synonym_cache[index_], version);
+        pf_apply_synonym (line, pf.synonym.cache[index_], version);
 
-        if (pf_trace && line != before)
+        if (pf.trace && line != before)
           scr_trace ("Printfilter: synonym \"%s\"\n", line.c_str ());
       }
 

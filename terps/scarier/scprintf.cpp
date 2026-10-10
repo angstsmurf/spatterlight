@@ -29,8 +29,8 @@
 /* Assorted definitions and constants. */
 static const scr_uint PRINTFILTER_MAGIC = 0xb4736417;
 
-/* Trace flag, set before running. */
-scr_bool pf_trace = FALSE;
+/* The printfilter's module state; see scr_pf_state_t. */
+scr_pf_state_t pf;
 
 /* The HTML-like tag table; see scprintf_internal.h. */
 const scr_html_tags_t HTML_TAGS_TABLE[] = {
@@ -48,32 +48,20 @@ const scr_html_tags_t HTML_TAGS_TABLE[] = {
   {nullptr, 0, SCR_TAG_UNKNOWN}
 };
 
-/* The ALR and synonym caches; see scprintf_internal.h. */
-std::vector<pf_str_pair_t> pf_alr_cache;
-scr_bool pf_alr_cache_built = FALSE;
-scr_bool pf_alr_trailing_space = FALSE;
-pf_alr_index_t pf_alr_index;
-std::vector<scr_int> pf_alr_short;
-std::vector<pf_str_pair_t> pf_synonym_cache;
-scr_bool pf_synonym_cache_built = FALSE;
-
 /*
- * pf_cache_reset()
+ * pf_state_reset()
  * pf_str_pair_set()
  *
- * Drop both caches, for a new game; and populate one cache entry from its
- * resolved original and replacement strings, for both builders below.
+ * Put the per-game printfilter state back to its start -- drop both caches,
+ * for a new game; the trace flag stays, since the interface sets it before
+ * any game exists.  And populate one cache entry from its resolved original
+ * and replacement strings, for both builders below.
  */
 static void
-pf_cache_reset (void)
+pf_state_reset (void)
 {
-  pf_alr_cache.clear ();
-  pf_alr_index.clear ();
-  pf_alr_short.clear ();
-  pf_alr_cache_built = FALSE;
-  pf_alr_trailing_space = FALSE;
-  pf_synonym_cache.clear ();
-  pf_synonym_cache_built = FALSE;
+  pf.alr = {};
+  pf.synonym = {};
 }
 
 static void
@@ -91,7 +79,7 @@ pf_str_pair_set (pf_str_pair_t &entry,
  * pf_alr_key()
  *
  * Pack the first PF_ALR_KEY_LENGTH bytes at 'text' into the key used by
- * pf_alr_index.  The caller guarantees that many bytes are readable.
+ * pf.alr.index.  The caller guarantees that many bytes are readable.
  */
 scr_uint
 pf_alr_key (const scr_char *text)
@@ -116,8 +104,8 @@ pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count)
 {
   scr_int index_;
 
-  pf_alr_cache.clear ();
-  pf_alr_cache.reserve (alr_count);
+  pf.alr.cache.clear ();
+  pf.alr.cache.reserve (alr_count);
 
   for (index_ = 0; index_ < alr_count; index_++)
     {
@@ -143,28 +131,28 @@ pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count)
       replacement = prop_get_string (bundle, "S<-sis", vt_key);
 
       pf_str_pair_set (entry, original, replacement);
-      pf_alr_cache.push_back (entry);
+      pf.alr.cache.push_back (entry);
     }
 
   /* Index the cache for pf_alr_candidates(). */
-  pf_alr_index.clear ();
-  pf_alr_short.clear ();
-  pf_alr_trailing_space = FALSE;
+  pf.alr.index.clear ();
+  pf.alr.unkeyed.clear ();
+  pf.alr.trailing_space = FALSE;
   for (index_ = 0; index_ < alr_count; index_++)
     {
-      const pf_str_pair_t &entry = pf_alr_cache[index_];
+      const pf_str_pair_t &entry = pf.alr.cache[index_];
 
       if (entry.original_length == 0)
         continue;
       if (entry.original[entry.original_length - 1] == ' ')
-        pf_alr_trailing_space = TRUE;
+        pf.alr.trailing_space = TRUE;
       if (entry.original_length < PF_ALR_KEY_LENGTH)
-        pf_alr_short.push_back (index_);
+        pf.alr.unkeyed.push_back (index_);
       else
-        pf_alr_index[pf_alr_key (entry.original)].push_back (index_);
+        pf.alr.index[pf_alr_key (entry.original)].push_back (index_);
     }
 
-  pf_alr_cache_built = TRUE;
+  pf.alr.built = TRUE;
 }
 
 void
@@ -172,8 +160,8 @@ pf_synonym_cache_build (scr_prop_setref_t bundle, scr_int synonym_count)
 {
   scr_int index_;
 
-  pf_synonym_cache.clear ();
-  pf_synonym_cache.reserve (synonym_count);
+  pf.synonym.cache.clear ();
+  pf.synonym.cache.reserve (synonym_count);
 
   for (index_ = 0; index_ < synonym_count; index_++)
     {
@@ -190,10 +178,10 @@ pf_synonym_cache_build (scr_prop_setref_t bundle, scr_int synonym_count)
       replacement = prop_get_string (bundle, "S<-sis", vt_key);
 
       pf_str_pair_set (entry, original, replacement);
-      pf_synonym_cache.push_back (entry);
+      pf.synonym.cache.push_back (entry);
     }
 
-  pf_synonym_cache_built = TRUE;
+  pf.synonym.built = TRUE;
 }
 
 
@@ -267,7 +255,7 @@ pf_create (void)
    * string-pair caches held for the previous game, whose bundle is going
    * away.
    */
-  pf_cache_reset ();
+  pf_state_reset ();
 
   /* Create a new printfilter; 'buffer' default-constructs empty. */
   filter = new scr_filter_t ();
@@ -302,5 +290,5 @@ pf_destroy (scr_filterref_t filter)
 void
 pf_debug_trace (scr_bool flag)
 {
-  pf_trace = flag;
+  pf.trace = flag;
 }

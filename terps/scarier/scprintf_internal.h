@@ -77,9 +77,6 @@ enum
 static const scr_char *const ESCAPES = "<>%&+";
 static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
 
-/* Trace flag, set before running.  Defined in scprintf.cpp. */
-extern scr_bool pf_trace;
-
 
 /*
  * Table tying HTML-like tag strings to enumerated tag types.  Since it's
@@ -164,7 +161,7 @@ typedef struct scr_filter_s
  * entry shape, the storage (pointers straight into the property store, which
  * owns the strings for the game's lifetime; no copies), and the lifetime.
  *
- * Lifetime: both are reset by pf_cache_reset() from pf_create(), which
+ * Lifetime: both are reset by pf_state_reset() from pf_create(), which
  * run_create() calls exactly once per game, so the cached pointers can never
  * outlive the bundle they point into.
  */
@@ -176,30 +173,58 @@ typedef struct
   size_t replacement_length;
 } pf_str_pair_t;
 
-extern std::vector<pf_str_pair_t> pf_alr_cache;
-extern scr_bool pf_alr_cache_built;
-/* TRUE when some ALR original ends in a space; see pf_replace_alrs(). */
-extern scr_bool pf_alr_trailing_space;
-
 /*
- * Multi-pattern prefilter for the ALR loop (see pf_alr_candidates below).
- * pf_alr_index maps the four-byte prefix of an ALR original to every cache slot
- * that starts with it; originals shorter than four bytes are too weak a key for
- * that, and live in pf_alr_short where they are probed with strstr() as before.
- * Empty originals are in neither -- pf_replace_alr() refuses them anyway.
- *
- * Both are rebuilt by pf_alr_cache_build() and cleared by pf_cache_reset(), so
- * they share the cache's per-game lifetime and its pointers into the property
- * store.
+ * Multi-pattern prefilter for the ALR loop (see pf_alr_candidates() in
+ * scprintf_alr.cpp).  pf.alr.index maps the four-byte prefix of an ALR
+ * original to every cache slot that starts with it; originals shorter than
+ * four bytes are too weak a key for that, and live in pf.alr.unkeyed where
+ * they are probed with strstr() as before.  Empty originals are in neither --
+ * pf_replace_alr() refuses them anyway.
  */
 enum
 { PF_ALR_KEY_LENGTH = 4
 };
 typedef std::unordered_map<scr_uint, std::vector<scr_int> > pf_alr_index_t;
-extern pf_alr_index_t pf_alr_index;
-extern std::vector<scr_int> pf_alr_short;
-extern std::vector<pf_str_pair_t> pf_synonym_cache;
-extern scr_bool pf_synonym_cache_built;
+
+/*
+ * The printfilter's module state, in one instance (pf, defined in
+ * scprintf.cpp).  It is grouped by lifetime:
+ *
+ *   trace    the interface's printfilter trace flag (pf_debug_trace()), set
+ *            before any game exists and kept across them.
+ *   alr      the ALR cache described above, with its prefilter index, the
+ *            trailing-space flag pf_replace_alrs() keys on, and the
+ *            recursion-path marks of pf_alr_walk().  Per game.
+ *   synonym  the synonym cache, in raw property order.  Per game.
+ *
+ * Nothing here is saved: both caches are rebuilt lazily from the bundle on
+ * first use, and the walk's path marks are all clear between walks.
+ * pf_state_reset() drops the per-game groups; pf_create() calls it.
+ */
+struct scr_pf_state_s
+{
+  scr_bool trace = FALSE;
+
+  struct
+  {
+    std::vector<pf_str_pair_t> cache;
+    scr_bool built = FALSE;
+    /* TRUE when some ALR original ends in a space; see pf_replace_alrs(). */
+    scr_bool trailing_space = FALSE;
+    pf_alr_index_t index;
+    std::vector<scr_int> unkeyed;   /* slots too short for the index */
+    std::vector<char> on_path;      /* ALRs on the recursion path of a walk */
+  } alr;
+
+  struct
+  {
+    std::vector<pf_str_pair_t> cache;
+    scr_bool built = FALSE;
+  } synonym;
+};
+typedef struct scr_pf_state_s scr_pf_state_t;
+
+extern scr_pf_state_t pf;
 
 
 /* The functions the five files share; each is defined where it is

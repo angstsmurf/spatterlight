@@ -232,12 +232,12 @@ pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
   candidates.clear ();
 
   /* Originals too short to key on: probe them directly. */
-  for (size_t index_ = 0; index_ < pf_alr_short.size (); index_++)
+  for (size_t index_ = 0; index_ < pf.alr.unkeyed.size (); index_++)
     {
-      const pf_str_pair_t &entry = pf_alr_cache[pf_alr_short[index_]];
+      const pf_str_pair_t &entry = pf.alr.cache[pf.alr.unkeyed[index_]];
 
       if (strstr (text, entry.original))
-        candidates.push_back (pf_alr_short[index_]);
+        candidates.push_back (pf.alr.unkeyed[index_]);
     }
 
   /* One pass over the text, looking each position's prefix up in the index. */
@@ -246,13 +246,13 @@ pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
     {
       pf_alr_index_t::const_iterator bucket;
 
-      bucket = pf_alr_index.find (pf_alr_key (text + offset));
-      if (bucket == pf_alr_index.end ())
+      bucket = pf.alr.index.find (pf_alr_key (text + offset));
+      if (bucket == pf.alr.index.end ())
         continue;
 
       for (size_t index_ = 0; index_ < bucket->second.size (); index_++)
         {
-          const pf_str_pair_t &entry = pf_alr_cache[bucket->second[index_]];
+          const pf_str_pair_t &entry = pf.alr.cache[bucket->second[index_]];
 
           if (entry.original_length <= length - offset
               && memcmp (text + offset, entry.original,
@@ -291,13 +291,13 @@ pf_alr_rewrites_span (scr_prop_setref_t bundle, const scr_char *text,
   alr_count = prop_get_child_count (bundle, "I<-s", &vt_key);
   if (alr_count == 0)
     return FALSE;
-  if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
+  if (!pf.alr.built || (scr_int) pf.alr.cache.size () != alr_count)
     pf_alr_cache_build (bundle, alr_count);
 
   length = strlen (text);
-  for (size_t index_ = 0; index_ < pf_alr_cache.size (); index_++)
+  for (size_t index_ = 0; index_ < pf.alr.cache.size (); index_++)
     {
-      const pf_str_pair_t &entry = pf_alr_cache[index_];
+      const pf_str_pair_t &entry = pf.alr.cache[index_];
       size_t position;
 
       if (entry.original_length == 0)
@@ -340,12 +340,12 @@ pf_alr_mentions (scr_prop_setref_t bundle, const scr_char *text)
   alr_count = prop_get_child_count (bundle, "I<-s", &vt_key);
   if (alr_count == 0)
     return FALSE;
-  if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
+  if (!pf.alr.built || (scr_int) pf.alr.cache.size () != alr_count)
     pf_alr_cache_build (bundle, alr_count);
 
-  for (size_t index_ = 0; index_ < pf_alr_cache.size (); index_++)
+  for (size_t index_ = 0; index_ < pf.alr.cache.size (); index_++)
     {
-      const pf_str_pair_t &entry = pf_alr_cache[index_];
+      const pf_str_pair_t &entry = pf.alr.cache[index_];
 
       if (entry.original_length > 0 && strstr (entry.original, text))
         return TRUE;
@@ -360,13 +360,13 @@ pf_alr_mentions (scr_prop_setref_t bundle, const scr_char *text)
  * the corpus has such a pair, so these caps are guards, not a model.  The
  * walk is deterministic, so re-entering an ALR already on the recursion path
  * would repeat that path for ever: that ALR's replacement is spliced in
- * unfiltered instead.  The depth and size caps bound what is left -- long
- * acyclic chains, and replacements that multiply on each level (A -> "B B",
- * B -> "C C", ...), which would otherwise double the text per level.
+ * unfiltered instead (the path is pf.alr.on_path, one mark per cache slot).
+ * The depth and size caps bound what is left -- long acyclic chains, and
+ * replacements that multiply on each level (A -> "B B", B -> "C C", ...),
+ * which would otherwise double the text per level.
  */
 enum { PF_ALR_DEPTH_LIMIT = 32 };
 static const size_t PF_ALR_SIZE_LIMIT = 65536;
-static std::vector<char> pf_alr_on_path;
 
 
 /*
@@ -429,8 +429,8 @@ pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
   out.assign (string);
   if (depth > PF_ALR_DEPTH_LIMIT || out.size () > PF_ALR_SIZE_LIMIT)
     return;
-  if (pf_alr_on_path.size () != pf_alr_cache.size ())
-    pf_alr_on_path.assign (pf_alr_cache.size (), FALSE);
+  if (pf.alr.on_path.size () != pf.alr.cache.size ())
+    pf.alr.on_path.assign (pf.alr.cache.size (), FALSE);
 
   /*
    * 47A3DC, the first thing ALRs() does with whatever text it was handed:
@@ -476,7 +476,7 @@ pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
           continue;
         }
 
-      const pf_str_pair_t &entry = pf_alr_cache[index_];
+      const pf_str_pair_t &entry = pf.alr.cache[index_];
 
       if (recursive)
         {
@@ -485,13 +485,13 @@ pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
             return;
 
           /* 44C76F: the replacement is itself filtered before it is spliced. */
-          if (pf_alr_on_path[index_])
+          if (pf.alr.on_path[index_])
             expansion.assign (entry.replacement);
           else
             {
-              pf_alr_on_path[index_] = TRUE;
+              pf.alr.on_path[index_] = TRUE;
               pf_alr_walk (entry.replacement, expansion, vars, TRUE, depth + 1);
-              pf_alr_on_path[index_] = FALSE;
+              pf.alr.on_path[index_] = FALSE;
             }
         }
       else
@@ -527,11 +527,11 @@ pf_replace_alrs (const scr_char *string, scr_var_setref_t vars,
 
   /*
    * Resolve the immutable ALR table from the property tree once per game (see
-   * pf_alr_cache above); after that the hot loop reads it directly, with no
+   * scr_pf_state_t); after that the hot loop reads it directly, with no
    * prop_get() lookups at all.  The count is fixed for a game, so a lazy build
    * on first use is safe.
    */
-  if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
+  if (!pf.alr.built || (scr_int) pf.alr.cache.size () != alr_count)
     pf_alr_cache_build (bundle, alr_count);
 
   /*
@@ -546,7 +546,7 @@ pf_replace_alrs (const scr_char *string, scr_var_setref_t vars,
    * such an original, give each line end the Runner's two spaces for the walk,
    * behind a marker, and take back whatever the walk left of them afterwards.
    */
-  if (pf_alr_trailing_space)
+  if (pf.alr.trailing_space)
     {
       static const scr_char marker = '\x01';
       std::string padded, walked;

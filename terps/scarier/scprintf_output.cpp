@@ -325,7 +325,7 @@ pf_filter_internal (const scr_char *string,
   scr_bool have_current;
   assert (string && vars);
 
-  if (pf_trace)
+  if (pf.trace)
     scr_trace ("Printfilter: initial \"%s\"\n", string);
 
   /* If including ALRs, create a common set of ALR application flags. */
@@ -384,7 +384,7 @@ pf_filter_internal (const scr_char *string,
               scr_free (intermediate);
               have_current = TRUE;
               changed = TRUE;
-              if (pf_trace)
+              if (pf.trace)
                 {
                   scr_trace ("Printfilter: interpolated [%ld,%ld] \"%s\"\n",
                             iteration, inner_iteration, current.c_str ());
@@ -415,7 +415,7 @@ pf_filter_internal (const scr_char *string,
               scr_free (intermediate);
               have_current = TRUE;
               changed = TRUE;
-              if (pf_trace)
+              if (pf.trace)
                 {
                   scr_trace ("Printfilter: replaced [%ld,-] \"%s\"\n",
                             iteration, current.c_str ());
