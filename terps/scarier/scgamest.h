@@ -262,12 +262,14 @@ typedef struct scr_game_s
   struct scr_game_s *undo;
   scr_bool undo_available;
 
-  /* Basic game state -- rooms, objects, and so on.  The state arrays are
+  /*
+   * Basic game state -- rooms, objects, and so on.  The state arrays are
    * std::vector (P3 RAII): they free themselves when the game is delete'd, so a
    * throw partway through gs_create (a prop_* scr_fatal) no longer leaks the
    * already-allocated arrays.  The *_count fields remain the iteration source
    * of truth (matching every existing loop, the serializer, and the asserts);
-   * the vectors are sized to match. */
+   * the vectors are sized to match.
+   */
   scr_int room_count;
   std::vector<scr_roomstate_t> rooms;
   scr_int object_count;
@@ -282,8 +284,10 @@ typedef struct scr_game_s
   scr_int playerposition;
   scr_int playerparent;
 
-  /* Battle system state for the player -- current stamina, recovery, and the
-   * object index of the weapon the player has wielded (-1 for none). */
+  /*
+   * Battle system state for the player -- current stamina, recovery, and the
+   * object index of the weapon the player has wielded (-1 for none).
+   */
   scr_int playerstamina;
   scr_int playerstaminacounter;
   scr_int playerwield;
@@ -297,13 +301,14 @@ typedef struct scr_game_s
   scr_bool verbose;
   scr_bool notify_score_change;
   /*
-   * Owning game-status strings, freed at scope exit (P3 RAII).  scr_owned_string
-   * preserves the engine's char* contract exactly — .get() hands the raw pointer
-   * to readers and NULL stays NULL (no empty-vs-unset confusion) — while a
-   * scr_fatal_error / run_loop_halt thrown mid-turn (e.g. from a pf_filter ->
-   * prop_* deep in run_update_status) no longer leaks the buffer being replaced.
-   * Having non-trivial members makes scr_game_s non-POD, so gs_create new()s it
-   * and gs_destroy delete()s it (the old scr_malloc + 0xaa poison is gone).
+   * Owning game-status strings, freed at scope exit (P3 RAII).
+   * scr_owned_string preserves the engine's char* contract exactly -- .get()
+   * hands the raw pointer to readers and NULL stays NULL (no empty-vs-unset
+   * confusion) -- while a scr_fatal_error / run_loop_halt thrown mid-turn
+   * (e.g. from a pf_filter -> prop_* deep in run_update_status) no longer
+   * leaks the buffer being replaced.  Having non-trivial members makes
+   * scr_game_s non-POD, so gs_create new()s it and gs_destroy delete()s it
+   * (the old scr_malloc + 0xaa poison is gone).
    */
   scr_owned_string current_room_name;
   scr_owned_string status_line;
@@ -324,20 +329,23 @@ typedef struct scr_game_s
   scr_bool is_running;
   scr_bool has_completed;
 
-  /* The ending an EndGame task action has armed, held until the end of the
+  /*
+   * The ending an EndGame task action has armed, held until the end of the
    * turn: 0 for none, otherwise the action's Var1 plus one (so 1 = win,
    * 2 = lose, 3 = dead, 4 = "just stop").  The Runner keeps the same thing in
    * a byte of its own, but numbers it differently -- its EndGame handler maps
    * Var1 0,1,2,3 to 1,3,2,4 (0008D66E) and its endmessage switches on that --
    * so the two are not interchangeable.  Set inside the turn and consumed by
    * task_print_end_game_message(); never live across a command, so it is not
-   * part of the saved stream. */
+   * part of the saved stream.
+   */
   scr_int pending_endgame;
 
   /* Player's setting for waitturns; overrides the game's. */
   scr_int waitturns;
 
-  /* ADRIFT-style carried-load running totals.  The real Runner keeps the
+  /*
+   * ADRIFT-style carried-load running totals.  The real Runner keeps the
    * player's carried weight and size as running totals, updated incrementally
    * on each take/drop; a take of an object already possessed indirectly
    * (inside or on something carried or worn) adjusts nothing, so there is no
@@ -345,35 +353,44 @@ typedef struct scr_game_s
    * These mirror that: maintained incrementally during play, recomputed at
    * game create/copy/restore.  Derived state -- not part of the saved stream
    * (the Runner stores live totals in the save but recomputes on load).
-   * carried_ready gates the incremental tracker off during game setup. */
+   * carried_ready gates the incremental tracker off during game setup.
+   */
   scr_int carried_weight;
   scr_int carried_size;
   scr_bool carried_ready;
 
-  /* When TRUE, position changes bypass the incremental tracker.  The task
+  /*
+   * When TRUE, position changes bypass the incremental tracker.  The task
    * and event object movers set this while they move: the Runner's task
    * mover does its own total accounting (Proc_19_10), and its event mover
-   * does none at all.  Transient -- never saved, only set across a call. */
+   * does none at all.  Transient -- never saved, only set across a call.
+   */
   scr_bool carried_suspend;
 
-  /* When TRUE, the capacity checks recompute the carried load from currently
+  /*
+   * When TRUE, the capacity checks recompute the carried load from currently
    * held objects each time (legacy SCARE behaviour); when FALSE (default)
    * they consult the running totals above, matching the real Runner.  Toggled
-   * with the "capacity" metacommand. */
+   * with the "capacity" metacommand.
+   */
   scr_bool capacity_recompute;
 
-  /* The 3.9/4.0 Runner's phantom object: its object array is dimensioned
+  /*
+   * The 3.9/4.0 Runner's phantom object: its object array is dimensioned
    * 0 To count and loaded 0..count-1, so slot [count] stays zeroed -- and
    * a zero position reads as "held by the player".  TRUE while that slot
-   * is still held; see task_move_phantom_object(). */
+   * is still held; see task_move_phantom_object().
+   */
   scr_bool runner_phantom_held;
 
   /* Miscellaneous library and main loop conveniences. */
   scr_int waitcounter;
   scr_bool has_notified;
   scr_bool is_admin;
-  /* TRUE once the library's movement command has moved the player on this
-   * input line; gates the 4.0 player-side walk meet (npc_tick_npcs). */
+  /*
+   * TRUE once the library's movement command has moved the player on this
+   * input line; gates the 4.0 player-side walk meet (npc_tick_npcs).
+   */
   scr_bool player_moved_by_command;
   scr_bool do_again;
   scr_int redo_sequence;

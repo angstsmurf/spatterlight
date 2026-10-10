@@ -63,8 +63,10 @@
  * pair in the engine is file-local, so the swap is self-contained.
  */
 #ifdef _WIN32
-/* MSVC and MinGW have no _setjmp/_longjmp pair; there the plain ones are what
-   the platform gives, signal mask and all. */
+/*
+ * MSVC and MinGW have no _setjmp/_longjmp pair; there the plain ones are what
+ * the platform gives, signal mask and all.
+ */
 #define scr_setjmp(buffer)        setjmp (buffer)
 #define scr_longjmp(buffer, val)  longjmp ((buffer), (val))
 #else
@@ -114,8 +116,8 @@ extern void scr_fatal (const scr_char *format, ...);
  * engine fatal -- allocation failure, malformed-game consistency check, etc. --
  * raises this, and the public entry points in scinterf.cpp catch it at the host
  * boundary and return a clean failure rather than crashing Spatterlight.  The
- * engine still leaks on this path (raw malloc'd state is not unwound -- see P3),
- * but the whole game session is torn down at the catch site anyway.
+ * engine still leaks on this path (raw malloc'd state is not unwound -- see
+ * P3), but the whole game session is torn down at the catch site anyway.
  */
 struct scr_fatal_error
 {
@@ -135,8 +137,8 @@ extern scr_char *scr_strdup (const std::string &string);
  * so an scr_fatal_error / run_loop_halt thrown between acquiring the buffer and
  * the old manual scr_free() no longer leaks it (P3).  This keeps the engine's
  * char* contract intact: .get() hands the raw pointer back to the existing C
- * call sites and to the pointer-aliasing logic that decides which buffer "wins",
- * so callers are otherwise unchanged.
+ * call sites and to the pointer-aliasing logic that decides which buffer
+ * "wins", so callers are otherwise unchanged.
  */
 struct scr_free_deleter
 {
@@ -297,8 +299,8 @@ enum
 };
 
 typedef struct scr_var_set_s *scr_var_setref_t;
-extern void var_put (scr_var_setref_t vars,
-                     const scr_char *name, scr_int type, scr_vartype_t vt_value);
+extern void var_put (scr_var_setref_t vars, const scr_char *name,
+                     scr_int type, scr_vartype_t vt_value);
 extern scr_bool var_get (scr_var_setref_t vars,
                         const scr_char *name, scr_int *type,
                         scr_vartype_t *vt_rvalue);
@@ -413,13 +415,17 @@ extern void pf_print_so_far (scr_filterref_t filter,
                              scr_var_setref_t vars, scr_prop_setref_t bundle);
 extern void pf_checkpoint (scr_filterref_t filter,
                            scr_var_setref_t vars, scr_prop_setref_t bundle);
-/* As pf_checkpoint(), but leaving the buffer marked as still needing to be
-   filtered, so that the flush filters it again; the extra pass a completing
-   version 4.0 task runs over the turn's output. */
+/*
+ * As pf_checkpoint(), but leaving the buffer marked as still needing to be
+ * filtered, so that the flush filters it again; the extra pass a completing
+ * version 4.0 task runs over the turn's output.
+ */
 extern void pf_refilter (scr_filterref_t filter,
                          scr_var_setref_t vars, scr_prop_setref_t bundle);
-/* The text pf_flush() has printed since the last call, taken and cleared;
-   and a way to buffer such already-filtered text back, for undo's replay. */
+/*
+ * The text pf_flush() has printed since the last call, taken and cleared;
+ * and a way to buffer such already-filtered text back, for undo's replay.
+ */
 extern std::string pf_take_printed (scr_filterref_t filter);
 extern const std::string &pf_get_printed (scr_filterref_t filter);
 extern void pf_set_printed (scr_filterref_t filter, const std::string &text);
@@ -428,8 +434,10 @@ extern void pf_buffer_printed (scr_filterref_t filter,
                                const std::string &text);
 extern const scr_char *pf_get_buffer (scr_filterref_t filter);
 extern scr_char *pf_transfer_buffer (scr_filterref_t filter);
-/* Hide the buffer from the paragraph-spacing helpers while version 4.0 task
-   actions run, the way pf_transfer_buffer() does for pre-4.0. */
+/*
+ * Hide the buffer from the paragraph-spacing helpers while version 4.0 task
+ * actions run, the way pf_transfer_buffer() does for pre-4.0.
+ */
 extern void pf_buffer_reference (scr_filterref_t filter, const scr_char *text,
                                  scr_var_setref_t vars,
                                  scr_prop_setref_t bundle);
@@ -512,9 +520,11 @@ extern scr_int gs_carried_weight (scr_gameref_t gs);
 extern scr_int gs_carried_size (scr_gameref_t gs);
 extern void gs_set_carried_suspend (scr_gameref_t gs, scr_bool flag);
 
-/* Suspend the carried-load tracker for the enclosing scope, lifting the
-   suspension on every exit from it -- fall-through, early return, or a
-   scr_fatal throw; see task_move_object() and evt_move_object(). */
+/*
+ * Suspend the carried-load tracker for the enclosing scope, lifting the
+ * suspension on every exit from it -- fall-through, early return, or a
+ * scr_fatal throw; see task_move_object() and evt_move_object().
+ */
 struct gs_carried_suspend_guard
 {
   explicit gs_carried_suspend_guard (scr_gameref_t gs) : gs_ (gs)
@@ -552,14 +562,17 @@ extern void gs_set_room_seen (scr_gameref_t gs, scr_int room, scr_bool seen);
 extern scr_bool gs_room_seen (scr_gameref_t gs, scr_int room);
 extern scr_int gs_task_count (scr_gameref_t gs);
 extern void gs_set_task_done (scr_gameref_t gs, scr_int task, scr_bool done);
-extern void gs_set_task_scored (scr_gameref_t gs, scr_int task, scr_bool scored);
+extern void gs_set_task_scored (scr_gameref_t gs, scr_int task,
+                                scr_bool scored);
 extern scr_bool gs_task_done (scr_gameref_t gs, scr_int task);
 extern scr_bool gs_task_scored (scr_gameref_t gs, scr_int task);
 extern scr_int gs_object_count (scr_gameref_t gs);
 extern void gs_set_object_openness (scr_gameref_t gs,
                                     scr_int object, scr_int openness);
-extern void gs_set_object_state (scr_gameref_t gs, scr_int object, scr_int state);
-extern void gs_set_object_seen (scr_gameref_t gs, scr_int object, scr_bool seen);
+extern void gs_set_object_state (scr_gameref_t gs, scr_int object,
+                                 scr_int state);
+extern void gs_set_object_seen (scr_gameref_t gs, scr_int object,
+                                scr_bool seen);
 extern void gs_set_object_unmoved (scr_gameref_t gs,
                                    scr_int object, scr_bool unmoved);
 extern void gs_set_object_static_unmoved (scr_gameref_t gs,
@@ -580,8 +593,10 @@ extern scr_int gs_object_parent (scr_gameref_t gs, scr_int object);
 extern scr_int gs_object_runner_parent (scr_gameref_t gs, scr_int object);
 extern void gs_set_object_runner_parent (scr_gameref_t gs, scr_int object,
                                          scr_int runner_parent);
-extern void gs_object_move_onto (scr_gameref_t gs, scr_int object, scr_int onto);
-extern void gs_object_move_into (scr_gameref_t gs, scr_int object, scr_int into);
+extern void gs_object_move_onto (scr_gameref_t gs, scr_int object,
+                                 scr_int onto);
+extern void gs_object_move_into (scr_gameref_t gs, scr_int object,
+                                 scr_int into);
 extern void gs_object_make_hidden (scr_gameref_t gs, scr_int object);
 extern void gs_object_player_get (scr_gameref_t gs, scr_int object);
 extern void gs_object_npc_get (scr_gameref_t gs, scr_int object, scr_int npc);
@@ -589,14 +604,16 @@ extern void gs_object_player_wear (scr_gameref_t gs, scr_int object);
 extern void gs_object_npc_wear (scr_gameref_t gs, scr_int object, scr_int npc);
 extern void gs_object_to_room (scr_gameref_t gs, scr_int object, scr_int room);
 extern scr_int gs_npc_count (scr_gameref_t gs);
-extern void gs_set_npc_location (scr_gameref_t gs, scr_int npc, scr_int location);
+extern void gs_set_npc_location (scr_gameref_t gs, scr_int npc,
+                                 scr_int location);
 extern scr_int gs_npc_location (scr_gameref_t gs, scr_int npc);
 extern void gs_set_npc_walk_hidden (scr_gameref_t gs, scr_int npc,
                                     scr_bool hidden);
 extern scr_bool gs_npc_walk_hidden (scr_gameref_t gs, scr_int npc);
 extern void gs_set_npc_dead (scr_gameref_t gs, scr_int npc, scr_bool dead);
 extern scr_bool gs_npc_dead (scr_gameref_t gs, scr_int npc);
-extern void gs_set_npc_position (scr_gameref_t gs, scr_int npc, scr_int position);
+extern void gs_set_npc_position (scr_gameref_t gs, scr_int npc,
+                                 scr_int position);
 extern scr_int gs_npc_position (scr_gameref_t gs, scr_int npc);
 extern void gs_set_npc_parent (scr_gameref_t gs, scr_int npc, scr_int parent);
 extern scr_int gs_npc_parent (scr_gameref_t gs, scr_int npc);
@@ -648,7 +665,8 @@ extern scr_bool uip_wildcard_match_400 (const scr_char *pattern,
 extern scr_bool uip_wildcard_match_pre400 (const scr_char *pattern,
                                            const scr_char *string,
                                            scr_bool pad);
-extern scr_char *uip_replace_pronouns (scr_gameref_t game, const scr_char *string);
+extern scr_char *uip_replace_pronouns (scr_gameref_t game,
+                                       const scr_char *string);
 extern void uip_assign_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_get_pronoun_flags (scr_bool *used, scr_bool *pending_definite);
 extern void uip_set_pronoun_flags (scr_bool used, scr_bool pending_definite);
@@ -696,7 +714,8 @@ enum
 
 /* Globals/Perspective as the Runner of this game's version reads it. */
 extern scr_int lib_get_perspective (scr_gameref_t game);
-extern scr_int lib_random_roomgroup_member (scr_gameref_t game, scr_int roomgroup);
+extern scr_int lib_random_roomgroup_member (scr_gameref_t game,
+                                            scr_int roomgroup);
 extern const scr_char *lib_get_room_name (scr_gameref_t game, scr_int room);
 extern scr_bool lib_can_go (scr_gameref_t game, scr_int room,
                             scr_int direction);
@@ -1273,9 +1292,11 @@ extern void evt_debug_trace (scr_bool flag);
 
 /* Task functions. */
 extern scr_bool task_has_hints (scr_gameref_t game, scr_int task);
-extern const scr_char *task_get_hint_question (scr_gameref_t game, scr_int task);
+extern const scr_char *task_get_hint_question (scr_gameref_t game,
+                                               scr_int task);
 extern const scr_char *task_get_hint_subtle (scr_gameref_t game, scr_int task);
-extern const scr_char *task_get_hint_unsubtle (scr_gameref_t game, scr_int task);
+extern const scr_char *task_get_hint_unsubtle (scr_gameref_t game,
+                                               scr_int task);
 extern scr_bool task_can_run_task_directional (scr_gameref_t game,
                                               scr_int task, scr_bool forwards);
 extern scr_bool task_can_run_task (scr_gameref_t game, scr_int task);
@@ -1284,7 +1305,8 @@ extern scr_bool task_is_room_refused (scr_gameref_t game,
                                       scr_int task, scr_bool forwards);
 extern scr_bool task_is_done_refused (scr_gameref_t game, scr_int task);
 extern scr_bool task_is_reverse_refused_390 (scr_gameref_t game, scr_int task);
-extern scr_bool task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards);
+extern scr_bool task_run_task (scr_gameref_t game, scr_int task,
+                               scr_bool forwards);
 extern scr_int task_execution_count (void);
 extern scr_int task_selector_npc (scr_var_setref_t vars, scr_int var);
 extern void task_push_dispatched_run (void);
@@ -1306,9 +1328,8 @@ extern scr_bool restr_eval_task_restrictions (scr_gameref_t game,
                                              scr_int task, scr_bool *pass,
                                              const scr_char **fail_message);
 extern scr_bool restr_eval_task_restrictions_cached (scr_gameref_t game,
-                                                    scr_int task,
-                                                    scr_bool *pass,
-                                                    const scr_char **fail_message);
+                                       scr_int task, scr_bool *pass,
+                                       const scr_char **fail_message);
 extern scr_int restr_cache_fallback (scr_gameref_t game, scr_int task,
                                      const scr_char **fail_message);
 extern void restr_cache_reset (void);
@@ -1352,11 +1373,12 @@ extern scr_int battle_player_weapon_count (scr_gameref_t game);
 extern scr_int battle_player_best_weapon (scr_gameref_t game);
 extern scr_int battle_combatant_weapon (scr_gameref_t game, scr_int npc);
 extern void battle_attribute_report (scr_gameref_t game, scr_int npc,
-                                     const scr_char *base,
-                                     scr_int *lo, scr_int *hi, scr_int *current);
+                                     const scr_char *base, scr_int *lo,
+                                     scr_int *hi, scr_int *current);
 extern scr_int battle_attribute_bonus (scr_gameref_t game, scr_int npc,
                                        const scr_char *base);
-extern void battle_player_attack (scr_gameref_t game, scr_int npc, scr_int weapon);
+extern void battle_player_attack (scr_gameref_t game, scr_int npc,
+                                  scr_int weapon);
 extern void battle_tick_npc (scr_gameref_t game, scr_int npc);
 extern void battle_recover_line (scr_gameref_t game);
 
@@ -1378,7 +1400,8 @@ extern scr_int obj_container_object (scr_gameref_t game, scr_int n);
 extern scr_int obj_surface_object (scr_gameref_t game, scr_int n);
 extern scr_bool obj_indirectly_in_room (scr_gameref_t game,
                                        scr_int object, scr_int room);
-extern scr_bool obj_indirectly_held_by_player (scr_gameref_t game, scr_int object);
+extern scr_bool obj_indirectly_held_by_player (scr_gameref_t game,
+                                               scr_int object);
 extern scr_bool obj_directly_in_room (scr_gameref_t game,
                                      scr_int object, scr_int room);
 extern scr_int obj_stateful_object (scr_gameref_t game, scr_int n);
@@ -1467,7 +1490,10 @@ extern void if_update_graphic (const scr_char *filepath,
                                scr_int graphic_offset,
                                scr_int graphic_length);
 
-/* Developer dump/trace tooling (scdump.cpp); compiled only with SCARIER_DUMP_TOOLS. */
+/*
+ * Developer dump/trace tooling (scdump.cpp); compiled only with
+ * SCARIER_DUMP_TOOLS.
+ */
 #ifdef SCARIER_DUMP_TOOLS
 extern void scr_dump_structure_once (scr_gameref_t game);
 extern void scr_dump_npc_trace (scr_gameref_t game);

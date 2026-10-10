@@ -60,31 +60,39 @@
 /* Fill in the view callbacks over SCARE's game state. */
 extern void scmap_view (scr_gameref_t game, map_view_t *view);
 
-/* Can this game ever show a map -- has it rooms, and did the author leave the
-   map switched on?  This is a property of the game, unlike scmap_build()
-   returning NULL, which also happens when there is merely nothing to draw from
-   where the player is standing at the moment. */
+/*
+ * Can this game ever show a map -- has it rooms, and did the author leave the
+ * map switched on?  This is a property of the game, unlike scmap_build()
+ * returning NULL, which also happens when there is merely nothing to draw from
+ * where the player is standing at the moment.
+ */
 extern int scmap_available (scr_gameref_t game);
 
-/* Lay the game's rooms out and build a map of them.  Room keys are the decimal
-   SCARE room number.  Returns NULL if there is nothing to draw: the game has no
-   map (see scmap_available), or the layout gave up (see scmap_failed), or the
-   player is standing in a room the author hid from the map -- in which case the
-   ADRIFT 4 runner drew nothing at all either, and the map comes back by itself
-   as soon as you step out of that room.
-
-   `view` supplies which rooms count as seen -- the layout needs to know, since
-   it only expands outwards through rooms the player has been to, and it must
-   agree with the renderer about that or the two will disagree about which
-   rooms exist.  Pass the same view you render with. */
+/*
+ * Lay the game's rooms out and build a map of them.  Room keys are the decimal
+ * SCARE room number.  Returns NULL if there is nothing to draw: the game has no
+ * map (see scmap_available), or the layout gave up (see scmap_failed), or the
+ * player is standing in a room the author hid from the map -- in which case the
+ * ADRIFT 4 runner drew nothing at all either, and the map comes back by itself
+ * as soon as you step out of that room.
+ *
+ * `view` supplies which rooms count as seen -- the layout needs to know, since
+ * it only expands outwards through rooms the player has been to, and it must
+ * agree with the renderer about that or the two will disagree about which
+ * rooms exist.  Pass the same view you render with.
+ */
 extern map_t *scmap_build (scr_gameref_t game, const map_view_t *view);
 
-/* Did the layout give up on this game ("too complex")?  Valid after a build
-   that returned NULL; lets the host explain itself rather than say nothing. */
+/*
+ * Did the layout give up on this game ("too complex")?  Valid after a build
+ * that returned NULL; lets the host explain itself rather than say nothing.
+ */
 extern int scmap_failed (void);
 
-/* Does the game define a task command of its own that a bare "map" would
-   match?  As in ADRIFT 5, a game's own MAP verb must win over the host's. */
+/*
+ * Does the game define a task command of its own that a bare "map" would
+ * match?  As in ADRIFT 5, a game's own MAP verb must win over the host's.
+ */
 extern int scmap_command_taken (scr_gameref_t game);
 
 #endif /* SCMAP_H */

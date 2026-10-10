@@ -76,7 +76,8 @@ extern void os_show_graphic (const scr_char *filepath,
 extern scr_bool os_read_line (scr_char *buffer, scr_int length);
 extern scr_bool os_confirm (scr_int type);
 extern void *os_open_file (scr_bool is_save);
-extern void os_write_file (void *opaque, const scr_byte *buffer, scr_int length);
+extern void os_write_file (void *opaque, const scr_byte *buffer,
+                           scr_int length);
 extern scr_int os_read_file (void *opaque, scr_byte *buffer, scr_int length);
 extern void os_close_file (void *opaque);
 extern void os_display_hints (scr_game game);
@@ -110,7 +111,8 @@ extern scr_bool scr_save_game (scr_game game);
 extern scr_bool scr_load_game (scr_game game);
 extern scr_bool scr_undo_game_turn (scr_game game);
 extern void scr_quit_game (scr_game game);
-extern scr_bool scr_save_game_to_filename (scr_game game, const scr_char *filename);
+extern scr_bool scr_save_game_to_filename (scr_game game,
+                                           const scr_char *filename);
 extern void scr_save_game_to_stream (scr_game game, FILE *stream);
 extern void scr_save_game_to_callback (scr_game game,
                                       void (*callback)
@@ -161,10 +163,12 @@ extern void scr_set_game_capacity_recompute (scr_game game, scr_bool flag);
 extern scr_bool scr_does_game_use_sounds (scr_game);
 extern scr_bool scr_does_game_use_graphics (scr_game);
 
-/* Offer every authored string in the TAF to `accept`, returning TRUE as soon as
-   one is accepted (nothing further is visited).  The strings arrive as the
-   author wrote them, markup included, which is how a host greps a game for the
-   tags it cares about -- ADRIFT <=4 keeps no header fields for any of them. */
+/*
+ * Offer every authored string in the TAF to `accept`, returning TRUE as soon as
+ * one is accepted (nothing further is visited).  The strings arrive as the
+ * author wrote them, markup included, which is how a host greps a game for the
+ * tags it cares about -- ADRIFT <=4 keeps no header fields for any of them.
+ */
 extern scr_bool scr_game_scan_strings (scr_game game,
                                        scr_bool (*accept) (const scr_char *text,
                                                            void *opaque),
@@ -184,9 +188,12 @@ extern void scr_set_game_debugger_enabled (scr_game game, scr_bool flag);
 extern scr_bool scr_get_game_debugger_enabled (scr_game game);
 extern scr_bool scr_run_game_debugger_command (scr_game game,
                                              const scr_char *debug_command);
-/* The Runner's "[Press any key to end]" prompt, off by default.  A host that
-   ends a completed game by waiting for a keypress, as the Windows Runner does,
-   turns it on; one that offers its own ending choices leaves it off. */
+
+/*
+ * The Runner's "[Press any key to end]" prompt, off by default.  A host that
+ * ends a completed game by waiting for a keypress, as the Windows Runner does,
+ * turns it on; one that offers its own ending choices leaves it off.
+ */
 extern void scr_set_end_keyprompt (scr_bool flag);
 extern scr_bool scr_get_end_keyprompt (void);
 
@@ -212,7 +219,8 @@ extern scr_bool scr_set_locale (const scr_char *name);
 extern const scr_char *scr_get_locale (void);
 
 /* A few possibly useful utilities. */
-extern scr_int scr_strncasecmp (const scr_char *s1, const scr_char *s2, scr_int n);
+extern scr_int scr_strncasecmp (const scr_char *s1, const scr_char *s2,
+                                scr_int n);
 extern scr_int scr_strcasecmp (const scr_char *s1, const scr_char *s2);
 extern const scr_char *scr_scarier_version (void);
 extern scr_int scr_scarier_emulation (void);

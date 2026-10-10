@@ -20,8 +20,9 @@
 
    Spatterlight autosave/autorestore for the Scarier terp -- both the
    ADRIFT <=4 engine (scare, gsc_main) and the ADRIFT 5 engine (a5run,
-   gsc_a5_main) -- modeled on the Question implementation (questionglk-autosave.*),
-   which is in turn modeled on Bocfel's (bocfel-spatterlight/).
+   gsc_a5_main) -- modeled on the Question implementation
+   (questionglk-autosave.*), which is in turn modeled on Bocfel's
+   (bocfel-spatterlight/).
 
    Only the Spatterlight app build compiles scarier-autosave.mm; the Glk
    front end's side (os_glk_autosave.cpp and the call sites in the other
@@ -95,18 +96,18 @@ bool scarier_autosave_restore_library(void);
 struct ScarierGlkFrontendState {
     int mainwintag = 0;
     int statuswintag = 0;
-    int sidewintag = 0;         /* a5 <window NAME> side buffer, 0 when closed */
-    int mapwintag = 0;          /* map pane, 0 when closed                     */
-    int gfxwintag = 0;          /* title/cover graphics window, 0 when closed  */
-    int transcripttag = 0;      /* open transcript file stream, if any         */
+    int sidewintag = 0;         /* a5 <window NAME> side buffer, 0 if closed  */
+    int mapwintag = 0;          /* map pane, 0 when closed                    */
+    int gfxwintag = 0;          /* title/cover graphics window, 0 when closed */
+    int transcripttag = 0;      /* open transcript file stream, if any        */
     int inputlogtag = 0;
     int readlogtag = 0;
-    int soundchanneltag = 0;    /* the ADRIFT <=4 single sound channel         */
+    int soundchanneltag = 0;    /* the ADRIFT <=4 single sound channel        */
     /* 9 = GSC_A5_MAX_CHANNELS (static_assert'd in os_glk_autosave.cpp). */
     int a5_channeltags[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     uint32_t a5_chan_sound[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    int seen_input = 0;         /* first input given (title window dismissed)  */
-    uint32_t title_image = 0;   /* cover image resource id, 0 when none        */
+    int seen_input = 0;         /* first input given (title window dismissed) */
+    uint32_t title_image = 0;   /* cover image resource id, 0 when none       */
     int map_shown = 0;
     int map_at_top = 0;
     int map_zoom = 0;
