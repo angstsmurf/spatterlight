@@ -1,0 +1,225 @@
+The sun is shining through the window into your playpen.  The white mesh walls rise up above your head as you sit and play.  But, as always, you get bored with the same old toys that are always in your playpen.
+Then you remember your Captain Jumbo action figure.  That's the toy you want to play with.  You can't remember exactly where you left it, but you're pretty sure that you left it in Mommy's room when you were playing in there earlier.  You should go get it.
+Your playpen
+The walls of your playpen rise to about your eye level when you're standing. You have a few toys in the bottom of your pen, but you're bored with those because you played with those already.
+You can climb out of the playpen as long as Mommy isn't watching.
+You can see your blanky.
+> x blanky
+> x blanky
+This is your favorite blanky.  You always feel really safe when you have this with you.
+> climb out
+> climb out
+You pull yourself over the top bar of the playpen, something which you couldn't do when the playpen was bigger.  You flop onto the wooden floor, which creaks and kicks up dust.
+The Living Room
+The living room is really big. It's the biggest room in the whole house, and it has lots of doors! There's not much furniture, so there's lots of room to play in here!
+You can see your playpen, the sofa and the tv.
+You can go to the kitchen, the back yard or Mommy's room.
+> look under sofa
+> look under sofa
+You find your Batman shirt!  With this, you can be so sneaky, you're invisible!
+> take batman shirt
+> take batman shirt
+You take your shirt and your pants off and then you put the Batman shirt on.  Now you're just wearing your shirt and your undies, just like Batman!
+> go to kitchen
+> go to kitchen
+The Kitchen
+There's lots of stuff in the kitchen. But you're not allowed to touch most of it. The table is so high up, you always have to climb in a chair before you can get on the table. But Daddy gets really mad when I get on the table.
+You can see your kiddie chair.
+You can go to the living room or to the bathroom.
+> x table
+> x table
+It's really tall. You have to climb in a grown-up chair to get to the table, but Daddy doesn't like it when you do that...
+Somebody knocks at the door.  You better get back to your playpen or you'll be in trouble if that's Daddy!
+> x chairs
+> x chairs
+The chairs are for grown-ups. Mommy and Daddy used to eat dinner at the table while they sat in these chairs, but now they don't anymore.
+> take kiddie chair
+> take kiddie chair
+You pick up your chair.
+> go to living room
+> go to living room
+The Living Room
+The living room is really big. It's the biggest room in the whole house, and it has lots of doors! There's not much furniture, so there's lots of room to play in here!
+You can see your playpen, the sofa and the tv.
+You can go to the kitchen, the back yard or Mommy's room.
+> set chair against back yard door
+> set chair against back yard door
+You set the chair against the door.  Now you can climb up to the knob!
+> climb into playpen
+> climb into playpen
+You climb back into your playpen.  Then you hear Mommy come out of the bathroom and answer the door.  She starts talking to somebody.  It sounds like a man, but it doesn't sound like Daddy.  If Daddy isn't home you can go back into the kitchen, but you shouldn't let Mommy see you.  If only you could go invisible!
+Your playpen
+The walls of your playpen rise to about your eye level when you're standing. You have a few toys in the bottom of your pen, but you're bored with those because you played with those already.
+You can climb out of the playpen as long as Mommy isn't watching.
+You can see your blanky.
+> climb out
+> climb out
+The Living Room
+The living room is really big. It's the biggest room in the whole house, and it has lots of doors! There's not much furniture, so there's lots of room to play in here!
+You can see your playpen, the sofa, the tv and your kiddie chair.
+You can go to the kitchen, the back yard or Mommy's room.
+> go to kitchen
+> go to kitchen
+Now that you can be super-sneaky, you go into the Kitchen.  The man is talking to Mommy.  He doesn't sound happy.  Mommy sounds sad.  Then Daddy walks into the Kitchen.  Daddy and the man start yelling at each other, and Mommy doesn't say anything.
+The Kitchen
+There's lots of stuff in the kitchen. But you're not allowed to touch most of it. The table is so high up, you always have to climb in a chair before you can get on the table. But Daddy gets really mad when I get on the table.
+You can see Mommy, the man who knocked and Daddy.
+You can go to the living room or to the bathroom.
+> go to bathroom
+> go to bathroom
+The Bathroom
+This is where Mommy and I go potty. Daddy, too! It's not a very big room, but it still has two whole doors in it!
+You can see the potty, the sink and a squeaky duck.
+You can go to the kitchen or the Mommy's room.
+> take squeaky duck
+> take squeaky duck
+You take the squeaky duck with you.
+Mommy comes into the bathroom and sees you.  You say, "hi," but she doesn't say anything.  She just picks you up and takes you back to your playpen.  Then she goes back into the bathroom.
+Your playpen
+The walls of your playpen rise to about your eye level when you're standing. You have a few toys in the bottom of your pen, but you're bored with those because you played with those already.
+You can climb out of the playpen as long as Mommy isn't watching.
+You can see your blanky.
+> climb out
+> climb out
+The Living Room
+The living room is really big. It's the biggest room in the whole house, and it has lots of doors! There's not much furniture, so there's lots of room to play in here!
+You can see your playpen, the sofa, the tv and your kiddie chair.
+You can go to the kitchen, the back yard or Mommy's room.
+> go to back yard
+> go to back yard
+The Back Yard
+You have the only house on this street that has a back yard! It's really big, and the dirt is really flat, and there's grass growing one corner. Mommy says one day, it'll take up the whole yard. The fence even has holes in it, so you can go through them!
+You can see Rex.
+You can go to the living room.
+> x rex
+> x rex
+He's our dog. He's big and strong, and Mommy says he's scary, but I like Rex and he likes me. Rex likes to play with my toys a lot, but I hate it. Right now he's chewing on a glove someone threw in our yard.
+> throw squeaky duck
+> throw squeaky duck
+You throw your squeaky duck.  Rex chases after it.  You guess the duck went inside the house, because that's where he ran.  You start to hear yelling and barking from inside the house.  It sounds scary.
+> take chewed up glove
+> take chewed up glove
+The glove has slobber all over it.  Gross.
+> go to living room
+> go to living room
+The Living Room
+The living room is really big. It's the biggest room in the whole house, and it has lots of doors! There's not much furniture, so there's lots of room to play in here!
+You can see your playpen, the sofa, the tv and your kiddie chair.
+You can go to the kitchen, the back yard or Mommy's room.
+> go to kitchen
+> go to kitchen
+Everyone in the kitchen is yelling, and Rex is barking.  It sounds really scary, but you could go in there if you were brave.
+> drop chewed up glove
+> drop chewed up glove
+You drop the glove.
+> climb into playpen
+> climb into playpen
+Your playpen
+The walls of your playpen rise to about your eye level when you're standing. You have a few toys in the bottom of your pen, but you're bored with those because you played with those already.
+You can climb out of the playpen as long as Mommy isn't watching.
+You can see your blanky.
+> take blanky
+> take blanky
+You pick your blanky up.
+> climb out
+> climb out
+The Living Room
+The living room is really big. It's the biggest room in the whole house, and it has lots of doors! There's not much furniture, so there's lots of room to play in here!
+You can see your playpen, the sofa, the tv, your kiddie chair and a chewed up glove.
+You can go to the kitchen, the back yard or Mommy's room.
+> go to kitchen
+> go to kitchen
+You walk into the kitchen with your blanky.  Rex is barking at the man who knocked at the door and Daddy is yelling at him really really loud.
+Then you hear a loud BOOM!  It's so loud that you can't hear anything for a little while, and you feel dizzy.  You see Daddy hitting the man the who knocked at the door, and the man who knocked at the door is hitting Daddy.  Mommy doesn't like it when Daddy hits people.  Where is Mommy?
+The Kitchen
+There's lots of stuff in the kitchen. But you're not allowed to touch most of it. The table is so high up, you always have to climb in a chair before you can get on the table. But Daddy gets really mad when I get on the table.
+You can see the man who knocked, Daddy and Rex.
+You can go to the living room or to the bathroom.
+> drop blanky
+> drop blanky
+You drop your blanky on the floor.
+> go to living room
+> go to living room
+The Living Room
+The living room is really big. It's the biggest room in the whole house, and it has lots of doors! There's not much furniture, so there's lots of room to play in here!
+You can see your playpen, the sofa, the tv, your kiddie chair and a chewed up glove.
+You can go to the kitchen, the back yard or Mommy's room.
+> take chewed up glove
+> take chewed up glove
+The glove has slobber all over it.  Gross.
+> go to kitchen
+> go to kitchen
+The Kitchen
+There's lots of stuff in the kitchen. But you're not allowed to touch most of it. The table is so high up, you always have to climb in a chair before you can get on the table. But Daddy gets really mad when I get on the table.
+You can see the man who knocked, Daddy, Rex and your blanky.
+You can go to the living room or to the bathroom.
+> go to bathroom
+> go to bathroom
+The door to the bathroom is closed.  You knock on the door because you're still a little scared, even with your blanky.  You knock for a while, and call out for Mommy.
+Finally, Mommy opens the door.  She looks like she's been crying.  She stoops down to pick you up, but then you hear a BANG!  You feel dizzy again, and then you see the man who knocked at the door grab Mommy's hair and he pulls her into her room, and he locks the door behind them.  Now you're sure that this man is a friend of your Daddy's, because you've seen Daddy do that before.
+Now the only way you could get into Mommy's room is if you had Daddy's jinglies.
+> go to bathroom
+> go to bathroom
+The Bathroom
+This is where Mommy and I go potty. Daddy, too! It's not a very big room, but it still has two whole doors in it!
+You can see the potty and the sink.
+You can go to the kitchen or the Mommy's room.
+> stand on potty
+> stand on potty
+You climb up on the potty.  Now you can reach the sink!
+> wash chewed up glove
+> wash chewed up glove
+You run water over the glove in the sink, just like Mommy!  Now the glove doesn't have yucky dog slobber all over it!  You put the glove on.
+> go to kitchen
+> go to kitchen
+The Kitchen
+There's lots of stuff in the kitchen. But you're not allowed to touch most of it. The table is so high up, you always have to climb in a chair before you can get on the table. But Daddy gets really mad when I get on the table.
+You can see Rex, your blanky and Daddy.
+You can go to the living room or to the bathroom.
+> x daddy
+> x daddy
+Daddy fell asleep on the floor, but he falls asleep on the floor all the time. He has warm red water all around him. You can see Daddy's jinglies in his pocket.
+> go to living room
+> go to living room
+The Living Room
+The living room is really big. It's the biggest room in the whole house, and it has lots of doors! There's not much furniture, so there's lots of room to play in here!
+You can see your playpen, the sofa, the tv and your kiddie chair.
+You can go to the kitchen, the back yard or Mommy's room.
+> take kiddie chair
+> take kiddie chair
+You pick up your chair.
+> set chair against mommy's door
+> set chair against mommy's door
+You set the chair against the door.  Now you can climb up to the knob!
+> go to kitchen
+> go to kitchen
+The Kitchen
+There's lots of stuff in the kitchen. But you're not allowed to touch most of it. The table is so high up, you always have to climb in a chair before you can get on the table. But Daddy gets really mad when I get on the table.
+You can see Rex, your blanky and Daddy.
+You can go to the living room or to the bathroom.
+> take jinglies
+> take jinglies
+You reach into Daddy's pocket and take the jinglies.  Then you drop the glove.  Now you can open any door in the whole house!
+You hear another loud BANG come from Mommy's room.  What is the man doing?
+> x daddy
+> x daddy
+Daddy fell asleep on the floor, but he falls asleep on the floor all the time. He has warm red water all around him.
+> go to living room
+> go to living room
+The Living Room
+The living room is really big. It's the biggest room in the whole house, and it has lots of doors! There's not much furniture, so there's lots of room to play in here!
+You can see your playpen, the sofa, the tv and your kiddie chair.
+You can go to the kitchen, the back yard or Mommy's room.
+> use jinglies on mommy's door
+> use jinglies on mommy's door
+You stand on the chair and try to make the jinglies work, but there are just so many of them.  Before you can try very many, the door opens up.  The man who knocked at kitchen door stands there, looking at you.  He doesn't smile.  Neither do you.  Behind him, you see your Captain Jumbo action figure.  The man just stares at you, silent.  You point to your Captain Jumbo.  The man looks back, and walks over to your toy.
+You see Mommy when he does.  She's lying on the bed, so she must be sleeping, too.  The man brings you your Captain Jumbo action figure.
+  "Go play," he says.
+You can go back to your playpen now.
+> x captain jumbo
+> x captain jumbo
+Your Captain Jumbo action figure was a gift from a really nice lady at a store. You were really happy when she got it for you, but for some reason, after the lady went away, Mommy started crying.
+> climb into playpen
+> climb into playpen
+You climb back into your playpen.  Your Captain Jumbo action figure is your favorite toy, and you have a lot of fun with him.  Before long, the man comes out of Mommy's room.  He has a baggy of some sugar.  He looks at you for a second, then he leaves out the kitchen door, the way he came in.  You keep playing with Captain Jumbo.  You're having so much fun, you hope Mommy never wakes up and makes you stop for dinner.
+[state=Finished]

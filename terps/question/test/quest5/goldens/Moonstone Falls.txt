@@ -1,0 +1,776 @@
+Moonstone Falls
+By Craig Dutton (c) 2012
+
+You wake up with a sore head and soaked to the skin lying on a beach with the tide rolling in and out over you. You can't remember who you are or how you got here?
+You are on a beach.
+You can go up, northeast or south.
+The cold air chills your bones as you see a cave entrance to the northeast and the beach stretches out to the south.
+> x me
+> x me
+You find a lighter in your pocket.
+> ne
+> ne
+You are by a cave entrance.
+You can go southwest or in.
+The entrance is set into the cliff.
+> in
+> in
+You are in a cave.
+You can go out.
+A small but airy cave.
+You can see some driftwood.
+> take driftwood
+> take driftwood
+You pick it up.
+> out
+> out
+You are by a cave entrance.
+You can go southwest or in.
+The entrance is set into the cliff.
+> sw
+> sw
+You are on a beach.
+You can go up, northeast or south.
+The cold air chills your bones as you see a cave entrance to the northeast and the beach stretches out to the south.
+> s
+> s
+You are on a beach.
+You can go north or south.
+The cliffs tower over you as the course sand is washed over with the incoming tide.
+> s
+> s
+You are by a breakwater.
+You can go north.
+The cliffs nearby reach high above you as the breakwater blocks your way.
+> x cliffs
+> x cliffs
+Looking halfway up the cliffs you spot a small secret cave.
+> n
+> n
+You are on a beach.
+You can go north or south.
+The cliffs tower over you as the course sand is washed over with the incoming tide.
+> n
+> n
+You are on a beach.
+You can go up, northeast or south.
+The cold air chills your bones as you see a cave entrance to the northeast and the beach stretches out to the south.
+> up
+> up
+You are on a clifftop.
+You can go down, north or southwest.
+Looking down you see steep, uneven steps leading down to the beach. A cottage can be seen to the north.
+> sw
+> sw
+You are on marshy ground.
+You can go northeast, south or west.
+The ground is soft and muddy and you sink in some places.
+> w
+> w
+You are on a road.
+You can go east, north or west.
+The road is nothing more than a pitted track. To the north a dirty track leads to a house.
+> w
+> w
+You are on a road.
+You can go east or southwest.
+The road is nothing more than a pitted track and leads southwest to a railway station.
+> sw
+> sw
+You are outside a railway station.
+You can go northeast or in.
+This old building is in need of repair with the brickwork chipped and the windows in places broken.
+> in
+> in
+You are in a waiting room.
+You can go out, east or south.
+The small room holds a single bench and two exits to the outside. A door to the east is marked 'Stationmaster'.
+You can see a smoke-alarm.
+> use lighter on driftwood
+> use lighter on driftwood
+You light the end of the driftwood.
+> drop driftwood
+> drop driftwood
+You drop it.
+The driftwood goes out.
+> take driftwood
+> take driftwood
+You pick it up.
+> use driftwood on smoke-alarm
+> use driftwood on smoke-alarm
+The alarm goes off and the east door unlocks. The Stationmaster runs out and heads for the exit.
+> e
+> e
+You are in the Stationmaster's office.
+You can go west.
+This small office houses minimum furnishings.
+You can see a desk.
+> x desk
+> x desk
+A large mahogany desk.
+You find a drawer.
+> open drawer
+> open drawer
+You open it.
+It contains a copper key and some gum.
+> take copper key
+> take copper key
+You pick it up.
+> take gum
+> take gum
+You pick it up.
+> chew gum
+> chew gum
+You chew on the gum and spit it out. It's tasteless.
+> w
+> w
+You are in a waiting room.
+You can go out, east or south.
+The small room holds a single bench and two exits to the outside. A door to the east is marked 'Stationmaster'.
+You can see a smoke-alarm.
+> s
+> s
+You are on a platform.
+You can go north or down.
+The platform slopes down to a siding and far off to the east you spot a signal box.
+> down
+> down
+You are by a railway siding.
+You can go up or in.
+The railway siding is overgrown with weeds and a signal box stands nearby.
+> in
+> in
+You are in a signal box.
+You can go out.
+The small room is full of levers for the railway switches.
+You can see a mallet.
+> take mallet
+> take mallet
+You pick it up.
+> out
+> out
+You are by a railway siding.
+You can go up or in.
+The railway siding is overgrown with weeds and a signal box stands nearby.
+> up
+> up
+You are on a platform.
+You can go north or down.
+The platform slopes down to a siding and far off to the east you spot a signal box.
+> n
+> n
+You are in a waiting room.
+You can go out, east or south.
+The small room holds a single bench and two exits to the outside. A door to the east is marked 'Stationmaster'.
+You can see a smoke-alarm.
+> out
+> out
+You are outside a railway station.
+You can go northeast or in.
+This old building is in need of repair with the brickwork chipped and the windows in places broken.
+You can see the Stationmaster.
+> ne
+> ne
+You are on a road.
+You can go east or southwest.
+The road is nothing more than a pitted track and leads southwest to a railway station.
+> e
+> e
+You are on a road.
+You can go east, north or west.
+The road is nothing more than a pitted track. To the north a dirty track leads to a house.
+> n
+> n
+You are on a dirt track.
+You can go south, northwest or in.
+A car stands nearby and the track leads up to a large house.
+You can see a jack.
+> drop mallet
+> drop mallet
+You drop it.
+> nw
+> nw
+You are on a porch.
+You can go southeast or in.
+The front door is made of oak and the porch has a canopy to this large Edwardian house.
+> unlock front door
+> unlock front door
+Unlocked with the copper key.
+> open front door
+> open front door
+You open it.
+> drop copper key
+> drop copper key
+You drop it.
+> in
+> in
+You are in a hall.
+You can go out, north, east, west or up.
+Room lead in all directions and stairs lead up.
+> w
+> w
+You are in a study.
+You can go east or north.
+The room is full of books and maps.
+> n
+> n
+You are in a conservatory.
+You can go south.
+Exotic plants fill the room and a small indoor fountain stands in the centre.
+You can see a creeper vine.
+> x creeper vine
+> x creeper vine
+Solanum dulcamara aka bittersweet.
+You find a bamboo cane.
+> take bamboo cane
+> take bamboo cane
+You pick it up.
+> use gum on bamboo cane
+> use gum on bamboo cane
+You stick the gum to the end of the cane.
+> s
+> s
+You are in a study.
+You can go east or north.
+The room is full of books and maps.
+> e
+> e
+You are in a hall.
+You can go out, north, east, west or up.
+Room lead in all directions and stairs lead up.
+> n
+> n
+You are in a dining room.
+You can go south or north.
+A large oak table stands in the centre.
+> n
+> n
+You are in a kitchen.
+You can go south or out.
+There is an old-fashioned sink and a cupboard hanging on the wall with a fridge by the north wall.
+> x sink
+> x sink
+An old-fashioned porcelian sink.
+It contains a plughole.
+> use bamboo cane on plughole
+> use bamboo cane on plughole
+You insert the cane into the plughole and the chewing gum picks up something.
+> drop bamboo cane
+> drop bamboo cane
+You drop it.
+> take small key
+> take small key
+You pick it up.
+> open cupboard
+> open cupboard
+You open it.
+It contains a bag of flour.
+> take bag of flour
+> take bag of flour
+You pick it up.
+> empty bag of flour
+> empty bag of flour
+You empty the bag of flour and an iron key drops out.
+> take iron key
+> take iron key
+You pick it up.
+> out
+> out
+You are in a back garden.
+You can go in or north.
+There is a small pond nearby and a few flowers around the borders.
+> x pond
+> x pond
+It's murky.
+You find a small 'friend'!
+> take gnome
+> take gnome
+You pick it up.
+> n
+> n
+You are at the bottom of the garden.
+You can go south or in.
+A shed stands to your right.
+> drop gnome
+> drop gnome
+You drop it.
+> unlock shed door
+> unlock shed door
+Unlocked with the iron key.
+> open shed door
+> open shed door
+You open it.
+> in
+> in
+You hear the gnome being accidently kicked and know someone is behind you. Instinct takes over and you duck, turn around and tackle your assailant to the ground. With a strong upper-cut you knock the man unconscious.
+> x man
+> x man
+He wears a dark suit.
+You find some bullets in his pocket.
+> take bullets
+> take bullets
+You pick them up.
+> drop iron key
+> drop iron key
+You drop it.
+> in
+> in
+You are in a shed.
+You can go out.
+A garden shed full of gardening things.
+You can see a lawnmower.
+> push lawnmower
+> push lawnmower
+You push the mower out of the way and find a loose floorboard.
+> lift floorboard
+> lift floorboard
+You lift the floorboard and reveal a hole.
+> x hole
+> x hole
+A small dark hole where the floorboard had been.
+It contains a gun.
+> take gun
+> take gun
+You pick it up.
+> use bullets on gun
+> use bullets on gun
+You insert the clip into the gun.
+> out
+> out
+You are at the bottom of the garden.
+You can go south or in.
+A shed stands to your right.
+You can see a man, a phone, a gnome and an iron key.
+> use gun on man
+> use gun on man
+Bloodlust takes over and you shoot him in the head. You show no remorse and yet it somehow feels right!
+> s
+> s
+You are in a back garden.
+You can go in or north.
+There is a small pond nearby and a few flowers around the borders.
+> in
+> in
+You are in a kitchen.
+You can go south or out.
+There is an old-fashioned sink and a cupboard hanging on the wall with a fridge by the north wall.
+You can see a bamboo cane.
+> s
+> s
+You are in a dining room.
+You can go south or north.
+A large oak table stands in the centre.
+> s
+> s
+You are in a hall.
+You can go out, north, east, west or up.
+Room lead in all directions and stairs lead up.
+> e
+> e
+You are in a lounge.
+You can go west.
+The room is furnished with a few items and a stone fireplace stands by the wall.
+> x fireplace
+> x fireplace
+An ornate fireplace made of stone.
+It contains a burnt passport.
+> take burnt passport
+> take burnt passport
+You pick it up.
+> read burnt passport
+> read burnt passport
+It belongs to an Elliot Raven.
+> w
+> w
+You are in a hall.
+You can go out, north, east, west or up.
+Room lead in all directions and stairs lead up.
+> up
+> up
+You are on a landing.
+You can go down, north or up.
+A bedroom lies to the north and steps leads up and down.
+> n
+> n
+You are in a bedroom.
+You can go south.
+A large room with a double bed and garish decor.
+You can see a dresser.
+> x dresser
+> x dresser
+Made of oak.
+It has a mirror.
+It contains a music box.
+> x mirror
+> x mirror
+It stands upon the dresser casting your reflection back at you.
+> x reflection
+> x reflection
+You look hard at the face you see before you.  Can't say your impressed.
+Wait a minute! You look at the passport again - it's you! So, you're Elliot Raven and who burnt the passport?
+> drop burnt passport
+> drop burnt passport
+You drop it.
+> take music box
+> take music box
+You pick it up.
+> s
+> s
+You are on a landing.
+You can go down, north or up.
+A bedroom lies to the north and steps leads up and down.
+> up
+> up
+You are in an attic.
+You can go down.
+Dusty and full of old junk.
+You can see a wooden chest.
+> open wooden chest
+> open wooden chest
+You open it.
+It contains a painting.
+> drop music box
+> drop music box
+You drop it.
+> take painting
+> take painting
+You pick it up.
+> break painting
+> break painting
+You break the frame and the backing falls off. Something drops on to the ground.
+> take credit card
+> take credit card
+You pick it up.
+> read credit card
+> read credit card
+It has the name Elizabeth Walkes on it.
+> drop credit card
+> drop credit card
+You drop it.
+> take music box
+> take music box
+You pick it up.
+> down
+> down
+You are on a landing.
+You can go down, north or up.
+A bedroom lies to the north and steps leads up and down.
+> down
+> down
+You are in a hall.
+You can go out, north, east, west or up.
+Room lead in all directions and stairs lead up.
+> out
+> out
+You are on a porch.
+You can go southeast or in.
+The front door is made of oak and the porch has a canopy to this large Edwardian house.
+You can see a copper key.
+> se
+> se
+You are on a dirt track.
+You can go south, northwest or in.
+A car stands nearby and the track leads up to a large house.
+You can see a jack and a mallet.
+> drop music box
+> drop music box
+You drop it.
+> drop small key
+> drop small key
+You drop it.
+> drop gun
+> drop gun
+You drop it.
+> take mallet
+> take mallet
+You pick it up.
+> use jack on car
+> use jack on car
+You use the jack to lower the car.
+> take jack
+> take jack
+You pick it up.
+> s
+> s
+You are on a road.
+You can go east, north or west.
+The road is nothing more than a pitted track. To the north a dirty track leads to a house.
+> e
+> e
+You are on marshy ground.
+You can go northeast, south or west.
+The ground is soft and muddy and you sink in some places.
+> s
+> s
+You are in a field.
+You can go north, southwest or southeast.
+The field is ploughed and recent rain has made it very muddy.
+You can see a scarecrow.
+> break scarecrow
+> break scarecrow
+You break it apart separating its clothes from the pole it was attached to.
+> take pole
+> take pole
+You pick it up.
+> se
+> se
+You are on a clifftop.
+You can go northwest.
+You look out to sea and watch the waves rise up and down under the grey cloudy sky.
+You can see some soft ground.
+> use pole on soft ground
+> use pole on soft ground
+You pound the pole into the ground with the mallet.
+> drop mallet
+> drop mallet
+You drop it.
+> nw
+> nw
+You are in a field.
+You can go north, southwest or southeast.
+The field is ploughed and recent rain has made it very muddy.
+You can see some clothes.
+> sw
+> sw
+You are by a cairn.
+You can go northeast or south.
+Huge stones piled on top of each other used as a landmark.
+> s
+> s
+You are by a copper mine entrance.
+You can go north or in.
+It looks quite dark inside.
+> use lighter on driftwood
+> use lighter on driftwood
+You light the end of the driftwood.
+> in
+> in
+You are in a tunnel.
+You can go out, west or southwest.
+A cold and damp tunnel with a low ceiling.
+> sw
+> sw
+You are in a cave.
+You can go northeast.
+A small cave with just enough space to stand up in.
+You can see a mine truck.
+> use jack on mine truck
+> use jack on mine truck
+You use the jack to lift the mine truck.
+You find a rope hidden underneath the truck.
+> take rope
+> take rope
+You pick it up.
+> ne
+> ne
+You are in a tunnel.
+You can go out, west or southwest.
+A cold and damp tunnel with a low ceiling.
+> out
+> out
+You are by a copper mine entrance.
+You can go north or in.
+It looks quite dark inside.
+> n
+> n
+You are by a cairn.
+You can go northeast or south.
+Huge stones piled on top of each other used as a landmark.
+> ne
+> ne
+You are in a field.
+You can go north, southwest or southeast.
+The field is ploughed and recent rain has made it very muddy.
+You can see some clothes.
+> se
+> se
+You are on a clifftop.
+You can go northwest.
+You look out to sea and watch the waves rise up and down under the grey cloudy sky.
+You can see a pole and a mallet.
+> use rope on pole
+> use rope on pole
+You tie the rope to the pole and drop it off the edge of the cliff.
+> climb rope
+> climb rope
+You climb down the rope to a ledge halfway down the cliff.
+You are on a rocky ledge.
+You can go in.
+The ledge is only half a metre wide and a small cave entrance leads inside.
+You can see a rope.
+> in
+> in
+You are in a secret cave.
+You can go out.
+This was probably used by smugglers in the old days.
+You can see a newspaper and a silver key.
+> take silver key
+> take silver key
+You pick it up.
+> read newspaper
+> read newspaper
+'WITNESS TO GANGLAND SHOOTING IN POLICE PROTECTION UNTIL TRIAL' the headline reads.
+> out
+> out
+You are on a rocky ledge.
+You can go in.
+The ledge is only half a metre wide and a small cave entrance leads inside.
+You can see a rope.
+> climb rope
+> climb rope
+You climb the rope back up to the clifftop.
+You are on a clifftop.
+You can go northwest.
+You look out to sea and watch the waves rise up and down under the grey cloudy sky.
+You can see a pole, a rope and a mallet.
+> nw
+> nw
+You are in a field.
+You can go north, southwest or southeast.
+The field is ploughed and recent rain has made it very muddy.
+You can see some clothes.
+> n
+> n
+You are on marshy ground.
+You can go northeast, south or west.
+The ground is soft and muddy and you sink in some places.
+> w
+> w
+You are on a road.
+You can go east, north or west.
+The road is nothing more than a pitted track. To the north a dirty track leads to a house.
+> n
+> n
+You are on a dirt track.
+You can go south, northwest or in.
+A car stands nearby and the track leads up to a large house.
+You can see a music box, a small key and a gun.
+> unlock car
+> unlock car
+Unlocked with silver key.
+> open car
+> open car
+You open it.
+> in
+> in
+You are inside the car.
+You can go out.
+The inside is dirty and you bang your knee on the steering wheel.
+You can see a glovebox.
+> open glovebox
+> open glovebox
+You open it.
+It contains a photograph.
+> take photograph
+> take photograph
+You pick it up.
+> x photograph
+> x photograph
+It shows an attractive blonde woman sitting on a park bench.  On the back are the letters 'EW'.
+
+Suddenly your memory comes flooding back.
+
+You're Elliot Raven, a hitman hired to kill Elizabeth Walkes. Your boss Ethan Lynes is on trial for the murder of another gangland boss, Harris Malone and Walkes witnessed the shooting. She is in Police protection until the trial in two months.
+
+You know what you must do now... kill her and finish the job!
+> out
+> out
+You are on a dirt track.
+You can go south, northwest or in.
+A car stands nearby and the track leads up to a large house.
+You can see a music box, a small key and a gun.
+> drop silver key
+> drop silver key
+You drop it.
+> drop driftwood
+> drop driftwood
+You drop it.
+The driftwood goes out.
+> take music box
+> take music box
+You pick it up.
+> take small key
+> take small key
+You pick it up.
+> take gun
+> take gun
+You pick it up.
+> s
+> s
+You are on a road.
+You can go east, north or west.
+The road is nothing more than a pitted track. To the north a dirty track leads to a house.
+> e
+> e
+You are on marshy ground.
+You can go northeast, south or west.
+The ground is soft and muddy and you sink in some places.
+> ne
+> ne
+You are on a clifftop.
+You can go down, north or southwest.
+Looking down you see steep, uneven steps leading down to the beach. A cottage can be seen to the north.
+> n
+> n
+You are outside a cottage.
+You can go south or in.
+It's an old abandoned fisherman's cottage.
+> in
+> in
+You are inside a cottage.
+You can go out.
+It's full of dusty junk.
+> use small key on music box
+> use small key on music box
+As you turn the key and the music box plays you hear a noise coming from beneath the floor. There must be a cellar down there. You move some junk aside and find a trapdoor.
+> open trapdoor
+> open trapdoor
+You open the trapdoor.
+> down
+> down
+You are in a cellar.
+You can go up.
+It is quite cold and bare with one very dark corner to the northwest.
+> use lighter on dark corner
+> use lighter on dark corner
+Lighting up the dark corner you find the woman you've been looking for shaking on the floor - Elizabeth Walkes.
+> talk to elizabeth walkes
+> talk to elizabeth walkes
+'Don't kill me. I'll forget what I saw. I don't want to die!' she sobs.
+> use gun on elizabeth walkes
+> use gun on elizabeth walkes
+As you aim and start to pull the trigger a sudden moment of reproach hits you. It's enough and Elizabeth pushes you out of the way and escapes. You snap out of it.
+> up
+> up
+You are inside a cottage.
+You can go out or down.
+It's full of dusty junk.
+You can see a trapdoor.
+> out
+> out
+You are outside a cottage.
+You can go south or in.
+It's an old abandoned fisherman's cottage.
+> s
+> s
+You are on a clifftop.
+You can go down, north or southwest.
+Looking down you see steep, uneven steps leading down to the beach. A cottage can be seen to the north.
+> down
+> down
+You are on a beach.
+You can go up, northeast or south.
+The cold air chills your bones as you see a cave entrance to the northeast and the beach stretches out to the south.
+You can see Elizabeth Walkes.
+> x elizabeth walkes
+> x elizabeth walkes
+
+She obviously fell down the steps and broke her neck on the way down. As you look at her lifeless body you are just aware of a few figures surrounding you with guns aimed and ready to fire.
+
+Everything around you slows down. Mumours of 'Drop your weapon' and 'Under arrest' pass your ears. You are tackled to the ground and sand hits your face. You stare eye to eye with Elizabeth's lifeless expression.
+
+You think back at the moment in the cottage and your resistance to shoot her immediately. You think back on the other jobs you've done and wonder why this was different?!
+
+Perhaps a change of heart? Feeling guilty for once in your life? Whatever it was you won't be 'finishing the job' for a long, long time!
+The End
+[state=Finished]

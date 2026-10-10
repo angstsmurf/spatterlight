@@ -1,0 +1,103 @@
+A Industrial F45 Port
+You notice  a Receptionist.
+You can go in.
+This is the entrance to Industrial F45.  This is one of the many complexes on Polytheus-8 that houses factories and worker's shacks.  The port is not busy, since the entire planet is just industrial facilities B62-L27.  These ports are the only nice-looking parts of Earth, with Magnesium-Carbide plastered all over the place.  It has a nice shimmer to it.
+> x new worker ticket
+> x new worker ticket
+It says, "INSERT THIS TICKET INTO GREETING COMPUTER TO RECEIVE DESIGNATED START KIT."
+> x receptionist
+> x receptionist
+"She" is a Model 3.1 Fem-Tel greeting computer.  She will take your New Worker Ticket, and then give you directions to your working and housing facilities.  She will also give you your designated Rations Card, for food and water before you get your first paycheck.
+> use new worker ticket on receptionist
+> use new worker ticket on receptionist
+A drawer opens up from the counter, and it contains a Directions card, and a Rations Ticket.
+> take directions card
+> take directions card
+You pick it up.
+> x directions card
+> x directions card
+It says "HOUSING FACILITY: JD  OCCUPATIONAL FACILITY: BB  ADDRESSES ASSIGNED ON X-COORDINATE,Y-COORDINATE GRID.  EACH "CELL" IS 150 FT. X 150 FT."
+> take rations ticket
+> take rations ticket
+You pick it up.
+> in
+> in
+A Industrial F45 AA
+You can see a Sign AA.
+You can go out, east or north.
+The port was a lot nicer.  Everything is made from plaster and rusty iron carbide.  The volcanic rock floor of this planet is uncovered, so keep your shoes on.
+> x sign aa
+> x sign aa
+It says "I F45 CELL AA.  CELL CONTAINS: VACANT RESIDENCE.  WARNING: DO NOT ENTER UNOCCUPIED RESIDENCES.  IF AFOREMENTIONED RULE IS BROKEN, VIOLATOR WILL BE EXTERMINATED."
+> e
+> e
+A Industrial F45 BA
+You can see a Sign BA.
+You can go west, in, northwest or north.
+The port was a lot nicer.  Everything is made from plaster and rusty iron carbide.  The volcanic rock floor of this planet is uncovered, so keep your shoes on.
+> in
+> in
+A Industrial F45 Ration Supply
+You can see a Ration Supply Worker.
+You can go out.
+This room looks as trashy as the street, but at least the alloy is only half as rusted.
+> x ration supply worker
+> x ration supply worker
+He looks around 60, and very depressed.  He wears the same uni-cloth that is assigned to everyone that comes here.
+> use rations ticket on ration supply worker
+> use rations ticket on ration supply worker
+He opens a drawer under the counter, and pulls out a box marked, "RATIONS".
+> take rations
+> take rations
+You pick it up.
+> out
+> out
+A Industrial F45 BA
+You can see a Sign BA.
+You can go west, in, northwest or north.
+The port was a lot nicer.  Everything is made from plaster and rusty iron carbide.  The volcanic rock floor of this planet is uncovered, so keep your shoes on.
+> n
+> n
+A Industrial F45 BB
+You can see a Sign BB.
+You can go south or in.
+This cell contains the factory you were assigned to, the Dalek Construction Facility.  This cell has no rust on the metal, which is only more proof that the Daleks have no care for any other life form.  However, there is a huge fence that's spanning the distance of the colony.  So much for the house, so try the factory instead.
+> x sign bb
+> x sign bb
+It says, "I F45 CELL CA   CONTAINS: DALEK CONSTRUCTION FACILITY.  WARNING: DO NOT SABOTAGE.  VIOLATORS OF AFOREMENTIONED RULE WILL BE EXTERMINATED.
+> in
+> in
+A Dalek Construction Facility Entrance
+You can go out or east.
+This place is huge!  But only this small catwalk and a workroom are accessible.  This is where the Daleks force us to make more suits for them.  The are actually quite fleshy and weak, it's only the armor that does anything useful.  Also, never say that to a Dalek's face.  No wait, they have eye-stalks, not faces.  So I guess that means never say that to a Dalek's eye-stalk.
+> e
+> e
+A Dalek Construction Facility Workroom
+You can see a Window and a Control Panel (containing a Punchcard).
+You can go west or down.
+The room has a control panel in the center, and a window looking over the assembly lines.  The room is even nicer than the port, so I guess it's nice to work here.  Even if I'm working for our oppressors.
+> x window
+> x window
+Through the window, you see a massive assembly line.  Workers are making Dalek shells from re-smelted Dalekanium.  Every step of construction is down there, except for the cloning of the actual Dalek.  But none of that is your job, you just move the lines along.
+> x control panel
+> x control panel
+In the direct center of the room is the panel.  This controls the conveyor belt.  When a worker down there finishes his individual job, they hit a button.  When every button is pressed, a green light lights up on the panel, telling you it's time to move it forward.
+> take punchcard
+> take punchcard
+You pick it up.
+> use punchcard on control panel
+> use punchcard on control panel
+The panel starts smoking and beeping, and the assembly line below starts moving extremely fast, flinging partially built Dalek shells all over the place.  The Daleks come out and kill every worker down there!  One of the stray beams strikes your work box, and makes a hole in the bottom.For some very convenient reason, there is a ladder directly under the hole.  The Daleks exit.
+> d
+> d
+Scrambling down the ladder like a madman, you finally make it to the assembly line.
+> look
+> look
+A Dalek Construction Facility Workroom
+You can see a Window and a Control Panel.
+You can go west or down.
+The room has a control panel in the center, and a window looking over the assembly lines.  The room is even nicer than the port, so I guess it's nice to work here.  Even if I'm working for our oppressors.
+> i
+> i
+You are carrying a Directions Card and a Rations.
+[state=Running]

@@ -1,0 +1,107 @@
+You awaken from a deep sleep...
+You are in a crypt, it looks as if nothing has moved in here for many years. The room is covered in dust. There is an ancient-looking door to the north. It is quite dark.
+> x door
+> x door
+It's made of thick metal, it appears to be locked.
+> search door
+> search door
+You see the word "óre" carved near the handle.
+> search dust
+> search dust
+You find an old key in the dust
+> take old key
+> take old key
+You dust it off and put it in your pocket.
+> use old key on door
+> use old key on door
+You turn the key and slowly unlock the door. You can see a hallway to the north.
+> n
+> n
+The hallway is rather unremarkable and only seems to lead into darkness to the north. There is a small torch on the wall.
+> x torch
+> x torch
+It's small and seems a little strange. You wonder who lit it.
+> take torch
+> take torch
+You try to take the torch, as you put your hand on it it moves downward and reveals a hidden door. The torch is still on the wall.
+> open hidden door
+> open hidden door
+You open it.
+You see a skull inside.
+> take skull
+> take skull
+You pick up the skull.
+> x skull
+> x skull
+It's weird, it appears to have three eye-holes instead of two and is strangely elongated.  The word "óre" is carved on it's forhead. It gives you a creepy feeling.
+> n
+> n
+It's dark in all directions, you can't see anything... Feel along the walls, maybe there's a way out. You can hear a faint noise like a heartbeat to the east.
+> nw
+> nw
+You can feel a large crack in this wall, maybe you should search inside...
+> search crack
+> search crack
+You find a bone dagger wedged inside the crack, you almost cut your hand on it.
+> take bone dagger
+> take bone dagger
+You pick up the dagger and hold it in your right hand.
+> se
+> se
+It's dark in all directions, you can't see anything... Feel along the walls, maybe there's a way out. You can hear a faint noise like a heartbeat to the east.
+> e
+> e
+You feel a leathery membrane. It is quite thick, you will probably need a tool to get through it. The heartbeat can be heard from inside.
+> use bone dagger on membrane
+> use bone dagger on membrane
+You slice through the membrane, another rooms lies north.
+> n
+> n
+This room feels like it is made of some sort of skin. The air is hot and humid. You can still hear the heartbeat somewhere deeper in the darkness. You can see a faint light coming from the northwest.
+> nw
+> nw
+A large glowing orb of light hovers in the middle of this room.
+> x glowing orb
+> x glowing orb
+It's floating in the middle of the room, and glowing white.
+> touch glowing orb
+> touch glowing orb
+You reach out and put your hand on the orb, it glows brightly for a second. You hear a loud noise coming from the previous room. The orb shrinks and jumps into your pocket.
+> se
+> se
+This room feels like it is made of some sort of skin. The air is hot and humid. You can still hear the heartbeat somewhere deeper in the darkness. You can see a faint light coming from the northwest.
+> ne
+> ne
+This room also appears to be made out of some kind of skin, you can feel a round hole in the wall. The heartbeat is very loud now.
+> use glowing orb on round hole
+> use glowing orb on round hole
+The orb jumps from your pocket and moves into the center of the hole. It flashes and disappears.
+A passageway open up, leading downward.
+> d
+> d
+As you walk down the opening closes behind you. In the center there is a massive, beating heart.
+> x heart
+> x heart
+It's huge, the word "óre" appears to be carved into it. It looks diseased with black splotches and small cuts along it's surface.
+> use skull on heart
+> use skull on heart
+You hold the skull up to the heart. It cackles and fuses with the heart.
+> use bone dagger on heart
+> use bone dagger on heart
+You plunge the knife into the heart, a large amount of blood spurts onto your hand. It stop beating. You hear a terrible scream.  A red bloody figure rises from the floor. "You shouldn't have done that."
+> x red figure
+> x red figure
+The red figure appears to be covered in blood. It is faceless except for a large elongated mouth with sharp teeth. It smiles as you look at it. It says "Ask."
+> ask red figure about who
+> ask red figure about who
+It says "I am the keeper of this room"
+> ask red figure about exit
+> ask red figure about exit
+It says "There is only one way out."
+> ask red figure about knife
+> ask red figure about knife
+It says "Yes, use the knife."
+> use bone dagger on player
+> use bone dagger on player
+You plunge the dagger into your heart, you feel the life drain away from your body.
+[state=Finished]

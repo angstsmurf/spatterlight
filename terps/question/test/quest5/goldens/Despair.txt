@@ -1,0 +1,228 @@
+You are in a tube.
+It's foggy inside the glass tube. You can't see much of anything. There is something at your feet.
+> x me
+
+> x me
+Looking good.
+> x glass
+
+> x glass
+It's quite foggy. You can't see through it. You may be able to lift the tube if you try hard enough.
+> rub glass
+
+> rub glass
+the fog on the glass clears up a bit. There's a lab outside.
+> grab handle
+
+> grab handle
+You grab it. Nothing happens. (You might want to try pulling on it)
+> pull handle
+
+> pull handle
+With some effort, the tube slides up. You step into the lab.
+
+You are in a Lab.
+You can see a Dead Scientist and a Dead Girl.
+It's slightly dark. Some of the lights on the ceiling are broken, and the lights that are still working flicker. There are a few rotting bodies laying on the ground. Tables and computer monitors are scattered about the room. There is a large moss-covered staircase to the north.
+> x dead scientist
+
+> x dead scientist
+It's a man. He's burned badly, and his body has started to decompose.
+> x dead girl
+
+> x dead girl
+It's a girl wearing a labcoat. She's burned from the waist down, and is slowly decomposing. Gross.
+> n
+
+> n
+
+You are in a Staircase.
+The stairs are covered in moss, and end up at a large door. The door is closed.
+> x door
+
+> x door
+It is a bunker door. The hatch looks like it can be opened with some effort.
+> open door
+
+> open door
+
+You are in a Hatch Opening.
+You can see a Pipe and a Rotting Stick.
+You're outside, right next to a huge hatch in the ground. The sky is a dark red, and ash falls like snow from the sky. Overturned cars and rubble are everywhere. You get a strong feeling of dispair. You should go north, there's quite a bit of rubble on ethier side of you.
+> x pipe
+
+> x pipe
+It's a heavy, metal pipe that's covered in rust. You might be able to use it as a weapon.
+> take pipe
+
+> take pipe
+You pick the heavy metal pipe up.
+> x stick
+
+> x stick
+It's a stick that's kind of flimsy.
+> n
+
+> n
+
+You are in a Wasteland Clearing.
+You can go east or west.
+You come to a clearing in the wasteland. Rubble is everywhere, there are also a few decomposing bodies and skeletons lying around. Yikes. You can go west or east.
+> w
+
+> w
+
+You are in a West Wasteland Path.
+You can go east.
+You come to a small clearing, and you can see a large pile of bodies.
+> x bodies
+
+> x bodies
+The pile of corpses reek. It's best not to get too close. Strange... They all have a hole in their torso. It's almost like they're being... collected.
+> e
+
+> e
+
+You are in a Wasteland Clearing.
+You can go east or west.
+You come to a clearing in the wasteland. Rubble is everywhere, there are also a few decomposing bodies and skeletons lying around. Yikes. You can go west or east.
+> e
+
+> e
+
+You are in an East Wasteland Path.
+You take the path to the east. There's not much here except for rubble, but you see a man walking around a little ways away. You should get his attention.
+> x man
+
+> x man
+You look closer, and it appears to be a man. He doesn't notice you.
+> yell at man
+
+> yell at man
+The man swivels around and a bright light hits you in the face.
+
+You are in an East Wasteland Path.
+You can see a Sentinel.
+The man turns and shines a spotlight in your face. He looks at you. The man's lower torso is missing and has been replaced with a spotlight. His arms are fitted with long metal stilts. You try to run, but the man's long metal neck extends. He brings his face close to you. You can now see that his eye sockets are empty. Half of his face is torn, and a robotic skeleton is hidden underneath. You'd better do something, quick!
+> attack sentinel
+
+> attack sentinel
+You panic and bash it in the head. The monster screams loudly at you, and his neck slinks back into his body. It retreats while calling out to the horizon. As the creature wanders off, other creatures far away answer it. Soon you are surrounded by a harmony of screams. Everything in this wasteland knows you're here. You'd better keep moving.
+
+You are in a Main Wasteland Path.
+You can go west, north or east.
+You are in a small clearing in the wasteland. As usual, there are bodies and rubble all around you. Paths go north, east, and west.
+> n
+
+> n
+
+You are in a North on Main Path.
+You can go down or south.
+You choose to go north. A hatch partially covered with rubble leads down ahead of you, and it leads down.
+> d
+
+> d
+
+You are in a Hatch.
+You can go up.
+You go down the hatch and find yourself in a nearly empty room. However, there is a crack in the wall in front of you, and a sound like sawing comes from behind the wall.
+> x crack
+
+> x crack
+You peek into the crack in the wall. There is a corpse sitting on a table. A large robot with one giant eye is using his many arms that are outfitted with surgical tools to dissect a corpse. He grabs a metal device and bolts it onto the body. So this is the thing that made that long-necked monster... You'd better get out of here before you end up on the table too.
+> u
+
+> u
+
+You are in a North on Main Path.
+You can go down or south.
+You choose to go north. A hatch partially covered with rubble leads down ahead of you, and it leads down.
+> s
+
+> s
+
+You are in a Main Wasteland Path.
+You can go west, north or east.
+You are in a small clearing in the wasteland. As usual, there are bodies and rubble all around you. Paths go north, east, and west.
+> e
+
+> e
+
+You are in an East on Main Path.
+You can go west or north.
+You go east. After walking for a while, you can see a very large figure a few yards away, almost as big as a tank. If you head north, you'll run into it.
+> n
+
+> n
+
+You are in a Northeast Clearing.
+You can see a Tank.
+You step forward to examine the creature. It's a cyborg with a hammer, claws, wheels for legs, and a large cylinder on its back. The cylinder has large red writing on it. Before you can make out what it says, the creature notices you. Roaring, it prepares to crush you with its hammer. Although it is powerful, you may be able to dodge its slow attacks.
+> dodge tank
+
+> dodge tank
+You evade his attack, and you can get a better view of the print. It has the words "Warning" and "Power" on it, but you can't get a better view from that angle.
+> x cylinder
+
+> x cylinder
+You dodge the creature's hammer and look at its back. The cylinder reads: WARNING! DO NOT DETACH POWER SUPPLY It says some other things, but the creature turns around.
+> attack cylinder
+
+> attack cylinder
+You give it a good thump and the cylinder breaks off the creature's back. The cyborg falls over dead. Wow, that was pretty impressive. You should get moving, the cyborg's roars may have alerted some other monsters.
+
+You are in a Huge Clearing.
+You can go north or south.
+You come to a clearing. Ash is still falling constantly, and you can now hear the cries of distant monsters. To your south is a fairly steep path, and to your north is a flat, ash-covered path. You'd better decide quickly.
+> s
+
+> s
+
+You are in a Steep Rocky Path.
+You carefully make your way down the path. It starts to become stepper as you follow the path, but you manage to find a way down. You end up on the edge of a cliff hanging over a wide valley. There's a thing moving down there, but it doesn't have any robotic parts attached to it. You try to look closer and the cliff erodes under your feet. You fall down, but somehow survive the fall. You dust yourself off and carefully continue on.
+
+You are in a Rocky Valley.
+You can see a Shiny Object.
+You can go south.
+You look around and spot a moving object to your south. However, there does not appear to be any metal on the person, but you keep your guard up. There is a shiny object hidden in the sand close by to you. There doesn't seem to be any other way to go but south, so you hold tight onto your trusty pipe.
+> x machete
+
+> x machete
+It's a shiny but scratched machete. However, it is very sharp and very strong.
+> take machete
+
+> take machete
+Oof. Kind of heavy, but it looks quite deadly.
+> s
+
+> s
+
+You are in a South of Rocky Valley.
+You can see a Cube Man.
+You walk towards the figure and get a better look. You shiver. It's a man whose arms and feet are wrapped in bandages. Instead of hands, he has bloody meathooks. With a snarl, he turns to you. His head is encased in a brown cube. The side that's facing you has an eye painted on it. It starts to limp towards you. It groans and tries to speak.
+
+"I... I can see you... You can hide, yes... But I can still... see you..."
+> x cube man
+
+> x cube man
+He limps towards you with his hook-hands ready. He snarls at you and says, "I... See.. You.."
+> attack cube man
+
+> attack cube man
+He continues to snarl at you, and you pull out your newly found machete. He suddenly screams and leaps at you, ripping at your flesh with his hooks. He leaps back when you swing at him with the sword. He pounces on you again. You block his attack and then chop off his arms.
+
+"I... Can still... SEE YOU!" He screams at you in pain. You plunge the sword right into  the painted pupil on the cube. "I... See...Y-" He goes limp. Your heart is pounding. That was a little too close.
+
+You are in a South of Rocky Valley.
+You turn to leave as a girl about your age jumps from the cliff behind you. She has on a white dress, and two blue lines run from the bottom of her eyelids to her jaw. She laughs and plays with a meathook she has in her hands.
+
+"That was sure impressive, Lab Rat!" She giggles and applauds you. "I can't let you do that anymore, though. My master wouldn't be happy about that..." She smiles at you. "It's a shame we have to kill you, though. I thought you were cute." She tries to attack you, but you knock the hook from her hands and wound her. A spot of red appears on her white dress. She cartwheels away from you and picks the hook back up. "You don't play fair, do you? No matter, you'll be killed out there eventually. My name's Eve, by the way." She blows you a kiss and runs away. You'd better keep moving if you want to live...
+
+END OF GAME ONE
+
+Look for game two:
+
+ALONE
+
+Thank you for playing.
+[state=Finished]

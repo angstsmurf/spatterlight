@@ -1,0 +1,221 @@
+Ești in Camera ta, Ursake.
+Aici se află un Poster, un Teveu, un Pat, un Dulap, o Masa și un Cufar.
+E o camera cam goala, de comfort 3. Aici ai locuit din copilarie si nu te deranjeaza.  Se simte prezenta zgarceniei si a fisurilor anale. Lipsa de tigari face acest loc insuportabil. In stanga ta e o masa.
+Poți merge spre nord.
+
+Obiectivele tale pentru azi (ca in fiecare zi) sunt:
+-Enerveaza-l pe Jidan
+-Joaca-te Getpec Gioiraid
+-Fumeaza minim 2 tigari
+> obiective
+
+> obiective
+
+Obiectivele tale pentru azi (ca in fiecare zi) sunt:
+-sa-l enervezi pe Jidan
+-sa te joci Getpec Gioiraid
+-sa fumezi minim 2 tigari
+> i
+
+> i
+Ai la tine o bricheta.
+> x poster
+
+> x poster
+Un poster vechi, unde un rrom cu vesta rosie si sapca alba este proeminent afisat. In coltul din dreapta jos exista, scris cu marker negru, ceva ce seamana cu un autograf: "Morarie, mandarie, coptura galbena, ma cac toata ziua, ma pis toata ziua."
+> admira poster
+
+> admira poster
+Te uiti cu jind la minunatia de barbat pe care o arata posterul. Te gandesti timp de cateva minute unde a ajuns viata ta daca ai ajuns sa te holbezi la postere cu boschetari, si mai ales, daca ai in casa asa ceva. Apoi realizezi succint ca nu mai ai tigari si ca nici posterul n-o sa-ti dea, asa ca incetezi din a te chiombi la el.
+> x teveu
+
+> x teveu
+Un televizor firma "Panasoanic", luat in rate acum 20 de ani. Are un ecran bombat, si telecomanda lipseste (se spune ca ar fi fost folosita pe post de caramida pentru construirea unei case, la un moment dat). Nu prinzi decat vreo 3 canale, pentru ca antena e improvizata dintr-un umeras si o conserva.
+
+ E inchis.
+> pornești teveu
+
+> pornești teveu
+Il pornesti. Stiri.
+> te uiti la teveu
+
+> te uiti la teveu
+Dai pe stiri. Vezi o stire despre cum tigarile se vor scumpi. Te speri si inchizi televizorul.
+> x pat
+
+> x pat
+Un pat oarecum comod , nefacut. Dormi in el cum dorm somalezii pe corabie, dar e mai bine decat pe strazi (cred).
+> dormi pat
+
+> dormi pat
+AI vrea sa te culci, dar iti amintesti ca ai o scoala la care trebuie sa mergi, si niste tigari de care trebuie sa faci rost, dupa care sa le fumezi in fata anumitor persoane de religie iudaica, asa ca renunti la idee.
+> faci pat
+
+> faci pat
+Iti faci patul. In timp ce ridicai patura, un pachet de tigari cade pe jos.
+> x pat
+
+> x pat
+Un pat oarecum comod , facut. Dormi in el cum dorm somalezii pe corabie, dar e mai bine decat pe strazi (cred).
+> x pachet de tigari
+
+> x pachet de tigari
+De sus arata interesant asa.... Poate ai vrea sa-l aduci mai aproape de fata ta ca sa-l examinezi mai bine.
+> iei pachet de tigari
+
+> iei pachet de tigari
+Il bagi in buzunar
+> folosești pachet de tigari
+
+> folosești pachet de tigari
+Te uiti in pachet... Gol. Din oarecare motiv gasesti o cheie in pachet. Arunci pachetul (pe jos, ca doar ce pu*a mea?) si iei cheia.
+> x cheie
+
+> x cheie
+O cheie mica, din alama. Are scris pe ea "RAFUC".
+> x dulap
+
+> x dulap
+Acest dulap pare sa fi avut intr-o era anterioara rol de buncăr. Acum iti tii hainele in el, stiind ca in caz de razboi nuclear nu vei ramane in curul gol.
+> x masa
+
+> x masa
+O masa veche, de lemn. Nu pare foarte rezistenta, asa ca nu pui chestii grele pe ea (de parca ai avea si ce). In momentul de fata, pe ea este telefonul tau, langa el o baterie.
+> iei telefon
+
+> iei telefon
+Iti iei telefonul si il bagi cu multa indemanare in buzunar.
+> x telefon
+
+> x telefon
+E descarcat. Doar daca ar exista un fel de a stoca curent electric intr-o forma usor de transportat, un fel de....baterie pe care s-o folosim aici.
+> iei baterie
+
+> iei baterie
+O bagi in buzunar. Oare ce o sa faci cu ea?
+> folosești baterie pe telefon
+
+> folosești baterie pe telefon
+Bagi bateria in telefon cu multa dexteritate, iar ecranul acestuia se aprinde.
+> x telefon
+
+> x telefon
+Telefonul este aprins, acum ca are si baterie. E un telefon clasic. N-are jocuri sau aparat foto, sau culoare, dar te poti baza pe el. Sau il poti folosi la concursuri de "Cine degajeaza cel mai tare un telefon?".
+> baga manele telefon
+
+> baga manele telefon
+Pui maneaua "Sarumana Sefule" si dansezi cu vehementa.
+> x cufar
+
+> x cufar
+Un cufar cat se poate de inchis. Contempli ce se poate afla in el, si incerci sa intelegi natura curioasa a omului. Apoi realizezi ca nu-ti pasa si ca vrei sa stii ce e in cufar.
+> deschizi cufar
+
+> deschizi cufar
+Este încuiat.
+> folosești cheie pe cufar
+
+> folosești cheie pe cufar
+Il deschizi si te uiti curios. Nu gasesti decat o foaie rupta de caiet si 40 de bani.
+> iei foaie
+
+> iei foaie
+Alege la care 'foaie' te referi:
+1: Foaie
+2: Reteta de sanvis
+> 1
+O iei.
+> citești foaie
+
+> citești foaie
+Alege la care 'foaie' te referi:
+1: Reteta de sanvis
+2: Foaie
+> 2
+Aici scrie: "Ca sa faci sanvisul suprem ai nevoie de: paine, cascaval, sunca, paine, asezate in ordinea asta." De parca n-ai stii cum sa faci un senvis...
+> citești reteta de sanvis
+
+> citești reteta de sanvis
+L-ai mai citit odata, dar ma rog....
+Aici scrie: "Ca sa faci sanvisul suprem ai nevoie de: paine, cascaval, sunca, paine, asezate in ordinea asta." De parca n-ai stii cum sa faci un senvis...
+> iei 40 de bani
+
+> iei 40 de bani
+Bagi in buzunar cele 4 monezi. Acum, de fiecare data cand pasesti, se aud zurgalai.
+> x 40 de bani
+
+> x 40 de bani
+4 monezi de 10 bani fiecare... In total 40 de bani... Sa fii la Mate-Info are si recompese.
+> spune salut
+
+> spune salut
+Tu spui 'salut', dar nimeni nu te aude.
+> nord
+
+> nord
+
+Ești în Hol.
+
+Poți merge spre est, sud sau nord.
+> est
+
+> est
+
+Ești în Bucatarie.
+Aici se află Tatal tau, niste Paine și un Frigider.
+O bucatarie obisnuita. O masa cu o fata de masa care pare sa fie din plastic, inconjurata de niste scaune de lemn, vopsite cu alb. O chiuveta cat de cat moderna, fara vase in ea. Langa este un magar cu vase spalate. Un frigider vechi si mititel. Il poti vedea pe tatal tau pe unul din scaune. Pe masa observi niste paine.
+Poți merge spre vest.
+Tatal tau se uita la tine scurt, de parca tocmai acum a observat ca esti in casa lui, dupa care continua sa isi citeasca ziarul.
+> x tatal tau
+
+> x tatal tau
+Taica-tu e intr-un colt al camerei. Sta si citeste un ziar gratuit. Sede intr-o pozitie foarte ciudata, doar pe o buca. Il auzi mormaind ceva... poti sa descifrezi cuvintele "Scump" si "Bani putini".
+> x frigider
+
+> x frigider
+Un loc unde pui mancarea si alimentele persabile ca sa nu se strice. Ce-o fi in el?
+> deschizi frigider
+
+> deschizi frigider
+O racoare te cuprinde in timp ce deschizi frigiderul. O lumina chioara te intampina. Te uiti cu dezamagire intr-un frigider aproape gol.
+In el gasesti:  Sunca și Cascaval.
+> iei paine
+
+> iei paine
+O iei.
+> iei cascaval
+
+> iei cascaval
+Iei cascavalul cu tine...
+> iei sunca
+
+> iei sunca
+Iei sunca cu tine....
+> folosești cascaval pe paine
+
+> folosești cascaval pe paine
+Pui cascavalul pe paine...
+> folosești sunca pe paine
+
+> folosești sunca pe paine
+Pui sunca pe paine...
+> x senvis suprem
+
+> x senvis suprem
+Un senvis super bun. Daca ti-ar fii foame l-ai manca. Dar nu-ti e. Deci e de naspa.
+> închizi frigider
+
+> închizi frigider
+Inchizi incet usa frigiderul incet-incet, si incerci sa afli daca lumina sta aprinsa si cand usa e inchisa. Faci asta cateva minute, pana te enervezi si trantesti usa frigiderului.
+> vest
+
+> vest
+
+Ești în Hol.
+
+Poți merge spre est, sud sau nord.
+> i
+
+> i
+Ai la tine o bricheta, un Telefon și un 40 de bani.
+[state=Running]

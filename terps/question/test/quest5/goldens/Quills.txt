@@ -1,0 +1,225 @@
+You are in  a lounge.
+This is a large lounge with a green rug and beige wallpaper.
+You can see a lamp, a Cupboard, an apple and a Hatchet.
+You can go north or east.
+> x rug
+
+> x rug
+The rug is quite old and full of mud.
+> x wallpaper
+
+> x wallpaper
+It is a peeling wallpaper with pictures of horses on it.
+> x cupboard
+
+> x cupboard
+This is a beatiful cupboard with intricate woodwork patterns engraved in it.
+> open cupboard
+
+> open cupboard
+You open it.
+It contains  a  framed document.
+> read framed document
+
+> read framed document
+The paper reads: "Welcome to the land of Psarbor.The king has sent orders for you to embark on a quest to find the four  magical quills that was stolen.Good luck!P.S.:Remember to close the cupboard!
+
+> close cupboard
+
+> close cupboard
+You close it.
+> x lamp
+
+> x lamp
+On the floor is a slightly scratched lamp.
+> take lamp
+
+> take lamp
+Taken.
+> switch on lamp
+
+> switch on lamp
+The lamp is now on.It illuminates the room with a warm glow.
+> take apple
+
+> take apple
+You pick it up.
+> eat apple
+
+> eat apple
+You have eaten the apple.
+> x hatchet
+
+> x hatchet
+The hatchet is of authentic dwarfish craftmanship.
+> take hatchet
+
+> take hatchet
+Taken.
+> e
+
+> e
+
+You are in a Kitchen.
+This is a large kitchen.
+You can see a table, food and a candle.
+You can go west.
+> x table
+
+> x table
+It is a table made by woodsmans and bears knife marks , which indicates that it was used for food.
+> x food
+
+> x food
+This is a tasty-looking sandwich.
+> take food
+
+> take food
+You pick it up.
+> eat food
+
+> eat food
+Mmm, tasty!
+> x candle
+
+> x candle
+The dirty candle is bolted to the wall.
+> switch on candle
+
+> switch on candle
+You switch it on.
+The dirty candle is now on, but not very illluminating.
+> x candle
+
+> x candle
+The candle emits an almost unseen glow.
+> w
+
+> w
+
+You are in  a lounge.
+This is a large lounge with a green rug and beige wallpaper.
+You can see a Cupboard.
+You can go north or east.
+> n
+
+> n
+
+You are in a  a balcony.
+This is a balcony overlooking a colourful courtyard.
+
+You can go south or west.
+> w
+
+> w
+
+You are in the Weaponry.
+This is the castle's weaponry.All the soldiers are fighting the goblins, so there is not much left.
+You can see a sword.
+You can go east or down.
+> x sword
+
+> x sword
+This is an elven sword bearing an engraving of five quills.
+> take sword
+
+> take sword
+You pick it up.
+> d
+
+> d
+
+You are in the the cellar.
+It is a damp cellar,with vines on the walls.
+You can see a a loose brick and a Troll.
+You can go up.
+You have 15 seconds before the troll kills you!
+> x troll
+
+> x troll
+This is a nasty troll looking hungry.
+> x loose brick
+
+> x loose brick
+It is a loose brick in the wall.
+> pull loose brick
+
+> pull loose brick
+A lever  appears.
+> x lever
+
+> x lever
+It is a large lever.You can switch it on.
+> switch on lever
+
+> switch on lever
+Switching on the lever reveals an exit west to a secret room.You cannot turn the lever off.
+> kill troll with sword
+
+> kill troll with sword
+The nasty troll is dead!!
+> w
+
+> w
+
+You are in a secret room.
+This is a small secret room with moss on the walls.
+
+You can go east or up.
+> u
+
+> u
+
+You are in a watchtower.
+
+You can go down or west.
+> w
+
+> w
+
+You are in a forest path.
+This is a narrow, leafy forest path.
+You can see a chirping bird.
+You can go east or west.
+> x bird
+
+> x bird
+There is a bird somewhere, chirping.
+> w
+
+> w
+
+You are in a The old well.
+You are at the old well.Further on is the hermit's cottage.
+You can see a quill.
+You can go east or west.
+
+> take quill
+
+> take quill
+You pick it up.
+> w
+
+> w
+
+You are in the a hermit cottage.
+
+You can see  a bed, a chair, a bible and a Hermit.
+You can go east.
+> x bed
+
+> x bed
+This bed seems to have been slept in earlier.
+> x bible
+
+> x bible
+This is an old holy bible with iron clasps holding it closed.
+> ask hermit about quills
+
+> ask hermit about quills
+I cannot answer that question.
+> i
+
+> i
+You are carrying a lamp, a Hatchet, a sword and a quill.
+[state=Running]

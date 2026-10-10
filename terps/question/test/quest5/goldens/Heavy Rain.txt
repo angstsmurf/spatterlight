@@ -1,0 +1,294 @@
+You are in a Heavy Rain text adventure.
+You can go down.
+Welcome to GamesRadar's text version of Heavy Rain. This small story simulates the 'lizard' challenge from Quantic Dream's game. It's a proper text adventure, so you can play all the way through. Keep an eye out for secrets! Now, let's set the scene...
+
+Ethan Mars wanders into an abandoned building, looking for clues to the whereabouts of his son, Shaun, who has been kidnapped by the Origami Killer.
+
+How to play
+
+1. It's a text adventure, so typing in stuff like 'look at lizard' or 'take lizard' will look at or take that object. If you want to use something on yourself type 'use xxx on me'.
+
+2. Don't forget, there's a compass on your right, which lets you move into new rooms.
+
+3. Keep an eye on the Room Objects on your right too. Once you've discovered them, certain objects will appear in this menu for you to interact with.
+
+4. You can click on all useable objects to look at, take or do all manner of things to them.
+> x me
+
+> x me
+You look miserable and you smell funny. Only a mentally unhinged female journalist would find you attractive at the moment.
+> think me
+
+> think me
+You need to cut off your finger to get out of this mess. Once you've done that, you should be able to escape via the corridor.
+> d
+
+> d
+
+You are in a Corridor.
+You can see a Lizard painted on the door, a model lizard and a large X.
+You can go in or out.
+You are wearing a questionable jacket and you look utterly miserable. You stand in a shitty corridor with some lizard stuff in it.
+> x lizard painted on the door
+
+> x lizard painted on the door
+You stare listlessly at the painted lizard. For some reason you feel hungry.
+> stroke lizard painted on the door
+
+> stroke lizard painted on the door
+You run your finger over the painted lizard. It seems to enjoy the attention, despite being an inanimate object.
+> x large x
+
+> x large x
+You look at the large letter 'X' and feel like saying something.
+> press large x
+
+> press large x
+"Jason"
+> x model lizard
+
+> x model lizard
+A poorly made porcelain lizard - the kind people try to sell at car-boot sales, along with pirated DVDs of Buffy The Vampire Slayer. You shake it. There is something inside.
+> smash model lizard
+
+> smash model lizard
+Don't be so violent. Just open it.
+> out
+
+> out
+Play the game, you fool. You can use this door once you've finished your... tasks.
+> open model lizard
+
+> open model lizard
+You smash the lizard on the floor and a Lizard key falls out. Grab it from the menu on your right or type 'take lizard key'.
+> take lizard key
+
+> take lizard key
+You pick up the lizard key. It isn't a key shaped like a lizard or anything exciting like that. It's just a key that you found inside a lizard. Ok?
+You can now go in to the next room...
+> in
+
+> in
+
+You are in a Shitty basement.
+You can see a Table, a Video screen, a Broken TV, a Shitty chair, a Saw, a long metal rod and a pair of pliers.
+You can go east, south or out.
+The basement room is shittier than you could have imagined. It's worse than your own living room (marginally).
+> x table
+
+> x table
+You look at the table. It is shitty. There's a video screen placed on top of it.
+> x video screen
+
+> x video screen
+The video screen stares back at you. Its artificial eye seems to be peering directly into your soul. You worry that you might be over-thinking things. You look miserable. Maybe you should pick it up, stud.
+> take video screen
+
+> take video screen
+You pick up the portable video screen. It starts playing a message....
+You watch the film. The Origami Killer demands that you cut off your own finger in order to receive the next clue that will lead you to your son, Shaun.
+You have 5 minutes. Well, actually you have as long as you like, because we couldn't figure out how to create time limits in this app.
+> lick video screen
+
+> lick video screen
+You lick the video screen. It tastes like fear.
+> watch video screen
+
+> watch video screen
+You hide behind the shitty chair and watch the video screen for hours. It doesn't move. You become convinced that it's playing a game with you. Over time, you learn to hate the screen. You wish you'd just used it instead.
+> out
+
+> out
+You can't leave now. Shaun is relying on you. Plus, there's nothing good on telly.
+> x saw
+
+> x saw
+A 'sight for saw eyes'... Bwahahahaha.
+> take saw
+
+> take saw
+You clumsily pick up the saw and stuff it into your trousers. Ouch! And now you're bleeding.
+> use saw on table
+
+> use saw on table
+You saw a leg off the table. It falls over.
+> take long metal rod
+
+> take long metal rod
+You firmly grasp the rod. It's a whopper. You stroke it a little.
+> take pair of pliers
+
+> take pair of pliers
+You grab the pliers with gusto.
+> open broken tv
+
+> open broken tv
+You peer inside the broken TV. You see something unexpected inside...
+> x satoru iwata
+
+> x satoru iwata
+You look at Nintendo President and CEO Satoru Iwata. He stares back at you with contempt.
+> ask satoru iwata about wii u
+
+> ask satoru iwata about wii u
+Iwata informs you that the Wii U has an excellent first-party line up, and that many of the biggest third-party games will appear on the console in 2013.
+> e
+
+> e
+
+You are in a Basement kitchen.
+You can see a Meat cleaver, a Cupboard, a Sink, a cooker, a cockroach and a shitty fridge.
+You can go west.
+The basement kitchen is even shittier. Cockroaches crawl over the floor, and climb in and out of the few remaining cupboards.
+> x meat cleaver
+
+> x meat cleaver
+It's sharper than David Mitchell's wit.
+> take meat cleaver
+
+> take meat cleaver
+You yank the meat cleaver out of the wall. It's fairly dull and rusty.
+> use meat cleaver
+
+> use meat cleaver
+You swing the cleaver around a bit. If only you had vegetables to dice. Want to cut off your finger? Try use cleaver on me.
+> x cupboard
+
+> x cupboard
+A shitty cupboard in a shitty kitchen. There's probably something shitty inside.
+> open cupboard
+
+> open cupboard
+You fling open the door. Inside you see delicious booze.
+> take booze
+
+> take booze
+You snatch the booze out of the cupboard and stash it in your pocket.
+> x cooker
+
+> x cooker
+You can use this to heat something. Something metal, perhaps.
+> use long metal rod on cooker
+
+> use long metal rod on cooker
+You heat the metal rod using the cooker.
+> x hot metal rod
+
+> x hot metal rod
+Your metal rod is now glowing with heat.
+> stamp cockroach
+
+> stamp cockroach
+You crush the tiny defenseless insect beneath your mighty shoe, asserting your total dominance over it.
+> open shitty fridge
+
+> open shitty fridge
+You open the fridge and find Harrison Ford hiding from a nuclear explosion. You tell him that Indiana Jones: Kingdom of the Crystal Skull was awful. He nods gently in agreement.
+> close shitty fridge
+
+> close shitty fridge
+You close the fridge and shut Harrison Ford in. It was the kindest thing to do.
+> use sink
+
+> use sink
+You wash your hands. They feel soft.
+> w
+
+> w
+
+You are in a Shitty basement.
+You can see a Table, a Broken TV (containing Satoru Iwata) and a Shitty chair.
+You can go east, south or out.
+The basement room is shittier than you could have imagined. It's worse than your own living room (marginally).
+> s
+
+> s
+
+You are in a Basement bathroom.
+You can see a Sink (containing a rusty pair of scissors), a Shitty cupboard and a toilet.
+You can go north.
+You are stood in the shitty bathroom of the shitty basement. It's shitty. You look miserable.
+> x sink
+
+> x sink
+The sink is caked in something rusty and brown. You see a pair of scissors poking out of the plughole. You pull the scissors out and slip them into your pocket.
+> x sink
+
+> x sink
+There's nothing else in the sink - just that rusty brown stuff, which you suspect is... well, you'd rather not say.
+> x rusty pair of scissors
+
+> x rusty pair of scissors
+A pair of safety scissors, moulded to look like Pingu. The blades are rustier than Rod Stewart's voice. Hello Hepatitis!
+> use rusty pair of scissors
+
+> use rusty pair of scissors
+You find some paper and make a lovely paper dolly in the shape of Nintendo President Satoru Iwata. Perhaps you should type 'Use scissors on me' if you want to chop off your finger, or something...
+> x shitty cupboard
+
+> x shitty cupboard
+You examine yourself in the mirror of the bathroom cupboard. You need a shave.
+> open shitty cupboard
+
+> open shitty cupboard
+You open the shitty cupboard and find a bottle of painkillers inside.
+> take bottle of painkillers
+
+> take bottle of painkillers
+You grab the painkillers from the shelf.
+> x toilet
+
+> x toilet
+This toilet is in a bad, bad state.
+> use toilet
+
+> use toilet
+You sit down on the toilet and pinch one out. You start to feel much better, actually...
+> n
+
+> n
+
+You are in a Shitty basement.
+You can see a Table, a Broken TV (containing Satoru Iwata) and a Shitty chair.
+You can go east, south or out.
+The basement room is shittier than you could have imagined. It's worse than your own living room (marginally).
+> give satoru iwata paper dolly to satoru iwata
+
+> give satoru iwata paper dolly to satoru iwata
+Iwata smiles politely at your sad attempt to gain his favour. You feel a warm glow inside.
+> use meat cleaver on me
+
+> use meat cleaver on me
+A nice quick slice and Ethan's finger comes clean off. Of course, the pain is unbearable.
+The video screen flickers into life. You hear a voice. "Holy hell! Dude, I never thought you'd actually cut your own finger off. Wow, man, that's messed up. Er, so you can leave now. The door is unlocked."
+> x bloody hand stump
+
+> x bloody hand stump
+OH GOD! It's the bloody stump on your left hand where your pinky used to be.
+> use hot metal rod on bloody hand stump
+
+> use hot metal rod on bloody hand stump
+You cauterize the wound and stop yourself bleeding to death. Nice one.
+> use booze on bloody hand stump
+
+> use booze on bloody hand stump
+You pour booze over the open wound. At least it won't get infected. You then take a hefty swig yourself.
+> eat bottle of painkillers
+
+> eat bottle of painkillers
+You scoff the painkillers and start to feel a little better about the colour of your jacket. You think you can see Elvis.
+> out
+
+> out
+
+You are in a Corridor.
+You can see a Lizard painted on the door, a large X and a smashed lizard.
+You can go in or out.
+You are wearing a questionable jacket and you look utterly miserable. You stand in a shitty corridor with some lizard stuff in it.
+> out
+
+> out
+
+You are in a blank white room.
+You've escaped the building with most of your fingers intact! Hurray! You win!
+[state=Finished]
