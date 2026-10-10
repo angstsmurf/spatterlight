@@ -28,6 +28,19 @@
  * only among themselves is in sclibrar_internal.h.
  */
 
+/*
+ * Every topic file includes this header first; the system and engine headers
+ * the library draws on are gathered here so the topic files need nothing
+ * else.
+ */
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
 #include <string>
 #include <vector>
 

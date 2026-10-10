@@ -32,20 +32,7 @@
  * entry points are declared in a5run_internal.h.
  */
 
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <set>
-#include <string>
-#include <unordered_set>
-#include <vector>
-
-#include "../a5parse.h"
-#include "../a5run.h"
 #include "a5run_internal.h"
-#include "../a5sb.h"
-#include "../a5text.h"
 
 /* Seed the known-words list exactly as clsUserSession.NotUnderstood does, lazily
    (the first time an unmatched command needs the word-validity check).

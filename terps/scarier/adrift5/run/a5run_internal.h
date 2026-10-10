@@ -29,18 +29,36 @@
 #ifndef SCARIER_A5RUN_INTERNAL_H
 #define SCARIER_A5RUN_INTERNAL_H
 
+/* Every turn-loop TU includes this header first; the system and engine
+   headers they draw on are gathered here so the TUs need nothing else. */
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
+#include <algorithm>
+#include <memory>
 #include <set>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
+#include "../a5expr.h"
+#include "../a5model.h"
 #include "../a5parse.h"
+#include "../a5rand.h"
+#include "../a5restr.h"
 #include "../a5run.h"
 #include "../a5sb.h"
+#include "../a5sexpr.h"
+#include "../a5text.h"
 #include "../a5util.h"
+#include "../a5xml.h"
+
+/* strcasecmp() where the toolchain lacks <strings.h>. */
+#include "../../common_utils/sc_garglk.h"
 
 /* Per-event runtime (clsEvent instance state).  Status mirrors
    clsEvent.StatusEnum; the timers mirror TimerToEndOfEvent / iLastSubEventTime /

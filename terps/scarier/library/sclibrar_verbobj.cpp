@@ -24,20 +24,6 @@
  * for what the core files share.
  */
 
-#include <assert.h>
-#include <limits.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <algorithm>
-#include <string>
-#include <vector>
-
-#include "scarier.h"
-#include "scprotos.h"
-#include "scgamest.h"
 #include "sclibrar.h"
 #include "sclibrar_internal.h"
 

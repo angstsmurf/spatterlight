@@ -32,19 +32,8 @@
  * the public a5run.h entry points.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
-
-#include "../a5rand.h"
-#include "../a5run.h"
 #include "a5run_internal.h"
-#include "../a5sb.h"
+
 #include "../../sessrec.h"
 
 /* ============================================================ save / restore */

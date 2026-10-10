@@ -38,12 +38,6 @@
  *   may not be right.
  */
 
-#include <string>
-#include <vector>
-
-#include "scarier.h"
-#include "scprotos.h"
-#include "scgamest.h"
 #include "sclibrar.h"
 
 /* sclibrar_disambig.cpp */

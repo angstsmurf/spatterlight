@@ -37,29 +37,7 @@
  * declared in a5run_internal.h.
  */
 
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <algorithm>
-#include <memory>
-#include <string>
-#include <vector>
-
-#include "../a5expr.h"
-#include "../a5parse.h"
-#include "../a5rand.h"
-#include "../a5restr.h"
-#include "../a5run.h"
 #include "a5run_internal.h"
-#include "../a5sb.h"
-#include "../a5sexpr.h"
-#include "../a5text.h"
-#include "../a5util.h"
-
-/* strcasecmp() where the toolchain lacks <strings.h>. */
-#include "../../common_utils/sc_garglk.h"
 
 /* Debug/trace switches, resolved from the environment ONCE: both are tested per
    variable action, so a function-local static keeps the lookup off that path

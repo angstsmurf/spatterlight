@@ -45,26 +45,7 @@
  * resp_* and exec_conversation calls) live in a5run_internal.h.
  */
 
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <string>
-#include <vector>
-
-#include "../a5parse.h"
-#include "../a5rand.h"
-#include "../a5restr.h"
-#include "../a5run.h"
 #include "a5run_internal.h"
-#include "../a5sb.h"
-#include "../a5sexpr.h"
-#include "../a5text.h"
-#include "../a5util.h"
-
-/* strcasecmp() where the toolchain lacks <strings.h>. */
-#include "../../common_utils/sc_garglk.h"
 
 /* Debug/trace switches, resolved from the environment ONCE.  These sit on hot
    paths -- A5DBG_SPEC is tested per override child per item -- and the rest of

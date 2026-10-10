@@ -35,23 +35,7 @@
  * are declared in a5run_internal.h; both files need them.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <algorithm>
-#include <set>
-#include <string>
-#include <vector>
-
-#include "../a5model.h"
-#include "../a5restr.h"
-#include "../a5run.h"
-#include "../a5sexpr.h"
 #include "a5run_internal.h"
-#include "../a5sb.h"
-#include "../a5text.h"
-#include "../a5xml.h"
 
 /* ref_value slots are only ever read as C strings (the state is calloc'd, so
    every slot is NUL-terminated from birth), and a whole-array memcpy moves
