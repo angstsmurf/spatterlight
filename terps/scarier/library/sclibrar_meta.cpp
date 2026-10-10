@@ -95,11 +95,10 @@ lib_cmd_look_typed (scr_gameref_t game)
 
   if (input)
     {
-      scr_char *line = (scr_char *) scr_malloc (strlen (input) + 1);
+      scr_char *line = scr_strdup (input);
       const scr_char *const *entry;
       scr_bool is_look = FALSE;
 
-      strcpy (line, input);
       scr_normalize_string (line);
       /* The pre-3.9 list stops after "x location". */
       for (entry = LOOK_LINES;

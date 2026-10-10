@@ -1492,9 +1492,8 @@ parse_get_v400_resource_offset (const scr_char *name,
    * until it is adopted into the table below, so the scr_realloc of that
    * table throwing (scr_fatal) does not leak it.
    */
-  scr_owned_string owned_name ((scr_char *) scr_malloc (strlen (name) + 1));
+  scr_owned_string owned_name (scr_strdup (name));
   scr_char *const clean_name = owned_name.get ();
-  memcpy (clean_name, name, strlen (name) + 1);
   if (strlen (clean_name) >= 2
       && strcmp (clean_name + strlen (clean_name) - 2, "##") == 0)
     clean_name[strlen (clean_name) - 2] = NUL;

@@ -2124,12 +2124,7 @@ gs_string_copy (scr_owned_string &to_string, const scr_char *from_string)
    * unique_ptr frees any current contents.
    */
   if (from_string)
-    {
-      scr_char *copy = (scr_char *) scr_malloc (strlen (from_string) + 1);
-
-      memcpy (copy, from_string, strlen (from_string) + 1);
-      to_string.reset (copy);
-    }
+    to_string.reset (scr_strdup (from_string));
   else
     to_string.reset ();
 }

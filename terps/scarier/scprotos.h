@@ -129,6 +129,7 @@ extern void *scr_malloc (size_t size);
 extern void *scr_realloc (void *pointer, size_t size);
 extern void scr_free (void *pointer);
 extern scr_char *scr_strdup (const std::string &string);
+extern scr_char *scr_strdup (const scr_char *string);
 
 #ifdef __cplusplus
 #include <memory>

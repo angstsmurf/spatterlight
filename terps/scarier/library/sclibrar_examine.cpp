@@ -1262,8 +1262,7 @@ lib_examine_referencedob_ex_400 (scr_gameref_t game, const scr_char *input,
         prefix = "a";
 
       found = 0;
-      copy = (scr_char *) scr_malloc (strlen (prefix) + 1);
-      strcpy (copy, prefix);
+      copy = scr_strdup (prefix);
       for (word = copy; word; word = next)
         {
           next = strchr (word, ' ');

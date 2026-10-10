@@ -220,8 +220,7 @@ memo_set_text (scr_memoref_t memo, const scr_char *text)
   memo->text = nullptr;
   if (text)
     {
-      memo->text = (scr_char *) scr_malloc (strlen (text) + 1);
-      strcpy (memo->text, text);
+      memo->text = scr_strdup (text);
     }
 }
 

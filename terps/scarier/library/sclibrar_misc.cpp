@@ -963,10 +963,9 @@ lib_cmd_examine_other (scr_gameref_t game)
 
       if (input)
         {
-          scr_char *line = (scr_char *) scr_malloc (strlen (input) + 1);
+          scr_char *line = scr_strdup (input);
           scr_bool is_bare;
 
-          strcpy (line, input);
           scr_normalize_string (line);
           is_bare = scr_strcasecmp (line, "x") == 0
                     || scr_strcasecmp (line, "ex") == 0

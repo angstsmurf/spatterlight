@@ -1275,8 +1275,7 @@ lib_prefix_words_in_input_400 (const scr_char *input, const scr_char *prefix)
   scr_int score;
 
   score = 0;
-  copy = (scr_char *) scr_malloc (strlen (prefix) + 1);
-  strcpy (copy, prefix);
+  copy = scr_strdup (prefix);
   for (word = copy; word; word = next)
     {
       next = strchr (word, ' ');

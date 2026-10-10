@@ -244,8 +244,7 @@ prop_dictionary_lookup (scr_prop_setref_t bundle, const scr_char *string)
     }
 
   /* Not found, so copy the string for dictionary insertion. */
-  dict_string = (decltype(dict_string)) scr_malloc (strlen (string) + 1);
-  memcpy (dict_string, string, strlen (string) + 1);
+  dict_string = scr_strdup (string);
 
   /* Add the new entry to the end of the dictionary array, and sort. */
   bundle->dictionary.push_back (dict_string);
@@ -780,8 +779,7 @@ prop_put_string (scr_prop_setref_t bundle, const scr_char *format,
     return FALSE;
 
   /* Take a bundle-owned copy of the value and point the node at it. */
-  copy = (decltype(copy)) scr_malloc (strlen (value) + 1);
-  memcpy (copy, value, strlen (value) + 1);
+  copy = scr_strdup (value);
   prop_adopt (bundle, copy);
   node->property.string = copy;
   return TRUE;

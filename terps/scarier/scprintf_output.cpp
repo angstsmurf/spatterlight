@@ -452,8 +452,7 @@ pf_filter (const scr_char *string,
   /* Our contract is to return an allocated string; copy if required. */
   if (!current)
     {
-      current = (decltype(current)) scr_malloc (strlen (string) + 1);
-      memcpy (current, string, strlen (string) + 1);
+      current = scr_strdup (string);
     }
 
   return current;
@@ -479,8 +478,7 @@ pf_filter_for_info (const scr_char *string, scr_var_setref_t vars)
   /* Our contract is to return an allocated string; copy if required. */
   if (!current)
     {
-      current = (decltype(current)) scr_malloc (strlen (string) + 1);
-      memcpy (current, string, strlen (string) + 1);
+      current = scr_strdup (string);
     }
 
   return current;

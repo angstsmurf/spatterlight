@@ -184,13 +184,24 @@ scr_free (void *pointer)
  *
  * Copy a std::string into a freshly scr_malloc'ed C string, so callers that
  * expect to scr_free() the result keep working unchanged.  The boundary between
- * std::string internals and the engine's char* contract.
+ * std::string internals and the engine's char* contract.  The C string form
+ * is the engine's strdup(): a copy to scr_free(), never NULL.
  */
 scr_char *
 scr_strdup (const std::string &string)
 {
   scr_char *buffer = (scr_char *) scr_malloc (string.size () + 1);
   memcpy (buffer, string.c_str (), string.size () + 1);
+  return buffer;
+}
+
+scr_char *
+scr_strdup (const scr_char *string)
+{
+  const size_t size = strlen (string) + 1;
+  scr_char *buffer = (scr_char *) scr_malloc (size);
+
+  memcpy (buffer, string, size);
   return buffer;
 }
 

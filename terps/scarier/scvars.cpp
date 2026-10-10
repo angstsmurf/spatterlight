@@ -411,8 +411,7 @@ var_append_temp (scr_var_setref_t vars, const scr_char *string)
       /* Create a new temporary area and copy string. */
       new_sentence = TRUE;
       noted = 0;
-      vars->temporary = (decltype(vars->temporary)) scr_malloc (strlen (string) + 1);
-      memcpy (vars->temporary, string, strlen (string) + 1);
+      vars->temporary = scr_strdup (string);
     }
   else
     {

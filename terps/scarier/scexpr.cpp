@@ -608,8 +608,7 @@ expr_eval_push_string (const scr_char *value)
     }
 
   /* Push a copy of value. */
-  value_copy = (decltype(value_copy)) scr_malloc (strlen (value) + 1);
-  memcpy (value_copy, value, strlen (value) + 1);
+  value_copy = scr_strdup (value);
   expr.eval.stack[expr.eval.stack_index].is_collectible = TRUE;
   expr.eval.stack[expr.eval.stack_index++].value.mutable_string = value_copy;
 }
