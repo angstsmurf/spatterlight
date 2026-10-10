@@ -521,6 +521,10 @@
 		A5B000000000000000000128 /* sctafpar_fixups.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000127 /* sctafpar_fixups.cpp */; };
 		A5B00000000000000000012A /* sctafpar_patches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000129 /* sctafpar_patches.cpp */; };
 		A5FE00267FB6FD6F6A3C2AD7 /* scparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 066545D7B54AED7A90A3003E /* scparser.cpp */; };
+		5C1B1B000000000000000100 /* scparser_pattern.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000100 /* scparser_pattern.cpp */; };
+		5C1B1B000000000000000101 /* scparser_match.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000101 /* scparser_match.cpp */; };
+		5C1B1B000000000000000102 /* scparser_entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000102 /* scparser_entity.cpp */; };
+		5C1B1B000000000000000103 /* scparser_pronoun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000103 /* scparser_pronoun.cpp */; };
 		A5MAP0000000000000000001 /* a5map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5MAP0000000000000000002 /* a5map.cpp */; };
 		AA11US7B09F62D0D00FA7F19 /* illustrator.c in Sources */ = {isa = PBXBuildFile; fileRef = AA11US7A09F29EE60083E64E /* illustrator.c */; };
 		AC710000000000000000B001 /* agtifid.c in Sources */ = {isa = PBXBuildFile; fileRef = AC710000000000000000A001 /* agtifid.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
@@ -1816,6 +1820,10 @@
 /* Begin PBXFileReference section */
 		01E120DB9AF3E1E490C38748 /* scrun_split.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_split.cpp; sourceTree = "<group>"; };
 		066545D7B54AED7A90A3003E /* scparser.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000100 /* scparser_pattern.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser_pattern.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000101 /* scparser_match.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser_match.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000102 /* scparser_entity.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser_entity.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000103 /* scparser_pronoun.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser_pronoun.cpp; sourceTree = "<group>"; };
 		07488CCB0BD205058BE2291E /* gameload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameload.h; sourceTree = "<group>"; usesTabs = 0; };
 		0949D315816F8163CB2CD887 /* question-internal.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "question-internal.hh"; sourceTree = "<group>"; };
 		0B97A332BA494DD98C1A1131 /* GlkTextBufferWindow+Hyperlinks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Hyperlinks.m"; sourceTree = "<group>"; };
@@ -4432,6 +4440,10 @@
 				87010291D59681D38B0F44C5 /* scprintf.cpp */,
 				8EE0E82499061DB6D3D5ED73 /* scinterf.cpp */,
 				066545D7B54AED7A90A3003E /* scparser.cpp */,
+				5C1B1A000000000000000100 /* scparser_pattern.cpp */,
+				5C1B1A000000000000000101 /* scparser_match.cpp */,
+				5C1B1A000000000000000102 /* scparser_entity.cpp */,
+				5C1B1A000000000000000103 /* scparser_pronoun.cpp */,
 				SCLIBGRP0000000000000001 /* library */,
 				SCRUNGRP0000000000000001 /* runner */,
 				SCGLKGRP0000000000000001 /* glk */,
@@ -8374,6 +8386,10 @@
 				D7F5F5C3EC304C7526A1A745 /* scprintf.cpp in Sources */,
 				6721E9E796626F0B9D599492 /* scinterf.cpp in Sources */,
 				A5FE00267FB6FD6F6A3C2AD7 /* scparser.cpp in Sources */,
+				5C1B1B000000000000000100 /* scparser_pattern.cpp in Sources */,
+				5C1B1B000000000000000101 /* scparser_match.cpp in Sources */,
+				5C1B1B000000000000000102 /* scparser_entity.cpp in Sources */,
+				5C1B1B000000000000000103 /* scparser_pronoun.cpp in Sources */,
 				5C1B1B000000000000000005 /* sclibrar_disambig.cpp in Sources */,
 				5C1B1B000000000000000006 /* sclibrar_examine.cpp in Sources */,
 				5C1B1B000000000000000007 /* sclibrar_dispatch.cpp in Sources */,
