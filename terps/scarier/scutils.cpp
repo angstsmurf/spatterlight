@@ -36,11 +36,15 @@
 #include "scprotos.h"
 
 #ifdef SPATTERLIGHT
-/* In the Spatterlight build all randomness draws from the shared
-   erkyrath_random() (terps/common_utils/randomness.c), the same RNG used by
-   the Scott, TaylorMade, Plus and Comprehend ports.  randomness.h declares
-   these as C functions and has no C++ linkage guards; this is a C++ translation
-   unit, so include it with C linkage to match the C-compiled randomness.o. */
+
+
+/*
+ * In the Spatterlight build all randomness draws from the shared
+ * erkyrath_random() (terps/common_utils/randomness.c), the same RNG used by
+ * the Scott, TaylorMade, Plus and Comprehend ports.  randomness.h declares
+ * these as C functions and has no C++ linkage guards; this is a C++ translation
+ * unit, so include it with C linkage to match the C-compiled randomness.o.
+ */
 extern "C" {
 #include "randomness.h"
 }
@@ -110,7 +114,8 @@ scr_fatal (const scr_char *format, ...)
 
 /* Unique non-heap address for zero size malloc() and realloc() requests. */
 static void *scr_zero_allocation = &scr_zero_allocation;
- 
+
+
 /*
  * scr_malloc()
  * scr_realloc()
@@ -208,7 +213,7 @@ scr_strncasecmp (const scr_char *s1, const scr_char *s2, scr_int n)
       scr_int diff;
 
       diff = scr_tolower (s1[index_]) - scr_tolower (s2[index_]);
-      if (diff < 0 || diff > 0)
+      if (diff != 0)
         return diff < 0 ? -1 : 1;
     }
 
@@ -225,7 +230,7 @@ scr_strcasecmp (const scr_char *s1, const scr_char *s2)
   s2len = strlen (s2);
 
   result = scr_strncasecmp (s1, s2, s1len < s2len ? s1len : s2len);
-  if (result < 0 || result > 0)
+  if (result != 0)
     return result;
   else
     return s1len < s2len ? -1 : s1len > s2len ? 1 : 0;
@@ -234,8 +239,8 @@ scr_strcasecmp (const scr_char *s1, const scr_char *s2)
 
 /*
  * scr_platform_rand()
+ * congruential_step()
  * scr_congruential_rand()
- * scr_set_random_handler()
  *
  * Internal random number generation functions.  We offer two: one is a self-
  * seeding wrapper around the platform's rand(), which should generate good
@@ -245,6 +250,7 @@ scr_strcasecmp (const scr_char *s1, const scr_char *s2)
  * with the latter intended for predictability of game actions.
  */
 #ifdef SPATTERLIGHT
+
 
 /*
  * In the Spatterlight build both handlers draw from the shared
@@ -324,6 +330,7 @@ scr_platform_rand (scr_uint new_seed)
 
 static scr_uint congruential_state = 1;
 
+
 /*
  * congruential_step()
  *
@@ -390,6 +397,8 @@ scr_congruential_rand (scr_uint new_seed)
 
 
 /*
+ * runner_seed()
+ * runner_word()
  * scr_runner_rand()
  *
  * Runner-compatible generator: the same xoshiro128** with SplitMix32 seeding
@@ -481,17 +490,18 @@ scr_runner_rand (scr_uint new_seed)
 /* Function pointer for the actual random number generator in use. */
 static scr_int (*scr_rand_function) (scr_uint) = scr_platform_rand;
 
+
 /*
  * scr_set_congruential_random()
  * scr_set_platform_random()
+ * scr_set_runner_random()
  * scr_is_congruential_random()
- * scr_seed_random()
- * scr_rand()
- * scr_randomint()
+ * scr_is_runner_random()
  *
- * Public interface to random functions; control and reseed the random
- * handler in use, generate a random number, and a convenience function to
- * generate a random value within a given range.
+ * Public interface to random functions: select the random handler in use,
+ * and report which one is selected.  "Congruential" here means "portable and
+ * predictable", which the Runner-compatible generator is too: the clock
+ * freeze in scvars.cpp and the debugger's Random report key off this.
  */
 void
 scr_set_congruential_random (void)
@@ -511,11 +521,6 @@ scr_set_runner_random (void)
   scr_rand_function = scr_runner_rand;
 }
 
-/*
- * "Congruential" here means "portable and predictable", which the Runner-
- * compatible generator is too: the clock freeze in scvars.cpp and the
- * debugger's Random report key off this.
- */
 scr_bool
 scr_is_congruential_random (void)
 {
@@ -528,6 +533,7 @@ scr_is_runner_random (void)
 {
   return scr_rand_function == scr_runner_rand;
 }
+
 
 /*
  * scr_get_runner_random_state()
@@ -569,6 +575,17 @@ scr_set_runner_random_state (const scr_uint words[4], scr_uint draws)
   runner_seeded = TRUE;
 }
 
+
+/*
+ * scr_seed_random()
+ * scr_rand()
+ * scr_randomint()
+ * scr_vb_rnd()
+ * scr_randomint_exclusive()
+ *
+ * Reseed the random handler in use, draw the next number from it, and the
+ * draws the engine makes within a range.
+ */
 void
 scr_seed_random (scr_uint new_seed)
 {
@@ -579,11 +596,8 @@ scr_seed_random (scr_uint new_seed)
 static scr_int
 scr_rand (void)
 {
-  scr_int retval;
-
   /* Passing zero indicates this is not a seed operation. */
-  retval = scr_rand_function (0);
-  return retval;
+  return scr_rand_function (0);
 }
 
 scr_int
@@ -640,16 +654,14 @@ scr_randomint (scr_int low, scr_int high)
   return result;
 }
 
-/*
- * scr_vb_rnd()
- *
- * The next Single from the 3.9/3.8 codec's LCG (taf_runtime_rnd), traced like
- * the game-stream draws; the runner-compatible loader's source for what
- * run390 draws before it seeds with Timer.
- */
 double
 scr_vb_rnd (void)
 {
+  /*
+   * The next Single from the 3.9/3.8 codec's LCG (taf_runtime_rnd), traced
+   * like the game-stream draws; the runner-compatible loader's source for
+   * what run390 draws before it seeds with Timer.
+   */
   const double value = taf_runtime_rnd ();
 
   if (runner_trace)
@@ -691,6 +703,7 @@ scr_randomint_exclusive (scr_int low, scr_int high)
 static const scr_char NUL = '\0';
 static const scr_char SPACE = ' ';
 
+
 /*
  * scr_strempty()
  *
@@ -730,7 +743,8 @@ scr_trim_string (scr_char *string)
        index_ >= 0 && scr_isspace (string[index_]); index_--)
     string[index_] = NUL;
 
-  for (index_ = 0; scr_isspace (string[index_]);)
+  index_ = 0;
+  while (scr_isspace (string[index_]))
     index_++;
   memmove (string, string + index_, strlen (string) - index_ + 1);
 
@@ -762,7 +776,8 @@ scr_normalize_string (scr_char *string)
           scr_int cursor;
 
           string[index_] = SPACE;
-          for (cursor = index_ + 1; scr_isspace (string[cursor]);)
+          cursor = index_ + 1;
+          while (scr_isspace (string[cursor]))
             cursor++;
           memmove (string + index_ + 1,
                    string + cursor, strlen (string + cursor) + 1);

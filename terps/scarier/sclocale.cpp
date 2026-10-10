@@ -146,6 +146,7 @@ typedef struct
   scr_char tolower[TABLE_SIZE];
 } scr_locale_table_t;
 
+
 /*
  * Define a single static locale table set.  This set re-initializes if it
  * detects a locale change.
@@ -234,6 +235,7 @@ static const scr_locale_t *const AVAILABLE_LOCALES[] = {
   NULL
 };
 
+
 /*
  * The locale for the game, set below explicitly or on game startup, and
  * a flag to note if it's been set explicitly, to prevent autodetection from
@@ -277,7 +279,8 @@ loc_locate_signature_in_date (const scr_char *date)
  * codepage, but the locale is not yet (by definition) set.
  */
 static scr_bool
-loc_compare_locale_signatures (const char *signature, const scr_locale_t *locale)
+loc_compare_locale_signatures (const scr_char *signature,
+                               const scr_locale_t *locale)
 {
   scr_int index_;
   scr_bool is_matched;
@@ -289,8 +292,8 @@ loc_compare_locale_signatures (const char *signature, const scr_locale_t *locale
       if (memcmp (locale->signature[index_],
                   signature, sizeof (locale->signature[0])) == 0)
         {
-           is_matched = TRUE;
-           break;
+          is_matched = TRUE;
+          break;
         }
     }
 
@@ -393,7 +396,7 @@ loc_ascii_strncasecmp (const scr_char *s1, const scr_char *s2, scr_int n)
       scr_int diff;
 
       diff = loc_ascii_tolower (s1[index_]) - loc_ascii_tolower (s2[index_]);
-      if (diff < 0 || diff > 0)
+      if (diff != 0)
         return diff < 0 ? -1 : 1;
     }
 
@@ -456,7 +459,7 @@ loc_get_locale (void)
  *
  * Print out locale tables.
  */
-static int
+static scr_bool
 loc_debug_dump_new_line (scr_int index_, scr_int count)
 {
   return index_ < TABLE_SIZE - 1 && index_ % count == count - 1;

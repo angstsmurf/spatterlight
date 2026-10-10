@@ -455,16 +455,10 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
 static scr_int
 evt_taf_version (scr_gameref_t game)
 {
-  scr_int version;
-
   evt_cache_sync (game);
-  version = evt_cache_version;
-  if (version == 0)
-    {
-      version = prop_get_taf_version (gs_get_bundle (game));
-      evt_cache_version = version;
-    }
-  return version;
+  if (evt_cache_version == 0)
+    evt_cache_version = prop_get_taf_version (gs_get_bundle (game));
+  return evt_cache_version;
 }
 
 
@@ -511,6 +505,36 @@ evt_buffer_text (scr_gameref_t game, const scr_char *text)
 }
 
 
+/*
+ * evt_show_text_and_resource()
+ *
+ * Buffer one of an event's texts, unless silent or empty, and then handle
+ * the resource that goes with it: StartText/Res 0, PrefText1/Res 2,
+ * PrefText2/Res 3, FinishText/Res 4.  The caller decides whether the event
+ * is visible from the player's room.
+ */
+static void
+evt_show_text_and_resource (scr_gameref_t game, scr_int event,
+                            const scr_char *text_name, scr_int resource,
+                            scr_bool silent)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+  const scr_char *text;
+
+  vt_key[0].string = "Events";
+  vt_key[1].integer = event;
+  vt_key[2].string = text_name;
+  text = prop_get_string (bundle, "S<-sis", vt_key);
+  if (!silent && !scr_strempty (text))
+    evt_buffer_text (game, text);
+
+  vt_key[2].string = "Res";
+  vt_key[3].integer = resource;
+  res_handle_resource (game, "sisi", vt_key);
+}
+
+
 static void evt_start_event (scr_gameref_t game, scr_int event,
                              scr_bool silent);
 
@@ -522,8 +546,8 @@ static void evt_start_event (scr_gameref_t game, scr_int event,
  * every time round.  Both give the restarted event its full authored length.
  *
  * Arbitrated live 2026-08-04 (RUNNER_TESTS_TODO.md section 8), probe
- * test/adrift4/harness/make_39_evtimeprobe.py against run390.exe and the EV9 twin against
- * run400.exe:
+ * test/adrift4/harness/make_39_evtimeprobe.py against run390.exe and the
+ * EV9 twin against run400.exe:
  *
  *   run390, Time1=Time2=5, RestartType=1, StarterType 1: "E FINISH." on turns
  *     5, 10, 15 -- period 5, and no StartText on either restart.
@@ -545,25 +569,20 @@ static void evt_start_event (scr_gameref_t game, scr_int event,
 static scr_bool
 evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
 {
-  const scr_int version = evt_taf_version (game);
+  if (evt_taf_version (game) >= TAF_VERSION_400)
+    return FALSE;
 
-  if (version < TAF_VERSION_400)
-    {
-      if (evt_trace)
-        scr_trace ("Event: applying 3.9/3.8 restart fixup\n");
+  if (evt_trace)
+    scr_trace ("Event: applying 3.9/3.8 restart fixup\n");
 
-      /*
-       * Re-arm silently.  The length roll belongs to evt_start_event();
-       * rolling a second one here would churn the RNG stream on every restart,
-       * and taking a turn off the clock -- which SCARE did, and which the
-       * 2026-08-04 pass kept -- makes the period one short of what run390
-       * measures.
-       */
-      evt_start_event (game, event, TRUE);
-    }
-
-  /* Return TRUE if we applied the fixup. */
-  return version < TAF_VERSION_400;
+  /*
+   * Re-arm silently.  The length roll belongs to evt_start_event(); rolling
+   * a second one here would churn the RNG stream on every restart, and
+   * taking a turn off the clock -- which SCARE did, and which the 2026-08-04
+   * pass kept -- makes the period one short of what run390 measures.
+   */
+  evt_start_event (game, event, TRUE);
+  return TRUE;
 }
 
 
@@ -577,33 +596,14 @@ evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
 static void
 evt_start_event (scr_gameref_t game, scr_int event, scr_bool silent)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[4];
   scr_int time1, time2, obj1, obj1dest;
 
   if (evt_trace)
     scr_trace ("Event: starting event %ld\n", event);
 
-  /* If event is visible, print its start text. */
+  /* If event is visible, print its start text and play its resource. */
   if (evt_can_see_event (game, event))
-    {
-      const scr_char *starttext;
-
-      /* Get and print start text. */
-      vt_key[0].string = "Events";
-      vt_key[1].integer = event;
-      vt_key[2].string = "StartText";
-      starttext = prop_get_string (bundle, "S<-sis", vt_key);
-      if (!scr_strempty (starttext) && !silent)
-        {
-          evt_buffer_text (game, starttext);
-        }
-
-      /* Handle any associated resource. */
-      vt_key[2].string = "Res";
-      vt_key[3].integer = 0;
-      res_handle_resource (game, "sisi", vt_key);
-    }
+    evt_show_text_and_resource (game, event, "StartText", 0, silent);
 
   /* Move event object to destination. */
   obj1 = evt_cached_integer (game, event, EVT_OBJ1, "Obj1") - 1;
@@ -907,7 +907,7 @@ evt_finish_restart (scr_gameref_t game, scr_int event)
           break;
 
         default:
-          scr_fatal ("evt_finish_event:"
+          scr_fatal ("evt_finish_restart:"
                     " unknown value for starter type, %ld\n", startertype);
         }
       break;
@@ -923,7 +923,7 @@ evt_finish_restart (scr_gameref_t game, scr_int event)
 
         /* Only a random-delay starter gets here; the others are one-shots. */
         if (startertype != 2)
-          scr_fatal ("evt_finish_event: unknown StarterType\n");
+          scr_fatal ("evt_finish_restart: unknown StarterType\n");
 
         gs_set_event_state (game, event, ES_WAITING);
         start = evt_cached_integer (game, event, EVT_START_TIME, "StartTime");
@@ -933,7 +933,7 @@ evt_finish_restart (scr_gameref_t game, scr_int event)
       break;
 
     default:
-      scr_fatal ("evt_finish_event: unknown RestartType\n");
+      scr_fatal ("evt_finish_restart: unknown RestartType\n");
     }
 }
 
@@ -946,35 +946,14 @@ evt_finish_restart (scr_gameref_t game, scr_int event)
 static void
 evt_finish_event (scr_gameref_t game, scr_int event)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[4];
   scr_int obj2, obj2dest, obj3, obj3dest;
 
   if (evt_trace)
     scr_trace ("Event: finishing event %ld\n", event);
 
-  /* Set up invariant parts of the key. */
-  vt_key[0].string = "Events";
-  vt_key[1].integer = event;
-
-  /* If event is visible, print its finish text. */
+  /* If event is visible, print its finish text and play its resource. */
   if (evt_can_see_event (game, event))
-    {
-      const scr_char *finishtext;
-
-      /* Get and print finish text. */
-      vt_key[2].string = "FinishText";
-      finishtext = prop_get_string (bundle, "S<-sis", vt_key);
-      if (!scr_strempty (finishtext))
-        {
-          evt_buffer_text (game, finishtext);
-        }
-
-      /* Handle any associated resource. */
-      vt_key[2].string = "Res";
-      vt_key[3].integer = 4;
-      res_handle_resource (game, "sisi", vt_key);
-    }
+    evt_show_text_and_resource (game, event, "FinishText", 4, FALSE);
 
   /* Move event objects to destination. */
   obj2 = evt_cached_integer (game, event, EVT_OBJ2, "Obj2") - 1;
@@ -996,25 +975,20 @@ evt_finish_event (scr_gameref_t game, scr_int event)
 /*
  * evt_has_starter_task()
  * evt_starter_task_is_complete()
- * evt_pauser_task_is_complete()
- * evt_resumer_task_is_complete()
  *
- * Return the status of start, pause and resume states of an event.
+ * Return whether an event is started by a task, and whether that task is
+ * done.
  */
 static scr_bool
 evt_has_starter_task (scr_gameref_t game, scr_int event)
 {
-  scr_int startertype;
-
-  startertype = evt_get_starter_type (game, event);
-  return startertype == 3;
+  return evt_get_starter_type (game, event) == 3;
 }
 
 static scr_bool
 evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
 {
   scr_int task;
-  scr_bool start;
 
   task = evt_cached_integer (game, event, EVT_TASK_NUM, "TaskNum");
 
@@ -1029,20 +1003,12 @@ evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
    * Rnd on the first turn where scarier drew five -- the fifth was this
    * event's length roll -- and its task 74 never ran.
    */
-  start = FALSE;
   if (task == 0)
-    {
-      if (evt_taf_version (game) >= TAF_VERSION_400
-          && evt_any_task_in_state (game, TRUE))
-        start = TRUE;
-    }
-  else if (task > 0 && task - 1 < gs_task_count (game))
-    {
-      if (gs_task_done (game, task - 1))
-        start = TRUE;
-    }
+    return evt_taf_version (game) >= TAF_VERSION_400
+           && evt_any_task_in_state (game, TRUE);
 
-  return start;
+  return task > 0 && task - 1 < gs_task_count (game)
+         && gs_task_done (game, task - 1);
 }
 
 
@@ -1130,7 +1096,12 @@ evt_snapshot_starter_tasks (scr_gameref_t game)
     }
 }
 
+
 /*
+ * evt_gate_task_is_complete()
+ * evt_pauser_task_is_complete()
+ * evt_resumer_task_is_complete()
+ *
  * The pauser and resumer are the same test over different fields: a gate
  * task of 1 means "any task", N > 1 task N - 2, and the *Completed flag
  * says which task state (done or undone) trips the gate.
@@ -1142,25 +1113,17 @@ evt_gate_task_is_complete (scr_gameref_t game, scr_int event,
                            const scr_char *completed_name)
 {
   scr_int gatetask;
-  scr_bool completed, gate;
+  scr_bool completed;
 
   gatetask = evt_cached_integer (game, event, task_field, task_name);
   completed = !evt_cached_boolean (game, event, completed_field,
                                    completed_name);
 
-  gate = FALSE;
   if (gatetask == 1)
-    {
-      if (evt_any_task_in_state (game, completed))
-        gate = TRUE;
-    }
-  else if (gatetask > 1 && gatetask - 2 < gs_task_count (game))
-    {
-      if (completed == gs_task_done (game, gatetask - 2))
-        gate = TRUE;
-    }
+    return evt_any_task_in_state (game, completed);
 
-  return gate;
+  return gatetask > 1 && gatetask - 2 < gs_task_count (game)
+         && completed == gs_task_done (game, gatetask - 2);
 }
 
 static scr_bool
@@ -1193,39 +1156,24 @@ evt_handle_preftime_notifications (scr_gameref_t game, scr_int event)
     scr_int time_field;
     const scr_char *time_name, *text_name;
     scr_int resource;
-  } notifications[2] = {
+  } NOTIFICATIONS[2] = {
     { EVT_PREF_TIME1, "PrefTime1", "PrefText1", 2 },
     { EVT_PREF_TIME2, "PrefTime2", "PrefText2", 3 }
   };
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[4];
   scr_int index_;
-
-  vt_key[0].string = "Events";
-  vt_key[1].integer = event;
 
   /* PrefTime1/PrefText1/Res 2, then PrefTime2/PrefText2/Res 3. */
   for (index_ = 0; index_ < 2; index_++)
     {
       scr_int preftime;
-      const scr_char *preftext;
 
       preftime = evt_cached_integer (game, event,
-                                     notifications[index_].time_field,
-                                     notifications[index_].time_name);
+                                     NOTIFICATIONS[index_].time_field,
+                                     NOTIFICATIONS[index_].time_name);
       if (preftime == gs_event_time (game, event))
-        {
-          vt_key[2].string = notifications[index_].text_name;
-          preftext = prop_get_string (bundle, "S<-sis", vt_key);
-          if (!scr_strempty (preftext))
-            {
-              evt_buffer_text (game, preftext);
-            }
-
-          vt_key[2].string = "Res";
-          vt_key[3].integer = notifications[index_].resource;
-          res_handle_resource (game, "sisi", vt_key);
-        }
+        evt_show_text_and_resource (game, event,
+                                    NOTIFICATIONS[index_].text_name,
+                                    NOTIFICATIONS[index_].resource, FALSE);
     }
 }
 
@@ -1261,7 +1209,7 @@ evt_tick_waiting (scr_gameref_t game, scr_int event)
    * shot events doesn't look one lower than it should after this
    * transition, we need to set the initial time for events that start
    * as soon as the game starts to one greater than that set by
-   * evt_start_time().  Here's the hack to do that; if the event starts
+   * evt_start_event().  Here's the hack to do that; if the event starts
    * immediately, its time will already be zero, even before decrement,
    * which is how we tell which events to apply this hack to.
    *
@@ -1631,22 +1579,19 @@ evt_tick_event (scr_gameref_t game, scr_int event)
       break;
 
     case ES_FINISHED:
-      {
-        if (evt_trace)
-          scr_trace ("Event: ticking finished event %ld\n", event);
-
-        /*
-         * Nothing to do.  The Runners' checkevent has no code at all for
-         * their finished state (3): only an event with no starter task, or
-         * an "after any task" (TaskNum 0) one, ever lands here, because a
-         * task-started event that finishes without restarting goes back to
-         * AWAITING instead (run380 43A868: `If TaskNum > 0 Then state = 2
-         * Else state = 3`), where the snapshot rule decides whether it runs
-         * again -- see evt_starter_task_may_start().  Scarier used to park
-         * every one-shot here and revive it on seeing the starter task
-         * incomplete, which missed an undo-and-redo within one turn.
-         */
-      }
+      /*
+       * Nothing to do.  The Runners' checkevent has no code at all for
+       * their finished state (3): only an event with no starter task, or
+       * an "after any task" (TaskNum 0) one, ever lands here, because a
+       * task-started event that finishes without restarting goes back to
+       * AWAITING instead (run380 43A868: `If TaskNum > 0 Then state = 2
+       * Else state = 3`), where the snapshot rule decides whether it runs
+       * again -- see evt_starter_task_may_start().  Scarier used to park
+       * every one-shot here and revive it on seeing the starter task
+       * incomplete, which missed an undo-and-redo within one turn.
+       */
+      if (evt_trace)
+        scr_trace ("Event: ticking finished event %ld\n", event);
       break;
 
     case ES_PAUSED:
@@ -1654,7 +1599,7 @@ evt_tick_event (scr_gameref_t game, scr_int event)
       break;
 
     default:
-      scr_fatal ("evt_tick: invalid event state\n");
+      scr_fatal ("evt_tick_event: invalid event state\n");
     }
 
   if (evt_trace)
@@ -1662,6 +1607,29 @@ evt_tick_event (scr_gameref_t game, scr_int event)
       scr_trace ("Event: after ticking event %ld: state %ld, time %ld\n", event,
                 gs_event_state (game, event), gs_event_time (game, event));
     }
+}
+
+static void
+evt_tick_event_and_settle (scr_gameref_t game, scr_int event)
+{
+  scr_int prior_state, state;
+
+  /* Note current state, and tick event forwards. */
+  prior_state = gs_event_state (game, event);
+  evt_tick_event (game, event);
+
+  /*
+   * If the event went from paused or waiting to running, tick again.
+   * This looks dodgy, and probably is, but it does keep timers correct
+   * by only re-ticking events that have transitioned from non-running
+   * states to a running one, and not already-running events.  This is
+   * in effect just adding a bit of turn processing to a tick that would
+   * otherwise change state alone; a bit of laziness, in other words.
+   */
+  state = gs_event_state (game, event);
+  if (state == ES_RUNNING
+      && (prior_state == ES_PAUSED || prior_state == ES_WAITING))
+    evt_tick_event (game, event);
 }
 
 
@@ -1705,30 +1673,6 @@ evt_clear_ticked_events (scr_gameref_t game)
   for (event = 0; event < gs_event_count (game); event++)
     gs_set_event_ticked (game, event, FALSE);
 }
-
-static void
-evt_tick_event_and_settle (scr_gameref_t game, scr_int event)
-{
-  scr_int prior_state, state;
-
-  /* Note current state, and tick event forwards. */
-  prior_state = gs_event_state (game, event);
-  evt_tick_event (game, event);
-
-  /*
-   * If the event went from paused or waiting to running, tick again.
-   * This looks dodgy, and probably is, but it does keep timers correct
-   * by only re-ticking events that have transitioned from non-running
-   * states to a running one, and not already-running events.  This is
-   * in effect just adding a bit of turn processing to a tick that would
-   * otherwise change state alone; a bit of laziness, in other words.
-   */
-  state = gs_event_state (game, event);
-  if (state == ES_RUNNING
-      && (prior_state == ES_PAUSED || prior_state == ES_WAITING))
-    evt_tick_event (game, event);
-}
-
 
 /*
  * evt_check_events_started_by_task()
@@ -1794,7 +1738,7 @@ evt_check_events_started_by_task (scr_gameref_t game, scr_int task)
  * evt_finish_load_events()
  *
  * The two halves of an immediate event's game-load start, called either side
- * of the opening room description (scrunner.cpp).
+ * of the opening room description (runner/scrunner.cpp).
  *
  * Both Runners start a StarterType=1 event while the game is still loading,
  * BEFORE the first room description is printed -- probed live 2026-08-02 in
@@ -1834,13 +1778,13 @@ evt_start_load_events (scr_gameref_t game)
 
       /*
        * The same compensation the tick's immediate-start branch applies (see
-       * evt_tick_event()): the startup tick that follows decrements a running
+       * evt_tick_waiting()): the startup tick that follows decrements a running
        * event once, so a length-N event has to leave the load carrying N+1.
        * A zero-length event keeps its zero and is finished below.
        *
        * Only where that tick exists, which is 3.90 and 4.00: run380 and
        * run370 never call events() before the first command (see the
-       * startup block in scrunner.cpp), and their load code hands an
+       * startup block in runner/scrunner.cpp), and their load code hands an
        * immediate event its bare rolled length, so the first command's
        * decrement is the first one it ever sees.
        */

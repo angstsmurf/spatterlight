@@ -130,11 +130,11 @@ restr_object_in_place (scr_gameref_t game,
        * search.  See the notes above restr_pass_task_object_location below.
        *
        * The container's openness is NOT consulted, and that half was checked
-       * separately: probe `p39held` (test/adrift4/harness/make_39_heldprobe.py) run in the
-       * real run390.exe answers KEY IS HELD for a key inside a *closed* box
-       * the player carries, and only turns to NOT HELD when the box is
-       * dropped -- picking the closed box back up restores it.  All five
-       * states (loose, carried, open-carried-container, closed-carried-
+       * separately: probe `p39held` (test/adrift4/harness/make_39_heldprobe.py)
+       * run in the real run390.exe answers KEY IS HELD for a key inside a
+       * *closed* box the player carries, and only turns to NOT HELD when the
+       * box is dropped -- picking the closed box back up restores it.  All
+       * five states (loose, carried, open-carried-container, closed-carried-
        * container, closed-container-on-floor) match Scarier exactly.
        * Verified 2026-08-02; this is what lets inverness's desk be unlocked
        * with the old key still sealed inside its riddle box.
@@ -191,7 +191,6 @@ restr_object_in_place (scr_gameref_t game,
         return gs_object_position (game, object) == OBJ_WORN_PLAYER;
       npc = restr_selector_npc (game, var3);
 
-
       return gs_object_position (game, object) == OBJ_WORN_NPC
              && gs_object_parent (game, object) == npc;
 
@@ -201,7 +200,6 @@ restr_object_in_place (scr_gameref_t game,
         return obj_indirectly_in_room (game,
                                        object, gs_playerroom (game));
       npc = restr_selector_npc (game, var3);
-
 
       if (npc < 0)
         return FALSE;
@@ -236,9 +234,10 @@ restr_object_in_place (scr_gameref_t game,
      *
      * The Generator agrees -- its restriction dropdown strings run
      * "in room / held by / worn by / visible to / inside object / on object"
-     * with a "- No room -" sentinel for the in-room case and no counterpart for
-     * the other two, so Var3 = 0 is not authorable at all.  Nothing in the v4
-     * corpus has it either: all 111 inside/on-top-of restrictions use Var3 >= 1.
+     * with a "- No room -" sentinel for the in-room case and no counterpart
+     * for the other two, so Var3 = 0 is not authorable at all.  Nothing in
+     * the v4 corpus has it either: all 111 inside/on-top-of restrictions use
+     * Var3 >= 1.
      *
      * An index past the end of the sublist answers false in the runner without
      * complaint (unlike Var1, which raises "Subscript out of range").
@@ -584,7 +583,8 @@ restr_pass_task_task_state (scr_gameref_t game, scr_int var1, scr_int var2)
  * Evaluate restrictions relating to player and NPCs.
  */
 static scr_bool
-restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int var3)
+restr_pass_task_char (scr_gameref_t game,
+                      scr_int var1, scr_int var2, scr_int var3)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
@@ -721,9 +721,11 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
         case 3:                /* Not alone */
           return npc_count_in_room (game, gs_npc_location (game, npc1) - 1) > 1;
 
-        /* Cases 4-6 test the NPC's position but the *player's* parent object.
-           This reproduces the original SCARE behavior; don't "correct" it into
-           a divergence from the Adrift runner without evidence.  */
+        /*
+         * Cases 4-6 test the NPC's position but the *player's* parent object.
+         * This reproduces the original SCARE behavior; don't "correct" it
+         * into a divergence from the Adrift runner without evidence.
+         */
         case 4:                /* Standing on */
           return gs_npc_position (game, npc1) == 0
                  && gs_playerparent (game) == obj_standable_object (game, var3);
@@ -964,6 +966,12 @@ struct restr_task_t
 static scr_prop_setref_t restr_props_bundle = NULL;
 static std::vector<restr_task_t> restr_props;
 
+
+/*
+ * restr_forget_bundle()
+ *
+ * Drop the decoded restrictions of a bundle about to be destroyed.
+ */
 void
 restr_forget_bundle (scr_prop_setref_t bundle)
 {
@@ -973,6 +981,7 @@ restr_forget_bundle (scr_prop_setref_t bundle)
       restr_props.clear ();
     }
 }
+
 
 /*
  * restr_decode_task()
@@ -1089,7 +1098,8 @@ restr_get_decoded (scr_gameref_t game, scr_int task, scr_int restriction)
  * Demultiplexer for task restrictions.
  */
 static scr_bool
-restr_pass_task_restriction (scr_gameref_t game, scr_int task, scr_int restriction)
+restr_pass_task_restriction (scr_gameref_t game,
+                             scr_int task, scr_int restriction)
 {
   const restr_decoded_t *decoded;
   scr_int type;
@@ -1133,9 +1143,12 @@ restr_pass_task_restriction (scr_gameref_t game, scr_int task, scr_int restricti
                                     decoded->var3, decoded->var4);
       break;
 
-    case 5:                    /* Action type (Runner: Sub_20_3 type 5 / sentinel 0xEC). */
-      /* No known TAF file emits type 5; the TAF parser does not define it.
-       * Don't fatal — return FALSE so the restriction fails silently. */
+    case 5:                    /* Action type. */
+      /*
+       * Runner: Sub_20_3 type 5, sentinel 0xEC.  No known TAF file emits
+       * type 5, and the TAF parser does not define it.  Don't fatal; return
+       * FALSE so the restriction fails silently.
+       */
       if (restr_trace)
         {
           scr_trace ("Restr: task %ld restriction %ld type 5"
@@ -1173,6 +1186,7 @@ enum
 /* #O#A(#O#)-style expression, for tokenizing. */
 static const scr_char *restr_expression = NULL;
 static scr_int restr_index = 0;
+
 
 /*
  * restr_tokenize_start()
@@ -1228,6 +1242,7 @@ restr_next_token (void)
 static scr_bool restr_eval_values[MAX_NESTING_DEPTH];
 static scr_int restr_eval_stack = 0;
 
+
 /*
  * The restriction number to evaluate.  This advances with each call to
  * evaluate and stack a restriction result.
@@ -1243,6 +1258,7 @@ static scr_int restr_lowest_fail = -1;
 
 /* Each restriction's own result, "T" or "F", in index order. */
 static std::string restr_eval_bits;
+
 
 /*
  * restr_eval_start()
@@ -1283,7 +1299,7 @@ restr_eval_push (scr_bool value)
 
 
 /*
- * expr_restr_action()
+ * restr_eval_action()
  *
  * Evaluate the effect of an and/or into the values stack.
  */
@@ -1384,6 +1400,7 @@ static jmp_buf restr_parse_error;
 /* Single lookahead token for parser. */
 static scr_char restr_lookahead = '\0';
 
+
 /*
  * restr_match()
  *
@@ -1405,6 +1422,7 @@ restr_match (scr_char c)
 
 /* Forward declaration for recursion. */
 static void restr_bexpr (void);
+
 
 /*
  * restr_expr()
@@ -1606,6 +1624,7 @@ restr_eval_task_restrictions (scr_gameref_t game,
   scr_int restr_count, lowest_fail;
   const scr_char *pattern;
   scr_bool result;
+
   assert (pass && fail_message);
 
   /* Get the count of restrictions on the task. */
@@ -1767,6 +1786,7 @@ restr_eval_task_restrictions_cached (scr_gameref_t game, scr_int task,
     }
   return TRUE;
 }
+
 
 /*
  * Returns -1 when a cached "F" restriction still fails, with its FailMessage

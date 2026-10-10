@@ -79,6 +79,7 @@ static scr_prop_setref_t obj_cache_bundle = NULL;
 static std::vector<scr_byte> obj_kinds;       /* per object, 1 << OBJ_KIND_* */
 static std::vector<scr_int> obj_numbering[OBJ_KIND_COUNT];
 
+
 /*
  * A static object's home.  `type` is its Where Type, or OBJ_WHERE_UNCACHED
  * for a dynamic object and for a list that lacks the property its type calls
@@ -95,6 +96,12 @@ struct obj_where_t
 };
 static std::vector<obj_where_t> obj_wheres;
 
+
+/*
+ * obj_forget_bundle()
+ *
+ * Drop the cache if it was built from the given bundle.
+ */
 void
 obj_forget_bundle (scr_prop_setref_t bundle)
 {
@@ -109,6 +116,7 @@ obj_forget_bundle (scr_prop_setref_t bundle)
       obj_wheres.clear ();
     }
 }
+
 
 /*
  * obj_cache_where()
@@ -164,6 +172,7 @@ obj_cache_where (scr_prop_setref_t bundle, scr_int object, obj_where_t *where)
       break;
     }
 }
+
 
 /*
  * obj_cache_kinds()
@@ -228,8 +237,10 @@ obj_cache_kinds (scr_gameref_t game)
 
 /*
  * obj_is_kind()
+ * obj_cached_where()
  *
- * Return TRUE if the object is of the given kind.
+ * Return TRUE if the object is of the given kind, and the cached home of a
+ * static object, NULL where the cache has none.
  */
 static scr_bool
 obj_is_kind (scr_gameref_t game, scr_int object, scr_int kind)
@@ -240,11 +251,21 @@ obj_is_kind (scr_gameref_t game, scr_int object, scr_int kind)
   return (obj_kinds[object] & (1 << kind)) != 0;
 }
 
+static const obj_where_t *
+obj_cached_where (scr_gameref_t game, scr_int object)
+{
+  obj_cache_kinds (game);
+  if (object >= 0 && object < (scr_int) obj_wheres.size ()
+      && obj_wheres[object].type != OBJ_WHERE_UNCACHED)
+    return &obj_wheres[object];
+  return NULL;
+}
+
 
 /*
  * obj_is_static()
- * obj_is_surface()
  * obj_is_container()
+ * obj_is_surface()
  *
  * Convenience functions to return TRUE for given object attributes.
  */
@@ -413,6 +434,7 @@ enum
   OBJ_DIMENSION_LIMIT = 0x7fffffff
 };
 
+
 /*
  * obj_clamp_dimension()
  *
@@ -431,7 +453,9 @@ obj_clamp_dimension (scr_int value)
   return value;
 }
 
+
 /*
+ * obj_get_dimension_multiple()
  * obj_get_size_multiple()
  * obj_get_weight_multiple()
  *
@@ -463,6 +487,7 @@ obj_get_weight_multiple (scr_gameref_t game)
   return obj_get_dimension_multiple (game, "WeightMultiple");
 }
 
+
 /*
  * obj_scale()
  *
@@ -491,12 +516,25 @@ obj_scale (scr_int multiple, scr_int index_)
   return retval;
 }
 
+
+/*
+ * Recursion depth cap for the weigh loop below.  The Runner's only cycle
+ * defence is its i <> self guard, so an authored parent cycle would hang it;
+ * we bottom out instead of hanging with it.  32 comfortably exceeds any real
+ * containment nesting.
+ */
+enum { OBJ_WEIGH_DEPTH_LIMIT = 32 };
+
+
 /*
  * obj_get_size()
+ * obj_get_base_weight()
+ * obj_weigh()
  * obj_get_weight()
  *
  * Return the relative size and weight of an object.  For containers, the
- * weight includes the weight of each contained object.
+ * weight includes the weight of each contained object, which obj_weigh()
+ * sums to a bounded depth.
  *
  * Static objects have no SizeWeight, and an event can put one in the player's
  * inventory (evt_move_object is the only mover that will), so both functions
@@ -557,14 +595,6 @@ obj_get_base_weight (scr_gameref_t game, scr_int object)
   /* Calculate base object weight. */
   return obj_scale (obj_get_weight_multiple (game), count);
 }
-
-/*
- * Recursion depth cap for the weigh loop below.  The Runner's only cycle
- * defence is its i <> self guard, so an authored parent cycle would hang it;
- * we bottom out instead of hanging with it.  32 comfortably exceeds any real
- * containment nesting.
- */
-enum { OBJ_WEIGH_DEPTH_LIMIT = 32 };
 
 static scr_int
 obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
@@ -673,11 +703,9 @@ scr_int
 obj_get_player_size_limit (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int max_size;
 
-  max_size = prop_get_global_integer (bundle, "MaxSize");
-
-  return obj_convert_player_limit (game, max_size,
+  return obj_convert_player_limit (game,
+                                   prop_get_global_integer (bundle, "MaxSize"),
                                    obj_get_size_multiple (game));
 }
 
@@ -685,11 +713,9 @@ scr_int
 obj_get_player_weight_limit (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int max_weight;
 
-  max_weight = prop_get_global_integer (bundle, "MaxWt");
-
-  return obj_convert_player_limit (game, max_weight,
+  return obj_convert_player_limit (game,
+                                   prop_get_global_integer (bundle, "MaxWt"),
                                    obj_get_weight_multiple (game));
 }
 
@@ -713,7 +739,8 @@ obj_get_player_weight_limit (scr_gameref_t game)
  * The refusal is 3.8's only one -- there is no "too heavy" message.  Crime
  * Adventure's kettle (class 2 = 7 against MaxCarried 5) is refused with "Your
  * hands are full." by the real Runner with empty hands, so the pooled check is
- * the one that speaks and lib_object_too_heavy() stands down (see library/sclibrar_put.cpp).
+ * the one that speaks and lib_object_too_heavy() stands down (see
+ * library/sclibrar_put.cpp).
  *
  * Objects that never carried a class -- static objects, and objects a 4.0 or
  * 3.9 game supplies -- weigh nothing here; obj_uses_burden_model() keeps the
@@ -721,6 +748,13 @@ obj_get_player_weight_limit (scr_gameref_t game)
  */
 static const scr_int V380_BURDEN_COST[] = { 1, 3, 7, 3, 7 };
 
+
+/*
+ * obj_uses_burden_model()
+ *
+ * TRUE if the game carries by the pooled burden above: the loader sets the
+ * BurdenModel global for a 3.8 game and for nothing else.
+ */
 scr_bool
 obj_uses_burden_model (scr_gameref_t game)
 {
@@ -817,7 +851,7 @@ obj_get_burden (scr_gameref_t game, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3], vt_rvalue;
-  scr_int class_, burden;
+  scr_int class_, classes, burden;
 
   if (obj_is_static (game, object))
     return 0;
@@ -828,10 +862,10 @@ obj_get_burden (scr_gameref_t game, scr_int object)
   if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key))
     return 0;
 
+  /* An out-of-range class costs what class 0 does. */
   class_ = vt_rvalue.integer;
-  burden = (class_ >= 0 && class_ < (scr_int) (sizeof (V380_BURDEN_COST)
-                                               / sizeof (V380_BURDEN_COST[0])))
-           ? V380_BURDEN_COST[class_] : V380_BURDEN_COST[0];
+  classes = sizeof (V380_BURDEN_COST) / sizeof (V380_BURDEN_COST[0]);
+  burden = V380_BURDEN_COST[(class_ >= 0 && class_ < classes) ? class_ : 0];
 
   if (obj_trace)
     scr_trace ("Object: object %ld is class %ld, burden %ld\n",
@@ -839,6 +873,7 @@ obj_get_burden (scr_gameref_t game, scr_int object)
 
   return burden;
 }
+
 
 /*
  * obj_get_player_burden_limit()
@@ -885,7 +920,8 @@ obj_get_player_burden_limit (scr_gameref_t game)
  * class-1 one, and is filled by two class-0 ones -- so the Size/weight class
  * is not charged against the container any more than against its carrier.  A
  * Capacity of 0 is full from the start rather than unlimited.  3.8 has only
- * the one refusal for all of this, "The box is full." (see library/sclibrar_put.cpp).
+ * the one refusal for all of this, "The box is full." (see
+ * library/sclibrar_put.cpp).
  *
  * Version 3.9 reads only the FIRST digit of the count.  Its loader (run390
  * 46537C-46540C) takes Val(Left(Format(Capacity, "00"), 1)) times the scale
@@ -906,20 +942,17 @@ obj_get_container_capacity (scr_gameref_t game, scr_int object)
   packed = prop_get_indexed_integer (bundle, "Objects", object, "Capacity");
 
   count = packed / OBJ_DIMENSION_DIVISOR;
+
   /*
    * Deliberate deviation (2026-09-30): run390 reads only the first digit
-   * of the count (6db5e9698), so a 3.9 container authored to hold ten or
-   * more objects held one.  Scarier honours the authored count; a game the
-   * Runner could finish can never need less room than that.
+   * of the count (6db5e9698) -- it would divide count by ten until it fell
+   * below ten -- so a 3.9 container authored to hold ten or more objects
+   * held one.  Scarier honours the authored count; a game the Runner could
+   * finish can never need less room than that.
    */
   if (prop_get_taf_version (bundle) == TAF_VERSION_390
       && count >= OBJ_DIMENSION_DIVISOR)
     SCR_DEVIATION ("capacity_390", "object=%ld count=%ld", object, count);
-  if (FALSE && prop_get_taf_version (bundle) == TAF_VERSION_390)
-    {
-      while (count >= OBJ_DIMENSION_DIVISOR)
-        count /= OBJ_DIMENSION_DIVISOR;
-    }
 
   capacity = obj_clamp_dimension (count)
              * obj_scale (obj_get_size_multiple (game),
@@ -1065,7 +1098,7 @@ obj_static_in_room (scr_gameref_t game, scr_int object, scr_int room,
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
-  const obj_where_t *where = NULL;
+  const obj_where_t *where;
   scr_int type;
 
   /* Static object moved to player or room by event? */
@@ -1080,11 +1113,7 @@ obj_static_in_room (scr_gameref_t game, scr_int object, scr_int room,
     }
 
   /* Check and return the room list for the object. */
-  obj_cache_kinds (game);
-  if (object >= 0 && object < (scr_int) obj_wheres.size ()
-      && obj_wheres[object].type != OBJ_WHERE_UNCACHED)
-    where = &obj_wheres[object];
-
+  where = obj_cached_where (game, object);
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
   vt_key[2].string = "Where";
@@ -1175,7 +1204,8 @@ obj_directly_in_room (scr_gameref_t game, scr_int object, scr_int room)
  * carried by an NPC in the room.
  */
 static scr_bool
-obj_indirectly_in_room_internal (scr_gameref_t game, scr_int object, scr_int room)
+obj_indirectly_in_room_internal (scr_gameref_t game,
+                                 scr_int object, scr_int room)
 {
   /* See if the object is static or dynamic. */
   if (obj_is_static (game, object))
@@ -1202,20 +1232,15 @@ obj_indirectly_in_room_internal (scr_gameref_t game, scr_int object, scr_int roo
         case OBJ_WORN_NPC:     /* Worn by NPC. */
           return npc_in_room (game, parent, room);
 
-        case OBJ_IN_OBJECT:    /* In another object. */
-          {
-            scr_int openness;
-
-            openness = gs_object_openness (game, parent);
-            switch (openness)
-              {
-              case OBJ_WONTCLOSE:
-              case OBJ_OPEN:
-                return obj_indirectly_in_room (game, parent, room);
-              default:
-                return FALSE;
-              }
-          }
+        case OBJ_IN_OBJECT:    /* In another object, if that is open. */
+          switch (gs_object_openness (game, parent))
+            {
+            case OBJ_WONTCLOSE:
+            case OBJ_OPEN:
+              return obj_indirectly_in_room (game, parent, room);
+            default:
+              return FALSE;
+            }
 
         case OBJ_ON_OBJECT:    /* On another object. */
           return obj_indirectly_in_room (game, parent, room);
@@ -1261,20 +1286,12 @@ static scr_bool
 obj_indirectly_held_by_player_internal (scr_gameref_t game,
                                         scr_int object)
 {
-  /* See if the object is static or dynamic. */
+  /* See if the object is static or dynamic.  A static is held only if an
+     event has moved it into the player's hands. */
   if (obj_is_static (game, object))
     {
-      /* Static object moved to player or room by event? */
-      if (!gs_object_static_unmoved (game, object))
-        {
-          if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
-            return TRUE;
-          else
-            return FALSE;
-        }
-
-      /* An unmoved static object is not held by the player. */
-      return FALSE;
+      return !gs_object_static_unmoved (game, object)
+             && gs_object_position (game, object) == OBJ_HELD_PLAYER;
     }
   else
     {
@@ -1298,20 +1315,15 @@ obj_indirectly_held_by_player_internal (scr_gameref_t game,
         case OBJ_WORN_NPC:     /* Worn by NPC. */
           return FALSE;
 
-        case OBJ_IN_OBJECT:    /* In another object. */
-          {
-            scr_int openness;
-
-            openness = gs_object_openness (game, parent);
-            switch (openness)
-              {
-              case OBJ_WONTCLOSE:
-              case OBJ_OPEN:
-                return obj_indirectly_held_by_player (game, parent);
-              default:
-                return FALSE;
-              }
-          }
+        case OBJ_IN_OBJECT:    /* In another object, if that is open. */
+          switch (gs_object_openness (game, parent))
+            {
+            case OBJ_WONTCLOSE:
+            case OBJ_OPEN:
+              return obj_indirectly_held_by_player (game, parent);
+            default:
+              return FALSE;
+            }
 
         case OBJ_ON_OBJECT:    /* On another object. */
           return obj_indirectly_held_by_player (game, parent);
@@ -1510,7 +1522,6 @@ obj_mark_room_objects_seen (scr_gameref_t game, scr_int room)
 }
 
 
-
 /*
  * obj_mark_room_statics_seen()
  *
@@ -1546,6 +1557,7 @@ obj_mark_room_statics_seen (scr_gameref_t game, scr_int room)
     }
 }
 
+
 /*
  * obj_mark_npc_parts_seen()
  *
@@ -1571,26 +1583,22 @@ obj_mark_npc_parts_seen (scr_gameref_t game)
   if (prop_get_taf_version (bundle) < TAF_VERSION_400)
     return;
 
-  obj_cache_kinds (game);
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
-      const obj_where_t *where = NULL;
-      scr_int npc;
+      const obj_where_t *where;
+      scr_int type, npc;
 
       if (gs_object_seen (game, index_) || !obj_is_static (game, index_)
           || !gs_object_static_unmoved (game, index_))
         continue;
 
-      if (index_ < (scr_int) obj_wheres.size ()
-          && obj_wheres[index_].type != OBJ_WHERE_UNCACHED)
-        where = &obj_wheres[index_];
-
+      where = obj_cached_where (game, index_);
       vt_key[0].string = "Objects";
       vt_key[1].integer = index_;
       vt_key[2].string = "Where";
       vt_key[3].string = "Type";
-      if ((where ? where->type : prop_get_integer (bundle, "I<-siss", vt_key))
-          != ROOMLIST_NPC_PART)
+      type = where ? where->type : prop_get_integer (bundle, "I<-siss", vt_key);
+      if (type != ROOMLIST_NPC_PART)
         continue;
 
       vt_key[2].string = "Parent";
@@ -1602,6 +1610,7 @@ obj_mark_npc_parts_seen (scr_gameref_t game)
         gs_set_object_seen (game, index_, TRUE);
     }
 }
+
 
 /*
  * obj_debug_trace()

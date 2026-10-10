@@ -39,11 +39,15 @@ typedef struct scr_memo_s
   scr_byte *serialized_game;
   scr_int allocation;
   scr_int length;
-  /* Output of the turn that left the game in this state, for undo to
-     replay; NULL when there is none. */
+
+  /*
+   * Output of the turn that left the game in this state, for undo to
+   * replay; NULL when there is none.
+   */
   scr_char *text;
 } scr_memo_t;
 typedef scr_memo_t *scr_memoref_t;
+
 
 /*
  * Game command history structure, similar to a memo.  Saves a player input
@@ -59,6 +63,7 @@ typedef struct scr_history_s
   scr_int length;
 } scr_history_t;
 typedef scr_history_t *scr_historyref_t;
+
 
 /*
  * Memo set structure.  This reserves space for a predetermined number of
@@ -191,7 +196,9 @@ memo_save_game_callback (void *opaque, const scr_byte *buffer, scr_int length)
   if (required > memo->allocation)
     {
       required = memo_round_up (required + 2 * MEMO_ALLOCATION_BLOCK);
-      memo->serialized_game = (decltype(memo->serialized_game)) scr_realloc (memo->serialized_game, required);
+      memo->serialized_game
+        = (decltype(memo->serialized_game)) scr_realloc (memo->serialized_game,
+                                                         required);
       memo->allocation = required;
     }
 
@@ -239,11 +246,13 @@ memo_save_game (scr_memo_setref_t memento, scr_gameref_t game,
   memo->length = 0;
   memo_set_text (memo, text);
 
-  /* Serialize the given game into this memo.  Undo memos are in-memory only,
+  /*
+   * Serialize the given game into this memo.  Undo memos are in-memory only,
    * rewritten every turn, and read back only by memo_load_game(), so they skip
    * zlib entirely and store the raw serialized bytes (see ser_set_raw_memo):
    * the per-turn deflate profiled at ~20-48% of the interpreter.  ser_load_game
-   * reads them back through taf_create_tas_raw(). */
+   * reads them back through taf_create_tas_raw().
+   */
   ser_set_raw_memo (TRUE);
   ser_save_game (game, memo_save_game_callback, memo);
   ser_set_raw_memo (FALSE);
@@ -375,35 +384,12 @@ memo_is_load_available (scr_memo_setref_t memento)
 
 
 /*
- * memo_get_undo_count()
- * memo_get_undo()
- * memo_append_undo()
- * memo_get_undo_text()
- * memo_set_undo_text()
+ * memo_undo_slot()
  *
- * Undo-ring export/import for the Spatterlight autosave.  The ring holds
- * serialized games; export walks the used slots oldest first (starting at the
- * cursor, which is the oldest entry once the ring has wrapped) WITHOUT
- * draining them, unlike memo_load_game.  Import appends one serialized game
- * as the newest entry, exactly as memo_save_game would.
+ * Return the index_'th used undo slot, oldest first, scanning forwards from
+ * the cursor (the next slot to be written, so also the oldest once the ring
+ * is full), or NULL if there is no such slot.
  */
-scr_int
-memo_get_undo_count (scr_memo_setref_t memento)
-{
-  scr_int index_, count;
-  assert (memo_is_valid (memento));
-
-  count = 0;
-  for (index_ = 0; index_ < MEMO_UNDO_TABLE_SIZE; index_++)
-    {
-      if (memento->memo[index_].length > 0)
-        count++;
-    }
-  return count;
-}
-
-/* The index_'th used slot, oldest first, scanning forwards from the cursor
-   (the next slot to be written, so also the oldest when full); NULL if none. */
 static scr_memoref_t
 memo_undo_slot (scr_memo_setref_t memento, scr_int index_)
 {
@@ -426,6 +412,38 @@ memo_undo_slot (scr_memo_setref_t memento, scr_int index_)
   return NULL;
 }
 
+
+/*
+ * memo_get_undo_count()
+ * memo_get_undo()
+ * memo_get_undo_text()
+ * memo_set_undo_text()
+ * memo_append_undo()
+ *
+ * Undo-ring export/import for the Spatterlight autosave.  The ring holds
+ * serialized games; export walks the used slots oldest first (starting at the
+ * cursor, which is the oldest entry once the ring has wrapped) WITHOUT
+ * draining them, unlike memo_load_game.  Import appends one serialized game
+ * as the newest entry, exactly as memo_save_game would.  The text getter and
+ * setter carry the output each entry replays on undo (see memo_load_game());
+ * it travels in the autosave's session section, set after the ring has been
+ * rebuilt.
+ */
+scr_int
+memo_get_undo_count (scr_memo_setref_t memento)
+{
+  scr_int index_, count;
+  assert (memo_is_valid (memento));
+
+  count = 0;
+  for (index_ = 0; index_ < MEMO_UNDO_TABLE_SIZE; index_++)
+    {
+      if (memento->memo[index_].length > 0)
+        count++;
+    }
+  return count;
+}
+
 const scr_byte *
 memo_get_undo (scr_memo_setref_t memento, scr_int index_, scr_int *length)
 {
@@ -437,8 +455,6 @@ memo_get_undo (scr_memo_setref_t memento, scr_int index_, scr_int *length)
   return memo ? memo->serialized_game : NULL;
 }
 
-/* The output each ring entry replays on undo (see memo_load_game()).  It
-   travels in the autosave's session section, set after the ring is rebuilt. */
 const scr_char *
 memo_get_undo_text (scr_memo_setref_t memento, scr_int index_)
 {
@@ -474,8 +490,7 @@ memo_append_undo (scr_memo_setref_t memento,
 
   memo = memento->memo + memento->memo_cursor;
   memo->length = 0;
-  scr_free (memo->text);
-  memo->text = NULL;
+  memo_set_text (memo, NULL);
   memo_save_game_callback (memo, data, length);
   memento->memo_cursor++;
   memento->memo_cursor %= MEMO_UNDO_TABLE_SIZE;
@@ -510,7 +525,9 @@ memo_save_command (scr_memo_setref_t memento,
       scr_int required;
 
       required = memo_round_up (length);
-      history->command = (decltype(history->command)) scr_realloc (history->command, required);
+      history->command
+        = (decltype(history->command)) scr_realloc (history->command,
+                                                    required);
       history->allocation = required;
     }
 
@@ -705,7 +722,7 @@ memo_find_command (scr_memo_setref_t memento, scr_int sequence)
   assert (memo_is_valid (memento));
 
   /* Decide on a search target, depending on the sign of sequence. */
-  target = (sequence < 0) ? memento->history_count + sequence + 1: sequence;
+  target = (sequence < 0) ? memento->history_count + sequence + 1 : sequence;
 
   /*
    * A backwards search starting at the write position would probably be more

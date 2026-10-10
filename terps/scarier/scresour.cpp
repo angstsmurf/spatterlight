@@ -44,22 +44,18 @@ scr_bool
 res_has_sound (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_bool has_sound;
   assert (gs_is_game_valid (game));
 
-  has_sound = prop_get_global_boolean (bundle, "Sound");
-  return has_sound;
+  return prop_get_global_boolean (bundle, "Sound");
 }
 
 scr_bool
 res_has_graphics (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_bool has_graphics;
   assert (gs_is_game_valid (game));
 
-  has_graphics = prop_get_global_boolean (bundle, "Graphics");
-  return has_graphics;
+  return prop_get_global_boolean (bundle, "Graphics");
 }
 
 

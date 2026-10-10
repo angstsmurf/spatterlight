@@ -105,36 +105,36 @@ typedef struct scr_filter_s
   scr_bool is_muted;
   scr_bool needs_filtering;
   /* Buffer length just after pf_buffer_paragraph_line() supplied a trailing
-     newline of its own; -1 if the last one did not, or if anything has been
-     buffered since.  See pf_undo_auto_break(). */
+   * newline of its own; -1 if the last one did not, or if anything has been
+   * buffered since.  See pf_undo_auto_break(). */
   scr_int auto_break_at;
   /* Buffer length just after a newline that a Runner really stores in its
-     output string (4.0's "Time passes..." & vbCrLf), so that a join keeps it
-     instead of popping it, and so that pf_buffer_paragraph() does not collapse
-     a leading break against it; -1 otherwise.  See pf_buffer_hard_break(). */
+   * output string (4.0's "Time passes..." & vbCrLf), so that a join keeps it
+   * instead of popping it, and so that pf_buffer_paragraph() does not collapse
+   * a leading break against it; -1 otherwise.  See pf_buffer_hard_break(). */
   scr_int hard_break_at;
   /* Length of a prefix of the buffer that the paragraph-spacing helpers are
-     to treat as if it were not there.  See pf_hide_prefix(). */
+   * to treat as if it were not there.  See pf_hide_prefix(). */
   size_t hidden;
   /* Length of a prefix of the buffer the Runner has already printed, and so
-     already filtered: no later filtering touches it.  See pf_print_so_far(). */
+   * already filtered: no later filtering touches it.  See pf_print_so_far(). */
   size_t frozen;
   /* Buffer length at the last pf_print_so_far(), where the Runner's own
-     string restarted; -1 otherwise.  Unlike frozen, it rides the task
-     running transfer-and-prepend round trip, shifted by the text put back in
-     front of it.  See pf_printed_to(). */
+   * string restarted; -1 otherwise.  Unlike frozen, it rides the task
+   * running transfer-and-prepend round trip, shifted by the text put back in
+   * front of it.  See pf_printed_to(). */
   scr_int printed_to;
   /* Buffer length just after pf_buffer_reference() buffered one of the 4.0
-     Runner's bracketed reference lines; -1 otherwise.  While the line is
-     still the last thing buffered, pf_buffer_paragraph() leaves a leading
-     break on the next text alone. */
+   * Runner's bracketed reference lines; -1 otherwise.  While the line is
+   * still the last thing buffered, pf_buffer_paragraph() leaves a leading
+   * break on the next text alone. */
   scr_int reference_at;
   /* TRUE while the next text buffered is to be joined onto the current
-     end of the buffer with the Runner's two-space separator, taking back an
-     auto-break of ours first.  See pf_buffer_join_pending(). */
+   * end of the buffer with the Runner's two-space separator, taking back an
+   * auto-break of ours first.  See pf_buffer_join_pending(). */
   scr_bool join_pending;
   /* Everything pf_flush() has printed since pf_take_printed() last took it:
-     the output of the turn in progress, for undo to replay later. */
+   * the output of the turn in progress, for undo to replay later. */
   std::string printed;
 } scr_filter_t;
 
@@ -142,9 +142,10 @@ typedef struct scr_filter_s
 /*
  * Original/replacement string-pair table caches.
  *
- * Two immutable game tables drive the filters below as (original -> replacement)
- * string pairs: the ALRs (Automatic Language Replacements) applied to output by
- * pf_replace_alrs(), and the Synonyms applied to input by pf_filter_input().
+ * Two immutable game tables drive the filters below as (original ->
+ * replacement) string pairs: the ALRs (Automatic Language Replacements)
+ * applied to output by pf_replace_alrs(), and the Synonyms applied to input
+ * by pf_filter_input().
  * Both used to re-resolve every entry from the string-keyed property tree
  * ("<table>"/index/"Original"|"Replacement") on every call -- an O(count)
  * prop_get() storm per call, dominated by the prop_find_child() strcmp scan
@@ -187,11 +188,22 @@ static scr_bool pf_alr_trailing_space = FALSE;
  * they share the cache's per-game lifetime and its pointers into the property
  * store.
  */
-static std::unordered_map<scr_uint, std::vector<scr_int> > pf_alr_index;
+enum
+{ PF_ALR_KEY_LENGTH = 4
+};
+typedef std::unordered_map<scr_uint, std::vector<scr_int> > pf_alr_index_t;
+static pf_alr_index_t pf_alr_index;
 static std::vector<scr_int> pf_alr_short;
 static std::vector<pf_str_pair_t> pf_synonym_cache;
 static scr_bool pf_synonym_cache_built = FALSE;
 
+/*
+ * pf_cache_reset()
+ * pf_str_pair_set()
+ *
+ * Drop both caches, for a new game; and populate one cache entry from its
+ * resolved original and replacement strings, for both builders below.
+ */
 static void
 pf_cache_reset (void)
 {
@@ -204,8 +216,6 @@ pf_cache_reset (void)
   pf_synonym_cache_built = FALSE;
 }
 
-/* Populate 'entry' from the property tree, given the resolved original and
-   replacement strings; shared by both builders below. */
 static void
 pf_str_pair_set (pf_str_pair_t &entry,
                  const scr_char *original, const scr_char *replacement)
@@ -216,16 +226,13 @@ pf_str_pair_set (pf_str_pair_t &entry,
   entry.replacement_length = strlen (replacement);
 }
 
+
 /*
  * pf_alr_key()
  *
  * Pack the first PF_ALR_KEY_LENGTH bytes at 'text' into the key used by
  * pf_alr_index.  The caller guarantees that many bytes are readable.
  */
-enum
-{ PF_ALR_KEY_LENGTH = 4
-};
-
 static scr_uint
 pf_alr_key (const scr_char *text)
 {
@@ -236,6 +243,14 @@ pf_alr_key (const scr_char *text)
 }
 
 
+/*
+ * pf_alr_cache_build()
+ * pf_synonym_cache_build()
+ *
+ * Resolve the ALR and Synonym tables from the property tree into the caches
+ * above.  The ALRs are taken in the length-sorted order held in "ALRs2" and
+ * indexed for pf_alr_candidates(); the synonyms in raw property order.
+ */
 static void
 pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count)
 {
@@ -251,8 +266,10 @@ pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count)
       const scr_char *original, *replacement;
       scr_int alr;
 
-      /* The ALRs are applied in a length-sorted order held in ALRs2; map this
-       * slot to the underlying ALR the way pf_replace_alrs() always has. */
+      /*
+       * The ALRs are applied in a length-sorted order held in ALRs2; map this
+       * slot to the underlying ALR the way pf_replace_alrs() always has.
+       */
       vt_key[0].string = "ALRs2";
       vt_key[1].integer = index_;
       vt_key[2].string = "ALRIndex";
@@ -385,8 +402,11 @@ pf_create (void)
       initialized = TRUE;
     }
 
-  /* A new filter means a new game (run_create is the sole caller): drop the
-   * string-pair caches held for the previous game, whose bundle is going away. */
+  /*
+   * A new filter means a new game (run_create is the sole caller): drop the
+   * string-pair caches held for the previous game, whose bundle is going
+   * away.
+   */
   pf_cache_reset ();
 
   /* Create a new printfilter; 'buffer' default-constructs empty. */
@@ -433,13 +453,7 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
   std::string buffer;
   std::vector<scr_char> name;
   const scr_char *marker, *cursor;
-  scr_bool is_interpolated;
-
-  /*
-   * Begin with an empty buffer, an unallocated name buffer, and a clear
-   * interpolation flag.
-   */
-  is_interpolated = FALSE;
+  scr_bool is_interpolated = FALSE;
 
   /* Run through the string looking for variables. */
   marker = string;
@@ -499,10 +513,10 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
     }
 
   /*
-   * Append the remainder of the string (all of it if there was no '%'),
-   * and if we interpolated into it, return it.  If we didn't interpolate successfully (the
-   * input contained a rogue '%' character), throw out the buffer as it will be
-   * the same as our input, and return NULL.
+   * Append the remainder of the string (all of it if there was no '%'), and
+   * if we interpolated into it, return it.  If we didn't interpolate
+   * successfully (the input contained a rogue '%' character), throw out the
+   * buffer as it will be the same as our input, and return NULL.
    */
   buffer.append (marker);
   if (var_interpolate_user_ordered (vars, buffer))
@@ -639,7 +653,7 @@ pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
   length = strlen (text);
   for (offset = 0; offset + PF_ALR_KEY_LENGTH <= length; offset++)
     {
-      std::unordered_map<scr_uint, std::vector<scr_int> >::const_iterator bucket;
+      pf_alr_index_t::const_iterator bucket;
 
       bucket = pf_alr_index.find (pf_alr_key (text + offset));
       if (bucket == pf_alr_index.end ())
@@ -661,6 +675,107 @@ pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
   candidates.erase (std::unique (candidates.begin (), candidates.end ()),
                     candidates.end ());
 }
+
+
+/*
+ * pf_alr_rewrites_span()
+ *
+ * TRUE if some ALR original, matched at a position before 'start' in 'text',
+ * runs over the whole of text[start, end) -- the original may carry on past
+ * the end of 'text', provided the part inside it agrees.  The library asks
+ * this of its bare third-person messages ("Irvine open ") to see whether the
+ * game's author has already rewritten the verb with an ALR written against
+ * the Runner's own un-conjugated output ("Irvine open" -> "Irvine uncloses");
+ * see lib_conjugate_third_person().
+ */
+scr_bool
+pf_alr_rewrites_span (scr_prop_setref_t bundle, const scr_char *text,
+                      size_t start, size_t end)
+{
+  scr_vartype_t vt_key;
+  scr_int alr_count;
+  size_t length;
+
+  vt_key.string = "ALRs";
+  alr_count = prop_get_child_count (bundle, "I<-s", &vt_key);
+  if (alr_count == 0)
+    return FALSE;
+  if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
+    pf_alr_cache_build (bundle, alr_count);
+
+  length = strlen (text);
+  for (size_t index_ = 0; index_ < pf_alr_cache.size (); index_++)
+    {
+      const pf_str_pair_t &entry = pf_alr_cache[index_];
+      size_t position;
+
+      if (entry.original_length == 0)
+        continue;
+      for (position = 0; position < start && position < length; position++)
+        {
+          size_t overlap;
+
+          if (position + entry.original_length < end)
+            continue;
+          overlap = length - position;
+          if (overlap > entry.original_length)
+            overlap = entry.original_length;
+          if (memcmp (text + position, entry.original, overlap) == 0)
+            return TRUE;
+        }
+    }
+  return FALSE;
+}
+
+
+/*
+ * pf_alr_mentions()
+ *
+ * TRUE if any ALR Original contains text verbatim (case-sensitive, the way
+ * ALRs match).  A game whose ALRs quote a Runner-shaped phrase -- "assassin
+ * manages " in Les Feux de l'enfer -- was written against that exact shape,
+ * so callers use this to keep the Runner's text there rather than a
+ * deliberately cleaned-up one; see battle_print_npc_name().
+ */
+scr_bool
+pf_alr_mentions (scr_prop_setref_t bundle, const scr_char *text)
+{
+  scr_vartype_t vt_key;
+  scr_int alr_count;
+
+  if (!text || text[0] == NUL)
+    return FALSE;
+  vt_key.string = "ALRs";
+  alr_count = prop_get_child_count (bundle, "I<-s", &vt_key);
+  if (alr_count == 0)
+    return FALSE;
+  if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
+    pf_alr_cache_build (bundle, alr_count);
+
+  for (size_t index_ = 0; index_ < pf_alr_cache.size (); index_++)
+    {
+      const pf_str_pair_t &entry = pf_alr_cache[index_];
+
+      if (entry.original_length > 0 && strstr (entry.original, text))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
+ * A pair of ALRs that rewrite each other (A -> B and B -> A) recurses for
+ * ever, and the Runner really would overflow its stack on one.  No game in
+ * the corpus has such a pair, so these caps are guards, not a model.  The
+ * walk is deterministic, so re-entering an ALR already on the recursion path
+ * would repeat that path for ever: that ALR's replacement is spliced in
+ * unfiltered instead.  The depth and size caps bound what is left -- long
+ * acyclic chains, and replacements that multiply on each level (A -> "B B",
+ * B -> "C C", ...), which would otherwise double the text per level.
+ */
+enum { PF_ALR_DEPTH_LIMIT = 32 };
+static const size_t PF_ALR_SIZE_LIMIT = 65536;
+static std::vector<char> pf_alr_on_path;
 
 
 /*
@@ -711,21 +826,6 @@ pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
  * 3.9 has neither the recursion nor the test; version 3.9 games therefore
  * take the same single pass with the replacement spliced in verbatim.
  */
-
-/*
- * A pair of ALRs that rewrite each other (A -> B and B -> A) recurses for
- * ever, and the Runner really would overflow its stack on one.  No game in
- * the corpus has such a pair, so these caps are guards, not a model.  The
- * walk is deterministic, so re-entering an ALR already on the recursion path
- * would repeat that path for ever: that ALR's replacement is spliced in
- * unfiltered instead.  The depth and size caps bound what is left -- long
- * acyclic chains, and replacements that multiply on each level (A -> "B B",
- * B -> "C C", ...), which would otherwise double the text per level.
- */
-enum { PF_ALR_DEPTH_LIMIT = 32 };
-static const size_t PF_ALR_SIZE_LIMIT = 65536;
-static std::vector<char> pf_alr_on_path;
-
 static void
 pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
              scr_bool recursive, scr_int depth)
@@ -826,90 +926,6 @@ pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
     }
 }
 
-
-/*
- * pf_alr_rewrites_span()
- *
- * TRUE if some ALR original, matched at a position before 'start' in 'text',
- * runs over the whole of text[start, end) -- the original may carry on past
- * the end of 'text', provided the part inside it agrees.  The library asks
- * this of its bare third-person messages ("Irvine open ") to see whether the
- * game's author has already rewritten the verb with an ALR written against
- * the Runner's own un-conjugated output ("Irvine open" -> "Irvine uncloses");
- * see lib_conjugate_third_person().
- */
-scr_bool
-pf_alr_rewrites_span (scr_prop_setref_t bundle, const scr_char *text,
-                      size_t start, size_t end)
-{
-  scr_vartype_t vt_key;
-  scr_int alr_count;
-  size_t length;
-
-  vt_key.string = "ALRs";
-  alr_count = prop_get_child_count (bundle, "I<-s", &vt_key);
-  if (alr_count == 0)
-    return FALSE;
-  if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
-    pf_alr_cache_build (bundle, alr_count);
-
-  length = strlen (text);
-  for (size_t index_ = 0; index_ < pf_alr_cache.size (); index_++)
-    {
-      const pf_str_pair_t &entry = pf_alr_cache[index_];
-      size_t position;
-
-      if (entry.original_length == 0)
-        continue;
-      for (position = 0; position < start && position < length; position++)
-        {
-          size_t overlap;
-
-          if (position + entry.original_length < end)
-            continue;
-          overlap = length - position;
-          if (overlap > entry.original_length)
-            overlap = entry.original_length;
-          if (memcmp (text + position, entry.original, overlap) == 0)
-            return TRUE;
-        }
-    }
-  return FALSE;
-}
-
-/*
- * pf_alr_mentions()
- *
- * TRUE if any ALR Original contains text verbatim (case-sensitive, the way
- * ALRs match).  A game whose ALRs quote a Runner-shaped phrase -- "assassin
- * manages " in Les Feux de l'enfer -- was written against that exact shape,
- * so callers use this to keep the Runner's text there rather than a
- * deliberately cleaned-up one; see battle_print_npc_name().
- */
-scr_bool
-pf_alr_mentions (scr_prop_setref_t bundle, const scr_char *text)
-{
-  scr_vartype_t vt_key;
-  scr_int alr_count;
-
-  if (!text || text[0] == NUL)
-    return FALSE;
-  vt_key.string = "ALRs";
-  alr_count = prop_get_child_count (bundle, "I<-s", &vt_key);
-  if (alr_count == 0)
-    return FALSE;
-  if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
-    pf_alr_cache_build (bundle, alr_count);
-
-  for (size_t index_ = 0; index_ < pf_alr_cache.size (); index_++)
-    {
-      const pf_str_pair_t &entry = pf_alr_cache[index_];
-
-      if (entry.original_length > 0 && strstr (entry.original, text))
-        return TRUE;
-    }
-  return FALSE;
-}
 
 static scr_char *
 pf_replace_alrs (const scr_char *string, scr_var_setref_t vars,
@@ -1249,7 +1265,7 @@ pf_output_untagged (const scr_char *string)
  * All of the above is one walk over the whole turn's text at flush.  Version
  * 4.0 gives ONE KIND OF TEXT a second walk of its own: a completing task's
  * CompleteText and AdditionalMessage, filtered again as the task prints them
- * (see pf_buffer_task_paragraph_line() below, and the measurement in
+ * (see pf_refilter() below, and the measurement in
  * harness/make_400_alrsrcprobe.py).  Every cell of the probe above is a task
  * CompleteText, so that second walk is where run400's extra "q" and its third
  * and fourth "EEE" come from -- one recursive walk of "AAA." gives "qAAA.",
@@ -1318,7 +1334,7 @@ pf_filter_internal (const scr_char *string,
       scr_bool changed;
       scr_char *intermediate;
 
-      /* Note whether this iteration changes anything, to check for no change. */
+      /* Note whether this iteration changes anything. */
       changed = FALSE;
 
       for (inner_iteration = 0;
@@ -1329,8 +1345,9 @@ pf_filter_internal (const scr_char *string,
            * interpolated version as current, freeing the returned char*.
            * Work on the current string, if any, otherwise the input string.
            */
-          intermediate = pf_interpolate_vars (have_current ? current.c_str ()
-                                                           : string, vars);
+          intermediate
+            = pf_interpolate_vars (have_current ? current.c_str () : string,
+                                   vars);
           if (intermediate)
             {
               current = intermediate;
@@ -1486,8 +1503,10 @@ pf_flush (scr_filterref_t filter,
   /* See if there is any buffered data to flush. */
   if (!filter->buffer.empty ())
     {
-      /* Filter the buffered string unless checkpointing already has, then
-         print it untagged. */
+      /*
+       * Filter the buffered string unless checkpointing already has, then
+       * print it untagged.
+       */
       if (filter->needs_filtering)
         pf_filter_buffer (filter, vars, bundle);
 
@@ -1529,7 +1548,9 @@ pf_append_string (scr_filterref_t filter, const scr_char *string)
  * Take, and clear, the text flushed out since the last take; and buffer such
  * text again.  The text is already filtered, so the buffer is checkpointed
  * first and the replay appended after it unfiltered, to keep its ALRs from
- * applying a second time.
+ * applying a second time.  pf_get_printed() and pf_set_printed() peek at and
+ * put back the text still to be taken, for an autosave: at a prompt it is the
+ * finished turn's output, which the next line's undo snapshot takes.
  */
 std::string
 pf_take_printed (scr_filterref_t filter)
@@ -1541,9 +1562,6 @@ pf_take_printed (scr_filterref_t filter)
   return text;
 }
 
-/* Peek at and put back the text still to be taken, for an autosave: at a
-   prompt it is the finished turn's output, which the next line's undo
-   snapshot takes. */
 const std::string &
 pf_get_printed (scr_filterref_t filter)
 {
@@ -1697,9 +1715,11 @@ pf_refilter (scr_filterref_t filter,
 
       if (pf_filter_buffer (filter, vars, bundle))
         {
-          /* Keep the note of our own trailing newline pointing at the end of
-             the rewritten text, so pf_undo_auto_break() can still take it
-             back. */
+          /*
+           * Keep the note of our own trailing newline pointing at the end of
+           * the rewritten text, so pf_undo_auto_break() can still take it
+           * back.
+           */
           if (at_end && pf_text_ends_with_break (filter->buffer.c_str ()))
             filter->auto_break_at = (scr_int) filter->buffer.size ();
         }
@@ -1723,8 +1743,10 @@ pf_get_buffer (scr_filterref_t filter)
 {
   assert (pf_is_valid (filter));
 
-  /* Return the visible buffer if it holds any text, otherwise NULL.  Text
-     before the barrier, if one is set, is invisible here (pf_hide_prefix()). */
+  /*
+   * Return the visible buffer if it holds any text, otherwise NULL.  Text
+   * before the barrier, if one is set, is invisible here (pf_hide_prefix()).
+   */
   if (filter->buffer.size () > filter->hidden)
     return filter->buffer.c_str () + filter->hidden;
   else
@@ -1788,6 +1810,7 @@ pf_empty (scr_filterref_t filter)
 
 
 /*
+ * pf_buffer_reference_line()
  * pf_buffer_reference()
  * pf_rebuffer_reference()
  *
@@ -1800,7 +1823,7 @@ pf_empty (scr_filterref_t filter)
  * pf_buffer_paragraph() swallow that leading break as if it were one of
  * Scarier's own terminators.  Only that one collapse is switched off: the
  * hidden-prefix barrier would also stop a walk announcement joining the
- * paragraph (see pf_buffer_paragraph_join()), which the Runner still does.
+ * paragraph (see pf_buffer_join()), which the Runner still does.
  *
  * The line is printed there and then: run400's Proc_21_19_47B568 is the
  * window printer, and its first act is the output filter Proc_21_20_44C7DC
@@ -1942,8 +1965,10 @@ pf_buffer_string (scr_filterref_t filter, const scr_char *string)
     {
       size_t noted;
 
-      /* A pending join runs this text straight on from the last text, two
-         spaces between, as the Runner's string concatenation would. */
+      /*
+       * A pending join runs this text straight on from the last text, two
+       * spaces between, as the Runner's string concatenation would.
+       */
       if (filter->join_pending)
         {
           filter->join_pending = FALSE;
@@ -2124,8 +2149,10 @@ pf_buffer_paragraph_line (scr_filterref_t filter, const scr_char *string)
 
       pf_buffer_character (filter, '\n');
 
-      /* Note the terminator as ours, so that pf_undo_auto_break() can take it
-         back.  Muting makes the call above a no-op, hence the length test. */
+      /*
+       * Note the terminator as ours, so that pf_undo_auto_break() can take it
+       * back.  Muting makes the call above a no-op, hence the length test.
+       */
       if (filter->buffer.size () > before)
         filter->auto_break_at = (scr_int) filter->buffer.size ();
     }
@@ -2290,7 +2317,8 @@ pf_text_trailing_breaks (const scr_char *text)
   scr_int length, count;
 
   count = 0;
-  for (length = strlen (text); length > 0; )
+  length = strlen (text);
+  while (length > 0)
     {
       if (text[length - 1] == '\n')
         {
@@ -2341,6 +2369,8 @@ pf_buffer_paragraph_break (scr_filterref_t filter)
 
 
 /*
+ * pf_buffer_ends_with_two_spaces()
+ * pf_buffer_join_internal()
  * pf_buffer_join()
  * pf_buffer_join_always()
  *
@@ -2393,8 +2423,10 @@ pf_buffer_join_internal (scr_filterref_t filter, const scr_char *string,
     {
       if (filter->buffer.back () == '\n')
         {
-          /* A newline the Runner's own string carries stays, and pspace
-             then adds no separator to text ending in Chr(10). */
+          /*
+           * A newline the Runner's own string carries stays, and pspace
+           * then adds no separator to text ending in Chr(10).
+           */
           if (filter->hard_break_at >= 0
               && (size_t) filter->hard_break_at == filter->buffer.size ())
             {
@@ -2460,6 +2492,7 @@ pf_retract_tentative_join (scr_filterref_t filter)
       && filter->buffer.compare (length - 2, 2, "  ") == 0)
     filter->buffer.resize (length - 2);
 }
+
 
 /*
  * pf_buffer_pspace()
@@ -2653,9 +2686,11 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
   /* Ignore the call if the printfilter is muted. */
   if (!filter->is_muted)
     {
-      /* Prepending leaves the tail of the buffer alone, so a note of our own
-         trailing newline survives it -- including down the empty-buffer path
-         below, which routes through pf_buffer_string() and would clear it. */
+      /*
+       * Prepending leaves the tail of the buffer alone, so a note of our own
+       * trailing newline survives it -- including down the empty-buffer path
+       * below, which routes through pf_buffer_string() and would clear it.
+       */
       const scr_int auto_break_at = filter->auto_break_at;
       const scr_int printed_to = filter->printed_to;
       const size_t length = filter->buffer.size ();
@@ -2676,9 +2711,11 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
           if (filter->new_sentence)
             filter->buffer[0] = scr_toupper (filter->buffer[0]);
 
-          /* Clear new sentence, and note as currently needing filtering.  The
-             prepended text leads any frozen prefix, so filter the lot again,
-             as pf_hoist_tail() does. */
+          /*
+           * Clear new sentence, and note as currently needing filtering.  The
+           * prepended text leads any frozen prefix, so filter the lot again,
+           * as pf_hoist_tail() does.
+           */
           filter->needs_filtering = TRUE;
           filter->new_sentence = FALSE;
           filter->frozen = 0;
@@ -2735,8 +2772,10 @@ pf_hoist_tail (scr_filterref_t filter, size_t from)
       filter->buffer.erase (from);
       filter->buffer.insert (0, tail);
       filter->auto_break_at = -1;
-      /* Unfiltered text now leads the buffer, which a prefix cannot keep
-         apart; filter the lot again. */
+      /*
+       * Unfiltered text now leads the buffer, which a prefix cannot keep
+       * apart; filter the lot again.
+       */
       filter->frozen = 0;
       filter->printed_to = -1;
       filter->needs_filtering = TRUE;
@@ -2792,6 +2831,7 @@ pf_truncate (scr_filterref_t filter, size_t length)
   filter->join_pending = FALSE;
 }
 
+
 /*
  * pf_cut_tail()
  *
@@ -2814,16 +2854,16 @@ pf_cut_tail (scr_filterref_t filter, size_t from)
 
 /*
  * pf_printed_to()
- * pf_erase()
+ * pf_restore_printed_to()
  *
  * pf_printed_to() is the buffer offset of the last pf_print_so_far(), where
  * the Runner's own string restarted after it printed the text before, or -1
  * if there is none to trust.  Unlike the frozen prefix it survives a task's
- * actions running with the buffer transferred out (pf_restore_printed_to()).
- * pf_erase() cuts the span [FROM, TO) out of the buffer and keeps what
- * follows it, for a caller that has to drop text the Runner overwrote while
- * it was still in the turn's string.  Notes that pointed into the span go
- * with it; notes past it move back with their text.
+ * actions running with the buffer transferred out: pf_restore_printed_to()
+ * hands back a note that pf_transfer_buffer() dropped, once the transferred
+ * text is prepended again -- it leads the buffer, so the note's offset holds.
+ * A note set since, on text printed in between, is the later print, and so
+ * wins.
  */
 scr_int
 pf_printed_to (scr_filterref_t filter)
@@ -2833,14 +2873,6 @@ pf_printed_to (scr_filterref_t filter)
   return filter->printed_to;
 }
 
-/*
- * pf_restore_printed_to()
- *
- * Hand back a note that pf_transfer_buffer() dropped, once the transferred
- * text is prepended again: it leads the buffer, so the note's offset holds.
- * A note set since, on text printed in between, is the later print, and so
- * wins.
- */
 void
 pf_restore_printed_to (scr_filterref_t filter, scr_int note)
 {
@@ -2851,6 +2883,17 @@ pf_restore_printed_to (scr_filterref_t filter, scr_int note)
     filter->printed_to = note;
 }
 
+
+/*
+ * pf_erase_note()
+ * pf_erase_prefix()
+ * pf_erase()
+ *
+ * Cut the span [FROM, TO) out of the buffer and keep what follows it, for a
+ * caller that has to drop text the Runner overwrote while it was still in the
+ * turn's string.  Notes that pointed into the span go with it; notes past it
+ * move back with their text.
+ */
 static void
 pf_erase_note (scr_int *note, size_t from, size_t to)
 {
@@ -2983,12 +3026,9 @@ pf_strip_tags_common (scr_char *string, scr_bool allow_newlines)
         break;
 
       /* If the tag is <br>, replace with newline if requested. */
-      if (allow_newlines)
-        {
-          if (tag_end - cursor == 3
-              && scr_strncasecmp (cursor + 1, "br", 2) == 0)
-            *cursor++ = '\n';
-        }
+      if (allow_newlines && tag_end - cursor == 3
+          && scr_strncasecmp (cursor + 1, "br", 2) == 0)
+        *cursor++ = '\n';
 
       /* Remove the tag from the string, then advance input. */
       memmove (cursor, tag_end + 1, strlen (tag_end));
@@ -3023,9 +3063,9 @@ pf_strip_tags_for_hints (scr_char *string)
  * Escape <, >, and % characters in the input string.  Used to filter player
  * input prior to storing in referenced text.
  *
- * Adrift offers no escapes for & and + escapes, so for these we convert to
- * the character itself followed by a space.  The return string is malloc'ed,
- * so the caller needs to remember to free it.
+ * Adrift offers no escapes for & and +, so for these we convert to the
+ * character itself followed by a space.  The return string is malloc'ed, so
+ * the caller needs to remember to free it.
  */
 scr_char *
 pf_escape (const scr_char *string)
@@ -3102,7 +3142,8 @@ pf_compare_words (const scr_char *string, const scr_char *words)
   scr_int word_posn, posn;
 
   /* None expected, but skip leading space. */
-  for (word_posn = 0; scr_isspace (words[word_posn]) && words[word_posn] != NUL;)
+  word_posn = 0;
+  while (scr_isspace (words[word_posn]) && words[word_posn] != NUL)
     word_posn++;
 
   /* Match characters from words with the string at position. */
@@ -3189,6 +3230,7 @@ pf_rewrite_whole_words (const scr_char *string, std::string &buffer,
       offset += strspn (current + offset, WHITESPACE);
     }
 }
+
 
 /*
  * pf_rewrite_substring()
@@ -3540,11 +3582,9 @@ pf_apply_synonym (std::string &line, const pf_str_pair_t &entry,
 static scr_bool
 pf_has_take_off (const scr_char *string)
 {
-  std::string line (string);
+  const std::string line = pf_lcase (string);
   size_t hit;
 
-  for (hit = 0; hit < line.size (); hit++)
-    line[hit] = scr_tolower (line[hit]);
   for (hit = line.find ("take off"); hit != std::string::npos;
        hit = line.find ("take off", hit + 1))
     {
@@ -3589,17 +3629,16 @@ pf_apply_synonyms_by_word (const scr_char *string, scr_int version)
       for (index_ = 0; index_ < pf_synonym_cache.size (); index_++)
         {
           const pf_str_pair_t &entry = pf_synonym_cache[index_];
-          const std::string replacement = version == TAF_VERSION_380
-              ? pf_v380_verb_name (entry.replacement)
-              : std::string (entry.replacement);
           scr_int extent;
 
           extent = pf_compare_words (buffer.c_str () + offset, entry.original);
-          if (extent == 0)
-            continue;
-          if (span > 0 && (size_t) extent != span)
+          if (extent == 0 || (span > 0 && (size_t) extent != span))
             continue;
 
+          const std::string replacement
+            = version == TAF_VERSION_380
+              ? pf_v380_verb_name (entry.replacement)
+              : std::string (entry.replacement);
           buffer.replace (offset, extent, replacement);
           span = replacement.size ();
         }
@@ -3633,8 +3672,8 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
                  scr_bool take_to_get, scr_bool runner_synonyms,
                  scr_bool builtins)
 {
-  scr_vartype_t vt_key[3];
-  scr_int synonym_count, index_;
+  scr_vartype_t vt_key;
+  scr_int synonym_count, version, index_;
   std::string buffer;
   scr_bool modified;
   const scr_char *current;
@@ -3644,8 +3683,9 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
     scr_trace ("Printfilter: input \"%s\"\n", string);
 
   /* Obtain a count of synonyms. */
-  vt_key[0].string = "Synonyms";
-  synonym_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  vt_key.string = "Synonyms";
+  synonym_count = prop_get_child_count (bundle, "I<-s", &vt_key);
+  version = prop_get_taf_version (bundle);
 
   /*
    * Resolve the immutable synonym table from the property tree once per game
@@ -3702,7 +3742,6 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
    * game runs the taxi task.
    */
   {
-    const scr_int version = prop_get_taf_version (bundle);
     std::string line (string);
 
     if (!runner_synonyms && version >= TAF_VERSION_380)
@@ -3819,7 +3858,6 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
       {" but ", " except ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
       {" apart from ", " except ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
     };
-    scr_int version = prop_get_taf_version (bundle);
 
     for (const pf_builtin_rewrite_t &entry : BUILTIN)
       {

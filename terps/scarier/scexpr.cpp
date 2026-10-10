@@ -37,7 +37,6 @@
 #include "scprotos.h"
 
 
-/* Assorted definitions and constants. */
 /*
  * Bounds on the values stack and on factor nesting -- each nested '(' or
  * unary sign is one factor level, and each can leave a value pending on the
@@ -45,6 +44,8 @@
  * other malformed expression, rather than ending the game.
  */
 enum { MAX_NESTING_DEPTH = 256 };
+
+/* Assorted definitions and constants. */
 static const scr_char NUL = '\0';
 static const scr_char PERCENT = '%';
 static const scr_char SINGLE_QUOTE = '\'';
@@ -73,6 +74,7 @@ enum
   TOK_STR, TOK_CONCATENATE,
   TOK_EOS
 };
+
 
 /*
  * Small tables tying multicharacter tokens strings to tokens.  At present,
@@ -135,6 +137,7 @@ static scr_vartype_t expr_token_value;
 static scr_char *expr_temporary = NULL;
 static scr_int expr_current_token = TOK_NONE;
 
+
 /*
  * expr_tokenize_start()
  * expr_tokenize_end()
@@ -181,7 +184,8 @@ expr_tokenize_start (const scr_char *expression)
 
   /* Allocate a temporary token value/literals string. */
   assert (!expr_temporary);
-  expr_temporary = (decltype(expr_temporary)) scr_malloc (strlen (expression) + 1);
+  expr_temporary
+    = (decltype(expr_temporary)) scr_malloc (strlen (expression) + 1);
 
   /* Reset last token to none. */
   expr_current_token = TOK_NONE;
@@ -197,6 +201,7 @@ expr_tokenize_end (void)
   expr_index = 0;
   expr_current_token = TOK_NONE;
 }
+
 
 /*
  * expr_tokenize_guard
@@ -233,6 +238,7 @@ static scr_int
 expr_next_token_unadjusted (scr_vartype_t *token_value)
 {
   scr_int c;
+
   assert (expr_expression);
 
   /* Skip any and all leading whitespace. */
@@ -485,13 +491,14 @@ typedef struct
   scr_vartype_t value;
 } scr_stack_t;
 static scr_stack_t expr_eval_stack[MAX_NESTING_DEPTH];
+static scr_int expr_eval_stack_index = 0;
 
 /* Parse error jump buffer. */
 static jmp_buf expr_parse_error;
-static scr_int expr_eval_stack_index = 0;
 
 /* Variables set to reference for %...% values. */
 static scr_var_setref_t expr_varset = (scr_var_setref_t) NULL;
+
 
 /*
  * expr_eval_start()
@@ -1210,7 +1217,7 @@ expr_eval_string_function (scr_int token)
          * The leading space on positive values matches the Runner.
          */
         val = expr_eval_pop_integer ();
-        snprintf (buffer, sizeof(buffer), "% ld", val);
+        snprintf (buffer, sizeof (buffer), "% ld", val);
         expr_eval_push_string (buffer);
         break;
       }
@@ -1382,6 +1389,7 @@ static void expr_parse_numeric_factor (void);
 static void expr_parse_string_factor (void);
 static void expr_parse_string_expr (void);
 
+
 /*
  * expr_parse_match()
  *
@@ -1414,6 +1422,8 @@ typedef struct
   const scr_int token_count;
   const scr_int tokens[6];
 } scr_precedence_entry_t;
+
+
 /*
  * Adrift-like precedence table for the parser.  Exponentiation and modulus
  * operations seem to be implemented at the same level as addition and
@@ -1848,8 +1858,10 @@ expr_evaluate_expression (const scr_char *expression, scr_var_setref_t vars,
 {
   assert (assign_type == VAR_INTEGER || assign_type == VAR_STRING);
 
-  /* Reset values stack and start the tokenizer; the guard ends it on any
-     exit from this function, a thrown scr_fatal_error included. */
+  /*
+   * Reset values stack and start the tokenizer; the guard ends it on any
+   * exit from this function, a thrown scr_fatal_error included.
+   */
   expr_eval_start (vars);
   const expr_tokenize_guard tokenizer (expression);
 
@@ -1893,6 +1905,7 @@ expr_eval_numeric_expression (const scr_char *expression,
 {
   scr_vartype_t vt_rvalue;
   scr_bool status;
+
   assert (expression && vars && rvalue);
 
   /* Evaluate numeric expression, and return value if valid. */
@@ -1908,6 +1921,7 @@ expr_eval_string_expression (const scr_char *expression,
 {
   scr_vartype_t vt_rvalue;
   scr_bool status;
+
   assert (expression && vars && rvalue);
 
   /* Evaluate string expression, and return value if valid. */

@@ -136,13 +136,9 @@ debug_variable_count (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key;
-  scr_int variable_count;
 
-  /* Find and return the variables count. */
   vt_key.string = "Variables";
-  variable_count = prop_get_child_count (bundle, "I<-s", &vt_key);
-
-  return variable_count;
+  return prop_get_child_count (bundle, "I<-s", &vt_key);
 }
 
 
@@ -187,16 +183,16 @@ debug_initialize (scr_gameref_t game)
   debug->elapsed_seconds = 0;
 
   /* Allocate watchpoints for everything we can watch. */
-  debug->watch_objects = (decltype(debug->watch_objects)) scr_malloc (gs_object_count (game)
-                                    * sizeof (*debug->watch_objects));
-  debug->watch_npcs = (decltype(debug->watch_npcs)) scr_malloc (gs_npc_count (game)
-                                 * sizeof (*debug->watch_npcs));
-  debug->watch_events = (decltype(debug->watch_events)) scr_malloc (gs_event_count (game)
-                                   * sizeof (*debug->watch_events));
-  debug->watch_tasks = (decltype(debug->watch_tasks)) scr_malloc (gs_task_count (game)
-                                  * sizeof (*debug->watch_tasks));
-  debug->watch_variables = (decltype(debug->watch_variables)) scr_malloc (debug_variable_count (game)
-                                      * sizeof (*debug->watch_variables));
+  debug->watch_objects = (decltype(debug->watch_objects))
+    scr_malloc (gs_object_count (game) * sizeof (*debug->watch_objects));
+  debug->watch_npcs = (decltype(debug->watch_npcs))
+    scr_malloc (gs_npc_count (game) * sizeof (*debug->watch_npcs));
+  debug->watch_events = (decltype(debug->watch_events))
+    scr_malloc (gs_event_count (game) * sizeof (*debug->watch_events));
+  debug->watch_tasks = (decltype(debug->watch_tasks))
+    scr_malloc (gs_task_count (game) * sizeof (*debug->watch_tasks));
+  debug->watch_variables = (decltype(debug->watch_variables))
+    scr_malloc (debug_variable_count (game) * sizeof (*debug->watch_variables));
 
   /* Clear all watchpoint arrays. */
   debug_clear_watch_arrays (game, debug);
@@ -301,7 +297,7 @@ debug_help (scr_command_t topic)
       if_print_debug (
         "Debugging commands may be abbreviated to their shortest unambiguous"
         " form.\n\n");
-      if_print_debug  (
+      if_print_debug (
         "Use the 'debug' or '#debug' command in a game, typed at the usual"
         " game prompt, to return to the debugger.\n");
       return;
@@ -532,14 +528,14 @@ debug_help (scr_command_t topic)
 
     case DEBUG_WATCHALL:
       if_print_debug (
-        "Print out a list of all all watchpoints set for all the classes of"
+        "Print out a list of all watchpoints set for all the classes of"
         " item on which watchpoints can be used.\n");
       break;
 
     case DEBUG_CLEARALL:
       if_print_debug (
         "Clear all watchpoints set, on all classes of item on which"
-         " watchpoints can be used.\n");
+        " watchpoints can be used.\n");
       break;
 
     default:
@@ -552,6 +548,7 @@ debug_help (scr_command_t topic)
 
 /*
  * debug_print_quoted()
+ * debug_print_integer()
  * debug_print_player()
  * debug_print_room()
  * debug_print_object()
@@ -571,6 +568,15 @@ debug_print_quoted (const scr_char *string)
 }
 
 static void
+debug_print_integer (scr_int value)
+{
+  scr_char buffer[32];
+
+  snprintf (buffer, sizeof (buffer), "%ld", value);
+  if_print_debug (buffer);
+}
+
+static void
 debug_print_player (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -585,21 +591,18 @@ static void
 debug_print_room (scr_gameref_t game, scr_int room)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_char buffer[32];
   const scr_char *name;
 
   if_print_debug ("Room ");
+  debug_print_integer (room);
+  if_print_debug_character (' ');
   if (room < 0 || room >= gs_room_count (game))
     {
-      snprintf (buffer, sizeof(buffer), "%ld ", room);
-      if_print_debug (buffer);
       if_print_debug ("[Out of range]");
       return;
     }
 
   name = prop_get_indexed_string (bundle, "Rooms", room, "Short");
-  snprintf (buffer, sizeof(buffer), "%ld ", room);
-  if_print_debug (buffer);
   debug_print_quoted (name);
 }
 
@@ -608,14 +611,13 @@ debug_print_object (scr_gameref_t game, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_bool bstatic;
-  scr_char buffer[32];
   const scr_char *prefix, *name;
 
   if (object < 0 || object >= gs_object_count (game))
     {
       if_print_debug ("Object ");
-      snprintf (buffer, sizeof(buffer), "%ld ", object);
-      if_print_debug (buffer);
+      debug_print_integer (object);
+      if_print_debug_character (' ');
       if_print_debug ("[Out of range]");
       return;
     }
@@ -627,8 +629,8 @@ debug_print_object (scr_gameref_t game, scr_int object)
     if_print_debug ("Static ");
   else
     if_print_debug ("Dynamic ");
-  snprintf (buffer, sizeof(buffer), "%ld ", object);
-  if_print_debug (buffer);
+  debug_print_integer (object);
+  if_print_debug_character (' ');
   debug_print_quoted (prefix);
   if_print_debug_character (' ');
   debug_print_quoted (name);
@@ -638,22 +640,19 @@ static void
 debug_print_npc (scr_gameref_t game, scr_int npc)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_char buffer[32];
   const scr_char *prefix, *name;
 
   if_print_debug ("NPC ");
+  debug_print_integer (npc);
+  if_print_debug_character (' ');
   if (npc < 0 || npc >= gs_npc_count (game))
     {
-      snprintf (buffer, sizeof(buffer), "%ld ", npc);
-      if_print_debug (buffer);
       if_print_debug ("[Out of range]");
       return;
     }
 
   prefix = prop_get_indexed_string (bundle, "NPCs", npc, "Prefix");
   name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
-  snprintf (buffer, sizeof(buffer), "%ld ", npc);
-  if_print_debug (buffer);
   debug_print_quoted (prefix);
   if_print_debug_character (' ');
   debug_print_quoted (name);
@@ -663,21 +662,18 @@ static void
 debug_print_event (scr_gameref_t game, scr_int event)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_char buffer[32];
   const scr_char *name;
 
   if_print_debug ("Event ");
+  debug_print_integer (event);
+  if_print_debug_character (' ');
   if (event < 0 || event >= gs_event_count (game))
     {
-      snprintf (buffer, sizeof(buffer), "%ld ", event);
-      if_print_debug (buffer);
       if_print_debug ("[Out of range]");
       return;
     }
 
   name = prop_get_indexed_string (bundle, "Events", event, "Short");
-  snprintf (buffer, sizeof(buffer), "%ld ", event);
-  if_print_debug (buffer);
   debug_print_quoted (name);
 }
 
@@ -686,14 +682,13 @@ debug_print_task (scr_gameref_t game, scr_int task)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[4];
-  scr_char buffer[32];
   const scr_char *command;
 
   if_print_debug ("Task ");
+  debug_print_integer (task);
+  if_print_debug_character (' ');
   if (task < 0 || task >= gs_task_count (game))
     {
-      snprintf (buffer, sizeof(buffer), "%ld ", task);
-      if_print_debug (buffer);
       if_print_debug ("[Out of range]");
       return;
     }
@@ -703,8 +698,6 @@ debug_print_task (scr_gameref_t game, scr_int task)
   vt_key[2].string = "Command";
   vt_key[3].integer = 0;
   command = prop_get_string (bundle, "S<-sisi", vt_key);
-  snprintf (buffer, sizeof(buffer), "%ld ", task);
-  if_print_debug (buffer);
   debug_print_quoted (command);
 }
 
@@ -714,15 +707,14 @@ debug_print_variable (scr_gameref_t game, scr_int variable)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_vartype_t vt_rvalue;
-  scr_char buffer[32];
   scr_int var_type;
   const scr_char *name;
 
   if (variable < 0 || variable >= debug_variable_count (game))
     {
       if_print_debug ("Variable ");
-      snprintf (buffer, sizeof(buffer), "%ld ", variable);
-      if_print_debug (buffer);
+      debug_print_integer (variable);
+      if_print_debug_character (' ');
       if_print_debug ("[Out of range]");
       return;
     }
@@ -746,8 +738,8 @@ debug_print_variable (scr_gameref_t game, scr_int variable)
     }
   else
     if_print_debug ("[Invalid variable] ");
-  snprintf (buffer, sizeof(buffer), "%ld ", variable);
-  if_print_debug (buffer);
+  debug_print_integer (variable);
+  if_print_debug_character (' ');
   debug_print_quoted (prop_get_indexed_string (bundle, "Variables", variable,
                                                "Name"));
 }
@@ -842,8 +834,7 @@ debug_game (scr_gameref_t game, scr_command_type_t type)
 
   waitturns = prop_get_global_integer (bundle, "WaitTurns");
   if_print_debug (", Waitturns ");
-  snprintf (buffer, sizeof(buffer), "%ld", waitturns);
-  if_print_debug (buffer);
+  debug_print_integer (waitturns);
 
   has_sound = prop_get_global_boolean (bundle, "Sound");
   has_graphics = prop_get_global_boolean (bundle, "Graphics");
@@ -858,29 +849,23 @@ debug_game (scr_gameref_t game, scr_command_type_t type)
     if_print_debug ("    Battle system\n");
 
   if_print_debug ("    Room count ");
-  snprintf (buffer, sizeof(buffer), "%ld", gs_room_count (game));
-  if_print_debug (buffer);
+  debug_print_integer (gs_room_count (game));
 
   if_print_debug (", Object count ");
-  snprintf (buffer, sizeof(buffer), "%ld", gs_object_count (game));
-  if_print_debug (buffer);
+  debug_print_integer (gs_object_count (game));
 
   if_print_debug (", NPC count ");
-  snprintf (buffer, sizeof(buffer), "%ld", gs_npc_count (game));
-  if_print_debug (buffer);
+  debug_print_integer (gs_npc_count (game));
   if_print_debug_character ('\n');
 
   if_print_debug ("    Event count ");
-  snprintf (buffer, sizeof(buffer), "%ld", gs_event_count (game));
-  if_print_debug (buffer);
+  debug_print_integer (gs_event_count (game));
 
   if_print_debug (", Task count ");
-  snprintf (buffer, sizeof(buffer), "%ld", gs_task_count (game));
-  if_print_debug (buffer);
+  debug_print_integer (gs_task_count (game));
 
   if_print_debug (", Variable count ");
-  snprintf (buffer, sizeof(buffer), "%ld", debug_variable_count (game));
-  if_print_debug (buffer);
+  debug_print_integer (debug_variable_count (game));
   if_print_debug_character ('\n');
 
   if (game->is_running)
@@ -906,15 +891,33 @@ debug_game (scr_gameref_t game, scr_command_type_t type)
   if_print_debug_character ('\n');
 
   if_print_debug ("    Score ");
-  snprintf (buffer, sizeof(buffer), "%ld", game->score);
-  if_print_debug (buffer);
+  debug_print_integer (game->score);
   if_print_debug (", Turns ");
-  snprintf (buffer, sizeof(buffer), "%ld", game->turns);
-  if_print_debug (buffer);
+  debug_print_integer (game->turns);
   if_print_debug (", Seconds ");
-  snprintf (buffer, sizeof(buffer), "%lu", debug->elapsed_seconds);
+  snprintf (buffer, sizeof (buffer), "%lu", debug->elapsed_seconds);
   if_print_debug (buffer);
   if_print_debug_character ('\n');
+}
+
+
+/*
+ * debug_previous_game()
+ *
+ * Return the undo game for the "old" commands, or NULL, with a message,
+ * if there is none.
+ */
+static scr_gameref_t
+debug_previous_game (scr_gameref_t game)
+{
+  if (!game->undo_available)
+    {
+      if_print_debug ("There is no previous game state to examine.\n");
+      return NULL;
+    }
+
+  assert (gs_is_game_valid (game->undo));
+  return game->undo;
 }
 
 
@@ -935,14 +938,9 @@ debug_player (scr_gameref_t game,
 
   if (command == DEBUG_OLDPLAYER)
     {
-      if (!game->undo_available)
-        {
-          if_print_debug ("There is no previous game state to examine.\n");
-          return;
-        }
-
-      game = game->undo;
-      assert (gs_is_game_valid (game));
+      game = debug_previous_game (game);
+      if (!game)
+        return;
     }
 
   debug_print_player (game);
@@ -1010,6 +1008,40 @@ debug_normalize_arguments (scr_command_type_t type,
 
   /* Input range is invalid. */
   return FALSE;
+}
+
+
+/*
+ * debug_report_range()
+ *
+ * Explain a range that debug_normalize_arguments() rejected.  The verb is
+ * what the command would have done with the items: "print" or "watch".
+ */
+static void
+debug_report_range (const scr_char *class_, scr_int limit,
+                    const scr_char *verb)
+{
+  if (limit == 0)
+    {
+      if_print_debug ("There is nothing of type ");
+      debug_print_quoted (class_);
+      if_print_debug (" to ");
+      if_print_debug (verb);
+      if_print_debug (".\n");
+    }
+  else
+    {
+      if_print_debug ("Invalid item or range for ");
+      debug_print_quoted (class_);
+      if (limit == 1)
+        if_print_debug ("; only 0 is valid.\n");
+      else
+        {
+          if_print_debug ("; valid values are 0 to ");
+          debug_print_integer (limit - 1);
+          if_print_debug (".\n");
+        }
+    }
 }
 
 
@@ -1194,12 +1226,10 @@ debug_dump_object (scr_gameref_t game, scr_int object)
   is_statussed = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
   if (is_statussed)
     {
-      scr_char buffer[32];
       const scr_char *states;
 
       if_print_debug ("    State ");
-      snprintf (buffer, sizeof(buffer), "%ld", gs_object_state (game, object));
-      if_print_debug (buffer);
+      debug_print_integer (gs_object_state (game, object));
 
       vt_key[2].string = "States";
       states = prop_get_string (bundle, "S<-sis", vt_key);
@@ -1253,17 +1283,14 @@ debug_dump_npc (scr_gameref_t game, scr_int npc)
 
   if (gs_npc_walkstep_count (game, npc) > 0)
     {
-      scr_char buffer[32];
       scr_int walk;
 
       if_print_debug ("    Walkstep count ");
-      snprintf (buffer, sizeof(buffer), "%ld", gs_npc_walkstep_count (game, npc));
-      if_print_debug (buffer);
+      debug_print_integer (gs_npc_walkstep_count (game, npc));
       if_print_debug (", Walks { ");
       for (walk = 0; walk < gs_npc_walkstep_count (game, npc); walk++)
         {
-          snprintf (buffer, sizeof(buffer), "%ld", gs_npc_walkstep (game, npc, walk));
-          if_print_debug (buffer);
+          debug_print_integer (gs_npc_walkstep (game, npc, walk));
           if_print_debug_character (' ');
         }
       if_print_debug ("}.\n");
@@ -1286,8 +1313,6 @@ debug_filter_event (scr_gameref_t game, scr_int event)
 static void
 debug_dump_event (scr_gameref_t game, scr_int event)
 {
-  scr_char buffer[32];
-
   debug_print_event (game, event);
   if_print_debug_character ('\n');
 
@@ -1314,8 +1339,8 @@ debug_dump_event (scr_gameref_t game, scr_int event)
     }
 
   if_print_debug ("    Time ");
-  snprintf (buffer, sizeof(buffer), "%ld\n", gs_event_time (game, event));
-  if_print_debug (buffer);
+  debug_print_integer (gs_event_time (game, event));
+  if_print_debug_character ('\n');
 }
 
 
@@ -1377,13 +1402,8 @@ debug_dump_variable (scr_gameref_t game, scr_int variable)
       switch (var_type)
         {
         case VAR_INTEGER:
-          {
-            scr_char buffer[32];
-
-            snprintf (buffer, sizeof(buffer), "%ld", vt_rvalue.integer);
-            if_print_debug (buffer);
-            break;
-          }
+          debug_print_integer (vt_rvalue.integer);
+          break;
         case VAR_STRING:
           debug_print_quoted (vt_rvalue.string);
           break;
@@ -1409,15 +1429,10 @@ debug_dump_common (scr_gameref_t game, scr_command_t command,
 {
   scr_int low = arg1, high = arg2;
   scr_int limit, index_;
-  const scr_char *class_;
-  scr_bool (*filter_function) (scr_gameref_t, scr_int);
-  void (*dumper_function) (scr_gameref_t, scr_int);
+  const scr_char *class_ = NULL;
+  scr_bool (*filter_function) (scr_gameref_t, scr_int) = NULL;
+  void (*dumper_function) (scr_gameref_t, scr_int) = NULL;
   scr_bool printed = FALSE;
-
-  /* Initialize variables to avoid gcc warnings. */
-  class_ = NULL;
-  filter_function = NULL;
-  dumper_function = NULL;
 
   /* Switch to undo game on relevant commands. */
   switch (command)
@@ -1428,14 +1443,9 @@ debug_dump_common (scr_gameref_t game, scr_command_t command,
     case DEBUG_OLDEVENTS:
     case DEBUG_OLDTASKS:
     case DEBUG_OLDVARIABLES:
-      if (!game->undo_available)
-        {
-          if_print_debug ("There is no previous game state to examine.\n");
-          return;
-        }
-
-      game = game->undo;
-      assert (gs_is_game_valid (game));
+      game = debug_previous_game (game);
+      if (!game)
+        return;
       break;
 
     default:
@@ -1494,28 +1504,7 @@ debug_dump_common (scr_gameref_t game, scr_command_t command,
   /* Normalize to this limit. */
   if (!debug_normalize_arguments (type, &low, &high, limit))
     {
-      if (limit == 0)
-        {
-          if_print_debug ("There is nothing of type ");
-          debug_print_quoted (class_);
-          if_print_debug (" to print.\n");
-        }
-      else
-        {
-          if_print_debug ("Invalid item or range for ");
-          debug_print_quoted (class_);
-          if (limit == 1)
-            if_print_debug ("; only 0 is valid.\n");
-          else
-            {
-              scr_char buffer[32];
-
-              if_print_debug ("; valid values are 0 to ");
-              snprintf (buffer, sizeof(buffer), "%ld", limit - 1);
-              if_print_debug (buffer);
-              if_print_debug (".\n");
-            }
-        }
+      debug_report_range (class_, limit, "print");
       return;
     }
 
@@ -1575,15 +1564,11 @@ debug_buffer (scr_gameref_t game, scr_command_type_t type)
 static void
 debug_print_resource (const scr_resource_t *resource)
 {
-  scr_char buffer[32];
-
   debug_print_quoted (resource->name);
   if_print_debug (", offset ");
-  snprintf (buffer, sizeof(buffer), "%ld", resource->offset);
-  if_print_debug (buffer);
+  debug_print_integer (resource->offset);
   if_print_debug (", length ");
-  snprintf (buffer, sizeof(buffer), "%ld", resource->length);
-  if_print_debug (buffer);
+  debug_print_integer (resource->length);
 }
 
 
@@ -1661,7 +1646,6 @@ static void
 debug_random (scr_command_type_t type, scr_int new_seed)
 {
   const scr_char *random_type;
-  scr_char buffer[32];
 
   if (type != COMMAND_ONE && type != COMMAND_QUERY)
     {
@@ -1689,8 +1673,7 @@ debug_random (scr_command_type_t type, scr_int new_seed)
   scr_seed_random (new_seed);
 
   if_print_debug ("Set seed ");
-  snprintf (buffer, sizeof(buffer), "%ld", new_seed);
-  if_print_debug (buffer);
+  debug_print_integer (new_seed);
   if_print_debug (" for the ");
   if_print_debug (random_type);
   if_print_debug (" random number generator.\n");
@@ -1709,14 +1692,9 @@ debug_watchpoint_common (scr_gameref_t game, scr_command_t command,
   const scr_debuggerref_t debug = debug_get_debugger (game);
   scr_int low = arg1, high = arg2;
   scr_int limit, index_;
-  const scr_char *class_;
-  scr_bool *watchpoints, action;
-  scr_char buffer[32];
+  const scr_char *class_ = NULL;
+  scr_bool *watchpoints = NULL, action;
   assert (debug_is_valid (debug));
-
-  /* Initialize variables to avoid gcc warnings. */
-  class_ = NULL;
-  watchpoints = NULL;
 
   /* Set action to TRUE or FALSE, for setting/clearing watchpoints. */
   switch (command)
@@ -1805,26 +1783,7 @@ debug_watchpoint_common (scr_gameref_t game, scr_command_t command,
   /* Normalize to this limit. */
   if (!debug_normalize_arguments (type, &low, &high, limit))
     {
-      if (limit == 0)
-        {
-          if_print_debug ("There is nothing of type ");
-          debug_print_quoted (class_);
-          if_print_debug (" to watch.\n");
-        }
-      else
-        {
-          if_print_debug ("Invalid item or range for ");
-          debug_print_quoted (class_);
-          if (limit == 1)
-            if_print_debug ("; only 0 is valid.\n");
-          else
-            {
-              if_print_debug ("; valid values are 0 to ");
-              snprintf (buffer, sizeof(buffer), "%ld", limit - 1);
-              if_print_debug (buffer);
-              if_print_debug (".\n");
-            }
-        }
+      debug_report_range (class_, limit, "watch");
       return;
     }
 
@@ -1844,8 +1803,7 @@ debug_watchpoint_common (scr_gameref_t game, scr_command_t command,
                   if_print_debug (class_);
                   if_print_debug (" { ");
                 }
-              snprintf (buffer, sizeof(buffer), "%ld", index_);
-              if_print_debug (buffer);
+              debug_print_integer (index_);
               if_print_debug_character (' ');
               printed = TRUE;
             }
@@ -1872,8 +1830,8 @@ debug_watchpoint_common (scr_gameref_t game, scr_command_t command,
     if_print_debug ("Set ");
   else
     if_print_debug ("Cleared ");
-  snprintf (buffer, sizeof(buffer), "%ld ", high - low + 1);
-  if_print_debug (buffer);
+  debug_print_integer (high - low + 1);
+  if_print_debug_character (' ');
   if_print_debug (class_);
   if (high == low)
     if_print_debug (" watchpoint.\n");
@@ -1906,18 +1864,14 @@ debug_watchall_common (scr_gameref_t game,
   /* Query all set watchpoints using common watchpoint handler... */
   if (command == DEBUG_WATCHALL)
     {
-      debug_watchpoint_common (game,
-                               DEBUG_WATCHPLAYER, COMMAND_QUERY, 0, 0);
-      debug_watchpoint_common (game,
-                               DEBUG_WATCHOBJECTS, COMMAND_QUERY, 0, 0);
-      debug_watchpoint_common (game,
-                               DEBUG_WATCHNPCS, COMMAND_QUERY, 0, 0);
-      debug_watchpoint_common (game,
-                               DEBUG_WATCHEVENTS, COMMAND_QUERY, 0, 0);
-      debug_watchpoint_common (game,
-                               DEBUG_WATCHTASKS, COMMAND_QUERY, 0, 0);
-      debug_watchpoint_common (game,
-                               DEBUG_WATCHVARIABLES, COMMAND_QUERY, 0, 0);
+      static const scr_command_t WATCH_COMMANDS[] = {
+        DEBUG_WATCHPLAYER, DEBUG_WATCHOBJECTS, DEBUG_WATCHNPCS,
+        DEBUG_WATCHEVENTS, DEBUG_WATCHTASKS, DEBUG_WATCHVARIABLES
+      };
+      size_t i;
+
+      for (i = 0; i < sizeof (WATCH_COMMANDS) / sizeof (*WATCH_COMMANDS); i++)
+        debug_watchpoint_common (game, WATCH_COMMANDS[i], COMMAND_QUERY, 0, 0);
       return;
     }
 
@@ -2011,7 +1965,8 @@ debug_compare_task (scr_gameref_t from, scr_gameref_t with, scr_int task)
  * Compare two variables, and return TRUE if the same.
  */
 static scr_bool
-debug_compare_variable (scr_gameref_t from, scr_gameref_t with, scr_int variable)
+debug_compare_variable (scr_gameref_t from, scr_gameref_t with,
+                        scr_int variable)
 {
   const scr_prop_setref_t bundle = from->bundle;
   const scr_var_setref_t from_var = from->vars;
@@ -2078,16 +2033,14 @@ debug_check_class (scr_gameref_t from, scr_gameref_t with,
 
       if (!compare_function (from, with, index_))
         {
-          scr_char buffer[32];
-
           if (!triggered)
             {
               if_print_debug ("--- ");
               if_print_debug (class_);
               if_print_debug (" watchpoint triggered { ");
             }
-          snprintf (buffer, sizeof(buffer), "%ld ", index_);
-          if_print_debug (buffer);
+          debug_print_integer (index_);
+          if_print_debug_character (' ');
           triggered = TRUE;
         }
     }
@@ -2459,26 +2412,24 @@ debug_run_command (scr_gameref_t game, const scr_char *debug_command)
   scr_int arg1, arg2;
 
   /* If debugging disallowed (not initialized), refuse the call. */
-  if (debug)
-    {
-      /*
-       * Parse the command string passed in, and return FALSE if the parse
-       * fails, or if it returns DEBUG_CONTINUE, DEBUG_STEP, or DEBUG_QUIT,
-       * none of which make any sense in this context.
-       */
-      command = debug_parse_command (debug_command,
-                                     &type, &arg1, &arg2, &help_topic);
-      if (command == DEBUG_NONE
-          || command == DEBUG_CONTINUE || command == DEBUG_STEP
-          || command == DEBUG_QUIT)
-        return FALSE;
+  if (!debug)
+    return FALSE;
 
-      /* Dispatch the remaining debugging commands, return successfully. */
-      debug_dispatch (game, command, type, arg1, arg2, help_topic);
-      return TRUE;
-    }
+  /*
+   * Parse the command string passed in, and return FALSE if the parse
+   * fails, or if it returns DEBUG_CONTINUE, DEBUG_STEP, or DEBUG_QUIT,
+   * none of which make any sense in this context.
+   */
+  command = debug_parse_command (debug_command,
+                                 &type, &arg1, &arg2, &help_topic);
+  if (command == DEBUG_NONE
+      || command == DEBUG_CONTINUE || command == DEBUG_STEP
+      || command == DEBUG_QUIT)
+    return FALSE;
 
-  return FALSE;
+  /* Dispatch the remaining debugging commands, return successfully. */
+  debug_dispatch (game, command, type, arg1, arg2, help_topic);
+  return TRUE;
 }
 
 
@@ -2527,30 +2478,30 @@ debug_game_started (scr_gameref_t game)
   const scr_debuggerref_t debug = debug_get_debugger (game);
 
   /* If debugging disallowed (not initialized), ignore the call. */
-  if (debug)
+  if (!debug)
+    return;
+
+  /* Starting a new game, or a restore or undo of an old one? */
+  if (!gs_room_seen (game, gs_playerroom (game)))
     {
-      /* Starting a new game, or a restore or undo of an old one? */
-      if (!gs_room_seen (game, gs_playerroom (game)))
-        {
-          /*
-           * It's a new game starting or restarting.  Print a banner, and
-           * run the debugger dialog.
-           */
-          if_print_debug ("\n--- Scarier " SCARIER_VERSION SCARIER_PATCH_LEVEL
-                          " Game Debugger\n"
-                          "--- Type 'help' for a list of commands.\n");
-          debug_dialog (game);
-        }
-      else
-        {
-          /*
-           * It's a restore or undo through memos, so run the dialog only if
-           * single-stepping; no need to check watchpoints for this case as
-           * none can be set -- no undo.
-           */
-          if (debug->single_step)
-            debug_dialog (game);
-        }
+      /*
+       * It's a new game starting or restarting.  Print a banner, and run
+       * the debugger dialog.
+       */
+      if_print_debug ("\n--- Scarier " SCARIER_VERSION SCARIER_PATCH_LEVEL
+                      " Game Debugger\n"
+                      "--- Type 'help' for a list of commands.\n");
+      debug_dialog (game);
+    }
+  else
+    {
+      /*
+       * It's a restore or undo through memos, so run the dialog only if
+       * single-stepping; no need to check watchpoints for this case as none
+       * can be set -- no undo.
+       */
+      if (debug->single_step)
+        debug_dialog (game);
     }
 }
 
@@ -2560,41 +2511,41 @@ debug_game_ended (scr_gameref_t game)
   const scr_debuggerref_t debug = debug_get_debugger (game);
 
   /* If debugging disallowed (not initialized), ignore the call. */
-  if (debug)
-    {
-      /*
-       * Using our carnal knowledge of the run main loop, we know here that
-       * if the loop exited with do_restart or do_restore, we'll get a call to
-       * debug_game_start() when the loop restarts.  So in this case, ignore
-       * the call (even if single stepping).
-       */
-      if (game->do_restart || game->do_restore)
-        return;
+  if (!debug)
+    return;
 
-      /*
-       * Check for any final watchpoints, and print a message describing why
-       * we're here.  Suppress the check for watchpoints if the user exited
-       * the game, as it'll only be a repeat of any found last turn update.
-       */
-      if (!game->is_running)
-        {
-          if (game->has_completed)
-            {
-              debug_check_watchpoints (game);
-              if_print_debug ("\n--- The game has completed.\n");
-            }
-          else
-            if_print_debug ("\n--- The game has exited.\n");
-        }
-      else
+  /*
+   * Using our carnal knowledge of the run main loop, we know here that if
+   * the loop exited with do_restart or do_restore, we'll get a call to
+   * debug_game_started() when the loop restarts.  So in this case, ignore
+   * the call (even if single stepping).
+   */
+  if (game->do_restart || game->do_restore)
+    return;
+
+  /*
+   * Check for any final watchpoints, and print a message describing why
+   * we're here.  Suppress the check for watchpoints if the user exited the
+   * game, as it'll only be a repeat of any found last turn update.
+   */
+  if (!game->is_running)
+    {
+      if (game->has_completed)
         {
           debug_check_watchpoints (game);
-          if_print_debug ("\n--- The game is still running!\n");
+          if_print_debug ("\n--- The game has completed.\n");
         }
-
-      /* Run a final dialog. */
-      debug_dialog (game);
+      else
+        if_print_debug ("\n--- The game has exited.\n");
     }
+  else
+    {
+      debug_check_watchpoints (game);
+      if_print_debug ("\n--- The game is still running!\n");
+    }
+
+  /* Run a final dialog. */
+  debug_dialog (game);
 }
 
 
@@ -2610,24 +2561,24 @@ debug_turn_update (scr_gameref_t game)
   const scr_debuggerref_t debug = debug_get_debugger (game);
 
   /* If debugging disallowed (not initialized), ignore the call. */
-  if (debug)
-    {
-      /*
-       * Again using carnal knowledge of the run main loop, if we're in
-       * mid-wait, ignore the call.  Also, ignore the call if the game is
-       * no longer running, as we'll see a debug_game_ended() call come
-       * along to handle that.
-       */
-      if (game->waitcounter > 0 || !game->is_running)
-        return;
+  if (!debug)
+    return;
 
-      /*
-       * Run debugger dialog if any watchpoints triggered, or if single
-       * stepping (even if none triggered).
-       */
-      if (debug_check_watchpoints (game) || debug->single_step)
-        debug_dialog (game);
-    }
+  /*
+   * Again using carnal knowledge of the run main loop, if we're in
+   * mid-wait, ignore the call.  Also, ignore the call if the game is no
+   * longer running, as we'll see a debug_game_ended() call come along to
+   * handle that.
+   */
+  if (game->waitcounter > 0 || !game->is_running)
+    return;
+
+  /*
+   * Run debugger dialog if any watchpoints triggered, or if single stepping
+   * (even if none triggered).
+   */
+  if (debug_check_watchpoints (game) || debug->single_step)
+    debug_dialog (game);
 }
 
 
@@ -2657,7 +2608,5 @@ debug_set_enabled (scr_gameref_t game, scr_bool enable)
 scr_bool
 debug_get_enabled (scr_gameref_t game)
 {
-  const scr_debuggerref_t debug = debug_get_debugger (game);
-
-  return debug != NULL;
+  return debug_get_debugger (game) != NULL;
 }

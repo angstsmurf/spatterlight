@@ -33,6 +33,7 @@ static const scr_char NEWLINE = '\n';
 static const scr_char CARRIAGE_RETURN = '\r';
 static const scr_char NUL = '\0';
 
+
 /* Global tracing flags. */
 static scr_uint if_trace_flags = 0;
 
@@ -189,8 +190,10 @@ if_print_tag (scr_int tag, const scr_char *arg)
 }
 
 
-/* Set by scr_note_autorestored(), and cleared by the first prompt that
-   follows it; see if_read_line_common(). */
+/*
+ * Set by scr_note_autorestored(), and cleared by the first prompt that
+ * follows it; see if_read_line_common().
+ */
 static scr_bool if_autorestored = FALSE;
 
 
@@ -208,17 +211,20 @@ if_read_line_common (scr_char *buffer, scr_int length,
 {
   scr_bool is_line_available;
   scr_int last;
+
   assert (buffer && length > 0);
 
   /* Loop until valid player input is available. */
   do
     {
-      /* Space first with a blank line, and clear the buffer.  Not on the
-         first prompt after an autorestore: the restored transcript ends with
-         this blank line already, since the autosave was taken between it and
-         the prompt that follows (which the port skips for the same reason).
-         Printing it again would leave the input cursor a line below the
-         prompt it belongs to. */
+      /*
+       * Space first with a blank line, and clear the buffer.  Not on the
+       * first prompt after an autorestore: the restored transcript ends with
+       * this blank line already, since the autosave was taken between it and
+       * the prompt that follows (which the port skips for the same reason).
+       * Printing it again would leave the input cursor a line below the
+       * prompt it belongs to.
+       */
       if (if_autorestored)
         if_autorestored = FALSE;
       else
@@ -405,6 +411,7 @@ if_report_fatal (const scr_char *function_name, const scr_fatal_error &error)
   scr_error ("%s: fatal: %s", function_name, error.message.c_str ());
 }
 
+
 /*
  * if_guarded()
  *
@@ -538,6 +545,7 @@ if_game_error (scr_gameref_t game, const scr_char *function_name)
   /* No game error. */
   return FALSE;
 }
+
 
 /*
  * if_game_guarded()
@@ -886,10 +894,12 @@ scr_load_undo_game_from_callback (scr_game game,
           game_->undo->temporary = game_->temporary;
           game_->undo->undo = game_->undo;
           game_->undo->undo_available = FALSE;
-          /* The buffered state was captured mid-play, and lib_cmd_undo's
+          /*
+           * The buffered state was captured mid-play, and lib_cmd_undo's
            * gs_copy() propagates is_running into the main game -- but
            * ser_load_game() leaves it cleared, which would end the session on
-           * the first undo. */
+           * the first undo.
+           */
           game_->undo->is_running = TRUE;
         }
       game_->undo_available = status;
@@ -1024,15 +1034,16 @@ if_get_attributes (scr_gameref_t game, scr_uint wanted)
 
 /*
  * scr_is_game_running()
+ * scr_does_command_match()
  * scr_get_game_name()
  * scr_get_game_author()
  * scr_get_game_compile_date()
  * scr_get_game_turns()
  * scr_get_game_score()
  * scr_get_game_max_score()
- * scr_get_game_room ()
- * scr_get_game_status_line ()
- * scr_get_game_preferred_font ()
+ * scr_get_game_room()
+ * scr_get_game_status_line()
+ * scr_get_game_preferred_font()
  * scr_get_game_bold_room_names()
  * scr_get_game_verbose()
  * scr_get_game_notify_score_change()
@@ -1246,6 +1257,7 @@ scr_set_game_notify_score_change (scr_game game, scr_bool flag)
       run_set_attributes (game_, attrs.bold_room_names, attrs.verbose, flag);
     });
 }
+
 
 /*
  * scr_get_game_capacity_recompute()
@@ -1561,6 +1573,7 @@ scr_set_portable_random (scr_bool flag)
     scr_set_platform_random ();
 }
 
+
 /*
  * scr_default_random_seed()
  *
@@ -1576,6 +1589,7 @@ scr_default_random_seed (void)
   if (env && *env)
     {
       scr_uint seed = (scr_uint) strtoul (env, NULL, 10);
+
       return seed > 0 ? seed : 1;
     }
   return scr_is_runner_random () ? 1234 : 1;

@@ -51,7 +51,8 @@ static const scr_char NEWLINE = '\n';
 static const scr_char CARRIAGE_RETURN = '\r';
 static const scr_char NUL = '\0';
 
-/* Version 4.0, version 3.9, version 3.8, and version 3.7 TAF file signatures. */
+
+/* Version 4.0, 3.9, 3.8, and 3.7 TAF file signatures. */
 static const scr_byte
   V400_SIGNATURE[VERSION_HEADER_SIZE] = {0x3c, 0x42, 0x3f, 0xc9, 0x6a, 0x87,
                                          0xc2, 0xcf, 0x93, 0x45, 0x3e, 0x61,
@@ -64,6 +65,8 @@ static const scr_byte
   V380_SIGNATURE[VERSION_HEADER_SIZE] = {0x3c, 0x42, 0x3f, 0xc9, 0x6a, 0x87,
                                          0xc2, 0xcf, 0x94, 0x45, 0x36, 0x61,
                                          0x39, 0xfa};
+
+
 /*
  * Note that the version 3.7 signature is not the version 3.8 one with its
  * version digit stepped down by one: "Version 3.70" and "Version 3.80" differ
@@ -75,6 +78,7 @@ static const scr_byte
   V370_SIGNATURE[VERSION_HEADER_SIZE] = {0x3c, 0x42, 0x3f, 0xc9, 0x6a, 0x87,
                                          0xc2, 0xcf, 0x94, 0x45, 0x39, 0x61,
                                          0x39, 0xfa};
+
 
 /*
  * Game TAF data structure.  The game structure contains the original TAF
@@ -114,6 +118,7 @@ static const scr_int PRNG_CST1 = 0x43fd43fd,
                     PRNG_INITIAL_STATE = 0x00a09e86;
 static scr_int taf_random_state = 0x00a09e86;
 
+
 /*
  * taf_random()
  * taf_random_reset()
@@ -139,6 +144,12 @@ taf_random_reset (void)
   taf_random_state = PRNG_INITIAL_STATE;
 }
 
+
+/* Where the game file's codec left the PRNG, and the runtime draws from it. */
+static scr_int taf_gamefile_random_state = 0x00a09e86;
+static scr_int taf_runtime_random_state = 0x00a09e86;
+
+
 /*
  * taf_runtime_rnd_reset()
  * taf_runtime_rnd()
@@ -158,9 +169,6 @@ taf_random_reset (void)
  * 0.4268395, 0.8504441, 0.6232703, 0.8613715, 0.4148291 -- exactly the
  * pass-through lines vbrng.dll traced from run390 after the second codec pass.
  */
-static scr_int taf_gamefile_random_state = 0x00a09e86;
-static scr_int taf_runtime_random_state = 0x00a09e86;
-
 void
 taf_runtime_rnd_reset (void)
 {
@@ -363,8 +371,10 @@ taf_append_buffer (scr_tafref_t taf, const scr_byte *buffer, scr_int length)
       if (taf->slab_count == taf->slabs_allocated)
         {
           taf->slabs_allocated += GROW_INCREMENT;
-          taf->slabs = (decltype(taf->slabs)) scr_realloc (taf->slabs,
-                                   taf->slabs_allocated * sizeof (*taf->slabs));
+          taf->slabs
+            = (decltype(taf->slabs)) scr_realloc (taf->slabs,
+                                                  taf->slabs_allocated
+                                                  * sizeof (*taf->slabs));
         }
 
       /* Advance to the next unused slab in the slab descriptors array. */
@@ -390,7 +400,8 @@ taf_append_buffer (scr_tafref_t taf, const scr_byte *buffer, scr_int length)
        * than creating a new slab.  This may cause allocation to overflow
        * the system limits on single allocated areas on some platforms.
        */
-      slab->data = (decltype(slab->data)) scr_realloc (slab->data, slab->size + bytes);
+      slab->data = (decltype(slab->data)) scr_realloc (slab->data,
+                                                       slab->size + bytes);
       memcpy (slab->data + slab->size, buffer, bytes);
       slab->size += bytes;
 
@@ -528,7 +539,7 @@ taf_unobfuscate (scr_tafref_t taf, scr_read_callbackref_t callback,
   if (used_bytes > 0)
     {
       scr_error ("taf_unobfuscate:"
-                " warning: %ld unhandled bytes in the buffer\n", used_bytes);
+                 " warning: %ld unhandled bytes in the buffer\n", used_bytes);
     }
 
   if (taf->is_unterminated)
@@ -560,7 +571,7 @@ taf_read_raw (scr_tafref_t taf, scr_read_callbackref_t callback, void *opaque)
 
   if (used_bytes > 0)
     scr_error ("taf_read_raw:"
-              " warning: %ld unhandled bytes in the buffer\n", used_bytes);
+               " warning: %ld unhandled bytes in the buffer\n", used_bytes);
 
   if (taf->is_unterminated)
     scr_fatal ("taf_read_raw: unterminated final data slab\n");
@@ -692,20 +703,7 @@ taf_decompress (scr_tafref_t taf, scr_read_callbackref_t callback,
 }
 
 
-/*
- * Saved-game container sniffing.
- *
- * A .tas carries no signature, so its format has to be recognised from its
- * first bytes.  A version 4.0 save is a bare zlib stream, whose two-byte
- * header is 0x78 (deflate, 32K window -- what every deflateInit emits)
- * followed by a check byte chosen so the pair is a multiple of 31.  Anything
- * else is a pre-4.0 save, obfuscated with the same Visual Basic PRNG a version
- * 3.9 .taf uses.  The odds of an obfuscated first line passing the zlib test
- * by chance are about one in eight thousand.
- *
- * The sniffed bytes cannot be pushed back into the caller's stream, so the
- * reader runs against taf_sniff_read(), which replays them and then delegates.
- */
+/* Saved-game prefix peeked at for its format, and replayed on reading. */
 typedef struct
 {
   scr_read_callbackref_t callback;
@@ -715,6 +713,22 @@ typedef struct
   scr_int offset;
 } scr_tas_sniff_t;
 
+
+/*
+ * taf_sniff_read()
+ * taf_sniff_tas_version()
+ *
+ * Saved-game container sniffing.  A .tas carries no signature, so its format
+ * has to be recognised from its first bytes.  A version 4.0 save is a bare
+ * zlib stream, whose two-byte header is 0x78 (deflate, 32K window -- what
+ * every deflateInit emits) followed by a check byte chosen so the pair is a
+ * multiple of 31.  Anything else is a pre-4.0 save, obfuscated with the same
+ * Visual Basic PRNG a version 3.9 .taf uses.  The odds of an obfuscated first
+ * line passing the zlib test by chance are about one in eight thousand.
+ *
+ * The sniffed bytes cannot be pushed back into the caller's stream, so the
+ * reader runs against taf_sniff_read(), which replays them and then delegates.
+ */
 static scr_int
 taf_sniff_read (void *opaque, scr_byte *buffer, scr_int length)
 {
@@ -734,7 +748,8 @@ static scr_int
 taf_sniff_tas_version (const scr_byte *prefix, scr_int length)
 {
   if (length >= 2
-      && prefix[0] == 0x78 && (((scr_int) prefix[0] << 8) | prefix[1]) % 31 == 0)
+      && prefix[0] == 0x78
+      && (((scr_int) prefix[0] << 8) | prefix[1]) % 31 == 0)
     return TAF_VERSION_400;
 
   return TAF_VERSION_390;
@@ -743,9 +758,8 @@ taf_sniff_tas_version (const scr_byte *prefix, scr_int length)
 
 /*
  * taf_populate_from_callback()
- * taf_create_from_callback()
  *
- * Create a TAF structure from data read in by repeated calls to the
+ * Fill an empty TAF structure from data read in by repeated calls to the
  * callback() function.  Callback() should return the count of bytes placed
  * in the buffer, or 0 if no more (end of file).
  */
@@ -791,7 +805,7 @@ taf_populate_from_callback (scr_tafref_t taf,
           if (in_bytes != V400_HEADER_EXTRA)
             {
               scr_error ("taf_create:"
-                        " not enough data for extended TAF header\n");
+                         " not enough data for extended TAF header\n");
               taf_destroy (taf);
               return NULL;
             }
@@ -859,6 +873,7 @@ taf_populate_from_callback (scr_tafref_t taf,
   return taf;
 }
 
+
 /*
  * taf_populate_raw()
  *
@@ -885,15 +900,17 @@ taf_populate_raw (scr_tafref_t taf, scr_read_callbackref_t callback,
 }
 
 
+/* A populate step: fill the taf from the callback, or destroy it. */
+typedef scr_tafref_t (*taf_populate_fn) (scr_tafref_t, scr_read_callbackref_t,
+                                         void *, scr_bool);
+
+
 /*
  * taf_create_from_callback()
  *
  * Shared scaffold of the public constructors: create an empty taf, and hand
  * it to the populate function given along with the callback data.
  */
-typedef scr_tafref_t (*taf_populate_fn) (scr_tafref_t, scr_read_callbackref_t,
-                                         void *, scr_bool);
-
 static scr_tafref_t
 taf_create_from_callback (taf_populate_fn populate,
                           scr_read_callbackref_t callback,
@@ -954,7 +971,7 @@ taf_create_tas_raw (scr_read_callbackref_t callback, void *opaque)
   return taf_create_from_callback (taf_populate_raw, callback, opaque, FALSE);
 }
 
- 
+
 /*
  * taf_first_line()
  *
@@ -1103,16 +1120,16 @@ taf_debug_dump (scr_tafref_t taf)
   scr_trace ("\n");
 
   scr_trace ("taf->version = %s\n",
-            taf->version == TAF_VERSION_400 ? "4.00" :
-            taf->version == TAF_VERSION_390 ? "3.90" :
-            taf->version == TAF_VERSION_380 ? "3.80" :
-            taf->version == TAF_VERSION_370 ? "3.70" : "[Unknown]");
+             taf->version == TAF_VERSION_400 ? "4.00"
+             : taf->version == TAF_VERSION_390 ? "3.90"
+             : taf->version == TAF_VERSION_380 ? "3.80"
+             : taf->version == TAF_VERSION_370 ? "3.70" : "[Unknown]");
 
   scr_trace ("taf->slabs = \n");
   for (index_ = 0; index_ < taf->slab_count; index_++)
     {
       scr_trace ("%3ld : %p, %ld bytes\n", index_,
-                taf->slabs[index_].data, taf->slabs[index_].size);
+                 taf->slabs[index_].data, taf->slabs[index_].size);
     }
 
   scr_trace ("taf->slab_count = %ld\n", taf->slab_count);

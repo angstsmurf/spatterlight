@@ -38,6 +38,7 @@ enum
 };
 static const scr_char NUL = '\0';
 
+
 /* Properties trace flag. */
 static scr_bool prop_trace = FALSE;
 
@@ -73,6 +74,7 @@ typedef struct scr_prop_node_s
   struct scr_prop_node_s *last_found;
 } scr_prop_node_t;
 typedef scr_prop_node_t *scr_prop_noderef_t;
+
 
 /*
  * Properties set structure.  This is a set of properties, on which the
@@ -166,7 +168,8 @@ prop_ensure_capacity (void *array,
        * which stays growable past prop_solidify() for runtime-mutable strings)
        * would otherwise read indeterminate realloc tail bytes.
        */
-      new_array = (decltype(new_array)) scr_realloc (array, required * element_size);
+      new_array
+        = (decltype(new_array)) scr_realloc (array, required * element_size);
       start_clearing = new_array + old_size * element_size;
       memset (start_clearing, 0, (required - old_size) * element_size);
 
@@ -231,9 +234,11 @@ prop_dictionary_lookup (scr_prop_setref_t bundle, const scr_char *string)
     {
       const scr_char *const *dict_search;
 
-      dict_search = (decltype(dict_search)) bsearch (&string, bundle->dictionary.data (),
-                             bundle->dictionary.size (),
-                             sizeof (bundle->dictionary[0]), prop_compare);
+      dict_search
+        = (decltype(dict_search)) bsearch (&string, bundle->dictionary.data (),
+                                           bundle->dictionary.size (),
+                                           sizeof (bundle->dictionary[0]),
+                                           prop_compare);
       if (dict_search)
         return *dict_search;
     }
@@ -273,9 +278,11 @@ prop_new_node (scr_prop_setref_t bundle)
     {
       scr_int required;
 
-      /* Create a new node pool.  The slab itself stays a raw allocation --
-         nodes are referenced by address throughout the tree, so it must
-         never move. */
+      /*
+       * Create a new node pool.  The slab itself stays a raw allocation --
+       * nodes are referenced by address throughout the tree, so it must
+       * never move.
+       */
       required = NODE_POOL_CAPACITY * sizeof (*bundle->node_pools[0]);
       bundle->node_pools.push_back ((scr_prop_node_s *) scr_malloc (required));
     }
@@ -503,10 +510,10 @@ prop_add_child (scr_prop_noderef_t parent,
         scr_fatal ("prop_add_child: integer key under string keys\n");
 
       /* Resize the parent's child list if necessary. */
-      parent->child_list = (decltype(parent->child_list)) prop_ensure_capacity (parent->child_list,
-                                                 parent->property.integer,
-                                                 name.integer + 1,
-                                                 sizeof (*parent->child_list));
+      parent->child_list
+        = (decltype(parent->child_list))
+          prop_ensure_capacity (parent->child_list, parent->property.integer,
+                                name.integer + 1, sizeof (*parent->child_list));
 
       /* Update the child count if the new node increases it. */
       if (parent->property.integer <= name.integer)
@@ -526,12 +533,14 @@ prop_add_child (scr_prop_noderef_t parent,
           scr_fatal ("prop_add_child: string key under integer keys\n");
 
         /* Add a single entry to the child list and its hashes, and resize. */
-        parent->child_list = (decltype(parent->child_list)) prop_ensure_capacity (parent->child_list,
-                                                   count, count + 1,
-                                                   sizeof (*parent->child_list));
-        parent->child_hashes = (decltype(parent->child_hashes)) prop_ensure_capacity (parent->child_hashes,
-                                                   count, count + 1,
-                                                   sizeof (*parent->child_hashes));
+        parent->child_list
+          = (decltype(parent->child_list))
+            prop_ensure_capacity (parent->child_list, count, count + 1,
+                                  sizeof (*parent->child_list));
+        parent->child_hashes
+          = (decltype(parent->child_hashes))
+            prop_ensure_capacity (parent->child_hashes, count, count + 1,
+                                  sizeof (*parent->child_hashes));
 
         /* Open a gap at the child's place in hash order, and store it. */
         position = prop_hash_position (parent->child_hashes, count, hash);
@@ -671,9 +680,7 @@ prop_put (scr_prop_setref_t bundle, const scr_char *format,
         node = prop_add_child (node, type, vt_key[index_], bundle);
     }
 
-  /*
-   * Ensure that we're not about to overwrite an internal node child count.
-   */
+  /* Ensure that we're not about to overwrite an internal node child count. */
   if (node->child_list)
     scr_fatal ("prop_put: overwrite of internal node\n");
 
@@ -696,12 +703,6 @@ prop_put (scr_prop_setref_t bundle, const scr_char *format,
 }
 
 
-/*
- * prop_get()
- *
- * Retrieve a property from a properties set.  Format stuff as above, except
- * with "->" replaced with "<-".  Returns FALSE if no such property exists.
- */
 /*
  * prop_find_leaf()
  *
@@ -787,6 +788,12 @@ prop_put_string (scr_prop_setref_t bundle, const scr_char *format,
 }
 
 
+/*
+ * prop_get()
+ *
+ * Retrieve a property from a properties set.  Format stuff as above, except
+ * with "->" replaced with "<-".  Returns FALSE if no such property exists.
+ */
 scr_bool
 prop_get (scr_prop_setref_t bundle, const scr_char *format,
           scr_vartype_t *vt_rvalue, const scr_vartype_t vt_key[])
@@ -818,7 +825,7 @@ prop_get (scr_prop_setref_t bundle, const scr_char *format,
       scr_int type;
 
       /* Move node down to the matching child, NULL if no match. */
-      type = format[index_ + 3 ];
+      type = format[index_ + 3];
       node = prop_find_child (node, type, vt_key[index_]);
       if (!node)
         break;
@@ -888,13 +895,15 @@ prop_trim_node (scr_prop_noderef_t node)
         prop_trim_node (node->child_list[index_]);
 
       /* Trim allocation on this node. */
-      node->child_list = (decltype(node->child_list)) prop_trim_capacity (node->child_list,
-                                             node->property.integer,
-                                             sizeof (*node->child_list));
+      node->child_list
+        = (decltype(node->child_list))
+          prop_trim_capacity (node->child_list, node->property.integer,
+                              sizeof (*node->child_list));
       if (node->child_hashes)
-        node->child_hashes = (decltype(node->child_hashes)) prop_trim_capacity (node->child_hashes,
-                                               node->property.integer,
-                                               sizeof (*node->child_hashes));
+        node->child_hashes
+          = (decltype(node->child_hashes))
+            prop_trim_capacity (node->child_hashes, node->property.integer,
+                                sizeof (*node->child_hashes));
     }
 }
 
@@ -1103,13 +1112,13 @@ prop_get_var_integers (scr_prop_setref_t bundle, scr_vartype_t vt_key[],
 {
   scr_int *const vars[3] = { var1, var2, var3 };
   static const scr_char *const names[3] = { "Var1", "Var2", "Var3" };
-  scr_int index;
+  scr_int index_;
 
   assert (count >= 1 && count <= 3);
-  for (index = 0; index < count; index++)
+  for (index_ = 0; index_ < count; index_++)
     {
-      vt_key[4].string = names[index];
-      *vars[index] = prop_get_integer (bundle, "I<-sisis", vt_key);
+      vt_key[4].string = names[index_];
+      *vars[index_] = prop_get_integer (bundle, "I<-sisis", vt_key);
     }
 }
 
@@ -1145,9 +1154,11 @@ prop_create_empty (void)
 {
   scr_prop_setref_t bundle;
 
-  /* Create a new, empty set.  The set holds std::vector members (P3 RAII),
-     so it is non-POD and must be new()'d -- value-init zeroes the POD fields
-     and default-constructs the vectors empty. */
+  /*
+   * Create a new, empty set.  The set holds std::vector members (P3 RAII),
+   * so it is non-POD and must be new()'d -- value-init zeroes the POD fields
+   * and default-constructs the vectors empty.
+   */
   bundle = new scr_prop_set_s ();
   bundle->magic = PROP_MAGIC;
   bundle->node_count = 0;
@@ -1224,10 +1235,12 @@ prop_destroy (scr_prop_setref_t bundle)
   if (bundle->taf)
     taf_destroy (bundle->taf);
 
-  /* Free the bundle; its destructor releases the bookkeeping vectors.  (The
-     old 0xaa poison is gone -- it would corrupt the vector members the
-     destructor is about to free, the same reason the scr_filter_s struct
-     moved to new/delete in P3.) */
+  /*
+   * Free the bundle; its destructor releases the bookkeeping vectors.  (The
+   * old 0xaa poison is gone -- it would corrupt the vector members the
+   * destructor is about to free, the same reason the scr_filter_s struct
+   * moved to new/delete in P3.)
+   */
   bundle->magic = 0;
   delete bundle;
 }
@@ -1283,9 +1296,11 @@ prop_adopt (scr_prop_setref_t bundle, void *addr)
 {
   assert (prop_is_valid (bundle));
 
-  /* Add the new address to the end of the array.  (The orphans vector is the
-     one bookkeeping array that grows past prop_solidify() -- see
-     prop_put_string().) */
+  /*
+   * Add the new address to the end of the array.  (The orphans vector is the
+   * one bookkeeping array that grows past prop_solidify() -- see
+   * prop_put_string().)
+   */
   bundle->orphans.push_back (addr);
 }
 
@@ -1331,8 +1346,8 @@ prop_debug_is_dictionary_string (scr_prop_setref_t bundle, const void *pointer)
 }
 
 static void
-prop_debug_dump_node (scr_prop_setref_t bundle,
-                      scr_int depth, scr_int child_index, scr_prop_noderef_t node)
+prop_debug_dump_node (scr_prop_setref_t bundle, scr_int depth,
+                      scr_int child_index, scr_prop_noderef_t node)
 {
   scr_int index_;
 
@@ -1392,19 +1407,19 @@ prop_debug_dump (scr_prop_setref_t bundle)
   /* Dump complete structure. */
   scr_trace ("Property: debug dump follows...\n");
   scr_trace ("bundle->is_readonly = %s\n",
-            bundle->is_readonly ? "true" : "false");
+             bundle->is_readonly ? "true" : "false");
   scr_trace ("bundle->dictionary_length = %ld\n",
-            (scr_int) bundle->dictionary.size ());
+             (scr_int) bundle->dictionary.size ());
 
   scr_trace ("bundle->dictionary =\n");
   for (index_ = 0; index_ < (scr_int) bundle->dictionary.size (); index_++)
     {
       scr_trace ("%3ld : %p \"%s\"\n", index_,
-                bundle->dictionary[index_], bundle->dictionary[index_]);
+                 bundle->dictionary[index_], bundle->dictionary[index_]);
     }
 
   scr_trace ("bundle->node_pools_length = %ld\n",
-            (scr_int) bundle->node_pools.size ());
+             (scr_int) bundle->node_pools.size ());
 
   scr_trace ("bundle->node_pools =\n");
   for (index_ = 0; index_ < (scr_int) bundle->node_pools.size (); index_++)

@@ -35,6 +35,7 @@
 static const scr_char NEWLINE = '\n';
 static const scr_char CARRIAGE_RETURN = '\r';
 
+
 /*
  * Legacy sentinel that introduced Scarier's old private Battle System block,
  * once written (for battle games only) as extra lines after the ADRIFT turns
@@ -46,15 +47,15 @@ static const scr_char CARRIAGE_RETURN = '\r';
  * field.
  *
  * The Runner's layout (reverse-engineered from run400.exe savegame @477318)
- * interleaves battle data -- a 15-field block right after the player fields, and
- * a 17-field block inside each NPC's record (after "seen", before the walk
- * steps), both gated on the battle-system flag, with live stamina near the front
- * of each block and the Max/Hi/Lo attributes that the "Change <attribute>" task
- * action can alter following it.  Newer Scarier saves reproduce that layout (and
- * emit the leading version line below), so they are byte-loadable by the Runner;
- * older saves that predate the change carry the trailing marker block instead.
- */
-/*
+ * interleaves battle data -- a 15-field block right after the player fields,
+ * and a 17-field block inside each NPC's record (after "seen", before the walk
+ * steps), both gated on the battle-system flag, with live stamina near the
+ * front of each block and the Max/Hi/Lo attributes that the "Change
+ * <attribute>" task action can alter following it.  Newer Scarier saves
+ * reproduce that layout (and emit the leading version line below), so they are
+ * byte-loadable by the Runner; older saves that predate the change carry the
+ * trailing marker block instead.
+ *
  * Battle state block markers.  Version 2 adds the mutable per-character battle
  * attributes (attitude, max stamina, speed, and the ranged-attribute lo/hi/max
  * triples) after the version-1 stamina/counter/wield fields.  Version-1 saves
@@ -64,11 +65,13 @@ static const scr_char CARRIAGE_RETURN = '\r';
 static const scr_char *const SER_BATTLE_MARKER = "ScarierBattleState/2";
 static const scr_char *const SER_BATTLE_MARKER_V1 = "ScarierBattleState/1";
 
+
 /*
  * ADRIFT v4 leading version line.  The real Runner's saveg routine
  * (run400.exe @477318) writes, as the very first .tas line,
  *
- *     Print 1, Chr(172) & CStr(App.Major) & Format(Minor,"000") & Format(Rev,"00")
+ *     Print 1, Chr(172) & CStr(App.Major) _
+ *              & Format(Minor,"000") & Format(Rev,"00")
  *
  * i.e. the byte 0xAC ('<not>', Chr(172)) followed by the Major version, the
  * Minor zero-padded to three digits, and the Revision zero-padded to two.  For
@@ -77,13 +80,15 @@ static const scr_char *const SER_BATTLE_MARKER_V1 = "ScarierBattleState/1";
  * started at GameName), so a Runner save and a Scarier save were mutually
  * unreadable.  We now emit the header so the Runner will accept our saves, and
  * on read we treat the leading 0xAC byte as an unambiguous discriminator: a
- * line beginning with it is a Runner/new-format save whose version line we skip;
- * any other first line is a legacy SCARE save whose first line is the GameName.
+ * line beginning with it is a Runner/new-format save whose version line we
+ * skip; any other first line is a legacy SCARE save whose first line is the
+ * GameName.
  */
 static const scr_byte SER_VERSION_LEAD = 0xAC;
 static const scr_char *const SER_VERSION_HEADER = "\xAC" "400052";
 
 enum { BUFFER_SIZE = 4096 };
+
 
 /*
  * Pre-4.0 saved games.
@@ -110,6 +115,7 @@ enum { BUFFER_SIZE = 4096 };
  */
 static scr_bool ser_pre_v4 = FALSE;
 
+
 /*
  * ser_openness_pre_v4()
  *
@@ -121,6 +127,7 @@ ser_openness_pre_v4 (scr_int openness)
 {
   return (openness == 5 || openness == 6) ? 11 - openness : openness;
 }
+
 
 /*
  * Raw (uncompressed) mode for the next serialization run.  The undo ring's
@@ -136,6 +143,12 @@ ser_openness_pre_v4 (scr_int openness)
  */
 static scr_bool ser_raw_memo = FALSE;
 
+
+/*
+ * ser_set_raw_memo()
+ *
+ * Select or clear raw mode for the next serialization run.
+ */
 void
 ser_set_raw_memo (scr_bool raw)
 {
@@ -201,7 +214,8 @@ ser_flush (scr_bool is_final)
     {
       /* Allocate an initial output buffer. */
       ser_out_buffer_size = BUFFER_SIZE;
-      ser_out_buffer = (decltype(ser_out_buffer)) scr_malloc (ser_out_buffer_size);
+      ser_out_buffer
+        = (decltype(ser_out_buffer)) scr_malloc (ser_out_buffer_size);
 
       /* Initialize Zlib deflation functions. */
       ser_stream.next_out = ser_out_buffer;
@@ -376,12 +390,14 @@ ser_buffer_buffer (const scr_char *buffer, scr_int length)
       ser_buffer = (decltype(ser_buffer)) scr_malloc (BUFFER_SIZE);
     }
 
-  /* Copy in chunks, flushing eagerly whenever the buffer fills -- every
+  /*
+   * Copy in chunks, flushing eagerly whenever the buffer fills -- every
    * helper (ser_buffer_character included) relies on the buffer never being
    * left exactly full.  The undo snapshot funnels the whole game state
    * through here every turn, so this is memcpy rather than the old
    * per-character loop; the deflate stream sees the same byte sequence
-   * either way (Z_NO_FLUSH output depends only on the data). */
+   * either way (Z_NO_FLUSH output depends only on the data).
+   */
   while (offset < length)
     {
       scr_int chunk;
@@ -406,6 +422,7 @@ ser_buffer_string (const scr_char *string)
   ser_buffer_character (CARRIAGE_RETURN);
   ser_buffer_character (NEWLINE);
 }
+
 
 /*
  * ser_render_ulong()
@@ -453,8 +470,10 @@ ser_buffer_int_special (scr_int value)
   scr_char buffer[32];
   scr_char *out = buffer;
 
-  /* Weirdo formatting for compatibility: "% ld " -- a sign column (space for
-   * non-negative, '-' for negative) and a trailing space. */
+  /*
+   * Weirdo formatting for compatibility: "% ld " -- a sign column (space for
+   * non-negative, '-' for negative) and a trailing space.
+   */
   *out++ = value < 0 ? '-' : ' ';
   out = ser_render_ulong (out, value < 0 ? -(unsigned long) value
                                          : (unsigned long) value);
@@ -463,28 +482,50 @@ ser_buffer_int_special (scr_int value)
   ser_buffer_string (buffer);
 }
 
+static void
+ser_buffer_uint (scr_uint value)
+{
+  scr_char buffer[32];
+  scr_char *out;
+
+  /* Convert to a string ("%lu") and buffer that. */
+  out = ser_render_ulong (buffer, (unsigned long) value);
+  *out = '\0';
+  ser_buffer_string (buffer);
+}
+
+static void
+ser_buffer_boolean (scr_bool boolean)
+{
+  /* Write a 1 for TRUE, 0 for FALSE. */
+  ser_buffer_string (boolean ? "1" : "0");
+}
+
+
 /*
- * The Runner stores the four ranged battle attributes in the save in the order
- * Strength, Defence, Accuracy, Agility -- Scarier's scr_battle_t slots 0, 2, 1, 3
- * (BATTLE_STRENGTH/ACCURACY/DEFENSE/AGILITY) -- and writes each as max, hi, lo.
- * (Order derived from real run400.exe saves; the original capture notes are no
- * longer in the tree, so re-confirm against a Runner save before changing it.)
+ * The Runner stores the four ranged battle attributes in the save in the
+ * order Strength, Defence, Accuracy, Agility -- Scarier's scr_battle_t slots
+ * 0, 2, 1, 3 (BATTLE_STRENGTH/ACCURACY/DEFENSE/AGILITY) -- and writes each as
+ * max, hi, lo.  (Order derived from real run400.exe saves; the original
+ * capture notes are no longer in the tree, so re-confirm against a Runner
+ * save before changing it.)
  */
 static const scr_int SER_BATTLE_SLOTS[BATTLE_ATTR_COUNT] = {
   BATTLE_STRENGTH, BATTLE_DEFENSE, BATTLE_ACCURACY, BATTLE_AGILITY
 };
 
+
 /*
  * ser_save_battle_block()
  *
- * Buffer one character's interleaved ADRIFT battle block.  For an NPC (npc >= 0)
- * this is 17 values: attitude, max stamina, live stamina, then each attribute's
- * (max, hi, lo) in SER_BATTLE_SLOTS order, then speed and the attack counter.
- * For the player (npc < 0) it is 15 values: the attitude and speed/attack-
- * counter fields are absent, and the block ends with the wielded-weapon object
- * (the Runner's player sub-struct index 38).  The Runner prints these with the
- * raw VB Print numeric format, i.e. space-padded; ser_buffer_int_special matches
- * it byte for byte.
+ * Buffer one character's interleaved ADRIFT battle block.  For an NPC
+ * (npc >= 0) this is 17 values: attitude, max stamina, live stamina, then
+ * each attribute's (max, hi, lo) in SER_BATTLE_SLOTS order, then speed and
+ * the attack counter.  For the player (npc < 0) it is 15 values: the
+ * attitude and speed/attack-counter fields are absent, and the block ends
+ * with the wielded-weapon object (the Runner's player sub-struct index 38).
+ * The Runner prints these with the raw VB Print numeric format, i.e.
+ * space-padded; ser_buffer_int_special matches it byte for byte.
  *
  * NOTE: the byte-exact correspondence to real run400.exe saves was originally
  * validated against captured .tas fixtures; those notes are no longer checked
@@ -533,6 +574,7 @@ ser_save_battle_block (scr_gameref_t game, scr_int npc)
     }
 }
 
+
 /*
  * Cached immutable serializer inputs.
  *
@@ -547,16 +589,24 @@ ser_save_battle_block (scr_gameref_t game, scr_int npc)
  * prop_get_* wrappers, so a malformed game fails exactly as before -- and the
  * cache tracks a single game, dropped by gs_destroy() via ser_forget_game().
  * Only the save path caches; ser_load_game() is a once-per-restore walk.
+ *
+ * ser_cache_object_rooms holds, per static object, the exact int sequence
+ * its room list emits (leading count, then rooms); it is always non-empty
+ * once built, so empty() means not built.
  */
 static const void *ser_cache_game = NULL;
-/* Per static object, the exact int sequence its room list emits (leading
- * count, then rooms); always non-empty once built, so empty() = not built. */
 static std::vector<std::vector<scr_int> > ser_cache_object_rooms;
 static std::vector<scr_int> ser_cache_event_task;      /* -1 = not built */
 static scr_int ser_cache_var_count = -1;
 static std::vector<const scr_char *> ser_cache_var_name;  /* NULL = unbuilt */
 static std::vector<scr_int> ser_cache_var_type;
 
+
+/*
+ * ser_synchronize_cache()
+ *
+ * Reset the cache if it was built for a different game, or not at all.
+ */
 static void
 ser_synchronize_cache (scr_gameref_t game)
 {
@@ -571,6 +621,7 @@ ser_synchronize_cache (scr_gameref_t game)
       ser_cache_game = game;
     }
 }
+
 
 /*
  * ser_forget_game()
@@ -591,6 +642,7 @@ ser_forget_game (const void *game)
       ser_cache_var_type.clear ();
     }
 }
+
 
 /*
  * ser_object_static_rooms()
@@ -658,6 +710,7 @@ ser_object_static_rooms (scr_gameref_t game, scr_int object)
   return cached;
 }
 
+
 /*
  * ser_save_object_location()
  *
@@ -715,25 +768,6 @@ ser_save_object_location (scr_gameref_t game, scr_int object)
   }
 }
 
-static void
-ser_buffer_uint (scr_uint value)
-{
-  scr_char buffer[32];
-  scr_char *out;
-
-  /* Convert to a string ("%lu") and buffer that. */
-  out = ser_render_ulong (buffer, (unsigned long) value);
-  *out = '\0';
-  ser_buffer_string (buffer);
-}
-
-static void
-ser_buffer_boolean (scr_bool boolean)
-{
-  /* Write a 1 for TRUE, 0 for FALSE. */
-  ser_buffer_string (boolean ? "1" : "0");
-}
-
 
 /*
  * ser_variable_count()
@@ -775,10 +809,14 @@ ser_game_is_pre_v4 (scr_prop_setref_t bundle)
 
 
 /*
+ * ser_save_game_body()
+ * ser_save_game_internal()
  * ser_save_game()
  * ser_save_game_to_file()
  *
  * Serialize a game and save its state using the given callback and opaque.
+ * The body writes the record stream; the internal wrapper selects the layout
+ * and manages the writer state around it.
  *
  * ser_save_game_to_file() is the one that produces a file for the player, and
  * for a pre-4.0 game it writes that game's native save format so the original
@@ -795,9 +833,11 @@ ser_save_game_body (scr_gameref_t game)
   scr_vartype_t vt_key[3];
   scr_int index_, var_count;
 
-  /* Reset the immutable-input cache if this is not the game it was built
+  /*
+   * Reset the immutable-input cache if this is not the game it was built
    * for; the undo ring calls this every turn, so the reads cached below
-   * matter. */
+   * matter.
+   */
   ser_synchronize_cache (game);
 
   /*
@@ -843,10 +883,10 @@ ser_save_game_body (scr_gameref_t game)
   /*
    * Write encumbrance details: the player's size and weight limits (constant
    * for a game, the same converted values the Runner stores), then the current
-   * carried size and weight.  We now maintain these running totals (matching the
-   * Runner's accounting, double-count and all), so we write the live values just
-   * as the Runner does.  They are still recomputed from inventory on load, so a
-   * reader that ignores them remains correct.
+   * carried size and weight.  We now maintain these running totals (matching
+   * the Runner's accounting, double-count and all), so we write the live values
+   * just as the Runner does.  They are still recomputed from inventory on load,
+   * so a reader that ignores them remains correct.
    */
   ser_buffer_int (obj_get_player_size_limit (game));
   ser_buffer_int (gs_carried_size (game));
@@ -879,8 +919,10 @@ ser_save_game_body (scr_gameref_t game)
             ser_buffer_int (gs_object_openness (game, index_));
         }
 
-      /* A pre-4.0 game's objects all have CurrentState zero (the 3.9 grammar
-       * defaults it), so this never fires for a pre-4.0 save. */
+      /*
+       * A pre-4.0 game's objects all have CurrentState zero (the 3.9 grammar
+       * defaults it), so this never fires for a pre-4.0 save.
+       */
       if (gs_object_state (game, index_) != 0)
         ser_buffer_int (gs_object_state (game, index_));
 
@@ -913,8 +955,10 @@ ser_save_game_body (scr_gameref_t game)
               vt_key[2].string = "TaskNum";
               task = prop_get_integer (bundle, "I<-sis", vt_key);
 
-              /* No such task is no starter task; the restore would refuse
-                 the save over it. */
+              /*
+               * No such task is no starter task; the restore would refuse
+               * the save over it.
+               */
               if (task < 0 || task > gs_task_count (game))
                 task = 0;
             }
@@ -967,8 +1011,10 @@ ser_save_game_body (scr_gameref_t game)
         }
     }
 
-  /* Save each variable.  The count and each name/type pair are immutable,
-   * so they are cached after the first turn's walk; only the values change. */
+  /*
+   * Save each variable.  The count and each name/type pair are immutable,
+   * so they are cached after the first turn's walk; only the values change.
+   */
   var_count = ser_cache_var_count;
   if (var_count < 0)
     {
@@ -1016,10 +1062,10 @@ ser_save_game_body (scr_gameref_t game)
   /*
    * Note: the live Battle System state (stamina, attributes, attitudes, etc.)
    * is now written inline, in the player and NPC blocks above, matching the
-   * Runner's layout.  We no longer append the private trailing SER_BATTLE_MARKER
-   * block; older Scarier saves that carry one are still read (see ser_load_game).
+   * Runner's layout.  We no longer append the private trailing
+   * SER_BATTLE_MARKER block; older Scarier saves that carry one are still read
+   * (see ser_load_game).
    */
-
 }
 
 static void
@@ -1027,13 +1073,17 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
                         void *opaque, scr_bool runner_compatible)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+
   assert (callback);
 
   /* Store the callback and opaque references, for writer functions. */
   ser_callback = callback;
   ser_opaque = opaque;
 
-  /* Select the save layout, and start the keystream if it is the pre-4.0 one. */
+  /*
+   * Select the save layout, and start the keystream if it is the pre-4.0
+   * one.
+   */
   ser_pre_v4 = runner_compatible && ser_game_is_pre_v4 (bundle);
   if (ser_pre_v4)
     taf_obfuscate_reset ();
@@ -1117,6 +1167,7 @@ static scr_int ser_tasline = 0;
 /* Restore error, thrown by the readers below and caught in ser_load_game(). */
 struct ser_tas_error_t { };
 
+
 /*
  * ser_get_string()
  * ser_get_int()
@@ -1161,6 +1212,51 @@ ser_get_int (void)
   return value;
 }
 
+static scr_uint
+ser_get_uint (void)
+{
+  const scr_char *string;
+  scr_uint value;
+
+  /* Get line, and scan for a single integer; return it. */
+  string = ser_get_string ();
+  if (sscanf (string, "%lu", &value) != 1)
+    {
+      scr_error ("ser_get_uint:"
+                " invalid integer at line %ld\n", ser_tasline - 1);
+      throw ser_tas_error_t ();
+    }
+
+  return value;
+}
+
+static scr_bool
+ser_get_boolean (void)
+{
+  const scr_char *string;
+  scr_uint value;
+
+  /*
+   * Get line, and scan for a single integer; check it's a valid-looking flag,
+   * and return it.
+   */
+  string = ser_get_string ();
+  if (sscanf (string, "%lu", &value) != 1)
+    {
+      scr_error ("ser_get_boolean:"
+                " invalid boolean at line %ld\n", ser_tasline - 1);
+      throw ser_tas_error_t ();
+    }
+  if (value != 0 && value != 1)
+    {
+      scr_error ("ser_get_boolean:"
+                " warning: suspect boolean at line %ld\n", ser_tasline - 1);
+    }
+
+  return value != 0;
+}
+
+
 /*
  * ser_reject_if()
  *
@@ -1182,6 +1278,7 @@ ser_reject_if (scr_bool out_of_range)
     }
 }
 
+
 /*
  * ser_get_wield()
  *
@@ -1199,6 +1296,7 @@ ser_get_wield (scr_gameref_t game)
 
   return (wield >= 0 && wield < gs_object_count (game)) ? wield : -1;
 }
+
 
 /*
  * ser_restore_battle_attributes()
@@ -1226,6 +1324,7 @@ ser_restore_battle_attributes (scr_battle_t *battle)
   battle->seeded = TRUE;
 }
 
+
 /*
  * ser_restore_battle_block()
  *
@@ -1251,9 +1350,11 @@ ser_restore_battle_block (scr_gameref_t game, scr_int npc)
     {
       const scr_int slot = SER_BATTLE_SLOTS[index_];
 
-      /* A pre-4.0 save stores Strength and Defence only, and no "lo" bound;
+      /*
+       * A pre-4.0 save stores Strength and Defence only, and no "lo" bound;
        * what it omits keeps the values battle_start() seeded, which is what
-       * the 3.9 Runner effectively has too -- it never uses them. */
+       * the 3.9 Runner effectively has too -- it never uses them.
+       */
       if (ser_pre_v4 && slot != BATTLE_STRENGTH && slot != BATTLE_DEFENSE)
         continue;
 
@@ -1272,8 +1373,10 @@ ser_restore_battle_block (scr_gameref_t game, scr_int npc)
   battle->seeded = TRUE;
 }
 
+
 /*
- * ser_object_position_valid() / ser_object_parent_valid()
+ * ser_object_position_valid()
+ * ser_object_parent_valid()
  *
  * Validate a dynamic object's restored position and parent.  A position is one
  * of the OBJ_* sentinels or a 1-based room number.  A parent is an object index
@@ -1309,6 +1412,7 @@ ser_object_parent_valid (scr_gameref_t game, scr_int position, scr_int parent)
       return TRUE;
     }
 }
+
 
 /*
  * ser_restore_object_location()
@@ -1369,8 +1473,10 @@ ser_restore_object_location (scr_gameref_t game, scr_int object,
             }
           else
             {
-              /* One room or several (4.0 finish moves add, see
-                 evt_move_object); the last written is the position. */
+              /*
+               * One room or several (4.0 finish moves add, see
+               * evt_move_object); the last written is the position.
+               */
               scr_bool valid = TRUE;
 
               for (index_ = 1; index_ <= count; index_++)
@@ -1388,50 +1494,6 @@ ser_restore_object_location (scr_gameref_t game, scr_int object,
     }
   else
     game->objects[object].position = ser_get_int ();
-}
-
-static scr_uint
-ser_get_uint (void)
-{
-  const scr_char *string;
-  scr_uint value;
-
-  /* Get line, and scan for a single integer; return it. */
-  string = ser_get_string ();
-  if (sscanf (string, "%lu", &value) != 1)
-    {
-      scr_error ("ser_get_uint:"
-                " invalid integer at line %ld\n", ser_tasline - 1);
-      throw ser_tas_error_t ();
-    }
-
-  return value;
-}
-
-static scr_bool
-ser_get_boolean (void)
-{
-  const scr_char *string;
-  scr_uint value;
-
-  /*
-   * Get line, and scan for a single integer; check it's a valid-looking flag,
-   * and return it.
-   */
-  string = ser_get_string ();
-  if (sscanf (string, "%lu", &value) != 1)
-    {
-      scr_error ("ser_get_boolean:"
-                " invalid boolean at line %ld\n", ser_tasline - 1);
-      throw ser_tas_error_t ();
-    }
-  if (value != 0 && value != 1)
-    {
-      scr_error ("ser_get_boolean:"
-                " warning: suspect boolean at line %ld\n", ser_tasline - 1);
-    }
-
-  return value != 0;
 }
 
 
@@ -1457,10 +1519,11 @@ ser_load_game_body (scr_gameref_t game,
 
   /*
    * Read the first line.  If it begins with the ADRIFT v4 version-line lead
-   * byte (0xAC) it is a Runner/new-format save: skip the version line (we accept
-   * any version a v4 Runner wrote rather than insist on our own digits) and take
-   * the GameName from the next line.  Otherwise the file is a legacy SCARE save
-   * whose first line is already the GameName.  See SER_VERSION_HEADER.
+   * byte (0xAC) it is a Runner/new-format save: skip the version line (we
+   * accept any version a v4 Runner wrote rather than insist on our own digits)
+   * and take the GameName from the next line.  Otherwise the file is a legacy
+   * SCARE save whose first line is already the GameName.  See
+   * SER_VERSION_HEADER.
    */
   gamename = ser_get_string ();
   if (!ser_pre_v4 && (scr_byte) gamename[0] == SER_VERSION_LEAD)
@@ -1506,19 +1569,23 @@ ser_load_game_body (scr_gameref_t game,
   /* Restore the score. */
   new_game->score = ser_get_int ();
 
-  /* Skip the player name (4.0 Runner format only; absent in legacy SCARE
-   * saves and in pre-4.0 Runner saves). */
+  /*
+   * Skip the player name (4.0 Runner format only; absent in legacy SCARE
+   * saves and in pre-4.0 Runner saves).
+   */
   if (runner_format && !ser_pre_v4)
     (void) ser_get_string ();
 
   /* Restore the rest of the player block, validating untrusted indices. */
   {
     const scr_int playerroom = ser_get_int ();
+
     ser_reject_if (playerroom < 1 || playerroom > gs_room_count (new_game));
     gs_set_playerroom (new_game, playerroom - 1);
   }
   {
     const scr_int playerparent = ser_get_int ();
+
     ser_reject_if (playerparent < -1
                    || playerparent >= gs_object_count (new_game));
     gs_set_playerparent (new_game, playerparent);
@@ -1528,15 +1595,20 @@ ser_load_game_body (scr_gameref_t game,
   /* Skip player gender. */
   (void) ser_get_int ();
 
-  /* Skip encumbrance details; the carried totals are recomputed from the
-     restored inventory once loading is done -- all but a 3.9 game's weight,
-     which comes back as it was saved (see below). */
+  /*
+   * Skip encumbrance details; the carried totals are recomputed from the
+   * restored inventory once loading is done -- all but a 3.9 game's weight,
+   * which comes back as it was saved (see below).
+   */
   (void) ser_get_int ();
   (void) ser_get_int ();
   (void) ser_get_int ();
   saved_carried_weight = ser_get_int ();
 
-  /* Runner format: the player's interleaved battle block follows encumbrance. */
+  /*
+   * Runner format: the player's interleaved battle block follows
+   * encumbrance.
+   */
   if (runner_format && battle_is_enabled (new_game))
     ser_restore_battle_block (new_game, -1);
 
@@ -1563,6 +1635,7 @@ ser_load_game_body (scr_gameref_t game,
         {
           const scr_int position = new_game->objects[index_].position;
           const scr_int parent = new_game->objects[index_].parent;
+
           ser_reject_if (!ser_object_position_valid (new_game, position));
           ser_reject_if (!ser_object_parent_valid (new_game, position, parent));
         }
@@ -1584,8 +1657,10 @@ ser_load_game_body (scr_gameref_t game,
       gs_set_object_state (new_game, index_,
                            currentstate != 0 ? ser_get_int () : 0);
 
-      /* Pre-4.0 does not store "unmoved"; the value gs_create() derived from
-       * OnlyWhenNotMoved stands, exactly as it does in the 3.9 Runner. */
+      /*
+       * Pre-4.0 does not store "unmoved"; the value gs_create() derived from
+       * OnlyWhenNotMoved stands, exactly as it does in the 3.9 Runner.
+       */
       if (!ser_pre_v4)
         gs_set_object_unmoved (new_game, index_, ser_get_boolean ());
 
@@ -1661,9 +1736,12 @@ ser_load_game_body (scr_gameref_t game,
       gs_set_event_time (new_game, index_, ser_get_int ());
       task = ser_get_int ();
       {
-        /* An unknown state would only surface later, as a scr_fatal from
-           evt_tick() that ends the session; refuse the save instead. */
+        /*
+         * An unknown state would only surface later, as a scr_fatal from
+         * evt_tick() that ends the session; refuse the save instead.
+         */
         const scr_int state = ser_get_int () + 1;
+
         ser_reject_if (state < ES_WAITING || state > ES_PAUSED);
         gs_set_event_state (new_game, index_, state);
       }
@@ -1710,8 +1788,10 @@ ser_load_game_body (scr_gameref_t game,
       if (runner_format && battle_is_enabled (new_game))
         ser_restore_battle_block (new_game, index_);
 
-      /* Pre-4.0 stores no walk steps, so the walk restarts from gs_create()'s
-       * initial state -- the same thing the 3.9 Runner does. */
+      /*
+       * Pre-4.0 stores no walk steps, so the walk restarts from gs_create()'s
+       * initial state -- the same thing the 3.9 Runner does.
+       */
       if (!ser_pre_v4)
         {
           for (walk = 0; walk < gs_npc_walkstep_count (new_game, index_);
@@ -1820,6 +1900,7 @@ ser_load_game_body (scr_gameref_t game,
   gs_copy (game, new_game);
 }
 
+
 /*
  * ser_load_game_finish()
  *
@@ -1848,10 +1929,12 @@ ser_load_game (scr_gameref_t game,
   scr_var_setref_t new_vars = NULL;
   scr_bool status;
 
-  /* Create a TAF (TAS) reference from callbacks, for reader functions.  A raw
+  /*
+   * Create a TAF (TAS) reference from callbacks, for reader functions.  A raw
    * memo (ser_set_raw_memo) skips the sniff/inflate and is read back verbatim;
    * everything downstream is identical, since the byte stream is the same one
-   * a decompressed 4.0 save would present. */
+   * a decompressed 4.0 save would present.
+   */
   ser_tas = ser_raw_memo ? taf_create_tas_raw (callback, opaque)
                          : taf_create_tas (callback, opaque);
   if (!ser_tas)

@@ -55,6 +55,7 @@
  * initialising stamina; combat resolution builds on these.
  */
 
+
 /*
  * Optional "combat assist" mode (off by default, opt-in via
  * scr_set_combat_assist).  Many amateur ADRIFT games enable the Battle System
@@ -75,6 +76,7 @@ static scr_bool battle_unconfigured = FALSE;
 /* Trace flag, read once from the environment (SCR_TRACE_BATTLE). */
 static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != NULL);
 
+
 /*
  * Legacy (version 3.9 / 3.8) combat model.
  *
@@ -93,11 +95,18 @@ static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != NULL);
  * and the test 0 > 0 never passes, silently making all combat an endless
  * stalemate.  When battle_legacy is set (detected from the game version at
  * battle_start), battle_resolve skips the accuracy/agility test and always
- * connects, letting the existing Strength - Defence damage path -- which already
- * matches the 3.9 formula and message -- decide the outcome.
+ * connects, letting the existing Strength - Defence damage path -- which
+ * already matches the 3.9 formula and message -- decide the outcome.
  */
 static scr_bool battle_legacy = FALSE;
 
+
+/*
+ * battle_set_combat_assist()
+ * battle_get_combat_assist()
+ *
+ * Set and read the opt-in combat assist flag described above.
+ */
 void
 battle_set_combat_assist (scr_bool flag)
 {
@@ -109,6 +118,7 @@ battle_get_combat_assist (void)
 {
   return battle_combat_assist;
 }
+
 
 /*
  * battle_is_legacy_version()
@@ -128,6 +138,7 @@ battle_is_legacy_version (scr_gameref_t game)
     return vt_rvalue.integer < TAF_VERSION_400;
   return FALSE;
 }
+
 
 /*
  * battle_is_enabled()
@@ -233,6 +244,18 @@ battle_attribute_slot (const scr_char *base)
 
 
 /*
+ * battle_state()
+ *
+ * Return the mutable battle state of the player (npc < 0) or an NPC.
+ */
+static scr_battle_t *
+battle_state (scr_gameref_t game, scr_int npc)
+{
+  return (npc < 0) ? gs_player_battle (game) : gs_npc_battle (game, npc);
+}
+
+
+/*
  * battle_attribute_range()
  * battle_attribute_max()
  *
@@ -246,8 +269,7 @@ static void
 battle_attribute_range (scr_gameref_t game, scr_int npc,
                         const scr_char *base, scr_int *lo, scr_int *hi)
 {
-  const scr_battle_t *battle = (npc < 0) ? gs_player_battle (game)
-                                        : gs_npc_battle (game, npc);
+  const scr_battle_t *battle = battle_state (game, npc);
   const scr_int slot = battle_attribute_slot (base);
 
   if (slot >= 0)
@@ -262,8 +284,7 @@ battle_attribute_range (scr_gameref_t game, scr_int npc,
 scr_int
 battle_attribute_max (scr_gameref_t game, scr_int npc, const scr_char *base)
 {
-  const scr_battle_t *battle = (npc < 0) ? gs_player_battle (game)
-                                        : gs_npc_battle (game, npc);
+  const scr_battle_t *battle = battle_state (game, npc);
   const scr_int slot = battle_attribute_slot (base);
   scr_int lo, hi;
 
@@ -277,9 +298,70 @@ battle_attribute_max (scr_gameref_t game, scr_int npc, const scr_char *base)
 }
 
 
-/* Forward declarations; defined with the combat helpers below. */
-static scr_int battle_speed_roll (scr_gameref_t game, scr_int npc);
+/*
+ * battle_get_stamina()
+ * battle_set_stamina()
+ *
+ * Read and write the current stamina of the player (npc < 0) or an NPC.
+ */
+static scr_int
+battle_get_stamina (scr_gameref_t game, scr_int npc)
+{
+  return (npc < 0) ? gs_playerstamina (game) : gs_npc_stamina (game, npc);
+}
+
+static void
+battle_set_stamina (scr_gameref_t game, scr_int npc, scr_int stamina)
+{
+  if (npc < 0)
+    gs_set_playerstamina (game, stamina);
+  else
+    gs_set_npc_stamina (game, npc, stamina);
+}
+
+
+/*
+ * battle_attitude()
+ * battle_speed_roll()
+ *
+ * Read an NPC's current attitude (0 = neutral, 1 = ally, 2 = enemy) from the
+ * mutable battle state, and roll the number of turns until its next attack
+ * from its current Speed setting (0 = every turn, 1 = most turns, 2/3/4 =
+ * every 2nd/3rd/4th turn).
+ */
+static scr_int
+battle_attitude (scr_gameref_t game, scr_int npc)
+{
+  return gs_npc_battle (game, npc)->attitude;
+}
+
+static scr_int
+battle_speed_roll (scr_gameref_t game, scr_int npc)
+{
+  const scr_int speed = gs_npc_battle (game, npc)->speed;
+
+  /*
+   * "Most turns" is run400's `Int(Rnd * 2) + 1` (Proc_11_13) but run390's
+   * `Int(Rnd * 1) + 1` (getnexthit 42C60A): a draw that can only be 1, so a
+   * 3.9 Speed 1 NPC attacks every turn like Speed 0 -- yeh's vine re-arms
+   * to 1 and takes Leon the turn after it takes the player.  Drawn either
+   * way to keep the stream in step with the Runner.
+   */
+  switch (speed)
+    {
+    case 1:  return battle_legacy ? scr_randomint (1, 1)
+                                  : scr_randomint (1, 2);   /* Most turns. */
+    case 2:  return 2;                     /* Every second turn. */
+    case 3:  return 3;                     /* Every third turn. */
+    case 4:  return 4;                     /* Every fourth turn. */
+    default: return 1;                     /* Every turn. */
+    }
+}
+
+
+/* Forward declaration; defined with the combat resolution below. */
 static void battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible);
+
 
 /*
  * battle_seed_attributes()
@@ -296,8 +378,7 @@ battle_seed_attributes (scr_gameref_t game, scr_int npc)
   static const scr_char *const names[BATTLE_ATTR_COUNT] = {
     "Strength", "Accuracy", "Defense", "Agility"
   };
-  scr_battle_t *battle = (npc < 0) ? gs_player_battle (game)
-                                  : gs_npc_battle (game, npc);
+  scr_battle_t *battle = battle_state (game, npc);
   scr_int slot, lo, hi;
 
   for (slot = 0; slot < BATTLE_ATTR_COUNT; slot++)
@@ -314,6 +395,7 @@ battle_seed_attributes (scr_gameref_t game, scr_int npc)
   battle->speed = battle_get_property (game, npc, "Speed", 0);
   battle->seeded = TRUE;
 }
+
 
 /*
  * battle_all_ranges_degenerate()
@@ -350,15 +432,7 @@ battle_all_ranges_degenerate (scr_gameref_t game)
   return TRUE;
 }
 
-/*
- * battle_start()
- *
- * Initialise battle state at game start.  Seed every mutable attribute from
- * the bundle, then roll a starting stamina within range for the player and for
- * every NPC and zero the recovery counters.  Each NPC's attack cadence counter
- * is primed from its (now seeded) Speed setting.  A no-op when the Battle
- * System is disabled.
- */
+
 /*
  * battle_preroll_player_stamina()
  * battle_preroll_npc_stamina()
@@ -369,7 +443,7 @@ battle_all_ranges_degenerate (scr_gameref_t game)
  * in between; battle_start() runs after all of that.  These roll where the
  * Runner rolls, with its formula -- `Int(Rnd * (hi - lo)) + lo`, no guard on
  * an empty range -- and battle_start() then keeps the values instead of
- * rolling again.  run_runner_load_draws() is the only caller.
+ * rolling again.  run_runner_load_draws() is the only caller of all three.
  */
 static scr_bool battle_prerolled = FALSE;
 
@@ -411,6 +485,7 @@ battle_preroll_npc_stamina (scr_gameref_t game)
   battle_prerolled = TRUE;
 }
 
+
 /*
  * battle_preroll_legacy()
  *
@@ -424,7 +499,7 @@ battle_preroll_npc_stamina (scr_gameref_t game)
 void
 battle_preroll_legacy (scr_gameref_t game)
 {
-  scr_int npc, lo, hi, counter;
+  scr_int npc, lo, hi, speed;
 
   battle_legacy = TRUE;
   if (!battle_is_enabled (game))
@@ -438,24 +513,30 @@ battle_preroll_legacy (scr_gameref_t game)
       battle_seed_attributes (game, npc);
       battle_bundle_range (game, npc, "Stamina", &lo, &hi);
       gs_set_npc_stamina (game, npc, lo);
-      switch (gs_npc_battle (game, npc)->speed)
-        {
-        case 1:  scr_vb_rnd (); counter = 1; break;
-        case 2:  counter = 2; break;
-        case 3:  counter = 3; break;
-        case 4:  counter = 4; break;
-        default: counter = 1; break;
-        }
-      gs_set_npc_attackcounter (game, npc, counter);
+      speed = gs_npc_battle (game, npc)->speed;
+      if (speed == 1)
+        scr_vb_rnd ();
+      gs_set_npc_attackcounter (game, npc,
+                                (speed >= 2 && speed <= 4) ? speed : 1);
     }
   battle_prerolled = TRUE;
 }
 
+
+/*
+ * battle_start()
+ *
+ * Initialise battle state at game start.  Seed every mutable attribute from
+ * the bundle, then roll a starting stamina within range for the player and for
+ * every NPC (unless a preroll already did) and prime the recovery counters.
+ * Each NPC's attack cadence counter is primed from its (now seeded) Speed
+ * setting.  A no-op when the Battle System is disabled.
+ */
 void
 battle_start (scr_gameref_t game)
 {
-  scr_int npc, lo, hi;
   const scr_bool prerolled = battle_prerolled;
+  scr_int npc, lo, hi;
 
   battle_prerolled = FALSE;
   if (!battle_is_enabled (game))
@@ -485,7 +566,8 @@ battle_start (scr_gameref_t game)
       battle_bundle_range (game, npc, "Stamina", &lo, &hi);
       if (!prerolled)
         {
-          gs_set_npc_stamina (game, npc, (hi > 0) ? scr_randomint (lo, hi) : 0);
+          gs_set_npc_stamina (game, npc,
+                              (hi > 0) ? scr_randomint (lo, hi) : 0);
           gs_set_npc_attackcounter (game, npc, battle_speed_roll (game, npc));
         }
       gs_set_npc_staminacounter (game, npc,
@@ -494,15 +576,16 @@ battle_start (scr_gameref_t game)
     }
 
   /*
-   * Detect "unconfigured combat" for the optional combat-assist mode: a version
-   * 3.9 game upgraded to the 4.0 file format, whose combat was authored for the
-   * 3.9 strength-vs-defence model.  Such a game has the upgrade fingerprint --
-   * no Accuracy or Agility configured on any character AND every attribute range
-   * degenerate (see battle_all_ranges_degenerate) -- so the 4.0 accuracy>agility
-   * hit test (0 > 0) stalemates it.  Only such games get auto-hit; native 4.0
-   * games (which configure accuracy/agility, or use true Lo<Hi ranges) are left
-   * untouched even with the assist on.  True 3.9/3.8-signature games are handled
-   * unconditionally by battle_legacy and do not depend on this.
+   * Detect "unconfigured combat" for the optional combat-assist mode: a
+   * version 3.9 game upgraded to the 4.0 file format, whose combat was
+   * authored for the 3.9 strength-vs-defence model.  Such a game has the
+   * upgrade fingerprint -- no Accuracy or Agility configured on any
+   * character AND every attribute range degenerate (see
+   * battle_all_ranges_degenerate) -- so the 4.0 accuracy>agility hit test
+   * (0 > 0) stalemates it.  Only such games get auto-hit; native 4.0 games
+   * (which configure accuracy/agility, or use true Lo<Hi ranges) are left
+   * untouched even with the assist on.  True 3.9/3.8-signature games are
+   * handled unconditionally by battle_legacy and do not depend on this.
    */
   battle_unconfigured = FALSE;
   if (battle_combat_assist)
@@ -516,7 +599,8 @@ battle_start (scr_gameref_t game)
               || battle_attribute_max (game, n, "Agility") > 0)
             any_accuracy = TRUE;
         }
-      battle_unconfigured = !any_accuracy && battle_all_ranges_degenerate (game);
+      battle_unconfigured = !any_accuracy
+                            && battle_all_ranges_degenerate (game);
     }
 }
 
@@ -533,12 +617,22 @@ static void
 battle_kill_drained (scr_gameref_t game, scr_int npc, scr_int stamina,
                      scr_bool visible)
 {
-  if (npc < 0)
-    gs_set_playerstamina (game, 0);
-  else
-    gs_set_npc_stamina (game, npc, battle_legacy ? stamina : 0);
+  battle_set_stamina (game, npc, (npc >= 0 && battle_legacy) ? stamina : 0);
   battle_kill (game, npc, visible);
 }
+
+
+/*
+ * battle_capped()
+ *
+ * The lesser of a raised attribute bound and its max cap.
+ */
+static scr_int
+battle_capped (scr_int value, scr_int cap)
+{
+  return (value < cap) ? value : cap;
+}
+
 
 /*
  * battle_change_attribute()
@@ -558,8 +652,7 @@ void
 battle_change_attribute (scr_gameref_t game, scr_int npc,
                          scr_int attribute, scr_int value)
 {
-  scr_battle_t *battle = (npc < 0) ? gs_player_battle (game)
-                                  : gs_npc_battle (game, npc);
+  scr_battle_t *battle = battle_state (game, npc);
   scr_int slot, stamina;
 
   switch (attribute)
@@ -581,9 +674,7 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
       break;
 
     case 1:                            /* Stamina (current, delta). */
-      stamina = (npc < 0) ? gs_playerstamina (game)
-                          : gs_npc_stamina (game, npc);
-      stamina += value;
+      stamina = battle_get_stamina (game, npc) + value;
       if (stamina > battle->maxstamina)
         stamina = battle->maxstamina;
       /*
@@ -604,29 +695,15 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
           battle_kill_drained (game, npc, stamina, TRUE);
           break;
         }
-      if (stamina < 0)
-        stamina = 0;
-      if (stamina > battle->maxstamina)
-        stamina = battle->maxstamina;
-      if (npc < 0)
-        gs_set_playerstamina (game, stamina);
-      else
-        gs_set_npc_stamina (game, npc, stamina);
+      battle_set_stamina (game, npc, (stamina < 0) ? 0 : stamina);
       break;
 
     case 2:                            /* Max Stamina (delta). */
       battle->maxstamina += value;
       if (battle->maxstamina < 0)
         battle->maxstamina = 0;
-      stamina = (npc < 0) ? gs_playerstamina (game)
-                          : gs_npc_stamina (game, npc);
-      if (stamina > battle->maxstamina)
-        {
-          if (npc < 0)
-            gs_set_playerstamina (game, battle->maxstamina);
-          else
-            gs_set_npc_stamina (game, npc, battle->maxstamina);
-        }
+      if (battle_get_stamina (game, npc) > battle->maxstamina)
+        battle_set_stamina (game, npc, battle->maxstamina);
       break;
 
     case 3: case 5: case 7: case 9:    /* Str/Acc/Def/Agi range (delta). */
@@ -653,10 +730,10 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
        * Moyru's death lifts the max to 10 and the cheese's +3 then counts,
        * so the sorceress's 6 does no damage at T27 -- both as the Runner.
        */
-      battle->lo[slot] = battle->lo[slot] + value < battle->max[slot]
-                         ? battle->lo[slot] + value : battle->max[slot];
-      battle->hi[slot] = battle->hi[slot] + value < battle->max[slot]
-                         ? battle->hi[slot] + value : battle->max[slot];
+      battle->lo[slot] = battle_capped (battle->lo[slot] + value,
+                                        battle->max[slot]);
+      battle->hi[slot] = battle_capped (battle->hi[slot] + value,
+                                        battle->max[slot]);
       break;
 
     case 4: case 6: case 8: case 0xA:  /* Max Str/Acc/Def/Agi (delta). */
@@ -692,6 +769,7 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
 /* Target sentinels returned by battle_select_target(). */
 enum { BATTLE_PLAYER = -1, BATTLE_NONE = -2 };
 
+
 /*
  * battle_roll()
  *
@@ -719,6 +797,7 @@ battle_roll (scr_int lo, scr_int hi)
   return (hi > lo) ? scr_randomint (lo, hi - 1) : lo;
 }
 
+
 /*
  * battle_object_battle()
  *
@@ -740,6 +819,7 @@ battle_object_battle (scr_gameref_t game, scr_int object, const scr_char *name)
   return 0;
 }
 
+
 /*
  * battle_object_is_weapon()
  *
@@ -759,6 +839,7 @@ battle_object_is_weapon (scr_gameref_t game, scr_int object)
     return vt_rvalue.boolean;
   return FALSE;
 }
+
 
 /*
  * battle_object_owned_by()
@@ -787,6 +868,7 @@ battle_object_worn_by (scr_gameref_t game, scr_int object, scr_int npc)
     return position == OBJ_WORN_PLAYER;
   return position == OBJ_WORN_NPC && gs_object_parent (game, object) == npc;
 }
+
 
 /*
  * battle_worn_protection()
@@ -817,6 +899,7 @@ battle_worn_protection (scr_gameref_t game, scr_int npc)
     }
   return value;
 }
+
 
 /*
  * battle_best_weapon()
@@ -853,6 +936,7 @@ battle_best_weapon (scr_gameref_t game, scr_int npc)
     }
   return best;
 }
+
 
 /*
  * battle_eff_strength()
@@ -912,61 +996,25 @@ battle_eff_agility (scr_gameref_t game, scr_int npc)
 static scr_int
 battle_eff_defence (scr_gameref_t game, scr_int npc)
 {
-  scr_int lo, hi, value;
+  scr_int lo, hi;
 
   battle_attribute_range (game, npc, "Defense", &lo, &hi);
-  value = battle_roll (lo, hi);
-  return value + battle_worn_protection (game, npc);
+  return battle_roll (lo, hi) + battle_worn_protection (game, npc);
 }
 
-/*
- * battle_attitude()
- * battle_speed_roll()
- *
- * Read an NPC's current attitude (0 = neutral, 1 = ally, 2 = enemy) from the
- * mutable battle state, and roll the number of turns until its next attack
- * from its current Speed setting (0 = every turn, 1 = most turns, 2/3/4 =
- * every 2nd/3rd/4th turn).
- */
-static scr_int
-battle_attitude (scr_gameref_t game, scr_int npc)
-{
-  return gs_npc_battle (game, npc)->attitude;
-}
-
-static scr_int
-battle_speed_roll (scr_gameref_t game, scr_int npc)
-{
-  const scr_int speed = gs_npc_battle (game, npc)->speed;
-
-  /*
-   * "Most turns" is run400's `Int(Rnd * 2) + 1` (Proc_11_13) but run390's
-   * `Int(Rnd * 1) + 1` (getnexthit 42C60A): a draw that can only be 1, so a
-   * 3.9 Speed 1 NPC attacks every turn like Speed 0 -- yeh's vine re-arms
-   * to 1 and takes Leon the turn after it takes the player.  Drawn either
-   * way to keep the stream in step with the Runner.
-   */
-  switch (speed)
-    {
-    case 1:  return battle_legacy ? scr_randomint (1, 1)
-                                  : scr_randomint (1, 2);   /* Most turns. */
-    case 2:  return 2;                     /* Every second turn. */
-    case 3:  return 3;                     /* Every third turn. */
-    case 4:  return 4;                     /* Every fourth turn. */
-    default: return 1;                     /* Every turn. */
-    }
-}
 
 /*
  * How the battle narration names an NPC.  BATTLE_NAME_NAME is the plain
  * Name; the other two prefer "<Prefix> <Alias[0]>" to it, unconditionally or
  * only from an enemy.
  */
-enum {
+enum
+{
   BATTLE_NAME_NAME = 0,
   BATTLE_NAME_ALIAS = 1,
   BATTLE_NAME_ENEMY_ALIAS = 2
 };
+
 
 /*
  * The grammatical form a combatant's name is printed in.  SUBJECT and
@@ -974,23 +1022,29 @@ enum {
  * leading names, and only some, through its one-line capitaliser.  See
  * battle_print_combatant().
  */
-enum {
+enum
+{
   BATTLE_FORM_SUBJECT = 0,
   BATTLE_FORM_OBJECT = 1,
   BATTLE_FORM_POSSESSIVE = 2,
   BATTLE_FORM_SUBJECT_CAPITALISED = 3
 };
 
+/* Attack verbs by weapon method code, base (player) form; NPCs append "s". */
+static const scr_char *const BATTLE_METHOD_VERBS[6]
+    = {"chop", "cut", "hit", "shoot", "stab", "throw"};
+
+
 /*
  * battle_npc_name()
  *
  * Build (into name) an NPC as a battle message names it, returning TRUE when
- * the game's ALRs quote that name in the Runner's raw shape.  The Runner's two attack
- * procedures do not use the NPC's Name: given a first alias they narrate the
- * fight with "<Prefix> <Alias[0]>" instead -- Orient Express calls its enemy
- * "Igotta Bigbottom" in the room listing but "the large man" in every blow,
- * and "Ivill Getyou" is "BIG BOSS" (measured against run400's own transcript,
- * runner_probes/orient_express.run400.txt, 2026-08-25).
+ * the game's ALRs quote that name in the Runner's raw shape.  The Runner's
+ * two attack procedures do not use the NPC's Name: given a first alias they
+ * narrate the fight with "<Prefix> <Alias[0]>" instead -- Orient Express
+ * calls its enemy "Igotta Bigbottom" in the room listing but "the large man"
+ * in every blow, and "Ivill Getyou" is "BIG BOSS" (measured against run400's
+ * own transcript, runner_probes/orient_express.run400.txt, 2026-08-25).
  *
  * The two procedures differ in when they take the alias.  Proc_11_1, the
  * player's blow (Battles.bas @45E1CE), takes it from any NPC with one.
@@ -1091,6 +1145,7 @@ battle_npc_name (scr_gameref_t game, scr_int npc, scr_int naming,
     name = alias;
   return FALSE;
 }
+
 
 /*
  * battle_print_combatant()
@@ -1195,18 +1250,17 @@ battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
      capitalises all of them, not only the Runner's five; the Runner's raw
      "a soldier manages to avoid your attack." is a display accident.  A name
      the game's ALRs quote keeps the Runner's shape; see battle_npc_name(). */
-  {
-    std::string name;
-    const scr_bool pinned = battle_npc_name (game, npc, naming, name);
+  std::string name;
+  const scr_bool pinned = battle_npc_name (game, npc, naming, name);
 
-    if (form == BATTLE_FORM_SUBJECT_CAPITALISED
-        || (form == BATTLE_FORM_SUBJECT && !pinned))
-      pf_new_sentence (filter);
-    pf_buffer_string (filter, name.c_str ());
-  }
+  if (form == BATTLE_FORM_SUBJECT_CAPITALISED
+      || (form == BATTLE_FORM_SUBJECT && !pinned))
+    pf_new_sentence (filter);
+  pf_buffer_string (filter, name.c_str ());
   if (form == BATTLE_FORM_POSSESSIVE)
     pf_buffer_string (filter, "'s");
 }
+
 
 /*
  * battle_npc_battle_task()
@@ -1231,6 +1285,7 @@ battle_npc_battle_task (scr_gameref_t game, scr_int npc, const scr_char *name)
     return vt_rvalue.integer - 1;
   return -1;
 }
+
 
 /*
  * battle_kill()
@@ -1271,11 +1326,13 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
   /* Note where the NPC dies before anything can relocate it. */
   room = gs_npc_location (game, npc) - 1;
 
-  /* Re-home the dead NPC's held and worn objects to that room, so its
+  /*
+   * Re-home the dead NPC's held and worn objects to that room, so its
    * inventory is not orphaned along with the hidden character.  The Runner
    * does this before the KilledTask runs (Battles.bas Proc_11_3, the
    * -200/-300 sweep ahead of the task dispatch), so a KilledTask restriction
-   * can already see the corpse's effects lying in the room. */
+   * can already see the corpse's effects lying in the room.
+   */
   if (room >= 0)
     {
       for (object = 0; object < gs_object_count (game); object++)
@@ -1288,7 +1345,8 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
         }
     }
 
-  /* A set KilledTask replaces the default death message outright -- verified
+  /*
+   * A set KilledTask replaces the default death message outright -- verified
    * live in run400 2026-08-01 (probe pKT: "Player hit Robot.  KILLEDTASK
    * FIRED.", no "falls down, dead."), and the 3.9 Runner dispatches it the
    * same way (probe p39kt).  The default corpse line is 4.0-only: run390
@@ -1301,13 +1359,14 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
    * corpse line either, since the KilledTask is still set.  Verified live in
    * run400 2026-08-02 with Del Sol: killing the stamina-0 teacher Moreland in
    * Chemistry prints only the hit line, and her chem-dream-only KilledTask
-   * (the game's win) never fires.  Same gate as the type-5 exec action. */
+   * (the game's win) never fires.  Same gate as the type-5 exec action.
+   */
   task = battle_npc_battle_task (game, npc, "KilledTask");
   if (task >= 0)
     {
       /* A dispatch the player is not eligible for is dropped in silence --
-       * no task text and no corpse line either (probe KT2: a done
-       * non-repeatable KilledTask re-killed prints only the hit line). */
+         no task text and no corpse line either (probe KT2: a done
+         non-repeatable KilledTask re-killed prints only the hit line). */
       if (task_can_run_task_directional (game, task, TRUE))
         run_task_run_by_index (game, task);
     }
@@ -1344,6 +1403,7 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
     SCR_DEVIATION ("killed_npc_revivable", "npc=%ld task=%ld", npc, task);
 }
 
+
 /*
  * battle_apply_damage()
  *
@@ -1356,8 +1416,7 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
 {
   scr_int stamina, maximum, task;
 
-  stamina = (npc < 0) ? gs_playerstamina (game) : gs_npc_stamina (game, npc);
-  stamina -= damage;
+  stamina = battle_get_stamina (game, npc) - damage;
 
   /*
    * run390 keeps a killed NPC's stamina below zero: Outside's Joe, killed on
@@ -1371,34 +1430,55 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
       return;
     }
 
-  if (npc < 0)
-    gs_set_playerstamina (game, stamina);
-  else
-    gs_set_npc_stamina (game, npc, stamina);
+  battle_set_stamina (game, npc, stamina);
 
-  /* Run the NPC's low-stamina task when dropping below 10% of maximum.  The
+  /*
+   * Run the NPC's low-stamina task when dropping below 10% of maximum.  The
    * Runner tests `stamina < max / 10` in floating point (Battles.bas
    * Proc_11_0, CDbl throughout) and re-runs the task on EVERY qualifying hit
    * -- verified live in run400 2026-08-01 (probe pKT: STAMINATASK FIRED on
    * both hits inside the window, default death line on the killing blow).
    * `stamina * 10 < maximum` is the integer-exact form of the float test;
    * plain integer `maximum / 10` truncates and misses the boundary when
-   * maximum is not a multiple of 10 (e.g. max 95, stamina 9). */
+   * maximum is not a multiple of 10 (e.g. max 95, stamina 9).
+   */
   maximum = battle_attribute_max (game, npc, "Stamina");
   if (maximum > 0 && stamina * 10 < maximum)
     {
       /* StaminaTask goes through the same gated run-task routine as
-       * KilledTask (Battles.bas Sub_12_1 -> Sub_20_22, no gating at the call
-       * site) -- see the room-eligibility note in battle_kill. */
+         KilledTask (Battles.bas Sub_12_1 -> Sub_20_22, no gating at the call
+         site) -- see the room-eligibility note in battle_kill. */
       task = battle_npc_battle_task (game, npc, "StaminaTask");
       if (task >= 0 && task_can_run_task_directional (game, task, TRUE))
         run_task_run_by_index (game, task);
     }
 }
 
-/* Attack verbs by weapon method code, base (player) form; NPCs append "s". */
-static const scr_char *const BATTLE_METHOD_VERBS[6]
-    = {"chop", "cut", "hit", "shoot", "stab", "throw"};
+
+/*
+ * battle_npc_pronoun()
+ *
+ * Return an NPC's subject pronoun from its Gender: "he", "she" or "it", or
+ * "" for any other value, as the Runner's Proc_21_51_4496C8 maps it.
+ */
+static const scr_char *
+battle_npc_pronoun (scr_gameref_t game, scr_int npc)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Gender";
+  switch (prop_get_integer (bundle, "I<-sis", vt_key))
+    {
+    case NPC_MALE:   return "he";
+    case NPC_FEMALE: return "she";
+    case NPC_NEUTER: return "it";
+    default:         return "";
+    }
+}
+
 
 /*
  * battle_blow_join()
@@ -1430,6 +1510,7 @@ battle_blow_join (scr_gameref_t game, scr_int attacker)
     pf_buffer_join_open (gs_get_filter (game));
 }
 
+
 /*
  * battle_resolve()
  *
@@ -1459,7 +1540,7 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
   const scr_bool third = (lib_get_perspective (game) == LIB_THIRD_PERSON);
   const scr_bool bare_attacker = (attacker < 0 && !third);
   const scr_bool bare_target = (target < 0 && !third);
-  scr_int method;
+  scr_int method, accuracy, agility;
 
   method = (weapon >= 0) ? battle_object_battle (game, weapon, "Method") : -1;
   if (method < 0 || method > 5)
@@ -1479,8 +1560,9 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
    * attacker's strength before the target's defence; C leaves the order of
    * `>` and `-` operands unspecified, so sequence the rolls explicitly.
    */
-  scr_int accuracy = 0, agility = 0;
-  if (!battle_unconfigured && !battle_legacy)
+  if (battle_unconfigured || battle_legacy)
+    accuracy = agility = 0;
+  else
     {
       accuracy = battle_eff_accuracy (game, attacker, weapon);
       agility = battle_eff_agility (game, target);
@@ -1501,11 +1583,12 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
        * nor lose HitValue (Proc_11_2 has no equivalent of either).
        */
       const scr_bool player_throw = (method == 5 && attacker < 0);
+      const scr_int hit_weapon
+        = (player_throw && !battle_legacy) ? -1 : weapon;
       const scr_int strength = battle_eff_strength (game, attacker,
-                                                    (player_throw && !battle_legacy)
-                                                        ? -1 : weapon);
+                                                    hit_weapon);
       const scr_int defence = battle_eff_defence (game, target);
-      scr_int damage = strength - defence;
+      const scr_int damage = strength - defence;
 
       if (battle_trace)
         fprintf (stderr, "BATTLE: %ld hits %ld weapon %ld: accuracy %ld"
@@ -1610,19 +1693,10 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
                * Sword, but she manages to avoid it."  The player's own dodge
                * (@4653FF) still reads Ary(2).  3.9 unmeasured, left as it was.
                */
-              const scr_prop_setref_t bundle = gs_get_bundle (game);
-              scr_vartype_t vt_key[3];
+              const scr_char *pronoun = battle_npc_pronoun (game, target);
 
-              vt_key[0].string = "NPCs";
-              vt_key[1].integer = target;
-              vt_key[2].string = "Gender";
-              switch (prop_get_integer (bundle, "I<-sis", vt_key))
-                {
-                case NPC_MALE:   pf_buffer_string (filter, "he");  break;
-                case NPC_FEMALE: pf_buffer_string (filter, "she"); break;
-                case NPC_NEUTER: pf_buffer_string (filter, "it");  break;
-                default:         break;
-                }
+              if (pronoun[0] != '\0')
+                pf_buffer_string (filter, pronoun);
             }
           else
             battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
@@ -1633,14 +1707,16 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
     }
 }
 
+
 /*
+ * battle_is_foe()
  * battle_select_target()
  *
  * Choose a target for an attacking NPC, following the Runner: neutrals never
  * attack; allies target enemies and vice versa (their attitudes summing to
- * three), and enemies also target the player.  A uniformly random choice is
- * made among the candidates sharing the NPC's room.  Returns an NPC index,
- * BATTLE_PLAYER, or BATTLE_NONE.
+ * three, which is battle_is_foe), and enemies also target the player.  A
+ * uniformly random choice is made among the candidates sharing the NPC's
+ * room.  Returns an NPC index, BATTLE_PLAYER, or BATTLE_NONE.
  *
  * run400 Battles.bas Proc_11_14 (451DF0) tests NOTHING about a candidate's
  * stamina: the count loop (451CA6-451D31) takes every other NPC in the same
@@ -1659,6 +1735,14 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
  * candidates in both loops, which made those characters unhittable and
  * changed the draw cadence (no pick draw when they were the only candidate).
  */
+static scr_bool
+battle_is_foe (scr_gameref_t game, scr_int npc, scr_int other)
+{
+  return other != npc
+         && gs_npc_location (game, other) == gs_npc_location (game, npc)
+         && battle_attitude (game, other) == 3 - battle_attitude (game, npc);
+}
+
 static scr_int
 battle_select_target (scr_gameref_t game, scr_int npc)
 {
@@ -1673,9 +1757,7 @@ battle_select_target (scr_gameref_t game, scr_int npc)
   count = 0;
   for (other = 0; other < gs_npc_count (game); other++)
     {
-      if (other != npc
-          && gs_npc_location (game, other) == location
-          && battle_attitude (game, other) == 3 - attitude)
+      if (battle_is_foe (game, npc, other))
         count++;
     }
   if (attitude == 2 && location - 1 == gs_playerroom (game))
@@ -1688,16 +1770,12 @@ battle_select_target (scr_gameref_t game, scr_int npc)
   pick = scr_randomint (1, count);
   for (other = 0; other < gs_npc_count (game); other++)
     {
-      if (other != npc
-          && gs_npc_location (game, other) == location
-          && battle_attitude (game, other) == 3 - attitude)
-        {
-          if (--pick == 0)
-            return other;
-        }
+      if (battle_is_foe (game, npc, other) && --pick == 0)
+        return other;
     }
   return BATTLE_PLAYER;
 }
+
 
 /*
  * battle_recover()
@@ -1719,9 +1797,9 @@ battle_recover (scr_gameref_t game, scr_int npc)
   if (recovery <= 0)
     return;
 
-  counter = (npc < 0)
-            ? gs_playerstaminacounter (game) : gs_npc_staminacounter (game, npc);
-  stamina = (npc < 0) ? gs_playerstamina (game) : gs_npc_stamina (game, npc);
+  counter = (npc < 0) ? gs_playerstaminacounter (game)
+                      : gs_npc_staminacounter (game, npc);
+  stamina = battle_get_stamina (game, npc);
   maximum = battle_attribute_max (game, npc, "Stamina");
 
   if (counter == 0)
@@ -1730,10 +1808,7 @@ battle_recover (scr_gameref_t game, scr_int npc)
       if (stamina < maximum)
         {
           stamina++;
-          if (npc < 0)
-            gs_set_playerstamina (game, stamina);
-          else
-            gs_set_npc_stamina (game, npc, stamina);
+          battle_set_stamina (game, npc, stamina);
           if (battle_trace)
             fprintf (stderr, "BATTLE: %s %ld recovers to stamina %ld of %ld\n",
                      (npc < 0) ? "player" : "npc", npc, stamina, maximum);
@@ -1746,6 +1821,7 @@ battle_recover (scr_gameref_t game, scr_int npc)
   else
     gs_set_npc_staminacounter (game, npc, counter);
 }
+
 
 /*
  * battle_is_weapon()
@@ -1770,6 +1846,7 @@ battle_weapon_method (scr_gameref_t game, scr_int object)
   return battle_object_battle (game, object, "Method");
 }
 
+
 /*
  * battle_player_wielded_weapon()
  *
@@ -1791,6 +1868,7 @@ battle_player_wielded_weapon (scr_gameref_t game)
     return wielded;
   return -1;
 }
+
 
 /*
  * battle_player_weapon_count()
@@ -1821,6 +1899,7 @@ battle_player_best_weapon (scr_gameref_t game)
   return battle_best_weapon (game, -1);
 }
 
+
 /*
  * battle_combatant_weapon()
  *
@@ -1833,6 +1912,7 @@ battle_combatant_weapon (scr_gameref_t game, scr_int npc)
   return (npc < 0) ? battle_player_wielded_weapon (game)
                    : battle_best_weapon (game, npc);
 }
+
 
 /*
  * battle_attribute_report()
@@ -1873,6 +1953,7 @@ battle_attribute_report (scr_gameref_t game, scr_int npc, const scr_char *base,
     *current = battle_roll (*lo, *hi);
 }
 
+
 /*
  * battle_attribute_bonus()
  *
@@ -1896,6 +1977,7 @@ battle_attribute_bonus (scr_gameref_t game, scr_int npc, const scr_char *base)
   return 0;
 }
 
+
 /*
  * battle_player_attack()
  *
@@ -1910,6 +1992,7 @@ battle_player_attack (scr_gameref_t game, scr_int npc, scr_int weapon)
     weapon = battle_player_wielded_weapon (game);
   battle_resolve (game, BATTLE_PLAYER, npc, weapon, TRUE);
 }
+
 
 /*
  * battle_tick_npc()
@@ -1947,8 +2030,10 @@ battle_tick_npc (scr_gameref_t game, scr_int npc)
         fprintf (stderr, "BATTLE: npc %ld target %ld\n", npc, target);
       if (target != BATTLE_NONE)
         {
-          scr_bool visible = (target == BATTLE_PLAYER)
-              || (gs_npc_location (game, npc) - 1 == gs_playerroom (game));
+          const scr_bool visible
+            = target == BATTLE_PLAYER
+              || gs_npc_location (game, npc) - 1 == gs_playerroom (game);
+
           battle_resolve (game, npc, target,
                           battle_best_weapon (game, npc), visible);
         }
@@ -1956,6 +2041,7 @@ battle_tick_npc (scr_gameref_t game, scr_int npc)
     }
   gs_set_npc_attackcounter (game, npc, counter);
 }
+
 
 /*
  * battle_recover_line()

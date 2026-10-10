@@ -52,7 +52,10 @@ extern scr_bool run_probe_strict;
 
 enum { FALSE = 0, TRUE = !FALSE };
 
+
 /*
+ * wrap_width()
+ *
  * The harness wraps at 78 columns, as a terminal would.  SCR_WRAP_WIDTH turns
  * that off (or moves it): set it wide and every newline in the output is one
  * the engine meant, which is what the Runner-transcript line-structure sweep
@@ -86,6 +89,9 @@ static scr_game game;
  * full_flush()
  * partial_flush()
  * append_character()
+ *
+ * The line wrapper: buffer output a character at a time, and flush it whole
+ * at a newline, or at the last space before the wrap width.
  */
 static void
 full_flush (void)
@@ -143,6 +149,9 @@ append_character (scr_char c)
  * os_print_tag()
  * os_print_string()
  * os_print_string_debug()
+ *
+ * Output entry points.  Most tags are ignored; <cls> clears by scrolling,
+ * alignment tags break the line, and the two pauses are derivation aids.
  */
 void
 os_print_tag (scr_int tag, const scr_char *argument)
@@ -184,15 +193,17 @@ os_print_tag (scr_int tag, const scr_char *argument)
     case SCR_TAG_WAITKEY:
       {
         scr_char dummy[256];
+        scr_bool mark_waitkey;
+
         full_flush ();
+
         /*
          * A "press a key" pause.  Normally we consume one line of input to
          * stand in for the keypress.  For scripted/headless walkthrough
          * derivation, SCR_SKIP_WAITKEY=1 makes these pauses transparent so a
          * solution file maps one line to one game command regardless of how
          * many <waitkey> tags the game's text embeds.
-         */
-        /*
+         *
          * Derivation aid: SCR_MARK_WAITKEY=1 notes each pause on stderr (after
          * the flush above, so with 2>&1 the marker lands in transcript order).
          * Combined with SCR_SKIP_WAITKEY=1 -- which keeps the command list in
@@ -202,8 +213,7 @@ os_print_tag (scr_int tag, const scr_char *argument)
          * deliberate filler apart from a real command going missing (see
          * harness/waitkey_audit.py).
          */
-        int mark_waitkey = getenv ("SCR_MARK_WAITKEY") != NULL;
-
+        mark_waitkey = getenv ("SCR_MARK_WAITKEY") != NULL;
         if (mark_waitkey)
           {
             fflush (stdout);
@@ -211,6 +221,7 @@ os_print_tag (scr_int tag, const scr_char *argument)
           }
         if (getenv ("SCR_SKIP_WAITKEY"))
           break;
+
         /*
          * Honour the '#' comment convention os_read_line applies below.  A
          * comment is documentation, not input, so a pause must not be able to
@@ -262,13 +273,13 @@ os_print_string_debug (const scr_char *string)
  * os_play_sound()
  * os_stop_sound()
  * os_show_graphic()
- */
-/*
- * SCR_TRACE_SOUND=1 prints each sound request on a line of its own where it
- * falls in the output, in sxstubs.cpp's <<Sound: ...>> form, so a headless golden can pin which
- * resource a task plays and the offset and length the TAF parser gave it.
- * The id is the path's last component: the rest is the author's directory,
- * or for an embedded resource this machine's path to the game.
+ *
+ * Media entry points.  SCR_TRACE_SOUND=1 prints each sound request on a line
+ * of its own where it falls in the output, in sxstubs.cpp's <<Sound: ...>>
+ * form, so a headless golden can pin which resource a task plays and the
+ * offset and length the TAF parser gave it.  The id is the path's last
+ * component: the rest is the author's directory, or for an embedded resource
+ * this machine's path to the game.  Graphics are ignored.
  */
 void
 os_play_sound (const scr_char *filepath,
@@ -284,7 +295,8 @@ os_play_sound (const scr_char *filepath,
           id = p + 1;
       os_print_string ("<<Sound: id=\"");
       os_print_string (id);
-      snprintf (buffer, sizeof buffer, "\", offset=%ld, length=%ld, looping=%s>>\n",
+      snprintf (buffer, sizeof buffer,
+                "\", offset=%ld, length=%ld, looping=%s>>\n",
                 (long) offset, (long) length, is_looping ? "true" : "false");
       os_print_string (buffer);
     }
@@ -306,15 +318,18 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 }
 
 
-/*
- * os_read_line()
- * os_read_line_debug()
- */
 /* Solution-file line counter for the SCR_TRACE_ADMIN derivation aid. */
 static long os_ansi_input_line = 0;
 
 #ifdef SCARIER_DUMP_TOOLS
+
+
 /*
+ * os_ansi_slurp()
+ * os_ansi_report()
+ * os_ansi_probe_run()
+ * os_ansi_probe()
+ *
  * Leniency audit, SCR_PROBE_LINES=<file>: before each walkthrough line runs,
  * try every line in the file (one per line, blank and '#' lines skipped) in
  * two forked children, one as Scarier plays it and one with no leniency at
@@ -366,16 +381,16 @@ os_ansi_report (const char *tag, const std::string &text)
     }
 }
 
-/*
- * Run PROBE in a child, strictly or not, its stdout and stderr going to
- * OUT_PATH and ERR_PATH.  Returns TRUE in the child, with BUFFER holding the
- * line to play, and FALSE in the parent once the child is done.
- */
 static scr_bool
 os_ansi_probe_run (const std::string &probe, scr_bool strict,
                    const char *out_path, const char *err_path,
                    scr_char *buffer, scr_int length)
 {
+  /*
+   * Run PROBE in a child, strictly or not, its stdout and stderr going to
+   * OUT_PATH and ERR_PATH.  Returns TRUE in the child, with BUFFER holding
+   * the line to play, and FALSE in the parent once the child is done.
+   */
   fflush (stdout);
   fflush (stderr);
   pid_t child = fork ();
@@ -479,6 +494,15 @@ os_ansi_probe (scr_char *buffer, scr_int length)
 }
 #endif
 
+
+/*
+ * os_read_line()
+ * os_read_line_debug()
+ *
+ * Read a command line from stdin, quitting the game cleanly at end of input.
+ * The environment switches below are derivation and compare aids for the
+ * walkthrough harnesses.
+ */
 scr_bool
 os_read_line (scr_char *buffer, scr_int length)
 {
@@ -523,13 +547,13 @@ os_read_line (scr_char *buffer, scr_int length)
 
   if (echo_input)
     putchar ('\n');
+
   /*
    * Compare aid: with SCR_MARK_PROMPT set, a \x02 in front of the prompt
    * tells it apart from game text that begins a line with '>'.  3monkeys'
    * ending prints "> GIVE FINGER TO DR. WICKETT", which the Wine compare
    * otherwise split off as a turn of its own (2026-09-19).
-   */
-  /*
+   *
    * A `go <place>` walk types its own steps; show each as typed.  A step is
    * part of the typed turn, the Runner echoing it as "> East" inside the
    * walk, so it gets no \x02: outside's goto turns split in the compare.
@@ -569,11 +593,11 @@ os_read_line (scr_char *buffer, scr_int length)
    * This is UNCONDITIONAL (not gated behind SCARIER_DUMP_TOOLS): the commented
    * solution files in test/adrift4/ are the documented validation corpus,
    * and gating comment-skipping behind the dump build meant a plain build
-   * silently mis-executed them -- the comment tokens desynced the route into a
-   * spurious "death", which once led to a wrong "the walkthrough no longer wins,
-   * re-derive it" diagnosis.  os_ansi is the headless dev/test player only
-   * (Spatterlight ships os_glk), so there is no byte-faithfulness contract here
-   * to protect.
+   * silently mis-executed them -- the comment tokens desynced the route into
+   * a spurious "death", which once led to a wrong "the walkthrough no longer
+   * wins, re-derive it" diagnosis.  os_ansi is the headless dev/test player
+   * only (Spatterlight ships os_glk), so there is no byte-faithfulness
+   * contract here to protect.
    */
   while (buffer[strspn (buffer, " \t")] == '#')
     {
@@ -628,6 +652,9 @@ os_read_line_debug (scr_char *buffer, scr_int length)
 
 /*
  * os_confirm()
+ *
+ * Ask a yes/no question on stdout, answered from stdin.  Saving is always
+ * confirmed, and end of input answers yes to quitting and no to the rest.
  */
 scr_bool
 os_confirm (scr_int type)
@@ -664,10 +691,13 @@ os_confirm (scr_int type)
         }
       printf ("? [Y/N] ");
       fflush (stdout);
-      /* EOF mid-prompt leaves buffer stale; without this check the loop spun
-       * forever reprinting the question.  Answer as the feof case above. */
+      /*
+       * EOF mid-prompt leaves buffer stale; without this check the loop spun
+       * forever reprinting the question.  Answer as the feof case above.
+       */
       if (!fgets (buffer, sizeof (buffer), stdin))
         return type == SCR_CONF_QUIT;
+
       /*
        * Compare aid: SCR_MARK_CONFIRM=1 notes every line this question reads
        * on stderr, in transcript order, the way SCR_MARK_WAITKEY notes a
@@ -698,6 +728,8 @@ os_confirm (scr_int type)
  * os_read_file()
  * os_write_file()
  * os_close_file()
+ *
+ * Saved game files, by path typed at a prompt; a save never overwrites.
  */
 void *
 os_open_file (scr_bool is_save)
@@ -772,6 +804,8 @@ os_close_file (void *opaque)
 
 /*
  * os_display_hints()
+ *
+ * Print every hint question with its subtle and unsubtle answers.
  */
 void
 os_display_hints (scr_game game_)
@@ -800,6 +834,10 @@ os_display_hints (scr_game game_)
 
 /*
  * main()
+ *
+ * Load the game named on the command line and play it on stdin/stdout.  The
+ * SCR_* environment variables select tracing, the locale, stable random
+ * numbers and the debugger.
  */
 int
 main (int argc, const char *argv[])

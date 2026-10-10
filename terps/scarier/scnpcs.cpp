@@ -49,7 +49,7 @@ static const scr_int NPC_WALK_EXPIRED = -1;
  *
  * A walk's MeetObject is stored in the TAF as a 1-based dynamic-object
  * index, but the runtime needs a global object index.  The parser rewrites
- * it (the "|V380_WALK:_MeetObject_|" fixup in sctafpar.c) only for version
+ * it (the "|V380_WALK:_MeetObject_|" fixup in sctafpar.cpp) only for version
  * 3.8 games; the version 3.9 and 4.0 WALK schemas read it raw.  Return TRUE
  * when the conversion still has to be done at run time, i.e. for any game
  * newer than 3.8.  Without it a walk's ObjectTask checks the wrong object
@@ -151,15 +151,31 @@ npc_count_referenced_present (scr_gameref_t game, scr_int *npc)
 
 
 /*
+ * npc_walk_key()
  * npc_walk_property()
+ * npc_walk_task()
  * npc_walk_is_loop()
  * npc_walk_total_time()
  *
- * Read a walk's properties.  npc_walk_total_time() is the Runner's
- * "For j = 0 To NumStops - 1: counter = counter + Times(j)" loop, and is
- * both the value a walk's counter is (re)seeded to and the largest value
- * the stop scan can ever match.
+ * Read a walk's properties.  npc_walk_key() fills the first five elements
+ * of a key with the path to a named property of a walk; callers that go
+ * deeper append to it.  npc_walk_task() reads a StartTask or StoppingTask,
+ * and one naming a nonexistent task reads as none.  npc_walk_total_time()
+ * is the Runner's "For j = 0 To NumStops - 1: counter = counter + Times(j)"
+ * loop, and is both the value a walk's counter is (re)seeded to and the
+ * largest value the stop scan can ever match.
  */
+static void
+npc_walk_key (scr_vartype_t vt_key[], scr_int npc, scr_int walk,
+              const scr_char *name)
+{
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Walks";
+  vt_key[3].integer = walk;
+  vt_key[4].string = name;
+}
+
 static scr_int
 npc_walk_property (scr_gameref_t game, scr_int npc, scr_int walk,
                    const scr_char *name)
@@ -167,15 +183,10 @@ npc_walk_property (scr_gameref_t game, scr_int npc, scr_int walk,
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
 
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Walks";
-  vt_key[3].integer = walk;
-  vt_key[4].string = name;
+  npc_walk_key (vt_key, npc, walk, name);
   return prop_get_integer (bundle, "I<-sisis", vt_key);
 }
 
-/* A StartTask or StoppingTask naming a nonexistent task reads as none. */
 static scr_int
 npc_walk_task (scr_gameref_t game, scr_int npc, scr_int walk,
                const scr_char *name)
@@ -192,11 +203,7 @@ npc_walk_is_loop (scr_gameref_t game, scr_int npc, scr_int walk)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
 
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Walks";
-  vt_key[3].integer = walk;
-  vt_key[4].string = "Loop";
+  npc_walk_key (vt_key, npc, walk, "Loop");
   return prop_get_boolean (bundle, "B<-sisis", vt_key);
 }
 
@@ -207,11 +214,7 @@ npc_walk_total_time (scr_gameref_t game, scr_int npc, scr_int walk)
   scr_vartype_t vt_key[6];
   scr_int stops, stop, total;
 
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Walks";
-  vt_key[3].integer = walk;
-  vt_key[4].string = "Times";
+  npc_walk_key (vt_key, npc, walk, "Times");
   stops = prop_get_child_count (bundle, "I<-sisis", vt_key);
 
   total = 0;
@@ -298,6 +301,33 @@ npc_walk_preempts (scr_gameref_t game, scr_int npc, scr_int walk)
     return FALSE;
 
   return TRUE;
+}
+
+
+/*
+ * npc_walk_is_preempted()
+ *
+ * TRUE if any higher-numbered walk of the same NPC preempts this one.
+ */
+static scr_bool
+npc_walk_is_preempted (scr_gameref_t game, scr_int npc, scr_int walk)
+{
+  scr_int walk_count, other;
+
+  walk_count = gs_npc_walkstep_count (game, npc);
+  for (other = walk + 1; other < walk_count; other++)
+    {
+      if (npc_walk_preempts (game, npc, other))
+        {
+          if (npc_trace)
+            {
+              scr_trace ("NPC: NPC %ld walk %ld preempted by walk %ld\n",
+                        npc, walk, other);
+            }
+          return TRUE;
+        }
+    }
+  return FALSE;
 }
 
 
@@ -430,7 +460,6 @@ npc_room_in_roomgroup (scr_gameref_t game, scr_int room, scr_int group)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[4];
-  scr_int member;
 
   /* An exit can lead to a nonexistent room, which is in no group. */
   if (!gs_room_valid (game, room))
@@ -441,57 +470,7 @@ npc_room_in_roomgroup (scr_gameref_t game, scr_int room, scr_int group)
   vt_key[1].integer = group;
   vt_key[2].string = "List";
   vt_key[3].integer = room;
-  member = prop_get_integer (bundle, "I<-sisi", vt_key);
-  return member != 0;
-}
-
-
-/*
- * npc_random_adjacent_roomgroup_member()
- *
- * Return a random member of group adjacent to given room.  Pre-4.0 path
- * only; see npc_roomgroup_walk_dest() for what the 4.0 Runner does.
- */
-static scr_int
-npc_random_adjacent_roomgroup_member (scr_gameref_t game,
-                                      scr_int room, scr_int group)
-{
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5];
-  scr_bool eightpointcompass;
-  scr_int roomlist[12], count, length, index_;
-
-  /* If given room is "hidden", return nothing. */
-  if (room == -1)
-    return -1;
-
-  /* How many exits to consider: north, east, south, west, up, down, in
-     and out, plus the four diagonals on an eight-point compass. */
-  eightpointcompass = prop_get_global_boolean (bundle, "EightPointCompass");
-  length = eightpointcompass ? 12 : 8;
-
-  /* Poll adjacent rooms. */
-  vt_key[0].string = "Rooms";
-  vt_key[1].integer = room;
-  vt_key[2].string = "Exits";
-  count = 0;
-  for (index_ = 0; index_ < length; index_++)
-    {
-      scr_int adjacent;
-
-      vt_key[3].integer = index_;
-      vt_key[4].string = "Dest";
-      adjacent = prop_get_child_count (bundle, "I<-sisis", vt_key);
-
-      if (adjacent > 0 && npc_room_in_roomgroup (game, adjacent - 1, group))
-        {
-          roomlist[count] = adjacent - 1;
-          count++;
-        }
-    }
-
-  /* Return a random adjacent room, or -1 if nothing is adjacent. */
-  return (count > 0) ? roomlist[scr_randomint (0, count - 1)] : -1;
+  return prop_get_integer (bundle, "I<-sisi", vt_key) != 0;
 }
 
 
@@ -517,6 +496,48 @@ npc_exit_dest (scr_gameref_t game, scr_int room, scr_int slot)
   if (!prop_get (bundle, "I<-sisis", &vt_rvalue, vt_key))
     return -1;
   return vt_rvalue.integer - 1;
+}
+
+
+/*
+ * npc_random_adjacent_roomgroup_member()
+ *
+ * Return a random member of group adjacent to given room.  Pre-4.0 path
+ * only; see npc_roomgroup_walk_dest() for what the 4.0 Runner does.
+ */
+static scr_int
+npc_random_adjacent_roomgroup_member (scr_gameref_t game,
+                                      scr_int room, scr_int group)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_bool eightpointcompass;
+  scr_int roomlist[12], count, length, slot;
+
+  /* If given room is "hidden", return nothing. */
+  if (room == -1)
+    return -1;
+
+  /* How many exits to consider: north, east, south, west, up, down, in
+     and out, plus the four diagonals on an eight-point compass. */
+  eightpointcompass = prop_get_global_boolean (bundle, "EightPointCompass");
+  length = eightpointcompass ? 12 : 8;
+
+  /* Poll adjacent rooms. */
+  count = 0;
+  for (slot = 0; slot < length; slot++)
+    {
+      scr_int adjacent;
+
+      adjacent = npc_exit_dest (game, room, slot);
+      if (adjacent >= 0 && npc_room_in_roomgroup (game, adjacent, group))
+        {
+          roomlist[count] = adjacent;
+          count++;
+        }
+    }
+
+  /* Return a random adjacent room, or -1 if nothing is adjacent. */
+  return (count > 0) ? roomlist[scr_randomint (0, count - 1)] : -1;
 }
 
 
@@ -582,13 +603,10 @@ npc_roomgroup_walk_dest (scr_gameref_t game, scr_int room, scr_int group)
 
   if (count > 0)
     {
-      for (;;)
-        {
-          slot = scr_randomint (0, 12);
-          if (!flagged[slot])
-            continue;
-          return (slot < 12) ? npc_exit_dest (game, room, slot) : room;
-        }
+      do
+        slot = scr_randomint (0, 12);
+      while (!flagged[slot]);
+      return (slot < 12) ? npc_exit_dest (game, room, slot) : room;
     }
 
   /* Nothing adjacent: any member of the group, off by one (see above). */
@@ -602,12 +620,10 @@ npc_roomgroup_walk_dest (scr_gameref_t game, scr_int room, scr_int group)
   if (count == 0)
     return -1;
 
-  for (;;)
-    {
-      index_ = scr_randomint (0, room_count - 1);
-      if (npc_room_in_roomgroup (game, index_, group))
-        return index_ - 1;
-    }
+  do
+    index_ = scr_randomint (0, room_count - 1);
+  while (!npc_room_in_roomgroup (game, index_, group));
+  return index_ - 1;
 }
 
 
@@ -651,8 +667,6 @@ static const scr_char NOWHERE[] = "nowhere";
 static const scr_char *
 npc_wherefrom (scr_gameref_t game, scr_int roomfrom, scr_int roomto)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5], vt_rvalue;
   const scr_char *retval;
   scr_int length, dir;
 
@@ -663,22 +677,10 @@ npc_wherefrom (scr_gameref_t game, scr_int roomfrom, scr_int roomto)
     return NOWHERE;
 
   length = (npc_version (game) >= TAF_VERSION_400) ? 12 : 8;
-
-  vt_key[0].string = "Rooms";
-  vt_key[1].integer = roomfrom;
-  vt_key[2].string = "Exits";
   for (dir = 0; dir < length; dir++)
     {
-      vt_key[3].integer = dir;
-      if (prop_get (bundle, "I<-sisi", &vt_rvalue, vt_key))
-        {
-          scr_int dest;
-
-          vt_key[4].string = "Dest";
-          dest = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
-          if (dest == roomto)
-            retval = WHEREFROM_DIRNAMES[dir];
-        }
+      if (npc_exit_dest (game, roomfrom, dir) == roomto)
+        retval = WHEREFROM_DIRNAMES[dir];
     }
 
   if (!retval)
@@ -828,8 +830,6 @@ npc_announce (scr_gameref_t game, scr_int npc,
   pf_buffer_answer_break (filter);
 
   /* Handle any associated resource. */
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
   vt_key[2].string = "Res";
   vt_key[3].integer = is_exit ? 3 : 2;
   res_handle_resource (game, "sisi", vt_key);
@@ -889,10 +889,11 @@ npc_announce_hidden (scr_gameref_t game, scr_int npc)
    * more in both.  The empty-buffer half of pf_buffer_join_always()'s guard
    * is kept: it can differ only in that leading-whitespace case, which
    * nothing can depend on.
+   *
+   * Deliberate deviation: capitalised, and joined with pspace's guard, like
+   * npc_announce() -- no four spaces, no lowercase sentence start (unless
+   * the game's ALRs quote the Name as the Runner prints it).
    */
-  /* Deliberate deviation: capitalised, and joined with pspace's guard, like
-     npc_announce() -- no four spaces, no lowercase sentence start (unless
-     the game's ALRs quote the Name as the Runner prints it). */
   if (!pf_alr_mentions (bundle, name))
     pf_new_sentence (filter);
   pf_buffer_join (filter, name);
@@ -921,11 +922,7 @@ npc_walk_chartask (scr_gameref_t game, scr_int npc, scr_int walk,
   scr_vartype_t vt_key[5];
   scr_int chartask;
 
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Walks";
-  vt_key[3].integer = walk;
-  vt_key[4].string = "CharTask";
+  npc_walk_key (vt_key, npc, walk, "CharTask");
   chartask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
   if (!gs_task_valid (game, chartask))
     return -1;
@@ -963,17 +960,13 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
   roomgroups = prop_get_child_count (bundle, "I<-s", vt_key);
 
   /* Get move times array length. */
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Walks";
-  vt_key[3].integer = walk;
-  vt_key[4].string = "MoveTimes";
+  npc_walk_key (vt_key, npc, walk, "MoveTimes");
   movetimes = prop_get_child_count (bundle, "I<-sisis", vt_key);
 
   /* Find a step to match the movetime. */
   for (walkstep = 0; walkstep < movetimes - 1; walkstep++)
     {
-      scr_int  movetime;
+      scr_int movetime;
 
       vt_key[5].integer = walkstep + 1;
       movetime = prop_get_integer (bundle, "I<-sisisi", vt_key);
@@ -1196,34 +1189,31 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
   if (!is_arrival)
     return;
 
+  /* Run the meetchar task if the met character is at the destination. */
   chartask = npc_walk_chartask (game, npc, walk, &meetchar);
-  if (chartask >= 0)
-    {
-      /* Run meetchar task if appropriate. */
-      if ((meetchar == -1 && gs_player_in_room (game, dest))
-          || (meetchar >= 0 && dest == gs_npc_location (game, meetchar) - 1))
-        {
-          run_npc_walk_task (game, chartask);
-        }
-    }
+  if (chartask >= 0
+      && ((meetchar == -1 && gs_player_in_room (game, dest))
+          || (meetchar >= 0
+              && dest == gs_npc_location (game, meetchar) - 1)))
+    run_npc_walk_task (game, chartask);
 
+  /* Run the meetobject task if the met object is at the destination. */
   vt_key[4].string = "ObjectTask";
   objecttask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
   if (gs_task_valid (game, objecttask))
     {
       scr_int meetobject;
 
-      /* Run meetobject task if appropriate. */
       vt_key[4].string = "MeetObject";
       meetobject = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
+
       /* Convert a dynamic-object index to a global one where required. */
       if (meetobject >= 0 && npc_walk_meetobject_needs_fixup (game))
         meetobject = obj_dynamic_object (game, meetobject);
+
       if (gs_object_valid (game, meetobject)
           && obj_directly_in_room (game, meetobject, dest))
-        {
-          run_npc_walk_task (game, objecttask);
-        }
+        run_npc_walk_task (game, objecttask);
     }
 }
 
@@ -1269,7 +1259,7 @@ npc_tick_npc (scr_gameref_t game, scr_int npc)
   walk_count = gs_npc_walkstep_count (game, npc);
   for (walk = 0; walk < walk_count; walk++)
     {
-      scr_int total, other;
+      scr_int total;
       scr_bool enabled;
 
       /*
@@ -1303,18 +1293,8 @@ npc_tick_npc (scr_gameref_t game, scr_int npc)
         gs_set_npc_walkstep (game, npc, walk, total);
 
       /* Higher-numbered walks take precedence over this one. */
-      for (other = walk + 1; other < walk_count; other++)
-        {
-          if (npc_walk_preempts (game, npc, other))
-            {
-              if (npc_trace)
-                {
-                  scr_trace ("NPC: NPC %ld walk %ld preempted by walk %ld\n",
-                            npc, walk, other);
-                }
-              enabled = FALSE;
-            }
-        }
+      if (npc_walk_is_preempted (game, npc, walk))
+        enabled = FALSE;
 
       /*
        * Take the step.  The Runner's gate is just "enabled and counting",
@@ -1410,8 +1390,7 @@ npc_tick_npcs (scr_gameref_t game)
           /* Iterate each NPC's walks. */
           for (walk = gs_npc_walkstep_count (game, npc) - 1; walk >= 0; walk--)
             {
-              scr_int chartask, meetchar, other;
-              scr_bool preempted = FALSE;
+              scr_int chartask, meetchar;
 
               /* Ignore finished walks. */
               if (gs_npc_walkstep (game, npc, walk) <= 0)
@@ -1427,26 +1406,14 @@ npc_tick_npcs (scr_gameref_t game)
                * his WALK 0 CharTask, task 22, whose restriction used to print
                * "Paul gives you a look over, then resumes his searching."
                */
-              for (other = walk + 1;
-                   other < gs_npc_walkstep_count (game, npc); other++)
-                {
-                  if (npc_walk_preempts (game, npc, other))
-                    preempted = TRUE;
-                }
-              if (preempted)
+              if (npc_walk_is_preempted (game, npc, walk))
                 continue;
 
-              /* Retrieve any character meeting task for the NPC. */
+              /* Run the walk's meetchar task if it is the player it meets. */
               chartask = npc_walk_chartask (game, npc, walk, &meetchar);
-              if (chartask >= 0)
-                {
-                  /* Run meetchar task if appropriate. */
-                  if (meetchar == -1 &&
-                      gs_player_in_room (game, gs_npc_location (game, npc) - 1))
-                    {
-                      run_npc_walk_task (game, chartask);
-                    }
-                }
+              if (chartask >= 0 && meetchar == -1
+                  && gs_player_in_room (game, gs_npc_location (game, npc) - 1))
+                run_npc_walk_task (game, chartask);
             }
         }
     }
@@ -1465,7 +1432,8 @@ npc_tick_npcs (scr_gameref_t game)
     }
 
 #ifdef SCARIER_DUMP_TOOLS
-  scr_dump_npc_trace (game);     /* Per-turn NPC-location trace; see scdump.cpp. */
+  /* Per-turn NPC-location trace; see scdump.cpp. */
+  scr_dump_npc_trace (game);
 #endif
 }
 

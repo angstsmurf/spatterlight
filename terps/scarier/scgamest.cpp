@@ -28,6 +28,11 @@
 #include "scprotos.h"
 #include "scgamest.h"
 
+
+/* Assorted definitions and constants. */
+static const scr_uint GAME_MAGIC = 0x35aed26e;
+
+
 /*
  * Optional "capacity assist" default (opt-in, off by default).  The per-game
  * flag gs->capacity_recompute selects the legacy recompute-from-held-objects
@@ -40,6 +45,13 @@
  */
 static scr_bool gs_capacity_assist = FALSE;
 
+
+/*
+ * gs_set_capacity_assist()
+ * gs_get_capacity_assist()
+ *
+ * Set and read the capacity assist default for games created later.
+ */
 void
 gs_set_capacity_assist (scr_bool flag)
 {
@@ -88,7 +100,9 @@ gs_carried_recompute (scr_gameref_t gs)
   gs->carried_ready = TRUE;
 }
 
+
 /*
+ * gs_runner_reaches()
  * gs_runner_possessed()
  * gs_runner_worn()
  *
@@ -135,6 +149,7 @@ gs_runner_worn (scr_gameref_t gs, scr_int object)
 {
   return gs_runner_reaches (gs, object, TRUE);
 }
+
 
 /*
  * gs_carried_track()
@@ -226,10 +241,6 @@ gs_carried_track (scr_gameref_t gs, scr_int object, scr_int old_pos,
 }
 
 
-/* Assorted definitions and constants. */
-static const scr_uint GAME_MAGIC = 0x35aed26e;
-
-
 /*
  * gs_move_player_to_room()
  * gs_player_in_room()
@@ -251,6 +262,7 @@ gs_move_player_to_room (scr_gameref_t game, scr_int room)
     {
       scr_int dest = lib_random_roomgroup_member (game,
                                                  room - game->room_count);
+
       if (dest < 0)
         return;                  /* Empty group: leave the player in place. */
       game->playerroom = dest;
@@ -656,6 +668,7 @@ gs_set_object_seen (scr_gameref_t gs, scr_int object, scr_bool seen)
   gs->objects[object].seen = seen;
 }
 
+
 /*
  * "Unmoved" is narrower than it sounds, and is not a general move tracker.
  * It is the live half of the Runner's OnlyWhenNotMoved byte, o(132): the
@@ -675,7 +688,8 @@ gs_set_object_unmoved (scr_gameref_t gs, scr_int object, scr_bool unmoved)
 }
 
 void
-gs_set_object_static_unmoved (scr_gameref_t gs, scr_int object, scr_bool unmoved)
+gs_set_object_static_unmoved (scr_gameref_t gs, scr_int object,
+                              scr_bool unmoved)
 {
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   gs->objects[object].static_unmoved = unmoved;
@@ -716,7 +730,10 @@ gs_object_static_unmoved (scr_gameref_t gs, scr_int object)
   return gs->objects[object].static_unmoved;
 }
 
-/* A 4.0 event-moved static's room-presence set; see scr_objectstate_t. */
+
+/*
+ * A 4.0 event-moved static's room-presence set; see scr_objectstate_t.
+ */
 void
 gs_object_static_rooms_clear (scr_gameref_t gs, scr_int object)
 {
@@ -729,6 +746,7 @@ gs_object_static_rooms_add (scr_gameref_t gs, scr_int object, scr_int room)
 {
   std::vector<scr_int> *rooms;
   std::vector<scr_int>::iterator at;
+
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   rooms = &gs->objects[object].static_rooms;
   at = std::lower_bound (rooms->begin (), rooms->end (), room);
@@ -747,6 +765,7 @@ scr_bool
 gs_object_in_static_rooms (scr_gameref_t gs, scr_int object, scr_int room)
 {
   const std::vector<scr_int> *rooms;
+
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   rooms = &gs->objects[object].static_rooms;
   return std::binary_search (rooms->begin (), rooms->end (), room);
@@ -765,6 +784,7 @@ gs_object_parent (scr_gameref_t gs, scr_int object)
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   return gs->objects[object].parent;
 }
+
 
 /*
  * The Runner-shadow container field; see its note in scgamest.h.  The
@@ -795,7 +815,10 @@ gs_object_parent (scr_gameref_t gs, scr_int object)
  *     (a drop or a take), not in `count`.
  */
 
+
 /*
+ * gs_rp_detach()
+ *
  * Clear runner_parent only when the move detaches the object from an
  * in/on placement (and, when clear_worn is set, from a worn one).  All
  * other sources leave any stale value in place, as the Runner does.
@@ -805,6 +828,7 @@ static void
 gs_rp_detach (scr_gameref_t gs, scr_int object, scr_bool clear_worn)
 {
   const scr_int old_pos = gs->objects[object].position;
+
   if (old_pos == OBJ_IN_OBJECT || old_pos == OBJ_ON_OBJECT
       || (clear_worn
           && (old_pos == OBJ_WORN_PLAYER || old_pos == OBJ_WORN_NPC)))
@@ -826,11 +850,13 @@ gs_set_object_runner_parent (scr_gameref_t gs, scr_int object,
   gs->objects[object].runner_parent = runner_parent;
 }
 
+
 /*
  * How a mover treats runner_parent: set it outright, or leave any stale
  * value unless gs_rp_detach() clears it (with or without the worn case).
  */
 enum gs_rp_mode_t { GS_RP_SET, GS_RP_DETACH, GS_RP_DETACH_WORN };
+
 
 /*
  * gs_object_place_unchecked()
@@ -846,6 +872,7 @@ gs_object_place_unchecked (scr_gameref_t gs, scr_int object,
 {
   scr_int old_pos = gs->objects[object].position;
   scr_bool was_possessed, was_worn;
+
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   was_possessed = gs_runner_possessed (gs, object);
   was_worn = gs_runner_worn (gs, object);
@@ -1011,10 +1038,12 @@ gs_set_npc_location (scr_gameref_t gs, scr_int npc, scr_int location)
   assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
   gs->npcs[npc].location = location;
 
-  /* Any placement at all clears the walk-hidden marker; npc_tick_npc_walk()
-     sets it again immediately after stamping a Hidden stop.  It clears the
-     dead marker for the same reason: both stand in for a value the Runner
-     keeps in the room field this call overwrites. */
+  /*
+   * Any placement at all clears the walk-hidden marker; npc_tick_npc_walk()
+   * sets it again immediately after stamping a Hidden stop.  It clears the
+   * dead marker for the same reason: both stand in for a value the Runner
+   * keeps in the room field this call overwrites.
+   */
   gs->npcs[npc].walk_hidden = FALSE;
   gs->npcs[npc].dead = FALSE;
 }
@@ -1096,7 +1125,10 @@ gs_npc_seen (scr_gameref_t gs, scr_int npc)
   return gs->npcs[npc].seen;
 }
 
-/* Battle system accessors -- player and NPC current stamina and recovery. */
+
+/*
+ * Battle system accessors -- player and NPC current stamina and recovery.
+ */
 void
 gs_set_playerstamina (scr_gameref_t gs, scr_int stamina)
 {
@@ -1180,6 +1212,7 @@ gs_npc_attackcounter (scr_gameref_t gs, scr_int npc)
   assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
   return gs->npcs[npc].attackcounter;
 }
+
 
 /*
  * gs_player_battle()
@@ -1302,6 +1335,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
       else                      /* By NPC. */
         {
           const scr_int npc = initialparent - 1;
+
           if (npc >= 0 && npc < game->npc_count)
             gs_object_npc_get_unchecked (game, index_, npc);
           else
@@ -1317,6 +1351,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
       {
         const scr_int container = obj_container_object (game,
                                                        initialparent);
+
         if (container >= 0 && container < game->object_count)
           gs_object_move_into_unchecked (game, index_, container);
         else
@@ -1332,6 +1367,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
       {
         const scr_int surface = obj_surface_object (game,
                                                    initialparent);
+
         if (surface >= 0 && surface < game->object_count)
           gs_object_move_onto_unchecked (game, index_, surface);
         else
@@ -1352,15 +1388,18 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
         }
       else if (initialposition == 4 + game->room_count)
         {
-          /* 0 is the player; an unset -1 is too.  run380 already
+          /*
+           * 0 is the player; an unset -1 is too.  run380 already
            * treats Parent -1 on a worn object as the player
            * (tra.taf), and 4.0 files use the same leftover -1
-           * (nem.taf's starting shoes).  Parent 1+ is NPC n-1. */
+           * (nem.taf's starting shoes).  Parent 1+ is NPC n-1.
+           */
           if (initialparent <= 0)
             gs_object_player_wear_unchecked (game, index_);
           else
             {
               const scr_int npc = initialparent - 1;
+
               if (npc >= 0 && npc < game->npc_count)
                 gs_object_npc_wear_unchecked (game, index_, npc);
               else
@@ -1468,9 +1507,11 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
   game->object_count = prop_get_child_count (bundle, "I<-s", vt_key);
   game->objects.resize (game->object_count);
 
-  /* The NPCs array is not built until further below, but the object setup
+  /*
+   * The NPCs array is not built until further below, but the object setup
    * that follows needs the NPC count to validate objects whose initial state
-   * is "held/worn by NPC" (some games name a nonexistent NPC); read it now. */
+   * is "held/worn by NPC" (some games name a nonexistent NPC); read it now.
+   */
   vt_key[0].string = "NPCs";
   game->npc_count = prop_get_child_count (bundle, "I<-s", vt_key);
   vt_key[0].string = "Objects";
@@ -1497,8 +1538,10 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
 
               game->objects[index_].position = OBJ_PART_NPC;
 
-              /* Parent 0 is the player; a nonexistent NPC reads as 0 too,
-                 as obj_static_in_room() does. */
+              /*
+               * Parent 0 is the player; a nonexistent NPC reads as 0 too,
+               * as obj_static_in_room() does.
+               */
               vt_key[2].string = "Parent";
               parent = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
               if (parent < 0 || parent >= game->npc_count)
@@ -1509,9 +1552,11 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
           else
             {
               gs_object_make_hidden_unchecked (game, index_);
-              /* Statics never carry Runner [2E] data; the mover above no
+              /*
+               * Statics never carry Runner [2E] data; the mover above no
                * longer clears unconditionally, so do it here (the vector
-               * resize zero-fill would falsely match object 0). */
+               * resize zero-fill would falsely match object 0).
+               */
               game->objects[index_].runner_parent = -1;
             }
         }
@@ -1702,7 +1747,8 @@ gs_populate_npcs (scr_gameref_t game, scr_prop_setref_t bundle)
       game->npcs[index_].stamina = 0;
       game->npcs[index_].staminacounter = 0;
       game->npcs[index_].attackcounter = 0;
-      memset (&game->npcs[index_].battle, 0, sizeof (game->npcs[index_].battle));
+      memset (&game->npcs[index_].battle, 0,
+              sizeof (game->npcs[index_].battle));
 
       vt_key[1].integer = index_;
 
@@ -1889,9 +1935,11 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->undo = NULL;
   game->undo_available = FALSE;
 
-  /* Carried-load tracking off until seeded below; default to Runner-faithful
+  /*
+   * Carried-load tracking off until seeded below; default to Runner-faithful
    * running totals rather than the legacy per-check recompute, unless the
-   * capacity assist default asks for the recompute (see gs_capacity_assist). */
+   * capacity assist default asks for the recompute (see gs_capacity_assist).
+   */
   game->carried_weight = 0;
   game->carried_size = 0;
   game->carried_ready = FALSE;
@@ -1928,17 +1976,19 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
 
   gs_populate_player (game, bundle);
 
-  /* Score-change notifications start off.  The TAF does carry a NoScoreNotify
-     global, but no Runner reads it: "(Your score has increased by N)" exists
-     only in run400.exe -- run370/380/390 have no such string at all -- and
-     run400 gates it on Options -> High Scores/Scoring -> "Notify when score
-     changes", a persisted *user* preference read at startup as
-     GetSetting("ADRIFT", "Runner", "NotifyScore", CStr(False)) and saved back
-     by notify_Click.  A fresh installation therefore never notifies, which is
-     the state to match here; the `notify` command stands in for the menu item.
-     Verified live in run400 and run390 (make_arena_probe.py config SC and
-     make_39_endprobe.py both score +3 on an ordinary turn, in silence).  See
-     RUNNER_TESTS_TODO.md section 4. */
+  /*
+   * Score-change notifications start off.  The TAF does carry a NoScoreNotify
+   * global, but no Runner reads it: "(Your score has increased by N)" exists
+   * only in run400.exe -- run370/380/390 have no such string at all -- and
+   * run400 gates it on Options -> High Scores/Scoring -> "Notify when score
+   * changes", a persisted *user* preference read at startup as
+   * GetSetting("ADRIFT", "Runner", "NotifyScore", CStr(False)) and saved back
+   * by notify_Click.  A fresh installation therefore never notifies, which is
+   * the state to match here; the `notify` command stands in for the menu item.
+   * Verified live in run400 and run390 (make_arena_probe.py config SC and
+   * make_39_endprobe.py both score +3 on an ordinary turn, in silence).  See
+   * RUNNER_TESTS_TODO.md section 4.
+   */
   game->notify_score_change = FALSE;
 
   /* Miscellaneous state defaults. */
@@ -1946,7 +1996,11 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->score = 0;
   game->bold_room_names = TRUE;
   game->verbose = TRUE;
-  /* The owning status strings default-construct to NULL via value-init above. */
+
+  /*
+   * The owning status strings default-construct to NULL via value-init
+   * above.
+   */
 
   /* Resource controls. */
   res_clear_resource (&game->requested_sound);
@@ -2010,12 +2064,15 @@ gs_create (scr_var_setref_t vars,
            scr_prop_setref_t bundle, scr_filterref_t filter)
 {
   scr_gameref_t game;
+
   assert (vars && bundle && filter);
 
-  /* Create the initial state structure.  sc_game_s owns std::unique_ptr
-   * status strings (P3 RAII), so it is non-POD and must be new()'d — value-init
-   * zeroes the POD fields (all of which gs_populate sets explicitly anyway)
-   * and default-constructs the owning strings to NULL. */
+  /*
+   * Create the initial state structure.  sc_game_s owns std::unique_ptr
+   * status strings (P3 RAII), so it is non-POD and must be new()'d --
+   * value-init zeroes the POD fields (all of which gs_populate sets
+   * explicitly anyway) and default-constructs the owning strings to NULL.
+   */
   game = new scr_game_s ();
 
   /*
@@ -2060,11 +2117,14 @@ gs_is_game_valid (scr_gameref_t game)
 static void
 gs_string_copy (scr_owned_string &to_string, const scr_char *from_string)
 {
-  /* Copy from_string if set, otherwise set to_string to NULL.  Assigning the
-   * unique_ptr frees any current contents. */
+  /*
+   * Copy from_string if set, otherwise set to_string to NULL.  Assigning the
+   * unique_ptr frees any current contents.
+   */
   if (from_string)
     {
       scr_char *copy = (scr_char *) scr_malloc (strlen (from_string) + 1);
+
       memcpy (copy, from_string, strlen (from_string) + 1);
       to_string.reset (copy);
     }
@@ -2085,6 +2145,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   const scr_prop_setref_t bundle = from->bundle;
   scr_vartype_t vt_key[3];
   scr_int var_count, var;
+
   assert (gs_is_game_valid (to) && gs_is_game_valid (from));
 
   /*
@@ -2224,8 +2285,10 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->carried_size = from->carried_size;
   to->carried_ready = from->carried_ready;
 
-  /* Undo carries the phantom along.  A restore copies in the freshly loaded
-   * game's, so a restored save brings back a still-held one -- unmeasured. */
+  /*
+   * Undo carries the phantom along.  A restore copies in the freshly loaded
+   * game's, so a restored save brings back a still-held one -- unmeasured.
+   */
   to->runner_phantom_held = from->runner_phantom_held;
 }
 
@@ -2240,9 +2303,11 @@ gs_destroy (scr_gameref_t game)
 {
   assert (gs_is_game_valid (game));
 
-  /* Drop the parser's cached %object%/%character% candidates and the task,
+  /*
+   * Drop the parser's cached %object%/%character% candidates and the task,
    * serializer, event, command-matcher and map property caches for this game,
-   * so a later game allocated at the same address can't inherit them. */
+   * so a later game allocated at the same address can't inherit them.
+   */
   uip_forget_game (game);
   task_forget_game (game);
   ser_forget_game (game);
@@ -2250,15 +2315,19 @@ gs_destroy (scr_gameref_t game)
   run_forget_game (game);
   scmap_forget_game (game);
 
-  /* The state arrays (rooms, objects, tasks, events, npcs and their walksteps,
+  /*
+   * The state arrays (rooms, objects, tasks, events, npcs and their walksteps,
    * the *_references) are std::vector and the owning game strings
    * (current_room_name, status_line, title, author, hint_text) are
    * scr_owned_string; all free themselves when the game is delete'd below
-   * (P3 RAII), so there is nothing to free by hand here. */
+   * (P3 RAII), so there is nothing to free by hand here.
+   */
 
-  /* Free the game state itself; its destructor releases the owned strings.
-   * (The old 0xaa poison is gone — it would corrupt the unique_ptr members the
+  /*
+   * Free the game state itself; its destructor releases the owned strings.
+   * (The old 0xaa poison is gone -- it would corrupt the unique_ptr members the
    * destructor is about to free, the same reason the scr_filter_s struct moved
-   * to new/delete in P3.) */
+   * to new/delete in P3.)
+   */
   delete game;
 }

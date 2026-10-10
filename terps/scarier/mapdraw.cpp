@@ -17,16 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* The map model and its rasteriser, shared by both engines.  See mapdraw.h.
-
-   Geometry follows the Adrift 5 runner's Map.vb, and the software
-   rasteriser below stands in for the GDI+ calls it makes (FillPolygon /
-   DrawBezier / DrawCurve / DrawEllipse / DrawString).  The ADRIFT 4 runner draws its map
-   out of VB control arrays instead, with a look of its own; we render both
-   engines' maps the same way rather than carrying two rasterisers, so what
-   differs between them is only where the nodes come from -- authored in
-   ADRIFT 5 (a5map.cpp), computed from the exit graph in ADRIFT 4
-   (scmap.cpp). */
+/*
+ * The map model and its rasteriser, shared by both engines.  See mapdraw.h.
+ *
+ * Geometry follows the Adrift 5 runner's Map.vb, and the software rasteriser
+ * below stands in for the GDI+ calls it makes (FillPolygon / DrawBezier /
+ * DrawCurve / DrawEllipse / DrawString).  The ADRIFT 4 runner draws its map
+ * out of VB control arrays instead, with a look of its own; we render both
+ * engines' maps the same way rather than carrying two rasterisers, so what
+ * differs between them is only where the nodes come from -- authored in
+ * ADRIFT 5 (a5map.cpp), computed from the exit graph in ADRIFT 4
+ * (scmap.cpp).
+ */
 
 #include <cstdlib>
 #include <cstring>
@@ -38,36 +40,42 @@
 
 #include "mapdraw.h"
 
-/* DirectionsEnum order (Global.vb:1468), as in a5expr.cpp.  ADRIFT 4 numbers
-   its directions the same way (run400 Form29.opp), so the enum serves both. */
+/*
+ * DirectionsEnum order (Global.vb:1468), as in a5expr.cpp.  ADRIFT 4 numbers
+ * its directions the same way (run400 Form29.opp), so the enum serves both.
+ */
 const char *const map_dirs[MAP_N_DIRS] = {
   "North", "East", "South", "West", "Up", "Down",
   "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest"
 };
 
-/* The plan offsets in the same order (see mapdraw.h).  The zeros for the
-   badge directions are what make them the centre of the box in link_point()
-   and no stub at all in draw_out_arrow(). */
+/*
+ * The plan offsets in the same order (see mapdraw.h).  The zeros for the
+ * badge directions are what make them the centre of the box in link_point()
+ * and no stub at all in draw_out_arrow().
+ */
 const int map_dir_dx[MAP_N_DIRS] = { 0, 1, 0, -1, 0, 0, 0, 0, 1, 1, -1, -1 };
 const int map_dir_dy[MAP_N_DIRS] = { -1, 0, 1, 0, 0, 0, 0, 0, -1, 1, 1, -1 };
 
-/* Map.vb:33-39 paints a fixed pastel palette.  We colour the map from the
-   host's text style instead, so the pane matches the story text in any theme.
-   The host passes the two colours in (map_set_palette); until it does, black
-   on white.  Only the badge accents are fixed.
-
-   Paper and ink seed a small hierarchy:
-
-     canvas      = background
-     room fill   = a little ink mixed into paper
-     here fill   = the room card mixed further toward ink, so the player's
-                   room reads as the filled-in box
-     strokes     = ink
-     labels      = ink or paper, on the other side of the fill
-     links/stubs = ink faded toward paper
-
-   Links are then drawn near-opaque, since the fading is already in the
-   colour. */
+/*
+ * Map.vb:33-39 paints a fixed pastel palette.  We colour the map from the
+ * host's text style instead, so the pane matches the story text in any theme.
+ * The host passes the two colours in (map_set_palette); until it does, black
+ * on white.  Only the badge accents are fixed.
+ *
+ * Paper and ink seed a small hierarchy:
+ *
+ *   canvas      = background
+ *   room fill   = a little ink mixed into paper
+ *   here fill   = the room card mixed further toward ink, so the player's
+ *                 room reads as the filled-in box
+ *   strokes     = ink
+ *   labels      = ink or paper, on the other side of the fill
+ *   links/stubs = ink faded toward paper
+ *
+ * Links are then drawn near-opaque, since the fading is already in the
+ * colour.
+ */
 static unsigned int map_bg = 0xFFFFFF;
 static unsigned int map_fg = 0x000000;
 
@@ -120,16 +128,6 @@ mix_rgb (unsigned int a, unsigned int b, double t)
                    (int) (ab + (bb - ab) * t + 0.5));
 }
 
-/* Round to the nearest pixel.  floor() rather than a bare (int) cast: the cast
-   truncates toward zero, which rounds every negative coordinate one pixel
-   toward the origin and so closes the map up by a pixel where it crosses
-   zero. */
-static int
-round_px (double v)
-{
-  return (int) floor (v + 0.5);
-}
-
 static double
 rgb_luminance (unsigned int rgb)
 {
@@ -138,21 +136,27 @@ rgb_luminance (unsigned int rgb)
        + 0.0722 * (rgb_chan (rgb, 0) / 255.0);
 }
 
-/* Room fills are drawn at this alpha over the canvas (Map.vb ~200).  Label
-   contrast must be measured against the blended on-screen colour, not the
-   raw fill -- otherwise a mid amber over black picks black ink that then
-   sits on a much darker card. */
+/*
+ * Room fills are drawn at this alpha over the canvas (Map.vb ~200).  Label
+ * contrast must be measured against the blended on-screen colour, not the
+ * raw fill -- otherwise a mid amber over black picks black ink that then
+ * sits on a much darker card.
+ */
 #define MAP_ROOM_FILL_ALPHA 200
 
-/* A room on another level than the player's: card, name and badges.  Well
-   below Map.vb's 50, which left the other levels too close to the player's
-   own to tell apart at a glance. */
+/*
+ * A room on another level than the player's: card, name and badges.  Well
+ * below Map.vb's 50, which left the other levels too close to the player's
+ * own to tell apart at a glance.
+ */
 #define MAP_FAR_ROOM_ALPHA 28
 #define MAP_FAR_LABEL_ALPHA 56
 
-/* Paper/ink labels: put the mark on the other side of mid-luminance from
-   the fill.  WCAG on an alpha-blended mid grey still prefers dark ink, which
-   then fails to mark "you are here" as the filled-in box. */
+/*
+ * Paper/ink labels: put the mark on the other side of mid-luminance from
+ * the fill.  WCAG on an alpha-blended mid grey still prefers dark ink, which
+ * then fails to mark "you are here" as the filled-in box.
+ */
 static unsigned int
 paper_ink_label_on (unsigned int fill)
 {
@@ -179,10 +183,12 @@ rebuild_derived_palette (void)
 
   map_palette_ready = 1;
 
-  /* Paper and ink only: rooms sit a little off the canvas; the player's
-     room is mixed further toward ink so it reads as the filled-in box.
-     Shallow here-mixes landed on a mid grey whose label then failed to
-     invert. */
+  /*
+   * Paper and ink only: rooms sit a little off the canvas; the player's
+   * room is mixed further toward ink so it reads as the filled-in box.
+   * Shallow here-mixes landed on a mid grey whose label then failed to
+   * invert.
+   */
   map_room_fill = mix_rgb (map_bg, map_fg, room_t);
   map_room_stroke = map_fg;
   map_here_fill = mix_rgb (map_room_fill, map_fg,
@@ -238,9 +244,11 @@ map_free (map_t *map)
   free (map);
 }
 
-/* Find the node for a room.  NULL if the room was never placed on the map:
-   ADRIFT 5 rooms created procedurally have no node, and the ADRIFT 4 layout
-   passes over rooms the author flagged to hide. */
+/*
+ * Find the node for a room.  NULL if the room was never placed on the map:
+ * ADRIFT 5 rooms created procedurally have no node, and the ADRIFT 4 layout
+ * passes over rooms the author flagged to hide.
+ */
 const map_node_t *
 map_find (const map_t *map, const char *lockey)
 {
@@ -266,6 +274,7 @@ page_by_key (const map_t *map, int key)
       return &map->pages[p];
   return NULL;
 }
+
 
 /*
  * ------------------------------------------------------------- rasteriser
@@ -331,8 +340,10 @@ fill_span (map_surface_t *s, int x0, int y0, int x1, int y1,
   rgbsurf_fill_rect (s, x0, y0, x1 + 1, y1 + 1, rgb, alpha);
 }
 
-/* Fill the rectangle with corners (x0,y0) and (x1,y1), both inclusive, in
-   either order. */
+/*
+ * Fill the rectangle with corners (x0,y0) and (x1,y1), both inclusive, in
+ * either order.
+ */
 static void
 fill_rect (map_surface_t *s, int x0, int y0, int x1, int y1,
            unsigned int rgb, int alpha)
@@ -344,8 +355,10 @@ fill_rect (map_surface_t *s, int x0, int y0, int x1, int y1,
   fill_span (s, x0, y0, x1, y1, rgb, alpha);
 }
 
-/* The outline, one pixel wide, corners (x0,y0) and (x1,y1) inclusive.  Each
-   corner belongs to two sides and is painted by both. */
+/*
+ * The outline, one pixel wide, corners (x0,y0) and (x1,y1) inclusive.  Each
+ * corner belongs to two sides and is painted by both.
+ */
 static void
 draw_rect (map_surface_t *s, int x0, int y0, int x1, int y1,
            unsigned int rgb, int alpha)
@@ -356,14 +369,28 @@ draw_rect (map_surface_t *s, int x0, int y0, int x1, int y1,
   fill_span (s, x1, y0, x1, y1, rgb, alpha);
 }
 
-/* Bresenham with a round nib of radius `wd/2`.  `dash` != 0 draws a dotted
-   pen (DashStyle.Dot): the runner's dot pattern is on/off in units of the pen
-   width. */
+/*
+ * Bresenham with a round nib of radius `wd/2`.  `dash` != 0 draws a dotted
+ * pen (DashStyle.Dot): the runner's dot pattern is on/off in units of the pen
+ * width.
+ */
 static void
 draw_line (map_surface_t *s, int x0, int y0, int x1, int y1, int wd,
            unsigned int rgb, int alpha, int dash)
 {
   rgbsurf_line (s, x0, y0, x1, y1, wd, RGBSURF_NIB_ROUND, rgb, alpha, dash);
+}
+
+/*
+ * Round to the nearest pixel.  floor() rather than a bare (int) cast: the cast
+ * truncates toward zero, which rounds every negative coordinate one pixel
+ * toward the origin and so closes the map up by a pixel where it crosses
+ * zero.
+ */
+static int
+round_px (double v)
+{
+  return (int) floor (v + 0.5);
 }
 
 /* Flatten a cubic Bezier (GDI+ DrawBezier) and stroke it. */
@@ -397,8 +424,10 @@ draw_bezier (map_surface_t *s, double x0, double y0, double x1, double y1,
       int cx = round_px (bx), cy = round_px (by);
       if (i > 0)
         {
-          /* Stroke the segment, keeping the dash phase continuous along the
-             whole curve rather than restarting it at every flattened step. */
+          /*
+           * Stroke the segment, keeping the dash phase continuous along the
+           * whole curve rather than restarting it at every flattened step.
+           */
           int dx = abs (cx - px), dy = abs (cy - py);
           int seg = (dx > dy ? dx : dy);
           if (!dash || (phase % period) < period / 2)
@@ -412,9 +441,11 @@ draw_bezier (map_surface_t *s, double x0, double y0, double x1, double y1,
     *dash_phase = phase;
 }
 
-/* GDI+ DrawCurve (default tension 0.5): Cardinal spline through `pts`.
-   Map.vb uses this when a Link has author-dragged OrigMidPoints / <Anchor>s
-   (RecalculateLinks + DrawLinks), instead of the four-point Bezier. */
+/*
+ * GDI+ DrawCurve (default tension 0.5): Cardinal spline through `pts`.
+ * Map.vb uses this when a Link has author-dragged OrigMidPoints / <Anchor>s
+ * (RecalculateLinks + DrawLinks), instead of the four-point Bezier.
+ */
 static void
 draw_curve (map_surface_t *s, const double *pts, int n, int wd,
             unsigned int rgb, int alpha, int dash, int *dash_phase)
@@ -454,8 +485,10 @@ fill_circle (map_surface_t *s, int cx, int cy, int r, unsigned int rgb,
   rgbsurf_fill_circle (s, cx, cy, r, rgb, alpha);
 }
 
-/* Pixel-centre barycentric fill.  These triangles are a handful of pixels
-   across (a badge's inner disc), so a bounding-box walk is cheap. */
+/*
+ * Pixel-centre barycentric fill.  These triangles are a handful of pixels
+ * across (a badge's inner disc), so a bounding-box walk is cheap.
+ */
 static double
 orient2d (double ax, double ay, double bx, double by, double cx, double cy)
 {
@@ -495,11 +528,13 @@ fill_triangle (map_surface_t *s,
       }
 }
 
-/* The Up/Down arrow on a badge of radius `r`: an upright triangle with its
-   tip `t` above the badge's centre and its base corners `h` to either side
-   and `b` below.  The corners lie on a circle 3px inside the disc's edge, or
-   as near as whole pixels come, and as near equilateral as they come too:
-   any flatter and the mark reads as a slice of the disc, not an arrow. */
+/*
+ * The Up/Down arrow on a badge of radius `r`: an upright triangle with its
+ * tip `t` above the badge's centre and its base corners `h` to either side
+ * and `b` below.  The corners lie on a circle 3px inside the disc's edge, or
+ * as near as whole pixels come, and as near equilateral as they come too:
+ * any flatter and the mark reads as a slice of the disc, not an arrow.
+ */
 static void
 ud_triangle_offsets (int r, double *t, double *h, double *b)
 {
@@ -522,9 +557,11 @@ ud_triangle_offsets (int r, double *t, double *h, double *b)
       return;
     }
 
-  /* The tip goes on the circle.  A base corner goes on the pixel within the
-     circle that is nearest the equilateral one, (√3/2, 1/2) of the way out,
-     with its distance in from the circle counted three times over. */
+  /*
+   * The tip goes on the circle.  A base corner goes on the pixel within the
+   * circle that is nearest the equilateral one, (√3/2, 1/2) of the way out,
+   * with its distance in from the circle counted three times over.
+   */
   *t = inner;
   *h = *b = 1;
   for (hh = 1; hh <= inner; hh++)
@@ -560,8 +597,10 @@ fill_ud_triangle (map_surface_t *s, int cx, int cy, int r, int up,
   fill_triangle (s, ox, oy - t, ox - h, oy + b, ox + h, oy + b, rgb, alpha);
 }
 
-/* A filled arrow head at (x,y) pointing along (dx,dy) -- GDI+
-   AdjustableArrowCap(4,4), used for one-way links. */
+/*
+ * A filled arrow head at (x,y) pointing along (dx,dy) -- GDI+
+ * AdjustableArrowCap(4,4), used for one-way links.
+ */
 static void
 draw_arrowhead (map_surface_t *s, double x, double y, double dx, double dy,
                 int size, unsigned int rgb, int alpha)
@@ -587,20 +626,25 @@ draw_arrowhead (map_surface_t *s, double x, double y, double dx, double dy,
     }
 }
 
-/* --- bitmap text -----------------------------------------------------------
-   Glk graphics windows cannot render text, so room labels are drawn as
-   glyphs, in the shared rasteriser's two faces: 8x8 (font8x8_basic) and, for
-   room names too long to fit their box at 8x8, 5x7.  Map.vb binary-searches a
-   GDI+ font size until the name fits (GetFont); a Glk graphics window has no
-   text at all, so instead we carry two bitmap faces and drop to the small one
-   when the big one will not fit. */
+
+/*
+ * ------------------------------------------------------------ bitmap text
+ *
+ * Glk graphics windows cannot render text, so room labels are drawn as
+ * glyphs, in the shared rasteriser's two faces: 8x8 (font8x8_basic) and, for
+ * room names too long to fit their box at 8x8, 5x7.  Map.vb binary-searches a
+ * GDI+ font size until the name fits (GetFont); we carry two bitmap faces
+ * instead, and drop to the small one when the big one will not fit.
+ */
 typedef rgbsurf_font_t map_font_t;
 
 static const map_font_t &kBigFont = rgbsurf_font8x8;
 static const map_font_t &kSmallFont = rgbsurf_font5x7;
 
-/* Proportional advance: trim the glyph's unused right-hand columns so labels
-   stay compact in a 60px-wide room box. */
+/*
+ * Proportional advance: trim the glyph's unused right-hand columns so labels
+ * stay compact in a 60px-wide room box.
+ */
 static int
 glyph_advance (const map_font_t *f, unsigned char c)
 {
@@ -638,8 +682,10 @@ draw_text (map_surface_t *s, const map_font_t *f, const char *t,
     }
 }
 
-/* Word-wrap `text` to `maxw` pixels in `f`.  `broke` reports whether a word
-   had to be split, which means the face is too big for the box. */
+/*
+ * Word-wrap `text` to `maxw` pixels in `f`.  `broke` reports whether a word
+ * had to be split, which means the face is too big for the box.
+ */
 static void
 wrap_text (const map_font_t *f, const char *text, int maxw,
            std::vector<std::string> &lines, int *broke)
@@ -656,9 +702,11 @@ wrap_text (const map_font_t *f, const char *text, int maxw,
         {
           int gw = glyph_advance (f, (unsigned char) text[j]);
 
-          /* An advance includes the gap that follows the glyph; the last one
-             on a line has nothing after it, so don't make the line pay for
-             it.  Without this a name is split for want of a single pixel. */
+          /*
+           * An advance includes the gap that follows the glyph; the last one
+           * on a line has nothing after it, so don't make the line pay for
+           * it.  Without this a name is split for want of a single pixel.
+           */
           if (w + gw - 1 > maxw)
             break;
           w += gw;
@@ -686,11 +734,13 @@ wrap_text (const map_font_t *f, const char *text, int maxw,
     }
 }
 
-/* Centre the room name in its box.  Stands in for GDI+'s StringFormat centring
-   plus Map.vb's GetFont auto-fit: the runner binary-searches a font size that
-   makes the name fit, and since a Glk graphics window has no text at all, we
-   do the bitmap equivalent -- lay the name out at 8x8, and drop to the 5x7
-   face when that would split a word or overflow the box. */
+/*
+ * Centre the room name in its box.  Stands in for GDI+'s StringFormat centring
+ * plus Map.vb's GetFont auto-fit: the runner binary-searches a font size that
+ * makes the name fit, and since a Glk graphics window has no text at all, we
+ * do the bitmap equivalent -- lay the name out at 8x8, and drop to the 5x7
+ * face when that would split a word or overflow the box.
+ */
 static void
 draw_label (map_surface_t *s, const char *text, int x0, int y0, int x1,
             int y1, unsigned int rgb, int alpha)
@@ -715,8 +765,9 @@ draw_label (map_surface_t *s, const char *text, int x0, int y0, int x1,
 
   total = (int) lines.size () * f->h;
   ty = y0 + (boxh - total) / 2;
+  /* Still taller than the box: start at the top. */
   if (ty < y0)
-    ty = y0;                    /* still taller than the box: start at the top */
+    ty = y0;
   for (i = 0; i < lines.size (); i++)
     {
       int tw = text_width (f, lines[i].c_str (), lines[i].size ()) - 1;
@@ -728,6 +779,7 @@ draw_label (map_surface_t *s, const char *text, int x0, int y0, int x1,
       draw_text (s, f, lines[i].c_str (), lines[i].size (), tx, yy, rgb, alpha);
     }
 }
+
 
 /*
  * ------------------------------------------------------------- projection
@@ -742,8 +794,10 @@ typedef struct {
   int ox, oy;                   /* pixel offset of map origin */
 } proj_t;
 
-/* The height of the strip the camera keeps clear for the pan/zoom buttons,
-   in a window `h` pixels high: the map has what is left underneath it. */
+/*
+ * The height of the strip the camera keeps clear for the pan/zoom buttons,
+ * in a window `h` pixels high: the map has what is left underneath it.
+ */
 static int
 chrome_top (const map_camera_t *cam, int h)
 {
@@ -752,15 +806,16 @@ chrome_top (const map_camera_t *cam, int h)
   return cam->chrome_h < h ? cam->chrome_h : h;
 }
 
+/* Set up the projection into a window `w` by `h` pixels. */
 static void
-proj_init (proj_t *p, const map_camera_t *cam, const map_surface_t *dst)
+proj_init (proj_t *p, const map_camera_t *cam, int w, int h)
 {
-  int top = chrome_top (cam, dst->h);
+  int top = chrome_top (cam, h);
 
   p->cam = cam;
-  p->ox = dst->w / 2 - cam->cx;
+  p->ox = w / 2 - cam->cx;
   /* Centre the view in the area under the buttons. */
-  p->oy = top + (dst->h - top) / 2 - cam->cy;
+  p->oy = top + (h - top) / 2 - cam->cy;
 }
 
 static int
@@ -793,8 +848,10 @@ link_point (const proj_t *p, const map_node_t *n, int dir, double *x,
   *y = px_y (p, ly + h * (1 + dy) / 2);
 }
 
-/* GetRelativePoint (Map.vb:1659): a point given as a percentage of the node
-   box, allowed to fall outside it. */
+/*
+ * GetRelativePoint (Map.vb:1659): a point given as a percentage of the node
+ * box, allowed to fall outside it.
+ */
 static void
 rel_point (const proj_t *p, const map_node_t *n, double xp, double yp,
            double *x, double *y)
@@ -803,10 +860,12 @@ rel_point (const proj_t *p, const map_node_t *n, double xp, double yp,
   *y = px_y (p, n->y + n->h * yp / 100.0);
 }
 
-/* In and Out have no direction on the plan, so the runner picks the edge they
-   leave by from where the other room lies (GetLinkPoint, Map.vb:775-816),
-   remembering it on the node as eInEdge / eOutEdge.  That is what puts a room's
-   IN badge on the side facing the room it lets you into. */
+/*
+ * In and Out have no direction on the plan, so the runner picks the edge they
+ * leave by from where the other room lies (GetLinkPoint, Map.vb:775-816),
+ * remembering it on the node as eInEdge / eOutEdge.  That is what puts a room's
+ * IN badge on the side facing the room it lets you into.
+ */
 static int
 inout_edge (const map_node_t *n, const map_node_t *dn)
 {
@@ -821,14 +880,52 @@ inout_edge (const map_node_t *n, const map_node_t *dn)
   return DIR_N;
 }
 
-/* Badge sites: the eight half-winds between the drawn compass stubs.
-   Cardinals (N/E/S/W) and diagonals (NE/SE/SW/NW) own the edge centres and
-   corners; badges sit on the subdivisions between them -- which is also
-   where ADRIFT 5's ptIn/ptOut land (Map.vb:902-928).
-        NNW          NNE
-     WNW                ENE
-     WSW                ESE
-        SSW          SSE */
+/*
+ * GetBezierAssister (Map.vb:1592): the control point that bows a connector
+ * out of the node in its own direction.  In and Out are absent here on
+ * purpose -- see the straight-line note in render_link.
+ */
+static void
+bezier_assister (const proj_t *p, const map_node_t *n, int dir,
+                 double dist, double *x, double *y)
+{
+  double ox, oy;
+  int scale = p->cam->scale > 0 ? p->cam->scale : 1;
+
+  if (dist == 0)
+    dist = 1;
+  ox = dist * 40.0 / scale / n->w;
+  oy = dist * 40.0 / scale / n->h;
+
+  switch (dir)
+    {
+    case DIR_N:  rel_point (p, n, 50, -oy, x, y); break;
+    case DIR_NE: rel_point (p, n, 100 + 3 * ox / 4, -oy / 2, x, y); break;
+    case DIR_E:  rel_point (p, n, 100 + ox, 50, x, y); break;
+    case DIR_SE: rel_point (p, n, 100 + 3 * ox / 4, 100 + oy / 2, x, y); break;
+    case DIR_S:  rel_point (p, n, 50, 100 + oy, x, y); break;
+    case DIR_SW: rel_point (p, n, -3 * ox / 4, 100 + oy / 2, x, y); break;
+    case DIR_W:  rel_point (p, n, -ox, 50, x, y); break;
+    case DIR_NW: rel_point (p, n, -3 * ox / 4, -oy / 2, x, y); break;
+    default:     rel_point (p, n, 50, 50, x, y); break;
+    }
+}
+
+
+/*
+ * ------------------------------------------------------------ badge sites
+ */
+
+/*
+ * Badge sites: the eight half-winds between the drawn compass stubs.
+ * Cardinals (N/E/S/W) and diagonals (NE/SE/SW/NW) own the edge centres and
+ * corners; badges sit on the subdivisions between them -- which is also
+ * where ADRIFT 5's ptIn/ptOut land (Map.vb:902-928).
+ *      NNW          NNE
+ *   WNW                ENE
+ *   WSW                ESE
+ *      SSW          SSE
+ */
 enum {
   BADGE_NNE, BADGE_ENE, BADGE_ESE, BADGE_SSE,
   BADGE_SSW, BADGE_WSW, BADGE_WNW, BADGE_NNW,
@@ -837,8 +934,10 @@ enum {
   BADGE_NE, BADGE_SE, BADGE_SW, BADGE_NW
 };
 
-/* Where each site sits, as percentages of the node box (GetRelativePoint),
-   in the order of the enum above. */
+/*
+ * Where each site sits, as percentages of the node box (GetRelativePoint),
+ * in the order of the enum above.
+ */
 typedef struct {
   double xp, yp;
 } badge_pct_t;
@@ -875,19 +974,6 @@ compass_site (int dir)
   return compass_port[dir];
 }
 
-static const map_link_t *
-find_dir_link (const map_node_t *n, int dir)
-{
-  int l;
-
-  if (n == NULL)
-    return NULL;
-  for (l = 0; l < n->n_links; l++)
-    if (n->links[l].dir == dir)
-      return &n->links[l];
-  return NULL;
-}
-
 /* In/Out on a facing edge: opposite half-winds (the runner's ptIn/ptOut). */
 static int
 inout_site (int dir, int edge)
@@ -903,8 +989,10 @@ inout_site (int dir, int edge)
     }
 }
 
-/* Up/Down primary half-wind on a facing edge (never the cardinal midpoint,
-   so they clear N/E/S/W stubs). */
+/*
+ * Up/Down primary half-wind on a facing edge (never the cardinal midpoint,
+ * so they clear N/E/S/W stubs).
+ */
 static int
 ud_site_primary (int dir, int edge)
 {
@@ -945,37 +1033,9 @@ badge_site_point (const proj_t *p, const map_node_t *n, int site,
   rel_point (p, n, xp, yp, x, y);
 }
 
-/* GetBezierAssister (Map.vb:1592): the control point that bows a connector
-   out of the node in its own direction.  In and Out are absent here on
-   purpose -- see the straight-line note in map_render. */
-static void
-bezier_assister (const proj_t *p, const map_node_t *n, int dir,
-                 double dist, double *x, double *y)
-{
-  double ox, oy;
-  int scale = p->cam->scale > 0 ? p->cam->scale : 1;
-
-  if (dist == 0)
-    dist = 1;
-  ox = dist * 40.0 / scale / n->w;
-  oy = dist * 40.0 / scale / n->h;
-
-  switch (dir)
-    {
-    case DIR_N:  rel_point (p, n, 50, -oy, x, y); break;
-    case DIR_NE: rel_point (p, n, 100 + 3 * ox / 4, -oy / 2, x, y); break;
-    case DIR_E:  rel_point (p, n, 100 + ox, 50, x, y); break;
-    case DIR_SE: rel_point (p, n, 100 + 3 * ox / 4, 100 + oy / 2, x, y); break;
-    case DIR_S:  rel_point (p, n, 50, 100 + oy, x, y); break;
-    case DIR_SW: rel_point (p, n, -3 * ox / 4, 100 + oy / 2, x, y); break;
-    case DIR_W:  rel_point (p, n, -ox, 50, x, y); break;
-    case DIR_NW: rel_point (p, n, -3 * ox / 4, -oy / 2, x, y); break;
-    default:     rel_point (p, n, 50, 50, x, y); break;
-    }
-}
 
 /*
- * ---------------------------------------------------------------- drawing
+ * -------------------------------------------------------- pages and views
  */
 
 static int
@@ -999,6 +1059,20 @@ page_node (const map_page_t *page, const char *key)
   return NULL;
 }
 
+/* The node's own link in direction `dir`, if it has one. */
+static const map_link_t *
+find_dir_link (const map_node_t *n, int dir)
+{
+  int l;
+
+  if (n == NULL)
+    return NULL;
+  for (l = 0; l < n->n_links; l++)
+    if (n->links[l].dir == dir)
+      return &n->links[l];
+  return NULL;
+}
+
 /* Opposite badge direction (Up<->Down, In<->Out). */
 static int
 badge_opposite (int dir)
@@ -1013,16 +1087,18 @@ badge_opposite (int dir)
     }
 }
 
-/* Node to aim a badge at for edge placement: the movement destination, when it
-   has a node on this page.
-
-   Spatterlight extension when it does not: look for a same-page room whose
-   return badge exit (DestinationAnchor, else the opposite of SourceAnchor)
-   points back here, closest match winning -- AoS High In Oak Tree Down ->
-   Dummy on another page, while Middle of Woods Up -> oak.  The runner has no
-   counterpart; it would leave the badge on its default site.  This only
-   chooses which edge the badge sits on, so the worst a wrong guess does is
-   put it on an odd side of the box. */
+/*
+ * Node to aim a badge at for edge placement: the movement destination, when it
+ * has a node on this page.
+ *
+ * Spatterlight extension when it does not: look for a same-page room whose
+ * return badge exit (DestinationAnchor, else the opposite of SourceAnchor)
+ * points back here, closest match winning -- AoS High In Oak Tree Down ->
+ * Dummy on another page, while Middle of Woods Up -> oak.  The runner has no
+ * counterpart; it would leave the badge on its default site.  This only
+ * chooses which edge the badge sits on, so the worst a wrong guess does is
+ * put it on an odd side of the box.
+ */
 static const map_node_t *
 badge_face_node (const map_page_t *page, const map_node_t *n,
                  const map_link_t *link)
@@ -1066,9 +1142,11 @@ badge_face_node (const map_page_t *page, const map_node_t *n,
   return best;
 }
 
-/* The page the runner would switch to: the player's own (SelectNode), or the
-   first one when the player is somewhere the map does not place.  Returns 0
-   when there is no page to pick, leaving *key alone. */
+/*
+ * The page the runner would switch to: the player's own (SelectNode), or the
+ * first one when the player is somewhere the map does not place.  Returns 0
+ * when there is no page to pick, leaving *key alone.
+ */
 static int
 player_page_key (const map_t *map, const char *player_key, int *key)
 {
@@ -1103,10 +1181,12 @@ map_has_content (const map_t *map, const map_view_t *view,
   if (page == NULL)
     return 0;
 
-  /* The same two tests pass 3 of map_render applies before it draws a box.
-     A hidden room counts for nothing even when seen, which is exactly the
-     case that matters: the staging rooms games park the player in during
-     their opening screens are hidden. */
+  /*
+   * The same two tests render_node applies before it draws a box.  A hidden
+   * room counts for nothing even when seen, which is exactly the case that
+   * matters: the staging rooms games park the player in during their opening
+   * screens are hidden.
+   */
   for (i = 0; i < page->n_nodes; i++)
     {
       if (page->nodes[i].hidden)
@@ -1117,44 +1197,15 @@ map_has_content (const map_t *map, const map_view_t *view,
   return 0;
 }
 
-/* The manual zoom ladder ("glk zoom in/out"), from MAP_ZOOM_MIN to
-   MAP_ZOOM_MAX.  The automatic fit stays within MAP_SCALE_MIN and
-   MAP_SCALE_MAX, but a player asking to zoom in can usefully get closer than
-   the fit would, and out to see the whole of a big map at once; past 32 the
-   boxes stop gaining anything, and below 3 a room is smaller than its badges
-   and too small to click. */
-static const int map_zoom_ladder[] = {
-  MAP_ZOOM_MIN, 4, 5, 7, MAP_SCALE_MIN, 12, 16, 20, 26, MAP_ZOOM_MAX
-};
-#define MAP_ZOOM_LADDER_N \
-  ((int) (sizeof map_zoom_ladder / sizeof map_zoom_ladder[0]))
 
-int
-map_zoom_step (int scale, int dir)
-{
-  const int *ladder = map_zoom_ladder;
-  const int n = MAP_ZOOM_LADDER_N;
-  int i;
+/*
+ * ---------------------------------------------------------------- framing
+ */
 
-  if (dir > 0)
-    {
-      for (i = 0; i < n; i++)
-        if (ladder[i] > scale)
-          return ladder[i];
-    }
-  else
-    {
-      for (i = n - 1; i >= 0; i--)
-        if (ladder[i] < scale)
-          return ladder[i];
-    }
-  return scale;
-}
-
-/* --- framing ------------------------------------------------------------ */
-
-/* Pixels kept clear around the seen rooms when fitting them to the window,
-   for the labels and out-arrows that overhang the boxes. */
+/*
+ * Pixels kept clear around the seen rooms when fitting them to the window,
+ * for the labels and out-arrows that overhang the boxes.
+ */
 #define MAP_FRAME_MARGIN 24
 
 static int
@@ -1201,11 +1252,13 @@ fit_axis (int span, int room)
   return span > 0 ? room / span : MAP_SCALE_MAX;
 }
 
-/* Place the camera along one axis: the seen extent `lo`..`hi` (map units)
-   against `room` pixels of window.  An extent that fits is centred, and
-   cannot pan.  One that overflows is centred on `want` as nearly as keeping
-   the window full allows, and can still pan whichever ways it stopped short
-   of an end: those buttons are added to `enabled`. */
+/*
+ * Place the camera along one axis: the seen extent `lo`..`hi` (map units)
+ * against `room` pixels of window.  An extent that fits is centred, and
+ * cannot pan.  One that overflows is centred on `want` as nearly as keeping
+ * the window full allows, and can still pan whichever ways it stopped short
+ * of an end: those buttons are added to `enabled`.
+ */
 static int
 frame_axis (int lo, int hi, int scale, int room, int want,
             int back_btn, int fwd_btn, unsigned int *enabled)
@@ -1225,9 +1278,11 @@ frame_axis (int lo, int hi, int scale, int room, int want,
   return want;
 }
 
-/* map_frame's work: choose the page, the scale and the centre.  Returns the
-   pan buttons that have somewhere to go, and passes back the scale the
-   automatic fit would choose. */
+/*
+ * map_frame's work: choose the page, the scale and the centre.  Returns the
+ * pan buttons that have somewhere to go, and passes back the scale the
+ * automatic fit would choose.
+ */
 static unsigned int
 frame_camera (const map_t *map, const map_view_t *view,
               const char *player_key, const map_surface_t *dst,
@@ -1239,8 +1294,10 @@ frame_camera (const map_t *map, const map_view_t *view,
   int room_w, room_h, sx, sy, scale, want_x, want_y;
   unsigned int pan = 0;
 
-  /* Stay on the player's page while they are on a visible map room; a hidden
-     or unplaced room keeps the previous page so the view does not jump. */
+  /*
+   * Stay on the player's page while they are on a visible map room; a hidden
+   * or unplaced room keeps the previous page so the view does not jump.
+   */
   if (pn != NULL && !pn->hidden)
     cam->page = pn->page;
   else if (page_by_key (map, cam->page) == NULL
@@ -1262,9 +1319,11 @@ frame_camera (const map_t *map, const map_view_t *view,
                    : *fit_scale;
   cam->scale = scale;
 
-  /* Where an axis that overflows would like its centre: on the player while
-     following (LockPlayerCentre), otherwise wherever the last frame, or a
-     pan button since, left it.  A hidden or unseen room is not followed. */
+  /*
+   * Where an axis that overflows would like its centre: on the player while
+   * following (LockPlayerCentre), otherwise wherever the last frame, or a
+   * pan button since, left it.  A hidden or unseen room is not followed.
+   */
   if (follow && pn != NULL && !pn->hidden && view_seen (view, pn->key))
     {
       want_x = (int) ((pn->x + pn->w / 2.0) * scale);
@@ -1327,9 +1386,49 @@ map_pan (map_camera_t *cam, int w, int h, int button)
     }
 }
 
-/* --- floating pan/zoom chrome ------------------------------------------- */
+/*
+ * The manual zoom ladder ("glk zoom in/out"), from MAP_ZOOM_MIN to
+ * MAP_ZOOM_MAX.  The automatic fit stays within MAP_SCALE_MIN and
+ * MAP_SCALE_MAX, but a player asking to zoom in can usefully get closer than
+ * the fit would, and out to see the whole of a big map at once; past 32 the
+ * boxes stop gaining anything, and below 3 a room is smaller than its badges
+ * and too small to click.
+ */
+static const int map_zoom_ladder[] = {
+  MAP_ZOOM_MIN, 4, 5, 7, MAP_SCALE_MIN, 12, 16, 20, 26, MAP_ZOOM_MAX
+};
+#define MAP_ZOOM_LADDER_N \
+  ((int) (sizeof map_zoom_ladder / sizeof map_zoom_ladder[0]))
 
-#define MAP_BTN_SIZE 14       /* even, for the even marks of draw_chrome_btn */
+int
+map_zoom_step (int scale, int dir)
+{
+  const int *ladder = map_zoom_ladder;
+  const int n = MAP_ZOOM_LADDER_N;
+  int i;
+
+  if (dir > 0)
+    {
+      for (i = 0; i < n; i++)
+        if (ladder[i] > scale)
+          return ladder[i];
+    }
+  else
+    {
+      for (i = n - 1; i >= 0; i--)
+        if (ladder[i] < scale)
+          return ladder[i];
+    }
+  return scale;
+}
+
+
+/*
+ * ----------------------------------------------- floating pan/zoom chrome
+ */
+
+/* Even, for the even marks of draw_chrome_btn. */
+#define MAP_BTN_SIZE 14
 #define MAP_BTN_PAD 3
 #define MAP_BTN_ALPHA 230       /* ~90% opaque */
 #define MAP_BTN_MAX 6
@@ -1344,10 +1443,12 @@ typedef struct {
   int x, y;
 } map_btn_t;
 
-/* Lay the button row out into `out` (room for MAP_BTN_MAX), right-aligned in
-   a window `win_w` wide, and return the count: the four pan buttons, then
-   zoom in and out.  The pan buttons are left out while the whole map fits,
-   which is to say while none of them is enabled. */
+/*
+ * Lay the button row out into `out` (room for MAP_BTN_MAX), right-aligned in
+ * a window `win_w` wide, and return the count: the four pan buttons, then
+ * zoom in and out.  The pan buttons are left out while the whole map fits,
+ * which is to say while none of them is enabled.
+ */
 static int
 map_chrome_layout (int win_w, const map_chrome_t *chrome, map_btn_t *out)
 {
@@ -1375,8 +1476,10 @@ map_chrome_layout (int win_w, const map_chrome_t *chrome, map_btn_t *out)
   return n;
 }
 
-/* One pixel of a button's mark, at (u,v) on the MAP_BTN_SIZE - 2 square
-   inside its border. */
+/*
+ * One pixel of a button's mark, at (u,v) on the MAP_BTN_SIZE - 2 square
+ * inside its border.
+ */
 static void
 chrome_mark_px (map_surface_t *s, const map_btn_t *b, int u, int v,
                 unsigned int rgb, int alpha)
@@ -1398,11 +1501,13 @@ chrome_edge (map_surface_t *s, int x0, int y0, int x1, int y1, int enabled)
              enabled ? MAP_BTN_ALPHA : MAP_BTN_ALPHA / 2);
 }
 
-/* A button's border, each pixel painted once so that the see-through ink is
-   even all round.  Its left edge is the previous button's right edge, if
-   there is one (`joined_left`), and so is not drawn again here; its right
-   edge, shared with the next button, is drawn live if either side is
-   (`right_enabled`). */
+/*
+ * A button's border, each pixel painted once so that the see-through ink is
+ * even all round.  Its left edge is the previous button's right edge, if
+ * there is one (`joined_left`), and so is not drawn again here; its right
+ * edge, shared with the next button, is drawn live if either side is
+ * (`right_enabled`).
+ */
 static void
 draw_chrome_border (map_surface_t *s, const map_btn_t *b, int enabled,
                     int joined_left, int right_enabled)
@@ -1418,8 +1523,10 @@ draw_chrome_border (map_surface_t *s, const map_btn_t *b, int enabled,
   chrome_edge (s, x1, y0, x1, y1, right_enabled);
 }
 
-/* A button's face and its mark.  A greyed button stays in its place, so the
-   row does not shuffle about under the pointer as the view moves. */
+/*
+ * A button's face and its mark.  A greyed button stays in its place, so the
+ * row does not shuffle about under the pointer as the view moves.
+ */
 static void
 draw_chrome_btn (map_surface_t *s, const map_btn_t *b, int enabled)
 {
@@ -1433,10 +1540,12 @@ draw_chrome_btn (map_surface_t *s, const map_btn_t *b, int enabled)
   fill_rect (s, b->x + 1, b->y + 1, b->x + MAP_BTN_SIZE - 2,
              b->y + MAP_BTN_SIZE - 2, face, MAP_BTN_ALPHA);
 
-  /* The marks are drawn by hand rather than taken from the font, so that
-     each is an even number of pixels across and sits with the same gap on
-     either side.  An arrow is a triangle 4 deep and 8 wide, a plus 6 square
-     with strokes 2 thick: the same 20 pixels of ink apiece. */
+  /*
+   * The marks are drawn by hand rather than taken from the font, so that
+   * each is an even number of pixels across and sits with the same gap on
+   * either side.  An arrow is a triangle 4 deep and 8 wide, a plus 6 square
+   * with strokes 2 thick: the same 20 pixels of ink apiece.
+   */
   if (b->id == MAP_CHROME_ZOOM_IN || b->id == MAP_CHROME_ZOOM_OUT)
     {
       for (i = -3; i < 3; i++)
@@ -1497,8 +1606,15 @@ map_chrome_hit (int w, const map_chrome_t *chrome, int px, int py)
   return MAP_CHROME_NONE;
 }
 
-/* An exit that leads somewhere the player has not been is drawn as a short
-   stub arrow out of the node (DrawOutArrow, Map.vb). */
+
+/*
+ * -------------------------------------------------------------- rendering
+ */
+
+/*
+ * An exit that leads somewhere the player has not been is drawn as a short
+ * stub arrow out of the node (DrawOutArrow, Map.vb).
+ */
 static void
 draw_out_arrow (map_surface_t *s, const proj_t *p, const map_node_t *n,
                 int dir, int wd, int alpha)
@@ -1521,17 +1637,11 @@ draw_out_arrow (map_surface_t *s, const proj_t *p, const map_node_t *n,
   draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, map_stub, alpha);
 }
 
-/* ADRIFT 3/4 badge sites: fixed half-winds, one per badge, arranged so that
-   each pair sits on opposite corners of the box -- Up at NNE and Down at SSW,
-   In at WNW and Out at ESE.  The half-wind enum is shared with A5 layout;
-   A3/A4 still do not chase compass stubs.  Indexed by MAP_BADGE. */
-static const int a4_badge_site[MAP_N_BADGES] = {
-  BADGE_NNE, BADGE_SSW, BADGE_WNW, BADGE_ESE
-};
-
-/* The In/Out mark: a serifed I or a square-shouldered O, built from bars to
-   suit the size of the badge, since no font cell sits centred on a disc this
-   small.  The first row whose min_r the badge's radius reaches is used. */
+/*
+ * The In/Out mark: a serifed I or a square-shouldered O, built from bars to
+ * suit the size of the badge, since no font cell sits centred on a disc this
+ * small.  The first row whose min_r the badge's radius reaches is used.
+ */
 typedef struct {
   int min_r;
   int thick;                    /* weight of every stroke                   */
@@ -1545,7 +1655,7 @@ typedef struct {
 static const io_mark_t io_marks[] = {
   { 10, 3, 6, 4, 4, 1 },        /* scale 20 and up: 9 wide, 13 high         */
   {  6, 1, 3, 1, 2, 0 },        /* scales 12-19: 7 high                     */
-  {  0, 1, 2, 1, 2, 0 }         /* scales 3-11: 5 high                     */
+  {  0, 1, 2, 1, 2, 0 }         /* scales 3-11: 5 high                      */
 };
 
 static void
@@ -1558,9 +1668,11 @@ draw_io_letter (map_surface_t *s, int cx, int cy, int r, char letter,
   while (r < m->min_r)
     m++;
 
-  /* The bars across the top and bottom.  O's taper toward its outer rows
-     (1, 3, 5... either side of the centre column), which rounds its
-     shoulders once the strokes are thick enough to have any. */
+  /*
+   * The bars across the top and bottom.  O's taper toward its outer rows
+   * (1, 3, 5... either side of the centre column), which rounds its
+   * shoulders once the strokes are thick enough to have any.
+   */
   for (i = 0; i < m->thick; i++)
     {
       hw = m->bar_hw;
@@ -1592,17 +1704,19 @@ draw_io_letter (map_surface_t *s, int cx, int cy, int r, char letter,
     }
 }
 
-/* The IN / OUT / UP / DOWN bubble on a node edge (DrawInOutIcon, Map.vb:1530;
-   Form29.doicon for ADRIFT 4 Up/Down), at badge site `site`: a disc in the
-   direction's colour, marked in white with an I, an O or an arrow.  The
-   arrows are there because a U and a D are hard to tell apart, and from an
-   O, at the size of a badge.
-
-   `alpha` fades the whole badge with its card.  `dim` is the badge for a way
-   that leads somewhere not yet seen: the disc washed out toward the paper,
-   and its mark fainter.  It is washed out rather than made see-through
-   because the badges are drawn over the room's name, which at small scales
-   runs underneath them. */
+/*
+ * The IN / OUT / UP / DOWN bubble on a node edge (DrawInOutIcon, Map.vb:1530;
+ * Form29.doicon for ADRIFT 4 Up/Down), at badge site `site`: a disc in the
+ * direction's colour, marked in white with an I, an O or an arrow.  The
+ * arrows are there because a U and a D are hard to tell apart, and from an
+ * O, at the size of a badge.
+ *
+ * `alpha` fades the whole badge with its card.  `dim` is the badge for a way
+ * that leads somewhere not yet seen: the disc washed out toward the paper,
+ * and its mark fainter.  It is washed out rather than made see-through
+ * because the badges are drawn over the room's name, which at small scales
+ * runs underneath them.
+ */
 static void
 draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
                     int dir, int site, int alpha, int dim)
@@ -1610,8 +1724,10 @@ draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
   double x, y;
   unsigned int rgb;
   int cx, cy, mark_alpha = alpha;
-  /* Half a map unit, but no smaller than a disc that can still carry its
-     mark: below MAP_SCALE_MIN the badges stop shrinking with the rooms. */
+  /*
+   * Half a map unit, but no smaller than a disc that can still carry its
+   * mark: below MAP_SCALE_MIN the badges stop shrinking with the rooms.
+   */
   int r = p->cam->scale / 2 < 4 ? 4 : p->cam->scale / 2;
 
   switch (dir)
@@ -1639,16 +1755,19 @@ draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
     fill_ud_triangle (s, cx, cy, r, dir == DIR_UP, ICON_MARK, mark_alpha);
 }
 
-/* The ADRIFT 4 runner had two pictures per icon: the normal one when the
-   destination has been seen (clicking it recentres the map there), and a
-   dimmed one when it has not (Form29.doicon, the seen-flag branch). */
+/*
+ * The ADRIFT 4 runner had two pictures per icon: the normal one when the
+ * destination has been seen (clicking it recentres the map there), and a
+ * dimmed one when it has not (Form29.doicon, the seen-flag branch).
+ */
 static int
 badge_dest_unseen (const map_view_t *view, const map_link_t *lk)
 {
   return lk->dest == NULL || !view_seen (view, lk->dest);
 }
 
-/* Which badges a node wears, and on which half-wind / compass site.
+/*
+ * Which badges a node wears, and on which half-wind / compass site.
  *
  * An In/Out connector is recorded on one room only, but the runner puts a
  * badge on both ends of it: DrawLinks finishes by drawing the opposite badge
@@ -1669,8 +1788,10 @@ badge_dest_unseen (const map_view_t *view, const map_link_t *lk)
  * arrives via a coincident compass exit parks on that link's
  * DestinationAnchor port (e.g. Behind Bar Down+South -> Cellar: D on South,
  * U on Cellar's North) so it meets the line instead of floating on a
- * half-wind. */
-/* All fields indexed by MAP_BADGE (Up, Down, In, Out). */
+ * half-wind.
+ *
+ * All fields are indexed by MAP_BADGE (Up, Down, In, Out).
+ */
 typedef struct {
   int edge[MAP_N_BADGES];              /* facing edges, pre-site           */
   int site[MAP_N_BADGES];              /* half-wind / compass sites        */
@@ -1692,9 +1813,11 @@ site_taken_io (const inout_badge_t *b, int site)
       || (b->has[MAP_BADGE (DIR_OUT)] && b->site[MAP_BADGE (DIR_OUT)] == site);
 }
 
-/* Geometric opposite for compass dirs (movement-only twins have no Map Link
-   DestinationAnchor): the direction whose plan offset is the negation of
-   this one's.  -1 for the badge directions, which have no bearing. */
+/*
+ * Geometric opposite for compass dirs (movement-only twins have no Map Link
+ * DestinationAnchor): the direction whose plan offset is the negation of
+ * this one's.  -1 for the badge directions, which have no bearing.
+ */
 static int
 compass_opposite (int dir)
 {
@@ -1709,9 +1832,11 @@ compass_opposite (int dir)
   return -1;
 }
 
-/* When `link` coincides with a compass exit, the port on the destination where
-   that compass connector arrives (twin Map Link's DestinationAnchor, else the
-   geometric opposite of the twin direction).  -1 if no twin. */
+/*
+ * When `link` coincides with a compass exit, the port on the destination where
+ * that compass connector arrives (twin Map Link's DestinationAnchor, else the
+ * geometric opposite of the twin direction).  -1 if no twin.
+ */
 static int
 badge_compass_arrival (const map_node_t *n, const map_link_t *link)
 {
@@ -1720,8 +1845,10 @@ badge_compass_arrival (const map_node_t *n, const map_link_t *link)
 
   if (n == NULL || link == NULL || link->dest == NULL)
     return -1;
-  /* compass_twin is set by a5map from Movements (Map Links alone miss
-     compass exits that only exist as movements). */
+  /*
+   * compass_twin is set by a5map from Movements (Map Links alone miss
+   * compass exits that only exist as movements).
+   */
   if (!link->has_compass_twin)
     return -1;
   twin = link->compass_twin;
@@ -1744,8 +1871,10 @@ fix_far_compass_site (inout_badge_t *b, int dst_anchor, int arrival_dir)
   b->site_fixed[MAP_BADGE (dst_anchor)] = 1;
 }
 
-/* If this badge direction has an own link that twins a compass exit, park the
-   badge on that compass port and remember to skip its badge connector. */
+/*
+ * If this badge direction has an own link that twins a compass exit, park the
+ * badge on that compass port and remember to skip its badge connector.
+ */
 static void
 try_compass_port (const map_node_t *n, int dir,
                   int *site, unsigned char *on_compass)
@@ -1811,8 +1940,10 @@ finalize_badge_sites (inout_badge_t *b, const map_page_t *page)
     }
 }
 
-/* Record the edge a badge sits on, and whether it got there from a link
-   ending at this node rather than one leaving it. */
+/*
+ * Record the edge a badge sits on, and whether it got there from a link
+ * ending at this node rather than one leaving it.
+ */
 static void
 badge_mark (inout_badge_t *b, int dir, int edge, int far)
 {
@@ -1821,8 +1952,10 @@ badge_mark (inout_badge_t *b, int dir, int edge, int far)
   b->is_far[MAP_BADGE (dir)] |= (unsigned char) (far != 0);
 }
 
-/* Dest has a Movement on `dir` (FileIO.vb bHasIn / bHasOut / bHasUp /
-   bHasDown).  DrawLinks' far In/Out icon gates on this, not duplex. */
+/*
+ * Dest has a Movement on `dir` (FileIO.vb bHasIn / bHasOut / bHasUp /
+ * bHasDown).  DrawLinks' far In/Out icon gates on this, not duplex.
+ */
 static int
 node_has_badge_dir (const map_node_t *n, int dir)
 {
@@ -1831,8 +1964,10 @@ node_has_badge_dir (const map_node_t *n, int dir)
   return n->has_badge[MAP_BADGE (dir)];
 }
 
-/* Arrival half-wind on dest for a badge connector.  Prefer the layout site
-   when dest already wears that badge; otherwise the facing-edge primary. */
+/*
+ * Arrival half-wind on dest for a badge connector.  Prefer the layout site
+ * when dest already wears that badge; otherwise the facing-edge primary.
+ */
 static int
 arrival_badge_site (const inout_badge_t *b, const map_node_t *dn,
                     const map_node_t *src, int dst_anchor)
@@ -1859,13 +1994,15 @@ inout_badge_buf (inout_badge_t *b, const map_page_t *page)
                                    sizeof (inout_badge_t));
 }
 
-/* Walk the page's In/Out (and A5 Up/Down) links once and record both ends of
-   each, the way RecalculateLinks does (Map.vb:824).  Far-end badges are
-   recorded when the destination has a Movement on DestinationAnchor
-   (bHas*), matching DrawInOutIcon -- including one-way links whose dest
-   Out/In goes elsewhere.  ADRIFT 4's badge links have no geometry to share,
-   so this returns NULL and the fixed a4_badge_site table places them.
-   Returns NULL when the page has nothing to record, which most do. */
+/*
+ * Walk the page's In/Out (and A5 Up/Down) links once and record both ends of
+ * each, the way RecalculateLinks does (Map.vb:824).  Far-end badges are
+ * recorded when the destination has a Movement on DestinationAnchor
+ * (bHas*), matching DrawInOutIcon -- including one-way links whose dest
+ * Out/In goes elsewhere.  ADRIFT 4's badge links have no geometry to share,
+ * so this returns NULL and the fixed a4_badge_site table places them.
+ * Returns NULL when the page has nothing to record, which most do.
+ */
 static inout_badge_t *
 inout_layout (const map_page_t *page, const map_view_t *view)
 {
@@ -1882,7 +2019,7 @@ inout_layout (const map_page_t *page, const map_view_t *view)
         {
           const map_link_t *link = &n->links[l];
           const map_node_t *dn;
-          int dst_anchor;
+          int dst_anchor, arrival;
 
           if (link->badge)
             continue;
@@ -1902,30 +2039,31 @@ inout_layout (const map_page_t *page, const map_view_t *view)
           if (!node_has_badge_dir (dn, dst_anchor))
             continue;
 
-          badge_mark (&b[dn - page->nodes], dst_anchor,
-                      inout_edge (dn, n), 1);
-          /* Coincident with a compass exit: sit the far badge on that
-             connector's arrival port (Behind Bar Down+South -> U on Cellar
-             North) instead of a half-wind that misses the line. */
-          {
-            int arrival = badge_compass_arrival (n, link);
-            if (arrival >= 0)
-              fix_far_compass_site (&b[dn - page->nodes], dst_anchor, arrival);
-          }
+          badge_mark (&b[dn - page->nodes], dst_anchor, inout_edge (dn, n), 1);
+          /*
+           * Coincident with a compass exit: sit the far badge on that
+           * connector's arrival port (Behind Bar Down+South -> U on Cellar
+           * North) instead of a half-wind that misses the line.
+           */
+          arrival = badge_compass_arrival (n, link);
+          if (arrival >= 0)
+            fix_far_compass_site (&b[dn - page->nodes], dst_anchor, arrival);
         }
 
-      /* Map.vb DrawNode (1312-1321): a Movement to an *unseen* room draws an
-         In/Out icon (or Up stub) even when the author never wrote a Map
-         <Link> for that direction -- Alyas of Starhollow's By Longhouse has
-         In→In Longhouse as a Movement only.  Compass directions already get
-         pass-2 stubs the same way; badge dirs were skipped there.
-
-         Up and Down follow Spatterlight's badge convention rather than those
-         lines literally: the runner has no Up/Down badge at all, so it sends
-         Up to DrawOutArrow and skips Down outright (the loop is wrapped in
-         `If eDir <> DirectionsEnum.Down`).  Since we already draw a seen
-         Up/Down Link as a U/D disc, an unseen one gets the same disc, and
-         Down comes along for symmetry. */
+      /*
+       * Map.vb DrawNode (1312-1321): a Movement to an *unseen* room draws an
+       * In/Out icon (or Up stub) even when the author never wrote a Map
+       * <Link> for that direction -- Alyas of Starhollow's By Longhouse has
+       * In→In Longhouse as a Movement only.  Compass directions already get
+       * pass-2 stubs the same way; badge dirs were skipped there.
+       *
+       * Up and Down follow Spatterlight's badge convention rather than those
+       * lines literally: the runner has no Up/Down badge at all, so it sends
+       * Up to DrawOutArrow and skips Down outright (the loop is wrapped in
+       * `If eDir <> DirectionsEnum.Down`).  Since we already draw a seen
+       * Up/Down Link as a U/D disc, an unseen one gets the same disc, and
+       * Down comes along for symmetry.
+       */
       if (view != NULL && view->exit_dest != NULL)
         {
           int di;
@@ -1949,9 +2087,11 @@ inout_layout (const map_page_t *page, const map_view_t *view)
               b = inout_badge_buf (b, page);
               if (b == NULL)
                 return NULL;
-              /* Face the dest's map node even while unseen (RecalculateNodes
-                 walks every node; GetLinkPoint on a reverse DestAnchor does
-                 the same for eInEdge).  Missing/off-page → North default. */
+              /*
+               * Face the dest's map node even while unseen (RecalculateNodes
+               * walks every node; GetLinkPoint on a reverse DestAnchor does
+               * the same for eInEdge).  Missing/off-page → North default.
+               */
               badge_mark (&b[i], dir,
                           inout_edge (n, page_node (page, dest)), 0);
             }
@@ -1963,8 +2103,7 @@ inout_layout (const map_page_t *page, const map_view_t *view)
 }
 
 /* What the passes of map_render share. */
-typedef struct
-{
+typedef struct {
   const map_t *map;
   const map_view_t *view;
   const map_page_t *page;
@@ -1975,8 +2114,10 @@ typedef struct
   int wd;                         /* Pen width. */
 } render_ctx_t;
 
-/* Pass 1 of map_render for one link of the node at index i: its connector,
-   and the arrowhead of a one-way link. */
+/*
+ * Pass 1 of map_render for one link of the node at index i: its connector,
+ * and the arrowhead of a one-way link.
+ */
 static void
 render_link (const render_ctx_t *rc, int i, const map_node_t *n,
              const map_link_t *link)
@@ -1987,34 +2128,35 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
   int dst_anchor;
 
   if (link->badge)
-    return;           /* ADRIFT 4 Up/Down/In/Out: icons only */
+    return;                     /* ADRIFT 4 Up/Down/In/Out: icons only */
   if (link->dest == NULL)
     return;
 
+  /* Destination unseen or on another page: stub arrow only. */
   dn = page_node (rc->page, link->dest);
   if (dn == NULL || !view_seen (rc->view, dn->key))
-    {
-      /* Destination unseen or on another rc->page: stub arrow only. */
-      return;
-    }
+    return;
 
-  /* Badge-style exits (In/Out/Up/Down) only draw a connector while the
-     route is currently allowed -- same HasRouteInDirection gate the
-     rc->badges themselves use.  Compass links keep the dotted-only gate
-     below, matching Map.vb's DashStyle.Dot path. */
+  /*
+   * Badge-style exits (In/Out/Up/Down) only draw a connector while the route
+   * is currently allowed -- the same HasRouteInDirection gate the badges
+   * themselves use.  Compass links keep the dotted-only gate below, matching
+   * Map.vb's DashStyle.Dot path.
+   */
   if (map_is_badge_dir (link->dir)
       && rc->view != NULL && rc->view->exit_dest != NULL
       && rc->view->exit_dest (rc->view->ctx, n->key, link->dir) == NULL)
     return;
 
-  /* Badge exit coincides with a compass exit: the compass connector
-     already draws the line; sit the badge on that port instead. */
+  /*
+   * Badge exit coincides with a compass exit: the compass connector
+   * already draws the line; sit the badge on that port instead.
+   */
   if (rc->badges != NULL && map_is_badge_dir (link->dir)
       && rc->badges[i].on_compass[MAP_BADGE (link->dir)])
     return;
 
-  /* Nodes on a different level than the player's fade out
-     (Map.vb:1436). */
+  /* Nodes on a different level than the player's fade out (Map.vb:1436). */
   alpha = map_link_alpha;
   if (rc->active != NULL && n->z != rc->active->z && dn->z != rc->active->z)
     alpha = map_link_alpha_far;
@@ -2022,29 +2164,34 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
   dash = link->dotted;
   if (link->dotted && rc->view != NULL && rc->view->ever_blocked != NULL)
     {
-      /* The ADRIFT 5 runner hides a restricted connector while its
-         restrictions currently fail -- Grandpa's Ranch's Driveway
-         shows no link north until the front door is opened
-         (Map.vb:1429, the DashStyle.Dot HasRouteInDirection gate)... */
+      /*
+       * The ADRIFT 5 runner hides a restricted connector while its
+       * restrictions currently fail -- Grandpa's Ranch's Driveway shows no
+       * link north until the front door is opened (Map.vb:1429, the
+       * DashStyle.Dot HasRouteInDirection gate)...
+       */
       if (rc->view->exit_dest == NULL
           || rc->view->exit_dest (rc->view->ctx, n->key, link->dir) == NULL)
         return;
-      /* ...and draws it solid until the player has actually been
-         blocked there once (Map.vb:1447, bEverBeenBlocked). */
+      /*
+       * ...and draws it solid until the player has actually been blocked
+       * there once (Map.vb:1447, bEverBeenBlocked).
+       */
       if (!rc->view->ever_blocked (rc->view->ctx, n->key, link->dir))
         dash = 0;
     }
 
-  /* Self-link: DrawOutArrow, not a curve through the box
-     (Map.vb:1474).  Skip self-Down the way the runner does.  This
-     sits below the route gates because the runner reaches it with
-     the pen already built: a restricted self-link whose restrictions
-     currently fail has left DrawLinks at Map.vb:1429 (Cloak of
-     Darkness's Foyer, North -> itself behind "Task6 Must
-     BeComplete", draws nothing), and an off-level one carries the
-     faded alpha rather than a flat 100.  ADRIFT 4's runner has no
-     such rule -- a Line control from a room to itself is just a
-     point -- so line_links keeps its own behaviour. */
+  /*
+   * Self-link: DrawOutArrow, not a curve through the box (Map.vb:1474).
+   * Skip self-Down the way the runner does.  This sits below the route
+   * gates because the runner reaches it with the pen already built: a
+   * restricted self-link whose restrictions currently fail has left
+   * DrawLinks at Map.vb:1429 (Cloak of Darkness's Foyer, North -> itself
+   * behind "Task6 Must BeComplete", draws nothing), and an off-level one
+   * carries the faded alpha rather than a flat 100.  ADRIFT 4's runner has
+   * no such rule -- a Line control from a room to itself is just a point --
+   * so line_links keeps its own behaviour.
+   */
   if (!rc->map->line_links
       && n->key != NULL && strcmp (link->dest, n->key) == 0)
     {
@@ -2059,9 +2206,10 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
   if (dst_anchor < 0)
     dst_anchor = link->dir;
 
-  /* In/Out and Up/Down connectors run badge to badge at the half-wind
-     sites inout_layout resolved.  Compass links still leave from a
-     face midpoint. */
+  /*
+   * In/Out and Up/Down connectors run badge to badge at the half-wind sites
+   * inout_layout resolved.  Compass links still leave from a face midpoint.
+   */
   if (map_is_badge_dir (link->dir))
     {
       if (rc->badges == NULL)
@@ -2087,13 +2235,15 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
   dist = sqrt ((x3 - x0) * (x3 - x0) + (y3 - y0) * (y3 - y0));
   if (!rc->map->line_links && link->n_mids > 0 && link->mids != NULL)
     {
-      /* Author-dragged <Anchor> midpoints: DrawCurve through
-         start, mids, end (Map.vb RecalculateLinks / DrawLinks).
-         Absolute map-unit coords, same as node X/Y. */
+      /*
+       * Author-dragged <Anchor> midpoints: DrawCurve through start, mids,
+       * end (Map.vb RecalculateLinks / DrawLinks).  Absolute map-unit
+       * coords, same as node X/Y.
+       */
       int np = link->n_mids + 2;
-      double *pts = (double *) malloc ((size_t) np * 2
-                                       * sizeof (double));
+      double *pts = (double *) malloc ((size_t) np * 2 * sizeof (double));
       int mi;
+
       if (pts == NULL)
         return;
       pts[0] = x0;
@@ -2115,21 +2265,24 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
     }
   else
     {
-      /* A cubic Bezier from (x0,y0) to (x3,y3); the two control
-         points decide whether it bows. */
+      /*
+       * A cubic Bezier from (x0,y0) to (x3,y3); the two control points
+       * decide whether it bows.
+       */
       if (rc->map->line_links)
         {
-          /* ADRIFT 4.  Form29.dolink sets the X1/Y1/X2/Y2 of a Line
-             control, which is a straight segment, and it takes only
-             one of the two coordinates from the destination: a North
-             or South link is vertical at the *source* room's centre
-             column and an East or West one horizontal at the source's
-             centre row, whatever column or row the destination ended
-             up in.  So a skewed link sets off towards the
-             destination's row and stops level with it without ever
-             meeting the box -- which is what run400 draws.  (The
-             eight-point diagonals need no such fix: their two anchors
-             are already the corners the runner uses.) */
+          /*
+           * ADRIFT 4.  Form29.dolink sets the X1/Y1/X2/Y2 of a Line control,
+           * which is a straight segment, and it takes only one of the two
+           * coordinates from the destination: a North or South link is
+           * vertical at the *source* room's centre column and an East or West
+           * one horizontal at the source's centre row, whatever column or row
+           * the destination ended up in.  So a skewed link sets off towards
+           * the destination's row and stops level with it without ever
+           * meeting the box -- which is what run400 draws.  (The eight-point
+           * diagonals need no such fix: their two anchors are already the
+           * corners the runner uses.)
+           */
           switch (link->dir)
             {
             case DIR_N: case DIR_S: x3 = x0; break;
@@ -2142,12 +2295,13 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
       else if (map_is_badge_dir (link->dir)
                || map_is_badge_dir (dst_anchor))
         {
-          /* No bow: a badge connector is a straight run between the
-             two rc->badges however far apart they are.  Checked against
-             run500 5.0.36 on Alyas of Starhollow, whose In Longhouse
-             -> By Longhouse link crosses ten map units diagonally and
-             still arrives dead straight, where a compass link over
-             that distance visibly bellies out. */
+          /*
+           * No bow: a badge connector is a straight run between the two
+           * badges however far apart they are.  Checked against run500 5.0.36
+           * on Alyas of Starhollow, whose In Longhouse -> By Longhouse link
+           * crosses ten map units diagonally and still arrives dead straight,
+           * where a compass link over that distance visibly bellies out.
+           */
           x1 = x0; y1 = y0;
           x2 = x3; y2 = y3;
         }
@@ -2160,8 +2314,10 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
                    alpha, dash, &phase);
     }
 
-  /* One-way (Not Duplex): AdjustableArrowCap at the destination end
-     (Map.vb:1450).  Duplex links stay round-capped. */
+  /*
+   * One-way (Not Duplex): AdjustableArrowCap at the destination end
+   * (Map.vb:1450).  Duplex links stay round-capped.
+   */
   if (!link->duplex && !rc->map->line_links)
     {
       double adx = x3 - x2, ady = y3 - y2;
@@ -2192,43 +2348,57 @@ render_links (const render_ctx_t *rc)
     }
 }
 
-/* Pass 2 of map_render: exits leading somewhere we have not been, as stub
-   arrows.  The runner gates these on HasRouteInDirection AndAlso Not
-   HasSeenLocation (Map.vb DrawOutArrow) -- an exit back to a room already on
-   the map is already drawn as a connector, so it must not also get a stub. */
+/*
+ * Pass 2 of map_render: exits leading somewhere we have not been, as stub
+ * arrows.  The runner gates these on HasRouteInDirection AndAlso Not
+ * HasSeenLocation (Map.vb DrawOutArrow) -- an exit back to a room already on
+ * the map is already drawn as a connector, so it must not also get a stub.
+ */
 static void
 render_exit_stubs (const render_ctx_t *rc)
 {
-  int i;
+  int i, d;
 
-  if (rc->view != NULL && rc->view->exit_dest != NULL)
+  if (rc->view == NULL || rc->view->exit_dest == NULL)
+    return;
+  for (i = 0; i < rc->page->n_nodes; i++)
     {
-      for (i = 0; i < rc->page->n_nodes; i++)
+      const map_node_t *n = &rc->page->nodes[i];
+
+      if (!view_seen (rc->view, n->key))
+        continue;
+      for (d = 0; d < MAP_N_DIRS; d++)
         {
-          const map_node_t *n = &rc->page->nodes[i];
-          int d;
-          if (!view_seen (rc->view, n->key))
+          const char *dest;
+
+          /* In/Out and Up/Down are badge icons, not compass stubs. */
+          if (map_is_badge_dir (d))
             continue;
-          for (d = 0; d < MAP_N_DIRS; d++)
-            {
-              const char *dest;
-              /* In/Out and Up/Down are badge icons, not compass stubs. */
-              if (map_is_badge_dir (d))
-                continue;
-              dest = rc->view->exit_dest (rc->view->ctx, n->key, d);
-              if (dest == NULL || dest[0] == '\0')
-                continue;
-              if (view_seen (rc->view, dest))
-                continue;
-              draw_out_arrow (rc->dst, rc->p, n, d, rc->wd, map_link_alpha);
-            }
+          dest = rc->view->exit_dest (rc->view->ctx, n->key, d);
+          if (dest == NULL || dest[0] == '\0')
+            continue;
+          if (view_seen (rc->view, dest))
+            continue;
+          draw_out_arrow (rc->dst, rc->p, n, d, rc->wd, map_link_alpha);
         }
     }
 }
 
-/* Pass 3 of map_render for the node at index i: its room box, then its
-   label, then its badges on top.  At low scales a badge overlaps the name,
-   and the name's ink across it would make its mark unreadable. */
+/*
+ * ADRIFT 3/4 badge sites: fixed half-winds, one per badge, arranged so that
+ * each pair sits on opposite corners of the box -- Up at NNE and Down at SSW,
+ * In at WNW and Out at ESE.  The half-wind enum is shared with A5 layout;
+ * A3/A4 still do not chase compass stubs.  Indexed by MAP_BADGE.
+ */
+static const int a4_badge_site[MAP_N_BADGES] = {
+  BADGE_NNE, BADGE_SSW, BADGE_WNW, BADGE_ESE
+};
+
+/*
+ * Pass 3 of map_render for the node at index i: its room box, then its
+ * label, then its badges on top.  At low scales a badge overlaps the name,
+ * and the name's ink across it would make its mark unreadable.
+ */
 static void
 render_node (const render_ctx_t *rc, int i, const char *player_key)
 {
@@ -2252,9 +2422,11 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
   is_player = (player_key != NULL && n->key != NULL
                && strcmp (n->key, player_key) == 0);
 
-  /* MAP_ROOM_FILL_ALPHA on the player's level, MAP_FAR_ROOM_ALPHA
-     elsewhere (Map.vb:1172-1194, which fades to 50).  The derived scheme
-     picked its label colours against the on-level blend. */
+  /*
+   * MAP_ROOM_FILL_ALPHA on the player's level, MAP_FAR_ROOM_ALPHA
+   * elsewhere (Map.vb:1172-1194, which fades to 50).  The derived scheme
+   * picked its label colours against the on-level blend.
+   */
   is_far = (!is_player && rc->active != NULL && n->z != rc->active->z);
   alpha = is_far ? MAP_FAR_ROOM_ALPHA : MAP_ROOM_FILL_ALPHA;
 
@@ -2277,11 +2449,13 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
   for (l = 0; l < n->n_links; l++)
     if (map_is_badge_dir (n->links[l].dir))
       bl[MAP_BADGE (n->links[l].dir)] = &n->links[l];
-  /* Badge icons only show while the route is currently usable (the
-     HasRouteInDirection gates, Map.vb:1328/1337 for In/Out -- Grandpa's
-     Ranch's Living Room gains its OUT badge when the front door is
-     opened).  ADRIFT 4 leaves ever_blocked NULL, so its rc->badges always
-     show.  The matching connector gate is in pass 1 above. */
+  /*
+   * Badge icons only show while the route is currently usable (the
+   * HasRouteInDirection gates, Map.vb:1328/1337 for In/Out -- Grandpa's
+   * Ranch's Living Room gains its OUT badge when the front door is opened).
+   * ADRIFT 4 leaves ever_blocked NULL, so its badges always show.  The
+   * matching connector gate is in pass 1, render_link.
+   */
   if (rc->view != NULL && rc->view->ever_blocked != NULL
       && rc->view->exit_dest != NULL)
     {
@@ -2293,9 +2467,11 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
             bl[MAP_BADGE (dir)] = NULL;
         }
     }
-  /* A3/A4: opaque, and dimmed when the destination is unseen.
-     A5: opaque on the player's level; fades with the card off-level
-     (there is no second level on A4's flat map). */
+  /*
+   * A3/A4: opaque, and dimmed when the destination is unseen.
+   * A5: opaque on the player's level; fades with the card off-level
+   * (there is no second level on A4's flat map).
+   */
   if (rc->badges == NULL)
     {
       /* A3/A4: fixed sites (U NNE, D SSW, I WNW, O ESE). */
@@ -2311,13 +2487,15 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
     }
   else
     {
-      /* A5 uses the sites inout_layout resolved.  Draw for: an own Link
-         badge (bl[] non-NULL after the route gate), a far badge from
-         somebody else's Link (DrawLinks, not route-gated), or a
-         Movement-only badge toward an unseen room (no <Link>, Map.vb
-         DrawNode stub path -- has[] set without a matching SourceAnchor
-         Link).  A Link whose route is currently blocked leaves has[] set
-         but bl[] NULL; those must stay hidden. */
+      /*
+       * A5 uses the sites inout_layout resolved.  Draw for: an own Link
+       * badge (bl[] non-NULL after the route gate), a far badge from
+       * somebody else's Link (DrawLinks, not route-gated), or a
+       * Movement-only badge toward an unseen room (no <Link>, Map.vb
+       * DrawNode stub path -- has[] set without a matching SourceAnchor
+       * Link).  A Link whose route is currently blocked leaves has[] set
+       * but bl[] NULL; those must stay hidden.
+       */
       int badge_a = is_far ? MAP_FAR_ROOM_ALPHA : 255;
       for (k = 0; k < MAP_N_BADGES; k++)
         {
@@ -2335,8 +2513,8 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
 
 void
 map_render (const map_t *map, const map_view_t *view,
-              const char *player_key, const map_camera_t *cam,
-              map_surface_t *dst)
+            const char *player_key, const map_camera_t *cam,
+            map_surface_t *dst)
 {
   const map_page_t *page;
   inout_badge_t *badges;
@@ -2354,7 +2532,7 @@ map_render (const map_t *map, const map_view_t *view,
   if (page == NULL)
     return;
 
-  proj_init (&p, cam, dst);
+  proj_init (&p, cam, dst->w, dst->h);
   wd = cam->scale / 5;          /* Map.vb:1433, pen width = iScale / 5 */
   if (wd < 1)
     wd = 1;
@@ -2377,12 +2555,16 @@ map_render (const map_t *map, const map_view_t *view,
   free (badges);
 }
 
+
+/*
+ * ------------------------------------------------ hit testing and walking
+ */
+
 const char *
 map_hit (const map_t *map, const map_view_t *view,
-           const map_camera_t *cam, int w, int h, int mx, int my)
+         const map_camera_t *cam, int w, int h, int mx, int my)
 {
   const map_page_t *page;
-  map_surface_t dim;
   proj_t p;
   int i;
 
@@ -2391,10 +2573,7 @@ map_hit (const map_t *map, const map_view_t *view,
   page = page_by_key (map, cam->page);
   if (page == NULL)
     return NULL;
-  dim.w = w;
-  dim.h = h;
-  dim.px = NULL;                /* proj_init only reads the dimensions */
-  proj_init (&p, cam, &dim);
+  proj_init (&p, cam, w, h);
 
   for (i = page->n_nodes - 1; i >= 0; i--)
     {
@@ -2420,7 +2599,6 @@ map_hit_dir (const map_t *map, const map_view_t *view,
   const map_page_t *page;
   const map_node_t *n;
   const char *dest;
-  map_surface_t dim;
   proj_t p;
   int x0, y0, x1, y1, reach_x, reach_y, sx, sy, d;
 
@@ -2431,17 +2609,16 @@ map_hit_dir (const map_t *map, const map_view_t *view,
   n = page_node (page, player_key);
   if (n == NULL || n->hidden)
     return -1;                  /* no box to click around */
-  dim.w = w;
-  dim.h = h;
-  dim.px = NULL;                /* proj_init only reads the dimensions */
-  proj_init (&p, cam, &dim);
+  proj_init (&p, cam, w, h);
 
   x0 = px_x (&p, n->x);
   y0 = px_y (&p, n->y);
   x1 = px_x (&p, n->x + n->w);
   y1 = px_y (&p, n->y + n->h);
-  /* One room's pitch out from the box: the gap the ADRIFT 4 layout leaves
-     between two rooms, half a box, and the neighbouring box itself. */
+  /*
+   * One room's pitch out from the box: the gap the ADRIFT 4 layout leaves
+   * between two rooms, half a box, and the neighbouring box itself.
+   */
   reach_x = round_px (n->w * 1.5 * cam->scale);
   reach_y = round_px (n->h * 1.5 * cam->scale);
   if (mx < x0 - reach_x || mx > x1 + reach_x
@@ -2507,8 +2684,11 @@ map_walk_step (const map_view_t *view, const char *from, const char *to)
           via[dest] = d;
           if (strcmp (dest, to) == 0)
             {
-              /* Found it.  Walk the chain back to the room whose predecessor
-                 is the start (order[0]), and take the direction that left it. */
+              /*
+               * Found it.  Walk the chain back to the room whose predecessor
+               * is the start (order[0]), and take the direction that left
+               * it.
+               */
               std::string cur = dest;
               while (prev[cur] != 0)
                 {

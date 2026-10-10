@@ -36,18 +36,20 @@
  *                   Object/task references are resolved to names.  Decoding
  *                   keys (verified against the original 3.90/4.0 Runner):
  *                     - action Type: 0 move-obj, 1 move-char, 2 obj-status,
- *                       3 change-var, 4 ChangeScore (Var1=points), 5 exec/unset,
- *                       6 EndGame (Var1: 0 win, 1 lose, 2 death, 3 stop),
- *                       7 change-battle.  No Type-4 => no score; no Type-6 =>
- *                       no ending.
+ *                       3 change-var, 4 ChangeScore (Var1=points),
+ *                       5 exec/unset, 6 EndGame (Var1: 0 win, 1 lose,
+ *                       2 death, 3 stop), 7 change-battle.  No Type-4 =>
+ *                       no score; no Type-6 => no ending.
  *                     - restriction Type: 0 obj-location, 1 obj-state,
- *                       2 task-state (Var1 is 1-based task; Var2 0=done,1=undone),
- *                       3 char, 4 variable (Var1-2 = variable index).
+ *                       2 task-state (Var1 is 1-based task; Var2 0=done,
+ *                       1=undone), 3 char, 4 variable (Var1-2 = variable
+ *                       index).
  *                     - object "inside" Var3 is a 1-based container index;
  *                       move-object actions move 1-based room destinations.
  *
- *   SCR_TRACE_TASKS  enable Scarier's built-in task + restriction tracing (prints
- *                   the bracket expression and each restriction PASS/FAIL).
+ *   SCR_TRACE_TASKS  enable Scarier's built-in task + restriction tracing
+ *                   (prints the bracket expression and each restriction
+ *                   PASS/FAIL).
  *
  *   SCR_TRACE_JUDY   per-turn one-line dump of every NPC's current room, for
  *                   pinning down a wandering NPC's deterministic walk.
@@ -68,10 +70,10 @@
  *                   worn-NPC), the room it is directly in (or -1), and its
  *                   Battle weapon/armour properties (HitValue, Accuracy,
  *                   ProtectionValue, Method).  Deliberately skips the heavy
- *                   task/exit/walk
- *                   sections, so it is safe on games whose full SCR_DUMP_TASKS
- *                   output is pathologically large.  Built for combat-
- *                   survivability route planning (which armour/weapon is where).
+ *                   task/exit/walk sections, so it is safe on games whose
+ *                   full SCR_DUMP_TASKS output is pathologically large.
+ *                   Built for combat-survivability route planning (which
+ *                   armour/weapon is where).
  */
 
 #include <stdio.h>
@@ -88,12 +90,21 @@
 
 #ifdef SCARIER_DUMP_TOOLS
 
-/* Resolve a restriction/action object reference to its global object index. */
+
+/*
+ * scdump_resolve_object()
+ * scdump_object_name()
+ *
+ * Resolve a restriction/action object reference to its global object index,
+ * and look up an object's Short name, NULL if the index is out of range.
+ */
 static scr_int
 scdump_resolve_object (scr_gameref_t game, scr_int kind, scr_int var1)
 {
-  /* kind: 0 = dynamic-object ref (var1>=3 -> dynamic var1-3),
-   *       1 = stateful-object ref (var1>=1 -> stateful var1-1). */
+  /*
+   * kind: 0 = dynamic-object ref (var1>=3 -> dynamic var1-3),
+   *       1 = stateful-object ref (var1>=1 -> stateful var1-1).
+   */
   if (kind == 0 && var1 >= 3)
     return obj_dynamic_object (game, var1 - 3);
   if (kind == 1 && var1 >= 1)
@@ -115,6 +126,7 @@ scdump_object_name (scr_gameref_t game, scr_int obj)
   return prop_get (bundle, "S<-sis", &v, k) ? v.string : NULL;
 }
 
+
 /*
  * scdump_rule_table()
  *
@@ -133,6 +145,7 @@ scdump_rule_table (scr_prop_setref_t bundle, const scr_char *collection,
   for (yi = 0; yi < yc; yi++)
     {
       const scr_char *orig, *repl;
+
       yk[1].integer = yi;
       yk[2].string = "Original";
       orig = prop_get_string (bundle, "S<-sis", yk);
@@ -164,17 +177,22 @@ scdump_battle_ranges (scr_prop_setref_t bundle, const scr_char *format,
     {
       scr_char name[32];
       scr_int lo = 0, hi = -1;
+
       snprintf (name, sizeof name, "%sHi", attrs[a]);
       key[slot].string = name;
-      if (prop_get (bundle, format, &bv, key)) hi = bv.integer;
+      if (prop_get (bundle, format, &bv, key))
+        hi = bv.integer;
       snprintf (name, sizeof name, "%sLo", attrs[a]);
       key[slot].string = name;
-      if (prop_get (bundle, format, &bv, key)) lo = bv.integer;
+      if (prop_get (bundle, format, &bv, key))
+        lo = bv.integer;
       if (hi < 0)
         {
           key[slot].string = (scr_char *) attrs[a];
-          if (prop_get (bundle, format, &bv, key)) lo = hi = bv.integer;
-          else hi = 0;
+          if (prop_get (bundle, format, &bv, key))
+            lo = hi = bv.integer;
+          else
+            hi = 0;
         }
       fprintf (stderr, " %s=%ld-%ld", attrs[a], lo, hi);
     }
@@ -251,57 +269,100 @@ scdump_objloc (scr_gameref_t game)
       scr_vartype_t ok[4], bv;
       scr_int pos, r, room = -1, hit = 0, acc = 0, prot = 0, method = 0;
       const scr_char *s = scdump_object_name (game, i);
+
       pos = gs_object_position (game, i);
       for (r = 0; r < gs_room_count (game); r++)
-        if (obj_directly_in_room (game, i, r)) { room = r; break; }
-      ok[0].string = "Objects"; ok[1].integer = i; ok[2].string = "Battle";
-      ok[3].string = "HitValue";        if (prop_get (bundle, "I<-siss", &bv, ok)) hit = bv.integer;
-      /* A weapon's Accuracy bonus is added straight onto the wielder's
+        {
+          if (obj_directly_in_room (game, i, r))
+            {
+              room = r;
+              break;
+            }
+        }
+      ok[0].string = "Objects";
+      ok[1].integer = i;
+      ok[2].string = "Battle";
+      ok[3].string = "HitValue";
+      if (prop_get (bundle, "I<-siss", &bv, ok))
+        hit = bv.integer;
+      /*
+       * A weapon's Accuracy bonus is added straight onto the wielder's
        * rolled accuracy in battle_eff_accuracy(), so it decides whether a
-       * fight is winnable at all -- print it beside HitValue. */
-      ok[3].string = "Accuracy";        if (prop_get (bundle, "I<-siss", &bv, ok)) acc = bv.integer;
-      ok[3].string = "ProtectionValue"; if (prop_get (bundle, "I<-siss", &bv, ok)) prot = bv.integer;
-      ok[3].string = "Method";          if (prop_get (bundle, "I<-siss", &bv, ok)) method = bv.integer;
+       * fight is winnable at all -- print it beside HitValue.
+       */
+      ok[3].string = "Accuracy";
+      if (prop_get (bundle, "I<-siss", &bv, ok))
+        acc = bv.integer;
+      ok[3].string = "ProtectionValue";
+      if (prop_get (bundle, "I<-siss", &bv, ok))
+        prot = bv.integer;
+      ok[3].string = "Method";
+      if (prop_get (bundle, "I<-siss", &bv, ok))
+        method = bv.integer;
       {
-        /* Resolve the ultimate room by chasing parent containers/surfaces
-         * (pos -10/-20) or the holding/wearing NPC (pos -200/-300). */
+        /*
+         * Resolve the ultimate room by chasing parent containers/surfaces
+         * (pos -10/-20) or the holding/wearing NPC (pos -200/-300).
+         */
         scr_int eff = room, par = gs_object_parent (game, i), guard = 0;
+
         if (eff < 0 && (pos == -10 || pos == -20))
           {
             scr_int cur = i;
+
             while (guard++ < 32 && gs_object_valid (game, cur)
                    && (gs_object_position (game, cur) == -10
                        || gs_object_position (game, cur) == -20))
               cur = gs_object_parent (game, cur);
             if (gs_object_valid (game, cur))
-              for (r = 0; r < gs_room_count (game); r++)
-                if (obj_directly_in_room (game, cur, r)) { eff = r; break; }
+              {
+                for (r = 0; r < gs_room_count (game); r++)
+                  {
+                    if (obj_directly_in_room (game, cur, r))
+                      {
+                        eff = r;
+                        break;
+                      }
+                  }
+              }
           }
         if (eff < 0 && (pos == -200 || pos == -300)
             && gs_npc_valid (game, par))
           eff = gs_npc_location (game, par) - 1;
-        /* Raw SizeWeight (tens = size, units = weight) alongside the
+        /*
+         * Raw SizeWeight (tens = size, units = weight) alongside the
          * scaled values, because "too heavy to carry" verdicts hinge on
-         * the per-game scale bases and those are invisible otherwise. */
+         * the per-game scale bases and those are invisible otherwise.
+         */
         {
           scr_int sw = 0, swclass = -1;
           scr_vartype_t swk[3];
-          swk[0].string = "Objects"; swk[1].integer = i;
+
+          swk[0].string = "Objects";
+          swk[1].integer = i;
           swk[2].string = "SizeWeight";
-          if (prop_get (bundle, "I<-sis", &bv, swk)) sw = bv.integer;
-          /* A 3.8 game's real datum: the 0..4 class and what it costs
-           * against MaxCarried.  Absent (-1/0) for 3.9 and 4.0 games. */
+          if (prop_get (bundle, "I<-sis", &bv, swk))
+            sw = bv.integer;
+          /*
+           * A 3.8 game's real datum: the 0..4 class and what it costs
+           * against MaxCarried.  Absent (-1/0) for 3.9 and 4.0 games.
+           */
           swk[2].string = "SizeWeightClass";
-          if (prop_get (bundle, "I<-sis", &bv, swk)) swclass = bv.integer;
-          /* The raw .taf Parent field, printed even when Position says the
+          if (prop_get (bundle, "I<-sis", &bv, swk))
+            swclass = bv.integer;
+          /*
+           * The raw .taf Parent field, printed even when Position says the
            * object is not inside/on anything: the Runner's recursive
            * weight scan (Sub_22_63) matches children on this field alone,
            * with no position check, so a stale Parent silently adds an
-           * elsewhere-located object's weight to this container's. */
+           * elsewhere-located object's weight to this container's.
+           */
           {
             scr_int rawpar = -1;
+
             swk[2].string = "Parent";
-            if (prop_get (bundle, "I<-sis", &bv, swk)) rawpar = bv.integer;
+            if (prop_get (bundle, "I<-sis", &bv, swk))
+              rawpar = bv.integer;
             fprintf (stderr, "OBJLOC-RAWPAR obj=%ld rawparent=%ld"
                      " runner_parent=%ld\n",
                      i, rawpar, gs_object_runner_parent (game, i));
@@ -326,25 +387,27 @@ scdump_objloc (scr_gameref_t game)
       }
     }
 
-  /* The save-stream shape depends on two things no reader can recover from
-   * the stream itself: whether the Battle System interleaves a battle block
-   * into the player and NPC records, and how many walk steps each NPC has
-   * (written with no count in front of them).  Print both, so a .tas
-   * rewriter -- tas40to39.py -- can walk a save it did not write. */
-  /* The player's carry limits, plus the two per-game geometric scale bases
-   * they are expressed in.  MaxSize/MaxWt are raw "tens*base^units". */
+  /*
+   * The player's carry limits, plus the two per-game geometric scale bases
+   * they are expressed in.  MaxSize/MaxWt are raw "tens*base^units".
+   */
   {
     scr_vartype_t gk[2], gv;
     scr_int max_size = 0, max_wt = 0, sbase = 3, wbase = 3;
+
     gk[0].string = "Globals";
     gk[1].string = "MaxSize";
-    if (prop_get (bundle, "I<-ss", &gv, gk)) max_size = gv.integer;
+    if (prop_get (bundle, "I<-ss", &gv, gk))
+      max_size = gv.integer;
     gk[1].string = "MaxWt";
-    if (prop_get (bundle, "I<-ss", &gv, gk)) max_wt = gv.integer;
+    if (prop_get (bundle, "I<-ss", &gv, gk))
+      max_wt = gv.integer;
     gk[1].string = "SizeMultiple";
-    if (prop_get (bundle, "I<-ss", &gv, gk)) sbase = gv.integer;
+    if (prop_get (bundle, "I<-ss", &gv, gk))
+      sbase = gv.integer;
     gk[1].string = "WeightMultiple";
-    if (prop_get (bundle, "I<-ss", &gv, gk)) wbase = gv.integer;
+    if (prop_get (bundle, "I<-ss", &gv, gk))
+      wbase = gv.integer;
     fprintf (stderr,
              "PLAYERLIMITS rawmaxsize=%ld rawmaxwt=%ld size=%ld wt=%ld"
              " sizebase=%ld wtbase=%ld burdenmodel=%ld maxburden=%ld\n",
@@ -357,6 +420,13 @@ scdump_objloc (scr_gameref_t game)
                ? obj_get_player_burden_limit (game) : 0);
   }
 
+  /*
+   * The save-stream shape depends on two things no reader can recover from
+   * the stream itself: whether the Battle System interleaves a battle block
+   * into the player and NPC records, and how many walk steps each NPC has
+   * (written with no count in front of them).  Print both, so a .tas
+   * rewriter -- tas40to39.py -- can walk a save it did not write.
+   */
   fprintf (stderr, "SAVEINFO battle=%ld rooms=%ld objects=%ld npcs=%ld\n",
            (scr_int) battle_is_enabled (game), gs_room_count (game),
            gs_object_count (game), gs_npc_count (game));
@@ -376,44 +446,59 @@ scdump_globals (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
-  /* Header: the two globals every other line has to be read against.
+  /*
+   * Header: the two globals every other line has to be read against.
    * perspective is the raw authored value -- pre-4.0 Runners render 1, 2 and 3
    * alike in the second person, which lib_get_perspective() reproduces, so a
-   * perspective=2 here on a version<400 game is *not* third-person output. */
+   * perspective=2 here on a version<400 game is *not* third-person output.
+   */
   {
     scr_vartype_t gk[2], gv;
     scr_int version = 0, perspective = 0;
+    const scr_char *game_name, *game_author;
+
     gk[0].string = "Version";
-    if (prop_get (bundle, "I<-s", &gv, gk)) version = gv.integer;
+    if (prop_get (bundle, "I<-s", &gv, gk))
+      version = gv.integer;
     gk[0].string = "Globals";
     gk[1].string = "Perspective";
-    if (prop_get (bundle, "I<-ss", &gv, gk)) perspective = gv.integer;
-    /* Name and author verbatim: the game-patch table in sctafpar.cpp matches
-       on this exact pair, so an entry is written by copying it from here. */
-    const scr_char *game_name = prop_get_global_string (bundle, "GameName");
-    const scr_char *game_author = prop_get_global_string (bundle, "GameAuthor");
+    if (prop_get (bundle, "I<-ss", &gv, gk))
+      perspective = gv.integer;
+
+    /*
+     * Name and author verbatim: the game-patch table in sctafpar.cpp matches
+     * on this exact pair, so an entry is written by copying it from here.
+     */
+    game_name = prop_get_global_string (bundle, "GameName");
+    game_author = prop_get_global_string (bundle, "GameAuthor");
     fprintf (stderr, "GAME version=%ld perspective=%ld name=[%s] author=[%s]\n",
              version, perspective,
              game_name ? game_name : "", game_author ? game_author : "");
   }
 
-  /* Variable table.  ACT type=3 names a variable by this index directly;
+  /*
+   * Variable table.  ACT type=3 names a variable by this index directly;
    * RESTR type=4 names it by index + 2 (0 and 1 are the two "referenced
-   * number" pseudo-variables). */
+   * number" pseudo-variables).
+   */
   {
     scr_vartype_t vk[3], vv;
     scr_int nvars, v;
+
     vk[0].string = "Variables";
     nvars = prop_get_child_count (bundle, "I<-s", vk);
     for (v = 0; v < nvars; v++)
       {
         const scr_char *name = NULL;
         scr_int type = 0;
+
         vk[1].integer = v;
         vk[2].string = "Name";
-        if (prop_get (bundle, "S<-sis", &vv, vk)) name = vv.string;
+        if (prop_get (bundle, "S<-sis", &vv, vk))
+          name = vv.string;
         vk[2].string = "Type";
-        if (prop_get (bundle, "I<-sis", &vv, vk)) type = vv.integer;
+        if (prop_get (bundle, "I<-sis", &vv, vk))
+          type = vv.integer;
         fprintf (stderr, "VAR %ld type=%ld [%s]\n", v, type, name ? name : "");
       }
   }
@@ -437,23 +522,28 @@ scdump_objects (scr_gameref_t game)
     {
       scr_int oo = obj_container_object (game, i);
       const scr_char *s;
+
       if (oo < 0 || oo >= gs_object_count (game))
         break;
       s = scdump_object_name (game, oo);
       fprintf (stderr, "CONTAINER idx=%ld obj=%ld [%s]\n", i, oo, s ? s : "");
     }
 
-  /* Stateful-object enumeration (Openable != 0 or CurrentState != 0, in
+  /*
+   * Stateful-object enumeration (Openable != 0 or CurrentState != 0, in
    * object order).  Task object-state restrictions and change-object-status
    * actions address this list 1-based; room-alt type 1 Var2 does NOT (it is
-   * a 1-based global object number -- see lib_use_room_alt). */
+   * a 1-based global object number -- see lib_use_room_alt).
+   */
   {
     scr_int idx = 0;
+
     for (i = 0; i < gs_object_count (game); i++)
       {
         scr_vartype_t pk[3], pv;
         scr_int openable, curstate;
         const scr_char *states = NULL, *s;
+
         pk[0].string = "Objects";
         pk[1].integer = i;
         pk[2].string = "Openable";
@@ -475,15 +565,18 @@ scdump_objects (scr_gameref_t game)
       }
   }
 
-  /* Static-object room membership (the "Where" list). Dynamic objects are
+  /*
+   * Static-object room membership (the "Where" list). Dynamic objects are
    * located via the debugger; statics have no single position, so list every
    * room each static is directly present in -- the only way to pin a locked
-   * chest / fixed scenery to a room. */
+   * chest / fixed scenery to a room.
+   */
   for (i = 0; i < gs_object_count (game); i++)
     {
       scr_vartype_t sk[3];
       scr_int r;
       const scr_char *s;
+
       sk[0].string = "Objects";
       sk[1].integer = i;
       sk[2].string = "Static";
@@ -497,12 +590,14 @@ scdump_objects (scr_gameref_t game)
       fprintf (stderr, "\n");
     }
 
-  /* Every object's Short name (for spotting ambiguous shared names that the
+  /*
+   * Every object's Short name (for spotting ambiguous shared names that the
    * library bare-noun get/drop retry guard cares about), together with the
    * Prefix and Alias list, which is what %object% actually matches against --
    * uip_build_candidate() composes "Prefix Short" and "Prefix Alias", so a
    * walkthrough line that fails with "I see no such thing" is usually naming
-   * a partial prefix that is not one of these strings. */
+   * a partial prefix that is not one of these strings.
+   */
   for (i = 0; i < gs_object_count (game); i++)
     {
       const scr_char *s = scdump_object_name (game, i);
@@ -528,18 +623,24 @@ scdump_objects (scr_gameref_t game)
       fprintf (stderr, "\n");
     }
 
-  /* Lockable objects: the "Key" property is the *dynamic-object index* of the
-   * key that opens it; obj_dynamic_object() maps it to a real object id. */
+  /*
+   * Lockable objects: the "Key" property is the *dynamic-object index* of the
+   * key that opens it; obj_dynamic_object() maps it to a real object id.
+   */
   for (i = 0; i < gs_object_count (game); i++)
     {
       scr_vartype_t kk[3], kv;
       scr_int key_index, the_key, openable;
+      const scr_char *s, *ks;
+
       kk[0].string = "Objects";
       kk[1].integer = i;
       kk[2].string = "Openable";
-      /* Tolerant fetch: prop_get_integer() is FATAL on a missing property, and
+      /*
+       * Tolerant fetch: prop_get_integer() is FATAL on a missing property, and
        * "Openable" really can be absent -- Where Is Richard? (V390) has such
-       * an object and the whole dump used to die on it.  Skip instead. */
+       * an object and the whole dump used to die on it.  Skip instead.
+       */
       if (!prop_get (bundle, "I<-sis", &kv, kk))
         continue;
       openable = kv.integer;
@@ -552,24 +653,32 @@ scdump_objects (scr_gameref_t game)
       if (key_index < 0)
         continue;
       the_key = obj_dynamic_object (game, key_index);
+      s = scdump_object_name (game, i);
+      ks = "?";
+      if (the_key >= 0 && the_key < gs_object_count (game))
+        {
+          ks = scdump_object_name (game, the_key);
+          if (!ks)
+            ks = "";
+        }
       fprintf (stderr, "LOCKKEY obj=%ld [%s] keyidx=%ld keyobj=%ld [%s]\n",
-               i, scdump_object_name (game, i) ? scdump_object_name (game, i) : "",
-               key_index, the_key,
-               (the_key >= 0 && the_key < gs_object_count (game))
-                 ? (scdump_object_name (game, the_key) ? scdump_object_name (game, the_key) : "")
-                 : "?");
+               i, s ? s : "", key_index, the_key, ks);
     }
 
-  /* Raw Openable/Key, whatever their values.  LOCKKEY above only fires for a
+  /*
+   * Raw Openable/Key, whatever their values.  LOCKKEY above only fires for a
    * resolvable key, and pre-4.0 games never have one (parse_fixup_openable_key
    * always writes Key = -1), so this is the line that lets the gen400
    * conversion oracle check the V390/V380_OBJECT fixup that swaps Openable
-   * 5 and 6.  See RUNNER_TESTS_TODO.md section 3(a). */
+   * 5 and 6.  See RUNNER_TESTS_TODO.md section 3(a).
+   */
   for (i = 0; i < gs_object_count (game); i++)
     {
       scr_vartype_t ok[3];
       scr_int openable, key = 0;
       scr_vartype_t ov;
+      const scr_char *s;
+
       ok[0].string = "Objects";
       ok[1].integer = i;
       ok[2].string = "Openable";
@@ -581,22 +690,25 @@ scdump_objects (scr_gameref_t game)
       ok[2].string = "Key";
       if (prop_get (bundle, "I<-sis", &ov, ok))
         key = ov.integer;
+      s = scdump_object_name (game, i);
       fprintf (stderr, "OPENABLE obj=%ld [%s] openable=%ld key=%ld\n",
-               i, scdump_object_name (game, i)
-                    ? scdump_object_name (game, i) : "",
-               openable, key);
+               i, s ? s : "", openable, key);
     }
 
   /* Surface / container index enumeration (chisel-of-the-ages hunt). */
   {
     scr_int si = 0, ci = 0;
+
     for (i = 0; i < gs_object_count (game); i++)
       {
         const scr_char *s = scdump_object_name (game, i);
+
         if (obj_is_surface (game, i))
-          fprintf (stderr, "SURFACE idx=%ld obj=%ld [%s]\n", si++, i, s ? s : "");
+          fprintf (stderr, "SURFACE idx=%ld obj=%ld [%s]\n",
+                   si++, i, s ? s : "");
         if (obj_is_container (game, i))
-          fprintf (stderr, "CONTAINERIDX idx=%ld obj=%ld [%s]\n", ci++, i, s ? s : "");
+          fprintf (stderr, "CONTAINERIDX idx=%ld obj=%ld [%s]\n",
+                   ci++, i, s ? s : "");
       }
   }
 }
@@ -648,8 +760,8 @@ scdump_tasks (scr_gameref_t game)
       scr_vartype_t k[5], vt;
       const scr_char *cmd;
       scr_int wtype, wroom, acount, rcount, rep, rev;
-
       scr_int ccount, ci;
+
       k[0].string = "Tasks";
       k[1].integer = t;
       k[2].string = "Command";
@@ -685,19 +797,27 @@ scdump_tasks (scr_gameref_t game)
         const scr_char *mask = NULL;
         scr_int rpt = 0;
         scr_int srd = 0;
+
         k[2].string = "Score";
-        if (prop_get (bundle, "I<-sis", &vt, k)) score = vt.integer;
-        /* srd: the task's ShowRoomDesc, as the raw field -- 0 for none,
+        if (prop_get (bundle, "I<-sis", &vt, k))
+          score = vt.integer;
+        /*
+         * srd: the task's ShowRoomDesc, as the raw field -- 0 for none,
          * otherwise room + 1.  See RUNNER_TESTS_TODO.md section 4, where
          * run400 is measured printing that room's description with no room
-         * name heading, and task_run_task_unrestricted() prints both. */
+         * name heading, and task_run_task_unrestricted() prints both.
+         */
         k[2].string = "ShowRoomDesc";
-        if (prop_get (bundle, "I<-sis", &vt, k)) srd = vt.integer;
+        if (prop_get (bundle, "I<-sis", &vt, k))
+          srd = vt.integer;
         k[2].string = "RestrMask";
-        if (prop_get (bundle, "S<-sis", &vt, k)) mask = vt.string;
-        /* rpt: does the task carry a RepeatText?  A non-repeatable task that
+        if (prop_get (bundle, "S<-sis", &vt, k))
+          mask = vt.string;
+        /*
+         * rpt: does the task carry a RepeatText?  A non-repeatable task that
          * has one answers a second typing of its command with that text rather
-         * than with "You have already done that." -- see run_task_refusal(). */
+         * than with "You have already done that." -- see run_task_refusal().
+         */
         k[2].string = "RepeatText";
         if (prop_get (bundle, "S<-sis", &vt, k) && !scr_strempty (vt.string))
           rpt = 1;
@@ -708,13 +828,16 @@ scdump_tasks (scr_gameref_t game)
                  mask ? mask : "", cmd ? cmd : "");
       }
 
-      /* For SOME_ROOMS (where=2) tasks, dump the room-group membership (the
+      /*
+       * For SOME_ROOMS (where=2) tasks, dump the room-group membership (the
        * "Where"/"Rooms" boolean array indexed by room; see sctasks.c
        * task_can_run_task_directional). Lets us tell whether a group-scoped
-       * death (e.g. the Morac castle timer T327) fires in a given room. */
+       * death (e.g. the Morac castle timer T327) fires in a given room.
+       */
       if (wtype == ROOMLIST_SOME_ROOMS)
         {
           scr_int rm, nrooms = gs_room_count (game);
+
           fprintf (stderr, "    WHERE_ROOMS=[");
           for (rm = 0; rm < nrooms; rm++)
             {
@@ -727,20 +850,33 @@ scdump_tasks (scr_gameref_t game)
           fprintf (stderr, "]\n");
         }
 
-      /* Built-in author hints attached to this task (Question/Hint1=subtle/
-       * Hint2=sledgehammer) -- the game's own context-sensitive walkthrough. */
+      /*
+       * Built-in author hints attached to this task (Question/Hint1=subtle/
+       * Hint2=sledgehammer) -- the game's own context-sensitive walkthrough.
+       */
       {
         const scr_char *hq = NULL, *h1 = NULL, *h2 = NULL;
         scr_vartype_t hv;
-        k[2].string = "Question"; if (prop_get (bundle, "S<-sis", &hv, k)) hq = hv.string;
-        k[2].string = "Hint1";    if (prop_get (bundle, "S<-sis", &hv, k)) h1 = hv.string;
-        k[2].string = "Hint2";    if (prop_get (bundle, "S<-sis", &hv, k)) h2 = hv.string;
-        if (hq && *hq) fprintf (stderr, "    HINTQ=[%s]\n", hq);
-        if (h1 && *h1) fprintf (stderr, "    HINT1=[%s]\n", h1);
-        if (h2 && *h2) fprintf (stderr, "    HINT2=[%s]\n", h2);
+
+        k[2].string = "Question";
+        if (prop_get (bundle, "S<-sis", &hv, k))
+          hq = hv.string;
+        k[2].string = "Hint1";
+        if (prop_get (bundle, "S<-sis", &hv, k))
+          h1 = hv.string;
+        k[2].string = "Hint2";
+        if (prop_get (bundle, "S<-sis", &hv, k))
+          h2 = hv.string;
+        if (hq && *hq)
+          fprintf (stderr, "    HINTQ=[%s]\n", hq);
+        if (h1 && *h1)
+          fprintf (stderr, "    HINT1=[%s]\n", h1);
+        if (h2 && *h2)
+          fprintf (stderr, "    HINT2=[%s]\n", h2);
       }
 
-      /* The task's own text.  A wording measurement against a Runner
+      /*
+       * The task's own text.  A wording measurement against a Runner
        * transcript stands or falls on knowing which words the author wrote:
        * the dump used to show only the command, so an engine-supplied phrase
        * and an authored one looked alike.  CompleteText is what the task
@@ -752,7 +888,8 @@ scdump_tasks (scr_gameref_t game)
        * sweet on the plinth.", so neither of the two "Okay."s the Runner
        * prefixes to it is authored -- both come from the game's own
        * self-containing ALR [I put ] -> [Okay.  I put ], one per filter pass
-       * the turn runs (see pf_refilter()). */
+       * the turn runs (see pf_refilter()).
+       */
       {
         const scr_char *tt;
         static const char *const text_fields[] =
@@ -774,18 +911,22 @@ scdump_tasks (scr_gameref_t game)
           }
       }
 
-      /* Print any extra command alternatives (Command[1..]) -- these are the
-       * synonym/wildcard forms ADRIFT matches in addition to Command[0]. */
+      /*
+       * Print any extra command alternatives (Command[1..]) -- these are the
+       * synonym/wildcard forms ADRIFT matches in addition to Command[0].
+       */
       for (ci = 1; ci < ccount; ci++)
         {
           const scr_char *ac;
+
           k[2].string = "Command";
           k[3].integer = ci;
           ac = prop_get_string (bundle, "S<-sisi", k);
           fprintf (stderr, "    ALTCMD[%ld]=[%s]\n", ci, ac ? ac : "");
         }
 
-      /* The reverse half of a reversible task.  A reversible task matches its
+      /*
+       * The reverse half of a reversible task.  A reversible task matches its
        * ReverseCommand patterns as well as its Command ones, so those strings
        * are typeable too -- and when the ReverseMessage is empty the reverse
        * run prints nothing, which makes the whole turn silent and sends a
@@ -795,7 +936,8 @@ scdump_tasks (scr_gameref_t game)
        * off tv" with no ReverseMessage, and only that exact string diverges,
        * which is why five probe drives could not find a pattern in it
        * (2026-09-05).  The dump used to show neither the flag nor the reverse
-       * commands, so the task looked like an ordinary one-way task. */
+       * commands, so the task looked like an ordinary one-way task.
+       */
       if (prop_get_indexed_boolean (bundle, "Tasks", t, "Reversible"))
         {
           scr_int rc, rccount;
@@ -806,6 +948,7 @@ scdump_tasks (scr_gameref_t game)
           for (rc = 0; rc < rccount; rc++)
             {
               const scr_char *rcs;
+
               k[2].string = "ReverseCommand";
               k[3].integer = rc;
               rcs = prop_get_string (bundle, "S<-sisi", k);
@@ -825,18 +968,24 @@ scdump_tasks (scr_gameref_t game)
           rtype = prop_get_integer (bundle, "I<-sisis", k);
           v1 = v2 = v3 = -999;
           k[4].string = "Var1";
-          if (prop_get (bundle, "I<-sisis", &vt, k)) v1 = vt.integer;
+          if (prop_get (bundle, "I<-sisis", &vt, k))
+            v1 = vt.integer;
           k[4].string = "Var2";
-          if (prop_get (bundle, "I<-sisis", &vt, k)) v2 = vt.integer;
+          if (prop_get (bundle, "I<-sisis", &vt, k))
+            v2 = vt.integer;
           k[4].string = "Var3";
-          if (prop_get (bundle, "I<-sisis", &vt, k)) v3 = vt.integer;
+          if (prop_get (bundle, "I<-sisis", &vt, k))
+            v3 = vt.integer;
 
           obj = -1;
-          if (rtype == 0) obj = scdump_resolve_object (game, 0, v1);
-          else if (rtype == 1) obj = scdump_resolve_object (game, 1, v1);
+          if (rtype == 0)
+            obj = scdump_resolve_object (game, 0, v1);
+          else if (rtype == 1)
+            obj = scdump_resolve_object (game, 1, v1);
           if (obj >= 0)
             {
               const scr_char *s = scdump_object_name (game, obj);
+
               snprintf (nm, sizeof nm, " obj%ld=[%s]", obj, s ? s : "");
             }
           else if (rtype == 2 && v1 >= 1 && v1 - 1 < gs_task_count (game))
@@ -844,8 +993,11 @@ scdump_tasks (scr_gameref_t game)
               /* Task-state ref is 1-based; resolve to its command. */
               scr_vartype_t tk[4];
               const scr_char *s;
-              tk[0].string = "Tasks"; tk[1].integer = v1 - 1;
-              tk[2].string = "Command"; tk[3].integer = 0;
+
+              tk[0].string = "Tasks";
+              tk[1].integer = v1 - 1;
+              tk[2].string = "Command";
+              tk[3].integer = 0;
               s = prop_get_string (bundle, "S<-sisi", tk);
               snprintf (nm, sizeof nm, " task%ld=[%s]", v1 - 1, s ? s : "");
             }
@@ -858,6 +1010,7 @@ scdump_tasks (scr_gameref_t game)
            */
           {
             const scr_char *fail;
+
             k[4].string = "FailMessage";
             fail = prop_get_string (bundle, "S<-sisis", k);
             fprintf (stderr,
@@ -878,14 +1031,18 @@ scdump_tasks (scr_gameref_t game)
           atype = prop_get_integer (bundle, "I<-sisis", k);
           v1 = v2 = v3 = -999;
           k[4].string = "Var1";
-          if (prop_get (bundle, "I<-sisis", &vt, k)) v1 = vt.integer;
+          if (prop_get (bundle, "I<-sisis", &vt, k))
+            v1 = vt.integer;
           k[4].string = "Var2";
-          if (prop_get (bundle, "I<-sisis", &vt, k)) v2 = vt.integer;
+          if (prop_get (bundle, "I<-sisis", &vt, k))
+            v2 = vt.integer;
           k[4].string = "Var3";
-          if (prop_get (bundle, "I<-sisis", &vt, k)) v3 = vt.integer;
+          if (prop_get (bundle, "I<-sisis", &vt, k))
+            v3 = vt.integer;
 
           obj = -1;
-          if (atype == 0) obj = scdump_resolve_object (game, 0, v1);
+          if (atype == 0)
+            obj = scdump_resolve_object (game, 0, v1);
           else if (atype == 2)
             {
               /*
@@ -903,6 +1060,7 @@ scdump_tasks (scr_gameref_t game)
           if (obj >= 0)
             {
               const scr_char *s = scdump_object_name (game, obj);
+
               snprintf (nm, sizeof nm, " obj%ld=[%s]", obj, s ? s : "");
             }
           fprintf (stderr, "    ACT type=%ld v1=%ld v2=%ld v3=%ld%s",
@@ -919,7 +1077,8 @@ scdump_tasks (scr_gameref_t game)
                * prop_get and accept the miss.
                */
               k[4].string = "Expr";
-              if (prop_get (bundle, "S<-sisis", &vt, k)) expr = vt.string;
+              if (prop_get (bundle, "S<-sisis", &vt, k))
+                expr = vt.string;
               if (expr && expr[0] != '\0')
                 fprintf (stderr, " expr=[%s]", expr);
             }
@@ -958,50 +1117,95 @@ scdump_events (scr_gameref_t game)
         en = NULL;
         ek[1].integer = e;
         /* Use tolerant prop_get -- not every game defines every field. */
-        ek[2].string = "Short";        if (prop_get (bundle, "S<-sis", &evt, ek)) en = evt.string;
-        ek[2].string = "StarterType";  if (prop_get (bundle, "I<-sis", &evt, ek)) st = evt.integer;
-        ek[2].string = "TaskNum";      if (prop_get (bundle, "I<-sis", &evt, ek)) tn = evt.integer;
-        ek[2].string = "TaskAffected"; if (prop_get (bundle, "I<-sis", &evt, ek)) ta = evt.integer;
-        ek[2].string = "TaskFinished"; if (prop_get (bundle, "I<-sis", &evt, ek)) tf = evt.integer;
-        ek[2].string = "RestartType";  if (prop_get (bundle, "I<-sis", &evt, ek)) rt = evt.integer;
-        ek[2].string = "StartTime";    if (prop_get (bundle, "I<-sis", &evt, ek)) sta = evt.integer;
-        ek[2].string = "EndTime";      if (prop_get (bundle, "I<-sis", &evt, ek)) end = evt.integer;
-        ek[2].string = "Time1";        if (prop_get (bundle, "I<-sis", &evt, ek)) t1 = evt.integer;
-        ek[2].string = "Time2";        if (prop_get (bundle, "I<-sis", &evt, ek)) t2 = evt.integer;
-        ek[2].string = "PauseTask";    if (prop_get (bundle, "I<-sis", &evt, ek)) pf = evt.integer;
-        ek[2].string = "Obj2";         if (prop_get (bundle, "I<-sis", &evt, ek)) o2 = evt.integer;
-        ek[2].string = "Obj2Dest";     if (prop_get (bundle, "I<-sis", &evt, ek)) o2d = evt.integer;
-        ek[2].string = "Obj3";         if (prop_get (bundle, "I<-sis", &evt, ek)) o3 = evt.integer;
-        ek[2].string = "Obj3Dest";     if (prop_get (bundle, "I<-sis", &evt, ek)) o3d = evt.integer;
-        /* Which of the three texts the event actually carries.  This is what
+        ek[2].string = "Short";
+        if (prop_get (bundle, "S<-sis", &evt, ek))
+          en = evt.string;
+        ek[2].string = "StarterType";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          st = evt.integer;
+        ek[2].string = "TaskNum";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          tn = evt.integer;
+        ek[2].string = "TaskAffected";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          ta = evt.integer;
+        ek[2].string = "TaskFinished";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          tf = evt.integer;
+        ek[2].string = "RestartType";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          rt = evt.integer;
+        ek[2].string = "StartTime";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          sta = evt.integer;
+        ek[2].string = "EndTime";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          end = evt.integer;
+        ek[2].string = "Time1";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          t1 = evt.integer;
+        ek[2].string = "Time2";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          t2 = evt.integer;
+        ek[2].string = "PauseTask";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          pf = evt.integer;
+        ek[2].string = "Obj2";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          o2 = evt.integer;
+        ek[2].string = "Obj2Dest";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          o2d = evt.integer;
+        ek[2].string = "Obj3";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          o3 = evt.integer;
+        ek[2].string = "Obj3Dest";
+        if (prop_get (bundle, "I<-sis", &evt, ek))
+          o3d = evt.integer;
+        /*
+         * Which of the three texts the event actually carries.  This is what
          * decides exposure to the turn-0 ordering divergence (RUNNER_TESTS_TODO
          * section 4): the real Runner starts an immediate event during load, so
          * a StarterType=1 event's StartText is printed into the cleared
          * pre-intro screen and its LookText joins the opening room
-         * description. */
+         * description.
+         */
         {
           const scr_char *stx = NULL, *ltx = NULL, *ftx = NULL;
-          ek[2].string = "StartText";  if (prop_get (bundle, "S<-sis", &evt, ek)) stx = evt.string;
-          ek[2].string = "LookText";   if (prop_get (bundle, "S<-sis", &evt, ek)) ltx = evt.string;
-          ek[2].string = "FinishText"; if (prop_get (bundle, "S<-sis", &evt, ek)) ftx = evt.string;
+
+          ek[2].string = "StartText";
+          if (prop_get (bundle, "S<-sis", &evt, ek))
+            stx = evt.string;
+          ek[2].string = "LookText";
+          if (prop_get (bundle, "S<-sis", &evt, ek))
+            ltx = evt.string;
+          ek[2].string = "FinishText";
+          if (prop_get (bundle, "S<-sis", &evt, ek))
+            ftx = evt.string;
           fprintf (stderr,
-                   "EVENT %ld [%s] starter=%ld startTask=%ld affTask=%ld(fin=%ld)"
-                   " restart=%ld start=%ld..%ld time1=%ld time2=%ld pauseTask=%ld"
+                   "EVENT %ld [%s] starter=%ld startTask=%ld"
+                   " affTask=%ld(fin=%ld) restart=%ld start=%ld..%ld"
+                   " time1=%ld time2=%ld pauseTask=%ld"
                    " o2=%ld->%ld o3=%ld->%ld texts=%c%c%c\n",
                    e, en ? en : "", st, tn, ta, tf, rt, sta, end, t1, t2, pf,
                    o2, o2d, o3, o3d,
                    stx && stx[0] ? 'S' : '-',
                    ltx && ltx[0] ? 'L' : '-',
                    ftx && ftx[0] ? 'F' : '-');
-          if (stx && stx[0]) fprintf (stderr, "   S: %s\n", stx);
-          if (ltx && ltx[0]) fprintf (stderr, "   L: %s\n", ltx);
-          if (ftx && ftx[0]) fprintf (stderr, "   F: %s\n", ftx);
-          /* PrefTime1/2 -- "show this N turns before the event ends", compared
+          if (stx && stx[0])
+            fprintf (stderr, "   S: %s\n", stx);
+          if (ltx && ltx[0])
+            fprintf (stderr, "   L: %s\n", ltx);
+          if (ftx && ftx[0])
+            fprintf (stderr, "   F: %s\n", ftx);
+          /*
+           * PrefTime1/2 -- "show this N turns before the event ends", compared
            * against the POST-decrement clock.  These are the only event texts
            * that are neither Start, Look nor Finish, and a measurement that
            * does not know an event carries one reads its wording as an
            * unexplained divergence (FarFromHome 2026-09-05 spent a session on
-           * "The tide washes in" before finding it here). */
+           * "The tide washes in" before finding it here).
+           */
           {
             scr_int pt;
             const scr_char *px;
@@ -1011,13 +1215,16 @@ scdump_events (scr_gameref_t game)
               {
                 char field[16];
 
-                pt = 0; px = NULL;
+                pt = 0;
+                px = NULL;
                 snprintf (field, sizeof field, "PrefTime%d", which);
                 ek[2].string = field;
-                if (prop_get (bundle, "I<-sis", &evt, ek)) pt = evt.integer;
+                if (prop_get (bundle, "I<-sis", &evt, ek))
+                  pt = evt.integer;
                 snprintf (field, sizeof field, "PrefText%d", which);
                 ek[2].string = field;
-                if (prop_get (bundle, "S<-sis", &evt, ek)) px = evt.string;
+                if (prop_get (bundle, "S<-sis", &evt, ek))
+                  px = evt.string;
                 if (px && px[0])
                   fprintf (stderr, "   P%d(at %ld): %s\n", which, pt, px);
               }
@@ -1069,22 +1276,26 @@ scdump_battle (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
-  /* The player's Battle System ranges (Globals.Battle.<attr>Lo/Hi), same
+  /*
+   * The player's Battle System ranges (Globals.Battle.<attr>Lo/Hi), same
    * shape as the per-NPC BATTLE line below.  A player Stamina of 0..0 is the
    * case that matters: the Runner rolls stamina 0 at load and an enemy NPC
    * in the room then kills the player with its first blow (Battles.bas
-   * Proc_11_14 selects 0-stamina targets, Proc_11_0 -> Proc_21_62). */
+   * Proc_11_14 selects 0-stamina targets, Proc_11_0 -> Proc_21_62).
+   */
   if (getenv ("SCR_DUMP_BATTLE"))
     {
       scr_vartype_t bk[4], bv;
       scr_int rec = 0;
 
-      bk[0].string = "Globals"; bk[1].string = "Battle";
+      bk[0].string = "Globals";
+      bk[1].string = "Battle";
       fprintf (stderr, "  BATTLE player system=%s",
                prop_get_global_boolean (bundle, "BattleSystem") ? "on" : "off");
       scdump_battle_ranges (bundle, "I<-sss", bk, 2);
       bk[2].string = "Recovery";
-      if (prop_get (bundle, "I<-sss", &bv, bk)) rec = bv.integer;
+      if (prop_get (bundle, "I<-sss", &bv, bk))
+        rec = bv.integer;
       fprintf (stderr, " recovery=%ld\n", rec);
     }
 }
@@ -1112,14 +1323,21 @@ scdump_npcs (scr_gameref_t game)
         scr_int sr = 0, w, wcount;
         const scr_char *nm = NULL;
         scr_vartype_t nv;
+
         nk[1].integer = n;
-        nk[2].string = "Name";      if (prop_get (bundle, "S<-sis", &nv, nk)) nm = nv.string;
-        nk[2].string = "StartRoom"; if (prop_get (bundle, "I<-sis", &nv, nk)) sr = nv.integer;
+        nk[2].string = "Name";
+        if (prop_get (bundle, "S<-sis", &nv, nk))
+          nm = nv.string;
+        nk[2].string = "StartRoom";
+        if (prop_get (bundle, "I<-sis", &nv, nk))
+          sr = nv.integer;
         fprintf (stderr, "NPC %ld [%s] startRoom=%ld", n, nm ? nm : "", sr - 1);
 
-        /* Prefix and aliases: the 4.0 battle narration names an NPC by
+        /*
+         * Prefix and aliases: the 4.0 battle narration names an NPC by
          * "<Prefix> <Alias[0]>" rather than by Name (see battle_print_name()
-         * in scbattle.cpp), so a battle diff wants them visible. */
+         * in scbattle.cpp), so a battle diff wants them visible.
+         */
         {
           scr_int alias_count, a;
 
@@ -1140,23 +1358,34 @@ scdump_npcs (scr_gameref_t game)
         }
         fprintf (stderr, "\n");
 
-        /* Battle System configuration for this NPC, read straight from the
+        /*
+         * Battle System configuration for this NPC, read straight from the
          * bundle (NPCs[n].Battle.<attr>).  4.0 games store <attr>Lo/<attr>Hi
          * pairs; 3.9 games a single <attr>.  Prints stamina + the four ranged
          * combat attributes + attitude/speed + the KilledTask reference, so a
          * "damage stalemate" (target Defence >= attacker Strength) is visible.
-         * Only emitted when SCR_DUMP_BATTLE is set, to keep the task dump terse. */
+         * Only emitted when SCR_DUMP_BATTLE is set, to keep the task dump
+         * terse.
+         */
         if (getenv ("SCR_DUMP_BATTLE"))
           {
             scr_vartype_t bk[5], bv;
             scr_int att = 0, spd = 0, kt = 0;
 
-            bk[0].string = "NPCs"; bk[1].integer = n; bk[2].string = "Battle";
+            bk[0].string = "NPCs";
+            bk[1].integer = n;
+            bk[2].string = "Battle";
             fprintf (stderr, "  BATTLE npc=%ld", n);
             scdump_battle_ranges (bundle, "I<-siss", bk, 3);
-            bk[3].string = "Attitude"; if (prop_get (bundle, "I<-siss", &bv, bk)) att = bv.integer;
-            bk[3].string = "Speed";    if (prop_get (bundle, "I<-siss", &bv, bk)) spd = bv.integer;
-            bk[3].string = "KilledTask"; if (prop_get (bundle, "I<-siss", &bv, bk)) kt = bv.integer;
+            bk[3].string = "Attitude";
+            if (prop_get (bundle, "I<-siss", &bv, bk))
+              att = bv.integer;
+            bk[3].string = "Speed";
+            if (prop_get (bundle, "I<-siss", &bv, bk))
+              spd = bv.integer;
+            bk[3].string = "KilledTask";
+            if (prop_get (bundle, "I<-siss", &bv, bk))
+              kt = bv.integer;
             fprintf (stderr, " attitude=%ld speed=%ld killedTask=%ld\n",
                      att, spd, kt - 1);
           }
@@ -1167,17 +1396,33 @@ scdump_npcs (scr_gameref_t game)
           {
             scr_int loop = 0, st = 0, ct = 0, mo = 0, ot = 0, sp = 0, mc = 0;
             scr_int rc, s;
+
             nk[3].integer = w;
-            nk[4].string = "Loop";       if (prop_get (bundle, "B<-sisis", &nv, nk)) loop = nv.boolean;
-            nk[4].string = "StartTask";   if (prop_get (bundle, "I<-sisis", &nv, nk)) st = nv.integer;
-            nk[4].string = "CharTask";    if (prop_get (bundle, "I<-sisis", &nv, nk)) ct = nv.integer;
-            nk[4].string = "MeetObject";  if (prop_get (bundle, "I<-sisis", &nv, nk)) mo = nv.integer;
-            nk[4].string = "ObjectTask";  if (prop_get (bundle, "I<-sisis", &nv, nk)) ot = nv.integer;
-            nk[4].string = "StoppingTask";if (prop_get (bundle, "I<-sisis", &nv, nk)) sp = nv.integer;
-            nk[4].string = "MeetChar";    if (prop_get (bundle, "I<-sisis", &nv, nk)) mc = nv.integer;
+            nk[4].string = "Loop";
+            if (prop_get (bundle, "B<-sisis", &nv, nk))
+              loop = nv.boolean;
+            nk[4].string = "StartTask";
+            if (prop_get (bundle, "I<-sisis", &nv, nk))
+              st = nv.integer;
+            nk[4].string = "CharTask";
+            if (prop_get (bundle, "I<-sisis", &nv, nk))
+              ct = nv.integer;
+            nk[4].string = "MeetObject";
+            if (prop_get (bundle, "I<-sisis", &nv, nk))
+              mo = nv.integer;
+            nk[4].string = "ObjectTask";
+            if (prop_get (bundle, "I<-sisis", &nv, nk))
+              ot = nv.integer;
+            nk[4].string = "StoppingTask";
+            if (prop_get (bundle, "I<-sisis", &nv, nk))
+              sp = nv.integer;
+            nk[4].string = "MeetChar";
+            if (prop_get (bundle, "I<-sisis", &nv, nk))
+              mc = nv.integer;
             fprintf (stderr,
                      "  WALK %ld loop=%ld startTask=%ld charTask=%ld(task%ld)"
-                     " meetChar=%ld meetObj=%ld objTask=%ld(task%ld) stopTask=%ld\n",
+                     " meetChar=%ld meetObj=%ld objTask=%ld(task%ld)"
+                     " stopTask=%ld\n",
                      w, loop, st, ct, ct - 1, mc, mo, ot, ot - 1, sp);
             nk[4].string = "ChangedDesc";
             fprintf (stderr, "    changeddesc [%s]\n",
@@ -1188,12 +1433,16 @@ scdump_npcs (scr_gameref_t game)
             for (s = 0; s < rc; s++)
               {
                 scr_int rm = 0, tm = 0;
+
                 nk[5].integer = s;
-                if (prop_get (bundle, "I<-sisisi", &nv, nk)) rm = nv.integer;
+                if (prop_get (bundle, "I<-sisisi", &nv, nk))
+                  rm = nv.integer;
                 nk[4].string = "Times";
-                if (prop_get (bundle, "I<-sisisi", &nv, nk)) tm = nv.integer;
+                if (prop_get (bundle, "I<-sisisi", &nv, nk))
+                  tm = nv.integer;
                 nk[4].string = "Rooms";
-                fprintf (stderr, "    step %ld dest=%ld times=%ld\n", s, rm, tm);
+                fprintf (stderr, "    step %ld dest=%ld times=%ld\n",
+                         s, rm, tm);
               }
           }
       }
@@ -1211,24 +1460,28 @@ scdump_exits (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
-  /* Room exits + their task gates.  The exit array is in ADRIFT's own direction
-     order -- the diagonals are NE,SE,SW,NW, NOT NE,NW,SE,SW (sclibrar.cpp's
-     DIRNAMES, and mapdraw.cpp's map_dirs, which both engines share).  Getting
-     this wrong mislabels every diagonal exit and sends a route derivation into
-     the wrong room. */
+  /*
+   * Room exits + their task gates.  The exit array is in ADRIFT's own direction
+   * order -- the diagonals are NE,SE,SW,NW, NOT NE,NW,SE,SW (sclibrar.cpp's
+   * DIRNAMES, and mapdraw.cpp's map_dirs, which both engines share).  Getting
+   * this wrong mislabels every diagonal exit and sends a route derivation into
+   * the wrong room.
+   */
   {
     scr_vartype_t rk[5];
     scr_int r, rcount;
     static const char *dirs[] =
-      { "N","E","S","W","U","D","IN","OUT","NE","SE","SW","NW" };
+      { "N", "E", "S", "W", "U", "D", "IN", "OUT", "NE", "SE", "SW", "NW" };
 
-    /* The game's own win/lose text.  When a published transcript and our own
+    /*
+     * The game's own win/lose text.  When a published transcript and our own
      * disagree about how many lines an ending has, this is the quick way to
      * tell an authored line from an engine-supplied one: an empty WinText
      * means every line before the score summary came from the winning task's
      * CompleteText.  (The engine adds nothing of its own there -- the
      * Runners' "Congratulations!" is a status bar caption, not game text.
-     * See RUNNER_TESTS_TODO.md section 4.) */
+     * See RUNNER_TESTS_TODO.md section 4.)
+     */
     {
       scr_vartype_t hk[2], hv;
 
@@ -1245,24 +1498,38 @@ scdump_exits (scr_gameref_t game)
       {
         scr_vartype_t rnv;
         const scr_char *rname = NULL;
-        rk[1].integer = r; rk[2].string = "Short";
-        if (prop_get (bundle, "S<-sis", &rnv, rk)) rname = rnv.string;
+
+        rk[1].integer = r;
+        rk[2].string = "Short";
+        if (prop_get (bundle, "S<-sis", &rnv, rk))
+          rname = rnv.string;
         fprintf (stderr, "ROOM %ld [%s]\n", r, rname ? rname : "");
       }
     for (r = 0; r < rcount; r++)
       {
         scr_int d;
+
         for (d = 0; d < 12; d++)
           {
             scr_int dest = 0, v1 = 0, v2 = 0, v3 = 0;
             scr_vartype_t rv;
+
             rk[1].integer = r;
             rk[2].string = "Exits";
             rk[3].integer = d;
-            rk[4].string = "Dest"; if (prop_get (bundle, "I<-sisis", &rv, rk)) dest = rv.integer; else continue;
-            rk[4].string = "Var1"; if (prop_get (bundle, "I<-sisis", &rv, rk)) v1 = rv.integer;
-            rk[4].string = "Var2"; if (prop_get (bundle, "I<-sisis", &rv, rk)) v2 = rv.integer;
-            rk[4].string = "Var3"; if (prop_get (bundle, "I<-sisis", &rv, rk)) v3 = rv.integer;
+            rk[4].string = "Dest";
+            if (!prop_get (bundle, "I<-sisis", &rv, rk))
+              continue;
+            dest = rv.integer;
+            rk[4].string = "Var1";
+            if (prop_get (bundle, "I<-sisis", &rv, rk))
+              v1 = rv.integer;
+            rk[4].string = "Var2";
+            if (prop_get (bundle, "I<-sisis", &rv, rk))
+              v2 = rv.integer;
+            rk[4].string = "Var3";
+            if (prop_get (bundle, "I<-sisis", &rv, rk))
+              v3 = rv.integer;
             if (dest > 0)
               {
                 /*
@@ -1279,15 +1546,18 @@ scdump_exits (scr_gameref_t game)
                 if (v1 - 1 < 0)
                   fprintf (stderr, " (no gate)\n");
                 else if (v3 == 0)
-                  /* lib_can_go restricts when done == (Var2 != 0), so the exit
-                     opens on the OPPOSITE of Var2 -- Var2 == 0 means "the task
-                     must have been done". */
+                  /*
+                   * lib_can_go restricts when done == (Var2 != 0), so the exit
+                   * opens on the OPPOSITE of Var2 -- Var2 == 0 means "the task
+                   * must have been done".
+                   */
                   fprintf (stderr, " gateTask=%ld wantDone=%ld\n",
                            v1 - 1, (scr_int) (v2 == 0));
                 else
                   {
                     scr_int obj = obj_stateful_object (game, v1 - 1);
                     const scr_char *s = scdump_object_name (game, obj);
+
                     fprintf (stderr, " gateObj=%ld [%s] wantState=%ld"
                              " rawV1=%ld\n",
                              obj, s ? s : "", v2, v1);
@@ -1296,14 +1566,17 @@ scdump_exits (scr_gameref_t game)
           }
       }
 
-    /* Room description alts.  In 4.0 these are an authored array; in 3.9/3.8
+    /*
+     * Room description alts.  In 4.0 these are an authored array; in 3.9/3.8
      * they are synthesised by parse_fixup_v390_v380_room_alts() from the
      * fixed AltDesc/Task1/Task2/LastDesc fields, so dumping them is how the
      * gen400 conversion oracle checks that fixup (see RUNNER_TESTS_TODO.md
-     * §3a). */
+     * §3a).
+     */
     for (r = 0; r < rcount; r++)
       {
         scr_int a, acount;
+
         rk[1].integer = r;
         rk[2].string = "Alts";
         acount = prop_get_child_count (bundle, "I<-sis", rk);
@@ -1312,14 +1585,29 @@ scdump_exits (scr_gameref_t game)
             scr_int type = 0, v2 = 0, v3 = 0, disp = 0, hide = 0;
             const scr_char *m1 = NULL, *m2 = NULL;
             scr_vartype_t av;
+
             rk[3].integer = a;
-            rk[4].string = "Type"; if (prop_get (bundle, "I<-sisis", &av, rk)) type = av.integer;
-            rk[4].string = "Var2"; if (prop_get (bundle, "I<-sisis", &av, rk)) v2 = av.integer;
-            rk[4].string = "Var3"; if (prop_get (bundle, "I<-sisis", &av, rk)) v3 = av.integer;
-            rk[4].string = "DisplayRoom"; if (prop_get (bundle, "I<-sisis", &av, rk)) disp = av.integer;
-            rk[4].string = "HideObjects"; if (prop_get (bundle, "I<-sisis", &av, rk)) hide = av.integer;
-            rk[4].string = "M1"; if (prop_get (bundle, "S<-sisis", &av, rk)) m1 = av.string;
-            rk[4].string = "M2"; if (prop_get (bundle, "S<-sisis", &av, rk)) m2 = av.string;
+            rk[4].string = "Type";
+            if (prop_get (bundle, "I<-sisis", &av, rk))
+              type = av.integer;
+            rk[4].string = "Var2";
+            if (prop_get (bundle, "I<-sisis", &av, rk))
+              v2 = av.integer;
+            rk[4].string = "Var3";
+            if (prop_get (bundle, "I<-sisis", &av, rk))
+              v3 = av.integer;
+            rk[4].string = "DisplayRoom";
+            if (prop_get (bundle, "I<-sisis", &av, rk))
+              disp = av.integer;
+            rk[4].string = "HideObjects";
+            if (prop_get (bundle, "I<-sisis", &av, rk))
+              hide = av.integer;
+            rk[4].string = "M1";
+            if (prop_get (bundle, "S<-sisis", &av, rk))
+              m1 = av.string;
+            rk[4].string = "M2";
+            if (prop_get (bundle, "S<-sisis", &av, rk))
+              m2 = av.string;
             fprintf (stderr,
                      "ALT room=%ld alt=%ld type=%ld v2=%ld v3=%ld"
                      " disp=%ld hide=%ld m1=[%s] m2=[%s]\n",
@@ -1342,11 +1630,14 @@ scr_dump_structure_once (scr_gameref_t game)
 {
   static scr_bool dumped = FALSE;
   static scr_bool checked_env = FALSE;
-  static scr_bool trace_tasks, dump_objloc, dump_tasks, trace_events, dump_alrs;
+  static scr_bool trace_tasks, dump_objloc, dump_tasks, trace_events;
+  static scr_bool dump_alrs;
 
-  /* This is called from every task_can_run_task_directional() -- per task,
+  /*
+   * This is called from every task_can_run_task_directional() -- per task,
    * per turn -- and getenv is a locked linear environ scan, so poll the
-   * environment once only (the variables can't change mid-run anyway). */
+   * environment once only (the variables can't change mid-run anyway).
+   */
   if (!checked_env)
     {
       checked_env = TRUE;
@@ -1373,15 +1664,19 @@ scr_dump_structure_once (scr_gameref_t game)
       restr_debug_trace (TRUE);
     }
 
-  /* SCR_TRACE_EVENTS: per-turn event state machine trace (start/tick/finish +
+  /*
+   * SCR_TRACE_EVENTS: per-turn event state machine trace (start/tick/finish +
    * the object moves an event performs).  Separate from SCR_TRACE_TASKS because
-   * an event that silently never fires is invisible in the task trace. */
+   * an event that silently never fires is invisible in the task trace.
+   */
   if (trace_events)
     evt_debug_trace (TRUE);
 
-  /* SCR_DUMP_OBJLOC: minimal, isolated object-location + battle-property dump
+  /*
+   * SCR_DUMP_OBJLOC: minimal, isolated object-location + battle-property dump
    * (does NOT touch the heavy task/exit/walk sections, so it is safe on games
-   * whose full dump is large). */
+   * whose full dump is large).
+   */
   if (dump_objloc && !dumped)
     {
       dumped = TRUE;
@@ -1404,6 +1699,7 @@ scr_dump_structure_once (scr_gameref_t game)
 
   fflush (stderr);
 }
+
 
 /*
  * scr_dump_npc_trace()
@@ -1457,7 +1753,7 @@ scr_dump_npc_trace (scr_gameref_t game)
               const scr_char *scan = trace_obj;
               scr_bool wanted = FALSE;
 
-              /* Match `object` against one entry of the comma-separated list. */
+              /* Match `object` against an entry of the comma-separated list. */
               while (scan && *scan)
                 {
                   if (atol (scan) == object)
@@ -1494,18 +1790,18 @@ scr_dump_npc_trace (scr_gameref_t game)
       scr_bool all = (strcmp (trace_vars, "1") == 0
                       || strcmp (trace_vars, "all") == 0);
       scr_vartype_t vt_key[3], vt_rvalue;
-      scr_int count, index;
+      scr_int count, index_;
 
       vt_key[0].string = "Variables";
       count = prop_get_child_count (bundle, "I<-s", vt_key);
 
       fprintf (stderr, "VARTRACE");
-      for (index = 0; index < count; index++)
+      for (index_ = 0; index_ < count; index_++)
         {
           const scr_char *name;
           scr_int var_type;
 
-          vt_key[1].integer = index;
+          vt_key[1].integer = index_;
           vt_key[2].string = "Name";
           name = prop_get_string (bundle, "S<-sis", vt_key);
           if (!name)
@@ -1523,12 +1819,12 @@ scr_dump_npc_trace (scr_gameref_t game)
                 continue;
             }
 
-          if (!var_get (vars, var_indexed_name (bundle, index), &var_type,
+          if (!var_get (vars, var_indexed_name (bundle, index_), &var_type,
                         &vt_rvalue)
               || var_type != VAR_INTEGER)
             continue;
           if (all)
-            fprintf (stderr, " %ld:%s=%ld", index, name, vt_rvalue.integer);
+            fprintf (stderr, " %ld:%s=%ld", index_, name, vt_rvalue.integer);
           else
             fprintf (stderr, " %s=%ld", name, vt_rvalue.integer);
         }
@@ -1544,6 +1840,15 @@ scr_dump_npc_trace (scr_gameref_t game)
   fflush (stderr);
 }
 
+
+/*
+ * The input line the runner is on, for the deviation trace, and the
+ * deviations already reported on it.
+ */
+extern std::string run_trace_last_input;
+static std::set<std::string> scr_deviations_seen;
+
+
 /*
  * scr_tracing_deviations()
  * scr_trace_deviation()
@@ -1557,10 +1862,6 @@ scr_dump_npc_trace (scr_gameref_t game)
  * -- each id and detail once per line.  For auditing what the deviations
  * let a player do; see test/adrift4/harness/trace_deviations.sh.
  */
-extern std::string run_trace_last_input;
-
-static std::set<std::string> scr_deviations_seen;
-
 scr_bool
 scr_tracing_deviations (void)
 {
