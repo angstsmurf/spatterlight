@@ -950,6 +950,10 @@ a5state_player_location (const a5_state_t *st)
   return st->char_loc[pi];
 }
 
+/* Recursion ceiling for the placement walks below (object inside object on
+   character ...), guarding against cyclic placements in a damaged state. */
+static const int A5_PLACEMENT_DEPTH_MAX = 32;
+
 static const char *char_location_key_depth (const a5_state_t *st, int ci,
                                             int depth);
 
@@ -965,7 +969,7 @@ obj_first_location_key (const a5_state_t *st, int oi, int depth)
 {
   const a5_objloc_t *loc;
 
-  if (oi < 0 || depth > 32)
+  if (oi < 0 || depth > A5_PLACEMENT_DEPTH_MAX)
     return NULL;
   loc = &st->obj[oi];
 
@@ -1017,7 +1021,7 @@ obj_first_location_key (const a5_state_t *st, int oi, int depth)
 static const char *
 char_location_key_depth (const a5_state_t *st, int ci, int depth)
 {
-  if (ci < 0 || st->char_loc == NULL || depth > 32)
+  if (ci < 0 || st->char_loc == NULL || depth > A5_PLACEMENT_DEPTH_MAX)
     return NULL;
   if (st->char_loc[ci] != NULL)
     return st->char_loc[ci];
@@ -1084,7 +1088,7 @@ exists_at (const a5_state_t *st, int oi, const char *lockey, int directly,
   const a5_objloc_t *loc;
   int parent;
 
-  if (oi < 0 || depth > 32)
+  if (oi < 0 || depth > A5_PLACEMENT_DEPTH_MAX)
     return 0;
   loc = &st->obj[oi];
 
@@ -1156,7 +1160,7 @@ location_root_at (const a5_state_t *st, int oi, const char *lockey, int depth)
 {
   const a5_objloc_t *loc;
 
-  if (oi < 0 || depth > 32)
+  if (oi < 0 || depth > A5_PLACEMENT_DEPTH_MAX)
     return 0;
   loc = &st->obj[oi];
 
@@ -1244,7 +1248,8 @@ static int
 char_visible_at_depth (const a5_state_t *st, int ci, const char *lockey,
                        int depth)
 {
-  if (ci < 0 || lockey == NULL || st->char_loc == NULL || depth > 32)
+  if (ci < 0 || lockey == NULL || st->char_loc == NULL
+      || depth > A5_PLACEMENT_DEPTH_MAX)
     return 0;
   /* On/In an object: the runner never consults the character's own location for
      this -- clsCharacter.BoundVisible (clsCharacter.vb:711) hands straight off
