@@ -1225,6 +1225,214 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
   return TRUE;
 }
 
+/*
+ * gsc_main_open_windows()
+ *
+ * Create the Glk windows, and set the main one's stream as the current one.
+ * Does not return if the game failed to load: the complaint about that is
+ * printed here, in the window just opened.
+ */
+static void
+gsc_main_open_windows (void)
+{
+  /* Starting in colour ("-c", or a game that needs its palette to be
+     read) publishes its colours before the first open. */
+  gsc_colour_startup_prepare ();
+  gsc_open_main_window ();
+
+  /* If there's a problem with the game file, complain now. */
+  if (!gsc_game)
+    {
+      assert (gsc_game_message);
+      gsc_header_string ("Glk Scarier Error\n\n");
+      gsc_normal_string (gsc_game_message);
+      gsc_normal_char ('\n');
+      glk_exit ();
+    }
+
+  gsc_open_status_window ();
+
+  /* Into the game's palette before a word is printed. */
+  gsc_colour_startup_apply ();
+}
+
+
+/*
+ * gsc_main_startup_notes()
+ *
+ * Tell the player what the front end has changed about this game before it
+ * starts: a corrected data bug, and any assists switched on for it.
+ */
+static void
+gsc_main_startup_notes (void)
+{
+  /* Say so if this game was one the engine's patch table corrects, and how to
+     play it as published instead. */
+  if (scr_get_applied_game_patch ())
+    {
+      gsc_normal_string ("[A bug in this game's own data has been corrected: ");
+      gsc_normal_string (scr_get_applied_game_patch ());
+      gsc_normal_string (".  Type ");
+      gsc_standout_string ("glk patches off");
+      gsc_normal_string (" and reload the game to play it exactly as its"
+                         " author left it.]\n\n");
+    }
+
+  /* Mention any assists switched on automatically for this known game (see
+     gsc_apply_known_game_assists), and how to get faithful behaviour back. */
+  if (gsc_assists_auto)
+    {
+      const scr_bool several = (gsc_assists_auto & (gsc_assists_auto - 1)) != 0;
+
+      gsc_normal_char ('[');
+      gsc_normal_string (gsc_assist_auto_reason
+                         ? gsc_assist_auto_reason
+                         : "This game cannot be completed as authored");
+      gsc_normal_string (", so ");
+      gsc_print_auto_assists (FALSE);
+      gsc_normal_string (several ? " have" : " has");
+      gsc_normal_string (" been enabled.  Type ");
+      gsc_print_auto_assists (TRUE);
+      gsc_normal_string (" to restore the original ADRIFT Runner"
+                         " behaviour.]\n\n");
+    }
+}
+
+
+#ifdef SPATTERLIGHT
+/*
+ * gsc_main_autorestore()
+ *
+ * When a Spatterlight autosave exists, replace the whole state -- engine
+ * and Glk library both -- with the saved one before entering the
+ * interpreter loop.  The game was already created at startup; loading the
+ * saved state marks the player's room seen, so run_main_loop skips the
+ * intro and drops straight to the command prompt, where os_read_line
+ * skips one prompt print (the restored transcript already ends with it).
+ * The app restores the window contents from its own GUI snapshot; no
+ * window has been opened by gsc_main, so the restored library supplies them.
+ */
+static void
+gsc_main_autorestore (void)
+{
+  gsc_autorestore_replace_state (gsc_sc_apply_all);
+  if (gsc_sc_boot_replay ())
+    {
+      /* Closed at a pause in the opening: there is no state to have
+         loaded, and the game starts over without showing anything until
+         it is back there. */
+      glk_set_window (gsc_main_window);
+      glk_set_style (style_Normal);
+      gsc_sc_silent = TRUE;
+      return;
+    }
+  /* The app resumes any interrupted sound and restores the graphics
+     window pixels itself; the engine must not replay them. */
+  scr_note_resources_synced (gsc_game);
+  /* ...and the blank line the engine prints before every prompt is in
+     the restored transcript too (the autosave was taken between it and
+     the prompt), so skip that one reprint as well. */
+  scr_note_autorestored ();
+#ifdef GSC_HAVE_TITLE_WINDOW
+  /* An autosave from before title screens waited for their own key can
+     hold a cover pane open over the story; the game is past its intro
+     by now, so put the story window back on its own. */
+  gsc_close_title_graphic ();
+  gsc_seen_input = TRUE;
+#endif
+  glk_set_window (gsc_main_window);
+  glk_set_style (style_Normal);
+  gsc_autorestored = TRUE;
+}
+#endif
+
+
+/*
+ * gsc_main_game_over()
+ *
+ * The game has completed: get the user's selection of restart, undo a turn,
+ * or quit, and act on it.  Returns FALSE if the game is not to be run again.
+ */
+static scr_bool
+gsc_main_game_over (void)
+{
+  /*
+   * If reading from an input log, close it now.  We need to request a
+   * user selection, probably modal, and after that we probably don't
+   * want the follow-on readlog data being used as game input.
+   */
+  if (gsc_readlog_stream)
+    {
+      glk_stream_close (gsc_readlog_stream, nullptr);
+      gsc_readlog_stream = nullptr;
+    }
+
+  /*
+   * Get user selection of restart, undo a turn, or quit completed game.
+   * If undo is unavailable (this should not be possible), degrade to
+   * restart.
+   */
+  switch (gsc_get_ending_option ())
+    {
+    case GAME_RESTART:
+      gsc_short_delay ();
+      scr_restart_game (gsc_game);
+      break;
+
+    case GAME_UNDO:
+      if (scr_is_game_undo_available (gsc_game))
+        {
+          scr_undo_game_turn (gsc_game);
+          gsc_normal_string ("The previous turn has been undone.\n");
+        }
+      else
+        {
+          gsc_normal_string ("Sorry, no undo is available.\n");
+          gsc_short_delay ();
+          scr_restart_game (gsc_game);
+        }
+      break;
+
+    case GAME_QUIT:
+      return FALSE;
+    }
+
+  return TRUE;
+}
+
+
+/*
+ * gsc_main_shutdown()
+ *
+ * All done -- release game resources, and close any open transcript, input
+ * log, and/or read log.
+ */
+static void
+gsc_main_shutdown (void)
+{
+  map_free (gsc_map);
+  gsc_map = nullptr;
+  gsc_map_screen_drop ();
+  scr_free_game (gsc_game);
+
+  if (gsc_transcript_stream)
+    {
+      glk_stream_close (gsc_transcript_stream, nullptr);
+      gsc_transcript_stream = nullptr;
+    }
+  if (gsc_inputlog_stream)
+    {
+      glk_stream_close (gsc_inputlog_stream, nullptr);
+      gsc_inputlog_stream = nullptr;
+    }
+  if (gsc_readlog_stream)
+    {
+      glk_stream_close (gsc_readlog_stream, nullptr);
+      gsc_readlog_stream = nullptr;
+    }
+}
+
+
 static void
 gsc_main (void)
 {
@@ -1248,113 +1456,24 @@ gsc_main (void)
 
   gsc_hint_window_styles ();
 
-  /* Create the Glk window, and set its stream as the current one.  An
-     autorestore adopts the archived windows below instead: opening any here
-     would cost the player the host's restored ones (see
+  /* An autorestore adopts the archived windows below instead: opening any
+     here would cost the player the host's restored ones (see
      gsc_autorestore_wanted). */
   if (!autorestore)
-    {
-      /* Starting in colour ("-c", or a game that needs its palette to be
-         read) publishes its colours before the first open. */
-      gsc_colour_startup_prepare ();
-      gsc_open_main_window ();
-
-      /* If there's a problem with the game file, complain now. */
-      if (!gsc_game)
-        {
-          assert (gsc_game_message);
-          gsc_header_string ("Glk Scarier Error\n\n");
-          gsc_normal_string (gsc_game_message);
-          gsc_normal_char ('\n');
-          glk_exit ();
-        }
-
-      gsc_open_status_window ();
-
-      /* Into the game's palette before a word is printed. */
-      gsc_colour_startup_apply ();
-    }
+    gsc_main_open_windows ();
 
   /* Does the game define a MAP verb of its own?  If so it keeps it, and the
      map pane is reached with "glk map" instead. */
   gsc_map_taken = scmap_command_taken ((scr_gameref_t) gsc_game);
 
-  /* Say so if this game was one the engine's patch table corrects, and how to
-     play it as published instead.  Same conditions as the assist note below:
-     not on an autorestore, where it is already in the restored transcript. */
-  if (!autorestore && scr_get_applied_game_patch ())
-    {
-      gsc_normal_string ("[A bug in this game's own data has been corrected: ");
-      gsc_normal_string (scr_get_applied_game_patch ());
-      gsc_normal_string (".  Type ");
-      gsc_standout_string ("glk patches off");
-      gsc_normal_string (" and reload the game to play it exactly as its"
-                         " author left it.]\n\n");
-    }
-
-  /* Mention any assists switched on automatically for this known game (see
-     gsc_apply_known_game_assists), and how to get faithful behaviour back.
-     Not on an autorestore: the note is already in the restored transcript,
-     and there is no window to print it to yet. */
-  if (!autorestore && gsc_assists_auto)
-    {
-      const scr_bool several = (gsc_assists_auto & (gsc_assists_auto - 1)) != 0;
-
-      gsc_normal_char ('[');
-      gsc_normal_string (gsc_assist_auto_reason
-                         ? gsc_assist_auto_reason
-                         : "This game cannot be completed as authored");
-      gsc_normal_string (", so ");
-      gsc_print_auto_assists (FALSE);
-      gsc_normal_string (several ? " have" : " has");
-      gsc_normal_string (" been enabled.  Type ");
-      gsc_print_auto_assists (TRUE);
-      gsc_normal_string (" to restore the original ADRIFT Runner"
-                         " behaviour.]\n\n");
-    }
+  /* Not on an autorestore: the notes are already in the restored transcript,
+     and there is no window to print them to yet. */
+  if (!autorestore)
+    gsc_main_startup_notes ();
 
 #ifdef SPATTERLIGHT
-  /* When a Spatterlight autosave exists, replace the whole state -- engine
-     and Glk library both -- with the saved one before entering the
-     interpreter loop.  The game was already created at startup; loading the
-     saved state marks the player's room seen, so run_main_loop skips the
-     intro and drops straight to the command prompt, where os_read_line
-     skips one prompt print (the restored transcript already ends with it).
-     The app restores the window contents from its own GUI snapshot; no
-     window has been opened above, so the restored library supplies them. */
   if (autorestore)
-    {
-      gsc_autorestore_replace_state (gsc_sc_apply_all);
-      if (gsc_sc_boot_replay ())
-        {
-          /* Closed at a pause in the opening: there is no state to have
-             loaded, and the game starts over without showing anything until
-             it is back there. */
-          glk_set_window (gsc_main_window);
-          glk_set_style (style_Normal);
-          gsc_sc_silent = TRUE;
-          goto restored;
-        }
-      /* The app resumes any interrupted sound and restores the graphics
-         window pixels itself; the engine must not replay them. */
-      scr_note_resources_synced (gsc_game);
-      /* ...and the blank line the engine prints before every prompt is in
-         the restored transcript too (the autosave was taken between it and
-         the prompt), so skip that one reprint as well. */
-      scr_note_autorestored ();
-#ifdef GSC_HAVE_TITLE_WINDOW
-      /* An autosave from before title screens waited for their own key can
-         hold a cover pane open over the story; the game is past its intro
-         by now, so put the story window back on its own. */
-      gsc_close_title_graphic ();
-      gsc_seen_input = TRUE;
-#endif
-      glk_set_window (gsc_main_window);
-      glk_set_style (style_Normal);
-      gsc_autorestored = TRUE;
-    restored:
-      ;
-    }
+    gsc_main_autorestore ();
 #endif
 
   /* Bring back the map if the player left this game with one.  Before the
@@ -1392,71 +1511,10 @@ gsc_main (void)
       if (!scr_has_game_completed (gsc_game))
         break;
 
-      /*
-       * If reading from an input log, close it now.  We need to request a
-       * user selection, probably modal, and after that we probably don't
-       * want the follow-on readlog data being used as game input.
-       */
-      if (gsc_readlog_stream)
-        {
-          glk_stream_close (gsc_readlog_stream, nullptr);
-          gsc_readlog_stream = nullptr;
-        }
-
-      /*
-       * Get user selection of restart, undo a turn, or quit completed game.
-       * If undo is unavailable (this should not be possible), degrade to
-       * restart.
-       */
-      switch (gsc_get_ending_option ())
-        {
-        case GAME_RESTART:
-          gsc_short_delay ();
-          scr_restart_game (gsc_game);
-          break;
-
-        case GAME_UNDO:
-          if (scr_is_game_undo_available (gsc_game))
-            {
-              scr_undo_game_turn (gsc_game);
-              gsc_normal_string ("The previous turn has been undone.\n");
-            }
-          else
-            {
-              gsc_normal_string ("Sorry, no undo is available.\n");
-              gsc_short_delay ();
-              scr_restart_game (gsc_game);
-            }
-          break;
-
-        case GAME_QUIT:
-          is_running = FALSE;
-          break;
-        }
+      is_running = gsc_main_game_over ();
     }
 
-  /* All done -- release game resources. */
-  map_free (gsc_map);
-  gsc_map = nullptr;
-  gsc_map_screen_drop ();
-  scr_free_game (gsc_game);
-
-  /* Close any open transcript, input log, and/or read log. */
-  if (gsc_transcript_stream)
-    {
-      glk_stream_close (gsc_transcript_stream, nullptr);
-      gsc_transcript_stream = nullptr;
-    }
-  if (gsc_inputlog_stream)
-    {
-      glk_stream_close (gsc_inputlog_stream, nullptr);
-      gsc_inputlog_stream = nullptr;
-    }
-  if (gsc_readlog_stream)
-    {
-      glk_stream_close (gsc_readlog_stream, nullptr);
-      gsc_readlog_stream = nullptr;
-    }
+  gsc_main_shutdown ();
 }
 
 
