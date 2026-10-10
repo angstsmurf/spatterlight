@@ -298,6 +298,7 @@ glob_match (const scr_char *pattern, const scr_char *string)
   const unsigned char *pattern_ = (const unsigned char *) pattern;
   const unsigned char *string_ = (const unsigned char *) string;
   scr_bool retval;
+
   assert (pattern && string);
 
   /* On the first call, run a self-test to verify basic glob matching. */

@@ -39,6 +39,7 @@ void
 sxr_trace (const scr_char *format, ...)
 {
   va_list ap;
+
   assert (format);
 
   va_start (ap, format);
@@ -58,6 +59,7 @@ void
 sxr_error (const scr_char *format, ...)
 {
   va_list ap;
+
   assert (format);
 
   fprintf (stderr, "sx: ");
@@ -70,6 +72,7 @@ void
 sxr_fatal (const scr_char *format, ...)
 {
   va_list ap;
+
   assert (format);
 
   fprintf (stderr, "sx: internal error: ");
@@ -83,7 +86,8 @@ sxr_fatal (const scr_char *format, ...)
 
 /* Unique non-heap address for zero size malloc() and realloc() requests. */
 static void *sxr_zero_allocation = &sxr_zero_allocation;
- 
+
+
 /*
  * sxr_malloc()
  * sxr_realloc()
@@ -154,10 +158,12 @@ sxr_free (void *pointer)
  * Returns NULL if unsuccessful.
  */
 FILE *
-sxr_fopen (const scr_char *name, const scr_char *extension, const scr_char *mode)
+sxr_fopen (const scr_char *name, const scr_char *extension,
+           const scr_char *mode)
 {
   scr_char *filename;
   FILE *stream;
+
   assert (name && extension && mode);
 
   const size_t size = strlen (name) + strlen (extension) + 2;
@@ -173,6 +179,7 @@ sxr_fopen (const scr_char *name, const scr_char *extension, const scr_char *mode
 
 /* Miscellaneous general ascii constants. */
 static const scr_char NUL = '\0';
+
 
 /*
  * sxr_isspace()
@@ -207,6 +214,7 @@ scr_char *
 sxr_trim_string (scr_char *string)
 {
   scr_int index_;
+
   assert (string);
 
   for (index_ = strlen (string) - 1;
@@ -232,6 +240,7 @@ scr_char *
 sxr_normalize_string (scr_char *string)
 {
   scr_int index_;
+
   assert (string);
 
   string = sxr_trim_string (string);

@@ -36,6 +36,7 @@
 /* Stubs trace flag. */
 static scr_bool stub_trace = FALSE;
 
+
 /*
  * Input/output handler functions.  If assigned, calls to os_* functions are
  * routed here to allow the script runner to catch interpeter i/o.
