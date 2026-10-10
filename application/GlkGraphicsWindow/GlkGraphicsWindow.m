@@ -22,11 +22,30 @@
 #define NSLog(...)
 #endif
 
+// The window's contents live in a bitmap context we own rather than in an
+// NSImage. A FILLRECT batch is a run of opaque fills that must land in order,
+// and writing those straight into the pixel buffer is far cheaper than an
+// NSColor + NSRectFill per rect -- maps sent as one-pixel-high spans arrive in
+// the thousands per redraw. Image draws, clears and resizes draw into the same
+// context through AppKit, so everything shares one surface, in request order.
+//
+// The context is DeviceRGB, the space colorFromInteger: uses, so a Glk colour
+// is stored exactly as the 8-bit components the game asked for. Its memory is
+// 32-bit little-endian premultiplied-first, i.e. each pixel reads as
+// 0xAARRGGBB, with row 0 at the top -- Glk's own orientation. It is sized in
+// device pixels (point size x backing scale), with the CTM scaled so AppKit
+// drawing works in points, bottom-left origin, as it did with NSImage
+// lockFocus (hence florpCoords).
 @interface GlkGraphicsWindow () <NSSecureCoding> {
     BOOL mouse_request;
     BOOL transparent;
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
+
+    CGContextRef canvas;
+    NSSize canvasSize;      // in points
+    CGFloat canvasScale;    // device pixels per point
+    NSImage *cachedImage;   // snapshot of canvas, until the next change
 }
 
 @property NSOperationQueue *workQueue;
@@ -50,7 +69,6 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
     self = [super initWithGlkController:glkctl_ name:name_];
 
     if (self) {
-        _image = [[NSImage alloc] initWithSize:NSZeroSize];
         bgnd = 0xFFFFFF; // White
 
         mouse_request = NO;
@@ -66,7 +84,9 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        _image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
+        // Archived as an NSImage, as before the bitmap canvas, so old and new
+        // autosaves read the same way.
+        self.image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
         dirty = YES;
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
@@ -79,11 +99,119 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeObject:_image forKey:@"image"];
+    [encoder encodeObject:self.image forKey:@"image"];
     [encoder encodeObject:subImages forKey:@"subImages"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeBool:transparent forKey:@"transparent"];
     [encoder encodeBool:_showingImage forKey:@"showingImage"];
+}
+
+- (void)dealloc {
+    CGContextRelease(canvas);
+}
+
+#pragma mark Canvas
+
+static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
+    return 0xFF000000u | ((uint32_t)rgb & 0xFFFFFFu);
+}
+
+- (CGFloat)currentBackingScale {
+    CGFloat scale = self.window.backingScaleFactor;
+    if (scale < 1)
+        scale = NSScreen.mainScreen.backingScaleFactor;
+    return scale < 1 ? 1 : scale;
+}
+
+// Replace the canvas with an empty (fully transparent) one of `size` points.
+// A zero size leaves no canvas at all.
+- (void)makeCanvasWithSize:(NSSize)size {
+    CGContextRelease(canvas);
+    canvas = NULL;
+    cachedImage = nil;
+    canvasSize = NSZeroSize;
+
+    if (size.width < 1 || size.height < 1)
+        return;
+
+    canvasScale = [self currentBackingScale];
+    size_t pixelsWide = (size_t)ceil(size.width * canvasScale);
+    size_t pixelsHigh = (size_t)ceil(size.height * canvasScale);
+
+    CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+    // NULL data: CG allocates (and zeroes) the buffer and frees it with the context.
+    canvas = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, 8, 0, space,
+                                   kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+    CGColorSpaceRelease(space);
+    if (!canvas)
+        return;
+
+    CGContextScaleCTM(canvas, canvasScale, canvasScale);
+    canvasSize = size;
+}
+
+// Run AppKit drawing code against the canvas, in points.
+- (void)drawInCanvas:(void (^)(void))drawing {
+    if (!canvas)
+        return;
+    cachedImage = nil;
+    [NSGraphicsContext saveGraphicsState];
+    NSGraphicsContext.currentContext = [NSGraphicsContext graphicsContextWithCGContext:canvas flipped:NO];
+    drawing();
+    [NSGraphicsContext restoreGraphicsState];
+}
+
+// Fill a rect given in Glk window coordinates (points, top-left origin) with
+// an opaque or fully transparent pixel, clipped to the canvas.
+- (void)fillPixels:(uint32_t)pixel x:(NSInteger)x y:(NSInteger)y width:(NSInteger)w height:(NSInteger)h {
+    if (!canvas || w <= 0 || h <= 0)
+        return;
+
+    NSInteger pixelsWide = (NSInteger)CGBitmapContextGetWidth(canvas);
+    NSInteger pixelsHigh = (NSInteger)CGBitmapContextGetHeight(canvas);
+    NSInteger x0 = (NSInteger)lround((CGFloat)x * canvasScale);
+    NSInteger y0 = (NSInteger)lround((CGFloat)y * canvasScale);
+    NSInteger x1 = (NSInteger)lround((CGFloat)(x + w) * canvasScale);
+    NSInteger y1 = (NSInteger)lround((CGFloat)(y + h) * canvasScale);
+    x0 = MAX(x0, 0);
+    y0 = MAX(y0, 0);
+    x1 = MIN(x1, pixelsWide);
+    y1 = MIN(y1, pixelsHigh);
+    if (x0 >= x1 || y0 >= y1)
+        return;
+
+    cachedImage = nil;
+    size_t rowPixels = CGBitmapContextGetBytesPerRow(canvas) / sizeof(uint32_t);
+    uint32_t *row = (uint32_t *)CGBitmapContextGetData(canvas) + (size_t)y0 * rowPixels + (size_t)x0;
+    size_t runBytes = (size_t)(x1 - x0) * sizeof(uint32_t);
+    for (NSInteger py = y0; py < y1; py++, row += rowPixels)
+        memset_pattern4(row, &pixel, runBytes);
+}
+
+// The canvas contents as an NSImage of the window's point size, for drawing,
+// archiving and drag-and-drop. Cached until the canvas next changes; the
+// snapshot is copy-on-write, so taking it does not copy the pixels.
+- (NSImage *)image {
+    if (!canvas)
+        return nil;
+    if (!cachedImage) {
+        CGImageRef cgImage = CGBitmapContextCreateImage(canvas);
+        if (!cgImage)
+            return nil;
+        cachedImage = [[NSImage alloc] initWithCGImage:cgImage size:canvasSize];
+        CGImageRelease(cgImage);
+    }
+    return cachedImage;
+}
+
+- (void)setImage:(NSImage *)image {
+    [self makeCanvasWithSize:image.size];
+    [self drawInCanvas:^{
+        [image drawInRect:NSMakeRect(0, 0, image.size.width, image.size.height)
+                 fromRect:NSZeroRect
+                operation:NSCompositingOperationCopy
+                 fraction:1.0];
+    }];
 }
 
 
@@ -119,21 +247,16 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
 }
 
 - (void)clear {
-    if (NSEqualSizes(NSZeroSize, _image.size)) {
+    if (!canvas) {
         // Image (and view) is zero size, so
         // there is nothing to clear
         return;
     }
-    [_image lockFocus];
-    NSColor *color;
-    if (transparent)
-        color = NSColor.clearColor;
-    else
-        color = [NSColor colorFromInteger:bgnd];
-
-    [color setFill];
-    NSRectFill(self.bounds);
-    [_image unlockFocus];
+    [self fillPixels:(transparent ? 0 : SPPixelFromRGB(bgnd))
+                   x:0
+                   y:0
+               width:(NSInteger)ceil(canvasSize.width)
+              height:(NSInteger)ceil(canvasSize.height)];
     _showingImage = NO;
     if (subImages)
         [subImages removeAllObjects];
@@ -154,16 +277,16 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
 - (void)drawRect:(NSRect)rect {
     rect = NSIntersectionRect(rect, self.bounds);
 
-    [_image drawInRect:rect
-              fromRect:rect
-             operation:NSCompositingOperationSourceOver
-              fraction:1.0];
+    [self.image drawInRect:rect
+                  fromRect:rect
+                 operation:NSCompositingOperationSourceOver
+                  fraction:1.0];
 }
 
 - (void)setFrame:(NSRect)frame {
     frame.origin.y = round(frame.origin.y);
-    
-    if (NSEqualRects(frame, self.frame) && !NSEqualSizes(_image.size, NSZeroSize))
+
+    if (NSEqualRects(frame, self.frame) && canvas)
         return;
 
     super.frame = frame;
@@ -172,16 +295,16 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
         return;
 
     // First we store the current contents
-    NSImage *oldimage = _image;
+    NSImage *oldimage = self.image ?: [[NSImage alloc] initWithSize:NSZeroSize];
 
     // Then we create a new image, filling it with background color
     if (!transparent) {
-        _image = [[NSImage alloc] initWithSize:frame.size];
-
-        [_image lockFocus];
-        [[NSColor colorFromInteger:bgnd] set];
-        NSRectFill(self.bounds);
-        [_image unlockFocus];
+        [self makeCanvasWithSize:frame.size];
+        [self fillPixels:SPPixelFromRGB(bgnd)
+                       x:0
+                       y:0
+                   width:(NSInteger)ceil(frame.size.width)
+                  height:(NSInteger)ceil(frame.size.height)];
     }
 
     // The we draw the old contents over it
@@ -197,49 +320,53 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
     dirty = YES;
 }
 
+// A FILLRECT batch: opaque fills, applied in order straight into the canvas
+// pixels, so later rects overwrite earlier ones exactly as the game drew them.
 - (void)fillRects:(struct fillrect *)rawrects count:(NSInteger)count {
-    NSSize size;
-    NSInteger i;
-
-    size = _image.size;
-
-    if (size.width == 0 || size.height == 0 || size.height > INT_MAX)
+    if (!canvas || count <= 0)
         return;
 
-    size_t rectssize = (size_t)count * sizeof(struct fillrect);
-
-    struct fillrect *rects = malloc(rectssize);
-    memcpy(rects, rawrects, rectssize);
-
-    NSRect unionRect = NSZeroRect;
-    if (count) {
-        unionRect.origin.x = rects[0].x;
-        unionRect.origin.y = rects[0].y;
+    // The rects arrive in the message buffer, which need not be aligned for
+    // struct fillrect; copy them out if it is not.
+    struct fillrect *rects = rawrects;
+    struct fillrect *alignedCopy = NULL;
+    if ((uintptr_t)rawrects % _Alignof(struct fillrect) != 0) {
+        size_t rectssize = (size_t)count * sizeof(struct fillrect);
+        alignedCopy = malloc(rectssize);
+        if (!alignedCopy)
+            return;
+        memcpy(alignedCopy, rawrects, rectssize);
+        rects = alignedCopy;
     }
-    [_image lockFocus];
-    uint32_t current_color = 0;
-    BOOL color_set = NO;
-    for (i = 0; i < count; i++) {
-        if (!color_set || current_color != rects[i].color) {
-            // The window's default background is resolved against the theme
-            // now, not when the game asked (see win_fillrect).
-            if (rects[i].color == zcolor_Default)
-                [self.glkctl.theme.bufferBackground set];
-            else
-                [[NSColor colorFromInteger:rects[i].color] set];
-        }
-        current_color = rects[i].color;
-        color_set = YES;
-        NSRect rect = [self florpCoords:NSMakeRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h)];
-        NSRectFill(rect);
-        unionRect = NSUnionRect(unionRect, rect);
+
+    // The window's default background is resolved against the theme now,
+    // not when the game asked (see win_fillrect).
+    uint32_t defaultPixel = SPPixelFromRGB(self.glkctl.theme.bufferBackground.integerColor);
+
+    // Bounding box of the batch, in Glk (top-left origin) coordinates.
+    NSInteger minX = NSIntegerMax, minY = NSIntegerMax;
+    NSInteger maxX = NSIntegerMin, maxY = NSIntegerMin;
+
+    for (NSInteger i = 0; i < count; i++) {
+        const struct fillrect *r = &rects[i];
+        if (r->w <= 0 || r->h <= 0)
+            continue;
+        uint32_t pixel = (r->color == zcolor_Default) ? defaultPixel : SPPixelFromRGB(r->color);
+        [self fillPixels:pixel x:r->x y:r->y width:r->w height:r->h];
+        minX = MIN(minX, (NSInteger)r->x);
+        minY = MIN(minY, (NSInteger)r->y);
+        maxX = MAX(maxX, (NSInteger)r->x + r->w);
+        maxY = MAX(maxY, (NSInteger)r->y + r->h);
     }
-    [_image unlockFocus];
-    [dirtyRects addObject:@(unionRect)];
-    [self pruneSubimagesInRect:unionRect];
+
+    if (minX <= maxX) {
+        NSRect unionRect = [self florpCoords:NSMakeRect(minX, minY, maxX - minX, maxY - minY)];
+        [dirtyRects addObject:@(unionRect)];
+        [self pruneSubimagesInRect:unionRect];
+    }
     dirty = YES;
     _showingImage = YES;
-    free(rects);
+    free(alignedCopy);
 }
 
 - (void)flushDisplay {
@@ -254,8 +381,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
 
 - (NSRect)florpCoords:(NSRect)r {
     NSRect res = r;
-    NSSize size = _image.size;
-    res.origin.y = size.height - res.origin.y - res.size.height;
+    res.origin.y = canvasSize.height - res.origin.y - res.size.height;
     return res;
 }
 
@@ -269,12 +395,11 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
             style:(NSUInteger)style {
     NSSize srcsize = src.size;
 
-    if (_image.size.width == 0 || _image.size.height == 0) {
-        if (NSWidth(self.frame) != 0 && NSHeight(self.frame) != 0) {
-            _image = [[NSImage alloc] initWithSize:self.frame.size];
-        } else {
+    if (!canvas) {
+        if (NSWidth(self.frame) != 0 && NSHeight(self.frame) != 0)
+            [self makeCanvasWithSize:self.frame.size];
+        if (!canvas)
             return;
-        }
     }
 
     if (imagerule) {
@@ -282,7 +407,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
         // once, against the window width at draw time. The spec explicitly
         // says imagerule_WidthRatio does not dynamically resize in graphics
         // windows, and maxwidth is ignored here.
-        CGFloat winwidth = _image.size.width;
+        CGFloat winwidth = canvasSize.width;
         switch (imagerule & imagerule_WidthMask) {
             case imagerule_WidthFixed:
                 break;
@@ -312,22 +437,18 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
             h = (NSInteger)srcsize.height;
     }
 
-    NSRect florpedRect;
+    NSRect florpedRect = [self florpCoords:NSMakeRect((CGFloat)x, (CGFloat)y, (CGFloat)w, (CGFloat)h)];
 
     @autoreleasepool {
-        [_image lockFocus];
+        [self drawInCanvas:^{
+            [NSGraphicsContext currentContext].imageInterpolation =
+            NSImageInterpolationHigh;
 
-        [NSGraphicsContext currentContext].imageInterpolation =
-        NSImageInterpolationHigh;
-
-        florpedRect = [self florpCoords:NSMakeRect((CGFloat)x, (CGFloat)y, (CGFloat)w, (CGFloat)h)];
-
-        [src drawInRect:florpedRect
-               fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
-              operation:NSCompositingOperationSourceOver
-               fraction:1.0];
-
-        [_image unlockFocus];
+            [src drawInRect:florpedRect
+                   fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
+                  operation:NSCompositingOperationSourceOver
+                   fraction:1.0];
+        }];
     }
 
     _showingImage = YES;
@@ -409,7 +530,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
                     dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteboardItem];
                 }
                 
-                [dragItem setDraggingFrame:self.bounds contents:_image];
+                [dragItem setDraggingFrame:self.bounds contents:self.image];
                 [self beginDraggingSessionWithItems:@[dragItem] event:event source:self];
             }
         }
@@ -686,10 +807,11 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
 }
 
 - (nullable NSData *)pngData {
-    if (!_image) {
+    NSImage *image = self.image;
+    if (!image) {
         return nil;
     }
-    NSBitmapImageRep *bitmaprep = _image.bitmapImageRepresentation;
+    NSBitmapImageRep *bitmaprep = image.bitmapImageRepresentation;
     if (!bitmaprep)
         return nil;
 
