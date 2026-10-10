@@ -109,7 +109,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~345~~ | ~~`eval_function`~~ | DONE: built-in table + four lookups, see "eval_function split" |
 | ~~336~~ | ~~`scdump_tasks`~~ | DONE: `scdump_task_t` + eight section members, see "scdump_tasks split" |
 | ~~323~~ | ~~`oo_prop`~~ | DONE: `oo_step_t` + six context members, see "oo_prop split" |
-| 309 | `lib_print_room_description` | `library/sclibrar_room.cpp` ~382 |
+| ~~309~~ | ~~`lib_print_room_description`~~ | DONE: four parts + driver, see "lib_print_room_description split" |
 | 308 | `gsc_a5_display` | `glk/os_glk_a5_display.cpp` ~200 |
 | 306 | `debug_help` | `scdebug.cpp` ~240 (data, not logic: make it a table) |
 | 301 | `view_location_impl` | `adrift5/text/a5text_view.cpp` ~141 |
@@ -353,10 +353,10 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `lib_print_room_description` down; `run_task`,
-   `pass_character`, `lib_cmd_verb_object`, `uip_replace_pronouns`,
-   `run_main_loop`, `eval_function`, `scdump_tasks` and `oo_prop` are
-   taken (see their "split" sections).
+   open from `gsc_a5_display` down; `run_task`, `pass_character`,
+   `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
+   `eval_function`, `scdump_tasks`, `oo_prop` and
+   `lib_print_room_description` are taken (see their "split" sections).
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1021,3 +1021,34 @@ them):
 - Next in the table: `lib_print_room_description`
   (library/sclibrar_room.cpp), which is Runner-parity library text --
   safety net step 5, and remember that `recompare` does not rebuild.
+
+## 3: lib_print_room_description split (2026-10-11)
+
+- **`lib_print_room_description`** (309 l., two thirds of it measurement
+  comments) in `library/sclibrar_room.cpp` is an 85-line driver over four
+  parts under one head comment: `lib_room_desc_long` (the Long unless the
+  starting alt suppresses it, with 3.8's load-time substitute and the
+  room resource), `lib_room_desc_alts` (4.0's HideObjects sweep over
+  every alt that holds, then the alternates from the starting one on),
+  `lib_room_desc_nothing_390` (3.9's guarded "There is nothing of
+  interest here.") and `lib_room_desc_event_looks` (the LookText tail).
+  The middle stays in the driver -- the description's terminating break,
+  the seen-marking with its darkness essay, and the contents call --
+  because those three are the ordering the comments argue about.  The
+  parts share `is_described` / `showobjects` through pointers, on the
+  `lib_cmd_verb_object` model; each builds its own `vt_key`.  Code motion
+  apart from `is_described` -> `*is_described`, `showobjects` ->
+  `*showobjects`, and the alt count, which is now read where it is first
+  used (after the Long instead of before it; a pure property read).
+- Verification: headless `quick`; full `test` output identical to the
+  pre-change run with the compile and "Nothing to be done" lines dropped;
+  `make -j8 scarier glkscarier` warning-free.  Safety net step 5:
+  `runner_transcripts.py recompare` over the whole corpus, once with the
+  old file and once with the new (the `scare` target rebuilt in
+  between), leaves byte-identical `manifest.tsv` and `compare/` trees.
+  The recompare's own rewrite of the stale manifest (see the
+  `lib_cmd_verb_object` note) was reverted afterwards, not committed.
+  One line over 80 columns in the file, before and after.
+- Next in the table: `gsc_a5_display` (glk/os_glk_a5_display.cpp), which
+  the headless suite does not compile -- the check there is the Glk
+  build and the autosave suite.

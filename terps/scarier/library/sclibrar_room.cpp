@@ -360,28 +360,29 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
 
 
 /*
- * lib_print_room_description()
+ * lib_room_desc_long()
+ * lib_room_desc_alts()
+ * lib_room_desc_nothing_390()
+ * lib_room_desc_event_looks()
  *
- * Print out the long description for a given room.
+ * The parts of lib_print_room_description(), in the order it prints them:
+ * the room's own Long unless the starting alt suppresses it, the alternates
+ * from the starting one on (which also decide whether the objects show), 3.9's
+ * substitute for a room nothing described, and -- after the contents, which
+ * the caller prints -- the LookText of the events running there.
  */
-void
-lib_print_room_description (scr_gameref_t game, scr_int room)
+static void
+lib_room_desc_long (scr_gameref_t game, scr_int room, scr_int start,
+                    scr_bool *is_described)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
-  scr_bool showobjects, is_described, is_suppressed, looked;
-  scr_int alt_count, alt, start, event;
+  scr_bool is_suppressed;
 
-  /* Get count of room alternates. */
   vt_key[0].string = "Rooms";
   vt_key[1].integer = room;
   vt_key[2].string = "Alts";
-  alt_count = prop_get_child_count (bundle, "I<-sis", vt_key);
-
-  /* Start with no description, and get our starting point in the alts list. */
-  is_described = FALSE;
-  start = lib_find_starting_alt (game, room);
 
   /* Print the standard description unless a start alt indicates not. */
   if (start == -1)
@@ -407,7 +408,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
       if (!scr_strempty (description))
         {
           pf_buffer_string (filter, description);
-          is_described = TRUE;
+          *is_described = TRUE;
         }
       else if (prop_get_taf_version (bundle) == TAF_VERSION_380)
         {
@@ -422,23 +423,34 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
            * guard below fires only when nothing else described the room.
            */
           pf_buffer_string (filter, "There is nothing of interest here.");
-          is_described = TRUE;
+          *is_described = TRUE;
         }
 
       vt_key[2].string = "Res";
       res_handle_resource (game, "sis", vt_key);
     }
+}
 
-  /* Ensure that we're back to handling room alts. */
+static void
+lib_room_desc_alts (scr_gameref_t game, scr_int room, scr_int start,
+                    scr_bool *is_described, scr_bool *showobjects)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5];
+  scr_int alt_count, alt;
+
+  /* Get count of room alternates. */
   vt_key[0].string = "Rooms";
   vt_key[1].integer = room;
   vt_key[2].string = "Alts";
+  alt_count = prop_get_child_count (bundle, "I<-sis", vt_key);
 
   /*
    * Run forwards through all alts lower than our starting point, or all alts
    * if no starting point overrider found.
    */
-  showobjects = TRUE;
+  *showobjects = TRUE;
   /*
    * run400 viewroom (Proc_19_63_472CA4) reads HideObjects from EVERY alt
    * that holds (472263), not only from the starter on: homelessharry T11,
@@ -453,7 +465,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
           vt_key[3].integer = alt;
           vt_key[4].string = "HideObjects";
           if (prop_get_integer (bundle, "I<-sisis", vt_key) == 1)
-            showobjects = FALSE;
+            *showobjects = FALSE;
         }
   for (alt = (start != -1) ? start : 0; alt < alt_count; alt++)
     {
@@ -480,10 +492,10 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
           m1 = prop_get_string (bundle, "S<-sisis", vt_key);
           if (!scr_strempty (m1))
             {
-              if (is_described)
+              if (*is_described)
                 pf_buffer_string (filter, "  ");
               pf_buffer_string (filter, m1);
-              is_described = TRUE;
+              *is_described = TRUE;
             }
 
           vt_key[4].string = "Res1";
@@ -492,7 +504,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
           vt_key[4].string = "HideObjects";
           hideobjects = prop_get_integer (bundle, "I<-sisis", vt_key);
           if (hideobjects == 1)
-            showobjects = FALSE;
+            *showobjects = FALSE;
         }
       else
         {
@@ -503,16 +515,25 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
           m2 = prop_get_string (bundle, "S<-sisis", vt_key);
           if (!scr_strempty (m2))
             {
-              if (is_described)
+              if (*is_described)
                 pf_buffer_string (filter, "  ");
               pf_buffer_string (filter, m2);
-              is_described = TRUE;
+              *is_described = TRUE;
             }
 
           vt_key[4].string = "Res2";
           res_handle_resource (game, "sisis", vt_key);
         }
     }
+}
+
+static void
+lib_room_desc_nothing_390 (scr_gameref_t game, scr_int room,
+                           scr_bool *is_described)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
 
   /*
    * A room that ends up with no description at all.
@@ -546,7 +567,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
    * exits line with the ordinary two-space clause gap.  The 4.0 twin
    * p4EXAM.taf, runner_probes/exam.run400.txt, prints the exits alone.
    */
-  if (!is_described)
+  if (!*is_described)
     {
       const scr_int version = prop_get_taf_version (bundle);
 
@@ -557,9 +578,90 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
           && scr_strempty (prop_get_string (bundle, "S<-sis", vt_key)))
         {
           pf_buffer_string (filter, "There is nothing of interest here.");
-          is_described = TRUE;
+          *is_described = TRUE;
         }
     }
+}
+
+static void
+lib_room_desc_event_looks (scr_gameref_t game, scr_int room,
+                           scr_bool is_described)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+  scr_bool looked;
+  scr_int event;
+
+  /*
+   * Finally, print any relevant event look text.  The runner appends it dead
+   * last in the room block, after the object list and the character lines,
+   * run on with its two-space separator (probed live in both runners,
+   * 2026-08-02).  Join onto the description block only if this call printed
+   * one, so an event's text can't migrate up onto the room name line.
+   *
+   * The visibility test asks about `room`, the room being described, not
+   * about the player -- run400's viewroom indexes the event's room list with
+   * its own room argument (loc_472B53) and the two differ whenever a task
+   * with ShowRoomDesc displays a room before its actions have moved anyone.
+   * See evt_can_see_event_in_room().
+   */
+  looked = FALSE;
+  for (event = 0; event < gs_event_count (game); event++)
+    {
+      if (gs_event_state (game, event) == ES_RUNNING
+          && evt_can_see_event_in_room (game, event, room))
+        {
+          const scr_char *looktext;
+
+          vt_key[0].string = "Events";
+          vt_key[1].integer = event;
+          vt_key[2].string = "LookText";
+          looktext = prop_get_string (bundle, "S<-sis", vt_key);
+          if (!scr_strempty (looktext))
+            {
+              if (is_described || looked)
+                pf_buffer_join (filter, looktext);
+              else
+                pf_buffer_string (filter, looktext);
+              looked = TRUE;
+            }
+
+          vt_key[2].string = "Res";
+          vt_key[3].integer = 1;
+          res_handle_resource (game, "sisi", vt_key);
+        }
+    }
+  if (looked)
+    {
+      const scr_char *buffered = pf_get_buffer (filter);
+
+      if (!(buffered && pf_text_ends_with_break (buffered)))
+        pf_buffer_answer_break (filter);
+    }
+}
+
+
+/*
+ * lib_print_room_description()
+ *
+ * Print out the long description for a given room.
+ */
+void
+lib_print_room_description (scr_gameref_t game, scr_int room)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_bool showobjects, is_described;
+  scr_int start;
+
+  /* Start with no description, and get our starting point in the alts list. */
+  is_described = FALSE;
+  start = lib_find_starting_alt (game, room);
+
+  lib_room_desc_long (game, room, start, &is_described);
+  lib_room_desc_alts (game, room, start, &is_described, &showobjects);
+  lib_room_desc_nothing_390 (game, room, &is_described);
 
   /*
    * Terminate the description block with a single line break.  Many ADRIFT
@@ -628,52 +730,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
         is_described = TRUE;
     }
 
-  /*
-   * Finally, print any relevant event look text.  The runner appends it dead
-   * last in the room block, after the object list and the character lines,
-   * run on with its two-space separator (probed live in both runners,
-   * 2026-08-02).  Join onto the description block only if this call printed
-   * one, so an event's text can't migrate up onto the room name line.
-   *
-   * The visibility test asks about `room`, the room being described, not
-   * about the player -- run400's viewroom indexes the event's room list with
-   * its own room argument (loc_472B53) and the two differ whenever a task
-   * with ShowRoomDesc displays a room before its actions have moved anyone.
-   * See evt_can_see_event_in_room().
-   */
-  looked = FALSE;
-  for (event = 0; event < gs_event_count (game); event++)
-    {
-      if (gs_event_state (game, event) == ES_RUNNING
-          && evt_can_see_event_in_room (game, event, room))
-        {
-          const scr_char *looktext;
-
-          vt_key[0].string = "Events";
-          vt_key[1].integer = event;
-          vt_key[2].string = "LookText";
-          looktext = prop_get_string (bundle, "S<-sis", vt_key);
-          if (!scr_strempty (looktext))
-            {
-              if (is_described || looked)
-                pf_buffer_join (filter, looktext);
-              else
-                pf_buffer_string (filter, looktext);
-              looked = TRUE;
-            }
-
-          vt_key[2].string = "Res";
-          vt_key[3].integer = 1;
-          res_handle_resource (game, "sisi", vt_key);
-        }
-    }
-  if (looked)
-    {
-      const scr_char *buffered = pf_get_buffer (filter);
-
-      if (!(buffered && pf_text_ends_with_break (buffered)))
-        pf_buffer_answer_break (filter);
-    }
+  lib_room_desc_event_looks (game, room, is_described);
 }
 
 
