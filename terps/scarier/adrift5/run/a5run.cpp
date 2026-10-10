@@ -1835,12 +1835,13 @@ a5run_input (a5_run_t *run, const char *line)
       if (extra != nullptr && extra[0] != '\0')
         {
           size_t tn = txt != nullptr ? strlen (txt) : 0;
-          char *joined = (char *) malloc (tn + strlen (extra) + 2);
+          size_t en = strlen (extra);
+          char *joined = (char *) malloc (tn + en + 2);
           if (joined != nullptr)
             {
               memcpy (joined, txt != nullptr ? txt : "", tn);
               joined[tn] = '\n';
-              strcpy (joined + tn + 1, extra);
+              memcpy (joined + tn + 1, extra, en + 1);
               free (txt);
               txt = joined;
             }

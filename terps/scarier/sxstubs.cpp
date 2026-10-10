@@ -167,7 +167,7 @@ os_print_tag (scr_int tag, const scr_char *argument)
               scr_char buffer[32];
 
               stub_print_string ("<<Tag: id=");
-              sprintf (buffer, "%ld", tag);
+              snprintf (buffer, sizeof (buffer), "%ld", tag);
               stub_print_string (buffer);
               stub_print_string (", argument=\"");
               stub_print_string (stub_notnull (argument));
@@ -215,10 +215,10 @@ os_play_sound (const scr_char *filepath,
       stub_print_string ("<<Sound: id=\"");
       stub_print_string (stub_notnull (filepath));
       stub_print_string ("\", offset=");
-      sprintf (buffer, "%ld", offset);
+      snprintf (buffer, sizeof (buffer), "%ld", offset);
       stub_print_string (buffer);
       stub_print_string (", length=");
-      sprintf (buffer, "%ld", length);
+      snprintf (buffer, sizeof (buffer), "%ld", length);
       stub_print_string (buffer);
       stub_print_string (", looping=");
       stub_print_string (is_looping ? "true" : "false");
@@ -250,10 +250,10 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
       stub_print_string ("<<Graphic: id=\"");
       stub_print_string (stub_notnull (filepath));
       stub_print_string ("\", offset=");
-      sprintf (buffer, "%ld", offset);
+      snprintf (buffer, sizeof (buffer), "%ld", offset);
       stub_print_string (buffer);
       stub_print_string (", length=");
-      sprintf (buffer, "%ld", length);
+      snprintf (buffer, sizeof (buffer), "%ld", length);
       stub_print_string (buffer);
       stub_print_string (">>");
     }
@@ -269,7 +269,7 @@ os_read_line (scr_char *buffer, scr_int length)
   else
     {
       assert (buffer && length > 4);
-      sprintf (buffer, "%s", "quit");
+      snprintf (buffer, (size_t) length, "%s", "quit");
       status = TRUE;
     }
 
@@ -288,7 +288,7 @@ scr_bool
 os_read_line_debug (scr_char *buffer, scr_int length)
 {
   assert (buffer && length > 8);
-  sprintf (buffer, "%s", "continue");
+  snprintf (buffer, (size_t) length, "%s", "continue");
 
   if (stub_trace)
     sxr_trace ("os_read_line_debug (\"%s\", %ld) -> true\n", buffer, length);

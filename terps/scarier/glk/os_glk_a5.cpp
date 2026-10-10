@@ -1584,7 +1584,8 @@ gsc_a5_next_command (char *input, int size)
       /* Resuming at a question this command's turn asked: the command
          is in the restored transcript, and is run again rather than
          read. */
-      strcpy (input, gsc_a5_replay_command.c_str ());
+      memcpy (input, gsc_a5_replay_command.c_str (),
+              gsc_a5_replay_command.size () + 1);
       gsc_a5_replay_command.clear ();
       return TRUE;
     }

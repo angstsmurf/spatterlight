@@ -1193,10 +1193,9 @@ sm_intern (map_t *m, const char *s)
     return nullptr;
   m->pool = grown;
 
-  copy = (char *) malloc (strlen (s) + 1);
+  copy = strdup (s);
   if (copy == nullptr)
     return nullptr;
-  strcpy (copy, s);
 
   m->pool[m->n_pool] = copy;
   return m->pool[m->n_pool++];

@@ -25,6 +25,7 @@
  */
 
 #include <assert.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "scarier.h"
@@ -1573,7 +1574,7 @@ parse_patch_edit (scr_prop_setref_t bundle,
 
   if (strlen (edit->path) >= sizeof (buffer))
     scr_fatal ("parse_patch_edit: path too long, %s\n", edit->path);
-  strcpy (buffer, edit->path);
+  memcpy (buffer, edit->path, strlen (edit->path) + 1);
 
   /*
    * Split the path on '/' into key elements, in place.  An element of all
@@ -1605,7 +1606,7 @@ parse_patch_edit (scr_prop_setref_t bundle,
                   : edit->mode == 'B' ? PROP_BOOLEAN : PROP_INTEGER;
   format_get[1] = '<';
   format_get[2] = '-';
-  strcpy (format_put, format_get);
+  snprintf (format_put, sizeof (format_put), "%s", format_get);
   format_put[1] = '-';
   format_put[2] = '>';
 
