@@ -1299,26 +1299,16 @@ gsc_a5_meta_perform (a5_run_t *&run)
 
 
 /*
- * gsc_a5_main()
+ * gsc_a5_main_setup()
  *
- * Run the ADRIFT 5 game in a single text-buffer window: print the intro, then
- * loop reading commands and printing each turn's output, handling the host
- * meta-commands and end-of-game.
+ * Everything gsc_a5_main does before the opening is played: the windows
+ * (unless an autorestore is about to supply them), the engine's presentation
+ * hooks, the game's resources, the run itself and the map.  Does not return
+ * if the run cannot be allocated.
  */
-void
-gsc_a5_main (void)
+static void
+gsc_a5_main_setup (a5_run_t *&run, int autorestore)
 {
-  /* Alias the run through gsc_a5_run so resize redraws always see the
-     current run, including across restarts. */
-  a5_run_t *&run = gsc_a5_run;
-  char *text;
-  char input[1024];
-  int autorestore = FALSE;
-
-#ifdef SPATTERLIGHT
-  autorestore = gsc_autorestore_wanted ();
-#endif
-
   gsc_hint_window_styles ();
 
   /* An autorestore adopts the archived windows further down instead: opening
@@ -1378,7 +1368,19 @@ gsc_a5_main (void)
       gsc_map = a5map_load (gsc_a5_adv);
       gsc_map_taken = a5map_command_taken (gsc_a5_adv);
     }
+}
 
+
+/*
+ * gsc_a5_main_opening()
+ *
+ * Bring the new run to its first prompt: play the opening, or -- on a
+ * Spatterlight autorestore -- put the saved state in its place.  Does not
+ * return for an adventure the runner refuses outright.
+ */
+static void
+gsc_a5_main_opening (a5_run_t *&run, int autorestore)
+{
 #ifdef SPATTERLIGHT
   /* When a Spatterlight autosave exists, boot the world silently to where a
      manual RESTORE would find it (the intro's task and RNG side effects
@@ -1406,6 +1408,8 @@ gsc_a5_main (void)
     }
   else if (autorestore)
     {
+      char *text;
+
       gsc_a5_popup_silent = TRUE;
       text = a5run_intro (run);
       gsc_a5_popup_silent = FALSE;
@@ -1428,6 +1432,8 @@ gsc_a5_main (void)
     }
   else
     {
+#else
+  (void) autorestore;
 #endif
   /* Only this first opening can be closed at one of its questions and come
      back: a relaunch reaches it again by starting the game, which is not
@@ -1460,192 +1466,238 @@ gsc_a5_main (void)
         glk_exit ();
       }
   }
+}
+
+
+/*
+ * gsc_a5_game_over()
+ *
+ * The game has ended -- by the last command, or by a real-time TimeBased tick
+ * that fired while awaiting input.  The engine has already emitted the
+ * win/lose/score block (whose banner offers restart / restore / quit / undo);
+ * honour all four here.  UNDO and RESTORE revert to a running state and
+ * resume play; RESTART rebuilds the game; QUIT does not return.
+ */
+static void
+gsc_a5_game_over (a5_run_t *&run)
+{
+  char input[1024];
+  int resumed = 0;
+
+  /* A step of a map walk may have ended the game; the walk must not then
+     answer the restart/restore/undo/quit prompt for us. */
+  gsc_a5_walk_stop ();
 
   for (;;)
     {
-      /* Any "glk undo/restore/restart/quit" happens here, before the state of
-         play is read: this is the first moment the run may safely be replaced,
-         whether the command was typed at the prompt below or at a naming
-         prompt the engine opened mid-turn. */
-      if (gsc_a5_meta_perform (run))
-        break;
+      /* The banner's four answers, however they were asked for: typed as
+         themselves, or reached with "glk ..." (which is how they are still
+         available to a game that has taken the words for its own).  Anything
+         else is ignored, and the banner asks again.  This does not go
+         through gsc_a5_meta_perform: here whether UNDO or RESTORE worked
+         decides whether the banner is left, QUIT has no turn loop to return
+         to, and a failed UNDO is answered as gsc_main's banner answers it,
+         not with the mid-game gsc_undo_refusal. */
+      gsc_meta_t answer = GSC_META_NONE;
 
-      if (a5run_is_over (run))
-        /* The game has ended -- by the last command, or by a real-time
-           TimeBased tick that fired while awaiting input.  The engine has
-           already emitted the win/lose/score block (whose banner offers
-           restart / restore / quit / undo); honour all four here.  UNDO and
-           RESTORE revert to a running state and resume play; RESTART rebuilds
-           the game. */
-        {
-          int resumed = 0;
-
-          /* A step of a map walk may have ended the game; the walk must not
-             then answer the restart/restore/undo/quit prompt for us. */
-          gsc_a5_walk_stop ();
-
-          for (;;)
-            {
-              /* The banner's four answers, however they were asked for: typed
-                 as themselves, or reached with "glk ..." (which is how they are
-                 still available to a game that has taken the words for its
-                 own).  Anything else is ignored, and the banner asks again.
-                 This does not go through gsc_a5_meta_perform: here whether
-                 UNDO or RESTORE worked decides whether the banner is left,
-                 QUIT has no turn loop to return to, and a failed UNDO is
-                 answered as gsc_main's banner answers it, not with the
-                 mid-game gsc_undo_refusal. */
-              gsc_meta_t answer = GSC_META_NONE;
-
-              gsc_a5_put_prompt ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n");
-              if (gsc_a5_read_line (input, sizeof input) == 0)
-                continue;
-
-              if (gsc_a5_command_escape (input))
-                answer = gsc_meta_take ();
-              else if (gsc_a5_match_command (input, "quit")
-                       || gsc_a5_match_command (input, "q"))
-                answer = GSC_META_QUIT;
-              else if (gsc_a5_match_command (input, "restart"))
-                answer = GSC_META_RESTART;
-              else if (gsc_a5_match_command (input, "undo"))
-                answer = GSC_META_UNDO;
-              else if (gsc_a5_match_command (input, "restore"))
-                answer = GSC_META_RESTORE;
-
-              if (answer == GSC_META_QUIT)
-                {
-                  a5run_free (run);
-                  glk_exit ();
-                }
-              if (answer == GSC_META_RESTART)
-                break;
-              if (answer == GSC_META_UNDO)
-                {
-                  if (gsc_a5_try_undo (run))
-                    {
-                      resumed = 1;
-                      break;
-                    }
-                  gsc_a5_put_string ("Sorry, no undo is available.\n");
-                }
-              if (answer == GSC_META_RESTORE)
-                {
-                  if (gsc_a5_try_restore (run))
-                    {
-                      resumed = 1;
-                      break;
-                    }
-                }
-            }
-          if (!resumed)
-            gsc_a5_restart_run (run);
-        }
-
-      /* If a "help" request was noted last turn, hint at "glk help". */
-      gsc_output_provide_help_hint ();
-
-#ifdef SPATTERLIGHT
-      if (gsc_autorestored)
-        {
-          /* The restored transcript already ends with the old prompt; skip
-             printing another and just take input. */
-          gsc_autorestored = FALSE;
-          gsc_a5_note_turn_start ();
-        }
-      else
-        {
-          gsc_a5_put_prompt ("\n");
-          /* Autosave at every top-level prompt: after the prompt is printed
-             (so the GUI snapshot ends with it) but before input is
-             requested (so the archived windows carry no pending request and
-             a restore re-enters cleanly right here). */
-          gsc_autosave ();
-        }
-#else
-      gsc_a5_put_prompt ("\n");
-#endif
-      if (gsc_a5_popup_replay == GSC_A5_POPUP_TURN
-          && !gsc_a5_replay_command.empty ()
-          && gsc_a5_replay_command.size () < sizeof input)
-        {
-          /* Resuming at a question this command's turn asked: the command
-             is in the restored transcript, and is run again rather than
-             read. */
-          strcpy (input, gsc_a5_replay_command.c_str ());
-          gsc_a5_replay_command.clear ();
-        }
-      else
-        {
-          gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
-          gsc_a5_waitkey_skip = 0;
-          if (gsc_a5_read_line (input, sizeof input) == 0)
-            continue;
-        }
-
-      /* Handle "glk ..." command escapes and input logging. */
-      if (gsc_a5_command_escape (input))
+      gsc_a5_put_prompt ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n");
+      if (gsc_a5_read_line (input, sizeof input) == 0)
         continue;
 
-      if (gsc_a5_match_command (input, "quit")
-          || gsc_a5_match_command (input, "q"))
+      if (gsc_a5_command_escape (input))
+        answer = gsc_meta_take ();
+      else if (gsc_a5_match_command (input, "quit")
+               || gsc_a5_match_command (input, "q"))
+        answer = GSC_META_QUIT;
+      else if (gsc_a5_match_command (input, "restart"))
+        answer = GSC_META_RESTART;
+      else if (gsc_a5_match_command (input, "undo"))
+        answer = GSC_META_UNDO;
+      else if (gsc_a5_match_command (input, "restore"))
+        answer = GSC_META_RESTORE;
+
+      if (answer == GSC_META_QUIT)
+        {
+          a5run_free (run);
+          glk_exit ();
+        }
+      if (answer == GSC_META_RESTART)
         break;
-
-      if (gsc_a5_match_command (input, "restart"))
+      if (answer == GSC_META_UNDO)
         {
-          gsc_a5_restart_run (run);
-          continue;
+          if (gsc_a5_try_undo (run))
+            {
+              resumed = 1;
+              break;
+            }
+          gsc_a5_put_string ("Sorry, no undo is available.\n");
         }
-
-      /* MAP toggles the map pane.  The runner's map is host chrome rather than
-         a game command, so authors are free to use MAP themselves; when they
-         do, theirs wins and the pane is reached with "glk map". */
-      if (gsc_map != nullptr && !gsc_map_taken
-          && gsc_a5_match_command (input, "map"))
+      if (answer == GSC_META_RESTORE)
         {
-          gsc_map_toggle ();
-          continue;
+          if (gsc_a5_try_restore (run))
+            {
+              resumed = 1;
+              break;
+            }
         }
+    }
+  if (!resumed)
+    gsc_a5_restart_run (run);
+}
 
-      if (gsc_a5_match_command (input, "save"))
-        {
-          gsc_a5_save (run);
-          continue;
-        }
 
-      if (gsc_a5_match_command (input, "restore"))
-        {
-          gsc_a5_try_restore (run);
-          continue;
-        }
-
-      if (gsc_a5_match_command (input, "undo"))
-        {
-          gsc_a5_undo_command (run);
-          continue;
-        }
-
-      /* Push the pre-turn state onto the undo stack (before a5run_input,
-         which increments the turn counter on entry). */
-      a5run_snapshot (run);
-
-      gsc_a5_popup_command = input;
-      gsc_a5_popup_answers.clear ();
-      gsc_a5_popup_context = GSC_A5_POPUP_TURN;
-      gsc_a5_waitkey_count = 0;
-      text = a5run_input (run, input);
-      gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
-      /* Still the turn's while its text is paged out: a <waitkey> pause in
-         it is saved as a question is (gsc_a5_autosave_waitkey). */
-      gsc_a5_display (text);
-      gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
-      free (text);
-      gsc_a5_show_media (run);
-      gsc_a5_status (run);
-      gsc_map_redraw ();
-      /* An ended game is handled at the top of the loop. */
+/*
+ * gsc_a5_next_command()
+ *
+ * Print the prompt (and autosave at it) and take the next command into
+ * `input`, from the player or from the turn an autorestore is resuming.
+ * Returns FALSE if there is nothing to act on and the loop should come round
+ * again.
+ */
+static int
+gsc_a5_next_command (char *input, int size)
+{
+#ifdef SPATTERLIGHT
+  if (gsc_autorestored)
+    {
+      /* The restored transcript already ends with the old prompt; skip
+         printing another and just take input. */
+      gsc_autorestored = FALSE;
+      gsc_a5_note_turn_start ();
+    }
+  else
+    {
+      gsc_a5_put_prompt ("\n");
+      /* Autosave at every top-level prompt: after the prompt is printed
+         (so the GUI snapshot ends with it) but before input is
+         requested (so the archived windows carry no pending request and
+         a restore re-enters cleanly right here). */
+      gsc_autosave ();
+    }
+#else
+  gsc_a5_put_prompt ("\n");
+#endif
+  if (gsc_a5_popup_replay == GSC_A5_POPUP_TURN
+      && !gsc_a5_replay_command.empty ()
+      && gsc_a5_replay_command.size () < (size_t) size)
+    {
+      /* Resuming at a question this command's turn asked: the command
+         is in the restored transcript, and is run again rather than
+         read. */
+      strcpy (input, gsc_a5_replay_command.c_str ());
+      gsc_a5_replay_command.clear ();
+      return TRUE;
     }
 
+  gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+  gsc_a5_waitkey_skip = 0;
+  return gsc_a5_read_line (input, size) != 0;
+}
+
+
+/* What gsc_a5_host_command() made of a line of input. */
+typedef enum
+{
+  GSC_A5_COMMAND_GAME,          /* Not the host's: a turn for the engine. */
+  GSC_A5_COMMAND_HANDLED,       /* Dealt with; back to the prompt. */
+  GSC_A5_COMMAND_QUIT           /* Leave the turn loop. */
+} gsc_a5_command_t;
+
+/*
+ * gsc_a5_host_command()
+ *
+ * Take the commands the front end answers itself rather than hand to the
+ * engine: the "glk ..." escapes, and QUIT, RESTART, MAP, SAVE, RESTORE and
+ * UNDO.
+ */
+static gsc_a5_command_t
+gsc_a5_host_command (a5_run_t *&run, char *input)
+{
+  /* Handle "glk ..." command escapes and input logging. */
+  if (gsc_a5_command_escape (input))
+    return GSC_A5_COMMAND_HANDLED;
+
+  if (gsc_a5_match_command (input, "quit")
+      || gsc_a5_match_command (input, "q"))
+    return GSC_A5_COMMAND_QUIT;
+
+  if (gsc_a5_match_command (input, "restart"))
+    {
+      gsc_a5_restart_run (run);
+      return GSC_A5_COMMAND_HANDLED;
+    }
+
+  /* MAP toggles the map pane.  The runner's map is host chrome rather than
+     a game command, so authors are free to use MAP themselves; when they
+     do, theirs wins and the pane is reached with "glk map". */
+  if (gsc_map != nullptr && !gsc_map_taken
+      && gsc_a5_match_command (input, "map"))
+    {
+      gsc_map_toggle ();
+      return GSC_A5_COMMAND_HANDLED;
+    }
+
+  if (gsc_a5_match_command (input, "save"))
+    {
+      gsc_a5_save (run);
+      return GSC_A5_COMMAND_HANDLED;
+    }
+
+  if (gsc_a5_match_command (input, "restore"))
+    {
+      gsc_a5_try_restore (run);
+      return GSC_A5_COMMAND_HANDLED;
+    }
+
+  if (gsc_a5_match_command (input, "undo"))
+    {
+      gsc_a5_undo_command (run);
+      return GSC_A5_COMMAND_HANDLED;
+    }
+
+  return GSC_A5_COMMAND_GAME;
+}
+
+
+/*
+ * gsc_a5_play_turn()
+ *
+ * Give the engine one command and present what it makes of it.
+ */
+static void
+gsc_a5_play_turn (a5_run_t *&run, const char *input)
+{
+  char *text;
+
+  /* Push the pre-turn state onto the undo stack (before a5run_input,
+     which increments the turn counter on entry). */
+  a5run_snapshot (run);
+
+  gsc_a5_popup_command = input;
+  gsc_a5_popup_answers.clear ();
+  gsc_a5_popup_context = GSC_A5_POPUP_TURN;
+  gsc_a5_waitkey_count = 0;
+  text = a5run_input (run, input);
+  gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+  /* Still the turn's while its text is paged out: a <waitkey> pause in
+     it is saved as a question is (gsc_a5_autosave_waitkey). */
+  gsc_a5_display (text);
+  gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
+  free (text);
+  gsc_a5_show_media (run);
+  gsc_a5_status (run);
+  gsc_map_redraw ();
+}
+
+
+/*
+ * gsc_a5_main_shutdown()
+ *
+ * Release the run and the map once the turn loop is left.
+ */
+static void
+gsc_a5_main_shutdown (a5_run_t *&run)
+{
   /* Clear the run alias before freeing: `run` references gsc_a5_run, which a
      resize/redraw dispatched during teardown would otherwise dereference. */
   {
@@ -1657,5 +1709,62 @@ gsc_a5_main (void)
   map_free (gsc_map);
   gsc_map = nullptr;
   gsc_map_screen_drop ();
+}
+
+
+/*
+ * gsc_a5_main()
+ *
+ * Run the ADRIFT 5 game in a single text-buffer window: print the intro, then
+ * loop reading commands and printing each turn's output, handling the host
+ * meta-commands and end-of-game.
+ */
+void
+gsc_a5_main (void)
+{
+  /* Alias the run through gsc_a5_run so resize redraws always see the
+     current run, including across restarts. */
+  a5_run_t *&run = gsc_a5_run;
+  char input[1024];
+  int autorestore = FALSE;
+
+#ifdef SPATTERLIGHT
+  autorestore = gsc_autorestore_wanted ();
+#endif
+
+  gsc_a5_main_setup (run, autorestore);
+  gsc_a5_main_opening (run, autorestore);
+
+  for (;;)
+    {
+      gsc_a5_command_t command;
+
+      /* Any "glk undo/restore/restart/quit" happens here, before the state of
+         play is read: this is the first moment the run may safely be replaced,
+         whether the command was typed at the prompt below or at a naming
+         prompt the engine opened mid-turn. */
+      if (gsc_a5_meta_perform (run))
+        break;
+
+      if (a5run_is_over (run))
+        gsc_a5_game_over (run);
+
+      /* If a "help" request was noted last turn, hint at "glk help". */
+      gsc_output_provide_help_hint ();
+
+      if (!gsc_a5_next_command (input, sizeof input))
+        continue;
+
+      command = gsc_a5_host_command (run, input);
+      if (command == GSC_A5_COMMAND_QUIT)
+        break;
+      if (command == GSC_A5_COMMAND_HANDLED)
+        continue;
+
+      /* An ended game is handled at the top of the loop. */
+      gsc_a5_play_turn (run, input);
+    }
+
+  gsc_a5_main_shutdown (run);
   glk_exit ();
 }
