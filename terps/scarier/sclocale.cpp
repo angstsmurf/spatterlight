@@ -513,21 +513,14 @@ loc_debug_dump (void)
 
 
 /*
- * loc_bool_template()
- * loc_char_template()
+ * loc_table_lookup()
  *
- * "Template" functions for locale variant ctype functions.  Synchronize
- * tables to the currently set locale, and return the value from the table.
+ * Template for the locale variant ctype functions.  Synchronize tables to
+ * the currently set locale, and return the value from the table.
  */
-static scr_bool
-loc_bool_template (scr_char character, const scr_bool table[])
-{
-  loc_check_tables_synchronized (loc_locale);
-  return table[(scr_byte) character];
-}
-
-static scr_char
-loc_char_template (scr_char character, const scr_char table[])
+template <typename T>
+static T
+loc_table_lookup (scr_char character, const T table[])
 {
   loc_check_tables_synchronized (loc_locale);
   return table[(scr_byte) character];
@@ -546,29 +539,29 @@ loc_char_template (scr_char character, const scr_char table[])
 scr_bool
 scr_isspace (scr_char character)
 {
-  return loc_bool_template (character, loc_locale_tables.isspace);
+  return loc_table_lookup (character, loc_locale_tables.isspace);
 }
 
 scr_bool
 scr_isalpha (scr_char character)
 {
-  return loc_bool_template (character, loc_locale_tables.isalpha);
+  return loc_table_lookup (character, loc_locale_tables.isalpha);
 }
 
 scr_bool
 scr_isdigit (scr_char character)
 {
-  return loc_bool_template (character, loc_locale_tables.isdigit);
+  return loc_table_lookup (character, loc_locale_tables.isdigit);
 }
 
 scr_char
 scr_toupper (scr_char character)
 {
-  return loc_char_template (character, loc_locale_tables.toupper);
+  return loc_table_lookup (character, loc_locale_tables.toupper);
 }
 
 scr_char
 scr_tolower (scr_char character)
 {
-  return loc_char_template (character, loc_locale_tables.tolower);
+  return loc_table_lookup (character, loc_locale_tables.tolower);
 }
