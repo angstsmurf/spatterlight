@@ -936,24 +936,38 @@ npc_walk_chartask (scr_gameref_t game, scr_int npc, scr_int walk,
 
 
 /*
- * npc_tick_npc_walk()
- *
- * Helper for npc_tick_npc().
+ * One tick of one walk of one NPC, for npc_tick_npc_walk(): the step the
+ * counter is on, where it sends the walker, and whether this is the tick it
+ * arrives there.  vt_key is carried from member to member.
  */
-static void
-npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
+namespace {
+
+struct npc_walk_tick_t
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_gameref_t game;
+  scr_int npc, walk;
+  scr_prop_setref_t bundle;
   scr_vartype_t vt_key[6];
-  scr_int roomgroups, movetimes, walkstep, start, dest, destnum;
-  scr_int chartask, meetchar, objecttask;
+  scr_int roomgroups, walkstep, start, dest, destnum;
   scr_bool is_arrival, is_exact;
 
-  if (npc_trace)
-    {
-      scr_trace ("NPC: ticking NPC %ld, walk %ld: step %ld\n",
-                npc, walk, gs_npc_walkstep (game, npc, walk));
-    }
+  void step ();
+  void destination ();
+  void depart ();
+  void move ();
+  void stamp_hidden ();
+  void meet ();
+};
+
+} /* namespace */
+
+
+
+/* Find the walk step the counter is on, and whether it has just landed. */
+void
+npc_walk_tick_t::step ()
+{
+  scr_int movetimes;
 
   /* Count roomgroups for later use. */
   vt_key[0].string = "RoomGroups";
@@ -1021,7 +1035,13 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
   /* The same test, kept unmodified by the destination cases below, because
      the Runner's walk announcements hang off it and not off is_arrival. */
   is_exact = is_arrival;
+}
 
+
+/* Work out where the step sends the walker. */
+void
+npc_walk_tick_t::destination ()
+{
   /* Sort out a destination. */
   dest = start = gs_npc_location (game, npc) - 1;
 
@@ -1091,26 +1111,31 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
             }
         }
     }
+}
 
-  /*
-   * Announce the departure, move, then announce the arrival -- the Runner's
-   * order, and its departure gate reads the NPC's location *before* the move,
-   * so a stop naming the room the walker already stands in still gets a line
-   * in 3.7 (see npc_announce()).  It fires only on the turn the counter lands
-   * exactly on this stop's suffix sum: the Runner does the whole
-   * move-and-announce inside that test (run370 loc_439360, run400
-   * loc_468841), so a multi-turn stay is announced once, not once per turn.
-   * That is is_exact, not is_arrival, which the Hidden and roomgroup cases
-   * above force true for the benefit of the meet-task dispatch below.
-   *
-   * A "follow the player" stop is announced by no Runner at all, even though
-   * the walker is about to warp to the player: 4.0 gates its departure branch
-   * on the resolved destination being a real room (run400 @4688B0, var_BE > 0,
-   * and a follow stop resolves to the not-a-room zero), while 3.7/3.8/3.9 do
-   * reach the branch but hand wherefrom() that same zero, whose exit-less
-   * dummy room answers "nowhere" -- which every one of them suppresses.  One
-   * destnum > 1 test therefore stands in for both shapes.
-   */
+
+/*
+ * Announce the departure, move, then announce the arrival -- the Runner's
+ * order, and its departure gate reads the NPC's location *before* the move,
+ * so a stop naming the room the walker already stands in still gets a line
+ * in 3.7 (see npc_announce()).  It fires only on the turn the counter lands
+ * exactly on this stop's suffix sum: the Runner does the whole
+ * move-and-announce inside that test (run370 loc_439360, run400
+ * loc_468841), so a multi-turn stay is announced once, not once per turn.
+ * That is is_exact, not is_arrival, which the Hidden and roomgroup cases
+ * above force true for the benefit of the meet-task dispatch below.
+ *
+ * A "follow the player" stop is announced by no Runner at all, even though
+ * the walker is about to warp to the player: 4.0 gates its departure branch
+ * on the resolved destination being a real room (run400 @4688B0, var_BE > 0,
+ * and a follow stop resolves to the not-a-room zero), while 3.7/3.8/3.9 do
+ * reach the branch but hand wherefrom() that same zero, whose exit-less
+ * dummy room answers "nowhere" -- which every one of them suppresses.  One
+ * destnum > 1 test therefore stands in for both shapes.
+ */
+void
+npc_walk_tick_t::depart ()
+{
   if (is_exact && gs_player_in_room (game, start))
     {
       if (destnum == 0)
@@ -1118,7 +1143,12 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
       else if (destnum > 1)
         npc_announce (game, npc, TRUE, dest);
     }
+}
 
+
+void
+npc_walk_tick_t::move ()
+{
   /* See if the NPC actually moved. */
   if (start != dest)
     {
@@ -1150,44 +1180,53 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
               || npc_version (game) == TAF_VERSION_370))
         npc_announce (game, npc, FALSE, start);
     }
+}
 
-  /*
-   * Stamp the walk-hidden marker, and do it whether or not the step above
-   * was a move.  The Runner writes its &HFF into the location field from the
-   * Hidden branch itself (run400 loc_468D4A), with no "did it move" test in
-   * front of it, so a walker that was ALREADY nowhere when the Hidden stop
-   * came round still comes out of it carrying the marker -- and its next
-   * arrival therefore passes the "old <> 0" half of the announcement gate
-   * above.  Scarier used to stamp only inside the move branch, which left
-   * such a walker on a genuine zero for ever and swallowed the arrival.
-   *
-   * That is The Skydiver's Pelican exactly: StartRoom 0 and a walk whose
-   * first stop is Hidden, arriving on turn 16 with run400 printing "Pelican
-   * A pelican flocked toward me.." and Scarier printing nothing.  Measured
-   * with harness/make_400_walkhiddenprobe.py under run400
-   * (runner_probes/walkhidden.run400.txt, 2026-09-07): of three walkers all
-   * arriving in the player's room, the one on the Skydiver's shape (nowhere
-   * already, Hidden stop, then the room) announces "Hid wanders in." with no
-   * direction, the one that arrives from a never-touched zero says nothing,
-   * and the one leaving a real room announces with a direction.  The middle
-   * cell is what keeps "old <> 0" in the gate; this stamp is what lets the
-   * first past it.
-   *
-   * 3.9 answers the same three ways: make_39_walkhiddenprobe.py under
-   * run390 (runner_probes/walkhidden.run390.txt, 2026-09-07) reproduces the
-   * cells exactly, so the stamp is unconditional there too (run390
-   * loc_45ABB8, gate loc_45A99B).  ALEXIS.TAF is the 3.90 corpus row that
-   * moves with it -- seeded, hence unmeasurable itself, which is what the
-   * probe stands in for.  3.7 has no "old <> 0" term in its gate at all
-   * (run370 @43955E), so the stamp is invisible there; 3.8 shares 3.9's gate
-   * (run380 @4416F4).
-   */
+
+/*
+ * Stamp the walk-hidden marker, and do it whether or not the step above
+ * was a move.  The Runner writes its &HFF into the location field from the
+ * Hidden branch itself (run400 loc_468D4A), with no "did it move" test in
+ * front of it, so a walker that was ALREADY nowhere when the Hidden stop
+ * came round still comes out of it carrying the marker -- and its next
+ * arrival therefore passes the "old <> 0" half of the announcement gate
+ * above.  Scarier used to stamp only inside the move branch, which left
+ * such a walker on a genuine zero for ever and swallowed the arrival.
+ *
+ * That is The Skydiver's Pelican exactly: StartRoom 0 and a walk whose
+ * first stop is Hidden, arriving on turn 16 with run400 printing "Pelican
+ * A pelican flocked toward me.." and Scarier printing nothing.  Measured
+ * with harness/make_400_walkhiddenprobe.py under run400
+ * (runner_probes/walkhidden.run400.txt, 2026-09-07): of three walkers all
+ * arriving in the player's room, the one on the Skydiver's shape (nowhere
+ * already, Hidden stop, then the room) announces "Hid wanders in." with no
+ * direction, the one that arrives from a never-touched zero says nothing,
+ * and the one leaving a real room announces with a direction.  The middle
+ * cell is what keeps "old <> 0" in the gate; this stamp is what lets the
+ * first past it.
+ *
+ * 3.9 answers the same three ways: make_39_walkhiddenprobe.py under
+ * run390 (runner_probes/walkhidden.run390.txt, 2026-09-07) reproduces the
+ * cells exactly, so the stamp is unconditional there too (run390
+ * loc_45ABB8, gate loc_45A99B).  ALEXIS.TAF is the 3.90 corpus row that
+ * moves with it -- seeded, hence unmeasurable itself, which is what the
+ * probe stands in for.  3.7 has no "old <> 0" term in its gate at all
+ * (run370 @43955E), so the stamp is invisible there; 3.8 shares 3.9's gate
+ * (run380 @4416F4).
+ */
+void
+npc_walk_tick_t::stamp_hidden ()
+{
   if (is_exact && destnum == 0)
     gs_set_npc_walk_hidden (game, npc, TRUE);
+}
 
-  /* Handle meeting characters and objects -- arrival turns only. */
-  if (!is_arrival)
-    return;
+
+/* Handle meeting characters and objects. */
+void
+npc_walk_tick_t::meet ()
+{
+  scr_int chartask, meetchar, objecttask;
 
   /* Run the meetchar task if the met character is at the destination. */
   chartask = npc_walk_chartask (game, npc, walk, &meetchar);
@@ -1215,6 +1254,39 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
           && obj_directly_in_room (game, meetobject, dest))
         run_npc_walk_task (game, objecttask);
     }
+}
+
+
+/*
+ * npc_tick_npc_walk()
+ *
+ * Helper for npc_tick_npc().
+ */
+static void
+npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
+{
+  npc_walk_tick_t tick;
+
+  if (npc_trace)
+    {
+      scr_trace ("NPC: ticking NPC %ld, walk %ld: step %ld\n",
+                npc, walk, gs_npc_walkstep (game, npc, walk));
+    }
+
+  tick.game = game;
+  tick.npc = npc;
+  tick.walk = walk;
+  tick.bundle = gs_get_bundle (game);
+
+  tick.step ();
+  tick.destination ();
+  tick.depart ();
+  tick.move ();
+  tick.stamp_hidden ();
+
+  /* Handle meeting characters and objects -- arrival turns only. */
+  if (tick.is_arrival)
+    tick.meet ();
 }
 
 

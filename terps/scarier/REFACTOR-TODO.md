@@ -114,7 +114,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~306~~ | ~~`debug_help`~~ | DONE: two string tables + 25-line lookup, see "debug_help split" |
 | ~~301~~ | ~~`view_location_impl`~~ | DONE: seven sections + driver, see "view_location_impl split" |
 | ~~289~~ | ~~`lib_take_multiple_common`~~ | DONE: seven stages + driver, see "lib_take_multiple_common split" |
-| 274 | `npc_tick_npc_walk` | `scnpcs.cpp` ~944 |
+| ~~274~~ | ~~`npc_tick_npc_walk`~~ | DONE: `npc_walk_tick_t` + six members, see "npc_tick_npc_walk split" |
 | 267 | `task_run_task_unrestricted` | `sctasks_run.cpp` |
 | 260 | `uip_match_entity` | `scparser_entity.cpp` |
 
@@ -353,7 +353,7 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `npc_tick_npc_walk` down; `gsc_a5_display`,
+   open from `task_run_task_unrestricted` down; `npc_tick_npc_walk`, `gsc_a5_display`,
    `debug_help`, `view_location_impl`, `lib_take_multiple_common`, `run_task`, `pass_character`,
    `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
    `eval_function`, `scdump_tasks`, `oo_prop` and
@@ -1149,3 +1149,23 @@ them):
   stale manifest reverted afterwards, not committed).  16 lines over 80
   columns in the file, before and after.
 - Next in the table: `npc_tick_npc_walk` (scnpcs.cpp).
+
+## 3: npc_tick_npc_walk split (2026-10-11)
+
+- **`npc_tick_npc_walk`** (274 l.) in `scnpcs.cpp` is a 25-line driver
+  over `npc_walk_tick_t`, on the `uip_pronoun_t` model: the struct holds
+  the old locals that outlive one block (`vt_key`, `roomgroups`,
+  `walkstep`, `start`, `dest`, `destnum`, `is_arrival`, `is_exact`) and
+  has six members in the Runner's order -- `step` (find the step, the
+  arrival test), `destination` (the five destnum cases), `depart`,
+  `move` (with the arrival announcement), `stamp_hidden` and `meet`
+  (CharTask / ObjectTask).  `vt_key` is deliberately a member: `step`
+  fills its walk prefix and `destination` and `meet` only swap the last
+  key, as the inline code did.  Bodies are code motion; the measurement
+  comments went with their blocks.  The early `return` on a non-arrival
+  tick is `if (tick.is_arrival) tick.meet ()`.
+- Verification: headless `quick`; full `test` output identical;
+  `make -j8 scarier glkscarier` warning-free; corpus `recompare`
+  byte-identical to the snapshot (manifest rewrite reverted, not
+  committed).  No line over 80 columns.
+- Next in the table: `task_run_task_unrestricted` (sctasks_run.cpp).
