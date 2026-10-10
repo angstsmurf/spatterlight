@@ -94,7 +94,7 @@ enum { BUFFER_SIZE = 4096 };
  * Pre-4.0 saved games.
  *
  * ADRIFT 3.8 and 3.9 store a saved game in their own layout, and obfuscate it
- * with the Visual Basic PRNG rather than deflating it.  When ser_pre_v4 is set
+ * with the Visual Basic PRNG rather than deflating it.  When ser.pre_v4 is set
  * the writers below emit that layout, so run390.exe accepts a save we wrote;
  * ser_load_game turns it on from the container format, so we accept one it
  * wrote.  The differences from 4.0 are:
@@ -113,7 +113,6 @@ enum { BUFFER_SIZE = 4096 };
  * inventory.  3.8 is inference: it shares the obfuscation and the openness
  * swap, but has not been checked against a 3.8 Runner.
  */
-static scr_bool ser_pre_v4 = FALSE;
 
 
 /*
@@ -139,9 +138,77 @@ ser_openness_pre_v4 (scr_int openness)
  * calls; the save side (ser_flush) then passes bytes straight through, and the
  * load side (ser_load_game) reads them back via taf_create_tas_raw().  File
  * saves never set it, so their zlib format -- and the save-file sniffer -- are
- * untouched.  Both entry points self-clear it, like ser_pre_v4.
+ * untouched.  Both entry points self-clear it, like ser.pre_v4.
  */
-static scr_bool ser_raw_memo = FALSE;
+
+
+/*
+ * The serializer's module state, in one instance (ser).  It is grouped by
+ * lifetime:
+ *
+ *   pre_v4    the pre-4.0 layout switch described above.  Per run: the save
+ *             side sets it from the bundle, the load side from the container
+ *             format, and both clear it on the way out.
+ *   raw_memo  the raw (uncompressed) mode described above.  Per run, armed by
+ *             ser_set_raw_memo() just before, self-cleared by both entry
+ *             points.
+ *   write     a save run's output buffer and the sink it drains into (the
+ *             caller's write callback and its opaque pointer).  Set by
+ *             ser_save_game_internal(), emptied by ser_flush(), cleared by
+ *             the same function on the way out.
+ *   deflate   the zlib stream and its output buffer for the 4.0 layout, live
+ *             between ser_flush() calls of one run; the final flush, or
+ *             ser_flush_abort(), ends and frees it.
+ *   cache     the save path's per-game memo of immutable bundle answers (see
+ *             ser_synchronize_cache()).  Per game: synchronised on each save,
+ *             dropped by gs_destroy() through ser_forget_game().
+ *   read      a load run's TAS cursor: the open .tas and the line counter the
+ *             reader errors cite.  Set by ser_load_game(), freed by
+ *             ser_load_game_finish().
+ *
+ * Nothing here is saved -- this is the module that does the saving.  The
+ * only group that outlives a run is cache, and it is keyed by game.
+ */
+struct scr_ser_state_s
+{
+  scr_bool pre_v4 = FALSE;
+  scr_bool raw_memo = FALSE;
+
+  struct
+  {
+    scr_byte *buffer = nullptr;
+    scr_int length = 0;
+    scr_write_callbackref_t callback = nullptr;
+    void *opaque = nullptr;
+  } write;
+
+  struct
+  {
+    scr_bool initialized = FALSE;
+    scr_byte *out_buffer = nullptr;
+    scr_int out_size = 0;
+    z_stream stream;
+  } deflate;
+
+  struct
+  {
+    const void *game = nullptr;
+    std::vector<std::vector<scr_int> > object_rooms;
+    std::vector<scr_int> event_task;          /* -1 = not built */
+    scr_int var_count = -1;
+    std::vector<const scr_char *> var_name;   /* NULL = unbuilt */
+    std::vector<scr_int> var_type;
+  } cache;
+
+  struct
+  {
+    scr_tafref_t tas = nullptr;
+    scr_int line = 0;
+  } read;
+};
+typedef struct scr_ser_state_s scr_ser_state_t;
+
+static scr_ser_state_t ser;
 
 
 /*
@@ -152,24 +219,8 @@ static scr_bool ser_raw_memo = FALSE;
 void
 ser_set_raw_memo (scr_bool raw)
 {
-  ser_raw_memo = raw;
+  ser.raw_memo = raw;
 }
-
-/* Output buffer. */
-static scr_byte *ser_buffer = nullptr;
-static scr_int ser_buffer_length = 0;
-
-/* Callback and opaque pointer for use by output functions. */
-static scr_write_callbackref_t ser_callback = (scr_write_callbackref_t) nullptr;
-static void *ser_opaque = nullptr;
-
-
-/* Deflate state for the 4.0 save layout, live between ser_flush() calls. */
-static scr_bool ser_deflate_initialized = FALSE;
-static scr_byte *ser_out_buffer = nullptr;
-static scr_int ser_out_buffer_size = 0;
-static z_stream ser_stream;
-
 
 /*
  * ser_flush()
@@ -191,60 +242,61 @@ ser_flush (scr_bool is_final)
    * keystream, which taf_obfuscate_reset() started in ser_save_game().
    * Neither touches the deflate state, so the 4.0 path below is unaffected.
    */
-  if (ser_raw_memo || ser_pre_v4)
+  if (ser.raw_memo || ser.pre_v4)
     {
-      if (ser_buffer_length > 0)
+      if (ser.write.length > 0)
         {
-          if (!ser_raw_memo)
-            taf_obfuscate_buffer (ser_buffer, ser_buffer_length);
-          ser_callback (ser_opaque, ser_buffer, ser_buffer_length);
-          ser_buffer_length = 0;
+          if (!ser.raw_memo)
+            taf_obfuscate_buffer (ser.write.buffer, ser.write.length);
+          ser.write.callback (ser.write.opaque,
+                              ser.write.buffer, ser.write.length);
+          ser.write.length = 0;
         }
 
       if (is_final)
         {
-          scr_free (ser_buffer);
-          ser_buffer = nullptr;
+          scr_free (ser.write.buffer);
+          ser.write.buffer = nullptr;
         }
       return;
     }
 
   /* If this is an initial call, initialize deflation. */
-  if (!ser_deflate_initialized)
+  if (!ser.deflate.initialized)
     {
       /* Allocate an initial output buffer. */
-      ser_out_buffer_size = BUFFER_SIZE;
-      ser_out_buffer
-        = (decltype(ser_out_buffer)) scr_malloc (ser_out_buffer_size);
+      ser.deflate.out_size = BUFFER_SIZE;
+      ser.deflate.out_buffer
+        = (decltype(ser.deflate.out_buffer)) scr_malloc (ser.deflate.out_size);
 
       /* Initialize Zlib deflation functions. */
-      ser_stream.next_out = ser_out_buffer;
-      ser_stream.avail_out = ser_out_buffer_size;
-      ser_stream.next_in = ser_buffer;
-      ser_stream.avail_in = 0;
+      ser.deflate.stream.next_out = ser.deflate.out_buffer;
+      ser.deflate.stream.avail_out = ser.deflate.out_size;
+      ser.deflate.stream.next_in = ser.write.buffer;
+      ser.deflate.stream.avail_in = 0;
 
-      ser_stream.zalloc = Z_NULL;
-      ser_stream.zfree = Z_NULL;
-      ser_stream.opaque = Z_NULL;
+      ser.deflate.stream.zalloc = Z_NULL;
+      ser.deflate.stream.zfree = Z_NULL;
+      ser.deflate.stream.opaque = Z_NULL;
 
-      status = deflateInit (&ser_stream, Z_DEFAULT_COMPRESSION);
+      status = deflateInit (&ser.deflate.stream, Z_DEFAULT_COMPRESSION);
       if (status != Z_OK)
         {
           scr_error ("ser_flush: deflateInit: error %ld\n", status);
-          ser_buffer_length = 0;
+          ser.write.length = 0;
 
-          scr_free (ser_out_buffer);
-          ser_out_buffer = nullptr;
-          ser_out_buffer_size = 0;
+          scr_free (ser.deflate.out_buffer);
+          ser.deflate.out_buffer = nullptr;
+          ser.deflate.out_size = 0;
           return;
         }
 
-      ser_deflate_initialized = TRUE;
+      ser.deflate.initialized = TRUE;
     }
 
   /* Deflate data from the current output buffer. */
-  ser_stream.next_in = ser_buffer;
-  ser_stream.avail_in = ser_buffer_length;
+  ser.deflate.stream.next_in = ser.write.buffer;
+  ser.deflate.stream.avail_in = ser.write.length;
 
   /* Loop while deflate output is pending and buffer not emptied. */
   while (TRUE)
@@ -253,47 +305,48 @@ ser_flush (scr_bool is_final)
 
       /* Compress stream data, with finish if this is the final flush. */
       if (is_final)
-        status = deflate (&ser_stream, Z_FINISH);
+        status = deflate (&ser.deflate.stream, Z_FINISH);
       else
-        status = deflate (&ser_stream, Z_NO_FLUSH);
+        status = deflate (&ser.deflate.stream, Z_NO_FLUSH);
       if (status != Z_STREAM_END && status != Z_OK)
         {
           scr_error ("ser_flush: deflate: error %ld\n", status);
-          ser_buffer_length = 0;
+          ser.write.length = 0;
 
-          scr_free (ser_out_buffer);
-          ser_out_buffer = nullptr;
-          ser_out_buffer_size = 0;
-          ser_deflate_initialized = FALSE;
+          scr_free (ser.deflate.out_buffer);
+          ser.deflate.out_buffer = nullptr;
+          ser.deflate.out_size = 0;
+          ser.deflate.initialized = FALSE;
           return;
         }
 
       /* Calculate bytes used, and output. */
-      in_bytes = ser_buffer_length - ser_stream.avail_in;
-      out_bytes = ser_out_buffer_size - ser_stream.avail_out;
+      in_bytes = ser.write.length - ser.deflate.stream.avail_in;
+      out_bytes = ser.deflate.out_size - ser.deflate.stream.avail_out;
 
       /* See if compressed data is available. */
       if (out_bytes > 0)
         {
           /* Write it to save file output through the callback. */
-          ser_callback (ser_opaque, ser_out_buffer, out_bytes);
+          ser.write.callback (ser.write.opaque,
+                              ser.deflate.out_buffer, out_bytes);
 
           /* Reset deflation stream for available space. */
-          ser_stream.next_out = ser_out_buffer;
-          ser_stream.avail_out = ser_out_buffer_size;
+          ser.deflate.stream.next_out = ser.deflate.out_buffer;
+          ser.deflate.stream.avail_out = ser.deflate.out_size;
         }
 
       /* Remove consumed data from the input buffer. */
       if (in_bytes > 0)
         {
           /* Move any unused data, and reduce length. */
-          memmove (ser_buffer,
-                   ser_buffer + in_bytes, ser_buffer_length - in_bytes);
-          ser_buffer_length -= in_bytes;
+          memmove (ser.write.buffer,
+                   ser.write.buffer + in_bytes, ser.write.length - in_bytes);
+          ser.write.length -= in_bytes;
 
           /* Reset deflation stream for consumed data. */
-          ser_stream.next_in = ser_buffer;
-          ser_stream.avail_in = ser_buffer_length;
+          ser.deflate.stream.next_in = ser.write.buffer;
+          ser.deflate.stream.avail_in = ser.write.length;
         }
 
       /* If final flush, wait until deflate indicates finished. */
@@ -309,61 +362,61 @@ ser_flush (scr_bool is_final)
   if (is_final)
     {
       /* Compression completed. */
-      status = deflateEnd (&ser_stream);
+      status = deflateEnd (&ser.deflate.stream);
       if (status != Z_OK)
         scr_error ("ser_flush: warning: deflateEnd: error %ld\n", status);
 
-      if (ser_buffer_length != 0)
+      if (ser.write.length != 0)
         {
           scr_error ("ser_flush: warning: deflate missed data\n");
-          ser_buffer_length = 0;
+          ser.write.length = 0;
         }
 
       /* Free the allocated compression buffer. */
-      scr_free (ser_buffer);
-      ser_buffer = nullptr;
+      scr_free (ser.write.buffer);
+      ser.write.buffer = nullptr;
 
       /*
        * Free output buffer, and reset flag for reinitialization on the next
        * call.
        */
-      scr_free (ser_out_buffer);
-      ser_out_buffer = nullptr;
-      ser_out_buffer_size = 0;
-      ser_deflate_initialized = FALSE;
+      scr_free (ser.deflate.out_buffer);
+      ser.deflate.out_buffer = nullptr;
+      ser.deflate.out_size = 0;
+      ser.deflate.initialized = FALSE;
     }
 }
 
 static void
 ser_flush_abort (void)
 {
-  if (ser_deflate_initialized)
+  if (ser.deflate.initialized)
     {
-      (void) deflateEnd (&ser_stream);
-      ser_deflate_initialized = FALSE;
+      (void) deflateEnd (&ser.deflate.stream);
+      ser.deflate.initialized = FALSE;
     }
-  scr_free (ser_out_buffer);
-  ser_out_buffer = nullptr;
-  ser_out_buffer_size = 0;
+  scr_free (ser.deflate.out_buffer);
+  ser.deflate.out_buffer = nullptr;
+  ser.deflate.out_size = 0;
 
-  scr_free (ser_buffer);
-  ser_buffer = nullptr;
-  ser_buffer_length = 0;
+  scr_free (ser.write.buffer);
+  ser.write.buffer = nullptr;
+  ser.write.length = 0;
 }
 
 static void
 ser_buffer_character (scr_char character)
 {
   /* Allocate the buffer if not yet done. */
-  if (!ser_buffer)
+  if (!ser.write.buffer)
     {
-      assert (ser_buffer_length == 0);
-      ser_buffer = (decltype(ser_buffer)) scr_malloc (BUFFER_SIZE);
+      assert (ser.write.length == 0);
+      ser.write.buffer = (decltype(ser.write.buffer)) scr_malloc (BUFFER_SIZE);
     }
 
   /* Add to the buffer, with intermediate flush if filled. */
-  ser_buffer[ser_buffer_length++] = character;
-  if (ser_buffer_length == BUFFER_SIZE)
+  ser.write.buffer[ser.write.length++] = character;
+  if (ser.write.length == BUFFER_SIZE)
     ser_flush (FALSE);
 }
 
@@ -384,10 +437,10 @@ ser_buffer_buffer (const scr_char *buffer, scr_int length)
   scr_int offset = 0;
 
   /* Allocate the buffer if not yet done. */
-  if (!ser_buffer)
+  if (!ser.write.buffer)
     {
-      assert (ser_buffer_length == 0);
-      ser_buffer = (decltype(ser_buffer)) scr_malloc (BUFFER_SIZE);
+      assert (ser.write.length == 0);
+      ser.write.buffer = (decltype(ser.write.buffer)) scr_malloc (BUFFER_SIZE);
     }
 
   /*
@@ -402,14 +455,14 @@ ser_buffer_buffer (const scr_char *buffer, scr_int length)
     {
       scr_int chunk;
 
-      chunk = BUFFER_SIZE - ser_buffer_length;
+      chunk = BUFFER_SIZE - ser.write.length;
       if (chunk > length - offset)
         chunk = length - offset;
-      memcpy (ser_buffer + ser_buffer_length, buffer + offset, chunk);
-      ser_buffer_length += chunk;
+      memcpy (ser.write.buffer + ser.write.length, buffer + offset, chunk);
+      ser.write.length += chunk;
       offset += chunk;
 
-      if (ser_buffer_length == BUFFER_SIZE)
+      if (ser.write.length == BUFFER_SIZE)
         ser_flush (FALSE);
     }
 }
@@ -540,7 +593,7 @@ ser_save_battle_block (scr_gameref_t game, scr_int npc)
   scr_int stamina = (npc < 0) ? gs_playerstamina (game)
                              : gs_npc_stamina (game, npc);
   /* 3.9 writes these bare; 4.0 space-pads them. */
-  void (*const emit) (scr_int) = ser_pre_v4 ? ser_buffer_int
+  void (*const emit) (scr_int) = ser.pre_v4 ? ser_buffer_int
                                             : ser_buffer_int_special;
   scr_int index_;
 
@@ -557,12 +610,12 @@ ser_save_battle_block (scr_gameref_t game, scr_int npc)
        * bound, so it stores the first two slots' max and hi and nothing else:
        * seven values for the player, nine for an NPC.
        */
-      if (ser_pre_v4 && slot != BATTLE_STRENGTH && slot != BATTLE_DEFENSE)
+      if (ser.pre_v4 && slot != BATTLE_STRENGTH && slot != BATTLE_DEFENSE)
         continue;
 
       emit (battle->max[slot]);
       emit (battle->hi[slot]);
-      if (!ser_pre_v4)
+      if (!ser.pre_v4)
         emit (battle->lo[slot]);
     }
   if (npc < 0)
@@ -590,17 +643,10 @@ ser_save_battle_block (scr_gameref_t game, scr_int npc)
  * cache tracks a single game, dropped by gs_destroy() via ser_forget_game().
  * Only the save path caches; ser_load_game() is a once-per-restore walk.
  *
- * ser_cache_object_rooms holds, per static object, the exact int sequence
+ * ser.cache.object_rooms holds, per static object, the exact int sequence
  * its room list emits (leading count, then rooms); it is always non-empty
  * once built, so empty() means not built.
  */
-static const void *ser_cache_game = nullptr;
-static std::vector<std::vector<scr_int> > ser_cache_object_rooms;
-static std::vector<scr_int> ser_cache_event_task;      /* -1 = not built */
-static scr_int ser_cache_var_count = -1;
-static std::vector<const scr_char *> ser_cache_var_name;  /* NULL = unbuilt */
-static std::vector<scr_int> ser_cache_var_type;
-
 
 /*
  * ser_synchronize_cache()
@@ -610,15 +656,15 @@ static std::vector<scr_int> ser_cache_var_type;
 static void
 ser_synchronize_cache (scr_gameref_t game)
 {
-  if (ser_cache_game != game)
+  if (ser.cache.game != game)
     {
-      ser_cache_object_rooms.assign (gs_object_count (game),
+      ser.cache.object_rooms.assign (gs_object_count (game),
                                      std::vector<scr_int> ());
-      ser_cache_event_task.assign (gs_event_count (game), -1);
-      ser_cache_var_count = -1;
-      ser_cache_var_name.clear ();
-      ser_cache_var_type.clear ();
-      ser_cache_game = game;
+      ser.cache.event_task.assign (gs_event_count (game), -1);
+      ser.cache.var_count = -1;
+      ser.cache.var_name.clear ();
+      ser.cache.var_type.clear ();
+      ser.cache.game = game;
     }
 }
 
@@ -632,14 +678,14 @@ ser_synchronize_cache (scr_gameref_t game)
 void
 ser_forget_game (const void *game)
 {
-  if (ser_cache_game == game)
+  if (ser.cache.game == game)
     {
-      ser_cache_game = nullptr;
-      ser_cache_object_rooms.clear ();
-      ser_cache_event_task.clear ();
-      ser_cache_var_count = -1;
-      ser_cache_var_name.clear ();
-      ser_cache_var_type.clear ();
+      ser.cache.game = nullptr;
+      ser.cache.object_rooms.clear ();
+      ser.cache.event_task.clear ();
+      ser.cache.var_count = -1;
+      ser.cache.var_name.clear ();
+      ser.cache.var_type.clear ();
     }
 }
 
@@ -654,7 +700,7 @@ ser_forget_game (const void *game)
 static const std::vector<scr_int> &
 ser_object_static_rooms (scr_gameref_t game, scr_int object)
 {
-  std::vector<scr_int> &cached = ser_cache_object_rooms[object];
+  std::vector<scr_int> &cached = ser.cache.object_rooms[object];
 
   if (cached.empty ())
     {
@@ -728,7 +774,7 @@ ser_save_object_location (scr_gameref_t game, scr_int object)
    * Pre-4.0 has no room list: every object, static or not, is the bare
    * position, which for an unmoved static is -1.
    */
-  if (ser_pre_v4 || !obj_is_static (game, object))
+  if (ser.pre_v4 || !obj_is_static (game, object))
     {
       ser_buffer_int (gs_object_position (game, object));
       return;
@@ -845,7 +891,7 @@ ser_save_game_body (scr_gameref_t game)
    * interpreters) recognise the file as one of theirs.  See SER_VERSION_HEADER.
    * Pre-4.0 saves have no version line at all.
    */
-  if (!ser_pre_v4)
+  if (!ser.pre_v4)
     ser_buffer_string (SER_VERSION_HEADER);
 
   /* Write the game name. */
@@ -869,7 +915,7 @@ ser_save_game_body (scr_gameref_t game)
    * then room, parent, position and gender.
    */
   vt_key[0].string = "Globals";
-  if (!ser_pre_v4)
+  if (!ser.pre_v4)
     {
       vt_key[1].string = "PlayerName";
       ser_buffer_string (prop_get_string (bundle, "S<-ss", vt_key));
@@ -912,7 +958,7 @@ ser_save_game_body (scr_gameref_t game)
       ser_buffer_int (gs_object_parent (game, index_));
       if (gs_object_openness (game, index_) != 0)
         {
-          if (ser_pre_v4)
+          if (ser.pre_v4)
             ser_buffer_int_special
                 (ser_openness_pre_v4 (gs_object_openness (game, index_)));
           else
@@ -926,7 +972,7 @@ ser_save_game_body (scr_gameref_t game)
       if (gs_object_state (game, index_) != 0)
         ser_buffer_int (gs_object_state (game, index_));
 
-      if (!ser_pre_v4)
+      if (!ser.pre_v4)
         ser_buffer_boolean (gs_object_unmoved (game, index_));
     }
 
@@ -943,7 +989,7 @@ ser_save_game_body (scr_gameref_t game)
       scr_int startertype, task;
 
       /* Get starter task, if any (immutable, so cached after first read). */
-      task = ser_cache_event_task[index_];
+      task = ser.cache.event_task[index_];
       if (task < 0)
         {
           vt_key[0].string = "Events";
@@ -964,7 +1010,7 @@ ser_save_game_body (scr_gameref_t game)
             }
           else
             task = 0;
-          ser_cache_event_task[index_] = task;
+          ser.cache.event_task[index_] = task;
         }
 
       /* Save event details. */
@@ -1004,7 +1050,7 @@ ser_save_game_body (scr_gameref_t game)
         ser_save_battle_block (game, index_);
 
       /* Pre-4.0 stores no walk steps; a restored walk starts over there. */
-      if (!ser_pre_v4)
+      if (!ser.pre_v4)
         {
           for (walk = 0; walk < gs_npc_walkstep_count (game, index_); walk++)
             ser_buffer_int_special (gs_npc_walkstep (game, index_, walk));
@@ -1015,27 +1061,27 @@ ser_save_game_body (scr_gameref_t game)
    * Save each variable.  The count and each name/type pair are immutable,
    * so they are cached after the first turn's walk; only the values change.
    */
-  var_count = ser_cache_var_count;
+  var_count = ser.cache.var_count;
   if (var_count < 0)
     {
       var_count = ser_variable_count (bundle);
-      ser_cache_var_count = var_count;
-      ser_cache_var_name.assign (var_count, (const scr_char *) nullptr);
-      ser_cache_var_type.assign (var_count, 0);
+      ser.cache.var_count = var_count;
+      ser.cache.var_name.assign (var_count, (const scr_char *) nullptr);
+      ser.cache.var_type.assign (var_count, 0);
     }
 
   for (index_ = 0; index_ < var_count; index_++)
     {
-      const scr_char *name = ser_cache_var_name[index_];
+      const scr_char *name = ser.cache.var_name[index_];
       scr_int var_type;
 
       if (name)
-        var_type = ser_cache_var_type[index_];
+        var_type = ser.cache.var_type[index_];
       else
         {
           var_type = ser_variable_at (bundle, index_, &name);
-          ser_cache_var_name[index_] = name;
-          ser_cache_var_type[index_] = var_type;
+          ser.cache.var_name[index_] = name;
+          ser.cache.var_type[index_] = var_type;
         }
 
       switch (var_type)
@@ -1077,15 +1123,15 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
   assert (callback);
 
   /* Store the callback and opaque references, for writer functions. */
-  ser_callback = callback;
-  ser_opaque = opaque;
+  ser.write.callback = callback;
+  ser.write.opaque = opaque;
 
   /*
    * Select the save layout, and start the keystream if it is the pre-4.0
    * one.
    */
-  ser_pre_v4 = runner_compatible && ser_game_is_pre_v4 (bundle);
-  if (ser_pre_v4)
+  ser.pre_v4 = runner_compatible && ser_game_is_pre_v4 (bundle);
+  if (ser.pre_v4)
     taf_obfuscate_reset ();
 
   /*
@@ -1100,10 +1146,10 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
   catch (const scr_fatal_error &)
     {
       ser_flush_abort ();
-      ser_callback = nullptr;
-      ser_opaque = nullptr;
-      ser_pre_v4 = FALSE;
-      ser_raw_memo = FALSE;
+      ser.write.callback = nullptr;
+      ser.write.opaque = nullptr;
+      ser.pre_v4 = FALSE;
+      ser.raw_memo = FALSE;
       throw;
     }
 
@@ -1112,10 +1158,10 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
    * references.
    */
   ser_flush (TRUE);
-  ser_callback = nullptr;
-  ser_opaque = nullptr;
-  ser_pre_v4 = FALSE;
-  ser_raw_memo = FALSE;
+  ser.write.callback = nullptr;
+  ser.write.opaque = nullptr;
+  ser.pre_v4 = FALSE;
+  ser.raw_memo = FALSE;
 }
 
 void
@@ -1160,10 +1206,6 @@ ser_save_game_prompted (scr_gameref_t game)
 }
 
 
-/* TAS input file line counter. */
-static scr_tafref_t ser_tas = (scr_tafref_t) nullptr;
-static scr_int ser_tasline = 0;
-
 /* Restore error, thrown by the readers below and caught in ser_load_game(). */
 struct ser_tas_error_t { };
 
@@ -1183,14 +1225,15 @@ ser_get_string (void)
   const scr_char *string;
 
   /* Get the next line, and complain if absent. */
-  string = taf_next_line (ser_tas);
+  string = taf_next_line (ser.read.tas);
   if (!string)
     {
-      scr_error ("ser_get_string: out of TAS data at line %ld\n", ser_tasline);
+      scr_error ("ser_get_string: out of TAS data at line %ld\n",
+                ser.read.line);
       throw ser_tas_error_t ();
     }
 
-  ser_tasline++;
+  ser.read.line++;
   return string;
 }
 
@@ -1205,7 +1248,7 @@ ser_get_int (void)
   if (sscanf (string, "%ld", &value) != 1)
     {
       scr_error ("ser_get_int:"
-                " invalid integer at line %ld\n", ser_tasline - 1);
+                " invalid integer at line %ld\n", ser.read.line - 1);
       throw ser_tas_error_t ();
     }
 
@@ -1223,7 +1266,7 @@ ser_get_uint (void)
   if (sscanf (string, "%lu", &value) != 1)
     {
       scr_error ("ser_get_uint:"
-                " invalid integer at line %ld\n", ser_tasline - 1);
+                " invalid integer at line %ld\n", ser.read.line - 1);
       throw ser_tas_error_t ();
     }
 
@@ -1244,13 +1287,13 @@ ser_get_boolean (void)
   if (sscanf (string, "%lu", &value) != 1)
     {
       scr_error ("ser_get_boolean:"
-                " invalid boolean at line %ld\n", ser_tasline - 1);
+                " invalid boolean at line %ld\n", ser.read.line - 1);
       throw ser_tas_error_t ();
     }
   if (value != 0 && value != 1)
     {
       scr_error ("ser_get_boolean:"
-                " warning: suspect boolean at line %ld\n", ser_tasline - 1);
+                " warning: suspect boolean at line %ld\n", ser.read.line - 1);
     }
 
   return value != 0;
@@ -1273,7 +1316,7 @@ ser_reject_if (scr_bool out_of_range)
   if (out_of_range)
     {
       scr_error ("ser_reject_if:"
-                 " index out of range at line %ld\n", ser_tasline - 1);
+                 " index out of range at line %ld\n", ser.read.line - 1);
       throw ser_tas_error_t ();
     }
 }
@@ -1355,12 +1398,12 @@ ser_restore_battle_block (scr_gameref_t game, scr_int npc)
        * what it omits keeps the values battle_start() seeded, which is what
        * the 3.9 Runner effectively has too -- it never uses them.
        */
-      if (ser_pre_v4 && slot != BATTLE_STRENGTH && slot != BATTLE_DEFENSE)
+      if (ser.pre_v4 && slot != BATTLE_STRENGTH && slot != BATTLE_DEFENSE)
         continue;
 
       battle->max[slot] = ser_get_int ();
       battle->hi[slot] = ser_get_int ();
-      if (!ser_pre_v4)
+      if (!ser.pre_v4)
         battle->lo[slot] = ser_get_int ();
     }
   if (npc < 0)
@@ -1443,7 +1486,7 @@ static void
 ser_restore_object_location (scr_gameref_t game, scr_int object,
                              scr_bool runner_format)
 {
-  if (ser_pre_v4 && obj_is_static (game, object))
+  if (ser.pre_v4 && obj_is_static (game, object))
     {
       const scr_int position = ser_get_int ();
 
@@ -1453,7 +1496,7 @@ ser_restore_object_location (scr_gameref_t game, scr_int object,
           gs_set_object_static_unmoved (game, object, FALSE);
         }
     }
-  else if (runner_format && !ser_pre_v4 && obj_is_static (game, object))
+  else if (runner_format && !ser.pre_v4 && obj_is_static (game, object))
     {
       std::vector<scr_int> rooms;
       scr_int count = ser_get_int (), index_;
@@ -1515,7 +1558,7 @@ ser_load_game_body (scr_gameref_t game,
   scr_vartype_t vt_key[3];
   scr_int index_, var_count, saved_carried_weight = 0;
   const scr_char *gamename;
-  scr_bool runner_format = ser_pre_v4;
+  scr_bool runner_format = ser.pre_v4;
 
   /*
    * Read the first line.  If it begins with the ADRIFT v4 version-line lead
@@ -1526,7 +1569,7 @@ ser_load_game_body (scr_gameref_t game,
    * SER_VERSION_HEADER.
    */
   gamename = ser_get_string ();
-  if (!ser_pre_v4 && (scr_byte) gamename[0] == SER_VERSION_LEAD)
+  if (!ser.pre_v4 && (scr_byte) gamename[0] == SER_VERSION_LEAD)
     {
       runner_format = TRUE;
       gamename = ser_get_string ();
@@ -1573,7 +1616,7 @@ ser_load_game_body (scr_gameref_t game,
    * Skip the player name (4.0 Runner format only; absent in legacy SCARE
    * saves and in pre-4.0 Runner saves).
    */
-  if (runner_format && !ser_pre_v4)
+  if (runner_format && !ser.pre_v4)
     (void) ser_get_string ();
 
   /* Restore the rest of the player block, validating untrusted indices. */
@@ -1646,7 +1689,7 @@ ser_load_game_body (scr_gameref_t game,
       openable = prop_get_integer (bundle, "I<-sis", vt_key);
       if (openable == 0)
         gs_set_object_openness (new_game, index_, 0);
-      else if (ser_pre_v4)
+      else if (ser.pre_v4)
         gs_set_object_openness (new_game, index_,
                                 ser_openness_pre_v4 (ser_get_int ()));
       else
@@ -1661,7 +1704,7 @@ ser_load_game_body (scr_gameref_t game,
        * Pre-4.0 does not store "unmoved"; the value gs_create() derived from
        * OnlyWhenNotMoved stands, exactly as it does in the 3.9 Runner.
        */
-      if (!ser_pre_v4)
+      if (!ser.pre_v4)
         gs_set_object_unmoved (new_game, index_, ser_get_boolean ());
 
       /*
@@ -1792,7 +1835,7 @@ ser_load_game_body (scr_gameref_t game,
        * Pre-4.0 stores no walk steps, so the walk restarts from gs_create()'s
        * initial state -- the same thing the 3.9 Runner does.
        */
-      if (!ser_pre_v4)
+      if (!ser.pre_v4)
         {
           for (walk = 0; walk < gs_npc_walkstep_count (new_game, index_);
                walk++)
@@ -1841,7 +1884,7 @@ ser_load_game_body (scr_gameref_t game,
    */
   if (!runner_format && battle_is_enabled (new_game))
     {
-      const scr_char *marker = taf_next_line (ser_tas);
+      const scr_char *marker = taf_next_line (ser.read.tas);
       const scr_bool is_v2 = marker
                             && strcmp (marker, SER_BATTLE_MARKER) == 0;
       const scr_bool is_v1 = marker
@@ -1849,7 +1892,7 @@ ser_load_game_body (scr_gameref_t game,
 
       if (is_v1 || is_v2)
         {
-          ser_tasline++;
+          ser.read.line++;
           gs_set_playerstamina (new_game, ser_get_int ());
           gs_set_playerstaminacounter (new_game, ser_get_int ());
           gs_set_playerwield (new_game, ser_get_wield (new_game));
@@ -1915,10 +1958,10 @@ ser_load_game_finish (scr_gameref_t new_game, scr_var_setref_t new_vars)
   if (new_vars)
     var_destroy (new_vars);
 
-  taf_destroy (ser_tas);
-  ser_tas = nullptr;
-  ser_pre_v4 = FALSE;
-  ser_raw_memo = FALSE;
+  taf_destroy (ser.read.tas);
+  ser.read.tas = nullptr;
+  ser.pre_v4 = FALSE;
+  ser.raw_memo = FALSE;
 }
 
 scr_bool
@@ -1935,11 +1978,11 @@ ser_load_game (scr_gameref_t game,
    * everything downstream is identical, since the byte stream is the same one
    * a decompressed 4.0 save would present.
    */
-  ser_tas = ser_raw_memo ? taf_create_tas_raw (callback, opaque)
+  ser.read.tas = ser.raw_memo ? taf_create_tas_raw (callback, opaque)
                          : taf_create_tas (callback, opaque);
-  if (!ser_tas)
+  if (!ser.read.tas)
     {
-      ser_raw_memo = FALSE;
+      ser.raw_memo = FALSE;
       return FALSE;
     }
 
@@ -1951,10 +1994,10 @@ ser_load_game (scr_gameref_t game,
    * by the version line.  This keeps 4.0-format saves we wrote earlier for a
    * 3.9 game readable.
    */
-  ser_pre_v4 = taf_get_version (ser_tas) < TAF_VERSION_400;
+  ser.pre_v4 = taf_get_version (ser.read.tas) < TAF_VERSION_400;
 
   /* Reset line counter for error messages. */
-  ser_tasline = 1;
+  ser.read.line = 1;
 
   /*
    * Restore.  A rejected or exhausted save throws ser_tas_error_t out of the
