@@ -1099,15 +1099,33 @@ lib_therest_with_silent_400 (scr_gameref_t game, scr_int *top)
   return TRUE;
 }
 
-scr_bool
-lib_cmd_verb_object (scr_gameref_t game)
+/*
+ * What one stage of lib_cmd_verb_object() tells the driver: go on to the
+ * next stage, or return TRUE (the line is answered, or a question about it
+ * is raised) or FALSE (not ours: the later rows and then the game's
+ * DontUnderstand text get the line).
+ */
+enum lib_vo_stage_t
 {
-  const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int count, object, index_;
+  LIB_VO_GO_ON,
+  LIB_VO_RETURN_TRUE,
+  LIB_VO_RETURN_FALSE
+};
+
+/*
+ * The stages of lib_cmd_verb_object(), in the order it runs them.  They
+ * share its count and object: the number of objects the line names and the
+ * one it answers for, which is meaningful only while the count is 1.
+ */
+static void
+lib_verb_object_count_present (scr_gameref_t game,
+                               scr_int *count, scr_int *object)
+{
+  scr_int index_;
 
   /* Ensure the reference is unambiguous. */
-  count = 0;
-  object = -1;
+  *count = 0;
+  *object = -1;
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
       if (game->object_references[index_]
@@ -1115,331 +1133,303 @@ lib_cmd_verb_object (scr_gameref_t game)
               || !lib_matcher_requires_seen (game))
           && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
         {
-          count++;
-          object = index_;
+          (*count)++;
+          *object = index_;
         }
     }
+}
 
-  if (count != 1)
-    {
-      /*
-       * 4.0: two present objects the player named by their shared Short is
-       * the Runner's ambiguity prompt, and it comes out here -- our
-       * positional matcher binds both trees for `chop tree`, so the count is
-       * 2 and the 4.0 resolver below is never reached.  A bare `put` is left
-       * alone: lib_cmd_put_where_400() answers it with "Where do you want to
-       * put that?", which is what the tie was measured to give there.
-       *
-       * The other way round, our matcher can bind an object that is not
-       * here while the line also names one that is.  run400 resolves the
-       * noun from the present, seen objects alone (48A3F5), so the present
-       * one wins outright: The Magic Show's `show rabbit to audience`, the
-       * rabbit back in the worn hat, answers "I don't understand what you
-       * want to do with the audience."
-       * (runner_probes/magicshow.run400.a.txt:47,
-       * runner_probes/magicshow.run400.b.txt:40).  A unique winner goes on to
-       * the catch-all below as if our own count had found it.
-       */
-      if (lib_is_version_400 (game) && !lib_is_put_where_line_400 (game))
-        {
-          std::vector<scr_int> tied, crowd;
-          const scr_int resolved =
-              lib_verb_object_resolve_400_common (game, &tied);
-
-          /*
-           * A " with " line asks about one half of itself, though the object
-           * it answers for stays the whole line's -- hcw's `unlock door with
-           * keys` speaks for the keys.  See lib_with_split_crowd_400().
-           */
-          scr_int with_pending, with_head;
-
-          disambig.element.therest_split = TRUE;
-          if (lib_with_split_crowd_400 (game, FALSE, &crowd, &with_pending,
-                                        &with_head))
-            tied = crowd;
-          if (lib_co_400_raise_for_with_tail (game, with_pending, crowd))
-            return TRUE;
-          if (resolved == -1
-              && lib_co_400_raise_for_short_tie (game, tied))
-            return TRUE;
-          if (resolved >= 0)
-            {
-              count = 1;
-              object = resolved;
-            }
-        }
-    }
-
-  /*
-   * 3.8: the Runner's own catch-all speaks here, walking every object
-   * the line names in index order -- see lib_verb_object_catch_all_pre390().
-   * It hands back the present object the rest of this handler answers for,
-   * or says its piece itself.
-   */
-  /*
-   * 3.7 reaches the same walk only for its unseen arm (its therest() has
-   * already refused an absent object), but the object it speaks for is
-   * picked the same way: the first present one the line names, in index
-   * order.  p37TEXTSRC answers `zug rock stone` with the gem, index 0 and
-   * aliased "stone", not with the rock our references bound.
-   */
-  if (prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_370)
-    {
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
-        {
-          if (lib_catch_all_names_pre390 (game, index_)
-              && (gs_object_seen (game, index_)
-                  || !lib_matcher_requires_seen (game))
-              && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
-            {
-              count = 1;
-              object = index_;
-              break;
-            }
-        }
-    }
-
-  if (prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_380)
-    {
-      const scr_int present = lib_verb_object_catch_all_pre390 (game);
-
-      if (present == -2)
-        return TRUE;
-      if (present >= 0)
-        {
-          count = 1;
-          object = present;
-        }
-      else
-        return FALSE;
-    }
-
-  /*
-   * 3.9: the catch-all is a walk of the objects in index order (run390
-   * 4601D4-460284) -- co(obj, 0), the seen byte, obhere() -- and the FIRST
-   * present match is the one named (var_CA = 2 shuts the later ones out).
-   * co() with two present namesakes needs the Prefix's last word in the
-   * line, so a bare `red box` beside the blue box names the red one and
-   * `box` alone names neither (the end-of-turn "Which box." asks instead).
-   * Our matcher's references are the wrong instrument for that: `red box`
-   * binds both boxes.  runner_probes/task.run390.pfx.txt T35-37 (`red box`,
-   * `red hat`, `blue hat`), 2026-09-19.
-   */
-  if (lib_is_version_390 (game))
-    {
-      const scr_char *input = run_get_dispatch_input ();
-      const scr_int room = gs_playerroom (game);
-
-      count = 0;
-      object = -1;
-      for (index_ = 0; input && index_ < gs_object_count (game); index_++)
-        {
-          if (gs_object_seen (game, index_)
-              && obj_indirectly_in_room (game, index_, room)
-              && lib_co_pre400 (game, input, index_, 0))
-            {
-              count = 1;
-              object = index_;
-              break;
-            }
-        }
-    }
-
-  if (count != 1)
-    {
-      /*
-       * 3.9: co(obj, 0) (run390 43B6BC) matches only an object that is both
-       * present and seen, so a line naming nothing here matches nothing, the
-       * catch-all at 4601D4 stays silent and the DontUnderstand text answers.
-       * p39EXAM (runner_probes/exam.run390.verb.txt): `frob stone`, `z stone`,
-       * `frob statue` and `eat statue` from the wrong room are all "I don't
-       * understand."
-       */
-      if (lib_is_version_390 (game))
-        return FALSE;
-
-      /*
-       * No object of that name is here.  Before giving up on the command --
-       * which hands it to the game's DontUnderstand text -- see whether the
-       * name refers unambiguously to an object that is simply elsewhere, and
-       * if it does, say so.  Every Runner from 3.7 to 4.0 answers an
-       * otherwise unhandled command this way: therest() resolves a noun,
-       * and when obhere() says the object is not present it prints
-       * "<player> can't see <the object>." and returns without running any
-       * of the verb branches below it (run370 43D169 @Form1.frm:3336,
-       * run380 443C6A, run400 4887C1 @mdlSpreadTheLoad.bas:41196).  The
-       * clause is reached only when nothing else produced output, which is
-       * exactly where we are.
-       *
-       * Measured on hauntedhouse.taf (runner_probes/hauntedhouse.run400.txt,
-       * turn 34): "melt statue" from the Front porch, with the statue in the
-       * Entrance, answers "You can't see the statue." and not the game's own
-       * DontUnderstand text.
-       *
-       * 4.0 picks that object with the 463640 score, not with our matcher's
-       * references: House's `5 7 9 6 2 7 3 1 9` on the Landing, house number
-       * 7 (alias "7") seen outside, is "Huh?" in run400
-       * (runner_probes/house_sober.run400.txt, T275) -- the line scores no
-       * unique seen object, so the DontUnderstand text answers.
-       */
-      if (lib_is_version_400 (game))
-        {
-          /*
-           * therest splits the line at its first " with " before anything
-           * else (4883C5) and leaves SILENTLY when either half resolves no
-           * object (488430 / 4884DB), so its can't-see clause 4887A0 never
-           * speaks for such a line; the unhandled-verb catch-all 48B19A
-           * does, on the line-top 463640 object (MemVar_4942F8, 48A3FD:
-           * present and seen first, then seen only).  Seen and absent is
-           * its second arm, 48B24B, "must be in the same room as", and a
-           * turn.  wonderland T7-T10 `attack card guard with knife`, the
-           * knife two rooms back: dobattle names nothing present, the head
-           * "attack card guard" resolves no object, and run400 answers
-           * "You must be in the same room as the ethereal knife to be able
-           * to do anything with it." with the Card Guard's blow appended
-           * (runner_transcripts/wonderland.txt, 2026-09-25).
-           */
-          scr_int top;
-
-          if (!lib_therest_with_silent_400 (game, &top))
-            return lib_cant_see_absent_object (game, ".\n", TRUE);
-          if (top < 0)
-            return FALSE;
-          if (gs_object_seen (game, top)
-              && !obj_indirectly_in_room (game, top, gs_playerroom (game)))
-            {
-              lib_must_share_room_with_object (game, top);
-              return TRUE;
-            }
-          count = 1;
-          object = top;
-        }
-
-      if (count != 1)
-        {
-          count = 0;
-          object = -1;
-          for (index_ = 0; index_ < gs_object_count (game); index_++)
-            {
-              if (game->object_references[index_]
-                  && (gs_object_seen (game, index_)
-                      || !lib_matcher_requires_seen (game)))
-                {
-                  count++;
-                  object = index_;
-                }
-            }
-          if (count != 1)
-            return FALSE;
-
-          var_set_ref_object (vars, object);
-          lib_print_response_object (game,
-                                     "You can't see ",
-                                     "I can't see ",
-                                     "%player% can't see ",
-                                     object, ".\n");
-          return TRUE;
-        }
-    }
-
-  /*
-   * 4.0: the object is the resolver's, not the first one our `* %object% *`
-   * row bound, and a tie between two present objects' names means the
-   * Runner says nothing here -- see lib_verb_object_resolve_400().
-   */
-  if (lib_is_version_400 (game))
+/*
+ * 4.0: two present objects the player named by their shared Short is
+ * the Runner's ambiguity prompt, and it comes out here -- our
+ * positional matcher binds both trees for `chop tree`, so the count is
+ * 2 and the 4.0 resolver below is never reached.  A bare `put` is left
+ * alone: lib_cmd_put_where_400() answers it with "Where do you want to
+ * put that?", which is what the tie was measured to give there.
+ *
+ * The other way round, our matcher can bind an object that is not
+ * here while the line also names one that is.  run400 resolves the
+ * noun from the present, seen objects alone (48A3F5), so the present
+ * one wins outright: The Magic Show's `show rabbit to audience`, the
+ * rabbit back in the worn hat, answers "I don't understand what you
+ * want to do with the audience."
+ * (runner_probes/magicshow.run400.a.txt:47,
+ * runner_probes/magicshow.run400.b.txt:40).  A unique winner goes on to
+ * the catch-all below as if our own count had found it.
+ */
+static lib_vo_stage_t
+lib_verb_object_tie_400 (scr_gameref_t game, scr_int *count, scr_int *object)
+{
+  if (lib_is_version_400 (game) && !lib_is_put_where_line_400 (game))
     {
       std::vector<scr_int> tied, crowd;
       const scr_int resolved =
           lib_verb_object_resolve_400_common (game, &tied);
 
+      /*
+       * A " with " line asks about one half of itself, though the object
+       * it answers for stays the whole line's -- hcw's `unlock door with
+       * keys` speaks for the keys.  See lib_with_split_crowd_400().
+       */
       scr_int with_pending, with_head;
 
-      /* One half asks the question; see lib_with_split_crowd_400(). */
       disambig.element.therest_split = TRUE;
       if (lib_with_split_crowd_400 (game, FALSE, &crowd, &with_pending,
                                     &with_head))
         tied = crowd;
-      if (lib_put_where_400 (game, resolved))
-        return TRUE;
       if (lib_co_400_raise_for_with_tail (game, with_pending, crowd))
-        return TRUE;
-      if (resolved == -1)
-        {
-          /*
-           * A tie the player named by Short is the Runner's own ambiguity
-           * prompt -- `chop tree` with two trees called "tree" asks "Which
-           * tree.  The red tree or the blue tree?", while the alias ties
-           * `chop shed` and `chop keys` fall through to DontUnderstand as
-           * before.  See lib_co_400_raise().
-           */
-          if (lib_co_400_raise_for_short_tie (game, tied))
-            return TRUE;
-          return FALSE;
-        }
+        return LIB_VO_RETURN_TRUE;
+      if (resolved == -1
+          && lib_co_400_raise_for_short_tie (game, tied))
+        return LIB_VO_RETURN_TRUE;
       if (resolved >= 0)
-        object = resolved;
+        {
+          *count = 1;
+          *object = resolved;
+        }
     }
+  return LIB_VO_GO_ON;
+}
+
+/*
+ * 3.7 reaches the same walk only for its unseen arm (its therest() has
+ * already refused an absent object), but the object it speaks for is
+ * picked the same way: the first present one the line names, in index
+ * order.  p37TEXTSRC answers `zug rock stone` with the gem, index 0 and
+ * aliased "stone", not with the rock our references bound.
+ */
+static void
+lib_verb_object_first_named_370 (scr_gameref_t game,
+                                 scr_int *count, scr_int *object)
+{
+  scr_int index_;
+
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      if (lib_catch_all_names_pre390 (game, index_)
+          && (gs_object_seen (game, index_)
+              || !lib_matcher_requires_seen (game))
+          && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+        {
+          *count = 1;
+          *object = index_;
+          break;
+        }
+    }
+}
+
+/*
+ * 3.9: the catch-all is a walk of the objects in index order (run390
+ * 4601D4-460284) -- co(obj, 0), the seen byte, obhere() -- and the FIRST
+ * present match is the one named (var_CA = 2 shuts the later ones out).
+ * co() with two present namesakes needs the Prefix's last word in the
+ * line, so a bare `red box` beside the blue box names the red one and
+ * `box` alone names neither (the end-of-turn "Which box." asks instead).
+ * Our matcher's references are the wrong instrument for that: `red box`
+ * binds both boxes.  runner_probes/task.run390.pfx.txt T35-37 (`red box`,
+ * `red hat`, `blue hat`), 2026-09-19.
+ */
+static void
+lib_verb_object_first_named_390 (scr_gameref_t game,
+                                 scr_int *count, scr_int *object)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_int room = gs_playerroom (game);
+  scr_int index_;
+
+  *count = 0;
+  *object = -1;
+  for (index_ = 0; input && index_ < gs_object_count (game); index_++)
+    {
+      if (gs_object_seen (game, index_)
+          && obj_indirectly_in_room (game, index_, room)
+          && lib_co_pre400 (game, input, index_, 0))
+        {
+          *count = 1;
+          *object = index_;
+          break;
+        }
+    }
+}
+
+/*
+ * The line names no single present object: say that an absent one cannot
+ * be seen, or leave the line alone.  4.0 may still find the object it
+ * answers for here.
+ */
+static lib_vo_stage_t
+lib_verb_object_absent (scr_gameref_t game, scr_int *count, scr_int *object)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  scr_int index_;
 
   /*
-   * 4.0: a task that has just ended the game takes this answer off the line.
-   * run400's generaltasks tests the gameover byte right after the turn
-   * counter -- `If MemVar_4941AD <> 0 Then GoTo loc_48B4E3` at loc_48AC62 --
-   * and 48B4E3 is the tail of the routine, past the object-counting loop at
-   * 48AFF0 and past this catch-all at 48B19A.  The verb branches ahead of
-   * 48AC62 (open/close 48A515, movement 48A5D8, wear, remove, look, the wait
-   * loop) all still run, so an ending does not silence the library as such;
-   * only the unhandled-verb tail is lost, and what the tail does print is
-   * characters() (48B56E) and then, with the message buffer still empty and
-   * no character named, the game's DontUnderstand text (48B58F).
-   *
-   * Measured live on relojero.taf (4.00, run400
-   * runner_probes/relojero.run400.b.txt, 2026-09-07):
-   * from the state the walkthrough reaches at `x trozo`, holding both the
-   * Phoenix and the broken cord, `pulir fenix`, bare `fenix`, `pulir trozo`,
-   * `tirar fenix`, `dar fenix` and `poner fenix` all get this catch-all
-   * (which the game's ALR rewrites to "Extranos pensamientos afloran en mi
-   * mente a proposito de <object>."), while `arreglar fenix` -- the one line
-   * of the seven that matches a task, T5, which is silent and whose only
-   * action is End Game (win) -- answers "Disculpa pero no te entiendo.", the
-   * game's DontUnderstand from plain line 25, and only then prints the
-   * WinText.
-   *
-   * It is the ending and not the task that does this.  A silent task on its
-   * own leaves the catch-all family alone: seaside's T25 `do form` runs task
-   * 3 (hides two objects, moves the form to the player, scores) and run400
-   * still answers with an object message, "You must be in the same room as
-   * the leisure access card form to be able to do anything with it."
-   * (runner_transcripts/seaside.txt:123).
-   *
-   * Returning FALSE hands the line to `put *` and `* %character% *` and then
-   * to the DontUnderstand text in run_process_input_line(), which is the
-   * tail's order too.
+   * 3.9: co(obj, 0) (run390 43B6BC) matches only an object that is both
+   * present and seen, so a line naming nothing here matches nothing, the
+   * catch-all at 4601D4 stays silent and the DontUnderstand text answers.
+   * p39EXAM (runner_probes/exam.run390.verb.txt): `frob stone`, `z stone`,
+   * `frob statue` and `eat statue` from the wrong room are all "I don't
+   * understand."
    */
-  if (lib_is_version_400 (game) && game->pending_endgame != 0)
-    return FALSE;
+  if (lib_is_version_390 (game))
+    return LIB_VO_RETURN_FALSE;
 
   /*
-   * 4.0: the object is the one the line resolved to before its task ran (see
-   * lib_verb_object_note_line_top()), and a task that took it away leaves
-   * the second arm of the catch-all, 48B24B-48B282: "You must be in the
-   * same room as <the object> to be able to do anything with it."  That arm
-   * sets no MemVar_494281, so unlike the first it is a turn.  seaside's
-   * `do form` (runner_transcripts/seaside.txt:123): silent TASK3 hides the
-   * leisure access card form and hands over the completed form, which is what
-   * our own resolution after the task found.
+   * No object of that name is here.  Before giving up on the command --
+   * which hands it to the game's DontUnderstand text -- see whether the
+   * name refers unambiguously to an object that is simply elsewhere, and
+   * if it does, say so.  Every Runner from 3.7 to 4.0 answers an
+   * otherwise unhandled command this way: therest() resolves a noun,
+   * and when obhere() says the object is not present it prints
+   * "<player> can't see <the object>." and returns without running any
+   * of the verb branches below it (run370 43D169 @Form1.frm:3336,
+   * run380 443C6A, run400 4887C1 @mdlSpreadTheLoad.bas:41196).  The
+   * clause is reached only when nothing else produced output, which is
+   * exactly where we are.
+   *
+   * Measured on hauntedhouse.taf (runner_probes/hauntedhouse.run400.txt,
+   * turn 34): "melt statue" from the Front porch, with the statue in the
+   * Entrance, answers "You can't see the statue." and not the game's own
+   * DontUnderstand text.
+   *
+   * 4.0 picks that object with the 463640 score, not with our matcher's
+   * references: House's `5 7 9 6 2 7 3 1 9` on the Landing, house number
+   * 7 (alias "7") seen outside, is "Huh?" in run400
+   * (runner_probes/house_sober.run400.txt, T275) -- the line scores no
+   * unique seen object, so the DontUnderstand text answers.
    */
   if (lib_is_version_400 (game))
     {
-      const scr_int top = lib_verb_object_line_top;
+      /*
+       * therest splits the line at its first " with " before anything
+       * else (4883C5) and leaves SILENTLY when either half resolves no
+       * object (488430 / 4884DB), so its can't-see clause 4887A0 never
+       * speaks for such a line; the unhandled-verb catch-all 48B19A
+       * does, on the line-top 463640 object (MemVar_4942F8, 48A3FD:
+       * present and seen first, then seen only).  Seen and absent is
+       * its second arm, 48B24B, "must be in the same room as", and a
+       * turn.  wonderland T7-T10 `attack card guard with knife`, the
+       * knife two rooms back: dobattle names nothing present, the head
+       * "attack card guard" resolves no object, and run400 answers
+       * "You must be in the same room as the ethereal knife to be able
+       * to do anything with it." with the Card Guard's blow appended
+       * (runner_transcripts/wonderland.txt, 2026-09-25).
+       */
+      scr_int top;
 
-      if (top >= 0 && top != object && gs_object_seen (game, top)
+      if (!lib_therest_with_silent_400 (game, &top))
+        return lib_cant_see_absent_object (game, ".\n", TRUE)
+                   ? LIB_VO_RETURN_TRUE : LIB_VO_RETURN_FALSE;
+      if (top < 0)
+        return LIB_VO_RETURN_FALSE;
+      if (gs_object_seen (game, top)
           && !obj_indirectly_in_room (game, top, gs_playerroom (game)))
         {
           lib_must_share_room_with_object (game, top);
-          return TRUE;
+          return LIB_VO_RETURN_TRUE;
         }
+      *count = 1;
+      *object = top;
     }
+
+  if (*count != 1)
+    {
+      *count = 0;
+      *object = -1;
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (game->object_references[index_]
+              && (gs_object_seen (game, index_)
+                  || !lib_matcher_requires_seen (game)))
+            {
+              (*count)++;
+              *object = index_;
+            }
+        }
+      if (*count != 1)
+        return LIB_VO_RETURN_FALSE;
+
+      var_set_ref_object (vars, *object);
+      lib_print_response_object (game,
+                                 "You can't see ",
+                                 "I can't see ",
+                                 "%player% can't see ",
+                                 *object, ".\n");
+      return LIB_VO_RETURN_TRUE;
+    }
+  return LIB_VO_GO_ON;
+}
+
+/*
+ * 4.0: the object is the resolver's, not the first one our `* %object% *`
+ * row bound, and a tie between two present objects' names means the
+ * Runner says nothing here -- see lib_verb_object_resolve_400().
+ */
+static lib_vo_stage_t
+lib_verb_object_resolve_400 (scr_gameref_t game, scr_int *object)
+{
+  std::vector<scr_int> tied, crowd;
+  const scr_int resolved =
+      lib_verb_object_resolve_400_common (game, &tied);
+
+  scr_int with_pending, with_head;
+
+  /* One half asks the question; see lib_with_split_crowd_400(). */
+  disambig.element.therest_split = TRUE;
+  if (lib_with_split_crowd_400 (game, FALSE, &crowd, &with_pending,
+                                &with_head))
+    tied = crowd;
+  if (lib_put_where_400 (game, resolved))
+    return LIB_VO_RETURN_TRUE;
+  if (lib_co_400_raise_for_with_tail (game, with_pending, crowd))
+    return LIB_VO_RETURN_TRUE;
+  if (resolved == -1)
+    {
+      /*
+       * A tie the player named by Short is the Runner's own ambiguity
+       * prompt -- `chop tree` with two trees called "tree" asks "Which
+       * tree.  The red tree or the blue tree?", while the alias ties
+       * `chop shed` and `chop keys` fall through to DontUnderstand as
+       * before.  See lib_co_400_raise().
+       */
+      if (lib_co_400_raise_for_short_tie (game, tied))
+        return LIB_VO_RETURN_TRUE;
+      return LIB_VO_RETURN_FALSE;
+    }
+  if (resolved >= 0)
+    *object = resolved;
+  return LIB_VO_GO_ON;
+}
+
+/*
+ * 4.0: the object is the one the line resolved to before its task ran (see
+ * lib_verb_object_note_line_top()), and a task that took it away leaves
+ * the second arm of the catch-all, 48B24B-48B282: "You must be in the
+ * same room as <the object> to be able to do anything with it."  That arm
+ * sets no MemVar_494281, so unlike the first it is a turn.  seaside's
+ * `do form` (runner_transcripts/seaside.txt:123): silent TASK3 hides the
+ * leisure access card form and hands over the completed form, which is what
+ * our own resolution after the task found.
+ */
+static scr_bool
+lib_verb_object_top_taken_400 (scr_gameref_t game, scr_int object)
+{
+  const scr_int top = lib_verb_object_line_top;
+
+  if (top >= 0 && top != object && gs_object_seen (game, top)
+      && !obj_indirectly_in_room (game, top, gs_playerroom (game)))
+    {
+      lib_must_share_room_with_object (game, top);
+      return TRUE;
+    }
+  return FALSE;
+}
+
+/* The answer itself, for the one object the stages above settled on. */
+static scr_bool
+lib_verb_object_answer (scr_gameref_t game, scr_int object)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
 
   /* Save in variables. */
   var_set_ref_object (vars, object);
@@ -1485,6 +1475,109 @@ lib_cmd_verb_object (scr_gameref_t game)
   lib_co_400_note_refusal ();
   lib_battle_who_note_unanswered ();
   return TRUE;
+}
+
+scr_bool
+lib_cmd_verb_object (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  scr_int count, object;
+  lib_vo_stage_t stage;
+
+  /* Ensure the reference is unambiguous. */
+  lib_verb_object_count_present (game, &count, &object);
+
+  if (count != 1)
+    {
+      stage = lib_verb_object_tie_400 (game, &count, &object);
+      if (stage != LIB_VO_GO_ON)
+        return stage == LIB_VO_RETURN_TRUE;
+    }
+
+  if (version == TAF_VERSION_370)
+    lib_verb_object_first_named_370 (game, &count, &object);
+
+  /*
+   * 3.8: the Runner's own catch-all speaks here, walking every object
+   * the line names in index order -- see lib_verb_object_catch_all_pre390().
+   * It hands back the present object the rest of this handler answers for,
+   * or says its piece itself.
+   */
+  if (version == TAF_VERSION_380)
+    {
+      const scr_int present = lib_verb_object_catch_all_pre390 (game);
+
+      if (present == -2)
+        return TRUE;
+      if (present >= 0)
+        {
+          count = 1;
+          object = present;
+        }
+      else
+        return FALSE;
+    }
+
+  if (lib_is_version_390 (game))
+    lib_verb_object_first_named_390 (game, &count, &object);
+
+  if (count != 1)
+    {
+      stage = lib_verb_object_absent (game, &count, &object);
+      if (stage != LIB_VO_GO_ON)
+        return stage == LIB_VO_RETURN_TRUE;
+    }
+
+  if (lib_is_version_400 (game))
+    {
+      stage = lib_verb_object_resolve_400 (game, &object);
+      if (stage != LIB_VO_GO_ON)
+        return stage == LIB_VO_RETURN_TRUE;
+    }
+
+  /*
+   * 4.0: a task that has just ended the game takes this answer off the line.
+   * run400's generaltasks tests the gameover byte right after the turn
+   * counter -- `If MemVar_4941AD <> 0 Then GoTo loc_48B4E3` at loc_48AC62 --
+   * and 48B4E3 is the tail of the routine, past the object-counting loop at
+   * 48AFF0 and past this catch-all at 48B19A.  The verb branches ahead of
+   * 48AC62 (open/close 48A515, movement 48A5D8, wear, remove, look, the wait
+   * loop) all still run, so an ending does not silence the library as such;
+   * only the unhandled-verb tail is lost, and what the tail does print is
+   * characters() (48B56E) and then, with the message buffer still empty and
+   * no character named, the game's DontUnderstand text (48B58F).
+   *
+   * Measured live on relojero.taf (4.00, run400
+   * runner_probes/relojero.run400.b.txt, 2026-09-07):
+   * from the state the walkthrough reaches at `x trozo`, holding both the
+   * Phoenix and the broken cord, `pulir fenix`, bare `fenix`, `pulir trozo`,
+   * `tirar fenix`, `dar fenix` and `poner fenix` all get this catch-all
+   * (which the game's ALR rewrites to "Extranos pensamientos afloran en mi
+   * mente a proposito de <object>."), while `arreglar fenix` -- the one line
+   * of the seven that matches a task, T5, which is silent and whose only
+   * action is End Game (win) -- answers "Disculpa pero no te entiendo.", the
+   * game's DontUnderstand from plain line 25, and only then prints the
+   * WinText.
+   *
+   * It is the ending and not the task that does this.  A silent task on its
+   * own leaves the catch-all family alone: seaside's T25 `do form` runs task
+   * 3 (hides two objects, moves the form to the player, scores) and run400
+   * still answers with an object message, "You must be in the same room as
+   * the leisure access card form to be able to do anything with it."
+   * (runner_transcripts/seaside.txt:123).
+   *
+   * Returning FALSE hands the line to `put *` and `* %character% *` and then
+   * to the DontUnderstand text in run_process_input_line(), which is the
+   * tail's order too.
+   */
+  if (lib_is_version_400 (game) && game->pending_endgame != 0)
+    return FALSE;
+
+  if (lib_is_version_400 (game)
+      && lib_verb_object_top_taken_400 (game, object))
+    return TRUE;
+
+  return lib_verb_object_answer (game, object);
 }
 
 /*
