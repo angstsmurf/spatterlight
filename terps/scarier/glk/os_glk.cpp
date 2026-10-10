@@ -530,18 +530,11 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
   do
     {
       glk_select (event);
+      if (gsc_service_window_event (event))
+        continue;
 
       switch (event->type)
         {
-        case evtype_Arrange:
-        case evtype_Redraw:
-          gsc_refresh_windows ();
-          break;
-
-        case evtype_SoundNotify:
-          gsc_a5_sound_finished (event);
-          break;
-
         case evtype_MouseInput:
           /* A click on a room starts a walk, and the cancelled line request
              ends the wait as a LineInput event.  Only where a line is what

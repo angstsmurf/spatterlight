@@ -326,14 +326,11 @@ gsc_title_screen_wait (void)
   for (;;)
     {
       glk_select (&event);
-      if (event.type == evtype_Arrange || event.type == evtype_Redraw)
-        gsc_refresh_windows ();
-      else if (event.type == evtype_SoundNotify)
-        gsc_a5_sound_finished (&event);
-      else if (event.type == evtype_CharInput && event.win == key_window)
+      if (gsc_service_window_event (&event))
+        continue;
+      if (event.type == evtype_CharInput && event.win == key_window)
         break;
-      else if (event.type == evtype_MouseInput
-               && event.win == gsc_graphics_window)
+      if (event.type == evtype_MouseInput && event.win == gsc_graphics_window)
         break;
     }
 
@@ -366,6 +363,34 @@ gsc_refresh_windows (void)
 #ifdef GSC_HAVE_TITLE_WINDOW
   gsc_title_redraw ();
 #endif
+}
+
+
+/*
+ * gsc_service_window_event()
+ *
+ * The housekeeping every event loop does before looking at what it is
+ * waiting for: redraw on Arrange and Redraw, and let the ADRIFT 5 sound
+ * channels know when a sound ends.  Returns TRUE when the event was one of
+ * those, so the loop can go back to glk_select() without further ado.
+ */
+int
+gsc_service_window_event (const event_t *event)
+{
+  switch (event->type)
+    {
+    case evtype_Arrange:
+    case evtype_Redraw:
+      gsc_refresh_windows ();
+      return TRUE;
+
+    case evtype_SoundNotify:
+      gsc_a5_sound_finished (event);
+      return TRUE;
+
+    default:
+      return FALSE;
+    }
 }
 
 

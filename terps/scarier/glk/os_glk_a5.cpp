@@ -223,17 +223,10 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
   for (;;)
     {
       glk_select (event);
+      if (gsc_service_window_event (event))
+        continue;
       switch (event->type)
         {
-        case evtype_Arrange:
-        case evtype_Redraw:
-          gsc_refresh_windows ();
-          break;
-
-        case evtype_SoundNotify:
-          gsc_a5_sound_finished (event);
-          break;
-
         case evtype_MouseInput:
           /* A click on a room walks the player there: the pending line
              request is cancelled, and gsc_a5_read_line issues the first step
