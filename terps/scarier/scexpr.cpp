@@ -97,13 +97,13 @@ static const scr_expr_multichar_t FUNCTION_TOKENS[] = {
   {"mod", 3, TOK_MOD}, {"abs", 3, TOK_ABS}, {"len", 3, TOK_LEN},
   {"val", 3, TOK_VAL}, {"and", 3, TOK_AND}, {"mid", 3, TOK_MID},
   {"str", 3, TOK_STR}, {"or", 2, TOK_OR}, {"if", 2, TOK_IF},
-  {NULL, 0, TOK_NONE}
+  {nullptr, 0, TOK_NONE}
 };
 static const scr_expr_multichar_t OPERATOR_TOKENS[] = {
   {"&&", 2, TOK_AND}, {"||", 2, TOK_OR},
   {"==", 2, TOK_EQUAL}, {"!=", 2, TOK_NOT_EQUAL},
   {"<>", 2, TOK_NOT_EQUAL}, {">=", 2, TOK_GREATER_EQ}, {"<=", 2, TOK_LESS_EQ},
-  {NULL, 0, TOK_NONE}
+  {nullptr, 0, TOK_NONE}
 };
 
 
@@ -131,10 +131,10 @@ expr_multichar_search (const scr_char *name, const scr_expr_multichar_t *table)
 
 
 /* Tokenizer variables. */
-static const scr_char *expr_expression = NULL;
+static const scr_char *expr_expression = nullptr;
 static scr_int expr_index = 0;
 static scr_vartype_t expr_token_value;
-static scr_char *expr_temporary = NULL;
+static scr_char *expr_temporary = nullptr;
 static scr_int expr_current_token = TOK_NONE;
 
 
@@ -196,8 +196,8 @@ expr_tokenize_end (void)
 {
   /* Deallocate temporary strings, clear expression. */
   scr_free (expr_temporary);
-  expr_temporary = NULL;
-  expr_expression = NULL;
+  expr_temporary = nullptr;
+  expr_expression = nullptr;
   expr_index = 0;
   expr_current_token = TOK_NONE;
 }
@@ -408,7 +408,7 @@ expr_next_token (void)
    * Get the basic next token.  We may adjust it later for unary minus/plus
    * depending on what it is, and the prior token.
    */
-  token_value.voidp = NULL;
+  token_value.voidp = nullptr;
   token = expr_next_token_unadjusted (&token_value);
 
   /* Special handling for unary minus/plus signs. */
@@ -497,7 +497,7 @@ static scr_int expr_eval_stack_index = 0;
 static jmp_buf expr_parse_error;
 
 /* Variables set to reference for %...% values. */
-static scr_var_setref_t expr_varset = (scr_var_setref_t) NULL;
+static scr_var_setref_t expr_varset = (scr_var_setref_t) nullptr;
 
 
 /*
@@ -846,7 +846,7 @@ expr_eval_numeric_function (scr_int token)
          * position, starting at 1, or 0 if not found.  Then free the popped
          * strings, and push back the result.
          */
-        search = (val1[0] != NUL) ? strstr (val1, val2) : NULL;
+        search = (val1[0] != NUL) ? strstr (val1, val2) : nullptr;
         result = (!search) ? 0 : search - val1 + 1;
         scr_free (val1);
         scr_free (val2);

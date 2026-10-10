@@ -447,7 +447,7 @@ prop_find_child (scr_prop_noderef_t parent, scr_int type, scr_vartype_t name)
     }
 
   /* No matching child found. */
-  return NULL;
+  return nullptr;
 }
 
 
@@ -483,10 +483,10 @@ prop_add_child (scr_prop_noderef_t parent,
     }
 
   /* Initialize property and child list to visible nulls. */
-  child->property.voidp = NULL;
-  child->child_list = NULL;
-  child->child_hashes = NULL;
-  child->last_found = NULL;
+  child->property.voidp = nullptr;
+  child->child_list = nullptr;
+  child->child_hashes = nullptr;
+  child->last_found = nullptr;
 
   /* Make a brief check for obvious overwrites. */
   if (!parent->child_list && parent->property.voidp)
@@ -727,7 +727,7 @@ prop_find_leaf (scr_prop_setref_t bundle, const scr_char *format,
     {
       node = prop_find_child (node, format[index_ + 3], vt_key[index_]);
       if (!node)
-        return NULL;
+        return nullptr;
     }
   return node;
 }
@@ -1172,14 +1172,14 @@ prop_create_empty (void)
    * ensuring that every set has at least one node and one allocated pool.
    */
   bundle->root_node = prop_new_node (bundle);
-  bundle->root_node->child_list = NULL;
+  bundle->root_node->child_list = nullptr;
   bundle->root_node->name.string = "ROOT";
-  bundle->root_node->property.voidp = NULL;
-  bundle->root_node->child_hashes = NULL;
-  bundle->root_node->last_found = NULL;
+  bundle->root_node->property.voidp = nullptr;
+  bundle->root_node->child_hashes = nullptr;
+  bundle->root_node->last_found = nullptr;
 
   /* No taf is yet connected with this set. */
-  bundle->taf = NULL;
+  bundle->taf = nullptr;
 
   return bundle;
 }
@@ -1225,7 +1225,7 @@ prop_destroy (scr_prop_setref_t bundle)
 
   /* Walk the tree, destroying the child list for each node found. */
   prop_destroy_child_list (bundle->root_node);
-  bundle->root_node = NULL;
+  bundle->root_node = nullptr;
 
   /* Destroy each node pool slab. */
   for (index_ = 0; index_ < bundle->node_pools.size (); index_++)
@@ -1271,7 +1271,7 @@ prop_create (const scr_tafref_t taf)
       if (!parse_game (taf, bundle))
         {
           prop_destroy (bundle);
-          return NULL;
+          return nullptr;
         }
     }
   catch (...)

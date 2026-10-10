@@ -48,7 +48,7 @@ gsc_a5_put_string (const char *string)
 {
   const unsigned char *p = (const unsigned char *) string;
 
-  if (string == NULL)
+  if (string == nullptr)
     return;
   if (string[0] != '\0' && gsc_main_window
       && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
@@ -154,7 +154,7 @@ gsc_unput_tail (const char *s)
   glui32 got;
 
   if (length == 0 || length >= sizeof ubuf / sizeof *ubuf
-      || gsc_main_window == NULL)
+      || gsc_main_window == nullptr)
     return FALSE;
   for (index_ = 0; index_ < length; index_++)
     ubuf[index_] = (glui32) (unsigned char) s[index_];
@@ -180,14 +180,14 @@ gsc_a5_sound_marks_only (const char *text)
 {
   const char *p;
 
-  if (text == NULL)
+  if (text == nullptr)
     return TRUE;
   for (p = text; *p != '\0'; p++)
     {
       if (*p == A5_SOUND_MARK || *p == A5_WAIT_MARK)
         {
           const char *e = strchr (p + 1, *p);
-          if (e == NULL)
+          if (e == nullptr)
             return FALSE;
           p = e;
         }
@@ -241,11 +241,11 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
           break;
 
         case evtype_Timer:
-          if (gsc_a5_real_time && gsc_a5_run != NULL)
+          if (gsc_a5_real_time && gsc_a5_run != nullptr)
             {
               char *text = a5run_time_tick (gsc_a5_run);
 
-              if (text == NULL)
+              if (text == nullptr)
                 break;                          /* silent tick */
               if (gsc_a5_sound_marks_only (text))
                 {
@@ -291,7 +291,7 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
                    autosave-on-timer preference is off). */
                 gsc_autosave ();
 #endif
-                if (ubuf != NULL)
+                if (ubuf != nullptr)
                   glk_request_line_event_uni (gsc_main_window, ubuf, ucap,
                                               cancel.val1);
                 else
@@ -389,7 +389,7 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
 
       memset (unicode, 0, cap * sizeof (*unicode));
       glk_request_line_event_uni (gsc_main_window, unicode, cap, 0);
-      done = gsc_a5_await_line (&event, NULL, 0, unicode, cap);
+      done = gsc_a5_await_line (&event, nullptr, 0, unicode, cap);
 
       if (done)
         for (i = 0; i < event.val1; i++)
@@ -422,7 +422,7 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
   else
     {
       glk_request_line_event (gsc_main_window, buf, bufsize - 1, 0);
-      done = gsc_a5_await_line (&event, buf, bufsize, NULL, 0);
+      done = gsc_a5_await_line (&event, buf, bufsize, nullptr, 0);
       n = done ? (int) event.val1 : 0;
     }
 
@@ -503,11 +503,11 @@ gsc_a5_popup_status (void)
 {
   strid_t current;
 
-  if (gsc_a5_run == NULL)
+  if (gsc_a5_run == nullptr)
     return;
   current = glk_stream_get_current ();
   gsc_a5_status (gsc_a5_run);
-  if (current != NULL)
+  if (current != nullptr)
     glk_stream_set_current (current);
 }
 
@@ -584,21 +584,22 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
   /* No window to ask in, or a silent boot (the autorestore below replays the
      intro only to reach the saved state, whose name the player already
      chose): take the default without troubling anyone. */
-  if (gsc_main_window == NULL || gsc_a5_popup_silent)
-    return NULL;
+  if (gsc_main_window == nullptr || gsc_a5_popup_silent)
+    return nullptr;
 
   /* An answer is recorded as "=" and the text typed, the default as "". */
   if (gsc_a5_popup_replayed (&replayed, &resumed))
-    return replayed.empty () ? NULL : gsc_copy_string (replayed.c_str () + 1);
+    return replayed.empty ()
+           ? nullptr : gsc_copy_string (replayed.c_str () + 1);
 
   gsc_a5_popup_status ();
 
   if (!resumed)
     {
       gsc_a5_put_string ("\n");
-      if (prompt != NULL && prompt[0] != '\0')
+      if (prompt != nullptr && prompt[0] != '\0')
         gsc_a5_put_string (prompt);
-      if (dflt != NULL && dflt[0] != '\0')
+      if (dflt != nullptr && dflt[0] != '\0')
         {
           /* The InputBox arrives with the default already filled in; say
              what answering with an empty line will give. */
@@ -637,7 +638,7 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
   gsc_a5_real_time = saved_real_time;
 
   gsc_a5_popup_answered (n > 0 ? std::string ("=") + input : std::string ());
-  return n > 0 ? gsc_copy_string (input) : NULL;
+  return n > 0 ? gsc_copy_string (input) : nullptr;
 }
 
 /*
@@ -691,7 +692,7 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
   /* No window to ask in, or a silent boot (the autorestore below replays the
      opening only to reach the saved state, whose answer the player already
      gave): leave the question unasked, as an unattended Runner does. */
-  if (gsc_main_window == NULL || gsc_a5_popup_silent)
+  if (gsc_main_window == nullptr || gsc_a5_popup_silent)
     return -1;
 
   /* Recorded as "1" for the first choice and "0" for the second. */
@@ -714,7 +715,7 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
       else
         {
           gsc_a5_put_string ("\n");
-          if (prompt != NULL && prompt[0] != '\0')
+          if (prompt != nullptr && prompt[0] != '\0')
             gsc_a5_put_string (prompt);
           gsc_a5_put_string (" [yes = ");
           gsc_a5_put_string (choice1);
@@ -866,7 +867,7 @@ gsc_a5_save (a5_run_t *run)
     }
 
   glk_put_buffer_stream (stream, (char *) zblob, zlen);
-  glk_stream_close (stream, NULL);
+  glk_stream_close (stream, nullptr);
   free (zblob);
   gsc_a5_put_string ("Game saved.\n");
 }
@@ -910,7 +911,7 @@ gsc_a5_restore (a5_run_t *run)
       capacity *= 2;
       buffer = (char *) gsc_realloc (buffer, capacity);
     }
-  glk_stream_close (stream, NULL);
+  glk_stream_close (stream, nullptr);
 
   /* zlib stream? (0x78 0x01 / 0x9C / 0xDA).  Inflate to XML before restoring. */
   if (total >= 2 && (unsigned char) buffer[0] == 0x78
@@ -976,7 +977,7 @@ gsc_a5_stop_all_sounds (void)
     return;
   for (ch = 0; ch < GSC_A5_MAX_CHANNELS; ch++)
     {
-      if (gsc_a5_channels[ch] != NULL)
+      if (gsc_a5_channels[ch] != nullptr)
         glk_schannel_stop (gsc_a5_channels[ch]);
       gsc_a5_chan_sound[ch] = 0;
     }
@@ -996,8 +997,8 @@ gsc_a5_open_game_path (void)
   fileref = winglk_fileref_create_by_name (fileusage_BinaryMode
                                            | fileusage_Data,
                                            gsc_game_path, 0, 0);
-  if (fileref == NULL)
-    return NULL;
+  if (fileref == nullptr)
+    return nullptr;
   stream = glk_stream_open_file (fileref, filemode_Read, 0);
   glk_fileref_destroy (fileref);
   return stream;
@@ -1071,13 +1072,13 @@ gsc_a5_init_resources (void)
 #ifdef SPATTERLIGHT
   /* Media files beside the game are usable with or without a Blorb, so
      losing the resource map below leaves graphics and sound on here. */
-  a5run_set_media_resolver (gsc_a5_resolve_media, NULL);
+  a5run_set_media_resolver (gsc_a5_resolve_media, nullptr);
 #endif
   if ((!gsc_a5_graphics_ok && !gsc_a5_sound_ok) || gsc_game_path[0] == '\0')
     return;
 
   stream = gsc_a5_open_game_path ();
-  if (stream == NULL)
+  if (stream == nullptr)
     {
       /* The file is unreachable by path (a host that cannot reopen it, or a
          game that has moved since startup): no resource map, so no media. */
@@ -1089,7 +1090,7 @@ gsc_a5_init_resources (void)
   if (giblorb_set_resource_map (stream) != giblorb_err_None)
     {
       /* Not a Blorb (e.g. a raw .taf with no resources): no media. */
-      glk_stream_close (stream, NULL);
+      glk_stream_close (stream, nullptr);
 #ifndef SPATTERLIGHT
       gsc_a5_graphics_ok = gsc_a5_sound_ok = FALSE;
 #endif
@@ -1124,20 +1125,20 @@ gsc_a5_rebind_resources (void)
   if (giblorb_unset_resource_map () != giblorb_err_None)
     return;
 
-  for (stream = glk_stream_iterate (NULL, NULL); stream != NULL;
+  for (stream = glk_stream_iterate (nullptr, nullptr); stream != nullptr;
        stream = next)
     {
-      next = glk_stream_iterate (stream, NULL);
+      next = glk_stream_iterate (stream, nullptr);
       if (glk_stream_get_rock (stream) == GSC_A5_BLORB_STREAM_ROCK)
-        glk_stream_close (stream, NULL);
+        glk_stream_close (stream, nullptr);
     }
 
   stream = gsc_a5_open_game_path ();
-  if (stream == NULL)
+  if (stream == nullptr)
     return;
   if (giblorb_set_resource_map (stream) != giblorb_err_None)
     {
-      glk_stream_close (stream, NULL);
+      glk_stream_close (stream, nullptr);
       return;
     }
   gsc_a5_have_blorb = TRUE;
@@ -1343,8 +1344,8 @@ gsc_a5_main (void)
      for the Runner's modal InputBox; unasked, they evaluate to their default.
      Likewise %PopUpChoice% gender prompts for its Yes/No MsgBox; unasked,
      those stay unevaluated. */
-  a5text_set_popup_cb (gsc_a5_popup_input, NULL);
-  a5text_set_popup_choice_cb (gsc_a5_popup_choice, NULL);
+  a5text_set_popup_cb (gsc_a5_popup_input, nullptr);
+  a5text_set_popup_choice_cb (gsc_a5_popup_choice, nullptr);
 
   /* Register the game Blorb for image/sound resources. */
   gsc_a5_init_resources ();
@@ -1370,7 +1371,7 @@ gsc_a5_main (void)
   gsc_a5_start_real_time (run);
 
   /* The map is authored data on the adventure, so it outlives restarts. */
-  if (gsc_map == NULL)
+  if (gsc_map == nullptr)
     {
       gsc_map = a5map_load (gsc_a5_adv);
       gsc_map_taken = a5map_command_taken (gsc_a5_adv);
@@ -1449,7 +1450,7 @@ gsc_a5_main (void)
      question. */
   {
     const char *load_err = a5model_load_error (gsc_a5_adv);
-    if (load_err != NULL)
+    if (load_err != nullptr)
       {
         gsc_a5_put_string ("\n");
         gsc_a5_put_string (load_err);
@@ -1597,7 +1598,7 @@ gsc_a5_main (void)
       /* MAP toggles the map pane.  The runner's map is host chrome rather than
          a game command, so authors are free to use MAP themselves; when they
          do, theirs wins and the pane is reached with "glk map". */
-      if (gsc_map != NULL && !gsc_map_taken
+      if (gsc_map != nullptr && !gsc_map_taken
           && gsc_a5_match_command (input, "map"))
         {
           gsc_map_toggle ();
@@ -1647,12 +1648,12 @@ gsc_a5_main (void)
      resize/redraw dispatched during teardown would otherwise dereference. */
   {
     a5_run_t *dead = run;
-    run = NULL;
+    run = nullptr;
     a5run_free (dead);
   }
   gsc_a5_map_names_clear ();
   map_free (gsc_map);
-  gsc_map = NULL;
+  gsc_map = nullptr;
   gsc_map_screen_drop ();
   glk_exit ();
 }

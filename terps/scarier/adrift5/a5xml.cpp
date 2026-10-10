@@ -102,9 +102,9 @@ a5_decode_entities (char *s, char *e)
         {
           long cp;
           if (p[2] == 'x' || p[2] == 'X')
-            cp = strtol (p + 3, NULL, 16);
+            cp = strtol (p + 3, nullptr, 16);
           else
-            cp = strtol (p + 2, NULL, 10);
+            cp = strtol (p + 2, nullptr, 10);
           /* An out-of-range or malformed reference (negative, overflowed, or
              above U+10FFFF) becomes U+FFFD rather than a stray byte. */
           if (cp <= 0 || cp > 0x10ffff)
@@ -149,7 +149,7 @@ static a5_xml_node_t *
 a5_node_new (void)
 {
   a5_xml_node_t *n = (a5_xml_node_t *) calloc (1, sizeof *n);
-  if (n != NULL)
+  if (n != nullptr)
     n->text = A5_EMPTY;
   return n;
 }
@@ -158,7 +158,7 @@ static void
 a5_node_free (a5_xml_node_t *n)
 {
   a5_xml_node_t *c = n->first_child;
-  while (c != NULL)
+  while (c != nullptr)
     {
       a5_xml_node_t *next = c->next;
       a5_node_free (c);
@@ -207,13 +207,13 @@ a5_parse_element (char **pp, char *end, int depth)
   a5_xml_node_t *node;
   char *name, *name_term;
   int self_close = 0;
-  char *text_start = NULL, *text_lt = NULL;
+  char *text_start = nullptr, *text_lt = nullptr;
 
   if (depth > A5_XML_MAX_DEPTH)
-    return NULL;
+    return nullptr;
   node = a5_node_new ();
-  if (node == NULL)
-    return NULL;
+  if (node == nullptr)
+    return nullptr;
 
   p++;                          /* past '<' */
   name = p;
@@ -258,7 +258,7 @@ a5_parse_element (char **pp, char *end, int depth)
       char *cd = p;
       while (p < end && *p != '<')
         p++;
-      if (node->n_children == 0 && text_start == NULL)
+      if (node->n_children == 0 && text_start == nullptr)
         {
           text_start = cd;
           text_lt = p;
@@ -283,12 +283,12 @@ a5_parse_element (char **pp, char *end, int depth)
       else
         {
           a5_xml_node_t *child = a5_parse_element (&p, end, depth + 1);
-          if (child == NULL)
+          if (child == nullptr)
             {
               a5_node_free (node);
-              return NULL;
+              return nullptr;
             }
-          if (node->last_child == NULL)
+          if (node->last_child == nullptr)
             node->first_child = node->last_child = child;
           else
             {
@@ -299,7 +299,7 @@ a5_parse_element (char **pp, char *end, int depth)
         }
     }
 
-  if (node->n_children == 0 && text_start != NULL)
+  if (node->n_children == 0 && text_start != nullptr)
     {
       size_t len = a5_decode_entities (text_start, text_lt);
       text_start[len] = '\0';
@@ -318,8 +318,8 @@ a5xml_parse (char *buf, uint32_t len)
   char *end = buf + len;
   a5_xml_node_t *root;
 
-  if (buf == NULL || len == 0)
-    return NULL;
+  if (buf == nullptr || len == 0)
+    return nullptr;
 
   /* Skip a UTF-8 BOM. */
   if (len >= 3 && (unsigned char) p[0] == 0xef
@@ -338,17 +338,17 @@ a5xml_parse (char *buf, uint32_t len)
     }
 
   if (p >= end || *p != '<')
-    return NULL;
+    return nullptr;
 
   root = a5_parse_element (&p, end, 0);
-  if (root == NULL)
-    return NULL;
+  if (root == nullptr)
+    return nullptr;
 
   doc = (a5_xml_doc_t *) calloc (1, sizeof *doc);
-  if (doc == NULL)
+  if (doc == nullptr)
     {
       a5_node_free (root);
-      return NULL;
+      return nullptr;
     }
   doc->buf = buf;
   doc->root = root;
@@ -358,9 +358,9 @@ a5xml_parse (char *buf, uint32_t len)
 void
 a5xml_free (a5_xml_doc_t *doc)
 {
-  if (doc == NULL)
+  if (doc == nullptr)
     return;
-  if (doc->root != NULL)
+  if (doc->root != nullptr)
     a5_node_free (doc->root);
   free (doc->buf);
   free (doc);
@@ -369,26 +369,26 @@ a5xml_free (a5_xml_doc_t *doc)
 a5_xml_node_t *
 a5xml_root (a5_xml_doc_t *doc)
 {
-  return doc != NULL ? doc->root : NULL;
+  return doc != nullptr ? doc->root : nullptr;
 }
 
 a5_xml_node_t *
 a5xml_child (const a5_xml_node_t *node, const char *name)
 {
   a5_xml_node_t *c;
-  if (node == NULL)
-    return NULL;
-  for (c = node->first_child; c != NULL; c = c->next)
+  if (node == nullptr)
+    return nullptr;
+  for (c = node->first_child; c != nullptr; c = c->next)
     if (strcmp (c->name, name) == 0)
       return c;
-  return NULL;
+  return nullptr;
 }
 
 const char *
 a5xml_child_text (const a5_xml_node_t *node, const char *name)
 {
   a5_xml_node_t *c = a5xml_child (node, name);
-  return c != NULL ? c->text : NULL;
+  return c != nullptr ? c->text : nullptr;
 }
 
 int
@@ -396,9 +396,9 @@ a5xml_count (const a5_xml_node_t *node, const char *name)
 {
   a5_xml_node_t *c;
   int n = 0;
-  if (node == NULL)
+  if (node == nullptr)
     return 0;
-  for (c = node->first_child; c != NULL; c = c->next)
+  for (c = node->first_child; c != nullptr; c = c->next)
     if (strcmp (c->name, name) == 0)
       n++;
   return n;

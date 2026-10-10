@@ -233,7 +233,7 @@ typedef struct
   std::vector<scr_byte> where_rooms;  /* per-room tri-state, sized lazily */
 } scr_task_props_t;
 
-static const void *task_cache_game = NULL;
+static const void *task_cache_game = nullptr;
 static std::vector<scr_task_props_t> task_cache;
 
 /*
@@ -275,7 +275,7 @@ task_forget_game (const void *game)
 {
   if (task_cache_game == game)
     {
-      task_cache_game = NULL;
+      task_cache_game = nullptr;
       task_cache.clear ();
     }
 }
@@ -2571,7 +2571,7 @@ task_run_task_action (scr_gameref_t game, scr_int task, scr_int action)
       break;
 
     case 2:                    /* Change object status. */
-      prop_get_var_integers (bundle, vt_key, 2, &var1, &var2, NULL);
+      prop_get_var_integers (bundle, vt_key, 2, &var1, &var2, nullptr);
       task_run_change_object_status (game, var1, var2);
       break;
 
@@ -2585,17 +2585,17 @@ task_run_task_action (scr_gameref_t game, scr_int task, scr_int action)
       break;
 
     case 4:                    /* Change score. */
-      prop_get_var_integers (bundle, vt_key, 1, &var1, NULL, NULL);
+      prop_get_var_integers (bundle, vt_key, 1, &var1, nullptr, nullptr);
       task_run_change_score_action (game, task, var1);
       break;
 
     case 5:                    /* Execute/unset task. */
-      prop_get_var_integers (bundle, vt_key, 2, &var1, &var2, NULL);
+      prop_get_var_integers (bundle, vt_key, 2, &var1, &var2, nullptr);
       status = task_run_set_task_action (game, var1, var2);
       break;
 
     case 6:                    /* End game. */
-      prop_get_var_integers (bundle, vt_key, 1, &var1, NULL, NULL);
+      prop_get_var_integers (bundle, vt_key, 1, &var1, nullptr, nullptr);
       status = task_run_end_game_action (game, var1);
       break;
 

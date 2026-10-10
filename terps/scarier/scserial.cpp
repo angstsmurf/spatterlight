@@ -156,17 +156,17 @@ ser_set_raw_memo (scr_bool raw)
 }
 
 /* Output buffer. */
-static scr_byte *ser_buffer = NULL;
+static scr_byte *ser_buffer = nullptr;
 static scr_int ser_buffer_length = 0;
 
 /* Callback and opaque pointer for use by output functions. */
-static scr_write_callbackref_t ser_callback = (scr_write_callbackref_t) NULL;
-static void *ser_opaque = NULL;
+static scr_write_callbackref_t ser_callback = (scr_write_callbackref_t) nullptr;
+static void *ser_opaque = nullptr;
 
 
 /* Deflate state for the 4.0 save layout, live between ser_flush() calls. */
 static scr_bool ser_deflate_initialized = FALSE;
-static scr_byte *ser_out_buffer = NULL;
+static scr_byte *ser_out_buffer = nullptr;
 static scr_int ser_out_buffer_size = 0;
 static z_stream ser_stream;
 
@@ -204,7 +204,7 @@ ser_flush (scr_bool is_final)
       if (is_final)
         {
           scr_free (ser_buffer);
-          ser_buffer = NULL;
+          ser_buffer = nullptr;
         }
       return;
     }
@@ -234,7 +234,7 @@ ser_flush (scr_bool is_final)
           ser_buffer_length = 0;
 
           scr_free (ser_out_buffer);
-          ser_out_buffer = NULL;
+          ser_out_buffer = nullptr;
           ser_out_buffer_size = 0;
           return;
         }
@@ -262,7 +262,7 @@ ser_flush (scr_bool is_final)
           ser_buffer_length = 0;
 
           scr_free (ser_out_buffer);
-          ser_out_buffer = NULL;
+          ser_out_buffer = nullptr;
           ser_out_buffer_size = 0;
           ser_deflate_initialized = FALSE;
           return;
@@ -321,14 +321,14 @@ ser_flush (scr_bool is_final)
 
       /* Free the allocated compression buffer. */
       scr_free (ser_buffer);
-      ser_buffer = NULL;
+      ser_buffer = nullptr;
 
       /*
        * Free output buffer, and reset flag for reinitialization on the next
        * call.
        */
       scr_free (ser_out_buffer);
-      ser_out_buffer = NULL;
+      ser_out_buffer = nullptr;
       ser_out_buffer_size = 0;
       ser_deflate_initialized = FALSE;
     }
@@ -343,11 +343,11 @@ ser_flush_abort (void)
       ser_deflate_initialized = FALSE;
     }
   scr_free (ser_out_buffer);
-  ser_out_buffer = NULL;
+  ser_out_buffer = nullptr;
   ser_out_buffer_size = 0;
 
   scr_free (ser_buffer);
-  ser_buffer = NULL;
+  ser_buffer = nullptr;
   ser_buffer_length = 0;
 }
 
@@ -594,7 +594,7 @@ ser_save_battle_block (scr_gameref_t game, scr_int npc)
  * its room list emits (leading count, then rooms); it is always non-empty
  * once built, so empty() means not built.
  */
-static const void *ser_cache_game = NULL;
+static const void *ser_cache_game = nullptr;
 static std::vector<std::vector<scr_int> > ser_cache_object_rooms;
 static std::vector<scr_int> ser_cache_event_task;      /* -1 = not built */
 static scr_int ser_cache_var_count = -1;
@@ -634,7 +634,7 @@ ser_forget_game (const void *game)
 {
   if (ser_cache_game == game)
     {
-      ser_cache_game = NULL;
+      ser_cache_game = nullptr;
       ser_cache_object_rooms.clear ();
       ser_cache_event_task.clear ();
       ser_cache_var_count = -1;
@@ -1020,7 +1020,7 @@ ser_save_game_body (scr_gameref_t game)
     {
       var_count = ser_variable_count (bundle);
       ser_cache_var_count = var_count;
-      ser_cache_var_name.assign (var_count, (const scr_char *) NULL);
+      ser_cache_var_name.assign (var_count, (const scr_char *) nullptr);
       ser_cache_var_type.assign (var_count, 0);
     }
 
@@ -1100,8 +1100,8 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
   catch (const scr_fatal_error &)
     {
       ser_flush_abort ();
-      ser_callback = NULL;
-      ser_opaque = NULL;
+      ser_callback = nullptr;
+      ser_opaque = nullptr;
       ser_pre_v4 = FALSE;
       ser_raw_memo = FALSE;
       throw;
@@ -1112,8 +1112,8 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
    * references.
    */
   ser_flush (TRUE);
-  ser_callback = NULL;
-  ser_opaque = NULL;
+  ser_callback = nullptr;
+  ser_opaque = nullptr;
   ser_pre_v4 = FALSE;
   ser_raw_memo = FALSE;
 }
@@ -1161,7 +1161,7 @@ ser_save_game_prompted (scr_gameref_t game)
 
 
 /* TAS input file line counter. */
-static scr_tafref_t ser_tas = (scr_tafref_t) NULL;
+static scr_tafref_t ser_tas = (scr_tafref_t) nullptr;
 static scr_int ser_tasline = 0;
 
 /* Restore error, thrown by the readers below and caught in ser_load_game(). */
@@ -1916,7 +1916,7 @@ ser_load_game_finish (scr_gameref_t new_game, scr_var_setref_t new_vars)
     var_destroy (new_vars);
 
   taf_destroy (ser_tas);
-  ser_tas = NULL;
+  ser_tas = nullptr;
   ser_pre_v4 = FALSE;
   ser_raw_memo = FALSE;
 }
@@ -1925,8 +1925,8 @@ scr_bool
 ser_load_game (scr_gameref_t game,
                scr_read_callbackref_t callback, void *opaque)
 {
-  scr_gameref_t new_game = NULL;
-  scr_var_setref_t new_vars = NULL;
+  scr_gameref_t new_game = nullptr;
+  scr_var_setref_t new_vars = nullptr;
   scr_bool status;
 
   /*

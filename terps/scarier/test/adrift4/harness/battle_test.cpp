@@ -255,21 +255,21 @@ hostile_input_checks (const char *path)
 
     /* The unedited body loads, so the edits below are what fail. */
     game = load_taf_lines (taf, lines);
-    check ("rebuilt TAF loads", game != NULL, 1);
+    check ("rebuilt TAF loads", game != nullptr, 1);
     scr_free_game (game);
 
     /* 5e. StartRoom (the line after the startup text's separator). */
     edit = lines;
     edit[2] = "5";
     game = load_taf_lines (taf, edit);
-    check ("start room out of range refused", game != NULL, 0);
+    check ("start room out of range refused", game != nullptr, 0);
     scr_free_game (game);
 
     /* 5f. WaitTurns, five lines after GameName, negative -> no wait. */
     edit = lines;
     edit[name + 5] = "-7";
     game = load_taf_lines (taf, edit);
-    check ("negative WaitTurns loads", game != NULL, 1);
+    check ("negative WaitTurns loads", game != nullptr, 1);
     if (game)
       check ("negative WaitTurns -> 0",
              ((scr_gameref_t) game)->waitturns, 0);
@@ -279,7 +279,7 @@ hostile_input_checks (const char *path)
     edit = lines;
     edit[vest + 4] = "2";
     game = load_taf_lines (taf, edit);
-    check ("self-containing object refused", game != NULL, 0);
+    check ("self-containing object refused", game != nullptr, 0);
     scr_free_game (game);
 
     /* 5h. A multiline field ending on an empty line (no separator); under
@@ -287,7 +287,7 @@ hostile_input_checks (const char *path)
     edit.assign (1, "Startup");
     edit.push_back ("");
     game = load_taf_lines (taf, edit);
-    check ("unterminated multiline refused", game != NULL, 0);
+    check ("unterminated multiline refused", game != nullptr, 0);
     scr_free_game (game);
   }
 }

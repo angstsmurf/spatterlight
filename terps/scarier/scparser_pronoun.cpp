@@ -247,7 +247,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
 
         /* Initially, no object or NPC, no names, and a zero extent. */
         object = npc = -1;
-        prefix = name = echo = NULL;
+        prefix = name = echo = nullptr;
         extent = 0;
 
         /*
@@ -564,7 +564,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
     }
 
   /* Return the final string, or NULL if no pronoun replacements. */
-  return modified ? scr_strdup (buffer) : NULL;
+  return modified ? scr_strdup (buffer) : nullptr;
 }
 
 
@@ -632,7 +632,7 @@ uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered,
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_bool is_390 = prop_get_taf_version (bundle) == TAF_VERSION_390;
-  const scr_char *chosen = NULL;
+  const scr_char *chosen = nullptr;
   scr_vartype_t vt_key[4];
   scr_int alias_count, alias;
 
@@ -642,7 +642,7 @@ uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered,
   chosen = prop_get_string (bundle, "S<-sis", vt_key);
   if (!uip_phrase_in (lowered, chosen))
     {
-      chosen = NULL;
+      chosen = nullptr;
 
       vt_key[2].string = "Alias";
       alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
@@ -660,7 +660,7 @@ uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered,
     }
 
   if (is_390 || uip.options.lenient_tasks)
-    return chosen != NULL;
+    return chosen != nullptr;
   return chosen && uip_case_folds_name_in (command, chosen);
 }
 
@@ -1001,7 +1001,7 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
   if (modified && uip.trace)
     scr_trace ("Parser: reference rewrite \"%s\"\n", command.c_str ());
 
-  return modified ? scr_strdup (command) : NULL;
+  return modified ? scr_strdup (command) : nullptr;
 }
 
 
@@ -1158,7 +1158,7 @@ uip_handler_composes_390 (const scr_char *command)
 
   if (scr_compare_word (verb, "get", 3) || scr_compare_word (verb, "take", 4)
       || scr_compare_word (verb, "pick", 4))
-    return strstr (verb, " from ") == NULL;
+    return strstr (verb, " from ") == nullptr;
 
   return scr_compare_word (verb, "drop", 4)
          || scr_compare_word (verb, "wear", 4)
@@ -1170,7 +1170,7 @@ uip_handler_composes_390 (const scr_char *command)
          || scr_compare_word (verb, "read", 4)
          || ((scr_compare_word (verb, "l", 1)
               || scr_compare_word (verb, "look", 4))
-             && strstr (verb, " at ") != NULL);
+             && strstr (verb, " at ") != nullptr);
 }
 
 

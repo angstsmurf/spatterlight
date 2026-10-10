@@ -164,7 +164,7 @@ struct resp_entry {
   std::string item;               /* the single item this entry was made for    */
   ref_snap snap;
   resp_entry () : is_pass (false), aggregate (false), is_look (false),
-                  has_snap (false), comp (NULL), fail_comp (NULL) {}
+                  has_snap (false), comp (nullptr), fail_comp (nullptr) {}
 };
 
 /* Capture / restore the live reference-binding table (a5state_bind_ref store +
@@ -313,7 +313,7 @@ struct a5_run_s {
      action splices its text THERE instead of appending.  imm_sink NULL = no
      splice point (resp/Look paths); the action then appends at its own
      position, which already precedes an After message. */
-  sb_t  *imm_sink = NULL;
+  sb_t  *imm_sink = nullptr;
   long   imm_pos = -1;
 
   /* Sticky per-After-children-scan flag: some completion message evaluated
@@ -454,8 +454,8 @@ struct a5_run_s {
      index.  adv->doc never changes during a run, so this avoids a full DOM walk
      (and, on save, an O(n_disp_once x nodes) linear pointer search) on every
      per-turn undo snapshot.  Owned; NULL until first use, freed in a5run_free. */
-  std::vector<const a5_xml_node_t *> *dom_nodes = NULL;
-  std::unordered_map<const void *, int> *dom_index = NULL;
+  std::vector<const a5_xml_node_t *> *dom_nodes = nullptr;
+  std::unordered_map<const void *, int> *dom_index = nullptr;
 };
 
 /* a5run_sort.cpp: the .NET introspective sort (clsTask.Children /
@@ -518,7 +518,7 @@ struct exec_resp_scope {
      docking runs Look at the docked pad, then again on the bridge) REPLACES
      those bytes in place: one view, first slot's position, last render's text,
      exactly the runner's one-key-per-raw-template response map. */
-  sb_t  *look_sink = NULL;
+  sb_t  *look_sink = nullptr;
   long   look_off = -1;
   size_t look_len = 0;
 };

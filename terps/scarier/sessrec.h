@@ -66,7 +66,7 @@ sessrec_next (const std::string &state, size_t *pos,
 
   if (eol == std::string::npos || state.size () - eol < 2)
     return false;
-  length = strtoul (state.c_str () + space + 1, NULL, 10);
+  length = strtoul (state.c_str () + space + 1, nullptr, 10);
   if (length > state.size () - eol - 2
       || state[eol + 1 + length] != '\n')
     return false;

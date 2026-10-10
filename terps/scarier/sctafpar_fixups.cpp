@@ -515,7 +515,8 @@ static void
 parse_fixup_v380_action (scr_int type, scr_int var_count,
                          scr_int var1, scr_int var2, scr_int var3)
 {
-  parse_fixup_v380_entry ("Actions", type, var_count, var1, var2, var3, NULL);
+  parse_fixup_v380_entry ("Actions", type, var_count,
+                          var1, var2, var3, nullptr);
 }
 
 static void

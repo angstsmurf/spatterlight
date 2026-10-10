@@ -223,7 +223,7 @@ void
 map_free (map_t *map)
 {
   int p, n, l;
-  if (map == NULL)
+  if (map == nullptr)
     return;
   for (p = 0; p < map->n_pages; p++)
     {
@@ -253,16 +253,16 @@ const map_node_t *
 map_find (const map_t *map, const char *lockey)
 {
   int p, n;
-  if (map == NULL || lockey == NULL)
-    return NULL;
+  if (map == nullptr || lockey == nullptr)
+    return nullptr;
   for (p = 0; p < map->n_pages; p++)
     for (n = 0; n < map->pages[p].n_nodes; n++)
       {
         const map_node_t *node = &map->pages[p].nodes[n];
-        if (node->key != NULL && strcmp (node->key, lockey) == 0)
+        if (node->key != nullptr && strcmp (node->key, lockey) == 0)
           return node;
       }
-  return NULL;
+  return nullptr;
 }
 
 static const map_page_t *
@@ -272,7 +272,7 @@ page_by_key (const map_t *map, int key)
   for (p = 0; p < map->n_pages; p++)
     if (map->pages[p].key == key)
       return &map->pages[p];
-  return NULL;
+  return nullptr;
 }
 
 
@@ -289,18 +289,18 @@ map_surface_new (int w, int h)
 {
   map_surface_t *s;
   if (w <= 0 || h <= 0)
-    return NULL;
+    return nullptr;
   s = (map_surface_t *) calloc (1, sizeof (map_surface_t));
-  if (s == NULL)
-    return NULL;
+  if (s == nullptr)
+    return nullptr;
   s->w = w;
   s->h = h;
   s->px = (unsigned int *) calloc ((size_t) w * (size_t) h,
                                    sizeof (unsigned int));
-  if (s->px == NULL)
+  if (s->px == nullptr)
     {
       free (s);
-      return NULL;
+      return nullptr;
     }
   return s;
 }
@@ -308,7 +308,7 @@ map_surface_new (int w, int h)
 void
 map_surface_free (map_surface_t *s)
 {
-  if (s == NULL)
+  if (s == nullptr)
     return;
   free (s->px);
   free (s);
@@ -402,7 +402,7 @@ draw_bezier (map_surface_t *s, double x0, double y0, double x1, double y1,
   int i, steps;
   double len;
   int px = 0, py = 0;
-  int phase = dash_phase != NULL ? *dash_phase : 0;
+  int phase = dash_phase != nullptr ? *dash_phase : 0;
   int period = (wd > 0 ? wd : 1) * 3;
 
   len = fabs (x3 - x0) + fabs (y3 - y0)
@@ -437,7 +437,7 @@ draw_bezier (map_surface_t *s, double x0, double y0, double x1, double y1,
       px = cx;
       py = cy;
     }
-  if (dash_phase != NULL)
+  if (dash_phase != nullptr)
     *dash_phase = phase;
 }
 
@@ -453,7 +453,7 @@ draw_curve (map_surface_t *s, const double *pts, int n, int wd,
   const double tension = 0.5;
   int i;
 
-  if (n < 2 || pts == NULL)
+  if (n < 2 || pts == nullptr)
     return;
   if (n == 2)
     {
@@ -752,7 +752,7 @@ draw_label (map_surface_t *s, const char *text, int x0, int y0, int x1,
   int broke, total, ty;
   size_t i;
 
-  if (text == NULL || text[0] == '\0' || maxw < 4)
+  if (text == nullptr || text[0] == '\0' || maxw < 4)
     return;
 
   wrap_text (f, text, maxw, lines, &broke);
@@ -869,7 +869,7 @@ rel_point (const proj_t *p, const map_node_t *n, double xp, double yp,
 static int
 inout_edge (const map_node_t *n, const map_node_t *dn)
 {
-  if (dn == NULL)
+  if (dn == nullptr)
     return DIR_N;               /* no node to aim at: the runner's fallback */
   if (dn->x > n->x + n->w)
     return DIR_E;
@@ -1041,7 +1041,7 @@ badge_site_point (const proj_t *p, const map_node_t *n, int site,
 static int
 view_seen (const map_view_t *v, const char *key)
 {
-  if (v == NULL || v->seen == NULL || key == NULL)
+  if (v == nullptr || v->seen == nullptr || key == nullptr)
     return 0;
   return v->seen (v->ctx, key);
 }
@@ -1050,13 +1050,13 @@ static const map_node_t *
 page_node (const map_page_t *page, const char *key)
 {
   int i;
-  if (page == NULL || key == NULL)
-    return NULL;
+  if (page == nullptr || key == nullptr)
+    return nullptr;
   for (i = 0; i < page->n_nodes; i++)
-    if (page->nodes[i].key != NULL
+    if (page->nodes[i].key != nullptr
         && strcmp (page->nodes[i].key, key) == 0)
       return &page->nodes[i];
-  return NULL;
+  return nullptr;
 }
 
 /* The node's own link in direction `dir`, if it has one. */
@@ -1065,12 +1065,12 @@ find_dir_link (const map_node_t *n, int dir)
 {
   int l;
 
-  if (n == NULL)
-    return NULL;
+  if (n == nullptr)
+    return nullptr;
   for (l = 0; l < n->n_links; l++)
     if (n->links[l].dir == dir)
       return &n->links[l];
-  return NULL;
+  return nullptr;
 }
 
 /* Opposite badge direction (Up<->Down, In<->Out). */
@@ -1103,20 +1103,20 @@ static const map_node_t *
 badge_face_node (const map_page_t *page, const map_node_t *n,
                  const map_link_t *link)
 {
-  const map_node_t *dn, *best = NULL;
+  const map_node_t *dn, *best = nullptr;
   int want, i, best_d2 = -1;
 
-  if (page == NULL || n == NULL || n->key == NULL || link == NULL)
-    return NULL;
-  dn = (link->dest != NULL) ? page_node (page, link->dest) : NULL;
-  if (dn != NULL)
+  if (page == nullptr || n == nullptr || n->key == nullptr || link == nullptr)
+    return nullptr;
+  dn = (link->dest != nullptr) ? page_node (page, link->dest) : nullptr;
+  if (dn != nullptr)
     return dn;
 
   want = link->dst_anchor;
   if (want != DIR_UP && want != DIR_DOWN && want != DIR_IN && want != DIR_OUT)
     want = badge_opposite (link->dir);
   if (want < 0)
-    return NULL;
+    return nullptr;
 
   for (i = 0; i < page->n_nodes; i++)
     {
@@ -1124,16 +1124,16 @@ badge_face_node (const map_page_t *page, const map_node_t *n,
       const map_link_t *back;
       int dx, dy, d2;
 
-      if (m == n || m->key == NULL)
+      if (m == n || m->key == nullptr)
         continue;
       back = find_dir_link (m, want);
-      if (back == NULL || back->dest == NULL
+      if (back == nullptr || back->dest == nullptr
           || strcmp (back->dest, n->key) != 0)
         continue;
       dx = m->x - n->x;
       dy = m->y - n->y;
       d2 = dx * dx + dy * dy;
-      if (best == NULL || d2 < best_d2)
+      if (best == nullptr || d2 < best_d2)
         {
           best = m;
           best_d2 = d2;
@@ -1152,10 +1152,10 @@ player_page_key (const map_t *map, const char *player_key, int *key)
 {
   const map_node_t *pn;
 
-  if (map == NULL)
+  if (map == nullptr)
     return 0;
   pn = map_find (map, player_key);
-  if (pn != NULL)
+  if (pn != nullptr)
     {
       *key = pn->page;
       return 1;
@@ -1178,7 +1178,7 @@ map_has_content (const map_t *map, const map_view_t *view,
   if (!player_page_key (map, player_key, &key))
     return 0;
   page = page_by_key (map, key);
-  if (page == NULL)
+  if (page == nullptr)
     return 0;
 
   /*
@@ -1298,14 +1298,14 @@ frame_camera (const map_t *map, const map_view_t *view,
    * Stay on the player's page while they are on a visible map room; a hidden
    * or unplaced room keeps the previous page so the view does not jump.
    */
-  if (pn != NULL && !pn->hidden)
+  if (pn != nullptr && !pn->hidden)
     cam->page = pn->page;
-  else if (page_by_key (map, cam->page) == NULL
+  else if (page_by_key (map, cam->page) == nullptr
            && !player_page_key (map, player_key, &cam->page))
     cam->page = 0;
 
   page = page_by_key (map, cam->page);
-  if (page == NULL || !seen_extent (page, view, &ext))
+  if (page == nullptr || !seen_extent (page, view, &ext))
     return 0;                   /* nothing seen yet */
 
   /* Fit into the area under the button strip, less the margin. */
@@ -1324,7 +1324,7 @@ frame_camera (const map_t *map, const map_view_t *view,
    * following (LockPlayerCentre), otherwise wherever the last frame, or a
    * pan button since, left it.  A hidden or unseen room is not followed.
    */
-  if (follow && pn != NULL && !pn->hidden && view_seen (view, pn->key))
+  if (follow && pn != nullptr && !pn->hidden && view_seen (view, pn->key))
     {
       want_x = (int) ((pn->x + pn->w / 2.0) * scale);
       want_y = (int) ((pn->y + pn->h / 2.0) * scale);
@@ -1349,13 +1349,13 @@ map_frame (const map_t *map, const map_view_t *view,
   unsigned int enabled = 0;
   int fit_scale = MAP_SCALE_MAX;
 
-  if (cam == NULL)
+  if (cam == nullptr)
     return;
   cam->scale = MAP_SCALE_MIN;
-  if (map != NULL && dst != NULL)
+  if (map != nullptr && dst != nullptr)
     enabled = frame_camera (map, view, player_key, dst, zoom, follow, cam,
                             &fit_scale);
-  if (chrome == NULL)
+  if (chrome == nullptr)
     return;
 
   if (cam->scale < MAP_ZOOM_MAX)
@@ -1576,7 +1576,7 @@ map_chrome_draw (map_surface_t *dst, const map_chrome_t *chrome)
   map_btn_t btns[MAP_BTN_MAX];
   int n, i;
 
-  if (dst == NULL || chrome == NULL)
+  if (dst == nullptr || chrome == nullptr)
     return;
   n = map_chrome_layout (dst->w, chrome, btns);
   for (i = 0; i < n; i++)
@@ -1596,7 +1596,7 @@ map_chrome_hit (int w, const map_chrome_t *chrome, int px, int py)
   map_btn_t btns[MAP_BTN_MAX];
   int n, i;
 
-  if (chrome == NULL)
+  if (chrome == nullptr)
     return MAP_CHROME_NONE;
   n = map_chrome_layout (w, chrome, btns);
   for (i = 0; i < n; i++)
@@ -1763,7 +1763,7 @@ draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
 static int
 badge_dest_unseen (const map_view_t *view, const map_link_t *lk)
 {
-  return lk->dest == NULL || !view_seen (view, lk->dest);
+  return lk->dest == nullptr || !view_seen (view, lk->dest);
 }
 
 /*
@@ -1843,7 +1843,7 @@ badge_compass_arrival (const map_node_t *n, const map_link_t *link)
   const map_link_t *twin_lk;
   int twin;
 
-  if (n == NULL || link == NULL || link->dest == NULL)
+  if (n == nullptr || link == nullptr || link->dest == nullptr)
     return -1;
   /*
    * compass_twin is set by a5map from Movements (Map Links alone miss
@@ -1853,7 +1853,7 @@ badge_compass_arrival (const map_node_t *n, const map_link_t *link)
     return -1;
   twin = link->compass_twin;
   twin_lk = find_dir_link (n, twin);
-  if (twin_lk != NULL && twin_lk->dst_anchor >= 0
+  if (twin_lk != nullptr && twin_lk->dst_anchor >= 0
       && compass_site (twin_lk->dst_anchor) >= 0)
     return twin_lk->dst_anchor;
   return compass_opposite (twin);
@@ -1865,7 +1865,7 @@ fix_far_compass_site (inout_badge_t *b, int dst_anchor, int arrival_dir)
 {
   int cs = compass_site (arrival_dir);
 
-  if (cs < 0 || b == NULL || !map_is_badge_dir (dst_anchor))
+  if (cs < 0 || b == nullptr || !map_is_badge_dir (dst_anchor))
     return;
   b->site[MAP_BADGE (dst_anchor)] = cs;
   b->site_fixed[MAP_BADGE (dst_anchor)] = 1;
@@ -1882,7 +1882,7 @@ try_compass_port (const map_node_t *n, int dir,
   const map_link_t *lk = find_dir_link (n, dir);
   int twin, cs;
 
-  if (lk == NULL || lk->dest == NULL || !lk->has_compass_twin)
+  if (lk == nullptr || lk->dest == nullptr || !lk->has_compass_twin)
     return;
   twin = lk->compass_twin;
   cs = compass_site (twin);
@@ -1959,7 +1959,7 @@ badge_mark (inout_badge_t *b, int dir, int edge, int far)
 static int
 node_has_badge_dir (const map_node_t *n, int dir)
 {
-  if (n == NULL || !map_is_badge_dir (dir))
+  if (n == nullptr || !map_is_badge_dir (dir))
     return 0;
   return n->has_badge[MAP_BADGE (dir)];
 }
@@ -1976,7 +1976,7 @@ arrival_badge_site (const inout_badge_t *b, const map_node_t *dn,
 
   if (!map_is_badge_dir (dst_anchor))
     return BADGE_NNE;
-  if (b != NULL && b->has[MAP_BADGE (dst_anchor)])
+  if (b != nullptr && b->has[MAP_BADGE (dst_anchor)])
     return b->site[MAP_BADGE (dst_anchor)];
   edge = inout_edge (dn, src);
   return (dst_anchor == DIR_IN || dst_anchor == DIR_OUT)
@@ -1988,7 +1988,7 @@ arrival_badge_site (const inout_badge_t *b, const map_node_t *dn,
 static inout_badge_t *
 inout_badge_buf (inout_badge_t *b, const map_page_t *page)
 {
-  if (b != NULL)
+  if (b != nullptr)
     return b;
   return (inout_badge_t *) calloc ((size_t) page->n_nodes,
                                    sizeof (inout_badge_t));
@@ -2006,7 +2006,7 @@ inout_badge_buf (inout_badge_t *b, const map_page_t *page)
 static inout_badge_t *
 inout_layout (const map_page_t *page, const map_view_t *view)
 {
-  inout_badge_t *b = NULL;
+  inout_badge_t *b = nullptr;
   int i, l;
 
   for (i = 0; i < page->n_nodes; i++)
@@ -2026,13 +2026,13 @@ inout_layout (const map_page_t *page, const map_view_t *view)
           if (!map_is_badge_dir (link->dir))
             continue;
           b = inout_badge_buf (b, page);
-          if (b == NULL)
-            return NULL;
+          if (b == nullptr)
+            return nullptr;
 
-          dn = (link->dest != NULL) ? page_node (page, link->dest) : NULL;
+          dn = (link->dest != nullptr) ? page_node (page, link->dest) : nullptr;
           badge_mark (&b[i], link->dir,
                       inout_edge (n, badge_face_node (page, n, link)), 0);
-          if (dn == NULL || !view_seen (view, dn->key))
+          if (dn == nullptr || !view_seen (view, dn->key))
             continue;
           dst_anchor = link->dst_anchor;
           /* Arrival badge if dest has that Movement (not duplex-only). */
@@ -2064,7 +2064,7 @@ inout_layout (const map_page_t *page, const map_view_t *view)
        * Up/Down Link as a U/D disc, an unseen one gets the same disc, and
        * Down comes along for symmetry.
        */
-      if (view != NULL && view->exit_dest != NULL)
+      if (view != nullptr && view->exit_dest != nullptr)
         {
           int di;
 
@@ -2075,18 +2075,18 @@ inout_layout (const map_page_t *page, const map_view_t *view)
 
               if (!node_has_badge_dir (n, dir))
                 continue;
-              if (find_dir_link (n, dir) != NULL)
+              if (find_dir_link (n, dir) != nullptr)
                 continue;       /* Link path above already recorded this */
-              if (b != NULL && b[i].has[MAP_BADGE (dir)])
+              if (b != nullptr && b[i].has[MAP_BADGE (dir)])
                 continue;       /* far badge from someone else's Link */
               dest = view->exit_dest (view->ctx, n->key, dir);
-              if (dest == NULL || dest[0] == '\0')
+              if (dest == nullptr || dest[0] == '\0')
                 continue;
               if (view_seen (view, dest))
                 continue;       /* seen dest needs a Link for a badge */
               b = inout_badge_buf (b, page);
-              if (b == NULL)
-                return NULL;
+              if (b == nullptr)
+                return nullptr;
               /*
                * Face the dest's map node even while unseen (RecalculateNodes
                * walks every node; GetLinkPoint on a reverse DestAnchor does
@@ -2097,7 +2097,7 @@ inout_layout (const map_page_t *page, const map_view_t *view)
             }
         }
     }
-  if (b != NULL)
+  if (b != nullptr)
     finalize_badge_sites (b, page);
   return b;
 }
@@ -2129,12 +2129,12 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
 
   if (link->badge)
     return;                     /* ADRIFT 4 Up/Down/In/Out: icons only */
-  if (link->dest == NULL)
+  if (link->dest == nullptr)
     return;
 
   /* Destination unseen or on another page: stub arrow only. */
   dn = page_node (rc->page, link->dest);
-  if (dn == NULL || !view_seen (rc->view, dn->key))
+  if (dn == nullptr || !view_seen (rc->view, dn->key))
     return;
 
   /*
@@ -2144,25 +2144,25 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
    * Map.vb's DashStyle.Dot path.
    */
   if (map_is_badge_dir (link->dir)
-      && rc->view != NULL && rc->view->exit_dest != NULL
-      && rc->view->exit_dest (rc->view->ctx, n->key, link->dir) == NULL)
+      && rc->view != nullptr && rc->view->exit_dest != nullptr
+      && rc->view->exit_dest (rc->view->ctx, n->key, link->dir) == nullptr)
     return;
 
   /*
    * Badge exit coincides with a compass exit: the compass connector
    * already draws the line; sit the badge on that port instead.
    */
-  if (rc->badges != NULL && map_is_badge_dir (link->dir)
+  if (rc->badges != nullptr && map_is_badge_dir (link->dir)
       && rc->badges[i].on_compass[MAP_BADGE (link->dir)])
     return;
 
   /* Nodes on a different level than the player's fade out (Map.vb:1436). */
   alpha = map_link_alpha;
-  if (rc->active != NULL && n->z != rc->active->z && dn->z != rc->active->z)
+  if (rc->active != nullptr && n->z != rc->active->z && dn->z != rc->active->z)
     alpha = map_link_alpha_far;
 
   dash = link->dotted;
-  if (link->dotted && rc->view != NULL && rc->view->ever_blocked != NULL)
+  if (link->dotted && rc->view != nullptr && rc->view->ever_blocked != nullptr)
     {
       /*
        * The ADRIFT 5 runner hides a restricted connector while its
@@ -2170,8 +2170,8 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
        * link north until the front door is opened (Map.vb:1429, the
        * DashStyle.Dot HasRouteInDirection gate)...
        */
-      if (rc->view->exit_dest == NULL
-          || rc->view->exit_dest (rc->view->ctx, n->key, link->dir) == NULL)
+      if (rc->view->exit_dest == nullptr
+          || rc->view->exit_dest (rc->view->ctx, n->key, link->dir) == nullptr)
         return;
       /*
        * ...and draws it solid until the player has actually been blocked
@@ -2193,7 +2193,7 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
    * so line_links keeps its own behaviour.
    */
   if (!rc->map->line_links
-      && n->key != NULL && strcmp (link->dest, n->key) == 0)
+      && n->key != nullptr && strcmp (link->dest, n->key) == 0)
     {
       if (link->dir == DIR_DOWN)
         return;
@@ -2212,7 +2212,7 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
    */
   if (map_is_badge_dir (link->dir))
     {
-      if (rc->badges == NULL)
+      if (rc->badges == nullptr)
         return;
       badge_site_point (rc->p, n, rc->badges[i].site[MAP_BADGE (link->dir)],
                         &x0, &y0);
@@ -2224,7 +2224,7 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
       int j = (int) (dn - rc->page->nodes);
       int site;
 
-      if (rc->badges == NULL)
+      if (rc->badges == nullptr)
         return;
       site = arrival_badge_site (&rc->badges[j], dn, n, dst_anchor);
       badge_site_point (rc->p, dn, site, &x3, &y3);
@@ -2233,7 +2233,7 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
     link_point (rc->p, dn, dst_anchor, &x3, &y3);
 
   dist = sqrt ((x3 - x0) * (x3 - x0) + (y3 - y0) * (y3 - y0));
-  if (!rc->map->line_links && link->n_mids > 0 && link->mids != NULL)
+  if (!rc->map->line_links && link->n_mids > 0 && link->mids != nullptr)
     {
       /*
        * Author-dragged <Anchor> midpoints: DrawCurve through start, mids,
@@ -2244,7 +2244,7 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
       double *pts = (double *) malloc ((size_t) np * 2 * sizeof (double));
       int mi;
 
-      if (pts == NULL)
+      if (pts == nullptr)
         return;
       pts[0] = x0;
       pts[1] = y0;
@@ -2359,7 +2359,7 @@ render_exit_stubs (const render_ctx_t *rc)
 {
   int i, d;
 
-  if (rc->view == NULL || rc->view->exit_dest == NULL)
+  if (rc->view == nullptr || rc->view->exit_dest == nullptr)
     return;
   for (i = 0; i < rc->page->n_nodes; i++)
     {
@@ -2375,7 +2375,7 @@ render_exit_stubs (const render_ctx_t *rc)
           if (map_is_badge_dir (d))
             continue;
           dest = rc->view->exit_dest (rc->view->ctx, n->key, d);
-          if (dest == NULL || dest[0] == '\0')
+          if (dest == nullptr || dest[0] == '\0')
             continue;
           if (view_seen (rc->view, dest))
             continue;
@@ -2404,7 +2404,7 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
 {
   const map_node_t *n = &rc->page->nodes[i];
   int x0, y0, x1, y1, alpha, is_player, is_far, k, l;
-  const map_link_t *bl[MAP_N_BADGES] = { NULL, NULL, NULL, NULL };
+  const map_link_t *bl[MAP_N_BADGES] = { nullptr, nullptr, nullptr, nullptr };
   unsigned int fill;
 
   if (!view_seen (rc->view, n->key))
@@ -2419,7 +2419,7 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
   if (x1 < 0 || y1 < 0 || x0 >= rc->dst->w || y0 >= rc->dst->h)
     return;               /* off-screen */
 
-  is_player = (player_key != NULL && n->key != NULL
+  is_player = (player_key != nullptr && n->key != nullptr
                && strcmp (n->key, player_key) == 0);
 
   /*
@@ -2427,7 +2427,7 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
    * elsewhere (Map.vb:1172-1194, which fades to 50).  The derived scheme
    * picked its label colours against the on-level blend.
    */
-  is_far = (!is_player && rc->active != NULL && n->z != rc->active->z);
+  is_far = (!is_player && rc->active != nullptr && n->z != rc->active->z);
   alpha = is_far ? MAP_FAR_ROOM_ALPHA : MAP_ROOM_FILL_ALPHA;
 
   fill = is_player ? map_here_fill : map_room_fill;
@@ -2436,11 +2436,11 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
              is_player ? map_here_stroke : map_room_stroke, alpha);
 
   /* Below MAP_SCALE_MIN a name would be a smudge across the box. */
-  if (rc->view != NULL && rc->view->name != NULL
+  if (rc->view != nullptr && rc->view->name != nullptr
       && rc->p->cam->scale >= MAP_SCALE_MIN)
     {
       const char *label = rc->view->name (rc->view->ctx, n->key);
-      if (label != NULL && label[0] != '\0')
+      if (label != nullptr && label[0] != '\0')
         draw_label (rc->dst, label, x0, y0, x1, y1,
                     is_player ? map_here_label : map_label,
                     is_far ? MAP_FAR_LABEL_ALPHA : 255);
@@ -2456,15 +2456,15 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
    * ADRIFT 4 leaves ever_blocked NULL, so its badges always show.  The
    * matching connector gate is in pass 1, render_link.
    */
-  if (rc->view != NULL && rc->view->ever_blocked != NULL
-      && rc->view->exit_dest != NULL)
+  if (rc->view != nullptr && rc->view->ever_blocked != nullptr
+      && rc->view->exit_dest != nullptr)
     {
       for (k = 0; k < MAP_N_BADGES; k++)
         {
           int dir = badge_order[k];
-          if (bl[MAP_BADGE (dir)] != NULL
-              && rc->view->exit_dest (rc->view->ctx, n->key, dir) == NULL)
-            bl[MAP_BADGE (dir)] = NULL;
+          if (bl[MAP_BADGE (dir)] != nullptr
+              && rc->view->exit_dest (rc->view->ctx, n->key, dir) == nullptr)
+            bl[MAP_BADGE (dir)] = nullptr;
         }
     }
   /*
@@ -2472,14 +2472,14 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
    * A5: opaque on the player's level; fades with the card off-level
    * (there is no second level on A4's flat map).
    */
-  if (rc->badges == NULL)
+  if (rc->badges == nullptr)
     {
       /* A3/A4: fixed sites (U NNE, D SSW, I WNW, O ESE). */
       for (k = 0; k < MAP_N_BADGES; k++)
         {
           int dir = badge_order[k];
           const map_link_t *lk = bl[MAP_BADGE (dir)];
-          if (lk != NULL)
+          if (lk != nullptr)
             draw_dir_icon_site (rc->dst, rc->p, n, dir,
                                 a4_badge_site[MAP_BADGE (dir)], 255,
                                 badge_dest_unseen (rc->view, lk));
@@ -2502,9 +2502,9 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
           int dir = badge_order[k];
           const map_link_t *lk = bl[MAP_BADGE (dir)];
           const inout_badge_t *x = &rc->badges[i];
-          if (lk != NULL || x->is_far[MAP_BADGE (dir)]
+          if (lk != nullptr || x->is_far[MAP_BADGE (dir)]
               || (x->has[MAP_BADGE (dir)]
-                  && find_dir_link (n, dir) == NULL))
+                  && find_dir_link (n, dir) == nullptr))
             draw_dir_icon_site (rc->dst, rc->p, n, dir,
                                 x->site[MAP_BADGE (dir)], badge_a, 0);
         }
@@ -2522,14 +2522,14 @@ map_render (const map_t *map, const map_view_t *view,
   proj_t p;
   int i, wd;
 
-  if (dst == NULL)
+  if (dst == nullptr)
     return;
   ensure_derived_palette ();
   fill_surface (dst, map_bg);
-  if (map == NULL || cam == NULL)
+  if (map == nullptr || cam == nullptr)
     return;
   page = page_by_key (map, cam->page);
-  if (page == NULL)
+  if (page == nullptr)
     return;
 
   proj_init (&p, cam, dst->w, dst->h);
@@ -2568,11 +2568,11 @@ map_hit (const map_t *map, const map_view_t *view,
   proj_t p;
   int i;
 
-  if (map == NULL || cam == NULL || w <= 0 || h <= 0)
-    return NULL;
+  if (map == nullptr || cam == nullptr || w <= 0 || h <= 0)
+    return nullptr;
   page = page_by_key (map, cam->page);
-  if (page == NULL)
-    return NULL;
+  if (page == nullptr)
+    return nullptr;
   proj_init (&p, cam, w, h);
 
   for (i = page->n_nodes - 1; i >= 0; i--)
@@ -2588,7 +2588,7 @@ map_hit (const map_t *map, const map_view_t *view,
       if (mx >= x0 && mx <= x1 && my >= y0 && my <= y1)
         return n->key;
     }
-  return NULL;
+  return nullptr;
 }
 
 int
@@ -2602,12 +2602,12 @@ map_hit_dir (const map_t *map, const map_view_t *view,
   proj_t p;
   int x0, y0, x1, y1, reach_x, reach_y, sx, sy, d;
 
-  if (map == NULL || view == NULL || view->exit_dest == NULL || cam == NULL
-      || player_key == NULL || w <= 0 || h <= 0)
+  if (map == nullptr || view == nullptr || view->exit_dest == nullptr
+      || cam == nullptr || player_key == nullptr || w <= 0 || h <= 0)
     return -1;
   page = page_by_key (map, cam->page);
   n = page_node (page, player_key);
-  if (n == NULL || n->hidden)
+  if (n == nullptr || n->hidden)
     return -1;                  /* no box to click around */
   proj_init (&p, cam, w, h);
 
@@ -2636,7 +2636,7 @@ map_hit_dir (const map_t *map, const map_view_t *view,
     return -1;
 
   dest = view->exit_dest (view->ctx, player_key, d);
-  return (dest != NULL && dest[0] != '\0') ? d : -1;
+  return (dest != nullptr && dest[0] != '\0') ? d : -1;
 }
 
 /*
@@ -2654,7 +2654,8 @@ map_walk_step (const map_view_t *view, const char *from, const char *to)
   std::map<std::string, int> via;      /* direction taken to reach the room */
   size_t head = 0;
 
-  if (view == NULL || view->exit_dest == NULL || from == NULL || to == NULL)
+  if (view == nullptr || view->exit_dest == nullptr
+      || from == nullptr || to == nullptr)
     return -1;
   if (strcmp (from, to) == 0)
     return -1;                  /* already there */
@@ -2672,7 +2673,7 @@ map_walk_step (const map_view_t *view, const char *from, const char *to)
         {
           const char *dest = view->exit_dest (view->ctx, u.c_str (), d);
 
-          if (dest == NULL || dest[0] == '\0')
+          if (dest == nullptr || dest[0] == '\0')
             continue;
           if (!view_seen (view, dest))
             continue;           /* the runner will not walk you through

@@ -52,7 +52,7 @@ void os_display_hints (scr_game game) { (void) game; }
    that reach a confirm at all want it to go through. */
 scr_bool os_confirm (scr_int type) { (void) type; return 1; }
 
-void *os_open_file (scr_bool is_save) { (void) is_save; return NULL; }
+void *os_open_file (scr_bool is_save) { (void) is_save; return nullptr; }
 void os_write_file (void *opaque, const scr_byte *buffer, scr_int length)
 { (void) opaque; (void) buffer; (void) length; }
 scr_int os_read_file (void *opaque, scr_byte *buffer, scr_int length)

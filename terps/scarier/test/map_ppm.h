@@ -37,7 +37,7 @@ map_write_ppm (const map_surface_t *surf, const char *path)
   FILE *f = fopen (path, "wb");
   int i;
 
-  if (f == NULL)
+  if (f == nullptr)
     return 0;
   fprintf (f, "P6\n%d %d\n255\n", surf->w, surf->h);
   for (i = 0; i < surf->w * surf->h; i++)

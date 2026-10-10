@@ -42,7 +42,7 @@
 static inline int
 streq (const char *a, const char *b)
 {
-  return a != NULL && b != NULL && strcmp (a, b) == 0;
+  return a != nullptr && b != nullptr && strcmp (a, b) == 0;
 }
 
 /* LCase(): the Adrift 5 runner lowercases input, keys and match text alike. */

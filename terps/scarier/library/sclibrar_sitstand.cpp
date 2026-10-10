@@ -314,8 +314,8 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
         scr_bool is_ambiguous;
 
         /* Initialize variables to avoid gcc warnings. */
-        disambiguate = NULL;
-        cant_do_that = NULL;
+        disambiguate = nullptr;
+        cant_do_that = nullptr;
 
         /* Set disambiguation and not amenable messages. */
         switch (movement)
@@ -333,7 +333,7 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
              * Same branch, no refusal of its own -- see lib_cmd_get_on_object.
              */
             disambiguate = "stand on";
-            cant_do_that = NULL;
+            cant_do_that = nullptr;
             movement_mask = OBJ_STANDABLE_MASK;
             break;
           case MOVE_SIT:
@@ -517,7 +517,7 @@ lib_floor_named (void)
   const scr_char *line = run_get_dispatch_input ();
 
   if (line && (lib_co_contains (line, "on") || lib_co_contains (line, "in")))
-    SCR_DEVIATION ("floor_named", NULL);
+    SCR_DEVIATION ("floor_named", nullptr);
   return FALSE
          && line && (lib_co_contains (line, "on")
                      || lib_co_contains (line, "in"));
@@ -855,14 +855,14 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
                        std::string *rest)
 {
   static const scr_char *const LEFT_ALONE[] = {
-    "get", "take", "pick", "drop", "leave", NULL
+    "get", "take", "pick", "drop", "leave", nullptr
   };
   static const scr_char *const EXAMINES[] = {
-    "x", "examine", "look at", "ex", "exam", "read", NULL
+    "x", "examine", "look at", "ex", "exam", "read", nullptr
   };
   static const scr_char *const PROFANITY[] = {
     "shit", "fuck", "bastard", "cunt", "crap", "hell", "shag", "bollocks",
-    "bollox", "piss", NULL
+    "bollox", "piss", nullptr
   };
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
@@ -884,7 +884,7 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
    */
   {
     static const scr_char *const SPEECH[] = {
-      "ask", "say", "tell", "talk", "shout", "yell", NULL
+      "ask", "say", "tell", "talk", "shout", "yell", nullptr
     };
 
     for (word = SPEECH; *word; word++)
@@ -898,7 +898,7 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
                 || lib_co_contains (line, "lie")
                 || (taf_version >= TAF_VERSION_400
                     && lib_co_contains (line, "lay")))
-              SCR_DEVIATION ("sitstand_speech", NULL);
+              SCR_DEVIATION ("sitstand_speech", nullptr);
             return FALSE;
           }
       }
@@ -939,9 +939,9 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
   if (blocks == 1)
     {
       static const scr_char *const VERBS[] = {
-        "sit", "stand", "lie", "lay", NULL
+        "sit", "stand", "lie", "lay", nullptr
       };
-      const scr_char *rest_ = NULL;
+      const scr_char *rest_ = nullptr;
 
       for (word = VERBS; *word && !rest_; word++)
         {
@@ -1062,7 +1062,7 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
 static const scr_char *
 lib_openclose_word (const scr_char *line, const scr_char **word_out)
 {
-  static const scr_char *const WORDS[] = { "open", "close", NULL };
+  static const scr_char *const WORDS[] = { "open", "close", nullptr };
   const scr_char *scan;
 
   for (scan = line; *scan != NUL; scan++)
@@ -1083,7 +1083,7 @@ lib_openclose_word (const scr_char *line, const scr_char **word_out)
             }
         }
     }
-  return NULL;
+  return nullptr;
 }
 
 
@@ -1153,19 +1153,19 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
    */
   static const scr_char *const LEFT_ALONE[] = {
     "get", "take", "pick", "drop", "put", "leave", "i", "inv", "inventory",
-    NULL
+    nullptr
   };
   static const scr_char *const EXAMINES[] = {
-    "examine", "look at", "read", NULL
+    "examine", "look at", "read", nullptr
   };
   static const scr_char *const EXAMINE_HEADS_400[] = {
-    "x", "ex", "exam", NULL
+    "x", "ex", "exam", nullptr
   };
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *line = run_get_dispatch_input ();
   const scr_char *const *word;
-  const scr_char *at, *hit = NULL, *cut_at, *cut_hit = NULL;
+  const scr_char *at, *hit = nullptr, *cut_at, *cut_hit = nullptr;
   scr_bool speaks;
   scr_int object;
 
@@ -1192,11 +1192,11 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
   const std::string masked = lib_mask_long_names (game, typed);
   const scr_char *const words = masked.c_str ();
   {
-    const scr_char *masked_hit = NULL;
+    const scr_char *masked_hit = nullptr;
 
     if (!lib_openclose_word (words, &masked_hit))
       {
-        const scr_char *typed_hit = NULL;
+        const scr_char *typed_hit = nullptr;
 
         if (SCR_TRACING_DEVIATIONS () && lib_openclose_word (typed, &typed_hit))
           SCR_DEVIATION ("mask_openclose", "masked=\"%s\"", words);
@@ -1317,18 +1317,18 @@ scr_bool
 lib_whereis_anywhere (scr_gameref_t game, lib_line_runner_t run_line)
 {
   static const scr_char *const WORDS[] = {
-    "where", "find", "locate", NULL
+    "where", "find", "locate", nullptr
   };
   static const scr_char *const LEFT_ALONE[] = {
     "get", "take", "pick", "drop", "put", "leave", "i", "inv", "inventory",
     "wear", "remove", "sit", "stand", "lie", "wait", "examine", "look at",
     "look in", "look", "l", "x", "ex", "exam", "read", "ask", "talk to",
-    "goto", "go to", "go", "open", "close", "score", NULL
+    "goto", "go to", "go", "open", "close", "score", nullptr
   };
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *line = run_get_dispatch_input ();
   const scr_char *const *word;
-  const scr_char *scan, *at = NULL;
+  const scr_char *scan, *at = nullptr;
 
   if (!line || !run_line || game->pending_endgame != 0)
     return FALSE;
@@ -1393,7 +1393,7 @@ lib_cmd_get_off_object (scr_gameref_t game)
     {
       const scr_filterref_t filter = gs_get_filter (game);
       const scr_char *line = run_get_dispatch_input ();
-      const scr_char *rest = line ? strstr (line, " off ") : NULL;
+      const scr_char *rest = line ? strstr (line, " off ") : nullptr;
       const size_t mark = pf_buffer_length (filter);
       scr_int held_before, held_after;
       scr_bool taken;

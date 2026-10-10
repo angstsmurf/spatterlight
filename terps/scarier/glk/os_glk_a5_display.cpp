@@ -41,7 +41,7 @@ gsc_a5_draw_image (winid_t win, glui32 number)
   glui32 width = 0, height = 0;
   strid_t str;
 
-  if (!gsc_a5_graphics_ok || number == 0 || win == NULL)
+  if (!gsc_a5_graphics_ok || number == 0 || win == nullptr)
     return FALSE;
   if (!glk_image_get_info (number, &width, &height))
     return FALSE;
@@ -107,7 +107,7 @@ gsc_a5_span_style (int center_depth, int right_depth,
 winid_t
 gsc_a5_open_side_window (void)
 {
-  if (gsc_a5_side_window == NULL)
+  if (gsc_a5_side_window == nullptr)
     {
       gsc_a5_side_window = glk_window_open (gsc_main_window,
                                             winmethod_Right
@@ -220,7 +220,7 @@ gsc_a5_display (const char *text)
   const int saved_pauses = gsc_a5_popup_context != GSC_A5_POPUP_ELSEWHERE;
   int silent = saved_pauses && gsc_a5_waitkey_skip > 0;
 
-  if (text == NULL)
+  if (text == nullptr)
     return;
 
   glk_set_window (gsc_main_window);
@@ -228,7 +228,7 @@ gsc_a5_display (const char *text)
 
   while (TRUE)
     {
-      if (*p != '\0' && strchr (GSC_A5_DISPLAY_MARKS, *p) == NULL)
+      if (*p != '\0' && strchr (GSC_A5_DISPLAY_MARKS, *p) == nullptr)
         {
           p++;
           continue;
@@ -266,11 +266,11 @@ gsc_a5_display (const char *text)
           const char *e = strchr (p + 1, A5_WINDOW_MARK);
           winid_t w = gsc_a5_open_side_window ();
 
-          cur_window = w != NULL ? w : gsc_main_window;
+          cur_window = w != nullptr ? w : gsc_main_window;
           glk_set_window (cur_window);
           gsc_colour_apply (cur_window,
                             gsc_a5_colour_top (colour_stack, colour_depth));
-          if (e != NULL)
+          if (e != nullptr)
             p = e;
         }
       else if (*p == A5_ENDWINDOW_MARK)
@@ -348,7 +348,7 @@ gsc_a5_display (const char *text)
              no colour of its own. */
           const char *e = strchr (p + 1, A5_COLOUR_MARK);
 
-          if (e != NULL)
+          if (e != nullptr)
             {
               char token[32];
               size_t n = (size_t) (e - (p + 1));
@@ -443,7 +443,7 @@ gsc_a5_display (const char *text)
              Death Shack's letter-at-a-time title cards play out in real
              time (an empty or unparsable argument pauses not at all). */
           const char *e = strchr (p + 1, A5_WAIT_MARK);
-          if (e != NULL)
+          if (e != nullptr)
             {
               char arg[16];
               size_t n = (size_t) (e - (p + 1));
@@ -463,14 +463,14 @@ gsc_a5_display (const char *text)
              sting cued ahead of a keypress-paced cutscene starts immediately
              (Pervert Action Crisis' maid encounter). */
           const char *e = strchr (p + 1, A5_SOUND_MARK);
-          if (e != NULL)
+          if (e != nullptr)
             {
               /* Passed in silence, a sound is on its restored channel
                  already (or was stopped there); it is still marked as dealt
                  with, to keep the after-the-turn sweep off it. */
-              if (gsc_a5_run != NULL && silent)
+              if (gsc_a5_run != nullptr && silent)
                 a5run_media_note_shown (gsc_a5_run, (int) atol (p + 1));
-              else if (gsc_a5_run != NULL)
+              else if (gsc_a5_run != nullptr)
                 gsc_a5_media_fire (gsc_a5_run, (int) atol (p + 1));
               p = e;
             }
@@ -479,7 +479,7 @@ gsc_a5_display (const char *text)
         {
           /* Image slot: \006<Blorb resource number>\006. */
           const char *e = strchr (p + 1, A5_IMG_MARK);
-          if (e != NULL)
+          if (e != nullptr)
             {
               if (!silent)
                 gsc_a5_draw_image (cur_window, (glui32) atol (p + 1));
@@ -516,7 +516,7 @@ static void
 gsc_a5_sound_event (const a5_media_event_t *m)
 {
   int ch = m->channel;
-  int trace = getenv ("A5_TRACE_MEDIA") != NULL;
+  int trace = getenv ("A5_TRACE_MEDIA") != nullptr;
 
   if (!gsc_a5_sound_ok)
     {
@@ -534,9 +534,9 @@ gsc_a5_sound_event (const a5_media_event_t *m)
                  m->kind, ch);
       return;
     }
-  if (gsc_a5_channels[ch] == NULL)
+  if (gsc_a5_channels[ch] == nullptr)
     gsc_a5_channels[ch] = glk_schannel_create ((glui32) ch);
-  if (gsc_a5_channels[ch] == NULL)
+  if (gsc_a5_channels[ch] == nullptr)
     return;
   if (m->kind == A5_MEDIA_SOUND_STOP)
     {
@@ -609,7 +609,7 @@ gsc_a5_media_fire (a5_run_t *run, int idx)
 {
   const a5_media_event_t *m = a5run_media_get (run, idx);
 
-  if (m == NULL || m->kind == A5_MEDIA_IMAGE)
+  if (m == nullptr || m->kind == A5_MEDIA_IMAGE)
     return;
   gsc_a5_sound_event (m);
   a5run_media_note_shown (run, idx);
@@ -643,7 +643,7 @@ int
 gsc_a5_show_media (a5_run_t *run)
 {
   int n = a5run_media_count (run), i, j, images = 0;
-  int trace = getenv ("A5_TRACE_MEDIA") != NULL;
+  int trace = getenv ("A5_TRACE_MEDIA") != nullptr;
 
   for (i = 0; i < n; i++)
     {
@@ -702,7 +702,7 @@ gsc_a5_undo_look (a5_run_t *run)
 {
   char *look = a5run_look (run);
 
-  if (look != NULL && look[0] != '\0')
+  if (look != nullptr && look[0] != '\0')
     {
       gsc_a5_put_string ("\n");
       gsc_a5_display (look);
@@ -727,13 +727,13 @@ gsc_a5_show_cover (void)
   if (!gsc_a5_graphics_ok)
     return;
   map = giblorb_get_resource_map ();
-  if (map == NULL)
+  if (map == nullptr)
     return;
   if (giblorb_load_chunk_by_type (map, giblorb_method_Memory, &chunk,
                                   giblorb_make_id ('F', 's', 'p', 'c'), 0)
       != giblorb_err_None)
     return;
-  if (chunk.length >= 4 && chunk.data.ptr != NULL)
+  if (chunk.length >= 4 && chunk.data.ptr != nullptr)
     {
       p = (const unsigned char *) chunk.data.ptr;
       gsc_a5_draw_image (gsc_main_window,

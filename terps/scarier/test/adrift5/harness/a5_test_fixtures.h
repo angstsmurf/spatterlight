@@ -63,13 +63,13 @@ a5_test_build_adventure (const char *xml, const char *tag)
   memcpy (buf, xml, len + 1);
 
   a5_xml_doc_t *doc = a5xml_parse (buf, len);
-  if (doc == NULL)
+  if (doc == nullptr)
     {
       printf ("%s: XML parse failed\n", tag);
-      return NULL;
+      return nullptr;
     }
   a5_adventure_t *adv = a5model_from_doc (doc);
-  if (adv == NULL)
+  if (adv == nullptr)
     printf ("%s: model build failed\n", tag);
   return adv;
 }

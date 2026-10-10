@@ -117,7 +117,7 @@ extern scr_int lib_examine_npc_overwrite_400 (scr_gameref_t game);
 extern scr_bool lib_task_prematches_line (scr_gameref_t game,
                                           const scr_char *input,
                                           scr_int class_filter,
-                                          scr_int *match_kind = NULL);
+                                          scr_int *match_kind = nullptr);
 extern scr_bool lib_rebuilt_raw_dispatch;
 extern scr_bool lib_rebuilt_silent_continues;
 extern scr_bool lib_rebuilt_fallback_typed;

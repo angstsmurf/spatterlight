@@ -34,7 +34,7 @@
 static const char *
 nz (const char *s)
 {
-  return s != NULL ? s : "(none)";
+  return s != nullptr ? s : "(none)";
 }
 
 /* Print up to `limit` chars of text on one line, escaping newlines. */
@@ -42,7 +42,7 @@ static void
 print_snippet (const char *s, int limit)
 {
   int i;
-  if (s == NULL)
+  if (s == nullptr)
     {
       printf ("(none)");
       return;
@@ -67,9 +67,9 @@ dump_props (const a5_prop_t *props, int n)
   for (i = 0; i < n; i++)
     {
       printf ("      %s", nz (props[i].key));
-      if (props[i].value != NULL)
+      if (props[i].value != nullptr)
         printf (" = %s", props[i].value);
-      else if (props[i].value_node != NULL)
+      else if (props[i].value_node != nullptr)
         printf (" = <text>");
       else
         printf (" (flag)");
@@ -90,7 +90,7 @@ main (int argc, char **argv)
     }
 
   a = a5model_load (argv[1]);
-  if (a == NULL)
+  if (a == nullptr)
     {
       fprintf (stderr, "a5model_dump: failed to load %s\n", argv[1]);
       return 1;
@@ -182,7 +182,7 @@ main (int argc, char **argv)
   printf ("\n=== Player sanity ===\n");
   {
     const a5_character_t *p = a5model_character (a, "Player");
-    if (p != NULL)
+    if (p != nullptr)
       {
         const a5_prop_t *loc = a5_prop_find (p->props, p->n_props,
                                              "CharacterAtLocation");

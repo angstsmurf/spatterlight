@@ -136,7 +136,7 @@ system_command (a5_run_t *run, const std::string &in, sb_t *out)
 void
 not_understood (a5_run_t *run, const std::string &in, sb_t *out)
 {
-  if (run->known_words == NULL)
+  if (run->known_words == nullptr)
     build_known_words (run);
 
   for (auto &w : split_ws (in.c_str ()))
@@ -172,7 +172,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
             continue;
           const char *cmd0 = t->commands[0];
           /* arlCommands(0) must contain the verb and be a multi-word pattern. */
-          if (strstr (cmd0, in.c_str ()) == NULL || strchr (cmd0, ' ') == NULL)
+          if (strstr (cmd0, in.c_str ()) == nullptr || strchr (cmd0, ' ') == nullptr)
             continue;
           std::string norm = cmd0;          /* normalise bare singular refs */
           static const char *bare[] = { "%object%", "%character%", "%direction%",
@@ -183,7 +183,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
             { size_t p; const std::string from = bare[b], to = num[b];
               while ((p = norm.find (from)) != std::string::npos)
                 norm.replace (p, from.size (), to); }
-          const char *q = NULL;
+          const char *q = nullptr;
           if (norm.find ("%object") != std::string::npos)
             q = "what?";
           else if (norm.find ("%character") != std::string::npos)
@@ -248,7 +248,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
     for (int oi = 0; oi < st->adv->n_objects; oi++)
       {
         const a5_object_t *o = &st->adv->objects[oi];
-        if (st->obj_seen == NULL || !st->obj_seen[oi]
+        if (st->obj_seen == nullptr || !st->obj_seen[oi]
             || !obj_in_scope (st, o->key))
           continue;
         std::vector<std::string> nouns;
@@ -274,7 +274,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
         std::vector<std::string> nouns;
         for (int d = 0; d < c->n_descriptors; d++)
           nouns.push_back (lower (c->descriptors[d]));
-        if (char_name_usable (st, c) && c->name != NULL)
+        if (char_name_usable (st, c) && c->name != nullptr)
           nouns.push_back (lower (c->name));
         if (noun_substr (nouns))
           {
@@ -354,7 +354,7 @@ grab_it (a5_run_t *run, const std::string &in)
   std::vector<char> ovis ((size_t) st->adv->n_objects);
   std::vector<char> cvis ((size_t) st->adv->n_characters);
   for (int i = 0; i < st->adv->n_objects; i++)
-    ovis[(size_t) i] = ploc != NULL
+    ovis[(size_t) i] = ploc != nullptr
       && a5state_object_visible_at_location (st, i, ploc, 0);
   for (int i = 0; i < st->adv->n_characters; i++)
     cvis[(size_t) i] = a5state_character_at_location (st, i, ploc);
@@ -369,10 +369,10 @@ grab_it (a5_run_t *run, const std::string &in)
           int inscope = (scope == 0)
             ? ovis[(size_t) oi]
             : (!ovis[(size_t) oi]
-               && st->obj_seen != NULL && st->obj_seen[oi]);
+               && st->obj_seen != nullptr && st->obj_seen[oi]);
           if (!inscope)
             continue;
-          int is_plural = (o->article != NULL && lower (o->article) == "some");
+          int is_plural = (o->article != nullptr && lower (o->article) == "some");
           for (int n = 0; n < o->n_names; n++)
             if (has_word (lower (o->names[n])))
               {
@@ -386,11 +386,11 @@ grab_it (a5_run_t *run, const std::string &in)
           int inscope = (scope == 0)
             ? cvis[(size_t) ci]
             : (!cvis[(size_t) ci]
-               && st->char_seen != NULL && st->char_seen[ci]);
+               && st->char_seen != nullptr && st->char_seen[ci]);
           if (!inscope)
             continue;
           int matched = 0;
-          if (c->name != NULL && has_word (lower (c->name)))
+          if (c->name != nullptr && has_word (lower (c->name)))
             matched = 1;
           /* The runner compares descriptors CASE-SENSITIVELY against the lowercased
              input (GrabIt: `If sWord = sName` -- only ProperName gets a
@@ -403,9 +403,9 @@ grab_it (a5_run_t *run, const std::string &in)
           if (!matched)
             continue;
           const char *g = a5state_entity_prop (st, c->key, "Gender");
-          if (g != NULL && lower (g) == "male")
+          if (g != nullptr && lower (g) == "male")
             add_uniq (him_keys, c->key);
-          else if (g != NULL && lower (g) == "female")
+          else if (g != nullptr && lower (g) == "female")
             add_uniq (her_keys, c->key);
           else
             add_uniq (it_keys, c->key);
@@ -423,19 +423,19 @@ grab_it (a5_run_t *run, const std::string &in)
           if (!cl.out->empty ())
             continue;
           std::vector<const char *> *ks = cl.keys;
-          const char *chosen = NULL;
+          const char *chosen = nullptr;
           if (ks->size () == 1)
             chosen = (*ks)[0];
           else if (ks->size () > 1)
             {
               /* Second pass: keep candidates whose prefix word is in the input. */
-              const char *only = NULL;
+              const char *only = nullptr;
               int n = 0;
               for (auto *k : *ks)
                 {
                   const a5_object_t *o = a5model_object (st->adv, k);
                   const a5_character_t *c = a5model_character (st->adv, k);
-                  const char *prefix = o ? o->prefix : (c ? c->prefix : NULL);
+                  const char *prefix = o ? o->prefix : (c ? c->prefix : nullptr);
                   int hit = 0;
                   for (auto &pw : split_ws (prefix))
                     if (has_word (lower (pw))) { hit = 1; break; }
@@ -444,7 +444,7 @@ grab_it (a5_run_t *run, const std::string &in)
               if (n == 1)
                 chosen = only;
             }
-          if (chosen != NULL)
+          if (chosen != nullptr)
             {
               const a5_object_t *o = a5model_object (st->adv, chosen);
               const a5_character_t *c = a5model_character (st->adv, chosen);
@@ -483,7 +483,7 @@ resolve_pronouns (a5_run_t *run, std::string &in, sb_t *out)
     { "her",  st->s_her },
   };
   for (auto &p : pr)
-    if (conv_contains_word (in, p.word) && p.val != NULL && p.val[0])
+    if (conv_contains_word (in, p.word) && p.val != nullptr && p.val[0])
       {
         sb_puts (out, "(");
         sb_puts (out, p.val);
@@ -507,11 +507,11 @@ resolve_synonyms (a5_run_t *run, std::string &in)
   for (i = 0; i < adv->n_synonyms; i++)
     {
       const a5_synonym_t *syn = &adv->synonyms[i];
-      if (syn->to == NULL)
+      if (syn->to == nullptr)
         continue;
       for (j = 0; j < syn->n_from; j++)
         {
-          if (syn->from[j] == NULL)
+          if (syn->from[j] == nullptr)
             continue;
           std::string from = lower (syn->from[j]);
           if (conv_contains_word (in, from))

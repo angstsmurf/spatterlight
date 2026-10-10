@@ -95,7 +95,7 @@ run_update_status (scr_gameref_t game)
     }
   else
     /* No status line, so use NULL. */
-    filtered = NULL;
+    filtered = nullptr;
 
   /* Save this status text; the owning pointer frees any existing line. */
   game->status_line.reset (filtered);
@@ -244,7 +244,7 @@ static void
 run_session_set_pronouns (scr_gameref_t game, scr_gameref_t target,
                           const std::string &text)
 {
-  const std::vector<scr_int> values (run_session_split (text, 6, NULL));
+  const std::vector<scr_int> values (run_session_split (text, 6, nullptr));
   const scr_int npcs = gs_npc_count (game);
   scr_int index_;
 
@@ -356,7 +356,7 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
         return FALSE;
 
       const std::vector<scr_int> numbers
-          (run_session_split (value, (size_t) -1, NULL));
+          (run_session_split (value, (size_t) -1, nullptr));
 
       if (key == "name")
         {
@@ -431,9 +431,9 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
   if (has_which || has_offered)
     {
       std::vector<scr_int> candidates
-          (run_session_split (which_candidates, (size_t) -1, NULL));
+          (run_session_split (which_candidates, (size_t) -1, nullptr));
       std::vector<scr_int> offered
-          (run_session_split (which_offered, (size_t) -1, NULL));
+          (run_session_split (which_offered, (size_t) -1, nullptr));
       scr_bool valid = TRUE;
 
       for (scr_int candidate : candidates)
@@ -931,7 +931,8 @@ run_main_loop (scr_gameref_t game)
        */
 #ifdef SCARIER_DUMP_TOOLS
       {
-        static const scr_bool trace_admin = getenv ("SCR_TRACE_ADMIN") != NULL;
+        static const scr_bool trace_admin
+          = getenv ("SCR_TRACE_ADMIN") != nullptr;
         if (trace_admin && status && game->is_admin)
           fprintf (stderr, "ADMIN turn=%ld after [%s]\n", game->turns,
                    run_trace_last_input.c_str ());
@@ -1331,16 +1332,17 @@ scr_gameref_t
 run_create (scr_read_callbackref_t callback, void *opaque)
 {
   scr_tafref_t taf;
-  scr_prop_setref_t bundle = NULL;
-  scr_var_setref_t vars = NULL, temporary_vars = NULL, undo_vars = NULL;
-  scr_filterref_t filter = NULL;
-  scr_gameref_t game = NULL, temporary_game = NULL, undo_game = NULL;
+  scr_prop_setref_t bundle = nullptr;
+  scr_var_setref_t vars = nullptr, temporary_vars = nullptr,
+                   undo_vars = nullptr;
+  scr_filterref_t filter = nullptr;
+  scr_gameref_t game = nullptr, temporary_game = nullptr, undo_game = nullptr;
   assert (callback);
 
   /* Create a new TAF using the callback; return NULL if this fails. */
   taf = taf_create (callback, opaque);
   if (!taf)
-    return NULL;
+    return nullptr;
   else if (if_get_trace_flag (SCR_DUMP_TAF))
     taf_debug_dump (taf);
   restr_cache_reset ();
@@ -1360,7 +1362,7 @@ run_create (scr_read_callbackref_t callback, void *opaque)
         {
           scr_error ("run_create: error parsing game data\n");
           taf_destroy (taf);
-          return NULL;
+          return nullptr;
         }
       else if (if_get_trace_flag (SCR_DUMP_PROPERTIES))
         prop_debug_dump (bundle);
@@ -1836,7 +1838,7 @@ run_restore_prompted (scr_gameref_t game)
 {
   assert (gs_is_game_valid (game));
 
-  return run_restore_common (game, NULL, NULL);
+  return run_restore_common (game, nullptr, nullptr);
 }
 
 
@@ -1876,7 +1878,7 @@ run_undo (scr_gameref_t game)
    * If there is no undo buffer, try to restore one saved previously in a
    * memo.  Handle as if restoring from a file.
    */
-  if (memo_load_game (memento, game, NULL))
+  if (memo_load_game (memento, game, nullptr))
     {
       /* Loading a game clears is_running -- restore it here. */
       game->is_running = is_running;
@@ -2019,7 +2021,7 @@ run_get_attributes (scr_gameref_t game,
           *preferred_font = prop_get_string (bundle, "S<-s", vt_key);
         }
       else
-        *preferred_font = NULL;
+        *preferred_font = nullptr;
     }
 
   /* Return any other selected game attributes. */
@@ -2081,7 +2083,7 @@ run_hint_iterate (scr_gameref_t game, scr_hintref_t hint)
       if (task < 0 || task >= gs_task_count (game))
         {
           scr_error ("run_hint_iterate: invalid iteration hint\n");
-          return NULL;
+          return nullptr;
         }
 
       /* Advance beyond current task. */
@@ -2096,7 +2098,7 @@ run_hint_iterate (scr_gameref_t game, scr_hintref_t hint)
     }
 
   /* Return a pointer to the state of the task identified, or NULL. */
-  return task < gs_task_count (game) ? &game->tasks[task] : NULL;
+  return task < gs_task_count (game) ? &game->tasks[task] : nullptr;
 }
 
 
@@ -2128,12 +2130,12 @@ run_get_hint_common (scr_gameref_t game, scr_hintref_t hint,
   if (task < 0 || task >= gs_task_count (game))
     {
       scr_error ("run_get_hint_common: invalid iteration hint\n");
-      return NULL;
+      return nullptr;
     }
   else if (!task_has_hints (game, task))
     {
       scr_error ("run_get_hint_common: task has no hint\n");
-      return NULL;
+      return nullptr;
     }
 
   /* Get the required game text by calling the given handler function. */

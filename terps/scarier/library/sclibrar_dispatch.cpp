@@ -613,7 +613,7 @@ lib_try_game_command_short (scr_gameref_t game,
                             const scr_char *verb, scr_int object)
 {
   return lib_try_game_command_common (game, verb, object,
-                                      NULL, -1, FALSE, FALSE, TRUE);
+                                      nullptr, -1, FALSE, FALSE, TRUE);
 }
 
 /*
@@ -630,7 +630,7 @@ lib_try_game_command_short_canonical (scr_gameref_t game,
                                       const scr_char *verb, scr_int object)
 {
   return lib_try_game_command_common (game, verb, object,
-                                      NULL, -1, FALSE, FALSE, FALSE);
+                                      nullptr, -1, FALSE, FALSE, FALSE);
 }
 
 /*
@@ -672,7 +672,7 @@ lib_try_game_command_short_definite (scr_gameref_t game,
 
   run_set_task_class_filter (2);
   status = lib_try_game_command_common (game, verb, object,
-                                        NULL, -1, FALSE, FALSE, FALSE, TRUE);
+                                        nullptr, -1, FALSE, FALSE, FALSE, TRUE);
 
   /*
    * Any of the object's names can fill the noun slot, not just its Short.
@@ -737,8 +737,8 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
                                           gs_object_parent (game, object),
                                           TRUE, FALSE, FALSE, TRUE);
   else
-    status = lib_try_game_command_common (game, "get", object,
-                                          NULL, -1, FALSE, FALSE, FALSE, TRUE);
+    status = lib_try_game_command_common (game, "get", object, nullptr, -1,
+                                          FALSE, FALSE, FALSE, TRUE);
   lib_rebuilt_silent_continues = FALSE;
   lib_rebuilt_raw_dispatch = FALSE;
   run_set_task_class_filter (0);

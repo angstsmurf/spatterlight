@@ -52,10 +52,10 @@ expect (const char *pat, const char *in, int want_match,
       failures++;
       return;
     }
-  if (got && ref != NULL)
+  if (got && ref != nullptr)
     {
       const char *v = a5parse_ref (&m, ref);
-      if (v == NULL || strcmp (v, want_val) != 0)
+      if (v == nullptr || strcmp (v, want_val) != 0)
         {
           printf ("FAIL ref:   \"%s\" vs \"%s\" [%s]=\"%s\" (want \"%s\")\n",
                   pat, in, ref, v ? v : "(null)", want_val);
@@ -68,7 +68,7 @@ static void
 expect_dir (const char *text, const char *want)
 {
   const char *got = a5parse_canonical_direction (text);
-  int ok = (want == NULL) ? (got == NULL) : (got != NULL && strcmp (got, want) == 0);
+  int ok = (want == nullptr) ? (got == nullptr) : (got != nullptr && strcmp (got, want) == 0);
   if (!ok)
     {
       printf ("FAIL dir:   \"%s\" -> %s (want %s)\n", text,
@@ -85,7 +85,7 @@ main (void)
           "take gun from table", 1, "objects", "gun");
   expect ("[get/take/pick up/remove] %objects% from %object2%",
           "take gun from table", 1, "object2", "table");
-  expect ("[get/take/pick up/remove] %objects% from %object2%", "x gun", 0, NULL, NULL);
+  expect ("[get/take/pick up/remove] %objects% from %object2%", "x gun", 0, nullptr, nullptr);
 
   /* Nested optional groups. */
   expect ("[examine/exam/ex/x/look {at/in{side}/under}] %object%", "x gun", 1, "object1", "gun");
@@ -101,33 +101,33 @@ main (void)
      mirror that with std::regex_search (not regex_match).  Regression guard for
      SoC "put fork on box" matching the game's own task, not the generic put. */
   expect ("[place/hold/put] {the {crystal}} [fork] on/against {the {crystal}} [box]",
-          "put fork on box", 1, NULL, NULL);
+          "put fork on box", 1, nullptr, nullptr);
   expect ("[place/hold/put] {the {crystal}} [fork] on/against {the {crystal}} [box]",
-          "put fork against box", 1, NULL, NULL);
+          "put fork against box", 1, nullptr, nullptr);
   expect ("[place/hold/put] {the {crystal}} [fork] on/against {the {crystal}} [box]",
-          "place fork on box", 1, NULL, NULL);
+          "place fork on box", 1, nullptr, nullptr);
 
   /* The bare-direction edge case (optional prefix collapses to empty). */
   expect ("{[go/walk/move/run] {to {the}}} %direction%", "se", 1, "direction1", "se");
   expect ("{[go/walk/move/run] {to {the}}} %direction%",
           "go to the north", 1, "direction1", "north");
-  expect ("{[go/walk/move/run] {to {the}}} %direction%", "xyzzy", 0, NULL, NULL);
+  expect ("{[go/walk/move/run] {to {the}}} %direction%", "xyzzy", 0, nullptr, nullptr);
 
   /* Singular reference normalisation (%object% -> %object1%) and plain verbs. */
   expect ("drink %object%", "drink potion", 1, "object1", "potion");
   expect ("say %text%", "say borantha", 1, "text1", "borantha");
-  expect ("Take the money", "take the money", 1, NULL, NULL);
+  expect ("Take the money", "take the money", 1, nullptr, nullptr);
   expect ("open %object%", "open door", 1, "object1", "door");
 
   /* A leading '#' marks a disabled command. */
-  expect ("# Unlock %object1% with %object2% ", "unlock door with key", 0, NULL, NULL);
+  expect ("# Unlock %object1% with %object2% ", "unlock door with key", 0, nullptr, nullptr);
 
   /* Direction canonicalisation. */
   expect_dir ("se", "SouthEast");
   expect_dir ("North-West", "NorthWest");
   expect_dir ("n", "North");
   expect_dir ("inside", "In");
-  expect_dir ("xyzzy", NULL);
+  expect_dir ("xyzzy", nullptr);
 
   if (failures == 0)
     printf ("a5parse_test: all checks passed\n");

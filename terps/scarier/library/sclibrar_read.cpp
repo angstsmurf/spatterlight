@@ -48,7 +48,7 @@ lib_read_tied_object_400 (scr_gameref_t game)
   scr_int object;
 
   if (!lib_is_version_400 (game) || !input
-      || lib_verb_object_resolve_400_string (game, input, NULL, TRUE) != -1)
+      || lib_verb_object_resolve_400_string (game, input, nullptr, TRUE) != -1)
     return -1;
 
   object = lib_examine_referencedob_400 (game, input);

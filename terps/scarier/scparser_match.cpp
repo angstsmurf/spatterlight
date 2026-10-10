@@ -48,9 +48,9 @@ static void
 uip_match_end (void)
 {
   /* Clear match target string, and variable set. */
-  uip.match.string = NULL;
+  uip.match.string = nullptr;
   uip.match.posn = 0;
-  uip.match.game = NULL;
+  uip.match.game = nullptr;
 }
 
 
@@ -1029,7 +1029,7 @@ uip_match_pattern (scr_uip_patternref_t compiled, const scr_char *string,
 
   /* Match the string to the pattern tree. */
   cleansed = (uip_needs_trim (string) || uip_is_referenced_text (string, game))
-             ? uip_cleanse_string (string, buffer, sizeof (buffer)) : NULL;
+             ? uip_cleanse_string (string, buffer, sizeof (buffer)) : nullptr;
   if (uip.trace)
     scr_trace ("UIParser: string \"%s\"\n", cleansed ? cleansed : string);
   uip_match_start (cleansed ? cleansed : string, game);

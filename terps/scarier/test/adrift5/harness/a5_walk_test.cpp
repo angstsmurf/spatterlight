@@ -55,7 +55,7 @@ static int failures = 0;
 static void
 expect (const char *cmd, const char *out, const char *needle, int want)
 {
-  int has = strstr (out, needle) != NULL;
+  int has = strstr (out, needle) != nullptr;
   if (has != want)
     {
       printf ("FAIL: \"%s\" -> output %s \"%s\"\n        got: [%s]\n",
@@ -120,7 +120,7 @@ static void
 test_walks (void)
 {
   a5_adventure_t *adv = a5_test_build_adventure (kWalkXml, "a5_walk_test (walk)");
-  if (adv == NULL) { failures++; return; }
+  if (adv == nullptr) { failures++; return; }
   a5_run_t *run = a5run_new (adv);
   free (a5run_intro (run));        /* StartActive walk steps the guard to Room1 */
 
@@ -205,7 +205,7 @@ static void
 test_event_subevents (void)
 {
   a5_adventure_t *adv = a5_test_build_adventure (kEventXml, "a5_walk_test (event)");
-  if (adv == NULL) { failures++; return; }
+  if (adv == nullptr) { failures++; return; }
   a5_run_t *run = a5run_new (adv);
   free (a5run_intro (run));
 

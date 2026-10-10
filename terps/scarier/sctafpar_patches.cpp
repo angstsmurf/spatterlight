@@ -81,12 +81,16 @@ typedef struct
  * from_string; 'V' verify a string and change nothing, which is how an edit
  * pins down the task it thinks it is editing.
  */
-#define PATCH_SET(path, from, to)   { path, 'I', (from), (to), NULL, NULL }
-#define PATCH_SET_BOOL(path, from, to) { path, 'B', (from), (to), NULL, NULL }
-#define PATCH_ADD(path, to)         { path, 'A', 0, (to), NULL, NULL }
-#define PATCH_ADD_STRING(path, to)  { path, 'N', 0, 0, NULL, (to) }
+#define PATCH_SET(path, from, to) \
+  { path, 'I', (from), (to), nullptr, nullptr }
+#define PATCH_SET_BOOL(path, from, to) \
+  { path, 'B', (from), (to), nullptr, nullptr }
+#define PATCH_ADD(path, to) \
+  { path, 'A', 0, (to), nullptr, nullptr }
+#define PATCH_ADD_STRING(path, to) \
+  { path, 'N', 0, 0, nullptr, (to) }
 #define PATCH_STRING(path, from, to) { path, 'S', 0, 0, (from), (to) }
-#define PATCH_VERIFY(path, value)   { path, 'V', 0, 0, (value), NULL }
+#define PATCH_VERIFY(path, value)   { path, 'V', 0, 0, (value), nullptr }
 
 /*
  * Ebony's World (Laurie Griffiths).  Winning needs the dial pair, the lever
@@ -1546,7 +1550,7 @@ enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 
 /* Patching setting, and a note of the patch applied by the last parse. */
 static scr_bool parse_patches_enabled = FALSE;
-static const scr_patch_game_t *parse_applied_patch = NULL;
+static const scr_patch_game_t *parse_applied_patch = nullptr;
 
 
 /*
@@ -1577,7 +1581,7 @@ parse_patch_edit (scr_prop_setref_t bundle,
    * into buffer, which outlives the prop calls below.
    */
   count = 0;
-  for (cursor = strtok (buffer, "/"); cursor; cursor = strtok (NULL, "/"))
+  for (cursor = strtok (buffer, "/"); cursor; cursor = strtok (nullptr, "/"))
     {
       if (count == PATCH_MAX_KEYS)
         scr_fatal ("parse_patch_edit: path too deep, %s\n", edit->path);
@@ -1684,7 +1688,7 @@ parse_apply_game_patches (scr_prop_setref_t bundle)
   const scr_char *name, *author;
   scr_int game, edit;
 
-  parse_applied_patch = NULL;
+  parse_applied_patch = nullptr;
   if (!parse_patches_enabled)
     return;
 
@@ -1751,5 +1755,5 @@ parse_get_game_patches (void)
 const scr_char *
 parse_get_applied_patch (void)
 {
-  return parse_applied_patch ? parse_applied_patch->summary : NULL;
+  return parse_applied_patch ? parse_applied_patch->summary : nullptr;
 }

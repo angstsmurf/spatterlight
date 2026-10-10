@@ -130,17 +130,17 @@ ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
   switch (se->what)
     {
     case A5_SE_EXECTASK:
-      if (se->key != NULL)
+      if (se->key != nullptr)
         attempt_event_task (run, se->key, 0, out);
       break;
     case A5_SE_UNSETTASK:
-      if (se->key != NULL)
+      if (se->key != nullptr)
         unset_task (run->st, se->key);
       break;
     case A5_SE_DISPLAY:
       /* clsEvent.RunSubEvent DisplayMessage: show only if the OnlyApplyAt gate
          (se->key) is set and the player is in that location/group. */
-      if (se->description != NULL && se->key != NULL && se->key[0] != '\0'
+      if (se->description != nullptr && se->key != nullptr && se->key[0] != '\0'
           && a5state_in_group_or_location (run->st,
                                            a5state_player_key (run->st),
                                            se->key))
@@ -149,7 +149,7 @@ ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
     case A5_SE_SETLOOK:
       /* clsEvent SetLook: push (OnlyApplyAt gate, rendered text) onto the look
          stack; a5text_view_location consults it (LookText). */
-      if (se->description != NULL)
+      if (se->description != nullptr)
         { char *m = a5text_describe (run->st, se->description);
           a5state_push_look (run->st, se->key, m, e->key);
           free (m); }
@@ -332,10 +332,10 @@ ctrl_retrigger_blocked (const a5_adventure_t *adv,
                         const std::string &triggering_task, const char *task_key)
 {
   const a5_task_t *c;
-  if (triggering_task.empty () || task_key == NULL)
+  if (triggering_task.empty () || task_key == nullptr)
     return 0;
   c = a5model_task (adv, triggering_task.c_str ());
-  return c != NULL && streq (c->type, "Specific") && c->general_key != NULL
+  return c != nullptr && streq (c->type, "Specific") && c->general_key != nullptr
          && streq (c->general_key, task_key);
 }
 
@@ -375,7 +375,7 @@ void
 ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
 {
   int ei;
-  if (task_key == NULL)
+  if (task_key == nullptr)
     return;
   /* clsUserSession loops walks then events: fire WalkControls first. */
   wk_on_task_completed (run, task_key);
@@ -410,7 +410,7 @@ ev_on_task_uncompleted (a5_run_t *run, const char *task_key, sb_t *out)
 {
   int ei;
   size_t wi;
-  if (task_key == NULL)
+  if (task_key == nullptr)
     return;
   for (wi = 0; wi < run->walks->size (); wi++)
     {
@@ -452,7 +452,7 @@ static int
 ev_install_leftover (a5_run_t *run)
 {
   a5_state_t *st = run->st;
-  if (run->ev_tbl == NULL || run->ev_tbl->keys.empty ())
+  if (run->ev_tbl == nullptr || run->ev_tbl->keys.empty ())
     return 0;
   const std::vector<std::string> &items = run->ev_tbl->refs.back ();
   st->n_ref_items = 0;
@@ -460,8 +460,8 @@ ev_install_leftover (a5_run_t *run)
   for (const std::string &k : items)
     {
       const a5_object_t *o = a5model_object (st->adv, k.c_str ());
-      const char *stable = NULL;
-      if (o != NULL)
+      const char *stable = nullptr;
+      if (o != nullptr)
         stable = o->key;
       else
         {
@@ -470,7 +470,7 @@ ev_install_leftover (a5_run_t *run)
             { stable = st->adv->characters[ci].key;
               st->ref_items_type = 'c'; }
         }
-      if (stable != NULL && st->n_ref_items < A5_MAX_ITEMS)
+      if (stable != nullptr && st->n_ref_items < A5_MAX_ITEMS)
         st->ref_items[st->n_ref_items++] = stable;
     }
   return 1;
@@ -513,7 +513,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
   a5_state_t *st = run->st;
   const a5_task_t *t = a5model_task (st->adv, key);
   int ti;
-  if (t == NULL || depth > 16)
+  if (t == nullptr || depth > 16)
     return;
   ti = a5state_task_index (st, key);
   if (ti >= 0 && st->task_done[ti] && !t->repeatable)
@@ -610,7 +610,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
          (e.g. SSB's TimeTrapsT `Roller Must BeEqualTo 'RAND(1,16)'`),
          desyncing the RNG. */
       const a5_xml_node_t *fm = st->restriction_text;
-      if (fm != NULL)
+      if (fm != nullptr)
         {
           /* Raw into AddResponse (vb:1247), so the Display loop expands it. */
           a5_intro_guard ig (st, 1);
@@ -707,7 +707,7 @@ ev_tick_all (a5_run_t *run, sb_t *out)
   run->events_running = 1;
   for (ei = 0; ei < run->adv->n_events && !run->st->game_over; ei++)
     if (streq (run->adv->events[ei].type, "TurnBased")
-        || run->adv->events[ei].type == NULL)
+        || run->adv->events[ei].type == nullptr)
       ev_increment (run, ei, out);
   /* Separate loop: an event started by a later event must not also tick. */
   for (ei = 0; ei < run->adv->n_events; ei++)
@@ -804,7 +804,7 @@ static int
 loc_is_adjacent (a5_state_t *st, const char *lockey, const char *destkey)
 {
   int d;
-  if (lockey == NULL || destkey == NULL)
+  if (lockey == nullptr || destkey == nullptr)
     return 0;
   for (d = 0; d < 12; d++)
     if (streq (a5model_exit_dest (st->adv, lockey, DIR_ORDER[d]), destkey))
@@ -842,15 +842,15 @@ static char *
 char_prop_value (a5_state_t *st, const char *charkey, const char *propkey)
 {
   const char *ov = a5state_entity_prop (st, charkey, propkey);
-  if (ov != NULL)
+  if (ov != nullptr)
     return strdup (ov);
   const a5_character_t *c = a5model_character (st->adv, charkey);
-  if (c == NULL)
-    return NULL;
+  if (c == nullptr)
+    return nullptr;
   const a5_prop_t *p = a5_prop_find (c->props, c->n_props, propkey);
-  if (p == NULL)
-    return NULL;
-  if (p->value_node != NULL)
+  if (p == nullptr)
+    return nullptr;
+  if (p->value_node != nullptr)
     return a5text_eval_description (st, p->value_node);
   return strdup (p->value ? p->value : "");
 }
@@ -896,16 +896,16 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
      currently "at location" (not on/in an object). */
   if (ci == a5state_character_index (st, a5state_player_key (st)))
     return;
-  if (a5_prop_find (c->props, c->n_props, "ShowEnterExit") == NULL
-      && a5state_entity_prop (st, c->key, "ShowEnterExit") == NULL)
+  if (a5_prop_find (c->props, c->n_props, "ShowEnterExit") == nullptr
+      && a5state_entity_prop (st, c->key, "ShowEnterExit") == nullptr)
     return;
-  if (st->char_onobj[ci] != NULL || cloc == NULL)
+  if (st->char_onobj[ci] != nullptr || cloc == nullptr)
     return;
 
   if (streq (cloc, ploc))                      /* leaving the player's room */
     {
       std::string s = wk_move_phrase (st, c->key, "CharExits", "exits");
-      if (ploc != NULL && loc_is_adjacent (st, ploc, dest))
+      if (ploc != nullptr && loc_is_adjacent (st, ploc, dest))
         {
           std::string dir = loc_direction_to (st, cloc, dest);
           if (dir != "nowhere")
@@ -920,7 +920,7 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
   else if (streq (dest, ploc))                 /* entering the player's room */
     {
       std::string s = wk_move_phrase (st, c->key, "CharEnters", "enters");
-      if (ploc != NULL && loc_is_adjacent (st, ploc, cloc))
+      if (ploc != nullptr && loc_is_adjacent (st, ploc, cloc))
         {
           std::string dir = loc_direction_to (st, dest, cloc);
           if (dir != "nowhere")
@@ -975,7 +975,7 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
         {
           const char *destkey = wk->steps[si].location;
           const char *cloc = st->char_loc[ci];
-          const char *dest = NULL;                  /* sDestination */
+          const char *dest = nullptr;                  /* sDestination */
           int is_group = 0, gn = 0;
           int g, c2;
           if (streq (destkey, "%Player%"))
@@ -989,7 +989,7 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
           if (is_group && gn > 0)
             {
               int has_adj = 0, m;
-              if (cloc != NULL)
+              if (cloc != nullptr)
                 for (m = 0; m < gn; m++)
                   if (loc_is_adjacent (st, cloc,
                                        a5state_group_member_at (st, destkey, m)))
@@ -1014,11 +1014,11 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
                      only bounds a pathological group with no reachable
                      adjacent member. */
                   int guard = 0;
-                  while (dest == NULL && guard++ < 10000)
+                  while (dest == nullptr && guard++ < 10000)
                     {
                       const char *poss = a5state_group_member_at (st, destkey,
                                              a5rand_between (0, gn - 1));
-                      if (cloc == NULL || loc_is_adjacent (st, cloc, poss))
+                      if (cloc == nullptr || loc_is_adjacent (st, cloc, poss))
                         dest = poss;
                     }
                 }
@@ -1031,19 +1031,19 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
               /* Follow a character: only step in if it is in an adjacent
                  room. */
               const char *c2loc = st->char_loc[c2];
-              if (!streq (cloc, c2loc) && cloc != NULL && c2loc != NULL
+              if (!streq (cloc, c2loc) && cloc != nullptr && c2loc != nullptr
                   && loc_is_adjacent (st, cloc, c2loc))
                 dest = c2loc;
             }
           else
             dest = destkey;                          /* a literal location key */
 
-          if (dest != NULL && (streq (dest, "Hidden")
-                               || a5model_location (st->adv, dest) != NULL))
+          if (dest != nullptr && (streq (dest, "Hidden")
+                               || a5model_location (st->adv, dest) != nullptr))
             {
               wk_show_enter_exit (run, ci, dest, out);
-              st->char_loc[ci] = streq (dest, "Hidden") ? NULL : dest;
-              st->char_onobj[ci] = NULL;             /* now "at location" */
+              st->char_loc[ci] = streq (dest, "Hidden") ? nullptr : dest;
+              st->char_onobj[ci] = nullptr;             /* now "at location" */
             }
         }
       step_len += rt.step_dur[si];
@@ -1092,7 +1092,7 @@ wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
             if (streq (comekey, "%Player%"))
               comekey = a5state_player_key (st);
             cc = a5state_character_index (st, comekey);
-            now = (cc >= 0 && st->char_loc[ci] != NULL
+            now = (cc >= 0 && st->char_loc[ci] != nullptr
                    && streq (st->char_loc[ci], st->char_loc[cc]));
             rt.came_across[i] = (char) now;
             if (!prev && now)
@@ -1105,7 +1105,7 @@ wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
       switch (sw->what)
         {
         case A5_SW_DISPLAY:
-          if (sw->description != NULL && sw->only_apply_at != NULL
+          if (sw->description != nullptr && sw->only_apply_at != nullptr
               && sw->only_apply_at[0] != '\0'
               && a5state_in_group_or_location (st, a5state_player_key (st),
                                                sw->only_apply_at))
@@ -1114,11 +1114,11 @@ wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
             emit_marked_description (run, sw->description, out);
           break;
         case A5_SW_EXECTASK:
-          if (sw->task_key != NULL)
+          if (sw->task_key != nullptr)
             attempt_event_task (run, sw->task_key, 0, out);
           break;
         case A5_SW_UNSETTASK:
-          if (sw->task_key != NULL)
+          if (sw->task_key != nullptr)
             unset_task (st, sw->task_key);
           break;
         }
@@ -1217,7 +1217,7 @@ static void
 wk_on_task_completed (a5_run_t *run, const char *task_key)
 {
   size_t wi;
-  if (task_key == NULL)
+  if (task_key == nullptr)
     return;
   for (wi = 0; wi < run->walks->size (); wi++)
     {

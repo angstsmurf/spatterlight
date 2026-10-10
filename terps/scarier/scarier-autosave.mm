@@ -180,7 +180,7 @@ void scarier_autosave_write(const std::string &engine_state)
 
 bool scarier_autosave_read_game(std::string *out)
 {
-    void *data = NULL;
+    void *data = nullptr;
     size_t length = 0;
     if (!gli_autosave_read_game(gsc_autosave_game_path(), &data, &length))
         return false;

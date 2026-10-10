@@ -58,9 +58,9 @@ lib_with_half_400 (scr_gameref_t game, const scr_char *half)
 {
   scr_int object;
 
-  object = lib_verb_object_resolve_400_string (game, half, NULL, TRUE);
+  object = lib_verb_object_resolve_400_string (game, half, nullptr, TRUE);
   if (object < 0)
-    object = lib_verb_object_resolve_400_string (game, half, NULL, FALSE);
+    object = lib_verb_object_resolve_400_string (game, half, nullptr, FALSE);
   return object;
 }
 
@@ -313,13 +313,13 @@ lib_with_arm_390 (scr_gameref_t game)
         continue;
 
       name = prop_get_indexed_string (bundle, "Objects", object, "Short");
-      found = scr_strempty (name) ? NULL : strstr (input, name);
+      found = scr_strempty (name) ? nullptr : strstr (input, name);
       if (!(found && found > with)
           && lib_alias_prepare (bundle, vt_key, "Objects", object) > 0)
         {
           vt_key[3].integer = 0;
           name = prop_get_string (bundle, "S<-sisi", vt_key);
-          found = scr_strempty (name) ? NULL : strstr (input, name);
+          found = scr_strempty (name) ? nullptr : strstr (input, name);
         }
       if (found && found > with)
         {
@@ -459,7 +459,7 @@ lib_open_close_with_400 (scr_gameref_t game, const scr_char *verb,
   if (!lib_is_version_400 (game) || !input || !strstr (input, " with "))
     return FALSE;
 
-  whole = lib_verb_object_resolve_400_string (game, input, NULL, TRUE);
+  whole = lib_verb_object_resolve_400_string (game, input, nullptr, TRUE);
   if (whole >= 0)
     {
       gs_clear_object_references (game);
@@ -1014,10 +1014,10 @@ lib_lock_absent_object_400 (scr_gameref_t game)
   if (split != std::string::npos)
     head = head.substr (0, split);
 
-  if (lib_verb_object_resolve_400_string (game, head.c_str (), NULL, TRUE)
+  if (lib_verb_object_resolve_400_string (game, head.c_str (), nullptr, TRUE)
       != -2)
     return -1;
-  object = lib_verb_object_resolve_400_string (game, head.c_str (), NULL,
+  object = lib_verb_object_resolve_400_string (game, head.c_str (), nullptr,
                                                FALSE);
   if (object < 0)
     return -1;
@@ -1086,7 +1086,7 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
   if (object >= 0)
     {
       const scr_char *input = run_get_dispatch_input ();
-      const scr_char *tail = input ? strstr (input, " with ") : NULL;
+      const scr_char *tail = input ? strstr (input, " with ") : nullptr;
 
       absent_400 = TRUE;
       with_key = FALSE;
@@ -1165,7 +1165,7 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
        * invented it.
        */
       const scr_char *input = run_get_dispatch_input ();
-      const scr_char *tail = input ? strstr (input, " with ") : NULL;
+      const scr_char *tail = input ? strstr (input, " with ") : nullptr;
 
       key = tail ? lib_with_half_400 (game, tail + 6) : -1;
       if (key < 0)

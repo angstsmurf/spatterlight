@@ -223,7 +223,7 @@ static scr_bool
 lib_hit_arm_pre390 (scr_gameref_t game)
 {
   static const scr_char *const VERBS[] =
-      { "hit", "kill", "kick", "punch", "attack", NULL };
+      { "hit", "kill", "kick", "punch", "attack", nullptr };
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *input = run_get_dispatch_input ();
@@ -672,7 +672,7 @@ lib_open_close_resolved_400 (scr_gameref_t game,
   if (!lib_is_version_400 (game) || !input || strstr (input, " with "))
     return FALSE;
 
-  object = lib_verb_object_resolve_400_string (game, input, NULL, TRUE);
+  object = lib_verb_object_resolve_400_string (game, input, nullptr, TRUE);
   if (object < 0)
     return FALSE;
 
@@ -1739,7 +1739,7 @@ scr_bool
 lib_take_names_dynamic_400 (scr_gameref_t game, const scr_char *string)
 {
   const scr_int object = lib_verb_object_resolve_400_string (game, string,
-                                                             NULL, TRUE);
+                                                             nullptr, TRUE);
 
   return object >= 0 && !obj_is_static (game, object);
 }

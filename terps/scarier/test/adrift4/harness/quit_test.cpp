@@ -50,7 +50,7 @@
 #include "scarier.h"
 
 static int failures = 0;
-static scr_game g_game = NULL;
+static scr_game g_game = nullptr;
 
 static int g_calls = 0;        /* os_read_line invocations */
 static int g_saw_restart = 0;

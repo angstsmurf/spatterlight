@@ -1688,7 +1688,7 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
   objects = lib_apply_filter (game, lib_put_except_filter, container, FALSE,
-                              NULL);
+                              nullptr);
   gs_clear_multiple_references (game);
 
   /*
@@ -2872,7 +2872,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
           if (lib_put_fragment_names_nothing (game))
             {
               const scr_int seen = lib_verb_object_resolve_400_string
-                                     (game, fragment.c_str (), NULL, FALSE);
+                                     (game, fragment.c_str (), nullptr, FALSE);
 
               if (seen >= 0 && !obj_is_static (game, seen))
                 {
@@ -3331,8 +3331,8 @@ static scr_bool
 lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
 {
   const scr_char *line = run_get_dispatch_input ();
-  const scr_char *const in_words[] = {"into", "inside", "in", NULL};
-  const scr_char *const on_words[] = {"onto", "on", NULL};
+  const scr_char *const in_words[] = {"into", "inside", "in", nullptr};
+  const scr_char *const on_words[] = {"onto", "on", nullptr};
   const scr_char *const *words = typed_on ? on_words : in_words;
   std::string lower, tail;
   size_t cut;
@@ -3725,7 +3725,7 @@ lib_put_on_seen_absent_400 (scr_gameref_t game)
         return -1;
     }
 
-  seen = lib_verb_object_resolve_400_string (game, fragment.c_str (), NULL,
+  seen = lib_verb_object_resolve_400_string (game, fragment.c_str (), nullptr,
                                              FALSE);
   return seen >= 0 && !obj_is_static (game, seen) ? seen : -1;
 }

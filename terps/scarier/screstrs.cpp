@@ -629,7 +629,7 @@ restr_pass_task_char (scr_gameref_t game,
       if (var3 == 0)
         {
           if (var2 == 0 && prop_get_taf_version (bundle) == TAF_VERSION_390)
-            SCR_DEVIATION ("self_room_390", NULL);
+            SCR_DEVIATION ("self_room_390", nullptr);
           return var2 == 0;
         }
       if (var3 == 1 && var_get_ref_character (vars) < 0)
@@ -963,7 +963,7 @@ struct restr_task_t
   std::vector<restr_decoded_t> restrictions;
 };
 
-static scr_prop_setref_t restr_props_bundle = NULL;
+static scr_prop_setref_t restr_props_bundle = nullptr;
 static std::vector<restr_task_t> restr_props;
 
 
@@ -977,7 +977,7 @@ restr_forget_bundle (scr_prop_setref_t bundle)
 {
   if (restr_props_bundle == bundle)
     {
-      restr_props_bundle = NULL;
+      restr_props_bundle = nullptr;
       restr_props.clear ();
     }
 }
@@ -1005,7 +1005,7 @@ restr_decode_task (scr_gameref_t game, scr_int task)
     }
 
   if (task < 0 || task >= (scr_int) restr_props.size ())
-    return NULL;
+    return nullptr;
   entry = &restr_props[task];
   if (entry->is_decoded)
     return entry;
@@ -1015,12 +1015,12 @@ restr_decode_task (scr_gameref_t game, scr_int task)
   vt_key[2].string = "Restrictions";
   restr_count = prop_get_child_count (bundle, "I<-sis", vt_key);
 
-  entry->mask = NULL;
+  entry->mask = nullptr;
   entry->restrictions.clear ();
   entry->restrictions.reserve (restr_count);
   for (restriction = 0; restriction < restr_count; restriction++)
     {
-      restr_decoded_t decoded = { 0, 0, 0, 0, NULL, NULL };
+      restr_decoded_t decoded = { 0, 0, 0, 0, nullptr, nullptr };
 
       vt_key[3].integer = restriction;
       vt_key[4].string = "Type";
@@ -1036,7 +1036,7 @@ restr_decode_task (scr_gameref_t game, scr_int task)
         case 1:
         case 2:
           prop_get_var_integers (bundle, vt_key, 2, &decoded.var1,
-                                 &decoded.var2, NULL);
+                                 &decoded.var2, nullptr);
           break;
 
         case 4:
@@ -1184,7 +1184,7 @@ enum
 };
 
 /* #O#A(#O#)-style expression, for tokenizing. */
-static const scr_char *restr_expression = NULL;
+static const scr_char *restr_expression = nullptr;
 static scr_int restr_index = 0;
 
 
@@ -1205,7 +1205,7 @@ restr_tokenize_start (const scr_char *expression)
 static void
 restr_tokenize_end (void)
 {
-  restr_expression = NULL;
+  restr_expression = nullptr;
   restr_index = 0;
 }
 
@@ -1250,7 +1250,7 @@ static scr_int restr_eval_stack = 0;
 static scr_int restr_eval_restriction = 0;
 
 /* The current game used to evaluate restrictions, and the task in question. */
-static scr_gameref_t restr_eval_game = (scr_gameref_t) NULL;
+static scr_gameref_t restr_eval_game = (scr_gameref_t) nullptr;
 static scr_int restr_eval_task = 0;
 
 /* The id of the lowest-indexed failing restriction. */
@@ -1553,7 +1553,7 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
       && var_get_ref_object (gs_get_vars (game)) < 0)
     {
       if (decoded->var1 == 0)
-        return NULL;
+        return nullptr;
     }
 
   /*
@@ -1566,7 +1566,7 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
       && var_get_ref_object (gs_get_vars (game)) < 0)
     {
       if (decoded->var1 == 2)
-        return NULL;
+        return nullptr;
     }
 
   /*
@@ -1585,11 +1585,11 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
           && (var3 == 0
               || (var3 == 1
                   && var_get_ref_character (gs_get_vars (game)) < 0)))
-        return NULL;
+        return nullptr;
     }
 
   /* Return it, or NULL if empty. */
-  return !scr_strempty (message) ? message : NULL;
+  return !scr_strempty (message) ? message : nullptr;
 }
 
 
@@ -1637,7 +1637,7 @@ restr_eval_task_restrictions (scr_gameref_t game,
         scr_trace ("Restr: task %ld has no restrictions\n", task);
 
       *pass = TRUE;
-      *fail_message = NULL;
+      *fail_message = nullptr;
       return TRUE;
     }
 
@@ -1698,7 +1698,7 @@ restr_eval_task_restrictions (scr_gameref_t game,
    */
   *pass = result;
   if (result)
-    *fail_message = NULL;
+    *fail_message = nullptr;
   else
     *fail_message = restr_get_fail_message (game, task, lowest_fail);
   return TRUE;
@@ -1749,7 +1749,7 @@ restr_eval_task_restrictions (scr_gameref_t game,
  * the task and event property caches it tracks a single game, and is
  * dropped when asked about a different one.
  */
-static const void *restr_cache_game = NULL;
+static const void *restr_cache_game = nullptr;
 static std::vector<std::string> restr_cache;
 
 static void
@@ -1802,7 +1802,7 @@ restr_cache_fallback (scr_gameref_t game, scr_int task,
       entry ? (scr_int) entry->restrictions.size () : 0;
   scr_int restriction;
 
-  *fail_message = NULL;
+  *fail_message = nullptr;
   restr_cache_sync (game);
 
   if (restr_count > 0
@@ -1836,5 +1836,5 @@ void
 restr_cache_reset (void)
 {
   restr_cache.clear ();
-  restr_cache_game = NULL;
+  restr_cache_game = nullptr;
 }

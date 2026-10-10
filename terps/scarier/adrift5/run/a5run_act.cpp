@@ -56,7 +56,7 @@ static const char *
 canon_key (const a5_adventure_t *adv, const char *k)
 {
   int i;
-  if (k == NULL) return NULL;
+  if (k == nullptr) return nullptr;
   i = a5model_key_index (adv, 'O', k);
   if (i >= 0) return adv->objects[i].key;
   i = a5model_key_index (adv, 'C', k);
@@ -65,7 +65,7 @@ canon_key (const a5_adventure_t *adv, const char *k)
   if (i >= 0) return adv->locations[i].key;
   for (i = 0; i < adv->n_groups; i++)
     if (streq (adv->groups[i].key, k))     return adv->groups[i].key;
-  return NULL;
+  return nullptr;
 }
 
 /*
@@ -78,7 +78,7 @@ static const char *
 act_key (a5_state_t *st, const char *tok)
 {
   const char *b, *resolved, *c;
-  if (tok == NULL) return NULL;
+  if (tok == nullptr) return nullptr;
   if (streq (tok, "%Player%"))
     resolved = a5state_player_key (st);  /* dynamic: whoever is the player now */
   else if (streq (tok, "Player"))
@@ -86,7 +86,7 @@ act_key (a5_state_t *st, const char *tok)
   else
     { b = a5state_lookup_ref (st, tok); resolved = b ? b : tok; }
   c = canon_key (st->adv, resolved);
-  if (c != NULL)
+  if (c != nullptr)
     return c;
   if (streq (resolved, "Hidden"))
     return "Hidden";
@@ -98,7 +98,7 @@ static long
 eval_num_value (a5_state_t *st, const char *raw)
 {
   char *proc;
-  if (raw != NULL && strncmp (raw, "RAND", 4) == 0)
+  if (raw != nullptr && strncmp (raw, "RAND", 4) == 0)
     {
       /* RAND (min, max): inclusive random in [min, max] via the shared
          erkyrath_random (the Adrift 5 runner Global.Random(iMin, iMax)).  The data
@@ -107,8 +107,8 @@ eval_num_value (a5_state_t *st, const char *raw)
          the runner resolves it via ReplaceFunctions before Global.Random, so substitute
          %tokens% first -- otherwise the bound parses as 0 and the whole
          age/decoration/aura draw collapses to a no-op RAND(0,0). */
-      char *sub = (strchr (raw, '%') != NULL)
-                    ? a5text_process_noalr (st, raw) : NULL;
+      char *sub = (strchr (raw, '%') != nullptr)
+                    ? a5text_process_noalr (st, raw) : nullptr;
       long drawn = a5rand_between_args ((sub ? sub : raw) + 4);
       free (sub);
       return drawn;
@@ -136,7 +136,7 @@ eval_num_value (a5_state_t *st, const char *raw)
      leading digit of the raw "5/0". */
   {
     char *sv = a5_eval_sexpr (proc);
-    long e = strtol (sv, NULL, 10);      /* Val(): leading integer, else 0 */
+    long e = strtol (sv, nullptr, 10);      /* Val(): leading integer, else 0 */
     free (sv);
     free (proc);
     return e;
@@ -207,7 +207,7 @@ update_seen (a5_state_t *st)
 {
   const char *ploc = a5state_player_location (st);
   int i;
-  if (st->char_seen == NULL)
+  if (st->char_seen == nullptr)
     return;
   for (i = 0; i < st->adv->n_characters; i++)
     {
@@ -217,20 +217,20 @@ update_seen (a5_state_t *st)
          character whose model start is "On Object" (GFS's Grandpa on his
          rocking chair) has char_loc == NULL and is located via the
          furniture. */
-      if (ploc != NULL && a5state_character_at_location (st, i, ploc))
+      if (ploc != nullptr && a5state_character_at_location (st, i, ploc))
         st->char_seen[i] = 1;
       /* PrepareForNextTurn also RESETS Introduced for any non-player character
          the player can no longer see (clsUserSession.vb:3794-3797), so a
          character re-encountered later gets the indefinite article again
          (SampleConversation: after leaving the garden, `look` in the south room
          still says "an old lady", not "the old lady"). */
-      else if (st->char_introduced != NULL)
+      else if (st->char_introduced != nullptr)
         st->char_introduced[i] = 0;
     }
   /* Mark every object currently visible in the player's room as seen
      (clsCharacter.HasSeenObject), so HaveBeenSeenByCharacter persists once an
      object has been viewed. */
-  if (st->obj_seen != NULL && ploc != NULL)
+  if (st->obj_seen != nullptr && ploc != nullptr)
     for (i = 0; i < st->adv->n_objects; i++)
       if (a5state_object_visible_at_location (st, i, ploc, 0))
         st->obj_seen[i] = 1;
@@ -255,13 +255,13 @@ mark_player_arrival_seen (a5_state_t *st, const char *loc)
 {
   int i;
   a5state_mark_loc_seen (st, loc);
-  if (loc == NULL)
+  if (loc == nullptr)
     return;
-  if (st->obj_seen != NULL)
+  if (st->obj_seen != nullptr)
     for (i = 0; i < st->adv->n_objects; i++)
       if (a5state_object_visible_at_location (st, i, loc, 0))
         st->obj_seen[i] = 1;
-  if (st->char_seen != NULL)
+  if (st->char_seen != nullptr)
     for (i = 0; i < st->adv->n_characters; i++)
       if (!streq (st->adv->characters[i].key, a5state_player_key (st))
           && a5state_character_at_location (st, i, loc))
@@ -278,7 +278,7 @@ enqueue_loc_trigger_tasks (a5_run_t *run, const char *old_loc, const char *new_l
 {
   a5_state_t *st = run->st;
   int i;
-  if (new_loc == NULL || streq (old_loc, new_loc))
+  if (new_loc == nullptr || streq (old_loc, new_loc))
     return;
   for (i = 0; i < st->adv->n_tasks; i++)
     {
@@ -329,10 +329,10 @@ withprop_matches (const a5_state_t *st, const char *entkey,
   if (!a5state_entity_has_prop (st, entkey, propkey))
     return 0;
   pd = a5model_propdef (st->adv, propkey);
-  if (pd != NULL && streq (pd->type, "SelectionOnly"))
+  if (pd != nullptr && streq (pd->type, "SelectionOnly"))
     return 1;
   v = a5state_entity_prop (st, entkey, propkey);
-  return propval == (v != NULL ? v : "");
+  return propval == (v != nullptr ? v : "");
 }
 
 /* clsUserSession.vb:1479 MoveObjectWhat: the source of an object-set action is
@@ -441,7 +441,7 @@ act_move_object (a5_run_t *run, const char * /*kind*/,
       else if (to == "ToPartOfObject") { L->where = A5_OWHERE_PART_OBJECT; L->key = k2; }
       else if (to == "ToPartOfCharacter") { L->where = A5_OWHERE_PART_CHAR; L->key = k2; }
       else if (to == "ToLocation")
-        { if (streq (k2, "Hidden")) { L->where = A5_OWHERE_HIDDEN; L->key = NULL; }
+        { if (streq (k2, "Hidden")) { L->where = A5_OWHERE_HIDDEN; L->key = nullptr; }
           else { L->where = A5_OWHERE_LOCATION; L->key = k2; } }
       else if (to == "ToLocationGroup")
         {
@@ -464,7 +464,7 @@ act_move_object (a5_run_t *run, const char * /*kind*/,
                   const a5_location_t *ld = a5model_location (st->adv, m);
                   L->where = A5_OWHERE_LOCATION; L->key = ld ? ld->key : m;
                 }
-              else { L->where = A5_OWHERE_HIDDEN; L->key = NULL; }
+              else { L->where = A5_OWHERE_HIDDEN; L->key = nullptr; }
             }
         }
       else if (to == "ToSameLocationAs")
@@ -484,14 +484,14 @@ act_move_object (a5_run_t *run, const char * /*kind*/,
                  ToSameLocationAs the spider *while it rides the player*, so
                  the raw char_loc would hide the ingredient forever. */
               const char *loc = a5state_character_location_key (st, ci);
-              if (loc != NULL) { L->where = A5_OWHERE_LOCATION; L->key = loc; }
-              else             { L->where = A5_OWHERE_HIDDEN;   L->key = NULL; }
+              if (loc != nullptr) { L->where = A5_OWHERE_LOCATION; L->key = loc; }
+              else             { L->where = A5_OWHERE_HIDDEN;   L->key = nullptr; }
             }
           else
             {
               int oj = a5state_object_index (st, k2);
               if (oj >= 0) { L->where = st->obj[oj].where; L->key = st->obj[oj].key; }
-              else         { L->where = A5_OWHERE_HIDDEN;  L->key = NULL; }
+              else         { L->where = A5_OWHERE_HIDDEN;  L->key = nullptr; }
             }
         }
     }
@@ -549,7 +549,7 @@ collect_character_who (a5_state_t *st, const std::vector<std::string> &tk,
       /* clsLocation.CharactersDirectlyInLocation(True): directly at the
          location (not on/in an object), Player included. */
       for (int i = 0; i < st->adv->n_characters; i++)
-        if (streq (st->char_loc[i], whok) && st->char_onobj[i] == NULL)
+        if (streq (st->char_loc[i], whok) && st->char_onobj[i] == nullptr)
           cis.push_back (i);
     }
   else if (who == "EveryoneInGroup")
@@ -618,7 +618,7 @@ relocate_char (a5_run_t *run, int ci, const char *new_loc, int clear_onobj,
     enqueue_loc_trigger_tasks (run, st->char_loc[ci], new_loc);
   st->char_loc[ci] = new_loc;
   if (clear_onobj)
-    st->char_onobj[ci] = NULL;
+    st->char_onobj[ci] = nullptr;
   if (is_player)
     clear_conv_if_partner_gone (run, out);
 }
@@ -637,13 +637,13 @@ object_host_location (a5_state_t *st, const char *objkey, const char *cur,
 {
   int oj = a5state_object_index (st, objkey);
   if (oj < 0)
-    return NULL;
-  if (cur != NULL && a5state_object_at_location (st, oj, cur, directly))
+    return nullptr;
+  if (cur != nullptr && a5state_object_at_location (st, oj, cur, directly))
     return cur;
   for (int li = 0; li < st->adv->n_locations; li++)
     if (a5state_object_at_location (st, oj, st->adv->locations[li].key, directly))
       return st->adv->locations[li].key;
-  return NULL;
+  return nullptr;
 }
 
 /* Display(sText) straight to the runner's sOutputText (clsUserSession.vb:298):
@@ -657,7 +657,7 @@ imm_display (a5_run_t *run, const char *msg, sb_t *out)
 {
   sb_t *sink = run->imm_sink;
   size_t at;
-  if (sink == NULL || run->imm_pos < 0 || (size_t) run->imm_pos > sink->len)
+  if (sink == nullptr || run->imm_pos < 0 || (size_t) run->imm_pos > sink->len)
     {
       sb_pspace (out);
       sb_puts (out, msg);
@@ -674,7 +674,7 @@ imm_display (a5_run_t *run, const char *msg, sb_t *out)
   run->imm_pos = (long) (at + ins.size ());
   if (run->look_pending && run->look_pos >= at)
     run->look_pos += ins.size ();
-  if (run->exec_scope != NULL && run->exec_scope->look_sink == sink
+  if (run->exec_scope != nullptr && run->exec_scope->look_sink == sink
       && run->exec_scope->look_off >= (long) at)
     run->exec_scope->look_off += (long) ins.size ();
 }
@@ -705,12 +705,12 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
      furniture, container, character, direction) reads it from the same token;
      act_key is a pure lookup, so resolve it once for the whole action. */
   const char *k2 = (tk.size () >= 4)
-    ? act_key (st, tk[tk.size () - 1].c_str ()) : NULL;
+    ? act_key (st, tk[tk.size () - 1].c_str ()) : nullptr;
   /* ToLocationGroup: the runner computes dest.Key = group.RandomKey ONCE per action
      (clsUserSession.vb:1767), so the whole MoveCharacter draws a single
      RandomKey and sends every affected character to the SAME room -- e.g.
      Jacaranda's champagne `MoveCharacter %Player% ToLocationGroup Group7`. */
-  const char *group_dest = NULL;
+  const char *group_dest = nullptr;
   if (to == "ToLocationGroup" && tk.size () >= 4)
     {
       /* Read the group's LIVE membership (the runner arlMembers), not the static
@@ -739,21 +739,21 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
          sent anywhere else -- Penrhyn drops Arkell to Location2/Hidden once he
          is broken, and he must no longer be "on Ralph's shoulder". */
       if (to != "OntoCharacter" && to != "ToSwitchWith"
-          && st->char_onchar != NULL)
-        st->char_onchar[ci] = NULL;
+          && st->char_onchar != nullptr)
+        st->char_onchar[ci] = nullptr;
       if (to == "ToLocationGroup")
         relocate_char (run, ci, group_dest, 1, out);
       else if (to == "InDirection")
         {
           const char *canon = a5parse_canonical_direction (k2);
           const char *here = st->char_loc[ci];
-          const a5_xml_node_t *blocked = NULL;
+          const a5_xml_node_t *blocked = nullptr;
           const char *dest;
-          if (canon == NULL) canon = k2;    /* already canonical */
+          if (canon == nullptr) canon = k2;    /* already canonical */
           dest = here ? a5restr_exit_in_direction (st, k1, here, canon,
                                                    &blocked)
-                      : NULL;
-          if (dest == NULL && blocked != NULL)
+                      : nullptr;
+          if (dest == nullptr && blocked != nullptr)
             {
               /* Route restriction failed: the runner Displays the blocking
                  restriction's message and abandons the move (clsUserSession.vb:
@@ -767,10 +767,10 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
                 imm_display (run, fmsg, out);
               free (fmsg);
             }
-          if (dest != NULL)
+          if (dest != nullptr)
             {
               /* destination may be a location group -> first member */
-              if (a5model_location (st->adv, dest) == NULL)
+              if (a5model_location (st->adv, dest) == nullptr)
                 {
                   for (int g = 0; g < st->adv->n_groups; g++)
                     if (streq (st->adv->groups[g].key, dest)
@@ -782,7 +782,7 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
         }
       else if (to == "ToLocation")
         {
-          const char *new_loc = streq (k2, "Hidden") ? NULL : k2;
+          const char *new_loc = streq (k2, "Hidden") ? nullptr : k2;
           relocate_char (run, ci, new_loc, 1, out);    /* now "at location" */
         }
       else if (to == "ToStandingOn" || to == "ToSittingOn" || to == "ToLyingOn")
@@ -794,8 +794,8 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
           a5state_set_prop (st, k1, "CharacterPosition", pos);
           /* "TheFloor" means standing/sitting/lying at the location, not on an
              object (clsCharacterLocation.ExistsWhere AtLocation vs OnObject). */
-          if (k2 == NULL || streq (k2, "TheFloor"))
-            st->char_onobj[ci] = NULL;
+          if (k2 == nullptr || streq (k2, "TheFloor"))
+            st->char_onobj[ci] = nullptr;
           else
             {
               st->char_onobj[ci] = k2; st->char_in[ci] = 0;
@@ -804,7 +804,7 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
                  living-room cosy chair.  Scarier stores the room explicitly:
                  sync it. */
               const char *loc = object_host_location (st, k2, st->char_loc[ci], 1);
-              if (loc != NULL && !streq (loc, st->char_loc[ci]))
+              if (loc != nullptr && !streq (loc, st->char_loc[ci]))
                 relocate_char (run, ci, loc, 0, out);
             }
         }
@@ -817,7 +817,7 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
              read it back correctly -- e.g. FBA's `hide in niche`
              (MoveCharacter Player InsideObject cl_Niche1) which the custodian
              "goes past" check gates on. */
-          if (k2 != NULL)
+          if (k2 != nullptr)
             {
               st->char_onobj[ci] = k2;
               st->char_in[ci] = (to == "InsideObject") ? 1 : 0;
@@ -828,7 +828,7 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
                  being AT Loc112) fire while he was in the loo.  Sync it,
                  like the sit-on-furniture branch above. */
               const char *loc = object_host_location (st, k2, st->char_loc[ci], 0);
-              if (loc != NULL && !streq (loc, st->char_loc[ci]))
+              if (loc != nullptr && !streq (loc, st->char_loc[ci]))
                 relocate_char (run, ci, loc, 0, out);
             }
         }
@@ -848,13 +848,13 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
           int ti = k2 ? a5state_character_index (st, k2) : -1;
           int recursive = (ti >= 0)
             && (streq (k2, k1)
-                || (st->char_onchar[ti] != NULL
+                || (st->char_onchar[ti] != nullptr
                     && streq (st->char_onchar[ti], k1)));
           if (ti >= 0 && !recursive)
             {
               st->char_onchar[ci] = k2;
-              st->char_loc[ci] = NULL;      /* location resolves through carrier */
-              st->char_onobj[ci] = NULL;
+              st->char_loc[ci] = nullptr;      /* location resolves through carrier */
+              st->char_onobj[ci] = nullptr;
               st->char_in[ci] = 0;
             }
         }
@@ -864,7 +864,7 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
              the containing object back onto the floor of the SAME location
              (clsCharacter.Move ... the character's location is unchanged, only
              the on/in-object binding clears) -- FBA's `out` of the niche. */
-          st->char_onobj[ci] = NULL;
+          st->char_onobj[ci] = nullptr;
           st->char_in[ci] = 0;
         }
       else if (to == "ToSameLocationAs")
@@ -886,9 +886,9 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
           else
             {
               /* NULL => Hidden */
-              st->char_loc[ci] = (k2 != NULL)
-                ? object_host_location (st, k2, NULL, 1) : NULL;
-              st->char_onobj[ci] = NULL;
+              st->char_loc[ci] = (k2 != nullptr)
+                ? object_host_location (st, k2, nullptr, 1) : nullptr;
+              st->char_onobj[ci] = nullptr;
             }
           if (streq (k1, a5state_player_key (st)))
             {
@@ -906,7 +906,7 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
              NPC.  Otherwise, actually exchange the two characters' locations. */
           const char *pk = a5state_player_key (st);
           int bi = k2 ? a5state_character_index (st, k2) : -1;
-          if (k2 == NULL || bi < 0)
+          if (k2 == nullptr || bi < 0)
             { /* unresolved target: no-op */ }
           else if (streq (k1, pk) || streq (k2, pk))
             {
@@ -946,7 +946,7 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
          obj_seen).  See mark_player_arrival_seen. */
       if (streq (k1, a5state_player_key (st)))
         {
-          if (st->char_onobj[ci] == NULL)
+          if (st->char_onobj[ci] == nullptr)
             mark_player_arrival_seen (st, st->char_loc[ci]);
           else
             a5state_mark_loc_seen (st, st->char_loc[ci]);
@@ -974,17 +974,17 @@ store_text_var (a5_state_t *st, int vi, long elem, char *val)
     len = elem;
   std::vector<std::string> lines ((size_t) len);
   {
-    const char *s = st->var_text[vi] != NULL ? st->var_text[vi] : "";
+    const char *s = st->var_text[vi] != nullptr ? st->var_text[vi] : "";
     for (long i = 0; i < len && *s != '\0'; i++)
       {
         const char *nl = strchr (s, '\n');
-        lines[(size_t) i].assign (s, nl != NULL ? (size_t) (nl - s) : strlen (s));
-        if (nl == NULL)
+        lines[(size_t) i].assign (s, nl != nullptr ? (size_t) (nl - s) : strlen (s));
+        if (nl == nullptr)
           break;
         s = nl + 1;
       }
   }
-  lines[(size_t) elem - 1] = val != NULL ? val : "";
+  lines[(size_t) elem - 1] = val != nullptr ? val : "";
   free (val);
   std::string joined;
   for (long i = 0; i < len; i++)
@@ -1033,8 +1033,8 @@ act_set_variable (a5_run_t *run, const char *kind,
                   lv.pop_back ();
                 size_t a = lv.find_first_not_of (" \t");
                 lv = (a == std::string::npos) ? "" : lv.substr (a);
-                long from = strtol (head.c_str () + eq + 1, NULL, 10);
-                long to   = strtol (head.c_str () + tp + 4, NULL, 10);
+                long from = strtol (head.c_str () + eq + 1, nullptr, 10);
+                long to   = strtol (head.c_str () + tp + 4, nullptr, 10);
                 a = inner.find_first_not_of (" \t");
                 if (a != std::string::npos) inner = inner.substr (a);
                 while (!inner.empty () && isspace ((unsigned char) inner.back ()))
@@ -1095,10 +1095,10 @@ act_set_variable (a5_run_t *run, const char *kind,
       if (idxstr.compare (0, 16, "ReferencedNumber") == 0)
         {
           const char *rn = a5state_lookup_ref (st, "ReferencedNumber");
-          elem_idx = rn != NULL ? strtol (rn, NULL, 10) : 0;
+          elem_idx = rn != nullptr ? strtol (rn, nullptr, 10) : 0;
         }
       else if (idxstr.find_first_not_of ("0123456789 -") == std::string::npos)
-        elem_idx = strtol (idxstr.c_str (), NULL, 10);
+        elem_idx = strtol (idxstr.c_str (), nullptr, 10);
       else
         {
           int ivi = a5state_variable_index (st, idxstr.c_str ());
@@ -1182,7 +1182,7 @@ act_set_variable (a5_run_t *run, const char *kind,
            5.000017) are stored verbatim and the runner does NOT peel, so the runner's
            view is the raw RHS, quotes and all. */
         std::string rhs;
-        double fver = (st->adv->version != NULL) ? atof (st->adv->version) : 0;
+        double fver = (st->adv->version != nullptr) ? atof (st->adv->version) : 0;
         if (fver > 5.0000321)
           rhs = tv;
         else
@@ -1209,7 +1209,7 @@ act_set_variable (a5_run_t *run, const char *kind,
                 std::string ref = rhs.substr (sp + 1, ep - sp - 1);
                 int rvi;
                 for (rvi = 0; rvi < st->adv->n_variables; rvi++)
-                  if (st->adv->variables[rvi].name != NULL
+                  if (st->adv->variables[rvi].name != nullptr
                       && strcasecmp (st->adv->variables[rvi].name,
                                      ref.c_str ()) == 0)
                     break;                 /* The runner matches by NAME, any case */
@@ -1320,11 +1320,11 @@ act_set_property (a5_run_t *run, const char * /*kind*/,
      key/state value -- or a value on a not-yet-present property (Illumina) --
      is stored raw (the runner's add-branch / Nothing->raw behaviour). */
   const a5_propdef_t *pd = a5model_propdef (st->adv, tk[1].c_str ());
-  const char *pt = pd ? pd->type : NULL;
-  int value_type = pt != NULL
+  const char *pt = pd ? pd->type : nullptr;
+  int value_type = pt != nullptr
                    && (streq (pt, "Integer") || streq (pt, "Text")
                        || streq (pt, "StateList") || streq (pt, "ValueList"));
-  int has_prop = a5state_entity_prop (st, k1, tk[1].c_str ()) != NULL;
+  int has_prop = a5state_entity_prop (st, k1, tk[1].c_str ()) != nullptr;
   /* The runner's SetProperties add-branch is asymmetric (clsUserSession.vb): an ABSENT
      property is cloned-and-added freely for OBJECTS (vb:1989), but for a
      CHARACTER only a SelectionOnly-<Selected> (vb:2044) or CharacterProperName
@@ -1343,7 +1343,7 @@ act_set_property (a5_run_t *run, const char * /*kind*/,
   if ((value_type && has_prop) || val.find ('%') != std::string::npos)
     {
       char *ev = a5text_eval_expression (st, val.c_str ());
-      if (ev != NULL && ev[0] != '\0') val = ev;
+      if (ev != nullptr && ev[0] != '\0') val = ev;
       free (ev);
     }
   /* A key-typed property (ObjectKey/CharacterKey/LocationKey) set to a bare
@@ -1358,8 +1358,8 @@ act_set_property (a5_run_t *run, const char * /*kind*/,
      "Nothing" is not a per-turn ref binding, so lookup returns NULL and the
      value is kept verbatim. */
   {
-    const char *kt = pd ? pd->type : NULL;
-    int is_key_prop = kt != NULL
+    const char *kt = pd ? pd->type : nullptr;
+    int is_key_prop = kt != nullptr
                       && (streq (kt, "ObjectKey") || streq (kt, "CharacterKey")
                           || streq (kt, "LocationKey"));
     if (is_key_prop && val.find ('%') == std::string::npos
@@ -1368,16 +1368,16 @@ act_set_property (a5_run_t *run, const char * /*kind*/,
         const char *rk = (val == "Player")
                          ? a5state_player_key (st)
                          : a5state_lookup_ref (st, val.c_str ());
-        if (rk != NULL && rk[0] != '\0') val = rk;
+        if (rk != nullptr && rk[0] != '\0') val = rk;
       }
   }
   /* A ValueList property stores the label's mapped INTEGER (FD clsProperty
      Value setter, clsProperty.vb:180-186; the model's static values get the
      same mapping at load, a5_fix_valuelist_props). */
-  if (pt != NULL && streq (pt, "ValueList"))
+  if (pt != nullptr && streq (pt, "ValueList"))
     {
       const char *mv = a5model_valuelist_value (pd, val.c_str ());
-      if (mv != NULL) val = mv;
+      if (mv != nullptr) val = mv;
     }
   a5state_set_prop (st, k1, tk[1].c_str (), val.c_str ());
   /* The runner derives an object's location live from its DynamicLocation property, so
@@ -1393,20 +1393,20 @@ act_set_property (a5_run_t *run, const char * /*kind*/,
       if (oi >= 0)
         {
           a5_objloc_t *L = &st->obj[oi];
-          const char *w = val.c_str (), *kp = NULL;
-          if (streq (w, "Hidden"))           { L->where = A5_OWHERE_HIDDEN;      L->key = NULL; }
+          const char *w = val.c_str (), *kp = nullptr;
+          if (streq (w, "Hidden"))           { L->where = A5_OWHERE_HIDDEN;      L->key = nullptr; }
           else if (streq (w, "Held By Character")) { L->where = A5_OWHERE_HELD_BY;   kp = "HeldByWho"; }
           else if (streq (w, "Worn By Character")) { L->where = A5_OWHERE_WORN_BY;   kp = "WornByWho"; }
           else if (streq (w, "In Location"))       { L->where = A5_OWHERE_LOCATION;  kp = "InLocation"; }
           else if (streq (w, "Inside Object"))     { L->where = A5_OWHERE_IN_OBJECT; kp = "InsideWhat"; }
           else if (streq (w, "On Object"))         { L->where = A5_OWHERE_ON_OBJECT; kp = "OnWhat"; }
-          if (kp != NULL)
+          if (kp != nullptr)
             {
               const char *kv = a5state_entity_prop (st, k1, kp);
-              if (kv == NULL)
+              if (kv == nullptr)
                 {
                   const a5_object_t *mo = a5model_object (st->adv, k1);
-                  for (int pi = 0; mo != NULL && pi < mo->n_props; pi++)
+                  for (int pi = 0; mo != nullptr && pi < mo->n_props; pi++)
                     if (streq (mo->props[pi].key, kp))
                       { kv = mo->props[pi].value; break; }
                 }
@@ -1451,15 +1451,15 @@ act_time (a5_run_t *run, const char * /*kind*/,
       std::string sv = tk[1];
       if (sv.size () >= 2 && sv.front () == '"' && sv.back () == '"')
         sv = sv.substr (1, sv.size () - 2);
-      char *endp = NULL;
+      char *endp = nullptr;
       n = strtol (sv.c_str (), &endp, 10);
       if (endp == sv.c_str ())        /* not a literal: EvaluateExpression */
         {
           char *ev = a5text_eval_expression (st, sv.c_str ());
-          if (ev != NULL) { n = strtol (ev, NULL, 10); free (ev); }
+          if (ev != nullptr) { n = strtol (ev, nullptr, 10); free (ev); }
         }
     }
-  if (run->resp != NULL)
+  if (run->resp != nullptr)
     {
       /* The runner flushes htblResponsesPass before the ticks so the command's own
          message precedes any event output, then Clear()s it (keep nmut --
@@ -1497,8 +1497,8 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
      task (only SetVariable-in-a-FOR substitutes %Loop%). */
   if (tk[0] == "FOR" && tk.size () >= 9 && tk[4] == "TO" && tk[6] == ":")
     {
-      long from = strtol (tk[3].c_str (), NULL, 10);
-      long to   = strtol (tk[5].c_str (), NULL, 10);
+      long from = strtol (tk[3].c_str (), nullptr, 10);
+      long to   = strtol (tk[5].c_str (), nullptr, 10);
       std::string inner;
       for (size_t i = 7; i < tk.size (); i++)
         {
@@ -1542,7 +1542,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
              movement response map now reproduces (the two Date lines share
              ts_tasCheckTime's AggregateOutput comp node and merge to one). */
           const a5_task_t *lt = a5model_task (st->adv, "Look");
-          if (lt != NULL && depth < A5_MAX_ACTION_DEPTH)
+          if (lt != nullptr && depth < A5_MAX_ACTION_DEPTH)
             execute_task_with_overrides (run, lt, std::vector<ref_info> (),
                                          depth, out);
           else
@@ -1550,7 +1550,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
           return;
         }
       const a5_task_t *tt = a5model_task (st->adv, key.c_str ());
-      if (tt != NULL && depth < A5_MAX_ACTION_DEPTH)
+      if (tt != nullptr && depth < A5_MAX_ACTION_DEPTH)
         {
           /* Optional "(arg1|arg2|...)" reference passing: bind the sub-task's
              command references to the evaluated argument keys, mirroring
@@ -1599,7 +1599,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
                 if (arg_is_ref_passthrough (args[i], rnames[i]))
                   continue;             /* passed through with its own items */
                 char *val = eval_arg_to_key (st, args[i]);
-                if (val != NULL && strchr (val, '|') != NULL)
+                if (val != nullptr && strchr (val, '|') != nullptr)
                   {
                     gmembers = split_pipe (val);
                     giter = (int) i;
@@ -1693,7 +1693,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
                      both Execute'd take tasks fail on the LightSources
                      restriction with "It is too dark to find the dirt.". */
                   const a5_xml_node_t *fm = st->restriction_text;
-                  if (fm != NULL)
+                  if (fm != nullptr)
                     {
                       /* vb:1247 hands sRestrictionText to AddResponse raw, with no
                          ReplaceFunctions on any path, so it expands inside Display. */
@@ -1701,9 +1701,9 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
                       { a5_intro_guard ig (st, 1); fmsg = a5text_describe (st, fm); }
                       if (msg_has_output (fmsg))
                         {
-                          if (run->resp != NULL)
+                          if (run->resp != nullptr)
                             resp_add_text (run, fmsg, false);
-                          else if (run->exec_scope != NULL)
+                          else if (run->exec_scope != nullptr)
                             {
                               /* Buffer for the end-of-scope flush, where the runner's
                                  pass-cancels-fail rule is applied (a pass for
@@ -1786,9 +1786,9 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
                      daz61DaylightC then decrements daylight once per quest.
                      The COMMAND path (ev_tbl NULL) is untouched -- view cards'
                      per-member card printing stays per-member. */
-                  int t0 = run->ev_tbl != NULL ? run->ev_tbl->touches : 0;
+                  int t0 = run->ev_tbl != nullptr ? run->ev_tbl->touches : 0;
                   run_one ();
-                  if (run->in_ev_attempt && run->ev_tbl != NULL
+                  if (run->in_ev_attempt && run->ev_tbl != nullptr
                       && run->ev_tbl->touches > t0 && run->ev_tbl->last >= 0
                       && (size_t) run->ev_tbl->last < run->ev_tbl->refs.size ())
                     {
@@ -1930,7 +1930,7 @@ act_location_group (a5_run_t *run, const char *kind,
       int ci = a5state_character_index (st, k1);
       if (ci >= 0)
         { const char *lk = st->char_loc[ci];
-          if (lk != NULL && !streq (lk, "Hidden")) locs.push_back (lk); }
+          if (lk != nullptr && !streq (lk, "Hidden")) locs.push_back (lk); }
       else
         { int oi = a5state_object_index (st, k1);
           if (oi >= 0)

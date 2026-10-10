@@ -49,7 +49,7 @@
  * line of its own making points it there for the while with a
  * run_dispatch_input_guard (scrunner.h).
  */
-const scr_char *run_dispatch_input = NULL;
+const scr_char *run_dispatch_input = nullptr;
 
 /*
  * The steps of a `go <place>` walk still to be typed, and what to say on
@@ -187,7 +187,8 @@ scr_bool run_co_task_claimed = FALSE;
 const scr_char *
 run_get_line_input (void)
 {
-  return run_co_pending_input.empty () ? NULL : run_co_pending_input.c_str ();
+  return run_co_pending_input.empty ()
+         ? nullptr : run_co_pending_input.c_str ();
 }
 
 /*
@@ -655,7 +656,7 @@ run_get_motion_task_line (scr_gameref_t game, const scr_char *line,
   static const scr_char *const MOTION[] = {
     "in", "into", "inside", "on", "onto", "out", "under", "underneath",
     "beneath", "behind", "through", "over", "across", "aboard", "up", "down",
-    "back", "away", "near", "beside", "onboard", NULL
+    "back", "away", "near", "beside", "onboard", nullptr
   };
   const scr_char *next;
   size_t length;
@@ -676,7 +677,7 @@ run_get_motion_task_line (scr_gameref_t game, const scr_char *line,
               = run_line_matches_task_strictly (game, task_line.c_str ());
 
           if (motion)
-            SCR_DEVIATION ("get_motion", NULL);
+            SCR_DEVIATION ("get_motion", nullptr);
           return motion;
         }
     }
@@ -1520,7 +1521,7 @@ run_line_t::finish (scr_bool result)
       if (!tasks.empty ())
         SCR_DEVIATION ("lenient_task", "tasks=%s", tasks.c_str ());
     }
-  run_dispatch_input = NULL;
+  run_dispatch_input = nullptr;
   run_tasks_ran_this_command.clear ();
   return result;
 }

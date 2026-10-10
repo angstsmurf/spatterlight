@@ -151,7 +151,8 @@ typedef struct
  * Define a single static locale table set.  This set re-initializes if it
  * detects a locale change.
  */
-static scr_locale_table_t loc_locale_tables = {NULL, {0}, {0}, {0}, {0}, {0}};
+static scr_locale_table_t loc_locale_tables
+  = {nullptr, {0}, {0}, {0}, {0}, {0}};
 
 
 /*
@@ -232,7 +233,7 @@ static const scr_locale_t CYRILLIC_LOCALE = {
 static const scr_locale_t *const AVAILABLE_LOCALES[] = {
   &LATIN1_LOCALE,
   &CYRILLIC_LOCALE,
-  NULL
+  nullptr
 };
 
 
@@ -266,7 +267,7 @@ loc_locate_signature_in_date (const scr_char *date)
   if (converted == 3 && strlen (signature) == SIGNATURE_LENGTH)
     return strstr (date, signature);
   else
-    return NULL;
+    return nullptr;
 }
 
 
@@ -314,7 +315,7 @@ loc_find_matching_locale (const scr_char *date,
                           const scr_locale_t *const *locales)
 {
   const scr_char *signature;
-  const scr_locale_t *matched = NULL;
+  const scr_locale_t *matched = nullptr;
 
   /* Get the month part of date, and if valid, search locale signatures. */
   signature = loc_locate_signature_in_date (date);
@@ -415,7 +416,7 @@ loc_ascii_strncasecmp (const scr_char *s1, const scr_char *s2, scr_int n)
 scr_bool
 loc_set_locale (const scr_char *name)
 {
-  const scr_locale_t *matched = NULL;
+  const scr_locale_t *matched = nullptr;
   const scr_locale_t *const *iterator;
   assert (name);
 

@@ -110,7 +110,7 @@ static void
 check (a5_run_t *run, const char *cmd, const char *needle, int want)
 {
   char *out = a5run_input (run, cmd);
-  int has = (strstr (out, needle) != NULL);
+  int has = (strstr (out, needle) != nullptr);
   if (has != want)
     {
       printf ("FAIL: \"%s\" -> output %s \"%s\"\n        got: %s\n",
@@ -142,7 +142,7 @@ int
 main (void)
 {
   a5_adventure_t *adv = a5_test_build_adventure (kXml, "a5_disambig_test");
-  if (adv == NULL)
+  if (adv == nullptr)
     return 1;
   a5_run_t *run = a5run_new (adv);
 

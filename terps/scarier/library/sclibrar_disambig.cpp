@@ -55,7 +55,7 @@
  * that the author's replacement fires.  Any ALR Original starting "Which "
  * opts the game in.
  */
-static scr_prop_setref_t lib_which_cached_bundle = NULL;
+static scr_prop_setref_t lib_which_cached_bundle = nullptr;
 static scr_bool lib_which_cached_result = FALSE;
 
 static scr_bool
@@ -528,7 +528,7 @@ static scr_bool
 lib_references_are_namesakes (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_char *first = NULL;
+  const scr_char *first = nullptr;
   scr_int index_, count = 0;
 
   for (index_ = 0; index_ < gs_object_count (game); index_++)
@@ -565,7 +565,7 @@ lib_references_are_namesakes (scr_gameref_t game)
  * allocated at the same address can't inherit them.
  */
 enum { LIB_LONG_NAME_CATEGORIES = 2 };
-static scr_prop_setref_t lib_long_names_bundle = NULL;
+static scr_prop_setref_t lib_long_names_bundle = nullptr;
 static std::vector<std::string> lib_long_names[LIB_LONG_NAME_CATEGORIES];
 
 void
@@ -575,7 +575,7 @@ lib_forget_bundle (scr_prop_setref_t bundle)
     {
       size_t category;
 
-      lib_long_names_bundle = NULL;
+      lib_long_names_bundle = nullptr;
       for (category = 0; category < LIB_LONG_NAME_CATEGORIES; category++)
         lib_long_names[category].clear ();
     }
@@ -686,7 +686,7 @@ lib_co_lastword (const scr_char *string)
   const scr_char *space;
 
   if (!string)
-    return NULL;
+    return nullptr;
   space = strrchr (string, ' ');
   return space ? space + 1 : string;
 }
@@ -864,7 +864,7 @@ lib_first_alias (const scr_prop_setref_t bundle, scr_vartype_t *vt_key,
                  const scr_char *category, scr_int index)
 {
   if (lib_alias_prepare (bundle, vt_key, category, index) < 1)
-    return NULL;
+    return nullptr;
 
   vt_key[3].integer = 0;
   return prop_get_string (bundle, "S<-sisi", vt_key);
@@ -1182,7 +1182,7 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object, room;
-  const scr_char *flagged_term = NULL, *first_term = NULL;
+  const scr_char *flagged_term = nullptr, *first_term = nullptr;
   scr_int first_present = 0;
   scr_bool resolved = FALSE;
 
@@ -1207,7 +1207,7 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
       shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
 
       /* Pick the term the Runner would have matched on: Short, then Alias. */
-      term = NULL;
+      term = nullptr;
       if (lib_co_contains (command, shortname))
         term = shortname;
       else
@@ -1319,7 +1319,7 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
       pf_rebuffer_reference (filter,
                              echo.substr (1, echo.size () - 3).c_str ());
   }
-  lib_which_head (game, prompt_term, NULL);
+  lib_which_head (game, prompt_term, nullptr);
 
   room = gs_playerroom (game);
   listed = 0;
@@ -1662,7 +1662,7 @@ lib_co_400_reset (void)
    * The "Which" form is cached per bundle; a game reloaded in the same
    * process can land its bundle at the old address, so forget it here.
    */
-  lib_which_cached_bundle = NULL;
+  lib_which_cached_bundle = nullptr;
   lib_which_cached_result = FALSE;
   lib_co_400_pending = FALSE;
   lib_co_400_was_pending = FALSE;
@@ -1971,7 +1971,7 @@ lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
         }
     }
 
-  lib_which_head (game, term, NULL);
+  lib_which_head (game, term, nullptr);
 
   pf_new_sentence (filter);
   for (index_ = 0; index_ < (scr_int) objects.size (); index_++)
@@ -2077,7 +2077,7 @@ lib_with_split_crowd_400 (scr_gameref_t game, scr_bool examine,
                           scr_int *head_object)
 {
   const scr_char *input = run_get_dispatch_input ();
-  const scr_char *tail = input ? strstr (input, " with ") : NULL;
+  const scr_char *tail = input ? strstr (input, " with ") : nullptr;
   std::vector<scr_int> marked;
   std::string head;
   scr_int object, tied_pending, last_tied, mark_count;
@@ -2813,7 +2813,7 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
                                std::string *term_out,
                                std::vector<scr_int> *namesakes_out,
                                scr_int *flagged_out,
-                               std::string *list_term_out = NULL)
+                               std::string *list_term_out = nullptr)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_int room = gs_playerroom (game);
@@ -2835,7 +2835,7 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
 
       name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
       term = (!scr_strempty (name) && lib_input_contains_word (input, name))
-             ? name : NULL;
+             ? name : nullptr;
       list_term = term;
       alias_count = lib_alias_prepare (bundle, vt_key, "NPCs", npc);
       for (alias = 0; alias < alias_count; alias++)
@@ -2903,7 +2903,7 @@ lib_npc_400_find_namesakes (scr_gameref_t game, std::string *term_out,
                             std::vector<scr_int> *namesakes_out)
 {
   return lib_npc_400_find_namesakes_in (game, run_get_dispatch_input (),
-                                        term_out, namesakes_out, NULL);
+                                        term_out, namesakes_out, nullptr);
 }
 
 /*
@@ -2917,7 +2917,8 @@ scr_bool
 lib_npc_400_line_names_namesakes (scr_gameref_t game, const scr_char *line)
 {
   return lib_is_version_400 (game)
-         && lib_npc_400_find_namesakes_in (game, line, NULL, NULL, NULL);
+         && lib_npc_400_find_namesakes_in (game, line,
+                                           nullptr, nullptr, nullptr);
 }
 
 static scr_bool
@@ -2988,7 +2989,7 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
       for (index_ = 0; npc_term[index_] != NUL; index_++)
         lower += (scr_char) tolower ((unsigned char) npc_term[index_]);
 
-      lib_which_head (game, term, NULL);
+      lib_which_head (game, term, nullptr);
       pf_new_sentence (filter);
       for (index_ = 0; index_ < (scr_int) namesakes.size (); index_++)
         {
@@ -3097,14 +3098,14 @@ lib_co_400_object_answer_line (const scr_char *line)
 static void
 lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
 {
-  static const scr_bool trace_co = getenv ("SCR_TRACE_CO") != NULL;
+  static const scr_bool trace_co = getenv ("SCR_TRACE_CO") != nullptr;
   const scr_char *command, *ambig_term;
   scr_int ambig_present;
 
   if (!trace_co)
     return;
   command = run_get_dispatch_input ();
-  if (lib_runner_co_scan (game, command, &ambig_term, NULL, &ambig_present))
+  if (lib_runner_co_scan (game, command, &ambig_term, nullptr, &ambig_present))
     fprintf (stderr, "CO-AMBIG verb=[%s] input=[%s] term=[%s]"
              " present=%ld ours=%ld\n",
              verb ? verb : "", command, ambig_term, ambig_present, count);
@@ -3188,7 +3189,7 @@ lib_name_offset_pre400 (scr_gameref_t game, scr_int object,
   scr_int aliases, alias, best = -1;
 
   name = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  if (!scr_strempty (name) && (found = strstr (line, name)) != NULL)
+  if (!scr_strempty (name) && (found = strstr (line, name)) != nullptr)
     best = found - line;
 
   aliases = lib_alias_prepare (bundle, vt_key, "Objects", object);
@@ -3331,7 +3332,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
             kept++;
         }
       if (kept == 0 && !examine_390
-          && lib_runner_co_scan (game, line, NULL, NULL, NULL))
+          && lib_runner_co_scan (game, line, nullptr, nullptr, nullptr))
         {
           /*
            * Every candidate refused, so the handler's loop acted on
@@ -4069,7 +4070,7 @@ scr_int
 lib_disambiguate_object (scr_gameref_t game,
                          const scr_char *verb, scr_bool *is_ambiguous)
 {
-  return lib_disambiguate_object_common (game, verb, NULL, -1, is_ambiguous);
+  return lib_disambiguate_object_common (game, verb, nullptr, -1, is_ambiguous);
 }
 
 
@@ -4162,7 +4163,7 @@ lib_input_contains_word_ended (const scr_char *input, const scr_char *word,
       if ((scan == input || scan[-1] == ' ')
           && scr_strncasecmp (scan, word, length) == 0
           && (scan[length] == NUL
-              || strchr (terminators, scan[length]) != NULL))
+              || strchr (terminators, scan[length]) != nullptr))
         return TRUE;
     }
 

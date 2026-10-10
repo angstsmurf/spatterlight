@@ -45,7 +45,7 @@
 #include "scgamest.h"
 
 static int failures = 0;
-static scr_game g_game = NULL;
+static scr_game g_game = nullptr;
 static int probed = 0;
 
 static void

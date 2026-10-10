@@ -89,7 +89,7 @@ lib_cmd_look_typed (scr_gameref_t game)
 {
   static const scr_char *const LOOK_LINES[] = {
     "l", "look", "x room", "x location",
-    "examine room", "look room", "examine location", "l room", NULL
+    "examine room", "look room", "examine location", "l room", nullptr
   };
   const scr_char *input = run_get_dispatch_input ();
 
@@ -115,7 +115,7 @@ lib_cmd_look_typed (scr_gameref_t game)
           is_look = scr_strcasecmp (last, "room") == 0
                     || scr_strcasecmp (last, "location") == 0;
           if (is_look)
-            SCR_DEVIATION ("look_at_room", NULL);
+            SCR_DEVIATION ("look_at_room", nullptr);
         }
       scr_free (line);
       if (!is_look)
@@ -714,7 +714,7 @@ lib_cmd_hints (scr_gameref_t game)
   /* If the game has hints, display any relevant ones. */
   if (game_has_hints)
     {
-      if (run_hint_iterate (game, NULL))
+      if (run_hint_iterate (game, nullptr))
         {
           if (if_confirm (SCR_CONF_VIEW_HINTS))
             if_display_hints (game);
@@ -958,8 +958,9 @@ lib_cmd_statusline (scr_gameref_t game)
    * Retrieve the game's name and author, the description of the current
    * game room, and any formatted game status line.
    */
-  run_get_attributes (game, &name, &author, NULL, NULL,
-                      &score, NULL, &room, &status, NULL, NULL, NULL, NULL);
+  run_get_attributes (game, &name, &author, nullptr, nullptr,
+                      &score, nullptr, &room, &status,
+                      nullptr, nullptr, nullptr, nullptr);
 
   /* If nothing is yet determined, print the game name and author. */
   if (!room || scr_strempty (room))

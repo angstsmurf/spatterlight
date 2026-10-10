@@ -108,14 +108,14 @@ current_obj_ref_keys (a5_state_t *st)
 {
   std::vector<std::string> v;
   const char *p = a5state_lookup_ref (st, "ReferencedObjects");
-  if (p != NULL && p[0] != '\0')
+  if (p != nullptr && p[0] != '\0')
     {
       for (const std::string &k : split_pipe (p))
         if (!k.empty ()) v.push_back (k);
       return v;
     }
   p = a5state_lookup_ref (st, "ReferencedObject1");
-  if (p != NULL && p[0] != '\0')
+  if (p != nullptr && p[0] != '\0')
     v.push_back (p);
   return v;
 }
@@ -159,7 +159,7 @@ ref_info_for_name (a5_state_t *st, const std::string &name)
   std::string base = name, num;
   while (!base.empty () && isdigit ((unsigned char) base.back ()))
     { num.insert (num.begin (), base.back ()); base.pop_back (); }
-  ref_info ri; ri.type = 't'; ri.key = NULL;
+  ref_info ri; ri.type = 't'; ri.key = nullptr;
   std::string stem;
   if (base == "object" || base == "objects" || base == "item")
     { stem = "Object"; ri.type = 'o'; }
@@ -183,9 +183,9 @@ ref_info_for_name (a5_state_t *st, const std::string &name)
     ri.key = a5state_lookup_ref (st, "ReferencedObjects");
   else if (base == "characters")
     ri.key = a5state_lookup_ref (st, "ReferencedCharacters");
-  if (ri.key == NULL && !num.empty () && num != "1")
+  if (ri.key == nullptr && !num.empty () && num != "1")
     ri.key = a5state_lookup_ref (st, ("Referenced" + stem + num).c_str ());
-  if (ri.key == NULL)
+  if (ri.key == nullptr)
     ri.key = a5state_lookup_ref (st, ("Referenced" + stem).c_str ());
   return ri;
 }
@@ -306,7 +306,7 @@ eval_arg_to_key (a5_state_t *st, const std::string &arg)
       std::string nm = a.substr (1, a.size () - 2);
       if (nm == "Player") return strdup (a5state_player_key (st));
       std::string lname = lower (nm);
-      const char *k = NULL;
+      const char *k = nullptr;
       if (lname == "objects")          k = a5state_lookup_ref (st, "ReferencedObjects");
       else if (lname.rfind ("object", 0) == 0)
         { std::string cap = "ReferencedObject"; if (lname.size () > 6) cap += lname.substr (6);
@@ -323,7 +323,7 @@ eval_arg_to_key (a5_state_t *st, const std::string &arg)
           if (lname.size () > 9) cap += lname.substr (9);
           k = a5state_lookup_ref (st, cap.c_str ());
           if (!k) k = a5state_lookup_ref (st, "ReferencedCharacter"); }
-      if (k != NULL) return strdup (k);
+      if (k != nullptr) return strdup (k);
     }
   /* A function/OO arg (e.g. %PropertyValue[%object1%,LockKey]%) evaluates to an
      entity KEY -- run the substitution passes but NOT auto-capitalisation, which
@@ -383,21 +383,21 @@ group_prop_member_keys (a5_state_t *st, const std::string &arg,
   if (gi >= adv->n_groups) return false;
 
   const a5_propdef_t *pd = a5model_propdef (adv, prop.c_str ());
-  if (pd == NULL) return false;
+  if (pd == nullptr) return false;
   /* A mandatory property (the runner's clsProperty.Mandatory) is added to every
      applicable item at load, so clsItem.HasProperty is always true for it --
      StaticOrDynamic is the canonical case.  Otherwise keep the members that
      HAVE the property (clsItem.HasProperty), presence not value -- a valueless
      SelectionOnly marker (AlienDiver's `BlankCards.ObjectIsAC` = the available
      blank cards) counts even though a5state_entity_prop returns NULL for it. */
-  const char *mnd = pd->node ? a5xml_child_text (pd->node, "Mandatory") : NULL;
-  int mandatory = (mnd != NULL && strcmp (mnd, "0") != 0);
+  const char *mnd = pd->node ? a5xml_child_text (pd->node, "Mandatory") : nullptr;
+  int mandatory = (mnd != nullptr && strcmp (mnd, "0") != 0);
 
   int n = a5state_group_count (st, grp.c_str ());
   for (int i = 0; i < n; i++)
     {
       const char *mk = a5state_group_member_at (st, grp.c_str (), i);
-      if (mk == NULL) continue;
+      if (mk == nullptr) continue;
       if (mandatory || a5state_entity_has_prop (st, mk, prop.c_str ()))
         out.push_back (mk);
     }
@@ -413,11 +413,11 @@ group_prop_member_keys (a5_state_t *st, const std::string &arg,
 static const char *
 specific_key (a5_state_t *st, const char *key)
 {
-  if (key == NULL || key[0] == '\0')
-    return NULL;                                  /* "" = match any */
+  if (key == nullptr || key[0] == '\0')
+    return nullptr;                                  /* "" = match any */
   if (streq (key, "%Player%"))
     return a5state_player_key (st);
-  if (strchr (key, '%') != NULL)
+  if (strchr (key, '%') != nullptr)
     {
       const char *b = a5state_lookup_ref (st, key);   /* best-effort */
       return b ? b : key;
@@ -431,7 +431,7 @@ static int
 spec_is_any (a5_state_t *st, const a5_specific_t *sp)
 {
   if (sp->n_keys == 0) return 1;
-  if (sp->n_keys == 1 && specific_key (st, sp->keys[0]) == NULL) return 1;
+  if (sp->n_keys == 1 && specific_key (st, sp->keys[0]) == nullptr) return 1;
   return 0;
 }
 
@@ -450,13 +450,13 @@ match_specifics_vec (a5_state_t *st, const std::vector<const a5_specific_t *> &s
       for (int k = 0; k < sp->n_keys; k++)
         {
           const char *want = specific_key (st, sp->keys[k]);
-          if (want == NULL) { matched = 1; break; }       /* empty key = any */
+          if (want == nullptr) { matched = 1; break; }       /* empty key = any */
           /* The runner compares the Specific key to the reference's matched possibility
              case-insensitively (RefsMatchSpecifics, clsUserSession.vb:634).  For a
              Text specific (e.g. Grandpa's `say %text%` -> `vnl_SayKennedy`,
              key "kennedy") the reference resolves to the typed text, so match it
              case-insensitively; entity keys stay exact. */
-          if (refs[i].key != NULL
+          if (refs[i].key != nullptr
               && (streq (want, refs[i].key)
                   || (refs[i].type == 't'
                       && lower (want) == lower (refs[i].key))))
@@ -485,7 +485,7 @@ refs_match_specifics (a5_state_t *st, const a5_task_t *child,
       for (int i = 0; i < child->n_specifics; i++)
         specs.push_back (&child->specifics[i]);
     }
-  else if (parent != NULL
+  else if (parent != nullptr
            && child->n_specifics < parent->n_specifics
            && parent->n_specifics == (int) refs.size ())
     {
@@ -502,7 +502,7 @@ refs_match_specifics (a5_state_t *st, const a5_task_t *child,
   else
     return 0;
   int r = match_specifics_vec (st, specs, refs);
-  if (dbg_spec () != NULL)
+  if (dbg_spec () != nullptr)
     {
       fprintf (stderr, "[spec] child=%s parent=%s r=%d refs:", child->key,
                parent ? parent->key : "-", r);
@@ -568,7 +568,7 @@ run_after_children (a5_run_t *run, const std::vector<const a5_task_t *> &after,
     else if (show_fails)
       {
         const a5_xml_node_t *fm = a5restr_fail_message (st, child->restrictions);
-        if (fm != NULL)
+        if (fm != nullptr)
           {
             /* vb:1247 hands sRestrictionText to AddResponse raw, with no
                ReplaceFunctions on any path, so it expands inside Display. */
@@ -625,7 +625,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
         {
           const a5_task_t *t = &run->adv->tasks[i];
           if (!streq (t->type, "Specific")) continue;
-          if (t->general_key == NULL || !streq (t->general_key, parent->key))
+          if (t->general_key == nullptr || !streq (t->general_key, parent->key))
             continue;
           if (!t->repeatable && st->task_done[i]) continue;
           kids.push_back (i);
@@ -638,7 +638,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
       if (!refs_match_specifics (st, child, parent, refs)) continue;
 
       const char *ot = child->override_type;
-      int is_after = ot != NULL && strncmp (ot, "After", 5) == 0;
+      int is_after = ot != nullptr && strncmp (ot, "After", 5) == 0;
       if (is_after)
         { after.push_back (child); continue; }
 
@@ -688,11 +688,11 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
              suppress the parent (clsUserSession's bShouldParentExecuteTasks).
              Mirrors why Amazon's bottle (lazy fail) is still picked up while
              RunBronwynn's ballgown (RemoveBall, Key=Ballgown) is not. */
-          int lazy = run->resp != NULL && child_all_any (st, child);
+          int lazy = run->resp != nullptr && child_all_any (st, child);
           int fail_claims = 0;
-          if (fm != NULL)
+          if (fm != nullptr)
             {
-              if (run->resp != NULL)
+              if (run->resp != nullptr)
                 { resp_add_fail (run, fm); any_child_fail_output = 1; }
               else
                 {
@@ -712,7 +712,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
                     {
                       fail_claims = 1;
                       any_child_fail_output = 1;
-                      if (run->exec_scope != NULL)
+                      if (run->exec_scope != nullptr)
                         {
                           if (run->exec_scope->fail_seen.insert (fmsg).second)
                             {
@@ -738,7 +738,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
 
       /* Recurse so the child's own Specific overrides fire in its place
          (AttemptToExecuteSubTask -> recursive AttemptToExecuteTask). */
-      size_t ovf0 = run->exec_scope != NULL
+      size_t ovf0 = run->exec_scope != nullptr
                     ? run->exec_scope->ov_fails.size () : 0;
       execute_task_with_overrides (run, child, refs, depth + 1, out);
       st->task_done[cidx] = 1;        /* clsUserSession.vb:1193 task.Completed = True */
@@ -749,7 +749,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
          AttackCharacterWithObject; only its completion fires StartTroll's
          `Stop Completion s_AttackTheT`, disarming the troll's death subevent. */
       ev_on_task_completed (run, child->key, out);
-      if (ot == NULL || streq (ot, "Override"))
+      if (ot == nullptr || streq (ot, "Override"))
         { parent_text = 0; parent_actions = 0; }
       else if (streq (ot, "BeforeTextOnly"))      parent_actions = 0;
       else if (streq (ot, "BeforeActionsOnly"))   parent_text = 0;
@@ -772,7 +772,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
          this stop the scan fell through to TakeObjectsFromOthers, appending
          its "The large mirror is not on or inside another object!".  Gated
          on !hp_passing like the direct-fail claim above. */
-      int subtree_fail_output = run->exec_scope != NULL
+      int subtree_fail_output = run->exec_scope != nullptr
                                 && run->exec_scope->ov_fails.size () > ovf0;
       if ((sink_len (run, out) > len0
            || (subtree_fail_output && !st->adv->hp_passing))
@@ -791,8 +791,8 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
      increments Windowcoun, and ExamineObjects' %object%.Description segments are
      gated on it, so the "movement"/"creatures" lines must reflect the post-
      increment count on the same turn the runner shows them. */
-  int defer_text = run->resp == NULL && parent_text && parent->aggregate
-                   && parent->actions == NULL && !after.empty ();
+  int defer_text = run->resp == nullptr && parent_text && parent->aggregate
+                   && parent->actions == nullptr && !after.empty ();
 
   /* If the parent has After children that run actions on the direct path, defer
      its room view (Execute Look) so it renders at the post-child state, mirroring
@@ -801,9 +801,9 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
   int prev_look_pending = run->look_pending;
   size_t prev_look_pos = run->look_pos;
   char *prev_look_pinned = run->look_pinned;
-  int enable_look_defer = run->resp == NULL && !defer_text && !after.empty ();
+  int enable_look_defer = run->resp == nullptr && !defer_text && !after.empty ();
   if (enable_look_defer)
-    { run->defer_look = 1; run->look_pending = 0; run->look_pinned = NULL; }
+    { run->defer_look = 1; run->look_pending = 0; run->look_pinned = nullptr; }
 
   /* The runner's per-item AttemptToExecuteTask evaluates the task's restrictions at
      EXECUTION time (ExecuteSubTasks leaf), so an earlier item's actions can
@@ -816,12 +816,12 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
      restrictions here, on the plural per-item path only (cur_item set) --
      the singular/movement paths keep their single match-time evaluation and
      draw stream. */
-  if ((parent_text || parent_actions) && depth == 0 && run->resp != NULL
+  if ((parent_text || parent_actions) && depth == 0 && run->resp != nullptr
       && !run->resp->cur_item.empty ()
       && !a5restr_pass (st, parent->restrictions))
     {
       const a5_xml_node_t *fm = st->restriction_text;
-      if (fm != NULL)
+      if (fm != nullptr)
         resp_add_fail (run, fm);
       parent_text = parent_actions = 0;
     }
@@ -832,7 +832,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
       if (!parent_text && parent_actions)
         {
           const a5_xml_node_t *act = parent->actions;
-          if (act != NULL)
+          if (act != nullptr)
             for (const a5_xml_node_t *c = act->first_child; c; c = c->next)
               run_action (run, c->name, c->text, 0, out);
         }
@@ -847,7 +847,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
      its After children run.  The Look's offset is into the enabling frame's
      `out`, which is the same sink threaded through the nested calls. */
   int look_deferred = 0;
-  char *pinned_view = NULL;
+  char *pinned_view = nullptr;
   if (enable_look_defer)
     {
       if (run->look_pending) look_deferred = 1;
@@ -873,7 +873,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
          pick moved) is emitted verbatim; otherwise render at the final state
          (real output, so <DisplayOnce> segments retire). */
       std::string view;
-      if (pinned_view != NULL)
+      if (pinned_view != nullptr)
         view = std::string (pinned_view);
       else
         view = render_look_marked (run);
@@ -882,7 +882,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
          docking Looks at the docked pad, then on the bridge) re-renders that
          slot rather than appending -- first slot's position, last text. */
       exec_resp_scope *sc = run->exec_scope;
-      if (sc != NULL && sc->look_off >= 0 && sc->look_sink == out
+      if (sc != nullptr && sc->look_off >= 0 && sc->look_sink == out
           && (size_t) sc->look_off + sc->look_len <= out->len)
         {
           sb_splice (out, (size_t) sc->look_off, sc->look_len, view.c_str ());
@@ -891,7 +891,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
       else
         {
           sb_pspace (out);
-          if (sc != NULL)
+          if (sc != nullptr)
             { sc->look_sink = out; sc->look_off = (long) out->len;
               sc->look_len = view.size (); }
           sb_puts (out, view.c_str ());
@@ -918,8 +918,8 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
          avadora`).  Emit a display-defer sentinel; a5run_flush_display_defers
          renders the view into it at Display. */
       exec_resp_scope *sc = run->exec_scope;
-      if (streq (parent->key, "Look") && parent->aggregate && sc != NULL
-          && run->display_defers != NULL)
+      if (streq (parent->key, "Look") && parent->aggregate && sc != nullptr
+          && run->display_defers != nullptr)
         {
           if (!(sc->look_off >= 0 && sc->look_sink == out))
             {
@@ -934,7 +934,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
               run->display_defers->push_back ("\002");
             }
         }
-      else if (comp != NULL)
+      else if (comp != nullptr)
         {
           /* defer_text is gated on parent->aggregate, so this render stands in
              for the runner's Display-time expansion: bDisplaying. */
@@ -951,7 +951,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
   /* This frame produced pass output on the direct path: record its POSITIONAL
      reference signature (the runner keys every htblResponsesPass entry with the
      subtask's NewReferences) for the exec_scope ov_fails cancel rule. */
-  if (run->resp == NULL && run->exec_scope != NULL
+  if (run->resp == nullptr && run->exec_scope != nullptr
       && sink_len (run, out) > frame_len0)
     {
       std::vector<std::string> sig;
@@ -1004,7 +1004,7 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
      not the food's "makes a mess" (AoS `put all in bag` after the pouch/whetstone
      are already bagged).  Route it through the response map so the child fail
      messages buffer and can be replaced by the FailOverride at flush. */
-  bool all_failover = (objidx >= 0 && parent->fail_override != NULL
+  bool all_failover = (objidx >= 0 && parent->fail_override != nullptr
                        && conv_contains_word (m->ref_text[objidx], "all"));
   bool use_map = plural || movement || all_failover;
 
@@ -1054,7 +1054,7 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
   run->exec_scope = prev_escope;
   if (use_map)
     {
-      run->resp = NULL;
+      run->resp = nullptr;
       /* No child override passed for an "all" command: replace the buffered
          per-item fail messages with the general task's FailOverride (the runner's
          htblResponsesPass.Count=0 branch).  vb:789 renders it with a literal
@@ -1115,9 +1115,9 @@ a5run_draw_defer_entry (a5_run_t *run, size_t idx,
   if (body[0] == '\005')
     {
       /* Repeat of entry <orig> within one block: draw, then show <orig>. */
-      char *q = NULL;
+      char *q = nullptr;
       orig = strtol (body + 1, &q, 10);
-      body = (q != NULL && *q == '\005') ? q + 1 : body;
+      body = (q != nullptr && *q == '\005') ? q + 1 : body;
     }
   char *val;
   if (body[0] == '\003')
@@ -1128,7 +1128,7 @@ a5run_draw_defer_entry (a5_run_t *run, size_t idx,
     val = (body[0] == '\001')
             ? a5text_process_noalr (run->st, body + 1)
             : a5_eval_sexpr (body);
-  if (val == NULL)
+  if (val == nullptr)
     val = strdup ("");
   if (orig >= 0 && vals.count ((size_t) orig))
     {
@@ -1150,10 +1150,10 @@ void
 a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from)
 {
   std::vector<std::string> *sink = run->display_defers;
-  if (sink == NULL || sink->size () <= from)
+  if (sink == nullptr || sink->size () <= from)
     return;
   void *prev_ed = run->st->expr_defer;
-  run->st->expr_defer = NULL;                 /* no re-deferral during the draw */
+  run->st->expr_defer = nullptr;                 /* no re-deferral during the draw */
 
   /* Draw order.  The runner's Display expands ONE response at a time: its
      ReplaceFunctions pass first (each `%var[rand]%` -- our \001 entries -- in
@@ -1181,13 +1181,13 @@ a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from)
           continue;
         char mark[24];
         snprintf (mark, sizeof mark, "\004%d\004", (int) k);
-        const char *at = out->p != NULL ? strstr (out->p, mark) : NULL;
+        const char *at = out->p != nullptr ? strstr (out->p, mark) : nullptr;
         /* A sentinel with no text position was emitted inside a tag that the
            renderer then stripped (OS/PlugIn.Exe holds its pause in
            `<wait %Tpaus%>`, whose `<#rand(5, 9)#>` still has to DRAW in text
            order).  Give it the previous entry's key so the stable sort keeps
            it in push order rather than banishing it to the end. */
-        if (at != NULL)
+        if (at != nullptr)
           lastpos = (long) (at - out->p);
         sslots.push_back (k - from);
         spos.push_back (std::make_pair (lastpos, k));
@@ -1214,8 +1214,8 @@ a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from)
         val = a5run_draw_defer_entry (run, k, drawn);
       char mark[24];
       int ml = snprintf (mark, sizeof mark, "\004%d\004", (int) k);
-      char *at = out->p != NULL ? strstr (out->p, mark) : NULL;
-      if (at != NULL)
+      char *at = out->p != nullptr ? strstr (out->p, mark) : nullptr;
+      if (at != nullptr)
         {
           size_t pos = (size_t) (at - out->p);
           /* The runner reduces expressions INSIDE Display, so its
@@ -1223,7 +1223,7 @@ a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from)
              a5text_process time, before this splice.  Re-apply the cap for a
              value that lands at a sentence start (OS/PlugIn.Exe's card line
              begins with the deferred `<#if(..)#>`, "four of Diamonds"). */
-          if (val != NULL && islower ((unsigned char) val[0])
+          if (val != nullptr && islower ((unsigned char) val[0])
               && a5text_is_sentence_start (out->p, pos))
             val[0] = (char) toupper ((unsigned char) val[0]);
           std::string tail (out->p + pos + ml, out->len - pos - (size_t) ml);
@@ -1319,12 +1319,12 @@ emit_message_body (a5_run_t *run, char *m, int pre_alr_ink, sb_t *out,
       /* The runner keys htblResponsesPass on the still-marked-up message, so a
          difference that lives inside a tag Display later strips still makes two
          responses distinct; `m` is post-strip, so prefer the marked-up form. */
-      const char *dk = dedup_key != NULL ? dedup_key : m;
+      const char *dk = dedup_key != nullptr ? dedup_key : m;
       /* Within an event-fired task chain, dedup identical completion messages
          (the runner's htblResponsesPass, keyed by text): show the first, drop repeats.
          Keeps the first occurrence's position -- which, for a message emitted
          before a later <cls>, means it is wiped by that clear (Pathway's banner). */
-      if (run->ev_seen != NULL)
+      if (run->ev_seen != nullptr)
         {
           if (run->ev_seen->count (dk)) { free (m); return; }
           run->ev_seen->insert (dk);
@@ -1334,18 +1334,18 @@ emit_message_body (a5_run_t *run, char *m, int pre_alr_ink, sb_t *out,
          Execute'd tasks with identical messages (Euripides' `press on` runs
          cl_ToCrawler11 AND cl_ToCrawler12, both the crawler journey) -- shows
          it once, keeping the first occurrence's position. */
-      if (run->exec_scope != NULL
+      if (run->exec_scope != nullptr
           && !run->exec_scope->pass_seen.insert (dk).second)
         { free (m); return; }
       /* A pass response with output: record its bound object references for
          the pass-cancels-fail rule (the runner keys every AddResponse with the
          subtask's reference keys and drops a fail whose refs all passed). */
-      if (run->exec_scope != NULL)
+      if (run->exec_scope != nullptr)
         for (auto &k : current_obj_ref_keys (run->st))
           run->exec_scope->pass_refs.insert (k);
       sb_pspace (out); sb_puts (out, m);
     }
-  else if (pre_alr_ink && m != NULL && m[0] != '\0')
+  else if (pre_alr_ink && m != nullptr && m[0] != '\0')
     {
       /* The message had real text until a game ALR blanked it (Tribute maps
          the auto-note "(from the enormous mirror)" to an empty TextOverride).
@@ -1392,7 +1392,7 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
     }
   int pre_alr_ink = 0;
   int raw_nonblank = 0;
-  char *marked = NULL;
+  char *marked = nullptr;
   char *m;
   {
     a5_mark_guard mg (run->st, 1);
@@ -1408,7 +1408,7 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
      keyed by its CompletionMessage node.  The table's final entry decides the
      attempt's post-Display NewReferences leftover (see ev_tbl,
      a5run_internal.h). */
-  if (run->in_ev_attempt && run->ev_tbl != NULL && raw_nonblank)
+  if (run->in_ev_attempt && run->ev_tbl != nullptr && raw_nonblank)
     ev_tbl_touch (run->ev_tbl, comp, std::string ());
   emit_message_body (run, m, pre_alr_ink, out, marked);
   free (marked);
@@ -1430,7 +1430,7 @@ render_look_string (a5_run_t *run)
   a5_state_t *st = run->st;
   const a5_task_t *look = a5model_task (st->adv, "Look");
   const a5_xml_node_t *comp =
-      look != NULL ? a5xml_child (look->node, "CompletionMessage") : NULL;
+      look != nullptr ? a5xml_child (look->node, "CompletionMessage") : nullptr;
   char *view = a5text_view_location (st);
   std::string result = view ? view : "";
   /* The room view IS the CompletionMessage's default (Me(0) ==
@@ -1444,7 +1444,7 @@ render_look_string (a5_run_t *run)
   std::string default_view = result;
   free (view);
 
-  if (comp != NULL)
+  if (comp != nullptr)
     {
       int idx = 0;
       for (const a5_xml_node_t *c = comp->first_child; c; c = c->next)
@@ -1467,7 +1467,7 @@ render_look_string (a5_run_t *run)
           if (once && a5state_disp_once_seen (st, c))
             continue;
           restr = a5xml_child (c, "Restrictions");
-          if (restr != NULL && !a5restr_pass (st, restr))
+          if (restr != nullptr && !a5restr_pass (st, restr))
             continue;
           /* Retire the segment only on real output, not a bTestingOutput peek
              (the two pre/post-action test renders set marking_display=0; the
@@ -1501,14 +1501,14 @@ emit_look (a5_run_t *run, sb_t *out)
   /* Defer the room view until the command's After children have run (the runner's
      AggregateOutput Look render at final Display).  Record the insertion offset;
      execute_task_with_overrides renders and splices it once at final state. */
-  if (run->defer_look && run->resp == NULL)
+  if (run->defer_look && run->resp == nullptr)
     {
       if (!run->look_pending)
         { run->look_pending = 1; run->look_pos = out->len; }
       return;
     }
 
-  if (run->resp != NULL)
+  if (run->resp != nullptr)
     {
       /* Defer the room view to flush (final command state): the runner's stock Look
          CompletionMessage is AggregateOutput, so its render is deferred to
@@ -1590,7 +1590,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
       int resp_pos = -1;
       int claimed_pending = 0;
       sb_t abuf; sb_init (&abuf);
-      if (run->resp != NULL)
+      if (run->resp != nullptr)
         resp_pos = (int) run->resp->ents.size ();
       else if (run->defer_look && !run->look_pending)
         { run->look_pending = 1; run->look_pos = out->len; claimed_pending = 1; }
@@ -1598,10 +1598,10 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
       if (self_ti >= 0) st->task_done[self_ti] = 1;
       int saved_sti = run->cur_score_ti;
       run->cur_score_ti = self_ti;
-      if (t->actions != NULL)
+      if (t->actions != nullptr)
         for (const a5_xml_node_t *c = t->actions->first_child; c; c = c->next)
           run_action (run, c->name, c->text, depth,
-                      (run->resp == NULL && !run->defer_look) ? &abuf : out);
+                      (run->resp == nullptr && !run->defer_look) ? &abuf : out);
       run->cur_score_ti = saved_sti;
 
       std::string e2 = probe_view ();
@@ -1609,7 +1609,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
       if (e1 != e2)
         {
           /* Pinned to the pre-actions render (vb:1200 sMessage = sBefore...). */
-          if (run->resp != NULL)
+          if (run->resp != nullptr)
             resp_add_text (run, e1.c_str (), true, resp_pos);
           else if (run->defer_look)
             {
@@ -1617,11 +1617,11 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
                 { free (run->look_pinned);
                   run->look_pinned = strdup (e1.c_str ()); }
             }
-          else if (run->exec_scope == NULL
+          else if (run->exec_scope == nullptr
                    || run->exec_scope->pass_seen.insert (e1).second)
             { sb_pspace (out); sb_puts (out, e1.c_str ()); }
         }
-      else if (run->resp != NULL)
+      else if (run->resp != nullptr)
         {
           if (!t->aggregate)
             {
@@ -1650,11 +1650,11 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
              that Executes Look twice shows one view (Euripides `press on`).
              Real output: retire any <DisplayOnce> completion segments. */
           std::string v = render_look_marked (run);
-          if (run->exec_scope == NULL
+          if (run->exec_scope == nullptr
               || run->exec_scope->pass_seen.insert (v).second)
             {
               exec_resp_scope *sc = run->exec_scope;
-              if (sc != NULL && t->aggregate && sc->look_off >= 0
+              if (sc != nullptr && t->aggregate && sc->look_off >= 0
                   && sc->look_sink == out
                   && (size_t) sc->look_off + sc->look_len <= out->len)
                 {
@@ -1670,10 +1670,10 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
               else
                 {
                   sb_pspace (out);
-                  if (sc != NULL && t->aggregate)
+                  if (sc != nullptr && t->aggregate)
                     { sc->look_sink = out; sc->look_off = (long) out->len; }
                   sb_puts (out, v.c_str ());
-                  if (sc != NULL && t->aggregate)
+                  if (sc != nullptr && t->aggregate)
                     sc->look_len = v.size ();
                 }
             }
@@ -1704,12 +1704,12 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
      %objects%.Parent.Name)", whose parent flips to the player once the take
      runs) or, for an unchanged AggregateOutput task, left deferred so a second
      item merges into its %objects% list. */
-  char *resp_pre = NULL;
-  char *resp_pre_marked = NULL;
+  char *resp_pre = nullptr;
+  char *resp_pre_marked = nullptr;
   int   resp_pos = -1;
-  char *flat_raw = NULL;         /* flat-path frozen Before template + snapshot */
-  char *flat_pre = NULL;
-  char *flat_pre_marked = NULL;
+  char *flat_raw = nullptr;         /* flat-path frozen Before template + snapshot */
+  char *flat_pre = nullptr;
+  char *flat_pre_marked = nullptr;
   int   flat_pre_ink = 0;
   int   flat_inter = 0;
   sb_t  flat_abuf; sb_init (&flat_abuf);
@@ -1719,9 +1719,9 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
      response, i.e. lands here.  (imm frame set around the action loop below,
      flat paths only.) */
   long imm0 = (long) out->len;
-  if (before && comp != NULL)
+  if (before && comp != nullptr)
     {
-      if (run->resp != NULL)
+      if (run->resp != nullptr)
         {
           resp_pre = render_comp_test_ex (st, comp, &resp_pre_marked);
           resp_pos = (int) run->resp->ents.size ();
@@ -1762,12 +1762,12 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
              messages -- this fast path keeps them byte-stable.  (defer_look also
              stays here: the interleaved path below buffers action output, which
              would break look_pos indexing into `out`.) */
-          char *m1 = NULL, *m2 = NULL;
+          char *m1 = nullptr, *m2 = nullptr;
           char *e1 = render_comp_test_ex (st, comp, &m1);
           char *e2 = render_comp_test_ex (st, comp, &m2);
-          int renders_differ = (m1 != NULL && m2 != NULL && strcmp (m1, m2) != 0);
+          int renders_differ = (m1 != nullptr && m2 != nullptr && strcmp (m1, m2) != 0);
           free (m2);
-          if (e1 != NULL && e2 != NULL && renders_differ)
+          if (e1 != nullptr && e2 != nullptr && renders_differ)
             {
               /* First two renders differ: the runner pins the pre-action snapshot and the
                  finalize replace is a no-op on the already-plain text (no 3rd
@@ -1847,17 +1847,17 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
   int prev_dl = run->defer_look, prev_lp = run->look_pending;
   size_t prev_lpos = run->look_pos;
   char *prev_lpin = run->look_pinned;
-  if (act != NULL && !flat_inter && run->resp == NULL && !run->defer_look)
+  if (act != nullptr && !flat_inter && run->resp == nullptr && !run->defer_look)
     {
-      for (const a5_xml_node_t *c = act->first_child; c != NULL; c = c->next)
-        if (streq (c->name, "SetTasks") && c->next != NULL
+      for (const a5_xml_node_t *c = act->first_child; c != nullptr; c = c->next)
+        if (streq (c->name, "SetTasks") && c->next != nullptr
             && streq (c->text, "Execute Look"))
           { local_defer_look = 1; break; }
       if (local_defer_look)
-        { run->defer_look = 1; run->look_pending = 0; run->look_pinned = NULL; }
+        { run->defer_look = 1; run->look_pending = 0; run->look_pinned = nullptr; }
     }
 
-  if (act != NULL)
+  if (act != nullptr)
     {
       int saved_sti = run->cur_score_ti;
       sb_t *prev_isink = run->imm_sink;
@@ -1866,10 +1866,10 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
       /* Flat paths only: the resp path's flush order and the Look dance keep
          their existing append behaviour.  defer_look is fine -- the splice
          helper shifts look_pos when it inserts ahead of a recorded slot. */
-      if (run->resp == NULL)
+      if (run->resp == nullptr)
         { run->imm_sink = out; run->imm_pos = imm0; }
       const a5_xml_node_t *c;
-      for (c = act->first_child; c != NULL; c = c->next)
+      for (c = act->first_child; c != nullptr; c = c->next)
         run_action (run, c->name, c->text, depth, flat_inter ? &flat_abuf : out);
       run->cur_score_ti = saved_sti;
       run->imm_sink = prev_isink;
@@ -1888,7 +1888,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
       if (did_defer && lpos <= (size_t) out->len)
         {
           std::string view;
-          if (lpin != NULL)
+          if (lpin != nullptr)
             view = lpin;                       /* pinned pre-action render */
           else
             view = render_look_marked (run);   /* final-state room view */
@@ -1911,28 +1911,28 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
          FROZEN template: pin the pre-action snapshot when the renders differ
          (the runner displays the test render; no third draw), else render once more
          for display (the finalize draw, real marking). */
-      char *post_marked = NULL;
+      char *post_marked = nullptr;
       char *post;
       {
         a5_mark_guard mg (st, 0);
         a5_intro_guard ig (st, 1);        /* vb:1199's probe */
-        post = a5text_process_frozen (st, flat_raw, NULL, &post_marked);
+        post = a5text_process_frozen (st, flat_raw, nullptr, &post_marked);
       }
       /* Compare the MARKED renders: that is the string the runner holds in
          sMessage (clsUserSession.vb:1200), so a change confined to markup --
          Beginner's Cave's `<# "<" & rand(0,1000000) & ">" #>` cache-buster --
          counts, and the runner then pins the pre-action text instead of
          drawing a third time. */
-      int changed = (flat_pre_marked != NULL && post_marked != NULL
+      int changed = (flat_pre_marked != nullptr && post_marked != nullptr
                      && strcmp (flat_pre_marked, post_marked) != 0);
       free (post_marked);
-      if (flat_pre != NULL && post != NULL && changed)
+      if (flat_pre != nullptr && post != nullptr && changed)
         { emit_message_body (run, flat_pre, flat_pre_ink, out, flat_pre_marked);
-          flat_pre = NULL; }
+          flat_pre = nullptr; }
       else
         {
           int fin_ink = 0;
-          char *fin_marked = NULL;
+          char *fin_marked = nullptr;
           char *fin;
           {
             a5_mark_guard mg (st, 1);
@@ -1951,30 +1951,30 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
   if (flat_abuf.len > 0) { sb_pspace (out); sb_puts (out, flat_abuf.p); }
   free (flat_abuf.p);
 
-  if (before && comp != NULL && run->resp != NULL)
+  if (before && comp != nullptr && run->resp != nullptr)
     {
-      char *post_marked = NULL;
+      char *post_marked = nullptr;
       char *post = render_comp_test_ex (st, comp, &post_marked);
       /* Marked compare, as in the flat path above (vb:1200's sMessage still
          carries its markup). */
-      int same = (resp_pre_marked != NULL && post_marked != NULL
+      int same = (resp_pre_marked != nullptr && post_marked != nullptr
                   && strcmp (resp_pre_marked, post_marked) == 0);
       free (post_marked);
-      if (t->aggregate && resp_pre != NULL && post != NULL && same)
+      if (t->aggregate && resp_pre != nullptr && post != nullptr && same)
         resp_add_comp (run, t, comp, true, resp_pos);      /* deferred + merge */
-      else if (resp_pre != NULL)
+      else if (resp_pre != nullptr)
         resp_add_text (run, resp_pre, true, resp_pos);     /* pinned pre-action */
       free (post);
     }
   free (resp_pre);
   free (resp_pre_marked);
 
-  if (!before && comp != NULL)
+  if (!before && comp != nullptr)
     {
-      if (run->resp != NULL)
+      if (run->resp != nullptr)
         resp_add_comp (run, t, comp, true);
-      else if (run->comp_defers != NULL && t->aggregate
-               && run->in_ev_attempt && run->ev_tbl != NULL)
+      else if (run->comp_defers != nullptr && t->aggregate
+               && run->in_ev_attempt && run->ev_tbl != nullptr)
         {
           /* Event/walk/LocationTrigger attempt: the runner adds this After
              completion per subtask pass via CompletionMessage.ToString -- the
@@ -1991,7 +1991,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
             a5_mark_guard mg (st, 1);
             raw = a5text_eval_description (st, comp);
           }
-          std::string rawtext = raw != NULL ? raw : "";
+          std::string rawtext = raw != nullptr ? raw : "";
           free (raw);
           if (!rawtext.empty ())
             {
@@ -2002,7 +2002,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
                   size_t out0 = out->len;
                   st->expr_defer = run->comp_defers;
                   int ink = 0;
-                  char *mk = NULL;
+                  char *mk = nullptr;
                   char *m;
                   {
                     a5_mark_guard mg (st, 1);
@@ -2010,7 +2010,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
                     m = a5text_process_frozen (st, rawtext.c_str (),
                                                &ink, &mk);
                   }
-                  st->expr_defer = NULL;
+                  st->expr_defer = nullptr;
                   emit_message_body (run, m, ink, out, mk);
                   free (mk);
                   if (out->len == out0)
@@ -2018,7 +2018,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
                 }
             }
         }
-      else if (run->comp_defers != NULL && t->aggregate)
+      else if (run->comp_defers != nullptr && t->aggregate)
         {
           /* AggregateOutput completion on the eager command path: render the
              static skeleton now (so its position and pSpace separators match),
@@ -2034,7 +2034,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
             a5_intro_guard ig (st, 1);     /* aggregate: Display render */
             emit_completion (run, comp, out);
           }
-          st->expr_defer = NULL;
+          st->expr_defer = nullptr;
           if (out->len == out0)
             run->comp_defers->resize (sink0);
         }

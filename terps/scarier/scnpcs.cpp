@@ -670,7 +670,7 @@ npc_wherefrom (scr_gameref_t game, scr_int roomfrom, scr_int roomto)
   const scr_char *retval;
   scr_int length, dir;
 
-  retval = NULL;
+  retval = nullptr;
   if (roomfrom == roomto)
     retval = NOT_MOVED;
   if (roomfrom == -1)

@@ -218,11 +218,11 @@ struct scr_uip_state_s
 
   struct
   {
-    const scr_char *pattern = NULL;
+    const scr_char *pattern = nullptr;
     scr_int index = 0;
-    const scr_char *token_value = NULL;
+    const scr_char *token_value = nullptr;
     scr_char static_temporary[UIP_ALLOCATION_AVOIDANCE_SIZE] = {};
-    scr_char *temporary = NULL;
+    scr_char *temporary = nullptr;
     scr_bool multi_space = FALSE;        /* see uip_next_token() */
     scr_bool after_group = FALSE;
   } tokenizer;
@@ -232,7 +232,7 @@ struct scr_uip_state_s
     scr_uip_tok_t lookahead = TOK_NONE;
     jmp_buf error;
     scr_int group_depth = 0;
-    scr_ptnoderef_t tree = NULL;         /* for cleanup on a parse error */
+    scr_ptnoderef_t tree = nullptr;         /* for cleanup on a parse error */
   } parse;
 
   struct
@@ -247,9 +247,9 @@ struct scr_uip_state_s
 
   struct
   {
-    const scr_char *string = NULL;
+    const scr_char *string = nullptr;
     scr_int posn = 0;
-    scr_gameref_t game = NULL;
+    scr_gameref_t game = nullptr;
     scr_bool binary_active = FALSE;
     scr_bool comma_is_space = FALSE;
     const scr_char *word_end_punctuation = "";
@@ -260,7 +260,7 @@ struct scr_uip_state_s
 
   struct
   {
-    const void *game = NULL;
+    const void *game = nullptr;
     std::vector<scr_uip_entity_t> objects;
     std::vector<scr_uip_entity_t> npcs;
   } cache;

@@ -43,7 +43,7 @@ static gsc_abbreviation_t GSC_ABBREVIATIONS[] = {
   {'k', "attack"},   {'l', "look"},   {'p', "open"},
   {'q', "quit"},     {'r', "drop"},   {'t', "take"},
   {'x', "examine"},  {'y', "yes"},    {'z', "wait"},
-  {'\0', NULL}
+  {'\0', nullptr}
 };
 
 
@@ -69,7 +69,7 @@ gsc_expand_abbreviations (char *buffer, int size)
 
   /* Scan the abbreviations table for a match. */
   abbreviation = glk_char_to_lower ((unsigned char) command[0]);
-  expansion = NULL;
+  expansion = nullptr;
   for (entry = GSC_ABBREVIATIONS; entry->expansion; entry++)
     {
       if (entry->abbreviation == abbreviation)
@@ -136,8 +136,8 @@ gsc_readlog_line (char *buffer, glui32 length)
   if (chars > 0)
     return chars;
 
-  glk_stream_close (gsc_readlog_stream, NULL);
-  gsc_readlog_stream = NULL;
+  glk_stream_close (gsc_readlog_stream, nullptr);
+  gsc_readlog_stream = nullptr;
   return 0;
 }
 

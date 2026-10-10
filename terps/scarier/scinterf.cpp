@@ -470,20 +470,20 @@ scr_game_from_filename (const scr_char *filename)
   if (!filename)
     {
       scr_error ("scr_game_from_filename: NULL filename\n");
-      return NULL;
+      return nullptr;
     }
 
   stream = fopen (filename, "rb");
   if (!stream)
     {
       scr_error ("scr_game_from_filename: fopen error\n");
-      return NULL;
+      return nullptr;
     }
 
   game = if_guarded ("scr_game_from_filename", [&] ()
     {
       return run_create (if_file_read_callback, stream);
-    }, NULL);
+    }, nullptr);
   fclose (stream);
 
   return game;
@@ -496,13 +496,13 @@ scr_game_from_stream (FILE *stream)
   if (!stream)
     {
       scr_error ("scr_game_from_stream: NULL stream\n");
-      return NULL;
+      return nullptr;
     }
 
   return if_guarded ("scr_game_from_stream", [&] ()
     {
       return run_create (if_file_read_callback, stream);
-    }, NULL);
+    }, nullptr);
 }
 
 scr_game
@@ -513,13 +513,13 @@ scr_game_from_callback (scr_int (*callback) (void *, scr_byte *, scr_int),
   if (!callback)
     {
       scr_error ("scr_game_from_callback: NULL callback\n");
-      return NULL;
+      return nullptr;
     }
 
   return if_guarded ("scr_game_from_callback", [&] ()
     {
       return run_create (callback, opaque);
-    }, NULL);
+    }, nullptr);
 }
 
 
@@ -558,8 +558,8 @@ if_game_error (scr_gameref_t game, const scr_char *function_name)
 template <typename F>
 static auto
 if_game_guarded (scr_game game, const scr_char *function_name, F body,
-                 decltype (body ((scr_gameref_t) NULL)) fail)
-  -> decltype (body ((scr_gameref_t) NULL))
+                 decltype (body ((scr_gameref_t) nullptr)) fail)
+  -> decltype (body ((scr_gameref_t) nullptr))
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
 
@@ -1012,22 +1012,23 @@ if_get_attributes (scr_gameref_t game, scr_uint wanted)
   if_attrs_t attrs = if_attrs_t ();
 
   run_get_attributes (game,
-                      wanted & IF_ATTR_NAME ? &attrs.name : NULL,
-                      wanted & IF_ATTR_AUTHOR ? &attrs.author : NULL,
+                      wanted & IF_ATTR_NAME ? &attrs.name : nullptr,
+                      wanted & IF_ATTR_AUTHOR ? &attrs.author : nullptr,
                       wanted & IF_ATTR_COMPILE_DATE
-                        ? &attrs.compile_date : NULL,
-                      wanted & IF_ATTR_TURNS ? &attrs.turns : NULL,
-                      wanted & IF_ATTR_SCORE ? &attrs.score : NULL,
-                      wanted & IF_ATTR_MAX_SCORE ? &attrs.max_score : NULL,
-                      wanted & IF_ATTR_ROOM ? &attrs.room : NULL,
-                      wanted & IF_ATTR_STATUS_LINE ? &attrs.status_line : NULL,
+                        ? &attrs.compile_date : nullptr,
+                      wanted & IF_ATTR_TURNS ? &attrs.turns : nullptr,
+                      wanted & IF_ATTR_SCORE ? &attrs.score : nullptr,
+                      wanted & IF_ATTR_MAX_SCORE ? &attrs.max_score : nullptr,
+                      wanted & IF_ATTR_ROOM ? &attrs.room : nullptr,
+                      wanted & IF_ATTR_STATUS_LINE
+                        ? &attrs.status_line : nullptr,
                       wanted & IF_ATTR_PREFERRED_FONT
-                        ? &attrs.preferred_font : NULL,
+                        ? &attrs.preferred_font : nullptr,
                       wanted & IF_ATTR_BOLD_ROOM_NAMES
-                        ? &attrs.bold_room_names : NULL,
-                      wanted & IF_ATTR_VERBOSE ? &attrs.verbose : NULL,
+                        ? &attrs.bold_room_names : nullptr,
+                      wanted & IF_ATTR_VERBOSE ? &attrs.verbose : nullptr,
                       wanted & IF_ATTR_NOTIFY_SCORE_CHANGE
-                        ? &attrs.notify_score_change : NULL);
+                        ? &attrs.notify_score_change : nullptr);
   return attrs;
 }
 
@@ -1340,12 +1341,12 @@ scr_game_scan_strings (scr_game game,
 
   if (if_game_error (game_, "scr_game_scan_strings"))
     return FALSE;
-  if (accept == NULL)
+  if (accept == nullptr)
     return FALSE;
 
   bundle = gs_get_bundle (game_);
   taf = prop_get_taf (bundle);
-  if (taf == NULL)
+  if (taf == nullptr)
     return FALSE;
 
   taf_first_line (taf);
@@ -1353,7 +1354,7 @@ scr_game_scan_strings (scr_game game,
     {
       const scr_char *line = taf_next_line (taf);
 
-      if (line != NULL && accept (line, opaque))
+      if (line != nullptr && accept (line, opaque))
         return TRUE;
     }
   return FALSE;
@@ -1375,8 +1376,8 @@ scr_get_first_game_hint (scr_game game)
   return if_game_guarded (game, "scr_get_first_game_hint",
                           [&] (scr_gameref_t game_)
     {
-      return run_hint_iterate (game_, NULL);
-    }, NULL);
+      return run_hint_iterate (game_, nullptr);
+    }, nullptr);
 }
 
 scr_game_hint
@@ -1386,17 +1387,17 @@ scr_get_next_game_hint (scr_game game, scr_game_hint hint)
   const scr_hintref_t hint_ = (scr_hintref_t) hint;
 
   if (if_game_error (game_, "scr_get_next_game_hint"))
-    return NULL;
+    return nullptr;
   if (!hint_)
     {
       scr_error ("scr_get_next_game_hint: NULL hint\n");
-      return NULL;
+      return nullptr;
     }
 
   return if_guarded ("scr_get_next_game_hint", [&] ()
     {
       return run_hint_iterate (game_, hint_);
-    }, NULL);
+    }, nullptr);
 }
 
 const scr_char *
@@ -1406,17 +1407,17 @@ scr_get_game_hint_question (scr_game game, scr_game_hint hint)
   const scr_hintref_t hint_ = (scr_hintref_t) hint;
 
   if (if_game_error (game_, "scr_get_game_hint_question"))
-    return NULL;
+    return nullptr;
   if (!hint_)
     {
       scr_error ("scr_get_game_hint_question: NULL hint\n");
-      return NULL;
+      return nullptr;
     }
 
   return if_guarded ("scr_get_game_hint_question", [&] ()
     {
       return run_get_hint_question (game_, hint_);
-    }, NULL);
+    }, nullptr);
 }
 
 const scr_char *
@@ -1426,17 +1427,17 @@ scr_get_game_subtle_hint (scr_game game, scr_game_hint hint)
   const scr_hintref_t hint_ = (scr_hintref_t) hint;
 
   if (if_game_error (game_, "scr_get_game_subtle_hint"))
-    return NULL;
+    return nullptr;
   if (!hint_)
     {
       scr_error ("scr_get_game_subtle_hint: NULL hint\n");
-      return NULL;
+      return nullptr;
     }
 
   return if_guarded ("scr_get_game_subtle_hint", [&] ()
     {
       return run_get_subtle_hint (game_, hint_);
-    }, NULL);
+    }, nullptr);
 }
 
 const scr_char *
@@ -1446,17 +1447,17 @@ scr_get_game_unsubtle_hint (scr_game game, scr_game_hint hint)
   const scr_hintref_t hint_ = (scr_hintref_t) hint;
 
   if (if_game_error (game_, "scr_get_game_unsubtle_hint"))
-    return NULL;
+    return nullptr;
   if (!hint_)
     {
       scr_error ("scr_get_game_unsubtle_hint: NULL hint\n");
-      return NULL;
+      return nullptr;
     }
 
   return if_guarded ("scr_get_game_unsubtle_hint", [&] ()
     {
       return run_get_unsubtle_hint (game_, hint_);
-    }, NULL);
+    }, nullptr);
 }
 
 
@@ -1588,7 +1589,7 @@ scr_default_random_seed (void)
 
   if (env && *env)
     {
-      scr_uint seed = (scr_uint) strtoul (env, NULL, 10);
+      scr_uint seed = (scr_uint) strtoul (env, nullptr, 10);
 
       return seed > 0 ? seed : 1;
     }

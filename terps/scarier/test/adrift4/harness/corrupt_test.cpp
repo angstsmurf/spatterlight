@@ -140,7 +140,7 @@ main (void)
   /* 2a. Empty input -- the boundary must return NULL, not crash. */
   {
     scr_game game = load_from_buffer ((const scr_byte *) "", 0);
-    expect ("empty input -> NULL game", game == NULL, 1);
+    expect ("empty input -> NULL game", game == nullptr, 1);
     scr_free_game (game);
   }
 
@@ -150,7 +150,7 @@ main (void)
     for (int i = 0; i < (int) sizeof (garbage); i++)
       garbage[i] = (scr_byte) (i * 37 + 11);
     scr_game game = load_from_buffer (garbage, sizeof (garbage));
-    expect ("garbage input -> NULL game", game == NULL, 1);
+    expect ("garbage input -> NULL game", game == nullptr, 1);
     scr_free_game (game);
   }
 
@@ -158,7 +158,7 @@ main (void)
    * malformed-input recovery returns cleanly here; we just confirm no crash. */
   {
     scr_game game = load_from_buffer (V390_SIGNATURE, sizeof (V390_SIGNATURE));
-    expect ("v3.9 header, no body -> NULL game", game == NULL, 1);
+    expect ("v3.9 header, no body -> NULL game", game == nullptr, 1);
     scr_free_game (game);
   }
 
@@ -166,9 +166,9 @@ main (void)
    * stack must be caught at the scinterf.cpp boundary and reported as a NULL
    * game -- the exact crash this phase removes. */
   {
-    scr_game game = scr_game_from_callback (fatal_read_callback, NULL);
+    scr_game game = scr_game_from_callback (fatal_read_callback, nullptr);
     expect ("fatal during load -> NULL game (caught at boundary)",
-            game == NULL, 1);
+            game == nullptr, 1);
     scr_free_game (game);
   }
 

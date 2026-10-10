@@ -133,10 +133,10 @@ static void
 capture_restr_text (a5_state_t *st, const a5_xml_node_t *restrictions,
                     std::string *restr_text)
 {
-  if (restr_text == NULL)
+  if (restr_text == nullptr)
     return;
   const a5_xml_node_t *fm = a5restr_fail_message (st, restrictions);
-  if (fm != NULL)
+  if (fm != nullptr)
     { a5_intro_guard ig (st, 1);          /* fail text expands in Display (vb:1247) */
       char *t2 = a5text_describe (st, fm); *restr_text = t2; free (t2); }
 }
@@ -173,7 +173,7 @@ find_conv_node (a5_run_t *run, const a5_character_t *ch, int conv_type,
   int b_farewell = 0, b_command = 0, b_tell = 0, b_ask = 0, b_intro = 0;
   double best_pct = 0.0;
   int best_matches = 0;
-  const a5_topic_t *best = NULL;
+  const a5_topic_t *best = nullptr;
   int i;
 
   if (t >= A5_CONV_FAREWELL) { b_farewell = 1; t -= A5_CONV_FAREWELL; }
@@ -258,10 +258,10 @@ run_topic_actions (a5_run_t *run, const a5_topic_t *topic, sb_t *out)
 {
   int saved_sti = run->cur_score_ti;
 
-  if (topic->actions == NULL)
+  if (topic->actions == nullptr)
     return;
   run->cur_score_ti = -1;
-  for (const a5_xml_node_t *c = topic->actions->first_child; c != NULL;
+  for (const a5_xml_node_t *c = topic->actions->first_child; c != nullptr;
        c = c->next)
     run_action (run, c->name, c->text, 0, out);
   run->cur_score_ti = saved_sti;
@@ -279,21 +279,21 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
 {
   a5_state_t *st = run->st;
   const a5_character_t *conv_ch;
-  const a5_topic_t *topic = NULL;
-  const a5_topic_t *intro_emitted = NULL;
+  const a5_topic_t *topic = nullptr;
+  const a5_topic_t *intro_emitted = nullptr;
   std::string restr_text;
 
-  if (char_key == NULL || char_key[0] == '\0')
+  if (char_key == nullptr || char_key[0] == '\0')
     return;
 
   /* Leaving a different conversation: implicit farewell, then reset. */
   if (st->conv_char[0] != '\0' && !streq (st->conv_char, char_key))
     {
       const a5_character_t *prev = a5model_character (st->adv, st->conv_char);
-      if (prev != NULL)
+      if (prev != nullptr)
         {
-          const a5_topic_t *fw = find_conv_node (run, prev, conv_type, "", NULL);
-          if (fw != NULL)
+          const a5_topic_t *fw = find_conv_node (run, prev, conv_type, "", nullptr);
+          if (fw != nullptr)
             emit_topic_conv (run, prev->key, fw->conversation, out);
         }
       a5state_set_conv_char (st, "");
@@ -301,17 +301,17 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
     }
 
   conv_ch = a5model_character (st->adv, char_key);
-  if (conv_ch == NULL)
+  if (conv_ch == nullptr)
     return;
 
   /* Not yet in a conversation: try an explicit then an implicit intro. */
   if (st->conv_char[0] == '\0')
     {
       const a5_topic_t *intro =
-        find_conv_node (run, conv_ch, conv_type | A5_CONV_GREET, subject, NULL);
-      if (intro == NULL)
-        intro = find_conv_node (run, conv_ch, A5_CONV_GREET, "", NULL);
-      if (intro != NULL)
+        find_conv_node (run, conv_ch, conv_type | A5_CONV_GREET, subject, nullptr);
+      if (intro == nullptr)
+        intro = find_conv_node (run, conv_ch, A5_CONV_GREET, "", nullptr);
+      if (intro != nullptr)
         {
           emit_topic_conv (run, conv_ch->key, intro->conversation, out);
           intro_emitted = intro;
@@ -329,13 +329,13 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
 
   if (conv_type == A5_CONV_COMMAND)
     topic = find_conv_node (run, conv_ch, conv_type | A5_CONV_FAREWELL,
-                            subject, NULL);
-  if (topic == NULL)
+                            subject, nullptr);
+  if (topic == nullptr)
     topic = find_conv_node (run, conv_ch, conv_type, subject, &restr_text);
   else
     { a5state_set_conv_char (st, ""); a5state_set_conv_node (st, ""); }
 
-  if (topic != NULL)
+  if (topic != nullptr)
     {
       /* A pure Greet's main lookup can re-find the very topic just emitted as
          the intro.  The runner emits both, but AddResponse (clsUserSession.vb:
@@ -383,20 +383,20 @@ clear_conv_if_partner_gone (a5_run_t *run, sb_t *out)
   a5_state_t *st = run->st;
   int pci;
   const char *ploc;
-  if (st->conv_char == NULL || st->conv_char[0] == '\0')
+  if (st->conv_char == nullptr || st->conv_char[0] == '\0')
     return;
   pci = a5state_character_index (st, st->conv_char);
   ploc = a5state_player_location (st);
-  if (pci >= 0 && ploc != NULL && a5state_character_at_location (st, pci, ploc))
+  if (pci >= 0 && ploc != nullptr && a5state_character_at_location (st, pci, ploc))
     return;                                   /* partner still here */
   /* partner gone -> implicit Farewell (if any), then end the conversation. */
   {
     const a5_character_t *prev = a5model_character (st->adv, st->conv_char);
-    if (prev != NULL)
+    if (prev != nullptr)
       {
         const a5_topic_t *fw =
-          find_conv_node (run, prev, A5_CONV_FAREWELL, "", NULL);
-        if (fw != NULL)
+          find_conv_node (run, prev, A5_CONV_FAREWELL, "", nullptr);
+        if (fw != nullptr)
           emit_topic_conv (run, prev->key, fw->conversation, out);
       }
   }

@@ -106,7 +106,7 @@ uip_free_cleansed_string (scr_char *string, const scr_char *buffer)
     scr_free (string);
 
   /* Always returns NULL, for the syntactic convenience of the caller. */
-  return NULL;
+  return nullptr;
 }
 
 

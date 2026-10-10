@@ -40,7 +40,7 @@
 #include "scarier.h"
 
 static int failures = 0;
-static scr_game g_game = NULL;
+static scr_game g_game = nullptr;
 
 static void
 expect (const char *what, int got, int want)
@@ -87,7 +87,7 @@ probe_east_room (void)
 static struct step SCRIPT[] = {
   { "north", probe_west_room },   /* probe at the start room, then go north */
   { "quit",  probe_east_room },   /* probe in the east room, then quit */
-  { NULL,    NULL }
+  { nullptr,    nullptr }
 };
 
 static int g_index = 0;

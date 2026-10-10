@@ -47,7 +47,7 @@ static const scr_uip_token_entry_t UIP_TOKENS[] = {
   {"%object%", 8, TOK_OBJECT_REFERENCE},
   {"%number%", 8, TOK_NUMBER_REFERENCE},
   {"%text%", 6, TOK_TEXT_REFERENCE},
-  {NULL, 0, TOK_NONE}
+  {nullptr, 0, TOK_NONE}
 };
 
 
@@ -107,8 +107,8 @@ uip_tokenize_end (void)
   /* Deallocate temporary if required, and clear pattern and index. */
   if (uip.tokenizer.temporary != uip.tokenizer.static_temporary)
     scr_free (uip.tokenizer.temporary);
-  uip.tokenizer.temporary = NULL;
-  uip.tokenizer.pattern = NULL;
+  uip.tokenizer.temporary = nullptr;
+  uip.tokenizer.pattern = nullptr;
   uip.tokenizer.index = 0;
 }
 
@@ -129,7 +129,7 @@ uip_next_token (void)
   /* Get next character, return EOS if at pattern end. */
   if (tok.pattern[tok.index] == NUL)
     {
-      tok.token_value = NULL;
+      tok.token_value = nullptr;
       return TOK_EOS;
     }
 
@@ -181,7 +181,7 @@ uip_next_token (void)
           else
             tok.after_group = tok.multi_space;
         }
-      tok.token_value = NULL;
+      tok.token_value = nullptr;
       return TOK_WHITESPACE;
     }
 
@@ -195,7 +195,7 @@ uip_next_token (void)
     {
       /* Advance over string, and return token. */
       tok.index += entry->length;
-      tok.token_value = NULL;
+      tok.token_value = nullptr;
       return entry->token;
     }
 
@@ -438,10 +438,10 @@ uip_new_node (scr_pttype_t type)
     }
 
   /* Fill in the remaining fields and return the new node. */
-  node->left_child = NULL;
-  node->right_sibling = NULL;
+  node->left_child = nullptr;
+  node->right_sibling = nullptr;
   node->type = type;
-  node->word = NULL;
+  node->word = nullptr;
 
   return node;
 }
@@ -539,7 +539,7 @@ uip_parse_enter_group (void)
 static scr_ptnoderef_t
 uip_parse_element (void)
 {
-  scr_ptnoderef_t node = (scr_ptnoderef_t) NULL;
+  scr_ptnoderef_t node = (scr_ptnoderef_t) nullptr;
   scr_uip_tok_t token;
 
   /* Handle pattern element based on lookahead token. */
@@ -968,7 +968,7 @@ uip_compile_pattern (const scr_char *pattern)
       /* Parse error -- clean up and fail. */
       uip_tokenize_end ();
       uip_destroy_tree (uip.parse.tree);
-      uip.parse.tree = NULL;
+      uip.parse.tree = nullptr;
     }
   uip_free_cleansed_string (cleansed, buffer);
 
@@ -977,7 +977,7 @@ uip_compile_pattern (const scr_char *pattern)
    * touch it.
    */
   compiled->tree = uip.parse.tree;
-  uip.parse.tree = NULL;
+  uip.parse.tree = nullptr;
   return compiled;
 }
 

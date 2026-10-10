@@ -170,13 +170,13 @@ gsc_colour_lookup (const char *token)
     {"pink",      0xff8888}, {"purple",    0x800080},
     {"red",       0xff0000}, {"silver",    0xc0c0c0},
     {"teal",      0x008080}, {"white",     0xffffff},
-    {"yellow",    0xffff00}, {NULL, 0}
+    {"yellow",    0xffff00}, {nullptr, 0}
   };
   char hex[7];
   int index_;
   glui32 rgb;
 
-  if (token == NULL || token[0] == '\0' || strcmp (token, "default") == 0)
+  if (token == nullptr || token[0] == '\0' || strcmp (token, "default") == 0)
     return GSC_COLOUR_NONE;
 
   for (index_ = 0; COLOUR_NAMES[index_].name; index_++)
@@ -200,7 +200,7 @@ gsc_colour_lookup (const char *token)
       if (!isxdigit ((unsigned char) hex[index_]))
         return GSC_COLOUR_NONE;
     }
-  rgb = (glui32) strtoul (hex, NULL, 16);
+  rgb = (glui32) strtoul (hex, nullptr, 16);
   return rgb;
 }
 
@@ -255,7 +255,7 @@ gsc_colour_from_tag (const scr_char *tag, const char *key)
     {
       const scr_char *at = lower;
 
-      while ((at = strstr (at, keys[pass])) != NULL)
+      while ((at = strstr (at, keys[pass])) != nullptr)
         {
           const scr_char *value;
           size_t length = 0;
@@ -383,14 +383,14 @@ gsc_colour_wanted_by (const scr_char *text, void *opaque)
   const gsc_colour_wanted_t *wanted = (const gsc_colour_wanted_t *) opaque;
   const scr_char *at;
 
-  for (at = text; (at = strchr (at, '<')) != NULL; at++)
+  for (at = text; (at = strchr (at, '<')) != nullptr; at++)
     {
       const scr_char *end = strchr (at, '>');
       scr_char *tag;
       size_t length;
       glui32 colour;
 
-      if (end == NULL)
+      if (end == nullptr)
         break;
 
       /* Only <font ...> and <bgcolour=...> can carry one, and every other tag
@@ -452,17 +452,17 @@ gsc_colour_detect (winid_t window)
      is likeliest to be showing the light background Glk defaults to, and that
      is the case where pale authored text disappears. */
   wanted.background = 0xffffff;
-  if (window != NULL
+  if (window != nullptr
       && glk_style_measure (window, style_Normal, stylehint_BackColor,
                             &measured))
     wanted.background = measured;
 
   if (gsc_is_a5)
-    return gsc_a5_adv != NULL
+    return gsc_a5_adv != nullptr
            && (a5model_custom_palette (gsc_a5_adv)
                || a5model_scan_text (gsc_a5_adv, gsc_colour_wanted_by,
                                      &wanted));
-  return gsc_game != NULL
+  return gsc_game != nullptr
          && scr_game_scan_strings (gsc_game, gsc_colour_wanted_by, &wanted);
 }
 #endif
@@ -480,7 +480,7 @@ void
 gsc_colour_apply (winid_t win, glui32 fg)
 {
 #ifdef GSC_HAVE_ZCOLORS
-  if (!gsc_colour_enabled || win == NULL)
+  if (!gsc_colour_enabled || win == nullptr)
     return;
   if (fg == GSC_COLOUR_NONE)
     fg = gsc_colour_output;
@@ -1309,7 +1309,7 @@ gsc_header_string (const char *message)
 char *
 gsc_copy_string (const char *string)
 {
-  return string ? strdup (string) : NULL;
+  return string ? strdup (string) : nullptr;
 }
 
 

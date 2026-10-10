@@ -157,7 +157,7 @@ static scr_bool
 uip_is_word_end (scr_char character)
 {
   return character == NUL || scr_isspace (character)
-         || strchr (uip.match.word_end_punctuation, character) != NULL;
+         || strchr (uip.match.word_end_punctuation, character) != nullptr;
 }
 
 
@@ -496,7 +496,7 @@ uip_forget_game (const void *game)
 {
   if (uip.cache.game == game)
     {
-      uip.cache.game = NULL;
+      uip.cache.game = nullptr;
       uip.cache.objects.clear ();
       uip.cache.npcs.clear ();
     }
@@ -700,7 +700,7 @@ uip_case_folds_name_in (const scr_char *command, const scr_char *name)
   scr_lowercase (&wanted[0]);
 
   return !wanted.empty ()
-         && strstr (command, wanted.c_str ()) != NULL;
+         && strstr (command, wanted.c_str ()) != nullptr;
 }
 
 static scr_bool

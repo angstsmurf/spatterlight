@@ -111,9 +111,9 @@ os_play_sound (const scr_char *filepath,
   /* The app has put the sounds back as they were at the pause. */
   if (gsc_sc_silent)
     return;
-  if (sound_channel == NULL)
+  if (sound_channel == nullptr)
     sound_channel = glk_schannel_create (0);
-  if (sound_channel == NULL)
+  if (sound_channel == nullptr)
     return;
 
   id = gsc_load_resource (filepath, offset, length, TRUE);
@@ -127,7 +127,7 @@ os_stop_sound (void)
 {
   if (gsc_sc_silent)
     return;
-  if (sound_channel != NULL)
+  if (sound_channel != nullptr)
     glk_schannel_stop (sound_channel);
 }
 #else
@@ -174,7 +174,7 @@ os_stop_sound (void)
  * the intro text ran beneath it, which left neither the picture nor the text
  * enough room.
  */
-winid_t gsc_graphics_window = NULL;
+winid_t gsc_graphics_window = nullptr;
 glui32 gsc_title_image = 0;
 int gsc_seen_input = FALSE;
 
@@ -190,7 +190,7 @@ gsc_title_redraw (void)
 {
   glui32 win_width, win_height, img_width, img_height, draw_width, draw_height;
 
-  if (gsc_graphics_window == NULL || gsc_title_image == 0)
+  if (gsc_graphics_window == nullptr || gsc_title_image == 0)
     return;
 
   glk_window_get_size (gsc_graphics_window, &win_width, &win_height);
@@ -238,14 +238,14 @@ gsc_show_title_graphic (glui32 image)
       || img_width == 0 || img_height == 0)
     return FALSE;
 
-  if (gsc_graphics_window == NULL)
+  if (gsc_graphics_window == nullptr)
     {
       gsc_graphics_window = glk_window_open (glk_window_get_root (),
                                              winmethod_Above
                                              | winmethod_Proportional
                                              | winmethod_NoBorder,
                                              100, wintype_Graphics, 0);
-      if (gsc_graphics_window == NULL)
+      if (gsc_graphics_window == nullptr)
         return FALSE;
     }
 
@@ -263,10 +263,10 @@ gsc_show_title_graphic (glui32 image)
 void
 gsc_close_title_graphic (void)
 {
-  if (gsc_graphics_window != NULL)
+  if (gsc_graphics_window != nullptr)
     {
-      glk_window_close (gsc_graphics_window, NULL);
-      gsc_graphics_window = NULL;
+      glk_window_close (gsc_graphics_window, nullptr);
+      gsc_graphics_window = nullptr;
       gsc_title_image = 0;
     }
 }
@@ -308,7 +308,7 @@ gsc_title_screen_wait (void)
   int mouse;
   event_t event;
 
-  if (gsc_graphics_window == NULL)
+  if (gsc_graphics_window == nullptr)
     return;
 
   /* Take the key on the title itself where the library allows it; otherwise
@@ -408,7 +408,7 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 {
   glui32 id;
 
-  if (gsc_main_window == NULL)
+  if (gsc_main_window == nullptr)
     return;
 
   id = gsc_load_resource (filepath, offset, length, FALSE);

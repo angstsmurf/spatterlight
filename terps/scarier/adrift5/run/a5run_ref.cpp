@@ -36,12 +36,12 @@
    suffixes each singular reference slot with an index (FileIO.vb:647), which
    several call sites strip back off. */
 static std::string
-ref_base (const std::string &name, std::string *num_out = NULL)
+ref_base (const std::string &name, std::string *num_out = nullptr)
 {
   std::string base = name, num;
   while (!base.empty () && isdigit ((unsigned char) base.back ()))
     { num.insert (num.begin (), base.back ()); base.pop_back (); }
-  if (num_out != NULL)
+  if (num_out != nullptr)
     *num_out = num;
   return base;
 }
@@ -56,7 +56,7 @@ collect_words (const char *article, const char *prefix,
     allowed.push_back (lower (article));
   for (auto &w : split_ws (prefix))
     allowed.push_back (lower (w));
-  for (int i = 0; names != NULL && i < n_names; i++)
+  for (int i = 0; names != nullptr && i < n_names; i++)
     for (auto &w : split_ws (names[i]))
       { allowed.push_back (lower (w)); nouns.push_back (lower (w)); }
 }
@@ -120,7 +120,7 @@ static int
 name_is_matchable (const char *s)
 {
   std::string canon;
-  if (s == NULL)
+  if (s == nullptr)
     return 0;
   for (auto &w : split_ws (s))
     { if (!canon.empty ()) canon += ' '; canon += w; }
@@ -192,11 +192,11 @@ effective_naming (a5_state_t *st, const a5_object_t *o)
   const char *a  = a5state_entity_prop (st, o->key, "_ObjectArticle");
   const char *p  = a5state_entity_prop (st, o->key, "_ObjectPrefix");
   const char *n0 = a5state_entity_prop (st, o->key, "_ObjectNoun");
-  n.article = a != NULL ? a : o->article;
-  n.prefix  = p != NULL ? p : o->prefix;
+  n.article = a != nullptr ? a : o->article;
+  n.prefix  = p != nullptr ? p : o->prefix;
   for (int i = 0; i < o->n_names; i++)
     n.names.push_back (o->names[i]);
-  if (n0 != NULL)
+  if (n0 != nullptr)
     {
       if (!n.names.empty ()) n.names[0] = n0;
       else n.names.push_back (n0);
@@ -212,7 +212,7 @@ object_words (a5_state_t *st, const a5_object_t *o,
 {
   obj_naming n = effective_naming (st, o);
   collect_words (n.article, n.prefix,
-                 n.names.empty () ? NULL : &n.names[0], (int) n.names.size (),
+                 n.names.empty () ? nullptr : &n.names[0], (int) n.names.size (),
                  allowed, nouns);
 }
 /* Is the character's *proper name* usable as a reference word yet?  Mirrors
@@ -233,9 +233,9 @@ char_name_usable (a5_state_t *st, const a5_character_t *c)
       { game_has_known = 1; break; }
   if (!game_has_known)
     return 1;
-  if (a5_prop_find (c->props, c->n_props, "Known") != NULL)
+  if (a5_prop_find (c->props, c->n_props, "Known") != nullptr)
     return 1;
-  return a5state_entity_prop (st, c->key, "Known") != NULL;
+  return a5state_entity_prop (st, c->key, "Known") != nullptr;
 }
 
 static void
@@ -246,7 +246,7 @@ character_words (a5_state_t *st, const a5_character_t *c,
      proper name is exposed only once the character is Known (see above). */
   collect_words (c->article, c->prefix, c->descriptors, c->n_descriptors,
                  allowed, nouns);
-  if (char_name_usable (st, c) && c->name != NULL)
+  if (char_name_usable (st, c) && c->name != nullptr)
     {
       const char *one_name[1];
       one_name[0] = c->name;
@@ -261,7 +261,7 @@ name_match_object (a5_state_t *st, const a5_object_t *o, const std::string &text
 {
   obj_naming n = effective_naming (st, o);
   return name_match (n.article, n.prefix,
-                     n.names.empty () ? NULL : &n.names[0],
+                     n.names.empty () ? nullptr : &n.names[0],
                      (int) n.names.size (), text);
 }
 
@@ -311,7 +311,7 @@ name_match_plural (a5_state_t *st, const a5_object_t *o, const std::string &text
     plurals.push_back (guess_plural_from_noun (lower (n.names[i])));
   for (auto &s : plurals) pp.push_back (s.c_str ());
   return name_match (n.article, n.prefix,
-                     pp.empty () ? NULL : &pp[0], (int) pp.size (), text);
+                     pp.empty () ? nullptr : &pp[0], (int) pp.size (), text);
 }
 
 /* All character keys whose names match `text`, visible-first (full any-scope
@@ -329,10 +329,10 @@ resolve_character_candidates (a5_state_t *st, const std::string &text)
       std::vector<const char *> names;
       for (int d = 0; d < c->n_descriptors; d++)
         names.push_back (c->descriptors[d]);
-      if (char_name_usable (st, c) && c->name != NULL)
+      if (char_name_usable (st, c) && c->name != nullptr)
         names.push_back (c->name);
       if (!name_match (c->article, c->prefix,
-                       names.empty () ? NULL : &names[0],
+                       names.empty () ? nullptr : &names[0],
                        (int) names.size (), text))
         continue;
       if (streq (st->char_loc[i], ploc))
@@ -393,7 +393,7 @@ set_ref_objects (a5_state_t *st, const std::vector<std::string> &keys)
   for (auto &k : keys)
     {
       const a5_object_t *o = a5model_object (st->adv, k.c_str ());
-      if (o == NULL)
+      if (o == nullptr)
         continue;
       if (st->n_ref_items < A5_MAX_ITEMS)
         st->ref_items[st->n_ref_items++] = o->key;
@@ -423,7 +423,7 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
 
   auto bind = [&](const std::string &alias) {
     a5state_bind_ref (st, alias.c_str (), value);
-    if (text != NULL)
+    if (text != nullptr)
       a5state_bind_ref (st, (alias + "$text").c_str (), text);
   };
   /* When the command carries BOTH the plural %objects% and a separate singular
@@ -496,7 +496,7 @@ amb_word (a5_state_t *st, const std::vector<std::string> &keys,
             { int ci = a5state_character_index (st, k.c_str ());
               if (ci >= 0)
                 { const a5_character_t *c = &st->adv->characters[ci];
-                  if (c->name != NULL && w == c->name) hit = 1;
+                  if (c->name != nullptr && w == c->name) hit = 1;
                   for (int d = 0; d < c->n_descriptors && !hit; d++)
                     if (w == c->descriptors[d]) hit = 1; } }
           if (!hit) { in_all = 0; break; }
@@ -543,9 +543,9 @@ guess_plural_from_noun (const std::string &n)
       if (n == "dwarf" || n == "hoof" || n == "roof") return n + "s";
       return n.substr (0, L - 1) + "ves";
     }
-  if (l1 == "o" && strchr (cons, n[L - 2]) != NULL) return n + "es";
+  if (l1 == "o" && strchr (cons, n[L - 2]) != nullptr) return n + "es";
   if (l1 == "x") return n + "es";
-  if (l1 == "y" && strchr (cons, n[L - 2]) != NULL) return n.substr (0, L - 1) + "ies";
+  if (l1 == "y" && strchr (cons, n[L - 2]) != nullptr) return n.substr (0, L - 1) + "ies";
   if (l1 == "s") return n;
   return n + "s";
 }
@@ -557,7 +557,7 @@ obj_in_scope (a5_state_t *st, const char *key)
 {
   const char *ploc = a5state_player_location (st);
   int i = a5state_object_index (st, key);
-  return ploc != NULL && i >= 0
+  return ploc != nullptr && i >= 0
          && a5state_object_visible_at_location (st, i, ploc, 0);
 }
 
@@ -570,7 +570,7 @@ int
 obj_seen_p (a5_state_t *st, const char *key)
 {
   int i = a5state_object_index (st, key);
-  return i >= 0 && st->obj_seen != NULL && st->obj_seen[i];
+  return i >= 0 && st->obj_seen != nullptr && st->obj_seen[i];
 }
 
 int
@@ -587,7 +587,7 @@ int
 char_seen_p (a5_state_t *st, const char *key)
 {
   int i = a5state_character_index (st, key);
-  return i >= 0 && st->char_seen != NULL && st->char_seen[i];
+  return i >= 0 && st->char_seen != nullptr && st->char_seen[i];
 }
 
 /* The same predicates dispatched on the reference type ('o' / 'c'). */
@@ -625,7 +625,7 @@ set_amb_result (a5_state_t *st, amb_info *amb, const std::string &name,
                 char type, const std::string &text,
                 const std::vector<std::string> &keys, int second_chance)
 {
-  if (amb != NULL)
+  if (amb != nullptr)
     {
       amb->ref_name = name;
       amb->type = type;
@@ -692,7 +692,7 @@ static void
 expand_all_objects (a5_state_t *st, std::vector<std::vector<std::string>> &items)
 {
   for (int i = 0; i < st->adv->n_objects; i++)
-    if (st->obj_seen != NULL && st->obj_seen[i])
+    if (st->obj_seen != nullptr && st->obj_seen[i])
       items.push_back (std::vector<std::string> (1, st->adv->objects[i].key));
 }
 
@@ -712,7 +712,7 @@ expand_all_objects (a5_state_t *st, std::vector<std::vector<std::string>> &items
 static bool
 match_objects (a5_state_t *st, const std::string &input_raw,
                std::vector<std::vector<std::string>> &items,
-               bool excepts, bool plural, int *had_all, int *hard_fail = NULL)
+               bool excepts, bool plural, int *had_all, int *hard_fail = nullptr)
 {
   std::string input = trim_ws (input_raw);
   if (input.empty ())
@@ -723,7 +723,7 @@ match_objects (a5_state_t *st, const std::string &input_raw,
       /* Split off a trailing "... except|but|apart from <objects2>" (the regex
          is RightToLeft, so the *last* connector wins). */
       std::string head = input, excepts_text;
-      static const char *conns[] = { " except ", " but ", " apart from ", NULL };
+      static const char *conns[] = { " except ", " but ", " apart from ", nullptr };
       std::string lin = lower (input);
       size_t best = std::string::npos, best_len = 0;
       for (int i = 0; conns[i]; i++)
@@ -944,7 +944,7 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
 
   if (all_keys.empty ())
     {
-      if (had_all && t->fail_override != NULL)
+      if (had_all && t->fail_override != nullptr)
         { run->pending_failover = t->fail_override; return RR_FAIL; }
       return RR_NOMATCH;
     }
@@ -973,13 +973,13 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
          only prepends when a *later* restriction (not visible / not held)
          supplies a different message. */
       const a5_xml_node_t *em = a5restr_exist_message (t->restrictions);
-      if (em != NULL)
+      if (em != nullptr)
         {
           /* No intro_guard: this render is speculative -- the prefix is
              dropped when the failing restriction turns out to BE the Exist one
              -- and a discarded render must not mark anything. */
           char *p = a5text_describe (st, em);
-          run->plural_amb_prefix = (p != NULL) ? p : "";
+          run->plural_amb_prefix = (p != nullptr) ? p : "";
           free (p);
         }
     }
@@ -1032,7 +1032,7 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
 
   if (none_passed)
     {
-      if (had_all && t->fail_override != NULL)
+      if (had_all && t->fail_override != nullptr)
         run->pending_failover = t->fail_override;
       return RR_FAIL;
     }
@@ -1067,13 +1067,13 @@ location_name_matches (const char *input, const char *shortdesc)
   while (1)
     {
       const char *sp = strchr (p, ' ');
-      std::string tok = (sp != NULL) ? std::string (p, (size_t) (sp - p))
+      std::string tok = (sp != nullptr) ? std::string (p, (size_t) (sp - p))
                                      : std::string (p);
       if (started)
         el.push_back (" ");
       if (!tok.empty ())
         { el.push_back (tok); started = true; }
-      if (sp == NULL)
+      if (sp == nullptr)
         break;
       p = sp + 1;
     }
@@ -1137,14 +1137,14 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
   /* Report the recorded no-reference fallback to the caller (empty amb->keys
      marks it as a no-reference, not an ambiguity). */
   auto noref_result = [&] () {
-    if (amb != NULL)
+    if (amb != nullptr)
       { amb->ref_name = noref_r.name; amb->type = noref_r.type;
         amb->ref_text = noref_r.text; amb->keys.clear (); }
     return RR_NOREF;
   };
 
   a5state_clear_refs (st);
-  run->pending_failover = NULL;
+  run->pending_failover = nullptr;
   run->plural_amb_prefix.clear ();
 
   /* Pass 1: gather full any-scope candidate sets; bind the default of each. */
@@ -1205,7 +1205,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
           /* A remembered-task re-run pins the ambiguous reference to the
              clarified pick here too: the library's `get/drop %objects%`
              commands take this branch, not the singular %object% one below. */
-          if (force_name != NULL && r.name == force_name)
+          if (force_name != nullptr && r.name == force_name)
             r.orig.assign (1, force_key);
           else
             r.orig = (ok && items.size () == 1)
@@ -1230,7 +1230,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
         r.type = 'c';
       else if (base == "direction")
         { const char *d = a5parse_canonical_direction (r.text.c_str ());
-          if (d == NULL) return RR_NOMATCH;
+          if (d == nullptr) return RR_NOMATCH;
           bind_reference (st, r.name.c_str (), d, r.text.c_str ());
           continue; }
       else if (base == "location")
@@ -1259,7 +1259,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
         { bind_reference (st, r.name.c_str (), r.text.c_str (), r.text.c_str ());
           continue; }
 
-      if (force_name != NULL && r.name == force_name)
+      if (force_name != nullptr && r.name == force_name)
         { r.orig.assign (1, force_key); r.keys = r.orig; }
       else
         {

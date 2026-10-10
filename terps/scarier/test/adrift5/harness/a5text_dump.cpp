@@ -53,7 +53,7 @@ describe_object (a5_state_t *st, const char *key)
 {
   const a5_object_t *o = a5model_object (st->adv, key);
   char *name, *desc;
-  if (o == NULL)
+  if (o == nullptr)
     {
       printf ("  (no object '%s')\n", key);
       return;
@@ -78,17 +78,17 @@ main (int argc, char **argv)
       fprintf (stderr, "usage: %s <game.blorb|game.taf> [LocationKey]\n", argv[0]);
       return 2;
     }
-  if (getenv ("A5_TRACE_RESTR") != NULL)
+  if (getenv ("A5_TRACE_RESTR") != nullptr)
     a5restr_trace = 1;
 
   a = a5model_load (argv[1]);
-  if (a == NULL)
+  if (a == nullptr)
     {
       fprintf (stderr, "a5text_dump: failed to load %s\n", argv[1]);
       return 1;
     }
   st = a5state_new (a);
-  if (st == NULL)
+  if (st == nullptr)
     {
       fprintf (stderr, "a5text_dump: out of memory\n");
       a5model_free (a);
@@ -141,7 +141,7 @@ main (int argc, char **argv)
     for (i = 0; i < a->n_objects; i++)
       if (st->obj[i].where == A5_OWHERE_HELD_BY
           && pi >= 0
-          && st->obj[i].key != NULL
+          && st->obj[i].key != nullptr
           && strcmp (st->obj[i].key, a->characters[pi].key) == 0)
         {
           char *name = a5text_object_name (st, &a->objects[i], A5_ART_INDEFINITE);

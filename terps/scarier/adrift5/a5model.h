@@ -498,7 +498,7 @@ static inline const char *
 obj_prop (const a5_object_t *o, const char *key)
 {
   const a5_prop_t *p = a5_prop_find (o->props, o->n_props, key);
-  return p ? p->value : NULL;
+  return p ? p->value : nullptr;
 }
 
 /* Per-type key lookups (linear; adequate for load + Phase 1). */

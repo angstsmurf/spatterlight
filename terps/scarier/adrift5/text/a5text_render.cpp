@@ -28,8 +28,8 @@
 
 /* ------------------------------------------------------- media side channel */
 
-static a5_media_cb a5_media_sink = NULL;
-static void *a5_media_sink_ctx = NULL;
+static a5_media_cb a5_media_sink = nullptr;
+static void *a5_media_sink_ctx = nullptr;
 
 void
 a5text_set_media_sink (a5_media_cb cb, void *ctx)
@@ -115,10 +115,10 @@ a5_emit_media (const std::string &tag, int is_img)
         channel = atoi (tag.c_str () + cp);
       }
     if (is_pause)
-      return a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_PAUSE, NULL,
+      return a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_PAUSE, nullptr,
                             channel, 0);
     else if (is_stop)
-      return a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_STOP, NULL,
+      return a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_STOP, nullptr,
                             channel, 0);
     else
       return a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND, src.c_str (),
@@ -340,7 +340,7 @@ a5text_render_plain (const char *src)
             }
           else if (a5_interactive_mode && strcmp (name, "/window") == 0)
             sb_putc (&sb, A5_ENDWINDOW_MARK);
-          else if (a5_media_sink != NULL
+          else if (a5_media_sink != nullptr
                    && (strcmp (name, "img") == 0 || strcmp (name, "audio") == 0))
             {
               /* Embedded media: report it out of band; it still drops from the

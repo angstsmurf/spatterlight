@@ -106,9 +106,9 @@ static std::vector<std::string>
 scrawl_words (const char *out)
 {
   std::vector<std::string> w;
-  const char *s = out ? strstr (out, "Scrawl:") : NULL;
-  const char *e = s ? strstr (s, " end.") : NULL;
-  if (s == NULL || e == NULL)
+  const char *s = out ? strstr (out, "Scrawl:") : nullptr;
+  const char *e = s ? strstr (s, " end.") : nullptr;
+  if (s == nullptr || e == nullptr)
     return w;
   std::string seg (s + 7, (size_t) (e - (s + 7)));
   size_t i = 0;
@@ -151,7 +151,7 @@ main (void)
   for (unsigned seed = 1; seed <= 40; seed++)
     {
       a5_adventure_t *adv = a5_test_build_adventure (kXml, "a5_exprdup_test");
-      if (adv == NULL)
+      if (adv == nullptr)
         return 1;
       a5_run_t *run = a5run_new (adv);
       free (a5run_intro (run));

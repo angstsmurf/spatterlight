@@ -55,13 +55,13 @@ object_list_desc (a5_state_t *st, const a5_object_t *o, int is_static)
 {
   const char *key = is_static ? "ListDescription" : "ListDescriptionDynamic";
   const a5_prop_t *prop = a5_prop_find (o->props, o->n_props, key);
-  if (prop == NULL)
-    return NULL;
-  if (prop->value_node != NULL)
+  if (prop == nullptr)
+    return nullptr;
+  if (prop->value_node != nullptr)
     return a5text_eval_description (st, prop->value_node);
-  if (prop->value != NULL && prop->value[0] != '\0')
+  if (prop->value != nullptr && prop->value[0] != '\0')
     return strdup (prop->value);
-  return NULL;
+  return nullptr;
 }
 
 /* A present character's "is here" line: its CharHereDesc property rendered (with
@@ -86,14 +86,14 @@ char_here_desc (a5_state_t *st, const a5_character_t *c)
   const char *prev_ctx = st->ctx_char;
   char *result;
   st->ctx_char = c->key;
-  if (p != NULL)
+  if (p != nullptr)
     {
       /* The property is present (clsItem.HasProperty == ContainsKey), so it
          overrides the default -- even when its value is blank, in which case
          IsHereDesc returns "" and the character is suppressed from the present
          list (the Customs Official in Revenge: its room prose already says "A
          customs official stands here."). */
-      if (p->value_node != NULL)
+      if (p->value_node != nullptr)
         {
           char *raw = a5text_eval_description (st, p->value_node);
           result = process_inner (st, raw, 0);     /* %functions% / OO pass */
@@ -146,13 +146,13 @@ view_location_impl (a5_state_t *st, const char *lockey)
   int i, body_empty = 1;
   size_t body_start = 0;
 
-  if (lockey == NULL)
+  if (lockey == nullptr)
     lockey = a5state_player_location (st);
   sb_init (&sb);
-  if (lockey == NULL)
+  if (lockey == nullptr)
     return strdup ("");
   loc = a5model_location (st->adv, lockey);
-  if (loc == NULL)
+  if (loc == nullptr)
     return strdup ("");
 
   /* A v5 location view is prefixed with a blank line before the room name
@@ -218,7 +218,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
           if (!object_listed_at (st, i, lockey))
             continue;
           ld = object_list_desc (st, o, is_static);          /* scan render */
-          if (ld != NULL && ld[0] != '\0')
+          if (ld != nullptr && ld[0] != '\0')
             specials.push_back (i);
           free (ld);
         }
@@ -226,7 +226,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
         {
           const a5_object_t *o = &st->adv->objects[si];
           char *ld = object_list_desc (st, o, st->obj[si].is_static);
-          if (ld != NULL && ld[0] != '\0')
+          if (ld != nullptr && ld[0] != '\0')
             {
               char *p = process_inner (st, ld, 0);
               size_t plen = strlen (proc);
@@ -263,7 +263,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
         if (!object_listed_at (st, i, lockey))
           continue;
         ld = object_list_desc (st, o, is_static);
-        if (ld != NULL && ld[0] != '\0') { free (ld); continue; } /* special-listed */
+        if (ld != nullptr && ld[0] != '\0') { free (ld); continue; } /* special-listed */
         free (ld);
         nm = a5text_object_name (st, o, A5_ART_INDEFINITE);
         names.push_back (nm);
@@ -276,7 +276,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
            prefixed by pSpace(sView) -- two spaces unless the buffer is empty or
            already ends in a newline (clsLocation.vb:134). */
         int as_there_is = body_empty
-          && (st->adv->version == NULL || atof (st->adv->version) >= 5.0);
+          && (st->adv->version == nullptr || atof (st->adv->version) >= 5.0);
         if (!as_there_is && sb.len > 0 && sb.p[sb.len - 1] != '\n')
           sb_puts (&sb, "  ");
         sb_puts (&sb, as_there_is ? "There is " : "Also here is ");
@@ -292,11 +292,11 @@ view_location_impl (a5_state_t *st, const char *lockey)
      SetLook text disappears from the room view). */
   for (int ei = 0; ei < st->adv->n_events; ei++)
     {
-      if (st->ev_running == NULL
+      if (st->ev_running == nullptr
           || !st->ev_running (st->ev_running_ctx, ei))
         continue;
       const char *lt = a5state_event_look (st, st->adv->events[ei].key);
-      if (lt != NULL && lt[0] != '\0')
+      if (lt != nullptr && lt[0] != '\0')
         {
           /* pSpace(sView) (clsLocation.ViewLocation:144): always two spaces unless
              the buffer ends in a newline -- NOT add_space's sentence-aware test, so
@@ -444,5 +444,5 @@ view_location_impl (a5_state_t *st, const char *lockey)
 char *
 a5text_view_location (a5_state_t *st)
 {
-  return view_location_impl (st, NULL);
+  return view_location_impl (st, nullptr);
 }

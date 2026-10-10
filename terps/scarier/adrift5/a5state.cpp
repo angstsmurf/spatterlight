@@ -46,7 +46,7 @@ a5_reserve_one (T *&arr, int &cap, int n, int first)
     return 1;
   nc = cap ? cap * 2 : first;
   grown = (T *) realloc (arr, (size_t) nc * sizeof *arr);
-  if (grown == NULL)
+  if (grown == nullptr)
     return 0;
   arr = grown;
   cap = nc;
@@ -56,14 +56,14 @@ a5_reserve_one (T *&arr, int &cap, int n, int first)
 static int
 obj_has_prop (const a5_object_t *o, const char *key)
 {
-  return a5_prop_find (o->props, o->n_props, key) != NULL;
+  return a5_prop_find (o->props, o->n_props, key) != nullptr;
 }
 
 static const char *
 chr_prop (const a5_character_t *c, const char *key)
 {
   const a5_prop_t *p = a5_prop_find (c->props, c->n_props, key);
-  return p ? p->value : NULL;
+  return p ? p->value : nullptr;
 }
 
 /* The runtime property override for (entity, prop), or NULL. */
@@ -74,7 +74,7 @@ ov_find (const a5_state_t *st, const char *entkey, const char *propkey)
   for (i = 0; i < st->n_ov; i++)
     if (streq (st->ov[i].entity, entkey) && streq (st->ov[i].prop, propkey))
       return &st->ov[i];
-  return NULL;
+  return nullptr;
 }
 
 static const a5_group_t *
@@ -84,7 +84,7 @@ find_group (const a5_adventure_t *adv, const char *key)
   for (i = 0; i < adv->n_groups; i++)
     if (streq (adv->groups[i].key, key))
       return &adv->groups[i];
-  return NULL;
+  return nullptr;
 }
 
 static int
@@ -104,7 +104,7 @@ compute_objloc (const a5_object_t *o, a5_objloc_t *loc)
   const char *sd = obj_prop (o, "StaticOrDynamic");
 
   loc->where = A5_OWHERE_NONE;
-  loc->key = NULL;
+  loc->key = nullptr;
   loc->is_static = !streq (sd, "Dynamic");   /* default Static */
 
   if (!loc->is_static && obj_has_prop (o, "DynamicLocation"))
@@ -160,7 +160,7 @@ compute_objloc (const a5_object_t *o, a5_objloc_t *loc)
 static const char *
 resolve_carrier (const a5_state_t *st, const char *k)
 {
-  return (k != NULL && streq (k, "%Player%")) ? st->player_key : k;
+  return (k != nullptr && streq (k, "%Player%")) ? st->player_key : k;
 }
 
 /* ------------------------------------------------------------------- public */
@@ -171,11 +171,11 @@ a5state_new (const a5_adventure_t *adv)
   a5_state_t *st;
   int i;
 
-  if (adv == NULL)
-    return NULL;
+  if (adv == nullptr)
+    return nullptr;
   st = (a5_state_t *) calloc (1, sizeof *st);
-  if (st == NULL)
-    return NULL;
+  if (st == nullptr)
+    return nullptr;
   st->adv = adv;
 
   /* The current player: the character whose Type is "Player" (clsAdventure.Player
@@ -224,7 +224,7 @@ a5state_new (const a5_adventure_t *adv)
              the Player: CharacterLocation "On Character", CharOnWho Player) and
              the effective location resolves through the carrier
              (a5state_character_location_key).  "Hidden" stays NULL. */
-          if (cl == NULL || streq (cl, "At Location"))
+          if (cl == nullptr || streq (cl, "At Location"))
             st->char_loc[i] = chr_prop (c, "CharacterAtLocation");
           else if (streq (cl, "On Object"))
             st->char_onobj[i] = chr_prop (c, "CharOnWhat");
@@ -244,16 +244,16 @@ a5state_new (const a5_adventure_t *adv)
       {
         int pi = a5state_character_index (st, st->player_key);
         if (pi >= 0 && adv->n_locations > 0
-            && st->char_onobj[pi] == NULL
-            && (st->char_loc[pi] == NULL || st->char_loc[pi][0] == '\0'))
+            && st->char_onobj[pi] == nullptr
+            && (st->char_loc[pi] == nullptr || st->char_loc[pi][0] == '\0'))
           st->char_loc[pi] = adv->locations[0].key;
         /* A player who STARTS on/in furniture (JACD's Timmy lying on Bed1:
            CharacterLocation "On Object") has char_loc NULL here; the runtime
            ToStandingOn/ToSittingOn path keeps char_loc synced to the
            furniture's room (the runner derives clsCharacterLocation.LocationKey from
            the object), so establish the same invariant at load. */
-        if (pi >= 0 && st->char_loc[pi] == NULL
-            && st->char_onobj[pi] != NULL)
+        if (pi >= 0 && st->char_loc[pi] == nullptr
+            && st->char_onobj[pi] != nullptr)
           {
             int li;
             for (li = 0; li < adv->n_locations; li++)
@@ -286,7 +286,7 @@ a5state_new (const a5_adventure_t *adv)
 
   st->conv_char = strdup ("");
   st->conv_node = strdup ("");
-  st->ctx_char = NULL;
+  st->ctx_char = nullptr;
 
   st->s_it = strdup ("");
   st->s_them = strdup ("");
@@ -310,34 +310,34 @@ a5state_new (const a5_adventure_t *adv)
                  is copied into EVERY element. */
               int n = v->array_length, e;
               st->var_arr[i] = (long *) calloc ((size_t) n, sizeof (long));
-              if (st->var_arr[i] == NULL)
+              if (st->var_arr[i] == nullptr)
                 {
                   /* Out of memory: degrade to a scalar (every accessor
                      treats a NULL var_arr[i] as one) rather than write
                      through NULL. */
-                  st->var_num[i] = v->initial ? strtol (v->initial, NULL, 10) : 0;
+                  st->var_num[i] = v->initial ? strtol (v->initial, nullptr, 10) : 0;
                   continue;
                 }
-              if (v->initial != NULL && strchr (v->initial, ',') != NULL)
+              if (v->initial != nullptr && strchr (v->initial, ',') != nullptr)
                 {
                   const char *p = v->initial;
-                  for (e = 0; e < n && p != NULL; e++)
+                  for (e = 0; e < n && p != nullptr; e++)
                     {
-                      st->var_arr[i][e] = strtol (p, NULL, 10);
+                      st->var_arr[i][e] = strtol (p, nullptr, 10);
                       p = strchr (p, ',');
-                      if (p != NULL) p++;
+                      if (p != nullptr) p++;
                     }
                 }
               else
                 {
-                  long val = v->initial ? strtol (v->initial, NULL, 10) : 0;
+                  long val = v->initial ? strtol (v->initial, nullptr, 10) : 0;
                   for (e = 0; e < n; e++)
                     st->var_arr[i][e] = val;
                 }
               st->var_num[i] = st->var_arr[i][0];   /* element-1 mirror */
             }
           else
-            st->var_num[i] = v->initial ? strtol (v->initial, NULL, 10) : 0;
+            st->var_num[i] = v->initial ? strtol (v->initial, nullptr, 10) : 0;
         }
     }
 
@@ -373,17 +373,17 @@ void
 a5state_stamp_prev (a5_state_t *st)
 {
   int i;
-  if (st->obj_prev != NULL)
+  if (st->obj_prev != nullptr)
     for (i = 0; i < st->adv->n_objects; i++)
       st->obj_prev[i] = st->obj[i];
-  if (st->char_prevpar != NULL)
+  if (st->char_prevpar != nullptr)
     for (i = 0; i < st->adv->n_characters; i++)
       {
         /* clsCharacter.Parent == Location.Key: the carrier object or
            character when on/in one, else the location. */
         const char *p = st->char_onobj[i];
-        if (p == NULL) p = st->char_onchar[i];
-        if (p == NULL) p = st->char_loc[i];
+        if (p == nullptr) p = st->char_onchar[i];
+        if (p == nullptr) p = st->char_loc[i];
         st->char_prevpar[i] = p;
       }
 }
@@ -392,12 +392,12 @@ void
 a5state_free (a5_state_t *st)
 {
   int i;
-  if (st == NULL)
+  if (st == nullptr)
     return;
-  if (st->var_text != NULL)
+  if (st->var_text != nullptr)
     for (i = 0; i < st->adv->n_variables; i++)
       free (st->var_text[i]);
-  if (st->char_position != NULL)
+  if (st->char_position != nullptr)
     for (i = 0; i < st->adv->n_characters; i++)
       free (st->char_position[i]);
   for (i = 0; i < st->n_ov; i++)
@@ -422,9 +422,9 @@ a5state_free (a5_state_t *st)
   free (st->loc_seen);
   for (i = 0; i < st->adv->n_characters; i++)
     {
-      if (st->seen_stash_obj  != NULL) free (st->seen_stash_obj[i]);
-      if (st->seen_stash_char != NULL) free (st->seen_stash_char[i]);
-      if (st->seen_stash_loc  != NULL) free (st->seen_stash_loc[i]);
+      if (st->seen_stash_obj  != nullptr) free (st->seen_stash_obj[i]);
+      if (st->seen_stash_char != nullptr) free (st->seen_stash_char[i]);
+      if (st->seen_stash_loc  != nullptr) free (st->seen_stash_loc[i]);
     }
   free (st->seen_stash_obj);
   free (st->seen_stash_char);
@@ -437,7 +437,7 @@ a5state_free (a5_state_t *st)
   free (st->s_her);
   free ((void *) st->char_onobj);
   free (st->char_in);
-  if (st->var_arr != NULL)
+  if (st->var_arr != nullptr)
     for (i = 0; i < st->adv->n_variables; i++)
       free (st->var_arr[i]);
   free (st->var_arr);
@@ -463,19 +463,19 @@ a5state_in_group_or_location (const a5_state_t *st, const char *charkey,
 {
   const char *cloc;
   int ci;
-  if (key == NULL || key[0] == '\0')
+  if (key == nullptr || key[0] == '\0')
     return 0;
   ci = a5state_character_index (st, charkey ? charkey : a5state_player_key (st));
-  cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
-  if (cloc == NULL)
+  cloc = (ci >= 0) ? st->char_loc[ci] : nullptr;
+  if (cloc == nullptr)
     return 0;
   /* A location key: the character is at exactly that location. */
-  if (a5model_location (st->adv, key) != NULL)
+  if (a5model_location (st->adv, key) != nullptr)
     return streq (cloc, key);
   /* A group key: the character's location is one of its members. */
   {
     const a5_group_t *g = find_group (st->adv, key);
-    return g != NULL && group_has_static_member (g, cloc);
+    return g != nullptr && group_has_static_member (g, cloc);
   }
 }
 
@@ -504,7 +504,7 @@ a5state_event_look (const a5_state_t *st, const char *event_key)
         && a5state_in_group_or_location (st, a5state_player_key (st),
                                          st->looks[i].loc_key))
       return st->looks[i].text;
-  return NULL;
+  return nullptr;
 }
 
 /* ----------------------------------------------------------- conversation */
@@ -538,7 +538,7 @@ a5state_disp_once_seen (const a5_state_t *st, const void *node)
 void
 a5state_disp_once_mark (a5_state_t *st, const void *node)
 {
-  if (node == NULL || a5state_disp_once_seen (st, node))
+  if (node == nullptr || a5state_disp_once_seen (st, node))
     return;
   if (!a5_reserve_one (st->disp_once, st->cap_disp_once, st->n_disp_once, 8))
     return;
@@ -574,7 +574,7 @@ void
 a5state_bind_ref (a5_state_t *st, const char *name, const char *value)
 {
   int i;
-  if (name == NULL || value == NULL)
+  if (name == nullptr || value == nullptr)
     return;
   for (i = 0; i < st->n_refbind; i++)
     if (streq (st->ref_name[i], name))
@@ -593,12 +593,12 @@ const char *
 a5state_lookup_ref (const a5_state_t *st, const char *name)
 {
   int i;
-  if (name == NULL)
-    return NULL;
+  if (name == nullptr)
+    return nullptr;
   for (i = 0; i < st->n_refbind; i++)
     if (streq (st->ref_name[i], name))
       return st->ref_value[i];
-  return NULL;
+  return nullptr;
 }
 
 /* ------------------------------------------------------- property overrides */
@@ -612,30 +612,30 @@ a5state_entity_prop (const a5_state_t *st, const char *entkey, const char *propk
   const a5_prop_t *p;
   const a5_prop_ov_t *ov;
 
-  if (entkey == NULL || propkey == NULL)
-    return NULL;
-  if ((ov = ov_find (st, entkey, propkey)) != NULL)
+  if (entkey == nullptr || propkey == nullptr)
+    return nullptr;
+  if ((ov = ov_find (st, entkey, propkey)) != nullptr)
     return ov->value;
 
   /* Fall back to the model's static value. */
   o = a5model_object (st->adv, entkey);
-  if (o != NULL && (p = a5_prop_find (o->props, o->n_props, propkey)) != NULL)
+  if (o != nullptr && (p = a5_prop_find (o->props, o->n_props, propkey)) != nullptr)
     return p->value;
   c = a5model_character (st->adv, entkey);
-  if (c != NULL && (p = a5_prop_find (c->props, c->n_props, propkey)) != NULL)
+  if (c != nullptr && (p = a5_prop_find (c->props, c->n_props, propkey)) != nullptr)
     return p->value;
   l = a5model_location (st->adv, entkey);
-  if (l != NULL)
+  if (l != nullptr)
     {
-      if ((p = a5_prop_find (l->props, l->n_props, propkey)) != NULL)
+      if ((p = a5_prop_find (l->props, l->n_props, propkey)) != nullptr)
         return p->value;
       /* Group-inherited location property (clsItem.htblInheritedProperties):
          e.g. The Salvage's "Planet Tiles" group carries daz7LocationIs1 +
          daz7PlanetId, so its member tiles HAVE those properties. */
-      if ((p = a5state_location_group_prop (st, entkey, propkey)) != NULL)
+      if ((p = a5state_location_group_prop (st, entkey, propkey)) != nullptr)
         return p->value;
     }
-  return NULL;
+  return nullptr;
 }
 
 int
@@ -647,25 +647,25 @@ a5state_entity_has_prop (const a5_state_t *st, const char *entkey,
   const a5_location_t *l;
   const a5_prop_ov_t *ov;
 
-  if (entkey == NULL || propkey == NULL)
+  if (entkey == nullptr || propkey == nullptr)
     return 0;
   /* A runtime SetProperty override wins; an `<Unselected>` value means the
      SelectionOnly property was removed (clsUserSession.vb:2058). */
-  if ((ov = ov_find (st, entkey, propkey)) != NULL)
-    return ov->value == NULL || strstr (ov->value, "Unselected") == NULL;
+  if ((ov = ov_find (st, entkey, propkey)) != nullptr)
+    return ov->value == nullptr || strstr (ov->value, "Unselected") == nullptr;
   o = a5model_object (st->adv, entkey);
-  if (o != NULL && a5_prop_find (o->props, o->n_props, propkey) != NULL)
+  if (o != nullptr && a5_prop_find (o->props, o->n_props, propkey) != nullptr)
     return 1;
   c = a5model_character (st->adv, entkey);
-  if (c != NULL && a5_prop_find (c->props, c->n_props, propkey) != NULL)
+  if (c != nullptr && a5_prop_find (c->props, c->n_props, propkey) != nullptr)
     return 1;
   l = a5model_location (st->adv, entkey);
-  if (l != NULL)
+  if (l != nullptr)
     {
-      if (a5_prop_find (l->props, l->n_props, propkey) != NULL)
+      if (a5_prop_find (l->props, l->n_props, propkey) != nullptr)
         return 1;
       /* Group-inherited location property (see a5state_entity_prop above). */
-      if (a5state_location_group_prop (st, entkey, propkey) != NULL)
+      if (a5state_location_group_prop (st, entkey, propkey) != nullptr)
         return 1;
     }
   return 0;
@@ -691,13 +691,13 @@ a5state_object_in_group (const a5_state_t *st, const char *grpkey,
   char key[160];
   const a5_prop_ov_t *ov;
   const a5_group_t *g;
-  if (grpkey == NULL || objkey == NULL)
+  if (grpkey == nullptr || objkey == nullptr)
     return 0;
   group_prop_key (key, sizeof key, grpkey);
-  if ((ov = ov_find (st, objkey, key)) != NULL)
+  if ((ov = ov_find (st, objkey, key)) != nullptr)
     return streq (ov->value, "1");
   g = find_group (st->adv, grpkey);
-  return g != NULL && group_has_static_member (g, objkey);
+  return g != nullptr && group_has_static_member (g, objkey);
 }
 
 /* --- Live group membership (the runner clsGroup.arlMembers): ordered + distinct. --- */
@@ -716,7 +716,7 @@ gm_find (const a5_state_t *st, const char *grpkey, const char *key)
 void
 a5state_group_add_member (a5_state_t *st, const char *grpkey, const char *key)
 {
-  if (grpkey == NULL || key == NULL || gm_find (st, grpkey, key) >= 0)
+  if (grpkey == nullptr || key == nullptr || gm_find (st, grpkey, key) >= 0)
     return;
   if (!a5_reserve_one (st->gm, st->cap_gm, st->n_gm, 16))
     return;
@@ -743,7 +743,7 @@ int
 a5state_group_count (const a5_state_t *st, const char *grpkey)
 {
   int i, n = 0;
-  if (grpkey == NULL)
+  if (grpkey == nullptr)
     return 0;
   for (i = 0; i < st->n_gm; i++)
     if (streq (st->gm[i].grp, grpkey))
@@ -755,12 +755,12 @@ const char *
 a5state_group_member_at (const a5_state_t *st, const char *grpkey, int idx)
 {
   int i, n = 0;
-  if (grpkey == NULL)
-    return NULL;
+  if (grpkey == nullptr)
+    return nullptr;
   for (i = 0; i < st->n_gm; i++)
     if (streq (st->gm[i].grp, grpkey))
       { if (n == idx) return st->gm[i].key; n++; }
-  return NULL;
+  return nullptr;
 }
 
 void
@@ -768,7 +768,7 @@ a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
                              const char *objkey, int present)
 {
   char key[160];
-  if (grpkey == NULL || objkey == NULL)
+  if (grpkey == nullptr || objkey == nullptr)
     return;
   group_prop_key (key, sizeof key, grpkey);
   a5state_set_prop (st, objkey, key, present ? "1" : "0");
@@ -792,7 +792,7 @@ void
 a5state_rebuild_live_groups (a5_state_t *st)
 {
   int i, m;
-  if (st == NULL)
+  if (st == nullptr)
     return;
   for (i = 0; i < st->n_gm; i++)
     { free (st->gm[i].grp); free (st->gm[i].key); }
@@ -822,20 +822,20 @@ const a5_prop_t *
 a5state_location_group_prop (const a5_state_t *st, const char *lockey,
                              const char *propkey)
 {
-  const a5_prop_t *found = NULL;
+  const a5_prop_t *found = nullptr;
   int i;
-  if (lockey == NULL || propkey == NULL)
-    return NULL;
+  if (lockey == nullptr || propkey == nullptr)
+    return nullptr;
   for (i = 0; i < st->adv->n_groups; i++)
     {
       const a5_group_t *g = &st->adv->groups[i];
       const a5_prop_t *p;
-      if (g->type == NULL || strcmp (g->type, "Locations") != 0 || g->n_props == 0)
+      if (g->type == nullptr || strcmp (g->type, "Locations") != 0 || g->n_props == 0)
         continue;
       if (!a5state_object_in_group (st, g->key, lockey))
         continue;
       p = a5_prop_find (g->props, g->n_props, propkey);
-      if (p != NULL)
+      if (p != nullptr)
         found = p;
     }
   return found;
@@ -846,9 +846,9 @@ a5state_set_prop (a5_state_t *st, const char *entkey, const char *propkey,
                   const char *value)
 {
   a5_prop_ov_t *ov;
-  if (entkey == NULL || propkey == NULL)
+  if (entkey == nullptr || propkey == nullptr)
     return;
-  if ((ov = (a5_prop_ov_t *) ov_find (st, entkey, propkey)) != NULL)
+  if ((ov = (a5_prop_ov_t *) ov_find (st, entkey, propkey)) != nullptr)
     {
       free (ov->value);
       ov->value = strdup (value ? value : "");
@@ -896,7 +896,7 @@ void
 a5state_mark_loc_seen (a5_state_t *st, const char *lockey)
 {
   int li = a5state_location_index (st, lockey);
-  if (li >= 0 && st->loc_seen != NULL)
+  if (li >= 0 && st->loc_seen != nullptr)
     st->loc_seen[li] = 1;
 }
 
@@ -906,15 +906,15 @@ a5state_mark_loc_seen (a5_state_t *st, const char *lockey)
 static void
 swap_seen_array (char *active, char ***stash, int old_ci, int new_ci, size_t n)
 {
-  if (active == NULL || *stash == NULL || n == 0)
+  if (active == nullptr || *stash == nullptr || n == 0)
     return;
   if (old_ci >= 0)
     {
-      if ((*stash)[old_ci] == NULL)
+      if ((*stash)[old_ci] == nullptr)
         (*stash)[old_ci] = (char *) malloc (n);
       memcpy ((*stash)[old_ci], active, n);
     }
-  if (new_ci >= 0 && (*stash)[new_ci] != NULL)
+  if (new_ci >= 0 && (*stash)[new_ci] != nullptr)
     memcpy (active, (*stash)[new_ci], n);
   else
     memset (active, 0, n);
@@ -938,15 +938,15 @@ a5state_switch_seen (a5_state_t *st, int new_ci)
 const char *
 a5state_player_key (const a5_state_t *st)
 {
-  return (st->player_key != NULL) ? st->player_key : "Player";
+  return (st->player_key != nullptr) ? st->player_key : "Player";
 }
 
 const char *
 a5state_player_location (const a5_state_t *st)
 {
   int pi = a5state_character_index (st, a5state_player_key (st));
-  if (pi < 0 || st->char_loc == NULL)
-    return NULL;
+  if (pi < 0 || st->char_loc == nullptr)
+    return nullptr;
   return st->char_loc[pi];
 }
 
@@ -970,22 +970,22 @@ obj_first_location_key (const a5_state_t *st, int oi, int depth)
   const a5_objloc_t *loc;
 
   if (oi < 0 || depth > A5_PLACEMENT_DEPTH_MAX)
-    return NULL;
+    return nullptr;
   loc = &st->obj[oi];
 
   switch (loc->where)
     {
     case A5_OWHERE_ALLROOMS:
-      return st->adv->n_locations > 0 ? st->adv->locations[0].key : NULL;
+      return st->adv->n_locations > 0 ? st->adv->locations[0].key : nullptr;
     case A5_OWHERE_HIDDEN:
     case A5_OWHERE_NONE:
       /* exists_at accepts only the literal lockey "Hidden", so the probe scan
          finds a match just when a location is actually keyed "Hidden". */
-      return a5model_key_index (st->adv, 'L', "Hidden") >= 0 ? "Hidden" : NULL;
+      return a5model_key_index (st->adv, 'L', "Hidden") >= 0 ? "Hidden" : nullptr;
     case A5_OWHERE_LOCATION:
-      return loc->key != NULL
+      return loc->key != nullptr
              && a5model_key_index (st->adv, 'L', loc->key) >= 0
-             ? loc->key : NULL;
+             ? loc->key : nullptr;
     case A5_OWHERE_LOCGROUP:
       {
         /* Membership is runtime-mutable and per-location; keep the scan. */
@@ -994,7 +994,7 @@ obj_first_location_key (const a5_state_t *st, int oi, int depth)
           if (a5state_object_in_group (st, loc->key,
                                        st->adv->locations[li].key))
             return st->adv->locations[li].key;
-        return NULL;
+        return nullptr;
       }
     case A5_OWHERE_IN_OBJECT:
     case A5_OWHERE_ON_OBJECT:
@@ -1007,11 +1007,11 @@ obj_first_location_key (const a5_state_t *st, int oi, int depth)
       {
         int ci = a5state_character_index (st, loc->key);
         const char *k = char_location_key_depth (st, ci, depth + 1);
-        return k != NULL && a5model_key_index (st->adv, 'L', k) >= 0
-               ? k : NULL;
+        return k != nullptr && a5model_key_index (st->adv, 'L', k) >= 0
+               ? k : nullptr;
       }
     }
-  return NULL;
+  return nullptr;
 }
 
 /* A character's EFFECTIVE location key: char_loc when set, else resolved
@@ -1021,25 +1021,25 @@ obj_first_location_key (const a5_state_t *st, int oi, int depth)
 static const char *
 char_location_key_depth (const a5_state_t *st, int ci, int depth)
 {
-  if (ci < 0 || st->char_loc == NULL || depth > A5_PLACEMENT_DEPTH_MAX)
-    return NULL;
-  if (st->char_loc[ci] != NULL)
+  if (ci < 0 || st->char_loc == nullptr || depth > A5_PLACEMENT_DEPTH_MAX)
+    return nullptr;
+  if (st->char_loc[ci] != nullptr)
     return st->char_loc[ci];
-  if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)
+  if (st->char_onobj != nullptr && st->char_onobj[ci] != nullptr)
     {
       const char *k = obj_first_location_key (st,
           a5state_object_index (st, st->char_onobj[ci]), depth + 1);
-      if (k != NULL)
+      if (k != nullptr)
         return k;
     }
   /* A character riding another character (ExistWhere On/InCharacter -- Edith on
      the Player) inherits the carrier's effective room; the runner derives
      clsCharacterLocation.LocationKey from the carrier.  Recurse with a depth
      guard against a cyclic On-Character placement. */
-  if (st->char_onchar != NULL && st->char_onchar[ci] != NULL)
+  if (st->char_onchar != nullptr && st->char_onchar[ci] != nullptr)
     return char_location_key_depth (st,
              a5state_character_index (st, st->char_onchar[ci]), depth + 1);
-  return NULL;
+  return nullptr;
 }
 
 const char *
@@ -1070,7 +1070,7 @@ obj_hides_contents (const a5_state_t *st, int parent)
 
   /* IsOpen: OpenStatus absent (Nothing) or "Open" => open => visible. */
   os = a5state_entity_prop (st, pkey, "OpenStatus");
-  if (os == NULL || streq (os, "Open"))
+  if (os == nullptr || streq (os, "Open"))
     return 0;
 
   return 1;                     /* openable, closed, opaque => hides contents */
@@ -1185,12 +1185,12 @@ location_root_at (const a5_state_t *st, int oi, const char *lockey, int depth)
     case A5_OWHERE_PART_CHAR:
       {
         int ci = a5state_character_index (st, loc->key);
-        if (ci < 0 || st->char_loc == NULL || st->char_loc[ci] == NULL)
+        if (ci < 0 || st->char_loc == nullptr || st->char_loc[ci] == nullptr)
           return 0;
         /* AtLocation only (clsObject.vb:472/509): no root through a seated
            or riding carrier. */
-        if ((st->char_onobj != NULL && st->char_onobj[ci] != NULL)
-            || (st->char_onchar != NULL && st->char_onchar[ci] != NULL))
+        if ((st->char_onobj != nullptr && st->char_onobj[ci] != nullptr)
+            || (st->char_onchar != nullptr && st->char_onchar[ci] != nullptr))
           return 0;
         return streq (st->char_loc[ci], lockey);
       }
@@ -1221,22 +1221,22 @@ a5state_object_visible_at_location (const a5_state_t *st, int oi,
 int
 a5state_character_at_location (const a5_state_t *st, int ci, const char *lockey)
 {
-  if (ci < 0 || lockey == NULL || st->char_loc == NULL)
+  if (ci < 0 || lockey == nullptr || st->char_loc == nullptr)
     return 0;
   /* "At Location": directly compare the recorded location key. */
-  if (st->char_loc[ci] != NULL)
+  if (st->char_loc[ci] != nullptr)
     return streq (st->char_loc[ci], lockey);
   /* "On Object"/"In Object": present wherever the carrier object is (its
      container chain reaches lockey).  Visibility (the closed-opaque-container
      hiding) is a5state_character_visible_at_location's job. */
-  if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)
+  if (st->char_onobj != nullptr && st->char_onobj[ci] != nullptr)
     return a5state_object_key_at_location (st, st->char_onobj[ci], lockey, 0);
   /* "On Character"/"In Character": present wherever the carrier character is
      (Edith rides the Player).  a5state_character_location_key resolves the
      carrier chain with its own depth guard. */
-  if (st->char_onchar != NULL && st->char_onchar[ci] != NULL)
+  if (st->char_onchar != nullptr && st->char_onchar[ci] != nullptr)
     { const char *k = a5state_character_location_key (st, ci);
-      return k != NULL && streq (k, lockey); }
+      return k != nullptr && streq (k, lockey); }
   return 0;
 }
 
@@ -1248,7 +1248,7 @@ static int
 char_visible_at_depth (const a5_state_t *st, int ci, const char *lockey,
                        int depth)
 {
-  if (ci < 0 || lockey == NULL || st->char_loc == NULL
+  if (ci < 0 || lockey == nullptr || st->char_loc == nullptr
       || depth > A5_PLACEMENT_DEPTH_MAX)
     return 0;
   /* On/In an object: the runner never consults the character's own location for
@@ -1260,7 +1260,7 @@ char_visible_at_depth (const a5_state_t *st, int ci, const char *lockey,
      sLastLocationKey stickiness) and goes stale the moment the container is
      carried elsewhere: Jabberwocky's Beast, sealed in the wine bottle in the
      chapel, is "here" in every room you carry the bottle into. */
-  if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)
+  if (st->char_onobj != nullptr && st->char_onobj[ci] != nullptr)
     {
       int oi = a5state_object_index (st, st->char_onobj[ci]);
       /* A character inside an openable, closed, opaque container binds to the
@@ -1268,15 +1268,15 @@ char_visible_at_depth (const a5_state_t *st, int ci, const char *lockey,
          Dracula asleep in the closed coffin, October 31st's casket, get no "is
          here" line).  On-object characters inherit the carrier's BoundVisible
          unconditionally. */
-      if (st->char_in != NULL && st->char_in[ci] && obj_hides_contents (st, oi))
+      if (st->char_in != nullptr && st->char_in[ci] && obj_hides_contents (st, oi))
         return 0;
       return exists_at (st, oi, lockey, 0, 1, 0);
     }
-  if (st->char_loc[ci] != NULL)
+  if (st->char_loc[ci] != nullptr)
     return streq (st->char_loc[ci], lockey);
   /* "On Character"/"In Character": a rider inherits the carrier's BoundVisible
      unconditionally (Edith on the Player is visible wherever the Player is). */
-  if (st->char_onchar != NULL && st->char_onchar[ci] != NULL)
+  if (st->char_onchar != nullptr && st->char_onchar[ci] != nullptr)
     { int cc = a5state_character_index (st, st->char_onchar[ci]);
       return cc >= 0 && cc != ci
              && char_visible_at_depth (st, cc, lockey, depth + 1); }
@@ -1295,7 +1295,7 @@ a5state_var_get_elem (const a5_state_t *st, int vi, long idx)
 {
   if (vi < 0 || vi >= st->adv->n_variables)
     return 0;
-  if (st->var_arr == NULL || st->var_arr[vi] == NULL)
+  if (st->var_arr == nullptr || st->var_arr[vi] == nullptr)
     return st->var_num[vi];                    /* scalar: index ignored */
   if (idx < 1 || idx > st->adv->variables[vi].array_length)
     return 0;                                  /* clsVariable ErrMsg -> 0 */
@@ -1307,7 +1307,7 @@ a5state_var_set_elem (a5_state_t *st, int vi, long idx, long value)
 {
   if (vi < 0 || vi >= st->adv->n_variables)
     return;
-  if (st->var_arr == NULL || st->var_arr[vi] == NULL)
+  if (st->var_arr == nullptr || st->var_arr[vi] == nullptr)
     { st->var_num[vi] = value; return; }       /* scalar: index ignored */
   if (idx < 1 || idx > st->adv->variables[vi].array_length)
     return;                                    /* clsVariable ErrMsg -> drop */
@@ -1332,7 +1332,7 @@ a5state_var_num_by_name (const a5_state_t *st, const char *name, long *out)
   int i = var_index_by_name (st, name);
   if (i < 0)
     return 0;
-  if (out != NULL)
+  if (out != nullptr)
     *out = st->var_num[i];
   return 1;
 }
@@ -1341,5 +1341,5 @@ const char *
 a5state_var_text_by_name (const a5_state_t *st, const char *name)
 {
   int i = var_index_by_name (st, name);
-  return (i >= 0) ? st->var_text[i] : NULL;
+  return (i >= 0) ? st->var_text[i] : nullptr;
 }

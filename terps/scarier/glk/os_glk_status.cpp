@@ -433,8 +433,8 @@ gsc_status_redraw (void)
        * only on resize and arrange events.
        */
       parent = glk_window_get_parent (gsc_status_window);
-      glk_window_set_arrangement (parent,
-                                  winmethod_Above | winmethod_Fixed, 1, NULL);
+      glk_window_set_arrangement (parent, winmethod_Above | winmethod_Fixed,
+                                  1, nullptr);
       if (gsc_is_a5)
         {
           /* ADRIFT 5 games have no scare game state; use the a5 renderer. */

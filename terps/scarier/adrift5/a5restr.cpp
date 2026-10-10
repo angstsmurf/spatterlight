@@ -49,7 +49,7 @@ safe_bool (const char *s)
 {
   char *end;
   double d;
-  if (s == NULL) return 0;
+  if (s == nullptr) return 0;
   while (*s == ' ') s++;
   if (strcasecmp (s, "true") == 0)  return 1;
   if (strcasecmp (s, "false") == 0) return 0;
@@ -121,17 +121,17 @@ restr_type_node (const a5_xml_node_t *restriction)
 {
   static const char *types[] = {
     "Object", "Location", "Character", "Variable", "Task",
-    "Item", "Property", "Direction", "Expression", NULL
+    "Item", "Property", "Direction", "Expression", nullptr
   };
   const a5_xml_node_t *c;
-  for (c = restriction->first_child; c != NULL; c = c->next)
+  for (c = restriction->first_child; c != nullptr; c = c->next)
     {
       int i;
-      for (i = 0; types[i] != NULL; i++)
+      for (i = 0; types[i] != nullptr; i++)
         if (strcmp (c->name, types[i]) == 0)
           return c;
     }
-  return NULL;
+  return nullptr;
 }
 
 /* ------------------------------------------------------------- value helpers */
@@ -152,11 +152,11 @@ resolve_key (a5_state_t *st, const char *k)
      for ReferencedCharacters (vb:4019).  Resolved at lookup (not bound at
      capture) so failed match attempts earlier in the turn can't leak a stale
      alias into a later task's restrictions. */
-  if (bound == NULL && streq (k, "ReferencedObjects"))
+  if (bound == nullptr && streq (k, "ReferencedObjects"))
     bound = a5state_lookup_ref (st, "ReferencedObject");
-  if (bound == NULL && streq (k, "ReferencedCharacters"))
+  if (bound == nullptr && streq (k, "ReferencedCharacters"))
     bound = a5state_lookup_ref (st, "ReferencedCharacter");
-  if (bound != NULL)
+  if (bound != nullptr)
     {
       /* A piped multi-object binding (ReferencedObjects = "k1|k2|...", set by
          resolve_plural so the text engine can render the whole set) resolves,
@@ -165,7 +165,7 @@ resolve_key (a5_state_t *st, const char *k)
          narrowing already happened in RefineMatchingPossibilitesUsingRestrictions;
          the final PassRestrictions only ever checks the first item. */
       const char *bar = strchr (bound, '|');
-      if (bar != NULL)
+      if (bar != nullptr)
         {
           char tmp[128];
           size_t n = (size_t) (bar - bound);
@@ -174,7 +174,7 @@ resolve_key (a5_state_t *st, const char *k)
               memcpy (tmp, bound, n);
               tmp[n] = '\0';
               const a5_object_t *o = a5model_object (st->adv, tmp);
-              if (o != NULL) return o->key;   /* stable model-key pointer */
+              if (o != nullptr) return o->key;   /* stable model-key pointer */
             }
         }
       return bound;
@@ -188,7 +188,7 @@ resolve_key (a5_state_t *st, const char *k)
 static int
 is_clean_int (const char *s)
 {
-  if (s == NULL || *s == '\0') return 0;
+  if (s == nullptr || *s == '\0') return 0;
   if (*s == '-' || *s == '+') s++;
   if (*s == '\0') return 0;
   for (; *s; s++)
@@ -212,14 +212,14 @@ num_value (a5_state_t *st, const char *k)
   int vi;
   const char *s = k;
   char unq[64];
-  if (s != NULL && s[0] == '\'')
+  if (s != nullptr && s[0] == '\'')
     {
       /* strip surrounding single quotes into a small scratch buffer */
       size_t len = strlen (s);
       if (len >= 2 && s[len - 1] == '\'' && len - 2 < sizeof unq)
         { memcpy (unq, s + 1, len - 2); unq[len - 2] = '\0'; s = unq; }
     }
-  if (s != NULL && strncmp (s, "RAND", 4) == 0)
+  if (s != nullptr && strncmp (s, "RAND", 4) == 0)
     return a5rand_between_args (s + 4);
   /* A bare numeric restriction value is an integer LITERAL, never a variable
      key: the runner's FileIO.LoadRestrictions stores `IntValue = CInt(sElements(3))`
@@ -230,7 +230,7 @@ num_value (a5_state_t *st, const char *k)
      made every `Encounter == <n>` where a variable happens to be keyed <n> pass
      spuriously.  Test for the integer form before the variable lookup. */
   if (is_clean_int (s))
-    return strtol (s, NULL, 10);
+    return strtol (s, nullptr, 10);
   vi = a5state_variable_index (st, s);
   if (vi >= 0)
     return st->var_num[vi];
@@ -244,14 +244,14 @@ num_value (a5_state_t *st, const char *k)
      value contains a %reference%, evaluate it through the same expression engine
      the action side uses (a5text_eval_expression) and read back the number.  The
      `%`-only trigger keeps every non-reference RHS byte-identical to before. */
-  if (s != NULL && strchr (s, '%') != NULL)
+  if (s != nullptr && strchr (s, '%') != nullptr)
     {
       char *ev = a5text_eval_expression (st, s);
-      long e = strtol (ev, NULL, 10);
+      long e = strtol (ev, nullptr, 10);
       free (ev);
       return e;
     }
-  return strtol (s != NULL ? s : "0", NULL, 10);
+  return strtol (s != nullptr ? s : "0", nullptr, 10);
 }
 
 /* clsCharacter.IsHoldingObject (clsCharacter.vb:895): an object counts as held
@@ -427,11 +427,11 @@ pass_object (a5_state_t *st, a5_restr_t *r)
         {
           const char *pk = st->adv->objects[oi].props[i].key;
           const a5_propdef_t *pd = a5model_propdef (st->adv, pk);
-          if (pd != NULL)
+          if (pd != nullptr)
             {
-              if (pd->type != NULL && !streq (pd->type, "StateList"))
+              if (pd->type != nullptr && !streq (pd->type, "StateList"))
                 continue;
-              if (pd->append_to != NULL && pd->append_to[0] != '\0')
+              if (pd->append_to != nullptr && pd->append_to[0] != '\0')
                 continue;
             }
           const char *val = a5state_entity_prop (st, k1, pk);
@@ -457,7 +457,7 @@ pass_object (a5_state_t *st, a5_restr_t *r)
       const char *typed;
       snprintf (alias, sizeof alias, "%s$text", r->key1);
       typed = a5state_lookup_ref (st, alias);
-      if (typed == NULL)
+      if (typed == nullptr)
         return 0;
       while (*typed && *k2 && tolower ((unsigned char) *typed) == tolower ((unsigned char) *k2))
         { typed++; k2++; }
@@ -475,18 +475,18 @@ pass_object (a5_state_t *st, a5_restr_t *r)
       const char *cloc = a5state_character_location_key (st, ci);
       if (streq (k1, ANYOBJECT) || streq (k1, NOOBJECT))
         return any_no_object (st, k1, [&] (int i)
-                 { return cloc != NULL
+                 { return cloc != nullptr
                           && a5state_object_visible_at_location (st, i, cloc, 0); });
-      return oi >= 0 && cloc != NULL
+      return oi >= 0 && cloc != nullptr
              && a5state_object_visible_at_location (st, oi, cloc, 0);
     }
   if (streq (r->op, "HaveBeenSeenByCharacter"))
     {
       /* Player-centric seen set (clsCharacter.HasSeenObject); a non-player
          observer falls back to "seen" so its tasks aren't over-suppressed. */
-      if (k2 != NULL && !streq (k2, a5state_player_key (st)))
+      if (k2 != nullptr && !streq (k2, a5state_player_key (st)))
         return 1;
-      return oi >= 0 && st->obj_seen != NULL && st->obj_seen[oi];
+      return oi >= 0 && st->obj_seen != nullptr && st->obj_seen[oi];
     }
   return 1;                   /* unknown operator: don't suppress text */
 }
@@ -514,13 +514,13 @@ pass_location (a5_state_t *st, a5_restr_t *r)
        computes and what the object BeInGroup handler already uses.  The old
        static-only scan here missed every runtime AddLocationToGroup, so e.g.
        `Location MustNot BeInGroup SearchedLo` never blocked a re-search. */
-    return loc != NULL && a5state_object_in_group (st, r->key2, loc);
+    return loc != nullptr && a5state_object_in_group (st, r->key2, loc);
   if (streq (r->op, "HaveProperty"))
     {
       /* Through the state accessor so SetProperty overrides AND group-inherited
          location properties (clsItem.htblInheritedProperties, e.g. The Salvage's
          "Planet Tiles" group carrying daz7LocationIs1) both count. */
-      if (loc == NULL || a5model_location (st->adv, loc) == NULL) return 0;
+      if (loc == nullptr || a5model_location (st->adv, loc) == nullptr) return 0;
       return a5state_entity_has_prop (st, loc, r->key2);
     }
   if (streq (r->op, "Exist"))
@@ -536,10 +536,10 @@ pass_location (a5_state_t *st, a5_restr_t *r)
          the player consults the seen set; any other character is unseen. */
       const char *ch = resolve_key (st, r->key2);
       int li;
-      if (ch != NULL && ch[0] != '\0' && !streq (ch, a5state_player_key (st)))
+      if (ch != nullptr && ch[0] != '\0' && !streq (ch, a5state_player_key (st)))
         return 0;
       li = a5state_location_index (st, loc);
-      return li >= 0 && st->loc_seen != NULL && st->loc_seen[li];
+      return li >= 0 && st->loc_seen != nullptr && st->loc_seen[li];
     }
   return 1;
 }
@@ -564,7 +564,7 @@ typedef std::map<std::string, a5_route_entry> a5_route_cache_t;
 static a5_route_cache_t *
 route_cache (a5_state_t *st)
 {
-  if (st->route_cache == NULL)
+  if (st->route_cache == nullptr)
     st->route_cache = new a5_route_cache_t;
   return (a5_route_cache_t *) st->route_cache;
 }
@@ -572,7 +572,7 @@ route_cache (a5_state_t *st)
 void
 a5restr_route_cache_clear (a5_state_t *st)
 {
-  if (st->route_cache != NULL)
+  if (st->route_cache != nullptr)
     ((a5_route_cache_t *) st->route_cache)->clear ();
 }
 
@@ -580,7 +580,7 @@ void
 a5restr_route_cache_free (a5_state_t *st)
 {
   delete (a5_route_cache_t *) st->route_cache;
-  st->route_cache = NULL;
+  st->route_cache = nullptr;
 }
 
 /* The session ledger behind clsDirection.bEverBeenBlocked: every failed route
@@ -600,7 +600,7 @@ blocked_ledger_key (const char *lockey, const char *dir)
 static void
 blocked_ledger_add (a5_state_t *st, const char *lockey, const char *dir)
 {
-  if (st->ever_blocked == NULL)
+  if (st->ever_blocked == nullptr)
     st->ever_blocked = new a5_blocked_ledger_t;
   ((a5_blocked_ledger_t *) st->ever_blocked)
     ->insert (blocked_ledger_key (lockey, dir));
@@ -609,7 +609,7 @@ blocked_ledger_add (a5_state_t *st, const char *lockey, const char *dir)
 int
 a5restr_ever_blocked (a5_state_t *st, const char *lockey, const char *dir)
 {
-  if (st->ever_blocked == NULL || lockey == NULL || dir == NULL)
+  if (st->ever_blocked == nullptr || lockey == nullptr || dir == nullptr)
     return 0;
   return ((a5_blocked_ledger_t *) st->ever_blocked)
     ->count (blocked_ledger_key (lockey, dir)) != 0;
@@ -619,7 +619,7 @@ void
 a5restr_ever_blocked_free (a5_state_t *st)
 {
   delete (a5_blocked_ledger_t *) st->ever_blocked;
-  st->ever_blocked = NULL;
+  st->ever_blocked = nullptr;
 }
 
 const char *
@@ -629,13 +629,13 @@ a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
 {
   const a5_location_t *l;
   const a5_xml_node_t *c;
-  const a5_xml_node_t *bl = NULL;
-  const char *result = NULL;
-  a5_route_cache_t *rc = NULL;
+  const a5_xml_node_t *bl = nullptr;
+  const char *result = nullptr;
+  a5_route_cache_t *rc = nullptr;
   std::string ck;
-  if (lockey == NULL || dir == NULL)
-    return NULL;
-  if (charkey != NULL)
+  if (lockey == nullptr || dir == nullptr)
+    return nullptr;
+  if (charkey != nullptr)
     {
       rc = route_cache (st);
       ck.assign (charkey).append (1, '\001')
@@ -643,41 +643,41 @@ a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
       a5_route_cache_t::const_iterator it = rc->find (ck);
       if (it != rc->end ())
         {
-          if (blocked_msg != NULL && it->second.blocked != NULL)
+          if (blocked_msg != nullptr && it->second.blocked != nullptr)
             *blocked_msg = it->second.blocked;
           return it->second.dest;
         }
     }
   l = a5model_location (st->adv, lockey);
-  if (l == NULL)
-    return NULL;
+  if (l == nullptr)
+    return nullptr;
   /* A location may carry more than one <Movement> for a direction; a route
      blocked by its own restrictions is skipped and the scan resumes at the
      next candidate, so this walks a5model_movement rather than taking its
      first hit. */
-  for (c = a5model_movement (l, NULL, dir); c != NULL;
+  for (c = a5model_movement (l, nullptr, dir); c != nullptr;
        c = a5model_movement (l, c, dir))
     {
       const char *dest;
       const a5_xml_node_t *mr;
       mr = a5xml_child (c, "Restrictions");
-      if (mr != NULL && !a5restr_pass (st, mr))
+      if (mr != nullptr && !a5restr_pass (st, mr))
         {                               /* route blocked by its restriction */
           /* Capture the blocking message unconditionally (the runner stores
              sErrorMessage in dictRouteErrors on every miss), so a same-turn
              re-check that DOES want it replays it without re-evaluating. */
           bl = a5restr_fail_message (st, mr);
-          if (blocked_msg != NULL)
+          if (blocked_msg != nullptr)
             *blocked_msg = bl;
           /* d.bEverBeenBlocked = True (clsCharacter.vb:686). */
           blocked_ledger_add (st, lockey, dir);
           continue;
         }
       dest = a5xml_child_text (c, "Destination");
-      result = (dest != NULL && dest[0] != '\0') ? dest : NULL;
+      result = (dest != nullptr && dest[0] != '\0') ? dest : nullptr;
       break;
     }
-  if (rc != NULL)
+  if (rc != nullptr)
     {
       a5_route_entry e;
       e.dest = result;
@@ -698,11 +698,11 @@ a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
 static int
 chars_sharing_room (a5_state_t *st, int ci, const char **other)
 {
-  const char *cloc = (ci >= 0) ? a5state_character_location_key (st, ci) : NULL;
+  const char *cloc = (ci >= 0) ? a5state_character_location_key (st, ci) : nullptr;
   int count = 0, i;
-  if (other != NULL)
-    *other = NULL;
-  if (cloc == NULL)
+  if (other != nullptr)
+    *other = nullptr;
+  if (cloc == nullptr)
     return 0;
   for (i = 0; i < st->adv->n_characters && count <= 1; i++)
     {
@@ -710,10 +710,10 @@ chars_sharing_room (a5_state_t *st, int ci, const char **other)
       if (i == ci)
         continue;
       oloc = a5state_character_location_key (st, i);
-      if (oloc != NULL && streq (oloc, cloc))
+      if (oloc != nullptr && streq (oloc, cloc))
         {
           count++;
-          if (other != NULL)
+          if (other != nullptr)
             *other = st->adv->characters[i].key;
         }
     }
@@ -727,7 +727,7 @@ alone_with_char (a5_state_t *st, const char *charkey)
 {
   const char *other;
   int ci = a5state_character_index (st, charkey);
-  return (chars_sharing_room (st, ci, &other) == 1) ? other : NULL;
+  return (chars_sharing_room (st, ci, &other) == 1) ? other : nullptr;
 }
 
 /* Does character `charkey` hold (where==HELD_BY) or wear (WORN_BY) any object? */
@@ -755,7 +755,7 @@ char_holds_object (a5_state_t *st, const char *charkey, const char *objkey,
      cannot overflow the stack. */
   int guard = 0;
   const char *key = objkey;
-  while (key != NULL)
+  while (key != nullptr)
     {
       int oi = a5state_object_index (st, key);
       if (oi < 0 || guard++ > st->adv->n_objects)
@@ -763,7 +763,7 @@ char_holds_object (a5_state_t *st, const char *charkey, const char *objkey,
       a5_owhere_t w = st->obj[oi].where;
       const char *k = st->obj[oi].key;
       if (w == A5_OWHERE_HELD_BY)
-        return k != NULL && (streq (k, charkey)
+        return k != nullptr && (streq (k, charkey)
                              || (streq (k, "%Player%")
                                  && streq (charkey, a5state_player_key (st))));
       if (!directly && (w == A5_OWHERE_IN_OBJECT || w == A5_OWHERE_ON_OBJECT))
@@ -782,7 +782,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
   const char *k1 = resolve_key (st, r->key1);
   const char *k2 = resolve_key (st, r->key2);
   int ci = a5state_character_index (st, k1);
-  const char *cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
+  const char *cloc = (ci >= 0) ? st->char_loc[ci] : nullptr;
 
   if (streq (r->op, "BeAtLocation"))
     {
@@ -821,7 +821,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          (clsUserSession.vb:213 auto-runs only the RunImmediately ones), so the
          Unknown default is what the runner plays with too. */
       const char *g = a5state_entity_prop (st, k1, "Gender");
-      return g != NULL && strcasecmp (g, k2) == 0;
+      return g != nullptr && strcasecmp (g, k2) == 0;
     }
   if (streq (r->op, "BeHoldingObject"))
     {
@@ -870,7 +870,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
   if (streq (r->op, "BeInSameLocationAsObject"))
     {
       int oi;
-      if (cloc == NULL)
+      if (cloc == nullptr)
         return 0;
       /* k2 may be an object GROUP (e.g. LightSources): true if any member is in
          scope, mirroring clsCharacter.CanSeeObject's group expansion (the
@@ -902,8 +902,8 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       auto same_room = [&] (int a, int b) -> int {
         if (a < 0 || b < 0)
           return 0;
-        const char *la = (st->char_loc != NULL) ? st->char_loc[a] : NULL;
-        if (la != NULL)
+        const char *la = (st->char_loc != nullptr) ? st->char_loc[a] : nullptr;
+        if (la != nullptr)
           return a5state_character_at_location (st, b, la);
         for (int L = 0; L < st->adv->n_locations; L++)
           { const char *lk = st->adv->locations[L].key;
@@ -975,20 +975,20 @@ pass_character (a5_state_t *st, a5_restr_t *r)
               if (!streq (k1, ANYCHARACTER) && !streq (st->adv->characters[s].key, k1))
                 continue;
               for (int o = 0; o < st->adv->n_characters; o++)
-                if (o != s && st->char_loc[o] != NULL
+                if (o != s && st->char_loc[o] != nullptr
                     && a5state_character_at_location (st, s, st->char_loc[o]))
                   return 1;
             }
           return 0;
         }
-      if (k2 == NULL || streq (k2, a5state_player_key (st)))
+      if (k2 == nullptr || streq (k2, a5state_player_key (st)))
         obs_loc = a5state_player_location (st);
       else
         /* effective location: an observer seated ON furniture (Grandpa on
            his rocking chair) has char_loc NULL. */
         obs_loc = a5state_character_location_key (st,
                     a5state_character_index (st, k2));
-      if (obs_loc == NULL)
+      if (obs_loc == nullptr)
         return 0;
       if (streq (k1, ANYCHARACTER))
         {
@@ -1006,7 +1006,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          `RemoveLocationFromGroup LocationOf %Player% FromGroup TimeTraps`, so a
          once-tolled location leaves the group and must not re-toll.  Likewise
          AddLocationToGroup (Jacaranda's dark-locations) must count. */
-      return cloc != NULL && a5state_object_in_group (st, k2, cloc);
+      return cloc != nullptr && a5state_object_in_group (st, k2, cloc);
     }
   if (streq (r->op, "HaveProperty"))
     {
@@ -1054,14 +1054,14 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       const char *dir = a5parse_canonical_direction (k2);
       const char *cl = streq (k1, a5state_player_key (st))
                          ? a5state_player_location (st) : cloc;
-      const a5_xml_node_t *blocked = NULL;
+      const a5_xml_node_t *blocked = nullptr;
       const char *exit;
-      if (dir == NULL)
+      if (dir == nullptr)
         dir = k2;             /* already canonical (e.g. bound ReferencedDirection) */
       /* sRouteError: clear, then capture the blocked exit's own message (if the
          exit exists but is restriction-gated) so the deciding fail message
          override below can prefer it over the generic "no route" text. */
-      st->route_error = NULL;
+      st->route_error = nullptr;
       if (streq (dir, ANYDIRECTION))
         {
           /* clsUserSession.vb:4608: AnyDirection loops every DirectionsEnum
@@ -1071,25 +1071,25 @@ pass_character (a5_state_t *st, a5_restr_t *r)
           static const char *const kEnumDirs[12] = {
             "North", "East", "South", "West", "Up", "Down",
             "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest" };
-          if (cl == NULL)
+          if (cl == nullptr)
             return 0;
           for (int d = 0; d < 12; d++)
             {
-              const a5_xml_node_t *b = NULL;
-              if (a5restr_exit_in_direction (st, k1, cl, kEnumDirs[d], &b) != NULL)
+              const a5_xml_node_t *b = nullptr;
+              if (a5restr_exit_in_direction (st, k1, cl, kEnumDirs[d], &b) != nullptr)
                 return 1;
-              if (b != NULL)
+              if (b != nullptr)
                 blocked = b;    /* the runner keeps the LAST specific error */
             }
-          if (blocked != NULL)
+          if (blocked != nullptr)
             st->route_error = blocked;
           return 0;
         }
-      exit = (cl != NULL) ? a5restr_exit_in_direction (st, k1, cl, dir, &blocked)
-                          : NULL;
-      if (exit == NULL && blocked != NULL)
+      exit = (cl != nullptr) ? a5restr_exit_in_direction (st, k1, cl, dir, &blocked)
+                          : nullptr;
+      if (exit == nullptr && blocked != nullptr)
         st->route_error = blocked;
-      return exit != NULL;
+      return exit != nullptr;
     }
   if (streq (r->op, "BeInPosition"))
     {
@@ -1109,14 +1109,14 @@ pass_character (a5_state_t *st, a5_restr_t *r)
             {
               const char *pos = a5state_entity_prop
                   (st, st->adv->characters[s].key, "CharacterPosition");
-              if (pos != NULL && streq (pos, k2))
+              if (pos != nullptr && streq (pos, k2))
                 return 1;
             }
           return 0;
         }
       const char *pos = (ci >= 0)
-          ? a5state_entity_prop (st, k1, "CharacterPosition") : NULL;
-      return pos != NULL && streq (pos, k2);
+          ? a5state_entity_prop (st, k1, "CharacterPosition") : nullptr;
+      return pos != nullptr && streq (pos, k2);
     }
   /* On/in object, optionally constrained by stance.  Mirrors clsUserSession's
      BeOnObject / BeInsideObject / Be{Standing,Sitting,Lying}OnObject cases:
@@ -1125,14 +1125,14 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       || streq (r->op, "BeStandingOnObject") || streq (r->op, "BeSittingOnObject")
       || streq (r->op, "BeLyingOnObject"))
     {
-      const char *onobj = (ci >= 0 && st->char_onobj) ? st->char_onobj[ci] : NULL;
+      const char *onobj = (ci >= 0 && st->char_onobj) ? st->char_onobj[ci] : nullptr;
       int inside = (ci >= 0 && st->char_in) ? st->char_in[ci] : 0;
       const char *want_pos =
           streq (r->op, "BeStandingOnObject") ? "Standing"
         : streq (r->op, "BeSittingOnObject")  ? "Sitting"
-        : streq (r->op, "BeLyingOnObject")    ? "Lying" : NULL;
+        : streq (r->op, "BeLyingOnObject")    ? "Lying" : nullptr;
       int want_in = streq (r->op, "BeInsideObject");
-      const char *pos = (ci >= 0 && st->char_position) ? st->char_position[ci] : NULL;
+      const char *pos = (ci >= 0 && st->char_position) ? st->char_position[ci] : nullptr;
       /* Subject ANYCHARACTER: the runner's clsUserSession CharacterOnObject/InObject
          AnyCharacter case counts the object's ChildrenCharacters (vb:4930/
          4952) -- true when ANY character is on/in the (specific) object.  Head
@@ -1151,12 +1151,12 @@ pass_character (a5_state_t *st, a5_restr_t *r)
                 {
                   if (want_in)
                     continue;             /* can't be inside the floor */
-                  if (st->char_onobj != NULL && st->char_onobj[i] != NULL)
+                  if (st->char_onobj != nullptr && st->char_onobj[i] != nullptr)
                     continue;
-                  if (st->char_loc == NULL || st->char_loc[i] == NULL)
+                  if (st->char_loc == nullptr || st->char_loc[i] == nullptr)
                     continue;
-                  if (want_pos != NULL
-                      && !streq (st->char_position ? st->char_position[i] : NULL,
+                  if (want_pos != nullptr
+                      && !streq (st->char_position ? st->char_position[i] : nullptr,
                                  want_pos))
                     continue;
                   return 1;
@@ -1165,14 +1165,14 @@ pass_character (a5_state_t *st, a5_restr_t *r)
             }
           for (int i = 0; i < st->adv->n_characters; i++)
             {
-              if (st->char_onobj == NULL || st->char_onobj[i] == NULL
+              if (st->char_onobj == nullptr || st->char_onobj[i] == nullptr
                   || !streq (st->char_onobj[i], k2))
                 continue;
-              int in_i = st->char_in != NULL && st->char_in[i];
+              int in_i = st->char_in != nullptr && st->char_in[i];
               if ((in_i ? 1 : 0) != want_in)
                 continue;
-              if (want_pos != NULL
-                  && !streq (st->char_position ? st->char_position[i] : NULL,
+              if (want_pos != nullptr
+                  && !streq (st->char_position ? st->char_position[i] : nullptr,
                              want_pos))
                 continue;
               return 1;
@@ -1180,10 +1180,10 @@ pass_character (a5_state_t *st, a5_restr_t *r)
           return 0;
         }
       if (ci < 0) return 0;
-      if (want_pos != NULL && !streq (pos, want_pos))
+      if (want_pos != nullptr && !streq (pos, want_pos))
         return 0;
       if (streq (k2, ANYOBJECT))
-        return onobj != NULL && (inside ? 1 : 0) == want_in;
+        return onobj != nullptr && (inside ? 1 : 0) == want_in;
       if (streq (k2, THEFLOOR))
         {
           /* clsUserSession.vb:4834: TheFloor = the stance with ExistWhere
@@ -1192,16 +1192,16 @@ pass_character (a5_state_t *st, a5_restr_t *r)
              a5state_player_location; char_loc is the NPC store. */
           const char *atloc = streq (k1, a5state_player_key (st))
                                 ? a5state_player_location (st) : cloc;
-          return !want_in && onobj == NULL && atloc != NULL;
+          return !want_in && onobj == nullptr && atloc != nullptr;
         }
       /* Any concrete object key: must be on/in that key. */
-      return onobj != NULL && (inside ? 1 : 0) == want_in && streq (onobj, k2);
+      return onobj != nullptr && (inside ? 1 : 0) == want_in && streq (onobj, k2);
     }
   /* Conversation / acquaintance operators (clsUserSession character cases). */
   if (streq (r->op, "BeInConversationWith"))
     {
       if (streq (k2, ANYCHARACTER))
-        return st->conv_char != NULL && st->conv_char[0] != '\0';
+        return st->conv_char != nullptr && st->conv_char[0] != '\0';
       return streq (st->conv_char, k2);
     }
   if (streq (r->op, "HaveSeenCharacter"))
@@ -1214,7 +1214,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
         return 0;
       if (!streq (k1, a5state_player_key (st)))
         return 1;
-      return st->char_seen != NULL && st->char_seen[c2];
+      return st->char_seen != nullptr && st->char_seen[c2];
     }
   if (streq (r->op, "HaveSeenObject"))
     {
@@ -1231,7 +1231,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
         return 0;
       if (!streq (k1, a5state_player_key (st)))
         return 1;
-      return st->obj_seen != NULL && st->obj_seen[o2];
+      return st->obj_seen != nullptr && st->obj_seen[o2];
     }
   if (streq (r->op, "HaveSeenLocation"))
     {
@@ -1249,19 +1249,19 @@ pass_character (a5_state_t *st, a5_restr_t *r)
         return 0;
       if (!streq (k1, a5state_player_key (st)))
         return 0;
-      return st->loc_seen != NULL && st->loc_seen[li];
+      return st->loc_seen != nullptr && st->loc_seen[li];
     }
   if (streq (r->op, "BeAloneWith"))
     {
       const char *aw = alone_with_char (st, k1);
       if (streq (k2, ANYCHARACTER))
-        return aw != NULL;
+        return aw != nullptr;
       return streq (aw, k2);
     }
   if (streq (r->op, "BeAlone"))
     /* clsCharacter.IsAlone: resolved Location.LocationKey compare, so a
        character on/in furniture still breaks solitude. */
-    return chars_sharing_room (st, ci, NULL) == 0;
+    return chars_sharing_room (st, ci, nullptr) == 0;
   if (streq (r->op, "BeOnCharacter"))
     {
       /* clsCharacterLocation.ExistsWhereEnum.OnCharacter: the character rides
@@ -1269,8 +1269,8 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          loader for an "On Character" start state and by the OntoCharacter
          MoveCharacter action) -- char_onobj only ever names objects, so reading
          it here always failed (Penrhyn's Arkell-on-Ralph follow message). */
-      const char *onk = (ci >= 0 && st->char_onchar) ? st->char_onchar[ci] : NULL;
-      if (onk == NULL || a5state_character_index (st, onk) < 0)
+      const char *onk = (ci >= 0 && st->char_onchar) ? st->char_onchar[ci] : nullptr;
+      if (onk == nullptr || a5state_character_index (st, onk) < 0)
         return 0;
       if (streq (k2, ANYCHARACTER))
         return 1;
@@ -1289,7 +1289,7 @@ static char *
 restr_text_value (a5_state_t *st, const char *key2)
 {
   size_t n;
-  if (key2 == NULL)
+  if (key2 == nullptr)
     return strdup ("");
   n = strlen (key2);
   if (n >= 2 && ((key2[0] == '"' && key2[n - 1] == '"')
@@ -1302,7 +1302,7 @@ restr_text_value (a5_state_t *st, const char *key2)
     }
   {
     int vj = a5state_variable_index (st, key2);
-    if (vj >= 0 && st->var_text[vj] != NULL)
+    if (vj >= 0 && st->var_text[vj] != nullptr)
       return strdup (st->var_text[vj]);
   }
   return a5text_eval_expression (st, key2);
@@ -1317,7 +1317,7 @@ str_compare_op (const char *op, const char *cur, const char *rhs)
   if (streq (op, "BeGreaterThanOrEqualTo"))  return cmp >= 0;
   if (streq (op, "BeLessThan"))              return cmp < 0;
   if (streq (op, "BeLessThanOrEqualTo"))     return cmp <= 0;
-  if (streq (op, "BeContain"))               return strstr (cur, rhs) != NULL;
+  if (streq (op, "BeContain"))               return strstr (cur, rhs) != nullptr;
   return 1;
 }
 
@@ -1352,8 +1352,8 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
       const char *cur = a5state_lookup_ref (st, r->key1);
       char *rhs;
       int res;
-      if (cur == NULL) cur = a5state_lookup_ref (st, "ReferencedText");
-      if (cur == NULL)
+      if (cur == nullptr) cur = a5state_lookup_ref (st, "ReferencedText");
+      if (cur == nullptr)
         {
           /* The runner reads the turn-global Adventure.sReferencedText slot
              (clsUserSession.vb:4474), filled by every command-matched
@@ -1379,10 +1379,10 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
       const char *cur_s = a5state_lookup_ref (st, r->key1);
       char *rhs_s;
       long cur, rhs;
-      if (cur_s == NULL) cur_s = a5state_lookup_ref (st, "ReferencedNumber");
-      cur = cur_s ? strtol (cur_s, NULL, 10) : 0;
+      if (cur_s == nullptr) cur_s = a5state_lookup_ref (st, "ReferencedNumber");
+      cur = cur_s ? strtol (cur_s, nullptr, 10) : 0;
       rhs_s = restr_text_value (st, r->key2);
-      rhs = strtol (rhs_s, NULL, 10);
+      rhs = strtol (rhs_s, nullptr, 10);
       free (rhs_s);
       return num_compare_op (r->op, cur, rhs);
     }
@@ -1506,38 +1506,38 @@ pass_property (a5_state_t *st, a5_restr_t *r)
   if (strcmp (op, "EqualTo") == 0)
     {
       const char *rhs = resolve_key (st, value);
-      char *rhs_sub = NULL;
+      char *rhs_sub = nullptr;
       /* resolve_key handles per-turn bindings (%object%) and entity keys but
          returns a bare %variable% unchanged.  A variable RHS -- AlienDiver's
          `CardId ReferencedObject EqualTo %RollForBlankCard%` (match the drawn
          blank card) -- must be substituted to its value or the compare never
          matches.  Only when resolve_key left it untouched AND it still holds a
          '%' (so an object binding is not re-rendered as a display name). */
-      if (rhs == value && strchr (value, '%') != NULL)
+      if (rhs == value && strchr (value, '%') != nullptr)
         { rhs_sub = restr_text_value (st, value); rhs = rhs_sub; }
       /* A Text-property value is compared as a STRING EXPRESSION, so an empty
          one is authored (and serialised) as the VB literal `""` -- Quest Giver
          gates its "You see nothing worthy of note about ..." fallback on
          `daz6LookAtDesc ReferencedCharacter Must EqualTo ""`.  Unquote a
          literal so it compares as the empty string it denotes. */
-      if (rhs != NULL && strlen (rhs) >= 2 && rhs[0] == '"'
+      if (rhs != nullptr && strlen (rhs) >= 2 && rhs[0] == '"'
           && rhs[strlen (rhs) - 1] == '"')
         { char *u = strndup (rhs + 1, strlen (rhs) - 2);
           free (rhs_sub); rhs_sub = u; rhs = rhs_sub; }
       pv = a5state_entity_prop (st, itemkey, propkey);
-      if (pv == NULL && strcmp (propkey, "StaticOrDynamic") == 0)
+      if (pv == nullptr && strcmp (propkey, "StaticOrDynamic") == 0)
         pv = "Static";          /* the StaticOrDynamic default for an object */
       /* The runner's test is bItemContainsProperty (clsItem.HasProperty), THEN
          a value compare: a property the item carries with no value at all -- an
          un-filled Text property -- reads as "", it does not make the item
          property-less.  Only an item genuinely lacking the property fails. */
-      if (pv == NULL && a5state_entity_has_prop (st, itemkey, propkey))
+      if (pv == nullptr && a5state_entity_has_prop (st, itemkey, propkey))
         pv = "";
-      rr = (pv != NULL) && streq (pv, rhs);
+      rr = (pv != nullptr) && streq (pv, rhs);
       free (rhs_sub);
     }
   else if (is_op_numeric_inequality (op)
-           && (is_clean_int (value) || strchr (value, '%') != NULL))
+           && (is_clean_int (value) || strchr (value, '%') != nullptr))
     {
       /* A numeric inequality against an integer or a %reference% expression.
          The ADRIFT library carry-capacity restrictions on Take/Put pass a
@@ -1552,14 +1552,14 @@ pass_property (a5_state_t *st, a5_restr_t *r)
          authored `OpenStatus Obj Must LessThan Open`) is not arithmetic, so it
          keeps the lenient pass in the final else. */
       long lv, rv;
-      char *rhs_ev = NULL;
+      char *rhs_ev = nullptr;
       pv = a5state_entity_prop (st, itemkey, propkey);
-      lv = pv ? strtol (pv, NULL, 10) : 0;
+      lv = pv ? strtol (pv, nullptr, 10) : 0;
       if (is_clean_int (value))
-        rv = strtol (value, NULL, 10);
+        rv = strtol (value, nullptr, 10);
       else
         { rhs_ev = a5text_eval_expression (st, value);
-          rv = rhs_ev ? strtol (rhs_ev, NULL, 10) : 0; }
+          rv = rhs_ev ? strtol (rhs_ev, nullptr, 10) : 0; }
       rr = num_compare_op (op, lv, rv);
       free (rhs_ev);
     }
@@ -1586,36 +1586,36 @@ pass_item (a5_state_t *st, a5_restr_t *r)
   const char *k1 = resolve_key (st, r->key1);
   const char *k2 = resolve_key (st, r->key2);
   const a5_object_t *ob = a5model_object (st->adv, k1);
-  const a5_character_t *ch = (ob == NULL) ? a5model_character (st->adv, k1) : NULL;
-  const a5_location_t *loc = (ob == NULL && ch == NULL)
-                               ? a5model_location (st->adv, k1) : NULL;
+  const a5_character_t *ch = (ob == nullptr) ? a5model_character (st->adv, k1) : nullptr;
+  const a5_location_t *loc = (ob == nullptr && ch == nullptr)
+                               ? a5model_location (st->adv, k1) : nullptr;
 
-  if (ob == NULL && ch == NULL && loc == NULL)
+  if (ob == nullptr && ch == nullptr && loc == nullptr)
     return 0;                   /* vb:4978: unresolved key -> False */
 
   if (streq (r->op, "BeType"))
     /* vb:5047: the resolved item's table decides its type. */
-    return (streq (k2, "Object") && ob != NULL)
-           || (streq (k2, "Character") && ch != NULL)
-           || (streq (k2, "Location") && loc != NULL);
+    return (streq (k2, "Object") && ob != nullptr)
+           || (streq (k2, "Character") && ch != nullptr)
+           || (streq (k2, "Location") && loc != nullptr);
   if (streq (r->op, "Exist"))
     return 1;                   /* vb:5049: found in some table above */
   if (streq (r->op, "HaveProperty"))
     return a5state_entity_has_prop (st, k1, k2);
   if (streq (r->op, "BeObject"))
-    return ob != NULL && streq (k1, k2);
+    return ob != nullptr && streq (k1, k2);
   if (streq (r->op, "BeCharacter"))
-    return ch != NULL && streq (k1, k2);
+    return ch != nullptr && streq (k1, k2);
   if (streq (r->op, "BeLocation"))
-    return loc != NULL && streq (k1, k2);
+    return loc != nullptr && streq (k1, k2);
   if (streq (r->op, "BeAtLocation"))
     {
       /* vb:4985: object -> IsVisibleAtLocation; character -> resolved
          Location.LocationKey; location -> key identity. */
-      if (ob != NULL)
+      if (ob != nullptr)
         return a5state_object_visible_at_location (st,
                  a5state_object_index (st, k1), k2, 0);
-      if (ch != NULL)
+      if (ch != nullptr)
         return streq (a5state_character_location_key (st,
                         a5state_character_index (st, k1)), k2);
       return streq (k1, k2);
@@ -1667,7 +1667,7 @@ pass_single (a5_state_t *st, a5_restr_t *r)
       mnot = (strcmp (tok0, "MustNot") == 0);
       want = (strncmp (tok1, "Be", 2) == 0) ? tok1 + 2 : tok1;
       cur = a5state_lookup_ref (st, "ReferencedDirection");
-      rr = (cur != NULL && strcmp (want, cur) == 0);
+      rr = (cur != nullptr && strcmp (want, cur) == 0);
       result = mnot ? !rr : rr;
       if (a5restr_trace)
         fprintf (stderr, "    [restr Direction: %s%s vs %s] -> %d\n",
@@ -1704,7 +1704,7 @@ normalise_block (const char *in)
 {
   char *s = strdup (in);
   char *hit;
-  while ((hit = strstr (s, "A#O")) != NULL)
+  while ((hit = strstr (s, "A#O")) != nullptr)
     {
       int i = (int) (hit - s);
       /* find last '(' before i, insert '(' after it (or at start) */
@@ -1772,7 +1772,7 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
       first = eval_block (st, rs, nodes, n, sub, idx, last_fail);
       free (sub);
       op = norm[off];
-      rest = (op == '\0') ? NULL : norm + off + 1;
+      rest = (op == '\0') ? nullptr : norm + off + 1;
     }
   else if (norm[0] == '#')
     {
@@ -1809,7 +1809,7 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
         if (my < n)
           *last_fail = first ? -1 : my; /* clear on pass, record on fail */
       }
-      rest = (op == '\0') ? NULL : norm + 2;
+      rest = (op == '\0') ? nullptr : norm + 2;
     }
   else
     {
@@ -1821,7 +1821,7 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
       return 0;
     }
 
-  if (rest == NULL)
+  if (rest == nullptr)
     result = first;
   else if (op == 'A')
     {
@@ -1861,11 +1861,11 @@ eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
   const a5_xml_node_t *c;
   const char *bracket;
   int n, i, idx = 0, result, last_fail = -2;   /* -2 = no restriction evaluated */
-  char *normbrackets = NULL;
+  char *normbrackets = nullptr;
 
-  if (fail_node_out != NULL)
-    *fail_node_out = NULL;
-  if (restrictions == NULL)
+  if (fail_node_out != nullptr)
+    *fail_node_out = nullptr;
+  if (restrictions == nullptr)
     return 1;
   n = a5xml_count (restrictions, "Restriction");
   if (n == 0)
@@ -1874,7 +1874,7 @@ eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
   rs = (a5_restr_t *) calloc ((size_t) n, sizeof *rs);
   nodes = (const a5_xml_node_t **) calloc ((size_t) n, sizeof *nodes);
   i = 0;
-  for (c = restrictions->first_child; c != NULL; c = c->next)
+  for (c = restrictions->first_child; c != nullptr; c = c->next)
     if (strcmp (c->name, "Restriction") == 0)
       {
         const a5_xml_node_t *tn = restr_type_node (c);
@@ -1885,7 +1885,7 @@ eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
       }
 
   bracket = a5xml_child_text (restrictions, "BracketSequence");
-  if (bracket == NULL || bracket[0] == '\0')
+  if (bracket == nullptr || bracket[0] == '\0')
     {
       /* default: AND all restrictions -> "#A#A#..." */
       int sz = n * 2;
@@ -1929,11 +1929,11 @@ eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
      untouched, so the carried value from a previous command survives.  Persists
      across commands -- never reset per turn. */
   if (last_fail == -1)
-    st->restriction_text = NULL;                 /* deciding restriction passed */
+    st->restriction_text = nullptr;                 /* deciding restriction passed */
   else if (last_fail >= 0 && last_fail < n)
     st->restriction_text = a5xml_child (nodes[last_fail], "Message");
 
-  if (fail_node_out != NULL && !result && last_fail >= 0 && last_fail < n)
+  if (fail_node_out != nullptr && !result && last_fail >= 0 && last_fail < n)
     {
       *fail_node_out = nodes[last_fail];
       /* sRouteError override: keep st->route_error set only when the deciding
@@ -1941,10 +1941,10 @@ eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
          restriction-blocked (PassSingleRestriction: "If sRouteError <>
          sRestrictionText AndAlso sRouteError <> ''").  The getter then prefers
          it over the restriction's generic "There is no route..." message. */
-      if (!(st->route_error != NULL
+      if (!(st->route_error != nullptr
             && streq (rs[last_fail].type, "Character")
             && streq (rs[last_fail].op, "HaveRouteInDirection")))
-        st->route_error = NULL;
+        st->route_error = nullptr;
     }
 
   free (normbrackets);
@@ -1958,18 +1958,18 @@ eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
 const a5_xml_node_t *
 a5restr_fail_message (a5_state_t *st, const a5_xml_node_t *restrictions)
 {
-  const a5_xml_node_t *fail_node = NULL;
-  st->route_error = NULL;
+  const a5_xml_node_t *fail_node = nullptr;
+  st->route_error = nullptr;
   eval_restrictions (st, restrictions, &fail_node);
-  if (st->route_error != NULL)
+  if (st->route_error != nullptr)
     return st->route_error;             /* blocked-exit message wins */
-  return fail_node ? a5xml_child (fail_node, "Message") : NULL;
+  return fail_node ? a5xml_child (fail_node, "Message") : nullptr;
 }
 
 int
 a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
 {
-  return eval_restrictions (st, restrictions, NULL);
+  return eval_restrictions (st, restrictions, nullptr);
 }
 
 /* The first <Restriction> child whose parsed spec satisfies `match`, or NULL.
@@ -1983,9 +1983,9 @@ restr_find (const a5_xml_node_t *restrictions, int limit, F match)
   const a5_xml_node_t *c;
   int i = 0;
 
-  if (restrictions == NULL)
-    return NULL;
-  for (c = restrictions->first_child; c != NULL; c = c->next)
+  if (restrictions == nullptr)
+    return nullptr;
+  for (c = restrictions->first_child; c != nullptr; c = c->next)
     {
       const a5_xml_node_t *tn;
       a5_restr_t r;
@@ -1995,7 +1995,7 @@ restr_find (const a5_xml_node_t *restrictions, int limit, F match)
       if (limit >= 0 && i++ >= limit)
         break;
       tn = restr_type_node (c);
-      if (tn == NULL)
+      if (tn == nullptr)
         continue;
       parse_spec (&r, tn->text);
       hit = match (tn, &r);
@@ -2003,7 +2003,7 @@ restr_find (const a5_xml_node_t *restrictions, int limit, F match)
       if (hit)
         return c;
     }
-  return NULL;
+  return nullptr;
 }
 
 /* Does a `<ref_alias> Must Exist` restriction (e.g. "ReferencedObject2") fall
@@ -2024,14 +2024,14 @@ a5restr_exist_evaluated (const a5_xml_node_t *restrictions, const char *ref_alia
   const char *bracket;
   int n = 0, M;
 
-  if (restrictions == NULL || ref_alias == NULL)
+  if (restrictions == nullptr || ref_alias == nullptr)
     return 0;
-  for (c = restrictions->first_child; c != NULL; c = c->next)
+  for (c = restrictions->first_child; c != nullptr; c = c->next)
     if (strcmp (c->name, "Restriction") == 0)
       n++;
   bracket = a5xml_child_text (restrictions, "BracketSequence");
   /* an absent bracket ANDs every restriction */
-  M = (bracket == NULL || bracket[0] == '\0') ? n : count_hashes (bracket);
+  M = (bracket == nullptr || bracket[0] == '\0') ? n : count_hashes (bracket);
 
   return restr_find (restrictions, M,          /* only the bracket prefix */
                      [ref_alias] (const a5_xml_node_t *tn, const a5_restr_t *r)
@@ -2039,7 +2039,7 @@ a5restr_exist_evaluated (const a5_xml_node_t *restrictions, const char *ref_alia
                        (void) tn;
                        return strcmp (r->key1, ref_alias) == 0
                               && streq (r->op, "Exist");
-                     }) != NULL;
+                     }) != nullptr;
 }
 
 int
@@ -2053,7 +2053,7 @@ a5restr_has_exist (const a5_xml_node_t *restrictions, char type)
                      {
                        return strcmp (tn->name, want_type) == 0
                               && streq (r->op, "Exist");
-                     }) != NULL;
+                     }) != nullptr;
 }
 
 /* The <Message> node of the first Object restriction "<ReferencedObject...> Must
@@ -2072,8 +2072,8 @@ a5restr_exist_message (const a5_xml_node_t *restrictions)
                 {
                   return strcmp (tn->name, "Object") == 0
                          && streq (r->op, "Exist")
-                         && r->key1 != NULL
+                         && r->key1 != nullptr
                          && strncmp (r->key1, "ReferencedObject", 16) == 0;
                 });
-  return (c != NULL) ? a5xml_child (c, "Message") : NULL;
+  return (c != nullptr) ? a5xml_child (c, "Message") : nullptr;
 }

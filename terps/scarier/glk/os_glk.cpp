@@ -73,10 +73,10 @@ char gsc_gamefile[1024];
 
 static const char *find_last_of(const char *str, const char *chars)
 {
-  const char *found = NULL;
+  const char *found = nullptr;
   while (*chars != 0) {
     const char *p = strrchr(str, *chars++);
-    if (p != NULL && (found == NULL || p > found)) {
+    if (p != nullptr && (found == nullptr || p > found)) {
       found = p;
     }
   }
@@ -92,8 +92,8 @@ static const char *find_last_of(const char *str, const char *chars)
 /*---------------------------------------------------------------------*/
 
 /* Two windows, one for the main text, and one for a status line. */
-winid_t gsc_main_window = NULL;
-winid_t gsc_status_window = NULL;
+winid_t gsc_main_window = nullptr;
+winid_t gsc_status_window = nullptr;
 
 /* Whether nothing has been printed to the main window since it was last
    cleared.  A window that is still empty can be cleared again for free, which
@@ -115,11 +115,11 @@ int gsc_sc_waitkey_skip = 0;
  * Transcript stream and input log.  These are NULL if there is no current
  * collection of these strings.
  */
-strid_t gsc_transcript_stream = NULL;
-strid_t gsc_inputlog_stream = NULL;
+strid_t gsc_transcript_stream = nullptr;
+strid_t gsc_inputlog_stream = nullptr;
 
 /* Input read log stream, for reading back an input log. */
-strid_t gsc_readlog_stream = NULL;
+strid_t gsc_readlog_stream = nullptr;
 
 /* Options that may be turned off or set by command line flags. */
 int gsc_commands_enabled = TRUE;
@@ -231,7 +231,7 @@ gsc_colour_visible (void)
 
   if (!gsc_colour_enabled)
     return FALSE;
-  if (gsc_main_window == NULL)
+  if (gsc_main_window == nullptr)
     return TRUE;
 
   /* A library that cannot measure leaves no way to tell; believe the
@@ -242,7 +242,7 @@ gsc_colour_visible (void)
 }
 
 /* Adrift game to interpret. */
-scr_game gsc_game = NULL;
+scr_game gsc_game = nullptr;
 
 /* ADRIFT 5 game.  When the file loaded at startup is an ADRIFT 5 game,
  * gsc_a5_adv holds the parsed adventure and gsc_is_a5 is set; glk_main then
@@ -252,7 +252,7 @@ scr_game gsc_game = NULL;
  * later -- the Blorb resource map (gsc_a5_init_resources) and the autosave
  * directory's file signature. */
 char gsc_game_path[2048];
-a5_adventure_t *gsc_a5_adv = NULL;
+a5_adventure_t *gsc_a5_adv = nullptr;
 int gsc_is_a5 = FALSE;
 
 /* A name for this game to file per-game settings under, for the games that
@@ -264,7 +264,7 @@ int gsc_is_a5 = FALSE;
 char gsc_game_key[40];
 
 /* Current a5 run, kept here so status redraws on window resize can reach it. */
-a5_run_t *gsc_a5_run = NULL;
+a5_run_t *gsc_a5_run = nullptr;
 
 /* Set when this session drives the game's TimeBased events off a wall-clock
    1-second Glk timer (the real Runner's tmrEvents_Tick) instead of the
@@ -296,7 +296,7 @@ int gsc_a5_waitkey_skip = 0;
    one, then kept open like the official Runner.  This build supports a single
    side window (games such as Alien Diver use exactly one, "Status"), so every
    <window NAME> shares it regardless of NAME. */
-winid_t gsc_a5_side_window = NULL;
+winid_t gsc_a5_side_window = nullptr;
 
 
 /*---------------------------------------------------------------------*/
@@ -344,7 +344,7 @@ gsc_fatal (const char *string)
     }
 
   /* Cancel all possible pending window input events. */
-  glk_cancel_line_event (gsc_main_window, NULL);
+  glk_cancel_line_event (gsc_main_window, nullptr);
   glk_cancel_char_event (gsc_main_window);
 
   /* Print a message indicating the error, and exit. */
@@ -617,12 +617,12 @@ os_open_file (scr_bool is_save)
 #endif
   fileref = glk_fileref_create_by_prompt (usage, fmode, 0);
   if (!fileref)
-    return NULL;
+    return nullptr;
 
   if (!is_save && !glk_fileref_does_file_exist (fileref))
     {
       glk_fileref_destroy (fileref);
-      return NULL;
+      return nullptr;
     }
 
   stream = glk_stream_open_file (fileref, fmode, 0);
@@ -668,7 +668,7 @@ os_close_file (void *opaque)
   strid_t stream = (strid_t) opaque;
   assert (opaque);
 
-  glk_stream_close (stream, NULL);
+  glk_stream_close (stream, nullptr);
 }
 
 
@@ -686,7 +686,7 @@ enum gsc_end_option { GAME_RESTART, GAME_UNDO, GAME_QUIT };
  * The following value needs to be passed between the startup_code and main
  * functions.
  */
-static const char *gsc_game_message = NULL;
+static const char *gsc_game_message = nullptr;
 
 
 /*
@@ -848,7 +848,7 @@ static gsc_game_assist_t GSC_GAME_ASSIST_TABLE[] = {
   {"Welcome to Wonderland", "The Cheshire Cat (Michael Suhar)",
    GSC_ASSIST_COMBAT | GSC_ASSIST_CAPACITY,
    "This game cannot be completed as authored"},
-  {NULL, NULL, 0, NULL}
+  {nullptr, nullptr, 0, nullptr}
 };
 
 /* Each assist's name for the startup notice, the command that turns it back
@@ -873,13 +873,13 @@ static gsc_assist_switch_t GSC_ASSIST_SWITCHES[] = {
    scr_get_room_assist, scr_set_room_assist},
   {GSC_ASSIST_CAPACITY, "carrying capacity recompute", "glk assist capacity off",
    gsc_get_capacity, gsc_set_capacity},
-  {0, NULL, NULL, NULL, NULL}
+  {0, nullptr, nullptr, nullptr, nullptr}
 };
 
 /* Which assists were switched on automatically (GSC_ASSIST_* bits), and the
    matched table row's reason wording, for the startup notice. */
 static int gsc_assists_auto = 0;
-static const char *gsc_assist_auto_reason = NULL;
+static const char *gsc_assist_auto_reason = nullptr;
 
 static void
 gsc_apply_known_game_assists (scr_game game)
@@ -998,7 +998,7 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
                   scr_uint trace_flags, scr_bool enable_debugger,
                   scr_bool stable_random, const scr_char *locale)
 {
-  winid_t window = NULL;
+  winid_t window = nullptr;
   assert (game_stream);
 
   /* Open a temporary Glk main window. */
@@ -1100,7 +1100,7 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
     if (file_len > 0)
       {
         file_buf = (char *) malloc (file_len);
-        if (file_buf != NULL)
+        if (file_buf != nullptr)
           {
             got = glk_get_buffer_stream (game_stream, file_buf, file_len);
             /* Rewind for the ADRIFT <=4 path if A5 load fails. */
@@ -1116,8 +1116,8 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
   if (gsc_a5_adv)
     {
       gsc_is_a5 = TRUE;
-      gsc_game = NULL;
-      gsc_game_message = NULL;
+      gsc_game = nullptr;
+      gsc_game_message = nullptr;
       /* Unlike ADRIFT 4, where the palette is a Runner preference the .taf
          knows nothing about, an ADRIFT 5 adventure carries the author's
          own colours; colour mode uses those. */
@@ -1131,11 +1131,11 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
       if (gsc_colour_detect (window))
         gsc_colour_startup = TRUE;
 #endif
-      glk_stream_close (game_stream, NULL);
+      glk_stream_close (game_stream, nullptr);
       if (restore_stream)
-        glk_stream_close (restore_stream, NULL);
+        glk_stream_close (restore_stream, nullptr);
       if (window)
-        glk_window_close (window, NULL);
+        glk_window_close (window, nullptr);
 #ifdef GARGLK
       if (gsc_a5_adv->title && gsc_a5_adv->title[0])
         {
@@ -1159,13 +1159,13 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
   gsc_game = scr_game_from_callback (gsc_callback, game_stream);
   if (!gsc_game)
     {
-      gsc_game = NULL;
+      gsc_game = nullptr;
       gsc_game_message = "Unable to load an Adrift game from the"
                          " requested file.";
     }
   else
-    gsc_game_message = NULL;
-  glk_stream_close (game_stream, NULL);
+    gsc_game_message = nullptr;
+  glk_stream_close (game_stream, nullptr);
 
   /*
    * If the game was created successfully and there is a restore stream, try
@@ -1176,15 +1176,15 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
       if (!scr_load_game_from_callback (gsc_game, gsc_callback, restore_stream))
         {
           scr_free_game (gsc_game);
-          gsc_game = NULL;
+          gsc_game = nullptr;
           gsc_game_message = "Unable to restore this Adrift game from the"
                              " requested file.";
         }
       else
-        gsc_game_message = NULL;
+        gsc_game_message = nullptr;
     }
   if (restore_stream)
-    glk_stream_close (restore_stream, NULL);
+    glk_stream_close (restore_stream, nullptr);
 
   /* If successful, set game debugging and synchronize to the core's locale. */
   if (gsc_game)
@@ -1207,7 +1207,7 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
 
   /* Close the temporary window. */
   if (window)
-    glk_window_close (window, NULL);
+    glk_window_close (window, nullptr);
 
   /* Set title of game, and pass it to the host UI via wintitle().  gsc_game is
      NULL when the load/restore above failed (gsc_game_message is set instead),
@@ -1234,7 +1234,7 @@ gsc_main (void)
 #ifdef SPATTERLIGHT
   /* A failed game load has no state to restore onto, and needs a window to
      report itself in -- take the normal path and print the complaint. */
-  autorestore = gsc_game != NULL && gsc_autorestore_wanted ();
+  autorestore = gsc_game != nullptr && gsc_autorestore_wanted ();
 #endif
 
   /* Ensure Scarier internal types have the right sizes. */
@@ -1399,8 +1399,8 @@ gsc_main (void)
        */
       if (gsc_readlog_stream)
         {
-          glk_stream_close (gsc_readlog_stream, NULL);
-          gsc_readlog_stream = NULL;
+          glk_stream_close (gsc_readlog_stream, nullptr);
+          gsc_readlog_stream = nullptr;
         }
 
       /*
@@ -1437,25 +1437,25 @@ gsc_main (void)
 
   /* All done -- release game resources. */
   map_free (gsc_map);
-  gsc_map = NULL;
+  gsc_map = nullptr;
   gsc_map_screen_drop ();
   scr_free_game (gsc_game);
 
   /* Close any open transcript, input log, and/or read log. */
   if (gsc_transcript_stream)
     {
-      glk_stream_close (gsc_transcript_stream, NULL);
-      gsc_transcript_stream = NULL;
+      glk_stream_close (gsc_transcript_stream, nullptr);
+      gsc_transcript_stream = nullptr;
     }
   if (gsc_inputlog_stream)
     {
-      glk_stream_close (gsc_inputlog_stream, NULL);
-      gsc_inputlog_stream = NULL;
+      glk_stream_close (gsc_inputlog_stream, nullptr);
+      gsc_inputlog_stream = nullptr;
     }
   if (gsc_readlog_stream)
     {
-      glk_stream_close (gsc_readlog_stream, NULL);
-      gsc_readlog_stream = NULL;
+      glk_stream_close (gsc_readlog_stream, nullptr);
+      gsc_readlog_stream = nullptr;
     }
 }
 
@@ -1521,7 +1521,7 @@ glkunix_argumentlist_t glkunix_arguments[] = {
    (char *) "-r FILE    Restore from FILE on starting the game"},
   {(char *) "", glkunix_arg_ValueCanFollow,
    (char *) "filename   game to run"},
-  {NULL, glkunix_arg_End, NULL}
+  {nullptr, glkunix_arg_End, nullptr}
 };
 
 
@@ -1555,7 +1555,7 @@ glkunix_startup_code (glkunix_startup_t * data)
 #endif
 
   /* Handle command line arguments. */
-  restore_from = NULL;
+  restore_from = nullptr;
   for (argv_index = 1;
        argv_index < argc && argv[argv_index][0] == '-'; argv_index++)
     {
@@ -1595,7 +1595,7 @@ glkunix_startup_code (glkunix_startup_t * data)
   /* On invalid usage, set a complaint message and return. */
   if (argv_index != argc - 1)
     {
-      gsc_game = NULL;
+      gsc_game = nullptr;
       if (argv_index < argc - 1)
         gsc_game_message = "More than one game file"
                            " was given on the command line.";
@@ -1613,12 +1613,12 @@ glkunix_startup_code (glkunix_startup_t * data)
   game_stream = glkunix_stream_open_pathname (argv[argv_index], FALSE, 0);
   if (!game_stream)
     {
-      gsc_game = NULL;
+      gsc_game = nullptr;
       gsc_game_message = "Unable to open the requested game file.";
       return TRUE;
     }
   else
-    gsc_game_message = NULL;
+    gsc_game_message = nullptr;
 
   /*
    * If a restore requested, open a stream to the TAF (TAS) file, and
@@ -1629,27 +1629,27 @@ glkunix_startup_code (glkunix_startup_t * data)
       restore_stream = glkunix_stream_open_pathname (restore_from, FALSE, 0);
       if (!restore_stream)
         {
-          glk_stream_close (game_stream, NULL);
-          gsc_game = NULL;
+          glk_stream_close (game_stream, nullptr);
+          gsc_game = nullptr;
           gsc_game_message = "Unable to open the requested restore file.";
           return TRUE;
         }
       else
-        gsc_game_message = NULL;
+        gsc_game_message = nullptr;
     }
   else
-    restore_stream = NULL;
+    restore_stream = nullptr;
 
   /* Set Scarier trace flags and other general setup from the environment. */
   if (getenv ("SCR_TRACE_FLAGS"))
-    trace_flags = strtoul (getenv ("SCR_TRACE_FLAGS"), NULL, 0);
+    trace_flags = strtoul (getenv ("SCR_TRACE_FLAGS"), nullptr, 0);
   else
     trace_flags = 0;
-  enable_debugger = (getenv ("SCR_DEBUGGER_ENABLED") != NULL);
+  enable_debugger = (getenv ("SCR_DEBUGGER_ENABLED") != nullptr);
 #if defined (SPATTERLIGHT)
   stable_random = gli_determinism;
 #else
-  stable_random = (getenv ("SCR_STABLE_RANDOM_ENABLED") != NULL);
+  stable_random = (getenv ("SCR_STABLE_RANDOM_ENABLED") != nullptr);
 #endif
   locale = getenv ("SCR_LOCALE");
 
@@ -1660,7 +1660,7 @@ glkunix_startup_code (glkunix_startup_t * data)
     const char *sep = "/";
 #endif
     const char *slash = find_last_of(argv[argv_index], sep);
-    if (slash == NULL) {
+    if (slash == nullptr) {
       snprintf(gsc_gamefile, sizeof gsc_gamefile, "%s", argv[argv_index]);
     } else {
       snprintf(gsc_gamefile, sizeof gsc_gamefile, "%s", slash + 1);
@@ -1762,15 +1762,15 @@ winglk_startup_code (const char *cmdline)
 
   /* Set trace, debugger, and portable random flags. */
   if (getenv ("SCR_TRACE_FLAGS"))
-    trace_flags = strtoul (getenv ("SCR_TRACE_FLAGS"), NULL, 0);
+    trace_flags = strtoul (getenv ("SCR_TRACE_FLAGS"), nullptr, 0);
   else
     trace_flags = 0;
-  enable_debugger = (getenv ("SCR_DEBUGGER_ENABLED") != NULL);
-  stable_random = (getenv ("SCR_STABLE_RANDOM_ENABLED") != NULL);
+  enable_debugger = (getenv ("SCR_DEBUGGER_ENABLED") != nullptr);
+  stable_random = (getenv ("SCR_STABLE_RANDOM_ENABLED") != nullptr);
   locale = getenv ("SCR_LOCALE");
 
   /* Use the generic startup code to complete startup. */
-  return gsc_startup_code (game_stream, NULL, trace_flags,
+  return gsc_startup_code (game_stream, nullptr, trace_flags,
                            enable_debugger, stable_random, locale);
 }
 #endif /* _WIN32 */

@@ -96,7 +96,7 @@ popup_from_script (void *ctx, const char *prompt, const char *dflt)
   (void) prompt; (void) dflt;
   FILE *f = (FILE *) ctx;
   char buf[1024];
-  while (script_gets (buf, sizeof buf, f) != NULL)
+  while (script_gets (buf, sizeof buf, f) != nullptr)
     {
       size_t n = strlen (buf);
       while (n > 0 && (buf[n - 1] == '\n' || buf[n - 1] == '\r'))
@@ -105,7 +105,7 @@ popup_from_script (void *ctx, const char *prompt, const char *dflt)
         continue;
       return strdup (buf);
     }
-  return NULL;
+  return nullptr;
 }
 
 /* The "Adventure Upgrade" bracket-correction question, answered through the
@@ -124,7 +124,7 @@ ask_upgrade_question (a5_adventure_t *a, FILE *script)
     return;
   fputs ("Adventure Upgrade\n", stdout);
   fputs (a5model_upgrade_question (), stdout);
-  while (script_gets (buf, sizeof buf, script) != NULL)
+  while (script_gets (buf, sizeof buf, script) != nullptr)
     {
       size_t len = strlen (buf);
       char *p = buf;
@@ -171,7 +171,7 @@ dump_media (a5_run_t *run)
 
   turn++;
   if (dm == (const char *) 1) dm = getenv ("A5_DUMP_MEDIA");
-  if (dm == NULL)
+  if (dm == nullptr)
     return;
   n = a5run_media_count (run);
   for (i = 0; i < n; i++)
@@ -205,11 +205,11 @@ main (int argc, char **argv)
       fprintf (stderr, "usage: %s <game.blorb|game.taf> [script.txt]\n", argv[0]);
       return 2;
     }
-  if (getenv ("A5_TRACE_RUN") != NULL)   a5run_trace = 1;
-  if (getenv ("A5_TRACE_RESTR") != NULL) a5restr_trace = 1;
+  if (getenv ("A5_TRACE_RUN") != nullptr)   a5run_trace = 1;
+  if (getenv ("A5_TRACE_RESTR") != nullptr) a5restr_trace = 1;
 
   a = a5model_load (argv[1]);
-  if (a == NULL)
+  if (a == nullptr)
     {
       fprintf (stderr, "a5run_dump: failed to load %s\n", argv[1]);
       return 1;
@@ -218,7 +218,7 @@ main (int argc, char **argv)
   if (argc >= 3)
     {
       script = fopen (argv[2], "r");
-      if (script == NULL)
+      if (script == nullptr)
         {
           fprintf (stderr, "a5run_dump: cannot open %s\n", argv[2]);
           a5model_free (a);
@@ -232,7 +232,7 @@ main (int argc, char **argv)
   ask_upgrade_question (a, script);
 
   run = a5run_new (a);
-  if (run == NULL)
+  if (run == nullptr)
     {
       fprintf (stderr, "a5run_dump: out of memory\n");
       a5model_free (a);
@@ -248,10 +248,10 @@ main (int argc, char **argv)
      free/new/restore, but the blob comes from a file, so a fixed prefix can be
      replayed once and many alignment tails fed cheaply. */
   const char *ckpt_restore = getenv ("A5_CKPT_RESTORE");
-  if (ckpt_restore != NULL)
+  if (ckpt_restore != nullptr)
     {
       FILE *cf = fopen (ckpt_restore, "rb");
-      if (cf == NULL)
+      if (cf == nullptr)
         { fprintf (stderr, "a5run_dump: cannot open checkpoint %s\n", ckpt_restore);
           a5run_free (run); a5model_free (a); return 1; }
       fseek (cf, 0, SEEK_END);
@@ -281,12 +281,12 @@ main (int argc, char **argv)
 
   {
     const char *sa = getenv ("A5_SAVE_AT");
-    long save_at = sa != NULL ? strtol (sa, NULL, 10) : -1;
+    long save_at = sa != nullptr ? strtol (sa, nullptr, 10) : -1;
     const char *ua = getenv ("A5_UNDO_AT");
-    long undo_at = ua != NULL ? strtol (ua, NULL, 10) : -1;
+    long undo_at = ua != nullptr ? strtol (ua, nullptr, 10) : -1;
     long cmd_no = 0;
 
-    while (script_gets (line, sizeof line, script) != NULL)
+    while (script_gets (line, sizeof line, script) != nullptr)
       {
         size_t n = strlen (line);
         while (n > 0 && (line[n - 1] == '\n' || line[n - 1] == '\r'))
@@ -349,7 +349,7 @@ main (int argc, char **argv)
         {
           static const char *dv = (const char *) 1;
           if (dv == (const char *) 1) dv = getenv ("A5_DUMP_VARS");
-          if (dv != NULL)
+          if (dv != nullptr)
             {
               a5_state_t *st = a5run_state (run);
               const char *pk = a5state_player_key (st);
@@ -376,7 +376,7 @@ main (int argc, char **argv)
         {
           static const char *dc = (const char *) 1;
           if (dc == (const char *) 1) dc = getenv ("A5_DUMP_CHARS");
-          if (dc != NULL)
+          if (dc != nullptr)
             {
               a5_state_t *st = a5run_state (run);
               const a5_adventure_t *a2 = st->adv;
@@ -398,7 +398,7 @@ main (int argc, char **argv)
         {
           static const char *dobj = (const char *) 1;
           if (dobj == (const char *) 1) dobj = getenv ("A5_DUMP_OBJS");
-          if (dobj != NULL)
+          if (dobj != nullptr)
             {
               a5_state_t *st = a5run_state (run);
               const a5_adventure_t *a2 = st->adv;
@@ -410,14 +410,14 @@ main (int argc, char **argv)
                   if (filter)
                     {
                       const char *hit = strstr (dobj, ok);
-                      if (hit == NULL)
+                      if (hit == nullptr)
                         continue;
                     }
                   else if (st->obj[i].where == A5_OWHERE_HIDDEN
                            || st->obj[i].where == A5_OWHERE_NONE)
                     continue;
                   fprintf (stderr, " %s@%d:%s", ok, (int) st->obj[i].where,
-                           st->obj[i].key != NULL ? st->obj[i].key : "-");
+                           st->obj[i].key != nullptr ? st->obj[i].key : "-");
                 }
               fprintf (stderr, "]\n");
             }
@@ -435,7 +435,7 @@ main (int argc, char **argv)
             char *blob = a5run_save (run, &len);
             a5run_free (run);
             run = a5run_new (a);
-            if (blob == NULL || !a5run_restore (run, blob, len))
+            if (blob == nullptr || !a5run_restore (run, blob, len))
               { fprintf (stderr, "a5run_dump: save/restore failed\n"); free (blob); break; }
             free (blob);
             fprintf (stderr, "[restored after command %ld]\n", cmd_no);
@@ -448,16 +448,16 @@ main (int argc, char **argv)
      replaying the prefix. */
   {
     const char *ckpt_save = getenv ("A5_CKPT_SAVE");
-    if (ckpt_save != NULL && !a5run_is_over (run))
+    if (ckpt_save != nullptr && !a5run_is_over (run))
       {
         size_t len = 0;
         char *blob = a5run_save (run, &len);
-        FILE *cf = blob != NULL ? fopen (ckpt_save, "wb") : NULL;
-        if (cf == NULL || fwrite (blob, 1, len, cf) != len)
+        FILE *cf = blob != nullptr ? fopen (ckpt_save, "wb") : nullptr;
+        if (cf == nullptr || fwrite (blob, 1, len, cf) != len)
           fprintf (stderr, "a5run_dump: checkpoint save to %s failed\n", ckpt_save);
         else
           fprintf (stderr, "[checkpoint saved to %s (%zu bytes)]\n", ckpt_save, len);
-        if (cf != NULL) fclose (cf);
+        if (cf != nullptr) fclose (cf);
         free (blob);
       }
   }
@@ -466,7 +466,7 @@ main (int argc, char **argv)
      is set (it has contributed to Score) plus every completed task, one per
      line on stderr -- lets a walkthrough author diff fired scoring tasks
      against the game's full scoring checklist. */
-  if (getenv ("A5_DUMP_DONE") != NULL)
+  if (getenv ("A5_DUMP_DONE") != nullptr)
     {
       a5_state_t *st = a5run_state (run);
       for (int i = 0; i < st->adv->n_tasks; i++)

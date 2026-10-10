@@ -692,7 +692,7 @@ lib_battle_attack_target (scr_gameref_t game, const scr_char *verb,
   *status = TRUE;
   if (battle_is_enabled (game)
       && (lib_is_version_400 (game)
-          ? lib_npc_400_find_namesakes (game, NULL, NULL)
+          ? lib_npc_400_find_namesakes (game, nullptr, nullptr)
           : lib_battle_line_names_many (game))
       && lib_battle_attack_many (game, is_with))
     return TRUE;
@@ -844,7 +844,7 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
 
   /* Get the referenced object, and if none, consider complete. */
   if (object == -1)
-    object = lib_disambiguate_object (game, verb, NULL);
+    object = lib_disambiguate_object (game, verb, nullptr);
   if (object == -1)
     return TRUE;
 
@@ -970,7 +970,7 @@ static const struct
 } LIB_BATTLE_VERBS[] = {
   {"attack", -1}, {"fight", -1}, {"kill", -1}, {"kick", -1},
   {"chop", 0}, {"cut", 1}, {"hit", 2}, {"shoot", 3}, {"stab", 4},
-  {"throw", 5}, {NULL, 0}
+  {"throw", 5}, {nullptr, 0}
 };
 
 static scr_bool
@@ -981,7 +981,7 @@ lib_battle_npc_is_target (scr_gameref_t game, scr_int npc,
   const scr_char *name, *named_by;
 
   name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
-  named_by = NULL;
+  named_by = nullptr;
   if (!scr_strempty (name) && lib_input_contains_word (input, name))
     named_by = name;
   else if (!lib_is_version_400 (game)
@@ -1039,17 +1039,17 @@ lib_battle_killed_task_line (scr_gameref_t game, scr_int npc)
   scr_int task;
 
   if (lib_is_version_400 (game) || !gs_npc_dead (game, npc))
-    return NULL;
+    return nullptr;
 
   vt_key[0].string = "NPCs";
   vt_key[1].integer = npc;
   vt_key[2].string = "Battle";
   vt_key[3].string = "KilledTask";
   if (!prop_get (bundle, "I<-siss", &vt_rvalue, vt_key))
-    return NULL;
+    return nullptr;
   task = vt_rvalue.integer - 1;
   if (task < 0 || task >= gs_task_count (game))
-    return NULL;
+    return nullptr;
 
   vt_key[0].string = "Tasks";
   vt_key[1].integer = task;
@@ -1645,7 +1645,7 @@ static void
 lib_battle_400_namesake_tail (scr_gameref_t game)
 {
   if (lib_is_version_400 (game)
-      && lib_npc_400_find_namesakes (game, NULL, NULL))
+      && lib_npc_400_find_namesakes (game, nullptr, nullptr))
     {
       pf_empty (gs_get_filter (game));
       lib_npc_400_raise_for_line (game);
@@ -1840,7 +1840,7 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
     {
       object = lib_disambiguate_object (game,
                                         LIB_BATTLE_VERBS[verb_index].verb,
-                                        NULL);
+                                        nullptr);
       if (object == -1)
         return TRUE;
     }
@@ -1900,13 +1900,13 @@ lib_battle_line_verb (scr_gameref_t game, const scr_char *input)
 
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
       || !battle_is_enabled (game) || !input)
-    return NULL;
+    return nullptr;
   for (verb_index = 0; LIB_BATTLE_VERBS[verb_index].verb; verb_index++)
     {
       if (lib_input_contains_word (input, LIB_BATTLE_VERBS[verb_index].verb))
         return LIB_BATTLE_VERBS[verb_index].verb;
     }
-  return NULL;
+  return nullptr;
 }
 
 scr_int

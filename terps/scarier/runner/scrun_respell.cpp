@@ -106,19 +106,19 @@
  * belongs to as well as that it is a verb.
  */
 static const scr_char *const HOIST_VERBS_400_PUTDROP[] = {
-  "put", "drop", NULL
+  "put", "drop", nullptr
 };
 
 static const scr_char *const HOIST_VERBS_400_TAKE[] = {
-  "empty", "get", "take", "pick", NULL
+  "empty", "get", "take", "pick", nullptr
 };
 
 static const scr_char *const HOIST_VERBS_400_WEAR[] = {
-  "wear", "put on", NULL
+  "wear", "put on", nullptr
 };
 
 static const scr_char *const HOIST_VERBS_400_REMOVE[] = {
-  "remove", "take off", NULL
+  "remove", "take off", nullptr
 };
 
 /* openclose 476468, whereis 4684E4, gotoplace 464E90 and characters
@@ -128,17 +128,17 @@ static const scr_char *const HOIST_VERBS_400_REMOVE[] = {
 static const scr_char *const HOIST_VERBS_400_OTHER[] = {
   "open", "close", "lock", "unlock",
   "where", "find", "locate", "goto", "go to", "go",
-  "speak to", "pick up", NULL
+  "speak to", "pick up", nullptr
 };
 
 /* give 48A985 and the character handler's give 48022F: both only ever fill
    an EMPTY buffer, so give ranks below every other handler on the line. */
 static const scr_char *const HOIST_VERBS_400_GIVE[] = {
-  "give", NULL
+  "give", nullptr
 };
 
 static const scr_char *const HOIST_VERBS_400_EXAMINE[] = {
-  "examine", "look at", "look in", "read", "look", NULL
+  "examine", "look at", "look in", "read", "look", nullptr
 };
 
 /* therest 489F4C, in its own cascade order: the LAST arm a line names is
@@ -150,13 +150,13 @@ static const scr_char *const HOIST_VERBS_400_THEREST[] = {
   "hit", "clear", "punch", "fight", "jump", "feed", "unblock", "block",
   "climb", "listen", "shout", "sing", "hum", "dance", "whistle", "cry",
   "buy", "sell", "break", "destroy", "smash", "kiss", "fly", "please",
-  "fix", "repair", "mend", "sleep", "xyzzy", NULL
+  "fix", "repair", "mend", "sleep", "xyzzy", nullptr
 };
 
 static const scr_char *const *const HOIST_TABLES_400[] = {
   HOIST_VERBS_400_PUTDROP, HOIST_VERBS_400_TAKE, HOIST_VERBS_400_WEAR,
   HOIST_VERBS_400_REMOVE, HOIST_VERBS_400_OTHER, HOIST_VERBS_400_GIVE,
-  HOIST_VERBS_400_EXAMINE, HOIST_VERBS_400_THEREST, NULL
+  HOIST_VERBS_400_EXAMINE, HOIST_VERBS_400_THEREST, nullptr
 };
 
 /*
@@ -200,21 +200,21 @@ run_goto_line_class (scr_gameref_t game, const scr_char *line)
 {
   static const scr_char *const BAIL[] = {
     "and", "then", "with", "wait", "give", "i", "inv", "inventory",
-    "put on", "take off", NULL
+    "put on", "take off", nullptr
   };
   static const scr_char *const SITSTAND[] = {
-    "sit", "stand", "lie", "lay", "score", NULL
+    "sit", "stand", "lie", "lay", "score", nullptr
   };
   static const scr_char *const EXAMINE[] = {
-    "examine", "look at", "read", NULL
+    "examine", "look at", "read", nullptr
   };
-  static const scr_char *const EXAMINE_SHORT[] = { "x", "ex", "exam", NULL };
-  static const scr_char *const TAKE[] = { "get", "take", "pick", NULL };
-  static const scr_char *const DROP[] = { "drop", "put", "leave", NULL };
+  static const scr_char *const EXAMINE_SHORT[] = { "x", "ex", "exam", nullptr };
+  static const scr_char *const TAKE[] = { "get", "take", "pick", nullptr };
+  static const scr_char *const DROP[] = { "drop", "put", "leave", nullptr };
   static const scr_char *const KEEP[] = {
-    "wear", "remove", "where", "find", "locate", NULL
+    "wear", "remove", "where", "find", "locate", nullptr
   };
-  static const scr_char *const OPEN[] = { "open", "close", NULL };
+  static const scr_char *const OPEN[] = { "open", "close", nullptr };
   const scr_int version = run_get_version (gs_get_bundle (game));
   scr_int found = RUN_GOTO_NONE, groups = 0;
 
@@ -453,7 +453,7 @@ static const struct
   {"wait", RUN_BATTLE_WAIT},
   {"talk to", RUN_BATTLE_TALK}, {"speak to", RUN_BATTLE_TALK},
   {"ask", RUN_BATTLE_ASK},
-  {NULL, 0}
+  {nullptr, 0}
 };
 
 scr_int
@@ -532,7 +532,7 @@ run_battle_kind_word (scr_int version, const scr_char *line, scr_int kind)
              >= 0)
         return RUN_BATTLE_WORDS[index].word;
     }
-  return NULL;
+  return nullptr;
 }
 
 /*
@@ -582,7 +582,7 @@ run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
   const size_t mark = pf_buffer_length (filter);
   const scr_int npc = lib_battle_line_npc (game, typed);
   const scr_char *const name = npc >= 0
-      ? prop_get_indexed_string (bundle, "NPCs", npc, "Name") : NULL;
+      ? prop_get_indexed_string (bundle, "NPCs", npc, "Name") : nullptr;
   std::string answer, said;
   scr_bool struck, admin;
 
@@ -711,7 +711,7 @@ run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
 
 /* dobattle 47F084, called only with the Battle System on. */
 static const scr_char *const HOIST_VERBS_BATTLE_400[] = {
-  "wield", "attack", "chop", "shoot", "stab", "throw", NULL
+  "wield", "attack", "chop", "shoot", "stab", "throw", nullptr
 };
 
 /*
@@ -734,7 +734,7 @@ static const scr_char *const HOIST_VERBS_PRE400[] = {
   "drop", "put down", "leave",
   "wear", "put on", "remove", "take off",
   "x", "examine", "look at", "ex", "exam", "read",
-  NULL
+  nullptr
 };
 
 /*
@@ -745,7 +745,7 @@ static const scr_char *const HOIST_VERBS_PRE400[] = {
  */
 static const scr_char *const HOIST_VERBS_EXTRA[] = {
   "x", "ex", "exam", "leave", "strip", "put down", "put on", "take off",
-  "look at", "look in", "pick up", "get up", NULL
+  "look at", "look in", "pick up", "get up", nullptr
 };
 
 /*
@@ -756,7 +756,7 @@ static const scr_char *const HOIST_VERBS_EXTRA[] = {
  * light` stays an examine and does not become `light x`.
  */
 /* The line run_hoist_verb_at() is scanning, for its cross-word tests. */
-static const scr_char *run_hoist_line = NULL;
+static const scr_char *run_hoist_line = nullptr;
 
 static const scr_char *const HOIST_HEADS_400[] = {
   "x", "ex", "exam", "l", "i", "inv", "inventory", "z", "wait",
@@ -766,7 +766,7 @@ static const scr_char *const HOIST_HEADS_400[] = {
   "n", "s", "e", "w", "ne", "nw", "se", "sw", "u", "d", "in", "out",
   "north", "south", "east", "west", "northeast", "northwest",
   "southeast", "southwest", "up", "down", "yes", "no", "wield", "attack",
-  NULL
+  nullptr
 };
 
 /*
@@ -778,7 +778,7 @@ static const scr_char *
 run_hoist_longest (const scr_char *const *table, const scr_char *word)
 {
   const scr_char *const *entry;
-  const scr_char *best = NULL;
+  const scr_char *best = nullptr;
 
   for (entry = table; *entry; entry++)
     {
@@ -797,7 +797,7 @@ static const scr_char *
 run_hoist_longest_400 (const scr_char *word)
 {
   const scr_char *const *const *table;
-  const scr_char *best = NULL;
+  const scr_char *best = nullptr;
 
   for (table = HOIST_TABLES_400; *table; table++)
     {
@@ -824,10 +824,10 @@ run_hoist_verb_at (scr_gameref_t game, const scr_char *word)
       /* takes() wants `pick` with no "from" in the line (43D788). */
       if (best && strcmp (best, "pick") == 0
           && run_c_word_pre400 (version, run_hoist_line, "from") >= 0)
-        best = NULL;
+        best = nullptr;
       /* examines() has no "look in" before 3.80 (434E2A). */
       if (best && version < TAF_VERSION_380 && strcmp (best, "look in") == 0)
-        best = NULL;
+        best = nullptr;
       return best;
     }
 
@@ -955,11 +955,11 @@ static const scr_int RUN_400_ORDER[] = {
  * open the box.".
  */
 static const scr_char *const HOIST_VERBS_400_EXAMINE_HEADS[] = {
-  "l", NULL
+  "l", nullptr
 };
 
 static const scr_char *const HOIST_VERBS_400_EXAMINE_AT_HEAD[] = {
-  "x", "ex", "exam", NULL
+  "x", "ex", "exam", nullptr
 };
 
 static const struct
@@ -979,7 +979,7 @@ RUN_400_GROUPS[] = {
   { HOIST_VERBS_400_THEREST, RUN_400_THEREST, FALSE },
   { HOIST_VERBS_400_OTHER, RUN_400_OTHER, FALSE },
   { HOIST_VERBS_400_GIVE, RUN_400_GIVE, FALSE },
-  { NULL, 0, FALSE }
+  { nullptr, 0, FALSE }
 };
 
 /*
@@ -1001,7 +1001,7 @@ run_two_verb_groups_400 (scr_gameref_t game, const scr_char *word,
     {
       const scr_char *const hit
         = RUN_400_GROUPS[index].head_only && !at_head
-          ? NULL : run_hoist_longest (RUN_400_GROUPS[index].table, word);
+          ? nullptr : run_hoist_longest (RUN_400_GROUPS[index].table, word);
 
       if (!hit)
         continue;
@@ -1028,7 +1028,7 @@ static const scr_char *
 run_two_verb_word_400 (const scr_char *word, scr_bool at_head,
                        scr_int group)
 {
-  const scr_char *best = NULL;
+  const scr_char *best = nullptr;
   scr_int index;
 
   for (index = 0; RUN_400_GROUPS[index].table; index++)
@@ -1069,7 +1069,7 @@ run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
 {
   const scr_int version = run_get_version (gs_get_bundle (game));
   std::vector<const scr_char *> spans;
-  const scr_char *scan, *winner_at = NULL, *winner_word = NULL;
+  const scr_char *scan, *winner_at = nullptr, *winner_word = nullptr;
   scr_int winner_rank = -1, seen = 0, index;
 
   if (version < TAF_VERSION_400 || !line || line[0] == NUL)
@@ -1120,7 +1120,7 @@ run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
     {
       const scr_int group = (seen & RUN_400_TAKE) ? RUN_400_TAKE
                                                   : RUN_400_PUTDROP;
-      const scr_char *word = NULL;
+      const scr_char *word = nullptr;
 
       if (!(seen & (RUN_400_TAKE | RUN_400_PUTDROP))
           || ((seen & RUN_400_TAKE) && (seen & RUN_400_PUTDROP)))
@@ -1222,9 +1222,9 @@ scr_bool
 run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
                     std::string &hoisted)
 {
-  const scr_char *scan, *found = NULL;
-  const scr_char *found_at = NULL;
-  const scr_char *body = NULL;
+  const scr_char *scan, *found = nullptr;
+  const scr_char *found_at = nullptr;
+  const scr_char *body = nullptr;
 
   if (!string || string[0] == NUL)
     return FALSE;

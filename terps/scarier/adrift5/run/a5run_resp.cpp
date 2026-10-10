@@ -83,7 +83,7 @@ ref_snap_restore (a5_state_t *st, const ref_snap *s)
 size_t
 sink_len (a5_run_t *run, sb_t *out)
 {
-  return run->resp != NULL ? run->resp->nmut : out->len;
+  return run->resp != nullptr ? run->resp->nmut : out->len;
 }
 
 /* Render a completion wrapper without retiring its DisplayOnce segments
@@ -92,7 +92,7 @@ sink_len (a5_run_t *run, sb_t *out)
 char *
 render_comp_test (a5_state_t *st, const a5_xml_node_t *comp)
 {
-  return render_comp_test_ex (st, comp, NULL);
+  return render_comp_test_ex (st, comp, nullptr);
 }
 
 /* render_comp_test, additionally handing back the still-MARKED-UP render.
@@ -115,7 +115,7 @@ render_comp_test_ex (a5_state_t *st, const a5_xml_node_t *comp, char **marked)
      probes differ, vb:1201 PINS the pre-action probe's text as the response, so
      what the player sees is a bDisplaying render. */
   a5_intro_guard ig (st, 1);
-  return a5text_describe_ex (st, comp, NULL, NULL, marked);
+  return a5text_describe_ex (st, comp, nullptr, nullptr, marked);
 }
 
 /* Does this CompletionMessage bear a text-changing function -- an embedded
@@ -127,13 +127,13 @@ render_comp_test_ex (a5_state_t *st, const a5_xml_node_t *comp, char **marked)
 int
 comp_bears_function (const a5_xml_node_t *n)
 {
-  if (n == NULL)
+  if (n == nullptr)
     return 0;
-  if (n->text != NULL
-      && (strstr (n->text, "<#") != NULL
-          || strstr (n->text, "RAND(") != NULL))
+  if (n->text != nullptr
+      && (strstr (n->text, "<#") != nullptr
+          || strstr (n->text, "RAND(") != nullptr))
     return 1;
-  for (const a5_xml_node_t *c = n->first_child; c != NULL; c = c->next)
+  for (const a5_xml_node_t *c = n->first_child; c != nullptr; c = c->next)
     if (comp_bears_function (c))
       return 1;
   return 0;
@@ -172,7 +172,7 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
      text: re-rendering at flush is fragile (the `move[//s]` verb conjugation reads
      transient per-turn context that has changed by the end of the command), and
      two identical "Date:" lines still collapse via the text dedup. */
-  bool aggregate = t != NULL && t->aggregate && !item.empty ();
+  bool aggregate = t != nullptr && t->aggregate && !item.empty ();
 
   /* The runner keys an AggregateOutput response by its RAW template -- AddResponse
      receives task.CompletionMessage.ToString UNexpanded (the OO chain and
@@ -185,15 +185,15 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
      an aggregate single-reference completion whose raw template assembles to
      the same text as the pending is_look entry's (the Look task's raw
      CompletionMessage) is folded into it. */
-  if (t != NULL && t->aggregate && item.empty ())
+  if (t != nullptr && t->aggregate && item.empty ())
     for (auto &e : rm->ents)
       if (e.is_look && e.is_pass == is_pass)
         {
           const a5_task_t *look = a5model_task (st->adv, "Look");
           const a5_xml_node_t *lcomp =
-              look != NULL ? a5xml_child (look->node, "CompletionMessage") : NULL;
+              look != nullptr ? a5xml_child (look->node, "CompletionMessage") : nullptr;
           bool same = false;
-          if (lcomp != NULL)
+          if (lcomp != nullptr)
             {
               char *rawc, *rawl;
               {
@@ -201,7 +201,7 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
                 rawc = a5text_eval_description (st, comp);
                 rawl = a5text_eval_description (st, lcomp);
               }
-              same = rawc != NULL && rawl != NULL && streq (rawc, rawl);
+              same = rawc != nullptr && rawl != nullptr && streq (rawc, rawl);
               free (rawc); free (rawl);
             }
           if (same) { rm->nmut++; return; }   /* merge is output (sink_len) */
@@ -240,7 +240,7 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
            bDisplaying; only the non-aggregate finalize (vb:1185/1204/1211) runs
            with the flag clear.  Scarier renders both eagerly here, so carry the
            distinction on the flag. */
-        a5_intro_guard ig (st, t != NULL && t->aggregate);
+        a5_intro_guard ig (st, t != nullptr && t->aggregate);
         /* A single-reference AggregateOutput completion bearing a text function:
            the runner stores the RAW template and only ReplaceExpressions it at
            end-of-command Display -- AFTER e.g. the stock Look's two test renders
@@ -250,11 +250,11 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
            Giver's "You move North.. <#OneOf..#>" flavor must draw after the
            tavern-sign OneOf in the room description, not before). */
         void *prev_ed = st->expr_defer;
-        if (t != NULL && t->aggregate && comp_bears_function (comp))
+        if (t != nullptr && t->aggregate && comp_bears_function (comp))
           st->expr_defer = run->display_defers;
-        char *mk = NULL;
+        char *mk = nullptr;
         m = a5text_describe_ex (st, comp, &pre_alr_ink, &raw_nonblank, &mk);
-        marked = mk != NULL ? mk : "";
+        marked = mk != nullptr ? mk : "";
         free (mk);
         st->expr_defer = prev_ed;
       }
@@ -289,7 +289,7 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
       for (auto &e : rm->ents)
         if (!e.aggregate && e.is_pass == is_pass && e.key == marked) return;
       resp_entry e;
-      e.is_pass = is_pass; e.aggregate = false; e.comp = NULL;
+      e.is_pass = is_pass; e.aggregate = false; e.comp = nullptr;
       e.rendered = r; e.key = marked; e.item = item;
       resp_insert (rm, e, pos);
     }
@@ -306,7 +306,7 @@ resp_add_text (a5_run_t *run, const char *text, bool is_pass, int pos)
   for (auto &e : rm->ents)
     if (!e.aggregate && e.is_pass == is_pass && e.key == r) return;
   resp_entry e;
-  e.is_pass = is_pass; e.aggregate = false; e.comp = NULL;
+  e.is_pass = is_pass; e.aggregate = false; e.comp = nullptr;
   e.rendered = r; e.key = r; e.item = rm->cur_item;
   resp_insert (rm, e, pos);
 }
@@ -359,7 +359,7 @@ resp_add_fail (a5_run_t *run, const a5_xml_node_t *fm)
   for (auto &e : rm->ents)
     if (!e.aggregate && !e.is_pass && e.rendered == r) return;
   resp_entry e;
-  e.is_pass = false; e.aggregate = false; e.comp = NULL; e.fail_comp = fm;
+  e.is_pass = false; e.aggregate = false; e.comp = nullptr; e.fail_comp = fm;
   e.rendered = r; e.key = r; e.item = item;
   if (!item.empty ()) e.obj_keys.push_back (item);
   ref_snap_take (st, &e.snap); e.has_snap = true;
@@ -472,10 +472,10 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
               a5_intro_guard ig (st, 1);   /* this IS the runner's Display */
               m = a5text_describe (st, e.comp);
             }
-            if (m != NULL) text = m;
+            if (m != nullptr) text = m;
             free (m);
           }
-        else if (e.fail_comp != NULL && e.obj_keys.size () > 1)
+        else if (e.fail_comp != nullptr && e.obj_keys.size () > 1)
           {
             /* A merged fail: re-render the restriction template ONCE over the
                combined %objects% set, so %TheObjects[%objects%]% lists every
@@ -488,7 +488,7 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
             rebind_objects (st, e.obj_keys);
             a5_intro_guard ig (st, 1);       /* fail text always expands in Display */
             char *m = a5text_describe (st, e.fail_comp);
-            if (m != NULL) text = m;
+            if (m != nullptr) text = m;
             free (m);
           }
         else
@@ -502,7 +502,7 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
            post-drain display_defers flush.  Resolve the sentinels now (left
            to right, the runner's ReplaceExpressions scan) and blank the sink
            bodies so the later flush neither re-draws nor re-splices them. */
-        if (run->display_defers != NULL
+        if (run->display_defers != nullptr
             && text.find ('\004') != std::string::npos)
           {
             std::string res;

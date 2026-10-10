@@ -33,8 +33,8 @@
    derived from the exit graph, and it depends on the room you are standing in
    and on how much you have explored -- so it is rebuilt on every redraw, as the
    ADRIFT 4 runner rebuilt it every time it drew (drawmap with mode = 1). */
-winid_t gsc_map_window = NULL;
-map_t *gsc_map = NULL;
+winid_t gsc_map_window = nullptr;
+map_t *gsc_map = nullptr;
 int gsc_map_shown = FALSE;
 /* Whether the map pane is wanted at all: the player's remembered choice, or
    failing that the layout the game shipped (gsc_map_auto_reveal).  Wanted is
@@ -91,14 +91,14 @@ static int gsc_map_zoom_apply (int dir);
    there, so gsc_map_full_flush forces the whole surface out again whenever it
    may not: after an arrange or redraw event (the window is resized, and its
    backing image with it), and when the pane is opened or cleared. */
-static map_surface_t *gsc_map_screen = NULL;
+static map_surface_t *gsc_map_screen = nullptr;
 int gsc_map_full_flush = TRUE;
 
 void
 gsc_map_screen_drop (void)
 {
   map_surface_free (gsc_map_screen);
-  gsc_map_screen = NULL;
+  gsc_map_screen = nullptr;
   gsc_map_full_flush = TRUE;
 }
 
@@ -179,7 +179,7 @@ gsc_map_click (event_t *event)
     {
       a5_state_t *st;
 
-      if (gsc_a5_run == NULL)
+      if (gsc_a5_run == nullptr)
         return FALSE;
       st = a5run_state (gsc_a5_run);
       gsc_a5_map_view (st, &view);
@@ -187,7 +187,7 @@ gsc_map_click (event_t *event)
     }
   else
     {
-      if (gsc_map == NULL || gsc_game == NULL)
+      if (gsc_map == nullptr || gsc_game == nullptr)
         return FALSE;
       scmap_view ((scr_gameref_t) gsc_game, &view);
       snprintf (here_room, sizeof here_room, "%ld",
@@ -209,13 +209,13 @@ gsc_map_click (event_t *event)
      is left alone like empty map, before the line request is touched:
      cancelling it would end the prompt's line, and the walk would then give
      up at once with nothing to show for it. */
-  if (hit != NULL && here != NULL
+  if (hit != nullptr && here != nullptr
       && (strcmp (hit, here) == 0 || map_walk_step (&view, here, hit) < 0))
-    hit = NULL;
+    hit = nullptr;
   /* A click on no room, but just off a side or corner of the player's own,
      is one step out through the exit on that side.  The walk is then to
      wherever that exit leads, with its first step already chosen. */
-  else if (hit == NULL && here != NULL)
+  else if (hit == nullptr && here != nullptr)
     {
       step = map_hit_dir (gsc_map, &view, &gsc_map_cam, gsc_map_px_w,
                           gsc_map_px_h, here, (int) event->val1,
@@ -223,7 +223,7 @@ gsc_map_click (event_t *event)
       if (step >= 0)
         hit = view.exit_dest (view.ctx, here, step);
     }
-  if (hit != NULL)
+  if (hit != nullptr)
     {
       if (gsc_is_a5)
         {
@@ -283,7 +283,7 @@ gsc_a5_map_seen (void *ctx, const char *lockey)
   a5_state_t *st = (a5_state_t *) ctx;
   int li = a5state_location_index (st, lockey);
 
-  return li >= 0 && st->loc_seen != NULL && st->loc_seen[li];
+  return li >= 0 && st->loc_seen != nullptr && st->loc_seen[li];
 }
 
 /*
@@ -317,8 +317,8 @@ gsc_a5_map_name (void *ctx, const char *lockey)
       return gsc_a5_map_name_cache[i];
 
   name = a5text_location_short_plain (st, lockey);
-  if (name == NULL)
-    return NULL;
+  if (name == nullptr)
+    return nullptr;
   /* Map labels are drawn outside the story window, where the turn loop's own
      strip pass never reaches: a room whose name lost a tag would otherwise
      carry the stripped-tag sentinel into the box. */
@@ -343,7 +343,7 @@ gsc_a5_map_exit_dest (void *ctx, const char *lockey, int dir)
   a5_state_t *st = (a5_state_t *) ctx;
 
   return a5restr_exit_in_direction (st, a5state_player_key (st), lockey,
-                                    map_dirs[dir], NULL);
+                                    map_dirs[dir], nullptr);
 }
 
 static int
@@ -393,7 +393,7 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
     {
       a5_state_t *st;
 
-      if (gsc_a5_run == NULL || gsc_map == NULL)
+      if (gsc_a5_run == nullptr || gsc_map == nullptr)
         return FALSE;
       st = a5run_state (gsc_a5_run);
       gsc_a5_map_view (st, view);
@@ -401,17 +401,17 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
       return TRUE;
     }
 
-  if (gsc_game == NULL)
+  if (gsc_game == nullptr)
     return FALSE;
 
   scmap_view ((scr_gameref_t) gsc_game, view);
   built = scmap_build ((scr_gameref_t) gsc_game, view);
-  if (built != NULL)
+  if (built != nullptr)
     {
       map_free (gsc_map);
       gsc_map = built;
     }
-  else if (gsc_map == NULL)
+  else if (gsc_map == nullptr)
     return FALSE;
   /* else no layout from this room (HideOnMap mid-game): keep the last one. */
 
@@ -449,7 +449,7 @@ static int
 gsc_map_worth_opening (void)
 {
   map_view_t view;
-  const char *ploc = NULL;
+  const char *ploc = nullptr;
   char keybuf[16];
 
   if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
@@ -561,7 +561,7 @@ gsc_map_redraw (void)
 {
   map_surface_t *surf;
   map_view_t view;
-  const char *ploc = NULL;
+  const char *ploc = nullptr;
   char keybuf[16];
   glui32 w, h;
   int buttons;
@@ -610,21 +610,21 @@ gsc_map_redraw (void)
   /* Moving to a different visible room restores follow-the-player.  A hidden
      room leaves the camera where it was.  The first redraw after open/restore
      only records the room -- it must not override a restored pan. */
-  if (ploc != NULL)
+  if (ploc != nullptr)
     {
       if (gsc_map_last_player[0] != '\0'
           && strcmp (ploc, gsc_map_last_player) != 0)
         {
           const map_node_t *pn = map_find (gsc_map, ploc);
 
-          if (pn != NULL && !pn->hidden)
+          if (pn != nullptr && !pn->hidden)
             gsc_map_follow = TRUE;
         }
       snprintf (gsc_map_last_player, sizeof gsc_map_last_player, "%s", ploc);
     }
 
   surf = map_surface_new ((int) w, (int) h);
-  if (surf == NULL)
+  if (surf == nullptr)
     return;
 
   /* The pan/zoom buttons only earn their strip of the window where they can
@@ -643,13 +643,13 @@ gsc_map_redraw (void)
 
   /* The window was resized under us, so the pixels we think are on screen are
      not the ones that are. */
-  if (gsc_map_screen != NULL
+  if (gsc_map_screen != nullptr
       && (gsc_map_screen->w != surf->w || gsc_map_screen->h != surf->h))
     gsc_map_screen_drop ();
 
   /* Untouched rows: what is on screen is already right. */
-  rgbsurf_send_rects (surf, gsc_map_full_flush ? NULL : gsc_map_screen,
-                      gsc_map_rect, NULL);
+  rgbsurf_send_rects (surf, gsc_map_full_flush ? nullptr : gsc_map_screen,
+                      gsc_map_rect, nullptr);
 
   /* These pixels are the screen now. */
   map_surface_free (gsc_map_screen);
@@ -679,7 +679,7 @@ gsc_sc_walk_next (scr_char *buffer, scr_int length)
   const scr_char *word;
   int dir;
 
-  if (gsc_sc_walk_to[0] == '\0' || gsc_game == NULL)
+  if (gsc_sc_walk_to[0] == '\0' || gsc_game == nullptr)
     return FALSE;
   if (++gsc_sc_walk_steps > GSC_SC_WALK_MAX)
     {
@@ -692,7 +692,7 @@ gsc_sc_walk_next (scr_char *buffer, scr_int length)
     {
       word = lib_direction_name (gsc_map_step_dir);
       gsc_sc_walk_stop ();
-      if (word == NULL)
+      if (word == nullptr)
         return FALSE;
       snprintf (buffer, (size_t) length, "%s", word);
       return TRUE;
@@ -709,8 +709,8 @@ gsc_sc_walk_next (scr_char *buffer, scr_int length)
 
   scmap_view ((scr_gameref_t) gsc_game, &view);
   dir = map_walk_step (&view, from, gsc_sc_walk_to);
-  word = (dir >= 0) ? lib_direction_name (dir) : NULL;
-  if (word == NULL)
+  word = (dir >= 0) ? lib_direction_name (dir) : nullptr;
+  if (word == nullptr)
     {
       gsc_sc_walk_stop ();
       return FALSE;
@@ -738,7 +738,7 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
   const char *from, *word;
   int dir;
 
-  if (gsc_a5_walk_to[0] == '\0' || run == NULL)
+  if (gsc_a5_walk_to[0] == '\0' || run == nullptr)
     return FALSE;
   if (a5run_is_over (run))
     return FALSE;                       /* the walk ended the game */
@@ -750,7 +750,7 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
     {
       word = a5parse_direction_name (map_dirs[gsc_map_step_dir]);
       gsc_a5_walk_stop ();
-      if (word == NULL)
+      if (word == nullptr)
         return FALSE;
       snprintf (buf, (size_t) bufsize, "%s", word);
       return TRUE;
@@ -758,7 +758,7 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
 
   st = a5run_state (run);
   from = a5state_player_location (st);
-  if (from == NULL)
+  if (from == nullptr)
     return FALSE;
 
   if (strcmp (from, gsc_a5_walk_to) == 0)
@@ -772,7 +772,7 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
     return FALSE;
 
   word = a5parse_direction_name (map_dirs[dir]);
-  if (word == NULL)
+  if (word == nullptr)
     return FALSE;
 
   snprintf (buf, (size_t) bufsize, "%s", word);
@@ -793,8 +793,8 @@ static int
 gsc_map_available (void)
 {
   if (gsc_is_a5)
-    return gsc_map != NULL;
-  return gsc_game != NULL && scmap_available ((scr_gameref_t) gsc_game);
+    return gsc_map != nullptr;
+  return gsc_game != nullptr && scmap_available ((scr_gameref_t) gsc_game);
 }
 
 /*
@@ -808,7 +808,7 @@ gsc_map_available (void)
 int
 gsc_map_default_shown (void)
 {
-  return gsc_is_a5 && gsc_a5_adv != NULL && gsc_a5_adv->map_pane_open == 1;
+  return gsc_is_a5 && gsc_a5_adv != nullptr && gsc_a5_adv->map_pane_open == 1;
 }
 
 /*
@@ -841,18 +841,18 @@ gsc_map_pref_ref (void)
   char name[128];
 
   if (!gsc_map_available ())
-    return NULL;
+    return nullptr;
   if (!glk_gestalt (gestalt_Graphics, 0)
       || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
-    return NULL;
+    return nullptr;
 
-  if (gsc_is_a5 && gsc_a5_adv != NULL
-      && gsc_a5_adv->ifid != NULL && gsc_a5_adv->ifid[0] != '\0')
+  if (gsc_is_a5 && gsc_a5_adv != nullptr
+      && gsc_a5_adv->ifid != nullptr && gsc_a5_adv->ifid[0] != '\0')
     key = gsc_a5_adv->ifid;
   else if (gsc_game_key[0] != '\0')
     key = gsc_game_key;
   else
-    return NULL;
+    return nullptr;
 
   snprintf (name, sizeof name, "scarier-map-%s", key);
   return glk_fileref_create_by_name (fileusage_Data | fileusage_TextMode,
@@ -876,11 +876,11 @@ gsc_map_pref_read (int *at_top)
   frefid_t fileref;
   int value = -1;
 
-  if (at_top != NULL)
+  if (at_top != nullptr)
     *at_top = -1;
 
   fileref = gsc_map_pref_ref ();
-  if (fileref == NULL)
+  if (fileref == nullptr)
     return -1;
 
   if (glk_fileref_does_file_exist (fileref))
@@ -895,10 +895,10 @@ gsc_map_pref_read (int *at_top)
             value = (int) (c - '0');
 
           c = glk_get_char_stream (stream);
-          if (at_top != NULL && (c == 't' || c == 'r'))
+          if (at_top != nullptr && (c == 't' || c == 'r'))
             *at_top = (c == 't');
 
-          glk_stream_close (stream, NULL);
+          glk_stream_close (stream, nullptr);
         }
     }
 
@@ -927,7 +927,7 @@ gsc_map_pref_write (int shown, int at_top)
   strid_t stream;
 
   fileref = gsc_map_pref_ref ();
-  if (fileref == NULL)
+  if (fileref == nullptr)
     return;
 
   if (!shown == !gsc_map_default_shown () && !at_top)
@@ -943,7 +943,7 @@ gsc_map_pref_write (int shown, int at_top)
     {
       glk_put_char_stream (stream, (unsigned char) (shown ? '1' : '0'));
       glk_put_char_stream (stream, (unsigned char) (at_top ? 't' : 'r'));
-      glk_stream_close (stream, NULL);
+      glk_stream_close (stream, nullptr);
     }
   glk_fileref_destroy (fileref);
 }
@@ -999,7 +999,7 @@ gsc_map_show (void)
      Form29.showmapfail).  Say so here, once, rather than at every prompt: the
      pane stays open, because a layout that fails from one room may well succeed
      from the next. */
-  if (!gsc_is_a5 && gsc_map == NULL && scmap_failed () != 0)
+  if (!gsc_is_a5 && gsc_map == nullptr && scmap_failed () != 0)
     gsc_normal_string ("Sorry, this game's map is too complex to draw.\n");
 
   glk_set_window (gsc_main_window);
@@ -1015,8 +1015,8 @@ gsc_map_hide (void)
 {
   if (gsc_map_window)
     {
-      glk_window_close (gsc_map_window, NULL);
-      gsc_map_window = NULL;
+      glk_window_close (gsc_map_window, nullptr);
+      gsc_map_window = nullptr;
     }
   gsc_map_shown = FALSE;
   gsc_map_screen_drop ();
@@ -1127,7 +1127,7 @@ gsc_map_auto_reveal (void)
   if (pref < 0)
     {
       /* Never asked: follow the layout the author shipped, if any. */
-      if (!gsc_is_a5 || gsc_a5_adv == NULL || gsc_a5_adv->map_pane_open != 1)
+      if (!gsc_is_a5 || gsc_a5_adv == nullptr || gsc_a5_adv->map_pane_open != 1)
         return;
     }
   else if (pref == 0)
@@ -1172,7 +1172,7 @@ gsc_map_notice_restart (void)
   strid_t stream;
   scr_int restarts;
 
-  if (gsc_is_a5 || gsc_game == NULL)
+  if (gsc_is_a5 || gsc_game == nullptr)
     return;
 
   restarts = run_get_restart_count ();
@@ -1223,7 +1223,7 @@ gsc_map_place (int at_top)
 void
 gsc_command_map (const char *argument)
 {
-  if (gsc_is_a5 ? gsc_a5_run == NULL : gsc_game == NULL)
+  if (gsc_is_a5 ? gsc_a5_run == nullptr : gsc_game == nullptr)
     return;
 
   if (strlen (argument) == 0)
@@ -1281,7 +1281,7 @@ gsc_command_zoom (const char *argument)
   long pinned;
   int numeric, dir = 0;
 
-  if (gsc_is_a5 ? gsc_a5_run == NULL : gsc_game == NULL)
+  if (gsc_is_a5 ? gsc_a5_run == nullptr : gsc_game == nullptr)
     return;
 
   /* "glk map zoom help" arrives here directly; the dispatcher catches the

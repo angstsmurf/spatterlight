@@ -1926,14 +1926,14 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->filter = filter;
 
   /* Set memento to NULL for now; it's added later. */
-  game->memento = NULL;
+  game->memento = nullptr;
 
   /* Initialize for no debugger. */
-  game->debugger = NULL;
+  game->debugger = nullptr;
 
   /* Initialize the undo buffers to NULL for now. */
-  game->temporary = NULL;
-  game->undo = NULL;
+  game->temporary = nullptr;
+  game->undo = nullptr;
   game->undo_available = FALSE;
 
   /*

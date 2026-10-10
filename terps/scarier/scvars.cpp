@@ -156,20 +156,20 @@ var_create_empty (void)
   /* Create a clean set of variables. */
   vars = (decltype(vars)) scr_malloc (sizeof (*vars));
   vars->magic = VARS_MAGIC;
-  vars->bundle = NULL;
+  vars->bundle = nullptr;
   vars->referenced_character = -1;
   vars->referenced_object = -1;
   vars->referenced_number = 0;
   vars->is_number_referenced = FALSE;
-  vars->referenced_text = NULL;
-  vars->temporary = NULL;
-  vars->timestamp = time (NULL);
+  vars->referenced_text = nullptr;
+  vars->temporary = nullptr;
+  vars->timestamp = time (nullptr);
   vars->time_offset = 0;
-  vars->game = NULL;
+  vars->game = nullptr;
 
   /* Clear all variable hash lists. */
   for (index_ = 0; index_ < VAR_HASH_TABLE_SIZE; index_++)
-    vars->variable[index_] = NULL;
+    vars->variable[index_] = nullptr;
 
   return vars;
 }
@@ -248,7 +248,7 @@ var_add (scr_var_setref_t vars, const scr_char *name, scr_int type)
   var = (decltype(var)) scr_malloc (sizeof (*var));
   var->name = name;
   var->type = type;
-  var->value.voidp = NULL;
+  var->value.voidp = nullptr;
 
   /* Hash its name, and insert it at start of the relevant list. */
   hash = var_hash_name (name);
@@ -349,7 +349,7 @@ var_put (scr_var_setref_t vars,
        * the value below.
        */
       var = var_add (vars, name, type);
-      var->value.mutable_string = NULL;
+      var->value.mutable_string = nullptr;
 
       is_modification = FALSE;
     }
@@ -1541,7 +1541,7 @@ var_get_system (scr_var_setref_t vars,
 
       /* Return the elapsed game time in seconds. */
       delta = var_is_clock_frozen ()
-              ? 0.0 : difftime (time (NULL), vars->timestamp);
+              ? 0.0 : difftime (time (nullptr), vars->timestamp);
       retval = (scr_int) delta + vars->time_offset;
 
       return var_return_integer (retval, type, vt_rvalue);
@@ -1698,7 +1698,7 @@ var_is_user_ordered (scr_var_setref_t vars, const scr_char *name)
 {
   assert (var_is_valid (vars));
   return prop_get_taf_version (vars->bundle) >= TAF_VERSION_390
-         && var_find (vars, name) != NULL;
+         && var_find (vars, name) != nullptr;
 }
 
 
@@ -1805,7 +1805,7 @@ scr_bool
 var_get_command_text (scr_var_setref_t vars, const scr_char *name,
                       std::string &text)
 {
-  scr_varref_t var = NULL;
+  scr_varref_t var = nullptr;
   scr_int index_;
 
   assert (var_is_valid (vars));
@@ -1844,7 +1844,7 @@ const scr_char *
 var_number_word (scr_int number)
 {
   return number >= 0 && number < VAR_NUMBERS_SIZE
-         ? VAR_NUMBERS[number] : NULL;
+         ? VAR_NUMBERS[number] : nullptr;
 }
 
 scr_bool
@@ -1975,7 +1975,7 @@ var_get_string (scr_var_setref_t vars, const scr_char *name)
  * overwrote the first, so the `#pass out` event's sleep <= 10 test passed
  * on turn 0, where run390 never passes out (runner_transcripts/mages.txt).
  */
-static scr_prop_setref_t var_names_bundle = NULL;
+static scr_prop_setref_t var_names_bundle = nullptr;
 static std::vector<const scr_char *> var_names;
 
 const scr_char *
@@ -2009,7 +2009,7 @@ var_indexed_name (scr_prop_setref_t bundle, scr_int index_)
   if (index_ < 0 || index_ >= prop_get_child_count (bundle, "I<-s", &vt_key))
     scr_fatal ("var_indexed_name: no variable %ld\n", index_);
   if (index_ >= (scr_int) var_names.size ())
-    var_names.resize (index_ + 1, NULL);
+    var_names.resize (index_ + 1, nullptr);
 
   name = prop_get_indexed_string (bundle, "Variables", index_, "Name");
   for (earlier = 0; earlier < index_; earlier++)
@@ -2031,7 +2031,7 @@ var_forget_bundle (scr_prop_setref_t bundle)
 {
   if (var_names_bundle == bundle)
     {
-      var_names_bundle = NULL;
+      var_names_bundle = nullptr;
       var_names.clear ();
     }
 }
@@ -2266,7 +2266,7 @@ var_get_elapsed_seconds (scr_var_setref_t vars)
   assert (var_is_valid (vars));
 
   delta = var_is_clock_frozen ()
-          ? 0.0 : difftime (time (NULL), vars->timestamp);
+          ? 0.0 : difftime (time (nullptr), vars->timestamp);
   return (scr_uint) delta + vars->time_offset;
 }
 
@@ -2280,7 +2280,7 @@ var_set_elapsed_seconds (scr_var_setref_t vars, scr_uint seconds)
    * forced by the fact that ANSI offers difftime but no 'settime' -- here,
    * we'd really want to set the timestamp to now less seconds.
    */
-  vars->timestamp = time (NULL);
+  vars->timestamp = time (nullptr);
   vars->time_offset = seconds;
 }
 

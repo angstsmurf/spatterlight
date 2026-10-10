@@ -92,7 +92,7 @@ a5rand_between (long lo, long hi)
     static int trace = -1;
     a5rand_draw_count++;
     if (trace < 0)
-      trace = getenv ("A5_TRACE_RAND") != NULL;
+      trace = getenv ("A5_TRACE_RAND") != nullptr;
     if (trace)
       fprintf (stderr, "RAND(%ld,%ld)=%ld\n", lo, hi, r);
     return r;
@@ -116,7 +116,7 @@ a5rand_between_args (const char *args)
 
   lo = strtol (a5rand_skip_to_int (args), &end, 10);
   args = a5rand_skip_to_int (end);
-  hi = (*args != '\0') ? strtol (args, NULL, 10) : lo;
+  hi = (*args != '\0') ? strtol (args, nullptr, 10) : lo;
   return a5rand_between (lo, hi);
 }
 
@@ -160,13 +160,13 @@ a5rand_norepeat (long lo, long hi)
 void
 a5rand_get_state (int *native, unsigned int state[4])
 {
-  uint32_t *arr = NULL;
+  uint32_t *arr = nullptr;
   int count = 0, n = 0, i;
   erkyrath_random_get_detstate (&n, &arr, &count);
-  if (native != NULL)
+  if (native != nullptr)
     *native = n;
   for (i = 0; i < 4; i++)
-    state[i] = (arr != NULL && i < count) ? (unsigned int) arr[i] : 0u;
+    state[i] = (arr != nullptr && i < count) ? (unsigned int) arr[i] : 0u;
 }
 
 void

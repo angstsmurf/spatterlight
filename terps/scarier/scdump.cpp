@@ -120,11 +120,11 @@ scdump_object_name (scr_gameref_t game, scr_int obj)
   scr_vartype_t k[3], v;
 
   if (obj < 0 || obj >= gs_object_count (game))
-    return NULL;
+    return nullptr;
   k[0].string = "Objects";
   k[1].integer = obj;
   k[2].string = "Short";
-  return prop_get (bundle, "S<-sis", &v, k) ? v.string : NULL;
+  return prop_get (bundle, "S<-sis", &v, k) ? v.string : nullptr;
 }
 
 
@@ -490,7 +490,7 @@ scdump_globals (scr_gameref_t game)
     nvars = prop_get_child_count (bundle, "I<-s", vk);
     for (v = 0; v < nvars; v++)
       {
-        const scr_char *name = NULL;
+        const scr_char *name = nullptr;
         scr_int type = 0;
 
         vk[1].integer = v;
@@ -543,7 +543,7 @@ scdump_objects (scr_gameref_t game)
       {
         scr_vartype_t pk[3], pv;
         scr_int openable, curstate;
-        const scr_char *states = NULL, *s;
+        const scr_char *states = nullptr, *s;
 
         pk[0].string = "Objects";
         pk[1].integer = i;
@@ -771,7 +771,7 @@ scdump_tasks (scr_gameref_t game)
        * A task can carry an empty Command list -- The Cleft in the Rock has
        * one, and prop_get_string is fatal on the miss -- so ask with prop_get.
        */
-      cmd = prop_get (bundle, "S<-sisi", &vt, k) ? vt.string : NULL;
+      cmd = prop_get (bundle, "S<-sisi", &vt, k) ? vt.string : nullptr;
       ccount = prop_get_child_count (bundle, "I<-sis", k);
 
       k[2].string = "Where";
@@ -795,7 +795,7 @@ scdump_tasks (scr_gameref_t game)
 
       {
         scr_int score = 0;
-        const scr_char *mask = NULL;
+        const scr_char *mask = nullptr;
         scr_int rpt = 0;
         scr_int srd = 0;
 
@@ -857,7 +857,7 @@ scdump_tasks (scr_gameref_t game)
        * Hint2=sledgehammer) -- the game's own context-sensitive walkthrough.
        */
       {
-        const scr_char *hq = NULL, *h1 = NULL, *h2 = NULL;
+        const scr_char *hq = nullptr, *h1 = nullptr, *h2 = nullptr;
         scr_vartype_t hv;
 
         k[2].string = "Question";
@@ -896,9 +896,9 @@ scdump_tasks (scr_gameref_t game)
         const scr_char *tt;
         static const char *const text_fields[] =
           { "CompleteText", "AdditionalMessage", "RepeatText",
-            "ReverseMessage", NULL };
+            "ReverseMessage", nullptr };
         static const char *const text_labels[] =
-          { "COMPLETE", "ADDMSG", "REPEATTEXT", "REVERSE", NULL };
+          { "COMPLETE", "ADDMSG", "REPEATTEXT", "REVERSE", nullptr };
         scr_int f;
 
         for (f = 0; text_fields[f]; f++)
@@ -1069,7 +1069,7 @@ scdump_tasks (scr_gameref_t game)
                    atype, v1, v2, v3, nm);
           if (atype == 3)
             {
-              const scr_char *expr = NULL;
+              const scr_char *expr = nullptr;
 
               /*
                * Not every type-3 action carries an Expr: a plain "set/add a
@@ -1116,7 +1116,7 @@ scdump_events (scr_gameref_t game)
 
         st = tn = ta = tf = o2 = o2d = o3 = o3d = t1 = t2 = pf = 0;
         rt = sta = end = 0;
-        en = NULL;
+        en = nullptr;
         ek[1].integer = e;
         /* Use tolerant prop_get -- not every game defines every field. */
         ek[2].string = "Short";
@@ -1173,7 +1173,7 @@ scdump_events (scr_gameref_t game)
          * description.
          */
         {
-          const scr_char *stx = NULL, *ltx = NULL, *ftx = NULL;
+          const scr_char *stx = nullptr, *ltx = nullptr, *ftx = nullptr;
 
           ek[2].string = "StartText";
           if (prop_get (bundle, "S<-sis", &evt, ek))
@@ -1218,7 +1218,7 @@ scdump_events (scr_gameref_t game)
                 char field[16];
 
                 pt = 0;
-                px = NULL;
+                px = nullptr;
                 snprintf (field, sizeof field, "PrefTime%d", which);
                 ek[2].string = field;
                 if (prop_get (bundle, "I<-sis", &evt, ek))
@@ -1323,7 +1323,7 @@ scdump_npcs (scr_gameref_t game)
     for (n = 0; n < ncount; n++)
       {
         scr_int sr = 0, w, wcount;
-        const scr_char *nm = NULL;
+        const scr_char *nm = nullptr;
         scr_vartype_t nv;
 
         nk[1].integer = n;
@@ -1499,7 +1499,7 @@ scdump_exits (scr_gameref_t game)
     for (r = 0; r < rcount; r++)
       {
         scr_vartype_t rnv;
-        const scr_char *rname = NULL;
+        const scr_char *rname = nullptr;
 
         rk[1].integer = r;
         rk[2].string = "Short";
@@ -1585,7 +1585,7 @@ scdump_exits (scr_gameref_t game)
         for (a = 0; a < acount; a++)
           {
             scr_int type = 0, v2 = 0, v3 = 0, disp = 0, hide = 0;
-            const scr_char *m1 = NULL, *m2 = NULL;
+            const scr_char *m1 = nullptr, *m2 = nullptr;
             scr_vartype_t av;
 
             rk[3].integer = a;
@@ -1643,11 +1643,11 @@ scr_dump_structure_once (scr_gameref_t game)
   if (!checked_env)
     {
       checked_env = TRUE;
-      trace_tasks = getenv ("SCR_TRACE_TASKS") != NULL;
-      dump_objloc = getenv ("SCR_DUMP_OBJLOC") != NULL;
-      dump_tasks = getenv ("SCR_DUMP_TASKS") != NULL;
-      trace_events = getenv ("SCR_TRACE_EVENTS") != NULL;
-      dump_alrs = getenv ("SCR_DUMP_ALRS") != NULL;
+      trace_tasks = getenv ("SCR_TRACE_TASKS") != nullptr;
+      dump_objloc = getenv ("SCR_DUMP_OBJLOC") != nullptr;
+      dump_tasks = getenv ("SCR_DUMP_TASKS") != nullptr;
+      trace_events = getenv ("SCR_TRACE_EVENTS") != nullptr;
+      dump_alrs = getenv ("SCR_DUMP_ALRS") != nullptr;
     }
   if (!trace_tasks && !dump_objloc && !dump_tasks && !trace_events
       && !dump_alrs)
@@ -1721,9 +1721,9 @@ scr_dump_npc_trace (scr_gameref_t game)
   if (!checked_env)
     {
       checked_env = TRUE;
-      trace_player = getenv ("SCR_TRACE_PLAYER") != NULL;
+      trace_player = getenv ("SCR_TRACE_PLAYER") != nullptr;
       trace_obj = getenv ("SCR_TRACE_OBJ");
-      trace_judy = getenv ("SCR_TRACE_JUDY") != NULL;
+      trace_judy = getenv ("SCR_TRACE_JUDY") != nullptr;
       trace_vars = getenv ("SCR_TRACE_VARS");
     }
 
@@ -1869,7 +1869,7 @@ scr_tracing_deviations (void)
   static int enabled = -1;
 
   if (enabled < 0)
-    enabled = getenv ("SCR_TRACE_DEVIATIONS") != NULL;
+    enabled = getenv ("SCR_TRACE_DEVIATIONS") != nullptr;
   return enabled;
 }
 

@@ -72,7 +72,7 @@ typedef struct
   std::vector<scr_byte> where_rooms;  /* per-room tri-state, sized lazily */
 } scr_event_props_t;
 
-static const void *evt_cache_game = NULL;
+static const void *evt_cache_game = nullptr;
 static std::vector<scr_event_props_t> evt_cache;
 static scr_int evt_cache_version = 0;  /* bundle "Version", 0 = unknown */
 
@@ -115,7 +115,7 @@ evt_forget_game (const void *game)
 {
   if (evt_cache_game == game)
     {
-      evt_cache_game = NULL;
+      evt_cache_game = nullptr;
       evt_cache.clear ();
       evt_cache_version = 0;
     }

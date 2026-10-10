@@ -127,7 +127,7 @@ sxr_realloc (void *pointer, size_t size)
     }
 
   if (pointer == sxr_zero_allocation)
-    pointer = NULL;
+    pointer = nullptr;
 
   allocated = (decltype(allocated)) realloc (pointer, size);
   if (!allocated)
@@ -192,7 +192,7 @@ sxr_isspace (scr_char character)
 {
   static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
 
-  return character != NUL && strchr (WHITESPACE, character) != NULL;
+  return character != NUL && strchr (WHITESPACE, character) != nullptr;
 }
 
 static scr_bool

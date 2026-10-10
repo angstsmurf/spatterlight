@@ -61,13 +61,13 @@ gsc_open_log_stream (const char *label, glui32 usage, glui32 mode,
   if (fileref && must_exist && !glk_fileref_does_file_exist (fileref))
     {
       glk_fileref_destroy (fileref);
-      fileref = NULL;
+      fileref = nullptr;
     }
   if (!fileref)
     {
       gsc_standout_string (label);
       gsc_standout_string (" failed.\n");
-      return NULL;
+      return nullptr;
     }
 
   stream = is_unicode ? glk_stream_open_file_uni (fileref, (glui32) mode, 0)
@@ -77,7 +77,7 @@ gsc_open_log_stream (const char *label, glui32 usage, glui32 mode,
     {
       gsc_standout_string (label);
       gsc_standout_string (" failed.\n");
-      return NULL;
+      return nullptr;
     }
 
   return stream;
@@ -136,11 +136,11 @@ gsc_command_logging (const char *argument, const char *name,
           return;
         }
 
-      glk_stream_close (*stream, NULL);
-      *stream = NULL;
+      glk_stream_close (*stream, nullptr);
+      *stream = nullptr;
 
       if (is_transcript)
-        glk_window_set_echo_stream (gsc_main_window, NULL);
+        glk_window_set_echo_stream (gsc_main_window, nullptr);
 
       gsc_normal_string (label);
       gsc_normal_string (" is now off.\n");
@@ -383,7 +383,7 @@ static gsc_assist_t GSC_ASSISTS[] = {
    "; the load is summed afresh from held objects on each check (legacy"
    " SCARE behaviour).\n",
    "; a running total is kept as the original ADRIFT Runner does.\n", TRUE},
-  {NULL, NULL, NULL, NULL, NULL, NULL, NULL, FALSE}
+  {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, FALSE}
 };
 
 static void
@@ -419,7 +419,7 @@ gsc_command_assist (const char *argument)
   /* The first word names the assist, allowing abbreviation; an exact
      spelling wins outright, as for the commands themselves. */
   length = strcspn (argument, "\t ");
-  matched = NULL;
+  matched = nullptr;
   matches = 0;
   for (assist = GSC_ASSISTS; assist->name; assist++)
     {
@@ -623,22 +623,22 @@ static void
 gsc_colour_rebuild_windows (void)
 {
   int was_map = gsc_map_shown;
-  int was_side = gsc_a5_side_window != NULL;
+  int was_side = gsc_a5_side_window != nullptr;
 #ifdef GSC_HAVE_TITLE_WINDOW
-  int was_title = gsc_graphics_window != NULL;
+  int was_title = gsc_graphics_window != nullptr;
 #endif
   winid_t root;
 
   root = glk_window_get_root ();
   if (root)
-    glk_window_close (root, NULL);
+    glk_window_close (root, nullptr);
 
-  gsc_main_window = NULL;
-  gsc_status_window = NULL;
-  gsc_map_window = NULL;
-  gsc_a5_side_window = NULL;
+  gsc_main_window = nullptr;
+  gsc_status_window = nullptr;
+  gsc_map_window = nullptr;
+  gsc_a5_side_window = nullptr;
 #ifdef GSC_HAVE_TITLE_WINDOW
-  gsc_graphics_window = NULL;
+  gsc_graphics_window = nullptr;
 #endif
   gsc_map_shown = FALSE;
   gsc_map_screen_drop ();
@@ -669,7 +669,7 @@ gsc_colour_repaint (winid_t win, scr_bool state)
   strid_t stream;
   glui32 bg;
 
-  if (win == NULL)
+  if (win == nullptr)
     return;
   stream = glk_window_get_stream (win);
 
@@ -711,7 +711,7 @@ gsc_set_colour (scr_bool state)
   gsc_normal_measure_state = -1;
 
   /* -c pre-applies hints before the first open; do not destroy that tree. */
-  rebuild = gsc_main_window != NULL
+  rebuild = gsc_main_window != nullptr
             && !(gsc_colour_hints_preapplied && state);
   gsc_colour_hints_preapplied = FALSE;
 
@@ -860,7 +860,7 @@ gsc_meta_t gsc_meta_pending = GSC_META_NONE;
  * never returns to the caller that asked for it; whichever of gsc_meta_report()
  * and the next prompt comes first prints it.
  */
-static const char *gsc_meta_message = NULL;
+static const char *gsc_meta_message = nullptr;
 
 gsc_meta_t
 gsc_meta_take (void)
@@ -877,7 +877,7 @@ gsc_meta_report (void)
   if (gsc_meta_message)
     {
       gsc_normal_string (gsc_meta_message);
-      gsc_meta_message = NULL;
+      gsc_meta_message = nullptr;
     }
 }
 
@@ -948,7 +948,7 @@ gsc_meta_perform (void)
 
   /* No game to act on.  Quitting is still meaningful -- it is the way out of
      an interpreter showing nothing but an error -- but the rest are not. */
-  if (gsc_game == NULL || !scr_is_game_running (gsc_game))
+  if (gsc_game == nullptr || !scr_is_game_running (gsc_game))
     {
       if (action == GSC_META_QUIT)
         glk_exit ();
@@ -963,7 +963,7 @@ gsc_meta_perform (void)
       gsc_meta_message = "[The previous turn has been undone.]\n";
       if (!scr_undo_game_turn (gsc_game))
         {
-          gsc_meta_message = NULL;
+          gsc_meta_message = nullptr;
           gsc_normal_string (gsc_undo_refusal (scr_get_game_turns (gsc_game)));
         }
       gsc_meta_report ();
@@ -975,7 +975,7 @@ gsc_meta_perform (void)
           gsc_meta_message = "Ok.\n";
           if (!scr_load_game (gsc_game))
             {
-              gsc_meta_message = NULL;
+              gsc_meta_message = nullptr;
               gsc_normal_string ("Restore failed.\n");
             }
           gsc_meta_report ();
@@ -1119,14 +1119,14 @@ gsc_a5_hint_text (a5_state_t *st, const a5_xml_node_t *wrapper)
 {
   char *text;
 
-  if (wrapper == NULL)
-    return NULL;
+  if (wrapper == nullptr)
+    return nullptr;
 
   text = a5text_describe (st, wrapper);
-  if (text != NULL && text[strspn (text, " \t\n\r")] == '\0')
+  if (text != nullptr && text[strspn (text, " \t\n\r")] == '\0')
     {
       free (text);
-      return NULL;
+      return nullptr;
     }
   return text;
 }
@@ -1168,8 +1168,8 @@ gsc_a5_display_hints (void)
          and neither answer written (Death Shack's Hint2, Blender's Hint2).
          There is nothing to ask about, so pass over them silently rather than
          prompt against a blank heading. */
-      if ((hint->question == NULL || hint->question[0] == '\0')
-          && subtle == NULL && sledgehammer == NULL)
+      if ((hint->question == nullptr || hint->question[0] == '\0')
+          && subtle == nullptr && sledgehammer == nullptr)
         continue;
 
       /* If enough refusals, offer a way out of the loop. */
@@ -1212,7 +1212,8 @@ gsc_command_hints (const char *argument)
 
   if (gsc_is_a5)
     {
-      if (gsc_a5_run == NULL || gsc_a5_adv == NULL || gsc_a5_adv->n_hints == 0)
+      if (gsc_a5_run == nullptr || gsc_a5_adv == nullptr
+          || gsc_a5_adv->n_hints == 0)
         {
           gsc_normal_string ("This game does not have any hints.\n");
           return;
@@ -1226,9 +1227,9 @@ gsc_command_hints (const char *argument)
      for the Glk command instead.  scr_get_first_game_hint filters to the
      hints currently in play, so an empty iteration is the "not yet" case
      rather than a game without hints. */
-  if (gsc_game == NULL)
+  if (gsc_game == nullptr)
     return;
-  if (scr_get_first_game_hint (gsc_game) == NULL)
+  if (scr_get_first_game_hint (gsc_game) == nullptr)
     {
       gsc_normal_string ("There are currently no hints available.\n");
       return;
@@ -1268,15 +1269,17 @@ typedef gsc_command_t *gsc_commandref_t;
 /* Argument lists for the one-line synopsis printed by gsc_command_usage(),
    and at the foot of a command's entry in "glk help". */
 static const char * const GSC_USAGE_ONOFFSTATUS[] = {"on", "off", "status",
-                                                     NULL};
-static const char * const GSC_USAGE_ONOFF[] = {"on", "off", NULL};
+                                                     nullptr};
+static const char * const GSC_USAGE_ONOFF[] = {"on", "off", nullptr};
 static const char * const GSC_USAGE_MAP[] = {"on", "off", "top", "right",
-                                             "zoom [in | out | auto | N]", NULL};
+                                             "zoom [in | out | auto | N]",
+                                             nullptr};
 static const char * const GSC_USAGE_ASSIST[] = {"combat [on | off]",
                                                "move [on | off]",
                                                "repeat [on | off]",
-                                               "room [on | off]", NULL};
-static const char * const GSC_USAGE_ZOOM[] = {"in", "out", "auto", "N", NULL};
+                                               "room [on | off]", nullptr};
+static const char * const GSC_USAGE_ZOOM[] = {"in", "out", "auto", "N",
+                                              nullptr};
 
 /* The "glk help" entry for each command, printed by gsc_command_help().  Text
    between backquotes is shown in standout, as a command to type. */
@@ -1468,7 +1471,7 @@ static void gsc_command_summary (const char *argument);
 static gsc_command_t GSC_COMMAND_TABLE[] = {
   {"summary", gsc_command_summary,
    GSC_CMD_A5 | GSC_CMD_ACTION,
-   NULL, NULL, GSC_HELP_SUMMARY},
+   nullptr, nullptr, GSC_HELP_SUMMARY},
   {"script", gsc_command_script,
    GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_STATUS,
    "script", GSC_USAGE_ONOFFSTATUS, GSC_HELP_SCRIPT},
@@ -1514,7 +1517,7 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
    "verbose descriptions", GSC_USAGE_ONOFF, GSC_HELP_VERBOSE},
   {"version", gsc_command_version,
    GSC_CMD_A5,
-   NULL, NULL, GSC_HELP_VERSION},
+   nullptr, nullptr, GSC_HELP_VERSION},
   {"map", gsc_command_map,
    GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ACTION,
    "map", GSC_USAGE_MAP, GSC_HELP_MAP},
@@ -1546,28 +1549,28 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
      needs five letters to resolve; "quit" answers to "glk q". */
   {"undo", gsc_command_undo,
    GSC_CMD_A5 | GSC_CMD_ACTION,
-   NULL, NULL, GSC_HELP_META},
+   nullptr, nullptr, GSC_HELP_META},
   {"restore", gsc_command_restore,
    GSC_CMD_A5 | GSC_CMD_ACTION,
-   NULL, NULL, GSC_HELP_META},
+   nullptr, nullptr, GSC_HELP_META},
   {"restart", gsc_command_restart,
    GSC_CMD_A5 | GSC_CMD_ACTION,
-   NULL, NULL, GSC_HELP_META},
+   nullptr, nullptr, GSC_HELP_META},
   {"quit", gsc_command_quit,
    GSC_CMD_A5 | GSC_CMD_ACTION,
-   NULL, NULL, GSC_HELP_META},
+   nullptr, nullptr, GSC_HELP_META},
   /* No "hint" alias row: it would be redundant, as a bare prefix of the sole
      "hints" row it already resolves. */
   {"hints", gsc_command_hints,
    GSC_CMD_A5 | GSC_CMD_ACTION,
-   NULL, NULL, GSC_HELP_HINTS},
+   nullptr, nullptr, GSC_HELP_HINTS},
   {"license", gsc_command_license,
    GSC_CMD_A5 | GSC_CMD_ACTION,
-   NULL, NULL, GSC_HELP_LICENSE},
+   nullptr, nullptr, GSC_HELP_LICENSE},
   {"help", gsc_command_help,
    GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ACTION,
-   NULL, NULL, NULL},
-  {NULL, NULL, 0, NULL, NULL, NULL}
+   nullptr, nullptr, nullptr},
+  {nullptr, nullptr, 0, nullptr, nullptr, nullptr}
 };
 
 
@@ -1605,7 +1608,7 @@ gsc_command_lookup (const char *command, int *matches)
   assert (command);
 
   count = 0;
-  matched = NULL;
+  matched = nullptr;
   for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
     {
       if (!gsc_command_in_scope (entry))
@@ -1627,7 +1630,7 @@ gsc_command_lookup (const char *command, int *matches)
 
   if (matches)
     *matches = count;
-  return count == 1 ? matched : NULL;
+  return count == 1 ? matched : nullptr;
 }
 
 
@@ -1758,7 +1761,7 @@ gsc_command_help (const char *command)
       /* Zoom is left off the list; it belongs to the map, and is documented
          under "glk help map" instead.  Aliases are left off too, and named in
          the help for the command they stand in for. */
-      last = NULL;
+      last = nullptr;
       for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
         {
           if (gsc_command_in_scope (entry)

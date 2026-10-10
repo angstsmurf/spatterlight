@@ -118,10 +118,10 @@ eval_desc_into (a5_state_t *st, sb_t *psb, int *pfirst, const char **pdefault,
   int first = *pfirst;
   int terminated = 0;
 
-  if (wrapper == NULL)
+  if (wrapper == nullptr)
     return 0;
 
-  for (c = wrapper->first_child; c != NULL; c = c->next)
+  for (c = wrapper->first_child; c != nullptr; c = c->next)
     {
       const a5_xml_node_t *restr;
       const char *when, *text;
@@ -129,7 +129,7 @@ eval_desc_into (a5_state_t *st, sb_t *psb, int *pfirst, const char **pdefault,
       if (strcmp (c->name, "Description") != 0)
         continue;
       text = a5xml_child_text (c, "Text");
-      if (text == NULL)
+      if (text == nullptr)
         text = "";
       if (first)
         default_text = text;
@@ -150,7 +150,7 @@ eval_desc_into (a5_state_t *st, sb_t *psb, int *pfirst, const char **pdefault,
         }
 
       restr = a5xml_child (c, "Restrictions");
-      if (restr != NULL && !a5restr_pass (st, restr))
+      if (restr != nullptr && !a5restr_pass (st, restr))
         {
           first = 0;
           /* clsDescription.ToString does `Return sb.ToString` inside
@@ -180,7 +180,7 @@ eval_desc_into (a5_state_t *st, sb_t *psb, int *pfirst, const char **pdefault,
              4 such lines (woodcutter / 3 bloodhound urgency variants) through
              exactly this mechanism. */
           if (a5xml_bool (a5xml_child_text (c, "ReturnToDefault")))
-            for (const a5_xml_node_t *r = wrapper->first_child; r != NULL;
+            for (const a5_xml_node_t *r = wrapper->first_child; r != nullptr;
                  r = r->next)
               {
                 if (strcmp (r->name, "Description") == 0)
@@ -238,7 +238,7 @@ char *
 a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
 {
   sb_t sb;
-  const char *default_text = NULL;
+  const char *default_text = nullptr;
   int first = 1;
   sb_init (&sb);
   eval_desc_into (st, &sb, &first, &default_text, wrapper);
@@ -265,18 +265,18 @@ static char *
 location_desc (a5_state_t *st, const char *lockey, const char *tag,
                const char *group_prop)
 {
-  const a5_location_t *l = lockey ? a5model_location (st->adv, lockey) : NULL;
+  const a5_location_t *l = lockey ? a5model_location (st->adv, lockey) : nullptr;
   const a5_prop_t *grp;
   sb_t sb;
-  const char *default_text = NULL;
+  const char *default_text = nullptr;
   int first = 1, term;
   sb_init (&sb);
-  if (l == NULL)
+  if (l == nullptr)
     return sb_finish (&sb);
   term = eval_desc_into (st, &sb, &first, &default_text,
                          a5xml_child (l->node, tag));
   grp = a5state_location_group_prop (st, lockey, group_prop);
-  if (!term && grp != NULL && grp->value_node != NULL)
+  if (!term && grp != nullptr && grp->value_node != nullptr)
     eval_desc_into (st, &sb, &first, &default_text, grp->value_node);
   return sb_finish (&sb);
 }
@@ -310,7 +310,7 @@ str_replace_all (const char *src, const char *find, const char *repl)
   while (*p)
     {
       const char *hit = strstr (p, find);
-      if (hit == NULL)
+      if (hit == nullptr)
         {
           sb_puts (&sb, p);
           break;
@@ -332,9 +332,9 @@ replace_alrs (a5_state_t *st, const char *src, int depth)
   for (i = 0; i < st->adv->n_alrs; i++)
     {
       const a5_alr_t *alr = &st->adv->alrs[i];
-      if (alr->old_text == NULL || alr->old_text[0] == '\0')
+      if (alr->old_text == nullptr || alr->old_text[0] == '\0')
         continue;
-      if (strstr (cur, alr->old_text) != NULL)
+      if (strstr (cur, alr->old_text) != nullptr)
         {
           if (getenv ("A5_TRACE_ALR"))
             fprintf (stderr, "[ALR fragment] hit old=\"%s\" in \"%.60s\"\n",
@@ -498,14 +498,14 @@ resolve_perspective (a5_state_t *st, const char *src)
              <b>E</b> to exit]" pass through literally (the tags render away
              later). */
           const char *q = p + 1;
-          const char *s1 = NULL, *s2 = NULL;
+          const char *s1 = nullptr, *s2 = nullptr;
           while (*q && *q != ']' && *q != '[' && *q != '\n')
             {
               if (*q == '/')
-                { if (s1 == NULL) s1 = q; else if (s2 == NULL) s2 = q; }
+                { if (s1 == nullptr) s1 = q; else if (s2 == nullptr) s2 = q; }
               q++;
             }
-          if (*q == ']' && s2 != NULL)
+          if (*q == ']' && s2 != nullptr)
             {
               const char *a, *b;
               int np = perspective_at (st, (long) (p - src));
@@ -532,7 +532,7 @@ resolve_perspective (a5_state_t *st, const char *src)
 static int
 is_signed_int (const char *s)
 {
-  if (s == NULL || *s == '\0')
+  if (s == nullptr || *s == '\0')
     return 0;
   const char *p = s;
   if (*p == '+' || *p == '-') p++;
@@ -587,7 +587,7 @@ expr_substitute (a5_state_t *st, const char *src)
               if (q[1] == '.')
                 {
                   char *fk = oo_firstkey (st, name);
-                  if (fk != NULL)
+                  if (fk != nullptr)
                     {
                       const char *chain_end = a5expr_scan_chain (q + 1);
                       char *chain = strndup (q + 1, (size_t) (chain_end - (q + 1)));
@@ -602,9 +602,9 @@ expr_substitute (a5_state_t *st, const char *src)
                 }
               /* plain %name% */
               {
-                char *val = eval_function (st, name, NULL);
+                char *val = eval_function (st, name, nullptr);
                 free (name);
-                if (val != NULL)
+                if (val != nullptr)
                   { pron_capture (st, (long) sb.len);
                     sb_quote_val (&sb, val, in_quote); free (val); p = q + 1; continue; }
               }
@@ -627,7 +627,7 @@ expr_substitute (a5_state_t *st, const char *src)
                   char *args = replace_functions (st, rawargs, 1);
                   char *val = eval_function (st, name, args);
                   free (rawargs); free (args); free (name);
-                  if (val != NULL)
+                  if (val != nullptr)
                     { pron_capture (st, (long) sb.len);
                       sb_quote_val (&sb, val, in_quote); free (val); p = a + 2; continue; }
                   /* unresolved: leave verbatim */
@@ -696,7 +696,7 @@ expr_sub_draws_random (const char *body)
       if (q == p + 1 || *q != '[')
         continue;
       const char *cb = strchr (q, ']');
-      if (cb == NULL || cb[1] != '%')
+      if (cb == nullptr || cb[1] != '%')
         continue;
       {
         char *args = strndup (q + 1, (size_t) (cb - q - 1));
@@ -761,7 +761,7 @@ replace_expressions (a5_state_t *st, const char *src)
       sb_puts (&sb, mark);
     };
 
-  if (strstr (src, "<#") == NULL)
+  if (strstr (src, "<#") == nullptr)
     return strdup (src);
 
   sb_init (&sb);
@@ -770,12 +770,12 @@ replace_expressions (a5_state_t *st, const char *src)
       if (p[0] == '<' && p[1] == '#')
         {
           const char *end = strstr (p + 2, "#>");
-          if (end != NULL)
+          if (end != nullptr)
             {
               char *inner = strndup (p + 2, (size_t) (end - (p + 2)));
               const std::string key (inner);
               const bool repeat = seen_val.count (key) || seen_slot.count (key);
-              if (st->expr_defer != NULL && expr_sub_draws_random (inner))
+              if (st->expr_defer != nullptr && expr_sub_draws_random (inner))
                 {
                   /* Raw-body deferral (see expr_sub_draws_random): push the
                      UNSUBSTITUTED body, tagged \003, so both its substitution
@@ -809,7 +809,7 @@ replace_expressions (a5_state_t *st, const char *src)
                  `Execute ShipCombat` action draws, not inline before them).  The
                  operands are frozen here (oo is self-contained) so only the
                  reduce moves; a `\004<idx>\004` sentinel marks the value slot. */
-              if (st->expr_defer != NULL && expr_bears_random (oo))
+              if (st->expr_defer != nullptr && expr_bears_random (oo))
                 {
                   defer (key, repeat, oo);
                   free (inner); free (sub); free (oo);
@@ -841,7 +841,7 @@ char *
 a5text_eval_expression (a5_state_t *st, const char *expr)
 {
   char *sub, *val;
-  if (expr == NULL)
+  if (expr == nullptr)
     return strdup ("");
   sub = expr_substitute (st, expr);
   /* Resolve any BARE OO-chain (no leading %), e.g. `Event12.Position` in a
@@ -858,7 +858,7 @@ a5text_eval_expression (a5_state_t *st, const char *expr)
   /* A5_TRACE_EXPR=1 shows each restriction/SetVariable expression as raw ->
      substituted -> value; the substituted form is where most divergences from
      the runner live (an OO chain that resolved to "" instead of "0", say). */
-  if (getenv ("A5_TRACE_EXPR") != NULL)
+  if (getenv ("A5_TRACE_EXPR") != nullptr)
     fprintf (stderr, "A5_EXPR: %s  ==>  %s  ==>  %s\n", expr, sub, val);
   free (sub);
   return val;   /* a5_eval_sexpr never returns NULL */
@@ -878,7 +878,7 @@ protect_exprs (const char *src, std::vector<std::string> &saved)
       if (p[0] == '<' && p[1] == '#')
         {
           const char *end = strstr (p + 2, "#>");
-          if (end != NULL)
+          if (end != nullptr)
             {
               char buf[24];
               snprintf (buf, sizeof buf, "\x01%d\x01", (int) saved.size ());
@@ -943,7 +943,7 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
 {
   char *exprs = substitute_text (st, src);
   char *alrs;
-  if (pre_alr_ink != NULL)
+  if (pre_alr_ink != nullptr)
     {
       /* Did the text have visible content BEFORE the ALR pass?  the runner stores task
          responses at this stage (functions/expressions replaced, ALRs not yet
@@ -968,7 +968,7 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
                  and the colour are presentation, not visible ink), or a stray
                  unpaired mark. */
               const char *e = strchr (q + 1, *q);
-              if (e == NULL)
+              if (e == nullptr)
                 continue;
               q = e;
             }
@@ -1001,13 +1001,13 @@ char *
 seal_alr_sites (a5_state_t *st, char *text)
 {
   int i;
-  if (st == NULL || st->adv == NULL || st->adv->n_alrs == 0 || text == NULL)
+  if (st == nullptr || st->adv == nullptr || st->adv->n_alrs == 0 || text == nullptr)
     return text;
   for (i = 0; i < st->adv->n_alrs; i++)
     {
       const a5_alr_t *alr = &st->adv->alrs[i];
       const char *old = alr->old_text;
-      if (old == NULL || old[0] == '\0' || strstr (text, old) == NULL)
+      if (old == nullptr || old[0] == '\0' || strstr (text, old) == nullptr)
         continue;
       size_t ol = strlen (old);
       sb_t sb;
@@ -1034,7 +1034,7 @@ seal_alr_sites (a5_state_t *st, char *text)
 char *
 process_inner (a5_state_t *st, const char *src, int depth)
 {
-  return process_inner_ex (st, src, depth, NULL);
+  return process_inner_ex (st, src, depth, nullptr);
 }
 
 
@@ -1076,7 +1076,7 @@ a5text_strip_pres_marks (char *s)
 {
   char *r, *w;
 
-  if (s == NULL)
+  if (s == nullptr)
     return;
   for (r = w = s; *r != '\0'; r++)
     {
@@ -1086,7 +1086,7 @@ a5text_strip_pres_marks (char *s)
              friends, or nothing at all if the closing mark is missing. */
           const char *e = strchr (r + 1, *r);
 
-          if (e != NULL)
+          if (e != nullptr)
             r = (char *) e;
           continue;
         }
@@ -1116,7 +1116,7 @@ str_replace_unapplied (const char *src, const char *find, const char *repl)
   sb_t sb;
   size_t flen = strlen (find), rlen = strlen (repl);
   const char *inner = strstr (repl, find);  /* OldText inside NewText? */
-  long k = inner != NULL ? (long) (inner - repl) : -1;
+  long k = inner != nullptr ? (long) (inner - repl) : -1;
   const char *p = src;
   sb_init (&sb);
   while (*p != '\0')
@@ -1158,9 +1158,9 @@ boundary_alr_once (a5_state_t *st, const char *src, int skip_applied)
   for (i = 0; i < st->adv->n_alrs; i++)
     {
       const a5_alr_t *alr = &st->adv->alrs[i];
-      if (alr->old_text == NULL || alr->old_text[0] == '\0')
+      if (alr->old_text == nullptr || alr->old_text[0] == '\0')
         continue;
-      if (strstr (cur, alr->old_text) != NULL)
+      if (strstr (cur, alr->old_text) != nullptr)
         {
           if (getenv ("A5_TRACE_ALR"))
             fprintf (stderr, "[ALR boundary skip=%d] hit old=\"%s\"\n",
@@ -1188,12 +1188,12 @@ char *
 a5text_display_alr (a5_state_t *st, const char *plain)
 {
   char *a1, *cap, *a2;
-  if (plain == NULL)
+  if (plain == nullptr)
     return strdup ("");
   /* No ALRs -> the boundary is a pure pass-through (English games never pay for
      this; their per-fragment ALR already ran).  Mirrors Display() doing nothing
      when htblALRs is empty. */
-  if (st == NULL || st->adv == NULL || st->adv->n_alrs == 0)
+  if (st == nullptr || st->adv == nullptr || st->adv->n_alrs == 0)
     return strdup (plain);
   /* ReplaceALRs: ALR loop -> auto-capitalise -> a second ALR round (the input is
      already plain and per-fragment-processed, so the function/expression passes
@@ -1238,14 +1238,14 @@ char *
 a5text_expand_var_defers (a5_state_t *st, const char *text)
 {
   sb_t sb;
-  const char *p = text != NULL ? text : "";
-  if (strchr (p, A5_VARDEF_MARK) == NULL)
+  const char *p = text != nullptr ? text : "";
+  if (strchr (p, A5_VARDEF_MARK) == nullptr)
     return strdup (p);
   sb_init (&sb);
   while (*p != '\0')
     {
       const char *e;
-      if (*p == A5_VARDEF_MARK && (e = strchr (p + 1, A5_VARDEF_MARK)) != NULL)
+      if (*p == A5_VARDEF_MARK && (e = strchr (p + 1, A5_VARDEF_MARK)) != nullptr)
         {
           std::string name (p + 1, (size_t) (e - (p + 1)));
           int i, done = 0;
@@ -1288,7 +1288,7 @@ ps_mark_trailing (const char *proc, char *plain)
   if (pl > 0 && proc[pl - 1] != '\n' && tl > 0 && plain[tl - 1] == '\n')
     {
       char *np = (char *) realloc (plain, tl + 2);
-      if (np != NULL) { np[tl] = A5_PS_MARK; np[tl + 1] = '\0'; return np; }
+      if (np != nullptr) { np[tl] = A5_PS_MARK; np[tl + 1] = '\0'; return np; }
     }
   return plain;
 }
@@ -1297,8 +1297,8 @@ char *
 a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper, int *raw_nonblank)
 {
   char *raw = a5text_eval_description (st, wrapper);
-  if (raw_nonblank != NULL)
-    *raw_nonblank = (raw != NULL && raw[0] != '\0');
+  if (raw_nonblank != nullptr)
+    *raw_nonblank = (raw != nullptr && raw[0] != '\0');
   char *proc = a5text_process (st, raw);
   char *plain = a5text_render_plain (proc);
   plain = ps_mark_trailing (proc, plain);
@@ -1351,8 +1351,8 @@ a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
                     int *pre_alr_ink, int *raw_nonblank, char **marked)
 {
   char *raw = a5text_eval_description (st, wrapper);
-  if (raw_nonblank != NULL)
-    *raw_nonblank = (raw != NULL && raw[0] != '\0');
+  if (raw_nonblank != nullptr)
+    *raw_nonblank = (raw != nullptr && raw[0] != '\0');
   char *plain = a5text_process_frozen (st, raw, pre_alr_ink, marked);
   free (raw);
   return plain;
@@ -1378,8 +1378,8 @@ a5text_process_frozen (a5_state_t *st, const char *raw, int *pre_alr_ink,
   char *plain = a5text_render_plain (capped);
   plain = ps_mark_trailing (capped, plain);
   note_marked_output (st, capped);
-  if (marked != NULL)
-    *marked = strdup (capped != NULL ? capped : "");
+  if (marked != nullptr)
+    *marked = strdup (capped != nullptr ? capped : "");
   free (inner);
   free (persp);
   free (capped);

@@ -106,7 +106,7 @@ a5_deobfuscate (uint8_t *data, uint32_t offset, uint32_t length)
 {
   uint32_t i;
 
-  if (data == NULL)
+  if (data == nullptr)
     return;
   for (i = 0; i < length; i++)
     data[offset + i] ^= A5_KEY[i % 1024];
@@ -130,17 +130,17 @@ a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
 
   memset (&stream, 0, sizeof stream);
   if (inflateInit (&stream) != Z_OK)
-    return NULL;
+    return nullptr;
 
   /* Start with a generous guess and grow as needed (XML compresses well). */
   cap = (size_t) length * 8 + 1024;
   if (cap > A5_INFLATE_MAX)
     cap = A5_INFLATE_MAX;
   out = (uint8_t *) malloc (cap);
-  if (out == NULL)
+  if (out == nullptr)
     {
       inflateEnd (&stream);
-      return NULL;
+      return nullptr;
     }
 
   stream.next_in = (Bytef *) data;
@@ -161,15 +161,15 @@ a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
                  wrapping the capacity and overflowing the buffer. */
               free (out);
               inflateEnd (&stream);
-              return NULL;
+              return nullptr;
             }
           cap = (cap > A5_INFLATE_MAX / 2) ? A5_INFLATE_MAX : cap * 2;
           grown = (uint8_t *) realloc (out, cap);
-          if (grown == NULL)
+          if (grown == nullptr)
             {
               free (out);
               inflateEnd (&stream);
-              return NULL;
+              return nullptr;
             }
           out = grown;
           stream.next_out = out + used;
@@ -183,18 +183,18 @@ a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
     {
       free (out);
       inflateEnd (&stream);
-      return NULL;
+      return nullptr;
     }
 
   /* NUL-terminate (grow by one if the buffer is exactly full). */
   if (stream.avail_out == 0)
     {
       uint8_t *grown = (uint8_t *) realloc (out, cap + 1);
-      if (grown == NULL)
+      if (grown == nullptr)
         {
           free (out);
           inflateEnd (&stream);
-          return NULL;
+          return nullptr;
         }
       out = grown;
     }
@@ -217,14 +217,14 @@ a5_deflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
   /* Default windowBits (15) => a plain zlib stream (0x78 header), matching
      .NET's ZLibStream; CompressionLevel.Optimal maps to Z_BEST_COMPRESSION. */
   if (deflateInit (&stream, Z_BEST_COMPRESSION) != Z_OK)
-    return NULL;
+    return nullptr;
 
   cap = length + (length >> 8) + 64;   /* deflateBound-ish generous guess */
   out = (uint8_t *) malloc (cap);
-  if (out == NULL)
+  if (out == nullptr)
     {
       deflateEnd (&stream);
-      return NULL;
+      return nullptr;
     }
 
   stream.next_in = (Bytef *) data;
@@ -241,11 +241,11 @@ a5_deflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
 
           cap *= 2;
           grown = (uint8_t *) realloc (out, cap);
-          if (grown == NULL)
+          if (grown == nullptr)
             {
               free (out);
               deflateEnd (&stream);
-              return NULL;
+              return nullptr;
             }
           out = grown;
           stream.next_out = out + used;
@@ -259,7 +259,7 @@ a5_deflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
     {
       free (out);
       deflateEnd (&stream);
-      return NULL;
+      return nullptr;
     }
 
   *out_size = (uint32_t) stream.total_out;

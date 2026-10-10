@@ -189,7 +189,7 @@ static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
   {"VARIABLE",
    "$Name #Type $Value"},
   {"ALR", ALR_DESC},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 /*
@@ -272,7 +272,7 @@ static const scr_parse_schema_t V390_PARSE_SCHEMA[] = {
   {"VARIABLE",
    "$Name ZType $Value"},
   {"ALR", ALR_DESC},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 /*
@@ -346,7 +346,7 @@ static const scr_parse_schema_t V380_PARSE_SCHEMA[] = {
   {"WALK", V380_V370_WALK_DESC},
   {"ROOM_GROUP", ROOM_GROUP_DESC},
   {"SYNONYM", SYNONYM_DESC},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 /*
@@ -413,7 +413,7 @@ static const scr_parse_schema_t V370_PARSE_SCHEMA[] = {
   {"ROOM_GROUP", ROOM_GROUP_DESC},
   {"COMMAND",
    "$Word"},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 
@@ -464,15 +464,15 @@ parse_select_version (scr_tafref_t taf)
 
 
 /* The uncompressed TAF file from which we get all our data. */
-static scr_tafref_t parse_taf = (scr_tafref_t) NULL;
+static scr_tafref_t parse_taf = (scr_tafref_t) nullptr;
 static scr_int parse_tafline = 0;
 
 /* The parse descriptor selected for this TAF file's version. */
-static const scr_parse_version_t *parse_version = NULL;
+static const scr_parse_version_t *parse_version = nullptr;
 
 /* Properties bundle and trace flag, set before parsing; shared with the
    fixups and patches files through sctafpar_internal.h. */
-scr_prop_setref_t parse_bundle = (scr_prop_setref_t) NULL;
+scr_prop_setref_t parse_bundle = (scr_prop_setref_t) nullptr;
 scr_bool parse_trace = FALSE;
 
 /*
@@ -919,7 +919,7 @@ parse_get_top_child_count (scr_prop_setref_t bundle, const scr_char *name)
 struct parse_taf_error_t { };
 
 /* Pushback line, and pushback requested flag. */
-static const scr_char *parse_pushback_line = NULL;
+static const scr_char *parse_pushback_line = nullptr;
 static scr_bool parse_use_pushback = FALSE;
 
 /*
@@ -1420,7 +1420,7 @@ typedef struct
 enum { RESOURCE_GROW_INCREMENT = 32 };
 static scr_int parse_resources_length = 0;
 static scr_int parse_resources_size = 0;
-static scr_parse_resource_t *parse_resources = NULL;
+static scr_parse_resource_t *parse_resources = nullptr;
 
 
 /*
@@ -1440,7 +1440,7 @@ parse_clear_v400_resources_table (void)
         scr_free (parse_resources[index_].name);
 
       scr_free (parse_resources);
-      parse_resources = NULL;
+      parse_resources = nullptr;
     }
   parse_resources_length = 0;
   parse_resources_size = 0;
@@ -2294,11 +2294,11 @@ static void
 parse_reset (void)
 {
   parse_clear_v400_resources_table ();
-  parse_taf = NULL;
-  parse_bundle = NULL;
-  parse_version = NULL;
+  parse_taf = nullptr;
+  parse_bundle = nullptr;
+  parse_version = nullptr;
   parse_depth = 0;
-  parse_pushback_line = NULL;
+  parse_pushback_line = nullptr;
   parse_use_pushback = FALSE;
 }
 

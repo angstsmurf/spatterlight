@@ -114,7 +114,7 @@ static int failures = 0;
 static void
 expect (const char *cmd, const char *out, const char *needle, int want)
 {
-  int has = (strstr (out, needle) != NULL);
+  int has = (strstr (out, needle) != nullptr);
   if (has != want)
     {
       printf ("FAIL: \"%s\" -> output %s \"%s\"\n        got: %s\n",
@@ -133,7 +133,7 @@ int
 main (void)
 {
   a5_adventure_t *adv = a5_test_build_adventure (kXml, "a5_objects_test");
-  if (adv == NULL)
+  if (adv == nullptr)
     return 1;
 
   char *out;

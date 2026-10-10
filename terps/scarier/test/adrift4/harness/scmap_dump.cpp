@@ -41,9 +41,9 @@
 #include "scmap.h"
 #include "../../map_ppm.h"
 
-static FILE *g_script = NULL;
+static FILE *g_script = nullptr;
 static int g_reveal_all = 0;
-static scr_gameref_t g_game = NULL;
+static scr_gameref_t g_game = nullptr;
 static const char *g_out = "scmap.ppm";
 static int g_width = 480, g_height = 480, g_grid = 0;
 /* -bg/-fg stand in for the host's text style, which the Glk frontend measures
@@ -73,12 +73,12 @@ os_read_line (scr_char *buffer, scr_int length)
 {
   char line[1024];
 
-  if (g_script != NULL)
+  if (g_script != nullptr)
     {
-      while (fgets (line, sizeof line, g_script) != NULL)
+      while (fgets (line, sizeof line, g_script) != nullptr)
         {
           char *nl = strchr (line, '\n');
-          if (nl != NULL)
+          if (nl != nullptr)
             *nl = '\0';
           if (line[0] == '\0' || line[0] == '#')
             continue;
@@ -106,7 +106,7 @@ print_grid (const map_t *map, const map_view_t *view)
   const map_page_t *page;
   int i, minx = 0, miny = 0, maxx = 0, maxy = 0, first = 1, x, y;
 
-  if (map == NULL || map->n_pages == 0)
+  if (map == nullptr || map->n_pages == 0)
     return;
   page = &map->pages[0];
 
@@ -128,11 +128,11 @@ print_grid (const map_t *map, const map_view_t *view)
     {
       for (x = minx; x <= maxx; x += MAP_NODE_W * 3 / 2)
         {
-          const map_node_t *hit = NULL;
+          const map_node_t *hit = nullptr;
           for (i = 0; i < page->n_nodes; i++)
             if (page->nodes[i].x == x && page->nodes[i].y == y)
               { hit = &page->nodes[i]; break; }
-          if (hit == NULL)
+          if (hit == nullptr)
             printf (" . ");
           else if (view->seen (view->ctx, hit->key))
             printf ("%2s ", hit->key);
@@ -158,7 +158,7 @@ draw_and_exit (void)
     view.seen = cb_seen_all;
 
   map = scmap_build (g_game, &view);
-  if (map == NULL)
+  if (map == nullptr)
     {
       int why = scmap_failed ();
       fprintf (stderr, "nothing to draw (%s)\n",
@@ -204,7 +204,7 @@ int
 main (int argc, char **argv)
 {
   scr_game g0;
-  const char *script = NULL;
+  const char *script = nullptr;
   int i;
 
   if (argc < 2)
@@ -231,25 +231,25 @@ main (int argc, char **argv)
       else if (strcmp (argv[i], "-chrome") == 0)
         g_chrome = 1;
       else if (strcmp (argv[i], "-bg") == 0 && i + 1 < argc)
-        g_bg = strtol (argv[++i], NULL, 16);
+        g_bg = strtol (argv[++i], nullptr, 16);
       else if (strcmp (argv[i], "-fg") == 0 && i + 1 < argc)
-        g_fg = strtol (argv[++i], NULL, 16);
+        g_fg = strtol (argv[++i], nullptr, 16);
       else if (argv[i][0] != '-')
         script = argv[i];
     }
 
   g0 = scr_game_from_filename (argv[1]);
-  if (g0 == NULL)
+  if (g0 == nullptr)
     {
       fprintf (stderr, "%s: could not load\n", argv[1]);
       return 1;
     }
   g_game = (scr_gameref_t) g0;
 
-  if (script != NULL)
+  if (script != nullptr)
     {
       g_script = fopen (script, "r");
-      if (g_script == NULL)
+      if (g_script == nullptr)
         {
           fprintf (stderr, "%s: cannot open\n", script);
           return 1;

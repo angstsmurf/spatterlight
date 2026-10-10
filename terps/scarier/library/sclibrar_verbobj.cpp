@@ -286,15 +286,15 @@ static scr_int lib_verb_object_line_top = -2;
 void
 lib_verb_object_note_line_top (scr_gameref_t game)
 {
-  lib_verb_object_line_top = lib_is_version_400 (game)
-                             ? lib_verb_object_resolve_400_common (game, NULL)
-                             : -2;
+  lib_verb_object_line_top
+    = lib_is_version_400 (game)
+      ? lib_verb_object_resolve_400_common (game, nullptr) : -2;
 }
 
 scr_int
 lib_verb_object_resolve_400 (scr_gameref_t game)
 {
-  return lib_verb_object_resolve_400_common (game, NULL);
+  return lib_verb_object_resolve_400_common (game, nullptr);
 }
 
 /*
@@ -561,7 +561,7 @@ lib_put_split_400 (scr_gameref_t game, const std::string &line,
            * seen (p4SURF, runner_probes/surf2.run400.txt:15).
            */
           if (lib_verb_object_resolve_400_string (game, fragment.c_str (),
-                                                  NULL, FALSE) == -2)
+                                                  nullptr, FALSE) == -2)
             split = std::string::npos;
         }
     }
@@ -618,7 +618,7 @@ lib_put_clauses_400 (scr_gameref_t game, const scr_char *input,
     return FALSE;
   has_all = lib_phrase_has_word (line, "all");
 
-  split = lib_put_split_400 (game, line, has_all, TRUE, NULL);
+  split = lib_put_split_400 (game, line, has_all, TRUE, nullptr);
   if (split == std::string::npos)
     split = line.length () - 1;               /* 459C55: split = Len(line) */
 
@@ -634,7 +634,7 @@ lib_put_clauses_400 (scr_gameref_t game, const scr_char *input,
       if (line.compare (0, 4, "put ") != 0)
         line = "put " + line;
 
-      split = lib_put_split_400 (game, line, has_all, FALSE, NULL);
+      split = lib_put_split_400 (game, line, has_all, FALSE, nullptr);
       and_at = (split == std::string::npos)
                ? std::string::npos : line.find (" and ", split);
     }
@@ -787,7 +787,7 @@ lib_cmd_put_container_400 (scr_gameref_t game)
         return FALSE;
       return lib_put_where_400_common
                (game, lib_verb_object_resolve_400_string (game, line.c_str (),
-                                                          NULL, TRUE));
+                                                          nullptr, TRUE));
     }
 
   in_at = line.find (" in ", split);
@@ -805,8 +805,8 @@ lib_cmd_put_container_400 (scr_gameref_t game)
   else
     return FALSE;
 
-  container = lib_verb_object_resolve_400_string (game, phrase.c_str (), NULL,
-                                                 TRUE);
+  container = lib_verb_object_resolve_400_string (game, phrase.c_str (),
+                                                 nullptr, TRUE);
   if (container == -1)
     return FALSE;
   if (container == -2)
@@ -872,7 +872,7 @@ lib_put_container_fits_400 (scr_gameref_t game, const scr_char *input)
   if (line.empty () || !lib_phrase_has_word (line, "put"))
     return FALSE;
   split = lib_put_split_400 (game, line, lib_phrase_has_word (line, "all"),
-                             TRUE, NULL);
+                             TRUE, nullptr);
   if (split == std::string::npos
       || line.find (" and ", split) != std::string::npos)
     return FALSE;
@@ -892,8 +892,8 @@ lib_put_container_fits_400 (scr_gameref_t game, const scr_char *input)
   else
     return FALSE;
 
-  container = lib_verb_object_resolve_400_string (game, phrase.c_str (), NULL,
-                                                 TRUE);
+  container = lib_verb_object_resolve_400_string (game, phrase.c_str (),
+                                                 nullptr, TRUE);
   if (container < 0)
     return FALSE;
   return inside ? obj_is_container (game, container)
@@ -1083,7 +1083,7 @@ static scr_bool
 lib_therest_with_silent_400 (scr_gameref_t game, scr_int *top)
 {
   const scr_char *input = run_get_dispatch_input ();
-  const scr_char *tail = input ? strstr (input, " with ") : NULL;
+  const scr_char *tail = input ? strstr (input, " with ") : nullptr;
   std::string head;
 
   *top = -1;

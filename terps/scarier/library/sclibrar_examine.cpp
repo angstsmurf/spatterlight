@@ -41,7 +41,7 @@ lib_cmd_examine_self (scr_gameref_t game)
   scr_vartype_t vt_key[2];
   scr_int task, object;
   lib_list_t list;
-  const scr_char *description, *position = NULL;
+  const scr_char *description, *position = nullptr;
 
   /*
    * The darkness fork again, this time on its `x me` arm: run390 44C424
@@ -205,7 +205,7 @@ lib_cmd_examine_self (scr_gameref_t game)
        */
       const scr_char last = description[strlen (description) - 1];
       const scr_bool closed = prop_get_taf_version (bundle) >= TAF_VERSION_400
-                              ? strchr (".!)%?", last) != NULL
+                              ? strchr (".!)%?", last) != nullptr
                               : last == '.';
       if (!closed)
         pf_buffer_character (filter, '.');
@@ -298,11 +298,11 @@ lib_absent_seen_object (scr_gameref_t game)
     }
 
   /* Pass 1, present and seen: a unique winner is present, not absent. */
-  if (lib_verb_object_resolve_400_string (game, input, NULL, TRUE) >= 0)
+  if (lib_verb_object_resolve_400_string (game, input, nullptr, TRUE) >= 0)
     return -1;
 
   /* Pass 2, every seen object; a tie or no score is -1 as well. */
-  object = lib_verb_object_resolve_400_string (game, input, NULL, FALSE);
+  object = lib_verb_object_resolve_400_string (game, input, nullptr, FALSE);
   if (object < 0
       || !game->object_references[object]
       || obj_indirectly_in_room (game, object, gs_playerroom (game)))
@@ -649,7 +649,7 @@ lib_cmd_examine_npc (scr_gameref_t game)
       const scr_char *input = run_get_dispatch_input ();
       scr_int object;
 
-      object = lib_verb_object_resolve_400_string (game, input, NULL, FALSE);
+      object = lib_verb_object_resolve_400_string (game, input, nullptr, FALSE);
       if (object >= 0
           && !obj_indirectly_in_room (game, object, gs_playerroom (game)))
         game->is_admin = was_admin;
@@ -1178,7 +1178,7 @@ lib_co_400_name_word (scr_gameref_t game, scr_int object, const scr_char *input)
   if (!scr_strempty (name) && lib_input_contains_word_400 (input, name))
     return name;
 
-  word = NULL;
+  word = nullptr;
   alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
   for (alias = 0; alias < alias_count; alias++)
     {
@@ -1314,7 +1314,7 @@ lib_examine_tied_absent_400 (scr_gameref_t game)
   scr_int object;
 
   if (!lib_is_version_400 (game) || !input
-      || lib_verb_object_resolve_400_string (game, input, NULL, TRUE) != -1)
+      || lib_verb_object_resolve_400_string (game, input, nullptr, TRUE) != -1)
     return FALSE;
 
   object = lib_examine_referencedob_400 (game, input);
@@ -1387,7 +1387,7 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
 
   if (!input
       || (lib_is_version_400 (game)
-          && lib_npc_400_find_namesakes (game, NULL, NULL)))
+          && lib_npc_400_find_namesakes (game, nullptr, nullptr)))
     return -1;
 
   /*

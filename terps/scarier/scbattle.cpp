@@ -74,7 +74,7 @@ static scr_bool battle_combat_assist = FALSE;
 static scr_bool battle_unconfigured = FALSE;
 
 /* Trace flag, read once from the environment (SCR_TRACE_BATTLE). */
-static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != NULL);
+static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != nullptr);
 
 
 /*
@@ -1085,7 +1085,7 @@ battle_npc_name (scr_gameref_t game, scr_int npc, scr_int naming,
   std::string runner;
   scr_vartype_t vt_key[4];
 
-  alias = NULL;
+  alias = nullptr;
   if (!(naming == BATTLE_NAME_NAME
         || (naming == BATTLE_NAME_ENEMY_ALIAS
             && battle_attitude (game, npc) != 2)))
@@ -1095,7 +1095,7 @@ battle_npc_name (scr_gameref_t game, scr_int npc, scr_int naming,
       vt_key[2].string = "Alias";
       vt_key[3].integer = 0;
       alias = prop_get_child_count (bundle, "I<-sis", vt_key) > 0
-              ? prop_get_string (bundle, "S<-sisi", vt_key) : NULL;
+              ? prop_get_string (bundle, "S<-sisi", vt_key) : nullptr;
     }
   if (!alias || alias[0] == '\0')
     {

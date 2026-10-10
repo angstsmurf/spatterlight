@@ -1268,7 +1268,7 @@ scr_bool
 lib_cmd_say (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_char *string = NULL;
+  const scr_char *string = nullptr;
 
   /*
    * run390 (therest 45DAD2) and run400 (488DE4) both draw Int(Rnd*6) over

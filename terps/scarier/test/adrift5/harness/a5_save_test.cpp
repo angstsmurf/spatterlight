@@ -124,7 +124,7 @@ static a5_adventure_t *
 build_adv (void)
 {
   a5_adventure_t *adv = a5_test_build_adventure (kXml, "a5_save_test");
-  if (adv == NULL)
+  if (adv == nullptr)
     failures++;
   return adv;
 }
@@ -145,7 +145,7 @@ main (void)
   std::vector<std::string> outA, outB;
   int saw_clock = 0, saw_roll = 0;
 
-  if (adv == NULL)
+  if (adv == nullptr)
     return 1;
 
   /* --- Run A: intro + pre-split, then save. --- */
@@ -157,9 +157,9 @@ main (void)
   save = a5run_save (runA, &save_len);
   /* The save is now a FrankenDrift-compatible <Game> document carrying the
      full-fidelity Scarier snapshot in a <ScarierExt> child. */
-  if (save == NULL || save_len == 0
-      || strstr (save, "<Game>") == NULL
-      || strstr (save, "<ScarierExt>") == NULL)
+  if (save == nullptr || save_len == 0
+      || strstr (save, "<Game>") == nullptr
+      || strstr (save, "<ScarierExt>") == nullptr)
     { printf ("FAIL: a5run_save produced no/invalid output\n"); failures++; }
 
   /* --- Run A continuation. --- */
@@ -187,7 +187,7 @@ main (void)
     /* (1) zlib deflate/inflate is byte-exact (the on-disk framing). */
     uint32_t zlen = 0, xlen = 0;
     uint8_t *z = a5_deflate ((const uint8_t *) save, (uint32_t) save_len, &zlen);
-    uint8_t *x = z ? a5_inflate (z, zlen, &xlen) : NULL;
+    uint8_t *x = z ? a5_inflate (z, zlen, &xlen) : nullptr;
     if (!z || !x || xlen != save_len || memcmp (x, save, save_len) != 0)
       { printf ("FAIL: zlib deflate/inflate not byte-exact\n"); failures++; }
     if (z && (z[0] != 0x78))
@@ -264,7 +264,7 @@ main (void)
        or the RNG (this game's descriptions draw nothing). */
     {
       char *look = a5run_look (runC);
-      if (look == NULL || strstr (look, "A small stone vault.") == NULL)
+      if (look == nullptr || strstr (look, "A small stone vault.") == nullptr)
         { printf ("FAIL: a5run_look after undo missed the room view: [%s]\n",
                   look ? look : "(null)"); failures++; }
       free (look);
@@ -321,7 +321,7 @@ main (void)
       deep += "<a>";
     char *dbuf = strdup (deep.c_str ());
     a5_xml_doc_t *ddoc = a5xml_parse (dbuf, (uint32_t) deep.size ());
-    if (ddoc != NULL)
+    if (ddoc != nullptr)
       { printf ("FAIL: 100000-deep XML was not refused\n"); failures++; a5xml_free (ddoc); }
     else
       free (dbuf);
@@ -333,7 +333,7 @@ main (void)
     ok += "</Adventure>";
     char *obuf = strdup (ok.c_str ());
     a5_xml_doc_t *odoc = a5xml_parse (obuf, (uint32_t) ok.size ());
-    if (odoc == NULL)
+    if (odoc == nullptr)
       { printf ("FAIL: 100-deep XML was refused\n"); failures++; free (obuf); }
     else
       a5xml_free (odoc);
@@ -360,7 +360,7 @@ main (void)
       "    <ArrayLength>2000000000</ArrayLength></Variable>\n"
       "</Adventure>\n";
     a5_adventure_t *hadv = a5_test_build_adventure (kHostile, "hostile");
-    if (hadv == NULL)
+    if (hadv == nullptr)
       failures++;
     else
       {
@@ -370,7 +370,7 @@ main (void)
         if (hadv->wait_turns != A5_MAX_WAIT_TURNS)
           { printf ("FAIL: WaitTurns %d, want clamp to %d\n", hadv->wait_turns, A5_MAX_WAIT_TURNS); failures++; }
         a5_state_t *hst = a5state_new (hadv);
-        if (hst == NULL)
+        if (hst == nullptr)
           { printf ("FAIL: a5state_new on hostile model\n"); failures++; }
         else
           {

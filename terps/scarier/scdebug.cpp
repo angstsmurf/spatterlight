@@ -77,7 +77,7 @@ static const scr_strings_t DEBUG_COMMANDS[] = {
   {"clearevents", DEBUG_CLEAREVENTS}, {"cleartasks", DEBUG_CLEARTASKS},
   {"clearvariables", DEBUG_CLEARVARIABLES}, {"watchall", DEBUG_WATCHALL},
   {"clearall", DEBUG_CLEARALL}, {"random", DEBUG_RANDOM}, {"quit", DEBUG_QUIT},
-  {NULL, DEBUG_NONE}
+  {nullptr, DEBUG_NONE}
 };
 
 /*
@@ -227,7 +227,7 @@ debug_finalize (scr_gameref_t game)
   scr_free (debug);
 
   /* Remove the debug reference from the game. */
-  game->debugger = NULL;
+  game->debugger = nullptr;
 }
 
 
@@ -913,7 +913,7 @@ debug_previous_game (scr_gameref_t game)
   if (!game->undo_available)
     {
       if_print_debug ("There is no previous game state to examine.\n");
-      return NULL;
+      return nullptr;
     }
 
   assert (gs_is_game_valid (game->undo));
@@ -1429,9 +1429,9 @@ debug_dump_common (scr_gameref_t game, scr_command_t command,
 {
   scr_int low = arg1, high = arg2;
   scr_int limit, index_;
-  const scr_char *class_ = NULL;
-  scr_bool (*filter_function) (scr_gameref_t, scr_int) = NULL;
-  void (*dumper_function) (scr_gameref_t, scr_int) = NULL;
+  const scr_char *class_ = nullptr;
+  scr_bool (*filter_function) (scr_gameref_t, scr_int) = nullptr;
+  void (*dumper_function) (scr_gameref_t, scr_int) = nullptr;
   scr_bool printed = FALSE;
 
   /* Switch to undo game on relevant commands. */
@@ -1493,7 +1493,7 @@ debug_dump_common (scr_gameref_t game, scr_command_t command,
     case DEBUG_VARIABLES:
     case DEBUG_OLDVARIABLES:
       class_ = "Variable";
-      filter_function = NULL;
+      filter_function = nullptr;
       dumper_function = debug_dump_variable;
       limit = debug_variable_count (game);
       break;
@@ -1692,8 +1692,8 @@ debug_watchpoint_common (scr_gameref_t game, scr_command_t command,
   const scr_debuggerref_t debug = debug_get_debugger (game);
   scr_int low = arg1, high = arg2;
   scr_int limit, index_;
-  const scr_char *class_ = NULL;
-  scr_bool *watchpoints = NULL, action;
+  const scr_char *class_ = nullptr;
+  scr_bool *watchpoints = nullptr, action;
   assert (debug_is_valid (debug));
 
   /* Set action to TRUE or FALSE, for setting/clearing watchpoints. */
@@ -2608,5 +2608,5 @@ debug_set_enabled (scr_gameref_t game, scr_bool enable)
 scr_bool
 debug_get_enabled (scr_gameref_t game)
 {
-  return debug_get_debugger (game) != NULL;
+  return debug_get_debugger (game) != nullptr;
 }

@@ -59,7 +59,7 @@ gsc_container_get_chunk (const std::string &data, size_t *pos,
   size_t eol = data.find ('\n', *pos);
   if (eol == std::string::npos)
     return false;
-  unsigned long length = strtoul (data.c_str () + *pos, NULL, 10);
+  unsigned long length = strtoul (data.c_str () + *pos, nullptr, 10);
   *pos = eol + 1;
   if (length > data.size () - *pos)
     return false;
@@ -74,7 +74,7 @@ gsc_container_get_count (const std::string &data, size_t *pos, long *count)
   size_t eol = data.find ('\n', *pos);
   if (eol == std::string::npos)
     return false;
-  *count = strtol (data.c_str () + *pos, NULL, 10);
+  *count = strtol (data.c_str () + *pos, nullptr, 10);
   *pos = eol + 1;
   return *count >= 0;
 }
@@ -328,7 +328,7 @@ gsc_a5_serialize_all (void)
   size_t text_length;
   int depth, i;
 
-  if (blob == NULL)
+  if (blob == nullptr)
     return std::string ();
 
   std::string out = GSC_A5_CONTAINER_MAGIC;
@@ -354,7 +354,7 @@ gsc_a5_serialize_all (void)
 
   length = 0;
   blob = a5run_pending_save (gsc_a5_run, &length);
-  gsc_container_put_chunk (out, blob == NULL ? "" : blob, length);
+  gsc_container_put_chunk (out, blob == nullptr ? "" : blob, length);
   free (blob);
   return out;
 }
@@ -436,7 +436,7 @@ static_assert (sizeof (ScarierGlkFrontendState::a5_channeltags)
  * has been rebuilt (called from scarier-autosave.mm between the library's
  * main and "late" restore passes).
  */
-static const ScarierGlkFrontendState *gsc_rng_override = NULL;
+static const ScarierGlkFrontendState *gsc_rng_override = nullptr;
 static void gsc_stash_rng (ScarierGlkFrontendState *st);
 
 void
@@ -473,7 +473,7 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
   /* Saving at a question asked partway through a turn: the generators as
      they stood when the turn began, which is where the relaunch runs it
      from (or, for the opening, left as the fresh start seeds them). */
-  if (gsc_rng_override != NULL)
+  if (gsc_rng_override != nullptr)
     {
       st->rng_usenative = gsc_rng_override->rng_usenative;
       st->rng_runner = gsc_rng_override->rng_runner;
@@ -497,7 +497,7 @@ gsc_stash_rng (ScarierGlkFrontendState *st)
      so a deterministic session's randomness continues where it left off. */
   {
     int usenative = 1;
-    glui32 *words = NULL;
+    glui32 *words = nullptr;
     int count = 0;
 
     erkyrath_random_get_detstate (&usenative, &words, &count);
@@ -559,7 +559,7 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
      layout the game shipped -- is what tells the two apart, so the wait
      survives the autosave. */
   {
-    int pref = gsc_map_pref_read (NULL);
+    int pref = gsc_map_pref_read (nullptr);
 
     gsc_map_want = gsc_map_shown || pref == 1
                    || (pref < 0 && gsc_map_default_shown ());
@@ -663,7 +663,7 @@ gsc_a5_note_turn_start (void)
      the full engine save is as dear as the turn itself. */
   if (gsc_in_debug_read || !scarier_autosave_enabled ())
     return;
-  if (gsc_a5_run == NULL || a5run_is_over (gsc_a5_run))
+  if (gsc_a5_run == nullptr || a5run_is_over (gsc_a5_run))
     return;
   gsc_a5_turn_state = gsc_a5_serialize_all ();
   gsc_stash_rng (&gsc_a5_turn_rng);
@@ -697,7 +697,7 @@ gsc_a5_autosave_mid_turn (void)
   state += std::to_string ((long) gsc_a5_waitkey_count);
   state += '\n';
   scarier_autosave_write (state);
-  gsc_rng_override = NULL;
+  gsc_rng_override = nullptr;
 }
 
 void
@@ -759,7 +759,7 @@ gsc_sc_note_turn_start (void)
   gsc_sc_waitkey_count = 0;
   if (gsc_in_debug_read || !scarier_autosave_enabled ())
     return;
-  if (gsc_game == NULL || !scr_is_game_running (gsc_game))
+  if (gsc_game == nullptr || !scr_is_game_running (gsc_game))
     return;
   /* Not seen the player's room yet = still inside the startup block.
      Its name and gender prompts resume where they were (see
@@ -818,7 +818,7 @@ gsc_sc_autosave_waitkey (void)
   state += std::to_string ((long) gsc_sc_waitkey_count);
   state += '\n';
   scarier_autosave_write (state);
-  gsc_rng_override = NULL;
+  gsc_rng_override = nullptr;
 }
 
 bool
@@ -878,7 +878,7 @@ gsc_autosave (void)
     return;
   if (gsc_is_a5)
     {
-      if (gsc_a5_run == NULL || a5run_is_over (gsc_a5_run))
+      if (gsc_a5_run == nullptr || a5run_is_over (gsc_a5_run))
         return;
       state = gsc_a5_turn_state;
     }

@@ -400,7 +400,7 @@ lib_print_take_npc_refusal (scr_gameref_t game, scr_int npc)
     const scr_prop_setref_t bundle = gs_get_bundle (game);
     const scr_bool is_390_plus =
         prop_get_taf_version (bundle) >= TAF_VERSION_390;
-    const scr_char *prefix, *alias = NULL;
+    const scr_char *prefix, *alias = nullptr;
     scr_vartype_t vt_key[4];
 
     prefix = prop_get_indexed_string (bundle, "NPCs", npc, "Prefix");
@@ -1871,8 +1871,8 @@ lib_take_all_sweep_390 (scr_gameref_t game, scr_bool has_printed)
         continue;
 
       gs_set_multiple_references (game);
-      objects = lib_apply_filter (game,
-                                  lib_take_from_filter, associate, FALSE, NULL);
+      objects = lib_apply_filter (game, lib_take_from_filter,
+                                  associate, FALSE, nullptr);
       gs_clear_multiple_references (game);
       if (objects == 0)
         continue;
@@ -1902,7 +1902,7 @@ lib_cmd_take_all (scr_gameref_t game)
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
   objects = lib_apply_filter (game,
-                              lib_take_all_filter, -1, FALSE, NULL);
+                              lib_take_all_filter, -1, FALSE, nullptr);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_take_backend (game);
@@ -1943,7 +1943,7 @@ lib_take_absent_score (scr_gameref_t game, scr_int object,
   scr_int alias_count, alias, score;
 
   score = 0;
-  *term = NULL;
+  *term = nullptr;
 
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
   if (!scr_strempty (shortname) && lib_co_contains (input, shortname))
@@ -2072,7 +2072,7 @@ lib_cmd_take_absent (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *input = run_get_dispatch_input ();
-  const scr_char *best_term = NULL;
+  const scr_char *best_term = nullptr;
   scr_int object, best_score, best_count, best_object;
 
   /* Pre-3.9 takes() names the first match out of reach, seen or not; see
@@ -2442,7 +2442,7 @@ lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
   scr_int room, other, count;
 
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  term = lib_co_contains (line, shortname) ? shortname : NULL;
+  term = lib_co_contains (line, shortname) ? shortname : nullptr;
   if (!term && taf_version >= TAF_VERSION_380)
     {
       scr_vartype_t vt_key[4];
@@ -3309,7 +3309,7 @@ lib_take_and_400 (scr_gameref_t game, scr_int *references)
         }
 
       object = lib_verb_object_resolve_400_string (game, piece.c_str (),
-                                                   NULL, TRUE);
+                                                   nullptr, TRUE);
       if (object >= 0 && obj_is_static (game, object))
         {
           refused.push_back (object);
@@ -3665,7 +3665,8 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
         return FALSE;
       else
         {
-          object = lib_verb_object_resolve_400_string (game, text, NULL, TRUE);
+          object = lib_verb_object_resolve_400_string (game, text,
+                                                       nullptr, TRUE);
           if (object < 0)
             return FALSE;
           gs_clear_multiple_references (game);

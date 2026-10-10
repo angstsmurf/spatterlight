@@ -155,7 +155,7 @@ scr_realloc (void *pointer, size_t size)
     }
 
   if (pointer == scr_zero_allocation)
-    pointer = NULL;
+    pointer = nullptr;
 
   allocated = (decltype(allocated)) realloc (pointer, size);
   if (!allocated)
@@ -324,7 +324,7 @@ scr_platform_rand (scr_uint new_seed)
       /* If not explicitly seeded yet, generate a seed from time(). */
       if (!is_seeded)
         {
-          srand ((scr_uint) time (NULL));
+          srand ((scr_uint) time (nullptr));
           is_seeded = TRUE;
         }
 
@@ -383,7 +383,7 @@ scr_congruential_rand (scr_uint new_seed)
       /* If not explicitly seeded yet, generate a seed from time(). */
       if (!is_seeded)
         {
-          congruential_state = (scr_uint) time (NULL);
+          congruential_state = (scr_uint) time (nullptr);
           is_seeded = TRUE;
           congruential_step ();
         }
@@ -471,14 +471,14 @@ scr_runner_rand (scr_uint new_seed)
     {
       runner_seed ((uint32_t) new_seed);
       runner_draws = 0;
-      runner_trace = (getenv ("SCR_TRACE_RAND") != NULL);
+      runner_trace = (getenv ("SCR_TRACE_RAND") != nullptr);
       runner_seeded = TRUE;
       return 0;
     }
   if (!runner_seeded)
     {
       runner_seed (1234);
-      runner_trace = (getenv ("SCR_TRACE_RAND") != NULL);
+      runner_trace = (getenv ("SCR_TRACE_RAND") != nullptr);
       runner_seeded = TRUE;
     }
 
@@ -576,7 +576,7 @@ scr_set_runner_random_state (const scr_uint words[4], scr_uint draws)
   for (ix = 0; ix < 4; ix++)
     runner_table[ix] = (uint32_t) words[ix];
   runner_draws = draws;
-  runner_trace = (getenv ("SCR_TRACE_RAND") != NULL);
+  runner_trace = (getenv ("SCR_TRACE_RAND") != nullptr);
   runner_seeded = TRUE;
 }
 

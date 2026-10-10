@@ -52,7 +52,7 @@ contains (const std::string &hay, const char *needle)
 
 /* Wired by the run harness to read the live event timers (NULL otherwise). */
 int (*a5expr_event_prop_hook) (const char *event_key, const char *prop,
-                               long *out) = NULL;
+                               long *out) = nullptr;
 
 /* ----------------------------------------------------- item-set navigation */
 
@@ -82,7 +82,7 @@ static std::string
 dir_display (const std::string &canon)
 {
   const char *nm = a5parse_direction_name (canon.c_str ());
-  return lower (nm != NULL ? std::string (nm) : canon);
+  return lower (nm != nullptr ? std::string (nm) : canon);
 }
 
 /* Join a direction list the way clsLocation.List does: ", " between, " and "
@@ -111,10 +111,10 @@ static std::vector<std::string>
 char_exit_dirs (a5_state_t *st, const char *charkey, const char *lockey)
 {
   std::vector<std::string> dirs;
-  if (lockey != NULL)
+  if (lockey != nullptr)
     for (int i = 0; i < 12; i++)
-      if (a5restr_exit_in_direction (st, charkey, lockey, kEnumDirs[i], NULL)
-          != NULL)
+      if (a5restr_exit_in_direction (st, charkey, lockey, kEnumDirs[i], nullptr)
+          != nullptr)
         dirs.push_back (kEnumDirs[i]);
   return dirs;
 }
@@ -129,7 +129,7 @@ a5expr_list_exits (a5_state_t *st, const char *charkey, const char *lockey,
                    long *count)
 {
   std::vector<std::string> dirs = char_exit_dirs (st, charkey, lockey);
-  if (count != NULL)
+  if (count != nullptr)
     *count = (long) dirs.size ();
   return strdup (render_dirs (dirs, "").c_str ());
 }
@@ -178,8 +178,8 @@ chars_children (a5_state_t *st, const char *objkey, int mode)
   std::vector<std::string> v;
   for (int i = 0; i < st->adv->n_characters; i++)
     {
-      const char *on = st->char_onobj ? st->char_onobj[i] : NULL;
-      if (on == NULL || !streq (on, objkey))
+      const char *on = st->char_onobj ? st->char_onobj[i] : nullptr;
+      if (on == nullptr || !streq (on, objkey))
         continue;
       int inside = st->char_in ? st->char_in[i] : 0;
       int hit = (mode != A5_CH_ON && inside)
@@ -290,7 +290,7 @@ chars_in_location (a5_state_t *st, const char *lockey)
   for (int i = 0; i < st->adv->n_characters; i++)
     {
       const char *lk = a5state_character_location_key (st, i);
-      if (lk != NULL && streq (lk, lockey))
+      if (lk != nullptr && streq (lk, lockey))
         v.push_back (st->adv->characters[i].key);
     }
   return v;
@@ -315,7 +315,7 @@ parent_key (a5_state_t *st, const char *key)
           || w == A5_OWHERE_LOCATION || w == A5_OWHERE_LOCGROUP)
         return st->obj[oi].key;
     }
-  return NULL;
+  return nullptr;
 }
 
 /* The location key(s) an object is in (its location roots). */
@@ -333,7 +333,7 @@ location_roots (a5_state_t *st, const char *objkey)
 static char
 item_kind (a5_state_t *st, const char *key)
 {
-  if (key == NULL) return 0;
+  if (key == nullptr) return 0;
   if (a5model_object (st->adv, key))    return 'o';
   if (a5model_character (st->adv, key)) return 'c';
   if (a5model_location (st->adv, key))  return 'l';
@@ -352,7 +352,7 @@ static std::string
 item_name (a5_state_t *st, const std::string &key, a5_article_t art)
 {
   const a5_object_t *o = a5model_object (st->adv, key.c_str ());
-  if (o != NULL)
+  if (o != nullptr)
     {
       char *n = a5text_object_name (st, o, art);
       std::string r = n ? n : "";
@@ -360,7 +360,7 @@ item_name (a5_state_t *st, const std::string &key, a5_article_t art)
       return r;
     }
   const a5_character_t *c = a5model_character (st->adv, key.c_str ());
-  if (c != NULL)
+  if (c != nullptr)
     {
       char *n = a5text_character_subjective (st, c);
       std::string r = n ? n : key;
@@ -368,7 +368,7 @@ item_name (a5_state_t *st, const std::string &key, a5_article_t art)
       return r;
     }
   const a5_location_t *l = a5model_location (st->adv, key.c_str ());
-  if (l != NULL)
+  if (l != nullptr)
     {
       char *n = a5text_location_short_plain (st, key.c_str ());
       std::string r = n ? n : "";
@@ -407,7 +407,7 @@ render_list (a5_state_t *st, const std::vector<std::string> &keys,
         }
       /* characters default to indefinite unless the args force definite */
       a5_article_t ia = art;
-      if (a5model_character (st->adv, keys[i].c_str ()) != NULL)
+      if (a5model_character (st->adv, keys[i].c_str ()) != nullptr)
         {
           ia = A5_ART_INDEFINITE;
           if (contains (a, "definite") && !contains (a, "indefinite"))
@@ -474,7 +474,7 @@ item_description (a5_state_t *st, const std::string &key)
      capitalise across a stripped "<>" join that the runner leaves alone (Starship
      Quest's DeadNative lowercase "native's ..." append). */
   const a5_object_t *o = a5model_object (st->adv, key.c_str ());
-  if (o != NULL)
+  if (o != nullptr)
     { char *d = a5text_describe_marked (st, a5xml_child (o->node, "Description"));
       std::string r = d ? d : ""; free (d);
       /* clsObject.Description getter (clsObject.vb:448): an object whose
@@ -489,7 +489,7 @@ item_description (a5_state_t *st, const std::string &key)
           free (dn); }
       return r; }
   const a5_character_t *c = a5model_character (st->adv, key.c_str ());
-  if (c != NULL)
+  if (c != nullptr)
     { /* v5 rewrites char-scoped bare functions to the keyed form at load
          (FileIO.vb:1897: SearchAndReplace "%CharacterName%" ->
          "%CharacterName[Key]%" over each character's texts), so a bare
@@ -503,7 +503,7 @@ item_description (a5_state_t *st, const std::string &key)
       st->ctx_char = prev_ctx;
       std::string r = d ? d : ""; free (d); return r; }
   const a5_location_t *l = a5model_location (st->adv, key.c_str ());
-  if (l != NULL)
+  if (l != nullptr)
     { char *d = a5text_view_location (st); std::string r = d ? d : ""; free (d);
       return r.empty () ? "There is nothing of interest here." : r; }
   return "";
@@ -576,7 +576,7 @@ selection_only_prop (const a5_state_t *st, const std::string &key,
                      const std::string &fn, std::string *out)
 {
   const a5_propdef_t *pd = a5model_propdef (st->adv, fn.c_str ());
-  if (pd == NULL || !streq (pd->type, "SelectionOnly"))
+  if (pd == nullptr || !streq (pd->type, "SelectionOnly"))
     return 0;
   *out = a5state_entity_has_prop (st, key.c_str (), fn.c_str ()) ? "1" : "0";
   return 1;
@@ -601,7 +601,7 @@ item_prop_terminal (a5_state_t *st, const std::string &key, const std::string &f
   if (selection_only_prop (st, key, fn, &sel))
     return sel;
   const char *v = a5state_entity_prop (st, key.c_str (), fn.c_str ());
-  if (v != NULL)
+  if (v != nullptr)
     {
       /* if the value is itself an entity key and there's a remainder, walk it */
       if (!rem.empty () && item_kind (st, v) != 0)
@@ -609,10 +609,10 @@ item_prop_terminal (a5_state_t *st, const std::string &key, const std::string &f
       return v;
     }
   const a5_prop_t *pr = a5_prop_find (props, n_props, fn.c_str ());
-  if (pr != NULL && pr->value_node != NULL)
+  if (pr != nullptr && pr->value_node != nullptr)
     { char *d = a5text_eval_description (st, pr->value_node);
       std::string r = d ? d : ""; free (d); return r; }
-  if (pr != NULL)
+  if (pr != nullptr)
     return "";
   if (!rem.empty ()) { *ok = 0; return ""; }
   return "0";
@@ -670,7 +670,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           long sum = 0;
           for (auto &k : ctx.keys)
             { const char *v = a5state_entity_prop (st, k.c_str (), ctx.prop_key.c_str ());
-              if (v) sum += strtol (v, NULL, 10); }
+              if (v) sum += strtol (v, nullptr, 10); }
           return std::to_string (sum);
         }
       if (fn == "Description")
@@ -726,7 +726,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
            property type (Integer/ValueList/StateList/Text/entity-key) keeps the
            long-standing carry-for-.Sum / terminal-first-value behaviour. */
         const a5_propdef_t *pd = a5model_propdef (st->adv, fn.c_str ());
-        if (pd != NULL && streq (pd->type, "SelectionOnly"))
+        if (pd != nullptr && streq (pd->type, "SelectionOnly"))
           {
             /* An argument inverts the filter: `.Isscore(False)` (or `(0)`)
                keeps the members that do NOT carry the marker (ReplaceOOProperty:
@@ -780,7 +780,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         {
           const char *pk = parent_key (st, key.c_str ());
           Ctx nc; if (pk) nc.keys.push_back (pk);
-          if (pk == NULL) { return ""; }
+          if (pk == nullptr) { return ""; }
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       if (fn == "Location")
@@ -821,15 +821,15 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
              "Anonymous". */
           const char *pn = a5state_entity_prop (st, key.c_str (),
                                                 "CharacterProperName");
-          if (pn == NULL || pn[0] == '\0')
-            pn = (c != NULL && c->name != NULL && c->name[0] != '\0')
+          if (pn == nullptr || pn[0] == '\0')
+            pn = (c != nullptr && c->name != nullptr && c->name[0] != '\0')
                    ? c->name : "Anonymous";
           return pn; }
       if (fn == "Descriptor")   return c->n_descriptors > 0 ? c->descriptors[0] : "";
       if (fn == "Exits")
         {
           int ci = a5state_character_index (st, key.c_str ());
-          const char *cl = (ci >= 0) ? st->char_loc[ci] : NULL;
+          const char *cl = (ci >= 0) ? st->char_loc[ci] : nullptr;
           Ctx nc; nc.is_dirs = 1;
           nc.dirs = char_exit_dirs (st, key.c_str (), cl);
           return oo_prop (st, nc, rem, depth + 1, ok);
@@ -876,8 +876,8 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           int ci = a5state_character_index (st, key.c_str ());
           const char *pk = (ci >= 0)
             ? (st->char_onobj[ci] ? st->char_onobj[ci] : st->char_loc[ci])
-            : NULL;
-          if (pk == NULL) return "";
+            : nullptr;
+          if (pk == nullptr) return "";
           Ctx nc; nc.keys.push_back (pk);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
@@ -897,7 +897,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         {
           Ctx nc; nc.is_dirs = 1;
           for (int i = 0; i < 12; i++)
-            if (a5model_exit_dest (st->adv, key.c_str (), kEnumDirs[i]) != NULL)
+            if (a5model_exit_dest (st->adv, key.c_str (), kEnumDirs[i]) != nullptr)
               nc.dirs.push_back (kEnumDirs[i]);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
@@ -929,7 +929,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
                   {
                     const char *dest = a5model_exit_dest (st->adv, key.c_str (),
                                                          kEnumDirs[d]);
-                    if (dest != NULL)
+                    if (dest != nullptr)
                       dests.push_back (dest);
                     break;
                   }
@@ -952,11 +952,11 @@ char *
 a5expr_eval (a5_state_t *st, const char *firstkeys, const char *chain,
              int force_list)
 {
-  if (firstkeys == NULL || chain == NULL)
-    return NULL;
+  if (firstkeys == nullptr || chain == nullptr)
+    return nullptr;
   Ctx ctx = resolve_first (st, firstkeys);
   if (ctx.keys.empty () && !ctx.is_list && !ctx.is_dirs)
-    return NULL;
+    return nullptr;
   /* A plural reference (%objects%/%characters%) is a collection even when it
      bound a single object, so list aggregators (.Sum/.Count/.List) and the
      list .Parent step apply -- e.g. the stock take task's
@@ -968,12 +968,12 @@ a5expr_eval (a5_state_t *st, const char *firstkeys, const char *chain,
   std::string rem = chain;
   while (!rem.empty () && rem[0] == '.') rem.erase (rem.begin ());
   if (rem.empty ())
-    return NULL;
+    return nullptr;
 
   int ok = 1;
   std::string r = oo_prop (st, ctx, rem, 0, &ok);
   if (!ok)
-    return NULL;
+    return nullptr;
   return strdup (r.c_str ());
 }
 
@@ -1053,7 +1053,7 @@ expr_replace_impl (a5_state_t *st, const char *text, int expression)
                     {
                       std::string chain (k, (size_t) (chain_end - k));
                       char *v = a5expr_eval (st, firstkeys.c_str (), chain.c_str ());
-                      if (v != NULL)
+                      if (v != nullptr)
                         {
                           /* Expression mode (Global.vb:645): a non-integer OO
                              value becomes a quoted string literal -- unless the
@@ -1071,9 +1071,9 @@ expr_replace_impl (a5_state_t *st, const char *text, int expression)
                           int quote = 0;
                           if (expression && (p == text || p[-1] != '"'))
                             {
-                              char *endp = NULL;
+                              char *endp = nullptr;
                               (void) strtol (v, &endp, 10);
-                              quote = (v[0] == '\0' || (endp != NULL && *endp != '\0'));
+                              quote = (v[0] == '\0' || (endp != nullptr && *endp != '\0'));
                             }
                           if (quote) out += '"';
                           out += v;

@@ -75,7 +75,7 @@ enum
   OBJ_LIEABLE_MASK = 1 << 1
 };
 
-static scr_prop_setref_t obj_cache_bundle = NULL;
+static scr_prop_setref_t obj_cache_bundle = nullptr;
 static std::vector<scr_byte> obj_kinds;       /* per object, 1 << OBJ_KIND_* */
 static std::vector<scr_int> obj_numbering[OBJ_KIND_COUNT];
 
@@ -109,7 +109,7 @@ obj_forget_bundle (scr_prop_setref_t bundle)
     {
       scr_int kind;
 
-      obj_cache_bundle = NULL;
+      obj_cache_bundle = nullptr;
       obj_kinds.clear ();
       for (kind = 0; kind < OBJ_KIND_COUNT; kind++)
         obj_numbering[kind].clear ();
@@ -258,7 +258,7 @@ obj_cached_where (scr_gameref_t game, scr_int object)
   if (object >= 0 && object < (scr_int) obj_wheres.size ()
       && obj_wheres[object].type != OBJ_WHERE_UNCACHED)
     return &obj_wheres[object];
-  return NULL;
+  return nullptr;
 }
 
 
@@ -394,7 +394,7 @@ obj_state_name (scr_gameref_t game, scr_int objnum)
         count--;
     }
   if (count != 1)
-    return NULL;
+    return nullptr;
 
   /* Find the end of the state string. */
   for (last = first; last < length; last++)

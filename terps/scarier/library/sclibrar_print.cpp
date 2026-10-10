@@ -1259,12 +1259,12 @@ lib_conjugate_verb (const std::string &word)
     "is", "was", "has", "does", "can", "can't", "cannot", "could", "couldn't",
     "must", "might", "may", "will", "won't", "would", "wouldn't", "should",
     "shouldn't", "isn't", "wasn't", "hasn't", "doesn't", "already", "not",
-    NULL
+    nullptr
   };
   static const scr_char *const IRREGULAR[][2] = {
     {"don't", "doesn't"}, {"haven't", "hasn't"}, {"aren't", "isn't"},
     {"are", "is"}, {"have", "has"}, {"do", "does"}, {"go", "goes"},
-    {NULL, NULL}
+    {nullptr, nullptr}
   };
   scr_int index_;
   const size_t length = word.length ();
@@ -1885,5 +1885,5 @@ lib_npc_text_is_default (const scr_char *description)
 scr_bool
 lib_inroomdesc_is_absent (const scr_char *inroomdesc)
 {
-  return inroomdesc == NULL || inroomdesc[0] == NUL;
+  return inroomdesc == nullptr || inroomdesc[0] == NUL;
 }

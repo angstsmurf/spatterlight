@@ -43,12 +43,12 @@ expand_name_part (const a5_state_t *st, const char *s, char **owned)
 {
   static int depth = 0;
   char *p;
-  if (st == NULL || s == NULL || strchr (s, '%') == NULL || depth >= 4)
+  if (st == nullptr || s == nullptr || strchr (s, '%') == nullptr || depth >= 4)
     return s;
   depth++;
   p = a5text_process_noalr ((a5_state_t *) st, s);
   depth--;
-  if (p == NULL)
+  if (p == nullptr)
     return s;
   *owned = p;
   return p;
@@ -58,7 +58,7 @@ char *
 a5text_object_name (const a5_state_t *st, const a5_object_t *o, a5_article_t art)
 {
   sb_t sb;
-  char *own_noun = NULL, *own_prefix = NULL, *own_article = NULL;
+  char *own_noun = nullptr, *own_prefix = nullptr, *own_article = nullptr;
   const char *noun = (o->n_names > 0) ? o->names[0] : o->key;
   const char *prefix = o->prefix;
   const char *article = o->article;
@@ -67,14 +67,14 @@ a5text_object_name (const a5_state_t *st, const a5_object_t *o, a5_article_t art
      (clsUserSession.vb:1972-1982) feed clsObject.FullName too: a renamed
      object displays -- and lists, and %TheObject%s -- under its new noun.
      st may be NULL in naming-only contexts (no runtime state). */
-  if (st != NULL)
+  if (st != nullptr)
     {
       const char *ov;
-      if ((ov = a5state_entity_prop (st, o->key, "_ObjectNoun")) != NULL)
+      if ((ov = a5state_entity_prop (st, o->key, "_ObjectNoun")) != nullptr)
         noun = ov;
-      if ((ov = a5state_entity_prop (st, o->key, "_ObjectPrefix")) != NULL)
+      if ((ov = a5state_entity_prop (st, o->key, "_ObjectPrefix")) != nullptr)
         prefix = ov;
-      if ((ov = a5state_entity_prop (st, o->key, "_ObjectArticle")) != NULL)
+      if ((ov = a5state_entity_prop (st, o->key, "_ObjectArticle")) != nullptr)
         article = ov;
     }
 
@@ -91,16 +91,16 @@ a5text_object_name (const a5_state_t *st, const a5_object_t *o, a5_article_t art
          i.e. the space is appended even when the article is empty, so an
          empty-article object renders with a leading space (e.g. the worn
          "your clothes" -> " your clothes" in an inventory list). */
-      if (article != NULL && article[0] != '\0')
+      if (article != nullptr && article[0] != '\0')
         sb_puts (&sb, article);
       sb_putc (&sb, ' ');
     }
-  if (prefix != NULL && prefix[0] != '\0')
+  if (prefix != nullptr && prefix[0] != '\0')
     {
       sb_puts (&sb, prefix);
       sb_putc (&sb, ' ');
     }
-  sb_puts (&sb, noun != NULL ? noun : "");
+  sb_puts (&sb, noun != nullptr ? noun : "");
   free (own_noun);
   free (own_prefix);
   free (own_article);
@@ -125,18 +125,18 @@ char_perspective (const a5_state_t *st, const a5_character_t *c)
      load-time perspective (Xanix's King Kelson stays "you"; The Salvage's
      Captain Pearson renders by name, because its Player char has no
      <Perspective>), and everyone else renders third person. */
-  if (c == NULL)
+  if (c == nullptr)
     return 2;
-  if (st == NULL || !streq (c->key, a5state_player_key (st)))
+  if (st == nullptr || !streq (c->key, a5state_player_key (st)))
     return 3;
-  const a5_character_t *orig = NULL;
+  const a5_character_t *orig = nullptr;
   for (int i = 0; i < st->adv->n_characters; i++)
-    if (st->adv->characters[i].type != NULL
+    if (st->adv->characters[i].type != nullptr
         && ci_eq (st->adv->characters[i].type, "Player"))
       { orig = &st->adv->characters[i]; break; }
-  if (orig == NULL)
+  if (orig == nullptr)
     orig = c;
-  if (orig->perspective != NULL)
+  if (orig->perspective != nullptr)
     {
       if (ci_eq (orig->perspective, "FirstPerson"))  return 1;
       if (ci_eq (orig->perspective, "SecondPerson")) return 2;
@@ -144,8 +144,8 @@ char_perspective (const a5_state_t *st, const a5_character_t *c)
     }
   /* No stored <Perspective>: the runner's loader records ThirdPerson for files
      >= 5.00002 and forces SecondPerson for older ones (FileIO.vb:1776-7). */
-  if (st->adv->version != NULL
-      && strtod (st->adv->version, NULL) < 5.00002)
+  if (st->adv->version != nullptr
+      && strtod (st->adv->version, nullptr) < 5.00002)
     return 2;
   return 3;
 }
@@ -158,9 +158,9 @@ std::string
 char_descriptor_name (const a5_character_t *c, const char *article)
 {
   std::string out;
-  if (article != NULL && article[0] != '\0')
+  if (article != nullptr && article[0] != '\0')
     { out += article; out += ' '; }
-  if (c->prefix != NULL && c->prefix[0] != '\0')
+  if (c->prefix != nullptr && c->prefix[0] != '\0')
     { out += c->prefix; out += ' '; }
   out += c->descriptors[0];
   return out;
@@ -174,9 +174,9 @@ const char *
 char_proper_name_raw (const a5_state_t *st, const a5_character_t *c)
 {
   const char *pn = c ? a5state_entity_prop (st, c->key, "CharacterProperName")
-                     : NULL;
-  if (pn == NULL || pn[0] == '\0')
-    pn = (c != NULL && c->name != NULL && c->name[0] != '\0') ? c->name
+                     : nullptr;
+  if (pn == nullptr || pn[0] == '\0')
+    pn = (c != nullptr && c->name != nullptr && c->name[0] != '\0') ? c->name
                                                               : "Anonymous";
   return pn;
 }
@@ -214,7 +214,7 @@ character_display_name (a5_state_t *st, const a5_character_t *c, int definite,
      render itself marks the character Introduced.  Which renders count as
      bDisplaying ones is spelled out on a5state.h's intro_active. */
   if (displaying && st->intro_active
-      && c != NULL && st->char_introduced != NULL)
+      && c != nullptr && st->char_introduced != nullptr)
     {
       int intro_ci = a5state_character_index (st, c->key);
       if (intro_ci >= 0)
@@ -233,13 +233,13 @@ character_display_name (a5_state_t *st, const a5_character_t *c, int definite,
      back to the proper name when there is no descriptor to render -- this also
      guarantees the descriptor branch below only runs with n_descriptors > 0,
      so c->descriptors[0] is never a NULL dereference. */
-  int known_set = c != NULL && a5state_entity_has_prop (st, c->key, "Known");
-  int use_proper = known_set || c == NULL || c->n_descriptors == 0;
+  int known_set = c != nullptr && a5state_entity_has_prop (st, c->key, "Known");
+  int use_proper = known_set || c == nullptr || c->n_descriptors == 0;
   if (use_proper)
     return strdup (char_proper_name_raw (st, c));
   /* An empty model article stays empty even when definite. */
-  const char *article = (c->article != NULL && c->article[0] != '\0')
-                          ? (definite ? "the" : c->article) : NULL;
+  const char *article = (c->article != nullptr && c->article[0] != '\0')
+                          ? (definite ? "the" : c->article) : nullptr;
   return strdup (char_descriptor_name (c, article).c_str ());
 }
 
@@ -269,24 +269,24 @@ character_name (a5_state_t *st, const a5_character_t *c, a5_pronoun_t pr,
      when the previous mention was Subjective (vb:352).  Only the
      %CharacterName% function path consults (the runner's other Name() call sites pass
      bAllowPronouns:=False or don't run under bDisplaying). */
-  if (consult_ledger && c != NULL)
+  if (consult_ledger && c != nullptr)
     for (int i = st->n_pron - 1; i >= 0; i--)
-      if (st->pron_key[i] != NULL && streq (st->pron_key[i], c->key))
+      if (st->pron_key[i] != nullptr && streq (st->pron_key[i], c->key))
         {
           /* clsCharacter.Name marks Introduced (vb:333) BEFORE the pronoun
              branch, so a reply that pronoun-replaces the name ("He looks up
              at ye") still introduces the character -- the next descriptor
              render is definite.  Same intro_active gate as
              character_display_name. */
-          if (st->intro_active && st->char_introduced != NULL)
+          if (st->intro_active && st->char_introduced != nullptr)
             {
               int intro_ci = a5state_character_index (st, c->key);
               if (intro_ci >= 0)
                 st->char_introduced[intro_ci] = 1;
             }
           const char *g = a5state_entity_prop (st, c->key, "Gender");
-          int male   = g != NULL && strcasecmp (g, "Male") == 0;
-          int female = g != NULL && strcasecmp (g, "Female") == 0;
+          int male   = g != nullptr && strcasecmp (g, "Male") == 0;
+          int female = g != nullptr && strcasecmp (g, "Female") == 0;
           a5_pronoun_t want = pr;
           if (st->pron_pron[i] == (int) A5_PRO_SUBJ && pr == A5_PRO_OBJ)
             want = A5_PRO_REFL;
@@ -321,7 +321,7 @@ char *
 a5text_character_oo_name (a5_state_t *st, const a5_character_t *c,
                           const char *args)
 {
-  std::string a = args != NULL ? args : "";
+  std::string a = args != nullptr ? args : "";
   for (char &ch : a) ch = (char) tolower ((unsigned char) ch);
   auto has = [&](const char *n) { return a.find (n) != std::string::npos; };
   /* ContainsWord: whole-word, so "indefinite" does not answer for "definite". */
@@ -366,13 +366,13 @@ a5text_character_oo_name (a5_state_t *st, const a5_character_t *c,
   int replace_with_pronoun = force_pronoun;
   if (st->intro_active)
     {
-      if (!explicit_article && !art_none && !art_definite && c != NULL
-          && st->char_introduced != NULL)
+      if (!explicit_article && !art_none && !art_definite && c != nullptr
+          && st->char_introduced != nullptr)
         {
           int ci = a5state_character_index (st, c->key);
           if (ci >= 0 && st->char_introduced[ci]) art_definite = 1;
         }
-      if (c != NULL && st->char_introduced != NULL)
+      if (c != nullptr && st->char_introduced != nullptr)
         {
           int ci = a5state_character_index (st, c->key);
           if (ci >= 0) st->char_introduced[ci] = 1;
@@ -386,14 +386,14 @@ a5text_character_oo_name (a5_state_t *st, const a5_character_t *c,
     return character_name (st, c, pr);
 
   /* The non-pronoun branch: Known -> ProperName, else Descriptor(Article). */
-  int known_set = c != NULL && a5state_entity_has_prop (st, c->key, "Known");
+  int known_set = c != nullptr && a5state_entity_has_prop (st, c->key, "Known");
   char *nm;
-  if (known_set || c == NULL || c->n_descriptors == 0)
+  if (known_set || c == nullptr || c->n_descriptors == 0)
     nm = strdup (char_proper_name_raw (st, c));
   else
     {
-      const char *article = (!art_none && c->article != NULL && c->article[0] != '\0')
-                              ? (art_definite ? "the" : c->article) : NULL;
+      const char *article = (!art_none && c->article != nullptr && c->article[0] != '\0')
+                              ? (art_definite ? "the" : c->article) : nullptr;
       nm = strdup (char_descriptor_name (c, article).c_str ());
     }
   return (pr == A5_PRO_POSS) ? possessive (nm) : nm;
@@ -407,7 +407,7 @@ a5text_char_proper_name (a5_state_t *st, const char *charkey)
      bDisplaying (clsCharacter.vb:1558/1576 -- Display gets the composed
      string later), so no Introduced article upgrade ("Your double enters",
      not "The double enters") and no marking. */
-  char *nm = character_display_name (st, ci >= 0 ? &st->adv->characters[ci] : NULL, 0,
+  char *nm = character_display_name (st, ci >= 0 ? &st->adv->characters[ci] : nullptr, 0,
                                      /*displaying*/ 0);
   /* ToProper(.Name, bForceRestLower:=False): upper-case the first char only. */
   if (nm[0])
@@ -436,7 +436,7 @@ ref_slot_name (const char *name, std::string &slot)
     { "location",  "ReferencedLocation" },
     { "item",      "ReferencedItem" },
   };
-  if (name == NULL)
+  if (name == nullptr)
     return 0;
   if (ci_eq (name, "objects"))
     { slot = "ReferencedObjects"; return 1; }
@@ -484,7 +484,7 @@ is_obj_char_ref (const char *name)
 char *
 oo_firstkey (a5_state_t *st, const char *name)
 {
-  const char *k = NULL;
+  const char *k = nullptr;
   if (ci_eq (name, "player"))
     return strdup (a5state_player_key (st));
   /* The singular %object%/%object1% (resp. %character%/%character1%) token
@@ -494,10 +494,10 @@ oo_firstkey (a5_state_t *st, const char *name)
      plural %objects% / index forms %object2%.. and override matching are
      unaffected (they read the still-bound key). */
   if ((ci_eq (name, "object") || ci_eq (name, "object1")) && st->ref_object1_plural)
-    return NULL;
+    return nullptr;
   if ((ci_eq (name, "character") || ci_eq (name, "character1"))
       && st->ref_character1_plural)
-    return NULL;
+    return nullptr;
   /* %objectN% / %characterN% / %locationN% / %itemN% command references
      resolve to their bound KEY (Global.vb:1770+ substitutes
      MatchingPossibilities(0) for the ReferenceMatches).  The indexed
@@ -510,9 +510,9 @@ oo_firstkey (a5_state_t *st, const char *name)
   std::string slot;
   if (ref_slot_name (name, slot))
     k = a5state_lookup_ref (st, slot.c_str ());
-  if (k == NULL && (ci_eq (name, "object") || ci_eq (name, "objects")))
+  if (k == nullptr && (ci_eq (name, "object") || ci_eq (name, "objects")))
     k = a5state_lookup_ref (st, "ReferencedObject");
-  if (k != NULL)
+  if (k != nullptr)
     return strdup (k);
   /* a literal entity key (object/character/location/group)? */
   if (a5model_object (st->adv, name) || a5model_character (st->adv, name)
@@ -521,5 +521,5 @@ oo_firstkey (a5_state_t *st, const char *name)
   for (int i = 0; i < st->adv->n_groups; i++)
     if (streq (st->adv->groups[i].key, name))
       return strdup (name);
-  return NULL;
+  return nullptr;
 }

@@ -52,7 +52,7 @@ static scr_commands_t MOVE_COMMANDS_4[] = {
   {"{go {to {the}}} [down/d]", lib_cmd_go_down},
   {"{go {to {the}}} [in/inside/enter]", lib_cmd_go_in},
   {"{go {to {the}}} [out/o/outside/exit]", lib_cmd_go_out},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 /* Movement commands for the eight point compass. */
@@ -69,7 +69,7 @@ static scr_commands_t MOVE_COMMANDS_8[] = {
   {"{go {to {the}}} [southeast/south-east/se]", lib_cmd_go_southeast},
   {"{go {to {the}}} [northwest/north-west/nw]", lib_cmd_go_northwest},
   {"{go {to {the}}} [southwest/south-west/sw]", lib_cmd_go_southwest},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 /* "Priority" library commands, may take precedence over the game. */
@@ -200,7 +200,7 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
 #else
   {"[inventory/inv/i]", lib_cmd_inventory},
 #endif
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 /* Standard library commands, other than movement and priority above. */
@@ -584,7 +584,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
 
   {"[count/num]", lib_cmd_count},
 
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 /*
@@ -630,7 +630,7 @@ static scr_commands_t STANDARD_TAKE_FROM_COMMANDS[] = {
   {"[[get/take/remove/extract/pick] [all/everything] from/empty] *",
    lib_cmd_take_from_nowhere_all},
   {"[get/take/remove/extract/pick] %text% from *", lib_cmd_take_from_nowhere},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 /*
@@ -650,7 +650,7 @@ static scr_commands_t STANDARD_PUT_COMMANDS[] = {
   {"[drop/put down] %text% [in/into/inside {of}] *", lib_cmd_put_in_nowhere},
   {"put %text% [on/onto/on top of] *", lib_cmd_put_on_nowhere},
   {"[drop/put down] %text% [on/onto/on top of] *", lib_cmd_put_on_nowhere},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
@@ -669,7 +669,7 @@ static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
    */
   {"[drop/put down] *", lib_cmd_drop_absent_pre390},
   {"leave *", lib_cmd_leave_absent_pre400},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 /*
@@ -685,7 +685,7 @@ static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
 scr_commands_t EXAMINE_ABOVE_REFUSAL_390_COMMANDS[] = {
   {"[x/ex/exam/examine/look {at}] %object%", lib_cmd_examine_absent},
   {"[x/ex/exam/examine/look {at}] *", lib_cmd_examine_other},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
@@ -912,7 +912,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   /* Scarier debugger hook command, placed last just in case... */
   {"{#}debug{ger}", debug_cmd_debugger},
 
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 
@@ -1306,7 +1306,7 @@ static const scr_repeat_survivor_t REPEAT_SURVIVOR_COMMANDS[] = {
   {"[talk/speak] to %character% *", TRUE},
   {"ask %character% *", TRUE},
 
-  {NULL, FALSE}
+  {nullptr, FALSE}
 };
 
 scr_bool
@@ -1468,7 +1468,7 @@ run_npc_row_blocked (const scr_commands_t *command)
   if (command->handler == lib_cmd_attack_npcs
       || command->handler == lib_cmd_attack_npcs_with)
     return TRUE;
-  if (strstr (command->command, "%character%") == NULL)
+  if (strstr (command->command, "%character%") == nullptr)
     return FALSE;
   return command->handler != lib_cmd_give_object_npc
          && command->handler != lib_cmd_ask_npc_about
@@ -1503,7 +1503,7 @@ run_is_with_deferred_handler (scr_bool (*handler) (scr_gameref_t))
     lib_cmd_fight_npc_with, lib_cmd_hit_npc_with, lib_cmd_kill_npc,
     lib_cmd_kill_npc_with, lib_cmd_shoot_npc, lib_cmd_shoot_npc_with,
     lib_cmd_slap_npc, lib_cmd_slap_npc_with, lib_cmd_stab_npc,
-    lib_cmd_stab_npc_with, lib_cmd_throw_npc_with, NULL
+    lib_cmd_stab_npc_with, lib_cmd_throw_npc_with, nullptr
   };
 
   for (scr_int index_ = 0; DEFERRED[index_]; index_++)
@@ -1699,7 +1699,7 @@ run_standard_give_npc_commands (scr_gameref_t game, const scr_char *string)
     {"give %object% to %character%", lib_cmd_give_object_npc},
     {"give %character% %object%", lib_cmd_give_object_npc},
     {"give %object% %character%", lib_cmd_give_object_npc},
-    {NULL, NULL}
+    {nullptr, nullptr}
   };
 
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
@@ -1753,7 +1753,7 @@ static scr_commands_t STANDARD_ENDED_FALLBACK_COMMANDS[] = {
   {"hint *", lib_cmd_hint},
   {"kiss *", lib_cmd_kiss_ended_400},
   {"* %character% *", lib_cmd_verb_npc},
-  {NULL, NULL}
+  {nullptr, nullptr}
 };
 
 
@@ -1845,7 +1845,7 @@ static const scr_char *const THEREST_ARMS_380[] = {
   "cry", "wait", "buy", "sell", "break", "destroy", "smash", "kiss", "fly",
   "feed", "feel", "please", "fix", "repair", "mend", "date", "time",
   "sleep", "sit on", "sit in", "stand on", "stand in", "lie on", "lie in",
-  NULL
+  nullptr
 };
 
 static const scr_char *const THEREST_ARMS_390[] = {
@@ -1858,7 +1858,7 @@ static const scr_char *const THEREST_ARMS_390[] = {
   "wait", "examine", "ex", "x", "buy", "sell", "break", "destroy", "smash",
   "kiss", "fly", "feed", "feel", "please", "fix", "repair", "mend", "date",
   "time", "sleep", "sit on", "sit in", "stand on", "stand in", "lie on",
-  "lie in", "xyzzy", NULL
+  "lie in", "xyzzy", nullptr
 };
 
 /* The arm table for a version; run370 has no shake arm. */
@@ -1927,7 +1927,7 @@ run_therest_winner_pre400 (scr_int version, const scr_char *line,
                            scr_int *offset)
 {
   const scr_char *const *arm;
-  const scr_char *winner = NULL;
+  const scr_char *winner = nullptr;
 
   for (arm = run_therest_arms (version); *arm; arm++)
     {
@@ -2050,7 +2050,7 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
     "strip", "open", "close", "x", "examine", "look at", "ex", "exam", "read",
     "give", "wait", "where", "find", "locate", "goto", "go to", "thank",
     "when", "who", "what", "how", "can", "why", "score", "ask", "talk", "say",
-    NULL
+    nullptr
   };
   const scr_int version = run_get_version (gs_get_bundle (game));
   const scr_char *const *word;
@@ -2114,7 +2114,7 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
     "get", "take", "pick", "from", "drop", "put", "leave", "wear", "remove",
     "strip", "sit", "stand", "lie", "x", "examine", "look at", "ex", "exam",
     "read", "shit", "fuck", "bastard", "cunt", "crap", "hell", "shag",
-    "bollocks", "bollox", "piss", "bugger", "bloody", NULL
+    "bollocks", "bollox", "piss", "bugger", "bloody", nullptr
   };
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_int version = prop_get_taf_version (bundle);
@@ -2194,7 +2194,7 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
     "strip", "sit", "stand", "lie", "x", "examine", "look at", "ex", "exam",
     "read", "score", "ask", "talk", "up", "down", "in", "out",
     "shit", "fuck", "bastard", "cunt", "crap", "hell",
-    "shag", "bollocks", "bollox", "piss", NULL
+    "shag", "bollocks", "bollox", "piss", nullptr
   };
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);

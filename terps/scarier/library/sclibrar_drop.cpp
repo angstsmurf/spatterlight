@@ -48,7 +48,7 @@ lib_move_onto (scr_gameref_t game, scr_int object, scr_int target)
 }
 
 static const lib_move_verb_t LIB_DROP_VERB = {
-  lib_move_to_room, NULL,
+  lib_move_to_room, nullptr,
   {"You drop ", "I drop ", "%player% drop "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
   '.',
@@ -58,7 +58,7 @@ static const lib_move_verb_t LIB_DROP_VERB = {
 };
 
 static const lib_move_verb_t LIB_REMOVE_VERB = {
-  lib_move_to_player, NULL,
+  lib_move_to_player, nullptr,
   {"You remove ", "I remove ", "%player% remove "},
   {"You are not wearing ", "I am not wearing ", "%player% is not wearing "},
   '!',
@@ -71,7 +71,7 @@ const lib_move_verb_t LIB_PUT_ON_VERB = {
   {"You put ", "I put ", "%player% put "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
   '.',
-  {NULL, NULL, NULL}, '.', FALSE
+  {nullptr, nullptr, nullptr}, '.', FALSE
 };
 
 
@@ -317,7 +317,7 @@ lib_cmd_drop_all (scr_gameref_t game)
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
   objects = lib_apply_filter (game,
-                              lib_drop_filter, -1, FALSE, NULL);
+                              lib_drop_filter, -1, FALSE, nullptr);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_drop_backend (game);
@@ -695,7 +695,7 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
     return FALSE;
 
   line = run_normalise_put_line (input);
-  if (lib_put_split_400 (game, line, FALSE, TRUE, NULL) != std::string::npos)
+  if (lib_put_split_400 (game, line, FALSE, TRUE, nullptr) != std::string::npos)
     return FALSE;
 
   object = lib_name_object_resolve_400 (game, input, 2, &pending, &last_tied,
@@ -1141,7 +1141,7 @@ lib_cmd_drop_except_multiple (scr_gameref_t game)
     return lib_drop_multiple_common (game, TRUE);
 
   gs_set_multiple_references (game);
-  if (lib_apply_filter (game, lib_drop_filter, -1, FALSE, NULL) == 0)
+  if (lib_apply_filter (game, lib_drop_filter, -1, FALSE, nullptr) == 0)
     {
       gs_clear_multiple_references (game);
       pf_buffer_string (filter,
@@ -1632,7 +1632,7 @@ lib_cmd_wear_all (scr_gameref_t game)
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
   objects = lib_apply_filter (game,
-                              lib_wear_filter, -1, FALSE, NULL);
+                              lib_wear_filter, -1, FALSE, nullptr);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_wear_backend (game);
@@ -1836,9 +1836,10 @@ lib_wear_would_act_390 (scr_gameref_t game)
 
   if (version >= TAF_VERSION_400)
     {
-      object = lib_verb_object_resolve_400_string (game, line, NULL, TRUE);
+      object = lib_verb_object_resolve_400_string (game, line, nullptr, TRUE);
       if (object < 0)
-        object = lib_verb_object_resolve_400_string (game, line, NULL, FALSE);
+        object = lib_verb_object_resolve_400_string (game, line,
+                                                     nullptr, FALSE);
       return object >= 0
              && (lib_wear_filter (game, object, -1)
                  || lib_remove_filter (game, object, -1));
@@ -2030,7 +2031,7 @@ enum
 static const scr_char *const LIB_PRE400_VERB_WORDS[] = {
   "put down", "put on", "take off", "look at", "look in", "put",
   "get", "take", "pick", "drop", "leave", "wear", "remove",
-  "examine", "exam", "read", "ex", "x", NULL
+  "examine", "exam", "read", "ex", "x", nullptr
 };
 
 static const scr_char *const LIB_PRE400_CANONICAL[LIB_PRE400_HANDLERS] = {
@@ -2133,7 +2134,7 @@ lib_pre400_handler_words_in (scr_gameref_t game, const scr_char *line,
 static scr_int
 lib_pre400_handler_words (scr_gameref_t game, const scr_char *line,
                           scr_bool present[LIB_PRE400_HANDLERS],
-                          scr_bool *slot_line = NULL)
+                          scr_bool *slot_line = nullptr)
 {
   /* Deliberate deviation (2026-09-30): a handler word inside a longer
      object or character name enters no handler; see lib_mask_long_names(). */
@@ -2144,8 +2145,8 @@ lib_pre400_handler_words (scr_gameref_t game, const scr_char *line,
       scr_bool runner[LIB_PRE400_HANDLERS] = { FALSE };
       scr_bool ours[LIB_PRE400_HANDLERS] = { FALSE };
 
-      lib_pre400_handler_words_in (game, line, runner, NULL);
-      lib_pre400_handler_words_in (game, masked.c_str (), ours, NULL);
+      lib_pre400_handler_words_in (game, line, runner, nullptr);
+      lib_pre400_handler_words_in (game, masked.c_str (), ours, nullptr);
       if (memcmp (runner, ours, sizeof runner) != 0)
         SCR_DEVIATION ("mask_handlers", "masked=\"%s\"", masked.c_str ());
     }
@@ -2415,7 +2416,7 @@ lib_cmd_remove_all (scr_gameref_t game)
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
   objects = lib_apply_filter (game,
-                              lib_remove_filter, -1, FALSE, NULL);
+                              lib_remove_filter, -1, FALSE, nullptr);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_remove_backend (game);

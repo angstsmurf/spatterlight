@@ -72,7 +72,7 @@ msg_has_output (const char *m)
      pause points and \006<number>\006 image slots) are likewise not output --
      they stand for the same stripped tags, so a message must be judged empty
      or not identically in both modes. */
-  if (m == NULL)
+  if (m == nullptr)
     return 0;
   for (; *m != '\0'; m++)
     {
@@ -81,7 +81,7 @@ msg_has_output (const char *m)
           /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024 /
              \026<seconds>\026 / \027<colour>\027 span (or a stray mark). */
           const char *e = strchr (m + 1, *m);
-          if (e == NULL)
+          if (e == nullptr)
             continue;
           m = e;
         }
@@ -101,7 +101,7 @@ msg_has_output (const char *m)
 static int
 msg_ends_with_cls (const char *m)
 {
-  size_t n = m != NULL ? strlen (m) : 0;
+  size_t n = m != nullptr ? strlen (m) : 0;
   while (n > 0)
     {
       char c = m[n - 1];
@@ -143,7 +143,7 @@ fd_has_output (a5_state_t *st, const char *raw)
 {
   const char *p;
   int i;
-  if (raw == NULL || raw[0] == '\0')
+  if (raw == nullptr || raw[0] == '\0')
     return 0;
   /* StripCarats: is there any character outside a <...> tag? */
   for (p = raw; *p; )
@@ -168,7 +168,7 @@ fd_has_output (a5_state_t *st, const char *raw)
   }
   /* An ALR may rewrite the whole tag-only string into something visible. */
   for (i = 0; i < st->adv->n_alrs; i++)
-    if (st->adv->alrs[i].old_text != NULL
+    if (st->adv->alrs[i].old_text != nullptr
         && strcmp (st->adv->alrs[i].old_text, raw) == 0)
       return 1;
   return 0;
@@ -177,7 +177,7 @@ fd_has_output (a5_state_t *st, const char *raw)
 /* The live run, for the a5expr event-property hook (event timers live here, not
    in a5_state).  Set in a5run_new; single-run headless harness, so a bare static
    is sufficient (mirrors the single global a5sexpr_rng_hook). */
-static a5_run_t *g_event_hook_run = NULL;
+static a5_run_t *g_event_hook_run = nullptr;
 
 /* a5expr_event_prop_hook: Event.Position -> TimerFromStartOfEvent
    (Length.Value - TimerToEndOfEvent), Event.Length -> Length.Value. */
@@ -185,7 +185,7 @@ static int
 a5run_event_prop (const char *event_key, const char *prop, long *out)
 {
   a5_run_t *run = g_event_hook_run;
-  if (run == NULL || event_key == NULL) return 0;
+  if (run == nullptr || event_key == nullptr) return 0;
   for (int i = 0; i < run->adv->n_events; i++)
     if (streq (run->adv->events[i].key, event_key))
       {
@@ -216,8 +216,8 @@ a5run_location_name (a5_run_t *run)
   const char *loc = a5state_player_location (run->st);
   char *name;
 
-  if (loc == NULL)
-    return NULL;
+  if (loc == nullptr)
+    return nullptr;
   name = a5text_location_short_plain (run->st, loc);
   a5text_strip_pres_marks (name);
   return name;
@@ -244,8 +244,8 @@ a5run_turns (a5_run_t *run) { return run->st->turns; }
 
 /* ------------------------------------------------------------- media capture */
 
-static a5run_media_resolver_t a5run_media_resolver = NULL;
-static void *a5run_media_resolver_ctx = NULL;
+static a5run_media_resolver_t a5run_media_resolver = nullptr;
+static void *a5run_media_resolver_ctx = nullptr;
 
 void
 a5run_set_media_resolver (a5run_media_resolver_t resolver, void *ctx)
@@ -270,8 +270,8 @@ a5run_media_cb (void *ctx, int kind, const char *src, int channel, int loop)
   ev.kind = kind;
   ev.channel = channel;
   ev.loop = loop;
-  ev.number = (src != NULL) ? a5model_resource_for_file (run->adv, src) : -1;
-  if (src != NULL && a5run_media_resolver != NULL)
+  ev.number = (src != nullptr) ? a5model_resource_for_file (run->adv, src) : -1;
+  if (src != nullptr && a5run_media_resolver != nullptr)
     ev.number = a5run_media_resolver (a5run_media_resolver_ctx, src,
                                       kind == A5_MEDIA_IMAGE, ev.number);
   ev.shown = 0;
@@ -283,10 +283,10 @@ a5run_media_cb (void *ctx, int kind, const char *src, int channel, int loop)
     for (size_t i = 0; i < run->media->size (); i++)
       if ((*run->media)[i].kind == A5_MEDIA_IMAGE
           && (*run->media)[i].number == ev.number
-          && (ev.number > 0 || (*run->media_src)[i] == (src != NULL ? src : "")))
+          && (ev.number > 0 || (*run->media_src)[i] == (src != nullptr ? src : "")))
         return ev.number;
   run->media->push_back (ev);
-  run->media_src->push_back (src != NULL ? src : "");
+  run->media_src->push_back (src != nullptr ? src : "");
   return kind == A5_MEDIA_IMAGE ? ev.number
                                 : (int) run->media->size () - 1;
 }
@@ -303,7 +303,7 @@ a5run_media_begin (a5_run_t *run)
 static void
 a5run_media_end (void)
 {
-  a5text_set_media_sink (NULL, NULL);
+  a5text_set_media_sink (nullptr, nullptr);
 }
 
 int
@@ -313,7 +313,7 @@ const a5_media_event_t *
 a5run_media_get (a5_run_t *run, int i)
 {
   if (i < 0 || (size_t) i >= run->media->size ())
-    return NULL;
+    return nullptr;
   return &(*run->media)[i];
 }
 
@@ -321,7 +321,7 @@ const char *
 a5run_media_src (a5_run_t *run, int i)
 {
   if (i < 0 || (size_t) i >= run->media_src->size ())
-    return NULL;
+    return nullptr;
   return (*run->media_src)[i].c_str ();
 }
 
@@ -337,8 +337,8 @@ a5run_new (const a5_adventure_t *adv)
 {
   a5_run_t *run;
   int i;
-  if (adv == NULL)
-    return NULL;
+  if (adv == nullptr)
+    return nullptr;
   /* Deterministic RNG sequence per game (seed 1234), like the other Scarier
      headless engines; routes RAND through the shared erkyrath_random.  When the
      v5 path is wired into Spatterlight this should honour the determinism /
@@ -364,7 +364,7 @@ a5run_new (const a5_adventure_t *adv)
   run->order = new std::vector<int>;
   run->events = new std::vector<a5_event_rt> (adv->n_events);
   run->events_running = 0;
-  run->event_out = NULL;
+  run->event_out = nullptr;
   for (i = 0; i < adv->n_events; i++)
     {
       a5_event_rt &rt = (*run->events)[i];
@@ -415,23 +415,23 @@ a5run_new (const a5_adventure_t *adv)
   run->amb_active = 0;
   run->amb_task_index = run->amb_command_index = -1;
   run->amb_ref_type = 'o';
-  run->known_words = NULL;
-  run->resp = NULL;
-  run->ev_seen = NULL;
-  run->exec_scope = NULL;
-  run->comp_defers = NULL;
+  run->known_words = nullptr;
+  run->resp = nullptr;
+  run->ev_seen = nullptr;
+  run->exec_scope = nullptr;
+  run->comp_defers = nullptr;
   run->display_defers = new std::vector<std::string>;
   run->defer_look = 0;
   run->look_pending = 0;
   run->look_pos = 0;
   run->task_raw_output = 0;
   run->in_ev_attempt = 0;
-  run->ev_tbl = NULL;
+  run->ev_tbl = nullptr;
   run->in_time_tick = 0;
   run->real_time = 0;
   run->cur_score_ti = -1;
-  run->look_pinned = NULL;
-  run->pending_failover = NULL;   /* not value-initialized by `new a5_run_s` */
+  run->look_pinned = nullptr;
+  run->pending_failover = nullptr;   /* not value-initialized by `new a5_run_s` */
   run->tasks_to_run = new std::vector<std::string>;
   for (i = 0; i < adv->n_tasks; i++)
     run->order->push_back (i);
@@ -447,7 +447,7 @@ a5run_new (const a5_adventure_t *adv)
 void
 a5run_free (a5_run_t *run)
 {
-  if (run == NULL)
+  if (run == nullptr)
     return;
   a5state_free (run->st);
   free (run->look_pinned);
@@ -551,7 +551,7 @@ run_remembered (a5_run_t *run, const char *chosen, sb_t *out)
         return 0;
       if (mr == 0)
         continue;
-      if (resolve_refine (run, t, &m, run->amb_ref_name.c_str (), chosen, NULL)
+      if (resolve_refine (run, t, &m, run->amb_ref_name.c_str (), chosen, nullptr)
           == RR_OK)
         resolved = 1;
     }
@@ -609,7 +609,7 @@ rematch_resolve (a5_run_t *run, int ti, int ci, const std::string &in,
         break;
       if (mr == 0)
         continue;
-      r = resolve_refine (run, t, m, NULL, NULL, NULL);
+      r = resolve_refine (run, t, m, nullptr, nullptr, nullptr);
       if (r == RR_NOREF && !have_noref)
         { noref_m = *m; have_noref = 1; }
       if (r != RR_NOMATCH && r != RR_NOREF)
@@ -618,7 +618,7 @@ rematch_resolve (a5_run_t *run, int ti, int ci, const std::string &in,
   if (have_noref)
     {
       *m = noref_m;
-      resolve_refine (run, t, m, NULL, NULL, NULL);
+      resolve_refine (run, t, m, nullptr, nullptr, nullptr);
       return 1;
     }
   return r != RR_NOMATCH;
@@ -642,7 +642,7 @@ run_noref (a5_run_t *run, int ti, int ci, const std::string &in, sb_t *out)
   if (!rematch_resolve (run, ti, ci, in, &m))     /* binds the resolvable refs */
     return 0;
   const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
-  if (fm == NULL)
+  if (fm == nullptr)
     return 0;
   /* bDisplaying only when this render is the one the player sees.  With
      out == NULL the caller is the HighestPriorityPassingTask predictor, which
@@ -651,10 +651,10 @@ run_noref (a5_run_t *run, int ti, int ci, const std::string &in, sb_t *out)
      not mark characters Introduced (cf. the CharHereDesc probe that used to
      mark Anno 1700's Susan a turn early). */
   char *fmsg;
-  { a5_intro_guard ig (st, out != NULL);
+  { a5_intro_guard ig (st, out != nullptr);
     fmsg = a5text_describe (st, fm); }
   int has = fmsg[0] != '\0';
-  if (has && out != NULL)
+  if (has && out != nullptr)
     sb_puts (out, fmsg);
   free (fmsg);
   return has;
@@ -796,7 +796,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                              sizeof st->scan_text[slot] - 1);
                     st->scan_text[slot][sizeof st->scan_text[slot] - 1] = '\0';
                   }
-              r = resolve_refine (run, t, &m, NULL, NULL, &this_amb);
+              r = resolve_refine (run, t, &m, nullptr, nullptr, &this_amb);
               if (r == RR_NOREF && !have_noref_var)
                 { noref_m = m; have_noref_var = 1; }
               if (r != RR_NOMATCH && r != RR_NOREF)
@@ -808,7 +808,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                  bindings may have been clobbered by later variants' probes --
                  re-resolve to restore them and the amb info). */
               m = noref_m;
-              r = resolve_refine (run, t, &m, NULL, NULL, &this_amb);
+              r = resolve_refine (run, t, &m, nullptr, nullptr, &this_amb);
             }
           if (r == RR_NOMATCH)
             continue;
@@ -916,7 +916,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
               if (!*have_noref)
                 { *have_noref = 1; *noref_ti = ti; *noref_ci = ci; }
               else if (st->adv->hp_passing
-                       && run_noref (run, ti, ci, in, NULL))
+                       && run_noref (run, ti, ci, in, nullptr))
                 { *noref_ti = ti; *noref_ci = ci; }
               continue;
             }
@@ -932,12 +932,12 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                  response passed and the input contained "all".  vb:789 is a
                  literal Display(task.FailOverride.ToString) over a raw
                  clsDescription, so the expansion happens with bDisplaying set. */
-              if (run->pending_failover != NULL)
+              if (run->pending_failover != nullptr)
                 {
                   char *fo;
                   { a5_intro_guard ig (st, 1);
                     fo = a5text_describe (st, run->pending_failover); }
-                  run->pending_failover = NULL;
+                  run->pending_failover = nullptr;
                   if (msg_has_output (fo)) { sb_pspace (out); sb_puts (out, fo); }
                   free (fo);
                   return 1;
@@ -959,7 +959,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                      Silver Bullets sets this, so its refless "LOOK" peephole
                      task falls through to the real Look. */
               const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
-              if (fm == NULL)
+              if (fm == nullptr)
                 /* The task's own restrictions named no failing message (e.g. a
                    malformed BracketSequence whose evaluation calls no single
                    restriction).  The Adrift 5 runner then still has sRestrictionText
@@ -970,7 +970,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                    "%CharacterName% can't see %TheObject[%object%]%." (rendered
                    with its empty references as "You can't see nothing."). */
                 fm = st->restriction_text;
-              if (fm != NULL)
+              if (fm != nullptr)
                 {
                   /* Raw into AddResponse (vb:1247): expanded inside Display. */
                   char *fmsg;
@@ -1052,9 +1052,9 @@ emit_end_prompt (sb_t *out)
 {
   static const char *kPromptSegs[] = {
     "Would you like to ", "restart", ", ", "restore", " a saved game, ",
-    "quit", " or ", "undo", " the last command?", NULL
+    "quit", " or ", "undo", " the last command?", nullptr
   };
-  for (int si = 0; kPromptSegs[si] != NULL; si++)
+  for (int si = 0; kPromptSegs[si] != nullptr; si++)
     {
       if (si > 0)
         sb_putc (out, A5_ALR_MARK);
@@ -1101,13 +1101,13 @@ emit_endgame (a5_run_t *run, sb_t *out)
         sb_puts (out, nl == 0 ? "\n\n" : "\n");
     }
 
-  if (es != NULL && streq (es, "Win"))
+  if (es != nullptr && streq (es, "Win"))
     sb_puts (out, "*** You have won ***\n");
-  else if (es != NULL && streq (es, "Lose"))
+  else if (es != nullptr && streq (es, "Lose"))
     sb_puts (out, "*** You have lost ***\n");
   /* Neutral (and an unset/unknown enum): no banner, like the runner. */
 
-  if (run->adv->end_game_text != NULL)
+  if (run->adv->end_game_text != nullptr)
     {
       /* The runner's CheckEndOfGame Displays the win/lose banner with bCommit=True
          (clsUserSession.vb:515) BEFORE the WinningText (vb:528), so each is a
@@ -1157,7 +1157,7 @@ static void
 strip_byte (char *s, char c)
 {
   char *r, *w;
-  if (s == NULL)
+  if (s == nullptr)
     return;
   for (r = w = s; *r != '\0'; r++)
     if (*r != c) *w++ = *r;
@@ -1180,8 +1180,8 @@ expand_var_defers_owned (a5_state_t *st, char **s)
 static void
 expand_var_defers_sb (a5_run_t *run, sb_t *out)
 {
-  if (out->p == NULL || out->len == 0
-      || memchr (out->p, A5_VARDEF_MARK, out->len) == NULL)
+  if (out->p == nullptr || out->len == 0
+      || memchr (out->p, A5_VARDEF_MARK, out->len) == nullptr)
     return;
   char *xp = a5text_expand_var_defers (run->st, out->p);
   out->len = 0;
@@ -1252,12 +1252,12 @@ finish_turn (a5_run_t *run, sb_t *out)
   if (n > 0)
     {
       char *trimmed = (char *) realloc (fin, n + 2);
-      if (trimmed != NULL)
+      if (trimmed != nullptr)
         fin = trimmed;          /* else the old, larger block serves */
       fin[n] = '\n';
       fin[n + 1] = '\0';
     }
-  else if (fin != NULL)
+  else if (fin != nullptr)
     fin[0] = '\0';
   a5run_media_end ();
   return fin;
@@ -1357,7 +1357,7 @@ a5run_intro (a5_run_t *run)
      renders to a bare blank that the turn-tail normalisation drops); a non-empty
      one space-joins to any preceding RunImmediately output, then the intro's own
      leading break follows. */
-  if (run->adv->title != NULL && run->adv->title[0] != '\0')
+  if (run->adv->title != nullptr && run->adv->title[0] != '\0')
     {
       /* After the out-of-band Adventure-Upgrade prompt the runner's pSpace accumulator is
          empty (the prompt was a raw Console.Write), so a non-empty title joins
@@ -1748,7 +1748,7 @@ static char *
 time_tick_commit (a5_run_t *run)
 {
   sb_t tout;
-  char *extra = NULL;
+  char *extra = nullptr;
   sb_init (&tout);
   run->in_time_tick = 1;
   ev_time_tick_all (run, &tout);
@@ -1832,13 +1832,13 @@ a5run_input (a5_run_t *run, const char *line)
   if (!run->st->game_over && !run->real_time)
     {
       char *extra = time_tick_commit (run);
-      if (extra != NULL && extra[0] != '\0')
+      if (extra != nullptr && extra[0] != '\0')
         {
-          size_t tn = txt != NULL ? strlen (txt) : 0;
+          size_t tn = txt != nullptr ? strlen (txt) : 0;
           char *joined = (char *) malloc (tn + strlen (extra) + 2);
-          if (joined != NULL)
+          if (joined != nullptr)
             {
-              memcpy (joined, txt != NULL ? txt : "", tn);
+              memcpy (joined, txt != nullptr ? txt : "", tn);
               joined[tn] = '\n';
               strcpy (joined + tn + 1, extra);
               free (txt);
@@ -1850,14 +1850,14 @@ a5run_input (a5_run_t *run, const char *line)
   /* Retain this turn's final text (the runner's sTurnOutput): a5run_snapshot
      copies it alongside each undo snapshot so a post-game UNDO can replay the
      restored turn's output, as the runner's Undo() does. */
-  run->last_turn_text = txt != NULL ? txt : "";
+  run->last_turn_text = txt != nullptr ? txt : "";
   return txt;
 }
 
 void
 a5run_set_real_time (a5_run_t *run, int on)
 {
-  if (run != NULL)
+  if (run != nullptr)
     run->real_time = on != 0;
 }
 
@@ -1865,10 +1865,10 @@ int
 a5run_has_time_events (a5_run_t *run)
 {
   int ei;
-  if (run == NULL)
+  if (run == nullptr)
     return 0;
   for (ei = 0; ei < run->adv->n_events; ei++)
-    if (run->adv->events[ei].type != NULL
+    if (run->adv->events[ei].type != nullptr
         && streq (run->adv->events[ei].type, "TimeBased"))
       return 1;
   return 0;
@@ -1878,14 +1878,14 @@ char *
 a5run_time_tick (a5_run_t *run)
 {
   char *txt;
-  if (run == NULL || run->st->game_over)
-    return NULL;
+  if (run == nullptr || run->st->game_over)
+    return nullptr;
   /* A fresh media list, as at the top of a turn, so the tick's own <img>/
      <audio> markup reaches the host.  finish_turn closes the sink; close it
      here too when the tick flushes nothing and finish_turn never runs. */
   a5run_media_begin (run);
   txt = time_tick_commit (run);
-  if (txt == NULL)
+  if (txt == nullptr)
     a5run_media_end ();
   return txt;
 }
@@ -1905,8 +1905,8 @@ a5run_look (a5_run_t *run)
 {
   sb_t out;
 
-  if (run == NULL)
-    return NULL;
+  if (run == nullptr)
+    return nullptr;
   a5run_media_begin (run);
   sb_init (&out);
   sb_puts (&out, render_look_marked (run).c_str ());

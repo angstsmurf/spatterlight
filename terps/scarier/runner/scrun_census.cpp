@@ -339,7 +339,7 @@ run_lenient_census (scr_gameref_t game)
               woke_reason = runner_split ? 0 : our_line != runner_line ? 1 : 2;
             }
         }
-      run_dispatch_input = NULL;
+      run_dispatch_input = nullptr;
 
       if (runner_alive)
         reachable++;
@@ -387,7 +387,7 @@ run_lenient_census (scr_gameref_t game)
     "wear", "remove", "take off", "push", "pull", "eat", "drink", "read",
     "sit on", "stand on", "lie on", "talk to", "ask", "give", "hit", "kill",
     "attack", "put", "turn", "move", "search", "climb", "enter", "unlock",
-    "lock", "wield", "use", "go", "throw", NULL
+    "lock", "wield", "use", "go", "throw", nullptr
   };
   std::vector<std::string> names;
   std::vector<scr_int> cross_lines (task_count, 0);
@@ -454,7 +454,7 @@ run_lenient_census (scr_gameref_t game)
           strict = matches (other, runner_line, FALSE);
         if (strict || splits (typed))
           {
-            run_dispatch_input = NULL;
+            run_dispatch_input = nullptr;
             continue;
           }
 
@@ -463,7 +463,7 @@ run_lenient_census (scr_gameref_t game)
         scr_owned_string ours (run_element_filtered (game));
         const std::string our_line = run_census_normal
             (ours ? ours.get () : typed.c_str ());
-        run_dispatch_input = NULL;
+        run_dispatch_input = nullptr;
 
         for (other = 0; other < task_count && woke < 0; other++)
           if (matches (other, our_line, FALSE))
@@ -511,7 +511,7 @@ run_lenient_census (scr_gameref_t game)
 scr_bool
 run_census_requested (scr_gameref_t game)
 {
-  if (getenv ("SCR_CENSUS_LENIENT") == NULL)
+  if (getenv ("SCR_CENSUS_LENIENT") == nullptr)
     return FALSE;
   run_lenient_census (game);
   return TRUE;

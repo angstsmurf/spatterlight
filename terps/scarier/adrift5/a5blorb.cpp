@@ -39,7 +39,7 @@ a5_be32 (const uint8_t *p)
 static int
 a5_is_blorb (const uint8_t *buf, uint32_t length)
 {
-  return buf != NULL && length >= 12
+  return buf != nullptr && length >= 12
          && a5_be32 (buf) == A5_FOURCC ('F', 'O', 'R', 'M')
          && a5_be32 (buf + 8) == A5_FOURCC ('I', 'F', 'R', 'S');
 }
@@ -210,13 +210,13 @@ a5_scan (const char *hay, size_t n, const char *needle)
   size_t i;
 
   if (nl == 0 || n < nl)
-    return NULL;
+    return nullptr;
   for (i = 0; i + nl <= n; i++)
     {
       if (hay[i] == needle[0] && memcmp (hay + i, needle, nl) == 0)
         return hay + i;
     }
-  return NULL;
+  return nullptr;
 }
 
 /*
@@ -231,10 +231,10 @@ a5_elem_text (const char *el, const char *end,
   const char *gt, *lt;
 
   gt = a5_scan (el, (size_t) (end - el), ">");
-  if (gt == NULL || gt == el || gt[-1] == '/')
+  if (gt == nullptr || gt == el || gt[-1] == '/')
     return 0;
   lt = a5_scan (gt + 1, (size_t) (end - gt - 1), "<");
-  if (lt == NULL)
+  if (lt == nullptr)
     return 0;
   *text = gt + 1;
   *text_len = (size_t) (lt - gt - 1);
@@ -256,22 +256,22 @@ a5_pane_caption (const char *span, const char *span_end,
   size_t reflen;
 
   el = a5_scan (span, (size_t) (span_end - span), "<Text");
-  if (el == NULL || span_end - el < 6
+  if (el == nullptr || span_end - el < 6
       || (el[5] != ' ' && el[5] != '>' && el[5] != '/'))
     return 0;
 
   gt = a5_scan (el, (size_t) (span_end - el), ">");
-  if (gt == NULL)
+  if (gt == nullptr)
     return 0;
 
   /* <Text href="#ref-24"/> -- the caption lives in the element with that id. */
   href = a5_scan (el, (size_t) (gt - el), "href=\"#");
-  if (href == NULL)
+  if (href == nullptr)
     return a5_elem_text (el, span_end, text, text_len);
 
   href += strlen ("href=\"#");
   quote = a5_scan (href, (size_t) (gt - href), "\"");
-  if (quote == NULL)
+  if (quote == nullptr)
     return 0;
   reflen = (size_t) (quote - href);
   if (reflen == 0 || reflen + strlen ("id=\"\"") >= sizeof idref)
@@ -282,7 +282,7 @@ a5_pane_caption (const char *span, const char *span_end,
   idref[5 + reflen] = '\0';
 
   target = a5_scan (doc, (size_t) (doc_end - doc), idref);
-  if (target == NULL)
+  if (target == nullptr)
     return 0;
   /* Back up to the '<' that opens the element carrying the id. */
   while (target > doc && *target != '<')
@@ -302,7 +302,7 @@ a5blorb_layout_pane_open (const uint8_t *xml, uint32_t length,
   const char *at;
   size_t pane_len;
 
-  if (xml == NULL || length == 0 || pane == NULL)
+  if (xml == nullptr || length == 0 || pane == nullptr)
     return -1;
   pane_len = strlen (pane);
 
@@ -314,7 +314,7 @@ a5blorb_layout_pane_open (const uint8_t *xml, uint32_t length,
       const char *lt;
 
       at = a5_scan (at, (size_t) (doc_end - at), PANE_TAG);
-      if (at == NULL)
+      if (at == nullptr)
         return -1;
       span = at;
       at += sizeof PANE_TAG - 1;
@@ -329,7 +329,7 @@ a5blorb_layout_pane_open (const uint8_t *xml, uint32_t length,
       /* Panes do not nest, so the element body runs to the next mention of the
          tag -- its own close tag, or the next pane if the file is truncated. */
       span_end = a5_scan (at, (size_t) (doc_end - at), PANE_TAG);
-      if (span_end == NULL)
+      if (span_end == nullptr)
         span_end = doc_end;
 
       if (!a5_pane_caption (span, span_end, doc, doc_end,
@@ -340,7 +340,7 @@ a5blorb_layout_pane_open (const uint8_t *xml, uint32_t length,
 
       /* Infragistics writes <Closed> only for a closed pane, but do not rely
          on the omission alone. */
-      if (a5_scan (span, (size_t) (span_end - span), "<Closed>true<") != NULL)
+      if (a5_scan (span, (size_t) (span_end - span), "<Closed>true<") != nullptr)
         return 0;
       return 1;
     }

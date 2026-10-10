@@ -41,10 +41,10 @@
 #include "a5util.h"
 
 /* Wired to a5rand_between by the run harness; NULL in RNG-less builds. */
-long (*a5sexpr_rng_hook) (long lo, long hi) = NULL;
+long (*a5sexpr_rng_hook) (long lo, long hi) = nullptr;
 /* Wired to a5rand_norepeat (the runner NoRepeatRandom) by the run harness; urand()
    falls back to a plain a5sexpr_rng_hook draw when unset. */
-long (*a5sexpr_urand_hook) (long lo, long hi) = NULL;
+long (*a5sexpr_urand_hook) (long lo, long hi) = nullptr;
 
 namespace {
 
@@ -269,7 +269,7 @@ is_function (const std::string &lid)
     "if", "min", "max", "abs", "upr", "lwr", "ppr", "len", "val", "str",
     "mid", "replace", "lft", "rgt", "ist", "either", "oneof", "rand", "urand",
     "ucase", "lcase", "upper", "lower", "proper", "pcase", "left", "right",
-    "instr", "len", NULL
+    "instr", "len", nullptr
   };
   for (int i = 0; fns[i]; i++)
     if (lid == fns[i]) return true;

@@ -494,7 +494,7 @@ lib_cmd_take_all_from (scr_gameref_t game)
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
   objects = lib_apply_filter (game,
-                              lib_take_from_filter, associate, FALSE, NULL);
+                              lib_take_from_filter, associate, FALSE, nullptr);
   gs_clear_multiple_references (game);
   lib_take_from_single_named = FALSE;
   if (objects > 0)
@@ -956,7 +956,7 @@ lib_take_from_and_400 (scr_gameref_t game)
       clause.erase (clause.size () - 1);
   }
   container = lib_verb_object_resolve_400_string (game, clause.c_str (),
-                                                  NULL, TRUE);
+                                                  nullptr, TRUE);
   if (container < 0)
     {
       game->is_admin = TRUE;
@@ -994,7 +994,7 @@ lib_take_from_and_400 (scr_gameref_t game)
         }
     }
   objects = lib_apply_filter (game, lib_take_from_filter, container, FALSE,
-                              is_all ? NULL : &references);
+                              is_all ? nullptr : &references);
   gs_clear_multiple_references (game);
   if (objects == 0)
     {
@@ -1523,8 +1523,8 @@ lib_cmd_take_all_from_npc (scr_gameref_t game)
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
-  objects = lib_apply_filter (game,
-                              lib_take_from_npc_filter, associate, FALSE, NULL);
+  objects = lib_apply_filter (game, lib_take_from_npc_filter,
+                              associate, FALSE, nullptr);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_take_from_npc_backend (game, associate);

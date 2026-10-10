@@ -466,7 +466,7 @@ lib_goto_step_name (scr_gameref_t game, scr_int room, scr_int next)
   };
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_int directions = lib_compass_names (game) == DIRNAMES_8 ? 12 : 8;
-  const scr_char *name = NULL;
+  const scr_char *name = nullptr;
   scr_int direction;
 
   for (direction = 0; direction < directions; direction++)
@@ -706,7 +706,7 @@ lib_cmd_go_place (scr_gameref_t game)
   if (version < TAF_VERSION_400)
     {
       static const scr_char *const EXAMINE_WORDS[] = {
-        "x", "examine", "look at", "ex", "exam", "read", NULL
+        "x", "examine", "look at", "ex", "exam", "read", nullptr
       };
 
       for (const scr_char *const *word = EXAMINE_WORDS; *word; word++)

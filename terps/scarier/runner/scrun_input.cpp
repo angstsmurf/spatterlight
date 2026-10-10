@@ -71,7 +71,7 @@ scr_bool
 run_separator_task_line (scr_gameref_t game, const scr_char *line)
 {
   static const scr_char *const SEPARATORS[] = {
-    " and ", " then ", ",", ". ", NULL
+    " and ", " then ", ",", ". ", nullptr
   };
   const scr_task_commands_guard task_commands;
   const scr_int task_count = gs_task_count (game);
@@ -512,7 +512,7 @@ run_element_filtered (scr_gameref_t game)
               || scr_strcasecmp (new_line, "examine") == 0))
         {
           SCR_DEVIATION ("look_kept", "runner=%s", new_line);
-          return NULL;
+          return nullptr;
         }
     }
 

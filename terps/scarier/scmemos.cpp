@@ -217,7 +217,7 @@ static void
 memo_set_text (scr_memoref_t memo, const scr_char *text)
 {
   scr_free (memo->text);
-  memo->text = NULL;
+  memo->text = nullptr;
   if (text)
     {
       memo->text = (scr_char *) scr_malloc (strlen (text) + 1);
@@ -347,7 +347,7 @@ memo_load_game (scr_memo_setref_t memento, scr_gameref_t game,
       if (text)
         text->assign (memo->text ? memo->text : "");
       scr_free (memo->text);
-      memo->text = NULL;
+      memo->text = nullptr;
 
       /* Regress current memo, and return TRUE if we restored a memo. */
       memento->memo_cursor = cursor;
@@ -409,7 +409,7 @@ memo_undo_slot (scr_memo_setref_t memento, scr_int index_)
           seen++;
         }
     }
-  return NULL;
+  return nullptr;
 }
 
 
@@ -452,7 +452,7 @@ memo_get_undo (scr_memo_setref_t memento, scr_int index_, scr_int *length)
 
   memo = memo_undo_slot (memento, index_);
   *length = memo ? memo->length : 0;
-  return memo ? memo->serialized_game : NULL;
+  return memo ? memo->serialized_game : nullptr;
 }
 
 const scr_char *
@@ -490,7 +490,7 @@ memo_append_undo (scr_memo_setref_t memento,
 
   memo = memento->memo + memento->memo_cursor;
   memo->length = 0;
-  memo_set_text (memo, NULL);
+  memo_set_text (memo, nullptr);
   memo_save_game_callback (memo, data, length);
   memento->memo_cursor++;
   memento->memo_cursor %= MEMO_UNDO_TABLE_SIZE;
@@ -672,7 +672,7 @@ memo_next_command (scr_memo_setref_t memento,
   else
     {
       /* Return NULL and zeroes if no more commands available. */
-      *command = NULL;
+      *command = nullptr;
       *sequence = 0;
       *timestamp = 0;
       *turns = 0;
@@ -729,7 +729,7 @@ memo_find_command (scr_memo_setref_t memento, scr_int sequence)
    * efficient here, but this is a rarely called function so we'll do it the
    * simpler way.
    */
-  matched = NULL;
+  matched = nullptr;
   for (index_ = 0; index_ < MEMO_HISTORY_TABLE_SIZE; index_++)
     {
       scr_historyref_t history;
@@ -747,7 +747,7 @@ memo_find_command (scr_memo_setref_t memento, scr_int sequence)
    * history was not full, this will still return NULL as it should, since
    * this unused history's command found by the search above will be NULL.
    */
-  return matched ? matched->command : NULL;
+  return matched ? matched->command : nullptr;
 }
 
 

@@ -806,9 +806,9 @@ extern scr_bool lib_move_what_after_silent_task_pre400 (scr_gameref_t game);
 extern scr_bool lib_takes_offers_tasks_370 (scr_gameref_t game,
                                            const scr_char *line);
 extern scr_bool lib_take_scored_400 (scr_gameref_t game);
-extern scr_bool run_line_matches_task_strictly (scr_gameref_t game,
-                                                const scr_char *string,
-                                                const scr_char *except = NULL);
+extern scr_bool
+run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
+                                const scr_char *except = nullptr);
 extern scr_bool run_line_yields_to_library (scr_gameref_t game,
                                             const scr_char *string);
 extern scr_bool lib_non_answer;
@@ -1208,7 +1208,7 @@ extern void run_event_task (scr_gameref_t game, scr_int eventtask);
 extern scr_bool run_does_command_match (scr_gameref_t game,
                                         const scr_char *string,
                                         scr_bool check_restrictions = FALSE,
-                                        scr_int *match_kind = NULL);
+                                        scr_int *match_kind = nullptr);
 extern void run_set_task_class_filter (scr_int mode);
 extern scr_bool run_lenient_task_matching (void);
 extern scr_bool run_passing_task_commands (scr_gameref_t game,

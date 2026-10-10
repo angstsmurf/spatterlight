@@ -809,12 +809,12 @@ lib_can_go (scr_gameref_t game, scr_int room, scr_int direction)
 /* List of direction names, for printing and counting exits. */
 static const scr_char *const DIRNAMES_4[] = {
   "north", "east", "south", "west", "up", "down", "in", "out",
-  NULL
+  nullptr
 };
 const scr_char *const DIRNAMES_8[] = {
   "north", "east", "south", "west", "up", "down", "in", "out",
   "northeast", "southeast", "southwest", "northwest",
-  NULL
+  nullptr
 };
 
 
@@ -834,7 +834,7 @@ lib_direction_name (scr_int direction)
   const scr_int count = sizeof DIRNAMES_8 / sizeof DIRNAMES_8[0] - 1;
 
   if (direction < 0 || direction >= count)
-    return NULL;
+    return nullptr;
   return DIRNAMES_8[direction];
 }
 

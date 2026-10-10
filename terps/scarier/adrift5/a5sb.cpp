@@ -29,7 +29,7 @@
 #include "a5text.h"   /* A5_CLS_MARK, A5_DEL_MARK */
 
 void
-sb_init (sb_t *b) { b->p = NULL; b->len = b->cap = 0; }
+sb_init (sb_t *b) { b->p = nullptr; b->len = b->cap = 0; }
 
 /* Make room for `need` bytes in all (text plus terminator), doubling the
    capacity from 128.  The one place the buffer grows.  When realloc fails the
@@ -46,7 +46,7 @@ sb_grow (sb_t *b, size_t need)
   cap = b->cap ? b->cap : 128;
   while (cap < need) cap *= 2;
   grown = (char *) realloc (b->p, cap);
-  if (grown == NULL)
+  if (grown == nullptr)
     return 0;
   b->p = grown;
   b->cap = cap;
@@ -70,7 +70,7 @@ sb_reserve (sb_t *b, size_t cap)
 void
 sb_putn (sb_t *b, const char *s, size_t n)
 {
-  if (s == NULL) return;
+  if (s == nullptr) return;
   if (!sb_grow (b, b->len + n + 1))
     return;
   memcpy (b->p + b->len, s, n);
@@ -81,7 +81,7 @@ sb_putn (sb_t *b, const char *s, size_t n)
 void
 sb_puts (sb_t *b, const char *s)
 {
-  if (s != NULL) sb_putn (b, s, strlen (s));
+  if (s != nullptr) sb_putn (b, s, strlen (s));
 }
 
 void
@@ -106,7 +106,7 @@ sb_del_glyph (sb_t *b, size_t from)
 {
   size_t i = from;
 
-  if (b->p == NULL || from > b->len)
+  if (b->p == nullptr || from > b->len)
     return 0;
 
   while (i > 0)
@@ -164,7 +164,7 @@ sb_resolve_del (sb_t *b)
 {
   size_t k = 0;
 
-  if (b->p == NULL)
+  if (b->p == nullptr)
     return;
   while (k < b->len)
     {
@@ -187,7 +187,7 @@ void
 sb_resolve_cls (sb_t *b, size_t floor)
 {
   size_t last = (size_t) -1, i;
-  if (b->p == NULL || floor > b->len) return;
+  if (b->p == nullptr || floor > b->len) return;
   /* Interactive hosts present the pre-<cls> text themselves and clear their
      window at the mark, so the wipe must not happen here (see a5text.h).
      But the commit boundary still closes every open span: the Runner renders
@@ -258,8 +258,8 @@ sb_resolve_cls (sb_t *b, size_t floor)
 void
 sb_splice (sb_t *b, size_t off, size_t oldn, const char *s)
 {
-  size_t n = s != NULL ? strlen (s) : 0;
-  if (b->p == NULL || off > b->len || off + oldn > b->len)
+  size_t n = s != nullptr ? strlen (s) : 0;
+  if (b->p == nullptr || off > b->len || off + oldn > b->len)
     return;
   if (n > oldn && !sb_grow (b, b->len + (n - oldn) + 1))
     return;

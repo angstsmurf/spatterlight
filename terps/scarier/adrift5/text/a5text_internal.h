@@ -50,7 +50,7 @@
 static inline int
 ci_eq (const char *a, const char *b)
 {
-  if (a == NULL || b == NULL)
+  if (a == nullptr || b == nullptr)
     return 0;
   for (; *a && *b; a++, b++)
     if (tolower ((unsigned char) *a) != tolower ((unsigned char) *b))

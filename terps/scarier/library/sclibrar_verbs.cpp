@@ -161,7 +161,7 @@ lib_cmd_wield (scr_gameref_t game)
     return FALSE;
 
   /* Get the referenced object, and if none, consider complete. */
-  object = lib_disambiguate_object (game, "wield", NULL);
+  object = lib_disambiguate_object (game, "wield", nullptr);
   if (object == -1)
     return TRUE;
 

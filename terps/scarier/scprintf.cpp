@@ -89,7 +89,7 @@ static const scr_html_tags_t HTML_TAGS_TABLE[] = {
   {"b", 1, SCR_TAG_BOLD}, {"/b", 2, SCR_TAG_ENDBOLD},
   {"u", 1, SCR_TAG_UNDERLINE}, {"/u", 2, SCR_TAG_ENDUNDERLINE},
   {"c", 1, SCR_TAG_COLOUR}, {"/c", 2, SCR_TAG_ENDCOLOUR},
-  {NULL, 0, SCR_TAG_UNKNOWN}
+  {nullptr, 0, SCR_TAG_UNKNOWN}
 };
 
 /*
@@ -524,7 +524,7 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
 
   if (is_interpolated)
     return scr_strdup (buffer);
-  return NULL;
+  return nullptr;
 }
 
 
@@ -992,7 +992,7 @@ pf_replace_alrs (const scr_char *string, scr_var_setref_t vars,
     pf_alr_walk (string, current, vars, recursive, 0);
 
   /* Return the rebuilt string if any replacement was made, else NULL. */
-  return current.compare (string) == 0 ? NULL : scr_strdup (current);
+  return current.compare (string) == 0 ? nullptr : scr_strdup (current);
 }
 
 
@@ -1399,7 +1399,7 @@ pf_filter_internal (const scr_char *string,
     }
 
   /* Return an allocated current, or NULL if nothing changed. */
-  return have_current ? scr_strdup (current) : NULL;
+  return have_current ? scr_strdup (current) : nullptr;
 }
 
 
@@ -1444,7 +1444,7 @@ pf_filter_for_info (const scr_char *string, scr_var_setref_t vars)
   scr_char *current;
 
   /* Filter this string, excluding ALRs replacements. */
-  current = pf_filter_internal (string, vars, NULL);
+  current = pf_filter_internal (string, vars, nullptr);
 
   /* Our contract is to return an allocated string; copy if required. */
   if (!current)
@@ -1750,7 +1750,7 @@ pf_get_buffer (scr_filterref_t filter)
   if (filter->buffer.size () > filter->hidden)
     return filter->buffer.c_str () + filter->hidden;
   else
-    return NULL;
+    return nullptr;
 }
 
 scr_char *
@@ -1789,7 +1789,7 @@ pf_transfer_buffer (scr_filterref_t filter)
       return retval;
     }
   else
-    return NULL;
+    return nullptr;
 }
 
 
@@ -3868,7 +3868,7 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
             && (!take_to_get || pf_has_take_off (current)))
           {
             if (take_to_get)
-              SCR_DEVIATION ("take_off_kept", NULL);
+              SCR_DEVIATION ("take_off_kept", nullptr);
             continue;
           }
         if (entry.substring)
@@ -3883,7 +3883,7 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
   }
 
   /* Return the final string, or NULL if no replacements. */
-  return modified ? scr_strdup (buffer) : NULL;
+  return modified ? scr_strdup (buffer) : nullptr;
 }
 
 

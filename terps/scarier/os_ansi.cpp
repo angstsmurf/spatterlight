@@ -216,7 +216,7 @@ os_print_tag (scr_int tag, const scr_char *argument)
          * deliberate filler apart from a real command going missing (see
          * harness/waitkey_audit.py).
          */
-        mark_waitkey = getenv ("SCR_MARK_WAITKEY") != NULL;
+        mark_waitkey = getenv ("SCR_MARK_WAITKEY") != nullptr;
         if (mark_waitkey)
           {
             fflush (stdout);
@@ -453,7 +453,7 @@ os_ansi_probe (scr_char *buffer, scr_int length)
           start = end + 1;
         }
       if (getenv ("SCR_PROBE_EVERY"))
-        every = strtol (getenv ("SCR_PROBE_EVERY"), NULL, 10);
+        every = strtol (getenv ("SCR_PROBE_EVERY"), nullptr, 10);
       if (every < 1)
         every = 1;
       for (int mode = 0; mode < 2; mode++)
@@ -546,7 +546,7 @@ os_read_line (scr_char *buffer, scr_int length)
    * the same way.  Without the echo the bare '>' stays glued to the front of
    * the game's reply (">You move north.") the way it always has.
    */
-  echo_input = getenv ("SCR_ECHO_INPUT") != NULL;
+  echo_input = getenv ("SCR_ECHO_INPUT") != nullptr;
 
   if (echo_input)
     putchar ('\n');
@@ -623,7 +623,7 @@ os_read_line (scr_char *buffer, scr_int length)
    * be tied to the solution-file line that produced it.
    */
   {
-    static const bool trace_admin = getenv ("SCR_TRACE_ADMIN") != NULL;
+    static const bool trace_admin = getenv ("SCR_TRACE_ADMIN") != nullptr;
     if (trace_admin)
       fprintf (stderr, "INPUT line=%ld %s", os_ansi_input_line, buffer);
   }
@@ -742,12 +742,12 @@ os_open_file (scr_bool is_save)
 
   full_flush ();
   if (feof (stdin))
-    return NULL;
+    return nullptr;
 
   printf ("Enter saved game to %s: ", is_save ? "save" : "load");
   fflush (stdout);
   if (!fgets (path, sizeof (path), stdin))
-    return NULL;
+    return nullptr;
   if (path[strlen (path) - 1] == '\n')
     path[strlen (path) - 1] = '\0';
 
@@ -758,7 +758,7 @@ os_open_file (scr_bool is_save)
         {
           fclose (stream);
           printf ("File already exists.\n");
-          return NULL;
+          return nullptr;
         }
       stream = fopen (path, "wb");
     }
@@ -768,7 +768,7 @@ os_open_file (scr_bool is_save)
   if (!stream)
     {
       printf ("Error opening file.\n");
-      return NULL;
+      return nullptr;
     }
   return stream;
 }
@@ -864,7 +864,7 @@ main (int argc, const char *argv[])
 
   trace_flags = getenv ("SCR_TRACE_FLAGS");
   if (trace_flags)
-    scr_set_trace_flags (strtoul (trace_flags, NULL, 0));
+    scr_set_trace_flags (strtoul (trace_flags, nullptr, 0));
 
   locale = getenv ("SCR_LOCALE");
   if (locale)

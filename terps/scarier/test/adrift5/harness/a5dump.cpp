@@ -43,10 +43,10 @@ read_file (const char *path, uint32_t *out_len)
   uint8_t *buf;
 
   fp = fopen (path, "rb");
-  if (fp == NULL)
+  if (fp == nullptr)
     {
       fprintf (stderr, "a5dump: cannot open %s\n", path);
-      return NULL;
+      return nullptr;
     }
   fseek (fp, 0, SEEK_END);
   size = ftell (fp);
@@ -55,15 +55,15 @@ read_file (const char *path, uint32_t *out_len)
     {
       fclose (fp);
       fprintf (stderr, "a5dump: empty or unreadable file %s\n", path);
-      return NULL;
+      return nullptr;
     }
   buf = (uint8_t *) malloc ((size_t) size);
-  if (buf == NULL || fread (buf, 1, (size_t) size, fp) != (size_t) size)
+  if (buf == nullptr || fread (buf, 1, (size_t) size, fp) != (size_t) size)
     {
       free (buf);
       fclose (fp);
       fprintf (stderr, "a5dump: read error on %s\n", path);
-      return NULL;
+      return nullptr;
     }
   fclose (fp);
   *out_len = (uint32_t) size;
@@ -92,7 +92,7 @@ main (int argc, char **argv)
     }
 
   file_buf = read_file (argv[1], &file_len);
-  if (file_buf == NULL)
+  if (file_buf == nullptr)
     return 1;
 
   /* Locate the ADRIFT payload: the Exec chunk of a Blorb, else the whole file. */
@@ -140,7 +140,7 @@ main (int argc, char **argv)
         char size_hex[5];
         memcpy (size_hex, payload + 12, 4);
         size_hex[4] = '\0';
-        header = 16 + (uint32_t) strtoul (size_hex, NULL, 16);
+        header = 16 + (uint32_t) strtoul (size_hex, nullptr, 16);
         is_v5 = 1;
       }
     else
@@ -200,7 +200,7 @@ main (int argc, char **argv)
            header, region_len, payload[header], payload[header + 1]);
 
   xml = a5_inflate (payload + header, region_len, &xml_len);
-  if (xml == NULL)
+  if (xml == nullptr)
     {
       fprintf (stderr, "a5dump: inflate failed\n");
       free (file_buf);

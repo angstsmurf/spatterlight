@@ -183,7 +183,7 @@ typedef struct
 
 static scr_bool run_task_passes_class_filter (scr_gameref_t game,
                                               scr_int task);
-static const void *run_cache_game = NULL;
+static const void *run_cache_game = nullptr;
 
 static std::vector<scr_task_commands_t> run_cache;
 
@@ -324,12 +324,12 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
           scr_pattern_facts_t *const facts = &cached->facts[direction][command];
 
           facts->first = strspn (pattern, WHITESPACE);
-          facts->refs = run_pattern_references (NULL, pattern);
-          facts->wild = strchr (pattern, WILDCARD_PATTERN) != NULL;
-          facts->group = strpbrk (pattern, "[{") != NULL;
-          facts->has_object = strstr (pattern, "%object%") != NULL;
-          facts->has_character = strstr (pattern, "%character%") != NULL;
-          facts->compiled = NULL;
+          facts->refs = run_pattern_references (nullptr, pattern);
+          facts->wild = strchr (pattern, WILDCARD_PATTERN) != nullptr;
+          facts->group = strpbrk (pattern, "[{") != nullptr;
+          facts->has_object = strstr (pattern, "%object%") != nullptr;
+          facts->has_character = strstr (pattern, "%character%") != nullptr;
+          facts->compiled = nullptr;
         }
       cached->known[direction] = TRUE;
     }
@@ -387,7 +387,7 @@ run_forget_game (const void *game)
 {
   if (run_cache_game == game)
     {
-      run_cache_game = NULL;
+      run_cache_game = nullptr;
       run_clear_cache ();
     }
 }
@@ -1109,8 +1109,8 @@ run_match_task_commands (scr_gameref_t game,
       scr_bool any = FALSE;
 
       for (command = 0; command < command_count && !any; command++)
-        any = strstr (patterns[command], "  ") != NULL
-              || strpbrk (patterns[command], "*%") != NULL;
+        any = strstr (patterns[command], "  ") != nullptr
+              || strpbrk (patterns[command], "*%") != nullptr;
       if (!any)
         return FALSE;
     }
@@ -1171,7 +1171,7 @@ run_match_task_commands (scr_gameref_t game,
         {
           if (run_pattern_names_verb (pattern, string))
             is_matched = uip_match_pattern (facts.compiled, string, game);
-          if (!is_matched && run_dispatch_input != NULL
+          if (!is_matched && run_dispatch_input != nullptr
               && run_pattern_names_verb (pattern, run_dispatch_input))
             {
               is_matched = uip_match_pattern (facts.compiled,
@@ -1479,7 +1479,7 @@ run_match_task_commands (scr_gameref_t game,
 #ifdef SCARIER_DUMP_TOOLS
           {
             static const scr_bool trace_match =
-                getenv ("SCR_TRACE_MATCH") != NULL;
+                getenv ("SCR_TRACE_MATCH") != nullptr;
             if (trace_match)
               fprintf (stderr, "MATCH task=%ld pattern=[%s] input=[%s]\n",
                        task, pattern, string);
@@ -1500,8 +1500,8 @@ run_match_task_commands (scr_gameref_t game,
              * 4.0 is the Runner's answer and at 4.0 should no longer
              * happen. */
             static const scr_bool trace_scope =
-                getenv ("SCR_TRACE_SCOPE") != NULL;
-            if (trace_scope && strstr (pattern, "%object%") != NULL)
+                getenv ("SCR_TRACE_SCOPE") != nullptr;
+            if (trace_scope && strstr (pattern, "%object%") != nullptr)
               {
                 const scr_var_setref_t vars = gs_get_vars (game);
                 scr_int object, present, matched, room, bound_present;
@@ -1987,7 +1987,7 @@ scr_bool run_probe_strict = FALSE;
 scr_bool
 run_strict_tasks_requested (const scr_char *string)
 {
-  static const scr_bool strict_only = getenv ("SCR_STRICT_TASKS") != NULL;
+  static const scr_bool strict_only = getenv ("SCR_STRICT_TASKS") != nullptr;
   static const scr_char *const strict_line = getenv ("SCR_STRICT_LINE");
 
   return strict_only || run_probe_strict
@@ -2526,7 +2526,7 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
    * "take the sniper rifle" and the library took the rifle.
    */
   scr_owned_string filtered (check_restrictions
-                             ? NULL
+                             ? nullptr
                              : pf_filter_input (string, gs_get_bundle (game)));
   if (filtered)
     string = scr_normalize_string (filtered.get ());
@@ -2592,7 +2592,7 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
 
               if (!restr_eval_task_restrictions (game, task,
                                                  &pass, &fail_message))
-                pass = TRUE, fail_message = NULL;
+                pass = TRUE, fail_message = nullptr;
 
               if (pass_number == 1)
                 {
@@ -2908,7 +2908,7 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
 #ifdef SCARIER_DUMP_TOOLS
           {
             static const scr_bool trace_evtask =
-                getenv ("SCR_TRACE_EVENT_TASK") != NULL;
+                getenv ("SCR_TRACE_EVENT_TASK") != nullptr;
             if (trace_evtask && task != eventtask)
               fprintf (stderr, "EVTASK steal: task=%ld stole [%s] from"
                        " task=%ld\n", task, command, eventtask);
@@ -2923,7 +2923,7 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
 #ifdef SCARIER_DUMP_TOOLS
   {
     static const scr_bool trace_evtask =
-        getenv ("SCR_TRACE_EVENT_TASK") != NULL;
+        getenv ("SCR_TRACE_EVENT_TASK") != nullptr;
     if (trace_evtask)
       fprintf (stderr, "EVTASK no-run: [%s] task=%ld candone=%d dir=%d\n",
                command, eventtask,
@@ -3087,12 +3087,12 @@ run_spent_task_390 (scr_gameref_t game, const scr_char *string,
   scr_int task_count, task, spent;
   const scr_char *buffer;
 
-  *message = NULL;
+  *message = nullptr;
   if (scr_strempty (string))
     return -1;
 
   spent = -1;
-  buffer = NULL;
+  buffer = nullptr;
   task_count = gs_task_count (game);
   for (task = 0; task < task_count; task++)
     {
@@ -3156,7 +3156,7 @@ run_spent_task_390 (scr_gameref_t game, const scr_char *string,
 
       /* A live task with passing restrictions executes instead. */
       if (!restr_eval_task_restrictions (game, task, &pass, &fail_message))
-        pass = TRUE, fail_message = NULL;
+        pass = TRUE, fail_message = nullptr;
       if (pass)
         return -1;
       if (fail_message && !scr_strempty (fail_message))
@@ -3197,7 +3197,7 @@ run_spent_survivor_390 (scr_gameref_t game, const scr_char *string)
 #else
     {"[x/ex/exam/examine/look {at}] %character%", lib_cmd_examine_npc},
 #endif
-    {NULL, NULL}
+    {nullptr, nullptr}
   };
 
   if (run_priority_commands (game, string))
@@ -3590,14 +3590,14 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
    * An authored RepeatText replaces the already-done message, and is the one
    * part of all this that 4.0 kept.
    */
-  repeattext = NULL;
+  repeattext = nullptr;
   if (refusal == REFUSAL_DONE)
     {
       repeattext = prop_get_indexed_string (bundle, "Tasks", refused_task,
                                             "RepeatText");
       if (scr_strempty (repeattext))
         {
-          repeattext = NULL;
+          repeattext = nullptr;
           if (version >= TAF_VERSION_400)
             return FALSE;
         }

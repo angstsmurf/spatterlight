@@ -47,7 +47,7 @@ static long
 caller_val (const char *expr)
 {
   char *sv = a5_eval_sexpr (expr);
-  long e = strtol (sv, NULL, 10);
+  long e = strtol (sv, nullptr, 10);
   free (sv);
   return e;
 }

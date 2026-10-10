@@ -799,7 +799,7 @@ sm_exit (scr_gameref_t game, scr_int room, int dir, int *restricted)
   scr_vartype_t vt_key[5], vt_rvalue;
   int dest;
 
-  if (restricted != NULL)
+  if (restricted != nullptr)
     *restricted = 0;
 
   vt_key[0].string = "Rooms";
@@ -814,7 +814,7 @@ sm_exit (scr_gameref_t game, scr_int room, int dir, int *restricted)
     return 0;
   dest = (int) vt_rvalue.integer;
 
-  if (restricted != NULL && dest > 0)
+  if (restricted != nullptr && dest > 0)
     {
       vt_key[4].string = "Var1";
       if (prop_get_integer (bundle, "I<-sisis", vt_key) - 1 >= 0)
@@ -860,7 +860,7 @@ typedef struct
   std::string label;            /* filtered, untagged; only if constant      */
 } sm_static_room_t;
 
-static const void *sm_cache_game = NULL;
+static const void *sm_cache_game = nullptr;
 static scr_bool sm_cache_nomap = FALSE;
 static std::vector<sm_static_room_t> sm_cache;  /* [0] unused; rooms 1..n */
 
@@ -880,7 +880,7 @@ sm_label_is_constant (scr_int room, const scr_char *name,
   scr_vartype_t vt_key[5];
   scr_int alr_count, alr, alt_count, alt;
 
-  if (strchr (name, '%') != NULL)
+  if (strchr (name, '%') != nullptr)
     return FALSE;
 
   /* Any room alt with a non-empty Changed string can rename the room. */
@@ -908,7 +908,7 @@ sm_label_is_constant (scr_int room, const scr_char *name,
       vt_key[1].integer = alr;
       vt_key[2].string = "Original";
       original = prop_get_string (bundle, "S<-sis", vt_key);
-      if (original[0] != '\0' && strstr (name, original) != NULL)
+      if (original[0] != '\0' && strstr (name, original) != nullptr)
         return FALSE;
     }
   return TRUE;
@@ -966,7 +966,7 @@ scmap_forget_game (const void *game)
 {
   if (sm_cache_game == game)
     {
-      sm_cache_game = NULL;
+      sm_cache_game = nullptr;
       sm_cache.clear ();
     }
 }
@@ -988,7 +988,7 @@ sm_view_seen (void *ctx, const char *lockey)
   scr_gameref_t game = (scr_gameref_t) ctx;
   scr_int room;
 
-  if (game == NULL || lockey == NULL)
+  if (game == nullptr || lockey == nullptr)
     return 0;
   room = atol (lockey);
   if (room < 0 || room >= gs_room_count (game))
@@ -1023,11 +1023,11 @@ sm_view_name (void *ctx, const char *lockey)
   scr_int room;
   scr_char *filtered;
 
-  if (game == NULL || lockey == NULL)
-    return NULL;
+  if (game == nullptr || lockey == nullptr)
+    return nullptr;
   room = atol (lockey);
   if (room < 0 || room >= gs_room_count (game))
-    return NULL;
+    return nullptr;
 
   /* A name the filter provably can't alter is served from the cache. */
   sm_cache_ensure (game);
@@ -1069,11 +1069,11 @@ sm_view_exit_dest (void *ctx, const char *lockey, int dir)
   scr_int room;
   int dest;
 
-  if (game == NULL || lockey == NULL || dir < 0 || dir >= MAP_N_DIRS)
-    return NULL;
+  if (game == nullptr || lockey == nullptr || dir < 0 || dir >= MAP_N_DIRS)
+    return nullptr;
   room = atol (lockey);
   if (room < 0 || room >= gs_room_count (game))
-    return NULL;
+    return nullptr;
 
   /*
    * Ask whether there is an exit at all before asking whether it can be used:
@@ -1083,9 +1083,9 @@ sm_view_exit_dest (void *ctx, const char *lockey, int dir)
   sm_cache_ensure (game);
   dest = sm_cache[room + 1].exits[dir];
   if (dest <= 0)
-    return NULL;
+    return nullptr;
   if (!lib_can_go (game, room, dir))
-    return NULL;
+    return nullptr;
 
   snprintf (buf, sizeof bufs[0], "%d", dest - 1);
   return buf;
@@ -1100,12 +1100,12 @@ sm_view_exit_dest (void *ctx, const char *lockey, int dir)
 void
 scmap_view (scr_gameref_t game, map_view_t *view)
 {
-  if (view == NULL)
+  if (view == nullptr)
     return;
   view->seen = sm_view_seen;
   view->name = sm_view_name;
   view->exit_dest = sm_view_exit_dest;
-  view->ever_blocked = NULL;    /* no ADRIFT 5 route gates on v4 connectors */
+  view->ever_blocked = nullptr;  /* no ADRIFT 5 route gates on v4 connectors */
   view->ctx = game;
 }
 
@@ -1132,7 +1132,7 @@ scmap_failed (void)
 int
 scmap_available (scr_gameref_t game)
 {
-  if (game == NULL)
+  if (game == nullptr)
     return 0;
   return gs_room_count (game) > 0 && !sm_global_bool (game, "NoMap");
 }
@@ -1168,7 +1168,7 @@ scmap_command_taken (scr_gameref_t game)
 
           vt_key[3].integer = c;
           command = prop_get_string (bundle, "S<-sisi", vt_key);
-          if (command != NULL && scr_strcasecmp (command, "map") == 0)
+          if (command != nullptr && scr_strcasecmp (command, "map") == 0)
             return 1;
         }
     }
@@ -1189,13 +1189,13 @@ sm_intern (map_t *m, const char *s)
   char *copy;
 
   grown = (char **) realloc (m->pool, (m->n_pool + 1) * sizeof (char *));
-  if (grown == NULL)
-    return NULL;
+  if (grown == nullptr)
+    return nullptr;
   m->pool = grown;
 
   copy = (char *) malloc (strlen (s) + 1);
-  if (copy == NULL)
-    return NULL;
+  if (copy == nullptr)
+    return nullptr;
   strcpy (copy, s);
 
   m->pool[m->n_pool] = copy;
@@ -1221,25 +1221,25 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
   int i, d, n, start, x, y, ip;
 
   scmap_last_fail = 0;
-  if (game == NULL)
-    return NULL;
+  if (game == nullptr)
+    return nullptr;
 
   /* The author can turn the map off altogether. */
   sm_cache_ensure (game);
   if (sm_cache_nomap)
-    return NULL;
+    return nullptr;
 
   n = (int) gs_room_count (game);
   if (n <= 0)
-    return NULL;
+    return nullptr;
 
   /* --- the layout (Form29.init_map, calc_grid, tidy_up) ----------------- */
 
   memset (&L, 0, sizeof L);
   L.n = n;
   L.rooms = (sm_room_t *) calloc (n + 1, sizeof (sm_room_t));
-  if (L.rooms == NULL)
-    return NULL;
+  if (L.rooms == nullptr)
+    return nullptr;
   L.minx = L.miny = GRID_LIMIT;
   L.maxx = L.maxy = 0;
 
@@ -1249,7 +1249,7 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
       char key[16];
 
       snprintf (key, sizeof key, "%d", (int) room);
-      L.rooms[i].seen = (view != NULL && view->seen != NULL)
+      L.rooms[i].seen = (view != nullptr && view->seen != nullptr)
                         ? (view->seen (view->ctx, key) ? 1 : 0)
                         : (gs_room_seen (game, room) ? 1 : 0);
       L.rooms[i].hide = sm_cache[i].hide;
@@ -1267,7 +1267,7 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
   if (start < 1 || start > n || L.rooms[start].hide)
     {
       free (L.rooms);
-      return NULL;
+      return nullptr;
     }
 
   x = y = GRID_HOME;
@@ -1279,23 +1279,23 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
     {
       scmap_last_fail = L.fail;
       free (L.rooms);
-      return NULL;
+      return nullptr;
     }
 
   /* --- the map ---------------------------------------------------------- */
 
   m = (map_t *) calloc (1, sizeof (map_t));
-  if (m == NULL)
+  if (m == nullptr)
     {
       free (L.rooms);
-      return NULL;
+      return nullptr;
     }
   m->pages = (map_page_t *) calloc (1, sizeof (map_page_t));
-  if (m->pages == NULL)
+  if (m->pages == nullptr)
     {
       free (L.rooms);
       free (m);
-      return NULL;
+      return nullptr;
     }
   m->n_pages = 1;
   m->line_links = 1;            /* Form29.dolink draws with Line controls */
@@ -1309,11 +1309,11 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
    * from being put there -- but no box until you walk into it.)
    */
   page->nodes = (map_node_t *) calloc (n, sizeof (map_node_t));
-  if (page->nodes == NULL)
+  if (page->nodes == nullptr)
     {
       free (L.rooms);
       map_free (m);
-      return NULL;
+      return nullptr;
     }
 
   /*
@@ -1392,7 +1392,7 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
       node = &page->nodes[node_of[i]];
 
       node->links = (map_link_t *) calloc (MAP_N_DIRS, sizeof (map_link_t));
-      if (node->links == NULL)
+      if (node->links == nullptr)
         break;
 
       for (d = 0; d < MAP_N_DIRS; d++)

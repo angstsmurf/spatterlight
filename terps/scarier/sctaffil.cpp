@@ -238,7 +238,7 @@ taf_create_empty (void)
   memset (taf->header, 0, sizeof (taf->header));
   taf->version = TAF_VERSION_NONE;
   taf->total_in_bytes = 0;
-  taf->slabs = NULL;
+  taf->slabs = nullptr;
   taf->slab_count = 0;
   taf->slabs_allocated = 0;
   taf->is_unterminated = FALSE;
@@ -789,7 +789,7 @@ taf_populate_from_callback (scr_tafref_t taf,
         {
           scr_error ("taf_create: not enough data for standard TAF header\n");
           taf_destroy (taf);
-          return NULL;
+          return nullptr;
         }
 
       /*
@@ -807,7 +807,7 @@ taf_populate_from_callback (scr_tafref_t taf,
               scr_error ("taf_create:"
                          " not enough data for extended TAF header\n");
               taf_destroy (taf);
-              return NULL;
+              return nullptr;
             }
 
           taf->version = TAF_VERSION_400;
@@ -821,7 +821,7 @@ taf_populate_from_callback (scr_tafref_t taf,
       else
         {
           taf_destroy (taf);
-          return NULL;
+          return nullptr;
         }
     }
   else
@@ -866,7 +866,7 @@ taf_populate_from_callback (scr_tafref_t taf,
   if (!status)
     {
       taf_destroy (taf);
-      return NULL;
+      return nullptr;
     }
 
   /* Return successfully. */
@@ -894,7 +894,7 @@ taf_populate_raw (scr_tafref_t taf, scr_read_callbackref_t callback,
   if (!taf_read_raw (taf, callback, opaque))
     {
       taf_destroy (taf);
-      return NULL;
+      return nullptr;
     }
   return taf;
 }
@@ -1023,7 +1023,7 @@ taf_next_line (scr_tafref_t taf)
     }
 
   /* No more lines, so return NULL. */
-  return NULL;
+  return nullptr;
 }
 
 

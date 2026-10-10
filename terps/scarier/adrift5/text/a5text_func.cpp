@@ -30,12 +30,12 @@
 /* ---------------------------------------------------- function replacement */
 
 /* %PopUpInput% host callback (a5text_set_popup_cb); NULL => use the default. */
-static a5_popup_cb a5_popup = NULL;
-static void *a5_popup_ctx = NULL;
+static a5_popup_cb a5_popup = nullptr;
+static void *a5_popup_ctx = nullptr;
 /* %PopUpChoice% host callback (a5text_set_popup_choice_cb); NULL => leave the
    token unevaluated, as FD's throwing MsgBox does. */
-static a5_popup_choice_cb a5_popup_choice = NULL;
-static void *a5_popup_choice_ctx = NULL;
+static a5_popup_choice_cb a5_popup_choice = nullptr;
+static void *a5_popup_choice_ctx = nullptr;
 
 /* Trim surrounding whitespace and one layer of "double quotes" from a PopUp*
    function argument (they arrive already function-expanded). */
@@ -51,9 +51,9 @@ popup_unquote (std::string &s)
 static const char *
 resolve_object_arg (a5_state_t *st, const char *args)
 {
-  if (args == NULL || args[0] == '\0')
-    return NULL;
-  if (a5model_object (st->adv, args) != NULL)
+  if (args == nullptr || args[0] == '\0')
+    return nullptr;
+  if (a5model_object (st->adv, args) != nullptr)
     return args;
   for (int i = 0; i < st->adv->n_objects; i++)
     {
@@ -66,7 +66,7 @@ resolve_object_arg (a5_state_t *st, const char *args)
               if (ci_eq (full.c_str (), args)) return o->key; }
         }
     }
-  return NULL;
+  return nullptr;
 }
 
 /* Join a list of object keys as an "a, b and c" list with the given article
@@ -79,7 +79,7 @@ list_objects_art (a5_state_t *st, const std::vector<const char *> &keys,
   for (size_t i = 0; i < keys.size (); i++)
     {
       const a5_object_t *o = a5model_object (st->adv, keys[i]);
-      if (o == NULL)
+      if (o == nullptr)
         { names.push_back (keys[i]); continue; }
       char *nm = a5text_object_name (st, o, art);
       names.push_back (nm);
@@ -141,11 +141,11 @@ chars_on_in (a5_state_t *st, const char *objkey, int on)
   std::vector<const a5_character_t *> v;
   for (int i = 0; i < st->adv->n_characters; i++)
     {
-      if (st->char_onobj == NULL || st->char_onobj[i] == NULL)
+      if (st->char_onobj == nullptr || st->char_onobj[i] == nullptr)
         continue;
       if (!streq (st->char_onobj[i], objkey))
         continue;
-      int in = st->char_in != NULL && st->char_in[i];
+      int in = st->char_in != nullptr && st->char_in[i];
       if ((on && !in) || (!on && in))
         v.push_back (&st->adv->characters[i]);
     }
@@ -168,11 +168,11 @@ object_children_block (a5_state_t *st, const char *objkey)
   std::vector<const char *> in = objects_on_in (st, objkey, A5_OWHERE_IN_OBJECT);
 
   /* Inside children are only listed when the object is open (or not openable). */
-  int openable = o && a5_prop_find (o->props, o->n_props, "Openable") != NULL;
+  int openable = o && a5_prop_find (o->props, o->n_props, "Openable") != nullptr;
   if (openable)
     {
       const char *os = a5state_entity_prop (st, objkey, "OpenStatus");
-      if (os == NULL || !streq (os, "Open"))
+      if (os == nullptr || !streq (os, "Open"))
         in.clear ();
     }
 
@@ -260,7 +260,7 @@ static std::vector<std::string>
 arg_object_keys (a5_state_t *st, const char *args)
 {
   std::vector<std::string> keys;
-  if (args == NULL)
+  if (args == nullptr)
     return keys;
   std::string a = args;
   size_t dot = a.find ('.');
@@ -281,7 +281,7 @@ arg_object_keys (a5_state_t *st, const char *args)
       size_t comma = seg.find (',');
       if (comma != std::string::npos)
         seg = seg.substr (0, comma);
-      if (!seg.empty () && a5model_object (st->adv, seg.c_str ()) != NULL)
+      if (!seg.empty () && a5model_object (st->adv, seg.c_str ()) != nullptr)
         keys.push_back (seg);
       if (bar == std::string::npos)
         break;
@@ -315,10 +315,10 @@ fn_popupinput (a5_state_t * /*st*/, const char * /*name*/, const char *args)
   if (comma != std::string::npos)
     { prompt = a.substr (0, comma); dflt = a.substr (comma + 1); }
   popup_unquote (prompt); popup_unquote (dflt);
-  if (a5_popup != NULL)
+  if (a5_popup != nullptr)
     {
       char *ans = a5_popup (a5_popup_ctx, prompt.c_str (), dflt.c_str ());
-      if (ans != NULL) return ans;
+      if (ans != nullptr) return ans;
     }
   return strdup (dflt.c_str ());
 }
@@ -354,7 +354,7 @@ fn_charactername (a5_state_t *st, const char * /*name*/, const char *args)
      htblCharacters.ContainsKey) -- the emit site in replace_functions
      captures the pending (perspective, key, pronoun) with the name's
      output offset. */
-  if (ch != NULL)
+  if (ch != nullptr)
     {
       st->pron_pending = char_perspective (st, ch);
       st->pron_pending_key = ch->key;
@@ -412,15 +412,15 @@ fn_alonewithchar (a5_state_t *st, const char * /*name*/, const char * /*args*/)
      compare, so a character seated on furniture counts (Lost Children's
      Anne in her rocking chair). */
   const char *ploc = a5state_player_location (st);
-  const char *found = NULL;
+  const char *found = nullptr;
   int count = 0, i;
-  for (i = 0; ploc != NULL && i < st->adv->n_characters; i++)
+  for (i = 0; ploc != nullptr && i < st->adv->n_characters; i++)
     {
       const char *oloc;
       if (ci_eq (st->adv->characters[i].key, a5state_player_key (st)))
         continue;
       oloc = a5state_character_location_key (st, i);
-      if (oloc != NULL && streq (oloc, ploc))
+      if (oloc != nullptr && streq (oloc, ploc))
         { count++; found = st->adv->characters[i].key; }
     }
   return strdup ((count == 1) ? found : "NoCharacter");
@@ -430,7 +430,7 @@ static char *
 fn_locationname (a5_state_t *st, const char * /*name*/, const char *args)
 {
   const char *key = (args && args[0]) ? args : a5state_player_location (st);
-  if (key != NULL && a5model_location (st->adv, key) != NULL)
+  if (key != nullptr && a5model_location (st->adv, key) != nullptr)
     return a5text_location_short (st, key);
   return strdup ("");
 }
@@ -450,7 +450,7 @@ fn_locationof (a5_state_t *st, const char * /*name*/, const char *args)
          resolved through on/in-object and on-character carriers; a Hidden
          character reports the literal "Hidden" (Global.vb:25). */
       const char *k = a5state_character_location_key (st, ci);
-      return strdup (k != NULL ? k : "Hidden");
+      return strdup (k != nullptr ? k : "Hidden");
     }
   {
     int oi = a5state_object_index (st, key);
@@ -476,11 +476,11 @@ fn_displaylocation (a5_state_t *st, const char * /*name*/, const char *args)
 {
   /* Global.vb:2130: render the given location's ViewLocation (or "There is
      nothing of interest here." when empty). */
-  const a5_location_t *l = (args && args[0]) ? a5model_location (st->adv, args) : NULL;
-  if (l != NULL)
+  const a5_location_t *l = (args && args[0]) ? a5model_location (st->adv, args) : nullptr;
+  if (l != nullptr)
     {
       char *s = view_location_impl (st, args);
-      if (s == NULL || s[0] == '\0')
+      if (s == nullptr || s[0] == '\0')
         { free (s); return strdup ("There is nothing of interest here."); }
       /* The view is already fully adjudicated (its own ALR + cap ran on the
          marked-up buffer, mirroring the runner's single Display pass), and it is
@@ -529,7 +529,7 @@ fn_object_names (a5_state_t *st, const char *name, const char *args)
      binding from resolve_plural) renders as the runner's "the a, the b and the c"
      article list -- ReplaceFunctions builds a temp ObjectHashTable from the
      split keys and returns htblObjects.List (Global.vb:2056/2386). */
-  if (o == NULL && strchr (args, '|') != NULL)
+  if (o == nullptr && strchr (args, '|') != nullptr)
     {
       std::vector<std::string> ks = arg_object_keys (st, args);
       if (ks.size () > 1)
@@ -539,17 +539,17 @@ fn_object_names (a5_state_t *st, const char *name, const char *args)
           return list_objects_art (st, kp, art);
         }
     }
-  if (o == NULL && args != NULL && args[0] != '\0')
+  if (o == nullptr && args != nullptr && args[0] != '\0')
     {
       /* args may be a key or a display name; resolve_object_arg also
          matches a "prefix + name" full name (e.g. "framed newspaper
          article"), which a bare %object% inner render produces -- the
          plain names[] search missed those and dropped the article. */
       const char *k = resolve_object_arg (st, args);
-      if (k != NULL)
+      if (k != nullptr)
         o = a5model_object (st->adv, k);
     }
-  if (o != NULL)
+  if (o != nullptr)
     return a5text_object_name (st, o, art);
   /* No object resolved.  The Adrift 5 runner builds an ObjectHashTable from the key
      arg and renders htblObjects.List, which returns "nothing" for an empty
@@ -590,15 +590,15 @@ fn_propertyvalue (a5_state_t *st, const char * /*name*/, const char *args)
      so the text collapsed to the raw `[kristenstart=0]` lookup tokens and
      `SetProperty ... %PropertyValue%+2` arithmetic silently stopped
      counting. */
-  const char *ekey = NULL;
+  const char *ekey = nullptr;
   {
     const a5_object_t *eo = a5model_object (st->adv, ent.c_str ());
-    const a5_character_t *ec = eo ? NULL : a5model_character (st->adv, ent.c_str ());
-    const a5_location_t *el = (eo || ec) ? NULL
+    const a5_character_t *ec = eo ? nullptr : a5model_character (st->adv, ent.c_str ());
+    const a5_location_t *el = (eo || ec) ? nullptr
                                          : a5model_location (st->adv, ent.c_str ());
-    if (eo != NULL)      ekey = eo->key;
-    else if (ec != NULL) ekey = ec->key;
-    else if (el != NULL) ekey = el->key;
+    if (eo != nullptr)      ekey = eo->key;
+    else if (ec != nullptr) ekey = ec->key;
+    else if (el != nullptr) ekey = el->key;
     else                 ekey = resolve_object_arg (st, ent.c_str ());
   }
   /* A runtime SetProperty override wins over the static model value, just
@@ -606,26 +606,26 @@ fn_propertyvalue (a5_state_t *st, const char * /*name*/, const char *args)
      `SetProperty Door1 LockKey Key3`, retargeting the lazy-unlock chain's
      `%PropertyValue[Door1,LockKey]%` from the lost silver key to the iron
      key).  The static value_node path below still serves text properties. */
-  if (ekey != NULL)
+  if (ekey != nullptr)
     for (int oi = 0; oi < st->n_ov; oi++)
       if (streq (st->ov[oi].entity, ekey)
           && streq (st->ov[oi].prop, prop.c_str ()))
         return strdup (st->ov[oi].value ? st->ov[oi].value : "");
-  const a5_prop_t *props = NULL; int n_props = 0;
-  const a5_object_t *o = ekey ? a5model_object (st->adv, ekey) : NULL;
-  if (o != NULL) { props = o->props; n_props = o->n_props; }
+  const a5_prop_t *props = nullptr; int n_props = 0;
+  const a5_object_t *o = ekey ? a5model_object (st->adv, ekey) : nullptr;
+  if (o != nullptr) { props = o->props; n_props = o->n_props; }
   else {
-    const a5_character_t *c = ekey ? a5model_character (st->adv, ekey) : NULL;
-    if (c != NULL) { props = c->props; n_props = c->n_props; }
+    const a5_character_t *c = ekey ? a5model_character (st->adv, ekey) : nullptr;
+    if (c != nullptr) { props = c->props; n_props = c->n_props; }
     else {
-      const a5_location_t *l = ekey ? a5model_location (st->adv, ekey) : NULL;
-      if (l != NULL) { props = l->props; n_props = l->n_props; }
+      const a5_location_t *l = ekey ? a5model_location (st->adv, ekey) : nullptr;
+      if (l != nullptr) { props = l->props; n_props = l->n_props; }
     }
   }
-  const a5_prop_t *pr = props ? a5_prop_find (props, n_props, prop.c_str ()) : NULL;
-  if (pr == NULL)
+  const a5_prop_t *pr = props ? a5_prop_find (props, n_props, prop.c_str ()) : nullptr;
+  if (pr == nullptr)
     return strdup ("");
-  if (pr->value_node != NULL)
+  if (pr->value_node != nullptr)
     return a5text_eval_description (st, pr->value_node);
   return strdup (pr->value ? pr->value : "");
 }
@@ -637,9 +637,9 @@ fn_parentof (a5_state_t *st, const char * /*name*/, const char *args)
   /* args is a key or a display name (including the "<prefix> <noun>" form
      %objects% yields); emit the parent's key. */
   const char *ok = resolve_object_arg (st, args);
-  const a5_object_t *o = ok ? a5model_object (st->adv, ok) : NULL;
-  const char *k = NULL;
-  if (o != NULL)
+  const a5_object_t *o = ok ? a5model_object (st->adv, ok) : nullptr;
+  const char *k = nullptr;
+  if (o != nullptr)
     { char *pp = a5expr_eval (st, o->key, ".Parent"); if (pp) return pp; k = ""; }
   /* Characters too: %ParentOf[%Player%]% is the seat/container the
      character is on/in (clsCharacter.Parent) -- the stock
@@ -647,12 +647,12 @@ fn_parentof (a5_state_t *st, const char * /*name*/, const char *args)
      `stand up` from the nav-console chair). */
   {
     const a5_character_t *c = a5model_character (st->adv, args);
-    if (c == NULL)
+    if (c == nullptr)
       for (i = 0; i < st->adv->n_characters; i++)
-        if (st->adv->characters[i].name != NULL
+        if (st->adv->characters[i].name != nullptr
             && ci_eq (st->adv->characters[i].name, args))
           { c = &st->adv->characters[i]; break; }
-    if (c != NULL)
+    if (c != nullptr)
       { char *pp = a5expr_eval (st, c->key, ".Parent"); if (pp) return pp; }
   }
   return strdup (k ? k : "");
@@ -667,7 +667,7 @@ fn_list_objects_on_in (a5_state_t *st, const char *name, const char *args)
   a5_owhere_t want = ci_eq (name, "listobjectson") ? A5_OWHERE_ON_OBJECT
                                                    : A5_OWHERE_IN_OBJECT;
   std::vector<const char *> v;
-  if (k != NULL) v = objects_on_in (st, k, want);
+  if (k != nullptr) v = objects_on_in (st, k, want);
   if (v.empty ())
     return strdup ("nothing");      /* ObjectHashTable.List of an empty set
                                        (StronglyTypedCollections.vb:196) --
@@ -706,10 +706,10 @@ static char *
 fn_list_characters (a5_state_t *st, const char *name, const char *args)
 {
   const char *k = resolve_object_arg (st, args);
-  const a5_object_t *o = k ? a5model_object (st->adv, k) : NULL;
+  const a5_object_t *o = k ? a5model_object (st->adv, k) : nullptr;
   std::vector<const a5_character_t *> on, in;
-  if (k != NULL && !ci_eq (name, "listcharactersin")) on = chars_on_in (st, k, 1);
-  if (k != NULL && !ci_eq (name, "listcharacterson")) in = chars_on_in (st, k, 0);
+  if (k != nullptr && !ci_eq (name, "listcharactersin")) on = chars_on_in (st, k, 1);
+  if (k != nullptr && !ci_eq (name, "listcharacterson")) in = chars_on_in (st, k, 0);
   auto names = [&](std::vector<const a5_character_t *> &cs) {
     std::vector<std::string> v;
     for (size_t i = 0; i < cs.size (); i++)
@@ -724,7 +724,7 @@ fn_list_characters (a5_state_t *st, const char *name, const char *args)
          clsObject.vb:940, never looks at OpenStatus), and "noone" when the
          set is empty (StronglyTypedCollections.vb:425).  An unknown object
          key just DisplayErrors and renders blank. */
-      if (k == NULL)
+      if (k == nullptr)
         return strdup ("");
       std::vector<const a5_character_t *> &cs =
           ci_eq (name, "listcharacterson") ? on : in;
@@ -735,11 +735,11 @@ fn_list_characters (a5_state_t *st, const char *name, const char *args)
   /* OnAndIn -> DisplayCharacterChildren, which lists inside-characters only
      when the object is `Not Openable OrElse IsOpen` (clsObject.vb:383) --
      same gate as the object children above. */
-  if (!in.empty () && o != NULL
-      && a5_prop_find (o->props, o->n_props, "Openable") != NULL)
+  if (!in.empty () && o != nullptr
+      && a5_prop_find (o->props, o->n_props, "Openable") != nullptr)
     {
       const char *os = a5state_entity_prop (st, k, "OpenStatus");
-      if (os == NULL || !streq (os, "Open"))
+      if (os == nullptr || !streq (os, "Open"))
         in.clear ();
     }
   if (on.empty () && in.empty ())
@@ -765,7 +765,7 @@ fn_list_held_worn (a5_state_t *st, const char *name, const char *args)
 {
   const a5_character_t *c = a5model_character (st->adv, args);
   std::vector<const char *> v;
-  if (c != NULL)
+  if (c != nullptr)
     {
       a5_owhere_t want = ci_eq (name, "listheld") ? A5_OWHERE_HELD_BY
                                                   : A5_OWHERE_WORN_BY;
@@ -783,17 +783,17 @@ fn_display_char_obj (a5_state_t *st, const char *name, const char *args)
   /* Global.vb:2122/2138 DisplayCharacter/DisplayObject: the entity's
      Description.ToString, with the canned "sees nothing interesting about"
      fallback when empty.  a5expr's .Description already renders the node. */
-  const char *key = NULL;
+  const char *key = nullptr;
   int is_char = ci_eq (name, "displaycharacter");
   if (is_char)
     { const a5_character_t *c = a5model_character (st->adv, args);
-      key = c ? c->key : NULL; }
+      key = c ? c->key : nullptr; }
   else
     key = resolve_object_arg (st, args);
-  if (key != NULL)
+  if (key != nullptr)
     {
       char *d = a5expr_eval (st, key, ".Description");
-      if (d != NULL && d[0] != '\0')
+      if (d != nullptr && d[0] != '\0')
         return d;
       free (d);
       std::string fb = "%CharacterName% see[//s] nothing interesting about ";
@@ -810,7 +810,7 @@ fn_display_char_obj (a5_state_t *st, const char *name, const char *args)
              subject==object collision the fallback can produce). */
           const char *subj = st->ctx_char ? st->ctx_char
                                           : a5state_player_key (st);
-          const char *qual = (subj != NULL && streq (subj, key))
+          const char *qual = (subj != nullptr && streq (subj, key))
                                ? "reflective" : "target";
           fb += "%CharacterName["; fb += key; fb += ", "; fb += qual;
           fb += "]%.";
@@ -824,7 +824,7 @@ fn_display_char_obj (a5_state_t *st, const char *name, const char *args)
       free (proc);
       return plain;
     }
-  return NULL;
+  return nullptr;
 }
 
 static char *
@@ -835,7 +835,7 @@ fn_list_exits (a5_state_t *st, const char * /*name*/, const char *args)
      "nowhere" when there are none.  Reuse a5expr's character .Exits path
      (same DirectionsEnum order + HasRouteInDirection check). */
   char *cnt = a5expr_eval (st, args, ".Exits.Count");
-  long n = cnt ? strtol (cnt, NULL, 10) : 0;
+  long n = cnt ? strtol (cnt, nullptr, 10) : 0;
   free (cnt);
   if (n <= 0)
     return strdup ("nowhere");
@@ -906,7 +906,7 @@ fn_number_as_text (a5_state_t * /*st*/, const char * /*name*/, const char *args)
     "septendecillion", "octodecillion", "novemdecillion", "vigintillion" };
   const int n_groups_names = (int) (sizeof groups / sizeof groups[0]);
 
-  std::string num = args != NULL ? args : "";
+  std::string num = args != nullptr ? args : "";
   /* IsNumeric gate: digits with optional sign/currency/comma/point dressing.
      Anything else goes through the expression engine and its IntValue. */
   int numeric = 0;
@@ -924,9 +924,9 @@ fn_number_as_text (a5_state_t * /*st*/, const char * /*name*/, const char *args)
   if (!numeric)
     {
       char *ev = a5_eval_sexpr (num.c_str ());
-      if (ev != NULL)
+      if (ev != nullptr)
         {
-          long iv = strtol (ev, NULL, 10);
+          long iv = strtol (ev, nullptr, 10);
           char buf[32];
           snprintf (buf, sizeof buf, "%ld", iv);
           num = buf;
@@ -981,7 +981,7 @@ fn_held_worn_keys (a5_state_t *st, const char *name, const char *args)
   const a5_character_t *c = a5model_character (st->adv, args);
   a5_owhere_t want = ci_eq (name, "held") ? A5_OWHERE_HELD_BY
                                           : A5_OWHERE_WORN_BY;
-  if (c == NULL)
+  if (c == nullptr)
     return strdup ("");
   return strdup (join_keys_pipe (objects_where (st, want, c->key)).c_str ());
 }
@@ -992,7 +992,7 @@ fn_objectsin (a5_state_t *st, const char * /*name*/, const char *args)
   /* %ObjectsIn[objkey]% -> "|"-joined keys of the objects directly inside
      (Global.vb:2255, Children(InsideObject).Values), open or not. */
   const a5_object_t *o = a5model_object (st->adv, args);
-  if (o == NULL)
+  if (o == nullptr)
     return strdup ("");
   return strdup (join_keys_pipe (
       objects_where (st, A5_OWHERE_IN_OBJECT, o->key)).c_str ());
@@ -1005,7 +1005,7 @@ fn_characterdescriptor (a5_state_t *st, const char * /*name*/, const char *args)
      (clsCharacter.Descriptor, clsCharacter.vb:572; dispatched Global.vb:2074).
      No descriptors -> "". */
   const a5_character_t *c = a5model_character (st->adv, args);
-  if (c == NULL || c->n_descriptors == 0)
+  if (c == nullptr || c->n_descriptors == 0)
     return strdup ("");
   return strdup (char_descriptor_name (c, c->article).c_str ());
 }
@@ -1040,9 +1040,9 @@ fn_sum (a5_state_t * /*st*/, const char * /*name*/, const char *args)
       if (e > p)
         {
           std::string tok = t.substr (p, e - p);
-          char *end = NULL;
+          char *end = nullptr;
           long v = strtol (tok.c_str (), &end, 10);
-          if (end != NULL && *end == '\0')
+          if (end != nullptr && *end == '\0')
             total += v;
         }
       p = e + 1;
@@ -1070,14 +1070,14 @@ fn_popupchoice (a5_state_t * /*st*/, const char * /*name*/, const char *args)
      frontend, not the headless harness) gets the Windows behaviour instead:
      the chosen text replaces the token.  A malformed call with fewer than
      three arguments has nothing to choose between, so it stays verbatim too. */
-  if (a5_popup_choice == NULL || args == NULL)
-    return NULL;
+  if (a5_popup_choice == nullptr || args == nullptr)
+    return nullptr;
 
   std::string a = args;
   size_t c1 = a.find (','), c2 = (c1 == std::string::npos)
                                  ? std::string::npos : a.find (',', c1 + 1);
   if (c2 == std::string::npos)
-    return NULL;
+    return nullptr;
 
   std::string prompt = a.substr (0, c1);
   std::string yes = a.substr (c1 + 1, c2 - c1 - 1);
@@ -1087,7 +1087,7 @@ fn_popupchoice (a5_state_t * /*st*/, const char * /*name*/, const char *args)
   int picked = a5_popup_choice (a5_popup_choice_ctx, prompt.c_str (),
                                 yes.c_str (), no.c_str ());
   if (picked < 0)
-    return NULL;                /* host declined to ask: leave it verbatim */
+    return nullptr;                /* host declined to ask: leave it verbatim */
   return strdup (picked ? yes.c_str () : no.c_str ());
 }
 
@@ -1099,7 +1099,7 @@ fn_prevparentof (a5_state_t *st, const char * /*name*/, const char *args)
      Objects officially also re-stamp on each Move, so the turn-start snapshot
      only diverges when one object moves twice within a single turn. */
   int oi = a5state_object_index (st, args);
-  if (oi >= 0 && st->obj_prev != NULL)
+  if (oi >= 0 && st->obj_prev != nullptr)
     {
       a5_owhere_t w = st->obj_prev[oi].where;
       if (w == A5_OWHERE_ON_OBJECT || w == A5_OWHERE_IN_OBJECT
@@ -1110,8 +1110,8 @@ fn_prevparentof (a5_state_t *st, const char * /*name*/, const char *args)
       return strdup ("");
     }
   int ci = a5state_character_index (st, args);
-  if (ci >= 0 && st->char_prevpar != NULL)
-    return strdup (st->char_prevpar[ci] != NULL ? st->char_prevpar[ci] : "");
+  if (ci >= 0 && st->char_prevpar != nullptr)
+    return strdup (st->char_prevpar[ci] != nullptr ? st->char_prevpar[ci] : "");
   return strdup ("");
 }
 
@@ -1123,7 +1123,7 @@ fn_prevlistobjectson (a5_state_t *st, const char * /*name*/, const char *args)
      Global.vb:596) -- computed here from the turn-start placement snapshot. */
   const char *k = resolve_object_arg (st, args);
   std::vector<const char *> v;
-  if (k != NULL && st->obj_prev != NULL)
+  if (k != nullptr && st->obj_prev != nullptr)
     for (int i = 0; i < st->adv->n_objects; i++)
       if (st->obj_prev[i].where == A5_OWHERE_ON_OBJECT
           && streq (st->obj_prev[i].key, k))
@@ -1162,7 +1162,7 @@ udf_arg_is_expression (const char *s)
         continue;
       const char *q = p + 1;
       while (*q == ' ') q++;
-      if (*q == '\0' || strchr ("*+,-./^", *q) == NULL)
+      if (*q == '\0' || strchr ("*+,-./^", *q) == nullptr)
         continue;
       q++;
       while (*q == ' ') q++;
@@ -1192,10 +1192,10 @@ eval_function (a5_state_t *st, const char *name, const char *args)
     for (i = 0; i < st->adv->n_udfs; i++)
       {
         const a5_udf_t *u = &st->adv->udfs[i];
-        if (u->name == NULL || strcmp (u->name, name) != 0)
+        if (u->name == nullptr || strcmp (u->name, name) != 0)
           continue;
         const a5_xml_node_t *outp = a5xml_child (u->node, "Output");
-        if (outp == NULL || udf_depth > 8)   /* The runner: recursive UDF = error */
+        if (outp == nullptr || udf_depth > 8)   /* The runner: recursive UDF = error */
           return strdup ("");
         /* EvaluateUDF (Global.vb:1653) substitutes the arguments into the RAW
            Output text -- BEFORE any function/expression evaluation -- then
@@ -1211,9 +1211,9 @@ eval_function (a5_state_t *st, const char *name, const char *args)
            gates the Output's restrictions against the live state instead.) */
         udf_depth++;
         char *raw = a5text_eval_description (st, outp);
-        std::string body = (raw != NULL) ? raw : "";
+        std::string body = (raw != nullptr) ? raw : "";
         free (raw);
-        if (args != NULL && args[0] != '\0')
+        if (args != nullptr && args[0] != '\0')
           {
             /* SplitArgs (Global.vb:1623): split on commas at bracket depth 0
                ('('/'[' up, ')'/']' down); empty chunks are dropped, nothing
@@ -1234,12 +1234,12 @@ eval_function (a5_state_t *st, const char *name, const char *args)
             }
             size_t vi = 0;
             for (const a5_xml_node_t *an = u->node->first_child;
-                 an != NULL; an = an->next)
+                 an != nullptr; an = an->next)
               {
                 if (strcmp (an->name, "Argument") != 0)
                   continue;
                 const char *anm = a5xml_child_text (an, "Name");
-                if (anm != NULL && vi < vals.size ())
+                if (anm != nullptr && vi < vals.size ())
                   {
                     std::string v = vals[vi];
                     /* "Our function argument could be an expression": fold a
@@ -1249,7 +1249,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
                     if (udf_arg_is_expression (v.c_str ()))
                       {
                         char *ev = a5text_eval_expression (st, v.c_str ());
-                        if (ev != NULL && ev[0] != '\0')
+                        if (ev != nullptr && ev[0] != '\0')
                           v = ev;
                         free (ev);
                       }
@@ -1281,7 +1281,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
      the args-form regex doesn't match it, so it survives verbatim (ProbePopups
      intro).  Evaluating it here would also eat a script line as the popup
      answer, desyncing the transcript. */
-  if (args != NULL && ci_eq (name, "popupinput"))
+  if (args != nullptr && ci_eq (name, "popupinput"))
     return fn_popupinput (st, name, args);
   if (ci_eq (name, "charactername"))
     return fn_charactername (st, name, args);
@@ -1300,75 +1300,75 @@ eval_function (a5_state_t *st, const char *name, const char *args)
     return fn_locationof (st, name, args);
   if (ci_eq (name, "displaylocation"))
     return fn_displaylocation (st, name, args);
-  if (args != NULL
+  if (args != nullptr
       && (ci_eq (name, "theobject") || ci_eq (name, "aobject")
           || ci_eq (name, "objectname") || ci_eq (name, "object")
           || ci_eq (name, "theobjects") || ci_eq (name, "aobjects")
           || ci_eq (name, "objects")))
     return fn_object_names (st, name, args);
-  if (ci_eq (name, "propertyvalue") && args != NULL)
+  if (ci_eq (name, "propertyvalue") && args != nullptr)
     return fn_propertyvalue (st, name, args);
-  if (ci_eq (name, "parentof") && args != NULL)
+  if (ci_eq (name, "parentof") && args != nullptr)
     return fn_parentof (st, name, args);
-  if (args != NULL
+  if (args != nullptr
       && (ci_eq (name, "listobjectson") || ci_eq (name, "listobjectsin")))
     return fn_list_objects_on_in (st, name, args);
-  if (args != NULL && ci_eq (name, "listobjectsonandin"))
+  if (args != nullptr && ci_eq (name, "listobjectsonandin"))
     return fn_list_objects_on_and_in (st, name, args);
-  if (args != NULL
+  if (args != nullptr
       && (ci_eq (name, "listcharacterson") || ci_eq (name, "listcharactersin")
           || ci_eq (name, "listcharactersonandin")))
     return fn_list_characters (st, name, args);
-  if (args != NULL && (ci_eq (name, "listheld") || ci_eq (name, "listworn")))
+  if (args != nullptr && (ci_eq (name, "listheld") || ci_eq (name, "listworn")))
     return fn_list_held_worn (st, name, args);
-  if (args != NULL && (ci_eq (name, "displaycharacter") || ci_eq (name, "displayobject")))
+  if (args != nullptr && (ci_eq (name, "displaycharacter") || ci_eq (name, "displayobject")))
     return fn_display_char_obj (st, name, args);
-  if (args != NULL && ci_eq (name, "listexits"))
+  if (args != nullptr && ci_eq (name, "listexits"))
     return fn_list_exits (st, name, args);
-  if (args != NULL && ci_eq (name, "listobjectsatlocation"))
+  if (args != nullptr && ci_eq (name, "listobjectsatlocation"))
     return fn_list_objects_at_location (st, name, args);
-  if (ci_eq (name, "numberastext") && args != NULL)
+  if (ci_eq (name, "numberastext") && args != nullptr)
     return fn_number_as_text (st, name, args);
   if (ci_eq (name, "pcase") || ci_eq (name, "ucase") || ci_eq (name, "lcase"))
     return fn_case (st, name, args);
-  if (args != NULL && (ci_eq (name, "held") || ci_eq (name, "worn")))
+  if (args != nullptr && (ci_eq (name, "held") || ci_eq (name, "worn")))
     return fn_held_worn_keys (st, name, args);
-  if (args != NULL && ci_eq (name, "objectsin"))
+  if (args != nullptr && ci_eq (name, "objectsin"))
     return fn_objectsin (st, name, args);
-  if (args != NULL && ci_eq (name, "characterdescriptor"))
+  if (args != nullptr && ci_eq (name, "characterdescriptor"))
     return fn_characterdescriptor (st, name, args);
-  if (args != NULL && ci_eq (name, "taskcompleted"))
+  if (args != nullptr && ci_eq (name, "taskcompleted"))
     return fn_taskcompleted (st, name, args);
-  if (args != NULL && ci_eq (name, "sum"))
+  if (args != nullptr && ci_eq (name, "sum"))
     return fn_sum (st, name, args);
-  if (args != NULL && ci_eq (name, "popupchoice"))
+  if (args != nullptr && ci_eq (name, "popupchoice"))
     return fn_popupchoice (st, name, args);
-  if (args != NULL && ci_eq (name, "prevparentof"))
+  if (args != nullptr && ci_eq (name, "prevparentof"))
     return fn_prevparentof (st, name, args);
-  if (args != NULL && ci_eq (name, "prevlistobjectson"))
+  if (args != nullptr && ci_eq (name, "prevlistobjectson"))
     return fn_prevlistobjectson (st, name, args);
-  if (args != NULL && ci_eq (name, "replace"))
+  if (args != nullptr && ci_eq (name, "replace"))
     /* In TEXT context the runner's function Select has no Replace arm --
        sResult stays "" ("Bad Function - Nothing output") and the token
        renders empty; the usable replace(a,b,c) lives in expressions
        (a5sexpr.cpp). */
     return strdup ("");
-  if (args == NULL && ci_eq (name, "version"))
+  if (args == nullptr && ci_eq (name, "version"))
     /* %version% (Global.vb:1765): the Runner's assembly version "5.0.36.6"
        (AssemblyInfo.vb) with the first two dots elided by the substring
        splice -> "5036.6". */
     return strdup ("5036.6");
-  if (args == NULL && ci_eq (name, "release"))
+  if (args == nullptr && ci_eq (name, "release"))
     /* %release% (Global.vb:1766): the <ifindex> block's <release><version>
        (BabelTreatyInfo ... Release.Version) -- which DEFAULTS to 1
        (Babel.vb:354 iVersion As Integer = 1), so a file carrying no release
        metadata still renders "1". */
-    return strdup (st->adv->release != NULL ? st->adv->release : "1");
+    return strdup (st->adv->release != nullptr ? st->adv->release : "1");
 
   /* A bound reference produced by the parser this turn (%direction%, %text%). */
-  if (args == NULL)
+  if (args == nullptr)
     {
-      const char *bound = NULL;
+      const char *bound = nullptr;
       std::string slot;     /* ReferencedCharacterN / LocationN / ItemN */
       int is_ref = ref_slot_name (name, slot);
       if (ci_eq (name, "direction") || ci_eq (name, "direction1"))
@@ -1404,19 +1404,19 @@ eval_function (a5_state_t *st, const char *name, const char *args)
              %objects% on %object2%` command stays VERBATIM like the runner. */
           if ((ci_eq (name, "object") || ci_eq (name, "object1"))
               && st->ref_object1_plural)
-            return NULL;
+            return nullptr;
           const char *ref = ci_eq (name, "object2") ? "ReferencedObject2"
                                                      : "ReferencedObject";
           const char *key = a5state_lookup_ref (st, ref);
-          const a5_object_t *o = key ? a5model_object (st->adv, key) : NULL;
-          if (o != NULL)
+          const a5_object_t *o = key ? a5model_object (st->adv, key) : nullptr;
+          if (o != nullptr)
             return strdup (o->key);
         }
       else if (is_ref && slot.compare (0, 19, "ReferencedCharacter") == 0)
         {
           const char *key = a5state_lookup_ref (st, slot.c_str ());
-          const a5_character_t *ch = key ? a5model_character (st->adv, key) : NULL;
-          if (ch != NULL && ch->name != NULL)
+          const a5_character_t *ch = key ? a5model_character (st->adv, key) : nullptr;
+          if (ch != nullptr && ch->name != nullptr)
             return strdup (ch->name);
         }
       else if (is_ref && slot.compare (0, 16, "ReferencedObject") != 0)
@@ -1430,12 +1430,12 @@ eval_function (a5_state_t *st, const char *name, const char *args)
              replace_functions keys off those slots.) */
           bound = a5state_lookup_ref (st, slot.c_str ());
         }
-      if (bound != NULL)
+      if (bound != nullptr)
         return strdup (bound);
     }
 
   /* A bare %VariableName% (or %Score% etc.). */
-  if (args == NULL)
+  if (args == nullptr)
     {
       for (i = 0; i < st->adv->n_variables; i++)
         if (ci_eq (st->adv->variables[i].name, name))
@@ -1472,18 +1472,18 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       for (i = 0; i < st->adv->n_variables; i++)
         if (ci_eq (st->adv->variables[i].name, name))
           {
-            char *end = NULL;
+            char *end = nullptr;
             long idx = strtol (args, &end, 10);
-            while (end != NULL && (*end == ' ' || *end == '\t'))
+            while (end != nullptr && (*end == ' ' || *end == '\t'))
               end++;
             /* A non-literal index (e.g. %notallowed[RAND(1,6)]%) must be
                evaluated as an expression -- the runner's clsVariable indexing runs the
                bracket contents through EvaluateExpression.  Only fall through to
                the plain-literal fast path when args is exactly an integer. */
-            if (end == args || (end != NULL && *end != '\0'))
+            if (end == args || (end != nullptr && *end != '\0'))
               {
                 char *ev = a5text_eval_expression (st, args);
-                char *e2 = NULL;
+                char *e2 = nullptr;
                 long v = strtol (ev, &e2, 10);
                 int oknum = (e2 != ev);
                 free (ev);
@@ -1518,7 +1518,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           }
     }
 
-  return NULL;                  /* unhandled: leave the token verbatim */
+  return nullptr;                  /* unhandled: leave the token verbatim */
 }
 
 /* Capture a pending CharacterName render as a PronounKeys entry at output
@@ -1538,7 +1538,7 @@ pron_capture (a5_state_t *st, long off)
       st->n_pron++;
     }
   st->pron_pending = 0;
-  st->pron_pending_key = NULL;
+  st->pron_pending_key = nullptr;
   st->pron_pending_pron = 0;
 }
 
@@ -1562,7 +1562,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
   char *cur = strdup (src);
   int vi;
 
-  if (strchr (src, '%') == NULL)
+  if (strchr (src, '%') == nullptr)
     return cur;                         /* nothing to substitute */
 
   for (vi = 0; vi < st->adv->n_variables; vi++)
@@ -1571,19 +1571,19 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
       size_t vlen;
       int guard = 0;
 
-      if (vname == NULL || vname[0] == '\0')
+      if (vname == nullptr || vname[0] == '\0')
         continue;
       vlen = strlen (vname);
 
       while (guard++ < 4096)
         {
-          char *hit = NULL, *scan = cur;
+          char *hit = nullptr, *scan = cur;
           const char *after;
-          char *name, *rawargs = NULL, *value = NULL, *token;
+          char *name, *rawargs = nullptr, *value = nullptr, *token;
           char *tok_end;
 
           /* Find the next "%vname" (case-insensitive) delimited by '%' or '['. */
-          while ((scan = strchr (scan, '%')) != NULL)
+          while ((scan = strchr (scan, '%')) != nullptr)
             {
               const char *nm = scan + 1;
               if (strncasecmp (nm, vname, vlen) == 0
@@ -1591,7 +1591,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
                 { hit = scan; break; }
               scan++;
             }
-          if (hit == NULL)
+          if (hit == nullptr)
             break;
 
           after = hit + 1 + vlen;
@@ -1599,7 +1599,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
           if (*after == '%')
             {
               tok_end = (char *) after + 1;
-              value = eval_function (st, name, NULL);
+              value = eval_function (st, name, nullptr);
             }
           else                          /* '[' : an array element */
             {
@@ -1625,7 +1625,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
                  and push the raw token (tagged \001) to the sink; the flush
                  re-resolves it, drawing the index then.  So Skybreak's dock flavor
                  draws AFTER the location-trigger task's `SidequestE = RAND(1,10)`. */
-              if (st->expr_defer != NULL && expr_bears_random (rawargs))
+              if (st->expr_defer != nullptr && expr_bears_random (rawargs))
                 {
                   std::vector<std::string> *sink =
                       (std::vector<std::string> *) st->expr_defer;
@@ -1639,7 +1639,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
               else
                 {
                   args = replace_functions (st, rawargs, 1);
-                  if (strchr (args, '.') != NULL)
+                  if (strchr (args, '.') != nullptr)
                     {
                       char *ooargs = a5expr_replace (st, args);
                       free (args); args = ooargs;
@@ -1649,7 +1649,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
                 }
             }
 
-          if (value == NULL)             /* not resolvable here */
+          if (value == nullptr)             /* not resolvable here */
             { free (name); free (rawargs); break; }
 
           token = strndup (hit, (size_t) (tok_end - hit));
@@ -1658,7 +1658,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
             free (cur); cur = next;
           }
           /* Guard against a value that re-introduces the same token. */
-          if (strstr (value, token) != NULL)
+          if (strstr (value, token) != nullptr)
             { free (token); free (name); free (rawargs); free (value); break; }
           free (token); free (name); free (rawargs); free (value);
         }
@@ -1683,7 +1683,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
         {
           const char *q = p + 1;
           const char *name_start = q;
-          char *name, *args = NULL, *value = NULL;
+          char *name, *args = nullptr, *value = nullptr;
           int ok = 0;
 
           while (*q && (isalnum ((unsigned char) *q) || *q == '_' || *q == '-'))
@@ -1705,7 +1705,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                   if (q[1] == '.' && isalpha ((unsigned char) q[2]))
                     {
                       char *fk = oo_firstkey (st, name);
-                      if (fk != NULL)
+                      if (fk != nullptr)
                         {
                           sb_puts (&sb, fk);
                           free (fk); free (name);
@@ -1724,7 +1724,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                   if (as_arg)
                     {
                       char *fk = oo_firstkey (st, name);
-                      if (fk != NULL)
+                      if (fk != nullptr)
                         {
                           sb_puts (&sb, fk);
                           free (fk); free (name);
@@ -1746,7 +1746,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                           continue;        /* substitute "" */
                         }
                     }
-                  value = eval_function (st, name, NULL);
+                  value = eval_function (st, name, nullptr);
                   free (name);
                   q++;
                   ok = 1;
@@ -1777,7 +1777,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                          argument (LCase would lower-case the raw "Closet.OpenStatus"
                          to "closet.openstatus").  a5expr_replace is a no-op unless
                          args holds a real <key>.<chain>. */
-                      if (strchr (args, '.') != NULL)
+                      if (strchr (args, '.') != nullptr)
                         {
                           char *ooargs = a5expr_replace (st, args);
                           free (args);
@@ -1795,7 +1795,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
 
           if (ok)
             {
-              if (value != NULL)
+              if (value != nullptr)
                 {
                   /* CharacterName sentence-start fudge (the runner Global.vb:2103): when
                      the resolved name is immediately preceded by two spaces or a
@@ -1823,10 +1823,10 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                      NOT rewritten). */
                   static const char *const singulars[] =
                     { "object", "character", "location", "direction",
-                      "item", "text", "number", NULL };
+                      "item", "text", "number", nullptr };
                   size_t tlen = (size_t) (q - p);
                   int rewrote = 0;
-                  for (int si = 0; singulars[si] != NULL; si++)
+                  for (int si = 0; singulars[si] != nullptr; si++)
                     {
                       size_t sl = strlen (singulars[si]);
                       if (tlen == sl + 2 && p[0] == '%' && p[tlen - 1] == '%'
