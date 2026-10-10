@@ -75,22 +75,36 @@ const int map_dir_dy[MAP_N_DIRS] = { -1, 0, 1, 0, 0, 0, 0, 0, -1, 1, 1, -1 };
  *
  * Links are then drawn near-opaque, since the fading is already in the
  * colour.
+ *
+ * This is the module's only mutable state, and it is the host's, not a
+ * game's: it lasts for the process, is not saved, and a new game inherits
+ * it.  Everything else here works on the map_t and surface it is handed.
  */
-static unsigned int map_bg = 0xFFFFFF;
-static unsigned int map_fg = 0x000000;
+struct map_palette_s
+{
+  /* What the host passed to map_set_palette(). */
+  unsigned int bg = 0xFFFFFF;
+  unsigned int fg = 0x000000;
 
-/* Resolved by rebuild_derived_palette(). */
-static unsigned int map_room_fill = 0xFFFFFF;
-static unsigned int map_room_stroke = 0x000000;
-static unsigned int map_here_fill = 0x000000;
-static unsigned int map_here_stroke = 0x000000;
-static unsigned int map_here_label = 0xFFFFFF;
-static unsigned int map_label = 0x000000;
-static unsigned int map_link = 0x000000;
-static unsigned int map_stub = 0x000000;
-static int map_link_alpha = 100;        /* connectors on the player's level */
-static int map_link_alpha_far = 30;     /* ... and on another level */
-static int map_palette_ready = 0;
+  /* Resolved from those by rebuild_derived_palette(). */
+  struct
+  {
+    int ready = 0;
+    unsigned int room_fill = 0xFFFFFF;
+    unsigned int room_stroke = 0x000000;
+    unsigned int here_fill = 0x000000;
+    unsigned int here_stroke = 0x000000;
+    unsigned int here_label = 0xFFFFFF;
+    unsigned int label = 0x000000;
+    unsigned int link = 0x000000;
+    unsigned int stub = 0x000000;
+    int link_alpha = 100;       /* connectors on the player's level */
+    int link_alpha_far = 30;    /* ... and on another level */
+  } derived;
+};
+typedef struct map_palette_s map_palette_t;
+
+static map_palette_t palette;
 
 /* The badge discs, one hue per way out of a room, and the mark on them. */
 #define ICON_IN        0x00A000
@@ -161,27 +175,27 @@ static unsigned int
 paper_ink_label_on (unsigned int fill)
 {
   double fill_l = rgb_luminance (fill);
-  double fg_l = rgb_luminance (map_fg);
-  double bg_l = rgb_luminance (map_bg);
+  double fg_l = rgb_luminance (palette.fg);
+  double bg_l = rgb_luminance (palette.bg);
   double mid;
 
   if (fg_l == bg_l)
-    return map_fg;
+    return palette.fg;
   mid = (fg_l + bg_l) * 0.5;
   if (fill_l >= mid)
-    return fg_l > bg_l ? map_bg : map_fg;
-  return fg_l > bg_l ? map_fg : map_bg;
+    return fg_l > bg_l ? palette.bg : palette.fg;
+  return fg_l > bg_l ? palette.fg : palette.bg;
 }
 
 static void
 rebuild_derived_palette (void)
 {
-  int dark = rgb_luminance (map_bg) < 0.45;
+  int dark = rgb_luminance (palette.bg) < 0.45;
   double room_t = dark ? 0.18 : 0.12;
   double fill_a = MAP_ROOM_FILL_ALPHA / 255.0;
   unsigned int room_eff, here_eff;
 
-  map_palette_ready = 1;
+  palette.derived.ready = 1;
 
   /*
    * Paper and ink only: rooms sit a little off the canvas; the player's
@@ -189,33 +203,33 @@ rebuild_derived_palette (void)
    * Shallow here-mixes landed on a mid grey whose label then failed to
    * invert.
    */
-  map_room_fill = mix_rgb (map_bg, map_fg, room_t);
-  map_room_stroke = map_fg;
-  map_here_fill = mix_rgb (map_room_fill, map_fg,
-                          dark ? 0.85 : 0.90);
-  map_here_stroke = map_fg;
-  room_eff = mix_rgb (map_bg, map_room_fill, fill_a);
-  here_eff = mix_rgb (map_bg, map_here_fill, fill_a);
-  map_label = paper_ink_label_on (room_eff);
-  map_here_label = paper_ink_label_on (here_eff);
-  map_link = mix_rgb (map_bg, map_fg, dark ? 0.50 : 0.60);
-  map_stub = mix_rgb (map_bg, map_fg, dark ? 0.35 : 0.40);
-  map_link_alpha = 220;
-  map_link_alpha_far = 44;
+  palette.derived.room_fill = mix_rgb (palette.bg, palette.fg, room_t);
+  palette.derived.room_stroke = palette.fg;
+  palette.derived.here_fill = mix_rgb (palette.derived.room_fill, palette.fg,
+                                       dark ? 0.85 : 0.90);
+  palette.derived.here_stroke = palette.fg;
+  room_eff = mix_rgb (palette.bg, palette.derived.room_fill, fill_a);
+  here_eff = mix_rgb (palette.bg, palette.derived.here_fill, fill_a);
+  palette.derived.label = paper_ink_label_on (room_eff);
+  palette.derived.here_label = paper_ink_label_on (here_eff);
+  palette.derived.link = mix_rgb (palette.bg, palette.fg, dark ? 0.50 : 0.60);
+  palette.derived.stub = mix_rgb (palette.bg, palette.fg, dark ? 0.35 : 0.40);
+  palette.derived.link_alpha = 220;
+  palette.derived.link_alpha_far = 44;
 }
 
 static void
 ensure_derived_palette (void)
 {
-  if (!map_palette_ready)
+  if (!palette.derived.ready)
     rebuild_derived_palette ();
 }
 
 void
 map_set_palette (unsigned int background, unsigned int text)
 {
-  map_bg = background & 0xFFFFFF;
-  map_fg = text & 0xFFFFFF;
+  palette.bg = background & 0xFFFFFF;
+  palette.fg = text & 0xFFFFFF;
   rebuild_derived_palette ();
 }
 
@@ -1490,7 +1504,7 @@ chrome_mark_px (map_surface_t *s, const map_btn_t *b, int u, int v,
 static unsigned int
 chrome_ink (int enabled)
 {
-  return enabled ? map_fg : mix_rgb (map_fg, map_bg, 0.55);
+  return enabled ? palette.fg : mix_rgb (palette.fg, palette.bg, 0.55);
 }
 
 /* One edge of a button's border, in the ink for `enabled`. */
@@ -1530,7 +1544,7 @@ draw_chrome_border (map_surface_t *s, const map_btn_t *b, int enabled,
 static void
 draw_chrome_btn (map_surface_t *s, const map_btn_t *b, int enabled)
 {
-  unsigned int face = mix_rgb (map_bg, map_fg, enabled ? 0.12 : 0.06);
+  unsigned int face = mix_rgb (palette.bg, palette.fg, enabled ? 0.12 : 0.06);
   unsigned int ink = chrome_ink (enabled);
   int mid = (MAP_BTN_SIZE - 2) / 2; /* first pixel past the inside's centre */
   int mark_alpha = enabled ? 255 : 140;
@@ -1632,9 +1646,9 @@ draw_out_arrow (map_surface_t *s, const proj_t *p, const map_node_t *n,
   dy /= len;
   x1 = x0 + dx * stub;
   y1 = y0 + dy * stub;
-  draw_line (s, (int) x0, (int) y0, (int) x1, (int) y1, wd, map_stub,
-             alpha, 0);
-  draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, map_stub, alpha);
+  draw_line (s, (int) x0, (int) y0, (int) x1, (int) y1, wd,
+             palette.derived.stub, alpha, 0);
+  draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, palette.derived.stub, alpha);
 }
 
 /*
@@ -1740,7 +1754,7 @@ draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
     }
   if (dim)
     {
-      rgb = mix_rgb (rgb, map_bg, 0.5);
+      rgb = mix_rgb (rgb, palette.bg, 0.5);
       mark_alpha /= 2;
     }
 
@@ -2157,9 +2171,9 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
     return;
 
   /* Nodes on a different level than the player's fade out (Map.vb:1436). */
-  alpha = map_link_alpha;
+  alpha = palette.derived.link_alpha;
   if (rc->active != nullptr && n->z != rc->active->z && dn->z != rc->active->z)
-    alpha = map_link_alpha_far;
+    alpha = palette.derived.link_alpha_far;
 
   dash = link->dotted;
   if (link->dotted && rc->view != nullptr && rc->view->ever_blocked != nullptr)
@@ -2255,7 +2269,8 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
         }
       pts[2 * (np - 1)] = x3;
       pts[2 * (np - 1) + 1] = y3;
-      draw_curve (rc->dst, pts, np, rc->wd, map_link, alpha, dash, &phase);
+      draw_curve (rc->dst, pts, np, rc->wd, palette.derived.link, alpha, dash,
+                  &phase);
       /* Tangent for a one-way arrow: last mid -> end. */
       x1 = pts[2 * (np - 2)];
       y1 = pts[2 * (np - 2) + 1];
@@ -2310,8 +2325,8 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
           bezier_assister (rc->p, n, link->dir, dist, &x1, &y1);
           bezier_assister (rc->p, dn, dst_anchor, dist, &x2, &y2);
         }
-      draw_bezier (rc->dst, x0, y0, x1, y1, x2, y2, x3, y3, rc->wd, map_link,
-                   alpha, dash, &phase);
+      draw_bezier (rc->dst, x0, y0, x1, y1, x2, y2, x3, y3, rc->wd,
+                   palette.derived.link, alpha, dash, &phase);
     }
 
   /*
@@ -2326,8 +2341,8 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
           adx = x3 - x0;
           ady = y3 - y0;
         }
-      draw_arrowhead (rc->dst, x3, y3, adx, ady, rc->wd * 2 + 2, map_link,
-                      alpha);
+      draw_arrowhead (rc->dst, x3, y3, adx, ady, rc->wd * 2 + 2,
+                      palette.derived.link, alpha);
     }
 }
 
@@ -2379,7 +2394,8 @@ render_exit_stubs (const render_ctx_t *rc)
             continue;
           if (view_seen (rc->view, dest))
             continue;
-          draw_out_arrow (rc->dst, rc->p, n, d, rc->wd, map_link_alpha);
+          draw_out_arrow (rc->dst, rc->p, n, d, rc->wd,
+                          palette.derived.link_alpha);
         }
     }
 }
@@ -2430,10 +2446,12 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
   is_far = (!is_player && rc->active != nullptr && n->z != rc->active->z);
   alpha = is_far ? MAP_FAR_ROOM_ALPHA : MAP_ROOM_FILL_ALPHA;
 
-  fill = is_player ? map_here_fill : map_room_fill;
+  fill = is_player ? palette.derived.here_fill : palette.derived.room_fill;
   fill_rect (rc->dst, x0, y0, x1, y1, fill, alpha);
   draw_rect (rc->dst, x0, y0, x1, y1,
-             is_player ? map_here_stroke : map_room_stroke, alpha);
+             is_player ? palette.derived.here_stroke
+                       : palette.derived.room_stroke,
+             alpha);
 
   /* Below MAP_SCALE_MIN a name would be a smudge across the box. */
   if (rc->view != nullptr && rc->view->name != nullptr
@@ -2442,7 +2460,8 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
       const char *label = rc->view->name (rc->view->ctx, n->key);
       if (label != nullptr && label[0] != '\0')
         draw_label (rc->dst, label, x0, y0, x1, y1,
-                    is_player ? map_here_label : map_label,
+                    is_player ? palette.derived.here_label
+                              : palette.derived.label,
                     is_far ? MAP_FAR_LABEL_ALPHA : 255);
     }
 
@@ -2525,7 +2544,7 @@ map_render (const map_t *map, const map_view_t *view,
   if (dst == nullptr)
     return;
   ensure_derived_palette ();
-  fill_surface (dst, map_bg);
+  fill_surface (dst, palette.bg);
   if (map == nullptr || cam == nullptr)
     return;
   page = page_by_key (map, cam->page);
