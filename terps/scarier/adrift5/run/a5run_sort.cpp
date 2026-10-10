@@ -34,8 +34,8 @@
 
 #include <vector>
 
-#include "a5model.h"
-#include "a5run.h"
+#include "../a5model.h"
+#include "../a5run.h"
 #include "a5run_internal.h"
 
 /* clsTask.Children sorts a parent's Specific overrides with

@@ -257,6 +257,8 @@ terps/taylor/test/images/mame/
 # harnesses have their own .gitignore files under terps/scarier/test/)
 /terps/scarier/*.o
 /terps/scarier/adrift5/*.o
+/terps/scarier/adrift5/text/*.o
+/terps/scarier/adrift5/run/*.o
 /terps/scarier/library/*.o
 /terps/scarier/runner/*.o
 /terps/scarier/glk/*.o

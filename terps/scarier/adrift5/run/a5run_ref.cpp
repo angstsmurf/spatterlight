@@ -37,15 +37,15 @@
 #include <string>
 #include <vector>
 
-#include "a5parse.h"
-#include "a5restr.h"
-#include "a5run.h"
+#include "../a5parse.h"
+#include "../a5restr.h"
+#include "../a5run.h"
 #include "a5run_internal.h"
-#include "a5text.h"
-#include "a5util.h"
+#include "../a5text.h"
+#include "../a5util.h"
 
 /* strcasecmp() where the toolchain lacks <strings.h>. */
-#include "../common_utils/sc_garglk.h"
+#include "../../common_utils/sc_garglk.h"
 
 /* A reference alias split into its base ("object1" -> "object") and, when
    `num_out` is non-NULL, its trailing digit run ("object1" -> "1").  ADRIFT

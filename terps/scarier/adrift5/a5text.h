@@ -19,18 +19,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * ADRIFT 5 support for Scarier -- text engine (Phase 2 MVP).
+ * ADRIFT 5 support for Scarier -- text engine.
  *
  * Turns the model's <Description> blocks into display text: it evaluates the
  * SingleDescription list (DisplayWhen + per-description restrictions), runs the
- * %function% / %variable% substitution and ALR ("Text Override") passes, applies
+ * %function% / %variable% substitution, OO property, <#expression#> and ALR
+ * ("Text Override") passes, resolves perspective and pronouns, applies
  * ADRIFT's sentence auto-capitalisation, and renders the resulting HTML-ish
- * markup (<br>, <c>, <b>, <i>, entities) down to plain text.
- *
- * Covers the variables, core functions and tags the static world needs; the
- * full perspective/pronoun/UDF engine is Phase 4.  Mirrors the Adrift 5 runner
- * SharedModule.Description.ToString, ReplaceALRs, ReplaceFunctions and the
- * GlkHtmlWin tag renderer.
+ * markup (<br>, <c>, <b>, <i>, entities) down to plain text.  Mirrors the
+ * Adrift 5 runner's Description.ToString, ReplaceALRs, ReplaceFunctions,
+ * ReplaceOO and the GlkHtmlWin tag renderer.
  *
  * Every returned char* is heap-allocated; the caller frees it.
  */

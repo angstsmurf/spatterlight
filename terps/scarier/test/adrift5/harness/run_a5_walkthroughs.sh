@@ -201,7 +201,7 @@ FILTER="${1:-}"
 # lines and never reaches the real win), where FD has no banner at all, so the
 # extra blank just splits one hunk -- faithful change, re-blessed +1.
 #
-# Blank CharHereDesc suppression (char_here_desc, a5text.cpp): a character whose
+# Blank CharHereDesc suppression (char_here_desc, a5text_view.cpp): a character whose
 # CharHereDesc property is *present but blank* is now omitted from the room's "X
 # is here." present-list, mirroring FD's clsLocation.ViewLocation (HasProperty ==
 # ContainsKey, so a blank value overrides the default and IsHereDesc returns "").
@@ -389,7 +389,7 @@ FILTER="${1:-}"
 # win ("*** CONGRATULATIONS! ***") derived by play from the bundled ROT1 hint
 # sheet.  The 3 residual hunks (identical in both RNG modes, all in the endgame
 # banner/credits) were all fixed:
-#   (1) `%turns%`/`%Turns%` built-in added to eval_function (a5text.cpp), matching
+#   (1) `%turns%`/`%Turns%` built-in added to eval_function (a5text_func.cpp), matching
 #       FD's ReplaceIgnoreCase(sText,"%turns%",...) (Global.vb:1763) -- ci_eq folds
 #       case so the capital alias resolves too.  Value = st->turns-1 (FD bumps
 #       Adventure.Turns *after* Process() returns, so a task's own output sees the

@@ -37,10 +37,10 @@
 #include <utility>
 #include <vector>
 
-#include "a5parse.h"
-#include "a5run.h"
-#include "a5sb.h"
-#include "a5util.h"
+#include "../a5parse.h"
+#include "../a5run.h"
+#include "../a5sb.h"
+#include "../a5util.h"
 
 /* Per-event runtime (clsEvent instance state).  Status mirrors
    clsEvent.StatusEnum; the timers mirror TimerToEndOfEvent / iLastSubEventTime /

@@ -521,6 +521,10 @@
 		AC710000000000000000B008 /* agilstub.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031BE09F29EE10083E64E /* agilstub.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
 		AC8E0000000000000000B111 /* archetype.c in Sources */ = {isa = PBXBuildFile; fileRef = AC8E0000000000000000F11E /* archetype.c */; };
 		B68248355BAFECF536CB7329 /* a5text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DAF981FA6279F5D391398AE /* a5text.cpp */; };
+		A5B000000000000000000112 /* a5text_func.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000113 /* a5text_func.cpp */; };
+		A5B000000000000000000114 /* a5text_name.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000115 /* a5text_name.cpp */; };
+		A5B000000000000000000116 /* a5text_render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000117 /* a5text_render.cpp */; };
+		A5B000000000000000000118 /* a5text_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000119 /* a5text_view.cpp */; };
 		B7145202EAC047AD8BB455D0 /* GlkTextBufferWindow+Output.m in Sources */ = {isa = PBXBuildFile; fileRef = 5988597D3F5747EF835AACB3 /* GlkTextBufferWindow+Output.m */; };
 		BBBC23C9E382F679DA0A656B /* zx_title.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0200000000DEAD0010 /* zx_title.c */; };
 		BC8473362F031B0E9CE638B8 /* a5blorb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 541F8346135F0995045B7BD0 /* a5blorb.cpp */; };
@@ -3097,6 +3101,10 @@
 		96FE876009F3A11900D41D78 /* libtads2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FE876509F3A12B00D41D78 /* libtads3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads3.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DAF981FA6279F5D391398AE /* a5text.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5text.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000113 /* a5text_func.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5text_func.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000115 /* a5text_name.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5text_name.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000117 /* a5text_render.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5text_render.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000119 /* a5text_view.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5text_view.cpp; sourceTree = "<group>"; };
 		A10F00023024070000388340 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A14490B80EA24F1C864C91E3 /* GlkTextBufferWindow+Input.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Input.m"; sourceTree = "<group>"; };
 		A16591AA3CA68885CF7C3D4E /* sclocale.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclocale.cpp; sourceTree = "<group>"; };
@@ -3120,6 +3128,7 @@
 		A5HDR000000000000000007 /* a5expr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5expr.h; sourceTree = "<group>"; };
 		A5HDR000000000000000008 /* a5sexpr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5sexpr.h; sourceTree = "<group>"; };
 		A5HDR000000000000000009 /* a5text.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5text.h; sourceTree = "<group>"; };
+		A5B00000000000000000011A /* a5text_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5text_internal.h; sourceTree = "<group>"; };
 		A5HDR00000000000000000A /* a5parse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5parse.h; sourceTree = "<group>"; };
 		A5HDR00000000000000000B /* a5rand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5rand.h; sourceTree = "<group>"; };
 		A5HDR00000000000000000C /* a5run.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5run.h; sourceTree = "<group>"; };
@@ -6127,6 +6136,34 @@
 			path = extras;
 			sourceTree = "<group>";
 		};
+		A5GRP0000000000000000002 /* text */ = {
+			isa = PBXGroup;
+			children = (
+				9DAF981FA6279F5D391398AE /* a5text.cpp */,
+				A5B000000000000000000113 /* a5text_func.cpp */,
+				A5B000000000000000000115 /* a5text_name.cpp */,
+				A5B000000000000000000117 /* a5text_render.cpp */,
+				A5B000000000000000000119 /* a5text_view.cpp */,
+				A5B00000000000000000011A /* a5text_internal.h */,
+			);
+			path = text;
+			sourceTree = "<group>";
+		};
+		A5GRP0000000000000000003 /* run */ = {
+			isa = PBXGroup;
+			children = (
+				FF22095E6A4182F0BA2C8C35 /* a5run.cpp */,
+				A5B000000000000000000104 /* a5run_ref.cpp */,
+				A5B000000000000000000106 /* a5run_events.cpp */,
+				A5B000000000000000000108 /* a5run_action.cpp */,
+				A5B00000000000000000010C /* a5run_sort.cpp */,
+				A5B00000000000000000010E /* a5run_conv.cpp */,
+				A5B000000000000000000110 /* a5run_resp.cpp */,
+				A5B00000000000000000010A /* a5run_internal.h */,
+			);
+			path = run;
+			sourceTree = "<group>";
+		};
 		A5GRP0000000000000000001 /* adrift5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -6138,17 +6175,10 @@
 				AACD49A13B6CCDC934F28451 /* a5restr.cpp */,
 				6408B5CA09BAAF2505BD12D5 /* a5expr.cpp */,
 				CD2DA72BBCC0B7869F9EFA7F /* a5sexpr.cpp */,
-				9DAF981FA6279F5D391398AE /* a5text.cpp */,
+				A5GRP0000000000000000002 /* text */,
+				A5GRP0000000000000000003 /* run */,
 				7EAD8F2AE9A3E211D1BB4936 /* a5parse.cpp */,
 				10990E34B23D66921A762A58 /* a5rand.cpp */,
-				A5B00000000000000000010A /* a5run_internal.h */,
-				FF22095E6A4182F0BA2C8C35 /* a5run.cpp */,
-				A5B000000000000000000104 /* a5run_ref.cpp */,
-				A5B000000000000000000106 /* a5run_events.cpp */,
-				A5B000000000000000000108 /* a5run_action.cpp */,
-				A5B00000000000000000010C /* a5run_sort.cpp */,
-				A5B00000000000000000010E /* a5run_conv.cpp */,
-				A5B000000000000000000110 /* a5run_resp.cpp */,
 				A5MAP0000000000000000002 /* a5map.cpp */,
 				A5MAP0000000000000000003 /* a5map.h */,
 				A5B000000000000000000109 /* a5sb.h */,
@@ -8377,6 +8407,10 @@
 				6C3A9D6886A51FFC631E5F99 /* a5expr.cpp in Sources */,
 				CC9FC385F0D6751126B1C67D /* a5sexpr.cpp in Sources */,
 				B68248355BAFECF536CB7329 /* a5text.cpp in Sources */,
+				A5B000000000000000000112 /* a5text_func.cpp in Sources */,
+				A5B000000000000000000114 /* a5text_name.cpp in Sources */,
+				A5B000000000000000000116 /* a5text_render.cpp in Sources */,
+				A5B000000000000000000118 /* a5text_view.cpp in Sources */,
 				8E6D5566C3EB91367805E306 /* a5parse.cpp in Sources */,
 				3B98519817A0F0691F423FD2 /* a5rand.cpp in Sources */,
 				E010519EC9196D58BA837C92 /* a5run.cpp in Sources */,

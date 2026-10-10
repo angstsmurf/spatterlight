@@ -44,12 +44,12 @@
 #include <string>
 #include <vector>
 
-#include "a5parse.h"
-#include "a5restr.h"
-#include "a5run.h"
+#include "../a5parse.h"
+#include "../a5restr.h"
+#include "../a5run.h"
 #include "a5run_internal.h"
-#include "a5sb.h"
-#include "a5text.h"
+#include "../a5sb.h"
+#include "../a5text.h"
 
 /* ContainsWord (clsUserSession.vb:3885): every space-separated word of `check`
    appears among the space-separated words of `sentence` (case-insensitive).

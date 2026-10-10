@@ -48,16 +48,16 @@
 #include <unordered_set>
 #include <vector>
 
-#include "a5expr.h"
-#include "a5parse.h"
-#include "a5rand.h"
-#include "a5restr.h"
-#include "a5run.h"
+#include "../a5expr.h"
+#include "../a5parse.h"
+#include "../a5rand.h"
+#include "../a5restr.h"
+#include "../a5run.h"
 #include "a5run_internal.h"
-#include "a5sb.h"
-#include "a5sexpr.h"
-#include "a5text.h"
-#include "../sessrec.h"
+#include "../a5sb.h"
+#include "../a5sexpr.h"
+#include "../a5text.h"
+#include "../../sessrec.h"
 
 int a5run_trace = 0;
 

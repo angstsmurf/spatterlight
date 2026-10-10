@@ -35,13 +35,13 @@
 #include <string>
 #include <vector>
 
-#include "a5parse.h"
-#include "a5rand.h"
-#include "a5restr.h"
-#include "a5run.h"
+#include "../a5parse.h"
+#include "../a5rand.h"
+#include "../a5restr.h"
+#include "../a5run.h"
 #include "a5run_internal.h"
-#include "a5sb.h"
-#include "a5text.h"
+#include "../a5sb.h"
+#include "../a5text.h"
 
 static void ev_lstart (a5_run_t *run, int ei, int restart, sb_t *out);
 static void ev_lstop  (a5_run_t *run, int ei, int run_subs, sb_t *out);

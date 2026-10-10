@@ -131,17 +131,20 @@ RANDOBJ	= a5_randomness.o
 A5DIR	= adrift5
 A5OBJECTS = $(A5DIR)/a5blorb.o $(A5DIR)/a5deobf.o $(A5DIR)/a5xml.o	\
 	  $(A5DIR)/a5model.o $(A5DIR)/a5state.o $(A5DIR)/a5restr.o	\
-	  $(A5DIR)/a5expr.o $(A5DIR)/a5sexpr.o $(A5DIR)/a5text.o	\
+	  $(A5DIR)/a5expr.o $(A5DIR)/a5sexpr.o $(A5DIR)/text/a5text.o	\
+	  $(A5DIR)/text/a5text_func.o $(A5DIR)/text/a5text_name.o			\
+	  $(A5DIR)/text/a5text_render.o $(A5DIR)/text/a5text_view.o		\
 	  $(A5DIR)/a5parse.o $(A5DIR)/a5rand.o $(A5DIR)/a5sb.o		\
-	  $(A5DIR)/a5run_ref.o $(A5DIR)/a5run_events.o			\
-	  $(A5DIR)/a5run_conv.o $(A5DIR)/a5run_resp.o			\
-	  $(A5DIR)/a5run_sort.o						\
-	  $(A5DIR)/a5run_action.o $(A5DIR)/a5run.o $(A5DIR)/a5map.o
+	  $(A5DIR)/run/a5run_ref.o $(A5DIR)/run/a5run_events.o			\
+	  $(A5DIR)/run/a5run_conv.o $(A5DIR)/run/a5run_resp.o			\
+	  $(A5DIR)/run/a5run_sort.o						\
+	  $(A5DIR)/run/a5run_action.o $(A5DIR)/run/a5run.o $(A5DIR)/a5map.o
 A5HEADERS = $(A5DIR)/a5blorb.h $(A5DIR)/a5deobf.h $(A5DIR)/a5xml.h	\
 	  $(A5DIR)/a5model.h $(A5DIR)/a5state.h $(A5DIR)/a5restr.h	\
 	  $(A5DIR)/a5expr.h $(A5DIR)/a5sexpr.h $(A5DIR)/a5text.h	\
+	  $(A5DIR)/text/a5text_internal.h					\
 	  $(A5DIR)/a5parse.h $(A5DIR)/a5rand.h $(A5DIR)/a5sb.h		\
-	  $(A5DIR)/a5run.h $(A5DIR)/a5run_internal.h $(A5DIR)/a5map.h	\
+	  $(A5DIR)/a5run.h $(A5DIR)/run/a5run_internal.h $(A5DIR)/a5map.h	\
 	  sessrec.h
 
 # Default make target is the basic ANSI interpreter.

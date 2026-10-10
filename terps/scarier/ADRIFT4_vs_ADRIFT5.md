@@ -7,7 +7,8 @@ file describes the code as it stands. Last checked against the sources
 
 **Where the files are.** The ADRIFT ≤4 engine (`sc*.cpp`, the SCARE lineage) and
 the Glk host (`glk/os_glk*.cpp`) sit in `terps/scarier/`. **Every `a5*`
-file named below lives in `terps/scarier/adrift5/`.** `a5run.cpp` has since been
+file named below lives in `terps/scarier/adrift5/`; the `a5run*` family is in
+`adrift5/run/` and the `a5text*` family in `adrift5/text/`.** `a5run.cpp` has since been
 split: `a5run_action.cpp` (task/action execution), `a5run_events.cpp` (events and
 walks), `a5run_conv.cpp` (conversation), `a5run_ref.cpp` (references),
 `a5run_resp.cpp` (response aggregation), `a5run_sort.cpp` (the .NET introsort for
@@ -106,7 +107,7 @@ Output routes through two OS callbacks: `os_print_string()` for text and `os_pri
 
 Media is delivered as `os_play_sound(filepath, offset, length, is_looping)` and `os_show_graphic(filepath, offset, length)` — file-path plus byte offset into the TAF blob.
 
-### ADRIFT 5 (`a5text.cpp`, `a5expr.cpp`, `a5sexpr.cpp`)
+### ADRIFT 5 (`a5text.cpp` and `a5text_*.cpp`, `a5expr.cpp`, `a5sexpr.cpp`)
 
 `a5text_describe(st, wrapper_node)` evaluates a `<Description>` DOM node into malloc'd UTF-8 plain text. Iterates `<SingleDescription>` elements, each gated by `<DisplayWhen>` restrictions, containing `<Text>`, `<Property>`, `<Function>`, `<If>`, and `<DisplayOnce>` one-shot segments.
 

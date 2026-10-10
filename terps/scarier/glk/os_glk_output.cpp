@@ -217,7 +217,7 @@ gsc_colour_lookup (const char *token)
  * inside "bgcolour", and a background would silently become a foreground.
  *
  * Whitespace is allowed on either side of the '=', as it is in the HTML the
- * Runner hands its tags to; see a5_font_colour() in adrift5/a5text.cpp.
+ * Runner hands its tags to; see a5_font_colour() in adrift5/text/a5text_render.cpp.
  */
 static glui32
 gsc_colour_from_tag (const scr_char *tag, const char *key)

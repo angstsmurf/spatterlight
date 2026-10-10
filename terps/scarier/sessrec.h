@@ -21,7 +21,7 @@
  * Session records: the framing both ADRIFT engines use for the state a
  * Spatterlight autosave carries beyond the saved game -- the ADRIFT 4
  * session state (run_session_state() in runner/scrunner.cpp) and the
- * ADRIFT 5 parser continuation (a5run_pending_save() in adrift5/a5run.cpp).
+ * ADRIFT 5 parser continuation (a5run_pending_save() in adrift5/run/a5run.cpp).
  *
  * The encoding is a run of "<key> <length>\n<bytes>\n" records.  A value is
  * length-prefixed, so it may hold any bytes, newlines included.  Which keys
