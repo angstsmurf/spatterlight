@@ -658,6 +658,11 @@ void
 gsc_a5_note_turn_start (void)
 {
   gsc_a5_turn_state.clear ();
+  /* As gsc_sc_note_turn_start: every reader of the noted state (the prompt
+     autosave and the popup and waitkey ones) is off when autosave is, and
+     the full engine save is as dear as the turn itself. */
+  if (gsc_in_debug_read || !scarier_autosave_enabled ())
+    return;
   if (gsc_a5_run == NULL || a5run_is_over (gsc_a5_run))
     return;
   gsc_a5_turn_state = gsc_a5_serialize_all ();

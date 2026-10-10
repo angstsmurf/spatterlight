@@ -7815,18 +7815,6 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=TIMER a1=100 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
@@ -8821,18 +8809,6 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=TIMER a1=100 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
@@ -9973,18 +9949,6 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=TIMER a1=100 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
@@ -11190,18 +11154,6 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=TIMER a1=100 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
@@ -12761,18 +12713,6 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=TIMER a1=100 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
@@ -14304,18 +14244,6 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=TIMER a1=100 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160

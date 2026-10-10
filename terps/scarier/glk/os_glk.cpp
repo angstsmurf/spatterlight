@@ -492,6 +492,11 @@ static const glui32 GSC_DELAY_TIMEOUTS_COUNT = 10;
 void
 gsc_short_delay (void)
 {
+#ifdef SPATTERLIGHT
+  /* Honour Spatterlight's delays preference, as gsc_handle_wait_tag does. */
+  if (!gli_sa_delays)
+    return;
+#endif
   /* Ignore the call if the Glk doesn't have timers. */
   if (glk_gestalt (gestalt_Timer, 0))
     {
