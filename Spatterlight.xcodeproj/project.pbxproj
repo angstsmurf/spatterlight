@@ -31,6 +31,8 @@
 		2EBE4FED5375406CAB41205F /* GlkTextBufferWindow+Autorestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 621D71B0003145CA87C1B340 /* GlkTextBufferWindow+Autorestore.m */; };
 		307777B2D489022C9E2B82E8 /* scresour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFA9E6AA5E9249D05BF4D194 /* scresour.cpp */; };
 		31B8BBA42E0ADFC51AC0131B /* sctafpar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F072EA2A580A5CA81386D0D /* sctafpar.cpp */; };
+		A5B000000000000000000128 /* sctafpar_fixups.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000127 /* sctafpar_fixups.cpp */; };
+		A5B00000000000000000012A /* sctafpar_patches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000129 /* sctafpar_patches.cpp */; };
 		365A4945CB177013B53370E2 /* scgamest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24A4363FEF151AF32725A1B4 /* scgamest.cpp */; };
 		3851145B2D9911FAC32FEA2C /* os_glk_resources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68BFDF6EE2D60C0B53D4FF16 /* os_glk_resources.cpp */; };
 		39C9AC2CFBECF80768383253 /* scrun_match.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17A1E52B55BFE85E48C70AFA /* scrun_match.cpp */; };
@@ -1848,6 +1850,9 @@
 		A5B000000000000000000125 /* scrun_census.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_census.cpp; sourceTree = "<group>"; };
 		4C84AFDAFFC3A247741DE10D /* textoutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textoutput.h; sourceTree = "<group>"; usesTabs = 0; };
 		4F072EA2A580A5CA81386D0D /* sctafpar.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctafpar.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000127 /* sctafpar_fixups.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctafpar_fixups.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000129 /* sctafpar_patches.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctafpar_patches.cpp; sourceTree = "<group>"; };
+		A5B00000000000000000012B /* sctafpar_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = sctafpar_internal.h; sourceTree = "<group>"; };
 		541F8346135F0995045B7BD0 /* a5blorb.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5blorb.cpp; sourceTree = "<group>"; };
 		55368B5B272BF1C500740A0A /* question */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = question; sourceTree = BUILT_PRODUCTS_DIR; };
 		55368B5D272BF24700740A0A /* question-util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-util.cc"; sourceTree = "<group>"; };
@@ -4417,6 +4422,9 @@
 			isa = PBXGroup;
 			children = (
 				4F072EA2A580A5CA81386D0D /* sctafpar.cpp */,
+				A5B000000000000000000127 /* sctafpar_fixups.cpp */,
+				A5B000000000000000000129 /* sctafpar_patches.cpp */,
+				A5B00000000000000000012B /* sctafpar_internal.h */,
 				AB01DAD407B134C528B7D00C /* sctaffil.cpp */,
 				0E7D25CD79FDADB081ACDA2B /* scprops.cpp */,
 				9255CEEB5304EB4E1088A443 /* scvars.cpp */,
@@ -8357,6 +8365,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				31B8BBA42E0ADFC51AC0131B /* sctafpar.cpp in Sources */,
+				A5B000000000000000000128 /* sctafpar_fixups.cpp in Sources */,
+				A5B00000000000000000012A /* sctafpar_patches.cpp in Sources */,
 				2C111C3B1ADCD93867B3D95B /* sctaffil.cpp in Sources */,
 				2AD991D3EF68FB26902FF578 /* scprops.cpp in Sources */,
 				C5A3C0D64B99E81E7639FE6A /* scvars.cpp in Sources */,

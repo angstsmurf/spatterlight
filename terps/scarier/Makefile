@@ -91,8 +91,8 @@ adrift5/%.o: adrift5/%.cpp
 # Scarier objects and headers.
 LIBDIR	= library
 RUNDIR	= runner
-OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
-	  scinterf.o scparser.o						\
+OBJECTS	= sctafpar.o sctafpar_fixups.o sctafpar_patches.o sctaffil.o	\
+	  scprops.o scvars.o scexpr.o scprintf.o scinterf.o scparser.o	\
 	  $(LIBDIR)/sclibrar_disambig.o $(LIBDIR)/sclibrar_examine.o	\
 	  $(LIBDIR)/sclibrar_dispatch.o $(LIBDIR)/sclibrar_take.o	\
 	  $(LIBDIR)/sclibrar_takefrom.o $(LIBDIR)/sclibrar_drop.o	\
@@ -111,8 +111,9 @@ OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
 	  scevents.o	\
 	  scnpcs.o scbattle.o scobjcts.o sctasks.o screstrs.o scgamest.o scserial.o\
 	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o
-HEADERS	= scarier.h scprotos.h scgamest.h $(RUNDIR)/scrunner.h	\
-	  $(LIBDIR)/sclibrar.h $(LIBDIR)/sclibrar_internal.h sessrec.h
+HEADERS	= scarier.h scprotos.h scgamest.h sctafpar_internal.h		\
+	  $(RUNDIR)/scrunner.h $(LIBDIR)/sclibrar.h			\
+	  $(LIBDIR)/sclibrar_internal.h sessrec.h
 
 # The map pane: scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the ADRIFT 5
 # one, and both draw into the engine-neutral rasteriser in mapdraw.cpp.  Only
