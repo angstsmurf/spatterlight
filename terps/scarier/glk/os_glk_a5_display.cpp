@@ -316,6 +316,8 @@ gsc_a5_display (const char *text)
              disk already. */
           if (saved_pauses && !resumed)
             gsc_a5_autosave_waitkey ();
+#else
+          (void) resumed;
 #endif
           glk_request_char_event (gsc_main_window);
           gsc_event_wait (evtype_CharInput, &event);

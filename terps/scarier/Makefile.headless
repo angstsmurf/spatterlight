@@ -131,7 +131,7 @@ A5_RUN_SRC := $(A5DIR)/a5blorb.cpp $(A5DIR)/a5deobf.cpp $(A5DIR)/a5xml.cpp $(A5D
               $(A5DIR)/a5state.cpp $(A5DIR)/a5restr.cpp $(A5DIR)/a5expr.cpp $(A5DIR)/a5sexpr.cpp $(A5DIR)/text/a5text.cpp $(A5DIR)/a5parse.cpp \
                $(A5DIR)/text/a5text_func.cpp $(A5DIR)/text/a5text_name.cpp $(A5DIR)/text/a5text_render.cpp $(A5DIR)/text/a5text_view.cpp \
               $(A5DIR)/a5rand.cpp $(A5DIR)/a5sb.cpp $(A5DIR)/run/a5run_ref.cpp $(A5DIR)/run/a5run_events.cpp \
-              $(A5DIR)/run/a5run_action.cpp $(A5DIR)/run/a5run_act.cpp $(A5DIR)/run/a5run_sort.cpp $(A5DIR)/run/a5run_conv.cpp $(A5DIR)/run/a5run_resp.cpp $(A5DIR)/run/a5run.cpp
+              $(A5DIR)/run/a5run_action.cpp $(A5DIR)/run/a5run_act.cpp $(A5DIR)/run/a5run_sort.cpp $(A5DIR)/run/a5run_conv.cpp $(A5DIR)/run/a5run_resp.cpp $(A5DIR)/run/a5run_words.cpp $(A5DIR)/run/a5run_save.cpp $(A5DIR)/run/a5run.cpp
 A5_RUN_OBJ := $(call objs,$(A5_RUN_SRC))
 A5DUMP_HARNESS := test/adrift5/harness/a5dump.cpp
 A5DUMP_BIN     := test/adrift5/harness/a5dump

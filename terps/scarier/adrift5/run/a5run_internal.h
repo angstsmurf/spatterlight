@@ -533,6 +533,13 @@ int  msg_has_output (const char *m);
 int  fd_has_output (a5_state_t *st, const char *raw);
 std::vector<std::string> split_ws (const char *s);
 
+/* a5run_words.cpp (EvaluateInput's word layer: pronoun / synonym substitution
+   and GrabIt, the SystemTasks verbs, the NotUnderstood ladder) */
+void resolve_pronouns (a5_run_t *run, std::string &in, sb_t *out);
+void resolve_synonyms (a5_run_t *run, std::string &in);
+int  system_command (a5_run_t *run, const std::string &in, sb_t *out);
+void not_understood (a5_run_t *run, const std::string &in, sb_t *out);
+
 /* a5run_events.cpp (events + walks runtime) */
 void ev_init          (a5_run_t *run, sb_t *out);
 void ev_tick_all      (a5_run_t *run, sb_t *out);

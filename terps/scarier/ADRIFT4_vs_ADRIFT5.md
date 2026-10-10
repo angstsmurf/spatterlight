@@ -12,7 +12,8 @@ file named below lives in `terps/scarier/adrift5/`; the `a5run*` family is in
 split: `a5run_action.cpp` (task execution), `a5run_act.cpp` (the action set), `a5run_events.cpp` (events and
 walks), `a5run_conv.cpp` (conversation), `a5run_ref.cpp` (references),
 `a5run_resp.cpp` (response aggregation), `a5run_sort.cpp` (the .NET introsort for
-Specific overrides), with the shared struct in `a5run_internal.h`. References to
+Specific overrides), `a5run_words.cpp` (pronouns, synonyms, NotUnderstood),
+`a5run_save.cpp` (save/restore and undo), with the shared struct in `a5run_internal.h`. References to
 "`a5run.cpp`" below mean that family.
 
 ---

@@ -506,6 +506,8 @@
 		A5B000000000000000000105 /* a5run_events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000106 /* a5run_events.cpp */; };
 		A5B000000000000000000107 /* a5run_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000108 /* a5run_action.cpp */; };
 		A5B00000000000000000011B /* a5run_act.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000011C /* a5run_act.cpp */; };
+		A5B00000000000000000011D /* a5run_save.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000011E /* a5run_save.cpp */; };
+		A5B00000000000000000011F /* a5run_words.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000120 /* a5run_words.cpp */; };
 		A5B00000000000000000010B /* a5run_sort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000010C /* a5run_sort.cpp */; };
 		A5B00000000000000000010D /* a5run_conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000010E /* a5run_conv.cpp */; };
 		A5B00000000000000000010F /* a5run_resp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000110 /* a5run_resp.cpp */; };
@@ -3115,6 +3117,8 @@
 		A5B000000000000000000106 /* a5run_events.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_events.cpp; sourceTree = "<group>"; };
 		A5B000000000000000000108 /* a5run_action.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_action.cpp; sourceTree = "<group>"; };
 		A5B00000000000000000011C /* a5run_act.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_act.cpp; sourceTree = "<group>"; };
+		A5B00000000000000000011E /* a5run_save.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_save.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000120 /* a5run_words.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_words.cpp; sourceTree = "<group>"; };
 		A5B000000000000000000109 /* a5sb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5sb.h; sourceTree = "<group>"; };
 		A5B00000000000000000010A /* a5run_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5run_internal.h; sourceTree = "<group>"; };
 		A5B00000000000000000010C /* a5run_sort.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_sort.cpp; sourceTree = "<group>"; };
@@ -6159,6 +6163,8 @@
 				A5B000000000000000000106 /* a5run_events.cpp */,
 				A5B000000000000000000108 /* a5run_action.cpp */,
 				A5B00000000000000000011C /* a5run_act.cpp */,
+				A5B00000000000000000011E /* a5run_save.cpp */,
+				A5B000000000000000000120 /* a5run_words.cpp */,
 				A5B00000000000000000010C /* a5run_sort.cpp */,
 				A5B00000000000000000010E /* a5run_conv.cpp */,
 				A5B000000000000000000110 /* a5run_resp.cpp */,
@@ -8425,6 +8431,8 @@
 				A5B000000000000000000105 /* a5run_events.cpp in Sources */,
 				A5B000000000000000000107 /* a5run_action.cpp in Sources */,
 				A5B00000000000000000011B /* a5run_act.cpp in Sources */,
+				A5B00000000000000000011D /* a5run_save.cpp in Sources */,
+				A5B00000000000000000011F /* a5run_words.cpp in Sources */,
 				A5B00000000000000000010B /* a5run_sort.cpp in Sources */,
 				A5B00000000000000000010D /* a5run_conv.cpp in Sources */,
 				A5B00000000000000000010F /* a5run_resp.cpp in Sources */,
