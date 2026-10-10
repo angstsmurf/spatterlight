@@ -1,0 +1,1174 @@
+
+o
+b
+Read signpost
+e
+e
+e
+e
+read milestone
+s
+e
+read epitaphs
+s
+read epitaphs
+search grass
+n
+w
+n
+n
+read notice
+nw
+nw
+w
+say hello to innkeeper
+help innkeeper
+w
+x tapestry
+read writing
+e
+talk to bella
+ask about outlaws
+ask about pass
+ask about dwark
+ask about trapper
+ask about tapestry
+ask about magor
+ask about old forest
+ask about chaldon
+ask about ferry
+ask about ferryman
+ask about kolt
+ask about xixon
+ask about kelson
+ask about father
+e
+n
+n
+nw
+w
+replace clapper
+ring bell
+ring bell
+ring bell
+w
+u
+say alaric to magor
+tell magor about xixon
+tell magor about outlaws
+ask magor about axe
+ask magor about tomb
+ask magor about evil orb
+ask magor about Galhexia
+ask magor about good orb
+ask magor about apparatus
+ask magor about whiskey
+d
+e
+se
+s
+s
+talk to traders
+w
+in
+wait
+s
+say hello to trapper
+ask trapper about dwark
+ask trapper about cave
+buy fur
+n
+ne
+talk to lampmaker
+buy oil lamp
+buy lamplighter
+s
+x cross
+read inscription
+wait
+talk to oilman
+buy oil
+n
+n
+light lamp
+wear fur
+u
+e
+e
+dive in snow
+u
+e
+dive in snow
+u
+throw rock at dwark
+run se
+run e
+get lamp
+extinguish lamp
+out
+d
+e
+s
+e
+say hello
+ask about key
+say to edwina are you cold
+w
+s
+search leaves
+s
+s
+say hello to ferryman
+ask about boat
+say i want to cross river
+say mend boat
+n
+n
+n
+n
+w
+w
+s
+say hello to sawyer
+ask about rod
+take rod
+n
+n
+s
+e
+e
+ne
+in
+say hello to blacksmith
+say to blacksmith straighten rod
+out
+sw
+s
+s
+in
+buy beer
+ask robert about roffey
+say to men cross river
+out
+n
+n
+w
+say yes
+w
+w
+sw
+w
+w
+w
+n
+w
+say hello to blacksmith
+buy axe
+se
+e
+e
+e
+ne
+e
+n
+drop all except axe
+chop logs
+get all
+s
+e
+e
+s
+e
+sieve dirt
+w
+s
+in
+buy beer
+out
+n
+n
+ne
+in
+say to blacksmith straighten rod
+out
+sw
+w
+w
+s
+n
+e
+e
+s
+s
+s
+s
+n
+n
+say yes
+drop all
+climb up tree
+get hat
+wear hat
+d
+say yes
+get all
+n
+n
+w
+w
+w
+sw
+w
+w
+w
+n
+n
+n
+say hello
+help jacqui
+s
+s
+sw
+sw
+drop all
+search weeds
+get all
+ne
+ne
+n
+n
+pour water over head
+sw
+w
+in
+w
+dry clothes
+e
+ask eric about domino
+ask ernie about domino
+ask sarah about men
+search floor
+give domino to ernie
+x talisman
+out
+e
+n
+n
+nw
+w
+ring bell
+ring bell
+ring bell
+w
+u
+ask magor about talisman
+ask magor about tunnel wights
+ask magor about barrow wights
+ask magor about father
+ask magor about kolt
+d
+e
+e
+se
+s
+s
+s
+se
+e
+e
+e
+ne
+e
+e
+e
+s
+s
+in
+give hat pin to lily
+out
+n
+n
+ne
+in
+give axe to willy
+search forge
+out
+sw
+w
+w
+w
+sw
+w
+w
+w
+nw
+buy hammer
+buy nails
+n
+buy chainmail
+tell armourer about xixon
+s
+se
+e
+e
+e
+ne
+e
+e
+e
+s
+s
+s
+s
+board boat
+
+b
+e
+x vegetation
+search vegetation
+w
+s
+wear chainmail
+s
+look around
+x sapling
+break left branch
+break right branch
+sw
+n
+search leaves
+lift doormat
+unlock door
+open door
+in
+light lamp
+x dresser
+open drawer
+remove drawer
+turn drawer over
+replace drawer
+search detritus
+search basket
+put ball in bag
+put lamplighter in bag
+w
+extinguish lamp
+x poppy
+shake poppy
+get seeds
+put seeds in bag
+e
+e
+s
+s
+s
+brush spider
+stamp on spider
+x spider
+s
+s
+se
+e
+e
+u
+n
+n
+e
+se
+e
+s
+e
+e
+get bloomers
+get string
+put string in bag
+tear bloomers
+drop bloomers
+open door
+in
+get lamplighter
+light lamp
+put lamplighter in bag
+close door
+put sack in bag
+search paraphernalia
+x wood
+make catapult
+out
+extinguish lamp
+put lamp in bag
+w
+w
+n
+w
+x tree
+knock on door
+ask about xixon
+ask for weapon
+ask about river
+show paper to grim
+ask about secret
+put paper in bag
+nw
+w
+e
+find stones
+fire stone at xixon
+w
+pull spear from xixon
+e
+n
+nw
+throw spear at xixon
+get spear
+get quiver
+get bow
+se
+se
+s
+s
+s
+d
+e
+se
+u
+get seeds from bag
+throw seeds
+e
+w
+d
+nw
+w
+ne
+drop all except catapult and stones
+fire stone at magpie
+fire stone at magpie
+fire stone at magpie
+fire stone at magpie
+get all
+n
+n
+n
+nw
+w
+drop all except catapult and stones
+fire stone at magpie
+fire stone at magpie
+find stones
+fire stone at magpie
+get all
+w
+n
+drop all except catapult and stones
+fire stone at magpie
+get cotton
+put cotton in bag
+get all
+s
+s
+s
+duck
+jump
+throw spear at xixon
+s
+s
+get spear
+n
+n
+search vegetation
+s
+s
+drop all except sword
+behead xixon
+get all
+get sack from bag
+put head in sack
+n
+n
+get bow
+get catapult
+get stone
+n
+n
+e
+ne
+drop all except sword
+chop head off
+get all
+put head in sack
+se
+se
+s
+w
+drop all except sword
+chop head off
+get all
+put head in sack
+e
+e
+se
+knock on door
+say yes
+empty sack
+get paper
+give paper to grim
+e
+s
+e
+drop all except bow
+fire arrow at partridge
+e
+get ball from bag
+whistle
+bounce ball
+throw ball over wall
+get all
+e
+get partridge
+w
+w
+n
+drop all
+crawl e
+n
+search ashes
+put spike in bag
+s
+crawl w
+get all
+w
+knock on door
+put pot in bag
+nw
+w
+throw spear at boar
+s
+get spear
+s
+follow grat
+get spike from bag
+wait
+w
+n
+listen
+put spike in hasp
+s
+open door
+in
+search books
+read grimoire
+put grimoire on desk
+out
+e
+ne
+s
+d
+get pot from bag
+e
+e
+e
+se
+get cotton from bag
+pour potion in water
+nw
+w
+w
+cross river
+sw
+break thorn
+ne
+cross river
+e
+ne
+n
+n
+n
+n
+get knife
+cut branch with knife
+dip thorn in resin
+stick thorn to cotton
+sw
+w
+w
+s
+s
+dip dart in venom
+s
+s
+se
+e
+cross river
+sw
+e
+se
+look se
+w
+w
+sw
+sw
+sw
+ne
+ne
+cut binding with knife
+resheath knife
+remove bag and quiver
+drop all except shaft and dart
+say nrogara oblib fladnag odorf
+put dart in shaft
+x tracks
+crawl into tunnel
+crawl sw
+crawl sw
+x galhexia
+aim blowpipe at galhexia
+blow dart at galhexia
+get all
+reassemble spear
+sw
+sw
+sw
+sw
+d
+b
+se
+put lamplighter in pouch
+listen
+look around corner
+nw
+s
+look e
+crawl s
+x trough
+search gap
+throw spear south
+get catapult
+drop all but catapult and stones
+fire stone over xixon
+crawl s
+search rails
+untie string
+tie string to spearhead
+spin spearhead
+let go of string
+run s
+s
+s
+grab rope
+feel around
+climb up rope
+feel around
+jump east
+feel around
+e
+feel around
+e
+feel around
+feel rails
+wear goggles
+w
+w
+jump w
+climb down rope
+climb down rope
+climb down rope
+climb down rope
+jump south
+x tunnel
+look around
+x buffer
+s
+s
+s
+s
+s
+e
+run w
+run n
+run n
+run n
+run n
+grab bar
+s
+s
+s
+s
+s
+e
+x dust
+x tracks
+search crates
+move crates
+get all
+x shaft
+x scratches
+get charcoal from pouch
+rub charcoal on scratches
+read name
+x walls
+open cupboard
+get bandage
+put bandage in pouch
+w
+n
+n
+x turntable
+push turntable
+w
+x tunnel
+drop all except spanners
+unbolt rail
+get all
+e
+e
+e
+e
+drop all
+w
+w
+w
+w
+get rail
+e
+e
+e
+e
+drop rail
+replace section
+get pot
+e
+grease axles
+drop pot
+push wagon west
+get all
+drop spanners
+put wood and mallet in wagon
+push wagon west
+push wagon west
+push wagon west
+n
+n
+n
+saw bar
+saw screws
+drop saw
+s
+s
+s
+put bar in hole
+push bar
+get bar
+push wagon north
+push wagon north
+push wagon north
+get buffer
+s
+s
+s
+s
+s
+s
+s
+s
+drop buffer
+look along rails
+slide buffer under rails
+lever rails west
+look along rails
+n
+n
+n
+n
+n
+w
+w
+w
+look w
+get pin with bar
+e
+e
+e
+n
+n
+n
+put pin in lug
+put bar in brake
+s
+s
+s
+w
+w
+w
+carefully move beam
+get prop
+e
+e
+e
+n
+n
+n
+put prop in wagon
+climb in wagon
+push roof n
+pull brake
+get prop
+throw prop out of wagon
+get all
+throw all out of wagon
+climb out of wagon
+get all
+s
+s
+remove talisman
+show talisman
+say dispellarius lombardo
+get chisel
+s
+x rough wall
+get explosive
+get all from pouch
+fit fuse to explosive
+n
+n
+tap east wall
+drop all except chisel and mallet
+make hole in east wall
+get explosive
+put explosive in hole
+drop all
+n
+get prop
+s
+x tunnel
+x timbers
+prop roof with prop
+get all
+hammer prop with mallet
+light fuse
+put lamplighter in pouch
+n
+n
+w
+wrap bandage around ears
+get all
+put bandage in pouch
+e
+s
+s
+throw all through hole
+climb into cave
+get all
+se
+tap east wall
+drop all except pickaxe
+demolish east wall with pickaxe
+get all
+e
+s
+drop all except pickaxe
+demolish south wall with pickaxe
+get wood
+n
+n
+n
+x walls
+x holes
+throw pickaxe on floor
+n
+n
+x ceiling
+get bandage
+tie wood together
+push doors open with wood
+n
+n
+x floor slabs
+close doors
+walk around edge
+open doors
+n
+x kolt
+get axe
+s
+walk around edge
+open bronze doors
+s
+s
+s
+s
+s
+s
+s
+drop axe
+get shovel
+dig earth wall with shovel
+dig earth wall with shovel
+dig earth wall with shovel
+drop shovel
+get axe
+s
+put goggles in pouch
+s
+
+b
+x floor
+x channel
+x crevice
+get goggles
+hide goggles in crevice
+z
+z
+z
+call jailer
+ask for food
+z
+z
+z
+taste food
+throw food down latrine
+lie down
+moan
+moan
+moan
+moan
+kick link
+search straw
+get keys
+unlock manacles
+shackle link
+gag link
+drop keys
+n
+w
+w
+w
+n
+n
+w
+get cudgel
+search under table
+e
+s
+s
+e
+e
+unlock door 4
+n
+lock door
+wait
+unlock door
+s
+e
+get goggles
+w
+w
+w
+n
+n
+w
+hit guard with cudgel
+e
+u
+e
+s
+get goggles
+wear goggles
+x bed
+get sheet
+tear sheet
+bandage leg
+feel under bed
+n
+e
+open door
+push door
+push door hard
+introduce yourself to woman
+search cupboards
+e
+x desk
+open drawer
+show bottle to jasmine
+get string
+ask jasmine for food
+e
+s
+w
+w
+d
+w
+get knife
+search xixon
+search xixon
+e
+u
+e
+e
+e
+e
+u
+u
+look w
+z
+z
+z
+creep w
+strangle xixon
+get sword
+eat rations
+search xixon
+x iron key
+unlock door
+n
+s
+e
+e
+u
+look w
+u
+eat rations
+w
+unlock door
+s
+get bag
+n
+e
+d
+d
+d
+w
+w
+knock on door
+w
+w
+u
+u
+u
+x embrasure
+e
+n
+sheath knife
+put bottle in pouch
+drop all
+s
+w
+remove block
+e
+n
+drop block
+s
+w
+remove block
+e
+n
+drop block
+s
+w
+remove block
+e
+n
+drop block
+x blocks
+s
+w
+remove block
+e
+n
+drop block
+s
+w
+remove block
+e
+n
+drop block
+s
+w
+x embrasure
+d
+d
+d
+e
+e
+e
+s
+x boards
+get pot
+n
+w
+w
+w
+u
+u
+u
+smear butter on gap
+d
+d
+d
+e
+e
+e
+s
+put pot on boards
+wash hands
+n
+w
+w
+w
+u
+u
+u
+squeeze through gap
+climb up drainpipe
+look up
+x xixon
+grab xixon
+climb over battlements
+se
+get knife
+throw knife at xixon
+grab bar
+grab bar
+grab bar
+n
+e
+e
+x flagpole
+cut lanyard with knife
+put knife back
+tie rope to bar
+w
+look d
+wedge bar behind battlements
+climb down rope
+look into opening
+get bottle
+pour acid on bars
+tie rope to grille
+put bottle in pouch
+climb through opening
+get bottle
+pour acid on staples
+wear axe
+climb through opening
+climb up rope
+pull rope
+w
+w
+look d
+e
+wedge bar behind battlements
+climb down rope
+swing on rope
+flick rope
+climb down drainpipe
+d
+look down
+remove axe
+shout to kelson
+wave axe
+u
+run down
+look down
+untie rope
+tie rope to axe
+lower axe

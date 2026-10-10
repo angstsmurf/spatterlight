@@ -1,0 +1,1359 @@
+=== Spatterlight Interpreter Log ===
+Game: veteran.taf
+Interpreter: scarier
+
+[MSG] cmd=HELLO a1=0 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=32
+[TEXT] Loading game...
+
+[MSG] cmd=TIMER a1=100 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
+[REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=DELWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETTITLE a1=0 a2=0 a3=0 len=18
+[MSG] cmd=STYLEHINT a1=3 a2=9 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=10 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=10 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=4 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=4 a2=9 a3=9 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEWWIN a1=4 a2=1 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=68
+[TEXT] Veteran Experience | Robert Rafgon
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=36
+[TEXT] Veteran Experience
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1986
+[TEXT] 
+Written by Robert Rafgon
+
+Tonight is going to be the biggest night in your long, long professional wrestling career. Your name is the Veteran and you have been entered into a four wrestler World title tournament. Maybe the World title is only recognised in this small town in the middle of nowhere but it it is a World title nevertheless. You have never won a World title but you know it is your destiny. It will be your reward for years of being hated by crowds who obviously did not understand you.
+
+You were not originally scheduled in the tournament. In fact you were not scheduled on the show at all but a last minute unfortunate car accident to the Brawler left an opening. With all the other matches set up already, you were a late call-up to the tournament and will face the Youth, the High Flyer and the Monster. Physically you are much older and weaker so you cannot match them. However, you know you are smarter and plan to take our your opponents before the matches even begin.
+
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Your locker room
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=204
+[TEXT] 
+This room is empty apart from a bench along one wall. You can only head north.  Also here is a bag.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Your locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=14
+[TEXT] x bench
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=34
+[TEXT] A normal bench.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Your locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] x bag
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=126
+[TEXT] Your bag that you brought in for tonight.  The bag is closed.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Your locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=14
+[TEXT] take it
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=62
+[TEXT] 
+(a bag)
+You pick up the bag.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Your locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=14
+[TEXT] open it
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=116
+[TEXT] 
+(a bag)
+You open the bag.  A crowbar is inside the bag.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Your locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] x crowbar
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=22
+[TEXT] A crowbar
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Your locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] take crowbar
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=70
+[TEXT] 
+You take a crowbar from the bag.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Your locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] n
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] 
+You move north.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Eastern corridor
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=224
+[TEXT] 
+This corridor extends to the west. To the south is your locker room. To the north is the Youth's locker room.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Eastern corridor
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] n
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] 
+You move north.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=46
+[TEXT] The Youth's locker room
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=726
+[TEXT] 
+The Youth is preening himself in front of a mirror. Near him are the gifts from some female admirers. It is a long time since you had any females after you. In fact you don't think they ever were. They all preferred the Star and for that the Youth is going to pay. You can only head south.  Also here is a bunch of flowers and a teddy bear.  The Youth is here.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] The Youth's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] x The Youth
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=768
+[TEXT] A second generation wrestler who is the handsome son of the Star, a former World champion. He is the most popular wrestler right now and the favourite for the tournament tonight. You really want to win the tournament yourself but if you cannot manage it you would be happy just to take the Youth out. His father thwarted you from fame and fortune too many times to ever be forgiven.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] The Youth's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=16
+[TEXT] x mirror
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=374
+[TEXT] This is a full-length mirror, specially brought in so the Youth can look his best. It is sickening to see a wrestler making himself pretty. Wrestling is supposed to be rough and brutal.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] The Youth's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] x flowers
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=116
+[TEXT] These flowers smell so nice you almost want to throw up.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] The Youth's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] x teddy bear
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=68
+[TEXT] A teddy bear given to the Youth.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] The Youth's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
+[TEXT] take teddy bear
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=60
+[TEXT] 
+You pick up the teddy bear.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] The Youth's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] s
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] 
+You move south.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Eastern corridor
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=224
+[TEXT] 
+This corridor extends to the west. To the south is your locker room. To the north is the Youth's locker room.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Eastern corridor
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] w
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=34
+[TEXT] 
+You move west.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Central corridor
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=176
+[TEXT] 
+This corridor extends to locker rooms in the east and west. To the south is the ring.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Central corridor
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] s
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] 
+You move south.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=16
+[TEXT] The Ring
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=328
+[TEXT] 
+The ring has been set up earlier and is surrounded by empty chairs, waiting for the fans to come in for the big show later in the night. You can only head north.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] The Ring
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=16
+[TEXT] x chairs
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=50
+[TEXT] These chairs are empty.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] The Ring
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=12
+[TEXT] x ring
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=766
+[TEXT] This is where the action will occur tonight and you will finally achieve your destiny. This ring has been the home to many epic matches over the years, including your heartbreaking World title defeat to the Star, the father of the current wrestler the Youth. No matter how many weapons you pulled out from under the ring and used behind the referee's back you could not defeat him.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] The Ring
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
+[TEXT] look under ring
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=108
+[TEXT] 
+You see a bag of tacks and a ladder under the ring.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] The Ring
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=14
+[TEXT] x tacks
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=52
+[TEXT] A bag filled with tacks.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] The Ring
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] take tacks
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=64
+[TEXT] 
+You pick up the bag of tacks.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] The Ring
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=16
+[TEXT] x ladder
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=22
+[TEXT] A ladder.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] The Ring
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] take ladder
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=52
+[TEXT] 
+You pick up the ladder.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] The Ring
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] n
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] 
+You move north.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Central corridor
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=176
+[TEXT] 
+This corridor extends to locker rooms in the east and west. To the south is the ring.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Central corridor
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] w
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=34
+[TEXT] 
+You move west.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Western corridor
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=252
+[TEXT] 
+This corridor extends to the east. To the north is the Monster's locker room. To the south is the High Flyer's locker room.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Western corridor
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] n
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] 
+You move north.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=50
+[TEXT] The Monster's locker room
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=456
+[TEXT] 
+The Monster is here, sitting on the floor brooding, in preparation for his title challenge. The light is broken, leaving the room near-dark apart from a few candles on the floor. You can only head south.  The Monster is here.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=50
+[TEXT] The Monster's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
+[TEXT] x The Monster
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1050
+[TEXT] The Monster is a large fearsome beast who all the other wrestlers are wary of. He is unpredictable and the only wrestler in the federation who is hated by the fans more than you. The Monster has demolished you previously when you tried to interfere in one of his matches and you would be almost scared of him, but you are scared of no one. You think he must have a soft side because you once saw him being nice to some kids. Of course this could just be his childlike temperament.  The Monster is carrying a bottle of acid.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=50
+[TEXT] The Monster's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=14
+[TEXT] x light
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] Nothing special.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=50
+[TEXT] The Monster's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] x candles
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=92
+[TEXT] These are the only light source in the room.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=50
+[TEXT] The Monster's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=60
+[TEXT] give teddy bear to The Monster
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=438
+[TEXT] 
+The Monster grabs the teddy bear from you and hugs it to himself. Maybe he does have a soft side. However, by the way he bites into the bear and starts to tear it apart maybe not. Well, he is at least distracted now.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=50
+[TEXT] The Monster's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=56
+[TEXT] hit The Monster with crowbar
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=358
+[TEXT] 
+You take advantage of the distraction to hit the Monster over the head with the crowbar and knock him out. Now he cannot make the tournament so you have eliminated an opponent.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=50
+[TEXT] The Monster's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=12
+[TEXT] x acid
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=54
+[TEXT] This is a bottle of acid.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=50
+[TEXT] The Monster's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] take acid
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=120
+[TEXT] 
+You take the bottle of acid from the unconscious Monster.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=50
+[TEXT] The Monster's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] s
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] 
+You move south.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Western corridor
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=252
+[TEXT] 
+This corridor extends to the east. To the north is the Monster's locker room. To the south is the High Flyer's locker room.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Western corridor
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] s
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] 
+You move south.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=56
+[TEXT] The High Flyer's locker room
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=532
+[TEXT] 
+The High Flyer is here practicing his aerial maneuvers before the tournament on a mattress on the floor. You don't see that there is a place in wrestling for these flashy stupid moves and would gladly outlaw them. You can only head north.  The High Flyer is here.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The High Flyer's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=32
+[TEXT] x The High Flyer
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=794
+[TEXT] The High Flyer is very popular and known for his tremendous jumping ability, able to execute a Shooting Star Press, Moonsault, Frog Splash or whatever else is possible from the top turnbuckle. No one has ever seen his face, as he wears a mask with a jet on it at all times. It is rumoured that the day the High Flyer is unmasked is the day he will retire.  The High Flyer is carrying a jet mask.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The High Flyer's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=12
+[TEXT] x mask
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=92
+[TEXT] This is the jet mask worn by the High Flyer.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The High Flyer's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] x mattress
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=30
+[TEXT] [x -> examine]
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=88
+[TEXT] A mattress lies in the middle of the room.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The High Flyer's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=58
+[TEXT] give ladder to The High Flyer
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=258
+[TEXT] 
+The High Flyer thanks you because he can now practice his moves from higher up. He immediately begins to jump from the ladder.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The High Flyer's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=42
+[TEXT] put tacks on mattress
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=438
+[TEXT] 
+The High Flyer lands on the tacks and screams out in agony as they tear into him. Luckily no one else notices. It does not look like he will be moving anywhere soon but he may recover in time for the matches tonight.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The High Flyer's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] take mask
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=612
+[TEXT] 
+You walk over to the High Flyer and remove his mask. He screams out and tries to stop you but in his weakened state he is no match. You finally see the High Flyer's face and it is not much better looking than your own. He cries and tells you he will now have to retire. Oh well, there goes one opponent.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The High Flyer's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] wear mask
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=54
+[TEXT] 
+You put on the jet mask.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The High Flyer's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] n
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] 
+You move north.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Western corridor
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=252
+[TEXT] 
+This corridor extends to the east. To the north is the Monster's locker room. To the south is the High Flyer's locker room.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Western corridor
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] e
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=34
+[TEXT] 
+You move east.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Central corridor
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=176
+[TEXT] 
+This corridor extends to locker rooms in the east and west. To the south is the ring.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Central corridor
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] e
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=34
+[TEXT] 
+You move east.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Eastern corridor
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=224
+[TEXT] 
+This corridor extends to the west. To the south is your locker room. To the north is the Youth's locker room.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Eastern corridor
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] n
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=36
+[TEXT] 
+You move north.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=46
+[TEXT] The Youth's locker room
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=692
+[TEXT] 
+The Youth is preening himself in front of a mirror. Near him are the gifts from some female admirers. It is a long time since you had any females after you. In fact you don't think they ever were. They all preferred the Star and for that the Youth is going to pay. You can only head south.  Also here is a bunch of flowers.  The Youth is here.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] The Youth's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=46
+[TEXT] throw acid at The Youth
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1666
+[TEXT] 
+The Youth soon recognises you are not the High Flyer but it is still too late. You take the acid and empty it on the Youth's face. He screams in agony as the acid burns and destroys his handsome face. That will teach him to be too proud of his appearance. You wonder if any of his fans will remain in his new state. The Youth's screams eventually bring help and he is carted off to hospital. 
+
+Later in the night when the tournament is scheduled to begin the promoters are forced to make the announcement that as there is only one wrestler left healthy, the winner by default is the Veteran. Congratulations on finally fulfilling your destiny. No one else believed that you could but you knew fate would take a hand to help you. 
+
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] The Youth's locker room
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=100
+[TEXT] 
+Would you like to RESTART, UNDO a turn, or QUIT? 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+
+=== Session ended ===

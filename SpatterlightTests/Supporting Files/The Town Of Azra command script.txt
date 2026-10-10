@@ -1,0 +1,64 @@
+
+
+
+e
+change a dollar into cents
+buy a coffee
+take the mug of coffee
+gulp the coffee
+buy a steak
+take a bite out of the steak
+w
+w
+buy a bronze helmet
+buy rawhide armor
+wear the rawhide armor
+wear the bronze helmet
+e
+s
+s
+buy a hunting sword
+wield the hunting sword
+n
+se
+rent a room
+in
+lie on the bed
+nap on the bed
+out
+nw
+n
+n
+n
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+search for money
+n
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+wealth
+learn stealth from ormulus
+go stealth
+status
+stats
+wealth

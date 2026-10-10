@@ -1,0 +1,5 @@
+look
+get lantern
+in
+look
+press button

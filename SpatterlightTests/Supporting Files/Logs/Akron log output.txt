@@ -1,0 +1,1120 @@
+=== Spatterlight Interpreter Log ===
+Game: akron.taf
+Interpreter: scarier
+
+[MSG] cmd=HELLO a1=0 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=32
+[TEXT] Loading game...
+
+[MSG] cmd=TIMER a1=100 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
+[REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=DELWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETTITLE a1=0 a2=0 a3=0 len=32
+[MSG] cmd=STYLEHINT a1=3 a2=9 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=10 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=10 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=4 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=4 a2=9 a3=9 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEWWIN a1=4 a2=1 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=94
+[TEXT] Akron - an adventure game v. 0.1 | Markus Kolic
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=64
+[TEXT] Akron - an adventure game v. 0.1
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2138
+[TEXT] 
+   Your eyes flutter open. What happened? Jumbled memories bounce through your mind. A swank nightclub... the Charleston... Elizabeth Dole... a 1957 Plymouth Valiant... What does it all mean?
+   Nothing is clear. You have no idea who you are, or what you have done. A strange mantra begins to float in your brain. "Akron... Akron..."
+   Suddenly it hits you. This is your hometown! Akron! You live here! But... where?
+   Standing up wearily, you look around. Nothing seems familiar... this is just a dank alleyway. And yet, somehow you know that in the city of Akron, somewhere, is your home, and your wife (if you have one).
+   Now your resolution is firm. You will tramp down every street in Akron, the entire state of Ohio if necessary. You WILL discover who you are!
+
+   You are squelched up between two apartment buildings. Clearly this isn't the best part of Akron - there is mud everywhere, and a fossilized t-shirt is stuck to the ground. Northwards is Garbanzo Street, which runs as far as you can see both east and west. A library card sits on the ground.
+
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
+[TEXT] In a dim alleyway
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=34
+[TEXT] take library card
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=64
+[TEXT] 
+You pick up the library card.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
+[TEXT] In a dim alleyway
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=726
+[TEXT] 
+You move north.
+This is Garbanzo Street, in the south end of Akron. It stretches as far as the eye can see both east and west. There is surprisingly little traffic - of course, at 11:15 AM, most people are comfortably settled into their jobs. A station wagon is pulled over in a nearby parking space. Across the street to the north is the Akron Public Library.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Central Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=766
+[TEXT] 
+You move north.
+Akron Public Library is a small community library, with a relatively limited selection of books. You're in the front alcove, which contains only the checkout/return desk and a cart which seems to contain the books to be filed. What books they do have are in a room to the north. Southwards is Garbanzo Street.  The librarian stands behind the checkout/return desk.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=54
+[TEXT] Inside Akron Public Library
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=44
+[TEXT] show card to librarian
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=248
+[TEXT] 
+The librarian looks at your card, and nods. Immediately, someone else comes in and drops two books onto the return cart. 
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=54
+[TEXT] Inside Akron Public Library
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 5
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
+[TEXT] take thick book
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=92
+[TEXT] 
+You take a thick book from the return cart.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=54
+[TEXT] Inside Akron Public Library
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 5
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=28
+[TEXT] take thin book
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=90
+[TEXT] 
+You take a thin book from the return cart.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=54
+[TEXT] Inside Akron Public Library
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 5
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=726
+[TEXT] 
+You move south.
+This is Garbanzo Street, in the south end of Akron. It stretches as far as the eye can see both east and west. There is surprisingly little traffic - of course, at 11:15 AM, most people are comfortably settled into their jobs. A station wagon is pulled over in a nearby parking space. Across the street to the north is the Akron Public Library.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Central Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 5
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=584
+[TEXT] 
+You move west.
+This is the western end of Garbanzo Street, extending into the industrial district. There is a factory here that looks like it makes cars. Its entrance is to the north. To the south is a boarded-up store. West of you is a suburb complex, and east is Central Garbanzo Street.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] West Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 5
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=466
+[TEXT] 
+You move south.
+You stand just outside what was formerly some kind of men's clothing store. All the windows are boarded up, and the canopy above the door is torn. The door itself is southwards, and Garbanzo street is to the north.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] Outside the boarded-up store
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 5
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=38
+[TEXT] stand on thick book
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=312
+[TEXT] 
+You drop Great Expectations onto the floor, and stand up on top. Now you can see what's on the canopy - it's a small brass key. It clatters to the floor.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] Outside the boarded-up store
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 15
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=28
+[TEXT] take brass key
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=70
+[TEXT] 
+You pick up the small brass key.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] Outside the boarded-up store
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 15
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] unlock door
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=192
+[TEXT] 
+You put the key into the door, and it fits easily. The door is now unlocked, and you open it.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] Outside the boarded-up store
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 15
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=450
+[TEXT] 
+You move south.
+This is a deserted men's clothing store. Empty racks are all around you - there seems to be no merchandise. Even the cash register is empty. This is not a very cheerful place.  Also here is a spiffy tuxedo.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] The boarded-up store
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 15
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] take tuxedo
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=66
+[TEXT] 
+You pick up the spiffy tuxedo.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] The boarded-up store
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 15
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=34
+[TEXT] remove sweatshirt
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=72
+[TEXT] 
+You remove the grubby sweatshirt.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] The boarded-up store
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 15
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] remove jeans
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=78
+[TEXT] 
+You remove the pair of ragged jeans.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] The boarded-up store
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 15
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] wear tuxedo
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=96
+[TEXT] 
+You put the tuxedo on. Boy, do you look good.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] The boarded-up store
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=466
+[TEXT] 
+You move north.
+You stand just outside what was formerly some kind of men's clothing store. All the windows are boarded up, and the canopy above the door is torn. The door itself is southwards, and Garbanzo street is to the north.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] Outside the boarded-up store
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=586
+[TEXT] 
+You move north.
+This is the western end of Garbanzo Street, extending into the industrial district. There is a factory here that looks like it makes cars. Its entrance is to the north. To the south is a boarded-up store. West of you is a suburb complex, and east is Central Garbanzo Street.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] West Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=724
+[TEXT] 
+You move east.
+This is Garbanzo Street, in the south end of Akron. It stretches as far as the eye can see both east and west. There is surprisingly little traffic - of course, at 11:15 AM, most people are comfortably settled into their jobs. A station wagon is pulled over in a nearby parking space. Across the street to the north is the Akron Public Library.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Central Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=548
+[TEXT] 
+You move east.
+Garbanzo Street makes a sharp curve to the left here, just managing to stay inside Akron city limits. Beyond it, to the east, is a large cornfield. To the north is a convenience store, and to the south is a vacant lot. Central Garbanzo Street is back west.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] East Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=426
+[TEXT] 
+You move south.
+There is next to nothing here. Some trash has been tossed into this area, but most of it is rotten. Looks like someone plans to build here eventually, though.  Also here is the surveyor's stake.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] The vacant lot
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=42
+[TEXT] take surveyor's stake
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=72
+[TEXT] 
+You pick up the surveyor's stake.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] The vacant lot
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=550
+[TEXT] 
+You move north.
+Garbanzo Street makes a sharp curve to the left here, just managing to stay inside Akron city limits. Beyond it, to the east, is a large cornfield. To the north is a convenience store, and to the south is a vacant lot. Central Garbanzo Street is back west.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] East Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=726
+[TEXT] 
+You move east.
+You have blundered into a cornfield. Oh my. It looks like this is another one of those annoying mazes that the programmer loves so much. Well, let me give you a little hint - just go NORTH and you'll be out of the maze! You see, I, the computer, have changed this game JUST FOR YOU! Or, I can - oh no. The programmer's coming. AIEEEEEEEEEEEEE...
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Lost in the cornfield
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=598
+[TEXT] 
+You move north.
+Wow! You made it all the way through the maze! I'm so impressed! This is a clearing in the cornfield.  WOAH! Prancing around you is... is... it's a demon form of Elizabeth Dole! SHE WANTS YOUR SOUL! Better defeat her, quick!  The demon Elizabeth Dole is here, prancing around you.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=54
+[TEXT] A clearing in the cornfield
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=50
+[TEXT] drive stake through demon
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=398
+[TEXT] 
+You drive the surveyor's stake right through Elizabeth Dole's heart. She screams, and melts away - much like the Wicked Witch of the West. As she melts, she drops a small passcard onto the ground.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=54
+[TEXT] A clearing in the cornfield
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 30
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
+[TEXT] take passcard
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=68
+[TEXT] 
+You pick up the small passcard.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=54
+[TEXT] A clearing in the cornfield
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 30
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=728
+[TEXT] 
+You move south.
+You have blundered into a cornfield. Oh my. It looks like this is another one of those annoying mazes that the programmer loves so much. Well, let me give you a little hint - just go NORTH and you'll be out of the maze! You see, I, the computer, have changed this game JUST FOR YOU! Or, I can - oh no. The programmer's coming. AIEEEEEEEEEEEEE...
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Lost in the cornfield
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 30
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=548
+[TEXT] 
+You move west.
+Garbanzo Street makes a sharp curve to the left here, just managing to stay inside Akron city limits. Beyond it, to the east, is a large cornfield. To the north is a convenience store, and to the south is a vacant lot. Central Garbanzo Street is back west.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] East Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 30
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=724
+[TEXT] 
+You move west.
+This is Garbanzo Street, in the south end of Akron. It stretches as far as the eye can see both east and west. There is surprisingly little traffic - of course, at 11:15 AM, most people are comfortably settled into their jobs. A station wagon is pulled over in a nearby parking space. Across the street to the north is the Akron Public Library.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Central Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 30
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=584
+[TEXT] 
+You move west.
+This is the western end of Garbanzo Street, extending into the industrial district. There is a factory here that looks like it makes cars. Its entrance is to the north. To the south is a boarded-up store. West of you is a suburb complex, and east is Central Garbanzo Street.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] West Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 30
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=738
+[TEXT] 
+You move north.
+This is the lobby of the Johnson automotive plant, employer of nearly everybody in this part of Akron. (It is, in fact, one of the only factories in Akron that doesn't deal with rubber.) Cars, mostly Plymouths, litter this area. A large desk is at the front, with a clerk behind it.  The smiling desk clerk sits here, reading a Danielle Steele novel.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=72
+[TEXT] The Johnson automotive plant's lobby
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 30
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=44
+[TEXT] show passcard to clerk
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=326
+[TEXT] 
+The clerk looks at your passcard warily. "I'm not sure I should... oh well, go on in." She motions toward a westward door, which you had not previously noticed.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=72
+[TEXT] The Johnson automotive plant's lobby
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 35
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=506
+[TEXT] 
+You step into the factory itself.
+Machines clang all around you. Workers bustle in every direction. Noise is shattering your ears. Better spend as little time here as you can. The exit into the lobby is back to the east.  Also here is a wedding ring.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The Johnson automotive plant
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 35
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=34
+[TEXT] take wedding ring
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=64
+[TEXT] 
+You pick up the wedding ring.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The Johnson automotive plant
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 35
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=34
+[TEXT] wear wedding ring
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=62
+[TEXT] 
+You put on the wedding ring.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=56
+[TEXT] The Johnson automotive plant
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 35
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=866
+[TEXT] 
+You move east.
+This is the lobby of the Johnson automotive plant, employer of nearly everybody in this part of Akron. (It is, in fact, one of the only factories in Akron that doesn't deal with rubber.) Cars, mostly Plymouths, litter this area. A large desk is at the front, with a clerk behind it.  The westward door, into the factory itself, is invitingly open.  The smiling desk clerk sits here, reading a Danielle Steele novel.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=72
+[TEXT] The Johnson automotive plant's lobby
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 35
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=586
+[TEXT] 
+You move south.
+This is the western end of Garbanzo Street, extending into the industrial district. There is a factory here that looks like it makes cars. Its entrance is to the north. To the south is a boarded-up store. West of you is a suburb complex, and east is Central Garbanzo Street.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] West Garbanzo Street
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 35
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=392
+[TEXT] 
+You move west.
+Garbanzo Street becomes Kumquat Avenue here, as we enter the Smallwood Green subdivision housing complex. It stretches further on to the west, and Garbanzo Street is to the east.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Kumquat Avenue
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 35
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=384
+[TEXT] 
+You move west.
+Kumquat Avenue reaches a dead end here. Interestingly, there is a police car parked outside the house at the dead end to the west (37 Kumquat). Maybe you should check it out.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
+[TEXT] West Kumquat Avenue
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 35
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=766
+[TEXT] 
+You move west.
+You stand on the doorstep outside 37 Kumquat Avenue.  Officer Stanley Peters, of the Ohio Police Department, stands in front of the door. "Get out of here," he orders you. "There is serious police business going on inside." You're a little skeptical of that, as there's only one police car parked outside..  Officer Stanley Peters stands guard in front of the door.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=66
+[TEXT] The doorstep of 37 Kumquat Avenue
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 35
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=50
+[TEXT] give thin book to officer
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=472
+[TEXT] 
+Officer Peters looks at the Treatise on Crippled Shareware. "Wow!" he exclaims. "I've been wanting to read this for weeks! Where on earth did you find it?" Clutching the book, he races down the stairs into his car and slams the door.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=66
+[TEXT] The doorstep of 37 Kumquat Avenue
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 45
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] knock
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2352
+[TEXT] 
+You rap on the door of 37 Kumquat Avenue. After a minute or two, the door opens. "FRED!" It's your wife, Martha. "Oh, Fred, it really is you!"    As Martha ushers you into her living room, smippets of memory start to come back. You recognize this place... YES!
+   Last night, you, Fred Johnson, owner of the Johnson Automotive Plant, had gone to Cleveland in your '57 Valiant to a dinner given by the Auto Workers Union for Elizabeth Dole. The theme had been the 1920s, and everyone was forced to do the Charleston.
+   However, on the way home, you were intercepted by a witch doctor who did NOT like Elizabeth Dole. When she realized you were a supporter, she cast a spell on you that removed all of your memories. Then, she put those ragged clothes on you, and left you for dead in the alley off Garbanzo Street. But you, you brave adventurer, saved yourself! And now, you will live happily ever after!
+   (Since this is an untested release of the game, I would REALLY appreciate some feedback. Email me at markusrtk@golden.net, or I'll send Hillary Clinton after you!)
+You scored 65 out of the maximum 65!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=66
+[TEXT] The doorstep of 37 Kumquat Avenue
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 65
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=100
+[TEXT] 
+Would you like to RESTART, UNDO a turn, or QUIT? 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+
+=== Session ended ===

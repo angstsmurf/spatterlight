@@ -733,6 +733,56 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
              commandScriptName:@"To Hell in a Hamper"];
 }
 
+- (void)testAdrift37CastleQuest {
+    [self importAndRunGameFile:@"castle.taf"
+             commandScriptName:@"Castle Quest"];
+}
+
+- (void)testAdrift38Cloak {
+    [self importAndRunGameFile:@"cloak.taf"
+             commandScriptName:@"Cloak of Darkness"];
+}
+
+- (void)testAdrift38Akron {
+    [self importAndRunGameFile:@"akron.taf"
+             commandScriptName:@"Akron"];
+}
+
+- (void)testAdrift39TownOfAzra {
+    [self importAndRunGameFile:@"The Town Of Azra.taf"
+             commandScriptName:@"The Town Of Azra"];
+}
+
+- (void)testAdrift39Veteran {
+    [self importAndRunGameFile:@"veteran.taf"
+             commandScriptName:@"Veteran"];
+}
+
+- (void)testAdrift40Humbug {
+    [self importAndRunGameFile:@"humbug.taf"
+             commandScriptName:@"Humbug"];
+}
+
+- (void)testAdrift40Shadowpeak {
+    [self importAndRunGameFile:@"Shadowpeak.taf"
+             commandScriptName:@"Shadowpeak"];
+}
+
+- (void)testAdrift50FortressOfFear {
+    [self importAndRunGameFile:@"TheFortressOfFear.blorb"
+             commandScriptName:@"The Fortress Of Fear"];
+}
+
+- (void)testAdrift50AxeOfKolt {
+    [self importAndRunGameFile:@"TheAxeOfKolt.blorb"
+             commandScriptName:@"The Axe Of Kolt"];
+}
+
+- (void)testAdrift50DarkRoom {
+    [self importAndRunGameFile:@"DarkRoom.taf"
+             commandScriptName:@"Dark Room"];
+}
+
 - (void)testAdvSys {
     [self importAndRunGameFile:@"onehand.dat"
              commandScriptName:@"The Sound of One Hand Clapping"];

@@ -1,0 +1,481 @@
+=== Spatterlight Interpreter Log ===
+Game: castle.taf
+Interpreter: scarier
+
+[MSG] cmd=HELLO a1=0 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=32
+[TEXT] Loading game...
+
+[MSG] cmd=TIMER a1=100 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
+[REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=DELWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETTITLE a1=0 a2=0 a3=0 len=12
+[MSG] cmd=STYLEHINT a1=3 a2=9 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=10 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=10 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=4 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=4 a2=9 a3=9 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEWWIN a1=4 a2=1 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=58
+[TEXT] Castle Quest | Andrew Cornish
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=24
+[TEXT] Castle Quest
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=862
+[TEXT] 
+by Andrew Cornish
+
+You've heard rumours that great treasure is hidden inside Castle Oggleboggle, and you intend to find it. The castle is full of deadly traps, but it's worth the risk for the incredible treasure that awaits you. Wearing a sweatshirt and a pair of trousers, you march up to the castle and prepare to begin your quest.
+
+You are outside the castle. The castle entrance is to the north. The small rock is also here.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
+[TEXT] Outside the castle
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=436
+[TEXT] 
+You move north.
+You are in the castle's main hallway. There are doors in the north, east and west walls. The south door leads outside. There is a wooden chair halfway along the hall.  Also here is the 'welcome' mat.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
+[TEXT] In the main hallway
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=420
+[TEXT] 
+You move west.
+This is the castle kitchen. In the middle of the room stands a stove. There are doors in the north and south walls. The east door leads back to the main hallway.  Also here is the human brain.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] In the kitchen
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=466
+[TEXT] 
+You move north.
+This is King Thingalot's private study. In the middle of the room stand a bronze table and a bronze chair. On the north wall is a green button. A door to the south leads back to the kitchen.  Also here is the book.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
+[TEXT] In the King's study
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=36
+[TEXT] press green button
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=284
+[TEXT] 
+The green button has been pressed. Well done - that was something you had to do. Now you can go through the north door in the main hallway.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
+[TEXT] In the King's study
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 10
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=422
+[TEXT] 
+You move south.
+This is the castle kitchen. In the middle of the room stands a stove. There are doors in the north and south walls. The east door leads back to the main hallway.  Also here is the human brain.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] In the kitchen
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 10
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=434
+[TEXT] 
+You move east.
+You are in the castle's main hallway. There are doors in the north, east and west walls. The south door leads outside. There is a wooden chair halfway along the hall.  Also here is the 'welcome' mat.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
+[TEXT] In the main hallway
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 10
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=438
+[TEXT] 
+You move north.
+You now stand in the castle dining room. A large table stands in the middle of the room. There is a door in the north wall. The south door leads back to the main hallway.  Also here is the human lung.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
+[TEXT] In the dining room
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 10
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=458
+[TEXT] 
+You move north.
+You are in the castle gallery. However, there is only one painting here. There are doors in the north and west walls. To the east, there is a hall lined with brass. The south door leads back to the dining room.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] In the gallery
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 10
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=494
+[TEXT] 
+You move east.
+You now stand in the Brass Hall. To the east, a heavy iron portcullis blocks the way. Next to it are a blue lever and a black lever. One of these levers must be for raising the portcullis. The west door leads back to the gallery.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
+[TEXT] In the Brass Hall
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 10
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
+[TEXT] pull blue lever
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=318
+[TEXT] 
+As you pull the blue lever, the heavy iron portcullis slowly rises into the ceiling. Well done - that was something you had to do. Now you can proceed east.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
+[TEXT] In the Brass Hall
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=246
+[TEXT] 
+You move east.
+This room is circular. There are doors in the north, south and east doors. The Brass Hall is to the west.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] In the circular room
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=584
+[TEXT] 
+You move south.
+You are now standing on a balcony outside the castle. There are two floorplates here, one red and one white. These floorplates are switches, and you must stand on one of them. The north door leads back to the circular room inside the castle.  Also here is the beef sausage.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] On the balcony
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=46
+[TEXT] stand on red floorplate
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=340
+[TEXT] 
+When you stand on the red floorplate, it sinks into the floor. Well done - that was something you had to do. Now you can go through the east door in the circular room.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] On the balcony
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 30
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=248
+[TEXT] 
+You move north.
+This room is circular. There are doors in the north, south and east doors. The Brass Hall is to the west.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] In the circular room
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 30
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=790
+[TEXT] 
+You move east.
+This is the puzzle room. As you enter, the door slams shut behind you and locks itself! Now you cannot retrace your steps. A disembodied voice booms, "I must congratulate you on getting this far, adventurer. To continue, you must answer this question. What is two to the power of three? The answer is either six or eight." When you have made your decision, type in your answer.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
+[TEXT] In the puzzle room
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 30
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] eight
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=866
+[TEXT] 
+You have answered correctly! Suddenly, you feel a strange tingling sensation and your vision blurs. A second later, you find yourself in a triangular room, which will be described next. Well done!
+This is the treasure room. Sitting on the ground is a treasure chest. It's open and you can see the treasure inside - gems, gold coins and gold bars. You can hardly believe it - you've found the treasure!  Also here is the hamburger.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] In the treasure room
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 40
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=38
+[TEXT] take treasure chest
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=566
+[TEXT] 
+You pick up the treasure chest. Congratulations - you've found the hidden treasure! I hope you enjoyed my game and hope you will download my future games too. Thanks for playing!
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] In the treasure room
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Score: 50
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=100
+[TEXT] 
+Would you like to RESTART, UNDO a turn, or QUIT? 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+
+=== Session ended ===

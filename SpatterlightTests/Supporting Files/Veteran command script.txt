@@ -1,0 +1,47 @@
+x bench
+x bag
+take it
+open it
+x crowbar
+take crowbar
+n
+n
+x The Youth
+x mirror
+x flowers
+x teddy bear
+take teddy bear
+s
+w
+s
+x chairs
+x ring
+look under ring
+x tacks
+take tacks
+x ladder
+take ladder
+n
+w
+n
+x The Monster
+x light
+x candles
+give teddy bear to The Monster
+hit The Monster with crowbar
+x acid
+take acid
+s
+s
+x The High Flyer
+x mask
+x mattress
+give ladder to The High Flyer
+put tacks on mattress
+take mask
+wear mask
+n
+e
+e
+n
+throw acid at The Youth

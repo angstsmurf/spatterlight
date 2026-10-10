@@ -1,0 +1,44 @@
+take library card
+north
+north
+show card to librarian
+take thick book
+take thin book
+south
+west
+south
+stand on thick book
+take brass key
+unlock door
+south
+take tuxedo
+remove sweatshirt
+remove jeans
+wear tuxedo
+north
+north
+east
+east
+south
+take surveyor's stake
+north
+east
+north
+drive stake through demon
+take passcard
+south
+west
+west
+west
+north
+show passcard to clerk
+west
+take wedding ring
+wear wedding ring
+east
+south
+west
+west
+west
+give thin book to officer
+knock

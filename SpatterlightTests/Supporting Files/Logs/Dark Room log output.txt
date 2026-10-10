@@ -1,0 +1,208 @@
+=== Spatterlight Interpreter Log ===
+Game: DarkRoom.taf
+Interpreter: scarier
+
+[MSG] cmd=HELLO a1=0 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=32
+[TEXT] Loading game...
+
+[MSG] cmd=TIMER a1=100 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
+[REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=DELWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETTITLE a1=0 a2=0 a3=0 len=9
+[MSG] cmd=STYLEHINT a1=3 a2=9 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=10 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=10 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=4 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=4 a2=9 a3=9 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEWWIN a1=4 a2=1 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=18
+[TEXT] Dark Room
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=92
+[TEXT] 
+This demo shows how to create a dark room.
+
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Outside the cave
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=144
+[TEXT] 
+There is a dark cave here.  Also here is a lantern.  An exit leads in.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Outside the cave
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=256 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] look
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=32
+[TEXT] Outside the cave
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=144
+[TEXT] 
+There is a dark cave here.  Also here is a lantern.  An exit leads in.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Outside the cave
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 1
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=256 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] get lantern
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=60
+[TEXT] 
+Ok, you pick up the lantern.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Outside the cave
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 2
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=256 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] in
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=30
+[TEXT] 
+You move in.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=30
+[TEXT] Inside the cave
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=158
+[TEXT] 
+The cave is quite spooky.  There is a button on the wall.  An exit leads out.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
+[TEXT] Inside the cave
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 3
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=256 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] look
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=30
+[TEXT] Inside the cave
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=158
+[TEXT] 
+The cave is quite spooky.  There is a button on the wall.  An exit leads out.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
+[TEXT] Inside the cave
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 4
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=256 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] press button
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=276
+[TEXT] 
+Congratulations, you win the game!
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
+[TEXT] Inside the cave
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 5
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=96
+[TEXT] 
+Please enter RESTART, RESTORE, UNDO or QUIT.
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=256 a3=0 len=0
+
+=== Session ended ===
