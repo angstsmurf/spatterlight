@@ -187,6 +187,387 @@ uip_set_pronoun_flags (scr_bool used, scr_bool pending_definite)
 
 
 /*
+ * uip_pronoun_t
+ *
+ * One pronoun word of the line, for uip_replace_pronouns(): the word, the
+ * register it refers to ('object' or 'npc', or neither), and what goes into
+ * the command for it -- 'prefix' and 'name', over 'extent' characters of the
+ * line -- with 'echo' set where the bracket echo is not that same text.
+ * 'definite' owns the prefix when it had to be composed.
+ */
+namespace {
+
+struct uip_pronoun_t
+{
+  scr_gameref_t game;
+  scr_prop_setref_t bundle;
+  const scr_char *word;
+  scr_bool is_character_word;
+
+  scr_int object, npc, extent;
+  const scr_char *prefix, *name, *echo;
+  std::string definite;
+
+  void find_register ();
+  void object_phrase ();
+  void no_object ();
+  void no_character ();
+  scr_bool resolve ();
+  scr_int substitute (std::string &buffer, scr_int offset) const;
+};
+
+
+/*
+ * uip_pronoun_t::find_register()
+ *
+ * Set 'object' or 'npc', and 'extent', when the word is a pronoun whose
+ * register holds something.
+ */
+void
+uip_pronoun_t::find_register ()
+{
+  /*
+   * Search for pronouns where we have an assigned object or NPC.  We
+   * can't be sure of getting plurality right, and it's not always
+   * intuitive even in English -- is "a pair of scissors" an "it", or
+   * a "them"?  Because of this, we just treat "it" and "them" equally
+   * for now.
+   */
+  if (game->it_object != -1 && scr_compare_word (word, "it", 2))
+    {
+      object = game->it_object;
+      extent = 2;
+    }
+  else if (game->it_object != -1 && scr_compare_word (word, "them", 4))
+    {
+      object = game->it_object;
+      extent = 4;
+    }
+  else if (game->him_npc != -1 && scr_compare_word (word, "him", 3))
+    {
+      npc = game->him_npc;
+      extent = 3;
+    }
+  else if (game->him_npc != -1 && scr_compare_word (word, "he", 2))
+    {
+      npc = game->him_npc;
+      extent = 2;
+    }
+  else if (game->her_npc != -1 && scr_compare_word (word, "her", 3))
+    {
+      npc = game->her_npc;
+      extent = 3;
+    }
+  else if (game->her_npc != -1 && scr_compare_word (word, "she", 3))
+    {
+      npc = game->her_npc;
+      extent = 3;
+    }
+  else if (game->it_npc != -1 && scr_compare_word (word, "it", 2))
+    {
+      npc = game->it_npc;
+      extent = 2;
+    }
+}
+
+
+/*
+ * uip_pronoun_t::object_phrase()
+ *
+ * The prefix and name for an object antecedent, in the form the version and
+ * the last handler to set it call for.
+ */
+void
+uip_pronoun_t::object_phrase ()
+{
+  prefix = prop_get_indexed_string (bundle, "Objects", object,
+                                    "Prefix");
+  name = prop_get_indexed_string (bundle, "Objects", object, "Short");
+
+  /*
+   * An empty Prefix is an "a" prefix: every Runner's .taf loader
+   * substitutes the literal on the way in (run380 @4481B2, run370
+   * @43F5DA, run400 loc_4900EC), so the antecedent the Runner builds
+   * through Proc_21_31_448710 reads "a Cupboard".  Measured on
+   * man_overboard (4.00): `open it` after `x cupboard` echoes "(a
+   * Cupboard)", and likewise "(a wardrobe)", "(a pantry)", "(a
+   * toolbox)".  parse_trim_object_names does the substitution now, so
+   * the prefix read back here already carries it.
+   */
+
+  /*
+   * 4.0 keeps the antecedent as a string composed by whichever
+   * handler last set it, and the composer (run400 Proc_21_31_448710)
+   * has two modes: mode 1 is Prefix & " " & Short as authored, mode 0
+   * passes the prefix through tense (Proc_21_13_44F474: "a", "an" and
+   * "some" become "the", anything else is left alone).  Examine
+   * composes in mode 1 (loc_471749-471789), take/drop/open/close and
+   * the "I don't understand what you want me to do with" reply in
+   * mode 0 -- see uip_definite_form().  Measured on humbug (4.00,
+   * runner_probes/humbug.run400.it.txt, 2026-08-29): `x plane` then
+   * `x it` echoes "(a paper aeroplane)", `get plane` then `x it`
+   * "(the paper aeroplane)", `open satchel` "(the satchel)", `throw
+   * shovel` (no such verb) "(the shovel)"; "some gloves" and "an
+   * envelope" become "the gloves" / "the envelope" after `get`
+   * (runner_probes/humbug.run400.b.txt).
+   *
+   * 3.7 and 3.8 store the antecedent in generaltasks' pre-pass over
+   * the typed line, before any handler: when exactly one object is
+   * named it becomes tense(Prefix) & " " & Short (run380 441EF1 and
+   * 442038, run370 43B696 and 43B805), held or not, whatever the
+   * verb.  Measured on wrecked (3.80, run380x
+   * runner_transcripts/wrecked.rtf, 2026-09-14): `get jacket` then `x
+   * it` echoes "(the tweed jacket)", `get form` then `x it` "(an
+   * application form)" (Prefix "an", which tense() leaves alone), and
+   * `wave wand` on the held wand makes the later `drop it` the wand.
+   */
+  if (game->it_form == UIP_IT_BARE
+      && prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    prefix = "";            /* co()'s park arm; see above */
+  else if (game->it_form == UIP_IT_DEFINITE
+           && prop_get_taf_version (bundle) < TAF_VERSION_390)
+    {
+      definite = uip_tense_prefix_3738 (prefix);
+      prefix = definite.c_str ();
+    }
+  else if (game->it_form == UIP_IT_DEFINITE)
+    {
+      if (scr_compare_word (prefix, "a", 1))
+        definite = std::string ("the") + (prefix + 1);
+      else if (scr_compare_word (prefix, "an", 2))
+        definite = std::string ("the") + (prefix + 2);
+      else if (scr_compare_word (prefix, "some", 4))
+        definite = std::string ("the") + (prefix + 4);
+      else
+        definite = prefix;
+      prefix = definite.c_str ();
+    }
+}
+
+
+/*
+ * uip_pronoun_t::no_object()
+ * uip_pronoun_t::no_character()
+ *
+ * The seeded strings the Runner substitutes for a pronoun nothing has been
+ * referred to by yet.
+ */
+void
+uip_pronoun_t::no_object ()
+{
+  /*
+   * No antecedent at all for "it"/"them".  The Runner's object
+   * antecedent is a pair of strings seeded at new game -- run400
+   * Proc_19_4_45AA98 calls Proc_21_41_448C24 (flag 0, "nothing",
+   * "Absolutely nothing") -- and never a "no reference" state, so
+   * the pronoun is still replaced: "nothing" goes into the command
+   * and "Absolutely nothing" is what the bracket echo prints.
+   * Measured on ptgood_again (4.00) turns 5-6: `x it` with nothing
+   * yet referenced answers "(Absolutely nothing)" then "You see no
+   * such thing."; `g` repeats "(x it)", "(Absolutely nothing)".
+   */
+  prefix = "";
+  name = "nothing";
+  echo = "Absolutely nothing";
+  extent = scr_compare_word (word, "it", 2) ? 2 : 4;
+}
+
+void
+uip_pronoun_t::no_character ()
+{
+  /*
+   * The same thing for the character pronouns, and again the Runner
+   * has no "no reference" state -- the register is a seeded string,
+   * so him/he/her/she are rewritten even before anything has been
+   * referred to.  3.9 and 4.0 keep a register per gender, seeded
+   * "No male" and "No female" (run400 loc_45A7F9/45A800 in
+   * Proc_19_4_45AA98, run390 loc_434969/434970 in clear(); assigned
+   * the NPC's Name by gender byte at run400 loc_47F3B9/47F3D0 and
+   * run390 loc_4592D7/4592EE, which is Scarier's him_npc/her_npc).
+   * 3.7 and 3.8 have ONE character register for all four pronouns,
+   * seeded "Nobody" (run370 loc_42398D MemVar_4460B4, read by every
+   * branch of its() at 42CAFA/42CBC6/42CC9B/42CD67; run380
+   * loc_4289F1).  Unlike the object register there is no second
+   * lower-case copy: the echo and the text spliced into the command
+   * are the same string, and the whole command is lower-cased after
+   * the splice.
+   *
+   * Measured on showtime (4.00, runner_transcripts/showtime.txt turn
+   * 59): `get her hand` with no female yet referenced answers "(No
+   * female)" and then runs the game's task, which survives because
+   * its command is the wildcard `get * hand` and the rewritten line
+   * is "get no female hand".
+   */
+  prefix = "";
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
+    name = (scr_compare_word (word, "him", 3)
+            || scr_compare_word (word, "he", 2))
+           ? "No male" : "No female";
+  else
+    name = "Nobody";
+  echo = name;
+  extent = scr_compare_word (word, "he", 2) ? 2 : 3;
+}
+
+
+/*
+ * uip_pronoun_t::resolve()
+ *
+ * Work out what the word stands for.  Returns TRUE if it is a pronoun to
+ * replace: prefix and name then indicate what to insert, and extent shows
+ * how much of the buffer to replace with them.
+ */
+scr_bool
+uip_pronoun_t::resolve ()
+{
+  /* Initially, no object or NPC, no names, and a zero extent. */
+  object = npc = -1;
+  prefix = name = echo = nullptr;
+  extent = 0;
+
+  find_register ();
+
+  /*
+   * Assign prefix and name to the full object or NPC name, if any.
+   *
+   * An object goes in as its whole noun phrase, prefix and all; a
+   * character goes in as its bare Name.  That asymmetry is the Runner's,
+   * and it holds in all four generations -- the two antecedents are
+   * separate variables, seeded with "Absolutely nothing" / "nothing" for
+   * the object and "Nobody" (4.0 adds "No male" / "No female") for the
+   * character, and the character one is assigned the Name field alone:
+   *
+   *   run370  loc_438332   MemVar_4460B4 = var_164(0)         [Name]
+   *   run370  loc_43B696   MemVar_4460AC = tense(Prefix) & " " & Short
+   *   run400  loc_47F3B9   MemVar_494184 = var_140(0)         [Name]
+   *
+   * Field 0 of a character really is the Name, not a prefix: run390's
+   * room lister builds "<(0)> is <(4)> <(8)>." at loc_459248 -- "Chloe is
+   * a girl." -- and matches the typed word against (0) and (8) at
+   * loc_4592B8.  We used to prepend the NPC's Prefix too, which turned
+   * "ask him about pens" into "ask the Harold about pens" (wrecked, 3.80)
+   * where the Runner writes "ask harold about pens".
+   */
+  if (object > -1)
+    object_phrase ();
+  else if (npc > -1)
+    {
+      prefix = "";
+      name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+    }
+  else if (scr_compare_word (word, "it", 2)
+           || scr_compare_word (word, "them", 4))
+    no_object ();
+  else if (is_character_word)
+    no_character ();
+
+  return prefix && name && extent > 0;
+}
+
+
+/*
+ * uip_pronoun_t::substitute()
+ *
+ * Print the bracket echo and splice the antecedent into the buffer at the
+ * offset, in place of the pronoun.  Returns the length of what went in.
+ */
+scr_int
+uip_pronoun_t::substitute (std::string &buffer, scr_int offset) const
+{
+  std::string replacement;
+
+  /* Build the replacement: "<prefix> <name>", or the bare name. */
+  replacement.reserve (strlen (prefix) + 1 + strlen (name));
+  if (prefix[0] != NUL)
+    {
+      replacement.append (prefix);
+      replacement.push_back (' ');
+    }
+  replacement.append (name);
+
+  /*
+   * Every Runner echoes the antecedent in round brackets on a line of
+   * its own before the command's response -- "(a trophy)".  4.0 does
+   * it whenever Options -> Display & Media... -> "References in
+   * brackets" is ticked, the reference setting Scarier models: run400
+   * Proc_19_49_461F38 (him/he/her/she/it/them branches, e.g. "it" at
+   * loc_461DA5) tests MemVar_4942BA then prints "(" & antecedent &
+   * ")" & vbCrLf through Proc_21_19_47B568.  Measured on adrift_maze
+   * (4.00) commands 24-25: "read it" answers "(a trophy)" then "It
+   * has the following engraved on it."
+   *
+   * 3.9 is the same line behind the same setting: run390 Sub its()
+   * @43D968 tests m_showbrackets (loc_43D6C2 for "it", 43D7BF "them",
+   * 43D884 "one") and prints "(" & MemVar_46811C & ")" through
+   * Proc_2_28_45CBD0; the menu item is read from ADRIFT\Runner
+   * "showbrackets" at loc_44526F with default True (loc_44526B).
+   * Measured on Archie's Birthday (3.90, run390, 2026-09-05): `x
+   * camcorder` then `take it` answers "(a camcorder)" then "You take
+   * a camcorder from the desk."; and on veteran (3.90, run390, same
+   * day) `x bag`, `take it`, `open it` echo "(a bag)" both times --
+   * 3.9's takes @455067 and drops @445BE6 compose the antecedent in
+   * mode 1 (authored Prefix).  Lines no handler names an object on
+   * keep co()'s mode-0 "the X" from its pre-pass (43B69E), a form
+   * Scarier doesn't model: see uip_assign_pronouns() on 8f7dc3d7a.
+   * (An earlier reading of run390 had it keeping showbrackets only
+   * for the "ask about"/"talk about" rewrite at loc_459036/459107
+   * and echoing nothing -- wrong.)
+   *
+   * 3.7 and 3.8 print the same line UNGATED -- run370 Sub Form1.its
+   * @2CA9C (loc_42CAFA ...) and run380 @326B4 have no Appearance menu
+   * -- with the same antecedents: the NPC's Name, or tense(Prefix) &
+   * " " & Short for an object, which is what 'replacement' holds.
+   * Measured on wrecked (3.80, run380x
+   * runner_transcripts/wrecked.rtf, 2026-09-14).
+   */
+  pf_buffer_reference (gs_get_filter (game),
+                       echo ? echo : replacement.c_str (),
+                       gs_get_vars (game), gs_get_bundle (game));
+
+  /*
+   * Splice the replacement in for the matched extent, and lower-case
+   * the whole line again -- the Runner assigns
+   * `cmd = LCase(Left$ & antecedent & Right$)` after every splice
+   * (run400 Proc_19_49_461F38 loc_461ACB..461AD7 for "him",
+   * loc_461BA5..461BB1 for "he", and so on down the branches), so an
+   * authored capital in the Name never survives into the parsed
+   * command.  Without this, uip_case_folds_name() would refuse the
+   * very character the pronoun just named: "ask him about pens" in
+   * wrecked (3.80) becomes "ask harold about pens", not "ask Harold
+   * about pens".
+   *
+   * 3.7 and 3.8 echo tense(Prefix) & " " & Short but splice only the
+   * Short into the line: the pre-pass stores the two apart (run380
+   * 441EF1 / 441F09, run370 43B696 / 43B6AE) and its() writes
+   * Left$ & " " & MemVar_44F0B8 & Right$ (run380 432A95).  Measured
+   * on wrecked T129 (run380x): `ask aslan about it` after the wand
+   * answers the "wand" topic, not the later "witch" one that "the
+   * witch's magic wand" would hit under the substring topic match.
+   *
+   * 3.9 keeps the same pair (MemVar_46811C echo, MemVar_468120
+   * splice).  Its handlers write one composed string to both
+   * (takes 455067/455071, drops 445BE6/445BF0), but co()'s pre-pass
+   * writes "the X" to the echo (43B69E) and the bare Short to the
+   * splice (global_4, 43B6B0).  Blue Sky: `ask maria about burger`
+   * then `give it to her` echoes "(the burger)" and runs the game's
+   * `give burger to maria` task, which "give the burger to maria"
+   * would not match.
+   */
+  if (object > -1
+      && (prop_get_taf_version (bundle) < TAF_VERSION_390
+          || (prop_get_taf_version (bundle) < TAF_VERSION_400
+              && game->it_form == UIP_IT_DEFINITE)))
+    replacement = name;
+  buffer.replace (offset, extent, replacement);
+  scr_lowercase (&buffer[0]);
+
+  return replacement.size ();
+}
+
+} /* namespace */
+
+
+/*
  * uip_replace_pronouns()
  *
  * Replaces pronouns by their respective object or NPC names, and returns the
@@ -228,339 +609,57 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
       offset = strspn (current, WHITESPACE);
       while (current[offset] != NUL)
         {
-        const scr_char *const word = current + offset;
-        scr_int object, npc, extent;
-        const scr_char *prefix, *name, *echo;
-        std::string definite;
-        const scr_bool is_character_word
-            = scr_compare_word (word, "him", 3)
-              || scr_compare_word (word, "he", 2)
-              || scr_compare_word (word, "her", 3)
-              || scr_compare_word (word, "she", 3);
+          const scr_char *const word = current + offset;
+          uip_pronoun_t pronoun;
+          const scr_bool is_character_word
+              = scr_compare_word (word, "him", 3)
+                || scr_compare_word (word, "he", 2)
+                || scr_compare_word (word, "her", 3)
+                || scr_compare_word (word, "she", 3);
 
-        if (is_character_word != (pass == 0))
-          {
-            offset += strcspn (current + offset, WHITESPACE);
-            offset += strspn (current + offset, WHITESPACE);
-            continue;
-          }
+          if (is_character_word != (pass == 0))
+            {
+              offset += strcspn (current + offset, WHITESPACE);
+              offset += strspn (current + offset, WHITESPACE);
+              continue;
+            }
 
-        /* Initially, no object or NPC, no names, and a zero extent. */
-        object = npc = -1;
-        prefix = name = echo = nullptr;
-        extent = 0;
+          pronoun.game = game;
+          pronoun.bundle = bundle;
+          pronoun.word = word;
+          pronoun.is_character_word = is_character_word;
 
-        /*
-         * Search for pronouns where we have an assigned object or NPC.  We
-         * can't be sure of getting plurality right, and it's not always
-         * intuitive even in English -- is "a pair of scissors" an "it", or
-         * a "them"?  Because of this, we just treat "it" and "them" equally
-         * for now.
-         */
-        if (game->it_object != -1 && scr_compare_word (word, "it", 2))
-          {
-            object = game->it_object;
-            extent = 2;
-          }
-        else if (game->it_object != -1 && scr_compare_word (word, "them", 4))
-          {
-            object = game->it_object;
-            extent = 4;
-          }
-        else if (game->him_npc != -1 && scr_compare_word (word, "him", 3))
-          {
-            npc = game->him_npc;
-            extent = 3;
-          }
-        else if (game->him_npc != -1 && scr_compare_word (word, "he", 2))
-          {
-            npc = game->him_npc;
-            extent = 2;
-          }
-        else if (game->her_npc != -1 && scr_compare_word (word, "her", 3))
-          {
-            npc = game->her_npc;
-            extent = 3;
-          }
-        else if (game->her_npc != -1 && scr_compare_word (word, "she", 3))
-          {
-            npc = game->her_npc;
-            extent = 3;
-          }
-        else if (game->it_npc != -1 && scr_compare_word (word, "it", 2))
-          {
-            npc = game->it_npc;
-            extent = 2;
-          }
+          if (pronoun.resolve ())
+            {
+              uip.pronoun.used = TRUE;
 
-        /*
-         * Assign prefix and name to the full object or NPC name, if any.
-         *
-         * An object goes in as its whole noun phrase, prefix and all; a
-         * character goes in as its bare Name.  That asymmetry is the Runner's,
-         * and it holds in all four generations -- the two antecedents are
-         * separate variables, seeded with "Absolutely nothing" / "nothing" for
-         * the object and "Nobody" (4.0 adds "No male" / "No female") for the
-         * character, and the character one is assigned the Name field alone:
-         *
-         *   run370  loc_438332   MemVar_4460B4 = var_164(0)         [Name]
-         *   run370  loc_43B696   MemVar_4460AC = tense(Prefix) & " " & Short
-         *   run400  loc_47F3B9   MemVar_494184 = var_140(0)         [Name]
-         *
-         * Field 0 of a character really is the Name, not a prefix: run390's
-         * room lister builds "<(0)> is <(4)> <(8)>." at loc_459248 -- "Chloe is
-         * a girl." -- and matches the typed word against (0) and (8) at
-         * loc_4592B8.  We used to prepend the NPC's Prefix too, which turned
-         * "ask him about pens" into "ask the Harold about pens" (wrecked, 3.80)
-         * where the Runner writes "ask harold about pens".
-         */
-        if (object > -1)
-          {
-            prefix = prop_get_indexed_string (bundle, "Objects", object,
-                                              "Prefix");
-            name = prop_get_indexed_string (bundle, "Objects", object, "Short");
+              /*
+               * If not yet copied, copy the input string into the buffer now
+               * and switch 'current' to it.  The offset is unchanged since
+               * the buffer starts as an exact copy; basic copy-on-write.
+               */
+              if (!modified)
+                {
+                  buffer = string;
+                  modified = TRUE;
+                }
 
-            /*
-             * An empty Prefix is an "a" prefix: every Runner's .taf loader
-             * substitutes the literal on the way in (run380 @4481B2, run370
-             * @43F5DA, run400 loc_4900EC), so the antecedent the Runner builds
-             * through Proc_21_31_448710 reads "a Cupboard".  Measured on
-             * man_overboard (4.00): `open it` after `x cupboard` echoes "(a
-             * Cupboard)", and likewise "(a wardrobe)", "(a pantry)", "(a
-             * toolbox)".  parse_trim_object_names does the substitution now, so
-             * the prefix read back here already carries it.
-             */
+              /* Echo and splice, then skip over the replacement. */
+              offset += pronoun.substitute (buffer, offset);
+              current = buffer.c_str ();
 
-            /*
-             * 4.0 keeps the antecedent as a string composed by whichever
-             * handler last set it, and the composer (run400 Proc_21_31_448710)
-             * has two modes: mode 1 is Prefix & " " & Short as authored, mode 0
-             * passes the prefix through tense (Proc_21_13_44F474: "a", "an" and
-             * "some" become "the", anything else is left alone).  Examine
-             * composes in mode 1 (loc_471749-471789), take/drop/open/close and
-             * the "I don't understand what you want me to do with" reply in
-             * mode 0 -- see uip_definite_form().  Measured on humbug (4.00,
-             * runner_probes/humbug.run400.it.txt, 2026-08-29): `x plane` then
-             * `x it` echoes "(a paper aeroplane)", `get plane` then `x it`
-             * "(the paper aeroplane)", `open satchel` "(the satchel)", `throw
-             * shovel` (no such verb) "(the shovel)"; "some gloves" and "an
-             * envelope" become "the gloves" / "the envelope" after `get`
-             * (runner_probes/humbug.run400.b.txt).
-             *
-             * 3.7 and 3.8 store the antecedent in generaltasks' pre-pass over
-             * the typed line, before any handler: when exactly one object is
-             * named it becomes tense(Prefix) & " " & Short (run380 441EF1 and
-             * 442038, run370 43B696 and 43B805), held or not, whatever the
-             * verb.  Measured on wrecked (3.80, run380x
-             * runner_transcripts/wrecked.rtf, 2026-09-14): `get jacket` then `x
-             * it` echoes "(the tweed jacket)", `get form` then `x it` "(an
-             * application form)" (Prefix "an", which tense() leaves alone), and
-             * `wave wand` on the held wand makes the later `drop it` the wand.
-             */
-            if (game->it_form == UIP_IT_BARE
-                && prop_get_taf_version (bundle) >= TAF_VERSION_400)
-              prefix = "";            /* co()'s park arm; see above */
-            else if (game->it_form == UIP_IT_DEFINITE
-                     && prop_get_taf_version (bundle) < TAF_VERSION_390)
-              {
-                definite = uip_tense_prefix_3738 (prefix);
-                prefix = definite.c_str ();
-              }
-            else if (game->it_form == UIP_IT_DEFINITE)
-              {
-                if (scr_compare_word (prefix, "a", 1))
-                  definite = std::string ("the") + (prefix + 1);
-                else if (scr_compare_word (prefix, "an", 2))
-                  definite = std::string ("the") + (prefix + 2);
-                else if (scr_compare_word (prefix, "some", 4))
-                  definite = std::string ("the") + (prefix + 4);
-                else
-                  definite = prefix;
-                prefix = definite.c_str ();
-              }
-          }
-        else if (npc > -1)
-          {
-            prefix = "";
-            name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
-          }
-        else if (scr_compare_word (word, "it", 2)
-                 || scr_compare_word (word, "them", 4))
-          {
-            /*
-             * No antecedent at all for "it"/"them".  The Runner's object
-             * antecedent is a pair of strings seeded at new game -- run400
-             * Proc_19_4_45AA98 calls Proc_21_41_448C24 (flag 0, "nothing",
-             * "Absolutely nothing") -- and never a "no reference" state, so
-             * the pronoun is still replaced: "nothing" goes into the command
-             * and "Absolutely nothing" is what the bracket echo prints.
-             * Measured on ptgood_again (4.00) turns 5-6: `x it` with nothing
-             * yet referenced answers "(Absolutely nothing)" then "You see no
-             * such thing."; `g` repeats "(x it)", "(Absolutely nothing)".
-             */
-            prefix = "";
-            name = "nothing";
-            echo = "Absolutely nothing";
-            extent = scr_compare_word (word, "it", 2) ? 2 : 4;
-          }
-        else if (is_character_word)
-          {
-            /*
-             * The same thing for the character pronouns, and again the Runner
-             * has no "no reference" state -- the register is a seeded string,
-             * so him/he/her/she are rewritten even before anything has been
-             * referred to.  3.9 and 4.0 keep a register per gender, seeded
-             * "No male" and "No female" (run400 loc_45A7F9/45A800 in
-             * Proc_19_4_45AA98, run390 loc_434969/434970 in clear(); assigned
-             * the NPC's Name by gender byte at run400 loc_47F3B9/47F3D0 and
-             * run390 loc_4592D7/4592EE, which is Scarier's him_npc/her_npc).
-             * 3.7 and 3.8 have ONE character register for all four pronouns,
-             * seeded "Nobody" (run370 loc_42398D MemVar_4460B4, read by every
-             * branch of its() at 42CAFA/42CBC6/42CC9B/42CD67; run380
-             * loc_4289F1).  Unlike the object register there is no second
-             * lower-case copy: the echo and the text spliced into the command
-             * are the same string, and the whole command is lower-cased after
-             * the splice.
-             *
-             * Measured on showtime (4.00, runner_transcripts/showtime.txt turn
-             * 59): `get her hand` with no female yet referenced answers "(No
-             * female)" and then runs the game's task, which survives because
-             * its command is the wildcard `get * hand` and the rewritten line
-             * is "get no female hand".
-             */
-            prefix = "";
-            if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
-              name = (scr_compare_word (word, "him", 3)
-                      || scr_compare_word (word, "he", 2))
-                     ? "No male" : "No female";
-            else
-              name = "Nobody";
-            echo = name;
-            extent = scr_compare_word (word, "he", 2) ? 2 : 3;
-          }
+              if (uip.trace)
+                scr_trace ("Parser: pronoun \"%s\"\n", buffer.c_str ());
+            }
+          else
+            {
+              /* If no match, advance over the unmatched word. */
+              offset += strcspn (current + offset, WHITESPACE);
+            }
 
-        /*
-         * If a pronoun was found, prefix and name indicate what to insert, and
-         * extent shows how much of the buffer to replace with them.
-         */
-        if (prefix && name && extent > 0)
-          {
-            std::string replacement;
-
-            uip.pronoun.used = TRUE;
-
-            /*
-             * If not yet copied, copy the input string into the buffer now and
-             * switch 'current' to it.  The offset is unchanged since the buffer
-             * starts as an exact copy; basic copy-on-write.
-             */
-            if (!modified)
-              {
-                buffer = string;
-                modified = TRUE;
-              }
-
-            /* Build the replacement: "<prefix> <name>", or the bare name. */
-            replacement.reserve (strlen (prefix) + 1 + strlen (name));
-            if (prefix[0] != NUL)
-              {
-                replacement.append (prefix);
-                replacement.push_back (' ');
-              }
-            replacement.append (name);
-
-            /*
-             * Every Runner echoes the antecedent in round brackets on a line of
-             * its own before the command's response -- "(a trophy)".  4.0 does
-             * it whenever Options -> Display & Media... -> "References in
-             * brackets" is ticked, the reference setting Scarier models: run400
-             * Proc_19_49_461F38 (him/he/her/she/it/them branches, e.g. "it" at
-             * loc_461DA5) tests MemVar_4942BA then prints "(" & antecedent &
-             * ")" & vbCrLf through Proc_21_19_47B568.  Measured on adrift_maze
-             * (4.00) commands 24-25: "read it" answers "(a trophy)" then "It
-             * has the following engraved on it."
-             *
-             * 3.9 is the same line behind the same setting: run390 Sub its()
-             * @43D968 tests m_showbrackets (loc_43D6C2 for "it", 43D7BF "them",
-             * 43D884 "one") and prints "(" & MemVar_46811C & ")" through
-             * Proc_2_28_45CBD0; the menu item is read from ADRIFT\Runner
-             * "showbrackets" at loc_44526F with default True (loc_44526B).
-             * Measured on Archie's Birthday (3.90, run390, 2026-09-05): `x
-             * camcorder` then `take it` answers "(a camcorder)" then "You take
-             * a camcorder from the desk."; and on veteran (3.90, run390, same
-             * day) `x bag`, `take it`, `open it` echo "(a bag)" both times --
-             * 3.9's takes @455067 and drops @445BE6 compose the antecedent in
-             * mode 1 (authored Prefix).  Lines no handler names an object on
-             * keep co()'s mode-0 "the X" from its pre-pass (43B69E), a form
-             * Scarier doesn't model: see uip_assign_pronouns() on 8f7dc3d7a.
-             * (An earlier reading of run390 had it keeping showbrackets only
-             * for the "ask about"/"talk about" rewrite at loc_459036/459107
-             * and echoing nothing -- wrong.)
-             *
-             * 3.7 and 3.8 print the same line UNGATED -- run370 Sub Form1.its
-             * @2CA9C (loc_42CAFA ...) and run380 @326B4 have no Appearance menu
-             * -- with the same antecedents: the NPC's Name, or tense(Prefix) &
-             * " " & Short for an object, which is what 'replacement' holds.
-             * Measured on wrecked (3.80, run380x
-             * runner_transcripts/wrecked.rtf, 2026-09-14).
-             */
-            pf_buffer_reference (gs_get_filter (game),
-                                 echo ? echo : replacement.c_str (),
-                                 gs_get_vars (game), gs_get_bundle (game));
-
-            /*
-             * Splice the replacement in for the matched extent, and lower-case
-             * the whole line again -- the Runner assigns
-             * `cmd = LCase(Left$ & antecedent & Right$)` after every splice
-             * (run400 Proc_19_49_461F38 loc_461ACB..461AD7 for "him",
-             * loc_461BA5..461BB1 for "he", and so on down the branches), so an
-             * authored capital in the Name never survives into the parsed
-             * command.  Without this, uip_case_folds_name() would refuse the
-             * very character the pronoun just named: "ask him about pens" in
-             * wrecked (3.80) becomes "ask harold about pens", not "ask Harold
-             * about pens".
-             *
-             * 3.7 and 3.8 echo tense(Prefix) & " " & Short but splice only the
-             * Short into the line: the pre-pass stores the two apart (run380
-             * 441EF1 / 441F09, run370 43B696 / 43B6AE) and its() writes
-             * Left$ & " " & MemVar_44F0B8 & Right$ (run380 432A95).  Measured
-             * on wrecked T129 (run380x): `ask aslan about it` after the wand
-             * answers the "wand" topic, not the later "witch" one that "the
-             * witch's magic wand" would hit under the substring topic match.
-             *
-             * 3.9 keeps the same pair (MemVar_46811C echo, MemVar_468120
-             * splice).  Its handlers write one composed string to both
-             * (takes 455067/455071, drops 445BE6/445BF0), but co()'s pre-pass
-             * writes "the X" to the echo (43B69E) and the bare Short to the
-             * splice (global_4, 43B6B0).  Blue Sky: `ask maria about burger`
-             * then `give it to her` echoes "(the burger)" and runs the game's
-             * `give burger to maria` task, which "give the burger to maria"
-             * would not match.
-             */
-            if (object > -1
-                && (prop_get_taf_version (bundle) < TAF_VERSION_390
-                    || (prop_get_taf_version (bundle) < TAF_VERSION_400
-                        && game->it_form == UIP_IT_DEFINITE)))
-              replacement = name;
-            buffer.replace (offset, extent, replacement);
-            scr_lowercase (&buffer[0]);
-            current = buffer.c_str ();
-
-            /* Adjust offset to skip over the replacement. */
-            offset += replacement.size ();
-
-            if (uip.trace)
-              scr_trace ("Parser: pronoun \"%s\"\n", buffer.c_str ());
-          }
-        else
-          {
-            /* If no match, advance over the unmatched word. */
-            offset += strcspn (current + offset, WHITESPACE);
-          }
-
-        /* Set offset to the next word start. */
-        offset += strspn (current + offset, WHITESPACE);
-      }
+          /* Set offset to the next word start. */
+          offset += strspn (current + offset, WHITESPACE);
+        }
     }
 
   /* Return the final string, or NULL if no pronoun replacements. */

@@ -104,7 +104,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~520~~ | ~~`run_task`~~ | DONE: `run_task_ctx` + four phases, see "run_task split" |
 | ~~500~~ | ~~`pass_character`~~ | DONE: `char_restr_t` + operator table, see "pass_character split" |
 | ~~385~~ | ~~`lib_cmd_verb_object`~~ | DONE: eight stages + driver, see "lib_cmd_verb_object split" |
-| 371 | `uip_replace_pronouns` | `scparser_pronoun.cpp` |
+| ~~371~~ | ~~`uip_replace_pronouns`~~ | DONE: `uip_pronoun_t` + six stage members, see "uip_replace_pronouns split" |
 | 353 | `run_main_loop` | `runner/scrunner.cpp` ~698 |
 | 345 | `eval_function` | `adrift5/text/a5text_func.cpp` ~1177 |
 | 336 | `scdump_tasks` | `scdump.cpp` ~752 |
@@ -353,8 +353,9 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `uip_replace_pronouns` down; `run_task`, `pass_character` and
-   `lib_cmd_verb_object` are taken (see their "split" sections).
+   open from `run_main_loop` down; `run_task`, `pass_character`,
+   `lib_cmd_verb_object` and `uip_replace_pronouns` are taken (see their
+   "split" sections).
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -879,3 +880,35 @@ them):
   work; which rows are deliberate deviations and which are regressions is
   its own job.
 - Next in the table: `uip_replace_pronouns` (scparser_pronoun.cpp).
+
+## 3: uip_replace_pronouns split (2026-10-11)
+
+- **`uip_replace_pronouns`** (371 l., two thirds of it measurement
+  comments) in `scparser_pronoun.cpp` is a 90-line driver -- the two
+  passes, the word walk, the copy-on-write and the offset bookkeeping --
+  over a per-word `uip_pronoun_t` (anonymous namespace: game, bundle, word,
+  is_character_word; then what the word resolves to: object, npc, extent,
+  prefix, name, echo, and `definite`, which owns a composed prefix).  Six
+  members, each carrying the comment that sat on its block:
+  `find_register` (which of it / him / her holds something),
+  `object_phrase` (the Prefix forms by version and `it_form`), `no_object`
+  ("Absolutely nothing"), `no_character` ("No male" / "No female" /
+  "Nobody"), `resolve` (the reset, the four-way choice with the NPC arm
+  inline, and the old `prefix && name && extent > 0` test as its result)
+  and `substitute` (build the replacement, the bracket echo, the splice
+  and re-lower-casing; returns the length to skip).  Members rather than
+  functions taking a context, on the `char_restr_t` model, so the bodies
+  are verbatim: the file was rebuilt from line slices of the old one,
+  dedented, with nothing renamed.  `uip.pronoun.used`, the copy-on-write
+  and the trace line stay in the driver, in the order they had.
+- Verification: headless `quick`; full `test` output identical to the
+  pre-change run with the compile and "Nothing to be done" lines dropped;
+  `make -j8 scarier glkscarier` warning-free; `sanitize` clean.  Safety
+  net step 5: `runner_transcripts.py recompare` over the whole corpus,
+  once with the old file and once with the new, leaves byte-identical
+  `manifest.tsv` and `compare/` trees.  **`recompare` does not rebuild**:
+  it runs `test/adrift4/harness/scare` as it finds it, so make that target
+  (`make -f Makefile.headless test/adrift4/harness/scare`) after each
+  swap of the source, or the two runs compare one binary with itself.
+  No line over 80 columns in the file, before or after.
+- Next in the table: `run_main_loop` (runner/scrunner.cpp).
