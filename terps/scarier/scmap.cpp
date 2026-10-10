@@ -327,12 +327,40 @@ sm_sh (sm_layout_t *L, int rno, int *x, int *y, int dir)
  * When no free cell is available they will step onto a cell holding one of
  * rno's own neighbours, and failing that they declare the map too complex.
  *
- * The `- 1` in those last two tests is an off-by-one in the original: grid
+ * The `- 1` in the neighbour tests is an off-by-one in the original: grid
  * cells hold room numbers, and it compares them against a destination that is
  * already a room number.  It is systematic across all four routines, so it is
  * the runner's bug rather than a misreading, and it only misfires on a rarely
  * taken fallback path.  Reproduced.
  */
+
+/*
+ * sm_try_sidestep()
+ *
+ * The tail the four shovers share once the move along their own axis is
+ * blocked: step `rno` off to one side, perpendicular to that axis -- into a
+ * free cell on either side first (`d1` before `d2`), then onto the cell held
+ * by its own neighbour in that direction -- or declare the layout stuck.
+ */
+static void
+sm_try_sidestep (sm_layout_t *L, int rno, int *x, int *y, int d1, int d2)
+{
+  sm_room_t *r = &L->rooms[rno];
+  const int x1 = r->x + map_dir_dx[d1], y1 = r->y + map_dir_dy[d1];
+  const int x2 = r->x + map_dir_dx[d2], y2 = r->y + map_dir_dy[d2];
+
+  if (sm_check_grid (L, x1, y1) == GRID_EMPTY)
+    sm_sh (L, rno, x, y, d1);
+  else if (sm_check_grid (L, x2, y2) == GRID_EMPTY)
+    sm_sh (L, rno, x, y, d2);
+  else if (sm_check_grid (L, x1, y1) == r->exits[d1] - 1)
+    sm_sh (L, rno, x, y, d1);
+  else if (sm_check_grid (L, x2, y2) == r->exits[d2] - 1)
+    sm_sh (L, rno, x, y, d2);
+  else
+    L->fail = FAIL_STUCK;
+}
+
 static void
 sm_try_dec_x (sm_layout_t *L, int rno, int *x, int *y, int xrno, int match)
 {
@@ -342,16 +370,8 @@ sm_try_dec_x (sm_layout_t *L, int rno, int *x, int *y, int xrno, int match)
     {
       if (sm_check_grid (L, r->x - 1, r->y) == GRID_EMPTY)
         sm_sh (L, rno, x, y, DIR_W);
-      else if (sm_check_grid (L, r->x, r->y - 1) == GRID_EMPTY)
-        sm_sh (L, rno, x, y, DIR_N);
-      else if (sm_check_grid (L, r->x, r->y + 1) == GRID_EMPTY)
-        sm_sh (L, rno, x, y, DIR_S);
-      else if (sm_check_grid (L, r->x, r->y - 1) == r->exits[DIR_N] - 1)
-        sm_sh (L, rno, x, y, DIR_N);
-      else if (sm_check_grid (L, r->x, r->y + 1) == r->exits[DIR_S] - 1)
-        sm_sh (L, rno, x, y, DIR_S);
       else
-        L->fail = FAIL_STUCK;
+        sm_try_sidestep (L, rno, x, y, DIR_N, DIR_S);
     }
 }
 
@@ -376,16 +396,8 @@ sm_try_inc_x (sm_layout_t *L, int rno, int *x, int *y, int xrno, int match)
           last_gap = gap;
           sm_sh (L, rno, x, y, DIR_E);
         }
-      else if (sm_check_grid (L, r->x, r->y - 1) == GRID_EMPTY)
-        sm_sh (L, rno, x, y, DIR_N);
-      else if (sm_check_grid (L, r->x, r->y + 1) == GRID_EMPTY)
-        sm_sh (L, rno, x, y, DIR_S);
-      else if (sm_check_grid (L, r->x, r->y - 1) == r->exits[DIR_N] - 1)
-        sm_sh (L, rno, x, y, DIR_N);
-      else if (sm_check_grid (L, r->x, r->y + 1) == r->exits[DIR_S] - 1)
-        sm_sh (L, rno, x, y, DIR_S);
       else
-        L->fail = FAIL_STUCK;
+        sm_try_sidestep (L, rno, x, y, DIR_N, DIR_S);
     }
 }
 
@@ -402,16 +414,8 @@ sm_try_dec_y (sm_layout_t *L, int rno, int *x, int *y, int xrno, int match)
       else if (sm_check_grid (L, L->rooms[xrno].x,
                               L->rooms[xrno].y + 1) == GRID_EMPTY)
         sm_sh (L, xrno, x, y, DIR_S);
-      else if (sm_check_grid (L, r->x - 1, r->y) == GRID_EMPTY)
-        sm_sh (L, rno, x, y, DIR_W);
-      else if (sm_check_grid (L, r->x + 1, r->y) == GRID_EMPTY)
-        sm_sh (L, rno, x, y, DIR_E);
-      else if (sm_check_grid (L, r->x - 1, r->y) == r->exits[DIR_W] - 1)
-        sm_sh (L, rno, x, y, DIR_W);
-      else if (sm_check_grid (L, r->x + 1, r->y) == r->exits[DIR_E] - 1)
-        sm_sh (L, rno, x, y, DIR_E);
       else
-        L->fail = FAIL_STUCK;
+        sm_try_sidestep (L, rno, x, y, DIR_W, DIR_E);
     }
 }
 
@@ -424,16 +428,8 @@ sm_try_inc_y (sm_layout_t *L, int rno, int *x, int *y, int xrno, int match)
     {
       if (sm_check_grid (L, r->x, r->y + 1) == GRID_EMPTY)
         sm_sh (L, rno, x, y, DIR_S);
-      else if (sm_check_grid (L, r->x - 1, r->y) == GRID_EMPTY)
-        sm_sh (L, rno, x, y, DIR_W);
-      else if (sm_check_grid (L, r->x + 1, r->y) == GRID_EMPTY)
-        sm_sh (L, rno, x, y, DIR_E);
-      else if (sm_check_grid (L, r->x - 1, r->y) == r->exits[DIR_W] - 1)
-        sm_sh (L, rno, x, y, DIR_W);
-      else if (sm_check_grid (L, r->x + 1, r->y) == r->exits[DIR_E] - 1)
-        sm_sh (L, rno, x, y, DIR_E);
       else
-        L->fail = FAIL_STUCK;
+        sm_try_sidestep (L, rno, x, y, DIR_W, DIR_E);
     }
 }
 
