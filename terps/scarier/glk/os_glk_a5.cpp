@@ -1004,11 +1004,13 @@ gsc_a5_open_game_path (void)
   return stream;
 }
 #else
-/* Declared in glkstart.h, which only os_glk.cpp includes (in its UNIX linkage
- * section); declared here so the resource setup below can open the game file
- * as a Glk stream for giblorb. */
-extern "C" strid_t glkunix_stream_open_pathname (char *pathname,
-                                                 glui32 textmode, glui32 rock);
+/* For glkunix_stream_open_pathname(), so the resource setup below can open
+ * the game file as a Glk stream for giblorb.  Included here, as in
+ * os_glk.cpp's UNIX linkage section, and not in os_glk_internal.h, because
+ * only the hosts on this side of the #if have the header. */
+extern "C" {
+#include "glkstart.h"
+}
 
 /* Rock of the stream behind the resource map, so that an autorestore can
  * tell it from the game's other streams (see gsc_a5_rebind_resources). */
