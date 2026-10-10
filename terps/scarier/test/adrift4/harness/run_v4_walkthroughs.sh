@@ -608,6 +608,7 @@ datewithdeath_solution.txt|datewithdeath.taf|And you have a whole life ahead of 
 alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 onnafa_solution.txt|ONNAFA.TAF|your score turned out at 82|SCR_SKIP_WAITKEY=1
 onnafa_full_solution.txt|ONNAFA.TAF|your score turned out at 208|SCR_SKIP_WAITKEY=1
+onnafa_full_patched_solution.txt|ONNAFA.TAF|your score turned out at 216|SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 house_solution.txt|House.taf|Well done - you scored maximum points!|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 lca_solution.txt|Lights_Camera_Action.taf|best ending in the game!|SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-09-13 for the 4.0 event "ticked" byte and post-execute-task event
@@ -632,6 +633,7 @@ freedom_solution.txt|escape.taf|Final score: 100% COMPLETED.|SCR_SKIP_WAITKEY=1
 pathway_solution.txt|pathway.taf|and stop the test. Do you remember anything?|SCR_SKIP_WAITKEY=1
 missingperson_solution.txt|MissingPerson.taf|sadness of the little girl?|
 outside_solution.txt|Outside.taf|There is no more. What did she do?|
+outside_patched_solution.txt|Outside.taf|It all turned out OK in the end|SCR_ASSUME_PATCHES=1
 melancholy1_solution.txt|Melancholy Blood Act 1.taf|Well, that's the end of Act 1.|
 professional_solution.txt|Professional.taf|Look forward to The Professional 2|SCR_SKIP_WAITKEY=1
 namiki_solution.txt|Namiki'sDay.taf|You scored 8 out of the maximum 8!|

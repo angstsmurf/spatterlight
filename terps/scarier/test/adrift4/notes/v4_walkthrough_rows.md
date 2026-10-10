@@ -11566,6 +11566,47 @@ transcript (runner_transcripts/outside.txt) matches Scarier on every turn;
 the compare only flags the goto walks, which run390 echoes as one turn.
 ```
 
+## outside_patched_solution.txt
+
+```text
+Outside with the built-in game patch (SCR_ASSUME_PATCHES=1): the first win.
+PATCH_OUTSIDE makes four edits, all in the last act:
+  - task 79 (`se` / `go* phu*`, Roses house) gets the move to Phureo its
+    text stands for;
+  - task 72 (the unconditional "locked" line) is given no room, and its line
+    becomes task 73's refusal, so `ne` / `goto alexes house` is refused until
+    `*unlock*` and walks in after;
+  - task 69 (`goto back room`) gets a second action, the move to room 19;
+  - Alex (NPC 12) gets task 71, `thatbadoldalexgotkilled`, as his KilledTask
+    -- he had none, so the file's only winning EndGame could not fire.
+The route is the faithful one with the guide's two "fight" notes played out:
+the road monster is killed (two blows with the shovel; Joe dies in it, as he
+does on `escape`), which is +40 strength/defence and 450 gold; `ne`,
+`buy sword` (750 of the 1100), `sw`; `get chain mail`, `wear chain mail` --
+the mail the third guard's death hands Joe is on the road once he is dead.
+Then 240 strength against Alex's 120 defence is 120 a blow, nine blows for
+his 1000 stamina, and 180 defence against his 160 strength is no damage at
+all.  Without the mail Alex kills in three turns.  The 30-turn recapture
+event (task 80) starts on leaving Roses house; the fight ends on turn 14.
+The code is typed `12324`: run390 cuts `1,2,3,2,4` at the first comma.
+Left as shipped: plain `n` in Alexes house walks into the back room before
+the code is entered (exit 17 N is ungated), and task 70 (`*`) still answers
+everything "Incorrect." for -10 there once the panel is on.
+Scarier only -- the Runner has no patch table.
+```
+
+## onnafa_full_patched_solution.txt
+
+```text
+onnafa_full_solution.txt unchanged, with the built-in game patch
+(SCR_ASSUME_PATCHES=1): PATCH_ONNAFA narrows task 325's `get *jam*` to
+`get *jam tart*`, so the tart refusal no longer answers for the "little jam
+cake".  The Kitchen `get all` then takes the cake with the rest (the later
+`get cake` is "You are already carrying"), `give cake to mabel` is +3 and
+`give rose to murphy` +5: closing narrator "your score turned out at 216".
+Scarier only.
+```
+
 ## melancholy1_solution.txt
 
 ```text

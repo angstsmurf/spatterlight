@@ -5072,6 +5072,88 @@ static const scr_patch_edit_t PATCH_PROVENANCE[] = {
 };
 
 /*
+ * Outside (Matt Ingrey), a 3.90 game whose own guide admits it went out
+ * untested.  Its last act is three rooms -- Roses House, Phureo, Alexes
+ * House and its back room -- and each of the three doors between them is a
+ * task that forgets to open:
+ *
+ *   o Roses House.  Task 79, `se` / `go* phu*`, is the only way out.  It
+ *     prints "You have 30 turns before you will be recaptured." and starts
+ *     the countdown, but has no actions, so the player stays put; it is not
+ *     repeatable, and 3.9 answers every later attempt with "You have already
+ *     done that."  The added action is the move to Phureo the text stands
+ *     for.
+ *
+ *   o Phureo.  Tasks 72 and 73 both answer `ne` / `go* alex*`.  72, "The
+ *     door to Alexes house is locked.", has no restrictions and comes first;
+ *     73, which walks the player in once `*unlock*` (task 74) is done, can
+ *     therefore never run, and its own refusal for the locked case is empty.
+ *     72's line becomes 73's refusal, and 72 is given no room to run in.
+ *
+ *   o Alexes House.  Task 69, `go * back room*`, prints "You wander into the
+ *     room", turns Alex hostile and starts his walk to the back room, where
+ *     task 71 ends the game when he dies -- but it leaves the player behind,
+ *     in a room where task 70, `*`, answers everything else "Incorrect."
+ *     once the control panel is on.  A second action moves the player to the
+ *     back room, room 19.
+ *
+ * And the fight there cannot be won either: task 71,
+ * `thatbadoldalexgotkilled`, is the file's only winning EndGame and is
+ * spelled like the KilledTask of every other fighter in the game
+ * (`thefirstprisonguardisdead`, `youkilledthemonsterthingy`), but Alex, NPC
+ * 12, has no KilledTask at all, so he would die and nothing would follow.
+ * He is given it.  The guide's last line is "***defeat alex***"; with the
+ * road monster fought rather than fled, the sword bought and the chain mail
+ * worn, that takes nine blows.
+ *
+ * The three doors are the Runner's behaviour too (runner_transcripts/outside.txt
+ * and the run390 probes of `goto phureo` / `goto alexes house` /
+ * `goto back room`).
+ */
+static const scr_patch_edit_t PATCH_OUTSIDE[] = {
+  PATCH_VERIFY ("Tasks/79/Command/0", "se"),
+  PATCH_VERIFY ("Tasks/79/CompleteText",
+                "You have 30 turns before you will be recaptured."),
+  PATCH_ADD ("Tasks/79/Actions/0/Type", 1),
+  PATCH_ADD ("Tasks/79/Actions/0/Var1", 0),
+  PATCH_ADD ("Tasks/79/Actions/0/Var2", 0),
+  PATCH_ADD ("Tasks/79/Actions/0/Var3", 16),
+  PATCH_VERIFY ("Tasks/72/Command/0", "ne"),
+  PATCH_VERIFY ("Tasks/72/CompleteText",
+                "The door to Alexes house is locked."),
+  PATCH_VERIFY ("Tasks/73/Command/0", "ne"),
+  PATCH_STRING ("Tasks/73/Restrictions/0/FailMessage", "",
+                "The door to Alexes house is locked."),
+  PATCH_SET ("Tasks/72/Where/Type", 1, 0),
+  PATCH_VERIFY ("Tasks/69/Command/0", "go * back room*"),
+  PATCH_ADD ("Tasks/69/Actions/1/Type", 1),
+  PATCH_ADD ("Tasks/69/Actions/1/Var1", 0),
+  PATCH_ADD ("Tasks/69/Actions/1/Var2", 0),
+  PATCH_ADD ("Tasks/69/Actions/1/Var3", 19),
+  PATCH_VERIFY ("Tasks/71/Command/0", "thatbadoldalexgotkilled"),
+  PATCH_VERIFY ("NPCs/12/Name", "Alex"),
+  PATCH_SET ("NPCs/12/Battle/KilledTask", 0, 72)
+};
+
+/*
+ * Oh No, Not Another Fantasy Adventure (David Whyld).  Asking the cook for
+ * food makes him throw biscuits, cookies, a loaf and a "little jam cake" on
+ * the Kitchen floor, and Mother Mabel trades her rose for the cake.  But the
+ * Kitchen also has task 325, `get *jam*` / `get *tarts*`, a scenery refusal
+ * for the jam tarts lying on the cook's helper, and the Runner matches tasks
+ * against the command with the object's full name in it: every way of asking
+ * for the cake reads "get little jam cake" and is answered "the cook's
+ * helper ... slobbers all over them".  `get all` takes everything but the
+ * cake.  The 4.0 Runner does the same (runner_transcripts, the Delron
+ * route's `get cake`), so the cake, the rose and what the rose buys can't be
+ * had.  The refusal is narrowed to the tarts it describes.
+ */
+static const scr_patch_edit_t PATCH_ONNAFA[] = {
+  PATCH_VERIFY ("Tasks/325/Command/1", "get *tarts*"),
+  PATCH_STRING ("Tasks/325/Command/0", "get *jam*", "get *jam tart*")
+};
+
+/*
  * Cowboy Blues (David Whyld).  Variable 0 is the difficulty: 0 hard, 1
  * medium, 2 easy.  Each item the game splits by setting gives the easier
  * settings one task and hard another -- the marble, task 375 (`> 0`) against
@@ -5242,7 +5324,15 @@ static const scr_patch_game_t PATCH_TABLE[] = {
               "the battery at the house is handed over on the medium setting"
               " as well as easy, as the marble is, rather than on no setting"
               " between easy and hard",
-              PATCH_COWBOY_BLUES)
+              PATCH_COWBOY_BLUES),
+  PATCH_GAME ("Outside", "Matt Ingrey",
+              "leaving Roses house, entering Alexes house once it is"
+              " unlocked, and going into its back room now move you there",
+              PATCH_OUTSIDE),
+  PATCH_GAME ("<font size=1>ONNAFA", "David Whyld",
+              "the little jam cake can be picked up, the refusal for the jam"
+              " tarts no longer answering for it",
+              PATCH_ONNAFA)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 
