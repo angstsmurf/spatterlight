@@ -40,7 +40,6 @@
 #include "scrunner.h"
 
 
-
 /* Movement commands for the four point compass. */
 static scr_commands_t MOVE_COMMANDS_4[] = {
   {"{go {to {the}}} [north/n]", lib_cmd_go_north},
@@ -406,8 +405,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * see lib_battle_attack_many().  `throw` is one of var_90's verbs too
    * (47E9EF-47EADB): les_feux T115 `throw grappin on rocher` asks Who.
    */
-  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw] %text% with %object%",
-   lib_cmd_attack_npcs_with},
+  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw] %text%"
+   " with %object%", lib_cmd_attack_npcs_with},
   {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw] %text%",
    lib_cmd_attack_npcs},
   /* A bare battle verb asks too, ahead of `kick`'s and `hit`'s "what?". */
@@ -603,13 +602,13 @@ static scr_commands_t STANDARD_COMMANDS[] = {
  *
  * Take is the first.  In run390 the take code is a dedicated handler with its
  * own "Take what?" and its own "You can't get anything from that.", not
- * therest()'s.  ALEXIS.TAF under
- * run390 measures the difference: `take pot`, `take jacket`, `take coins`,
- * `take ornate key` and four more all answer "Take what?" on turns where a
- * task matching the line exists in another room and `give stones to larnt` on
- * the same row answers "You can't do that here!" instead of therest()'s "Give
- * what?" (runner_probes/alexis_worn_cube.run390.txt).  Hence a table of its
- * own, run at the end of run_standard_verb_commands().
+ * therest()'s.  ALEXIS.TAF under run390 measures the difference: `take pot`,
+ * `take jacket`, `take coins`, `take ornate key` and four more all answer
+ * "Take what?" on turns where a task matching the line exists in another
+ * room and `give stones to larnt` on the same row answers "You can't do that
+ * here!" instead of therest()'s "Give what?"
+ * (runner_probes/alexis_worn_cube.run390.txt).  Hence a table of its own,
+ * run at the end of run_standard_verb_commands().
  */
 /*
  * run390's insides() -- the whole "take X from Y" handler -- answers before
@@ -677,8 +676,8 @@ static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
  * an out-of-room task also matches is "Nothing special.", not "You can't do
  * that here!".  Gamma Gals (3.90) `look under dresser` and `look under bed`
  * typed outside the tasks' rooms (run390x, Delron walkthrough replay
- * 2026-10-09).  3.9 only: 3.7/3.8 have no
- * bare look in examines and are unmeasured; 4.0's refusal is not here.
+ * 2026-10-09).  3.9 only: 3.7/3.8 have no bare look in examines and are
+ * unmeasured; 4.0's refusal is not here.
  */
 static scr_commands_t EXAMINE_ABOVE_REFUSAL_390_COMMANDS[] = {
   {"[x/ex/exam/examine/look {at}] %object%", lib_cmd_examine_absent},
@@ -773,7 +772,8 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"drink", lib_cmd_drink_what},
   /* therest()'s seen-but-absent clause comes before the eat arm, so a
    * task that hides the noun first (Main Course `eat human`) is "can't see
-   * the dead human." and not eat_other's line; see lib_cmd_verb_absent_400(). */
+   * the dead human." and not eat_other's line; see
+   * lib_cmd_verb_absent_400(). */
   {"eat *", lib_cmd_verb_absent_400},
   {"eat *", lib_cmd_eat_other},
   {"feed *", lib_cmd_feed},
@@ -1008,8 +1008,8 @@ run_priority_defer_if_active (void)
  * A priority command has printed a refusal that does NOT claim the command:
  * the 4.0 put whose every object was turned away on size or capacity.  The
  * handler returns FALSE after calling this, the table walk stops, and
- * run_all_commands() lets the task passes answer the same line, joined onto
- * the refusal.  See the 4.0 put notes in run_all_commands().
+ * run_line_t::put_pass() lets the task passes answer the same line, joined
+ * onto the refusal.  See the 4.0 put notes on run_line_t::put_prepass().
  */
 void
 run_priority_refuse (void)
@@ -1049,8 +1049,9 @@ run_priority_refuse (void)
  * that zeroes the split when the fragment resolves to nothing, so the line
  * reaches the tasks intact.  The clobber is the "in" form only.
  *
- * The put-in handler signals the fragment with this, and run_all_commands()
- * runs the task passes against the fragment in its place.
+ * The put-in handler signals the fragment with this, and the put refusals
+ * read it back through run_priority_put_was_unnamed().  The task passes
+ * get the line as typed instead; see run_line_t::get_outer_400().
  */
 void
 run_priority_unnamed_put_object (void)
@@ -1076,10 +1077,11 @@ run_priority_put_was_unnamed (void)
  * Three library rows carry a %number% wildcard -- "wait 5", "redo 3",
  * "hist 3" (the wait row is written twice, abbreviation-gated) -- and
  * uip_match_number() sets the referenced number as a side effect of matching
- * one, exactly as it does for a game task's own %number%.  But those commands are Scarier's, not the Runner's: run400 has no
- * "wait N" at all, and its referenced number (MemVar_49420C) has just two
- * writers, numintext/numintext2, reachable only from the wildcard expansion
- * helper mdlSpreadTheLoad.Proc_19_36_45F268 and only when the pattern being
+ * one, exactly as it does for a game task's own %number%.  But those
+ * commands are Scarier's, not the Runner's: run400 has no "wait N" at all,
+ * and its referenced number (MemVar_49420C) has just two writers,
+ * numintext/numintext2, reachable only from the wildcard expansion helper
+ * mdlSpreadTheLoad.Proc_19_36_45F268 and only when the pattern being
  * expanded really contains %number%.  So in the Runner a game with no number
  * wildcard anywhere can never see a referenced number other than the initial
  * zero, and a "$number = N" restriction (Type 4, Var1 0 -- run400
@@ -1492,13 +1494,41 @@ run_move_commands (const scr_prop_setref_t bundle)
 }
 
 /*
- * run_try_command_table()
+ * run_npc_library_blocked()
  *
- * Search a command table for a match to the string, returning TRUE on the
- * first matching command whose handler succeeds.
+ * Whether the character-handler rows are skipped for this line: from 3.9
+ * on, once a task has run for it.
  */
-static scr_bool run_npc_library_blocked (scr_gameref_t game);
-static scr_bool run_npc_row_blocked (const scr_commands_t *command);
+static scr_bool
+run_npc_library_blocked (scr_gameref_t game)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return FALSE;
+  return run_any_task_ran_this_command ();
+}
+
+/*
+ * run_npc_row_blocked()
+ *
+ * Whether a library row is one of the character-handler branches that the
+ * Runner skips once a task has run for this line.  See the comment at the
+ * call site in run_try_command_table() for the run400 addresses.
+ */
+static scr_bool
+run_npc_row_blocked (const scr_commands_t *command)
+{
+  if (command->handler == lib_cmd_attack_npcs
+      || command->handler == lib_cmd_attack_npcs_with)
+    return TRUE;
+  if (strstr (command->command, "%character%") == NULL)
+    return FALSE;
+  return command->handler != lib_cmd_give_object_npc
+         && command->handler != lib_cmd_ask_npc_about
+         && command->handler != lib_cmd_talk_to_npc_about
+         && command->handler != lib_cmd_kiss_npc
+         && command->handler != lib_cmd_status_npc
+         && command->handler != lib_cmd_verb_npc;
+}
 
 /*
  * Set while the pre-4.0 verb pass runs, so that the give-to-character rows
@@ -1536,6 +1566,12 @@ run_is_with_deferred_handler (scr_bool (*handler) (scr_gameref_t))
   return FALSE;
 }
 
+/*
+ * run_try_command_table()
+ *
+ * Search a command table for a match to the string, returning TRUE on the
+ * first matching command whose handler succeeds.
+ */
 scr_bool
 run_try_command_table (scr_commandsref_t command,
                        scr_gameref_t game, const scr_char *string)
@@ -1622,14 +1658,65 @@ run_movement_succeeds (scr_gameref_t game, const scr_char *string)
 
 
 /*
+ * run_standard_verb_commands_inner()
+ *
  * The dedicated verb handlers: everything run390's generaltasks() calls by
  * name, above the out-of-room task refusal at loc_45FFE8.  Split from the
  * fallback bucket below because the refusal goes between the two; see the
  * ordering note on run_task_refusal().
  */
-static scr_bool run_standard_verb_commands_inner (scr_gameref_t game,
-                                                  const scr_char *string);
+static scr_bool
+run_standard_verb_commands_inner (scr_gameref_t game, const scr_char *string)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
 
+  /*
+   * Search movement commands first, returning TRUE if any matching command
+   * handler succeeded.  Then repeat for standard library commands.
+   */
+  if (run_try_command_table (run_move_commands (bundle), game, string))
+    return TRUE;
+
+  /* The take-from catch-alls; see STANDARD_TAKE_FROM_COMMANDS. */
+  if (run_try_command_table (STANDARD_TAKE_FROM_COMMANDS, game, string))
+    return TRUE;
+
+  if (run_try_command_table (STANDARD_COMMANDS, game, string))
+    return TRUE;
+
+  /*
+   * The same commands again with whole-word containment for a trailing
+   * %object% (uip_match_entity()): the Runner's co() finds an object named
+   * anywhere in the line, so `x silver key` examines "a key" (man_overboard,
+   * 4.00).  A separate pass, so that every pattern's positional match has
+   * had its turn first, and before the catch-alls below so that they never
+   * pre-empt an object the line does name.
+   */
+  uip_set_containment (TRUE);
+  const scr_bool contained =
+      run_try_command_table (STANDARD_COMMANDS, game, string);
+  uip_set_containment (FALSE);
+  if (contained)
+    return TRUE;
+
+  /* The pre-4.0 put catch-alls; see STANDARD_PUT_COMMANDS. */
+  if (run_try_command_table (STANDARD_PUT_COMMANDS, game, string))
+    return TRUE;
+
+  /* run390's take handler, still above the refusal; see
+     STANDARD_ABOVE_REFUSAL_COMMANDS. */
+  uip_set_containment (TRUE);
+  const scr_bool taken =
+      run_try_command_table (STANDARD_ABOVE_REFUSAL_COMMANDS, game, string);
+  uip_set_containment (FALSE);
+  return taken;
+}
+
+/*
+ * run_standard_verb_commands()
+ *
+ * The verb pass with its pre-4.0 deferrals set for the while.
+ */
 scr_bool
 run_standard_verb_commands (scr_gameref_t game, const scr_char *string)
 {
@@ -1676,52 +1763,6 @@ run_standard_give_npc_commands (scr_gameref_t game, const scr_char *string)
       run_try_command_table (GIVE_NPC_COMMANDS, game, string);
   uip_set_containment (FALSE);
   return contained;
-}
-
-static scr_bool
-run_standard_verb_commands_inner (scr_gameref_t game, const scr_char *string)
-{
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-
-  /*
-   * Search movement commands first, returning TRUE if any matching command
-   * handler succeeded.  Then repeat for standard library commands.
-   */
-  if (run_try_command_table (run_move_commands (bundle), game, string))
-    return TRUE;
-
-  /* The take-from catch-alls; see STANDARD_TAKE_FROM_COMMANDS. */
-  if (run_try_command_table (STANDARD_TAKE_FROM_COMMANDS, game, string))
-    return TRUE;
-
-  if (run_try_command_table (STANDARD_COMMANDS, game, string))
-    return TRUE;
-
-  /*
-   * The same commands again with whole-word containment for a trailing
-   * %object% (uip_match_entity()): the Runner's co() finds an object named
-   * anywhere in the line, so `x silver key` examines "a key" (man_overboard,
-   * 4.00).  A separate pass, so that every pattern's positional match has
-   * had its turn first, and before the catch-alls below so that they never
-   * pre-empt an object the line does name.
-   */
-  uip_set_containment (TRUE);
-  const scr_bool contained =
-      run_try_command_table (STANDARD_COMMANDS, game, string);
-  uip_set_containment (FALSE);
-  if (contained)
-    return TRUE;
-
-  /* The pre-4.0 put catch-alls; see STANDARD_PUT_COMMANDS. */
-  if (run_try_command_table (STANDARD_PUT_COMMANDS, game, string))
-    return TRUE;
-
-  /* run390's take handler, still above the refusal; see STANDARD_ABOVE_REFUSAL_COMMANDS. */
-  uip_set_containment (TRUE);
-  const scr_bool taken =
-      run_try_command_table (STANDARD_ABOVE_REFUSAL_COMMANDS, game, string);
-  uip_set_containment (FALSE);
-  return taken;
 }
 
 
@@ -1847,30 +1888,43 @@ run_c_word (scr_int version, const scr_char *line, const scr_char *word)
 
 /* In therest() order; '?' marks an arm that needs an empty message. */
 static const scr_char *const THEREST_ARMS_380[] = {
-    "open", "close", "eat", "drink", "give", "ask", "talk to", "?talk",
-    "say", "look", "clean", "run", "stop", "read", "wash", "cut", "hit",
-    "kill", "move", "lift", "light", "suck", "feel", "turn", "go", "enter",
-    "smell", "push", "pull", "press", "shake", "clear", "clean", "kick",
-    "punch", "fight", "jump", "feed", "unblock", "?block", "unlock",
-    "?lock", "climb", "listen", "shout", "sing", "hum", "dance", "whistle",
-    "cry", "wait", "buy", "sell", "break", "destroy", "smash", "kiss", "fly",
-    "feed", "feel", "please", "fix", "repair", "mend", "date", "time",
-    "sleep", "sit on", "sit in", "stand on", "stand in", "lie on", "lie in",
-    NULL
-  };
+  "open", "close", "eat", "drink", "give", "ask", "talk to", "?talk",
+  "say", "look", "clean", "run", "stop", "read", "wash", "cut", "hit",
+  "kill", "move", "lift", "light", "suck", "feel", "turn", "go", "enter",
+  "smell", "push", "pull", "press", "shake", "clear", "clean", "kick",
+  "punch", "fight", "jump", "feed", "unblock", "?block", "unlock",
+  "?lock", "climb", "listen", "shout", "sing", "hum", "dance", "whistle",
+  "cry", "wait", "buy", "sell", "break", "destroy", "smash", "kiss", "fly",
+  "feed", "feel", "please", "fix", "repair", "mend", "date", "time",
+  "sleep", "sit on", "sit in", "stand on", "stand in", "lie on", "lie in",
+  NULL
+};
 
 static const scr_char *const THEREST_ARMS_390[] = {
-    "open", "close", "eat", "drink", "give", "ask", "talk to", "?talk",
-    "say", "look", "clean", "run", "stop", "read", "wash", "cut", "kill",
-    "move", "lift", "light", "suck", "feel", "touch", "turn", "go", "enter",
-    "smell", "push", "pull", "press", "shake", "kick", "hit", "clear",
-    "punch", "fight", "jump", "feed", "unblock", "block", "unlock", "lock",
-    "climb", "listen", "shout", "sing", "hum", "dance", "whistle", "cry",
-    "wait", "examine", "ex", "x", "buy", "sell", "break", "destroy", "smash",
-    "kiss", "fly", "feed", "feel", "please", "fix", "repair", "mend", "date",
-    "time", "sleep", "sit on", "sit in", "stand on", "stand in", "lie on",
-    "lie in", "xyzzy", NULL
-  };
+  "open", "close", "eat", "drink", "give", "ask", "talk to", "?talk",
+  "say", "look", "clean", "run", "stop", "read", "wash", "cut", "kill",
+  "move", "lift", "light", "suck", "feel", "touch", "turn", "go", "enter",
+  "smell", "push", "pull", "press", "shake", "kick", "hit", "clear",
+  "punch", "fight", "jump", "feed", "unblock", "block", "unlock", "lock",
+  "climb", "listen", "shout", "sing", "hum", "dance", "whistle", "cry",
+  "wait", "examine", "ex", "x", "buy", "sell", "break", "destroy", "smash",
+  "kiss", "fly", "feed", "feel", "please", "fix", "repair", "mend", "date",
+  "time", "sleep", "sit on", "sit in", "stand on", "stand in", "lie on",
+  "lie in", "xyzzy", NULL
+};
+
+/* The arm table for a version; run370 has no shake arm. */
+static const scr_char *const *
+run_therest_arms (scr_int version)
+{
+  return version == TAF_VERSION_390 ? THEREST_ARMS_390 : THEREST_ARMS_380;
+}
+
+static scr_bool
+run_therest_arm_skipped (scr_int version, const scr_char *word)
+{
+  return version < TAF_VERSION_380 && strcmp (word, "shake") == 0;
+}
 
 /*
  * run_therest_arm_at()
@@ -1884,13 +1938,12 @@ run_therest_arm_at (scr_int version, const scr_char *word)
 {
   const scr_char *const *arm;
 
-  for (arm = (version == TAF_VERSION_390) ? THEREST_ARMS_390 : THEREST_ARMS_380;
-       *arm; arm++)
+  for (arm = run_therest_arms (version); *arm; arm++)
     {
       const scr_char *const entry = *arm + ((*arm)[0] == '?' ? 1 : 0);
       const scr_int length = strlen (entry);
 
-      if (version < TAF_VERSION_380 && strcmp (entry, "shake") == 0)
+      if (run_therest_arm_skipped (version, entry))
         continue;
       if (scr_strncasecmp (word, entry, length) == 0
           && (word[length] == NUL || word[length] == ' '))
@@ -1928,15 +1981,13 @@ run_therest_winner_pre400 (scr_int version, const scr_char *line,
   const scr_char *const *arm;
   const scr_char *winner = NULL;
 
-  for (arm = (version == TAF_VERSION_390) ? THEREST_ARMS_390 : THEREST_ARMS_380;
-       *arm; arm++)
+  for (arm = run_therest_arms (version); *arm; arm++)
     {
       const scr_bool needs_empty = (*arm)[0] == '?';
       const scr_char *const word = *arm + (needs_empty ? 1 : 0);
       scr_int found;
 
-      /* run370 has no shake arm. */
-      if (version < TAF_VERSION_380 && strcmp (word, "shake") == 0)
+      if (run_therest_arm_skipped (version, word))
         continue;
       if (needs_empty && winner)
         continue;
@@ -2061,7 +2112,8 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
     return FALSE;
   if (!run_therest_winner_pre400 (version, string, &offset))
     return FALSE;
-  /* The " with " split is made above this test; see lib_with_clause_claims(). */
+  /* The " with " split is made above this test; see
+     lib_with_clause_claims(). */
   if (lib_with_clause_claims (game))
     return FALSE;
   for (word = EARLIER; *word; word++)
@@ -2076,7 +2128,7 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
 
 /*
  * The player's current command element (pronoun-substituted), stashed by
- * run_all_commands() so that library-initiated match attempts can consult
+ * run_line_t::reset() so that library-initiated match attempts can consult
  * the verb the player actually typed alongside the library's canonical
  * constructed command ("get <object>", and so on).  A pass that runs a
  * line of its own making points it there for the while with a
@@ -2366,7 +2418,7 @@ run_get_dispatch_input (void)
 
 /*
  * Tasks that have already been run by the current command element, reset by
- * run_all_commands() alongside run_dispatch_input.
+ * run_line_t::reset() alongside run_dispatch_input.
  *
  * A command is dispatched to the tasks twice, once with restrictions ignored
  * and once with them honoured, and the spent-task refusal pass below has to
@@ -2383,7 +2435,7 @@ run_get_dispatch_input (void)
 std::vector<scr_bool> run_tasks_ran_this_command;
 
 /* TRUE while a 4.0 line has a spent task's RepeatText to answer with; set
-   by run_all_commands() from its REFUSAL_PASS_PROBE. */
+   by run_line_t::put_prepass() from its REFUSAL_PASS_PROBE. */
 scr_bool run_repeat_found_400 = FALSE;
 
 /*
@@ -2398,7 +2450,7 @@ std::string run_co_pending_input;
 scr_bool run_co_task_claimed = FALSE;
 
 /*
- * The element as it reached run_all_commands(), before the give and
+ * The element as it reached run_line_t::reset(), before the give and
  * ask/talk reference rewrites: run390's checkverb compares the typed line
  * against its verb (42A4F4), so a bare `give` is still "give" there even
  * though the line it stores is the rewritten one.
@@ -2434,38 +2486,6 @@ const std::string &
 run_get_undo_text (void)
 {
   return run_undo_text;
-}
-
-
-static scr_bool
-run_npc_library_blocked (scr_gameref_t game)
-{
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
-    return FALSE;
-  return run_any_task_ran_this_command ();
-}
-
-/*
- * run_npc_row_blocked()
- *
- * Whether a library row is one of the character-handler branches that the
- * Runner skips once a task has run for this line.  See the comment at the
- * call site in run_try_command_table() for the run400 addresses.
- */
-static scr_bool
-run_npc_row_blocked (const scr_commands_t *command)
-{
-  if (command->handler == lib_cmd_attack_npcs
-      || command->handler == lib_cmd_attack_npcs_with)
-    return TRUE;
-  if (strstr (command->command, "%character%") == NULL)
-    return FALSE;
-  return command->handler != lib_cmd_give_object_npc
-         && command->handler != lib_cmd_ask_npc_about
-         && command->handler != lib_cmd_talk_to_npc_about
-         && command->handler != lib_cmd_kiss_npc
-         && command->handler != lib_cmd_status_npc
-         && command->handler != lib_cmd_verb_npc;
 }
 
 
@@ -3137,7 +3157,7 @@ run_line_t::task_peek ()
   /*
    * Below 3.90 a drop line's one and only look at the task matcher is the
    * one inside drops(), which silences a matched task when nothing named is
-   * in hand -- deliberately not ported; see sclibrar_drop.inc.
+   * in hand -- deliberately not ported; see sclibrar_drop.cpp.
    */
 
   /*
@@ -3209,8 +3229,9 @@ run_line_t::priority_pass ()
    * takes 43D788 / drops 438659, run370's 435E28 / 430475, run390's 454428 /
    * 445500, every one of them a disjunction of c() tests.  So this pass reads
    * the same hoisted line the cascade does; `blorp take coin` is a take of
-   * the coin.  See run_hoist_verb_line(), and lib_move_named_whole_line_pre400()
-   * for the noun half that then has to find "coin" past the nonsense word.
+   * the coin.  See run_hoist_verb_line(), and
+   * lib_move_named_whole_line_pre400() for the noun half that then has to
+   * find "coin" past the nonsense word.
    */
   if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
     {
@@ -3324,7 +3345,8 @@ run_line_t::task_passes ()
    * `turn off tv` in lifesimulation and `open chest` in alexis with, and in
    * the_hangover it also keeps the filing cabinet shut: the task matched and
    * did nothing, so the library never opens it and the approval form stays
-   * inside.  See the note "Measured 2026-08-23 (make_39_doneprobe.py" above.
+   * inside.  See the note "Measured 2026-08-23 (make_39_doneprobe.py" in
+   * scrun_match.cpp.
    *
    * run370 and run380 claim the same way (p3xBEYOND, 2026-09-26: silent task
    * "wave cape slowly" +1000 is "I don't understand." where the object
@@ -4529,8 +4551,9 @@ run_element_filtered (scr_gameref_t game)
       if (other != runner_spelling
           && run_line_matches_task_strictly (game, other.c_str ()))
         {
-          SCR_DEVIATION ("spelling_task", "variant=%zu runner=\"%s\" ran=\"%s\"",
-                         index_, runner_spelling.c_str (), other.c_str ());
+          SCR_DEVIATION ("spelling_task",
+                         "variant=%zu runner=\"%s\" ran=\"%s\"", index_,
+                         runner_spelling.c_str (), other.c_str ());
           return others[index_].release ();
         }
     }
@@ -4569,7 +4592,7 @@ run_element_command (scr_gameref_t game, std::string &command)
    * the original line element.  The "(to Nobody)" / "(GARGOYLE)" reference
    * rewrites are NOT applied here: the Runner applies them only once its
    * typed-command task dispatcher has declined the line -- see
-   * run_all_commands().
+   * run_line_t::library().
    */
   command = replaced ? scr_normalize_string (replaced.get ())
             : (filtered ? scr_normalize_string (filtered.get ())
@@ -5168,11 +5191,11 @@ run_player_input (scr_gameref_t game)
  * (capped), `*` left empty or holding a word, %object% each of three
  * objects' Shorts (lower-case non-statics first: a 3.9 %object% never binds
  * a static), %character% a character's Name, a variable its value, all
- * lower-cased as the Runner
- * lower-cases a typed line -- run the Runner's way (its split, its spelling,
- * strict matching) and Scarier's (run_separator_task_line(), the spelling
- * run_element_filtered() picks, lenient matching when no other task takes
- * the line strictly).  A task no line reaches the Runner's way but some line
+ * lower-cased as the Runner lower-cases a typed line -- run the Runner's way
+ * (its split, its spelling, strict matching) and Scarier's
+ * (run_separator_task_line(), the spelling run_element_filtered() picks,
+ * lenient matching when no other task takes the line strictly).  A task no
+ * line reaches the Runner's way but some line
  * reaches Scarier's is printed as
  *
  *   CENSUS woken task=<n> via=<separator|spelling|lenient> line="<line>"
@@ -5621,7 +5644,8 @@ run_lenient_census (scr_gameref_t game)
       }
   fprintf (stderr, "CENSUS summary tasks=%ld runner_reachable=%ld dead=%ld"
            " woken=%ld separator=%ld spelling=%ld lenient=%ld crossed=%ld\n",
-           task_count, reachable, dead, woken, by_reason[0], by_reason[1], by_reason[2], crossed);
+           task_count, reachable, dead, woken, by_reason[0], by_reason[1],
+           by_reason[2], crossed);
   fflush (stderr);
 }
 

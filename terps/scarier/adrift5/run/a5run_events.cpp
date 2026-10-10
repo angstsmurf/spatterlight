@@ -35,7 +35,6 @@
 #include <string>
 #include <vector>
 
-#include "../a5parse.h"
 #include "../a5rand.h"
 #include "../a5restr.h"
 #include "../a5run.h"
@@ -45,8 +44,8 @@
 
 static void ev_lstart (a5_run_t *run, int ei, int restart, sb_t *out);
 static void ev_lstop  (a5_run_t *run, int ei, int run_subs, sb_t *out);
-static void ev_do_subevents (a5_run_t *run, int ei, sb_t *out);
-static void attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out);
+static void attempt_event_task (a5_run_t *run, const char *key, int depth,
+                                sb_t *out);
 
 /* Walk drivers (defined after the events; called from the same hook points). */
 static void wk_on_task_completed (a5_run_t *run, const char *task_key);
@@ -110,7 +109,8 @@ emit_marked_description (a5_run_t *run, const a5_xml_node_t *desc, sb_t *out)
   emit_owned (out, m);
 }
 
-/* clsTask.UnsetTask via a sub-event/sub-walk: clear the task's Completed flag. */
+/* clsTask.UnsetTask via a sub-event/sub-walk: clear the task's Completed
+   flag. */
 static void
 unset_task (a5_state_t *st, const char *key)
 {
@@ -153,7 +153,9 @@ ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
       /* clsEvent.RunSubEvent DisplayMessage: show only if the OnlyApplyAt gate
          (se->key) is set and the player is in that location/group. */
       if (se->description != NULL && se->key != NULL && se->key[0] != '\0'
-          && a5state_in_group_or_location (run->st, a5state_player_key (run->st), se->key))
+          && a5state_in_group_or_location (run->st,
+                                           a5state_player_key (run->st),
+                                           se->key))
         emit_marked_description (run, se->description, out);
       break;
     case A5_SE_SETLOOK:
@@ -265,8 +267,9 @@ ev_lstop (a5_run_t *run, int ei, int run_subs, sb_t *out)
 }
 
 /* Apply an event Start/Stop/Pause/Resume command to event `ei` immediately
-   (clsEvent.Start/Stop/...).  Shared by the deferred path (ev_increment, on the
-   pending NextCommand) and the immediate path (ev_control, while a tick runs). */
+   (clsEvent.Start/Stop/...).  Shared by the deferred path (ev_increment, on
+   the pending NextCommand) and the immediate path (ev_control, while a tick
+   runs). */
 static void
 ev_apply_command (a5_run_t *run, int ei, int cmd, sb_t *out)
 {
@@ -399,8 +402,8 @@ ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
           if (!c->on_completion || !streq (c->task_key, task_key))
             continue;
           /* Guard against a task re-triggering the control it just triggered,
-             and (the runner's children check) against a parent re-firing a control one
-             of its override descendants already triggered. */
+             and (the runner's children check) against a parent re-firing a
+             control one of its override descendants already triggered. */
           if (ctrl_retrigger_blocked (run->adv, rt.triggering_task, task_key))
             continue;
           ev_control (run, ei, ctrl_to_cmd (c->control), task_key, out);
@@ -451,15 +454,19 @@ ev_on_task_uncompleted (a5_run_t *run, const char *task_key, sb_t *out)
     }
 }
 
-/* Install an attempt's final response entry's reference items (run->ev_tbl,
+/* Install the attempt's final response entry's reference items (run->ev_tbl,
    see a5run_internal.h) as the ambient leftover the NEXT event task's
    CopyNewRefs iterates -- the runner's end-of-attempt Display loop
    `NewReferences = refs` (clsUserSession.vb:851-856).  Keys are mapped to
-   stable model-key pointers; unknown keys drop out. */
-static void
-ev_install_leftover (a5_run_t *run, const std::vector<std::string> &items)
+   stable model-key pointers; unknown keys drop out.  Returns 0, leaving the
+   ambient alone, when the attempt Displayed nothing. */
+static int
+ev_install_leftover (a5_run_t *run)
 {
   a5_state_t *st = run->st;
+  if (run->ev_tbl == NULL || run->ev_tbl->keys.empty ())
+    return 0;
+  const std::vector<std::string> &items = run->ev_tbl->refs.back ();
   st->n_ref_items = 0;
   st->ref_items_type = 'o';
   for (const std::string &k : items)
@@ -478,6 +485,7 @@ ev_install_leftover (a5_run_t *run, const std::vector<std::string> &items)
       if (stable != NULL && st->n_ref_items < A5_MAX_ITEMS)
         st->ref_items[st->n_ref_items++] = stable;
     }
+  return 1;
 }
 
 /* Arm the per-attempt AggregateOutput-draw deferral sink (comp_defers ->
@@ -523,18 +531,19 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
   if (ti >= 0 && st->task_done[ti] && !t->repeatable)
     return;
 
-  /* The Adrift 5 runner runs an event-fired task through the *same* AttemptToExecuteTask
-     as a command: it copies the leftover command references
-     (`CopyNewRefs(NewReferences)`) and `ExecuteSubTasks`-iterates them one item at
-     a time.  After a plural `%objects%` command whose final response reference
-     still holds N items (`NewReferences = refs` in the Display loop,
-     clsUserSession.vb:868), that copy carries all N items, so the event task runs
-     once PER item.  This is why Amazon's `get ammo and rifle` ticks
-     `ts_tasIncrement` twice (+2 minutes) where `get crown and bottle` -- whose
-     two takes leave a single-item final reference -- ticks once.  Scarier's
-     `resp_flush` already leaves `st->ref_items` equal to the runner's post-Display
-     `NewReferences`, so iterate it here.  A 0/1-item leftover keeps the original
-     single, refs-cleared run (the overwhelmingly common case stays byte-exact). */
+  /* The Adrift 5 runner runs an event-fired task through the *same*
+     AttemptToExecuteTask as a command: it copies the leftover command
+     references (`CopyNewRefs(NewReferences)`) and `ExecuteSubTasks`-iterates
+     them one item at a time.  After a plural `%objects%` command whose final
+     response reference still holds N items (`NewReferences = refs` in the
+     Display loop, clsUserSession.vb:868), that copy carries all N items, so
+     the event task runs once PER item.  This is why Amazon's `get ammo and
+     rifle` ticks `ts_tasIncrement` twice (+2 minutes) where `get crown and
+     bottle` -- whose two takes leave a single-item final reference -- ticks
+     once.  Scarier's `resp_flush` already leaves `st->ref_items` equal to the
+     runner's post-Display `NewReferences`, so iterate it here.  A 0/1-item
+     leftover keeps the original single, refs-cleared run (the overwhelmingly
+     common case stays byte-exact). */
   if (st->n_ref_items > 1)
     {
       int nleft = st->n_ref_items;
@@ -547,9 +556,10 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
       size_t defer0 = ev_defers_arm (run, &prev_defers);
       for (const char *it : items)
         {
-          /* The runner AttemptToExecuteSubTask ReDims NewReferences to this single item;
-             mirror run_general's per-item bind so a task that *does* read its
-             reference resolves the right one (the increment reads none). */
+          /* The runner's AttemptToExecuteSubTask ReDims NewReferences to this
+             single item; mirror run_general's per-item bind so a task that
+             *does* read its reference resolves the right one (the increment
+             reads none). */
           a5state_clear_refs (st);
           st->ref_items[0] = it;
           st->n_ref_items = 1;
@@ -569,20 +579,19 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
          daz61DaylightC1 still enters with refs=[nil], so the night counter
          ticks once.)  Only an attempt that early-returns above (Completed &&
          !Repeatable) leaves the ambient untouched. */
-      if (run->ev_tbl != NULL && !run->ev_tbl->keys.empty ())
-        ev_install_leftover (run, run->ev_tbl->refs.back ());
-      else
+      if (!ev_install_leftover (run))
         st->n_ref_items = 0;
       /* Only "complete" (mark done + fire EventControls) if the task actually
          ran for at least one item -- a task whose restrictions fail for every
-         item never bPass'd in the runner, so its completion controls must NOT fire.
-         Mirrors the single-item path below (which returns on restriction
-         failure).  Without this, a plural `get X and Y` command that happens to
-         coincide with a turn-based event executing a restriction-FAILING System
-         task (e.g. FBA's `cl_HandfireOu1` in a dark room) spuriously fires that
-         task's `Stop Completion` control -- killing the handfire event so it
-         never re-extinguishes.  ts_tasIncrement-style no-restriction event tasks
-         still complete (any_ran stays 1), so Amazon's double-tick is unchanged. */
+         item never bPass'd in the runner, so its completion controls must NOT
+         fire.  Mirrors the single-item path below (which returns on
+         restriction failure).  Without this, a plural `get X and Y` command
+         that happens to coincide with a turn-based event executing a
+         restriction-FAILING System task (e.g. FBA's `cl_HandfireOu1` in a dark
+         room) spuriously fires that task's `Stop Completion` control --
+         killing the handfire event so it never re-extinguishes.
+         ts_tasIncrement-style no-restriction event tasks still complete
+         (any_ran stays 1), so Amazon's double-tick is unchanged. */
       if (any_ran)
         {
           if (ti >= 0)
@@ -595,21 +604,23 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
   a5state_clear_refs (st);                 /* event tasks carry no command refs */
   if (!a5restr_pass (st, t->restrictions))
     {
-      /* The runner's AttemptToExecuteTask evaluates responses even for a failing
-         event/System/walk task (bCalledFromEvent=True, bChildTask=False), so a
-         failing restriction that carries a <Message> is buffered in
-         htblResponsesFail and Displayed (clsUserSession.vb:1244-1259 sMessage =
-         sRestrictionText -> AddResponse -> the end-of-task Display loop).  The
-         AddResponse bHasOutput gate drops the messageless common case, so only a
+      /* The runner's AttemptToExecuteTask evaluates responses even for a
+         failing event/System/walk task (bCalledFromEvent=True,
+         bChildTask=False), so a failing restriction that carries a <Message>
+         is buffered in htblResponsesFail and Displayed
+         (clsUserSession.vb:1244-1259 sMessage = sRestrictionText ->
+         AddResponse -> the end-of-task Display loop).  The AddResponse
+         bHasOutput gate drops the messageless common case, so only a
          restriction with real fail text surfaces -- e.g. FBA's cl_AtButcherS
          LocationTrigger, whose "rope tied" restriction shows "you pull on his
          leash to stop him" instead of the (passing) theft completion.
 
          Read the failing restriction's Message from st->restriction_text, which
-         a5restr_pass just set as a side effect (the runner's sRestrictionText) -- do NOT
-         re-run a5restr_fail_message, which would re-evaluate the restriction
-         block and draw any RAND()-valued restriction a SECOND time (e.g. SSB's
-         TimeTrapsT `Roller Must BeEqualTo 'RAND(1,16)'`), desyncing the RNG. */
+         a5restr_pass just set as a side effect (the runner's sRestrictionText)
+         -- do NOT re-run a5restr_fail_message, which would re-evaluate the
+         restriction block and draw any RAND()-valued restriction a SECOND time
+         (e.g. SSB's TimeTrapsT `Roller Must BeEqualTo 'RAND(1,16)'`),
+         desyncing the RNG. */
       const a5_xml_node_t *fm = st->restriction_text;
       if (fm != NULL)
         {
@@ -628,19 +639,19 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
   /* This attempt Displayed at least one response: the runner re-assigns the
      ambient NewReferences to the last-inserted entry's items, which the NEXT
      event task's CopyNewRefs iterates (see ev_tbl in a5run_internal.h). */
-  if (run->ev_tbl != NULL && !run->ev_tbl->keys.empty ())
-    ev_install_leftover (run, run->ev_tbl->refs.back ());
+  ev_install_leftover (run);
   if (ti >= 0)
     st->task_done[ti] = 1;
   ev_on_task_completed (run, key, out);
 }
 
-/* Each event-fired task is its own AttemptToExecuteTask in the runner, with a fresh
-   htblResponsesPass -- so give each attempt_event_task its own dedup scope
-   (save/restore the previous one for a nested event task).  Within one scope a
-   completion message emitted twice via SetTasks-Execute (run_action, which shares
-   the current scope, not a new attempt_event_task) shows once -- e.g. Pathway's
-   Task5 "The End" banner, executed by both Task33 and its parent Task30. */
+/* Each event-fired task is its own AttemptToExecuteTask in the runner, with a
+   fresh htblResponsesPass -- so give each attempt_event_task its own dedup
+   scope (save/restore the previous one for a nested event task).  Within one
+   scope a completion message emitted twice via SetTasks-Execute (run_action,
+   which shares the current scope, not a new attempt_event_task) shows once --
+   e.g. Pathway's Task5 "The End" banner, executed by both Task33 and its
+   parent Task30. */
 static void
 attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
 {
@@ -665,12 +676,13 @@ attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
 
 /* Drain clsAdventure.qTasksToRun: run each LocationTrigger-armed System task in
    FIFO order (clsUserSession.vb:3421 "While qTasksToRun.Count > 0").  A drained
-   task may itself move the Player and arm further triggers, so loop until empty.
-   Runs after the turn's command task and before TurnBasedStuff.  Non-static:
-   a5run_input drains BEFORE the runner's empty-output check (clsUserSession.vb:3421
-   drains ahead of the vb:3425 `If sOutputText = "" Then NotUnderstood()`), so
-   a silent task whose Player move armed noisy LocationTrigger tasks -- Marooned
-   On Mazoomah's `push radio` win -- counts their output. */
+   task may itself move the Player and arm further triggers, so loop until
+   empty.  Runs after the turn's command task and before TurnBasedStuff.
+   Non-static: a5run_input drains BEFORE the runner's empty-output check
+   (clsUserSession.vb:3421 drains ahead of the vb:3425 `If sOutputText = ""
+   Then NotUnderstood()`), so a silent task whose Player move armed noisy
+   LocationTrigger tasks -- Marooned On Mazoomah's `push radio` win -- counts
+   their output. */
 void
 drain_tasks_to_run (a5_run_t *run, sb_t *out)
 {
@@ -692,12 +704,13 @@ ev_tick_all (a5_run_t *run, sb_t *out)
      before TurnBasedStuff; do the same here (ev_tick_all is the turn's only
      TurnBasedStuff entry). */
   drain_tasks_to_run (run, out);
-  /* The command's AggregateOutput-completion random draws (held in display_defers)
-     resolve at the end of the runner's command-task AttemptToExecuteTask -- i.e. after the
-     LocationTrigger drain (so a drained task's draw lands first, Skybreak's
-     SidequestE) but BEFORE TurnBasedStuff (so the completion's own draw precedes
-     the per-turn walk/event draws, I Summon Thee's `annihilate` Annihilateflavor
-     index).  Flush here rather than at finish_turn, which is past the event tick. */
+  /* The command's AggregateOutput-completion random draws (held in
+     display_defers) resolve at the end of the runner's command-task
+     AttemptToExecuteTask -- i.e. after the LocationTrigger drain (so a drained
+     task's draw lands first, Skybreak's SidequestE) but BEFORE TurnBasedStuff
+     (so the completion's own draw precedes the per-turn walk/event draws, I
+     Summon Thee's `annihilate` Annihilateflavor index).  Flush here rather
+     than at finish_turn, which is past the event tick. */
   a5run_flush_display_defers (run, out);
   if (run->st->game_over)
     return;
@@ -755,10 +768,10 @@ ev_init (a5_run_t *run, sb_t *out)
           break;
         case 2:                                  /* BetweenXandYTurns */
           rt.status = A5_EV_COUNTDOWN;
-          /* The runner: TimerToEndOfEvent = StartDelay.Value + Length.Value -- VB
-             evaluates left-to-right, so StartDelay draws BEFORE Length.  Draw in
-             that exact order or the two RNG values get swapped (desyncing the
-             whole stream and every random timer downstream). */
+          /* The runner: TimerToEndOfEvent = StartDelay.Value + Length.Value --
+             VB evaluates left-to-right, so StartDelay draws BEFORE Length.
+             Draw in that exact order or the two RNG values get swapped
+             (desyncing the whole stream and every random timer downstream). */
           {
             long delay = a5rand_between (e->start_from, e->start_to);
             ev_set_timer_to_end (run, ei, delay + ev_roll_length (run, ei), out);
@@ -779,15 +792,13 @@ ev_init (a5_run_t *run, sb_t *out)
 /* =========================================================== walks (clsWalk) */
 
 /* A faithful port of clsWalk's per-turn state machine (clsCharacter.vb:1175+):
-   IncrementTimer / DoAnySteps / DoAnySubWalks / lStart / lStop, driven each turn
-   by clsUserSession.TurnBasedStuff (before the events) and on task completion by
-   the WalkControls.  Walks reuse the event Status/Command enums (no
-   CountingDownToStart). */
+   IncrementTimer / DoAnySteps / DoAnySubWalks / lStart / lStop, driven each
+   turn by clsUserSession.TurnBasedStuff (before the events) and on task
+   completion by the WalkControls.  Walks reuse the event Status/Command enums
+   (no CountingDownToStart). */
 
-static void wk_lstart   (a5_run_t *run, int wi, int restart, sb_t *out);
-static void wk_lstop    (a5_run_t *run, int wi, int run_subs, int reached_end, sb_t *out);
-static void wk_do_steps (a5_run_t *run, int wi, sb_t *out);
-static void wk_do_subwalks (a5_run_t *run, int wi, sb_t *out);
+static void wk_lstop (a5_run_t *run, int wi, int run_subs, int reached_end,
+                      sb_t *out);
 
 static long wk_from_start (const a5_walk_rt &rt) { return rt.length - rt.timer_to_end; }
 static long wk_from_last  (const a5_walk_rt &rt) { return wk_from_start (rt) - rt.last_sw_time; }
@@ -799,7 +810,8 @@ static const char *const DIR_ORDER[12] = {
   "NorthEast", "SouthEast", "SouthWest", "NorthWest"
 };
 
-/* clsLocation.IsAdjacent: any exit of `lockey` whose destination is `destkey`. */
+/* clsLocation.IsAdjacent: any exit of `lockey` whose destination is
+   `destkey`. */
 static int
 loc_is_adjacent (a5_state_t *st, const char *lockey, const char *destkey)
 {
@@ -812,13 +824,14 @@ loc_is_adjacent (a5_state_t *st, const char *lockey, const char *destkey)
   return 0;
 }
 
-/* clsLocation.DirectionTo: prose direction from `fromkey` to `destkey`.
-   Prose per DIR_ORDER slot. */
+/* The prose for each DIR_ORDER slot. */
 static const char *const DIR_PROSE[12] = {
   "the north", "the east", "the south", "the west", "above", "below",
   "inside", "outside",
   "the north-east", "the south-east", "the south-west", "the north-west"
 };
+
+/* clsLocation.DirectionTo: prose direction from `fromkey` to `destkey`. */
 static std::string
 loc_direction_to (a5_state_t *st, const char *fromkey, const char *destkey)
 {
@@ -835,8 +848,8 @@ loc_direction_to (a5_state_t *st, const char *fromkey, const char *destkey)
    set, else the static value -- which for a rich Text property is stored as a
    <Description> (value_node) and must be rendered.  Returns a malloc'd string
    when the property is *present* (HasProperty), or NULL when absent so the
-   caller can apply its default.  Mirrors the runner's `If .HasProperty(k) Then s =
-   .GetPropertyValue(k)`. */
+   caller can apply its default.  Mirrors the runner's `If .HasProperty(k)
+   Then s = .GetPropertyValue(k)`. */
 static char *
 char_prop_value (a5_state_t *st, const char *charkey, const char *propkey)
 {
@@ -942,24 +955,25 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
   int ci = rt.char_index;
   long step_len = 0;
   int si;
-  /* A *structurally* zero-length looping walk -- the standard "follow the player"
-     walk (a lone `Player 0` step, Loops; every step's turn count is exactly 0) --
-     can never restart: wk_lstop's `length > 0` guard (a faithful port of the runner's,
-     which avoids the infinite lStart<->lStop recursion a 0-length restart would
-     cause) leaves it Finished immediately after its lStart.  DoAnySteps' plain
-     `Status = Running` gate then means the lone step never fires again and the
-     walker never moves at all -- so these walks are dead in the real ADRIFT
-     Runner too, not just in FrankenDrift (Son of Camelot's Megan never follows to
-     Merlin's grave, so the game is unwinnable; fix offered upstream as
-     jcwild/ADRIFT-5#16).  Everything else is already in place for them to work:
-     IncrementTimer calls DoAnySteps each tick regardless of status, and with
-     length 0 from_start stays 0, so the step matches every tick.  Let a Finished
-     structural-0 loop through so its follow step fires each turn.  Test the
-     *model* step counts, not the runtime rt.length: a
-     normal patrol walk STOPPED before it ever started (e.g. Fortress of Fear's
-     Custodian, whose control stops one of three alternative patrols at init) is
-     also Finished with rt.length still 0 (never lStart'd), but its steps carry
-     real durations -- it must stay stuck, not teleport to its first step. */
+  /* A *structurally* zero-length looping walk -- the standard "follow the
+     player" walk (a lone `Player 0` step, Loops; every step's turn count is
+     exactly 0) -- can never restart: wk_lstop's `length > 0` guard (a faithful
+     port of the runner's, which avoids the infinite lStart<->lStop recursion a
+     0-length restart would cause) leaves it Finished immediately after its
+     lStart.  DoAnySteps' plain `Status = Running` gate then means the lone
+     step never fires again and the walker never moves at all -- so these
+     walks are dead in the real ADRIFT Runner too, not just in FrankenDrift
+     (Son of Camelot's Megan never follows to Merlin's grave, so the game is
+     unwinnable; fix offered upstream as jcwild/ADRIFT-5#16).  Everything else
+     is already in place for them to work: IncrementTimer calls DoAnySteps
+     each tick regardless of status, and with length 0 from_start stays 0, so
+     the step matches every tick.  Let a Finished structural-0 loop through so
+     its follow step fires each turn.  Test the *model* step counts, not the
+     runtime rt.length: a normal patrol walk STOPPED before it ever started
+     (e.g. Fortress of Fear's Custodian, whose control stops one of three
+     alternative patrols at init) is also Finished with rt.length still 0
+     (never lStart'd), but its steps carry real durations -- it must stay
+     stuck, not teleport to its first step. */
   int struct_zero = wk->n_steps > 0;
   for (si = 0; si < wk->n_steps; si++)
     if (wk->steps[si].ft_from != 0 || wk->steps[si].ft_to != 0)
@@ -981,8 +995,8 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
           for (g = 0; g < st->adv->n_groups; g++)
             if (streq (st->adv->groups[g].key, destkey))
               { is_group = 1; break; }
-          if (is_group)
-            gn = a5state_group_count (st, destkey);  /* live members (arlMembers) */
+          if (is_group)                   /* live members (arlMembers) */
+            gn = a5state_group_count (st, destkey);
 
           if (is_group && gn > 0)
             {
@@ -1004,11 +1018,13 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
                      draw stream and regressed AlienDiver (Crafting Fragments
                      5/15 -> 3/15, then the walkthrough desynced).  Confirmed
                      against FrankenDrift's xoshiro-aligned stream
-                     (FD_RNG=xoshiro test/adrift5/harness/a5_groundtruth.sh AlienDiver): the
-                     reference makes the same multi-draw sequence, so matching it
-                     REQUIRES re-rolling here.  AlienDiver is the canary in
-                     test/adrift5/harness/run_a5_walkthroughs.sh.  The guard only bounds a
-                     pathological group with no reachable adjacent member. */
+                     (FD_RNG=xoshiro test/adrift5/harness/a5_groundtruth.sh
+                     AlienDiver): the reference makes the same multi-draw
+                     sequence, so matching it REQUIRES re-rolling here.
+                     AlienDiver is the canary in
+                     test/adrift5/harness/run_a5_walkthroughs.sh.  The guard
+                     only bounds a pathological group with no reachable
+                     adjacent member. */
                   int guard = 0;
                   while (dest == NULL && guard++ < 10000)
                     {
@@ -1024,7 +1040,8 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
             }
           else if ((c2 = a5state_character_index (st, destkey)) >= 0)
             {
-              /* Follow a character: only step in if it is in an adjacent room. */
+              /* Follow a character: only step in if it is in an adjacent
+                 room. */
               const char *c2loc = st->char_loc[c2];
               if (!streq (cloc, c2loc) && cloc != NULL && c2loc != NULL
                   && loc_is_adjacent (st, cloc, c2loc))
@@ -1045,9 +1062,10 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
     }
 }
 
-/* clsWalk.DoAnySubWalks: the sub-walk activities (DisplayMessage / ExecuteTask /
-   UnsetTask), triggered by FromStart / FromLast / BeforeEnd offsets or by the
-   ComesAcross transition (the walker entering the subject's room). */
+/* clsWalk.DoAnySubWalks: the sub-walk activities (DisplayMessage /
+   ExecuteTask / UnsetTask), triggered by FromStart / FromLast / BeforeEnd
+   offsets or by the ComesAcross transition (the walker entering the subject's
+   room). */
 static void
 wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
 {
@@ -1101,7 +1119,8 @@ wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
         case A5_SW_DISPLAY:
           if (sw->description != NULL && sw->only_apply_at != NULL
               && sw->only_apply_at[0] != '\0'
-              && a5state_in_group_or_location (st, a5state_player_key (st), sw->only_apply_at))
+              && a5state_in_group_or_location (st, a5state_player_key (st),
+                                               sw->only_apply_at))
             /* Real output: retire <DisplayOnce> segments (October 31st's
                werewolf howl fires once, not every loop of the 1-step walk). */
             emit_marked_description (run, sw->description, out);
@@ -1190,9 +1209,9 @@ wk_increment (a5_run_t *run, int wi, sb_t *out)
   rt.just_started = 0;
 }
 
-/* Defer a control's Start/Stop/etc. to the next IncrementTimer (clsWalk.Start /
-   Stop / Pause / Resume all set NextCommand; a Start after a pending Stop becomes
-   a Restart). */
+/* Defer a control's Start/Stop/etc. to the next IncrementTimer (clsWalk.Start
+   / Stop / Pause / Resume all set NextCommand; a Start after a pending Stop
+   becomes a Restart). */
 static void
 wk_control (a5_run_t *run, int wi, a5_ctrl_t ctrl, const char *task_key)
 {
