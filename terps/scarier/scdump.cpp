@@ -745,6 +745,405 @@ scdump_rewrite_rules (scr_gameref_t game)
 
 
 /*
+ * scdump_task_t
+ *
+ * One task of the dump, for scdump_tasks(): the property key the sections
+ * share, and what summary() reads that the later ones need -- the Where type
+ * and the command, restriction and action counts.
+ */
+namespace {
+
+struct scdump_task_t
+{
+  scr_gameref_t game;
+  scr_prop_setref_t bundle;
+  scr_int t;
+
+  scr_vartype_t k[5], vt;
+  const scr_char *cmd;
+  scr_int wtype, wroom, acount, rcount, rep, rev;
+  scr_int ccount;
+
+  void summary ();
+  void where_rooms ();
+  void hints ();
+  void texts ();
+  void alt_commands ();
+  void reverse_commands ();
+  void restriction (scr_int i);
+  void action (scr_int i);
+};
+
+
+/*
+ * scdump_task_t::summary()
+ *
+ * The TASK line.
+ */
+void
+scdump_task_t::summary ()
+{
+  k[0].string = "Tasks";
+  k[1].integer = t;
+  k[2].string = "Command";
+  k[3].integer = 0;
+  /*
+   * A task can carry an empty Command list -- The Cleft in the Rock has
+   * one, and prop_get_string is fatal on the miss -- so ask with prop_get.
+   */
+  cmd = prop_get (bundle, "S<-sisi", &vt, k) ? vt.string : nullptr;
+  ccount = prop_get_child_count (bundle, "I<-sis", k);
+
+  k[2].string = "Where";
+  k[3].string = "Type";
+  wtype = prop_get_integer (bundle, "I<-siss", k);
+  wroom = -1;
+  if (wtype == ROOMLIST_ONE_ROOM)
+    {
+      k[3].string = "Room";
+      wroom = prop_get_integer (bundle, "I<-siss", k);
+    }
+
+  k[2].string = "Repeatable";
+  rep = prop_get_boolean (bundle, "B<-sis", k);
+  k[2].string = "Reversible";
+  rev = prop_get_boolean (bundle, "B<-sis", k);
+  k[2].string = "Actions";
+  acount = prop_get_child_count (bundle, "I<-sis", k);
+  k[2].string = "Restrictions";
+  rcount = prop_get_child_count (bundle, "I<-sis", k);
+
+  {
+    scr_int score = 0;
+    const scr_char *mask = nullptr;
+    scr_int rpt = 0;
+    scr_int srd = 0;
+
+    k[2].string = "Score";
+    if (prop_get (bundle, "I<-sis", &vt, k))
+      score = vt.integer;
+    /*
+     * srd: the task's ShowRoomDesc, as the raw field -- 0 for none,
+     * otherwise room + 1.  See test/adrift4/notes/RUNNER_TESTS_TODO.md
+     * section 4, where run400 is measured printing that room's description
+     * with no room name heading, and task_run_task_unrestricted() prints
+     * both.
+     */
+    k[2].string = "ShowRoomDesc";
+    if (prop_get (bundle, "I<-sis", &vt, k))
+      srd = vt.integer;
+    k[2].string = "RestrMask";
+    if (prop_get (bundle, "S<-sis", &vt, k))
+      mask = vt.string;
+    /*
+     * rpt: does the task carry a RepeatText?  A non-repeatable task that
+     * has one answers a second typing of its command with that text rather
+     * than with "You have already done that." -- see run_task_refusal().
+     */
+    k[2].string = "RepeatText";
+    if (prop_get (bundle, "S<-sis", &vt, k) && !scr_strempty (vt.string))
+      rpt = 1;
+    fprintf (stderr,
+             "TASK %ld where=%ld room=%ld restr=%ld rep=%ld rev=%ld rpt=%ld"
+             " score=%ld srd=%ld mask=[%s] cmd=[%s]\n",
+             t, wtype, wroom, rcount, rep, rev, rpt, score, srd,
+             mask ? mask : "", cmd ? cmd : "");
+  }
+}
+
+
+/*
+ * For SOME_ROOMS (where=2) tasks, dump the room-group membership (the
+ * "Where"/"Rooms" boolean array indexed by room; see sctasks.c
+ * task_can_run_task_directional). Lets us tell whether a group-scoped
+ * death (e.g. the Morac castle timer T327) fires in a given room.
+ */
+void
+scdump_task_t::where_rooms ()
+{
+  if (wtype == ROOMLIST_SOME_ROOMS)
+    {
+      scr_int rm, nrooms = gs_room_count (game);
+
+      fprintf (stderr, "    WHERE_ROOMS=[");
+      for (rm = 0; rm < nrooms; rm++)
+        {
+          k[2].string = "Where";
+          k[3].string = "Rooms";
+          k[4].integer = rm;
+          if (prop_get_boolean (bundle, "B<-sissi", k))
+            fprintf (stderr, "%ld ", rm);
+        }
+      fprintf (stderr, "]\n");
+    }
+}
+
+
+/*
+ * Built-in author hints attached to this task (Question/Hint1=subtle/
+ * Hint2=sledgehammer) -- the game's own context-sensitive walkthrough.
+ */
+void
+scdump_task_t::hints ()
+{
+  const scr_char *hq = nullptr, *h1 = nullptr, *h2 = nullptr;
+  scr_vartype_t hv;
+
+  k[2].string = "Question";
+  if (prop_get (bundle, "S<-sis", &hv, k))
+    hq = hv.string;
+  k[2].string = "Hint1";
+  if (prop_get (bundle, "S<-sis", &hv, k))
+    h1 = hv.string;
+  k[2].string = "Hint2";
+  if (prop_get (bundle, "S<-sis", &hv, k))
+    h2 = hv.string;
+  if (hq && *hq)
+    fprintf (stderr, "    HINTQ=[%s]\n", hq);
+  if (h1 && *h1)
+    fprintf (stderr, "    HINT1=[%s]\n", h1);
+  if (h2 && *h2)
+    fprintf (stderr, "    HINT2=[%s]\n", h2);
+}
+
+
+/*
+ * The task's own text.  A wording measurement against a Runner
+ * transcript stands or falls on knowing which words the author wrote:
+ * the dump used to show only the command, so an engine-supplied phrase
+ * and an authored one looked alike.  CompleteText is what the task
+ * prints when it runs, AdditionalMessage what task_run_task_
+ * unrestricted() appends after the actions, RepeatText what answers a
+ * second typing (see run_task_refusal()), and ReverseMessage what an
+ * "un-doing" of the task says.  humbug's task 80 "put * sweet on *
+ * plinth" is the worked example: its CompleteText is a bare "I put the
+ * sweet on the plinth.", so neither of the two "Okay."s the Runner
+ * prefixes to it is authored -- both come from the game's own
+ * self-containing ALR [I put ] -> [Okay.  I put ], one per filter pass
+ * the turn runs (see pf_refilter()).
+ */
+void
+scdump_task_t::texts ()
+{
+  const scr_char *tt;
+  static const char *const text_fields[] =
+    { "CompleteText", "AdditionalMessage", "RepeatText",
+      "ReverseMessage", nullptr };
+  static const char *const text_labels[] =
+    { "COMPLETE", "ADDMSG", "REPEATTEXT", "REVERSE", nullptr };
+  scr_int f;
+
+  for (f = 0; text_fields[f]; f++)
+    {
+      k[2].string = text_fields[f];
+      if (prop_get (bundle, "S<-sis", &vt, k)
+          && !scr_strempty (vt.string))
+        {
+          tt = vt.string;
+          fprintf (stderr, "    %s=[%s]\n", text_labels[f], tt);
+        }
+    }
+}
+
+
+/*
+ * Print any extra command alternatives (Command[1..]) -- these are the
+ * synonym/wildcard forms ADRIFT matches in addition to Command[0].
+ */
+void
+scdump_task_t::alt_commands ()
+{
+  scr_int ci;
+
+  for (ci = 1; ci < ccount; ci++)
+    {
+      const scr_char *ac;
+
+      k[2].string = "Command";
+      k[3].integer = ci;
+      ac = prop_get_string (bundle, "S<-sisi", k);
+      fprintf (stderr, "    ALTCMD[%ld]=[%s]\n", ci, ac ? ac : "");
+    }
+}
+
+
+/*
+ * The reverse half of a reversible task.  A reversible task matches its
+ * ReverseCommand patterns as well as its Command ones, so those strings
+ * are typeable too -- and when the ReverseMessage is empty the reverse
+ * run prints nothing, which makes the whole turn silent and sends a
+ * pre-4.0 Runner to the game's DontUnderstand string instead of the
+ * library (see silent-task rule).  lifesimulation's task 10 "turn on tv"
+ * is the worked example: its ReverseCommand is the bare literal "turn
+ * off tv" with no ReverseMessage, and only that exact string diverges,
+ * which is why five probe drives could not find a pattern in it
+ * (2026-09-05).  The dump used to show neither the flag nor the reverse
+ * commands, so the task looked like an ordinary one-way task.
+ */
+void
+scdump_task_t::reverse_commands ()
+{
+  if (prop_get_indexed_boolean (bundle, "Tasks", t, "Reversible"))
+    {
+      scr_int rc, rccount;
+
+      k[2].string = "ReverseCommand";
+      rccount = prop_get_child_count (bundle, "I<-sis", k);
+      fprintf (stderr, "    REVERSIBLE rcmds=%ld\n", rccount);
+      for (rc = 0; rc < rccount; rc++)
+        {
+          const scr_char *rcs;
+
+          k[2].string = "ReverseCommand";
+          k[3].integer = rc;
+          rcs = prop_get_string (bundle, "S<-sisi", k);
+          fprintf (stderr, "    REVCMD[%ld]=[%s]\n", rc, rcs ? rcs : "");
+        }
+    }
+}
+
+
+/*
+ * scdump_task_t::restriction()
+ * scdump_task_t::action()
+ *
+ * One RESTR line and one ACT line.
+ */
+void
+scdump_task_t::restriction (scr_int i)
+{
+  scr_int rtype, v1, v2, v3, obj;
+  char nm[96];
+
+  nm[0] = '\0';
+  k[2].string = "Restrictions";
+  k[3].integer = i;
+  k[4].string = "Type";
+  rtype = prop_get_integer (bundle, "I<-sisis", k);
+  v1 = v2 = v3 = -999;
+  k[4].string = "Var1";
+  if (prop_get (bundle, "I<-sisis", &vt, k))
+    v1 = vt.integer;
+  k[4].string = "Var2";
+  if (prop_get (bundle, "I<-sisis", &vt, k))
+    v2 = vt.integer;
+  k[4].string = "Var3";
+  if (prop_get (bundle, "I<-sisis", &vt, k))
+    v3 = vt.integer;
+
+  obj = -1;
+  if (rtype == 0)
+    obj = scdump_resolve_object (game, 0, v1);
+  else if (rtype == 1)
+    obj = scdump_resolve_object (game, 1, v1);
+  if (obj >= 0)
+    {
+      const scr_char *s = scdump_object_name (game, obj);
+
+      snprintf (nm, sizeof nm, " obj%ld=[%s]", obj, s ? s : "");
+    }
+  else if (rtype == 2 && v1 >= 1 && v1 - 1 < gs_task_count (game))
+    {
+      /* Task-state ref is 1-based; resolve to its command. */
+      scr_vartype_t tk[4];
+      const scr_char *s;
+
+      tk[0].string = "Tasks";
+      tk[1].integer = v1 - 1;
+      tk[2].string = "Command";
+      tk[3].integer = 0;
+      s = prop_get_string (bundle, "S<-sisi", tk);
+      snprintf (nm, sizeof nm, " task%ld=[%s]", v1 - 1, s ? s : "");
+    }
+  /*
+   * The FailMessage decides how a failing restriction looks from the
+   * outside: with one, 4.0 prints it and eats the command; with none,
+   * the refusal is silent and the turn falls through to the library
+   * and then to "I don't understand ...".  Two divergences have now
+   * been chased that turn on exactly that difference, so dump it.
+   */
+  {
+    const scr_char *fail;
+
+    k[4].string = "FailMessage";
+    fail = prop_get_string (bundle, "S<-sisis", k);
+    fprintf (stderr,
+             "    RESTR type=%ld v1=%ld v2=%ld v3=%ld%s fail=[%s]\n",
+             rtype, v1, v2, v3, nm, fail ? fail : "");
+  }
+}
+
+void
+scdump_task_t::action (scr_int i)
+{
+  scr_int atype, v1, v2, v3, obj;
+  char nm[96];
+
+  nm[0] = '\0';
+  k[2].string = "Actions";
+  k[3].integer = i;
+  k[4].string = "Type";
+  atype = prop_get_integer (bundle, "I<-sisis", k);
+  v1 = v2 = v3 = -999;
+  k[4].string = "Var1";
+  if (prop_get (bundle, "I<-sisis", &vt, k))
+    v1 = vt.integer;
+  k[4].string = "Var2";
+  if (prop_get (bundle, "I<-sisis", &vt, k))
+    v2 = vt.integer;
+  k[4].string = "Var3";
+  if (prop_get (bundle, "I<-sisis", &vt, k))
+    v3 = vt.integer;
+
+  obj = -1;
+  if (atype == 0)
+    obj = scdump_resolve_object (game, 0, v1);
+  else if (atype == 2)
+    {
+      /*
+       * Object-status ACTIONS index the stateful-object list 0-based
+       * (sctasks.c task_run_change_object_status: obj_stateful_object
+       * (var1)), whereas the matching type-1 RESTRICTION is 1-based
+       * (var1-1, with 0 = "the referenced object"; screstrs.c).  This
+       * is a genuine ADRIFT schema asymmetry, not a bug.  Pass v1+1 so
+       * the resolver's -1 cancels and we label the object the runtime
+       * actually changes (e.g. Space Boy's task 44 "unlock door" sets
+       * stateful obj 18 = the Room Door, not obj 17).
+       */
+      obj = scdump_resolve_object (game, 1, v1 + 1);
+    }
+  if (obj >= 0)
+    {
+      const scr_char *s = scdump_object_name (game, obj);
+
+      snprintf (nm, sizeof nm, " obj%ld=[%s]", obj, s ? s : "");
+    }
+  fprintf (stderr, "    ACT type=%ld v1=%ld v2=%ld v3=%ld%s",
+           atype, v1, v2, v3, nm);
+  if (atype == 3)
+    {
+      const scr_char *expr = nullptr;
+
+      /*
+       * Not every type-3 action carries an Expr: a plain "set/add a
+       * literal" action stores only Var1..Var3, and 3.9-era games never
+       * author one at all.  prop_get_string is fatal on a missing
+       * property (The Cleft in the Rock died here), so ask with
+       * prop_get and accept the miss.
+       */
+      k[4].string = "Expr";
+      if (prop_get (bundle, "S<-sisis", &vt, k))
+        expr = vt.string;
+      if (expr && expr[0] != '\0')
+        fprintf (stderr, " expr=[%s]", expr);
+    }
+  fprintf (stderr, "\n");
+}
+
+} /* namespace */
+
+
+/*
  * scdump_tasks()
  *
  * Tasks: command, Where, Repeatable, restrictions, actions.
@@ -758,334 +1157,23 @@ scdump_tasks (scr_gameref_t game)
   /* Tasks: command, Where, Repeatable, restrictions, actions. */
   for (t = 0; t < gs_task_count (game); t++)
     {
-      scr_vartype_t k[5], vt;
-      const scr_char *cmd;
-      scr_int wtype, wroom, acount, rcount, rep, rev;
-      scr_int ccount, ci;
+      scdump_task_t task = {};
 
-      k[0].string = "Tasks";
-      k[1].integer = t;
-      k[2].string = "Command";
-      k[3].integer = 0;
-      /*
-       * A task can carry an empty Command list -- The Cleft in the Rock has
-       * one, and prop_get_string is fatal on the miss -- so ask with prop_get.
-       */
-      cmd = prop_get (bundle, "S<-sisi", &vt, k) ? vt.string : nullptr;
-      ccount = prop_get_child_count (bundle, "I<-sis", k);
+      task.game = game;
+      task.bundle = bundle;
+      task.t = t;
 
-      k[2].string = "Where";
-      k[3].string = "Type";
-      wtype = prop_get_integer (bundle, "I<-siss", k);
-      wroom = -1;
-      if (wtype == ROOMLIST_ONE_ROOM)
-        {
-          k[3].string = "Room";
-          wroom = prop_get_integer (bundle, "I<-siss", k);
-        }
+      task.summary ();
+      task.where_rooms ();
+      task.hints ();
+      task.texts ();
+      task.alt_commands ();
+      task.reverse_commands ();
 
-      k[2].string = "Repeatable";
-      rep = prop_get_boolean (bundle, "B<-sis", k);
-      k[2].string = "Reversible";
-      rev = prop_get_boolean (bundle, "B<-sis", k);
-      k[2].string = "Actions";
-      acount = prop_get_child_count (bundle, "I<-sis", k);
-      k[2].string = "Restrictions";
-      rcount = prop_get_child_count (bundle, "I<-sis", k);
-
-      {
-        scr_int score = 0;
-        const scr_char *mask = nullptr;
-        scr_int rpt = 0;
-        scr_int srd = 0;
-
-        k[2].string = "Score";
-        if (prop_get (bundle, "I<-sis", &vt, k))
-          score = vt.integer;
-        /*
-         * srd: the task's ShowRoomDesc, as the raw field -- 0 for none,
-         * otherwise room + 1.  See test/adrift4/notes/RUNNER_TESTS_TODO.md
-         * section 4, where run400 is measured printing that room's description
-         * with no room name heading, and task_run_task_unrestricted() prints
-         * both.
-         */
-        k[2].string = "ShowRoomDesc";
-        if (prop_get (bundle, "I<-sis", &vt, k))
-          srd = vt.integer;
-        k[2].string = "RestrMask";
-        if (prop_get (bundle, "S<-sis", &vt, k))
-          mask = vt.string;
-        /*
-         * rpt: does the task carry a RepeatText?  A non-repeatable task that
-         * has one answers a second typing of its command with that text rather
-         * than with "You have already done that." -- see run_task_refusal().
-         */
-        k[2].string = "RepeatText";
-        if (prop_get (bundle, "S<-sis", &vt, k) && !scr_strempty (vt.string))
-          rpt = 1;
-        fprintf (stderr,
-                 "TASK %ld where=%ld room=%ld restr=%ld rep=%ld rev=%ld rpt=%ld"
-                 " score=%ld srd=%ld mask=[%s] cmd=[%s]\n",
-                 t, wtype, wroom, rcount, rep, rev, rpt, score, srd,
-                 mask ? mask : "", cmd ? cmd : "");
-      }
-
-      /*
-       * For SOME_ROOMS (where=2) tasks, dump the room-group membership (the
-       * "Where"/"Rooms" boolean array indexed by room; see sctasks.c
-       * task_can_run_task_directional). Lets us tell whether a group-scoped
-       * death (e.g. the Morac castle timer T327) fires in a given room.
-       */
-      if (wtype == ROOMLIST_SOME_ROOMS)
-        {
-          scr_int rm, nrooms = gs_room_count (game);
-
-          fprintf (stderr, "    WHERE_ROOMS=[");
-          for (rm = 0; rm < nrooms; rm++)
-            {
-              k[2].string = "Where";
-              k[3].string = "Rooms";
-              k[4].integer = rm;
-              if (prop_get_boolean (bundle, "B<-sissi", k))
-                fprintf (stderr, "%ld ", rm);
-            }
-          fprintf (stderr, "]\n");
-        }
-
-      /*
-       * Built-in author hints attached to this task (Question/Hint1=subtle/
-       * Hint2=sledgehammer) -- the game's own context-sensitive walkthrough.
-       */
-      {
-        const scr_char *hq = nullptr, *h1 = nullptr, *h2 = nullptr;
-        scr_vartype_t hv;
-
-        k[2].string = "Question";
-        if (prop_get (bundle, "S<-sis", &hv, k))
-          hq = hv.string;
-        k[2].string = "Hint1";
-        if (prop_get (bundle, "S<-sis", &hv, k))
-          h1 = hv.string;
-        k[2].string = "Hint2";
-        if (prop_get (bundle, "S<-sis", &hv, k))
-          h2 = hv.string;
-        if (hq && *hq)
-          fprintf (stderr, "    HINTQ=[%s]\n", hq);
-        if (h1 && *h1)
-          fprintf (stderr, "    HINT1=[%s]\n", h1);
-        if (h2 && *h2)
-          fprintf (stderr, "    HINT2=[%s]\n", h2);
-      }
-
-      /*
-       * The task's own text.  A wording measurement against a Runner
-       * transcript stands or falls on knowing which words the author wrote:
-       * the dump used to show only the command, so an engine-supplied phrase
-       * and an authored one looked alike.  CompleteText is what the task
-       * prints when it runs, AdditionalMessage what task_run_task_
-       * unrestricted() appends after the actions, RepeatText what answers a
-       * second typing (see run_task_refusal()), and ReverseMessage what an
-       * "un-doing" of the task says.  humbug's task 80 "put * sweet on *
-       * plinth" is the worked example: its CompleteText is a bare "I put the
-       * sweet on the plinth.", so neither of the two "Okay."s the Runner
-       * prefixes to it is authored -- both come from the game's own
-       * self-containing ALR [I put ] -> [Okay.  I put ], one per filter pass
-       * the turn runs (see pf_refilter()).
-       */
-      {
-        const scr_char *tt;
-        static const char *const text_fields[] =
-          { "CompleteText", "AdditionalMessage", "RepeatText",
-            "ReverseMessage", nullptr };
-        static const char *const text_labels[] =
-          { "COMPLETE", "ADDMSG", "REPEATTEXT", "REVERSE", nullptr };
-        scr_int f;
-
-        for (f = 0; text_fields[f]; f++)
-          {
-            k[2].string = text_fields[f];
-            if (prop_get (bundle, "S<-sis", &vt, k)
-                && !scr_strempty (vt.string))
-              {
-                tt = vt.string;
-                fprintf (stderr, "    %s=[%s]\n", text_labels[f], tt);
-              }
-          }
-      }
-
-      /*
-       * Print any extra command alternatives (Command[1..]) -- these are the
-       * synonym/wildcard forms ADRIFT matches in addition to Command[0].
-       */
-      for (ci = 1; ci < ccount; ci++)
-        {
-          const scr_char *ac;
-
-          k[2].string = "Command";
-          k[3].integer = ci;
-          ac = prop_get_string (bundle, "S<-sisi", k);
-          fprintf (stderr, "    ALTCMD[%ld]=[%s]\n", ci, ac ? ac : "");
-        }
-
-      /*
-       * The reverse half of a reversible task.  A reversible task matches its
-       * ReverseCommand patterns as well as its Command ones, so those strings
-       * are typeable too -- and when the ReverseMessage is empty the reverse
-       * run prints nothing, which makes the whole turn silent and sends a
-       * pre-4.0 Runner to the game's DontUnderstand string instead of the
-       * library (see silent-task rule).  lifesimulation's task 10 "turn on tv"
-       * is the worked example: its ReverseCommand is the bare literal "turn
-       * off tv" with no ReverseMessage, and only that exact string diverges,
-       * which is why five probe drives could not find a pattern in it
-       * (2026-09-05).  The dump used to show neither the flag nor the reverse
-       * commands, so the task looked like an ordinary one-way task.
-       */
-      if (prop_get_indexed_boolean (bundle, "Tasks", t, "Reversible"))
-        {
-          scr_int rc, rccount;
-
-          k[2].string = "ReverseCommand";
-          rccount = prop_get_child_count (bundle, "I<-sis", k);
-          fprintf (stderr, "    REVERSIBLE rcmds=%ld\n", rccount);
-          for (rc = 0; rc < rccount; rc++)
-            {
-              const scr_char *rcs;
-
-              k[2].string = "ReverseCommand";
-              k[3].integer = rc;
-              rcs = prop_get_string (bundle, "S<-sisi", k);
-              fprintf (stderr, "    REVCMD[%ld]=[%s]\n", rc, rcs ? rcs : "");
-            }
-        }
-
-      for (i = 0; i < rcount; i++)
-        {
-          scr_int rtype, v1, v2, v3, obj;
-          char nm[96];
-
-          nm[0] = '\0';
-          k[2].string = "Restrictions";
-          k[3].integer = i;
-          k[4].string = "Type";
-          rtype = prop_get_integer (bundle, "I<-sisis", k);
-          v1 = v2 = v3 = -999;
-          k[4].string = "Var1";
-          if (prop_get (bundle, "I<-sisis", &vt, k))
-            v1 = vt.integer;
-          k[4].string = "Var2";
-          if (prop_get (bundle, "I<-sisis", &vt, k))
-            v2 = vt.integer;
-          k[4].string = "Var3";
-          if (prop_get (bundle, "I<-sisis", &vt, k))
-            v3 = vt.integer;
-
-          obj = -1;
-          if (rtype == 0)
-            obj = scdump_resolve_object (game, 0, v1);
-          else if (rtype == 1)
-            obj = scdump_resolve_object (game, 1, v1);
-          if (obj >= 0)
-            {
-              const scr_char *s = scdump_object_name (game, obj);
-
-              snprintf (nm, sizeof nm, " obj%ld=[%s]", obj, s ? s : "");
-            }
-          else if (rtype == 2 && v1 >= 1 && v1 - 1 < gs_task_count (game))
-            {
-              /* Task-state ref is 1-based; resolve to its command. */
-              scr_vartype_t tk[4];
-              const scr_char *s;
-
-              tk[0].string = "Tasks";
-              tk[1].integer = v1 - 1;
-              tk[2].string = "Command";
-              tk[3].integer = 0;
-              s = prop_get_string (bundle, "S<-sisi", tk);
-              snprintf (nm, sizeof nm, " task%ld=[%s]", v1 - 1, s ? s : "");
-            }
-          /*
-           * The FailMessage decides how a failing restriction looks from the
-           * outside: with one, 4.0 prints it and eats the command; with none,
-           * the refusal is silent and the turn falls through to the library
-           * and then to "I don't understand ...".  Two divergences have now
-           * been chased that turn on exactly that difference, so dump it.
-           */
-          {
-            const scr_char *fail;
-
-            k[4].string = "FailMessage";
-            fail = prop_get_string (bundle, "S<-sisis", k);
-            fprintf (stderr,
-                     "    RESTR type=%ld v1=%ld v2=%ld v3=%ld%s fail=[%s]\n",
-                     rtype, v1, v2, v3, nm, fail ? fail : "");
-          }
-        }
-
-      for (i = 0; i < acount; i++)
-        {
-          scr_int atype, v1, v2, v3, obj;
-          char nm[96];
-
-          nm[0] = '\0';
-          k[2].string = "Actions";
-          k[3].integer = i;
-          k[4].string = "Type";
-          atype = prop_get_integer (bundle, "I<-sisis", k);
-          v1 = v2 = v3 = -999;
-          k[4].string = "Var1";
-          if (prop_get (bundle, "I<-sisis", &vt, k))
-            v1 = vt.integer;
-          k[4].string = "Var2";
-          if (prop_get (bundle, "I<-sisis", &vt, k))
-            v2 = vt.integer;
-          k[4].string = "Var3";
-          if (prop_get (bundle, "I<-sisis", &vt, k))
-            v3 = vt.integer;
-
-          obj = -1;
-          if (atype == 0)
-            obj = scdump_resolve_object (game, 0, v1);
-          else if (atype == 2)
-            {
-              /*
-               * Object-status ACTIONS index the stateful-object list 0-based
-               * (sctasks.c task_run_change_object_status: obj_stateful_object
-               * (var1)), whereas the matching type-1 RESTRICTION is 1-based
-               * (var1-1, with 0 = "the referenced object"; screstrs.c).  This
-               * is a genuine ADRIFT schema asymmetry, not a bug.  Pass v1+1 so
-               * the resolver's -1 cancels and we label the object the runtime
-               * actually changes (e.g. Space Boy's task 44 "unlock door" sets
-               * stateful obj 18 = the Room Door, not obj 17).
-               */
-              obj = scdump_resolve_object (game, 1, v1 + 1);
-            }
-          if (obj >= 0)
-            {
-              const scr_char *s = scdump_object_name (game, obj);
-
-              snprintf (nm, sizeof nm, " obj%ld=[%s]", obj, s ? s : "");
-            }
-          fprintf (stderr, "    ACT type=%ld v1=%ld v2=%ld v3=%ld%s",
-                   atype, v1, v2, v3, nm);
-          if (atype == 3)
-            {
-              const scr_char *expr = nullptr;
-
-              /*
-               * Not every type-3 action carries an Expr: a plain "set/add a
-               * literal" action stores only Var1..Var3, and 3.9-era games never
-               * author one at all.  prop_get_string is fatal on a missing
-               * property (The Cleft in the Rock died here), so ask with
-               * prop_get and accept the miss.
-               */
-              k[4].string = "Expr";
-              if (prop_get (bundle, "S<-sisis", &vt, k))
-                expr = vt.string;
-              if (expr && expr[0] != '\0')
-                fprintf (stderr, " expr=[%s]", expr);
-            }
-          fprintf (stderr, "\n");
-        }
+      for (i = 0; i < task.rcount; i++)
+        task.restriction (i);
+      for (i = 0; i < task.acount; i++)
+        task.action (i);
     }
 }
 

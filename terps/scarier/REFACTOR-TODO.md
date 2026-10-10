@@ -107,7 +107,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~371~~ | ~~`uip_replace_pronouns`~~ | DONE: `uip_pronoun_t` + six stage members, see "uip_replace_pronouns split" |
 | ~~353~~ | ~~`run_main_loop`~~ | DONE: six stages + driver, see "run_main_loop split" |
 | ~~345~~ | ~~`eval_function`~~ | DONE: built-in table + four lookups, see "eval_function split" |
-| 336 | `scdump_tasks` | `scdump.cpp` ~752 |
+| ~~336~~ | ~~`scdump_tasks`~~ | DONE: `scdump_task_t` + eight section members, see "scdump_tasks split" |
 | 323 | `oo_prop` | `adrift5/a5expr.cpp` ~626 |
 | 309 | `lib_print_room_description` | `library/sclibrar_room.cpp` ~382 |
 | 308 | `gsc_a5_display` | `glk/os_glk_a5_display.cpp` ~200 |
@@ -353,9 +353,10 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `scdump_tasks` down; `run_task`, `pass_character`,
-   `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop` and
-   `eval_function` are taken (see their "split" sections).
+   open from `oo_prop` down; `run_task`, `pass_character`,
+   `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
+   `eval_function` and `scdump_tasks` are taken (see their "split"
+   sections).
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -975,3 +976,25 @@ them):
   new.
 - Next in the table: `scdump_tasks` (scdump.cpp, developer tooling), then
   `oo_prop` (adrift5/a5expr.cpp).
+
+## 3: scdump_tasks split (2026-10-11)
+
+- **`scdump_tasks`** (336 l.) in `scdump.cpp` is a 30-line loop over a
+  per-task `scdump_task_t` (anonymous namespace: game, bundle, t; the
+  property key `k[5]` and `vt` every section reuses; and what the TASK
+  line reads that later sections need -- cmd, wtype, wroom, the command /
+  restriction / action counts, rep, rev).  Eight members, one per section
+  of the dump, each under the comment that sat on its block: `summary`
+  (the TASK line), `where_rooms`, `hints`, `texts`, `alt_commands`,
+  `reverse_commands`, `restriction (i)` and `action (i)`.  Members on the
+  `uip_pronoun_t` model, so the bodies are line slices of the old loop,
+  dedented, nothing renamed; `ci` is a local of the one member that uses
+  it.  The struct is `= {}`-initialised where the old locals were not.
+- Verification: the suite does not read this output, so the check was the
+  output itself -- `SCR_DUMP_TASKS=1 test/adrift4/harness/scare <game>`
+  over all 955 `.taf` files under test/adrift4 (100113 lines, 10770
+  TASK, 11968 RESTR / ACT), stderr byte-identical per game before and
+  after.  Also headless full `test` output identical with the compile
+  lines dropped, and `make -j8 scarier glkscarier` warning-free.  Two
+  lines over 80 columns in the file, before and after.
+- Next in the table: `oo_prop` (adrift5/a5expr.cpp).
