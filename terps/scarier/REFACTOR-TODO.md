@@ -113,7 +113,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~308~~ | ~~`gsc_a5_display`~~ | DONE: `gsc_a5_display_t` + one member per mark, see "gsc_a5_display split" |
 | ~~306~~ | ~~`debug_help`~~ | DONE: two string tables + 25-line lookup, see "debug_help split" |
 | ~~301~~ | ~~`view_location_impl`~~ | DONE: seven sections + driver, see "view_location_impl split" |
-| 289 | `lib_take_multiple_common` | `library/sclibrar_take.cpp` ~3554 |
+| ~~289~~ | ~~`lib_take_multiple_common`~~ | DONE: seven stages + driver, see "lib_take_multiple_common split" |
 | 274 | `npc_tick_npc_walk` | `scnpcs.cpp` ~944 |
 | 267 | `task_run_task_unrestricted` | `sctasks_run.cpp` |
 | 260 | `uip_match_entity` | `scparser_entity.cpp` |
@@ -353,8 +353,8 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `lib_take_multiple_common` down; `gsc_a5_display`,
-   `debug_help`, `view_location_impl`, `run_task`, `pass_character`,
+   open from `npc_tick_npc_walk` down; `gsc_a5_display`,
+   `debug_help`, `view_location_impl`, `lib_take_multiple_common`, `run_task`, `pass_character`,
    `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
    `eval_function`, `scdump_tasks`, `oo_prop` and
    `lib_print_room_description` are taken (see their "split" sections).
@@ -1117,3 +1117,35 @@ them):
   80 columns: 37 before, 24 after (the dedent).
 - Next in the table: `lib_take_multiple_common`
   (library/sclibrar_take.cpp).
+
+## 3: lib_take_multiple_common split (2026-10-11)
+
+- **`lib_take_multiple_common`** (289 l.) in `library/sclibrar_take.cpp`
+  is an 84-line driver over seven stages, each carrying the measurement
+  comment its block had: `lib_take_multi_get_off_line`,
+  `lib_take_multi_from_line`, `lib_take_multi_unparsed` (the parser
+  found nothing: whole-line naming, then 4.0's scored fallback),
+  `lib_take_multi_namesake_pre400`, `lib_take_multi_crowded_pre400`,
+  `lib_take_multi_co_fails_pre400` and `lib_take_multi_run` (filter,
+  backend, the 3.8 take-from sweep and the answer's close).  The and-line
+  and whole-line calls, the resolver choice and the parse stay in the
+  driver as the spine.  The two stages with three outcomes return a
+  local `lib_take_stage_t` (the `lib_vo_stage_t` idea); the rest return
+  a plain flag.
+- Not pure code motion, in these places: the held-namesake pre-empt was
+  written out twice (unresolved noun / one object named) and is now one
+  function taking the flag; the three `!is_except && references == 1`
+  blocks are one `if` for the first two (nothing between them changes
+  `references`) and the old condition with the stage call appended for
+  the third; `return X` in the three-outcome stages became the enum; and
+  the two declining stages return TRUE for "decline" where the inline
+  code returned FALSE from the handler.
+- Verification: headless `quick`; full `test` output identical to the
+  pre-change run with the compile lines dropped; `make -j8 scarier
+  glkscarier` warning-free; safety net step 5, `runner_transcripts.py
+  recompare` over the whole corpus, leaves `manifest.tsv` and `compare/`
+  byte-identical to the snapshot taken for the
+  `lib_print_room_description` split (the recompare's rewrite of the
+  stale manifest reverted afterwards, not committed).  16 lines over 80
+  columns in the file, before and after.
+- Next in the table: `npc_tick_npc_walk` (scnpcs.cpp).

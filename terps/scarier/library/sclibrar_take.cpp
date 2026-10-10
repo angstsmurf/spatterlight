@@ -3531,239 +3531,230 @@ lib_take_npc_overwrite_tail (scr_gameref_t game, size_t mark)
 
 
 /*
- * lib_take_multiple_common()
- *
- * Take the objects available to the player and listed in %text%, or -- for
- * is_except -- every one of them but those listed.
+ * What a stage of lib_take_multiple_common() tells the driver: go on to the
+ * next stage, or return TRUE (the line is answered) or FALSE (not ours: the
+ * later rows get the line).
  */
-scr_bool
-lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
+enum lib_take_stage_t
+{
+  LIB_TAKE_GO_ON,
+  LIB_TAKE_RETURN_TRUE,
+  LIB_TAKE_RETURN_FALSE
+};
+
+
+/*
+ * `get off X` reaches the take rows first, and below 4.0 takes() names X
+ * over the whole line, so a player standing on the stool picked it up
+ * (run370x/run380x/run390x p3xSIT).  Deliberate deviation: while the
+ * player is on something, leave the line to lib_cmd_get_off_object().
+ */
+static scr_bool
+lib_take_multi_get_off_line (void)
+{
+  const scr_char *line = run_get_dispatch_input ();
+
+  return line && (scr_strncasecmp (line, "get off ", 8) == 0
+                  || scr_strncasecmp (line, "get down off ", 13) == 0
+                  || scr_strncasecmp (line, "get up off ", 11) == 0);
+}
+
+
+/*
+ * A take line holding "from" that the take-from rows above declined --
+ * the container clause named nothing, or two things, or nothing at all --
+ * is still a take-from to every Runner (see lib_take_from_and() and
+ * lib_take_from_trailing()); pre-4.0 it is never a bare take, so the
+ * catch-alls of the take-from-nowhere rows answer it, not the held namesake
+ * or "Take what?" (`get coin from zzz` with the coin in hand:
+ * run370x/run380x "You can't do that!", run390x "The coin isn't in or on
+ * anything!"; p3xTKB runner_probes/tkb.run370.rtf, tkb.run380.rtf,
+ * tkb.run390.txt cell 144, 2026-09-20).
+ */
+static lib_take_stage_t
+lib_take_multi_from_line (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_int at = line ? run_c_word_pre400 (version, line, "from") : -1;
+
+  if (at >= 0)
+    {
+      if (line[at + 4 + strspn (line + at + 4, " ")] == NUL)
+        return lib_take_from_trailing (game) ? LIB_TAKE_RETURN_TRUE
+                                             : LIB_TAKE_RETURN_FALSE;
+      if (lib_take_from_and_line (game))
+        return lib_take_from_and (game) ? LIB_TAKE_RETURN_TRUE
+                                        : LIB_TAKE_RETURN_FALSE;
+      if (version < TAF_VERSION_400)
+        return LIB_TAKE_RETURN_FALSE;
+    }
+  return LIB_TAKE_GO_ON;
+}
+
+
+/*
+ * Pre-4.0: a held or worn namesake answers a noun that resolved to nothing
+ * (unresolved), or -- indexed below the one object the line named -- for
+ * that object when it is not loose in the room; see
+ * lib_take_held_namesake_preempt_pre400().  A present character the line
+ * names answers over it; see lib_take_npc_overwrite_tail().  TRUE once the
+ * line is answered.
+ */
+static scr_bool
+lib_take_multi_namesake_pre400 (scr_gameref_t game, scr_bool unresolved)
+{
+  const size_t mark = pf_buffer_length (gs_get_filter (game));
+
+  if (lib_take_held_namesake_preempt_pre400 (game, unresolved))
+    {
+      lib_take_npc_overwrite_tail (game, mark);
+      return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
+ * The object parser found nothing in the line: the readings that can still
+ * name an object for the take.
+ */
+static lib_take_stage_t
+lib_take_multi_unparsed (scr_gameref_t game, scr_bool is_except,
+                         scr_bool (*resolver) (scr_gameref_t, scr_int,
+                                               scr_int),
+                         scr_int *references)
+{
+  /*
+   * 4.0's get_piece (Proc_19_23_473A34) names the piece's object with the
+   * noun scorer 463640 (473011), which counts whole words and skips the
+   * rest, so a word it does not know costs nothing.  Professor.taf,
+   * run400: `get x rope` in the square refuses "You can't take the
+   * Mailbox on-a Rope!" (runner_probes/professor.run400.mail2.txt T22),
+   * the alias "rope" scoring; in the Laboratory it ends on DontUnderstand
+   * after the refusal's pre-match (T25,
+   * runner_probes/professor.run400.mail6.txt T26).  Scarier's object
+   * parser wanted every word, and the line fell to "Take what?".  The
+   * X-Files, run400 runner_transcripts/xfiles.txt:248: `take phone book`
+   * -> "You take Your Cell Phone from Your Backpack.".  One piece only; a
+   * list keeps the parser's own answers.  Only from the "Take what?"
+   * catch-all, so every other take row has had the line first (Pilfers
+   * `get off bed`).
+   */
+  const scr_char *text = var_get_ref_text (gs_get_vars (game));
+  scr_int object;
+
+  /* Pre-4.0: a held or worn namesake still answers; see
+     lib_take_multi_namesake_pre400(). */
+  if (!is_except && lib_take_multi_namesake_pre400 (game, TRUE))
+    return LIB_TAKE_RETURN_TRUE;
+
+  /* Pre-4.0: takes() names its object over the WHOLE line, co(obj, 1);
+     see lib_move_named_whole_line_pre400(). */
+  if (!is_except
+      && lib_move_named_whole_line_pre400 (game, resolver, 1, references))
+    ;
+  else if (!lib_take_scored_fallback || is_except || !text
+           || strchr (text, ',') || lib_input_contains_word (text, "and"))
+    return LIB_TAKE_RETURN_FALSE;
+  else
+    {
+      object = lib_verb_object_resolve_400_string (game, text,
+                                                   nullptr, TRUE);
+      if (object < 0)
+        return LIB_TAKE_RETURN_FALSE;
+      gs_clear_multiple_references (game);
+      game->multiple_references[object] = TRUE;
+      *references = 1;
+    }
+  return LIB_TAKE_GO_ON;
+}
+
+
+/*
+ * Pre-4.0, the pre-pass counts the loose candidates first and flags them;
+ * see lib_take_crowd_pre400().  Two of them and the take never happens, so
+ * decline the row and let the catch-all answer "Take what?"; one, and it
+ * is that object the loop takes, whatever the parser bound -- `take hat
+ * coin` with the hat in hand picks up the coin.
+ *
+ * TRUE when the row is to be declined.
+ */
+static scr_bool
+lib_take_multi_crowded_pre400 (scr_gameref_t game)
+{
+    scr_bool crowded;
+    const scr_int winner = lib_take_crowd_pre400 (game, &crowded);
+
+    if (crowded)
+      {
+        gs_clear_multiple_references (game);
+        return TRUE;
+      }
+    if (winner != -1 && !game->multiple_references[winner])
+      {
+        gs_clear_multiple_references (game);
+        game->multiple_references[winner] = TRUE;
+      }
+  return FALSE;
+}
+
+
+/*
+ * Pre-4.0, takes() reaches an object only through co(idx, 1) (run390
+ * 454E1D, run380 43DFC3, run370 4364E6), so the one object the parser
+ * resolved is still not taken when that test fails for it: two seen
+ * namesakes present with no loose one and no Prefix word typed is the
+ * pending "Which <term>" ambiguity, and NOTHING moves.  secret_of_lost_world
+ * T59 `take scroll` with the ancient scroll in hand and the decayed scroll
+ * on the fresh skeleton prints "Which scroll.  Ancient scroll or the
+ * decayed scroll?" and leaves the decayed scroll where it was, so T74
+ * `give princess decayed scroll` fails its held restriction ("You can't do
+ * that right now.") and the lily, the red gem and the win never come
+ * (run390, runner_transcripts/secret_of_lost_world, 2026-09-19).  Scarier
+ * printed the same prompt over a take that had quietly happened.  Decline
+ * the row: the ambiguity prompt replaces the turn's output anyway, and a
+ * plain miss falls to the catch-all "Take what?" the Runner's empty buffer
+ * reaches.
+ *
+ * 3.70 is not in this: its takes() calls no co() at all, and settles a
+ * crowd of its own namesakes in lib_disambiguate_object_common().  A rock
+ * ALIASED "gem" beside a gem is no crowd to it -- `take gem` takes both and
+ * the rock speaks (p37OPENA, runner_probes/opena.run370.rtf, 2026-09-20) --
+ * and this gate used to turn that into "Take what?".
+ *
+ * TRUE when the row is to be declined.
+ */
+static scr_bool
+lib_take_multi_co_fails_pre400 (scr_gameref_t game)
+{
+    const scr_char *line = run_get_dispatch_input ();
+    scr_int target;
+
+    for (target = 0; target < gs_object_count (game); target++)
+      if (game->multiple_references[target])
+        break;
+    if (line && target < gs_object_count (game)
+        && !lib_take_co_pre400 (game, line, target))
+      {
+        gs_clear_multiple_references (game);
+        return TRUE;
+      }
+  return FALSE;
+}
+
+
+/*
+ * The take itself, over the references the stages above settled: filter,
+ * hand to the backend, and close the answer.
+ */
+static scr_bool
+lib_take_multi_run (scr_gameref_t game, scr_bool is_except,
+                    scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int),
+                    scr_int references)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int);
-  scr_int objects, references;
-  scr_bool parsed = FALSE;
-
-  /*
-   * `get off X` reaches the take rows first, and below 4.0 takes() names X
-   * over the whole line, so a player standing on the stool picked it up
-   * (run370x/run380x/run390x p3xSIT).  Deliberate deviation: while the
-   * player is on something, leave the line to lib_cmd_get_off_object().
-   */
-  if (!is_except && lib_player_parent_here (game) != -1)
-    {
-      const scr_char *line = run_get_dispatch_input ();
-
-      if (line && (scr_strncasecmp (line, "get off ", 8) == 0
-                   || scr_strncasecmp (line, "get down off ", 13) == 0
-                   || scr_strncasecmp (line, "get up off ", 11) == 0))
-        return FALSE;
-    }
-
-  /*
-   * A take line holding "from" that the take-from rows above declined --
-   * the container clause named nothing, or two things, or nothing at all --
-   * is still a take-from to every Runner (see lib_take_from_and() and
-   * lib_take_from_trailing()); pre-4.0 it is never a bare take, so the
-   * catch-alls of the take-from-nowhere rows answer it, not the held namesake
-   * or "Take what?" (`get coin from zzz` with the coin in hand:
-   * run370x/run380x "You can't do that!", run390x "The coin isn't in or on
-   * anything!"; p3xTKB runner_probes/tkb.run370.rtf, tkb.run380.rtf,
-   * tkb.run390.txt cell 144, 2026-09-20).
-   */
-  if (!is_except)
-    {
-      const scr_int version = prop_get_taf_version (gs_get_bundle (game));
-      const scr_char *line = run_get_dispatch_input ();
-      const scr_int at = line ? run_c_word_pre400 (version, line, "from") : -1;
-
-      if (at >= 0)
-        {
-          if (line[at + 4 + strspn (line + at + 4, " ")] == NUL)
-            return lib_take_from_trailing (game);
-          if (lib_take_from_and_line (game))
-            return lib_take_from_and (game);
-          if (version < TAF_VERSION_400)
-            return FALSE;
-        }
-    }
-
-  if (!is_except && lib_take_and_none_pre400 (game))
-    return TRUE;
-  if (!is_except && lib_take_and_pre400 (game))
-    return TRUE;
-
-  /*
-   * "take all except ..." works over the "all" universe, which excludes
-   * whatever the player already carries; a named take reaches further, into
-   * a carried open container (see lib_take_all_filter).
-   */
-  resolver = is_except ? lib_take_all_filter : lib_take_filter;
-
-  /* 4.0: an "and" line resolves piece by piece; see lib_take_and_400(). */
-  if (!is_except)
-    parsed = lib_take_and_400 (game, &references) == 1;
-
-  /* 4.0: the whole fragment scored first; see lib_take_whole_line_400(). */
-  if (!is_except && !parsed)
-    {
-      scr_bool bound;
-
-      if (lib_take_whole_line_400 (game, &references, &bound))
-        return TRUE;
-      parsed = bound;
-    }
-
-  /* Parse the multiple objects list to find the target objects. */
-  if (parsed)
-    ;
-  else if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
-                                        resolver, -1,
-                                        &references))
-    {
-      /*
-       * 4.0's get_piece (Proc_19_23_473A34) names the piece's object with the
-       * noun scorer 463640 (473011), which counts whole words and skips the
-       * rest, so a word it does not know costs nothing.  Professor.taf,
-       * run400: `get x rope` in the square refuses "You can't take the
-       * Mailbox on-a Rope!" (runner_probes/professor.run400.mail2.txt T22),
-       * the alias "rope" scoring; in the Laboratory it ends on DontUnderstand
-       * after the refusal's pre-match (T25,
-       * runner_probes/professor.run400.mail6.txt T26).  Scarier's object
-       * parser wanted every word, and the line fell to "Take what?".  The
-       * X-Files, run400 runner_transcripts/xfiles.txt:248: `take phone book`
-       * -> "You take Your Cell Phone from Your Backpack.".  One piece only; a
-       * list keeps the parser's own answers.  Only from the "Take what?"
-       * catch-all, so every other take row has had the line first (Pilfers
-       * `get off bed`).
-       */
-      const scr_char *text = var_get_ref_text (gs_get_vars (game));
-      scr_int object;
-
-      /* Pre-4.0: a held or worn namesake still answers a noun that resolved
-         to nothing; see lib_take_held_namesake_preempt_pre400().  A present
-         character the line names answers over it; see
-         lib_take_npc_overwrite_tail(). */
-      if (!is_except)
-        {
-          const size_t mark = pf_buffer_length (filter);
-
-          if (lib_take_held_namesake_preempt_pre400 (game, TRUE))
-            {
-              lib_take_npc_overwrite_tail (game, mark);
-              return TRUE;
-            }
-        }
-
-      /* Pre-4.0: takes() names its object over the WHOLE line, co(obj, 1);
-         see lib_move_named_whole_line_pre400(). */
-      if (!is_except
-          && lib_move_named_whole_line_pre400 (game, resolver, 1, &references))
-        ;
-      else if (!lib_take_scored_fallback || is_except || !text
-               || strchr (text, ',') || lib_input_contains_word (text, "and"))
-        return FALSE;
-      else
-        {
-          object = lib_verb_object_resolve_400_string (game, text,
-                                                       nullptr, TRUE);
-          if (object < 0)
-            return FALSE;
-          gs_clear_multiple_references (game);
-          game->multiple_references[object] = TRUE;
-          references = 1;
-        }
-    }
-  else if (references == 0)
-    return TRUE;
-
-  /* Pre-4.0: a held or worn namesake indexed below the one object the line
-     named answers for it when that object is not loose in the room; see
-     lib_take_held_namesake_preempt_pre400().  A present character the line
-     names answers over that too; see lib_take_npc_overwrite_tail(). */
-  if (!is_except && references == 1)
-    {
-      const size_t mark = pf_buffer_length (filter);
-
-      if (lib_take_held_namesake_preempt_pre400 (game, FALSE))
-        {
-          lib_take_npc_overwrite_tail (game, mark);
-          return TRUE;
-        }
-    }
-
-  /*
-   * Pre-4.0, the pre-pass counts the loose candidates first and flags them;
-   * see lib_take_crowd_pre400().  Two of them and the take never happens, so
-   * decline the row and let the catch-all answer "Take what?"; one, and it
-   * is that object the loop takes, whatever the parser bound -- `take hat
-   * coin` with the hat in hand picks up the coin.
-   */
-  if (!is_except && references == 1)
-    {
-      scr_bool crowded;
-      const scr_int winner = lib_take_crowd_pre400 (game, &crowded);
-
-      if (crowded)
-        {
-          gs_clear_multiple_references (game);
-          return FALSE;
-        }
-      if (winner != -1 && !game->multiple_references[winner])
-        {
-          gs_clear_multiple_references (game);
-          game->multiple_references[winner] = TRUE;
-        }
-    }
-
-  /*
-   * Pre-4.0, takes() reaches an object only through co(idx, 1) (run390
-   * 454E1D, run380 43DFC3, run370 4364E6), so the one object the parser
-   * resolved is still not taken when that test fails for it: two seen
-   * namesakes present with no loose one and no Prefix word typed is the
-   * pending "Which <term>" ambiguity, and NOTHING moves.  secret_of_lost_world
-   * T59 `take scroll` with the ancient scroll in hand and the decayed scroll
-   * on the fresh skeleton prints "Which scroll.  Ancient scroll or the
-   * decayed scroll?" and leaves the decayed scroll where it was, so T74
-   * `give princess decayed scroll` fails its held restriction ("You can't do
-   * that right now.") and the lily, the red gem and the win never come
-   * (run390, runner_transcripts/secret_of_lost_world, 2026-09-19).  Scarier
-   * printed the same prompt over a take that had quietly happened.  Decline
-   * the row: the ambiguity prompt replaces the turn's output anyway, and a
-   * plain miss falls to the catch-all "Take what?" the Runner's empty buffer
-   * reaches.
-   *
-   * 3.70 is not in this: its takes() calls no co() at all, and settles a
-   * crowd of its own namesakes in lib_disambiguate_object_common().  A rock
-   * ALIASED "gem" beside a gem is no crowd to it -- `take gem` takes both and
-   * the rock speaks (p37OPENA, runner_probes/opena.run370.rtf, 2026-09-20) --
-   * and this gate used to turn that into "Take what?".
-   */
-  if (!is_except && references == 1
-      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
-      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
-    {
-      const scr_char *line = run_get_dispatch_input ();
-      scr_int target;
-
-      for (target = 0; target < gs_object_count (game); target++)
-        if (game->multiple_references[target])
-          break;
-      if (line && target < gs_object_count (game)
-          && !lib_take_co_pre400 (game, line, target))
-        {
-          gs_clear_multiple_references (game);
-          return FALSE;
-        }
-    }
-
-  /*
-   * run390 takes() rewrites a bare take of something in or on an object to
-   * "<line> from <parent's Prefix Short>" (4552EE) and hands it to
-   * insides(), whose container slot walk may pick another object the
-   * rewritten line names (8811c2b76).  Deliberate deviation: Scarier takes
-   * the object the line named from where it is.
-   */
+  scr_int objects;
 
   /* Note single-object takes; the backend words some refusals differently. */
   lib_take_single_named = !is_except && references == 1;
@@ -3827,6 +3818,101 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
       lib_take_refusal_redispatch_400 (game);
     }
   return TRUE;
+}
+
+
+/*
+ * lib_take_multiple_common()
+ *
+ * Take the objects available to the player and listed in %text%, or -- for
+ * is_except -- every one of them but those listed.
+ */
+scr_bool
+lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
+{
+  scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int);
+  scr_int references;
+  scr_bool parsed = FALSE;
+  lib_take_stage_t stage;
+
+  /* While the player is on something, `get off X` is not a take. */
+  if (!is_except && lib_player_parent_here (game) != -1
+      && lib_take_multi_get_off_line ())
+    return FALSE;
+
+  if (!is_except)
+    {
+      stage = lib_take_multi_from_line (game);
+      if (stage != LIB_TAKE_GO_ON)
+        return stage == LIB_TAKE_RETURN_TRUE;
+    }
+
+  if (!is_except && lib_take_and_none_pre400 (game))
+    return TRUE;
+  if (!is_except && lib_take_and_pre400 (game))
+    return TRUE;
+
+  /*
+   * "take all except ..." works over the "all" universe, which excludes
+   * whatever the player already carries; a named take reaches further, into
+   * a carried open container (see lib_take_all_filter).
+   */
+  resolver = is_except ? lib_take_all_filter : lib_take_filter;
+
+  /* 4.0: an "and" line resolves piece by piece; see lib_take_and_400(). */
+  if (!is_except)
+    parsed = lib_take_and_400 (game, &references) == 1;
+
+  /* 4.0: the whole fragment scored first; see lib_take_whole_line_400(). */
+  if (!is_except && !parsed)
+    {
+      scr_bool bound;
+
+      if (lib_take_whole_line_400 (game, &references, &bound))
+        return TRUE;
+      parsed = bound;
+    }
+
+  /* Parse the multiple objects list to find the target objects. */
+  if (parsed)
+    ;
+  else if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
+                                        resolver, -1,
+                                        &references))
+    {
+      stage = lib_take_multi_unparsed (game, is_except, resolver,
+                                       &references);
+      if (stage != LIB_TAKE_GO_ON)
+        return stage == LIB_TAKE_RETURN_TRUE;
+    }
+  else if (references == 0)
+    return TRUE;
+
+  /* Pre-4.0, one object named: a held namesake may answer for it, a crowd
+     of loose candidates or a failed co() declines the row. */
+  if (!is_except && references == 1)
+    {
+      if (lib_take_multi_namesake_pre400 (game, FALSE))
+        return TRUE;
+      if (lib_take_multi_crowded_pre400 (game))
+        return FALSE;
+    }
+
+  if (!is_except && references == 1
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && lib_take_multi_co_fails_pre400 (game))
+    return FALSE;
+
+  /*
+   * run390 takes() rewrites a bare take of something in or on an object to
+   * "<line> from <parent's Prefix Short>" (4552EE) and hands it to
+   * insides(), whose container slot walk may pick another object the
+   * rewritten line names (8811c2b76).  Deliberate deviation: Scarier takes
+   * the object the line named from where it is.
+   */
+
+  return lib_take_multi_run (game, is_except, resolver, references);
 }
 
 
