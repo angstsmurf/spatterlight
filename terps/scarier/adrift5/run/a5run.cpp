@@ -31,8 +31,9 @@
  *
  *   a5run_ref.cpp     reference resolution (InputMatchesObject/Character) and
  *                     multiple-object (%objects%) references
- *   a5run_action.cpp  ExecuteActions / ExecuteSingleAction, task dispatch,
- *                     response aggregation, conversation, run_task/run_general
+ *   a5run_action.cpp  task dispatch, run_task/run_general; a5run_act.cpp the
+ *                     ExecuteActions / ExecuteSingleAction action set, and
+ *                     a5run_resp/conv/sort.cpp the rest of that layer
  *   a5run_events.cpp  the clsEvent / clsWalk turn-based runtime
  *   a5sb.cpp          the output buffer (sb_t) shared by all of the above
  */
@@ -513,10 +514,11 @@ normalise_input (const char *line)
    *_visible / *_seen_p, possible_keys, bind_reference, ...) are
    declared in a5run_internal.h. */
 
-/* Task execution -- action helpers, specific-override dispatch, response
-   aggregation, conversation, ExecuteSingleAction and the run_task /
-   run_general drivers -- lives in a5run_action.cpp; its entry points are
-   declared in a5run_internal.h. */
+/* Task execution -- the specific-override dispatch and the run_task /
+   run_general drivers -- lives in a5run_action.cpp, the ExecuteSingleAction
+   action set in a5run_act.cpp, response aggregation and conversation in
+   a5run_resp.cpp and a5run_conv.cpp; their entry points are declared in
+   a5run_internal.h. */
 
 /* ------------------------------------------------------ disambiguation prompt */
 

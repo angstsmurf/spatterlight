@@ -159,11 +159,11 @@ struct resp_map {
   size_t nmut = 0;                /* count of real adds AND aggregate merges     */
 };
 
-/* Runaway guard for `SetTasks Execute` chains (a5run_action.cpp act_set_tasks).
+/* Runaway guard for `SetTasks Execute` chains (a5run_act.cpp act_set_tasks).
    The runner's ExecuteTask is a full re-entrant AttemptToExecuteTask, so a task
    whose actions Execute a second task that Executes the first recurses forever
    when both are Repeatable (the Completed gate that stops the non-repeatable
-   case never trips).  a5run_action's other recursion limits cannot catch this:
+   case never trips).  A5_MAX_ACTION_DEPTH and friends cannot catch this:
    its `depth` counter is deliberately RESET at each Execute -- the sub-task is a
    fresh AttemptToExecuteTask, and its own override nesting starts at 0 -- so the
    Execute chain needs a counter of its own.  The deepest real nesting measured
@@ -574,14 +574,40 @@ int  resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
                      const char *force_name, const char *force_key,
                      amb_info *amb);
 
-/* a5run_action.cpp (action helpers, task dispatch, response aggregation,
-   conversation, action execution, run one task) */
+/* a5run_action.cpp (task execution: the Specific-override dispatch, run_task /
+   run_general and the SetTasks-Execute response-scope flush) */
 void run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out);
 void run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
                   sb_t *out);
+void exec_scope_flush (a5_run_t *run, struct exec_resp_scope *sc, sb_t *out);
+/* The rest of this block is shared with the action set in a5run_act.cpp, whose
+   SetTasks Execute re-enters the override dispatch with the references it
+   resolved itself.
+   A5_MAX_ACTION_DEPTH is the recursion limit shared by the structural descents
+   of task execution: Specific-override nesting (execute_task_with_overrides),
+   the SetTasks FOR body, the `Execute` dispatch and run_action's plural
+   %objects% expansion.  Distinct from A5_MAX_EXEC_DEPTH, which bounds the
+   Execute CHAIN across those resets. */
+#define A5_MAX_ACTION_DEPTH 16
+/* One resolved command reference: its general type and resolved entity key. */
+struct ref_info { char type; const char *key; };   /* 'o'/'c'/'d'/'t'/'n'/'l' */
+void execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
+                                  const std::vector<ref_info> &refs, int depth,
+                                  sb_t *out);
+std::vector<ref_info> refs_from_bindings (a5_state_t *st, const a5_task_t *t);
+std::vector<std::string> command_refs (const a5_task_t *t);
+bool arg_is_ref_passthrough (const std::string &arg, const std::string &rname);
+char *eval_arg_to_key (a5_state_t *st, const std::string &arg);
+bool group_prop_member_keys (a5_state_t *st, const std::string &arg,
+                             std::vector<std::string> &out);
+std::vector<std::string> split_pipe (const char *s);
+std::vector<std::string> current_obj_ref_keys (a5_state_t *st);
+void emit_look (a5_run_t *run, sb_t *out);
+
+/* a5run_act.cpp (ExecuteActions / ExecuteSingleAction: the core action set and
+   the seen-state bookkeeping) */
 void update_seen (a5_state_t *st);
 void mark_player_arrival_seen (a5_state_t *st, const char *loc);
-int  conv_contains_word (const std::string &sentence, const std::string &check);
 void run_action (a5_run_t *run, const char *kind, const char *body, int depth,
                  sb_t *out);
 
@@ -595,7 +621,7 @@ enum { A5_CONV_GREET = 1, A5_CONV_ASK = 2, A5_CONV_TELL = 4,
 void exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
                         const char *subject, sb_t *out);
 void clear_conv_if_partner_gone (a5_run_t *run, sb_t *out);
-void exec_scope_flush (a5_run_t *run, struct exec_resp_scope *sc, sb_t *out);
+int  conv_contains_word (const std::string &sentence, const std::string &check);
 
 /* a5run_resp.cpp (clsUserSession htblResponsesPass/Fail).  `pos` is the slot a
    "Before" message reserved ahead of its actions (iResponsePosition); -1 appends.

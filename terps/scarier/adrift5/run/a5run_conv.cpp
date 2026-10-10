@@ -26,10 +26,10 @@
  * the current conversation node (Ask/Tell by keyword score, Command by command
  * pattern, Greet/Farewell by restrictions alone), emitting its reply and running
  * its actions, and ending the conversation when the partner walks away.  Split
- * out of a5run_action.cpp, which keeps the action dispatch that calls in here
- * (the Conversation action and the MoveCharacter branches).
+ * out of the action layer (now a5run_act.cpp), which keeps the dispatch that
+ * calls in here (the Conversation action and the MoveCharacter branches).
  *
- * Entry points used from a5run_action.cpp -- exec_conversation,
+ * Entry points used from a5run_act.cpp -- exec_conversation,
  * clear_conv_if_partner_gone, conv_contains_word and the A5_CONV_* bits -- are
  * declared in a5run_internal.h.  Topic actions run back through run_action
  * there, so the two files are mutually recursive by design: the runner's

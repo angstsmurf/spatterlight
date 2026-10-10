@@ -9,7 +9,7 @@ file describes the code as it stands. Last checked against the sources
 the Glk host (`glk/os_glk*.cpp`) sit in `terps/scarier/`. **Every `a5*`
 file named below lives in `terps/scarier/adrift5/`; the `a5run*` family is in
 `adrift5/run/` and the `a5text*` family in `adrift5/text/`.** `a5run.cpp` has since been
-split: `a5run_action.cpp` (task/action execution), `a5run_events.cpp` (events and
+split: `a5run_action.cpp` (task execution), `a5run_act.cpp` (the action set), `a5run_events.cpp` (events and
 walks), `a5run_conv.cpp` (conversation), `a5run_ref.cpp` (references),
 `a5run_resp.cpp` (response aggregation), `a5run_sort.cpp` (the .NET introsort for
 Specific overrides), with the shared struct in `a5run_internal.h`. References to

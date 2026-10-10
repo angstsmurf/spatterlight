@@ -22,7 +22,7 @@
  * expression engine a5_eval_sexpr reduces variable-assignment expressions the
  * way the Adrift 5 runner's clsVariable does -- precedence, associativity,
  * mod/power, parentheses, unary minus, quoted literals -- read back the way
- * eval_num_value (a5run_action.cpp) does: VB Val() of the result, i.e. its
+ * eval_num_value (a5run_act.cpp) does: VB Val() of the result, i.e. its
  * leading integer, else 0.  a5_eval_sexpr is the sole evaluator for the value
  * path since the integer-only a5arith was folded into it; these cases guard the
  * scoring path (e.g. Six Silver Bullets' "Sneakscore = %roller%+%sneakbonus%",

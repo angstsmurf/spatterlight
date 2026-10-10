@@ -24,7 +24,7 @@
  *
  * ADRIFT text can embed expressions between `<#` and `#>` (the Adrift 5 runner
  * Global.ReplaceExpressions / EvaluateExpression -> clsVariable.SetToExpression).
- * This is also the evaluator for numeric variable assignments (a5run_action's
+ * This is also the evaluator for numeric variable assignments (a5run_act's
  * value path), reading back the leading integer of the result.  An embedded
  * `<# ... #>` expression instead yields a *string*: e.g.
  *
