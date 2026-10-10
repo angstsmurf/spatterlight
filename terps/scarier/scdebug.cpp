@@ -231,6 +231,193 @@ debug_finalize (scr_gameref_t game)
 }
 
 
+/* General debugging help, one string per if_print_debug() call. */
+static const scr_char *const DEBUG_HELP_GENERAL[] = {
+  "The following debugging commands examine game state:\n\n",
+  " game               -- Print general game information,"
+                          " and class counts\n"
+  " player             -- Show the player location and position\n"
+  " rooms [Range]      -- Print information on game rooms\n"
+  " objects [Range]    -- Print information on objects in the game\n"
+  " npcs [Range]       -- Print information on game NPCs\n"
+  " events [Range]     -- Print information on the game's events\n"
+  " tasks [Range]      -- Print information on the game's tasks\n"
+  " variables [Range]  -- Show variables defined by the game\n\n",
+  "Most commands take range inputs.  This can be a single number, to"
+  " apply the command to just that item, a range such as '0 to 10' (or"
+  " '0 - 10', '0 .. 10', or simply '0 10') to apply to that range of"
+  " items, or '*' to apply the command to all items of the class.  If"
+  " omitted, the command is applied only to the items of the class"
+  " 'relevant' to the current game state; see the help for specific"
+  " commands for more on what is 'relevant'.\n\n",
+  "The 'player', 'objects', 'npcs', 'events', 'tasks', and 'variables'"
+  " commands may be prefixed with 'old', in which case the values"
+  " printed will be those for the previous game turn, rather than the"
+  " current values.\n\n",
+  "These debugging commands manage watchpoints:\n\n",
+  "The 'player', 'objects', 'npcs', 'events', 'tasks', and 'variables'"
+  " commands may be prefixed with 'watch', to set watchpoints."
+  "  Watchpoints automatically enter the debugger when the item changes"
+  " state during a game turn.  For example 'watchobject 10' monitors"
+  " object 10 for changes, and 'watchnpc *' monitors all NPCs.  A"
+  " 'watch' command with no range prints out all watchpoints set for"
+  " that class.\n\n",
+  "Prefix commands with 'clear' to clear watchpoints, for example"
+  " 'clearnpcs *'.  Use 'watchall' to obtain a complete list of every"
+  " watchpoint set, and 'clearall' to clear all watchpoints in one go."
+  "  A 'clear' command with no range behaves the same as a 'watch'"
+  " command with no range.\n\n",
+  "These debugging commands print details of game output and control the"
+  " debugger and interpreter:\n\n",
+  " buffer          -- Show the current buffered game text\n"
+  " resources       -- Show current and requested game resources\n"
+  " random [Seed]   -- Control the random number generator\n"
+  " step            -- Run one game turn, then re-enter the debugger\n"
+  " continue        -- Leave the debugger and resume the game\n"
+  " quit            -- Exit the interpreter main loop\n"
+  " help [Command]  -- Print help specific to Command\n\n",
+  "Debugging commands may be abbreviated to their shortest unambiguous"
+  " form.\n\n",
+  "Use the 'debug' or '#debug' command in a game, typed at the usual"
+  " game prompt, to return to the debugger.\n",
+  nullptr
+};
+
+/* Table connecting debugging commands to their command-specific help. */
+typedef struct
+{
+  const scr_command_t command;
+  const scr_char *const help;
+} scr_help_t;
+static const scr_help_t DEBUG_HELP_TOPICS[] = {
+  {DEBUG_HELP,
+   "Give the name of the command you want help on, for example 'help"
+   " continue'.\n"},
+  {DEBUG_CONTINUE,
+   "Leave the debugger and resume the game.  Use the 'debug' or '#debug'"
+   " command in a game, typed at the usual game prompt, to return to the"
+   " debugger.\n"},
+  {DEBUG_STEP,
+   "Run one game turn, then re-enter the debugger.  Useful for games that"
+   " intercept empty input lines, which otherwise catch the 'debug'"
+   " command before Scarier can get to it.\n"},
+  {DEBUG_QUIT,
+   "Exit the interpreter main loop.  Equivalent to a confirmed 'quit'"
+   " from within the game itself, this ends the interpreter session.\n"},
+  {DEBUG_BUFFER,
+   "Print the current text that the game has buffered for output.  The"
+   " debugger catches games before they have printed their turn output"
+   " -- this is the text that will be filtered and printed on exiting the"
+   " debugger.\n"},
+  {DEBUG_RESOURCES,
+   "Print any resources currently active, and any requested by the game"
+   " on the current turn.  The requested resources will become the active"
+   " ones on exiting the debugger.\n"},
+  {DEBUG_RANDOM,
+   "If no seed is given, report the current random number generator"
+   " setting.  Otherwise, seed the random number generator with the value"
+   " given.  This is useful for persuading games with random sections to"
+   " behave predictably.  A new seed value of zero is invalid.\n"},
+  {DEBUG_GAME,
+   "Print general game information, including the number of rooms,"
+   " objects, events, tasks, and variables that the game defines\n"},
+  {DEBUG_PLAYER,
+   "Print out the current player room and position, and any parent object"
+   " of the player character.\n"},
+  {DEBUG_OLDPLAYER,
+   "Print out the player room and position from the previous turn, and"
+   " any parent object of the player character.\n"},
+  {DEBUG_ROOMS,
+   "Print out the name and contents of rooms in the range.  If no range,"
+   " print details of the room containing the player.\n"},
+  {DEBUG_OLDROOMS,
+   "Print out the name and contents of rooms in the range for the"
+   " previous turn.  If no range, print details of the room that"
+   " contained the player on the previous turn.\n"},
+  {DEBUG_OBJECTS,
+   "Print out details of all objects in the range.  If no range, print"
+   " details of objects in the room containing the player, and visible to"
+   " the player.\n"},
+  {DEBUG_OLDOBJECTS,
+   "Print out details of all objects in the range for the previous turn."
+   "  If no range, print details of objects in the room that contained"
+   " the player, and were visible to the player.\n"},
+  {DEBUG_NPCS,
+   "Print out details of all NPCs in the range.  If no range, print"
+   " details of only NPCs in the room containing the player.\n"},
+  {DEBUG_OLDNPCS,
+   "Print out details of all NPCs in the range for the previous turn."
+   "  If no range, print details of only NPCs in the room that contained"
+   " the player.\n"},
+  {DEBUG_EVENTS,
+   "Print out details of all events in the range.  If no range, print"
+   " details of only events currently running.\n"},
+  {DEBUG_OLDEVENTS,
+   "Print out details of all events in the range for the previous turn."
+   "  If no range, print details of only events running on the previous"
+   " turn.\n"},
+  {DEBUG_TASKS,
+   "Print out details of all tasks in the range.  If no range, print"
+   " details of only tasks that are runnable, for the current state of"
+   " the game.\n"},
+  {DEBUG_OLDTASKS,
+   "Print out details of all tasks in the range for the previous turn."
+   "  If no range, print details of only tasks that were runnable, for"
+   " the previous state of the game.\n"},
+  {DEBUG_VARIABLES,
+   "Print out the names, types, and values of all game variables in the"
+   " range.  If no range, print details of all variables (equivalent to"
+   " 'variables *').\n"},
+  {DEBUG_OLDVARIABLES,
+   "Print out the names, types, and values at the previous turn of all"
+   " game variables in the range.  If no range, print details of all"
+   " variables (equivalent to 'variables *').\n"},
+  {DEBUG_WATCHPLAYER,
+   "If no range is given, list any watchpoint on player movement.  If"
+   " range '0' is given, set a watchpoint on player movement.  Other"
+   " usages of 'watchplayer' behave as if no range is given.\n"},
+  {DEBUG_WATCHOBJECTS,
+   "Set watchpoints on all objects in the range.  If no range, list out"
+   " object watchpoints currently set.\n"},
+  {DEBUG_WATCHNPCS,
+   "Set watchpoints on all NPCs in the range.  If no range, list out NPC"
+   " watchpoints currently set.\n"},
+  {DEBUG_WATCHEVENTS,
+   "Set watchpoints on all events in the range.  If no range, list out"
+   " event watchpoints currently set.\n"},
+  {DEBUG_WATCHTASKS,
+   "Set watchpoints on all tasks in the range.  If no range, list out"
+   " task watchpoints currently set.\n"},
+  {DEBUG_WATCHVARIABLES,
+   "Set watchpoints on all game variables in the range.  If no range,"
+   " list variable watchpoints currently set.\n"},
+  {DEBUG_CLEARPLAYER,
+   "Clear any watchpoint set on player movements.\n"},
+  {DEBUG_CLEAROBJECTS,
+   "Clear watchpoints on all objects in the range.  If no range, list"
+   " out object watchpoints currently set.\n"},
+  {DEBUG_CLEARNPCS,
+   "Clear watchpoints on all NPCs in the range.  If no range, list out"
+   " NPC watchpoints currently set.\n"},
+  {DEBUG_CLEAREVENTS,
+   "Clear watchpoints on all events in the range.  If no range, list out"
+   " event watchpoints currently set.\n"},
+  {DEBUG_CLEARTASKS,
+   "Clear watchpoints on all tasks in the range.  If no range, list out"
+   " task watchpoints currently set.\n"},
+  {DEBUG_CLEARVARIABLES,
+   "Clear watchpoints on all game variables in the range.  If no range,"
+   " list variable watchpoints currently set.\n"},
+  {DEBUG_WATCHALL,
+   "Print out a list of all watchpoints set for all the classes of"
+   " item on which watchpoints can be used.\n"},
+  {DEBUG_CLEARALL,
+   "Clear all watchpoints set, on all classes of item on which"
+   " watchpoints can be used.\n"},
+  {DEBUG_NONE, nullptr}
+};
+
+
 /*
  * debug_help()
  *
@@ -239,310 +426,29 @@ debug_finalize (scr_gameref_t game)
 static void
 debug_help (scr_command_t topic)
 {
+  const scr_help_t *entry;
+
   /* Is help general, or specific? */
   if (topic == DEBUG_NONE)
     {
-      if_print_debug (
-        "The following debugging commands examine game state:\n\n");
-      if_print_debug (
-        " game               -- Print general game information,"
-                                " and class counts\n"
-        " player             -- Show the player location and position\n"
-        " rooms [Range]      -- Print information on game rooms\n"
-        " objects [Range]    -- Print information on objects in the game\n"
-        " npcs [Range]       -- Print information on game NPCs\n"
-        " events [Range]     -- Print information on the game's events\n"
-        " tasks [Range]      -- Print information on the game's tasks\n"
-        " variables [Range]  -- Show variables defined by the game\n\n");
-      if_print_debug (
-        "Most commands take range inputs.  This can be a single number, to"
-        " apply the command to just that item, a range such as '0 to 10' (or"
-        " '0 - 10', '0 .. 10', or simply '0 10') to apply to that range of"
-        " items, or '*' to apply the command to all items of the class.  If"
-        " omitted, the command is applied only to the items of the class"
-        " 'relevant' to the current game state; see the help for specific"
-        " commands for more on what is 'relevant'.\n\n");
-      if_print_debug (
-        "The 'player', 'objects', 'npcs', 'events', 'tasks', and 'variables'"
-        " commands may be prefixed with 'old', in which case the values"
-        " printed will be those for the previous game turn, rather than the"
-        " current values.\n\n");
-      if_print_debug (
-        "These debugging commands manage watchpoints:\n\n");
-      if_print_debug (
-        "The 'player', 'objects', 'npcs', 'events', 'tasks', and 'variables'"
-        " commands may be prefixed with 'watch', to set watchpoints."
-        "  Watchpoints automatically enter the debugger when the item changes"
-        " state during a game turn.  For example 'watchobject 10' monitors"
-        " object 10 for changes, and 'watchnpc *' monitors all NPCs.  A"
-        " 'watch' command with no range prints out all watchpoints set for"
-        " that class.\n\n");
-      if_print_debug (
-        "Prefix commands with 'clear' to clear watchpoints, for example"
-        " 'clearnpcs *'.  Use 'watchall' to obtain a complete list of every"
-        " watchpoint set, and 'clearall' to clear all watchpoints in one go."
-        "  A 'clear' command with no range behaves the same as a 'watch'"
-        " command with no range.\n\n");
-      if_print_debug (
-        "These debugging commands print details of game output and control the"
-        " debugger and interpreter:\n\n");
-      if_print_debug (
-        " buffer          -- Show the current buffered game text\n"
-        " resources       -- Show current and requested game resources\n"
-        " random [Seed]   -- Control the random number generator\n"
-        " step            -- Run one game turn, then re-enter the debugger\n"
-        " continue        -- Leave the debugger and resume the game\n"
-        " quit            -- Exit the interpreter main loop\n"
-        " help [Command]  -- Print help specific to Command\n\n");
-      if_print_debug (
-        "Debugging commands may be abbreviated to their shortest unambiguous"
-        " form.\n\n");
-      if_print_debug (
-        "Use the 'debug' or '#debug' command in a game, typed at the usual"
-        " game prompt, to return to the debugger.\n");
+      const scr_char *const *string;
+
+      for (string = DEBUG_HELP_GENERAL; *string; string++)
+        if_print_debug (*string);
       return;
     }
 
   /* Command-specific help. */
-  switch (topic)
+  for (entry = DEBUG_HELP_TOPICS; entry->help; entry++)
     {
-    case DEBUG_HELP:
-      if_print_debug (
-        "Give the name of the command you want help on, for example 'help"
-        " continue'.\n");
-      break;
-
-    case DEBUG_CONTINUE:
-      if_print_debug (
-        "Leave the debugger and resume the game.  Use the 'debug' or '#debug'"
-        " command in a game, typed at the usual game prompt, to return to the"
-        " debugger.\n");
-      break;
-
-    case DEBUG_STEP:
-      if_print_debug (
-        "Run one game turn, then re-enter the debugger.  Useful for games that"
-        " intercept empty input lines, which otherwise catch the 'debug'"
-        " command before Scarier can get to it.\n");
-      break;
-
-    case DEBUG_QUIT:
-      if_print_debug (
-        "Exit the interpreter main loop.  Equivalent to a confirmed 'quit'"
-        " from within the game itself, this ends the interpreter session.\n");
-      break;
-
-    case DEBUG_BUFFER:
-      if_print_debug (
-        "Print the current text that the game has buffered for output.  The"
-        " debugger catches games before they have printed their turn output"
-        " -- this is the text that will be filtered and printed on exiting the"
-        " debugger.\n");
-      break;
-
-    case DEBUG_RESOURCES:
-      if_print_debug (
-        "Print any resources currently active, and any requested by the game"
-        " on the current turn.  The requested resources will become the active"
-        " ones on exiting the debugger.\n");
-      break;
-
-    case DEBUG_RANDOM:
-      if_print_debug (
-        "If no seed is given, report the current random number generator"
-        " setting.  Otherwise, seed the random number generator with the value"
-        " given.  This is useful for persuading games with random sections to"
-        " behave predictably.  A new seed value of zero is invalid.\n");
-      break;
-
-    case DEBUG_GAME:
-      if_print_debug (
-        "Print general game information, including the number of rooms,"
-        " objects, events, tasks, and variables that the game defines\n");
-      break;
-
-    case DEBUG_PLAYER:
-      if_print_debug (
-        "Print out the current player room and position, and any parent object"
-        " of the player character.\n");
-      break;
-
-    case DEBUG_OLDPLAYER:
-      if_print_debug (
-        "Print out the player room and position from the previous turn, and"
-        " any parent object of the player character.\n");
-      break;
-
-    case DEBUG_ROOMS:
-      if_print_debug (
-        "Print out the name and contents of rooms in the range.  If no range,"
-        " print details of the room containing the player.\n");
-      break;
-
-    case DEBUG_OLDROOMS:
-      if_print_debug (
-        "Print out the name and contents of rooms in the range for the"
-        " previous turn.  If no range, print details of the room that"
-        " contained the player on the previous turn.\n");
-      break;
-
-    case DEBUG_OBJECTS:
-      if_print_debug (
-        "Print out details of all objects in the range.  If no range, print"
-        " details of objects in the room containing the player, and visible to"
-        " the player.\n");
-      break;
-
-    case DEBUG_OLDOBJECTS:
-      if_print_debug (
-        "Print out details of all objects in the range for the previous turn."
-        "  If no range, print details of objects in the room that contained"
-        " the player, and were visible to the player.\n");
-      break;
-
-    case DEBUG_NPCS:
-      if_print_debug (
-        "Print out details of all NPCs in the range.  If no range, print"
-        " details of only NPCs in the room containing the player.\n");
-      break;
-
-    case DEBUG_OLDNPCS:
-      if_print_debug (
-        "Print out details of all NPCs in the range for the previous turn."
-        "  If no range, print details of only NPCs in the room that contained"
-        " the player.\n");
-      break;
-
-    case DEBUG_EVENTS:
-      if_print_debug (
-        "Print out details of all events in the range.  If no range, print"
-        " details of only events currently running.\n");
-      break;
-
-    case DEBUG_OLDEVENTS:
-      if_print_debug (
-        "Print out details of all events in the range for the previous turn."
-        "  If no range, print details of only events running on the previous"
-        " turn.\n");
-      break;
-
-    case DEBUG_TASKS:
-      if_print_debug (
-        "Print out details of all tasks in the range.  If no range, print"
-        " details of only tasks that are runnable, for the current state of"
-        " the game.\n");
-      break;
-
-    case DEBUG_OLDTASKS:
-      if_print_debug (
-        "Print out details of all tasks in the range for the previous turn."
-        "  If no range, print details of only tasks that were runnable, for"
-        " the previous state of the game.\n");
-      break;
-
-    case DEBUG_VARIABLES:
-      if_print_debug (
-        "Print out the names, types, and values of all game variables in the"
-        " range.  If no range, print details of all variables (equivalent to"
-        " 'variables *').\n");
-      break;
-
-    case DEBUG_OLDVARIABLES:
-      if_print_debug (
-        "Print out the names, types, and values at the previous turn of all"
-        " game variables in the range.  If no range, print details of all"
-        " variables (equivalent to 'variables *').\n");
-      break;
-
-    case DEBUG_WATCHPLAYER:
-      if_print_debug (
-        "If no range is given, list any watchpoint on player movement.  If"
-        " range '0' is given, set a watchpoint on player movement.  Other"
-        " usages of 'watchplayer' behave as if no range is given.\n");
-      break;
-
-    case DEBUG_WATCHOBJECTS:
-      if_print_debug (
-        "Set watchpoints on all objects in the range.  If no range, list out"
-        " object watchpoints currently set.\n");
-      break;
-
-    case DEBUG_WATCHNPCS:
-      if_print_debug (
-        "Set watchpoints on all NPCs in the range.  If no range, list out NPC"
-        " watchpoints currently set.\n");
-      break;
-
-    case DEBUG_WATCHEVENTS:
-      if_print_debug (
-        "Set watchpoints on all events in the range.  If no range, list out"
-        " event watchpoints currently set.\n");
-      break;
-
-    case DEBUG_WATCHTASKS:
-      if_print_debug (
-        "Set watchpoints on all tasks in the range.  If no range, list out"
-        " task watchpoints currently set.\n");
-      break;
-
-    case DEBUG_WATCHVARIABLES:
-      if_print_debug (
-        "Set watchpoints on all game variables in the range.  If no range,"
-        " list variable watchpoints currently set.\n");
-      break;
-
-    case DEBUG_CLEARPLAYER:
-      if_print_debug (
-        "Clear any watchpoint set on player movements.\n");
-      break;
-
-    case DEBUG_CLEAROBJECTS:
-      if_print_debug (
-        "Clear watchpoints on all objects in the range.  If no range, list"
-        " out object watchpoints currently set.\n");
-      break;
-
-    case DEBUG_CLEARNPCS:
-      if_print_debug (
-        "Clear watchpoints on all NPCs in the range.  If no range, list out"
-        " NPC watchpoints currently set.\n");
-      break;
-
-    case DEBUG_CLEAREVENTS:
-      if_print_debug (
-        "Clear watchpoints on all events in the range.  If no range, list out"
-        " event watchpoints currently set.\n");
-      break;
-
-    case DEBUG_CLEARTASKS:
-      if_print_debug (
-        "Clear watchpoints on all tasks in the range.  If no range, list out"
-        " task watchpoints currently set.\n");
-      break;
-
-    case DEBUG_CLEARVARIABLES:
-      if_print_debug (
-        "Clear watchpoints on all game variables in the range.  If no range,"
-        " list variable watchpoints currently set.\n");
-      break;
-
-    case DEBUG_WATCHALL:
-      if_print_debug (
-        "Print out a list of all watchpoints set for all the classes of"
-        " item on which watchpoints can be used.\n");
-      break;
-
-    case DEBUG_CLEARALL:
-      if_print_debug (
-        "Clear all watchpoints set, on all classes of item on which"
-        " watchpoints can be used.\n");
-      break;
-
-    default:
-      if_print_debug (
-        "Sorry, there is no help available on that at the moment.\n");
-      break;
+      if (entry->command == topic)
+        {
+          if_print_debug (entry->help);
+          return;
+        }
     }
+  if_print_debug (
+    "Sorry, there is no help available on that at the moment.\n");
 }
 
 

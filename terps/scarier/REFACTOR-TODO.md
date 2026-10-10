@@ -111,7 +111,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~323~~ | ~~`oo_prop`~~ | DONE: `oo_step_t` + six context members, see "oo_prop split" |
 | ~~309~~ | ~~`lib_print_room_description`~~ | DONE: four parts + driver, see "lib_print_room_description split" |
 | ~~308~~ | ~~`gsc_a5_display`~~ | DONE: `gsc_a5_display_t` + one member per mark, see "gsc_a5_display split" |
-| 306 | `debug_help` | `scdebug.cpp` ~240 (data, not logic: make it a table) |
+| ~~306~~ | ~~`debug_help`~~ | DONE: two string tables + 25-line lookup, see "debug_help split" |
 | 301 | `view_location_impl` | `adrift5/text/a5text_view.cpp` ~141 |
 | 289 | `lib_take_multiple_common` | `library/sclibrar_take.cpp` ~3554 |
 | 274 | `npc_tick_npc_walk` | `scnpcs.cpp` ~944 |
@@ -353,7 +353,7 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `debug_help` down; `gsc_a5_display`, `run_task`, `pass_character`,
+   open from `view_location_impl` down; `gsc_a5_display`, `debug_help`, `run_task`, `pass_character`,
    `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
    `eval_function`, `scdump_tasks`, `oo_prop` and
    `lib_print_room_description` are taken (see their "split" sections).
@@ -1077,3 +1077,20 @@ them):
   function, all passed.  The headless suite does not compile the file.
   No line over 80 columns.
 - Next in the table: `debug_help` (scdebug.cpp) -- data, not logic.
+
+## 3: debug_help split (2026-10-11)
+
+- **`debug_help`** (306 l.) in `scdebug.cpp` is a 25-line lookup over two
+  tables placed just above it: `DEBUG_HELP_GENERAL[]`, the general help
+  as one string per old `if_print_debug()` call (so the front end still
+  gets the same eleven calls), and `DEBUG_HELP_TOPICS[]`, `{command,
+  help}` rows in the old `case` order, both NULL-terminated like
+  `DEBUG_COMMANDS[]`.  The `default:` apology is what the lookup prints
+  when no row matches.  The string literals are the old lines, dedented;
+  the file is 94 lines shorter.
+- Verification: with `SCR_DEBUGGER_ENABLED=1`, `./scarier` fed `debug`,
+  `help`, `help <command>` for all 36 commands and `help nonsense` gives
+  byte-identical output before and after; headless `quick` and full
+  `test` output identical; `make -j8 scarier glkscarier` warning-free.
+  No line over 80 columns.
+- Next in the table: `view_location_impl` (adrift5/text/a5text_view.cpp).
