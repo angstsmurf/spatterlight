@@ -9,30 +9,64 @@ in Adrian Welcker's FrankenDrift, and from diffing against FrankenDrift's
 output; it uses no code from either.
 
 In other words, it is a single Glk interpreter that plays both ADRIFT 4 and
-ADRIFT 5 games.
+ADRIFT 5 games.  It is the ADRIFT interpreter in Spatterlight, and the
+tree is laid out for that: the Xcode project builds it, and the Makefiles
+here are for command-line builds and the regression suites.
+
+Since the fork the ADRIFT 4 half has been measured command by command
+against the original 3.7, 3.8, 3.9 and 4.0 Runners (run under Wine, with
+transcripts kept in test/adrift4/runner_transcripts/), and the ADRIFT 5 half
+against FrankenDrift.  Where Scarier deliberately differs from a Runner --
+UNDO, Z, LOOK X and the other conveniences, grammatical text where a Runner
+printed an accident -- the deviation is noted in the source.  ChangeLog has
+the history; CHANGELOG.md at the top of the Spatterlight tree has the
+release notes.
 
 
 Which engine runs
 -----------------
 
-Dispatch happens at load time in glk_main() (glk/os_glk.cpp). gsc_startup_code()
-tries the ADRIFT 5 loader first; it returns cleanly on any non-v5 file, in
-which case the ADRIFT 4 (SCARE) path takes over.
+Dispatch happens at load time in glk_main() (glk/os_glk.cpp).
+gsc_startup_code() tries the ADRIFT 5 loader first; it returns cleanly on
+any non-v5 file, in which case the ADRIFT 4 (SCARE) path takes over.
 
-  * ADRIFT 4 (.taf, v3.8 / v3.9 / v4.0) is handled by the SCARE-derived
-    engine: the sc*.cpp sources (sxstubs/sxglob/sxutils.cpp are the headless
-    harness's os-layer stubs). v4.0 payloads are zlib-compressed;
-    v3.8/3.9 are XOR-obfuscated with the Visual Basic PRNG.
+  * ADRIFT 4 (.taf, v3.7 / v3.8 / v3.9 / v4.0) is handled by the
+    SCARE-derived engine: the sc*.cpp sources at the root, the command
+    library in library/ and the command runner in runner/.  v4.0 payloads
+    are zlib-compressed; v3.7 to v3.9 are XOR-obfuscated with the Visual
+    Basic PRNG.  Games whose own data makes them unwinnable are patched as
+    they load (sctafpar_patches.cpp; `glk patches off` disables).
 
-  * ADRIFT 5 (.taf / .blorb) is handled by the a5*.cpp engine: a Blorb or raw
-    container whose Exec chunk is XOR-deobfuscated with a fixed 1024-byte key
-    and zlib-inflated to UTF-8 XML, then parsed into the a5 object model.
+  * ADRIFT 5 (.taf / .blorb) is handled by the engine in adrift5/: a Blorb
+    or raw container whose Exec chunk is XOR-deobfuscated with a fixed
+    1024-byte key and zlib-inflated to UTF-8 XML, then parsed into the a5
+    object model.  adrift5/run/ is the turn loop and adrift5/text/ the text
+    engine.
 
-Both engines share the Glk seam in glk/ (title screens, side windows,
-real-time timer events, saves) and the erkyrath_random() RNG.
+Both engines share the Glk seam in glk/ (title screens, the map pane,
+status line, side windows, media, real-time timer events, saves, the `glk`
+meta-commands and the Spatterlight autosave) and the map model and
+rasteriser in mapdraw.cpp / scmap.cpp.  sxstubs/sxglob/sxutils.cpp are the
+os-layer stubs the headless harnesses link instead of glk/; os_ansi.cpp is
+the plain stdout front end.
 
 See ADRIFT4_vs_ADRIFT5.md for a detailed comparison of the two code paths
-(formats, saves, restriction evaluation, division rounding, and RNG streams).
+(formats, saves, restriction evaluation, division rounding, and RNG
+streams), and ADRIFT-5-XML.md for a specification of the ADRIFT 5
+adventure and save formats.
+
+
+Playing
+-------
+
+Both engines understand a family of `glk` meta-commands; `glk help` lists
+them and `glk summary` prints the current settings.  Among them: `glk map`
+and `glk zoom` for the map pane, `glk colour`, `glk verbose`, `glk
+capacity`, `glk patches`, `glk assist` (combat, move, repeat, room -- the
+work-arounds some games converted between ADRIFT versions need; games known
+to need one get it turned on with a notice at startup), `glk script`, `glk
+inputlog` and `glk readlog`, and `glk undo` / `glk restore` / `glk restart`
+/ `glk quit` for when the game's own commands are unavailable.
 
 
 Building
@@ -47,17 +81,55 @@ Spatterlight.xcodeproj, target `scarier`:
     make               # ANSI scarier
     make glkscarier    # Glk front end
 
-Makefile.headless builds the standalone test and dump harnesses used for
-regression work — an ANSI/stdout runner plus a family of a5* tools:
+The sources are C-like C++ (C++11 is enough) and link the system zlib.
+The tree also builds with Visual C++ under Windows Glk.
 
-    make -f Makefile.headless test          # full test suite
+
+Testing
+-------
+
+Makefile.headless builds the standalone test and dump harnesses used for
+regression work -- an ANSI/stdout runner plus a family of a5* tools -- and
+runs the suites.  The engine objects are shared between harnesses and the
+suite stages run in parallel:
+
+    make -f Makefile.headless test           # full suite
+    make -f Makefile.headless quick          # the same minus the two
+                                             # walkthrough corpora
+    make -f Makefile.headless v4walkthroughs # ADRIFT 4 walkthrough replays
+    make -f Makefile.headless a5walkthroughs # ADRIFT 5 walkthrough replays
+    make -f Makefile.headless a5maptest      # map rendering against goldens
+    make -f Makefile.headless sanitize       # ASan/UBSan build of the unit
+                                             # harnesses
     make -f Makefile.headless a5run          # headless ADRIFT 5 runner
     make -f Makefile.headless a5dump         # dump decoded v5 XML / model
-    make -f Makefile.headless a5walkthroughs # replay bundled walkthroughs
+    make -f Makefile.headless scmap          # headless ADRIFT 4 map dump
 
-The ADRIFT 5 engine is validated by diffing headless output against
-FrankenDrift; test/adrift4/ and test/adrift5/ hold the game manifests,
-walkthroughs, goldens and harnesses (see test/GAMES.md).
+The suites that replay real games need the game corpora, which are
+third-party and not committed: test/adrift4/games.manifest.tsv and
+test/adrift5/games.manifest.tsv pin each file by sha256, and
+`sh test/fetch_games.sh fetch` recreates as much of the corpus as is still
+online (see test/GAMES.md).  A suite whose corpus is absent is skipped, not
+failed.
+
+test/adrift4/ and test/adrift5/ hold the walkthroughs (notes/), the command
+scripts and golden transcripts (goldens/), the harnesses (harness/) and the
+Runner transcripts and probes the goldens were checked against.  Replays
+run with determinism on: SCR_RNG=xoshiro selects the generator that draws
+the same stream as a Runner under the vbrng hook, SCR_SEED sets the seed
+(1234 by default in that mode), and the SCR_TRACE_* variables turn on the
+engine's tracing.  SCR_DEBUGGER_ENABLED=1 enables SCARE's game debugger in
+the headless build.
+
+The Spatterlight autosave/autorestore regression lives outside Makefile.
+headless because it needs the app's build of the interpreter:
+
+    python3 test/adrift4/harness/run_autosave_tests.py --build
+
+The ADRIFT 5 engine is further validated by diffing headless output
+against FrankenDrift (`make -f Makefile.headless test-fd`, opt-in: it
+needs dotnet) and by test/adrift5/probes/, a conformance suite of
+synthetic games.
 
 
 License
