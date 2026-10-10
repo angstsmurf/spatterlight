@@ -88,32 +88,16 @@ TEST	= test
 adrift5/%.o: adrift5/%.cpp
 	$(CXX) $(CXXFLAGS) -I. -c -o $@ $<
 
-# Scarier objects and headers.
+# Scarier objects and headers: every sc*.cpp at the top level plus the library/
+# and runner/ topic files.  scdump.cpp is the SCARIER_DUMP_TOOLS diagnostic
+# tool, compiled only by Makefile.headless; scmap.cpp is linked through
+# MAPOBJECTS below.  A new .cpp in any of these three places is picked up
+# without editing this file (the Xcode project still needs its own entry).
 LIBDIR	= library
 RUNDIR	= runner
-OBJECTS	= sctafpar.o sctafpar_fixups.o sctafpar_patches.o sctaffil.o	\
-	  scprops.o scvars.o scexpr.o scprintf.o scinterf.o scparser.o	\
-	  $(LIBDIR)/sclibrar_disambig.o $(LIBDIR)/sclibrar_examine.o	\
-	  $(LIBDIR)/sclibrar_dispatch.o $(LIBDIR)/sclibrar_take.o	\
-	  $(LIBDIR)/sclibrar_takefrom.o $(LIBDIR)/sclibrar_drop.o	\
-	  $(LIBDIR)/sclibrar_open.o $(LIBDIR)/sclibrar_put.o		\
-	  $(LIBDIR)/sclibrar_battle.o $(LIBDIR)/sclibrar_refuse.o	\
-	  $(LIBDIR)/sclibrar_verbobj.o $(LIBDIR)/sclibrar_print.o	\
-	  $(LIBDIR)/sclibrar_room.o $(LIBDIR)/sclibrar_meta.o		\
-	  $(LIBDIR)/sclibrar_go.o $(LIBDIR)/sclibrar_topic.o		\
-	  $(LIBDIR)/sclibrar_read.o $(LIBDIR)/sclibrar_verbs.o		\
-	  $(LIBDIR)/sclibrar_sitstand.o $(LIBDIR)/sclibrar_misc.o	\
-	  $(LIBDIR)/sclibrar_talk.o					\
-	  $(RUNDIR)/scrunner.o $(RUNDIR)/scrun_split.o			\
-	  $(RUNDIR)/scrun_respell.o $(RUNDIR)/scrun_match.o		\
-	  $(RUNDIR)/scrun_tables.o $(RUNDIR)/scrun_dispatch.o		\
-	  $(RUNDIR)/scrun_input.o $(RUNDIR)/scrun_census.o		\
-	  scevents.o	\
-	  scnpcs.o scbattle.o scobjcts.o sctasks.o screstrs.o scgamest.o scserial.o\
-	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o
-HEADERS	= scarier.h scprotos.h scgamest.h sctafpar_internal.h		\
-	  $(RUNDIR)/scrunner.h $(LIBDIR)/sclibrar.h			\
-	  $(LIBDIR)/sclibrar_internal.h sessrec.h
+OBJECTS	= $(filter-out scdump.o scmap.o,$(patsubst %.cpp,%.o,$(wildcard sc*.cpp))) \
+	  $(patsubst %.cpp,%.o,$(wildcard $(LIBDIR)/*.cpp) $(wildcard $(RUNDIR)/*.cpp))
+HEADERS	= $(wildcard *.h $(LIBDIR)/*.h $(RUNDIR)/*.h)
 
 # The map pane: scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the ADRIFT 5
 # one, and both draw into the engine-neutral rasteriser in mapdraw.cpp.  Only
@@ -131,24 +115,9 @@ RANDOBJ	= a5_randomness.o
 # ADRIFT 5 engine objects and headers (driven by glk/os_glk_a5.cpp via
 # gsc_a5_main when the loaded file is an ADRIFT 5 game).
 A5DIR	= adrift5
-A5OBJECTS = $(A5DIR)/a5blorb.o $(A5DIR)/a5deobf.o $(A5DIR)/a5xml.o	\
-	  $(A5DIR)/a5model.o $(A5DIR)/a5state.o $(A5DIR)/a5restr.o	\
-	  $(A5DIR)/a5expr.o $(A5DIR)/a5sexpr.o $(A5DIR)/text/a5text.o	\
-	  $(A5DIR)/text/a5text_func.o $(A5DIR)/text/a5text_name.o			\
-	  $(A5DIR)/text/a5text_render.o $(A5DIR)/text/a5text_view.o		\
-	  $(A5DIR)/a5parse.o $(A5DIR)/a5rand.o $(A5DIR)/a5sb.o		\
-	  $(A5DIR)/run/a5run_ref.o $(A5DIR)/run/a5run_events.o			\
-	  $(A5DIR)/run/a5run_conv.o $(A5DIR)/run/a5run_resp.o			\
-	  $(A5DIR)/run/a5run_sort.o $(A5DIR)/run/a5run_act.o			\
-	  $(A5DIR)/run/a5run_action.o $(A5DIR)/run/a5run_words.o \
-	$(A5DIR)/run/a5run_save.o $(A5DIR)/run/a5run.o $(A5DIR)/a5map.o
-A5HEADERS = $(A5DIR)/a5blorb.h $(A5DIR)/a5deobf.h $(A5DIR)/a5xml.h	\
-	  $(A5DIR)/a5model.h $(A5DIR)/a5state.h $(A5DIR)/a5restr.h	\
-	  $(A5DIR)/a5expr.h $(A5DIR)/a5sexpr.h $(A5DIR)/a5text.h	\
-	  $(A5DIR)/text/a5text_internal.h					\
-	  $(A5DIR)/a5parse.h $(A5DIR)/a5rand.h $(A5DIR)/a5sb.h		\
-	  $(A5DIR)/a5run.h $(A5DIR)/run/a5run_internal.h $(A5DIR)/a5map.h	\
-	  sessrec.h
+A5SRCDIRS = $(A5DIR) $(A5DIR)/text $(A5DIR)/run
+A5OBJECTS = $(patsubst %.cpp,%.o,$(wildcard $(addsuffix /*.cpp,$(A5SRCDIRS))))
+A5HEADERS = $(wildcard $(addsuffix /*.h,$(A5SRCDIRS))) sessrec.h
 
 # Default make target is the basic ANSI interpreter.
 all:	scarier
@@ -163,12 +132,7 @@ scarier: $(OBJECTS) $(MAPOBJECTS) os_ansi.o
 # os_glk.cpp (module state, startup, event loop, linkage) plus the parts split
 # out of it; os_glk_internal.h is what they share.
 OSGLKDIR = glk
-GLKOBJECTS = $(OSGLKDIR)/os_glk.o $(OSGLKDIR)/os_glk_locale.o	\
-	$(OSGLKDIR)/os_glk_status.o $(OSGLKDIR)/os_glk_output.o	\
-	$(OSGLKDIR)/os_glk_symbols.o $(OSGLKDIR)/os_glk_resources.o	\
-	$(OSGLKDIR)/os_glk_commands.o $(OSGLKDIR)/os_glk_input.o	\
-	$(OSGLKDIR)/os_glk_a5.o $(OSGLKDIR)/os_glk_a5_display.o	\
-	$(OSGLKDIR)/os_glk_autosave.o $(OSGLKDIR)/os_glk_map.o
+GLKOBJECTS = $(patsubst %.cpp,%.o,$(wildcard $(OSGLKDIR)/*.cpp))
 
 glkscarier: $(OBJECTS) $(A5OBJECTS) $(MAPOBJECTS) $(RANDOBJ) $(GLKOBJECTS)
 	@$(TEST) -n "$(GLKLIB)" \
