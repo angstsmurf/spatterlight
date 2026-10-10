@@ -446,10 +446,14 @@ typedef struct
 } scr_parse_version_t;
 
 static const scr_parse_version_t PARSE_VERSIONS[] = {
-  {TAF_VERSION_400, V400_PARSE_SCHEMA, V400_SEPARATOR, parse_fixup_v400, "4.00"},
-  {TAF_VERSION_390, V390_PARSE_SCHEMA, PRE_400_SEPARATOR, parse_fixup_v390, "3.90"},
-  {TAF_VERSION_380, V380_PARSE_SCHEMA, PRE_400_SEPARATOR, parse_fixup_v380, "3.80"},
-  {TAF_VERSION_370, V370_PARSE_SCHEMA, PRE_400_SEPARATOR, parse_fixup_v370, "3.70"}
+  {TAF_VERSION_400, V400_PARSE_SCHEMA, V400_SEPARATOR,
+   parse_fixup_v400, "4.00"},
+  {TAF_VERSION_390, V390_PARSE_SCHEMA, PRE_400_SEPARATOR,
+   parse_fixup_v390, "3.90"},
+  {TAF_VERSION_380, V380_PARSE_SCHEMA, PRE_400_SEPARATOR,
+   parse_fixup_v380, "3.80"},
+  {TAF_VERSION_370, V370_PARSE_SCHEMA, PRE_400_SEPARATOR,
+   parse_fixup_v370, "3.70"}
 };
 
 
@@ -646,15 +650,12 @@ parse_get_property (scr_vartype_t *vt_rvalue, scr_char type)
 {
   scr_vartype_t vt_key[PARSE_MAX_DEPTH];
   scr_char format[PARSE_MAX_DEPTH + 4];
-  scr_bool status;
 
   parse_stack_format (format, vt_key, type, "<-");
 
   /* Retrieve the property using the stacked keys. */
   assert (parse_bundle);
-  status = prop_get (parse_bundle, format, vt_rvalue, vt_key);
-
-  return status;
+  return prop_get (parse_bundle, format, vt_rvalue, vt_key);
 }
 
 
@@ -908,6 +909,22 @@ static scr_bool
 parse_get_global_boolean (const scr_char *name)
 {
   return prop_get_global_boolean (parse_bundle, name);
+}
+
+
+/*
+ * parse_get_top_child_count()
+ *
+ * Count the entries of one of the bundle's top-level lists -- Objects,
+ * Tasks, Rooms and the like -- ignoring the current parse key stack.
+ */
+static scr_int
+parse_get_top_child_count (scr_prop_setref_t bundle, const scr_char *name)
+{
+  scr_vartype_t vt_key;
+
+  vt_key.string = name;
+  return prop_get_child_count (bundle, "I<-s", &vt_key);
 }
 
 
@@ -1282,9 +1299,8 @@ parse_read_multiline (void)
   size_t used;
 
   /*
-   * Own the growing buffer with RAII.  parse_get_taf_string() below can throw
-   * (scr_fatal_error) when the TAF runs short, and the old raw scr_malloc'd
-   * buffer was leaked on that unwind.
+   * Own the growing buffer with RAII: parse_get_taf_string() below throws
+   * parse_taf_error_t when the TAF runs short, and the unwind frees it.
    */
   scr_owned_string multiline;
 
@@ -1546,9 +1562,10 @@ parse_get_v400_resource_offset (const scr_char *name,
   if (parse_resources_length == parse_resources_size)
     {
       parse_resources_size += RESOURCE_GROW_INCREMENT;
-      parse_resources = (decltype(parse_resources)) scr_realloc (parse_resources,
-                                    parse_checked_multiply (parse_resources_size,
-                                    sizeof (parse_resources[0])));
+      parse_resources = (scr_parse_resource_t *)
+        scr_realloc (parse_resources,
+                     parse_checked_multiply (parse_resources_size,
+                                             sizeof (parse_resources[0])));
     }
 
   /*
@@ -1705,7 +1722,6 @@ parse_special (const scr_char *special)
   else if (strcmp (special, "{ROOM_LIST0}") == 0
            || strcmp (special, "{ROOM_LIST1}") == 0)
     {
-      scr_vartype_t vt_key;
       scr_int room_count, num_rooms, type, index_;
 
       /* Retrieve the room list type. */
@@ -1726,8 +1742,7 @@ parse_special (const scr_char *special)
 
         case ROOMLIST_SOME_ROOMS:
           /* Get count of rooms defined, add one if necessary. */
-          vt_key.string = "Rooms";
-          room_count = prop_get_child_count (parse_bundle, "I<-s", &vt_key);
+          room_count = parse_get_top_child_count (parse_bundle, "Rooms");
 
           if (strcmp (special, "{ROOM_LIST1}") == 0)
             num_rooms = room_count + 1;
@@ -1877,7 +1892,7 @@ parse_fixup_v390_v380_room_alt (const scr_char *m1, scr_int type,
   soundfile1 = "";
   graphicfile1 = "";
 
-  /* Get sound and graphics flags, always FALSE for version 3.8. */
+  /* Get sound and graphics flags, always FALSE before version 3.9. */
   has_sound = parse_get_global_boolean ("Sound");
   has_graphics = parse_get_global_boolean ("Graphics");
 
@@ -2042,7 +2057,7 @@ parse_write_restrmask (void)
       size_t restrmask_size = parse_checked_multiply (restriction_count, 2);
 
       /* "#" then "A#" per additional restriction: 2 * count bytes with the
-         terminator, which is exactly what was allocated above. */
+         terminator, which is exactly restrmask_size. */
       size_t used = 1;
 
       restrmask = (decltype(restrmask)) scr_malloc (restrmask_size);
@@ -2089,11 +2104,11 @@ static void
 parse_fixup_v390_battle_attribute (void)
 {
   static const scr_int MAPPING[] = {0, 1, 2, 3, 4, 7, 8, 0xB};
+  enum { MAPPING_SIZE = sizeof (MAPPING) / sizeof (MAPPING[0]) };
 
   const scr_int attribute = parse_get_keyed_integer ("Var1");
 
-  if (attribute >= 0 && attribute < (scr_int) (sizeof (MAPPING)
-                                               / sizeof (MAPPING[0])))
+  if (attribute >= 0 && attribute < MAPPING_SIZE)
     parse_put_keyed_integer ("Var1", MAPPING[attribute]);
 }
 
@@ -2192,15 +2207,11 @@ parse_fixup_v390 (const scr_char *fixup)
 
   /* Convert version 3.9 fixed alts into a version 4.0 array. */
   else if (strcmp (fixup, "|V390_ROOM:_Alts_|") == 0)
-    {
-      parse_fixup_v390_v380_room_alts ();
-    }
+    parse_fixup_v390_v380_room_alts ();
 
   /* Error if no fixup special handler available. */
   else
-    {
-      scr_fatal ("parse_fixup_v390: no handler for \"%s\"\n", fixup);
-    }
+    scr_fatal ("parse_fixup_v390: no handler for \"%s\"\n", fixup);
 
   if (parse_trace)
     scr_trace ("Parse: leaving version 3.9 fixup %s\n", fixup);
@@ -2253,14 +2264,12 @@ enum { V380_OBJ_NORMAL_SIZEWEIGHT = 22 };
 /*
  * parse_fixup_v380_entry()
  * parse_fixup_v380_action()
+ * parse_fixup_v380_restr()
  *
- * Helper for parse_fixup_v380(), adds a task action or restriction.  Both
- * are written the same way, into the list named by `collection`; the only
- * difference is that a restriction carries a failure message, and every
- * restriction has one.
- *
- * parse_fixup_v380_restr(), below, is the other face of the helper; it sits
- * with the restriction handlers it serves.
+ * Helpers for the version 3.8 task fixups, adding a task action or
+ * restriction.  Both are written the same way, into the list named by
+ * `collection`; the only difference is that a restriction carries a failure
+ * message, and every restriction has one.
  */
 static void
 parse_fixup_v380_entry (const scr_char *collection,
@@ -2301,11 +2310,21 @@ parse_fixup_v380_action (scr_int type, scr_int var_count,
   parse_fixup_v380_entry ("Actions", type, var_count, var1, var2, var3, NULL);
 }
 
+static void
+parse_fixup_v380_restr (scr_int type, scr_int var_count,
+                        scr_int var1, scr_int var2, scr_int var3,
+                        const scr_char *failmessage)
+{
+  parse_fixup_v380_entry ("Restrictions", type, var_count,
+                          var1, var2, var3, failmessage);
+}
+
 
 /*
  * parse_fixup_v380_movement()
  *
- * Helper for parse_fixup_v380(), converts a task movement into an action.
+ * Helper for parse_fixup_task_actions(), converts a version 3.8 task movement
+ * into an action.
  */
 static void
 parse_fixup_v380_movement (scr_int mvar1, scr_int mvar2, scr_int mvar3,
@@ -2411,21 +2430,6 @@ parse_fixup_v380_movement (scr_int mvar1, scr_int mvar2, scr_int mvar3,
 
 
 /*
- * parse_fixup_v380_restr()
- *
- * Helper for parse_fixup_v380(), adds a task restriction.
- */
-static void
-parse_fixup_v380_restr (scr_int type, scr_int var_count,
-                        scr_int var1, scr_int var2, scr_int var3,
-                        const scr_char *failmessage)
-{
-  parse_fixup_v380_entry ("Restrictions", type, var_count,
-                          var1, var2, var3, failmessage);
-}
-
-
-/*
  * parse_v380_object_to_dynamic()
  *
  * Helper for the version 3.8 restriction fixups; count the dynamic
@@ -2498,59 +2502,57 @@ parse_fixup_v380_task_restr (scr_bool tasknotdone, scr_int task,
 static void
 parse_fixup_v380_wear_restr (scr_int wearobj, const scr_char *failmessage)
 {
+  scr_int object_count, object, dynamic, obj_index;
+
   /* Ignore if no object selected. */
-  if (wearobj > 0)
+  if (wearobj <= 0)
+    return;
+
+  /*
+   * Create version 4.0 restrictions for something or nothing worn by
+   * player.
+   */
+  if (wearobj == 1)
     {
-      scr_vartype_t vt_key;
-      scr_int object_count, object, dynamic, obj_index;
-
-      /*
-       * Create version 4.0 restrictions for something or nothing worn by
-       * player.
-       */
-      if (wearobj == 1)
-        {
-          parse_fixup_v380_restr (0, 3, 1, 2, 0, failmessage);
-          return;
-        }
-      else if (wearobj == 2)
-        {
-          parse_fixup_v380_restr (0, 3, 0, 2, 0, failmessage);
-          return;
-        }
-
-      /* Get the count of objects defined. */
-      vt_key.string = "Objects";
-      object_count = prop_get_child_count (parse_bundle, "I<-s", &vt_key);
-
-      /* Convert wearobj from worn index to object index. */
-      wearobj -= 2;
-      for (object = 0; object < object_count && wearobj > 0; object++)
-        {
-          scr_bool bstatic, wearable;
-
-          bstatic = prop_get_indexed_boolean (parse_bundle, "Objects",
-                                              object, "Static");
-          if (!bstatic)
-            {
-              wearable = prop_get_indexed_boolean (parse_bundle, "Objects",
-                                                   object, "Wearable");
-              if (wearable)
-                wearobj--;
-            }
-        }
-
-      /* No such wearable object: no restriction, as for none selected. */
-      if (wearobj > 0)
-        return;
-      obj_index = object - 1;
-
-      /* Now convert wearobj from object index to dynamic index. */
-      dynamic = parse_v380_object_to_dynamic (obj_index);
-
-      /* Create version 4.0 restriction for object worn by player. */
-      parse_fixup_v380_restr (0, 3, dynamic + 3, 2, 0, failmessage);
+      parse_fixup_v380_restr (0, 3, 1, 2, 0, failmessage);
+      return;
     }
+  if (wearobj == 2)
+    {
+      parse_fixup_v380_restr (0, 3, 0, 2, 0, failmessage);
+      return;
+    }
+
+  /* Get the count of objects defined. */
+  object_count = parse_get_top_child_count (parse_bundle, "Objects");
+
+  /* Convert wearobj from worn index to object index. */
+  wearobj -= 2;
+  for (object = 0; object < object_count && wearobj > 0; object++)
+    {
+      scr_bool bstatic, wearable;
+
+      bstatic = prop_get_indexed_boolean (parse_bundle, "Objects",
+                                          object, "Static");
+      if (!bstatic)
+        {
+          wearable = prop_get_indexed_boolean (parse_bundle, "Objects",
+                                               object, "Wearable");
+          if (wearable)
+            wearobj--;
+        }
+    }
+
+  /* No such wearable object: no restriction, as for none selected. */
+  if (wearobj > 0)
+    return;
+  obj_index = object - 1;
+
+  /* Now convert wearobj from object index to dynamic index. */
+  dynamic = parse_v380_object_to_dynamic (obj_index);
+
+  /* Create version 4.0 restriction for object worn by player. */
+  parse_fixup_v380_restr (0, 3, dynamic + 3, 2, 0, failmessage);
 }
 
 static void
@@ -2669,15 +2671,12 @@ parse_fixup_v380_objstate_restr (scr_int obj, scr_int ivar1, scr_int ivar2,
       var3 = ivar2 + 1;
       break;                    /* Worn by */
     default:
-      scr_fatal ("parse_fixup_v380_objstate_restr: invalid ivar1, %ld\n", ivar1);
+      scr_fatal ("parse_fixup_v380_objstate_restr: invalid ivar1, %ld\n",
+                 ivar1);
     }
   parse_fixup_v380_restr (0, 3, dynamic + 3, var2, var3, failmessage);
 }
 
-
-/* Shared by the version 3.8 and 3.7 "_Actions_" fixups; defined below with
-   the version 3.7 movement converter it calls. */
-static void parse_fixup_task_actions (scr_bool is_v370);
 
 /*
  * parse_fixup_v380_task_restrictions()
@@ -2763,10 +2762,8 @@ parse_fixup_v380_initial_positions (scr_bool is_v370)
   scr_int object_count, object, room_count;
 
   /* Get a count of objects, and of rooms for the "worn" entry. */
-  vt_key[0].string = "Objects";
-  object_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
-  vt_key[0].string = "Rooms";
-  room_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+  object_count = parse_get_top_child_count (parse_bundle, "Objects");
+  room_count = parse_get_top_child_count (parse_bundle, "Rooms");
   vt_key[0].string = "Objects";
 
   /*
@@ -2897,12 +2894,11 @@ parse_fixup_v380_initial_positions (scr_bool is_v370)
 static void
 parse_fixup_v380_max_score (void)
 {
-  scr_vartype_t vt_key[3], vt_value;
+  scr_vartype_t vt_key[2], vt_value;
   scr_int task_count, maxscore, task;
 
   /* Get a count of tasks. */
-  vt_key[0].string = "Tasks";
-  task_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+  task_count = parse_get_top_child_count (parse_bundle, "Tasks");
 
   /* Sum positive scoring tasks. */
   maxscore = 0;
@@ -2932,12 +2928,10 @@ parse_fixup_v380_max_score (void)
 static void
 parse_fixup_v380_meet_object (void)
 {
-  scr_vartype_t vt_gkey;
   scr_int count, object_count, object;
 
   /* Get a count of objects. */
-  vt_gkey.string = "Objects";
-  object_count = prop_get_child_count (parse_bundle, "I<-s", &vt_gkey);
+  object_count = parse_get_top_child_count (parse_bundle, "Objects");
 
   /* Convert dynamic index to object, and rewrite. */
   count = parse_get_keyed_integer ("MeetObject") - 1;
@@ -2961,6 +2955,120 @@ parse_fixup_v380_meet_object (void)
    * meeting the whisky bottle in the laboratory is what wins it.
    */
   parse_put_keyed_integer ("MeetObject", object + 1);
+}
+
+
+/*
+ * parse_fixup_v370_movement()
+ *
+ * Helper for parse_fixup_task_actions(), converts a version 3.7 task movement
+ * into a version 3.8 one, then hands it to the version 3.8 conversion.
+ *
+ * Version 3.8 splits a movement destination into "where" (Var2) and "how"
+ * (Var3, one of to room / to inside / to onto / to held by / to worn by).
+ * Version 3.7 has neither: it has one flat destination list per movement,
+ * whose first three entries are hidden, held by the player, and the player's
+ * room, and whose remaining entries are the rooms.  That is exactly the
+ * version 3.8 list with "held by the player" spliced in at index 1, so
+ * everything from index 2 up converts by subtracting one, and the two games
+ * agree -- castle.taf teleports the player to Var2 22 with twenty rooms
+ * (22 - 3 = 19, its treasure room), and arlo.taf tips its garbage into Var2 13
+ * with thirty-seven (13 - 3 = 10, its fifteen foot cliff).
+ *
+ * The list was then measured directly, by handing the genuine 3.70 Runner a
+ * castle.taf whose task moves two objects from a distant room to each Var2 in
+ * turn: 0 removed them from play, 1 put them into the player's inventory, 2
+ * dropped them where the player stood, and 3+n placed them in room n.  Nothing
+ * in the list moves an object onto an NPC or into a container, which is why
+ * only version 3.8's "to room" and "held by" conversions are needed here.
+ */
+static void
+parse_fixup_v370_movement (scr_int mvar1, scr_int mvar2)
+{
+  /* If nothing was selected to move, ignore the call. */
+  if (mvar1 == 0)
+    return;
+
+  /*
+   * Moving the player is the one case where the low destinations mean nothing
+   * (the player cannot be held or hidden); the version 3.8 conversion ignores
+   * them for us, since they all convert to below its own first room.
+   */
+  if (mvar1 == 1)
+    {
+      parse_fixup_v380_movement (mvar1, mvar2 - 1, 0, TRUE);
+      return;
+    }
+
+  switch (mvar2)
+    {
+    case 0:                    /* Hidden */
+      parse_fixup_v380_movement (mvar1, 0, 0, TRUE);
+      break;
+
+    case 1:                    /* Held by the player */
+      /* Version 3.8's "held by" passes Var2 straight through as the holder,
+         and there zero is the player (one is the referenced character).  */
+      parse_fixup_v380_movement (mvar1, 0, 3, TRUE);
+      break;
+
+    default:                   /* Player's room, or a room */
+      parse_fixup_v380_movement (mvar1, mvar2 - 1, 0, TRUE);
+      break;
+    }
+}
+
+
+/*
+ * parse_fixup_task_actions()
+ *
+ * Shared handler for the version 3.8 and version 3.7 "_Actions_" task
+ * fixups: create version 4.0 task actions for the task's score, its game
+ * ending flags, and each of its movements.  The two versions differ only in
+ * that a version 3.7 task has no WinGame flag (its winning task is named
+ * once, in the header) and its movements are pairs rather than triples.
+ */
+static void
+parse_fixup_task_actions (scr_bool is_v370)
+{
+  scr_vartype_t vt_key;
+  scr_int score, movement;
+
+  /* Create any appropriate score change action. */
+  score = parse_get_keyed_integer ("Score");
+  if (score != 0)
+    parse_fixup_v380_action (4, 1, score, 0, 0);
+
+  /* Create any appropriate game ending actions. */
+  if (parse_get_keyed_boolean ("KillsPlayer"))
+    parse_fixup_v380_action (6, 1, 2, 0, 0);
+  if (!is_v370 && parse_get_keyed_boolean ("WinGame"))
+    parse_fixup_v380_action (6, 1, 0, 0, 0);
+
+  /* Handle each defined movement for the task. */
+  for (movement = 0; movement < V380_TASK_MOVEMENTS; movement++)
+    {
+      scr_int mvar1, mvar2, mvar3;
+
+      vt_key.integer = movement;
+      parse_push_key (vt_key, PROP_KEY_INTEGER);
+      vt_key.string = "Movements";
+      parse_push_key (vt_key, PROP_KEY_STRING);
+
+      /* Retrieve the movement parameters. */
+      mvar1 = parse_get_keyed_integer ("Var1");
+      mvar2 = parse_get_keyed_integer ("Var2");
+      mvar3 = is_v370 ? 0 : parse_get_keyed_integer ("Var3");
+
+      parse_pop_key ();
+      parse_pop_key ();
+
+      /* Create the corresponding task action. */
+      if (is_v370)
+        parse_fixup_v370_movement (mvar1, mvar2);
+      else
+        parse_fixup_v380_movement (mvar1, mvar2, mvar3, FALSE);
+    }
 }
 
 
@@ -3078,121 +3186,9 @@ static const scr_char *const V370_COMMANDS[] = {
   "look", "inventory", "examine", "pick up", "put down", "wear",
   "remove", "goto", "help"
 };
-enum { V370_COMMANDS_SIZE = sizeof (V370_COMMANDS) / sizeof (V370_COMMANDS[0]) };
-
-
-/*
- * parse_fixup_v370_movement()
- *
- * Helper for parse_fixup_v370(), converts a version 3.7 task movement into a
- * version 3.8 one, then hands it to the version 3.8 conversion.
- *
- * Version 3.8 splits a movement destination into "where" (Var2) and "how"
- * (Var3, one of to room / to inside / to onto / to held by / to worn by).
- * Version 3.7 has neither: it has one flat destination list per movement,
- * whose first three entries are hidden, held by the player, and the player's
- * room, and whose remaining entries are the rooms.  That is exactly the
- * version 3.8 list with "held by the player" spliced in at index 1, so
- * everything from index 2 up converts by subtracting one, and the two games
- * agree -- castle.taf teleports the player to Var2 22 with twenty rooms
- * (22 - 3 = 19, its treasure room), and arlo.taf tips its garbage into Var2 13
- * with thirty-seven (13 - 3 = 10, its fifteen foot cliff).
- *
- * The list was then measured directly, by handing the genuine 3.70 Runner a
- * castle.taf whose task moves two objects from a distant room to each Var2 in
- * turn: 0 removed them from play, 1 put them into the player's inventory, 2
- * dropped them where the player stood, and 3+n placed them in room n.  Nothing
- * in the list moves an object onto an NPC or into a container, which is why
- * only version 3.8's "to room" and "held by" conversions are needed here.
- */
-static void
-parse_fixup_v370_movement (scr_int mvar1, scr_int mvar2)
-{
-  /* If nothing was selected to move, ignore the call. */
-  if (mvar1 == 0)
-    return;
-
-  /*
-   * Moving the player is the one case where the low destinations mean nothing
-   * (the player cannot be held or hidden); the version 3.8 conversion ignores
-   * them for us, since they all convert to below its own first room.
-   */
-  if (mvar1 == 1)
-    {
-      parse_fixup_v380_movement (mvar1, mvar2 - 1, 0, TRUE);
-      return;
-    }
-
-  switch (mvar2)
-    {
-    case 0:                    /* Hidden */
-      parse_fixup_v380_movement (mvar1, 0, 0, TRUE);
-      break;
-
-    case 1:                    /* Held by the player */
-      /* Version 3.8's "held by" passes Var2 straight through as the holder,
-         and there zero is the player (one is the referenced character).  */
-      parse_fixup_v380_movement (mvar1, 0, 3, TRUE);
-      break;
-
-    default:                   /* Player's room, or a room */
-      parse_fixup_v380_movement (mvar1, mvar2 - 1, 0, TRUE);
-      break;
-    }
-}
-
-
-/*
- * parse_fixup_task_actions()
- *
- * Shared handler for the version 3.8 and version 3.7 "_Actions_" task
- * fixups: create version 4.0 task actions for the task's score, its game
- * ending flags, and each of its movements.  The two versions differ only in
- * that a version 3.7 task has no WinGame flag (its winning task is named
- * once, in the header) and its movements are pairs rather than triples.
- */
-static void
-parse_fixup_task_actions (scr_bool is_v370)
-{
-  scr_vartype_t vt_key;
-  scr_int score, movement;
-
-  /* Create any appropriate score change action. */
-  score = parse_get_keyed_integer ("Score");
-  if (score != 0)
-    parse_fixup_v380_action (4, 1, score, 0, 0);
-
-  /* Create any appropriate game ending actions. */
-  if (parse_get_keyed_boolean ("KillsPlayer"))
-    parse_fixup_v380_action (6, 1, 2, 0, 0);
-  if (!is_v370 && parse_get_keyed_boolean ("WinGame"))
-    parse_fixup_v380_action (6, 1, 0, 0, 0);
-
-  /* Handle each defined movement for the task. */
-  for (movement = 0; movement < V380_TASK_MOVEMENTS; movement++)
-    {
-      scr_int mvar1, mvar2, mvar3;
-
-      vt_key.integer = movement;
-      parse_push_key (vt_key, PROP_KEY_INTEGER);
-      vt_key.string = "Movements";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-
-      /* Retrieve the movement parameters. */
-      mvar1 = parse_get_keyed_integer ("Var1");
-      mvar2 = parse_get_keyed_integer ("Var2");
-      mvar3 = is_v370 ? 0 : parse_get_keyed_integer ("Var3");
-
-      parse_pop_key ();
-      parse_pop_key ();
-
-      /* Create the corresponding task action. */
-      if (is_v370)
-        parse_fixup_v370_movement (mvar1, mvar2);
-      else
-        parse_fixup_v380_movement (mvar1, mvar2, mvar3, FALSE);
-    }
-}
+enum
+{ V370_COMMANDS_SIZE = sizeof (V370_COMMANDS) / sizeof (V370_COMMANDS[0])
+};
 
 
 /*
@@ -3226,8 +3222,7 @@ parse_fixup_v370 (const scr_char *fixup)
       scr_int command_count, command, synonyms;
 
       /* Get a count of stored commands. */
-      vt_key[0].string = "Commands";
-      command_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+      command_count = parse_get_top_child_count (parse_bundle, "Commands");
 
       synonyms = 0;
       for (command = 0;
@@ -3284,8 +3279,7 @@ parse_fixup_v370 (const scr_char *fixup)
       vt_key[1].string = "WinTask";
       wintask = prop_get_integer (parse_bundle, "I<-ss", vt_key);
 
-      vt_key[0].string = "Tasks";
-      task_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+      task_count = parse_get_top_child_count (parse_bundle, "Tasks");
 
       if (wintask >= 0 && wintask < task_count)
         {
@@ -3338,8 +3332,8 @@ parse_fixup_v400 (const scr_char *fixup)
    * wrote over the restriction.  The real run400.exe loads and plays the game
    * regardless, so it consumes three Vars here and ignores the unknown type;
    * without this, the parse slides three lines and dies shortly after on
-   * Tasks/4489/Actions/1/Type.  Field count inferred from that one sample, which
-   * is the only occurrence anywhere in the walkthrough corpus.
+   * Tasks/4489/Actions/1/Type.  Field count inferred from that one sample,
+   * which is the only occurrence anywhere in the walkthrough corpus.
    */
   if (strcmp (fixup, "|V400_TASK_RESTR:Type>4?#Var1,#Var2,#Var3|") == 0)
     {
@@ -3349,9 +3343,7 @@ parse_fixup_v400 (const scr_char *fixup)
 
   /* Error if no fixup special handler available. */
   else
-    {
-      scr_fatal ("parse_fixup_v400: no handler for \"%s\"\n", fixup);
-    }
+    scr_fatal ("parse_fixup_v400: no handler for \"%s\"\n", fixup);
 
   if (parse_trace)
     scr_trace ("Parse: leaving version 4.0 fixup %s\n", fixup);
@@ -3593,10 +3585,9 @@ parse_add_walkalerts (scr_prop_setref_t bundle)
   scr_int npcs_count, npc, task_count;
 
   /* Get the count of tasks, and of NPCs. */
-  vt_key[0].string = "Tasks";
-  task_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  task_count = parse_get_top_child_count (bundle, "Tasks");
+  npcs_count = parse_get_top_child_count (bundle, "NPCs");
   vt_key[0].string = "NPCs";
-  npcs_count = prop_get_child_count (bundle, "I<-s", vt_key);
 
   /* Set up each NPC. */
   for (npc = 0; npc < npcs_count; npc++)
@@ -3774,8 +3765,8 @@ parse_add_alrs_index (scr_prop_setref_t bundle)
  * parse_add_resources_offset()
  *
  * Add the resources offset to the properties as an extra game property
- * for version 4.0 games.  For version 3.9 and version 3.8 games, write
- * zero; only version 4.0 games can embed their resources into the TAF file.
+ * for version 4.0 games.  For earlier versions, write zero; only version 4.0
+ * games can embed their resources into the TAF file.
  */
 static void
 parse_add_resources_offset (scr_prop_setref_t bundle, scr_tafref_t taf)
@@ -4928,13 +4919,13 @@ static const scr_patch_edit_t PATCH_HOUSE_OF_HORROR[] = {
  * reached -- what stops it there is its own first restriction, a character test
  * addressing Var1 = 0, "the Player", against Var3 = 0, "the Player": the Player
  * must be in the same room as the Player.  Version 3.90's passrest leaves that
- * exit with the result still zero and without copying the FailMessage ("What?"),
- * so the restriction fails silently, the fall-through lands back on 73's
- * refusal, and the four points are gone (runner_transcripts/studio.txt), so
- * the Runner's ceiling is 96.  Scarier no longer reproduces that exit: a
- * deliberate deviation (self_room_390 in restr_pass_task_char(), screstrs.cpp)
- * passes the restriction as 4.0 does, so 110 runs unpatched too -- but then
- * whether or not Shelby is in the room.
+ * exit with the result still zero and without copying the FailMessage
+ * ("What?"), so the restriction fails silently, the fall-through lands back
+ * on 73's refusal, and the four points are gone
+ * (runner_transcripts/studio.txt), so the Runner's ceiling is 96.  Scarier no
+ * longer reproduces that exit: a deliberate deviation (self_room_390 in
+ * restr_pass_task_char(), screstrs.cpp) passes the restriction as 4.0 does,
+ * so 110 runs unpatched too -- but then whether or not Shelby is in the room.
  *
  * Var1 = 2 is Shelby, the first of the game's two characters, and that is what
  * the restriction was meant to say.  Its two immediate neighbours, tasks 111
@@ -5106,9 +5097,9 @@ static const scr_patch_edit_t PATCH_PROVENANCE[] = {
  * road monster fought rather than fled, the sword bought and the chain mail
  * worn, that takes nine blows.
  *
- * The three doors are the Runner's behaviour too (runner_transcripts/outside.txt
- * and the run390 probes of `goto phureo` / `goto alexes house` /
- * `goto back room`).
+ * The three doors are the Runner's behaviour too
+ * (runner_transcripts/outside.txt and the run390 probes of `goto phureo` /
+ * `goto alexes house` / `goto back room`).
  */
 static const scr_patch_edit_t PATCH_OUTSIDE[] = {
   PATCH_VERIFY ("Tasks/79/Command/0", "se"),
@@ -5548,6 +5539,25 @@ parse_get_applied_patch (void)
 
 
 /*
+ * parse_reset()
+ *
+ * Forget the TAF, the bundle and the parse state once a parse is over,
+ * whether or not it succeeded, and free the version 4.0 resources table.
+ */
+static void
+parse_reset (void)
+{
+  parse_clear_v400_resources_table ();
+  parse_taf = NULL;
+  parse_bundle = NULL;
+  parse_version = NULL;
+  parse_depth = 0;
+  parse_pushback_line = NULL;
+  parse_use_pushback = FALSE;
+}
+
+
+/*
  * parse_game()
  *
  * Parse a game into a set properties.  Return TRUE on success, FALSE if
@@ -5575,18 +5585,9 @@ parse_game (scr_tafref_t taf, scr_prop_setref_t bundle)
   catch (const parse_taf_error_t &)
     {
       /* Error with one of the TAF file lines. */
-      parse_clear_v400_resources_table ();
-      parse_taf = NULL;
-      parse_bundle = NULL;
-      parse_version = NULL;
-      parse_depth = 0;
-      parse_pushback_line = NULL;
-      parse_use_pushback = FALSE;
+      parse_reset ();
       return FALSE;
     }
-
-  /* Free the accumulated version 4.0 resources details. */
-  parse_clear_v400_resources_table ();
 
   /* See if we reached the end of the TAF. */
   if (taf_more_lines (parse_taf))
@@ -5613,11 +5614,7 @@ parse_game (scr_tafref_t taf, scr_prop_setref_t bundle)
   /* Trim excess allocations from properties. */
   prop_solidify (parse_bundle);
 
-  /* Return successfully. */
-  parse_taf = NULL;
-  parse_bundle = NULL;
-  parse_version = NULL;
-  parse_depth = 0;
+  parse_reset ();
   return TRUE;
 }
 
