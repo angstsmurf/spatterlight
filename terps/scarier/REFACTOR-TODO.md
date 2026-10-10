@@ -108,7 +108,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~353~~ | ~~`run_main_loop`~~ | DONE: six stages + driver, see "run_main_loop split" |
 | ~~345~~ | ~~`eval_function`~~ | DONE: built-in table + four lookups, see "eval_function split" |
 | ~~336~~ | ~~`scdump_tasks`~~ | DONE: `scdump_task_t` + eight section members, see "scdump_tasks split" |
-| 323 | `oo_prop` | `adrift5/a5expr.cpp` ~626 |
+| ~~323~~ | ~~`oo_prop`~~ | DONE: `oo_step_t` + six context members, see "oo_prop split" |
 | 309 | `lib_print_room_description` | `library/sclibrar_room.cpp` ~382 |
 | 308 | `gsc_a5_display` | `glk/os_glk_a5_display.cpp` ~200 |
 | 306 | `debug_help` | `scdebug.cpp` ~240 (data, not logic: make it a table) |
@@ -353,10 +353,10 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `oo_prop` down; `run_task`, `pass_character`,
-   `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
-   `eval_function` and `scdump_tasks` are taken (see their "split"
-   sections).
+   open from `lib_print_room_description` down; `run_task`,
+   `pass_character`, `lib_cmd_verb_object`, `uip_replace_pronouns`,
+   `run_main_loop`, `eval_function`, `scdump_tasks` and `oo_prop` are
+   taken (see their "split" sections).
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -998,3 +998,26 @@ them):
   lines dropped, and `make -j8 scarier glkscarier` warning-free.  Two
   lines over 80 columns in the file, before and after.
 - Next in the table: `oo_prop` (adrift5/a5expr.cpp).
+
+## 3: oo_prop split (2026-10-11)
+
+- **`oo_prop`** (323 l.) in `adrift5/a5expr.cpp` is a 25-line driver: the
+  depth guard, `split_property()`, and a dispatch on what the context is.
+  Not a name -> handler table, as the "ideas that recur" note guessed:
+  the property names repeat across context kinds with different meanings
+  (`Parent`, `Location`, `Name`, `Exits` ...), so the first cut is by
+  kind, and each kind keeps its own short `if (fn == ...)` ladder.
+  `oo_step_t` (anonymous namespace: st, a `const Ctx &`, fn / args / rem,
+  key, depth, ok) has one member per kind -- `dirs`, `event`, `list`,
+  `object`, `character`, `location` -- whose bodies are line slices of
+  the old branches, dedented.  The single-item `if (kind == ...)` trio is
+  a `switch` in the driver.  The context was only ever read, which the
+  const reference now states.  The longest member is `list` (92 l.); its
+  SelectionOnly filter tail is a possible further cut, not taken.
+- Verification: headless `quick`; full `test` output identical to the
+  pre-change run with the compile and "Nothing to be done" lines dropped;
+  `make -j8 scarier glkscarier` warning-free; `sanitize` clean.  Lines
+  over 80 columns in the file: 63 before, 50 after, none new.
+- Next in the table: `lib_print_room_description`
+  (library/sclibrar_room.cpp), which is Runner-parity library text --
+  safety net step 5, and remember that `recompare` does not rebuild.
