@@ -105,7 +105,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~500~~ | ~~`pass_character`~~ | DONE: `char_restr_t` + operator table, see "pass_character split" |
 | ~~385~~ | ~~`lib_cmd_verb_object`~~ | DONE: eight stages + driver, see "lib_cmd_verb_object split" |
 | ~~371~~ | ~~`uip_replace_pronouns`~~ | DONE: `uip_pronoun_t` + six stage members, see "uip_replace_pronouns split" |
-| 353 | `run_main_loop` | `runner/scrunner.cpp` ~698 |
+| ~~353~~ | ~~`run_main_loop`~~ | DONE: six stages + driver, see "run_main_loop split" |
 | 345 | `eval_function` | `adrift5/text/a5text_func.cpp` ~1177 |
 | 336 | `scdump_tasks` | `scdump.cpp` ~752 |
 | 323 | `oo_prop` | `adrift5/a5expr.cpp` ~626 |
@@ -353,9 +353,9 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open from `run_main_loop` down; `run_task`, `pass_character`,
-   `lib_cmd_verb_object` and `uip_replace_pronouns` are taken (see their
-   "split" sections).
+   open from `eval_function` down; `run_task`, `pass_character`,
+   `lib_cmd_verb_object`, `uip_replace_pronouns` and `run_main_loop` are
+   taken (see their "split" sections).
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -912,3 +912,35 @@ them):
   swap of the source, or the two runs compare one binary with itself.
   No line over 80 columns in the file, before or after.
 - Next in the table: `run_main_loop` (runner/scrunner.cpp).
+
+## 3: run_main_loop split (2026-10-11)
+
+- **`run_main_loop`** (353 l.) in `runner/scrunner.cpp` is a 55-line driver
+  -- the census exit, the fresh-game test, the loop with its resource sync
+  and flush, the shutdown call -- over six stages under one head comment:
+  `run_main_intro` (clear, title line, StartupText, the alignment and
+  emphasis closers; the block an autorestore to a startup prompt skips),
+  `run_main_startup` (the rest of the first-time branch: name and gender
+  prompts, load events, opening look, intro resource, NPC and battle
+  setup, the 3.90+ startup tick, the debugger notice, room seen),
+  `run_main_turn_input` (read a line or spend a wait turn; returns the
+  status), `run_main_turn_tick` (the SCR_TRACE_ADMIN line and the
+  turn count / NPC / event tick the status earned), `run_main_turn_end`
+  (the pre-4.0 ambiguity prompt, the `go <place>` arrival, the armed
+  ending) and `run_main_shutdown` (everything after the loop).  No context
+  struct: the stages share only `game`, and each re-fetches the filter /
+  vars / bundle it uses, as the rest of the file does.  The sync and flush
+  stay in the driver because `game->is_admin = FALSE` between them and the
+  input is the ordering the tick depends on.  Bodies are verbatim: the
+  function was rebuilt from line slices of the old one, dedented, nothing
+  renamed, every comment with its code; a sorted line multiset old vs new
+  shows only the new heads, prologues and calls.
+- Verification: headless `quick`; full `test` output identical to the
+  pre-change run with the compile and "Nothing to be done" lines dropped;
+  `make -j8 scarier glkscarier` warning-free; `sanitize` clean;
+  `test/adrift4/harness/run_autosave_tests.py --build` all passed (the
+  startup-prompt resume cases are the ones that matter for
+  `run_startup_resume`).  Lines over 80 columns in the file: 14 before, 4
+  after (the dedent), none new.
+- Next in the table: `eval_function` (adrift5/text/a5text_func.cpp), a
+  name -> handler table candidate.

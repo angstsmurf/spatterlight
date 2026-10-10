@@ -690,334 +690,331 @@ run_get_end_keyprompt (void)
 
 
 /*
- * run_main_loop()
+ * run_main_intro()
+ * run_main_startup()
+ * run_main_turn_input()
+ * run_main_turn_tick()
+ * run_main_turn_end()
+ * run_main_shutdown()
  *
- * Main interpreter loop.
+ * The stages of run_main_loop(), in the order it runs them.  Startup is
+ * everything a fresh game does before its first prompt, the intro being the
+ * part of it an autorestore to a startup prompt skips; a turn is input, the
+ * tick the input earned, and the end-of-turn output; shutdown is what follows
+ * the loop however it was left.
  */
 static void
-run_main_loop (scr_gameref_t game)
+run_main_intro (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[2];
+  const scr_char *gamename, *startuptext;
+
+  /* Initial clear screen. */
+  pf_buffer_tag (filter, SCR_TAG_CLS);
+
+  /*
+   * Print the game name.  The Runner gives this line a look of its own,
+   * not the plain body style: one step larger than normal text, in the
+   * secondary ("command") colour -- the same red that <c> spans and the
+   * player's own typing come out in.  Measured off a 3.90 Runner shot of
+   * rich_text_390.taf: the title's ascenders run 13px against normal
+   * text's 11 (12pt -> 14pt), with the stroke weight of normal text, not
+   * of bold.
+   *
+   * Emit it as markup rather than as a port-side special case, so it
+   * costs the ports nothing: the Glk port already maps a 14pt font to
+   * style_Subheader and <c> to the input colour, and the ANSI port
+   * discards both tags, leaving headless output unchanged.
+   */
+  gamename = prop_get_global_string (bundle, "GameName");
+  pf_buffer_string (filter, "<font size=14><c>");
+  pf_buffer_string (filter, gamename);
+  pf_buffer_string (filter, "</c></font>");
+  pf_buffer_character (filter, '\n');
+
+  /*
+   * Print the game header.  Adrift StartupText conventionally ends with a
+   * <br> tag to set off the intro from the first room.  Scarier supplies its
+   * own paragraph break below (the forced newline here plus the leading
+   * newline from lib_cmd_look()), so adding a terminator when the text
+   * already ends in a line break leaves the first room preceded by two
+   * blank lines.  The Adrift Runner shows just one; only add the
+   * terminator when the displayed text doesn't already end in a newline.
+   */
+  vt_key[0].string = "Header";
+  vt_key[1].string = "StartupText";
+  startuptext = prop_get_string (bundle, "S<-ss", vt_key);
+  pf_buffer_string (filter, startuptext);
+  if (!run_text_ends_in_newline (startuptext))
+    pf_buffer_character (filter, '\n');
+
+  /*
+   * Alignment is a local of the Runner's display routine, so it starts out
+   * left on every call and no <center> outlives the one string it was
+   * opened in.  Scarier instead buffers a whole turn's worth of strings and
+   * hands the lot to the port as one stream, so a title page that opens
+   * <center> and never closes it -- "Cut the Red Wire! No, the Blue Wire!"
+   * for one -- would carry on centering the first room description, which
+   * the Runner displays in a separate call.  Close the intro's alignment
+   * here, at that call boundary.  Games with balanced tags see nothing:
+   * the tag lands at the start of a line, where the Glk port breaks no
+   * paragraph because the alignment doesn't change and the ANSI port
+   * breaks none because there is nothing buffered on the line.
+   */
+  pf_buffer_tag (filter, SCR_TAG_ENDCENTER);
+
+  /*
+   * Bold, italics and underline are locals of that routine as well
+   * (run390 45BE84-45BF04), so an intro that leaves one open -- Plains
+   * of Fantasy ends on a title in italics closed with a second <i> --
+   * does not set the first room description in it either.
+   */
+  pf_buffer_tag (filter, SCR_TAG_ENDBOLD);
+  pf_buffer_tag (filter, SCR_TAG_ENDITALICS);
+  pf_buffer_tag (filter, SCR_TAG_ENDUNDERLINE);
+}
+
+static void
+run_main_startup (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[2];
+  scr_bool disp_first_room;
+  const scr_int resume = run_startup_resume;
+
+  run_startup_resume = 0;
+
+  /* An autorestore to one of the startup prompts below picks up at that
+     prompt: everything before it is in the restored transcript. */
+  if (resume == 0)
+    run_main_intro (game);
+
+  /* If the game asks, prompt for the player's name, then (if Unknown) the
+   * player's gender -- both at game start, like the Runner. */
+  run_prompt_player_name (game, resume);
+  run_prompt_player_gender (game, resume);
+
+  /*
+   * Start the events that start immediately, before anything is
+   * described: both Runners do this during load, so an immediate event's
+   * LookText belongs to the OPENING room description and its StartText is
+   * never seen (probes EV6 / make_39_fwprobe variant "e", live
+   * 2026-08-02 -- see evt_start_load_events()).
+   */
+  evt_start_load_events (game);
+
+  /* If flagged, describe the initial room. */
+  disp_first_room = prop_get_global_boolean (bundle, "DispFirstRoom");
+  if (disp_first_room)
+    lib_cmd_look (game);
+
+  /* Handle any introductory resources. */
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "IntroRes";
+  res_handle_resource (game, "ss", vt_key);
+
+  /* Set initial values for NPC states. */
+  npc_setup_initial (game);
+
+  /* Roll initial battle stamina if the Battle System is enabled. */
+  battle_start (game);
+
+  /*
+   * Nudge events, but NOT NPC walks: the Runner's walk handler (Sub_20_2)
+   * is reachable only from the typed-command evaluator (Sub_20_62, called
+   * solely by Form1.evaluate), so walks never tick before the first
+   * command -- settled live 2026-08-01 in BOTH Runners (walk probe C: no
+   * CharTask fires before the first prompt; Scarier used to move walking
+   * NPCs, and fire their CharTask, during startup).
+   *
+   * The zero-length half of the load start finishes here rather than
+   * above: its FinishText, TaskAffected and any restart land BELOW the
+   * opening description in the real Runner.
+   *
+   * Both halves are 3.90+ only.  The startup tick is run390's `tstart'
+   * (42E940) calling events() at 42E90B straight after viewroom, and
+   * run400's tstart calling 449310 the same way; run380's events()
+   * (425094) and run370's (432538) have exactly ONE caller each,
+   * generaltasks, so nothing ticks before the first command in those
+   * two.  Their load code (run380 448DC9, run370 440083) puts a
+   * StarterType=1 event straight into RUNNING with its rolled length --
+   * no StartText, the same silent start as above -- and a StarterType=2
+   * event into WAITING with its rolled delay, which the first command
+   * then decrements: a delay of 1 starts the event on turn 1, not at
+   * load.  Measured 2026-09-04 in run380 with haunt.taf (transcript
+   * runner_probes/haunt.run380.rtf): its Weather event (delay 1..1, length
+   * 4, restart after delay) prints "Thunder rumbles ominously." on the
+   * first command turn and cycles from there, where the startup tick had
+   * put that line under the intro and every later weather line one turn
+   * early.  A zero-length immediate event parks in 3.8 (its clock goes -1,
+   * -2, ... past the `= 0' finish test at run380 43A474), so it is not
+   * finished at load either; that half is read from the decompile, not
+   * measured -- the corpus has one such event, wrecked.taf's EVENT 35,
+   * whose only effect is an un-complete of a task nothing has completed
+   * yet.
+   */
+  if (run_get_version (bundle) >= TAF_VERSION_390)
+    {
+      evt_finish_load_events (game);
+      evt_tick_events (game);
+    }
+
+  /*
+   * Notify the debugger that the game has started.  This is a chance to
+   * set watchpoints to catch game startup actions.  Done before setting
+   * the initial room visited as this is how the debugger differentiates
+   * restarts from restore or undo back to game start.
+   */
+  debug_game_started (game);
+
+  /* Note the initial room as visited. */
+  gs_set_room_seen (game, gs_playerroom (game), TRUE);
+}
+
+static scr_bool
+run_main_turn_input (scr_gameref_t game)
+{
+  scr_bool status;
+
+  /* If waitcounter is zero, accept and try a command. */
+  if (game->waitcounter == 0)
+    {
+      /* Not waiting, so handle a player input line. */
+      run_update_status (game);
+      status = run_player_input (game);
+
+      /*
+       * If waitcounter is now set, decrement it, as this turn counts as
+       * one of them.
+       */
+      if (game->waitcounter > 0)
+        game->waitcounter--;
+    }
+  else
+    {
+      /*
+       * Currently "waiting"; decrement wait turns, then run a turn having
+       * taken no input.
+       */
+      game->waitcounter--;
+      status = TRUE;
+    }
+
+  return status;
+}
+
+static void
+run_main_turn_tick (scr_gameref_t game, scr_bool status)
+{
+  /*
+   * Do usual turn stuff unless either something stopped the game, or the
+   * last command didn't match, or the last command did match but was
+   * administrative.
+   */
+#ifdef SCARIER_DUMP_TOOLS
+  {
+    static const scr_bool trace_admin
+      = getenv ("SCR_TRACE_ADMIN") != nullptr;
+    if (trace_admin && status && game->is_admin)
+      fprintf (stderr, "ADMIN turn=%ld after [%s]\n", game->turns,
+               run_trace_last_input.c_str ());
+  }
+#endif
+  if (status && !game->is_admin)
+    {
+      /*
+       * Increment turn counter, and clear notifications done flag.  3.8
+       * and 3.9 counted this line's elements as they read them; see
+       * run_player_input().
+       */
+      /*
+       * run400 counts the turn only in the end-of-turn tick
+       * (48B5B8-48B5C1), which the EndGame action's game-over byte
+       * (4941AD) skips: goldbe's winning `climb down rope` leaves
+       * %turns% at 31 (runner_transcripts/goldbe.txt).
+       */
+      if (!run_counts_line_elements (game)
+          && !(prop_get_taf_version (gs_get_bundle (game))
+               >= TAF_VERSION_400 && !game->is_running))
+        game->turns++;
+      game->has_notified = FALSE;
+
+      if (game->is_running)
+        {
+          /*
+           * Nudge NPCs (each walk tick followed by that NPC's battle
+           * turn) then events (Runner: Sub_20_2 before Sub_20_32).
+           */
+          npc_tick_npcs (game);
+          evt_tick_events (game);
+
+          /*
+           * Stamina recovery is not here: it is dobattle's, run per
+           * line element from run_all_commands() before the library
+           * verbs.  See battle_recover_line().
+           */
+
+          /* Update NPC states. */
+          npc_turn_update (game);
+
+          /* Note the current room as visited. */
+          gs_set_room_seen (game, gs_playerroom (game), TRUE);
+
+          /* Give the debugger a chance to catch watchpoints. */
+          debug_turn_update (game);
+        }
+    }
+}
+
+static void
+run_main_turn_end (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  /*
+   * Pre-4.0: the Runner's object-ambiguity flag, raised by the scan at
+   * the top of generaltasks() and read only now, after the events have
+   * ticked (run380 @4431B0), replaces the turn's whole output with its
+   * "Which <term>.  <list>?" -- unless a game task claimed the line.
+   */
+  if (!run_co_pending_input.empty ())
+    {
+      if (!run_co_task_claimed)
+        lib_co_ambiguity_prompt (game, run_co_pending_input.c_str ());
+      run_co_pending_input.clear ();
+    }
+
+  /*
+   * The last step of a `go <place>` walk has had its turn: the Runner's
+   * route finder gets control back from SendKeys and prints the arrival
+   * (run390 43CBB9, run380 431FF2).  A walk the game ended stops there.
+   */
+  if (run_goto_arrival_due && game->is_running
+      && game->pending_endgame == 0)
+    {
+      pf_buffer_string (filter, run_goto_arrival.c_str ());
+      run_finish_goto_walk ();
+    }
+  else if (!game->is_running || game->pending_endgame != 0)
+    run_cancel_goto_walk ();
+
+  /*
+   * End of turn: if an EndGame task action armed an ending, print it now.
+   * The Runner's turn driver does exactly this, testing its gameover byte
+   * only after Form1.evaluate has returned (0005C681), so anything the
+   * rest of the turn did to the score is already in the summary.
+   */
+  task_print_end_game_message (game);
+}
+
+static void
+run_main_shutdown (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-
-#ifdef SCARIER_DUMP_TOOLS
-  if (run_census_requested (game))
-    exit (EXIT_SUCCESS);
-#endif
-
-  /*
-   * This may not be the very first time this game has been used, for example
-   * saving a game right at the start, or undo-ing back to the start through
-   * memos.  Caught by looking to see if the player room is marked as seen.
-   */
-  if (!gs_room_seen (game, gs_playerroom (game)))
-    {
-      scr_vartype_t vt_key[2];
-      const scr_char *gamename, *startuptext;
-      scr_bool disp_first_room;
-      const scr_int resume = run_startup_resume;
-
-      run_startup_resume = 0;
-
-      /* An autorestore to one of the startup prompts below picks up at that
-         prompt: everything before it is in the restored transcript. */
-      if (resume == 0)
-        {
-          /* Initial clear screen. */
-          pf_buffer_tag (filter, SCR_TAG_CLS);
-
-          /*
-           * Print the game name.  The Runner gives this line a look of its own,
-           * not the plain body style: one step larger than normal text, in the
-           * secondary ("command") colour -- the same red that <c> spans and the
-           * player's own typing come out in.  Measured off a 3.90 Runner shot of
-           * rich_text_390.taf: the title's ascenders run 13px against normal
-           * text's 11 (12pt -> 14pt), with the stroke weight of normal text, not
-           * of bold.
-           *
-           * Emit it as markup rather than as a port-side special case, so it
-           * costs the ports nothing: the Glk port already maps a 14pt font to
-           * style_Subheader and <c> to the input colour, and the ANSI port
-           * discards both tags, leaving headless output unchanged.
-           */
-          gamename = prop_get_global_string (bundle, "GameName");
-          pf_buffer_string (filter, "<font size=14><c>");
-          pf_buffer_string (filter, gamename);
-          pf_buffer_string (filter, "</c></font>");
-          pf_buffer_character (filter, '\n');
-
-          /*
-           * Print the game header.  Adrift StartupText conventionally ends with a
-           * <br> tag to set off the intro from the first room.  Scarier supplies its
-           * own paragraph break below (the forced newline here plus the leading
-           * newline from lib_cmd_look()), so adding a terminator when the text
-           * already ends in a line break leaves the first room preceded by two
-           * blank lines.  The Adrift Runner shows just one; only add the
-           * terminator when the displayed text doesn't already end in a newline.
-           */
-          vt_key[0].string = "Header";
-          vt_key[1].string = "StartupText";
-          startuptext = prop_get_string (bundle, "S<-ss", vt_key);
-          pf_buffer_string (filter, startuptext);
-          if (!run_text_ends_in_newline (startuptext))
-            pf_buffer_character (filter, '\n');
-
-          /*
-           * Alignment is a local of the Runner's display routine, so it starts out
-           * left on every call and no <center> outlives the one string it was
-           * opened in.  Scarier instead buffers a whole turn's worth of strings and
-           * hands the lot to the port as one stream, so a title page that opens
-           * <center> and never closes it -- "Cut the Red Wire! No, the Blue Wire!"
-           * for one -- would carry on centering the first room description, which
-           * the Runner displays in a separate call.  Close the intro's alignment
-           * here, at that call boundary.  Games with balanced tags see nothing:
-           * the tag lands at the start of a line, where the Glk port breaks no
-           * paragraph because the alignment doesn't change and the ANSI port
-           * breaks none because there is nothing buffered on the line.
-           */
-          pf_buffer_tag (filter, SCR_TAG_ENDCENTER);
-
-          /*
-           * Bold, italics and underline are locals of that routine as well
-           * (run390 45BE84-45BF04), so an intro that leaves one open -- Plains
-           * of Fantasy ends on a title in italics closed with a second <i> --
-           * does not set the first room description in it either.
-           */
-          pf_buffer_tag (filter, SCR_TAG_ENDBOLD);
-          pf_buffer_tag (filter, SCR_TAG_ENDITALICS);
-          pf_buffer_tag (filter, SCR_TAG_ENDUNDERLINE);
-        }
-
-      /* If the game asks, prompt for the player's name, then (if Unknown) the
-       * player's gender -- both at game start, like the Runner. */
-      run_prompt_player_name (game, resume);
-      run_prompt_player_gender (game, resume);
-
-      /*
-       * Start the events that start immediately, before anything is
-       * described: both Runners do this during load, so an immediate event's
-       * LookText belongs to the OPENING room description and its StartText is
-       * never seen (probes EV6 / make_39_fwprobe variant "e", live
-       * 2026-08-02 -- see evt_start_load_events()).
-       */
-      evt_start_load_events (game);
-
-      /* If flagged, describe the initial room. */
-      disp_first_room = prop_get_global_boolean (bundle, "DispFirstRoom");
-      if (disp_first_room)
-        lib_cmd_look (game);
-
-      /* Handle any introductory resources. */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "IntroRes";
-      res_handle_resource (game, "ss", vt_key);
-
-      /* Set initial values for NPC states. */
-      npc_setup_initial (game);
-
-      /* Roll initial battle stamina if the Battle System is enabled. */
-      battle_start (game);
-
-      /*
-       * Nudge events, but NOT NPC walks: the Runner's walk handler (Sub_20_2)
-       * is reachable only from the typed-command evaluator (Sub_20_62, called
-       * solely by Form1.evaluate), so walks never tick before the first
-       * command -- settled live 2026-08-01 in BOTH Runners (walk probe C: no
-       * CharTask fires before the first prompt; Scarier used to move walking
-       * NPCs, and fire their CharTask, during startup).
-       *
-       * The zero-length half of the load start finishes here rather than
-       * above: its FinishText, TaskAffected and any restart land BELOW the
-       * opening description in the real Runner.
-       *
-       * Both halves are 3.90+ only.  The startup tick is run390's `tstart'
-       * (42E940) calling events() at 42E90B straight after viewroom, and
-       * run400's tstart calling 449310 the same way; run380's events()
-       * (425094) and run370's (432538) have exactly ONE caller each,
-       * generaltasks, so nothing ticks before the first command in those
-       * two.  Their load code (run380 448DC9, run370 440083) puts a
-       * StarterType=1 event straight into RUNNING with its rolled length --
-       * no StartText, the same silent start as above -- and a StarterType=2
-       * event into WAITING with its rolled delay, which the first command
-       * then decrements: a delay of 1 starts the event on turn 1, not at
-       * load.  Measured 2026-09-04 in run380 with haunt.taf (transcript
-       * runner_probes/haunt.run380.rtf): its Weather event (delay 1..1, length
-       * 4, restart after delay) prints "Thunder rumbles ominously." on the
-       * first command turn and cycles from there, where the startup tick had
-       * put that line under the intro and every later weather line one turn
-       * early.  A zero-length immediate event parks in 3.8 (its clock goes -1,
-       * -2, ... past the `= 0' finish test at run380 43A474), so it is not
-       * finished at load either; that half is read from the decompile, not
-       * measured -- the corpus has one such event, wrecked.taf's EVENT 35,
-       * whose only effect is an un-complete of a task nothing has completed
-       * yet.
-       */
-      if (run_get_version (bundle) >= TAF_VERSION_390)
-        {
-          evt_finish_load_events (game);
-          evt_tick_events (game);
-        }
-
-      /*
-       * Notify the debugger that the game has started.  This is a chance to
-       * set watchpoints to catch game startup actions.  Done before setting
-       * the initial room visited as this is how the debugger differentiates
-       * restarts from restore or undo back to game start.
-       */
-      debug_game_started (game);
-
-      /* Note the initial room as visited. */
-      gs_set_room_seen (game, gs_playerroom (game), TRUE);
-    }
-  else
-    {
-      /* Notify the debugger that the game has restarted. */
-      debug_game_started (game);
-    }
-
-  /*
-   * Game loop, exits either when a command parser handler sets the game
-   * running flag to FALSE, or by call to run_quit().
-   */
-  while (game->is_running)
-    {
-      scr_bool status;
-
-      /*
-       * Synchronize any resources in use; do this before flushing so that any
-       * appropriate graphics/sound appear before waits or waitkey tag delays
-       * invoked by flushing the printfilter.  Also, print any score change
-       * notifications.
-       */
-      res_sync_resources (game);
-      run_notify_score_change (game);
-
-      /*
-       * Flush printfilter of any accumulated output, and clear any prior
-       * notion of administrative commands from input.
-       */
-      pf_flush (filter, vars, bundle);
-      game->is_admin = FALSE;
-
-      /* If waitcounter is zero, accept and try a command. */
-      if (game->waitcounter == 0)
-        {
-          /* Not waiting, so handle a player input line. */
-          run_update_status (game);
-          status = run_player_input (game);
-
-          /*
-           * If waitcounter is now set, decrement it, as this turn counts as
-           * one of them.
-           */
-          if (game->waitcounter > 0)
-            game->waitcounter--;
-        }
-      else
-        {
-          /*
-           * Currently "waiting"; decrement wait turns, then run a turn having
-           * taken no input.
-           */
-          game->waitcounter--;
-          status = TRUE;
-        }
-
-      /*
-       * Do usual turn stuff unless either something stopped the game, or the
-       * last command didn't match, or the last command did match but was
-       * administrative.
-       */
-#ifdef SCARIER_DUMP_TOOLS
-      {
-        static const scr_bool trace_admin
-          = getenv ("SCR_TRACE_ADMIN") != nullptr;
-        if (trace_admin && status && game->is_admin)
-          fprintf (stderr, "ADMIN turn=%ld after [%s]\n", game->turns,
-                   run_trace_last_input.c_str ());
-      }
-#endif
-      if (status && !game->is_admin)
-        {
-          /*
-           * Increment turn counter, and clear notifications done flag.  3.8
-           * and 3.9 counted this line's elements as they read them; see
-           * run_player_input().
-           */
-          /*
-           * run400 counts the turn only in the end-of-turn tick
-           * (48B5B8-48B5C1), which the EndGame action's game-over byte
-           * (4941AD) skips: goldbe's winning `climb down rope` leaves
-           * %turns% at 31 (runner_transcripts/goldbe.txt).
-           */
-          if (!run_counts_line_elements (game)
-              && !(prop_get_taf_version (gs_get_bundle (game))
-                   >= TAF_VERSION_400 && !game->is_running))
-            game->turns++;
-          game->has_notified = FALSE;
-
-          if (game->is_running)
-            {
-              /*
-               * Nudge NPCs (each walk tick followed by that NPC's battle
-               * turn) then events (Runner: Sub_20_2 before Sub_20_32).
-               */
-              npc_tick_npcs (game);
-              evt_tick_events (game);
-
-              /*
-               * Stamina recovery is not here: it is dobattle's, run per
-               * line element from run_all_commands() before the library
-               * verbs.  See battle_recover_line().
-               */
-
-              /* Update NPC states. */
-              npc_turn_update (game);
-
-              /* Note the current room as visited. */
-              gs_set_room_seen (game, gs_playerroom (game), TRUE);
-
-              /* Give the debugger a chance to catch watchpoints. */
-              debug_turn_update (game);
-            }
-        }
-
-      /*
-       * Pre-4.0: the Runner's object-ambiguity flag, raised by the scan at
-       * the top of generaltasks() and read only now, after the events have
-       * ticked (run380 @4431B0), replaces the turn's whole output with its
-       * "Which <term>.  <list>?" -- unless a game task claimed the line.
-       */
-      if (!run_co_pending_input.empty ())
-        {
-          if (!run_co_task_claimed)
-            lib_co_ambiguity_prompt (game, run_co_pending_input.c_str ());
-          run_co_pending_input.clear ();
-        }
-
-      /*
-       * The last step of a `go <place>` walk has had its turn: the Runner's
-       * route finder gets control back from SendKeys and prints the arrival
-       * (run390 43CBB9, run380 431FF2).  A walk the game ended stops there.
-       */
-      if (run_goto_arrival_due && game->is_running
-          && game->pending_endgame == 0)
-        {
-          pf_buffer_string (filter, run_goto_arrival.c_str ());
-          run_finish_goto_walk ();
-        }
-      else if (!game->is_running || game->pending_endgame != 0)
-        run_cancel_goto_walk ();
-
-      /*
-       * End of turn: if an EndGame task action armed an ending, print it now.
-       * The Runner's turn driver does exactly this, testing its gameover byte
-       * only after Form1.evaluate has returned (0005C681), so anything the
-       * rest of the turn did to the score is already in the summary.
-       */
-      task_print_end_game_message (game);
-    }
 
   /*
    * Catch an ending armed before the loop ever ran -- evt_start_load_events()
@@ -1049,6 +1046,69 @@ run_main_loop (scr_gameref_t game)
    */
   assert (!game->is_running);
   run_player_input (game);
+}
+
+
+/*
+ * run_main_loop()
+ *
+ * Main interpreter loop.
+ */
+static void
+run_main_loop (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_var_setref_t vars = gs_get_vars (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+#ifdef SCARIER_DUMP_TOOLS
+  if (run_census_requested (game))
+    exit (EXIT_SUCCESS);
+#endif
+
+  /*
+   * This may not be the very first time this game has been used, for example
+   * saving a game right at the start, or undo-ing back to the start through
+   * memos.  Caught by looking to see if the player room is marked as seen.
+   */
+  if (!gs_room_seen (game, gs_playerroom (game)))
+    run_main_startup (game);
+  else
+    {
+      /* Notify the debugger that the game has restarted. */
+      debug_game_started (game);
+    }
+
+  /*
+   * Game loop, exits either when a command parser handler sets the game
+   * running flag to FALSE, or by call to run_quit().
+   */
+  while (game->is_running)
+    {
+      scr_bool status;
+
+      /*
+       * Synchronize any resources in use; do this before flushing so that any
+       * appropriate graphics/sound appear before waits or waitkey tag delays
+       * invoked by flushing the printfilter.  Also, print any score change
+       * notifications.
+       */
+      res_sync_resources (game);
+      run_notify_score_change (game);
+
+      /*
+       * Flush printfilter of any accumulated output, and clear any prior
+       * notion of administrative commands from input.
+       */
+      pf_flush (filter, vars, bundle);
+      game->is_admin = FALSE;
+
+      status = run_main_turn_input (game);
+      run_main_turn_tick (game, status);
+      run_main_turn_end (game);
+    }
+
+  run_main_shutdown (game);
 }
 
 
