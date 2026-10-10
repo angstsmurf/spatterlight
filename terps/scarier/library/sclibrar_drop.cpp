@@ -20,8 +20,8 @@
 /*
  * The shared move backend, drop, give, wear, remove and inventory.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files
- * share and sclibrar_internal.h for what the core files share.
+ * See sclibrar.h for what the library files share and sclibrar_internal.h
+ * for what the core files share.
  */
 
 #include <assert.h>
@@ -295,7 +295,7 @@ lib_drop_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * a *worn* object named in a drop command, implicitly removing it first --
  * "drop cloak" while wearing it answers "You drop the cloak." -- while a bare
  * "drop all" leaves worn items alone.  Both verified live against run390;
- * see RUNNER_TESTS_TODO.md section 2.
+ * see test/adrift4/notes/RUNNER_TESTS_TODO.md section 2.
  *
  * It also drops an object out of a container the player is carrying, with no
  * announcement of the removal.  Both arms agree: on p39DARK under run390 the
@@ -1531,7 +1531,8 @@ lib_wear_backend (scr_gameref_t game)
    * run390 and run400 both say "You put on the w0, ..." for the very same
    * objects.  Measured on the pwear probe carried across all four Runners
    * (2026-08-23); the empty-prefix default is a bare "a" even before a vowel,
-   * measured separately on pwearv.  See RUNNER_TESTS_TODO.md section 4.
+   * measured separately on pwearv.  See
+   * test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.
    *
    * Scarier deliberately uses the definite form in every version (deviation
    * policy): "You put on a underwear." is the substituted article at its

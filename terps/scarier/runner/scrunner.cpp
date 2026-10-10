@@ -1514,12 +1514,10 @@ run_restore_handler (scr_gameref_t game)
   game->undo_available = FALSE;
 
   /*
-   * Resources handling?  Arguably we should re-offer resources active when
-   * the game was saved, but I can't see how this can be achieved with Adrift
-   * the way it is.  Canceling is too broad, so I'll go here with just
-   * stopping sounds (in case looping).
-   *
-   * TODO Rationalize what happens here.
+   * Resources: a saved game does not record which resources were active,
+   * so they cannot be re-offered on restore.  Cancelling everything would
+   * be too broad; stopping sounds (in case one is looping) is the one thing
+   * done.
    */
   game->stop_sound = TRUE;
 }

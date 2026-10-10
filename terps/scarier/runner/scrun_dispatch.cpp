@@ -434,7 +434,8 @@ run_line_t::put_prepass ()
    * answered on the next turn where run400 says "Take what?".  Pre-4.0 keeps
    * the peek order: Scarier matches run390 on the put39 probe on all twelve
    * lines (the last of them, the prefixed `put a bean in a jar` row, closed
-   * 2026-09-20 with the pre-4.0 canonical-retry suppression in sclibrar.cpp).
+   * 2026-09-20 with the pre-4.0 canonical-retry suppression in
+   * sclibrar_dispatch.cpp).
    *
    * A put the 4.0 library REFUSES on size or capacity is different again:
    * every message path of that handler exits without setting its return
@@ -1477,7 +1478,7 @@ run_line_t::settle ()
    * and `give stone to guard` are "Which stone.  A guard or a guard?" while
    * `x guard sword` (object 0) and `attack guard with club` (object 1) are
    * "Which guard." -- a plain index collision, not a term choice.  Left
-   * unmodelled; see the lead in notes/WINE-TRANSCRIPTS-TODO.md.
+   * unmodelled; see the lead in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
    */
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && game->is_running

@@ -865,12 +865,13 @@ task_move_object (scr_gameref_t game, scr_int object,
    * (Sub_20_11 @0008C200) skips them at @0008C360 -- "If Objects(o).Static = 1
    * Then <next object>" -- before any destination case runs, so the refusal
    * covers every destination, not just the room ones.  Measured live
-   * (RUNNER_TESTS_TODO.md section 9): a task whose action moves the referenced
-   * object to "held by player" prints its completion text for "grab plaque"
-   * and leaves the plaque exactly where it was, and a move-to-hidden aimed at
-   * a static the player is already holding (an event put it there) is refused
-   * in the same way.  Only the by-index selector is limited to dynamics, so
-   * without this test the "referenced object" selector would reach statics.
+   * (test/adrift4/notes/RUNNER_TESTS_TODO.md section 9): a task whose action
+   * moves the referenced object to "held by player" prints its completion text
+   * for "grab plaque" and leaves the plaque exactly where it was, and a
+   * move-to-hidden aimed at a static the player is already holding (an event
+   * put it there) is refused in the same way.  Only the by-index selector is
+   * limited to dynamics, so without this test the "referenced object" selector
+   * would reach statics.
    *
    * The event mover keeps its own copy of this decision -- and does not make
    * it, which is why evt_move_object() is the one and only way a static can
@@ -2068,7 +2069,7 @@ task_percent_x87 (scr_int score, scr_int max_score)
  * (run370/380/390/400), so this is not gated on 4.0, and 3.7 and 3.8 have since
  * been driven live too: run370 finishing castle.taf and run380 finishing
  * microwaveman.taf print these lines exactly as below.  See
- * RUNNER_TESTS_TODO.md section 4.
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.
  *
  * A death, whether from an EndGame action or from the Battle System, is the
  * shared run400 General.Sub_22_70 (Proc_21_62, 452384) -- endmessage calls it
@@ -2218,7 +2219,7 @@ task_print_end_keyprompt (scr_gameref_t game)
  * Measured live: chicago.taf task 23 is "end game (win)" followed by "+10
  * points", and run390 finishes on 75 where printing at the action gives 65.
  * The corpus has 42 tasks in 32 games that put an EndGame action somewhere
- * other than last.  See RUNNER_TESTS_TODO.md section 4.
+ * other than last.  See test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.
  */
 void
 task_print_end_game_message (scr_gameref_t game)
@@ -2291,7 +2292,8 @@ task_print_end_game_message (scr_gameref_t game)
          * version range: run400 finishing TheAmulet.taf and run370 finishing
          * castle.taf both print the winning task's own CompleteText and then
          * go straight to the score summary, with the location panel switched
-         * to "Congratulations!".  See RUNNER_TESTS_TODO.md section 4.
+         * to "Congratulations!".  See test/adrift4/notes/RUNNER_TESTS_TODO.md
+         * section 4.
          */
         if (is_pre_400)
           {
@@ -2331,8 +2333,8 @@ task_print_end_game_message (scr_gameref_t game)
              * front of a CompleteText (task 23 is `- win`, with none), and
              * this space makes the third.  We do not flush that empty
              * task's separator -- see the "Turn sectioning" lead in
-             * notes/WINE-TRANSCRIPTS-TODO.md -- so Scarier prints one space
-             * where the Runner prints three, which no compare sees.
+             * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md -- so Scarier prints
+             * one space where the Runner prints three, which no compare sees.
              */
             if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
               pf_buffer_pspace (filter);
@@ -2753,8 +2755,8 @@ task_start_npc_walks (scr_gameref_t game, scr_int task)
  * so it is not length; spaces in the middle of the text print; leading spaces
  * on the AdditionalMessage itself change nothing; and turning on "show room
  * description" restores the message, because the room description lands in
- * between and the string no longer ends in spaces.  See RUNNER_TESTS_TODO.md
- * section 4.
+ * between and the string no longer ends in spaces.  See
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.
  */
 static scr_bool
 task_suppresses_additional_message (scr_gameref_t game)

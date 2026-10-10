@@ -20,8 +20,8 @@
 /*
  * Carrying capacity, "count", and taking objects.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files
- * share and sclibrar_internal.h for what the core files share.
+ * See sclibrar.h for what the library files share and sclibrar_internal.h
+ * for what the core files share.
  */
 
 #include <assert.h>
@@ -833,10 +833,10 @@ lib_print_not_holding (scr_gameref_t game, scr_int container,
  * outright; the gate is < 4.00 rather than the usual 3.9 split.
  *
  * Two things here are inferred rather than measured, and are noted in
- * notes/WINE-TRANSCRIPTS-TODO.md: whether a game task for the same command
- * would run first (nothing in that game claims `take alarm clock`), and how
- * this orders against 3.7/3.8's own "not holding" gate, which is why it sits
- * after lib_take_container_unheld() rather than before it.
+ * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md: whether a game task for the
+ * same command would run first (nothing in that game claims `take alarm
+ * clock`), and how this orders against 3.7/3.8's own "not holding" gate, which
+ * is why it sits after lib_take_container_unheld() rather than before it.
  */
 static scr_bool
 lib_cannot_reach_container (scr_gameref_t game, scr_int container)

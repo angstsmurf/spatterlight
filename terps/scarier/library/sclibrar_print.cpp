@@ -22,7 +22,7 @@
  * Room alternates and room names, object and NPC name printing,
  * version/perspective helpers, response selection and list printing.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ * See sclibrar.h for what the library files share.
  */
 
 #include <assert.h>
@@ -672,7 +672,8 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  * pick up some aluminum clothes.", run390 "You pick up the aluminum clothes.",
  * run400 "You take the aluminum clothes."  3.70 answers like 3.80: a copy of
  * arlo.taf with the bone's "a" prefix rewritten to "some" gives "You pick up
- * some bone." in run370.  See RUNNER_TESTS_TODO.md section 4.
+ * some bone." in run370.  See test/adrift4/notes/RUNNER_TESTS_TODO.md section
+ * 4.
  */
 /*
  * lib_compare_article()
@@ -762,7 +763,8 @@ lib_definite_object_name (scr_prop_setref_t bundle, scr_int object)
    * i.e. "the " is right.  lib_print_object below defaults the same empty
    * prefix to "a ", and that is right too -- the same run prints "Encontre un
    * Fenix de laton dentro del cajon." on the container-reveal path.  See the
-   * divergence table in RUNNER_TESTS_TODO.md, settled 2026-08-14.
+   * divergence table in test/adrift4/notes/RUNNER_TESTS_TODO.md, settled
+   * 2026-08-14.
    */
   normalized = prefix;
   is_pre_390 = prop_get_integer (bundle, "I<-s", vt_version) < TAF_VERSION_390;
@@ -1206,8 +1208,8 @@ lib_matcher_requires_seen (scr_gameref_t game)
  * 1 pre-4.0, which lib_get_perspective() already folds in.
  *
  * The status line stays "You are dead!" throughout -- that is a separate fixed
- * literal, present unchanged in all four Runners.  See RUNNER_TESTS_TODO.md
- * section 4.
+ * literal, present unchanged in all four Runners.  See
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.
  */
 const scr_char *
 lib_get_death_message (scr_gameref_t game)
@@ -1415,7 +1417,8 @@ lib_select_plurality (scr_gameref_t game, scr_int object,
  * objects, else by the one object's own plurality.  The contents listings
  * ("Inside the desk are ...", "On the table are ...") use this where the
  * Runner prints a literal " is " whatever the count; Scarier deliberately
- * keeps the agreement (see WINE-TRANSCRIPTS-TODO.md, deliberate deviations).
+ * keeps the agreement (see test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md,
+ * deliberate deviations).
  */
 /*
  * lib_alrs_see_list_verb()

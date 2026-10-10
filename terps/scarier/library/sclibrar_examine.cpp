@@ -21,8 +21,8 @@
  * Examining the player, NPCs and objects, absent-object refusals, and
  * the listing of container/supporter contents.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files
- * share and sclibrar_internal.h for what the core files share.
+ * See sclibrar.h for what the library files share and sclibrar_internal.h
+ * for what the core files share.
  */
 
 #include <assert.h>

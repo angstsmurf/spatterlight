@@ -21,7 +21,7 @@
 /*
  * Movement: compass directions and "go to" a named place.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ * See sclibrar.h for what the library files share.
  */
 
 #include <assert.h>

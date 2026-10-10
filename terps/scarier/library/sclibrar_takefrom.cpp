@@ -20,8 +20,8 @@
 /*
  * Taking objects from containers, supporters and NPCs.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files
- * share and sclibrar_internal.h for what the core files share.
+ * See sclibrar.h for what the library files share and sclibrar_internal.h
+ * for what the core files share.
  */
 
 #include <assert.h>

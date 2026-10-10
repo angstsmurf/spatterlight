@@ -22,7 +22,7 @@
  * Standing, sitting and lying, getting off, and the pre-4.0
  * anywhere-in-the-line open/close and where-is scans.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ * See sclibrar.h for what the library files share.
  */
 
 #include <assert.h>

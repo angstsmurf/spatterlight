@@ -677,8 +677,9 @@ gs_set_object_seen (scr_gameref_t gs, scr_int object, scr_bool seen)
  * -1 the moment the library take handler successfully picks the object up
  * (`If o(132) = 1 Then o(132) = &HFF`).  Nothing else spends it: not a drop,
  * not a put, not a task moving the object about, not an NPC taking it.  So
- * the movers below leave the flag alone and the three library take paths in
- * sclibrar.cpp clear it by hand.  See obj_shows_initial_description().
+ * the movers below leave the flag alone and the library take paths in
+ * sclibrar_take.cpp, sclibrar_open.cpp and sclibrar_put.cpp clear it by
+ * hand.  See obj_shows_initial_description().
  */
 void
 gs_set_object_unmoved (scr_gameref_t gs, scr_int object, scr_bool unmoved)
@@ -1987,7 +1988,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    * the state to match here; the `notify` command stands in for the menu item.
    * Verified live in run400 and run390 (make_arena_probe.py config SC and
    * make_39_endprobe.py both score +3 on an ordinary turn, in silence).  See
-   * RUNNER_TESTS_TODO.md section 4.
+   * test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.
    */
   game->notify_score_change = FALSE;
 

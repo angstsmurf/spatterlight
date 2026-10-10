@@ -47,7 +47,7 @@
 #include <string>
 #include <vector>
 
-extern scr_bool run_probe_strict;
+#include "runner/scrunner.h"
 #endif
 
 enum { FALSE = 0, TRUE = !FALSE };

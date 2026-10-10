@@ -20,8 +20,9 @@ CC      ?= clang
 CXXFLAGS ?= -std=c++11 -O2 -w -I.
 LDLIBS  ?= -lz
 
-# Sanitizer flags for the `sanitize` target (TODO ground rule: "ASan/UBSan-clean
-# is mandatory").  -fno-sanitize-recover makes any UBSan finding abort with a
+# Sanitizer flags for the `sanitize` target.  Every change to the engine must
+# be ASan/UBSan-clean, and this target is how that is checked.
+# -fno-sanitize-recover makes any UBSan finding abort with a
 # non-zero status so the target actually fails rather than just printing.
 # LeakSanitizer is left off via detect_leaks=0: it is unavailable on
 # macOS/arm64, and throw-path leaks are expected (and documented) under P2/P3.
@@ -167,7 +168,7 @@ A5DUP_BIN       := test/adrift5/harness/a5_exprdup_test
 # so it runs everywhere.  Both are v3.9, which needs no donor .taf for the
 # password trailer.  The goldens encode the Runner's answers: capacities are
 # volumes the contents spend, and both refusal strings are load-bearing (see
-# RUNNER_TESTS_TODO.md, 2026-08-03).
+# test/adrift4/notes/RUNNER_TESTS_TODO.md, 2026-08-03).
 CAP_BIN    := test/adrift4/harness/capacity_test_hl
 
 # The binaries the v4 walkthrough and projectile-combat scripts replay.
@@ -183,7 +184,7 @@ CAP_TAF    := test/adrift4/harness/capacity_matrix.taf test/adrift4/harness/capa
 # synthetic 3.9 games differing only in Perspective, since the refusals take
 # their leading word from it -- and since pre-4.0 has no third person, the
 # Perspective 2 build must read exactly like the Perspective 1 one, down to the
-# inventory line the script types.  See RUNNER_TESTS_TODO.md section 5.
+# inventory line the script types.  See test/adrift4/notes/RUNNER_TESTS_TODO.md section 5.
 WHERE_TAF  := test/adrift4/harness/where_refusal.taf \
               test/adrift4/harness/where_refusal_1p.taf \
               test/adrift4/harness/where_refusal_3p.taf

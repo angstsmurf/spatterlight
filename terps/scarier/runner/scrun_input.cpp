@@ -650,7 +650,7 @@ run_element_begin (scr_gameref_t game, const scr_char *command,
    * a typed LINE began with is spent by its first element; one raised by an
    * earlier element of the same line is not, and the element that meets it
    * answers "That wasn't one of the options!".  See lib_co_400_raise() in
-   * sclibrar.cpp.
+   * sclibrar_disambig.cpp.
    */
   lib_co_400_begin_line (is_new_line);
   lib_antecedent_begin_line_400 (game, command);
@@ -690,8 +690,8 @@ run_element_begin (scr_gameref_t game, const scr_char *command,
  *
  * An open "Who do you want to attack?" continues a line nothing answered:
  * the battle prefix goes in front and the line runs again, its own output
- * discarded.  See lib_battle_who_continuation() in sclibrar.cpp.  The
- * "With what?" question rule and 3.9's own with-prefix continuation
+ * discarded.  See lib_battle_who_continuation() in sclibrar_battle.cpp.
+ * The "With what?" question rule and 3.9's own with-prefix continuation
  * follow.  Returns the element's final status.
  */
 static scr_bool
@@ -743,7 +743,7 @@ run_element_questions (scr_gameref_t game, const scr_char *command,
    * A turn that ends asking "With what?" or "...with?" leaves the line
    * plus " with " as the question prefix (3.9 and 4.0), and at 4.0 is not
    * a turn -- task text included.  See lib_question_with_rule() in
-   * sclibrar.cpp.
+   * sclibrar_battle.cpp.
    */
   if (status
       && lib_question_with_rule (game, rerun.empty () ? command
@@ -754,7 +754,7 @@ run_element_questions (scr_gameref_t game, const scr_char *command,
    * 3.9: an open "With what?" continues a line nothing understood, as
    * `<prefix><line>` and through therest only -- the task matcher never
    * sees the joined line.  See lib_with_prefix_390_continuation() in
-   * sclibrar.cpp.
+   * sclibrar_battle.cpp.
    */
   if (rerun.empty ())
     {
@@ -965,8 +965,9 @@ run_element_note_undo (scr_gameref_t game, const scr_char *command,
    */
   /*
    * An undo, restore or restart is never itself backed up: at 3.9 undo
-   * and restore are real turns (see lib_is_version_390() in sclibrar.cpp),
-   * and backing up an undo would re-arm the buffer it just spent.
+   * and restore are real turns (see lib_is_version_390() in
+   * sclibrar_print.cpp), and backing up an undo would re-arm the buffer it
+   * just spent.
    */
   if (!game->is_admin && !game->do_restart && !game->do_restore
       && !(was_undo_available && !game->undo_available))

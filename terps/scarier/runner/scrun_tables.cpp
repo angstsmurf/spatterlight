@@ -512,14 +512,15 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"endgame", lib_cmd_endgame},
   /*
    * Audited 2026-09-07 against the four Runner constant pools and the 426-game
-   * v4 corpus (notes/WINE-TRANSCRIPTS-TODO.md, "Audited 2026-09-07"): besides
-   * the `stats` row below, `hints`, `q`, `brief`, `verbose`, `notify`,
-   * `notification`, `redo`, `hist`, `gpl`, `license` and `statusline` are all
-   * SCARE inventions no Runner accepts (the Runner words are `hint`, `quit`,
-   * `history`).  None of them diverges today: a game task is matched before
-   * run_standard_commands(), so any task carrying COMPLETE text wins and the
-   * invention never runs -- only a *silent* task leaves the gap that `stats`
-   * fell into.  `hints` is the widest exposure (224 tasks in 11 games).
+   * v4 corpus (test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md, "Audited
+   * 2026-09-07"): besides the `stats` row below, `hints`, `q`, `brief`,
+   * `verbose`, `notify`, `notification`, `redo`, `hist`, `gpl`, `license` and
+   * `statusline` are all SCARE inventions no Runner accepts (the Runner words
+   * are `hint`, `quit`, `history`).  None of them diverges today: a game task
+   * is matched before run_standard_commands(), so any task carrying COMPLETE
+   * text wins and the invention never runs -- only a *silent* task leaves the
+   * gap that `stats` fell into.  `hints` is the widest exposure (224 tasks in
+   * 11 games).
    *
    * All eleven are compiled out by SCARIER_NO_ABBREVIATIONS, alongside the
    * `g`/`i`/`z` shorthands, so that build offers a game exactly the meta

@@ -49,7 +49,7 @@
  * exists.  Returns TRUE if function found and handled.
  *
  * The syntax and the selection are measured against the live 4.0 Runner (see
- * RUNNER_TESTS_TODO.md section 9, probes GDA..GDR of
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md section 9, probes GDA..GDR of
  * test/adrift4/harness/make_arena_probe.py).  run400 squeezes every space out
  * of the command, requires what is left to open "#%object%=getdynfromroom("
  * and the *raw* command to end in ")" -- so "getdynfromroom(larder)x" is not
@@ -517,13 +517,14 @@ run_any_task_ran_this_command (void)
  * The silent half is PORTED too (2026-09-20, 3.9 only): its clock went first
  * (2026-09-19, the line is not a turn) and now the claim, silent_task_390 in
  * run_all_commands() skipping the whole library block so the DontUnderstand
- * text comes out.  RUNNER_TESTS_TODO.md section 4 priced that at 15 goldens
- * and four lost walkthroughs, but that was before the spent-task port had
- * taken most of those cells: re-measured it costs six goldens and no win --
- * alexis, alexis_worn_cube, lifesimulation, life and everything change one
- * line of text, the_hangover two turns -- and all six rows then match their
- * Runner transcripts exactly.  3.7/3.8 are left alone: checktask is the same
- * routine there, but no probe has been run and no corpus row asks.
+ * text comes out.  test/adrift4/notes/RUNNER_TESTS_TODO.md section 4 priced
+ * that at 15 goldens and four lost walkthroughs, but that was before the
+ * spent-task port had taken most of those cells: re-measured it costs six
+ * goldens and no win -- alexis, alexis_worn_cube, lifesimulation, life and
+ * everything change one line of text, the_hangover two turns -- and all six
+ * rows then match their Runner transcripts exactly.  3.7/3.8 are left alone:
+ * checktask is the same routine there, but no probe has been run and no corpus
+ * row asks.
  */
 
 /*
@@ -2664,10 +2665,10 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
  * command function, and a getdynfromroom() found there sets the Referenced
  * Object for the run.  The task's primary command is not in the array it
  * scans, so a task whose only command is the function never evaluates it.
- * Verified live in run400 (RUNNER_TESTS_TODO.md section 9): wrapping each
- * probe in an "execute task" action is the only way to make its function
- * fire at all, and a probe carrying the function as its sole command stays
- * silent.
+ * Verified live in run400 (test/adrift4/notes/RUNNER_TESTS_TODO.md section 9):
+ * wrapping each probe in an "execute task" action is the only way to make its
+ * function fire at all, and a probe carrying the function as its sole command
+ * stays silent.
  */
 scr_bool
 run_task_run_by_index (scr_gameref_t game, scr_int task)
@@ -2773,12 +2774,12 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
  * is standing.  Restricted matches are passed over silently.
  *
  * All of this is verified against the live 3.9 Runner (see
- * RUNNER_TESTS_TODO.md section 2): "thetest" depends on the stealing -- its
- * "Nice try fish face!" `*` task fires on the same turn as the library drop
- * because an always-restarting one-turn event executes a task every turn,
- * and the author's ALRs splice the two messages -- while a probe with the
- * wildcard placed after the affected task shows list order deciding the
- * winner, and a probe without any event shows no same-turn firing at all.
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md section 2): "thetest" depends on the
+ * stealing -- its "Nice try fish face!" `*` task fires on the same turn as the
+ * library drop because an always-restarting one-turn event executes a task
+ * every turn, and the author's ALRs splice the two messages -- while a probe
+ * with the wildcard placed after the affected task shows list order deciding
+ * the winner, and a probe without any event shows no same-turn firing at all.
  *
  * The literal-text comparison below backstops the pattern matcher for the
  * customary un-typeable "#name" commands, which never survive the player

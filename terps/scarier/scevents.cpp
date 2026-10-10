@@ -349,9 +349,9 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
        * never touches the carried-load totals -- an event-placed object
        * weighs nothing towards the player's limits, and one spirited out
        * of the player's hands stays counted (measured live in run400,
-       * RUNNER_TESTS_TODO.md section 9; its totals are only ever written
-       * by the take/drop handlers and the task mover) -- so the position
-       * tracker is suspended for the move.
+       * test/adrift4/notes/RUNNER_TESTS_TODO.md section 9; its totals are only
+       * ever written by the take/drop handlers and the task mover) -- so the
+       * position tracker is suspended for the move.
        */
       {
         gs_carried_suspend_guard suspend (game);
@@ -408,10 +408,11 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
        * This is the only place a static object moves.  The task action mover
        * refuses them outright (see task_move_object), so an event is the sole
        * route by which one can reach the player's hands -- measured live in
-       * run400, RUNNER_TESTS_TODO.md section 9.  A static that gets there is
-       * listed by "inventory", but the Runner does not otherwise count it as
-       * held: it weighs nothing towards the player's limits and cannot be
-       * dropped, which is what obj_get_size/obj_get_weight's zero preserves.
+       * run400, test/adrift4/notes/RUNNER_TESTS_TODO.md section 9.  A static
+       * that gets there is listed by "inventory", but the Runner does not
+       * otherwise count it as held: it weighs nothing towards the player's
+       * limits and cannot be dropped, which is what
+       * obj_get_size/obj_get_weight's zero preserves.
        */
       if (obj_is_static (game, object))
         gs_set_object_static_unmoved (game, object, FALSE);
@@ -545,9 +546,9 @@ static void evt_start_event (scr_gameref_t game, scr_int event,
  * re-arms the event WITHOUT printing its StartText, where run400 prints it
  * every time round.  Both give the restarted event its full authored length.
  *
- * Arbitrated live 2026-08-04 (RUNNER_TESTS_TODO.md section 8), probe
- * test/adrift4/harness/make_39_evtimeprobe.py against run390.exe and the
- * EV9 twin against run400.exe:
+ * Arbitrated live 2026-08-04 (test/adrift4/notes/RUNNER_TESTS_TODO.md section
+ * 8), probe test/adrift4/harness/make_39_evtimeprobe.py against run390.exe and
+ * the EV9 twin against run400.exe:
  *
  *   run390, Time1=Time2=5, RestartType=1, StarterType 1: "E FINISH." on turns
  *     5, 10, 15 -- period 5, and no StartText on either restart.
@@ -670,8 +671,8 @@ evt_run_affected_task (scr_gameref_t game, scr_int task)
        * unprinted.  The dispatch is not gated on the affected task's
        * own runnability -- a wildcard can fire even when the affected
        * task could not run here.  See run_event_task() and
-       * RUNNER_TESTS_TODO.md section 2; "thetest" depends on the
-       * stealing.
+       * test/adrift4/notes/RUNNER_TESTS_TODO.md section 2; "thetest" depends
+       * on the stealing.
        */
       if (evt_trace)
         scr_trace ("Event: event dispatching task %ld forwards\n", task);
@@ -686,7 +687,7 @@ evt_run_affected_task (scr_gameref_t game, scr_int task)
        * (which task_run_task does) -- Shadowpeak's ambient bell/rat
        * lines are exactly such prints.  Both halves verified live
        * against run390/run400 with the same gen400-converted probe;
-       * see RUNNER_TESTS_TODO.md section 2.
+       * see test/adrift4/notes/RUNNER_TESTS_TODO.md section 2.
        */
       if (evt_trace)
         scr_trace ("Event: event running task %ld forwards\n", task);

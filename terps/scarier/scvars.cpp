@@ -639,8 +639,8 @@ var_select_list_plurality (scr_gameref_t game, scr_int associate,
  * one or two objects get the alternate (postfixed) "<list> is/are inside
  * <cont>." format, three or more the normal (prefixed) "Inside <cont> is
  * <list>." one, and before 3.9 the alternate format does not exist at all.
- * See lib_list_in_object() in sclibrar.cpp for the derivation and for the
- * live measurements behind it.
+ * See lib_list_in_object() in sclibrar_examine.cpp for the derivation and
+ * for the live measurements behind it.
  *
  * The variables used to take the alternate format unconditionally.  Measured
  * live in run400 under Wine 2026-08-24 on WhereAreMyKeys.taf, whose fridge is

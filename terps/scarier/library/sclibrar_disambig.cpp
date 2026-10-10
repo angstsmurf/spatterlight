@@ -21,8 +21,8 @@
  * NPC and object disambiguation, and the 4.0 "which do you mean"
  * question machinery.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files
- * share and sclibrar_internal.h for what the core files share.
+ * See sclibrar.h for what the library files share and sclibrar_internal.h
+ * for what the core files share.
  */
 
 #include <assert.h>

@@ -21,7 +21,7 @@
 /*
  * Asking and talking to NPCs.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ * See sclibrar.h for what the library files share.
  */
 
 #include <assert.h>

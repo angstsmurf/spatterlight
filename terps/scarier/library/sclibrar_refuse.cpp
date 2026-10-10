@@ -21,8 +21,8 @@
  * Stock refusals: nothing happens, can't do, don't think, and the
  * "<verb> what?" family.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files
- * share and sclibrar_internal.h for what the core files share.
+ * See sclibrar.h for what the library files share and sclibrar_internal.h
+ * for what the core files share.
  */
 
 #include <assert.h>

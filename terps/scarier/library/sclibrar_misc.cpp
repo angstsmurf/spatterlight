@@ -22,7 +22,7 @@
  * Save/restore, locate, turns, score, battle status, examining
  * other things, and the one-line stock responses.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ * See sclibrar.h for what the library files share.
  */
 
 #include <assert.h>

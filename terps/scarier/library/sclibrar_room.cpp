@@ -21,7 +21,7 @@
 /*
  * Room contents, room descriptions and exits.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ * See sclibrar.h for what the library files share.
  */
 
 #include <assert.h>
@@ -222,18 +222,18 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
    * something of their own to say.
    *
    * Two things about that split are not what they look like, both measured
-   * live in run400 (RUNNER_TESTS_TODO.md section 9).  The "#" substitution
-   * happens in the *loader* (@00091EDF): the text simply becomes "<name> is
-   * here." before the game starts, and by the time the room lister
-   * (@00072944) runs there is no "#" left to test for.  What it tests instead
-   * is the tail -- Right(text, 9) = " is here." -- so a character whose text
-   * the author wrote out in full joins the sentence too, contributing the text
-   * with those nine characters trimmed off rather than its own name.  Probe
-   * NPCs "Delta" ("Delta is here.") and "Foxtrot" ("The stranger is here.")
-   * come out as "Alpha, Charlie, Delta and The stranger are here.", so it is
-   * the text that is trimmed and not the name that is looked up.  The test is
-   * exact and case-sensitive: "Golf is here!" and "Hotel IS HERE." both stay
-   * in the second group.
+   * live in run400 (test/adrift4/notes/RUNNER_TESTS_TODO.md section 9).  The
+   * "#" substitution happens in the *loader* (@00091EDF): the text simply
+   * becomes "<name> is here." before the game starts, and by the time the room
+   * lister (@00072944) runs there is no "#" left to test for.  What it tests
+   * instead is the tail -- Right(text, 9) = " is here." -- so a character
+   * whose text the author wrote out in full joins the sentence too,
+   * contributing the text with those nine characters trimmed off rather than
+   * its own name.  Probe NPCs "Delta" ("Delta is here.") and "Foxtrot" ("The
+   * stranger is here.") come out as "Alpha, Charlie, Delta and The stranger
+   * are here.", so it is the text that is trimmed and not the name that is
+   * looked up.  The test is exact and case-sensitive: "Golf is here!" and
+   * "Hotel IS HERE." both stay in the second group.
    *
    * And the joined sentence comes *first*, ahead of the characters with their
    * own text, which is the other half of what Scarier had backwards.

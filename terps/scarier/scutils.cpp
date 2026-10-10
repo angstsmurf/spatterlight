@@ -248,6 +248,11 @@ scr_strcasecmp (const scr_char *s1, const scr_char *s2)
  * is a linear congruential generator with a long period that is guaranteed
  * to return the same sequence for all platforms.  The default is the first,
  * with the latter intended for predictability of game actions.
+ *
+ * Both branches below are live.  SPATTERLIGHT is defined only by the Xcode
+ * build, which routes both generators through the shared erkyrath_random();
+ * the headless test suite and the plain `make` builds take the #else branch
+ * and keep SCARE's original rand() wrapper and congruential generator.
  */
 #ifdef SPATTERLIGHT
 

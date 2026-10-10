@@ -21,7 +21,7 @@
 /*
  * Wield, kiss, buy, break, smell, sell and eat.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ * See sclibrar.h for what the library files share.
  */
 
 #include <assert.h>

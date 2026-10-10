@@ -87,6 +87,7 @@
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
+#include "runner/scrunner.h"
 
 #ifdef SCARIER_DUMP_TOOLS
 
@@ -670,7 +671,7 @@ scdump_objects (scr_gameref_t game)
    * resolvable key, and pre-4.0 games never have one (parse_fixup_openable_key
    * always writes Key = -1), so this is the line that lets the gen400
    * conversion oracle check the V390/V380_OBJECT fixup that swaps Openable
-   * 5 and 6.  See RUNNER_TESTS_TODO.md section 3(a).
+   * 5 and 6.  See test/adrift4/notes/RUNNER_TESTS_TODO.md section 3(a).
    */
   for (i = 0; i < gs_object_count (game); i++)
     {
@@ -803,9 +804,10 @@ scdump_tasks (scr_gameref_t game)
           score = vt.integer;
         /*
          * srd: the task's ShowRoomDesc, as the raw field -- 0 for none,
-         * otherwise room + 1.  See RUNNER_TESTS_TODO.md section 4, where
-         * run400 is measured printing that room's description with no room
-         * name heading, and task_run_task_unrestricted() prints both.
+         * otherwise room + 1.  See test/adrift4/notes/RUNNER_TESTS_TODO.md
+         * section 4, where run400 is measured printing that room's description
+         * with no room name heading, and task_run_task_unrestricted() prints
+         * both.
          */
         k[2].string = "ShowRoomDesc";
         if (prop_get (bundle, "I<-sis", &vt, k))
@@ -1462,8 +1464,8 @@ scdump_exits (scr_gameref_t game)
 
   /*
    * Room exits + their task gates.  The exit array is in ADRIFT's own direction
-   * order -- the diagonals are NE,SE,SW,NW, NOT NE,NW,SE,SW (sclibrar.cpp's
-   * DIRNAMES, and mapdraw.cpp's map_dirs, which both engines share).  Getting
+   * order -- the diagonals are NE,SE,SW,NW, NOT NE,NW,SE,SW (DIRNAMES_8 in
+   * sclibrar_room.cpp, and mapdraw.cpp's map_dirs, which both engines share).  Getting
    * this wrong mislabels every diagonal exit and sends a route derivation into
    * the wrong room.
    */
@@ -1480,7 +1482,7 @@ scdump_exits (scr_gameref_t game)
      * means every line before the score summary came from the winning task's
      * CompleteText.  (The engine adds nothing of its own there -- the
      * Runners' "Congratulations!" is a status bar caption, not game text.
-     * See RUNNER_TESTS_TODO.md section 4.)
+     * See test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.)
      */
     {
       scr_vartype_t hk[2], hv;
@@ -1570,8 +1572,8 @@ scdump_exits (scr_gameref_t game)
      * Room description alts.  In 4.0 these are an authored array; in 3.9/3.8
      * they are synthesised by parse_fixup_v390_v380_room_alts() from the
      * fixed AltDesc/Task1/Task2/LastDesc fields, so dumping them is how the
-     * gen400 conversion oracle checks that fixup (see RUNNER_TESTS_TODO.md
-     * §3a).
+     * gen400 conversion oracle checks that fixup (see
+     * test/adrift4/notes/RUNNER_TESTS_TODO.md §3a).
      */
     for (r = 0; r < rcount; r++)
       {
@@ -1842,10 +1844,9 @@ scr_dump_npc_trace (scr_gameref_t game)
 
 
 /*
- * The input line the runner is on, for the deviation trace, and the
- * deviations already reported on it.
+ * The deviations already reported on the runner's current input line
+ * (run_trace_last_input, from runner/scrunner.h).
  */
-extern std::string run_trace_last_input;
 static std::set<std::string> scr_deviations_seen;
 
 

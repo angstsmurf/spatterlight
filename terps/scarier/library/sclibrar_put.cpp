@@ -20,8 +20,8 @@
 /*
  * Putting objects in and on other objects.
  *
- * Split out of sclibrar.cpp; see sclibrar.h for what the library files
- * share and sclibrar_internal.h for what the core files share.
+ * See sclibrar.h for what the library files share and sclibrar_internal.h
+ * for what the core files share.
  */
 
 #include <assert.h>
@@ -706,7 +706,7 @@ lib_put_deferred_stage_400 (scr_gameref_t game, const lib_list_t &pending,
    * PSTAT's silent commands 13 and 18 are not a counter-measurement: there the
    * coin, object #1, sits inside the box, and run400's carried-weight cycle
    * (447680) eats the report; see the deliberate deviation in
-   * notes/WINE-TRANSCRIPTS-TODO.md.
+   * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
    */
   for (const scr_int pending_object : pending)
     {
@@ -811,7 +811,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
        * nothing.  Probe PSTAT's silent commands 13 and 18 are not a
        * counter-measurement: there the coin, object #1, sits inside the box,
        * and run400's carried-weight cycle (447680) eats the report; see the
-       * deliberate deviation in notes/WINE-TRANSCRIPTS-TODO.md.
+       * deliberate deviation in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
        */
       {
         scr_bool take_printed = FALSE;
