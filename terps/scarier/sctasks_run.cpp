@@ -328,7 +328,7 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
         {
           if (!task_repeattext_is_empty (game, task))
             {
-              if (task_trace)
+              if (tasks.trace)
                 {
                   scr_trace ("Task:"
                             " trying to repeat completed action, aborting\n");
@@ -380,8 +380,9 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
        * with pspace(), so an ALR can span it (see pf_buffer_join_line()).
        * That is the Runner's execute_task mode 1, and it covers an event's
        * task, a walk's, a battle's and the one an "execute task" action runs
-       * -- see task_dispatch_depth.  The hidden prefix says the same thing
-       * for the action case at 4.0, where the turn's text stays in the buffer
+       * -- see task_push_dispatched_run().  The hidden prefix says the same
+       * thing for the action case at 4.0, where the turn's text stays in the
+       * buffer
        * behind the barrier while the actions run; keep it, because the
        * refusal a 4.0 put leaves pending (pf_buffer_join_pending) reaches
        * here through the typed line's own matcher.
@@ -553,14 +554,12 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
  * Runner's "a task ran for this line" flag (run390 MemVar_468198, run400
  * MemVar_4941F8, set in execute_task at 45A176) as a counter, so a caller
  * can compare two readings.  A task that only printed its FailMessage does
- * not count.
+ * not count.  The counter is tasks.run.executions.
  */
-static scr_int task_executions = 0;
-
 scr_int
 task_execution_count (void)
 {
-  return task_executions;
+  return tasks.run.executions;
 }
 
 
@@ -581,7 +580,7 @@ task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
   const scr_char *fail_message;
   scr_bool restrictions_passed, status;
 
-  if (task_trace)
+  if (tasks.trace)
     {
       scr_trace ("Task: running task %ld %s, depth %ld\n",
                 task, forwards ? "forwards" : "backwards", recursion_depth);
@@ -607,7 +606,7 @@ task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
    */
   if (!game->is_running)
     {
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: game over, not running task %ld\n", task);
 
       return FALSE;
@@ -622,7 +621,7 @@ task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
     }
   if (!restrictions_passed)
     {
-      if (task_trace)
+      if (tasks.trace)
         {
           scr_trace ("Task: restrictions failed, task %s\n",
                     fail_message ? "failed" : "aborted");
@@ -643,7 +642,7 @@ task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
       return FALSE;
     }
 
-  task_executions++;
+  tasks.run.executions++;
 
   /* Check for infinite recursion. */
   if (recursion_depth > TASK_MAXIMUM_RECURSION)
@@ -665,7 +664,7 @@ task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
     status = task_run_task_unrestricted (game, task, forwards);
   }
 
-  if (task_trace)
+  if (tasks.trace)
     {
       scr_trace ("Task: task %ld finished, return %s, depth %ld\n",
                 task, status ? "true" : "false", recursion_depth);

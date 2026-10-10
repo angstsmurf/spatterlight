@@ -26,8 +26,8 @@
 
 #include "sctasks_internal.h"
 
-/* Trace flag, set before running. */
-scr_bool task_trace = FALSE;
+/* The module's state; see sctasks_internal.h. */
+scr_task_state_t tasks;
 
 /*
  * How deep we are inside a task the engine dispatched rather than the player's
@@ -46,8 +46,9 @@ scr_bool task_trace = FALSE;
  * and what checkevent passes when it dispatches by command text (run390
  * 42D3F5, run380 43A762); the typed line's own matcher passes 0 and its
  * fallback pass 2 (run390 generaltasks 45F48B, 460584).
+ *
+ * The count is tasks.run.dispatch_depth.
  */
-static scr_int task_dispatch_depth = 0;
 
 /*
  * task_push_dispatched_run()
@@ -55,27 +56,27 @@ static scr_int task_dispatch_depth = 0;
  * task_in_dispatched_run()
  *
  * Bracket a task run the engine asked for, so that task_run_task_unrestricted()
- * can tell it from the one the player's line matched; see task_dispatch_depth.
+ * can tell it from the one the player's line matched; see the note above.
  * Nesting is why this is a count rather than a flag -- anything a dispatched
  * task runs was dispatched too.
  */
 void
 task_push_dispatched_run (void)
 {
-  task_dispatch_depth++;
+  tasks.run.dispatch_depth++;
 }
 
 void
 task_pop_dispatched_run (void)
 {
-  assert (task_dispatch_depth > 0);
-  task_dispatch_depth--;
+  assert (tasks.run.dispatch_depth > 0);
+  tasks.run.dispatch_depth--;
 }
 
 scr_bool
 task_in_dispatched_run (void)
 {
-  return task_dispatch_depth > 0;
+  return tasks.run.dispatch_depth > 0;
 }
 
 
@@ -95,18 +96,16 @@ task_in_dispatched_run (void)
  * real room is honoured as "to room", letting such games be completed.
  * Strictly opt-in, as it deliberately diverges from the reference Runner.
  */
-scr_bool task_move_assist = FALSE;
-
 void
 task_set_move_assist (scr_bool flag)
 {
-  task_move_assist = flag;
+  tasks.options.move_assist = flag;
 }
 
 scr_bool
 task_get_move_assist (void)
 {
-  return task_move_assist;
+  return tasks.options.move_assist;
 }
 
 
@@ -121,18 +120,16 @@ task_get_move_assist (void)
  * as a global default: other games (e.g. The Plague) park tasks there on
  * purpose.  Strictly opt-in, as it deliberately diverges from the Runner.
  */
-static scr_bool task_room_assist = FALSE;
-
 void
 task_set_room_assist (scr_bool flag)
 {
-  task_room_assist = flag;
+  tasks.options.room_assist = flag;
 }
 
 scr_bool
 task_get_room_assist (void)
 {
-  return task_room_assist;
+  return tasks.options.room_assist;
 }
 
 
@@ -205,19 +202,6 @@ enum
 { TASK_CACHE_UNKNOWN = 0, TASK_CACHE_FALSE = 1, TASK_CACHE_TRUE = 2 };
 enum { TASK_CACHE_NO_ROOM = -2 };
 
-typedef struct
-{
-  scr_byte repeatable;           /* tri-state, TASK_CACHE_* */
-  scr_byte repeattext_empty;     /* tri-state: is RepeatText empty? */
-  scr_byte reversible;           /* tri-state */
-  scr_int where_type;            /* Where.Type + 1, 0 = unknown */
-  scr_int where_room;            /* Where.Room, TASK_CACHE_NO_ROOM = unknown */
-  std::vector<scr_byte> where_rooms;  /* per-room tri-state, sized lazily */
-} scr_task_props_t;
-
-static const void *task_cache_game = nullptr;
-static std::vector<scr_task_props_t> task_cache;
-
 /*
  * task_cache_entry()
  *
@@ -227,7 +211,7 @@ static std::vector<scr_task_props_t> task_cache;
 static scr_task_props_t *
 task_cache_entry (scr_gameref_t game, scr_int task)
 {
-  if (task_cache_game != game)
+  if (tasks.cache.game != game)
     {
       scr_task_props_t initial;
 
@@ -237,12 +221,12 @@ task_cache_entry (scr_gameref_t game, scr_int task)
       initial.where_type = 0;
       initial.where_room = TASK_CACHE_NO_ROOM;
 
-      task_cache.assign (gs_task_count (game), initial);
-      task_cache_game = game;
+      tasks.cache.props.assign (gs_task_count (game), initial);
+      tasks.cache.game = game;
     }
   if (!gs_task_valid (game, task))
     scr_fatal ("task_cache_entry: invalid task, %ld\n", task);
-  return &task_cache[task];
+  return &tasks.cache.props[task];
 }
 
 
@@ -255,10 +239,10 @@ task_cache_entry (scr_gameref_t game, scr_int task)
 void
 task_forget_game (const void *game)
 {
-  if (task_cache_game == game)
+  if (tasks.cache.game == game)
     {
-      task_cache_game = nullptr;
-      task_cache.clear ();
+      tasks.cache.game = nullptr;
+      tasks.cache.props.clear ();
     }
 }
 
@@ -394,7 +378,7 @@ task_where_allows_run (scr_gameref_t game, scr_int task)
   switch (type)
     {
     case ROOMLIST_NO_ROOMS:
-      return task_room_assist;
+      return tasks.options.room_assist;
     case ROOMLIST_ALL_ROOMS:
       return TRUE;
 
@@ -562,5 +546,5 @@ task_can_run_task (scr_gameref_t game, scr_int task)
 void
 task_debug_trace (scr_bool flag)
 {
-  task_trace = flag;
+  tasks.trace = flag;
 }

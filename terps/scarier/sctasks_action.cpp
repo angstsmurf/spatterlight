@@ -38,7 +38,7 @@ task_run_change_object_status (scr_gameref_t game, scr_int var1, scr_int var2)
   scr_vartype_t vt_key[3];
   scr_int object, openable, lockable;
 
-  if (task_trace)
+  if (tasks.trace)
     {
       scr_trace ("Task: setting status of stateful object %ld to %ld\n",
                 var1, var2);
@@ -80,7 +80,7 @@ task_run_change_object_status (scr_gameref_t game, scr_int var1, scr_int var2)
     /* Not openable. */
     gs_set_object_state (game, object, var2 + 1);
 
-  if (task_trace)
+  if (tasks.trace)
     {
       scr_trace ("Task: openness of object %ld is now %ld\n",
                 object, gs_object_openness (game, object));
@@ -141,14 +141,14 @@ task_run_change_variable_action (scr_gameref_t game,
       switch (var2)
         {
         case 0:                /* Var = */
-          if (task_trace)
+          if (tasks.trace)
             scr_trace ("Task: variable %ld (%s) = %ld\n", var1, name, var3);
 
           var_put_integer (vars, name, var3);
           return;
 
         case 1:                /* Var += */
-          if (task_trace)
+          if (tasks.trace)
             scr_trace ("Task: variable %ld (%s) += %ld\n", var1, name, var3);
 
           value = var_get_integer (vars, name) + var3;
@@ -156,7 +156,7 @@ task_run_change_variable_action (scr_gameref_t game,
           return;
 
         case 2:                /* Var = rnd(range) */
-          if (task_trace)
+          if (tasks.trace)
             {
               scr_trace ("Task: variable %ld (%s) = random(%ld,%ld)\n",
                         var1, name, var3, var5);
@@ -167,7 +167,7 @@ task_run_change_variable_action (scr_gameref_t game,
           return;
 
         case 3:                /* Var += rnd(range) */
-          if (task_trace)
+          if (tasks.trace)
             {
               scr_trace ("Task: variable %ld (%s) += random(%ld,%ld)\n",
                         var1, name, var3, var5);
@@ -179,7 +179,7 @@ task_run_change_variable_action (scr_gameref_t game,
 
         case 4:                /* Var = ref */
           value = var_get_ref_number (vars);
-          if (task_trace)
+          if (tasks.trace)
             {
               scr_trace ("Task: variable %ld (%s) = ref, %ld\n",
                         var1, name, value);
@@ -195,7 +195,7 @@ task_run_change_variable_action (scr_gameref_t game,
                         " invalid expression, %s\n", expr);
               value = 0;
             }
-          if (task_trace)
+          if (tasks.trace)
             {
               scr_trace ("Task: variable %ld (%s) = %s, %ld\n",
                         var1, name, expr, value);
@@ -215,7 +215,7 @@ task_run_change_variable_action (scr_gameref_t game,
       switch (var2)
         {
         case 0:                /* Var = text literal */
-          if (task_trace)
+          if (tasks.trace)
             {
               scr_trace ("Task: variable %ld (%s) = \"%s\"\n",
                         var1, name, expr);
@@ -226,7 +226,7 @@ task_run_change_variable_action (scr_gameref_t game,
 
         case 1:                /* Var = ref */
           string = var_get_ref_text (vars);
-          if (task_trace)
+          if (tasks.trace)
             {
               scr_trace ("Task: variable %ld (%s) = ref, \"%s\"\n",
                         var1, name, string);
@@ -251,7 +251,7 @@ task_run_change_variable_action (scr_gameref_t game,
                 evaluated = scr_strdup ("[expr error]");
               }
             scr_owned_string mutable_string (evaluated);
-            if (task_trace)
+            if (tasks.trace)
               {
                 scr_trace ("Task: variable %ld (%s) = %s, %s\n",
                           var1, name, expr, mutable_string.get ());
@@ -292,7 +292,7 @@ task_run_change_score_action (scr_gameref_t game, scr_int task, scr_int var1)
       increase_score = !gs_task_scored (game, task);
       if (!increase_score)
         {
-          if (task_trace)
+          if (tasks.trace)
             scr_trace ("Task: already scored task %ld\n", var1);
 
           /* Version 3.8 and 3.7 games permit tasks to rescore. */
@@ -300,7 +300,7 @@ task_run_change_score_action (scr_gameref_t game, scr_int task, scr_int var1)
             {
               increase_score = !prop_get_indexed_boolean (bundle, "Tasks",
                                                           task, "SingleScore");
-              if (increase_score && task_trace)
+              if (increase_score && tasks.trace)
                 scr_trace ("Task: rescoring version 3.8 task anyway\n");
             }
         }
@@ -311,7 +311,7 @@ task_run_change_score_action (scr_gameref_t game, scr_int task, scr_int var1)
        */
       if (increase_score)
         {
-          if (task_trace)
+          if (tasks.trace)
             scr_trace ("Task: increased score by %ld\n", var1);
 
           game->score += var1;
@@ -321,7 +321,7 @@ task_run_change_score_action (scr_gameref_t game, scr_int task, scr_int var1)
   else if (var1 < 0)
     {
       /* Decrease the score. */
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: decreased score by %ld\n", -(var1));
 
       game->score += var1;
@@ -345,7 +345,7 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
    */
   if (var2 < 0 || var2 >= gs_task_count (game))
     {
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: set-task action names invalid task %ld\n", var2);
       return FALSE;
     }
@@ -361,14 +361,14 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
        */
       if (task_can_run_task_directional (game, var2, TRUE))
         {
-          if (task_trace)
+          if (tasks.trace)
             scr_trace ("Task: redirecting to task %ld\n", var2);
 
           status = run_task_run_by_index (game, var2);
         }
       else
         {
-          if (task_trace)
+          if (tasks.trace)
             scr_trace ("Task: can't redirect to task %ld\n", var2);
         }
 
@@ -382,7 +382,7 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
     {
       /* Undo task. */
       gs_set_task_done (game, var2, FALSE);
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: reversing task %ld\n", var2);
     }
 
@@ -427,7 +427,7 @@ task_run_change_battle_action (scr_gameref_t game,
     {
       if (var2 < 0 || var2 >= gs_npc_count (game))
         return;
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: setting 3.9 speed of NPC %ld to %ld\n", var2, var3);
       battle_change_attribute (game, var2, 0xB, var3);
       return;
@@ -464,7 +464,7 @@ task_run_change_battle_action (scr_gameref_t game,
         return;
     }
 
-  if (task_trace)
+  if (tasks.trace)
     {
       scr_trace ("Task: changing battle attribute %ld of %s by/to %ld\n",
                 var1, (npc < 0) ? "player" : "NPC", var3);
@@ -573,7 +573,7 @@ task_run_task_actions (scr_gameref_t game, scr_int task)
   vt_key[2].string = "Actions";
   action_count = prop_get_child_count (bundle, "I<-sis", vt_key);
 
-  if (action_count > 0 && task_trace)
+  if (action_count > 0 && tasks.trace)
     {
       scr_trace ("Task: task %ld running %ld action%s\n",
                 task, action_count, action_count == 1 ? "" : "s");
@@ -608,7 +608,7 @@ task_run_task_actions (scr_gameref_t game, scr_int task)
       /* Did this action end the game? */
       if (was_running && !game->is_running)
         {
-          if (task_trace)
+          if (tasks.trace)
             {
               scr_trace ("Task: task %ld action %ld ended game\n",
                         task, action);

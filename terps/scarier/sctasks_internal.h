@@ -50,11 +50,68 @@
 #include "scprotos.h"
 #include "scgamest.h"
 
-/* Trace flag, set before running.  Defined in sctasks.cpp. */
-extern scr_bool task_trace;
+/* One task's cached runnability properties; see the cache note in
+ * sctasks.cpp, which owns the TASK_CACHE_* values. */
+struct scr_task_props_s
+{
+  scr_byte repeatable;           /* tri-state, TASK_CACHE_* */
+  scr_byte repeattext_empty;     /* tri-state: is RepeatText empty? */
+  scr_byte reversible;           /* tri-state */
+  scr_int where_type;            /* Where.Type + 1, 0 = unknown */
+  scr_int where_room;            /* Where.Room, TASK_CACHE_NO_ROOM = unknown */
+  std::vector<scr_byte> where_rooms;  /* per-room tri-state, sized lazily */
+};
+typedef struct scr_task_props_s scr_task_props_t;
 
-/* The move assist switch; see task_set_move_assist() in sctasks.cpp. */
-extern scr_bool task_move_assist;
+/*
+ * The task module's state: every file-scope variable of the five files, in
+ * one instance, `tasks`, defined in sctasks.cpp.  The members are grouped by
+ * lifetime:
+ *
+ *   trace    the interface's task trace flag (task_debug_trace()), set
+ *            before any game exists and kept across them.
+ *   options  the move and room assists, set by the interface through
+ *            task_set_move_assist() / task_set_room_assist() and read by
+ *            the move actions and task_can_run_task_directional().  They
+ *            belong to the process, not to a game: whoever loads the next
+ *            game sets them again.
+ *   run      the dispatched-run nesting count, which the
+ *            task_push_dispatched_run() / task_pop_dispatched_run() bracket
+ *            returns to zero, and the count of tasks that have run, which
+ *            only ever grows -- task_execution_count()'s callers compare
+ *            two readings, so it needs no reset.
+ *   cache    the per-task runnability properties of one game, filled
+ *            lazily and dropped by task_forget_game() when that game is
+ *            destroyed.
+ *
+ * Nothing here is saved, and there is no reset function: the cache has its
+ * drop hook and the rest is process state.
+ */
+struct scr_task_state_s
+{
+  scr_bool trace = FALSE;
+
+  struct
+  {
+    scr_bool move_assist = FALSE;
+    scr_bool room_assist = FALSE;
+  } options;
+
+  struct
+  {
+    scr_int dispatch_depth = 0;
+    scr_int executions = 0;
+  } run;
+
+  struct
+  {
+    const void *game = nullptr;
+    std::vector<scr_task_props_t> props;
+  } cache;
+};
+typedef struct scr_task_state_s scr_task_state_t;
+
+extern scr_task_state_t tasks;
 
 /* sctasks.cpp */
 extern scr_bool task_in_dispatched_run (void);

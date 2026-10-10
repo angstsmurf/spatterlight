@@ -118,14 +118,14 @@ task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
       /* 0 is hidden; so is a room that does not exist (-1 always was). */
       if (var3 <= 0 || var3 > gs_room_count (game))
         {
-          if (task_trace)
+          if (tasks.trace)
             scr_trace ("Task: moving object %ld to hidden\n", object);
 
           gs_object_make_hidden (game, object);
         }
       else
         {
-          if (task_trace)
+          if (tasks.trace)
             {
               scr_trace ("Task: moving object %ld to room %ld\n",
                         object, var3 - 1);
@@ -143,7 +143,7 @@ task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
       break;
 
     case 1:                    /* To roomgroup part */
-      if (task_trace)
+      if (tasks.trace)
         {
           scr_trace ("Task: moving object %ld to random room in group %ld\n",
                     object, var3);
@@ -158,7 +158,7 @@ task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
       break;
 
     case 2:                    /* Into object */
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: moving object %ld into %ld\n", object, var3);
 
       /*
@@ -176,7 +176,7 @@ task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
       break;
 
     case 3:                    /* Onto object */
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: moving object %ld onto %ld\n", object, var3);
 
       gs_object_move_onto (game, object, obj_surface_object (game, var3));
@@ -184,7 +184,7 @@ task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
       break;
 
     case 4:                    /* Held by */
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: moving object %ld to held by %ld\n", object, var3);
 
       if (!task_move_object_held_by (game, object, var3, is_v400, stamp_seen))
@@ -192,7 +192,7 @@ task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
       break;
 
     case 5:                    /* Worn by */
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: moving object %ld to worn by %ld\n", object, var3);
 
       if (var3 == 0)            /* Player */
@@ -220,7 +220,7 @@ task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
       {
         scr_int room, npc;
 
-        if (task_trace)
+        if (tasks.trace)
           {
             scr_trace ("Task: moving object %ld to same room as %ld\n",
                       object, var3);
@@ -252,7 +252,7 @@ task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
        * as the Runner does, rather than treated as fatal.  See the matching
        * note in task_run_move_npc_action().
        */
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: ignoring move with unset/unknown"
                   " object move type %ld\n", var2);
       break;
@@ -308,7 +308,7 @@ task_move_object (scr_gameref_t game, scr_int object,
    */
   if (object < 0)
     {
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: ignoring move of unset object %ld\n", object);
       return;
     }
@@ -332,14 +332,14 @@ task_move_object (scr_gameref_t game, scr_int object,
    */
   if (obj_is_static (game, object))
     {
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: ignoring move of static object %ld\n", object);
       return;
     }
 
   if (!task_move_destination_valid (game, var2, var3))
     {
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: ignoring move of object %ld to nonexistent"
                    " destination %ld, %ld\n", object, var2, var3);
       return;
@@ -481,7 +481,7 @@ task_move_phantom_object (scr_gameref_t game, scr_int var2, scr_int var3)
   switch (var2)
     {
     case 1:                    /* To roomgroup part */
-      if (task_trace)
+      if (tasks.trace)
         scr_trace ("Task: moving phantom object to random room in group"
                    " %ld\n", var3);
       /* An empty group writes getaroom's 0, which is still "held". */
@@ -565,7 +565,7 @@ task_run_move_object_action (scr_gameref_t game,
 static void
 task_move_npc_to_room (scr_gameref_t game, scr_int npc, scr_int room)
 {
-  if (task_trace)
+  if (tasks.trace)
     scr_trace ("Task: moving NPC %ld to room %ld\n", npc, room);
 
   /* Update the NPC's state; below -1 is no room, so hidden like -1. */
@@ -637,7 +637,7 @@ task_run_move_npc_action (scr_gameref_t game,
           return;
 
         case 1:                /* To roomgroup part */
-          if (task_trace)
+          if (tasks.trace)
             {
               scr_trace ("Task: moving player to random room in group %ld\n",
                         var3);
@@ -663,13 +663,13 @@ task_run_move_npc_action (scr_gameref_t game,
           if (!gs_npc_valid (game, npc))
             return;
 
-          if (task_trace)
+          if (tasks.trace)
             scr_trace ("Task: moving player to same room as NPC %ld\n", npc);
 
           room = gs_npc_location (game, npc) - 1;
           if (room < 0)
             {
-              if (task_trace)
+              if (tasks.trace)
                 scr_trace ("Task: silently suppressed player move to hidden\n");
             }
           else
@@ -697,7 +697,7 @@ task_run_move_npc_action (scr_gameref_t game,
                                     ? obj_lieable_object (game, var3 - 1)
                                     : obj_standable_object (game, var3 - 1));
 
-            if (task_trace)
+            if (tasks.trace)
               {
                 scr_trace ("Task: player position %ld, parent object %ld"
                            " (requested %ld)\n", position, parent, var3 - 1);
@@ -715,16 +715,16 @@ task_run_move_npc_action (scr_gameref_t game,
            * left the destination unset.  The Runner's Select Case silently
            * ignores such an action, so we treat it as a no-op rather than
            * fatal.  With move assist on, honour an unset (-1) move whose Var3
-           * names a real room as "to room" (see task_move_assist).
+           * names a real room as "to room" (see task_set_move_assist()).
            */
-          if (task_move_assist && var2 == -1
+          if (tasks.options.move_assist && var2 == -1
               && var3 >= 0 && var3 < gs_room_count (game))
             {
               gs_move_player_to_room (game, var3);
               obj_mark_room_statics_seen (game, var3);
               return;
             }
-          if (task_trace)
+          if (tasks.trace)
             scr_trace ("Task: ignoring move with unset/unknown"
                       " player move type %ld\n", var2);
           return;
@@ -748,7 +748,7 @@ task_run_move_npc_action (scr_gameref_t game,
           return;
 
         case 1:                /* To roomgroup part */
-          if (task_trace)
+          if (tasks.trace)
             {
               scr_trace ("Task: moving NPC %ld to random room in group %ld\n",
                         npc, var3);
@@ -767,7 +767,7 @@ task_run_move_npc_action (scr_gameref_t game,
               ref_npc = task_same_room_npc_390 (game, var3);
               if (ref_npc < 0)
                 return;
-              if (task_trace)
+              if (tasks.trace)
                 {
                   scr_trace ("Task: moving NPC %ld to"
                             " same room as NPC %ld (3.90 raw index)\n",
@@ -781,7 +781,7 @@ task_run_move_npc_action (scr_gameref_t game,
           switch (var3)
             {
             case 0:            /* ...player */
-              if (task_trace)
+              if (tasks.trace)
                 {
                   scr_trace ("Task: moving NPC %ld to same room as player\n",
                             npc);
@@ -801,7 +801,7 @@ task_run_move_npc_action (scr_gameref_t game,
               ref_npc = task_selector_npc (vars, var3);
               if (!gs_npc_valid (game, ref_npc))
                 return;
-              if (task_trace)
+              if (tasks.trace)
                 {
                   scr_trace ("Task: moving NPC %ld to same room as %sNPC %ld\n",
                             npc, var3 == 1 ? "referenced " : "", ref_npc);
@@ -842,7 +842,7 @@ task_run_move_npc_action (scr_gameref_t game,
            * A Var3 of 0 or less means nothing was ever selected; that stays
            * a no-op.
            */
-          if (task_move_assist && var2 == -1)
+          if (tasks.options.move_assist && var2 == -1)
             {
               if (var3 - 1 >= 0 && var3 - 1 < gs_room_count (game))
                 {
@@ -855,7 +855,7 @@ task_run_move_npc_action (scr_gameref_t game,
                   return;
                 }
             }
-          if (task_trace)
+          if (tasks.trace)
             scr_trace ("Task: ignoring move with unset/unknown"
                       " NPC move type %ld\n", var2);
           return;
