@@ -1610,7 +1610,7 @@ run_task_restriction (scr_gameref_t game, scr_int task)
  * to steal it.
  *
  * "No visible sign that it ran" has to cover every way task_run_task_
- * unrestricted() (sctasks.cpp) can print, not just CompleteText: a
+ * unrestricted() (sctasks_run.cpp) can print, not just CompleteText: a
  * ShowRoomDesc auto room-description or an AdditionalMessage are both
  * static per-task properties read the same cheap way, and both print
  * unconditionally when set (see the comment on that code, topaz.taf task 22
@@ -1621,7 +1621,7 @@ run_task_restriction (scr_gameref_t game, scr_int task)
  * excluded it from the peek, and let task 18's refusal (identical literal
  * pattern "in") win the peek instead -- breaking the golden.  Also exclude
  * any task with an Execute-Task (action type 5) or End-Game (action type 6)
- * action: task_run_task_action() (sctasks.cpp) is the only place besides
+ * action: task_run_task_action() (sctasks_action.cpp) is the only place besides
  * CompleteText/ShowRoomDesc/AdditionalMessage that can make a task's status
  * come back TRUE, and only those two action types ever set it -- an
  * End-Game action prints a score summary/ending text of its own, and an

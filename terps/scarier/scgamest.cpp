@@ -1801,8 +1801,9 @@ gs_populate_player (scr_gameref_t game, scr_prop_setref_t bundle)
      * Generator's position combo holds -- the n-th standable object for a
      * standing or sitting start, the n-th lieable object for a lying one,
      * 0 for the floor -- exactly the encoding the "Move player to standing/
-     * sitting/lying on" task action uses (sctasks.cpp task_run_move_player_
-     * action), and the restriction "Player must be sitting on" tests.  We
+     * sitting/lying on" task action uses (sctasks_move.cpp
+     * task_run_move_player_action), and the restriction "Player must be
+     * sitting on" tests.  We
      * used to read it as a raw 1-based object index, so CIBASS.taf (lying,
      * ParentObject 1) started the player on object 0, the window, and
      * `stand` answered "I stand up from the window."  run400 answers "I

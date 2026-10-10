@@ -1007,7 +1007,7 @@ CONFIGS = {
     npcs=[("Robot",0,2,250,5,5,50,50,0,0,0,0,0,0)]),
  # End-game action ordering (RUNNER_TESTS_TODO section 4, last row).  Does a
  # task's REMAINING actions run after an action that ends the game?  Scarier
- # runs them with the print filter muted (sctasks.cpp task_run_task_actions),
+ # runs them with the print filter muted (sctasks_action.cpp task_run_task_actions),
  # so the state change lands but nothing is shown -- which is invisible in
  # "Three Monkeys One Cage", the game that raised the question, because its
  # score is an author variable rather than the engine score.
@@ -1850,7 +1850,7 @@ CONFIGS = {
     # (task 129 `{go} [u/up]`: no CompleteText, AdditionalMessage "   ",
     # ShowRoomDesc = the Kitchen, actions move Ninette in and the player in --
     # run400 lists her, scarier did not).  PORTED 2026-09-07 as
-    # task_defers_room_desc() in sctasks.cpp; ghosttown's whitespace-only
+    # task_defers_room_desc() in sctasks_run.cpp; ghosttown's whitespace-only
     # AdditionalMessage is what shows the test is on the raw field and not on
     # scr_strempty(), which is whitespace-blind.  Nine goldens moved, seven of
     # them confirmed against their own run400 transcripts; see

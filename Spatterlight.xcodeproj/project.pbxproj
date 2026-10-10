@@ -1108,6 +1108,10 @@
 		5C1B1B000000000000000105 /* scprintf_output.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000105 /* scprintf_output.cpp */; };
 		5C1B1B000000000000000106 /* scprintf_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000106 /* scprintf_buffer.cpp */; };
 		5C1B1B000000000000000107 /* scprintf_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000107 /* scprintf_input.cpp */; };
+		5C1B1B000000000000000108 /* sctasks_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000108 /* sctasks_move.cpp */; };
+		5C1B1B000000000000000109 /* sctasks_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000109 /* sctasks_action.cpp */; };
+		5C1B1B00000000000000010A /* sctasks_endgame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000010A /* sctasks_endgame.cpp */; };
+		5C1B1B00000000000000010B /* sctasks_run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000010B /* sctasks_run.cpp */; };
 		E010519EC9196D58BA837C92 /* a5run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF22095E6A4182F0BA2C8C35 /* a5run.cpp */; };
 		EB9C3DB138A9783B89C8598F /* os_glk_a5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */; };
 		F003B9A431A26F5B18363EFC /* question-panes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 590D911A50D862B9538A05DA /* question-panes.cc */; };
@@ -2161,6 +2165,10 @@
 		5C1B1A000000000000000105 /* scprintf_output.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scprintf_output.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000106 /* scprintf_buffer.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scprintf_buffer.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000107 /* scprintf_input.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scprintf_input.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000108 /* sctasks_move.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctasks_move.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000109 /* sctasks_action.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctasks_action.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000010A /* sctasks_endgame.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctasks_endgame.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000010B /* sctasks_run.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctasks_run.cpp; sourceTree = "<group>"; };
 		8EE0E82499061DB6D3D5ED73 /* scinterf.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scinterf.cpp; sourceTree = "<group>"; };
 		91D06A59F00340EB841884EB /* GlkTextBufferWindow+Speech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Speech.m"; sourceTree = "<group>"; };
 		9255CEEB5304EB4E1088A443 /* scvars.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scvars.cpp; sourceTree = "<group>"; };
@@ -4464,6 +4472,10 @@
 				1B305C336D7D955664940307 /* scbattle.cpp */,
 				3CC2449C2978F679050748B2 /* scobjcts.cpp */,
 				B865055FE24752E15286600C /* sctasks.cpp */,
+				5C1B1A000000000000000108 /* sctasks_move.cpp */,
+				5C1B1A000000000000000109 /* sctasks_action.cpp */,
+				5C1B1A00000000000000010A /* sctasks_endgame.cpp */,
+				5C1B1A00000000000000010B /* sctasks_run.cpp */,
 				B0C28DFE777A2A70B7F78AF6 /* screstrs.cpp */,
 				24A4363FEF151AF32725A1B4 /* scgamest.cpp */,
 				EE20BE1A122588EF6BEFBB6B /* scserial.cpp */,
@@ -8440,6 +8452,10 @@
 				F7A31CFACB95A62B9C116F67 /* scbattle.cpp in Sources */,
 				79E763325FC58B140D00FEF3 /* scobjcts.cpp in Sources */,
 				3C14D827049A5F119A0E0907 /* sctasks.cpp in Sources */,
+				5C1B1B000000000000000108 /* sctasks_move.cpp in Sources */,
+				5C1B1B000000000000000109 /* sctasks_action.cpp in Sources */,
+				5C1B1B00000000000000010A /* sctasks_endgame.cpp in Sources */,
+				5C1B1B00000000000000010B /* sctasks_run.cpp in Sources */,
 				BE850B4909BE8CFA26332D0F /* screstrs.cpp in Sources */,
 				365A4945CB177013B53370E2 /* scgamest.cpp in Sources */,
 				294A13D30E730A4793639191 /* scserial.cpp in Sources */,
