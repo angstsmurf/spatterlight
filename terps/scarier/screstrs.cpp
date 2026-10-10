@@ -34,8 +34,111 @@
 /* Assorted definitions and constants. */
 enum { MAX_NESTING_DEPTH = 32 };
 
-/* Trace flag, set before running. */
-static scr_bool restr_trace = FALSE;
+
+/*
+ * A task's restrictions, read out of the bundle.
+ *
+ * Restrictions are the most evaluated thing in the engine -- the dispatcher
+ * walks every task's on each typed line, and the library's pre-matchers walk
+ * them again -- and each evaluation used to fetch the restriction's Type and
+ * its two or three Vars from the property tree, five keys deep.  They belong
+ * to the bundle and never change in play, so decode a task's restrictions
+ * the first time any is asked for.  Like the object attributes cache this is
+ * keyed by bundle, which the undo and temporary game copies share, and the
+ * runner calls restr_forget_bundle() before destroying a bundle.
+ *
+ * A decoded restriction holds what the evaluation for its type reads: Var1
+ * to Var3 for types 0, 3 and 4 (and Var4 for type 4), Var1 and Var2 for
+ * types 1 and 2, nothing for any other.  The strings point into the bundle.
+ * Version 3.8 restrictions are made up by the parser, which leaves out an
+ * empty FailMessage, so that is read without insisting on it; a restriction
+ * past the end of a task's list, or a missing message, goes back to the
+ * bundle for the fatal error it always got.
+ */
+struct restr_decoded_t
+{
+  scr_int type;
+  scr_int var1, var2, var3;
+  const scr_char *var4;
+  const scr_char *fail_message;         /* NULL if the property is absent. */
+};
+
+struct restr_task_t
+{
+  scr_bool is_decoded;
+  const scr_char *mask;                 /* RestrMask, NULL until asked for. */
+  std::vector<restr_decoded_t> restrictions;
+};
+
+
+/*
+ * The restrictions module's state, in one instance (restr).  It is grouped
+ * by lifetime:
+ *
+ *   trace      the interface's restrictions trace flag (restr_debug_trace()),
+ *              set before any game exists and kept across them.
+ *   props      the decoded restrictions above, keyed by bundle.  Per bundle:
+ *              restr_decode_task() swaps it when asked about another, and
+ *              restr_forget_bundle() drops it before a bundle is destroyed.
+ *   cache      run400's per-task "T"/"F" result strings (see
+ *              restr_cache_sync()).  Per game: restr_cache_sync() drops it
+ *              when asked about another, restr_cache_reset() on restart.
+ *   tokenizer  the #O#A(#O#) mask under scan and the cursor into it.
+ *              restr_tokenize_start()/_end(), scratch for one evaluation.
+ *   eval       the values stack and its depth, the restriction number the
+ *              next evaluated result belongs to, the game and task it is
+ *              for, the lowest-indexed failing restriction, and the per-
+ *              restriction result bits.  restr_eval_start() resets it;
+ *              bits outlives the call only to be copied into cache.
+ *   parse      the single-character lookahead and the parse error jump
+ *              buffer, set at the top of each evaluation.
+ *
+ * Nothing here is saved.  The per-game groups are the ones a new game must
+ * drop: run_create() calls restr_cache_reset(), and the runner calls
+ * restr_forget_bundle() for each bundle it destroys.
+ */
+struct scr_restr_state_s
+{
+  scr_bool trace = FALSE;
+
+  struct
+  {
+    scr_prop_setref_t bundle = nullptr;
+    std::vector<restr_task_t> tasks;
+  } props;
+
+  struct
+  {
+    const void *game = nullptr;
+    std::vector<std::string> bits;
+  } cache;
+
+  struct
+  {
+    const scr_char *expression = nullptr;
+    scr_int index = 0;
+  } tokenizer;
+
+  struct
+  {
+    scr_bool values[MAX_NESTING_DEPTH];
+    scr_int depth = 0;
+    scr_int restriction = 0;
+    scr_gameref_t game = nullptr;
+    scr_int task = 0;
+    scr_int lowest_fail = -1;
+    std::string bits;
+  } eval;
+
+  struct
+  {
+    jmp_buf error;
+    scr_char lookahead = '\0';
+  } parse;
+};
+typedef struct scr_restr_state_s scr_restr_state_t;
+
+static scr_restr_state_t restr;
 
 
 /*
@@ -97,7 +200,7 @@ restr_object_in_place (scr_gameref_t game,
 {
   scr_int npc, holder;
 
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr: checking"
                 " object in place, %ld, %ld, %ld\n", object, var2, var3);
@@ -289,7 +392,7 @@ restr_pass_task_object_location (scr_gameref_t game,
   scr_bool should_be;
   scr_int object;
 
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr: running object"
                 " location restriction, %ld, %ld, %ld\n", var1, var2, var3);
@@ -471,7 +574,7 @@ restr_object_in_state (scr_gameref_t game, scr_int object, scr_int var2)
   vt_key[2].string = "Openable";
   openable = prop_get_integer (bundle, "I<-sis", vt_key);
 
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr: object state test, var2 %ld:"
                 " object %ld, openable %ld, openness %ld, state %ld\n",
@@ -546,7 +649,7 @@ restr_pass_task_task_state (scr_gameref_t game, scr_int var1, scr_int var2)
 {
   scr_bool should_be;
 
-  if (restr_trace)
+  if (restr.trace)
     scr_trace ("Restr: running task restriction, %ld, %ld\n", var1, var2);
 
   /* See if the task should be done or not done. */
@@ -590,7 +693,7 @@ restr_pass_task_char (scr_gameref_t game,
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int npc1, npc2;
 
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr:"
                 " running char restriction, %ld, %ld, %ld\n", var1, var2, var3);
@@ -765,7 +868,7 @@ restr_pass_task_int_var (scr_gameref_t game,
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int value2;
 
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr: running"
                 " integer var restriction, %ld, %ld, %ld\n", var2, var3, value);
@@ -846,7 +949,7 @@ static scr_bool
 restr_pass_task_string_var (scr_int var2,
                             const scr_char *var4, const scr_char *value)
 {
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr: running string"
                 " var restriction, %ld, \"%s\", \"%s\"\n", var2, var4, value);
@@ -883,7 +986,7 @@ restr_pass_task_var (scr_gameref_t game,
   scr_int type, value;
   const scr_char *name, *string;
 
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr: running var restriction,"
                 " %ld, %ld, %ld, \"%s\"\n", var1, var2, var3, var4);
@@ -929,45 +1032,6 @@ restr_pass_task_var (scr_gameref_t game,
 
 
 /*
- * A task's restrictions, read out of the bundle.
- *
- * Restrictions are the most evaluated thing in the engine -- the dispatcher
- * walks every task's on each typed line, and the library's pre-matchers walk
- * them again -- and each evaluation used to fetch the restriction's Type and
- * its two or three Vars from the property tree, five keys deep.  They belong
- * to the bundle and never change in play, so decode a task's restrictions
- * the first time any is asked for.  Like the object attributes cache this is
- * keyed by bundle, which the undo and temporary game copies share, and the
- * runner calls restr_forget_bundle() before destroying a bundle.
- *
- * A decoded restriction holds what the evaluation for its type reads: Var1
- * to Var3 for types 0, 3 and 4 (and Var4 for type 4), Var1 and Var2 for
- * types 1 and 2, nothing for any other.  The strings point into the bundle.
- * Version 3.8 restrictions are made up by the parser, which leaves out an
- * empty FailMessage, so that is read without insisting on it; a restriction
- * past the end of a task's list, or a missing message, goes back to the
- * bundle for the fatal error it always got.
- */
-struct restr_decoded_t
-{
-  scr_int type;
-  scr_int var1, var2, var3;
-  const scr_char *var4;
-  const scr_char *fail_message;         /* NULL if the property is absent. */
-};
-
-struct restr_task_t
-{
-  scr_bool is_decoded;
-  const scr_char *mask;                 /* RestrMask, NULL until asked for. */
-  std::vector<restr_decoded_t> restrictions;
-};
-
-static scr_prop_setref_t restr_props_bundle = nullptr;
-static std::vector<restr_task_t> restr_props;
-
-
-/*
  * restr_forget_bundle()
  *
  * Drop the decoded restrictions of a bundle about to be destroyed.
@@ -975,10 +1039,10 @@ static std::vector<restr_task_t> restr_props;
 void
 restr_forget_bundle (scr_prop_setref_t bundle)
 {
-  if (restr_props_bundle == bundle)
+  if (restr.props.bundle == bundle)
     {
-      restr_props_bundle = nullptr;
-      restr_props.clear ();
+      restr.props.bundle = nullptr;
+      restr.props.tasks.clear ();
     }
 }
 
@@ -997,16 +1061,16 @@ restr_decode_task (scr_gameref_t game, scr_int task)
   scr_int restr_count, restriction;
   restr_task_t *entry;
 
-  if (restr_props_bundle != bundle)
+  if (restr.props.bundle != bundle)
     {
-      restr_forget_bundle (restr_props_bundle);
-      restr_props_bundle = bundle;
-      restr_props.assign (gs_task_count (game), restr_task_t ());
+      restr_forget_bundle (restr.props.bundle);
+      restr.props.bundle = bundle;
+      restr.props.tasks.assign (gs_task_count (game), restr_task_t ());
     }
 
-  if (task < 0 || task >= (scr_int) restr_props.size ())
+  if (task < 0 || task >= (scr_int) restr.props.tasks.size ())
     return nullptr;
-  entry = &restr_props[task];
+  entry = &restr.props.tasks[task];
   if (entry->is_decoded)
     return entry;
 
@@ -1105,7 +1169,7 @@ restr_pass_task_restriction (scr_gameref_t game,
   scr_int type;
   scr_bool result = FALSE;
 
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr:"
                 " evaluating task %ld restriction %ld\n", task, restriction);
@@ -1149,7 +1213,7 @@ restr_pass_task_restriction (scr_gameref_t game,
        * type 5, and the TAF parser does not define it.  Don't fatal; return
        * FALSE so the restriction fails silently.
        */
-      if (restr_trace)
+      if (restr.trace)
         {
           scr_trace ("Restr: task %ld restriction %ld type 5"
                      " (action-type) not implemented; returning FALSE\n",
@@ -1163,7 +1227,7 @@ restr_pass_task_restriction (scr_gameref_t game,
                 " unknown restriction type %ld\n", type);
     }
 
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr: task %ld restriction"
                 " %ld is %s\n", task, restriction, result ? "PASS" : "FAIL");
@@ -1183,11 +1247,6 @@ enum
   TOK_EOS = '\0'
 };
 
-/* #O#A(#O#)-style expression, for tokenizing. */
-static const scr_char *restr_expression = nullptr;
-static scr_int restr_index = 0;
-
-
 /*
  * restr_tokenize_start()
  * restr_tokenize_end()
@@ -1198,15 +1257,15 @@ static void
 restr_tokenize_start (const scr_char *expression)
 {
   /* Save expression, and restart index. */
-  restr_expression = expression;
-  restr_index = 0;
+  restr.tokenizer.expression = expression;
+  restr.tokenizer.index = 0;
 }
 
 static void
 restr_tokenize_end (void)
 {
-  restr_expression = nullptr;
-  restr_index = 0;
+  restr.tokenizer.expression = nullptr;
+  restr.tokenizer.index = 0;
 }
 
 
@@ -1218,46 +1277,24 @@ restr_tokenize_end (void)
 static scr_char
 restr_next_token (void)
 {
-  assert (restr_expression);
+  assert (restr.tokenizer.expression);
 
   /* Find the next non-space, and return it. */
   while (TRUE)
     {
       /* Return NUL if at string end. */
-      if (restr_expression[restr_index] == '\0')
-        return restr_expression[restr_index];
+      if (restr.tokenizer.expression[restr.tokenizer.index] == '\0')
+        return restr.tokenizer.expression[restr.tokenizer.index];
 
       /* Spin on whitespace. */
-      restr_index++;
-      if (scr_isspace (restr_expression[restr_index - 1]))
+      restr.tokenizer.index++;
+      if (scr_isspace (restr.tokenizer.expression[restr.tokenizer.index - 1]))
         continue;
 
       /* Return the character just passed. */
-      return restr_expression[restr_index - 1];
+      return restr.tokenizer.expression[restr.tokenizer.index - 1];
     }
 }
-
-
-/* Evaluation values stack. */
-static scr_bool restr_eval_values[MAX_NESTING_DEPTH];
-static scr_int restr_eval_stack = 0;
-
-
-/*
- * The restriction number to evaluate.  This advances with each call to
- * evaluate and stack a restriction result.
- */
-static scr_int restr_eval_restriction = 0;
-
-/* The current game used to evaluate restrictions, and the task in question. */
-static scr_gameref_t restr_eval_game = (scr_gameref_t) nullptr;
-static scr_int restr_eval_task = 0;
-
-/* The id of the lowest-indexed failing restriction. */
-static scr_int restr_lowest_fail = -1;
-
-/* Each restriction's own result, "T" or "F", in index order. */
-static std::string restr_eval_bits;
 
 
 /*
@@ -1270,16 +1307,16 @@ static void
 restr_eval_start (scr_gameref_t game, scr_int task)
 {
   /* Clear stack. */
-  restr_eval_stack = 0;
-  restr_eval_restriction = 0;
+  restr.eval.depth = 0;
+  restr.eval.restriction = 0;
 
   /* Note evaluation details. */
-  restr_eval_game = game;
-  restr_eval_task = task;
+  restr.eval.game = game;
+  restr.eval.task = task;
 
   /* Clear lowest indexed failing restriction. */
-  restr_lowest_fail = -1;
-  restr_eval_bits.clear ();
+  restr.eval.lowest_fail = -1;
+  restr.eval.bits.clear ();
 }
 
 
@@ -1291,10 +1328,10 @@ restr_eval_start (scr_gameref_t game, scr_int task)
 static void
 restr_eval_push (scr_bool value)
 {
-  if (restr_eval_stack >= MAX_NESTING_DEPTH)
+  if (restr.eval.depth >= MAX_NESTING_DEPTH)
     scr_fatal ("restr_eval_push: stack overflow\n");
 
-  restr_eval_values[restr_eval_stack++] = value;
+  restr.eval.values[restr.eval.depth++] = value;
 }
 
 
@@ -1315,21 +1352,21 @@ restr_eval_action (scr_char token)
         scr_bool result;
 
         /* Evaluate and push the next restriction. */
-        result = restr_pass_task_restriction (restr_eval_game,
-                                              restr_eval_task,
-                                              restr_eval_restriction);
+        result = restr_pass_task_restriction (restr.eval.game,
+                                              restr.eval.task,
+                                              restr.eval.restriction);
         restr_eval_push (result);
-        restr_eval_bits += result ? 'T' : 'F';
+        restr.eval.bits += result ? 'T' : 'F';
 
         /*
          * If the restriction failed, and there isn't yet a first failing one
          * set, note this one as the first to fail.
          */
-        if (restr_lowest_fail == -1 && !result)
-          restr_lowest_fail = restr_eval_restriction;
+        if (restr.eval.lowest_fail == -1 && !result)
+          restr.eval.lowest_fail = restr.eval.restriction;
 
         /* Increment restriction sequence identifier. */
-        restr_eval_restriction++;
+        restr.eval.restriction++;
         break;
       }
 
@@ -1345,12 +1382,12 @@ restr_eval_action (scr_char token)
          * bare assert is a no-op and a malformed restriction stream could read
          * before the values stack.
          */
-        if (restr_eval_stack < 2)
+        if (restr.eval.depth < 2)
           scr_fatal ("restr_eval_action: stack underflow\n");
 
         /* Get the top two stack values. */
-        val1 = restr_eval_values[restr_eval_stack - 2];
-        val2 = restr_eval_values[restr_eval_stack - 1];
+        val1 = restr.eval.values[restr.eval.depth - 2];
+        val2 = restr.eval.values[restr.eval.depth - 1];
 
         /* Or, or and, into result. */
         switch (token)
@@ -1367,8 +1404,8 @@ restr_eval_action (scr_char token)
           }
 
         /* Put result back at top of stack. */
-        restr_eval_stack--;
-        restr_eval_values[restr_eval_stack - 1] = result;
+        restr.eval.depth--;
+        restr.eval.values[restr.eval.depth - 1] = result;
         break;
       }
 
@@ -1386,19 +1423,12 @@ restr_eval_action (scr_char token)
 static scr_int
 restr_eval_result (scr_int *lowest_fail)
 {
-  if (restr_eval_stack != 1)
+  if (restr.eval.depth != 1)
     scr_fatal ("restr_eval_result: values stack not completed\n");
 
-  *lowest_fail = restr_lowest_fail;
-  return restr_eval_values[0];
+  *lowest_fail = restr.eval.lowest_fail;
+  return restr.eval.values[0];
 }
-
-
-/* Parse error jump buffer. */
-static jmp_buf restr_parse_error;
-
-/* Single lookahead token for parser. */
-static scr_char restr_lookahead = '\0';
 
 
 /*
@@ -1409,13 +1439,14 @@ static scr_char restr_lookahead = '\0';
 static void
 restr_match (scr_char c)
 {
-  if (restr_lookahead == c)
-    restr_lookahead = restr_next_token ();
+  if (restr.parse.lookahead == c)
+    restr.parse.lookahead = restr_next_token ();
   else
     {
       scr_error ("restr_match:"
-                " syntax error, expected %d, got %d\n", c, restr_lookahead);
-      scr_longjmp (restr_parse_error, 1);
+                " syntax error, expected %d, got %d\n",
+                c, restr.parse.lookahead);
+      scr_longjmp (restr.parse.error, 1);
     }
 }
 
@@ -1468,7 +1499,7 @@ static void restr_bexpr (void);
  * declares itself unwinnable before the player has moved.
  *
  * The parse walks the mask left to right, so restrictions are evaluated in
- * index order -- matching Sub_20_65's loop, and keeping restr_lowest_fail
+ * index order -- matching Sub_20_65's loop, and keeping restr.eval.lowest_fail
  * (the FailMessage pick) on the lowest-indexed failure.
  */
 static void
@@ -1476,9 +1507,9 @@ restr_expr (void)
 {
   restr_bexpr ();
 
-  while (restr_lookahead == TOK_AND || restr_lookahead == TOK_OR)
+  while (restr.parse.lookahead == TOK_AND || restr.parse.lookahead == TOK_OR)
     {
-      scr_char operator_ = restr_lookahead;
+      scr_char operator_ = restr.parse.lookahead;
 
       restr_match (operator_);
       restr_bexpr ();
@@ -1489,7 +1520,7 @@ restr_expr (void)
 static void
 restr_bexpr (void)
 {
-  switch (restr_lookahead)
+  switch (restr.parse.lookahead)
     {
     case TOK_RESTRICTION:
       restr_match (TOK_RESTRICTION);
@@ -1503,8 +1534,9 @@ restr_bexpr (void)
       break;
 
     default:
-      scr_error ("restr_bexpr: syntax error, unexpected %d\n", restr_lookahead);
-      scr_longjmp (restr_parse_error, 1);
+      scr_error ("restr_bexpr: syntax error, unexpected %d\n",
+                restr.parse.lookahead);
+      scr_longjmp (restr.parse.error, 1);
     }
 }
 
@@ -1601,7 +1633,7 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
 void
 restr_debug_trace (scr_bool flag)
 {
-  restr_trace = flag;
+  restr.trace = flag;
 }
 
 
@@ -1633,7 +1665,7 @@ restr_eval_task_restrictions (scr_gameref_t game,
   /* If none, stop now, acting as if all passed. */
   if (restr_count == 0)
     {
-      if (restr_trace)
+      if (restr.trace)
         scr_trace ("Restr: task %ld has no restrictions\n", task);
 
       *pass = TRUE;
@@ -1653,7 +1685,7 @@ restr_eval_task_restrictions (scr_gameref_t game,
     }
   pattern = entry->mask;
 
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr: task %ld"
                 " has %ld restrictions, %s\n", task, restr_count, pattern);
@@ -1664,10 +1696,10 @@ restr_eval_task_restrictions (scr_gameref_t game,
   restr_tokenize_start (pattern);
 
   /* Try parsing the pattern, and catch errors. */
-  if (scr_setjmp (restr_parse_error) == 0)
+  if (scr_setjmp (restr.parse.error) == 0)
     {
       /* Parse the pattern, and ensure it ends at string end. */
-      restr_lookahead = restr_next_token ();
+      restr.parse.lookahead = restr_next_token ();
       restr_expr ();
       restr_match (TOK_EOS);
     }
@@ -1682,7 +1714,7 @@ restr_eval_task_restrictions (scr_gameref_t game,
   restr_tokenize_end ();
   result = restr_eval_result (&lowest_fail);
 
-  if (restr_trace)
+  if (restr.trace)
     {
       scr_trace ("Restr: task %ld"
                 " restrictions %s\n", task, result ? "PASS" : "FAIL");
@@ -1749,16 +1781,13 @@ restr_eval_task_restrictions (scr_gameref_t game,
  * the task and event property caches it tracks a single game, and is
  * dropped when asked about a different one.
  */
-static const void *restr_cache_game = nullptr;
-static std::vector<std::string> restr_cache;
-
 static void
 restr_cache_sync (scr_gameref_t game)
 {
-  if (restr_cache_game != game)
+  if (restr.cache.game != game)
     {
-      restr_cache.clear ();
-      restr_cache_game = game;
+      restr.cache.bits.clear ();
+      restr.cache.game = game;
     }
 }
 
@@ -1773,15 +1802,15 @@ restr_eval_task_restrictions_cached (scr_gameref_t game, scr_int task,
 
   if (!*pass)
     {
-      if (restr_cache.size () <= (size_t) task)
-        restr_cache.resize (gs_task_count (game) > task
+      if (restr.cache.bits.size () <= (size_t) task)
+        restr.cache.bits.resize (gs_task_count (game) > task
                             ? gs_task_count (game) : task + 1);
-      restr_cache[task] = restr_eval_bits;
+      restr.cache.bits[task] = restr.eval.bits;
 #ifdef SCARIER_DUMP_TOOLS
       if (getenv ("SCR_TRACE_RCACHE")
           && atol (getenv ("SCR_TRACE_RCACHE")) == task)
         fprintf (stderr, "RCACHE task=%ld [%s]\n", (long) task,
-                 restr_eval_bits.c_str ());
+                 restr.eval.bits.c_str ());
 #endif
     }
   return TRUE;
@@ -1806,18 +1835,19 @@ restr_cache_fallback (scr_gameref_t game, scr_int task,
   restr_cache_sync (game);
 
   if (restr_count > 0
-      && (restr_cache.size () <= (size_t) task || restr_cache[task].empty ()))
+      && (restr.cache.bits.size () <= (size_t) task
+          || restr.cache.bits[task].empty ()))
     {
       scr_bool pass;
       const scr_char *message;
 
       restr_eval_task_restrictions_cached (game, task, &pass, &message);
     }
-  if (restr_cache.size () <= (size_t) task)
+  if (restr.cache.bits.size () <= (size_t) task)
     return 0;
 
   /* A copy: the re-evaluation below may not rewrite it, but be safe. */
-  const std::string bits = restr_cache[task];
+  const std::string bits = restr.cache.bits[task];
   for (restriction = 0; restriction < restr_count; restriction++)
     {
       if ((size_t) restriction >= bits.size () || bits[restriction] != 'F')
@@ -1835,6 +1865,6 @@ restr_cache_fallback (scr_gameref_t game, scr_int task,
 void
 restr_cache_reset (void)
 {
-  restr_cache.clear ();
-  restr_cache_game = nullptr;
+  restr.cache.bits.clear ();
+  restr.cache.game = nullptr;
 }
