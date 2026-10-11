@@ -1,7 +1,7 @@
 # Headless build + regression test for the Scarier ADRIFT engines.
 #
 # Builds small console harnesses that link the Scarier interpreter sources
-# against the bundled sx* os-layer stubs (no Glk, links the system zlib) and
+# against the headless/ os-layer stubs (no Glk, links the system zlib) and
 # runs them against synthetic / golden-backed games.
 #
 # Usage:
@@ -40,7 +40,8 @@ COMMON  := ../common_utils
 A5DIR   := adrift5
 A5_RAND_OBJ := test/adrift5/harness/a5_randomness.o
 
-# All interpreter sources, plus the os-layer stubs the battle harness needs.
+# All interpreter sources, plus the os-layer stubs the battle harness needs
+# (headless/, SCARE's test-suite stub layer; never part of a shipping build).
 # mapdraw.cpp is the engine-neutral map model/rasteriser scmap.cpp draws into.
 # The command library and the runner live in library/ and runner/; tools/ is
 # the SCARIER_DUMP_TOOLS instrumentation (scdump.cpp, scrun_census.cpp), which
@@ -48,7 +49,7 @@ A5_RAND_OBJ := test/adrift5/harness/a5_randomness.o
 # san sets -- only the dump set below defines the macro.
 SRC  := $(wildcard sc*.cpp) $(wildcard library/*.cpp) $(wildcard runner/*.cpp) \
         $(wildcard tools/*.cpp) mapdraw.cpp
-STUBS   := sxstubs.cpp sxglob.cpp sxutils.cpp
+STUBS   := headless/sxstubs.cpp headless/sxglob.cpp headless/sxutils.cpp
 HARNESS := test/adrift4/harness/battle_test.cpp
 
 # Every harness below links the same engine, so the sources are compiled once
@@ -88,9 +89,9 @@ BIN     := test/adrift4/harness/battle_test_hl
 
 # The do-nothing half of that os-layer port, shared by every harness below: the
 # twelve hooks none of them care about, plus os_read_line_debug forwarding to
-# whichever os_read_line the harness itself defines.  Not sxstubs.cpp -- that
-# one supplies an os_read_line of its own, which is the hook each harness needs
-# to own.
+# whichever os_read_line the harness itself defines.  Not headless/sxstubs.cpp
+# -- that one supplies an os_read_line of its own, which is the hook each
+# harness needs to own.
 OS_STUBS := test/adrift4/harness/harness_os_stubs.cpp
 
 # The precedence and bad-parent harnesses bring their own os-layer port, so they

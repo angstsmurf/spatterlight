@@ -27,9 +27,10 @@
  * defines its own, and os_read_line_debug() below forwards to whichever one is
  * linked in.
  *
- * This is not sxstubs.cpp: that is the SCARE test-suite's tracing stub layer,
- * and it supplies an os_read_line() of its own, which is exactly what these
- * harnesses need to own.  Harnesses link SRC + their own .cpp + this file.
+ * This is not headless/sxstubs.cpp: that is the SCARE test-suite's tracing
+ * stub layer, and it supplies an os_read_line() of its own, which is exactly
+ * what these harnesses need to own.  Harnesses link SRC + their own .cpp +
+ * this file.
  */
 
 #include "scarier.h"

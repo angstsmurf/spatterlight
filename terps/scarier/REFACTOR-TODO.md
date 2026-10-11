@@ -175,17 +175,24 @@ genuinely the same.
       Xcode project. Adding a file touches all three. Put the list in one
       `sources.mk` included by both makefiles.  → both makefiles use
       wildcards (42e2cb5ac); only the Xcode project still needs a hand edit.
-- [ ] `scdump.cpp` (1903 l., `SCARIER_DUMP_TOOLS`, 74 `fprintf(stderr…)`) and the
+- [x] `scdump.cpp` (1903 l., `SCARIER_DUMP_TOOLS`, 74 `fprintf(stderr…)`) and the
       census/respell/tables parts of `runner/` are developer tooling that
       share the shipping directory. Move under `tools/` (or `dev/`) so "what is
       the interpreter" is obvious; route the 74 prints through one log sink.
-- [ ] `scdebug.cpp` (2612 l.): confirm it is needed in the shipping build
+      → `tools/scdump.cpp` and `tools/scrun_census.cpp` (42c8da273); the
+      prints go through `scr_dump_log` / `scr_dump_flush` (0f2d5c2b2).
+      `scrun_respell.cpp` and `scrun_tables.cpp` are interpreter code
+      (respelling and the dispatch tables), not tooling: they stay.  See
+      "Tree layout (5)".
+- [x] `scdebug.cpp` (2612 l.): confirm it is needed in the shipping build
       (`SCR_DEBUGGER_ENABLED`); if only developers use it, same treatment.
+      → needed: the Glk front end enables it from the environment and the
+      runner has a `{#}debug{ger}` row; kept where it is.
 - [ ] Top level still has 20+ `sc*.cpp` (4.x core) mixed with `os_ansi.cpp`,
       `mapdraw.cpp`, `scarier-autosave.mm`. Consider `core/` (engine),
-      `platform/` (os_ansi, sx*), mirroring the `library/ runner/ glk/` split.
-- [ ] `sxstubs.cpp / sxglob.cpp / sxutils.cpp` and `sxprotos.h` — headless
-      only; give them an obvious home (`headless/`).
+      `platform/` (os_ansi), mirroring the `library/ runner/ glk/` split.
+- [x] `sxstubs.cpp / sxglob.cpp / sxutils.cpp` and `sxprotos.h` — headless
+      only; give them an obvious home (`headless/`).  → 42df5fda4.
 - [ ] Header weight: `scprotos.h` (1511 l.) is one catch-all prototype header.
       Split by module (`sctasks.h`, `scparser.h`, …) so TUs include only what
       they use and rebuilds shrink.
@@ -393,7 +400,10 @@ Per the project's own verification recipe:
    struct and the parse-once dispatch input are declined (see
    "Accessor-prologue pass").
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
-   everything.
+   everything.  The small half of 5 is DONE (`tools/`, the log sink,
+   `scdebug.cpp` confirmed, `headless/`; see "Tree layout (5)"); what is
+   left of 5 is the `core/` / `platform/` move of the top level and the
+   `scprotos.h` split, then 4.
 
 ## Outcome (2026-10-10, master 31b77eaac..18e8b35d5)
 
@@ -1737,3 +1747,57 @@ them):
   files, so no pbxproj change.
 - Next in the suggested order: 6 -- the directory reshuffle and the
   `scprotos.h` split (5), then the parallel v4 / v5 implementations (4).
+
+## Tree layout (5) (2026-10-11, master 42c8da273, 0f2d5c2b2, 42df5fda4)
+
+- **`tools/`** (42c8da273) -- `scdump.cpp` and `runner/scrun_census.cpp`
+  moved to `tools/`.  They are the two files that are entirely
+  `SCARIER_DUMP_TOOLS` instrumentation (the structural dumps, the
+  per-turn `SCR_TRACE_*` traces, the lenient census); the macro is
+  defined only by Makefile.headless's dump object set and
+  test/adrift4/harness/build.sh, never by Makefile or the Xcode project,
+  so the Xcode entry for scrun_census.cpp was an empty TU and is gone.
+  Makefile.headless and build.sh glob `tools/*.cpp`; Makefile does not
+  compile the folder.  The bullet's "census/respell/tables parts of
+  runner/" was wrong about two of the three: `scrun_respell.cpp` and
+  `scrun_tables.cpp` are the interpreter's respelling pass and dispatch
+  tables and stay in runner/.
+- **Log sink** (0f2d5c2b2) -- the 79 `fprintf (stderr, ...)`, seven
+  `fflush (stderr)` and the ALR dump's raw `fwrite`/`fputc` writes in
+  tools/ are `scr_dump_log ()` / `scr_dump_flush ()`, two functions at
+  the top of tools/scdump.cpp declared in scprotos.h's
+  `SCARIER_DUMP_TOOLS` block with the printf-format attribute.  The sink
+  is still stderr, so harness transcripts are byte-identical.  The ~13
+  guarded `fprintf (stderr, ...)` left in the engine files (os_ansi 3,
+  scrun_match 5, screstrs, scrunner, scrun_dispatch, sclibrar_dispatch,
+  sclibrar_disambig 1 each) were left alone: they are one-liners next
+  to the code they trace, and the bullet counted scdump.cpp only.
+- **`scdebug.cpp` kept** -- it is reachable in the shipping build:
+  `SCR_DEBUGGER_ENABLED` is read in glk/os_glk.cpp (and os_ansi.cpp),
+  runner/scrun_tables.cpp has the `{#}debug{ger}` row, and
+  runner/scrunner.cpp and scinterf.cpp call its hooks unconditionally.
+  Not developer-only tooling, so not moved.
+- **`headless/`** (42df5fda4) -- `sxstubs.cpp`, `sxglob.cpp`,
+  `sxutils.cpp`, `sxprotos.h` moved; Makefile.headless `STUBS` and
+  scproj_regress.sh's explicit list are the only build references.  The
+  `.cpp` files include `sxprotos.h` by bare name as library/ and
+  runner/ include their own headers.  `.gitignore` gained
+  `/terps/scarier/tools/*.o` and `/terps/scarier/headless/*.o`.
+- Verification per commit: `quick` green; full headless `test` output
+  identical to the pre-change run with timings stripped (1048 lines);
+  `make` warning-free; `xcodebuild -target scarier` BUILD SUCCEEDED.
+  For the sink: pre- and post-change dump binaries produce identical
+  stdout and stderr over 59 games (every 12th of the corpus) with every
+  `SCR_DUMP_*`, `SCR_TRACE_*` and `SCR_CENSUS_*` switch on -- 23,622
+  ALR lines among 37,635 trace lines.  (`SCR_DUMP_ALRS` only prints
+  when `SCR_DUMP_TASKS` is off; a first comparison that set both saw
+  no ALR lines.)  For `headless/`: scproj_regress.sh also passes from
+  its own compile path.
+- Not done from 5: the `core/` / `platform/` move of the top-level
+  `sc*.cpp` / `os_ansi.cpp` / `mapdraw.cpp` / `scarier-autosave.mm`
+  (every include, both makefiles, build.sh, the pbxproj and the harness
+  scripts), and the `scprotos.h` split by module.  Both are "touch
+  everything" steps and remain last with 4.
+- Next in the suggested order: the rest of 5 (`core/` / `platform/`,
+  `scprotos.h` split), then 4 (the Win32 half of
+  `gsc_a5_open_game_path`).

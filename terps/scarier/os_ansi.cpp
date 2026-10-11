@@ -278,11 +278,11 @@ os_print_string_debug (const scr_char *string)
  * os_show_graphic()
  *
  * Media entry points.  SCR_TRACE_SOUND=1 prints each sound request on a line
- * of its own where it falls in the output, in sxstubs.cpp's <<Sound: ...>>
- * form, so a headless golden can pin which resource a task plays and the
- * offset and length the TAF parser gave it.  The id is the path's last
- * component: the rest is the author's directory, or for an embedded resource
- * this machine's path to the game.  Graphics are ignored.
+ * of its own where it falls in the output, in headless/sxstubs.cpp's
+ * <<Sound: ...>> form, so a headless golden can pin which resource a task
+ * plays and the offset and length the TAF parser gave it.  The id is the
+ * path's last component: the rest is the author's directory, or for an
+ * embedded resource this machine's path to the game.  Graphics are ignored.
  */
 void
 os_play_sound (const scr_char *filepath,
