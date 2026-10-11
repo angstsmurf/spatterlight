@@ -1,0 +1,107 @@
+Easy
+open case
+s
+play wheel
+n
+n
+buy 10 tokens
+buy peanut
+z
+z
+buy popcorn
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+buy crackers
+buy crackers
+buy crackers
+buy crackers
+buy crackers
+s
+s
+w
+plug in pac
+play pac
+e
+n
+e
+play duck pond
+play duck pond
+play duck pond
+play duck pond
+w
+give crackers to wemmie
+give crackers to wemmie
+give crackers to wemmie
+play ring
+play ring
+play ring
+play ring
+drink coke
+w
+show mirror to bill
+give popcorn to bill
+take money
+e
+e
+e
+ask reading
+w
+s
+give tip to cecily
+nw
+n
+ne
+look under bleachers
+down
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+take knife
+up
+sw
+sell knife
+n
+n
+n
+e
+turn lock 13
+turn lock 10
+turn lock 5
+open trunk
+take videocamera
+w
+n
+ask barb about tape
+s
+s
+s
+u
+take battery
+put battery in camera
+put tape in camera
+d
+n
+n
+n
+use camera
+home

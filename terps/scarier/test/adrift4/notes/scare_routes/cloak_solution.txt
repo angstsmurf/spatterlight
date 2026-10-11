@@ -1,0 +1,6 @@
+w
+remove cloak
+hang cloak
+e
+s
+read message

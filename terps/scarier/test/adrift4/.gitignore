@@ -403,3 +403,7 @@
 /runner_probes/magicshow.*
 /runner_probes/sswhore.*
 /runner_probes/filthybill.*
+
+# SCARE-specific routes (notes/scare_routes/) of the explicit games above.
+/notes/scare_routes/duchess_solution.txt
+/notes/scare_routes/bluesky_solution.txt

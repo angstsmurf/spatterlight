@@ -1,0 +1,75 @@
+call 5550
+open door
+w
+take roses
+e
+n
+change into mist
+n
+listen
+listen
+n
+take stick
+n
+change back
+hitchhike
+w
+buy beer
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+ask simonsen about plan
+e
+n
+e
+listen
+buy heroin
+put heroin in beer
+w
+s
+w
+w
+drain jon simonsen
+open container
+put corpse in container
+close container
+put stick in container
+e
+give roses to anette
+give beer to anette
+wait
+wait
+wait
+wait
+w
+z
+remove stick
+open container
+e
+score
