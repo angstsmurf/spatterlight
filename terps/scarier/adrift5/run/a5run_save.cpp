@@ -228,11 +228,33 @@ intern_key (const a5_adventure_t *adv, const char *key)
    order); the sparse sets are keyed.  This is what makes undo and Scarier<->
    Scarier restore byte-for-byte deterministic despite the Adrift 5 runner's lossier
    schema. */
-static void
-save_scarier_body (sb_t *b, a5_run_t *run)
+namespace {
+
+/* One writing of the snapshot: the buffer and the run it describes, with a
+   member per section, in the order save_scarier_body calls them (which is the
+   order of the elements in the file). */
+struct scarier_save_t
 {
-  a5_state_t *st = run->st;
-  const a5_adventure_t *adv = run->adv;
+  sb_t *b;
+  a5_run_t *run;
+  a5_state_t *st;
+  const a5_adventure_t *adv;
+
+  void globals ();
+  void objects ();
+  void characters ();
+  void variables ();
+  void marks ();
+  void seen_chars ();
+  void events ();
+  void walks ();
+  void displayed ();
+  void looks ();
+};
+
+void
+scarier_save_t::globals ()
+{
   int i, native;
   unsigned int rng[4];
 
@@ -261,6 +283,12 @@ save_scarier_body (sb_t *b, a5_run_t *run)
     sb_elem (b, "HimRef", st->s_him);
   if (st->s_her != nullptr && st->s_her[0])
     sb_elem (b, "HerRef", st->s_her);
+}
+
+void
+scarier_save_t::objects ()
+{
+  int i;
 
   /* Objects (model order). */
   for (i = 0; i < adv->n_objects; i++)
@@ -272,6 +300,12 @@ save_scarier_body (sb_t *b, a5_run_t *run)
         sb_elem (b, "Key", st->obj[i].key);
       sb_puts (b, "</Object>\n");
     }
+}
+
+void
+scarier_save_t::characters ()
+{
+  int i;
 
   /* Characters (model order). */
   for (i = 0; i < adv->n_characters; i++)
@@ -299,6 +333,12 @@ save_scarier_body (sb_t *b, a5_run_t *run)
      retargets it away from the literal "Player"). */
   if (st->player_key != nullptr && st->player_key[0])
     sb_elem (b, "PlayerKey", st->player_key);
+}
+
+void
+scarier_save_t::variables ()
+{
+  int i;
 
   /* Variables (model order). */
   for (i = 0; i < adv->n_variables; i++)
@@ -326,6 +366,12 @@ save_scarier_body (sb_t *b, a5_run_t *run)
         }
       sb_puts (b, "</Variable>\n");
     }
+}
+
+void
+scarier_save_t::marks ()
+{
+  int i;
 
   /* Completed tasks (sparse, by key). */
   for (i = 0; i < adv->n_tasks; i++)
@@ -359,6 +405,12 @@ save_scarier_body (sb_t *b, a5_run_t *run)
                    adv->characters, adv->n_characters);
   sb_flagged_keys (b, "LocSeen", st->loc_seen,
                    adv->locations, adv->n_locations);
+}
+
+void
+scarier_save_t::seen_chars ()
+{
+  int i;
 
   /* Per-character seen sets for any OTHER viewpoint a BECOME game has switched
      away from (the active player's set is the top-level ObjSeen/CharSeen/LocSeen
@@ -379,6 +431,12 @@ save_scarier_body (sb_t *b, a5_run_t *run)
       sb_flagged_keys (b, "LocSeen", ls, adv->locations, adv->n_locations);
       sb_puts (b, "</SeenChar>\n");
     }
+}
+
+void
+scarier_save_t::events ()
+{
+  int i;
 
   /* Events (model order). */
   for (i = 0; i < (int) run->events->size (); i++)
@@ -399,6 +457,12 @@ save_scarier_body (sb_t *b, a5_run_t *run)
         sb_elem_l (b, "SeFt", e.se_ft[s]);
       sb_puts (b, "</Event>\n");
     }
+}
+
+void
+scarier_save_t::walks ()
+{
+  int i;
 
   /* Walks (flattened order, as built by a5run_new). */
   for (i = 0; i < (int) run->walks->size (); i++)
@@ -422,7 +486,11 @@ save_scarier_body (sb_t *b, a5_run_t *run)
         sb_elem_l (b, "CameAcross", w.came_across[s]);
       sb_puts (b, "</Walk>\n");
     }
+}
 
+void
+scarier_save_t::displayed ()
+{
   /* Displayed <DisplayOnce> segments (by DOM pre-order index).  The cached
      node->index map turns the old O(n_disp_once x nodes) linear pointer search
      into a hash lookup per displayed segment. */
@@ -438,6 +506,12 @@ save_scarier_body (sb_t *b, a5_run_t *run)
             sb_elem_l (b, "Displayed", (long) it->second);
         }
     }
+}
+
+void
+scarier_save_t::looks ()
+{
+  int i;
 
   /* SetLook stack. */
   for (i = 0; i < st->n_looks; i++)
@@ -448,6 +522,25 @@ save_scarier_body (sb_t *b, a5_run_t *run)
       sb_elem (b, "Event", st->looks[i].event_key);
       sb_puts (b, "</Look>\n");
     }
+}
+
+} /* namespace */
+
+static void
+save_scarier_body (sb_t *b, a5_run_t *run)
+{
+  scarier_save_t save = { b, run, run->st, run->adv };
+
+  save.globals ();
+  save.objects ();
+  save.characters ();
+  save.variables ();
+  save.marks ();
+  save.seen_chars ();
+  save.events ();
+  save.walks ();
+  save.displayed ();
+  save.looks ();
 }
 
 /* ----------------------------------------------------- the Adrift 5 runner <Game> ---

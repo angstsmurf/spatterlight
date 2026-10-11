@@ -124,7 +124,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~240~~ | ~~`ser_save_game_body`~~ | DONE: six section functions + driver, see "ser_save_game_body split" |
 | ~~228~~ | ~~`sm_set_grid`~~ | DONE: three arms + driver, see "sm_set_grid split" |
 | ~~224~~ | ~~`scmap_build`~~ | DONE: four parts + driver, see "scmap_build split" |
-| 219 | `save_scarier_body` | `adrift5/run/a5run_save.cpp` (autosave suite) |
+| ~~219~~ | ~~`save_scarier_body`~~ | DONE: `scarier_save_t` + ten section members, see "save_scarier_body split" |
 | 212 | `lib_take_and_pre400` | `library/sclibrar_take.cpp` |
 | 211 | `lib_cmd_locate_object` | `library/sclibrar_misc.cpp` |
 | 207 | `a5text_render_plain` | `adrift5/text/a5text_render.cpp` |
@@ -376,9 +376,10 @@ Per the project's own verification recipe:
    the 16 rows the table opened with are DONE (see their "split"
    sections), as are `run_lenient_census`, `a5run_input_inner`,
    `lib_print_room_contents`, `restore_scarier_body`,
-   `ser_save_game_body`, `sm_set_grid` and `scmap_build`, the first
-   seven of the 15 rows added on 2026-10-11; 8 rows remain, top to
-   bottom, `save_scarier_body` next.
+   `ser_save_game_body`, `sm_set_grid`, `scmap_build` and
+   `save_scarier_body`, the first eight of the 15 rows added on
+   2026-10-11; 7 rows remain, top to bottom, `lib_take_and_pre400`
+   next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1431,3 +1432,23 @@ them):
   columns.
 - Next in the table: `save_scarier_body` (adrift5/run/a5run_save.cpp;
   autosave suite).
+
+## 3: save_scarier_body split (2026-10-11)
+
+- **`save_scarier_body`** (219 l.) in `adrift5/run/a5run_save.cpp` is the
+  writer `restore_scarier_body` reads, and is split the same way:
+  `scarier_save_t` (buffer, run, state, adventure) with one member per
+  section, in file order -- `globals` (Version, RNG, the turn / end /
+  conversation / pronoun scalars), `objects`, `characters` (ending with
+  PlayerKey, which the file has there), `variables`, `marks` (TaskDone,
+  TaskScored, PropOv, the active seen sets), `seen_chars`, `events`,
+  `walks`, `displayed`, `looks`.  The driver is the aggregate
+  initialiser and ten calls.  Bodies are code motion at the same
+  indent; each member declares the `i` it loops with.
+- Verification: `-Wshadow` syntax check clean; headless `quick`; full
+  `test` output identical (its saverestore column is the byte-identical
+  round trip); `make -j8 scarier glkscarier` warning-free; `sanitize`
+  clean; `run_autosave_tests.py --build` all passed.  Lines over 80
+  columns in the file: 56 before and after.
+- Next in the table: `lib_take_and_pre400` (library/sclibrar_take.cpp;
+  library text, so corpus `recompare` too).
