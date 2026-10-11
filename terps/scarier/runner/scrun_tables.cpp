@@ -516,11 +516,12 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * 2026-09-07"): besides the `stats` row below, `hints`, `q`, `brief`,
    * `verbose`, `notify`, `notification`, `redo`, `hist`, `gpl`, `license` and
    * `statusline` are all SCARE inventions no Runner accepts (the Runner words
-   * are `hint`, `quit`, `history`).  None of them diverges today: a game task
-   * is matched before run_standard_commands(), so any task carrying COMPLETE
-   * text wins and the invention never runs -- only a *silent* task leaves the
-   * gap that `stats` fell into.  `hints` is the widest exposure (224 tasks in
-   * 11 games).
+   * are `hint`, `quit`, `history`).  A game task is matched before
+   * run_standard_commands(), so any task carrying COMPLETE text wins and the
+   * invention never runs; a task that does not claim its line left the gap
+   * that `stats` fell into, and run_game_owns_scare_word() closes it for the
+   * ten that are words (2026-10-11): a word some task of the game names is
+   * answered as the Runner would.  `q` and the shorthands are not covered.
    *
    * All eleven are compiled out by SCARIER_NO_ABBREVIATIONS, alongside the
    * `g`/`i`/`z` shorthands, so that build offers a game exactly the meta
@@ -560,15 +561,17 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[about/info/information/author]", lib_cmd_information},
   {"[clear/cls/clr]", lib_cmd_clear},
 #ifndef SCARIER_NO_ABBREVIATIONS
-  {"statusline", lib_cmd_statusline},
+  {"[statusline/stats]", lib_cmd_statusline},
 #endif
   {"[control panel/control-panel/control/panel]", lib_cmd_control_panel},
   /*
-   * `stats` was a SCARE invention: the string does not occur in ANY of the
-   * four Runner binaries, so it stole `suburbanprodigy3` T31 from the game's
-   * own task.  Dropped 2026-09-07; see test/adrift4/notes/
+   * `stats` is a SCARE invention: the string does not occur in ANY of the
+   * four Runner binaries, and it stole `suburbanprodigy3` T31 from the game's
+   * own task.  Dropped 2026-09-07 for that (test/adrift4/notes/
    * WINE-TRANSCRIPTS-TODO.md "Ported 2026-09-07: `stats` is not a Runner
-   * command".  `status` itself is 3.90/4.00 only and lives solely inside the
+   * command") and back 2026-10-11 as a name for `statusline` above, now that
+   * run_game_owns_scare_word() hands the word to a game with a task for it.
+   * `status` itself is 3.90/4.00 only and lives solely inside the
    * Battle System handler (run400 47DCA1, run390 44C510), which is why both
    * handlers below are gated on battle_is_enabled().
    */
@@ -1517,6 +1520,86 @@ run_is_with_deferred_handler (scr_bool (*handler) (scr_gameref_t))
 }
 
 /*
+ * run_is_scare_only_handler()
+ * run_line_opens_with_scare_word()
+ * run_game_owns_scare_word()
+ *
+ * Deliberate deviation's limit (2026-10-11).  `verbose`, `brief`, `notify`,
+ * `notification`, `hints`, `hist`, `redo`, `gpl`, `license`, `statusline` and
+ * `stats` are SCARE's words; no Runner answers them (see the audit note in
+ * STANDARD_COMMANDS).  A task is matched before the library, so one that
+ * speaks keeps its line -- but one that does not claim it (restrictions
+ * that fail without a message, nothing to say, already done, another room)
+ * used to lose it to our command, where the Runner says it does not
+ * understand: `stats` in suburbanprodigy3 was that, and the census
+ * (SCR_CENSUS_META, tools/scrun_census.cpp) finds 275 tasks in 28 games
+ * that take `hints`, 12 games whose `statusline` we answered at the first
+ * prompt.
+ *
+ * So a word a game's tasks name is the game's: when any task has a command
+ * that matches the line the Runner's way, in whatever room and state, the
+ * SCARE rows stand aside and the line goes on as it would in the Runner.  A
+ * task that would take the line with any other word in the place of ours
+ * (`* on`, `*`) does not name it and does not count.  Nothing is put out of
+ * reach: `glk verbose`, `glk notify`, `glk hints`, `glk license` and `glk
+ * statusline` cannot be shadowed, and `history` and `!` are the Runner's
+ * own.  The one-letter `g`, `i`, `q` and `z` are left alone -- conveniences
+ * kept on purpose.
+ */
+static scr_bool
+run_is_scare_only_handler (scr_bool (*handler) (scr_gameref_t))
+{
+  static scr_bool (*const SCARE_ONLY[]) (scr_gameref_t) = {
+    lib_cmd_verbose, lib_cmd_brief, lib_cmd_notify_on_off, lib_cmd_notify,
+    lib_cmd_hints, lib_cmd_history, lib_cmd_history_number,
+    lib_cmd_redo_number, lib_cmd_redo_text, lib_cmd_redo_last,
+    lib_cmd_license, lib_cmd_statusline, nullptr
+  };
+
+  for (scr_int index_ = 0; SCARE_ONLY[index_]; index_++)
+    {
+      if (SCARE_ONLY[index_] == handler)
+        return TRUE;
+    }
+  return FALSE;
+}
+
+/* The length of the SCARE word the line opens with, or 0. */
+static size_t
+run_line_opens_with_scare_word (const scr_char *string)
+{
+  static const scr_char *const WORDS[] = {
+    "verbose", "brief", "notify", "notification", "hints", "hist", "redo",
+    "gpl", "license", "statusline", "stats", nullptr
+  };
+  const size_t length = strcspn (string, WHITESPACE);
+
+  for (scr_int index_ = 0; WORDS[index_]; index_++)
+    {
+      if (strlen (WORDS[index_]) == length
+          && scr_strncasecmp (string, WORDS[index_], length) == 0)
+        return length;
+    }
+  return 0;
+}
+
+static scr_bool
+run_game_owns_scare_word (scr_gameref_t game, const scr_char *string)
+{
+  string += strspn (string, WHITESPACE);
+  const size_t length = run_line_opens_with_scare_word (string);
+
+  if (length == 0)
+    return FALSE;
+
+  /* The same line with a word no task can have been written for. */
+  const std::string other = std::string ("qzxqzx") + (string + length);
+  const scr_lenient_tasks_guard strict_match (FALSE);
+
+  return run_line_matches_task_strictly (game, string, other.c_str (), TRUE);
+}
+
+/*
  * run_try_command_table()
  *
  * Search a command table for a match to the string, returning TRUE on the
@@ -1528,6 +1611,7 @@ run_try_command_table (scr_commandsref_t command,
 {
   const scr_ref_number_guard ref_number (game);
   const scr_bool npc_blocked = run_npc_library_blocked (game);
+  scr_int scare_word_owned = -1;
 
   for (; command->command; command++)
     {
@@ -1577,6 +1661,16 @@ run_try_command_table (scr_commandsref_t command,
 
       if (uip_match (command->command, string, game))
         {
+          /* A SCARE word the game has a task for is the game's; see
+             run_game_owns_scare_word().  Asked once, and only of a line
+             that reaches one of those rows. */
+          if (run_is_scare_only_handler (command->handler))
+            {
+              if (scare_word_owned < 0)
+                scare_word_owned = run_game_owns_scare_word (game, string);
+              if (scare_word_owned)
+                continue;
+            }
           if (command->handler (game))
             return TRUE;
         }

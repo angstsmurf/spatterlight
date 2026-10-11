@@ -117,7 +117,8 @@ extern const scr_char *run_get_unsubtle_hint (scr_gameref_t game,
 /* Runner hooks the library calls. */
 extern scr_bool
 run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
-                                const scr_char *except = nullptr);
+                                const scr_char *except = nullptr,
+                                scr_bool anywhere = FALSE);
 extern scr_bool run_line_yields_to_library (scr_gameref_t game,
                                             const scr_char *string);
 extern void run_forget_game (const void *game);

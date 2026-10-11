@@ -419,11 +419,13 @@ run_restriction_cache_task_pick (scr_gameref_t game, const scr_char *string)
  * dispatch starts from the state it always did.
  *
  * With EXCEPT, a task counts only if no command of it matches EXCEPT too,
- * so a catch-all task that would take either line is passed over.
+ * so a catch-all task that would take either line is passed over.  With
+ * ANYWHERE, a task counts whatever room it is confined to: the question is
+ * then whether the game has such a task at all, not whether it runs here.
  */
 scr_bool
 run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
-                                const scr_char *except)
+                                const scr_char *except, scr_bool anywhere)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   const std::vector<scr_bool> object_references = game->object_references;
@@ -438,7 +440,7 @@ run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
 
   for (task = 0; task < task_count && !matched; task++)
     {
-      if (!task_where_allows_run (game, task))
+      if (!anywhere && !task_where_allows_run (game, task))
         continue;
       matched = run_match_task_commands (game, task, string, TRUE, FALSE)
                 || run_match_task_commands (game, task, string, FALSE, FALSE);
