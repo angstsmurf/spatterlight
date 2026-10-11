@@ -76,27 +76,16 @@ lib_cmd_restore (scr_gameref_t game)
 
 
 /*
- * lib_cmd_locate_object()
- * lib_cmd_locate_npc()
+ * lib_locate_referenced_object()
  *
- * Display the location of a selected object, and selected NPC.
+ * The one seen object the last command referenced, or -1 once the "don't
+ * know" or "be more clear" answer has been printed for none or several.
  */
-scr_bool
-lib_cmd_locate_object (scr_gameref_t game)
+static scr_int
+lib_locate_referenced_object (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int index_, count, object, room, position, parent;
-
-  /*
-   * "where is X" is a real turn in every Runner: run400's whereis
-   * (Proc_19_33_4684E4, body 467CE0-4684E1, which also prints "I don't
-   * know where that is!" at 4684DA) and the characters() where/find/locate
-   * block 47FC8D-47FE19 never write the not-a-turn flag MemVar_494281, and
-   * run390's whereis 43FF98 / characters() 45ACD8 never write 468219.
-   * Ticket (runner_probes/ticket.run400.txt, 2026-09-12): "where is young
-   * girl" ticks 59 draws.
-   */
+  scr_int index_, count, object;
 
   /*
    * Filter to remove unseen object references.  Note that this is different
@@ -127,22 +116,112 @@ lib_cmd_locate_object (scr_gameref_t game)
   if (count == 0)
     {
       pf_buffer_string (filter, "I don't know where that is.\n");
-      return TRUE;
+      return -1;
     }
   else if (count > 1)
     {
       pf_buffer_string (filter,
                         "Please be more clear about what you want to"
                         " locate.\n");
-      return TRUE;
+      return -1;
     }
 
-  /*
-   * The reference is unambiguous, so we're responsible for noting it in
-   * variables.  Disambiguation would normally do this for us, but we just
-   * bypassed it.
-   */
-  var_set_ref_object (vars, object);
+  return object;
+}
+
+/* "<Npc> is carrying / is wearing <object>.", for a character once seen. */
+static void
+lib_locate_object_on_npc (scr_gameref_t game,
+                          scr_int object, scr_int position, scr_int parent)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (gs_npc_seen (game, parent))
+    {
+      pf_new_sentence (filter);
+      lib_print_npc_np (game, parent);
+      /*
+       * "is carrying", not "is holding" -- the two literals sit side by
+       * side in the Runner, run400 @467FC1 and @46802E, run380 @4372E6
+       * and @43736B.  Upstream SCARE invented "holding".
+       */
+      pf_buffer_string (filter,
+                        (position == OBJ_HELD_NPC)
+                          ? " is carrying " : " is wearing ");
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter, ".\n");
+    }
+  else
+    pf_buffer_string (filter, "I don't know where that is.\n");
+}
+
+/* "<Object> is a part of you / of <npc>." */
+static void
+lib_locate_object_part (scr_gameref_t game, scr_int object, scr_int parent)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (parent == -1)
+    {
+      pf_new_sentence (filter);
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter,
+                        lib_select_plurality (game, object, " is", " are"));
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             " a part of you!\n",
+                                             " a part of me!\n",
+                                             " a part of %player%!\n"));
+    }
+  else
+    {
+      if (gs_npc_seen (game, parent))
+        {
+          pf_new_sentence (filter);
+          lib_print_object_np (game, object);
+          pf_buffer_string (filter,
+                            lib_select_plurality (game, object,
+                                                  " is", " are"));
+          lib_print_wrapped_npc (game, " a part of ", parent, ".\n");
+        }
+      else
+        pf_buffer_string (filter, "I don't know where that is.\n");
+    }
+}
+
+/* "<Object> is on / inside <parent>.", for a parent once seen. */
+static void
+lib_locate_object_nested (scr_gameref_t game,
+                          scr_int object, scr_int position, scr_int parent)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (gs_object_seen (game, parent))
+    {
+      pf_new_sentence (filter);
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter,
+                        lib_select_plurality (game, object, " is", " are"));
+      pf_buffer_string (filter,
+                        (position == OBJ_ON_OBJECT) ? " on " : " inside ");
+      lib_print_object_np (game, parent);
+      pf_buffer_string (filter, ".\n");
+    }
+  else
+    pf_buffer_string (filter, "I don't know where that is.\n");
+}
+
+/*
+ * lib_locate_object_by_position()
+ *
+ * Answer from the object's position and parent where those say it all;
+ * FALSE leaves a static, or a dynamic object on a floor, to the room search.
+ */
+static scr_bool
+lib_locate_object_by_position (scr_gameref_t game, scr_int object)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int position, parent;
 
   /* See if we can print a message based on position and parent. */
   position = gs_object_position (game, object);
@@ -177,71 +256,32 @@ lib_cmd_locate_object (scr_gameref_t game)
 
     case OBJ_HELD_NPC:
     case OBJ_WORN_NPC:
-      if (gs_npc_seen (game, parent))
-        {
-          pf_new_sentence (filter);
-          lib_print_npc_np (game, parent);
-          /*
-           * "is carrying", not "is holding" -- the two literals sit side by
-           * side in the Runner, run400 @467FC1 and @46802E, run380 @4372E6
-           * and @43736B.  Upstream SCARE invented "holding".
-           */
-          pf_buffer_string (filter,
-                            (position == OBJ_HELD_NPC)
-                              ? " is carrying " : " is wearing ");
-          lib_print_object_np (game, object);
-          pf_buffer_string (filter, ".\n");
-        }
-      else
-        pf_buffer_string (filter, "I don't know where that is.\n");
+      lib_locate_object_on_npc (game, object, position, parent);
       return TRUE;
 
     case OBJ_PART_NPC:
-      if (parent == -1)
-        {
-          pf_new_sentence (filter);
-          lib_print_object_np (game, object);
-          pf_buffer_string (filter,
-                            lib_select_plurality (game, object, " is", " are"));
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 " a part of you!\n",
-                                                 " a part of me!\n",
-                                                 " a part of %player%!\n"));
-        }
-      else
-        {
-          if (gs_npc_seen (game, parent))
-            {
-              pf_new_sentence (filter);
-              lib_print_object_np (game, object);
-              pf_buffer_string (filter,
-                                lib_select_plurality (game, object,
-                                                      " is", " are"));
-              lib_print_wrapped_npc (game, " a part of ", parent, ".\n");
-            }
-          else
-            pf_buffer_string (filter, "I don't know where that is.\n");
-        }
+      lib_locate_object_part (game, object, parent);
       return TRUE;
 
     case OBJ_ON_OBJECT:
     case OBJ_IN_OBJECT:
-      if (gs_object_seen (game, parent))
-        {
-          pf_new_sentence (filter);
-          lib_print_object_np (game, object);
-          pf_buffer_string (filter,
-                            lib_select_plurality (game, object, " is", " are"));
-          pf_buffer_string (filter,
-                            (position == OBJ_ON_OBJECT) ? " on " : " inside ");
-          lib_print_object_np (game, parent);
-          pf_buffer_string (filter, ".\n");
-        }
-      else
-        pf_buffer_string (filter, "I don't know where that is.\n");
+      lib_locate_object_nested (game, object, position, parent);
       return TRUE;
     }
+
+  return FALSE;
+}
+
+/*
+ * lib_locate_object_in_rooms()
+ *
+ * Name the first room holding the object, if the player has been there.
+ */
+static void
+lib_locate_object_in_rooms (scr_gameref_t game, scr_int object)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int room;
 
   /*
    * Object is either static unmoved, or dynamic and on the floor of a room.
@@ -255,7 +295,7 @@ lib_cmd_locate_object (scr_gameref_t game)
   if (room == gs_room_count (game))
     {
       pf_buffer_string (filter, "I don't know where that is.\n");
-      return TRUE;
+      return;
     }
 
   /* Check that this room's been visited by the player. */
@@ -277,7 +317,7 @@ lib_cmd_locate_object (scr_gameref_t game)
                              " somewhere you haven't been yet.\n",
                              " somewhere I haven't been yet.\n",
                              " somewhere %player_pronoun% hasn't been yet.\n"));
-      return TRUE;
+      return;
     }
 
   /*
@@ -292,6 +332,43 @@ lib_cmd_locate_object (scr_gameref_t game)
                     lib_select_plurality (game, object, " is ", " are "));
   lib_print_room_name_lower (game, room);
   pf_buffer_string (filter, ".\n");
+}
+
+/*
+ * lib_cmd_locate_object()
+ * lib_cmd_locate_npc()
+ *
+ * Display the location of a selected object, and selected NPC.
+ */
+scr_bool
+lib_cmd_locate_object (scr_gameref_t game)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  scr_int object;
+
+  /*
+   * "where is X" is a real turn in every Runner: run400's whereis
+   * (Proc_19_33_4684E4, body 467CE0-4684E1, which also prints "I don't
+   * know where that is!" at 4684DA) and the characters() where/find/locate
+   * block 47FC8D-47FE19 never write the not-a-turn flag MemVar_494281, and
+   * run390's whereis 43FF98 / characters() 45ACD8 never write 468219.
+   * Ticket (runner_probes/ticket.run400.txt, 2026-09-12): "where is young
+   * girl" ticks 59 draws.
+   */
+
+  object = lib_locate_referenced_object (game);
+  if (object == -1)
+    return TRUE;
+
+  /*
+   * The reference is unambiguous, so we're responsible for noting it in
+   * variables.  Disambiguation would normally do this for us, but we just
+   * bypassed it.
+   */
+  var_set_ref_object (vars, object);
+
+  if (!lib_locate_object_by_position (game, object))
+    lib_locate_object_in_rooms (game, object);
   return TRUE;
 }
 

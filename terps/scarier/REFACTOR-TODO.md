@@ -126,7 +126,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~224~~ | ~~`scmap_build`~~ | DONE: four parts + driver, see "scmap_build split" |
 | ~~219~~ | ~~`save_scarier_body`~~ | DONE: `scarier_save_t` + ten section members, see "save_scarier_body split" |
 | ~~212~~ | ~~`lib_take_and_pre400`~~ | done 2026-10-11, see below |
-| 211 | `lib_cmd_locate_object` | `library/sclibrar_misc.cpp` |
+| ~~211~~ | ~~`lib_cmd_locate_object`~~ | done 2026-10-11, see below |
 | 207 | `a5text_render_plain` | `adrift5/text/a5text_render.cpp` |
 | 206 | `lib_use_room_alt` | `library/sclibrar_print.cpp` |
 | 204 | `lib_definite_object_name` | `library/sclibrar_print.cpp` |
@@ -377,9 +377,10 @@ Per the project's own verification recipe:
    sections), as are `run_lenient_census`, `a5run_input_inner`,
    `lib_print_room_contents`, `restore_scarier_body`,
    `ser_save_game_body`, `sm_set_grid`, `scmap_build`,
-   `save_scarier_body` and `lib_take_and_pre400`, the first nine of the
-   15 rows added on 2026-10-11; 6 rows remain, top to bottom,
-   `lib_cmd_locate_object` next.
+   `save_scarier_body`, `lib_take_and_pre400` and
+   `lib_cmd_locate_object`, the first ten of the 15 rows added on
+   2026-10-11; 5 rows remain, top to bottom, `a5text_render_plain`
+   next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1476,3 +1477,28 @@ them):
   file: 16 before, 12 after (the arms lost eight columns of indent).
 - Next in the table: `lib_cmd_locate_object` (library/sclibrar_misc.cpp;
   library text, so corpus `recompare` too).
+
+## 3: lib_cmd_locate_object split (2026-10-11)
+
+- **`lib_cmd_locate_object`** (211 l.) in `library/sclibrar_misc.cpp` is
+  a straight line of early returns with no state beyond the object, so
+  it is split on the plain-static model: `lib_locate_referenced_object`
+  (drop unseen references, count, the none / several answers; returns
+  the object or -1), `lib_locate_object_by_position` (the position
+  switch; FALSE for the cases that fall to the room search) with its
+  three long cases lifted out as `lib_locate_object_on_npc`,
+  `lib_locate_object_part` and `lib_locate_object_nested`, and
+  `lib_locate_object_in_rooms` (first room, unvisited, the lowercased
+  room name).  The driver keeps the "real turn" note and
+  `var_set_ref_object`.  Bodies are code motion; the only new lines are
+  the changed returns (`-1`, `FALSE`, bare `return`) and each helper's
+  own `filter` fetch.
+- Verification: `-Wshadow` syntax check clean; headless `quick`/full
+  `test` output identical; `make -j8 scarier glkscarier` warning-free;
+  `sanitize` clean; corpus `recompare` old file against new (the
+  `scare` target rebuilt in between) leaves byte-identical
+  `manifest.tsv` and `compare/` trees, the recompare's own rewrite
+  reverted afterwards.  Lines over 80 columns in the file: 7 before and
+  after.
+- Next in the table: `a5text_render_plain`
+  (adrift5/text/a5text_render.cpp).
