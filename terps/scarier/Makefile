@@ -136,7 +136,7 @@ scarier: $(OBJECTS) $(MAPOBJECTS) $(RANDOBJ) platform/os_ansi.o
 		platform/os_ansi.o $(LDLIBS)
 
 # Option to build the Glk port of Scarier.  The Glk front end lives in glk/:
-# os_glk.cpp (module state, startup, event loop, linkage) plus the parts split
+# os_glk.cpp (module state, startup, event loop) plus the parts split
 # out of it; os_glk_internal.h is what they share.
 OSGLKDIR = glk
 GLKOBJECTS = $(patsubst %.cpp,%.o,$(wildcard $(OSGLKDIR)/*.cpp))

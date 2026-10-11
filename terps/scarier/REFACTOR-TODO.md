@@ -389,10 +389,13 @@ These are candidates, not tasks; each wants its own decision.
 - **`uip.options` passed by value** into `uip_match()` instead of set
   through the `uip_set_*()` pairs: the runner's call sites are the
   obstacle.
-- **Startup linkage** (`glkunix_startup_code`, `WinMain`,
-  `winglk_startup_code`, ~280 lines at the end of `os_glk.cpp`) could
-  follow the open-by-path helper into `glk/os_glk_platform.cpp` if
-  `os_glk.cpp` (1826 lines) is split further.
+- ~~**Startup linkage**~~: done.  `glk_main`, `glkunix_startup_code`
+  and `WinMain` / `winglk_startup_code` moved to
+  `glk/os_glk_platform.cpp` (70 -> 390 lines; `os_glk.cpp` 1885 ->
+  1564).  `gsc_startup_code()`, `gsc_main()` and `gsc_game_message`
+  lost `static` for it.  Checked in the Gargoyle configuration
+  (`-DGARGLK` against a garglk checkout, compiled and linked); the
+  plain Windows Glk branch is not built here.
 - **File sizes.**  The largest are `mapdraw.cpp` (2726) and
   `library/sclibrar_drop.cpp` (2715), with a dozen more between 2000
   and 2530; none stands out, so no further split is proposed.

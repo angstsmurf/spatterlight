@@ -24,7 +24,7 @@
  * The Glk front end is split by topic:
  *
  *   os_glk.cpp             module state, utilities, events, files, startup,
- *                          the ADRIFT <=4 main loop, platform linkage
+ *                          the ADRIFT <=4 main loop
  *   os_glk_locale.cpp      codepages and character output
  *   os_glk_status.cpp      the status line
  *   os_glk_output.cpp      tags, fonts, colour mode, inline graphics, hints
@@ -36,7 +36,8 @@
  *   os_glk_a5_display.cpp  ADRIFT 5 text display and media
  *   os_glk_autosave.cpp    Spatterlight autosave/autorestore
  *   os_glk_map.cpp         the map pane, both engines
- *   os_glk_platform.cpp    opening a game file by path, per host
+ *   os_glk_platform.cpp    per-host linkage: glk_main, the startup entry
+ *                          points, opening a game file by path
  *
  * Only the names that cross between them are here -- everything else stays
  * static to its own file.
@@ -60,7 +61,7 @@
 /* The Glk headers and the glkimp host symbols (glk_*, garglk_*, glkunix_*,
  * gli_determinism, win_*) are C; these are C++ translation units, so include
  * them with C linkage.  This also gives the glk_main / glkunix_startup_code /
- * glkunix_arguments definitions in os_glk.cpp C linkage so the C glkimp host
+ * glkunix_arguments definitions in os_glk_platform.cpp C linkage so the C glkimp host
  * can find them (matching the bocfel / Question C++ ports). */
 extern "C" {
 #include "glk.h"
@@ -278,6 +279,15 @@ extern int gsc_autorestore_wanted (void);
 /* os_glk_platform.cpp: a file on disk as a read-only Glk stream, nullptr if
  * the host cannot reach it. */
 extern strid_t gsc_open_game_path (const char *path, glui32 rock);
+
+/* os_glk.cpp, for the host entry points in os_glk_platform.cpp: startup once
+ * the game stream is open, the 3.7-4.0 main loop, and the complaint startup
+ * leaves for it when there is no game to run. */
+extern const char *gsc_game_message;
+extern int gsc_startup_code (strid_t game_stream, strid_t restore_stream,
+                             scr_uint trace_flags, scr_bool enable_debugger,
+                             scr_bool stable_random, const scr_char *locale);
+extern void gsc_main (void);
 
 /* os_glk_locale.cpp: the game locale and character output. */
 extern const scr_bool gsc_has_unicode;
