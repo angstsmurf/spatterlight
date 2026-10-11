@@ -23,7 +23,8 @@
 
 /*
  * Internal header of the runner, shared by scrunner.cpp, scrun_split.cpp,
- * scrun_respell.cpp, scrun_match.cpp, scrun_tables.cpp, scrun_dispatch.cpp,
+ * scrun_respell.cpp, scrun_match.cpp, scrun_match_run.cpp,
+ * scrun_match_refusal.cpp, scrun_tables.cpp, scrun_dispatch.cpp,
  * scrun_input.cpp, and by the dump tools in tools/ (scrun_census.cpp,
  * scdump.cpp).  Nothing here is part of the interface the rest of Scarier
  * uses; that stays in core/scrunner_api.h.
@@ -52,16 +53,19 @@ extern scr_bool run_census_matches_task (scr_gameref_t game, scr_int task,
                                          const scr_char *string);
 #endif
 
-/* scrun_match.cpp */
+/* scrun_match_run.cpp */
 #ifdef SCARIER_DUMP_TOOLS
 extern scr_bool run_probe_strict;
 extern scr_bool run_strict_tasks_requested (const scr_char *string);
 #endif
+/* scrun_match.cpp */
 extern scr_bool run_rerun_skips_tasks;
 extern scr_bool run_rerun_exact_spaces;
 extern scr_bool run_lenient_tasks;
-extern scr_bool run_matcher_second_pass;
 extern scr_bool run_put_class_only;
+/* scrun_match_run.cpp */
+extern scr_bool run_matcher_second_pass;
+/* scrun_match_refusal.cpp */
 extern scr_bool run_repeat_assist;
 
 /* scrun_tables.cpp */
@@ -331,6 +335,8 @@ extern const std::vector<const scr_char *> &
 run_task_command_patterns (scr_gameref_t game, scr_int task, scr_bool forwards);
 extern void run_replace_all (std::string &text, const scr_char *find,
                              const scr_char *with);
+
+/* scrun_match_run.cpp */
 extern void run_restriction_cache_task_pick (scr_gameref_t game,
                                              const scr_char *string);
 extern scr_bool run_game_commands_common (scr_gameref_t game,
@@ -345,6 +351,8 @@ run_game_commands_in_parser_context (scr_gameref_t game,
                                      scr_bool exclude_silent_literal);
 extern scr_bool
 run_defer_loud_tasks_to_movement (scr_gameref_t game, const scr_char *string);
+
+/* scrun_match_refusal.cpp */
 extern scr_int run_spent_task_390 (scr_gameref_t game, const scr_char *string,
                                    const scr_char **message);
 extern scr_bool run_spent_survivor_390 (scr_gameref_t game,

@@ -456,7 +456,7 @@ task_can_run_task_directional (scr_gameref_t game,
  * TRUE for a 3.90 task whose reverse command run390 answers with the task's
  * RepeatText rather than a reversal: reversible, but neither done nor
  * repeatable (checktask 44B4B2).  See run_spent_task_390() in
- * runner/scrun_match.cpp.
+ * runner/scrun_match_refusal.cpp.
  */
 scr_bool
 task_is_reverse_refused_390 (scr_gameref_t game, scr_int task)
@@ -480,7 +480,7 @@ task_is_reverse_refused_390 (scr_gameref_t game, scr_int task)
  *
  * Pre-4.0 Runners answer a command that matches such a task with a refusal of
  * their own rather than the game's DontUnderstand text; see run_task_refusal()
- * in runner/scrun_match.cpp.
+ * in runner/scrun_match_refusal.cpp.
  *
  * Whether the task has already been run is deliberately NOT part of the test.
  * The Runner checks the room ahead of the task's state, and answers a task that
@@ -507,9 +507,9 @@ task_is_room_refused (scr_gameref_t game, scr_int task, scr_bool forwards)
  *
  * The Runners answer such a command with the task's RepeatText, or with "You
  * have already done that." when there is none; see run_task_refusal() in
- * runner/scrun_match.cpp.  The room half is deliberately part of the test,
- * because a task that is both done and out of its rooms gets the room refusal
- * instead (measured live -- probe task "theta").
+ * runner/scrun_match_refusal.cpp.  The room half is deliberately part of the
+ * test, because a task that is both done and out of its rooms gets the room
+ * refusal instead (measured live -- probe task "theta").
  */
 scr_bool
 task_is_done_refused (scr_gameref_t game, scr_int task)

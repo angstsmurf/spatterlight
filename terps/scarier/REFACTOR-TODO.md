@@ -405,8 +405,8 @@ Per the project's own verification recipe:
 ## Suggested order (what is left)
 
 1. File splits (6a): DONE, take/put included (see "take / put splits").
-   `runner/scrun_match.cpp` (3795 l.) is the one file still that size
-   and was never on the list.
+   `runner/scrun_match.cpp` (3795 l.), the one file still that size and
+   never on the list, is DONE as well (see "scrun_match.cpp split").
 2. Module-global state (6a): DONE for every module the survey named
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
@@ -441,6 +441,10 @@ Per the project's own verification recipe:
    (Error handling) is DONE, see "Error handling classification".
 8. 2.4, the cast audit, was the last unticked item in the body; DONE,
    see "2.4: cast audit".  Nothing in this file is open.
+9. Past the list: the `scrun_match.cpp` split named in 1.  The largest
+   files are now `mapdraw.cpp` (2726) and `library/sclibrar_drop.cpp`
+   (2715), with a dozen more between 2000 and 2530; none stands out the
+   way 3795 did, so no further split is proposed here.
 
 ## Outcome (2026-10-10, master 31b77eaac..18e8b35d5)
 
@@ -2328,3 +2332,56 @@ compiler would otherwise do silently.
   `test/adrift4/harness/run_autosave_tests.py --build` all passed.
   No file added, so the Xcode project is untouched.
 - Nothing is next: every item in the body is ticked.
+
+## scrun_match.cpp split (2026-10-11, master 096834efb)
+
+Not an item of the body: "Suggested order" 1 named the file as the one
+left at that size.  Pure code motion on the scprintf / sctasks pattern.
+
+- **Three TUs and a header.**  `runner/scrun_match.cpp` (1642 l.): the
+  getdynfromroom function, the per-task pattern cache, reference
+  substitution, `run_match_task_commands()`, the take/put class filter
+  and `run_census_matches_task()`.  `runner/scrun_match_run.cpp`
+  (1375): `run_task_restriction()`, the library-callback and
+  silent-literal tests, strict / lenient matching,
+  `run_game_commands_common()`, `run_does_command_match()`,
+  `run_task_run_by_index()` and the event / NPC-walk dispatch.
+  `runner/scrun_match_refusal.cpp` (846): the repeat assist, the three
+  `run_spent_*_390` routines, `run_task_refusal()`,
+  `run_put_take_400()`, `run_takes_second_pass_370()`.
+  `runner/scrun_match_internal.h` (73) is shared by these three only.
+- **Two blocks left their neighbours** so that the cache stays private:
+  the class filter (`run_task_class_filter`,
+  `run_set_task_class_filter()`, `run_task_passes_class_filter()`)
+  sat between the game-commands loop and `run_does_command_match()`
+  but reads `run_cache`, and the census wrapper at the foot of the
+  file only calls the matcher; both went to scrun_match.cpp.
+  `run_cache`, `run_cache_game`, `scr_task_commands_t` and
+  `scr_pattern_facts_t` are still file-local.
+- **What lost `static`** (declared in the internal header): six
+  functions, `run_is_task_function`, `run_note_task_ran`,
+  `run_task_ran_this_command`, `run_match_task_commands`,
+  `run_task_passes_class_filter`, `run_task_restriction`; three
+  variables, `run_named_verb_only`, `run_passing_only`,
+  `run_task_runs_noted`; and `enum run_restriction_t` moved to the
+  header.  None of the names occurs outside the three files except in
+  comments.  The static forward declaration of the class filter is
+  gone with it.
+- Comments that named the file for something that moved:
+  core/sctasks.cpp ×3 (`run_spent_task_390()`, `run_task_refusal()`
+  → scrun_match_refusal.cpp), platform/os_ansi.cpp (`run_probe_strict`
+  → scrun_match_run.cpp); scrunner.h's per-file markers re-sorted.
+  scrun_dispatch.cpp's pointer to the make_39_doneprobe note is still
+  right.
+- Verification: sorted line multiset of the three .cpp files against
+  the old one differs only in the file headers, the dropped `static`s,
+  the forward declaration and the enum; `-Wall -Wextra -Wshadow`
+  syntax check of the three clean with and without
+  `SCARIER_DUMP_TOOLS`; full headless `test` output identical to the
+  run at bc51368ec (0 diff lines, compile lines stripped, sorted);
+  `make -j8 scarier glkscarier` warning-free; `sanitize` clean;
+  `xcodebuild -target scarier` BUILD SUCCEEDED, no warnings;
+  `test/adrift4/harness/run_autosave_tests.py --build` all passed.
+- Xcode: two files added to the scarier target (ids ...0114 / ...0115
+  and ...0116 / ...0117, so the next free one is 0118).  The Makefiles
+  and build.sh glob `runner/*.cpp`.
