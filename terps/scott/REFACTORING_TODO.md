@@ -1,7 +1,7 @@
 # terps/scott: refactoring, cleanup and deduplication TODO
 
 There are no open items. The read-only review of 2026-10-11 (after the two
-cleanup passes, 8ab02d171 and 5650c12ca) gave seventeen; fourteen are done
+cleanup passes, d24161fc4 and 5bb6785f3) gave seventeen; fourteen are done
 and three were turned down, see the end of "Looked at and declined". Kept
 here: how to validate a change, the state of the warning pass, what the
 corpus audit still reports, and the items that were looked at and turned

@@ -3,9 +3,9 @@
 Two surveys of `terps/scarier` have been taken and worked through:
 
 - **First pass**: surveyed 2026-10-10 (master @ 1b41f85be), worked through
-  by 2026-10-11 (master 096834efb).  Sections numbered 1–6a.
-- **Second pass**: surveyed 2026-10-11 (master @ 9189587ac) after the
-  first was closed, worked through the same day (6d4004bbe).  Sections
+  by 2026-10-11 (master 8d4895136).  Sections numbered 1–6a.
+- **Second pass**: surveyed 2026-10-11 (master @ 89c8e788b) after the
+  first was closed, worked through the same day (7d2f82a33).  Sections
   lettered A–F.
 
 Every item was done or declined except the one under "Open" below.  This
@@ -16,8 +16,8 @@ how the surveys were measured, and the safety net.
 The full logs, with the census, the per-step reasoning, the original
 suggestions and the surveyed line numbers, are in git:
 
-    git show cd0a32c0c:terps/scarier/REFACTOR-TODO.md
-    git show 6d4004bbe:terps/scarier/CLEANUP-SURVEY-2026-10-11.md
+    git show 8d4895136:terps/scarier/REFACTOR-TODO.md
+    git show 7d2f82a33:terps/scarier/CLEANUP-SURVEY-2026-10-11.md
 
 Section numbers and letters below are the surveys', kept so that commit
 messages and the old logs still resolve.
@@ -90,27 +90,27 @@ So that a later pass can repeat it:
 | 1.8 TAF schema strings | descriptors identical across versions are named constants | d1cda3926 |
 | 2.2 include boilerplate | `library/sclibrar.h`, `adrift5/run/a5run_internal.h` umbrellas | 8f9a7ae69 |
 | 2.3 unsafe string ops, raw buffers | no `sprintf` / `strcpy` / `strcat` left; function-local buffers owned | 718cc3c1d, 7c0950702, 6fb39dcb7 |
-| 2.4 `(scr_int)` / `(scr_bool)` casts | six no-ops removed; the other 147 are real conversions | 538c1ef5f |
+| 2.4 `(scr_int)` / `(scr_bool)` casts | six no-ops removed; the other 147 are real conversions | 3586df343 |
 | 3 big functions | the 31 functions over 200 lines that the first census listed, split into stages or a context struct with members (the 20 it missed are D below) | one commit each, 2026-10-11 |
-| 4 Win32 open-by-path | `gsc_open_game_path` in `glk/os_glk_platform.cpp` | 17638c398 |
+| 4 Win32 open-by-path | `gsc_open_game_path` in `glk/os_glk_platform.cpp` | 7439c3024 |
 | 5 source lists | both makefiles glob; only Xcode needs a hand edit | 42e2cb5ac |
-| 5 tree layout | `core/`, `platform/`, `tools/`, `headless/`; dump prints through `scr_dump_log` | 42c8da273, 0f2d5c2b2, 42df5fda4, 6e4d24f50, 7bce83428 |
-| 5 `scprotos.h` | 25 module headers under `core/` plus a 56-line umbrella | e462bfbc6, 58bba8c05 |
+| 5 tree layout | `core/`, `platform/`, `tools/`, `headless/`; dump prints through `scr_dump_log` | 8c8dd03e4, dc15e7ae2, 676ba0a39, 6f2f0c464, 1ae8796eb |
+| 5 `scprotos.h` | 25 module headers under `core/` plus a 56-line umbrella | ea280798f, 75e954513 |
 | 6 stale comments | every pointer names the owning file | 31b77eaac |
-| 6a accessor guards, loops | `GS_CHECK*`, `GS_FOR_EACH_*` | f4c069b2e, e3188ec5c |
+| 6a accessor guards, loops | `GS_CHECK*`, `GS_FOR_EACH_*` | 64327f19f, 19f826821 |
 | 6a module state | `uip`, `pf`, `expr`, `restr`, `ser`, `tasks`, `palette`, `disambig` state structs | 5edd9064b, 5d883d191, ede2fd91e, ae6ebb6e6, a9f9f36e5, 71339c36f, 60e45292c, 2c080c546 |
-| 6a error handling | index half of the `scgamest.cpp` guards is `scr_fatal`, not `assert` | 5d591cf70 |
+| 6a error handling | index half of the `scgamest.cpp` guards is `scr_fatal`, not `assert` | 3054518b4 |
 | 6a `NULL` → `nullptr` | code only; comments and strings keep the word | 0a36d0eca |
-| 6a `memset`, `(void) x` | six struct `memset`s are `= {}`; 21 unused parameters unnamed | dd87c0bf2 |
-| 6a long lines, macros | six function-like macros are functions; 32 of 34 lines over 100 columns wrapped | 70874b1c1 |
-| 6a locale / ctype | `loc_table_lookup<T>`; shared low halves of the code-page tables; one `NUL` / `WHITESPACE` in `core/sctypes.h` | 2d53d5857, 6258795aa, 46e668b71, c84f47c6e |
-| 6a file splits | `scparser` 5 TUs, `scprintf` 5, `sctasks` 5, `sclibrar_disambig` 3, `sclibrar_take` 2, `sclibrar_put` 2, `scrun_match` 3; each with its own `*_internal.h` | 82f5fb5e2, 0f18acb3f, 26365ef84, 8811b5eee, 55fd2004b, b3fb149dc, 096834efb |
+| 6a `memset`, `(void) x` | six struct `memset`s are `= {}`; 21 unused parameters unnamed | 546456ea7 |
+| 6a long lines, macros | six function-like macros are functions; 32 of 34 lines over 100 columns wrapped | 4391e6fee |
+| 6a locale / ctype | `loc_table_lookup<T>`; shared low halves of the code-page tables; one `NUL` / `WHITESPACE` in `core/sctypes.h` | 2d53d5857, 6258795aa, c788c4035, cb5a07a4a |
+| 6a file splits | `scparser` 5 TUs, `scprintf` 5, `sctasks` 5, `sclibrar_disambig` 3, `sclibrar_take` 2, `sclibrar_put` 2, `scrun_match` 3; each with its own `*_internal.h` | 82f5fb5e2, 0f18acb3f, 26365ef84, 8811b5eee, 55fd2004b, d04c37285, 8d4895136 |
 
 `gs_is_game_valid` was 5% of self time in the 2026-10-04 profile; the
-`GS_CHECK` fold (f4c069b2e) kept its test to the same compare and branch
+`GS_CHECK` fold (64327f19f) kept its test to the same compare and branch
 and compiles the game half out under `NDEBUG`.
 
-### Second pass (6d4004bbe)
+### Second pass (7d2f82a33)
 
 **A. Dead code: deleted.**  Each had only its definition and declaration
 (plus, in places, a comment).
@@ -175,7 +175,7 @@ by stage, not by version, and checked against the corpus diff: that is
 where Runner-parity ordering lives.
 
 **E. `SCR_TRACE_ON (name)` / `SCR_TRACE_IF (name, format, …)`** in
-`core/scdump.h`, next to `SCR_DEVIATION` (done after 6d4004bbe).  Each
+`core/scdump.h`, next to `SCR_DEVIATION` (done after 7d2f82a33).  Each
 use reads its environment variable once, the first time it is reached,
 and both compile to nothing without `SCARIER_DUMP_TOOLS`.  They replace
 the hand-written reads of the guarded trace blocks in `runner/`
