@@ -966,6 +966,172 @@ gsc_draw_inline_graphic (glui32 id)
 
 
 /*
+ * gsc_handle_cls_tag()
+ * gsc_handle_center_tag()
+ * gsc_handle_right_tag()
+ * gsc_handle_bgcolour_tag()
+ * gsc_handle_waitkey_tag()
+ *
+ * The os_print_tag() cases with a body of their own.
+ */
+static void
+gsc_handle_cls_tag (void)
+{
+  /* Clear the main text display window. */
+  if (!gsc_sc_silent)
+    glk_window_clear (gsc_main_window);
+  gsc_main_at_line_start = TRUE;
+  gsc_main_window_empty = TRUE;
+#if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
+  /*
+   * If a graphic was drawn earlier this turn (no player input since), the
+   * clear just wiped it.  Redraw it so it survives the clear, matching
+   * Adrift's separate graphics pane.
+   */
+  if (gsc_graphic_drawn_since_input)
+    gsc_draw_inline_graphic (gsc_pending_graphic_id);
+#endif
+}
+
+static void
+gsc_handle_center_tag (scr_int tag)
+{
+  /*
+   * Alignment in the Runner is a flat state, not a nesting depth: it
+   * keeps one byte holding centered, right or left, and <center> sets
+   * centered while </center>, <right> and </right> set it away again
+   * (run400 Sub_22_27 stores 2, 1 and 0 into it, with no count of how
+   * many <center>s are open).  Counting nesting instead leaves a game
+   * that opens <center> twice and closes it once -- as "To Hell in a
+   * Hamper" does on its title page -- centered for the rest of the game.
+   *
+   * Justification is a paragraph attribute, so a change of alignment
+   * needs its own paragraph: put the newline first -- it closes the
+   * previous paragraph in that paragraph's own style (on ENDCENTER it is
+   * the centered paragraph's terminator) -- and only then switch styles.
+   * A tag that doesn't change the alignment breaks no paragraph.
+   */
+  glui32 centered = (tag == SCR_TAG_CENTER);
+
+  if (centered != gsc_attribute_center || gsc_attribute_right > 0)
+    {
+      if (!gsc_sc_silent)
+        glk_put_char ('\n');
+      gsc_attribute_center = centered;
+      gsc_attribute_right = 0;
+      gsc_set_glk_style ();
+    }
+}
+
+static void
+gsc_handle_right_tag (scr_int tag)
+{
+  /*
+   * Same flat alignment state as <center> (run400 Sub_22_27).  Right uses
+   * style_Note (RightFlush-hinted); entering or leaving right also clears
+   * centering, as the Runner does.
+   */
+  glui32 right = (tag == SCR_TAG_RIGHT);
+
+  if (right != gsc_attribute_right || gsc_attribute_center > 0)
+    {
+      if (!gsc_sc_silent)
+        glk_put_char ('\n');
+      gsc_attribute_right = right;
+      gsc_attribute_center = 0;
+      gsc_set_glk_style ();
+    }
+}
+
+static void
+gsc_handle_bgcolour_tag (const scr_char *argument)
+{
+  /*
+   * <bgcolour="red"> repaints the Runner's output pane.  There is no Glk
+   * way to change a window's background short of clearing it, and a game
+   * that sets a background mid-turn is not asking for its text to be
+   * wiped, so only the colour later text is drawn over changes; the
+   * window catches up at the next clear.  The argument is the whole tag
+   * contents (scprintf passes it verbatim, to match <font colour=...>),
+   * so it is parsed the same way -- and "default" returns the mode's own
+   * background rather than clearing the colour.
+   *
+   * The one repaint that is free is the one onto an empty window: a game
+   * that clears the screen and then names its colour -- The Dead Man ends
+   * each blackout vision with "<cls><bgcolor=default>" -- has nothing on
+   * screen to lose, and without the second clear its pane keeps the vision's
+   * white behind every line that follows.
+   */
+  const glui32 colour = gsc_colour_from_tag (argument, "bgcolour");
+  const glui32 wanted = (colour == GSC_COLOUR_NONE) ? 0x000000 : colour;
+  const scr_bool changed = (wanted != gsc_colour_background);
+
+  gsc_colour_background = wanted;
+  gsc_set_glk_style ();
+
+  if (changed && gsc_colour_enabled && !gsc_sc_silent
+      && gsc_main_window_empty && gsc_main_window)
+    glk_window_clear (gsc_main_window);
+}
+
+static void
+gsc_handle_waitkey_tag (void)
+{
+  event_t event;
+
+  /*
+   * If reading an input log, ignore; it disrupts replay.  Write a newline
+   * to separate off any unterminated game output instead.
+   */
+  if (!gsc_readlog_stream)
+    {
+      strid_t stream;
+#ifdef SPATTERLIGHT
+      scr_bool resumed = FALSE;
+
+      /* Running the turn again after a relaunch: go by the pauses the
+         player had already been through, and stop at the one the game
+         was closed at -- whose save is the one just restored. */
+      gsc_sc_waitkey_count++;
+      if (gsc_sc_silent)
+        {
+          if (gsc_sc_waitkey_count < gsc_sc_waitkey_skip)
+            return;
+          gsc_sc_silent = FALSE;
+          gsc_sc_waitkey_skip = 0;
+          resumed = TRUE;
+        }
+#endif
+
+      /* Update the status line now only if it has its own window. */
+      if (gsc_status_window)
+        gsc_status_notify ();
+
+      /* The turn that led here has already moved the player and marked
+         the room seen; show that on the map now rather than at the next
+         prompt, after the whole cutscene.  Opening the pane can move the
+         current stream (gsc_map_show), so put it back. */
+      stream = glk_stream_get_current ();
+      gsc_map_redraw ();
+      glk_stream_set_current (stream);
+
+#ifdef SPATTERLIGHT
+      /* Before the request, as at a prompt: the archived window then
+         has none pending and the relaunch asks for the key itself. */
+      if (!resumed)
+        gsc_sc_autosave_waitkey ();
+#endif
+
+      /* Request a character event, and wait for it to be filled. */
+      glk_request_char_event (gsc_main_window);
+      gsc_event_wait (evtype_CharInput, &event);
+    }
+  else
+    glk_put_char ('\n');
+}
+
+
+/*
  * os_print_tag()
  *
  * Interpret selected Adrift output control tags.  Not all are implemented
@@ -974,26 +1140,12 @@ gsc_draw_inline_graphic (glui32 id)
 void
 os_print_tag (scr_int tag, const scr_char *argument)
 {
-  event_t event;
   assert (argument);
 
   switch (tag)
     {
     case SCR_TAG_CLS:
-      /* Clear the main text display window. */
-      if (!gsc_sc_silent)
-        glk_window_clear (gsc_main_window);
-      gsc_main_at_line_start = TRUE;
-      gsc_main_window_empty = TRUE;
-#if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
-      /*
-       * If a graphic was drawn earlier this turn (no player input since), the
-       * clear just wiped it.  Redraw it so it survives the clear, matching
-       * Adrift's separate graphics pane.
-       */
-      if (gsc_graphic_drawn_since_input)
-        gsc_draw_inline_graphic (gsc_pending_graphic_id);
-#endif
+      gsc_handle_cls_tag ();
       break;
 
     case SCR_TAG_FONT:
@@ -1024,85 +1176,16 @@ os_print_tag (scr_int tag, const scr_char *argument)
 
     case SCR_TAG_CENTER:
     case SCR_TAG_ENDCENTER:
-      {
-        /*
-         * Alignment in the Runner is a flat state, not a nesting depth: it
-         * keeps one byte holding centered, right or left, and <center> sets
-         * centered while </center>, <right> and </right> set it away again
-         * (run400 Sub_22_27 stores 2, 1 and 0 into it, with no count of how
-         * many <center>s are open).  Counting nesting instead leaves a game
-         * that opens <center> twice and closes it once -- as "To Hell in a
-         * Hamper" does on its title page -- centered for the rest of the game.
-         *
-         * Justification is a paragraph attribute, so a change of alignment
-         * needs its own paragraph: put the newline first -- it closes the
-         * previous paragraph in that paragraph's own style (on ENDCENTER it is
-         * the centered paragraph's terminator) -- and only then switch styles.
-         * A tag that doesn't change the alignment breaks no paragraph.
-         */
-        glui32 centered = (tag == SCR_TAG_CENTER);
-
-        if (centered != gsc_attribute_center || gsc_attribute_right > 0)
-          {
-            if (!gsc_sc_silent)
-              glk_put_char ('\n');
-            gsc_attribute_center = centered;
-            gsc_attribute_right = 0;
-            gsc_set_glk_style ();
-          }
-      }
+      gsc_handle_center_tag (tag);
       break;
 
     case SCR_TAG_RIGHT:
     case SCR_TAG_ENDRIGHT:
-      {
-        /*
-         * Same flat alignment state as <center> (run400 Sub_22_27).  Right uses
-         * style_Note (RightFlush-hinted); entering or leaving right also clears
-         * centering, as the Runner does.
-         */
-        glui32 right = (tag == SCR_TAG_RIGHT);
-
-        if (right != gsc_attribute_right || gsc_attribute_center > 0)
-          {
-            if (!gsc_sc_silent)
-              glk_put_char ('\n');
-            gsc_attribute_right = right;
-            gsc_attribute_center = 0;
-            gsc_set_glk_style ();
-          }
-      }
+      gsc_handle_right_tag (tag);
       break;
 
     case SCR_TAG_BGCOLOUR:
-      /*
-       * <bgcolour="red"> repaints the Runner's output pane.  There is no Glk
-       * way to change a window's background short of clearing it, and a game
-       * that sets a background mid-turn is not asking for its text to be
-       * wiped, so only the colour later text is drawn over changes; the
-       * window catches up at the next clear.  The argument is the whole tag
-       * contents (scprintf passes it verbatim, to match <font colour=...>),
-       * so it is parsed the same way -- and "default" returns the mode's own
-       * background rather than clearing the colour.
-       *
-       * The one repaint that is free is the one onto an empty window: a game
-       * that clears the screen and then names its colour -- The Dead Man ends
-       * each blackout vision with "<cls><bgcolor=default>" -- has nothing on
-       * screen to lose, and without the second clear its pane keeps the vision's
-       * white behind every line that follows.
-       */
-      {
-        const glui32 colour = gsc_colour_from_tag (argument, "bgcolour");
-        const glui32 wanted = (colour == GSC_COLOUR_NONE) ? 0x000000 : colour;
-        const scr_bool changed = (wanted != gsc_colour_background);
-
-        gsc_colour_background = wanted;
-        gsc_set_glk_style ();
-
-        if (changed && gsc_colour_enabled && !gsc_sc_silent
-            && gsc_main_window_empty && gsc_main_window)
-          glk_window_clear (gsc_main_window);
-      }
+      gsc_handle_bgcolour_tag (argument);
       break;
 
     case SCR_TAG_WAIT:
@@ -1118,55 +1201,7 @@ os_print_tag (scr_int tag, const scr_char *argument)
       break;
 
     case SCR_TAG_WAITKEY:
-      /*
-       * If reading an input log, ignore; it disrupts replay.  Write a newline
-       * to separate off any unterminated game output instead.
-       */
-      if (!gsc_readlog_stream)
-        {
-          strid_t stream;
-#ifdef SPATTERLIGHT
-          scr_bool resumed = FALSE;
-
-          /* Running the turn again after a relaunch: go by the pauses the
-             player had already been through, and stop at the one the game
-             was closed at -- whose save is the one just restored. */
-          gsc_sc_waitkey_count++;
-          if (gsc_sc_silent)
-            {
-              if (gsc_sc_waitkey_count < gsc_sc_waitkey_skip)
-                break;
-              gsc_sc_silent = FALSE;
-              gsc_sc_waitkey_skip = 0;
-              resumed = TRUE;
-            }
-#endif
-
-          /* Update the status line now only if it has its own window. */
-          if (gsc_status_window)
-            gsc_status_notify ();
-
-          /* The turn that led here has already moved the player and marked
-             the room seen; show that on the map now rather than at the next
-             prompt, after the whole cutscene.  Opening the pane can move the
-             current stream (gsc_map_show), so put it back. */
-          stream = glk_stream_get_current ();
-          gsc_map_redraw ();
-          glk_stream_set_current (stream);
-
-#ifdef SPATTERLIGHT
-          /* Before the request, as at a prompt: the archived window then
-             has none pending and the relaunch asks for the key itself. */
-          if (!resumed)
-            gsc_sc_autosave_waitkey ();
-#endif
-
-          /* Request a character event, and wait for it to be filled. */
-          glk_request_char_event (gsc_main_window);
-          gsc_event_wait (evtype_CharInput, &event);
-        }
-      else
-        glk_put_char ('\n');
+      gsc_handle_waitkey_tag ();
       break;
 
     default:

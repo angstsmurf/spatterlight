@@ -130,7 +130,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~207~~ | ~~`a5text_render_plain`~~ | done 2026-10-11, see below |
 | ~~206~~ | ~~`lib_use_room_alt`~~ | done 2026-10-11, see below |
 | ~~204~~ | ~~`lib_definite_object_name`~~ | done 2026-10-11, see below |
-| 201 | `os_print_tag` | `glk/os_glk_output.cpp` (Glk build + autosave suite) |
+| ~~201~~ | ~~`os_print_tag`~~ | done 2026-10-11, see below |
 | 201 | `a5state_new` | `adrift5/a5state.cpp` |
 
 The table opened with 16 of the 33; the two Glk `main`s went under 1.4,
@@ -379,9 +379,9 @@ Per the project's own verification recipe:
    `ser_save_game_body`, `sm_set_grid`, `scmap_build`,
    `save_scarier_body`, `lib_take_and_pre400`,
    `lib_cmd_locate_object`, `a5text_render_plain`,
-   `lib_use_room_alt` and `lib_definite_object_name`, the first
-   thirteen of the 15 rows added on 2026-10-11; 2 rows remain,
-   `os_print_tag` next, then `a5state_new`.
+   `lib_use_room_alt`, `lib_definite_object_name` and `os_print_tag`,
+   the first fourteen of the 15 rows added on 2026-10-11; one row
+   remains, `a5state_new`.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1577,3 +1577,24 @@ them):
   One line over 80 columns in the file, before and after.
 - Next in the table: `os_print_tag` (glk/os_glk_output.cpp; not in the
   headless build, so the Glk build and the autosave suite).
+
+## 3: os_print_tag split (2026-10-11)
+
+- **`os_print_tag`** (201 l.) in `glk/os_glk_output.cpp` is a switch
+  that already handed font and attribute tags to `gsc_handle_*`
+  functions; the five cases that still had a body inline now do the
+  same: `gsc_handle_cls_tag`, `gsc_handle_center_tag (tag)`,
+  `gsc_handle_right_tag (tag)`, `gsc_handle_bgcolour_tag (argument)`
+  and `gsc_handle_waitkey_tag`, static, defined just above.  The
+  switch is 70 lines.  Bodies are code motion with their comments; the
+  one changed line is the waitkey replay skip, a `break` out of the
+  switch that is now a `return` from the handler, and `event` moves
+  with the only case that used it.  `SCR_TAG_WAIT` stays inline (four
+  lines).
+- Verification: the headless suite does not compile this file.  `make
+  -j8 scarier glkscarier` warning-free; `run_autosave_tests.py
+  --build` all passed -- that build defines SPATTERLIGHT, so both
+  sides of the handlers' `#ifdef`s were compiled, and its waitkey
+  rows run the silent-replay path through the moved `return`.  Lines
+  over 80 columns in the file: 4 before, 3 after.
+- Next in the table: `a5state_new` (adrift5/a5state.cpp), the last row.
