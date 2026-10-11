@@ -1111,6 +1111,17 @@ a5_scan_tag (const uint8_t *buf, uint32_t len, const char *open)
     return nullptr;
   for (i = 0; i + open_len <= len; i++)
     {
+      /* Every tag opens with a caseless '<': hop straight to the next one
+       * rather than comparing at each byte of a file that may be hundreds of
+       * megabytes of blorb resources. */
+      if (open[0] == '<')
+        {
+          const uint8_t *lt = (const uint8_t *)
+              memchr (buf + i, '<', len - open_len + 1 - i);
+          if (lt == nullptr)
+            break;
+          i = (uint32_t) (lt - buf);
+        }
       if (strncasecmp ((const char *) buf + i, open, open_len) != 0)
         continue;
       uint32_t s = i + open_len, e = s;
