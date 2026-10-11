@@ -67,11 +67,12 @@ Playing
 
 Both engines understand a family of `glk` meta-commands; `glk help` lists
 them and `glk summary` prints the current settings.  Among them: `glk map`
-and `glk zoom` for the map pane, `glk colour`, `glk verbose`, `glk
-capacity`, `glk patches`, `glk assist` (combat, move, repeat, room -- the
-work-arounds some games converted between ADRIFT versions need; games known
-to need one get it turned on with a notice at startup), `glk script`, `glk
-inputlog` and `glk readlog`, and `glk undo` / `glk restore` / `glk restart`
+and `glk zoom` for the map pane, `glk colour`, `glk verbose`, `glk notify`,
+`glk statusline`, `glk capacity`, `glk patches`, `glk assist` (combat,
+move, repeat, room -- the work-arounds some games converted between ADRIFT
+versions need; games known to need one get it turned on with a notice at
+startup), `glk script`, `glk inputlog` and `glk readlog`, and `glk undo` /
+`glk restore` / `glk restart`
 / `glk quit` for when the game's own commands are unavailable.
 
 

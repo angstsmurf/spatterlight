@@ -539,12 +539,88 @@ gsc_set_verbose (scr_bool state)
 static void
 gsc_command_verbose (const char *argument)
 {
-  gsc_command_toggle (argument, "verbose", "Glk verbose descriptions are",
+  /* A bare "glk verbose" turns it on, as the game's "verbose" does, so the
+     summary asks with "status" (GSC_CMD_STATUS) -- and reads as a bare
+     command where that only reports. */
+  const scr_bool is_status = scr_strcasecmp (argument, "status") == 0;
+
+  gsc_command_toggle (is_status ? "" : argument, "verbose",
+                      "Glk verbose descriptions are",
                       scr_get_game_verbose (gsc_game), gsc_set_verbose,
                       "; the game always gives long descriptions of locations,"
                       " even ones you've visited before.\n",
                       "; long descriptions are given for places never before"
-                      " visited and short descriptions otherwise.\n", TRUE);
+                      " visited and short descriptions otherwise.\n",
+                      !is_status);
+}
+
+
+/*
+ * gsc_command_notify()
+ *
+ * Turn the game's score change notification on and off: SCARE's "notify",
+ * here for the game whose own "notify" task shadows it, and for the build
+ * without SCARE's meta-commands (SCARIER_NO_ABBREVIATIONS).
+ */
+static void
+gsc_set_notify (scr_bool state)
+{
+  scr_set_game_notify_score_change (gsc_game, state);
+}
+
+static void
+gsc_command_notify (const char *argument)
+{
+  gsc_command_toggle (argument, "notify",
+                      "Glk score change notification is",
+                      scr_get_game_notify_score_change (gsc_game),
+                      gsc_set_notify,
+                      "; the game will tell you of any changes in the"
+                      " score.\n",
+                      "; the game will be silent on changes in the score.\n",
+                      FALSE);
+}
+
+
+/*
+ * gsc_command_statusline()
+ *
+ * Print the status line as text, the way SCARE's "statusline" (and the
+ * "stats" it once answered to) does: the room and the game's status, or the
+ * score where the game sets none.  The status window shows the same thing
+ * when there is one; this is for a Glk library with no room for it, and for
+ * getting the line into a transcript.
+ */
+static void
+gsc_command_statusline (const char *argument)
+{
+  const scr_char *room, *status;
+  assert (argument);
+
+  room = scr_get_game_room (gsc_game);
+  if (room == nullptr || strspn (room, " \t\r\n") == strlen (room))
+    {
+      gsc_normal_string (scr_get_game_name (gsc_game));
+      gsc_normal_string (" | ");
+      gsc_normal_string (scr_get_game_author (gsc_game));
+      gsc_normal_char ('\n');
+      return;
+    }
+
+  gsc_normal_string (room);
+  gsc_normal_string (" | ");
+  status = scr_get_game_status_line (gsc_game);
+  if (status != nullptr && strspn (status, " \t\r\n") != strlen (status))
+    gsc_normal_string (status);
+  else
+    {
+      char buffer[32];
+
+      snprintf (buffer, sizeof (buffer), "Score: %ld",
+                (long) scr_get_game_score (gsc_game));
+      gsc_normal_string (buffer);
+    }
+  gsc_normal_char ('\n');
 }
 
 
@@ -1412,6 +1488,20 @@ static const char GSC_HELP_VERBOSE[] =
   " mirrors the ADRIFT Runner's Verbose option, and works even when a game"
   " defines its own \"verbose\" command.\n";
 
+static const char GSC_HELP_NOTIFY[] =
+  "Controls score change notification.\n\n"
+  "Use `glk notify on` to have the game tell you whenever your score"
+  " changes, and `glk notify off` to keep it silent.  Plain `glk notify`"
+  " says which it is.  This is the setting the `notify` command changes,"
+  " and works even when a game defines its own \"notify\" command.\n";
+
+static const char GSC_HELP_STATUSLINE[] =
+  "Prints the status line: where you are, and the game's own status or"
+  " your score.\n\n"
+  "This is what the status window shows, as a line of text -- for an"
+  " interpreter with no status window, or to put it on record in a"
+  " transcript.  `glk stats` is the same command.\n";
+
 static const char GSC_HELP_VERSION[] =
   "Prints the version numbers of the Glk library and the Glk Scarier port.\n";
 
@@ -1461,8 +1551,9 @@ static void gsc_command_summary (const char *argument);
 
 /* Commands not flagged GSC_CMD_A5 are ADRIFT <=4 engine specifics:
    abbreviations (the ADRIFT 5 standard library already defines x/l/i/z...),
-   assist and its aliases (4.0 Battle System / task quirks), and
-   verbose (a 4.0 room-description mode; ADRIFT 5 leaves this to the game).
+   assist and its aliases (4.0 Battle System / task quirks), verbose (a
+   4.0 room-description mode; ADRIFT 5 leaves this to the game), and notify
+   and statusline (SCARE's own, over the 4.x game state).
 
    Entries flagged GSC_CMD_ALIAS are alternative names for a command listed
    above them.  They are found by the dispatcher and by "glk help", but left
@@ -1516,8 +1607,17 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
    GSC_CMD_ARGUMENT,
    "game patches", GSC_USAGE_ONOFF, GSC_HELP_PATCHES},
   {"verbose", gsc_command_verbose,
+   GSC_CMD_ARGUMENT | GSC_CMD_STATUS,
+   "verbose descriptions", GSC_USAGE_ONOFFSTATUS, GSC_HELP_VERBOSE},
+  {"notify", gsc_command_notify,
    GSC_CMD_ARGUMENT,
-   "verbose descriptions", GSC_USAGE_ONOFF, GSC_HELP_VERBOSE},
+   "score change notification", GSC_USAGE_ONOFF, GSC_HELP_NOTIFY},
+  {"statusline", gsc_command_statusline,
+   GSC_CMD_ACTION,
+   nullptr, nullptr, GSC_HELP_STATUSLINE},
+  {"stats", gsc_command_statusline,
+   GSC_CMD_ALIAS | GSC_CMD_ACTION,
+   nullptr, nullptr, GSC_HELP_STATUSLINE},
   {"version", gsc_command_version,
    GSC_CMD_A5,
    nullptr, nullptr, GSC_HELP_VERSION},
@@ -1595,7 +1695,8 @@ gsc_command_in_scope (gsc_commandref_t entry)
  * gsc_command_lookup()
  *
  * Find the table entry for a Glk command name, which the player may have
- * abbreviated.  An abbreviation has to be a prefix of exactly one entry, but
+ * abbreviated.  An abbreviation has to be a prefix of exactly one command --
+ * of however many of its names: "stat" is "statusline" and "stats" both -- but
  * an exact spelling always wins outright, so that a command which is itself
  * the prefix of another -- "colour" of "colours" -- still resolves.
  *
@@ -1624,7 +1725,9 @@ gsc_command_lookup (const char *command, int *matches)
           return entry;
         }
 
-      if (scr_strncasecmp (command, entry->command, strlen (command)) == 0)
+      /* An alias of the command already found is that command again. */
+      if (scr_strncasecmp (command, entry->command, strlen (command)) == 0
+          && !(matched && entry->handler == matched->handler))
         {
           count++;
           matched = entry;
@@ -1690,9 +1793,9 @@ gsc_command_summary (const char *argument)
 
   /*
    * Call handlers that have status to report with an empty argument,
-   * prompting each to print its current setting.  The logging commands and
-   * the colour mode act rather than report on an empty argument, so those
-   * (GSC_CMD_STATUS) are polled with an explicit "status" instead.  The
+   * prompting each to print its current setting.  The logging commands,
+   * the colour mode and verbose act rather than report on an empty argument,
+   * so those (GSC_CMD_STATUS) are polled with an explicit "status" instead.  The
    * commands that only ever act (GSC_CMD_ACTION) are not called at all:
    * asking after the settings must not display the help, or quit the game.
    */
