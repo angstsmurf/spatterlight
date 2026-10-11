@@ -240,7 +240,7 @@ lib_hit_arm_pre390 (scr_gameref_t game)
   if (!*verb)
     return FALSE;
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       std::string lowered (input);
       scr_int object, pick, with_at;
@@ -274,7 +274,7 @@ lib_hit_arm_pre390 (scr_gameref_t game)
       with_at = lowered.find ("with");
 
       pick = -1;
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         {
           const scr_char *shortname, *alias;
           scr_bool named, after;
@@ -1482,7 +1482,7 @@ lib_first_named_object_pre_390 (scr_gameref_t game)
       && !uip_match ("* %object% *", input, game))
     return -1;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (game->object_references[object])
         return object;
@@ -1509,7 +1509,7 @@ lib_seen_named_object_400 (scr_gameref_t game, const scr_char *input)
   best_count = 0;
   best_object = -1;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_char *term;
       scr_int score;
@@ -1667,7 +1667,7 @@ lib_cmd_put_unclear (scr_gameref_t game)
   if (uip_match ("put %object% *", input, game)
       || uip_match ("put %object%", input, game))
     {
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
+      GS_FOR_EACH_OBJECT (game, index_)
         {
           if (game->object_references[index_]
               && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
@@ -1691,7 +1691,7 @@ lib_cmd_put_unclear (scr_gameref_t game)
   if (uip_match ("* %object% *", input, game)
       || uip_match ("* %object%", input, game))
     {
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
+      GS_FOR_EACH_OBJECT (game, index_)
         {
           if (game->object_references[index_]
               && gs_object_seen (game, index_)

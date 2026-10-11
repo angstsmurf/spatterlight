@@ -701,7 +701,7 @@ lib_cmd_hints (scr_gameref_t game)
    * task is runnable or not.
    */
   game_has_hints = FALSE;
-  for (task = 0; task < gs_task_count (game); task++)
+  GS_FOR_EACH_TASK (game, task)
     {
       if (task_has_hints (game, task))
         {

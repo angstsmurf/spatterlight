@@ -252,7 +252,7 @@ lib_talk_to_hint_after_failed_task_390 (scr_gameref_t game,
       && !lib_input_contains_word (input, "speak to"))
     return FALSE;
 
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       if (lib_npc_named_in_line (game, index_, input))
         npc = index_;
@@ -404,7 +404,7 @@ lib_cmd_ask_about_nothing (scr_gameref_t game)
 
   if (input)
     {
-      for (npc = 0; npc < gs_npc_count (game); npc++)
+      GS_FOR_EACH_NPC (game, npc)
         {
           const scr_char *name;
 

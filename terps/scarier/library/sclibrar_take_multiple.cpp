@@ -143,7 +143,7 @@ lib_take_all_sweep_390 (scr_gameref_t game, scr_bool has_printed)
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int associate, objects;
 
-  for (associate = 0; associate < gs_object_count (game); associate++)
+  GS_FOR_EACH_OBJECT (game, associate)
     {
       if (!obj_directly_in_room (game, associate, gs_playerroom (game)))
         continue;
@@ -376,7 +376,7 @@ lib_cmd_take_absent (scr_gameref_t game)
    */
   if (lib_input_contains_word_400 (input, "and"))
     {
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         {
           const scr_char *term;
 
@@ -392,7 +392,7 @@ lib_cmd_take_absent (scr_gameref_t game)
   best_count = 0;
   best_object = -1;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_char *term;
       scr_int score;
@@ -611,7 +611,7 @@ lib_take_from_task_sweep_380 (scr_gameref_t game)
 
   /* The task's text joins the take's own line after two spaces. */
   pf_buffer_join_pending (gs_get_filter (game));
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       std::string line;
 
@@ -748,7 +748,7 @@ lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
 
   room = gs_playerroom (game);
   count = 0;
-  for (other = 0; other < gs_object_count (game); other++)
+  GS_FOR_EACH_OBJECT (game, other)
     {
       if (lib_co_candidate (game, other, room)
           && lib_co_object_answers_to (game, other, term))
@@ -774,7 +774,7 @@ lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
     {
       scr_int fitting = 0;
 
-      for (other = 0; other < gs_object_count (game); other++)
+      GS_FOR_EACH_OBJECT (game, other)
         {
           if (lib_co_object_answers_to (game, other, term)
               && lib_co_mode_fits (game, other, mode))
@@ -851,7 +851,7 @@ lib_take_crowd_pre400 (scr_gameref_t game, scr_bool *crowded)
 
   counted = flagged = acting = 0;
   last_flagged = last_acting = -1;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (obj_is_static (game, object)
           || gs_object_position (game, object) != room + 1
@@ -919,7 +919,7 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
   target = -1;
   if (!unresolved)
     {
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         {
           if (!game->multiple_references[object])
             continue;
@@ -1028,7 +1028,7 @@ lib_take_and_none_pre400 (scr_gameref_t game)
       || !lib_input_contains_word (line, "and"))
     return FALSE;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_int position;
 
@@ -1295,7 +1295,7 @@ lib_take_and_t::count ()
   scr_int object;
 
   candidates = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_int position;
 
@@ -1478,7 +1478,7 @@ lib_take_and_t::from_parent ()
 
   gs_clear_object_references (game);
   gs_clear_multiple_references (game);
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if ((gs_object_position (game, object) == OBJ_IN_OBJECT
            || gs_object_position (game, object) == OBJ_ON_OBJECT)
@@ -1578,7 +1578,7 @@ lib_take_and_pre400 (scr_gameref_t game)
     return FALSE;
 
   take.seed ();
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (obj_is_static (game, object)
           || !lib_take_co_pre400 (game, line, object))
@@ -1790,7 +1790,7 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
     return FALSE;
 
   found = -1;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (!lib_co_pre400 (game, line, object, mode))
         continue;
@@ -2098,7 +2098,7 @@ lib_take_multi_co_fails_pre400 (scr_gameref_t game)
   const scr_char *line = run_get_dispatch_input ();
   scr_int target;
 
-  for (target = 0; target < gs_object_count (game); target++)
+  GS_FOR_EACH_OBJECT (game, target)
     if (game->multiple_references[target])
       break;
   if (line && target < gs_object_count (game)
@@ -2138,7 +2138,7 @@ lib_take_multi_run (scr_gameref_t game, scr_bool is_except,
     {
       scr_int index_;
 
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
+      GS_FOR_EACH_OBJECT (game, index_)
         if (game->object_references[index_]
             && (gs_object_position (game, index_) == OBJ_IN_OBJECT
                 || gs_object_position (game, index_) == OBJ_ON_OBJECT))

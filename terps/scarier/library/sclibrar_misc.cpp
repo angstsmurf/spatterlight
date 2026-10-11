@@ -91,7 +91,7 @@ lib_locate_referenced_object (scr_gameref_t game)
    * Filter to remove unseen object references.  Note that this is different
    * from NPCs, who we acknowledge even when unseen.
    */
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (!gs_object_seen (game, index_))
         game->object_references[index_] = FALSE;
@@ -100,7 +100,7 @@ lib_locate_referenced_object (scr_gameref_t game)
   /* Count the number of objects referenced by the last command. */
   count = 0;
   object = -1;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (game->object_references[index_])
         {
@@ -287,7 +287,7 @@ lib_locate_object_in_rooms (scr_gameref_t game, scr_int object)
    * Object is either static unmoved, or dynamic and on the floor of a room.
    * Check each room for the object, stopping on first found.
    */
-  for (room = 0; room < gs_room_count (game); room++)
+  GS_FOR_EACH_ROOM (game, room)
     {
       if (obj_indirectly_in_room (game, object, room))
         break;
@@ -451,7 +451,7 @@ lib_cmd_locate_npc (scr_gameref_t game)
     }
 
   /* Check each room for the NPC, stopping on first found. */
-  for (room = 0; room < gs_room_count (game); room++)
+  GS_FOR_EACH_ROOM (game, room)
     {
       if (npc_in_room (game, npc, room))
         break;
@@ -765,7 +765,7 @@ lib_cmd_status_npc (scr_gameref_t game)
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
     {
-      for (index_ = 0; index_ < gs_npc_count (game); index_++)
+      GS_FOR_EACH_NPC (game, index_)
         {
           if (!game->npc_references[index_])
             continue;
@@ -934,7 +934,7 @@ lib_npc_examine_absent (scr_gameref_t game)
   if (!input)
     return FALSE;
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       const scr_char *name, *alias;
       scr_vartype_t vt_key[4];
@@ -955,7 +955,7 @@ lib_npc_examine_absent (scr_gameref_t game)
           scr_int object;
           scr_bool clash = FALSE;
 
-          for (object = 0; object < gs_object_count (game); object++)
+          GS_FOR_EACH_OBJECT (game, object)
             {
               if (lib_verb_object_name_score (game, object, input) > 0)
                 {
@@ -1084,7 +1084,7 @@ lib_cmd_examine_other (scr_gameref_t game)
         }
       if (found != -1)
         {
-          for (npc = 0; npc < gs_npc_count (game); npc++)
+          GS_FOR_EACH_NPC (game, npc)
             game->npc_references[npc] = (npc == found);
           if (lib_cmd_examine_npc (game))
             return TRUE;
@@ -1426,7 +1426,7 @@ lib_talk_hint_anywhere_pre390 (scr_gameref_t game)
       || prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
     return FALSE;
 
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       if (lib_npc_referenced (game, index_, input))
         npc = index_;

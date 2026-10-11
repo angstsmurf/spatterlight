@@ -193,7 +193,7 @@ obj_cache_kinds (scr_gameref_t game)
   obj_cache_bundle = bundle;
   obj_kinds.assign (gs_object_count (game), 0);
   obj_wheres.assign (gs_object_count (game), obj_where_t ());
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_bool is_static =
           prop_get_indexed_boolean (bundle, "Objects", object, "Static");
@@ -632,7 +632,7 @@ obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
    * leaflet weigh 10, the extra 19 being worn objects whose leftover raw
    * Parent still points at the package.
    */
-  for (other = 0; other < gs_object_count (game); other++)
+  GS_FOR_EACH_OBJECT (game, other)
     {
       scr_bool is_child;
 
@@ -972,7 +972,7 @@ obj_get_container_free_space (scr_gameref_t game, scr_int object)
 
   free_space = obj_get_container_capacity (game, object);
 
-  for (other = 0; other < gs_object_count (game); other++)
+  GS_FOR_EACH_OBJECT (game, other)
     {
       if (gs_object_position (game, other) == OBJ_IN_OBJECT
           && gs_object_parent (game, other) == object)
@@ -1505,7 +1505,7 @@ obj_mark_room_objects_seen (scr_gameref_t game, scr_int room)
 {
   scr_int index_;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       scr_bool is_visible;
 
@@ -1548,7 +1548,7 @@ obj_mark_room_statics_seen (scr_gameref_t game, scr_int room)
 {
   scr_int index_;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (gs_object_seen (game, index_) || !obj_is_static (game, index_))
         continue;
@@ -1584,7 +1584,7 @@ obj_mark_npc_parts_seen (scr_gameref_t game)
   if (prop_get_taf_version (bundle) < TAF_VERSION_400)
     return;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       const obj_where_t *where;
       scr_int type, npc;

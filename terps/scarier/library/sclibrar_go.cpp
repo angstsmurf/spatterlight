@@ -626,7 +626,7 @@ lib_goto_line_names_object (scr_gameref_t game, const scr_char *line)
   const scr_int room = gs_playerroom (game);
   scr_int object;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_char *shortname;
       scr_vartype_t vt_key[4];

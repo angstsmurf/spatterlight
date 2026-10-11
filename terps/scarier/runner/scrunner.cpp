@@ -1190,7 +1190,7 @@ run_runner_event_draws (scr_gameref_t game,
   scr_vartype_t vt_key[3];
   scr_int index_;
 
-  for (index_ = 0; index_ < gs_event_count (game); index_++)
+  GS_FOR_EACH_EVENT (game, index_)
     {
       scr_int startertype, lo, hi;
 

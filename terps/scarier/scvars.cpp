@@ -690,7 +690,7 @@ var_collect_at_object (scr_gameref_t game, scr_int associate, scr_int position)
   var_list_t list;
   scr_int object;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       /* Contained, or standing on? */
       if (gs_object_position (game, object) == position
@@ -893,7 +893,7 @@ var_find_object_by_short (scr_gameref_t game, const scr_char *name,
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_char *prefix, *shortname;
       std::string prefixed;

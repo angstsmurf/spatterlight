@@ -543,6 +543,27 @@ extern scr_bool gs_runner_possessed (scr_gameref_t gs, scr_int object);
 extern void gs_carried_recompute (scr_gameref_t gs);
 extern void gs_set_capacity_assist (scr_bool flag);
 extern scr_bool gs_get_capacity_assist (void);
+/*
+ * Index loops over a game's entities, one per kind:
+ *
+ *   GS_FOR_EACH_OBJECT (game, object)
+ *     ...
+ *
+ * is for (object = 0; object < gs_object_count (game); object++).  The index
+ * is a variable the caller declares, as in the loops these replaced, so a
+ * search loop can still break out and read it afterwards.
+ */
+#define GS_FOR_EACH_EVENT(game, event) \
+  for ((event) = 0; (event) < gs_event_count (game); (event)++)
+#define GS_FOR_EACH_ROOM(game, room) \
+  for ((room) = 0; (room) < gs_room_count (game); (room)++)
+#define GS_FOR_EACH_TASK(game, task) \
+  for ((task) = 0; (task) < gs_task_count (game); (task)++)
+#define GS_FOR_EACH_OBJECT(game, object) \
+  for ((object) = 0; (object) < gs_object_count (game); (object)++)
+#define GS_FOR_EACH_NPC(game, npc) \
+  for ((npc) = 0; (npc) < gs_npc_count (game); (npc)++)
+
 extern scr_int gs_event_count (scr_gameref_t gs);
 extern void gs_set_event_state (scr_gameref_t gs, scr_int event, scr_int state);
 extern void gs_set_event_time (scr_gameref_t gs, scr_int event, scr_int etime);

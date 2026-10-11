@@ -106,7 +106,7 @@ lib_with_clause_390 (scr_gameref_t game, const std::string &line,
   scr_int index_, present = -1, anywhere = -1, referenced = 0;
 
   *object = -1;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       const scr_bool in_tail
         = lib_verb_object_name_score (game, index_, tail.c_str ()) > 0;
@@ -304,7 +304,7 @@ lib_with_arm_390 (scr_gameref_t game)
     return TRUE;
 
   with = strstr (input, "with");
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_vartype_t vt_key[4];
       const scr_char *name, *found;

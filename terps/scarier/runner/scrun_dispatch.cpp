@@ -792,11 +792,11 @@ run_line_t::get_outer_400 ()
               scr_int held_before = 0, held_after = 0, object;
 
               pf_truncate (filter, outer_mark);
-              for (object = 0; object < gs_object_count (game); object++)
+              GS_FOR_EACH_OBJECT (game, object)
                 held_before += gs_object_position (game, object)
                                == OBJ_HELD_PLAYER;
               status = outer_take ();
-              for (object = 0; object < gs_object_count (game); object++)
+              GS_FOR_EACH_OBJECT (game, object)
                 held_after += gs_object_position (game, object)
                               == OBJ_HELD_PLAYER;
               if (!task_text.empty ())
@@ -992,7 +992,7 @@ run_line_t::priority_pass ()
       scr_int object;
 
       if (priority_goto == RUN_GOTO_TAKE || priority_goto == RUN_GOTO_DROP)
-        for (object = 0; object < gs_object_count (game); object++)
+        GS_FOR_EACH_OBJECT (game, object)
           {
             goto_places.push_back (gs_object_position (game, object));
             goto_places.push_back (gs_object_parent (game, object));
@@ -1220,7 +1220,7 @@ run_line_t::library ()
       scr_int object;
 
       lib_go_place_off = TRUE;
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         {
           goto_places.push_back (gs_object_position (game, object));
           goto_places.push_back (gs_object_parent (game, object));

@@ -77,7 +77,7 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
     {
       scr_int object;
 
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         {
           if (game->object_references[object]
               && !lib_co_pre400 (game, run_get_dispatch_input (), object, 0))
@@ -164,7 +164,7 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
           {
             scr_int index_;
 
-            for (index_ = 0; index_ < gs_object_count (game); index_++)
+            GS_FOR_EACH_OBJECT (game, index_)
               {
                 if (gs_object_position (game, index_) == OBJ_HELD_PLAYER)
                   return FALSE;
@@ -265,7 +265,7 @@ lib_put_fragment_names_nothing (scr_gameref_t game)
   if (!input || !run_unnamed_put_fragment (input, fragment))
     return FALSE;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (!obj_indirectly_in_room (game, index_, gs_playerroom (game)))
         continue;
@@ -294,7 +294,7 @@ lib_put_fragment_present_object (scr_gameref_t game, const scr_char *fragment)
   object = -1;
   best = 0;
   best_count = 0;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       scr_int score;
 
@@ -588,7 +588,7 @@ lib_put_co_count_pre390 (scr_gameref_t game)
 
   if (!line)
     return 2;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (lib_put_co_named_term (game, line, object))
         matches++;
@@ -1042,7 +1042,7 @@ lib_put_shut_in_container_400 (scr_gameref_t game, scr_int container)
     return -1;
 
   found = -1;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (gs_object_position (game, object) != OBJ_IN_OBJECT
           || gs_object_parent (game, object) != container)
@@ -1517,7 +1517,7 @@ lib_put_co_refusal_pre390 (scr_gameref_t game)
   matches = 0;
   chosen = -1;
   pinned = FALSE;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (!lib_put_co_named_term (game, line, object))
         continue;
@@ -1673,7 +1673,7 @@ lib_put_target_390 (scr_gameref_t game, const scr_char *line)
 
   chosen = -1;
   pinned = FALSE;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (!lib_put_co_named_term (game, line, object))
         continue;
@@ -1731,7 +1731,7 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
     }
 
   named = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (lib_put_co_named_term (game, line, object))
         named++;
@@ -1755,7 +1755,7 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
   if (cut == std::string::npos || cut > lower.length ())
     return FALSE;
   tail = lower.substr (cut);
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (lib_put_co_named_term (game, tail.c_str (), object))
         return FALSE;
@@ -1871,7 +1871,7 @@ lib_put_on_seen_absent_400 (scr_gameref_t game)
       || (" " + line).find (" and ") != std::string::npos)
     return -1;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (obj_indirectly_in_room (game, index_, gs_playerroom (game))
           && lib_verb_object_name_score (game, index_, fragment.c_str ()) > 0)

@@ -303,9 +303,9 @@ run_census_t::mark_all_seen ()
 {
   scr_int index_;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     gs_set_object_seen (game, index_, TRUE);
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     gs_set_npc_seen (game, index_, TRUE);
   run_lenient_tasks = FALSE;
   uip_set_lenient_tasks (FALSE);

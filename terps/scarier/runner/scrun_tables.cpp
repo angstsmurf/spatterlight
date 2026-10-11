@@ -2228,7 +2228,7 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
 
       if (version >= TAF_VERSION_380)
         return FALSE;
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         {
           const scr_char *name =
               prop_get_indexed_string (bundle, "Objects", object, "Short");

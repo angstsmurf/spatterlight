@@ -725,14 +725,14 @@ ser_object_static_rooms (scr_gameref_t game, scr_int object)
         case ROOMLIST_SOME_ROOMS:
           vt_key[3].string = "Rooms";
           count = 0;
-          for (room = 0; room < gs_room_count (game); room++)
+          GS_FOR_EACH_ROOM (game, room)
             {
               vt_key[4].integer = room + 1;
               if (prop_get_boolean (bundle, "B<-sissi", vt_key))
                 count++;
             }
           cached.push_back (count);
-          for (room = 0; room < gs_room_count (game); room++)
+          GS_FOR_EACH_ROOM (game, room)
             {
               vt_key[4].integer = room + 1;
               if (prop_get_boolean (bundle, "B<-sissi", vt_key))
@@ -742,7 +742,7 @@ ser_object_static_rooms (scr_gameref_t game, scr_int object)
 
         case ROOMLIST_ALL_ROOMS:
           cached.push_back (gs_room_count (game));
-          for (room = 0; room < gs_room_count (game); room++)
+          GS_FOR_EACH_ROOM (game, room)
             cached.push_back (room + 1);
           break;
 
@@ -959,7 +959,7 @@ ser_save_objects (scr_gameref_t game)
 {
   scr_int index_;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       ser_save_object_location (game, index_);
       ser_buffer_boolean (gs_object_seen (game, index_));
@@ -992,7 +992,7 @@ ser_save_events (scr_gameref_t game)
   scr_vartype_t vt_key[3];
   scr_int index_;
 
-  for (index_ = 0; index_ < gs_event_count (game); index_++)
+  GS_FOR_EACH_EVENT (game, index_)
     {
       scr_int startertype, task;
 
@@ -1043,7 +1043,7 @@ ser_save_npcs (scr_gameref_t game)
 {
   scr_int index_;
 
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       scr_int walk;
 
@@ -1138,14 +1138,14 @@ ser_save_game_body (scr_gameref_t game)
   ser_save_player (game);
 
   /* Save rooms information. */
-  for (index_ = 0; index_ < gs_room_count (game); index_++)
+  GS_FOR_EACH_ROOM (game, index_)
     ser_buffer_boolean (gs_room_seen (game, index_));
 
   /* Save objects information. */
   ser_save_objects (game);
 
   /* Save tasks information. */
-  for (index_ = 0; index_ < gs_task_count (game); index_++)
+  GS_FOR_EACH_TASK (game, index_)
     {
       ser_buffer_boolean (gs_task_done (game, index_));
       ser_buffer_boolean (gs_task_scored (game, index_));
@@ -1716,11 +1716,11 @@ ser_load_game_body (scr_gameref_t game,
     ser_restore_battle_block (new_game, -1);
 
   /* Restore rooms information. */
-  for (index_ = 0; index_ < gs_room_count (new_game); index_++)
+  GS_FOR_EACH_ROOM (new_game, index_)
     gs_set_room_seen (new_game, index_, ser_get_boolean ());
 
   /* Restore objects information. */
-  for (index_ = 0; index_ < gs_object_count (new_game); index_++)
+  GS_FOR_EACH_OBJECT (new_game, index_)
     {
       scr_int openable, currentstate;
 
@@ -1810,7 +1810,7 @@ ser_load_game_body (scr_gameref_t game,
    * recursion.  A chain longer than the object count must revisit an object.
    * Only dynamic objects had their parent checked, so stop at a static one.
    */
-  for (index_ = 0; index_ < gs_object_count (new_game); index_++)
+  GS_FOR_EACH_OBJECT (new_game, index_)
     {
       scr_int object = index_, steps = 0;
 
@@ -1824,14 +1824,14 @@ ser_load_game_body (scr_gameref_t game,
     }
 
   /* Restore tasks information. */
-  for (index_ = 0; index_ < gs_task_count (new_game); index_++)
+  GS_FOR_EACH_TASK (new_game, index_)
     {
       gs_set_task_done (new_game, index_, ser_get_boolean ());
       gs_set_task_scored (new_game, index_, ser_get_boolean ());
     }
 
   /* Restore events information. */
-  for (index_ = 0; index_ < gs_event_count (new_game); index_++)
+  GS_FOR_EACH_EVENT (new_game, index_)
     {
       scr_int startertype, task;
 
@@ -1866,7 +1866,7 @@ ser_load_game_body (scr_gameref_t game,
     }
 
   /* Restore NPCs information. */
-  for (index_ = 0; index_ < gs_npc_count (new_game); index_++)
+  GS_FOR_EACH_NPC (new_game, index_)
     {
       scr_int walk;
 
@@ -1958,7 +1958,7 @@ ser_load_game_body (scr_gameref_t game,
           gs_set_playerwield (new_game, ser_get_wield (new_game));
           if (is_v2)
             ser_restore_battle_attributes (gs_player_battle (new_game));
-          for (index_ = 0; index_ < gs_npc_count (new_game); index_++)
+          GS_FOR_EACH_NPC (new_game, index_)
             {
               gs_set_npc_stamina (new_game, index_, ser_get_int ());
               gs_set_npc_staminacounter (new_game, index_, ser_get_int ());

@@ -511,7 +511,7 @@ run_battle_places (scr_gameref_t game)
   std::vector<scr_int> places;
   scr_int object;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       places.push_back (gs_object_position (game, object));
       places.push_back (gs_object_parent (game, object));

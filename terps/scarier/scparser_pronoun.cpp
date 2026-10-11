@@ -864,7 +864,7 @@ uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
   uip.pronoun.her_before_noting = game->her_npc;
   uip.pronoun.it_before_noting = game->it_npc;
   uip.pronoun.it_object_before_noting = game->it_object;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       if (uip_npc_named (game, index_, lowered, string))
         {
@@ -922,7 +922,7 @@ uip_renote_named_npcs (scr_gameref_t game, const scr_char *cut_line,
   if (walked)
     return;
 
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       scr_bool named = uip_npc_named (game, index_, lowered, cut_line);
 
@@ -964,7 +964,7 @@ uip_line_names_npc (scr_gameref_t game, const scr_char *string)
   const std::string lowered = uip_lowered (string);
   scr_int index_;
 
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       if (uip_npc_named (game, index_, lowered, string))
         return TRUE;
@@ -1345,7 +1345,7 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
            */
           count = 0;
           object = -1;
-          for (index_ = 0; index_ < gs_object_count (game); index_++)
+          GS_FOR_EACH_OBJECT (game, index_)
             {
               if (game->object_references[index_]
                   && (gs_object_seen (game, index_)

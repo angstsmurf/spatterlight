@@ -76,7 +76,7 @@ find_object (scr_gameref_t game, const char *name)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int o;
 
-  for (o = 0; o < gs_object_count (game); o++)
+  GS_FOR_EACH_OBJECT (game, o)
     {
       scr_vartype_t vt_key[3], vt_rvalue;
       vt_key[0].string = "Objects";

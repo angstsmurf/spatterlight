@@ -113,7 +113,7 @@ npc_count_in_room (scr_gameref_t game, scr_int room)
   count = gs_player_in_room (game, room) ? 1 : 0;
 
   /* Total up other NPCs inhabiting the room. */
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       if (gs_npc_location (game, npc) - 1 == room)
         count++;
@@ -136,7 +136,7 @@ npc_count_referenced_present (scr_gameref_t game, scr_int *npc)
 
   count = 0;
   *npc = -1;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       if (game->npc_references[index_]
           && gs_npc_seen (game, index_)
@@ -413,7 +413,7 @@ npc_turn_update (scr_gameref_t game)
   scr_int index_;
 
   /* Set current values for NPC seen states. */
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       if (!gs_npc_seen (game, index_)
           && npc_in_room (game, index_, gs_playerroom (game)))
@@ -433,7 +433,7 @@ npc_setup_initial (scr_gameref_t game)
    * of a game-start walk happens somewhere else in it; see the note in
    * npc_start_walk_is_390_noop() for what is measured and what is not.
    */
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       scr_int walk;
 
@@ -1408,7 +1408,7 @@ npc_tick_npcs (scr_gameref_t game)
    */
   if (npc_version (game) >= TAF_VERSION_390)
     {
-      for (npc = 0; npc < gs_npc_count (game); npc++)
+      GS_FOR_EACH_NPC (game, npc)
         {
           if (!gs_npc_seen (game, npc)
               && npc_in_room (game, npc, gs_playerroom (game)))
@@ -1453,7 +1453,7 @@ npc_tick_npcs (scr_gameref_t game)
       && game->player_moved_by_command
       && undo && !gs_player_in_room (undo, gs_playerroom (game)))
     {
-      for (npc = 0; npc < gs_npc_count (game); npc++)
+      GS_FOR_EACH_NPC (game, npc)
         {
           scr_int walk;
 
@@ -1493,7 +1493,7 @@ npc_tick_npcs (scr_gameref_t game)
    * the Runner's order within one iteration of Proc_19_1 (468D79).  The
    * Runner leaves the loop as soon as a battle turn ends the game (468D87).
    */
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       npc_tick_npc (game, npc);
       battle_tick_npc (game, npc);

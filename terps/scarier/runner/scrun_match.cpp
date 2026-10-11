@@ -106,7 +106,7 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
   argument[argument_length - 1] = NUL;
 
   /* Compare the argument read in against known room names. */
-  for (room = 0; room < gs_room_count (game); room++)
+  GS_FOR_EACH_ROOM (game, room)
     {
       const scr_char *name;
 
@@ -120,7 +120,7 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
     return FALSE;
 
   /* Select the first dynamic object standing on the room's floor. */
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_bool bstatic;
 
@@ -981,7 +981,7 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
     {
       scr_int index;
 
-      for (index = 0; index < gs_object_count (game); index++)
+      GS_FOR_EACH_OBJECT (game, index)
         {
           scr_int alias, alias_count;
           scr_vartype_t vt_key[4];
@@ -1029,7 +1029,7 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
     {
       scr_int npc;
 
-      for (npc = 0; npc < gs_npc_count (game); npc++)
+      GS_FOR_EACH_NPC (game, npc)
         {
           const scr_char *name =
               prop_get_indexed_string (bundle, "NPCs", npc, "Name");
@@ -1509,7 +1509,7 @@ run_match_task_commands (scr_gameref_t game,
                 room = gs_playerroom (game);
                 present = matched = 0;
                 bound_present = FALSE;
-                for (object = 0; object < gs_object_count (game); object++)
+                GS_FOR_EACH_OBJECT (game, object)
                   {
                     if (!game->object_references[object])
                       continue;
@@ -3686,7 +3686,7 @@ run_put_take_400 (scr_gameref_t game, const scr_char *string)
   if (run_hoist_verb_line (game, take_line.c_str (), hoisted))
     take_line = hoisted;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       places.push_back (gs_object_position (game, object));
       places.push_back (gs_object_parent (game, object));
@@ -3702,7 +3702,7 @@ run_put_take_400 (scr_gameref_t game, const scr_char *string)
       pf_truncate (filter, mark);
       return FALSE;
     }
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     if (gs_object_position (game, object) != places[2 * object]
         || gs_object_parent (game, object) != places[2 * object + 1])
       moved = TRUE;

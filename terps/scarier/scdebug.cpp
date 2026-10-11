@@ -983,7 +983,7 @@ debug_dump_room (scr_gameref_t game, scr_int room)
       if_print_debug_character ('\n');
     }
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (obj_indirectly_in_room (game, object, room))
         {
@@ -993,7 +993,7 @@ debug_dump_room (scr_gameref_t game, scr_int room)
         }
     }
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       if (npc_in_room (game, npc, room))
         {

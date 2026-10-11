@@ -524,7 +524,7 @@ lib_put_nothing_carried_400 (scr_gameref_t game, scr_bool has_printed)
   if (!lib_is_version_400 (game))
     return FALSE;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (game->object_references[object] || game->multiple_references[object])
         return FALSE;
@@ -736,7 +736,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
 
   /* How many objects the line named, for 3.9's all/and arm below. */
   entry_count = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     entry_count += game->object_references[object] ? 1 : 0;
 
   /*
@@ -1336,7 +1336,7 @@ lib_put_target_pre390 (scr_gameref_t game, const scr_char *prompt,
 
   /* lib_disambiguate_object_common() clears what it rejects; keep a copy. */
   named.assign (gs_object_count (game), FALSE);
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     named[index_] = game->object_references[index_];
 
   container = lib_disambiguate_object (game, prompt, is_ambiguous);
@@ -1345,7 +1345,7 @@ lib_put_target_pre390 (scr_gameref_t game, const scr_char *prompt,
 
   count = 0;
   object = -1;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (!named[index_] || (requires_seen && !gs_object_seen (game, index_)))
         continue;
@@ -1356,7 +1356,7 @@ lib_put_target_pre390 (scr_gameref_t game, const scr_char *prompt,
   if (count != 1)
     return -1;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     game->object_references[index_] = (index_ == object);
   return object;
 }

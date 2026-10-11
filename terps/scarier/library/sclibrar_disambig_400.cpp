@@ -836,7 +836,7 @@ lib_co_400_prefix_contest (scr_gameref_t game, const scr_char *word,
 
   result = -1;
   best = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_char *name;
       scr_vartype_t vt_key[4];
@@ -918,7 +918,7 @@ lib_co_400_walk_step (scr_gameref_t game, scr_int object,
       scr_int other;
 
       list->clear ();
-      for (other = 0; other < gs_object_count (game); other++)
+      GS_FOR_EACH_OBJECT (game, other)
         {
           if (gs_object_seen (game, other)
               && obj_indirectly_in_room (game, other, room)
@@ -956,7 +956,7 @@ lib_co_400_raise_for_references (scr_gameref_t game)
   list_ok = (scr_int) marked.size () == mark_count;
 
   /* Pass A. */
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_char *word = lib_co_400_name_word (game, object, input);
 
@@ -1010,7 +1010,7 @@ lib_co_400_raise_for_contained_aliases (scr_gameref_t game)
   if (!input)
     return FALSE;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_vartype_t vt_key[4];
       scr_int alias_count, alias;
@@ -1401,7 +1401,7 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
     return FALSE;
 
   found = FALSE;
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       std::vector<scr_int> namesakes;
       scr_vartype_t vt_key[4];
@@ -1436,7 +1436,7 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
       if (!list_term)
         list_term = term;
 
-      for (other = 0; other < gs_npc_count (game); other++)
+      GS_FOR_EACH_NPC (game, other)
         {
           if (npc_in_room (game, other, room)
               && lib_npc_answers_to (game, other, term))

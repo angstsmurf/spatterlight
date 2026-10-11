@@ -450,7 +450,7 @@ lib_line_names_npc_390 (scr_gameref_t game, const scr_char *input)
 {
   scr_int npc;
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       if (lib_npc_named_in_line (game, npc, input))
         return TRUE;

@@ -207,7 +207,7 @@ lib_verb_object_resolve_400_scan (scr_gameref_t game, const scr_char *input,
   object = -2;
   best = 0;
   best_count = 0;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       scr_int score;
 
@@ -1005,7 +1005,7 @@ lib_verb_object_catch_all_pre390 (scr_gameref_t game)
   rank = 0;
   pick = -1;
   unseen = -1;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (!game->object_references[object]
           && !lib_catch_all_names_pre390 (game, object))
@@ -1126,7 +1126,7 @@ lib_verb_object_count_present (scr_gameref_t game,
   /* Ensure the reference is unambiguous. */
   *count = 0;
   *object = -1;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (game->object_references[index_]
           && (gs_object_seen (game, index_)
@@ -1205,7 +1205,7 @@ lib_verb_object_first_named_370 (scr_gameref_t game,
 {
   scr_int index_;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (lib_catch_all_names_pre390 (game, index_)
           && (gs_object_seen (game, index_)
@@ -1337,7 +1337,7 @@ lib_verb_object_absent (scr_gameref_t game, scr_int *count, scr_int *object)
     {
       *count = 0;
       *object = -1;
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
+      GS_FOR_EACH_OBJECT (game, index_)
         {
           if (game->object_references[index_]
               && (gs_object_seen (game, index_)
@@ -1654,7 +1654,7 @@ lib_npc_absent_or_unknown (scr_gameref_t game)
       || lib_is_version_400 (game) || !input)
     return FALSE;
 
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       const scr_char *name;
 
@@ -1722,7 +1722,7 @@ lib_cmd_verb_npc (scr_gameref_t game)
    */
   count = 0;
   npc = -1;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       if (game->npc_references[index_]
           && gs_npc_seen (game, index_)
@@ -1756,7 +1756,7 @@ lib_cmd_verb_npc (scr_gameref_t game)
       best = -1;
       kept = 0;
       winner = -1;
-      for (index_ = 0; index_ < gs_npc_count (game); index_++)
+      GS_FOR_EACH_NPC (game, index_)
         {
           scr_int score;
 

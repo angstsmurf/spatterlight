@@ -319,7 +319,7 @@ lib_kiss_named_npc (scr_gameref_t game)
 
   if (input && prop_get_taf_version (bundle) >= TAF_VERSION_390)
     {
-      for (npc = 0; npc < gs_npc_count (game); npc++)
+      GS_FOR_EACH_NPC (game, npc)
         {
           scr_vartype_t vt_key[3];
 
@@ -561,7 +561,7 @@ lib_cmd_verb_absent_400 (scr_gameref_t game)
     return FALSE;
 
   gs_clear_object_references (game);
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (lib_verb_object_name_score (game, object, input) > 0)
         game->object_references[object] = TRUE;

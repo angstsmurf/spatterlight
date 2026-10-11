@@ -222,22 +222,27 @@ Most-repeated non-comment lines in the tree:
 | 59 | `const scr_var_setref_t vars = gs_get_vars (game);` |
 | 27 | `assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));` |
 
-- [ ] **Context struct for library handlers**: a small `lib_ctx_t { game, bundle,
+- [ ] ~~**Context struct for library handlers**~~: a small `lib_ctx_t { game, bundle,
       filter, vars, input }` built once per command in `lib_dispatch` and passed
       (or reachable from `game`) removes ~500 lines of prologue and the
-      per-handler re-fetch.
-- [ ] **Iteration helpers**: `for (auto object : gs_objects (game))` or a
+      per-handler re-fetch.  → **Declined** (see "Accessor-prologue pass"):
+      not a mechanical step.  The 313 `lib_cmd_*` handlers are table-dispatched
+      with a fixed `(scr_gameref_t)` signature, and the prologue lines sit in
+      static helpers across 40 files, most of them nowhere near the dispatcher.
+- [x] **Iteration helpers**: `for (auto object : gs_objects (game))` or a
       `GS_FOR_EACH_OBJECT (game, object)` macro (same for npc/room/task/event).
       Variable naming for the loop index currently drifts between `object`,
-      `index_`, `obj`, `o`, `i`, `n`.
-- [ ] **`run_get_dispatch_input`**: handlers re-tokenise or `strstr` the raw
+      `index_`, `obj`, `o`, `i`, `n`.  → the macros, e3188ec5c; names kept.
+- [ ] ~~**`run_get_dispatch_input`**~~: handlers re-tokenise or `strstr` the raw
       line 87 times (cf. `lib_input_contains_word`). Parse once into a word
       list on the dispatch context and give handlers `ctx.has_word ("with")`.
-- [ ] `scgamest.cpp`: 108 `assert (gs_is_game_valid (...))` and 77
+      → **Declined**: the 87 sites do not share a tokenisation (`strstr`
+      tails, `std::string` splits at "in"/"on", two word-boundary sets).
+- [x] `scgamest.cpp`: 108 `assert (gs_is_game_valid (...))` and 77
       `gs_in_range` asserts are the same two-line accessor guard; a single
       `GS_CHECK_OBJECT (gs, object)` macro halves each accessor. Careful: the
       profiling note says `gs_is_game_valid` is a hotspot — fold the guard and
-      make it `#ifndef NDEBUG`-cheap in the same change.
+      make it `#ifndef NDEBUG`-cheap in the same change.  → f4c069b2e.
 
 ### Module-global state that should hang off the game or a context (risk: med)
 175 mutable file-scope statics across the tree; the biggest block was
@@ -383,8 +388,10 @@ Per the project's own verification recipe:
    `lib_use_room_alt`, `lib_definite_object_name`, `os_print_tag` and
    `a5state_new`, all 15 rows added on 2026-10-11; the table is
    complete.
-5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
-   pass.
+5. Accessor-prologue context struct and iteration helpers (6a): DONE for
+   the two mechanical halves (guard macros, loop macros); the context
+   struct and the parse-once dispatch input are declined (see
+   "Accessor-prologue pass").
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
    everything.
 
@@ -1673,3 +1680,60 @@ them):
   taken") is ever done; `lib_put_reset()` already lists the put ones.
 - Next in the suggested order: 5, the accessor-prologue context struct
   and iteration helpers -- wide, its own pass.
+
+## Accessor-prologue pass (2026-10-11, master f4c069b2e, e3188ec5c)
+
+- **6a `scgamest.cpp` guards** (f4c069b2e) -- the 185 accessor asserts
+  (108 `gs_is_game_valid`, 77 of them with a `gs_in_range`) are
+  `GS_CHECK (gs)` and `GS_CHECK_EVENT / ROOM / TASK / OBJECT / NPC (gs,
+  index)`, six file-local macros defined with a file-local inline
+  `gs_game_ok()` right under `GAME_MAGIC`.  `gs_is_game_valid()` is now a
+  wrapper over that inline, so the other modules' 27 asserts and the two
+  real callers (scinterf.cpp, scdebug.cpp) are unchanged.  The three
+  walkstep accessors keep their second range test as a separate
+  `assert`.  All builds keep asserts (no `-DNDEBUG` anywhere), which is
+  why this is a speed item as well as a line-count one: the exported
+  call was 5% of self time in the 2026-10-04 profile
+  (`scarier-v4-profiling`); not re-measured here.
+- **6a iteration helpers** (e3188ec5c) -- `GS_FOR_EACH_EVENT / ROOM /
+  TASK / OBJECT / NPC (game, index)` in scprotos.h beside the
+  `gs_*_count` declarations, each exactly the `for` it replaces with the
+  caller-declared index (so a search loop still breaks out and reads
+  it).  Applied by a perl rewrite to the 251 loops of that exact shape
+  (46 files: engine, library, runner, two test harnesses); `game`,
+  `new_game` and `gs` all occur as the game argument.  Not touched: the
+  six loops with an extra condition in the header
+  (scparser_pronoun.cpp:1073, scrun_respell.cpp:346, scrun_match.cpp:1685,
+  sclibrar_battle.cpp:211, sclibrar_drop.cpp:2623,
+  sclibrar_take_multiple.cpp:1687) and the ~40 `< gs_*_count` range tests
+  that are not loops.  Index names were left as they were (`object` 93,
+  `index_` 51, `npc` 27, `other` 13, `i` 8 ...): renaming is where the
+  risk is, and the macro makes the drift harmless.
+- **Declined: the `lib_ctx_t` context struct.**  The prologue census
+  stands (251 `bundle`, 197 `filter`, 59 `vars` lines) but the fix the
+  bullet sketched is a signature redesign, not a mechanical step: the
+  313 `lib_cmd_*` handlers are table-dispatched as `(scr_gameref_t)`
+  (runner/scrun_tables.cpp, scrun_match.cpp), and the lines are spread
+  over 40 files, most in static helpers far below `lib_dispatch`
+  (scobjcts.cpp 16, scrunner.cpp 15, scdump.cpp 12 ...).  Threading a
+  context through them, or rewriting every `bundle` use as
+  `game->bundle`, would be churn across the whole tree for three field
+  reads per call.  If it is ever wanted, the mechanical half would be to
+  include scgamest.h from library/ and let handlers read `game->bundle`
+  directly.
+- **Declined: parse-once dispatch input.**  The 87
+  `run_get_dispatch_input ()` sites do not share a tokenisation: they
+  `strstr` for tails, split `std::string` copies at "in" / "on" /
+  "from", and test words with two different boundary sets
+  (`lib_input_contains_word` ends on space, `_400` on space, comma, full
+  stop and question mark).  A word list on the dispatch context would
+  serve the `lib_input_contains_word (input, "with")` subset only and
+  would have to be rebuilt by each of the eight `run_dispatch_input`
+  assignments and the guard.
+- Verification: `-Wall -Wextra -Wshadow` syntax check of scgamest.cpp
+  silent; `quick` green; full headless `test` output identical to the
+  pre-change run with timings stripped (1049 lines); `make`
+  warning-free; `xcodebuild -target scarier` BUILD SUCCEEDED.  No new
+  files, so no pbxproj change.
+- Next in the suggested order: 6 -- the directory reshuffle and the
+  `scprotos.h` split (5), then the parallel v4 / v5 implementations (4).

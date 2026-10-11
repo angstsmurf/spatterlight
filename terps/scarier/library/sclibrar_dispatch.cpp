@@ -1261,7 +1261,7 @@ lib_apply_filter (scr_gameref_t game,
    */
   count = 0;
   references_ = references ? *references : 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_bool is_listed;
 

@@ -226,7 +226,7 @@ lib_cmd_read_other (scr_gameref_t game)
        */
       if (named < 0 && line)
         {
-          for (index_ = 0; index_ < gs_object_count (game); index_++)
+          GS_FOR_EACH_OBJECT (game, index_)
             {
               game->object_references[index_]
                 = lib_co_pre400 (game, line, index_, 0);

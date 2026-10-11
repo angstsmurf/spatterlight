@@ -56,7 +56,7 @@ lib_carried_burden (scr_gameref_t game)
 {
   scr_int index_, burden = 0;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (gs_object_position (game, index_) == OBJ_HELD_PLAYER)
         burden += obj_get_burden (game, index_);
@@ -93,7 +93,7 @@ lib_carried_size (scr_gameref_t game)
     return gs_carried_size (game);
 
   size = 0;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
           || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
@@ -112,7 +112,7 @@ lib_carried_weight (scr_gameref_t game)
     return gs_carried_weight (game);
 
   weight = 0;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
           || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
@@ -520,7 +520,7 @@ lib_take_from_npc_overwrite_380 (scr_gameref_t game, scr_int npc, size_t mark)
            || lib_input_contains_word (input, "take")))
     return FALSE;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_vartype_t vt_key[4];
       const scr_char *word;
@@ -1580,7 +1580,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                           "%player% is already wearing ",
                                           lib_object_printer_390 (game));
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       lib_drain_multiple_references_if
         (game, object_count, list, [game, npc] (scr_int item)

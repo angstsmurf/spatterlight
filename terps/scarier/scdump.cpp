@@ -265,14 +265,14 @@ scdump_objloc (scr_gameref_t game)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int i;
 
-  for (i = 0; i < gs_object_count (game); i++)
+  GS_FOR_EACH_OBJECT (game, i)
     {
       scr_vartype_t ok[4], bv;
       scr_int pos, r, room = -1, hit = 0, acc = 0, prot = 0, method = 0;
       const scr_char *s = scdump_object_name (game, i);
 
       pos = gs_object_position (game, i);
-      for (r = 0; r < gs_room_count (game); r++)
+      GS_FOR_EACH_ROOM (game, r)
         {
           if (obj_directly_in_room (game, i, r))
             {
@@ -317,7 +317,7 @@ scdump_objloc (scr_gameref_t game)
               cur = gs_object_parent (game, cur);
             if (gs_object_valid (game, cur))
               {
-                for (r = 0; r < gs_room_count (game); r++)
+                GS_FOR_EACH_ROOM (game, r)
                   {
                     if (obj_directly_in_room (game, cur, r))
                       {
@@ -431,7 +431,7 @@ scdump_objloc (scr_gameref_t game)
   fprintf (stderr, "SAVEINFO battle=%ld rooms=%ld objects=%ld npcs=%ld\n",
            (scr_int) battle_is_enabled (game), gs_room_count (game),
            gs_object_count (game), gs_npc_count (game));
-  for (i = 0; i < gs_npc_count (game); i++)
+  GS_FOR_EACH_NPC (game, i)
     fprintf (stderr, "NPCINFO npc=%ld walksteps=%ld\n",
              i, gs_npc_walkstep_count (game, i));
 }
@@ -539,7 +539,7 @@ scdump_objects (scr_gameref_t game)
   {
     scr_int idx = 0;
 
-    for (i = 0; i < gs_object_count (game); i++)
+    GS_FOR_EACH_OBJECT (game, i)
       {
         scr_vartype_t pk[3], pv;
         scr_int openable, curstate;
@@ -572,7 +572,7 @@ scdump_objects (scr_gameref_t game)
    * room each static is directly present in -- the only way to pin a locked
    * chest / fixed scenery to a room.
    */
-  for (i = 0; i < gs_object_count (game); i++)
+  GS_FOR_EACH_OBJECT (game, i)
     {
       scr_vartype_t sk[3];
       scr_int r;
@@ -585,7 +585,7 @@ scdump_objects (scr_gameref_t game)
         continue;
       s = scdump_object_name (game, i);
       fprintf (stderr, "STATIC obj=%ld [%s] rooms=", i, s ? s : "");
-      for (r = 0; r < gs_room_count (game); r++)
+      GS_FOR_EACH_ROOM (game, r)
         if (obj_directly_in_room (game, i, r))
           fprintf (stderr, "%ld ", r);
       fprintf (stderr, "\n");
@@ -599,7 +599,7 @@ scdump_objects (scr_gameref_t game)
    * walkthrough line that fails with "I see no such thing" is usually naming
    * a partial prefix that is not one of these strings.
    */
-  for (i = 0; i < gs_object_count (game); i++)
+  GS_FOR_EACH_OBJECT (game, i)
     {
       const scr_char *s = scdump_object_name (game, i);
       scr_vartype_t nk[4], nv;
@@ -628,7 +628,7 @@ scdump_objects (scr_gameref_t game)
    * Lockable objects: the "Key" property is the *dynamic-object index* of the
    * key that opens it; obj_dynamic_object() maps it to a real object id.
    */
-  for (i = 0; i < gs_object_count (game); i++)
+  GS_FOR_EACH_OBJECT (game, i)
     {
       scr_vartype_t kk[3], kv;
       scr_int key_index, the_key, openable;
@@ -673,7 +673,7 @@ scdump_objects (scr_gameref_t game)
    * conversion oracle check the V390/V380_OBJECT fixup that swaps Openable
    * 5 and 6.  See test/adrift4/notes/RUNNER_TESTS_TODO.md section 3(a).
    */
-  for (i = 0; i < gs_object_count (game); i++)
+  GS_FOR_EACH_OBJECT (game, i)
     {
       scr_vartype_t ok[3];
       scr_int openable, key = 0;
@@ -700,7 +700,7 @@ scdump_objects (scr_gameref_t game)
   {
     scr_int si = 0, ci = 0;
 
-    for (i = 0; i < gs_object_count (game); i++)
+    GS_FOR_EACH_OBJECT (game, i)
       {
         const scr_char *s = scdump_object_name (game, i);
 
@@ -1166,7 +1166,7 @@ scdump_tasks (scr_gameref_t game)
   scr_int t, i;
 
   /* Tasks: command, Where, Repeatable, restrictions, actions. */
-  for (t = 0; t < gs_task_count (game); t++)
+  GS_FOR_EACH_TASK (game, t)
     {
       scdump_task_t task = {};
 
@@ -1935,7 +1935,7 @@ scr_dump_npc_trace (scr_gameref_t game)
 
   if (!trace_judy)
     return;
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     fprintf (stderr, "JUDYTRACE npc=%ld room=%ld\n",
              npc, gs_npc_location (game, npc) - 1);
   fflush (stderr);

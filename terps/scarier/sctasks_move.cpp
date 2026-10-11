@@ -527,7 +527,7 @@ task_run_move_object_action (scr_gameref_t game,
   switch (var1)
     {
     case 0:                    /* All held */
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         {
           if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
             task_move_object (game, object, var2, var3);
@@ -537,7 +537,7 @@ task_run_move_object_action (scr_gameref_t game,
       break;
 
     case 1:                    /* All worn */
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         {
           if (gs_object_position (game, object) == OBJ_WORN_PLAYER)
             task_move_object (game, object, var2, var3);

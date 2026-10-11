@@ -69,7 +69,7 @@ lib_take_from_unseen (scr_gameref_t game, scr_int associate)
   if (!lib_matcher_requires_seen (game))
     return FALSE;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if ((gs_object_position (game, object) == OBJ_IN_OBJECT
            || gs_object_position (game, object) == OBJ_ON_OBJECT)
@@ -251,7 +251,7 @@ lib_take_from_has_contents (scr_gameref_t game, scr_int associate)
 {
   scr_int object;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (lib_take_from_filter (game, object, associate))
         return TRUE;
@@ -687,7 +687,7 @@ lib_take_from_slot_pre390 (scr_gameref_t game)
   count = 0;
   slot = -1;
   slot_lowest = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_int lowest, highest;
 
@@ -738,7 +738,7 @@ lib_take_from_slot_pre390 (scr_gameref_t game)
   gs_clear_object_references (game);
   gs_clear_multiple_references (game);
   any = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if ((gs_object_position (game, object) != OBJ_IN_OBJECT
            && gs_object_position (game, object) != OBJ_ON_OBJECT)
@@ -806,7 +806,7 @@ lib_take_from_and_390 (scr_gameref_t game)
   named = -1;
   container = -1;
   container_at = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_int lowest, highest;
 
@@ -859,7 +859,7 @@ lib_take_from_and_390 (scr_gameref_t game)
   gs_clear_object_references (game);
   gs_clear_multiple_references (game);
   any = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (lib_take_from_filter (game, object, container)
           && lib_co_pre400 (game, line, object, 0))

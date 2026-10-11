@@ -988,7 +988,7 @@ lib_move_what_after_silent_task_pre400 (scr_gameref_t game)
   if (lib_co_contains (words, "all") || lib_co_contains (words, "and"))
     return FALSE;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if ((gs_object_position (game, object) == OBJ_HELD_PLAYER
            || gs_object_position (game, object) == OBJ_WORN_PLAYER)
@@ -1024,7 +1024,7 @@ lib_drop_and_arm_collect_pre400 (scr_gameref_t game)
 
   gs_clear_multiple_references (game);
   count = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if ((gs_object_position (game, object) == OBJ_HELD_PLAYER
            || gs_object_position (game, object) == OBJ_WORN_PLAYER)
@@ -1242,7 +1242,7 @@ lib_give_present_npc_400 (scr_gameref_t game)
 
   if (!lib_is_version_400 (game) || !input)
     return -1;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       if (gs_npc_seen (game, index_)
           && npc_in_room (game, index_, gs_playerroom (game))
@@ -1845,7 +1845,7 @@ lib_wear_would_act_390 (scr_gameref_t game)
                  || lib_remove_filter (game, object, -1));
     }
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (!lib_co_pre400 (game, line, object, 1))
         continue;
@@ -2257,7 +2257,7 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
 
   /* The one object the line names, by co() over the whole line. */
   found = -1;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (!lib_co_pre400 (game, line, object, 1))
         continue;
@@ -2542,7 +2542,7 @@ lib_cmd_inventory (scr_gameref_t game)
   lib_list_t list;
 
   /* Find and list each object worn by the player. */
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (gs_object_position (game, object) == OBJ_WORN_PLAYER)
         {
@@ -2562,7 +2562,7 @@ lib_cmd_inventory (scr_gameref_t game)
 
   /* Find and list each object owned by the player. */
   list.clear ();
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
         {
@@ -2607,7 +2607,7 @@ lib_cmd_inventory (scr_gameref_t game)
        * container's contents are marked seen though not printed.
        */
       const scr_int inventory_version = prop_get_taf_version (gs_get_bundle (game));
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         {
           if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
             continue;
@@ -2684,7 +2684,7 @@ lib_list_in_object_pre_390 (scr_gameref_t game, scr_int container)
   scr_int object;
   lib_list_t list;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if ((gs_object_position (game, object) == OBJ_IN_OBJECT
            || gs_object_position (game, object) == OBJ_ON_OBJECT)

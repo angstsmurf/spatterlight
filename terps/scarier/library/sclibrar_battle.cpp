@@ -232,7 +232,7 @@ lib_co_400_scan_objects_pending (scr_gameref_t game, const scr_char *line)
   scr_int object;
 
   pending = FALSE;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_char *word = lib_co_400_name_word (game, object, line);
       scr_int count;
@@ -358,7 +358,7 @@ lib_openclose_with_antecedent_400 (scr_gameref_t game, const scr_char *line)
     me = -1;
   list_ok = (scr_int) marked.size () == mark_count;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     lib_co_400_walk_step (game, object, line, &me, &marked, &list_ok);
 }
 
@@ -426,7 +426,7 @@ lib_openclose_with_half_raise_400 (scr_gameref_t game, const scr_char *line)
     me = -1;
   list_ok = (scr_int) marked.size () == mark_count;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     lib_co_400_walk_step (game, object, line, &me, &marked, &list_ok);
 
   if (me < 0 || !list_ok || marked.size () < 2)
@@ -493,7 +493,7 @@ lib_battle_absent_npc (scr_gameref_t game)
     return FALSE;
 
   printed = FALSE;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       const scr_char *name;
 
@@ -580,7 +580,7 @@ lib_attack_absent_npc (scr_gameref_t game)
           || lib_input_contains_word (input, "shake")))
     return FALSE;
 
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       const scr_char *name;
 
@@ -1005,7 +1005,7 @@ lib_battle_named_targets (scr_gameref_t game, const scr_char *input,
   std::vector<scr_int> targets;
   scr_int npc;
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       if (lib_battle_npc_is_target (game, npc, input, verb_index))
         targets.push_back (npc);
@@ -1100,7 +1100,7 @@ lib_battle_names_absent_npc (scr_gameref_t game, const scr_char *input)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int npc;
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       const scr_char *name = prop_get_indexed_string (bundle, "NPCs", npc,
                                                       "Name");
@@ -1510,7 +1510,7 @@ lib_battle_who_raise (scr_gameref_t game, const scr_char *input,
   scr_int object;
 
   lib_battle_who_pending = verb;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (lib_battle_line_names_object (game, object, input))
         {
@@ -1554,7 +1554,7 @@ lib_battle_line_names_any_object (scr_gameref_t game, const scr_char *input)
 {
   scr_int object;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (lib_battle_line_names_object (game, object, input))
         return TRUE;
@@ -1604,7 +1604,7 @@ lib_battle_scan_with (scr_gameref_t game, scr_int npc, const scr_char *input,
   scr_int object, weapon;
 
   weapon = -1;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (!lib_battle_line_names_object (game, object, input))
         continue;
@@ -1914,7 +1914,7 @@ lib_battle_line_npc (scr_gameref_t game, const scr_char *input)
 {
   scr_int npc;
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       if (lib_npc_named_in_line (game, npc, input)
           && npc_in_room (game, npc, gs_playerroom (game)))

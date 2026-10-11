@@ -226,7 +226,7 @@ evt_any_task_in_state (scr_gameref_t game, scr_bool state)
   scr_int task;
 
   /* Scan tasks for any whose completion matches input. */
-  for (task = 0; task < gs_task_count (game); task++)
+  GS_FOR_EACH_TASK (game, task)
     {
       if (gs_task_done (game, task) == state)
         return TRUE;
@@ -337,7 +337,7 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
           scr_int room;
 
           gs_object_static_rooms_clear (game, object);
-          for (room = 0; room < gs_room_count (game); room++)
+          GS_FOR_EACH_ROOM (game, room)
             {
               if (obj_directly_in_room (game, object, room))
                 gs_object_static_rooms_add (game, object, room);
@@ -1076,7 +1076,7 @@ evt_snapshot_starter_tasks (scr_gameref_t game)
 {
   scr_int event;
 
-  for (event = 0; event < gs_event_count (game); event++)
+  GS_FOR_EACH_EVENT (game, event)
     {
       scr_int task;
 
@@ -1648,7 +1648,7 @@ evt_tick_events (scr_gameref_t game)
    * Tick all events.  If an event transitions into a running state from a
    * paused or waiting state, tick that event again.
    */
-  for (event = 0; event < gs_event_count (game); event++)
+  GS_FOR_EACH_EVENT (game, event)
     evt_tick_event_and_settle (game, event);
 
   /* The Runner's second loop: note every starter task's completion. */
@@ -1671,7 +1671,7 @@ evt_clear_ticked_events (scr_gameref_t game)
 {
   scr_int event;
 
-  for (event = 0; event < gs_event_count (game); event++)
+  GS_FOR_EACH_EVENT (game, event)
     gs_set_event_ticked (game, event, FALSE);
 }
 
@@ -1715,7 +1715,7 @@ evt_check_events_started_by_task (scr_gameref_t game, scr_int task)
       || evt_taf_version (game) < TAF_VERSION_400)
     return;
 
-  for (event = 0; event < gs_event_count (game); event++)
+  GS_FOR_EACH_EVENT (game, event)
     {
       if (!run_is_running (game))
         break;
@@ -1769,7 +1769,7 @@ evt_start_load_events (scr_gameref_t game)
 {
   scr_int event;
 
-  for (event = 0; event < gs_event_count (game); event++)
+  GS_FOR_EACH_EVENT (game, event)
     {
       if (gs_event_state (game, event) != ES_WAITING
           || gs_event_time (game, event) != 0)
@@ -1807,7 +1807,7 @@ evt_finish_load_events (scr_gameref_t game)
    * index this loop has already passed, so it parks as the Runner's does
    * rather than finishing twice.)
    */
-  for (event = 0; event < gs_event_count (game); event++)
+  GS_FOR_EACH_EVENT (game, event)
     {
       if (gs_event_state (game, event) == ES_RUNNING
           && gs_event_time (game, event) <= 0)

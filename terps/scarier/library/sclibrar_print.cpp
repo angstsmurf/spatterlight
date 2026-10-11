@@ -1747,7 +1747,7 @@ lib_collect_children (scr_gameref_t game, scr_int parent,
   scr_int object;
 
   list.clear ();
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (gs_object_position (game, object) == position
           && gs_object_parent (game, object) == parent)
@@ -1779,7 +1779,7 @@ lib_count_npc_references (scr_gameref_t game, scr_int *npc)
 
   count = 0;
   *npc = -1;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  GS_FOR_EACH_NPC (game, index_)
     {
       if (game->npc_references[index_])
         {

@@ -475,7 +475,7 @@ battle_preroll_npc_stamina (scr_gameref_t game)
    * all stamina first.  Seed the mutable attributes here so the speed roll
    * can read the NPC's Speed; battle_start() re-seeds harmlessly.
    */
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       battle_seed_attributes (game, npc);
       battle_bundle_range (game, npc, "Stamina", &lo, &hi);
@@ -508,7 +508,7 @@ battle_preroll_legacy (scr_gameref_t game)
   battle_bundle_range (game, -1, "Stamina", &lo, &hi);
   gs_set_playerstamina (game, lo);
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       battle_seed_attributes (game, npc);
       battle_bundle_range (game, npc, "Stamina", &lo, &hi);
@@ -560,7 +560,7 @@ battle_start (scr_gameref_t game)
   gs_set_playerstaminacounter (game,
                                battle_get_property (game, -1, "Recovery", 0));
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       battle_seed_attributes (game, npc);
       battle_bundle_range (game, npc, "Stamina", &lo, &hi);
@@ -886,7 +886,7 @@ battle_worn_protection (scr_gameref_t game, scr_int npc)
 {
   scr_int object, value = 0;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (battle_object_worn_by (game, object, npc))
         {
@@ -913,7 +913,7 @@ battle_best_weapon (scr_gameref_t game, scr_int npc)
 {
   scr_int object, best = -1, best_hit = 0;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_int hit;
 
@@ -1336,7 +1336,7 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
    */
   if (room >= 0)
     {
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         {
           const scr_int position = gs_object_position (game, object);
 
@@ -1756,7 +1756,7 @@ battle_select_target (scr_gameref_t game, scr_int npc)
 
   /* Count candidate foes co-located with the NPC, plus the player. */
   count = 0;
-  for (other = 0; other < gs_npc_count (game); other++)
+  GS_FOR_EACH_NPC (game, other)
     {
       if (battle_is_foe (game, npc, other))
         count++;
@@ -1769,7 +1769,7 @@ battle_select_target (scr_gameref_t game, scr_int npc)
 
   /* Pick one candidate at random, re-walking the same candidate order. */
   pick = scr_randomint (1, count);
-  for (other = 0; other < gs_npc_count (game); other++)
+  GS_FOR_EACH_NPC (game, other)
     {
       if (battle_is_foe (game, npc, other) && --pick == 0)
         return other;
@@ -1885,7 +1885,7 @@ battle_player_weapon_count (scr_gameref_t game)
 {
   scr_int object, count = 0;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (battle_object_is_weapon (game, object)
           && gs_object_position (game, object) == OBJ_HELD_PLAYER)
@@ -2067,7 +2067,7 @@ battle_recover_line (scr_gameref_t game)
   if (!battle_is_enabled (game))
     return;
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     battle_recover (game, npc);
   battle_recover (game, -1);
 }

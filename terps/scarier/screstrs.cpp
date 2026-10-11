@@ -520,7 +520,7 @@ restr_pass_task_object_location (scr_gameref_t game,
     {
       scr_int target;
 
-      for (target = 0; target < gs_object_count (game); target++)
+      GS_FOR_EACH_OBJECT (game, target)
         {
           /*
            * "Any object" / "No object" ranges over DYNAMIC objects only.  The
@@ -665,7 +665,7 @@ restr_pass_task_task_state (scr_gameref_t game, scr_int var1, scr_int var2)
     {
       scr_int task;
 
-      for (task = 0; task < gs_task_count (game); task++)
+      GS_FOR_EACH_TASK (game, task)
         {
           if (gs_task_done (game, task) == should_be)
             return FALSE;

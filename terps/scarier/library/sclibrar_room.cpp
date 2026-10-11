@@ -125,7 +125,7 @@ lib_room_contents_inroomdescs (scr_gameref_t game, scr_int room)
    * Pre-4.0 games have no InRoomDesc property at all, so the gate only ever
    * bites on version 4.0 games.
    */
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (obj_directly_in_room (game, object, room))
         {
@@ -172,7 +172,7 @@ lib_room_contents_also_here (scr_gameref_t game, scr_int room)
    * where it would normally be included, but if static it's included where it
    * would normally be excluded.
    */
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (obj_directly_in_room (game, object, room))
         {
@@ -249,7 +249,7 @@ lib_room_contents_npc_sentence (scr_gameref_t game, scr_int room)
    * And the joined sentence comes *first*, ahead of the characters with their
    * own text, which is the other half of what Scarier had backwards.
    */
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       const scr_char *description;
 
@@ -337,7 +337,7 @@ lib_room_contents_npc_texts (scr_gameref_t game, scr_int room)
   scr_int npc;
 
   /* List NPCs directly in the room that have an in room description. */
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       if (npc_in_room (game, npc, room))
         {
@@ -661,7 +661,7 @@ lib_room_desc_event_looks (scr_gameref_t game, scr_int room,
    * See evt_can_see_event_in_room().
    */
   looked = FALSE;
-  for (event = 0; event < gs_event_count (game); event++)
+  GS_FOR_EACH_EVENT (game, event)
     {
       if (gs_event_state (game, event) == ES_RUNNING
           && evt_can_see_event_in_room (game, event, room))

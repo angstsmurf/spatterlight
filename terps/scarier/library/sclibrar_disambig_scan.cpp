@@ -143,7 +143,7 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
     return FALSE;
 
   rest = line;
-  for (other = 0; other < gs_object_count (game); other++)
+  GS_FOR_EACH_OBJECT (game, other)
     {
       scr_vartype_t vt_key[4];
       scr_int alias_count, alias;
@@ -214,7 +214,7 @@ lib_references_are_namesakes (scr_gameref_t game)
   const scr_char *first = nullptr;
   scr_int index_, count = 0;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       const scr_char *shortname;
 
@@ -462,7 +462,7 @@ lib_co_prefix_excluded (scr_gameref_t game, const scr_char *line,
   scr_int other;
 
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  for (other = 0; other < gs_object_count (game); other++)
+  GS_FOR_EACH_OBJECT (game, other)
     {
       const scr_char *name
         = prop_get_indexed_string (bundle, "Objects", other, "Short");
@@ -502,7 +502,7 @@ lib_co_names_prefix (scr_gameref_t game, const scr_char *line, scr_int object)
 
   /* A namesake the line names just as well is a tie: `take red pin`. */
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  for (other = 0; other < gs_object_count (game); other++)
+  GS_FOR_EACH_OBJECT (game, other)
     {
       const scr_char *name
         = prop_get_indexed_string (bundle, "Objects", other, "Short");
@@ -642,7 +642,7 @@ lib_namesake_crowded_pre380 (scr_gameref_t game, const scr_char *line,
     return FALSE;
 
   present = 0;
-  for (other = 0; other < gs_object_count (game); other++)
+  GS_FOR_EACH_OBJECT (game, other)
     {
       const scr_char *name
         = prop_get_indexed_string (bundle, "Objects", other, "Short");
@@ -743,7 +743,7 @@ lib_takes_offers_tasks_370 (scr_gameref_t game, const scr_char *line)
   if (lib_co_contains (line, "all") || lib_co_contains (line, "and"))
     return FALSE;
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (lib_names_object_370 (game, line, object))
         return TRUE;
@@ -872,7 +872,7 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
    */
   const scr_int mode = lib_co_verb_mode (command);
 
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_char *shortname, *term;
       scr_int alias_count, alias, other, present;
@@ -907,7 +907,7 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
       /* Count present objects whose Short or Alias is exactly that term. */
       const scr_int term_mode = lib_co_effective_mode (game, term, mode);
       present = 0;
-      for (other = 0; other < gs_object_count (game); other++)
+      GS_FOR_EACH_OBJECT (game, other)
         {
           if (lib_co_candidate (game, other, room)
               && lib_co_object_answers_to (game, other, term)
@@ -998,7 +998,7 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
   listed = 0;
   const scr_int list_mode
     = lib_co_effective_mode (game, list_term, lib_co_verb_mode (command));
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (!lib_co_candidate (game, object, room)
           || !lib_co_object_answers_to (game, object, list_term)
@@ -1068,7 +1068,7 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
     return;
 
   named = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       scr_vartype_t vt_key[4];
       scr_int alias_count, alias;
@@ -1090,7 +1090,7 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
     return;
 
   room = gs_playerroom (game);
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (gs_object_seen (game, object))
         continue;

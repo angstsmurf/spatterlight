@@ -257,7 +257,7 @@ lib_sit_lie_scan_370 (scr_gameref_t game, scr_int movement_mask)
   scr_int object, match;
 
   match = -1;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_char *alias;
       scr_bool named;
@@ -696,7 +696,7 @@ lib_sitstand_block (scr_gameref_t game, scr_int movement, size_t mark)
   if (taf_version < TAF_VERSION_380)
     match = lib_sit_lie_scan_370 (game, mask);
   else
-    for (object = 0; object < gs_object_count (game); object++)
+    GS_FOR_EACH_OBJECT (game, object)
       {
         if (lib_co_pre400 (game, line, object, 0)
             && obj_directly_in_room (game, object, gs_playerroom (game))
@@ -1006,13 +1006,13 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
       scr_int object;
 
       if (putish)
-        for (object = 0; object < gs_object_count (game); object++)
+        GS_FOR_EACH_OBJECT (game, object)
           positions.push_back (gs_object_position (game, object)
                                * (gs_object_count (game) + 2)
                                + gs_object_parent (game, object) + 1);
       run_line (game, stripped.c_str ());
       if (putish)
-        for (object = 0; object < gs_object_count (game); object++)
+        GS_FOR_EACH_OBJECT (game, object)
           if (gs_object_position (game, object)
               * (gs_object_count (game) + 2)
               + gs_object_parent (game, object) + 1 != positions[object])
@@ -1272,10 +1272,10 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
     std::vector<scr_int> openness;
     scr_bool acted = FALSE;
 
-    for (object = 0; object < gs_object_count (game); object++)
+    GS_FOR_EACH_OBJECT (game, object)
       openness.push_back (gs_object_openness (game, object));
     run_line (game, acting.c_str ());
-    for (object = 0; object < gs_object_count (game); object++)
+    GS_FOR_EACH_OBJECT (game, object)
       if (gs_object_openness (game, object) != openness[object])
         acted = TRUE;
 
@@ -1399,7 +1399,7 @@ lib_cmd_get_off_object (scr_gameref_t game)
       scr_bool taken;
 
       held_before = 0;
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         held_before += gs_object_position (game, object) == OBJ_HELD_PLAYER;
       taken = FALSE;
       if (rest)
@@ -1408,7 +1408,7 @@ lib_cmd_get_off_object (scr_gameref_t game)
           taken = lib_cmd_take_multiple (game);
         }
       held_after = 0;
-      for (object = 0; object < gs_object_count (game); object++)
+      GS_FOR_EACH_OBJECT (game, object)
         held_after += gs_object_position (game, object) == OBJ_HELD_PLAYER;
       if (taken && held_after > held_before)
         return TRUE;

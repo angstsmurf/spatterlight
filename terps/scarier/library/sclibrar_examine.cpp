@@ -212,7 +212,7 @@ lib_cmd_examine_self (scr_gameref_t game)
     }
 
   /* Find and list each object worn by the player (3.9+, see above). */
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (gs_object_position (game, object) == OBJ_WORN_PLAYER)
         list.push_back (object);
@@ -289,7 +289,7 @@ lib_absent_seen_object (scr_gameref_t game)
   if (!input)
     return -1;
 
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       /* Something the noun names is here; the ordinary path handles it. */
       if (game->object_references[index_]
@@ -395,7 +395,7 @@ lib_absent_named_object_pre_390 (scr_gameref_t game, scr_bool last)
     return -1;
 
   first = -1;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (!game->object_references[object])
         continue;
@@ -1056,7 +1056,7 @@ lib_list_in_on_object (scr_gameref_t game, scr_int object,
    */
   if (is_open_container)
     {
-      for (contained = 0; contained < gs_object_count (game); contained++)
+      GS_FOR_EACH_OBJECT (game, contained)
         {
           if (gs_object_position (game, contained) == OBJ_IN_OBJECT
               && gs_object_parent (game, contained) == object)
@@ -1196,7 +1196,7 @@ lib_co_400_present_namesakes (scr_gameref_t game, const scr_char *word)
   scr_int object, count;
 
   count = 0;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       if (gs_object_seen (game, object)
           && obj_indirectly_in_room (game, object, gs_playerroom (game))
@@ -1215,7 +1215,7 @@ lib_examine_referencedob_ex_400 (scr_gameref_t game, const scr_char *input,
   scr_int object, index_, result, hits, best;
 
   result = -1;
-  for (object = 0; object < gs_object_count (game); object++)
+  GS_FOR_EACH_OBJECT (game, object)
     {
       const scr_char *word = lib_co_400_name_word (game, object, input);
 
@@ -1399,7 +1399,7 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
    */
   const std::string masked = lib_mask_long_names (game, input, TRUE);
 
-  for (npc = 0; npc < gs_npc_count (game); npc++)
+  GS_FOR_EACH_NPC (game, npc)
     {
       if (npc_in_room (game, npc, gs_playerroom (game))
           && lib_npc_referenced (game, npc, masked.c_str ()))
@@ -1409,7 +1409,7 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
     {
       scr_int runner = -1;
 
-      for (npc = 0; npc < gs_npc_count (game); npc++)
+      GS_FOR_EACH_NPC (game, npc)
         if (npc_in_room (game, npc, gs_playerroom (game))
             && lib_npc_referenced (game, npc, input))
           runner = npc;
@@ -1554,7 +1554,7 @@ lib_examine_crowded_390 (scr_gameref_t game)
     return -3;
 
   kept = 0;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     if (lib_co_pre400 (game, line, index_, 0))
       kept++;
   if (kept < 2)
@@ -1563,7 +1563,7 @@ lib_examine_crowded_390 (scr_gameref_t game)
   tail = lib_co_lastword (line);
   matches = 0;
   match = -1;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       scr_vartype_t vt_key[4];
       const scr_char *name;
