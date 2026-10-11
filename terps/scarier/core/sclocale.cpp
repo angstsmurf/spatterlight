@@ -526,7 +526,12 @@ template <typename T>
 static T
 loc_table_lookup (scr_char character, const T table[])
 {
-  loc_check_tables_synchronized (loc_locale);
+  /*
+   * Test here rather than in the call: the check has the table rebuild
+   * inlined into it and so stays out of line, and this runs per character.
+   */
+  if (loc_locale != loc_locale_tables.locale)
+    loc_check_tables_synchronized (loc_locale);
   return table[(scr_byte) character];
 }
 

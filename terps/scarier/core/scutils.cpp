@@ -226,6 +226,10 @@ scr_strncasecmp (const scr_char *s1, const scr_char *s2, scr_int n)
     {
       scr_int diff;
 
+      /* Equal bytes fold equal; skip the two table lookups. */
+      if (s1[index_] == s2[index_])
+        continue;
+
       diff = scr_tolower (s1[index_]) - scr_tolower (s2[index_]);
       if (diff != 0)
         return diff < 0 ? -1 : 1;
