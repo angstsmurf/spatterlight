@@ -25,6 +25,8 @@
  * PopUp* host callbacks.  See a5text.h and a5text_internal.h.
  */
 
+#include <algorithm>
+
 #include "a5text_internal.h"
 
 /* ---------------------------------------------------- function replacement */

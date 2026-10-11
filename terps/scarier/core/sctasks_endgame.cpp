@@ -38,7 +38,9 @@
  * AArch64 has no 80-bit long double, so the two roundings are done here in
  * integers.  max_score is positive.
  */
-#ifdef __SIZEOF_INT128__
+/* clang-cl has the type but links against the MSVC runtime, which has no
+   128-bit division helper (__udivti3), so it takes the other branch too. */
+#if defined(__SIZEOF_INT128__) && !defined(_MSC_VER)
 static scr_int
 task_percent_x87 (scr_int score, scr_int max_score)
 {
@@ -97,7 +99,7 @@ task_percent_x87 (scr_int score, scr_int max_score)
   return -(scr_int) whole;
 }
 
-#else /* !__SIZEOF_INT128__ */
+#else /* !__SIZEOF_INT128__ || _MSC_VER */
 
 /*
  * Compilers with no 128-bit integer type (MSVC, and GCC and Clang on 32-bit
@@ -274,7 +276,7 @@ task_percent_x87 (scr_int score, scr_int max_score)
     whole++;
   return -(scr_int) whole;
 }
-#endif /* !__SIZEOF_INT128__ */
+#endif /* !__SIZEOF_INT128__ || _MSC_VER */
 
 
 /*

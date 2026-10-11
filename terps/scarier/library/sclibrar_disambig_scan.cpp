@@ -26,6 +26,8 @@
  * share.
  */
 
+#include <algorithm>
+
 #include "sclibrar.h"
 #include "sclibrar_internal.h"
 #include "sclibrar_disambig_internal.h"
