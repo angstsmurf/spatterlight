@@ -114,9 +114,9 @@ extern "C" {
 
 /* Whether this Glk library has the garglk_set_zcolors extension, and with it
    the "glk colour" mode (documented where gsc_set_colour lives); the status
-   line draws itself in the game's colours too.  GLK_MODULE_GARGLKTEXT is the extension's own feature
-   macro, which brings in remglk and remglk-rs (and with it Emglken) as well as
-   Gargoyle itself. */
+   line draws itself in the game's colours too.  GLK_MODULE_GARGLKTEXT is the
+   extension's own feature macro, which brings in remglk and remglk-rs (and
+   with it Emglken) as well as Gargoyle itself. */
 #if defined(SPATTERLIGHT) || defined(GARGLK) \
     || defined(GLK_MODULE_GARGLKTEXT) \
     || defined(GLK_MODULE_GARGLK_FILE_RESOURCES)

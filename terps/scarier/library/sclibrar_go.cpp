@@ -147,7 +147,8 @@ lib_go (scr_gameref_t game, scr_int direction)
                             lib_select_response (game,
                              "You can't go in that direction, but you can move ",
                              "I can't go in that direction, but I can move ",
-                             "%player% can't go in that direction, but %player_pronoun% can move "));
+                             "%player% can't go in that direction, but "
+                             "%player_pronoun% can move "));
         }
       lib_print_name_list (game, list, dirnames, " and ");
       pf_buffer_string (filter, ".\n");

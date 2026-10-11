@@ -326,8 +326,11 @@ and the eight printfilter cache globals (now `scr_pf_state_t`).
       → the six struct `memset`s are `= {}` and 21 always-unused
       parameters are unnamed; the array, buffer and poison `memset`s and
       the five `#if`-dependent casts stay.  See "memset and (void) casts".
-- [ ] ~34 lines > 100 columns and 12 function-like macros — convert the macros
+- [x] ~34 lines > 100 columns and 12 function-like macros — convert the macros
       to `static inline` where they take no token-pasting.
+      → DONE 2026-10-11: six macros are functions (one a lambda), 32 of
+      the 34 lines are wrapped; see "Long lines and function-like macros"
+      for the macros and the two lines that stay.
 
 ### Locale and ctype layers (risk: low)
 - `glk/os_glk_locale.cpp` (748 l.) is almost entirely four 256-entry
@@ -426,8 +429,9 @@ Per the project's own verification recipe:
    open bullet, the Win32 half of `gsc_a5_open_game_path`, is in
    `glk/os_glk_platform.cpp` (see "Win32 open-by-path"); the table
    rows above it are candidates, not tasks.
-7. What is left is the one open 6a bullet under Modernisation: the
-   long lines / function-like macros.  `memset` / `(void) x` is DONE,
+7. Nothing is left: every 6a bullet is ticked.  The long lines /
+   function-like macros are DONE, see "Long lines and function-like
+   macros"; `memset` / `(void) x` is DONE,
    see "memset and (void) casts".  The
    cp1251/cp1252 ctype overlap (Locale and ctype layers) is DONE, see
    "Locale and ctype check"; the assert / `scr_error` classification
@@ -2211,3 +2215,50 @@ them):
   its own style.  No file added, so the Xcode project is untouched.
 - Next in the suggested order: 7, the last open 6a bullet (see
   "Suggested order").
+
+## Long lines and function-like macros (2026-10-11, master 70874b1c1)
+
+The last open 6a bullet.  Behaviour-neutral.
+
+- **Six macros are now functions.**  `sc_room()` (scmap.cpp) and
+  `a5_is_lower()` (a5text.cpp, was `A5_IS_LOWER`) are file-static
+  inlines.  `map_badge()` and `map_chrome_bit()` (mapdraw.h, were
+  `MAP_BADGE` / `MAP_CHROME_BIT`) are `static inline` beside the ones
+  the header already had; no use needs a constant expression
+  (`MAP_CHROME_PAN_BITS` is only ever and-ed at run time).
+  `a5_fourcc()` (a5blorb.h, was `A5_FOURCC`) is `static constexpr`, a
+  single return so C++11 takes it, and the `A5_USAGE_*` /
+  `A5_CHUNK_ADRI` constants built from it are still constants.
+  `LIB_PRE400_C` (sclibrar_drop.cpp, defined and `#undef`-ed twice,
+  capturing the locals `version` and `line`) is a local lambda
+  `c_word` in each of the two functions.
+- **Macros that stay, and why.**  `scr_setjmp` / `scr_longjmp`
+  (setjmp cannot be called through a wrapper); `GS_CHECK*`
+  (`assert`'s line and `__func__` must be the caller's);
+  `GS_FOR_EACH_*` (loop headers); `PATCH_*` / `PATCH_GAME` (aggregate
+  initialisers in a static table); `SCR_TRACING_DEVIATIONS` /
+  `SCR_DEVIATION` (variadic, compiled out); `RUN_TOKEN_IS`
+  (scrun_match.cpp: `sizeof` of its string literal argument).
+- **32 of the 34 lines over 100 columns are wrapped**: the two
+  `scr_realloc` casts in scvars.cpp (now plain `(scr_char *)`), the
+  third-person refusal string in sclibrar_go.cpp (split into two
+  adjacent literals, same bytes), the `strncpy` in os_glk_commands.cpp,
+  four comments (sclibrar_put.cpp x2, sclibrar_verbs.cpp,
+  os_glk_internal.h), and the one-line bodies in a5sexpr.cpp,
+  a5run_act.cpp, a5run_action.cpp and a5run_save.cpp, where the four
+  one-line `getenv` switch functions are now laid out as functions.
+- **Two lines stay**: sctafpar_patches.cpp:800, one cp1251 command
+  string of a game patch written as `\x` escapes (splitting it would
+  hide that it is one string to match), and a5sexpr.h:31, an ADRIFT 5
+  expression quoted whole in a comment.
+- Not taken: adrift5/ still has about 1460 lines over 80 columns; its
+  compact `{ ...; ...; }` one-line bodies are that code's own style
+  and only the lines over 100 were in the bullet.
+- Verification: `-Wall -Wextra -Wshadow` syntax check of the changed
+  .cpp files clean; full headless `test` output identical to the run
+  at e9fbc08c4 (0 diff lines, compile lines stripped); `make -j8
+  scarier glkscarier` warning-free; `sanitize` clean; `xcodebuild
+  -target scarier` BUILD SUCCEEDED;
+  `test/adrift4/harness/run_autosave_tests.py --build` all passed.
+  No file added, so the Xcode project is untouched.
+- Nothing is next: the suggested order is exhausted.

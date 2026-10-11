@@ -235,8 +235,10 @@ tokenise (const char *expr)
           std::string id (s, (size_t) (p - s));
           std::string lid = lower (id);
           if (lid == "and") { Tok o; o.kind = T_OP; o.text = "AND"; o.num = 0; out.push_back (o); }
-          else if (lid == "or") { Tok o; o.kind = T_OP; o.text = "OR"; o.num = 0; out.push_back (o); }
-          else if (lid == "mod") { Tok o; o.kind = T_OP; o.text = "mod"; o.num = 0; out.push_back (o); }
+          else if (lid == "or")
+            { Tok o; o.kind = T_OP; o.text = "OR"; o.num = 0; out.push_back (o); }
+          else if (lid == "mod")
+            { Tok o; o.kind = T_OP; o.text = "mod"; o.num = 0; out.push_back (o); }
           else { Tok o; o.kind = T_IDENT; o.text = id; o.num = 0; out.push_back (o); }
           continue;
         }
@@ -298,7 +300,9 @@ apply_function (const std::string &lid, std::vector<Val> &a)
   if (f == "abs" && n >= 1)
     return mk_num (fabs (val_of (a[0])));
   if (f == "upr" && n >= 1)
-    { std::string s = a[0].s; for (char &c : s) c = (char) toupper ((unsigned char) c); return mk_str (s); }
+    { std::string s = a[0].s;
+      for (char &c : s) c = (char) toupper ((unsigned char) c);
+      return mk_str (s); }
   if (f == "lwr" && n >= 1)
     return mk_str (lower (a[0].s));
   if (f == "ppr" && n >= 1)
@@ -329,7 +333,8 @@ apply_function (const std::string &lid, std::vector<Val> &a)
       std::string s = a[0].s;
       return mk_str ((size_t) k >= s.size () ? s : s.substr (s.size () - (size_t) k)); }
   if (f == "ist" && n >= 2)
-    { size_t i = a[0].s.find (a[1].s); return mk_num (i == std::string::npos ? 0 : (double) (i + 1)); }
+    { size_t i = a[0].s.find (a[1].s);
+      return mk_num (i == std::string::npos ? 0 : (double) (i + 1)); }
   /* either/oneof/rand/urand draw via the host RNG hook (a5rand_between, wired by
      the run harness) so shipped <# OneOf(...) #> picks match frankendrift's --
      e.g. Stone of Wisdom's troll-approach lines.  Without the hook (a5text_dump)
@@ -472,7 +477,8 @@ parse_add (Parser &p)
         { p.adv (); long r = long_of (parse_mul (p));
           /* r == -1 too: LONG_MIN % -1 traps. */
           left = mk_num (r == 0 || r == -1 ? 0.0 : (double) (long_of (left) % r)); }
-      else if (p.is_op ("^")) { p.adv (); left = mk_num (pow (val_of (left), val_of (parse_mul (p)))); }
+      else if (p.is_op ("^"))
+        { p.adv (); left = mk_num (pow (val_of (left), val_of (parse_mul (p)))); }
       else break;
     }
   return left;

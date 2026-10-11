@@ -40,8 +40,8 @@ static int
 a5_is_blorb (const uint8_t *buf, uint32_t length)
 {
   return buf != nullptr && length >= 12
-         && a5_be32 (buf) == A5_FOURCC ('F', 'O', 'R', 'M')
-         && a5_be32 (buf + 8) == A5_FOURCC ('I', 'F', 'R', 'S');
+         && a5_be32 (buf) == a5_fourcc ('F', 'O', 'R', 'M')
+         && a5_be32 (buf + 8) == a5_fourcc ('I', 'F', 'R', 'S');
 }
 
 /* Walk the top-level chunks of a Blorb and hand each to accept(type, body,
@@ -94,7 +94,7 @@ a5blorb_find (const uint8_t *buf, uint32_t length,
   a5_each_chunk (buf, length,
                  [&] (uint32_t ctype, uint32_t body, uint32_t csize)
                  {
-                   if (ctype != A5_FOURCC ('R', 'I', 'd', 'x'))
+                   if (ctype != a5_fourcc ('R', 'I', 'd', 'x'))
                      return 0;
                    ridx_off = body;
                    ridx_size = csize;
@@ -159,7 +159,7 @@ a5blorb_find_metadata (const uint8_t *buf, uint32_t length, a5_blorb_chunk_t *ou
   return a5_each_chunk (buf, length,
                         [&] (uint32_t ctype, uint32_t body, uint32_t csize)
                         {
-                          if (ctype != A5_FOURCC ('I', 'F', 'm', 'd'))
+                          if (ctype != a5_fourcc ('I', 'F', 'm', 'd'))
                             return 0;
                           out->type = ctype;
                           out->data = buf + body;
@@ -180,11 +180,11 @@ a5blorb_find_layout (const uint8_t *buf, uint32_t length, a5_blorb_chunk_t *out)
   return a5_each_chunk (buf, length,
                         [&] (uint32_t ctype, uint32_t body, uint32_t csize)
                         {
-                          if ((ctype != A5_FOURCC ('T', 'E', 'X', 'T')
-                               && ctype != A5_FOURCC ('B', 'I', 'N', 'A'))
+                          if ((ctype != a5_fourcc ('T', 'E', 'X', 'T')
+                               && ctype != a5_fourcc ('B', 'I', 'N', 'A'))
                               || csize <= 4
                               || a5_be32 (buf + body)
-                                 != A5_FOURCC ('R', 'L', 'A', 'Y'))
+                                 != a5_fourcc ('R', 'L', 'A', 'Y'))
                             return 0;
                           out->type = ctype;
                           out->data = buf + body + 4;

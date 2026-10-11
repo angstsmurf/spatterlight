@@ -1286,9 +1286,9 @@ frame_axis (int lo, int hi, int scale, int room, int want,
   last = hi * scale - room / 2;
   want = clamp_int (want, first, last);
   if (want > first)
-    *enabled |= MAP_CHROME_BIT (back_btn);
+    *enabled |= map_chrome_bit (back_btn);
   if (want < last)
-    *enabled |= MAP_CHROME_BIT (fwd_btn);
+    *enabled |= map_chrome_bit (fwd_btn);
   return want;
 }
 
@@ -1373,9 +1373,9 @@ map_frame (const map_t *map, const map_view_t *view,
     return;
 
   if (cam->scale < MAP_ZOOM_MAX)
-    enabled |= MAP_CHROME_BIT (MAP_CHROME_ZOOM_IN);
+    enabled |= map_chrome_bit (MAP_CHROME_ZOOM_IN);
   if (cam->scale > MAP_ZOOM_MIN)
-    enabled |= MAP_CHROME_BIT (MAP_CHROME_ZOOM_OUT);
+    enabled |= map_chrome_bit (MAP_CHROME_ZOOM_OUT);
   chrome->fit_scale = fit_scale;
   chrome->enabled = enabled;
 }
@@ -1448,8 +1448,8 @@ map_zoom_step (int scale, int dir)
 #define MAP_BTN_MAX 6
 
 #define MAP_CHROME_PAN_BITS \
-  (MAP_CHROME_BIT (MAP_CHROME_PAN_L) | MAP_CHROME_BIT (MAP_CHROME_PAN_R) \
-   | MAP_CHROME_BIT (MAP_CHROME_PAN_U) | MAP_CHROME_BIT (MAP_CHROME_PAN_D))
+  (map_chrome_bit (MAP_CHROME_PAN_L) | map_chrome_bit (MAP_CHROME_PAN_R) \
+   | map_chrome_bit (MAP_CHROME_PAN_U) | map_chrome_bit (MAP_CHROME_PAN_D))
 
 /* A button's top-left corner; they are all MAP_BTN_SIZE square. */
 typedef struct {
@@ -1804,7 +1804,7 @@ badge_dest_unseen (const map_view_t *view, const map_link_t *lk)
  * U on Cellar's North) so it meets the line instead of floating on a
  * half-wind.
  *
- * All fields are indexed by MAP_BADGE (Up, Down, In, Out).
+ * All fields are indexed by map_badge (Up, Down, In, Out).
  */
 typedef struct {
   int edge[MAP_N_BADGES];              /* facing edges, pre-site           */
@@ -1823,8 +1823,8 @@ static const int badge_order[MAP_N_BADGES] = {
 static int
 site_taken_io (const inout_badge_t *b, int site)
 {
-  return (b->has[MAP_BADGE (DIR_IN)] && b->site[MAP_BADGE (DIR_IN)] == site)
-      || (b->has[MAP_BADGE (DIR_OUT)] && b->site[MAP_BADGE (DIR_OUT)] == site);
+  return (b->has[map_badge (DIR_IN)] && b->site[map_badge (DIR_IN)] == site)
+      || (b->has[map_badge (DIR_OUT)] && b->site[map_badge (DIR_OUT)] == site);
 }
 
 /*
@@ -1881,8 +1881,8 @@ fix_far_compass_site (inout_badge_t *b, int dst_anchor, int arrival_dir)
 
   if (cs < 0 || b == nullptr || !map_is_badge_dir (dst_anchor))
     return;
-  b->site[MAP_BADGE (dst_anchor)] = cs;
-  b->site_fixed[MAP_BADGE (dst_anchor)] = 1;
+  b->site[map_badge (dst_anchor)] = cs;
+  b->site_fixed[map_badge (dst_anchor)] = 1;
 }
 
 /*
@@ -1915,11 +1915,11 @@ finalize_badge_sites (inout_badge_t *b, const map_page_t *page)
     {
       inout_badge_t *x = &b[i];
       const map_node_t *n = &page->nodes[i];
-      const int up = MAP_BADGE (DIR_UP), down = MAP_BADGE (DIR_DOWN);
+      const int up = map_badge (DIR_UP), down = map_badge (DIR_DOWN);
       int k;
 
       /* In and Out first: they own their half-winds outright. */
-      for (k = MAP_BADGE (DIR_IN); k <= MAP_BADGE (DIR_OUT); k++)
+      for (k = map_badge (DIR_IN); k <= map_badge (DIR_OUT); k++)
         if (x->has[k] && !x->site_fixed[k])
           {
             x->site[k] = inout_site (DIR_UP + k, x->edge[k]);
@@ -1961,9 +1961,9 @@ finalize_badge_sites (inout_badge_t *b, const map_page_t *page)
 static void
 badge_mark (inout_badge_t *b, int dir, int edge, int far)
 {
-  b->edge[MAP_BADGE (dir)] = edge;
-  b->has[MAP_BADGE (dir)] = 1;
-  b->is_far[MAP_BADGE (dir)] |= (unsigned char) (far != 0);
+  b->edge[map_badge (dir)] = edge;
+  b->has[map_badge (dir)] = 1;
+  b->is_far[map_badge (dir)] |= (unsigned char) (far != 0);
 }
 
 /*
@@ -1975,7 +1975,7 @@ node_has_badge_dir (const map_node_t *n, int dir)
 {
   if (n == nullptr || !map_is_badge_dir (dir))
     return 0;
-  return n->has_badge[MAP_BADGE (dir)];
+  return n->has_badge[map_badge (dir)];
 }
 
 /*
@@ -1990,8 +1990,8 @@ arrival_badge_site (const inout_badge_t *b, const map_node_t *dn,
 
   if (!map_is_badge_dir (dst_anchor))
     return BADGE_NNE;
-  if (b != nullptr && b->has[MAP_BADGE (dst_anchor)])
-    return b->site[MAP_BADGE (dst_anchor)];
+  if (b != nullptr && b->has[map_badge (dst_anchor)])
+    return b->site[map_badge (dst_anchor)];
   edge = inout_edge (dn, src);
   return (dst_anchor == DIR_IN || dst_anchor == DIR_OUT)
          ? inout_site (dst_anchor, edge)
@@ -2091,7 +2091,7 @@ inout_layout (const map_page_t *page, const map_view_t *view)
                 continue;
               if (find_dir_link (n, dir) != nullptr)
                 continue;       /* Link path above already recorded this */
-              if (b != nullptr && b[i].has[MAP_BADGE (dir)])
+              if (b != nullptr && b[i].has[map_badge (dir)])
                 continue;       /* far badge from someone else's Link */
               dest = view->exit_dest (view->ctx, n->key, dir);
               if (dest == nullptr || dest[0] == '\0')
@@ -2167,7 +2167,7 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
    * already draws the line; sit the badge on that port instead.
    */
   if (rc->badges != nullptr && map_is_badge_dir (link->dir)
-      && rc->badges[i].on_compass[MAP_BADGE (link->dir)])
+      && rc->badges[i].on_compass[map_badge (link->dir)])
     return;
 
   /* Nodes on a different level than the player's fade out (Map.vb:1436). */
@@ -2228,7 +2228,7 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
     {
       if (rc->badges == nullptr)
         return;
-      badge_site_point (rc->p, n, rc->badges[i].site[MAP_BADGE (link->dir)],
+      badge_site_point (rc->p, n, rc->badges[i].site[map_badge (link->dir)],
                         &x0, &y0);
     }
   else
@@ -2404,7 +2404,7 @@ render_exit_stubs (const render_ctx_t *rc)
  * ADRIFT 3/4 badge sites: fixed half-winds, one per badge, arranged so that
  * each pair sits on opposite corners of the box -- Up at NNE and Down at SSW,
  * In at WNW and Out at ESE.  The half-wind enum is shared with A5 layout;
- * A3/A4 still do not chase compass stubs.  Indexed by MAP_BADGE.
+ * A3/A4 still do not chase compass stubs.  Indexed by map_badge().
  */
 static const int a4_badge_site[MAP_N_BADGES] = {
   BADGE_NNE, BADGE_SSW, BADGE_WNW, BADGE_ESE
@@ -2467,7 +2467,7 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
 
   for (l = 0; l < n->n_links; l++)
     if (map_is_badge_dir (n->links[l].dir))
-      bl[MAP_BADGE (n->links[l].dir)] = &n->links[l];
+      bl[map_badge (n->links[l].dir)] = &n->links[l];
   /*
    * Badge icons only show while the route is currently usable (the
    * HasRouteInDirection gates, Map.vb:1328/1337 for In/Out -- Grandpa's
@@ -2481,9 +2481,9 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
       for (k = 0; k < MAP_N_BADGES; k++)
         {
           int dir = badge_order[k];
-          if (bl[MAP_BADGE (dir)] != nullptr
+          if (bl[map_badge (dir)] != nullptr
               && rc->view->exit_dest (rc->view->ctx, n->key, dir) == nullptr)
-            bl[MAP_BADGE (dir)] = nullptr;
+            bl[map_badge (dir)] = nullptr;
         }
     }
   /*
@@ -2497,10 +2497,10 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
       for (k = 0; k < MAP_N_BADGES; k++)
         {
           int dir = badge_order[k];
-          const map_link_t *lk = bl[MAP_BADGE (dir)];
+          const map_link_t *lk = bl[map_badge (dir)];
           if (lk != nullptr)
             draw_dir_icon_site (rc->dst, rc->p, n, dir,
-                                a4_badge_site[MAP_BADGE (dir)], 255,
+                                a4_badge_site[map_badge (dir)], 255,
                                 badge_dest_unseen (rc->view, lk));
         }
     }
@@ -2519,13 +2519,13 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
       for (k = 0; k < MAP_N_BADGES; k++)
         {
           int dir = badge_order[k];
-          const map_link_t *lk = bl[MAP_BADGE (dir)];
+          const map_link_t *lk = bl[map_badge (dir)];
           const inout_badge_t *x = &rc->badges[i];
-          if (lk != nullptr || x->is_far[MAP_BADGE (dir)]
-              || (x->has[MAP_BADGE (dir)]
+          if (lk != nullptr || x->is_far[map_badge (dir)]
+              || (x->has[map_badge (dir)]
                   && find_dir_link (n, dir) == nullptr))
             draw_dir_icon_site (rc->dst, rc->p, n, dir,
-                                x->site[MAP_BADGE (dir)], badge_a, 0);
+                                x->site[map_badge (dir)], badge_a, 0);
         }
     }
 }

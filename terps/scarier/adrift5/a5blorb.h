@@ -36,19 +36,23 @@
 #include <stddef.h>
 #include <stdint.h>
 
-/* Build a big-endian FourCC constant, e.g. A5_FOURCC('A','D','R','I'). */
-#define A5_FOURCC(a, b, c, d) \
-  (((uint32_t) (unsigned char) (a) << 24) | ((uint32_t) (unsigned char) (b) << 16) \
-   | ((uint32_t) (unsigned char) (c) << 8) | (uint32_t) (unsigned char) (d))
+/* Build a big-endian FourCC constant, e.g. a5_fourcc ('A', 'D', 'R', 'I'). */
+static constexpr uint32_t
+a5_fourcc (char a, char b, char c, char d)
+{
+  return ((uint32_t) (unsigned char) a << 24)
+         | ((uint32_t) (unsigned char) b << 16)
+         | ((uint32_t) (unsigned char) c << 8) | (uint32_t) (unsigned char) d;
+}
 
 /* Standard Blorb resource usages. */
-#define A5_USAGE_EXEC A5_FOURCC('E', 'x', 'e', 'c')
-#define A5_USAGE_PICT A5_FOURCC('P', 'i', 'c', 't')
-#define A5_USAGE_SND  A5_FOURCC('S', 'n', 'd', ' ')
-#define A5_USAGE_DATA A5_FOURCC('D', 'a', 't', 'a')
+#define A5_USAGE_EXEC a5_fourcc ('E', 'x', 'e', 'c')
+#define A5_USAGE_PICT a5_fourcc ('P', 'i', 'c', 't')
+#define A5_USAGE_SND  a5_fourcc ('S', 'n', 'd', ' ')
+#define A5_USAGE_DATA a5_fourcc ('D', 'a', 't', 'a')
 
 /* ADRIFT executable chunk type, found at usage 'Exec', number 0. */
-#define A5_CHUNK_ADRI A5_FOURCC('A', 'D', 'R', 'I')
+#define A5_CHUNK_ADRI a5_fourcc ('A', 'D', 'R', 'I')
 
 typedef struct a5_blorb_chunk_s {
   uint32_t type;             /* chunk FourCC, e.g. A5_CHUNK_ADRI            */

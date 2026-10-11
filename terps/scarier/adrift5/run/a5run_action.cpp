@@ -54,8 +54,19 @@
    file rather than adding more globals to a5run.h for switches only these
    routines use; C++11 guarantees the one-time initialisation.  (a5run_act.cpp
    keeps the per-variable-action switches the same way.) */
-static const char *dbg_spec   (void) { static const char *v = getenv ("A5DBG_SPEC");      return v; }
-static const char *dbg_task   (void) { static const char *v = getenv ("A5_TRACE_TASK");   return v; }
+static const char *
+dbg_spec (void)
+{
+  static const char *v = getenv ("A5DBG_SPEC");
+  return v;
+}
+
+static const char *
+dbg_task (void)
+{
+  static const char *v = getenv ("A5_TRACE_TASK");
+  return v;
+}
 
 /* Split a '|'-separated list, keeping empty fields (the shape of the runner's
    Items array for a pipe-list reference). */
@@ -310,7 +321,8 @@ eval_arg_to_key (a5_state_t *st, const std::string &arg)
       if (lname == "objects")          k = a5state_lookup_ref (st, "ReferencedObjects");
       else if (lname.rfind ("object", 0) == 0)
         { std::string cap = "ReferencedObject"; if (lname.size () > 6) cap += lname.substr (6);
-          k = a5state_lookup_ref (st, cap.c_str ()); if (!k) k = a5state_lookup_ref (st, "ReferencedObject"); }
+          k = a5state_lookup_ref (st, cap.c_str ());
+          if (!k) k = a5state_lookup_ref (st, "ReferencedObject"); }
       else if (lname.rfind ("character", 0) == 0)
         { /* Indexed exactly like the object branch above: `%character2%` is
              ReferencedCharacter2, NOT the bare ReferencedCharacter.  Beginner's

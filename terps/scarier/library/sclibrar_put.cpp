@@ -1216,9 +1216,9 @@ lib_put_in_refused (scr_gameref_t game, scr_bool is_refusal_only)
  *
  * End the put's line and settle its claim from the backend's outcome; see
  * lib_put_outcome_t.  Only the container backend ever reports a
- * refusal-only outcome; see lib_put_in_refused().  A 4.0 put that printed nothing (statics only, see
- * lib_put_drop_statics_400()) is left unclaimed with no line ending, for
- * the task pass to answer.
+ * refusal-only outcome; see lib_put_in_refused().  A 4.0 put that printed
+ * nothing (statics only, see lib_put_drop_statics_400()) is left unclaimed
+ * with no line ending, for the task pass to answer.
  *
  * A 4.0 put whose only words are the implicit take's announcement, with a
  * task claiming it silently, ends on the game's DontUnderstand text.  run400
@@ -1292,9 +1292,10 @@ lib_put_except_filter (scr_gameref_t game, scr_int object, scr_int target)
  *
  * Name the container of a "put X in Y", or the supporter of a "put X on Y",
  * the way run370 and run380 do, which is not the way anything else in the
- * library names an object: the room is no part of the test.  On p38DARK/p37DARK with the player standing in the
- * lit room and the box left behind on the cave floor, `put lamp in box` and
- * `put stone in box` both answer "You are not holding a box."
+ * library names an object: the room is no part of the test.  On
+ * p38DARK/p37DARK with the player standing in the lit room and the box left
+ * behind on the cave floor, `put lamp in box` and `put stone in box` both
+ * answer "You are not holding a box."
  * (runner_probes/dark.run380.putin3.txt:25/31,
  * runner_probes/dark.run370.putin3.txt:25/31, 2026-09-12), and so does `put
  * all in box` (runner_probes/dark.run380.putin3.txt:50,

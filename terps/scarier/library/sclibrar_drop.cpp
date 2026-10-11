@@ -2091,31 +2091,33 @@ lib_pre400_handler_words_in (scr_gameref_t game, const scr_char *line,
   std::string slots[LIB_PRE400_HANDLERS];
   scr_int handler, count;
 
-#define LIB_PRE400_C(word) (run_c_word_pre400 (version, line, (word)) >= 0)
+  /* The Runner's c(): whether the line contains WORD. */
+  const auto c_word = [&] (const scr_char *word) -> scr_bool
+    {
+      return run_c_word_pre400 (version, line, word) >= 0;
+    };
 
-  present[LIB_PRE400_TAKE] = LIB_PRE400_C ("get") || LIB_PRE400_C ("take")
-                             || (LIB_PRE400_C ("pick")
-                                 && !LIB_PRE400_C ("from"));
-  present[LIB_PRE400_DROP] = LIB_PRE400_C ("drop") || LIB_PRE400_C ("put down")
-                             || LIB_PRE400_C ("leave")
-                             || (LIB_PRE400_C ("put") && LIB_PRE400_C ("down"));
-  present[LIB_PRE400_WEAR] = LIB_PRE400_C ("wear") || LIB_PRE400_C ("put on");
-  present[LIB_PRE400_REMOVE] = LIB_PRE400_C ("remove")
-                               || LIB_PRE400_C ("take off");
-  present[LIB_PRE400_EXAMINE] = LIB_PRE400_C ("x") || LIB_PRE400_C ("examine")
-                                || LIB_PRE400_C ("look at")
-                                || LIB_PRE400_C ("ex") || LIB_PRE400_C ("exam")
-                                || LIB_PRE400_C ("read")
+  present[LIB_PRE400_TAKE] = c_word ("get") || c_word ("take")
+                             || (c_word ("pick") && !c_word ("from"));
+  present[LIB_PRE400_DROP] = c_word ("drop") || c_word ("put down")
+                             || c_word ("leave")
+                             || (c_word ("put") && c_word ("down"));
+  present[LIB_PRE400_WEAR] = c_word ("wear") || c_word ("put on");
+  present[LIB_PRE400_REMOVE] = c_word ("remove") || c_word ("take off");
+  present[LIB_PRE400_EXAMINE] = c_word ("x") || c_word ("examine")
+                                || c_word ("look at")
+                                || c_word ("ex") || c_word ("exam")
+                                || c_word ("read")
                                 || (version >= TAF_VERSION_380
-                                    && LIB_PRE400_C ("look in"));
+                                    && c_word ("look in"));
 
   if (slot_line)
     *slot_line = FALSE;
   lib_pre400_slot_words (game, slots);
   for (handler = 0; handler < LIB_PRE400_HANDLERS; handler++)
     {
-      if (slots[handler].empty () || !LIB_PRE400_C (slots[handler].c_str ())
-          || (handler == LIB_PRE400_TAKE && LIB_PRE400_C ("from")))
+      if (slots[handler].empty () || !c_word (slots[handler].c_str ())
+          || (handler == LIB_PRE400_TAKE && c_word ("from")))
         continue;
       present[handler] = TRUE;
       if (slot_line)
@@ -2126,8 +2128,6 @@ lib_pre400_handler_words_in (scr_gameref_t game, const scr_char *line,
   for (handler = 0; handler < LIB_PRE400_HANDLERS; handler++)
     count += present[handler] ? 1 : 0;
   return count;
-
-#undef LIB_PRE400_C
 }
 
 static scr_int
@@ -2195,7 +2195,11 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
   const scr_char *scan;
   std::string rest;
 
-#define LIB_PRE400_C(word) (run_c_word_pre400 (version, line, (word)) >= 0)
+  /* The Runner's c(): whether the line contains WORD. */
+  const auto c_word = [&] (const scr_char *word) -> scr_bool
+    {
+      return run_c_word_pre400 (version, line, word) >= 0;
+    };
 
   if (version >= TAF_VERSION_400 || !line || line[0] == NUL)
     return FALSE;
@@ -2212,9 +2216,9 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
    * runner_probes/ord.run380.rest.rtf, run390x
    * runner_probes/ord.run390.rest.txt, 2026-09-21).
    */
-  if (LIB_PRE400_C ("put") && !LIB_PRE400_C ("in") && !LIB_PRE400_C ("into")
-      && !LIB_PRE400_C ("inside") && !LIB_PRE400_C ("on")
-      && !LIB_PRE400_C ("onto") && !LIB_PRE400_C ("down"))
+  if (c_word ("put") && !c_word ("in") && !c_word ("into")
+      && !c_word ("inside") && !c_word ("on") && !c_word ("onto")
+      && !c_word ("down"))
     {
       bare_put = TRUE;
       count++;
@@ -2245,7 +2249,7 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
    * runner_probes/ord.run390.rest.txt, 2026-09-21).  A line with both a take
    * and a drop word is not measured.
    */
-  if (LIB_PRE400_C ("all") || LIB_PRE400_C ("and"))
+  if (c_word ("all") || c_word ("and"))
     {
       if (present[LIB_PRE400_TAKE] == present[LIB_PRE400_DROP])
         return FALSE;
@@ -2396,8 +2400,6 @@ rewrite:
       *rewritten += rest;
     }
   return TRUE;
-
-#undef LIB_PRE400_C
 }
 
 

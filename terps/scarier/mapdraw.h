@@ -73,11 +73,16 @@ extern const int map_dir_dy[MAP_N_DIRS];
 /*
  * Up, Down, In and Out are the "badge" directions: they have no bearing on the
  * plan, so they are drawn as icons on the room box rather than as compass
- * connectors.  They are contiguous in the enum, which MAP_BADGE exploits to
+ * connectors.  They are contiguous in the enum, which map_badge() exploits to
  * index per-badge arrays.
  */
 #define MAP_N_BADGES 4
-#define MAP_BADGE(dir) ((dir) - DIR_UP)
+
+static inline int
+map_badge (int dir)
+{
+  return dir - DIR_UP;
+}
 
 static inline int
 map_is_badge_dir (int dir)
@@ -139,7 +144,7 @@ typedef struct map_node_s
                                  room (Map.vb:1156 DrawNode vs DrawLinks)    */
   /*
    * Location has a Movement in this badge direction (FileIO.vb bHasIn/Out/
-   * Up/Down), indexed by MAP_BADGE.  Far-end In/Out icons gate on these, not
+   * Up/Down), indexed by map_badge().  Far-end In/Out icons gate on these, not
    * on duplex.
    */
   unsigned char has_badge[MAP_N_BADGES];
@@ -272,7 +277,12 @@ enum
   MAP_CHROME_ZOOM_IN,
   MAP_CHROME_ZOOM_OUT
 };
-#define MAP_CHROME_BIT(id) (1u << (id))
+
+static inline unsigned int
+map_chrome_bit (int id)
+{
+  return 1u << id;
+}
 
 /*
  * Height of the button row, padding included: what a host that wants the
@@ -285,7 +295,7 @@ typedef struct map_chrome_s
 {
   int fit_scale;              /* the scale the automatic fit would pick, even
                                  while a manual zoom is overriding it        */
-  unsigned int enabled;       /* MAP_CHROME_BIT of each button that would
+  unsigned int enabled;       /* map_chrome_bit() of each button that would
                                  change the view: a pan with travel left, a
                                  zoom in below MAP_ZOOM_MAX, a zoom out above
                                  MAP_ZOOM_MIN.  The rest are drawn greyed.   */
@@ -294,7 +304,7 @@ typedef struct map_chrome_s
 static inline int
 map_chrome_enabled (const map_chrome_t *chrome, int id)
 {
-  return (chrome->enabled & MAP_CHROME_BIT (id)) != 0;
+  return (chrome->enabled & map_chrome_bit (id)) != 0;
 }
 
 /*

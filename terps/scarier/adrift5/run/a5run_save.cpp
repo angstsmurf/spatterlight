@@ -979,9 +979,12 @@ restore_reset (a5_run_t *run)
      the starting player (restore/restart rebuilds the player-centric set). */
   for (i = 0; i < adv->n_characters; i++)
     {
-      if (st->seen_stash_obj  != nullptr) { free (st->seen_stash_obj[i]);  st->seen_stash_obj[i]  = nullptr; }
-      if (st->seen_stash_char != nullptr) { free (st->seen_stash_char[i]); st->seen_stash_char[i] = nullptr; }
-      if (st->seen_stash_loc  != nullptr) { free (st->seen_stash_loc[i]);  st->seen_stash_loc[i]  = nullptr; }
+      if (st->seen_stash_obj != nullptr)
+        { free (st->seen_stash_obj[i]);  st->seen_stash_obj[i] = nullptr; }
+      if (st->seen_stash_char != nullptr)
+        { free (st->seen_stash_char[i]); st->seen_stash_char[i] = nullptr; }
+      if (st->seen_stash_loc != nullptr)
+        { free (st->seen_stash_loc[i]);  st->seen_stash_loc[i] = nullptr; }
     }
   st->seen_active_ci = a5state_character_index (st, a5state_player_key (st));
   st->n_disp_once = 0;
@@ -1240,19 +1243,28 @@ scarier_restore_t::seen_char (const a5_xml_node_t *n)
       char *os = st->obj_seen, *cs = st->char_seen, *ls = st->loc_seen;
       if (!active)
         {
-          if (st->seen_stash_obj[ci]  == nullptr) st->seen_stash_obj[ci]  = (char *) calloc ((size_t) adv->n_objects, 1);
-          if (st->seen_stash_char[ci] == nullptr) st->seen_stash_char[ci] = (char *) calloc ((size_t) adv->n_characters, 1);
-          if (st->seen_stash_loc[ci]  == nullptr) st->seen_stash_loc[ci]  = (char *) calloc ((size_t) adv->n_locations, 1);
+          if (st->seen_stash_obj[ci] == nullptr)
+            st->seen_stash_obj[ci]
+              = (char *) calloc ((size_t) adv->n_objects, 1);
+          if (st->seen_stash_char[ci] == nullptr)
+            st->seen_stash_char[ci]
+              = (char *) calloc ((size_t) adv->n_characters, 1);
+          if (st->seen_stash_loc[ci] == nullptr)
+            st->seen_stash_loc[ci]
+              = (char *) calloc ((size_t) adv->n_locations, 1);
           os = st->seen_stash_obj[ci]; cs = st->seen_stash_char[ci]; ls = st->seen_stash_loc[ci];
         }
       for (c = n->first_child; c != nullptr; c = c->next)
         {
           if (streq (c->name, "ObjSeen"))
-            { int oi = a5state_object_index (st, c->text ? c->text : ""); if (oi >= 0 && os) os[oi] = 1; }
+            { int oi = a5state_object_index (st, c->text ? c->text : "");
+              if (oi >= 0 && os) os[oi] = 1; }
           else if (streq (c->name, "CharSeen"))
-            { int xi = a5state_character_index (st, c->text ? c->text : ""); if (xi >= 0 && cs) cs[xi] = 1; }
+            { int xi = a5state_character_index (st, c->text ? c->text : "");
+              if (xi >= 0 && cs) cs[xi] = 1; }
           else if (streq (c->name, "LocSeen"))
-            { int li = a5state_location_index (st, c->text ? c->text : ""); if (li >= 0 && ls) ls[li] = 1; }
+            { int li = a5state_location_index (st, c->text ? c->text : "");
+              if (li >= 0 && ls) ls[li] = 1; }
         }
     }
 }

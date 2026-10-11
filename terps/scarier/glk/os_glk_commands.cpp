@@ -1847,8 +1847,10 @@ gsc_command_escape (const char *string)
     return FALSE;
 
   /* Take a copy of the string, without any leading space or introducer. */
-  string_copy = (decltype(string_copy)) gsc_malloc (strlen (string + posn) + 1 - strlen ("glk"));
-  strncpy (string_copy, string + posn + strlen ("glk"), strlen (string + posn) + 1 - strlen ("glk"));
+  string_copy = (decltype(string_copy)) gsc_malloc (strlen (string + posn) + 1
+                                                    - strlen ("glk"));
+  strncpy (string_copy, string + posn + strlen ("glk"),
+           strlen (string + posn) + 1 - strlen ("glk"));
 
   /*
    * Find the subcommand; the first word in the string copy.  Find its end,

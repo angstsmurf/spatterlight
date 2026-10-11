@@ -42,8 +42,19 @@
 /* Debug/trace switches, resolved from the environment ONCE: both are tested per
    variable action, so a function-local static keeps the lookup off that path
    (as a5run_action.cpp does for its own switches). */
-static const char *dbg_setvar (void) { static const char *v = getenv ("A5_TRACE_SETVAR"); return v; }
-static const char *dbg_score  (void) { static const char *v = getenv ("A5_DEBUG_SCORE");  return v; }
+static const char *
+dbg_setvar (void)
+{
+  static const char *v = getenv ("A5_TRACE_SETVAR");
+  return v;
+}
+
+static const char *
+dbg_score (void)
+{
+  static const char *v = getenv ("A5_DEBUG_SCORE");
+  return v;
+}
 
 /* ---------------------------------------------------------- operand helpers */
 
@@ -1394,12 +1405,18 @@ act_set_property (a5_run_t *run, const char * /*kind*/,
         {
           a5_objloc_t *L = &st->obj[oi];
           const char *w = val.c_str (), *kp = nullptr;
-          if (streq (w, "Hidden"))           { L->where = A5_OWHERE_HIDDEN;      L->key = nullptr; }
-          else if (streq (w, "Held By Character")) { L->where = A5_OWHERE_HELD_BY;   kp = "HeldByWho"; }
-          else if (streq (w, "Worn By Character")) { L->where = A5_OWHERE_WORN_BY;   kp = "WornByWho"; }
-          else if (streq (w, "In Location"))       { L->where = A5_OWHERE_LOCATION;  kp = "InLocation"; }
-          else if (streq (w, "Inside Object"))     { L->where = A5_OWHERE_IN_OBJECT; kp = "InsideWhat"; }
-          else if (streq (w, "On Object"))         { L->where = A5_OWHERE_ON_OBJECT; kp = "OnWhat"; }
+          if (streq (w, "Hidden"))
+            { L->where = A5_OWHERE_HIDDEN;    L->key = nullptr; }
+          else if (streq (w, "Held By Character"))
+            { L->where = A5_OWHERE_HELD_BY;   kp = "HeldByWho"; }
+          else if (streq (w, "Worn By Character"))
+            { L->where = A5_OWHERE_WORN_BY;   kp = "WornByWho"; }
+          else if (streq (w, "In Location"))
+            { L->where = A5_OWHERE_LOCATION;  kp = "InLocation"; }
+          else if (streq (w, "Inside Object"))
+            { L->where = A5_OWHERE_IN_OBJECT; kp = "InsideWhat"; }
+          else if (streq (w, "On Object"))
+            { L->where = A5_OWHERE_ON_OBJECT; kp = "OnWhat"; }
           if (kp != nullptr)
             {
               const char *kv = a5state_entity_prop (st, k1, kp);

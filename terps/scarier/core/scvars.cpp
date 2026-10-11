@@ -372,9 +372,11 @@ var_put (scr_var_setref_t vars,
 
     case VAR_STRING:
       /* Use mutable string instead of const string. */
-      var->value.mutable_string = (decltype(var->value.mutable_string)) scr_realloc (var->value.mutable_string,
-                                              strlen (vt_value.string) + 1);
-      memcpy (var->value.mutable_string, vt_value.string, strlen (vt_value.string) + 1);
+      var->value.mutable_string
+        = (scr_char *) scr_realloc (var->value.mutable_string,
+                                    strlen (vt_value.string) + 1);
+      memcpy (var->value.mutable_string, vt_value.string,
+              strlen (vt_value.string) + 1);
       break;
 
     default:
@@ -2182,7 +2184,8 @@ var_set_ref_text (scr_var_setref_t vars, const scr_char *text)
   assert (var_is_valid (vars));
 
   /* Take a copy of the string, and retain it. */
-  vars->referenced_text = (decltype(vars->referenced_text)) scr_realloc (vars->referenced_text, strlen (text) + 1);
+  vars->referenced_text
+    = (scr_char *) scr_realloc (vars->referenced_text, strlen (text) + 1);
   memcpy (vars->referenced_text, text, strlen (text) + 1);
 }
 

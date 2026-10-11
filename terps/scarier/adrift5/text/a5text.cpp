@@ -378,7 +378,11 @@ replace_alrs (a5_state_t *st, const char *src, int depth)
    (Global.vb:539).  The third alternative requires a *lowercase letter*
    immediately before the .!? so an ellipsis ("...") or a digit/upper char
    before the stop does NOT start a new sentence. */
-#define A5_IS_LOWER(c) ((c) >= 'a' && (c) <= 'z')
+static inline int
+a5_is_lower (char c)
+{
+  return c >= 'a' && c <= 'z';
+}
 
 static int
 is_sentence_start (const char *s, size_t i, int allow_line_start)
@@ -404,12 +408,12 @@ is_sentence_start (const char *s, size_t i, int allow_line_start)
   /* "x. y" where x is a lowercase letter */
   if (i >= 3 && s[i - 1] == ' '
       && (s[i - 2] == '.' || s[i - 2] == '!' || s[i - 2] == '?')
-      && A5_IS_LOWER (s[i - 3]))
+      && a5_is_lower (s[i - 3]))
     return 1;
   /* "x.  y" (two spaces) where x is a lowercase letter */
   if (i >= 4 && s[i - 1] == ' ' && s[i - 2] == ' '
       && (s[i - 3] == '.' || s[i - 3] == '!' || s[i - 3] == '?')
-      && A5_IS_LOWER (s[i - 4]))
+      && a5_is_lower (s[i - 4]))
     return 1;
   return 0;
 }

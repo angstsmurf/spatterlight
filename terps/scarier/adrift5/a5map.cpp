@@ -207,7 +207,7 @@ parse_node (map_node_t *node, const a5_xml_node_t *nd,
   /* FileIO.vb:4071-4074 -- Movements, not Map Links, set bHas*. */
   for (il = DIR_UP; il <= DIR_OUT; il++)
     if (movement_dest (loc, map_dirs[il], nullptr) != nullptr)
-      node->has_badge[MAP_BADGE (il)] = 1;
+      node->has_badge[map_badge (il)] = 1;
 
   n_links = a5xml_count (nd, "Link");
   if (n_links <= 0)

@@ -775,7 +775,11 @@ sm_tidy_up (sm_layout_t *L)
 
 
 /* Rooms are 1-based in here and 0-based in SCARE. */
-#define sc_room(rno) ((scr_int) ((rno) - 1))
+static inline scr_int
+sc_room (scr_int rno)
+{
+  return rno - 1;
+}
 
 
 /*
