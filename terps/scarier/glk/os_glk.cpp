@@ -1297,6 +1297,7 @@ gsc_main_open_windows (void)
       gsc_header_string ("Glk Scarier Error\n\n");
       gsc_normal_string (gsc_game_message);
       gsc_normal_char ('\n');
+      gsc_report_fatal (FALSE);
       glk_exit ();
     }
 
@@ -1447,6 +1448,10 @@ gsc_main_game_over (void)
       return FALSE;
     }
 
+  /* A restart or undo that ended in a fatal engine error leaves no game. */
+  if (gsc_report_fatal (TRUE))
+    return FALSE;
+
   return TRUE;
 }
 
@@ -1553,6 +1558,10 @@ gsc_main (void)
       /* Run the game until it ends, or the user quits. */
       gsc_status_notify ();
       scr_interpret_game (gsc_game);
+
+      /* Stopped by a fatal engine error: say so, and leave. */
+      if (gsc_report_fatal (TRUE))
+        break;
 
       /*
        * If the game did not complete, the user quit explicitly, so leave the

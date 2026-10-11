@@ -1331,6 +1331,50 @@ gsc_header_string (const char *message)
 
 
 /*
+ * gsc_report_fatal()
+ *
+ * Tell the player why an engine call just failed, if it was a fatal engine
+ * error -- those are otherwise only written to stderr, which a player never
+ * sees.  With `stopping` the game cannot go on and the report says so.
+ * Returns TRUE if there was an error to report.
+ *
+ * Spatterlight has an error channel of its own, which shows an alert or
+ * keeps quiet as the player's error-handling setting asks.  Set to ignore
+ * errors it shows the last one only if the interpreter then fails, so an
+ * error that stops the game exits here with a failure status.  Any other Glk
+ * library gets the message in the main window.
+ */
+scr_bool
+gsc_report_fatal (scr_bool stopping)
+{
+  const scr_char *const message = scr_take_fatal_message ();
+
+  if (!message)
+    return FALSE;
+
+#ifdef SPATTERLIGHT
+  win_showerror ((std::string ("Scarier internal error: ") + message).c_str ());
+  if (stopping && gli_error_handling == IGNORE_ERRORS)
+    {
+      win_flush ();
+      exit (EXIT_FAILURE);
+    }
+#else
+  if (!gsc_main_window)
+    return TRUE;
+
+  glk_set_window (gsc_main_window);
+  gsc_normal_string (gsc_main_at_line_start ? "\n" : "\n\n");
+  gsc_header_string ("Scarier internal error");
+  gsc_normal_string (": ");
+  gsc_normal_string (message);
+  gsc_normal_string (stopping ? "\n\nThe game cannot continue.\n" : "\n");
+#endif
+  return TRUE;
+}
+
+
+/*
  * gsc_copy_string()
  *
  * strdup() that passes NULL through rather than crashing on it; hint strings

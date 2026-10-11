@@ -304,6 +304,7 @@ extern void gsc_normal_string (const char *message);
 extern void gsc_standout_char (char c);
 extern void gsc_standout_string (const char *message);
 extern void gsc_header_string (const char *message);
+extern scr_bool gsc_report_fatal (scr_bool stopping);
 extern void gsc_put_prompt (const char *prompt);
 extern void gsc_echo_input (void (*put) (const char *), const char *line,
                             scr_bool end_line);

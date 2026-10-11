@@ -137,6 +137,7 @@ extern scr_bool scr_load_game_from_callback (scr_game game,
                                            (void *, scr_byte *, scr_int),
                                            void *opaque);
 extern void scr_free_game (scr_game game);
+extern const scr_char *scr_take_fatal_message (void);
 extern scr_bool scr_is_game_running (scr_game game);
 extern scr_bool scr_does_command_match (scr_game game, const scr_char *string);
 extern const scr_char *scr_get_game_name (scr_game game);

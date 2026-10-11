@@ -375,9 +375,15 @@ These are candidates, not tasks; each wants its own decision.
 - **Glk Makefile dependencies**: `$(OBJECTS): $(HEADERS)` rebuilds
   everything on any header edit; `-MMD` would be a small separate
   change.
-- **Fatal message in the game window**: `if_report_fatal()` writes to
-  stderr, so in Spatterlight a game stops without saying why.  A
-  front-end change, for both engines.
+- ~~**Fatal message in the game window**~~: done.  `if_report_fatal()`
+  keeps the message for `scr_take_fatal_message()`; the Glk front end's
+  `gsc_report_fatal()` reports it after `scr_interpret_game()`,
+  the game-over menu, a failed load and the meta-commands: through
+  `win_showerror()` under `SPATTERLIGHT` (exiting with a failure status
+  when the game must stop and errors are set to be ignored, so the
+  termination sheet carries the message), in the main window for any
+  other Glk library.  ADRIFT 5 has no fatal path of its own: its load
+  and out-of-memory stops already print in the window.
 - **Lines over 80 columns in `adrift5/`** (about 1460): its compact
   one-line bodies are that code's own style.  Two lines over 100 stay
   everywhere: sctafpar_patches.cpp's cp1251 command string and the

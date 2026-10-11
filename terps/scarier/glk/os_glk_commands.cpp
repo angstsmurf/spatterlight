@@ -996,6 +996,9 @@ gsc_meta_perform (void)
     default:
       break;
     }
+
+  /* A fatal engine error under any of those: the action failed, say why. */
+  gsc_report_fatal (FALSE);
 }
 
 

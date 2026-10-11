@@ -425,10 +425,47 @@ if_file_write_callback (void *opaque, const scr_byte *buffer, scr_int length)
  * may leak raw-malloc'd state on this path (not all of it is exception-safe),
  * but the whole game session is being torn down here anyway.
  */
+static std::string if_fatal_message;
+static scr_bool if_fatal_pending = FALSE;
+
 static void
 if_report_fatal (const scr_char *function_name, const scr_fatal_error &error)
 {
   scr_error ("%s: fatal: %s", function_name, error.message.c_str ());
+
+  /*
+   * Keep the message for the front end, which has a window to say it in
+   * (scr_take_fatal_message).  The first one unclaimed is the cause; any that
+   * follow before it is taken are usually its consequences.
+   */
+  if (!if_fatal_pending)
+    {
+      if_fatal_message = error.message;
+      while (!if_fatal_message.empty ()
+             && (if_fatal_message.back () == '\n'
+                 || if_fatal_message.back () == '\r'))
+        if_fatal_message.pop_back ();
+      if_fatal_pending = TRUE;
+    }
+}
+
+
+/*
+ * scr_take_fatal_message()
+ *
+ * Return the message of a fatal engine error caught since the last call, less
+ * its line end, or NULL if there was none.  The string stays valid until the
+ * next fatal error.  An entry point that failed for that reason has already
+ * returned its failure value; this is how the caller finds out why.
+ */
+const scr_char *
+scr_take_fatal_message (void)
+{
+  if (!if_fatal_pending)
+    return nullptr;
+
+  if_fatal_pending = FALSE;
+  return if_fatal_message.c_str ();
 }
 
 
