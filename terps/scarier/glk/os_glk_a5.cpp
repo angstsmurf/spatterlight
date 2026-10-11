@@ -983,46 +983,9 @@ gsc_a5_stop_all_sounds (void)
     }
 }
 
-#if defined(_WIN32) && !defined(GARGLK)
-#include "WinGlk.h"
-
-/* Windows Glk has no glkunix_stream_open_pathname; a fileref made from the
- * path with validation off opens the same file. */
-static strid_t
-gsc_a5_open_game_path (void)
-{
-  frefid_t fileref;
-  strid_t stream;
-
-  fileref = winglk_fileref_create_by_name (fileusage_BinaryMode
-                                           | fileusage_Data,
-                                           gsc_game_path, 0, 0);
-  if (fileref == nullptr)
-    return nullptr;
-  stream = glk_stream_open_file (fileref, filemode_Read, 0);
-  glk_fileref_destroy (fileref);
-  return stream;
-}
-#else
-/* For glkunix_stream_open_pathname(), so the resource setup below can open
- * the game file as a Glk stream for giblorb.  Included here, as in
- * os_glk.cpp's UNIX linkage section, and not in os_glk_internal.h, because
- * only the hosts on this side of the #if have the header. */
-extern "C" {
-#include "glkstart.h"
-}
-
 /* Rock of the stream behind the resource map, so that an autorestore can
  * tell it from the game's other streams (see gsc_a5_rebind_resources). */
 #define GSC_A5_BLORB_STREAM_ROCK 0x424c5242 /* 'BLRB' */
-
-static strid_t
-gsc_a5_open_game_path (void)
-{
-  return glkunix_stream_open_pathname (gsc_game_path, FALSE,
-                                       GSC_A5_BLORB_STREAM_ROCK);
-}
-#endif
 
 /*
  * gsc_a5_init_resources()
@@ -1035,7 +998,8 @@ gsc_a5_open_game_path (void)
  * startup stream has other work to do first.  Reopening through Glk (not
  * fopen) is what keeps this working on hosts with no C library filesystem,
  * such as Emglken, whose Glk implements glkunix_stream_open_pathname over its
- * own VFS and permits it outside glkunix_startup_code.
+ * own VFS and permits it outside glkunix_startup_code.  How a path becomes
+ * a stream on each host is os_glk_platform.cpp's business.
  */
 #ifdef SPATTERLIGHT
 /*
@@ -1079,7 +1043,7 @@ gsc_a5_init_resources (void)
   if ((!gsc_a5_graphics_ok && !gsc_a5_sound_ok) || gsc_game_path[0] == '\0')
     return;
 
-  stream = gsc_a5_open_game_path ();
+  stream = gsc_open_game_path (gsc_game_path, GSC_A5_BLORB_STREAM_ROCK);
   if (stream == nullptr)
     {
       /* The file is unreachable by path (a host that cannot reopen it, or a
@@ -1135,7 +1099,7 @@ gsc_a5_rebind_resources (void)
         glk_stream_close (stream, nullptr);
     }
 
-  stream = gsc_a5_open_game_path ();
+  stream = gsc_open_game_path (gsc_game_path, GSC_A5_BLORB_STREAM_ROCK);
   if (stream == nullptr)
     return;
   if (giblorb_set_resource_map (stream) != giblorb_err_None)

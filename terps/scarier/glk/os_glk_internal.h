@@ -36,6 +36,7 @@
  *   os_glk_a5_display.cpp  ADRIFT 5 text display and media
  *   os_glk_autosave.cpp    Spatterlight autosave/autorestore
  *   os_glk_map.cpp         the map pane, both engines
+ *   os_glk_platform.cpp    opening a game file by path, per host
  *
  * Only the names that cross between them are here -- everything else stays
  * static to its own file.
@@ -273,6 +274,10 @@ extern int gsc_autorestored;
 extern int gsc_in_debug_read;
 extern int gsc_autorestore_wanted (void);
 #endif
+
+/* os_glk_platform.cpp: a file on disk as a read-only Glk stream, nullptr if
+ * the host cannot reach it. */
+extern strid_t gsc_open_game_path (const char *path, glui32 rock);
 
 /* os_glk_locale.cpp: the game locale and character output. */
 extern const scr_bool gsc_has_unicode;

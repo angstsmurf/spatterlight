@@ -162,9 +162,10 @@ genuinely the same.
 - [x] `scutils.cpp` has **two** `scr_congruential_rand` definitions selected by
       `#ifdef SPATTERLIGHT`.  → both branches are live (SPATTERLIGHT vs
       headless); the comment says so since 31b77eaac.
-- [ ] `glk/os_glk_a5.cpp` defines `gsc_a5_open_game_path` twice
+- [x] `glk/os_glk_a5.cpp` defines `gsc_a5_open_game_path` twice
       (`_WIN32 && !GARGLK` vs not, ~l.992–1029): fine, but isolate the Win32
-      half in a platform file.
+      half in a platform file.  → `gsc_open_game_path` in
+      `glk/os_glk_platform.cpp`, 17638c398 (see "Win32 open-by-path").
 
 ---
 
@@ -297,7 +298,8 @@ and the eight printfilter cache globals (now `scr_pf_state_t`).
 - [ ] Classify: *invariant* → `assert`; *bad game data* → `scr_error` + clean
       abort path; *unsupported feature* → one `scr_unsupported (…)`.
 - [x] `extern` declarations in `.cpp` files: `os_glk_a5.cpp` includes
-      `glkstart.h` for `glkunix_stream_open_pathname` (ee3c2a185);
+      `glkstart.h` for `glkunix_stream_open_pathname` (ee3c2a185; since
+      17638c398 the include and the call live in `os_glk_platform.cpp`);
       `os_glk.cpp`'s `InitGlk` stays, see "Small mechanical items" below.
       `os_ansi.cpp` keeps its
       hand-written `extern run_probe_strict` on purpose (9d8981d2a:
@@ -408,7 +410,15 @@ Per the project's own verification recipe:
    everything.  5 is DONE: `tools/`, the log sink, `scdebug.cpp`
    confirmed, `headless/` (see "Tree layout (5)"), the `core/` /
    `platform/` move (see "Tree layout (5), second half") and the
-   `scprotos.h` split (see "scprotos.h split").  What is left is 4.
+   `scprotos.h` split (see "scprotos.h split").  4 is DONE: the one
+   open bullet, the Win32 half of `gsc_a5_open_game_path`, is in
+   `glk/os_glk_platform.cpp` (see "Win32 open-by-path"); the table
+   rows above it are candidates, not tasks.
+7. What is left are the four open 6a bullets: assert / `scr_error`
+   classification (Error handling), `memset` / `(void) x` and the long
+   lines / function-like macros (Modernisation), and the cp1251/cp1252
+   ctype overlap (Locale and ctype layers).  Each is a judgement pass
+   rather than a mechanical move; the locale one is the smallest.
 
 ## Outcome (2026-10-10, master 31b77eaac..18e8b35d5)
 
@@ -1925,4 +1935,65 @@ them):
   `__LINE__` argument, shifted by the longer include block -- with
   identical `nm` and `strings` output.
 - Next in the suggested order: 4 (the Win32 half of
-  `gsc_a5_open_game_path`).
+  `gsc_a5_open_game_path`), taken next, see below.
+
+## Win32 open-by-path (2026-10-11, master 17638c398)
+
+- **The move** -- `glk/os_glk_a5.cpp` had two definitions of a static
+  `gsc_a5_open_game_path (void)`: under `_WIN32 && !GARGLK` a Windows
+  Glk fileref dance (`winglk_fileref_create_by_name` with validation
+  off, `glk_stream_open_file`, `glk_fileref_destroy`), otherwise a
+  `glkunix_stream_open_pathname` call, each with its own include
+  (`WinGlk.h` / `glkstart.h`).  `os_glk.cpp`'s `winglk_startup_code`
+  carried a third copy of the fileref dance, and its
+  `glkunix_startup_code` two more `glkunix_stream_open_pathname` calls
+  (the game file, the `-r` restore file).  All five sites now call one
+  function in the new `glk/os_glk_platform.cpp`,
+  `strid_t gsc_open_game_path (const char *path, glui32 rock)`,
+  declared in `os_glk_internal.h`.  It is the only file left with a
+  `_WIN32` branch for opening a file; the `#if` in it is the same
+  `defined(_WIN32) && !defined(GARGLK)` as before, because Gargoyle on
+  Windows starts through `glkunix_startup_code` and has the glkunix
+  call.  `os_glk_a5.cpp` keeps the `GSC_A5_BLORB_STREAM_ROCK` define
+  (moved above `gsc_a5_init_resources`, outside any `#if`) and passes
+  it at both resource sites; the startup code passes rock 0 as it
+  always did.  `os_glk.cpp`'s startup sections still include
+  `glkstart.h` and `WinGlk.h` for their own linkage
+  (`glkunix_arguments`, `winglk_app_set_name` and friends), so those
+  includes did not move; the now-unused `frefid_t fileref` in
+  `winglk_startup_code` is gone.  53 lines removed, 84 added, 30 of
+  them the new file's licence and responsibility header.
+- **Why glk/ and not platform/** -- the function is Glk through and
+  through (it returns a `strid_t` and calls Glk on both sides of the
+  `#if`); `platform/` holds the host layers that are *not* Glk
+  (`os_ansi.cpp`, the Spatterlight autosave bridge).  The name
+  `os_glk_platform.cpp` follows the other `os_glk_*.cpp` files, and
+  the header's file list has a row for it.
+- **One behaviour note** -- on Windows Glk the ADRIFT 5 resource
+  stream now carries the BLRB rock instead of 0, since the Win32 half
+  used to ignore the rock.  Nothing reads it on that host
+  (`gsc_a5_rebind_resources`, the one reader, is SPATTERLIGHT-only), so
+  this is neutral in effect and the rock is now consistent across
+  hosts.  Every host with `glkunix_stream_open_pathname` is unchanged
+  call for call.
+- **Not taken** -- moving the whole UNIX/Windows startup linkage
+  (`glkunix_startup_code`, `WinMain`, `winglk_startup_code`, ~280
+  lines at the end of `os_glk.cpp`) into the platform file.  That is
+  the entry points, not a duplicated helper, and the bullet asked only
+  for the Win32 half of the open; it would be a reasonable follow-up
+  if `os_glk.cpp` (1826 lines) is split further.
+- Xcode: `os_glk_platform.cpp` added to the scarier target (four
+  pbxproj entries, ids ...0112 / ...0113, so the next free one is
+  0114).  The Glk Makefile globs `glk/*.cpp` and needed nothing;
+  Makefile.headless and the harness build do not compile glk/.
+- Verification: `make -j8 scarier glkscarier` warning-free;
+  `xcodebuild -target scarier` BUILD SUCCEEDED (both arches compile the
+  new file); the Win32 branch has no compiler here, so it was
+  syntax-checked with `-Wall -Wextra` against a one-line stub
+  `WinGlk.h` declaring `winglk_fileref_create_by_name`, with `_WIN32`
+  defined *after* `os_glk_internal.h` (defining it before the system
+  headers breaks libc++ on macOS); `quick` green; full headless `test`
+  output identical to the baseline captured at 94eb02743 (0 diff
+  lines, compile lines and the `Nothing to be done` message stripped).
+- Next in the suggested order: 7, the four open 6a bullets (see
+  "Suggested order").

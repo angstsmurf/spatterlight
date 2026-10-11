@@ -1663,12 +1663,12 @@ glkunix_startup_code (glkunix_startup_t * data)
     }
 
   /* Remember the game file path for hosts that reopen it (graphics/sound via
-   * glkunix_stream_open_pathname). ADRIFT 5 game data itself is loaded from the
-   * Glk stream above via a5model_load_buffer. */
+   * gsc_open_game_path). ADRIFT 5 game data itself is loaded from the Glk
+   * stream above via a5model_load_buffer. */
   snprintf (gsc_game_path, sizeof gsc_game_path, "%s", argv[argv_index]);
 
   /* Open a stream to the TAF file, complain if this fails. */
-  game_stream = glkunix_stream_open_pathname (argv[argv_index], FALSE, 0);
+  game_stream = gsc_open_game_path (argv[argv_index], 0);
   if (!game_stream)
     {
       gsc_game = nullptr;
@@ -1684,7 +1684,7 @@ glkunix_startup_code (glkunix_startup_t * data)
    */
   if (restore_from)
     {
-      restore_stream = glkunix_stream_open_pathname (restore_from, FALSE, 0);
+      restore_stream = gsc_open_game_path (restore_from, 0);
       if (!restore_stream)
         {
           glk_stream_close (game_stream, nullptr);
@@ -1783,7 +1783,6 @@ int
 winglk_startup_code (const char *cmdline)
 {
   const char *filename, *locale;
-  frefid_t fileref;
   strid_t game_stream;
   scr_uint trace_flags;
   scr_bool enable_debugger, stable_random;
@@ -1807,14 +1806,7 @@ winglk_startup_code (const char *cmdline)
     return 0;
   snprintf (gsc_game_path, sizeof gsc_game_path, "%s", filename);
 
-  fileref = winglk_fileref_create_by_name (fileusage_BinaryMode
-                                           | fileusage_Data,
-                                           (char *) filename, 0, 0);
-  if (!fileref)
-    return 0;
-
-  game_stream = glk_stream_open_file (fileref, filemode_Read, 0);
-  glk_fileref_destroy (fileref);
+  game_stream = gsc_open_game_path (filename, 0);
   if (!game_stream)
     return 0;
 
