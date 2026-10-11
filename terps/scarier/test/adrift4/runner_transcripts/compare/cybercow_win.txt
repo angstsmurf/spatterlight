@@ -1,0 +1,12 @@
+feed        124 commands
+runner      124 turns echoed
+scarier     126 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 95  open desk
+  run400   You open the rolltop desk. Inside the rolltop desk is some bills, an envelope and a sticky note.
+  scarier  You open the rolltop desk. Inside the rolltop desk are some bills, an envelope and a sticky note.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

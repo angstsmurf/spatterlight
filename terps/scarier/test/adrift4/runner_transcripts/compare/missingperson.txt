@@ -1,0 +1,16 @@
+feed        119 commands
+runner      119 turns echoed
+scarier     119 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 61  open box
+  run400   I open the photo box. Inside the photo box is the pic2, the pic3 and the pic4.
+  scarier  I open the photo box. Inside the photo box are the pic2, the pic3 and the pic4.
+
+turn 73  examine bookshelf
+  run400   A huge dark-color wood bookshelf with a lot of books on it. Inside the bookshelf is a city map, a book titled missing person and the picture.
+  scarier  A huge dark-color wood bookshelf with a lot of books on it. Inside the bookshelf are a city map, a book titled missing person and the picture.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

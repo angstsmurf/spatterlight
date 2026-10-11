@@ -1,0 +1,24 @@
+feed        252 commands
+runner      252 turns echoed
+scarier     252 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 56  look table
+  run400   It looks rather rustic, which is to say that it looks like a bunch of logs crudely nailed together. On the dining table is a spoon, a large bowl, a medium-sized bowl and a tiny little bowl.
+  scarier  It looks rather rustic, which is to say that it looks like a bunch of logs crudely nailed together. On the dining table are a spoon, a large bowl, a medium-sized bowl and a tiny little bowl.
+
+turn 70  x shelves
+  run400   One of the bears is obviously into DIY. On the shelf is a box of porridge oats, a matchbox and a wedge of cheese.
+  scarier  One of the bears is obviously into DIY. On the shelf are a box of porridge oats, a matchbox and a wedge of cheese.
+
+turn 160  open package
+  run400   I am not carrying the package!
+  scarier  I open the package. An electric toaster and a leaflet are inside the package.
+
+turn 164  open package
+  run400   I open the package. An electric toaster and a leaflet are inside the package.
+  scarier  The package is already open!
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

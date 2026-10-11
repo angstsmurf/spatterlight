@@ -1,0 +1,16 @@
+feed        92 commands
+runner      92 turns echoed
+scarier     92 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 42  open loose box
+  run400   You open the loose box. Inside the loose box is a Hard hat, a length of rope and a lamp.
+  scarier  You open the loose box. Inside the loose box are a Hard hat, a length of rope and a lamp.
+
+turn 84  open case
+  run400   You open packing case. Inside packing case is chocolate bar, a banana and gold coin.
+  scarier  You open packing case. Inside packing case are chocolate bar, a banana and gold coin.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

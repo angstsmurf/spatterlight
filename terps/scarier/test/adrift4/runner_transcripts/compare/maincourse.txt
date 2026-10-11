@@ -1,0 +1,49 @@
+feed        28 commands
+runner      28 turns echoed
+scarier     28 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 2  take catnip
+  run400   SoMorph take the catnip.
+  scarier  SoMorph takes the catnip.
+
+turn 6  east
+  run400   SoMorph moves east. Corridor Alpha SoMorph in cross corridor. Cross Corridor confuse SoMorph a little. SoMorph notice tubes on ceiling. Small lights in floor. Dirty walls. Always dirty these humans. Dirty. No windows! Why no windows??? Corridor split into four. Exits to North, West and South. To east is bathroom, but door is closed. Cat is here. SoMorph can move north, south and west. SoMorph manage to avoid Jones's attack.
+  scarier  SoMorph moves east. Corridor Alpha SoMorph in cross corridor. Cross Corridor confuse SoMorph a little. SoMorph notice tubes on ceiling. Small lights in floor. Dirty walls. Always dirty these humans. Dirty. No windows! Why no windows??? Corridor split into four. Exits to North, West and South. To east is bathroom, but door is closed. Cat is here. SoMorph can move north, south and west. SoMorph manages to avoid Jones's attack.
+
+turn 7  attack cat
+  run400   SoMorph hit Jones, but it doesn't seem to do any damage. SoMorph manage to avoid Jones's attack.
+  scarier  SoMorph hits Jones, but it doesn't seem to do any damage. SoMorph manages to avoid Jones's attack.
+
+turn 8  attack cat
+  run400   SoMorph hit Jones. With a mighty swipe of tentacle, Somorph kill Mr. Jones till he dead! Somorph not stop thumping cat with tentacle till cat much flatter. Easier to eat that way...
+  scarier  SoMorph hits Jones. With a mighty swipe of tentacle, Somorph kill Mr. Jones till he dead! Somorph not stop thumping cat with tentacle till cat much flatter. Easier to eat that way...
+
+turn 10  take cat fur
+  run400   SoMorph take the cat fur. SoMorph really need to go toilet...
+  scarier  SoMorph takes the cat fur. SoMorph really need to go toilet...
+
+turn 11  open door
+  run400   SoMorph open the bathroom door. SoMorph need loo badly!
+  scarier  SoMorph opens the bathroom door. SoMorph need loo badly!
+
+turn 13  close door
+  run400   SoMorph close the bathroom door.
+  scarier  SoMorph closes the bathroom door.
+
+turn 14  open loo
+  run400   SoMorph open the toilet.
+  scarier  SoMorph opens the toilet.
+
+turn 18  open door
+  run400   SoMorph open the bathroom door.
+  scarier  SoMorph opens the bathroom door.
+
+turn 22  attack human
+  run400   SoMorph hit Alan Davies.
+  scarier  SoMorph hits Alan Davies.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

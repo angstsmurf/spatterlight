@@ -1,0 +1,14 @@
+feed        55 commands
+runner      54 turns echoed
+scarier     54 turns, feed[0] is scarier turn 0
+
+ended       feed[54:55] wait -- after the game ended on both sides; not compared
+
+RULE 2 -- every feed command was echoed.
+
+turn 32  s
+  run400   You move south. Outpost 11 Conference Room A huge glossy brown mahogany conference table lies in the middle of this room. White office chairs surround the table. To the north is the Lobby. one of the captors is here.
+  scarier  You move south. Outpost 11 Conference Room A huge glossy brown mahogany conference table lies in the middle of this room. White office chairs surround the table. To the north is the Lobby. One of the captors is here.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

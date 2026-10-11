@@ -1,0 +1,12 @@
+feed        109 commands
+runner      109 turns echoed
+scarier     109 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 2  open rucksack
+  run400   You open your rucksack. Inside your rucksack is a box of matches, a pencil, a notebook, a water bottle, a rope and a stick of dynamite.
+  scarier  You open your rucksack. Inside your rucksack are a box of matches, a pencil, a notebook, a water bottle, a rope and a stick of dynamite.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

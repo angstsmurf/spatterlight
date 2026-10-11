@@ -1,0 +1,12 @@
+feed        55 commands
+runner      55 turns echoed
+scarier     56 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 40  look at specimen table
+  run400   Its black, once sleek and polished surface is now covered with the graffiti of age and experiment. On the specimen table is a specimen cage, a Geiger counter, a pair of gas goggles, a flashlight and a bug translating helmet.
+  scarier  Its black, once sleek and polished surface is now covered with the graffiti of age and experiment. On the specimen table are a specimen cage, a Geiger counter, a pair of gas goggles, a flashlight and a bug translating helmet.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

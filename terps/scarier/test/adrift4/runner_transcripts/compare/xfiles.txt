@@ -1,0 +1,40 @@
+feed        81 commands
+runner      81 turns echoed
+scarier     81 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 1  open desk
+  run400   You open Your Desk. Inside Your Desk is Gun Holster, Your Cell Phone, Neatly Wrapped Gift and Your Badge.
+  scarier  You open Your Desk. Inside Your Desk are Gun Holster, Your Cell Phone, Neatly Wrapped Gift and Your Badge.
+
+turn 2  x desk
+  run400   This is your desk, the appitomy of clutter and despair. Your Desk is open. Your Coffee Mug and The Memo are on Your Desk, and inside is Gun Holster, Your Cell Phone, Neatly Wrapped Gift and Your Badge.
+  scarier  This is your desk, the appitomy of clutter and despair. Your Desk is open. Your Coffee Mug and The Memo are on Your Desk, and inside are Gun Holster, Your Cell Phone, Neatly Wrapped Gift and Your Badge.
+
+turn 3  take all from desk
+  run400   You take Your Coffee Mug, Gun Holster, Your Cell Phone, Neatly Wrapped Gift, Your Badge and The Memo from Your Desk.
+  scarier  You take Your Coffee Mug, Gun Holster, Your Cell Phone, Neatly Wrapped Gift, Your Badge and the Memo from Your Desk.
+
+turn 5  burn memo
+  run400   I don't understand what you want me to do with The Memo.
+  scarier  You incinerate the The Memo with a Zippo you found somewhere. It gives you a warm feeling inside.
+
+turn 17  take warehouse key
+  run400   You take The Warehouse Key from Case File 10193.
+  scarier  You take the Warehouse Key from Case File 10193.
+
+turn 33  u
+  run400   (Getting off A Stool first) You move up. Your Apartment This is your apartment. Clothes are stewn about the floor. Your couch, the best friend you have besides Ruth, looks inviting. The light from your fish tank illuminates your computer desk and the coffee table. A TV sits unplugged in one corner. You're a rip snortin' hottie, woof! You can move down and out.
+  scarier  (Getting off the Stool first) You move up. Your Apartment This is your apartment. Clothes are stewn about the floor. Your couch, the best friend you have besides Ruth, looks inviting. The light from your fish tank illuminates your computer desk and the coffee table. A TV sits unplugged in one corner. You're a rip snortin' hottie, woof! You can move down and out.
+
+turn 69  buzzer
+  run400   I don't understand what you want me to do with A Buzzer.
+  scarier  Your incurable curiosity gets the better part of you again and you reach out and push the buzzer.
+
+turn 80  the end
+  run400   Nope! "I'm not sure how I should feel saying this, Nathan, to be glad you've grown to be such a strong and smart young man, or to be sad that I can't protect you anymore. Either way," your father says as he extends his hand to you, "Welcome to the Resistance." You smile without knowing why as you grip it in return. You scored 285 out of the maximum 299! That is 95% of the game! You finished 14 points short. [Press any key to end]
+  scarier  Nope! "I'm not sure how I should feel saying this, Nathan, to be glad you've grown to be such a strong and smart young man, or to be sad that I can't protect you anymore. Either way," your father says as he extends his hand to you, "Welcome to the Resistance." You smile without knowing why as you grip it in return. You scored 296 out of the maximum 299! That is 98% of the game! You finished 3 points short. [Press any key to end]
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

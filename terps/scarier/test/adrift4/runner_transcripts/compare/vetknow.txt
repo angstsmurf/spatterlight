@@ -1,0 +1,12 @@
+feed        121 commands
+runner      121 turns echoed
+scarier     121 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 12  x shelf
+  run400   Most of the products on the shelves are not worth stealing. The owner's poor eyesight means that the food here is usually out of date, and the hygiene could also be improved. However, there are often a few items that look interesting and worth taking. On the shelf is a can of black paint, a box of sleeping pills and a toy World title belt.
+  scarier  Most of the products on the shelves are not worth stealing. The owner's poor eyesight means that the food here is usually out of date, and the hygiene could also be improved. However, there are often a few items that look interesting and worth taking. On the shelf are a can of black paint, a box of sleeping pills and a toy World title belt.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

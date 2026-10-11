@@ -1,0 +1,49 @@
+feed        93 commands
+runner      93 turns echoed
+scarier     94 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 10  go to 1
+  run400   You feel fuzzy, and suddenly...nothing. [Press any key to continue] Mihokosa Barrens The objective is to kill all beasts in the dungeon. This dungeon is ranked: 1 for Beginner. You can leave at any time by typing flee, however significant experience points penalties will incur. Don't be afraid to flee because it's better than dying, which means game over. Begin. Buzzard hits you, but it doesn't seem to do any damage.
+  scarier  You feel fuzzy, and suddenly...nothing. [Press any key to continue] Mihokosa Barrens The objective is to kill all beasts in the dungeon. This dungeon is ranked: 1 for Beginner. You can leave at any time by typing flee, however significant experience points penalties will incur. Don't be afraid to flee because it's better than dying, which means game over. Begin. The buzzard hits you, but it doesn't seem to do any damage.
+
+turn 21  w
+  run400   You move west. Mihokosa Barrens Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky. A venemous buzzard is here. Buzzard hits you, but it doesn't seem to do any damage.
+  scarier  You move west. Mihokosa Barrens Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky. A venemous buzzard is here. The buzzard hits you, but it doesn't seem to do any damage.
+
+turn 22  kill venemous buzzard with sword
+  run400   You hit buzzard with the light sword. Buzzard hits you, but it doesn't seem to do any damage.
+  scarier  You hit the buzzard with the light sword. The buzzard hits you, but it doesn't seem to do any damage.
+
+turn 23  kill venemous buzzard with sword
+  run400   You hit buzzard with the light sword. The buzzard drops.
+  scarier  You hit the buzzard with the light sword. The buzzard drops.
+
+turn 26  w
+  run400   You move west. Mihokosa Barrens Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky. A venemous buzzard is here. Buzzard hits you, but it doesn't seem to do any damage.
+  scarier  You move west. Mihokosa Barrens Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky. A venemous buzzard is here. The buzzard hits you, but it doesn't seem to do any damage.
+
+turn 27  kill venemous buzzard with sword
+  run400   You hit buzzard with the light sword. Buzzard hits you, but it doesn't seem to do any damage.
+  scarier  You hit the buzzard with the light sword. The buzzard hits you, but it doesn't seem to do any damage.
+
+turn 28  kill venemous buzzard with sword
+  run400   You hit buzzard with the light sword. Buzzard hits you, but it doesn't seem to do any damage.
+  scarier  You hit the buzzard with the light sword. The buzzard hits you, but it doesn't seem to do any damage.
+
+turn 29  kill venemous buzzard with sword
+  run400   You hit buzzard with the light sword. The buzzard drops.
+  scarier  You hit the buzzard with the light sword. The buzzard drops.
+
+turn 31  n
+  run400   You move north. Mihokosa Barrens Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky. A venemous buzzard is here. Buzzard hits you, but it doesn't seem to do any damage.
+  scarier  You move north. Mihokosa Barrens Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky. A venemous buzzard is here. The buzzard hits you, but it doesn't seem to do any damage.
+
+turn 32  kill venemous buzzard with sword
+  run400   You hit buzzard with the light sword. Buzzard hits you, but it doesn't seem to do any damage.
+  scarier  You hit the buzzard with the light sword. The buzzard hits you, but it doesn't seem to do any damage.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

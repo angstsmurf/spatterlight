@@ -1,0 +1,12 @@
+feed        151 commands
+runner      151 turns echoed
+scarier     151 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 0  open glovebox
+  run400   You open the glovebox. Inside the glovebox is your penknife, your mobile phone and your mobile phone charger.
+  scarier  You open the glovebox. Inside the glovebox are your penknife, your mobile phone and your mobile phone charger.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,63 @@
+feed        356 commands
+runner      356 turns echoed
+scarier     357 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 68  open desk
+  run400   Your old desk at school generally had an assortment of weapons in it: knives, bayonets and maces being your favouritesssss. The owner of this desk clearly wasn't of the same temperament as you, though, as all you find inside are some ancient flowers (now withered away), a bible and a small, empty bottle. After a moment's hesitation, you take the bible and the bottle, and leave the flowers where they are.
+  scarier  Your old desk at school generally had an assortment of weapons in it: knives, bayonets and maces being your favourites. The owner of this desk clearly wasn't of the same temperament as you, though, as all you find inside are some ancient flowers (now withered away), a bible and a small, empty bottle. After a moment's hesitation, you take the bible and the bottle, and leave the flowers where they are.
+
+turn 72  x tapestry three
+  run400   You can't see that.
+  scarier  This depicts a great bear of a man standing on a blue field and carrying a halberd. About him are strewn the corpses of many fallen enemies. A little plaque beneath the tapestry indicates this man to be "Gulgrin Smersh, 5th Lord of Castle Vuurgheim".
+
+turn 76  x tapestry six
+  run400   You can't see that.
+  scarier  This tapestry is badly burnt, but you can still see the man shown there: a snake-like fellow with beady eyes, clutching fingers and hollow cheeks. The plague beneath the tapestry says his name to be "Eccles Montoron, 8th Lord of Castle Vuurgheim".
+
+turn 80  nw -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   Kitchen Many, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west. [MORE] As you step into the kitchen, senses alert for trouble, the sound of a door opening and closing somewhere to the west can be heard. At the same time, you hear a voice that you thought never to hear again: "Bulldog - that you, ol' buddy?" If that isn't your imagination playing tricks with you (unlikely as you don't have an imagination), that's the voice of none other than Tiberius 'The Tiger' Tugmore, your arch rival from your days at the SAS Training Academy. And a man you thought was long dead. But then into the room steps none other than The Tiger. He looks... not good. [MORE] The years clearly haven't been kind to him: he's lost one arm and had it replaced with a metallic one; the left side of his face is a scarred ruin; and he doesn't speak he booms. Probably due to the weird metal contraption he's got bolted to his throat. "Damnit, Bulldog," he says, "but you're still every bit as ugly as you were back when I first laid eyes on you." You grunt. You don't need to use a lot of insulting words; enough is carried in that one grunt to get your message across. Something flashes in The Tiger's one good eye. "That's a low one for sure, Bulldog. Damn, if I wasn't already planning to kill you anyway, I'd do it just for that." [MORE] You grunt a question. "Damn straight, ol' buddy. The Baron put out a message that he was looking for some muscle to help him organise a terrorist plot and there I was, recuperatin' in some crappy little hospital while they tried to sew my body back together after that little accident I had, and I thought 'hey, what a swell idea'. So here I am." He taps his metallic arm. "And I got a few toys besides." He taps the arm again. A bright flame starts to burn on the metal tip, where his hand should be. "Oh man, I'm gonna enjoy this!"
+  scarier  Kitchen M any, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west. [MORE] As you step into the kitchen, senses alert for trouble, the sound of a door opening and closing somewhere to the west can be heard. At the same time, you hear a voice that you thought never to hear again: "Bulldog - that you, ol' buddy?" If that isn't your imagination playing tricks with you (unlikely as you don't have an imagination), that's the voice of none other than Tiberius 'The Tiger' Tugmore, your arch rival from your days at the SAS Training Academy. And a man you thought was long dead. But then into the room steps none other than The Tiger. He looks... not good. [MORE] The years clearly haven't been kind to him: he's lost one arm and had it replaced with a metallic one; the left side of his face is a scarred ruin; and he doesn't speak he booms. Probably due to the weird metal contraption he's got bolted to his throat. "Damnit, Bulldog," he says, "but you're still every bit as ugly as you were back when I first laid eyes on you." You grunt. You don't need to use a lot of insulting words; enough is carried in that one grunt to get your message across. Something flashes in The Tiger's one good eye. "That's a low one for sure, Bulldog. Damn, if I wasn't already planning to kill you anyway, I'd do it just for that." [MORE] You grunt a question. "Damn straight, ol' buddy. The Baron put out a message that he was looking for some muscle to help him organise a terrorist plot and there I was, recuperatin' in some crappy little hospital while they tried to sew my body back together after that little accident I had, and I thought 'hey, what a swell idea'. So here I am." He taps his metallic arm. "And I got a few toys besides." He taps the arm again. A bright flame starts to burn on the metal tip, where his hand should be. "Oh man, I'm gonna enjoy this!"
+
+turn 87  get the tiger
+  run400   You take The Tiger.
+  scarier  You take the Tiger.
+
+turn 95  e -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   Kitchen Many, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west.
+  scarier  Kitchen M any, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west.
+
+turn 104  get treat
+  run400   The stove is bolted to the floor.
+  scarier  You take the treat from the iron stove.
+
+turn 112  get bone
+  run400   The stove is bolted to the floor.
+  scarier  You take the bone from the iron stove.
+
+turn 122  get cudgel
+  run400   The stove is bolted to the floor.
+  scarier  You take the explosive cudgel from the iron stove.
+
+turn 135  sw -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   Kitchen Many, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west.
+  scarier  Kitchen M any, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west.
+
+turn 185  give treat to merrick
+  run400   "That's no use to me," says Merrick.
+  scarier  "Hey, nice stuff," says Merrick. He chomps the treat down, almost choking on its minty goodness. "Damn good stuff that - cough! - treat!"
+
+turn 211  x window
+  run400   The window appears similar to some you have seen in churches over the yearsssss*. Except this one doesn't depict the Life of Jesus in wonderfully diverse colours. It depicts the Life of Grishtak. You can't help but feel that it isn't quite the same thing. * Not that you ever attend church, but when you've been pursuing terrorists for as long as you have it's inevitable that one of them is going to run through a church at some point.
+  scarier  The window appears similar to some you have seen in churches over the years*. Except this one doesn't depict the Life of Jesus in wonderfully diverse colours. It depicts the Life of Grishtak. You can't help but feel that it isn't quite the same thing. * Not that you ever attend church, but when you've been pursuing terrorists for as long as you have it's inevitable that one of them is going to run through a church at some point.
+
+turn 340  drop all
+  run400   You drop the letter, the cook book, the pendant, the journal, the handkerchief and the syringe.
+  scarier  You drop the letter, the cook book, the explosive cudgel, the pendant, the journal, the handkerchief and the syringe.
+
+... stopping after 10 differing turns
+4 turn(s) differed by whitespace only (1 not shown) -- see the note above.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

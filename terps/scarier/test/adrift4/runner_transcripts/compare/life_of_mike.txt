@@ -1,0 +1,32 @@
+feed        104 commands
+runner      104 turns echoed
+scarier     104 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 1  wear underwear
+  run400   You put on a underwear.
+  scarier  You put on the underwear.
+
+turn 2  wear socks
+  run400   You put on a socks.
+  scarier  You put on the socks.
+
+turn 3  wear pants
+  run400   You put on a pair of pants.
+  scarier  You put on the pair of pants.
+
+turn 4  wear shirt
+  run400   You put on a shirt.
+  scarier  You put on the shirt.
+
+turn 6  wear vans
+  run400   You put on a pair of vans.
+  scarier  You put on the pair of vans.
+
+turn 27  take truck keys
+  run400   Which keys. The mustang keys or the truck keys?
+  scarier  You take a truck keys from the closet.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

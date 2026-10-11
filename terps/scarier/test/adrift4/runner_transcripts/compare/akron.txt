@@ -1,0 +1,20 @@
+feed        44 commands
+runner      44 turns echoed
+scarier     44 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 14  remove sweatshirt
+  run400   You remove a grubby sweatshirt.
+  scarier  You remove the grubby sweatshirt.
+
+turn 15  remove jeans
+  run400   You remove a pair of ragged jeans.
+  scarier  You remove the pair of ragged jeans.
+
+turn 36  wear wedding ring
+  run400   You put on a wedding ring.
+  scarier  You put on the wedding ring.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

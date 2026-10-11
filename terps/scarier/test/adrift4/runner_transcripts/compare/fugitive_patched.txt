@@ -1,0 +1,12 @@
+feed        214 commands
+runner      214 turns echoed
+scarier     214 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 36  x soldier
+  run400   The soldier is wearing a khaki uniform and heavy boots. His face is painted with black stripes, as if he was going to a battle. On the unconscious soldier is a pistol, a knife and an assault rifle.
+  scarier  The soldier is wearing a khaki uniform and heavy boots. His face is painted with black stripes, as if he was going to a battle. On the unconscious soldier are a pistol, a knife and an assault rifle.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,12 @@
+feed        86 commands
+runner      86 turns echoed
+scarier     87 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 65  exam shelf
+  run400   Narrow and fairly long, the wooden shelf is about shoulder height. On the shelf is some apollo, some ares, some athena, some demeter, some hades, some helios, some hera, some hermes and some zeus.
+  scarier  Narrow and fairly long, the wooden shelf is about shoulder height. On the shelf are some apollo, some ares, some athena, some demeter, some hades, some helios, some hera, some hermes and some zeus.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

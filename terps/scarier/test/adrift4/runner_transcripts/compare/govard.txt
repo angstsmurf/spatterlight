@@ -36,5 +36,14 @@ turn 193  íàäåòü âñ¸
   run400   ß íàäåë çàìøåâûå øòàíû, ñòàðàÿ ðóáàøêà, êîæàíûå ñàïîãè, äîðîæíûé ïëàù, è êîæàíûé ïîÿñ.
   scarier  ß íàäåë çàìøåâûå øòàíû, ñòàðàÿ ðóáàøêà, êîæàíûå ñàïîãè, äîðîæíûé ïëàù è êîæàíûé ïîÿñ.
 
+turn 341  íàäåòü ïëàñòèí÷àòóþ êîëü÷óãó
+  run400   ß íàäåë ïëàñòèí÷àòóþ êîëü÷óãó.
+  scarier  Ñäåëàíî!
+
+turn 343  íàäåòü øëåì Áóðè
+  run400   ß íàäåë Áóðè øëåì.
+  scarier  Ñäåëàíî!
+
+... stopping after 10 differing turns
 (the openings differ too -- banner, graphics notice or the
  Runner's own startup lines; usually not an engine difference)

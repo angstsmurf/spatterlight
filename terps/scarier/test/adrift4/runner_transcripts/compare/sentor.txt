@@ -1,0 +1,18 @@
+feed        33 commands
+runner      31 turns echoed
+scarier     31 turns, feed[0] is scarier turn 0
+
+closing     feed[31:] quit|y -- the session's own quit; not compared
+
+RULE 2 -- every feed command was echoed.
+
+turn 14  slap Stefcho
+  run400   You hit skull, but it doesn't seem to do any damage.
+  scarier  You slap the litle skull And it open his eyes. -Welkome back master.
+
+turn 30  sacrifice Dimka Velichkova
+  run400   YOu hate this woman she kill's you and now you will show what is pain. After you finish the sacrifice KALI apears. You are now her favourite man. And she will helps you from this moment to the end of time. You became a favourite man of KALI and drom now you will live very very easy and good. You scored 12 out of the maximum 13! That is 92% of the game! You finished 1 points short. [Press any key to end]
+  scarier  YOu hate this woman she kill's you and now you will show what is pain. After you finish the sacrifice KALI apears. You are now her favourite man. And she will helps you from this moment to the end of time. You became a favourite man of KALI and drom now you will live very very easy and good. You scored 13 out of the maximum 13! That is 100% of the game! Well done - you scored maximum points! [Press any key to end]
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

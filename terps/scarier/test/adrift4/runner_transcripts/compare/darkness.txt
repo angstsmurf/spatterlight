@@ -1,0 +1,36 @@
+feed        100 commands
+runner      100 turns echoed
+scarier     100 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 2  open rucksack
+  run400   You open the rucksack. Inside the rucksack is a torch (flashlight), a thermos flask and a notepad.
+  scarier  You open the rucksack. Inside the rucksack are a torch (flashlight), a thermos flask and a notepad.
+
+turn 10  open cupboard
+  run400   You open the cupboard. Inside the battered cupboard is a sou'wester hat, a weatherproof coat and some weatherproof boots. As you open the cupboard you notice immediately that it only contains one pair of wet weather clothing. It should contain three, one for each of the crew. Two of the crew must be outside? You make a note about this in your notepad.
+  scarier  You open the cupboard. Inside the battered cupboard are a sou'wester hat, a weatherproof coat and some weatherproof boots. As you open the cupboard you notice immediately that it only contains one pair of wet weather clothing. It should contain three, one for each of the crew. Two of the crew must be outside? You make a note about this in your notepad.
+
+turn 13  open toolbox
+  run400   You open the toolbox. Inside the toolbox is a broken spark plug, a screwdriver and a spanner.
+  scarier  You open the toolbox. Inside the toolbox are a broken spark plug, a screwdriver and a spanner.
+
+turn 17  open locker
+  run400   You open the old locker. Inside the old locker is some ear defenders, a hard hat, some safety guidelines and a flare gun.
+  scarier  You open the old locker. Inside the old locker are some ear defenders, a hard hat, some safety guidelines and a flare gun.
+
+turn 27  open cupboard
+  run400   You open the cupboard. Inside the cupboard is a woolly jumper, some thermal underwear and a pair of socks.
+  scarier  You open the cupboard. Inside the cupboard are a woolly jumper, some thermal underwear and a pair of socks.
+
+turn 31  look on table
+  run400   The round metal table is just about large enough for three people to sit at. On the round table is the lighthouse log book, a plate and a mug.
+  scarier  The round metal table is just about large enough for three people to sit at. On the round table are the lighthouse log book, a plate and a mug.
+
+turn 36  x work bench
+  run400   You can see the work bench. On the work bench is the weather journal, the radio and an ashtray.
+  scarier  You can see the work bench. On the work bench are the weather journal, the radio and an ashtray.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

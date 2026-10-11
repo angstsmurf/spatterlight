@@ -1,0 +1,32 @@
+feed        186 commands
+runner      186 turns echoed
+scarier     186 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 4  x table
+  run400   A table... well, actually a former desk, but I don't use it for writing but for storage. It has a drawer. On the table is my PS2, my black jeans and my DVDs.
+  scarier  A table... well, actually a former desk, but I don't use it for writing but for storage. It has a drawer. On the table are my PS2, my black jeans and my DVDs.
+
+turn 10  open drawer
+  run400   I open the drawer. Inside the drawer is my wristwatch, a photograph and a ball pen.
+  scarier  I open the drawer. Inside the drawer are my wristwatch, a photograph and a ball pen.
+
+turn 11  look in drawer
+  run400   A drawer. It part of my table. The drawer is open. Inside the drawer is my wristwatch, a photograph and a ball pen.
+  scarier  A drawer. It part of my table. The drawer is open. Inside the drawer are my wristwatch, a photograph and a ball pen.
+
+turn 33  open cupboard
+  run400   I open the cupboard. Inside the cupboard is the dishes, my tea mug and a bag of green tea.
+  scarier  I open the cupboard. Inside the cupboard are the dishes, my tea mug and a bag of green tea.
+
+turn 34  look in cupboard
+  run400   A simple cupboard. The cupboard is open. Inside the cupboard is the dishes, my tea mug and a bag of green tea.
+  scarier  A simple cupboard. The cupboard is open. Inside the cupboard are the dishes, my tea mug and a bag of green tea.
+
+turn 44  look in wardrobe
+  run400   A wardrobe for coats and stuff. Inside the wardrobe is my school uniform, a coathanger and my denim jacket.
+  scarier  A wardrobe for coats and stuff. Inside the wardrobe are my school uniform, a coathanger and my denim jacket.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

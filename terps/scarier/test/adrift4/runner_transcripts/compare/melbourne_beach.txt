@@ -1,0 +1,12 @@
+feed        88 commands
+runner      88 turns echoed
+scarier     88 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 9  open case
+  run400   You open the instrument case. Inside the instrument case is a small bottle, a spit rag and a Monette trumpet.
+  scarier  You open the instrument case. Inside the instrument case are a small bottle, a spit rag and a Monette trumpet.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

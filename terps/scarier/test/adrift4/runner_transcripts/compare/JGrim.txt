@@ -1,0 +1,20 @@
+feed        103 commands
+runner      103 turns echoed
+scarier     103 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 20  open suitcase
+  run400   You open the dark suitcase. Inside the dark suitcase is a twin-pack prawn sandwich, a roll of sellotape and a copy of Sci-fi weekly.
+  scarier  You open the dark suitcase. Inside the dark suitcase are a twin-pack prawn sandwich, a roll of sellotape and a copy of Sci-fi weekly.
+
+turn 24  wear sunglasses
+  run400   You put on the pair of dark sunglasses. Looking good. Looking good.
+  scarier  You put on the pair of dark sunglasses. Looking good.
+
+turn 35  open toolbox
+  run400   You open the toolbox. Inside the toolbox is an amazing space tool, a collapsible wooden ruler, a pack of cigarettes and a small blowtorch.
+  scarier  You open the toolbox. Inside the toolbox are an amazing space tool, a collapsible wooden ruler, a pack of cigarettes and a small blowtorch.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

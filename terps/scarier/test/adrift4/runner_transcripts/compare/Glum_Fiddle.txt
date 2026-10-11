@@ -1,0 +1,12 @@
+feed        71 commands
+runner      71 turns echoed
+scarier     71 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 16  x pile of boulders
+  run400   The boulders are piled up across a small area of the valley. On the pile of boulders is a large pink, tasseled cushion, a lace doily, an oil lamp, a silver tray, a silver teapot, a wooden plank and a set of china cups.
+  scarier  The boulders are piled up across a small area of the valley. On the pile of boulders are a large pink, tasseled cushion, a lace doily, an oil lamp, a silver tray, a silver teapot, a wooden plank and a set of china cups.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

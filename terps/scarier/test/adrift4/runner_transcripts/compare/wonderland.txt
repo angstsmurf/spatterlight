@@ -1,0 +1,36 @@
+feed        78 commands
+runner      78 turns echoed
+scarier     79 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 64  eat mushroom
+  run400   You eat the mushroom. Such a warm little delight! Tastes kind of strange though... oh well. You feel miraculous! The horrific Red Queen attacks you with The great Staff of Hearts, but you manage to avoid it.
+  scarier  You eat the mushroom. Such a warm little delight! Tastes kind of strange though... oh well. You feel miraculous! The horrific Red Queen attacks you with the great Staff of Hearts, but you manage to avoid it.
+
+turn 66  attack red queen with knife
+  run400   You must be in the same room as the ethereal knife to be able to do anything with it. The horrific Red Queen attacks you with The great Staff of Hearts, but you manage to avoid it.
+  scarier  You must be in the same room as the ethereal knife to be able to do anything with it. The horrific Red Queen attacks you with the great Staff of Hearts, but you manage to avoid it.
+
+turn 68  attack red queen with knife
+  run400   You must be in the same room as the ethereal knife to be able to do anything with it. The horrific Red Queen attacks you with The great Staff of Hearts, but you manage to avoid it.
+  scarier  You must be in the same room as the ethereal knife to be able to do anything with it. The horrific Red Queen attacks you with the great Staff of Hearts, but you manage to avoid it.
+
+turn 70  attack red queen with knife
+  run400   You must be in the same room as the ethereal knife to be able to do anything with it. The horrific Red Queen attacks you with The great Staff of Hearts, but you manage to avoid it.
+  scarier  You must be in the same room as the ethereal knife to be able to do anything with it. The horrific Red Queen attacks you with the great Staff of Hearts, but you manage to avoid it.
+
+turn 72  attack red queen with knife
+  run400   You must be in the same room as the ethereal knife to be able to do anything with it. The horrific Red Queen attacks you with The great Staff of Hearts, but you manage to avoid it.
+  scarier  You must be in the same room as the ethereal knife to be able to do anything with it. The horrific Red Queen attacks you with the great Staff of Hearts, but you manage to avoid it.
+
+turn 74  get all
+  run400   There is nothing worth taking here. The horrific Red Queen attacks you with The great Staff of Hearts, but you manage to avoid it.
+  scarier  There is nothing worth taking here. The horrific Red Queen attacks you with the great Staff of Hearts, but you manage to avoid it.
+
+turn 76  e
+  run400   You can't go in any direction! The horrific Red Queen attacks you with The great Staff of Hearts, but you manage to avoid it.
+  scarier  You can't go in any direction! The horrific Red Queen attacks you with the great Staff of Hearts, but you manage to avoid it.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

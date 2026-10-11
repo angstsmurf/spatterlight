@@ -10,6 +10,10 @@ turn 18  open drawer
   run400   You open the drawer. Inside the drawer is some sheets, some gum and a remote.
   scarier  You open the drawer. Inside the drawer are some sheets, some gum and a remote.
 
+turn 22  get battery
+  run400   The Energizer battery is not inside the tub of Lego!
+  scarier  You take a Energizer battery from the specialized Lego piece.
+
 turn 24  get battery
   run400   Which battery. The Energizer battery or the Kodak battery?
   scarier  Which battery? The Energizer battery or the Kodak battery?

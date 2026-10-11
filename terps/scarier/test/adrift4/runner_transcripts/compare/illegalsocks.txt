@@ -1,0 +1,20 @@
+feed        48 commands
+runner      48 turns echoed
+scarier     51 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 34  get flashlight
+  run400   You take A Flashlight.
+  scarier  You take the Flashlight.
+
+turn 41  use teleporter
+  run400   You enter the Battle Dome of Dr. Myanus Hurts. You manage to avoid The Great Doctor's attack.
+  scarier  You enter the Battle Dome of Dr. Myanus Hurts. You manage to avoid the Great Doctor's attack.
+
+turn 46  s
+  run400   You move south. Battle Dome (Dr. Myanus Hurts) Let's Fight!!! Dr. Myanus Hurts and Quzar are here. You manage to avoid The Great Doctor's attack. The Great Doctor manages to avoid Quzar's attack.
+  scarier  You move south. Battle Dome (Dr. Myanus Hurts) Let's Fight!!! Dr. Myanus Hurts and Quzar are here. You manage to avoid the Great Doctor's attack. The Great Doctor manages to avoid Quzar's attack.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

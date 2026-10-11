@@ -1,0 +1,12 @@
+feed        248 commands
+runner      248 turns echoed
+scarier     248 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 111  get grease
+  run400   You take A lump of hard grease.
+  scarier  You take the lump of hard grease.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

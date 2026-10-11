@@ -456,6 +456,9 @@ Standing on the pedestal, and on your tiptoes, you pull something out from betwe
 > get off pedestal
 You take the wooden pedestal.  
 
+> get pedestal
+You already have the wooden pedestal.  
+
 > w
 (Getting off the wooden pedestal first)
 You move west.

@@ -1,0 +1,18 @@
+feed        28 commands
+runner      28 turns echoed
+scarier     29 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 14  x table
+  run400   Three players and the dealer sit around the table, paused midgame. Cards are scattered in front of the players, but there is a circular divot in front of the dealer. On the pontoon table is the jack of diamonds, the king of clubs, the queen of hearts, the queen of spades, the ace of spades, the four of diamonds, the seven of clubs, the two of hearts and the nine of clubs.
+  scarier  Three players and the dealer sit around the table, paused midgame. Cards are scattered in front of the players, but there is a circular divot in front of the dealer. On the pontoon table are the jack of diamonds, the king of clubs, the queen of hearts, the queen of spades, the ace of spades, the four of diamonds, the seven of clubs, the two of hearts and the nine of clubs.
+
+turn 27  out -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   You make your choice, and run. Out of the room, out of the building, as fast as you can. On the street, you grab the first car you see. You pull wires till they spark, then drive. Left side, right side, pavement, anyway you can. You drive away, out of the city. You're clearing the limits when you hear it. You see it in the rear view mirror next, a huge cloud racing you, chasing you. It's fast, but it's weaker when it hits you. The car flips rolls, as do you. You're thrown clear, you hit the ground hard, but you're alive. You're alive. But not a hero anymore. [Press a Key] Three Minutes to Live by Ren A Game Submitted for the Hourglass Competition Completed in: 179minutes [Press a Key]It's over. Restart, Restore or Quit?
+  scarier  You make your choice, and run. Out of the room, out of the building, as fast as you can. On the street, you grab the first car you see. You pull wires till they spark, then drive. Left side, right side, pavement, anyway you can. You drive away, out of the city. You're clearing the limits when you hear it. You see it in the rear view mirror next, a huge cloud racing you, chasing you. It's fast, but it's weaker when it hits you. The car flips rolls, as do you. You're thrown clear, you hit the ground hard, but you're alive. You're alive. But not a hero anymore. [Press a Key] Three Minutes to Live by Ren A Game Submitted for the Hourglass Competition Completed in: 179minutes [Press a Key] It's over. Restart, Restore or Quit?
+
+1 turn(s) differed by whitespace only -- see the note above.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,12 @@
+feed        163 commands
+runner      163 turns echoed
+scarier     165 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 9  examine desk
+  run400   Ostensibly a locale for your study habits, your desk came with the room, meaning that it was purchased on sale during the 1960's. It succeeds admirably in its main task, which is to keep your computer, lamp, and coffee maker off of the ground. On your desk is Your green Backpack, a ballpoint pen, mailbox key and your wallet.
+  scarier  Ostensibly a locale for your study habits, your desk came with the room, meaning that it was purchased on sale during the 1960's. It succeeds admirably in its main task, which is to keep your computer, lamp, and coffee maker off of the ground. On your desk are Your green Backpack, a ballpoint pen, mailbox key and your wallet.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

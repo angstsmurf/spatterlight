@@ -1,0 +1,28 @@
+feed        116 commands
+runner      116 turns echoed
+scarier     116 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 12  down
+  run400   You move down. The light orbs reveal a barren area with exits leading out in all directions except down. Currently however, all exits are being blocked off by heavy iron bars, which slid into place the moment you entered from the cavern. There is a cystal lock in the north passage, just out of reach. a monkey is here.
+  scarier  You move down. The light orbs reveal a barren area with exits leading out in all directions except down. Currently however, all exits are being blocked off by heavy iron bars, which slid into place the moment you entered from the cavern. There is a cystal lock in the north passage, just out of reach. A monkey is here.
+
+turn 20  w
+  run400   You move west. The light orbs reveal a barren area with exits leading out in all directions except down. a monkey is here.
+  scarier  You move west. The light orbs reveal a barren area with exits leading out in all directions except down. A monkey is here.
+
+turn 25  n
+  run400   You move north. The light orbs reveal a barren area with exits leading out in all directions except down. a monkey is here. A brilliant flash of white light momentarily blinds you. In that instance, a vague memory exists in your mind, the key to the mystery of how you got here. But as quickly as it came, it is gone again.
+  scarier  You move north. The light orbs reveal a barren area with exits leading out in all directions except down. A monkey is here. A brilliant flash of white light momentarily blinds you. In that instance, a vague memory exists in your mind, the key to the mystery of how you got here. But as quickly as it came, it is gone again.
+
+turn 28  w
+  run400   You move west. The light orbs reveal a barren area with exits leading out in all directions except down. a monkey is here.
+  scarier  You move west. The light orbs reveal a barren area with exits leading out in all directions except down. A monkey is here.
+
+turn 34  e
+  run400   You move east. The light orbs reveal a barren area with exits leading out in all directions except down. a monkey is here.
+  scarier  You move east. The light orbs reveal a barren area with exits leading out in all directions except down. A monkey is here.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

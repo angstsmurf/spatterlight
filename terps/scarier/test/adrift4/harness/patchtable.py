@@ -31,7 +31,12 @@ def _strings(text):
             i += 1
             lit = []
             while text[i] != '"':
-                if text[i] == "\\":
+                hexed = re.match(r"\\x([0-9a-fA-F]+)", text[i:])
+                if hexed:
+                    # As C reads it: every hex digit that follows, one byte.
+                    lit.append(chr(int(hexed.group(1), 16) & 0xff))
+                    i += hexed.end()
+                elif text[i] == "\\":
                     lit.append({"n": "\n", "t": "\t", "r": "\r"}.get(text[i + 1],
                                                                      text[i + 1]))
                     i += 2

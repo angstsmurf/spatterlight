@@ -1,0 +1,12 @@
+feed        47 commands
+runner      47 turns echoed
+scarier     48 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 10  take mirror
+  run400   Joe take the small mirror from the purse.
+  scarier  Joe takes the small mirror from the purse.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

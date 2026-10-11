@@ -1,0 +1,12 @@
+feed        55 commands
+runner      55 turns echoed
+scarier     55 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 44  n
+  run400   (Getting off that first) You move north. Mel's kitchen It's Mel's and it's a kitchen. You can move north and south.
+  scarier  (Getting off the stool first) You move north. Mel's kitchen It's Mel's and it's a kitchen. You can move north and south.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

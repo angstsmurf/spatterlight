@@ -1,0 +1,16 @@
+feed        40 commands
+runner      40 turns echoed
+scarier     40 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 6  open desk
+  run400   You open the desk. Inside the desk is a pen, a calculator and a key.
+  scarier  You open the desk. Inside the desk are a pen, a calculator and a key.
+
+turn 22  x tool racks
+  run400   There are lots of tool racks which each have a set of tools on them. On tool racks is a saw, a hammer, jar of nails and some pliers.
+  scarier  There are lots of tool racks which each have a set of tools on them. On tool racks are a saw, a hammer, jar of nails and some pliers.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

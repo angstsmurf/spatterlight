@@ -1,0 +1,28 @@
+feed        245 commands
+runner      245 turns echoed
+scarier     245 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 91  wear scuba outfit
+  run400   I put on a scuba outfit.
+  scarier  I put on the scuba outfit.
+
+turn 100  remove outfit
+  run400   I remove a scuba outfit.
+  scarier  I remove the scuba outfit.
+
+turn 169  wear scuba outfit
+  run400   I put on a scuba outfit.
+  scarier  I put on the scuba outfit.
+
+turn 175  x cabinet
+  run400   The cabinet is made from wood, but appears to be much stronger than I would have thought. The door is open. Inside the old wooden cabinet is an old log book and a large bronze key.
+  scarier  The cabinet is made from wood, but appears to be much stronger than I would have thought. The door is open. Inside the old wooden cabinet are an old log book and a large bronze key.
+
+turn 211  ask her about good time
+  run400   (Suzie) Suzie looks me up and down. "You're quite nice, but that's not why you're here."
+  scarier  (Suzie) "Oh, that. That'll be referring to my musical talents."
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

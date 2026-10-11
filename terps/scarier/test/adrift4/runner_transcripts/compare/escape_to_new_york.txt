@@ -1,0 +1,49 @@
+feed        227 commands
+runner      227 turns echoed
+scarier     227 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 8  open suitcase
+  run400   You open the suitcase. Inside the suitcase is a receipt, some wires and a bank note.
+  scarier  You open the suitcase. Inside the suitcase are a receipt, some wires and a bank note.
+
+turn 33  open suitcase
+  run400   You open the suitcase. Inside the suitcase is a receipt, some wires, a bank note and a tie pin.
+  scarier  You open the suitcase. Inside the suitcase are a receipt, some wires, a bank note and a tie pin.
+
+turn 40  open suitcase
+  run400   You open the suitcase. Inside the suitcase is some wires, a bank note and a tie pin. The postal clerk rubs his chin.
+  scarier  You open the suitcase. Inside the suitcase are some wires, a bank note and a tie pin. The postal clerk rubs his chin.
+
+turn 60  open suitcase
+  run400   You open the suitcase. Inside the suitcase is some wires, a bank note, a coin and a tie pin. The barber moves his weight from one foot to the other.
+  scarier  You open the suitcase. Inside the suitcase are some wires, a bank note, a coin and a tie pin. The barber moves his weight from one foot to the other.
+
+turn 77  open suitcase
+  run400   You open the suitcase. Inside the suitcase is some wires, a coin and a tie pin.
+  scarier  You open the suitcase. Inside the suitcase are some wires, a coin and a tie pin.
+
+turn 85  exam table
+  run400   This dining table is mahogany with a crimson upholstery surface. On the dining table is a menu, a plate, a leaflet and a silver coffee pot.
+  scarier  This dining table is mahogany with a crimson upholstery surface. On the dining table are a menu, a plate, a leaflet and a silver coffee pot.
+
+turn 87  open suitcase
+  run400   You open the suitcase. Inside the suitcase is some wires, a coin, a silver flask and a tie pin.
+  scarier  You open the suitcase. Inside the suitcase are some wires, a coin, a silver flask and a tie pin.
+
+turn 98  open suitcase
+  run400   You open the suitcase. Inside the suitcase is some wires, a coin, a silver flask, a silver coffee pot and a tie pin.
+  scarier  You open the suitcase. Inside the suitcase are some wires, a coin, a silver flask, a silver coffee pot and a tie pin.
+
+turn 107  open suitcase
+  run400   You open the suitcase. Inside the suitcase is a coin, a ring, a silver flask, a silver coffee pot and a tie pin.
+  scarier  You open the suitcase. Inside the suitcase are a coin, a ring, a silver flask, a silver coffee pot and a tie pin.
+
+turn 120  open suitcase
+  run400   You open the suitcase. Inside the suitcase is a coin, a ring, a silver flask, a silver coffee pot, a brooch, an expensive fountain pen and a tie pin.
+  scarier  You open the suitcase. Inside the suitcase are a coin, a ring, a silver flask, a silver coffee pot, a brooch, an expensive fountain pen and a tie pin.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

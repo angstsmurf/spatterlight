@@ -1,0 +1,48 @@
+feed        1060 commands
+runner      1060 turns echoed
+scarier     1060 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 101  X table
+  run400   The oval display table is finely crafted from highly polished wood. On the oval table is an amphora, a tennis racquet and a slate.
+  scarier  The oval display table is finely crafted from highly polished wood. On the oval table are an amphora, a tennis racquet and a slate.
+
+turn 110  X table
+  run400   The triangular display table is finely crafted from highly polished wood. On the triangular table is some swimming goggles, a watch, a musket and a china doll.
+  scarier  The triangular display table is finely crafted from highly polished wood. On the triangular table are some swimming goggles, a watch, a musket and a china doll.
+
+turn 120  X table
+  run400   The crescent-shaped display table is finely crafted from highly polished wood. On the crescent table is a claw, a swimming cap and a bronze key.
+  scarier  The crescent-shaped display table is finely crafted from highly polished wood. On the crescent table are a claw, a swimming cap and a bronze key.
+
+turn 185  X case
+  run400   The rectangular display table is finely crafted from highly polished wood. On the rectangular table is an amphora, some swimming goggles, a watch, a claw and a swimming cap.
+  scarier  The rectangular display table is finely crafted from highly polished wood. On the rectangular table are an amphora, some swimming goggles, a watch, a claw and a swimming cap.
+
+turn 219  Put sweet on plinth
+  run400   Okay. Okay. I put the sweet on the plinth.
+  scarier  Okay. I put the sweet on the plinth.
+
+turn 397  X wine
+  run400   A fine red wine. It has been a good year for Chateau Widdershins. Inside the wine is a golden casket, a fish and a bone.
+  scarier  A fine red wine. It has been a good year for Chateau Widdershins. Inside the wine are a golden casket, a fish and a bone.
+
+turn 443  Put coin in slot
+  run400   Okay. Okay. I put the coin in the slot. The dispenser gives an appreciative wheeze.
+  scarier  Okay. I put the coin in the slot. The dispenser gives an appreciative wheeze.
+
+turn 820  Put bag on stool
+  run400   Okay. Okay. I put the bag of porridge on the stool. There is a harsh grating noise from the east. Slowly but surely the metal door begins to slide open.
+  scarier  Okay. I put the bag of porridge on the stool. There is a harsh grating noise from the east. Slowly but surely the metal door begins to slide open.
+
+turn 920  Put sapphire in chute
+  run400   Okay. Okay. Okay. I put the sapphire inside the S chute. "No time to lose," cries Dennis, "We've got a fire to put out."
+  scarier  Okay. I put the sapphire inside the S chute. "No time to lose," cries Dennis, "We've got a fire to put out."
+
+turn 939  Put ruby in chute
+  run400   Okay. Okay. I put the ruby inside the R chute.
+  scarier  Okay. I put the ruby inside the R chute.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

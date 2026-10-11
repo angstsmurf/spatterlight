@@ -1,0 +1,12 @@
+feed        86 commands
+runner      86 turns echoed
+scarier     86 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 25  take necko wafers
+  run400   Take what?
+  scarier  You pick up the pack of necko wafers .
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

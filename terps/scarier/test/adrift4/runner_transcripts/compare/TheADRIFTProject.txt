@@ -1,0 +1,12 @@
+feed        101 commands
+runner      101 turns echoed
+scarier     103 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 74  where is sweeper
+  run400   ADRIFT-O-Sweep is the adrift-o-lift . (Right next to you silly!) "The bomb has to blow soon. I just know it. I probably shouldn't have activated it yet."
+  scarier  ADRIFT-O-Sweep is the adrift-o-lift . (Right next to you, silly!) "The bomb has to blow soon. I just know it. I probably shouldn't have activated it yet."
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,40 @@
+feed        71 commands
+runner      71 turns echoed
+scarier     71 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 36  i
+  run400   You are carrying a newspaper, an umbrella, an Easter basket, your wallet and a keychain. Inside the Easter basket is a strip of candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans and a lollipop. A few bills and a couple of photographs are inside your wallet.
+  scarier  You are carrying a newspaper, an umbrella, an Easter basket, your wallet and a keychain. Inside the Easter basket are a strip of candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans and a lollipop. A few bills and a couple of photographs are inside your wallet.
+
+turn 38  i
+  run400   You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a keychain and Max's list. Inside the Easter basket is a strip of candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans and a lollipop. A few bills and a couple of photographs are inside your wallet.
+  scarier  You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a keychain and Max's list. Inside the Easter basket are a strip of candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans and a lollipop. A few bills and a couple of photographs are inside your wallet.
+
+turn 43  i
+  run400   You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a keychain, a macaroon and Max's list. Inside the Easter basket is a strip of candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans and a lollipop. A few bills and a couple of photographs are inside your wallet.
+  scarier  You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a keychain, a macaroon and Max's list. Inside the Easter basket are a strip of candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans and a lollipop. A few bills and a couple of photographs are inside your wallet.
+
+turn 45  i
+  run400   You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a keychain and Max's list. Inside the Easter basket is a strip of candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop. A few bills and a couple of photographs are inside your wallet.
+  scarier  You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a keychain and Max's list. Inside the Easter basket are a strip of candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop. A few bills and a couple of photographs are inside your wallet.
+
+turn 60  i
+  run400   You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note, your wallet, a keychain and Max's list. Inside the Easter basket is a strip of candy dots, a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop. A few bills and a couple of photographs are inside your wallet.
+  scarier  You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note, your wallet, a keychain and Max's list. Inside the Easter basket are a strip of candy dots, a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop. A few bills and a couple of photographs are inside your wallet.
+
+turn 63  i
+  run400   You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note, your wallet, a keychain, a token and Max's list. Inside the Easter basket is a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop. A few bills and a couple of photographs are inside your wallet.
+  scarier  You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note, your wallet, a keychain, a token and Max's list. Inside the Easter basket are a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop. A few bills and a couple of photographs are inside your wallet.
+
+turn 66  i
+  run400   You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note, your wallet, a keychain, a gumball and Max's list. Inside the Easter basket is a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop. A few bills and a couple of photographs are inside your wallet.
+  scarier  You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note, your wallet, a keychain, a gumball and Max's list. Inside the Easter basket are a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop. A few bills and a couple of photographs are inside your wallet.
+
+turn 68  i
+  run400   You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note, your wallet, a keychain and Max's list. Inside the Easter basket is a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans, a macaroon, a gumball and a lollipop. A few bills and a couple of photographs are inside your wallet. "Don't forget to look up, if you haven't tried that yet. You never know where things may be hiding in this store, so you'll have to look around carefully." The shopkeeper's helpful voice rings out across the store.
+  scarier  You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note, your wallet, a keychain and Max's list. Inside the Easter basket are a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans, a macaroon, a gumball and a lollipop. A few bills and a couple of photographs are inside your wallet. "Don't forget to look up, if you haven't tried that yet. You never know where things may be hiding in this store, so you'll have to look around carefully." The shopkeeper's helpful voice rings out across the store.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

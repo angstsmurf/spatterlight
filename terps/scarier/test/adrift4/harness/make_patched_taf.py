@@ -37,6 +37,7 @@ from taftool import unpack as taf_unpack
 from tafpretty import Parser, TafPrettyError
 
 MISSING = object()
+DELETED = object()
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -223,6 +224,14 @@ def emit_element(version: str, element: str, values: dict) -> list[str]:
             raise PatchError("ADRIFT 3.9 has no task action type 5")
         raw["Type"] = engine_type - 1 if engine_type > 5 else engine_type
 
+    # Likewise a 3.9 variable restriction's Var1, read back with a +1 above 0.
+    if "|V390_TASK_RESTR:Var1>0?#Var1++|" in descriptor \
+            and int(values.get("Type", 0)) == 4:
+        engine_var1 = int(values.get("Var1", 0))
+        if engine_var1 == 1:
+            raise PatchError("ADRIFT 3.9 has no restriction variable 1")
+        raw["Var1"] = engine_var1 - 1 if engine_var1 > 1 else engine_var1
+
     lines: list[str] = []
 
     def test(expression: str) -> bool:
@@ -259,7 +268,13 @@ def emit_element(version: str, element: str, values: dict) -> list[str]:
                 if test(m2.group(1)):
                     walk(m2.group(2), ",")
             elif ch == "|":
-                if element_ != "|V390_TASK_ACTION:Type>4?#Type++|":
+                if element_ == "|V400_TASK_RESTR:Type>4?#Var1,#Var2,#Var3|":
+                    # only a damaged record has a Type the reader has to skip
+                    if int(values.get("Type", 0)) > 4:
+                        raise PatchError("cannot write a restriction of "
+                                         "Type %s" % values.get("Type"))
+                elif element_ not in ("|V390_TASK_ACTION:Type>4?#Type++|",
+                                      "|V390_TASK_RESTR:Var1>0?#Var1++|"):
                     raise PatchError(f"cannot write past fixup {element_!r}")
             else:
                 raise PatchError(f"cannot write element {element_!r}")
@@ -285,6 +300,8 @@ def plan(rec: Recorder, game: dict, lines: list[str], edits: list[dict]):
     insert: dict[int, list[str]] = {}
     notes: list[str] = []
     appends: dict[str, dict[int, dict]] = {}
+    dropped: list[str] = []
+    masks: dict[str, tuple] = {}
 
     for edit in edits:
         path, mode = edit["path"], edit["kind"]
@@ -327,6 +344,18 @@ def plan(rec: Recorder, game: dict, lines: list[str], edits: list[dict]):
             replace[at] = new
             notes.append("line %6d  %-44s %s -> %s"
                          % (at + 1, path, lines[at], new))
+            # a room list that stops being Type 1 loses its one #Room line
+            room = rec.terms.get(key(path.split("/")[:-1] + ["Room"]))
+            if path.endswith("/Type") and room is not None \
+                    and norm(actual) == 1 and to != 1:
+                if to == 2:
+                    raise PatchError("%s: cannot turn one room into a room "
+                                     "table" % path)
+                replace[room["line"]] = DELETED
+                dropped.append(key(path.split("/")[:-1] + ["Room"]))
+                notes.append("line %6d  %-44s - %s"
+                             % (room["line"] + 1, dropped[-1],
+                                lines[room["line"]]))
             continue
 
         if mode not in ("ADD", "ADD_STRING"):
@@ -336,6 +365,13 @@ def plan(rec: Recorder, game: dict, lines: list[str], edits: list[dict]):
                              % (path, actual))
         value = edit["to_integer"] if mode == "ADD" else edit["to_string"]
         parts = path.split("/")
+
+        # Before 4.0 the mask is not in the file: the reader writes "#A#..."
+        # for however many restrictions there are (parse_write_restrmask()).
+        # Adding one is adding the restrictions; just hold it to that shape.
+        if parts[-1] == "RestrMask" and rec.version != "4.00":
+            masks[key(parts[:-1] + ["Restrictions"])] = (path, value)
+            continue
 
         # a ROOM_LIST0 that has just been given Type 1 gains one #Room line
         if parts[-1] == "Room" and key(parts[:-1] + ["Type"]) in rec.terms:
@@ -362,6 +398,15 @@ def plan(rec: Recorder, game: dict, lines: list[str], edits: list[dict]):
         appends.setdefault(vector, {}).setdefault(index, {})[
             field[0] if field else None] = value
 
+    for vector, (path, value) in masks.items():
+        record = rec.vecs.get(vector)
+        total = len(appends.get(vector, {})) + (record["count"] if record else 0)
+        if record is None or record["count"] or \
+                value != "#" + "A#" * (total - 1):
+            raise PatchError("%s: %r is not the mask ADRIFT %s gives %d new "
+                             "restriction(s)" % (path, value, rec.version, total))
+        notes.append("             %-44s (implied) %s" % (path, value))
+
     for vector, byindex in sorted(appends.items()):
         record = rec.vecs[vector]
         wanted = list(range(record["count"], record["count"] + len(byindex)))
@@ -379,14 +424,66 @@ def plan(rec: Recorder, game: dict, lines: list[str], edits: list[dict]):
         notes.append("line %6d  %-44s %s -> %s  (+%d element(s), %d line(s))"
                      % (count_at + 1, vector + "/#", lines[count_at],
                         replace[count_at], len(byindex), len(new)))
-    return replace, insert, notes
+    return replace, insert, notes, dropped
+
+
+def lower_v380(version: str, game: dict, edits: list[dict]) -> list[dict]:
+    """Table edits on a 3.7/3.8 task's restrictions, as edits to the file.
+
+    The table names the 4.0 restrictions the reader builds out of a 3.8 task's
+    fixed fields (parse_fixup_v380_task_restrictions()); the file has only the
+    fields.  One shape is understood, The Twilight's: the object-state test
+    (Obj2, Obj2Var1 in/on, Obj2Var2 the holder) names a static, which the
+    reader turns into "the preceding dynamic object, in nothing" -- Var3 0.
+    Giving Var3 its holder back is, in the file, naming that dynamic object
+    in Obj2: the reader then builds the very restriction the table asks for.
+    """
+    if version == "4.00" or version == "3.90":
+        return edits
+    out = []
+    for edit in edits:
+        m = re.match(r"(Tasks/(\d+))/Restrictions/(\d+)/(\w+)$", edit["path"])
+        if not m:
+            out.append(edit)
+            continue
+        base, task, field = m.group(1), game["Tasks"][int(m.group(2))], m.group(4)
+        others = ("WearObj1", "WearObj2", "HoldObj1", "HoldObj2", "HoldObj3",
+                  "Obj1", "Task", "NPC")
+        if int(m.group(3)) != 0 or any(norm(task.get(k, 0)) for k in others):
+            raise PatchError("%s: only a task whose one restriction is its "
+                             "object-state test can be edited" % edit["path"])
+        obj = int(task.get("Obj2", 0))
+        new = dict(edit)
+        if edit["kind"] == "VERIFY" and field == "FailMessage":
+            new["path"] = base + "/Obj2Msg"
+        elif edit["kind"] == "SET" and field == "Var3":
+            objects = game["Objects"]
+            if not (obj > 0 and objects[obj - 1].get("Static")
+                    and int(task.get("Obj2Var1", 0)) in (1, 2)
+                    and edit["from_integer"] == 0
+                    and int(task.get("Obj2Var2", 0)) == edit["to_integer"]):
+                raise PatchError("%s: not a static named where the holder %d "
+                                 "already stands" % (edit["path"],
+                                                     edit["to_integer"]))
+            dynamic = [i for i in range(obj - 1) if not objects[i].get("Static")]
+            if not dynamic:
+                raise PatchError("%s: no dynamic object precedes object %d"
+                                 % (edit["path"], obj))
+            new.update(path=base + "/Obj2", from_integer=obj,
+                       to_integer=dynamic[-1] + 1)
+        else:
+            raise PatchError("%s: cannot express this edit in an ADRIFT %s "
+                             "file" % (edit["path"], version))
+        out.append(new)
+    return out
 
 
 def apply_edits(lines: list[str], replace: dict, insert: dict) -> list[str]:
     out: list[str] = []
     for at, line in enumerate(lines):
         out += insert.get(at, [])
-        out.append(replace.get(at, line))
+        if replace.get(at) is not DELETED:
+            out.append(replace.get(at, line))
     out += insert.get(len(lines), [])
     return out
 
@@ -412,7 +509,8 @@ def diff(a, b, path=(), out=None):
     return out
 
 
-def verify(before: dict, after: dict, edits: list[dict]) -> list[str]:
+def verify(before: dict, after: dict, edits: list[dict],
+           dropped: list[str] = ()) -> list[str]:
     wanted = {}
     for edit in edits:
         if edit["kind"] in ("SET", "SET_BOOL"):
@@ -432,11 +530,16 @@ def verify(before: dict, after: dict, edits: list[dict]) -> list[str]:
                 raise PatchError("%s: patched file has %r -> %r, table asks "
                                  "%r -> %r" % (path, was, now, want_was, want_now))
             seen.add(path)
+        elif path in dropped and now is MISSING:
+            notes.append("%s: %r gone with its room list's Type" % (path, was))
         elif was is MISSING and now in (0, "", False):
             notes.append("%s: %r (schema default of a new element)" % (path, now))
         else:
             raise PatchError("%s: unasked-for change %r -> %r" % (path, was, now))
     for path in sorted(set(wanted) - seen):
+        if path.endswith("/RestrMask") and wanted[path][0] is MISSING \
+                and get_path(after, path) is MISSING:
+            continue            # pre-4.0: implied by the restrictions, see plan()
         raise PatchError("%s: the table asks for an edit the file did not take"
                          % path)
     return notes
@@ -471,11 +574,12 @@ def make(source: str, out: str | None, quiet: bool = False) -> str:
     if entry is None:
         raise PatchError("no patch table entry for %r by %r" % (name, author))
 
-    replace, insert, notes = plan(rec, game, lines, entry["edits"])
+    edits = lower_v380(version, game, entry["edits"])
+    replace, insert, notes, dropped = plan(rec, game, lines, edits)
     patched = apply_edits(lines, replace, insert)
     new_plain = ("\r\n".join(patched) + tail).encode("latin-1")
     _, after = parse(version, new_plain)
-    defaults = verify(game, after, entry["edits"])
+    defaults = verify(game, after, edits, dropped)
 
     if not quiet:
         print("%s  (ADRIFT %s)" % (source, version))

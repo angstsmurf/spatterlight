@@ -1,0 +1,28 @@
+feed        18 commands
+runner      18 turns echoed
+scarier     19 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 4  s
+  run400   You move south. A dirt path Ugly thing is here. You can move north, east and west. An ugly thing hits you. Leon hits An ugly thing.
+  scarier  You move south. A dirt path Ugly thing is here. You can move north, east and west. An ugly thing hits you. Leon hits an ugly thing.
+
+turn 8  u
+  run400   You move up. Tower Floor 3 A bow sits in the center of the room guarded by yet another vine. Another patch of moss leads up. Also here are A Bow of Icy Arrows. Animated Vine is here. You can move up and down. An alive vine hits you. Leon hits An alive vine.
+  scarier  You move up. Tower Floor 3 A bow sits in the center of the room guarded by yet another vine. Another patch of moss leads up. Also here is A Bow of Icy Arrows. Animated Vine is here. You can move up and down. An alive vine hits you. Leon hits an alive vine.
+
+turn 9  get bow of icy arrows
+  run400   You pick up A Bow of Icy Arrows. An alive vine hits Leon, but it doesn't seem to do any damage. Leon hits An alive vine.
+  scarier  You pick up the Bow of Icy Arrows. An alive vine hits Leon, but it doesn't seem to do any damage. Leon hits an alive vine.
+
+turn 12  drop bow of icy arrows
+  run400   You drop A Bow of Icy Arrows.
+  scarier  You drop the Bow of Icy Arrows.
+
+turn 15  u
+  run400   You move up. Final tower room. The tree has once again converted into a tower. A man with bushes all around him and vines for arms sits there. Tree Master is here. You can only move down. A man made out of plants hits you. Leon hits A man made out of plants.
+  scarier  You move up. Final tower room. The tree has once again converted into a tower. A man with bushes all around him and vines for arms sits there. Tree Master is here. You can only move down. A man made out of plants hits you. Leon hits a man made out of plants.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

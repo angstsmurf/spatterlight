@@ -1,0 +1,12 @@
+feed        125 commands
+runner      125 turns echoed
+scarier     126 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 8  open cabinet
+  run400   You open the cabinet. Inside the cabinet is a wallet, a luggage slip, a fountain pen and a brooch.
+  scarier  You open the cabinet. Inside the cabinet are a wallet, a luggage slip, a fountain pen and a brooch.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

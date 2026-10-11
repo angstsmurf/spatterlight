@@ -1,0 +1,14 @@
+feed        56 commands
+runner      54 turns echoed
+scarier     54 turns, feed[0] is scarier turn 0
+
+closing     feed[54:] quit|y -- the session's own quit; not compared
+
+RULE 2 -- every feed command was echoed.
+
+turn 10  e
+  run400   You move east. The Clergyman's Right Big Toe The Clergyman's Right Big Toe. It's almost completley empty. The Clergyman's Right Big Toe. It's almost completley empty and half of it's missing. a shifty looking guy is here. You can move south and west.
+  scarier  You move east. The Clergyman's Right Big Toe The Clergyman's Right Big Toe. It's almost completley empty. The Clergyman's Right Big Toe. It's almost completley empty and half of it's missing. A shifty looking guy is here. You can move south and west.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

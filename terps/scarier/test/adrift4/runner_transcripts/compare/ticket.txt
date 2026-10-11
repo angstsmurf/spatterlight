@@ -1,0 +1,24 @@
+feed        329 commands
+runner      329 turns echoed
+scarier     329 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 20  x table
+  run400   It's a very old rickety table. It has no table cloth and you can see years of dirty stains on it. On the table is a cup, an old sandwich and a paperback.
+  scarier  It's a very old rickety table. It has no table cloth and you can see years of dirty stains on it. On the table are a cup, an old sandwich and a paperback.
+
+turn 66  x desk
+  run400   An old battered desk. It is that type of furniture which probably looked old and battered when it was new. The desk is closed. On the desk is a notepad, a pen and a note.
+  scarier  An old battered desk. It is that type of furniture which probably looked old and battered when it was new. The desk is closed. On the desk are a notepad, a pen and a note.
+
+turn 120  x bag of shopping
+  run400   It is one of those plastic bags given out by Supermarkets. Inside the bag of shopping is a pair of tights, a tin of pet food, a can of deodorant and a pair of gloves.
+  scarier  It is one of those plastic bags given out by Supermarkets. Inside the bag of shopping are a pair of tights, a tin of pet food, a can of deodorant and a pair of gloves.
+
+turn 151  where is young girl
+  run400   Young Girl is bridge. (Right next to you silly!)
+  scarier  Young Girl is bridge. (Right next to you, silly!)
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

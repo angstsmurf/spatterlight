@@ -1,0 +1,28 @@
+feed        487 commands
+runner      487 turns echoed
+scarier     487 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 164  open blank box
+  run400   I open the blank box. Inside the blank box is a red orb, an orange orb, a yellow orb, a green orb, a blue orb, an indigo orb and a violet orb.
+  scarier  I open the blank box. Inside the blank box are a red orb, an orange orb, a yellow orb, a green orb, a blue orb, an indigo orb and a violet orb.
+
+turn 287  attack riven
+  run400   Which riven. Red riven or Blue riven?
+  scarier  Which riven? Red riven or Blue riven?
+
+turn 290  attack riven
+  run400   Which riven. Red riven or Blue riven?
+  scarier  Which riven? Red riven or Blue riven?
+
+turn 293  attack riven
+  run400   Which riven. Red riven or Blue riven?
+  scarier  Which riven? Red riven or Blue riven?
+
+turn 296  attack riven
+  run400   Which riven. Red riven or Blue riven?
+  scarier  Which riven? Red riven or Blue riven?
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

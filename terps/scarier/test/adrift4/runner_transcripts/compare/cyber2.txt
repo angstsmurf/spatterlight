@@ -1,0 +1,12 @@
+feed        29 commands
+runner      29 turns echoed
+scarier     29 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 7  open teleporter
+  run400   You open The Teleporter.
+  scarier  You open the Teleporter.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,16 @@
+feed        18 commands
+runner      18 turns echoed
+scarier     18 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 4  take key
+  run400   You take The Attic Key from the dresser.
+  scarier  You take the Attic Key from the dresser.
+
+turn 6  unlock attic door with key
+  run400   You unlock attic door with The Attic Key.
+  scarier  You unlock attic door with the Attic Key.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

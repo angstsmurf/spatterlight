@@ -1,0 +1,12 @@
+feed        53 commands
+runner      53 turns echoed
+scarier     53 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 23  x night table
+  run400   A small black night table whitch stand beside your bed. On the night table is the picture, a book and a cellular phone.
+  scarier  A small black night table whitch stand beside your bed. On the night table are the picture, a book and a cellular phone.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

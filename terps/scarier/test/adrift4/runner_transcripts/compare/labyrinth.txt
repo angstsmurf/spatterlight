@@ -1,0 +1,12 @@
+feed        25 commands
+runner      25 turns echoed
+scarier     27 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 4  open chest
+  run400   Inside the battered wooden chest is a leather backpack, a small knife and servicable clothes.
+  scarier  Inside the battered wooden chest are a leather backpack, a small knife and servicable clothes.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,12 @@
+feed        65 commands
+runner      65 turns echoed
+scarier     65 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 47  x wardrobe
+  run400   The wardrobe is an fairly new and made from a finely polished wood. The wardrobe is open. The suitcase is on the wardrobe, and inside is a leather jacket and an assortment of shoes.
+  scarier  The wardrobe is an fairly new and made from a finely polished wood. The wardrobe is open. The suitcase is on the wardrobe, and inside are a leather jacket and an assortment of shoes.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -349,6 +349,7 @@
 /goldens/studio_patched_solution.txt
 /goldens/studio_patched_solution.expected.txt
 /runner_transcripts/**/studio.*
+/runner_transcripts/**/studio_patched.*
 
 # fun town.taf (AIF): explicit text, deliberately not committed.
 /goldens/funtown_solution.txt

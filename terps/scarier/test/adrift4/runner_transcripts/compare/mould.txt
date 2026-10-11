@@ -1,0 +1,12 @@
+feed        304 commands
+runner      304 turns echoed
+scarier     305 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 139  look in bag
+  run400   Someone has obviously dropped a shopping bag in this area, as they ran for the exits. Inside the shopping bag is a teddy bear, a bottle of vinegar and a lemon.
+  scarier  Someone has obviously dropped a shopping bag in this area, as they ran for the exits. Inside the shopping bag are a teddy bear, a bottle of vinegar and a lemon.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

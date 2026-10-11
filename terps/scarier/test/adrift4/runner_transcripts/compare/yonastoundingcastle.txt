@@ -1,0 +1,20 @@
+feed        189 commands
+runner      189 turns echoed
+scarier     189 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 17  unlock table
+  run400   Ye unlock ye dirty table with ye grimy key. Sensing ye no longer requireth ye grimy key, ye discardeth of it in yon stewpot. Man... ye betteth yon stew shall tasteth inexorably funky by now.
+  scarier  Ye unlocketh ye dirty table with ye grimy key. Sensing ye no longer requireth ye grimy key, ye discardeth of it in yon stewpot. Man... ye betteth yon stew shall tasteth inexorably funky by now.
+
+turn 23  x rack
+  run400   'Tis ye rack for belt-holding. Ah, ye thinketh ye get it now. This place must be ye olde beltery! On ye belt rack is ye magic belt, ye intercontinental title and yon other belts.
+  scarier  'Tis ye rack for belt-holding. Ah, ye thinketh ye get it now. This place must be ye olde beltery! On ye belt rack are ye magic belt, ye intercontinental title and yon other belts.
+
+turn 174  unlock door
+  run400   Ye unlock yon golden door with ye golden key. Thereafter ye discardeth ye golden key with nary a second thought.
+  scarier  Ye unlocketh yon golden door with ye golden key. Thereafter ye discardeth ye golden key with nary a second thought.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

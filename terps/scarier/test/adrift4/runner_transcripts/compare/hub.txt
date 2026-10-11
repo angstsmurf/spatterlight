@@ -1,0 +1,16 @@
+feed        112 commands
+runner      112 turns echoed
+scarier     112 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 9  x sofa
+  run400   The sofa is a three-seater, taking up a large part of the middle of the living room. Marta bought it from a sofa-shop in Kensington. Her new salary has been kitting our terrace out in a manner not really fitting to its size. On the sofa is a can of fosters, a can of becks and some crumbs.
+  scarier  The sofa is a three-seater, taking up a large part of the middle of the living room. Marta bought it from a sofa-shop in Kensington. Her new salary has been kitting our terrace out in a manner not really fitting to its size. On the sofa are a can of fosters, a can of becks and some crumbs.
+
+turn 79  put soup in pan
+  run400   I put that inside the saucepan.
+  scarier  The soup slides easy out of the can and into the saucepan. I throw the can into the bin.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,12 @@
+feed        5 commands
+runner      5 turns echoed
+scarier     5 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 3  put knife in slot
+  run400   Your penknife is too big to fit inside the slot. A quick push and the button in the slot operates a quick release allowing the cargo door to lower under it's own weight. The door hit's the ground with a crash.
+  scarier  A quick push and the button in the slot operates a quick release allowing the cargo door to lower under it's own weight. The door hit's the ground with a crash.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

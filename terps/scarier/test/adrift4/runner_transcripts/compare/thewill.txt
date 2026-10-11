@@ -1,0 +1,20 @@
+feed        243 commands
+runner      243 turns echoed
+scarier     243 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 109  get off pedestal -- streams re-synchronised, scarier turn +1
+
+turn 110  get pedestal
+  run400   You already have the wooden pedestal.
+  scarier  You move west. Bedroom You have arrived in a room, used primarily for sleeping, that lies just off the west end of the hallway. It is furnished with a double bed, an armoire, and a floor-length mirror. The armoire has been moved to one side, revealing a small closet to the south.
+
+turn 111  w
+  run400   (Getting off the wooden pedestal first) You move west. Bedroom You have arrived in a room, used primarily for sleeping, that lies just off the west end of the hallway. It is furnished with a double bed, an armoire, and a floor-length mirror. The armoire has been moved to one side, revealing a small closet to the south.
+  scarier  The ashes stick to the oily writing making the previously transparent writing readable. It looks like a series of numbers...103221.
+
+turn 112  throw ashes at mirror -- streams re-synchronised, scarier turn -1
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

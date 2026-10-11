@@ -1,0 +1,12 @@
+feed        82 commands
+runner      82 turns echoed
+scarier     82 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 23  x stainless steel lab table
+  run400   The levels of the table are as easily accessible as the other. The steel table is used to hold experiments and lab equipment. On the stainless steel lab table is a genetic sampler, a growth vat and an electron microscope.
+  scarier  The levels of the table are as easily accessible as the other. The steel table is used to hold experiments and lab equipment. On the stainless steel lab table are a genetic sampler, a growth vat and an electron microscope.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

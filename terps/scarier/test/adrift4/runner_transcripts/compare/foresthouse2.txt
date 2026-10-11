@@ -1,0 +1,12 @@
+feed        34 commands
+runner      34 turns echoed
+scarier     34 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 1  open dresser
+  run400   You open the dresser. Inside the dresser is the socks, the thick sweater and mother's desk key.
+  scarier  You open the dresser. Inside the dresser are the socks, the thick sweater and mother's desk key.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

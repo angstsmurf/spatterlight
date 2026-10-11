@@ -1,0 +1,12 @@
+feed        11 commands
+runner      11 turns echoed
+scarier     11 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 0  open compartment
+  run400   You open the small storage compartment. Inside the small storage compartment is the environmental suit, the PLS-1 and the rations.
+  scarier  You open the small storage compartment. Inside the small storage compartment are the environmental suit, the PLS-1 and the rations.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,24 @@
+feed        182 commands
+runner      182 turns echoed
+scarier     182 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 7  open refrigerator
+  run400   You open the big white refrigerator. Inside the big white refrigerator is an old bottle of milk (you think), old meat, a bottle of heinz ketchup, a large bottle of mustard and a moxie. Your ears are rudely awakened by the sound of a skill saw screaming and scraping through some lumber off in the distance.
+  scarier  You open the big white refrigerator. Inside the big white refrigerator are an old bottle of milk (you think), old meat, a bottle of heinz ketchup, a large bottle of mustard and a moxie. Your ears are rudely awakened by the sound of a skill saw screaming and scraping through some lumber off in the distance.
+
+turn 10  open kitchen cupboard
+  run400   You open the kitchen cupboard. Inside the kitchen cupboard is yummy pop-tarts and a can of corn.
+  scarier  You open the kitchen cupboard. Inside the kitchen cupboard are yummy pop-tarts and a can of corn.
+
+turn 17  open storage chest
+  run400   You open the wooden storage chest. Inside the wooden storage chest is a skill saw, a crow bar, a crappy baseball glove and an old baseball bat. Electricity rips through your spine as your ears are attacked by one of Art's coughing fits. It ends after several seconds and you wonder if he's dead.
+  scarier  You open the wooden storage chest. Inside the wooden storage chest are a skill saw, a crow bar, a crappy baseball glove and an old baseball bat. Electricity rips through your spine as your ears are attacked by one of Art's coughing fits. It ends after several seconds and you wonder if he's dead.
+
+turn 57  wear crappy baseball glove
+  run400   You put on a crappy baseball glove. Your ears are rudely awakened by the sound of a skill saw screaming and scraping through some lumber off in the distance.
+  scarier  You put on the crappy baseball glove. Your ears are rudely awakened by the sound of a skill saw screaming and scraping through some lumber off in the distance.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,16 @@
+feed        23 commands
+runner      23 turns echoed
+scarier     25 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 14  kill troll
+  run400   You hit The Small Troll with the mage staff. The Small Troll hits you.
+  scarier  You hit the Small Troll with the mage staff. The Small Troll hits you.
+
+turn 15  kill troll
+  run400   You hit The Small Troll with the mage staff.
+  scarier  You hit the Small Troll with the mage staff.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

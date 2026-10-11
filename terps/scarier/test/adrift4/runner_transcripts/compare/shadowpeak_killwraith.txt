@@ -1,0 +1,49 @@
+feed        569 commands
+runner      569 turns echoed
+scarier     569 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 28  s
+  run400   You move south. Shadow Forest. The impassable Kuskarian Range mountains can be seen to the north. Also here is a very large log. Fang is here. You can move north, east and west. Seeker hums! Seeker hums! Wolf cuts you with the fine set of teeth in its muzzle, but it doesn't seem to do any damage.
+  scarier  You move south. Shadow Forest. The impassable Kuskarian Range mountains can be seen to the north. Also here is a very large log. Fang is here. You can move north, east and west. Seeker hums! Seeker hums! The wolf cuts you with the fine set of teeth in its muzzle, but it doesn't seem to do any damage.
+
+turn 57  take vial
+  run400   You take the vial from the sarcophagus. Wraith hits you, but it doesn't seem to do any damage. Seeker hums!
+  scarier  You take the vial from the sarcophagus. The wraith hits you, but it doesn't seem to do any damage. Seeker hums!
+
+turn 58  attack alam nadeer
+  run400   You stab wraith with the sword. Wraith hits you, but it doesn't seem to do any damage. Seeker hums!
+  scarier  You stab the wraith with the sword. The wraith hits you, but it doesn't seem to do any damage. Seeker hums!
+
+turn 59  attack alam nadeer
+  run400   You stab wraith with the sword. With a sigh of relief, you finally put Alam Nadeer to rest. His body dissipates into the air. The wraith is no more. Glowing writing appears on the floor of the room. It reads, "When all is lost and the end is nigh, leave this place and reach for the sky." The writing then fades away.
+  scarier  You stab the wraith with the sword. With a sigh of relief, you finally put Alam Nadeer to rest. His body dissipates into the air. The wraith is no more. Glowing writing appears on the floor of the room. It reads, "When all is lost and the end is nigh, leave this place and reach for the sky." The writing then fades away.
+
+turn 92  open large wooden chest
+  run400   You open large wooden chest. Inside large wooden chest is a small copper ring, a pile of rubble and a triangular piece of metal.
+  scarier  You open large wooden chest. Inside large wooden chest are a small copper ring, a pile of rubble and a triangular piece of metal.
+
+turn 107  s
+  run400   You move south. The Village Square. It looks like a typical village square, yet all the market stalls and shops appear abandoned. West leads to one such shop; east leads to a blacksmiths, while south leads further into the village. Also here is a market stall and a Well. You can move north, east, south, west and down. Jarris staggers in from the east. Seeker hums! You manage to avoid zombie's attack. Fetlar shouts, "Good luck, buddy friend. I'm off for a nap. All this flapping about has made me feel rather tired." Fetlar flies off.
+  scarier  You move south. The Village Square. It looks like a typical village square, yet all the market stalls and shops appear abandoned. West leads to one such shop; east leads to a blacksmiths, while south leads further into the village. Also here is a market stall and a Well. You can move north, east, south, west and down. Jarris staggers in from the east. Seeker hums! You manage to avoid the zombie's attack. Fetlar shouts, "Good luck, buddy friend. I'm off for a nap. All this flapping about has made me feel rather tired." Fetlar flies off.
+
+turn 108  attack jarris
+  run400   You stab zombie with the sword. You see a horrible sight. Arthur, one of the village zombies, is pulling himself along by his arms, as his legs have long since been eaten away. Jarris lumbers off to the west.
+  scarier  You stab the zombie with the sword. You see a horrible sight. Arthur, one of the village zombies, is pulling himself along by his arms, as his legs have long since been eaten away. Jarris lumbers off to the west.
+
+turn 110  attack jarris
+  run400   You stab zombie with the sword. Jarris slumps to the floor and dies with his toothy grin still imprinted on his face. Arthur pulls himself away to below.
+  scarier  You stab the zombie with the sword. Jarris slumps to the floor and dies with his toothy grin still imprinted on his face. Arthur pulls himself away to below.
+
+turn 113  attack holga
+  run400   You stab zombie with the sword. Holga keels over and is at last put to rest. Her undead hand is loosely holding a garlic bud.
+  scarier  You stab the zombie with the sword. Holga keels over and is at last put to rest. Her undead hand is loosely holding a garlic bud.
+
+turn 123  attack arthur
+  run400   You stab zombie with the sword. Arthur falls face down as he his finally put out of his misery.
+  scarier  You stab the zombie with the sword. Arthur falls face down as he his finally put out of his misery.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

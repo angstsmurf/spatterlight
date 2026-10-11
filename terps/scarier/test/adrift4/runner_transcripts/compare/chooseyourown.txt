@@ -1,0 +1,12 @@
+feed        52 commands
+runner      52 turns echoed
+scarier     53 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 4  4
+  run400   "I have told you everything you need to know about von Lastmeer," says the man, and from his tone it is obvious he has no intention of telling you anything else. ""Now. Your answer: will you kill von Lastmeer or not?" [1] Say you will do it. [2] Refuse to have anything to do with him. [3] Shout for help.
+  scarier  "I have told you everything you need to know about von Lastmeer," says the man, and from his tone it is obvious he has no intention of telling you anything else. "Now. Your answer: will you kill von Lastmeer or not?" [1] Say you will do it. [2] Refuse to have anything to do with him. [3] Shout for help.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

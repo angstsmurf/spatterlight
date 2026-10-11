@@ -1,0 +1,12 @@
+feed        89 commands
+runner      89 turns echoed
+scarier     90 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 29  x body
+  run400   "Yeh, let's rob 'im!" coos Lisa. "See wot ee's got!" ""I'm not robbing him, Lisa," you say testily. "I'm... I'm, well..." "Wot?" "Just be quiet. I'm trying to see what he's got." Ignoring her protests, you gingerly search through the pockets of the dead man and find... nothing. Whoever he was, he isn't carrying any form of ID, or maybe it was taken off him after he died. You find no money, no credit cards, not even a key. In fact, all you do find is a crash helmet that was lying at the side of him. You wonder why it was left behind while everything else he had was taken, although when Lisa lifts the helmet up (to "gi' it der once over!") you notice a massive crack down one side. Mystery solved. "I think I'd better take that," you say, holding your hand out for the helmet. Lisa looks about to protest then sticks her tongue out at you and drops the helmet with a thud on the floor. "Wuz really 'eavy anyway," she says. You bend down and snatch up the helmet.
+  scarier  "Yeh, let's rob 'im!" coos Lisa. "See wot ee's got!" "I'm not robbing him, Lisa," you say testily. "I'm... I'm, well..." "Wot?" "Just be quiet. I'm trying to see what he's got." Ignoring her protests, you gingerly search through the pockets of the dead man and find... nothing. Whoever he was, he isn't carrying any form of ID, or maybe it was taken off him after he died. You find no money, no credit cards, not even a key. In fact, all you do find is a crash helmet that was lying at the side of him. You wonder why it was left behind while everything else he had was taken, although when Lisa lifts the helmet up (to "gi' it der once over!") you notice a massive crack down one side. Mystery solved. "I think I'd better take that," you say, holding your hand out for the helmet. Lisa looks about to protest then sticks her tongue out at you and drops the helmet with a thud on the floor. "Wuz really 'eavy anyway," she says. You bend down and snatch up the helmet.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)
