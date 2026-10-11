@@ -1518,6 +1518,13 @@ extern void if_update_graphic (const scr_char *filepath,
  * SCARIER_DUMP_TOOLS.
  */
 #ifdef SCARIER_DUMP_TOOLS
+#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 95)
+extern void scr_dump_log (const char *format, ...)
+  __attribute__ ((__format__ (__printf__, 1, 2)));
+#else
+extern void scr_dump_log (const char *format, ...);
+#endif
+extern void scr_dump_flush (void);
 extern void scr_dump_structure_once (scr_gameref_t game);
 extern void scr_dump_npc_trace (scr_gameref_t game);
 extern scr_bool scr_tracing_deviations (void);

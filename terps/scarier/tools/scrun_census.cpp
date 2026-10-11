@@ -463,8 +463,8 @@ run_census_task_t::report ()
     {
       census.dead++;
       if (getenv ("SCR_CENSUS_DEAD"))
-        fprintf (stderr, "CENSUS dead task=%ld line=\"%s\"\n", task,
-                 lines[0].c_str ());
+        scr_dump_log ("CENSUS dead task=%ld line=\"%s\"\n", task,
+              lines[0].c_str ());
     }
   else
     {
@@ -474,10 +474,10 @@ run_census_task_t::report ()
         joined += (joined.empty () ? "" : " | ") + command;
       census.woken++;
       census.by_reason[woke_reason]++;
-      fprintf (stderr, "CENSUS woken task=%ld via=%s line=\"%s\""
-               " ran=\"%s\" cmds={%s}\n", task, REASONS[woke_reason],
-               woke_line.c_str (), woke_ran.c_str (),
-               joined.substr (0, 400).c_str ());
+      scr_dump_log ("CENSUS woken task=%ld via=%s line=\"%s\""
+            " ran=\"%s\" cmds={%s}\n", task, REASONS[woke_reason],
+            woke_line.c_str (), woke_ran.c_str (),
+            joined.substr (0, 400).c_str ());
     }
 }
 
@@ -606,8 +606,8 @@ run_census_t::cross_line (const scr_char *verb, const std::string &name)
   if (woke < 0)
     return;
   if (getenv ("SCR_CENSUS_CROSS_LINES"))
-    fprintf (stderr, "CENSUS crossline task=%ld line=\"%s\"\n", woke,
-             typed.c_str ());
+    scr_dump_log ("CENSUS crossline task=%ld line=\"%s\"\n", woke,
+          typed.c_str ());
   if (cross_lines[woke]++ == 0)
     {
       crossed++;
@@ -639,22 +639,22 @@ run_census_t::report_cross () const
           for (const scr_char *pattern :
                run_task_command_patterns (game, task, forwards))
             joined += (joined.empty () ? "" : " | ") + std::string (pattern);
-        fprintf (stderr, "CENSUS cross task=%ld via=%s lines=%ld"
-                 " line=\"%s\" ran=\"%s\" cmds={%s}\n", task,
-                 REASONS[cross_via[task]], cross_lines[task],
-                 cross_first[task].c_str (), cross_ran[task].c_str (),
-                 joined.substr (0, 400).c_str ());
+        scr_dump_log ("CENSUS cross task=%ld via=%s lines=%ld"
+              " line=\"%s\" ran=\"%s\" cmds={%s}\n", task,
+              REASONS[cross_via[task]], cross_lines[task],
+              cross_first[task].c_str (), cross_ran[task].c_str (),
+              joined.substr (0, 400).c_str ());
       }
 }
 
 void
 run_census_t::summary () const
 {
-  fprintf (stderr, "CENSUS summary tasks=%ld runner_reachable=%ld dead=%ld"
-           " woken=%ld separator=%ld spelling=%ld lenient=%ld crossed=%ld\n",
-           task_count, reachable, dead, woken, by_reason[0], by_reason[1],
-           by_reason[2], crossed);
-  fflush (stderr);
+  scr_dump_log ("CENSUS summary tasks=%ld runner_reachable=%ld dead=%ld"
+        " woken=%ld separator=%ld spelling=%ld lenient=%ld crossed=%ld\n",
+        task_count, reachable, dead, woken, by_reason[0], by_reason[1],
+        by_reason[2], crossed);
+  scr_dump_flush ();
 }
 
 } /* namespace */

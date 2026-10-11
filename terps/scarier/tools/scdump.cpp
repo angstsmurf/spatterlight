@@ -95,6 +95,33 @@
 
 
 /*
+ * scr_dump_log()
+ * scr_dump_flush()
+ *
+ * The one sink every dump, trace and census line in tools/ goes through.
+ * It is stderr, so the harnesses can keep the instrumentation apart from
+ * the game's own stdout transcript (and 2>&1 interleaves them in order,
+ * because stderr is unbuffered).  A harness that wants the output
+ * somewhere else changes these two functions and nothing else.
+ */
+void
+scr_dump_log (const char *format, ...)
+{
+  va_list ap;
+
+  va_start (ap, format);
+  vfprintf (stderr, format, ap);
+  va_end (ap);
+}
+
+void
+scr_dump_flush (void)
+{
+  fflush (stderr);
+}
+
+
+/*
  * scdump_resolve_object()
  * scdump_object_name()
  *
@@ -154,8 +181,8 @@ scdump_rule_table (scr_prop_setref_t bundle, const scr_char *collection,
       orig = prop_get_string (bundle, "S<-sis", yk);
       yk[2].string = "Replacement";
       repl = prop_get_string (bundle, "S<-sis", yk);
-      fprintf (stderr, "%s [%s] -> [%s]\n",
-               label, orig ? orig : "", repl ? repl : "");
+      scr_dump_log ("%s [%s] -> [%s]\n",
+            label, orig ? orig : "", repl ? repl : "");
     }
 }
 
@@ -197,7 +224,7 @@ scdump_battle_ranges (scr_prop_setref_t bundle, const scr_char *format,
           else
             hi = 0;
         }
-      fprintf (stderr, " %s=%ld-%ld", attrs[a], lo, hi);
+      scr_dump_log (" %s=%ld-%ld", attrs[a], lo, hi);
     }
 }
 
@@ -225,7 +252,7 @@ scdump_alr_table (scr_gameref_t game)
 
   yk[0].string = "ALRs";
   yc = prop_get_child_count (bundle, "I<-s", yk);
-  fprintf (stderr, "ALRCOUNT %ld\n", yc);
+  scr_dump_log ("ALRCOUNT %ld\n", yc);
   for (yi = 0; yi < yc; yi++)
     {
       scr_int alr;
@@ -245,12 +272,10 @@ scdump_alr_table (scr_gameref_t game)
         orig = "";
       if (!repl)
         repl = "";
-      fprintf (stderr, "ALR %lu %lu\n",
-               (unsigned long) strlen (orig),
-               (unsigned long) strlen (repl));
-      fwrite (orig, 1, strlen (orig), stderr);
-      fwrite (repl, 1, strlen (repl), stderr);
-      fputc ('\n', stderr);
+      scr_dump_log ("ALR %lu %lu\n",
+            (unsigned long) strlen (orig),
+            (unsigned long) strlen (repl));
+      scr_dump_log ("%s%s\n", orig, repl);
     }
 }
 
@@ -366,26 +391,25 @@ scdump_objloc (scr_gameref_t game)
             swk[2].string = "Parent";
             if (prop_get (bundle, "I<-sis", &bv, swk))
               rawpar = bv.integer;
-            fprintf (stderr, "OBJLOC-RAWPAR obj=%ld rawparent=%ld"
-                     " runner_parent=%ld\n",
-                     i, rawpar, gs_object_runner_parent (game, i));
+            scr_dump_log ("OBJLOC-RAWPAR obj=%ld rawparent=%ld"
+                  " runner_parent=%ld\n",
+                  i, rawpar, gs_object_runner_parent (game, i));
           }
-          fprintf (stderr,
-                   "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld"
-                   " static=%ld unmoved=%ld open=%ld state=%ld hit=%ld"
-                   " acc=%ld prot=%ld method=%ld sw=%ld size=%ld wt=%ld"
-                   " class=%ld burden=%ld [%s]\n",
-                   i, pos, room, par, eff,
-                   (scr_int) obj_is_static (game, i),
-                   (scr_int) gs_object_static_unmoved (game, i),
-                   gs_object_openness (game, i),
-                   gs_object_state (game, i),
-                   hit, acc, prot, method,
-                   sw, obj_get_size (game, i), obj_get_weight (game, i),
-                   swclass,
-                   obj_uses_burden_model (game)
-                     ? obj_get_burden (game, i) : 0,
-                   s ? s : "");
+          scr_dump_log ("OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld"
+                        " static=%ld unmoved=%ld open=%ld state=%ld hit=%ld"
+                        " acc=%ld prot=%ld method=%ld sw=%ld size=%ld wt=%ld"
+                        " class=%ld burden=%ld [%s]\n",
+                        i, pos, room, par, eff,
+                        (scr_int) obj_is_static (game, i),
+                        (scr_int) gs_object_static_unmoved (game, i),
+                        gs_object_openness (game, i),
+                        gs_object_state (game, i),
+                        hit, acc, prot, method,
+                        sw, obj_get_size (game, i), obj_get_weight (game, i),
+                        swclass,
+                        obj_uses_burden_model (game)
+                          ? obj_get_burden (game, i) : 0,
+                        s ? s : "");
         }
       }
     }
@@ -411,16 +435,15 @@ scdump_objloc (scr_gameref_t game)
     gk[1].string = "WeightMultiple";
     if (prop_get (bundle, "I<-ss", &gv, gk))
       wbase = gv.integer;
-    fprintf (stderr,
-             "PLAYERLIMITS rawmaxsize=%ld rawmaxwt=%ld size=%ld wt=%ld"
-             " sizebase=%ld wtbase=%ld burdenmodel=%ld maxburden=%ld\n",
-             max_size, max_wt,
-             obj_get_player_size_limit (game),
-             obj_get_player_weight_limit (game),
-             sbase, wbase,
-             (scr_int) obj_uses_burden_model (game),
-             obj_uses_burden_model (game)
-               ? obj_get_player_burden_limit (game) : 0);
+    scr_dump_log ("PLAYERLIMITS rawmaxsize=%ld rawmaxwt=%ld size=%ld wt=%ld"
+                  " sizebase=%ld wtbase=%ld burdenmodel=%ld maxburden=%ld\n",
+                  max_size, max_wt,
+                  obj_get_player_size_limit (game),
+                  obj_get_player_weight_limit (game),
+                  sbase, wbase,
+                  (scr_int) obj_uses_burden_model (game),
+                  obj_uses_burden_model (game)
+                    ? obj_get_player_burden_limit (game) : 0);
   }
 
   /*
@@ -430,12 +453,12 @@ scdump_objloc (scr_gameref_t game)
    * (written with no count in front of them).  Print both, so a .tas
    * rewriter -- tas40to39.py -- can walk a save it did not write.
    */
-  fprintf (stderr, "SAVEINFO battle=%ld rooms=%ld objects=%ld npcs=%ld\n",
-           (scr_int) battle_is_enabled (game), gs_room_count (game),
-           gs_object_count (game), gs_npc_count (game));
+  scr_dump_log ("SAVEINFO battle=%ld rooms=%ld objects=%ld npcs=%ld\n",
+        (scr_int) battle_is_enabled (game), gs_room_count (game),
+        gs_object_count (game), gs_npc_count (game));
   GS_FOR_EACH_NPC (game, i)
-    fprintf (stderr, "NPCINFO npc=%ld walksteps=%ld\n",
-             i, gs_npc_walkstep_count (game, i));
+    scr_dump_log ("NPCINFO npc=%ld walksteps=%ld\n",
+          i, gs_npc_walkstep_count (game, i));
 }
 
 
@@ -474,9 +497,9 @@ scdump_globals (scr_gameref_t game)
      */
     game_name = prop_get_global_string (bundle, "GameName");
     game_author = prop_get_global_string (bundle, "GameAuthor");
-    fprintf (stderr, "GAME version=%ld perspective=%ld name=[%s] author=[%s]\n",
-             version, perspective,
-             game_name ? game_name : "", game_author ? game_author : "");
+    scr_dump_log ("GAME version=%ld perspective=%ld name=[%s] author=[%s]\n",
+          version, perspective,
+          game_name ? game_name : "", game_author ? game_author : "");
   }
 
   /*
@@ -502,7 +525,7 @@ scdump_globals (scr_gameref_t game)
         vk[2].string = "Type";
         if (prop_get (bundle, "I<-sis", &vv, vk))
           type = vv.integer;
-        fprintf (stderr, "VAR %ld type=%ld [%s]\n", v, type, name ? name : "");
+        scr_dump_log ("VAR %ld type=%ld [%s]\n", v, type, name ? name : "");
       }
   }
 }
@@ -529,7 +552,7 @@ scdump_objects (scr_gameref_t game)
       if (oo < 0 || oo >= gs_object_count (game))
         break;
       s = scdump_object_name (game, oo);
-      fprintf (stderr, "CONTAINER idx=%ld obj=%ld [%s]\n", i, oo, s ? s : "");
+      scr_dump_log ("CONTAINER idx=%ld obj=%ld [%s]\n", i, oo, s ? s : "");
     }
 
   /*
@@ -560,11 +583,10 @@ scdump_objects (scr_gameref_t game)
         if (prop_get (bundle, "S<-sis", &pv, pk))
           states = pv.string;
         s = scdump_object_name (game, i);
-        fprintf (stderr,
-                 "STATEFUL idx=%ld obj=%ld [%s] openable=%ld curstate=%ld"
-                 " states=[%s]\n",
-                 idx, i, s ? s : "", openable, curstate,
-                 states ? states : "");
+        scr_dump_log ("STATEFUL idx=%ld obj=%ld [%s] openable=%ld curstate=%ld"
+                      " states=[%s]\n",
+                      idx, i, s ? s : "", openable, curstate,
+                      states ? states : "");
       }
   }
 
@@ -586,11 +608,11 @@ scdump_objects (scr_gameref_t game)
       if (!prop_get_boolean (bundle, "B<-sis", sk))
         continue;
       s = scdump_object_name (game, i);
-      fprintf (stderr, "STATIC obj=%ld [%s] rooms=", i, s ? s : "");
+      scr_dump_log ("STATIC obj=%ld [%s] rooms=", i, s ? s : "");
       GS_FOR_EACH_ROOM (game, r)
         if (obj_directly_in_room (game, i, r))
-          fprintf (stderr, "%ld ", r);
-      fprintf (stderr, "\n");
+          scr_dump_log ("%ld ", r);
+      scr_dump_log ("\n");
     }
 
   /*
@@ -610,9 +632,9 @@ scdump_objects (scr_gameref_t game)
       nk[0].string = "Objects";
       nk[1].integer = i;
       nk[2].string = "Prefix";
-      fprintf (stderr, "OBJNAME obj=%ld [%s] prefix=[%s]", i, s ? s : "",
-               prop_get (bundle, "S<-sis", &nv, nk) && nv.string
-               ? nv.string : "");
+      scr_dump_log ("OBJNAME obj=%ld [%s] prefix=[%s]", i, s ? s : "",
+            prop_get (bundle, "S<-sis", &nv, nk) && nv.string
+            ? nv.string : "");
 
       nk[2].string = "Alias";
       alias_count = prop_get_child_count (bundle, "I<-sis", nk);
@@ -621,9 +643,9 @@ scdump_objects (scr_gameref_t game)
           nk[3].integer = a;
           if (prop_get (bundle, "S<-sisi", &nv, nk) && nv.string
               && nv.string[0] != '\0')
-            fprintf (stderr, " alias=[%s]", nv.string);
+            scr_dump_log (" alias=[%s]", nv.string);
         }
-      fprintf (stderr, "\n");
+      scr_dump_log ("\n");
     }
 
   /*
@@ -664,8 +686,8 @@ scdump_objects (scr_gameref_t game)
           if (!ks)
             ks = "";
         }
-      fprintf (stderr, "LOCKKEY obj=%ld [%s] keyidx=%ld keyobj=%ld [%s]\n",
-               i, s ? s : "", key_index, the_key, ks);
+      scr_dump_log ("LOCKKEY obj=%ld [%s] keyidx=%ld keyobj=%ld [%s]\n",
+            i, s ? s : "", key_index, the_key, ks);
     }
 
   /*
@@ -694,8 +716,8 @@ scdump_objects (scr_gameref_t game)
       if (prop_get (bundle, "I<-sis", &ov, ok))
         key = ov.integer;
       s = scdump_object_name (game, i);
-      fprintf (stderr, "OPENABLE obj=%ld [%s] openable=%ld key=%ld\n",
-               i, s ? s : "", openable, key);
+      scr_dump_log ("OPENABLE obj=%ld [%s] openable=%ld key=%ld\n",
+            i, s ? s : "", openable, key);
     }
 
   /* Surface / container index enumeration (chisel-of-the-ages hunt). */
@@ -707,11 +729,11 @@ scdump_objects (scr_gameref_t game)
         const scr_char *s = scdump_object_name (game, i);
 
         if (obj_is_surface (game, i))
-          fprintf (stderr, "SURFACE idx=%ld obj=%ld [%s]\n",
-                   si++, i, s ? s : "");
+          scr_dump_log ("SURFACE idx=%ld obj=%ld [%s]\n",
+                si++, i, s ? s : "");
         if (obj_is_container (game, i))
-          fprintf (stderr, "CONTAINERIDX idx=%ld obj=%ld [%s]\n",
-                   ci++, i, s ? s : "");
+          scr_dump_log ("CONTAINERIDX idx=%ld obj=%ld [%s]\n",
+                ci++, i, s ? s : "");
       }
   }
 }
@@ -846,11 +868,11 @@ scdump_task_t::summary ()
     k[2].string = "RepeatText";
     if (prop_get (bundle, "S<-sis", &vt, k) && !scr_strempty (vt.string))
       rpt = 1;
-    fprintf (stderr,
-             "TASK %ld where=%ld room=%ld restr=%ld rep=%ld rev=%ld rpt=%ld"
-             " score=%ld srd=%ld mask=[%s] cmd=[%s]\n",
-             t, wtype, wroom, rcount, rep, rev, rpt, score, srd,
-             mask ? mask : "", cmd ? cmd : "");
+    scr_dump_log
+      ("TASK %ld where=%ld room=%ld restr=%ld rep=%ld rev=%ld rpt=%ld"
+       " score=%ld srd=%ld mask=[%s] cmd=[%s]\n",
+       t, wtype, wroom, rcount, rep, rev, rpt, score, srd,
+       mask ? mask : "", cmd ? cmd : "");
   }
 }
 
@@ -870,16 +892,16 @@ scdump_task_t::where_rooms ()
     {
       scr_int rm, nrooms = gs_room_count (game);
 
-      fprintf (stderr, "    WHERE_ROOMS=[");
+      scr_dump_log ("    WHERE_ROOMS=[");
       for (rm = 0; rm < nrooms; rm++)
         {
           k[2].string = "Where";
           k[3].string = "Rooms";
           k[4].integer = rm;
           if (prop_get_boolean (bundle, "B<-sissi", k))
-            fprintf (stderr, "%ld ", rm);
+            scr_dump_log ("%ld ", rm);
         }
-      fprintf (stderr, "]\n");
+      scr_dump_log ("]\n");
     }
 }
 
@@ -906,11 +928,11 @@ scdump_task_t::hints ()
   if (prop_get (bundle, "S<-sis", &hv, k))
     h2 = hv.string;
   if (hq && *hq)
-    fprintf (stderr, "    HINTQ=[%s]\n", hq);
+    scr_dump_log ("    HINTQ=[%s]\n", hq);
   if (h1 && *h1)
-    fprintf (stderr, "    HINT1=[%s]\n", h1);
+    scr_dump_log ("    HINT1=[%s]\n", h1);
   if (h2 && *h2)
-    fprintf (stderr, "    HINT2=[%s]\n", h2);
+    scr_dump_log ("    HINT2=[%s]\n", h2);
 }
 
 
@@ -949,7 +971,7 @@ scdump_task_t::texts ()
           && !scr_strempty (vt.string))
         {
           tt = vt.string;
-          fprintf (stderr, "    %s=[%s]\n", text_labels[f], tt);
+          scr_dump_log ("    %s=[%s]\n", text_labels[f], tt);
         }
     }
 }
@@ -973,7 +995,7 @@ scdump_task_t::alt_commands ()
       k[2].string = "Command";
       k[3].integer = ci;
       ac = prop_get_string (bundle, "S<-sisi", k);
-      fprintf (stderr, "    ALTCMD[%ld]=[%s]\n", ci, ac ? ac : "");
+      scr_dump_log ("    ALTCMD[%ld]=[%s]\n", ci, ac ? ac : "");
     }
 }
 
@@ -1002,7 +1024,7 @@ scdump_task_t::reverse_commands ()
 
       k[2].string = "ReverseCommand";
       rccount = prop_get_child_count (bundle, "I<-sis", k);
-      fprintf (stderr, "    REVERSIBLE rcmds=%ld\n", rccount);
+      scr_dump_log ("    REVERSIBLE rcmds=%ld\n", rccount);
       for (rc = 0; rc < rccount; rc++)
         {
           const scr_char *rcs;
@@ -1010,7 +1032,7 @@ scdump_task_t::reverse_commands ()
           k[2].string = "ReverseCommand";
           k[3].integer = rc;
           rcs = prop_get_string (bundle, "S<-sisi", k);
-          fprintf (stderr, "    REVCMD[%ld]=[%s]\n", rc, rcs ? rcs : "");
+          scr_dump_log ("    REVCMD[%ld]=[%s]\n", rc, rcs ? rcs : "");
         }
     }
 }
@@ -1080,9 +1102,8 @@ scdump_task_t::restriction (scr_int i)
 
     k[4].string = "FailMessage";
     fail = prop_get_string (bundle, "S<-sisis", k);
-    fprintf (stderr,
-             "    RESTR type=%ld v1=%ld v2=%ld v3=%ld%s fail=[%s]\n",
-             rtype, v1, v2, v3, nm, fail ? fail : "");
+    scr_dump_log ("    RESTR type=%ld v1=%ld v2=%ld v3=%ld%s fail=[%s]\n",
+                  rtype, v1, v2, v3, nm, fail ? fail : "");
   }
 }
 
@@ -1131,8 +1152,8 @@ scdump_task_t::action (scr_int i)
 
       snprintf (nm, sizeof nm, " obj%ld=[%s]", obj, s ? s : "");
     }
-  fprintf (stderr, "    ACT type=%ld v1=%ld v2=%ld v3=%ld%s",
-           atype, v1, v2, v3, nm);
+  scr_dump_log ("    ACT type=%ld v1=%ld v2=%ld v3=%ld%s",
+        atype, v1, v2, v3, nm);
   if (atype == 3)
     {
       const scr_char *expr = nullptr;
@@ -1148,9 +1169,9 @@ scdump_task_t::action (scr_int i)
       if (prop_get (bundle, "S<-sisis", &vt, k))
         expr = vt.string;
       if (expr && expr[0] != '\0')
-        fprintf (stderr, " expr=[%s]", expr);
+        scr_dump_log (" expr=[%s]", expr);
     }
-  fprintf (stderr, "\n");
+  scr_dump_log ("\n");
 }
 
 } /* namespace */
@@ -1285,22 +1306,22 @@ scdump_events (scr_gameref_t game)
           ek[2].string = "FinishText";
           if (prop_get (bundle, "S<-sis", &evt, ek))
             ftx = evt.string;
-          fprintf (stderr,
-                   "EVENT %ld [%s] starter=%ld startTask=%ld"
-                   " affTask=%ld(fin=%ld) restart=%ld start=%ld..%ld"
-                   " time1=%ld time2=%ld pauseTask=%ld"
-                   " o2=%ld->%ld o3=%ld->%ld texts=%c%c%c\n",
-                   e, en ? en : "", st, tn, ta, tf, rt, sta, end, t1, t2, pf,
-                   o2, o2d, o3, o3d,
-                   stx && stx[0] ? 'S' : '-',
-                   ltx && ltx[0] ? 'L' : '-',
-                   ftx && ftx[0] ? 'F' : '-');
+          scr_dump_log
+            ("EVENT %ld [%s] starter=%ld startTask=%ld"
+             " affTask=%ld(fin=%ld) restart=%ld start=%ld..%ld"
+             " time1=%ld time2=%ld pauseTask=%ld"
+             " o2=%ld->%ld o3=%ld->%ld texts=%c%c%c\n",
+             e, en ? en : "", st, tn, ta, tf, rt, sta, end, t1, t2, pf,
+             o2, o2d, o3, o3d,
+             stx && stx[0] ? 'S' : '-',
+             ltx && ltx[0] ? 'L' : '-',
+             ftx && ftx[0] ? 'F' : '-');
           if (stx && stx[0])
-            fprintf (stderr, "   S: %s\n", stx);
+            scr_dump_log ("   S: %s\n", stx);
           if (ltx && ltx[0])
-            fprintf (stderr, "   L: %s\n", ltx);
+            scr_dump_log ("   L: %s\n", ltx);
           if (ftx && ftx[0])
-            fprintf (stderr, "   F: %s\n", ftx);
+            scr_dump_log ("   F: %s\n", ftx);
           /*
            * PrefTime1/2 -- "show this N turns before the event ends", compared
            * against the POST-decrement clock.  These are the only event texts
@@ -1329,7 +1350,7 @@ scdump_events (scr_gameref_t game)
                 if (prop_get (bundle, "S<-sis", &evt, ek))
                   px = evt.string;
                 if (px && px[0])
-                  fprintf (stderr, "   P%d(at %ld): %s\n", which, pt, px);
+                  scr_dump_log ("   P%d(at %ld): %s\n", which, pt, px);
               }
           }
           /* The event's own room list, which gates every one of those texts. */
@@ -1342,26 +1363,26 @@ scdump_events (scr_gameref_t game)
             wk[2].string = "Where";
             wk[3].string = "Type";
             type = prop_get (bundle, "I<-siss", &evt, wk) ? evt.integer : -1;
-            fprintf (stderr, "   where type=%ld", type);
+            scr_dump_log ("   where type=%ld", type);
             if (type == ROOMLIST_ONE_ROOM)
               {
                 wk[3].string = "Room";
                 if (prop_get (bundle, "I<-siss", &evt, wk))
-                  fprintf (stderr, " room=%ld", evt.integer);
+                  scr_dump_log (" room=%ld", evt.integer);
               }
             else if (type == ROOMLIST_SOME_ROOMS)
               {
                 wk[3].string = "Rooms";
                 rc = prop_get_child_count (bundle, "I<-siss", wk);
-                fprintf (stderr, " rooms[%ld]:", rc);
+                scr_dump_log (" rooms[%ld]:", rc);
                 for (r = 0; r < rc; r++)
                   {
                     wk[4].integer = r;
                     if (prop_get (bundle, "B<-sissi", &evt, wk) && evt.boolean)
-                      fprintf (stderr, " %ld", r);
+                      scr_dump_log (" %ld", r);
                   }
               }
-            fprintf (stderr, "\n");
+            scr_dump_log ("\n");
           }
         }
       }
@@ -1393,13 +1414,13 @@ scdump_battle (scr_gameref_t game)
 
       bk[0].string = "Globals";
       bk[1].string = "Battle";
-      fprintf (stderr, "  BATTLE player system=%s",
-               prop_get_global_boolean (bundle, "BattleSystem") ? "on" : "off");
+      scr_dump_log ("  BATTLE player system=%s",
+            prop_get_global_boolean (bundle, "BattleSystem") ? "on" : "off");
       scdump_battle_ranges (bundle, "I<-sss", bk, 2);
       bk[2].string = "Recovery";
       if (prop_get (bundle, "I<-sss", &bv, bk))
         rec = bv.integer;
-      fprintf (stderr, " recovery=%ld\n", rec);
+      scr_dump_log (" recovery=%ld\n", rec);
     }
 }
 
@@ -1434,7 +1455,7 @@ scdump_npcs (scr_gameref_t game)
         nk[2].string = "StartRoom";
         if (prop_get (bundle, "I<-sis", &nv, nk))
           sr = nv.integer;
-        fprintf (stderr, "NPC %ld [%s] startRoom=%ld", n, nm ? nm : "", sr - 1);
+        scr_dump_log ("NPC %ld [%s] startRoom=%ld", n, nm ? nm : "", sr - 1);
 
         /*
          * Prefix and aliases: the 4.0 battle narration names an NPC by
@@ -1447,7 +1468,7 @@ scdump_npcs (scr_gameref_t game)
           nk[2].string = "Prefix";
           if (prop_get (bundle, "S<-sis", &nv, nk) && nv.string
               && nv.string[0] != '\0')
-            fprintf (stderr, " prefix=[%s]", nv.string);
+            scr_dump_log (" prefix=[%s]", nv.string);
 
           nk[2].string = "Alias";
           alias_count = prop_get_child_count (bundle, "I<-sis", nk);
@@ -1456,10 +1477,10 @@ scdump_npcs (scr_gameref_t game)
               nk[3].integer = a;
               if (prop_get (bundle, "S<-sisi", &nv, nk) && nv.string
                   && nv.string[0] != '\0')
-                fprintf (stderr, " alias=[%s]", nv.string);
+                scr_dump_log (" alias=[%s]", nv.string);
             }
         }
-        fprintf (stderr, "\n");
+        scr_dump_log ("\n");
 
         /*
          * Battle System configuration for this NPC, read straight from the
@@ -1478,7 +1499,7 @@ scdump_npcs (scr_gameref_t game)
             bk[0].string = "NPCs";
             bk[1].integer = n;
             bk[2].string = "Battle";
-            fprintf (stderr, "  BATTLE npc=%ld", n);
+            scr_dump_log ("  BATTLE npc=%ld", n);
             scdump_battle_ranges (bundle, "I<-siss", bk, 3);
             bk[3].string = "Attitude";
             if (prop_get (bundle, "I<-siss", &bv, bk))
@@ -1489,8 +1510,8 @@ scdump_npcs (scr_gameref_t game)
             bk[3].string = "KilledTask";
             if (prop_get (bundle, "I<-siss", &bv, bk))
               kt = bv.integer;
-            fprintf (stderr, " attitude=%ld speed=%ld killedTask=%ld\n",
-                     att, spd, kt - 1);
+            scr_dump_log (" attitude=%ld speed=%ld killedTask=%ld\n",
+                  att, spd, kt - 1);
           }
 
         nk[2].string = "Walks";
@@ -1522,15 +1543,15 @@ scdump_npcs (scr_gameref_t game)
             nk[4].string = "MeetChar";
             if (prop_get (bundle, "I<-sisis", &nv, nk))
               mc = nv.integer;
-            fprintf (stderr,
-                     "  WALK %ld loop=%ld startTask=%ld charTask=%ld(task%ld)"
-                     " meetChar=%ld meetObj=%ld objTask=%ld(task%ld)"
-                     " stopTask=%ld\n",
-                     w, loop, st, ct, ct - 1, mc, mo, ot, ot - 1, sp);
+            scr_dump_log
+              ("  WALK %ld loop=%ld startTask=%ld charTask=%ld(task%ld)"
+               " meetChar=%ld meetObj=%ld objTask=%ld(task%ld)"
+               " stopTask=%ld\n",
+               w, loop, st, ct, ct - 1, mc, mo, ot, ot - 1, sp);
             nk[4].string = "ChangedDesc";
-            fprintf (stderr, "    changeddesc [%s]\n",
-                     prop_get (bundle, "S<-sisis", &nv, nk) && nv.string
-                     ? nv.string : "");
+            scr_dump_log ("    changeddesc [%s]\n",
+                  prop_get (bundle, "S<-sisis", &nv, nk) && nv.string
+                  ? nv.string : "");
             nk[4].string = "Rooms";
             rc = prop_get_child_count (bundle, "I<-sisis", nk);
             for (s = 0; s < rc; s++)
@@ -1544,8 +1565,8 @@ scdump_npcs (scr_gameref_t game)
                 if (prop_get (bundle, "I<-sisisi", &nv, nk))
                   tm = nv.integer;
                 nk[4].string = "Rooms";
-                fprintf (stderr, "    step %ld dest=%ld times=%ld\n",
-                         s, rm, tm);
+                scr_dump_log ("    step %ld dest=%ld times=%ld\n",
+                      s, rm, tm);
               }
           }
       }
@@ -1590,9 +1611,9 @@ scdump_exits (scr_gameref_t game)
 
       hk[0].string = "Header";
       hk[1].string = "WinText";
-      fprintf (stderr, "WINTEXT [%s]\n",
-               prop_get (bundle, "S<-ss", &hv, hk) && hv.string
-               ? hv.string : "");
+      scr_dump_log ("WINTEXT [%s]\n",
+            prop_get (bundle, "S<-ss", &hv, hk) && hv.string
+            ? hv.string : "");
     }
 
     rk[0].string = "Rooms";
@@ -1606,7 +1627,7 @@ scdump_exits (scr_gameref_t game)
         rk[2].string = "Short";
         if (prop_get (bundle, "S<-sis", &rnv, rk))
           rname = rnv.string;
-        fprintf (stderr, "ROOM %ld [%s]\n", r, rname ? rname : "");
+        scr_dump_log ("ROOM %ld [%s]\n", r, rname ? rname : "");
       }
     for (r = 0; r < rcount; r++)
       {
@@ -1644,26 +1665,26 @@ scdump_exits (scr_gameref_t game)
                  * derivation looking for a task that opens the cottage door
                  * when the door just needed opening.
                  */
-                fprintf (stderr, "EXIT room=%ld %s -> dest=%ld",
-                         r, dirs[d], dest - 1);
+                scr_dump_log ("EXIT room=%ld %s -> dest=%ld",
+                      r, dirs[d], dest - 1);
                 if (v1 - 1 < 0)
-                  fprintf (stderr, " (no gate)\n");
+                  scr_dump_log (" (no gate)\n");
                 else if (v3 == 0)
                   /*
                    * lib_can_go restricts when done == (Var2 != 0), so the exit
                    * opens on the OPPOSITE of Var2 -- Var2 == 0 means "the task
                    * must have been done".
                    */
-                  fprintf (stderr, " gateTask=%ld wantDone=%ld\n",
-                           v1 - 1, (scr_int) (v2 == 0));
+                  scr_dump_log (" gateTask=%ld wantDone=%ld\n",
+                        v1 - 1, (scr_int) (v2 == 0));
                 else
                   {
                     scr_int obj = obj_stateful_object (game, v1 - 1);
                     const scr_char *s = scdump_object_name (game, obj);
 
-                    fprintf (stderr, " gateObj=%ld [%s] wantState=%ld"
-                             " rawV1=%ld\n",
-                             obj, s ? s : "", v2, v1);
+                    scr_dump_log (" gateObj=%ld [%s] wantState=%ld"
+                          " rawV1=%ld\n",
+                          obj, s ? s : "", v2, v1);
                   }
               }
           }
@@ -1711,11 +1732,10 @@ scdump_exits (scr_gameref_t game)
             rk[4].string = "M2";
             if (prop_get (bundle, "S<-sisis", &av, rk))
               m2 = av.string;
-            fprintf (stderr,
-                     "ALT room=%ld alt=%ld type=%ld v2=%ld v3=%ld"
-                     " disp=%ld hide=%ld m1=[%s] m2=[%s]\n",
-                     r, a, type, v2, v3, disp, hide,
-                     m1 ? m1 : "", m2 ? m2 : "");
+            scr_dump_log ("ALT room=%ld alt=%ld type=%ld v2=%ld v3=%ld"
+                          " disp=%ld hide=%ld m1=[%s] m2=[%s]\n",
+                          r, a, type, v2, v3, disp, hide,
+                          m1 ? m1 : "", m2 ? m2 : "");
           }
       }
   }
@@ -1800,7 +1820,7 @@ scr_dump_structure_once (scr_gameref_t game)
   scdump_npcs (game);
   scdump_exits (game);
 
-  fflush (stderr);
+  scr_dump_flush ();
 }
 
 
@@ -1831,9 +1851,9 @@ scr_dump_npc_trace (scr_gameref_t game)
   /* SCR_TRACE_PLAYER: just the player's room each turn (maze-mapping aid). */
   if (trace_player)
     {
-      fprintf (stderr, "PLAYERROOM room=%ld stamina=%ld\n",
-               gs_playerroom (game), game->playerstamina);
-      fflush (stderr);
+      scr_dump_log ("PLAYERROOM room=%ld stamina=%ld\n",
+            gs_playerroom (game), game->playerstamina);
+      scr_dump_flush ();
     }
 
   /*
@@ -1871,12 +1891,12 @@ scr_dump_npc_trace (scr_gameref_t game)
               if (!wanted)
                 continue;
             }
-          fprintf (stderr, "OBJTRACE obj=%ld pos=%ld parent=%ld state=%ld\n",
-                   object, gs_object_position (game, object),
-                   gs_object_parent (game, object),
-                   gs_object_state (game, object));
+          scr_dump_log ("OBJTRACE obj=%ld pos=%ld parent=%ld state=%ld\n",
+                object, gs_object_position (game, object),
+                gs_object_parent (game, object),
+                gs_object_state (game, object));
         }
-      fflush (stderr);
+      scr_dump_flush ();
     }
 
   /*
@@ -1898,7 +1918,7 @@ scr_dump_npc_trace (scr_gameref_t game)
       vt_key[0].string = "Variables";
       count = prop_get_child_count (bundle, "I<-s", vt_key);
 
-      fprintf (stderr, "VARTRACE");
+      scr_dump_log ("VARTRACE");
       for (index_ = 0; index_ < count; index_++)
         {
           const scr_char *name;
@@ -1927,20 +1947,20 @@ scr_dump_npc_trace (scr_gameref_t game)
               || var_type != VAR_INTEGER)
             continue;
           if (all)
-            fprintf (stderr, " %ld:%s=%ld", index_, name, vt_rvalue.integer);
+            scr_dump_log (" %ld:%s=%ld", index_, name, vt_rvalue.integer);
           else
-            fprintf (stderr, " %s=%ld", name, vt_rvalue.integer);
+            scr_dump_log (" %s=%ld", name, vt_rvalue.integer);
         }
-      fprintf (stderr, "\n");
-      fflush (stderr);
+      scr_dump_log ("\n");
+      scr_dump_flush ();
     }
 
   if (!trace_judy)
     return;
   GS_FOR_EACH_NPC (game, npc)
-    fprintf (stderr, "JUDYTRACE npc=%ld room=%ld\n",
-             npc, gs_npc_location (game, npc) - 1);
-  fflush (stderr);
+    scr_dump_log ("JUDYTRACE npc=%ld room=%ld\n",
+          npc, gs_npc_location (game, npc) - 1);
+  scr_dump_flush ();
 }
 
 
@@ -1997,9 +2017,9 @@ scr_trace_deviation (const char *id, const char *format, ...)
     }
   if (!scr_deviations_seen.insert (std::string (id) + '\t' + detail).second)
     return;
-  fprintf (stderr, "DEV %s\t[%s]\t%s\n", id, run_trace_last_input.c_str (),
-           detail);
-  fflush (stderr);
+  scr_dump_log ("DEV %s\t[%s]\t%s\n", id, run_trace_last_input.c_str (),
+        detail);
+  scr_dump_flush ();
 }
 
 #endif /* SCARIER_DUMP_TOOLS */
