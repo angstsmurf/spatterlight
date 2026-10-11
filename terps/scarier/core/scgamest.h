@@ -22,7 +22,12 @@
 #define SCARIER_GAMESTATE_H
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "scutils.h"
+#include "scprops.h"
+#include "scvars.h"
+#include "scprintf.h"
+#include "scmemos.h"
+#include "scdebug.h"
 
 #include <vector>
 

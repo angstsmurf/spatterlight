@@ -54,7 +54,7 @@
 #ifndef SCMAP_H
 #define SCMAP_H
 
-#include "scprotos.h"
+#include "sctypes.h"
 #include "../mapdraw.h"
 
 /* Fill in the view callbacks over SCARE's game state. */

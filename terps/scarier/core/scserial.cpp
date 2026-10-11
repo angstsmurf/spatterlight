@@ -27,7 +27,18 @@
 
 #include "zlib.h"
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "sctaffil.h"
+#include "scprops.h"
+#include "sctafpar.h"
+#include "scvars.h"
+#include "scprintf.h"
+#include "scgamest_api.h"
+#include "scbattle.h"
+#include "scobjcts.h"
+#include "scserial.h"
+#include "scinterf.h"
 #include "scgamest.h"
 
 

@@ -22,7 +22,7 @@
  * Private shared declarations for the TAF parser's three translation units:
  * sctafpar.cpp (the parser proper), sctafpar_fixups.cpp (the version fixup
  * handlers) and sctafpar_patches.cpp (the targeted game patches).  NOT a
- * public interface -- host code uses the parse_* entries in scprotos.h.
+ * public interface -- host code uses the parse_* entries in sctafpar.h.
  */
 
 #ifndef SCARIER_SCTAFPAR_INTERNAL_H
@@ -31,7 +31,11 @@
 #include <stddef.h>
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "sctaffil.h"
+#include "scprops.h"
+#include "sctafpar.h"
 
 /* String terminator, for the three files alike. */
 static const scr_char NUL = '\0';

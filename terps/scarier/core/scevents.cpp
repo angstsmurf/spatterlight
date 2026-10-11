@@ -30,7 +30,20 @@
 #include <vector>
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "sctaffil.h"
+#include "scprops.h"
+#include "sctafpar.h"
+#include "scprintf.h"
+#include "scgamest_api.h"
+#include "sclibrar_api.h"
+#include "scresour.h"
+#include "scrunner_api.h"
+#include "scevents.h"
+#include "sctasks.h"
+#include "screstrs.h"
+#include "scobjcts.h"
 #include "scgamest.h"
 
 

@@ -33,7 +33,9 @@
 
 #include "zlib.h"
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "sctaffil.h"
 
 
 /* Assorted definitions and constants. */

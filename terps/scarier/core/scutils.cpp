@@ -33,7 +33,10 @@
 #include <time.h>
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "sctaffil.h"
+#include "sclocale.h"
 
 #ifdef SPATTERLIGHT
 

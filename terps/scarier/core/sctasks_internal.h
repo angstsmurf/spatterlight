@@ -47,7 +47,25 @@
 #include <vector>
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "sctaffil.h"
+#include "scprops.h"
+#include "sctafpar.h"
+#include "scvars.h"
+#include "scexpr.h"
+#include "scprintf.h"
+#include "scgamest_api.h"
+#include "sclibrar_api.h"
+#include "scresour.h"
+#include "scrunner_api.h"
+#include "scevents.h"
+#include "sctasks.h"
+#include "screstrs.h"
+#include "scnpcs.h"
+#include "scbattle.h"
+#include "scobjcts.h"
+#include "scdump.h"
 #include "scgamest.h"
 
 /* One task's cached runnability properties; see the cache note in

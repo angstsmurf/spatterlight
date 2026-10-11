@@ -23,7 +23,10 @@
 #include <string.h>
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "scmemos.h"
+#include "scserial.h"
 
 
 /* Assorted definitions and constants. */

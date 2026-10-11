@@ -26,7 +26,12 @@
 #include <memory>
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "scprops.h"
+#include "scgamest_api.h"
+#include "scresour.h"
+#include "scinterf.h"
 #include "scgamest.h"
 
 

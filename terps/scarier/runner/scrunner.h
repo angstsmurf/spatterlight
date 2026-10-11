@@ -26,7 +26,7 @@
  * scrun_respell.cpp, scrun_match.cpp, scrun_tables.cpp, scrun_dispatch.cpp,
  * scrun_input.cpp, and by the dump tools in tools/ (scrun_census.cpp,
  * scdump.cpp).  Nothing here is part of the interface the rest of Scarier
- * uses; that stays in scprotos.h.
+ * uses; that stays in core/scrunner_api.h.
  */
 
 #include <string>

@@ -38,7 +38,12 @@
 #include <vector>
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "scprops.h"
+#include "scprintf.h"
+#include "scgamest_api.h"
+#include "sclibrar_api.h"
 #include "scmap.h"
 
 

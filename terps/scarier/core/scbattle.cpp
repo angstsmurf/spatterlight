@@ -22,7 +22,7 @@
  * Module notes:
  *
  * o ADRIFT's optional Battle System, split out of scnpcs.cpp.  The public
- *   entry points are declared in scprotos.h and the per-character mutable
+ *   entry points are declared in scbattle.h and the per-character mutable
  *   state (scr_battle_s) lives in scgamest.h.
  */
 
@@ -35,7 +35,19 @@
 #include <string>
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "sctaffil.h"
+#include "scprops.h"
+#include "scprintf.h"
+#include "scgamest_api.h"
+#include "sclibrar_api.h"
+#include "scrunner_api.h"
+#include "sctasks.h"
+#include "scnpcs.h"
+#include "scbattle.h"
+#include "sclocale.h"
+#include "scdump.h"
 #include "scgamest.h"
 
 

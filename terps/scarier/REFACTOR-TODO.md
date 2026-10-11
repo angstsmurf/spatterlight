@@ -196,9 +196,11 @@ genuinely the same.
       "Tree layout (5), second half".
 - [x] `sxstubs.cpp / sxglob.cpp / sxutils.cpp` and `sxprotos.h` — headless
       only; give them an obvious home (`headless/`).  → 42df5fda4.
-- [ ] Header weight: `scprotos.h` (1511 l.) is one catch-all prototype header.
+- [x] Header weight: `scprotos.h` (1511 l.) is one catch-all prototype header.
       Split by module (`sctasks.h`, `scparser.h`, …) so TUs include only what
-      they use and rebuilds shrink.
+      they use and rebuilds shrink.  → 25 module headers under core/ and a
+      56-line umbrella (e462bfbc6); core/ includes only what it uses
+      (58bba8c05).  See "scprotos.h split".
 
 ---
 
@@ -403,10 +405,10 @@ Per the project's own verification recipe:
    struct and the parse-once dispatch input are declined (see
    "Accessor-prologue pass").
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
-   everything.  The small half of 5 is DONE (`tools/`, the log sink,
-   `scdebug.cpp` confirmed, `headless/`; see "Tree layout (5)"), and so
-   is the `core/` / `platform/` move (see "Tree layout (5), second
-   half"); what is left of 5 is the `scprotos.h` split, then 4.
+   everything.  5 is DONE: `tools/`, the log sink, `scdebug.cpp`
+   confirmed, `headless/` (see "Tree layout (5)"), the `core/` /
+   `platform/` move (see "Tree layout (5), second half") and the
+   `scprotos.h` split (see "scprotos.h split").  What is left is 4.
 
 ## Outcome (2026-10-10, master 31b77eaac..18e8b35d5)
 
@@ -1843,6 +1845,84 @@ them):
   scproj_regress.sh passes from its own compile path (after the core/
   commit); `run_autosave_tests.py --build` all passed (after the
   platform/ commit, which is the one that moves the autosave file).
-- Next in the suggested order: the `scprotos.h` split by module (now
-  `core/scprotos.h`), then 4 (the Win32 half of
+- Not done from 5 at the time: the `scprotos.h` split by module (taken
+  next, see below).
+
+## scprotos.h split (2026-10-11, master e462bfbc6, 58bba8c05)
+
+- **The split** (e462bfbc6) -- `core/scprotos.h` (1541 lines) is sliced
+  into 25 module headers under core/, each guarded `SCARIER_<NAME>_H`,
+  with a responsibility comment, including only the headers its own
+  declarations need, and compiling standalone: `sctypes.h` (the
+  version macros, TRUE/FALSE, `scr_setjmp`, `scr_vartype_t`, the
+  reader/writer callback types, `scr_gameref_t`, `scr_hintref_t`),
+  then `scutils.h`, `sctaffil.h`, `scprops.h`, `sctafpar.h`,
+  `scvars.h`, `scexpr.h`, `scprintf.h`, `scmemos.h`, `scgamest_api.h`,
+  `scparser.h`, `sclibrar_api.h`, `scresour.h`, `scrunner_api.h`,
+  `scevents.h`, `sctasks.h`, `screstrs.h`, `scnpcs.h`, `scbattle.h`,
+  `scobjcts.h`, `scserial.h`, `sclocale.h`, `scdebug.h`, `scinterf.h`,
+  `scdump.h` (the `SCARIER_DUMP_TOOLS` block and the `SCR_DEVIATION`
+  macros).  2345 header lines in all, the 56-line umbrella included.
+  `scprotos.h` stays as that umbrella, including the 25 in dependency
+  order, so every existing include kept working and the split commit
+  touched no other file's includes.  The slice was done by line range
+  from the old file; the sorted preprocessed output of all 85
+  translation units (plain and `-DSCARIER_DUMP_TOOLS`) is unchanged
+  but for the `scmap_forget_game` line, which moved into scmap.h.
+- **Naming** -- a module's prototypes are `<module>.h` where the name
+  was free.  Three were taken: `scgamest.h` is the state layout (the
+  struct, for the modules that reach into it), `library/sclibrar.h` and
+  `runner/scrunner.h` are the folders' internal umbrellas; the
+  prototype headers for those are `scgamest_api.h`, `sclibrar_api.h`
+  and `scrunner_api.h`.  The five `*_forget_game` hooks moved next to
+  their module's prototypes (`task_` to sctasks.h, `ser_` to
+  scserial.h, `evt_` to scevents.h, `run_` to scrunner_api.h,
+  `scmap_` to scmap.h, where scgamest.cpp -- its only caller -- now
+  includes scmap.h).  The `run_line_matches_task_strictly` /
+  `run_line_yields_to_library` hooks, which the old file listed among
+  the library's, are in scrunner_api.h with the rest of the runner.
+- **Narrowing** (58bba8c05) -- the 21 core/ translation units that
+  included the umbrella directly, the four `*_internal.h` preludes,
+  `scgamest.h` and `scmap.h` now include the module headers whose
+  declarations they use, in umbrella order, a module's own header
+  always among them so its prototypes keep checking against its
+  definitions.  A shared prelude carries the union for its translation
+  units, which include nothing else; the three `sctafpar_*.cpp`, which
+  had their own umbrella line as well as the prelude, lost it to match
+  the other three modules.  scmap.h needs only `sctypes.h`; scgamest.h
+  needs `scutils.h`, `scprops.h`, `scvars.h`, `scprintf.h`,
+  `scmemos.h` and `scdebug.h`.  The umbrella stays for library/,
+  runner/, glk/, tools/, headless/, platform/ and the harnesses, whose
+  files use most of the engine (34 translation units); the library and
+  runner umbrellas still include it.  The map was computed by scanning
+  each file for the identifiers each header declares (a tool in the
+  session scratchpad, not kept), and checked by the compiler: dropping
+  a needed header is a compile error, keeping an unneeded one is not,
+  so the scan erred towards keeping.  Four comments that said
+  "declared in scprotos.h" name the module header.
+- **What it buys** -- under Makefile.headless (`-MMD`) and Xcode, which
+  track real dependencies, editing a module header rebuilds the
+  translation units that use it instead of all 70 that include the
+  engine: of the 136 headless objects, scserial.h now rebuilds 38,
+  scexpr.h 40, scbattle.h 43, sctasks.h 45, sclibrar_api.h 46,
+  scobjcts.h 53, scgamest_api.h 56, and only sctypes.h / scutils.h the
+  full 70 (every core/ file uses both).  The floor is the 34 umbrella
+  users.  The Glk Makefile gains nothing: `$(OBJECTS): $(HEADERS)`
+  makes every object depend on every header.  Moving it to `-MMD`
+  would be a separate, small change; not taken, as the bullet asked
+  for the split.
+- Xcode: the headers were never in the project's groups (the `core`
+  group lists .cpp files), so no pbxproj edit.
+- Verification, each commit: `quick` green; full headless `test`
+  output identical to the baseline captured at 94eb02743 (0 diff lines
+  with the compile lines and the `Nothing to be done` make message
+  stripped); `make -j8 scarier glkscarier` warning-free;
+  `xcodebuild -target scarier` BUILD SUCCEEDED; core/ syntax-checks
+  clean under `-Wall -Wextra -Wshadow`.  For the narrowing, the
+  headless objects before and after: 42 of the 70 engine objects are
+  byte-identical, and in the other 28 (14 translation units, plain and
+  dump) every differing instruction is a `mov w2, #imm` -- the assert
+  `__LINE__` argument, shifted by the longer include block -- with
+  identical `nm` and `strings` output.
+- Next in the suggested order: 4 (the Win32 half of
   `gsc_a5_open_game_path`).

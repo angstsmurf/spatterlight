@@ -24,7 +24,19 @@
 #include <string.h>
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "scprops.h"
+#include "scvars.h"
+#include "scprintf.h"
+#include "scgamest_api.h"
+#include "scresour.h"
+#include "scrunner_api.h"
+#include "sctasks.h"
+#include "scnpcs.h"
+#include "scobjcts.h"
+#include "scdebug.h"
+#include "scinterf.h"
 #include "scgamest.h"
 
 

@@ -35,7 +35,6 @@
 #include <vector>
 
 #include "scarier.h"
-#include "scprotos.h"
 #include "sctafpar_internal.h"
 
 

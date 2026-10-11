@@ -33,7 +33,10 @@
 #include <string.h>
 
 #include "scarier.h"
-#include "scprotos.h"
+#include "sctypes.h"
+#include "scutils.h"
+#include "scprops.h"
+#include "sclocale.h"
 
 
 /*
