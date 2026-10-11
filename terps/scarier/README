@@ -49,7 +49,9 @@ meta-commands and the Spatterlight autosave) and the map model and
 rasteriser in mapdraw.cpp / core/scmap.cpp; mapdraw.cpp and sessrec.h stay
 at the root because both engines use them.  headless/ holds the os-layer stubs
 (sxstubs/sxglob/sxutils.cpp) the headless harnesses link instead of glk/;
-os_ansi.cpp is the plain stdout front end.  tools/ is developer
+platform/ holds the other host layers, os_ansi.cpp (the plain stdout
+front end) and scarier-autosave.mm (the Spatterlight autosave bridge the
+glk/ seam calls).  tools/ is developer
 instrumentation (structural dumps, per-turn traces, the lenient census),
 compiled only into the headless walkthrough binary with -DSCARIER_DUMP_TOOLS
 and never into a shipping build.

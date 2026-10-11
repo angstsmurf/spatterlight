@@ -188,9 +188,12 @@ genuinely the same.
       (`SCR_DEBUGGER_ENABLED`); if only developers use it, same treatment.
       → needed: the Glk front end enables it from the environment and the
       runner has a `{#}debug{ger}` row; kept where it is.
-- [ ] Top level still has 20+ `sc*.cpp` (4.x core) mixed with `os_ansi.cpp`,
+- [x] Top level still has 20+ `sc*.cpp` (4.x core) mixed with `os_ansi.cpp`,
       `mapdraw.cpp`, `scarier-autosave.mm`. Consider `core/` (engine),
       `platform/` (os_ansi), mirroring the `library/ runner/ glk/` split.
+      → `core/` (6e4d24f50) and `platform/` (7bce83428); `mapdraw.*` and
+      `sessrec.h` stay at the root because both engines use them.  See
+      "Tree layout (5), second half".
 - [x] `sxstubs.cpp / sxglob.cpp / sxutils.cpp` and `sxprotos.h` — headless
       only; give them an obvious home (`headless/`).  → 42df5fda4.
 - [ ] Header weight: `scprotos.h` (1511 l.) is one catch-all prototype header.
@@ -401,9 +404,9 @@ Per the project's own verification recipe:
    "Accessor-prologue pass").
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
    everything.  The small half of 5 is DONE (`tools/`, the log sink,
-   `scdebug.cpp` confirmed, `headless/`; see "Tree layout (5)"); what is
-   left of 5 is the `core/` / `platform/` move of the top level and the
-   `scprotos.h` split, then 4.
+   `scdebug.cpp` confirmed, `headless/`; see "Tree layout (5)"), and so
+   is the `core/` / `platform/` move (see "Tree layout (5), second
+   half"); what is left of 5 is the `scprotos.h` split, then 4.
 
 ## Outcome (2026-10-10, master 31b77eaac..18e8b35d5)
 
@@ -1793,11 +1796,53 @@ them):
   when `SCR_DUMP_TASKS` is off; a first comparison that set both saw
   no ALR lines.)  For `headless/`: scproj_regress.sh also passes from
   its own compile path.
-- Not done from 5: the `core/` / `platform/` move of the top-level
-  `sc*.cpp` / `os_ansi.cpp` / `mapdraw.cpp` / `scarier-autosave.mm`
-  (every include, both makefiles, build.sh, the pbxproj and the harness
-  scripts), and the `scprotos.h` split by module.  Both are "touch
-  everything" steps and remain last with 4.
-- Next in the suggested order: the rest of 5 (`core/` / `platform/`,
-  `scprotos.h` split), then 4 (the Win32 half of
+- Not done from 5 at the time: the `core/` / `platform/` move (taken
+  next, see below) and the `scprotos.h` split by module.
+
+## Tree layout (5), second half (2026-10-11, master 6e4d24f50, 7bce83428)
+
+- **`core/`** (6e4d24f50) -- the 35 `sc*.cpp` and their nine headers
+  (`scarier.h`, `scprotos.h`, `scgamest.h`, `scmap.h`, the four
+  `*_internal.h`) moved from the top of terps/scarier.  `mapdraw.cpp` /
+  `mapdraw.h` and `sessrec.h` stay at the root: both engines use them,
+  so the root is now "shared by both engines" plus the makefiles and
+  docs.  The 62 cross-folder includes (library/, runner/, glk/,
+  adrift5/, tools/, headless/, the adrift4 test harnesses, os_ansi.cpp,
+  scarier-autosave.*) spell `"core/scarier.h"` etc. -- the explicit-path
+  convention glk/ already used for `"runner/scrunner.h"` and
+  `"adrift5/a5run.h"` -- rather than adding `-Icore` to every build,
+  so the layering is visible at the include.  Inside core/ the bare
+  names stay; `core/scmap.h` includes `"../mapdraw.h"` like
+  `adrift5/a5map.h`.  Both makefiles glob `core/sc*.cpp` (`COREDIR` in
+  Makefile); build.sh, scproj_regress.sh and patchtable.py (which reads
+  `sctafpar_patches.cpp` for the patch table) name the path; the Xcode
+  project has a `core` group (id `…0110`; the file references keep
+  their bare `path =`, the group carries the folder, so no per-file
+  edit); `.gitignore` ignores `core/*.o`.  The six headers were never
+  in the Xcode group and still are not.
+- **`platform/`** (7bce83428) -- `os_ansi.cpp` and
+  `scarier-autosave.{h,mm}`: the host layers that are not the Glk seam
+  (the stdout front end and the Spatterlight autosave bridge).
+  `glk/os_glk_internal.h` includes `"platform/scarier-autosave.h"`;
+  Makefile links `platform/os_ansi.o`; Makefile.headless (three sites)
+  and build.sh compile `platform/os_ansi.cpp`; Xcode `platform` group
+  (id `…0111`) holds the autosave pair, os_ansi.cpp never being in the
+  project; `.gitignore` ignores `platform/*.o`.  The alternative,
+  scarier-autosave.mm under glk/ (its only caller), was not taken: the
+  file is Spatterlight host glue, not Glk, and the Makefile's
+  `glk/*.cpp` glob would have had to learn to skip a `.mm`.
+- Docs: README's layout paragraphs and ADRIFT4_vs_ADRIFT5.md's "Where
+  the files are" say `core/`, `platform/`.  The dated notes under
+  test/adrift4/notes/ and the earlier sections of this file still say
+  `sctafpar.cpp` etc. without the folder; they are history.
+- Verification, each commit: `quick` green; full headless `test`
+  output identical to the pre-change run with the compile lines and
+  timings stripped (0 diff lines against a baseline captured at
+  255e2a47f); `make -j8 scarier glkscarier` warning-free;
+  `xcodebuild -target scarier` BUILD SUCCEEDED; build.sh builds;
+  scproj_regress.sh passes from its own compile path (after the core/
+  commit); `run_autosave_tests.py --build` all passed (after the
+  platform/ commit, which is the one that moves the autosave file).
+- Next in the suggested order: the `scprotos.h` split by module (now
+  `core/scprotos.h`), then 4 (the Win32 half of
   `gsc_a5_open_game_path`).

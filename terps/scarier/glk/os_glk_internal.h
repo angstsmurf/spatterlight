@@ -75,7 +75,7 @@ extern "C" {
 #include "glkimp.h"
 #include "randomness.h"
 }
-#include "scarier-autosave.h"
+#include "platform/scarier-autosave.h"
 #endif
 
 /* Blorb resource map, for ADRIFT 5 graphics/sound (the game file is a Blorb),

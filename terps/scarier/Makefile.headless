@@ -426,7 +426,7 @@ $(QUIT_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(QUIT_HARNESS))
 	$(SAN_LINK)
 $(EXPR_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(EXPR_HARNESS))
 	$(SAN_LINK)
-$(CAP_BIN)_san: $(call sanobjs,$(SRC) os_ansi.cpp test/adrift4/harness/seed.cpp)
+$(CAP_BIN)_san: $(call sanobjs,$(SRC) platform/os_ansi.cpp test/adrift4/harness/seed.cpp)
 	$(SAN_LINK)
 $(A5PARSE_BIN)_san: $(call sanobjs,$(A5DIR)/a5parse.cpp $(A5PARSE_HARNESS))
 	$(SAN_LINK)
@@ -670,7 +670,7 @@ soundbless: $(CAP_BIN) $(SOUND_TAF)
 	    2>/dev/null | tr -s '\n' > test/adrift4/harness/sound_400_expected.txt; \
 	echo "blessed test/adrift4/harness/sound_400_expected.txt"
 
-$(CAP_BIN): $(ENG_OBJ) $(call objs,os_ansi.cpp test/adrift4/harness/seed.cpp)
+$(CAP_BIN): $(ENG_OBJ) $(call objs,platform/os_ansi.cpp test/adrift4/harness/seed.cpp)
 	$(CXX) $^ $(LDLIBS) -o $@
 
 # The two binaries the corpus scripts replay, built here so `test` compiles them
@@ -679,7 +679,7 @@ $(CAP_BIN): $(ENG_OBJ) $(call objs,os_ansi.cpp test/adrift4/harness/seed.cpp)
 # run_v4_walkthroughs.sh rebuilds `scare` via build.sh only when it is missing
 # or older than a source, and scproj_regress.sh skips its compile when handed
 # SCPROJ_BIN.
-$(SCARE_BIN): $(call dumpobjs,$(SRC) os_ansi.cpp test/adrift4/harness/seed.cpp)
+$(SCARE_BIN): $(call dumpobjs,$(SRC) platform/os_ansi.cpp test/adrift4/harness/seed.cpp)
 	$(CXX) $^ $(LDLIBS) -o $@
 
 $(SCPROJ_BIN): $(ENG_OBJ) $(STUB_OBJ) \

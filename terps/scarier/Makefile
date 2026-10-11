@@ -129,8 +129,8 @@ all:	scarier
 
 $(OBJECTS): $(HEADERS)
 
-scarier: $(OBJECTS) $(MAPOBJECTS) os_ansi.o
-	$(CXX) $(LDFLAGS) -o scarier $(OBJECTS) $(MAPOBJECTS) os_ansi.o	\
+scarier: $(OBJECTS) $(MAPOBJECTS) platform/os_ansi.o
+	$(CXX) $(LDFLAGS) -o scarier $(OBJECTS) $(MAPOBJECTS) platform/os_ansi.o	\
 		$(LDLIBS)
 
 # Option to build the Glk port of Scarier.  The Glk front end lives in glk/:

@@ -4493,6 +4493,15 @@
 			path = core;
 			sourceTree = "<group>";
 		};
+		5C1B1A000000000000000111 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				C3A51F0000000000000000B3 /* scarier-autosave.h */,
+				C3A51F0000000000000000B2 /* scarier-autosave.mm */,
+			);
+			path = platform;
+			sourceTree = "<group>";
+		};
 		6D8389FDA9FFD4A72FFC493F /* scarier */ = {
 			isa = PBXGroup;
 			children = (
@@ -4500,8 +4509,7 @@
 				SCLIBGRP0000000000000001 /* library */,
 				SCRUNGRP0000000000000001 /* runner */,
 				SCGLKGRP0000000000000001 /* glk */,
-				C3A51F0000000000000000B3 /* scarier-autosave.h */,
-				C3A51F0000000000000000B2 /* scarier-autosave.mm */,
+				5C1B1A000000000000000111 /* platform */,
 				MAPDRAW00000000000000002 /* mapdraw.cpp */,
 				A1C2BD54BBB210F1A5BF32CA /* sessrec.h */,
 				382F3576525A572D2EEA8878 /* map_ppm.h */,
