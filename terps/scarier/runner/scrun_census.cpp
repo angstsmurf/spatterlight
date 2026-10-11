@@ -216,17 +216,92 @@ run_census_references (scr_gameref_t game, const std::string &pattern,
   return line;
 }
 
-static void
-run_lenient_census (scr_gameref_t game)
+/*
+ * run_census_t
+ *
+ * One lenient census: the game and what every pass reads from it, the
+ * matcher and the Runner's splitter both halves use, the counts the
+ * summary prints, and the cross half's per-task record -- how many verb
+ * lines woke the task, the first of them with its spelling, and the
+ * reason.
+ */
+namespace {
+
+static const scr_char *const REASONS[] = {
+  "separator", "spelling", "lenient"
+};
+
+struct run_census_t
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_int version = prop_get_taf_version (bundle);
-  const scr_int task_count = gs_task_count (game);
-  scr_int task, index_, woken = 0, reachable = 0, dead = 0;
-  scr_int by_reason[3] = { 0, 0, 0 };
-  static const scr_char *const REASONS[] = {
-    "separator", "spelling", "lenient"
-  };
+  scr_gameref_t game;
+  scr_prop_setref_t bundle;
+  scr_int version, task_count;
+  scr_int woken, reachable, dead, crossed;
+  scr_int by_reason[3];
+
+  std::vector<scr_int> cross_lines, cross_via;
+  std::vector<std::string> cross_first, cross_ran;
+
+  explicit run_census_t (scr_gameref_t game_);
+
+  void mark_all_seen ();
+  scr_bool matches (scr_int which, const std::string &line,
+                    scr_bool lenient) const;
+  scr_bool splits (const std::string &line) const;
+  std::vector<std::string> cross_names () const;
+  void cross_line (const scr_char *verb, const std::string &name);
+  void report_cross () const;
+  void summary () const;
+};
+
+/*
+ * run_census_task_t
+ *
+ * One task of the wake half: the lines a player could type for it and the
+ * commands they came from, then what probing them found -- whether some
+ * line reaches the task the Runner's way, else the first line that reaches
+ * it Scarier's way, its spelling and the reason.
+ */
+struct run_census_task_t
+{
+  run_census_t &census;
+  scr_int task;
+  std::vector<std::string> lines, commands;
+  scr_bool runner_alive;
+  std::string woke_line, woke_ran;
+  scr_int woke_reason;
+
+  run_census_task_t (run_census_t &census_, scr_int task_)
+    : census (census_), task (task_), runner_alive (FALSE),
+      woke_reason (-1) {}
+
+  void gather ();
+  void probe ();
+  void report ();
+};
+
+
+run_census_t::run_census_t (scr_gameref_t game_)
+  : game (game_), bundle (gs_get_bundle (game_)),
+    version (prop_get_taf_version (bundle)),
+    task_count (gs_task_count (game_)),
+    woken (0), reachable (0), dead (0), crossed (0), by_reason {0, 0, 0},
+    cross_lines (task_count, 0), cross_via (task_count, -1),
+    cross_first (task_count), cross_ran (task_count)
+{
+}
+
+
+/*
+ * run_census_t::mark_all_seen()
+ *
+ * Every object and character seen, so that the seen gate does not stand in
+ * for the restrictions the census ignores; and strict matching to start.
+ */
+void
+run_census_t::mark_all_seen ()
+{
+  scr_int index_;
 
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     gs_set_object_seen (game, index_, TRUE);
@@ -234,166 +309,214 @@ run_lenient_census (scr_gameref_t game)
     gs_set_npc_seen (game, index_, TRUE);
   run_lenient_tasks = FALSE;
   uip_set_lenient_tasks (FALSE);
+}
 
-  auto matches = [game] (scr_int which, const std::string &line,
-                         scr_bool lenient) -> scr_bool
-    {
-      run_lenient_tasks = lenient;
-      uip_set_lenient_tasks (lenient);
-      const scr_bool matched
-          = run_census_matches_task (game, which, line.c_str ());
-      run_lenient_tasks = FALSE;
-      uip_set_lenient_tasks (FALSE);
-      return matched;
-    };
-  auto splits = [game, version] (const std::string &line) -> scr_bool
-    {
-      scr_int unused = 0;
 
-      if (version >= TAF_VERSION_400)
-        return run_find_split_400 (game, line.c_str (), &unused) >= 0;
-      return run_find_split_pre400 (version, line.c_str (), &unused,
-                                    version < TAF_VERSION_390
-                                    && run_comma_splits_pre390
-                                         (game, line.c_str ())) >= 0;
-    };
+/*
+ * run_census_t::matches()
+ * run_census_t::splits()
+ *
+ * Does task 'which' take 'line', strictly or leniently; and does the Runner
+ * split 'line' at a separator.
+ */
+scr_bool
+run_census_t::matches (scr_int which, const std::string &line,
+                       scr_bool lenient) const
+{
+  run_lenient_tasks = lenient;
+  uip_set_lenient_tasks (lenient);
+  const scr_bool matched
+      = run_census_matches_task (game, which, line.c_str ());
+  run_lenient_tasks = FALSE;
+  uip_set_lenient_tasks (FALSE);
+  return matched;
+}
 
-  for (task = 0; task < task_count; task++)
-    {
-      std::vector<std::string> lines, commands;
-      scr_bool runner_alive = FALSE;
-      std::string woke_line, woke_ran;
-      scr_int woke_reason = -1;
+scr_bool
+run_census_t::splits (const std::string &line) const
+{
+  scr_int unused = 0;
 
+  if (version >= TAF_VERSION_400)
+    return run_find_split_400 (game, line.c_str (), &unused) >= 0;
+  return run_find_split_pre400 (version, line.c_str (), &unused,
+                                version < TAF_VERSION_390
+                                && run_comma_splits_pre390
+                                     (game, line.c_str ())) >= 0;
+}
+
+
+/*
+ * run_census_task_t::gather()
+ *
+ * The lines for the task: each command pattern, forwards and reverse,
+ * expanded, with %object% as each of three names.
+ */
+void
+run_census_task_t::gather ()
+{
+  const scr_gameref_t game = census.game;
+  const scr_task_commands_guard task_commands;
+
+  for (const scr_bool forwards : {scr_bool (TRUE), scr_bool (FALSE)})
+    for (const scr_char *pattern :
+         run_task_command_patterns (game, task, forwards))
       {
-        const scr_task_commands_guard task_commands;
+        if (pattern[strspn (pattern, WHITESPACE)] == SPECIAL_PATTERN)
+          continue;
+        commands.push_back (pattern);
+        for (scr_int pick = 0; pick < 3; pick++)
+          {
+            const std::string text
+                = run_census_references (game, pattern, pick);
+            size_t at = 0;
 
-        for (const scr_bool forwards : {scr_bool (TRUE), scr_bool (FALSE)})
-          for (const scr_char *pattern :
-               run_task_command_patterns (game, task, forwards))
-            {
-              if (pattern[strspn (pattern, WHITESPACE)] == SPECIAL_PATTERN)
-                continue;
-              commands.push_back (pattern);
-              for (scr_int pick = 0; pick < 3; pick++)
-                {
-                  const std::string text
-                      = run_census_references (game, pattern, pick);
-                  size_t at = 0;
+            for (const std::string &line :
+                 run_census_expand (text, at, NUL))
+              {
+                const std::string typed
+                    = run_census_normal (line.c_str ());
 
-                  for (const std::string &line :
-                       run_census_expand (text, at, NUL))
-                    {
-                      const std::string typed
-                          = run_census_normal (line.c_str ());
-
-                      if (!typed.empty ())
-                        lines.push_back (typed);
-                    }
-                  if (text == pattern)
-                    break;
-                }
-            }
+                if (!typed.empty ())
+                  lines.push_back (typed);
+              }
+            if (text == pattern)
+              break;
+          }
       }
-      if (lines.empty ())
+}
+
+
+/*
+ * run_census_task_t::probe()
+ *
+ * Each line the Runner's way, then Scarier's: a strict match on the
+ * Runner's spelling of an unsplit line keeps the task reachable and ends
+ * the probe; otherwise the first line Scarier's spelling, or a lenient
+ * match no other task pre-empts, gives the task is kept with its reason.
+ */
+void
+run_census_task_t::probe ()
+{
+  const scr_gameref_t game = census.game;
+  const scr_prop_setref_t bundle = census.bundle;
+  const scr_int task_count = census.task_count;
+
+  for (const std::string &typed : lines)
+    {
+      run_dispatch_input = typed.c_str ();
+
+      scr_owned_string runner_filtered (pf_filter_input (typed.c_str (),
+                                                         bundle));
+      const std::string runner_line = run_census_normal
+          (runner_filtered ? runner_filtered.get () : typed.c_str ());
+      const scr_bool runner_split = census.splits (typed);
+
+      if (!runner_split && census.matches (task, runner_line, FALSE))
+        {
+          runner_alive = TRUE;
+          break;
+        }
+      if (woke_reason >= 0)
         continue;
 
-      for (const std::string &typed : lines)
+      const scr_bool our_split
+          = runner_split && !run_separator_task_line (game, typed.c_str ());
+      if (our_split)
+        continue;
+      strncpy (run_line_element, typed.c_str (), LINE_BUFFER_SIZE - 1);
+      run_line_element[LINE_BUFFER_SIZE - 1] = NUL;
+      scr_owned_string ours (run_element_filtered (game));
+      const std::string our_line = run_census_normal
+          (ours ? ours.get () : typed.c_str ());
+      scr_bool lenient = TRUE;
+      scr_int other;
+
+      for (other = 0; other < task_count && lenient; other++)
+        if (other != task && census.matches (other, our_line, FALSE))
+          lenient = FALSE;
+      if (census.matches (task, our_line, FALSE)
+          || (lenient && census.matches (task, our_line, TRUE)))
         {
-          run_dispatch_input = typed.c_str ();
-
-          scr_owned_string runner_filtered (pf_filter_input (typed.c_str (),
-                                                             bundle));
-          const std::string runner_line = run_census_normal
-              (runner_filtered ? runner_filtered.get () : typed.c_str ());
-          const scr_bool runner_split = splits (typed);
-
-          if (!runner_split && matches (task, runner_line, FALSE))
-            {
-              runner_alive = TRUE;
-              break;
-            }
-          if (woke_reason >= 0)
-            continue;
-
-          const scr_bool our_split
-              = runner_split && !run_separator_task_line (game, typed.c_str ());
-          if (our_split)
-            continue;
-          strncpy (run_line_element, typed.c_str (), LINE_BUFFER_SIZE - 1);
-          run_line_element[LINE_BUFFER_SIZE - 1] = NUL;
-          scr_owned_string ours (run_element_filtered (game));
-          const std::string our_line = run_census_normal
-              (ours ? ours.get () : typed.c_str ());
-          scr_bool lenient = TRUE;
-          scr_int other;
-
-          for (other = 0; other < task_count && lenient; other++)
-            if (other != task && matches (other, our_line, FALSE))
-              lenient = FALSE;
-          if (matches (task, our_line, FALSE)
-              || (lenient && matches (task, our_line, TRUE)))
-            {
-              woke_line = typed;
-              woke_ran = our_line;
-              woke_reason = runner_split ? 0 : our_line != runner_line ? 1 : 2;
-            }
-        }
-      run_dispatch_input = nullptr;
-
-      if (runner_alive)
-        reachable++;
-      else if (woke_reason < 0)
-        {
-          dead++;
-          if (getenv ("SCR_CENSUS_DEAD"))
-            fprintf (stderr, "CENSUS dead task=%ld line=\"%s\"\n", task,
-                     lines[0].c_str ());
-        }
-      else
-        {
-          std::string joined;
-
-          for (const std::string &command : commands)
-            joined += (joined.empty () ? "" : " | ") + command;
-          woken++;
-          by_reason[woke_reason]++;
-          fprintf (stderr, "CENSUS woken task=%ld via=%s line=\"%s\""
-                   " ran=\"%s\" cmds={%s}\n", task, REASONS[woke_reason],
-                   woke_line.c_str (), woke_ran.c_str (),
-                   joined.substr (0, 400).c_str ());
+          woke_line = typed;
+          woke_ran = our_line;
+          woke_reason = runner_split ? 0 : our_line != runner_line ? 1 : 2;
         }
     }
-  /*
-   * Cross wakes: library verbs on every name an object or character
-   * answers to.  A line the Runner hands to the library (no task matches
-   * its spelling strictly) that Scarier gives to a task -- through its
-   * spelling or leniently -- is printed once per task:
-   *
-   *   CENSUS cross task=<n> via=<spelling|lenient> lines=<count>
-   *          line="<first line>" ran="<spelling>" cmds={<commands>}
-   *
-   * Candidates only: the library handlers that claim a line before the
-   * lenient retry (a take of a static, a put) are not modelled, so check a
-   * hit in play with SCR_TRACE_DEVIATIONS.  ShadricksUnderground's ` * in *`
-   * is a real one -- `look in black jar` in the cellar enters the tunnel --
-   * and Glum Fiddle's `get the gatehouse` is not.  SCR_CENSUS_NOCROSS skips
-   * this half, which is most of the run time; SCR_CENSUS_CROSS_LINES prints
-   * every hit as `CENSUS crossline task=<n> line="<line>"`, which
-   * probe_lenient.sh plays for real along the walkthroughs.
-   */
-  static const scr_char *const VERBS[] = {
-    "get", "take", "drop", "examine", "x", "look at", "open", "close",
-    "wear", "remove", "take off", "push", "pull", "eat", "drink", "read",
-    "sit on", "stand on", "lie on", "talk to", "ask", "give", "hit", "kill",
-    "attack", "put", "turn", "move", "search", "climb", "enter", "unlock",
-    "lock", "wield", "use", "go", "throw", nullptr
-  };
+  run_dispatch_input = nullptr;
+}
+
+
+/*
+ * run_census_task_t::report()
+ *
+ * Count the task as reachable, dead or woken, and print the woken line.
+ */
+void
+run_census_task_t::report ()
+{
+  if (runner_alive)
+    census.reachable++;
+  else if (woke_reason < 0)
+    {
+      census.dead++;
+      if (getenv ("SCR_CENSUS_DEAD"))
+        fprintf (stderr, "CENSUS dead task=%ld line=\"%s\"\n", task,
+                 lines[0].c_str ());
+    }
+  else
+    {
+      std::string joined;
+
+      for (const std::string &command : commands)
+        joined += (joined.empty () ? "" : " | ") + command;
+      census.woken++;
+      census.by_reason[woke_reason]++;
+      fprintf (stderr, "CENSUS woken task=%ld via=%s line=\"%s\""
+               " ran=\"%s\" cmds={%s}\n", task, REASONS[woke_reason],
+               woke_line.c_str (), woke_ran.c_str (),
+               joined.substr (0, 400).c_str ());
+    }
+}
+
+
+/*
+ * Cross wakes: library verbs on every name an object or character
+ * answers to.  A line the Runner hands to the library (no task matches
+ * its spelling strictly) that Scarier gives to a task -- through its
+ * spelling or leniently -- is printed once per task:
+ *
+ *   CENSUS cross task=<n> via=<spelling|lenient> lines=<count>
+ *          line="<first line>" ran="<spelling>" cmds={<commands>}
+ *
+ * Candidates only: the library handlers that claim a line before the
+ * lenient retry (a take of a static, a put) are not modelled, so check a
+ * hit in play with SCR_TRACE_DEVIATIONS.  ShadricksUnderground's ` * in *`
+ * is a real one -- `look in black jar` in the cellar enters the tunnel --
+ * and Glum Fiddle's `get the gatehouse` is not.  SCR_CENSUS_NOCROSS skips
+ * this half, which is most of the run time; SCR_CENSUS_CROSS_LINES prints
+ * every hit as `CENSUS crossline task=<n> line="<line>"`, which
+ * probe_lenient.sh plays for real along the walkthroughs.
+ */
+static const scr_char *const VERBS[] = {
+  "get", "take", "drop", "examine", "x", "look at", "open", "close",
+  "wear", "remove", "take off", "push", "pull", "eat", "drink", "read",
+  "sit on", "stand on", "lie on", "talk to", "ask", "give", "hit", "kill",
+  "attack", "put", "turn", "move", "search", "climb", "enter", "unlock",
+  "lock", "wield", "use", "go", "throw", nullptr
+};
+
+/*
+ * run_census_t::cross_names()
+ *
+ * Every name an object or character answers to: its Short or Name, bare,
+ * with "the" and with its Prefix, and each Alias.
+ */
+std::vector<std::string>
+run_census_t::cross_names () const
+{
   std::vector<std::string> names;
-  std::vector<scr_int> cross_lines (task_count, 0);
-  std::vector<std::string> cross_first (task_count), cross_ran (task_count);
-  std::vector<scr_int> cross_via (task_count, -1);
-  scr_int crossed = 0;
+  scr_int index_;
 
   for (const scr_char *category : {"Objects", "NPCs"})
     {
@@ -431,59 +554,78 @@ run_lenient_census (scr_gameref_t game)
             }
         }
     }
+  return names;
+}
 
-  if (getenv ("SCR_CENSUS_NOCROSS"))
-    names.clear ();
-  for (const scr_char *const *verb = VERBS; *verb; verb++)
-    for (const std::string &name : names)
-      {
-        const std::string typed
-            = run_census_normal ((std::string (*verb) + " " + name).c_str ());
-        scr_bool strict = FALSE;
-        scr_int other, via = -1, woke = -1;
 
-        if (splits (typed) && !run_separator_task_line (game, typed.c_str ()))
-          continue;
-        run_dispatch_input = typed.c_str ();
-        scr_owned_string runner_filtered (pf_filter_input (typed.c_str (),
-                                                           bundle));
-        const std::string runner_line = run_census_normal
-            (runner_filtered ? runner_filtered.get () : typed.c_str ());
+/*
+ * run_census_t::cross_line()
+ *
+ * One verb on one name: a line no task takes the Runner's way, that some
+ * task takes Scarier's way, is counted against that task.
+ */
+void
+run_census_t::cross_line (const scr_char *verb, const std::string &name)
+{
+  const std::string typed
+      = run_census_normal ((std::string (verb) + " " + name).c_str ());
+  scr_bool strict = FALSE;
+  scr_int other, via = -1, woke = -1;
 
-        for (other = 0; other < task_count && !strict; other++)
-          strict = matches (other, runner_line, FALSE);
-        if (strict || splits (typed))
-          {
-            run_dispatch_input = nullptr;
-            continue;
-          }
+  if (splits (typed) && !run_separator_task_line (game, typed.c_str ()))
+    return;
+  run_dispatch_input = typed.c_str ();
+  scr_owned_string runner_filtered (pf_filter_input (typed.c_str (),
+                                                     bundle));
+  const std::string runner_line = run_census_normal
+      (runner_filtered ? runner_filtered.get () : typed.c_str ());
 
-        strncpy (run_line_element, typed.c_str (), LINE_BUFFER_SIZE - 1);
-        run_line_element[LINE_BUFFER_SIZE - 1] = NUL;
-        scr_owned_string ours (run_element_filtered (game));
-        const std::string our_line = run_census_normal
-            (ours ? ours.get () : typed.c_str ());
-        run_dispatch_input = nullptr;
+  for (other = 0; other < task_count && !strict; other++)
+    strict = matches (other, runner_line, FALSE);
+  if (strict || splits (typed))
+    {
+      run_dispatch_input = nullptr;
+      return;
+    }
 
-        for (other = 0; other < task_count && woke < 0; other++)
-          if (matches (other, our_line, FALSE))
-            woke = other, via = 1;
-        for (other = 0; other < task_count && woke < 0; other++)
-          if (matches (other, our_line, TRUE))
-            woke = other, via = 2;
-        if (woke < 0)
-          continue;
-        if (getenv ("SCR_CENSUS_CROSS_LINES"))
-          fprintf (stderr, "CENSUS crossline task=%ld line=\"%s\"\n", woke,
-                   typed.c_str ());
-        if (cross_lines[woke]++ == 0)
-          {
-            crossed++;
-            cross_first[woke] = typed;
-            cross_ran[woke] = our_line;
-            cross_via[woke] = via;
-          }
-      }
+  strncpy (run_line_element, typed.c_str (), LINE_BUFFER_SIZE - 1);
+  run_line_element[LINE_BUFFER_SIZE - 1] = NUL;
+  scr_owned_string ours (run_element_filtered (game));
+  const std::string our_line = run_census_normal
+      (ours ? ours.get () : typed.c_str ());
+  run_dispatch_input = nullptr;
+
+  for (other = 0; other < task_count && woke < 0; other++)
+    if (matches (other, our_line, FALSE))
+      woke = other, via = 1;
+  for (other = 0; other < task_count && woke < 0; other++)
+    if (matches (other, our_line, TRUE))
+      woke = other, via = 2;
+  if (woke < 0)
+    return;
+  if (getenv ("SCR_CENSUS_CROSS_LINES"))
+    fprintf (stderr, "CENSUS crossline task=%ld line=\"%s\"\n", woke,
+             typed.c_str ());
+  if (cross_lines[woke]++ == 0)
+    {
+      crossed++;
+      cross_first[woke] = typed;
+      cross_ran[woke] = our_line;
+      cross_via[woke] = via;
+    }
+}
+
+
+/*
+ * run_census_t::report_cross()
+ * run_census_t::summary()
+ *
+ * The CENSUS cross line for each task some verb line woke, then the totals.
+ */
+void
+run_census_t::report_cross () const
+{
+  scr_int task;
 
   for (task = 0; task < task_count; task++)
     if (cross_lines[task] > 0)
@@ -501,11 +643,54 @@ run_lenient_census (scr_gameref_t game)
                  cross_first[task].c_str (), cross_ran[task].c_str (),
                  joined.substr (0, 400).c_str ());
       }
+}
+
+void
+run_census_t::summary () const
+{
   fprintf (stderr, "CENSUS summary tasks=%ld runner_reachable=%ld dead=%ld"
            " woken=%ld separator=%ld spelling=%ld lenient=%ld crossed=%ld\n",
            task_count, reachable, dead, woken, by_reason[0], by_reason[1],
            by_reason[2], crossed);
   fflush (stderr);
+}
+
+} /* namespace */
+
+
+/*
+ * run_lenient_census()
+ *
+ * The census: the wake half, one task at a time, then the cross half over
+ * every library verb and name, then the summary.
+ */
+static void
+run_lenient_census (scr_gameref_t game)
+{
+  run_census_t census (game);
+  std::vector<std::string> names;
+  scr_int task;
+
+  census.mark_all_seen ();
+  for (task = 0; task < census.task_count; task++)
+    {
+      run_census_task_t one (census, task);
+
+      one.gather ();
+      if (one.lines.empty ())
+        continue;
+      one.probe ();
+      one.report ();
+    }
+
+  names = census.cross_names ();
+  if (getenv ("SCR_CENSUS_NOCROSS"))
+    names.clear ();
+  for (const scr_char *const *verb = VERBS; *verb; verb++)
+    for (const std::string &name : names)
+      census.cross_line (*verb, name);
+  census.report_cross ();
+  census.summary ();
 }
 
 scr_bool

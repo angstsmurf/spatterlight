@@ -117,6 +117,26 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~274~~ | ~~`npc_tick_npc_walk`~~ | DONE: `npc_walk_tick_t` + six members, see "npc_tick_npc_walk split" |
 | ~~267~~ | ~~`task_run_task_unrestricted`~~ | DONE: five parts + driver, see "task_run_task_unrestricted split" |
 | ~~260~~ | ~~`uip_match_entity`~~ | DONE: `uip_entity_sweep_t` + two members, see "uip_match_entity split" |
+| ~~290~~ | ~~`run_lenient_census`~~ | DONE: `run_census_t` + `run_census_task_t`, see "run_lenient_census split" |
+| 273 | `a5run_input_inner` | `adrift5/run/a5run.cpp` |
+| 258 | `lib_print_room_contents` | `library/sclibrar_room.cpp` (library text: corpus `recompare`) |
+| 249 | `restore_scarier_body` | `adrift5/run/a5run_save.cpp` (autosave suite) |
+| 240 | `ser_save_game_body` | `scserial.cpp` (autosave suite) |
+| 228 | `sm_set_grid` | `scmap.cpp` |
+| 224 | `scmap_build` | `scmap.cpp` |
+| 219 | `save_scarier_body` | `adrift5/run/a5run_save.cpp` (autosave suite) |
+| 212 | `lib_take_and_pre400` | `library/sclibrar_take.cpp` |
+| 211 | `lib_cmd_locate_object` | `library/sclibrar_misc.cpp` |
+| 207 | `a5text_render_plain` | `adrift5/text/a5text_render.cpp` |
+| 206 | `lib_use_room_alt` | `library/sclibrar_print.cpp` |
+| 204 | `lib_definite_object_name` | `library/sclibrar_print.cpp` |
+| 201 | `os_print_tag` | `glk/os_glk_output.cpp` (Glk build + autosave suite) |
+| 201 | `a5state_new` | `adrift5/a5state.cpp` |
+
+The table opened with 16 of the 33; the two Glk `main`s went under 1.4,
+and the 15 rows from `run_lenient_census` down were added on 2026-10-11
+from a brace-depth census of the tree (functions over 200 lines, test
+and build trees excluded).
 
 Ideas that recur: `eval_function`, `oo_prop`, `debug_help`, `gsc_a5_display`
 are giant `if/else` or `switch` on a string/enum → table of
@@ -352,14 +372,11 @@ Per the project's own verification recipe:
 2. Module-global state (6a): DONE for every module the survey named
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
-4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   DONE, every row of the table: `uip_match_entity`,
-   `task_run_task_unrestricted`,
-   `npc_tick_npc_walk`, `gsc_a5_display`,
-   `debug_help`, `view_location_impl`, `lib_take_multiple_common`, `run_task`, `pass_character`,
-   `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
-   `eval_function`, `scdump_tasks`, `oo_prop` and
-   `lib_print_room_description` are taken (see their "split" sections).
+4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3:
+   the 16 rows the table opened with are DONE (see their "split"
+   sections), as is `run_lenient_census`, the first of the 15 rows added
+   on 2026-10-11; 14 rows remain, top to bottom, `a5run_input_inner`
+   next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1214,5 +1231,53 @@ them):
   `make -j8 scarier glkscarier` warning-free; corpus `recompare`
   byte-identical to the snapshot (manifest rewrite reverted, not
   committed).  No line over 80 columns.
-- **Section 3's table is finished.**  What section 3 still lists is the
-  prose under it, nothing with a row.
+- The 16 rows the table opened with are finished.  A census on
+  2026-10-11 (every function over 200 lines) found 15 more, now rows of
+  the table; `run_lenient_census` is the first of them, below.
+
+## 3: review follow-ups (2026-10-11)
+
+- Four read-throughs of the 16 splits above found no behaviour change.
+  The tidy-ups they asked for went in as one commit: `run_task`'s look
+  registers (`local_defer_look`, `prev_dl`, `prev_lp`, `prev_lpos`,
+  `prev_lpin`) back to locals of `run_task_actions`, and the three
+  pointer-nulling lines the split had added to `run_task_before_finalize`
+  dropped; the anonymous namespace in `a5restr.cpp`, `scnpcs.cpp` and
+  `scparser_entity.cpp` now closes after the member definitions, as in
+  `scparser_pronoun.cpp`; the 4.0 stage of `lib_cmd_verb_object` is
+  `lib_verb_object_pick_400` (it overloaded the older
+  `lib_verb_object_resolve_400`); `scdump_task_t` keeps only the fields
+  more than one member reads (`cmd`, `wroom`, `rep`, `rev` are locals of
+  `summary` again) and each section comment names its member; the tail
+  of `oo_step_t::list` lost its bare `{ }` block and the aggregate
+  initialiser in `oo_prop` uses `{}` for the strings;
+  `gsc_a5_display`'s switch names `A5_IMG_MARK` instead of `default`;
+  the two pre-4.0 helpers of `lib_take_multiple_common` are dedented and
+  the driver comment split so the co() clause sits on the 3.8/3.9 gate;
+  and six comments that said "below"/"above" now name the function they
+  mean.
+- Verification: headless `quick`; full `test` output identical;
+  `make -j8 scarier glkscarier` warning-free; `sanitize` clean; no file
+  gained a line over 80 columns.
+
+## 3: run_lenient_census split (2026-10-11)
+
+- **`run_lenient_census`** (290 l.) in `runner/scrun_census.cpp` is the
+  `SCR_CENSUS_LENIENT` developer report: wake every task's command lines
+  through the lenient parser and count what the separator, spelling and
+  lenient paths each reach, then cross a verb list with the object
+  names.  It is now `run_census_t` (game, bundle, version, the counters,
+  the cross-wake rows; `mark_all_seen`, `matches`, `splits`,
+  `cross_names`, `cross_line`, `report_cross`, `summary`) and
+  `run_census_task_t` (one task's lines, commands and woken state;
+  `gather`, `probe`, `report`), with a 25-line driver.  The two lambdas
+  became the `matches` / `splits` const members, the per-task loop body
+  became the three task members, and `cross_line`'s `continue` is a
+  `return`.  `REASONS[]` and `VERBS[]` sit in the namespace.
+- Verification: headless `quick`; full `test` output identical;
+  `make -j8 scarier glkscarier` warning-free; `sanitize` clean; the
+  census itself (stderr plus exit code, `LC_ALL=C SCR_SKIP_WAITKEY=1
+  SCR_CENSUS_LENIENT=1`, `quit`/`y` on stdin) is byte-identical before
+  and after over all 706 games in `test/adrift4/games`.  No line over
+  80 columns.
+- Next in the table: `a5run_input_inner` (adrift5/run/a5run.cpp).
