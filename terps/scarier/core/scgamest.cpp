@@ -27,6 +27,7 @@
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
+#include "scmap.h"
 
 
 /* Assorted definitions and constants. */

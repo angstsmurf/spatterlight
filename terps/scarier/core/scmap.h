@@ -95,4 +95,7 @@ extern int scmap_failed (void);
  */
 extern int scmap_command_taken (scr_gameref_t game);
 
+/* Drop the per-game layout cache; gs_destroy() calls this. */
+extern void scmap_forget_game (const void *game);
+
 #endif /* SCMAP_H */
