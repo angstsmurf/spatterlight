@@ -1,34 +1,14 @@
-/* Code from Exomizer distributed under the zlib License
- * by kind permission of the original author
- * Magnus Lind.
+/* Code from Exomizer.
+ *
+ * Copyright (c) 2002 - 2023 Magnus Lind
+ * C++ version based on code adapted to ScummVM by Avijeet Maurya
+ *
+ * Distributed under the zlib License by kind permission of the original
+ * author Magnus Lind. The notice is in the file LICENSE in this directory
+ * (terps/unp64), which has to go wherever this file goes.
  */
 
-/*
- * Copyright (c) 2002 - 2023 Magnus Lind.
- *
- *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any damages
- * arising from the use of this software.
- *
- * Permission is granted to anyone to use this software for any purpose,
- * including commercial applications, and to alter it and redistribute it
- * freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not
- * claim that you wrote the original software. If you use this software
- * in a product, an acknowledgment in the product documentation would be
- * appreciated but is not required.
- * 2. Altered source versions must be plainly marked as such, and must not be
- * misrepresented as being the original software.
- * 3. This notice may not be removed or altered from any source distribution.
- *
- */
-
-/*
- C++ version based on code adapted to ScummVM by Avijeet Maurya
- */
-
+#include <algorithm>
 #include <cerrno>
 #include <climits>
 #include <cstdlib>
@@ -75,7 +55,12 @@ int findSys(const uint8_t *buf, size_t bufsize) {
 	/* Workaround for hidden SYS line (1001 cruncher, CFB, etc.):
 	 * some crunchers stash the real SYS token a few bytes into a line
 	 * that starts with a NUL, so scan forward for the SYS token followed
-	 * by an ASCII-digit byte. */
+	 * by an ASCII-digit byte.
+	 *
+	 * The scan starts at 5 because that is where the text of the next
+	 * line would be: the NUL at 0 ends this line, 1-4 are the next one's
+	 * link and number. It gives up after 32 bytes, and the ordinary scan
+	 * below then carries on from there. */
 	if (bufsize > 0 && buf[0] == 0) {
 		for (i = 5; i < 32 && (size_t)(i + 2) < bufsize; i++) {
 			if (buf[i] == TOK_SYS &&
@@ -86,7 +71,9 @@ int findSys(const uint8_t *buf, size_t bufsize) {
 		}
 	}
 
-	/* Scan for the SYS token. */
+	/* Scan for the SYS token. FIND_SYS_SCAN_LIMIT is tested here and once
+	 * more after the loop: here it ends a line that has no terminator, there
+	 * it tells that ending from having found the token. */
 	while (i < FIND_SYS_SCAN_LIMIT && (size_t)i < bufsize && buf[i] != '\0') {
 		if (buf[i] == TOK_SYS) {
 			++i;
@@ -141,8 +128,8 @@ int findSys(const uint8_t *buf, size_t bufsize) {
  * space at `info->_start`, clamping to the bounds. Initialises
  * `_end`, `_run`, and the BASIC-variable-start hint that BASIC sets
  * after a LOAD when the program lands at TXTTAB. */
-static void loadPrgData(uint8_t mem[65536], const uint8_t *data, size_t dataLength, LoadInfo *info) {
-	int len = MIN(65536 - info->_start, static_cast<int>(dataLength));
+static void loadPrgData(uint8_t *mem, const uint8_t *data, size_t dataLength, LoadInfo *info) {
+	int len = std::min(65536 - info->_start, static_cast<int>(dataLength));
 	memcpy(mem + info->_start, data, (size_t)len);
 
 	info->_end = info->_start + len;
@@ -154,12 +141,15 @@ static void loadPrgData(uint8_t mem[65536], const uint8_t *data, size_t dataLeng
 }
 
 /* Load a full PRG file (including the two-byte little-endian load
- * address header) into the emulated address space. */
-void loadData(const uint8_t *data, size_t dataLength, uint8_t mem[65536], LoadInfo *info) {
-    int load = READ_LE_UINT16(data);
+ * address header) into the emulated address space. Returns false, and
+ * leaves `mem` and `info` alone, if the file is too short to have one. */
+bool loadData(const uint8_t *data, size_t dataLength, uint8_t *mem, LoadInfo *info) {
+	if (data == nullptr || dataLength < 2)
+		return false; /* no room for the load address */
 
-	info->_start = load;
+	info->_start = READ_LE_UINT16(data);
 	loadPrgData(mem, data + 2, dataLength - 2, info);
+	return true;
 }
 
 /* Parse a numeric string into *value. Decimal by default; either a `$`
@@ -201,60 +191,6 @@ bool strToInt(const char *str, int *value) {
 	if (value != nullptr)
 		*value = static_cast<int>(lval);
 	return true;
-}
-
-/* The u32eq / u16eq family compare the four (or two) bytes at `addr`
- * against `val` interpreted little-endian — the byte order in which
- * the 6502 stores multi-byte values. The masked / xored variants exist
- * so scanners can match opcode patterns where some bytes are operand
- * placeholders (mask out the operand) or where a single byte has been
- * EOR-encrypted by the packer (apply xormask before comparing). */
-
-bool u32eq(const unsigned char *addr, uint32_t val)
-{
-    return addr[3] == (val >> 24) &&
-    addr[2] == ((val >> 16) & 0xff) &&
-    addr[1] == ((val >>  8) & 0xff) &&
-    addr[0] == (val & 0xff);
-}
-
-bool u32eqmasked(const unsigned char *addr, uint32_t mask, uint32_t val)
-{
-    uint32_t val1 = addr[0] | (addr[1] << 8) | (addr[2] << 16) | (addr[3] << 24);
-    return (val1 & mask) == val;
-}
-
-bool u32eqxored(const unsigned char *addr, uint32_t xormask, uint32_t val)
-{
-    uint32_t val1 = addr[0] | (addr[1] << 8) | (addr[2] << 16) | (addr[3] << 24);
-    return (val1 ^ xormask) == val;
-}
-
-bool u16eqmasked(const unsigned char *addr, uint16_t mask, uint16_t val)
-{
-    uint16_t val1 = addr[0] | (addr[1] << 8);
-    return (val1 & mask) == val;
-}
-
-bool u16eq(const unsigned char *addr, uint16_t val)
-{
-    return addr[1] == (val >> 8) &&
-    addr[0] == (val & 0xff);
-}
-
-/* Interpret two bytes at `addr` as a little-endian 16-bit address and
- * compare to `val` — used by scanners that test "is the JMP/JSR target
- * within / outside this range?". */
-bool u16gteq(const unsigned char *addr, uint16_t val)
-{
-    uint16_t val2 = addr[0] | (addr[1] << 8);
-    return val2 >= val;
-}
-
-bool u16lteq(const unsigned char *addr, uint16_t val)
-{
-    uint16_t val2 = addr[0] | (addr[1] << 8);
-    return val2 <= val;
 }
 
 } // End of namespace Unp64

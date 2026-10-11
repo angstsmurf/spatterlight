@@ -116,8 +116,7 @@ in the snapshots I have examined.
 
 /* unp64 (terps/unp64) C interface: decompress a crunched C64 program image.
  * Used to unpack the self-extracting program inside a .T64 tape image. */
-extern int unp64(uchar *compressed, size_t length, uchar *destinationBuffer,
-		 size_t *finalLength, const char *settings);
+#include "../unp64/unp64_interface.h"
 
 extern glui32 gli_determinism;
 #ifdef SPATTERLIGHT

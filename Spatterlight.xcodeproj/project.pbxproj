@@ -1058,7 +1058,6 @@
 		C3EEEF6D296C9CA40094DE93 /* master_compressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF5C296C9CA30094DE93 /* master_compressor.cpp */; };
 		C3EEEF6E296C9CA40094DE93 /* tbc_multicomp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF5D296C9CA40094DE93 /* tbc_multicomp.cpp */; };
 		C3EEEF6F296C9CA40094DE93 /* megabyte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF5E296C9CA40094DE93 /* megabyte.cpp */; };
-		C3EEEF75296CA8190094DE93 /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF74296CA8180094DE93 /* globals.cpp */; };
 		C3EEEF80296CC9890094DE93 /* abuze_crunch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF7A296CC9890094DE93 /* abuze_crunch.cpp */; };
 		C3EEEF83296CC9890094DE93 /* mr_cross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF7D296CC9890094DE93 /* mr_cross.cpp */; };
 		C3EEEF84296CC9890094DE93 /* mr_z.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF7E296CC9890094DE93 /* mr_z.cpp */; };
@@ -3910,13 +3909,11 @@
 		C3EEEF58296C9CA30094DE93 /* xtc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xtc.cpp; sourceTree = "<group>"; };
 		C3EEEF59296C9CA30094DE93 /* action_packer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = action_packer.cpp; sourceTree = "<group>"; };
 		C3EEEF5A296C9CA30094DE93 /* byte_boiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = byte_boiler.cpp; sourceTree = "<group>"; };
+		C3EEEF7A296CA8190094DE93 /* scanners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scanners.h; sourceTree = "<group>"; };
 		C3EEEF5B296C9CA30094DE93 /* scanners.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scanners.cpp; sourceTree = "<group>"; };
 		C3EEEF5C296C9CA30094DE93 /* master_compressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = master_compressor.cpp; sourceTree = "<group>"; };
 		C3EEEF5D296C9CA40094DE93 /* tbc_multicomp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tbc_multicomp.cpp; sourceTree = "<group>"; };
 		C3EEEF5E296C9CA40094DE93 /* megabyte.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = megabyte.cpp; sourceTree = "<group>"; };
-		C3EEEF71296C9E810094DE93 /* types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = types.h; sourceTree = "<group>"; };
-		C3EEEF73296CA3CC0094DE93 /* globals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = globals.h; sourceTree = "<group>"; };
-		C3EEEF74296CA8180094DE93 /* globals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = globals.cpp; sourceTree = "<group>"; };
 		C3EEEF7A296CC9890094DE93 /* abuze_crunch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = abuze_crunch.cpp; sourceTree = "<group>"; };
 		C3EEEF7D296CC9890094DE93 /* mr_cross.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mr_cross.cpp; sourceTree = "<group>"; };
 		C3EEEF7E296CC9890094DE93 /* mr_z.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mr_z.cpp; sourceTree = "<group>"; };
@@ -7097,11 +7094,8 @@
 			children = (
 				C3EEEF4A296C9C120094DE93 /* unp64.h */,
 				C3EEEF49296C9C120094DE93 /* unp64.cpp */,
-				C3EEEF71296C9E810094DE93 /* types.h */,
 				C3EEEF3B296C9C040094DE93 /* 6502_emu.h */,
 				C3EEEF3D296C9C040094DE93 /* 6502_emu.cpp */,
-				C3EEEF73296CA3CC0094DE93 /* globals.h */,
-				C3EEEF74296CA8180094DE93 /* globals.cpp */,
 				C3EEEF3F296C9C050094DE93 /* exo_util.h */,
 				C3EEEF40296C9C050094DE93 /* exo_util.cpp */,
 				C3F09D3B28888F890035DAC2 /* unp64_interface.h */,
@@ -7129,6 +7123,7 @@
 				C3EEEF7D296CC9890094DE93 /* mr_cross.cpp */,
 				C3EEEF7E296CC9890094DE93 /* mr_z.cpp */,
 				C3EEEF52296C9CA20094DE93 /* pu_crunch.cpp */,
+				C3EEEF7A296CA8190094DE93 /* scanners.h */,
 				C3EEEF5B296C9CA30094DE93 /* scanners.cpp */,
 				C3EEEF55296C9CA30094DE93 /* section8.cpp */,
 				C3EEEF5D296C9CA40094DE93 /* tbc_multicomp.cpp */,
@@ -9625,7 +9620,6 @@
 				C3EEEF6B296C9CA40094DE93 /* byte_boiler.cpp in Sources */,
 				C3EEEF6A296C9CA40094DE93 /* action_packer.cpp in Sources */,
 				C3EEEF68296C9CA40094DE93 /* cruel.cpp in Sources */,
-				C3EEEF75296CA8190094DE93 /* globals.cpp in Sources */,
 				C3EEEF6F296C9CA40094DE93 /* megabyte.cpp in Sources */,
 				C3EEEF64296C9CA40094DE93 /* ccs.cpp in Sources */,
 				C3EEEF69296C9CA40094DE93 /* xtc.cpp in Sources */,
