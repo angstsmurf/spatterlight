@@ -293,6 +293,8 @@ extern void lib_drain_multiple_references (scr_gameref_t game,
 extern void lib_take_from_object_backend (scr_gameref_t game,
                                           scr_int associate);
 extern void lib_take_from_npc_backend (scr_gameref_t game, scr_int associate);
+
+/* sclibrar_take_multiple.cpp */
 extern scr_bool lib_take_filter (scr_gameref_t game, scr_int object,
                                  scr_int unused);
 extern scr_int lib_take_absent_score (scr_gameref_t game, scr_int object,

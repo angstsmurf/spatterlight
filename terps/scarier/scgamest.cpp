@@ -678,7 +678,7 @@ gs_set_object_seen (scr_gameref_t gs, scr_int object, scr_bool seen)
  * (`If o(132) = 1 Then o(132) = &HFF`).  Nothing else spends it: not a drop,
  * not a put, not a task moving the object about, not an NPC taking it.  So
  * the movers below leave the flag alone and the library take paths in
- * sclibrar_take.cpp, sclibrar_open.cpp and sclibrar_put.cpp clear it by
+ * sclibrar_take*.cpp, sclibrar_open.cpp and sclibrar_put.cpp clear it by
  * hand.  See obj_shows_initial_description().
  */
 void

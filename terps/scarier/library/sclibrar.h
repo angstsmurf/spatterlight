@@ -216,7 +216,7 @@ extern scr_bool lib_examine_tail (scr_gameref_t game, scr_int object,
                                   scr_bool is_described);
 extern scr_int lib_examine_crowded_390 (scr_gameref_t game);
 
-/* sclibrar_take.cpp */
+/* sclibrar_take_multiple.cpp */
 extern scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
                                scr_int object, scr_int mode);
 

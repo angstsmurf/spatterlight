@@ -315,7 +315,7 @@ lib_take_from_empty_verb (scr_gameref_t game)
  * take anything from the stone!".  A line without get or remove never reaches
  * insides() at all, so it gets the same catch-all whatever the source is -- a
  * gate Scarier deliberately does not apply (see the run370 insides() note in
- * sclibrar_take.inc).  An object the player has not been shown is "What
+ * sclibrar_take.cpp).  An object the player has not been shown is "What
  * <Short>?", as in lib_cmd_verb_object().  TRUE once this has answered; FALSE
  * for any other version or object.
  */
@@ -1476,7 +1476,7 @@ lib_take_from_npc_filter (scr_gameref_t game, scr_int object, scr_int associate)
  * arm's answer stands: `take stone from dave` is "I don't think   would
  * appreciate being handled." (runner_probes/npcamb.run370.one.rtf); Scarier
  * deliberately gives 3.7 run380's gate there (see the run370 insides() note
- * in sclibrar_take.inc).  3.9 picks the last PRESENT character instead ("Bob
+ * in sclibrar_take.cpp).  3.9 picks the last PRESENT character instead ("Bob
  * is not carrying the stone!", runner_probes/npcamb.run390.txt).
  *
  * TRUE once this has answered.  Otherwise *npc is the character to take
