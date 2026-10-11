@@ -2183,163 +2183,24 @@ lib_earlier_handler_claims_pre400 (scr_gameref_t game, const scr_char *line)
 }
 
 
-scr_bool
-lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
-                          std::string *rewritten)
+/*
+ * lib_two_verb_rewrite_pre400()
+ *
+ * The tail of lib_two_verb_line_pre400(): re-spell LINE as HANDLER's canonical
+ * verb followed by what is left of the line, FOUND being the one object the
+ * line names, or -1.
+ */
+static scr_bool
+lib_two_verb_rewrite_pre400 (scr_gameref_t game, const scr_char *line,
+                             scr_int handler, scr_int found,
+                             scr_bool bare_put, const std::string *slots,
+                             std::string *rewritten)
 {
-  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
-  scr_bool present[LIB_PRE400_HANDLERS], acts[LIB_PRE400_HANDLERS];
-  scr_int handler, handler_word, object, found, count;
-  scr_bool bare_put = FALSE, slot_line;
-  std::string slots[LIB_PRE400_HANDLERS], shortname;
+  scr_int handler_word;
+  std::string shortname;
   const scr_char *scan;
   std::string rest;
 
-  /* The Runner's c(): whether the line contains WORD. */
-  const auto c_word = [&] (const scr_char *word) -> scr_bool
-    {
-      return run_c_word_pre400 (version, line, word) >= 0;
-    };
-
-  if (version >= TAF_VERSION_400 || !line || line[0] == NUL)
-    return FALSE;
-
-  count = lib_pre400_handler_words (game, line, present, &slot_line);
-  lib_pre400_slot_words (game, slots);
-  /*
-   * A put with no container clause is no handler's: run370/380/390's put
-   * row wants its in/on, and the bare verb falls through to the catch-all.
-   * So beside one of the five it is only a word, and the handler answers:
-   * `put x coin` is "A gold coin.", `put take coin` with the coin held
-   * "You've already got a coin!", `put drop coin` "You drop the coin.".
-   * Cells 56, 69 and 76 (run370x runner_probes/ord.run370.rest.rtf, run380x
-   * runner_probes/ord.run380.rest.rtf, run390x
-   * runner_probes/ord.run390.rest.txt, 2026-09-21).
-   */
-  if (c_word ("put") && !c_word ("in") && !c_word ("into")
-      && !c_word ("inside") && !c_word ("on") && !c_word ("onto")
-      && !c_word ("down"))
-    {
-      bare_put = TRUE;
-      count++;
-    }
-  /*
-   * A 3.70 slot word is no word the rows below know, so a line holding one
-   * is re-spelled even with one handler in it: `grab stone` becomes `take
-   * stone` for the take row, while the tasks have already heard it as typed.
-   */
-  if (count < 2 && !slot_line)
-    return FALSE;
-  if (count < 2 && !bare_put)
-    {
-      for (handler = 0; !present[handler]; handler++)
-        ;
-      found = -1;
-      goto rewrite;
-    }
-
-  /*
-   * A list line (`all`, `and`) goes to the list arm of the first handler
-   * generaltasks calls that holds one, takes then drops, and that arm walks
-   * co() over the whole line on its own: `x take all` and `wear take all`
-   * are "You pick up the coin and the box.", `drop x all` "You drop the hat
-   * and the coin.", `x take coin and hat` with the hat held "You pick up the
-   * coin.".  p37ORD..p39ORD (run370x runner_probes/ord.run370.rest.rtf,
-   * run380x runner_probes/ord.run380.rest.rtf, run390x
-   * runner_probes/ord.run390.rest.txt, 2026-09-21).  A line with both a take
-   * and a drop word is not measured.
-   */
-  if (c_word ("all") || c_word ("and"))
-    {
-      if (present[LIB_PRE400_TAKE] == present[LIB_PRE400_DROP])
-        return FALSE;
-      handler = present[LIB_PRE400_TAKE] ? LIB_PRE400_TAKE : LIB_PRE400_DROP;
-      found = -1;
-      goto rewrite;
-    }
-
-  /* The one object the line names, by co() over the whole line. */
-  found = -1;
-  GS_FOR_EACH_OBJECT (game, object)
-    {
-      if (!lib_co_pre400 (game, line, object, 1))
-        continue;
-      if (found != -1)
-        {
-          found = -1;
-          goto unmeasured;
-        }
-      found = object;
-    }
-  /*
-   * A static object acts for none of the four, and each of their refusals
-   * leaves the line open -- except drops()' below 3.90, which claims it --
-   * so examines speaks over the rest: `x take bench`, `take x bench`, `wear
-   * x bench` and `remove x bench` are all "A stone bench." at 3.70, 3.80 and
-   * 3.90, while `drop x bench` is "You don't have a bench!" at 3.70/3.80 and
-   * the description at 3.90.  With no examine word the first handler in the
-   * call order answers: `drop take bench`, `take drop bench` and `wear take
-   * bench` are "You can't take a bench.".  The 3.70 slot words go the same
-   * way (`peer grab box`, `doff peer box`; `dump grab box` is the take
-   * refusal).  p37SURF..p39SURF (run370x
-   * runner_probes/surf.run370.stat2v.rtf, run380x
-   * runner_probes/surf.run380.stat2v.rtf, run390x
-   * runner_probes/surf.run390.stat2v.txt) and p37SLOT2
-   * (runner_probes/slot2.run370.b.rtf plus its scrollback dump
-   * runner_probes/slot2.run370.b_dump.txt), 2026-09-21.
-   */
-  if (found != -1 && obj_is_static (game, found))
-    {
-      if (version < TAF_VERSION_390 && present[LIB_PRE400_DROP])
-        handler = present[LIB_PRE400_TAKE] ? LIB_PRE400_TAKE : LIB_PRE400_DROP;
-      else if (present[LIB_PRE400_EXAMINE])
-        handler = LIB_PRE400_EXAMINE;
-      else
-        for (handler = 0; !present[handler]; handler++)
-          ;
-      goto rewrite;
-    }
-
-  acts[LIB_PRE400_TAKE] = found != -1 && lib_take_filter (game, found, -1);
-  /* drops() takes a worn object off the player too; see
-     lib_drop_named_filter(). */
-  acts[LIB_PRE400_DROP] = found != -1
-                          && (lib_drop_filter (game, found, -1)
-                              || lib_remove_filter (game, found, -1));
-  acts[LIB_PRE400_WEAR] = found != -1 && lib_wear_filter (game, found, -1);
-  acts[LIB_PRE400_REMOVE] = found != -1 && lib_remove_filter (game, found, -1);
-  acts[LIB_PRE400_EXAMINE] = FALSE;
-
-  handler = -1;
-  for (object = LIB_PRE400_TAKE; object <= LIB_PRE400_REMOVE; object++)
-    {
-      if (present[object] && acts[object])
-        {
-          handler = object;
-          break;
-        }
-    }
-  if (handler == -1 && present[LIB_PRE400_EXAMINE] && found != -1)
-    handler = LIB_PRE400_EXAMINE;
-  for (object = LIB_PRE400_TAKE; handler == -1 && object <= LIB_PRE400_REMOVE;
-       object++)
-    {
-      if (present[object])
-        handler = object;
-    }
-  if (handler == -1)
-    handler = LIB_PRE400_EXAMINE;
-  goto rewrite;
-
-unmeasured:
-  /* Left as it was -- unless a slot word would then reach rows that do not
-     know it, where the first handler in the call order has it instead. */
-  if (!slot_line)
-    return FALSE;
-  for (handler = 0; !present[handler]; handler++)
-    ;
-
-rewrite:
   if (found != -1)
     {
       const scr_char *const name = prop_get_indexed_string (
@@ -2400,6 +2261,166 @@ rewrite:
       *rewritten += rest;
     }
   return TRUE;
+}
+
+scr_bool
+lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
+                          std::string *rewritten)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  scr_bool present[LIB_PRE400_HANDLERS], acts[LIB_PRE400_HANDLERS];
+  scr_int handler, object, found, count;
+  scr_bool bare_put = FALSE, slot_line;
+  std::string slots[LIB_PRE400_HANDLERS];
+
+  /* The Runner's c(): whether the line contains WORD. */
+  const auto c_word = [&] (const scr_char *word) -> scr_bool
+    {
+      return run_c_word_pre400 (version, line, word) >= 0;
+    };
+  /* Hand the line to HANDLER, FOUND being the one object it names if any. */
+  const auto rewrite = [&] () -> scr_bool
+    {
+      return lib_two_verb_rewrite_pre400 (game, line, handler, found,
+                                          bare_put, slots, rewritten);
+    };
+
+  if (version >= TAF_VERSION_400 || !line || line[0] == NUL)
+    return FALSE;
+
+  count = lib_pre400_handler_words (game, line, present, &slot_line);
+  lib_pre400_slot_words (game, slots);
+  /*
+   * A put with no container clause is no handler's: run370/380/390's put
+   * row wants its in/on, and the bare verb falls through to the catch-all.
+   * So beside one of the five it is only a word, and the handler answers:
+   * `put x coin` is "A gold coin.", `put take coin` with the coin held
+   * "You've already got a coin!", `put drop coin` "You drop the coin.".
+   * Cells 56, 69 and 76 (run370x runner_probes/ord.run370.rest.rtf, run380x
+   * runner_probes/ord.run380.rest.rtf, run390x
+   * runner_probes/ord.run390.rest.txt, 2026-09-21).
+   */
+  if (c_word ("put") && !c_word ("in") && !c_word ("into")
+      && !c_word ("inside") && !c_word ("on") && !c_word ("onto")
+      && !c_word ("down"))
+    {
+      bare_put = TRUE;
+      count++;
+    }
+  /*
+   * A 3.70 slot word is no word the rows below know, so a line holding one
+   * is re-spelled even with one handler in it: `grab stone` becomes `take
+   * stone` for the take row, while the tasks have already heard it as typed.
+   */
+  if (count < 2 && !slot_line)
+    return FALSE;
+  if (count < 2 && !bare_put)
+    {
+      for (handler = 0; !present[handler]; handler++)
+        ;
+      found = -1;
+      return rewrite ();
+    }
+
+  /*
+   * A list line (`all`, `and`) goes to the list arm of the first handler
+   * generaltasks calls that holds one, takes then drops, and that arm walks
+   * co() over the whole line on its own: `x take all` and `wear take all`
+   * are "You pick up the coin and the box.", `drop x all` "You drop the hat
+   * and the coin.", `x take coin and hat` with the hat held "You pick up the
+   * coin.".  p37ORD..p39ORD (run370x runner_probes/ord.run370.rest.rtf,
+   * run380x runner_probes/ord.run380.rest.rtf, run390x
+   * runner_probes/ord.run390.rest.txt, 2026-09-21).  A line with both a take
+   * and a drop word is not measured.
+   */
+  if (c_word ("all") || c_word ("and"))
+    {
+      if (present[LIB_PRE400_TAKE] == present[LIB_PRE400_DROP])
+        return FALSE;
+      handler = present[LIB_PRE400_TAKE] ? LIB_PRE400_TAKE : LIB_PRE400_DROP;
+      found = -1;
+      return rewrite ();
+    }
+
+  /* The one object the line names, by co() over the whole line. */
+  found = -1;
+  GS_FOR_EACH_OBJECT (game, object)
+    {
+      if (!lib_co_pre400 (game, line, object, 1))
+        continue;
+      if (found != -1)
+        {
+          /* Left as it was -- unless a slot word would then reach rows that
+             do not know it, where the first handler in the call order has
+             it instead. */
+          found = -1;
+          if (!slot_line)
+            return FALSE;
+          for (handler = 0; !present[handler]; handler++)
+            ;
+          return rewrite ();
+        }
+      found = object;
+    }
+  /*
+   * A static object acts for none of the four, and each of their refusals
+   * leaves the line open -- except drops()' below 3.90, which claims it --
+   * so examines speaks over the rest: `x take bench`, `take x bench`, `wear
+   * x bench` and `remove x bench` are all "A stone bench." at 3.70, 3.80 and
+   * 3.90, while `drop x bench` is "You don't have a bench!" at 3.70/3.80 and
+   * the description at 3.90.  With no examine word the first handler in the
+   * call order answers: `drop take bench`, `take drop bench` and `wear take
+   * bench` are "You can't take a bench.".  The 3.70 slot words go the same
+   * way (`peer grab box`, `doff peer box`; `dump grab box` is the take
+   * refusal).  p37SURF..p39SURF (run370x
+   * runner_probes/surf.run370.stat2v.rtf, run380x
+   * runner_probes/surf.run380.stat2v.rtf, run390x
+   * runner_probes/surf.run390.stat2v.txt) and p37SLOT2
+   * (runner_probes/slot2.run370.b.rtf plus its scrollback dump
+   * runner_probes/slot2.run370.b_dump.txt), 2026-09-21.
+   */
+  if (found != -1 && obj_is_static (game, found))
+    {
+      if (version < TAF_VERSION_390 && present[LIB_PRE400_DROP])
+        handler = present[LIB_PRE400_TAKE] ? LIB_PRE400_TAKE : LIB_PRE400_DROP;
+      else if (present[LIB_PRE400_EXAMINE])
+        handler = LIB_PRE400_EXAMINE;
+      else
+        for (handler = 0; !present[handler]; handler++)
+          ;
+      return rewrite ();
+    }
+
+  acts[LIB_PRE400_TAKE] = found != -1 && lib_take_filter (game, found, -1);
+  /* drops() takes a worn object off the player too; see
+     lib_drop_named_filter(). */
+  acts[LIB_PRE400_DROP] = found != -1
+                          && (lib_drop_filter (game, found, -1)
+                              || lib_remove_filter (game, found, -1));
+  acts[LIB_PRE400_WEAR] = found != -1 && lib_wear_filter (game, found, -1);
+  acts[LIB_PRE400_REMOVE] = found != -1 && lib_remove_filter (game, found, -1);
+  acts[LIB_PRE400_EXAMINE] = FALSE;
+
+  handler = -1;
+  for (object = LIB_PRE400_TAKE; object <= LIB_PRE400_REMOVE; object++)
+    {
+      if (present[object] && acts[object])
+        {
+          handler = object;
+          break;
+        }
+    }
+  if (handler == -1 && present[LIB_PRE400_EXAMINE] && found != -1)
+    handler = LIB_PRE400_EXAMINE;
+  for (object = LIB_PRE400_TAKE; handler == -1 && object <= LIB_PRE400_REMOVE;
+       object++)
+    {
+      if (present[object])
+        handler = object;
+    }
+  if (handler == -1)
+    handler = LIB_PRE400_EXAMINE;
+  return rewrite ();
 }
 
 

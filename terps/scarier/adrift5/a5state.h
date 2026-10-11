@@ -590,7 +590,6 @@ extern const char *a5state_lookup_ref  (const a5_state_t *st, const char *name);
 
 /* Variable lookup by Name (text engine) or Key (restrictions). */
 extern int         a5state_var_num_by_name (const a5_state_t *st, const char *name, long *out);
-extern const char *a5state_var_text_by_name (const a5_state_t *st, const char *name);
 
 /* Numeric array-variable element access (idx is ADRIFT's 1-based index).
    Out-of-range reads return 0 and writes are dropped (clsVariable's ErrMsg

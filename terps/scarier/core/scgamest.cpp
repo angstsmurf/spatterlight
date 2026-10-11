@@ -378,7 +378,6 @@ gs_player_in_room (scr_gameref_t game, scr_int room)
 
 
 /*
- * gs_event_valid()
  * gs_room_valid()
  * gs_task_valid()
  * gs_object_valid()
@@ -389,13 +388,6 @@ gs_player_in_room (scr_gameref_t game, scr_int room)
  * below only assert their indices, so callers holding a file-derived index
  * test it here first and treat an out-of-range one as no reference at all.
  */
-scr_bool
-gs_event_valid (scr_gameref_t gs, scr_int event)
-{
-  GS_CHECK (gs);
-  return gs_in_range (event, gs->event_count);
-}
-
 scr_bool
 gs_room_valid (scr_gameref_t gs, scr_int room)
 {

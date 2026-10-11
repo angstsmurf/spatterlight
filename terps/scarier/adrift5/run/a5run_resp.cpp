@@ -88,14 +88,8 @@ sink_len (a5_run_t *run, sb_t *out)
 
 /* Render a completion wrapper without retiring its DisplayOnce segments
    (the Adrift 5 runner's bTestingOutput=True): used for the pre/post-action comparison
-   that decides whether a Before message is pinned or deferred. */
-char *
-render_comp_test (a5_state_t *st, const a5_xml_node_t *comp)
-{
-  return render_comp_test_ex (st, comp, nullptr);
-}
-
-/* render_comp_test, additionally handing back the still-MARKED-UP render.
+   that decides whether a Before message is pinned or deferred.  Also hands
+   back the still-MARKED-UP render.
    The runner compares its pre- and post-action renders as the RAW strings its
    ReplaceExpressions produced -- tags and all -- so a difference that lives
    only inside a stripped tag still counts as "the actions changed the

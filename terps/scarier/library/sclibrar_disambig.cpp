@@ -492,26 +492,64 @@ lib_first_named_pre400 (scr_gameref_t game, scr_int fallback)
   return best >= 0 ? best : fallback;
 }
 
-scr_int
-lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
-                               scr_bool (*resolver)
-                                   (scr_gameref_t, scr_int, scr_int),
-                               scr_int resolver_arg,
-                               scr_bool *is_ambiguous)
+/*
+ * One lib_disambiguate_object_common() call: the verb and resolver it was
+ * given, and the candidates still standing -- COUNT of them flagged in
+ * object_references, OBJECT the last one found.  A stage that settles the
+ * question returns TRUE and leaves the answer in RESULT.
+ */
+struct lib_disambig_t
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_var_setref_t vars = gs_get_vars (game);
-  const scr_bool requires_seen = lib_matcher_requires_seen (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_int taf_version = prop_get_taf_version (bundle);
-  scr_int count, index_, object, listed;
+  const scr_gameref_t game;
+  const scr_char *const verb;
+  scr_bool (*const resolver) (scr_gameref_t, scr_int, scr_int);
+  const scr_int resolver_arg;
+  scr_bool *const is_ambiguous;
+  const scr_filterref_t filter;
+  const scr_var_setref_t vars;
+  const scr_prop_setref_t bundle;
+  const scr_int taf_version;
+  scr_int count, object, result;
 
-  /*
-   * Filter out all referenced objects not actually visible or seen.  Count
-   * the number of objects remaining as referenced by the last command, and
-   * note the last referenced object, for where count is 1.  Version 3.8
-   * games skip the seen test -- see lib_matcher_requires_seen().
-   */
+  lib_disambig_t (scr_gameref_t game_, const scr_char *verb_,
+                  scr_bool (*resolver_) (scr_gameref_t, scr_int, scr_int),
+                  scr_int resolver_arg_, scr_bool *is_ambiguous_)
+    : game (game_), verb (verb_), resolver (resolver_),
+      resolver_arg (resolver_arg_), is_ambiguous (is_ambiguous_),
+      filter (gs_get_filter (game_)), vars (gs_get_vars (game_)),
+      bundle (gs_get_bundle (game_)),
+      taf_version (prop_get_taf_version (bundle)), count (0), object (-1),
+      result (-1) {}
+
+  scr_bool done (scr_int object_) { result = object_; return TRUE; }
+
+  void gather_candidates (void);
+  scr_bool narrow_named_pre400 (void);
+  void narrow_top_scored_400 (void);
+  void narrow_with_resolver (void);
+  scr_bool ask_which_examine_pre390 (void);
+  void pick_wear_remove_pre380 (void);
+  scr_bool pick_take_drop_pre400 (void);
+  void pick_open_close_pre400 (void);
+  scr_bool settle_single_or_none (void);
+  scr_bool resolve_take_400 (void);
+  scr_bool raise_crowd_400 (void);
+  scr_bool resolve_examine_400 (void);
+  scr_int list_choices (void);
+};
+
+/*
+ * Filter out all referenced objects not actually visible or seen.  Count
+ * the number of objects remaining as referenced by the last command, and
+ * note the last referenced object, for where count is 1.  Version 3.8
+ * games skip the seen test -- see lib_matcher_requires_seen().
+ */
+void
+lib_disambig_t::gather_candidates (void)
+{
+  const scr_bool requires_seen = lib_matcher_requires_seen (game);
+  scr_int index_;
+
   count = 0;
   object = -1;
   GS_FOR_EACH_OBJECT (game, index_)
@@ -540,35 +578,41 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
   if (taf_version < TAF_VERSION_380 && count > 0
       && strncmp (verb, "put", 3) != 0 && strcmp (verb, "move") != 0)
     disambig.line.prompt_370_blocked = TRUE;
+}
 
-  /*
-   * 3.8 and 3.9 put each candidate through co() -- run380 co(obj) from
-   * drops, wears, removes, openclose, examines, takes and the rest, run390
-   * co(obj, mode) (43B6BC) -- BEFORE any handler filter: the term's present
-   * namesakes are counted, and with two or more the object passes only if
-   * the last word of its Prefix is typed (lib_co_pre400).  So `wear hat`
-   * with the red hat in hand and the blue one on the floor wears NOTHING at
-   * 3.8/3.9 -- held-ness never narrowed the count -- and the turn is the
-   * "Which hat.  The red hat or the blue hat?" the generaltasks scan raises;
-   * likewise remove, open, close, take and drop (3.8).  3.9's takes() uses
-   * mode 1 (loose in the room) and drops() mode 2 (isheld), which do
-   * narrow.  Measured on p38TASK/p39TASK
-   * (runner_probes/task.run380.pname.rtf,
-   * runner_probes/task.run380.pname2.rtf,
-   * runner_probes/task.run390.pname.txt,
-   * runner_probes/task.run390.pname2.txt, 2026-09-19).  Scarier narrows take
-   * and drop at 3.8 too, and wear and remove at both (deliberate deviation),
-   * so that `wear hat` puts on the red hat.
-   *
-   * 3.9's examine narrows the same way -- referencedob() (42DF43) calls the
-   * same co(obj, 0), so the last Prefix word settles a crowd for it too:
-   * `x tree red` with trees Prefixed "a red" and "a blue" is "A red tree."
-   * (p39PFX, run390x runner_probes/pfx.run390.txt turn 17, 2026-09-20).
-   * What it does NOT do is answer when the word narrows nothing: there co()
-   * is false for every candidate, referencedob() counts none, and
-   * examines() keeps its own "Nothing special." below, under the
-   * end-of-turn "Which tree."
-   */
+/*
+ * 3.8 and 3.9 put each candidate through co() -- run380 co(obj) from
+ * drops, wears, removes, openclose, examines, takes and the rest, run390
+ * co(obj, mode) (43B6BC) -- BEFORE any handler filter: the term's present
+ * namesakes are counted, and with two or more the object passes only if
+ * the last word of its Prefix is typed (lib_co_pre400).  So `wear hat`
+ * with the red hat in hand and the blue one on the floor wears NOTHING at
+ * 3.8/3.9 -- held-ness never narrowed the count -- and the turn is the
+ * "Which hat.  The red hat or the blue hat?" the generaltasks scan raises;
+ * likewise remove, open, close, take and drop (3.8).  3.9's takes() uses
+ * mode 1 (loose in the room) and drops() mode 2 (isheld), which do
+ * narrow.  Measured on p38TASK/p39TASK
+ * (runner_probes/task.run380.pname.rtf,
+ * runner_probes/task.run380.pname2.rtf,
+ * runner_probes/task.run390.pname.txt,
+ * runner_probes/task.run390.pname2.txt, 2026-09-19).  Scarier narrows take
+ * and drop at 3.8 too, and wear and remove at both (deliberate deviation),
+ * so that `wear hat` puts on the red hat.
+ *
+ * 3.9's examine narrows the same way -- referencedob() (42DF43) calls the
+ * same co(obj, 0), so the last Prefix word settles a crowd for it too:
+ * `x tree red` with trees Prefixed "a red" and "a blue" is "A red tree."
+ * (p39PFX, run390x runner_probes/pfx.run390.txt turn 17, 2026-09-20).
+ * What it does NOT do is answer when the word narrows nothing: there co()
+ * is false for every candidate, referencedob() counts none, and
+ * examines() keeps its own "Nothing special." below, under the
+ * end-of-turn "Which tree."
+ */
+scr_bool
+lib_disambig_t::narrow_named_pre400 (void)
+{
+  scr_int index_;
+
   const scr_bool examine_390 = taf_version >= TAF_VERSION_390
                                && strcmp (verb, "examine") == 0;
   if (count > 1 && taf_version >= TAF_VERSION_380
@@ -610,7 +654,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
             pf_buffer_string (gs_get_filter (game), "Nothing special.\n");
           if (is_ambiguous)
             *is_ambiguous = TRUE;
-          return -1;
+          return done (-1);
         }
       if (kept > 0 && kept < count)
         {
@@ -629,37 +673,42 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
             }
         }
     }
+  return FALSE;
+}
 
-  /*
-   * 4.0 runs the Prefix contest over a crowded reference instead: co()'s
-   * crowded arm (run400 454454, called from Proc_21_39_46486C) scores every
-   * candidate the way 463640 does -- the Short as a whole word, any alias,
-   * and one more for each word of the Prefix the line holds -- and keeps
-   * the strict maximum.  A single winner is the reference, and when several
-   * tie at the top it is THOSE the question offers, not the whole reference
-   * set.
-   *
-   * Measured 2026-09-20 on p4PFX2.taf, three trees Prefixed "a big red",
-   * "a red" and "the red" beside a "a" rock (run400x
-   * runner_probes/pfx2.run400.txt):
-   *
-   *     x tree          ->  Which tree.  The big red tree, the red tree or
-   *                         the red tree?                       (1-1-1)
-   *     x red tree      ->  the same three                      (2-2-2)
-   *     x a red tree    ->  Which tree.  The big red tree or the red tree?
-   *                                                             (3-3-2)
-   *     x the red tree  ->  The red tree.                       (2-2-3)
-   *     x big tree      ->  A big red tree.                     (2-1-1)
-   *     x a tree        ->  Which tree.  The big red tree or the red tree?
-   *                                                             (2-2-1)
-   *
-   * The older p4CO cells still hold because their candidates all tie:
-   * `x tree rock` offers "the red tree, the blue tree or the rock" because
-   * each scores its own Short and no Prefix word was typed.
-   *
-   * Below 4.0 the same crowd is settled by the last Prefix word alone; see
-   * lib_co_pre400() above.
-   */
+/*
+ * 4.0 runs the Prefix contest over a crowded reference instead: co()'s
+ * crowded arm (run400 454454, called from Proc_21_39_46486C) scores every
+ * candidate the way 463640 does -- the Short as a whole word, any alias,
+ * and one more for each word of the Prefix the line holds -- and keeps
+ * the strict maximum.  A single winner is the reference, and when several
+ * tie at the top it is THOSE the question offers, not the whole reference
+ * set.
+ *
+ * Measured 2026-09-20 on p4PFX2.taf, three trees Prefixed "a big red",
+ * "a red" and "the red" beside a "a" rock (run400x
+ * runner_probes/pfx2.run400.txt):
+ *
+ *     x tree          ->  Which tree.  The big red tree, the red tree or
+ *                         the red tree?                       (1-1-1)
+ *     x red tree      ->  the same three                      (2-2-2)
+ *     x a red tree    ->  Which tree.  The big red tree or the red tree?
+ *                                                             (3-3-2)
+ *     x the red tree  ->  The red tree.                       (2-2-3)
+ *     x big tree      ->  A big red tree.                     (2-1-1)
+ *     x a tree        ->  Which tree.  The big red tree or the red tree?
+ *                                                             (2-2-1)
+ *
+ * The older p4CO cells still hold because their candidates all tie:
+ * `x tree rock` offers "the red tree, the blue tree or the rock" because
+ * each scores its own Short and no Prefix word was typed.
+ *
+ * Below 4.0 the same crowd is settled by the last Prefix word alone; see
+ * lib_co_pre400() above.
+ */
+void
+lib_disambig_t::narrow_top_scored_400 (void)
+{
   if (count > 1 && taf_version >= TAF_VERSION_400 && run_get_dispatch_input ())
     {
       const scr_char *line = run_get_dispatch_input ();
@@ -670,12 +719,18 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
           return lib_verb_object_name_score (game, candidate, line);
         });
     }
+}
 
-  /*
-   * If this reference is ambiguous and a resolver was supplied, try to
-   * resolve it unambiguously by calling the resolver filter on the remaining
-   * set references.
-   */
+/*
+ * If this reference is ambiguous and a resolver was supplied, try to
+ * resolve it unambiguously by calling the resolver filter on the remaining
+ * set references.
+ */
+void
+lib_disambig_t::narrow_with_resolver (void)
+{
+  scr_int index_;
+
   if (resolver && count > 1)
     {
       scr_int retry_count;
@@ -724,51 +779,57 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
             }
         }
     }
+}
 
-  /*
-   * 3.7 has no co() in its handlers, and each settles a namesake its own
-   * way (p37TASK, runner_probes/task.run370.pname.rtf /
-   * runner_probes/task.run370.pname2.rtf, 2026-09-19; two hats, red held
-   * and blue loose, two open boxes loose):
-   *
-   *   drops (430DDC) / takes (436280): every held (loose) namesake lacking
-   *     the last word of its Prefix in the line is marked and skipped,
-   *     unless it is the only one there is -- so two in hand is "Drop
-   *     what?", two on the floor "Take what?"; the "Which ... drop/take"
-   *     strings at 430866 are dead code.
-   *   wears (42C9FC) / removes: the loop puts on EVERY held wearable
-   *     namesake (takes off every worn one), each overwriting the message,
-   *     and "not holding"/"can't wear" goes only into an empty message: red
-   *     held and blue loose is "You put on a red hat.", red worn and blue
-   *     held "You put on a blue hat.".
-   *   openclose (426770): every namesake changes state, the last speaks:
-   *     `close box` closes both, "You close the blue box.".
-   *   examines (4359D5): "Which hat would you like to examine.  The red hat
-   *     or the blue hat?" over the present namesakes, no state change.
-   *
-   * The wear/remove loops are folded here as "act on all but the last
-   * directly, hand the last to the handler", so the handler's own wording
-   * answers for the last one exactly as the Runner's overwriting loop
-   * leaves it.  openclose's loop is the same fold, but 3.80 and 3.90 run it
-   * too, so it lives in the pre-4.0 block below.
-   */
-  /*
-   * examines() asks its own question, and it is not openclose's or takes':
-   * "Which <Short of the LAST match by index> would you like to examine.
-   * <the matches, in index order>?"  3.80 keeps it -- `read rock gem`, `read
-   * gem rock` and `examine rock gem` are all "Which rock would you like to
-   * examine.  The gem or the rock?" under run370 AND run380, and `read rock
-   * with slab` is "Which slab would you like to examine.  The rock or the
-   * slab?" (p*OPENW, runner_probes/openw.run370.ow.rtf,
-   * runner_probes/openw.run380.ow.rtf, runner_probes/openw.run370.ox.rtf,
-   * runner_probes/openw.run380.ox.rtf, 2026-09-20) -- so the word order on
-   * the line never picks here, only the index does.  3.90 replaced the
-   * question with referencedob()'s last-word pass; see
-   * lib_examine_crowded_390().
-   *
-   * Pre-4.0 `read` is one of examines()' entry words, so it asks the same
-   * question about the same verb; see lib_cmd_read_other().
-   */
+/*
+ * 3.7 has no co() in its handlers, and each settles a namesake its own
+ * way (p37TASK, runner_probes/task.run370.pname.rtf /
+ * runner_probes/task.run370.pname2.rtf, 2026-09-19; two hats, red held
+ * and blue loose, two open boxes loose):
+ *
+ *   drops (430DDC) / takes (436280): every held (loose) namesake lacking
+ *     the last word of its Prefix in the line is marked and skipped,
+ *     unless it is the only one there is -- so two in hand is "Drop
+ *     what?", two on the floor "Take what?"; the "Which ... drop/take"
+ *     strings at 430866 are dead code.
+ *   wears (42C9FC) / removes: the loop puts on EVERY held wearable
+ *     namesake (takes off every worn one), each overwriting the message,
+ *     and "not holding"/"can't wear" goes only into an empty message: red
+ *     held and blue loose is "You put on a red hat.", red worn and blue
+ *     held "You put on a blue hat.".
+ *   openclose (426770): every namesake changes state, the last speaks:
+ *     `close box` closes both, "You close the blue box.".
+ *   examines (4359D5): "Which hat would you like to examine.  The red hat
+ *     or the blue hat?" over the present namesakes, no state change.
+ *
+ * The wear/remove loops are folded here as "act on all but the last
+ * directly, hand the last to the handler", so the handler's own wording
+ * answers for the last one exactly as the Runner's overwriting loop
+ * leaves it.  openclose's loop is the same fold, but 3.80 and 3.90 run it
+ * too, so it lives in the pre-4.0 block below.
+ */
+/*
+ * examines() asks its own question, and it is not openclose's or takes':
+ * "Which <Short of the LAST match by index> would you like to examine.
+ * <the matches, in index order>?"  3.80 keeps it -- `read rock gem`, `read
+ * gem rock` and `examine rock gem` are all "Which rock would you like to
+ * examine.  The gem or the rock?" under run370 AND run380, and `read rock
+ * with slab` is "Which slab would you like to examine.  The rock or the
+ * slab?" (p*OPENW, runner_probes/openw.run370.ow.rtf,
+ * runner_probes/openw.run380.ow.rtf, runner_probes/openw.run370.ox.rtf,
+ * runner_probes/openw.run380.ox.rtf, 2026-09-20) -- so the word order on
+ * the line never picks here, only the index does.  3.90 replaced the
+ * question with referencedob()'s last-word pass; see
+ * lib_examine_crowded_390().
+ *
+ * Pre-4.0 `read` is one of examines()' entry words, so it asks the same
+ * question about the same verb; see lib_cmd_read_other().
+ */
+scr_bool
+lib_disambig_t::ask_which_examine_pre390 (void)
+{
+  scr_int index_, listed;
+
   if (count > 1 && taf_version < TAF_VERSION_390
       && (strcmp (verb, "examine") == 0 || strcmp (verb, "read") == 0))
     {
@@ -790,19 +851,26 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
       pf_buffer_string (filter, "?\n");
       if (is_ambiguous)
         *is_ambiguous = TRUE;
-      return -1;
+      return done (-1);
     }
+  return FALSE;
+}
 
-  /*
-   * run370's wears() and removes() rewrite the line's Alias with
-   * replacealias(0) -- a literal 0 (LitI2_Byte at 42C48A / 42958A), not the
-   * argument-less every-object form takes() uses -- so only object #0's
-   * Alias ever becomes a Short, and every other object must be named by
-   * its Short: `don ball` holding a red and a blue ball, both aliased
-   * "ball", is "Wear what?" (p37SLOT2, harness/make_37_slotprobe.py,
-   * runner_probes/slot2.run370.b.rtf, 2026-09-21).  Deliberate deviation:
-   * Scarier lets every Alias name the object, as 3.8 does.
-   */
+/*
+ * run370's wears() and removes() rewrite the line's Alias with
+ * replacealias(0) -- a literal 0 (LitI2_Byte at 42C48A / 42958A), not the
+ * argument-less every-object form takes() uses -- so only object #0's
+ * Alias ever becomes a Short, and every other object must be named by
+ * its Short: `don ball` holding a red and a blue ball, both aliased
+ * "ball", is "Wear what?" (p37SLOT2, harness/make_37_slotprobe.py,
+ * runner_probes/slot2.run370.b.rtf, 2026-09-21).  Deliberate deviation:
+ * Scarier lets every Alias name the object, as 3.8 does.
+ */
+void
+lib_disambig_t::pick_wear_remove_pre380 (void)
+{
+  scr_int index_;
+
   if (count > 1 && taf_version < TAF_VERSION_380
       && !lib_references_are_namesakes (game))
     {
@@ -836,38 +904,44 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
           count = 1;
         }
     }
+}
 
-  /*
-   * takes() (run370 436280, run380, run390) and drops() (430DDC) walk a
-   * crowded line the same way openclose() does: every survivor moves, and
-   * the last by index overwrites the message.  Below 3.90 that is the whole
-   * rule -- `take red pin` with pins Prefixed "old red" and "new red" is
-   * "You pick up new red pin." at 3.70 AND 3.80, and `i` afterwards lists
-   * both; `drop red pin` then drops both (p*TAKEP,
-   * runner_probes/takep.run370.rtf / runner_probes/takep.run380.rtf,
-   * 2026-09-20).  3.90 keeps only the FIRST by index: the same line is "You
-   * pick up old red pin." and `i` lists it alone.
-   *
-   * What survives is the Prefix contest, and which crowd runs it is the
-   * version split:
-   *
-   *   3.80/3.90 have co() under every handler, so the crowd is the TERM's
-   *     present namesakes and the block above has already narrowed it.
-   *   3.70 has no co() at all, so a crowd is objects sharing a SHORT the
-   *     line names (lib_namesake_crowded_pre380), and the filter runs here:
-   *     each crowded namesake keeps its reference only if the last word of
-   *     its Prefix is typed (lib_co_names_prefix).  With none left the turn
-   *     is takes'/drops' own "Take what?" / "Drop what?" -- the "Which ...
-   *     would you like to take" strings at 430866 are dead code -- and the
-   *     line is answered, so no end-of-turn co() question follows it.
-   *
-   * Note that a one-word Prefix filters NOTHING below 3.90, because the
-   * pre-3.9 co() drops the Prefix's first word before taking its last:
-   * `take big gem` over gems Prefixed "big" and "small" is "Take what?" at
-   * 3.70 and the co() question at 3.80, exactly as bare `take gem` is,
-   * while `take red gem` over "a very red" / "a very blue" answers (p*TAKEP
-   * / p*TAKEQ, runner_probes/takep.run*.* and runner_probes/takeq.run*.*).
-   */
+/*
+ * takes() (run370 436280, run380, run390) and drops() (430DDC) walk a
+ * crowded line the same way openclose() does: every survivor moves, and
+ * the last by index overwrites the message.  Below 3.90 that is the whole
+ * rule -- `take red pin` with pins Prefixed "old red" and "new red" is
+ * "You pick up new red pin." at 3.70 AND 3.80, and `i` afterwards lists
+ * both; `drop red pin` then drops both (p*TAKEP,
+ * runner_probes/takep.run370.rtf / runner_probes/takep.run380.rtf,
+ * 2026-09-20).  3.90 keeps only the FIRST by index: the same line is "You
+ * pick up old red pin." and `i` lists it alone.
+ *
+ * What survives is the Prefix contest, and which crowd runs it is the
+ * version split:
+ *
+ *   3.80/3.90 have co() under every handler, so the crowd is the TERM's
+ *     present namesakes and the block above has already narrowed it.
+ *   3.70 has no co() at all, so a crowd is objects sharing a SHORT the
+ *     line names (lib_namesake_crowded_pre380), and the filter runs here:
+ *     each crowded namesake keeps its reference only if the last word of
+ *     its Prefix is typed (lib_co_names_prefix).  With none left the turn
+ *     is takes'/drops' own "Take what?" / "Drop what?" -- the "Which ...
+ *     would you like to take" strings at 430866 are dead code -- and the
+ *     line is answered, so no end-of-turn co() question follows it.
+ *
+ * Note that a one-word Prefix filters NOTHING below 3.90, because the
+ * pre-3.9 co() drops the Prefix's first word before taking its last:
+ * `take big gem` over gems Prefixed "big" and "small" is "Take what?" at
+ * 3.70 and the co() question at 3.80, exactly as bare `take gem` is,
+ * while `take red gem` over "a very red" / "a very blue" answers (p*TAKEP
+ * / p*TAKEQ, runner_probes/takep.run*.* and runner_probes/takeq.run*.*).
+ */
+scr_bool
+lib_disambig_t::pick_take_drop_pre400 (void)
+{
+  scr_int index_;
+
   if (count > 0 && taf_version < TAF_VERSION_400
       && (strcmp (verb, "take") == 0 || strcmp (verb, "drop") == 0)
       && (count > 1 || taf_version < TAF_VERSION_380))
@@ -946,7 +1020,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
               GS_FOR_EACH_OBJECT (game, index_)
                 game->object_references[index_] = (index_ == object);
               count = 1;
-              goto pre400_take_done;
+              return FALSE;
             }
 
           GS_FOR_EACH_OBJECT (game, index_)
@@ -967,7 +1041,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
               disambig.line.prompt_370_blocked = TRUE;
               if (is_ambiguous)
                 *is_ambiguous = TRUE;
-              return -1;
+              return done (-1);
             }
           count = kept;
         }
@@ -995,32 +1069,38 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
         game->object_references[index_] = (index_ == object);
       count = 1;
     }
-pre400_take_done:
+  return FALSE;
+}
 
-  /*
-   * No pre-4.0 Runner asks about a crowded open/close line either.
-   * openclose() walks the referenced objects and acts on each OPENABLE one,
-   * the last by index overwriting the message -- run370, run380 and run390
-   * all answer `open rock gem chest` with "You open the chest." (p*OPENW,
-   * runner_probes/openw.run370.ox.rtf, runner_probes/openw.run380.ox.rtf,
-   * runner_probes/openw.run390.ox.txt, 2026-09-20), and with two closed
-   * containers on the line all three answer `open box gem chest` with "You
-   * open the chest." and leave the box open as well (p*OPENT, 2026-09-20).
-   * So 3.7's every-namesake loop is not 3.7's alone: 3.80 and 3.90 run the
-   * same one.
-   *
-   * The test is "openable at all", not "in the state the verb wants": with
-   * the box already open, `open box gem`, `open gem box`, `open gem chest`
-   * and `open chest box` are all "The <box|chest> is already open!" at
-   * 3.70, 3.80 and 3.90 -- the openable object still wins the line, and the
-   * handler's own already-open wording answers for it.
-   *
-   * With NONE openable the versions part company.  3.80 gave `open` a
-   * refusal of its own inside openclose(), which names the LOWEST object
-   * index on the line and ends in a bang; `close` never got one, and 3.70
-   * has neither, so those fall through to therest()'s can-do tail and its
-   * first name by WORD POSITION (lib_first_named_pre400()).
-   */
+/*
+ * No pre-4.0 Runner asks about a crowded open/close line either.
+ * openclose() walks the referenced objects and acts on each OPENABLE one,
+ * the last by index overwriting the message -- run370, run380 and run390
+ * all answer `open rock gem chest` with "You open the chest." (p*OPENW,
+ * runner_probes/openw.run370.ox.rtf, runner_probes/openw.run380.ox.rtf,
+ * runner_probes/openw.run390.ox.txt, 2026-09-20), and with two closed
+ * containers on the line all three answer `open box gem chest` with "You
+ * open the chest." and leave the box open as well (p*OPENT, 2026-09-20).
+ * So 3.7's every-namesake loop is not 3.7's alone: 3.80 and 3.90 run the
+ * same one.
+ *
+ * The test is "openable at all", not "in the state the verb wants": with
+ * the box already open, `open box gem`, `open gem box`, `open gem chest`
+ * and `open chest box` are all "The <box|chest> is already open!" at
+ * 3.70, 3.80 and 3.90 -- the openable object still wins the line, and the
+ * handler's own already-open wording answers for it.
+ *
+ * With NONE openable the versions part company.  3.80 gave `open` a
+ * refusal of its own inside openclose(), which names the LOWEST object
+ * index on the line and ends in a bang; `close` never got one, and 3.70
+ * has neither, so those fall through to therest()'s can-do tail and its
+ * first name by WORD POSITION (lib_first_named_pre400()).
+ */
+void
+lib_disambig_t::pick_open_close_pre400 (void)
+{
+  scr_int index_;
+
   if (count > 1 && taf_version < TAF_VERSION_400
       && (strcmp (verb, "open") == 0 || strcmp (verb, "close") == 0)
       && !lib_references_are_namesakes (game))
@@ -1070,26 +1150,30 @@ pre400_take_done:
         game->object_references[index_] = (index_ == object);
       count = 1;
     }
+}
 
-  /*
-   * run400's examine narrows by names the LINE contains, not by the longest
-   * one: with no present object's Short in the line, every present object
-   * whose alias the line holds is a candidate, and a name two of them share
-   * raises the question even though a longer alias picks one out.  hub T70
-   * `x lower right cupboard` (aliases "lower right cupboard" and "right
-   * cupboard" on one, "right cupboard" on the other) answers "Which right
-   * cupboard.  The right lower cupboard or the right upper cupboard?"
-   * (runner_probes/hub.run400.adj.txt, runner_transcripts/hub.txt).
-   * Scarier lets the longer alias pick (deliberate deviation), so that line
-   * examines the lower cupboard.
-   */
+/*
+ * run400's examine narrows by names the LINE contains, not by the longest
+ * one: with no present object's Short in the line, every present object
+ * whose alias the line holds is a candidate, and a name two of them share
+ * raises the question even though a longer alias picks one out.  hub T70
+ * `x lower right cupboard` (aliases "lower right cupboard" and "right
+ * cupboard" on one, "right cupboard" on the other) answers "Which right
+ * cupboard.  The right lower cupboard or the right upper cupboard?"
+ * (runner_probes/hub.run400.adj.txt, runner_transcripts/hub.txt).
+ * Scarier lets the longer alias pick (deliberate deviation), so that line
+ * examines the lower cupboard.
+ */
+scr_bool
+lib_disambig_t::settle_single_or_none (void)
+{
   if (count == 1 && lib_is_version_400 (game)
       && strcmp (verb, "examine") == 0
       && lib_co_400_raise_for_contained_aliases (game))
     {
       if (is_ambiguous)
         *is_ambiguous = TRUE;
-      return -1;
+      return done (-1);
     }
 
   /* If the reference is unambiguous, set in variables and return it. */
@@ -1101,7 +1185,7 @@ pre400_take_done:
       /* Return, setting no ambiguity. */
       if (is_ambiguous)
         *is_ambiguous = FALSE;
-      return object;
+      return done (object);
     }
 
   /* If nothing referenced, return no object. */
@@ -1116,15 +1200,22 @@ pre400_take_done:
           pf_buffer_string (filter, verb);
           pf_buffer_string (filter, "?\n");
         }
-      return -1;
+      return done (-1);
     }
+  return FALSE;
+}
 
-  /*
-   * A 4.0 take does not ask about every crowd: takes() names its object with
-   * 463640 mode 1, whose pending object decides between the question and the
-   * flat "It is not clear which <term> you are referring to."  See
-   * lib_name_object_resolve_400(), where p4TAKER's ten cells are.
-   */
+/*
+ * A 4.0 take does not ask about every crowd: takes() names its object with
+ * 463640 mode 1, whose pending object decides between the question and the
+ * flat "It is not clear which <term> you are referring to."  See
+ * lib_name_object_resolve_400(), where p4TAKER's ten cells are.
+ */
+scr_bool
+lib_disambig_t::resolve_take_400 (void)
+{
+  scr_int index_;
+
   if (count > 1 && lib_is_version_400 (game)
       && strcmp (verb, "take") == 0 && run_get_dispatch_input ())
     {
@@ -1142,7 +1233,7 @@ pre400_take_done:
           var_set_ref_object (vars, object);
           if (is_ambiguous)
             *is_ambiguous = FALSE;
-          return object;
+          return done (object);
         }
       if (object == -1 && pending < 0)
         {
@@ -1151,7 +1242,7 @@ pre400_take_done:
           pf_buffer_character (filter, '\n');
           if (is_ambiguous)
             *is_ambiguous = TRUE;
-          return -1;
+          return done (-1);
         }
       /* 4733BD: the term is the LAST tied object's raw Short. */
       if (object == -1 && (scr_int) marked.size () == mark_count)
@@ -1162,20 +1253,25 @@ pre400_take_done:
                                   marked);
           if (is_ambiguous)
             *is_ambiguous = TRUE;
-          return -1;
+          return done (-1);
         }
     }
+  return FALSE;
+}
 
-  /*
-   * 4.0 asks the Runner's own question instead.  "Please be more clear, what
-   * do you want to <verb>?" is a SCARE invention -- the string is in none of
-   * the four Runner binaries -- and what run400 really prints where two
-   * present objects answer to the typed noun is the same "Which <term>.
-   * <list>?" the 3.7/3.8 scan above raises (see lib_co_400_raise()).  Away
-   * from examine no 4.0 command reaches the listing at all: a crowd that
-   * asks nothing hands the handler no object, and the command goes on to
-   * its own %text% row.
-   */
+/*
+ * 4.0 asks the Runner's own question instead.  "Please be more clear, what
+ * do you want to <verb>?" is a SCARE invention -- the string is in none of
+ * the four Runner binaries -- and what run400 really prints where two
+ * present objects answer to the typed noun is the same "Which <term>.
+ * <list>?" the 3.7/3.8 scan above raises (see lib_co_400_raise()).  Away
+ * from examine no 4.0 command reaches the listing at all: a crowd that
+ * asks nothing hands the handler no object, and the command goes on to
+ * its own %text% row.
+ */
+scr_bool
+lib_disambig_t::raise_crowd_400 (void)
+{
   if (lib_is_version_400 (game))
     {
       std::vector<scr_int> crowd;
@@ -1201,7 +1297,7 @@ pre400_take_done:
               var_set_ref_object (vars, with_head);
               if (is_ambiguous)
                 *is_ambiguous = FALSE;
-              return with_head;
+              return done (with_head);
             }
           raised = with_pending >= 0
                    ? lib_co_400_raise_for_with_tail (game, with_pending, crowd)
@@ -1227,7 +1323,7 @@ pre400_take_done:
         {
           if (is_ambiguous)
             *is_ambiguous = TRUE;
-          return -1;
+          return done (-1);
         }
       if (!examine)
         {
@@ -1242,23 +1338,28 @@ pre400_take_done:
            */
           if (is_ambiguous)
             *is_ambiguous = FALSE;
-          return -1;
+          return done (-1);
         }
     }
+  return FALSE;
+}
 
-  /*
-   * Two or more DIFFERENT present objects on a 4.0 examine line -- `x coin
-   * and the hat`, which the splitter keeps whole because "the" names no
-   * object -- never raise a question.  examines() takes referencedob's
-   * pick (Proc_19_88_457034, lib_examine_referencedob_400()): pass C
-   * counts each candidate's Prefix words in the line, and an equal count
-   * is &HFE, "Sorry, I'm not sure which object you're referring to."
-   * (4719EA, still a turn); no Prefix word typed leaves the last marked.
-   * Measured on p4AND (run400 runner_probes/and.run400.txt,
-   * runner_probes/and.run400.b.txt): `x coin and a hat` -> the Sorry line,
-   * "a" being both objects' Prefix; `x coin and the hat`, `x coin and hat
-   * and box` -> one description.
-   */
+/*
+ * Two or more DIFFERENT present objects on a 4.0 examine line -- `x coin
+ * and the hat`, which the splitter keeps whole because "the" names no
+ * object -- never raise a question.  examines() takes referencedob's
+ * pick (Proc_19_88_457034, lib_examine_referencedob_400()): pass C
+ * counts each candidate's Prefix words in the line, and an equal count
+ * is &HFE, "Sorry, I'm not sure which object you're referring to."
+ * (4719EA, still a turn); no Prefix word typed leaves the last marked.
+ * Measured on p4AND (run400 runner_probes/and.run400.txt,
+ * runner_probes/and.run400.b.txt): `x coin and a hat` -> the Sorry line,
+ * "a" being both objects' Prefix; `x coin and the hat`, `x coin and hat
+ * and box` -> one description.
+ */
+scr_bool
+lib_disambig_t::resolve_examine_400 (void)
+{
   if (lib_is_version_400 (game) && strcmp (verb, "examine") == 0
       && run_get_dispatch_input ())
     {
@@ -1271,30 +1372,37 @@ pre400_take_done:
                                     " you're referring to.\n");
           if (is_ambiguous)
             *is_ambiguous = TRUE;
-          return -1;
+          return done (-1);
         }
       if (pick >= 0)
         {
           var_set_ref_object (vars, pick);
           if (is_ambiguous)
             *is_ambiguous = FALSE;
-          return pick;
+          return done (pick);
         }
     }
+  return FALSE;
+}
 
-  /*
-   * 3.9 examine asks nothing either.  co() is false for each of two seen,
-   * present namesakes (it only raises the end-of-turn flag), so
-   * referencedob() counts none and returns -1, and examines() answers
-   * "Nothing special." (run390 42DF43 -> 44BF94).  The "Which <term>." that
-   * lib_co_ambiguity_prompt() prints replaces it when no task ran;
-   * cybercow_win T118 `x berry` is the case where the "#Rain" event's task
-   * did run.
-   *
-   * When co() is true for SEVERAL, referencedob() runs a second pass and
-   * examines() answers "Please examine one object at a time."; the crowd
-   * never reaches here, lib_examine_crowded_390() takes it first.
-   */
+/*
+ * 3.9 examine asks nothing either.  co() is false for each of two seen,
+ * present namesakes (it only raises the end-of-turn flag), so
+ * referencedob() counts none and returns -1, and examines() answers
+ * "Nothing special." (run390 42DF43 -> 44BF94).  The "Which <term>." that
+ * lib_co_ambiguity_prompt() prints replaces it when no task ran;
+ * cybercow_win T118 `x berry` is the case where the "#Rain" event's task
+ * did run.
+ *
+ * When co() is true for SEVERAL, referencedob() runs a second pass and
+ * examines() answers "Please examine one object at a time."; the crowd
+ * never reaches here, lib_examine_crowded_390() takes it first.
+ */
+scr_int
+lib_disambig_t::list_choices (void)
+{
+  scr_int index_, listed;
+
   if (lib_is_version_390 (game) && strcmp (verb, "examine") == 0)
     {
       pf_buffer_string (filter, "Nothing special.\n");
@@ -1326,6 +1434,32 @@ pre400_take_done:
   if (is_ambiguous)
     *is_ambiguous = TRUE;
   return -1;
+}
+
+scr_int
+lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
+                               scr_bool (*resolver)
+                                   (scr_gameref_t, scr_int, scr_int),
+                               scr_int resolver_arg,
+                               scr_bool *is_ambiguous)
+{
+  lib_disambig_t d (game, verb, resolver, resolver_arg, is_ambiguous);
+
+  d.gather_candidates ();
+  if (d.narrow_named_pre400 ())
+    return d.result;
+  d.narrow_top_scored_400 ();
+  d.narrow_with_resolver ();
+  if (d.ask_which_examine_pre390 ())
+    return d.result;
+  d.pick_wear_remove_pre380 ();
+  if (d.pick_take_drop_pre400 ())
+    return d.result;
+  d.pick_open_close_pre400 ();
+  if (d.settle_single_or_none () || d.resolve_take_400 ()
+      || d.raise_crowd_400 () || d.resolve_examine_400 ())
+    return d.result;
+  return d.list_choices ();
 }
 
 scr_int

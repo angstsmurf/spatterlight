@@ -553,81 +553,65 @@ run_lenient_task_matching (void)
  */
 scr_bool run_matcher_second_pass = FALSE;
 
-scr_bool
-run_game_commands_common (scr_gameref_t game, const scr_char *string,
-                          scr_bool include_restrictions, scr_bool is_library,
-                          scr_bool exclude_silent_literal)
+/*
+ * One call of run_game_commands_common(): its arguments, what it has found
+ * out about the tasks so far, and the two passes over them.
+ *
+ * Matching is expensive, so it helps to use a cache of results from the
+ * first loop in the second.  If we're using the second, that is.  The cache
+ * stays empty when restrictions are off (the second loop is then skipped).
+ */
+struct run_commands_t
 {
-  scr_bool is_matched = FALSE, is_handled = FALSE, is_abandoned = FALSE;
-  scr_int task_count, task, direction;
-
-  /*
-   * Matching is expensive, so it helps to use a cache of results from the
-   * first loop in the second.  If we're using the second, that is.  The cache
-   * stays empty when restrictions are off (the second loop is then skipped).
-   */
-  /*
-   * The Runner dispatches ONE task per typed line.  run400's dispatcher
-   * Proc_19_24_44CCE0 asks the pre-matcher (Proc_19_66_454EF0) for a single
-   * task, runs it, and returns "handled" only if the message buffer is
-   * non-empty (44CCC0); the restriction-failure pass (Proc_19_68_45404C)
-   * runs only when no task was found at all (44CCA5).  A silent task
-   * therefore lets the LIBRARY run, but never a second task.  run390's
-   * tasks() (42BDC4) is the same shape: checktask picks one task, execute_task
-   * runs it.  Scarier reaches the same line in several passes (peek, no
-   * restrictions, restrictions), and the later passes used to re-scan from
-   * task 0 with the first task now spent: House (4.00, 2026-09-06,
-   * runner_probes/house.run400.kiss.txt) `kiss cathy` as the first line naming
-   * Cathy runs the silent once-only task 200 `*cathy*`, and run400 then prints
-   * the library's "I'm not sure she would appreciate that!" -- the game's own
-   * kiss task 882 `[hug/kiss/touch/shake] [her/cathy]` only runs on the SECOND
-   * kiss.  Scarier ran 200 and then 882 on the first line.  Library callbacks
-   * (is_library) are left alone: those model the Runner's own pre-matcher
-   * look-ups from inside the library handlers, which happen after the
-   * dispatcher regardless.
-   */
-  if (!is_library && !run_matcher_second_pass
-      && run_any_task_ran_this_command ())
-    return FALSE;
-
-  task_count = gs_task_count (game);
+  scr_gameref_t game;
+  const scr_char *string;
+  scr_bool include_restrictions, is_library, exclude_silent_literal;
+  scr_bool is_restriction_first;
+  scr_bool is_matched, is_handled, is_abandoned;
   std::vector<scr_bool> is_matching;
-  if (include_restrictions)
-    is_matching.assign (task_count, FALSE);
 
-  /*
-   * Iterate over every task, ignoring those not runnable.  For each runnable
-   * task, try matching task commands, and on matches, check restrictions and
-   * if they pass, try running the task.
-   *
-   * Spent tasks (done, non-repeatable, but still in their rooms) also get
-   * their forwards commands matched -- not to run them, but to seed the
-   * cache for the loud restriction-failure pass below.  The Runner checks a
-   * matched task's restrictions before its done state, so a spent task whose
-   * restrictions fail with a message still prints that message (run400,
-   * Provenance's squeeze-through-the-hole task: a second "s" at the hole
-   * re-prints "The only way you are going to make it through that hole is if
-   * you drop everything you are carrying.", 2026-08-22).  A spent task whose
-   * restrictions PASS instead falls through to run_task_refusal(), which
-   * answers with RepeatText or "You have already done that.".
-   *
-   * This holds on the library-callback path too, not just for plain game
-   * commands: probe DONE, task `* get * gem *` with a "holding the stone"
-   * restriction, run400 2026-08-23 -- once the task is spent, `get gem`
-   * without the stone answers "BLOCK-GEM." instead of taking the gem, and
-   * with the stone falls through to the library take ("Player take the
-   * gem.").  So `is_library` does not gate the spent-task match here.
-   *
-   * All of that is 4.0 only.  The 3.9 twin of the probe (p39done.taf, built
-   * by test/adrift4/harness/make_39_doneprobe.py) says run390 orders the two
-   * tests the other way about: a spent task answers "You have already done
-   * that." whether its restrictions pass or fail, and never prints a fail
-   * message (`alpha` and `x book` after dropping the stone, 2026-08-23).
-   * Pre-4.0 therefore leaves spent tasks out of the loud restriction pass
-   * entirely, and run_task_refusal() answers them.
-   */
-  const scr_bool is_restriction_first =
-      run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+  void run_pass (void);
+  void restriction_pass (void);
+};
+
+/*
+ * run_commands_t::run_pass()
+ *
+ * Iterate over every task, ignoring those not runnable.  For each runnable
+ * task, try matching task commands, and on matches, check restrictions and
+ * if they pass, try running the task.
+ *
+ * Spent tasks (done, non-repeatable, but still in their rooms) also get
+ * their forwards commands matched -- not to run them, but to seed the
+ * cache for the loud restriction-failure pass below.  The Runner checks a
+ * matched task's restrictions before its done state, so a spent task whose
+ * restrictions fail with a message still prints that message (run400,
+ * Provenance's squeeze-through-the-hole task: a second "s" at the hole
+ * re-prints "The only way you are going to make it through that hole is if
+ * you drop everything you are carrying.", 2026-08-22).  A spent task whose
+ * restrictions PASS instead falls through to run_task_refusal(), which
+ * answers with RepeatText or "You have already done that.".
+ *
+ * This holds on the library-callback path too, not just for plain game
+ * commands: probe DONE, task `* get * gem *` with a "holding the stone"
+ * restriction, run400 2026-08-23 -- once the task is spent, `get gem`
+ * without the stone answers "BLOCK-GEM." instead of taking the gem, and
+ * with the stone falls through to the library take ("Player take the
+ * gem.").  So `is_library` does not gate the spent-task match here.
+ *
+ * All of that is 4.0 only.  The 3.9 twin of the probe (p39done.taf, built
+ * by test/adrift4/harness/make_39_doneprobe.py) says run390 orders the two
+ * tests the other way about: a spent task answers "You have already done
+ * that." whether its restrictions pass or fail, and never prints a fail
+ * message (`alpha` and `x book` after dropping the stone, 2026-08-23).
+ * Pre-4.0 therefore leaves spent tasks out of the loud restriction pass
+ * entirely, and run_task_refusal() answers them.
+ */
+void
+run_commands_t::run_pass (void)
+{
+  const scr_int task_count = gs_task_count (game);
+  scr_int task, direction;
 
   for (task = 0; task < task_count; task++)
     {
@@ -699,98 +683,151 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
       if (is_matched || is_abandoned)
         break;
     }
+}
 
-  if (is_abandoned)
+/*
+ * run_commands_t::restriction_pass()
+ *
+ * If no match, and we've been asked to consider failing restrictions, look
+ * through all of the runnable tasks again, this time searching for
+ * restricted ones with a fail message.  Use the cache built above to weed
+ * out matches that are certain to fail.
+ */
+void
+run_commands_t::restriction_pass (void)
+{
+  const scr_int task_count = gs_task_count (game);
+  scr_int task, direction;
+
+  for (task = 0; task < task_count; task++)
+    {
+      scr_bool is_refusing;
+
+      if (!is_matching[task])
+        continue;
+
+      /* Spent tasks are eligible here too (4.0); see the first loop. */
+      is_refusing = is_restriction_first
+                    && !run_task_ran_this_command (task)
+                    && task_is_done_refused (game, task);
+
+      /*
+       * Check matches of forwards and reverse commands.  If there's a
+       * match for restricted tasks (ones that have and will print a fail
+       * message if we try to run them), run the task to get the print of
+       * the fail message, and we're done.
+       */
+      for (direction = 0; direction < 2; direction++)
+        {
+          const scr_bool is_forwards = !direction;
+
+          if ((task_can_run_task_directional (game, task, is_forwards)
+               || (is_refusing && is_forwards))
+              && run_match_task_commands (game, task, string,
+                                          is_forwards, is_library))
+            {
+              /*
+               * 4.0: the dispatcher's fallback (45404C @44CCA5) answers
+               * from the cached restriction results, printing the
+               * FailMessage of the first cached failure that still
+               * fails; see restr_cache_fallback().  Either way the task
+               * is done with once a cached failure still fails.
+               */
+              if (is_restriction_first)
+                {
+                  const scr_char *fail_message;
+
+                  if (restr_cache_fallback (game, task,
+                                            &fail_message) < 0)
+                    {
+                      if (fail_message)
+                        {
+                          run_note_task_ran (game, task);
+                          pf_buffer_paragraph_line (gs_get_filter (game),
+                                                    fail_message);
+                          is_handled = TRUE;
+                        }
+                    }
+                  break;
+                }
+
+              if (run_task_restriction (game, task)
+                  == RUN_RESTRICTED_LOUDLY)
+                {
+                  run_note_task_ran (game, task);
+                  if (task_run_task (game, task, is_forwards))
+                    {
+                      is_handled = TRUE;
+                      break;
+                    }
+                }
+            }
+        }
+      if (is_handled)
+        break;
+    }
+}
+
+scr_bool
+run_game_commands_common (scr_gameref_t game, const scr_char *string,
+                          scr_bool include_restrictions, scr_bool is_library,
+                          scr_bool exclude_silent_literal)
+{
+  run_commands_t pass;
+
+  /*
+   * The Runner dispatches ONE task per typed line.  run400's dispatcher
+   * Proc_19_24_44CCE0 asks the pre-matcher (Proc_19_66_454EF0) for a single
+   * task, runs it, and returns "handled" only if the message buffer is
+   * non-empty (44CCC0); the restriction-failure pass (Proc_19_68_45404C)
+   * runs only when no task was found at all (44CCA5).  A silent task
+   * therefore lets the LIBRARY run, but never a second task.  run390's
+   * tasks() (42BDC4) is the same shape: checktask picks one task, execute_task
+   * runs it.  Scarier reaches the same line in several passes (peek, no
+   * restrictions, restrictions), and the later passes used to re-scan from
+   * task 0 with the first task now spent: House (4.00, 2026-09-06,
+   * runner_probes/house.run400.kiss.txt) `kiss cathy` as the first line naming
+   * Cathy runs the silent once-only task 200 `*cathy*`, and run400 then prints
+   * the library's "I'm not sure she would appreciate that!" -- the game's own
+   * kiss task 882 `[hug/kiss/touch/shake] [her/cathy]` only runs on the SECOND
+   * kiss.  Scarier ran 200 and then 882 on the first line.  Library callbacks
+   * (is_library) are left alone: those model the Runner's own pre-matcher
+   * look-ups from inside the library handlers, which happen after the
+   * dispatcher regardless.
+   */
+  if (!is_library && !run_matcher_second_pass
+      && run_any_task_ran_this_command ())
+    return FALSE;
+
+  pass.game = game;
+  pass.string = string;
+  pass.include_restrictions = include_restrictions;
+  pass.is_library = is_library;
+  pass.exclude_silent_literal = exclude_silent_literal;
+  pass.is_restriction_first =
+      run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+  pass.is_matched = pass.is_handled = pass.is_abandoned = FALSE;
+  if (include_restrictions)
+    pass.is_matching.assign (gs_task_count (game), FALSE);
+
+  pass.run_pass ();
+  if (pass.is_abandoned)
     return FALSE;
 
   /*
-   * If no match, and we've been asked to consider failing restrictions, look
-   * through all of the runnable tasks again, this time searching for
-   * restricted ones with a fail message.  Use the cache built above to weed
-   * out matches that are certain to fail.
-   */
-  /*
-   * 4.0 enters that fallback only when the picker found no task at all, and
+   * 4.0 enters that pass only when the picker found no task at all, and
    * a spent task with a RepeatText whose restrictions pass IS one it finds
    * (see run_task_refusal()), however far down the table: British Fox's
    * `attack guard` after the basement guard is down answers task 385's
    * "The guard is already unconscious.", never task 331's "The jailors are
    * not here" (runner_transcripts/britishfox.txt turns 215-256).
    */
-  if (!is_handled && !is_matched && include_restrictions
-      && !(is_restriction_first && run_repeat_found_400))
-    {
-      for (task = 0; task < task_count; task++)
-        {
-          scr_bool is_refusing;
-
-          if (!is_matching[task])
-            continue;
-
-          /* Spent tasks are eligible here too (4.0); see the first loop. */
-          is_refusing = is_restriction_first
-                        && !run_task_ran_this_command (task)
-                        && task_is_done_refused (game, task);
-
-          /*
-           * Check matches of forwards and reverse commands.  If there's a
-           * match for restricted tasks (ones that have and will print a fail
-           * message if we try to run them), run the task to get the print of
-           * the fail message, and we're done.
-           */
-          for (direction = 0; direction < 2; direction++)
-            {
-              const scr_bool is_forwards = !direction;
-
-              if ((task_can_run_task_directional (game, task, is_forwards)
-                   || (is_refusing && is_forwards))
-                  && run_match_task_commands (game, task, string,
-                                              is_forwards, is_library))
-                {
-                  /*
-                   * 4.0: the dispatcher's fallback (45404C @44CCA5) answers
-                   * from the cached restriction results, printing the
-                   * FailMessage of the first cached failure that still
-                   * fails; see restr_cache_fallback().  Either way the task
-                   * is done with once a cached failure still fails.
-                   */
-                  if (is_restriction_first)
-                    {
-                      const scr_char *fail_message;
-
-                      if (restr_cache_fallback (game, task,
-                                                &fail_message) < 0)
-                        {
-                          if (fail_message)
-                            {
-                              run_note_task_ran (game, task);
-                              pf_buffer_paragraph_line (gs_get_filter (game),
-                                                        fail_message);
-                              is_handled = TRUE;
-                            }
-                        }
-                      break;
-                    }
-
-                  if (run_task_restriction (game, task)
-                      == RUN_RESTRICTED_LOUDLY)
-                    {
-                      run_note_task_ran (game, task);
-                      if (task_run_task (game, task, is_forwards))
-                        {
-                          is_handled = TRUE;
-                          break;
-                        }
-                    }
-                }
-            }
-          if (is_handled)
-            break;
-        }
-    }
+  if (!pass.is_handled && !pass.is_matched && include_restrictions
+      && !(pass.is_restriction_first && run_repeat_found_400))
+    pass.restriction_pass ();
 
   /* Return TRUE if any game task handled the command in some way. */
-  return is_handled;
+  return pass.is_handled;
 }
 
 scr_bool

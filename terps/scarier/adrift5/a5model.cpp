@@ -1692,13 +1692,6 @@ a5model_task (const a5_adventure_t *a, const char *key)
   return i >= 0 ? &a->tasks[i] : nullptr;
 }
 
-const a5_variable_t *
-a5model_variable (const a5_adventure_t *a, const char *key)
-{
-  int i = a5model_key_index (a, 'V', key);
-  return i >= 0 ? &a->variables[i] : nullptr;
-}
-
 const a5_propdef_t *
 a5model_propdef (const a5_adventure_t *a, const char *key)
 {

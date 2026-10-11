@@ -365,6 +365,174 @@ enum { REFUSAL_NONE = 0, REFUSAL_ROOM, REFUSAL_DONE };
  */
 
 /*
+ * run_refusal_scan()
+ *
+ * Walk every task, looking for ones whose command matches the input and that
+ * the dispatcher passed over for one of the two refusable reasons.  A task
+ * blocked by anything else can never raise a refusal.  The already-done half
+ * stops the scan where it fires; the room half keeps going, last one wins.
+ *
+ * Returns the refusal found, and for REFUSAL_DONE the task that raised it.
+ * The done half is left out of the scan if room_only.
+ */
+static scr_int
+run_refusal_scan (scr_gameref_t game, const scr_char *string,
+                  scr_int version, scr_bool room_only, scr_int *refused_task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int task_count, task, direction;
+  scr_int refusal;
+  scr_bool is_room_refused;
+
+  refusal = REFUSAL_NONE;
+  *refused_task = -1;
+  is_room_refused = FALSE;
+  task_count = gs_task_count (game);
+  for (task = 0; task < task_count; task++)
+    {
+      /* The room half first -- see the note on probe task "theta" at
+         run_task_refusal().  */
+      if (version < TAF_VERSION_400)
+        {
+          for (direction = 0; direction < 2; direction++)
+            {
+              const scr_bool is_forwards = !direction;
+
+              /*
+               * run390 raises the flag for a forward match only (44B66F);
+               * an out-of-room reverse command is not understood (probe
+               * p39REV `unpoke`).
+               */
+              if (!is_forwards && version == TAF_VERSION_390)
+                continue;
+
+              if (task_is_room_refused (game, task, is_forwards)
+                  && run_match_task_commands (game, task, string,
+                                              is_forwards, FALSE))
+                {
+                  is_room_refused =
+                      !run_task_has_catchall_command (game, task);
+                  break;
+                }
+            }
+        }
+
+      /*
+       * A task the current command has just completed is not "already done"
+       * for that command -- p39done.taf's silent `* x * scroll *` task runs,
+       * prints nothing, and run390 then answers "I don't understand." rather
+       * than "You have already done that." (2026-08-23).
+       */
+      /*
+       * 4.0 also asks the restrictions.  A spent task whose restrictions now
+       * fail is not the one the picker hands the dispatcher, and the library
+       * gets the line as if the task were not there at all: `A Witch Tale`
+       * task 2 is the literal `* north` at the bridge, spent from the first
+       * crossing attempt and carrying a RepeatText, but restricted on `say
+       * grue` being undone -- once the riddle is answered run400 walks the
+       * player north (runner_transcripts/witchtale.txt) instead of printing "I
+       * try to cross the bridge...".  Only silent failures are covered here; a
+       * fail message of its own is the restriction pass's business, not this
+       * one's.  Pre-4.0 keeps the shape chicago.taf measured.  At 4.0 the
+       * post-library pass asks the restrictions too: it once let a spent,
+       * restriction-failing task through as a fallback, for `The Magic Show`'s
+       * "One rabbit trick is enough for any given act" on `show rabbit to
+       * audience`, but run400 answers that line with the object catch-all "I
+       * don't understand what you want to do with the audience."
+       * (runner_probes/magicshow.run400.a.txt:47,
+       * runner_probes/magicshow.run400.b.txt:40), and hcw's literal `2` (task
+       * 240, spent, both restrictions failing) with the DontUnderstand text
+       * (runner_probes/hcw.run400.txt, turn 227), not either RepeatText.
+       */
+      /*
+       * The room-half pass does not look at the done half at all: the done
+       * half breaks out of the scan where it fires, and a task refused as
+       * done further up the table would then hide a later out-of-room match
+       * from the "last one wins" rule.
+       */
+      /*
+       * 4.0 also passes over a spent task with no RepeatText of its own: every
+       * 4.0 answer below needs one, and the picker offers the dispatcher the
+       * spent task that has it.  The Crooked Estate's wallpaper is tasks 47
+       * (spent, silent) and 48 (spent, RepeatText) on the same commands, and
+       * the third `peel wallpaper` gets 48's "I rip another, but another layer
+       * hides behind that." (runner_transcripts/crookedestate.txt), not the
+       * object catch-all.
+       */
+      if (!room_only
+          && !run_task_ran_this_command (task)
+          && task_is_done_refused (game, task)
+          && (version < TAF_VERSION_400
+              || (run_task_restriction (game, task) == RUN_UNRESTRICTED
+                  && !scr_strempty (prop_get_indexed_string
+                                      (bundle, "Tasks", task, "RepeatText"))))
+          && run_match_task_commands (game, task, string, TRUE, FALSE))
+        {
+          refusal = REFUSAL_DONE;
+          *refused_task = task;
+          break;
+        }
+    }
+  if (refusal == REFUSAL_NONE && is_room_refused)
+    refusal = REFUSAL_ROOM;
+  return refusal;
+}
+
+
+/*
+ * run_refusal_print()
+ *
+ * Print the answer to a refusal that run_refusal_scan() found.  An authored
+ * RepeatText replaces the already-done message, and is the one part of all
+ * this that 4.0 kept.  Returns FALSE if there is nothing to say: a 4.0 task
+ * with no RepeatText.
+ */
+static scr_bool
+run_refusal_print (scr_gameref_t game, scr_int version,
+                   scr_int refusal, scr_int refused_task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int perspective;
+  const scr_char *repeattext;
+
+  repeattext = nullptr;
+  if (refusal == REFUSAL_DONE)
+    {
+      repeattext = prop_get_indexed_string (bundle, "Tasks", refused_task,
+                                            "RepeatText");
+      if (scr_strempty (repeattext))
+        {
+          repeattext = nullptr;
+          if (version >= TAF_VERSION_400)
+            return FALSE;
+        }
+    }
+
+  if (repeattext)
+    {
+      pf_buffer_paragraph_line (filter, repeattext);
+      return TRUE;
+    }
+
+  perspective = prop_get_global_integer (bundle, "Perspective");
+
+  pf_buffer_string (filter,
+                    perspective == LIB_FIRST_PERSON ? "I" : "You");
+  if (refusal == REFUSAL_ROOM)
+    {
+      pf_buffer_paragraph_line (filter,
+                                version < TAF_VERSION_390
+                                ? " can't do that here."
+                                : " can't do that here!");
+    }
+  else
+    pf_buffer_paragraph_line (filter, " have already done that.");
+  return TRUE;
+}
+
+
+/*
  * The two halves do NOT sit at the same point in the dispatch order, and
  * chicago.taf (3.90) is the measurement that separates them.  Its task 18 is
  * `listen`, confined to rooms 2 and 8 and not repeatable, and the walkthrough
@@ -447,11 +615,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
   const scr_bool room_only = pass == REFUSAL_PASS_MID;
 
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int version, perspective, task_count, task, direction;
-  scr_int refusal, refused_task;
-  scr_bool is_room_refused;
-  const scr_char *repeattext;
+  scr_int version, refusal, refused_task;
 
   /*
    * An empty input line element is not a command and gets no complaint of any
@@ -493,102 +657,8 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
    */
   const scr_lenient_tasks_guard strict_match (FALSE);
 
-  /*
-   * Walk every task, looking for ones whose command matches the input and that
-   * the dispatcher passed over for one of the two refusable reasons.  A task
-   * blocked by anything else can never raise a refusal.  The already-done half
-   * stops the scan where it fires; the room half keeps going, last one wins.
-   */
-  refusal = REFUSAL_NONE;
-  refused_task = -1;
-  is_room_refused = FALSE;
-  task_count = gs_task_count (game);
-  for (task = 0; task < task_count; task++)
-    {
-      /* The room half first -- see the note above on probe task "theta". */
-      if (version < TAF_VERSION_400)
-        {
-          for (direction = 0; direction < 2; direction++)
-            {
-              const scr_bool is_forwards = !direction;
-
-              /*
-               * run390 raises the flag for a forward match only (44B66F);
-               * an out-of-room reverse command is not understood (probe
-               * p39REV `unpoke`).
-               */
-              if (!is_forwards && version == TAF_VERSION_390)
-                continue;
-
-              if (task_is_room_refused (game, task, is_forwards)
-                  && run_match_task_commands (game, task, string,
-                                              is_forwards, FALSE))
-                {
-                  is_room_refused =
-                      !run_task_has_catchall_command (game, task);
-                  break;
-                }
-            }
-        }
-
-      /*
-       * A task the current command has just completed is not "already done"
-       * for that command -- p39done.taf's silent `* x * scroll *` task runs,
-       * prints nothing, and run390 then answers "I don't understand." rather
-       * than "You have already done that." (2026-08-23).
-       */
-      /*
-       * 4.0 also asks the restrictions.  A spent task whose restrictions now
-       * fail is not the one the picker hands the dispatcher, and the library
-       * gets the line as if the task were not there at all: `A Witch Tale`
-       * task 2 is the literal `* north` at the bridge, spent from the first
-       * crossing attempt and carrying a RepeatText, but restricted on `say
-       * grue` being undone -- once the riddle is answered run400 walks the
-       * player north (runner_transcripts/witchtale.txt) instead of printing "I
-       * try to cross the bridge...".  Only silent failures are covered here; a
-       * fail message of its own is the restriction pass's business, not this
-       * one's.  Pre-4.0 keeps the shape chicago.taf measured.  At 4.0 the
-       * post-library pass asks the restrictions too: it once let a spent,
-       * restriction-failing task through as a fallback, for `The Magic Show`'s
-       * "One rabbit trick is enough for any given act" on `show rabbit to
-       * audience`, but run400 answers that line with the object catch-all "I
-       * don't understand what you want to do with the audience."
-       * (runner_probes/magicshow.run400.a.txt:47,
-       * runner_probes/magicshow.run400.b.txt:40), and hcw's literal `2` (task
-       * 240, spent, both restrictions failing) with the DontUnderstand text
-       * (runner_probes/hcw.run400.txt, turn 227), not either RepeatText.
-       */
-      /*
-       * The room-half pass does not look at the done half at all: the done
-       * half breaks out of the scan where it fires, and a task refused as
-       * done further up the table would then hide a later out-of-room match
-       * from the "last one wins" rule.
-       */
-      /*
-       * 4.0 also passes over a spent task with no RepeatText of its own: every
-       * 4.0 answer below needs one, and the picker offers the dispatcher the
-       * spent task that has it.  The Crooked Estate's wallpaper is tasks 47
-       * (spent, silent) and 48 (spent, RepeatText) on the same commands, and
-       * the third `peel wallpaper` gets 48's "I rip another, but another layer
-       * hides behind that." (runner_transcripts/crookedestate.txt), not the
-       * object catch-all.
-       */
-      if (!room_only
-          && !run_task_ran_this_command (task)
-          && task_is_done_refused (game, task)
-          && (version < TAF_VERSION_400
-              || (run_task_restriction (game, task) == RUN_UNRESTRICTED
-                  && !scr_strempty (prop_get_indexed_string
-                                      (bundle, "Tasks", task, "RepeatText"))))
-          && run_match_task_commands (game, task, string, TRUE, FALSE))
-        {
-          refusal = REFUSAL_DONE;
-          refused_task = task;
-          break;
-        }
-    }
-  if (refusal == REFUSAL_NONE && is_room_refused)
-    refusal = REFUSAL_ROOM;
+  refusal = run_refusal_scan (game, string, version, room_only,
+                              &refused_task);
   if (refusal == REFUSAL_NONE)
     return FALSE;
 
@@ -648,43 +718,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
         }
     }
 
-  /*
-   * An authored RepeatText replaces the already-done message, and is the one
-   * part of all this that 4.0 kept.
-   */
-  repeattext = nullptr;
-  if (refusal == REFUSAL_DONE)
-    {
-      repeattext = prop_get_indexed_string (bundle, "Tasks", refused_task,
-                                            "RepeatText");
-      if (scr_strempty (repeattext))
-        {
-          repeattext = nullptr;
-          if (version >= TAF_VERSION_400)
-            return FALSE;
-        }
-    }
-
-  if (repeattext)
-    {
-      pf_buffer_paragraph_line (filter, repeattext);
-      return TRUE;
-    }
-
-  perspective = prop_get_global_integer (bundle, "Perspective");
-
-  pf_buffer_string (filter,
-                    perspective == LIB_FIRST_PERSON ? "I" : "You");
-  if (refusal == REFUSAL_ROOM)
-    {
-      pf_buffer_paragraph_line (filter,
-                                version < TAF_VERSION_390
-                                ? " can't do that here."
-                                : " can't do that here!");
-    }
-  else
-    pf_buffer_paragraph_line (filter, " have already done that.");
-  return TRUE;
+  return run_refusal_print (game, version, refusal, refused_task);
 }
 
 

@@ -775,10 +775,10 @@ npc_wherefrom (scr_gameref_t game, scr_int roomfrom, scr_int roomto)
  * "wizard".  SCARE used to capitalise unconditionally, which was right for
  * 4.0 and wrong for everything older.
  *
- * The join carries the version split pf_buffer_join_always() exists for: 3.9
- * and 4.0 go through pspace, which does not add a separator to text that
- * already ends in one, while 3.7 and 3.8 add theirs unconditionally and so
- * really do make four spaces there.
+ * The Runners split on the join: 3.9 and 4.0 go through pspace, which does
+ * not add a separator to text that already ends in one, while 3.7 and 3.8
+ * add theirs unconditionally and so really do make four spaces there.
+ * Scarier uses pspace's guard in every version (pf_buffer_join()).
  */
 static void
 npc_announce (scr_gameref_t game, scr_int npc,
@@ -898,7 +898,7 @@ npc_announce_hidden (scr_gameref_t game, scr_int npc)
    *
    * -- so a turn whose only output is a hidden departure really does open
    * with two spaces there, and text already ending in two spaces gets two
-   * more in both.  The empty-buffer half of pf_buffer_join_always()'s guard
+   * more in both.  The empty-buffer half of pf_buffer_join()'s guard
    * is kept: it can differ only in that leading-whitespace case, which
    * nothing can depend on.
    *

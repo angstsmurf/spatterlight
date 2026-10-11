@@ -1382,6 +1382,35 @@ scr_game_scan_strings (scr_game game,
 
 
 /*
+ * if_hint_guarded()
+ *
+ * if_game_guarded() for the calls that take a hint as well: refuse an
+ * invalid game, then a NULL hint, then run fn on the pair under
+ * if_guarded().  Returns fn's value, or NULL for any refusal.
+ */
+template <typename R>
+static R
+if_hint_guarded (scr_game game, scr_game_hint hint,
+                 const scr_char *function_name,
+                 R (*fn) (scr_gameref_t, scr_hintref_t))
+{
+  const scr_gameref_t game_ = (scr_gameref_t) game;
+  const scr_hintref_t hint_ = (scr_hintref_t) hint;
+
+  if (if_game_error (game_, function_name))
+    return nullptr;
+  if (!hint_)
+    {
+      scr_error ("%s: NULL hint\n", function_name);
+      return nullptr;
+    }
+
+  return if_guarded (function_name, [&] () { return fn (game_, hint_); },
+                     (R) nullptr);
+}
+
+
+/*
  * scr_get_first_game_hint()
  * scr_get_next_game_hint()
  * scr_get_game_hint_question()
@@ -1403,81 +1432,29 @@ scr_get_first_game_hint (scr_game game)
 scr_game_hint
 scr_get_next_game_hint (scr_game game, scr_game_hint hint)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-  const scr_hintref_t hint_ = (scr_hintref_t) hint;
-
-  if (if_game_error (game_, "scr_get_next_game_hint"))
-    return nullptr;
-  if (!hint_)
-    {
-      scr_error ("scr_get_next_game_hint: NULL hint\n");
-      return nullptr;
-    }
-
-  return if_guarded ("scr_get_next_game_hint", [&] ()
-    {
-      return run_hint_iterate (game_, hint_);
-    }, nullptr);
+  return if_hint_guarded (game, hint, "scr_get_next_game_hint",
+                          run_hint_iterate);
 }
 
 const scr_char *
 scr_get_game_hint_question (scr_game game, scr_game_hint hint)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-  const scr_hintref_t hint_ = (scr_hintref_t) hint;
-
-  if (if_game_error (game_, "scr_get_game_hint_question"))
-    return nullptr;
-  if (!hint_)
-    {
-      scr_error ("scr_get_game_hint_question: NULL hint\n");
-      return nullptr;
-    }
-
-  return if_guarded ("scr_get_game_hint_question", [&] ()
-    {
-      return run_get_hint_question (game_, hint_);
-    }, nullptr);
+  return if_hint_guarded (game, hint, "scr_get_game_hint_question",
+                          run_get_hint_question);
 }
 
 const scr_char *
 scr_get_game_subtle_hint (scr_game game, scr_game_hint hint)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-  const scr_hintref_t hint_ = (scr_hintref_t) hint;
-
-  if (if_game_error (game_, "scr_get_game_subtle_hint"))
-    return nullptr;
-  if (!hint_)
-    {
-      scr_error ("scr_get_game_subtle_hint: NULL hint\n");
-      return nullptr;
-    }
-
-  return if_guarded ("scr_get_game_subtle_hint", [&] ()
-    {
-      return run_get_subtle_hint (game_, hint_);
-    }, nullptr);
+  return if_hint_guarded (game, hint, "scr_get_game_subtle_hint",
+                          run_get_subtle_hint);
 }
 
 const scr_char *
 scr_get_game_unsubtle_hint (scr_game game, scr_game_hint hint)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-  const scr_hintref_t hint_ = (scr_hintref_t) hint;
-
-  if (if_game_error (game_, "scr_get_game_unsubtle_hint"))
-    return nullptr;
-  if (!hint_)
-    {
-      scr_error ("scr_get_game_unsubtle_hint: NULL hint\n");
-      return nullptr;
-    }
-
-  return if_guarded ("scr_get_game_unsubtle_hint", [&] ()
-    {
-      return run_get_unsubtle_hint (game_, hint_);
-    }, nullptr);
+  return if_hint_guarded (game, hint, "scr_get_game_unsubtle_hint",
+                          run_get_unsubtle_hint);
 }
 
 

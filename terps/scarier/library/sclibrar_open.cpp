@@ -1036,12 +1036,141 @@ lib_lock_absent_object_400 (scr_gameref_t game)
   return object;
 }
 
+/*
+ * lib_lock_has_key_400()
+ *
+ * Return TRUE if OBJECT is one the 4.0 lock and unlock arms act on: openable,
+ * with a key.
+ */
+static scr_bool
+lib_lock_has_key_400 (scr_gameref_t game, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3], vt_rvalue;
+
+  /*
+   * The loader reads a Key only for Openable > 1 and stores -1 otherwise
+   * (4907DD-4907F7).  Both properties are fetched tolerantly:
+   * prop_get_integer() is fatal on a missing one, and an object with no
+   * Openable at all does exist (see scdump.cpp).
+   */
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Openable";
+  if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
+      || vt_rvalue.integer <= 0)
+    return FALSE;
+  vt_key[2].string = "Key";
+  if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
+      || vt_rvalue.integer < 0)
+    return FALSE;
+  return TRUE;
+}
+
+/*
+ * lib_lock_with_key()
+ *
+ * Lock or unlock OBJECT, whose openness allows it, with KEY if WITH_KEY and
+ * with its own key otherwise.  Returns FALSE if the object has no key, so is
+ * not lockable after all.
+ */
+static scr_bool
+lib_lock_with_key (scr_gameref_t game, const lib_lock_verb_t *verb,
+                   scr_int object, scr_int key, scr_bool with_key)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int key_index, the_key;
+
+  key_index = prop_get_indexed_integer (bundle, "Objects", object,
+                                        "Key");
+  if (key_index == -1)
+    return FALSE;
+
+  /* A Key naming no object reads as no key at all. */
+  the_key = obj_dynamic_object (game, key_index);
+  if (the_key < 0)
+    return FALSE;
+  if (with_key)
+    {
+      /*
+       * Naming the key is what picks it up: the keyless branch takes
+       * the object's Key straight out of the property and tests the
+       * hands, while the named one runs the Runner's implicit get.
+       * p4WTIE (run400, runner_probes/wtie.run400.10.txt, 2026-09-20),
+       * the coin dropped: `unlock box with coin` is "(Picking up the
+       * coin first)" then "You unlock the box with the coin." and leaves
+       * the coin carried, where bare `unlock box`, `unlock box with
+       * stone` and `unlock box with zzz` are all "You don't have
+       * anything to unlock the box with!".  The refusals come first
+       * either way -- a wrong named key on the floor is the flat "You
+       * can't unlock the box with the knife.", and the state refusal
+       * "The box is already locked!" precedes both.
+       */
+      if (the_key != key)
+        {
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                                 verb->cant[0],
+                                                 verb->cant[1],
+                                                 verb->cant[2]));
+          lib_print_object_np (game, object);
+          lib_print_wrapped_object (game, " with ", key, ".\n");
+          return TRUE;
+        }
+      lib_attempt_key_acquisition (game, key);
+    }
+  else
+    key = the_key;
+
+  /*
+   * The runner asks whether the key is indirectly held by the player,
+   * not whether it sits in the hands: a key that is worn, or stowed in
+   * an open bag being carried, unlocks perfectly well.  Provenance
+   * relies on this -- its walkthrough wears the brass key so that the
+   * cave's forced "drop all" can't take it away, then unlocks the
+   * wooden chest while still only wearing it.
+   */
+  if (!obj_indirectly_held_by_player (game, key))
+    {
+      if (with_key)
+        {
+          lib_print_response_object (game,
+                                     "You are not holding ",
+                                     "I am not holding ",
+                                     "%player% is not holding ",
+                                     key, ".\n");
+        }
+      else
+        {
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                                 "You don't have",
+                                                 "I don't have",
+                                                 "%player% don't have"));
+          pf_buffer_string (filter, verb->nothing_to);
+          lib_print_object_np (game, object);
+          pf_buffer_string (filter, " with!\n");
+        }
+      return TRUE;
+    }
+
+  gs_set_object_openness (game, object, verb->new_openness);
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         verb->does[0],
+                                         verb->does[1],
+                                         verb->does[2]));
+  lib_print_object_np (game, object);
+  lib_print_wrapped_object (game, " with ", key, ".\n");
+  return TRUE;
+}
+
 scr_bool
 lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
                   scr_bool with_key)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object, key = -1;
   scr_bool is_ambiguous;
 
@@ -1119,27 +1248,8 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
    * (runner_probes/hcw.run400.txt, turn 189) because therest's " with " split
    * finds no door; see lib_with_clause_400().
    */
-  if (lib_is_version_400 (game))
-    {
-      scr_vartype_t vt_key[3], vt_rvalue;
-
-      /*
-       * The loader reads a Key only for Openable > 1 and stores -1 otherwise
-       * (4907DD-4907F7).  Both properties are fetched tolerantly:
-       * prop_get_integer() is fatal on a missing one, and an object with no
-       * Openable at all does exist (see scdump.cpp).
-       */
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = object;
-      vt_key[2].string = "Openable";
-      if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
-          || vt_rvalue.integer <= 0)
-        return lib_lock_therest_400 (game, verb, object);
-      vt_key[2].string = "Key";
-      if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
-          || vt_rvalue.integer < 0)
-        return lib_lock_therest_400 (game, verb, object);
-    }
+  if (lib_is_version_400 (game) && !lib_lock_has_key_400 (game, object))
+    return lib_lock_therest_400 (game, verb, object);
 
   /*
    * Now try to get the key from referenced text, and disambiguate as usual.
@@ -1179,92 +1289,9 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
       return TRUE;
 
     case LIB_LOCK_PROCEED:
-      {
-        scr_int key_index, the_key;
-
-        key_index = prop_get_indexed_integer (bundle, "Objects", object,
-                                              "Key");
-        if (key_index == -1)
-          break;
-
-        /* A Key naming no object reads as no key at all. */
-        the_key = obj_dynamic_object (game, key_index);
-        if (the_key < 0)
-          break;
-        if (with_key)
-          {
-            /*
-             * Naming the key is what picks it up: the keyless branch takes
-             * the object's Key straight out of the property and tests the
-             * hands, while the named one runs the Runner's implicit get.
-             * p4WTIE (run400, runner_probes/wtie.run400.10.txt, 2026-09-20),
-             * the coin dropped: `unlock box with coin` is "(Picking up the
-             * coin first)" then "You unlock the box with the coin." and leaves
-             * the coin carried, where bare `unlock box`, `unlock box with
-             * stone` and `unlock box with zzz` are all "You don't have
-             * anything to unlock the box with!".  The refusals come first
-             * either way -- a wrong named key on the floor is the flat "You
-             * can't unlock the box with the knife.", and the state refusal
-             * "The box is already locked!" precedes both.
-             */
-            if (the_key != key)
-              {
-                pf_buffer_string (filter,
-                                  lib_select_response (game,
-                                                       verb->cant[0],
-                                                       verb->cant[1],
-                                                       verb->cant[2]));
-                lib_print_object_np (game, object);
-                lib_print_wrapped_object (game, " with ", key, ".\n");
-                return TRUE;
-              }
-            lib_attempt_key_acquisition (game, key);
-          }
-        else
-          key = the_key;
-
-        /*
-         * The runner asks whether the key is indirectly held by the player,
-         * not whether it sits in the hands: a key that is worn, or stowed in
-         * an open bag being carried, unlocks perfectly well.  Provenance
-         * relies on this -- its walkthrough wears the brass key so that the
-         * cave's forced "drop all" can't take it away, then unlocks the
-         * wooden chest while still only wearing it.
-         */
-        if (!obj_indirectly_held_by_player (game, key))
-          {
-            if (with_key)
-              {
-                lib_print_response_object (game,
-                                           "You are not holding ",
-                                           "I am not holding ",
-                                           "%player% is not holding ",
-                                           key, ".\n");
-              }
-            else
-              {
-                pf_buffer_string (filter,
-                                  lib_select_response (game,
-                                                       "You don't have",
-                                                       "I don't have",
-                                                       "%player% don't have"));
-                pf_buffer_string (filter, verb->nothing_to);
-                lib_print_object_np (game, object);
-                pf_buffer_string (filter, " with!\n");
-              }
-            return TRUE;
-          }
-
-        gs_set_object_openness (game, object, verb->new_openness);
-        pf_buffer_string (filter,
-                          lib_select_response (game,
-                                               verb->does[0],
-                                               verb->does[1],
-                                               verb->does[2]));
-        lib_print_object_np (game, object);
-        lib_print_wrapped_object (game, " with ", key, ".\n");
+      if (lib_lock_with_key (game, verb, object, key, with_key))
         return TRUE;
-      }
+      break;
 
     default:
       break;

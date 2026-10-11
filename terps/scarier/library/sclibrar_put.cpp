@@ -720,36 +720,46 @@ lib_put_note_output (scr_gameref_t game, lib_put_outcome_t *outcome,
  * Objects to action are flagged in object_references; objects requested but
  * deemed not actionable are flagged in multiple_references.
  */
-lib_put_outcome_t
-lib_put_in_backend (scr_gameref_t game, scr_int container,
-                    scr_bool is_all_form)
+struct lib_put_in_t
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object_count, object, count, capacity, free_space;
-  scr_int length_before, length_after_tasks;
-  scr_bool closed_refusal_only;
-  scr_bool has_printed, is_refusal_only, task_claimed;
+  const scr_gameref_t game;
+  const scr_int container;
+  const scr_bool is_all_form;
+  const scr_filterref_t filter;
+  scr_int object_count, entry_count, capacity, free_space;
+  scr_bool has_printed, task_claimed;
   scr_bool static_refused, recursion_rejected, has_moved, nothing_fits_390;
-  scr_int entry_count;
-  lib_put_outcome_t outcome;
   lib_list_t list, pending;
 
-  /* How many objects the line named, for 3.9's all/and arm below. */
-  entry_count = 0;
-  GS_FOR_EACH_OBJECT (game, object)
-    entry_count += game->object_references[object] ? 1 : 0;
+  lib_put_in_t (scr_gameref_t game_, scr_int container_,
+                scr_bool is_all_form_)
+    : game (game_), container (container_), is_all_form (is_all_form_),
+      filter (gs_get_filter (game_)), object_count (gs_object_count (game_)),
+      entry_count (0), capacity (0), free_space (0), has_printed (FALSE),
+      task_claimed (FALSE), static_refused (FALSE),
+      recursion_rejected (FALSE), has_moved (FALSE),
+      nothing_fits_390 (FALSE) {}
 
-  /*
-   * Try game commands for all referenced objects first.  If any succeed,
-   * remove that reference from the list.  At the same time, check for and
-   * weed out any moves that result in infinite recursion.
-   */
-  length_before = lib_output_length (game);
-  lib_put_announce_bytes = 0;
-  has_printed = FALSE;
-  task_claimed = FALSE;
-  static_refused = recursion_rejected = has_moved = FALSE;
-  object_count = gs_object_count (game);
+  void try_game_commands (void);
+  void report_full_390 (void);
+  void put_counted_390 (void);
+  void put_remaining (void);
+  void report_full_pre390 (void);
+  void report_nothing_fits_390 (void);
+  void report_too_big (void);
+  void report_no_room (void);
+};
+
+/*
+ * Try game commands for all referenced objects first.  If any succeed,
+ * remove that reference from the list.  At the same time, check for and
+ * weed out any moves that result in infinite recursion.
+ */
+void
+lib_put_in_t::try_game_commands (void)
+{
+  scr_int object;
+
   for (object = 0; object < object_count; object++)
     {
       if (!game->object_references[object])
@@ -835,57 +845,36 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
           continue;
         }
     }
+}
 
-  /* 4.0's take-phase close, deferred tasks and itself test. */
-  lib_put_deferred_stage_400 (game, pending, container, FALSE,
-                              &has_printed, &task_claimed,
-                              &recursion_rejected);
-  length_after_tasks = lib_output_length (game);
+/*
+ * run390's " is full." arm (461E59): after the count and its refusals,
+ * before the move, an `inside` put whose container is already holding
+ * exactly its capacity answers "<The X> is full." and moves nothing --
+ * but only while something on the line still fits, which for a full
+ * container means a size of nil.  Size is SizeMultiple raised to the
+ * SizeWeight's tens digit, so a size of nil needs a SizeMultiple of nil,
+ * which the ADRIFT editor never writes; pPUTFULL39 could not raise the
+ * arm and it was read as dead.  It is not: pPUTZERO39 (SizeMultiple 0,
+ * a bag of capacity 2 holding a coin and a stone, `put feather in bag`
+ * with the feather at SizeWeight 10) is "The bag is full." in run390 and
+ * the feather stays in hand (runner_probes/putzero.run390.txt).  The same
+ * line with a size-1 pebble is the ordinary "The pebble can't fit inside the
+ * bag at the moment.", so the per-object refusal above still comes first,
+ * and `put all in bag` with two size-0 objects held is "The bag is full."
+ * rather than "Nothing will fit inside the bag." -- the count sees them fit,
+ * so the nil-count refusal never speaks.  A surface is barred by the arm's
+ * third test (var_E0 = "inside"): the same probe puts three objects onto a
+ * plate of capacity 2 without a word.
+ *
+ * That measurement also settles obj_scale()'s long-standing claim that a
+ * multiple of nil gives a size of nil, which nothing had tested.
+ */
+void
+lib_put_in_t::report_full_390 (void)
+{
+  scr_int object;
 
-  /*
-   * 4.0's closed-container test, in insides' own place: after the take
-   * phase, the tasks and the itself test, before size and capacity.  It is
-   * a refusal in the size refusal's sense -- printed, and the line left
-   * for the task pass -- unless something already spoke ahead of it.
-   */
-  closed_refusal_only = FALSE;
-  if (lib_put_in_closed_400 (game, container, has_printed))
-    {
-      closed_refusal_only = !has_printed;
-      has_printed = TRUE;
-    }
-
-  /*
-   * Retrieve the container's total volume, and the volume it has left.  The
-   * free space is tracked across the loop below rather than recomputed, since
-   * each object put in spends some of it.
-   */
-  capacity = obj_get_container_capacity (game, container);
-  free_space = obj_get_container_free_space (game, container);
-
-  /*
-   * run390's " is full." arm (461E59): after the count and its refusals,
-   * before the move, an `inside` put whose container is already holding
-   * exactly its capacity answers "<The X> is full." and moves nothing --
-   * but only while something on the line still fits, which for a full
-   * container means a size of nil.  Size is SizeMultiple raised to the
-   * SizeWeight's tens digit, so a size of nil needs a SizeMultiple of nil,
-   * which the ADRIFT editor never writes; pPUTFULL39 could not raise the
-   * arm and it was read as dead.  It is not: pPUTZERO39 (SizeMultiple 0,
-   * a bag of capacity 2 holding a coin and a stone, `put feather in bag`
-   * with the feather at SizeWeight 10) is "The bag is full." in run390 and
-   * the feather stays in hand (runner_probes/putzero.run390.txt).  The same
-   * line with a size-1 pebble is the ordinary "The pebble can't fit inside the
-   * bag at the moment.", so the per-object refusal above still comes first,
-   * and `put all in bag` with two size-0 objects held is "The bag is full."
-   * rather than "Nothing will fit inside the bag." -- the count sees them fit,
-   * so the nil-count refusal never speaks.  A surface is barred by the arm's
-   * third test (var_E0 = "inside"): the same probe puts three objects onto a
-   * plate of capacity 2 without a word.
-   *
-   * That measurement also settles obj_scale()'s long-standing claim that a
-   * multiple of nil gives a size of nil, which nothing had tested.
-   */
   if (lib_is_version_390 (game) && free_space == 0
       && obj_is_container (game, container))
     {
@@ -909,26 +898,32 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
           has_printed = TRUE;
         }
     }
+}
 
-  /*
-   * Version 3.9's all/and arm counts before it moves anything: insides()
-   * (461AF8-461BDB) walks the objects in index order, counting each whose
-   * Size fits in what is left once the ones counted before it are charged,
-   * and then (461EE8-46239B) moves the FIRST that many of them, whatever
-   * their sizes, capping the list with "  You can't put any more inside
-   * the bag as it is full." at the first one left over and saying nothing
-   * of the rest.  A count of nil is "Nothing will fit inside the bag."
-   * (461E0B), with no object named.  pPUTREF39.taf / pPUTREF39E.taf
-   * (--emptybag), run390x, 2026-09-19: `put stone and pebble in bag` with
-   * the bag full is "Nothing will fit inside the bag.", as is `put all in
-   * bag` (runner_probes/putref.run390.feed4.txt:5/11); with room for two, `put
-   * stone and pebble and lamp in bag` is "You put the stone and the lamp
-   * inside the bag.  You can't put any more inside the bag as it is full."
-   * (runner_probes/putref.run390.feed6.txt:5).  A single object keeps the
-   * size/capacity pair below.  The " is full." arm at 461E9D never spoke on
-   * these probes, the bag exactly full included, because it wants an object
-   * that fits into a container with nothing left; it is modelled just above.
-   */
+/*
+ * Version 3.9's all/and arm counts before it moves anything: insides()
+ * (461AF8-461BDB) walks the objects in index order, counting each whose
+ * Size fits in what is left once the ones counted before it are charged,
+ * and then (461EE8-46239B) moves the FIRST that many of them, whatever
+ * their sizes, capping the list with "  You can't put any more inside
+ * the bag as it is full." at the first one left over and saying nothing
+ * of the rest.  A count of nil is "Nothing will fit inside the bag."
+ * (461E0B), with no object named.  pPUTREF39.taf / pPUTREF39E.taf
+ * (--emptybag), run390x, 2026-09-19: `put stone and pebble in bag` with
+ * the bag full is "Nothing will fit inside the bag.", as is `put all in
+ * bag` (runner_probes/putref.run390.feed4.txt:5/11); with room for two, `put
+ * stone and pebble and lamp in bag` is "You put the stone and the lamp
+ * inside the bag.  You can't put any more inside the bag as it is full."
+ * (runner_probes/putref.run390.feed6.txt:5).  A single object keeps the
+ * size/capacity pair below.  The " is full." arm at 461E9D never spoke on
+ * these probes, the bag exactly full included, because it wants an object
+ * that fits into a container with nothing left; it is modelled just above.
+ */
+void
+lib_put_in_t::put_counted_390 (void)
+{
+  scr_int object;
+
   nothing_fits_390 = FALSE;
   if (lib_is_version_390 (game)
       && (is_all_form || entry_count > 1 || lib_put_mid_word_390))
@@ -987,6 +982,12 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
           has_moved = TRUE;
         }
     }
+}
+
+void
+lib_put_in_t::put_remaining (void)
+{
+  scr_int object;
 
   /* Put in every object that remains referenced. */
   list.clear ();
@@ -1040,16 +1041,22 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
     }
   has_printed |= !list.empty ();
   has_moved = !list.empty ();
+}
 
-  /*
-   * Version 3.8 has one container refusal and one only.  run380 answers "The
-   * box is full." to everything it will not take in -- whether the container
-   * has no room left, or (with a Capacity of 0) never had any, and whatever
-   * the object's Size/weight class, which it does not charge against the
-   * container at all (measured 2026-08-03; see obj_get_container_capacity).
-   * Consume the leftovers here, so that neither 4.0 report below finds
-   * anything to say about them.
-   */
+/*
+ * Version 3.8 has one container refusal and one only.  run380 answers "The
+ * box is full." to everything it will not take in -- whether the container
+ * has no room left, or (with a Capacity of 0) never had any, and whatever
+ * the object's Size/weight class, which it does not charge against the
+ * container at all (measured 2026-08-03; see obj_get_container_capacity).
+ * Consume the leftovers here, so that neither 4.0 report below finds
+ * anything to say about them.
+ */
+void
+lib_put_in_t::report_full_pre390 (void)
+{
+  scr_int object, count;
+
   if (obj_uses_burden_model (game))
     {
       count = 0;
@@ -1073,13 +1080,12 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
           has_printed = TRUE;
         }
     }
+}
 
-  /*
-   * A put that moved nothing and said nothing so far is about to say only
-   * the size and capacity refusals below; see the return value.  A closed
-   * refusal that spoke first counts the same way.
-   */
-  is_refusal_only = !has_printed || closed_refusal_only;
+void
+lib_put_in_t::report_nothing_fits_390 (void)
+{
+  scr_int object;
 
   /* 3.9's all/and arm with nothing fitting names no object; see above. */
   if (nothing_fits_390)
@@ -1091,13 +1097,19 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
                                 container, ".");
       has_printed = TRUE;
     }
+}
 
-  /*
-   * Report objects not put in because of their size.  These objects remain in
-   * standard references, as do objects rejected because of capacity limits.
-   * By removing too large objects in this loop, we're left later on with just
-   * the objects rejected by capacity limits.
-   */
+/*
+ * Report objects not put in because of their size.  These objects remain in
+ * standard references, as do objects rejected because of capacity limits.
+ * By removing too large objects in this loop, we're left later on with just
+ * the objects rejected by capacity limits.
+ */
+void
+lib_put_in_t::report_too_big (void)
+{
+  scr_int object;
+
   list.clear ();
   for (object = 0; object < object_count; object++)
     {
@@ -1125,11 +1137,17 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
       pf_buffer_character (filter, '.');
     }
   has_printed |= !list.empty ();
+}
 
-  /*
-   * Report objects not put in because the container is too full.  This should
-   * be all remaining objects in standard references.
-   */
+/*
+ * Report objects not put in because the container is too full.  This should
+ * be all remaining objects in standard references.
+ */
+void
+lib_put_in_t::report_no_room (void)
+{
+  scr_int object;
+
   list.clear ();
   for (object = 0; object < object_count; object++)
     {
@@ -1148,14 +1166,76 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
                                 container, " at the moment.");
     }
   has_printed |= !list.empty ();
+}
+
+lib_put_outcome_t
+lib_put_in_backend (scr_gameref_t game, scr_int container,
+                    scr_bool is_all_form)
+{
+  scr_int object, length_before, length_after_tasks;
+  scr_bool closed_refusal_only, is_refusal_only;
+  lib_put_outcome_t outcome;
+  lib_put_in_t put (game, container, is_all_form);
+
+  /* How many objects the line named, for 3.9's all/and arm below. */
+  put.entry_count = 0;
+  GS_FOR_EACH_OBJECT (game, object)
+    put.entry_count += game->object_references[object] ? 1 : 0;
+
+  length_before = lib_output_length (game);
+  lib_put_announce_bytes = 0;
+  put.try_game_commands ();
+
+  /* 4.0's take-phase close, deferred tasks and itself test. */
+  lib_put_deferred_stage_400 (game, put.pending, container, FALSE,
+                              &put.has_printed, &put.task_claimed,
+                              &put.recursion_rejected);
+  length_after_tasks = lib_output_length (game);
+
+  /*
+   * 4.0's closed-container test, in insides' own place: after the take
+   * phase, the tasks and the itself test, before size and capacity.  It is
+   * a refusal in the size refusal's sense -- printed, and the line left
+   * for the task pass -- unless something already spoke ahead of it.
+   */
+  closed_refusal_only = FALSE;
+  if (lib_put_in_closed_400 (game, container, put.has_printed))
+    {
+      closed_refusal_only = !put.has_printed;
+      put.has_printed = TRUE;
+    }
+
+  /*
+   * Retrieve the container's total volume, and the volume it has left.  The
+   * free space is tracked across the loop below rather than recomputed, since
+   * each object put in spends some of it.
+   */
+  put.capacity = obj_get_container_capacity (game, container);
+  put.free_space = obj_get_container_free_space (game, container);
+
+  put.report_full_390 ();
+  put.put_counted_390 ();
+  put.put_remaining ();
+  put.report_full_pre390 ();
+
+  /*
+   * A put that moved nothing and said nothing so far is about to say only
+   * the size and capacity refusals below; see the return value.  A closed
+   * refusal that spoke first counts the same way.
+   */
+  is_refusal_only = !put.has_printed || closed_refusal_only;
+
+  put.report_nothing_fits_390 ();
+  put.report_too_big ();
+  put.report_no_room ();
 
   /* Refusals only if they were printed, and nothing before them. */
-  is_refusal_only = is_refusal_only && has_printed;
+  is_refusal_only = is_refusal_only && put.has_printed;
 
   /* Note any remaining multiple references left out of the operation. */
-  lib_drain_multiple_references (game, object_count, list);
+  lib_drain_multiple_references (game, put.object_count, put.list);
 
-  lib_print_object_list (game, has_printed, list, " or ", '.',
+  lib_print_object_list (game, put.has_printed, put.list, " or ", '.',
                          "You are not holding ",
                          "I am not holding ",
                          "%player% is not holding ");
@@ -1177,10 +1257,10 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
    * from nothing (`put slab in box` -> "... You are carrying nothing!
    * SLABTASK.").
    */
-  outcome.is_refusal_only = (is_refusal_only && list.empty ())
-                            || (static_refused && !has_moved);
+  outcome.is_refusal_only = (is_refusal_only && put.list.empty ())
+                            || (put.static_refused && !put.has_moved);
   lib_put_note_output (game, &outcome, length_before, length_after_tasks,
-                       task_claimed);
+                       put.task_claimed);
   return outcome;
 }
 

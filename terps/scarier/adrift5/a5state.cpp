@@ -1374,10 +1374,3 @@ a5state_var_num_by_name (const a5_state_t *st, const char *name, long *out)
     *out = st->var_num[i];
   return 1;
 }
-
-const char *
-a5state_var_text_by_name (const a5_state_t *st, const char *name)
-{
-  int i = var_index_by_name (st, name);
-  return (i >= 0) ? st->var_text[i] : nullptr;
-}

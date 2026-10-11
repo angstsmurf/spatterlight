@@ -79,7 +79,12 @@ a5_each_chunk (const uint8_t *buf, uint32_t length, Accept accept)
   return 0;
 }
 
-int
+/*
+ * Locate a resource by usage FourCC and number.  On success returns nonzero
+ * and fills *out with the chunk type and a pointer/size for its body.  The
+ * pointer aliases into buf, so it stays valid as long as buf does.
+ */
+static int
 a5blorb_find (const uint8_t *buf, uint32_t length,
               uint32_t usage, uint32_t number, a5_blorb_chunk_t *out)
 {

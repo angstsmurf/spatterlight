@@ -40,8 +40,6 @@ enum
 };
 
 typedef struct scr_var_set_s *scr_var_setref_t;
-extern void var_put (scr_var_setref_t vars, const scr_char *name,
-                     scr_int type, scr_vartype_t vt_value);
 extern scr_bool var_get (scr_var_setref_t vars,
                         const scr_char *name, scr_int *type,
                         scr_vartype_t *vt_rvalue);

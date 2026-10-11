@@ -660,20 +660,26 @@ run_noref (a5_run_t *run, int ti, int ci, const std::string &in, sb_t *out)
   return has;
 }
 
-/* Scan general tasks for `in`.  Runs (and returns 1) on the first unique passing
-   match.  Otherwise returns 0, recording -- for the caller to act on after the
-   scan -- the first ambiguity (via have_amb/amb/amb_ti/amb_ci; amb_cantsee
-   distinguishes the "can't see any" out-of-scope case from a "which?" prompt)
-   and the first restriction-failure message (via have_fail/fail_text). */
-static int
-scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
-            int *have_amb, amb_info *amb, int *amb_ti, int *amb_ci,
-            int *amb_cantsee,
-            int *have_fail, std::string *fail_text,
-            int *have_noref, int *noref_ti, int *noref_ci)
-{
-  a5_state_t *st = run->st;
-  int fail_priority = 0;
+/*
+ * One scan_tasks() pass over the general tasks: the input, where the output
+ * and the recorded candidates go, and how far a ContinueAlways task or a
+ * failing-with-output task has narrowed the tasks still eligible.
+ */
+struct task_scan_t {
+  a5_run_t *run;
+  const std::string &in;
+  sb_t *out;
+  int *have_amb;
+  amb_info *amb;
+  int *amb_ti, *amb_ci;
+  int *amb_cantsee;
+  int *have_fail;
+  std::string *fail_text;
+  int *have_noref;
+  int *noref_ti, *noref_ci;
+  a5_state_t *st;
+
+  int fail_priority;
   /* When a <Continue>ContinueAlways task runs, the Adrift 5 runner continues task
      selection via EvaluateInput(Priority+1) -> GetGeneralTask with
      iMinimumPriority = iPriorityFail = that task's Priority + 1.  So on the
@@ -683,8 +689,316 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
      clsUserSession.vb:5981).  E.g. RunBronwynn's GetOffBeforeMoving (50432,
      ContinueAlways) prints "...get off the bed first?" and the LowPriority
      PlayerMovement (50434) is then NOT run, so the player stays put. */
-  int cont_active = 0;
-  long cont_floor = 0;        /* = the continue task's Priority (min = floor+1) */
+  int cont_active;
+  long cont_floor;        /* = the continue task's Priority (min = floor+1) */
+
+  void leak_text_references (const a5_match_t &m);
+  int match_command (const a5_task_t *t, int ci, a5_match_t &m,
+                     amb_info &this_amb, bool *aborted);
+  bool run_passing (int ti, const a5_task_t *t, a5_match_t &m);
+  void record_noref (int ti, int ci);
+  bool record_failure (const a5_task_t *t);
+  int scan ();
+};
+
+void
+task_scan_t::leak_text_references (const a5_match_t &m)
+{
+  /* clsUserSession.vb:2567: a command-matched candidate's %textN%
+     captures overwrite the turn-global sReferencedText slots as soon
+     as its references are processed -- BEFORE (and regardless of) its
+     reference resolution or restriction outcome, so a later task's
+     `ReferencedText Must ...` restriction sees the leakage. */
+  for (int mi = 0; mi < m.n_refs; mi++)
+    if (strncmp (m.ref_name[mi], "text", 4) == 0)
+      {
+        int slot = 0;
+        if (isdigit ((unsigned char) m.ref_name[mi][4]))
+          slot = atoi (m.ref_name[mi] + 4) - 1;
+        if (slot < 0) slot = 0;
+        if (slot > 4) slot = 4;
+        strncpy (st->scan_text[slot], m.ref_text[mi],
+                 sizeof st->scan_text[slot] - 1);
+        st->scan_text[slot][sizeof st->scan_text[slot] - 1] = '\0';
+      }
+}
+
+/*
+ * Match the input against command CI of T and resolve its references into M,
+ * returning the RR_ code (THIS_AMB filled for an ambiguity).  Sets *ABORTED
+ * when the match kills the whole scan.
+ */
+int
+task_scan_t::match_command (const a5_task_t *t, int ci, a5_match_t &m,
+                            amb_info &this_amb, bool *aborted)
+{
+  /* Wildcard variants (GetRegularExpression): try the command's
+     candidate regexes in order -- all wildcards removed first, the
+     original pattern last -- advancing to the next variant when the
+     matched variant's reference text names nothing (InputMatchesObject
+     failure -> DoesntMatch -> next regex).  `find bell tower entrance`
+     must bind the whole tail to %object% (the unseen Bell Tower door)
+     before falling back to the lazy "%object% *" split ("bell").  The
+     first variant that yields a real resolution wins; a NOREF (second-
+     chance Must-Exist) result keeps the FIRST such variant's reference
+     text, as the runner's second-chance pass re-matches regex list in order. */
+  int r = RR_NOMATCH;
+  a5_match_t noref_m;
+  int have_noref_var = 0;
+  for (int vi = 0; ; vi++)
+    {
+      int mr = a5parse_match_command_v (t->commands[ci], in.c_str (),
+                                        &m, vi);
+      if (mr < 0)
+        break;
+      if (mr == 0)
+        continue;
+      /* FAITHFUL BUG: a typed command matching a task with a plural
+         %characters% reference kills the WHOLE scan.  %characters% is
+         missing from Global.ReferenceNames() (Global.vb:473), so the
+         task's References list never counts it and NewReferences is
+         ReDim'd too short (clsUserSession.vb:275); InputMatchesCommand's
+         "characters" group handler then assigns past the end
+         (vb:5630) and the IndexOutOfRangeException unwinds into
+         GetGeneralTask's Catch (vb:6118), which returns Nothing --
+         discarding every candidate recorded so far AND skipping the
+         second-chance pass.  The input falls through to NotUnderstood
+         ("I don't understand what you want to do with Bob.").
+         (SetTasks-Execute parameter binds bypass this: they never
+         re-enter InputMatchesCommand.)  Simplification: the runner
+         only throws once the groups BEFORE "characters" all resolved;
+         a mixed command whose earlier %object% names nothing would
+         DoesntMatch first -- not mirrored, the abort here fires on any
+         regex match. */
+      for (int mi = 0; mi < m.n_refs; mi++)
+        if (strcmp (m.ref_name[mi], "characters") == 0)
+          {
+            *have_amb = 0; *have_fail = 0; *have_noref = 0;
+            fail_text->clear ();
+            /* On a ContinueAlways continuation the claiming task
+               already ran; the aborted continuation still reports the
+               turn handled (NotUnderstood is gated on
+               iMinimumPriority=0, see the cont_active return in scan ()). */
+            *aborted = true;
+            return RR_NOMATCH;
+          }
+      leak_text_references (m);
+      r = resolve_refine (run, t, &m, nullptr, nullptr, &this_amb);
+      if (r == RR_NOREF && !have_noref_var)
+        { noref_m = m; have_noref_var = 1; }
+      if (r != RR_NOMATCH && r != RR_NOREF)
+        break;
+    }
+  if ((r == RR_NOMATCH || r == RR_NOREF) && have_noref_var)
+    {
+      /* No variant resolved; surface the first NOREF variant (its
+         bindings may have been clobbered by later variants' probes --
+         re-resolve to restore them and the amb info). */
+      m = noref_m;
+      r = resolve_refine (run, t, &m, nullptr, nullptr, &this_amb);
+    }
+  return r;
+}
+
+/*
+ * T matched uniquely and passes: run it.  Return true if it claims the turn,
+ * false if the scan continues at higher priorities.
+ */
+bool
+task_scan_t::run_passing (int ti, const a5_task_t *t, a5_match_t &m)
+{
+  size_t out_before = out->len;
+  run_general (run, t, &m, out);
+  int produced = (out->len > out_before);
+  st->task_done[ti] = 1;
+  ev_on_task_completed (run, t->key, out);
+  /* <Continue>ContinueAlways: run lower-priority matching tasks too
+     (clsUserSession GetGeneralTask -> EvaluateInput(Priority+1)).
+     E.g. GetOffBeforeMoving prints "(getting off X first)" then lets
+     the actual movement task run.
+
+     Also continue when the task PASSED but produced NO OUTPUT:
+     the Adrift 5 runner's AttemptToExecuteTask (clsUserSession.vb:916-921)
+     sets bContinue and re-evaluates at Priority+1 for a passing task
+     with no output, so a higher-priority matching task that DOES emit
+     (or fails with output) claims the turn instead.  E.g. Axe of Kolt's
+     generic "Buy Object" (Task54, no completion message) passes for
+     `buy beer` but must yield to the higher-priority "Buy Beer In
+     Tavern" task that emits "...run out of change" and sets the
+     change-needed flag.  If nothing higher claims, the cont_active
+     fall-through below still reports the turn handled (the silent task
+     already ran its actions). */
+  if (t->continue_lower || !produced)
+    {
+      /* If that passing task also ended the game (an EndGame action
+         with no completion message, e.g. FoF's silent Task1448
+         "Pull Bell Ropes - Door Wedged": IncScore + Execute + EndGame
+         Win), the Adrift 5 runner's Priority+1 re-entry into EvaluateInput
+         hits its top guard with eGameState != Running: SystemTasks(True)
+         rejects the command (not restart/restore/quit/undo) and it
+         prints "Please give one of the answers above." before returning
+         (clsUserSession.vb:3372-3379).  The win/lose banner then follows
+         from CheckEndOfGame (emit_endgame here).  Emit that line and
+         claim the turn -- the re-entry scans no further task. */
+      if (st->game_over)
+        {
+          sb_puts (out, "Please give one of the answers above.\n");
+          return true;
+        }
+      /* EvaluateInput(Priority+1): only strictly-higher-priority
+         tasks remain eligible, with the LowPriority/iPriorityFail
+         guard.  A second ContinueAlways task raises the floor. */
+      if (!cont_active || t->priority > cont_floor)
+        { cont_active = 1; cont_floor = t->priority; }
+      /* The claiming task supersedes every candidate recorded so
+         far: the runner's continuation is a FRESH EvaluateInput whose
+         GetGeneralTask starts with empty sAmbTask/sNoRefTask/
+         sRestrictionText -- a pre-continue "which?"/noref/fail
+         message must not resurface if the continuation itself
+         finds nothing.  (Candidates recorded AFTER this point are
+         the continuation's own and DO surface -- see the
+         cont_active return below.) */
+      *have_fail = 0; fail_text->clear ();
+      *have_amb = 0; *have_noref = 0;
+      return false;   /* stop trying this task's commands; keep scanning */
+    }
+  return true;
+}
+
+void
+task_scan_t::record_noref (int ti, int ci)
+{
+  /* A reference named nothing: remember this task as the
+     no-reference fallback (clsUserSession.GetGeneralTask sNoRefTask).
+     Keep scanning -- a later task may resolve uniquely or fail with
+     output; only if nothing claims does the caller run this task
+     with the reference unresolved.
+
+     These are the runner's second-chance pass tasks (matched only via
+     HasObjectExistRestriction, with zero-Item references): there they
+     fail their `Must Exist` restriction *with output*, so the same
+     TaskExecution ordering applies.  Under HighestPriorityPassingTask
+     the highest-priority such task that fails *with output* wins
+     (clsUserSession.vb:6076, gated on `sRestrictionText <> ""`) --
+     run->order is ascending, so overwrite each time a higher task
+     would produce a message; under the default HighestPriorityTask the
+     first (lowest-priority) one is kept.  E.g. Spectre's `remove
+     bricks` matches both RemoveObjects (P50736, "...you're referring
+     to.") and RemoveObje (P50749, "...trying to remove."); The runner surfaces
+     the latter.  The output gate keeps Axe of Kolt's `examine
+     <unknown noun>` on its "You see no such thing." rather than
+     yielding to a higher refless task that fails silently. */
+  if (!*have_noref)
+    { *have_noref = 1; *noref_ti = ti; *noref_ci = ci; }
+  else if (st->adv->hp_passing
+           && run_noref (run, ti, ci, in, nullptr))
+    { *noref_ti = ti; *noref_ci = ci; }
+}
+
+/*
+ * T matched the command but its restrictions fail.  Return true if that
+ * claims the turn outright; otherwise record any fail message as a candidate.
+ */
+bool
+task_scan_t::record_failure (const a5_task_t *t)
+{
+  /* A "get all"-style command whose %objects% resolved to no passing
+     item: the task's FailOverride claims the turn ("There is nothing
+     worth taking here.") -- clsUserSession.vb:788, shown when no
+     response passed and the input contained "all".  vb:789 is a
+     literal Display(task.FailOverride.ToString) over a raw
+     clsDescription, so the expansion happens with bDisplaying set. */
+  if (run->pending_failover != nullptr)
+    {
+      char *fo;
+      { a5_intro_guard ig (st, 1);
+        fo = a5text_describe (st, run->pending_failover); }
+      run->pending_failover = nullptr;
+      if (msg_has_output (fo)) { sb_pspace (out); sb_puts (out, fo); }
+      free (fo);
+      return true;
+    }
+  /* The task matched the command but its restrictions fail.  If a
+     failing restriction has output, this is a candidate fail message
+     (clsUserSession.GetGeneralTask: sRestrictionText = the failing
+     restriction's Message; refless and reference-bearing tasks are
+     treated identically -- htblCompleteableGeneralTasks has no
+     HasReferences/IsCompleteable filter; that lives only in the
+     background-thread predictor).  The TaskExecution mode decides
+     whether it claims the turn now:
+       - HighestPriorityTask (the v5 default): the highest-priority
+         command-matching task that fails *with output* claims the
+         turn -- show its message, no lower task runs.
+       - HighestPriorityPassingTask: it does NOT claim; record the
+         first (highest-priority) such message and keep scanning for
+         a lower-priority *passing* task, which overrides it.  Six
+         Silver Bullets sets this, so its refless "LOOK" peephole
+         task falls through to the real Look. */
+  const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
+  if (fm == nullptr)
+    /* The task's own restrictions named no failing message (e.g. a
+       malformed BracketSequence whose evaluation calls no single
+       restriction).  The Adrift 5 runner then still has sRestrictionText
+       set to the *previous* command's leftover message, so the task
+       fails *with output* and claims the turn -- ticking
+       TurnBasedStuff.  Anno 1700's reference-free OpeningHid ("##A#")
+       matches "open closet", fails, and inherits the prior turn's
+       "%CharacterName% can't see %TheObject[%object%]%." (rendered
+       with its empty references as "You can't see nothing."). */
+    fm = st->restriction_text;
+  if (fm != nullptr)
+    {
+      /* Raw into AddResponse (vb:1247): expanded inside Display. */
+      char *fmsg;
+      { a5_intro_guard ig (st, 1);
+        fmsg = a5text_describe (st, fm); }
+      /* Prefix a failing multi-match %objects% noun with the runner's
+         "Sorry, I'm not sure which object ..." ambiguity message
+         (set by resolve_plural).  Skip when the failure message is
+         already that text (a never-seen match fails the Exist /
+         HaveBeenSeen restriction, whose message IS the prefix). */
+      std::string fcombined = fmsg;
+      if (fmsg[0] && !run->plural_amb_prefix.empty ()
+          && strncmp (fmsg, run->plural_amb_prefix.c_str (),
+                      run->plural_amb_prefix.size ()) != 0)
+        fcombined = run->plural_amb_prefix + "  " + fmsg;
+      if (fmsg[0])
+        {
+          /* Record the first (lowest-Priority, since run->order is
+             ascending) failing-with-output task and keep scanning.
+             Under HighestPriorityPassingTask any later passing task
+             (any priority) overrides it; under the default
+             HighestPriorityTask only an equal-priority passing task
+             does (enforced by the loop-top guard, which stops once a
+             strictly lower priority is reached).
+
+             Under HighestPriorityPassingTask the runner reassigns
+             GetGeneralTask for *every* failing-with-output task
+             (clsUserSession.vb:6076), so the *highest*-priority such
+             task wins -- run->order is ascending, so overwrite each
+             time.  The LowPriority/iPriorityFail guard at the loop top
+             (above) already excludes the LowPriority tasks the runner skips
+             once a fail floor is set, which keeps Six Silver Bullets'
+             turn timer aligned (a bare keep-highest without that guard
+             ticked early).  Under the default HighestPriorityTask the
+             loop-top guard stops the scan once a strictly lower
+             priority is reached, so keeping the first within the band
+             is correct there. */
+          if (!*have_fail || st->adv->hp_passing)
+            {
+              *have_fail = 1;
+              *fail_text = fcombined;
+              fail_priority = t->priority;
+            }
+        }
+      free (fmsg);
+    }
+  return false;
+}
+
+int
+task_scan_t::scan ()
+{
   for (size_t oi = 0; oi < run->order->size (); oi++)
     {
       int ti = (*run->order)[oi];
@@ -730,86 +1044,10 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
         {
           a5_match_t m;
           amb_info this_amb;
-          /* Wildcard variants (GetRegularExpression): try the command's
-             candidate regexes in order -- all wildcards removed first, the
-             original pattern last -- advancing to the next variant when the
-             matched variant's reference text names nothing (InputMatchesObject
-             failure -> DoesntMatch -> next regex).  `find bell tower entrance`
-             must bind the whole tail to %object% (the unseen Bell Tower door)
-             before falling back to the lazy "%object% *" split ("bell").  The
-             first variant that yields a real resolution wins; a NOREF (second-
-             chance Must-Exist) result keeps the FIRST such variant's reference
-             text, as the runner's second-chance pass re-matches regex list in order. */
-          int r = RR_NOMATCH;
-          a5_match_t noref_m;
-          int have_noref_var = 0;
-          for (int vi = 0; ; vi++)
-            {
-              int mr = a5parse_match_command_v (t->commands[ci], in.c_str (),
-                                                &m, vi);
-              if (mr < 0)
-                break;
-              if (mr == 0)
-                continue;
-              /* FAITHFUL BUG: a typed command matching a task with a plural
-                 %characters% reference kills the WHOLE scan.  %characters% is
-                 missing from Global.ReferenceNames() (Global.vb:473), so the
-                 task's References list never counts it and NewReferences is
-                 ReDim'd too short (clsUserSession.vb:275); InputMatchesCommand's
-                 "characters" group handler then assigns past the end
-                 (vb:5630) and the IndexOutOfRangeException unwinds into
-                 GetGeneralTask's Catch (vb:6118), which returns Nothing --
-                 discarding every candidate recorded so far AND skipping the
-                 second-chance pass.  The input falls through to NotUnderstood
-                 ("I don't understand what you want to do with Bob.").
-                 (SetTasks-Execute parameter binds bypass this: they never
-                 re-enter InputMatchesCommand.)  Simplification: the runner
-                 only throws once the groups BEFORE "characters" all resolved;
-                 a mixed command whose earlier %object% names nothing would
-                 DoesntMatch first -- not mirrored, the abort here fires on any
-                 regex match. */
-              for (int mi = 0; mi < m.n_refs; mi++)
-                if (strcmp (m.ref_name[mi], "characters") == 0)
-                  {
-                    *have_amb = 0; *have_fail = 0; *have_noref = 0;
-                    fail_text->clear ();
-                    /* On a ContinueAlways continuation the claiming task
-                       already ran; the aborted continuation still reports the
-                       turn handled (NotUnderstood is gated on
-                       iMinimumPriority=0, see the cont_active return below). */
-                    return cont_active ? 1 : 0;
-                  }
-              /* clsUserSession.vb:2567: a command-matched candidate's %textN%
-                 captures overwrite the turn-global sReferencedText slots as soon
-                 as its references are processed -- BEFORE (and regardless of) its
-                 reference resolution or restriction outcome, so a later task's
-                 `ReferencedText Must ...` restriction sees the leakage. */
-              for (int mi = 0; mi < m.n_refs; mi++)
-                if (strncmp (m.ref_name[mi], "text", 4) == 0)
-                  {
-                    int slot = 0;
-                    if (isdigit ((unsigned char) m.ref_name[mi][4]))
-                      slot = atoi (m.ref_name[mi] + 4) - 1;
-                    if (slot < 0) slot = 0;
-                    if (slot > 4) slot = 4;
-                    strncpy (st->scan_text[slot], m.ref_text[mi],
-                             sizeof st->scan_text[slot] - 1);
-                    st->scan_text[slot][sizeof st->scan_text[slot] - 1] = '\0';
-                  }
-              r = resolve_refine (run, t, &m, nullptr, nullptr, &this_amb);
-              if (r == RR_NOREF && !have_noref_var)
-                { noref_m = m; have_noref_var = 1; }
-              if (r != RR_NOMATCH && r != RR_NOREF)
-                break;
-            }
-          if ((r == RR_NOMATCH || r == RR_NOREF) && have_noref_var)
-            {
-              /* No variant resolved; surface the first NOREF variant (its
-                 bindings may have been clobbered by later variants' probes --
-                 re-resolve to restore them and the amb info). */
-              m = noref_m;
-              r = resolve_refine (run, t, &m, nullptr, nullptr, &this_amb);
-            }
+          bool aborted = false;
+          int r = match_command (t, ci, m, this_amb, &aborted);
+          if (aborted)
+            return cont_active ? 1 : 0;
           if (r == RR_NOMATCH)
             continue;
           if (a5run_trace)
@@ -817,62 +1055,9 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                      t->key, t->commands[ci], r);
           if (r == RR_OK)
             {
-              size_t out_before = out->len;
-              run_general (run, t, &m, out);
-              int produced = (out->len > out_before);
-              st->task_done[ti] = 1;
-              ev_on_task_completed (run, t->key, out);
-              /* <Continue>ContinueAlways: run lower-priority matching tasks too
-                 (clsUserSession GetGeneralTask -> EvaluateInput(Priority+1)).
-                 E.g. GetOffBeforeMoving prints "(getting off X first)" then lets
-                 the actual movement task run.
-
-                 Also continue when the task PASSED but produced NO OUTPUT:
-                 the Adrift 5 runner's AttemptToExecuteTask (clsUserSession.vb:916-921)
-                 sets bContinue and re-evaluates at Priority+1 for a passing task
-                 with no output, so a higher-priority matching task that DOES emit
-                 (or fails with output) claims the turn instead.  E.g. Axe of Kolt's
-                 generic "Buy Object" (Task54, no completion message) passes for
-                 `buy beer` but must yield to the higher-priority "Buy Beer In
-                 Tavern" task that emits "...run out of change" and sets the
-                 change-needed flag.  If nothing higher claims, the cont_active
-                 fall-through below still reports the turn handled (the silent task
-                 already ran its actions). */
-              if (t->continue_lower || !produced)
-                {
-                  /* If that passing task also ended the game (an EndGame action
-                     with no completion message, e.g. FoF's silent Task1448
-                     "Pull Bell Ropes - Door Wedged": IncScore + Execute + EndGame
-                     Win), the Adrift 5 runner's Priority+1 re-entry into EvaluateInput
-                     hits its top guard with eGameState != Running: SystemTasks(True)
-                     rejects the command (not restart/restore/quit/undo) and it
-                     prints "Please give one of the answers above." before returning
-                     (clsUserSession.vb:3372-3379).  The win/lose banner then follows
-                     from CheckEndOfGame (emit_endgame here).  Emit that line and
-                     claim the turn -- the re-entry scans no further task. */
-                  if (st->game_over)
-                    {
-                      sb_puts (out, "Please give one of the answers above.\n");
-                      return 1;
-                    }
-                  /* EvaluateInput(Priority+1): only strictly-higher-priority
-                     tasks remain eligible, with the LowPriority/iPriorityFail
-                     guard.  A second ContinueAlways task raises the floor. */
-                  if (!cont_active || t->priority > cont_floor)
-                    { cont_active = 1; cont_floor = t->priority; }
-                  /* The claiming task supersedes every candidate recorded so
-                     far: the runner's continuation is a FRESH EvaluateInput whose
-                     GetGeneralTask starts with empty sAmbTask/sNoRefTask/
-                     sRestrictionText -- a pre-continue "which?"/noref/fail
-                     message must not resurface if the continuation itself
-                     finds nothing.  (Candidates recorded AFTER this point are
-                     the continuation's own and DO surface -- see the
-                     cont_active return below.) */
-                  *have_fail = 0; fail_text->clear ();
-                  *have_amb = 0; *have_noref = 0;
-                  break;          /* stop trying this task's commands; keep scanning */
-                }
-              return 1;
+              if (run_passing (ti, t, m))
+                return 1;
+              break;
             }
           if (r == RR_CANTSEE
               && (!*have_amb || (amb->second_chance && !this_amb.second_chance)))
@@ -893,127 +1078,15 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
             }
           if (r == RR_NOREF)
             {
-              /* A reference named nothing: remember this task as the
-                 no-reference fallback (clsUserSession.GetGeneralTask sNoRefTask).
-                 Keep scanning -- a later task may resolve uniquely or fail with
-                 output; only if nothing claims does the caller run this task
-                 with the reference unresolved.
-
-                 These are the runner's second-chance pass tasks (matched only via
-                 HasObjectExistRestriction, with zero-Item references): there they
-                 fail their `Must Exist` restriction *with output*, so the same
-                 TaskExecution ordering applies.  Under HighestPriorityPassingTask
-                 the highest-priority such task that fails *with output* wins
-                 (clsUserSession.vb:6076, gated on `sRestrictionText <> ""`) --
-                 run->order is ascending, so overwrite each time a higher task
-                 would produce a message; under the default HighestPriorityTask the
-                 first (lowest-priority) one is kept.  E.g. Spectre's `remove
-                 bricks` matches both RemoveObjects (P50736, "...you're referring
-                 to.") and RemoveObje (P50749, "...trying to remove."); The runner surfaces
-                 the latter.  The output gate keeps Axe of Kolt's `examine
-                 <unknown noun>` on its "You see no such thing." rather than
-                 yielding to a higher refless task that fails silently. */
-              if (!*have_noref)
-                { *have_noref = 1; *noref_ti = ti; *noref_ci = ci; }
-              else if (st->adv->hp_passing
-                       && run_noref (run, ti, ci, in, nullptr))
-                { *noref_ti = ti; *noref_ci = ci; }
+              record_noref (ti, ci);
               continue;
             }
           if (r == RR_AMBIG
               && (!*have_amb || (amb->second_chance && !this_amb.second_chance)))
             { *have_amb = 1; *amb_cantsee = 0; *amb = this_amb;
               *amb_ti = ti; *amb_ci = ci; }
-          if (r == RR_FAIL)
-            {
-              /* A "get all"-style command whose %objects% resolved to no passing
-                 item: the task's FailOverride claims the turn ("There is nothing
-                 worth taking here.") -- clsUserSession.vb:788, shown when no
-                 response passed and the input contained "all".  vb:789 is a
-                 literal Display(task.FailOverride.ToString) over a raw
-                 clsDescription, so the expansion happens with bDisplaying set. */
-              if (run->pending_failover != nullptr)
-                {
-                  char *fo;
-                  { a5_intro_guard ig (st, 1);
-                    fo = a5text_describe (st, run->pending_failover); }
-                  run->pending_failover = nullptr;
-                  if (msg_has_output (fo)) { sb_pspace (out); sb_puts (out, fo); }
-                  free (fo);
-                  return 1;
-                }
-              /* The task matched the command but its restrictions fail.  If a
-                 failing restriction has output, this is a candidate fail message
-                 (clsUserSession.GetGeneralTask: sRestrictionText = the failing
-                 restriction's Message; refless and reference-bearing tasks are
-                 treated identically -- htblCompleteableGeneralTasks has no
-                 HasReferences/IsCompleteable filter; that lives only in the
-                 background-thread predictor).  The TaskExecution mode decides
-                 whether it claims the turn now:
-                   - HighestPriorityTask (the v5 default): the highest-priority
-                     command-matching task that fails *with output* claims the
-                     turn -- show its message, no lower task runs.
-                   - HighestPriorityPassingTask: it does NOT claim; record the
-                     first (highest-priority) such message and keep scanning for
-                     a lower-priority *passing* task, which overrides it.  Six
-                     Silver Bullets sets this, so its refless "LOOK" peephole
-                     task falls through to the real Look. */
-              const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
-              if (fm == nullptr)
-                /* The task's own restrictions named no failing message (e.g. a
-                   malformed BracketSequence whose evaluation calls no single
-                   restriction).  The Adrift 5 runner then still has sRestrictionText
-                   set to the *previous* command's leftover message, so the task
-                   fails *with output* and claims the turn -- ticking
-                   TurnBasedStuff.  Anno 1700's reference-free OpeningHid ("##A#")
-                   matches "open closet", fails, and inherits the prior turn's
-                   "%CharacterName% can't see %TheObject[%object%]%." (rendered
-                   with its empty references as "You can't see nothing."). */
-                fm = st->restriction_text;
-              if (fm != nullptr)
-                {
-                  /* Raw into AddResponse (vb:1247): expanded inside Display. */
-                  char *fmsg;
-                  { a5_intro_guard ig (st, 1);
-                    fmsg = a5text_describe (st, fm); }
-                  /* Prefix a failing multi-match %objects% noun with the runner's
-                     "Sorry, I'm not sure which object ..." ambiguity message
-                     (set by resolve_plural).  Skip when the failure message is
-                     already that text (a never-seen match fails the Exist /
-                     HaveBeenSeen restriction, whose message IS the prefix). */
-                  std::string fcombined = fmsg;
-                  if (fmsg[0] && !run->plural_amb_prefix.empty ()
-                      && strncmp (fmsg, run->plural_amb_prefix.c_str (),
-                                  run->plural_amb_prefix.size ()) != 0)
-                    fcombined = run->plural_amb_prefix + "  " + fmsg;
-                  if (fmsg[0])
-                    {
-                      /* Record the first (lowest-Priority, since run->order is
-                         ascending) failing-with-output task and keep scanning.
-                         Under HighestPriorityPassingTask any later passing task
-                         (any priority) overrides it; under the default
-                         HighestPriorityTask only an equal-priority passing task
-                         does (enforced by the loop-top guard, which stops once a
-                         strictly lower priority is reached).
-
-                         Under HighestPriorityPassingTask the runner reassigns
-                         GetGeneralTask for *every* failing-with-output task
-                         (clsUserSession.vb:6076), so the *highest*-priority such
-                         task wins -- run->order is ascending, so overwrite each
-                         time.  The LowPriority/iPriorityFail guard at the loop top
-                         (above) already excludes the LowPriority tasks the runner skips
-                         once a fail floor is set, which keeps Six Silver Bullets'
-                         turn timer aligned (a bare keep-highest without that guard
-                         ticked early).  Under the default HighestPriorityTask the
-                         loop-top guard stops the scan once a strictly lower
-                         priority is reached, so keeping the first within the band
-                         is correct there. */
-                      if (!*have_fail || st->adv->hp_passing)
-                        { *have_fail = 1; *fail_text = fcombined; fail_priority = t->priority; }
-                    }
-                  free (fmsg);
-                }
-            }
+          if (r == RR_FAIL && record_failure (t))
+            return 1;
           /* command matched but did not resolve to a unique pass: keep scanning */
         }
     }
@@ -1030,6 +1103,24 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
   if (cont_active)
     return (*have_fail || *have_amb || *have_noref) ? 0 : 1;
   return 0;
+}
+
+/* Scan general tasks for `in`.  Runs (and returns 1) on the first unique passing
+   match.  Otherwise returns 0, recording -- for the caller to act on after the
+   scan -- the first ambiguity (via have_amb/amb/amb_ti/amb_ci; amb_cantsee
+   distinguishes the "can't see any" out-of-scope case from a "which?" prompt)
+   and the first restriction-failure message (via have_fail/fail_text). */
+static int
+scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
+            int *have_amb, amb_info *amb, int *amb_ti, int *amb_ci,
+            int *amb_cantsee,
+            int *have_fail, std::string *fail_text,
+            int *have_noref, int *noref_ti, int *noref_ci)
+{
+  task_scan_t scan = { run, in, out, have_amb, amb, amb_ti, amb_ci,
+                       amb_cantsee, have_fail, fail_text, have_noref,
+                       noref_ti, noref_ci, run->st, 0, 0, 0 };
+  return scan.scan ();
 }
 
 /* --------------------------------------------------------------- public turn */

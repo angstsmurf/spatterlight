@@ -96,7 +96,7 @@ if [ -n "${SCPROJ_BIN:-}" ]; then
   BIN="$SCPROJ_BIN"
 else
   ( cd "$SCARE" && clang++ -std=c++11 -O2 -w -I. core/sc*.cpp library/*.cpp runner/*.cpp mapdraw.cpp \
-      headless/sxstubs.cpp headless/sxglob.cpp headless/sxutils.cpp \
+      headless/sxstubs.cpp \
       "$HERE/scproj_test.cpp" "$HERE/seed.cpp" -lz -o "$BIN" )
 fi
 

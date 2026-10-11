@@ -50,7 +50,7 @@ A5_RAND_OBJ := test/adrift5/harness/a5_randomness.o
 # the dump set below defines the macro.
 SRC  := $(wildcard core/sc*.cpp) $(wildcard library/*.cpp) $(wildcard runner/*.cpp) \
         $(wildcard tools/*.cpp) mapdraw.cpp
-STUBS   := headless/sxstubs.cpp headless/sxglob.cpp headless/sxutils.cpp
+STUBS   := headless/sxstubs.cpp
 HARNESS := test/adrift4/harness/battle_test.cpp
 
 # Every harness below links the same engine, so the sources are compiled once

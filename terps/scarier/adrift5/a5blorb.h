@@ -61,15 +61,11 @@ typedef struct a5_blorb_chunk_s {
 } a5_blorb_chunk_t;
 
 /*
- * Locate a resource by usage FourCC and number.  On success returns nonzero
- * and fills *out with the chunk type and a pointer/size for its body.  The
- * pointer aliases into buf, so it stays valid as long as buf does.
+ * Locate the ADRIFT Exec resource (usage 'Exec', number 0).  On success
+ * returns nonzero and fills *out with the chunk type and a pointer/size for
+ * its body.  The pointer aliases into buf, so it stays valid as long as buf
+ * does.
  */
-extern int a5blorb_find (const uint8_t *buf, uint32_t length,
-                         uint32_t usage, uint32_t number,
-                         a5_blorb_chunk_t *out);
-
-/* Convenience wrapper for the ADRIFT Exec resource (usage 'Exec', number 0). */
 extern int a5blorb_find_exec (const uint8_t *buf, uint32_t length,
                               a5_blorb_chunk_t *out);
 

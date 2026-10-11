@@ -726,7 +726,7 @@ defer_dup_prefix (size_t orig)
 
 /* Evaluate every `<#...#>` expression in `src` (the Adrift 5 runner ReplaceExpressions:
    substitute the body, then reduce it to its string value). */
-char *
+static char *
 replace_expressions (a5_state_t *st, const char *src)
 {
   sb_t sb;

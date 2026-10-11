@@ -1612,22 +1612,29 @@ ser_restore_object_location (scr_gameref_t game, scr_int object,
 
 
 /*
- * ser_load_game_body()
- * ser_load_game()
+ * ser_load_header()
+ * ser_load_player()
+ * ser_load_object()
+ * ser_load_object_runner_parent()
+ * ser_reject_containment_loops()
+ * ser_load_events()
+ * ser_load_npcs()
+ * ser_load_variables()
+ * ser_load_legacy_battle()
  *
- * Load a serialized game into the given game by repeated calls to the
- * callback() function.  The body reads into a fresh game and variable set,
- * handing them back through new_game and new_vars so that the caller can
- * destroy them whichever way the body left.
+ * The sections of a saved game, in file order, each the reader for the
+ * ser_save_*() function that writes it.  All but the header read into the
+ * fresh game the body created; any of them may throw ser_tas_error_t.
  */
-static void
-ser_load_game_body (scr_gameref_t game,
-                    scr_gameref_t &new_game, scr_var_setref_t &new_vars)
+/*
+ * The version line, the game name and the entity counts, all checked against
+ * the running game.  Returns TRUE for a save in the Runner's layout.
+ */
+static scr_bool
+ser_load_header (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  scr_int index_, var_count, saved_carried_weight = 0;
+  scr_vartype_t vt_key[2];
   const scr_char *gamename;
   scr_bool runner_format = ser.pre_v4;
 
@@ -1665,23 +1672,17 @@ ser_load_game_body (scr_gameref_t game,
       || ser_get_int () != gs_npc_count (game))
     throw ser_tas_error_t ();
 
-  /* Create a variables set and game to restore into. */
-  new_vars = var_create (bundle);
-  new_game = gs_create (new_vars, bundle, filter);
-  var_register_game (new_vars, new_game);
+  return runner_format;
+}
 
-  /* All set to load TAF (TAS) data into the new game. */
-
-  /*
-   * Seed the Battle System state up front so that the interleaved battle blocks
-   * read below (Runner format) can overwrite it, and so that fields the Runner
-   * does not persist (the stamina counters) keep a sane zero.  A no-op for
-   * non-battle games.
-   */
-  battle_start (new_game);
-
-  /* Restore the score. */
-  new_game->score = ser_get_int ();
+/*
+ * The player block, encumbrance, and the player's battle block.  Returns the
+ * carried weight the save was made with.
+ */
+static scr_int
+ser_load_player (scr_gameref_t game, scr_bool runner_format)
+{
+  scr_int saved_carried_weight;
 
   /*
    * Skip the player name (4.0 Runner format only; absent in legacy SCARE
@@ -1694,17 +1695,17 @@ ser_load_game_body (scr_gameref_t game,
   {
     const scr_int playerroom = ser_get_int ();
 
-    ser_reject_if (playerroom < 1 || playerroom > gs_room_count (new_game));
-    gs_set_playerroom (new_game, playerroom - 1);
+    ser_reject_if (playerroom < 1 || playerroom > gs_room_count (game));
+    gs_set_playerroom (game, playerroom - 1);
   }
   {
     const scr_int playerparent = ser_get_int ();
 
     ser_reject_if (playerparent < -1
-                   || playerparent >= gs_object_count (new_game));
-    gs_set_playerparent (new_game, playerparent);
+                   || playerparent >= gs_object_count (game));
+    gs_set_playerparent (game, playerparent);
   }
-  gs_set_playerposition (new_game, ser_get_int ());
+  gs_set_playerposition (game, ser_get_int ());
 
   /* Skip player gender. */
   (void) ser_get_int ();
@@ -1723,96 +1724,108 @@ ser_load_game_body (scr_gameref_t game,
    * Runner format: the player's interleaved battle block follows
    * encumbrance.
    */
-  if (runner_format && battle_is_enabled (new_game))
-    ser_restore_battle_block (new_game, -1);
+  if (runner_format && battle_is_enabled (game))
+    ser_restore_battle_block (game, -1);
 
-  /* Restore rooms information. */
-  GS_FOR_EACH_ROOM (new_game, index_)
-    gs_set_room_seen (new_game, index_, ser_get_boolean ());
+  return saved_carried_weight;
+}
 
-  /* Restore objects information. */
-  GS_FOR_EACH_OBJECT (new_game, index_)
+/* One object's record, with its position and parent validated. */
+static void
+ser_load_object (scr_gameref_t game, scr_int object, scr_bool runner_format)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int openable, currentstate;
+
+  /* Bypass mutators for position and parent.  Fix later? */
+  ser_restore_object_location (game, object, runner_format);
+  gs_set_object_seen (game, object, ser_get_boolean ());
+  game->objects[object].parent = ser_get_int ();
+
+  /*
+   * Validate a dynamic object's restored position and parent against the
+   * current game.  A static object's position is taken from its bundle
+   * (not the save), and its parent is never used as an array index.
+   */
+  if (!obj_is_static (game, object))
     {
-      scr_int openable, currentstate;
+      const scr_int position = game->objects[object].position;
+      const scr_int parent = game->objects[object].parent;
 
-      /* Bypass mutators for position and parent.  Fix later? */
-      ser_restore_object_location (new_game, index_, runner_format);
-      gs_set_object_seen (new_game, index_, ser_get_boolean ());
-      new_game->objects[index_].parent = ser_get_int ();
+      ser_reject_if (!ser_object_position_valid (game, position));
+      ser_reject_if (!ser_object_parent_valid (game, position, parent));
+    }
 
-      /*
-       * Validate a dynamic object's restored position and parent against the
-       * current game.  A static object's position is taken from its bundle
-       * (not the save), and its parent is never used as an array index.
-       */
-      if (!obj_is_static (new_game, index_))
-        {
-          const scr_int position = new_game->objects[index_].position;
-          const scr_int parent = new_game->objects[index_].parent;
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Openable";
+  openable = prop_get_integer (bundle, "I<-sis", vt_key);
+  if (openable == 0)
+    gs_set_object_openness (game, object, 0);
+  else if (ser.pre_v4)
+    gs_set_object_openness (game, object,
+                            ser_openness_pre_v4 (ser_get_int ()));
+  else
+    gs_set_object_openness (game, object, ser_get_int ());
 
-          ser_reject_if (!ser_object_position_valid (new_game, position));
-          ser_reject_if (!ser_object_parent_valid (new_game, position, parent));
-        }
+  vt_key[2].string = "CurrentState";
+  currentstate = prop_get_integer (bundle, "I<-sis", vt_key);
+  gs_set_object_state (game, object,
+                       currentstate != 0 ? ser_get_int () : 0);
 
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = index_;
-      vt_key[2].string = "Openable";
-      openable = prop_get_integer (bundle, "I<-sis", vt_key);
-      if (openable == 0)
-        gs_set_object_openness (new_game, index_, 0);
-      else if (ser.pre_v4)
-        gs_set_object_openness (new_game, index_,
-                                ser_openness_pre_v4 (ser_get_int ()));
+  /*
+   * Pre-4.0 does not store "unmoved"; the value gs_create() derived from
+   * OnlyWhenNotMoved stands, exactly as it does in the 3.9 Runner.
+   */
+  if (!ser.pre_v4)
+    gs_set_object_unmoved (game, object, ser_get_boolean ());
+}
+
+static void
+ser_load_object_runner_parent (scr_gameref_t game, scr_int object)
+{
+  /*
+   * Reconstruct the Runner's container field ([2E]) -- see the
+   * runner_parent notes in scgamest.h.  No save format stores it, so
+   * this is a heuristic built on the detach model: an in/on placement
+   * points it at the restored parent; NPC possession clears it; an
+   * object that *started* in/on but is no longer there must have been
+   * detached at some point, so it is cleared too.  Everything else
+   * keeps the raw .taf Parent seed gs_create() gave it, which the
+   * Runner's ordinary take/drop/task moves never touch.  The one case
+   * this gets wrong is a raw-Parent object that was worn and then
+   * removed -- the save cannot tell us.
+   */
+  if (obj_is_static (game, object))
+    gs_set_object_runner_parent (game, object, -1);
+  else
+    {
+      const scr_int position = game->objects[object].position;
+
+      if (position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
+        gs_set_object_runner_parent (game, object,
+                                     game->objects[object].parent);
+      else if (position == OBJ_HELD_NPC || position == OBJ_WORN_NPC)
+        gs_set_object_runner_parent (game, object, -1);
       else
-        gs_set_object_openness (new_game, index_, ser_get_int ());
-
-      vt_key[2].string = "CurrentState";
-      currentstate = prop_get_integer (bundle, "I<-sis", vt_key);
-      gs_set_object_state (new_game, index_,
-                           currentstate != 0 ? ser_get_int () : 0);
-
-      /*
-       * Pre-4.0 does not store "unmoved"; the value gs_create() derived from
-       * OnlyWhenNotMoved stands, exactly as it does in the 3.9 Runner.
-       */
-      if (!ser.pre_v4)
-        gs_set_object_unmoved (new_game, index_, ser_get_boolean ());
-
-      /*
-       * Reconstruct the Runner's container field ([2E]) -- see the
-       * runner_parent notes in scgamest.h.  No save format stores it, so
-       * this is a heuristic built on the detach model: an in/on placement
-       * points it at the restored parent; NPC possession clears it; an
-       * object that *started* in/on but is no longer there must have been
-       * detached at some point, so it is cleared too.  Everything else
-       * keeps the raw .taf Parent seed gs_create() gave it, which the
-       * Runner's ordinary take/drop/task moves never touch.  The one case
-       * this gets wrong is a raw-Parent object that was worn and then
-       * removed -- the save cannot tell us.
-       */
-      if (obj_is_static (new_game, index_))
-        gs_set_object_runner_parent (new_game, index_, -1);
-      else
         {
-          const scr_int position = new_game->objects[index_].position;
+          scr_int initialposition;
 
-          if (position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
-            gs_set_object_runner_parent (new_game, index_,
-                                         new_game->objects[index_].parent);
-          else if (position == OBJ_HELD_NPC || position == OBJ_WORN_NPC)
-            gs_set_object_runner_parent (new_game, index_, -1);
-          else
-            {
-              scr_int initialposition;
-
-              vt_key[2].string = "InitialPosition";
-              initialposition = prop_get_integer (bundle, "I<-sis", vt_key);
-              if (initialposition == 2 || initialposition == 3)
-                gs_set_object_runner_parent (new_game, index_, -1);
-              /* Otherwise the seed from gs_create() stands. */
-            }
+          initialposition = prop_get_indexed_integer (gs_get_bundle (game),
+                                                      "Objects", object,
+                                                      "InitialPosition");
+          if (initialposition == 2 || initialposition == 3)
+            gs_set_object_runner_parent (game, object, -1);
+          /* Otherwise the seed from gs_create() stands. */
         }
     }
+}
+
+static void
+ser_reject_containment_loops (scr_gameref_t game)
+{
+  scr_int index_;
 
   /*
    * Each in/on parent was checked above to be an object, but not that the
@@ -1821,33 +1834,32 @@ ser_load_game_body (scr_gameref_t game,
    * recursion.  A chain longer than the object count must revisit an object.
    * Only dynamic objects had their parent checked, so stop at a static one.
    */
-  GS_FOR_EACH_OBJECT (new_game, index_)
+  GS_FOR_EACH_OBJECT (game, index_)
     {
       scr_int object = index_, steps = 0;
 
-      while (!obj_is_static (new_game, object)
-             && (new_game->objects[object].position == OBJ_IN_OBJECT
-                 || new_game->objects[object].position == OBJ_ON_OBJECT))
+      while (!obj_is_static (game, object)
+             && (game->objects[object].position == OBJ_IN_OBJECT
+                 || game->objects[object].position == OBJ_ON_OBJECT))
         {
-          ser_reject_if (++steps > gs_object_count (new_game));
-          object = new_game->objects[object].parent;
+          ser_reject_if (++steps > gs_object_count (game));
+          object = game->objects[object].parent;
         }
     }
+}
 
-  /* Restore tasks information. */
-  GS_FOR_EACH_TASK (new_game, index_)
-    {
-      gs_set_task_done (new_game, index_, ser_get_boolean ());
-      gs_set_task_scored (new_game, index_, ser_get_boolean ());
-    }
+static void
+ser_load_events (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int index_;
 
-  /* Restore events information. */
-  GS_FOR_EACH_EVENT (new_game, index_)
+  GS_FOR_EACH_EVENT (game, index_)
     {
       scr_int startertype, task;
 
       /* Restore first event details. */
-      gs_set_event_time (new_game, index_, ser_get_int ());
+      gs_set_event_time (game, index_, ser_get_int ());
       task = ser_get_int ();
       {
         /*
@@ -1857,7 +1869,7 @@ ser_load_game_body (scr_gameref_t game,
         const scr_int state = ser_get_int () + 1;
 
         ser_reject_if (state < ES_WAITING || state > ES_PAUSED);
-        gs_set_event_state (new_game, index_, state);
+        gs_set_event_state (game, index_, state);
       }
 
       /* Verify and restore the starter task, if any. */
@@ -1869,15 +1881,20 @@ ser_load_game_body (scr_gameref_t game,
             throw ser_tas_error_t ();
 
           /* Restore the starter-task snapshot (task is a 1-based index). */
-          ser_reject_if (task > gs_task_count (new_game));
-          gs_set_event_taskstate (new_game, index_, ser_get_boolean ());
+          ser_reject_if (task > gs_task_count (game));
+          gs_set_event_taskstate (game, index_, ser_get_boolean ());
         }
       else
         (void) ser_get_boolean ();
     }
+}
 
-  /* Restore NPCs information. */
-  GS_FOR_EACH_NPC (new_game, index_)
+static void
+ser_load_npcs (scr_gameref_t game, scr_bool runner_format)
+{
+  scr_int index_;
+
+  GS_FOR_EACH_NPC (game, index_)
     {
       scr_int walk;
 
@@ -1886,21 +1903,21 @@ ser_load_game_body (scr_gameref_t game,
 
         if (location == NPC_DEAD_LOCATION)
           {
-            gs_set_npc_location (new_game, index_, 0);
-            gs_set_npc_dead (new_game, index_, TRUE);
+            gs_set_npc_location (game, index_, 0);
+            gs_set_npc_dead (game, index_, TRUE);
           }
         else
           {
             ser_reject_if (location < 0
-                           || location > gs_room_count (new_game));
-            gs_set_npc_location (new_game, index_, location);
+                           || location > gs_room_count (game));
+            gs_set_npc_location (game, index_, location);
           }
       }
-      gs_set_npc_seen (new_game, index_, ser_get_boolean ());
+      gs_set_npc_seen (game, index_, ser_get_boolean ());
 
       /* Runner format: the NPC's battle block follows "seen", before walks. */
-      if (runner_format && battle_is_enabled (new_game))
-        ser_restore_battle_block (new_game, index_);
+      if (runner_format && battle_is_enabled (game))
+        ser_restore_battle_block (game, index_);
 
       /*
        * Pre-4.0 stores no walk steps, so the walk restarts from gs_create()'s
@@ -1908,13 +1925,18 @@ ser_load_game_body (scr_gameref_t game,
        */
       if (!ser.pre_v4)
         {
-          for (walk = 0; walk < gs_npc_walkstep_count (new_game, index_);
+          for (walk = 0; walk < gs_npc_walkstep_count (game, index_);
                walk++)
-            gs_set_npc_walkstep (new_game, index_, walk, ser_get_int ());
+            gs_set_npc_walkstep (game, index_, walk, ser_get_int ());
         }
     }
+}
 
-  /* Restore each variable. */
+static void
+ser_load_variables (scr_prop_setref_t bundle, scr_var_setref_t vars)
+{
+  scr_int index_, var_count;
+
   var_count = ser_variable_count (bundle);
 
   for (index_ = 0; index_ < var_count; index_++)
@@ -1925,23 +1947,23 @@ ser_load_game_body (scr_gameref_t game,
       switch (var_type)
         {
         case TAFVAR_NUMERIC:
-          var_put_integer (new_vars, name, ser_get_int ());
+          var_put_integer (vars, name, ser_get_int ());
           break;
 
         case TAFVAR_STRING:
-          var_put_string (new_vars, name, ser_get_string ());
+          var_put_string (vars, name, ser_get_string ());
           break;
 
         default:
           scr_fatal ("ser_load_game: unknown variable type, %ld\n", var_type);
         }
     }
+}
 
-  /* Restore timing information. */
-  var_set_elapsed_seconds (new_vars, ser_get_uint ());
-
-  /* Restore turns count. */
-  new_game->turns = (scr_int) ser_get_uint ();
+static void
+ser_load_legacy_battle (scr_gameref_t game, scr_bool runner_format)
+{
+  scr_int index_;
 
   /*
    * Legacy battle saves (no version header) carry their combat state in a
@@ -1953,7 +1975,7 @@ ser_load_game_body (scr_gameref_t game,
    * taf_next_line returns NULL at end of data without faulting, so the peek is
    * safe even when nothing follows the turns count.
    */
-  if (!runner_format && battle_is_enabled (new_game))
+  if (!runner_format && battle_is_enabled (game))
     {
       const scr_char *marker = taf_next_line (ser.read.tas);
       const scr_bool is_v2 = marker
@@ -1964,22 +1986,101 @@ ser_load_game_body (scr_gameref_t game,
       if (is_v1 || is_v2)
         {
           ser.read.line++;
-          gs_set_playerstamina (new_game, ser_get_int ());
-          gs_set_playerstaminacounter (new_game, ser_get_int ());
-          gs_set_playerwield (new_game, ser_get_wield (new_game));
+          gs_set_playerstamina (game, ser_get_int ());
+          gs_set_playerstaminacounter (game, ser_get_int ());
+          gs_set_playerwield (game, ser_get_wield (game));
           if (is_v2)
-            ser_restore_battle_attributes (gs_player_battle (new_game));
-          GS_FOR_EACH_NPC (new_game, index_)
+            ser_restore_battle_attributes (gs_player_battle (game));
+          GS_FOR_EACH_NPC (game, index_)
             {
-              gs_set_npc_stamina (new_game, index_, ser_get_int ());
-              gs_set_npc_staminacounter (new_game, index_, ser_get_int ());
-              gs_set_npc_attackcounter (new_game, index_, ser_get_int ());
+              gs_set_npc_stamina (game, index_, ser_get_int ());
+              gs_set_npc_staminacounter (game, index_, ser_get_int ());
+              gs_set_npc_attackcounter (game, index_, ser_get_int ());
               if (is_v2)
-                ser_restore_battle_attributes (gs_npc_battle (new_game,
+                ser_restore_battle_attributes (gs_npc_battle (game,
                                                               index_));
             }
         }
     }
+}
+
+
+/*
+ * ser_load_game_body()
+ * ser_load_game()
+ *
+ * Load a serialized game into the given game by repeated calls to the
+ * callback() function.  The body reads the record stream, a section function
+ * at a time, into a fresh game and variable set, handing them back through
+ * new_game and new_vars so that the caller can destroy them whichever way the
+ * body left.
+ */
+static void
+ser_load_game_body (scr_gameref_t game,
+                    scr_gameref_t &new_game, scr_var_setref_t &new_vars)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int index_, saved_carried_weight;
+  scr_bool runner_format;
+
+  runner_format = ser_load_header (game);
+
+  /* Create a variables set and game to restore into. */
+  new_vars = var_create (bundle);
+  new_game = gs_create (new_vars, bundle, filter);
+  var_register_game (new_vars, new_game);
+
+  /* All set to load TAF (TAS) data into the new game. */
+
+  /*
+   * Seed the Battle System state up front so that the interleaved battle blocks
+   * read below (Runner format) can overwrite it, and so that fields the Runner
+   * does not persist (the stamina counters) keep a sane zero.  A no-op for
+   * non-battle games.
+   */
+  battle_start (new_game);
+
+  /* Restore the score. */
+  new_game->score = ser_get_int ();
+
+  saved_carried_weight = ser_load_player (new_game, runner_format);
+
+  /* Restore rooms information. */
+  GS_FOR_EACH_ROOM (new_game, index_)
+    gs_set_room_seen (new_game, index_, ser_get_boolean ());
+
+  /* Restore objects information. */
+  GS_FOR_EACH_OBJECT (new_game, index_)
+    {
+      ser_load_object (new_game, index_, runner_format);
+      ser_load_object_runner_parent (new_game, index_);
+    }
+  ser_reject_containment_loops (new_game);
+
+  /* Restore tasks information. */
+  GS_FOR_EACH_TASK (new_game, index_)
+    {
+      gs_set_task_done (new_game, index_, ser_get_boolean ());
+      gs_set_task_scored (new_game, index_, ser_get_boolean ());
+    }
+
+  /* Restore events information. */
+  ser_load_events (new_game);
+
+  /* Restore NPCs information. */
+  ser_load_npcs (new_game, runner_format);
+
+  /* Restore each variable. */
+  ser_load_variables (bundle, new_vars);
+
+  /* Restore timing information. */
+  var_set_elapsed_seconds (new_vars, ser_get_uint ());
+
+  /* Restore turns count. */
+  new_game->turns = (scr_int) ser_get_uint ();
+
+  ser_load_legacy_battle (new_game, runner_format);
 
   /*
    * Resources tweak -- set requested to match those in the current game

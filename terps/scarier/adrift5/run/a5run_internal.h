@@ -632,7 +632,6 @@ void emit_look (a5_run_t *run, sb_t *out);
 /* a5run_act.cpp (ExecuteActions / ExecuteSingleAction: the core action set and
    the seen-state bookkeeping) */
 void update_seen (a5_state_t *st);
-void mark_player_arrival_seen (a5_state_t *st, const char *loc);
 void run_action (a5_run_t *run, const char *kind, const char *body, int depth,
                  sb_t *out);
 
@@ -656,7 +655,6 @@ int  conv_contains_word (const std::string &sentence, const std::string &check);
 void   ref_snap_take (a5_state_t *st, ref_snap *s);
 void   ref_snap_restore (a5_state_t *st, const ref_snap *s);
 size_t sink_len (a5_run_t *run, sb_t *out);
-char  *render_comp_test (a5_state_t *st, const a5_xml_node_t *comp);
 char  *render_comp_test_ex (a5_state_t *st, const a5_xml_node_t *comp,
                             char **marked);
 int    comp_bears_function (const a5_xml_node_t *n);

@@ -985,23 +985,16 @@ gsc_hash_game_stream (strid_t stream)
 
 
 /*
- * gsc_startup_code()
- * gsc_main
+ * gsc_open_loading_window()
  *
- * Together, these functions take the place of the original main().  The
- * first one is called from the platform-specific startup_code(), to parse
- * and generally handle options.  The second is called from glk_main, and
- * does the real work of running the game.
+ * Open the temporary Glk main window that shows "Loading game..." while the
+ * game file is read, and return it; NULL if there is none.
  */
-static int
-gsc_startup_code (strid_t game_stream, strid_t restore_stream,
-                  scr_uint trace_flags, scr_bool enable_debugger,
-                  scr_bool stable_random, const scr_char *locale)
+static winid_t
+gsc_open_loading_window (void)
 {
   winid_t window = nullptr;
-  assert (game_stream);
 
-  /* Open a temporary Glk main window. */
 #ifdef SPATTERLIGHT
   /* Not when an autorestore is coming: during one the host has already
      rebuilt its windows from its GUI snapshot, and a window this process
@@ -1037,121 +1030,110 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
         }
     }
 
-  /* If the Glk libarary does not support unicode, disable it. */
-  if (!gsc_has_unicode || !glk_gestalt (gestalt_Unicode, 0))
-    gsc_unicode_enabled = FALSE;
+  return window;
+}
 
-  /*
-   * If a locale was requested, set it in the core interpreter now.  This
-   * locale will preempt any auto-detected one found from inspecting the
-   * game on creation.  After game creation, the Glk locale is synchronized
-   * to the core interpreter's locale.
-   */
-  if (locale)
-    scr_set_locale (locale);
 
-  /*
-   * Set tracing flags, then try to create a Scarier game reference from the
-   * TAF file.  Since we need this in our call from glk_main, we have to keep
-   * it in a module static variable.  If we can't open the TAF file, then
-   * we'll set the pointer to NULL, and complain about it later in main.
-   * Passing the message string around like this is a nuisance...
-   */
-  scr_set_trace_flags (trace_flags);
+/*
+ * gsc_load_adrift5()
+ *
+ * ADRIFT 5 detection.  ADRIFT 5 games are zlib-compressed XML (optionally
+ * Blorb-wrapped) and unrelated to the ADRIFT <=4 TAF format the scare engine
+ * reads.  a5model_load_buffer returns NULL cleanly for a non-ADRIFT-5 file, so
+ * we try it first from the already-open Glk stream; on success gsc_a5_adv is
+ * set, and the caller sets up the dedicated a5 turn loop (gsc_a5_main) and
+ * skips the scare path entirely.
+ *
+ * Loading from the Glk stream (rather than fopen of gsc_game_path) is required
+ * for hosts like Emglken that open the story via Dialog with FILESYSTEM=0.
+ */
+static void
+gsc_load_adrift5 (strid_t game_stream)
+{
+  glui32 file_len;
+  char *file_buf;
+  glui32 got;
 
-  /*
-   * Select portable, predictable random number generation *before* loading the
-   * game.  Game creation (run_create -> gs_create) draws random initial event
-   * times (scr_randomint, scgamest.cpp), so reseeding only after the load would
-   * leave those initial times -- and hence the whole event schedule -- governed
-   * by the unseeded, time-based RNG, making event-heavy games nondeterministic
-   * run to run even with determinism mode on.
-   */
-  if (stable_random)
+  glk_stream_set_position (game_stream, 0, seekmode_End);
+  file_len = glk_stream_get_position (game_stream);
+  glk_stream_set_position (game_stream, 0, seekmode_Start);
+
+  if (file_len > 0)
     {
-      scr_set_portable_random (TRUE);
-      scr_reseed_random_sequence (scr_default_random_seed ());
-    }
-
-  /* Name the game file, while the stream is still open and at its start: both
-     loaders below want the file from the beginning, and only one of them (the
-     ADRIFT 5 one) finds an IFID inside it. */
-  gsc_hash_game_stream (game_stream);
-
-  /*
-   * ADRIFT 5 detection.  ADRIFT 5 games are zlib-compressed XML (optionally
-   * Blorb-wrapped) and unrelated to the ADRIFT <=4 TAF format the scare engine
-   * reads.  a5model_load_buffer returns NULL cleanly for a non-ADRIFT-5 file, so
-   * we try it first from the already-open Glk stream; on success we run the
-   * dedicated a5 turn loop (gsc_a5_main) and skip the scare path entirely.
-   *
-   * Loading from the Glk stream (rather than fopen of gsc_game_path) is required
-   * for hosts like Emglken that open the story via Dialog with FILESYSTEM=0.
-   */
-  {
-    glui32 file_len;
-    char *file_buf;
-    glui32 got;
-
-    glk_stream_set_position (game_stream, 0, seekmode_End);
-    file_len = glk_stream_get_position (game_stream);
-    glk_stream_set_position (game_stream, 0, seekmode_Start);
-
-    if (file_len > 0)
-      {
-        file_buf = (char *) malloc (file_len);
-        if (file_buf != nullptr)
-          {
-            got = glk_get_buffer_stream (game_stream, file_buf, file_len);
-            /* Rewind for the ADRIFT <=4 path if A5 load fails. */
-            glk_stream_set_position (game_stream, 0, seekmode_Start);
-            if (got == file_len)
-              gsc_a5_adv = a5model_load_buffer ((uint8_t *) file_buf, file_len);
-            else
-              free (file_buf);
-          }
-      }
-  }
-
-  if (gsc_a5_adv)
-    {
-      gsc_is_a5 = TRUE;
-      gsc_game = nullptr;
-      gsc_game_message = nullptr;
-      /* Unlike ADRIFT 4, where the palette is a Runner preference the .taf
-         knows nothing about, an ADRIFT 5 adventure carries the author's
-         own colours; colour mode uses those. */
-      gsc_colour_background = gsc_a5_adv->bg_colour;
-      gsc_colour_output = gsc_a5_adv->output_colour;
-      gsc_colour_input = gsc_a5_adv->input_colour;
-#ifdef GSC_HAVE_ZCOLORS
-      /* An adventure that chose its own colours starts in them, as "-c"
-         would; asked here, while the loading window is still up to measure
-         the theme against. */
-      if (gsc_colour_detect (window))
-        gsc_colour_startup = TRUE;
-#endif
-      glk_stream_close (game_stream, nullptr);
-      if (restore_stream)
-        glk_stream_close (restore_stream, nullptr);
-      if (window)
-        glk_window_close (window, nullptr);
-#ifdef GARGLK
-      if (gsc_a5_adv->title && gsc_a5_adv->title[0])
+      file_buf = (char *) malloc (file_len);
+      if (file_buf != nullptr)
         {
-          /* The title may carry ADRIFT markup (Trapped's is
-             "<centre><b>'Trapped'  by Driftwood</b></centre>"); render it
-             down to plain text before handing it to the host UI, exactly as
-             the in-game title Display does (see a5run.cpp). */
-          char *tp = a5text_render_plain (gsc_a5_adv->title);
-          garglk_set_story_name (tp);
-          garglk_set_story_title (tp);
-          free (tp);
+          got = glk_get_buffer_stream (game_stream, file_buf, file_len);
+          /* Rewind for the ADRIFT <=4 path if A5 load fails. */
+          glk_stream_set_position (game_stream, 0, seekmode_Start);
+          if (got == file_len)
+            gsc_a5_adv = a5model_load_buffer ((uint8_t *) file_buf, file_len);
+          else
+            free (file_buf);
         }
-#endif
-      return TRUE;
     }
+}
 
+
+/*
+ * gsc_start_adrift5()
+ *
+ * The rest of startup for a game that gsc_load_adrift5() recognised: take
+ * the adventure's colours, and close the streams and the loading window.
+ */
+static void
+gsc_start_adrift5 (strid_t game_stream, strid_t restore_stream,
+                   winid_t window)
+{
+  gsc_is_a5 = TRUE;
+  gsc_game = nullptr;
+  gsc_game_message = nullptr;
+  /* Unlike ADRIFT 4, where the palette is a Runner preference the .taf
+     knows nothing about, an ADRIFT 5 adventure carries the author's
+     own colours; colour mode uses those. */
+  gsc_colour_background = gsc_a5_adv->bg_colour;
+  gsc_colour_output = gsc_a5_adv->output_colour;
+  gsc_colour_input = gsc_a5_adv->input_colour;
+#ifdef GSC_HAVE_ZCOLORS
+  /* An adventure that chose its own colours starts in them, as "-c"
+     would; asked here, while the loading window is still up to measure
+     the theme against. */
+  if (gsc_colour_detect (window))
+    gsc_colour_startup = TRUE;
+#endif
+  glk_stream_close (game_stream, nullptr);
+  if (restore_stream)
+    glk_stream_close (restore_stream, nullptr);
+  if (window)
+    glk_window_close (window, nullptr);
+#ifdef GARGLK
+  if (gsc_a5_adv->title && gsc_a5_adv->title[0])
+    {
+      /* The title may carry ADRIFT markup (Trapped's is
+         "<centre><b>'Trapped'  by Driftwood</b></centre>"); render it
+         down to plain text before handing it to the host UI, exactly as
+         the in-game title Display does (see a5run.cpp). */
+      char *tp = a5text_render_plain (gsc_a5_adv->title);
+      garglk_set_story_name (tp);
+      garglk_set_story_title (tp);
+      free (tp);
+    }
+#endif
+}
+
+
+/*
+ * gsc_start_adrift4()
+ *
+ * The rest of startup for an ADRIFT 4 or earlier game: create the game from
+ * the TAF stream, restore it from restore_stream if there is one, then close
+ * the streams and the loading window.  On failure gsc_game is NULL and
+ * gsc_game_message says why, for gsc_main() to report.
+ */
+static void
+gsc_start_adrift4 (strid_t game_stream, strid_t restore_stream,
+                   scr_bool enable_debugger, winid_t window)
+{
   /* Patching happens as the game is read, so the setting has to be in place
      before it is; "glk patches off" then applies from the next load on. */
   scr_set_game_patches (gsc_patches_enabled);
@@ -1220,6 +1202,74 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
         garglk_set_story_title(scr_get_game_name(gsc_game));
       }
 #endif
+}
+
+
+/*
+ * gsc_startup_code()
+ * gsc_main
+ *
+ * Together, these functions take the place of the original main().  The
+ * first one is called from the platform-specific startup_code(), to parse
+ * and generally handle options.  The second is called from glk_main, and
+ * does the real work of running the game.
+ */
+static int
+gsc_startup_code (strid_t game_stream, strid_t restore_stream,
+                  scr_uint trace_flags, scr_bool enable_debugger,
+                  scr_bool stable_random, const scr_char *locale)
+{
+  winid_t window;
+  assert (game_stream);
+
+  window = gsc_open_loading_window ();
+
+  /* If the Glk libarary does not support unicode, disable it. */
+  if (!gsc_has_unicode || !glk_gestalt (gestalt_Unicode, 0))
+    gsc_unicode_enabled = FALSE;
+
+  /*
+   * If a locale was requested, set it in the core interpreter now.  This
+   * locale will preempt any auto-detected one found from inspecting the
+   * game on creation.  After game creation, the Glk locale is synchronized
+   * to the core interpreter's locale.
+   */
+  if (locale)
+    scr_set_locale (locale);
+
+  /*
+   * Set tracing flags, then try to create a Scarier game reference from the
+   * TAF file.  Since we need this in our call from glk_main, we have to keep
+   * it in a module static variable.  If we can't open the TAF file, then
+   * we'll set the pointer to NULL, and complain about it later in main.
+   * Passing the message string around like this is a nuisance...
+   */
+  scr_set_trace_flags (trace_flags);
+
+  /*
+   * Select portable, predictable random number generation *before* loading the
+   * game.  Game creation (run_create -> gs_create) draws random initial event
+   * times (scr_randomint, scgamest.cpp), so reseeding only after the load would
+   * leave those initial times -- and hence the whole event schedule -- governed
+   * by the unseeded, time-based RNG, making event-heavy games nondeterministic
+   * run to run even with determinism mode on.
+   */
+  if (stable_random)
+    {
+      scr_set_portable_random (TRUE);
+      scr_reseed_random_sequence (scr_default_random_seed ());
+    }
+
+  /* Name the game file, while the stream is still open and at its start: both
+     loaders below want the file from the beginning, and only one of them (the
+     ADRIFT 5 one) finds an IFID inside it. */
+  gsc_hash_game_stream (game_stream);
+
+  gsc_load_adrift5 (game_stream);
+  if (gsc_a5_adv)
+    gsc_start_adrift5 (game_stream, restore_stream, window);
+  else
+    gsc_start_adrift4 (game_stream, restore_stream, enable_debugger, window);
 
   /* Game set up, perhaps successfully. */
   return TRUE;

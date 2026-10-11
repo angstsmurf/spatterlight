@@ -679,6 +679,224 @@ pf_apply_synonyms_by_word (const scr_char *string, scr_int version)
 
 
 /*
+ * pf_filter_synonyms()
+ *
+ * The first half of pf_filter_input(): the game's own synonym table.
+ *
+ * The Runner applies the table as a SEQUENCE OF WHOLE-STRING REWRITES, in
+ * table order: synonym 0 rewrites the input, synonym 1 rewrites synonym
+ * 0's output, and so on.  A later synonym therefore sees -- and rewrites
+ * -- the words an earlier one wrote, and an earlier synonym never sees a
+ * later one's.  What ONE rewrite does is per version; see
+ * pf_apply_synonym() above for the loops and their gates.
+ *
+ * Vardock Bates pins the order (run400 under Wine,
+ * runner_probes/vardock_bates.run400.txt 2026-08-29).  Its table has
+ * hablar->talk [101], then jason->"jason dhirco" [160], then
+ * dhirco->"jason dhirco" [161], and the task is
+ * [talk]{con}[dhirco/jason/jason dhirco]:
+ *
+ *   hablar con dhirco        -> talk con jason dhirco          task runs
+ *   hablar con jason         -> talk con jason jason dhirco    generic
+ *   hablar con jason dhirco  -> talk con jason dhirco jason dhirco  generic
+ *   talk con jason dhirco    -> (the same as the line above)   generic
+ *
+ * Only the spelling that reaches the table AFTER [160] has done its work
+ * survives; the other three double the surname and fall to "Nadie escucha
+ * tus delirios."  Lair of the Vampire (harris->steve then steve->harris:
+ * "ask harris" ends as harris) fits too.
+ *
+ * The gate is what the whole-word-everywhere rule this replaced (2026-09-25)
+ * got wrong, both ways.  Dolg (3.90) maps в->in.  `войти в дом` must
+ * reach the tasks untouched -- its first boundary-start `в` is the one
+ * inside `войти`, the gate fails there and stops -- where the old rule
+ * gave `войти in дом` and no task matched.  `позвонить в звонок` goes
+ * the other way: the mid-word hits are skipped, the standalone ` в `
+ * passes the gate, and the substring Replace behind it then rewrites
+ * every `в`, giving `позinонить in зinонок`, which run390 does not
+ * understand; only `дернуть за шнурок` rings the bell
+ * (runner_probes/dolg.run390.txt).
+ *
+ * The compare inside Replace() is binary against the lower-cased line,
+ * so an Original with a capital letter never fires.  Measured 2026-09-25
+ * on patched copies of two games: run390 with Dolg's инв->inv and
+ * себя->me re-spelt `Инв`/`Себя` answers `инв` with "Я не понимаю, что
+ * вы хотите!" (runner_probes/dolg.run390.cap.txt); run400 with Vardock
+ * Bates' hablar->talk re-spelt `Hablar` leaves `hablar con el taxista`
+ * unhandled (runner_probes/vardock_bates.run400.cap.txt) where the real
+ * game runs the taxi task.
+ */
+static void
+pf_filter_synonyms (const scr_char *string, scr_prop_setref_t bundle,
+                    scr_int version, scr_bool runner_synonyms,
+                    std::string &buffer, scr_bool &modified,
+                    const scr_char *&current)
+{
+  scr_vartype_t vt_key;
+  scr_int synonym_count, index_;
+
+  /* Obtain a count of synonyms. */
+  vt_key.string = "Synonyms";
+  synonym_count = prop_get_child_count (bundle, "I<-s", &vt_key);
+
+  /*
+   * Resolve the immutable synonym table from the property tree once per game
+   * (see scr_pf_state_t); after that the word loop reads it
+   * directly, with no prop_get() lookups.  The count is fixed for a game, so a
+   * lazy build on first use is safe.
+   */
+  if (!pf.synonym.built
+      || (scr_int) pf.synonym.cache.size () != synonym_count)
+    pf_synonym_cache_build (bundle, synonym_count);
+
+  std::string line (string);
+
+  if (!runner_synonyms && version >= TAF_VERSION_380)
+    {
+      line = pf_apply_synonyms_by_word (string, version);
+      synonym_count = 0;
+    }
+
+  for (index_ = 0; index_ < synonym_count; index_++)
+    {
+      const std::string before = line;
+
+      pf_apply_synonym (line, pf.synonym.cache[index_], version);
+
+      if (pf.trace && line != before)
+        scr_trace ("Printfilter: synonym \"%s\"\n", line.c_str ());
+    }
+
+  modified = (line != string);
+  if (modified)
+    buffer = line;
+  current = modified ? buffer.c_str () : string;
+}
+
+/*
+ * pf_filter_builtins()
+ *
+ * The second half of pf_filter_input(): the Runner's own rewrites.
+ *
+ * The Runner's own built-in rewrites come AFTER the game's synonyms, in
+ * this order, each a whole-word change() of every occurrence (change() is
+ * a c()-driven loop, case-insensitive):
+ *
+ *   run370 43B41F everything->all, 43B430 slap->hit
+ *   run380 441C3F everything->all, 441C50 slap->hit,
+ *          441C61 take->get,       441C72 except->but
+ *
+ * 3.9 and 4.0 have the same four rewrites as VB `Replace(line, old, new,
+ * 1, -1, 0)` calls -- a plain SUBSTRING replace -- and neither touches
+ * `take`:
+ *
+ *   run390 45F225 everything->all, 45F246 slap->hit,
+ *          45F267 except->but,     45F288 "apart from"->"but"
+ *   run400 48A30F " everything "->" all ", 48A330 " slap "->" hit ",
+ *          48A351 " but "->" except ",     48A372 " apart from "->" except "
+ *
+ * 4.0's literals carry their own spaces, so its rewrites only fire in the
+ * MIDDLE of a line and its exclusion word runs the other way, but->except
+ * where 3.90 goes except->but.  Measured 2026-09-20 on p37REW/p38REW/
+ * p39REW/p4REW (make_rewriteprobe.py; runner_probes/rew.run370.b.rtf,
+ * runner_probes/rew.run380.b.rtf, runner_probes/rew.run390.b.txt,
+ * runner_probes/rew.run400.b.txt), tasks spelled with the POST-rewrite
+ * text:
+ *
+ *                        3.70      3.80      3.90       4.00
+ *   zog slap             ZOGHIT.   ZOGHIT.   ZOGHIT.    DontUnderstand
+ *   zog slap blip        ZOGHITB.  ZOGHITB.  ZOGHITB.   ZOGHITB.
+ *   zog unslap           no        no        ZOGUNHIT.  no
+ *   zog exception        no        no        ZOGBUTION. no
+ *   zog except           no        ZOGBUT.   ZOGBUT.    no
+ *   zog except blip      ZOGEXCB.  ZOGBUTB.  ZOGBUTB.   ZOGEXCB.
+ *   zog but blip         ZOGBUTB.  ZOGBUTB.  ZOGBUTB.   ZOGEXCB.
+ *   zog apart from blip  no        no        ZOGBUTB.   ZOGEXCB.
+ *   zog everything       ZOGALL.   ZOGALL.   ZOGALL.    DontUnderstand
+ *   everything blip      ALLLEAD.  ALLLEAD.  ALLLEAD.   DontUnderstand
+ *   zog take             Take what? ZOGGET.  Take what? Take what?
+ *   zog SLAP blip        ZOGHITB.  ZOGHITB.  ZOGHITB.   ZOGHITB.
+ *
+ * The substring reach is what `unslap` and `exception` show: from 3.90 an
+ * object named `exception` cannot be examined at all, its line becoming
+ * `x bution` (the same transcripts).  `zog SLAP blip` is the case cell:
+ * Replace's binary compare never sees a capital, so the line is already
+ * lower-cased by here.
+ *
+ * Every cell above is Scarier's answer too, bar the `zog take` column:
+ * where no rewrite makes the line a task, the Runner still answers "Take
+ * what?" and Scarier says "I don't understand."  That is a different
+ * rule -- the library verb is matched anywhere in the line -- and it is
+ * an open lead in WINE-TRANSCRIPTS-TODO, not a fault of this table.
+ *
+ * The 3.80-only take->get is the one that matters: it runs before ANY
+ * task matching, so a 3.80 task whose command slots say only `take X` /
+ * `pick up X` never sees a typed `take X` -- the library take handles it.
+ * Measured live on great.taf (run380 under Wine, greatx1 probe,
+ * 2026-09-04): task 2 is "take wallet"/"pick up wallet" (score 5, no
+ * pickup), and `pick up wallet` ran it ("You have your wallet", +5) while
+ * `take wallet` fell to the library ("You pick up the wallet.", score
+ * unchanged, wallet then carried).  Every other measured pre-4.0 pair
+ * fits: the great t-shirt/stun-gun/picasso tasks (take-only slots) go to
+ * the library, the dictionary (`get dictionary` slot), crime's `get cash`
+ * and tra's `get *...*` wildcards run as tasks.
+ */
+static void
+pf_filter_builtins (const scr_char *string, scr_int version,
+                    scr_bool take_to_get, std::string &buffer,
+                    scr_bool &modified, const scr_char *&current)
+{
+  struct pf_builtin_rewrite_t
+  {
+    const scr_char *original;
+    const scr_char *replacement;
+    scr_int min_version, max_version;
+    scr_bool substring;
+  };
+  static const pf_builtin_rewrite_t BUILTIN[] = {
+    /* change(), whole words. */
+    {"everything", "all", TAF_VERSION_370, TAF_VERSION_380, FALSE},
+    {"slap", "hit", TAF_VERSION_370, TAF_VERSION_380, FALSE},
+    {"take", "get", TAF_VERSION_380, TAF_VERSION_380, FALSE},
+    {"except", "but", TAF_VERSION_380, TAF_VERSION_380, FALSE},
+    /*
+     * Replace(), substring, in the Runners' own order.  Deliberate
+     * deviation: Scarier makes 3.9's four whole-word rewrites, so a name
+     * like `exception` or `unslap` survives the line.
+     */
+    {"everything", "all", TAF_VERSION_390, TAF_VERSION_390, FALSE},
+    {"slap", "hit", TAF_VERSION_390, TAF_VERSION_390, FALSE},
+    {"except", "but", TAF_VERSION_390, TAF_VERSION_390, FALSE},
+    {"apart from", "but", TAF_VERSION_390, TAF_VERSION_390, FALSE},
+    {" everything ", " all ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
+    {" slap ", " hit ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
+    {" but ", " except ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
+    {" apart from ", " except ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
+  };
+
+  for (const pf_builtin_rewrite_t &entry : BUILTIN)
+    {
+      if (version < entry.min_version || version > entry.max_version)
+        continue;
+      if (strcmp (entry.original, "take") == 0
+          && (!take_to_get || pf_has_take_off (current)))
+        {
+          if (take_to_get)
+            SCR_DEVIATION ("take_off_kept", nullptr);
+          continue;
+        }
+      if (entry.substring)
+        pf_rewrite_substring (string, buffer, modified, current,
+                              entry.original, entry.replacement,
+                              strlen (entry.replacement), "builtin");
+      else
+        pf_rewrite_whole_words (string, buffer, modified, current,
+                                entry.original, entry.replacement,
+                                strlen (entry.replacement), "builtin");
+    }
+}
+
+/*
  * pf_filter_input()
  *
  * Applies synonym changes to a player input string, and returns the resulting
@@ -696,8 +914,7 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
                  scr_bool take_to_get, scr_bool runner_synonyms,
                  scr_bool builtins)
 {
-  scr_vartype_t vt_key;
-  scr_int synonym_count, version, index_;
+  scr_int version;
   std::string buffer;
   scr_bool modified;
   const scr_char *current;
@@ -706,205 +923,13 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
   if (pf.trace)
     scr_trace ("Printfilter: input \"%s\"\n", string);
 
-  /* Obtain a count of synonyms. */
-  vt_key.string = "Synonyms";
-  synonym_count = prop_get_child_count (bundle, "I<-s", &vt_key);
   version = prop_get_taf_version (bundle);
 
-  /*
-   * Resolve the immutable synonym table from the property tree once per game
-   * (see scr_pf_state_t); after that the word loop reads it
-   * directly, with no prop_get() lookups.  The count is fixed for a game, so a
-   * lazy build on first use is safe.
-   */
-  if (!pf.synonym.built
-      || (scr_int) pf.synonym.cache.size () != synonym_count)
-    pf_synonym_cache_build (bundle, synonym_count);
-
-  /*
-   * The Runner applies the table as a SEQUENCE OF WHOLE-STRING REWRITES, in
-   * table order: synonym 0 rewrites the input, synonym 1 rewrites synonym
-   * 0's output, and so on.  A later synonym therefore sees -- and rewrites
-   * -- the words an earlier one wrote, and an earlier synonym never sees a
-   * later one's.  What ONE rewrite does is per version; see
-   * pf_apply_synonym() above for the loops and their gates.
-   *
-   * Vardock Bates pins the order (run400 under Wine,
-   * runner_probes/vardock_bates.run400.txt 2026-08-29).  Its table has
-   * hablar->talk [101], then jason->"jason dhirco" [160], then
-   * dhirco->"jason dhirco" [161], and the task is
-   * [talk]{con}[dhirco/jason/jason dhirco]:
-   *
-   *   hablar con dhirco        -> talk con jason dhirco          task runs
-   *   hablar con jason         -> talk con jason jason dhirco    generic
-   *   hablar con jason dhirco  -> talk con jason dhirco jason dhirco  generic
-   *   talk con jason dhirco    -> (the same as the line above)   generic
-   *
-   * Only the spelling that reaches the table AFTER [160] has done its work
-   * survives; the other three double the surname and fall to "Nadie escucha
-   * tus delirios."  Lair of the Vampire (harris->steve then steve->harris:
-   * "ask harris" ends as harris) fits too.
-   *
-   * The gate is what the whole-word-everywhere rule this replaced (2026-09-25)
-   * got wrong, both ways.  Dolg (3.90) maps в->in.  `войти в дом` must
-   * reach the tasks untouched -- its first boundary-start `в` is the one
-   * inside `войти`, the gate fails there and stops -- where the old rule
-   * gave `войти in дом` and no task matched.  `позвонить в звонок` goes
-   * the other way: the mid-word hits are skipped, the standalone ` в `
-   * passes the gate, and the substring Replace behind it then rewrites
-   * every `в`, giving `позinонить in зinонок`, which run390 does not
-   * understand; only `дернуть за шнурок` rings the bell
-   * (runner_probes/dolg.run390.txt).
-   *
-   * The compare inside Replace() is binary against the lower-cased line,
-   * so an Original with a capital letter never fires.  Measured 2026-09-25
-   * on patched copies of two games: run390 with Dolg's инв->inv and
-   * себя->me re-spelt `Инв`/`Себя` answers `инв` with "Я не понимаю, что
-   * вы хотите!" (runner_probes/dolg.run390.cap.txt); run400 with Vardock
-   * Bates' hablar->talk re-spelt `Hablar` leaves `hablar con el taxista`
-   * unhandled (runner_probes/vardock_bates.run400.cap.txt) where the real
-   * game runs the taxi task.
-   */
-  {
-    std::string line (string);
-
-    if (!runner_synonyms && version >= TAF_VERSION_380)
-      {
-        line = pf_apply_synonyms_by_word (string, version);
-        synonym_count = 0;
-      }
-
-    for (index_ = 0; index_ < synonym_count; index_++)
-      {
-        const std::string before = line;
-
-        pf_apply_synonym (line, pf.synonym.cache[index_], version);
-
-        if (pf.trace && line != before)
-          scr_trace ("Printfilter: synonym \"%s\"\n", line.c_str ());
-      }
-
-    modified = (line != string);
-    if (modified)
-      buffer = line;
-    current = modified ? buffer.c_str () : string;
-  }
-
-  /*
-   * The Runner's own built-in rewrites come AFTER the game's synonyms, in
-   * this order, each a whole-word change() of every occurrence (change() is
-   * a c()-driven loop, case-insensitive):
-   *
-   *   run370 43B41F everything->all, 43B430 slap->hit
-   *   run380 441C3F everything->all, 441C50 slap->hit,
-   *          441C61 take->get,       441C72 except->but
-   *
-   * 3.9 and 4.0 have the same four rewrites as VB `Replace(line, old, new,
-   * 1, -1, 0)` calls -- a plain SUBSTRING replace -- and neither touches
-   * `take`:
-   *
-   *   run390 45F225 everything->all, 45F246 slap->hit,
-   *          45F267 except->but,     45F288 "apart from"->"but"
-   *   run400 48A30F " everything "->" all ", 48A330 " slap "->" hit ",
-   *          48A351 " but "->" except ",     48A372 " apart from "->" except "
-   *
-   * 4.0's literals carry their own spaces, so its rewrites only fire in the
-   * MIDDLE of a line and its exclusion word runs the other way, but->except
-   * where 3.90 goes except->but.  Measured 2026-09-20 on p37REW/p38REW/
-   * p39REW/p4REW (make_rewriteprobe.py; runner_probes/rew.run370.b.rtf,
-   * runner_probes/rew.run380.b.rtf, runner_probes/rew.run390.b.txt,
-   * runner_probes/rew.run400.b.txt), tasks spelled with the POST-rewrite
-   * text:
-   *
-   *                        3.70      3.80      3.90       4.00
-   *   zog slap             ZOGHIT.   ZOGHIT.   ZOGHIT.    DontUnderstand
-   *   zog slap blip        ZOGHITB.  ZOGHITB.  ZOGHITB.   ZOGHITB.
-   *   zog unslap           no        no        ZOGUNHIT.  no
-   *   zog exception        no        no        ZOGBUTION. no
-   *   zog except           no        ZOGBUT.   ZOGBUT.    no
-   *   zog except blip      ZOGEXCB.  ZOGBUTB.  ZOGBUTB.   ZOGEXCB.
-   *   zog but blip         ZOGBUTB.  ZOGBUTB.  ZOGBUTB.   ZOGEXCB.
-   *   zog apart from blip  no        no        ZOGBUTB.   ZOGEXCB.
-   *   zog everything       ZOGALL.   ZOGALL.   ZOGALL.    DontUnderstand
-   *   everything blip      ALLLEAD.  ALLLEAD.  ALLLEAD.   DontUnderstand
-   *   zog take             Take what? ZOGGET.  Take what? Take what?
-   *   zog SLAP blip        ZOGHITB.  ZOGHITB.  ZOGHITB.   ZOGHITB.
-   *
-   * The substring reach is what `unslap` and `exception` show: from 3.90 an
-   * object named `exception` cannot be examined at all, its line becoming
-   * `x bution` (the same transcripts).  `zog SLAP blip` is the case cell:
-   * Replace's binary compare never sees a capital, so the line is already
-   * lower-cased by here.
-   *
-   * Every cell above is Scarier's answer too, bar the `zog take` column:
-   * where no rewrite makes the line a task, the Runner still answers "Take
-   * what?" and Scarier says "I don't understand."  That is a different
-   * rule -- the library verb is matched anywhere in the line -- and it is
-   * an open lead in WINE-TRANSCRIPTS-TODO, not a fault of this table.
-   *
-   * The 3.80-only take->get is the one that matters: it runs before ANY
-   * task matching, so a 3.80 task whose command slots say only `take X` /
-   * `pick up X` never sees a typed `take X` -- the library take handles it.
-   * Measured live on great.taf (run380 under Wine, greatx1 probe,
-   * 2026-09-04): task 2 is "take wallet"/"pick up wallet" (score 5, no
-   * pickup), and `pick up wallet` ran it ("You have your wallet", +5) while
-   * `take wallet` fell to the library ("You pick up the wallet.", score
-   * unchanged, wallet then carried).  Every other measured pre-4.0 pair
-   * fits: the great t-shirt/stun-gun/picasso tasks (take-only slots) go to
-   * the library, the dictionary (`get dictionary` slot), crime's `get cash`
-   * and tra's `get *...*` wildcards run as tasks.
-   */
-  {
-    struct pf_builtin_rewrite_t
-    {
-      const scr_char *original;
-      const scr_char *replacement;
-      scr_int min_version, max_version;
-      scr_bool substring;
-    };
-    static const pf_builtin_rewrite_t BUILTIN[] = {
-      /* change(), whole words. */
-      {"everything", "all", TAF_VERSION_370, TAF_VERSION_380, FALSE},
-      {"slap", "hit", TAF_VERSION_370, TAF_VERSION_380, FALSE},
-      {"take", "get", TAF_VERSION_380, TAF_VERSION_380, FALSE},
-      {"except", "but", TAF_VERSION_380, TAF_VERSION_380, FALSE},
-      /*
-       * Replace(), substring, in the Runners' own order.  Deliberate
-       * deviation: Scarier makes 3.9's four whole-word rewrites, so a name
-       * like `exception` or `unslap` survives the line.
-       */
-      {"everything", "all", TAF_VERSION_390, TAF_VERSION_390, FALSE},
-      {"slap", "hit", TAF_VERSION_390, TAF_VERSION_390, FALSE},
-      {"except", "but", TAF_VERSION_390, TAF_VERSION_390, FALSE},
-      {"apart from", "but", TAF_VERSION_390, TAF_VERSION_390, FALSE},
-      {" everything ", " all ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
-      {" slap ", " hit ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
-      {" but ", " except ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
-      {" apart from ", " except ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
-    };
-
-    for (const pf_builtin_rewrite_t &entry : BUILTIN)
-      {
-        if (!builtins
-            || version < entry.min_version || version > entry.max_version)
-          continue;
-        if (strcmp (entry.original, "take") == 0
-            && (!take_to_get || pf_has_take_off (current)))
-          {
-            if (take_to_get)
-              SCR_DEVIATION ("take_off_kept", nullptr);
-            continue;
-          }
-        if (entry.substring)
-          pf_rewrite_substring (string, buffer, modified, current,
-                                entry.original, entry.replacement,
-                                strlen (entry.replacement), "builtin");
-        else
-          pf_rewrite_whole_words (string, buffer, modified, current,
-                                  entry.original, entry.replacement,
-                                  strlen (entry.replacement), "builtin");
-      }
-  }
+  pf_filter_synonyms (string, bundle, version, runner_synonyms,
+                      buffer, modified, current);
+  if (builtins)
+    pf_filter_builtins (string, version, take_to_get,
+                        buffer, modified, current);
 
   /* Return the final string, or NULL if no replacements. */
   return modified ? scr_strdup (buffer) : nullptr;

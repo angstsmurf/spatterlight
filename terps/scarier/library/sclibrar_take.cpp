@@ -874,12 +874,17 @@ lib_object_printer_390 (scr_gameref_t game)
 }
 
 
-static void
-lib_take_backend_common (scr_gameref_t game, scr_int associate,
-                         scr_bool is_associate_object, scr_bool is_associate_npc)
+/*
+ * One lib_take_backend_common() call: what is being taken from, the objects
+ * taken or refused so far, and whether the turn has printed anything yet.
+ */
+struct lib_take_t
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object_count, object, total, npc;
+  const scr_gameref_t game;
+  const scr_int associate;
+  const scr_bool is_associate_object, is_associate_npc;
+  const scr_filterref_t filter;
+  scr_int object_count, total;
   scr_bool has_printed;
   lib_list_t list;
   /*
@@ -894,20 +899,45 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * 3.9 take-from: the capacity test lives in insides(), with its own order
    * and, for the all/and forms, its own reporting; see below.
    */
-  const scr_bool from_390 = is_associate_object
-      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
-      && !lib_is_version_400 (game);
-  const scr_bool from_390_multi = from_390 && !lib_take_from_single_named;
+  const scr_bool from_390, from_390_multi;
   scr_int fits;
-  assert (!is_associate_object || !is_associate_npc);
 
-  /*
-   * Try game commands for all referenced objects first.  If any succeed,
-   * remove that reference from the list.  At the same time, filter out and
-   * flag any object that takes us over the player's capacity.
-   */
-  has_printed = FALSE;
-  object_count = gs_object_count (game);
+  lib_take_t (scr_gameref_t game_, scr_int associate_,
+              scr_bool is_associate_object_, scr_bool is_associate_npc_)
+    : game (game_), associate (associate_),
+      is_associate_object (is_associate_object_),
+      is_associate_npc (is_associate_npc_), filter (gs_get_filter (game_)),
+      object_count (gs_object_count (game_)), total (0), has_printed (FALSE),
+      from_390 (is_associate_object_
+                && prop_get_taf_version (gs_get_bundle (game_))
+                   >= TAF_VERSION_390
+                && !lib_is_version_400 (game_)),
+      from_390_multi (from_390 && !lib_take_from_single_named), fits (0) {}
+
+  scr_bool try_game_commands (void);
+  scr_bool count_fits_390 (void);
+  void print_taken (scr_int parent);
+  void acquire (void);
+  void report_over_capacity (void);
+  void report_not_in_associate (void);
+  void report_npc_not_carrying (void);
+  void report_held (void);
+  void report_worn (void);
+  void report_npc_held (void);
+  void report_cannot_take (void);
+};
+
+/*
+ * Try game commands for all referenced objects first.  If any succeed,
+ * remove that reference from the list.  At the same time, filter out and
+ * flag any object that takes us over the player's capacity.  Returns FALSE
+ * if the whole take was refused.
+ */
+scr_bool
+lib_take_t::try_game_commands (void)
+{
+  scr_int object;
+
   for (object = 0; object < object_count; object++)
     {
       scr_bool status;
@@ -931,7 +961,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
           lib_print_not_holding (game, gs_object_parent (game, object), ".");
           for (index_ = 0; index_ < object_count; index_++)
             game->object_references[index_] = FALSE;
-          return;
+          return FALSE;
         }
 
       /*
@@ -948,7 +978,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
           lib_print_cannot_reach (game, gs_object_parent (game, object));
           for (index_ = 0; index_ < object_count; index_++)
             game->object_references[index_] = FALSE;
-          return;
+          return FALSE;
         }
 
       /*
@@ -996,21 +1026,21 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
           has_printed = TRUE;
         }
     }
+  return TRUE;
+}
 
-  /*
-   * We attempt acquisition of get-able objects here only for cases where
-   * there is either no associate, or where the associate is an object.  If
-   * the associate is an NPC, we're going to refuse all acquisitions later
-   * on, by forcing object references.
-   */
-  /*
-   * 3.9's all/and take-from first counts the objects that would fit, adding
-   * each fitting one to running size and weight totals (run390 463394-4634F4,
-   * with no held-container waiver).  If none fits it answers "<Your> hands are
-   * full." when any failed on size, otherwise "That is too heavy.", and takes
-   * nothing (4634F9-463545).
-   */
-  fits = 0;
+/*
+ * 3.9's all/and take-from first counts the objects that would fit, adding
+ * each fitting one to running size and weight totals (run390 463394-4634F4,
+ * with no held-container waiver).  If none fits it answers "<Your> hands are
+ * full." when any failed on size, otherwise "That is too heavy.", and takes
+ * nothing (4634F9-463545), returning FALSE.
+ */
+scr_bool
+lib_take_t::count_fits_390 (void)
+{
+  scr_int object;
+
   if (from_390_multi)
     {
       scr_int size, weight;
@@ -1056,231 +1086,247 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                               "That is too heavy.");
           for (object = 0; object < object_count; object++)
             game->object_references[object] = FALSE;
-          return;
+          return FALSE;
         }
     }
+  return TRUE;
+}
 
-  total = 0;
-  if (!is_associate_npc)
+/* Print the line for the objects in list, just taken from PARENT, or from
+   the room if PARENT is -1. */
+void
+lib_take_t::print_taken (scr_int parent)
+{
+  /*
+   * 4.0 builds the take line in front of whatever the turn has
+   * printed so far: get_piece copies the buffer aside (run400
+   * @0047359A), clears it, writes "You take ...." and then, if
+   * the copy was not empty, pspace()s and appends it back
+   * (@004736B6).  So a task claiming one of the objects prints
+   * after the library's line.  fullcircle `get all`, with a `get
+   * *branch*` task, answers "You take the helm and the locket.
+   * You take the branch."  (runner_probes/fullcircle.run400.txt
+   * line 356.)  run390 orders it the same way: The Will's `get
+   * all` at the Narrow Squeeze, where task 142 `* get * clover`
+   * claims the clover, answers "You take the rare stamp, ... and
+   * the gold ring.  You take the jade clover." (run390x,
+   * runner_transcripts/thewill.txt T197).
+   */
+  scr_owned_string saved;
+  if (has_printed && total == 0
+      && (lib_is_version_400 (game) || lib_is_version_390 (game)))
+    saved.reset (pf_transfer_buffer (filter));
+  else if (has_printed)
+    pf_buffer_string (filter, total == 0 ? "\n" : "  ");
+  /*
+   * 4.0 reworded the loose-in-the-room take; the from-container
+   * branch keeps the same verb in every version.  Measured live on
+   * a bare `take rock` / `get rock` / `take all`: run370 and
+   * run390 answer "You pick up the rock.", run400 "You take the
+   * rock."  (run380 shows the pre-4.0 half of the same handler
+   * through its "nothing to pick up here" refusal.)
+   *
+   * What 4.0 did change in the from-container branch is the
+   * *taken* object's prefix: pre-4.0 prints it raw, 4.0 normalizes
+   * it like everything else.  The container is normalized in both.
+   * Measured on the one game carried across three .taf versions by
+   * the generators (see lib_print_object_np above): `take gun` out
+   * of a "some"-prefixed container holding an "a"-prefixed pistol
+   * gives run380 "You take a small pistol from some aluminum
+   * clothes.", run390 "You take a small pistol from the aluminum
+   * clothes.", run400 "You take the small pistol from the aluminum
+   * clothes."  Only the pistol's own prefix moves at 4.0; the
+   * clothes move at 3.9, which is the "some" rule, not this one.
+   *
+   * The raw pre-4.0 prefix belongs to the Runner's SINGLE-take
+   * handler only -- any take that named exactly one object,
+   * with or without an explicit "from" clause (the pistol probe
+   * above was a bare `take gun`).  The multi-take loop
+   * normalizes in every version: run390 on ALEXIS ("a"-prefixed
+   * diary) answers `take diary from table` with "You take a
+   * diary from the old oak table." but `take diary and cloak
+   * from table` with "You take the diary and the woven cloak
+   * from the old oak table." and `get all from table` with "You
+   * take the diary, the brass lantern, the woven cloak and the
+   * nice food from the old oak table."  (Measured live
+   * 2026-08-22.)
+   *
+   * That multi-take exception is a 3.9 change of its own: pre-3.9
+   * the multi-take loop prints raw too, so from 3.7 to 3.8 every
+   * from-container take is raw whatever it named.  Measured live
+   * under Wine 2026-08-24 on mikes.taf (3.80) in run380, whose
+   * dresser holds four objects with EMPTY prefixes (deobfuscated
+   * from the .taf, so this is not a guess): `take all from
+   * dresser` answers "You take a socks, a shirt, a underwear and
+   * a pair of pants from the dresser."  Empty is the case that
+   * separates the two printers -- raw defaults it to "a ", the
+   * normalizing one to "the " -- and the same replay pins both
+   * halves at once, since the container itself comes out "the
+   * dresser".  3.9 normalizes the same shape: the ALEXIS `get all
+   * from table` above.
+   */
+  if (parent == -1)
+    pf_buffer_string (filter,
+                      lib_is_version_400 (game)
+                      ? lib_select_response (game,
+                                             "You take ",
+                                             "I take ",
+                                             "%player% take ")
+                      : lib_select_response (game,
+                                             "You pick up ",
+                                             "I pick up ",
+                                             "%player% pick up "));
+  else if (!from_390_multi)
+    pf_buffer_string (filter, lib_take_from_verb (game));
+  if (from_390_multi)
     {
-      scr_int parent, start, limit;
-
       /*
-       * Attempt to acquire each remaining get-able object in turn, looping
-       * on each possible parent object in turn, with an initial parent of
-       * -1 for objects not contained or supported.
-       *
-       * If we're dealing with only objects from a known container or
-       * supporter, eliminate all but one iteration of the parent search.
+       * 3.9's all/and take-from punctuates its list by counting
+       * down from the pre-pass count of objects that fit, not
+       * from the number actually taken (run390 463AAA-463B18):
+       * ", " while more than one remains, " and " before the
+       * last, " from <container>." on reaching zero, and nothing
+       * after that.  The verb is printed only if anything fit.
+       * Objects the take loop accepts past the count are glued
+       * on after the full stop.  Measured on Namiki's `take all
+       * from bag`, seven objects with a count of five: "I take
+       * my bandana, ... and the Kenzo jacket from the tennis
+       * bag.the Dior skirtmy jewelry".
        */
-      start = is_associate_object ? associate : -1;
-      limit = is_associate_object ? associate : object_count - 1;
+      scr_int remaining = fits;
+      size_t index;
 
-      for (parent = start; parent <= limit; parent++)
+      if (fits > 0)
+        pf_buffer_string (filter, lib_take_from_verb (game));
+      for (index = 0; index < list.size (); index++)
         {
-          list.clear ();
-          for (object = 0; object < object_count; object++)
+          lib_print_object_np (game, list[index]);
+          remaining--;
+          if (remaining > 1)
+            pf_buffer_string (filter, ", ");
+          else if (remaining == 1)
+            pf_buffer_string (filter, " and ");
+          else if (remaining == 0)
             {
-              if (!game->object_references[object])
-                continue;
-
-              /*
-               * If parent is -1, ignore contained objects, otherwise ignore
-               * objects not contained, or if contained, not contained by the
-               * current parent.
-               */
-              if (parent == -1)
-                {
-                  if (gs_object_position (game, object) == OBJ_IN_OBJECT
-                      || gs_object_position (game, object) == OBJ_ON_OBJECT)
-                    continue;
-                }
-              else
-                {
-                  if (!(gs_object_position (game, object) == OBJ_IN_OBJECT
-                        || gs_object_position (game, object) == OBJ_ON_OBJECT))
-                    continue;
-                  if (gs_object_parent (game, object) != parent)
-                    continue;
-                }
-
-              /*
-               * Here we have to repeat capacity checks.  As objects are
-               * acquired more and more of the player's capacity gets used up.
-               * This means a check directly before each acquisition.
-               */
-              {
-                scr_bool is_size;
-
-                if (from_390
-                    ? lib_take_from_over_capacity_390 (game, object, parent,
-                                                       &is_size)
-                    : lib_take_over_capacity (game, object, &is_size))
-                  {
-                    over_capacity.push_back (object);
-                    over_is_size.push_back (is_size);
-                    continue;
-                  }
-              }
-
-              list.push_back (object);
-              gs_object_player_get (game, object);
-              /* A successful library take spends OnlyWhenNotMoved mode 1
-               * (run400 `takes` @0047BF66).  Nothing else does. */
-              gs_set_object_unmoved (game, object, FALSE);
+              pf_buffer_string (filter, " from ");
+              lib_print_object_np (game, parent);
+              pf_buffer_character (filter, '.');
             }
-
-          if (!list.empty ())
-            {
-              /*
-               * 4.0 builds the take line in front of whatever the turn has
-               * printed so far: get_piece copies the buffer aside (run400
-               * @0047359A), clears it, writes "You take ...." and then, if
-               * the copy was not empty, pspace()s and appends it back
-               * (@004736B6).  So a task claiming one of the objects prints
-               * after the library's line.  fullcircle `get all`, with a `get
-               * *branch*` task, answers "You take the helm and the locket.
-               * You take the branch."  (runner_probes/fullcircle.run400.txt
-               * line 356.)  run390 orders it the same way: The Will's `get
-               * all` at the Narrow Squeeze, where task 142 `* get * clover`
-               * claims the clover, answers "You take the rare stamp, ... and
-               * the gold ring.  You take the jade clover." (run390x,
-               * runner_transcripts/thewill.txt T197).
-               */
-              scr_owned_string saved;
-              if (has_printed && total == 0
-                  && (lib_is_version_400 (game) || lib_is_version_390 (game)))
-                saved.reset (pf_transfer_buffer (filter));
-              else if (has_printed)
-                pf_buffer_string (filter, total == 0 ? "\n" : "  ");
-              /*
-               * 4.0 reworded the loose-in-the-room take; the from-container
-               * branch keeps the same verb in every version.  Measured live on
-               * a bare `take rock` / `get rock` / `take all`: run370 and
-               * run390 answer "You pick up the rock.", run400 "You take the
-               * rock."  (run380 shows the pre-4.0 half of the same handler
-               * through its "nothing to pick up here" refusal.)
-               *
-               * What 4.0 did change in the from-container branch is the
-               * *taken* object's prefix: pre-4.0 prints it raw, 4.0 normalizes
-               * it like everything else.  The container is normalized in both.
-               * Measured on the one game carried across three .taf versions by
-               * the generators (see lib_print_object_np above): `take gun` out
-               * of a "some"-prefixed container holding an "a"-prefixed pistol
-               * gives run380 "You take a small pistol from some aluminum
-               * clothes.", run390 "You take a small pistol from the aluminum
-               * clothes.", run400 "You take the small pistol from the aluminum
-               * clothes."  Only the pistol's own prefix moves at 4.0; the
-               * clothes move at 3.9, which is the "some" rule, not this one.
-               *
-               * The raw pre-4.0 prefix belongs to the Runner's SINGLE-take
-               * handler only -- any take that named exactly one object,
-               * with or without an explicit "from" clause (the pistol probe
-               * above was a bare `take gun`).  The multi-take loop
-               * normalizes in every version: run390 on ALEXIS ("a"-prefixed
-               * diary) answers `take diary from table` with "You take a
-               * diary from the old oak table." but `take diary and cloak
-               * from table` with "You take the diary and the woven cloak
-               * from the old oak table." and `get all from table` with "You
-               * take the diary, the brass lantern, the woven cloak and the
-               * nice food from the old oak table."  (Measured live
-               * 2026-08-22.)
-               *
-               * That multi-take exception is a 3.9 change of its own: pre-3.9
-               * the multi-take loop prints raw too, so from 3.7 to 3.8 every
-               * from-container take is raw whatever it named.  Measured live
-               * under Wine 2026-08-24 on mikes.taf (3.80) in run380, whose
-               * dresser holds four objects with EMPTY prefixes (deobfuscated
-               * from the .taf, so this is not a guess): `take all from
-               * dresser` answers "You take a socks, a shirt, a underwear and
-               * a pair of pants from the dresser."  Empty is the case that
-               * separates the two printers -- raw defaults it to "a ", the
-               * normalizing one to "the " -- and the same replay pins both
-               * halves at once, since the container itself comes out "the
-               * dresser".  3.9 normalizes the same shape: the ALEXIS `get all
-               * from table` above.
-               */
-              if (parent == -1)
-                pf_buffer_string (filter,
-                                  lib_is_version_400 (game)
-                                  ? lib_select_response (game,
-                                                         "You take ",
-                                                         "I take ",
-                                                         "%player% take ")
-                                  : lib_select_response (game,
-                                                         "You pick up ",
-                                                         "I pick up ",
-                                                         "%player% pick up "));
-              else if (!from_390_multi)
-                pf_buffer_string (filter, lib_take_from_verb (game));
-              if (from_390_multi)
-                {
-                  /*
-                   * 3.9's all/and take-from punctuates its list by counting
-                   * down from the pre-pass count of objects that fit, not
-                   * from the number actually taken (run390 463AAA-463B18):
-                   * ", " while more than one remains, " and " before the
-                   * last, " from <container>." on reaching zero, and nothing
-                   * after that.  The verb is printed only if anything fit.
-                   * Objects the take loop accepts past the count are glued
-                   * on after the full stop.  Measured on Namiki's `take all
-                   * from bag`, seven objects with a count of five: "I take
-                   * my bandana, ... and the Kenzo jacket from the tennis
-                   * bag.the Dior skirtmy jewelry".
-                   */
-                  scr_int remaining = fits;
-                  size_t index;
-
-                  if (fits > 0)
-                    pf_buffer_string (filter, lib_take_from_verb (game));
-                  for (index = 0; index < list.size (); index++)
-                    {
-                      lib_print_object_np (game, list[index]);
-                      remaining--;
-                      if (remaining > 1)
-                        pf_buffer_string (filter, ", ");
-                      else if (remaining == 1)
-                        pf_buffer_string (filter, " and ");
-                      else if (remaining == 0)
-                        {
-                          pf_buffer_string (filter, " from ");
-                          lib_print_object_np (game, parent);
-                          pf_buffer_character (filter, '.');
-                        }
-                    }
-                }
-              else
-                {
-                  lib_print_list (game, list,
-                                  parent == -1 || lib_is_version_400 (game)
-                                  || (prop_get_taf_version (gs_get_bundle (game))
-                                      >= TAF_VERSION_390
-                                      && !(lib_take_single_named
-                                           || lib_take_from_single_named))
-                                  ? lib_print_object_np : lib_print_object,
-                                  " and ");
-                  if (parent != -1)
-                    {
-                      pf_buffer_string (filter, " from ");
-                      lib_print_object_np (game, parent);
-                    }
-                  pf_buffer_character (filter, '.');
-                }
-              if (saved)
-                {
-                  const scr_char *text = saved.get ();
-
-                  while (*text == '\n' || *text == ' ')
-                    text++;
-                  pf_buffer_pspace (filter);
-                  pf_buffer_string (filter, text);
-                }
-            }
-          total += (scr_int) list.size ();
-          has_printed |= !list.empty ();
         }
     }
+  else
+    {
+      lib_print_list (game, list,
+                      parent == -1 || lib_is_version_400 (game)
+                      || (prop_get_taf_version (gs_get_bundle (game))
+                          >= TAF_VERSION_390
+                          && !(lib_take_single_named
+                               || lib_take_from_single_named))
+                      ? lib_print_object_np : lib_print_object,
+                      " and ");
+      if (parent != -1)
+        {
+          pf_buffer_string (filter, " from ");
+          lib_print_object_np (game, parent);
+        }
+      pf_buffer_character (filter, '.');
+    }
+  if (saved)
+    {
+      const scr_char *text = saved.get ();
 
+      while (*text == '\n' || *text == ' ')
+        text++;
+      pf_buffer_pspace (filter);
+      pf_buffer_string (filter, text);
+    }
+}
+
+/*
+ * We attempt acquisition of get-able objects here only for cases where
+ * there is either no associate, or where the associate is an object.  If
+ * the associate is an NPC, we're going to refuse all acquisitions later
+ * on, by forcing object references.
+ */
+void
+lib_take_t::acquire (void)
+{
+  scr_int object, parent, start, limit;
+
+  /*
+   * Attempt to acquire each remaining get-able object in turn, looping
+   * on each possible parent object in turn, with an initial parent of
+   * -1 for objects not contained or supported.
+   *
+   * If we're dealing with only objects from a known container or
+   * supporter, eliminate all but one iteration of the parent search.
+   */
+  start = is_associate_object ? associate : -1;
+  limit = is_associate_object ? associate : object_count - 1;
+  for (parent = start; parent <= limit; parent++)
+    {
+      list.clear ();
+      for (object = 0; object < object_count; object++)
+        {
+          if (!game->object_references[object])
+            continue;
+
+          /*
+           * If parent is -1, ignore contained objects, otherwise ignore
+           * objects not contained, or if contained, not contained by the
+           * current parent.
+           */
+          if (parent == -1)
+            {
+              if (gs_object_position (game, object) == OBJ_IN_OBJECT
+                  || gs_object_position (game, object) == OBJ_ON_OBJECT)
+                continue;
+            }
+          else
+            {
+              if (!(gs_object_position (game, object) == OBJ_IN_OBJECT
+                    || gs_object_position (game, object) == OBJ_ON_OBJECT))
+                continue;
+              if (gs_object_parent (game, object) != parent)
+                continue;
+            }
+
+          /*
+           * Here we have to repeat capacity checks.  As objects are
+           * acquired more and more of the player's capacity gets used up.
+           * This means a check directly before each acquisition.
+           */
+          {
+            scr_bool is_size;
+
+            if (from_390
+                ? lib_take_from_over_capacity_390 (game, object, parent,
+                                                   &is_size)
+                : lib_take_over_capacity (game, object, &is_size))
+              {
+                over_capacity.push_back (object);
+                over_is_size.push_back (is_size);
+                continue;
+              }
+          }
+
+          list.push_back (object);
+          gs_object_player_get (game, object);
+          /* A successful library take spends OnlyWhenNotMoved mode 1
+           * (run400 `takes` @0047BF66).  Nothing else does. */
+          gs_set_object_unmoved (game, object, FALSE);
+        }
+
+      if (!list.empty ())
+        print_taken (parent);
+      total += (scr_int) list.size ();
+      has_printed |= !list.empty ();
+    }
+}
+
+void
+lib_take_t::report_over_capacity (void)
+{
   /*
    * If we ran out of capacity, either in weight or in size, print the
    * details.  Each over-weight object gets its own sentence, in the order
@@ -1339,101 +1385,101 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
         has_printed |= TRUE;
       }
   }
+}
 
-  /*
-   * Note any remaining multiple references left out of the take operation.
-   * This is some workload...
-   *
-   * First, deal with the case where we have an associated object.
-   */
-  if (is_associate_object)
-    {
-      lib_drain_multiple_references (game, object_count, list);
+/* Report the named objects that are not in or on the associated object. */
+void
+lib_take_t::report_not_in_associate (void)
+{
+    lib_drain_multiple_references (game, object_count, list);
 
-      /*
-       * 4.0 drops a named object that is not in the container without a word:
-       * run400 answers `get coin and stone from box` with just "You take the
-       * coin from the box." (p4TFROM, runner_probes/tfrom.run400.b.txt,
-       * 2026-09-10), and there is no such literal anywhere in run400.
-       *
-       * Pre-4.0 does report it, and composes the sentence a word at a time
-       * (run390 loc_4636D0-46378A: tense & Short & isare() & "not " & var_E0
-       * & " " & definite(container) & "!", where var_E0 is "inside" or "on").
-       * No " is not in " literal exists in any of the four Runners, so the
-       * wording here is "inside", not "in", and the sentence ends with an
-       * exclamation mark: run390 answers `get stone from box` with "The stone
-       * is not inside the box!" (p39DARK, runner_probes/dark.run390.feed4.txt
-       * and runner_probes/dark.run390.feed5.txt, 2026-09-10).  It reports an
-       * object the player is already holding the same way -- the measured
-       * turn is `get coin from box` with the coin in hand and the box open
-       * and empty, "The coin is not inside the box!"
-       * (runner_probes/dark.run390.feed5.txt) -- so there is no held-or-worn
-       * exemption above.
-       *
-       * 3.7/3.8 have no such sentence (no "not inside"/"not on" in run370 or
-       * run380): their take loop (run380 446FC5) skips a named object that
-       * is not in the container without a word.  A line that takes nothing
-       * at all is lib_take_from_nothing_taken_pre390()'s.
-       */
-      if (!list.empty () && !lib_is_version_400 (game)
-          && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
-        {
-          lib_new_clause (game, has_printed);
-          lib_print_list (game, list, lib_print_object_np, " and ");
-          pf_buffer_string (filter,
-                            list.size () == 1
-                            ? lib_select_plurality (game, list[0],
-                                                    " is not ", " are not ")
-                            : " are not ");
-          pf_buffer_string (filter,
-                            obj_is_container (game, associate)
-                            ? "inside " : "on ");
-          lib_print_object_np (game, associate);
-          pf_buffer_character (filter, '!');
-          has_printed = TRUE;
-        }
-    }
+    /*
+     * 4.0 drops a named object that is not in the container without a word:
+     * run400 answers `get coin and stone from box` with just "You take the
+     * coin from the box." (p4TFROM, runner_probes/tfrom.run400.b.txt,
+     * 2026-09-10), and there is no such literal anywhere in run400.
+     *
+     * Pre-4.0 does report it, and composes the sentence a word at a time
+     * (run390 loc_4636D0-46378A: tense & Short & isare() & "not " & var_E0
+     * & " " & definite(container) & "!", where var_E0 is "inside" or "on").
+     * No " is not in " literal exists in any of the four Runners, so the
+     * wording here is "inside", not "in", and the sentence ends with an
+     * exclamation mark: run390 answers `get stone from box` with "The stone
+     * is not inside the box!" (p39DARK, runner_probes/dark.run390.feed4.txt
+     * and runner_probes/dark.run390.feed5.txt, 2026-09-10).  It reports an
+     * object the player is already holding the same way -- the measured
+     * turn is `get coin from box` with the coin in hand and the box open
+     * and empty, "The coin is not inside the box!"
+     * (runner_probes/dark.run390.feed5.txt) -- so there is no held-or-worn
+     * exemption above.
+     *
+     * 3.7/3.8 have no such sentence (no "not inside"/"not on" in run370 or
+     * run380): their take loop (run380 446FC5) skips a named object that
+     * is not in the container without a word.  A line that takes nothing
+     * at all is lib_take_from_nothing_taken_pre390()'s.
+     */
+    if (!list.empty () && !lib_is_version_400 (game)
+        && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+      {
+        lib_new_clause (game, has_printed);
+        lib_print_list (game, list, lib_print_object_np, " and ");
+        pf_buffer_string (filter,
+                          list.size () == 1
+                          ? lib_select_plurality (game, list[0],
+                                                  " is not ", " are not ")
+                          : " are not ");
+        pf_buffer_string (filter,
+                          obj_is_container (game, associate)
+                          ? "inside " : "on ");
+        lib_print_object_np (game, associate);
+        pf_buffer_character (filter, '!');
+        has_printed = TRUE;
+      }
+}
 
-  /*
-   * Now, deal with the case where we have an associated NPC.  Once this
-   * case is handled, we can force the object references so that the code
-   * that follows on from here will report errors taking all objects.
-   *
-   * Note that this means that we can never successfully take an object
-   * from an NPC; that'll have to happen via a game's own commands.
-   */
-  if (is_associate_npc)
-    {
-      lib_drain_multiple_references_if
-        (game, object_count, list, [game] (scr_int item)
-         { return gs_object_position (game, item) != OBJ_PART_NPC; });
+/*
+ * Now, deal with the case where we have an associated NPC.  Once this
+ * case is handled, we can force the object references so that the code
+ * that follows on from here will report errors taking all objects.
+ *
+ * Note that this means that we can never successfully take an object
+ * from an NPC; that'll have to happen via a game's own commands.
+ */
+void
+lib_take_t::report_npc_not_carrying (void)
+{
+  scr_int object;
 
-      if (!list.empty ())
-        {
-          lib_new_clause (game, has_printed);
-          lib_print_npc_np (game, associate);
-          pf_buffer_string (filter, " is not carrying ");
-          lib_print_list (game, list, lib_print_object_np, " or ");
-          pf_buffer_character (filter, '!');
-        }
-      has_printed |= !list.empty ();
+    lib_drain_multiple_references_if
+      (game, object_count, list, [this] (scr_int item)
+       { return gs_object_position (game, item) != OBJ_PART_NPC; });
 
-      /*
-       * Merge any remaining object references into multiple references,
-       * so that succeeding code complains about the inability to acquire
-       * these objects.
-       */
-      for (object = 0; object < object_count; object++)
-        {
-          game->multiple_references[object] |= game->object_references[object];
-          game->object_references[object] = FALSE;
-        }
-    }
+    if (!list.empty ())
+      {
+        lib_new_clause (game, has_printed);
+        lib_print_npc_np (game, associate);
+        pf_buffer_string (filter, " is not carrying ");
+        lib_print_list (game, list, lib_print_object_np, " or ");
+        pf_buffer_character (filter, '!');
+      }
+    has_printed |= !list.empty ();
 
-  /*
-   * The remainder of this routine is common error reporting for both object
-   * and NPC associates (and also for no associates).
-   */
+    /*
+     * Merge any remaining object references into multiple references,
+     * so that succeeding code complains about the inability to acquire
+     * these objects.
+     */
+    for (object = 0; object < object_count; object++)
+      {
+        game->multiple_references[object] |= game->object_references[object];
+        game->object_references[object] = FALSE;
+      }
+}
+
+/* Report the named objects the player already holds. */
+void
+lib_take_t::report_held (void)
+{
   /*
    * 4.0's single-take piece tests possession with 44615C, which counts a
    * WORN object as carried (position 0 or &H9C, run400 General 4460F4), so
@@ -1453,7 +1499,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                 && (lib_take_single_named
                                     || lib_take_and_pieces_400);
   lib_drain_multiple_references_if
-    (game, object_count, list, [game, worn_is_held] (scr_int item)
+    (game, object_count, list, [this, worn_is_held] (scr_int item)
      {
        return gs_object_position (game, item) == OBJ_HELD_PLAYER
               || (worn_is_held
@@ -1541,9 +1587,14 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                           "I've already got ",
                                           "%player%'ve already got ",
                                           lib_object_printer_390 (game));
+}
 
+/* Report the named objects the player is wearing. */
+void
+lib_take_t::report_worn (void)
+{
   lib_drain_multiple_references_if
-    (game, object_count, list, [game] (scr_int item)
+    (game, object_count, list, [this] (scr_int item)
      { return gs_object_position (game, item) == OBJ_WORN_PLAYER; });
 
   /*
@@ -1579,11 +1630,18 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                           "I am already wearing ",
                                           "%player% is already wearing ",
                                           lib_object_printer_390 (game));
+}
+
+/* Report the named objects an NPC is holding or wearing. */
+void
+lib_take_t::report_npc_held (void)
+{
+  scr_int npc;
 
   GS_FOR_EACH_NPC (game, npc)
     {
       lib_drain_multiple_references_if
-        (game, object_count, list, [game, npc] (scr_int item)
+        (game, object_count, list, [this, npc] (scr_int item)
          {
            return (gs_object_position (game, item) == OBJ_HELD_NPC
                    || gs_object_position (game, item) == OBJ_WORN_NPC)
@@ -1604,7 +1662,12 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
         }
       has_printed |= !list.empty ();
     }
+}
 
+/* Report whatever is left: the objects that cannot be taken at all. */
+void
+lib_take_t::report_cannot_take (void)
+{
   lib_drain_multiple_references (game, object_count, list);
 
   /*
@@ -1694,6 +1757,41 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                               take a chair." (run380 43E697, run370 4369FF;
                               run370x/run380x p3738sit3, 2026-09-19). */
                            lib_object_printer_390 (game));
+}
+
+static void
+lib_take_backend_common (scr_gameref_t game, scr_int associate,
+                         scr_bool is_associate_object, scr_bool is_associate_npc)
+{
+  assert (!is_associate_object || !is_associate_npc);
+  lib_take_t take (game, associate, is_associate_object, is_associate_npc);
+
+  if (!take.try_game_commands () || !take.count_fits_390 ())
+    return;
+
+  if (!is_associate_npc)
+    take.acquire ();
+  take.report_over_capacity ();
+
+  /*
+   * Note any remaining multiple references left out of the take operation.
+   * This is some workload...
+   *
+   * First, deal with the case where we have an associated object.
+   */
+  if (is_associate_object)
+    take.report_not_in_associate ();
+  if (is_associate_npc)
+    take.report_npc_not_carrying ();
+
+  /*
+   * The remainder of this routine is common error reporting for both object
+   * and NPC associates (and also for no associates).
+   */
+  take.report_held ();
+  take.report_worn ();
+  take.report_npc_held ();
+  take.report_cannot_take ();
 
   lib_take_single_named = FALSE;
   lib_take_from_single_named = FALSE;

@@ -871,9 +871,7 @@ pf_buffer_paragraph_break (scr_filterref_t filter)
 
 /*
  * pf_buffer_ends_with_two_spaces()
- * pf_buffer_join_internal()
  * pf_buffer_join()
- * pf_buffer_join_always()
  *
  * Append a string as a continuation of the current output line, with the
  * Adrift runner's two-space sentence separator.  The runner builds a turn's
@@ -899,9 +897,10 @@ pf_buffer_paragraph_break (scr_filterref_t filter)
  *      If Right(buf, 1) <> Chr(10) And Len(buf) > 0 Then buf = buf & "  "
  *
  * so a 3.7 or 3.8 join onto text ending in two spaces really does make four.
- * pf_buffer_join_always() is that form, for callers that carry the version
- * split; the "<br>" clause is not split, both being folded into
- * pf_text_ends_with_break(), because no game has yet shown the difference.
+ * Deliberate deviation: every version joins with pspace's guard here, so no
+ * caller makes four spaces (see npc_announce()).  The "<br>" clause is not
+ * split either, both being folded into pf_text_ends_with_break(), because no
+ * game has yet shown the difference.
  */
 static scr_bool
 pf_buffer_ends_with_two_spaces (scr_filterref_t filter)
@@ -913,9 +912,8 @@ pf_buffer_ends_with_two_spaces (scr_filterref_t filter)
          && filter->buffer[length - 2] == ' ';
 }
 
-static void
-pf_buffer_join_internal (scr_filterref_t filter, const scr_char *string,
-                         scr_bool is_pspace)
+void
+pf_buffer_join (scr_filterref_t filter, const scr_char *string)
 {
   assert (pf_is_valid (filter));
   assert (string);
@@ -939,22 +937,10 @@ pf_buffer_join_internal (scr_filterref_t filter, const scr_char *string,
 
       if (filter->buffer.size () > filter->hidden
           && !pf_text_ends_with_break (filter->buffer.c_str ())
-          && !(is_pspace && pf_buffer_ends_with_two_spaces (filter)))
+          && !pf_buffer_ends_with_two_spaces (filter))
         pf_append_string (filter, "  ");
     }
   pf_buffer_string (filter, string);
-}
-
-void
-pf_buffer_join (scr_filterref_t filter, const scr_char *string)
-{
-  pf_buffer_join_internal (filter, string, TRUE);
-}
-
-void
-pf_buffer_join_always (scr_filterref_t filter, const scr_char *string)
-{
-  pf_buffer_join_internal (filter, string, FALSE);
 }
 
 
@@ -962,7 +948,7 @@ pf_buffer_join_always (scr_filterref_t filter, const scr_char *string)
  * pf_buffer_tentative_join()
  * pf_retract_tentative_join()
  *
- * pf_buffer_join_always()'s separator for text that may never come: the
+ * pf_buffer_join()'s separator for text that may never come: the
  * first appends "  " when buffered text would need it and says whether it
  * did; the second takes it back again if nothing followed it.  For a caller
  * that can only tell whether some code prints by running it -- the buffer

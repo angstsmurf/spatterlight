@@ -166,15 +166,14 @@ extern void        a5run_undo_push_blob (a5_run_t *run,
 extern void a5run_get_turn_text (a5_run_t *run, const char **text, size_t *len);
 extern void a5run_set_turn_text (a5_run_t *run, const char *text, size_t len);
 
-/* Non-zero when the next input line is a cross-turn parser continuation rather
-   than a fresh command: a pending "Which X?" disambiguation or a remembered
-   bare verb ("Take what?").  That transient state is not part of the save
+/* The next input line can be a cross-turn parser continuation rather than a
+   fresh command: a pending "Which X?" disambiguation or a remembered bare
+   verb ("Take what?").  That transient state is not part of the save
    format (an in-game RESTORE drops it, as the Runner's does), so the
    Spatterlight autosave carries it beside the save: a5run_pending_save
    renders it as a byte string (empty when nothing is pending; caller frees)
    and a5run_pending_restore puts it back after a5run_restore, returning 0
    and leaving nothing pending when the record does not fit this game. */
-extern int   a5run_input_pending (a5_run_t *run);
 extern char *a5run_pending_save (a5_run_t *run, size_t *out_len);
 extern int   a5run_pending_restore (a5_run_t *run, const char *data,
                                     size_t len);

@@ -1105,206 +1105,335 @@ resolve_location_ref (a5_state_t *st, const char *text)
   return "";
 }
 
-int
-resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
-                const char *force_name, const char *force_key, amb_info *amb)
-{
-  a5_state_t *st = run->st;
-  struct rref { std::string name, text; char type;
-                std::vector<std::string> orig, keys; };
+/* One reference of the command being resolved: its candidates before (orig)
+   and after (keys) refinement. */
+struct rref { std::string name, text; char type;
+              std::vector<std::string> orig, keys; };
+
+/*
+ * One resolve_refine() call: the task and its regex match, the references
+ * gathered so far, and the deferred no-reference and plural references.
+ */
+struct refine_t {
+  a5_run_t *run;
+  const a5_task_t *t;
+  const a5_match_t *m;
+  const char *force_name, *force_key;
+  amb_info *amb;
+  a5_state_t *st;
+
   std::vector<rref> refs;
-  int have_noref = 0;
+  int have_noref;
   rref noref_r;
-  int plural_idx = -1;
+  int plural_idx;
   std::string plural_text;
 
-  /* A reference that names no entity at all.  A task only "matches" such input
-     if it has a `Must Exist` restriction of the reference's type
-     (clsUserSession's second-chance pass, gated on HasObjectExistRestriction /
-     HasCharacterExistRestriction); then the first such reference is remembered
-     as the no-reference fallback (sNoRefTask) and left unbound so the caller
-     can surface its Must-Exist message.  Returns false -- the command does not
-     match this task at all -- when the restriction is missing. */
-  auto note_noref = [&] (const rref &r) {
-    if (!have_noref)
-      {
-        if (!a5restr_has_exist (t->restrictions, r.type))
-          return false;
-        have_noref = 1; noref_r = r;
-      }
-    return true;
-  };
-  /* Report the recorded no-reference fallback to the caller (empty amb->keys
-     marks it as a no-reference, not an ambiguity). */
-  auto noref_result = [&] () {
-    if (amb != nullptr)
-      { amb->ref_name = noref_r.name; amb->type = noref_r.type;
-        amb->ref_text = noref_r.text; amb->keys.clear (); }
-    return RR_NOREF;
-  };
+  refine_t (a5_run_t *run_, const a5_task_t *t_, const a5_match_t *m_,
+            const char *force_name_, const char *force_key_, amb_info *amb_)
+    : run (run_), t (t_), m (m_), force_name (force_name_),
+      force_key (force_key_), amb (amb_), st (run_->st), have_noref (0),
+      plural_idx (-1) {}
 
+  bool note_noref (const rref &r);
+  int noref_result ();
+  bool gather_plural_reference (int i, rref &r);
+  bool gather_reference (int i);
+  void refine_reference (rref &r);
+  bool noref_is_required ();
+  int resolve ();
+};
+
+/* A reference that names no entity at all.  A task only "matches" such input
+   if it has a `Must Exist` restriction of the reference's type
+   (clsUserSession's second-chance pass, gated on HasObjectExistRestriction /
+   HasCharacterExistRestriction); then the first such reference is remembered
+   as the no-reference fallback (sNoRefTask) and left unbound so the caller
+   can surface its Must-Exist message.  Returns false -- the command does not
+   match this task at all -- when the restriction is missing. */
+bool
+refine_t::note_noref (const rref &r)
+{
+  if (!have_noref)
+    {
+      if (!a5restr_has_exist (t->restrictions, r.type))
+        return false;
+      have_noref = 1; noref_r = r;
+    }
+  return true;
+}
+
+/* Report the recorded no-reference fallback to the caller (empty amb->keys
+   marks it as a no-reference, not an ambiguity). */
+int
+refine_t::noref_result ()
+{
+  if (amb != nullptr)
+    { amb->ref_name = noref_r.name; amb->type = noref_r.type;
+      amb->ref_text = noref_r.text; amb->keys.clear (); }
+  return RR_NOREF;
+}
+
+/* The plural %objects% reference.  Only a *genuine* multiple-object input
+   ("all", "X and Y", a comma list, or a plural noun matching several
+   objects) is deferred to resolve_plural; a single-object input is bound
+   here as an ordinary object reference so the existing refine / ambiguity
+   / "can't see any" / no-ref semantics are byte-identical to a bare
+   %object% (clsUserSession.InputMatchesObjects yields one item in that
+   case, which RefineMatchingPossibilitesUsingRestrictions then treats like
+   any single reference). */
+bool
+refine_t::gather_plural_reference (int i, rref &r)
+{
+  std::vector<std::vector<std::string>> items;
+  int had_all = 0, hard_fail = 0;
+  bool ok = match_objects (st, r.text, items, false, false, &had_all,
+                           &hard_fail);
+  /* An explicit "X and Y" / comma list one of whose chunks named no
+     object: the Adrift 5 runner returns False without the second-chance
+     existence fallback, so the command does not match this task at all
+     (no sNoRefTask) -- e.g. `get fleetwind saddle and fleetwind bridle`,
+     where neither chunk names an object, is "I didn't understand", not
+     the take task's "...trying to take." no-reference message. */
+  if (hard_fail)
+    return false;
+  /* A genuine multi-object input *or* any "all" command (even one that
+     expands to zero/one seen object) goes through resolve_plural, so a
+     "get all" with nothing takeable surfaces the task's FailOverride
+     ("There is nothing worth taking here.") rather than the single-ref
+     no-reference message. */
+  if (ok && (items.size () > 1 || had_all))
+    {
+      plural_idx = i; plural_text = r.text;
+      /* Does this command ALSO carry a singular %object%/%object1% (or
+         %item%) reference?  Then the plural's per-item binds must not
+         alias onto ReferencedObject (see bind_reference) -- the runner keeps the
+         two slots distinct, so `hide %objects% in %object%` restrictions
+         on ReferencedObject test the container throughout the item
+         iteration. */
+      for (int j = 0; j < m->n_refs; j++)
+        {
+          if (j == i) continue;
+          std::string b2 = ref_base (m->ref_name[j]);
+          if ((b2 == "object" || b2 == "item")
+              && (m->ref_name[j] == b2 || m->ref_name[j] == b2 + "1"))
+            { st->ref_objects_suppress_singular = 1; break; }
+        }
+      return true;                                        /* multi/all */
+    }
+  r.type = 'o';
+  /* A remembered-task re-run pins the ambiguous reference to the
+     clarified pick here too: the library's `get/drop %objects%`
+     commands take this branch, not the singular %object% one below. */
+  if (force_name != nullptr && r.name == force_name)
+    r.orig.assign (1, force_key);
+  else
+    r.orig = (ok && items.size () == 1)
+      ? order_visible_first (st, items[0])
+      : resolve_object_candidates (st, r.text);
+  if (r.orig.empty ())
+    {
+      if (!note_noref (r))
+        return false;
+      return true;
+    }
+  r.keys = r.orig;
+  bind_reference (st, r.name.c_str (), r.keys[0].c_str (),
+                  r.text.c_str ());
+  refs.push_back (r);
+  return true;
+}
+
+/*
+ * Gather the full any-scope candidate set of reference I and bind its
+ * default.  Returns false if the command does not match this task at all.
+ */
+bool
+refine_t::gather_reference (int i)
+{
+  rref r;
+  r.name = m->ref_name[i];
+  r.text = m->ref_text[i];
+  std::string base = ref_base (r.name);
+
+  if (base == "objects")
+    return gather_plural_reference (i, r);
+
+  if (base == "object" || base == "item")
+    r.type = 'o';
+  else if (base == "character" || base == "characters")
+    r.type = 'c';
+  else if (base == "direction")
+    { const char *d = a5parse_canonical_direction (r.text.c_str ());
+      if (d == nullptr) return false;
+      bind_reference (st, r.name.c_str (), d, r.text.c_str ());
+      return true; }
+  else if (base == "location")
+    {
+      /* A %location% reference resolves the typed text to a location KEY
+         (InputMatchesLocation) and binds it -- the runner's ReplaceFunctions
+         then substitutes the key into %locationN% tokens, which is what
+         makes `%LocationName[%location1%]%` render the destination name
+         (ProbeWalk's "You set off for East Wing.") and BeLocation
+         restrictions compare key-to-key.  A miss falls back to the
+         second-chance Location Must-Exist pass like objects/characters
+         do (clsUserSession.vb:5482); without that the variant simply
+         does not match. */
+      std::string lk = resolve_location_ref (st, r.text.c_str ());
+      if (lk.empty ())
+        {
+          r.type = 'l';
+          if (!note_noref (r))
+            return false;
+          return true;
+        }
+      bind_reference (st, r.name.c_str (), lk.c_str (), r.text.c_str ());
+      return true;
+    }
+  else /* text, number */
+    { bind_reference (st, r.name.c_str (), r.text.c_str (), r.text.c_str ());
+      return true; }
+
+  if (force_name != nullptr && r.name == force_name)
+    { r.orig.assign (1, force_key); r.keys = r.orig; }
+  else
+    {
+      r.orig = (r.type == 'o')
+        ? resolve_object_candidates (st, r.text)
+        : resolve_character_candidates (st, r.text);
+      /* An %item% reference matches objects OR characters OR locations:
+         the runner's match loop tries InputMatchesObjects OrElse
+         InputMatchesCharacter OrElse InputMatchesLocation
+         (clsUserSession.vb:5654, short-circuit -- objects win), and
+         the refine/visibility passes probe htblObjects then htblCharacters
+         per key (vb:7588-7596).  So when the typed text names no object,
+         retry the same text as a character, then as a location name. */
+      if (r.orig.empty () && base == "item")
+        {
+          r.orig = resolve_character_candidates (st, r.text);
+          if (!r.orig.empty ())
+            r.type = 'c';
+        }
+      if (r.orig.empty () && base == "item")
+        {
+          std::string lk = resolve_location_ref (st, r.text.c_str ());
+          if (!lk.empty ())
+            {
+              bind_reference (st, r.name.c_str (), lk.c_str (),
+                              r.text.c_str ());
+              return true;
+            }
+        }
+      if (r.orig.empty ())
+        {
+          /* For %item%, either type's Must-Exist restriction grants the
+             second-chance no-reference match. */
+          bool ok = note_noref (r);
+          if (!ok && base == "item")
+            { r.type = 'c'; ok = note_noref (r); }
+          if (!ok)
+            return false;
+          return true;
+        }
+      r.keys = r.orig;
+    }
+  bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
+  refs.push_back (r);
+  return true;
+}
+
+/* Three-tier refinement (Applicable / Visible / Seen).  Each tier that
+   empties a reference resets it to the full original set; a tier that leaves
+   >1 falls through to the next.  Single-candidate references are already
+   unique (clsUserSession's reset-on-empty makes refining them a no-op). */
+void
+refine_t::refine_reference (rref &r)
+{
+  if (r.keys.size () <= 1)
+    return;
+
+  /* Tier 1: Applicable -- the candidates that pass the task's restrictions.
+     The Adrift 5 runner evaluates candidates in *model order* (the order
+     InputMatchesObject/Character add them to MatchingPossibilities), and the
+     last PassRestrictions call leaves sRestrictionText set to its deciding
+     restriction's Message (st->restriction_text).  That carried text is what
+     a later malformed-bracket task displays, so iterate in model order here
+     even though the surviving set is kept in Scarier's visible-first order
+     (the default-pick hint) -- only the *last evaluated* candidate, hence
+     st->restriction_text, depends on this. */
+  std::vector<std::string> eval_order = r.keys;
+  std::stable_sort (eval_order.begin (), eval_order.end (),
+    [&] (const std::string &a, const std::string &b) {
+      int ia = (r.type == 'o') ? a5state_object_index (st, a.c_str ())
+                               : a5state_character_index (st, a.c_str ());
+      int ib = (r.type == 'o') ? a5state_object_index (st, b.c_str ())
+                               : a5state_character_index (st, b.c_str ());
+      return ia < ib;
+    });
+  std::vector<std::string> passset;
+  for (auto &k : eval_order)
+    {
+      bind_reference (st, r.name.c_str (), k.c_str (), r.text.c_str ());
+      if (a5restr_pass (st, t->restrictions))
+        passset.push_back (k);
+    }
+  std::vector<std::string> pass;            /* survivors, visible-first */
+  for (auto &k : r.keys)
+    if (std::find (passset.begin (), passset.end (), k) != passset.end ())
+      pass.push_back (k);
+  int more;
+  if (pass.empty ())          { r.keys = r.orig; more = 1; }
+  else if (pass.size () > 1)  { r.keys = pass;   more = 1; }
+  else                        { r.keys = pass;   more = 0; }
+
+  /* Tiers 2 and 3: Visible, then Seen. */
+  for (int tier = 0; more && tier < 2; tier++)
+    {
+      std::vector<std::string> keep;
+      for (auto &k : r.keys)
+        if (tier == 0 ? ent_visible (st, r.type, k.c_str ())
+                      : ent_seen (st, r.type, k.c_str ()))
+          keep.push_back (k);
+      if (keep.empty ())
+        r.keys = r.orig;
+      else
+        { r.keys = keep; more = keep.size () > 1; }
+    }
+
+  bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
+}
+
+/* Is the unmatched reference genuinely *required* by this task -- i.e. is its
+   `Must Exist` restriction actually evaluated within the BracketSequence?  If so
+   the no-reference fallback wins outright (the runner surfaces the task's Must-Exist
+   message, e.g. `blow dart at <absent>` -> "Sorry, I'm not sure which object you
+   are trying to blow.", `hang amulet on <absent>` -> "...trying to hang...").  If
+   the Must Exist is truncated out of the bracket, the reference is optional and
+   does NOT block the task, so a *sibling* reference's out-of-scope ambiguity
+   surfaces instead (`pour oil on me`, whose pour task's `#A#A#` omits object2's
+   Exist -> "You can't see any oil!"). */
+bool
+refine_t::noref_is_required ()
+{
+  if (!have_noref)
+    return false;
+  std::string num;
+  ref_base (noref_r.name, &num);          /* the "...N" index, if any */
+  std::string alias = std::string ("Referenced")
+    + (noref_r.type == 'c' ? "Character" : "Object") + num;
+  return a5restr_exist_evaluated (t->restrictions, alias.c_str ());
+}
+
+int
+refine_t::resolve ()
+{
   a5state_clear_refs (st);
   run->pending_failover = nullptr;
   run->plural_amb_prefix.clear ();
 
   /* Pass 1: gather full any-scope candidate sets; bind the default of each. */
   for (int i = 0; i < m->n_refs; i++)
-    {
-      rref r;
-      r.name = m->ref_name[i];
-      r.text = m->ref_text[i];
-      std::string base = ref_base (r.name);
-
-      /* The plural %objects% reference.  Only a *genuine* multiple-object input
-         ("all", "X and Y", a comma list, or a plural noun matching several
-         objects) is deferred to resolve_plural; a single-object input is bound
-         here as an ordinary object reference so the existing refine / ambiguity
-         / "can't see any" / no-ref semantics are byte-identical to a bare
-         %object% (clsUserSession.InputMatchesObjects yields one item in that
-         case, which RefineMatchingPossibilitesUsingRestrictions then treats like
-         any single reference). */
-      if (base == "objects")
-        {
-          std::vector<std::vector<std::string>> items;
-          int had_all = 0, hard_fail = 0;
-          bool ok = match_objects (st, r.text, items, false, false, &had_all,
-                                   &hard_fail);
-          /* An explicit "X and Y" / comma list one of whose chunks named no
-             object: the Adrift 5 runner returns False without the second-chance
-             existence fallback, so the command does not match this task at all
-             (no sNoRefTask) -- e.g. `get fleetwind saddle and fleetwind bridle`,
-             where neither chunk names an object, is "I didn't understand", not
-             the take task's "...trying to take." no-reference message. */
-          if (hard_fail)
-            return RR_NOMATCH;
-          /* A genuine multi-object input *or* any "all" command (even one that
-             expands to zero/one seen object) goes through resolve_plural, so a
-             "get all" with nothing takeable surfaces the task's FailOverride
-             ("There is nothing worth taking here.") rather than the single-ref
-             no-reference message. */
-          if (ok && (items.size () > 1 || had_all))
-            {
-              plural_idx = i; plural_text = r.text;
-              /* Does this command ALSO carry a singular %object%/%object1% (or
-                 %item%) reference?  Then the plural's per-item binds must not
-                 alias onto ReferencedObject (see bind_reference) -- the runner keeps the
-                 two slots distinct, so `hide %objects% in %object%` restrictions
-                 on ReferencedObject test the container throughout the item
-                 iteration. */
-              for (int j = 0; j < m->n_refs; j++)
-                {
-                  if (j == i) continue;
-                  std::string b2 = ref_base (m->ref_name[j]);
-                  if ((b2 == "object" || b2 == "item")
-                      && (m->ref_name[j] == b2 || m->ref_name[j] == b2 + "1"))
-                    { st->ref_objects_suppress_singular = 1; break; }
-                }
-              continue;                                           /* multi/all */
-            }
-          r.type = 'o';
-          /* A remembered-task re-run pins the ambiguous reference to the
-             clarified pick here too: the library's `get/drop %objects%`
-             commands take this branch, not the singular %object% one below. */
-          if (force_name != nullptr && r.name == force_name)
-            r.orig.assign (1, force_key);
-          else
-            r.orig = (ok && items.size () == 1)
-              ? order_visible_first (st, items[0])
-              : resolve_object_candidates (st, r.text);
-          if (r.orig.empty ())
-            {
-              if (!note_noref (r))
-                return RR_NOMATCH;
-              continue;
-            }
-          r.keys = r.orig;
-          bind_reference (st, r.name.c_str (), r.keys[0].c_str (),
-                          r.text.c_str ());
-          refs.push_back (r);
-          continue;
-        }
-
-      if (base == "object" || base == "item")
-        r.type = 'o';
-      else if (base == "character" || base == "characters")
-        r.type = 'c';
-      else if (base == "direction")
-        { const char *d = a5parse_canonical_direction (r.text.c_str ());
-          if (d == nullptr) return RR_NOMATCH;
-          bind_reference (st, r.name.c_str (), d, r.text.c_str ());
-          continue; }
-      else if (base == "location")
-        {
-          /* A %location% reference resolves the typed text to a location KEY
-             (InputMatchesLocation) and binds it -- the runner's ReplaceFunctions
-             then substitutes the key into %locationN% tokens, which is what
-             makes `%LocationName[%location1%]%` render the destination name
-             (ProbeWalk's "You set off for East Wing.") and BeLocation
-             restrictions compare key-to-key.  A miss falls back to the
-             second-chance Location Must-Exist pass like objects/characters
-             do (clsUserSession.vb:5482); without that the variant simply
-             does not match. */
-          std::string lk = resolve_location_ref (st, r.text.c_str ());
-          if (lk.empty ())
-            {
-              r.type = 'l';
-              if (!note_noref (r))
-                return RR_NOMATCH;
-              continue;
-            }
-          bind_reference (st, r.name.c_str (), lk.c_str (), r.text.c_str ());
-          continue;
-        }
-      else /* text, number */
-        { bind_reference (st, r.name.c_str (), r.text.c_str (), r.text.c_str ());
-          continue; }
-
-      if (force_name != nullptr && r.name == force_name)
-        { r.orig.assign (1, force_key); r.keys = r.orig; }
-      else
-        {
-          r.orig = (r.type == 'o')
-            ? resolve_object_candidates (st, r.text)
-            : resolve_character_candidates (st, r.text);
-          /* An %item% reference matches objects OR characters OR locations:
-             the runner's match loop tries InputMatchesObjects OrElse
-             InputMatchesCharacter OrElse InputMatchesLocation
-             (clsUserSession.vb:5654, short-circuit -- objects win), and
-             the refine/visibility passes probe htblObjects then htblCharacters
-             per key (vb:7588-7596).  So when the typed text names no object,
-             retry the same text as a character, then as a location name. */
-          if (r.orig.empty () && base == "item")
-            {
-              r.orig = resolve_character_candidates (st, r.text);
-              if (!r.orig.empty ())
-                r.type = 'c';
-            }
-          if (r.orig.empty () && base == "item")
-            {
-              std::string lk = resolve_location_ref (st, r.text.c_str ());
-              if (!lk.empty ())
-                {
-                  bind_reference (st, r.name.c_str (), lk.c_str (),
-                                  r.text.c_str ());
-                  continue;
-                }
-            }
-          if (r.orig.empty ())
-            {
-              /* For %item%, either type's Must-Exist restriction grants the
-                 second-chance no-reference match. */
-              bool ok = note_noref (r);
-              if (!ok && base == "item")
-                { r.type = 'c'; ok = note_noref (r); }
-              if (!ok)
-                return RR_NOMATCH;
-              continue;
-            }
-          r.keys = r.orig;
-        }
-      bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
-      refs.push_back (r);
-    }
+    if (!gather_reference (i))
+      return RR_NOMATCH;
 
   /* A reference matched nothing -> the whole task is deferred as the no-reference
      fallback (GetGeneralTask sNoRefTask).  But the unmatched reference does NOT
@@ -1318,86 +1447,11 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
      through to the refine + ambiguity pass on the matched refs and only return the
      no-reference fallback below if none of them is ambiguous. */
 
-  /* Pass 2: three-tier refinement (Applicable / Visible / Seen).  Each tier that
-     empties a reference resets it to the full original set; a tier that leaves
-     >1 falls through to the next.  Single-candidate references are already
-     unique (clsUserSession's reset-on-empty makes refining them a no-op). */
+  /* Pass 2: three-tier refinement (Applicable / Visible / Seen). */
   for (auto &r : refs)
-    {
-      if (r.keys.size () <= 1)
-        continue;
+    refine_reference (r);
 
-      /* Tier 1: Applicable -- the candidates that pass the task's restrictions.
-         The Adrift 5 runner evaluates candidates in *model order* (the order
-         InputMatchesObject/Character add them to MatchingPossibilities), and the
-         last PassRestrictions call leaves sRestrictionText set to its deciding
-         restriction's Message (st->restriction_text).  That carried text is what
-         a later malformed-bracket task displays, so iterate in model order here
-         even though the surviving set is kept in Scarier's visible-first order
-         (the default-pick hint) -- only the *last evaluated* candidate, hence
-         st->restriction_text, depends on this. */
-      std::vector<std::string> eval_order = r.keys;
-      std::stable_sort (eval_order.begin (), eval_order.end (),
-        [&] (const std::string &a, const std::string &b) {
-          int ia = (r.type == 'o') ? a5state_object_index (st, a.c_str ())
-                                   : a5state_character_index (st, a.c_str ());
-          int ib = (r.type == 'o') ? a5state_object_index (st, b.c_str ())
-                                   : a5state_character_index (st, b.c_str ());
-          return ia < ib;
-        });
-      std::vector<std::string> passset;
-      for (auto &k : eval_order)
-        {
-          bind_reference (st, r.name.c_str (), k.c_str (), r.text.c_str ());
-          if (a5restr_pass (st, t->restrictions))
-            passset.push_back (k);
-        }
-      std::vector<std::string> pass;            /* survivors, visible-first */
-      for (auto &k : r.keys)
-        if (std::find (passset.begin (), passset.end (), k) != passset.end ())
-          pass.push_back (k);
-      int more;
-      if (pass.empty ())          { r.keys = r.orig; more = 1; }
-      else if (pass.size () > 1)  { r.keys = pass;   more = 1; }
-      else                        { r.keys = pass;   more = 0; }
-
-      /* Tiers 2 and 3: Visible, then Seen. */
-      for (int tier = 0; more && tier < 2; tier++)
-        {
-          std::vector<std::string> keep;
-          for (auto &k : r.keys)
-            if (tier == 0 ? ent_visible (st, r.type, k.c_str ())
-                          : ent_seen (st, r.type, k.c_str ()))
-              keep.push_back (k);
-          if (keep.empty ())
-            r.keys = r.orig;
-          else
-            { r.keys = keep; more = keep.size () > 1; }
-        }
-
-      bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
-    }
-
-  /* Is the unmatched reference genuinely *required* by this task -- i.e. is its
-     `Must Exist` restriction actually evaluated within the BracketSequence?  If so
-     the no-reference fallback wins outright (the runner surfaces the task's Must-Exist
-     message, e.g. `blow dart at <absent>` -> "Sorry, I'm not sure which object you
-     are trying to blow.", `hang amulet on <absent>` -> "...trying to hang...").  If
-     the Must Exist is truncated out of the bracket, the reference is optional and
-     does NOT block the task, so a *sibling* reference's out-of-scope ambiguity
-     surfaces instead (`pour oil on me`, whose pour task's `#A#A#` omits object2's
-     Exist -> "You can't see any oil!"). */
-  int noref_required = 0;
-  if (have_noref)
-    {
-      std::string num;
-      ref_base (noref_r.name, &num);          /* the "...N" index, if any */
-      std::string alias = std::string ("Referenced")
-        + (noref_r.type == 'c' ? "Character" : "Object") + num;
-      noref_required =
-        a5restr_exist_evaluated (t->restrictions, alias.c_str ());
-    }
-  if (noref_required)
+  if (noref_is_required ())
     {
       /* The task has an unmatched but *required* reference, so in the Adrift 5 runner
          it never matches in the first pass; it is found only in the
@@ -1470,4 +1524,12 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
 
   /* Unique references: confirm the whole restriction set passes. */
   return a5restr_pass (st, t->restrictions) ? RR_OK : RR_FAIL;
+}
+
+int
+resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
+                const char *force_name, const char *force_key, amb_info *amb)
+{
+  refine_t refine (run, t, m, force_name, force_key, amb);
+  return refine.resolve ();
 }

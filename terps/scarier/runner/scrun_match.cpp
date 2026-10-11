@@ -1049,6 +1049,471 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
 
 
 /*
+ * One task command being tried against the input line: the command, what
+ * run_task_command_patterns() cached about it, and the answer so far.
+ * run_match_task_commands() runs the stages below in order.
+ *
+ * `lenient` is a deliberate deviation: on a line no task matches the
+ * Runner's way, a command is matched leniently -- the tolerant tree, none of
+ * the Runner's substitute-and-compare below; see
+ * run_line_matches_task_strictly().  A %character% command stays strict:
+ * thenightmoon's `attack giant rat with longsword` would otherwise run task
+ * 5's warning for striking a friend, which no Runner ever shows, and lose
+ * the game.
+ */
+struct run_command_match_t
+{
+  scr_gameref_t game;
+  scr_int task;
+  const scr_char *string;
+  scr_int version;
+  const scr_char *pattern;
+  scr_pattern_facts_t &facts;
+  scr_int first;
+  scr_bool lenient;
+
+  /* The answer, and the line that gave it: string or run_dispatch_input. */
+  scr_bool is_matched;
+  const scr_char *matched_input;
+
+  /* Set by classify_references(). */
+  scr_bool wild, group;
+  scr_int refs;
+  scr_bool numeric, variable, literal_ref;
+
+  run_command_match_t (scr_gameref_t game_, scr_int task_,
+                       const scr_char *string_, scr_int version_,
+                       const scr_char *pattern_, scr_pattern_facts_t &facts_)
+    : game (game_), task (task_), string (string_), version (version_),
+      pattern (pattern_), facts (facts_), first (facts_.first),
+      lenient (run_lenient_tasks && !facts_.has_character),
+      is_matched (FALSE), matched_input (string_),
+      wild (FALSE), group (FALSE), refs (0),
+      numeric (FALSE), variable (FALSE), literal_ref (FALSE) {}
+
+  void tree_match (scr_bool is_library);
+  void classify_references (void);
+  void recheck_400 (void);
+  void recheck_pre400 (void);
+  void bind_unmatched_object_390 (void);
+#ifdef SCARIER_DUMP_TOOLS
+  void trace (void) const;
+#endif
+};
+
+/* The tolerant tree matcher's answer, which the later stages overrule. */
+void
+run_command_match_t::tree_match (scr_bool is_library)
+{
+  /*
+   * Make a special case of library calls and commands that begin with a
+   * wildcard.  Probed live in run400 (2026-08-22, probes pPREC and
+   * pPREC2): a wildcard-leading pattern
+   * with failing messaged restrictions blocks the system take only when
+   * the pattern explicitly names a verb -- either the library's
+   * canonical verb ("* get * tent *" blocks both "get tent" and "take
+   * tent") or the verb the player actually typed ("* take * tent *"
+   * blocks "take tent" but NOT "get tent").  A verb-less "* ball *"
+   * pattern never blocks: the system take wins even though the same
+   * pattern with passing restrictions would run as a game command.
+   * Failing restrictions with an empty message fall through to the
+   * system command silently in every case (that drops out of the
+   * loudly-restricted machinery here without special handling).
+   *
+   * The library constructs its match string with the canonical verb
+   * ("get <object>"), so a pattern naming only the typed verb cannot
+   * match it; for those, retry the match against the player's actual
+   * input, stashed by run_all_commands().
+   */
+  if (lenient && version >= TAF_VERSION_390)
+    uip_set_strict_reference (FALSE, FALSE);
+
+  if (pattern[first] != SPECIAL_PATTERN && !facts.compiled)
+    facts.compiled = uip_compile_pattern (pattern);
+  if (pattern[first] == SPECIAL_PATTERN)
+    ;
+  else if (is_library && pattern[first] == WILDCARD_PATTERN)
+    {
+      if (run_pattern_names_verb (pattern, string))
+        is_matched = uip_match_pattern (facts.compiled, string, game);
+      if (!is_matched && run_dispatch_input != nullptr
+          && run_pattern_names_verb (pattern, run_dispatch_input))
+        {
+          is_matched = uip_match_pattern (facts.compiled,
+                                          run_dispatch_input, game);
+          matched_input = run_dispatch_input;
+        }
+    }
+  else
+    is_matched = uip_match_pattern (facts.compiled, string, game);
+
+  if (lenient && version >= TAF_VERSION_390)
+    uip_set_strict_reference (TRUE, version >= TAF_VERSION_400);
+}
+
+void
+run_command_match_t::classify_references (void)
+{
+  wild = facts.wild;
+  group = facts.group;
+
+  /*
+   * Which %reference% markers the command carries decides who answers
+   * it.  %number%, %t_number% and a marker naming one of the game's own
+   * variables are a SUBSTITUTION in every Runner that knows them, never
+   * a positional wildcard, so the tree's answer is beside the point:
+   * see run_substitute_number_references() and
+   * run_substitute_variable_references().  Below 3.90 numbers are not
+   * markers at all, nor is %text% below 4.00, and a command carrying
+   * one has to be typed with the percent signs in it; below 3.90 the
+   * file has no Variables section either, so nothing there can name a
+   * variable and the question does not arise.
+   */
+  refs = facts.refs >= 0
+         ? facts.refs
+         : run_pattern_references (game, pattern);
+  numeric = (refs & RUN_REF_NUMBER) && version >= TAF_VERSION_390;
+  variable = (refs & RUN_REF_VARIABLE) != 0;
+  literal_ref = ((refs & RUN_REF_NUMBER) && version < TAF_VERSION_390)
+                || ((refs & RUN_REF_TEXT) && version < TAF_VERSION_400);
+}
+
+void
+run_command_match_t::recheck_400 (void)
+{
+  /*
+   * 4.0's command loop (45D9FC-45DBA4) tests a command three ways, in
+   * this order, stopping at the first that takes:
+   *
+   *   1. `LCase(line) = LCase(cmd)` (45DA51) -- plain equality;
+   *   2. `If InStr(cmd, "*") > 0` (45DA8C), Proc_19_50_457D68 -- the
+   *      non-backtracking wildcard matcher, uip_wildcard_match_400();
+   *   3. `If ([ And ]) Or ({ And })` (45DADB-45DB42), Proc_9_4_45D940 --
+   *      NewParse, the group expander, which is the tree here.
+   *
+   * So a '*' command is answered by the wildcard matcher, which refuses
+   * some lines the tree takes (The Town of Azra `buy rawhide armor`
+   * against "buy *** *rawhide armor*"), and a GROUP is expanded LAST --
+   * after the whole command has been tried as a literal, brackets and
+   * all, and after a '*' in it has been matched literally too.
+   *
+   * Measured on p4GROUP (make_groupprobe.py,
+   * runner_probes/group.run400.txt and runner_probes/group.run400.b.txt,
+   * 2026-09-20).  Task 1 is "zog [rock/gem]": run400 takes
+   * `zog rock` and `zog gem` by step 3 AND `zog [rock/gem]` by step 1,
+   * while `zog [gem/rock]`, `zog [rock/gem ]` and `zog rock/gem` are
+   * refused -- equality on the raw pattern, no normalising beyond the
+   * case fold and the input's own space collapse (`zog  [rock/gem]`
+   * takes).  Task 3 is "* blip [red/blue] *": `xxx blip [red/blue] yyy`
+   * runs it by step 2 and `xxx blip red yyy` matches nothing, so step 3
+   * never expands a group in a '*' command.  run390 answers the same
+   * feed identically (runner_probes/group.run390.b.txt) -- its checktask
+   * has the same equality-then-checkwild shape with step 3 missing.
+   *
+   * Only steps 1 and 2 are done here; step 3 is the tree, which has
+   * already run.  A command with a %reference% belongs to 458E6C /
+   * 46918C, which substitute and then repeat these same three tests.
+   *
+   * One cell is knowingly left: the Runner collapses a KEYBOARD line's
+   * spaces before all three tests, so `zog  [rock/gem]` runs task 1
+   * there and not here.  It does not collapse a line it builds itself,
+   * which is what run_rerun_skips_tasks above is for, and separating
+   * the two would buy one cell that needs a typed line carrying both a
+   * double space and a bracket.
+   */
+  if (version >= TAF_VERSION_400 && !lenient
+      && (refs & ~(RUN_REF_NUMBER | RUN_REF_VARIABLE)) == 0)
+    {
+      if (numeric || variable)
+        {
+          /*
+           * A 4.0 command whose only markers are numbers is substituted
+           * first (Proc_19_36_45F268) and then put through the same
+           * three tests, on the spelled-out command.  Step 3 is
+           * uip_match(), here only as the group expander, and it is
+           * reached only when step 2's `If InStr(cmd, "*") > 0` was
+           * false, so a group inside a '*' command is still never
+           * expanded.  humbug's task 123 is why step 3 has to stay:
+           * "[push/press] {button} [%number%/%t_number%]" is a group
+           * whose alternatives ARE the two markers, and `push button 2`
+           * reaches NewParse spelled "[push/press] {button}
+           * [2/%t_number%]".
+           *
+           * A marker the line did not name is left standing and the
+           * tree can be trusted with it: "%t_number%" is a plain word to
+           * the tokenizer, and a leftover "%number%" means the line
+           * holds no digit at all -- numintext takes the leftmost one,
+           * so there is no third case -- and uip_match_number() then
+           * refuses wherever the pattern puts it.
+           */
+          std::string lowered (matched_input), literal;
+
+          for (char &c : lowered)
+            c = scr_tolower (c);
+          literal = pattern;
+          if (numeric)
+            run_substitute_number_references (game, lowered, literal);
+          run_substitute_variable_references (game, literal);
+
+          is_matched =
+              scr_strcasecmp (literal.c_str (), matched_input) == 0
+              || (wild
+                  ? uip_wildcard_match_400 (literal.c_str (),
+                                            matched_input)
+                  : (group && uip_match (literal.c_str (),
+                                         matched_input, game)));
+        }
+      else if (is_matched && wild)
+        is_matched = uip_wildcard_match_400 (pattern, matched_input);
+      else if (!is_matched && group)
+        is_matched = scr_strcasecmp (pattern, matched_input) == 0
+                     || (wild && uip_wildcard_match_400 (pattern,
+                                                         matched_input));
+    }
+}
+
+void
+run_command_match_t::recheck_pre400 (void)
+{
+  /*
+   * 3.7-3.9 send a command with a '*' to checkwild instead, which
+   * compares the pieces literally; see uip_wildcard_match_pre400().
+   * checkwild is the whole test there and not a veto on the tree:
+   * run390's checktask compares a command with no '*' for equality
+   * (44B0E2) and, when InStr(cmd, "*") > 0 (44B10D), takes checkwild's
+   * answer as the match flag, with nothing else consulted.  So a line
+   * the tree refuses runs the task all the same, and the two ways that
+   * happens are both measured on p*WILDORD (make_wildorderprobe.py,
+   * runner_probes/wildord.run370.rtf, runner_probes/wildord.run380.rtf,
+   * runner_probes/wildord.run390.txt, 2026-09-20):
+   *
+   * - Each middle piece is looked for with InStr over the WHOLE line
+   *   and the line is never cut, so ORDER IS FREE.  Task "* king *
+   *   rose *" runs on `blip rose blip king blip` in all three
+   *   pre-4.0 Runners; 4.0's own matcher cuts, so it refuses there
+   *   (runner_probes/wildord.run400.txt) and the tree's answer is
+   *   right.
+   * - Nothing being consumed, one occurrence satisfies a piece twice:
+   *   "* zog * zog *" runs on `a zog b`, again pre-4.0 only.
+   *
+   * Two of checkwild's refusals matter the other way round:
+   *
+   * - The text after the last '*' must equal the end of the line, so a
+   *   command ending in a stray space matches nothing.  Alchemist (3.90)
+   *   task 114's only command taking `give rose to king` is "* rose *
+   *   king ", and run390 answers the line with the library's "Rudolph
+   *   II. doesn't seem interested in the rose." (runner_transcripts/
+   *   alchemist.txt T300).
+   * - run380/run370 never pad the line, so "throw %object% *" needs
+   *   something after the object.  Marooned (3.80) T53 `throw map` at the
+   *   lagoon: run380 skips task 15 ("You toss it into the water and the
+   *   shark darts for it") for task 45's "throw %object%" ("You throw it
+   *   and it lands in the ocean", runner_transcripts/marooned.rtf).
+   *
+   * Before either test, checktask puts in place of the command's
+   * %object% and %character% the name the line names -- see
+   * run_pre400_substitute_references(), which is the whole reason a
+   * reference-bearing command reaches checkwild at all.  A task command
+   * whose reference the line does not name keeps the literal
+   * "%object%" and so matches nothing: p39WILDREF answers `blip zog
+   * blip` against "* zog * %object% *" with "I don't understand."
+   */
+  /*
+   * The same substitution decides a pre-3.9 command with no '*' at all,
+   * and there the comparison is plain equality: checktask rewrites its
+   * copy of the command and tests it against the whole line.  So the
+   * Short has to be typed bare.  p37CHREF and p38CHREF answer `nurb
+   * rock` with task 2's "NURBED a big rock." and `nurb a big rock` and
+   * `nurb big rock` -- the rock's Prefix is "a big" -- with the object
+   * catch-all, "I don't understand what you want me to do with the big
+   * rock." (runner_probes/chref.run370.b.rtf,
+   * runner_probes/chref.run380.b.rtf, 2026-09-20).
+   * That is 3.9's and 4.0's answer too, where the strict comparator in
+   * uip_compare_candidate() already refuses the prefixed forms; the
+   * tolerant tree matcher took all three here because nothing below 3.90
+   * had ever turned the substitution on outside checkwild.
+   */
+  /*
+   * A GROUP is 4.0 syntax, and below 4.0 it is not syntax at all: it is
+   * punctuation the command has to be typed with.  checktask holds no
+   * '[', ']', '{' or '}' literal anywhere -- not in run390 (body
+   * 44AA5A-44B6E6), not in run380 (43B6A3-43C51D), not in run370
+   * (433227-433E4A) -- so after the substitution there is nothing but
+   * the equality at 44B0E2 and, for a '*' command, checkwild at 44B139
+   * to route a group to.  Measured on p*GROUP (make_groupprobe.py,
+   * runner_probes/group.run370.scrollback.txt,
+   * runner_probes/group.run380.scrollback.txt,
+   * runner_probes/group.run390.txt, 2026-09-20): all three Runners answer
+   * `zog rock` and `zog gem` against task 1's "zog [rock/gem]" with the
+   * object catch-all and run the task on `zog [rock/gem]`; `nurb rock` and
+   * `nurb the rock` miss "nurb {the} rock" and `nurb {the} rock` takes it;
+   * `frob` and `frob up` miss "frob {up}" and `frob {up}` takes it.  So a
+   * group command joins the pre-4.0 arm rather than skipping it, and it
+   * joins even with no '*' in it, where the test is plain equality.
+   *
+   * Zero corpus exposure, measured 2026-09-20 over every .taf in
+   * games/ and downloaded/ (SCR_DUMP_TASKS, 405 games that load; the 14
+   * pre-4.0 stragglers whose dump never fires scanned raw with
+   * taf_pattern_scan.plaintext()): 6685 task commands carry a group and
+   * every one of them is in a 4.00 file.  Below 4.00 the bracketed
+   * lines are all ALR keys and display text ("[month=1]", "[talk=3]").
+   */
+  if (version < TAF_VERSION_400 && !lenient
+      && (wild
+          || group
+          || numeric
+          || variable
+          || literal_ref
+          || (is_matched && facts.has_object)
+          /*
+           * A 3.9 %character% command is decided the same way, not by
+           * the tree's position: checktask's NPC walk (44AD48-44ADC2)
+           * stores every NPC whose Name the line contains in
+           * MemVar_4681AA but Replace()s only on the first, so the
+           * LOWEST-indexed Name in the line spells the command.
+           * thenightmoon T50 `attack skeleton guard with longsword`
+           * contains NPC 0's Name "Guard" as well as NPC 11's "Skeleton
+           * guard"; the command becomes "attack Guard with longsword",
+           * equals nothing, and task 5 ("As you strike %character%,
+           * they realise you are not as friendly...") never runs --
+           * run390 hands the line to dobattle, "You hit the skeleton
+           * with your longsword." (runner_transcripts/thenightmoon.txt).
+           */
+          || (is_matched && version >= TAF_VERSION_390
+              && facts.has_character)))
+    {
+      std::string literal;
+      scr_int ref_object, ref_character;
+      const scr_bool checkable =
+          run_pre400_substitute_references (game, matched_input, pattern,
+                                            literal, &ref_object,
+                                            &ref_character);
+
+      if (checkable && wild)
+        is_matched = uip_wildcard_match_pre400
+            (literal.c_str (), matched_input,
+             version >= TAF_VERSION_390);
+      else if (checkable)
+        is_matched = scr_strcasecmp (literal.c_str (), matched_input) == 0;
+
+      /*
+       * The reference the task's text expands is the walk's, not the
+       * tree's: the walk reads the line, the tree reads the pattern's
+       * position, and where they disagree the Runner prints the walk's.
+       */
+      if (is_matched && checkable)
+        {
+          const scr_var_setref_t vars = gs_get_vars (game);
+
+          if (ref_object >= 0)
+            {
+              gs_clear_object_references (game);
+              game->object_references[ref_object] = TRUE;
+              var_set_ref_object (vars, ref_object);
+            }
+          if (ref_character >= 0)
+            {
+              gs_clear_npc_references (game);
+              game->npc_references[ref_character] = TRUE;
+              var_set_ref_character (vars, ref_character);
+            }
+        }
+
+      /* Deliberate deviation: 3.7 keeps the substitution it just made,
+         for good, when the command matched on it -- see the note above
+         run_forget_game() -- and Scarier does not. */
+    }
+}
+
+void
+run_command_match_t::bind_unmatched_object_390 (void)
+{
+  /*
+   * run390's %object% walk stores every hit in the per-turn referenced
+   * object MemVar_4681A8 (44AB0D, 44AB90) before checkwild or the
+   * equality test is reached, so a %object% command that then fails to
+   * match still leaves its object referenced for the rest of the turn.
+   * thenightmoon's task 17 is literal `behead dark elf`, but its
+   * restriction "the referenced object must be held" answers "You do not
+   * have dead dark elf." there (run390x
+   * runner_probes/thenightmoon.run390.probe2.txt), the body having been
+   * bound by a %object% command checked earlier.
+   */
+  if (!is_matched && version == TAF_VERSION_390 && !lenient
+      && facts.has_object)
+    {
+      std::string literal;
+      scr_int ref_object, ref_character;
+
+      if (run_pre400_substitute_references (game, matched_input, pattern,
+                                            literal, &ref_object,
+                                            &ref_character)
+          && ref_object >= 0)
+        var_set_ref_object (gs_get_vars (game), ref_object);
+    }
+}
+
+#ifdef SCARIER_DUMP_TOOLS
+void
+run_command_match_t::trace (void) const
+{
+  {
+    static const scr_bool trace_match =
+        getenv ("SCR_TRACE_MATCH") != nullptr;
+    if (trace_match)
+      fprintf (stderr, "MATCH task=%ld pattern=[%s] input=[%s]\n",
+               task, pattern, string);
+  }
+  {
+    /* SCR_TRACE_SCOPE: flag a turn where scope decides which
+     * object a %object% task command binds.  What the audit was
+     * written for is now measured and ported -- 4.0 makes two
+     * passes, present-and-seen then absent-but-seen, and takes the
+     * FIRST in index order of whichever pass bound (p4OBJREF,
+     * runner_probes/objref.run400.txt; uip_match_entity()) -- so this
+     * is no longer a divergence report but a way of finding the corpus
+     * turns that exercise the rule, and of watching the older Runners,
+     * which have no scope test at all and let the LAST seen namesake
+     * win wherever it stands.  SCOPE-MISS = nothing that matched is
+     * present, so 4.0 bound on its second pass; SCOPE-BIND = the bound
+     * object is absent while a present one also matched, which below
+     * 4.0 is the Runner's answer and at 4.0 should no longer
+     * happen. */
+    static const scr_bool trace_scope =
+        getenv ("SCR_TRACE_SCOPE") != nullptr;
+    if (trace_scope && strstr (pattern, "%object%") != nullptr)
+      {
+        const scr_var_setref_t vars = gs_get_vars (game);
+        scr_int object, present, matched, room, bound_present;
+
+        room = gs_playerroom (game);
+        present = matched = 0;
+        bound_present = FALSE;
+        GS_FOR_EACH_OBJECT (game, object)
+          {
+            if (!game->object_references[object])
+              continue;
+            matched++;
+            if (obj_indirectly_in_room (game, object, room))
+              {
+                present++;
+                if (object == var_get_ref_object (vars))
+                  bound_present = TRUE;
+              }
+          }
+        if (matched > 0 && present == 0)
+          fprintf (stderr, "SCOPE-MISS task=%ld pattern=[%s]"
+                   " input=[%s]\n", task, pattern, string);
+        else if (present > 0 && !bound_present)
+          fprintf (stderr, "SCOPE-BIND task=%ld pattern=[%s]"
+                   " input=[%s]\n", task, pattern, string);
+      }
+  }
+}
+#endif
+
+
+/*
  * run_match_task_commands()
  *
  * Helper for run_game_commands_common().
@@ -1115,417 +1580,25 @@ run_match_task_commands (scr_gameref_t game,
   is_matched = FALSE;
   for (command = 0; command < command_count; command++)
     {
-      const scr_char *pattern;
-      scr_pattern_facts_t &facts = all_facts[command];
-      scr_int first;
+      run_command_match_t match (game, task, string, version,
+                                 patterns[command], all_facts[command]);
 
-      /* Retrieve the pattern for this command, find its first character. */
-      pattern = patterns[command];
-      first = facts.first;
-      if (run_named_verb_only && pattern[first] == WILDCARD_PATTERN)
+      if (run_named_verb_only && match.pattern[match.first] == WILDCARD_PATTERN)
         continue;
 
-      /*
-       * Make a special case of library calls and commands that begin with a
-       * wildcard.  Probed live in run400 (2026-08-22, probes pPREC and
-       * pPREC2): a wildcard-leading pattern
-       * with failing messaged restrictions blocks the system take only when
-       * the pattern explicitly names a verb -- either the library's
-       * canonical verb ("* get * tent *" blocks both "get tent" and "take
-       * tent") or the verb the player actually typed ("* take * tent *"
-       * blocks "take tent" but NOT "get tent").  A verb-less "* ball *"
-       * pattern never blocks: the system take wins even though the same
-       * pattern with passing restrictions would run as a game command.
-       * Failing restrictions with an empty message fall through to the
-       * system command silently in every case (that drops out of the
-       * loudly-restricted machinery here without special handling).
-       *
-       * The library constructs its match string with the canonical verb
-       * ("get <object>"), so a pattern naming only the typed verb cannot
-       * match it; for those, retry the match against the player's actual
-       * input, stashed by run_all_commands().
-       */
-      /*
-       * Deliberate deviation: on a line no task matches the Runner's way,
-       * a command is matched leniently -- the tolerant tree, none of the
-       * Runner's substitute-and-compare below; see
-       * run_line_matches_task_strictly().  A %character% command stays
-       * strict: thenightmoon's `attack giant rat with longsword` would
-       * otherwise run task 5's warning for striking a friend, which no
-       * Runner ever shows, and lose the game.
-       */
-      const scr_bool lenient = run_lenient_tasks && !facts.has_character;
-      if (lenient && version >= TAF_VERSION_390)
-        uip_set_strict_reference (FALSE, FALSE);
-
-      const scr_char *matched_input = string;
-      if (pattern[first] != SPECIAL_PATTERN && !facts.compiled)
-        facts.compiled = uip_compile_pattern (pattern);
-      if (pattern[first] == SPECIAL_PATTERN)
-        ;
-      else if (is_library && pattern[first] == WILDCARD_PATTERN)
-        {
-          if (run_pattern_names_verb (pattern, string))
-            is_matched = uip_match_pattern (facts.compiled, string, game);
-          if (!is_matched && run_dispatch_input != nullptr
-              && run_pattern_names_verb (pattern, run_dispatch_input))
-            {
-              is_matched = uip_match_pattern (facts.compiled,
-                                              run_dispatch_input, game);
-              matched_input = run_dispatch_input;
-            }
-        }
-      else
-        is_matched = uip_match_pattern (facts.compiled, string, game);
-
-      if (lenient && version >= TAF_VERSION_390)
-        uip_set_strict_reference (TRUE, version >= TAF_VERSION_400);
-
-      const scr_bool wild = facts.wild;
-      const scr_bool group = facts.group;
-
-      /*
-       * Which %reference% markers the command carries decides who answers
-       * it.  %number%, %t_number% and a marker naming one of the game's own
-       * variables are a SUBSTITUTION in every Runner that knows them, never
-       * a positional wildcard, so the tree's answer is beside the point:
-       * see run_substitute_number_references() and
-       * run_substitute_variable_references().  Below 3.90 numbers are not
-       * markers at all, nor is %text% below 4.00, and a command carrying
-       * one has to be typed with the percent signs in it; below 3.90 the
-       * file has no Variables section either, so nothing there can name a
-       * variable and the question does not arise.
-       */
-      const scr_int refs = facts.refs >= 0
-                           ? facts.refs
-                           : run_pattern_references (game, pattern);
-      const scr_bool numeric = (refs & RUN_REF_NUMBER)
-                               && version >= TAF_VERSION_390;
-      const scr_bool variable = (refs & RUN_REF_VARIABLE) != 0;
-      const scr_bool literal_ref =
-          ((refs & RUN_REF_NUMBER) && version < TAF_VERSION_390)
-          || ((refs & RUN_REF_TEXT) && version < TAF_VERSION_400);
-
-      /*
-       * 4.0's command loop (45D9FC-45DBA4) tests a command three ways, in
-       * this order, stopping at the first that takes:
-       *
-       *   1. `LCase(line) = LCase(cmd)` (45DA51) -- plain equality;
-       *   2. `If InStr(cmd, "*") > 0` (45DA8C), Proc_19_50_457D68 -- the
-       *      non-backtracking wildcard matcher, uip_wildcard_match_400();
-       *   3. `If ([ And ]) Or ({ And })` (45DADB-45DB42), Proc_9_4_45D940 --
-       *      NewParse, the group expander, which is the tree here.
-       *
-       * So a '*' command is answered by the wildcard matcher, which refuses
-       * some lines the tree takes (The Town of Azra `buy rawhide armor`
-       * against "buy *** *rawhide armor*"), and a GROUP is expanded LAST --
-       * after the whole command has been tried as a literal, brackets and
-       * all, and after a '*' in it has been matched literally too.
-       *
-       * Measured on p4GROUP (make_groupprobe.py,
-       * runner_probes/group.run400.txt and runner_probes/group.run400.b.txt,
-       * 2026-09-20).  Task 1 is "zog [rock/gem]": run400 takes
-       * `zog rock` and `zog gem` by step 3 AND `zog [rock/gem]` by step 1,
-       * while `zog [gem/rock]`, `zog [rock/gem ]` and `zog rock/gem` are
-       * refused -- equality on the raw pattern, no normalising beyond the
-       * case fold and the input's own space collapse (`zog  [rock/gem]`
-       * takes).  Task 3 is "* blip [red/blue] *": `xxx blip [red/blue] yyy`
-       * runs it by step 2 and `xxx blip red yyy` matches nothing, so step 3
-       * never expands a group in a '*' command.  run390 answers the same
-       * feed identically (runner_probes/group.run390.b.txt) -- its checktask
-       * has the same equality-then-checkwild shape with step 3 missing.
-       *
-       * Only steps 1 and 2 are done here; step 3 is the tree, which has
-       * already run.  A command with a %reference% belongs to 458E6C /
-       * 46918C, which substitute and then repeat these same three tests.
-       *
-       * One cell is knowingly left: the Runner collapses a KEYBOARD line's
-       * spaces before all three tests, so `zog  [rock/gem]` runs task 1
-       * there and not here.  It does not collapse a line it builds itself,
-       * which is what run_rerun_skips_tasks above is for, and separating
-       * the two would buy one cell that needs a typed line carrying both a
-       * double space and a bracket.
-       */
-      if (version >= TAF_VERSION_400 && !lenient
-          && (refs & ~(RUN_REF_NUMBER | RUN_REF_VARIABLE)) == 0)
-        {
-          if (numeric || variable)
-            {
-              /*
-               * A 4.0 command whose only markers are numbers is substituted
-               * first (Proc_19_36_45F268) and then put through the same
-               * three tests, on the spelled-out command.  Step 3 is
-               * uip_match(), here only as the group expander, and it is
-               * reached only when step 2's `If InStr(cmd, "*") > 0` was
-               * false, so a group inside a '*' command is still never
-               * expanded.  humbug's task 123 is why step 3 has to stay:
-               * "[push/press] {button} [%number%/%t_number%]" is a group
-               * whose alternatives ARE the two markers, and `push button 2`
-               * reaches NewParse spelled "[push/press] {button}
-               * [2/%t_number%]".
-               *
-               * A marker the line did not name is left standing and the
-               * tree can be trusted with it: "%t_number%" is a plain word to
-               * the tokenizer, and a leftover "%number%" means the line
-               * holds no digit at all -- numintext takes the leftmost one,
-               * so there is no third case -- and uip_match_number() then
-               * refuses wherever the pattern puts it.
-               */
-              std::string lowered (matched_input), literal;
-
-              for (char &c : lowered)
-                c = scr_tolower (c);
-              literal = pattern;
-              if (numeric)
-                run_substitute_number_references (game, lowered, literal);
-              run_substitute_variable_references (game, literal);
-
-              is_matched =
-                  scr_strcasecmp (literal.c_str (), matched_input) == 0
-                  || (wild
-                      ? uip_wildcard_match_400 (literal.c_str (),
-                                                matched_input)
-                      : (group && uip_match (literal.c_str (),
-                                             matched_input, game)));
-            }
-          else if (is_matched && wild)
-            is_matched = uip_wildcard_match_400 (pattern, matched_input);
-          else if (!is_matched && group)
-            is_matched = scr_strcasecmp (pattern, matched_input) == 0
-                         || (wild && uip_wildcard_match_400 (pattern,
-                                                             matched_input));
-        }
-
-      /*
-       * 3.7-3.9 send a command with a '*' to checkwild instead, which
-       * compares the pieces literally; see uip_wildcard_match_pre400().
-       * checkwild is the whole test there and not a veto on the tree:
-       * run390's checktask compares a command with no '*' for equality
-       * (44B0E2) and, when InStr(cmd, "*") > 0 (44B10D), takes checkwild's
-       * answer as the match flag, with nothing else consulted.  So a line
-       * the tree refuses runs the task all the same, and the two ways that
-       * happens are both measured on p*WILDORD (make_wildorderprobe.py,
-       * runner_probes/wildord.run370.rtf, runner_probes/wildord.run380.rtf,
-       * runner_probes/wildord.run390.txt, 2026-09-20):
-       *
-       * - Each middle piece is looked for with InStr over the WHOLE line
-       *   and the line is never cut, so ORDER IS FREE.  Task "* king *
-       *   rose *" runs on `blip rose blip king blip` in all three
-       *   pre-4.0 Runners; 4.0's own matcher cuts, so it refuses there
-       *   (runner_probes/wildord.run400.txt) and the tree's answer is
-       *   right.
-       * - Nothing being consumed, one occurrence satisfies a piece twice:
-       *   "* zog * zog *" runs on `a zog b`, again pre-4.0 only.
-       *
-       * Two of checkwild's refusals matter the other way round:
-       *
-       * - The text after the last '*' must equal the end of the line, so a
-       *   command ending in a stray space matches nothing.  Alchemist (3.90)
-       *   task 114's only command taking `give rose to king` is "* rose *
-       *   king ", and run390 answers the line with the library's "Rudolph
-       *   II. doesn't seem interested in the rose." (runner_transcripts/
-       *   alchemist.txt T300).
-       * - run380/run370 never pad the line, so "throw %object% *" needs
-       *   something after the object.  Marooned (3.80) T53 `throw map` at the
-       *   lagoon: run380 skips task 15 ("You toss it into the water and the
-       *   shark darts for it") for task 45's "throw %object%" ("You throw it
-       *   and it lands in the ocean", runner_transcripts/marooned.rtf).
-       *
-       * Before either test, checktask puts in place of the command's
-       * %object% and %character% the name the line names -- see
-       * run_pre400_substitute_references(), which is the whole reason a
-       * reference-bearing command reaches checkwild at all.  A task command
-       * whose reference the line does not name keeps the literal
-       * "%object%" and so matches nothing: p39WILDREF answers `blip zog
-       * blip` against "* zog * %object% *" with "I don't understand."
-       */
-      /*
-       * The same substitution decides a pre-3.9 command with no '*' at all,
-       * and there the comparison is plain equality: checktask rewrites its
-       * copy of the command and tests it against the whole line.  So the
-       * Short has to be typed bare.  p37CHREF and p38CHREF answer `nurb
-       * rock` with task 2's "NURBED a big rock." and `nurb a big rock` and
-       * `nurb big rock` -- the rock's Prefix is "a big" -- with the object
-       * catch-all, "I don't understand what you want me to do with the big
-       * rock." (runner_probes/chref.run370.b.rtf,
-       * runner_probes/chref.run380.b.rtf, 2026-09-20).
-       * That is 3.9's and 4.0's answer too, where the strict comparator in
-       * uip_compare_candidate() already refuses the prefixed forms; the
-       * tolerant tree matcher took all three here because nothing below 3.90
-       * had ever turned the substitution on outside checkwild.
-       */
-      /*
-       * A GROUP is 4.0 syntax, and below 4.0 it is not syntax at all: it is
-       * punctuation the command has to be typed with.  checktask holds no
-       * '[', ']', '{' or '}' literal anywhere -- not in run390 (body
-       * 44AA5A-44B6E6), not in run380 (43B6A3-43C51D), not in run370
-       * (433227-433E4A) -- so after the substitution there is nothing but
-       * the equality at 44B0E2 and, for a '*' command, checkwild at 44B139
-       * to route a group to.  Measured on p*GROUP (make_groupprobe.py,
-       * runner_probes/group.run370.scrollback.txt,
-       * runner_probes/group.run380.scrollback.txt,
-       * runner_probes/group.run390.txt, 2026-09-20): all three Runners answer
-       * `zog rock` and `zog gem` against task 1's "zog [rock/gem]" with the
-       * object catch-all and run the task on `zog [rock/gem]`; `nurb rock` and
-       * `nurb the rock` miss "nurb {the} rock" and `nurb {the} rock` takes it;
-       * `frob` and `frob up` miss "frob {up}" and `frob {up}` takes it.  So a
-       * group command joins the pre-4.0 arm rather than skipping it, and it
-       * joins even with no '*' in it, where the test is plain equality.
-       *
-       * Zero corpus exposure, measured 2026-09-20 over every .taf in
-       * games/ and downloaded/ (SCR_DUMP_TASKS, 405 games that load; the 14
-       * pre-4.0 stragglers whose dump never fires scanned raw with
-       * taf_pattern_scan.plaintext()): 6685 task commands carry a group and
-       * every one of them is in a 4.00 file.  Below 4.00 the bracketed
-       * lines are all ALR keys and display text ("[month=1]", "[talk=3]").
-       */
-      if (version < TAF_VERSION_400 && !lenient
-          && (wild
-              || group
-              || numeric
-              || variable
-              || literal_ref
-              || (is_matched && facts.has_object)
-              /*
-               * A 3.9 %character% command is decided the same way, not by
-               * the tree's position: checktask's NPC walk (44AD48-44ADC2)
-               * stores every NPC whose Name the line contains in
-               * MemVar_4681AA but Replace()s only on the first, so the
-               * LOWEST-indexed Name in the line spells the command.
-               * thenightmoon T50 `attack skeleton guard with longsword`
-               * contains NPC 0's Name "Guard" as well as NPC 11's "Skeleton
-               * guard"; the command becomes "attack Guard with longsword",
-               * equals nothing, and task 5 ("As you strike %character%,
-               * they realise you are not as friendly...") never runs --
-               * run390 hands the line to dobattle, "You hit the skeleton
-               * with your longsword." (runner_transcripts/thenightmoon.txt).
-               */
-              || (is_matched && version >= TAF_VERSION_390
-                  && facts.has_character)))
-        {
-          std::string literal;
-          scr_int ref_object, ref_character;
-          const scr_bool checkable =
-              run_pre400_substitute_references (game, matched_input, pattern,
-                                                literal, &ref_object,
-                                                &ref_character);
-
-          if (checkable && wild)
-            is_matched = uip_wildcard_match_pre400
-                (literal.c_str (), matched_input,
-                 version >= TAF_VERSION_390);
-          else if (checkable)
-            is_matched = scr_strcasecmp (literal.c_str (), matched_input) == 0;
-
-          /*
-           * The reference the task's text expands is the walk's, not the
-           * tree's: the walk reads the line, the tree reads the pattern's
-           * position, and where they disagree the Runner prints the walk's.
-           */
-          if (is_matched && checkable)
-            {
-              const scr_var_setref_t vars = gs_get_vars (game);
-
-              if (ref_object >= 0)
-                {
-                  gs_clear_object_references (game);
-                  game->object_references[ref_object] = TRUE;
-                  var_set_ref_object (vars, ref_object);
-                }
-              if (ref_character >= 0)
-                {
-                  gs_clear_npc_references (game);
-                  game->npc_references[ref_character] = TRUE;
-                  var_set_ref_character (vars, ref_character);
-                }
-            }
-
-          /* Deliberate deviation: 3.7 keeps the substitution it just made,
-             for good, when the command matched on it -- see the note above
-             run_forget_game() -- and Scarier does not. */
-        }
-
-      /*
-       * run390's %object% walk stores every hit in the per-turn referenced
-       * object MemVar_4681A8 (44AB0D, 44AB90) before checkwild or the
-       * equality test is reached, so a %object% command that then fails to
-       * match still leaves its object referenced for the rest of the turn.
-       * thenightmoon's task 17 is literal `behead dark elf`, but its
-       * restriction "the referenced object must be held" answers "You do not
-       * have dead dark elf." there (run390x
-       * runner_probes/thenightmoon.run390.probe2.txt), the body having been
-       * bound by a %object% command checked earlier.
-       */
-      if (!is_matched && version == TAF_VERSION_390 && !lenient
-          && facts.has_object)
-        {
-          std::string literal;
-          scr_int ref_object, ref_character;
-
-          if (run_pre400_substitute_references (game, matched_input, pattern,
-                                                literal, &ref_object,
-                                                &ref_character)
-              && ref_object >= 0)
-            var_set_ref_object (gs_get_vars (game), ref_object);
-        }
+      match.tree_match (is_library);
+      match.classify_references ();
+      match.recheck_400 ();
+      match.recheck_pre400 ();
+      match.bind_unmatched_object_390 ();
 
       /* Stop searching if we find a match. */
-      if (is_matched)
+      if (match.is_matched)
         {
 #ifdef SCARIER_DUMP_TOOLS
-          {
-            static const scr_bool trace_match =
-                getenv ("SCR_TRACE_MATCH") != nullptr;
-            if (trace_match)
-              fprintf (stderr, "MATCH task=%ld pattern=[%s] input=[%s]\n",
-                       task, pattern, string);
-          }
-          {
-            /* SCR_TRACE_SCOPE: flag a turn where scope decides which
-             * object a %object% task command binds.  What the audit was
-             * written for is now measured and ported -- 4.0 makes two
-             * passes, present-and-seen then absent-but-seen, and takes the
-             * FIRST in index order of whichever pass bound (p4OBJREF,
-             * runner_probes/objref.run400.txt; uip_match_entity()) -- so this
-             * is no longer a divergence report but a way of finding the corpus
-             * turns that exercise the rule, and of watching the older Runners,
-             * which have no scope test at all and let the LAST seen namesake
-             * win wherever it stands.  SCOPE-MISS = nothing that matched is
-             * present, so 4.0 bound on its second pass; SCOPE-BIND = the bound
-             * object is absent while a present one also matched, which below
-             * 4.0 is the Runner's answer and at 4.0 should no longer
-             * happen. */
-            static const scr_bool trace_scope =
-                getenv ("SCR_TRACE_SCOPE") != nullptr;
-            if (trace_scope && strstr (pattern, "%object%") != nullptr)
-              {
-                const scr_var_setref_t vars = gs_get_vars (game);
-                scr_int object, present, matched, room, bound_present;
-
-                room = gs_playerroom (game);
-                present = matched = 0;
-                bound_present = FALSE;
-                GS_FOR_EACH_OBJECT (game, object)
-                  {
-                    if (!game->object_references[object])
-                      continue;
-                    matched++;
-                    if (obj_indirectly_in_room (game, object, room))
-                      {
-                        present++;
-                        if (object == var_get_ref_object (vars))
-                          bound_present = TRUE;
-                      }
-                  }
-                if (matched > 0 && present == 0)
-                  fprintf (stderr, "SCOPE-MISS task=%ld pattern=[%s]"
-                           " input=[%s]\n", task, pattern, string);
-                else if (present > 0 && !bound_present)
-                  fprintf (stderr, "SCOPE-BIND task=%ld pattern=[%s]"
-                           " input=[%s]\n", task, pattern, string);
-              }
-          }
+          match.trace ();
 #endif
+          is_matched = TRUE;
           break;
         }
     }

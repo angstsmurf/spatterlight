@@ -296,7 +296,7 @@ var_get_scarier_version (void)
  * Store a variable type in a named variable.  If not present, the variable
  * is created.  Type is one of 'I' or 'S' for integer or string.
  */
-void
+static void
 var_put (scr_var_setref_t vars,
          const scr_char *name, scr_int type, scr_vartype_t vt_value)
 {
@@ -1078,520 +1078,668 @@ var_get_listing (scr_var_setref_t vars, const scr_char *name,
 
 
 /*
+ * var_system_*()
+ *
+ * One function per system variable: construct it, and return its type and
+ * value through var_return_*().  A FALSE return means the name is not a
+ * variable after all.  NAME is the whole name as written, for the variables
+ * matched by prefix, which read an object's name after it.
+ */
+static scr_bool
+var_system_author (scr_var_setref_t vars, const scr_char * /* name */,
+                   scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+  const scr_char *author;
+
+  /* Get and return the global gameauthor string. */
+  author = prop_get_global_string (bundle, "GameAuthor");
+  if (scr_strempty (author))
+    author = "[Author unknown]";
+
+  return var_return_string (author, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_character (scr_var_setref_t vars, const scr_char * /* name */,
+                      scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+
+  /* See if there is a referenced character. */
+  if (vars->referenced_character != -1)
+    {
+      const scr_char *npc_name;
+
+      /* Return the character name string. */
+      npc_name = prop_get_indexed_string (bundle, "NPCs",
+                                          vars->referenced_character,
+                                          "Name");
+      if (scr_strempty (npc_name))
+        npc_name = "[Character unknown]";
+
+      return var_return_string (npc_name, type, vt_rvalue);
+    }
+  else
+    {
+      /*
+       * An unbound reference is printed RAW, in every Runner: the
+       * substitution simply does not happen, so the pattern itself
+       * reaches the player.  p*OBJREF's task 2 `zork` prints "ZORKED
+       * %object% and %character%." -- its command binds neither -- and
+       * all four Runners answer it literally, including the turn right
+       * after `nurb rock` has bound the red rock
+       * (runner_probes/objref.run370.rtf,
+       * runner_probes/objref.run380.rtf,
+       * runner_probes/objref.run390.txt,
+       * runner_probes/objref.run400.txt, 2026-09-20).  We used to
+       * print "[Character unknown]".
+       */
+      return var_return_string ("%character%", type, vt_rvalue);
+    }
+}
+
+static scr_bool
+var_system_pronoun (scr_var_setref_t vars, const scr_char *name, scr_int *type,
+                    scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+
+  /* See if there is a referenced character. */
+  if (vars->referenced_character != -1)
+    {
+      scr_vartype_t vt_key[3];
+      scr_int gender;
+      const scr_char *retval;
+
+      /* Return the appropriate character gender string. */
+      vt_key[0].string = "NPCs";
+      vt_key[1].integer = vars->referenced_character;
+      vt_key[2].string = "Gender";
+      gender = prop_get_integer (bundle, "I<-sis", vt_key);
+      switch (gender)
+        {
+        case NPC_MALE:
+          retval = (strcmp (name, "heshe") == 0) ? "he" : "him";
+          break;
+        case NPC_FEMALE:
+          retval = (strcmp (name, "heshe") == 0) ? "she" : "her";
+          break;
+        case NPC_NEUTER:
+          retval = "it";
+          break;
+
+        default:
+          scr_error ("var_get_system: unknown gender, %ld\n", gender);
+          retval = "[Gender unknown]";
+          break;
+        }
+      return var_return_string (retval, type, vt_rvalue);
+    }
+  else
+    {
+      scr_error ("var_get_system: no referenced character yet\n");
+      return var_return_string ("[Gender unknown]", type, vt_rvalue);
+    }
+}
+
+static scr_bool
+var_system_in (scr_var_setref_t vars, const scr_char *name, scr_int *type,
+               scr_vartype_t *vt_rvalue)
+{
+  return var_get_listing (vars, name, "in_", "[In_ unavailable]",
+                          var_list_in_object, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_maxscore (scr_var_setref_t vars, const scr_char * /* name */,
+                     scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+  scr_int maxscore;
+
+  /* Return the maximum score. */
+  maxscore = prop_get_global_integer (bundle, "MaxScore");
+
+  return var_return_integer (maxscore, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_modified (scr_var_setref_t vars, const scr_char * /* name */,
+                     scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+  scr_vartype_t vt_key;
+  const scr_char *compiledate;
+
+  /* Return the game compilation date. */
+  vt_key.string = "CompileDate";
+  compiledate = prop_get_string (bundle, "S<-s", &vt_key);
+  if (scr_strempty (compiledate))
+    compiledate = "[Modified unknown]";
+
+  return var_return_string (compiledate, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_number (scr_var_setref_t vars, const scr_char * /* name */,
+                   scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  /* Return the referenced number, or 0 if none yet. */
+  return var_return_integer (vars->referenced_number, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_object (scr_var_setref_t vars, const scr_char * /* name */,
+                   scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+
+  /* See if we have a referenced object yet. */
+  if (vars->referenced_object != -1)
+    {
+      /* Return object name with its prefix. */
+      const scr_char *prefix, *objname;
+      size_t size;
+
+      prefix = prop_get_indexed_string (bundle, "Objects",
+                                        vars->referenced_object, "Prefix");
+      objname = prop_get_indexed_string (bundle, "Objects",
+                                         vars->referenced_object, "Short");
+
+      size = strlen (prefix) + strlen (objname) + 2;
+      vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, size);
+      snprintf (vars->temporary, size, "%s %s", prefix, objname);
+
+      return var_return_string (vars->temporary, type, vt_rvalue);
+    }
+  else
+    {
+      /* Raw, like the unbound %character% above: p*OBJREF `zork`. */
+      return var_return_string ("%object%", type, vt_rvalue);
+    }
+}
+
+static scr_bool
+var_system_obstate (scr_var_setref_t vars, const scr_char * /* name */,
+                    scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+  const scr_gameref_t game = vars->game;
+
+  /* Check there's enough information to return a value. */
+  if (!game)
+    {
+      scr_error ("var_get_system: no game for obstate\n");
+      return var_return_string ("[Obstate unavailable]", type, vt_rvalue);
+    }
+  if (vars->referenced_object == -1)
+    {
+      scr_error ("var_get_system: no object for obstate\n");
+      return var_return_string ("[Obstate unavailable]", type, vt_rvalue);
+    }
+
+  /*
+   * If not a stateful object, Runner 4.0.45 crashes; we'll do something
+   * different here.
+   */
+  if (!var_object_is_stateful (bundle, vars->referenced_object))
+    return var_return_string ("stateless", type, vt_rvalue);
+
+  /* Get state, and copy to temporary. */
+  if (!var_set_temp_state (game, vars, vars->referenced_object))
+    {
+      scr_error ("var_get_system: invalid state for obstate\n");
+      return var_return_string ("[Obstate unknown]", type, vt_rvalue);
+    }
+
+  /* Return temporary. */
+  return var_return_string (vars->temporary, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_obstatus (scr_var_setref_t vars, const scr_char * /* name */,
+                     scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+  const scr_gameref_t game = vars->game;
+
+  /* Check there's enough information to return a value. */
+  if (!game)
+    {
+      scr_error ("var_get_system: no game for obstatus\n");
+      return var_return_string ("[Obstatus unavailable]", type, vt_rvalue);
+    }
+  if (vars->referenced_object == -1)
+    {
+      scr_error ("var_get_system: no object for obstatus\n");
+      return var_return_string ("[Obstatus unavailable]", type, vt_rvalue);
+    }
+
+  /* If not an openable object, return unopenable to match Adrift. */
+  if (prop_get_indexed_integer (bundle, "Objects", vars->referenced_object,
+                                "Openable") == 0)
+    return var_return_string ("unopenable", type, vt_rvalue);
+
+  /* Return one of open, closed, or locked. */
+  return var_return_string (var_openness_word (game,
+                                               vars->referenced_object,
+                                               "[Obstatus unknown]"),
+                            type, vt_rvalue);
+}
+
+static scr_bool
+var_system_on (scr_var_setref_t vars, const scr_char *name, scr_int *type,
+               scr_vartype_t *vt_rvalue)
+{
+  return var_get_listing (vars, name, "on_", "[On_ unavailable]",
+                          var_list_on_object, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_onin (scr_var_setref_t vars, const scr_char *name, scr_int *type,
+                 scr_vartype_t *vt_rvalue)
+{
+  return var_get_listing (vars, name, "onin_", "[Onin_ unavailable]",
+                          var_list_onin_object, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_player (scr_var_setref_t vars, const scr_char * /* name */,
+                   scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+  const scr_char *playername;
+
+  /*
+   * Return player's name from properties.  An empty authored name is
+   * "Anonymous" at 4.0: run400's openadv fills it at load (48F39F,
+   * `If field(4) = "" Then field(4) = "Anonymous"`), and that field is
+   * what %player% and the third-person pronoun array (48F6F2) read.
+   * Measured live 2026-09-19, probe ANON (make_arena_probe.py,
+   * runner_probes/anon.run400.txt, PromptName off, Perspective third):
+   * `i` answers "Anonymous is carrying nothing." and a task's "Name is
+   * [%player%]." prints "Name is [Anonymous]."  Scarier said "Player"
+   * for both.
+   *
+   * run390 has no load-time default (its name prompt is the only
+   * writer, 4416C8), so before 4.0 the empty name would stay empty;
+   * that has not been measured, and SCARE's "Player" stays there.
+   */
+  playername = prop_get_global_string (bundle, "PlayerName");
+  if (scr_strempty (playername))
+    playername = prop_get_taf_version (bundle) >= TAF_VERSION_400
+                 ? "Anonymous" : "Player";
+
+  return var_return_string (playername, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_player_pronoun (scr_var_setref_t vars, const scr_char * /* name */,
+                           scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+  scr_int gender;
+
+  /*
+   * Not an ADRIFT variable: an internal token the 4.0 third-person
+   * library messages carry where the Runner reads Ary(5) rather than
+   * Ary(0).  run400 fills that slot at 48F76E/48F77F with "he" when
+   * Globals/PlayerGender is 0 and "she" otherwise -- there is no neuter
+   * form -- and uses it in ", and he is carrying ", ".  The most he can
+   * hold is ", " ... but he can move ", " somewhere he haven't been
+   * yet." and "Why would he want to run?".  The pre-4.0 Runners have no
+   * third person at all (lib_get_perspective() clamps it), so nothing
+   * outside those messages can reach this.
+   */
+  gender = prop_get_global_integer (bundle, "PlayerGender");
+  return var_return_string (gender == 0 ? "he" : "she", type, vt_rvalue);
+}
+
+static scr_bool
+var_system_room (scr_var_setref_t vars, const scr_char * /* name */,
+                 scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_gameref_t game = vars->game;
+  const scr_char *roomname;
+
+  /* Check there's enough information to return a value. */
+  if (!game)
+    {
+      scr_error ("var_get_system: no game for room\n");
+      return var_return_string ("[Room unavailable]", type, vt_rvalue);
+    }
+
+  /* Return the current player room. */
+  roomname = lib_get_room_name (game, gs_playerroom (game));
+  return var_return_string (roomname, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_score (scr_var_setref_t vars, const scr_char * /* name */,
+                  scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_gameref_t game = vars->game;
+
+  /* Check there's enough information to return a value. */
+  if (!game)
+    {
+      scr_error ("var_get_system: no game for score\n");
+      return var_return_integer (0, type, vt_rvalue);
+    }
+
+  /* Return the current game score. */
+  return var_return_integer (game->score, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_state (scr_var_setref_t vars, const scr_char *name, scr_int *type,
+                  scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+  const scr_gameref_t game = vars->game;
+  scr_int saved_ref_object = vars->referenced_object;
+
+  /* Check there's enough information to return a value. */
+  if (!game)
+    {
+      scr_error ("var_get_system: no game for state_\n");
+      return var_return_string ("[State_ unavailable]", type, vt_rvalue);
+    }
+  /*
+   * The lowest-indexed stateful namesake, anywhere: from Bravo, p4ONIN's
+   * %state_lever% reads the Alpha lever, and %state_knob% the Alpha knob
+   * past a stateless one in view (runner_probes/onin.run400.txt).
+   */
+  if (!var_resolve_marker_object (game, name + 6, VAR_STATEFUL_OBJECT))
+    {
+      scr_error ("var_get_system: invalid object for state_\n");
+      return var_return_string ("[State_ unavailable]", type, vt_rvalue);
+    }
+
+  /* Verify this is a stateful object. */
+  if (!var_object_is_stateful (bundle, vars->referenced_object))
+    {
+      vars->referenced_object = saved_ref_object;
+      scr_error ("var_get_system: stateless object for state_\n");
+      return var_return_string ("[State_ unavailable]", type, vt_rvalue);
+    }
+
+  /* Get state, and copy to temporary. */
+  if (!var_set_temp_state (game, vars, vars->referenced_object))
+    {
+      vars->referenced_object = saved_ref_object;
+      scr_error ("var_get_system: invalid state for state_\n");
+      return var_return_string ("[State_ unknown]", type, vt_rvalue);
+    }
+
+  /*
+   * MEASURED 2026-08-25, run400 on p4STATE.taf
+   * (runner_probes/state.run400.txt, all 29 commands echoed):
+   * %state_<obj>% comes back LOWER-CASED, over the whole string, wherever
+   * it sits in the sentence --
+   *
+   *   st panel   ST=[r1]                       (States "R1")
+   *   st sign    ST=[sur la gauche]            ("Sur la gauche")
+   *   st lever   ST=[in the up position]       ("In the UP position")
+   *   mid lever  MID: the lever reads in the up position today.
+   *
+   * and it is not a first-letter rule: "UP" and "R1" both lose their
+   * capitals.  The other two readers of the same States list do NOT --
+   * the examine lister prints "The lever is In the UP position." and
+   * %obstate% answers "OB=[In the UP position]", both verbatim, in the
+   * same transcript.  So the fold belongs here and nowhere else.
+   */
+  for (scr_char *cursor = vars->temporary; *cursor != NUL; cursor++)
+    *cursor = scr_tolower (*cursor);
+
+  /* Restore saved referenced object and return. */
+  vars->referenced_object = saved_ref_object;
+  return var_return_string (vars->temporary, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_status (scr_var_setref_t vars, const scr_char *name, scr_int *type,
+                   scr_vartype_t *vt_rvalue)
+{
+  const scr_gameref_t game = vars->game;
+  scr_int object;
+
+  /* Check there's enough information to return a value. */
+  if (!game)
+    {
+      scr_error ("var_get_system: no game for status_\n");
+      return FALSE;
+    }
+
+  object = var_status_object (game, name + 7);
+  if (object == -1)
+    {
+      scr_error ("var_get_system: invalid object for status_\n");
+      return FALSE;
+    }
+
+  /* Return one of open, closed, or locked. */
+  return var_return_string (var_openness_word (game, object,
+                                               "[Status_ unknown]"),
+                            type, vt_rvalue);
+}
+
+static scr_bool
+var_system_t_number (scr_var_setref_t vars, const scr_char * /* name */,
+                     scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  /*
+   * There is no such thing as "no referenced number yet": the Runner
+   * keeps one Long (run390 MemVar_4681AC, run400 MemVar_49420C) and it
+   * starts at 0, so the very first turn of p39NUMREF and p4NUMREF
+   * answers task 5's `zap` with "ZAP [0] [zero]." before any line has
+   * named a number (runner_probes/numref.run390.txt,
+   * runner_probes/numref.run400.txt, 2026-09-20).  We used to print
+   * "[Number unknown]".
+   */
+  return var_return_string (var_number_text (vars,
+                                             vars->referenced_number),
+                            type, vt_rvalue);
+}
+
+static scr_bool
+var_system_t_variable (scr_var_setref_t vars, const scr_char *name,
+                       scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  scr_varref_t var;
+
+  /* Find the variable; must be a user, not a system, one. */
+  var = var_find (vars, name + 2);
+  if (!var)
+    {
+      scr_error ("var_get_system:"
+                " no such variable, %s\n", name + 2);
+      return var_return_string ("[Unknown variable]", type, vt_rvalue);
+    }
+  else if (var->type != VAR_INTEGER)
+    {
+      scr_error ("var_get_system:"
+                " not an integer variable, %s\n", name + 2);
+      return var_return_string (var->value.string, type, vt_rvalue);
+    }
+  else
+    {
+      /* Return the variable value as a string. */
+      return var_return_string (var_number_text (vars,
+                                                 var->value.integer),
+                                type, vt_rvalue);
+    }
+}
+
+static scr_bool
+var_system_text (scr_var_setref_t vars, const scr_char * /* name */,
+                 scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_char *retval;
+
+  /* Return any referenced text, otherwise a neutral string. */
+  if (vars->referenced_text)
+    retval = vars->referenced_text;
+  else
+    {
+      scr_error ("var_get_system: no text yet to reference\n");
+      retval = "[Text unknown]";
+    }
+
+  return var_return_string (retval, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_theobject (scr_var_setref_t vars, const scr_char * /* name */,
+                      scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+
+  /* See if we have a referenced object yet. */
+  if (vars->referenced_object != -1)
+    {
+      /* Return object name prefixed with "the"... */
+      var_set_temp (vars, lib_definite_object_name (bundle,
+                                    vars->referenced_object).c_str ());
+
+      return var_return_string (vars->temporary, type, vt_rvalue);
+    }
+  else
+    {
+      /* Raw by the same mechanism, the substitution never happening. */
+      return var_return_string ("%theobject%", type, vt_rvalue);
+    }
+}
+
+static scr_bool
+var_system_time (scr_var_setref_t vars, const scr_char * /* name */,
+                 scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  double delta;
+  scr_int retval;
+
+  /* Return the elapsed game time in seconds. */
+  delta = var_is_clock_frozen ()
+          ? 0.0 : difftime (time (nullptr), vars->timestamp);
+  retval = (scr_int) delta + vars->time_offset;
+
+  return var_return_integer (retval, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_title (scr_var_setref_t vars, const scr_char * /* name */,
+                  scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_prop_setref_t bundle = vars->bundle;
+  const scr_char *gamename;
+
+  /* Return the game's title. */
+  gamename = prop_get_global_string (bundle, "GameName");
+  if (scr_strempty (gamename))
+    gamename = "[Title unknown]";
+
+  return var_return_string (gamename, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_turns (scr_var_setref_t vars, const scr_char * /* name */,
+                  scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_gameref_t game = vars->game;
+
+  /* Check there's enough information to return a value. */
+  if (!game)
+    {
+      scr_error ("var_get_system: no game for turns\n");
+      return var_return_integer (0, type, vt_rvalue);
+    }
+
+  /* Return the count of game turns. */
+  return var_return_integer (game->turns, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_version (scr_var_setref_t /* vars */, const scr_char * /* name */,
+                    scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  /* Return the Adrift emulation level of Scarier. */
+  return var_return_integer (SCARIER_EMULATION, type, vt_rvalue);
+}
+
+static scr_bool
+var_system_scarier_version (scr_var_setref_t /* vars */,
+                            const scr_char * /* name */, scr_int *type,
+                            scr_vartype_t *vt_rvalue)
+{
+  /* Private system variable, return Scarier's version number. */
+  return var_return_integer (var_get_scarier_version (), type, vt_rvalue);
+}
+
+
+/*
+ * The system variables, in the order their names are tested.  A prefix row
+ * matches any name that starts with it, so "t_number" has to come before
+ * "t_".
+ */
+struct var_system_entry_t
+{
+  const scr_char *name;
+  scr_bool is_prefix;
+  scr_bool (*get) (scr_var_setref_t vars, const scr_char *name,
+                   scr_int *type, scr_vartype_t *vt_rvalue);
+};
+
+static const var_system_entry_t VAR_SYSTEM[] = {
+  { "author", FALSE, var_system_author },
+  { "character", FALSE, var_system_character },
+  { "heshe", FALSE, var_system_pronoun },
+  { "himher", FALSE, var_system_pronoun },
+  { "in_", TRUE, var_system_in },
+  { "maxscore", FALSE, var_system_maxscore },
+  { "modified", FALSE, var_system_modified },
+  { "number", FALSE, var_system_number },
+  { "object", FALSE, var_system_object },
+  { "obstate", FALSE, var_system_obstate },
+  { "obstatus", FALSE, var_system_obstatus },
+  { "on_", TRUE, var_system_on },
+  { "onin_", TRUE, var_system_onin },
+  { "player", FALSE, var_system_player },
+  { "player_pronoun", FALSE, var_system_player_pronoun },
+  { "room", FALSE, var_system_room },
+  { "score", FALSE, var_system_score },
+  { "state_", TRUE, var_system_state },
+  { "status_", TRUE, var_system_status },
+  { "t_number", FALSE, var_system_t_number },
+  { "t_", TRUE, var_system_t_variable },
+  { "text", FALSE, var_system_text },
+  { "theobject", FALSE, var_system_theobject },
+  { "time", FALSE, var_system_time },
+  { "title", FALSE, var_system_title },
+  { "turns", FALSE, var_system_turns },
+  { "version", FALSE, var_system_version },
+  { "scarier_version", FALSE, var_system_scarier_version }
+};
+
+
+/*
  * var_get_system()
  *
  * Construct a system variable, and return its type and value, or FALSE
- * if invalid name passed in.  Uses var_return_*() to reduce code untidiness.
+ * if invalid name passed in.
  */
 static scr_bool
 var_get_system (scr_var_setref_t vars,
                 const scr_char *name, scr_int *type, scr_vartype_t *vt_rvalue)
 {
-  const scr_prop_setref_t bundle = vars->bundle;
-  const scr_gameref_t game = vars->game;
-
-  /* Check name for known system variables. */
-  if (strcmp (name, "author") == 0)
+  for (const var_system_entry_t &entry : VAR_SYSTEM)
     {
-      const scr_char *author;
-
-      /* Get and return the global gameauthor string. */
-      author = prop_get_global_string (bundle, "GameAuthor");
-      if (scr_strempty (author))
-        author = "[Author unknown]";
-
-      return var_return_string (author, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "character") == 0)
-    {
-      /* See if there is a referenced character. */
-      if (vars->referenced_character != -1)
-        {
-          const scr_char *npc_name;
-
-          /* Return the character name string. */
-          npc_name = prop_get_indexed_string (bundle, "NPCs",
-                                              vars->referenced_character,
-                                              "Name");
-          if (scr_strempty (npc_name))
-            npc_name = "[Character unknown]";
-
-          return var_return_string (npc_name, type, vt_rvalue);
-        }
-      else
-        {
-          /*
-           * An unbound reference is printed RAW, in every Runner: the
-           * substitution simply does not happen, so the pattern itself
-           * reaches the player.  p*OBJREF's task 2 `zork` prints "ZORKED
-           * %object% and %character%." -- its command binds neither -- and
-           * all four Runners answer it literally, including the turn right
-           * after `nurb rock` has bound the red rock
-           * (runner_probes/objref.run370.rtf,
-           * runner_probes/objref.run380.rtf,
-           * runner_probes/objref.run390.txt,
-           * runner_probes/objref.run400.txt, 2026-09-20).  We used to
-           * print "[Character unknown]".
-           */
-          return var_return_string ("%character%", type, vt_rvalue);
-        }
-    }
-
-  else if (strcmp (name, "heshe") == 0 || strcmp (name, "himher") == 0)
-    {
-      /* See if there is a referenced character. */
-      if (vars->referenced_character != -1)
-        {
-          scr_vartype_t vt_key[3];
-          scr_int gender;
-          const scr_char *retval;
-
-          /* Return the appropriate character gender string. */
-          vt_key[0].string = "NPCs";
-          vt_key[1].integer = vars->referenced_character;
-          vt_key[2].string = "Gender";
-          gender = prop_get_integer (bundle, "I<-sis", vt_key);
-          switch (gender)
-            {
-            case NPC_MALE:
-              retval = (strcmp (name, "heshe") == 0) ? "he" : "him";
-              break;
-            case NPC_FEMALE:
-              retval = (strcmp (name, "heshe") == 0) ? "she" : "her";
-              break;
-            case NPC_NEUTER:
-              retval = "it";
-              break;
-
-            default:
-              scr_error ("var_get_system: unknown gender, %ld\n", gender);
-              retval = "[Gender unknown]";
-              break;
-            }
-          return var_return_string (retval, type, vt_rvalue);
-        }
-      else
-        {
-          scr_error ("var_get_system: no referenced character yet\n");
-          return var_return_string ("[Gender unknown]", type, vt_rvalue);
-        }
-    }
-
-  else if (strncmp (name, "in_", 3) == 0)
-    return var_get_listing (vars, name, "in_", "[In_ unavailable]",
-                            var_list_in_object, type, vt_rvalue);
-
-  else if (strcmp (name, "maxscore") == 0)
-    {
-      scr_int maxscore;
-
-      /* Return the maximum score. */
-      maxscore = prop_get_global_integer (bundle, "MaxScore");
-
-      return var_return_integer (maxscore, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "modified") == 0)
-    {
-      scr_vartype_t vt_key;
-      const scr_char *compiledate;
-
-      /* Return the game compilation date. */
-      vt_key.string = "CompileDate";
-      compiledate = prop_get_string (bundle, "S<-s", &vt_key);
-      if (scr_strempty (compiledate))
-        compiledate = "[Modified unknown]";
-
-      return var_return_string (compiledate, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "number") == 0)
-    {
-      /* Return the referenced number, or 0 if none yet. */
-      return var_return_integer (vars->referenced_number, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "object") == 0)
-    {
-      /* See if we have a referenced object yet. */
-      if (vars->referenced_object != -1)
-        {
-          /* Return object name with its prefix. */
-          const scr_char *prefix, *objname;
-          size_t size;
-
-          prefix = prop_get_indexed_string (bundle, "Objects",
-                                            vars->referenced_object, "Prefix");
-          objname = prop_get_indexed_string (bundle, "Objects",
-                                             vars->referenced_object, "Short");
-
-          size = strlen (prefix) + strlen (objname) + 2;
-          vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, size);
-          snprintf (vars->temporary, size, "%s %s", prefix, objname);
-
-          return var_return_string (vars->temporary, type, vt_rvalue);
-        }
-      else
-        {
-          /* Raw, like the unbound %character% above: p*OBJREF `zork`. */
-          return var_return_string ("%object%", type, vt_rvalue);
-        }
-    }
-
-  else if (strcmp (name, "obstate") == 0)
-    {
-      /* Check there's enough information to return a value. */
-      if (!game)
-        {
-          scr_error ("var_get_system: no game for obstate\n");
-          return var_return_string ("[Obstate unavailable]", type, vt_rvalue);
-        }
-      if (vars->referenced_object == -1)
-        {
-          scr_error ("var_get_system: no object for obstate\n");
-          return var_return_string ("[Obstate unavailable]", type, vt_rvalue);
-        }
-
-      /*
-       * If not a stateful object, Runner 4.0.45 crashes; we'll do something
-       * different here.
-       */
-      if (!var_object_is_stateful (bundle, vars->referenced_object))
-        return var_return_string ("stateless", type, vt_rvalue);
-
-      /* Get state, and copy to temporary. */
-      if (!var_set_temp_state (game, vars, vars->referenced_object))
-        {
-          scr_error ("var_get_system: invalid state for obstate\n");
-          return var_return_string ("[Obstate unknown]", type, vt_rvalue);
-        }
-
-      /* Return temporary. */
-      return var_return_string (vars->temporary, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "obstatus") == 0)
-    {
-      /* Check there's enough information to return a value. */
-      if (!game)
-        {
-          scr_error ("var_get_system: no game for obstatus\n");
-          return var_return_string ("[Obstatus unavailable]", type, vt_rvalue);
-        }
-      if (vars->referenced_object == -1)
-        {
-          scr_error ("var_get_system: no object for obstatus\n");
-          return var_return_string ("[Obstatus unavailable]", type, vt_rvalue);
-        }
-
-      /* If not an openable object, return unopenable to match Adrift. */
-      if (prop_get_indexed_integer (bundle, "Objects", vars->referenced_object,
-                                    "Openable") == 0)
-        return var_return_string ("unopenable", type, vt_rvalue);
-
-      /* Return one of open, closed, or locked. */
-      return var_return_string (var_openness_word (game,
-                                                   vars->referenced_object,
-                                                   "[Obstatus unknown]"),
-                                type, vt_rvalue);
-    }
-
-  else if (strncmp (name, "on_", 3) == 0)
-    return var_get_listing (vars, name, "on_", "[On_ unavailable]",
-                            var_list_on_object, type, vt_rvalue);
-
-  else if (strncmp (name, "onin_", 5) == 0)
-    return var_get_listing (vars, name, "onin_", "[Onin_ unavailable]",
-                            var_list_onin_object, type, vt_rvalue);
-
-  else if (strcmp (name, "player") == 0)
-    {
-      const scr_char *playername;
-
-      /*
-       * Return player's name from properties.  An empty authored name is
-       * "Anonymous" at 4.0: run400's openadv fills it at load (48F39F,
-       * `If field(4) = "" Then field(4) = "Anonymous"`), and that field is
-       * what %player% and the third-person pronoun array (48F6F2) read.
-       * Measured live 2026-09-19, probe ANON (make_arena_probe.py,
-       * runner_probes/anon.run400.txt, PromptName off, Perspective third):
-       * `i` answers "Anonymous is carrying nothing." and a task's "Name is
-       * [%player%]." prints "Name is [Anonymous]."  Scarier said "Player"
-       * for both.
-       *
-       * run390 has no load-time default (its name prompt is the only
-       * writer, 4416C8), so before 4.0 the empty name would stay empty;
-       * that has not been measured, and SCARE's "Player" stays there.
-       */
-      playername = prop_get_global_string (bundle, "PlayerName");
-      if (scr_strempty (playername))
-        playername = prop_get_taf_version (bundle) >= TAF_VERSION_400
-                     ? "Anonymous" : "Player";
-
-      return var_return_string (playername, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "player_pronoun") == 0)
-    {
-      scr_int gender;
-
-      /*
-       * Not an ADRIFT variable: an internal token the 4.0 third-person
-       * library messages carry where the Runner reads Ary(5) rather than
-       * Ary(0).  run400 fills that slot at 48F76E/48F77F with "he" when
-       * Globals/PlayerGender is 0 and "she" otherwise -- there is no neuter
-       * form -- and uses it in ", and he is carrying ", ".  The most he can
-       * hold is ", " ... but he can move ", " somewhere he haven't been
-       * yet." and "Why would he want to run?".  The pre-4.0 Runners have no
-       * third person at all (lib_get_perspective() clamps it), so nothing
-       * outside those messages can reach this.
-       */
-      gender = prop_get_global_integer (bundle, "PlayerGender");
-      return var_return_string (gender == 0 ? "he" : "she", type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "room") == 0)
-    {
-      const scr_char *roomname;
-
-      /* Check there's enough information to return a value. */
-      if (!game)
-        {
-          scr_error ("var_get_system: no game for room\n");
-          return var_return_string ("[Room unavailable]", type, vt_rvalue);
-        }
-
-      /* Return the current player room. */
-      roomname = lib_get_room_name (game, gs_playerroom (game));
-      return var_return_string (roomname, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "score") == 0)
-    {
-      /* Check there's enough information to return a value. */
-      if (!game)
-        {
-          scr_error ("var_get_system: no game for score\n");
-          return var_return_integer (0, type, vt_rvalue);
-        }
-
-      /* Return the current game score. */
-      return var_return_integer (game->score, type, vt_rvalue);
-    }
-
-  else if (strncmp (name, "state_", 6) == 0)
-    {
-      scr_int saved_ref_object = vars->referenced_object;
-
-      /* Check there's enough information to return a value. */
-      if (!game)
-        {
-          scr_error ("var_get_system: no game for state_\n");
-          return var_return_string ("[State_ unavailable]", type, vt_rvalue);
-        }
-      /*
-       * The lowest-indexed stateful namesake, anywhere: from Bravo, p4ONIN's
-       * %state_lever% reads the Alpha lever, and %state_knob% the Alpha knob
-       * past a stateless one in view (runner_probes/onin.run400.txt).
-       */
-      if (!var_resolve_marker_object (game, name + 6, VAR_STATEFUL_OBJECT))
-        {
-          scr_error ("var_get_system: invalid object for state_\n");
-          return var_return_string ("[State_ unavailable]", type, vt_rvalue);
-        }
-
-      /* Verify this is a stateful object. */
-      if (!var_object_is_stateful (bundle, vars->referenced_object))
-        {
-          vars->referenced_object = saved_ref_object;
-          scr_error ("var_get_system: stateless object for state_\n");
-          return var_return_string ("[State_ unavailable]", type, vt_rvalue);
-        }
-
-      /* Get state, and copy to temporary. */
-      if (!var_set_temp_state (game, vars, vars->referenced_object))
-        {
-          vars->referenced_object = saved_ref_object;
-          scr_error ("var_get_system: invalid state for state_\n");
-          return var_return_string ("[State_ unknown]", type, vt_rvalue);
-        }
-
-      /*
-       * MEASURED 2026-08-25, run400 on p4STATE.taf
-       * (runner_probes/state.run400.txt, all 29 commands echoed):
-       * %state_<obj>% comes back LOWER-CASED, over the whole string, wherever
-       * it sits in the sentence --
-       *
-       *   st panel   ST=[r1]                       (States "R1")
-       *   st sign    ST=[sur la gauche]            ("Sur la gauche")
-       *   st lever   ST=[in the up position]       ("In the UP position")
-       *   mid lever  MID: the lever reads in the up position today.
-       *
-       * and it is not a first-letter rule: "UP" and "R1" both lose their
-       * capitals.  The other two readers of the same States list do NOT --
-       * the examine lister prints "The lever is In the UP position." and
-       * %obstate% answers "OB=[In the UP position]", both verbatim, in the
-       * same transcript.  So the fold belongs here and nowhere else.
-       */
-      for (scr_char *cursor = vars->temporary; *cursor != NUL; cursor++)
-        *cursor = scr_tolower (*cursor);
-
-      /* Restore saved referenced object and return. */
-      vars->referenced_object = saved_ref_object;
-      return var_return_string (vars->temporary, type, vt_rvalue);
-    }
-
-  else if (strncmp (name, "status_", 7) == 0)
-    {
-      scr_int object;
-
-      /* Check there's enough information to return a value. */
-      if (!game)
-        {
-          scr_error ("var_get_system: no game for status_\n");
-          return FALSE;
-        }
-
-      object = var_status_object (game, name + 7);
-      if (object == -1)
-        {
-          scr_error ("var_get_system: invalid object for status_\n");
-          return FALSE;
-        }
-
-      /* Return one of open, closed, or locked. */
-      return var_return_string (var_openness_word (game, object,
-                                                   "[Status_ unknown]"),
-                                type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "t_number") == 0)
-    {
-
-      /*
-       * There is no such thing as "no referenced number yet": the Runner
-       * keeps one Long (run390 MemVar_4681AC, run400 MemVar_49420C) and it
-       * starts at 0, so the very first turn of p39NUMREF and p4NUMREF
-       * answers task 5's `zap` with "ZAP [0] [zero]." before any line has
-       * named a number (runner_probes/numref.run390.txt,
-       * runner_probes/numref.run400.txt, 2026-09-20).  We used to print
-       * "[Number unknown]".
-       */
-      return var_return_string (var_number_text (vars,
-                                                 vars->referenced_number),
-                                type, vt_rvalue);
-    }
-
-  else if (strncmp (name, "t_", 2) == 0)
-    {
-      scr_varref_t var;
-
-      /* Find the variable; must be a user, not a system, one. */
-      var = var_find (vars, name + 2);
-      if (!var)
-        {
-          scr_error ("var_get_system:"
-                    " no such variable, %s\n", name + 2);
-          return var_return_string ("[Unknown variable]", type, vt_rvalue);
-        }
-      else if (var->type != VAR_INTEGER)
-        {
-          scr_error ("var_get_system:"
-                    " not an integer variable, %s\n", name + 2);
-          return var_return_string (var->value.string, type, vt_rvalue);
-        }
-      else
-        {
-          /* Return the variable value as a string. */
-          return var_return_string (var_number_text (vars,
-                                                     var->value.integer),
-                                    type, vt_rvalue);
-        }
-    }
-
-  else if (strcmp (name, "text") == 0)
-    {
-      const scr_char *retval;
-
-      /* Return any referenced text, otherwise a neutral string. */
-      if (vars->referenced_text)
-        retval = vars->referenced_text;
-      else
-        {
-          scr_error ("var_get_system: no text yet to reference\n");
-          retval = "[Text unknown]";
-        }
-
-      return var_return_string (retval, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "theobject") == 0)
-    {
-      /* See if we have a referenced object yet. */
-      if (vars->referenced_object != -1)
-        {
-          /* Return object name prefixed with "the"... */
-          var_set_temp (vars, lib_definite_object_name (bundle,
-                                        vars->referenced_object).c_str ());
-
-          return var_return_string (vars->temporary, type, vt_rvalue);
-        }
-      else
-        {
-          /* Raw by the same mechanism, the substitution never happening. */
-          return var_return_string ("%theobject%", type, vt_rvalue);
-        }
-    }
-
-  else if (strcmp (name, "time") == 0)
-    {
-      double delta;
-      scr_int retval;
-
-      /* Return the elapsed game time in seconds. */
-      delta = var_is_clock_frozen ()
-              ? 0.0 : difftime (time (nullptr), vars->timestamp);
-      retval = (scr_int) delta + vars->time_offset;
-
-      return var_return_integer (retval, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "title") == 0)
-    {
-      const scr_char *gamename;
-
-      /* Return the game's title. */
-      gamename = prop_get_global_string (bundle, "GameName");
-      if (scr_strempty (gamename))
-        gamename = "[Title unknown]";
-
-      return var_return_string (gamename, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "turns") == 0)
-    {
-      /* Check there's enough information to return a value. */
-      if (!game)
-        {
-          scr_error ("var_get_system: no game for turns\n");
-          return var_return_integer (0, type, vt_rvalue);
-        }
-
-      /* Return the count of game turns. */
-      return var_return_integer (game->turns, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "version") == 0)
-    {
-      /* Return the Adrift emulation level of Scarier. */
-      return var_return_integer (SCARIER_EMULATION, type, vt_rvalue);
-    }
-
-  else if (strcmp (name, "scarier_version") == 0)
-    {
-      /* Private system variable, return Scarier's version number. */
-      return var_return_integer (var_get_scarier_version (), type, vt_rvalue);
+      const scr_bool is_match
+        = entry.is_prefix ? strncmp (name, entry.name, strlen (entry.name)) == 0
+                          : strcmp (name, entry.name) == 0;
+
+      if (is_match)
+        return entry.get (vars, name, type, vt_rvalue);
     }
 
   return FALSE;

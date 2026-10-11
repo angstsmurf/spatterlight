@@ -1836,15 +1836,6 @@ a5run_set_turn_text (a5_run_t *run, const char *text, size_t len)
                               text == nullptr ? 0 : len);
 }
 
-/* Is the next input line a cross-turn parser continuation (pending
-   disambiguation or remembered verb)?  See a5run.h. */
-int
-a5run_input_pending (a5_run_t *run)
-{
-  return run != nullptr
-         && (run->amb_active || !run->remembered_verb.empty ());
-}
-
 /* The cross-turn parser continuation as a byte string, for the Spatterlight
    autosave (see a5run.h).  A run of session records (sessrec.h), the framing
    scrunner's session state uses; unknown keys are skipped on the way back,

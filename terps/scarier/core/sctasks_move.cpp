@@ -609,256 +609,279 @@ task_same_room_npc_390 (scr_gameref_t game, scr_int var3)
 
 
 /*
+ * task_move_player_action()
+ * task_move_npc_action()
  * task_run_move_npc_action()
  *
- * Move player or NPC.
+ * Move player or NPC.  The first two are the Var1 = 0 (player) arm and the
+ * arm for an NPC already picked out by Var1; each decides where to move its
+ * character to from Var2 and Var3.
  */
-void
-task_run_move_npc_action (scr_gameref_t game,
-                          scr_int var1, scr_int var2, scr_int var3)
+static void
+task_move_player_action (scr_gameref_t game, scr_int var2, scr_int var3)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_bool is_v390 = prop_get_taf_version (gs_get_bundle (game))
                            < TAF_VERSION_400;
-  scr_int npc, room, ref_npc = -1;
+  scr_int npc, room;
+
+  /* Decide where to move the player to. */
+  switch (var2)
+    {
+    case 0:                /* To room */
+      if (var3 < 0)
+        return;
+      /* var3 past the rooms is a group; mark the room actually reached. */
+      gs_move_player_to_room (game, var3);
+      obj_mark_room_statics_seen (game, gs_playerroom (game));
+      return;
+
+    case 1:                /* To roomgroup part */
+      if (tasks.trace)
+        {
+          scr_trace ("Task: moving player to random room in group %ld\n",
+                    var3);
+        }
+
+      {
+        scr_int dest = lib_random_roomgroup_member (game, var3);
+        if (dest >= 0)       /* Empty group: leave the player in place. */
+          {
+            gs_move_player_to_room (game, dest);
+            obj_mark_room_statics_seen (game, dest);
+          }
+      }
+      return;
+
+    case 2:                /* To same room as... */
+      if (is_v390)
+        npc = task_same_room_npc_390 (game, var3);
+      else if (var3 == 0)  /* ...player! */
+        return;
+      else                 /* ...referenced or specified NPC */
+        npc = task_selector_npc (vars, var3);
+      if (!gs_npc_valid (game, npc))
+        return;
+
+      if (tasks.trace)
+        scr_trace ("Task: moving player to same room as NPC %ld\n", npc);
+
+      room = gs_npc_location (game, npc) - 1;
+      if (room < 0)
+        {
+          if (tasks.trace)
+            scr_trace ("Task: silently suppressed player move to hidden\n");
+        }
+      else
+        {
+          gs_move_player_to_room (game, room);
+          obj_mark_room_statics_seen (game, room);
+        }
+      return;
+
+    case 3:                /* To standing on */
+    case 4:                /* To sitting on */
+    case 5:                /* To lying on */
+      {
+        /*
+         * var2 3/4/5 map to positions 0/1/2; the parent is filtered by
+         * what the object can actually be on, so an object that is not
+         * standable (or not lieable) leaves the player on the floor in
+         * that posture.  Traced because a silent posture change is
+         * otherwise invisible: goldilocks' collapsing chair task sets
+         * "sitting on" a chair it destroys in the same breath, and the
+         * only sign of it is a "(Standing up first)" on the NEXT move.
+         */
+        const scr_int position = var2 - 3;
+        const scr_int parent = (var2 == 5
+                                ? obj_lieable_object (game, var3 - 1)
+                                : obj_standable_object (game, var3 - 1));
+
+        if (tasks.trace)
+          {
+            scr_trace ("Task: player position %ld, parent object %ld"
+                       " (requested %ld)\n", position, parent, var3 - 1);
+          }
+
+        gs_set_playerposition (game, position);
+        gs_set_playerparent (game, parent);
+        return;
+      }
+
+    default:
+      /*
+       * ADRIFT stores a move destination as a combo-box index, and a value
+       * of -1 (and any other out-of-range value) means the game's author
+       * left the destination unset.  The Runner's Select Case silently
+       * ignores such an action, so we treat it as a no-op rather than
+       * fatal.  With move assist on, honour an unset (-1) move whose Var3
+       * names a real room as "to room" (see task_set_move_assist()).
+       */
+      if (tasks.options.move_assist && var2 == -1
+          && var3 >= 0 && var3 < gs_room_count (game))
+        {
+          gs_move_player_to_room (game, var3);
+          obj_mark_room_statics_seen (game, var3);
+          return;
+        }
+      if (tasks.trace)
+        scr_trace ("Task: ignoring move with unset/unknown"
+                  " player move type %ld\n", var2);
+      return;
+    }
+}
+
+static void
+task_move_npc_action (scr_gameref_t game,
+                      scr_int npc, scr_int var2, scr_int var3)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  const scr_bool is_v390 = prop_get_taf_version (gs_get_bundle (game))
+                           < TAF_VERSION_400;
+  scr_int room, ref_npc = -1;
+
+  /* Decide where to move the NPC to. */
+  switch (var2)
+    {
+    case 0:                /* To room */
+      task_move_npc_to_room (game, npc, var3 - 1);
+      return;
+
+    case 1:                /* To roomgroup part */
+      if (tasks.trace)
+        {
+          scr_trace ("Task: moving NPC %ld to random room in group %ld\n",
+                    npc, var3);
+        }
+
+      {
+        scr_int dest = lib_random_roomgroup_member (game, var3);
+        if (dest >= 0)       /* Empty group: leave the NPC in place. */
+          task_move_npc_to_room (game, npc, dest);
+      }
+      return;
+
+    case 2:                /* To same room as... */
+      if (is_v390)
+        {
+          ref_npc = task_same_room_npc_390 (game, var3);
+          if (ref_npc < 0)
+            return;
+          if (tasks.trace)
+            {
+              scr_trace ("Task: moving NPC %ld to"
+                        " same room as NPC %ld (3.90 raw index)\n",
+                        npc, ref_npc);
+            }
+
+          room = gs_npc_location (game, ref_npc) - 1;
+          task_move_npc_to_room (game, npc, room);
+          return;
+        }
+      switch (var3)
+        {
+        case 0:            /* ...player */
+          if (tasks.trace)
+            {
+              scr_trace ("Task: moving NPC %ld to same room as player\n",
+                        npc);
+            }
+
+          task_move_npc_to_room (game, npc, gs_playerroom (game));
+          break;
+        default:           /* ...referenced or specified NPC */
+          /*
+           * With no referenced character, run400 indexes its NPC array
+           * with the unset marker (48CEA9), and execute_action's error
+           * handler prints "** ERROR - Subscript out of range! **" and
+           * abandons this one action; the task's other actions still
+           * run (measured, p4MVREF probe).  Deliberate deviation: the
+           * action is dropped silently, without the Runner's error text.
+           */
+          ref_npc = task_selector_npc (vars, var3);
+          if (!gs_npc_valid (game, ref_npc))
+            return;
+          if (tasks.trace)
+            {
+              scr_trace ("Task: moving NPC %ld to same room as %sNPC %ld\n",
+                        npc, var3 == 1 ? "referenced " : "", ref_npc);
+            }
+
+          room = gs_npc_location (game, ref_npc) - 1;
+          task_move_npc_to_room (game, npc, room);
+          break;
+        }
+      return;
+
+    case 3:                /* To standing on */
+      gs_set_npc_position (game, npc, 0);
+      gs_set_npc_parent (game, npc, obj_standable_object (game, var3));
+      return;
+
+    case 4:                /* To sitting on */
+      gs_set_npc_position (game, npc, 1);
+      gs_set_npc_parent (game, npc, obj_standable_object (game, var3));
+      return;
+
+    case 5:                /* To lying on */
+      gs_set_npc_position (game, npc, 2);
+      gs_set_npc_parent (game, npc, obj_lieable_object (game, var3));
+      return;
+
+    default:
+      /*
+       * Unset/unknown NPC move destination; ignored, as the Runner does.
+       * With move assist on, honour an unset (-1) move whose Var3 names a
+       * real room as "to room" (1-based, as for case 0).  A positive Var3
+       * that names no room is a dangling index (the editor stored it
+       * against a differently-based or since-edited list; the offset even
+       * differs between corpus games, so it cannot be decoded reliably);
+       * every corpus instance of one -- X-Files' diner buzzer, HYPER
+       * Battle System's flare rat -- is a "bring this character on-stage
+       * here" direction, so summon the NPC to the player's room instead.
+       * A Var3 of 0 or less means nothing was ever selected; that stays
+       * a no-op.
+       */
+      if (tasks.options.move_assist && var2 == -1)
+        {
+          if (var3 - 1 >= 0 && var3 - 1 < gs_room_count (game))
+            {
+              task_move_npc_to_room (game, npc, var3 - 1);
+              return;
+            }
+          if (var3 > 0)
+            {
+              task_move_npc_to_room (game, npc, gs_playerroom (game));
+              return;
+            }
+        }
+      if (tasks.trace)
+        scr_trace ("Task: ignoring move with unset/unknown"
+                  " NPC move type %ld\n", var2);
+      return;
+    }
+}
+
+void
+task_run_move_npc_action (scr_gameref_t game,
+                          scr_int var1, scr_int var2, scr_int var3)
+{
+  scr_int npc;
 
   /* Player or NPC? */
   if (var1 == 0)
     {
-      /* Player -- decide where to move player to. */
-      switch (var2)
-        {
-        case 0:                /* To room */
-          if (var3 < 0)
-            return;
-          /* var3 past the rooms is a group; mark the room actually reached. */
-          gs_move_player_to_room (game, var3);
-          obj_mark_room_statics_seen (game, gs_playerroom (game));
-          return;
-
-        case 1:                /* To roomgroup part */
-          if (tasks.trace)
-            {
-              scr_trace ("Task: moving player to random room in group %ld\n",
-                        var3);
-            }
-
-          {
-            scr_int dest = lib_random_roomgroup_member (game, var3);
-            if (dest >= 0)       /* Empty group: leave the player in place. */
-              {
-                gs_move_player_to_room (game, dest);
-                obj_mark_room_statics_seen (game, dest);
-              }
-          }
-          return;
-
-        case 2:                /* To same room as... */
-          if (is_v390)
-            npc = task_same_room_npc_390 (game, var3);
-          else if (var3 == 0)  /* ...player! */
-            return;
-          else                 /* ...referenced or specified NPC */
-            npc = task_selector_npc (vars, var3);
-          if (!gs_npc_valid (game, npc))
-            return;
-
-          if (tasks.trace)
-            scr_trace ("Task: moving player to same room as NPC %ld\n", npc);
-
-          room = gs_npc_location (game, npc) - 1;
-          if (room < 0)
-            {
-              if (tasks.trace)
-                scr_trace ("Task: silently suppressed player move to hidden\n");
-            }
-          else
-            {
-              gs_move_player_to_room (game, room);
-              obj_mark_room_statics_seen (game, room);
-            }
-          return;
-
-        case 3:                /* To standing on */
-        case 4:                /* To sitting on */
-        case 5:                /* To lying on */
-          {
-            /*
-             * var2 3/4/5 map to positions 0/1/2; the parent is filtered by
-             * what the object can actually be on, so an object that is not
-             * standable (or not lieable) leaves the player on the floor in
-             * that posture.  Traced because a silent posture change is
-             * otherwise invisible: goldilocks' collapsing chair task sets
-             * "sitting on" a chair it destroys in the same breath, and the
-             * only sign of it is a "(Standing up first)" on the NEXT move.
-             */
-            const scr_int position = var2 - 3;
-            const scr_int parent = (var2 == 5
-                                    ? obj_lieable_object (game, var3 - 1)
-                                    : obj_standable_object (game, var3 - 1));
-
-            if (tasks.trace)
-              {
-                scr_trace ("Task: player position %ld, parent object %ld"
-                           " (requested %ld)\n", position, parent, var3 - 1);
-              }
-
-            gs_set_playerposition (game, position);
-            gs_set_playerparent (game, parent);
-            return;
-          }
-
-        default:
-          /*
-           * ADRIFT stores a move destination as a combo-box index, and a value
-           * of -1 (and any other out-of-range value) means the game's author
-           * left the destination unset.  The Runner's Select Case silently
-           * ignores such an action, so we treat it as a no-op rather than
-           * fatal.  With move assist on, honour an unset (-1) move whose Var3
-           * names a real room as "to room" (see task_set_move_assist()).
-           */
-          if (tasks.options.move_assist && var2 == -1
-              && var3 >= 0 && var3 < gs_room_count (game))
-            {
-              gs_move_player_to_room (game, var3);
-              obj_mark_room_statics_seen (game, var3);
-              return;
-            }
-          if (tasks.trace)
-            scr_trace ("Task: ignoring move with unset/unknown"
-                      " player move type %ld\n", var2);
-          return;
-        }
+      task_move_player_action (game, var2, var3);
+      return;
     }
-  else
-    {
-      /*
-       * NPC -- first find which NPC to move about.  With no referenced
-       * character, run400 leaves the action at once (48CDB8, Exit Sub).
-       */
-      npc = task_selector_npc (vars, var1);
-      if (!gs_npc_valid (game, npc))
-        return;
 
-      /* Decide where to move the NPC to. */
-      switch (var2)
-        {
-        case 0:                /* To room */
-          task_move_npc_to_room (game, npc, var3 - 1);
-          return;
+  /*
+   * NPC -- first find which NPC to move about.  With no referenced
+   * character, run400 leaves the action at once (48CDB8, Exit Sub).
+   */
+  npc = task_selector_npc (gs_get_vars (game), var1);
+  if (!gs_npc_valid (game, npc))
+    return;
 
-        case 1:                /* To roomgroup part */
-          if (tasks.trace)
-            {
-              scr_trace ("Task: moving NPC %ld to random room in group %ld\n",
-                        npc, var3);
-            }
-
-          {
-            scr_int dest = lib_random_roomgroup_member (game, var3);
-            if (dest >= 0)       /* Empty group: leave the NPC in place. */
-              task_move_npc_to_room (game, npc, dest);
-          }
-          return;
-
-        case 2:                /* To same room as... */
-          if (is_v390)
-            {
-              ref_npc = task_same_room_npc_390 (game, var3);
-              if (ref_npc < 0)
-                return;
-              if (tasks.trace)
-                {
-                  scr_trace ("Task: moving NPC %ld to"
-                            " same room as NPC %ld (3.90 raw index)\n",
-                            npc, ref_npc);
-                }
-
-              room = gs_npc_location (game, ref_npc) - 1;
-              task_move_npc_to_room (game, npc, room);
-              return;
-            }
-          switch (var3)
-            {
-            case 0:            /* ...player */
-              if (tasks.trace)
-                {
-                  scr_trace ("Task: moving NPC %ld to same room as player\n",
-                            npc);
-                }
-
-              task_move_npc_to_room (game, npc, gs_playerroom (game));
-              break;
-            default:           /* ...referenced or specified NPC */
-              /*
-               * With no referenced character, run400 indexes its NPC array
-               * with the unset marker (48CEA9), and execute_action's error
-               * handler prints "** ERROR - Subscript out of range! **" and
-               * abandons this one action; the task's other actions still
-               * run (measured, p4MVREF probe).  Deliberate deviation: the
-               * action is dropped silently, without the Runner's error text.
-               */
-              ref_npc = task_selector_npc (vars, var3);
-              if (!gs_npc_valid (game, ref_npc))
-                return;
-              if (tasks.trace)
-                {
-                  scr_trace ("Task: moving NPC %ld to same room as %sNPC %ld\n",
-                            npc, var3 == 1 ? "referenced " : "", ref_npc);
-                }
-
-              room = gs_npc_location (game, ref_npc) - 1;
-              task_move_npc_to_room (game, npc, room);
-              break;
-            }
-          return;
-
-        case 3:                /* To standing on */
-          gs_set_npc_position (game, npc, 0);
-          gs_set_npc_parent (game, npc, obj_standable_object (game, var3));
-          return;
-
-        case 4:                /* To sitting on */
-          gs_set_npc_position (game, npc, 1);
-          gs_set_npc_parent (game, npc, obj_standable_object (game, var3));
-          return;
-
-        case 5:                /* To lying on */
-          gs_set_npc_position (game, npc, 2);
-          gs_set_npc_parent (game, npc, obj_lieable_object (game, var3));
-          return;
-
-        default:
-          /*
-           * Unset/unknown NPC move destination; ignored, as the Runner does.
-           * With move assist on, honour an unset (-1) move whose Var3 names a
-           * real room as "to room" (1-based, as for case 0).  A positive Var3
-           * that names no room is a dangling index (the editor stored it
-           * against a differently-based or since-edited list; the offset even
-           * differs between corpus games, so it cannot be decoded reliably);
-           * every corpus instance of one -- X-Files' diner buzzer, HYPER
-           * Battle System's flare rat -- is a "bring this character on-stage
-           * here" direction, so summon the NPC to the player's room instead.
-           * A Var3 of 0 or less means nothing was ever selected; that stays
-           * a no-op.
-           */
-          if (tasks.options.move_assist && var2 == -1)
-            {
-              if (var3 - 1 >= 0 && var3 - 1 < gs_room_count (game))
-                {
-                  task_move_npc_to_room (game, npc, var3 - 1);
-                  return;
-                }
-              if (var3 > 0)
-                {
-                  task_move_npc_to_room (game, npc, gs_playerroom (game));
-                  return;
-                }
-            }
-          if (tasks.trace)
-            scr_trace ("Task: ignoring move with unset/unknown"
-                      " NPC move type %ld\n", var2);
-          return;
-        }
-    }
+  task_move_npc_action (game, npc, var2, var3);
 }

@@ -785,7 +785,9 @@ lib_compare_article_binary (const scr_char *string, const scr_char *word,
  * lib_definite_prefix()
  *
  * Write the article lib_definite_object_name() opens with to RESULT, and
- * return what is left of PREFIX to follow it.
+ * return what is left of PREFIX to follow it.  The 4.0 name builder's own
+ * rule, for command lines rather than printed names, is
+ * sclibrar_dispatch.cpp's lib_definite_prefix_400().
  */
 static const scr_char *
 lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,

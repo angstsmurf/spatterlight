@@ -99,7 +99,6 @@ char *ps_mark_trailing (const char *proc, char *plain);
 /* Shield <#...#> blocks from the function/OO passes, and put them back. */
 std::string protect_exprs (const char *src, std::vector<std::string> &saved);
 std::string restore_exprs (const char *src, const std::vector<std::string> &saved);
-char *replace_expressions (a5_state_t *st, const char *src);
 /* Replace every occurrence of `find` in `src` with `repl`. */
 char *str_replace_all (const char *src, const char *find, const char *repl);
 int   expr_bears_random (const char *body);

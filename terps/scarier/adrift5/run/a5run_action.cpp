@@ -599,28 +599,46 @@ run_after_children (a5_run_t *run, const std::vector<const a5_task_t *> &after,
 }
 
 /*
- * Run PARENT honouring its Specific child overrides (clsTask Children +
- * SpecificOverrideType), recursively -- a faithful port of the runner's
- * AttemptToExecuteTask -> AttemptToExecuteSubTask -> AttemptToExecuteTask.  A
- * child whose Specifics match REFS and whose own restrictions pass runs in place
- * of (Override) or before/after the parent's text+actions, and is itself
- * resolved for nested overrides.  Reusable from both the command-matched parent
- * (run_general) and a SetTasks-Execute re-dispatch.
+ * One execute_task_with_overrides() frame: the task being run with the
+ * references it was matched on, and what the scan of its Specific override
+ * children has decided so far -- whether the parent's own text and actions
+ * still run, and which After children wait behind them.
  */
-void
-execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
-                             const std::vector<ref_info> &refs, int depth,
-                             sb_t *out)
-{
-  a5_state_t *st = run->st;
-  if (dbg_task ())
-    fprintf (stderr, "TASK %-14s @draw %ld depth=%d\n",
-             parent->key ? parent->key : "?", a5rand_draw_count, depth);
-  int parent_text = 1, parent_actions = 1;
-  int any_child_fail_output = 0;    /* The runner's bAnyChildHasOutput (vb:1053/1141) */
-  std::vector<const a5_task_t *> after;
-  size_t frame_len0 = sink_len (run, out);
+struct override_frame_t {
+  a5_run_t *run;
+  const a5_task_t *parent;
+  const std::vector<ref_info> &refs;
+  int depth;
+  sb_t *out;
+  a5_state_t *st;
 
+  int parent_text, parent_actions;
+  int any_child_fail_output;    /* The runner's bAnyChildHasOutput (vb:1053/1141) */
+  std::vector<const a5_task_t *> after;
+  size_t frame_len0;
+
+  override_frame_t (a5_run_t *run_, const a5_task_t *parent_,
+                    const std::vector<ref_info> &refs_, int depth_,
+                    sb_t *out_)
+    : run (run_), parent (parent_), refs (refs_), depth (depth_), out (out_),
+      st (run_->st), parent_text (1), parent_actions (1),
+      any_child_fail_output (0), frame_len0 (sink_len (run_, out_)) {}
+
+  std::vector<int> children () const;
+  bool child_failed (const a5_task_t *child, size_t len0);
+  bool child_passed (int cidx, const a5_task_t *child, size_t len0);
+  void recheck_item_restrictions ();
+  void run_parent (int defer_text);
+  void emit_deferred_look (const char *pinned_view);
+  void emit_deferred_text ();
+  void record_pass_signature ();
+  void execute ();
+};
+
+/* The parent's override children, in the order the runner scans them. */
+std::vector<int>
+override_frame_t::children () const
+{
   /* A command-bearing General has override children; a Specific override
      (depth>0) is itself scanned for its OWN nested children -- e.g. GetAWooden
      overrides TakeObjectFromLocation, which overrides TakeObjects.  Build the
@@ -644,7 +662,319 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
         }
       net_introspective_sort (run->adv, kids);
     }
-  for (int cidx : kids)
+  return kids;
+}
+
+/*
+ * CHILD matches the references but fails its restrictions.  Return true if
+ * that ends the scan of the parent's children.
+ */
+bool
+override_frame_t::child_failed (const a5_task_t *child, size_t len0)
+{
+  /* The runner's bPassingOnly abort: once an earlier sibling child has failed
+     WITH output (bAnyChildHasOutput, set only in the fail branch,
+     vb:1141), every later child is attempted with bPassingOnly=True.
+     A refs-matching child that then FAILS its restrictions is silent
+     (the fail-message block is gated `If Not bPassingOnly`, vb:1244)
+     and AttemptToExecuteTask returns early ("If bPassingOnly AndAlso
+     Not bPass Then Return False", before the vb:911 bContinue rules)
+     -- so bContinueExecutingTasks stays False and the child scan
+     stops dead (vb:1146 Exit For).  The parent keeps whatever
+     suppression earlier children set; later siblings (even a passing
+     one) never run.  FoF `ask clockmaker about dials` after the
+     clock explanation: Task2932 (7480) fails with "I have already
+     explained...", then Task2949 (7495) matches and fails silently,
+     aborting the scan BEFORE the wearily catch-all Task2950 (7496,
+     +2 score) is reached -- the runner shows only Task2932's message. */
+  if (any_child_fail_output)
+    return true;
+  /* A Specific task that matches the references but whose restrictions
+     fail still claims the turn if it has a fail message: show it and
+     suppress the parent.  In the default HighestPriorityTask mode a
+     fail *with* output stops the scan; in HighestPriorityPassingTask
+     mode, or with no output at all, scanning continues so a later
+     override (or the parent) can run. */
+  const a5_xml_node_t *fm =
+    a5restr_fail_message (st, child->restrictions);
+  /* On the plural map path, a "lazy" match-any override (empty
+     Specific key) that fails simply declines this item -- its fail
+     message is collected (and dropped later if the item passes the
+     general task), but the parent still runs.  An object-specific
+     override that fails asserts a per-object failure: show it and
+     suppress the parent (clsUserSession's bShouldParentExecuteTasks).
+     Mirrors why Amazon's bottle (lazy fail) is still picked up while
+     RunBronwynn's ballgown (RemoveBall, Key=Ballgown) is not. */
+  int lazy = run->resp != nullptr && child_all_any (st, child);
+  int fail_claims = 0;
+  if (fm != nullptr)
+    {
+      if (run->resp != nullptr)
+        { resp_add_fail (run, fm); any_child_fail_output = 1; }
+      else
+        {
+          /* vb:1247 hands sRestrictionText to AddResponse raw, with no
+             ReplaceFunctions on any path, so it expands inside Display. */
+          char *fmsg;
+          { a5_intro_guard ig (st, 1); fmsg = a5text_describe (st, fm); }
+          /* The runner buffers this restriction text in htblResponsesFail and
+             flushes it after the passes; a later sibling override that
+             PASSES with output for the same reference cancels it
+             (clsUserSession.vb:804-834).  Buffer it in the command's
+             exec scope instead of writing to `out`, so AoK's `show
+             talisman` drops Task236's "Right idea - wrong location!"
+             once Task1427 passes.  When nothing passes, the scope
+             flush at the end of run_general still shows it. */
+          if (msg_has_output (fmsg))
+            {
+              fail_claims = 1;
+              any_child_fail_output = 1;
+              if (run->exec_scope != nullptr)
+                {
+                  if (run->exec_scope->fail_seen.insert (fmsg).second)
+                    {
+                      std::vector<std::string> pos;
+                      for (auto &ri : refs)
+                        pos.push_back (ri.key ? ri.key : "");
+                      run->exec_scope->ov_fails.push_back
+                        (std::make_pair (std::string (fmsg), pos));
+                    }
+                }
+              else
+                { sb_pspace (out); sb_puts (out, fmsg); }
+            }
+          free (fmsg);
+        }
+      if (!lazy) { parent_text = 0; parent_actions = 0; }
+    }
+  if (!lazy && (sink_len (run, out) > len0 || fail_claims)
+      && !child->continue_lower && !st->adv->hp_passing)
+    return true;                  /* fail with output: claims the turn */
+  return false;                   /* no output (or HPPT): keep scanning */
+}
+
+/*
+ * CHILD matches the references and passes its restrictions: run it in place
+ * of, or ahead of, the parent.  Return true if that ends the scan.
+ */
+bool
+override_frame_t::child_passed (int cidx, const a5_task_t *child, size_t len0)
+{
+  const char *ot = child->override_type;
+
+  /* Recurse so the child's own Specific overrides fire in its place
+     (AttemptToExecuteSubTask -> recursive AttemptToExecuteTask). */
+  size_t ovf0 = run->exec_scope != nullptr
+                ? run->exec_scope->ov_fails.size () : 0;
+  execute_task_with_overrides (run, child, refs, depth + 1, out);
+  st->task_done[cidx] = 1;        /* clsUserSession.vb:1193 task.Completed = True */
+  /* A completing override child fires its own EventControls/WalkControls,
+     exactly like the parent (the runner's AttemptToExecuteSubTask -> recursive
+     AttemptToExecuteTask runs the control loop for every task).  E.g. Stone
+     of Wisdom's ring-knockout `s_AttackTheT` is a Specific override of
+     AttackCharacterWithObject; only its completion fires StartTroll's
+     `Stop Completion s_AttackTheT`, disarming the troll's death subevent. */
+  ev_on_task_completed (run, child->key, out);
+  if (ot == nullptr || streq (ot, "Override"))
+    { parent_text = 0; parent_actions = 0; }
+  else if (streq (ot, "BeforeTextOnly"))      parent_actions = 0;
+  else if (streq (ot, "BeforeActionsOnly"))   parent_text = 0;
+  /* BeforeTextAndActions: parent still runs both (child ran first).
+     the runner (clsUserSession.vb:1106/1111): parent ACTIONS run for
+     BeforeActionsOnly|BeforeTextAndActions; parent TEXT is output for
+     BeforeTextOnly|BeforeTextAndActions.  So BeforeActionsOnly keeps the
+     parent's actions but suppresses its completion message (Grandpa's
+     `vnl_OpenGate1` "safe enough to open" override: the gate still opens,
+     but the generic "You open the gate." is not shown). */
+
+  /* Stop only when this passing child produced output (and isn't
+     ContinueAlways); otherwise fall through to the next matching child.
+     A nested override that failed WITH a buffered message (ov_fails grew
+     during the recursion) counts as output too: the runner's bContinue rule sees
+     the htblResponsesFail entry, so the sibling scan stops and a later
+     sibling's own restriction fail is never shown.  Temperamentum `get
+     mirror`: TakeObjectFromLocation's GetALargeM buffers "You can't get
+     at the mirror while the little girl is standing there." -- without
+     this stop the scan fell through to TakeObjectsFromOthers, appending
+     its "The large mirror is not on or inside another object!".  Gated
+     on !hp_passing like the direct-fail claim above. */
+  int subtree_fail_output = run->exec_scope != nullptr
+                            && run->exec_scope->ov_fails.size () > ovf0;
+  if ((sink_len (run, out) > len0
+       || (subtree_fail_output && !st->adv->hp_passing))
+      && !child->continue_lower)
+    return true;
+  return false;
+}
+
+void
+override_frame_t::recheck_item_restrictions ()
+{
+  /* The runner's per-item AttemptToExecuteTask evaluates the task's restrictions at
+     EXECUTION time (ExecuteSubTasks leaf), so an earlier item's actions can
+     fail a later item of the same plural command -- Magnetic Moon's `put all
+     in box`: once the (worn-then-held) backpack has been moved inside the
+     box, the grapnel/cable/glue/camera nested in it are no longer
+     BeHeldByCharacter and the runner refuses them ("You are not carrying ...!",
+     items merged into one fail response).  Scarier's match phase refined the
+     item set against the PRE-command state, so re-check the parent's
+     restrictions here, on the plural per-item path only (cur_item set) --
+     the singular/movement paths keep their single match-time evaluation and
+     draw stream. */
+  if ((parent_text || parent_actions) && depth == 0 && run->resp != nullptr
+      && !run->resp->cur_item.empty ()
+      && !a5restr_pass (st, parent->restrictions))
+    {
+      const a5_xml_node_t *fm = st->restriction_text;
+      if (fm != nullptr)
+        resp_add_fail (run, fm);
+      parent_text = parent_actions = 0;
+    }
+}
+
+/* Run what the override children left of the parent's own text and actions. */
+void
+override_frame_t::run_parent (int defer_text)
+{
+  if (parent_text || parent_actions)
+    {
+      /* run_task emits both text and actions; gate via temporary copies. */
+      if (!parent_text && parent_actions)
+        {
+          const a5_xml_node_t *act = parent->actions;
+          if (act != nullptr)
+            for (const a5_xml_node_t *c = act->first_child; c; c = c->next)
+              run_action (run, c->name, c->text, 0, out);
+        }
+      else if (parent_text && !defer_text)
+        run_task (run, parent, 0, out);
+    }
+}
+
+/*
+ * The parent's room view was deferred behind its After children: run them,
+ * then emit the view (PINNED_VIEW if the Look dance pinned one) ahead of
+ * their output.
+ */
+void
+override_frame_t::emit_deferred_look (const char *pinned_view)
+{
+  /* The parent's room view was skipped.  Run the After children into a side
+     buffer (their actions update what the room lists -- e.g. Grandpa's `go
+     west` moves Buster into the western enclosure), render the view once at
+     the resulting final state, then emit view-then-children so the room
+     reflects the moves and the children's lines follow it.  Using a side
+     buffer (rather than splicing) lets sb_pspace compute each separator
+     against real preceding text -- e.g. Jacaranda's "...Exits are ... in.
+     [pSpace]It is raining out here." */
+  sb_t after_buf; sb_init (&after_buf);
+  run_after_children (run, after, &after_buf, 0);
+  /* A pinned view (the Look dance's two test renders differed -- a random
+     pick moved) is emitted verbatim; otherwise render at the final state
+     (real output, so <DisplayOnce> segments retire). */
+  std::string view;
+  if (pinned_view != nullptr)
+    view = std::string (pinned_view);
+  else
+    view = render_look_marked (run);
+  /* The runner's response map holds ONE slot for the stock Look's raw template:
+     a second Execute Look in the same command (The Salvage's request
+     docking Looks at the docked pad, then on the bridge) re-renders that
+     slot rather than appending -- first slot's position, last text. */
+  exec_resp_scope *sc = run->exec_scope;
+  if (sc != nullptr && sc->look_off >= 0 && sc->look_sink == out
+      && (size_t) sc->look_off + sc->look_len <= out->len)
+    {
+      sb_splice (out, (size_t) sc->look_off, sc->look_len, view.c_str ());
+      sc->look_len = view.size ();
+    }
+  else
+    {
+      sb_pspace (out);
+      if (sc != nullptr)
+        { sc->look_sink = out; sc->look_off = (long) out->len;
+          sc->look_len = view.size (); }
+      sb_puts (out, view.c_str ());
+    }
+  if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
+  free (after_buf.p);
+}
+
+/*
+ * An aggregate parent's text was deferred behind its After children: run
+ * them, then emit the parent text ahead of their output.
+ */
+void
+override_frame_t::emit_deferred_text ()
+{
+  /* Children run into a side buffer so the parent text can be spliced ahead
+     of them once their actions have updated state. */
+  sb_t after_buf; sb_init (&after_buf);
+  run_after_children (run, after, &after_buf, 0);
+  int self_ti = a5state_task_index (st, parent->key);
+  if (self_ti >= 0) st->task_done[self_ti] = 1;
+  const a5_xml_node_t *comp = a5xml_child (parent->node, "CompletionMessage");
+  /* The stock aggregate Look on the direct path: the runner's response map holds
+     ONE slot keyed on its raw template, rendered at final Display -- after
+     the LocationTrigger drain and event tick.  So (1) a command's SECOND
+     Execute Look contributes nothing (one view, first slot's position,
+     final state's text -- The Salvage's request docking Looks at the
+     docked pad, then again on the bridge), and (2) the view reflects
+     drain-time moves (McKinney relocating to the Airlock during `board
+     avadora`).  Emit a display-defer sentinel; a5run_flush_display_defers
+     renders the view into it at Display. */
+  exec_resp_scope *sc = run->exec_scope;
+  if (streq (parent->key, "Look") && parent->aggregate && sc != nullptr
+      && run->display_defers != nullptr)
+    {
+      if (!(sc->look_off >= 0 && sc->look_sink == out))
+        {
+          sb_pspace (out);
+          sc->look_sink = out;
+          sc->look_off = (long) out->len;
+          char mark[24];
+          snprintf (mark, sizeof mark, "\004%d\004",
+                    (int) run->display_defers->size ());
+          sb_puts (out, mark);
+          sc->look_len = strlen (mark);
+          run->display_defers->push_back ("\002");
+        }
+    }
+  else if (comp != nullptr)
+    {
+      /* defer_text is gated on parent->aggregate, so this render stands in
+         for the runner's Display-time expansion: bDisplaying. */
+      a5_intro_guard ig (st, 1);
+      emit_completion (run, comp, out);
+    }
+  if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
+  free (after_buf.p);
+}
+
+void
+override_frame_t::record_pass_signature ()
+{
+  /* This frame produced pass output on the direct path: record its POSITIONAL
+     reference signature (the runner keys every htblResponsesPass entry with the
+     subtask's NewReferences) for the exec_scope ov_fails cancel rule. */
+  if (run->resp == nullptr && run->exec_scope != nullptr
+      && sink_len (run, out) > frame_len0)
+    {
+      std::vector<std::string> sig;
+      for (auto &ri : refs)
+        sig.push_back (ri.key ? ri.key : "");
+      run->exec_scope->pass_sigs.push_back (sig);
+    }
+}
+
+void
+override_frame_t::execute ()
+{
+  if (dbg_task ())
+    fprintf (stderr, "TASK %-14s @draw %ld depth=%d\n",
+             parent->key ? parent->key : "?", a5rand_draw_count, depth);
+
+  for (int cidx : children ())
     {
       const a5_task_t *child = &run->adv->tasks[cidx];
       if (!refs_match_specifics (st, child, parent, refs)) continue;
@@ -667,128 +997,11 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
 
       if (!a5restr_pass (st, child->restrictions))
         {
-          /* The runner's bPassingOnly abort: once an earlier sibling child has failed
-             WITH output (bAnyChildHasOutput, set only in the fail branch,
-             vb:1141), every later child is attempted with bPassingOnly=True.
-             A refs-matching child that then FAILS its restrictions is silent
-             (the fail-message block is gated `If Not bPassingOnly`, vb:1244)
-             and AttemptToExecuteTask returns early ("If bPassingOnly AndAlso
-             Not bPass Then Return False", before the vb:911 bContinue rules)
-             -- so bContinueExecutingTasks stays False and the child scan
-             stops dead (vb:1146 Exit For).  The parent keeps whatever
-             suppression earlier children set; later siblings (even a passing
-             one) never run.  FoF `ask clockmaker about dials` after the
-             clock explanation: Task2932 (7480) fails with "I have already
-             explained...", then Task2949 (7495) matches and fails silently,
-             aborting the scan BEFORE the wearily catch-all Task2950 (7496,
-             +2 score) is reached -- the runner shows only Task2932's message. */
-          if (any_child_fail_output)
+          if (child_failed (child, len0))
             break;
-          /* A Specific task that matches the references but whose restrictions
-             fail still claims the turn if it has a fail message: show it and
-             suppress the parent.  In the default HighestPriorityTask mode a
-             fail *with* output stops the scan; in HighestPriorityPassingTask
-             mode, or with no output at all, scanning continues so a later
-             override (or the parent) can run. */
-          const a5_xml_node_t *fm =
-            a5restr_fail_message (st, child->restrictions);
-          /* On the plural map path, a "lazy" match-any override (empty
-             Specific key) that fails simply declines this item -- its fail
-             message is collected (and dropped later if the item passes the
-             general task), but the parent still runs.  An object-specific
-             override that fails asserts a per-object failure: show it and
-             suppress the parent (clsUserSession's bShouldParentExecuteTasks).
-             Mirrors why Amazon's bottle (lazy fail) is still picked up while
-             RunBronwynn's ballgown (RemoveBall, Key=Ballgown) is not. */
-          int lazy = run->resp != nullptr && child_all_any (st, child);
-          int fail_claims = 0;
-          if (fm != nullptr)
-            {
-              if (run->resp != nullptr)
-                { resp_add_fail (run, fm); any_child_fail_output = 1; }
-              else
-                {
-                  /* vb:1247 hands sRestrictionText to AddResponse raw, with no
-                     ReplaceFunctions on any path, so it expands inside Display. */
-                  char *fmsg;
-                  { a5_intro_guard ig (st, 1); fmsg = a5text_describe (st, fm); }
-                  /* The runner buffers this restriction text in htblResponsesFail and
-                     flushes it after the passes; a later sibling override that
-                     PASSES with output for the same reference cancels it
-                     (clsUserSession.vb:804-834).  Buffer it in the command's
-                     exec scope instead of writing to `out`, so AoK's `show
-                     talisman` drops Task236's "Right idea - wrong location!"
-                     once Task1427 passes.  When nothing passes, the scope
-                     flush at the end of run_general still shows it. */
-                  if (msg_has_output (fmsg))
-                    {
-                      fail_claims = 1;
-                      any_child_fail_output = 1;
-                      if (run->exec_scope != nullptr)
-                        {
-                          if (run->exec_scope->fail_seen.insert (fmsg).second)
-                            {
-                              std::vector<std::string> pos;
-                              for (auto &ri : refs)
-                                pos.push_back (ri.key ? ri.key : "");
-                              run->exec_scope->ov_fails.push_back
-                                (std::make_pair (std::string (fmsg), pos));
-                            }
-                        }
-                      else
-                        { sb_pspace (out); sb_puts (out, fmsg); }
-                    }
-                  free (fmsg);
-                }
-              if (!lazy) { parent_text = 0; parent_actions = 0; }
-            }
-          if (!lazy && (sink_len (run, out) > len0 || fail_claims)
-              && !child->continue_lower && !st->adv->hp_passing)
-            break;                        /* fail with output: claims the turn */
-          continue;                       /* no output (or HPPT): keep scanning */
+          continue;
         }
-
-      /* Recurse so the child's own Specific overrides fire in its place
-         (AttemptToExecuteSubTask -> recursive AttemptToExecuteTask). */
-      size_t ovf0 = run->exec_scope != nullptr
-                    ? run->exec_scope->ov_fails.size () : 0;
-      execute_task_with_overrides (run, child, refs, depth + 1, out);
-      st->task_done[cidx] = 1;        /* clsUserSession.vb:1193 task.Completed = True */
-      /* A completing override child fires its own EventControls/WalkControls,
-         exactly like the parent (the runner's AttemptToExecuteSubTask -> recursive
-         AttemptToExecuteTask runs the control loop for every task).  E.g. Stone
-         of Wisdom's ring-knockout `s_AttackTheT` is a Specific override of
-         AttackCharacterWithObject; only its completion fires StartTroll's
-         `Stop Completion s_AttackTheT`, disarming the troll's death subevent. */
-      ev_on_task_completed (run, child->key, out);
-      if (ot == nullptr || streq (ot, "Override"))
-        { parent_text = 0; parent_actions = 0; }
-      else if (streq (ot, "BeforeTextOnly"))      parent_actions = 0;
-      else if (streq (ot, "BeforeActionsOnly"))   parent_text = 0;
-      /* BeforeTextAndActions: parent still runs both (child ran first).
-         the runner (clsUserSession.vb:1106/1111): parent ACTIONS run for
-         BeforeActionsOnly|BeforeTextAndActions; parent TEXT is output for
-         BeforeTextOnly|BeforeTextAndActions.  So BeforeActionsOnly keeps the
-         parent's actions but suppresses its completion message (Grandpa's
-         `vnl_OpenGate1` "safe enough to open" override: the gate still opens,
-         but the generic "You open the gate." is not shown). */
-
-      /* Stop only when this passing child produced output (and isn't
-         ContinueAlways); otherwise fall through to the next matching child.
-         A nested override that failed WITH a buffered message (ov_fails grew
-         during the recursion) counts as output too: the runner's bContinue rule sees
-         the htblResponsesFail entry, so the sibling scan stops and a later
-         sibling's own restriction fail is never shown.  Temperamentum `get
-         mirror`: TakeObjectFromLocation's GetALargeM buffers "You can't get
-         at the mirror while the little girl is standing there." -- without
-         this stop the scan fell through to TakeObjectsFromOthers, appending
-         its "The large mirror is not on or inside another object!".  Gated
-         on !hp_passing like the direct-fail claim above. */
-      int subtree_fail_output = run->exec_scope != nullptr
-                                && run->exec_scope->ov_fails.size () > ovf0;
-      if ((sink_len (run, out) > len0
-           || (subtree_fail_output && !st->adv->hp_passing))
-          && !child->continue_lower)
+      if (child_passed (cidx, child, len0))
         break;
     }
 
@@ -817,40 +1030,8 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
   if (enable_look_defer)
     { run->defer_look = 1; run->look_pending = 0; run->look_pinned = nullptr; }
 
-  /* The runner's per-item AttemptToExecuteTask evaluates the task's restrictions at
-     EXECUTION time (ExecuteSubTasks leaf), so an earlier item's actions can
-     fail a later item of the same plural command -- Magnetic Moon's `put all
-     in box`: once the (worn-then-held) backpack has been moved inside the
-     box, the grapnel/cable/glue/camera nested in it are no longer
-     BeHeldByCharacter and the runner refuses them ("You are not carrying ...!",
-     items merged into one fail response).  Scarier's match phase refined the
-     item set against the PRE-command state, so re-check the parent's
-     restrictions here, on the plural per-item path only (cur_item set) --
-     the singular/movement paths keep their single match-time evaluation and
-     draw stream. */
-  if ((parent_text || parent_actions) && depth == 0 && run->resp != nullptr
-      && !run->resp->cur_item.empty ()
-      && !a5restr_pass (st, parent->restrictions))
-    {
-      const a5_xml_node_t *fm = st->restriction_text;
-      if (fm != nullptr)
-        resp_add_fail (run, fm);
-      parent_text = parent_actions = 0;
-    }
-
-  if (parent_text || parent_actions)
-    {
-      /* run_task emits both text and actions; gate via temporary copies. */
-      if (!parent_text && parent_actions)
-        {
-          const a5_xml_node_t *act = parent->actions;
-          if (act != nullptr)
-            for (const a5_xml_node_t *c = act->first_child; c; c = c->next)
-              run_action (run, c->name, c->text, 0, out);
-        }
-      else if (parent_text && !defer_text)
-        run_task (run, parent, 0, out);
-    }
+  recheck_item_restrictions ();
+  run_parent (defer_text);
 
   run->defer_look = prev_defer_look;
   /* Only the frame that enabled deferral consumes the pending look; a nested
@@ -870,107 +1051,32 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
     }
 
   if (look_deferred)
-    {
-      /* The parent's room view was skipped.  Run the After children into a side
-         buffer (their actions update what the room lists -- e.g. Grandpa's `go
-         west` moves Buster into the western enclosure), render the view once at
-         the resulting final state, then emit view-then-children so the room
-         reflects the moves and the children's lines follow it.  Using a side
-         buffer (rather than splicing) lets sb_pspace compute each separator
-         against real preceding text -- e.g. Jacaranda's "...Exits are ... in.
-         [pSpace]It is raining out here." */
-      sb_t after_buf; sb_init (&after_buf);
-      run_after_children (run, after, &after_buf, 0);
-      /* A pinned view (the Look dance's two test renders differed -- a random
-         pick moved) is emitted verbatim; otherwise render at the final state
-         (real output, so <DisplayOnce> segments retire). */
-      std::string view;
-      if (pinned_view != nullptr)
-        view = std::string (pinned_view);
-      else
-        view = render_look_marked (run);
-      /* The runner's response map holds ONE slot for the stock Look's raw template:
-         a second Execute Look in the same command (The Salvage's request
-         docking Looks at the docked pad, then on the bridge) re-renders that
-         slot rather than appending -- first slot's position, last text. */
-      exec_resp_scope *sc = run->exec_scope;
-      if (sc != nullptr && sc->look_off >= 0 && sc->look_sink == out
-          && (size_t) sc->look_off + sc->look_len <= out->len)
-        {
-          sb_splice (out, (size_t) sc->look_off, sc->look_len, view.c_str ());
-          sc->look_len = view.size ();
-        }
-      else
-        {
-          sb_pspace (out);
-          if (sc != nullptr)
-            { sc->look_sink = out; sc->look_off = (long) out->len;
-              sc->look_len = view.size (); }
-          sb_puts (out, view.c_str ());
-        }
-      if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
-      free (after_buf.p);
-    }
+    emit_deferred_look (pinned_view);
   else if (defer_text)
-    {
-      /* Children run into a side buffer so the parent text can be spliced ahead
-         of them once their actions have updated state. */
-      sb_t after_buf; sb_init (&after_buf);
-      run_after_children (run, after, &after_buf, 0);
-      int self_ti = a5state_task_index (st, parent->key);
-      if (self_ti >= 0) st->task_done[self_ti] = 1;
-      const a5_xml_node_t *comp = a5xml_child (parent->node, "CompletionMessage");
-      /* The stock aggregate Look on the direct path: the runner's response map holds
-         ONE slot keyed on its raw template, rendered at final Display -- after
-         the LocationTrigger drain and event tick.  So (1) a command's SECOND
-         Execute Look contributes nothing (one view, first slot's position,
-         final state's text -- The Salvage's request docking Looks at the
-         docked pad, then again on the bridge), and (2) the view reflects
-         drain-time moves (McKinney relocating to the Airlock during `board
-         avadora`).  Emit a display-defer sentinel; a5run_flush_display_defers
-         renders the view into it at Display. */
-      exec_resp_scope *sc = run->exec_scope;
-      if (streq (parent->key, "Look") && parent->aggregate && sc != nullptr
-          && run->display_defers != nullptr)
-        {
-          if (!(sc->look_off >= 0 && sc->look_sink == out))
-            {
-              sb_pspace (out);
-              sc->look_sink = out;
-              sc->look_off = (long) out->len;
-              char mark[24];
-              snprintf (mark, sizeof mark, "\004%d\004",
-                        (int) run->display_defers->size ());
-              sb_puts (out, mark);
-              sc->look_len = strlen (mark);
-              run->display_defers->push_back ("\002");
-            }
-        }
-      else if (comp != nullptr)
-        {
-          /* defer_text is gated on parent->aggregate, so this render stands in
-             for the runner's Display-time expansion: bDisplaying. */
-          a5_intro_guard ig (st, 1);
-          emit_completion (run, comp, out);
-        }
-      if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
-      free (after_buf.p);
-    }
+    emit_deferred_text ();
   else
     run_after_children (run, after, out, 1);
   free (pinned_view);
 
-  /* This frame produced pass output on the direct path: record its POSITIONAL
-     reference signature (the runner keys every htblResponsesPass entry with the
-     subtask's NewReferences) for the exec_scope ov_fails cancel rule. */
-  if (run->resp == nullptr && run->exec_scope != nullptr
-      && sink_len (run, out) > frame_len0)
-    {
-      std::vector<std::string> sig;
-      for (auto &ri : refs)
-        sig.push_back (ri.key ? ri.key : "");
-      run->exec_scope->pass_sigs.push_back (sig);
-    }
+  record_pass_signature ();
+}
+
+/*
+ * Run PARENT honouring its Specific child overrides (clsTask Children +
+ * SpecificOverrideType), recursively -- a faithful port of the runner's
+ * AttemptToExecuteTask -> AttemptToExecuteSubTask -> AttemptToExecuteTask.  A
+ * child whose Specifics match REFS and whose own restrictions pass runs in place
+ * of (Override) or before/after the parent's text+actions, and is itself
+ * resolved for nested overrides.  Reusable from both the command-matched parent
+ * (run_general) and a SetTasks-Execute re-dispatch.
+ */
+void
+execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
+                             const std::vector<ref_info> &refs, int depth,
+                             sb_t *out)
+{
+  override_frame_t frame (run, parent, refs, depth, out);
+  frame.execute ();
 }
 
 /* Run a matched General task (the directly command-matched parent), honouring

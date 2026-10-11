@@ -967,6 +967,7 @@ gsc_draw_inline_graphic (glui32 id)
 
 /*
  * gsc_handle_cls_tag()
+ * gsc_set_alignment()
  * gsc_handle_center_tag()
  * gsc_handle_right_tag()
  * gsc_handle_bgcolour_tag()
@@ -994,7 +995,7 @@ gsc_handle_cls_tag (void)
 }
 
 static void
-gsc_handle_center_tag (scr_int tag)
+gsc_set_alignment (glui32 centered, glui32 right)
 {
   /*
    * Alignment in the Runner is a flat state, not a nesting depth: it
@@ -1011,36 +1012,30 @@ gsc_handle_center_tag (scr_int tag)
    * the centered paragraph's terminator) -- and only then switch styles.
    * A tag that doesn't change the alignment breaks no paragraph.
    */
-  glui32 centered = (tag == SCR_TAG_CENTER);
-
-  if (centered != gsc_attribute_center || gsc_attribute_right > 0)
+  if (centered != gsc_attribute_center || right != gsc_attribute_right)
     {
       if (!gsc_sc_silent)
         glk_put_char ('\n');
       gsc_attribute_center = centered;
-      gsc_attribute_right = 0;
+      gsc_attribute_right = right;
       gsc_set_glk_style ();
     }
+}
+
+static void
+gsc_handle_center_tag (scr_int tag)
+{
+  gsc_set_alignment (tag == SCR_TAG_CENTER, 0);
 }
 
 static void
 gsc_handle_right_tag (scr_int tag)
 {
   /*
-   * Same flat alignment state as <center> (run400 Sub_22_27).  Right uses
-   * style_Note (RightFlush-hinted); entering or leaving right also clears
-   * centering, as the Runner does.
+   * Right uses style_Note (RightFlush-hinted); entering or leaving right
+   * also clears centering, as the Runner does.
    */
-  glui32 right = (tag == SCR_TAG_RIGHT);
-
-  if (right != gsc_attribute_right || gsc_attribute_center > 0)
-    {
-      if (!gsc_sc_silent)
-        glk_put_char ('\n');
-      gsc_attribute_right = right;
-      gsc_attribute_center = 0;
-      gsc_set_glk_style ();
-    }
+  gsc_set_alignment (0, tag == SCR_TAG_RIGHT);
 }
 
 static void

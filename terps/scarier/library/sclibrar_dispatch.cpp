@@ -186,7 +186,7 @@ lib_typed_verb (const scr_char *verb)
 }
 
 /*
- * lib_definite_prefix()
+ * lib_definite_prefix_400()
  *
  * The prefix as run400's name builder Proc_21_31_448710 composes it in its
  * normalizing mode 0: through tense (Proc_21_13_44F474), which rewrites a
@@ -194,9 +194,13 @@ lib_typed_verb (const scr_char *verb)
  * "the ", and leaves everything else alone.  An empty Prefix is already "a"
  * by the time 4.0 has loaded the game (loader @4900EC), so it composes as
  * "the" too.
+ *
+ * Not sclibrar_print.cpp's lib_definite_prefix(): that one opens the name
+ * lib_definite_object_name() prints, carries the pre-3.9 tense() arm, and
+ * also skips a "the" already present.
  */
 static const scr_char *
-lib_definite_prefix (const scr_char *prefix, scr_char *buffer, size_t size)
+lib_definite_prefix_400 (const scr_char *prefix, scr_char *buffer, size_t size)
 {
   static const scr_char *const ARTICLES[] = { "a", "an", "some" };
   size_t index_;
@@ -499,15 +503,16 @@ lib_try_game_command_common (scr_gameref_t game,
        * normalizing mode 0 (run400 insides @465DED-465E51, two calls to
        * Proc_21_31_448710 with mode 0), so its canonical line reads "put the
        * bean in the jar", never "put a bean in a jar"; see
-       * lib_definite_prefix().
+       * lib_definite_prefix_400().
        */
       if (use_definite && is_associate_object)
         {
-          prefix = lib_definite_prefix (prefix, definite_prefix,
-                                        sizeof (definite_prefix));
-          associate_prefix = lib_definite_prefix (associate_prefix,
-                                                  definite_associate_prefix,
-                                                  sizeof (definite_associate_prefix));
+          prefix = lib_definite_prefix_400 (prefix, definite_prefix,
+                                            sizeof (definite_prefix));
+          associate_prefix
+            = lib_definite_prefix_400 (associate_prefix,
+                                       definite_associate_prefix,
+                                       sizeof (definite_associate_prefix));
         }
 
       assert (preposition);
@@ -552,8 +557,8 @@ lib_try_game_command_common (scr_gameref_t game,
        * spelling, no prefix-less retry.
        */
       if (use_definite)
-        prefix = lib_definite_prefix (prefix, definite_prefix,
-                                      sizeof (definite_prefix));
+        prefix = lib_definite_prefix_400 (prefix, definite_prefix,
+                                          sizeof (definite_prefix));
       required = strlen (verb) + strlen (prefix) + strlen (name) + 3;
       command = required > (scr_int) sizeof (buffer)
                 ? (decltype(+buffer)) scr_malloc (required) : buffer;
@@ -691,8 +696,8 @@ lib_try_game_command_short_definite (scr_gameref_t game,
         continue;
 
       prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
-      prefix = lib_definite_prefix (prefix, definite_prefix,
-                                    sizeof (definite_prefix));
+      prefix = lib_definite_prefix_400 (prefix, definite_prefix,
+                                        sizeof (definite_prefix));
       if (strlen (verb) + strlen (prefix) + strlen (name) + 3
           > sizeof (buffer))
         continue;
