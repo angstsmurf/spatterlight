@@ -860,6 +860,15 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int d
         return HulkUKSpecificParsing(ptr, endptr, info);
     }
 
+    /* Two C64 images of Voodoo Castle (the "Cracked by Toko" disk and the
+       T64) have one damaged byte, 0x55 for 0x01, in the third condition
+       word of action line 27. It turns parameter 21 into a test for room
+       1096, so the line never fires. Put back the value that the other
+       releases have there. */
+    if (CurrentGame == VOODOO_CASTLE_US && GameHeader.NumActions >= 27
+        && Actions[27].Condition[2] == 0x55a4)
+        Actions[27].Condition[2] = 21 * 20; /* parameter 21 */
+
     return CurrentGame;
 }
 

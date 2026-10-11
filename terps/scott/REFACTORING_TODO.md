@@ -30,21 +30,21 @@ after the header; Escape from Pulsar 7 C64: actions at 0x1df3, and
 `TryLoading` cuts the header's count of 195 down to the 191 lines that fit
 before the dictionary), Hulk C64 is patched in `HulkUKSpecificParsing`
 (15 bytes of stray text, `N0:B...SU`, over the third condition of lines
-184-191), and an item above NumItems is treated as not in play and never
-moved instead of reading or writing past `Items[]` or calling `Fatal()`:
-`ItemExists()` guards `ConditionHolds` and every item opcode of both the
-standard and the TI-99/4A interpreter. None of the damage
-is unp64: the disk images are stored unpacked and the T64s decrunch to the
-same bytes.
+184-191), Voodoo Castle C64 is patched in `LoadBinaryDatabase`
+(`d64-voodoo-castle-ai-toko`, `t64-voodooc2`: one byte 0x55 for 0x01 made
+line 27, GO CELL, test for room 1096 instead of taking parameter 21, so
+the cell could not be entered and the game not won; both images now play
+the `voodoo-castle` script to the end), and an item above NumItems is
+treated as not in play and never moved instead of reading or writing past
+`Items[]` or calling `Fatal()`: `ItemExists()` guards `ConditionHolds` and
+every item opcode of both the standard and the TI-99/4A interpreter. None
+of the damage is unp64: the disk images are stored unpacked and the T64s
+decrunch to the same bytes.
 
 What the audit still reports, all harmless now:
 
 - Ten Little Indians `z80-m10india`: line 101, `NOT_PRESENT(217)` of 73
   (the .tzx and the other .z80 have 0 there). Covered by the guard.
-- Voodoo Castle C64 (`d64-voodoo-castle-ai-toko`, `t64-voodooc2`): line 27,
-  `AT_LOC(1096)`, one byte 0x55 for 0x01. A room number, only compared with
-  `MyLoc`, so the line never fires. Could be patched like Hulk if the line
-  matters.
 - Escape from Pulsar 7 C64 plays differently from before the fix: the
   misread table had a junk implicit line that drew a random number every
   turn, so the dust in the air vent (line 40, 10 %) now falls on other
