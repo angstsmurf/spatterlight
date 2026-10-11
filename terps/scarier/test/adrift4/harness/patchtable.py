@@ -16,7 +16,7 @@ import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SCTAFPAR = os.path.normpath(os.path.join(HERE, "..", "..", "..", "sctafpar_patches.cpp"))
+SCTAFPAR = os.path.normpath(os.path.join(HERE, "..", "..", "..", "core", "sctafpar_patches.cpp"))
 
 # PATCH_SET/SET_BOOL/ADD/ADD_STRING/STRING/VERIFY, as sctafpar.cpp defines them.
 MODES = {"SET": "I", "SET_BOOL": "B", "ADD": "A", "ADD_STRING": "N", "STRING": "S", "VERIFY": "V"}

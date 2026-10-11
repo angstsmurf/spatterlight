@@ -44,9 +44,9 @@
 #include <string>
 #include <vector>
 
-#include "scarier.h"
-#include "scprotos.h"
-#include "scgamest.h"
+#include "core/scarier.h"
+#include "core/scprotos.h"
+#include "core/scgamest.h"
 
 /* Assorted definitions and constants. */
 static const scr_char NUL = '\0';

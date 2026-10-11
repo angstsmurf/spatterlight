@@ -40,9 +40,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "scarier.h"
-#include "scprotos.h"
-#include "scgamest.h"
+#include "core/scarier.h"
+#include "core/scprotos.h"
+#include "core/scgamest.h"
 
 static int failures = 0;
 static scr_game g_game = nullptr;

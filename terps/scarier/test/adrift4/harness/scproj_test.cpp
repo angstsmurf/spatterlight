@@ -23,9 +23,9 @@
  * reporting per-round enemy stamina so we can see real damage land. */
 #include <stdio.h>
 #include <string.h>
-#include "scarier.h"
-#include "scprotos.h"
-#include "scgamest.h"
+#include "core/scarier.h"
+#include "core/scprotos.h"
+#include "core/scgamest.h"
 
 static const char *methods[] = {"chop","cut","hit","shoot","stab","throw"};
 

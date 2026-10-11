@@ -256,6 +256,7 @@ terps/taylor/test/images/mame/
 # Scarier build artifacts (Makefile.headless compiles in place; the test
 # harnesses have their own .gitignore files under terps/scarier/test/)
 /terps/scarier/*.o
+/terps/scarier/core/*.o
 /terps/scarier/adrift5/*.o
 /terps/scarier/adrift5/text/*.o
 /terps/scarier/adrift5/run/*.o

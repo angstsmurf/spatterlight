@@ -54,7 +54,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "scarier.h"
+#include "core/scarier.h"
 #include "sxprotos.h"
 
 

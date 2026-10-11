@@ -4448,7 +4448,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		6D8389FDA9FFD4A72FFC493F /* scarier */ = {
+		5C1B1A000000000000000110 /* core */ = {
 			isa = PBXGroup;
 			children = (
 				4F072EA2A580A5CA81386D0D /* sctafpar.cpp */,
@@ -4470,9 +4470,6 @@
 				5C1B1A000000000000000101 /* scparser_match.cpp */,
 				5C1B1A000000000000000102 /* scparser_entity.cpp */,
 				5C1B1A000000000000000103 /* scparser_pronoun.cpp */,
-				SCLIBGRP0000000000000001 /* library */,
-				SCRUNGRP0000000000000001 /* runner */,
-				SCGLKGRP0000000000000001 /* glk */,
 				92FBC38D091ED69CB6B5650A /* scevents.cpp */,
 				96800C7329F2706EB62F4306 /* scnpcs.cpp */,
 				1B305C336D7D955664940307 /* scbattle.cpp */,
@@ -4490,11 +4487,22 @@
 				AA889483D559290F70E80C64 /* scutils.cpp */,
 				A16591AA3CA68885CF7C3D4E /* sclocale.cpp */,
 				7044549A9EFF7192B123BF36 /* scdebug.cpp */,
+				C331B95630069635008F8BD9 /* scmap.h */,
+				SCMAP000000000000000002 /* scmap.cpp */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		6D8389FDA9FFD4A72FFC493F /* scarier */ = {
+			isa = PBXGroup;
+			children = (
+				5C1B1A000000000000000110 /* core */,
+				SCLIBGRP0000000000000001 /* library */,
+				SCRUNGRP0000000000000001 /* runner */,
+				SCGLKGRP0000000000000001 /* glk */,
 				C3A51F0000000000000000B3 /* scarier-autosave.h */,
 				C3A51F0000000000000000B2 /* scarier-autosave.mm */,
 				MAPDRAW00000000000000002 /* mapdraw.cpp */,
-				C331B95630069635008F8BD9 /* scmap.h */,
-				SCMAP000000000000000002 /* scmap.cpp */,
 				A1C2BD54BBB210F1A5BF32CA /* sessrec.h */,
 				382F3576525A572D2EEA8878 /* map_ppm.h */,
 				A5GRP0000000000000000001 /* adrift5 */,

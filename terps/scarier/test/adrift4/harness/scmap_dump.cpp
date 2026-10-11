@@ -36,9 +36,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "scarier.h"
-#include "scprotos.h"
-#include "scmap.h"
+#include "core/scarier.h"
+#include "core/scprotos.h"
+#include "core/scmap.h"
 #include "../../map_ppm.h"
 
 static FILE *g_script = nullptr;

@@ -42,12 +42,13 @@ A5_RAND_OBJ := test/adrift5/harness/a5_randomness.o
 
 # All interpreter sources, plus the os-layer stubs the battle harness needs
 # (headless/, SCARE's test-suite stub layer; never part of a shipping build).
-# mapdraw.cpp is the engine-neutral map model/rasteriser scmap.cpp draws into.
-# The command library and the runner live in library/ and runner/; tools/ is
-# the SCARIER_DUMP_TOOLS instrumentation (scdump.cpp, scrun_census.cpp), which
-# is all under that guard and so compiles to empty objects in the plain and
-# san sets -- only the dump set below defines the macro.
-SRC  := $(wildcard sc*.cpp) $(wildcard library/*.cpp) $(wildcard runner/*.cpp) \
+# The ADRIFT 4 engine is core/; mapdraw.cpp is the engine-neutral map
+# model/rasteriser core/scmap.cpp draws into.  The command library and the
+# runner live in library/ and runner/; tools/ is the SCARIER_DUMP_TOOLS
+# instrumentation (scdump.cpp, scrun_census.cpp), which is all under that
+# guard and so compiles to empty objects in the plain and san sets -- only
+# the dump set below defines the macro.
+SRC  := $(wildcard core/sc*.cpp) $(wildcard library/*.cpp) $(wildcard runner/*.cpp) \
         $(wildcard tools/*.cpp) mapdraw.cpp
 STUBS   := headless/sxstubs.cpp headless/sxglob.cpp headless/sxutils.cpp
 HARNESS := test/adrift4/harness/battle_test.cpp

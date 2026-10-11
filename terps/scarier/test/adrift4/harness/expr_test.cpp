@@ -34,8 +34,8 @@
 #include <stdio.h>
 #include <string>
 
-#include "scarier.h"
-#include "scprotos.h"
+#include "core/scarier.h"
+#include "core/scprotos.h"
 
 static int failures = 0;
 

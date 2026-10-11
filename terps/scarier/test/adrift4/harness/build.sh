@@ -34,7 +34,7 @@ cd "$SCARE"
 # map.  The command library and the runner live in library/ and runner/, the
 # dump instrumentation in tools/.
 clang++ -O2 -w -I. -DSCARIER_DUMP_TOOLS \
-  sc*.cpp library/*.cpp runner/*.cpp tools/*.cpp mapdraw.cpp os_ansi.cpp \
+  core/sc*.cpp library/*.cpp runner/*.cpp tools/*.cpp mapdraw.cpp os_ansi.cpp \
   "$HERE/seed.cpp" \
   -lz -o "$OUT"
 

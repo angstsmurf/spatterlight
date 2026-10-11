@@ -33,7 +33,7 @@
  * this file.
  */
 
-#include "scarier.h"
+#include "core/scarier.h"
 
 void os_print_string (const scr_char *string) { (void) string; }
 void os_print_tag (scr_int tag, const scr_char *argument)

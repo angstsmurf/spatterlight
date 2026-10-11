@@ -32,8 +32,8 @@
  */
 #include <stdlib.h>
 
-#include "scarier.h"
-#include "scprotos.h"
+#include "core/scarier.h"
+#include "core/scprotos.h"
 
 __attribute__((constructor)) static void seed_det(void) {
   /* SCR_SEED overrides; the default is 1, or 1234 when SCR_RNG=xoshiro

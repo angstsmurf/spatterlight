@@ -35,8 +35,9 @@ CXX	= c++
 DEBUG	=
 CEXTRA	=
 CFLAGS	= -O2 -fPIC $(DEBUG) $(CEXTRA)
-# -I. lets the command library in library/ and the runner in runner/ find
-# the shared Scarier headers at the root.
+# -I. lets the command library in library/, the runner in runner/ and the
+# front ends find the engine headers as "core/scarier.h" and the shared
+# mapdraw.h / sessrec.h at the root.
 CXXFLAGS = -O2 -fPIC -Wall -W $(DEBUG) $(CEXTRA) -I.
 LDLIBS	= -lz
 LDEXTRA	=
@@ -83,28 +84,32 @@ TEST	= test
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-# ADRIFT 5 engine objects live in adrift5/; -I. lets them include the top-level
-# headers (scarier.h, scprotos.h) by bare name.
+# ADRIFT 5 engine objects live in adrift5/; -I. lets them include the engine
+# headers (core/scarier.h, core/scprotos.h) and the shared ones at the root.
 adrift5/%.o: adrift5/%.cpp
 	$(CXX) $(CXXFLAGS) -I. -c -o $@ $<
 
-# Scarier objects and headers: every sc*.cpp at the top level plus the library/
-# and runner/ topic files.  tools/ is the SCARIER_DUMP_TOOLS diagnostic
-# instrumentation, compiled only by Makefile.headless; scmap.cpp is linked
-# through MAPOBJECTS below.  A new .cpp in any of these three places is picked
-# up without editing this file (the Xcode project still needs its own entry).
+# Scarier objects and headers: the ADRIFT 4 engine in core/ (every sc*.cpp)
+# plus the library/ and runner/ topic files.  tools/ is the
+# SCARIER_DUMP_TOOLS diagnostic instrumentation, compiled only by
+# Makefile.headless; core/scmap.cpp is linked through MAPOBJECTS below.  A
+# new .cpp in any of these three places is picked up without editing this
+# file (the Xcode project still needs its own entry).
+COREDIR	= core
 LIBDIR	= library
 RUNDIR	= runner
-OBJECTS	= $(filter-out scmap.o,$(patsubst %.cpp,%.o,$(wildcard sc*.cpp))) \
+OBJECTS	= $(filter-out $(COREDIR)/scmap.o,				\
+	    $(patsubst %.cpp,%.o,$(wildcard $(COREDIR)/sc*.cpp)))	\
 	  $(patsubst %.cpp,%.o,$(wildcard $(LIBDIR)/*.cpp) $(wildcard $(RUNDIR)/*.cpp))
-HEADERS	= $(wildcard *.h $(LIBDIR)/*.h $(RUNDIR)/*.h)
+HEADERS	= $(wildcard *.h $(COREDIR)/*.h $(LIBDIR)/*.h $(RUNDIR)/*.h)
 
-# The map pane: scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the ADRIFT 5
-# one, and both draw into the engine-neutral rasteriser in mapdraw.cpp.  Only
-# the Glk port has somewhere to show a map, but the engine calls
+# The map pane: core/scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the
+# ADRIFT 5 one, and both draw into the engine-neutral rasteriser in
+# mapdraw.cpp, which stays at the root with the other shared files.  Only the
+# Glk port has somewhere to show a map, but the engine calls
 # scmap_forget_game(), so every build links them.
-MAPOBJECTS = mapdraw.o scmap.o
-MAPHEADERS = mapdraw.h scmap.h
+MAPOBJECTS = mapdraw.o $(COREDIR)/scmap.o
+MAPHEADERS = mapdraw.h $(COREDIR)/scmap.h
 
 # The shared, seedable cross-platform RNG (erkyrath xoshiro128**) the v5 engine
 # draws from, so seeded walkthroughs reproduce across platforms.  Plain C, and

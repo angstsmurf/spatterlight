@@ -37,7 +37,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "scarier.h"
+#include "core/scarier.h"
 
 #ifdef SCARIER_DUMP_TOOLS
 #include <fcntl.h>

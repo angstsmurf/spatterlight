@@ -37,9 +37,9 @@
 #include <string>
 #include <vector>
 
-#include "scarier.h"
-#include "scprotos.h"
-#include "scgamest.h"
+#include "core/scarier.h"
+#include "core/scprotos.h"
+#include "core/scgamest.h"
 #include "runner/scrunner.h"
 
 

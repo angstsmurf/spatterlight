@@ -37,7 +37,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "scarier.h"
+#include "core/scarier.h"
 
 static int failures = 0;
 static scr_game g_game = nullptr;

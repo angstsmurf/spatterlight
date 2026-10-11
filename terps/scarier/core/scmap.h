@@ -55,7 +55,7 @@
 #define SCMAP_H
 
 #include "scprotos.h"
-#include "mapdraw.h"
+#include "../mapdraw.h"
 
 /* Fill in the view callbacks over SCARE's game state. */
 extern void scmap_view (scr_gameref_t game, map_view_t *view);

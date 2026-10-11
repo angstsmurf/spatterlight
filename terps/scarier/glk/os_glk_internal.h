@@ -54,7 +54,7 @@
 
 #include <string>
 
-#include "scarier.h"
+#include "core/scarier.h"
 
 /* The Glk headers and the glkimp host symbols (glk_*, garglk_*, glkunix_*,
  * gli_determinism, win_*) are C; these are C++ translation units, so include
@@ -84,13 +84,13 @@ extern "C" {
 #include "gi_blorb.h"
 }
 
-#include "scprotos.h" /* for SCARIER_VERSION */
+#include "core/scprotos.h" /* for SCARIER_VERSION */
 
 /* ADRIFT 5 engine -- driven by the dedicated a5 Glk loop (gsc_a5_main) when
  * the game file is detected as ADRIFT 5 rather than ADRIFT <=4. */
 #include "adrift5/a5deobf.h"         /* a5_deflate / a5_inflate save framing */
 #include "adrift5/a5map.h"           /* the ADRIFT 5 map (Map.vb) */
-#include "scmap.h"                   /* the ADRIFT 4 map (run400 Form29) */
+#include "core/scmap.h"                   /* the ADRIFT 4 map (run400 Form29) */
 #include "adrift5/a5model.h"
 #include "adrift5/a5parse.h"         /* a5parse_direction_name, for map-click walks */
 #include "adrift5/a5restr.h"         /* a5restr_exit_in_direction, for map stub arrows */

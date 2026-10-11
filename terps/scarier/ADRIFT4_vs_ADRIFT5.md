@@ -5,7 +5,8 @@ How the two engines Scarier carries differ, subsystem by subsystem. Semantics
 file describes the code as it stands. Last checked against the sources
 2026-08-10.
 
-**Where the files are.** The ADRIFT ≤4 engine (`sc*.cpp`, the SCARE lineage) and
+**Where the files are.** The ADRIFT ≤4 engine (`core/sc*.cpp`, the SCARE lineage,
+with its command library in `library/` and runner in `runner/`) and
 the Glk host (`glk/os_glk*.cpp`) sit in `terps/scarier/`. **Every `a5*`
 file named below lives in `terps/scarier/adrift5/`; the `a5run*` family is in
 `adrift5/run/` and the `a5text*` family in `adrift5/text/`.** `a5run.cpp` has since been

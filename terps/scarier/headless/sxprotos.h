@@ -18,7 +18,7 @@
  * USA
  */
 
-#include "scarier.h"
+#include "core/scarier.h"
 
 #ifndef SCARIEREXT_PROTOTYPES_H
 #define SCARIEREXT_PROTOTYPES_H

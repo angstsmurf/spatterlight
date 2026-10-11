@@ -53,9 +53,9 @@
 #include <vector>
 
 #include "zlib.h"
-#include "scarier.h"
-#include "scprotos.h"
-#include "scgamest.h"
+#include "core/scarier.h"
+#include "core/scprotos.h"
+#include "core/scgamest.h"
 
 static int failures = 0;
 
