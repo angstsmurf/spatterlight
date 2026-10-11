@@ -372,9 +372,12 @@ These are candidates, not tasks; each wants its own decision.
   and 2530; none stands out, so no further split is proposed.
 - **Functions between 150 and 200 lines**: the second census counted 61
   over 150; only the 20 over 200 were taken up.
-- **Glk Makefile dependencies**: `$(OBJECTS): $(HEADERS)` rebuilds
-  everything on any header edit; `-MMD` would be a small separate
-  change.
+- ~~**Glk Makefile dependencies**~~: done.  `Makefile` compiles with
+  `-MMD -MP` and includes the `.d` files, in place of the
+  `$(OBJECTS): $(HEADERS)` rules that rebuilt everything on any header
+  edit.  `make clean` is rebuilt on the object lists (it still named
+  `core` as a dump file and missed `core/`, `platform/` and the
+  `adrift5/` subdirectories).
 - ~~**Fatal message in the game window**~~: done.  `if_report_fatal()`
   keeps the message for `scr_take_fatal_message()`; the Glk front end's
   `gsc_report_fatal()` reports it after `scr_interpret_game()`,

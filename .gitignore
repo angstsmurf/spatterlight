@@ -256,18 +256,18 @@ terps/taylor/test/images/mame/
 
 # Scarier build artifacts (Makefile.headless compiles in place; the test
 # harnesses have their own .gitignore files under terps/scarier/test/)
-/terps/scarier/*.o
-/terps/scarier/core/*.o
-/terps/scarier/platform/*.o
-/terps/scarier/adrift5/*.o
-/terps/scarier/adrift5/text/*.o
-/terps/scarier/adrift5/run/*.o
-/terps/scarier/library/*.o
-/terps/scarier/runner/*.o
-/terps/scarier/tools/*.o
-/terps/scarier/headless/*.o
-/terps/scarier/glk/*.o
-/terps/scarier/common_utils/*.o
+/terps/scarier/*.[od]
+/terps/scarier/core/*.[od]
+/terps/scarier/platform/*.[od]
+/terps/scarier/adrift5/*.[od]
+/terps/scarier/adrift5/text/*.[od]
+/terps/scarier/adrift5/run/*.[od]
+/terps/scarier/library/*.[od]
+/terps/scarier/runner/*.[od]
+/terps/scarier/tools/*.[od]
+/terps/scarier/headless/*.[od]
+/terps/scarier/glk/*.[od]
+/terps/scarier/common_utils/*.[od]
 /terps/scarier/scarier
 /terps/scarier/glkscarier
 /terps/scarier/sx
