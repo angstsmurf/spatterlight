@@ -560,11 +560,9 @@ run_battle_answer (scr_gameref_t game, const std::string &line)
   const scr_filterref_t filter = gs_get_filter (game);
   const size_t mark = pf_buffer_length (filter);
   std::string lower (line);
-  size_t index;
 
   /* Typed lines reach the rows lower-cased; so must a Name put in one. */
-  for (index = 0; index < lower.size (); index++)
-    lower[index] = tolower ((unsigned char) lower[index]);
+  scr_lowercase (lower);
   {
     const run_dispatch_input_guard input (lower.c_str ());
 

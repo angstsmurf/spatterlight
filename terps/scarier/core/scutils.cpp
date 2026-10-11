@@ -811,7 +811,10 @@ scr_normalize_string (scr_char *string)
  * scr_lowercase()
  *
  * Lower-case a string in place, character by character through
- * scr_tolower(), and return the string address for convenience.
+ * scr_tolower(), and return the string address for convenience.  This is
+ * VB's LCase(): the locale's fold, the one the typed line gets, so a
+ * caller that re-folds a line or a name must use it and never libc's
+ * tolower(), which leaves the cp1251 letters above 0x7f alone.
  */
 scr_char *
 scr_lowercase (scr_char *string)
@@ -820,6 +823,15 @@ scr_lowercase (scr_char *string)
   assert (string);
 
   for (index_ = 0; string[index_] != NUL; index_++)
+    string[index_] = scr_tolower (string[index_]);
+
+  return string;
+}
+
+std::string &
+scr_lowercase (std::string &string)
+{
+  for (std::string::size_type index_ = 0; index_ < string.size (); index_++)
     string[index_] = scr_tolower (string[index_]);
 
   return string;

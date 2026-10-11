@@ -106,6 +106,7 @@ extern scr_bool scr_strempty (const scr_char *string);
 extern scr_char *scr_trim_string (scr_char *string);
 extern scr_char *scr_normalize_string (scr_char *string);
 extern scr_char *scr_lowercase (scr_char *string);
+extern std::string &scr_lowercase (std::string &string);
 extern scr_bool scr_compare_word (const scr_char *string,
                                 const scr_char *word, scr_int length);
 extern scr_uint scr_hash (const scr_char *string);

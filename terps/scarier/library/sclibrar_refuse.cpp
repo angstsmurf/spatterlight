@@ -269,8 +269,7 @@ lib_hit_arm_pre390 (scr_gameref_t game)
         }
 
       /* The Runner's line is lower-cased before the arm; InStr binary. */
-      for (std::string::size_type i = 0; i < lowered.size (); i++)
-        lowered[i] = tolower ((unsigned char) lowered[i]);
+      scr_lowercase (lowered);
       with_at = lowered.find ("with");
 
       pick = -1;

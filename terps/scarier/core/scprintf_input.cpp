@@ -440,9 +440,7 @@ pf_lcase (const scr_char *text)
 {
   std::string folded (text);
 
-  for (size_t index_ = 0; index_ < folded.size (); index_++)
-    folded[index_] = scr_tolower (folded[index_]);
-  return folded;
+  return scr_lowercase (folded);
 }
 
 

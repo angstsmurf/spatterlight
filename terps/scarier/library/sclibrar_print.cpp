@@ -644,9 +644,7 @@ lib_print_room_name_lower (scr_gameref_t game, scr_int room)
   const scr_filterref_t filter = gs_get_filter (game);
   std::string name (lib_get_room_name (game, room));
 
-  for (std::string::size_type index_ = 0; index_ < name.size (); index_++)
-    name[index_] = scr_tolower (name[index_]);
-  pf_buffer_string (filter, name.c_str ());
+  pf_buffer_string (filter, scr_lowercase (name).c_str ());
 }
 
 
@@ -1420,8 +1418,11 @@ lib_conjugate_third_person (scr_gameref_t game, const scr_char *literal)
     {
       if (rest[0] != ' ')
         return literal;
+      /* The verb is one of the library's own English words: ASCII, and
+         not the locale's alphabet, is the right test here. */
       for (word_length = 1;
-           rest[word_length] && (islower ((unsigned char) rest[word_length])
+           rest[word_length] && ((rest[word_length] >= 'a'
+                                  && rest[word_length] <= 'z')
                                  || rest[word_length] == '\'');
            word_length++)
         ;
