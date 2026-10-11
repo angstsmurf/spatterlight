@@ -127,7 +127,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~219~~ | ~~`save_scarier_body`~~ | DONE: `scarier_save_t` + ten section members, see "save_scarier_body split" |
 | ~~212~~ | ~~`lib_take_and_pre400`~~ | done 2026-10-11, see below |
 | ~~211~~ | ~~`lib_cmd_locate_object`~~ | done 2026-10-11, see below |
-| 207 | `a5text_render_plain` | `adrift5/text/a5text_render.cpp` |
+| ~~207~~ | ~~`a5text_render_plain`~~ | done 2026-10-11, see below |
 | 206 | `lib_use_room_alt` | `library/sclibrar_print.cpp` |
 | 204 | `lib_definite_object_name` | `library/sclibrar_print.cpp` |
 | 201 | `os_print_tag` | `glk/os_glk_output.cpp` (Glk build + autosave suite) |
@@ -377,10 +377,10 @@ Per the project's own verification recipe:
    sections), as are `run_lenient_census`, `a5run_input_inner`,
    `lib_print_room_contents`, `restore_scarier_body`,
    `ser_save_game_body`, `sm_set_grid`, `scmap_build`,
-   `save_scarier_body`, `lib_take_and_pre400` and
-   `lib_cmd_locate_object`, the first ten of the 15 rows added on
-   2026-10-11; 5 rows remain, top to bottom, `a5text_render_plain`
-   next.
+   `save_scarier_body`, `lib_take_and_pre400`,
+   `lib_cmd_locate_object` and `a5text_render_plain`, the first eleven
+   of the 15 rows added on 2026-10-11; 4 rows remain, top to bottom,
+   `lib_use_room_alt` next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1502,3 +1502,34 @@ them):
   after.
 - Next in the table: `a5text_render_plain`
   (adrift5/text/a5text_render.cpp).
+
+## 3: a5text_render_plain split (2026-10-11)
+
+- **`a5text_render_plain`** (207 l.) in `adrift5/text/a5text_render.cpp`
+  was a character loop whose `<` arm was 185 lines of tag chain.  That
+  arm is now `a5_render_tag (sb, p)`, which scans the tag and its name,
+  runs the chain and returns the position past the `>`; the chain's
+  long bodies are lifted out as `a5_render_del`, `a5_render_cls`,
+  `a5_render_wait`, `a5_render_colour`, `a5_render_window` and
+  `a5_render_media`, and the run of one-mark interactive style tags
+  (centre, bold, italic, underline, right, open and close) as
+  `a5_render_style_tag`, which returns 1 when the name was one of them.
+  The chain keeps its order; the style helper tests
+  `a5_interactive_mode` in each arm as before, so calling it for every
+  name that reaches that point changes nothing.  The helpers take the
+  buffer as `sb_t &sb`, so the bodies (`&sb`, `sb.len`) are verbatim
+  code motion, dedented.  The driver keeps the entity arm and the
+  plain-character tail.
+- Verification: `-Wshadow` syntax check clean; headless `quick`; full
+  `test` output identical; `make -j8 scarier glkscarier` warning-free;
+  `sanitize` clean; `run_autosave_tests.py --build` all passed (the Glk
+  build is the only one that turns interactive mode on).  Because the
+  headless suite never renders interactively, the old and new file
+  were also each linked with `a5sb.o` into a scratch driver and fed
+  16000 generated strings of every tag in the chain (terminated and
+  not), the entities and plain text, in all four combinations of
+  interactive mode and an installed media sink: byte-identical output.
+  Lines over 80 columns in the file: 15 before, 6 after (comments lost
+  indent).
+- Next in the table: `lib_use_room_alt` (library/sclibrar_print.cpp;
+  library text, so corpus `recompare` too).
