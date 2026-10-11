@@ -79,6 +79,239 @@ lib_random_roomgroup_member (scr_gameref_t game, scr_int roomgroup)
 
 
 /*
+ * lib_room_alt_task()
+ * lib_room_alt_object_state()
+ *
+ * The task and stateful-object alternate types.  VT_KEY is the caller's
+ * Rooms/room/Alts/alt key, with the last element free for the field name.
+ */
+static scr_bool
+lib_room_alt_task (scr_gameref_t game, scr_vartype_t *vt_key)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_bool retval;
+  scr_int var2, var3;
+
+  vt_key[4].string = "Var2";
+  var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
+  if (!gs_task_valid (game, var2 - 1))     /* No task. */
+    retval = TRUE;
+  else
+    {
+      vt_key[4].string = "Var3";
+      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+
+      retval = gs_task_done (game, var2 - 1) == !(var3 != 0);
+    }
+  return retval;
+}
+
+static scr_bool
+lib_room_alt_object_state (scr_gameref_t game, scr_vartype_t *vt_key)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_bool retval;
+  scr_int var2, var3;
+
+  vt_key[4].string = "Var2";
+  var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
+  if (var2 == 0)          /* No object. */
+    retval = TRUE;
+  else
+    {
+      vt_key[4].string = "Var3";
+      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+
+      /*
+       * Var2 here is a 1-based GLOBAL object number, NOT an index
+       * into the stateful-object list like a task object-state
+       * restriction's Var1.  Proof is corpus-wide: Professor Von
+       * Witt's Laboratory alts carry Var2 = 5 for the mailbox, which
+       * is stateful object #1 but global object #5 (run400 displays
+       * the alt keyed on the mailbox's state); and many games author
+       * Var2 far beyond their stateful-object count, which no
+       * stateful reading could address at all -- Beanstalk 8 of 3,
+       * Terrified 30 of 3, Showtime at the Gallows 59 of 1,
+       * goldilocks 90 of 22, cursed 683.  (Task restrictions and
+       * change-status actions really are stateful-indexed: across
+       * the 107 corpus games using them, no index exceeds the
+       * stateful count.)  SCARE always mapped Var2 through the
+       * stateful list here, so every one of these alts tested the
+       * wrong object's state.
+       */
+      retval = restr_object_in_state (game, var2 - 1, var3 - 1);
+    }
+  return retval;
+}
+
+/*
+ * lib_room_alt_player_object()
+ *
+ * The object a player-condition alternate tests, from its Var2 (the
+ * condition) and Var3 (the object number); -1 if there is none.
+ */
+static scr_int
+lib_room_alt_player_object (scr_gameref_t game, scr_int var2, scr_int var3)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int object;
+
+  if (var3 == 0)
+    {
+      /*
+       * No object selected.  The Runner still runs the same test, on
+       * an object it cannot find, so every "isn't ..." condition
+       * holds and every "is ..." condition fails.  SCARE's table had
+       * that right for holding (0/1) and wearing (2/3) but inverted
+       * for the same-room pair, answering FALSE to "isn't in the same
+       * room as <nothing>".  Measured in run400 on The X-Files: A New
+       * Beginning, whose Lobby (room 1) and Davis Storage Warehouse
+       * (room 8) both carry a Var2 = 4, Var3 = 0 alt -- the Runner
+       * prints "Do you have your badge?" and "You left the key back
+       * in D.C., didn't you?" on every visit, unconditionally, where
+       * SCARE printed neither ever.  Only three alts corpus-wide use
+       * Var3 = 0: those two, and one in House.taf with empty text.
+       *
+       * That "cannot find" holds only while object 0 belongs to the
+       * list Var3 indexes.  Otherwise, run400's Var3 - 1 = -1 lookup
+       * (Proc_19_12 @453249) falls through to object 0 itself, and
+       * the test runs on that object.  The list is the Wearable flag
+       * alone for the wearing pair and non-static for the rest.
+       * Measured on Dragonsphere, where object 0 is the backpack:
+       * it is worn but not flagged Wearable, and the Runner never
+       * prints the "isn't wearing" alt "It is very cold out here."
+       */
+      if (prop_get_taf_version (bundle) >= TAF_VERSION_400
+          && gs_object_count (game) > 0
+          && ((var2 == 2 || var2 == 3)
+              ? !prop_get_indexed_boolean (bundle, "Objects", 0,
+                                           "Wearable")
+              : obj_is_static (game, 0)))
+        object = 0;
+      else
+        object = -1;
+    }
+  else if (var2 == 2 || var2 == 3)
+    object = obj_wearable_object (game, var3 - 1);
+  else
+    object = obj_dynamic_object (game, var3 - 1);
+
+  return object;
+}
+
+/* The answer of player condition VAR2 when it has no object to test. */
+static scr_bool
+lib_room_alt_player_no_object (scr_int var2)
+{
+  scr_bool retval;
+
+  switch (var2)
+    {
+    case 0: case 2: case 4:
+      retval = TRUE;
+      break;
+    case 1: case 3: case 5:
+      retval = FALSE;
+      break;
+    default:
+      scr_fatal ("lib_use_room_alt:"
+                " invalid player condition, %ld\n", var2);
+    }
+  return retval;
+}
+
+/* The answer of player condition VAR2 for OBJECT. */
+static scr_bool
+lib_room_alt_player_test (scr_gameref_t game, scr_int var2, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_bool retval;
+
+  switch (var2)
+    {
+    case 0:              /* Isn't holding (or wearing). */
+      /*
+       * The Runner's holding test is its recursive possession
+       * predicate (run400 4579C1/4579EB call Proc_21_46 @44615C), so
+       * an object inside or on something the player carries or wears
+       * counts as held.  SCARE tested the object's own position only.
+       * Measured in run400 on The X-Files: A New Beginning, whose
+       * Parking Garage B (room 3) carries a Var2 = 1, Var3 = 2 alt on
+       * the gun, which lives inside the worn holster: the Runner
+       * prints "It may be unwise to pull a gun on this guy." on every
+       * visit, where SCARE printed the unconditioned alt instead.
+       *
+       * That is 4.0 only.  The pre-4.0 Runners test the object's own
+       * position field, exactly as SCARE did: run390 isdark (433920,
+       * the ladder at 433734-4337C6 transcribed below) reads
+       * objects(ns(Obj)).global_22 raw -- `<> 0` for "isn't holding",
+       * `= 0` for "is holding" -- and never walks a container, and
+       * run380 43C708 / run370 434E95 are the same code.  Measured in
+       * run390 on Govard (runner_transcripts/govard.txt): the Ruins' alt
+       * "...на юго-востоке - Хибара." (room 11, Obj 15 the knife,
+       * TypeHideObjects 10) fires while the knife is carried directly
+       * and stops the moment it is put in the worn belt, and the
+       * Road's alt (room 23, Obj 105 the licence) never fires while
+       * the licence sits inside the held hunter's bag.  So a held
+       * container's contents are NOT held for a pre-4.0 room alt.
+       */
+      if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+        retval = gs_object_position (game, object) != OBJ_HELD_PLAYER;
+      else
+        retval = !gs_runner_possessed (game, object);
+      break;
+    case 1:              /* Is holding (or wearing). */
+      if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+        retval = gs_object_position (game, object) == OBJ_HELD_PLAYER;
+      else
+        retval = gs_runner_possessed (game, object);
+      break;
+    case 2:              /* Isn't wearing. */
+      retval = gs_object_position (game, object) != OBJ_WORN_PLAYER;
+      break;
+    case 3:              /* Is wearing. */
+      retval = gs_object_position (game, object) == OBJ_WORN_PLAYER;
+      break;
+    case 4:              /* Isn't in the same room as. */
+      retval = !obj_indirectly_in_room (game,
+                                        object, gs_playerroom (game));
+      break;
+    case 5:              /* Is in the same room as. */
+      retval = obj_indirectly_in_room (game,
+                                       object, gs_playerroom (game));
+      break;
+    default:
+      scr_fatal ("lib_use_room_alt:"
+                " invalid player condition, %ld\n", var2);
+    }
+  return retval;
+}
+
+/* The player-condition alternate type; VT_KEY as lib_room_alt_task(). */
+static scr_bool
+lib_room_alt_player (scr_gameref_t game, scr_vartype_t *vt_key)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int var2, var3, object;
+
+  vt_key[4].string = "Var2";
+  var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
+  vt_key[4].string = "Var3";
+  var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+  object = lib_room_alt_player_object (game, var2, var3);
+
+  /*
+   * No object to test -- Var3 = 0 as above, or a Var3 naming no
+   * object at all (negative, or an empty list), read the same way.
+   */
+  if (object < 0)
+    return lib_room_alt_player_no_object (var2);
+
+  return lib_room_alt_player_test (game, var2, object);
+}
+
+
+/*
  * lib_use_room_alt()
  *
  * Return TRUE if a particular alternate room description should be used.
@@ -103,187 +336,16 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
   switch (type)
     {
     case 0:                    /* Task. */
-      {
-        scr_int var2, var3;
-
-        vt_key[4].string = "Var2";
-        var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-        if (!gs_task_valid (game, var2 - 1))     /* No task. */
-          retval = TRUE;
-        else
-          {
-            vt_key[4].string = "Var3";
-            var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
-
-            retval = gs_task_done (game, var2 - 1) == !(var3 != 0);
-          }
-        break;
-      }
+      retval = lib_room_alt_task (game, vt_key);
+      break;
 
     case 1:                    /* Stateful object. */
-      {
-        scr_int var2, var3;
-
-        vt_key[4].string = "Var2";
-        var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-        if (var2 == 0)          /* No object. */
-          retval = TRUE;
-        else
-          {
-            vt_key[4].string = "Var3";
-            var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
-
-            /*
-             * Var2 here is a 1-based GLOBAL object number, NOT an index
-             * into the stateful-object list like a task object-state
-             * restriction's Var1.  Proof is corpus-wide: Professor Von
-             * Witt's Laboratory alts carry Var2 = 5 for the mailbox, which
-             * is stateful object #1 but global object #5 (run400 displays
-             * the alt keyed on the mailbox's state); and many games author
-             * Var2 far beyond their stateful-object count, which no
-             * stateful reading could address at all -- Beanstalk 8 of 3,
-             * Terrified 30 of 3, Showtime at the Gallows 59 of 1,
-             * goldilocks 90 of 22, cursed 683.  (Task restrictions and
-             * change-status actions really are stateful-indexed: across
-             * the 107 corpus games using them, no index exceeds the
-             * stateful count.)  SCARE always mapped Var2 through the
-             * stateful list here, so every one of these alts tested the
-             * wrong object's state.
-             */
-            retval = restr_object_in_state (game, var2 - 1, var3 - 1);
-          }
-        break;
-      }
+      retval = lib_room_alt_object_state (game, vt_key);
+      break;
 
     case 2:                    /* Player condition. */
-      {
-        scr_int var2, var3, object;
-
-        vt_key[4].string = "Var2";
-        var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-        vt_key[4].string = "Var3";
-        var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
-
-        if (var3 == 0)
-          {
-            /*
-             * No object selected.  The Runner still runs the same test, on
-             * an object it cannot find, so every "isn't ..." condition
-             * holds and every "is ..." condition fails.  SCARE's table had
-             * that right for holding (0/1) and wearing (2/3) but inverted
-             * for the same-room pair, answering FALSE to "isn't in the same
-             * room as <nothing>".  Measured in run400 on The X-Files: A New
-             * Beginning, whose Lobby (room 1) and Davis Storage Warehouse
-             * (room 8) both carry a Var2 = 4, Var3 = 0 alt -- the Runner
-             * prints "Do you have your badge?" and "You left the key back
-             * in D.C., didn't you?" on every visit, unconditionally, where
-             * SCARE printed neither ever.  Only three alts corpus-wide use
-             * Var3 = 0: those two, and one in House.taf with empty text.
-             *
-             * That "cannot find" holds only while object 0 belongs to the
-             * list Var3 indexes.  Otherwise, run400's Var3 - 1 = -1 lookup
-             * (Proc_19_12 @453249) falls through to object 0 itself, and
-             * the test runs on that object.  The list is the Wearable flag
-             * alone for the wearing pair and non-static for the rest.
-             * Measured on Dragonsphere, where object 0 is the backpack:
-             * it is worn but not flagged Wearable, and the Runner never
-             * prints the "isn't wearing" alt "It is very cold out here."
-             */
-            if (prop_get_taf_version (bundle) >= TAF_VERSION_400
-                && gs_object_count (game) > 0
-                && ((var2 == 2 || var2 == 3)
-                    ? !prop_get_indexed_boolean (bundle, "Objects", 0,
-                                                 "Wearable")
-                    : obj_is_static (game, 0)))
-              object = 0;
-            else
-              object = -1;
-          }
-        else if (var2 == 2 || var2 == 3)
-          object = obj_wearable_object (game, var3 - 1);
-        else
-          object = obj_dynamic_object (game, var3 - 1);
-
-        /*
-         * No object to test -- Var3 = 0 as above, or a Var3 naming no
-         * object at all (negative, or an empty list), read the same way.
-         */
-        if (object < 0)
-          {
-            switch (var2)
-              {
-              case 0: case 2: case 4:
-                retval = TRUE;
-                break;
-              case 1: case 3: case 5:
-                retval = FALSE;
-                break;
-              default:
-                scr_fatal ("lib_use_room_alt:"
-                          " invalid player condition, %ld\n", var2);
-              }
-            break;
-          }
-
-        switch (var2)
-          {
-          case 0:              /* Isn't holding (or wearing). */
-            /*
-             * The Runner's holding test is its recursive possession
-             * predicate (run400 4579C1/4579EB call Proc_21_46 @44615C), so
-             * an object inside or on something the player carries or wears
-             * counts as held.  SCARE tested the object's own position only.
-             * Measured in run400 on The X-Files: A New Beginning, whose
-             * Parking Garage B (room 3) carries a Var2 = 1, Var3 = 2 alt on
-             * the gun, which lives inside the worn holster: the Runner
-             * prints "It may be unwise to pull a gun on this guy." on every
-             * visit, where SCARE printed the unconditioned alt instead.
-             *
-             * That is 4.0 only.  The pre-4.0 Runners test the object's own
-             * position field, exactly as SCARE did: run390 isdark (433920,
-             * the ladder at 433734-4337C6 transcribed below) reads
-             * objects(ns(Obj)).global_22 raw -- `<> 0` for "isn't holding",
-             * `= 0` for "is holding" -- and never walks a container, and
-             * run380 43C708 / run370 434E95 are the same code.  Measured in
-             * run390 on Govard (runner_transcripts/govard.txt): the Ruins' alt
-             * "...на юго-востоке - Хибара." (room 11, Obj 15 the knife,
-             * TypeHideObjects 10) fires while the knife is carried directly
-             * and stops the moment it is put in the worn belt, and the
-             * Road's alt (room 23, Obj 105 the licence) never fires while
-             * the licence sits inside the held hunter's bag.  So a held
-             * container's contents are NOT held for a pre-4.0 room alt.
-             */
-            if (prop_get_taf_version (bundle) < TAF_VERSION_400)
-              retval = gs_object_position (game, object) != OBJ_HELD_PLAYER;
-            else
-              retval = !gs_runner_possessed (game, object);
-            break;
-          case 1:              /* Is holding (or wearing). */
-            if (prop_get_taf_version (bundle) < TAF_VERSION_400)
-              retval = gs_object_position (game, object) == OBJ_HELD_PLAYER;
-            else
-              retval = gs_runner_possessed (game, object);
-            break;
-          case 2:              /* Isn't wearing. */
-            retval = gs_object_position (game, object) != OBJ_WORN_PLAYER;
-            break;
-          case 3:              /* Is wearing. */
-            retval = gs_object_position (game, object) == OBJ_WORN_PLAYER;
-            break;
-          case 4:              /* Isn't in the same room as. */
-            retval = !obj_indirectly_in_room (game,
-                                              object, gs_playerroom (game));
-            break;
-          case 5:              /* Is in the same room as. */
-            retval = obj_indirectly_in_room (game,
-                                             object, gs_playerroom (game));
-            break;
-          default:
-            scr_fatal ("lib_use_room_alt:"
-                      " invalid player condition, %ld\n", var2);
-          }
-        break;
-      }
+      retval = lib_room_alt_player (game, vt_key);
+      break;
 
     default:
       scr_fatal ("lib_use_room_alt: invalid type, %ld\n", type);

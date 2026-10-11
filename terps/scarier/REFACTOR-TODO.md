@@ -128,7 +128,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~212~~ | ~~`lib_take_and_pre400`~~ | done 2026-10-11, see below |
 | ~~211~~ | ~~`lib_cmd_locate_object`~~ | done 2026-10-11, see below |
 | ~~207~~ | ~~`a5text_render_plain`~~ | done 2026-10-11, see below |
-| 206 | `lib_use_room_alt` | `library/sclibrar_print.cpp` |
+| ~~206~~ | ~~`lib_use_room_alt`~~ | done 2026-10-11, see below |
 | 204 | `lib_definite_object_name` | `library/sclibrar_print.cpp` |
 | 201 | `os_print_tag` | `glk/os_glk_output.cpp` (Glk build + autosave suite) |
 | 201 | `a5state_new` | `adrift5/a5state.cpp` |
@@ -378,9 +378,10 @@ Per the project's own verification recipe:
    `lib_print_room_contents`, `restore_scarier_body`,
    `ser_save_game_body`, `sm_set_grid`, `scmap_build`,
    `save_scarier_body`, `lib_take_and_pre400`,
-   `lib_cmd_locate_object` and `a5text_render_plain`, the first eleven
-   of the 15 rows added on 2026-10-11; 4 rows remain, top to bottom,
-   `lib_use_room_alt` next.
+   `lib_cmd_locate_object`, `a5text_render_plain` and
+   `lib_use_room_alt`, the first twelve of the 15 rows added on
+   2026-10-11; 3 rows remain, top to bottom, `lib_definite_object_name`
+   next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1533,3 +1534,26 @@ them):
   indent).
 - Next in the table: `lib_use_room_alt` (library/sclibrar_print.cpp;
   library text, so corpus `recompare` too).
+
+## 3: lib_use_room_alt split (2026-10-11)
+
+- **`lib_use_room_alt`** (206 l.) in `library/sclibrar_print.cpp` is a
+  switch on the alternate's type whose three cases share only the
+  property key, so each case is a static function taking the driver's
+  `vt_key`: `lib_room_alt_task`, `lib_room_alt_object_state` and
+  `lib_room_alt_player`.  The player case, 130 lines by itself, is
+  three more: `lib_room_alt_player_object` (which object Var3 names,
+  with the Var3 = 0 / object 0 rule), `lib_room_alt_player_no_object`
+  (the isn't / is table for no object) and `lib_room_alt_player_test`
+  (the six conditions).  Each helper keeps a local `retval` so the
+  bodies are code motion; the driver is the type fetch and a
+  three-case switch.
+- Verification: `-Wshadow` syntax check clean; headless `quick`/full
+  `test` output identical; `make -j8 scarier glkscarier` warning-free;
+  `sanitize` clean; corpus `recompare` old file against new (the
+  `scare` target rebuilt in between) leaves byte-identical
+  `manifest.tsv` and `compare/` trees, the recompare's own rewrite
+  reverted afterwards.  One line over 80 columns in the file, before
+  and after.
+- Next in the table: `lib_definite_object_name` (same file; corpus
+  `recompare` too).
