@@ -750,7 +750,7 @@ taf_sniff_tas_version (const scr_byte *prefix, scr_int length)
 {
   if (length >= 2
       && prefix[0] == 0x78
-      && (((scr_int) prefix[0] << 8) | prefix[1]) % 31 == 0)
+      && ((prefix[0] << 8) | prefix[1]) % 31 == 0)
     return TAF_VERSION_400;
 
   return TAF_VERSION_390;

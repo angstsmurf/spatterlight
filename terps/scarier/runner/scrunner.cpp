@@ -224,7 +224,7 @@ run_session_split (const std::string &text, size_t count,
 
       if (end == cursor)
         break;
-      values.push_back ((scr_int) value);
+      values.push_back (value);
       cursor = end;
     }
   if (rest)

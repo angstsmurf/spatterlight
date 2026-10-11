@@ -92,6 +92,9 @@ Runner-parity text/ordering, needs transcript diff.
 
 ### 2.4 [L] ~160 explicit `(scr_int)` / `(scr_bool)` casts —
 audit; many are probably redundant after the typedefs; do last, with `-Wconversion`.
+- [x] Audited 2026-10-11: six were no-ops and are gone; the rest convert
+      `size_t`, `double`, unsigned or varargs operands.  See "2.4: cast
+      audit" below.
 
 ---
 
@@ -436,6 +439,8 @@ Per the project's own verification recipe:
    cp1251/cp1252 ctype overlap (Locale and ctype layers) is DONE, see
    "Locale and ctype check"; the assert / `scr_error` classification
    (Error handling) is DONE, see "Error handling classification".
+8. 2.4, the cast audit, was the last unticked item in the body; DONE,
+   see "2.4: cast audit".  Nothing in this file is open.
 
 ## Outcome (2026-10-10, master 31b77eaac..18e8b35d5)
 
@@ -2261,4 +2266,65 @@ The last open 6a bullet.  Behaviour-neutral.
   -target scarier` BUILD SUCCEEDED;
   `test/adrift4/harness/run_autosave_tests.py --build` all passed.
   No file added, so the Xcode project is untouched.
-- Nothing is next: the suggested order is exhausted.
+- Next: 2.4, the cast audit, the one body item without a tick.
+
+## 2.4: cast audit (2026-10-11)
+
+The last unticked item.  Behaviour-neutral.  The premise ("many are
+probably redundant after the typedefs") did not hold: `scr_int` is
+`long` and `scr_bool` is `int`, so a `(scr_int)` cast is never a
+same-type cast of an `int`, and nearly every one marks a conversion the
+compiler would otherwise do silently.
+
+- **The census.**  165 `(scr_int)` / `(scr_bool)` occurrences on 161
+  lines outside test/.  Twelve are not casts: `sizeof (scr_int)` ×4 in the size checks
+  (scinterf.cpp, os_glk.cpp), the `void (*) (scr_bool)` and
+  `void *(*) (scr_bool)` callback types ×7 (os_glk*.cpp, scserial.cpp,
+  headless/), and the `[] (scr_int)` lambda parameter in
+  sclibrar_take.cpp.  Of the 153 casts, by what they convert:
+  `size_t` (`.size ()`, `strlen`, `sizeof`, `std::string::size_type`
+  and the `(to - from)` tails) 114, every one in a comparison or
+  assignment against a signed index, where `-Wsign-compare` (in
+  `-Wall`) would otherwise fire; `double` → integer ×8 (the Int()
+  floors of scexpr.cpp, `floor` / `nearbyint` in sclibrar_meta.cpp,
+  scrun_match.cpp, scrunner.cpp, `difftime` in scvars.cpp); unsigned
+  wrap arithmetic ×15 (`expr_eval_add` and friends, the three RNGs,
+  `ser_get_uint`, the two u128 endgame routines); enum or `int` to
+  `long` for a `%ld` vararg ×13 (the `scr_trace` / `scr_error` /
+  `scr_dump_log` calls in scparser*.cpp, scprops.cpp, tools/scdump.cpp,
+  which are needed, not stylistic); `long long` → `long` ×2 and
+  `(scr_bool)` of a `scr_int` ×1 (scevents.cpp), both narrowing on
+  paper.
+- **Six were no-ops and are gone.**  `(scr_int) value` of a `long` in
+  `run_parse_ints` (scrunner.cpp); the four `(scr_int) (found - line)`
+  / `(comma - line)` of a `ptrdiff_t` in scrun_split.cpp (`long` on
+  LP64, a widening on ILP32); and `(scr_int) prefix[0] << 8` in
+  `taf_sniff_tas_version` (sctaffil.cpp), an `unsigned char` promoted
+  to `int` before the shift either way, 0x7800 at most.
+- **`-Wconversion` over the headless 4.x set** (core/sc\*.cpp, library/,
+  runner/, tools/, mapdraw.cpp; `-fsyntax-only`): 803 warnings, 777 of
+  them `-Wsign-conversion` (`int`/`long` indexes into `size_t`
+  containers and back, the shape the casts above already mark where it
+  is tested).  The other 26 were read: ten `scr_int` → `scr_char` in
+  the scexpr.cpp tokenizer (a character fetched out of the expression
+  string); ten `-Wshorten-64-to-32`, of which four are zlib `uInt`
+  lengths in scserial.cpp and one in sctaffil.cpp, three the `srand`
+  seeds in scutils.cpp, and two a boolean-valued `scr_int` returned as
+  `scr_bool` (`restr_eval_result` in screstrs.cpp, `found` in
+  sclibrar_disambig_400.cpp); one `scr_bool` into the `unsigned char`
+  rooms vector (scobjcts.cpp), one byte-valued PRNG return
+  (sctaffil.cpp), one `scr_int` → `scr_char` in sclocale.cpp, and
+  three `long` → `double` (the score percentage, `scr_vb_rnd`).  None
+  loses a value the code can hold.  Making the tree `-Wconversion`
+  clean would mean about 800 casts of the kind this item set out to
+  remove, so it is not taken; the flag is a read-only census here.
+- Verification: `-Wall -Wextra -Wshadow` syntax check of the three
+  changed .cpp files clean, and their `-Wconversion` output identical
+  before and after (8 + 3 + 10 warnings, same lines); full headless
+  `test` output identical to the run at e47101eb5 (0 diff lines,
+  compile lines stripped); `make -j8 scarier glkscarier`
+  warning-free; `sanitize` clean; `xcodebuild -target scarier` BUILD
+  SUCCEEDED, no warnings;
+  `test/adrift4/harness/run_autosave_tests.py --build` all passed.
+  No file added, so the Xcode project is untouched.
+- Nothing is next: every item in the body is ticked.

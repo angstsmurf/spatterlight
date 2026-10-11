@@ -124,7 +124,7 @@ run_find_split_pre400 (scr_int version, const scr_char *line, scr_int *tail,
       found = strchr (line, ',');
       if (found)
         {
-          head = cut = (scr_int) (found - line);
+          head = cut = found - line;
           sep_length = 1;
         }
     }
@@ -134,7 +134,7 @@ run_find_split_pre400 (scr_int version, const scr_char *line, scr_int *tail,
         {
           if (found[0] == '.' && found[1] == ' ')
             {
-              head = cut = (scr_int) (found - line);
+              head = cut = found - line;
               sep_length = 2;
               break;
             }
@@ -145,7 +145,7 @@ run_find_split_pre400 (scr_int version, const scr_char *line, scr_int *tail,
     {
       for (found = line; strncmp (found, "then", 4) != 0; found++)
         ;
-      cut = (scr_int) (found - line);
+      cut = found - line;
       sep_length = 4;
     }
 
@@ -175,7 +175,7 @@ run_empty_then_head_390 (const scr_char *line)
   scr_int head;
 
   comma = strchr (line, ',');
-  head = comma ? (scr_int) (comma - line) : (scr_int) strlen (line);
+  head = comma ? comma - line : (scr_int) strlen (line);
   stop = line + head;
   for (const scr_char *dot = line; dot + 1 < line + head; dot++)
     {
