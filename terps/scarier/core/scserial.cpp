@@ -478,13 +478,36 @@ ser_buffer_buffer (const scr_char *buffer, scr_int length)
     }
 }
 
+/* Buffer length bytes of text, followed by DOS style end-of-line. */
+static void
+ser_buffer_line (const scr_char *text, scr_int length)
+{
+  /*
+   * The undo snapshot writes thousands of short lines a turn, so one that
+   * fits with room to spare (the buffer is never left exactly full) goes in
+   * with a single copy.
+   */
+  if (ser.write.buffer && length + 2 < BUFFER_SIZE - ser.write.length)
+    {
+      scr_byte *const out = ser.write.buffer + ser.write.length;
+
+      memcpy (out, text, length);
+      out[length] = CARRIAGE_RETURN;
+      out[length + 1] = NEWLINE;
+      ser.write.length += length + 2;
+      return;
+    }
+
+  ser_buffer_buffer (text, length);
+  ser_buffer_character (CARRIAGE_RETURN);
+  ser_buffer_character (NEWLINE);
+}
+
 static void
 ser_buffer_string (const scr_char *string)
 {
   /* Buffer string, followed by DOS style end-of-line. */
-  ser_buffer_buffer (string, strlen (string));
-  ser_buffer_character (CARRIAGE_RETURN);
-  ser_buffer_character (NEWLINE);
+  ser_buffer_line (string, strlen (string));
 }
 
 
@@ -524,8 +547,7 @@ ser_buffer_int (scr_int value)
     *out++ = '-';
   out = ser_render_ulong (out, value < 0 ? -(unsigned long) value
                                          : (unsigned long) value);
-  *out = '\0';
-  ser_buffer_string (buffer);
+  ser_buffer_line (buffer, out - buffer);
 }
 
 static void
@@ -542,8 +564,7 @@ ser_buffer_int_special (scr_int value)
   out = ser_render_ulong (out, value < 0 ? -(unsigned long) value
                                          : (unsigned long) value);
   *out++ = ' ';
-  *out = '\0';
-  ser_buffer_string (buffer);
+  ser_buffer_line (buffer, out - buffer);
 }
 
 static void
@@ -554,8 +575,7 @@ ser_buffer_uint (scr_uint value)
 
   /* Convert to a string ("%lu") and buffer that. */
   out = ser_render_ulong (buffer, (unsigned long) value);
-  *out = '\0';
-  ser_buffer_string (buffer);
+  ser_buffer_line (buffer, out - buffer);
 }
 
 static void

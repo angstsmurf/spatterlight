@@ -448,6 +448,27 @@ struct a5_run_s {
      so the per-turn undo snapshot skips the double-and-copy realloc ladder. */
   size_t save_blob_hint = 0;
 
+  /* The <Group> section of the last save, and the a5_state_t gm_stamp it was
+     written from: membership changes on few turns, so the snapshot of the
+     next turn usually copies this (save_fd_game). */
+  std::string group_section;
+  unsigned long group_section_stamp = 0;
+  bool group_section_valid = false;
+
+  /* Likewise for the sections of the Scarier body that are large and seldom
+     change: each keeps the bytes it wrote with a copy of the state they were
+     written from, and is copied while that state compares equal
+     (scarier_save_t::cached). */
+  struct section_cache_t
+  {
+    std::string from, bytes;
+    bool valid = false;
+  };
+  enum { SEC_OBJECTS, SEC_TASK_DONE, SEC_TASK_SCORED, SEC_OBJ_SEEN,
+         SEC_CHAR_SEEN, SEC_CHAR_INTRODUCED, SEC_LOC_SEEN, SEC_COUNT };
+  section_cache_t section_cache[SEC_COUNT];
+  std::string section_from;     /* scratch: the state a section is about to write */
+
   /* Cached pre-order DOM node list of adv->doc (immutable after load) plus a
      node->index map, built lazily once and reused by save_scarier_body /
      restore_scarier_body to map <DisplayOnce> segments to and from their stable

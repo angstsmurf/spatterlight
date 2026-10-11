@@ -822,6 +822,16 @@ a5state_object_in_group (const a5_state_t *st, const char *grpkey,
 
 /* --- Live group membership (the runner clsGroup.arlMembers): ordered + distinct. --- */
 
+/* Stamp st's membership list as changed.  The stamps come from one counter
+   shared by every state, so two lists carrying the same stamp are the same
+   list (the per-turn undo snapshot reuses its serialised groups on that). */
+static void
+gm_touch (a5_state_t *st)
+{
+  static unsigned long stamp;
+  st->gm_stamp = ++stamp;
+}
+
 static int
 gm_find (const a5_state_t *st, const char *grpkey, const char *key)
 {
@@ -843,6 +853,7 @@ a5state_group_add_member (a5_state_t *st, const char *grpkey, const char *key)
   st->gm[st->n_gm].grp = strdup (grpkey);
   st->gm[st->n_gm].key = strdup (key);
   st->n_gm++;
+  gm_touch (st);
 }
 
 /* Remove (the runner: `If Contains Then Remove`), preserving the order of the rest. */
@@ -857,6 +868,7 @@ a5state_group_remove_member (a5_state_t *st, const char *grpkey, const char *key
   memmove (&st->gm[i], &st->gm[i + 1],
            (size_t) (st->n_gm - i - 1) * sizeof *st->gm);
   st->n_gm--;
+  gm_touch (st);
 }
 
 int
@@ -917,6 +929,7 @@ a5state_rebuild_live_groups (a5_state_t *st)
   for (i = 0; i < st->n_gm; i++)
     { free (st->gm[i].grp); free (st->gm[i].key); }
   st->n_gm = 0;
+  gm_touch (st);
   for (i = 0; i < st->adv->n_groups; i++)
     {
       const a5_group_t *g = &st->adv->groups[i];

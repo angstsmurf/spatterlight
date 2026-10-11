@@ -240,6 +240,40 @@ struct scarier_save_t
   a5_state_t *st;
   const a5_adventure_t *adv;
 
+  /* Write one section through its cache: `from` is the n bytes of state that
+     decide what `emit` writes. */
+  template <typename Emit>
+  void
+  cached (int section, const char *from, size_t n, Emit emit)
+  {
+    a5_run_t::section_cache_t &c = run->section_cache[section];
+    if (c.valid && c.from.size () == n
+        && (n == 0 || memcmp (c.from.data (), from, n) == 0))
+      {
+        sb_putn (b, c.bytes.data (), c.bytes.size ());
+        return;
+      }
+    const size_t start = b->len;
+    emit ();
+    c.valid = b->len >= start && (b->p != nullptr || b->len == 0);
+    if (c.valid)
+      {
+        c.from.assign (from, n);
+        c.bytes.assign (b->p != nullptr ? b->p + start : "", b->len - start);
+      }
+  }
+
+  /* A "seen"/"done" array as a cached run of <tag> elements. */
+  template <typename Entity>
+  void
+  cached_flags (int section, const char *tag, const char *flags,
+                const Entity *entities, int count)
+  {
+    sb_t *out = b;
+    cached (section, flags, flags != nullptr ? (size_t) count : 0,
+            [=] { sb_flagged_keys (out, tag, flags, entities, count); });
+  }
+
   void globals ();
   void objects ();
   void characters ();
@@ -289,17 +323,33 @@ void
 scarier_save_t::objects ()
 {
   int i;
+  std::string &from = run->section_from;
 
-  /* Objects (model order). */
+  /* What the section is written from: each object's where/static pair and the
+     TEXT of its key -- a key can alias a property override, so its address
+     does not vouch for its contents. */
+  from.clear ();
   for (i = 0; i < adv->n_objects; i++)
     {
-      sb_puts (b, "<Object>\n");
-      sb_elem_l (b, "Where", (long) st->obj[i].where);
-      sb_elem_l (b, "Static", st->obj[i].is_static);
-      if (st->obj[i].key != nullptr && st->obj[i].key[0])
-        sb_elem (b, "Key", st->obj[i].key);
-      sb_puts (b, "</Object>\n");
+      const int pair[2] = { (int) st->obj[i].where, st->obj[i].is_static };
+      from.append ((const char *) pair, sizeof pair);
+      if (st->obj[i].key != nullptr)
+        from.append (st->obj[i].key);
+      from.push_back ('\0');
     }
+
+  /* Objects (model order). */
+  cached (a5_run_t::SEC_OBJECTS, from.data (), from.size (), [this] {
+    for (int o = 0; o < adv->n_objects; o++)
+      {
+        sb_puts (b, "<Object>\n");
+        sb_elem_l (b, "Where", (long) st->obj[o].where);
+        sb_elem_l (b, "Static", st->obj[o].is_static);
+        if (st->obj[o].key != nullptr && st->obj[o].key[0])
+          sb_elem (b, "Key", st->obj[o].key);
+        sb_puts (b, "</Object>\n");
+      }
+  });
 }
 
 void
@@ -374,18 +424,16 @@ scarier_save_t::marks ()
   int i;
 
   /* Completed tasks (sparse, by key). */
-  for (i = 0; i < adv->n_tasks; i++)
-    if (st->task_done[i])
-      sb_elem (b, "TaskDone", adv->tasks[i].key);
+  cached_flags (a5_run_t::SEC_TASK_DONE, "TaskDone", st->task_done,
+                adv->tasks, adv->n_tasks);
 
   /* Tasks that have already scored (clsTask.Scored), sparse by key.  This lives
      in <ScarierExt> because our own restore walks only ScarierExt: the full
      <Task><Scored> in the runner body is read solely for foreign saves
      (restore_fd_game).  Without it a repeatable scoring task re-awards its
      points once after restore (inflating the score). */
-  for (i = 0; i < adv->n_tasks; i++)
-    if (st->task_scored[i])
-      sb_elem (b, "TaskScored", adv->tasks[i].key);
+  cached_flags (a5_run_t::SEC_TASK_SCORED, "TaskScored", st->task_scored,
+                adv->tasks, adv->n_tasks);
 
   /* Property overrides. */
   for (i = 0; i < st->n_ov; i++)
@@ -398,13 +446,14 @@ scarier_save_t::marks ()
     }
 
   /* "Seen" sets (sparse, by key). */
-  sb_flagged_keys (b, "ObjSeen", st->obj_seen, adv->objects, adv->n_objects);
-  sb_flagged_keys (b, "CharSeen", st->char_seen,
-                   adv->characters, adv->n_characters);
-  sb_flagged_keys (b, "CharIntroduced", st->char_introduced,
-                   adv->characters, adv->n_characters);
-  sb_flagged_keys (b, "LocSeen", st->loc_seen,
-                   adv->locations, adv->n_locations);
+  cached_flags (a5_run_t::SEC_OBJ_SEEN, "ObjSeen", st->obj_seen,
+                adv->objects, adv->n_objects);
+  cached_flags (a5_run_t::SEC_CHAR_SEEN, "CharSeen", st->char_seen,
+                adv->characters, adv->n_characters);
+  cached_flags (a5_run_t::SEC_CHAR_INTRODUCED, "CharIntroduced",
+                st->char_introduced, adv->characters, adv->n_characters);
+  cached_flags (a5_run_t::SEC_LOC_SEEN, "LocSeen", st->loc_seen,
+                adv->locations, adv->n_locations);
 }
 
 void
@@ -863,8 +912,15 @@ save_fd_game (sb_t *b, a5_run_t *run, int lean)
      of Fear: 195 groups x 2002 memberships = 390K compares per turn), and this
      save runs every turn to feed the undo stack -- it was over half the
      snapshot's cost.  Bucketing walks gm once and emits every group's members
-     in gm order, i.e. exactly the bytes the per-group filter produced. */
+     in gm order, i.e. exactly the bytes the per-group filter produced.
+
+     The section is kept with the stamp of the list it was written from, and
+     copied while that stamp stands. */
+  if (run->group_section_valid && run->group_section_stamp == st->gm_stamp)
+    sb_putn (b, run->group_section.data (), run->group_section.size ());
+  else
   {
+    const size_t start = b->len;
     std::unordered_map<std::string, int> gidx;
     std::vector<std::vector<int> > members ((size_t) adv->n_groups);
     int j;
@@ -888,6 +944,12 @@ save_fd_game (sb_t *b, a5_run_t *run, int lean)
         for (size_t k = 0; k < m.size (); k++)
           sb_elem (b, "Member", st->gm[m[k]].key);
         sb_puts (b, "</Group>\n");
+      }
+    if (b->p != nullptr && b->len >= start)
+      {
+        run->group_section.assign (b->p + start, b->len - start);
+        run->group_section_stamp = st->gm_stamp;
+        run->group_section_valid = true;
       }
   }
 

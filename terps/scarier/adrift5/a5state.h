@@ -143,6 +143,7 @@ typedef struct a5_state_s {
 
   a5_grpmem_t *gm;        /* live group membership (the runner arlMembers), ordered    */
   int n_gm, cap_gm;
+  unsigned long gm_stamp; /* changes whenever gm does; unique across states, 0 = never filled */
 
   int   game_over;        /* set by EndGame: 0 running, else 1                 */
   char *end_message;      /* EndGame enum "Win"/"Lose"/"Neutral" (owned), NULL */
