@@ -814,8 +814,6 @@ struct char_restr_t
   int be_on_character () const;
 };
 
-} /* namespace */
-
 int
 char_restr_t::be_at_location () const
 {
@@ -1351,6 +1349,9 @@ char_restr_t::be_on_character () const
     return 1;
   return streq (onk, k2);
 }
+
+} /* namespace */
+
 
 /* Operator name -> evaluator, in the order the if-chain tested them.  The
    five on/in-object operators share one evaluator, which reads r->op for

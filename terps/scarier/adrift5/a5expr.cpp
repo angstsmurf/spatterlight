@@ -728,44 +728,42 @@ oo_step_t::list ()
       return oo_prop (st, nc, rem, depth + 1, ok);
     }
   /* else: a property key -> filter / aggregate.  Carry it for .Sum. */
-  {
-    /* A SelectionOnly (valueless marker) property applied to a list is a
-       FILTER, not a value: the runner's ReplaceOOProperty (Global.vb:931-1082) keeps
-       the members that carry the marker and yields those member KEYS (a
-       reference / sub-collection), because a SelectionOnly prop has no value
-       to render.  So `%Player%.Location.Objects.ObjectIsAT` -> the cube's
-       key (AlienDiver binds this to set the cube's target number / craft /
-       extract), and `...ObjectIsAT.Count` counts only the cubes.  Any other
-       property type (Integer/ValueList/StateList/Text/entity-key) keeps the
-       long-standing carry-for-.Sum / terminal-first-value behaviour. */
-    const a5_propdef_t *pd = a5model_propdef (st->adv, fn.c_str ());
-    if (pd != nullptr && streq (pd->type, "SelectionOnly"))
-      {
-        /* An argument inverts the filter: `.Isscore(False)` (or `(0)`)
-           keeps the members that do NOT carry the marker (ReplaceOOProperty:
-           a has-property member is dropped on "false"/"0", Global.vb:971,
-           and a lacks-property member kept, vb:1040).  Symphonica 64's
-           inventory line is `%Player%.Held(False).Isscore(False).List(..)`
-           -- the non-score items. */
-        std::string a = lower (args);
-        int want = !(a == "false" || a == "0");
-        Ctx nc; nc.is_list = 1;
-        for (auto &k : ctx.keys)
-          if (!!a5state_entity_has_prop (st, k.c_str (), fn.c_str ()) == want)
-            nc.keys.push_back (k);
-        if (!rem.empty ())
-          return oo_prop (st, nc, rem, depth + 1, ok);
-        return join_keys (nc.keys);
-      }
-    Ctx nc; nc.is_list = 1; nc.keys = ctx.keys; nc.prop_key = fn;
-    if (!rem.empty ())
-      return oo_prop (st, nc, rem, depth + 1, ok);
-    /* terminal property on a list: emit the first item's value */
-    for (auto &k : ctx.keys)
-      { const char *v = a5state_entity_prop (st, k.c_str (), fn.c_str ());
-        if (v) return v; }
-    return "";
-  }
+  /* A SelectionOnly (valueless marker) property applied to a list is a
+     FILTER, not a value: the runner's ReplaceOOProperty (Global.vb:931-1082) keeps
+     the members that carry the marker and yields those member KEYS (a
+     reference / sub-collection), because a SelectionOnly prop has no value
+     to render.  So `%Player%.Location.Objects.ObjectIsAT` -> the cube's
+     key (AlienDiver binds this to set the cube's target number / craft /
+     extract), and `...ObjectIsAT.Count` counts only the cubes.  Any other
+     property type (Integer/ValueList/StateList/Text/entity-key) keeps the
+     long-standing carry-for-.Sum / terminal-first-value behaviour. */
+  const a5_propdef_t *pd = a5model_propdef (st->adv, fn.c_str ());
+  if (pd != nullptr && streq (pd->type, "SelectionOnly"))
+    {
+      /* An argument inverts the filter: `.Isscore(False)` (or `(0)`)
+         keeps the members that do NOT carry the marker (ReplaceOOProperty:
+         a has-property member is dropped on "false"/"0", Global.vb:971,
+         and a lacks-property member kept, vb:1040).  Symphonica 64's
+         inventory line is `%Player%.Held(False).Isscore(False).List(..)`
+         -- the non-score items. */
+      std::string a = lower (args);
+      int want = !(a == "false" || a == "0");
+      Ctx nc; nc.is_list = 1;
+      for (auto &k : ctx.keys)
+        if (!!a5state_entity_has_prop (st, k.c_str (), fn.c_str ()) == want)
+          nc.keys.push_back (k);
+      if (!rem.empty ())
+        return oo_prop (st, nc, rem, depth + 1, ok);
+      return join_keys (nc.keys);
+    }
+  Ctx nc; nc.is_list = 1; nc.keys = ctx.keys; nc.prop_key = fn;
+  if (!rem.empty ())
+    return oo_prop (st, nc, rem, depth + 1, ok);
+  /* terminal property on a list: emit the first item's value */
+  for (auto &k : ctx.keys)
+    { const char *v = a5state_entity_prop (st, k.c_str (), fn.c_str ());
+      if (v) return v; }
+  return "";
 }
 
 /* ---- single item: object, character, location ---- */
@@ -966,7 +964,7 @@ static std::string
 oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *ok)
 {
   if (depth > 24) { *ok = 0; return ""; }
-  oo_step_t s = { st, ctx, "", "", "", "", depth, ok };
+  oo_step_t s = { st, ctx, {}, {}, {}, {}, depth, ok };
   split_property (sProperty, s.fn, s.args, s.rem);
 
   if (ctx.is_dirs)

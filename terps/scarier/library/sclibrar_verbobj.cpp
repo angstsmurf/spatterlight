@@ -1192,8 +1192,9 @@ lib_verb_object_tie_400 (scr_gameref_t game, scr_int *count, scr_int *object)
 }
 
 /*
- * 3.7 reaches the same walk only for its unseen arm (its therest() has
- * already refused an absent object), but the object it speaks for is
+ * 3.7 reaches the same walk as 3.8's catch-all only for its unseen arm
+ * (its therest() has already refused an absent object), but the object
+ * it speaks for is
  * picked the same way: the first present one the line names, in index
  * order.  p37TEXTSRC answers `zug rock stone` with the gem, index 0 and
  * aliased "stone", not with the rock our references bound.
@@ -1366,7 +1367,7 @@ lib_verb_object_absent (scr_gameref_t game, scr_int *count, scr_int *object)
  * Runner says nothing here -- see lib_verb_object_resolve_400().
  */
 static lib_vo_stage_t
-lib_verb_object_resolve_400 (scr_gameref_t game, scr_int *object)
+lib_verb_object_pick_400 (scr_gameref_t game, scr_int *object)
 {
   std::vector<scr_int> tied, crowd;
   const scr_int resolved =
@@ -1484,7 +1485,6 @@ lib_cmd_verb_object (scr_gameref_t game)
   scr_int count, object;
   lib_vo_stage_t stage;
 
-  /* Ensure the reference is unambiguous. */
   lib_verb_object_count_present (game, &count, &object);
 
   if (count != 1)
@@ -1530,7 +1530,7 @@ lib_cmd_verb_object (scr_gameref_t game)
 
   if (lib_is_version_400 (game))
     {
-      stage = lib_verb_object_resolve_400 (game, &object);
+      stage = lib_verb_object_pick_400 (game, &object);
       if (stage != LIB_VO_GO_ON)
         return stage == LIB_VO_RETURN_TRUE;
     }

@@ -955,7 +955,6 @@ struct uip_entity_sweep_t
   void drop_unknown ();
 };
 
-} /* namespace */
 
 /* One sweep: reference every admitted entity a name or alias of which
    matches, and note the extents. */
@@ -1007,16 +1006,16 @@ uip_entity_sweep_t::run (scr_int scope, scr_int pass)
     }
 }
 
+
 /*
- * A name matched in place is no match when nothing it names has
- * ever been seen and none of it is here: run400's resolver
- * (463640) scores present, seen objects only, so the line is left
- * to whatever else it contains.  Scene of the Crime (4.00) has "a
- * small card" in hand and "a tiny card" (alias "tiny card") not yet
- * in play: `x tiny card` describes the small card (run400x, Delron
- * walkthrough replay 2026-10-09), where the in-place match answered
- * "I see no such thing.".  A name seen elsewhere keeps the line
- * (not measured), and below 4.0 is not measured.
+ * A name matched in place is no match when nothing it names has ever been
+ * seen and none of it is here: run400's resolver (463640) scores present,
+ * seen objects only, so the line is left to whatever else it contains.
+ * Scene of the Crime (4.00) has "a small card" in hand and "a tiny card"
+ * (alias "tiny card") not yet in play: `x tiny card` describes the small
+ * card (run400x, Delron walkthrough replay 2026-10-09), where the in-place
+ * match answered "I see no such thing.".  A name seen elsewhere keeps the
+ * line (not measured), and below 4.0 is not measured.
  */
 void
 uip_entity_sweep_t::drop_unknown ()
@@ -1030,10 +1029,8 @@ uip_entity_sweep_t::drop_unknown ()
     {
       is_known = matched_extent[index] > 0
                  && (gs_object_seen (game, index)
-                     || obj_indirectly_in_room (game, index,
-                                                room)
-                     || obj_indirectly_held_by_player (game,
-                                                       index));
+                     || obj_indirectly_in_room (game, index, room)
+                     || obj_indirectly_held_by_player (game, index));
     }
   if (!is_known)
     {
@@ -1048,6 +1045,8 @@ uip_entity_sweep_t::drop_unknown ()
       max_extent = 0;
     }
 }
+
+} /* namespace */
 
 
 /*

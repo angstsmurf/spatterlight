@@ -959,10 +959,6 @@ struct npc_walk_tick_t
   void meet ();
 };
 
-} /* namespace */
-
-
-
 /* Find the walk step the counter is on, and whether it has just landed. */
 void
 npc_walk_tick_t::step ()
@@ -1032,7 +1028,7 @@ npc_walk_tick_t::step ()
   is_arrival = gs_npc_walkstep (game, npc, walk)
                == prop_get_integer (bundle, "I<-sisisi", vt_key);
 
-  /* The same test, kept unmodified by the destination cases below, because
+  /* The same test, kept unmodified by the cases in destination(), because
      the Runner's walk announcements hang off it and not off is_arrival. */
   is_exact = is_arrival;
 }
@@ -1146,10 +1142,10 @@ npc_walk_tick_t::depart ()
 }
 
 
+/* See if the NPC actually moved. */
 void
 npc_walk_tick_t::move ()
 {
-  /* See if the NPC actually moved. */
   if (start != dest)
     {
       scr_bool was_walk_hidden;
@@ -1255,6 +1251,8 @@ npc_walk_tick_t::meet ()
         run_npc_walk_task (game, objecttask);
     }
 }
+
+} /* namespace */
 
 
 /*

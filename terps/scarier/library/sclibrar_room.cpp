@@ -420,7 +420,8 @@ lib_room_desc_long (scr_gameref_t game, scr_int room, scr_int start,
            * old shack" and "By the large tree" have empty Longs and a
            * LastDesc alt, and run380 prints "There is nothing of interest
            * here.  You are standing..." on every show.  3.9's render-time
-           * guard below fires only when nothing else described the room.
+           * guard, lib_room_desc_nothing_390(), fires only when nothing
+           * else described the room.
            */
           pf_buffer_string (filter, "There is nothing of interest here.");
           *is_described = TRUE;

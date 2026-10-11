@@ -760,9 +760,7 @@ struct scdump_task_t
   scr_int t;
 
   scr_vartype_t k[5], vt;
-  const scr_char *cmd;
-  scr_int wtype, wroom, acount, rcount, rep, rev;
-  scr_int ccount;
+  scr_int wtype, ccount, rcount, acount;
 
   void summary ();
   void where_rooms ();
@@ -783,6 +781,9 @@ struct scdump_task_t
 void
 scdump_task_t::summary ()
 {
+  const scr_char *cmd;
+  scr_int wroom, rep, rev;
+
   k[0].string = "Tasks";
   k[1].integer = t;
   k[2].string = "Command";
@@ -853,6 +854,8 @@ scdump_task_t::summary ()
 
 
 /*
+ * scdump_task_t::where_rooms()
+ *
  * For SOME_ROOMS (where=2) tasks, dump the room-group membership (the
  * "Where"/"Rooms" boolean array indexed by room; see sctasks.c
  * task_can_run_task_directional). Lets us tell whether a group-scoped
@@ -880,6 +883,8 @@ scdump_task_t::where_rooms ()
 
 
 /*
+ * scdump_task_t::hints()
+ *
  * Built-in author hints attached to this task (Question/Hint1=subtle/
  * Hint2=sledgehammer) -- the game's own context-sensitive walkthrough.
  */
@@ -908,6 +913,8 @@ scdump_task_t::hints ()
 
 
 /*
+ * scdump_task_t::texts()
+ *
  * The task's own text.  A wording measurement against a Runner
  * transcript stands or falls on knowing which words the author wrote:
  * the dump used to show only the command, so an engine-supplied phrase
@@ -947,6 +954,8 @@ scdump_task_t::texts ()
 
 
 /*
+ * scdump_task_t::alt_commands()
+ *
  * Print any extra command alternatives (Command[1..]) -- these are the
  * synonym/wildcard forms ADRIFT matches in addition to Command[0].
  */
@@ -968,6 +977,8 @@ scdump_task_t::alt_commands ()
 
 
 /*
+ * scdump_task_t::reverse_commands()
+ *
  * The reverse half of a reversible task.  A reversible task matches its
  * ReverseCommand patterns as well as its Command ones, so those strings
  * are typeable too -- and when the ReverseMessage is empty the reverse

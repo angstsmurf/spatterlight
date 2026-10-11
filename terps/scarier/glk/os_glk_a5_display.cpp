@@ -599,7 +599,7 @@ gsc_a5_display (const char *text)
         case A5_SOUND_MARK:
           d.sound ();
           break;
-        default:
+        case A5_IMG_MARK:
           d.image ();
           break;
         }

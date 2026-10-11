@@ -3683,19 +3683,19 @@ lib_take_multi_unparsed (scr_gameref_t game, scr_bool is_except,
 static scr_bool
 lib_take_multi_crowded_pre400 (scr_gameref_t game)
 {
-    scr_bool crowded;
-    const scr_int winner = lib_take_crowd_pre400 (game, &crowded);
+  scr_bool crowded;
+  const scr_int winner = lib_take_crowd_pre400 (game, &crowded);
 
-    if (crowded)
-      {
-        gs_clear_multiple_references (game);
-        return TRUE;
-      }
-    if (winner != -1 && !game->multiple_references[winner])
-      {
-        gs_clear_multiple_references (game);
-        game->multiple_references[winner] = TRUE;
-      }
+  if (crowded)
+    {
+      gs_clear_multiple_references (game);
+      return TRUE;
+    }
+  if (winner != -1 && !game->multiple_references[winner])
+    {
+      gs_clear_multiple_references (game);
+      game->multiple_references[winner] = TRUE;
+    }
   return FALSE;
 }
 
@@ -3728,18 +3728,18 @@ lib_take_multi_crowded_pre400 (scr_gameref_t game)
 static scr_bool
 lib_take_multi_co_fails_pre400 (scr_gameref_t game)
 {
-    const scr_char *line = run_get_dispatch_input ();
-    scr_int target;
+  const scr_char *line = run_get_dispatch_input ();
+  scr_int target;
 
-    for (target = 0; target < gs_object_count (game); target++)
-      if (game->multiple_references[target])
-        break;
-    if (line && target < gs_object_count (game)
-        && !lib_take_co_pre400 (game, line, target))
-      {
-        gs_clear_multiple_references (game);
-        return TRUE;
-      }
+  for (target = 0; target < gs_object_count (game); target++)
+    if (game->multiple_references[target])
+      break;
+  if (line && target < gs_object_count (game)
+      && !lib_take_co_pre400 (game, line, target))
+    {
+      gs_clear_multiple_references (game);
+      return TRUE;
+    }
   return FALSE;
 }
 
@@ -3889,7 +3889,7 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
     return TRUE;
 
   /* Pre-4.0, one object named: a held namesake may answer for it, a crowd
-     of loose candidates or a failed co() declines the row. */
+     of loose candidates declines the row. */
   if (!is_except && references == 1)
     {
       if (lib_take_multi_namesake_pre400 (game, FALSE))
@@ -3898,6 +3898,7 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
         return FALSE;
     }
 
+  /* 3.8 and 3.9: a failed co() on that one object declines the row too. */
   if (!is_except && references == 1
       && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
       && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400

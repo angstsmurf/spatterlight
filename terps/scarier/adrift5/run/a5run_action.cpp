@@ -1684,9 +1684,8 @@ run_task_look (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out,
 
 /* What the phases of a general run_task share.  The Before message is
    rendered ahead of the actions and compared with a second render after
-   them, so its pre-action state outlives the action loop; a deferred
-   `Execute Look` inside the action list likewise saves the run's look_*
-   registers across the loop.  Built by run_task, which owns the sequence:
+   them, so its pre-action state outlives the action loop.  Built by
+   run_task, which owns the sequence:
    run_task_before_message, the done mark, run_task_actions,
    run_task_before_finalize, run_task_after_message. */
 struct run_task_ctx
@@ -1722,13 +1721,6 @@ struct run_task_ctx
      response, i.e. lands here.  (imm frame set around the action loop,
      flat paths only.) */
   long imm0 = 0;
-
-  /* An `Execute Look` deferred inside this task's own action list, and the
-     run's look registers as they were before the claim. */
-  int local_defer_look = 0;
-  int prev_dl = 0, prev_lp = 0;
-  size_t prev_lpos = 0;
-  char *prev_lpin = nullptr;
 };
 
 /* Phase 1: the Before completion message, rendered ahead of the actions.
@@ -1877,19 +1869,19 @@ run_task_actions (run_task_ctx &c)
   a5_run_t *run = c.run;
   const a5_xml_node_t *act = c.act;
   sb_t *out = c.out;
+  int local_defer_look = 0;
+  int prev_dl = run->defer_look, prev_lp = run->look_pending;
+  size_t prev_lpos = run->look_pos;
+  char *prev_lpin = run->look_pinned;
 
-  c.prev_dl = run->defer_look;
-  c.prev_lp = run->look_pending;
-  c.prev_lpos = run->look_pos;
-  c.prev_lpin = run->look_pinned;
   if (act != nullptr && !c.flat_inter && run->resp == nullptr
       && !run->defer_look)
     {
       for (const a5_xml_node_t *n = act->first_child; n != nullptr; n = n->next)
         if (streq (n->name, "SetTasks") && n->next != nullptr
             && streq (n->text, "Execute Look"))
-          { c.local_defer_look = 1; break; }
-      if (c.local_defer_look)
+          { local_defer_look = 1; break; }
+      if (local_defer_look)
         { run->defer_look = 1; run->look_pending = 0; run->look_pinned = nullptr; }
     }
 
@@ -1913,15 +1905,15 @@ run_task_actions (run_task_ctx &c)
       run->imm_pos = prev_ipos;
     }
 
-  if (c.local_defer_look)
+  if (local_defer_look)
     {
       int did_defer = run->look_pending;
       size_t lpos = run->look_pos;
       char *lpin = run->look_pinned;
-      run->defer_look = c.prev_dl;
-      run->look_pending = c.prev_lp;
-      run->look_pos = c.prev_lpos;
-      run->look_pinned = c.prev_lpin;
+      run->defer_look = prev_dl;
+      run->look_pending = prev_lp;
+      run->look_pos = prev_lpos;
+      run->look_pinned = prev_lpin;
       if (did_defer && lpos <= (size_t) out->len)
         {
           std::string view;
@@ -1998,10 +1990,8 @@ run_task_before_finalize (run_task_ctx &c)
   free (c.flat_pre);
   free (c.flat_pre_marked);
   free (c.flat_raw);
-  c.flat_pre = c.flat_pre_marked = c.flat_raw = nullptr;
   if (c.flat_abuf.len > 0) { sb_pspace (out); sb_puts (out, c.flat_abuf.p); }
   free (c.flat_abuf.p);
-  c.flat_abuf.p = nullptr;
 
   if (c.before && comp != nullptr && run->resp != nullptr)
     {
@@ -2022,7 +2012,6 @@ run_task_before_finalize (run_task_ctx &c)
     }
   free (c.resp_pre);
   free (c.resp_pre_marked);
-  c.resp_pre = c.resp_pre_marked = nullptr;
 }
 
 /* Phase 4: an After completion message, rendered once the actions ran. */

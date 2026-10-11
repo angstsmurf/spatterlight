@@ -1018,9 +1018,9 @@ run_main_shutdown (scr_gameref_t game)
 
   /*
    * Catch an ending armed before the loop ever ran -- evt_start_load_events()
-   * and the startup evt_tick_events() above can both fire a task.  Harmless
-   * when the loop already printed it; the pending ending is cleared as it
-   * goes.
+   * and the startup evt_tick_events() in run_main_startup() can both fire a
+   * task.  Harmless when the loop already printed it; the pending ending is
+   * cleared as it goes.
    */
   task_print_end_game_message (game);
 

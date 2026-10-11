@@ -142,7 +142,7 @@ ci_replace_all (const std::string &s, const std::string &from, const std::string
    line-start cap rule never fires on the name.  So process the name WITHOUT
    the per-piece cap (a5text_process_nocap keeps markup + resolves
    functions/OO/ALR), wrap it in the bold tags, and let the room-view
-   replace_alrs + auto_capitalise pass below adjudicate it exactly as the runner does.
+   replace_alrs + auto_capitalise pass in view_loc_finish() adjudicate it as the runner does.
    A genuinely lowercase generated name -- LostCoastlines' "cabal plain",
    "flock sea" -- is thus left lowercase like the runner, while an already-capitalised
    name (its case baked into the source) is unaffected. */
