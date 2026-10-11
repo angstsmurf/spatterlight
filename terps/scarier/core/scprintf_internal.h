@@ -193,6 +193,22 @@ enum
 typedef std::unordered_map<scr_uint, std::vector<scr_int> > pf_alr_index_t;
 
 /*
+ * A bit per hashed key in front of pf.alr.index: nearly every position of
+ * the text starts no original at all, and one bit test turns it away without
+ * a hash-table probe.
+ */
+enum
+{ PF_ALR_FILTER_BITS = 16
+};
+
+static inline size_t
+pf_alr_filter_slot (scr_uint key)
+{
+  return (size_t) (((unsigned int) key * 2654435761u)
+                   >> (32 - PF_ALR_FILTER_BITS));
+}
+
+/*
  * The printfilter's module state, in one instance (pf, defined in
  * scprintf.cpp).  It is grouped by lifetime:
  *
@@ -218,6 +234,7 @@ struct scr_pf_state_s
     /* TRUE when some ALR original ends in a space; see pf_replace_alrs(). */
     scr_bool trailing_space = FALSE;
     pf_alr_index_t index;
+    std::vector<unsigned char> filter;  /* see pf_alr_filter_slot() */
     std::vector<scr_int> unkeyed;   /* slots too short for the index */
     std::vector<char> on_path;      /* ALRs on the recursion path of a walk */
   } alr;

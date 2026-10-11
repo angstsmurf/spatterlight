@@ -227,6 +227,7 @@ pf_replace_alr (const scr_char *string, std::string &out,
 static void
 pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
 {
+  const unsigned char *const filter = pf.alr.filter.data ();
   size_t length, offset;
 
   candidates.clear ();
@@ -242,11 +243,20 @@ pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
 
   /* One pass over the text, looking each position's prefix up in the index. */
   length = strlen (text);
+  if (pf.alr.index.empty ())
+    length = 0;
   for (offset = 0; offset + PF_ALR_KEY_LENGTH <= length; offset++)
     {
       pf_alr_index_t::const_iterator bucket;
+      const unsigned char *const bytes = (const unsigned char *) text + offset;
+      const scr_uint key = (scr_uint) bytes[0] | ((scr_uint) bytes[1] << 8)
+                           | ((scr_uint) bytes[2] << 16)
+                           | ((scr_uint) bytes[3] << 24);
+      const size_t slot = pf_alr_filter_slot (key);
 
-      bucket = pf.alr.index.find (pf_alr_key (text + offset));
+      if (!(filter[slot >> 3] & (1u << (slot & 7))))
+        continue;
+      bucket = pf.alr.index.find (key);
       if (bucket == pf.alr.index.end ())
         continue;
 

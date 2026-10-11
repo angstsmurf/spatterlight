@@ -136,6 +136,7 @@ pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count)
 
   /* Index the cache for pf_alr_candidates(). */
   pf.alr.index.clear ();
+  pf.alr.filter.assign ((size_t) 1 << (PF_ALR_FILTER_BITS - 3), 0);
   pf.alr.unkeyed.clear ();
   pf.alr.trailing_space = FALSE;
   for (index_ = 0; index_ < alr_count; index_++)
@@ -149,7 +150,13 @@ pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count)
       if (entry.original_length < PF_ALR_KEY_LENGTH)
         pf.alr.unkeyed.push_back (index_);
       else
-        pf.alr.index[pf_alr_key (entry.original)].push_back (index_);
+        {
+          const scr_uint key = pf_alr_key (entry.original);
+          const size_t slot = pf_alr_filter_slot (key);
+
+          pf.alr.index[key].push_back (index_);
+          pf.alr.filter[slot >> 3] |= 1u << (slot & 7);
+        }
     }
 
   pf.alr.built = TRUE;
