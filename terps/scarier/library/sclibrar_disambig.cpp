@@ -361,11 +361,10 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
 static void
 lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
 {
-  static const scr_bool trace_co = getenv ("SCR_TRACE_CO") != nullptr;
   const scr_char *command, *ambig_term;
   scr_int ambig_present;
 
-  if (!trace_co)
+  if (!SCR_TRACE_ON ("SCR_TRACE_CO"))
     return;
   command = run_get_dispatch_input ();
   if (lib_runner_co_scan (game, command, &ambig_term, nullptr, &ambig_present))

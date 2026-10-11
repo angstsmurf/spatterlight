@@ -26,6 +26,9 @@
 #ifndef SCARIER_DUMP_H
 #define SCARIER_DUMP_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "sctypes.h"
 
 /*
@@ -48,9 +51,24 @@ extern void scr_trace_deviation_line (void);
 #define SCR_TRACING_DEVIATIONS() scr_tracing_deviations ()
 #define SCR_DEVIATION(...) \
   (scr_tracing_deviations () ? scr_trace_deviation (__VA_ARGS__) : (void) 0)
+
+/*
+ * The SCR_TRACE_... switches of the guarded trace blocks.  SCR_TRACE_ON
+ * (name) is TRUE when the environment variable is set, and SCR_TRACE_IF
+ * (name, format, ...) prints to stderr when it is.  Each use reads the
+ * environment once, the first time it is reached, and keeps the answer.
+ */
+#define SCR_TRACE_ON(name_) \
+  ([] () -> scr_bool { \
+     static const scr_bool on_ = getenv (name_) != nullptr; \
+     return on_; } ())
+#define SCR_TRACE_IF(name_, ...) \
+  (SCR_TRACE_ON (name_) ? (void) fprintf (stderr, __VA_ARGS__) : (void) 0)
 #else
 #define SCR_TRACING_DEVIATIONS() FALSE
 #define SCR_DEVIATION(...) ((void) 0)
+#define SCR_TRACE_ON(name_) FALSE
+#define SCR_TRACE_IF(name_, ...) ((void) 0)
 #endif
 
 #endif

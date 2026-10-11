@@ -274,11 +274,8 @@ lib_task_prematches_line (scr_gameref_t game, const scr_char *input,
   run_set_task_class_filter (class_filter);
   status = run_does_command_match (game, input, TRUE, match_kind);
   run_set_task_class_filter (0);
-#ifdef SCARIER_DUMP_TOOLS
-  if (getenv ("SCR_TRACE_MATCH"))
-    fprintf (stderr, "PREMATCH mode=%ld input=[%s] %s\n", (long) class_filter,
-             input, status ? "HIT" : "miss");
-#endif
+  SCR_TRACE_IF ("SCR_TRACE_MATCH", "PREMATCH mode=%ld input=[%s] %s\n",
+                (long) class_filter, input, status ? "HIT" : "miss");
   lib_restore_object_references (game, references);
   if (references != references_buffer)
     scr_free (references);

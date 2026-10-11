@@ -1,20 +1,53 @@
 # Scarier: refactoring / clean-up / de-duplication TODO
 
-**Nothing here is open.**  The survey of `terps/scarier` was taken
-2026-10-10 (master @ 1b41f85be) and worked through by 2026-10-11 (master
-096834efb); every item was done or declined.  This file keeps what a
-later pass needs: where things landed, what was declined and why (so it
-is not re-proposed), what was left on purpose, and the safety net.
+Two surveys of `terps/scarier` have been taken and worked through:
 
-The full log, with the census, the per-step reasoning and the
-verification of each item, is in git:
+- **First pass**: surveyed 2026-10-10 (master @ 1b41f85be), worked through
+  by 2026-10-11 (master 096834efb).  Sections numbered 1–6a.
+- **Second pass**: surveyed 2026-10-11 (master @ 9189587ac) after the
+  first was closed, worked through the same day (6d4004bbe).  Sections
+  lettered A–F.
+
+Every item was done or declined except the one under "Open" below.  This
+file keeps what a later pass needs: where things landed, what was
+declined and why (so it is not re-proposed), what was left on purpose,
+how the surveys were measured, and the safety net.
+
+The full logs, with the census, the per-step reasoning, the original
+suggestions and the surveyed line numbers, are in git:
 
     git show cd0a32c0c:terps/scarier/REFACTOR-TODO.md
+    git show 6d4004bbe:terps/scarier/CLEANUP-SURVEY-2026-10-11.md
 
-Section numbers below are the survey's, kept so that commit messages and
-the old log still resolve.
+Section numbers and letters below are the surveys', kept so that commit
+messages and the old logs still resolve.
 
-## What the survey found
+## Open
+
+- **A. Public-API functions in `core/scarier.h` / `scinterf.cpp` with no
+  caller in this tree** (the Glk front end never uses them).  Whether
+  `scarier.h` is a supported library surface is the maintainer's call
+  (Gargoyle takes the folder as a drop-in, per `common_utils/README`):
+  if it is, leave them and say so in the header; if not, delete.
+
+  `scr_does_game_use_graphics`, `scr_get_game_compile_date`,
+  `scr_get_game_max_score`, `scr_get_game_preferred_font`,
+  `scr_get_game_bold_room_names` / `scr_set_game_bold_room_names`,
+  `scr_get_game_notify_score_change` / `scr_set_game_notify_score_change`,
+  `scr_get_game_patches`, `scr_get_capacity_assist`, `scr_get_end_keyprompt`,
+  `scr_get_game_debugger_enabled`, `scr_run_game_debugger_command`,
+  `scr_scarier_emulation`, `scr_scarier_version`,
+  `scr_load_game_from_filename` / `_stream`, `scr_save_game` /
+  `scr_save_game_to_filename` / `_stream`.
+
+  The `scr_save/load_*_stream/filename` family is the clearest case:
+  nothing outside `scinterf.cpp` calls them, and the Glk front end goes
+  through the `*_callback` forms.  Deleting them would also make
+  `if_file_read_callback` / `if_file_write_callback` unreachable.
+  (`scr_game_from_stream` is *not* in the family: `platform/os_ansi.cpp`
+  loads through it.)
+
+## What the surveys found
 
 Exact copy-paste was low (~136 duplicated 8-line windows in ~155k lines,
 no static function defined in two files).  What there was is structural:
@@ -23,7 +56,31 @@ resolver callback or an ADRIFT version gate.  Those are Runner-parity
 behaviour pinned by the transcripts, which is why most of section 1 is
 in the declined list rather than the done one.
 
+The second pass confirmed it: no two function bodies of 6+ lines are
+byte-identical after whitespace normalisation.  It also found that the
+first pass's size census had missed functions: a column-0 `{`…`}` census
+(test/, build/ and glkscarier/ excluded) still showed 20 over 200 lines
+and 61 over 150, none of the 20 in the first table.
+
+No `using namespace` in headers, no `#if 0` blocks, no TODO / FIXME
+markers in the engine (the only hits are references to
+`RUNNER_TESTS_TODO.md` / `WINE-TRANSCRIPTS-TODO.md` in comments).
+
+### How the second pass was measured
+
+So that a later pass can repeat it:
+
+- Dead code: `nm -P` over `build/headless/{plain,dump}` plus `glk/*.o`
+  (defined global, never undefined anywhere), then `grep -w` over the whole
+  Spatterlight tree to separate "no callers" from "called only inside its
+  own TU".
+- Duplicates: every column-0 `{ … }` function body with at least 10 lines,
+  identifiers / literals / numbers normalised, MD5-bucketed.
+- Size: every function from a column-0 `{` to the next column-0 `}`.
+
 ## Done, and where it landed
+
+### First pass
 
 | item | result | commit |
 |---|---|---|
@@ -34,7 +91,7 @@ in the declined list rather than the done one.
 | 2.2 include boilerplate | `library/sclibrar.h`, `adrift5/run/a5run_internal.h` umbrellas | 8f9a7ae69 |
 | 2.3 unsafe string ops, raw buffers | no `sprintf` / `strcpy` / `strcat` left; function-local buffers owned | 718cc3c1d, 7c0950702, 6fb39dcb7 |
 | 2.4 `(scr_int)` / `(scr_bool)` casts | six no-ops removed; the other 147 are real conversions | 538c1ef5f |
-| 3 big functions | all 31 functions over 200 lines split into stages or a context struct with members | one commit each, 2026-10-11 |
+| 3 big functions | the 31 functions over 200 lines that the first census listed, split into stages or a context struct with members (the 20 it missed are D below) | one commit each, 2026-10-11 |
 | 4 Win32 open-by-path | `gsc_open_game_path` in `glk/os_glk_platform.cpp` | 17638c398 |
 | 5 source lists | both makefiles glob; only Xcode needs a hand edit | 42e2cb5ac |
 | 5 tree layout | `core/`, `platform/`, `tools/`, `headless/`; dump prints through `scr_dump_log` | 42c8da273, 0f2d5c2b2, 42df5fda4, 6e4d24f50, 7bce83428 |
@@ -53,10 +110,124 @@ in the declined list rather than the done one.
 `GS_CHECK` fold (f4c069b2e) kept its test to the same compare and branch
 and compiles the game half out under `NDEBUG`.
 
+### Second pass (6d4004bbe)
+
+**A. Dead code: deleted.**  Each had only its definition and declaration
+(plus, in places, a comment).
+
+- `headless/sxutils.cpp`, `sxglob.cpp` and `sxprotos.h` are gone entirely
+  (`sxr_malloc`, `sxr_realloc`, `sxr_free`, `sxr_trim_string`,
+  `sxr_normalize_string`, `sxr_fopen`, `glob_match`: SCARE `sx`
+  leftovers, nothing else in the files was used).  `sxstubs.cpp` keeps
+  only the live os-layer stubs; `stub_debug_trace`,
+  `stub_attach_handlers` and `stub_detach_handlers` are out.
+- `gs_event_valid` (`core/scgamest.cpp`), `pf_buffer_join_always`
+  (`core/scprintf_buffer.cpp`, with the comment block in `scnpcs.cpp`
+  that justified it), `a5model_variable`, `a5state_var_text_by_name`,
+  `a5run_input_pending`, and the plain `render_comp_test` (the variant
+  that also hands back the marked-up render is the live one).
+
+**B. Exported but used only inside one TU: `static` for four of seven.**
+`a5blorb_find`, `var_put`, `mark_player_arrival_seen` and
+`replace_expressions` are `static` and out of their headers.
+
+**C. Duplicates: 1, 3 and 5 done.**
+
+- C1: the two `lib_definite_prefix` functions (same name, different
+  signatures and rules) are now `lib_definite_prefix_400` in
+  `library/sclibrar_dispatch.cpp` (4.0's name-builder rule) and
+  `lib_definite_prefix` in `library/sclibrar_print.cpp` (carries the
+  pre-3.9 `tense()` arm and the measured empty-prefix note).  The comment
+  blocks cross-reference each other; the rules differ, so neither calls
+  the other.
+- C3: one alignment helper under `gsc_handle_center_tag` /
+  `gsc_handle_right_tag` (`glk/os_glk_output.cpp`).
+- C5: one hint-text helper under the four `core/scinterf.cpp` hint
+  getters.
+
+**D. Functions over 200 lines: 19 of 20 split.**  No new files; each
+function became a driver plus static stages, or a context struct with
+stage members whose bodies moved verbatim:
+
+- `var_get_system` → a `{name, getter}` table; `ser_load_game_body` →
+  sections mirroring the save side; `gsc_startup_code` → loading window,
+  ADRIFT 5 load, and one start function per engine.
+- `act_set_tasks`, `act_set_variable`, `act_move_character` → one function
+  per action kind; `task_run_move_npc_action` → a player and an NPC half.
+- `run_game_commands_common` → `run_commands_t`; `run_match_task_commands`
+  → `run_command_match_t`; `run_task_refusal` → scan + print.
+- `execute_task_with_overrides` → `override_frame_t`; `scan_tasks` →
+  `task_scan_t`; `resolve_refine` → `refine_t`.
+- `pf_filter_input` → `pf_filter_synonyms` + `pf_filter_builtins`;
+  `lib_lock_backend` → `lib_lock_has_key_400` + `lib_lock_with_key`;
+  `lib_two_verb_line_pre400` → `lib_two_verb_rewrite_pre400` (the five
+  `goto rewrite` are gone).
+- `lib_take_backend_common` → `lib_take_t` (game commands, 3.9 fit count,
+  acquire + take line, then one member per report).
+- `lib_put_in_backend` → `lib_put_in_t` (game commands, the two 3.9 arms,
+  the move, then one member per refusal).
+- `lib_disambiguate_object_common` → `lib_disambig_t`, thirteen stages in
+  the original order; a stage that settles the question returns TRUE with
+  the answer in `result`.  The `goto pre400_take_done` is gone.
+
+The versions interleave in take / put / disambiguate, so those were cut
+by stage, not by version, and checked against the corpus diff: that is
+where Runner-parity ordering lives.
+
+**E. `SCR_TRACE_ON (name)` / `SCR_TRACE_IF (name, format, …)`** in
+`core/scdump.h`, next to `SCR_DEVIATION` (done after 6d4004bbe).  Each
+use reads its environment variable once, the first time it is reached,
+and both compile to nothing without `SCARIER_DUMP_TOOLS`.  They replace
+the hand-written reads of the guarded trace blocks in `runner/`
+(`SCR_TRACE_MATCH`, `_ADMIN`, `_EVENT_TASK`, `_SCOPE`) and `library/`
+(`_MATCH`, `_CO`); the two `SCR_TRACE_MATCH` reads and the
+`SCR_TRACE_RCACHE` one that called `getenv` on every pass are now cached.
+Verified by the suite signature and by the stderr of three walkthroughs
+run with every flag set, both identical before and after.  Not converted,
+on purpose:
+
+- `SCR_TRACE_BATTLE` (`core/scbattle.cpp`) and `SCR_TRACE_RAND`
+  (`core/scutils.cpp`) are *not* under `SCARIER_DUMP_TOOLS`: they work
+  in the plain build, which the macro would end.  `SCR_TRACE_RAND` is
+  also re-read at each seeding.
+- `SCR_TRACE_RCACHE` carries a task number, so it keeps its `#ifdef`
+  and has a cached read of its own.
+- `SCR_TRACE_SOUND` (`platform/os_ansi.cpp`) prints into the game's
+  output in the plain build; `SCR_TRACE_FLAGS` is SCARE's trace mask,
+  read at startup.  `os_ansi.cpp`'s `SCR_TRACE_ADMIN` read was already
+  cached, and the file keeps clear of the `core/` headers' TRUE / FALSE
+  macros.
+- `tools/scdump.cpp` caches its own flags.
+
+**Verification of the second pass**, on the whole working tree; every
+step was behaviour-neutral:
+
+- `make -f Makefile.headless test`: exit 0, normalised output signature
+  identical to the pre-survey baseline (1049 lines).
+- `runner_transcripts.py recompare` with the baseline binary and with the
+  new one: `manifest.tsv` and every `compare/*.txt` report identical
+  (652 rows).  Run after the lock/two-verb/input-filter splits, again after
+  take, and again after put + disambiguate.
+- `make -f Makefile.headless sanitize`: ASan/UBSan clean.
+- `run_autosave_tests.py --build`: all passed.
+- `make -j8 scarier glkscarier`: no warnings.  `xcodebuild -target scarier`:
+  BUILD SUCCEEDED.  No file was added, so the Xcode project is unchanged
+  apart from the three removed `headless/` files (not in the project).
+- Each split TU: `-fsyntax-only -Wall -Wextra -Wshadow` clean.
+
+Found on the way, not caused by this work: the
+`test/adrift4/runner_transcripts/manifest.tsv` committed at the time was
+stale against HEAD's own binary (617 rows "identical" as committed, 494
+when recompared with a binary built from HEAD; `3monkeys` "is" → "are"
+is one).  The recompare above was therefore HEAD-binary vs new-binary,
+not committed vs new.
+
 New files go into the Xcode project by hand; the next free id in the
 `5C1B1A…` series is 0118.
 
 ## Declined (do not re-propose without new evidence)
+
+### First pass
 
 - **1.1 verb quartets** (the "all / except / multiple / common" stacks
   per verb): measured Runner behaviour per verb, ordering accidents
@@ -78,7 +249,8 @@ New files go into the Xcode project by hand; the next free id in the
   `exists_at()` and `location_root_at()` port two different Runner
   functions whose arms differ on purpose.
 - **2.1 env registry** (`scr_env`, generated env reference): cosmetic
-  and wide, and the determinism harness depends on when flags are read.
+  and wide, and the determinism harness depends on when flags are read
+  (`getenv` reads are spread over 22 files, each for a debug flag).
   The `os_*` `SCR_MARK_*` / wrap / echo sharing under 4 depended on it.
 - **`scarier.hdr`**: maintained by hand, not a build input.
 - **`lib_ctx_t` context struct** for the 251 `bundle` / 197 `filter` /
@@ -111,18 +283,73 @@ New files go into the Xcode project by hand; the next free id in the
   run_probe_strict`: scrunner.h would drag scprotos.h's TRUE / FALSE
   macros onto its enum.
 
+### Second pass
+
+- **B. `obj_seen_p`, `obj_visible` (`adrift5/run/a5run_ref.cpp`) and
+  `a5state_object_key_at_location` stay exported**: each is called above
+  its definition, so `static` would trade the header line for a forward
+  declaration in the `.cpp`, and the first two sit in `a5run_internal.h`
+  beside `char_visible` / `char_seen_p`, which other TUs do use.
+  (`a5run_undo_peek`, `a5run_undo_push_blob`, `a5run_pending_save` and
+  `a5run_pending_restore` are used only by `glk/os_glk_autosave.cpp`;
+  that is their purpose and `a5run.h` says so above each group.)
+- **C2 `glk/os_glk_locale.cpp`**: the `cp850 → unicode` / `cp866 →
+  unicode` and `cp1252` / `cp1251` blocks hash identically, but that is
+  table data in the same shape, not code.  Noted so it isn't
+  rediscovered.
+- **C4 `lib_cmd_wear_all` / `lib_cmd_remove_all`**
+  (`library/sclibrar_drop.cpp`, 30 lines; the difference is two strings
+  and one predicate): part of the verb family 1.1 declined, and merging
+  it buys 30 lines against Runner-parity risk.
+- **C6 `scr_platform_rand` / `scr_congruential_rand`**
+  (`core/scutils.cpp`): identical but the seed-0 default (0 vs 1).  The
+  bodies must stay distinct functions for function-pointer identity; a
+  shared inline called by two thin distinct functions would keep that.
+  Low value; only if touching the file.
+- **C7 `restr_match` (screstrs.cpp) vs `expr_parse_match` (scexpr.cpp)**:
+  the same "if token == expected advance else error" step in two
+  parsers, static to different TUs with different error types.
+- **C8 `debug_print_room` / `debug_print_event`** (`core/scdebug.cpp`,
+  16 lines each, same skeleton): debugger-only; skip unless the file is
+  being restructured.
+- **C9 `adrift5/a5model.cpp`**: `a5_load_objects` / `a5_load_groups` and
+  `a5_load_propdefs` / `a5_load_hints` share the "for each child node,
+  fetch these fields" skeleton.  A `for_each_child` helper would remove
+  ~25 lines; the loader has no tests of its own beyond the corpora.
+- **D `render_link`** (`mapdraw.cpp`): 210 lines of which about half are
+  comments, a linear run of gates that was itself already extracted from
+  `map_render`; cutting it further would only scatter the gates.
+- **E header move**: `adrift5/a5run.h`, `a5text.h`, `a5util.h` sit in
+  `adrift5/` while their implementations are in `adrift5/run/` and
+  `adrift5/text/` (where the `_internal.h` files live).  Moving them is
+  cosmetic and costs Xcode header-search-path churn; a comment in each
+  saying it is the public face is the cheap alternative.
+- **E `map/` directory**: `mapdraw.cpp` / `mapdraw.h` / `sessrec.h` stay
+  at the root (the Makefile explains "engine-neutral map renderer, stays
+  at root").  `scmap` is 4.x-only, so only `mapdraw` and `sessrec.h`
+  would move.  Cosmetic.
+- **E `<cstdio>` / `<cstring>` sweep**: 47 of the `.cpp` files still
+  include the C-style headers.  Pure noise; only if something else is
+  touched.
+
 ## Left on purpose
 
 These are candidates, not tasks; each wants its own decision.
 
-- **ADRIFT 5 `char *` returns.**  `adrift5/` has ~30 `malloc` and ~360
-  `free`: text functions return a `malloc`ed string the caller frees.
-  Wrapping that is an API change across a5text / a5run / the Glk front
-  end / every harness, and wants a leak checker that runs here
-  (LeakSanitizer does not on macOS/arm64; `leaks --atExit` might).
+- **ADRIFT 5 `char *` returns.**  `adrift5/` has ~50 `malloc` /
+  `calloc` and ~360 `free`: text functions return a `malloc`ed string
+  the caller frees.  Wrapping that is an API change across a5text /
+  a5run / the Glk front end / every harness, and wants a leak checker
+  that runs here (LeakSanitizer does not on macOS/arm64; `leaks
+  --atExit` might).
 - **The ~45 remaining raw `scr_malloc` sites in the 4.x engine** are
   struct owners with a destroy function, strings handed to
   `prop_adopt()`, pool entries, or stack-buffer-with-heap-fallback.
+  The second pass spot-checked the 78 raw `new` / 28 `delete` with the
+  same verdict: struct owners with destroy functions.
+- **One `goto`** is left, `goto refuse` in
+  `library/sclibrar_put_multiple.cpp`; the other six went with the D
+  splits.
 - **The rest of the file-scope statics.**  The state-struct pass covered
   the modules the survey named.  The other library files have their own
   (`lib_battle_who_reset()`, `lib_with_prefix_390_reset()`,
@@ -143,6 +370,8 @@ These are candidates, not tasks; each wants its own decision.
 - **File sizes.**  The largest are `mapdraw.cpp` (2726) and
   `library/sclibrar_drop.cpp` (2715), with a dozen more between 2000
   and 2530; none stands out, so no further split is proposed.
+- **Functions between 150 and 200 lines**: the second census counted 61
+  over 150; only the 20 over 200 were taken up.
 - **Glk Makefile dependencies**: `$(OBJECTS): $(HEADERS)` rebuilds
   everything on any header edit; `-MMD` would be a small separate
   change.
@@ -175,6 +404,8 @@ These are candidates, not tasks; each wants its own decision.
    use-after-free, not leaks.
 5. For text or ordering changes in `library/`: diff the
    `runner_transcripts/` corpus; "Runner-identical" must stay identical.
+   Recompare with a binary built from the pre-change tree rather than
+   trusting the committed `manifest.tsv`, which can be stale.
 6. `test/adrift4/harness/run_autosave_tests.py --build` after touching
    serialise or the Glk main loops.
 7. For a file split: the sorted line multiset of the new files against

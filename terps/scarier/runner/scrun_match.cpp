@@ -1457,13 +1457,8 @@ run_command_match_t::bind_unmatched_object_390 (void)
 void
 run_command_match_t::trace (void) const
 {
-  {
-    static const scr_bool trace_match =
-        getenv ("SCR_TRACE_MATCH") != nullptr;
-    if (trace_match)
-      fprintf (stderr, "MATCH task=%ld pattern=[%s] input=[%s]\n",
-               task, pattern, string);
-  }
+  SCR_TRACE_IF ("SCR_TRACE_MATCH", "MATCH task=%ld pattern=[%s] input=[%s]\n",
+                task, pattern, string);
   {
     /* SCR_TRACE_SCOPE: flag a turn where scope decides which
      * object a %object% task command binds.  What the audit was
@@ -1479,9 +1474,8 @@ run_command_match_t::trace (void) const
      * object is absent while a present one also matched, which below
      * 4.0 is the Runner's answer and at 4.0 should no longer
      * happen. */
-    static const scr_bool trace_scope =
-        getenv ("SCR_TRACE_SCOPE") != nullptr;
-    if (trace_scope && strstr (pattern, "%object%") != nullptr)
+    if (SCR_TRACE_ON ("SCR_TRACE_SCOPE")
+        && strstr (pattern, "%object%") != nullptr)
       {
         const scr_var_setref_t vars = gs_get_vars (game);
         scr_int object, present, matched, room, bound_present;

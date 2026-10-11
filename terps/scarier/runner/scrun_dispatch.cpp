@@ -1710,10 +1710,7 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
   const scr_bool include_restrictions =
       run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
 
-#ifdef SCARIER_DUMP_TOOLS
-  if (getenv ("SCR_TRACE_MATCH"))
-    fprintf (stderr, "DISPATCH input=[%s]\n", string);
-#endif
+  SCR_TRACE_IF ("SCR_TRACE_MATCH", "DISPATCH input=[%s]\n", string);
 
   /*
    * This is the dispatcher 44CCE0 as the library handlers call it, and its

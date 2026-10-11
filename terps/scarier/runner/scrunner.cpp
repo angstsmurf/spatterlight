@@ -913,15 +913,9 @@ run_main_turn_tick (scr_gameref_t game, scr_bool status)
    * last command didn't match, or the last command did match but was
    * administrative.
    */
-#ifdef SCARIER_DUMP_TOOLS
-  {
-    static const scr_bool trace_admin
-      = getenv ("SCR_TRACE_ADMIN") != nullptr;
-    if (trace_admin && status && game->is_admin)
-      fprintf (stderr, "ADMIN turn=%ld after [%s]\n", game->turns,
-               run_trace_last_input.c_str ());
-  }
-#endif
+  if (status && game->is_admin)
+    SCR_TRACE_IF ("SCR_TRACE_ADMIN", "ADMIN turn=%ld after [%s]\n",
+                  game->turns, run_trace_last_input.c_str ());
   if (status && !game->is_admin)
     {
       /*

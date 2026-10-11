@@ -1818,10 +1818,14 @@ restr_eval_task_restrictions_cached (scr_gameref_t game, scr_int task,
                             ? gs_task_count (game) : task + 1);
       restr.cache.bits[task] = restr.eval.bits;
 #ifdef SCARIER_DUMP_TOOLS
-      if (getenv ("SCR_TRACE_RCACHE")
-          && atol (getenv ("SCR_TRACE_RCACHE")) == task)
-        fprintf (stderr, "RCACHE task=%ld [%s]\n", (long) task,
-                 restr.eval.bits.c_str ());
+      {
+        /* SCR_TRACE_RCACHE names the one task to report. */
+        static const char *const trace_task = getenv ("SCR_TRACE_RCACHE");
+
+        if (trace_task && atol (trace_task) == task)
+          fprintf (stderr, "RCACHE task=%ld [%s]\n", (long) task,
+                   restr.eval.bits.c_str ());
+      }
 #endif
     }
   return TRUE;

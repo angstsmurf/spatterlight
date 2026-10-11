@@ -1341,32 +1341,21 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
 
       if (run_task_restriction (game, task) == RUN_UNRESTRICTED)
         {
-#ifdef SCARIER_DUMP_TOOLS
-          {
-            static const scr_bool trace_evtask =
-                getenv ("SCR_TRACE_EVENT_TASK") != nullptr;
-            if (trace_evtask && task != eventtask)
-              fprintf (stderr, "EVTASK steal: task=%ld stole [%s] from"
-                       " task=%ld\n", task, command, eventtask);
-          }
-#endif
+          if (task != eventtask)
+            SCR_TRACE_IF ("SCR_TRACE_EVENT_TASK", "EVTASK steal: task=%ld"
+                          " stole [%s] from task=%ld\n", task, command,
+                          eventtask);
           run_note_dispatched_task_ran (game);
           task_run_task (game, task, TRUE);
           return;
         }
     }
 
-#ifdef SCARIER_DUMP_TOOLS
-  {
-    static const scr_bool trace_evtask =
-        getenv ("SCR_TRACE_EVENT_TASK") != nullptr;
-    if (trace_evtask)
-      fprintf (stderr, "EVTASK no-run: [%s] task=%ld candone=%d dir=%d\n",
-               command, eventtask,
-               (int) task_can_run_task (game, eventtask),
-               (int) task_can_run_task_directional (game, eventtask, TRUE));
-  }
-#endif
+  SCR_TRACE_IF ("SCR_TRACE_EVENT_TASK",
+                "EVTASK no-run: [%s] task=%ld candone=%d dir=%d\n",
+                command, eventtask,
+                (int) task_can_run_task (game, eventtask),
+                (int) task_can_run_task_directional (game, eventtask, TRUE));
 }
 
 void
