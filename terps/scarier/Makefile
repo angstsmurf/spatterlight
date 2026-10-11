@@ -89,13 +89,13 @@ adrift5/%.o: adrift5/%.cpp
 	$(CXX) $(CXXFLAGS) -I. -c -o $@ $<
 
 # Scarier objects and headers: every sc*.cpp at the top level plus the library/
-# and runner/ topic files.  scdump.cpp is the SCARIER_DUMP_TOOLS diagnostic
-# tool, compiled only by Makefile.headless; scmap.cpp is linked through
-# MAPOBJECTS below.  A new .cpp in any of these three places is picked up
-# without editing this file (the Xcode project still needs its own entry).
+# and runner/ topic files.  tools/ is the SCARIER_DUMP_TOOLS diagnostic
+# instrumentation, compiled only by Makefile.headless; scmap.cpp is linked
+# through MAPOBJECTS below.  A new .cpp in any of these three places is picked
+# up without editing this file (the Xcode project still needs its own entry).
 LIBDIR	= library
 RUNDIR	= runner
-OBJECTS	= $(filter-out scdump.o scmap.o,$(patsubst %.cpp,%.o,$(wildcard sc*.cpp))) \
+OBJECTS	= $(filter-out scmap.o,$(patsubst %.cpp,%.o,$(wildcard sc*.cpp))) \
 	  $(patsubst %.cpp,%.o,$(wildcard $(LIBDIR)/*.cpp) $(wildcard $(RUNDIR)/*.cpp))
 HEADERS	= $(wildcard *.h $(LIBDIR)/*.h $(RUNDIR)/*.h)
 

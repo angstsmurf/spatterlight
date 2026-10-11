@@ -22,8 +22,10 @@
  * The lenient census (SCR_CENSUS_LENIENT), a dump-tool audit of the lines
  * that reach a task Scarier's way but not the Runner's.
  *
- * Split out of scrun_dispatch.cpp; see scrunner.h for what the runner files
- * share.
+ * Developer tooling, compiled only with SCARIER_DUMP_TOOLS (see scdump.cpp
+ * beside it); the whole file is inside that guard.  Split out of
+ * runner/scrun_dispatch.cpp, and still a runner file in everything but its
+ * directory: see runner/scrunner.h for what it shares with the runner.
  */
 
 #include <assert.h>
@@ -38,7 +40,7 @@
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
-#include "scrunner.h"
+#include "runner/scrunner.h"
 
 
 #ifdef SCARIER_DUMP_TOOLS

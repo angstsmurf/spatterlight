@@ -261,6 +261,7 @@ terps/taylor/test/images/mame/
 /terps/scarier/adrift5/run/*.o
 /terps/scarier/library/*.o
 /terps/scarier/runner/*.o
+/terps/scarier/tools/*.o
 /terps/scarier/glk/*.o
 /terps/scarier/common_utils/*.o
 /terps/scarier/scarier

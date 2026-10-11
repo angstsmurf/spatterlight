@@ -24,8 +24,9 @@
 /*
  * Internal header of the runner, shared by scrunner.cpp, scrun_split.cpp,
  * scrun_respell.cpp, scrun_match.cpp, scrun_tables.cpp, scrun_dispatch.cpp,
- * scrun_input.cpp and scrun_census.cpp.  Nothing here is part of the
- * interface the rest of Scarier uses; that stays in scprotos.h.
+ * scrun_input.cpp, and by the dump tools in tools/ (scrun_census.cpp,
+ * scdump.cpp).  Nothing here is part of the interface the rest of Scarier
+ * uses; that stays in scprotos.h.
  */
 
 #include <string>
@@ -46,7 +47,7 @@ static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
 /* State shared across the runner files, each defined in the file named. */
 
 #ifdef SCARIER_DUMP_TOOLS
-/* scrun_census.cpp */
+/* tools/scrun_census.cpp */
 extern scr_bool run_census_requested (scr_gameref_t game);
 /* scrun_match.cpp */
 extern scr_bool run_census_matches_task (scr_gameref_t game, scr_int task,

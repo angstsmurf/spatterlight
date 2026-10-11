@@ -21,10 +21,12 @@
  * This is developer tooling used to reverse-engineer ADRIFT games when
  * deriving deterministic walkthroughs (see terps/scarier/test/adrift4/).
  * It is gated behind the SCARIER_DUMP_TOOLS build macro and is compiled ONLY
- * into the headless walkthrough harness (harness/build.sh passes
- * -DSCARIER_DUMP_TOOLS).  A normal Spatterlight build never sees this file or
- * the call sites in sctasks.cpp / scnpcs.cpp, so there is zero footprint in the
- * shipping interpreter.
+ * into the headless walkthrough harness (Makefile.headless and
+ * test/adrift4/harness/build.sh pass -DSCARIER_DUMP_TOOLS).  The shipping
+ * builds (Makefile, the Xcode project) do not compile tools/ at all, and the
+ * guarded call sites in sctasks.cpp / scnpcs.cpp compile to nothing without
+ * the macro, so there is zero footprint in the shipping interpreter.
+ * tools/scrun_census.cpp is the other file under the same guard.
  *
  * The three entry points, each driven by an environment variable so a run can
  * opt in without recompiling:

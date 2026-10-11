@@ -1514,7 +1514,7 @@ extern void if_update_graphic (const scr_char *filepath,
                                scr_int graphic_length);
 
 /*
- * Developer dump/trace tooling (scdump.cpp); compiled only with
+ * Developer dump/trace tooling (tools/scdump.cpp); compiled only with
  * SCARIER_DUMP_TOOLS.
  */
 #ifdef SCARIER_DUMP_TOOLS

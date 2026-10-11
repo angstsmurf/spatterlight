@@ -21,7 +21,7 @@ SCARE="${SCARE_DIR:-$(cd "$HERE/../../.." && pwd)}"
 OUT="$HERE/scare"
 
 cd "$SCARE"
-# NB: the dump/trace instrumentation (scdump.cpp, sctasks.cpp) is guarded by
+# NB: the dump/trace instrumentation (tools/, sctasks.cpp) is guarded by
 # SCARIER_DUMP_TOOLS -- the pre-rename name was SCARE_DUMP_TOOLS, which no longer
 # matches anything, so defining that left the tools compiled out (dead code).
 # The instrumentation is entirely env-var-gated (SCR_DUMP_TASKS, SCR_TRACE_*,
@@ -31,9 +31,10 @@ cd "$SCARE"
 # mapdraw.cpp is not matched by the sc*.cpp glob but scmap.cpp (the ADRIFT 4 map
 # port) calls map_free()/map_build() from it. It is plain C++ with no Glk
 # dependency, so linking it here is free -- the ANSI port simply never asks for a
-# map.  The command library and the runner live in library/ and runner/.
+# map.  The command library and the runner live in library/ and runner/, the
+# dump instrumentation in tools/.
 clang++ -O2 -w -I. -DSCARIER_DUMP_TOOLS \
-  sc*.cpp library/*.cpp runner/*.cpp mapdraw.cpp os_ansi.cpp \
+  sc*.cpp library/*.cpp runner/*.cpp tools/*.cpp mapdraw.cpp os_ansi.cpp \
   "$HERE/seed.cpp" \
   -lz -o "$OUT"
 

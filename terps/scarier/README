@@ -48,7 +48,9 @@ status line, side windows, media, real-time timer events, saves, the `glk`
 meta-commands and the Spatterlight autosave) and the map model and
 rasteriser in mapdraw.cpp / scmap.cpp.  sxstubs/sxglob/sxutils.cpp are the
 os-layer stubs the headless harnesses link instead of glk/; os_ansi.cpp is
-the plain stdout front end.
+the plain stdout front end.  tools/ is developer instrumentation (structural
+dumps, per-turn traces, the lenient census), compiled only into the headless
+walkthrough binary with -DSCARIER_DUMP_TOOLS and never into a shipping build.
 
 See ADRIFT4_vs_ADRIFT5.md for a detailed comparison of the two code paths
 (formats, saves, restriction evaluation, division rounding, and RNG

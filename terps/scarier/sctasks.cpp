@@ -434,7 +434,8 @@ task_can_run_task_directional (scr_gameref_t game,
 {
 #ifdef SCARIER_DUMP_TOOLS
   /*
-   * Reusable structural-dump / NPC-trace instrumentation; see scdump.cpp.
+   * Reusable structural-dump / NPC-trace instrumentation; see
+   * tools/scdump.cpp.
    * Compiled only into the headless walkthrough harness (-DSCARIER_DUMP_TOOLS);
    * a normal Spatterlight build omits this entirely.
    */

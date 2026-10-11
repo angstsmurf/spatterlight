@@ -3,7 +3,7 @@
 # route exercises.
 #
 # Runs every ADRIFT 4 game in test/adrift4/games (or those matching FILTER)
-# with SCR_CENSUS_LENIENT=1 (run_lenient_census() in scrun_census.cpp) and
+# with SCR_CENSUS_LENIENT=1 (run_lenient_census() in tools/scrun_census.cpp) and
 # prints its lines prefixed with the game:
 #
 #   <game>  woken task=...   a task no line reaches the Runner's way

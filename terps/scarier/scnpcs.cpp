@@ -1502,7 +1502,7 @@ npc_tick_npcs (scr_gameref_t game)
     }
 
 #ifdef SCARIER_DUMP_TOOLS
-  /* Per-turn NPC-location trace; see scdump.cpp. */
+  /* Per-turn NPC-location trace; see tools/scdump.cpp. */
   scr_dump_npc_trace (game);
 #endif
 }
