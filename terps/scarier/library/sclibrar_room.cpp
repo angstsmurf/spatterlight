@@ -93,20 +93,24 @@ lib_buffer_literal_gap (scr_gameref_t game, scr_bool guarded)
 
 
 /*
- * lib_print_room_contents()
+ * lib_room_contents_inroomdescs()
+ * lib_room_contents_also_here()
+ * lib_room_contents_npc_sentence()
+ * lib_room_contents_npc_texts()
+ * lib_room_contents_terminate()
  *
- * Print a list of the contents of a room.
+ * The parts of lib_print_room_contents(), in the order it prints them:
+ * the objects showing their in-room text, the "Also here" list of the
+ * rest, the joined "<names> are here." sentence, the characters with
+ * in-room text of their own, and the room block's terminating break.
  */
 static void
-lib_print_room_contents (scr_gameref_t game, scr_int room)
+lib_room_contents_inroomdescs (scr_gameref_t game, scr_int room)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_char *entry_buffer = pf_get_buffer (filter);
-  const size_t entry_length = entry_buffer ? strlen (entry_buffer) : 0;
-  scr_vartype_t vt_key[4];
-  scr_int object, npc;
-  lib_list_t list;
+  scr_vartype_t vt_key[3];
+  scr_int object;
 
   /*
    * List all objects that show their initial description.
@@ -148,6 +152,17 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
             }
         }
     }
+}
+
+
+static void
+lib_room_contents_also_here (scr_gameref_t game, scr_int room)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int object;
+  lib_list_t list;
 
   /*
    * List dynamic objects directly located in the room, and not already listed
@@ -200,6 +215,16 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
       lib_print_list (game, list, lib_print_object, " and ");
       pf_buffer_string (filter, ".");
     }
+}
+
+
+static void
+lib_room_contents_npc_sentence (scr_gameref_t game, scr_int room)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  std::vector<std::string> joined;
+  scr_int npc;
 
   /*
    * List the NPCs in the room.  A "#" in-room text asks for the default
@@ -224,88 +249,92 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
    * And the joined sentence comes *first*, ahead of the characters with their
    * own text, which is the other half of what Scarier had backwards.
    */
-  {
-    std::vector<std::string> joined;
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      const scr_char *description;
 
-    for (npc = 0; npc < gs_npc_count (game); npc++)
-      {
-        const scr_char *description;
+      if (!npc_in_room (game, npc, room))
+        continue;
 
-        if (!npc_in_room (game, npc, room))
-          continue;
+      description = lib_get_npc_inroom_text (game, npc);
+      if (!scr_strcasecmp (description, "#"))
+        {
+          /*
+           * The loader's "#" substitution is where the case is decided, and
+           * it is a version split: run400 builds Proc_21_3_446BB4(Name) &
+           * " is here." (@00491EF3), capitalising the first letter, while
+           * run390 (@00466932), run380 (@00449463) and run370 (@0044071D)
+           * append the raw Name.  Nothing downstream capitalises, so an
+           * author's own " is here." text keeps its case in every version.
+           * twilight (3.80) prints "a monkey is here.", goldilocks (4.0)
+           * "My Fairy Godmother is here."  Scarier deliberately still opens
+           * the sentence with a capital in every version (deviation
+           * policy); see the pf_new_sentence() below.
+           */
+          std::string name = prop_get_indexed_string (bundle, "NPCs",
+                                                      npc, "Name");
+          if (lib_is_version_400 (game) && !name.empty ())
+            name[0] = scr_toupper (name[0]);
+          joined.push_back (name);
+        }
+      else
+        {
+          /*
+           * Trim the suffix to get the name the Runner joins in.  Both the
+           * test and the trim run on the text exactly as the author wrote
+           * it: run400 @004729A7 asks Right(text, 9) = " is here." and
+           * @004729FE takes Left(text, Len(text) - 9), and neither looks
+           * past a leading break.  So a character whose in-room text opens
+           * with "<br>" keeps that break, and it lands *after* the two
+           * separator spaces rather than instead of them --
+           * runner_transcripts/spooked.txt lines 120-122 show the room
+           * description's trailing "  ", then the author's blank line, then
+           * "Samuel, your scientist pal, is here."
+           */
+          if (lib_npc_text_is_default (description))
+            {
+              joined.push_back (std::string (description,
+                                             strlen (description)
+                                             - LIB_NPC_HERE_LENGTH));
+            }
+        }
+    }
 
-        description = lib_get_npc_inroom_text (game, npc);
-        if (!scr_strcasecmp (description, "#"))
-          {
-            /*
-             * The loader's "#" substitution is where the case is decided, and
-             * it is a version split: run400 builds Proc_21_3_446BB4(Name) &
-             * " is here." (@00491EF3), capitalising the first letter, while
-             * run390 (@00466932), run380 (@00449463) and run370 (@0044071D)
-             * append the raw Name.  Nothing downstream capitalises, so an
-             * author's own " is here." text keeps its case in every version.
-             * twilight (3.80) prints "a monkey is here.", goldilocks (4.0)
-             * "My Fairy Godmother is here."  Scarier deliberately still opens
-             * the sentence with a capital in every version (deviation
-             * policy); see the pf_new_sentence() below.
-             */
-            std::string name = prop_get_indexed_string (bundle, "NPCs",
-                                                        npc, "Name");
-            if (lib_is_version_400 (game) && !name.empty ())
-              name[0] = scr_toupper (name[0]);
-            joined.push_back (name);
-          }
-        else
-          {
-            /*
-             * Trim the suffix to get the name the Runner joins in.  Both the
-             * test and the trim run on the text exactly as the author wrote
-             * it: run400 @004729A7 asks Right(text, 9) = " is here." and
-             * @004729FE takes Left(text, Len(text) - 9), and neither looks
-             * past a leading break.  So a character whose in-room text opens
-             * with "<br>" keeps that break, and it lands *after* the two
-             * separator spaces rather than instead of them --
-             * runner_transcripts/spooked.txt lines 120-122 show the room
-             * description's trailing "  ", then the author's blank line, then
-             * "Samuel, your scientist pal, is here."
-             */
-            if (lib_npc_text_is_default (description))
-              {
-                joined.push_back (std::string (description,
-                                               strlen (description)
-                                               - LIB_NPC_HERE_LENGTH));
-              }
-          }
-      }
+  if (!joined.empty ())
+    {
+      size_t index_;
 
-    if (!joined.empty ())
-      {
-        size_t index_;
+      /*
+       * Two spaces, hard-coded like the object list's (run400 @0047295B),
+       * and again not a pspace() call -- the Runner puts them in whatever
+       * the string already ends with.  Take back our own terminator first.
+       */
+      pf_undo_auto_break (filter);
+      lib_buffer_literal_gap (game, TRUE);
+      /* A sentence opening in lower case is a display accident. */
+      pf_new_sentence (filter);
+      for (index_ = 0; index_ < joined.size (); index_++)
+        {
+          if (index_ > 0)
+            {
+              pf_buffer_string (filter,
+                                index_ == joined.size () - 1
+                                ? " and " : ", ");
+            }
+          pf_buffer_string (filter, joined[index_].c_str ());
+        }
+      pf_buffer_string (filter,
+                        joined.size () == 1 ? " is here" : " are here");
+      pf_buffer_string (filter, ".");
+    }
+}
 
-        /*
-         * Two spaces, hard-coded like the object list's (run400 @0047295B),
-         * and again not a pspace() call -- the Runner puts them in whatever
-         * the string already ends with.  Take back our own terminator first.
-         */
-        pf_undo_auto_break (filter);
-        lib_buffer_literal_gap (game, TRUE);
-        /* A sentence opening in lower case is a display accident. */
-        pf_new_sentence (filter);
-        for (index_ = 0; index_ < joined.size (); index_++)
-          {
-            if (index_ > 0)
-              {
-                pf_buffer_string (filter,
-                                  index_ == joined.size () - 1
-                                  ? " and " : ", ");
-              }
-            pf_buffer_string (filter, joined[index_].c_str ());
-          }
-        pf_buffer_string (filter,
-                          joined.size () == 1 ? " is here" : " are here");
-        pf_buffer_string (filter, ".");
-      }
-  }
+
+static void
+lib_room_contents_npc_texts (scr_gameref_t game, scr_int room)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int npc;
 
   /* List NPCs directly in the room that have an in room description. */
   for (npc = 0; npc < gs_npc_count (game); npc++)
@@ -339,6 +368,14 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
             }
         }
     }
+}
+
+
+static void
+lib_room_contents_terminate (scr_gameref_t game, size_t entry_length)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *buffered = pf_get_buffer (filter);
 
   /*
    * Terminate the room block, and record the newline as ours: everything
@@ -346,16 +383,32 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
    * turn's text -- joins onto the Runner's single room string, so whoever
    * comes next may take this break back again.
    */
-  {
-    const scr_char *buffered = pf_get_buffer (filter);
+  if (buffered && strlen (buffered) > entry_length
+      && !pf_text_ends_with_break (buffered))
+    {
+      pf_buffer_character (filter, '\n');
+      pf_note_trailing_auto_break (filter);
+    }
+}
 
-    if (buffered && strlen (buffered) > entry_length
-        && !pf_text_ends_with_break (buffered))
-      {
-        pf_buffer_character (filter, '\n');
-        pf_note_trailing_auto_break (filter);
-      }
-  }
+
+/*
+ * lib_print_room_contents()
+ *
+ * Print a list of the contents of a room.
+ */
+static void
+lib_print_room_contents (scr_gameref_t game, scr_int room)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *entry_buffer = pf_get_buffer (filter);
+  const size_t entry_length = entry_buffer ? strlen (entry_buffer) : 0;
+
+  lib_room_contents_inroomdescs (game, room);
+  lib_room_contents_also_here (game, room);
+  lib_room_contents_npc_sentence (game, room);
+  lib_room_contents_npc_texts (game, room);
+  lib_room_contents_terminate (game, entry_length);
 }
 
 

@@ -119,7 +119,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~260~~ | ~~`uip_match_entity`~~ | DONE: `uip_entity_sweep_t` + two members, see "uip_match_entity split" |
 | ~~290~~ | ~~`run_lenient_census`~~ | DONE: `run_census_t` + `run_census_task_t`, see "run_lenient_census split" |
 | ~~273~~ | ~~`a5run_input_inner`~~ | DONE: `input_turn_t` + five stage members, see "a5run_input_inner split" |
-| 258 | `lib_print_room_contents` | `library/sclibrar_room.cpp` (library text: corpus `recompare`) |
+| ~~258~~ | ~~`lib_print_room_contents`~~ | DONE: five parts + driver, see "lib_print_room_contents split" |
 | 249 | `restore_scarier_body` | `adrift5/run/a5run_save.cpp` (autosave suite) |
 | 240 | `ser_save_game_body` | `scserial.cpp` (autosave suite) |
 | 228 | `sm_set_grid` | `scmap.cpp` |
@@ -374,9 +374,10 @@ Per the project's own verification recipe:
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3:
    the 16 rows the table opened with are DONE (see their "split"
-   sections), as are `run_lenient_census` and `a5run_input_inner`, the
-   first two of the 15 rows added on 2026-10-11; 13 rows remain, top to
-   bottom, `lib_print_room_contents` next.
+   sections), as are `run_lenient_census`, `a5run_input_inner` and
+   `lib_print_room_contents`, the first three of the 15 rows added on
+   2026-10-11; 12 rows remain, top to bottom, `restore_scarier_body`
+   next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1310,3 +1311,28 @@ them):
   over 80 columns in the file: 165 before and after.
 - Next in the table: `lib_print_room_contents` (library/sclibrar_room.cpp;
   library text, so corpus `recompare` too).
+
+## 3: lib_print_room_contents split (2026-10-11)
+
+- **`lib_print_room_contents`** (258 l., the five Runner-measurement
+  comments most of it) in `library/sclibrar_room.cpp` is now five parts
+  on the `lib_room_desc_*` model, each re-fetching the filter and bundle
+  it uses: `lib_room_contents_inroomdescs` (objects showing their
+  InRoomDesc), `lib_room_contents_also_here` (the "Also here" list),
+  `lib_room_contents_npc_sentence` (the joined "<names> are here."
+  sentence; the old bare block, dedented), `lib_room_contents_npc_texts`
+  (characters with text of their own) and `lib_room_contents_terminate`
+  (the room block's break, taking the entry length the driver measured
+  before anything printed).  The driver is the entry-length measurement
+  and five calls.  Each part keeps the comment that sat on its block;
+  `vt_key` shrank from [4] to [3] in the two parts that index it.
+- Verification: headless `quick`; full `test` output identical;
+  `make -j8 scarier glkscarier` warning-free; `sanitize` clean; corpus
+  `recompare` (old binary, then the rebuilt one) leaves byte-identical
+  `manifest.tsv` and `compare/` trees -- both reverted afterwards, as
+  the stale committed manifest makes `recompare` rewrite ~120 rows and
+  their compare files either way.  One line over 80 columns in the file,
+  before and after.
+- Next in the table: `restore_scarier_body` (adrift5/run/a5run_save.cpp;
+  the Spatterlight autosave suite is the extra net for the save/restore
+  rows).
