@@ -1231,44 +1231,26 @@ sm_intern (map_t *m, const char *s)
 
 
 /*
- * scmap_build()
+ * sm_layout_build()
  *
- * Lay the game's rooms out and build a map of them: Form29's init_map,
- * calc_grid and tidy_up, then draw_graphics' choice of which connectors to
- * run out.  Room keys are the decimal SCARE room number.  Returns NULL when
- * there is nothing to draw; scmap.h lists the cases.
+ * The layout for scmap_build(): Form29's init_map, calc_grid and tidy_up over
+ * the game's `n` rooms, as `view` (or the game) says they have been seen.
+ * FALSE, with nothing left allocated, when there is no map to draw; a layout
+ * that gave up says why in scmap_last_fail.
  */
-map_t *
-scmap_build (scr_gameref_t game, const map_view_t *view)
+static scr_bool
+sm_layout_build (scr_gameref_t game, const map_view_t *view, int n,
+                 sm_layout_t *L)
 {
-  sm_layout_t L;
-  map_t *m;
-  map_page_t *page;
-  std::vector<int> node_of;     /* room number -> node index, -1 unplaced   */
-  int i, d, n, start, x, y, ip;
+  int i, start, x, y;
 
-  scmap_last_fail = 0;
-  if (game == nullptr)
-    return nullptr;
-
-  /* The author can turn the map off altogether. */
-  sm_cache_ensure (game);
-  if (sm_cache_nomap)
-    return nullptr;
-
-  n = (int) gs_room_count (game);
-  if (n <= 0)
-    return nullptr;
-
-  /* --- the layout (Form29.init_map, calc_grid, tidy_up) ----------------- */
-
-  memset (&L, 0, sizeof L);
-  L.n = n;
-  L.rooms = (sm_room_t *) calloc (n + 1, sizeof (sm_room_t));
-  if (L.rooms == nullptr)
-    return nullptr;
-  L.minx = L.miny = GRID_LIMIT;
-  L.maxx = L.maxy = 0;
+  memset (L, 0, sizeof *L);
+  L->n = n;
+  L->rooms = (sm_room_t *) calloc (n + 1, sizeof (sm_room_t));
+  if (L->rooms == nullptr)
+    return FALSE;
+  L->minx = L->miny = GRID_LIMIT;
+  L->maxx = L->maxy = 0;
 
   for (i = 1; i <= n; i++)
     {
@@ -1276,13 +1258,13 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
       char key[16];
 
       snprintf (key, sizeof key, "%d", (int) room);
-      L.rooms[i].seen = (view != nullptr && view->seen != nullptr)
+      L->rooms[i].seen = (view != nullptr && view->seen != nullptr)
                         ? (view->seen (view->ctx, key) ? 1 : 0)
                         : (gs_room_seen (game, room) ? 1 : 0);
-      L.rooms[i].hide = sm_cache[i].hide;
-      memcpy (L.rooms[i].exits, sm_cache[i].exits, sizeof L.rooms[i].exits);
-      memcpy (L.rooms[i].restricted, sm_cache[i].restricted,
-              sizeof L.rooms[i].restricted);
+      L->rooms[i].hide = sm_cache[i].hide;
+      memcpy (L->rooms[i].exits, sm_cache[i].exits, sizeof L->rooms[i].exits);
+      memcpy (L->rooms[i].restricted, sm_cache[i].restricted,
+              sizeof L->rooms[i].restricted);
     }
 
   /*
@@ -1291,57 +1273,75 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
    * the map returns as soon as the player steps out of the room.
    */
   start = (int) gs_playerroom (game) + 1;
-  if (start < 1 || start > n || L.rooms[start].hide)
+  if (start < 1 || start > n || L->rooms[start].hide)
     {
-      free (L.rooms);
-      return nullptr;
+      free (L->rooms);
+      return FALSE;
     }
 
   x = y = GRID_HOME;
-  sm_set_grid (&L, start, &x, &y);
-  if (L.fail == 0)
-    sm_tidy_up (&L);
+  sm_set_grid (L, start, &x, &y);
+  if (L->fail == 0)
+    sm_tidy_up (L);
 
-  if (L.fail != 0)
+  if (L->fail != 0)
     {
-      scmap_last_fail = L.fail;
-      free (L.rooms);
-      return nullptr;
+      scmap_last_fail = L->fail;
+      free (L->rooms);
+      return FALSE;
     }
 
-  /* --- the map ---------------------------------------------------------- */
+  return TRUE;
+}
+
+
+/*
+ * sm_map_new()
+ *
+ * An empty map of one page, or NULL.
+ */
+static map_t *
+sm_map_new (void)
+{
+  map_t *m;
 
   m = (map_t *) calloc (1, sizeof (map_t));
   if (m == nullptr)
-    {
-      free (L.rooms);
-      return nullptr;
-    }
+    return nullptr;
   m->pages = (map_page_t *) calloc (1, sizeof (map_page_t));
   if (m->pages == nullptr)
     {
-      free (L.rooms);
       free (m);
       return nullptr;
     }
   m->n_pages = 1;
   m->line_links = 1;            /* Form29.dolink draws with Line controls */
-  page = &m->pages[0];
-  page->key = 0;
+  m->pages[0].key = 0;
+  return m;
+}
 
-  /*
-   * Everything the layout placed gets a node, seen or not; the renderer is
-   * what decides to draw only the rooms the player has been to.  (An unseen
-   * room next door has a cell of its own -- that is how it stops another room
-   * from being put there -- but no box until you walk into it.)
-   */
+
+/*
+ * sm_map_nodes()
+ *
+ * Everything the layout placed gets a node, seen or not; the renderer is
+ * what decides to draw only the rooms the player has been to.  (An unseen
+ * room next door has a cell of its own -- that is how it stops another room
+ * from being put there -- but no box until you walk into it.)
+ *
+ * Fills `node_of` (room number -> node index, -1 unplaced).  FALSE if the
+ * nodes could not be allocated.
+ */
+static scr_bool
+sm_map_nodes (map_t *m, const sm_layout_t *L, std::vector<int> &node_of)
+{
+  map_page_t *page = &m->pages[0];
+  const int n = L->n;
+  int i, ip;
+
   page->nodes = (map_node_t *) calloc (n, sizeof (map_node_t));
   if (page->nodes == nullptr)
-    {
-      free (L.rooms);
-      map_free (m);
-      return nullptr;
-    }
+    return FALSE;
 
   /*
    * One grid cell becomes a room box plus the gap beside it: the runner spaces
@@ -1354,61 +1354,73 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
       map_node_t *node;
       char key[16];
 
-      if (!L.rooms[i].placed)
+      if (!L->rooms[i].placed)
         continue;
 
       node = &page->nodes[ip];
       node_of[i] = ip++;
       snprintf (key, sizeof key, "%d", (int) sc_room (i));
       node->key = sm_intern (m, key);
-      node->x = (L.rooms[i].x - L.minx) * (MAP_NODE_W * 3 / 2);
-      node->y = (L.rooms[i].y - L.miny) * (MAP_NODE_H * 3 / 2);
+      node->x = (L->rooms[i].x - L->minx) * (MAP_NODE_W * 3 / 2);
+      node->y = (L->rooms[i].y - L->miny) * (MAP_NODE_H * 3 / 2);
       node->z = 0;
       node->w = MAP_NODE_W;
       node->h = MAP_NODE_H;
       node->page = 0;
     }
   page->n_nodes = ip;
+  return TRUE;
+}
 
-  /*
-   * Connectors.  The eight compass exits are drawn as links between boxes.
-   * Up, Down, In and Out become badges on the box (link.badge): they move you
-   * nowhere on the grid, so their destination can be anywhere on the map, and
-   * drawing them as connectors would rule lines across the whole thing.  The
-   * runner showed them as a small icon on the room box (Form29.doicon)
-   * whenever the raw exit exists -- the destination need not be placed, or
-   * even seen; an unseen destination only switches the icon to its dimmed
-   * variant, which the renderer does off the badge link's dest.
-   *
-   * Which connectors get run out is not a question about geometry.  Form29
-   * kept one Line control per room per direction and drew nothing when the
-   * far room was already showing the line back this way:
-   *
-   *     var_9E = opp(direction)
-   *     If Not(lineshow(endroom, var_9E, frm)) Then   ' dolink
-   *         ...draw, and set line<direction>(startroom).Visible = True
-   *
-   * -- a first-come-first-served claim, walked in the order draw_graphics
-   * used: rooms by ascending number, and within a room N, E, S, W, NE, SE,
-   * SW, NW (the badge directions go to doicon and never take part).  So of a
-   * mutual pair only the lower-numbered room's connector is drawn, and an
-   * exit is dropped whenever its destination is already showing a line in the
-   * opposite direction -- to anywhere, not just back to us.  That second case
-   * is what keeps map39's East--NE--Hub off the map: Hub runs its SW
-   * connector out to SW Corner first, so East's NE back to Hub finds Hub's SW
-   * line already showing and is never drawn (issue #155).
-   *
-   * Rooms the player has not seen sit out both halves of this.  Their boxes
-   * are laid out but draw_graphics skipped them, so they neither claim a
-   * direction nor lose a connector to one.
-   *
-   * A direction is claimed only for a connector we actually draw.  The runner
-   * also ran dolink for exits into rooms it had not placed -- one hidden from
-   * the map, or one no route reaches -- inventing a cell for the far end and
-   * trailing a stub off towards it, and that stub claimed the direction like
-   * any other line.  We draw no such stubs, so honouring those claims would
-   * delete a real connector and leave nothing in its place.
-   */
+
+/*
+ * sm_map_links()
+ *
+ * Connectors.  The eight compass exits are drawn as links between boxes.
+ * Up, Down, In and Out become badges on the box (link.badge): they move you
+ * nowhere on the grid, so their destination can be anywhere on the map, and
+ * drawing them as connectors would rule lines across the whole thing.  The
+ * runner showed them as a small icon on the room box (Form29.doicon)
+ * whenever the raw exit exists -- the destination need not be placed, or
+ * even seen; an unseen destination only switches the icon to its dimmed
+ * variant, which the renderer does off the badge link's dest.
+ *
+ * Which connectors get run out is not a question about geometry.  Form29
+ * kept one Line control per room per direction and drew nothing when the
+ * far room was already showing the line back this way:
+ *
+ *     var_9E = opp(direction)
+ *     If Not(lineshow(endroom, var_9E, frm)) Then   ' dolink
+ *         ...draw, and set line<direction>(startroom).Visible = True
+ *
+ * -- a first-come-first-served claim, walked in the order draw_graphics
+ * used: rooms by ascending number, and within a room N, E, S, W, NE, SE,
+ * SW, NW (the badge directions go to doicon and never take part).  So of a
+ * mutual pair only the lower-numbered room's connector is drawn, and an
+ * exit is dropped whenever its destination is already showing a line in the
+ * opposite direction -- to anywhere, not just back to us.  That second case
+ * is what keeps map39's East--NE--Hub off the map: Hub runs its SW
+ * connector out to SW Corner first, so East's NE back to Hub finds Hub's SW
+ * line already showing and is never drawn (issue #155).
+ *
+ * Rooms the player has not seen sit out both halves of this.  Their boxes
+ * are laid out but draw_graphics skipped them, so they neither claim a
+ * direction nor lose a connector to one.
+ *
+ * A direction is claimed only for a connector we actually draw.  The runner
+ * also ran dolink for exits into rooms it had not placed -- one hidden from
+ * the map, or one no route reaches -- inventing a cell for the far end and
+ * trailing a stub off towards it, and that stub claimed the direction like
+ * any other line.  We draw no such stubs, so honouring those claims would
+ * delete a real connector and leave nothing in its place.
+ */
+static void
+sm_map_links (map_t *m, sm_layout_t *L, const std::vector<int> &node_of)
+{
+  map_page_t *page = &m->pages[0];
+  const int n = L->n;
+  int i, d;
+
   for (i = 1; i <= n; i++)
     {
       map_node_t *node;
@@ -1424,19 +1436,19 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
 
       for (d = 0; d < MAP_N_DIRS; d++)
         {
-          int dest = L.rooms[i].exits[d];
+          int dest = L->rooms[i].exits[d];
           int is_badge = map_is_badge_dir (d);
 
           if (dest <= 0 || dest > n || dest == i)
             continue;
-          if (!is_badge && !L.rooms[dest].placed)
+          if (!is_badge && !L->rooms[dest].placed)
             continue;
 
-          if (!is_badge && L.rooms[i].seen)
+          if (!is_badge && L->rooms[i].seen)
             {
-              if (L.rooms[dest].shown[sm_opp (d)])
+              if (L->rooms[dest].shown[sm_opp (d)])
                 continue;
-              L.rooms[i].shown[d] = 1;
+              L->rooms[i].shown[d] = 1;
             }
 
           node->links[nl].dir = d;
@@ -1455,11 +1467,61 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
               snprintf (key, sizeof key, "%d", (int) sc_room (dest));
               node->links[nl].dest = sm_intern (m, key);
             }
-          node->links[nl].dotted = L.rooms[i].restricted[d];
+          node->links[nl].dotted = L->rooms[i].restricted[d];
           nl++;
         }
       node->n_links = nl;
     }
+}
+
+
+/*
+ * scmap_build()
+ *
+ * Lay the game's rooms out and build a map of them: Form29's init_map,
+ * calc_grid and tidy_up (sm_layout_build), then draw_graphics' choice of
+ * which connectors to run out (sm_map_links).  Room keys are the decimal
+ * SCARE room number.  Returns NULL when there is nothing to draw; scmap.h
+ * lists the cases.
+ */
+map_t *
+scmap_build (scr_gameref_t game, const map_view_t *view)
+{
+  sm_layout_t L;
+  map_t *m;
+  std::vector<int> node_of;     /* room number -> node index, -1 unplaced   */
+  int n;
+
+  scmap_last_fail = 0;
+  if (game == nullptr)
+    return nullptr;
+
+  /* The author can turn the map off altogether. */
+  sm_cache_ensure (game);
+  if (sm_cache_nomap)
+    return nullptr;
+
+  n = (int) gs_room_count (game);
+  if (n <= 0)
+    return nullptr;
+
+  if (!sm_layout_build (game, view, n, &L))
+    return nullptr;
+
+  m = sm_map_new ();
+  if (m == nullptr)
+    {
+      free (L.rooms);
+      return nullptr;
+    }
+
+  if (!sm_map_nodes (m, &L, node_of))
+    {
+      free (L.rooms);
+      map_free (m);
+      return nullptr;
+    }
+  sm_map_links (m, &L, node_of);
 
   free (L.rooms);
   return m;

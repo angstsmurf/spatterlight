@@ -123,7 +123,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~249~~ | ~~`restore_scarier_body`~~ | DONE: `scarier_restore_t` + eight members, see "restore_scarier_body split" |
 | ~~240~~ | ~~`ser_save_game_body`~~ | DONE: six section functions + driver, see "ser_save_game_body split" |
 | ~~228~~ | ~~`sm_set_grid`~~ | DONE: three arms + driver, see "sm_set_grid split" |
-| 224 | `scmap_build` | `scmap.cpp` |
+| ~~224~~ | ~~`scmap_build`~~ | DONE: four parts + driver, see "scmap_build split" |
 | 219 | `save_scarier_body` | `adrift5/run/a5run_save.cpp` (autosave suite) |
 | 212 | `lib_take_and_pre400` | `library/sclibrar_take.cpp` |
 | 211 | `lib_cmd_locate_object` | `library/sclibrar_misc.cpp` |
@@ -376,9 +376,9 @@ Per the project's own verification recipe:
    the 16 rows the table opened with are DONE (see their "split"
    sections), as are `run_lenient_census`, `a5run_input_inner`,
    `lib_print_room_contents`, `restore_scarier_body`,
-   `ser_save_game_body` and `sm_set_grid`, the first six of the 15 rows
-   added on 2026-10-11; 9 rows remain, top to bottom, `scmap_build`
-   next.
+   `ser_save_game_body`, `sm_set_grid` and `scmap_build`, the first
+   seven of the 15 rows added on 2026-10-11; 8 rows remain, top to
+   bottom, `save_scarier_body` next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1409,3 +1409,25 @@ them):
   "ran off the grid" among the rest, so the failure paths ran too).  No
   line over 80 columns.
 - Next in the table: `scmap_build` (scmap.cpp; same `scmap_dump` sweep).
+
+## 3: scmap_build split (2026-10-11)
+
+- **`scmap_build`** (224 l.) in `scmap.cpp` is a 45-line driver over
+  `sm_layout_build` (Form29's init_map / calc_grid / tidy_up: fills the
+  `sm_layout_t`, FALSE with nothing left allocated when there is no map,
+  and sets `scmap_last_fail`), `sm_map_new` (the one-page `map_t`),
+  `sm_map_nodes` (a node per placed room; fills `node_of`) and
+  `sm_map_links` (which connectors and badges to run out, under the
+  dolink essay, now its head comment).  The driver keeps the early
+  outs, owns `L.rooms` once the layout succeeds and frees it on every
+  path, as before.  Bodies are code motion with `L.` spelled `L->`; the
+  helpers take `n` from `L->n` and `page` from `m->pages[0]`.
+- Verification: `-Wshadow` syntax check clean; headless `quick`; full
+  `test` output identical; `make -j8 scarier glkscarier` warning-free;
+  `sanitize` clean; the `scmap_dump -grid` sweep over the 728 .taf
+  files, both with `-all` and with only the start room seen (the case
+  where unseen rooms sit out the connector claims), byte-identical to
+  the binary built before the `sm_set_grid` split.  No line over 80
+  columns.
+- Next in the table: `save_scarier_body` (adrift5/run/a5run_save.cpp;
+  autosave suite).
