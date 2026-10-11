@@ -309,7 +309,6 @@ run_census_t::mark_all_seen ()
     gs_set_object_seen (game, index_, TRUE);
   GS_FOR_EACH_NPC (game, index_)
     gs_set_npc_seen (game, index_, TRUE);
-  run_lenient_tasks = FALSE;
   uip_set_lenient_tasks (FALSE);
 }
 
@@ -325,13 +324,9 @@ scr_bool
 run_census_t::matches (scr_int which, const std::string &line,
                        scr_bool lenient) const
 {
-  run_lenient_tasks = lenient;
-  uip_set_lenient_tasks (lenient);
-  const scr_bool matched
-      = run_census_matches_task (game, which, line.c_str ());
-  run_lenient_tasks = FALSE;
-  uip_set_lenient_tasks (FALSE);
-  return matched;
+  const scr_lenient_tasks_guard lenient_tasks (lenient);
+
+  return run_census_matches_task (game, which, line.c_str ());
 }
 
 scr_bool

@@ -137,6 +137,12 @@ uip_set_lenient_tasks (scr_bool lenient)
   uip.options.lenient_tasks = lenient;
 }
 
+scr_bool
+uip_get_lenient_tasks (void)
+{
+  return uip.options.lenient_tasks;
+}
+
 
 /*
  * uip_wildcard_prepare()

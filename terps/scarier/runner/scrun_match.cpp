@@ -441,10 +441,6 @@ scr_bool run_rerun_skips_tasks = FALSE;
    space for space; see run_match_task_commands(). */
 scr_bool run_rerun_exact_spaces = FALSE;
 
-/* Set for a line no task matches the Runner's way; see
-   run_line_matches_task_strictly(). */
-scr_bool run_lenient_tasks = FALSE;
-
 /* Set while run_line_yields_to_library() asks whether a task command that
    names a verb takes the line, and whether that task's restrictions let it
    run; see there. */
@@ -794,7 +790,7 @@ run_substitute_variable_references (scr_gameref_t game, std::string &literal)
 
       if (end == std::string::npos)
         break;
-      if (run_lenient_tasks)
+      if (uip_get_lenient_tasks ())
         {
           std::string text;
 
@@ -1091,7 +1087,7 @@ struct run_command_match_t
                        const scr_char *pattern_, scr_pattern_facts_t &facts_)
     : game (game_), task (task_), string (string_), version (version_),
       pattern (pattern_), facts (facts_), first (facts_.first),
-      lenient (run_lenient_tasks && !facts_.has_character),
+      lenient (uip_get_lenient_tasks () && !facts_.has_character),
       is_matched (FALSE), matched_input (string_),
       wild (FALSE), group (FALSE), refs (0),
       numeric (FALSE), variable (FALSE), literal_ref (FALSE) {}

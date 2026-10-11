@@ -353,12 +353,8 @@ run_line_t::lenient ()
   if (run_strict_tasks_requested (string))
     return FALSE;
 #endif
-  const scr_bool outer_lenient = run_lenient_tasks;
-  run_lenient_tasks = FALSE;
-  uip_set_lenient_tasks (FALSE);
-  const scr_bool line_lenient = !run_line_matches_task_strictly (game, string);
-  run_lenient_tasks = outer_lenient;
-  return line_lenient;
+  const scr_lenient_tasks_guard strict_match (FALSE);
+  return !run_line_matches_task_strictly (game, string);
 }
 
 /*
@@ -622,9 +618,9 @@ run_line_t::put_pass ()
           {
             const run_dispatch_input_guard input (put_line);
 
-            uip_set_containment (put_contained);
+            const scr_containment_guard containment (put_contained);
+
             status = run_priority_commands (game, put_line);
-            uip_set_containment (FALSE);
           }
           refused = !status && run_priority_refused;
           if (refused)
@@ -1500,7 +1496,7 @@ run_line_t::settle ()
 scr_bool
 run_line_t::finish (scr_bool result)
 {
-  if (SCR_TRACING_DEVIATIONS () && run_lenient_tasks)
+  if (SCR_TRACING_DEVIATIONS () && uip_get_lenient_tasks ())
     {
       std::string tasks;
       size_t task;

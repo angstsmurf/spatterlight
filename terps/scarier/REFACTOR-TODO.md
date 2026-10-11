@@ -386,9 +386,23 @@ These are candidates, not tasks; each wants its own decision.
   flags are in their internal headers), and runner/ has its line
   buffers.  A census of those is the next step if two games in one
   process is ever a goal.
-- **`uip.options` passed by value** into `uip_match()` instead of set
-  through the `uip_set_*()` pairs: the runner's call sites are the
-  obstacle.
+- ~~**`uip.options` passed by value**~~ into `uip_match()`: declined,
+  and the hand-written pairs replaced with guards instead.  No bracket
+  encloses a `uip_match()` call.  Each one holds an option over a whole
+  task loop or command table (`run_game_task_commands()`,
+  `run_try_command_table()`, `run_priority_commands()`,
+  `run_line_matches_task_strictly()`), and the readers are many calls
+  down in `scparser_entity.cpp`; the library handlers a table row runs
+  match again under the same option.  By value means one more parameter
+  on every function between, about forty `uip_match()` callers
+  included, to say what the scope already says.  What was wrong with
+  the pairs was that they were written out by hand: every one is now a
+  guard in `core/scparser.h` (`scr_containment_guard`,
+  `scr_binary_input_guard`, beside the two that existed), and
+  `run_lenient_tasks`, the runner's own copy of the lenient flag kept
+  in step by double writes, is gone for `uip_get_lenient_tasks()`.
+  Left as a pair: `run_command_match_t::tree_match()` turning the
+  strict binding off and on again around its own match.
 - ~~**Startup linkage**~~: done.  `glk_main`, `glkunix_startup_code`
   and `WinMain` / `winglk_startup_code` moved to
   `glk/os_glk_platform.cpp` (70 -> 390 lines; `os_glk.cpp` 1885 ->

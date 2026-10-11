@@ -515,7 +515,6 @@ run_strict_tasks_requested (const scr_char *string)
 scr_bool
 run_line_yields_to_library (scr_gameref_t game, const scr_char *string)
 {
-  const scr_bool outer_lenient = run_lenient_tasks;
   scr_bool yields = FALSE;
 
 #ifdef SCARIER_DUMP_TOOLS
@@ -523,19 +522,16 @@ run_line_yields_to_library (scr_gameref_t game, const scr_char *string)
     return FALSE;
 #endif
 
-  run_lenient_tasks = FALSE;
-  uip_set_lenient_tasks (FALSE);
+  const scr_lenient_tasks_guard strict_match (FALSE);
   if (!run_line_matches_task_strictly (game, string))
     {
-      run_lenient_tasks = TRUE;
-      uip_set_lenient_tasks (TRUE);
+      const scr_lenient_tasks_guard lenient_match (TRUE);
+
       run_named_verb_only = run_passing_only = TRUE;
       yields = !run_line_matches_task_strictly (game, string);
       run_named_verb_only = run_passing_only = FALSE;
       yields = yields && run_line_matches_task_strictly (game, string);
     }
-  run_lenient_tasks = outer_lenient;
-  uip_set_lenient_tasks (outer_lenient);
   return yields;
 }
 
@@ -543,7 +539,7 @@ run_line_yields_to_library (scr_gameref_t game, const scr_char *string)
 scr_bool
 run_lenient_task_matching (void)
 {
-  return run_lenient_tasks;
+  return uip_get_lenient_tasks ();
 }
 
 

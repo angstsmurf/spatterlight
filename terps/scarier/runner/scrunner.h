@@ -61,7 +61,6 @@ extern scr_bool run_strict_tasks_requested (const scr_char *string);
 /* scrun_match.cpp */
 extern scr_bool run_rerun_skips_tasks;
 extern scr_bool run_rerun_exact_spaces;
-extern scr_bool run_lenient_tasks;
 extern scr_bool run_put_class_only;
 /* scrun_match_run.cpp */
 extern scr_bool run_matcher_second_pass;
@@ -232,54 +231,6 @@ enum {
   RUN_BATTLE_GOTO = 1 << 10, RUN_BATTLE_WAIT = 1 << 11,
   RUN_BATTLE_TALK = 1 << 12, RUN_BATTLE_ASK = 1 << 13,
   RUN_BATTLE_PLAIN = 1 << 14
-};
-
-/*
- * scr_task_commands_guard
- *
- * Marks the matches in its lifetime as task commands for the parser, which
- * keeps the pre-3.9 comma boundary to the library's patterns; see
- * uip_match_whitespace().
- */
-class scr_task_commands_guard
-{
-public:
-  scr_task_commands_guard () { uip_set_task_commands (TRUE); }
-  ~scr_task_commands_guard () { uip_set_task_commands (FALSE); }
-
-  scr_task_commands_guard (const scr_task_commands_guard &) = delete;
-  scr_task_commands_guard &
-  operator= (const scr_task_commands_guard &) = delete;
-};
-
-/*
- * scr_lenient_tasks_guard
- *
- * Turns lenient task matching on or off for one run_all_commands() line,
- * and puts back what was there before when the line is done.
- */
-class scr_lenient_tasks_guard
-{
-public:
-  explicit scr_lenient_tasks_guard (scr_bool lenient)
-    : saved_ (run_lenient_tasks)
-  {
-    run_lenient_tasks = lenient;
-    uip_set_lenient_tasks (lenient);
-  }
-
-  ~scr_lenient_tasks_guard ()
-  {
-    run_lenient_tasks = saved_;
-    uip_set_lenient_tasks (saved_);
-  }
-
-  scr_lenient_tasks_guard (const scr_lenient_tasks_guard &) = delete;
-  scr_lenient_tasks_guard &
-  operator= (const scr_lenient_tasks_guard &) = delete;
-
-private:
-  const scr_bool saved_;
 };
 
 enum run_refusal_pass_t

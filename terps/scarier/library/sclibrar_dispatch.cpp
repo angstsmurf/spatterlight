@@ -365,9 +365,9 @@ lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
         ran = run_game_task_commands (game, command);
       else
         {
-          uip_set_binary_input (TRUE);
+          const scr_binary_input_guard binary_input (TRUE);
+
           ran = run_game_task_commands (game, command);
-          uip_set_binary_input (FALSE);
         }
 
       /*
@@ -394,9 +394,11 @@ lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
     return FALSE;
 
   lib_rebuilt_raw_dispatch = FALSE;
-  uip_set_binary_input (TRUE);
-  run_game_task_commands (game, command);
-  uip_set_binary_input (FALSE);
+  {
+    const scr_binary_input_guard binary_input (TRUE);
+
+    run_game_task_commands (game, command);
+  }
   lib_rebuilt_raw_dispatch = TRUE;
   return TRUE;
 }

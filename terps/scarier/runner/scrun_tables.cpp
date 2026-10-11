@@ -1191,9 +1191,11 @@ run_is_put_command_400 (scr_gameref_t game, const scr_char *string,
   if (!lib_put_container_fits_400 (game, string))
     return FALSE;
 
-  uip_set_containment (TRUE);
-  is_put = run_is_put_command (game, string);
-  uip_set_containment (FALSE);
+  {
+    const scr_containment_guard containment (TRUE);
+
+    is_put = run_is_put_command (game, string);
+  }
   *contained = is_put;
   return is_put;
 }
@@ -1640,12 +1642,12 @@ run_standard_verb_commands_inner (scr_gameref_t game, const scr_char *string)
    * had its turn first, and before the catch-alls below so that they never
    * pre-empt an object the line does name.
    */
-  uip_set_containment (TRUE);
-  const scr_bool contained =
-      run_try_command_table (STANDARD_COMMANDS, game, string);
-  uip_set_containment (FALSE);
-  if (contained)
-    return TRUE;
+  {
+    const scr_containment_guard containment (TRUE);
+
+    if (run_try_command_table (STANDARD_COMMANDS, game, string))
+      return TRUE;
+  }
 
   /* The pre-4.0 put catch-alls; see STANDARD_PUT_COMMANDS. */
   if (run_try_command_table (STANDARD_PUT_COMMANDS, game, string))
@@ -1653,11 +1655,9 @@ run_standard_verb_commands_inner (scr_gameref_t game, const scr_char *string)
 
   /* run390's take handler, still above the refusal; see
      STANDARD_ABOVE_REFUSAL_COMMANDS. */
-  uip_set_containment (TRUE);
-  const scr_bool taken =
-      run_try_command_table (STANDARD_ABOVE_REFUSAL_COMMANDS, game, string);
-  uip_set_containment (FALSE);
-  return taken;
+  const scr_containment_guard containment (TRUE);
+
+  return run_try_command_table (STANDARD_ABOVE_REFUSAL_COMMANDS, game, string);
 }
 
 /*
@@ -1706,11 +1706,9 @@ run_standard_give_npc_commands (scr_gameref_t game, const scr_char *string)
     return FALSE;
   if (run_try_command_table (GIVE_NPC_COMMANDS, game, string))
     return TRUE;
-  uip_set_containment (TRUE);
-  const scr_bool contained =
-      run_try_command_table (GIVE_NPC_COMMANDS, game, string);
-  uip_set_containment (FALSE);
-  return contained;
+  const scr_containment_guard containment (TRUE);
+
+  return run_try_command_table (GIVE_NPC_COMMANDS, game, string);
 }
 
 
@@ -1774,13 +1772,11 @@ run_standard_fallback_commands (scr_gameref_t game, const scr_char *string)
    * Containment stays a per-row fallback (positional first), so a row's
    * "%object% *" form still wins over the "%text%" catch-all beneath it.
    */
-  uip_set_containment (TRUE);
-  const scr_bool fallback =
-      run_try_command_table (is_ended ? STANDARD_ENDED_FALLBACK_COMMANDS
-                                      : STANDARD_FALLBACK_COMMANDS,
-                             game, string);
-  uip_set_containment (FALSE);
-  return fallback;
+  const scr_containment_guard containment (TRUE);
+
+  return run_try_command_table (is_ended ? STANDARD_ENDED_FALLBACK_COMMANDS
+                                         : STANDARD_FALLBACK_COMMANDS,
+                                game, string);
 }
 
 
