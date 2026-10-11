@@ -118,7 +118,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~267~~ | ~~`task_run_task_unrestricted`~~ | DONE: five parts + driver, see "task_run_task_unrestricted split" |
 | ~~260~~ | ~~`uip_match_entity`~~ | DONE: `uip_entity_sweep_t` + two members, see "uip_match_entity split" |
 | ~~290~~ | ~~`run_lenient_census`~~ | DONE: `run_census_t` + `run_census_task_t`, see "run_lenient_census split" |
-| 273 | `a5run_input_inner` | `adrift5/run/a5run.cpp` |
+| ~~273~~ | ~~`a5run_input_inner`~~ | DONE: `input_turn_t` + five stage members, see "a5run_input_inner split" |
 | 258 | `lib_print_room_contents` | `library/sclibrar_room.cpp` (library text: corpus `recompare`) |
 | 249 | `restore_scarier_body` | `adrift5/run/a5run_save.cpp` (autosave suite) |
 | 240 | `ser_save_game_body` | `scserial.cpp` (autosave suite) |
@@ -374,9 +374,9 @@ Per the project's own verification recipe:
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3:
    the 16 rows the table opened with are DONE (see their "split"
-   sections), as is `run_lenient_census`, the first of the 15 rows added
-   on 2026-10-11; 14 rows remain, top to bottom, `a5run_input_inner`
-   next.
+   sections), as are `run_lenient_census` and `a5run_input_inner`, the
+   first two of the 15 rows added on 2026-10-11; 13 rows remain, top to
+   bottom, `lib_print_room_contents` next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1281,3 +1281,32 @@ them):
   and after over all 706 games in `test/adrift4/games`.  No line over
   80 columns.
 - Next in the table: `a5run_input_inner` (adrift5/run/a5run.cpp).
+
+## 3: a5run_input_inner split (2026-10-11)
+
+- **`a5run_input_inner`** (273 l., more than half of it the runner
+  citations) in `adrift5/run/a5run.cpp` processes one input line.  It is
+  now `input_turn_t`: the run, the state, the output buffer, the
+  normalised input, the remembered verb and the scan's out-parameters
+  (`have_fail`/`fail_text`, `have_amb`/`amb`/`amb_ti`/`amb_ci`/
+  `amb_cantsee`, `have_noref`/`noref_ti`/`noref_ci`) plus
+  `resolving_amb`/`amb_narrowed`, with `prepare` (the turn claim and the
+  PrepareForNextTurn refreshes), `clarify` (a pending ambiguity's
+  clarifier), `scan` (the general task scan and a claimed turn),
+  `settle` (the post-scan ladder: fail text, re-prompt, cantsee,
+  ambiguity, noref, dangling clarifier) and `fallback` (system command,
+  remembered-verb retry, NotUnderstood).  Each stage after `prepare`
+  returns the finished turn's text or nullptr; the driver is 20 lines
+  and keeps the media-begin, trace and empty-input checks.  The retry
+  recursion stays in `fallback`, behind a forward declaration of the
+  driver.
+- Bodies are code motion, with one trap worth recording: the copied
+  `std::string rverb = run->remembered_verb;` declared a local that
+  shadowed the member, so `fallback` never saw the remembered verb and
+  Solitary's golden broke.  A `-Wshadow` syntax check of the file now
+  precedes the suite for struct splits.
+- Verification: headless `quick`; full `test` output identical;
+  `make -j8 scarier glkscarier` warning-free; `sanitize` clean.  Lines
+  over 80 columns in the file: 165 before and after.
+- Next in the table: `lib_print_room_contents` (library/sclibrar_room.cpp;
+  library text, so corpus `recompare` too).

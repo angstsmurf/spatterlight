@@ -1464,24 +1464,50 @@ remember_amb_and_prompt (a5_run_t *run, a5_state_t *st, const std::string &in,
   return finish_turn (run, out);
 }
 
-static char *
-a5run_input_inner (a5_run_t *run, const char *line)
+static char *a5run_input_inner (a5_run_t *run, const char *line);
+
+/* One processed input line, from the turn claim to finish_turn.  Built by
+   a5run_input_inner, which owns the sequence: prepare (the turn claim and
+   PrepareForNextTurn), clarify (a pending ambiguity's clarifier), scan
+   (the general task scan and a claimed turn), settle (the post-scan
+   ladder: fail text, re-prompt, cantsee, ambiguity, noref) and fallback
+   (system command, remembered-verb retry, NotUnderstood).  Every stage
+   after prepare returns the finished turn's text, or nullptr to hand on. */
+namespace {
+
+struct input_turn_t
 {
-  a5_state_t *st = run->st;
+  a5_run_t *run;
+  a5_state_t *st;
   sb_t out;
-  std::string in = normalise_input (line);
-  std::string fail_text;
-  int have_fail = 0, have_amb = 0, amb_ti = -1, amb_ci = -1, amb_cantsee = 0;
-  int have_noref = 0, noref_ti = -1, noref_ci = -1;
+  std::string in, rverb, fail_text;
+  int have_fail, have_amb, amb_ti, amb_ci, amb_cantsee;
+  int have_noref, noref_ti, noref_ci;
   amb_info amb;
+  int resolving_amb;
+  long amb_narrowed;
 
+  input_turn_t (a5_run_t *run_, const char *line);
+  void prepare ();
+  char *clarify ();
+  char *scan ();
+  char *settle ();
+  char *fallback ();
+};
+
+input_turn_t::input_turn_t (a5_run_t *run_, const char *line)
+  : run (run_), st (run_->st), in (normalise_input (line)),
+    have_fail (0), have_amb (0), amb_ti (-1), amb_ci (-1), amb_cantsee (0),
+    have_noref (0), noref_ti (-1), noref_ci (-1), resolving_amb (0),
+    amb_narrowed (-1)
+{
   sb_init (&out);
-  a5run_media_begin (run);
-  if (a5run_trace)
-    fprintf (stderr, "\n=== INPUT: \"%s\" ===\n", in.c_str ());
-  if (in.empty ())
-    return finish_turn (run, &out);
+}
 
+
+void
+input_turn_t::prepare ()
+{
   /* This command claims a turn (clsAdventure.Turns, bumped once per processed
      command by the Runner).  The end-of-game score line shows the count *before*
      this command, so emit_endgame reads turns-1; bump here, after the blank-line
@@ -1493,7 +1519,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
      a turn that does anything naturally clears it (clsUserSession clears it on a
      successful task); a system command re-sets it (the runner keeps it across SystemTasks)
      and the NotUnderstood fallback re-tries the input as "<verb> <input>". */
-  std::string rverb = run->remembered_verb;
+  rverb = run->remembered_verb;
   run->remembered_verb.clear ();
 
   /* Refresh the player's "seen" set from where things ended up last turn
@@ -1530,13 +1556,15 @@ a5run_input_inner (a5_run_t *run, const char *line)
       resolve_pronouns (run, in, &out);
       resolve_synonyms (run, in);
     }
+}
 
+char *
+input_turn_t::clarify ()
+{
   /* Pending disambiguation (clsUserSession.ResolveAmbiguity): try `in` as a
      clarifier first -- if it narrows the remembered candidates to exactly one,
      re-run the remembered task with that pick.  Otherwise fall through and let
      `in` be parsed as a fresh command; only if nothing runs do we re-prompt. */
-  int resolving_amb = 0;
-  long amb_narrowed = -1;
   if (run->amb_active)
     {
       std::vector<std::string> narrowed =
@@ -1563,6 +1591,12 @@ a5run_input_inner (a5_run_t *run, const char *line)
         run->amb_keys = narrowed;
     }
 
+  return nullptr;
+}
+
+char *
+input_turn_t::scan ()
+{
   /* Adventure.sReferencedText: cleared right before a fresh GetGeneralTask scan
      (clsUserSession.vb:3389; the ambiguity-resolution path above keeps the
      original command's slots).  scan_tasks refills the slots from every
@@ -1616,6 +1650,12 @@ a5run_input_inner (a5_run_t *run, const char *line)
       return finish_turn (run, &out);
     }
 
+  return nullptr;
+}
+
+char *
+input_turn_t::settle ()
+{
   if (have_fail)
     {
       /* A HighestPriorityPassingTask game: no task passed, so show the
@@ -1723,6 +1763,12 @@ a5run_input_inner (a5_run_t *run, const char *line)
       return finish_turn (run, &out);
     }
 
+  return nullptr;
+}
+
+char *
+input_turn_t::fallback ()
+{
   if (system_command (run, in, &out))
     { run->amb_active = 0; run->remembered_verb = rverb; }   /* SystemTasks keeps it */
   else if (!rverb.empty ())
@@ -1738,6 +1784,30 @@ a5run_input_inner (a5_run_t *run, const char *line)
   else
     not_understood (run, in, &out);
   return finish_turn (run, &out);
+}
+
+} /* namespace */
+
+static char *
+a5run_input_inner (a5_run_t *run, const char *line)
+{
+  input_turn_t turn (run, line);
+  char *done;
+
+  a5run_media_begin (run);
+  if (a5run_trace)
+    fprintf (stderr, "\n=== INPUT: \"%s\" ===\n", turn.in.c_str ());
+  if (turn.in.empty ())
+    return finish_turn (run, &turn.out);
+
+  turn.prepare ();
+  if ((done = turn.clarify ()) != nullptr)
+    return done;
+  if ((done = turn.scan ()) != nullptr)
+    return done;
+  if ((done = turn.settle ()) != nullptr)
+    return done;
+  return turn.fallback ();
 }
 
 /* One 1-second TimeBased tick plus its own finish_turn commit (the runner's
