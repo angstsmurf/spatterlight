@@ -121,7 +121,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~273~~ | ~~`a5run_input_inner`~~ | DONE: `input_turn_t` + five stage members, see "a5run_input_inner split" |
 | ~~258~~ | ~~`lib_print_room_contents`~~ | DONE: five parts + driver, see "lib_print_room_contents split" |
 | ~~249~~ | ~~`restore_scarier_body`~~ | DONE: `scarier_restore_t` + eight members, see "restore_scarier_body split" |
-| 240 | `ser_save_game_body` | `scserial.cpp` (autosave suite) |
+| ~~240~~ | ~~`ser_save_game_body`~~ | DONE: six section functions + driver, see "ser_save_game_body split" |
 | 228 | `sm_set_grid` | `scmap.cpp` |
 | 224 | `scmap_build` | `scmap.cpp` |
 | 219 | `save_scarier_body` | `adrift5/run/a5run_save.cpp` (autosave suite) |
@@ -375,9 +375,9 @@ Per the project's own verification recipe:
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3:
    the 16 rows the table opened with are DONE (see their "split"
    sections), as are `run_lenient_census`, `a5run_input_inner`,
-   `lib_print_room_contents` and `restore_scarier_body`, the first four
-   of the 15 rows added on 2026-10-11; 11 rows remain, top to bottom,
-   `ser_save_game_body` next.
+   `lib_print_room_contents`, `restore_scarier_body` and
+   `ser_save_game_body`, the first five of the 15 rows added on
+   2026-10-11; 10 rows remain, top to bottom, `sm_set_grid` next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1362,3 +1362,24 @@ them):
   dedent).
 - Next in the table: `ser_save_game_body` (scserial.cpp; autosave suite
   again).
+
+## 3: ser_save_game_body split (2026-10-11)
+
+- **`ser_save_game_body`** (240 l.) in `scserial.cpp` writes the 4.x
+  record stream.  It is now a 50-line driver over six section functions
+  on the `lib_room_contents_*` model, each re-fetching the bundle or
+  vars it uses: `ser_save_header` (version line, game name, counts,
+  score), `ser_save_player` (player block, encumbrance, the player's
+  battle block), `ser_save_objects`, `ser_save_events` (with the cached
+  starter-task read), `ser_save_npcs` and `ser_save_variables` (with the
+  cached name/type walk).  The driver keeps the cache sync, the two
+  loops too small to move (room seen flags, task done/scored), the
+  elapsed time, the turn count and the battle-layout note, so the
+  section order reads off it.  Bodies are code motion; `vt_key` is [2]
+  in the header and player parts and [3] in events; the note says "the
+  player and NPC blocks" where it said "above".
+- Verification: `-Wshadow` syntax check clean; headless `quick`; full
+  `test` output identical; `make -j8 scarier glkscarier` warning-free;
+  `sanitize` clean; `run_autosave_tests.py --build` all passed.  No
+  line over 80 columns.
+- Next in the table: `sm_set_grid` (scmap.cpp).

@@ -855,14 +855,21 @@ ser_game_is_pre_v4 (scr_prop_setref_t bundle)
 
 
 /*
+ * ser_save_header()
+ * ser_save_player()
+ * ser_save_objects()
+ * ser_save_events()
+ * ser_save_npcs()
+ * ser_save_variables()
  * ser_save_game_body()
  * ser_save_game_internal()
  * ser_save_game()
  * ser_save_game_to_file()
  *
  * Serialize a game and save its state using the given callback and opaque.
- * The body writes the record stream; the internal wrapper selects the layout
- * and manages the writer state around it.
+ * The body writes the record stream, a section function at a time, in the
+ * Runner's order; the internal wrapper selects the layout and manages the
+ * writer state around it.
  *
  * ser_save_game_to_file() is the one that produces a file for the player, and
  * for a pre-4.0 game it writes that game's native save format so the original
@@ -871,20 +878,12 @@ ser_game_is_pre_v4 (scr_prop_setref_t bundle)
  * is lossy (no walk steps, no Accuracy or Agility, no "unmoved" flags) in ways
  * an undo must not be.  Both are read back by ser_load_game().
  */
+/* The version line, the game name, the entity counts and the score. */
 static void
-ser_save_game_body (scr_gameref_t game)
+ser_save_header (scr_gameref_t game)
 {
-  const scr_var_setref_t vars = gs_get_vars (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  scr_int index_, var_count;
-
-  /*
-   * Reset the immutable-input cache if this is not the game it was built
-   * for; the undo ring calls this every turn, so the reads cached below
-   * matter.
-   */
-  ser_synchronize_cache (game);
+  scr_vartype_t vt_key[2];
 
   /*
    * Write the ADRIFT v4 version line first, so the real Runner (and other v4
@@ -908,6 +907,14 @@ ser_save_game_body (scr_gameref_t game)
 
   /* Write the score. */
   ser_buffer_int (game->score);
+}
+
+/* The player block, encumbrance, and the player's battle block. */
+static void
+ser_save_player (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[2];
 
   /*
    * Write the player block in ADRIFT layout: the player name (the Runner's
@@ -945,12 +952,13 @@ ser_save_game_body (scr_gameref_t game)
    */
   if (battle_is_enabled (game))
     ser_save_battle_block (game, -1);
+}
 
-  /* Save rooms information. */
-  for (index_ = 0; index_ < gs_room_count (game); index_++)
-    ser_buffer_boolean (gs_room_seen (game, index_));
+static void
+ser_save_objects (scr_gameref_t game)
+{
+  scr_int index_;
 
-  /* Save objects information. */
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
       ser_save_object_location (game, index_);
@@ -975,15 +983,15 @@ ser_save_game_body (scr_gameref_t game)
       if (!ser.pre_v4)
         ser_buffer_boolean (gs_object_unmoved (game, index_));
     }
+}
 
-  /* Save tasks information. */
-  for (index_ = 0; index_ < gs_task_count (game); index_++)
-    {
-      ser_buffer_boolean (gs_task_done (game, index_));
-      ser_buffer_boolean (gs_task_scored (game, index_));
-    }
+static void
+ser_save_events (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int index_;
 
-  /* Save events information. */
   for (index_ = 0; index_ < gs_event_count (game); index_++)
     {
       scr_int startertype, task;
@@ -1028,8 +1036,13 @@ ser_save_game_body (scr_gameref_t game)
       else
         ser_buffer_boolean (FALSE);
     }
+}
 
-  /* Save NPCs information. */
+static void
+ser_save_npcs (scr_gameref_t game)
+{
+  scr_int index_;
+
   for (index_ = 0; index_ < gs_npc_count (game); index_++)
     {
       scr_int walk;
@@ -1056,11 +1069,19 @@ ser_save_game_body (scr_gameref_t game)
             ser_buffer_int_special (gs_npc_walkstep (game, index_, walk));
         }
     }
+}
 
-  /*
-   * Save each variable.  The count and each name/type pair are immutable,
-   * so they are cached after the first turn's walk; only the values change.
-   */
+/*
+ * Save each variable.  The count and each name/type pair are immutable,
+ * so they are cached after the first turn's walk; only the values change.
+ */
+static void
+ser_save_variables (scr_gameref_t game)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int index_, var_count;
+
   var_count = ser.cache.var_count;
   if (var_count < 0)
     {
@@ -1098,6 +1119,45 @@ ser_save_game_body (scr_gameref_t game)
           scr_fatal ("ser_save_game: unknown variable type, %ld\n", var_type);
         }
     }
+}
+
+static void
+ser_save_game_body (scr_gameref_t game)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  scr_int index_;
+
+  /*
+   * Reset the immutable-input cache if this is not the game it was built
+   * for; the undo ring calls this every turn, so the reads cached below
+   * matter.
+   */
+  ser_synchronize_cache (game);
+
+  ser_save_header (game);
+  ser_save_player (game);
+
+  /* Save rooms information. */
+  for (index_ = 0; index_ < gs_room_count (game); index_++)
+    ser_buffer_boolean (gs_room_seen (game, index_));
+
+  /* Save objects information. */
+  ser_save_objects (game);
+
+  /* Save tasks information. */
+  for (index_ = 0; index_ < gs_task_count (game); index_++)
+    {
+      ser_buffer_boolean (gs_task_done (game, index_));
+      ser_buffer_boolean (gs_task_scored (game, index_));
+    }
+
+  /* Save events information. */
+  ser_save_events (game);
+
+  /* Save NPCs information. */
+  ser_save_npcs (game);
+
+  ser_save_variables (game);
 
   /* Save timing information. */
   ser_buffer_uint (var_get_elapsed_seconds (vars));
@@ -1107,7 +1167,7 @@ ser_save_game_body (scr_gameref_t game)
 
   /*
    * Note: the live Battle System state (stamina, attributes, attitudes, etc.)
-   * is now written inline, in the player and NPC blocks above, matching the
+   * is now written inline, in the player and NPC blocks, matching the
    * Runner's layout.  We no longer append the private trailing
    * SER_BATTLE_MARKER block; older Scarier saves that carry one are still read
    * (see ser_load_game).
