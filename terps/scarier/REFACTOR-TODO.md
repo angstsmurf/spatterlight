@@ -330,12 +330,13 @@ Five non-library files exceeded ~3000 lines and mixed several concerns:
 | ~~`scprintf.cpp`~~ | 3899 | DONE 0f18acb3f: core · ALR/variables · output · buffer · input |
 | ~~`sctasks.cpp`~~ | 3344 | DONE 26365ef84: core · move · action · endgame · run |
 | ~~`library/sclibrar_disambig.cpp`~~ | 4183 | DONE 8811b5eee: core · pre-4.0 scan · 4.0 question |
-| `library/sclibrar_take.cpp` / `_put.cpp` | 3849 / 3812 | **not** pre-4.0 vs 4.0: the versions interleave inside the functions (`lib_take_backend_common`, `lib_put_in_backend`), so there are no halves to cut.  A topical seam exists if still wanted — take: capacity + NPC take + backend (~1–1757) vs. all / absent / `and` / multiple (~1758–end); put: in-backend and filters (~1–1674) · all / named / multiple (~1675–3486) · put-on (~3487–end) |
+| ~~`library/sclibrar_take.cpp` / `_put.cpp`~~ | 4021 / 3812 | DONE 55fd2004b, b3fb149dc: by topic, backend · command forms each; see "take / put splits" below.  (Not pre-4.0 vs 4.0: the versions interleave inside `lib_take_backend_common` and `lib_put_in_backend`, so there were no such halves to cut.) |
 
 The library split used a shared `sclibrar_internal.h`; the parser,
 printfilter, task and disambiguation splits used the same pattern
 (`scparser_internal.h`, `scprintf_internal.h`, `sctasks_internal.h`,
-`library/sclibrar_disambig_internal.h`) so statics shared across the new TUs
+`library/sclibrar_disambig_internal.h`, `library/sclibrar_take_internal.h`,
+`library/sclibrar_put_internal.h`) so statics shared across the new TUs
 are declared once.
 
 ### Tests and harness hygiene (risk: none)
@@ -366,9 +367,9 @@ Per the project's own verification recipe:
 
 ## Suggested order (what is left)
 
-1. File splits (6a): only take/put are left, and only by topic (see the
-   table) — optional.  `runner/scrun_match.cpp` (3795 l.) is the other
-   file still that size and was never on the list.
+1. File splits (6a): DONE, take/put included (see "take / put splits").
+   `runner/scrun_match.cpp` (3795 l.) is the one file still that size
+   and was never on the list.
 2. Module-global state (6a): DONE for every module the survey named
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
@@ -1619,3 +1620,56 @@ them):
   warning-free; `sanitize` clean; `run_autosave_tests.py --build` all
   passed.  Lines over 80 columns in the file: 57 before, 50 after.
 - This was the last row: the section 3 table is fully struck.
+
+## take / put splits (2026-10-11, master 55fd2004b, b3fb149dc)
+
+- **6a file split: sclibrar_take.cpp** (55fd2004b) -- two TUs sharing
+  `library/sclibrar_take_internal.h` (sclibrar_take.cpp 1750 ·
+  _take_multiple 2303 lines; header 57).  The seam is the one the table
+  named, at `lib_take_filter()`: the first file keeps carrying capacity,
+  "count", taking from a character and `lib_take_backend_common()` with
+  its three entry points; the second has the filters, "take all", the
+  absent noun, the pre-4.0 checkobject helpers, "take X and Y" and
+  `lib_take_multiple_common()`.  Contiguous slices, nothing reordered.
+  Ten symbols cross, all defined in the backend file: six functions
+  (`lib_take_over_capacity`, `lib_print_take_npc_refusal`,
+  `lib_take_npc_overwrite`, `lib_take_from_npc_overwrite_380`,
+  `lib_take_refusal_redispatch_400`, `lib_take_backend`) and the four
+  flags the forms and the backend pass each other
+  (`lib_take_single_named`, `_refusal_claimed`, `_and_pieces_400`,
+  `_refusal_redispatch`).
+- **6a file split: sclibrar_put.cpp** (b3fb149dc) -- two TUs sharing
+  `library/sclibrar_put_internal.h` (sclibrar_put.cpp 1847 ·
+  _put_multiple 1965 lines; header 104).  Two files, not the three the
+  table sketched: cut three ways, 29 symbols crossed in every direction,
+  and the put-on tail was 325 lines.  Cut as backends vs. command forms
+  it is 18, sixteen of them one way.  The one move out of order:
+  `lib_put_on_backend()` and `lib_put_on_is_valid()` now follow the "in"
+  pair in sclibrar_put.cpp, and `lib_put_on_seen_absent_400()` onwards
+  closes the forms file.  The header carries twelve backend functions,
+  four per-command flags (`lib_put_seen_absent`, `_present_unseen`,
+  `_mid_word_390`, `_refusal_swept`; `lib_put_announce_bytes` stays
+  static), `lib_put_refusal_first_390()` / `lib_put_sweep_390()` going
+  back, and the two types the forms name (`lib_put_outcome_t`,
+  `lib_put_admission_guard_t`).  Three `static` forward declarations in
+  the old file are the header's externs now.
+- Comment repoints: the section labels in sclibrar.h / sclibrar_internal.h
+  (`lib_co_pre400`, the `lib_take_filter` run and `lib_instr` are in the
+  `_multiple` files), scgamest.cpp, and two notes in sclibrar_takefrom.cpp
+  that still said `sclibrar_take.inc`.
+- Verification, each split: `-Wall -Wextra -Wshadow` syntax check of both
+  files silent; full headless `test` output identical to the pre-split run
+  with the compile lines dropped; sorted non-blank line multiset old vs
+  new shows only the dropped `static`s, the forward declarations and the
+  new heads; `make -j8 scarier glkscarier` warning-free;
+  `run_autosave_tests.py --build` (which builds the Xcode `scarier`
+  target, so the two new pbxproj entries, ids `...010E` / `...010F`, are
+  exercised) all passed.  No corpus `recompare`: nothing but linkage
+  changed.  Lines over 80 columns: take 12 before and after, put 10
+  before and after.
+- Not taken: a `scr_take_state_t` / `scr_put_state_t` for the eight
+  shared flags on the `disambig` model.  They are the inventory if the
+  census of the remaining library statics (see "mapdraw / disambig state
+  taken") is ever done; `lib_put_reset()` already lists the put ones.
+- Next in the suggested order: 5, the accessor-prologue context struct
+  and iteration helpers -- wide, its own pass.

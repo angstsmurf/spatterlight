@@ -421,7 +421,7 @@ extern scr_bool lib_lock_backend (scr_gameref_t game,
                                   const lib_lock_verb_t *verb,
                                   scr_bool with_key);
 
-/* sclibrar_put.cpp */
+/* sclibrar_put_multiple.cpp */
 extern scr_int lib_instr (const scr_char *line, const scr_char *term);
 
 /* sclibrar_battle.cpp */
