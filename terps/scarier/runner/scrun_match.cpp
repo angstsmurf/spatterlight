@@ -963,10 +963,15 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_int version = run_get_version (bundle);
-  std::string lowered (line);
 
   literal = pattern;
   *object = *character = -1;
+
+  /* A command with no marker has nothing to substitute. */
+  if (!strchr (pattern, '%'))
+    return TRUE;
+
+  std::string lowered (line);
   for (char &c : lowered)
     c = scr_tolower (c);
 
@@ -1125,6 +1130,17 @@ run_command_match_t::tree_match (scr_bool is_library)
    * match it; for those, retry the match against the player's actual
    * input, stashed by run_all_commands().
    */
+  /*
+   * A pre-4.0 '*' command with no marker in it is checkwild's alone -- see
+   * recheck_pre400() -- and the tree's answer for it is never read.  The
+   * library's wildcard-leading case below still chooses the line.
+   */
+  if (version < TAF_VERSION_400 && !lenient && facts.wild
+      && pattern[first] != SPECIAL_PATTERN
+      && !(is_library && pattern[first] == WILDCARD_PATTERN)
+      && !strchr (pattern, '%'))
+    return;
+
   if (lenient && version >= TAF_VERSION_390)
     uip_set_strict_reference (FALSE, FALSE);
 
@@ -1383,18 +1399,20 @@ run_command_match_t::recheck_pre400 (void)
               && facts.has_character)))
     {
       std::string literal;
-      scr_int ref_object, ref_character;
+      scr_int ref_object = -1, ref_character = -1;
+      const scr_bool has_marker = strchr (pattern, '%') != nullptr;
       const scr_bool checkable =
-          run_pre400_substitute_references (game, matched_input, pattern,
-                                            literal, &ref_object,
-                                            &ref_character);
+          !has_marker
+          || run_pre400_substitute_references (game, matched_input, pattern,
+                                               literal, &ref_object,
+                                               &ref_character);
+      const scr_char *const spelled = has_marker ? literal.c_str () : pattern;
 
       if (checkable && wild)
         is_matched = uip_wildcard_match_pre400
-            (literal.c_str (), matched_input,
-             version >= TAF_VERSION_390);
+            (spelled, matched_input, version >= TAF_VERSION_390);
       else if (checkable)
-        is_matched = scr_strcasecmp (literal.c_str (), matched_input) == 0;
+        is_matched = scr_strcasecmp (spelled, matched_input) == 0;
 
       /*
        * The reference the task's text expands is the walk's, not the

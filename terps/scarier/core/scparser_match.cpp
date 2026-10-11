@@ -267,25 +267,67 @@ scr_bool
 uip_wildcard_match_pre400 (const scr_char *pattern, const scr_char *string,
                            scr_bool pad)
 {
-  std::string pat (pattern), line (string);
+  scr_char pat_local[UIP_ALLOCATION_AVOIDANCE_SIZE];
+  scr_char line_local[UIP_ALLOCATION_AVOIDANCE_SIZE];
+  std::string pat_heap, line_heap;
+  const size_t pat_length = strlen (pattern);
+  size_t length = strlen (string), line_length = 0, index_;
+  scr_char *pat = pat_local, *line = line_local;
+  const scr_char *piece, *pat_end, *line_end, *star;
 
-  const size_t first_star = uip_wildcard_prepare (pat, line, TRUE, pad);
-  if (first_star == std::string::npos)
-    return FALSE;
-  if (line.substr (0, first_star) != pat.substr (0, first_star))
-    return FALSE;
-
-  while (!pat.empty ())
+  /*
+   * Work on lower-cased copies, the line trimmed and padded, held on the
+   * stack unless they are unusually long: this is tried against every '*'
+   * command of every task on every line.
+   */
+  if (pat_length + 1 > sizeof (pat_local))
     {
-      const size_t star = pat.find ('*');
+      pat_heap.resize (pat_length + 1);
+      pat = &pat_heap[0];
+    }
+  for (index_ = 0; index_ <= pat_length; index_++)
+    pat[index_] = scr_tolower (pattern[index_]);
+  pat_end = pat + pat_length;
 
-      if (star == std::string::npos)
-        return line.size () >= pat.size ()
-               && line.compare (line.size () - pat.size (), pat.size (), pat)
-                  == 0;
-      if (star > 0 && line.find (pat.substr (0, star)) == std::string::npos)
+  star = (const scr_char *) memchr (pat, '*', pat_length);
+  if (!star)
+    return FALSE;
+
+  if (length + 3 > sizeof (line_local))
+    {
+      line_heap.resize (length + 3);
+      line = &line_heap[0];
+    }
+  while (length > 0 && scr_isspace (scr_tolower (string[0])))
+    string++, length--;
+  while (length > 0 && scr_isspace (scr_tolower (string[length - 1])))
+    length--;
+  if (pad && pat_length >= 2 && pat[0] == '*' && pat[1] == ' ')
+    line[line_length++] = ' ';
+  for (index_ = 0; index_ < length; index_++)
+    line[line_length++] = scr_tolower (string[index_]);
+  if (pad && pat_length >= 2
+      && pat_end[-2] == ' ' && pat_end[-1] == '*')
+    line[line_length++] = ' ';
+  line_end = line + line_length;
+
+  /* The text before the first '*' must be the line's prefix. */
+  if ((size_t) (star - pat) > line_length
+      || memcmp (line, pat, star - pat) != 0)
+    return FALSE;
+
+  for (piece = pat; piece < pat_end; piece = star + 1)
+    {
+      const size_t rest = pat_end - piece;
+
+      star = (const scr_char *) memchr (piece, '*', rest);
+      if (!star)
+        return line_length >= rest
+               && memcmp (line_end - rest, piece, rest) == 0;
+      if (star > piece
+          && std::search (line, line + line_length, piece, star)
+             == line_end)
         return FALSE;
-      pat.erase (0, star + 1);
     }
   return TRUE;
 }
@@ -330,38 +372,36 @@ uip_match_eos (void)
 static scr_bool
 uip_match_word (scr_ptnoderef_t node)
 {
-  scr_int length;
-  const scr_char *word;
+  const scr_char *word, *string;
+  scr_int index_;
 
   /* Get the word to match. */
   assert (node->word);
   word = node->word;
+  string = uip.match.string + uip.match.posn;
 
-  length = strlen (word);
   if (uip.match.binary_active)
     {
-      scr_int index_;
-
-      for (index_ = 0; index_ < length; index_++)
+      for (index_ = 0; word[index_] != NUL; index_++)
         {
-          if (uip.match.string[uip.match.posn + index_]
-              != scr_tolower (word[index_]))
+          if (string[index_] != scr_tolower (word[index_]))
             return FALSE;
         }
-      uip.match.posn += length;
+      uip.match.posn += index_;
       return TRUE;
     }
 
   /* Compare string text with this node's word, ignore case. */
-  if (scr_strncasecmp (uip.match.string + uip.match.posn, word, length) == 0)
+  for (index_ = 0; word[index_] != NUL; index_++)
     {
-      /* Word match, advance position and return. */
-      uip.match.posn += length;
-      return TRUE;
+      if (string[index_] != word[index_]
+          && scr_tolower (string[index_]) != scr_tolower (word[index_]))
+        return FALSE;
     }
 
-  /* No match. */
-  return FALSE;
+  /* Word match, advance position and return. */
+  uip.match.posn += index_;
+  return TRUE;
 }
 
 
@@ -670,7 +710,7 @@ static scr_bool
 uip_match_optional (scr_ptnoderef_t node)
 {
   scr_int start_posn;
-  scr_ptnoderef_t list;
+  scr_ptnode_t list = {};
   scr_bool matched;
 
   /* Note the start position for rewind on empty match. */
@@ -681,15 +721,12 @@ uip_match_optional (scr_ptnoderef_t node)
    * pattern match.  If we can, we'll go with this.  It's a "minimal munch"-ish
    * strategy, but seems to be what Adrift does in this situation.
    */
-  list = uip_new_node (NODE_LIST);
-  list->left_child = node->right_sibling;
+  list.type = NODE_LIST;
+  list.left_child = node->right_sibling;
 
   /* Match on the temporary list, with this option counting as empty. */
   uip.match.last_group_empty = TRUE;
-  matched = uip_match_node (list);
-
-  /* Free the temporary list node. */
-  uip_destroy_node (list);
+  matched = uip_match_list (&list);
 
   /*
    * If the temporary matched and consumed text, rewind position to match
@@ -740,7 +777,11 @@ uip_match_right_siblings (scr_ptnoderef_t node)
 {
   scr_int start_posn, limit, index_;
   scr_bool matched;
-  scr_ptnoderef_t list;
+  scr_ptnode_t list = {};
+
+  /* Nothing to the right matches nowhere; see uip_match_list(). */
+  if (!node->right_sibling)
+    return FALSE;
 
   /* Note the start position for rewind on no match. */
   start_posn = uip.match.posn;
@@ -748,10 +789,11 @@ uip_match_right_siblings (scr_ptnoderef_t node)
   /*
    * To make life a little easier, we'll match on the tree to the right of
    * this node by constructing a temporary list node, containing stuff to the
-   * right of the node, and then matching on that.
+   * right of the node, and then matching on that.  The node lives on the
+   * stack: the pool is usually spent on the compiled task commands.
    */
-  list = uip_new_node (NODE_LIST);
-  list->left_child = node->right_sibling;
+  list.type = NODE_LIST;
+  list.left_child = node->right_sibling;
 
   /*
    * Repeatedly try to match the rest of the tree at successive character
@@ -763,7 +805,7 @@ uip_match_right_siblings (scr_ptnoderef_t node)
   for (index_ = uip.match.posn + 1; index_ < limit; index_++)
     {
       uip.match.posn = index_;
-      if (uip_match_node (list))
+      if (uip_match_list (&list))
         {
           /* The rest of the tree matches at this point. */
           uip.match.posn = index_;
@@ -771,9 +813,6 @@ uip_match_right_siblings (scr_ptnoderef_t node)
           break;
         }
     }
-
-  /* Free the temporary list node. */
-  uip_destroy_node (list);
 
   /* If we didn't match in the loop, restore position. */
   if (!matched)
@@ -1005,6 +1044,51 @@ uip_is_referenced_text (const scr_char *string, scr_gameref_t game)
 
 
 /*
+ * uip_opens_differently()
+ *
+ * TRUE if the tree at node can only open with a literal word, and none of
+ * the words it could open with starts with the given character -- the test
+ * uip_match_word() would fail on its first comparison.  Sets *in_group when
+ * the refusal is a [choice]'s, which leaves its mark on the match state.
+ */
+static scr_bool
+uip_opens_differently (scr_ptnoderef_t node, scr_char first, scr_bool binary,
+                       scr_bool *in_group)
+{
+  scr_ptnoderef_t child;
+
+  switch (node->type)
+    {
+    case NODE_WORD:
+      if (node->word[0] == NUL)
+        return FALSE;
+      return binary ? first != scr_tolower (node->word[0])
+                    : (first != node->word[0]
+                       && scr_tolower (first) != scr_tolower (node->word[0]));
+
+    case NODE_LIST:
+      return node->left_child
+             && uip_opens_differently (node->left_child, first, binary,
+                                       in_group);
+
+    case NODE_CHOICE:
+      if (!node->left_child)
+        return FALSE;
+      for (child = node->left_child; child; child = child->right_sibling)
+        {
+          if (!uip_opens_differently (child, first, binary, in_group))
+            return FALSE;
+        }
+      *in_group = TRUE;
+      return TRUE;
+
+    default:
+      return FALSE;
+    }
+}
+
+
+/*
  * uip_match_pattern()
  *
  * Match a string to a compiled pattern, and return TRUE on match, FALSE
@@ -1026,6 +1110,29 @@ uip_match_pattern (scr_uip_patternref_t compiled, const scr_char *string,
   /* Dump out the pattern tree if requested. */
   if (if_get_trace_flag (SCR_DUMP_PARSER_TREES))
     uip_debug_dump (compiled->tree);
+
+  /*
+   * Most of a game's task commands open with a verb the line does not, and
+   * every one of them is tried on every line: turn those away before any of
+   * the set-up below.  A line with leading space is left to the full match.
+   */
+  if (!uip.trace && string[0] != NUL && !scr_isspace (string[0]))
+    {
+      scr_bool in_group = FALSE;
+
+      if (uip_opens_differently (compiled->tree, string[0],
+                                 uip.options.binary_input
+                                 && !uip.options.lenient_tasks
+                                 && compiled->binary_candidate, &in_group))
+        {
+          if (in_group)
+            {
+              uip.match.last_group_empty = TRUE;
+              uip.match.last_group_optional = FALSE;
+            }
+          return FALSE;
+        }
+    }
 
   /* Match the string to the pattern tree. */
   cleansed = (uip_needs_trim (string) || uip_is_referenced_text (string, game))

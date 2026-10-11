@@ -610,7 +610,7 @@ uip_contains_words (const scr_char *words)
 static scr_bool
 uip_match_remainder (scr_ptnoderef_t node, scr_int extent)
 {
-  scr_ptnoderef_t list;
+  scr_ptnode_t list = {};
   scr_int start_posn;
   scr_bool matched;
 
@@ -637,14 +637,11 @@ uip_match_remainder (scr_ptnoderef_t node, scr_int extent)
    * Try to match everything after the node passed in, at this position in the
    * string.
    */
-  list = uip_new_node (NODE_LIST);
-  list->left_child = node->right_sibling;
+  list.type = NODE_LIST;
+  list.left_child = node->right_sibling;
 
-  /* Match on the temporary list. */
-  matched = uip_match_node (list);
-
-  /* Free the temporary list node, and restore position. */
-  uip_destroy_node (list);
+  /* Match on the temporary list, and restore position. */
+  matched = uip_match_node (&list);
   uip.match.posn = start_posn;
 
   /* Return TRUE if the pattern remainder matched. */
