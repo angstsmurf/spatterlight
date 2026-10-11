@@ -186,7 +186,7 @@ void GremlinsLook(void)
     }
 }
 
-void FillInGermanSystemMessages(void)
+static void FillInGermanSystemMessages(void)
 {
     sys[I_DONT_KNOW_HOW_TO] = "Ich weiss nicht, wie man etwas \"";
     sys[SOMETHING] = "\" macht. ";
@@ -290,7 +290,7 @@ void LoadExtraGermanGremlinsData(void)
     FillInGermanSystemMessages();
 }
 
-void LoadCommonSpanishGremlinsData(void)
+static void LoadCommonSpanishGremlinsData(void)
 {
     sys[WHAT] = sys[HUH];
     sys[YES] = "s}";

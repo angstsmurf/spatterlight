@@ -1,60 +1,61 @@
 # terps/scott: refactoring, cleanup and deduplication TODO
 
-What is left of a read-only review after the two 2026-10-11 cleanup passes:
-no open refactoring items. Done items were removed; items that were looked
-at and turned down are listed at the end with the reason, so they are not
-proposed again.
+There are no open items. The read-only review of 2026-10-11 (after the two
+cleanup passes, 8ab02d171 and 5650c12ca) gave seventeen; fourteen are done
+and three were turned down, see the end of "Looked at and declined". Kept
+here: how to validate a change, the state of the warning pass, what the
+corpus audit still reports, and the items that were looked at and turned
+down, with the reason, so they are not proposed again.
 
-Validation after each batch: `make -f Makefile.headless check formatcheck
-scriptcheck companioncheck savecheck`, `make -j8 all-tests` in `saga/test` for
-anything touching renderers/loaders (it has per-object rules and header
-dependencies now, so no `clean` is needed), and the Xcode `scott` target
-(`-arch arm64` when building that target on its own, or the link picks up
-the arm64 libraries for an x86_64 binary and fails). `savecheck` covers
-saving and restoring to a file, old file layouts and damaged files; run it
-after touching scott_meta.c or restore_state.c.
+Validation: `make -f Makefile.headless check formatcheck scriptcheck
+companioncheck savecheck`, `make -j8 all-tests` in `saga/test` for anything
+touching renderers or loaders, and the Xcode `scott` target (`-arch arm64`
+when building that target on its own, or the link fails on the arm64
+libraries). Run `savecheck` after touching scott_meta.c or restore_state.c.
+
+Warning pass: `clang -fsyntax-only -Wall -Wextra -Wmissing-prototypes` over
+the headless sources, with the include paths and defines of
+Makefile.headless, gives 20 sign-compare and 6 missing-field-initializers
+(both declined below) and nothing else. It is clean for missing-prototypes,
+unused-parameter and unused-variable; keep it so. Where a parameter or
+variable is read by `debug_print` only, it gets a `(void)` cast with a
+comment (`PrintHeaderInfo`, `Skip`, two in rtpi_graphics.c).
+
+Conventions the last pass settled:
+
+- `LoadTrace(...)` (scott.h) is the loader trace, shown with the `-d`
+  option; `ACT_DEBUG(...)` (scott_actions.h) is the action trace of both
+  interpreters, compiled in with `DEBUG_ACTIONS`.
+- `DetectGame()` owns the game file handle and closes it; `LoadDatabase()`
+  never does.
+- New `USImage` list nodes go through `AppendImage()` (sagagraphics.h,
+  `static inline` so the saga tests that stub `NewImage()` still link).
+- `ParseItemSlashAutoGet()` is in scott.c next to `MatchUpItem()`.
+  `ParseItemDotAutoGet()` stayed `static` in detect_game.c, which has its
+  only caller.
 
 ---
 
-## 1. Bugs and risks
+## Corpus audit of action-line arguments
 
-Corpus audit of action-line arguments, 2026-10-11 (`scott_cond_audit`,
-test/cond_audit.c: every condition and opcode parameter of every line, and
-the TI-99/4A bytecode, checked against NumItems / NumRooms / 64 flags; 291
-images = all of test/formats/games.manifest.tsv plus the loose .dat files).
-No database names an item it does not have: all 36 TI-99/4A images and 244
-of 255 standard ones are clean. The 11 images with findings are 6 titles,
-and every one was a loader offset or a damaged image, not game data. Both
-loader offsets are fixed (Spiderman Atari 16K: actions at 0x1891, straight
-after the header; Escape from Pulsar 7 C64: actions at 0x1df3, and
-`TryLoading` cuts the header's count of 195 down to the 191 lines that fit
-before the dictionary), Hulk C64 is patched in `HulkUKSpecificParsing`
-(15 bytes of stray text, `N0:B...SU`, over the third condition of lines
-184-191), Voodoo Castle C64 is patched in `LoadBinaryDatabase`
-(`d64-voodoo-castle-ai-toko`, `t64-voodooc2`: one byte 0x55 for 0x01 made
-line 27, GO CELL, test for room 1096 instead of taking parameter 21, so
-the cell could not be entered and the game not won; both images now play
-the `voodoo-castle` script to the end), and an item above NumItems is
-treated as not in play and never moved instead of reading or writing past
-`Items[]` or calling `Fatal()`: `ItemExists()` guards `ConditionHolds` and
-every item opcode of both the standard and the TI-99/4A interpreter. None
-of the damage is unp64: the disk images are stored unpacked and the T64s
-decrunch to the same bytes.
-
-What the audit still reports, all harmless now:
+`scott_cond_audit` (test/cond_audit.c) checks every condition and opcode
+parameter of every action line, and the TI-99/4A bytecode, against
+NumItems / NumRooms / 64 flags. Run over all of
+test/formats/games.manifest.tsv plus the loose .dat files (291 images), it
+reports nothing but these, all harmless:
 
 - Ten Little Indians `z80-m10india`: line 101, `NOT_PRESENT(217)` of 73
-  (the .tzx and the other .z80 have 0 there). Covered by the guard.
-- Escape from Pulsar 7 C64 plays differently from before the fix: the
-  misread table had a junk implicit line that drew a random number every
-  turn, so the dust in the air vent (line 40, 10 %) now falls on other
-  turns. Hence the `escape-from-pulsar-7-c64` script.
-- No opcode parameter is out of range in a sound table. One authored slip:
-  Waxworks (Spectrum; the C64 table is right) line 95 has opcodes 72 72 52
+  (the .tzx and the other .z80 have 0 there). An item above NumItems is
+  treated as not in play (`ItemExists()`), so nothing is read past
+  `Items[]`.
+- Waxworks (Spectrum; the C64 table is right) line 95 has opcodes 72 72 52
   with four parameters, so the GET reads a fifth, which `PerformLine`
-  zero-fills: item 0. Harmless.
-- Flags: nothing above 31 outside the junk lines, so `TestBitFlag`'s shift
-  is safe on sound data.
+  zero-fills: item 0. An authored slip.
+
+Any new finding is more likely a loader offset or a damaged image than
+game data: that is what all the earlier ones were (Spiderman Atari 16K,
+Escape from Pulsar 7 C64, Hulk C64, Voodoo Castle C64). No flag above 31
+is used, so `TestBitFlag`'s shift is safe.
 
 ---
 
@@ -103,7 +104,8 @@ What the audit still reports, all harmless now:
   assigned in scott_display.c (`OpenBottomWindow`, `OpenTopWindow`,
   `CloseTopWindow`, `OpenGraphicsWindow`); `split_screen` is cleared by the
   `-w` option and when the status window cannot be opened.
-- unzip_in_mem.c is vendored minizip: left alone.
+- unzip_in_mem.c is vendored minizip: left alone, apart from the `filesize`
+  parameter of `unzGoToNextFile()`, which nothing read.
 - **Predicate table for `ConditionHolds`.** With the `ACT_DEBUG` macro the
   switch is ~110 lines of three-line cases; a table would need 20 one-line
   functions plus the debug strings and reads worse.
@@ -115,11 +117,6 @@ What the audit still reports, all harmless now:
   non-Unicode memory stream; the only shared part is one `vsnprintf`.
 - **`parser_tables.h`.** parser.h is ~90 lines; splitting the language
   tables out buys nothing.
-- **`TEST_HOOKS` header.** `TestApple2ImageWithName`/
-  `TestAtari8ImageWithName` are now declared in the headers of the files
-  that define them, and filltest.c includes those instead of carrying its
-  own prototypes. `RunVectorTests`/`ReadTestDataFromFile` stay in
-  vector_common.h.
 - **One shared `Fatal()` stub for the saga tests.** The four copies are
   one-liners in separately linked binaries, some of which also link
   extract_stubs.c; a shared definition needs an opt-in macro that is longer
@@ -134,8 +131,25 @@ What the audit still reports, all harmless now:
 - **Renaming `xstrncasecmp`.** It mirrors the libc name on purpose.
 - **Local `nearest()` helpers in dos_decode_png.py / ti_decode_fb.py.**
   Different palettes; a shared helper is not shorter.
-- **`origcolptr` / `draw_opcode_names` "unused variable" warnings in
-  rtpi_graphics.c** (headless build only): both are used by `debug_print`,
-  which compiles to nothing there.
-- **`#pragma mark`** became `// MARK:` rather than plain comments, to keep
-  the Xcode jump bar entries.
+- **One base list for the `messagekey[]` tables of game_specific.c.**
+  Against `c64_sysmess_keys` (39 keys), `Claymorgue64Sysmess` adds
+  `YOU_HAVE_IT` at 21; `Spiderman64Sysmess` adds that and `DROPPED`,
+  `TAKEN` at 30; `SpidermanAtari8Sysmess` adds `NONE` at 6 and
+  `YOU_HAVE_IT` at 21 and moves `INVENTORY` and `PLAY_AGAIN`;
+  `Supergran64Sysmess` (30 keys) shares little. "The base list, plus these
+  at these indices" for two of the four reads worse than the lists, which
+  are in the order of the original tables and can be checked against them.
+- **Turning the `fprintf(stderr, ...)` diagnostics into `debug_print`.**
+  33 outside the tests, 6 of them the reports of the saga tests
+  (vector_common.c). `debug_print` prints nothing in a normal build, so
+  the change would silence them in the headless harness and the Xcode
+  console, which is where a damaged image or an unhandled opcode gets
+  noticed. The load failures of c64decrunch.c return `UNKNOWN_GAME`, so
+  the player is told through the normal unknown-game path.
+- **Casting away the 20 sign-compare notes** (`int` or `long` against
+  `glui32` / `size_t`, in detect_game.c, scott_display.c, title_image.c,
+  apple2detect.c, c64a8scott.c, c64_small.c, scott_actions.c,
+  game_specific.c). All compare against values known to be non-negative;
+  a cast per site is noise. Likewise the 6 missing-field-initializers:
+  `{ NULL }` terminators and table rows that rely on the trailing fields
+  being zeroed. Only worth it for a `-Wextra`-clean build.

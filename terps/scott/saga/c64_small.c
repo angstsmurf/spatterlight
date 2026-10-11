@@ -163,9 +163,7 @@ static USImage *copyToImage(USImage *copy, USImage *original, int index) {
     memcpy(copy, original, sizeof(USImage));
     copy->index = index;
     copy->previous = previous;
-    copy->next = NewImage();
-    copy->next->previous = copy;
-    return copy->next;
+    return AppendImage(copy);
 }
 
 /* Pirate Adventure reuses some sprites for multiple objects:
@@ -260,9 +258,7 @@ static void ExtractAllInOneImages(const imglist *list, const uint8_t *data, size
 
         memcpy(image->imagedata, data + offset, size);
 
-        image->next = NewImage();
-        image->next->previous = image;
-        image = image->next;
+        image = AppendImage(image);
     }
     if (image->imagedata == NULL) {
         if (image != USImages && CurrentGame == PIRATE_US) {

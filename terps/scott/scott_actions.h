@@ -10,6 +10,13 @@
 
 #include "scott_defines.h"
 
+/* Define DEBUG_ACTIONS to trace every condition and opcode as it runs */
+#ifdef DEBUG_ACTIONS
+#define ACT_DEBUG(...) debug_print(__VA_ARGS__)
+#else
+#define ACT_DEBUG(...) ((void)0)
+#endif
+
 void ClearBitFlag(int bit);
 int ConditionHolds(int condition, int arg);
 int CountCarried(void);
@@ -22,11 +29,13 @@ void MoveItemAToLocOfItemB(int itemA, int itemB);
 ExplicitResultType PerformActions(int vb, int no);
 void OutputNumber(int a);
 void PlayerIsDead(void);
+void PrintCounter(void);
 void PrintMessage(int index);
 void PrintNoun(void);
 int PrintScore(void);
 void PutItemAInRoomB(int itemA, int roomB);
 int RandomPercent(int n);
+void RefillLight(void);
 void SetBitFlag(int bit);
 int TestBitFlag(int bit);
 void SetDark(void);

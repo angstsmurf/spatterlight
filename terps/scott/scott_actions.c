@@ -36,13 +36,6 @@
 #include "glkimp.h"
 #endif
 
-/* Define DEBUG_ACTIONS to trace every condition and opcode as it runs */
-#ifdef DEBUG_ACTIONS
-#define ACT_DEBUG(...) debug_print(__VA_ARGS__)
-#else
-#define ACT_DEBUG(...) ((void)0)
-#endif
-
 /* Game state operations — basically helper functions
    for PerformLine() and PerformTI99Line().
    Some of them are general enough to be used by other
@@ -205,6 +198,14 @@ void SetLight(void) {
     ChangeDarkness(0);
 }
 
+/* Refill the light source and put it in the player's hands. */
+void RefillLight(void)
+{
+    GameHeader.LightTime = LightRefill;
+    Items[LIGHT_SOURCE].Location = CARRIED;
+    ClearBitFlag(LIGHTOUTBIT);
+}
+
 void SwapLocAndRoomflag(int index)
 {
     ACT_DEBUG("swap location<->roomflag[%d]\n", index);
@@ -305,6 +306,12 @@ int RandomPercent(int n)
 }
 
 void OutputNumber(int a) { Display(Bottom, "%d", a); }
+
+void PrintCounter(void)
+{
+    OutputNumber(CurrentCounter);
+    Output(" ");
+}
 
 int PrintScore(void)
 {
@@ -604,7 +611,7 @@ static void GameSpecificOpcode(LineState *line)
    state operations. Returns 0 if the rest of the line is to be skipped. */
 static int ExecuteOpcode(int op, LineState *line)
 {
-    int p;
+    int p, q;
     ACT_DEBUG("Performing action %d: ", op);
     if (op >= FIRST_MESSAGE && op <= LAST_DIRECT_MESSAGE) {
         PrintMessage(op);
@@ -643,9 +650,10 @@ static int ExecuteOpcode(int op, LineState *line)
             break;
         case OP_DESTROY_ITEM:
         case OP_DESTROY_ITEM_2:
+            p = NextParam(line);
             ACT_DEBUG("Item %d (%s) is removed from the game (put in room 0).\n",
-                        line->param[line->pptr], Items[line->param[line->pptr]].Text);
-            MoveItem(NextParam(line), 0);
+                p, Items[p].Text);
+            MoveItem(p, 0);
             break;
         case OP_SET_DARK:
             SetDark();
@@ -695,9 +703,7 @@ static int ExecuteOpcode(int op, LineState *line)
             break;
         case OP_REFILL_LIGHT:
             ACT_DEBUG("Refill lamp\n");
-            GameHeader.LightTime = LightRefill;
-            Items[LIGHT_SOURCE].Location = CARRIED;
-            ClearBitFlag(LIGHTOUTBIT);
+            RefillLight();
             break;
         case OP_CLEAR_SCREEN:
             ACT_DEBUG("Clear screen\n");
@@ -710,8 +716,12 @@ static int ExecuteOpcode(int op, LineState *line)
             break;
         case OP_SWAP_ITEMS:
             p = NextParam(line);
-            ACT_DEBUG("Swap locations of item %d (%s) (currently at %d) and item %d (%s) (currently at %d).\n", p, Items[p].Text, Items[p].Location, line->param[line->pptr], Items[line->param[line->pptr]].Text, Items[line->param[line->pptr]].Location);
-            SwapItemLocations(p, NextParam(line));
+            q = NextParam(line);
+            ACT_DEBUG("Swap locations of item %d (%s) (currently at %d) and "
+                      "item %d (%s) (currently at %d).\n",
+                p, Items[p].Text, Items[p].Location,
+                q, Items[q].Text, Items[q].Location);
+            SwapItemLocations(p, q);
             break;
         case OP_CONTINUE:
             ACT_DEBUG("Continue with next line\n");
@@ -740,12 +750,11 @@ static int ExecuteOpcode(int op, LineState *line)
                         CurrentCounter);
             break;
         case OP_PRINT_COUNTER:
-            OutputNumber(CurrentCounter);
-            Output(" ");
+            PrintCounter();
             break;
         case OP_SET_COUNTER:
-            ACT_DEBUG("CurrentCounter is set to %d.\n", line->param[line->pptr]);
             CurrentCounter = NextParam(line);
+            ACT_DEBUG("CurrentCounter is set to %d.\n", CurrentCounter);
             break;
         case OP_GOTO_STORED:
             GoToStoredLoc();
@@ -785,8 +794,8 @@ static int ExecuteOpcode(int op, LineState *line)
             GameSpecificOpcode(line);
             break;
         case OP_DRAW_IMAGE:
-            ACT_DEBUG("Draw Hulk image, parameter %d\n", line->param[line->pptr]);
             p = NextParam(line);
+            ACT_DEBUG("Draw Hulk image, parameter %d\n", p);
             if (!ItIsDark() && (CurrentGame == HULK || CurrentGame == HULK_C64)) {
                 DrawHulkImage(p);
             } else if (Game->type == US_VARIANT) {

@@ -994,9 +994,7 @@ static int ReadA2VectorImageFiles(uint8_t *data, size_t datasize, USImage *image
         image->imagedata = thisrec->data;
         number_of_images_found++;
         if (i < number_of_files - 1) {
-            image->next = NewImage();
-            image->next->previous = image;
-            image = image->next;
+            image = AppendImage(image);
             image->filename = NULL;
         }
     }
@@ -1107,9 +1105,7 @@ static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t 
                 memcpy(image->imagedata, data + list[outpic].offset, size);
             }
 
-            image->next = NewImage();
-            image->next->previous = image;
-            image = image->next;
+            image = AppendImage(image);
         }
     }
 

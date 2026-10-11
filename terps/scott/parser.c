@@ -596,7 +596,7 @@ static int MatchYMCA(glui32 *string, int length, int index)
     const char *ymca = "y.m.c.a.";
     int i;
     for (i = 0; i < YMCA_PATTERN_LEN; i++) {
-        if (i + index >= length || string[index + i] != ymca[i])
+        if (i + index >= length || string[index + i] != (unsigned char)ymca[i])
             return i;
     }
     return i;

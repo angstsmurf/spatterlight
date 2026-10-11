@@ -86,8 +86,7 @@ int LoadDOSImages(void)
                     image->usage = IMG_INV_OBJ;
                 }
             }
-            image->next = NewImage();
-            image = image->next;
+            image = AppendImage(image);
         }
     }
     if (!found) {
@@ -473,6 +472,8 @@ uint8_t *Skip(uint8_t *ptr, int count, uint8_t *eof)
         uint16_t val = READ_LE_UINT16(ptr + i);
         debug_print("Unknown value %d: %d (%x)\n", i / 2, val, val);
     }
+#else
+    (void)eof;
 #endif
     return ptr + count;
 }

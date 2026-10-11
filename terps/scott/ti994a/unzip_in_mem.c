@@ -594,7 +594,7 @@ static int unzGoToFirstFile(unz64_s *s) {
  return UNZ_OK if there is no problem
  return UNZ_END_OF_LIST_OF_FILE if the current file was the last one.
  */
-static int unzGoToNextFile(voidp file, size_t filesize) {
+static int unzGoToNextFile(voidp file) {
     unz64_s* s;
     int err;
 
@@ -668,7 +668,7 @@ static int unzLocateFile(unz64_s *s, const char *szFileName, int iCaseSensitivit
             if (unzStringFileNameCompare(szCurrentFileName,
                                          szFileName,iCaseSensitivity)==0)
                 return UNZ_OK;
-            err = unzGoToNextFile(s, s->filesize);
+            err = unzGoToNextFile(s);
         }
     }
 

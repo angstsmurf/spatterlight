@@ -98,6 +98,7 @@ static int DecodeRTPIColors(uint8_t *ptr, USImage *image) {
     debug_print("DecodeRTPIColors\n");
     uint8_t *origptr = image->imagedata;
     uint8_t *origcolptr = ptr;
+    (void)origcolptr; /* read by debug_print only */
     uint8_t *end = origptr + image->datasize;
 
     uint16_t write_offset = 0;
@@ -471,6 +472,7 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
 
         debug_print("DrawRTPIImage: tile index: %d rot:%d rep:%d op:%d\n", d->tile_index, d->rotation, d->repeats, op);
 
+        (void)draw_opcode_names; /* read by debug_print only */
         debug_print("DrawRTPIImage: draw op: %s\n", draw_opcode_names[op]);
 
         switch (op) {
@@ -646,10 +648,7 @@ static USImage *finalize_img_make_new(USImage *image, uint16_t offset, uint16_t 
 
     image->datasize = size;
 
-    image->next = NewImage();
-    image->next->previous = image;
-    image = image->next;
-    return image;
+    return AppendImage(image);
 }
 
 #define LAST_IMAGE_SIZE 0x72
@@ -781,15 +780,8 @@ static void LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_o
 
     /* The loop always leaves one empty trailing USImage node.
        Unlink and free it so the list ends cleanly. */
-    if (image->imagedata == NULL) {
-        if (image != USImages) {
-            image->previous->next = NULL;
-            free(image);
-        } else {
-            free(USImages);
-            USImages = NULL;
-        }
-    }
+    if (image->imagedata == NULL)
+        FreeTrailingEmptyImage(image);
 }
 
 typedef struct {
@@ -924,9 +916,7 @@ static int LoadRTPIGraphicsFromDSK(uint8_t *dsk, size_t size) {
         }
 
         /* Append a new node for the next image */
-        image->next = NewImage();
-        image->next->previous = image;
-        image = image->next;
+        image = AppendImage(image);
     }
 
     /* Free the disk file table */
@@ -936,15 +926,8 @@ static int LoadRTPIGraphicsFromDSK(uint8_t *dsk, size_t size) {
 
     /* The loop always leaves one empty trailing USImage node.
        Unlink and free it so the list ends cleanly. */
-    if (image->imagedata == NULL) {
-        if (image != USImages) {
-            image->previous->next = NULL;
-            free(image);
-        } else {
-            free(USImages);
-            USImages = NULL;
-        }
-    }
+    if (image->imagedata == NULL)
+        FreeTrailingEmptyImage(image);
 
     return 1;
 }

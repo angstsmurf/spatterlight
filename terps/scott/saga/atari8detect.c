@@ -852,9 +852,7 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
             }
         }
 
-        image->next = NewImage();
-        image->next->previous = image;
-        image = image->next;
+        image = AppendImage(image);
     }
 
     /* Read the inventory image from the boot disk */

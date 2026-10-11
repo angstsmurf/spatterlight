@@ -21,7 +21,6 @@ int ParseHeader(int *h, HeaderType type, Header *out);
 void PrintHeaderInfo(int *h, const Header *hdr);
 uint8_t *SeekToPos(int offset);
 
-void ParseItemSlashAutoGet(int index);
 void SetGameHeader(const Header *h);
 void AllocateGameData(void);
 int ReadRoomExits(uint8_t **ptr, int num_rooms, const uint8_t *endptr);

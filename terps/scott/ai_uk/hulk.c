@@ -7,6 +7,7 @@
 
 #include "apple2draw.h"
 #include "game_specific.h"
+#include "hulk.h"
 #include "saga.h"
 #include "sagagraphics.h"
 #include "scott.h"

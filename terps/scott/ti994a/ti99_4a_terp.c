@@ -92,20 +92,25 @@ static void ExecuteTI99Opcode(int opcode, const uint8_t **ip)
         break;
 
     case TI99OP_SUCCESS_OFF:
-            /* Unimplemented. Not to be confused with TI99OP_SUCCESS or ACT_SUCCESS */
-            /* Indicates that the game ended unsuccessfully (e.g. because the player died). */
-            /* The GAME_OVER opcode on the original TI99/4A interpreter will change the color of the screen to indicate whether the game was successful or not. These two TI99OP_SUCCESS_XXX opcodes are often found just before a game_over to indicate either success or failure (i.e. which color to use). This is not implemented here. */
-            /* FALLTHROUGH */
+        /* Unimplemented. Not to be confused with TI99OP_SUCCESS or
+           ACT_SUCCESS. Indicates that the game ended unsuccessfully
+           (e.g. because the player died).
+           The GAME_OVER opcode on the original TI99/4A interpreter
+           will change the color of the screen to indicate whether the
+           game was successful or not. These two TI99OP_SUCCESS_XXX
+           opcodes are often found just before a game_over to indicate
+           either success or failure (i.e. which color to use). This is
+           not implemented here. */
+        /* FALLTHROUGH */
     case TI99OP_SUCCESS_ON:
-            /* Unimplemented. Not to be confused with TI99OP_SUCCESS or ACT_SUCCESS */
-            /* Indicates that the game ended successfully, i.e. the player has won. See above for more details. */
+        /* Unimplemented. Not to be confused with TI99OP_SUCCESS or
+           ACT_SUCCESS. Indicates that the game ended successfully,
+           i.e. the player has won. See above for more details. */
         break;
 
     case TI99OP_DROP_ITEM:
-#ifdef DEBUG_ACTIONS
-        debug_print("item %d (\"%s\") is now in location.\n", **ip,
+        ACT_DEBUG("item %d (\"%s\") is now in location.\n", **ip,
             Items[**ip].Text);
-#endif
         SetItemLocation(NextByte(ip), MyLoc);
         should_look_in_transcript = 1;
         break;
@@ -115,11 +120,8 @@ static void ExecuteTI99Opcode(int opcode, const uint8_t **ip)
         break;
 
     case TI99OP_DESTROY_ITEM:
-#ifdef DEBUG_ACTIONS
-        debug_print(
-            "Item %d (%s) is removed from the game (put in room 0).\n",
+        ACT_DEBUG("Item %d (%s) is removed from the game (put in room 0).\n",
             **ip, Items[**ip].Text);
-#endif
         SetItemLocation(NextByte(ip), 0);
         break;
 
@@ -148,12 +150,9 @@ static void ExecuteTI99Opcode(int opcode, const uint8_t **ip)
         break;
 
     case TI99OP_DIE:
-            /* The DIE opcode in the TI99/4A interpreter changes the screen color to red. */
-            /* This is not implemented. */
-#ifdef DEBUG_ACTIONS
-        debug_print("Player is dead\n");
-#endif
-        /* Dying does not end the game: the player is moved to the
+        /* The DIE opcode in the TI99/4A interpreter changes the
+           screen color to red. This is not implemented.
+           Dying does not end the game: the player is moved to the
            last room (limbo) with the light on, and the action
            carries on.  Games that want to stop follow this with
            TI99OP_GAME_OVER; the others let the player try to get
@@ -168,18 +167,16 @@ static void ExecuteTI99Opcode(int opcode, const uint8_t **ip)
 
     case TI99OP_LIST_INVENTORY:
         ListInventory(0);
-        StopTime = 2;
+        StopTime = SKIP_IMPLICIT_TURNS;
         break;
 
     case TI99OP_REFILL_LIGHT:
-        GameHeader.LightTime = LightRefill;
-        Items[LIGHT_SOURCE].Location = CARRIED;
-        ClearBitFlag(LIGHTOUTBIT);
+        RefillLight();
         break;
 
     case TI99OP_SAVE:
         SaveGame();
-        StopTime = 2;
+        StopTime = SKIP_IMPLICIT_TURNS;
         break;
 
     case TI99OP_SWAP_ITEMS:
@@ -188,11 +185,8 @@ static void ExecuteTI99Opcode(int opcode, const uint8_t **ip)
         break;
 
     case TI99OP_FORCE_CARRY:
-#ifdef DEBUG_ACTIONS
-        fprintf(stderr,
-            "Player now carries item %d (%s).\n",
-            **ip, Items[**ip].Text);
-#endif
+        ACT_DEBUG("Player now carries item %d (%s).\n", **ip,
+            Items[**ip].Text);
         SetItemLocation(NextByte(ip), CARRIED);
         should_look_in_transcript = 1;
         break;
@@ -202,17 +196,28 @@ static void ExecuteTI99Opcode(int opcode, const uint8_t **ip)
         MoveItemAToLocOfItemB(second_param, NextByte(ip));
         break;
 
-    case TI99OP_CLEAR: /* Not to be confused with TI99OP_CLEAR_SCREEN. Unimplemented, probably should do nothing */
-           /* We call opcode 239 TI99OP_CLEAR here, since its usage in adv01.fiad (Adventureland), adv02.fiad (Pirate Adventure), and adv05.fiad (The Count) correspond exactly to the origina versions of those games. But the converse is not true: the original versions use clear in additional places which do not correspond to anything in the TI99/4A versions.
-              The ScottCom and Bunyon interpreters both consider this a no-operation. */
+    case TI99OP_CLEAR:
+        /* Not to be confused with TI99OP_CLEAR_SCREEN. Unimplemented,
+           probably should do nothing.
+           We call opcode 239 TI99OP_CLEAR here, since its usage in
+           adv01.fiad (Adventureland), adv02.fiad (Pirate Adventure),
+           and adv05.fiad (The Count) correspond exactly to the original
+           versions of those games. But the converse is not true: the
+           original versions use clear in additional places which do
+           not correspond to anything in the TI99/4A versions.
+           The ScottCom and Bunyon interpreters both consider this a
+           no-operation. */
         break;
 
     case TI99OP_LOOK:
         /* FALLTHROUGH */
 
     case TI99OP_LOOK_2:
-            /* The LOOK_2 opcode (241) only appears once in all the Scott Adams games, in adv08.fiad (Pyramid of Doom). It occurs in exactly the same place as a look2 opcode in the original version of the game.
-               It is probably equivalent to the look opcode above. */
+        /* The LOOK_2 opcode (241) only appears once in all the Scott
+           Adams games, in adv08.fiad (Pyramid of Doom). It occurs in
+           exactly the same place as a look2 opcode in the original
+           version of the game. It is probably equivalent to the look
+           opcode above. */
         Look();
         should_look_in_transcript = 1;
         break;
@@ -230,23 +235,17 @@ static void ExecuteTI99Opcode(int opcode, const uint8_t **ip)
         break;
 
     case TI99OP_PRINT_COUNTER:
-        OutputNumber(CurrentCounter);
-        Output(" ");
+        PrintCounter();
         break;
 
     case TI99OP_SET_COUNTER:
-#ifdef DEBUG_ACTIONS
-        debug_print("CurrentCounter is set to %d.\n", **ip);
-#endif
+        ACT_DEBUG("CurrentCounter is set to %d.\n", **ip);
         CurrentCounter = NextByte(ip);
         break;
 
     case TI99OP_ADD_COUNTER:
-#ifdef DEBUG_ACTIONS
-        fprintf(stderr,
-            "%d is added to currentCounter. Result: %d\n",
-            **ip, CurrentCounter + **ip);
-#endif
+        ACT_DEBUG("%d is added to currentCounter. Result: %d\n", **ip,
+            CurrentCounter + **ip);
         CurrentCounter += NextByte(ip);
         break;
 
@@ -390,20 +389,28 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             break;
 
         case TI99OP_GAME_OVER:
-                /*  In the original interpreter, the GAME_OVER opcode changes the screen color to indicate success or failure of the whole game — see the TI99OP_SUCCESS_OFF and TI99OP_SUCCESS_ON opcodes above. This is not implemented. */
+            /* In the original interpreter, the GAME_OVER opcode
+               changes the screen color to indicate success or failure
+               of the whole game: see the TI99OP_SUCCESS_OFF and
+               TI99OP_SUCCESS_ON opcodes above. This is not
+               implemented. */
             GameOver();
             return ACT_GAMEOVER;
 
         case TI99OP_PRINT_SCORE:
             if (PrintScore() == 1)
                 return ACT_GAMEOVER;
-            StopTime = 2;
+            StopTime = SKIP_IMPLICIT_TURNS;
             break;
 
         case TI99OP_SUCCESS:
-                /* Stops executing the current action, and produces a SUCCESS result.
-                   This can be used inside a try block — the block (and any parent blocks) are immediately terminated, similar to a return statement.
-                   Outside of a try block also marks the physical end (within the file) of the action — the next action will begin directly after the 0xFF byte. */
+            /* Stops executing the current action, and produces a
+               SUCCESS result. This can be used inside a try block:
+               the block (and any parent blocks) are immediately
+               terminated, similar to a return statement. Outside of a
+               try block it also marks the physical end (within the
+               file) of the action: the next action will begin
+               directly after the 0xFF byte. */
             result = ACT_SUCCESS;
             done = 1;
             try_depth = 0;

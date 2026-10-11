@@ -134,7 +134,7 @@ uint8_t *ReadHeader(uint8_t *ptr)
 
 /* Validate that parsed header values are within reasonable ranges.
    Rejects databases with too few/many items, actions, words, or rooms. */
-int SanityCheckHeader(void)
+static int SanityCheckHeader(void)
 {
     int16_t v = GameHeader.NumItems;
     if (v < 10 || v > 500)
@@ -386,6 +386,9 @@ void PrintHeaderInfo(int *h, const Header *hdr)
     debug_print("Treasure room: %d\n", hdr->TreasureRoom);
     debug_print("Lightsource time left: %d\n", hdr->LightTime);
     debug_print("Number of treasures: %d\n", hdr->Treasures);
+#else
+    (void)h;
+    (void)hdr;
 #endif
 }
 
@@ -644,30 +647,6 @@ static void ReadBinaryMessages(uint8_t **ptr)
         Messages[ct] = ReadBinaryString(ptr);
         debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
     }
-}
-
-/* Extract the auto-get/drop word from an item description.
-   Item text uses the format "description/WORD/" where WORD is the
-   vocabulary word the engine uses for automatic GET/DROP commands.
-   This splits the text at the first '/' (NUL-terminating the
-   description) and points AutoGet at the word between the slashes.
-   Sets AutoGet to NULL if no word is present or if the suffix is
-   "//" or "[slash]*" (conventions meaning "no auto-get word"). */
-void ParseItemSlashAutoGet(int index)
-{
-    Items[index].AutoGet = strchr(Items[index].Text, '/');
-    if (Items[index].AutoGet == NULL)
-        return;
-    if (strcmp(Items[index].AutoGet, "//") == 0 || strcmp(Items[index].AutoGet, "/*") == 0) {
-        Items[index].AutoGet = NULL;
-        return;
-    }
-    /* NUL-terminate the description and advance past the '/' */
-    *Items[index].AutoGet++ = 0;
-    /* Strip the trailing '/' from the word */
-    char *trailingslash = strchr(Items[index].AutoGet, '/');
-    if (trailingslash != NULL)
-        *trailingslash = 0;
 }
 
 /* Read action tables from binary data. In compressed format, each action
@@ -1081,7 +1060,7 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
 /* Check if the loaded game is a Mysterious Adventures title.
    Checks the current Game pointer first, then falls back to matching header
    values against the game database (for .dat plaintext format). */
-int IsMysterious(void)
+static int IsMysterious(void)
 {
     if (Game && (Game->subtype & MYSTERIOUS) != 0)
         return 1;
@@ -1105,7 +1084,7 @@ int IsMysterious(void)
    by Parsec (Denmark) use this RLE scheme: Pirate Adventure, Voodoo Castle,
    Strange Odyssey, and Buckaroo Banzai. Operates backwards through memory,
    expanding either literal runs or repeated byte-pairs. */
-uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr)
+static uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr)
 {
     if (dataptr - 3 < entire_file) {
         return NULL;
@@ -1282,7 +1261,7 @@ static GameIDType TryGamesWithDictionary(DictionaryType dict_type, size_t dict_o
    decompression, dictionary signature scanning, and Parsec RLE
    decompression (a two-pass scheme using Z80 register values
    stored at fixed offsets in the snapshot). */
-GameIDType DetectZXSpectrum(void)
+static GameIDType DetectZXSpectrum(void)
 {
     GameIDType detectedGame = UNKNOWN_GAME;
     int was_z80_snapshot = 0;
@@ -1534,14 +1513,18 @@ GameIDType DetectGame(const char *file_name)
 
     Game = MemCalloc(sizeof(GameInfo));
 
-    /* Try the ScottFree plaintext format first (closes f on success) */
-    GameIDType detectedGame = LoadDatabase(f, Options & DEBUGGING);
+    /* Try the ScottFree plaintext format first */
+    GameIDType detectedGame = LoadDatabase(f);
 
-    if (detectedGame == UNKNOWN_GAME) { /* Not a ScottFree game, check if TI99/4A */
+    size_t result = 0;
+    if (detectedGame == UNKNOWN_GAME) {
         entire_file = MemAlloc(file_length);
         fseek(f, 0, SEEK_SET);
-        size_t result = fread(entire_file, 1, file_length, f);
-        fclose(f);
+        result = fread(entire_file, 1, file_length, f);
+    }
+    fclose(f);
+
+    if (detectedGame == UNKNOWN_GAME) { /* Not a ScottFree game, check if TI99/4A */
         if (result == 0)
             Fatal("File empty or read error!");
 

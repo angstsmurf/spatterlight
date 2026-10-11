@@ -24,6 +24,7 @@
 #include "game_specific.h"
 #include "irmak.h"
 #include "sagadraw.h"
+#include "seas_of_blood.h"
 #include "scott.h"
 #include "detect_game.h"
 #include "scott_meta.h"
@@ -127,7 +128,7 @@ int should_draw_object_images;
 // Draws images for all items present in the current room, overlaid on the
 // room image. If x is -1, each item is drawn at its default position from
 // the image table; otherwise all items are drawn at the specified (x, y).
-void DrawObjectImages(uint8_t x, uint8_t y)
+static void DrawObjectImages(uint8_t x, uint8_t y)
 {
     int draw_at_default_pos = ((int)x == -1);
     for (int i = 0; i < GameHeader.NumItems; i++) {
@@ -390,7 +391,7 @@ static int get_enemy_stats(int *strike, int *stamina, int *boatflag)
 
 // Draws a filled rectangle in a dice graphics window, scaled by
 // dice_pixel_size and offset by the centering offsets.
-void draw_rect(winid_t win, int32_t x, int32_t y, int32_t width, int32_t height,
+static void draw_rect(winid_t win, int32_t x, int32_t y, int32_t width, int32_t height,
     int32_t color)
 {
     glk_window_fill_rect(win, color, x * dice_pixel_size + dice_x_offset,
@@ -401,7 +402,7 @@ void draw_rect(winid_t win, int32_t x, int32_t y, int32_t width, int32_t height,
 // Renders a single die face (1-6) in a graphics window. The die body is
 // drawn as two overlapping rounded rectangles, then the pips are punched
 // out in the background colour. The number parameter is 0-based (0=1 pip).
-void draw_graphical_dice(winid_t win, int number)
+static void draw_graphical_dice(winid_t win, int number)
 {
     // Die body: two overlapping rectangles form a rounded shape
     draw_rect(win, 1, 2, 7, 5, dice_colour);
@@ -449,7 +450,7 @@ void draw_graphical_dice(winid_t win, int number)
 // Updates both dice displays: clears the graphics windows, redraws the
 // graphical dice faces, and prints Unicode dice characters (U+2680-U+2685)
 // plus numeric values in the appropriate text panel.
-void update_dice(int our_turn, int left_dice, int right_dice)
+static void update_dice(int our_turn, int left_dice, int right_dice)
 {
     left_dice--;
     right_dice--;
@@ -476,7 +477,7 @@ void update_dice(int our_turn, int left_dice, int right_dice)
 }
 
 // Displays the combat total (dice + strike skill = sum) in the active panel.
-void print_sum(int our_turn, int sum, int strike)
+static void print_sum(int our_turn, int sum, int strike)
 {
     winid_t win = our_turn ? BattleRight : Top;
     glk_stream_set_current(glk_window_get_stream(win));
@@ -492,7 +493,7 @@ void print_sum(int our_turn, int sum, int strike)
 
 // Refreshes the strike/stamina (or crew strike/strength) values in a
 // battle panel after damage is dealt.
-void update_result(int our_turn, int strike, int stamina, int boatflag)
+static void update_result(int our_turn, int strike, int stamina, int boatflag)
 {
     winid_t win = our_turn ? BattleRight : Top;
     glk_stream_set_current(glk_window_get_stream(win));
@@ -511,7 +512,7 @@ void update_result(int our_turn, int strike, int stamina, int boatflag)
 }
 
 // Clears the dice sum line in both battle panels, then redraws their borders.
-void clear_result(void)
+static void clear_result(void)
 {
     winid_t win = Top;
 
@@ -529,7 +530,7 @@ void clear_result(void)
 }
 
 // Clears the stamina/crew strength value line in both panels before updating.
-void clear_stamina(void)
+static void clear_stamina(void)
 {
     winid_t win = Top;
 
@@ -575,7 +576,7 @@ static void RearrangeBattleDisplay(int strike, int stamina, int boatflag)
 // only, not allowed at sea (location 1)).
 //
 // Returns VICTORY, LOSS, DRAW, or FLEE.
-int roll_dice(int strike, int stamina, int boatflag)
+static int roll_dice(int strike, int stamina, int boatflag)
 {
     clear_result();
     redraw_static_text(BattleRight, boatflag);
@@ -668,7 +669,7 @@ int roll_dice(int strike, int stamina, int boatflag)
 
 // Waits for the player to press ENTER during combat, while still handling
 // window resize events to keep the battle display intact.
-void BattleHitEnter(int strike, int stamina, int boatflag)
+static void BattleHitEnter(int strike, int stamina, int boatflag)
 {
     glk_request_char_event(Bottom);
     event_t ev;

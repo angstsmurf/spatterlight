@@ -57,6 +57,16 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
 uint8_t *FindImageFile(const char *shortname, size_t *datasize);
 
 USImage *NewImage(void);
+
+/* Append a new, empty image to the list after tail and return it. */
+static inline USImage *AppendImage(USImage *tail)
+{
+    USImage *image = NewImage();
+    image->previous = tail;
+    tail->next = image;
+    return image;
+}
+
 int IsSagaImage(const char *name);
 int HasGraphics(void);
 void DrawImageOrVector(void);

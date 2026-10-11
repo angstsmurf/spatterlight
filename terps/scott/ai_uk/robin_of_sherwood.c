@@ -11,6 +11,7 @@
 #include "sagagraphics.h"
 #include "game_specific.h"
 #include "irmak.h"
+#include "robin_of_sherwood.h"
 #include "scott.h"
 #include "detect_game.h"
 #include "scott_meta.h"

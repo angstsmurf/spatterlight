@@ -486,6 +486,21 @@ static void PrintListItem(void (*print_function)(const char *fmt, ...), int item
         print_function("%s", sys[ITEM_DELIMITER]);
 }
 
+/* The first item at or after index from that is in location loc and has a
+   description, or -1 if there are no more. Items without a description are
+   in play but never listed. */
+static int NextListedItem(int loc, int from)
+{
+    for (int i = from; i <= GameHeader.NumItems; i++) {
+        if (Items[i].Location != loc)
+            continue;
+        if (Items[i].Text[0] != 0)
+            return i;
+        debug_print("Invisible item in location %d: %d\n", loc, i);
+    }
+    return -1;
+}
+
 static int ItemEndsWithPeriod(int item)
 {
     if (item < 0 || item > GameHeader.NumItems)
@@ -550,24 +565,15 @@ void Look(void)
         WriteToRoomDescriptionStream(".\n");
     }
 
-    ct = 0;
     f = 0;
-    while (ct <= GameHeader.NumItems) {
-        if (Items[ct].Location == MyLoc) {
-            if (Items[ct].Text[0] == 0) {
-                debug_print("Invisible item in room: %d\n", ct);
-                ct++;
-                continue;
-            }
-            if (f == 0) {
-                WriteToRoomDescriptionStream("%s", sys[YOU_SEE]);
-                if (Options & SPECTRUM_STYLE && !(Options & PC_STYLE))
-                    WriteToRoomDescriptionStream("\n");
-            }
-            PrintListItem(WriteToRoomDescriptionStream, ct, f == 0);
-            f = 1;
+    for (ct = NextListedItem(MyLoc, 0); ct != -1; ct = NextListedItem(MyLoc, ct + 1)) {
+        if (f == 0) {
+            WriteToRoomDescriptionStream("%s", sys[YOU_SEE]);
+            if (Options & SPECTRUM_STYLE && !(Options & PC_STYLE))
+                WriteToRoomDescriptionStream("\n");
         }
-        ct++;
+        PrintListItem(WriteToRoomDescriptionStream, ct, f == 0);
+        f = 1;
     }
 
     if ((Options & TI994A_STYLE) && f) {
@@ -608,20 +614,11 @@ void ListInventory(int upper)
         print_function = WriteToLowerWindow;
     }
 
-    int i = 0;
     int lastitem = -1;
     print_function("%s", sys[INVENTORY]);
-    while (i <= GameHeader.NumItems) {
-        if (Items[i].Location == CARRIED) {
-            if (Items[i].Text[0] == 0) {
-                debug_print("Invisible item in inventory: %d\n", i);
-                i++;
-                continue;
-            }
-            PrintListItem(print_function, i, lastitem == -1);
-            lastitem = i;
-        }
-        i++;
+    for (int i = NextListedItem(CARRIED, 0); i != -1; i = NextListedItem(CARRIED, i + 1)) {
+        PrintListItem(print_function, i, lastitem == -1);
+        lastitem = i;
     }
     if (lastitem == -1)
         print_function("%s", sys[NOTHING]);

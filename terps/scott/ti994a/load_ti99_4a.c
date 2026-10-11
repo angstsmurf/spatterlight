@@ -91,7 +91,7 @@ static int CountTI99TableEntries(const void *header_field)
     return (first_entry - table) / 2;
 }
 
-static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud);
+static GameIDType TryLoadingTI994A(const DATAHEADER *dh);
 
 /* Check whether the file matches a known Return to Pirate's Isle
    disk image format (several container variants exist). */
@@ -149,7 +149,7 @@ GameIDType DetectTI994A(void)
             return UNKNOWN_GAME;
     }
 
-    return TryLoadingTI994A(&dh, Options & DEBUGGING);
+    return TryLoadingTI994A(&dh);
 }
 
 /* Point data_ptr at a section of raw bytes, given the header field (a
@@ -383,15 +383,14 @@ static uint8_t *LoadTitleScreen(void)
 
 /* Room, message and item texts: compressed strings, each reconstructed
    by GetTI994AString from its pointer table. */
-static void LoadTI99Texts(const DATAHEADER *dh, int loud)
+static void LoadTI99Texts(const DATAHEADER *dh)
 {
     for (int idx = 0; idx <= GameHeader.NumRooms; idx++) {
         Room *room = &Rooms[idx];
         room->Text = GetTI994AString(dh->p_room_descr, idx);
         if (room->Text == NULL)
             room->Text = ".";
-        if (loud)
-            debug_print("Room %d: %s\n", idx, room->Text);
+        LoadTrace("Room %d: %s\n", idx, room->Text);
         room->Image = 255;
     }
 
@@ -399,8 +398,7 @@ static void LoadTI99Texts(const DATAHEADER *dh, int loud)
         Messages[idx] = GetTI994AString(dh->p_message, idx);
         if (Messages[idx] == NULL)
             Messages[idx] = ".";
-        if (loud)
-            debug_print("Message %d: %s\n", idx, Messages[idx]);
+        LoadTrace("Message %d: %s\n", idx, Messages[idx]);
     }
 
     /* Items whose text begins with '*' are treasures. They are counted
@@ -416,19 +414,17 @@ static void LoadTI99Texts(const DATAHEADER *dh, int loud)
         }
         if (item->Text[0] == '*')
             num_treasures++;
-        if (loud)
-            debug_print("Item %d: %s\n", idx, item->Text);
+        LoadTrace("Item %d: %s\n", idx, item->Text);
     }
 
     GameHeader.Treasures = dh->num_treasures ? dh->num_treasures : num_treasures;
-    if (loud)
-        debug_print("Number of treasures %d\n", GameHeader.Treasures);
+    LoadTrace("Number of treasures %d\n", GameHeader.Treasures);
 }
 
 /* Verb and noun dictionaries, loaded from separate pointer tables.  The
    verb and noun counts may differ, so the shorter array is padded with
    "." entries to keep both arrays the same length for uniform indexing. */
-static void LoadTI99Dictionary(const DATAHEADER *dh, int loud)
+static void LoadTI99Dictionary(const DATAHEADER *dh)
 {
     LoadTI994ADict(dh->p_verb_table, dh->num_verbs + 1, Verbs);
     LoadTI994ADict(dh->p_noun_table, dh->num_nouns + 1, Nouns);
@@ -439,11 +435,11 @@ static void LoadTI99Dictionary(const DATAHEADER *dh, int loud)
     for (int i = 1; i <= dh->num_verbs - dh->num_nouns; i++)
         Nouns[dh->num_nouns + i] = ".";
 
-    if (loud) {
+    if (Options & DEBUGGING) {
         for (int i = 0; i <= GameHeader.NumWords; i++)
-            debug_print("Verb %d: %s\n", i, Verbs[i]);
+            LoadTrace("Verb %d: %s\n", i, Verbs[i]);
         for (int i = 0; i <= GameHeader.NumWords; i++)
-            debug_print("Noun %d: %s\n", i, Nouns[i]);
+            LoadTrace("Noun %d: %s\n", i, Nouns[i]);
     }
 }
 
@@ -476,7 +472,7 @@ static int ReadNounLinks(uint8_t **data_ptr, const uint8_t *endptr)
    are located via the DATAHEADER pointers; SeekIfNeeded positions
    the read pointer (with baseline offset compensation) for each.
    Returns TI994A on success or UNKNOWN_GAME on failure. */
-static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
+static GameIDType TryLoadingTI994A(const DATAHEADER *dh)
 {
     uint8_t *endptr = entire_file + file_length;
 
@@ -506,7 +502,7 @@ static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
     if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&dh->p_room_descr)), &seek_offset, &data_ptr) == 0)
         return UNKNOWN_GAME;
 
-    LoadTI99Texts(dh, loud);
+    LoadTI99Texts(dh);
 
     /* The remaining tables are raw bytes, not pointer-table compressed
        strings, so they are read sequentially via data_ptr.
@@ -528,7 +524,7 @@ static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
     if (!ReadItemLocations(&data_ptr, GameHeader.NumItems, endptr))
         return UNKNOWN_GAME;
 
-    LoadTI99Dictionary(dh, loud);
+    LoadTI99Dictionary(dh);
 
     if (!SeekToRawData(dh->p_obj_link, &seek_offset, &data_ptr))
         return UNKNOWN_GAME;

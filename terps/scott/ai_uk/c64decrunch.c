@@ -271,105 +271,57 @@ static void appendSIfiles(uint8_t **sf, size_t *extent)
     memcpy(*sf, megabuf, *extent);
 }
 
-/* Prompt the user to choose from the six Mysterious Adventures games on
-   C64 compilation disk 1. Extracts the selected game file from the D64
-   image and processes it. */
-static GameIDType mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
+/* Ask which of the games on a compilation disk to play, extract that
+   game's file from the D64 image and process it. titles[] and filenames[]
+   run in parallel, and the games' records follow each other in
+   c64_registry, starting at first_rec. */
+static GameIDType RunDiskMenu(uint8_t **sf, size_t *extent, const char *intro,
+    const char **titles, const char **filenames, int count, int first_rec)
 {
-    recindex = 0;
-
-    static const char *titles[] = { "The Golden Baton", "The Time Machine",
-        "Arrow of Death part 1", "Arrow of Death part 2",
-        "Escape from Pulsar 7", "Circus" };
-    int result = SelectGameFromMenu(
-        "This disk image contains six games. Select one.", titles, 6) + 1;
-
-    const char *filename = NULL;
-    switch (result) {
-        case 1:
-            filename = "BATON";
-            break;
-        case 2:
-            filename = "TIME MACHINE";
-            break;
-        case 3:
-            filename = "ARROW I";
-            break;
-        case 4:
-            filename = "ARROW II";
-            break;
-        case 5:
-            filename = "PULSAR 7";
-            break;
-        case 6:
-            filename = "CIRCUS";
-            break;
-        default:
-            fprintf(stderr, "SCOTT: DetectC64() Error!\n");
-            break;
-    }
+    int choice = SelectGameFromMenu(intro, titles, count);
+    const char *filename = filenames[choice];
 
     size_t length;
     uint8_t *file = di_get_file_named(*sf, *extent, &length, filename);
 
-    if (file != NULL) {
-        free(*sf);
-        *sf = file;
-        *extent = length;
-        c64rec rec = c64_registry[recindex - 1 + result];
-        return ProcessC64(sf, extent, rec);
-    } else {
+    if (file == NULL) {
         fprintf(stderr, "SCOTT: DetectC64() Failed loading file %s\n", filename);
         return UNKNOWN_GAME;
     }
+
+    free(*sf);
+    *sf = file;
+    *extent = length;
+    return ProcessC64(sf, extent, c64_registry[first_rec + choice]);
+}
+
+/* Prompt the user to choose from the six Mysterious Adventures games on
+   C64 compilation disk 1. Their records are the first six of c64_registry. */
+static GameIDType mysterious_menu(uint8_t **sf, size_t *extent)
+{
+    static const char *titles[] = { "The Golden Baton", "The Time Machine",
+        "Arrow of Death part 1", "Arrow of Death part 2",
+        "Escape from Pulsar 7", "Circus" };
+    static const char *filenames[] = { "BATON", "TIME MACHINE", "ARROW I",
+        "ARROW II", "PULSAR 7", "CIRCUS" };
+
+    return RunDiskMenu(sf, extent,
+        "This disk image contains six games. Select one.", titles, filenames,
+        6, 0);
 }
 
 /* Prompt the user to choose from the five Mysterious Adventures games on
-   C64 compilation disk 2. Same approach as mysterious_menu(). */
-static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
+   C64 compilation disk 2. Their records follow those of disk 1. */
+static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent)
 {
-    recindex = 6;
-
     static const char *titles[] = { "Feasibility Experiment", "The Wizard of Akyrz",
         "Perseus and Andromeda", "Ten Little Indians", "Waxworks" };
-    int result = SelectGameFromMenu(
-        "This disk image contains five games. Select one.", titles, 5) + 1;
+    static const char *filenames[] = { "EXPERIMENT", "WIZARD OF AKYRZ",
+        "PERSEUS", "INDIANS", "WAXWORKS" };
 
-    const char *filename = NULL;
-    switch (result) {
-        case 1:
-            filename = "EXPERIMENT";
-            break;
-        case 2:
-            filename = "WIZARD OF AKYRZ";
-            break;
-        case 3:
-            filename = "PERSEUS";
-            break;
-        case 4:
-            filename = "INDIANS";
-            break;
-        case 5:
-            filename = "WAXWORKS";
-            break;
-        default:
-            fprintf(stderr, "mysterious_menu2: Unhandled case!\n");
-            break;
-    }
-
-    size_t length;
-    uint8_t *file = di_get_file_named(*sf, *extent, &length, filename);
-
-    if (file != NULL) {
-        free(*sf);
-        *sf = file;
-        *extent = length;
-        c64rec rec = c64_registry[recindex - 1 + result];
-        return ProcessC64(sf, extent, rec);
-    } else {
-        fprintf(stderr, "Failed loading file %s\n", filename);
-        return UNKNOWN_GAME;
-    }
+    return RunDiskMenu(sf, extent,
+        "This disk image contains five games. Select one.", titles, filenames,
+        5, 6);
 }
 
 /* Prompt the user to choose from the 12 Scott Adams games on the
@@ -403,7 +355,7 @@ static GameIDType adventure_pack_menu(uint8_t **sf, size_t *extent)
         }
         free(file);
     }
-    fprintf(stderr, "Failed loading file %s\n", filename);
+    fprintf(stderr, "SCOTT: DetectC64() Failed loading file %s\n", filename);
     return UNKNOWN_GAME;
 }
 
@@ -476,8 +428,7 @@ static void LoadC64USImages(uint8_t *data, size_t length)
                             image->usage = IMG_INV_OBJ;
                         }
 
-                        image->next = NewImage();
-                        image = image->next;
+                        image = AppendImage(image);
                     }
                     free(imagefiles[i]);
                 }
@@ -637,9 +588,9 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
             if (c64_registry[i].id == SAVAGE_ISLAND_C64) {
                 return savage_island_menu(sf, extent, i);
             } else if (c64_registry[i].id == BATON_C64 && (chksum == 0xc3fc || chksum == 0xbfbf)) {
-                return mysterious_menu(sf, extent, i);
+                return mysterious_menu(sf, extent);
             } else if (c64_registry[i].id == FEASIBILITY_C64 && (chksum == 0x9eaa || chksum == 0x9c18)) {
-                return mysterious_menu2(sf, extent, i);
+                return mysterious_menu2(sf, extent);
             } else if (c64_registry[i].id == ADVENTURELAND_US && chksum == 0x78fa) {
                 return adventure_pack_menu(sf, extent);
             } else if (c64_registry[i].id == CLAYMORGUE_US && chksum == 0xa957) {

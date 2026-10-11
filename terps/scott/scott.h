@@ -144,7 +144,7 @@ void vDisplay(winid_t w, const char *fmt, va_list ap)
 #endif
     ;
 void PutUnicodeString(strid_t stream, const char *string);
-GameIDType LoadDatabase(FILE *f, int loud);
+GameIDType LoadDatabase(FILE *f);
 void Updates(event_t ev);
 const char *MapSynonym(int noun);
 void UpdateSettings(void);
@@ -174,6 +174,13 @@ extern int AutoInventory;
 extern int CurrentCounter;
 extern int RoomSaved[];
 extern int Options;
+/* The load trace of the -d option (DEBUGGING): what the database loaders
+   read, on stderr. */
+#define LoadTrace(...)                    \
+    do {                                  \
+        if (Options & DEBUGGING)          \
+            fprintf(stderr, __VA_ARGS__); \
+    } while (0)
 extern int StopTime;
 /* StopTime value that keeps the implicit actions from running on the next
    turn (e.g. after SCORE or INVENTORY). */
@@ -199,6 +206,7 @@ extern int should_restart;
 
 GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void);
 int MatchUpItem(int noun, int loc);
+void ParseItemSlashAutoGet(int index);
 
 /* Is the item carried or in the current room? */
 static inline int IsPresent(int item)

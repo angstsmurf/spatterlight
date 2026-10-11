@@ -355,6 +355,30 @@ int MatchUpItem(int noun, int loc)
     return (-1);
 }
 
+/* Extract the auto-get/drop word from an item description.
+   Item text uses the format "description/WORD/" where WORD is the
+   vocabulary word the engine uses for automatic GET/DROP commands.
+   This splits the text at the first '/' (NUL-terminating the
+   description) and points AutoGet at the word between the slashes.
+   Sets AutoGet to NULL if no word is present or if the suffix is
+   "//" or "[slash]*" (conventions meaning "no auto-get word"). */
+void ParseItemSlashAutoGet(int index)
+{
+    Items[index].AutoGet = strchr(Items[index].Text, '/');
+    if (Items[index].AutoGet == NULL)
+        return;
+    if (strcmp(Items[index].AutoGet, "//") == 0 || strcmp(Items[index].AutoGet, "/*") == 0) {
+        Items[index].AutoGet = NULL;
+        return;
+    }
+    /* NUL-terminate the description and advance past the '/' */
+    *Items[index].AutoGet++ = 0;
+    /* Strip the trailing '/' from the word */
+    char *trailingslash = strchr(Items[index].AutoGet, '/');
+    if (trailingslash != NULL)
+        *trailingslash = 0;
+}
+
 /* Read a double-quoted string from a ScottFree plaintext database file.
    Handles escaped quotes (""), backtick-to-quote conversion, and
    strips non-ASCII characters for Glk compatibility. */
@@ -450,7 +474,7 @@ void FreeDatabase(void)
 }
 
 /* Read and range-check the header. Returns 0 if it is not a usable one. */
-static int LoadHeader(FILE *f, int loud)
+static int LoadHeader(FILE *f)
 {
     if (fscanf(f, "%*d %hd %hd %hd %hd %hd %hd %hd %hd %hd %hd %hd",
             &GameHeader.NumItems, &GameHeader.NumActions,
@@ -460,8 +484,7 @@ static int LoadHeader(FILE *f, int loud)
             &GameHeader.LightTime, &GameHeader.NumMessages,
             &GameHeader.TreasureRoom)
         < 10) {
-        if (loud)
-            debug_print("Invalid database(bad header)\n");
+        LoadTrace("Invalid database(bad header)\n");
         return 0;
     }
     /* The counts size the game arrays, and the player is placed in
@@ -471,17 +494,15 @@ static int LoadHeader(FILE *f, int loud)
         || GameHeader.NumMessages < 0 || GameHeader.WordLength < 1
         || GameHeader.PlayerRoom < 0
         || GameHeader.PlayerRoom > GameHeader.NumRooms) {
-        if (loud)
-            debug_print("Invalid database(header values out of range)\n");
+        LoadTrace("Invalid database(header values out of range)\n");
         return 0;
     }
     return 1;
 }
 
-static int LoadActions(FILE *f, int loud)
+static int LoadActions(FILE *f)
 {
-    if (loud)
-        debug_print("Reading %d actions.\n", GameHeader.NumActions);
+    LoadTrace("Reading %d actions.\n", GameHeader.NumActions);
     for (int ct = 0; ct <= GameHeader.NumActions; ct++) {
         if (fscanf(f, "%hu %hu %hu %hu %hu %hu %hu %hu",
                 &Actions[ct].Vocab,
@@ -497,37 +518,35 @@ static int LoadActions(FILE *f, int loud)
             return 0;
         }
 
-        if (loud) {
-            debug_print("Action %d Vocab: %d (Verb:%d/NounOrChance:%d)\n", ct, Actions[ct].Vocab,
+        if (Options & DEBUGGING) {
+            LoadTrace("Action %d Vocab: %d (Verb:%d/NounOrChance:%d)\n", ct, Actions[ct].Vocab,
                Actions[ct].Vocab / VOCAB_MULTIPLIER, Actions[ct].Vocab % VOCAB_MULTIPLIER);
             for (int i = 0; i < NUM_CONDITIONS; i++)
-                debug_print("Action %d Condition[%d]: %d (%d/%d)\n", ct, i,
+                LoadTrace("Action %d Condition[%d]: %d (%d/%d)\n", ct, i,
                     Actions[ct].Condition[i], Actions[ct].Condition[i] % CONDITION_MULTIPLIER, Actions[ct].Condition[i] / CONDITION_MULTIPLIER);
-            debug_print("Action %d Opcode [0]]: %d (%d/%d)\n", ct, Actions[ct].Opcode[0], Actions[ct].Opcode[0] % VOCAB_MULTIPLIER, Actions[ct].Opcode[0] / VOCAB_MULTIPLIER);
-            debug_print("Action %d Opcode [1]]: %d (%d/%d)\n", ct, Actions[ct].Opcode[1], Actions[ct].Opcode[1] % VOCAB_MULTIPLIER, Actions[ct].Opcode[1] / VOCAB_MULTIPLIER);
+            LoadTrace("Action %d Opcode [0]]: %d (%d/%d)\n", ct, Actions[ct].Opcode[0], Actions[ct].Opcode[0] % VOCAB_MULTIPLIER, Actions[ct].Opcode[0] / VOCAB_MULTIPLIER);
+            LoadTrace("Action %d Opcode [1]]: %d (%d/%d)\n", ct, Actions[ct].Opcode[1], Actions[ct].Opcode[1] % VOCAB_MULTIPLIER, Actions[ct].Opcode[1] / VOCAB_MULTIPLIER);
         }
     }
     return 1;
 }
 
 /* Load the verb/noun dictionary (word pairs) */
-static void LoadWords(FILE *f, int loud)
+static void LoadWords(FILE *f)
 {
-    if (loud)
-        debug_print("Reading %d word pairs.\n", GameHeader.NumWords);
+    LoadTrace("Reading %d word pairs.\n", GameHeader.NumWords);
     for (int ct = 0; ct <= GameHeader.NumWords; ct++) {
         Verbs[ct] = ReadString(f);
-        debug_print("Verbs %d:%s.\n", ct, Verbs[ct]);
+        LoadTrace("Verbs %d:%s.\n", ct, Verbs[ct]);
         Nouns[ct] = ReadString(f);
-        debug_print("Nouns %d:%s.\n", ct, Nouns[ct]);
+        LoadTrace("Nouns %d:%s.\n", ct, Nouns[ct]);
     }
 }
 
 /* Load rooms: 6 exit directions followed by a description string */
-static int LoadRooms(FILE *f, int loud)
+static int LoadRooms(FILE *f)
 {
-    if (loud)
-        debug_print("Reading %d rooms.\n", GameHeader.NumRooms);
+    LoadTrace("Reading %d rooms.\n", GameHeader.NumRooms);
     for (int ct = 0; ct <= GameHeader.NumRooms; ct++) {
         int exits[NUM_EXITS];
         if (fscanf(f, "%d %d %d %d %d %d",
@@ -541,11 +560,11 @@ static int LoadRooms(FILE *f, int loud)
             Rooms[ct].Exits[i] = exits[i];
 
         Rooms[ct].Text = ReadString(f);
-        if (loud) {
-            debug_print("Room %d: \"%s\"\n", ct, Rooms[ct].Text);
-            debug_print("Room connections for room %d:\n", ct);
+        if (Options & DEBUGGING) {
+            LoadTrace("Room %d: \"%s\"\n", ct, Rooms[ct].Text);
+            LoadTrace("Room connections for room %d:\n", ct);
             for (int i = 0; i < NUM_EXITS; i++)
-                debug_print("Exit %d: %d\n", i, Rooms[ct].Exits[i]);
+                LoadTrace("Exit %d: %d\n", i, Rooms[ct].Exits[i]);
         }
         Rooms[ct].Image = NO_IMAGE;
     }
@@ -553,26 +572,22 @@ static int LoadRooms(FILE *f, int loud)
 }
 
 /* Load messages (printed by action ops 1-51 and 102+) */
-static void LoadMessages(FILE *f, int loud)
+static void LoadMessages(FILE *f)
 {
-    if (loud)
-        debug_print("Reading %d messages.\n", GameHeader.NumMessages);
+    LoadTrace("Reading %d messages.\n", GameHeader.NumMessages);
     for (int ct = 0; ct <= GameHeader.NumMessages; ct++) {
         Messages[ct] = ReadString(f);
-        if (loud)
-            debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
+        LoadTrace("Message %d: \"%s\"\n", ct, Messages[ct]);
     }
 }
 
 /* Load items: description string (with optional /AutoGet/ word) and location */
-static int LoadItems(FILE *f, int loud)
+static int LoadItems(FILE *f)
 {
-    if (loud)
-        debug_print("Reading %d items.\n", GameHeader.NumItems);
+    LoadTrace("Reading %d items.\n", GameHeader.NumItems);
     for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
         Items[ct].Text = ReadString(f);
-        if (loud)
-            debug_print("Item %d: \"%s\"\n", ct, Items[ct].Text);
+        LoadTrace("Item %d: \"%s\"\n", ct, Items[ct].Text);
         ParseItemSlashAutoGet(ct);
         int location;
         if (fscanf(f, "%d", &location) != 1) {
@@ -580,29 +595,26 @@ static int LoadItems(FILE *f, int loud)
             return 0;
         }
         Items[ct].Location = (unsigned char)location;
-        if (loud)
-            debug_print("Location of item %d: %d\n", ct, Items[ct].Location);
+        LoadTrace("Location of item %d: %d\n", ct, Items[ct].Location);
         Items[ct].InitialLoc = Items[ct].Location;
     }
     return 1;
 }
 
 /* Read the version and adventure number trailer */
-static int LoadTrailer(FILE *f, int loud)
+static int LoadTrailer(FILE *f)
 {
     int val;
     if (fscanf(f, "%d", &val) != 1) {
         debug_print("Cannot read version\n");
         return 0;
     }
-    if (loud)
-        debug_print("Version %d.%02d of Adventure ", val / 100, val % 100);
+    LoadTrace("Version %d.%02d of Adventure ", val / 100, val % 100);
     if (fscanf(f, "%d", &val) != 1) {
         debug_print("Cannot read adventure number\n");
         return 0;
     }
-    if (loud)
-        debug_print("%d.\nLoad Complete.\n\n", val);
+    LoadTrace("%d.\nLoad Complete.\n\n", val);
     return 1;
 }
 
@@ -611,36 +623,37 @@ static int LoadTrailer(FILE *f, int loud)
    Reads the header, actions, word pairs (verb/noun dictionary), rooms
    with exits, messages, items with locations, then the version/adventure
    number trailer. Returns SCOTTFREE on success, HULK_US if the DOS Hulk
-   images are found, or UNKNOWN_GAME on parse failure.
+   images are found, or UNKNOWN_GAME on parse failure. The caller
+   closes f.
 
    The file format is the standard Scott Adams plain-text format as
    used by the original IBM PC releases, the ScottKit toolkit,
    and compatible tools. */
-GameIDType LoadDatabase(FILE *f, int loud)
+GameIDType LoadDatabase(FILE *f)
 {
-    if (!LoadHeader(f, loud))
+    if (!LoadHeader(f))
         return UNKNOWN_GAME;
     LightRefill = GameHeader.LightTime;
     AllocateGameData();
 
-    if (loud)
+    if (Options & DEBUGGING)
         PrintHeaderInfo(NULL, &GameHeader);
 
-    int ok = LoadActions(f, loud);
+    int ok = LoadActions(f);
     if (ok) {
-        LoadWords(f, loud);
-        ok = LoadRooms(f, loud);
+        LoadWords(f);
+        ok = LoadRooms(f);
     }
     if (ok) {
-        LoadMessages(f, loud);
-        ok = LoadItems(f, loud);
+        LoadMessages(f);
+        ok = LoadItems(f);
     }
     if (ok) {
         /* Discard action comment strings (one per action, used only by
            the original authoring tools for documentation) */
         for (int ct = 0; ct <= GameHeader.NumActions; ct++)
             free(ReadString(f));
-        ok = LoadTrailer(f, loud);
+        ok = LoadTrailer(f);
     }
     if (!ok) {
         FreeDatabase();
@@ -654,7 +667,6 @@ GameIDType LoadDatabase(FILE *f, int loud)
         extra = 0;
     }
 
-    fclose(f);
     if (extra == HULK_DOS_ID && LoadDOSImages()) {
         CurrentSys = SYS_MSDOS;
         ImageWidth = HULK_DOS_WIDTH;
