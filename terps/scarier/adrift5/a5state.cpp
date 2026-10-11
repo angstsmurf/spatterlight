@@ -163,6 +163,171 @@ resolve_carrier (const a5_state_t *st, const char *k)
   return (k != nullptr && streq (k, "%Player%")) ? st->player_key : k;
 }
 
+/* Decode the current player key for a5state_new.  */
+static void
+state_decode_player (a5_state_t *st, const a5_adventure_t *adv)
+{
+  int i;
+
+  /* The current player: the character whose Type is "Player" (clsAdventure.Player
+     getter).  Its key is the literal "Player" in every corpus game, but decode it
+     dynamically so a game that renames the player character still works, and so a
+     later ToSwitchWith (BECOME) can retarget it. */
+  st->player_key = "Player";
+  for (i = 0; i < adv->n_characters; i++)
+    if (streq (adv->characters[i].type, "Player"))
+      { st->player_key = adv->characters[i].key; break; }
+  /* clsAdventure.Player getter fallback: a game with no Player-typed
+     character promotes the FIRST character in the table to player (ECOD3D
+     defines only the NonPlayer "Steve", who becomes the viewpoint). */
+  if (i == adv->n_characters && adv->n_characters > 0)
+    st->player_key = adv->characters[0].key;
+}
+
+/* Decode one character's starting location and position for a5state_new.  */
+static void
+state_place_character (a5_state_t *st, const a5_adventure_t *adv, int i)
+{
+  const a5_character_t *c = &adv->characters[i];
+  const char *cl = chr_prop (c, "CharacterLocation");
+  const char *pos = chr_prop (c, "CharacterPosition");
+  /* clsCharacterLocation.ExistWhere / Key decode.  "At Location" stores
+     the location in char_loc; "On Object"/"In Object" store the carrier
+     object in char_onobj (char_in distinguishes inside vs on the surface)
+     and leave char_loc NULL -- the effective location is resolved through
+     the object (a5state_character_at_location).  "On Character"/"In
+     Character" store the carrier character in char_onchar (Edith rides
+     the Player: CharacterLocation "On Character", CharOnWho Player) and
+     the effective location resolves through the carrier
+     (a5state_character_location_key).  "Hidden" stays NULL. */
+  if (cl == nullptr || streq (cl, "At Location"))
+    st->char_loc[i] = chr_prop (c, "CharacterAtLocation");
+  else if (streq (cl, "On Object"))
+    st->char_onobj[i] = chr_prop (c, "CharOnWhat");
+  else if (streq (cl, "In Object"))
+    { st->char_onobj[i] = chr_prop (c, "CharInsideWhat");
+      st->char_in[i] = 1; }
+  else if (streq (cl, "On Character"))
+    st->char_onchar[i] = resolve_carrier (st, chr_prop (c, "CharOnWho"));
+  else if (streq (cl, "In Character"))
+    st->char_onchar[i] = resolve_carrier (st, chr_prop (c, "CharInsideWho"));
+  st->char_position[i] = strdup (pos ? pos : "Standing");
+}
+
+/* Give the player a starting room when the model leaves it without one.  */
+static void
+state_rehome_player (a5_state_t *st, const a5_adventure_t *adv)
+{
+  /* FileIO.vb:851-862: after load, if the Player's location is Hidden or has
+     an empty key (some modules leave CharacterAtLocation blank), move the
+     player to the FIRST location in the adventure.  Only the player is
+     re-homed; other characters may legitimately start Hidden. */
+  int pi = a5state_character_index (st, st->player_key);
+  if (pi >= 0 && adv->n_locations > 0
+      && st->char_onobj[pi] == nullptr
+      && (st->char_loc[pi] == nullptr || st->char_loc[pi][0] == '\0'))
+    st->char_loc[pi] = adv->locations[0].key;
+  /* A player who STARTS on/in furniture (JACD's Timmy lying on Bed1:
+     CharacterLocation "On Object") has char_loc NULL here; the runtime
+     ToStandingOn/ToSittingOn path keeps char_loc synced to the
+     furniture's room (the runner derives clsCharacterLocation.LocationKey from
+     the object), so establish the same invariant at load. */
+  if (pi >= 0 && st->char_loc[pi] == nullptr
+      && st->char_onobj[pi] != nullptr)
+    {
+      int li;
+      for (li = 0; li < adv->n_locations; li++)
+        if (a5state_object_key_at_location (st, st->char_onobj[pi],
+                                            adv->locations[li].key, 0))
+          { st->char_loc[pi] = adv->locations[li].key; break; }
+    }
+}
+
+/* Allocate and fill the per-character state for a5state_new.  */
+static void
+state_init_characters (a5_state_t *st, const a5_adventure_t *adv)
+{
+  int i;
+
+  st->char_loc = (const char **) calloc ((size_t) adv->n_characters,
+                                         sizeof *st->char_loc);
+  st->char_position = (char **) calloc ((size_t) adv->n_characters,
+                                        sizeof *st->char_position);
+  st->char_onobj = (const char **) calloc ((size_t) adv->n_characters,
+                                           sizeof *st->char_onobj);
+  st->char_onchar = (const char **) calloc ((size_t) adv->n_characters,
+                                            sizeof *st->char_onchar);
+  st->char_in = (char *) calloc ((size_t) adv->n_characters, 1);
+  for (i = 0; i < adv->n_characters; i++)
+    state_place_character (st, adv, i);
+  state_rehome_player (st, adv);
+  st->char_seen = (char *) calloc ((size_t) adv->n_characters, 1);
+  st->char_introduced = (char *) calloc ((size_t) adv->n_characters, 1);
+  st->obj_seen = (char *) calloc ((size_t) adv->n_objects, 1);
+  /* Per-character stash for the BECOME viewpoint switch (see a5state.h).
+     The active arrays above belong to the starting player. */
+  st->seen_stash_obj  = (char **) calloc ((size_t) adv->n_characters, sizeof (char *));
+  st->seen_stash_char = (char **) calloc ((size_t) adv->n_characters, sizeof (char *));
+  st->seen_stash_loc  = (char **) calloc ((size_t) adv->n_characters, sizeof (char *));
+}
+
+/* Set one variable's initial value for a5state_new.  */
+static void
+state_init_variable (a5_state_t *st, const a5_adventure_t *adv, int i)
+{
+  const a5_variable_t *v = &adv->variables[i];
+  if (streq (v->type, "Text"))
+    st->var_text[i] = v->initial ? strdup (v->initial) : strdup ("");
+  else if (v->array_length > 1)
+    {
+      /* A Numeric array (FileIO.vb:1944): a comma-separated
+         InitialValue fills elements 1..n via SafeInt; a plain value
+         is copied into EVERY element. */
+      int n = v->array_length, e;
+      st->var_arr[i] = (long *) calloc ((size_t) n, sizeof (long));
+      if (st->var_arr[i] == nullptr)
+        {
+          /* Out of memory: degrade to a scalar (every accessor
+             treats a NULL var_arr[i] as one) rather than write
+             through NULL. */
+          st->var_num[i] = v->initial ? strtol (v->initial, nullptr, 10) : 0;
+          return;
+        }
+      if (v->initial != nullptr && strchr (v->initial, ',') != nullptr)
+        {
+          const char *p = v->initial;
+          for (e = 0; e < n && p != nullptr; e++)
+            {
+              st->var_arr[i][e] = strtol (p, nullptr, 10);
+              p = strchr (p, ',');
+              if (p != nullptr) p++;
+            }
+        }
+      else
+        {
+          long val = v->initial ? strtol (v->initial, nullptr, 10) : 0;
+          for (e = 0; e < n; e++)
+            st->var_arr[i][e] = val;
+        }
+      st->var_num[i] = st->var_arr[i][0];   /* element-1 mirror */
+    }
+  else
+    st->var_num[i] = v->initial ? strtol (v->initial, nullptr, 10) : 0;
+}
+
+/* Allocate and fill the variable state for a5state_new.  */
+static void
+state_init_variables (a5_state_t *st, const a5_adventure_t *adv)
+{
+  int i;
+
+  st->var_num = (long *) calloc ((size_t) adv->n_variables, sizeof *st->var_num);
+  st->var_text = (char **) calloc ((size_t) adv->n_variables, sizeof *st->var_text);
+  st->var_arr = (long **) calloc ((size_t) adv->n_variables, sizeof *st->var_arr);
+  for (i = 0; i < adv->n_variables; i++)
+    state_init_variable (st, adv, i);
+}
+
 /* ------------------------------------------------------------------- public */
 
 a5_state_t *
@@ -178,19 +343,7 @@ a5state_new (const a5_adventure_t *adv)
     return nullptr;
   st->adv = adv;
 
-  /* The current player: the character whose Type is "Player" (clsAdventure.Player
-     getter).  Its key is the literal "Player" in every corpus game, but decode it
-     dynamically so a game that renames the player character still works, and so a
-     later ToSwitchWith (BECOME) can retarget it. */
-  st->player_key = "Player";
-  for (i = 0; i < adv->n_characters; i++)
-    if (streq (adv->characters[i].type, "Player"))
-      { st->player_key = adv->characters[i].key; break; }
-  /* clsAdventure.Player getter fallback: a game with no Player-typed
-     character promotes the FIRST character in the table to player (ECOD3D
-     defines only the NonPlayer "Steve", who becomes the viewpoint). */
-  if (i == adv->n_characters && adv->n_characters > 0)
-    st->player_key = adv->characters[0].key;
+  state_decode_player (st, adv);
 
   if (adv->n_objects > 0)
     {
@@ -200,77 +353,7 @@ a5state_new (const a5_adventure_t *adv)
     }
 
   if (adv->n_characters > 0)
-    {
-      st->char_loc = (const char **) calloc ((size_t) adv->n_characters,
-                                             sizeof *st->char_loc);
-      st->char_position = (char **) calloc ((size_t) adv->n_characters,
-                                            sizeof *st->char_position);
-      st->char_onobj = (const char **) calloc ((size_t) adv->n_characters,
-                                               sizeof *st->char_onobj);
-      st->char_onchar = (const char **) calloc ((size_t) adv->n_characters,
-                                                sizeof *st->char_onchar);
-      st->char_in = (char *) calloc ((size_t) adv->n_characters, 1);
-      for (i = 0; i < adv->n_characters; i++)
-        {
-          const a5_character_t *c = &adv->characters[i];
-          const char *cl = chr_prop (c, "CharacterLocation");
-          const char *pos = chr_prop (c, "CharacterPosition");
-          /* clsCharacterLocation.ExistWhere / Key decode.  "At Location" stores
-             the location in char_loc; "On Object"/"In Object" store the carrier
-             object in char_onobj (char_in distinguishes inside vs on the surface)
-             and leave char_loc NULL -- the effective location is resolved through
-             the object (a5state_character_at_location).  "On Character"/"In
-             Character" store the carrier character in char_onchar (Edith rides
-             the Player: CharacterLocation "On Character", CharOnWho Player) and
-             the effective location resolves through the carrier
-             (a5state_character_location_key).  "Hidden" stays NULL. */
-          if (cl == nullptr || streq (cl, "At Location"))
-            st->char_loc[i] = chr_prop (c, "CharacterAtLocation");
-          else if (streq (cl, "On Object"))
-            st->char_onobj[i] = chr_prop (c, "CharOnWhat");
-          else if (streq (cl, "In Object"))
-            { st->char_onobj[i] = chr_prop (c, "CharInsideWhat");
-              st->char_in[i] = 1; }
-          else if (streq (cl, "On Character"))
-            st->char_onchar[i] = resolve_carrier (st, chr_prop (c, "CharOnWho"));
-          else if (streq (cl, "In Character"))
-            st->char_onchar[i] = resolve_carrier (st, chr_prop (c, "CharInsideWho"));
-          st->char_position[i] = strdup (pos ? pos : "Standing");
-        }
-      /* FileIO.vb:851-862: after load, if the Player's location is Hidden or has
-         an empty key (some modules leave CharacterAtLocation blank), move the
-         player to the FIRST location in the adventure.  Only the player is
-         re-homed; other characters may legitimately start Hidden. */
-      {
-        int pi = a5state_character_index (st, st->player_key);
-        if (pi >= 0 && adv->n_locations > 0
-            && st->char_onobj[pi] == nullptr
-            && (st->char_loc[pi] == nullptr || st->char_loc[pi][0] == '\0'))
-          st->char_loc[pi] = adv->locations[0].key;
-        /* A player who STARTS on/in furniture (JACD's Timmy lying on Bed1:
-           CharacterLocation "On Object") has char_loc NULL here; the runtime
-           ToStandingOn/ToSittingOn path keeps char_loc synced to the
-           furniture's room (the runner derives clsCharacterLocation.LocationKey from
-           the object), so establish the same invariant at load. */
-        if (pi >= 0 && st->char_loc[pi] == nullptr
-            && st->char_onobj[pi] != nullptr)
-          {
-            int li;
-            for (li = 0; li < adv->n_locations; li++)
-              if (a5state_object_key_at_location (st, st->char_onobj[pi],
-                                                  adv->locations[li].key, 0))
-                { st->char_loc[pi] = adv->locations[li].key; break; }
-          }
-      }
-      st->char_seen = (char *) calloc ((size_t) adv->n_characters, 1);
-      st->char_introduced = (char *) calloc ((size_t) adv->n_characters, 1);
-      st->obj_seen = (char *) calloc ((size_t) adv->n_objects, 1);
-      /* Per-character stash for the BECOME viewpoint switch (see a5state.h).
-         The active arrays above belong to the starting player. */
-      st->seen_stash_obj  = (char **) calloc ((size_t) adv->n_characters, sizeof (char *));
-      st->seen_stash_char = (char **) calloc ((size_t) adv->n_characters, sizeof (char *));
-      st->seen_stash_loc  = (char **) calloc ((size_t) adv->n_characters, sizeof (char *));
-    }
+    state_init_characters (st, adv);
   st->seen_active_ci = a5state_character_index (st, st->player_key);
 
   if (adv->n_locations > 0)
@@ -294,52 +377,7 @@ a5state_new (const a5_adventure_t *adv)
   st->s_her = strdup ("");
 
   if (adv->n_variables > 0)
-    {
-      st->var_num = (long *) calloc ((size_t) adv->n_variables, sizeof *st->var_num);
-      st->var_text = (char **) calloc ((size_t) adv->n_variables, sizeof *st->var_text);
-      st->var_arr = (long **) calloc ((size_t) adv->n_variables, sizeof *st->var_arr);
-      for (i = 0; i < adv->n_variables; i++)
-        {
-          const a5_variable_t *v = &adv->variables[i];
-          if (streq (v->type, "Text"))
-            st->var_text[i] = v->initial ? strdup (v->initial) : strdup ("");
-          else if (v->array_length > 1)
-            {
-              /* A Numeric array (FileIO.vb:1944): a comma-separated
-                 InitialValue fills elements 1..n via SafeInt; a plain value
-                 is copied into EVERY element. */
-              int n = v->array_length, e;
-              st->var_arr[i] = (long *) calloc ((size_t) n, sizeof (long));
-              if (st->var_arr[i] == nullptr)
-                {
-                  /* Out of memory: degrade to a scalar (every accessor
-                     treats a NULL var_arr[i] as one) rather than write
-                     through NULL. */
-                  st->var_num[i] = v->initial ? strtol (v->initial, nullptr, 10) : 0;
-                  continue;
-                }
-              if (v->initial != nullptr && strchr (v->initial, ',') != nullptr)
-                {
-                  const char *p = v->initial;
-                  for (e = 0; e < n && p != nullptr; e++)
-                    {
-                      st->var_arr[i][e] = strtol (p, nullptr, 10);
-                      p = strchr (p, ',');
-                      if (p != nullptr) p++;
-                    }
-                }
-              else
-                {
-                  long val = v->initial ? strtol (v->initial, nullptr, 10) : 0;
-                  for (e = 0; e < n; e++)
-                    st->var_arr[i][e] = val;
-                }
-              st->var_num[i] = st->var_arr[i][0];   /* element-1 mirror */
-            }
-          else
-            st->var_num[i] = v->initial ? strtol (v->initial, nullptr, 10) : 0;
-        }
-    }
+    state_init_variables (st, adv);
 
   if (adv->n_tasks > 0)
     {

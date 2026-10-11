@@ -131,7 +131,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~206~~ | ~~`lib_use_room_alt`~~ | done 2026-10-11, see below |
 | ~~204~~ | ~~`lib_definite_object_name`~~ | done 2026-10-11, see below |
 | ~~201~~ | ~~`os_print_tag`~~ | done 2026-10-11, see below |
-| 201 | `a5state_new` | `adrift5/a5state.cpp` |
+| ~~201~~ | ~~`a5state_new`~~ | done 2026-10-11, see below |
 
 The table opened with 16 of the 33; the two Glk `main`s went under 1.4,
 and the 15 rows from `run_lenient_census` down were added on 2026-10-11
@@ -379,9 +379,9 @@ Per the project's own verification recipe:
    `ser_save_game_body`, `sm_set_grid`, `scmap_build`,
    `save_scarier_body`, `lib_take_and_pre400`,
    `lib_cmd_locate_object`, `a5text_render_plain`,
-   `lib_use_room_alt`, `lib_definite_object_name` and `os_print_tag`,
-   the first fourteen of the 15 rows added on 2026-10-11; one row
-   remains, `a5state_new`.
+   `lib_use_room_alt`, `lib_definite_object_name`, `os_print_tag` and
+   `a5state_new`, all 15 rows added on 2026-10-11; the table is
+   complete.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1598,3 +1598,24 @@ them):
   rows run the silent-replay path through the moved `return`.  Lines
   over 80 columns in the file: 4 before, 3 after.
 - Next in the table: `a5state_new` (adrift5/a5state.cpp), the last row.
+
+## 3: a5state_new split (2026-10-11)
+
+- **`a5state_new`** (201 l.) in `adrift5/a5state.cpp` is now a 76-line
+  driver over six static helpers defined just above it:
+  `state_decode_player`, `state_init_characters` (the allocations,
+  calling `state_place_character (st, adv, i)` per character and then
+  `state_rehome_player`), and `state_init_variables` calling
+  `state_init_variable (st, adv, i)` per variable.  The object,
+  location, pronoun, task, group and prev-stamp sections are short and
+  stay inline.  Bodies are code motion with their comments, dedented;
+  the one changed line is the out-of-memory array fallback, a
+  `continue` in the variable loop that is now a `return` from
+  `state_init_variable`.  The `n_characters > 0` / `n_variables > 0`
+  guards stay in the driver.
+- Verification: line-multiset diff shows only scaffolding;
+  `-Wall -Wextra -Wshadow` syntax check silent; full headless suite
+  identical to the baseline; `make -j8 scarier glkscarier`
+  warning-free; `sanitize` clean; `run_autosave_tests.py --build` all
+  passed.  Lines over 80 columns in the file: 57 before, 50 after.
+- This was the last row: the section 3 table is fully struck.
