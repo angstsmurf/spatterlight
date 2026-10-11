@@ -131,34 +131,12 @@ string question_implementation::bad_arg_count (const string &fname)
   return "";
 }
 
-string question_implementation::run_function (const string &pname)
+/* The built-in functions that ask about the game: its objects, rooms, timers
+ * and arrays, and the script that is running.  `found' says whether pname was
+ * one of them; the result means nothing when it was not. */
+string question_implementation::game_function (const string &pname, bool &found)
 {
-  QUESTION_DBG << "question_implementation::run_function (" << pname << ", " << function_args << ")\n";
-  /* Built-in function names are case-sensitive, as in Quest: DoInternalFunction
-   * compares each name with == on the un-lowercased string (V4Game.cs:6862 ff.),
-   * so $UCase(...)$ is "No such function" there and here.  (Question is laxer than
-   * Quest for *user-defined* names below -- Quest's block dictionary is
-   * case-sensitive (DefineBlockParam, V4Game.cs:1195-1233), Question matches them
-   * with ci_equal.) */
-  /* A `define function' block wins over a built-in of the same name: DoFunction
-   * looks the name up as a block first and only tries DoInternalFunction when
-   * there is none (V4Game.cs:6760-6772).  "Sim Political Career" defines its own
-   * truncating `round'; Quest 4 has no built-in of that name, and the one
-   * Question used to carry shadowed it. */
-  string rv = "";
-  for (uint i = 0; i < gf.size ("function"); i ++)
-    if (ci_equal (gf.block ("function", i).name, pname))
-      {
-	const QuestionBlock &proc = gf.block ("function", i);
-	QUESTION_DBG << "Running function " << proc << endl;
-	for (uint j = 0; j < proc.data.size(); j ++)
-	  {
-	    QUESTION_DBG << "  Running line #" << j << ": " << proc.data[j] << endl;
-	    run_script(proc.data[j], rv);
-	  }
-	return rv;
-      }
-
+  found = true;
   if (pname == "getobjectname")
     {
       if (function_args.size() == 0)
@@ -277,7 +255,75 @@ string question_implementation::run_function (const string &pname)
 	return "";
       return displayed_name (function_args[0]);
     }
-  else if (pname == "capfirst")
+  else if (pname == "ubound")
+    {
+      if (function_args.size() != 1)
+	return bad_arg_count(pname);
+
+      /* Highest defined index of an array variable (string or numeric).
+       * Records carry index 0 plus every set index, so max() == size()-1. */
+      size_t n;
+      if (find_svar (function_args[0], n))
+	return string_int (state.svars[n].max());
+      if (find_ivar (function_args[0], n))
+	return string_int (state.ivars[n].max());
+      return "0";
+    }
+  else if (pname == "speechenabled")
+    {
+      if (function_args.size() != 0)
+	return bad_arg_count(pname);
+
+      /* Deliberately 0 where QuestViva hardcodes "1" (V4Game.cs:7189):
+       * QuestionInterface::speak is r_not_supported in every host, so a game
+       * branching on this would route its text into a no-op. */
+      return "0";
+    }
+  else if (pname == "numberparameters")
+    return string_int (function_args.size());
+  /* "thisobject" and "objectname" are the same thing -- the calling object's
+   * real name -- and "thisobjectname" is its alias (V4Game.cs:7175-7183),
+   * which Quest fills in with the name itself for an object that has none,
+   * so it is displayed_name here. */
+  else if (pname == "thisobject" || pname == "objectname")
+    return this_object;
+  else if (pname == "thisobjectname")
+    return displayed_name (this_object);
+  else if (pname == "timerinterval")
+    {
+      if (function_args.size() != 1)
+	return bad_arg_count(pname);
+
+      /* Timer names CI and the miss value "!", as in timerstate above; the
+       * leading space is VB's Str() and is Quest's too -- "ubound" trims its
+       * result and this one does not (V4Game.cs:7118-7130). */
+      for (const auto &timer: state.timers)
+	if (ci_equal (timer.name, function_args[0]))
+	  return " " + string_int (timer.interval);
+      gi->debug_print ("No such timer '" + function_args[0] + "'");
+      return "!";
+    }
+  /* An exit *object*, which is a 4.10 notion Question has no model for: its exits
+   * are still the direction properties of a room.  Quest hands back the exit's
+   * object name, or "" when there is none (V4Game.cs:7196-7205); "" is the
+   * closer of the two answers to give, and below 4.10 the name is not a
+   * function at all and falls through to the [ERROR] below. */
+  else if (pname == "findexit" && asl_version_ >= 410)
+    {
+      gi->debug_print ("findexit is not supported");
+      return "";
+    }
+
+  found = false;
+  return "";
+}
+
+/* The built-in functions that work on their arguments alone: strings, and
+ * $rand$ and $symbol$.  `found' as for game_function. */
+string question_implementation::text_function (const string &pname, bool &found)
+{
+  found = true;
+  if (pname == "capfirst")
     {
       if (function_args.size() != 1)
 	return bad_arg_count(pname);
@@ -371,20 +417,6 @@ string question_implementation::run_function (const string &pname)
 	return function_args[0];
       return function_args[0].substr (function_args[0].length() - size);
     }
-  else if (pname == "ubound")
-    {
-      if (function_args.size() != 1)
-	return bad_arg_count(pname);
-
-      /* Highest defined index of an array variable (string or numeric).
-       * Records carry index 0 plus every set index, so max() == size()-1. */
-      size_t n;
-      if (find_svar (function_args[0], n))
-	return string_int (state.svars[n].max());
-      if (find_ivar (function_args[0], n))
-	return string_int (state.ivars[n].max());
-      return "0";
-    }
   else if (pname == "ucase")
     {
       if (function_args.size() != 1)
@@ -421,16 +453,6 @@ string question_implementation::run_function (const string &pname)
        * the classic low-bits worry does not apply. */
       return string_int (lower + (long long) (erkyrath_random() % range));
     }
-  else if (pname == "speechenabled")
-    {
-      if (function_args.size() != 0)
-	return bad_arg_count(pname);
-
-      /* Deliberately 0 where QuestViva hardcodes "1" (V4Game.cs:7189):
-       * QuestionInterface::speak is r_not_supported in every host, so a game
-       * branching on this would route its text into a no-op. */
-      return "0";
-    }
   else if (pname == "symbol")
     {
       if (function_args.size() != 1)
@@ -443,30 +465,6 @@ string question_implementation::run_function (const string &pname)
       gi->debug_print ("Bad symbol argument: " + function_args[0]);
       return "";
     }
-  else if (pname == "numberparameters")
-    return string_int (function_args.size());
-  /* "thisobject" and "objectname" are the same thing -- the calling object's
-   * real name -- and "thisobjectname" is its alias (V4Game.cs:7175-7183),
-   * which Quest fills in with the name itself for an object that has none,
-   * so it is displayed_name here. */
-  else if (pname == "thisobject" || pname == "objectname")
-    return this_object;
-  else if (pname == "thisobjectname")
-    return displayed_name (this_object);
-  else if (pname == "timerinterval")
-    {
-      if (function_args.size() != 1)
-	return bad_arg_count(pname);
-
-      /* Timer names CI and the miss value "!", as in timerstate above; the
-       * leading space is VB's Str() and is Quest's too -- "ubound" trims its
-       * result and this one does not (V4Game.cs:7118-7130). */
-      for (const auto &timer: state.timers)
-	if (ci_equal (timer.name, function_args[0]))
-	  return " " + string_int (timer.interval);
-      gi->debug_print ("No such timer '" + function_args[0] + "'");
-      return "!";
-    }
   else if (pname == "removeformatting")
     {
       if (function_args.size() != 1)
@@ -474,16 +472,45 @@ string question_implementation::run_function (const string &pname)
 
       return remove_formatting (function_args[0]);
     }
-  /* An exit *object*, which is a 4.10 notion Question has no model for: its exits
-   * are still the direction properties of a room.  Quest hands back the exit's
-   * object name, or "" when there is none (V4Game.cs:7196-7205); "" is the
-   * closer of the two answers to give, and below 4.10 the name is not a
-   * function at all and falls through to the [ERROR] below. */
-  else if (pname == "findexit" && asl_version_ >= 410)
-    {
-      gi->debug_print ("findexit is not supported");
-      return "";
-    }
+
+  found = false;
+  return "";
+}
+
+string question_implementation::run_function (const string &pname)
+{
+  QUESTION_DBG << "question_implementation::run_function (" << pname << ", " << function_args << ")\n";
+  /* Built-in function names are case-sensitive, as in Quest: DoInternalFunction
+   * compares each name with == on the un-lowercased string (V4Game.cs:6862 ff.),
+   * so $UCase(...)$ is "No such function" there and here.  (Question is laxer than
+   * Quest for *user-defined* names below -- Quest's block dictionary is
+   * case-sensitive (DefineBlockParam, V4Game.cs:1195-1233), Question matches them
+   * with ci_equal.) */
+  /* A `define function' block wins over a built-in of the same name: DoFunction
+   * looks the name up as a block first and only tries DoInternalFunction when
+   * there is none (V4Game.cs:6760-6772).  "Sim Political Career" defines its own
+   * truncating `round'; Quest 4 has no built-in of that name, and the one
+   * Question used to carry shadowed it. */
+  string rv = "";
+  for (uint i = 0; i < gf.size ("function"); i ++)
+    if (ci_equal (gf.block ("function", i).name, pname))
+      {
+	const QuestionBlock &proc = gf.block ("function", i);
+	QUESTION_DBG << "Running function " << proc << endl;
+	for (uint j = 0; j < proc.data.size(); j ++)
+	  {
+	    QUESTION_DBG << "  Running line #" << j << ": " << proc.data[j] << endl;
+	    run_script(proc.data[j], rv);
+	  }
+	return rv;
+      }
+
+  bool found;
+  rv = game_function (pname, found);
+  if (!found)
+    rv = text_function (pname, found);
+  if (found)
+    return rv;
 
   /* disconnectedby, id, name */
 

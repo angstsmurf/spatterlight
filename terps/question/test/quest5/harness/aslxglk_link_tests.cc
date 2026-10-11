@@ -30,8 +30,13 @@
   link sending the element NAME instead of its alias, then an object link not
   rendering as a link at all), hence these direct calls.
 
-  link_action lives in aslxglk.cc's anonymous namespace, so this TU includes
-  the frontend whole (the engine and the map pane are linked in as objects, as
+  It has since become the home for other frontend pieces that need the same
+  build and no game: the bundled-js scanner, the character form, and the
+  autosave record the two frontends share.
+
+  link_action is private to the frontend (namespace aslxglk, declared in
+  aslxglk-internal.hh), so this TU includes that header, is built with the
+  frontend's sources (the engine and the map pane are linked in as objects, as
   for aslxglk_smoke) and supplies the Glk entry points CheapGlk's main()
   expects.
 
@@ -42,7 +47,9 @@
 #include <iostream>
 #include <string>
 
-#include "../../../quest5/aslxglk.cc"
+#include "../../../quest5/aslxglk-internal.hh"
+
+using namespace aslxglk;
 
 extern "C" {
 #include "glkstart.h"
@@ -394,6 +401,51 @@ void test_status_panel()
     g_form_pending = false;
 }
 
+/* The record both engines write to autosave.glksave (questglk-common).  The
+ * autosave suite exercises it through the app build; this is the format on
+ * its own. */
+void test_autosave_record()
+{
+    questglk::AutosaveRecord rec, back;
+    rec.state = std::string("state\nwith a newline and a \0 byte", 33);
+    rec.undo = "undo";
+    std::string data = questglk::encode_autosave_record(rec);
+    check(questglk::decode_autosave_record(data, &back) &&
+          back.state == rec.state && back.undo == "undo" && !back.replay &&
+          !back.boot_replay(), "a prompt autosave round-trips, bytes intact");
+
+    rec.replay = true;
+    rec.command = "take all";
+    rec.answers = {"k2", "", "itext\nmore"};
+    data = questglk::encode_autosave_record(rec);
+    check(questglk::decode_autosave_record(data, &back) && back.replay &&
+          back.command == "take all" && back.answers == rec.answers &&
+          !back.boot_replay(), "a replay record keeps command and answers");
+
+    questglk::AutosaveRecord boot;
+    boot.replay = true;
+    boot.answers = {"y"};
+    check(questglk::decode_autosave_record(
+              questglk::encode_autosave_record(boot), &back) &&
+          back.boot_replay() && back.answers.size() == 1,
+          "no state plus a replay is a boot replay");
+
+    check(!questglk::decode_autosave_record(data.substr(0, data.size() - 3),
+                                            &back),
+          "a truncated record is refused");
+    check(!questglk::decode_autosave_record(data + "x\n", &back),
+          "trailing bytes are refused");
+    check(!questglk::decode_autosave_record(
+              questglk::encode_autosave_record(questglk::AutosaveRecord()),
+              &back), "a record with nothing to restore is refused");
+    /* What the two engines wrote before they shared a format. */
+    check(!questglk::decode_autosave_record("GEASAUTO1\n5\nstate0\n\n", &back),
+          "the old Quest 4 container is refused");
+    check(!questglk::decode_autosave_record("ASLXGLK-BOOT\n", &back) &&
+          !questglk::decode_autosave_record("", &back),
+          "a bare engine state is refused");
+}
+
 }  /* namespace */
 
 void glk_main(void)
@@ -416,6 +468,9 @@ void glk_main(void)
     test_form_rules();
     test_form_layout();
     test_status_panel();
+
+    std::cout << "autosave record:\n";
+    test_autosave_record();
 
     std::cout << (failures ? "FAILED" : "all passed") << " (" << failures
               << " failure" << (failures == 1 ? "" : "s") << ")\n";

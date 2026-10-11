@@ -20,6 +20,8 @@
  * from the HTML the game sends (see aslxglk-form.hh). */
 
 #include "aslxglk-form.hh"
+#include "aslx-runtime.hh"
+#include "../qstr.hh"
 
 #include <algorithm>
 #include <cctype>
@@ -29,21 +31,11 @@ namespace aslxform {
 
 namespace {
 
-std::string trim_ws(const std::string &s)
-{
-    size_t b = 0, e = s.size();
-    while (b < e && isspace((unsigned char) s[b]))
-        b++;
-    while (e > b && isspace((unsigned char) s[e - 1]))
-        e--;
-    return s.substr(b, e - b);
-}
-
 /* Trimmed, with every run of whitespace reduced to one space. */
 std::string squeeze(const std::string &s)
 {
     std::string out;
-    for (char c : trim_ws(s)) {
+    for (char c : qstr::trim(s)) {
         if (isspace((unsigned char) c)) {
             if (!out.empty() && out.back() != ' ')
                 out += ' ';
@@ -107,11 +99,11 @@ size_t find_id(const std::string &html, const std::string &id)
     return std::string::npos;
 }
 
-std::string cap_first(std::string s)
+/* The first character, not the first byte: the same case map the frontend's
+ * pane labels go through (cap_first in aslxglk.cc). */
+std::string cap_first(const std::string &s)
 {
-    if (!s.empty())
-        s[0] = (char) toupper((unsigned char) s[0]);
-    return s;
+    return aslx::utf8_case(s, true, true);
 }
 
 size_t cp_len(const std::string &s)
@@ -165,7 +157,7 @@ void CharacterForm::set_name(const std::string &typed)
         if (c != '|' && c != '<' && c != '>' && c != '&' &&
             (unsigned char) c >= ' ')
             clean += c;
-    clean = cp_prefix(trim_ws(clean), kFormNameMax);
+    clean = cp_prefix(qstr::trim(clean), kFormNameMax);
     if (!clean.empty())
         name = clean;
 }

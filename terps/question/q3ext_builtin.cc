@@ -21,10 +21,9 @@
  *  Source: textadventures/quest, src/Legacy/Libraries/q3ext.qlb (MIT)
  ***************************************************************************/
 
-#ifndef QUESTION_Q3EXT_BUILTIN_HH
-#define QUESTION_Q3EXT_BUILTIN_HH
+#include "builtin_libs.hh"
 
-static const char question_builtin_q3ext[] = R"QUESTIONLIB(
+const char question_builtin_q3ext[] = R"QUESTIONLIB(
 !library
 !deprecated
 !asl-version <300>
@@ -1117,5 +1116,3 @@ end define
 
 ' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 )QUESTIONLIB";
-
-#endif

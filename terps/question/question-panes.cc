@@ -761,7 +761,7 @@ string question_implementation::eval_string_body (const string &s)
 	}
       else if (s[i] == '$')
 	{
-	  std::string::size_type j = s.find ('$', i + 1);
+	  j = s.find ('$', i + 1);
 	  /* Quest applies ConvertParameter once per conversion character, with
 	   * one body for all four, so an unpartnered '$' replaces the whole
 	   * parameter with "<ERROR>" exactly as an unpartnered '#', '%' or '~'

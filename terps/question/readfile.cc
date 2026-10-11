@@ -28,10 +28,7 @@
 #include "reserved_words.hh"
 #include "QuestionRunner.hh"
 #include "general.hh"
-#include "standardlib_builtin.hh"
-#include "stdverbs_builtin.hh"
-#include "typelib_builtin.hh"
-#include "q3ext_builtin.hh"
+#include "builtin_libs.hh"
 
 using namespace std;
 
@@ -247,6 +244,211 @@ static void rewrite_use_give (string &line, const string &verb,
     line = "action <" + verb + "> " + line.substr (t1);
 }
 
+/* read_into: one line of a block's own body (not of a block nested in it),
+ * rewritten into the canonical "properties <..>" / "action <..> .." forms the
+ * rest of Question reads, and appended to out_data -- as several lines, one,
+ * or none. */
+void QuestionFile::read_block_line (string line, const string &blocktype,
+				  const reserved_words &props,
+				  const reserved_words &actions,
+				  vector<string> &out_data)
+{
+  std::string::size_type t1, t2;
+  string tok = first_token (line, t1, t2);
+  std::string::size_type tokend = t2;
+  string rest = next_token (line, t1, t2);
+  bool drop_line = false;
+  /* Quest recognises a keyword with something after it via the
+   * lowercasing BeginsWith ("alias ", "use ", "north ", ...), but a
+   * bare-word line with a raw Trim(line) == "hidden" compare
+   * (InitialiseObject, V4Game.Part2.cs:3242-3376).  So fold the token
+   * whenever the line carries more, and compare it raw when the
+   * keyword is the whole line. */
+  string ltok = (rest == "") ? tok : lcase (tok);
+
+  if (props[ltok] && dir_tag_property[ltok])
+    {
+      /* Store the direction folded: the exit machinery in question-runner
+       * compares these first words against its lowercase names. */
+      out_data.push_back (ltok + line.substr (tokend));
+    }
+
+  /* Quest keeps a bare "open"/"close" line, and one whose whole argument is
+     a plain <message>, as a *property*; only a scripted form ("open msg
+     <...>", "open { ... }") becomes an action.  ExecOpenClose reads that
+     property both to decide whether the container may be opened at all and
+     for the text to print (V4Game.Part2.cs:3470-3503, V4Game.cs:2814).
+     Checked ahead of the generic handling below, where "open"/"close" appear
+     in `actions` and so would become an empty action that opens the
+     container while printing nothing -- or, for the <message> form, a line
+     Question recognises as neither property nor action and drops. */
+  if (actions[ltok] && (ltok == "open" || ltok == "close") &&
+      (rest == "" || is_param (rest)))
+    {
+      line = "properties <" + ltok +
+	(rest == "" ? "" : "=" + param_contents (rest)) + ">";
+    }
+  /* Container listing lines.  Quest keeps the <text> form of `list`,
+     `list empty` and `list closed` as a property of that name and the
+     scripted form as an action; "list empty off"/"list closed off" are the
+     defaults and record nothing, while "list off" records the property
+     "not list" to suppress listing altogether (ProcessListInfo,
+     V4Game.cs:3457-3528, reached from the container branch of the object
+     loader, V4Game.Part2.cs:3542-3546).  Question dropped all of them on the
+     floor -- "list" is in neither the props nor the actions word list, so
+     the raw line fell through to become a *type* property named after the
+     whole line -- which left the "list closed" text unreachable and, worse,
+     made `property <X; list empty>` always false.  Games use that condition
+     to ask "is this container empty?", because Quest's `property` condition
+     only tests whether the property exists (ExecuteIfProperty,
+     V4Game.cs:5991) and a container that is not empty prints its contents
+     instead.  "Shipwrecked" is unwinnable without it: the raft's last piece
+     is `use <crate2>`, guarded by `if property <crate2; list empty>`. */
+  else if (ltok == "list")
+    {
+      string propname = "list";
+      if (ci_equal (rest, "empty") || ci_equal (rest, "closed"))
+	{
+	  propname = "list " + lcase (rest);
+	  rest = next_token (line, t1, t2);
+	}
+      if (ci_equal (rest, "off"))
+	{
+	  if (propname == "list")
+	    line = "properties <not list>";
+	  else
+	    drop_line = true;
+	}
+      else if (is_param (rest))
+	line = "properties <" + propname + "=" + param_contents (rest) + ">";
+      else if (rest == "")
+	drop_line = true;
+      else
+	line = "action <" + propname + "> " + line.substr (t1);
+    }
+  else if (props[tok] && rest == "")
+    {
+      /* tok, not ltok: a bare-word flag line is case-sensitive in
+       * Quest (see the ltok comment above). */
+      line = "properties <" + tok + ">";
+
+      /* Quest's object loader treats the two spellings of "hidden"
+	 differently, and this rewrite is exactly what makes them
+	 indistinguishable afterwards, so record which one we saw while we
+	 still can.  Only a bare "hidden" line raises the loader's local
+	 `hidden' flag (V4Game.Part2.cs:3238-3248); "properties <hidden>"
+	 and a hidden inherited from a type merely add the property
+	 (V4Game.Part2.cs:3378-3381), and when the definition ends the
+	 loader undoes their effect on visibility with
+	 "if (!hidden) o.Exists = true" (V4Game.Part2.cs:3550-3553).  So
+	 only the bare tag hides an object at load time; the property still
+	 hides it if something *writes* it later at runtime
+	 (V4Game.cs:4169-4179).  Revenge of the Shadow Masters depends on
+	 this: its Mug o' Grog is "properties <hidden; ...>" and has to be
+	 on sale in the bar from turn one, and the grog gates the whole
+	 second half of the game.  QuestionState's constructor reads the marker
+	 back; types are excluded because a type's hidden goes through the
+	 property path in Quest too.  */
+      if (tok == "hidden" && blocktype != "type")
+	line = "properties <hidden; !hiddentag>";
+
+      /* A bare "surface" line declares a container as well: Quest's object
+	 loader answers it with two AddToObjectProperties calls, "container"
+	 and then "surface" (V4Game.Part2.cs:3472-3477).  That matters because
+	 ListContents refuses outright anything without the "container"
+	 property (V4Game.cs:3306-3309), so a surface that was only ever
+	 tagged "surface" lists nothing at all -- which is how Barbarian's
+	 Mantle came to swallow the Vase standing on it, and the Wizard's
+	 bar-top the bottle of sludge.  Only the bare line does this: a
+	 "properties <surface>" adds just the one property, and so does a
+	 surface inherited from a type, whose lines Quest folds straight into
+	 a property string (GetPropertiesInType, V4Game.cs:6335-6342).
+	 Below ASL 3.91 the loader's surface branch is empty, so a bare
+	 line records neither property and the whole line goes. */
+      if (tok == "surface" && blocktype != "type")
+	{
+	  if (asl_version >= 391)
+	    line = "properties <surface; container>";
+	  else
+	    drop_line = true;
+	}
+    }
+  else if (props[ltok] && is_param(rest))
+    {
+      /* "tagproperty" is the same thing as "properties" with the
+       * `;`-splitting left out -- see tag_property_splits, and
+       * QuestionFile::ensure_cached, which files it as the one property it
+       * names. */
+      string kw = tag_property_splits (blocktype, ltok, asl_version)
+	? "properties <" : "tagproperty <";
+      line = kw + ltok + "=" + param_contents(rest) + ">";
+    }
+  /* The use/give forms and their on/to/anything sub-keywords are all CI:
+   * AddToUseInfo/AddToGiveInfo read them with BeginsWith
+   * (V4Game.cs:4230-4330). */
+  else if (actions[ltok] &&
+	   (ltok == "use" || ltok == "give" || !is_param(rest)))
+    {
+      /* The partner object's name is trimmed here for the same reason the
+       * `define` header above trims its own.  Quest trims neither: both
+       * ObjectName and UseData().UseObject are raw GetParameter results
+       * (V4Game.Part2.cs:3229, V4Game.cs:4257-4283), so its two spellings
+       * of a padded name agree and the use succeeds.  Question trimmed only
+       * the declaration, so an object written "<Warrior >" was registered
+       * as "Warrior" while its partner's handler was filed under
+       * "use on Warrior " and get_obj_action missed -- Londe Perplex's
+       * Rage lost its whole scripted attack that way.  */
+      if (ltok == "use")
+	rewrite_use_give (line, "use", "on", rest, t1, t2);
+      else if (ltok == "give")
+	rewrite_use_give (line, "give", "to", rest, t1, t2);
+      else
+	{
+	  line = "action <" + ltok + "> " + line.substr (t1);
+	}
+    }
+  //else
+
+  /* Recalculating tok because the line might have been rewritten.  In
+   * the walkthrough corpus a "properties"/"tagproperty" line only ever
+   * turns up here in an object, room, character, type or game block
+   * (59,020 lines, none anywhere else), so the split below needs no
+   * check on the block type. */
+  tok = first_token (line, t1, t2);
+  if (ci_equal (tok, "properties"))
+    {
+      rest = next_token (line, t1, t2);
+      if (is_param (rest))
+	{
+	  vstring items = split_param (param_contents (rest));
+	  for (const auto &i: items)
+	    {
+	      out_data.push_back ("properties <" +
+				  static_eval(i) + ">");
+	    }
+	}
+      else
+	{
+	  out_data.push_back ("ERROR " + line);
+	}
+    }
+  /* One property, semicolons and all -- but otherwise the same line the
+   * split form emits, static_eval included. */
+  else if (ci_equal (tok, "tagproperty"))
+    {
+      rest = next_token (line, t1, t2);
+      if (is_param (rest))
+	out_data.push_back ("tagproperty <" +
+			    static_eval (param_contents (rest)) + ">");
+      else
+	out_data.push_back ("ERROR " + line);
+    }
+  else if (!drop_line)
+    {
+      out_data.push_back(line);
+    }
+}
+
 void QuestionFile::read_into (const vector<string> &in_data,
 			  const string &in_parent, uint cur_line, bool recurse,
 			  const reserved_words &props, 
@@ -296,7 +498,12 @@ void QuestionFile::read_into (const vector<string> &in_data,
     }
   //out_block.lname = lcase (out_block.nname);
 
-  // apparently not all block types are unique ... TODO which?
+  /* Only the block types that name a thing in the game world go into the
+   * "what is <name>?" map; procedures, functions, texts and the rest are
+   * looked up by (type, name) through name_index below.  Names are not unique
+   * even among these: across the walkthrough corpus 30 characters, 27 objects
+   * and one room repeat a name already defined for their type, and
+   * register_block keeps the first. */
   if (blocktype == "room" || blocktype == "object" || blocktype == "game" ||
       blocktype == "character")
     {
@@ -344,198 +551,7 @@ void QuestionFile::read_into (const vector<string> &in_data,
 	}
       else if (depth == 1)
 	{
-	  string tok = first_token (line, t1, t2);
-	  std::string::size_type tokend = t2;
-	  string rest = next_token (line, t1, t2);
-	  bool drop_line = false;
-	  /* Quest recognises a keyword with something after it via the
-	   * lowercasing BeginsWith ("alias ", "use ", "north ", ...), but a
-	   * bare-word line with a raw Trim(line) == "hidden" compare
-	   * (InitialiseObject, V4Game.Part2.cs:3242-3376).  So fold the token
-	   * whenever the line carries more, and compare it raw when the
-	   * keyword is the whole line. */
-	  string ltok = (rest == "") ? tok : lcase (tok);
-
-	  if (props[ltok] && dir_tag_property[ltok])
-	    {
-	      /* Store the direction folded: the exit machinery in question-runner
-	       * compares these first words against its lowercase names. */
-	      out_data.push_back (ltok + line.substr (tokend));
-	    }
-
-	  /* Quest keeps a bare "open"/"close" line, and one whose whole argument is
-	     a plain <message>, as a *property*; only a scripted form ("open msg
-	     <...>", "open { ... }") becomes an action.  ExecOpenClose reads that
-	     property both to decide whether the container may be opened at all and
-	     for the text to print (V4Game.Part2.cs:3470-3503, V4Game.cs:2814).
-	     Checked ahead of the generic handling below, where "open"/"close" appear
-	     in `actions` and so would become an empty action that opens the
-	     container while printing nothing -- or, for the <message> form, a line
-	     Question recognises as neither property nor action and drops. */
-	  if (actions[ltok] && (ltok == "open" || ltok == "close") &&
-	      (rest == "" || is_param (rest)))
-	    {
-	      line = "properties <" + ltok +
-		(rest == "" ? "" : "=" + param_contents (rest)) + ">";
-	    }
-	  /* Container listing lines.  Quest keeps the <text> form of `list`,
-	     `list empty` and `list closed` as a property of that name and the
-	     scripted form as an action; "list empty off"/"list closed off" are the
-	     defaults and record nothing, while "list off" records the property
-	     "not list" to suppress listing altogether (ProcessListInfo,
-	     V4Game.cs:3457-3528, reached from the container branch of the object
-	     loader, V4Game.Part2.cs:3542-3546).  Question dropped all of them on the
-	     floor -- "list" is in neither the props nor the actions word list, so
-	     the raw line fell through to become a *type* property named after the
-	     whole line -- which left the "list closed" text unreachable and, worse,
-	     made `property <X; list empty>` always false.  Games use that condition
-	     to ask "is this container empty?", because Quest's `property` condition
-	     only tests whether the property exists (ExecuteIfProperty,
-	     V4Game.cs:5991) and a container that is not empty prints its contents
-	     instead.  "Shipwrecked" is unwinnable without it: the raft's last piece
-	     is `use <crate2>`, guarded by `if property <crate2; list empty>`. */
-	  else if (ltok == "list")
-	    {
-	      string propname = "list";
-	      if (ci_equal (rest, "empty") || ci_equal (rest, "closed"))
-		{
-		  propname = "list " + lcase (rest);
-		  rest = next_token (line, t1, t2);
-		}
-	      if (ci_equal (rest, "off"))
-		{
-		  if (propname == "list")
-		    line = "properties <not list>";
-		  else
-		    drop_line = true;
-		}
-	      else if (is_param (rest))
-		line = "properties <" + propname + "=" + param_contents (rest) + ">";
-	      else if (rest == "")
-		drop_line = true;
-	      else
-		line = "action <" + propname + "> " + line.substr (t1);
-	    }
-	  else if (props[tok] && rest == "")
-	    {
-	      /* tok, not ltok: a bare-word flag line is case-sensitive in
-	       * Quest (see the ltok comment above). */
-	      line = "properties <" + tok + ">";
-
-	      /* Quest's object loader treats the two spellings of "hidden"
-	         differently, and this rewrite is exactly what makes them
-	         indistinguishable afterwards, so record which one we saw while we
-	         still can.  Only a bare "hidden" line raises the loader's local
-	         `hidden' flag (V4Game.Part2.cs:3238-3248); "properties <hidden>"
-	         and a hidden inherited from a type merely add the property
-	         (V4Game.Part2.cs:3378-3381), and when the definition ends the
-	         loader undoes their effect on visibility with
-	         "if (!hidden) o.Exists = true" (V4Game.Part2.cs:3550-3553).  So
-	         only the bare tag hides an object at load time; the property still
-	         hides it if something *writes* it later at runtime
-	         (V4Game.cs:4169-4179).  Revenge of the Shadow Masters depends on
-	         this: its Mug o' Grog is "properties <hidden; ...>" and has to be
-	         on sale in the bar from turn one, and the grog gates the whole
-	         second half of the game.  QuestionState's constructor reads the marker
-	         back; types are excluded because a type's hidden goes through the
-	         property path in Quest too.  */
-	      if (tok == "hidden" && blocktype != "type")
-		line = "properties <hidden; !hiddentag>";
-
-	      /* A bare "surface" line declares a container as well: Quest's object
-	         loader answers it with two AddToObjectProperties calls, "container"
-	         and then "surface" (V4Game.Part2.cs:3472-3477).  That matters because
-	         ListContents refuses outright anything without the "container"
-	         property (V4Game.cs:3306-3309), so a surface that was only ever
-	         tagged "surface" lists nothing at all -- which is how Barbarian's
-	         Mantle came to swallow the Vase standing on it, and the Wizard's
-	         bar-top the bottle of sludge.  Only the bare line does this: a
-	         "properties <surface>" adds just the one property, and so does a
-	         surface inherited from a type, whose lines Quest folds straight into
-	         a property string (GetPropertiesInType, V4Game.cs:6335-6342).
-	         Below ASL 3.91 the loader's surface branch is empty, so a bare
-	         line records neither property and the whole line goes. */
-	      if (tok == "surface" && blocktype != "type")
-		{
-		  if (asl_version >= 391)
-		    line = "properties <surface; container>";
-		  else
-		    drop_line = true;
-		}
-	    }
-	  else if (props[ltok] && is_param(rest))
-	    {
-	      /* "tagproperty" is the same thing as "properties" with the
-	       * `;`-splitting left out -- see tag_property_splits, and
-	       * QuestionFile::ensure_cached, which files it as the one property it
-	       * names. */
-	      string kw = tag_property_splits (blocktype, ltok, asl_version)
-		? "properties <" : "tagproperty <";
-	      line = kw + ltok + "=" + param_contents(rest) + ">";
-	    }
-	  /* The use/give forms and their on/to/anything sub-keywords are all CI:
-	   * AddToUseInfo/AddToGiveInfo read them with BeginsWith
-	   * (V4Game.cs:4230-4330). */
-	  else if (actions[ltok] &&
-		   (ltok == "use" || ltok == "give" || !is_param(rest)))
-	    {
-	      /* The partner object's name is trimmed here for the same reason the
-	       * `define` header above trims its own.  Quest trims neither: both
-	       * ObjectName and UseData().UseObject are raw GetParameter results
-	       * (V4Game.Part2.cs:3229, V4Game.cs:4257-4283), so its two spellings
-	       * of a padded name agree and the use succeeds.  Question trimmed only
-	       * the declaration, so an object written "<Warrior >" was registered
-	       * as "Warrior" while its partner's handler was filed under
-	       * "use on Warrior " and get_obj_action missed -- Londe Perplex's
-	       * Rage lost its whole scripted attack that way.  */
-	      if (ltok == "use")
-		rewrite_use_give (line, "use", "on", rest, t1, t2);
-	      else if (ltok == "give")
-		rewrite_use_give (line, "give", "to", rest, t1, t2);
-	      else
-		{
-		  line = "action <" + ltok + "> " + line.substr (t1);
-		}
-	    }
-	  //else
-
-	  // recalculating tok because it might have changed
-	  /* TODO: Make sure this only happens on object-type blocks */
-	  tok = first_token (line, t1, t2);
-	  if (ci_equal (tok, "properties"))
-	    {
-	      rest = next_token (line, t1, t2);
-	      if (is_param (rest))
-		{
-		  vstring items = split_param (param_contents (rest));
-		  for (const auto &i: items)
-		    {
-		      out_data.push_back ("properties <" +
-					  static_eval(i) + ">");
-		    }
-		}
-	      else
-		{
-		  out_data.push_back ("ERROR " + line);
-		}
-	    }
-	  /* One property, semicolons and all -- but otherwise the same line the
-	   * split form emits, static_eval included. */
-	  else if (ci_equal (tok, "tagproperty"))
-	    {
-	      rest = next_token (line, t1, t2);
-	      if (is_param (rest))
-		out_data.push_back ("tagproperty <" +
-				    static_eval (param_contents (rest)) + ">");
-	      else
-		out_data.push_back ("ERROR " + line);
-	    }
-	  else if (!drop_line)
-	    {
-	      out_data.push_back(line);
-	    }
-
-	  //  out_data.push_back (dup_data);
+	  read_block_line (line, blocktype, props, actions, out_data);
 	}
       cur_line ++;
     }
@@ -1091,7 +1107,7 @@ static bool is_builtin_quest_library (const string &name)
  * unlike net.lib it is all content: default responses for verbs the engine has
  * none for, a handful of extra commands, and the splitter that makes
  * "north, then east" two turns.  Splice in the bundled copy (see
- * question_builtin_stdverbs in stdverbs_builtin.hh) rather than dropping the
+ * question_builtin_stdverbs in stdverbs_builtin.cc) rather than dropping the
  * include, or a game that !includes it plays differently from Quest. */
 static bool is_stdverbs (const string &name)
 {
@@ -1104,7 +1120,7 @@ static bool is_stdverbs (const string &name)
  * content changes play: its !addto synonyms block rewrites "get X" to
  * "take X" before any game command can match, and its LOOK AT override lists
  * a container's contents.  Splice in the bundled copy (see
- * question_builtin_standardlib in standardlib_builtin.hh) when no file is on
+ * question_builtin_standardlib in standardlib_builtin.cc) when no file is on
  * disk, or a game that !includes it plays differently from Quest. */
 static bool is_standardlib (const string &name)
 {
@@ -1117,7 +1133,7 @@ static bool is_standardlib (const string &name)
  * implement natively -- a set of object types (TLTscenery, TLTactor, TLTobject,
  * the clothing hierarchy, ...) with their default properties and action
  * overrides -- so instead of skipping it we splice in a bundled copy (see
- * question_builtin_typelib in typelib_builtin.hh). */
+ * question_builtin_typelib in typelib_builtin.cc). */
 static bool is_typelib (const string &name)
 {
   string base = include_basename (name);
@@ -1127,7 +1143,7 @@ static bool is_typelib (const string &name)
 /* MaDbRiT's older extension library, q3ext.qlb, is the same story as his Type
  * Library: it shipped with Quest, and it is all content -- its own LOOK/TAKE/
  * DROP/GIVE/WEAR commands, synonyms and object types -- so a game that names
- * it plays a different game without it (see q3ext_builtin.hh). */
+ * it plays a different game without it (see q3ext_builtin.cc). */
 static bool is_q3ext (const string &name)
 {
   return include_basename (name) == "q3ext.qlb";
@@ -1317,26 +1333,16 @@ static void handle_includes (const vector<string> &in_data_arg, const string &fi
   open.pop_back ();
 }
 
-bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
-		 QuestionInterface *gi)
+/* preprocess, pass 0b: gather the body of every "!addto game|synonyms|type
+ * <default>|<defaultroom>" ... "!end" section, keyed by the block it is
+ * meant for. */
+static void collect_addtos (const vector<string> &v2,
+			    map <string, vector<string> > &addtos,
+			    QuestionInterface *gi)
 {
-
-  // TODO: Is it "!=" or "<>" or both, and if both, which has priority?
-  static string comps[][2] = 
-    { { "<>", "!=;" },  { "!=", "!=;" },  { "<=", "lt=;" },  { ">=", "gt=;" }, 
-      { "<",  "lt;" },  { ">",  "gt;" },  { "=",  "" } };
-
   std::string::size_type tok_start, tok_end;
   string tok;
 
-  // preprocessing step 0:
-  // Loop through the lines.  Replace !include with appropriate text
-  
-  vector<string> v2, open_includes;
-  handle_includes (v, fname, v2, gi, open_includes);
-  v.clear();
-
-  map <string, vector<string> > addtos;
   for (uint line = 0; line < v2.size(); line ++)
     {
       tok = first_token (v2[line], tok_start, tok_end);
@@ -1364,6 +1370,18 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	    addtos[tok].push_back (v2[line ++]);
 	}
     }
+}
+
+/* preprocess, pass 0c: copy v2 to v without its !addto sections, splicing
+ * each section's lines into the block it names; a section whose block never
+ * turns up gets a block of its own at the end. */
+static void splice_addtos (const vector<string> &v2,
+			   map <string, vector<string> > &addtos,
+			   vector<string> &v)
+{
+  std::string::size_type tok_start, tok_end;
+  string tok;
+
   /* One entry per open "define" block: the addtos key whose lines are owed to
    * that block when it closes, or "" for a block nothing is owed to.  Quest
    * splices an !addto's lines in immediately *before* the block's "end define"
@@ -1423,7 +1441,6 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	}
       v.push_back (v2[line]);
     }
-  v2.clear();
 
   for (map<string, vector<string> >::iterator i = addtos.begin();
        i != addtos.end(); i ++)
@@ -1433,10 +1450,19 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	v.push_back (i->second[j]);
       v.push_back ("end define");
     }
+}
 
-  // Preprocessing step 1:
-  // Loop through the lines.  Look for "if/and/or (.. <.. )" or the like
-  // If there is such a pair, convert the second to "if/and/or is <..;lt;..>"
+/* preprocess, pass 1: look for "if/and/or (.. <.. )" or the like and convert
+ * the parenthesised group to "if/and/or is <..;lt;..>". */
+static void convert_friendly_ifs (vector<string> &v)
+{
+  // TODO: Is it "!=" or "<>" or both, and if both, which has priority?
+  static string comps[][2] = 
+    { { "<>", "!=;" },  { "!=", "!=;" },  { "<=", "lt=;" },  { ">=", "gt=;" }, 
+      { "<",  "lt;" },  { ">",  "gt;" },  { "=",  "" } };
+
+  std::string::size_type tok_start, tok_end;
+  string tok;
 
   /* The words a parenthesised condition may follow are Quest's six:
    * ConvertFriendlyIfs (V4Game.cs:353-380) looks for "if (", "until (",
@@ -1488,8 +1514,11 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	    }
 	}
     }
+}
 
-  // Pass 2:  Extract comments from non-text blocks
+/* preprocess, pass 2: extract comments from non-text blocks. */
+static void strip_comments (vector<string> &v)
+{
   bool in_text_block = false;
   for (uint line = 0; line < v.size(); line ++)
     {
@@ -1508,13 +1537,18 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	      }
 	}
     }
+}
 
-  /* There should be a pass 2.5: check that lbraces count equals
-   * rbrace count, but I'm skipping that
-   */
-
-  // Pass 3: Deinline braces
-  in_text_block = false;
+/* preprocess, pass 3: deinline braces.  Reads v, appending the generated
+ * !intproc procedures to it, and writes the main-line result to v2.  False
+ * if a brace block never closes.
+ *
+ * There should be a pass 2.5: check that lbraces count equals
+ * rbrace count, but I'm skipping that
+ */
+static bool deinline_braces (vector<string> &v, vector<string> &v2)
+{
+  bool in_text_block = false;
   int int_proc_count = 0;
   for (uint line = 0; line < v.size(); line ++)
     {
@@ -1586,10 +1620,13 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	}
       v2.push_back (str);
     }
+  return true;
+}
 
-  /* Pass 4:  trim lines, drop blank lines, combine elses */
-  
-  in_text_block = false;
+/* preprocess, pass 4: trim lines, drop blank lines, combine elses. */
+static void trim_and_join_elses (const vector<string> &v2, vector<string> &rv)
+{
+  bool in_text_block = false;
   for (uint line = 0; line < v2.size(); line ++)
     {
       string str = v2[line];
@@ -1607,9 +1644,27 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
       if (in_text_block || str != "")
 	rv.push_back (str);
     }
+}
 
+bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
+		 QuestionInterface *gi)
+{
+  // preprocessing step 0:
+  // Loop through the lines.  Replace !include with appropriate text
+  vector<string> v2, open_includes;
+  handle_includes (v, fname, v2, gi, open_includes);
+  v.clear();
 
+  map <string, vector<string> > addtos;
+  collect_addtos (v2, addtos, gi);
+  splice_addtos (v2, addtos, v);
+  v2.clear();
 
+  convert_friendly_ifs (v);
+  strip_comments (v);
+  if (!deinline_braces (v, v2))
+    return false;
+  trim_and_join_elses (v2, rv);
   return true;
 }
 

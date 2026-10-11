@@ -40,7 +40,7 @@
 - Scarier now builds with Visual C++, and plays the pictures and sounds of Adrift 5 games under Windows Glk.
 
 ### Question (Quest)
-- The Quest interpreter formerly called Geas is now called Question. Existing saves and autosaves still load.
+- The Quest interpreter formerly called Geas is now called Question. Existing saves still load. An autosave from an earlier version does not: the game starts from the beginning.
 - Autosave also works while the parser asks which of several things you meant, in both Quest 4 and Quest 5 games. The game resumes at the same list, with anything you had already answered earlier in that turn kept.
 - Autosave works at every other question a game asks as well — a name or gender prompt, a menu, a yes/no question, a line of free input — and at a "press a key" pause. A game closed at one comes back at it.
 - *SIDEBAR WIDE* gives the side pane 35% of the window instead of 20%, for games whose object names or status lines do not fit it, and *SIDEBAR NORMAL* puts it back. The choice is kept in the autosave.

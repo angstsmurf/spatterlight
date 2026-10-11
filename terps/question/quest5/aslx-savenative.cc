@@ -320,14 +320,14 @@ std::string bake_switch(const std::string &stmt, const Stmt &s) {
     get_parameter(stmt, after, found);
     if (!found) return stmt;
     std::string prefix = stmt.substr(0, stmt.size() - after.size());
-    std::string body = remove_surrounding_braces(rt_trim(after));
+    std::string body = remove_surrounding_braces(trim(after));
     // Split the switch body into its case/default chunks (source order).
     std::vector<std::string> chunks;
     size_t last_default = std::string::npos;
-    std::string line = rt_trim(body);
+    std::string line = trim(body);
     while (!line.empty()) {
         std::string cafter;
-        std::string c = rt_trim(get_script(line, cafter));
+        std::string c = trim(get_script(line, cafter));
         line = cafter;
         if (starts_with_word(c, "case")) {
             chunks.push_back(c);
@@ -335,7 +335,7 @@ std::string bake_switch(const std::string &stmt, const Stmt &s) {
             last_default = chunks.size();
             chunks.push_back(c);
         }
-        if (rt_trim(line).empty()) break;
+        if (trim(line).empty()) break;
     }
     // Re-emit in source order: each `case` is the parser's next one, and the
     // last `default` is its else_body.
@@ -344,7 +344,7 @@ std::string bake_switch(const std::string &stmt, const Stmt &s) {
     for (size_t i = 0; i < chunks.size(); ++i) {
         const std::string &c = chunks[i];
         if (i == last_default) {
-            out += bake_block("default", rt_trim(c.substr(7)), s.else_body) + "\n";
+            out += bake_block("default", trim(c.substr(7)), s.else_body) + "\n";
         } else if (starts_with_word(c, "case") && ncase < s.cases.size()) {
             const std::vector<Stmt> &block = s.cases[ncase++].second;
             std::string a2;
@@ -352,7 +352,7 @@ std::string bake_switch(const std::string &stmt, const Stmt &s) {
             get_parameter(c, a2, f2);
             if (f2)
                 out += bake_block(c.substr(0, c.size() - a2.size()),
-                                  rt_trim(a2), block) + "\n";
+                                  trim(a2), block) + "\n";
         }
     }
     out += "}";
@@ -368,7 +368,7 @@ std::string bake_after_parameter(const std::string &stmt,
     std::string after;
     bool found = false;
     get_parameter(stmt, after, found);
-    std::string body = rt_trim(after);
+    std::string body = trim(after);
     if (!found || body.empty()) return stmt;
     return bake_block(stmt.substr(0, stmt.size() - after.size()), body, stmts);
 }
@@ -376,7 +376,7 @@ std::string bake_after_parameter(const std::string &stmt,
 // "<keyword> <block>": the block follows the keyword itself.
 std::string bake_after_keyword(const std::string &stmt, size_t keyword_len,
                                const std::vector<Stmt> &stmts) {
-    std::string body = rt_trim(stmt.substr(keyword_len));
+    std::string body = trim(stmt.substr(keyword_len));
     if (body.empty()) return stmt;
     return bake_block(stmt.substr(0, keyword_len), body, stmts);
 }
@@ -406,10 +406,10 @@ std::string bake_stmt_list(const std::string &inner,
     std::vector<std::string> text;
     while (true) {
         std::string after;
-        std::string stmt = rt_trim(get_script(line, after));
+        std::string stmt = trim(get_script(line, after));
         line = after;
         if (!stmt.empty()) text.push_back(stmt);
-        if (rt_trim(line).empty()) break;
+        if (trim(line).empty()) break;
     }
     // parse_statements folds an `otherwise` or an `else` into the statement
     // before it instead of making it one of its own.
@@ -419,7 +419,7 @@ std::string bake_stmt_list(const std::string &inner,
     };
     auto is_else_if = [&](size_t i) {
         return !is_otherwise(i) &&
-               starts_with_word(rt_trim(text_after(text[i], "else")), "if");
+               starts_with_word(trim(text_after(text[i], "else")), "if");
     };
 
     std::vector<std::string> pieces;
@@ -446,13 +446,13 @@ std::string bake_stmt_list(const std::string &inner,
             // statement's) and lose the body.
             std::string body =
                 ran ? std::string()
-                    : bake_block("firsttime", rt_trim(stmt.substr(9)), s.body);
+                    : bake_block("firsttime", trim(stmt.substr(9)), s.body);
             if (last_otherwise == std::string::npos) {
                 // A run firsttime emits nothing, else it stays.
                 if (!ran) pieces.push_back(body);
             } else {
                 std::string other = bake_stmt_list(
-                    rt_trim(text[last_otherwise].substr(9)), s.else_body);
+                    trim(text[last_otherwise].substr(9)), s.else_body);
                 // Run: just the otherwise body.
                 pieces.push_back(ran ? other
                                      : body + " otherwise {\n" + other + "\n}");

@@ -68,7 +68,7 @@ inline bool resolve_menu_key(const MenuData &m, std::string l, std::string &key)
     for (auto &kv : m.options)
         if (kv.first == l) { key = kv.first; return true; }
     for (auto &kv : m.options)
-        if (rt_iequals(kv.second, l.c_str())) { key = kv.first; return true; }
+        if (iequal(kv.second, l)) { key = kv.first; return true; }
     char *end = nullptr;
     long n = std::strtol(l.c_str(), &end, 10);
     if (end && *end == 0 && n >= 1 && (size_t)n <= m.options.size()) {
@@ -122,7 +122,7 @@ inline std::string strip_html(std::string s) {
         // Typographic entities authors paste into hand-written HTML. Moquette
         // is written almost entirely in "&mdash;"-separated asides, so without
         // these the native transcript keeps the raw entity where the oracle
-        // prints the character. Kept in step with aslxglk.cc's own table.
+        // prints the character. Kept in step with aslxglk-output.cc's own table.
         {"&mdash;", "\xe2\x80\x94"}, {"&ndash;", "\xe2\x80\x93"},
         {"&hellip;", "\xe2\x80\xa6"}, {"&middot;", "\xc2\xb7"},
         {"&lsquo;", "\xe2\x80\x98"}, {"&rsquo;", "\xe2\x80\x99"},

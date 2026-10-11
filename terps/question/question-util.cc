@@ -359,15 +359,6 @@ std::string string_question_block (const QuestionBlock &gb)
 }
 
 
-bool starts_with (const string &a, const string &b)
-{
-  return (a.length() >= b.length()) && (a.substr (0, b.length()) == b);
-}
-bool ends_with (const string &a, const string &b)
-{
-  return (a.length() >= b.length()) && 
-    (a.substr (a.length() - b.length(), b.length()) == b);
-}
 
 bool starts_with_i (const string &a, const string &b)
 {

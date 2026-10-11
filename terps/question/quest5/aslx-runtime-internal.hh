@@ -32,6 +32,7 @@
 #define QUESTION_ASLX_RUNTIME_INTERNAL_HH
 
 #include "aslx-runtime.hh"
+#include "../qstr.hh"
 
 #include <cctype>
 #include <memory>
@@ -64,22 +65,10 @@ inline bool is_dict(const Value &v) {
            v.type == Value::Type::ScriptDict;
 }
 
-// Case-insensitive ASCII compare (NCalc's true/false literals and the "null"
-// parameter lookup are case-insensitive).
-inline bool rt_iequals(const std::string &a, const char *b) {
-    size_t n = 0;
-    for (; n < a.size() && b[n]; ++n)
-        if (std::tolower((unsigned char)a[n]) != std::tolower((unsigned char)b[n]))
-            return false;
-    return n == a.size() && b[n] == 0;
-}
-
-inline std::string rt_trim(const std::string &s) {
-    size_t a = 0, b = s.size();
-    while (a < b && std::isspace((unsigned char)s[a])) ++a;
-    while (b > a && std::isspace((unsigned char)s[b - 1])) --b;
-    return s.substr(a, b - a);
-}
+// qstr::iequal is the case-insensitive ASCII compare NCalc's true/false
+// literals and the "null" parameter lookup need.
+using qstr::iequal;
+using qstr::trim;
 
 // ===========================================================================
 // Expression + statement AST (built by aslx-runtime-parse.cc)

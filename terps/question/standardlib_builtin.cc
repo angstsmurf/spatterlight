@@ -18,10 +18,9 @@
  *  Source: textadventures/quest, src/Legacy/Libraries/standard.lib
  ***************************************************************************/
 
-#ifndef QUESTION_STANDARDLIB_BUILTIN_HH
-#define QUESTION_STANDARDLIB_BUILTIN_HH
+#include "builtin_libs.hh"
 
-static const char question_builtin_standardlib[] = R"QUESTIONLIB(
+const char question_builtin_standardlib[] = R"QUESTIONLIB(
 !library
 
 '----------------------------------------------------------------------
@@ -601,5 +600,3 @@ define procedure <Old_Take_Back_Proc>
 	else msg <Sorry, I don't understand '#quest.originalcommand#'.>
 end define
 )QUESTIONLIB";
-
-#endif

@@ -31,6 +31,7 @@
 #include "questglk-common.hh"
 
 #include <cctype>
+#include <cstdlib>
 #include <string>
 #include <vector>
 
@@ -43,24 +44,6 @@ extern "C" {
 namespace questglk {
 
 /* ---------------------------------------------------------------- strings */
-
-std::string
-lower (std::string s)
-{
-    for (char &c : s)
-        c = (char) tolower ((unsigned char) c);
-    return s;
-}
-
-std::string
-trim (const std::string &s)
-{
-    std::string::size_type a = s.find_first_not_of (" \t\r\n");
-    if (a == std::string::npos)
-        return "";
-    std::string::size_type b = s.find_last_not_of (" \t\r\n");
-    return s.substr (a, b - a + 1);
-}
 
 /* Uppercase the leading ASCII letter (Core's CapFirst, input[..1].ToUpper()):
  * room names and pane labels read better capitalized.  Only the leading
@@ -96,6 +79,38 @@ utf8_next_cp (const std::string &s, size_t &i)
     }
     i += len;
     return cp;
+}
+
+/* Append one code point to a UTF-8 string. */
+void
+utf8_append (std::string &out, glui32 cp)
+{
+    if (cp < 0x80) {
+        out += (char) cp;
+    } else if (cp < 0x800) {
+        out += (char) (0xc0 | (cp >> 6));
+        out += (char) (0x80 | (cp & 0x3f));
+    } else if (cp < 0x10000) {
+        out += (char) (0xe0 | (cp >> 12));
+        out += (char) (0x80 | ((cp >> 6) & 0x3f));
+        out += (char) (0x80 | (cp & 0x3f));
+    } else {
+        out += (char) (0xf0 | (cp >> 18));
+        out += (char) (0x80 | ((cp >> 12) & 0x3f));
+        out += (char) (0x80 | ((cp >> 6) & 0x3f));
+        out += (char) (0x80 | (cp & 0x3f));
+    }
+}
+
+/* A buffer of code points, as a Glk Unicode line request fills one in, as
+ * the UTF-8 both engines keep their text in. */
+std::string
+utf8_from_uni (const glui32 *buf, size_t n)
+{
+    std::string out;
+    for (size_t i = 0; i < n; i++)
+        utf8_append (out, buf[i]);
+    return out;
 }
 
 /* Write a UTF-8 string to a byte stream per-codepoint so accents survive
@@ -180,7 +195,21 @@ unput_tail_exact (winid_t win, const std::u32string &s)
 #endif
 }
 
-/* ------------------------------------------------------------------- echo */
+/* ------------------------------------------------------------------ input */
+
+/* Cancel the line request live in `win` and return how many characters had
+ * been typed into its buffer.  Nothing may print to a window while a request
+ * is live in it, so whatever interrupts one -- a timer, a hyperlink, an
+ * autosave write -- cancels first, and re-requests afterwards with that many
+ * characters preloaded, which puts the half-typed command back. */
+glui32
+cancel_line_request (winid_t win)
+{
+    event_t ce;
+    ce.val1 = 0;
+    glk_cancel_line_event (win, &ce);
+    return ce.val1;
+}
 
 /* Echo an accepted input line -- or a clicked hyperlink's command, run as if
  * typed -- to the current stream in the input style, ending the line.  Both
@@ -790,18 +819,30 @@ prompt_read_save (std::string &data)
 /* -------------------------------------------------------------- resources */
 
 #ifdef SPATTERLIGHT
-/* A whole file, by path, as a Glk resource: glkimp's
- * gli_add_resource_from_path gives it a resource number (the same one for
- * the same file every time) and loads it into the backend on first use.
- * Returns 0 when the file cannot be had.  Used by the classic runner, whose
- * resources are plain files; the Quest 5 frontend resolves .quest package
- * entries itself. */
+/* A file by path, or `length` bytes of it at `offset` (both 0 for the whole
+ * file), as a Glk resource: glkimp's gli_add_resource_from_path gives it a
+ * resource number (the same one for the same file every time) and loads it
+ * into the backend on first use.  Returns 0 when the file cannot be had.
+ * The classic runner's resources are plain files; the Quest 5 frontend
+ * resolves .quest package entries itself and hands over what it found.
+ *
+ * `verify` asks the app whether the resource really decoded, and returns 0
+ * if not.  That round-trip also means the app has read the file, so a
+ * caller that staged the bytes in a temporary file may remove it. */
 int
-register_path_resource (const std::string &path, bool sound)
+register_path_resource (const std::string &path, bool sound, glui32 offset,
+                        glui32 length, bool verify)
 {
-    return (int) gli_add_resource_from_path (sound ? giblorb_ID_Snd
-                                                   : giblorb_ID_Pict,
-                                             path.c_str (), 0, 0);
+    glui32 id = gli_add_resource_from_path (sound ? giblorb_ID_Snd
+                                                  : giblorb_ID_Pict,
+                                            path.c_str (), offset, length);
+    if (id && verify) {
+        glui32 w, h;
+        if (!(sound ? win_findsound ((int) id) != 0
+                    : glk_image_get_info (id, &w, &h) != 0))
+            id = 0;
+    }
+    return (int) id;
 }
 
 #else /* !SPATTERLIGHT */
@@ -811,11 +852,98 @@ register_path_resource (const std::string &path, bool sound)
  * sound or image as unsupported.  Defined rather than #ifdef'd at each call
  * site so the frontends compile against a plain Glk (CheapGlk) too. */
 int
-register_path_resource (const std::string &, bool)
+register_path_resource (const std::string &, bool, glui32, glui32, bool)
 {
     return 0;
 }
 
 #endif /* SPATTERLIGHT */
+
+/* --------------------------------------------------------------- autosave */
+
+void
+blob_num (std::string &s, long v)
+{
+    s += std::to_string (v);
+    s += '\n';
+}
+
+void
+blob_str (std::string &s, const std::string &v)
+{
+    blob_num (s, (long) v.size ());
+    s += v;
+    s += '\n';
+}
+
+long
+BlobReader::num ()
+{
+    if (!ok)
+        return 0;
+    size_t e = s.find ('\n', pos);
+    if (e == std::string::npos) {
+        ok = false;
+        return 0;
+    }
+    long v = atol (s.c_str () + pos);
+    pos = e + 1;
+    return v;
+}
+
+std::string
+BlobReader::str ()
+{
+    long n = num ();
+    if (!ok || n < 0 || (size_t) n >= s.size () - pos) {
+        ok = false;
+        return "";
+    }
+    std::string v = s.substr (pos, (size_t) n);
+    pos += (size_t) n + 1;
+    return v;
+}
+
+/* Stamped on autosave.glksave and bumped whenever the layout below changes:
+ * an autosave that will not read is discarded for a fresh start, which is
+ * better than one that reads wrongly. */
+static const char AUTOSAVE_RECORD_MAGIC[] = "QUESTION-AUTOSAVE 1";
+
+std::string
+encode_autosave_record (const AutosaveRecord &rec)
+{
+    std::string out;
+    blob_str (out, AUTOSAVE_RECORD_MAGIC);
+    blob_str (out, rec.state);
+    blob_str (out, rec.undo);
+    blob_num (out, rec.replay ? 1 : 0);
+    if (rec.replay) {
+        blob_str (out, rec.command);
+        blob_num (out, (long) rec.answers.size ());
+        for (const std::string &a : rec.answers)
+            blob_str (out, a);
+    }
+    return out;
+}
+
+bool
+decode_autosave_record (const std::string &data, AutosaveRecord *rec)
+{
+    BlobReader r{data};
+    *rec = AutosaveRecord ();
+    if (r.str () != AUTOSAVE_RECORD_MAGIC)
+        return false;
+    rec->state = r.str ();
+    rec->undo = r.str ();
+    rec->replay = r.num () != 0;
+    if (rec->replay) {
+        rec->command = r.str ();
+        long n = r.num ();
+        for (long i = 0; i < n && r.ok; i++)
+            rec->answers.push_back (r.str ());
+    }
+    /* A record with neither a state nor a replay has nothing to restore. */
+    return r.ok && r.at_end () && (rec->replay || !rec->state.empty ());
+}
 
 } /* namespace questglk */

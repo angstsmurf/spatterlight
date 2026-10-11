@@ -18,7 +18,7 @@
  *  library's commands ahead of its own verbs and its `description` override in
  *  place of the native room renderer, so a game that includes the library is
  *  meant to be played through TLProomDescription and friends -- and gettag()
- *  has since been implemented (question-runner.cc:7195).  King's Quest V is the
+ *  has since been implemented (run_function, "gettag").  King's Quest V is the
  *  corpus game that shows it: with the block cut, all 71 of its room renders
  *  came out in the native wording and put the exits above the description
  *  instead of below.
@@ -27,10 +27,9 @@
  *  textadventures/quest, src/Legacy/Libraries/Typelib.qlb)
  ***************************************************************************/
 
-#ifndef QUESTION_TYPELIB_BUILTIN_HH
-#define QUESTION_TYPELIB_BUILTIN_HH
+#include "builtin_libs.hh"
 
-static const char question_builtin_typelib[] = R"QUESTIONLIB(
+const char question_builtin_typelib[] = R"QUESTIONLIB(
 !library
 !deprecated
 !asl-version <311>
@@ -1236,5 +1235,3 @@ object <Clothing 2>
    property <Start game worn?;worn>
 !end
 )QUESTIONLIB";
-
-#endif

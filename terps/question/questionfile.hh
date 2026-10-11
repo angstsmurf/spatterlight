@@ -231,6 +231,10 @@ public:
   const QuestionBlock::line_first &line_tok (const QuestionBlock &b, size_t i) const;
 
   void read_into (const std::vector<std::string>&, const std::string &, uint, bool, const reserved_words&, const reserved_words&);
+  void read_block_line (std::string line, const std::string &blocktype,
+			const reserved_words &props,
+			const reserved_words &actions,
+			std::vector<std::string> &out_data);
 
 
 

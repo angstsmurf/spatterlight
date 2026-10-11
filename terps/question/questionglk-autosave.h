@@ -27,13 +27,14 @@
    sites in the frontends sit behind #ifdef SPATTERLIGHT so headless builds
    are unaffected.
 
-   Both engines share the same file layout under
+   Both engines share one format under
    ~/Library/Application Support/Spatterlight/Quest Files/Autosaves/(HASH)/:
-   autosave.glksave holds the engine's own self-contained state
-   serialization, autosave.plist the Glk library state (TempLibrary) with
-   engine-specific extras appended by an archive hook.  A given game file
-   only ever runs on one of the two engines, so the shared names never
-   collide.
+   autosave.glksave is a questglk::AutosaveRecord (questglk-common.hh) --
+   the engine's own state serialization, its undo history and, for an
+   autosave taken under a prompt of a running turn, the replay record --
+   and autosave.plist is the Glk library state (TempLibrary) with one
+   opaque blob of the frontend's own beside it.  A given game file only
+   ever runs on one of the two engines, so the shared names never collide.
 */
 
 #ifndef QUESTIONGLK_AUTOSAVE_H
@@ -42,6 +43,8 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+
+#include "questglk-common.hh"
 
 class QuestionRunner;
 
@@ -59,6 +62,22 @@ bool question_autosave_wanted(void);
 /* Delete the autosave files (called after a failed restore, so the next
  * launch boots fresh instead of hitting the same failure again). */
 void question_autosave_discard(void);
+
+/* Write the pair: the record into autosave.glksave, the Glk library and the
+ * frontend's blob into autosave.plist, then win_autosave. */
+void question_autosave_write(const questglk::AutosaveRecord &rec,
+                             const std::string &frontend_blob);
+
+/* Read autosave.glksave.  False if it is missing or is not a record -- an
+ * autosave from before the two engines shared a format, say. */
+bool question_autosave_read(questglk::AutosaveRecord *rec);
+
+/* Unarchive autosave.plist, replace the live Glk object lists, and hand
+ * back the frontend blob.  The library's "late" pass (file/resource stream
+ * reopening, timer re-arm) is a separate call so the frontend can re-point
+ * its globals in between, mirroring the Bocfel sequence. */
+bool question_autosave_restore_library(std::string *frontend_blob_out);
+void question_autosave_restore_library_late(void);
 
 /* ---- Quest 4 (questionglk.cc / QuestionRunner) --------------------------- */
 
@@ -78,7 +97,7 @@ struct QuestionGlkFrontendState {
     int sidebar_wide = 0;        /* SIDEBAR WIDE is in effect */
     /* Exact RNG state (erkyrath_random detstate): which generator is active
      * plus the xoshiro words, so deterministic randomness continues across
-     * an autorestore.  -1 = not recorded (an older autosave). */
+     * an autorestore.  -1 = not recorded. */
     int rng_usenative = -1;
     uint32_t rng_state[4] = { 0, 0, 0, 0 };
 };
@@ -127,12 +146,9 @@ void question_do_menu_autosave(const std::string &command,
                                bool at_wait = false);
 
 /* After a successful question_restore_autosave: true (once) if the autosave
- * was taken at an open menu, handing back what to replay.  `waits` is false
- * for a record from before keypress pauses were saved, which has no answers
- * for them. */
+ * was taken at an open menu, handing back what to replay. */
 bool question_autosave_take_replay(std::string *command,
-                                   std::vector<std::string> *answers,
-                                   bool *waits);
+                                   std::vector<std::string> *answers);
 
 /* The same for a menu or question of the startscript, which runs inside
  * set_game: there is no earlier state, so the autosave is the replay record
@@ -143,28 +159,7 @@ bool question_autosave_take_replay(std::string *command,
  * saved Glk library (false, and the autosave discarded, if it can't). */
 void question_do_boot_autosave(const std::vector<std::string> &answers,
                                bool at_wait = false);
-bool question_autosave_take_boot_replay(std::vector<std::string> *answers,
-                                        bool *waits);
+bool question_autosave_take_boot_replay(std::vector<std::string> *answers);
 bool question_restore_boot_autosave(void);
-
-/* ---- Quest 5 (aslxglk.cc / aslx Interp) ---------------------------------- */
-
-/* The aslx frontend lives in an anonymous namespace, so its state crosses
- * into the archive as an opaque blob it encodes/decodes itself (window
- * tags, transcript hyperlink actions, banner strings). */
-
-/* Write engine state + library plist (with the blob) and win_autosave. */
-void aslx_do_autosave_write(const std::string &engine_state,
-                            const std::string &frontend_blob);
-
-/* Read autosave.glksave into `out` (the engine applies it itself). */
-bool aslx_autosave_read_game(std::string *out);
-
-/* Unarchive autosave.plist, replace the live Glk object lists, and hand
- * back the frontend blob.  The library's "late" pass (file/resource stream
- * reopening, timer re-arm) is a separate call so the frontend can re-point
- * its globals in between, mirroring the Bocfel sequence. */
-bool aslx_autosave_restore_library(std::string *frontend_blob_out);
-void aslx_autosave_restore_library_late(void);
 
 #endif

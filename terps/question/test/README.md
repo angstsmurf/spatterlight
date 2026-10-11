@@ -46,7 +46,7 @@ own rules do.
 ## Per-file syntax check (`make syntax`)
 
 The Quest 4 harnesses here unity-include the engine: `question_walkthrough_runner.cc`
-`#include`s all six engine `.cc` files, so they become **one** translation unit.
+`#include`s every engine `.cc` file (through `headless_common.hh`), so they become **one** translation unit.
 That means a function defined in one `.cc` and called from another compiles
 cleanly even when no header declares it — the caller simply sees the earlier
 definition. The Xcode build compiles those files separately and rejects it.
@@ -54,7 +54,7 @@ definition. The Xcode build compiles those files separately and rejects it.
 This is a real failure mode, not a hypothetical one: a missing `starts_with_i`
 prototype in `question-util.hh` passed the fixtures, the unit tests *and* all 111
 walkthroughs, and broke the app build. `make syntax` runs `-fsyntax-only` over
-each source on its own — including `questionglk.cc`, `quest5/aslxglk.cc` and
+each source on its own — including `questionglk.cc`, the `quest5/aslxglk*.cc` frontend files and
 `questionglkterm.c`, which no harness here compiles at all — in a few seconds, and
 is a prerequisite of `make check`.
 
@@ -101,7 +101,7 @@ command per piece of state a relaunch has to carry. The cases:
 | prompts the game can be closed on | `q4-question`, `q4-menu`, `q4-enter` (autosaved; the relaunch replays the turn back to the prompt), `q4-intro-gender` (the same for a question of the startscript) | `q5-get-input`, `q5-show-menu`, `q5-ask`, `q5-intro-menu`, `q5-intro-ask` (same), `q5-wait` (no autosave; the relaunch resumes at the turn prompt) |
 | hyperlinks | `q4-pane-links` (fold, Take, Drop through the pane) | `q5-inline-link`, `q5-link-menu` (an object link's verb menu stays autosaved and reopens on relaunch) |
 | walkthroughs from `goldens/` | Bear Campsite, Mansion, Gathered in Darkness | Exit the Room, Bear's Epic Quest, ARC II |
-| damaged container | `q4-corrupt` (discarded, fresh boot), `q4-bad-undo` (engine state restored, undo history ignored with a log line) | `q5-corrupt` |
+| damaged record | `q4-corrupt` (discarded, fresh boot), `q4-old-format` (the pre-unification container, likewise), `q4-bad-undo` (engine state restored, undo history ignored with a log line) | `q5-corrupt`, `q5-old-format` |
 
 Walkthrough cases are skipped when the game is absent from `games/`.
 Restored transcripts are not re-sent as link runs, so a link clicked after a

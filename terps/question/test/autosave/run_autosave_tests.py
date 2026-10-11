@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Spatterlight autosave/autorestore regression for both Question engines: the
-Quest 4 frontend (questionglk.cc, the GEASAUTO1 container) and the Quest 5 one
-(quest5/aslxglk.cc, the SAVE-format game plus the ASLXGLK-AUTOSAVE blob).
+Quest 4 frontend (questionglk.cc) and the Quest 5 one (quest5/aslxglk*.cc).
+Both write the same autosave.glksave, a questglk::AutosaveRecord
+(questglk-common.hh), and keep their own blob in autosave.plist.
 
 Unlike everything else under test/ it does NOT use the in-repo harnesses: the
 autosave code is compiled only into the Spatterlight build of the terp
@@ -40,8 +41,10 @@ prompt and waits there without redrawing it.
 case_pending_prompt covers all of these.
 
 A damaged autosave (garbage where the game state should be) must be
-discarded without taking input, after which the next launch boots fresh; a
-Quest 4 container that only lost its undo history must still restore.
+discarded without taking input, after which the next launch boots fresh; so
+must one that is not a record at all, which is what an autosave written
+before the engines shared a format looks like.  A Quest 4 record that only
+lost its undo history must still restore.
 
 Autosaves are keyed by SPATTERLIGHT_AUTOSAVE_SIGNATURE (glkimp's
 getautosavedir), set per case to a name no real game can have, and removed
@@ -431,12 +434,32 @@ def case_pending_prompt(terp, case, res, verbose):
     compare_chunks(res, want, got, [len(c1) - (0 if resume else 1)], verbose)
 
 
+RECORD_MAGIC = b"QUESTION-AUTOSAVE 1"
+
+
+def blob_str(value):
+    """questglk::blob_str: byte length, newline, the bytes, newline."""
+    return b"%d\n" % len(value) + value + b"\n"
+
+
+def read_blob_str(data, pos):
+    """The string at `pos` and the position after it."""
+    eol = data.index(b"\n", pos)
+    length = int(data[pos:eol])
+    return data[eol + 1:eol + 1 + length], eol + 1 + length + 1
+
+
+def autosave_record(state, undo=b""):
+    """A prompt autosave's record (questglk::encode_autosave_record)."""
+    return blob_str(RECORD_MAGIC) + blob_str(state) + blob_str(undo) + b"0\n"
+
+
 def case_damaged_container(terp, case, res, verbose):
-    """autosave.glksave damaged between sessions.  A container whose game
+    """autosave.glksave damaged between sessions.  A record whose game
     state is unreadable must be discarded (the bad-autosave exit: no input
-    taken), after which the game boots fresh; a Quest 4 one that only lost
-    its undo tail must still restore the game state, with no undo past the
-    restore point."""
+    taken), after which the game boots fresh, and likewise a file that is
+    not a record; a Quest 4 one that only lost its undo history must still
+    restore the game state, with no undo past the restore point."""
     sig = SIG_PREFIX + case["name"]
     game, first = case["game"], case["first"]
     path = autosave_file(sig)
@@ -474,18 +497,18 @@ def case_damaged_container(terp, case, res, verbose):
                          text[:600] if verbose else None)
 
         elif case["damage"] == "bad-undo":
-            # Keep the magic line and the engine chunk; replace the undo
-            # history chunk with garbage of a matching declared length.
-            magic = b"GEASAUTO1\n"
-            if not data.startswith(magic):
-                res.fail("session 1: autosave.glksave is not a GEASAUTO1"
-                         " container")
+            # Keep the engine state; replace the undo history with garbage.
+            try:
+                magic, pos = read_blob_str(data, 0)
+                state, pos = read_blob_str(data, pos)
+            except ValueError:
+                magic = None
+            if magic != RECORD_MAGIC:
+                res.fail("session 1: autosave.glksave is not a %s record"
+                         % RECORD_MAGIC.decode())
                 return
-            eol = data.index(b"\n", len(magic))
-            length = int(data[len(magic):eol])
-            junk = b"not an undo history"
             with open(path, "wb") as f:
-                f.write(data[:eol + 1 + length] + b"%d\n" % len(junk) + junk)
+                f.write(autosave_record(state, b"not an undo history"))
             s2 = run_session(terp, game, case["second"], sig, work)
             ignored = "undo history was not usable"
             if ignored not in (s2.err or ""):
@@ -673,6 +696,12 @@ def build_cases(stage):
 
     cases.append(dict(kind=case_damaged_container, name="q4-corrupt",
                       game=probe4, damage="garbage",
+                      garbage=autosave_record(b"not a game!!"),
+                      first=["take lamp", "n"], fresh=["look"],
+                      intro="A hall."))
+    # The container Quest 4 wrote before the shared record.
+    cases.append(dict(kind=case_damaged_container, name="q4-old-format",
+                      game=probe4, damage="garbage",
                       garbage=b"GEASAUTO1\n12\nnot a game!!0\n\n",
                       first=["take lamp", "n"], fresh=["look"],
                       intro="A hall."))
@@ -814,6 +843,12 @@ def build_cases(stage):
             walk(name, os.path.join(Q5GAMES, gamefile), quest5_script(sol))
 
     cases.append(dict(kind=case_damaged_container, name="q5-corrupt",
+                      game=probe5, damage="garbage",
+                      garbage=autosave_record(b"not a saved game at all\n"),
+                      first=["take apple", "north"], fresh=["look"],
+                      intro="A lounge."))
+    # Quest 5 used to write the bare engine state.
+    cases.append(dict(kind=case_damaged_container, name="q5-old-format",
                       game=probe5, damage="garbage",
                       garbage=b"not a saved game at all\n",
                       first=["take apple", "north"], fresh=["look"],

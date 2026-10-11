@@ -373,7 +373,7 @@ void Interp::restore_rng_streams(
 }
 
 Value Interp::eval(const std::string &source, Context &ctx) {
-    std::string s = rt_trim(source);
+    std::string s = trim(source);
     if (s.empty()) return vnull();
     // Failures THROW (wrapped by the root-expression boundary in eval_expr),
     // unwinding to the nearest script boundary, which logs and reports --
@@ -2077,7 +2077,7 @@ const Value *Interp::resolve_field(Element *e, const std::string &name) {
 
 Value Interp::resolve_variable(const std::string &name, Context &ctx, bool &found) {
     found = true;
-    if (rt_iequals(name, "null")) return vnull();
+    if (iequal(name, "null")) return vnull();
     auto it = ctx.locals.find(name);
     if (it != ctx.locals.end()) return it->second;
     if (world_.find(name)) return vobj(name);
@@ -2225,26 +2225,26 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
         // cast()'s type argument is a bare identifier (cast(x, int)), not a
         // resolvable variable (the _evaluatingCastType dance in
         // NcalcExpressionEvaluator).
-        if (rt_iequals(e.str, "if") && e.args.size() == 3) {
+        if (iequal(e.str, "if") && e.args.size() == 3) {
             return truthy(eval_expr(*e.args[0], ctx))
                        ? eval_expr(*e.args[1], ctx)
                        : eval_expr(*e.args[2], ctx);
         }
-        if (rt_iequals(e.str, "cast") && e.args.size() == 2) {
+        if (iequal(e.str, "cast") && e.args.size() == 2) {
             Value v = eval_expr(*e.args[0], ctx);
             std::string ty = (e.args[1]->kind == Expr::Kind::Var)
                                  ? e.args[1]->str
                                  : to_string(eval_expr(*e.args[1], ctx));
-            if (rt_iequals(ty, "int") || rt_iequals(ty, "long"))
+            if (iequal(ty, "int") || iequal(ty, "long"))
                 return vint((long)as_double(v));   // truncation, like (int)double
-            if (rt_iequals(ty, "double") || rt_iequals(ty, "single") ||
-                rt_iequals(ty, "decimal"))
+            if (iequal(ty, "double") || iequal(ty, "single") ||
+                iequal(ty, "decimal"))
                 return vdouble(v.type == Value::Type::String
                                    ? c_strtod(v.str.c_str()) : as_double(v));
-            if (rt_iequals(ty, "string")) return vstr(to_string(v));
-            if (rt_iequals(ty, "boolean") || rt_iequals(ty, "bool"))
+            if (iequal(ty, "string")) return vstr(to_string(v));
+            if (iequal(ty, "boolean") || iequal(ty, "bool"))
                 return vbool(truthy(v));
-            if (rt_iequals(ty, "object")) return v;
+            if (iequal(ty, "object")) return v;
             error("cast(): unknown type '" + ty + "'");
         }
         std::vector<Value> args;
@@ -2376,7 +2376,7 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
         if (is_list(l) || is_list(r)) {
             if (op == "+" && is_list(l) && is_list(r)) {
                 Value out = l; out.detach();
-                for (auto &e : r.list()) out.list().push_back(e);
+                for (auto &item : r.list()) out.list().push_back(item);
                 return out;
             }
             if (op == "+" && is_list(l)) {  // list + elem -> append (boxed)
@@ -2398,11 +2398,11 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
             }
             if (op == "*" && is_list(l) && is_list(r)) {  // union
                 Value out = l; out.detach();
-                for (auto &e : r.list()) {
+                for (auto &item : r.list()) {
                     bool present = false;
                     for (auto &x : l.list())
-                        if (values_equal(x, e)) { present = true; break; }
-                    if (!present) out.list().push_back(e);
+                        if (values_equal(x, item)) { present = true; break; }
+                    if (!present) out.list().push_back(item);
                 }
                 return out;
             }
@@ -2961,8 +2961,8 @@ void Interp::exec_request(const std::string &name, const ExprList &args,
         // JavaScript we cannot run, and stays ignored.
         std::string data = to_string(ev(1));
         size_t semi = data.find(';');
-        std::string fn = rt_trim(data.substr(0, semi)), arg;
-        if (semi != std::string::npos) arg = rt_trim(data.substr(semi + 1));
+        std::string fn = trim(data.substr(0, semi)), arg;
+        if (semi != std::string::npos) arg = trim(data.substr(semi + 1));
         if (fn == "setFramePicture" && !arg.empty())
             set_panel_contents("<img src=\"" + arg + "\"/>");
         else if (fn == "clearFramePicture")

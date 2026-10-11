@@ -1011,10 +1011,167 @@ double question_implementation::eval_set_numeric (const string &expr)
   return rv;
 }
 
-void question_implementation::look()
+/* Run the room's description tag, or the game block's stand-in for one.  False
+ * when there is neither, and the default display is owed. */
+bool question_implementation::run_room_description ()
 {
   string tmp;
   bool described = false;
+  if (get_room_action (state.location, "description", tmp))
+    { run_script_as (state.location, tmp); described = true; }
+  else if (get_room_property (state.location, "description", tmp))
+    { print_formatted (tmp); described = true; }
+  else
+    {
+      /* A room with no description tag of its own falls back to a "description"
+       * line in the game block, which stands in for every such room
+       * (V4Game.Part2.cs:3899-3921).  It is read straight out of the block: a
+       * parameter is text, anything else is a script.  This cannot go through
+       * get_obj_action/get_obj_property, because the game block's lines are not
+       * rewritten into "action <...>"/"properties <...>" form the way a room's
+       * are (the QuestionFile constructor gives the game pass no reserved words), so
+       * those lookups always came back empty.  Tim Hamilton's "The Maze" is
+       * built entirely on this: it has one room, and the game-block description
+       * is a `select case <%xpos%>` that prints "Entrance to maze", "Center of
+       * maze", "Exit" or plain "Hedge Maze" from the player's coordinates. */
+      const QuestionBlock *game = gf.find_by_name ("game", "game");
+      if (game != NULL)
+	{
+	  for (size_t li = 0; li < game->data.size (); li ++)
+	    {
+	      const QuestionBlock::line_first &lt = gf.line_tok (*game, li);
+	      if (lt.tok != "description")
+		continue;
+	      string rest = trim (game->data[li].substr (lt.end));
+	      if (is_param (rest))
+		print_formatted (param_contents (rest));
+	      else
+		run_script_as ("game", rest);
+	      described = true;
+	      break;
+	    }
+	}
+    }
+  return described;
+}
+
+/* The first line of the default room display: the indescription, or "You are
+ * in <room>." */
+void question_implementation::print_room_location_line ()
+{
+  string tmp;
+  string in_desc;
+  bool has_in_desc = get_room_property (state.location, "indescription",
+					tmp);
+  /* From ASL 3.50 the loader mirrors a room's tags into the object-property
+   * table as well as into the room record, and AddToObjectProperties trims
+   * whatever follows the "=" (V4Game.cs:4025) before writing it back over
+   * InDescription (V4Game.cs:4111-4118).  So from 3.50 on the stored value
+   * has no outer whitespace, and one made of nothing but spaces is stored
+   * as the empty string.  TARDIS Escape's Console Room writes
+   * `indescription < >` and depends on that without meaning to. */
+  if (has_in_desc && asl_version_ >= 350)
+    tmp = trim (tmp);
+  /* What Quest tests is whether the stored text is empty, not whether the
+   * tag was there (ShowRoomInfo, V4Game.Part2.cs:3746), so an `indescription
+   * <>` takes the default line below. */
+  if (has_in_desc && !tmp.empty ())
+    {
+      /* Quest's indescription: a trailing colon is replaced by a space, the
+       * room name and a full stop ("...west end of the:" becomes "...west
+       * end of the Entrance Hall.").  Without a trailing colon the text is
+       * printed verbatim, with no room name appended. */
+      in_desc = tmp;
+      if (!in_desc.empty () && in_desc[in_desc.size () - 1] == ':')
+	print_formatted (in_desc.substr (0, in_desc.size () - 1) + " "
+			 + get_svar ("quest.formatroom") + ".");
+      else
+	print_formatted (in_desc);
+    }
+  else
+    /* The sentence ends in a full stop: "You are in " + roomDisplayName +
+     * "." (ShowRoomInfo, V4Game.Part2.cs:3764; the pre-2.80 display builds
+     * the same line at 2050). */
+    print_formatted (string ("You are in") + " "
+		     + get_svar ("quest.formatroom") + ".");
+}
+
+/* The rest of the default room display: the object list and the exit lines. */
+void question_implementation::print_room_objects_and_exits ()
+{
+  string tmp;
+  /* The original Quest runner printed both of these inline in the main text
+   * ("There is a key here.", "You can go north, south, east or west.") *and*
+   * mirrored them in its objects and compass panes -- the panes were
+   * clickable shortcuts, not a replacement for the lines.  So print them in
+   * the main window even on a host that provides such panes (see
+   * has_objects_window / get_room_exits); a pane stays a supplementary
+   * copy. */
+  tmp = get_svar ("quest.formatobjects");
+  if (asl_version_ < 280)
+    print_formatted (characters_display_);
+  if (tmp != "")
+    print_eval ("There is #quest.formatobjects# here.");
+
+  /* The exits, after the objects.  From ASL 4.10 they are one folded line:
+   * UpdateDoorways hands the whole job to
+   * RoomExits.GetAvailableDirectionsDescription, which lists compass
+   * exits (with "out" among them as a bare word) and places together in
+   * the order the room's tags created them (V4Game.Part2.cs:7207-7211,
+   * RoomExits.cs:304-353).  quest.doorways holds the list without the
+   * sentence around it. */
+  if (asl_version_ >= 410)
+    {
+      if ((tmp = get_svar ("quest.doorways")) != "")
+	print_formatted ("You can go " + tmp + ".");
+    }
+  else
+    {
+      /* From 2.80 the places line is part of roomDisplayText and the
+       * out/directions string is printed after it, so places come first
+       * (V4Game.Part2.cs:3838-3874, 3948-3955).  Below 2.80 the three are
+       * all part of roomDisplayText, in the other order (ShowRoomInfoV2,
+       * ibid. 2022, 2056, 2092) -- which is the order Question used at every
+       * version.
+       *
+       * The out and directions sentences are also one *line* from 2.80 on,
+       * not two: UpdateDoorways returns them as a single string with a space
+       * between (V4Game.Part2.cs:7308-7312, 7353) and ShowRoomInfo prints
+       * that string with one Print (ibid. 3951-3954).  Below 2.80 each ends
+       * in its own vbCrLf, so there they really are separate lines (ibid.
+       * 2022, 2056).  2.80 bolds the word "out" too, where the older path
+       * leaves it plain; both bold the directions, which is where
+       * quest.doorways.dirs already carries its own markup. */
+      bool places_first = (asl_version_ >= 280);
+      if (places_first && (tmp = get_svar ("quest.doorways.places")) != "")
+	print_formatted ("You can go to " + tmp + ".");
+      /* The *display* form of "out", so an "out <the; town>" prefix shows
+       * up here ("You can go out to the town."), as it does in the
+       * typelib's own version of this line and in the "places" line. */
+      string out_line = "", dirs_line = "";
+      if (get_svar ("quest.doorways.out") != ""
+	  && (tmp = get_svar ("quest.doorways.out.display")) != "")
+	out_line = places_first ? "You can go |bout|xb to " + tmp + "."
+				: "You can go out to " + tmp + ".";
+      if ((tmp = get_svar ("quest.doorways.dirs")) != "")
+	dirs_line = "You can go " + tmp + ".";
+      if (places_first && out_line != "" && dirs_line != "")
+	print_formatted (out_line + " " + dirs_line);
+      else
+	{
+	  if (out_line != "")
+	    print_formatted (out_line);
+	  if (dirs_line != "")
+	    print_formatted (dirs_line);
+	}
+      if (!places_first && (tmp = get_svar ("quest.doorways.places")) != "")
+	print_formatted ("You can go to " + tmp + ".");
+    }
+}
+
+void question_implementation::look()
+{
+  string tmp;
   /* The look text is read fresh at every room display, not cached from the last
    * move: ShowRoomInfo asks GetObjectProperty("look", ...) each time it runs and
    * writes quest.lookdesc from it, falling back to the room's own tag
@@ -1040,79 +1197,7 @@ void question_implementation::look()
    * flag again and the next read rebuilds the pane's comma list, which is what
    * Quest's UpdateObjectList would have left behind. */
   regen_var_objects (true);
-  if (get_room_action (state.location, "description", tmp))
-    { run_script_as (state.location, tmp); described = true; }
-  else if (get_room_property (state.location, "description", tmp))
-    { print_formatted (tmp); described = true; }
-  else
-    {
-      /* A room with no description tag of its own falls back to a "description"
-       * line in the game block, which stands in for every such room
-       * (V4Game.Part2.cs:3899-3921).  It is read straight out of the block: a
-       * parameter is text, anything else is a script.  This cannot go through
-       * get_obj_action/get_obj_property, because the game block's lines are not
-       * rewritten into "action <...>"/"properties <...>" form the way a room's
-       * are (readfile.cc:415-420 lists no reserved words for the game pass), so
-       * those lookups always came back empty.  Tim Hamilton's "The Maze" is
-       * built entirely on this: it has one room, and the game-block description
-       * is a `select case <%xpos%>` that prints "Entrance to maze", "Center of
-       * maze", "Exit" or plain "Hedge Maze" from the player's coordinates. */
-      const QuestionBlock *game = gf.find_by_name ("game", "game");
-      if (game != NULL)
-	{
-	  for (size_t li = 0; li < game->data.size (); li ++)
-	    {
-	      const QuestionBlock::line_first &lt = gf.line_tok (*game, li);
-	      if (lt.tok != "description")
-		continue;
-	      string rest = trim (game->data[li].substr (lt.end));
-	      if (is_param (rest))
-		print_formatted (param_contents (rest));
-	      else
-		run_script_as ("game", rest);
-	      described = true;
-	      break;
-	    }
-	}
-    }
-
-  if (!described)
-    {
-      string in_desc;
-      bool has_in_desc = get_room_property (state.location, "indescription",
-					    tmp);
-      /* From ASL 3.50 the loader mirrors a room's tags into the object-property
-       * table as well as into the room record, and AddToObjectProperties trims
-       * whatever follows the "=" (V4Game.cs:4025) before writing it back over
-       * InDescription (V4Game.cs:4111-4118).  So from 3.50 on the stored value
-       * has no outer whitespace, and one made of nothing but spaces is stored
-       * as the empty string.  TARDIS Escape's Console Room writes
-       * `indescription < >` and depends on that without meaning to. */
-      if (has_in_desc && asl_version_ >= 350)
-	tmp = trim (tmp);
-      /* What Quest tests is whether the stored text is empty, not whether the
-       * tag was there (ShowRoomInfo, V4Game.Part2.cs:3746), so an `indescription
-       * <>` takes the default line below. */
-      if (has_in_desc && !tmp.empty ())
-	{
-	  /* Quest's indescription: a trailing colon is replaced by a space, the
-	   * room name and a full stop ("...west end of the:" becomes "...west
-	   * end of the Entrance Hall.").  Without a trailing colon the text is
-	   * printed verbatim, with no room name appended. */
-	  in_desc = tmp;
-	  if (!in_desc.empty () && in_desc[in_desc.size () - 1] == ':')
-	    print_formatted (in_desc.substr (0, in_desc.size () - 1) + " "
-			     + get_svar ("quest.formatroom") + ".");
-	  else
-	    print_formatted (in_desc);
-	}
-      else
-	/* The sentence ends in a full stop: "You are in " + roomDisplayName +
-	 * "." (ShowRoomInfo, V4Game.Part2.cs:3764; the pre-2.80 display builds
-	 * the same line at 2050). */
-	print_formatted (string ("You are in") + " "
-			 + get_svar ("quest.formatroom") + ".");
-    }
+  bool described = run_room_description ();
 
   /* The object list and the exit lines belong to the *default* room display, and
    * a description tag replaces that display whole: ShowRoomInfo builds "You are
@@ -1129,73 +1214,8 @@ void question_implementation::look()
    * above, before the description tag ran. */
   if (!described)
     {
-      /* The original Quest runner printed both of these inline in the main text
-       * ("There is a key here.", "You can go north, south, east or west.") *and*
-       * mirrored them in its objects and compass panes -- the panes were
-       * clickable shortcuts, not a replacement for the lines.  So print them in
-       * the main window even on a host that provides such panes (see
-       * has_objects_window / get_room_exits); a pane stays a supplementary
-       * copy. */
-      tmp = get_svar ("quest.formatobjects");
-      if (asl_version_ < 280)
-	print_formatted (characters_display_);
-      if (tmp != "")
-	print_eval ("There is #quest.formatobjects# here.");
-
-      /* The exits, after the objects.  From ASL 4.10 they are one folded line:
-       * UpdateDoorways hands the whole job to
-       * RoomExits.GetAvailableDirectionsDescription, which lists compass
-       * exits (with "out" among them as a bare word) and places together in
-       * the order the room's tags created them (V4Game.Part2.cs:7207-7211,
-       * RoomExits.cs:304-353).  quest.doorways holds the list without the
-       * sentence around it. */
-      if (asl_version_ >= 410)
-	{
-	  if ((tmp = get_svar ("quest.doorways")) != "")
-	    print_formatted ("You can go " + tmp + ".");
-	}
-      else
-	{
-	  /* From 2.80 the places line is part of roomDisplayText and the
-	   * out/directions string is printed after it, so places come first
-	   * (V4Game.Part2.cs:3838-3874, 3948-3955).  Below 2.80 the three are
-	   * all part of roomDisplayText, in the other order (ShowRoomInfoV2,
-	   * ibid. 2022, 2056, 2092) -- which is the order Question used at every
-	   * version.
-	   *
-	   * The out and directions sentences are also one *line* from 2.80 on,
-	   * not two: UpdateDoorways returns them as a single string with a space
-	   * between (V4Game.Part2.cs:7308-7312, 7353) and ShowRoomInfo prints
-	   * that string with one Print (ibid. 3951-3954).  Below 2.80 each ends
-	   * in its own vbCrLf, so there they really are separate lines (ibid.
-	   * 2022, 2056).  2.80 bolds the word "out" too, where the older path
-	   * leaves it plain; both bold the directions, which is where
-	   * quest.doorways.dirs already carries its own markup. */
-	  bool places_first = (asl_version_ >= 280);
-	  if (places_first && (tmp = get_svar ("quest.doorways.places")) != "")
-	    print_formatted ("You can go to " + tmp + ".");
-	  /* The *display* form of "out", so an "out <the; town>" prefix shows
-	   * up here ("You can go out to the town."), as it does in the
-	   * typelib's own version of this line and in the "places" line. */
-	  string out_line = "", dirs_line = "";
-	  if (get_svar ("quest.doorways.out") != ""
-	      && (tmp = get_svar ("quest.doorways.out.display")) != "")
-	    out_line = places_first ? "You can go |bout|xb to " + tmp + "."
-				    : "You can go out to " + tmp + ".";
-	  if ((tmp = get_svar ("quest.doorways.dirs")) != "")
-	    dirs_line = "You can go " + tmp + ".";
-	  if (places_first && out_line != "" && dirs_line != "")
-	    print_formatted (out_line + " " + dirs_line);
-	  else
-	    {
-	      if (out_line != "")
-		print_formatted (out_line);
-	      if (dirs_line != "")
-		print_formatted (dirs_line);
-	    }
-	  if (!places_first && (tmp = get_svar ("quest.doorways.places")) != "")
-	    print_formatted ("You can go to " + tmp + ".");
-	}
+      print_room_location_line ();
+      print_room_objects_and_exits ();
     }
 
   /* ...and the punctuated pair lives no longer than the display that made it.

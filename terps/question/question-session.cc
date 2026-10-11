@@ -232,27 +232,254 @@ bool question_implementation::load_undo_history (const string &data)
   return true;
 }
 
+/* Seed the RNG once per game.  Real Quest randomises every run; Question used to
+ * leave the generator unseeded, so any random fight played out identically
+ * each time -- which left World's End's final fight permanently unwinnable.
+ * Seed 0 means "true" randomness; QUESTION_SEED overrides it for reproducible
+ * testing, and so does the app's determinism mode. */
+static void seed_random_for_new_game ()
+{
+  const char *envseed = getenv ("QUESTION_SEED");
+  if (envseed)
+    set_erkyrath_random ((uint32_t) atoi (envseed));
+#ifdef SPATTERLIGHT
+  else if (gli_determinism)
+    set_erkyrath_random (1234);
+#endif
+  else
+    set_erkyrath_random (0);
+}
+
+/* set_game: the ASL version and the "define options" block. */
+void question_implementation::read_version_and_options ()
+{
+  std::string::size_type tok_start, tok_end;
+
+  asl_version_ = 311;
+  string vtok = first_decl_param (gf.block ("game", 0), "asl-version",
+				  true);
+  if (vtok != "")
+    asl_version_ = parse_int (param_contents (vtok));
+
+  /* "define options" is a nameless block, like "define synonyms".  Only
+   * "abbreviations" is acted on here; "panes" and "debug" are host-side
+   * settings Question has no equivalent for. */
+  if (const QuestionBlock *opts = gf.find_by_name ("options", ""))
+    for (const string &oline: opts->data)
+      {
+	string otok = lcase (first_token (oline, tok_start, tok_end));
+	if (otok == "abbreviations")
+	  use_abbreviations_ =
+	    lcase (trim (next_token (oline, tok_start, tok_end))) != "off";
+      }
+}
+
+/* The initial value of a variable is a *parameter*, not a literal.
+ * SetUpDisplayVariables runs each `value <...>` through GetParameter as
+ * it walks the game block (V4Game.Part2.cs:744), so a "#var#" or "%var%"
+ * naming a variable defined earlier is substituted, and a "$rand(a;b)$"
+ * is rolled -- once each, in definition order, before anything else in
+ * the game has run.  QuestionState stores the text raw, which left Kingdom's
+ * 23 `value <$rand(...)$>` village statistics all sitting at zero and put
+ * the RNG stream one draw per variable out of step with Quest's from the
+ * first turn.
+ *
+ * It is one pass in source order, and each variable comes into existence
+ * as it is reached, so a value can only see the ones above it: a
+ * reference to a variable defined further down reads one that does not
+ * exist yet -- "" for a string, Quest's undefined-numeric -32767 for a
+ * number.  Hence the wipe first: QuestionState has already created all of
+ * them from the raw text, and leaving those in place would let a
+ * not-yet-defined variable answer for itself.
+ *
+ * Rebuilt records rather than assignments, for the same reason:
+ * set_svar/set_ivar would fire the variable's `onchange` script, and
+ * Quest's setup does not run those. */
+void question_implementation::init_variables ()
+{
+  for (size_t vi = 0; vi < gf.size ("variable"); vi ++)
+    {
+      const string &vname = gf.block ("variable", vi).name;
+      for (size_t k = state.ivars.size (); k-- > 0; )
+	if (ci_equal (state.ivars[k].name, vname))
+	  state.ivars.erase (state.ivars.begin () + k);
+      for (size_t k = state.svars.size (); k-- > 0; )
+	if (ci_equal (state.svars[k].name, vname))
+	  state.svars.erase (state.svars.begin () + k);
+    }
+  for (size_t vi = 0; vi < gf.size ("variable"); vi ++)
+    {
+      const QuestionBlock &vb = gf.block ("variable", vi);
+      VarDef vd (vb);
+      string val = (vd.value.find_first_of ("#%$") == string::npos)
+		   ? vd.value : eval_string (vd.value);
+      if (vd.is_numeric ())
+	state.ivars.push_back (IVarRecord (vb.name, strtod (val.c_str (), NULL)));
+      else
+	state.svars.push_back (SVarRecord (vb.name, val));
+    }
+}
+
+/* set_game: act on the game block's display and setup directives.  Returns
+ * the room its "start" tag names, which is also made the current one. */
+string question_implementation::read_game_directives ()
+{
+  std::string::size_type tok_start, tok_end;
+  string start_room;
+
+  auto gfData = gf.block("game", 0).data;
+  for (auto &gline: gfData)
+    {
+      const string &s = gline;
+      string tok = first_token (s, tok_start, tok_end);
+      /* Game-block directive keywords are case-insensitive (see run_script). */
+      tok = lcase (tok);
+      if (tok == "asl-version")
+	{
+	  string ver = next_token (s, tok_start, tok_end);
+	  if (!is_param(ver))
+	    {
+	      gi->debug_print ("Version " + s + " has invalid version " +
+			       ver);
+	      continue;
+	    }
+	  int vernum = parse_int (param_contents (ver));
+	  if (vernum < 311 || vernum > 353)
+	    gi->debug_print ("Warning: Question only supports ASL "
+			     " versions 3.11 to 3.53");
+	}
+      else if (tok == "background")
+	{
+	  if (next_decl_param (*gi, s, tok_start, tok_end,
+			       "background color", tok))
+	    gi->set_background (tok);
+	}
+      else if (tok == "default")
+	{
+	  tok = next_token (s, tok_start, tok_end);
+	  /* Sub-keywords are CI too: Quest matches the whole "default
+	   * fontname" phrase with BeginsWith (V4Game.Part2.cs:661-669). */
+	  if (ci_equal (tok, "fontname"))
+	    {
+	      if (next_decl_param (*gi, s, tok_start, tok_end,
+				   "font name", tok))
+		gi->set_default_font (tok);
+	    }
+	  else if (ci_equal (tok, "fontsize"))
+	    {
+	      if (next_decl_param (*gi, s, tok_start, tok_end,
+				   "font size", tok))
+		gi->set_default_font_size (tok);
+	    }
+	}
+      else if (tok == "foreground")
+	{
+	  if (next_decl_param (*gi, s, tok_start, tok_end,
+			       "foreground color", tok))
+	    gi->set_foreground (tok);
+	}
+      else if (tok == "gametype")
+	{
+	  /* Quest itself never reads this declaration: the only place
+	     "gametype"/"multiplayer" appear in the runner is the keyword
+	     table (quest.dat:98,100), and the game block is scanned solely
+	     for "start " when play begins (V4Game.Part2.cc / .Part2.cs:
+	     7992-7999).  A multiplayer game therefore loads and runs as an
+	     ordinary single-player game from its declared start room.  We
+	     used to throw here, which aborted the rest of this loop before
+	     it reached "start" and left the player in room "" -- the game
+	     came up with no location, listing every room as an object in
+	     scope.  Ignore the declaration instead; the multiplayer-only
+	     features (chat, challenges) simply never happen.  */
+	  tok = next_token (s, tok_start, tok_end);
+	  if (ci_equal (tok, "singleplayer") || ci_equal (tok, "multiplayer"))
+	    continue;
+	  gi->debug_print ("Unexpected game type " + s);
+	}
+      else if (tok == "nodebug")
+	{
+	}
+      else if (tok == "start")
+	{
+	  if (next_decl_param (*gi, s, tok_start, tok_end,
+			       "start room", tok))
+	    state.location = start_room = tok;
+	}
+    }
+  return start_room;
+}
+
+/* set_game: run every startscript, not just the first: a game block may carry more
+   than one once a library has appended its own via `!addto game` (e.g. the
+   bundled type library's TLPstartup, which has to run before the game's own
+   startscript or the types are not set up when it looks at them).  Stopping
+   at the first would silently drop the game's initialisation -- or the
+   library's.
+
+   From ASL 3.11 the library ones ("lib startscript", tagged in
+   mark_library_addtos) all run first and in *reverse* order, the innermost
+   library initialising first; below 3.11 the tag means nothing and they run
+   in place with the rest (V4Game.Part2.cs:7967-7997). */
+void question_implementation::run_startscripts (const QuestionBlock &game)
+{
+  std::string::size_type c1, c2;
+
+  if (asl_version_ >= 311)
+    for (auto i = game.data.rbegin(); i != game.data.rend(); ++ i)
+      if (ci_equal (first_token (*i, c1, c2), "lib") &&
+	  ci_equal (next_token (*i, c1, c2), "startscript"))
+	run_script_as ("game", c2 < i->length() ? i->substr (c2 + 1) : "");
+  for (const auto &i: game.data)
+    {
+      /* CI: Quest matches "startscript " with BeginsWith
+       * (V4Game.Part2.cs:7971). */
+      string tok = first_token (i, c1, c2);
+      if (ci_equal (tok, "lib") && asl_version_ < 311)
+	tok = next_token (i, c1, c2);
+      if (ci_equal (tok, "startscript"))
+	run_script_as ("game", c2 < i.length() ? i.substr (c2 + 1) : "");
+    }
+}
+
+/* set_game: the game starts in the `start' room whatever the startscript did:
+ * Quest reads the tag only now and hands it to PlayGame
+ * (V4Game.Part2.cs:8026-8040), so a startscript `goto' shows its room
+ * and is then overridden.  q3ext.qlb's force_refresh is why it matters --
+ * it parks the player in a dummy room and goes "back" to a current room
+ * that, this early, is still empty. */
+void question_implementation::enter_start_room (const string &start_room)
+{
+  state.location = start_room;
+
+  regen_var_room ();
+  objs_vars_dirty_ = true;
+  regen_var_dirs ();
+  regen_var_look ();
+  /* Quest enters the start room like any other (PlayGame): describe it,
+   * then run its entry script -- which may immediately goto the real first
+   * room (a "please wait" start room).  That nested goto describes the
+   * destination, so there is no second describe here. */
+  /* The start room is entered through PlayGame as well, so it gets the same
+   * "visited" stamp on the same version-dependent side of its script (see
+   * goto_room). */
+  if (asl_version_ >= 391 && asl_version_ < 410)
+    set_obj_property (state.location, "visited");
+  look();
+  {
+    string start_scr;
+    if (get_room_action (start_room, "script", start_scr))
+      run_script_as (start_room, start_scr);
+    if (asl_version_ >= 410 && !has_room_property (start_room, "visited"))
+      set_obj_property (start_room, "visited");
+  }
+}
+
 void question_implementation::set_game (const string &s)
 {
   QUESTION_DBG << "set_game (...)\n";
   story_filename = s;
   load_method_ = "normal";   /* a fresh game (reset on restart) */
-  /* Seed the RNG once per game.  Real Quest randomises every run; Question used to
-   * leave the generator unseeded, so any random fight played out identically
-   * each time -- which left World's End's final fight permanently unwinnable.
-   * Seed 0 means "true" randomness; QUESTION_SEED overrides it for reproducible
-   * testing, and so does the app's determinism mode. */
-  {
-    const char *envseed = getenv ("QUESTION_SEED");
-    if (envseed)
-      set_erkyrath_random ((uint32_t) atoi (envseed));
-#ifdef SPATTERLIGHT
-    else if (gli_determinism)
-      set_erkyrath_random (1234);
-#endif
-    else
-      set_erkyrath_random (0);
-  }
+  seed_random_for_new_game ();
   try
     {
       gf = read_question_file (gi, s);
@@ -260,33 +487,14 @@ void question_implementation::set_game (const string &s)
         is_running_ = false;
 	return;
       }
-      std::string::size_type tok_start, tok_end;
       outputting = true;
 
-      /* Learn the ASL version before anything can move the player: the game
-       * block is walked again below for its other directives, but exits are
+      /* Learn the ASL version before anything can move the player: exits are
        * read version-dependently (see split_exit_dest) and a startscript can
        * already send us through one. */
-      asl_version_ = 311;
-      string vtok = first_decl_param (gf.block ("game", 0), "asl-version",
-				      true);
-      if (vtok != "")
-	asl_version_ = parse_int (param_contents (vtok));
-
-      /* "define options" is a nameless block, like "define synonyms".  Only
-       * "abbreviations" is acted on here; "panes" and "debug" are host-side
-       * settings Question has no equivalent for. */
-      if (const QuestionBlock *opts = gf.find_by_name ("options", ""))
-	for (const string &oline: opts->data)
-	  {
-	    string otok = lcase (first_token (oline, tok_start, tok_end));
-	    if (otok == "abbreviations")
-	      use_abbreviations_ =
-		lcase (trim (next_token (oline, tok_start, tok_end))) != "off";
-	  }
+      read_version_and_options ();
 
       state = QuestionState (*gi, gf);
-      string start_room;
       initial_objs_.clear ();
       for (const ObjectRecord &o: state.objs)
 	initial_objs_.push_back (o.name);
@@ -294,48 +502,7 @@ void question_implementation::set_game (const string &s)
       for (const TimerRecord &t: state.timers)
 	initial_timers_.push_back (t.name);
 
-      /* The initial value of a variable is a *parameter*, not a literal.
-       * SetUpDisplayVariables runs each `value <...>` through GetParameter as
-       * it walks the game block (V4Game.Part2.cs:744), so a "#var#" or "%var%"
-       * naming a variable defined earlier is substituted, and a "$rand(a;b)$"
-       * is rolled -- once each, in definition order, before anything else in
-       * the game has run.  QuestionState stores the text raw, which left Kingdom's
-       * 23 `value <$rand(...)$>` village statistics all sitting at zero and put
-       * the RNG stream one draw per variable out of step with Quest's from the
-       * first turn.
-       *
-       * It is one pass in source order, and each variable comes into existence
-       * as it is reached, so a value can only see the ones above it: a
-       * reference to a variable defined further down reads one that does not
-       * exist yet -- "" for a string, Quest's undefined-numeric -32767 for a
-       * number.  Hence the wipe first: QuestionState has already created all of
-       * them from the raw text, and leaving those in place would let a
-       * not-yet-defined variable answer for itself.
-       *
-       * Rebuilt records rather than assignments, for the same reason:
-       * set_svar/set_ivar would fire the variable's `onchange` script, and
-       * Quest's setup does not run those. */
-      for (size_t vi = 0; vi < gf.size ("variable"); vi ++)
-	{
-	  const string &vname = gf.block ("variable", vi).name;
-	  for (size_t k = state.ivars.size (); k-- > 0; )
-	    if (ci_equal (state.ivars[k].name, vname))
-	      state.ivars.erase (state.ivars.begin () + k);
-	  for (size_t k = state.svars.size (); k-- > 0; )
-	    if (ci_equal (state.svars[k].name, vname))
-	      state.svars.erase (state.svars.begin () + k);
-	}
-      for (size_t vi = 0; vi < gf.size ("variable"); vi ++)
-	{
-	  const QuestionBlock &vb = gf.block ("variable", vi);
-	  VarDef vd (vb);
-	  string val = (vd.value.find_first_of ("#%$") == string::npos)
-		       ? vd.value : eval_string (vd.value);
-	  if (vd.is_numeric ())
-	    state.ivars.push_back (IVarRecord (vb.name, strtod (val.c_str (), NULL)));
-	  else
-	    state.svars.push_back (SVarRecord (vb.name, val));
-	}
+      init_variables ();
 
       state.running = true;
 
@@ -348,89 +515,10 @@ void question_implementation::set_game (const string &s)
           print_formatted ("|n|i" + banner + "|xi|n");
       }
 
-      auto gfData = gf.block("game", 0).data;
-      for (auto &gline: gfData)
-	{
-	  const string &s = gline;
-	  string tok = first_token (s, tok_start, tok_end);
-	  /* Game-block directive keywords are case-insensitive (see run_script). */
-	  tok = lcase (tok);
-	  if (tok == "asl-version")
-	    {
-	      string ver = next_token (s, tok_start, tok_end);
-	      if (!is_param(ver))
-		{
-		  gi->debug_print ("Version " + s + " has invalid version " +
-				   ver);
-		  continue;
-		}
-	      int vernum = parse_int (param_contents (ver));
-	      if (vernum < 311 || vernum > 353)
-		gi->debug_print ("Warning: Question only supports ASL "
-				 " versions 3.11 to 3.53");
-	    }
-	  else if (tok == "background")
-	    {
-	      if (next_decl_param (*gi, s, tok_start, tok_end,
-				   "background color", tok))
-		gi->set_background (tok);
-	    }
-	  else if (tok == "default")
-	    {
-	      tok = next_token (s, tok_start, tok_end);
-	      /* Sub-keywords are CI too: Quest matches the whole "default
-	       * fontname" phrase with BeginsWith (V4Game.Part2.cs:661-669). */
-	      if (ci_equal (tok, "fontname"))
-		{
-		  if (next_decl_param (*gi, s, tok_start, tok_end,
-				       "font name", tok))
-		    gi->set_default_font (tok);
-		}
-	      else if (ci_equal (tok, "fontsize"))
-		{
-		  if (next_decl_param (*gi, s, tok_start, tok_end,
-				       "font size", tok))
-		    gi->set_default_font_size (tok);
-		}
-	    }
-	  else if (tok == "foreground")
-	    {
-	      if (next_decl_param (*gi, s, tok_start, tok_end,
-				   "foreground color", tok))
-		gi->set_foreground (tok);
-	    }
-	  else if (tok == "gametype")
-	    {
-	      /* Quest itself never reads this declaration: the only place
-		 "gametype"/"multiplayer" appear in the runner is the keyword
-		 table (quest.dat:98,100), and the game block is scanned solely
-		 for "start " when play begins (V4Game.Part2.cc / .Part2.cs:
-		 7992-7999).  A multiplayer game therefore loads and runs as an
-		 ordinary single-player game from its declared start room.  We
-		 used to throw here, which aborted the rest of this loop before
-		 it reached "start" and left the player in room "" -- the game
-		 came up with no location, listing every room as an object in
-		 scope.  Ignore the declaration instead; the multiplayer-only
-		 features (chat, challenges) simply never happen.  */
-	      tok = next_token (s, tok_start, tok_end);
-	      if (ci_equal (tok, "singleplayer") || ci_equal (tok, "multiplayer"))
-		continue;
-	      gi->debug_print ("Unexpected game type " + s);
-	    }
-	  else if (tok == "nodebug")
-	    {
-	    }
-	  else if (tok == "start")
-	    {
-	      if (next_decl_param (*gi, s, tok_start, tok_end,
-				   "start room", tok))
-		state.location = start_room = tok;
-	    }
-	}
+      string start_room = read_game_directives ();
 
       const QuestionBlock &game = gf.block ("game", 0);
       QUESTION_DBG << gf << endl;
-      std::string::size_type c1, c2;
       string tok;
 
       /* Derive the hidden flags of everything parented inside a container once,
@@ -459,67 +547,15 @@ void question_implementation::set_game (const string &s)
 	 (e.g. Mansion's startscript pauses on "Press any key" before its
 	 "*** THE MANSION ***" intro is shown). */
 
-      /* Run every startscript, not just the first: a game block may carry more
-	 than one once a library has appended its own via `!addto game` (e.g. the
-	 bundled type library's TLPstartup, which has to run before the game's own
-	 startscript or the types are not set up when it looks at them).  Stopping
-	 at the first would silently drop the game's initialisation -- or the
-	 library's.
-
-	 From ASL 3.11 the library ones ("lib startscript", tagged in
-	 mark_library_addtos) all run first and in *reverse* order, the innermost
-	 library initialising first; below 3.11 the tag means nothing and they run
-	 in place with the rest (V4Game.Part2.cs:7967-7997). */
-      if (asl_version_ >= 311)
-	for (auto i = game.data.rbegin(); i != game.data.rend(); ++ i)
-	  if (ci_equal (first_token (*i, c1, c2), "lib") &&
-	      ci_equal (next_token (*i, c1, c2), "startscript"))
-	    run_script_as ("game", c2 < i->length() ? i->substr (c2 + 1) : "");
-      for (const auto &i: game.data)
-	{
-	  /* CI: Quest matches "startscript " with BeginsWith
-	   * (V4Game.Part2.cs:7971). */
-	  string tok = first_token (i, c1, c2);
-	  if (ci_equal (tok, "lib") && asl_version_ < 311)
-	    tok = next_token (i, c1, c2);
-	  if (ci_equal (tok, "startscript"))
-	    run_script_as ("game", c2 < i.length() ? i.substr (c2 + 1) : "");
-	}
+      run_startscripts (game);
 
       /* ... unless the startscript asked for no intro, in which case it has
 	 (probably) displayed <intro> itself at the point it wanted it. */
       if (auto_intro_)
 	run_script ("displaytext <intro>");
 
-      /* The game starts in the `start' room whatever the startscript did:
-       * Quest reads the tag only now and hands it to PlayGame
-       * (V4Game.Part2.cs:8026-8040), so a startscript `goto' shows its room
-       * and is then overridden.  q3ext.qlb's force_refresh is why it matters --
-       * it parks the player in a dummy room and goes "back" to a current room
-       * that, this early, is still empty. */
-      state.location = start_room;
+      enter_start_room (start_room);
 
-      regen_var_room ();
-      objs_vars_dirty_ = true;
-      regen_var_dirs ();
-      regen_var_look ();
-      /* Quest enters the start room like any other (PlayGame): describe it,
-       * then run its entry script -- which may immediately goto the real first
-       * room (a "please wait" start room).  That nested goto describes the
-       * destination, so there is no second describe here. */
-      /* The start room is entered through PlayGame as well, so it gets the same
-       * "visited" stamp on the same version-dependent side of its script (see
-       * goto_room). */
-      if (asl_version_ >= 391 && asl_version_ < 410)
-	set_obj_property (state.location, "visited");
-      look();
-      {
-	string start_scr;
-	if (get_room_action (start_room, "script", start_scr))
-	  run_script_as (start_room, start_scr);
-	if (asl_version_ >= 410 && !has_room_property (start_room, "visited"))
-	  set_obj_property (start_room, "visited");
-      }
       /* Start a fresh undo history (RESTART reuses this object) and seed it
        * with the opening state so the first command can be undone too. */
       undo_buffer = LimitStack<UndoState> (kUndoLevels);
@@ -743,24 +779,15 @@ void question_implementation::regen_var_look ()
   set_svar ("quest.lookdesc", look_tag);
 }
 
-void question_implementation::regen_var_dirs()
+/* regen_var_dirs: "quest.doorways.dirs", the compass exits (2.80 to 4.09). */
+void question_implementation::regen_doorways_dirs (bool old_vars)
 {
-  /* From 4.10 the three older doorway variables are not written at all.
-   * UpdateDoorways hands the whole job to GetAvailableDirectionsDescription and
-   * skips the block that sets ".dirs" and the "out" pair
-   * (V4Game.Part2.cs:7207-7211), and ShowRoomInfo's places half is inside its
-   * own `if ASLVersion < 410` (ibid. 3838-3874).  So a 4.10 game that prints
-   * one of them gets an empty string: Nearco's "Puedes ir al: |b#quest.
-   * doorways.dirs#|xb" is a bare label in Quest, and Question filled it with all
-   * eight compass points.  quest.doorways is the mirror image -- set only from
-   * 4.10 (see below) -- so exactly one of the two forms is live at a time. */
-  const bool old_vars = (asl_version_ < 410);
   vector <string> dirs;
   if (asl_version_ >= 280)
     {
       /* 2.80 to 4.09: the fixed compass order, straight out of UpdateDoorways'
        * ten `if` statements (V4Game.Part2.cs:7229-7286).  The -1 skips "out",
-       * which gets its own line below. */
+       * which regen_doorways_out handles. */
       for (size_t i = 0; i < ARRAYSIZE (dir_names) - 1; i ++)
 	if (exit_dest (state.location, dir_names[i]) != "")
 	  dirs.push_back (dir_names[i]);
@@ -799,7 +826,11 @@ void question_implementation::regen_var_dirs()
     }
   if (old_vars)
     set_svar ("quest.doorways.dirs", exits);
+}
 
+/* regen_var_dirs: "quest.doorways.out" and its ".display" twin. */
+void question_implementation::regen_doorways_out (bool old_vars)
+{
   /* Below 2.80 the "out" line is not built from an exit at all.  ShowRoomInfoV2
    * walks the room block's own source lines, takes GetParameter of the last one
    * beginning "out" -- whatever that tag was written for -- looks the result up
@@ -895,7 +926,11 @@ void question_implementation::regen_var_dirs()
 
       set_svar ("quest.doorways.out.display", tmp);
     }
+}
 
+/* regen_var_dirs: current_places, and "quest.doorways.places" from it. */
+void question_implementation::regen_doorways_places (bool old_vars)
+{
   current_places = get_places (state.location);
   string printed_places = "";
   for (size_t i = 0; i < current_places.size(); i ++)
@@ -918,55 +953,74 @@ void question_implementation::regen_var_dirs()
     }
   if (old_vars)
     set_svar ("quest.doorways.places", printed_places);
+}
 
-  /* "quest.doorways" -- the ASL 4.10 single folded list of everywhere you can go
-   * from here, which is what a 4.10 game writes its own exits line from.  It is
-   * set by RoomExits.GetAvailableDirectionsDescription (RoomExits.cs:303-353),
-   * called from UpdateDoorways only when ASLVersion >= 410 (V4Game.Part2.cs:
-   * 7191-7194) -- below 4.10 the variable is never assigned at all, so leave it
-   * alone there.  (The three ".dirs"/".out"/".places" variables are the other way
-   * round: 4.10 stops setting those -- see old_vars above.)
-   *
-   * Every exit that still exists goes in one list, the compass ones first --
-   * AllExits() walks the directions dictionary before the places dictionary
-   * (RoomExits.cs:545-573) -- in the order the room's tags created them, with
-   * "out" among them rather than on a line of its own.  Two games in the corpus
-   * would print a bare "You can go ." without this: Tim Hamilton's "Barbarian"
-   * and his "The Things That Go Bump In The Night" both replace the room display
-   * with a game-block description ending in `msg <You can go #quest.doorways#.>`,
-   * gated on a "for each exit in" loop having found something. */
+/* "quest.doorways" -- the ASL 4.10 single folded list of everywhere you can go
+ * from here, which is what a 4.10 game writes its own exits line from.  It is
+ * set by RoomExits.GetAvailableDirectionsDescription (RoomExits.cs:303-353),
+ * called from UpdateDoorways only when ASLVersion >= 410 (V4Game.Part2.cs:
+ * 7191-7194) -- below 4.10 the variable is never assigned at all, so leave it
+ * alone there.  (The three ".dirs"/".out"/".places" variables are the other way
+ * round: 4.10 stops setting those -- see regen_var_dirs.)
+ *
+ * Every exit that still exists goes in one list, the compass ones first --
+ * AllExits() walks the directions dictionary before the places dictionary
+ * (RoomExits.cs:545-573) -- in the order the room's tags created them, with
+ * "out" among them rather than on a line of its own.  Two games in the corpus
+ * would print a bare "You can go ." without this: Tim Hamilton's "Barbarian"
+ * and his "The Things That Go Bump In The Night" both replace the room display
+ * with a game-block description ending in `msg <You can go #quest.doorways#.>`,
+ * gated on a "for each exit in" loop having found something. */
+void question_implementation::regen_doorways_folded ()
+{
+    vector<string> parts;
+    for (const string &dir: exit_dir_order (state.location))
+      if (exit_dest (state.location, dir) != "")
+	parts.push_back ("|b" + dir + "|xb");
+    /* A place is the one kind of exit that keeps a destination in the line:
+     * GetDirectionNameDisplay returns "to [prefix ]|bname|xb" for it, and
+     * the prefix is the *destination room's* (RoomExits.cs:512-528, set from
+     * _rooms[GetRoomId()].Prefix by RoomExit.cs:231) -- not the one written
+     * on the "place <the; X>" line, which is the pre-4.10 rule. */
+    for (const auto &p: current_places)
+      {
+	string entry = "|b" + p[2] + "|xb", roomprefix;
+	if (get_room_property (p[3], "prefix", roomprefix) && roomprefix != "")
+	  entry = roomprefix + " " + entry;
+	parts.push_back ("to " + entry);
+      }
+    /* Quest's own joining: ", " between all but the last two, " or " before
+     * the last.  (Its counter is one ahead of the index, so a single exit gets
+     * no separator at all and two are joined with " or ".) */
+    string doorways = "";
+    for (size_t i = 0; i < parts.size (); i ++)
+      {
+	doorways += parts[i];
+	if (i + 2 < parts.size ())
+	  doorways += ", ";
+	else if (i + 2 == parts.size ())
+	  doorways += " or ";
+      }
+    set_svar ("quest.doorways", doorways);
+}
+
+void question_implementation::regen_var_dirs()
+{
+  /* From 4.10 the three older doorway variables are not written at all.
+   * UpdateDoorways hands the whole job to GetAvailableDirectionsDescription and
+   * skips the block that sets ".dirs" and the "out" pair
+   * (V4Game.Part2.cs:7207-7211), and ShowRoomInfo's places half is inside its
+   * own `if ASLVersion < 410` (ibid. 3838-3874).  So a 4.10 game that prints
+   * one of them gets an empty string: Nearco's "Puedes ir al: |b#quest.
+   * doorways.dirs#|xb" is a bare label in Quest, and Question filled it with all
+   * eight compass points.  quest.doorways is the mirror image -- set only from
+   * 4.10 (see regen_doorways_folded) -- so exactly one of the two forms is live at a time. */
+  const bool old_vars = (asl_version_ < 410);
+  regen_doorways_dirs (old_vars);
+  regen_doorways_out (old_vars);
+  regen_doorways_places (old_vars);
   if (asl_version_ >= 410)
-    {
-      vector<string> parts;
-      for (const string &dir: exit_dir_order (state.location))
-	if (exit_dest (state.location, dir) != "")
-	  parts.push_back ("|b" + dir + "|xb");
-      /* A place is the one kind of exit that keeps a destination in the line:
-       * GetDirectionNameDisplay returns "to [prefix ]|bname|xb" for it, and
-       * the prefix is the *destination room's* (RoomExits.cs:512-528, set from
-       * _rooms[GetRoomId()].Prefix by RoomExit.cs:231) -- not the one written
-       * on the "place <the; X>" line, which is the pre-4.10 rule. */
-      for (const auto &p: current_places)
-	{
-	  string entry = "|b" + p[2] + "|xb", roomprefix;
-	  if (get_room_property (p[3], "prefix", roomprefix) && roomprefix != "")
-	    entry = roomprefix + " " + entry;
-	  parts.push_back ("to " + entry);
-	}
-      /* Quest's own joining: ", " between all but the last two, " or " before
-       * the last.  (Its counter is one ahead of the index, so a single exit gets
-       * no separator at all and two are joined with " or ".) */
-      string doorways = "";
-      for (size_t i = 0; i < parts.size (); i ++)
-	{
-	  doorways += parts[i];
-	  if (i + 2 < parts.size ())
-	    doorways += ", ";
-	  else if (i + 2 == parts.size ())
-	    doorways += " or ";
-	}
-      set_svar ("quest.doorways", doorways);
-    }
+    regen_doorways_folded ();   /* reads current_places */
 }
 
 /* "take off", "pick up", "look at", ... -- phrasal verbs whose leading word is a

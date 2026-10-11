@@ -26,6 +26,7 @@
 
 #include <string>
 #include "readfile.hh"
+#include "qstr.hh"
 #include <map>
 #include <iostream>
 #include <fstream>
@@ -94,8 +95,8 @@ extern void split_verb_names (const std::string &names_str,
 
 extern std::string string_question_block (const QuestionBlock &);
 
-extern bool starts_with (const std::string &, const std::string &);
-extern bool ends_with (const std::string &, const std::string &);
+using qstr::starts_with;
+using qstr::ends_with;
 extern bool starts_with_i (const std::string &, const std::string &);
 extern bool ends_with_i (const std::string &, const std::string &);
 

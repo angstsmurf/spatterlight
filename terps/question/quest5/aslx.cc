@@ -19,6 +19,7 @@
 // aslx.cc -- Quest 5 loader implementation. See aslx.hh.
 
 #include "aslx.hh"
+#include "../qstr.hh"
 
 #include <algorithm>
 #include <cctype>
@@ -35,6 +36,10 @@
 #include <zlib.h>
 
 namespace aslx {
+
+using qstr::ascii_lower;
+using qstr::starts_with;
+using qstr::trim;
 
 // ---------------------------------------------------------------------------
 // Value / Element / World helpers
@@ -349,13 +354,6 @@ void World::destroy_element(const std::string &name) {
 // Small utilities matching QuestViva's Utility.cs
 // ---------------------------------------------------------------------------
 
-static std::string trim(const std::string &s) {
-    size_t a = 0, b = s.size();
-    while (a < b && std::isspace((unsigned char)s[a])) ++a;
-    while (b > a && std::isspace((unsigned char)s[b - 1])) --b;
-    return s.substr(a, b - a);
-}
-
 // Utility.ListSplit: split on "; " then ";" -- i.e. semicolons, with an
 // optional following space collapsed. StringSplitOptions.None keeps empties.
 static std::vector<std::string> list_split(const std::string &value) {
@@ -496,10 +494,6 @@ static std::string convert_verb_simple_pattern(const std::string &pattern,
         result += add;
     }
     return result;
-}
-
-static bool starts_with(const std::string &s, const char *p) {
-    return s.compare(0, std::strlen(p), p) == 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -712,14 +706,6 @@ struct Loader;
 // its elements/templates to the shared World. Used for both the top-level file
 // and every resolved <include>. Defined below the expat trampolines.
 static bool parse_buffer_into(Loader &ld, const char *data, size_t len);
-static std::string ascii_lower(const std::string &s) {
-    std::string r = s;
-    for (char &c : r) c = (char)std::tolower((unsigned char)c);
-    return r;
-}
-static bool icontains(const std::string &hay, const char *needle) {
-    return ascii_lower(hay).find(needle) != std::string::npos;
-}
 
 struct Loader {
     World &world;
@@ -807,7 +793,7 @@ struct Loader {
             // Editor-only libraries (CoreEditor*.aslx, EditorEnglish.aslx, ...)
             // are referenced by Core/language files but intentionally not
             // bundled; skipping them is expected, not an error.
-            if (!icontains(ref, "editor"))
+            if (qstr::ifind(ref, "editor") == std::string::npos)
                 error("include not found: " + ref);
             return;
         }

@@ -17,6 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/* question_implementation, the class behind the QuestionRunner interface
+ * (QuestionRunner.hh), whose methods are spread over the question-*.cc files.
+ * Those include it through question-internal.hh. */
+
 #ifndef __question_impl_hh
 #define __question_impl_hh
 
@@ -196,6 +200,12 @@ public:
      : QuestionRunner (in_gi), undo_buffer (kUndoLevels), is_running_(true) {}
   //void set_game (std::string s);
   void set_game (const std::string &s) override;
+  /* set_game's steps, in order. */
+  void read_version_and_options ();
+  void init_variables ();
+  std::string read_game_directives ();
+  void run_startscripts (const QuestionBlock &game);
+  void enter_start_room (const std::string &start_room);
   std::string save_state (bool run_hooks = true) override;
   bool load_state (const std::string &data, bool run_hooks = true) override;
   /* Re-register the QuestionFile definition aliases of runtime-cloned objects after
@@ -231,6 +241,22 @@ public:
   void turn_suspended () override { suspend_turn (); }
   bool try_game_verb (const std::string &cmd, bool is_internal, bool lib_pass = false);
   bool try_match (std::string s, bool, bool);
+  /* try_match's built-in verbs (question-verbs.cc), in the order tried. */
+  bool try_unwear (const std::string &cmd, bool is_internal);
+  bool try_builtin_verb (const std::string &cmd, bool is_internal);
+  bool try_look (const std::string &cmd, bool is_internal);
+  bool try_give (const std::string &cmd, bool is_internal);
+  bool try_remove (const std::string &cmd, bool is_internal);
+  bool try_use (const std::string &cmd, bool is_internal);
+  bool try_put (const std::string &cmd, bool is_internal);
+  bool try_take (const std::string &cmd, bool is_internal);
+  bool try_drop (const std::string &cmd, bool is_internal);
+  bool try_speak (const std::string &cmd, bool is_internal);
+  bool try_out (const std::string &cmd, bool is_internal);
+  bool try_direction (const std::string &cmd, bool is_internal);
+  bool try_goto (const std::string &cmd, bool is_internal);
+  bool try_inventory (const std::string &cmd, bool is_internal);
+  bool try_meta (const std::string &cmd, bool is_internal);
   match_rv match_command (const std::string &input, const std::string &action) const;
   match_rv match_command (const std::string &input, uint ichar,
 			  const std::string &action, uint achar, match_rv rv) const;
@@ -312,6 +338,11 @@ public:
    * display never writes -- see regen_var_look. */
   std::string look_desc_;
   void regen_var_dirs ();
+  /* regen_var_dirs's parts; old_vars = the game predates ASL 4.10. */
+  void regen_doorways_dirs (bool old_vars);
+  void regen_doorways_out (bool old_vars);
+  void regen_doorways_places (bool old_vars);
+  void regen_doorways_folded ();
   /* Rebuild quest.objects and quest.formatobjects.  Quest has two writers of
    * the pair and they punctuate differently: the room display puts " and "
    * before the last object of quest.formatobjects, the pane refresh joins with
@@ -321,6 +352,9 @@ public:
   void regen_var_room ();
 
   void look();
+  bool run_room_description ();
+  void print_room_location_line ();
+  void print_room_objects_and_exits ();
 
   /* Display one picture.  Quest 4 had two picture routines and the tag's form
    * and the game's ASL version chose between them (V4Game.Part2.cs:5836-5858):
@@ -633,6 +667,68 @@ public:
   void run_script_as (const std::string &, const std::string &);
   void run_script (const std::string &);
   void run_script (const std::string &, std::string &);
+  /* run_script's statement handlers, one per ASL statement (a statement with
+   * several spellings shares one).  Each gets the line, the enclosing
+   * function's result, the lower-cased keyword and the keyword's token bounds,
+   * and returns true once the line is dealt with. */
+#define QUESTION_STMT(name) \
+  bool exec_##name (const std::string &s, std::string &rv, std::string tok, \
+		    std::string::size_type c1, std::string::size_type c2)
+  /* question-script-flow.cc */
+  QUESTION_STMT (select);
+  QUESTION_STMT (choose);
+  QUESTION_STMT (do);
+  QUESTION_STMT (doaction);
+  QUESTION_STMT (dontprocess);
+  QUESTION_STMT (enter);
+  QUESTION_STMT (exec);
+  QUESTION_STMT (flag);
+  QUESTION_STMT (for);
+  QUESTION_STMT (if);
+  QUESTION_STMT (inc_dec);
+  QUESTION_STMT (pause);
+  QUESTION_STMT (playerwin_lose);
+  QUESTION_STMT (repeat);
+  QUESTION_STMT (return);
+  QUESTION_STMT (set);
+  QUESTION_STMT (setvar);
+  QUESTION_STMT (stop);
+  QUESTION_STMT (timer);
+  QUESTION_STMT (wait);
+  /* question-script-world.cc */
+  QUESTION_STMT (action);
+  QUESTION_STMT (type);
+  QUESTION_STMT (add_remove);
+  QUESTION_STMT (open_close);
+  QUESTION_STMT (lock_unlock);
+  QUESTION_STMT (clone);
+  QUESTION_STMT (create);
+  QUESTION_STMT (destroy);
+  QUESTION_STMT (disconnect);
+  QUESTION_STMT (give);
+  QUESTION_STMT (goto);
+  QUESTION_STMT (hide);
+  QUESTION_STMT (show);
+  QUESTION_STMT (lose);
+  QUESTION_STMT (move);
+  QUESTION_STMT (property);
+  QUESTION_STMT (reveal_conceal);
+  /* question-script-output.cc */
+  QUESTION_STMT (ignored);
+  QUESTION_STMT (animate);
+  QUESTION_STMT (colour);
+  QUESTION_STMT (clear);
+  QUESTION_STMT (debug);
+  QUESTION_STMT (displaytext);
+  QUESTION_STMT (msg);
+  QUESTION_STMT (outputoff);
+  QUESTION_STMT (outputon);
+  QUESTION_STMT (nointro);
+  QUESTION_STMT (picture);
+  QUESTION_STMT (play_sound);
+  QUESTION_STMT (say);
+  QUESTION_STMT (speak);
+#undef QUESTION_STMT
   /* Depth cap on nested script execution.  A game can write a script that
    * re-enters itself with no way out -- the classic case is a variable whose
    * "onchange" script assigns to that same variable, since Quest fires onchange
@@ -673,6 +769,9 @@ public:
   std::string run_function (const std::string &);
   std::string run_function (const std::string &, std::vector<std::string> args);
   std::string bad_arg_count (const std::string &);
+  /* run_function's built-ins, by kind. */
+  std::string game_function (const std::string &pname, bool &found);
+  std::string text_function (const std::string &pname, bool &found);
 
   bool eval_conds (const std::string &);
   bool eval_cond (const std::string &);

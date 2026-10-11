@@ -56,7 +56,7 @@ RANDFLAGS = -I../../common_utils -I$(CHEAPGLK)
 # the frontend.  libexpat + zlib are the loader's only external deps.
 ASLXHDRS := ../quest5/aslx.hh ../quest5/aslx-runtime.hh \
             ../quest5/aslx-runtime-internal.hh ../quest5/aslxglk-map.hh \
-            ../quest5/aslxglk-form.hh
+            ../quest5/aslxglk-form.hh ../quest5/aslxglk-internal.hh ../qstr.hh
 ASLXLOADSRC := ../quest5/aslx.cc
 ASLXENGSRC := $(ASLXLOADSRC) ../quest5/aslx-runtime.cc \
               ../quest5/aslx-runtime-parse.cc ../quest5/aslx-runtime-builtins.cc \
@@ -67,6 +67,13 @@ ASLXENGOBJ := $(patsubst ../quest5/%.cc,$(ASLXOBJDIR)/%.o,$(ASLXENGSRC))
 ASLXMAPSRC := ../quest5/aslxglk-map.cc ../quest5/aslxglk-form.cc
 ASLXMAPOBJ := $(patsubst ../quest5/%.cc,$(ASLXOBJDIR)/%.o,$(ASLXMAPSRC))
 ASLXLIBS := -lexpat -lz
+# The Glk frontend proper.  Its units share their state through
+# aslxglk-internal.hh, and are compiled straight into the two harnesses that
+# carry the frontend (they need CheapGlk's glk.h, which the objects above
+# don't).
+ASLXGLKSRC := ../quest5/aslxglk.cc ../quest5/aslxglk-output.cc \
+              ../quest5/aslxglk-panes.cc ../quest5/aslxglk-input.cc \
+              ../quest5/aslxglk-media.cc ../quest5/aslxglk-autosave.cc
 
 # Quest 5 (.aslx / .quest) milestone-1 loader test: the loader alone.
 ASLXBIN := $(Q5)/aslx_loader_test
@@ -105,7 +112,7 @@ ASLXDRIVE := $(Q5)/aslx_drive.hh
 #       ./aslx_linkcapture "<game.quest>" "<script.cmd>"
 ASLXLINKCAP := $(Q5)/aslx_linkcapture
 
-# Quest 5 Glk frontend smoke harness: the real aslxglk.cc against the in-repo
+# Quest 5 Glk frontend smoke harness: the real aslxglk*.cc against the in-repo
 # CheapGlk, driven by piping commands to stdin. Built on demand.
 ASLXGLK := $(Q5)/aslxglk_smoke
 CHEAPGLK := ../../cheapglk
@@ -113,7 +120,7 @@ CHEAPGLK := ../../cheapglk
 # The helpers both Glk frontends share, compiled into every binary that
 # carries a frontend.
 QGLKCOMMON := ../questglk-common.cc
-QGLKCOMMONHDR := ../questglk-common.hh
+QGLKCOMMONHDR := ../questglk-common.hh ../qstr.hh
 
 # Unit tests for those helpers.  Engine-agnostic, so it stays at the root of
 # the test tree.  It links CheapGlk for the glk_* symbols the other helpers in
@@ -122,7 +129,8 @@ QGLKBIN := questglk_unit_tests
 QGLKSRC := questglk_unit_tests.cc
 
 # Unit tests for the Quest 5 frontend's HTML link parser. It #includes
-# aslxglk.cc itself (link_action is file-local) and links CheapGlk for the glk_*
+# aslxglk-internal.hh (link_action is private to the frontend), compiles the
+# frontend in, and links CheapGlk for the glk_*
 # symbols the frontend references -- CheapGlk reports no hyperlink support, so
 # the smoke harness never registers or clicks a link and cannot cover this.
 ASLXLINKBIN := $(Q5)/aslxglk_link_tests
@@ -160,9 +168,10 @@ $(ASLXRTBIN): $(ASLXRTSRC) $(ASLXENGOBJ) $(ASLXHDRS)
 $(QGLKBIN): $(QGLKSRC) $(QGLKCOMMON) $(QGLKCOMMONHDR)
 	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(QGLKCOMMON) $(CHEAPGLK)/libcheapglk.a -o $@
 
-$(ASLXLINKBIN): $(ASLXLINKSRC) ../quest5/aslxglk.cc $(QGLKCOMMON) $(QGLKCOMMONHDR) \
+$(ASLXLINKBIN): $(ASLXLINKSRC) $(ASLXGLKSRC) $(QGLKCOMMON) $(QGLKCOMMONHDR) \
 	         $(ASLXENGOBJ) $(ASLXMAPOBJ) $(ASLXHDRS)
-	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXLINKSRC) $(QGLKCOMMON) $(ASLXENGOBJ) $(ASLXMAPOBJ) \
+	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXLINKSRC) $(ASLXGLKSRC) $(QGLKCOMMON) \
+	    $(ASLXENGOBJ) $(ASLXMAPOBJ) \
 	    $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 
 $(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXDRIVE) $(ASLXENGOBJ) $(ASLXHDRS)
@@ -171,15 +180,15 @@ $(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXDRIVE) $(ASLXENGOBJ) $(ASLXHDRS)
 $(ASLXLINKCAP): $(ASLXLINKCAP).cc $(ASLXDRIVE) $(ASLXENGOBJ) $(ASLXHDRS)
 	$(CXX) $(CXXFLAGS) $(ASLXLINKCAP).cc $(ASLXENGOBJ) $(ASLXLIBS) -o $@
 
-$(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc $(QGLKCOMMON) $(QGLKCOMMONHDR) \
+$(ASLXGLK): $(ASLXGLK).cc $(ASLXGLKSRC) $(QGLKCOMMON) $(QGLKCOMMONHDR) \
             $(ASLXENGOBJ) $(ASLXMAPOBJ) $(ASLXHDRS)
-	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc ../quest5/aslxglk.cc $(QGLKCOMMON) \
+	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc $(ASLXGLKSRC) $(QGLKCOMMON) \
 	    $(ASLXENGOBJ) $(ASLXMAPOBJ) $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 
 # Compile each engine source as its own translation unit, semantic analysis only.
 #
 # The Quest 4 harnesses above unity-include the engine sources -- the walkthrough
-# runner #includes all six engine .cc files -- so a function defined in one .cc
+# runner #includes every engine .cc file -- so a function defined in one .cc
 # and called from another builds fine here even when no header declares it -- the
 # caller just sees the earlier definition. The real Xcode build compiles the same
 # files separately and rejects it. That is not hypothetical: a missing
@@ -193,7 +202,10 @@ $(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc $(QGLKCOMMON) $(QGLKCOMMONHDR) \
 SYNTAXCXX := $(wildcard ../*.cc) $(wildcard ../quest5/*.cc)
 SYNTAXC := $(wildcard ../*.c)
 # -I$(CHEAPGLK) is only for glk.h; the frontends are never linked here.
-SYNTAXFLAGS := -w -I.. -I$(CHEAPGLK) -I../../common_utils
+# -Wshadow because a struct split or a function split can leave a copied
+# `type name = ...;` shadowing the member or parameter it was meant to assign;
+# the tree is clean, so any warning here is new.
+SYNTAXFLAGS := -Wshadow -I.. -I$(CHEAPGLK) -I../../common_utils
 
 syntax:
 	@fail=0; \

@@ -71,7 +71,7 @@ static void collect_links(const std::string &html) {
 static const Link *match_link(const std::string &cmd) {
     for (size_t k = g_links.size(); k-- > 0;) {
         if (g_links[k].spent) continue;
-        if (rt_iequals(g_links[k].command.c_str(), cmd.c_str())) {
+        if (iequal(g_links[k].command, cmd)) {
             g_links[k].spent = true;
             return &g_links[k];
         }

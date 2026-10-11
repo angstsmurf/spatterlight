@@ -106,7 +106,7 @@ std::vector<std::string> split_parameters(const std::string &text) {
                 if (c == '(') ++brackets;
                 if (c == ')') brackets = std::max(0, brackets - 1);
                 if (brackets == 0 && c == ',') {
-                    result.push_back(rt_trim(cur));
+                    result.push_back(trim(cur));
                     cur.clear();
                     continue;
                 }
@@ -114,7 +114,7 @@ std::vector<std::string> split_parameters(const std::string &text) {
         }
         cur += c;
     }
-    result.push_back(rt_trim(cur));
+    result.push_back(trim(cur));
     return result;
 }
 
@@ -141,7 +141,7 @@ std::string get_script(const std::string &script, std::string &after) {
 }
 
 std::string remove_surrounding_braces(const std::string &input) {
-    std::string s = rt_trim(input);
+    std::string s = trim(input);
     if (s.size() >= 2 && s.front() == '{' && s.back() == '}')
         return s.substr(1, s.size() - 2);
     return s;
@@ -567,13 +567,13 @@ struct Parser {
             // Boolean/null literals are case-insensitive ("True", "FALSE"):
             // NCalc's Terms.Text("true", true), and the null parameter check in
             // NcalcExpressionEvaluator.ResolveVariable.
-            if (rt_iequals(t.s, "true") || rt_iequals(t.s, "false")) {
+            if (iequal(t.s, "true") || iequal(t.s, "false")) {
                 advance();
                 ExprP e = node(Expr::Kind::Bool);
-                e->boolean = rt_iequals(t.s, "true");
+                e->boolean = iequal(t.s, "true");
                 return e;
             }
-            if (rt_iequals(t.s, "null")) {
+            if (iequal(t.s, "null")) {
                 advance();
                 return node(Expr::Kind::Null);
             }
@@ -743,7 +743,7 @@ std::vector<Stmt> parse_statements(const std::string &src, Interp &interp) {
     while (true) {
         std::string after;
         std::string stmt = get_script(line, after);
-        stmt = rt_trim(stmt);
+        stmt = trim(stmt);
 
         if (!stmt.empty()) {
             if (starts_with_word(stmt, "otherwise")) {
@@ -751,7 +751,7 @@ std::vector<Stmt> parse_statements(const std::string &src, Interp &interp) {
                 if (!result.empty() &&
                     result.back().kind == Stmt::Kind::FirstTime) {
                     Stmt &ft = result.back();
-                    ft.else_body = parse_block(rt_trim(stmt.substr(9)), interp);
+                    ft.else_body = parse_block(trim(stmt.substr(9)), interp);
                     ft.has_else = true;
                 } else {
                     interp.errors().push_back("Unexpected 'otherwise': " + stmt);
@@ -763,17 +763,17 @@ std::vector<Stmt> parse_statements(const std::string &src, Interp &interp) {
                                  ? &result.back()
                                  : nullptr;
                 if (last) {
-                    std::string rest = rt_trim(text_after(stmt, "else"));
+                    std::string rest = trim(text_after(stmt, "else"));
                     if (starts_with_word(rest, "if")) {
-                        std::string after;
+                        std::string body;
                         bool found;
-                        std::string cond = get_parameter(rest, after, found);
+                        std::string cond = get_parameter(rest, body, found);
                         // Deferred: an unparsable condition must only error if
                         // this else-if is actually REACHED (all prior branches
                         // false) -- see compile_expr_str_deferred.
                         ExprP test = compile_expr_str_deferred(cond);
                         last->elseifs.emplace_back(std::move(test),
-                                                   parse_block(after, interp));
+                                                   parse_block(body, interp));
                     } else {
                         last->else_body = parse_statements(rest, interp);
                         last->has_else = true;
@@ -797,7 +797,7 @@ std::vector<Stmt> parse_statements(const std::string &src, Interp &interp) {
         }
 
         line = after;
-        if (rt_trim(line).empty()) break;
+        if (trim(line).empty()) break;
     }
     return result;
 }
@@ -827,7 +827,7 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
     if (starts_with_word(line, "return")) {
         s.kind = Stmt::Kind::Return;
         std::string p = parameter();
-        if (found && !rt_trim(p).empty()) s.expr = compile_expr_str(p);
+        if (found && !trim(p).empty()) s.expr = compile_expr_str(p);
         return s;
     }
     const BlockKeyword *bk = block_keyword(line);
@@ -835,7 +835,7 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
     if (bk && bk->shape == BlockKeyword::Shape::Bare) {
         // firsttime, on ready, wait, get input: the block follows directly.
         s.kind = block;
-        s.body = parse_block(rt_trim(line.substr(std::strlen(bk->word))),
+        s.body = parse_block(trim(line.substr(std::strlen(bk->word))),
                              interp);
         if (block == Stmt::Kind::FirstTime)
             s.ran = std::make_shared<bool>(false);
@@ -881,7 +881,7 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
         std::string cases = remove_surrounding_braces(get_script(after, bafter));
         while (true) {
             std::string rem;
-            std::string cs = rt_trim(get_script(cases, rem));
+            std::string cs = trim(get_script(cases, rem));
             if (!cs.empty()) {
                 if (starts_with_word(cs, "case")) {
                     std::string cafter; bool cfound;
@@ -893,13 +893,13 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
                                          parse_block(cafter, interp));
                 } else if (starts_with_word(cs, "default")) {
                     s.else_body =
-                        parse_statements(rt_trim(cs.substr(7)), interp);
+                        parse_statements(trim(cs.substr(7)), interp);
                 } else {
                     interp.errors().push_back("Invalid inside switch: " + cs);
                 }
             }
             cases = rem;
-            if (rt_trim(cases).empty()) break;
+            if (trim(cases).empty()) break;
         }
         return s;
     }
@@ -923,7 +923,7 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
     if (block == Stmt::Kind::Ask) {
         // ask (caption) { callback }
         std::string param = parameter();
-        if (!found || rt_trim(param).empty()) {
+        if (!found || trim(param).empty()) {
             interp.errors().push_back(
                 "'ask' script should have 1 parameter: 'ask (" + param + ")'");
             s.kind = Stmt::Kind::Comment;
@@ -959,14 +959,14 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
                              : assign_eq_pos(line, is_script_assign);
     if (eq != std::string::npos) {
         s.kind = Stmt::Kind::Assign;
-        std::string lhs = rt_trim(line.substr(0, eq));
-        std::string rhs = rt_trim(line.substr(eq + (is_script_assign ? 2 : 1)));
+        std::string lhs = trim(line.substr(0, eq));
+        std::string rhs = trim(line.substr(eq + (is_script_assign ? 2 : 1)));
         size_t dot = lhs.rfind('.');
         if (dot == std::string::npos) {
             s.name = lhs;
         } else {
             s.obj = compile_expr_str(lhs.substr(0, dot));
-            s.name = rt_trim(lhs.substr(dot + 1));
+            s.name = trim(lhs.substr(dot + 1));
         }
         if (is_script_assign) s.script_text = rhs;
         else s.expr = compile_expr_str(rhs);
@@ -984,16 +984,16 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
     if (paren != std::string::npos &&
         (brace == std::string::npos || paren < brace)) {
         std::string param = parameter();
-        s.name = rt_trim(line.substr(0, paren));
-        if (!rt_trim(param).empty())
+        s.name = trim(line.substr(0, paren));
+        if (!trim(param).empty())
             for (const std::string &a : split_parameters(param))
                 s.call_args.push_back(compile_expr_str(a));
-        s.script_text = rt_trim(after);   // "" when no block follows
+        s.script_text = trim(after);   // "" when no block follows
     } else if (brace != std::string::npos) {
-        s.name = rt_trim(line.substr(0, brace));
-        s.script_text = rt_trim(line.substr(brace));
+        s.name = trim(line.substr(0, brace));
+        s.script_text = trim(line.substr(brace));
     } else {
-        s.name = rt_trim(line);
+        s.name = trim(line);
     }
     return s;
 }

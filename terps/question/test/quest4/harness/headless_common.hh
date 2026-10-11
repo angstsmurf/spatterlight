@@ -44,6 +44,10 @@
 #include "../../../question-util.cc"
 #include "../../../istring.cc"
 #include "../../../readfile.cc"
+#include "../../../standardlib_builtin.cc"
+#include "../../../stdverbs_builtin.cc"
+#include "../../../typelib_builtin.cc"
+#include "../../../q3ext_builtin.cc"
 #include "../../../questionfile.cc"
 #include "../../../question-state.cc"
 
@@ -61,7 +65,11 @@
 #include "../../../question-rooms.cc"
 #include "../../../question-session.cc"
 #include "../../../question-parse.cc"
+#include "../../../question-verbs.cc"
 #include "../../../question-script.cc"
+#include "../../../question-script-flow.cc"
+#include "../../../question-script-world.cc"
+#include "../../../question-script-output.cc"
 #include "../../../question-functions.cc"
 #include "../../../question-panes.cc"
 

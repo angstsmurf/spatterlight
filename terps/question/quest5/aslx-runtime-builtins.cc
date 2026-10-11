@@ -39,11 +39,6 @@
 
 namespace aslx {
 
-static std::string to_lower(std::string s) {
-    for (char &c : s) c = (char)std::tolower((unsigned char)c);
-    return s;
-}
-
 // .NET's ToLowerInvariant/ToUpperInvariant (behind LCase/UCase/CapFirst) are
 // full-Unicode; a std::tolower fold is ASCII-only, which broke Greek games
 // (Iron John: the input "βασιλιά" must LCase-match the alias "Βασιλιά", and
@@ -182,7 +177,7 @@ static std::string strip_trailing_digits(std::string s) {
 }
 
 IntParse parse_int32_text(const std::string &raw, long &out) {
-    std::string s = rt_trim(raw);
+    std::string s = trim(raw);
     size_t i = (s.size() && (s[0] == '-' || s[0] == '+')) ? 1 : 0;
     if (i == s.size()) return IntParse::BadFormat;
     for (size_t k = i; k < s.size(); ++k)
@@ -281,7 +276,7 @@ const std::string *find_dyn_template(World &w, const std::string &name) {
 Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                            bool &handled, Context &ctx) {
     handled = true;
-    const std::string fn = to_lower(name);
+    const std::string fn = qstr::ascii_lower(name);
     const size_t n = args.size();
     auto arg = [&](size_t i) -> const Value & {
         static const Value nullv;
@@ -877,7 +872,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vbool(parse_int32_text(sarg(0), v) == IntParse::Ok);
     }
     if (fn == "isdouble" && n == 1)
-        return vbool(is_decimal_text(rt_trim(sarg(0)), false));
+        return vbool(is_decimal_text(trim(sarg(0)), false));
     if (fn == "lengthof" && n == 1) return vint((long)sarg(0).size());
     if (fn == "startswith" && n == 2) {
         std::string s = sarg(0), p = sarg(1);
@@ -915,7 +910,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     }
     if ((fn == "cstr" || fn == "tostring") && n == 1) return vstr(sarg(0));
     if (fn == "isnumeric" && n == 1) {
-        std::string s = rt_trim(sarg(0));
+        std::string s = trim(sarg(0));
         if (s.empty()) return vbool(false);
         char *end = nullptr;
         c_strtod(s.c_str(), &end);
@@ -983,7 +978,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     };
     // double.Parse additionally takes an exponent.
     auto parse_double = [&](const std::string &raw) -> double {
-        std::string s = rt_trim(raw);
+        std::string s = trim(raw);
         if (!is_decimal_text(s, true)) bad_format(raw);
         return c_strtod(s.c_str());
     };
@@ -1155,9 +1150,9 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // QuestViva GetFileData: the resource's text (BOM dropped), null when
     // there is no such resource; a path climbing out with ".." is refused.
     if (fn == "getfiledata" && n == 1) {
-        std::string name = sarg(0), data;
-        if (name.find("..") != std::string::npos) error("Invalid filename");
-        if (!resource_provider || !resource_provider(name, data)) return vnull();
+        std::string file = sarg(0), data;
+        if (file.find("..") != std::string::npos) error("Invalid filename");
+        if (!resource_provider || !resource_provider(file, data)) return vnull();
         if (data.compare(0, 3, "\xEF\xBB\xBF") == 0) data.erase(0, 3);
         return vstr(data);
     }

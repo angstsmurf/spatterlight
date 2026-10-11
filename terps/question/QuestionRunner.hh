@@ -17,6 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/* The Quest 1-4 engine's public interface: QuestionRunner, which a frontend
+ * drives, and QuestionInterface, which it implements to be driven back.  The
+ * class behind it is in question-impl.hh, and what its translation units
+ * share among themselves in question-internal.hh. */
+
 #ifndef __QuestionRunner_hh
 #define __QuestionRunner_hh
 

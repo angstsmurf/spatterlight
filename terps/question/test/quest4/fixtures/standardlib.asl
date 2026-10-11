@@ -1,4 +1,4 @@
-' The bundled standard.lib (standardlib_builtin.hh): A.G. Bampton's Quest 2
+' The bundled standard.lib (standardlib_builtin.cc): A.G. Bampton's Quest 2
 ' container library, which Quest ships and splices in whenever a game
 ' !includes it and has no copy of its own next to the game file
 ' (V4Game.cs:1397-1415).  Question used to skip the include, which made a game

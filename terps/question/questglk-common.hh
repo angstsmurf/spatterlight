@@ -25,10 +25,13 @@
 #define QUESTION_QUESTGLK_COMMON_HH
 
 #include <string>
+#include <vector>
 
 extern "C" {
 #include "glk.h"
 }
+
+#include "qstr.hh"
 
 #ifdef SPATTERLIGHT
 /* Spatterlight's by-path resource registration (glkimp's fileresource.c).
@@ -47,21 +50,25 @@ namespace questglk {
 
 /* ---------------------------------------------------------------- strings */
 
-std::string lower (std::string s);
-std::string trim (const std::string &s);
+/* The shared helpers (qstr.hh) under the names the frontends know them by. */
+inline std::string lower (std::string s) { return qstr::ascii_lower (std::move (s)); }
+using qstr::trim;
 std::string cap_first (std::string s);
 
 /* ------------------------------------------------------------------ UTF-8 */
 
 glui32 utf8_next_cp (const std::string &s, size_t &i);
+void utf8_append (std::string &out, glui32 cp);
+std::string utf8_from_uni (const glui32 *buf, size_t n);
 void put_stream_utf8 (strid_t s, const std::string &str);
 size_t utf8_cp_len (const std::string &s);
 std::string tail_chars (const std::string &s, size_t n, bool utf8);
 bool unput_tail_exact (winid_t win, const std::u32string &s);
 
-/* ------------------------------------------------------------------- echo */
+/* ------------------------------------------------------------------ input */
 
 void echo_input_line (const std::string &line, bool utf8);
+glui32 cancel_line_request (winid_t win);
 
 /* ------------------------------------------------------------------ style */
 
@@ -166,7 +173,60 @@ bool prompt_read_save (std::string &data);
 
 /* -------------------------------------------------------------- resources */
 
-int register_path_resource (const std::string &path, bool sound);
+int register_path_resource (const std::string &path, bool sound,
+                            glui32 offset = 0, glui32 length = 0,
+                            bool verify = false);
+
+/* --------------------------------------------------------------- autosave */
+
+/* The one encoding everything a Question autosave writes goes through, for
+ * both engines: a number is its decimal digits and a newline, a string is
+ * its byte length as a number, the bytes, and a newline.  Strings may hold
+ * anything, newlines and NULs included. */
+void blob_num (std::string &s, long v);
+void blob_str (std::string &s, const std::string &v);
+
+/* Reads the same back.  A field that is missing or cut short clears `ok`
+ * and every read after it returns 0 or the empty string, so a caller reads
+ * the whole layout and tests `ok` once at the end. */
+struct BlobReader {
+  const std::string &s;
+  size_t pos = 0;
+  bool ok = true;
+
+  long num ();
+  std::string str ();
+  bool at_end () const { return pos >= s.size (); }
+};
+
+/* What autosave.glksave holds, whichever engine wrote it.
+ *
+ * An autosave at the command prompt is the engine's state and its undo
+ * history.  One taken while a turn has a prompt of its own open -- a menu, a
+ * question, a pause for a key -- cannot be: the engine is in the middle of a
+ * script.  It holds the state the turn *started* from plus the replay
+ * record, the command and every answer given since, and the autorestore
+ * runs the turn again in silence, feeding it those answers, until the
+ * prompt is open again.  The game's start script counts as a turn with no
+ * command and no state before it, so an autosave under one of its prompts
+ * has an empty `state` and the boot itself is what gets replayed.
+ *
+ * What an answer looks like is the frontend's business; the record only
+ * carries them. */
+struct AutosaveRecord {
+  std::string state;                  /* the engine's own serialization */
+  std::string undo;                   /* ...and its undo history */
+  bool replay = false;
+  std::string command;                /* empty when the boot is the turn */
+  std::vector<std::string> answers;
+
+  bool boot_replay () const { return replay && state.empty (); }
+};
+
+std::string encode_autosave_record (const AutosaveRecord &rec);
+/* False for anything that is not a whole record of this format, which is
+ * how an autosave from an older build reads. */
+bool decode_autosave_record (const std::string &data, AutosaveRecord *rec);
 
 } /* namespace questglk */
 

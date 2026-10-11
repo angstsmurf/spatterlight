@@ -7,7 +7,7 @@
 ' equivalent for, so a game that included the library used to answer "buy the
 ' sword" with its own unrecognised-command error and drop the second half of
 ' "north, then east" on the floor.  Question now splices in a bundled copy
-' (stdverbs_builtin.hh) the same way it does the type library.
+' (stdverbs_builtin.cc) the same way it does the type library.
 '
 ' What is exercised here: a default verb response with its
 ' #(quest.lastobject):article# (which needs quest.lastobject to be set by the

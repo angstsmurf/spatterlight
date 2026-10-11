@@ -15,7 +15,7 @@
 '
 ' -- so a game that includes the library answers PUT HAT IN CRATE and DON HAT
 ' and SHUT CRATE, none of which its command layer names.  Question splices the
-' library in from typelib_builtin.hh, and that copy used to be missing this
+' library in from typelib_builtin.cc, and that copy used to be missing this
 ' block, which left every one of those phrasings unrecognised.
 '
 ' The commands below are the ones the block is for.  Each is followed by the

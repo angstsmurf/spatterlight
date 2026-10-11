@@ -455,7 +455,7 @@ void QuestionFile::get_type_keys (const string &typen, set<string> &rv,
       QUESTION_DBG << "  g_t_k: Nonexistent type\n";
       return;
     }
-  string line, tok;
+  string tok;
   std::string::size_type c1, c2;
   for (const string &line: gb->data)
     {
@@ -1052,7 +1052,7 @@ string QuestionFile::static_eval (const string &input) const
 	  /* Two conversion characters in a row are a literal one: Quest's
 	   * ConvertParameter has an explicit empty-name case that appends the
 	   * character and moves on (V4Game.cs:6704-6708).  eval_string has it
-	   * (question-runner.cc:7895-7896); this, its load-time twin, did not, so a
+	   * (eval_string_body); this, its load-time twin, did not, so a
 	   * room aliased "Room ##1" -- RiddleRun's five are -- looked up a string
 	   * variable with no name and came out as "Room 1". */
 	  if (j == i + 1)

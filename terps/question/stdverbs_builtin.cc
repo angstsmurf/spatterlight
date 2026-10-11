@@ -22,10 +22,9 @@
  *  Source: textadventures/quest, src/Legacy/Libraries/stdverbs.lib
  ***************************************************************************/
 
-#ifndef QUESTION_STDVERBS_BUILTIN_HH
-#define QUESTION_STDVERBS_BUILTIN_HH
+#include "builtin_libs.hh"
 
-static const char question_builtin_stdverbs[] = R"QUESTIONLIB(
+const char question_builtin_stdverbs[] = R"QUESTIONLIB(
 !library
 !asl-version <400>
 !name <Additional verbs>
@@ -89,5 +88,3 @@ static const char question_builtin_stdverbs[] = R"QUESTIONLIB(
 	command <#stdverbs.command#.> exec <#stdverbs.command#>
 !end
 )QUESTIONLIB";
-
-#endif

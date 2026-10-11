@@ -44,7 +44,7 @@ for a win marker.
 | --- | --- |
 | `harness/aslx_loader_test` | the `.aslx`/`.quest` loader — XML, includes, the zip container |
 | `harness/aslx_runtime_test` | the script/expression runtime, save/restore of native state |
-| `harness/aslxglk_link_tests` | the Glk frontend's HTML link parser (`link_action`, file-local in `aslxglk.cc`) |
+| `harness/aslxglk_link_tests` | the Glk frontend's HTML link parser (`link_action`, in `aslxglk-output.cc`, declared in `aslxglk-internal.hh`) |
 
 All three open their fixtures as `../fixtures/<name>`, so run them from
 `harness/`:
@@ -117,7 +117,7 @@ using the first half of each golden script as the setup.
 
 ## Glk frontend smoke (`harness/aslxglk_smoke`)
 
-The real `quest5/aslxglk.cc` against the in-repo CheapGlk, driven by piping
+The real frontend (`quest5/aslxglk*.cc`) against the in-repo CheapGlk, driven by piping
 commands to stdin. Built on demand; useful for anything that only goes wrong
 once the frontend is in the loop.
 
