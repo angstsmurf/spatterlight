@@ -221,7 +221,7 @@ sm_shuffle (sm_layout_t *L, int rno, int dir)
 
   /*
    * The runner's shuffle knows only the four cardinals; asked to move a room
-   * diagonally (see sm_set_grid's default case) it leaves it where it is.
+   * diagonally (see sm_realign's default case) it leaves it where it is.
    */
   if (dir >= DIR_N && dir <= DIR_W)
     {
@@ -436,10 +436,200 @@ sm_try_inc_y (sm_layout_t *L, int rno, int *x, int *y, int xrno, int match)
 
 /*
  * sm_set_grid()
+ * sm_place_neighbour()
+ * sm_realign()
+ * sm_clear_lane()
  *
  * Place a room, then place everything reachable from it (Form29.set_grid).
- * This is the whole layout.
+ * This is the whole layout.  The runner's procedure is one loop over the
+ * exits; its three arms are the helpers: a neighbour not yet on the grid
+ * (sm_place_neighbour), one that is there but out of line (sm_realign), and
+ * the second repair pass over the cells between the two (sm_clear_lane).
  */
+static void sm_set_grid (sm_layout_t *L, int rno, int *px, int *py);
+
+static void
+sm_place_neighbour (sm_layout_t *L, int rno, int *px, int *py,
+                    int d, int dest, int nx, int ny, int g)
+{
+  if (g == GRID_EMPTY)
+    sm_set_grid (L, dest, &nx, &ny);
+  else
+    {
+      /*
+       * The cell is spoken for.  Rather than find somewhere else for
+       * the neighbour, step *ourselves* one cell in the opposite
+       * direction and hand it the cell we just vacated -- which, now
+       * that we have moved, lies exactly where it should relative to
+       * us.  (nx,ny is reused to hold our old cell, as in the runner:
+       * sh() moves px,py out from under us.)
+       */
+      nx = *px;
+      ny = *py;
+      sm_sh (L, rno, px, py, sm_opp (d));
+      sm_set_grid (L, dest, &nx, &ny);
+    }
+}
+
+/*
+ * The neighbour is already on the grid, somewhere else.  Nothing is ever
+ * re-placed, so instead we shove ourselves until the two line up.
+ */
+static void
+sm_realign (sm_layout_t *L, int rno, int *px, int *py,
+            int d, int dest, int *match)
+{
+  sm_room_t *r = &L->rooms[rno];
+
+  switch (d)
+    {
+    case DIR_N:
+      /*
+       * No "else match = 0" here, nor in the South case: that is what
+       * makes `match` stale.  The runner is like this.
+       */
+      if (L->rooms[dest].x == r->x)
+        {
+          int j;
+
+          *match = 1;
+          /*
+           * The whole column between us must already be our connector.  As
+           * dest lies north of us, this loop runs from a higher y to a
+           * lower one and so -- with Visual Basic's implicit step of 1 --
+           * never executes at all.  The same is true of the West case
+           * below.  North and West are therefore effectively unchecked,
+           * an asymmetry in the original that we keep.
+           */
+          for (j = r->y - 1; j <= L->rooms[dest].y + 1; j++)
+            if (sm_check_grid (L, r->x, j) != GRID_VLINK)
+              *match = 0;
+        }
+      if (*match == 0)
+        {
+          sm_try_inc_y (L, rno, px, py, dest, 1);
+          sm_try_inc_x (L, rno, px, py, dest, 0);
+          sm_try_dec_x (L, rno, px, py, dest, 0);
+        }
+      break;
+
+    case DIR_E:
+      if (L->rooms[dest].y == r->y)
+        {
+          int j;
+
+          *match = 1;
+          for (j = r->x + 1; j <= L->rooms[dest].x - 1; j++)
+            if (sm_check_grid (L, j, r->y) != GRID_HLINK)
+              *match = 0;
+        }
+      else
+        *match = 0;
+      if (*match == 0)
+        {
+          sm_try_dec_x (L, rno, px, py, dest, 1);
+          sm_try_inc_y (L, rno, px, py, dest, 0);
+          sm_try_dec_y (L, rno, px, py, dest, 0);
+        }
+      break;
+
+    case DIR_S:
+      if (L->rooms[dest].x == r->x)
+        {
+          int j;
+
+          *match = 1;
+          for (j = r->y + 1; j <= L->rooms[dest].y - 1; j++)
+            if (sm_check_grid (L, r->x, j) != GRID_VLINK)
+              *match = 0;
+        }
+      if (*match == 0)
+        {
+          sm_try_dec_y (L, rno, px, py, dest, 1);
+          sm_try_inc_x (L, rno, px, py, dest, 0);
+          sm_try_dec_x (L, rno, px, py, dest, 0);
+        }
+      break;
+
+    case DIR_W:
+      /* No alignment test at all; West always tries to realign. */
+      sm_try_inc_x (L, rno, px, py, dest, 1);
+      sm_try_inc_y (L, rno, px, py, dest, 0);
+      sm_try_dec_y (L, rno, px, py, dest, 0);
+      break;
+
+    default:
+      /*
+       * Diagonals get no repair pass.  A diagonal whose target cell is
+       * taken goes through sm_place_neighbour(), which calls sh() with a
+       * diagonal direction, which shuffle() does not understand -- so the
+       * shove is a no-op and the neighbour is placed on top of us.  That is
+       * what the runner does; two rooms in one cell is a real ADRIFT 4 map
+       * bug, and check_grid() then reports whichever has the lower number.
+       */
+      break;
+    }
+}
+
+/*
+ * Second repair pass: walk the cells between us and the neighbour and,
+ * wherever one is occupied, sidestep into whichever perpendicular lane is
+ * free.  (Again, North and West never execute: their loops count the
+ * wrong way.)
+ */
+static void
+sm_clear_lane (sm_layout_t *L, int rno, int *px, int *py, int d, int dest)
+{
+  sm_room_t *r = &L->rooms[rno];
+  int j;
+
+  switch (d)
+    {
+    case DIR_N:
+      for (j = r->y - 1; j <= L->rooms[dest].y + 1; j++)
+        if (sm_check_grid (L, r->x, j) != GRID_EMPTY)
+          {
+            if (sm_check_grid (L, r->x - 1, j) == GRID_EMPTY)
+              sm_sh (L, rno, px, py, DIR_W);
+            if (sm_check_grid (L, r->x + 1, j) == GRID_EMPTY)
+              sm_sh (L, rno, px, py, DIR_E);
+          }
+      break;
+    case DIR_E:
+      for (j = r->x + 1; j <= L->rooms[dest].x - 1; j++)
+        if (sm_check_grid (L, j, r->y) != GRID_EMPTY)
+          {
+            if (sm_check_grid (L, j, r->y - 1) == GRID_EMPTY)
+              sm_sh (L, rno, px, py, DIR_N);
+            if (sm_check_grid (L, j, r->y + 1) == GRID_EMPTY)
+              sm_sh (L, rno, px, py, DIR_S);
+          }
+      break;
+    case DIR_S:
+      for (j = r->y + 1; j <= L->rooms[dest].y - 1; j++)
+        if (sm_check_grid (L, r->x, j) != GRID_EMPTY)
+          {
+            if (sm_check_grid (L, r->x - 1, j) == GRID_EMPTY)
+              sm_sh (L, rno, px, py, DIR_W);
+            if (sm_check_grid (L, r->x + 1, j) == GRID_EMPTY)
+              sm_sh (L, rno, px, py, DIR_E);
+          }
+      break;
+    case DIR_W:
+      for (j = r->x - 1; j <= L->rooms[dest].x + 1; j++)
+        if (sm_check_grid (L, j, r->y) != GRID_EMPTY)
+          {
+            if (sm_check_grid (L, j, r->y - 1) == GRID_EMPTY)
+              sm_sh (L, rno, px, py, DIR_N);
+            if (sm_check_grid (L, j, r->y + 1) == GRID_EMPTY)
+              sm_sh (L, rno, px, py, DIR_S);
+          }
+      break;
+    default:
+      break;
+    }
+}
+
 static void
 sm_set_grid (sm_layout_t *L, int rno, int *px, int *py)
 {
@@ -499,175 +689,13 @@ sm_set_grid (sm_layout_t *L, int rno, int *px, int *py)
 
       if (!L->rooms[dest].placed)
         {
-          if (g == GRID_EMPTY)
-            sm_set_grid (L, dest, &nx, &ny);
-          else
-            {
-              /*
-               * The cell is spoken for.  Rather than find somewhere else for
-               * the neighbour, step *ourselves* one cell in the opposite
-               * direction and hand it the cell we just vacated -- which, now
-               * that we have moved, lies exactly where it should relative to
-               * us.  (nx,ny is reused to hold our old cell, as in the runner:
-               * sh() moves px,py out from under us.)
-               */
-              nx = *px;
-              ny = *py;
-              sm_sh (L, rno, px, py, sm_opp (d));
-              sm_set_grid (L, dest, &nx, &ny);
-            }
+          sm_place_neighbour (L, rno, px, py, d, dest, nx, ny, g);
           continue;
         }
 
-      /*
-       * The neighbour is already on the grid, somewhere else.  Nothing is ever
-       * re-placed, so instead we shove ourselves until the two line up.
-       */
-      switch (d)
-        {
-        case DIR_N:
-          /*
-           * No "else match = 0" here, nor in the South case: that is what
-           * makes `match` stale.  The runner is like this.
-           */
-          if (L->rooms[dest].x == r->x)
-            {
-              int j;
-
-              match = 1;
-              /*
-               * The whole column between us must already be our connector.  As
-               * dest lies north of us, this loop runs from a higher y to a
-               * lower one and so -- with Visual Basic's implicit step of 1 --
-               * never executes at all.  The same is true of the West case
-               * below.  North and West are therefore effectively unchecked,
-               * an asymmetry in the original that we keep.
-               */
-              for (j = r->y - 1; j <= L->rooms[dest].y + 1; j++)
-                if (sm_check_grid (L, r->x, j) != GRID_VLINK)
-                  match = 0;
-            }
-          if (match == 0)
-            {
-              sm_try_inc_y (L, rno, px, py, dest, 1);
-              sm_try_inc_x (L, rno, px, py, dest, 0);
-              sm_try_dec_x (L, rno, px, py, dest, 0);
-            }
-          break;
-
-        case DIR_E:
-          if (L->rooms[dest].y == r->y)
-            {
-              int j;
-
-              match = 1;
-              for (j = r->x + 1; j <= L->rooms[dest].x - 1; j++)
-                if (sm_check_grid (L, j, r->y) != GRID_HLINK)
-                  match = 0;
-            }
-          else
-            match = 0;
-          if (match == 0)
-            {
-              sm_try_dec_x (L, rno, px, py, dest, 1);
-              sm_try_inc_y (L, rno, px, py, dest, 0);
-              sm_try_dec_y (L, rno, px, py, dest, 0);
-            }
-          break;
-
-        case DIR_S:
-          if (L->rooms[dest].x == r->x)
-            {
-              int j;
-
-              match = 1;
-              for (j = r->y + 1; j <= L->rooms[dest].y - 1; j++)
-                if (sm_check_grid (L, r->x, j) != GRID_VLINK)
-                  match = 0;
-            }
-          if (match == 0)
-            {
-              sm_try_dec_y (L, rno, px, py, dest, 1);
-              sm_try_inc_x (L, rno, px, py, dest, 0);
-              sm_try_dec_x (L, rno, px, py, dest, 0);
-            }
-          break;
-
-        case DIR_W:
-          /* No alignment test at all; West always tries to realign. */
-          sm_try_inc_x (L, rno, px, py, dest, 1);
-          sm_try_inc_y (L, rno, px, py, dest, 0);
-          sm_try_dec_y (L, rno, px, py, dest, 0);
-          break;
-
-        default:
-          /*
-           * Diagonals get no repair pass.  A diagonal whose target cell is
-           * taken falls into the branch above and calls sh() with a diagonal
-           * direction, which shuffle() does not understand -- so the shove is a
-           * no-op and the neighbour is placed on top of us.  That is what the
-           * runner does; two rooms in one cell is a real ADRIFT 4 map bug, and
-           * check_grid() then reports whichever has the lower number.
-           */
-          break;
-        }
-
-      /*
-       * Second repair pass: walk the cells between us and the neighbour and,
-       * wherever one is occupied, sidestep into whichever perpendicular lane is
-       * free.  (Again, North and West never execute: their loops count the
-       * wrong way.)
-       */
+      sm_realign (L, rno, px, py, d, dest, &match);
       if (match == 0)
-        {
-          int j;
-
-          switch (d)
-            {
-            case DIR_N:
-              for (j = r->y - 1; j <= L->rooms[dest].y + 1; j++)
-                if (sm_check_grid (L, r->x, j) != GRID_EMPTY)
-                  {
-                    if (sm_check_grid (L, r->x - 1, j) == GRID_EMPTY)
-                      sm_sh (L, rno, px, py, DIR_W);
-                    if (sm_check_grid (L, r->x + 1, j) == GRID_EMPTY)
-                      sm_sh (L, rno, px, py, DIR_E);
-                  }
-              break;
-            case DIR_E:
-              for (j = r->x + 1; j <= L->rooms[dest].x - 1; j++)
-                if (sm_check_grid (L, j, r->y) != GRID_EMPTY)
-                  {
-                    if (sm_check_grid (L, j, r->y - 1) == GRID_EMPTY)
-                      sm_sh (L, rno, px, py, DIR_N);
-                    if (sm_check_grid (L, j, r->y + 1) == GRID_EMPTY)
-                      sm_sh (L, rno, px, py, DIR_S);
-                  }
-              break;
-            case DIR_S:
-              for (j = r->y + 1; j <= L->rooms[dest].y - 1; j++)
-                if (sm_check_grid (L, r->x, j) != GRID_EMPTY)
-                  {
-                    if (sm_check_grid (L, r->x - 1, j) == GRID_EMPTY)
-                      sm_sh (L, rno, px, py, DIR_W);
-                    if (sm_check_grid (L, r->x + 1, j) == GRID_EMPTY)
-                      sm_sh (L, rno, px, py, DIR_E);
-                  }
-              break;
-            case DIR_W:
-              for (j = r->x - 1; j <= L->rooms[dest].x + 1; j++)
-                if (sm_check_grid (L, j, r->y) != GRID_EMPTY)
-                  {
-                    if (sm_check_grid (L, j, r->y - 1) == GRID_EMPTY)
-                      sm_sh (L, rno, px, py, DIR_N);
-                    if (sm_check_grid (L, j, r->y + 1) == GRID_EMPTY)
-                      sm_sh (L, rno, px, py, DIR_S);
-                  }
-              break;
-            default:
-              break;
-            }
-        }
+        sm_clear_lane (L, rno, px, py, d, dest);
     }
 }
 

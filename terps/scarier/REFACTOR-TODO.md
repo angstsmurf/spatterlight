@@ -122,7 +122,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~258~~ | ~~`lib_print_room_contents`~~ | DONE: five parts + driver, see "lib_print_room_contents split" |
 | ~~249~~ | ~~`restore_scarier_body`~~ | DONE: `scarier_restore_t` + eight members, see "restore_scarier_body split" |
 | ~~240~~ | ~~`ser_save_game_body`~~ | DONE: six section functions + driver, see "ser_save_game_body split" |
-| 228 | `sm_set_grid` | `scmap.cpp` |
+| ~~228~~ | ~~`sm_set_grid`~~ | DONE: three arms + driver, see "sm_set_grid split" |
 | 224 | `scmap_build` | `scmap.cpp` |
 | 219 | `save_scarier_body` | `adrift5/run/a5run_save.cpp` (autosave suite) |
 | 212 | `lib_take_and_pre400` | `library/sclibrar_take.cpp` |
@@ -375,9 +375,10 @@ Per the project's own verification recipe:
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3:
    the 16 rows the table opened with are DONE (see their "split"
    sections), as are `run_lenient_census`, `a5run_input_inner`,
-   `lib_print_room_contents`, `restore_scarier_body` and
-   `ser_save_game_body`, the first five of the 15 rows added on
-   2026-10-11; 10 rows remain, top to bottom, `sm_set_grid` next.
+   `lib_print_room_contents`, `restore_scarier_body`,
+   `ser_save_game_body` and `sm_set_grid`, the first six of the 15 rows
+   added on 2026-10-11; 9 rows remain, top to bottom, `scmap_build`
+   next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1383,3 +1384,28 @@ them):
   `sanitize` clean; `run_autosave_tests.py --build` all passed.  No
   line over 80 columns.
 - Next in the table: `sm_set_grid` (scmap.cpp).
+
+## 3: sm_set_grid split (2026-10-11)
+
+- **`sm_set_grid`** (228 l.) in `scmap.cpp`, the port of Form29.set_grid,
+  is a 65-line driver (placement, the exit loop, the target-cell test)
+  over the three arms of that loop: `sm_place_neighbour` (a neighbour
+  not yet on the grid: recurse, stepping aside first if its cell is
+  spoken for), `sm_realign` (the per-direction alignment test and the
+  three shoves) and `sm_clear_lane` (the second repair pass).  The
+  runner's procedure-scoped, deliberately stale `match` stays a local of
+  the driver with its comment; `sm_realign` takes it by pointer and the
+  driver tests it before `sm_clear_lane`, as the inline code did.
+  `sm_place_neighbour` takes `nx`, `ny` by value: nothing read them
+  after that arm.  The recursion needs a forward declaration of the
+  driver.  Bodies are code motion, dedented; two comments that said "the
+  branch above" / "sm_set_grid's default case" name the helper.
+- Verification: `-Wshadow` syntax check clean; headless `quick`; full
+  `test` output identical; `make -j8 scarier glkscarier` warning-free;
+  `sanitize` clean.  The suite has no 4.x map row, so the check that
+  matters is `scmap_dump <game> -all -grid` over all 728 .taf files in
+  `test/adrift4/games`, old binary against new: ASCII grid, exit code
+  and PPM hash byte-identical (546 maps drawn; 5 "layout stuck" and 4
+  "ran off the grid" among the rest, so the failure paths ran too).  No
+  line over 80 columns.
+- Next in the table: `scmap_build` (scmap.cpp; same `scmap_dump` sweep).
