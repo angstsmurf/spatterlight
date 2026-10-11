@@ -129,7 +129,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~211~~ | ~~`lib_cmd_locate_object`~~ | done 2026-10-11, see below |
 | ~~207~~ | ~~`a5text_render_plain`~~ | done 2026-10-11, see below |
 | ~~206~~ | ~~`lib_use_room_alt`~~ | done 2026-10-11, see below |
-| 204 | `lib_definite_object_name` | `library/sclibrar_print.cpp` |
+| ~~204~~ | ~~`lib_definite_object_name`~~ | done 2026-10-11, see below |
 | 201 | `os_print_tag` | `glk/os_glk_output.cpp` (Glk build + autosave suite) |
 | 201 | `a5state_new` | `adrift5/a5state.cpp` |
 
@@ -378,10 +378,10 @@ Per the project's own verification recipe:
    `lib_print_room_contents`, `restore_scarier_body`,
    `ser_save_game_body`, `sm_set_grid`, `scmap_build`,
    `save_scarier_body`, `lib_take_and_pre400`,
-   `lib_cmd_locate_object`, `a5text_render_plain` and
-   `lib_use_room_alt`, the first twelve of the 15 rows added on
-   2026-10-11; 3 rows remain, top to bottom, `lib_definite_object_name`
-   next.
+   `lib_cmd_locate_object`, `a5text_render_plain`,
+   `lib_use_room_alt` and `lib_definite_object_name`, the first
+   thirteen of the 15 rows added on 2026-10-11; 2 rows remain,
+   `os_print_tag` next, then `a5state_new`.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1557,3 +1557,23 @@ them):
   and after.
 - Next in the table: `lib_definite_object_name` (same file; corpus
   `recompare` too).
+
+## 3: lib_definite_object_name split (2026-10-11)
+
+- **`lib_definite_object_name`** (204 l.) in `library/sclibrar_print.cpp`
+  is about 35 lines of code under 170 of measurement notes, in two
+  halves that each own their notes: `lib_definite_prefix (prefix,
+  is_pre_390, result)` is the article normalizer (appends "the" to the
+  result where a branch fires and returns what is left of the prefix),
+  and `lib_short_without_article (name)` is the leading-article strip
+  on the Short.  Each helper carries the comment blocks that explain
+  it, verbatim; the driver keeps the two property reads, the
+  unconditional prefix-and-space note and the concatenation.
+- Verification: `-Wshadow` syntax check clean; full `test` output
+  identical; `make -j8 scarier glkscarier` warning-free; `sanitize`
+  clean; corpus `recompare` old file against new (the `scare` target
+  rebuilt in between) leaves byte-identical `manifest.tsv` and
+  `compare/` trees, the recompare's own rewrite reverted afterwards.
+  One line over 80 columns in the file, before and after.
+- Next in the table: `os_print_tag` (glk/os_glk_output.cpp; not in the
+  headless build, so the Glk build and the autosave suite).

@@ -783,21 +783,17 @@ lib_compare_article_binary (const scr_char *string, const scr_char *word,
 }
 
 
-std::string
-lib_definite_object_name (scr_prop_setref_t bundle, scr_int object)
+/*
+ * lib_definite_prefix()
+ *
+ * Write the article lib_definite_object_name() opens with to RESULT, and
+ * return what is left of PREFIX to follow it.
+ */
+static const scr_char *
+lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,
+                     std::string &result)
 {
-  std::string result;
-  scr_vartype_t vt_key[3], vt_version[1];
-  const scr_char *prefix, *normalized, *name;
-  scr_bool is_pre_390;
-
-  vt_version[0].string = "Version";
-
-  /* Get the object's prefix. */
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Prefix";
-  prefix = prop_get_string (bundle, "S<-sis", vt_key);
+  const scr_char *normalized;
 
   /*
    * Normalize by skipping any leading "a"/"an"/"some", replacing it instead
@@ -815,7 +811,6 @@ lib_definite_object_name (scr_prop_setref_t bundle, scr_int object)
    * 2026-08-14.
    */
   normalized = prefix;
-  is_pre_390 = prop_get_integer (bundle, "I<-s", vt_version) < TAF_VERSION_390;
 
   /*
    * Pre-3.9 is Form1.tense(), and it is a much smaller thing: three
@@ -907,21 +902,18 @@ lib_definite_object_name (scr_prop_setref_t bundle, scr_int object)
       result += "the";
     }
 
-  /*
-   * Print what the normalizer left of the prefix, and a separating space.
-   * Both are unconditional: the Runner's name builder is a plain
-   * `tense(Prefix) & " " & Short` concatenation, so a prefix it hands back
-   * empty still costs a space.  That case is only reachable at all for an
-   * authored whitespace-only prefix, which the loader trims to nothing after
-   * declining to substitute an "a" into it -- probe ISARE's single-space
-   * rings answers `where rings` with " rings are test arena.", leading space
-   * and no article (run400, runner_probes/isare.run400.txt, 2026-09-07).
-   * Scarier deliberately gives that empty prefix a "the" instead (deviation
-   * policy).
-   */
-  result += normalized;
-  result += ' ';
+  return normalized;
+}
 
+/*
+ * lib_short_without_article()
+ *
+ * An object's Short name, past any leading article that has more of the
+ * name after it.
+ */
+static const scr_char *
+lib_short_without_article (const scr_char *name)
+{
   /*
    * Print the object's name, verbatim.  Inherited SCARE looked for a leading
    * article here and stripped it, on the grounds that "some games may avoid
@@ -964,28 +956,65 @@ lib_definite_object_name (scr_prop_setref_t bundle, scr_int object)
    * by more of the name goes, with the spaces after it, so the old "the  horn"
    * double space does not come back either.
    */
+  static const struct { const scr_char *word; scr_int length; } articles[] = {
+    {"a", 1}, {"an", 2}, {"the", 3}, {"some", 4}
+  };
+  size_t index_;
+
+  for (index_ = 0; index_ < sizeof (articles) / sizeof (articles[0]);
+       index_++)
+    {
+      if (scr_compare_word (name, articles[index_].word,
+                            articles[index_].length)
+          && !scr_strempty (name + articles[index_].length))
+        {
+          name += articles[index_].length;
+          while (scr_isspace (*name))
+            name++;
+          break;
+        }
+    }
+
+  return name;
+}
+
+std::string
+lib_definite_object_name (scr_prop_setref_t bundle, scr_int object)
+{
+  std::string result;
+  scr_vartype_t vt_key[3], vt_version[1];
+  const scr_char *prefix, *normalized, *name;
+  scr_bool is_pre_390;
+
+  vt_version[0].string = "Version";
+
+  /* Get the object's prefix. */
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Prefix";
+  prefix = prop_get_string (bundle, "S<-sis", vt_key);
+
+  is_pre_390 = prop_get_integer (bundle, "I<-s", vt_version) < TAF_VERSION_390;
+  normalized = lib_definite_prefix (prefix, is_pre_390, result);
+
+  /*
+   * Print what the normalizer left of the prefix, and a separating space.
+   * Both are unconditional: the Runner's name builder is a plain
+   * `tense(Prefix) & " " & Short` concatenation, so a prefix it hands back
+   * empty still costs a space.  That case is only reachable at all for an
+   * authored whitespace-only prefix, which the loader trims to nothing after
+   * declining to substitute an "a" into it -- probe ISARE's single-space
+   * rings answers `where rings` with " rings are test arena.", leading space
+   * and no article (run400, runner_probes/isare.run400.txt, 2026-09-07).
+   * Scarier deliberately gives that empty prefix a "the" instead (deviation
+   * policy).
+   */
+  result += normalized;
+  result += ' ';
+
   vt_key[2].string = "Short";
   name = prop_get_string (bundle, "S<-sis", vt_key);
-  {
-    static const struct { const scr_char *word; scr_int length; } articles[] = {
-      {"a", 1}, {"an", 2}, {"the", 3}, {"some", 4}
-    };
-    size_t index_;
-
-    for (index_ = 0; index_ < sizeof (articles) / sizeof (articles[0]);
-         index_++)
-      {
-        if (scr_compare_word (name, articles[index_].word,
-                              articles[index_].length)
-            && !scr_strempty (name + articles[index_].length))
-          {
-            name += articles[index_].length;
-            while (scr_isspace (*name))
-              name++;
-            break;
-          }
-      }
-  }
+  name = lib_short_without_article (name);
   result += name;
   return result;
 }
