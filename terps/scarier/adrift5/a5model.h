@@ -420,9 +420,14 @@ typedef struct a5_adventure_s {
 extern a5_adventure_t *a5model_from_doc (a5_xml_doc_t *doc);
 
 /* key -> array index via the load-time hash (kind: 'O' objects, 'L' locations,
-   'C' characters, 'T' tasks, 'V' variables); -1 when absent.  Falls back to
-   the linear scan when the index is not built (hand-assembled test models). */
+   'C' characters, 'T' tasks, 'V' variables, 'G' groups); -1 when absent.  Falls
+   back to the linear scan when the index is not built (hand-assembled test
+   models). */
 extern int a5model_key_index (const a5_adventure_t *a, int kind, const char *key);
+
+/* Is `key` in group number `grp`'s static <Member> list? */
+extern int a5model_group_has_member (const a5_adventure_t *a, int grp,
+                                     const char *key);
 
 /* Full pipeline: read a Blorb/.taf file, deobfuscate, inflate, parse, model. */
 extern a5_adventure_t *a5model_load (const char *path);
@@ -503,6 +508,12 @@ obj_prop (const a5_object_t *o, const char *key)
 
 /* Per-type key lookups (linear; adequate for load + Phase 1). */
 extern const a5_object_t    *a5model_object    (const a5_adventure_t *a, const char *key);
+/* The object, character and location carrying `key` (each NULL when there is
+   none), from a single hash of the key. */
+extern void a5model_entity (const a5_adventure_t *a, const char *key,
+                            const a5_object_t **o,
+                            const a5_character_t **c,
+                            const a5_location_t **l);
 extern const a5_location_t  *a5model_location  (const a5_adventure_t *a, const char *key);
 extern const a5_character_t *a5model_character (const a5_adventure_t *a, const char *key);
 extern const a5_task_t      *a5model_task      (const a5_adventure_t *a, const char *key);

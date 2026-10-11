@@ -139,6 +139,7 @@ typedef struct a5_state_s {
 
   a5_prop_ov_t *ov;       /* property overrides set at runtime                 */
   int n_ov, cap_ov;
+  void *ov_index;         /* opaque (entity, prop) hash over ov (a5state.cpp) */
 
   a5_grpmem_t *gm;        /* live group membership (the runner arlMembers), ordered    */
   int n_gm, cap_gm;
@@ -529,6 +530,8 @@ extern int a5state_character_visible_at_location (const a5_state_t *st, int ci,
  */
 extern const char *a5state_entity_prop (const a5_state_t *st, const char *entkey,
                                         const char *propkey);
+/* Drop every runtime property override (a restore starts from none). */
+extern void a5state_clear_overrides (a5_state_t *st);
 extern void a5state_set_prop (a5_state_t *st, const char *entkey,
                               const char *propkey, const char *value);
 

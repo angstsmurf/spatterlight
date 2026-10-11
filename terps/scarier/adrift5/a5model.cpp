@@ -855,7 +855,13 @@ struct a5_key_table
   int
   find (const char *key) const
   {
-    unsigned h = hash_key (key);
+    return find_hashed (key, hash_key (key));
+  }
+
+  /* find() for a caller probing several tables with one key. */
+  int
+  find_hashed (const char *key, unsigned h) const
+  {
     size_t i = h & mask;
     while (slots[i].key != nullptr)
       {
@@ -867,9 +873,63 @@ struct a5_key_table
   }
 };
 
+/* The groups' static <Member> lists as one (group, member) set, so a
+   membership test is a probe rather than a walk of the member list. */
+struct a5_member_table
+{
+  struct slot { const char *key; unsigned hash; int grp; };
+  std::vector<slot> slots;      /* size is a power of two; key==NULL = empty */
+  size_t mask = 0;
+
+  static unsigned
+  hash_member (int grp, const char *key)
+  {
+    return a5_key_table::hash_key (key) ^ ((unsigned) grp * 2654435761u);
+  }
+
+  void
+  build (const a5_group_t *groups, int n_groups)
+  {
+    size_t n = 0, cap = 16;
+    int g, m;
+    for (g = 0; g < n_groups; g++)
+      n += (size_t) groups[g].n_members;
+    while (cap < n * 2)
+      cap <<= 1;
+    slots.assign (cap, slot{nullptr, 0, -1});
+    mask = cap - 1;
+    for (g = 0; g < n_groups; g++)
+      for (m = 0; m < groups[g].n_members; m++)
+        if (groups[g].members[m] != nullptr && !has (g, groups[g].members[m]))
+          {
+            unsigned h = hash_member (g, groups[g].members[m]);
+            size_t i = h & mask;
+            while (slots[i].key != nullptr)
+              i = (i + 1) & mask;
+            slots[i] = slot{groups[g].members[m], h, g};
+          }
+  }
+
+  bool
+  has (int grp, const char *key) const
+  {
+    unsigned h = hash_member (grp, key);
+    size_t i = h & mask;
+    while (slots[i].key != nullptr)
+      {
+        if (slots[i].hash == h && slots[i].grp == grp
+            && strcmp (slots[i].key, key) == 0)
+          return true;
+        i = (i + 1) & mask;
+      }
+    return false;
+  }
+};
+
 struct a5_key_index
 {
-  a5_key_table objects, locations, characters, tasks, variables;
+  a5_key_table objects, locations, characters, tasks, variables, groups;
+  a5_member_table members;
 };
 
 template <typename T>
@@ -907,6 +967,8 @@ a5model_build_key_index (a5_adventure_t *a)
   index_family (ix->characters, a->characters, a->n_characters);
   index_family (ix->tasks,      a->tasks,      a->n_tasks);
   index_family (ix->variables,  a->variables,  a->n_variables);
+  index_family (ix->groups,     a->groups,     a->n_groups);
+  ix->members.build (a->groups, a->n_groups);
   a->key_index = ix;
 }
 
@@ -933,8 +995,56 @@ a5model_key_index (const a5_adventure_t *a, int kind, const char *key)
     case 'V':
       return family_index (ix ? &ix->variables : nullptr,
                            a->variables, a->n_variables, key);
+    case 'G':
+      return family_index (ix ? &ix->groups : nullptr,
+                           a->groups, a->n_groups, key);
     }
   return -1;
+}
+
+int
+a5model_group_has_member (const a5_adventure_t *a, int grp, const char *key)
+{
+  const a5_key_index *ix = (const a5_key_index *) a->key_index;
+  const a5_group_t *g;
+  int m;
+  if (key == nullptr || grp < 0 || grp >= a->n_groups)
+    return 0;
+  if (ix != nullptr)
+    return ix->members.has (grp, key);
+  g = &a->groups[grp];
+  for (m = 0; m < g->n_members; m++)
+    if (g->members[m] != nullptr && strcmp (g->members[m], key) == 0)
+      return 1;
+  return 0;
+}
+
+void
+a5model_entity (const a5_adventure_t *a, const char *key,
+                const a5_object_t **o, const a5_character_t **c,
+                const a5_location_t **l)
+{
+  const a5_key_index *ix = (const a5_key_index *) a->key_index;
+  *o = nullptr;
+  *c = nullptr;
+  *l = nullptr;
+  if (key == nullptr)
+    return;
+  if (ix != nullptr)
+    {
+      unsigned h = a5_key_table::hash_key (key);
+      int i;
+      if ((i = ix->objects.find_hashed (key, h)) >= 0)
+        *o = &a->objects[i];
+      if ((i = ix->characters.find_hashed (key, h)) >= 0)
+        *c = &a->characters[i];
+      if ((i = ix->locations.find_hashed (key, h)) >= 0)
+        *l = &a->locations[i];
+      return;
+    }
+  *o = a5model_object (a, key);
+  *c = a5model_character (a, key);
+  *l = a5model_location (a, key);
 }
 
 /* The Runner's own palette (Global.vb DEFAULT_*COLOUR, stored there as ARGB),

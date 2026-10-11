@@ -964,9 +964,7 @@ restore_reset (a5_run_t *run)
 
   for (i = 0; i < adv->n_tasks; i++)
     { st->task_done[i] = 0; st->task_scored[i] = 0; }
-  for (i = 0; i < st->n_ov; i++)
-    { free (st->ov[i].entity); free (st->ov[i].prop); free (st->ov[i].value); }
-  st->n_ov = 0;
+  a5state_clear_overrides (st);
   if (st->obj_seen != nullptr)
     memset (st->obj_seen, 0, (size_t) adv->n_objects);
   if (st->char_seen != nullptr)

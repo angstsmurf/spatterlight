@@ -26,6 +26,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <vector>
+
 #include "a5restr.h"
 #include "a5state.h"
 #include "a5util.h"
@@ -66,35 +68,130 @@ chr_prop (const a5_character_t *c, const char *key)
   return p ? p->value : nullptr;
 }
 
-/* The runtime property override for (entity, prop), or NULL. */
+/* Hash over st->ov, keyed by (entity, prop).  Nearly every property read
+   probes the overrides first and nearly all of those probes miss, so a walk
+   of the whole list per read dominated the turn profile.  Overrides are only
+   ever appended or dropped wholesale, so the index just trails n_ov. */
+#define OV_GROUP_PREFIX "@InGroup:"
+
+struct a5_ov_index
+{
+  struct slot { unsigned hash; int idx; };   /* idx < 0 = empty */
+  std::vector<slot> slots;                   /* size is a power of two */
+  size_t mask = 0;
+  int indexed = 0;                           /* st->ov[0..indexed) are in */
+
+  static unsigned
+  hash_more (unsigned h, const char *s)
+  {
+    /* FNV-1a. */
+    for (; *s; s++)
+      {
+        h ^= (unsigned char) *s;
+        h *= 16777619u;
+      }
+    return h;
+  }
+
+  /* `prop` hashes as prefix + rest so a group-membership probe needs no
+     assembled "@InGroup:<group>" string. */
+  static unsigned
+  hash_pair (const char *entity, const char *prefix, const char *prop)
+  {
+    unsigned h = hash_more (2166136261u, entity);
+    h = (h ^ 0xffu) * 16777619u;
+    return hash_more (hash_more (h, prefix), prop);
+  }
+
+  void
+  insert (const a5_prop_ov_t *ov, int idx)
+  {
+    unsigned h = hash_pair (ov[idx].entity, "", ov[idx].prop);
+    size_t i = h & mask;
+    while (slots[i].idx >= 0)
+      i = (i + 1) & mask;
+    slots[i] = slot{h, idx};
+  }
+
+  void
+  sync (const a5_state_t *st)
+  {
+    if (indexed > st->n_ov)
+      indexed = 0;
+    if (indexed == 0 || (size_t) st->n_ov * 2 > slots.size ())
+      {
+        size_t cap = 64;
+        while (cap < (size_t) st->n_ov * 4)
+          cap <<= 1;
+        slots.assign (cap, slot{0, -1});
+        mask = cap - 1;
+        indexed = 0;
+      }
+    for (; indexed < st->n_ov; indexed++)
+      insert (st->ov, indexed);
+  }
+};
+
+/* The runtime property override for (entity, prefix + prop), or NULL. */
+static const a5_prop_ov_t *
+ov_find_prefixed (const a5_state_t *st, const char *entkey, const char *prefix,
+                  const char *propkey)
+{
+  a5_ov_index *ix = (a5_ov_index *) st->ov_index;
+  size_t plen, i;
+  unsigned h;
+
+  if (st->n_ov == 0 || entkey == nullptr || propkey == nullptr)
+    return nullptr;
+  if (ix == nullptr)
+    {
+      ix = new a5_ov_index;
+      const_cast<a5_state_t *> (st)->ov_index = ix;
+    }
+  if (ix->indexed != st->n_ov)
+    ix->sync (st);
+
+  plen = strlen (prefix);
+  h = a5_ov_index::hash_pair (entkey, prefix, propkey);
+  for (i = h & ix->mask; ix->slots[i].idx >= 0; i = (i + 1) & ix->mask)
+    if (ix->slots[i].hash == h)
+      {
+        const a5_prop_ov_t *ov = &st->ov[ix->slots[i].idx];
+        if (strcmp (ov->entity, entkey) == 0
+            && strncmp (ov->prop, prefix, plen) == 0
+            && strcmp (ov->prop + plen, propkey) == 0)
+          return ov;
+      }
+  return nullptr;
+}
+
 static const a5_prop_ov_t *
 ov_find (const a5_state_t *st, const char *entkey, const char *propkey)
 {
-  int i;
-  for (i = 0; i < st->n_ov; i++)
-    if (streq (st->ov[i].entity, entkey) && streq (st->ov[i].prop, propkey))
-      return &st->ov[i];
-  return nullptr;
+  return ov_find_prefixed (st, entkey, "", propkey);
 }
 
-static const a5_group_t *
-find_group (const a5_adventure_t *adv, const char *key)
+void
+a5state_clear_overrides (a5_state_t *st)
 {
   int i;
-  for (i = 0; i < adv->n_groups; i++)
-    if (streq (adv->groups[i].key, key))
-      return &adv->groups[i];
-  return nullptr;
+  for (i = 0; i < st->n_ov; i++)
+    {
+      free (st->ov[i].entity);
+      free (st->ov[i].prop);
+      free (st->ov[i].value);
+    }
+  st->n_ov = 0;
+  if (st->ov_index != nullptr)
+    ((a5_ov_index *) st->ov_index)->indexed = 0;
 }
 
 static int
-group_has_static_member (const a5_group_t *g, const char *key)
+group_has_static_member (const a5_adventure_t *adv, const char *grpkey,
+                         const char *key)
 {
-  int m;
-  for (m = 0; m < g->n_members; m++)
-    if (streq (g->members[m], key))
-      return 1;
-  return 0;
+  return a5model_group_has_member (adv, a5model_key_index (adv, 'G', grpkey),
+                                   key);
 }
 
 /* Decode an object's location property block into an a5_objloc_t. */
@@ -438,13 +535,9 @@ a5state_free (a5_state_t *st)
   if (st->char_position != nullptr)
     for (i = 0; i < st->adv->n_characters; i++)
       free (st->char_position[i]);
-  for (i = 0; i < st->n_ov; i++)
-    {
-      free (st->ov[i].entity);
-      free (st->ov[i].prop);
-      free (st->ov[i].value);
-    }
+  a5state_clear_overrides (st);
   free (st->ov);
+  delete (a5_ov_index *) st->ov_index;
   for (i = 0; i < st->n_gm; i++)
     { free (st->gm[i].grp); free (st->gm[i].key); }
   free (st->gm);
@@ -511,10 +604,7 @@ a5state_in_group_or_location (const a5_state_t *st, const char *charkey,
   if (a5model_location (st->adv, key) != nullptr)
     return streq (cloc, key);
   /* A group key: the character's location is one of its members. */
-  {
-    const a5_group_t *g = find_group (st->adv, key);
-    return g != nullptr && group_has_static_member (g, cloc);
-  }
+  return group_has_static_member (st->adv, key, cloc);
 }
 
 /* -------------------------------------------------------- SetLook look stack */
@@ -656,13 +746,11 @@ a5state_entity_prop (const a5_state_t *st, const char *entkey, const char *propk
     return ov->value;
 
   /* Fall back to the model's static value. */
-  o = a5model_object (st->adv, entkey);
+  a5model_entity (st->adv, entkey, &o, &c, &l);
   if (o != nullptr && (p = a5_prop_find (o->props, o->n_props, propkey)) != nullptr)
     return p->value;
-  c = a5model_character (st->adv, entkey);
   if (c != nullptr && (p = a5_prop_find (c->props, c->n_props, propkey)) != nullptr)
     return p->value;
-  l = a5model_location (st->adv, entkey);
   if (l != nullptr)
     {
       if ((p = a5_prop_find (l->props, l->n_props, propkey)) != nullptr)
@@ -691,13 +779,11 @@ a5state_entity_has_prop (const a5_state_t *st, const char *entkey,
      SelectionOnly property was removed (clsUserSession.vb:2058). */
   if ((ov = ov_find (st, entkey, propkey)) != nullptr)
     return ov->value == nullptr || strstr (ov->value, "Unselected") == nullptr;
-  o = a5model_object (st->adv, entkey);
+  a5model_entity (st->adv, entkey, &o, &c, &l);
   if (o != nullptr && a5_prop_find (o->props, o->n_props, propkey) != nullptr)
     return 1;
-  c = a5model_character (st->adv, entkey);
   if (c != nullptr && a5_prop_find (c->props, c->n_props, propkey) != nullptr)
     return 1;
-  l = a5model_location (st->adv, entkey);
   if (l != nullptr)
     {
       if (a5_prop_find (l->props, l->n_props, propkey) != nullptr)
@@ -719,23 +805,19 @@ a5state_entity_has_prop (const a5_state_t *st, const char *entkey,
 static void
 group_prop_key (char *buf, size_t n, const char *grpkey)
 {
-  snprintf (buf, n, "@InGroup:%s", grpkey ? grpkey : "");
+  snprintf (buf, n, OV_GROUP_PREFIX "%s", grpkey ? grpkey : "");
 }
 
 int
 a5state_object_in_group (const a5_state_t *st, const char *grpkey,
                          const char *objkey)
 {
-  char key[160];
   const a5_prop_ov_t *ov;
-  const a5_group_t *g;
   if (grpkey == nullptr || objkey == nullptr)
     return 0;
-  group_prop_key (key, sizeof key, grpkey);
-  if ((ov = ov_find (st, objkey, key)) != nullptr)
+  if ((ov = ov_find_prefixed (st, objkey, OV_GROUP_PREFIX, grpkey)) != nullptr)
     return streq (ov->value, "1");
-  g = find_group (st->adv, grpkey);
-  return g != nullptr && group_has_static_member (g, objkey);
+  return group_has_static_member (st->adv, grpkey, objkey);
 }
 
 /* --- Live group membership (the runner clsGroup.arlMembers): ordered + distinct. --- */
