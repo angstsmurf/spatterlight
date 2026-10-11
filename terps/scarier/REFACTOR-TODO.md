@@ -125,7 +125,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~228~~ | ~~`sm_set_grid`~~ | DONE: three arms + driver, see "sm_set_grid split" |
 | ~~224~~ | ~~`scmap_build`~~ | DONE: four parts + driver, see "scmap_build split" |
 | ~~219~~ | ~~`save_scarier_body`~~ | DONE: `scarier_save_t` + ten section members, see "save_scarier_body split" |
-| 212 | `lib_take_and_pre400` | `library/sclibrar_take.cpp` |
+| ~~212~~ | ~~`lib_take_and_pre400`~~ | done 2026-10-11, see below |
 | 211 | `lib_cmd_locate_object` | `library/sclibrar_misc.cpp` |
 | 207 | `a5text_render_plain` | `adrift5/text/a5text_render.cpp` |
 | 206 | `lib_use_room_alt` | `library/sclibrar_print.cpp` |
@@ -376,10 +376,10 @@ Per the project's own verification recipe:
    the 16 rows the table opened with are DONE (see their "split"
    sections), as are `run_lenient_census`, `a5run_input_inner`,
    `lib_print_room_contents`, `restore_scarier_body`,
-   `ser_save_game_body`, `sm_set_grid`, `scmap_build` and
-   `save_scarier_body`, the first eight of the 15 rows added on
-   2026-10-11; 7 rows remain, top to bottom, `lib_take_and_pre400`
-   next.
+   `ser_save_game_body`, `sm_set_grid`, `scmap_build`,
+   `save_scarier_body` and `lib_take_and_pre400`, the first nine of the
+   15 rows added on 2026-10-11; 6 rows remain, top to bottom,
+   `lib_cmd_locate_object` next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1451,4 +1451,28 @@ them):
   clean; `run_autosave_tests.py --build` all passed.  Lines over 80
   columns in the file: 56 before and after.
 - Next in the table: `lib_take_and_pre400` (library/sclibrar_take.cpp;
+  library text, so corpus `recompare` too).
+
+## 3: lib_take_and_pre400 split (2026-10-11)
+
+- **`lib_take_and_pre400`** (212 l.) in `library/sclibrar_take.cpp` is
+  one loop over the named objects with nine locals of running state
+  (the message mark, `picking`, the four answer flags, the two counts,
+  the rewrite parent), so it is split on the struct model rather than
+  the plain-static one: `lib_take_and_t` in an anonymous namespace, with
+  `count` (the pre-pass), `seed` (the "<You> pick up " opening and the
+  flag reset), `visit` (one object: the position if-chain) over the four
+  arms `held`, `worn`, `loose`, `in_parent`, and `from_parent` (the
+  insides() tail).  The driver keeps the version / "all" / "and" gate,
+  the named-object filter of the main loop, the bare-seed "Please take
+  objects from one place at a time." and the answer break.  Bodies are
+  code motion, dedented; the driver reads the state as `take.x`.
+- Verification: `-Wshadow` syntax check clean; headless `quick`; full
+  `test` output identical; `make -j8 scarier glkscarier` warning-free;
+  `sanitize` clean; corpus `recompare` with the old file and the new
+  (the `scare` target rebuilt in between) leaves byte-identical
+  `manifest.tsv` and `compare/` trees, the recompare's own rewrite of
+  the stale manifest reverted afterwards.  Lines over 80 columns in the
+  file: 16 before, 12 after (the arms lost eight columns of indent).
+- Next in the table: `lib_cmd_locate_object` (library/sclibrar_misc.cpp;
   library text, so corpus `recompare` too).

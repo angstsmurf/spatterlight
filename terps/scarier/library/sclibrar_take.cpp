@@ -2977,6 +2977,253 @@ lib_take_from_slot_valid_pre390 (scr_gameref_t game, scr_int slot)
 }
 
 
+namespace {
+
+/*
+ * The state takes()'s "and" arm carries from one named object to the next:
+ * the message so far (from mark on), which of its shapes it is in, and the
+ * parent a nested object rewrote the line to.
+ */
+struct lib_take_and_t
+{
+  scr_gameref_t game;
+  scr_filterref_t filter;
+  scr_int taf_version;
+  const scr_char *line;
+  scr_int room;
+  const scr_char *you;
+  scr_int candidates, taken, rewrite_parent;
+  scr_bool overwritten, appended, cant_see, hands_full, picking;
+  size_t mark;
+
+  void count ();
+  void seed ();
+  void held (scr_int object);
+  void worn (scr_int object);
+  void loose (scr_int object);
+  void in_parent (scr_int object, scr_int position);
+  void visit (scr_int object);
+  void from_parent ();
+};
+
+/* The pre-pass of lib_take_and_none_pre400(), counting this time. */
+void
+lib_take_and_t::count ()
+{
+  scr_int object;
+
+  candidates = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      scr_int position;
+
+      if (obj_is_static (game, object)
+          || !lib_take_co_pre400 (game, line, object))
+        continue;
+      if (taf_version >= TAF_VERSION_390 && !gs_object_seen (game, object))
+        continue;
+      position = gs_object_position (game, object);
+      if (obj_directly_in_room (game, object, room))
+        candidates++;
+      else if (taf_version >= TAF_VERSION_380
+               && (position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
+               && obj_directly_in_room (game, gs_object_parent (game, object),
+                                        room))
+        candidates++;
+    }
+}
+
+/* Seed the message with "<You> pick up " and reset the loop's flags. */
+void
+lib_take_and_t::seed ()
+{
+  you = lib_select_response (game, "You", "I", "%player%");
+  mark = pf_buffer_length (filter);
+  pf_buffer_string (filter, you);
+  pf_buffer_string (filter, " pick up ");
+  picking = TRUE;
+
+  taken = 0;
+  rewrite_parent = -1;
+  overwritten = appended = cant_see = hands_full = FALSE;
+}
+
+/* Held: "<You>'ve already got X!", once the message has left the seed. */
+void
+lib_take_and_t::held (scr_int object)
+{
+  if (overwritten)
+    {
+      pf_truncate (filter, mark);
+      picking = FALSE;
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You've already got ",
+                                             "I've already got ",
+                                             "%player%'ve already got "));
+      if (taf_version >= TAF_VERSION_390)
+        lib_print_object_np (game, object);
+      else
+        lib_print_object_raw (game, object);
+      pf_buffer_character (filter, '!');
+      cant_see = FALSE;
+    }
+}
+
+/* Worn, 3.8 up: "<You> are already wearing X!" replaces the message. */
+void
+lib_take_and_t::worn (scr_int object)
+{
+  if (taf_version >= TAF_VERSION_380)
+    {
+      pf_truncate (filter, mark);
+      picking = FALSE;
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You are already wearing ",
+                                             "I am already wearing ",
+                                             "%player% is already wearing "));
+      if (taf_version >= TAF_VERSION_390)
+        lib_print_object_np (game, object);
+      else
+        lib_print_object_raw (game, object);
+      pf_buffer_character (filter, '!');
+      overwritten = TRUE;
+      cant_see = FALSE;
+    }
+}
+
+/* Loose in the room: taken and named, or the hands-full line. */
+void
+lib_take_and_t::loose (scr_int object)
+{
+  scr_bool is_size;
+
+  if (lib_take_over_capacity (game, object, &is_size))
+    {
+      if (!hands_full)
+        {
+          pf_buffer_string (filter, "  ");
+          pf_buffer_string (filter, you);
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                " can't take any more, as your hands are full.",
+                                " can't take any more, as my hands are full.",
+                                " can't take any more, as %player%'s hands are full."));
+          hands_full = TRUE;
+        }
+      appended = TRUE;
+    }
+  else
+    {
+      gs_object_player_get (game, object);
+      gs_set_object_unmoved (game, object, FALSE);
+      taken++;
+      candidates--;
+      /* The Runner appends the name straight after an overwritten
+       * answer ("You are already wearing a hat!the stone.");
+       * Scarier deliberately starts a fresh "  You pick up "
+       * sentence there (deviation policy). */
+      if (!picking)
+        {
+          pf_buffer_string (filter, "  ");
+          pf_buffer_string (filter, you);
+          pf_buffer_string (filter, " pick up ");
+          picking = TRUE;
+        }
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter,
+                        candidates > 1 ? ", "
+                        : candidates == 1 ? " and " : ".");
+      appended = TRUE;
+    }
+}
+
+/*
+ * In or on a parent: note the parent for the rewritten line, or answer
+ * "<You> can't see X from here!".
+ */
+void
+lib_take_and_t::in_parent (scr_int object, scr_int position)
+{
+  if (lib_obhere_380 (game, object)
+      || (position == OBJ_ON_OBJECT
+          && obj_indirectly_in_room (game, object, room)))
+    rewrite_parent = gs_object_parent (game, object);
+  else
+    {
+      pf_truncate (filter, mark);
+      picking = FALSE;
+      pf_buffer_string (filter, you);
+      pf_buffer_string (filter, " can't see ");
+      if (taf_version >= TAF_VERSION_390)
+        lib_print_object_np (game, object);
+      else
+        lib_print_object_raw (game, object);
+      pf_buffer_string (filter, " from here!");
+      overwritten = TRUE;
+      cant_see = TRUE;
+    }
+}
+
+/* One named object: pick its arm by where the object is. */
+void
+lib_take_and_t::visit (scr_int object)
+{
+  scr_int position;
+
+  position = gs_object_position (game, object);
+  if (position == OBJ_HELD_PLAYER)
+    held (object);
+  else if (position == OBJ_WORN_PLAYER)
+    worn (object);
+  else if (obj_directly_in_room (game, object, room))
+    loose (object);
+  else if (taf_version >= TAF_VERSION_380
+           && (position == OBJ_IN_OBJECT
+               || (taf_version >= TAF_VERSION_390
+                   && position == OBJ_ON_OBJECT))
+           && ((!overwritten && !appended) || cant_see))
+    in_parent (object, position);
+}
+
+/* The rewritten line reaches insides(); its answer replaces the tail. */
+void
+lib_take_and_t::from_parent ()
+{
+  scr_int object;
+  scr_int any = 0;
+
+  gs_clear_object_references (game);
+  gs_clear_multiple_references (game);
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if ((gs_object_position (game, object) == OBJ_IN_OBJECT
+           || gs_object_position (game, object) == OBJ_ON_OBJECT)
+          && !obj_is_static (game, object)
+          && gs_object_parent (game, object) == rewrite_parent
+          && lib_co_pre400 (game, line, object, 0)
+          && (taf_version < TAF_VERSION_390
+              || gs_object_seen (game, object)))
+        {
+          game->object_references[object] = TRUE;
+          any++;
+        }
+    }
+  pf_truncate (filter, mark);
+  if (any > 0)
+    {
+      lib_take_from_single_named = FALSE;
+      lib_take_from_object_backend (game, rewrite_parent);
+    }
+  else
+    lib_take_from_empty (game, rewrite_parent, FALSE);
+  lib_take_from_task_sweep_380 (game);
+}
+
+} /* namespace */
+
+
 /*
  * lib_take_and_pre400()
  *
@@ -3022,6 +3269,10 @@ lib_take_from_slot_valid_pre390 (scr_gameref_t game, scr_int slot)
  * (runner_probes/tkb.run370.rtf, runner_probes/tkb.run380.rtf,
  * runner_probes/tkb.run390.txt, cells 3, 8, 31, 38, 44), 2026-09-20.  3.9's
  * own loop (454B08) prints the same strings with definite names.
+ *
+ * The loop's state is a lib_take_and_t: count() is the pre-pass, seed() the
+ * opening message, visit() one named object -- held(), worn(), loose() or
+ * in_parent() -- and from_parent() the insides() tail.
  */
 static scr_bool
 lib_take_and_pre400 (scr_gameref_t game)
@@ -3030,209 +3281,43 @@ lib_take_and_pre400 (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_int taf_version = prop_get_taf_version (bundle);
   const scr_char *line = run_get_dispatch_input ();
-  const scr_int room = gs_playerroom (game);
-  const scr_char *you;
-  scr_int object, candidates, taken, rewrite_parent;
-  scr_bool overwritten, appended, cant_see, hands_full, picking;
-  size_t mark;
+  lib_take_and_t take = { game, filter, taf_version, line,
+                          gs_playerroom (game), nullptr, 0, 0, -1,
+                          FALSE, FALSE, FALSE, FALSE, FALSE, 0 };
+  scr_int object;
 
   if (taf_version >= TAF_VERSION_400 || !line
       || lib_input_contains_word (line, "all")
       || !lib_input_contains_word (line, "and"))
     return FALSE;
 
-  /* The pre-pass of lib_take_and_none_pre400(), counting this time. */
-  candidates = 0;
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      scr_int position;
-
-      if (obj_is_static (game, object)
-          || !lib_take_co_pre400 (game, line, object))
-        continue;
-      if (taf_version >= TAF_VERSION_390 && !gs_object_seen (game, object))
-        continue;
-      position = gs_object_position (game, object);
-      if (obj_directly_in_room (game, object, room))
-        candidates++;
-      else if (taf_version >= TAF_VERSION_380
-               && (position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
-               && obj_directly_in_room (game, gs_object_parent (game, object),
-                                        room))
-        candidates++;
-    }
-  if (candidates == 0)
+  take.count ();
+  if (take.candidates == 0)
     return FALSE;
 
-  you = lib_select_response (game, "You", "I", "%player%");
-  mark = pf_buffer_length (filter);
-  pf_buffer_string (filter, you);
-  pf_buffer_string (filter, " pick up ");
-  picking = TRUE;
-
-  taken = 0;
-  rewrite_parent = -1;
-  overwritten = appended = cant_see = hands_full = FALSE;
+  take.seed ();
   for (object = 0; object < gs_object_count (game); object++)
     {
-      scr_int position;
-
       if (obj_is_static (game, object)
           || !lib_take_co_pre400 (game, line, object))
         continue;
       if (taf_version >= TAF_VERSION_390 && !gs_object_seen (game, object))
         continue;
 
-      position = gs_object_position (game, object);
-      if (position == OBJ_HELD_PLAYER)
-        {
-          if (overwritten)
-            {
-              pf_truncate (filter, mark);
-              picking = FALSE;
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     "You've already got ",
-                                                     "I've already got ",
-                                                     "%player%'ve already got "));
-              if (taf_version >= TAF_VERSION_390)
-                lib_print_object_np (game, object);
-              else
-                lib_print_object_raw (game, object);
-              pf_buffer_character (filter, '!');
-              cant_see = FALSE;
-            }
-        }
-      else if (position == OBJ_WORN_PLAYER)
-        {
-          if (taf_version >= TAF_VERSION_380)
-            {
-              pf_truncate (filter, mark);
-              picking = FALSE;
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     "You are already wearing ",
-                                                     "I am already wearing ",
-                                                     "%player% is already wearing "));
-              if (taf_version >= TAF_VERSION_390)
-                lib_print_object_np (game, object);
-              else
-                lib_print_object_raw (game, object);
-              pf_buffer_character (filter, '!');
-              overwritten = TRUE;
-              cant_see = FALSE;
-            }
-        }
-      else if (obj_directly_in_room (game, object, room))
-        {
-          scr_bool is_size;
-
-          if (lib_take_over_capacity (game, object, &is_size))
-            {
-              if (!hands_full)
-                {
-                  pf_buffer_string (filter, "  ");
-                  pf_buffer_string (filter, you);
-                  pf_buffer_string (filter,
-                                    lib_select_response (game,
-                                        " can't take any more, as your hands are full.",
-                                        " can't take any more, as my hands are full.",
-                                        " can't take any more, as %player%'s hands are full."));
-                  hands_full = TRUE;
-                }
-              appended = TRUE;
-            }
-          else
-            {
-              gs_object_player_get (game, object);
-              gs_set_object_unmoved (game, object, FALSE);
-              taken++;
-              candidates--;
-              /* The Runner appends the name straight after an overwritten
-               * answer ("You are already wearing a hat!the stone.");
-               * Scarier deliberately starts a fresh "  You pick up "
-               * sentence there (deviation policy). */
-              if (!picking)
-                {
-                  pf_buffer_string (filter, "  ");
-                  pf_buffer_string (filter, you);
-                  pf_buffer_string (filter, " pick up ");
-                  picking = TRUE;
-                }
-              lib_print_object_np (game, object);
-              pf_buffer_string (filter,
-                                candidates > 1 ? ", "
-                                : candidates == 1 ? " and " : ".");
-              appended = TRUE;
-            }
-        }
-      else if (taf_version >= TAF_VERSION_380
-               && (position == OBJ_IN_OBJECT
-                   || (taf_version >= TAF_VERSION_390
-                       && position == OBJ_ON_OBJECT))
-               && ((!overwritten && !appended) || cant_see))
-        {
-          if (lib_obhere_380 (game, object)
-              || (position == OBJ_ON_OBJECT
-                  && obj_indirectly_in_room (game, object, room)))
-            rewrite_parent = gs_object_parent (game, object);
-          else
-            {
-              pf_truncate (filter, mark);
-              picking = FALSE;
-              pf_buffer_string (filter, you);
-              pf_buffer_string (filter, " can't see ");
-              if (taf_version >= TAF_VERSION_390)
-                lib_print_object_np (game, object);
-              else
-                lib_print_object_raw (game, object);
-              pf_buffer_string (filter, " from here!");
-              overwritten = TRUE;
-              cant_see = TRUE;
-            }
-        }
+      take.visit (object);
     }
 
-  if (!overwritten && !appended)
+  if (!take.overwritten && !take.appended)
     {
-      pf_truncate (filter, mark);
+      pf_truncate (filter, take.mark);
       if (taf_version < TAF_VERSION_380)
         return FALSE;
       pf_buffer_string (filter, "Please take objects from one place at a time.");
     }
 
-  /* The rewritten line reaches insides(); its answer replaces the tail. */
-  if (taken == 0 && rewrite_parent != -1
-      && lib_take_from_slot_valid_pre390 (game, rewrite_parent))
-    {
-      scr_int any = 0;
-
-      gs_clear_object_references (game);
-      gs_clear_multiple_references (game);
-      for (object = 0; object < gs_object_count (game); object++)
-        {
-          if ((gs_object_position (game, object) == OBJ_IN_OBJECT
-               || gs_object_position (game, object) == OBJ_ON_OBJECT)
-              && !obj_is_static (game, object)
-              && gs_object_parent (game, object) == rewrite_parent
-              && lib_co_pre400 (game, line, object, 0)
-              && (taf_version < TAF_VERSION_390
-                  || gs_object_seen (game, object)))
-            {
-              game->object_references[object] = TRUE;
-              any++;
-            }
-        }
-      pf_truncate (filter, mark);
-      if (any > 0)
-        {
-          lib_take_from_single_named = FALSE;
-          lib_take_from_object_backend (game, rewrite_parent);
-        }
-      else
-        lib_take_from_empty (game, rewrite_parent, FALSE);
-      lib_take_from_task_sweep_380 (game);
-    }
+  if (take.taken == 0 && take.rewrite_parent != -1
+      && lib_take_from_slot_valid_pre390 (game, take.rewrite_parent))
+    take.from_parent ();
 
   pf_buffer_answer_break (filter);
   return TRUE;
