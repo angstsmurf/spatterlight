@@ -906,258 +906,340 @@ restore_reset (a5_run_t *run)
   free (st->s_her);  st->s_her  = strdup ("");
 }
 
+namespace {
+
+/* One application of the full-fidelity Scarier snapshot: the run it lands in,
+   the RNG words gathered on the way (set last, by the driver), and the cursors
+   of the positional entity arrays (model order, as save_scarier_body wrote
+   them).  apply() sorts one child of the container to the member that reads
+   it. */
+struct scarier_restore_t
+{
+  a5_run_t *run;
+  a5_state_t *st;
+  const a5_adventure_t *adv;
+  unsigned int rng[4];
+  int native, rng_i;
+  int obj_i, char_i, var_i, ev_i, wk_i;
+
+  explicit scarier_restore_t (a5_run_t *run_);
+  void apply (const a5_xml_node_t *n);
+  bool globals (const a5_xml_node_t *n);
+  void object (const a5_xml_node_t *n);
+  void character (const a5_xml_node_t *n);
+  void variable (const a5_xml_node_t *n);
+  void marks (const a5_xml_node_t *n);
+  void seen_char (const a5_xml_node_t *n);
+  void event (const a5_xml_node_t *n);
+  void walk (const a5_xml_node_t *n);
+};
+
+scarier_restore_t::scarier_restore_t (a5_run_t *run_)
+  : run (run_), st (run_->st), adv (run_->adv), rng { 0, 0, 0, 0 },
+    native (0), rng_i (0), obj_i (0), char_i (0), var_i (0), ev_i (0),
+    wk_i (0)
+{
+}
+
+void
+scarier_restore_t::apply (const a5_xml_node_t *n)
+{
+  const char *nm = n->name;
+  if (streq (nm, "Object"))
+    object (n);
+  else if (streq (nm, "Character"))
+    character (n);
+  else if (streq (nm, "Variable"))
+    variable (n);
+  else if (streq (nm, "SeenChar"))
+    seen_char (n);
+  else if (streq (nm, "Event"))
+    event (n);
+  else if (streq (nm, "Walk"))
+    walk (n);
+  else if (!globals (n))
+    marks (n);
+}
+
+/* The one-per-save scalars: RNG, turn and end-game registers, conversation,
+   pronoun referents, the player.  False when the node is none of them. */
+bool
+scarier_restore_t::globals (const a5_xml_node_t *n)
+{
+  const char *nm = n->name;
+  if (streq (nm, "RngNative"))
+    native = (int) node_long (n);
+  else if (streq (nm, "Rng"))
+    { if (rng_i < 4) rng[rng_i++] = (unsigned int) strtoul (n->text ? n->text : "0", nullptr, 10); }
+  else if (streq (nm, "EventsRunning"))
+    run->events_running = (int) node_long (n);
+  else if (streq (nm, "GameOver"))
+    st->game_over = (int) node_long (n);
+  else if (streq (nm, "Turns"))
+    st->turns = (int) node_long (n);
+  else if (streq (nm, "EndDisplayed"))
+    st->end_displayed = (int) node_long (n);
+  else if (streq (nm, "EndMessage"))
+    st->end_message = strdup (n->text ? n->text : "");
+  else if (streq (nm, "ConvChar"))
+    a5state_set_conv_char (st, n->text ? n->text : "");
+  else if (streq (nm, "ConvNode"))
+    a5state_set_conv_node (st, n->text ? n->text : "");
+  else if (streq (nm, "ItRef"))
+    { free (st->s_it);   st->s_it   = strdup (n->text ? n->text : ""); }
+  else if (streq (nm, "ThemRef"))
+    { free (st->s_them); st->s_them = strdup (n->text ? n->text : ""); }
+  else if (streq (nm, "HimRef"))
+    { free (st->s_him);  st->s_him  = strdup (n->text ? n->text : ""); }
+  else if (streq (nm, "HerRef"))
+    { free (st->s_her);  st->s_her  = strdup (n->text ? n->text : ""); }
+  else if (streq (nm, "PlayerKey"))
+    {
+      const char *pk = intern_key (adv, n->text);
+      if (pk != nullptr)
+        {
+          st->player_key = pk;
+          st->seen_active_ci = a5state_character_index (st, pk);
+        }
+    }
+  else
+    return false;
+  return true;
+}
+
+void
+scarier_restore_t::object (const a5_xml_node_t *n)
+{
+  if (obj_i < adv->n_objects)
+    {
+      const char *stat = a5xml_child_text (n, "Static");
+      st->obj[obj_i].where = (a5_owhere_t) child_long (n, "Where");
+      if (stat != nullptr)
+        st->obj[obj_i].is_static = (int) strtol (stat, nullptr, 10);
+      st->obj[obj_i].key = intern_key (adv, a5xml_child_text (n, "Key"));
+      obj_i++;
+    }
+}
+
+void
+scarier_restore_t::character (const a5_xml_node_t *n)
+{
+  if (char_i < adv->n_characters)
+    {
+      const char *loc = a5xml_child_text (n, "Loc");
+      const char *pos = a5xml_child_text (n, "Position");
+      const char *onobj = a5xml_child_text (n, "OnObj");
+      st->char_loc[char_i] = intern_key (adv, loc);
+      free (st->char_position[char_i]);
+      st->char_position[char_i] = strdup (pos ? pos : "Standing");
+      st->char_onobj[char_i] = intern_key (adv, onobj);
+      /* Carrier character (follower riding another character).  Absent
+         element -> intern_key(NULL) clears it, correctly un-following a
+         character that stopped riding since the save was model-init. */
+      if (st->char_onchar != nullptr)
+        st->char_onchar[char_i] =
+          intern_key (adv, a5xml_child_text (n, "OnChar"));
+      if (st->char_in != nullptr)
+        st->char_in[char_i] = (char) child_long (n, "In");
+      char_i++;
+    }
+}
+
+void
+scarier_restore_t::variable (const a5_xml_node_t *n)
+{
+  if (var_i < adv->n_variables)
+    {
+      const char *txt = a5xml_child_text (n, "Text");
+      const char *arr = a5xml_child_text (n, "Arr");
+      st->var_num[var_i] = child_long (n, "Num");
+      free (st->var_text[var_i]);
+      st->var_text[var_i] = txt != nullptr ? strdup (txt) : nullptr;
+      if (arr != nullptr && st->var_arr != nullptr
+          && st->var_arr[var_i] != nullptr)
+        {
+          const char *p = arr;
+          int e;
+          for (e = 0; e < adv->variables[var_i].array_length
+                      && p != nullptr; e++)
+            {
+              st->var_arr[var_i][e] = strtol (p, nullptr, 10);
+              p = strchr (p, ',');
+              if (p != nullptr) p++;
+            }
+        }
+      var_i++;
+    }
+}
+
+/* The sparse, keyed records: task done / scored, property overrides, the
+   active viewpoint's seen sets, shown-once nodes and remembered looks. */
+void
+scarier_restore_t::marks (const a5_xml_node_t *n)
+{
+  const char *nm = n->name;
+  if (streq (nm, "TaskDone"))
+    {
+      int ti = a5state_task_index (st, n->text ? n->text : "");
+      if (ti >= 0)
+        st->task_done[ti] = 1;
+    }
+  else if (streq (nm, "TaskScored"))
+    {
+      int ti = a5state_task_index (st, n->text ? n->text : "");
+      if (ti >= 0)
+        st->task_scored[ti] = 1;
+    }
+  else if (streq (nm, "PropOv"))
+    {
+      const char *e = a5xml_child_text (n, "Entity");
+      const char *p = a5xml_child_text (n, "Prop");
+      const char *v = a5xml_child_text (n, "Value");
+      if (e != nullptr && p != nullptr)
+        a5state_set_prop (st, e, p, v ? v : "");
+    }
+  else if (streq (nm, "ObjSeen"))
+    {
+      int oi = a5state_object_index (st, n->text ? n->text : "");
+      if (oi >= 0 && st->obj_seen != nullptr)
+        st->obj_seen[oi] = 1;
+    }
+  else if (streq (nm, "CharSeen"))
+    {
+      int ci = a5state_character_index (st, n->text ? n->text : "");
+      if (ci >= 0 && st->char_seen != nullptr)
+        st->char_seen[ci] = 1;
+    }
+  else if (streq (nm, "CharIntroduced"))
+    {
+      int ci = a5state_character_index (st, n->text ? n->text : "");
+      if (ci >= 0 && st->char_introduced != nullptr)
+        st->char_introduced[ci] = 1;
+    }
+  else if (streq (nm, "LocSeen"))
+    a5state_mark_loc_seen (st, n->text ? n->text : "");
+  else if (streq (nm, "Displayed"))
+    {
+      long k = strtol (n->text ? n->text : "-1", nullptr, 10);
+      ensure_dom_cache (run);
+      if (k >= 0 && k < (long) run->dom_nodes->size ())
+        a5state_disp_once_mark (st, (*run->dom_nodes)[(size_t) k]);
+    }
+  else if (streq (nm, "Look"))
+    {
+      a5state_push_look (st, a5xml_child_text (n, "LocKey"),
+                         a5xml_child_text (n, "Text"),
+                         a5xml_child_text (n, "Event"));
+    }
+}
+
+/* A non-active viewpoint's per-character seen set (BECOME games).
+   Populate its stash slot, or the active arrays if it is (unexpectedly)
+   the current player. */
+void
+scarier_restore_t::seen_char (const a5_xml_node_t *n)
+{
+  int ci = a5state_character_index (st, a5xml_child_text (n, "Key"));
+  if (ci >= 0)
+    {
+      const a5_xml_node_t *c;
+      int active = (ci == st->seen_active_ci);
+      char *os = st->obj_seen, *cs = st->char_seen, *ls = st->loc_seen;
+      if (!active)
+        {
+          if (st->seen_stash_obj[ci]  == nullptr) st->seen_stash_obj[ci]  = (char *) calloc ((size_t) adv->n_objects, 1);
+          if (st->seen_stash_char[ci] == nullptr) st->seen_stash_char[ci] = (char *) calloc ((size_t) adv->n_characters, 1);
+          if (st->seen_stash_loc[ci]  == nullptr) st->seen_stash_loc[ci]  = (char *) calloc ((size_t) adv->n_locations, 1);
+          os = st->seen_stash_obj[ci]; cs = st->seen_stash_char[ci]; ls = st->seen_stash_loc[ci];
+        }
+      for (c = n->first_child; c != nullptr; c = c->next)
+        {
+          if (streq (c->name, "ObjSeen"))
+            { int oi = a5state_object_index (st, c->text ? c->text : ""); if (oi >= 0 && os) os[oi] = 1; }
+          else if (streq (c->name, "CharSeen"))
+            { int xi = a5state_character_index (st, c->text ? c->text : ""); if (xi >= 0 && cs) cs[xi] = 1; }
+          else if (streq (c->name, "LocSeen"))
+            { int li = a5state_location_index (st, c->text ? c->text : ""); if (li >= 0 && ls) ls[li] = 1; }
+        }
+    }
+}
+
+void
+scarier_restore_t::event (const a5_xml_node_t *n)
+{
+  if (ev_i < (int) run->events->size ())
+    {
+      a5_event_rt &e = (*run->events)[ev_i];
+      const a5_xml_node_t *c;
+      const char *trg = a5xml_child_text (n, "Trigger");
+      int s = 0;
+      e.status       = (int)  child_long (n, "Status");
+      e.length_value =        child_long (n, "Length");
+      e.length_set   = 1;                /* the save holds Length.Value */
+      e.timer_to_end =        child_long (n, "Timer");
+      e.last_se_time =        child_long (n, "LastSeTime");
+      e.last_se_index = (int) child_long (n, "LastSeIndex");
+      e.just_started = (int)  child_long (n, "JustStarted");
+      e.next_command = (int)  child_long (n, "NextCommand");
+      e.when_start   = (int)  child_long (n, "WhenStart");
+      e.triggering_task = trg ? trg : "";
+      for (c = n->first_child; c != nullptr; c = c->next)
+        if (streq (c->name, "SeFt") && s < (int) e.se_ft.size ())
+          e.se_ft[s++] = node_long (c);
+      ev_i++;
+    }
+}
+
+void
+scarier_restore_t::walk (const a5_xml_node_t *n)
+{
+  if (wk_i < (int) run->walks->size ())
+    {
+      a5_walk_rt &w = (*run->walks)[wk_i];
+      const a5_xml_node_t *c;
+      const char *trg = a5xml_child_text (n, "Trigger");
+      int sd = 0, sf = 0, ca = 0;
+      w.status       = (int) child_long (n, "Status");
+      w.length       =       child_long (n, "Length");
+      w.timer_to_end =       child_long (n, "Timer");
+      w.last_sw_time =       child_long (n, "LastSwTime");
+      w.last_sw_index = (int) child_long (n, "LastSwIndex");
+      w.just_started = (int) child_long (n, "JustStarted");
+      w.next_command = (int) child_long (n, "NextCommand");
+      w.triggering_task = trg ? trg : "";
+      for (c = n->first_child; c != nullptr; c = c->next)
+        {
+          if (streq (c->name, "StepDur") && sd < (int) w.step_dur.size ())
+            w.step_dur[sd++] = node_long (c);
+          else if (streq (c->name, "SwFt") && sf < (int) w.sw_ft.size ())
+            w.sw_ft[sf++] = node_long (c);
+          else if (streq (c->name, "CameAcross") && ca < (int) w.came_across.size ())
+            w.came_across[ca++] = (char) node_long (c);
+        }
+      wk_i++;
+    }
+}
+
+} /* namespace */
+
 /* Apply the full-fidelity Scarier snapshot from `container` (the <ScarierExt>
    node of a <Game> save, or the root of a legacy raw <SaveState> file). */
 static void
 restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
 {
-  a5_state_t *st = run->st;
-  const a5_adventure_t *adv = run->adv;
   const a5_xml_node_t *n;
-  unsigned int rng[4] = { 0, 0, 0, 0 };
-  int native = 0, rng_i = 0;
-  int obj_i = 0, char_i = 0, var_i = 0, ev_i = 0, wk_i = 0;
 
   restore_reset (run);
 
+  scarier_restore_t restore (run);
   for (n = container->first_child; n != nullptr; n = n->next)
-    {
-      const char *nm = n->name;
-      if (streq (nm, "RngNative"))
-        native = (int) node_long (n);
-      else if (streq (nm, "Rng"))
-        { if (rng_i < 4) rng[rng_i++] = (unsigned int) strtoul (n->text ? n->text : "0", nullptr, 10); }
-      else if (streq (nm, "EventsRunning"))
-        run->events_running = (int) node_long (n);
-      else if (streq (nm, "GameOver"))
-        st->game_over = (int) node_long (n);
-      else if (streq (nm, "Turns"))
-        st->turns = (int) node_long (n);
-      else if (streq (nm, "EndDisplayed"))
-        st->end_displayed = (int) node_long (n);
-      else if (streq (nm, "EndMessage"))
-        st->end_message = strdup (n->text ? n->text : "");
-      else if (streq (nm, "ConvChar"))
-        a5state_set_conv_char (st, n->text ? n->text : "");
-      else if (streq (nm, "ConvNode"))
-        a5state_set_conv_node (st, n->text ? n->text : "");
-      else if (streq (nm, "ItRef"))
-        { free (st->s_it);   st->s_it   = strdup (n->text ? n->text : ""); }
-      else if (streq (nm, "ThemRef"))
-        { free (st->s_them); st->s_them = strdup (n->text ? n->text : ""); }
-      else if (streq (nm, "HimRef"))
-        { free (st->s_him);  st->s_him  = strdup (n->text ? n->text : ""); }
-      else if (streq (nm, "HerRef"))
-        { free (st->s_her);  st->s_her  = strdup (n->text ? n->text : ""); }
-      else if (streq (nm, "PlayerKey"))
-        {
-          const char *pk = intern_key (adv, n->text);
-          if (pk != nullptr)
-            {
-              st->player_key = pk;
-              st->seen_active_ci = a5state_character_index (st, pk);
-            }
-        }
-      else if (streq (nm, "Object"))
-        {
-          if (obj_i < adv->n_objects)
-            {
-              const char *stat = a5xml_child_text (n, "Static");
-              st->obj[obj_i].where = (a5_owhere_t) child_long (n, "Where");
-              if (stat != nullptr)
-                st->obj[obj_i].is_static = (int) strtol (stat, nullptr, 10);
-              st->obj[obj_i].key = intern_key (adv, a5xml_child_text (n, "Key"));
-              obj_i++;
-            }
-        }
-      else if (streq (nm, "Character"))
-        {
-          if (char_i < adv->n_characters)
-            {
-              const char *loc = a5xml_child_text (n, "Loc");
-              const char *pos = a5xml_child_text (n, "Position");
-              const char *onobj = a5xml_child_text (n, "OnObj");
-              st->char_loc[char_i] = intern_key (adv, loc);
-              free (st->char_position[char_i]);
-              st->char_position[char_i] = strdup (pos ? pos : "Standing");
-              st->char_onobj[char_i] = intern_key (adv, onobj);
-              /* Carrier character (follower riding another character).  Absent
-                 element -> intern_key(NULL) clears it, correctly un-following a
-                 character that stopped riding since the save was model-init. */
-              if (st->char_onchar != nullptr)
-                st->char_onchar[char_i] =
-                  intern_key (adv, a5xml_child_text (n, "OnChar"));
-              if (st->char_in != nullptr)
-                st->char_in[char_i] = (char) child_long (n, "In");
-              char_i++;
-            }
-        }
-      else if (streq (nm, "Variable"))
-        {
-          if (var_i < adv->n_variables)
-            {
-              const char *txt = a5xml_child_text (n, "Text");
-              const char *arr = a5xml_child_text (n, "Arr");
-              st->var_num[var_i] = child_long (n, "Num");
-              free (st->var_text[var_i]);
-              st->var_text[var_i] = txt != nullptr ? strdup (txt) : nullptr;
-              if (arr != nullptr && st->var_arr != nullptr
-                  && st->var_arr[var_i] != nullptr)
-                {
-                  const char *p = arr;
-                  int e;
-                  for (e = 0; e < adv->variables[var_i].array_length
-                              && p != nullptr; e++)
-                    {
-                      st->var_arr[var_i][e] = strtol (p, nullptr, 10);
-                      p = strchr (p, ',');
-                      if (p != nullptr) p++;
-                    }
-                }
-              var_i++;
-            }
-        }
-      else if (streq (nm, "TaskDone"))
-        {
-          int ti = a5state_task_index (st, n->text ? n->text : "");
-          if (ti >= 0)
-            st->task_done[ti] = 1;
-        }
-      else if (streq (nm, "TaskScored"))
-        {
-          int ti = a5state_task_index (st, n->text ? n->text : "");
-          if (ti >= 0)
-            st->task_scored[ti] = 1;
-        }
-      else if (streq (nm, "PropOv"))
-        {
-          const char *e = a5xml_child_text (n, "Entity");
-          const char *p = a5xml_child_text (n, "Prop");
-          const char *v = a5xml_child_text (n, "Value");
-          if (e != nullptr && p != nullptr)
-            a5state_set_prop (st, e, p, v ? v : "");
-        }
-      else if (streq (nm, "ObjSeen"))
-        {
-          int oi = a5state_object_index (st, n->text ? n->text : "");
-          if (oi >= 0 && st->obj_seen != nullptr)
-            st->obj_seen[oi] = 1;
-        }
-      else if (streq (nm, "CharSeen"))
-        {
-          int ci = a5state_character_index (st, n->text ? n->text : "");
-          if (ci >= 0 && st->char_seen != nullptr)
-            st->char_seen[ci] = 1;
-        }
-      else if (streq (nm, "CharIntroduced"))
-        {
-          int ci = a5state_character_index (st, n->text ? n->text : "");
-          if (ci >= 0 && st->char_introduced != nullptr)
-            st->char_introduced[ci] = 1;
-        }
-      else if (streq (nm, "LocSeen"))
-        a5state_mark_loc_seen (st, n->text ? n->text : "");
-      else if (streq (nm, "SeenChar"))
-        {
-          /* A non-active viewpoint's per-character seen set (BECOME games).
-             Populate its stash slot, or the active arrays if it is (unexpectedly)
-             the current player. */
-          int ci = a5state_character_index (st, a5xml_child_text (n, "Key"));
-          if (ci >= 0)
-            {
-              const a5_xml_node_t *c;
-              int active = (ci == st->seen_active_ci);
-              char *os = st->obj_seen, *cs = st->char_seen, *ls = st->loc_seen;
-              if (!active)
-                {
-                  if (st->seen_stash_obj[ci]  == nullptr) st->seen_stash_obj[ci]  = (char *) calloc ((size_t) adv->n_objects, 1);
-                  if (st->seen_stash_char[ci] == nullptr) st->seen_stash_char[ci] = (char *) calloc ((size_t) adv->n_characters, 1);
-                  if (st->seen_stash_loc[ci]  == nullptr) st->seen_stash_loc[ci]  = (char *) calloc ((size_t) adv->n_locations, 1);
-                  os = st->seen_stash_obj[ci]; cs = st->seen_stash_char[ci]; ls = st->seen_stash_loc[ci];
-                }
-              for (c = n->first_child; c != nullptr; c = c->next)
-                {
-                  if (streq (c->name, "ObjSeen"))
-                    { int oi = a5state_object_index (st, c->text ? c->text : ""); if (oi >= 0 && os) os[oi] = 1; }
-                  else if (streq (c->name, "CharSeen"))
-                    { int xi = a5state_character_index (st, c->text ? c->text : ""); if (xi >= 0 && cs) cs[xi] = 1; }
-                  else if (streq (c->name, "LocSeen"))
-                    { int li = a5state_location_index (st, c->text ? c->text : ""); if (li >= 0 && ls) ls[li] = 1; }
-                }
-            }
-        }
-      else if (streq (nm, "Event"))
-        {
-          if (ev_i < (int) run->events->size ())
-            {
-              a5_event_rt &e = (*run->events)[ev_i];
-              const a5_xml_node_t *c;
-              const char *trg = a5xml_child_text (n, "Trigger");
-              int s = 0;
-              e.status       = (int)  child_long (n, "Status");
-              e.length_value =        child_long (n, "Length");
-              e.length_set   = 1;                /* the save holds Length.Value */
-              e.timer_to_end =        child_long (n, "Timer");
-              e.last_se_time =        child_long (n, "LastSeTime");
-              e.last_se_index = (int) child_long (n, "LastSeIndex");
-              e.just_started = (int)  child_long (n, "JustStarted");
-              e.next_command = (int)  child_long (n, "NextCommand");
-              e.when_start   = (int)  child_long (n, "WhenStart");
-              e.triggering_task = trg ? trg : "";
-              for (c = n->first_child; c != nullptr; c = c->next)
-                if (streq (c->name, "SeFt") && s < (int) e.se_ft.size ())
-                  e.se_ft[s++] = node_long (c);
-              ev_i++;
-            }
-        }
-      else if (streq (nm, "Walk"))
-        {
-          if (wk_i < (int) run->walks->size ())
-            {
-              a5_walk_rt &w = (*run->walks)[wk_i];
-              const a5_xml_node_t *c;
-              const char *trg = a5xml_child_text (n, "Trigger");
-              int sd = 0, sf = 0, ca = 0;
-              w.status       = (int) child_long (n, "Status");
-              w.length       =       child_long (n, "Length");
-              w.timer_to_end =       child_long (n, "Timer");
-              w.last_sw_time =       child_long (n, "LastSwTime");
-              w.last_sw_index = (int) child_long (n, "LastSwIndex");
-              w.just_started = (int) child_long (n, "JustStarted");
-              w.next_command = (int) child_long (n, "NextCommand");
-              w.triggering_task = trg ? trg : "";
-              for (c = n->first_child; c != nullptr; c = c->next)
-                {
-                  if (streq (c->name, "StepDur") && sd < (int) w.step_dur.size ())
-                    w.step_dur[sd++] = node_long (c);
-                  else if (streq (c->name, "SwFt") && sf < (int) w.sw_ft.size ())
-                    w.sw_ft[sf++] = node_long (c);
-                  else if (streq (c->name, "CameAcross") && ca < (int) w.came_across.size ())
-                    w.came_across[ca++] = (char) node_long (c);
-                }
-              wk_i++;
-            }
-        }
-      else if (streq (nm, "Displayed"))
-        {
-          long k = strtol (n->text ? n->text : "-1", nullptr, 10);
-          ensure_dom_cache (run);
-          if (k >= 0 && k < (long) run->dom_nodes->size ())
-            a5state_disp_once_mark (st, (*run->dom_nodes)[(size_t) k]);
-        }
-      else if (streq (nm, "Look"))
-        {
-          a5state_push_look (st, a5xml_child_text (n, "LocKey"),
-                             a5xml_child_text (n, "Text"),
-                             a5xml_child_text (n, "Event"));
-        }
-    }
+    restore.apply (n);
 
   /* PropOv restored the @InGroup overrides but not the ordered arlMembers list;
      rebuild it so RandomKey / EverywhereInGroup enumerate runtime membership. */
-  a5state_rebuild_live_groups (st);
+  a5state_rebuild_live_groups (run->st);
 
-  a5rand_set_state (native, rng);
+  a5rand_set_state (restore.native, restore.rng);
 }
 
 /* ------------------------------------------------ the Adrift 5 runner <Game> reader ---

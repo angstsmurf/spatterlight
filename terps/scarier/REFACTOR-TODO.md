@@ -120,7 +120,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~290~~ | ~~`run_lenient_census`~~ | DONE: `run_census_t` + `run_census_task_t`, see "run_lenient_census split" |
 | ~~273~~ | ~~`a5run_input_inner`~~ | DONE: `input_turn_t` + five stage members, see "a5run_input_inner split" |
 | ~~258~~ | ~~`lib_print_room_contents`~~ | DONE: five parts + driver, see "lib_print_room_contents split" |
-| 249 | `restore_scarier_body` | `adrift5/run/a5run_save.cpp` (autosave suite) |
+| ~~249~~ | ~~`restore_scarier_body`~~ | DONE: `scarier_restore_t` + eight members, see "restore_scarier_body split" |
 | 240 | `ser_save_game_body` | `scserial.cpp` (autosave suite) |
 | 228 | `sm_set_grid` | `scmap.cpp` |
 | 224 | `scmap_build` | `scmap.cpp` |
@@ -374,10 +374,10 @@ Per the project's own verification recipe:
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3:
    the 16 rows the table opened with are DONE (see their "split"
-   sections), as are `run_lenient_census`, `a5run_input_inner` and
-   `lib_print_room_contents`, the first three of the 15 rows added on
-   2026-10-11; 12 rows remain, top to bottom, `restore_scarier_body`
-   next.
+   sections), as are `run_lenient_census`, `a5run_input_inner`,
+   `lib_print_room_contents` and `restore_scarier_body`, the first four
+   of the 15 rows added on 2026-10-11; 11 rows remain, top to bottom,
+   `ser_save_game_body` next.
 5. Accessor-prologue context struct and iteration helpers (6a) — wide, own
    pass.
 6. 5 (directory reshuffle, `scprotos.h` split) and 4 last; they touch
@@ -1336,3 +1336,29 @@ them):
 - Next in the table: `restore_scarier_body` (adrift5/run/a5run_save.cpp;
   the Spatterlight autosave suite is the extra net for the save/restore
   rows).
+
+## 3: restore_scarier_body split (2026-10-11)
+
+- **`restore_scarier_body`** (249 l.) in `adrift5/run/a5run_save.cpp`
+  was one loop over the children of `<ScarierExt>` with a 30-arm
+  `else if` on the element name.  It is now `scarier_restore_t`: the
+  run, state and adventure, the RNG words gathered on the way (`native`,
+  `rng`, `rng_i`) and the five positional cursors (`obj_i`, `char_i`,
+  `var_i`, `ev_i`, `wk_i`), with `apply` (sorts one child to its reader),
+  `globals` (the one-per-save scalars, RNG to PlayerKey; returns whether
+  the node was one of them), `object`, `character`, `variable`, `marks`
+  (the sparse keyed records: TaskDone / TaskScored / PropOv / the active
+  seen sets / Displayed / Look), `seen_char` (a BECOME viewpoint's
+  stash), `event` and `walk`.  The driver is 15 lines: `restore_reset`,
+  the loop, `a5state_rebuild_live_groups`, `a5rand_set_state`.
+- Bodies are code motion (sorted line multiset old vs new shows only the
+  struct scaffolding).  The arms are tested in a different order --
+  entities first, then `globals`, then `marks` -- which cannot matter:
+  every arm is an exact compare against a distinct name.
+- Verification: `-Wshadow` syntax check of the file clean; headless
+  `quick`; full `test` output identical; `make -j8 scarier glkscarier`
+  warning-free; `sanitize` clean; `run_autosave_tests.py --build` all
+  passed.  Lines over 80 columns in the file: 61 before, 56 after (the
+  dedent).
+- Next in the table: `ser_save_game_body` (scserial.cpp; autosave suite
+  again).
